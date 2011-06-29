@@ -1,5 +1,0 @@
-<SelectionTable Description="GM drive curve selection table">
-   <Any DriveCurve="/Configuration/VehicleTest/DriveCurves/GMDriveCurve.xml">
-
-   </Any>
-</SelectionTable>

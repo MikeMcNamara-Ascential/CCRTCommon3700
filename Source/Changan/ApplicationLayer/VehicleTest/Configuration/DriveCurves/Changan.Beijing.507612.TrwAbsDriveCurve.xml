@@ -21,7 +21,7 @@
          <ConfigPath>/Configuration/Components/ElectronicParkBrake/</ConfigPath>
          <Debug>Off</Debug>
       </ElectronicParkBrake>
-	  <SoundLevel>
+      <SoundLevel>
          <ComponentName>ChanganSoundLevelTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
          <ConfigFile>SoundLevelComponent.xml</ConfigFile>
@@ -60,23 +60,15 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase055>
-      <!--Perform Park Brake Test-->
-      <TestPhase060 Description="Perform the park brake test" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Run the park brake test" Result="" Timeout="" Component="Brake">
-               <ParkBrakeTest/>
-            </Objective0>
-         </ForegroundObjectives>
-      </TestPhase060>
-	  <!--Perform Idle Horn Test-->
-	  <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
+      <!--Perform Idle Horn Test-->
+      <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
                <StartSoundTest/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase065>
-	  <TestPhase066 Description="Read idle sound level" Result="" Timeout="">
+      <TestPhase066 Description="Read idle sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Read idle sound level" Result="" Timeout="" Component="SoundLevel">
                <IdleHornTest/>
@@ -99,8 +91,8 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase080>
-	  <!--Perform Running Horn Test-->
-	  <TestPhase085 Description="Read running sound level" Result="" Timeout="">
+      <!--Perform Running Horn Test-->
+      <TestPhase085 Description="Read running sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Read running sound level" Result="" Timeout="" Component="SoundLevel">
                <RunningHornTest/>
@@ -148,7 +140,7 @@
             </Objective3>
          </ForegroundObjectives>
       </TestPhase145>
-	  <!-- Perform operator buyoff checks -->
+      <!-- Perform operator buyoff checks -->
       <TestPhase150 Description="Check vehicle Lamps" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Check lamps on the vehicle" Result="" Timeout="" Component="Machine">

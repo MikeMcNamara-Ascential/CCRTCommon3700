@@ -1,0 +1,203 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.1/vpj.dtd">
+<Project
+	Version="9.1"
+	VendorName="SlickEdit"
+	WorkingDir=".">
+	<Config
+		Name="Release"
+		OutputFile=""
+		CompilerConfigName="Latest Version">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec CmdLine='"FAW.exe"'/>
+			</Target>
+		</Menu>
+	</Config>
+	<CustomFolders>
+		<Folder
+			Name="Source Files"
+			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl">
+		</Folder>
+		<Folder
+			Name="Header Files"
+			Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.inc;*.sh;*.cpy;*.if">
+		</Folder>
+		<Folder
+			Name="Resource Files"
+			Filters="*.ico;*.cur;*.dlg"/>
+		<Folder
+			Name="Bitmaps"
+			Filters="*.bmp"/>
+		<Folder
+			Name="Other Files"
+			Filters="">
+		</Folder>
+	</CustomFolders>
+	<Files AutoFolders="DirectoryView">
+		<Folder Name="ApplicationLayer">
+			<Folder Name="ModuleInterfaces">
+				<Folder Name="Airbag">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/ModuleInterfaces/Airbag/Configuration/KwpIsoDenso150300AirbagModule.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/ModuleInterfaces/Airbag/DensoAirbagModule.cpp"/>
+					<F N="ApplicationLayer/ModuleInterfaces/Airbag/DensoAirbagModule.h"/>
+				</Folder>
+			</Folder>
+			<Folder Name="TestComponents">
+				<Folder Name="Airbag">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/Airbag/Configuration/AirbagFaultList.xml"/>
+						<F N="ApplicationLayer/TestComponents/Airbag/Configuration/KwpIsoDenso150300AirbagTC.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/Airbag/DensoAirbagTC.cpp"/>
+					<F N="ApplicationLayer/TestComponents/Airbag/DensoAirbagTC.h"/>
+					<F N="ApplicationLayer/TestComponents/Airbag/DensoAirbagTCMain.cpp"/>
+				</Folder>
+				<Folder Name="Brake">
+					<Folder Name="BaseBrake">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/BaseBrakeTc.xml"/>
+						</Folder>
+					</Folder>
+				</Folder>
+				<Folder Name="LossCompensation">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/LossCompensationTc.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="Machine">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/Machine/Configuration/MachineTc.xml"/>
+					</Folder>
+				</Folder>
+			</Folder>
+			<Folder Name="VehicleTest">
+				<Folder Name="Configuration">
+					<Folder Name="BuildRecords">
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/VinM8.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/VinS8.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/VinV8.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/VinVL.xml"/>
+					</Folder>
+					<Folder Name="DriveCurves">
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/LossCompensationDriveCurve.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/VehicleTest/Configuration/FAW.Jilin.SelectionTable.xml"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/FAW.VehicleTestConfig.xml"/>
+				</Folder>
+			</Folder>
+		</Folder>
+		<Folder Name="ServicesLayer">
+			<Folder Name="Managers">
+				<Folder Name="ICM">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/ICM/Configuration/FAW.Jilin.507565.IpIcmConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="PlcMgr">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/FAW.Jilin.SerialPlcConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="SerialServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/FAW.Jilin.507565.SerialServer.xml"/>
+					</Folder>
+				</Folder>
+			</Folder>
+			<Folder Name="Servers">
+				<Folder Name="InputServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/InputServer/Configuration/FAW.Jilin.InputServerConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="Launcher">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/Launcher/Configuration/FAW.Jilin.LauncherConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="MachineDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/FAW.Jilin.MachineDataBrokerConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="MotorController">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/MotorController/Configuration/FAW.ABMotorControllerConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="PlantHostInbound">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PlantHostInbound/Configuration/FAW.Jilin.PlantHostInbound.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostInbound/Configuration/FAW.Jilin.WheelbaseConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="PlantHostOutbound">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/FAW.PlantHostOutboundConfig.xml"/>
+					</Folder>
+					<Folder Name="GenericText">
+						<Folder Name="Configuration">
+							<F N="ServicesLayer/Servers/PlantHostOutbound/GenericText/Configuration/FAW.ResultStringMap.xml"/>
+						</Folder>
+					</Folder>
+				</Folder>
+				<Folder Name="SystemMonitor">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/Faw.Jilin.SystemMonitorConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/SystemMonitor/AymesaSystemMonitor.cpp"/>
+					<F N="ServicesLayer/Servers/SystemMonitor/AymesaSystemMonitor.h"/>
+					<F N="ServicesLayer/Servers/SystemMonitor/AymesaSystemMonitorMain.cpp"/>
+				</Folder>
+				<Folder Name="VehicleDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/FAW.Jilin.VehicleDataBrokerConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="VehicleDataServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/VehicleDataServer/Configuration/FAW.Jilin.VehicleDataServerConfig.xml"/>
+					</Folder>
+				</Folder>
+			</Folder>
+		</Folder>
+	</Files>
+</Project>

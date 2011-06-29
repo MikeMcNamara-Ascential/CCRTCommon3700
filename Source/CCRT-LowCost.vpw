@@ -2,8 +2,11 @@
 <Workspace Version="9.1" VendorName="SlickEdit">
 	<Projects>
 		<Project File="Aymesa/Aymesa.vpj"/>
+		<Project File="Base_3700/Base_3700.vpj"/>
+		<Project File="Changan/Changan.vpj"/>
 		<Project File="Core/Core.vpj"/>
-		<Project File="GM/GM.vpj"/>
+		<Project File="FAW/FAW.vpj"/>
+		<Project File="Foton/Foton.vpj"/>
 		<Project File="Isuzu/Isuzu.vpj"/>
 		<Project File="Mercedes/Mercedes.vpj"/>
 		<Project File="Tesla/Tesla.vpj"/>

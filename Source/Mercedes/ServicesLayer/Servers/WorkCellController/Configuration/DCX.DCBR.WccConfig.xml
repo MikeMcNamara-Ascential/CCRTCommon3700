@@ -1,0 +1,265 @@
+<BepXMLMssg>
+    <Setup>
+        <Debug>Off</Debug>
+        <InputServer>core/InputServer</InputServer>
+        <InvalidateBuildRecordOnRead>False</InvalidateBuildRecordOnRead>
+        <PrintOnPfsBlock Value="Yes or No">Yes</PrintOnPfsBlock>
+        <StartKeepAlive>Yes</StartKeepAlive>
+        <StartRequestHandler>No</StartRequestHandler>
+        <!--UseSalesCodes>No</UseSalesCodes-->
+        
+
+        <UniqueVinStart>0</UniqueVinStart>
+        <MinVinLength>9</MinVinLength>
+        <VinLength>9</VinLength>
+        
+
+        <ReadWheelbaseFromBroadcast>True</ReadWheelbaseFromBroadcast>
+        <ReadVehicleAxleCountFromBroadcast>True</ReadVehicleAxleCountFromBroadcast>
+        <Broadcast>
+            <BuildRecordMap>/Configuration/Servers/VehicleBuildRecord.xml</BuildRecordMap>
+            <Data>
+                <UseSectionData>Yes</UseSectionData>
+
+                <MessageDescriptionLength>82</MessageDescriptionLength>
+                <TestDataSectionLength>15</TestDataSectionLength>
+                <PartNumberSectionLength>0</PartNumberSectionLength>
+                <TestCodeSectionLength>22</TestCodeSectionLength>
+
+                <SectionDataLengths>
+                    <MessageDescriptionLength StartIndex="3" Length="3">82</MessageDescriptionLength>
+                    <TestDataSectionLength StartIndex="6" Length="3">15</TestDataSectionLength>
+                    <PartNumberSectionLength StartIndex="9" Length="3">0</PartNumberSectionLength>
+                    <TestCodeSectionLength StartIndex="12" Length="3">22</TestCodeSectionLength>
+                </SectionDataLengths>
+
+                <WccTimeIndex Section="WccInfoSection" Offset="2" Length="4">117</WccTimeIndex>
+                <WccTimeLength>4</WccTimeLength>
+                <WccDateIndex Section="WccInfoSection" Offset="7" Length="6">124</WccDateIndex>
+                <WccDateLength>6</WccDateLength>
+                <WccChecksumIndex Section="WccInfoSection" Offset="13" Length="1">130</WccChecksumIndex>
+                <SectionOrder>
+                    <Section1 SectionLength="82" SectionLengthTag="MessageDescriptionLength">MessageDescription</Section1>
+                    <Section2 SectionLength="15" SectionLengthTag="TestDataSectionLength">TestDataSection</Section2>
+                    <Section3 SectionLength="0" SectionLengthTag="PartNumberSectionLength">PartNumberSection</Section3>
+                    <Section4 SectionLength="22" SectionLengthTag="TestCodeSectionLength">TestCodeSection</Section4>
+                    <Section5 SectionLength="15" SectionLengthTag="">WccInfoSection</Section5>
+                </SectionOrder>
+            </Data>
+            <BroadcastCommunication>
+                <Setup>
+                    <Communication>
+                        <Name>/dev/LogicalPorts/Wcc</Name>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>2000</Timeout>
+                        <Debug>Off</Debug>
+                    </Communication>
+                    <Logging>
+                        <ProcessName>BroadcastCommunication</ProcessName>
+                        <Status>Enabled</Status>
+                        <AdditionalLogFile Types="/Servers/BroadCastCommunication or Disabled">/Servers/BroadCastCommunication.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x35</Verbose>
+                    </Logging>
+                    <MaxAttempts>3</MaxAttempts>
+                    <MaxResponseTime>30000</MaxResponseTime>
+                    <MessageDelay>5000</MessageDelay>
+                </Setup>
+            </BroadcastCommunication>
+            <RequestHandlerConfig>
+                <Setup>
+                    <Communication>
+                        <Name>/dev/LogicalPorts/Wcc</Name>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>5000</Timeout>
+                        <Debug>Off</Debug>
+                    </Communication>
+                    <Logging>
+                        <Debug>Off</Debug>
+                        <ProcessName>Blank</ProcessName>
+                        <Status>Disabled</Status>
+                        <AdditionalLogFile Types="/Servers/RequestHandler or Disabled">/Servers/RequestHandler.log</AdditionalLogFile>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <WccRequests>
+                        <CommunicationCheck>0</CommunicationCheck>
+                    </WccRequests>
+                    <RequestResponses>
+                        <CommunicationCheck AddData="MachineNumber">R</CommunicationCheck>
+                    </RequestResponses>
+                    <MaxAttempts>3</MaxAttempts>
+                    <MessageDelay>25</MessageDelay>
+                    <MaxRequestLength>5</MaxRequestLength>
+                </Setup>
+            </RequestHandlerConfig>
+            <KeepAliveConfig>
+                <Setup>
+                    <KeepAliveTime Units="ms">120000</KeepAliveTime>
+                    <EquipmentType>R</EquipmentType>
+                    <MachineNumberFormat>%04d</MachineNumberFormat>
+                    <MaxResponseTime>5000</MaxResponseTime>
+                    <MinResponseLength>7</MinResponseLength>
+                    <ErrorCodeStartIndex>1</ErrorCodeStartIndex>
+                    <ErrorCodeLength>4</ErrorCodeLength>
+                    <MaxErrorBit>6</MaxErrorBit>
+                    <ErrorCodeDefinitions>
+                        <E0000
+                            Severity="None"
+                            FaultTag="NoError"
+                            FaultDescription="No WCC errors"/>
+                        <E0001
+                            Severity="Fatal"
+                            FaultTag="BroadcastHostDown"
+                            FaultDescription="Sem operacao do Servidor Principal"
+                            PromptTag="HostDown"/>
+                        <E0002
+                            Severity="Warning"
+                            FaultTag="UnsolicitedBroadcastHostDown"
+                            FaultDescription="Unsolicited Broadcast Connection is Down"
+                            PromptTag="UnsolicitedHostDown"/>
+                        <E0004
+                            Severity="Fatal"
+                            FaultTag="WccInternalError"
+                            FaultDescription="Database Error/Internal WCC Error"
+                            PromptTag="WccInternalError"/>
+                        <E0008
+                            Severity="Warning"
+                            FaultTag="WccOnUps"
+                            FaultDescription="WCC is Running on UPS Battery Power"
+                            PromptTag="WccOnUps"/>
+                        <E0010
+                            Severity="Fatal"
+                            FaultTag="UpsLow"
+                            FaultDescription="UPS Battery Power is Low"
+                            PromptTag="UpsLow"/>
+                        <E0020
+                            Severity="Warning"
+                            FaultTag="EquipmentCommFailure"
+                            FaultDescription="Test Equipment Communication Error"
+                            PromptTag="EquipmentCommFailure"/>
+                        <E0040
+                            Severity="Warning"
+                            FaultTag="WccCommError"
+                            FaultDescription="Inter WCC Communication Error"
+                            PromptTag="WccCommError"/>
+                    </ErrorCodeDefinitions>
+                    <SeverityLevelConversion>
+                        <Fatal>9</Fatal>
+                        <Warning>4</Warning>
+                        <None>0</None>
+                    </SeverityLevelConversion>
+                    <Communication>
+                        <Name>/dev/LogicalPorts/Wcc</Name>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                        <Debug>Off</Debug>
+                    </Communication>
+                </Setup>
+            </KeepAliveConfig>
+        </Broadcast>
+        <Communication>
+            <Type>Server</Type>
+            <Debug>Off</Debug>
+            <Name>core/WorkCellController</Name>
+            <Comm>IPC</Comm>
+            <Timeout>5000</Timeout>
+            <BufferSize>2000</BufferSize>
+        </Communication>
+        <DataTags>
+            <VehicleBuild>NextVehicleBuild</VehicleBuild>
+            <BuildRecord>BuildRecord</BuildRecord>
+            <Vin>VIN</Vin>
+            <NextVIN>NextVIN</NextVIN>
+            <VINDisplay>VINDisplay</VINDisplay>
+            <VINReadStatus>VINReadStatus</VINReadStatus>
+            <InputServerState>InputServerState</InputServerState>
+            <VehiclePresent>VehiclePresent</VehiclePresent>
+            <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+            <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
+            <FrontWheelDriveSelectedToPLC>FrontWheelDriveSelectedToPLC</FrontWheelDriveSelectedToPLC>
+            <RearWheelDriveToPLC>RearWheelDriveToPLC</RearWheelDriveToPLC>
+            <FourWDSelected>FourWDSelected</FourWDSelected>
+            <WheelbasePositionTag>WheelbasePositionInchesX10</WheelbasePositionTag>
+            <TandemWheelbasePositionTag>WheelbasePositionTandemInchesX10</TandemWheelbasePositionTag>
+            <AllWheelDriveEquipped>
+                <AWD>Yes</AWD>
+            </AllWheelDriveEquipped>
+            <FourWheelDriveEquipped>
+                <Undefined>No</Undefined>
+                <NotEquipped>No</NotEquipped>
+                <AWD>No</AWD>
+            </FourWheelDriveEquipped>
+            <BodyStyleDriveAxle>
+                <_Default>Rear</_Default>
+                <Jxxxxx>Front</Jxxxxx>
+                <Lxxxxx>Front</Lxxxxx>
+                <Mxxxxx>Front</Mxxxxx>
+                <Pxxxxx>Front</Pxxxxx>
+                <Kxxxxx>Rear</Kxxxxx>
+                <Wxxxxx>Rear</Wxxxxx>
+                <Bxxxxx>Rear</Bxxxxx>
+            </BodyStyleDriveAxle>
+            <AdjustableAirPressures>
+                <_Default>20.0</_Default>
+                <x1xxxx>20.0</x1xxxx>
+                <x2xxxx>40.0</x2xxxx>
+                <x3xxxx>60.0</x3xxxx>
+            </AdjustableAirPressures>
+            <MinimumAirPressure>20.0</MinimumAirPressure>
+            <MaximumAirPressure>80.0</MaximumAirPressure>
+            <InputVinLength>9</InputVinLength>
+            <AdjustableAirPressureTag>ParkBrakePressure</AdjustableAirPressureTag>
+        </DataTags>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>core/WorkCellController</ProcessName>
+            <AdditionalLogFile Type="/Servers/WorkCellController or Disabled">/Servers/WorkCellController.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <Debug>Off</Debug>
+        </Logging>
+        <Prompts>
+            <PfsAbortStatus>PfsAbortStatus</PfsAbortStatus>
+            <PfsBlock>PfsBlock</PfsBlock>
+            <PfsShipStatus>PfsShipStatus</PfsShipStatus>
+            <PfsAbortColor>Red</PfsAbortColor>
+            <PfsShipColor>Red</PfsShipColor>
+            <WccBadChecksum>WccBadCheckSum</WccBadChecksum>
+            <WccNoInfo>WccNoInfo</WccNoInfo>
+            <WccSentNAK>WccSentNAK</WccSentNAK>
+            <WccUnknownMessage>WccUnknownMessage</WccUnknownMessage>
+            <WccNoResponse>WccNoResponse</WccNoResponse>
+        </Prompts>
+        <TagList>
+            <SubscribeTags>
+                <VehiclePresent/>
+                <RollsDownElevUp/>
+                <NextVIN/>
+                <StartVehicleTest/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>7</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <VehicleBuildFilePath>/Configuration/VehicleTest/BuildRecords/</VehicleBuildFilePath>
+        <VehicleBuildRecordSource Type="File, Broadcast">Broadcast</VehicleBuildRecordSource>
+        <WheelbaseConfigFile>/Configuration/Servers/WheelbaseConfig.xml</WheelbaseConfigFile>
+    </Setup>
+</BepXMLMssg>

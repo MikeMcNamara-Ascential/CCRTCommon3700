@@ -1,0 +1,17 @@
+<BEPXmlMssg>
+   <Setup>
+      <TcpIp>
+         <Type>Client</Type>
+         <Port>20100</Port>
+         <Address>localhost</Address>
+         <FrameStart>BepXmlMssg</FrameStart>
+         <FrameEnd>/BepXmlMssg</FrameEnd>
+         <Debug>Off</Debug>
+      </TcpIp>
+   </Setup>
+   <Testing Debug="Off">
+      <Dummy Status="Skip" ConfigFile="">
+         <Parameters/>
+      </Dummy>
+   </Testing>
+</BEPXmlMssg>

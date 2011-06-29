@@ -1,0 +1,38 @@
+# File E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.constants
+# Properties in new file but missing from old 
+commandpulsebutton.led.image.0=/com/bepco/resource/led_gray_on.png
+commandpulsebutton.led.image.1=/com/bepco/resource/led_yellow_on.png
+commandpulsebutton.led.image.2=/com/bepco/resource/led_green_on.png
+commandpulsebutton.led.image.3=/com/bepco/resource/led_red_on.png
+commandholdbutton.led.image.0=/com/bepco/resource/led_gray_on.png
+commandholdbutton.led.image.1=/com/bepco/resource/led_yellow_on.png
+commandholdbutton.led.image.2=/com/bepco/resource/led_green_on.png
+commandholdbutton.led.image.3=/com/bepco/resource/led_red_on.png
+commandtogglebutton.led.image.0=/com/bepco/resource/led_gray_on.png
+commandtogglebutton.led.image.1=/com/bepco/resource/led_yellow_on.png
+commandtogglebutton.led.image.2=/com/bepco/resource/led_green_on.png
+commandtogglebutton.led.image.3=/com/bepco/resource/led_red_on.png
+commandtxtbutton.led.image.0=/com/bepco/resource/led_gray_on.png
+commandtxtbutton.led.image.1=/com/bepco/resource/led_yellow_on.png
+commandtxtbutton.led.image.2=/com/bepco/resource/led_green_on.png
+commandtxtbutton.led.image.3=/com/bepco/resource/led_red_on.png
+
+# File E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties in new file but missing from old 
+commandpulsebutton.pulseTest.label=Pulse Test
+commandholdbutton.holdTest.label=Hold Test
+commandtogglebutton.toggleTest.label=Toggle Test
+commandtxtbutton.txtTest.label=Text Test
+# File E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties changed between new file and old file (new property listed)
+label.axleratio.text=AxleRatio
+
+# File E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts.properties
+# Properties changed between new file and old file (new property listed)
+LowerRetainers = Lower retainers
+PerformingFinishUp = Performing FinishUp
+RaiseRetainers = Raise retainers
+SpeedControlResume = Press and hold the cruise resume button
+SpeedControlTest = Cruise test
+
+

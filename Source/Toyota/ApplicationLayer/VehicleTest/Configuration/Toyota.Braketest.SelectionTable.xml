@@ -1,0 +1,19 @@
+<SelectionTable Description="Toyota drive curve selection table">
+
+    <Camry DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
+        <BodyStyle>Camry</BodyStyle>
+    </Camry>
+
+    <Venza DriveCurve="/Configuration/VehicleTest/DriveCurves/VenzaBrakeTestDriveCurve.xml">
+        <BodyStyle>Venza</BodyStyle>
+    </Venza>
+
+    <Maintenance DriveCurve="/Configuration/VehicleTest/DriveCurves/MaintenanceDriveCurve.xml">
+        <BodyStyle>PM</BodyStyle>
+    </Maintenance>
+
+    <PreShiftCheck DriveCurve="/Configuration/VehicleTest/DriveCurves/PreShiftCheckDriveCurve.xml">
+        <BodyStyle>PreShiftCheck</BodyStyle>
+    </PreShiftCheck>
+
+</SelectionTable>

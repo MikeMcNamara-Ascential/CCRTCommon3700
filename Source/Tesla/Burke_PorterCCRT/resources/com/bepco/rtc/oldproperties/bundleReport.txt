@@ -1,0 +1,13 @@
+# File E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties in new file but missing from old 
+label.axleratio.text=AxleRatio
+label.rollsup.text=Rolls Up
+label.rollsdown.text=Rolls Down
+label.axleratio.text=Axle Ratio
+
+# File E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts.properties
+# Properties in new file but missing from old 
+PerformingFinishUp = Performing FinishUp
+PerformingFinishUp = Performing module finishup
+
+

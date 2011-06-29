@@ -1,0 +1,24 @@
+Directions
+
+Connect the printer to a serial port using a NULL Modem type cable. This is not a normal straight through cable. More... 
+Download the Epson drivers 
+Unzip the files to a known directory and run the file called  Epson Advanced Printer Driver for TM Series program. It will install the driver and the status API. 
+Confirm the operating system in use and select the printer type in use from the list (Epson TM-U295 Slip). 
+Press the Printer Port Setting, etc button to select the serial port connected to the printer (i.e. COM1) and change the baud rate to 9600 bps. 
+Reboot the computer and try a test print.
+
+  
+Caveats
+
+Note: If this EPSON Advanced Printer Driver for TM Series will be installed on the 
+same PC with another printer driver or EPSON Printer Window2! for an EPSON 
+terminal printer (page printer, ink jet printer, etc), you must install or 
+uninstall these drivers in order shown below:
+[Installation]
+1. EPSON terminal printer driver 
+2. EPSON Advanced Printer Driver for TM Series
+[Uninstallation]
+1. EPSON Advanced Printer Driver for TM Series
+2. EPSON terminal printer driver
+
+

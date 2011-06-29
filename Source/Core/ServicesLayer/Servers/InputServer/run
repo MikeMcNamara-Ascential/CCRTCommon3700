@@ -1,0 +1,2 @@
+../Bin/InputServer.qxe -f ../../Configuration/Servers/InputServerConfig.xml &
+

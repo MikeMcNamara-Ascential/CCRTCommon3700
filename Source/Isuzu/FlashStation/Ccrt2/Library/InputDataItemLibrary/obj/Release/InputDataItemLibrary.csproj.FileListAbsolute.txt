@@ -1,0 +1,16 @@
+C:\Documents and Settings\DErickso\Local Settings\Application Data\Temporary Projects\InputDataItemLibrary\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\DErickso\Local Settings\Application Data\Temporary Projects\InputDataItemLibrary\obj\Release\InputDataItemLibrary.InputDataItemForm.resources
+C:\Documents and Settings\DErickso\Local Settings\Application Data\Temporary Projects\InputDataItemLibrary\obj\Release\GenerateResource.read.1.tlog
+C:\Documents and Settings\DErickso\Local Settings\Application Data\Temporary Projects\InputDataItemLibrary\obj\Release\GenerateResource.write.1.tlog
+C:\Documents and Settings\DErickso\Local Settings\Application Data\Temporary Projects\InputDataItemLibrary\bin\Release\InputDataItemLibrary.dll
+C:\Documents and Settings\DErickso\Local Settings\Application Data\Temporary Projects\InputDataItemLibrary\bin\Release\InputDataItemLibrary.pdb
+C:\Documents and Settings\DErickso\Local Settings\Application Data\Temporary Projects\InputDataItemLibrary\obj\Release\InputDataItemLibrary.dll
+C:\Documents and Settings\DErickso\Local Settings\Application Data\Temporary Projects\InputDataItemLibrary\obj\Release\InputDataItemLibrary.pdb
+E:\Projects\Ccrt2\Library\InputDataItemLibrary\obj\Release\ResolveAssemblyReference.cache
+E:\Projects\Ccrt2\Library\InputDataItemLibrary\obj\Release\InputDataItemLibrary.InputDataItemForm.resources
+E:\Projects\Ccrt2\Library\InputDataItemLibrary\obj\Release\GenerateResource.read.1.tlog
+E:\Projects\Ccrt2\Library\InputDataItemLibrary\obj\Release\GenerateResource.write.1.tlog
+E:\Projects\Ccrt2\Library\InputDataItemLibrary\obj\Release\InputDataItemLibrary.dll
+E:\Projects\Ccrt2\Library\InputDataItemLibrary\obj\Release\InputDataItemLibrary.pdb
+E:\Projects\Ccrt2\Library\InputDataItemLibrary.dll
+E:\Projects\Ccrt2\Library\InputDataItemLibrary.pdb

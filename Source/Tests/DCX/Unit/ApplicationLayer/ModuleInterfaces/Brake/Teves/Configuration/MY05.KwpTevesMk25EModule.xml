@@ -1,0 +1,526 @@
+<TevesMk25EKwpModuleInterface>
+    <Setup>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+        <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+        <KeepAlivePriority>10</KeepAlivePriority>
+        <SwitchMonitorDelay>500</SwitchMonitorDelay>
+        <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+        <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <ModuleRequestID>0x784</ModuleRequestID>
+        <DataByteCountIndex>3</DataByteCountIndex>
+        <DataStartIndex>6</DataStartIndex>
+        <DataHeaderLength>2</DataHeaderLength>
+        <CheckSumLength>1</CheckSumLength>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
+        <DTCData>
+            <DTCCountIndex>1</DTCCountIndex>
+            <BytesPerDTC>3</BytesPerDTC>
+            <FirstDTCByteIndex>2</FirstDTCByteIndex>
+            <NumberOfFaultRegisters>0</NumberOfFaultRegisters>
+        </DTCData>
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>CANTevesMk25EBrakes</ProcessName>
+            <AdditionalLogFile>/Communication/TevesMk25EBrakes.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+    <SerialMessages>
+        <VehicleMessages>
+            <EnterDiagnosticMode>
+                <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnterDiagnosticMode>
+            <ReadTraceData>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SerialNumber</TransmitInterpretation>
+                <ReplyMessage>ReadSerialNumber</ReplyMessage>
+                <ReplyInterpretation>SerialNumber</ReplyInterpretation>
+            </ReadTraceData>
+            <ReadStopLampSwitch>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>BrakePedalStatus</TransmitInterpretation>
+                <ReplyMessage>ReadBrakePedalStatus</ReplyMessage>
+                <ReplyInterpretation>BrakePedalStatus</ReplyInterpretation>
+            </ReadStopLampSwitch>
+            <IsEvacAndFillComplete>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>EvacAndFill</TransmitInterpretation>
+                <ReplyMessage>ReadEvacAndFill</ReplyMessage>
+                <ReplyInterpretation>EvacAndFill</ReplyInterpretation>
+            </IsEvacAndFillComplete>
+            <CalibrateGSensor>
+                <TransmitMessage>StartRoutine</TransmitMessage>
+                <TransmitInterpretation>CalibrateGSensor</TransmitInterpretation>
+                <ReplyMessage>CalibrateGSensor</ReplyMessage>
+                <ReplyInterpretation/>
+            </CalibrateGSensor>
+            <RecordCalibrateResults>
+                <TransmitMessage>RecordRoutineResults</TransmitMessage>
+                <TransmitInterpretation>CalibrateGSensor</TransmitInterpretation>
+                <ReplyMessage>RecordCalibrateResults</ReplyMessage>
+                <ReplyInterpretation/>
+            </RecordCalibrateResults>
+            <ReadCurrentTireSize>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>TireSize</TransmitInterpretation>
+                <ReplyMessage>ReadTireSize</ReplyMessage>
+                <ReplyInterpretation>ReadTireSize</ReplyInterpretation>
+            </ReadCurrentTireSize>
+            <ProgramTireSize>
+                <TransmitMessage>ProgramTireSize</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ProgramTireSize</ReplyMessage>
+                <ReplyInterpretation/>
+            </ProgramTireSize>
+            <ReadModuleConfiguration>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SystemConfig</TransmitInterpretation>
+                <ReplyMessage>ReadSystemConfig</ReplyMessage>
+                <ReplyInterpretation>SystemConfig</ReplyInterpretation>
+            </ReadModuleConfiguration>
+            <PerformPowerOnReset>
+                <TransmitMessage>ResetModule</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ResetModule</ReplyMessage>
+                <ReplyInterpretation/>
+            </PerformPowerOnReset>
+            <DisableDiagnosticSpeedLimit>
+                <TransmitMessage>StartRoutineWithPIN</TransmitMessage>
+                <TransmitInterpretation>SpeedLimitDisable</TransmitInterpretation>
+                <ReplyMessage>DisableDiagnosticSpeedLimit</ReplyMessage>
+                <ReplyInterpretation/>
+            </DisableDiagnosticSpeedLimit>
+            <RunPumpMotor>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>RunPumpMotor</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </RunPumpMotor>
+            <IsolateAllWheels>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>IsolateAllWheels</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </IsolateAllWheels>
+            <RecoverAllWheels>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>RecoverAllWheels</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </RecoverAllWheels>
+            <UpdateEvacAndFill>
+                <TransmitMessage>StartRoutine</TransmitMessage>
+                <TransmitInterpretation>UpdateEvacAndFillStatus</TransmitInterpretation>
+                <ReplyMessage>UpdateEvacAndFillStatus</ReplyMessage>
+                <ReplyInterpretation/>
+            </UpdateEvacAndFill>
+            <UpdateModulePass>
+                <TransmitMessage>WriteData</TransmitMessage>
+                <TransmitInterpretation>RollsPass</TransmitInterpretation>
+                <ReplyMessage>WriteData</ReplyMessage>
+                <ReplyInterpretation/>
+            </UpdateModulePass>
+            <UpdateModuleFail>
+                <TransmitMessage>WriteData</TransmitMessage>
+                <TransmitInterpretation>RollsFail</TransmitInterpretation>
+                <ReplyMessage>WriteData</ReplyMessage>
+                <ReplyInterpretation/>
+            </UpdateModuleFail>
+            <ReadBrakeSwitch>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>BrakePedalStatus</TransmitInterpretation>
+                <ReplyMessage>ReadBrakePedalStatus</ReplyMessage>
+                <ReplyInterpretation>BrakePedalStatus</ReplyInterpretation>
+            </ReadBrakeSwitch>
+            <ReadSensorSpeeds>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>WheelSpeeds</TransmitInterpretation>
+                <ReplyMessage>ReadWheelSpeeds</ReplyMessage>
+                <ReplyInterpretation/>
+                <ReplyInterpretationLF>LFWheelSpeed</ReplyInterpretationLF>
+                <ReplyInterpretationRF>RFWheelSpeed</ReplyInterpretationRF>
+                <ReplyInterpretationLR>LRWheelSpeed</ReplyInterpretationLR>
+                <ReplyInterpretationRR>RRWheelSpeed</ReplyInterpretationRR>
+            </ReadSensorSpeeds>
+            <ActuateLeftFrontReduction>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>Reduction</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftFrontReduction>
+            <ActuateLeftRearReduction>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>Reduction</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftRearReduction>
+            <ActuateRightFrontReduction>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>Reduction</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightFrontReduction>
+            <ActuateRightRearReduction>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>Reduction</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightRearReduction>
+            <ActuateRearReduction>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>Reduction</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRearReduction>
+            <ActuateLeftFrontRecovery>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>LFRecovery</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftFrontRecovery>
+            <ActuateLeftRearRecovery>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>LRRecovery</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftRearRecovery>
+            <ActuateRightFrontRecovery>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>RFRecovery</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightFrontRecovery>
+            <ActuateRightRearRecovery>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>RRRecovery</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightRearRecovery>
+            <ActuateRearRecovery>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>RearRecovery</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRearRecovery>
+            <HoldAllValves>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>IsolateAllWheels</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </HoldAllValves>
+            <DumpAllValves>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>Reduction</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </DumpAllValves>
+            <RecoverAllValves>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>RecoverAllWheels</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </RecoverAllValves>
+            <ClearFaults>
+                <TransmitMessage>ClearFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ClearFaults</ReplyMessage>
+                <ReplyInterpretation>ClearFaults</ReplyInterpretation>
+            </ClearFaults>
+            <StopRollTestMode>
+                <TransmitMessage>ReturnECUControl</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReturnECUControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </StopRollTestMode>
+            <ReadFaults>
+                <TransmitMessage>ReadFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadFaults</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadFaults>
+            <ReadPartNumber>
+                <TransmitMessage>ReadECUId</TransmitMessage>
+                <TransmitInterpretation>PartNumber</TransmitInterpretation>
+                <ReplyMessage>ReadPartNumber</ReplyMessage>
+                <ReplyInterpretation>PartNumber</ReplyInterpretation>
+            </ReadPartNumber>
+            <ModuleKeepAlive>
+                <TransmitMessage>TesterPresent</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>TesterPresent</ReplyMessage>
+                <ReplyInterpretation/>
+            </ModuleKeepAlive>
+            <FireRightSideTractionControlValves>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>ActivateRightSideBrakes</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </FireRightSideTractionControlValves>
+            <FireFrontTractionControlValves>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>ActivateFrontBrakes</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </FireFrontTractionControlValves>
+            <StopFrontTractionControlValves>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>DeactivateBrakes</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </StopFrontTractionControlValves>
+        </VehicleMessages>
+        <TransmitMessages>
+            <EnterDiagnosticMode>0x10,0x92</EnterDiagnosticMode>
+            <ResetModule>0x11,0x01</ResetModule>
+            <TesterPresent>0x3E,0x01</TesterPresent>
+            <ClearFaults>0x14,0xFF,0x00</ClearFaults>
+            <ReadFaults>0x18,0x00,0xFF,0x00</ReadFaults>
+            <ReadECUId>0x1A,0x??</ReadECUId>
+            <ReadLID>0x21,0x??</ReadLID>
+            <ReturnECUControl>0x30,0x11,0x00</ReturnECUControl>
+            <IOControl>0x30,0x11,0x07,0x??,0x??</IOControl>
+            <StartRoutine>0x31,0x??</StartRoutine>
+            <StartRoutineWithPIN>0x31,0x??,0x44,0x4F,0x44,0x47,0x45</StartRoutineWithPIN>
+            <RecordRoutineResults>0x33,0x??</RecordRoutineResults>
+            <WriteData>0x3B,0x61,0x??</WriteData>
+            <ProgramTireSize>0x3B,0x60,0x??,0x??</ProgramTireSize>
+        </TransmitMessages>
+        <TransmitInterpretations>
+            <SerialNumber>0xE1</SerialNumber>
+            <PartNumber>0x87</PartNumber>
+            <BrakePedalStatus>0x56</BrakePedalStatus>
+            <EvacAndFill>0x66</EvacAndFill>
+            <SystemConfig>0xEA</SystemConfig>
+            <SpeedLimitDisable>0x02</SpeedLimitDisable>
+            <RunPumpMotor>0x00,0x40</RunPumpMotor>
+            <IsolateAllWheels>0x55,0x00</IsolateAllWheels>
+            <RecoverAllWheels>0x00,0x00</RecoverAllWheels>
+            <UpdateEvacAndFillStatus>0x12</UpdateEvacAndFillStatus>
+            <RollsPass>0x00</RollsPass>
+            <RollsFail>0x55</RollsFail>
+            <WheelSpeeds>0x01</WheelSpeeds>
+            <Reduction>0xFF,0x00</Reduction>
+            <LFRecovery>0xFC,0x00</LFRecovery>
+            <LRRecovery>0xCF,0x00</LRRecovery>
+            <RFRecovery>0xF3,0x00</RFRecovery>
+            <RRRecovery>0x3F,0x00</RRRecovery>
+            <RearRecovery>0x0F,0x00</RearRecovery>
+            <CalibrateGSensor>0x01</CalibrateGSensor>
+            <DeactivateBrakes>0x00,0x00</DeactivateBrakes>
+            <ActivateFrontBrakes>0x00,0x45</ActivateFrontBrakes>
+            <ActivateRightSideBrakes>0x11,0x4F</ActivateRightSideBrakes>
+            <TireSize>0x60</TireSize>
+        </TransmitInterpretations>
+        <ReplyMessages>
+            <EnterDiagnosticMode>
+                <Reply_00>0x50,0x92</Reply_00>
+                <Reply_01>0x7F,0x10,0x??</Reply_01>
+            </EnterDiagnosticMode>
+            <TesterPresent>
+                <Reply_00>0x7E</Reply_00>
+                <Reply_01>0x7E,0x??</Reply_01>
+                <Reply_02>0x7F,0x3E,0x??</Reply_02>
+            </TesterPresent>
+            <ResetModule>
+                <Reply_00>0x51</Reply_00>
+                <Reply_01>0x51,0x01</Reply_01>
+                <Reply_02>0x7F,0x11,0x??</Reply_02>
+            </ResetModule>
+            <ClearFaults>
+                <Reply_00>0x54,0xFF,0x00</Reply_00>
+                <Reply_01>0x7F,0x14,0x??</Reply_01>
+            </ClearFaults>
+            <ReadFaults>
+                <Reply_00>0x58,0x00</Reply_00>
+                <Reply_01 lengthType="Variable" ReplyTimeout="100" endGapTime="150">0x58,0x??,0x??,0x??</Reply_01>
+            </ReadFaults>
+            <ReadSerialNumber>
+                <Reply_00>0x61,0xE1,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x61,0xE1,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_01>
+                <Reply_02>0x7F,0x21,0x??</Reply_02>
+            </ReadSerialNumber>
+            <ReadPartNumber>
+                <Reply_00>0x5A,0x87,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x5A,0x87,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_01>
+                <Reply_02>0x7F,0x1A,0x??</Reply_02>
+            </ReadPartNumber>
+            <ReadBrakePedalStatus>
+                <Reply_00>0x61,0x56,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x21,0x??</Reply_01>
+            </ReadBrakePedalStatus>
+            <ReadEvacAndFill>
+                <Reply_00>0x61,0x66,0x??</Reply_00>
+                <Reply_01>0x7F,0x21,0x??</Reply_01>
+            </ReadEvacAndFill>
+            <ReadSystemConfig>
+                <Reply_00>0x61,0xEA,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x61,0xEA,0x??,0x??,0x??</Reply_01>
+                <Reply_02>0x61,0xEA,0x??,0x??</Reply_02>
+                <Reply_03>0x7F,0x21,0x??</Reply_03>
+            </ReadSystemConfig>
+            <DisableDiagnosticSpeedLimit>
+                <Reply_00>0x71,0x02</Reply_00>
+                <Reply_01>0x7F,0x31,0x??</Reply_01>
+            </DisableDiagnosticSpeedLimit>
+            <IOControl>
+                <Reply_00>0x70,0x11,0x07,0x??,0x??</Reply_00>
+                <Reply_01>0x70,0x11,0x07</Reply_01>
+                <Reply_02>0x7F,0x30,0x??</Reply_02>
+            </IOControl>
+            <UpdateEvacAndFillStatus>
+                <Reply_00>0x71,0x12</Reply_00>
+                <Reply_01>0x7F,0x31,0x??</Reply_01>
+            </UpdateEvacAndFillStatus>
+            <WriteData>
+                <Reply_00>0x7B,0x61</Reply_00>
+                <Reply_01>0x7F,0x3B,0x??</Reply_01>
+            </WriteData>
+            <ReadWheelSpeeds>
+                <Reply_00>0x61,0x01,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x61,0x01,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_01>
+                <Reply_02>0x7F,0x21,0x??</Reply_02>
+            </ReadWheelSpeeds>
+            <CalibrateGSensor>
+                <Reply_00>0x71,0x01</Reply_00>
+                <Reply_01>0x7F,0x31,0x??</Reply_01>
+            </CalibrateGSensor>
+            <RecordCalibrateResults>
+                <Reply_00>0x73,0x01,0x00</Reply_00>
+                <Reply_01>0x7F,0x33,0x??</Reply_01>
+            </RecordCalibrateResults>
+            <ReturnECUControl>
+                <Reply_00>0x70,0x11,0x00</Reply_00>
+                <Reply_01>0x7F,0x30,0x??</Reply_01>
+            </ReturnECUControl>
+            <ReadTireSize>
+                <Reply_00>0x61,0x60,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x60,0x??</Reply_01>
+            </ReadTireSize>
+            <ProgramTireSize>
+                <Reply_00>0x7B,0x60</Reply_00>
+                <Reply_01>0x7F,0x3B,0x??</Reply_01>
+            </ProgramTireSize>
+        </ReplyMessages>
+        <ReplyInterpretations>
+            <PartNumber>
+                <STRING>
+                    <SUBSTRING format="%10s">
+                        <CHARS input_index="12" mask="0xFF" length="10"/>
+                    </SUBSTRING>
+                </STRING>
+            </PartNumber>
+            <SerialNumber>
+                <String>
+                    <Substring format="%12s">
+                        <Chars input_index="2" mask="0xFF" length="12"/>
+                    </Substring>
+                </String>
+            </SerialNumber>
+            <BrakePedalStatus>
+                <Boolean>
+                    <Byte1 input_index="2" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </BrakePedalStatus>
+            <EvacAndFill>
+                <Boolean>
+                    <Byte1 input_index="2" mask="0x03" compare="0x02"/>
+                </Boolean>
+            </EvacAndFill>
+            <SystemConfig>
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="2" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </SystemConfig>
+            <LFWheelSpeed>
+                <Float scale="0.006" offset="0">
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="2" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LFWheelSpeed>
+            <RFWheelSpeed>
+                <Float scale="0.006" offset="0">
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="4" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="5" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </RFWheelSpeed>
+            <LRWheelSpeed>
+                <Float scale="0.006" offset="0">
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="6" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="7" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LRWheelSpeed>
+            <RRWheelSpeed>
+                <Float scale="0.006" offset="0">
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="8" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="9" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </RRWheelSpeed>
+            <ReadTireSize>
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="2" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </ReadTireSize>
+            <ClearFaults>
+                <Boolean>
+                    <Byte1 input_index="0" mask="0xFF" compare="0x54"/>
+                </Boolean>
+            </ClearFaults>
+        </ReplyInterpretations>
+    </SerialMessages>
+</TevesMk25EKwpModuleInterface>

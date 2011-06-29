@@ -1,0 +1,49 @@
+<BepXmlMssg>
+   <Child_Element Attribute1="This is the first attribute of the child">
+      
+      
+      
+      Test Element
+      
+      
+      
+      <First Attribute1="This is the first attribute of the child">
+         <Second Attribute1="This is the first attribute of the child">
+            <Third>Child Element</Third>
+         </Second>
+      </First>
+   </Child_Element>
+   <Child_Element Attribute1="This is the first attribute of the child">
+      <First Attribute1="This is the first attribute of the child">
+         <Second Attribute1="This is the first attribute of the child">
+            <Third>Child Element</Third>
+         </Second>
+      </First>
+   </Child_Element>
+   <Child_Element Attribute1="This is the first attribute of the child">
+      <First Attribute1="This is the first attribute of the child">
+         <Second Attribute1="This is the first attribute of the child">
+            <Third>Child Element</Third>
+         </Second>
+      </First>
+   </Child_Element>
+   <Child_Element Attribute1="This is the first attribute of the child">
+      <First Attribute1="This is the first attribute of the child">
+         <Second Attribute1="This is the first attribute of the child">
+            <Third>Child Element</Third>
+         </Second>
+      </First>
+   </Child_Element>
+   <Child_Element Attribute1="This is the first attribute of the child">
+      <First Attribute1="This is the first attribute of the child">
+         <Second Attribute1="This is the first attribute of the child">
+            <Third>Child Element</Third>
+         </Second>
+      </First>
+   </Child_Element>
+   <Testing Debug="Off">
+      <Dummy Status="Skip" ConfigFile="">
+         <Parameters/>
+      </Dummy>
+   </Testing>
+</BepXmlMssg>

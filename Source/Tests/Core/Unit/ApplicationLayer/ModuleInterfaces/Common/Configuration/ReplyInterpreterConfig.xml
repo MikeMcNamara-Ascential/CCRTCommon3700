@@ -1,0 +1,108 @@
+<Setup>
+  <ReplyInterpretations>
+    <CHARSARRAY>
+      <COMPARE/>
+    </CHARSARRAY>
+    <CHARS>
+    </CHARS>
+    <UnknownChildNode>
+      <CHARSARRAY mask="0xFF" length="2" input_index="0">
+        <UNKNOWN/>
+      </CHARSARRAY>
+    </UnknownChildNode>
+    <LengthMismatch>
+      <CHARSARRAY mask="0xFF" length="2" input_index="0">
+        <Substitute condition="equals" compare="0x00" replace="0x01"/>
+      </CHARSARRAY>
+    </LengthMismatch>\
+    <UnknownCompareNode>
+      <CHARSARRAY mask="0xFF" length="1" input_index="0">
+        <StringSubstitute condition="equals" compare="0x00" replace="Test">
+          <NotCompare/>
+        </StringSubstitute>
+      </CHARSARRAY>
+    </UnknownCompareNode>
+    <EqualsFalse>
+      <CHARSARRAY mask="0xFF" length="1" input_index="0">
+        <Substitute condition="equals" compare="0x31" replace="0x32">
+          <Compare compare="0x31" mask="0xFF"/>
+        </Substitute>
+      </CHARSARRAY>
+    </EqualsFalse>
+    <EqualsTrue>
+      <CHARSARRAY mask="0xFF" length="2" input_index="0">
+        <StringSubstitute condition="equals" compare="0x31" replace="23">
+          <Compare1 compare="0x31" mask="0xFF"/>
+          <Compare2 compare="0x32" mask="0xFF"/>
+        </StringSubstitute>
+      </CHARSARRAY>
+    </EqualsTrue>
+    <LessThanTrue>
+      <CHARSARRAY mask="0xFF" length="1" input_index="0">
+        <Substitute condition="less than" compare="0x31" replace="0x33">
+          <Compare1 compare="0x31" mask="0xFF"/>
+        </Substitute>
+      </CHARSARRAY>
+    </LessThanTrue>
+    <LessThanEqualTrue>
+      <CHARSARRAY mask="0xFF" length="2" input_index="0">
+        <StringSubstitute condition="less than" compare="0x31" replace="23">
+          <Compare1 compare="0x32" mask="0xFF"/>
+          <Compare2 compare="0x31" mask="0xFF"/>
+        </StringSubstitute>
+      </CHARSARRAY>
+    </LessThanEqualTrue>
+    <LessThanFalse>
+      <CHARSARRAY mask="0xFF" length="1" input_index="0">
+        <Substitute condition="less than" compare="0x31" replace="0x33">
+          <Compare1 compare="0x31" mask="0xFF"/>
+        </Substitute>
+      </CHARSARRAY>
+    </LessThanFalse>
+    <GreaterThanTrue>
+      <CHARSARRAY mask="0xFF" length="1" input_index="0">
+        <Substitute condition="greater than" compare="0x31" replace="0x33">
+          <Compare1 compare="0x31" mask="0xFF"/>
+        </Substitute>
+      </CHARSARRAY>
+    </GreaterThanTrue>
+    <GreaterThanEqualTrue>
+      <CHARSARRAY mask="0xFF" length="2" input_index="0">
+        <StringSubstitute condition="greater than" compare="0x31" replace="23">
+          <Compare1 compare="0x32" mask="0xFF"/>
+          <Compare2 compare="0x31" mask="0xFF"/>
+        </StringSubstitute>
+      </CHARSARRAY>
+    </GreaterThanEqualTrue>
+    <GreaterThanFalse>
+      <CHARSARRAY mask="0xFF" length="1" input_index="0">
+        <Substitute condition="greater than" compare="0x31" replace="0x33">
+          <Compare1 compare="0x31" mask="0xFF"/>
+        </Substitute>
+      </CHARSARRAY>
+    </GreaterThanFalse>
+    <NotEqualFalse>
+      <CHARSARRAY mask="0xFF" length="1" input_index="0">
+        <Substitute condition="not equal" compare="0x31" replace="0x32">
+          <Compare compare="0x31" mask="0xFF"/>
+        </Substitute>
+      </CHARSARRAY>
+    </NotEqualFalse>
+    <NotEqualTrue>
+      <CHARSARRAY mask="0xFF" length="2" input_index="0">
+        <StringSubstitute condition="not equal" compare="0x31" replace="23">
+          <Compare1 compare="0x31" mask="0xFF"/>
+          <Compare2 compare="0x32" mask="0xFF"/>
+        </StringSubstitute>
+      </CHARSARRAY>
+    </NotEqualTrue>
+    <UnknownComparisonOperator>
+      <CHARSARRAY mask="0xFF" length="2" input_index="0">
+        <StringSubstitute condition="unknown" compare="0x31" replace="23">
+          <Compare1 compare="0x31" mask="0xFF"/>
+          <Compare2 compare="0x32" mask="0xFF"/>
+        </StringSubstitute>
+      </CHARSARRAY>
+    </UnknownComparisonOperator>
+  </ReplyInterpretations>
+</Setup>

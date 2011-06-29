@@ -1,0 +1,68 @@
+20:15:27.124 EVENT  Checking Resource aliases
+20:15:27.137 EVENT  Starting Jetty/3.1.5
+20:15:27.138 EVENT  Started ServletHandler in ServletHandlerContext[/]
+20:15:27.151 EVENT  ResourceHandler started in file:/C:/Burke_PorterCCRT/resources/local/httproot
+20:15:27.151 EVENT  Started ResourceHandler in ServletHandlerContext[/]
+20:15:27.156 EVENT  Started SocketListener on 172.16.7.134:10080
+20:15:27.158 EVENT  Started SocketListener on 127.0.0.1:10080
+20:15:27.158 EVENT  Started org.mortbay.jetty.Server@2db19d
+Property label.blank.text cannot be localized because  the property exists in /com/bepco/rtc/properties/CRTPanelLabels.constants.
+Property label.blank.text cannot be localized because  the property exists in /com/bepco/rtc/properties/CRTPanelLabels.constants.
+com.bepco.io.ClientConnectionException: Could not Create Client
+	at com.bepco.rtc.io.RTCFileProxy.<init>(RTCFileProxy.java:131)
+	at com.bepco.rtc.gui.config.NdbConfiguration.<init>(NdbConfiguration.java:144)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigItemsFromResource(ConfigurationManagerBuilder.java:315)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.getConfigPanelItems(ConfigurationManagerBuilder.java:188)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigurationManager(ConfigurationManagerBuilder.java:125)
+	at com.bepco.rtc.builder.GUIBuilder.addConfigurationPanel(GUIBuilder.java:546)
+	at com.bepco.rtc.builder.GUIBuilder.buildGUIManager(GUIBuilder.java:81)
+	at com.bepco.rtc.builder.ControllerBuilder.addGUIManager(ControllerBuilder.java:293)
+	at com.bepco.rtc.builder.ControllerBuilder.buildController(ControllerBuilder.java:111)
+	at com.bepco.rtc.Main$1.run(Main.java:568)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+Caused by: com.bepco.rtc.io.ClientInstantiationException: java.lang.reflect.InvocationTargetException
+	at com.bepco.rtc.io.RTCFileProxy.getClient(RTCFileProxy.java:516)
+	at com.bepco.rtc.io.RTCFileProxy.<init>(RTCFileProxy.java:116)
+	... 20 more
+Caused by: java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.bepco.rtc.io.RTCFileProxy.getClient(RTCFileProxy.java:509)
+	... 21 more
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.PlainSocketImpl.doConnect(Unknown Source)
+	at java.net.PlainSocketImpl.connectToAddress(Unknown Source)
+	at java.net.PlainSocketImpl.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.connect(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at java.net.Socket.<init>(Unknown Source)
+	at com.enterprisedt.net.ftp.FTPControlSocket.<init>(FTPControlSocket.java:207)
+	at com.enterprisedt.net.ftp.FTPClient.<init>(FTPClient.java:520)
+	at com.enterprisedt.net.ftp.FTPClient.<init>(FTPClient.java:501)
+	... 26 more
+SafeTrimmedResourceBundle: key not found: configpanel.label.log
+SafeTrimmedResourceBundle: key not found: server.address
+20:25:32.482 EVENT  Stopping Acceptor ServerSocket[addr=/172.16.7.134,port=0,localport=10080]
+20:25:32.487 EVENT  Stop waiting 4s 
+20:25:36.238 EVENT  Stopped SocketListener on 172.16.7.134:10080
+20:25:36.239 EVENT  Stopping Acceptor ServerSocket[addr=/127.0.0.1,port=0,localport=10080]
+20:25:36.240 EVENT  Stop waiting 4s 
+20:25:39.990 EVENT  Stopped SocketListener on 127.0.0.1:10080
+20:25:39.990 EVENT  Stopped ServletHandler in ServletHandlerContext[/]
+20:25:39.990 EVENT  Stopped ResourceHandler in ServletHandlerContext[/]
+20:25:39.991 EVENT  Stopped org.mortbay.jetty.Server@2db19d
+Shutdown Status: Normal shutdown

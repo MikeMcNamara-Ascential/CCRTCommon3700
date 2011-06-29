@@ -1,0 +1,14 @@
+QNX:
+----------------------------------------------------------------------
+Hostname:  	CCRT_Uzbekistan
+CUSTOMER:  	GM
+PLANT:		Uzbekistan
+MACHINE:	507233
+
+Network Driver:	Realtek RTL8139  (rtl)
+IP Address:	192.168.1.1
+
+Rewrite:	/home/CcrtR07103101-GM-090204R1/
+
+Software Version:	Ccrt07103101-CORE-08102402
+

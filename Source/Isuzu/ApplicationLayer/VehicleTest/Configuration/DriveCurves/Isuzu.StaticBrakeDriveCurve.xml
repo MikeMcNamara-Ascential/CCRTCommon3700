@@ -1,0 +1,69 @@
+<IsuzuDriveCurve Description="Drive Curve For The Isuzu J1850 Brake" TestType="CommandPhase">
+    <Components Debug="Off">
+        <Brakes>
+            <ComponentName>Isuzu720AbsTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>Isuzu720AbsTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+            <Debug>Off</Debug>
+        </Brakes>
+        <Machine>
+            <ComponentName>MachineTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>MachineComponent.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+            <Debug>Off</Debug>
+        </Machine>
+    </Components>
+    <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="Off">
+        <TestPhase0020 Description="Validate the driver numbrer, cable connect, ..." Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective7 Description="Prompt the driver to input the driver number" Result="" Timeout="" Component="Machine">
+                    <Initialize/>
+                </Objective7>
+            </ForegroundObjectives>
+        </TestPhase0020>
+
+        <TestPhase0030 Description="Perform module initialization" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Init Isuzu J1850 Brake Component" Result="" Timeout="" Component="Brakes">
+                    <Setup/>
+                </Objective0>
+                <Objective7 Description="Let operator know stuff is happening" Result="" Timeout="" Component="Machine">
+                    <PromptDriverAlways>InitializingVehicleModules</PromptDriverAlways>
+                </Objective7>
+            </ForegroundObjectives>
+        </TestPhase0030>
+
+        <TestPhase0100 Description="Perform Idle tests" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective7 Description="Let operator know stuff is happening" Result="" Timeout="" Component="Machine">
+                    <PromptDriverAlways>InitializingVehicleModules</PromptDriverAlways>
+                </Objective7>
+            </ForegroundObjectives>
+        </TestPhase0100>
+        <TestPhase0500 Description="Perform finish-up" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Perform brake module finish-up" Result="" Timeout="" Component="Brakes">
+                    <FinishUp/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase0500>
+
+        <TestPhase0580 Description="" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Result="" Description="Perform module finish-up" Timeout="" Component="Machine">
+                    <FinishUp>PerformingFinishUp</FinishUp>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase0580>
+
+        <TestPhase0590 Description="" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver for the overall pass fail of the vehicle" Result="" Timeout="" Component="Machine">
+                    <DriverQuestion>DriverPassFail</DriverQuestion>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase0590>
+    </Test>
+</IsuzuDriveCurve>

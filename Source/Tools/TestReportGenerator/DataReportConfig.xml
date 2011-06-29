@@ -1,0 +1,5 @@
+<DataReportConfig>
+    <Suspension value="Satellite Radio">
+        <RadioCollectTraceData>SerialNumber</RadioCollectTraceData>
+    </Suspension>
+</DataReportConfig>

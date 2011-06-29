@@ -1,0 +1,39 @@
+€12/13/10 15:23:42.583 (1) mgr/DF1Protocol            Activated additional log [/home/CCRT/Rewrite/Logs/Servers/PlcMgr.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:42.583 (1) mgr/DF1Protocol            Additional log [Servers/PlcMgr.log] already activated.€
+€12/13/10 15:24:01.589 (8) mgr/DF1Protocol            	DF1CommThread setting PLCSerialReadFault
+€
+€12/13/10 15:24:03.514 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:05.459 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:07.386 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:09.395 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:11.616 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:11.648 (8) mgr/DF1Protocol            	DF1CommThread setting PLCSerialWriteFault
+€
+€12/13/10 15:24:23.272 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:25.202 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:27.147 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:29.077 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:31.026 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:42.735 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:44.666 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:46.614 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:48.564 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:24:50.496 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:25:02.254 (8) mgr/DF1Protocol            	IDf1Protocol::Write BufferWrite error
+€
+€12/13/10 15:25:04.214 (8) mgr/DF1Protocol         

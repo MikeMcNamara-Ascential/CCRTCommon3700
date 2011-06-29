@@ -1,0 +1,48 @@
+QNX:
+----------------------------------------------------------------------
+Hostname:  	GM_Holden_<Machine Number>
+CUSTOMER:  	GM
+PLANT:		Holden
+MACHINE:	<1,2,3>
+
+Network Driver:	Realtek RTL8139  (rtl)
+		Update /etc/netstart io-net line to
+		io-net -drtl -ptcpip threads=512 -pqnet bind=en0
+IP Address:	172.16.253.1
+		172.16.253.2
+		172.16.253.3
+
+Rewrite:	/home/CcrtR07103101-GM-090924R1/
+
+Software Version:	Ccrt07103101-CORE-09092401
+
+
+Notes:
+----------------------------------------------------------------------
+Roller Data:
+	- Circumference		: 1100 mm
+	- Length		:  800 mm
+	- Shell thickness	:   20 mm
+Rollers are hollow and cradle style.
+
+
+To Do:
+----------------------------------------------------------------------
+
+
+Files to Load:
+----------------------------------------------------------------------
+
+
+Work Completed:
+----------------------------------------------------------------------
+2009.11.25:
+	- Loaded PC and setup.
+	- Verified GEN3 communications from laptop.
+2009.12.30:
+	- Updated serial port assignments to match prints.
+	- Measured rollers and setup ICM configs and motor controller 
+	  config files.
+	- Loaded updated config files onto PC
+	- Verified encoder inputs.  Directions were incorrect so Tom
+	  changed a few wires to get the correct data.

@@ -1,0 +1,15 @@
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\bin\Debug\DatabaseInterfaceLibraryTester.exe
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\bin\Debug\DatabaseInterfaceLibraryTester.pdb
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\obj\x86\Debug\DatabaseInterfaceLibraryTester.DbLibraryTesterForm.resources
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\obj\x86\Debug\DatabaseInterfaceLibraryTester.Properties.Resources.resources
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\obj\x86\Debug\GenerateResource.read.1.tlog
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\obj\x86\Debug\GenerateResource.write.1.tlog
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\obj\x86\Debug\DatabaseInterfaceLibraryTester.exe
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\obj\x86\Debug\DatabaseInterfaceLibraryTester.pdb
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\bin\Debug\SerialPortLibrary.dll
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\bin\Debug\SerialPortLibrary.pdb
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\bin\Debug\CcrtDataBaseLibrary.dll
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\bin\Debug\CcrtDataBaseLibrary.pdb
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\bin\Debug\InputDataItemLibrary.dll
+E:\Projects\Ccrt2\TestClasses\DatabaseInterfaceLibraryTester\bin\Debug\InputDataItemLibrary.pdb

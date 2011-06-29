@@ -1,0 +1,4 @@
+slay -sSIGABRT -f J2190LogPortDrv.qxe
+slay -sSIGABRT -f AvtManager.qxe
+slay -sSIGABRT -f SkimSim.qxe
+

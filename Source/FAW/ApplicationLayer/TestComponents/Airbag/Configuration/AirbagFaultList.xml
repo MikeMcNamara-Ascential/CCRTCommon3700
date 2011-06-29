@@ -1,0 +1,21 @@
+<AirbagFaults>
+    <!-- System Status -->
+    <TestAborted Code="2500" Description="Testing aborted, conditions not correct"/>
+    <SoftwareFailure Code="2501" Description="Software failure using module interface"/>
+    <SystemStatus Code="2502" Description="Test failure, system status not correct"/>
+	
+    <!-- Test Condition Failures -->
+    <CableConnectTimeout Code="2600" Description="Diagnostic cable not connected"/>
+    <ModuleLinkupFailure Code="2601" Description="Unable to connect to SRS module"/>
+	
+    <!-- Communication Failures -->
+    <CommunicationFailure Code="2700" Description="Airbag Module Communication Failure"/>
+	
+    <!-- Test Failures -->
+    <ModuleFaults Code="2800" Description="DTCs recorded in the Airbag Module"/>
+    <PartNumberMismatch Code="2801" Description="Part Number programmed in ORC does not match Broadcast"/>
+    <ResistanceOutOfLimits Code="2802" Description="Resistance Value out of Limits"/>
+    <!-- Module Faults -->
+    <ModuleFault_2B00 Code="2B00" Description="Module not responding ..."/>
+  
+</AirbagFaults>

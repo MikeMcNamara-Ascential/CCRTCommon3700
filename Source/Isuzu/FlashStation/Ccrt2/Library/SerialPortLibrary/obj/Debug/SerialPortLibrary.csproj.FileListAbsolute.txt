@@ -1,0 +1,8 @@
+E:\home\branches\Ccrt2\SerialPortLibrary\obj\Debug\ResolveAssemblyReference.cache
+E:\home\branches\Ccrt2\SerialPortLibrary\obj\Debug\SerialPortLibrary.PortDataForm.resources
+E:\home\branches\Ccrt2\SerialPortLibrary\obj\Debug\GenerateResource.read.1.tlog
+E:\home\branches\Ccrt2\SerialPortLibrary\obj\Debug\GenerateResource.write.1.tlog
+E:\home\branches\Ccrt2\SerialPortLibrary\bin\Debug\SerialPortLibrary.dll
+E:\home\branches\Ccrt2\SerialPortLibrary\bin\Debug\SerialPortLibrary.pdb
+E:\home\branches\Ccrt2\SerialPortLibrary\obj\Debug\SerialPortLibrary.dll
+E:\home\branches\Ccrt2\SerialPortLibrary\obj\Debug\SerialPortLibrary.pdb

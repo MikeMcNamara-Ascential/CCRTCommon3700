@@ -1,0 +1,2 @@
+SendCmd -bTestResult | SendCmd -tPublish -xTestResult,{} -ncore/DataServer
+

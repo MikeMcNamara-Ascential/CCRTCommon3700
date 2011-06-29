@@ -1,0 +1,60 @@
+<DriveCurve Description="Drive Curve For The Roadster Test">
+    <Components Debug="Off">
+        <Brake>
+            <ComponentName>TevesAbsTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>KwpIsoTevesAbsTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+            <Debug>Off</Debug>
+        </Brake>
+        <Machine>
+            <ComponentName>MachineTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>MachineComponent.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+            <Debug>Off</Debug>
+        </Machine>
+    </Components>
+    <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="Off">
+        <TestPhase000 Description="Validate the driver numbrer" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver to input the driver number" Result="" Timeout="" Component="Machine">
+                    <Initialize>DisableTractionControl</Initialize>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase000>
+        <!-- Park Brake Test -->
+      <TestPhase700 Description="Prompt park brake testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Display park brake test phase" Result="" Timeout="" Component="Machine">
+                    <PromptDriverAlways>ParkBrakeTestPhase</PromptDriverAlways>
+                </Objective0>
+            </ForegroundObjectives>
+      </TestPhase700>
+      <TestPhase710 Description="Perform Park Brake Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Perform park brake test" Result="" Timeout="" Component="Brake">
+                    <ParkBrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+      </TestPhase710>
+      <TestPhase720 Description="Prompt park brake testing complete" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Display park brake test phase complete" Result="" Timeout="" Component="Machine">
+                    <PromptDriverAlways>ParkBrakeTestPhaseComplete</PromptDriverAlways>
+                </Objective0>
+            </ForegroundObjectives>
+      </TestPhase720>
+      <!-- Finish up processing -->
+      <TestPhase999 Description="Finishup" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective1 Result="" Description="Perform module finish-up" Timeout="" Component="Machine">
+                    <FinishUp>PerformingFinishUp</FinishUp>
+                </Objective1>
+                <Objective0 Result="" Description="Perform Brake finish-up" Timeout="" Component="Brake">
+                    <FinishUp/>
+                </Objective0>
+            </ForegroundObjectives>
+      </TestPhase999>
+    </Test>
+</DriveCurve>

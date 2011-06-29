@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+
+<!-- 
+  First stab at writing a config file for the GUI panels.
+  Config for specific XMLWidgetPanels is under the
+  $Revision: 1.1 $
+-->
+
+<RtGuiConfig>
+    <Metadata author="Burke Porter, Inc" version="1.0"
+      description="Standard implementation of the Driver Monitor view."/>
+    <XmlWidgetPanel id="DriverMonitor">
+        <Layout>
+            <!-- Customer Logo -->
+            <VBox height="250" width="275" posX="3" posY="0" border="false">
+                <Widget height="125" width="275" id="platformlogo" class="com.bepco.gui.ImagePhaseBox">
+                    <DataSource tagname="BodyStyle" messagetype="Subscribe"/>
+                </Widget>
+            </VBox>
+
+            <!-- Wheel speed -->
+            <VBox height="250" width="280" posX="350" posY="5" border="false">
+                <HBox>
+                    <Label name="wheelspeed">
+                        <Font size="45" name="sans-serif" style="bold"/>
+                    </Label>
+                </HBox>
+                <Widget id="_rr" class="com.bepco.gui.NumberBox" width="140">
+                    <DataSource tagname="MaxRollerSpeed" messagetype="Read" datarate="10" />
+                    <TextBoxConfig>
+                        <Font size="60" name="sans-serif" style="plain"/>
+                    </TextBoxConfig>
+                </Widget>
+            </VBox>
+
+            <!-- Speedometer Results -->
+            <VBox width="310" height="200" posX="670" posY="5" border="false">
+                <HBox>
+                    <Label name="speedo">
+                        <Font size="45" name="sans-serif" style="bold"/>
+                    </Label>
+                </HBox>
+                <Widget id="speedovalue" class="com.bepco.gui.NumberBox" width="230">
+                    <DataSource tagname="SpeedometerTestSpeed" messagetype="Subscribe"/>
+                    <DataSource tagname="SpeedometerTestSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                    <TextBoxConfig convertunits="false" format="{0,number,#.0}">
+                        <Font size="60" name="sans-serif" style="plain"/>
+                    </TextBoxConfig>
+                </Widget>
+            </VBox>
+
+            <!-- START OF Driver Prompt Boxes ================================= -->
+            <Widget id="prompts" class="com.bepco.gui.PromptBox" posX="3" posY="160" width="1005" height="100" border="true">
+                <DataSource tagname="PromptBox1" messagetype="Subscribe"  />
+                <DataSource tagname="PromptBox1BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                <TextBoxConfig>
+                    <Font size="48" name="sans-serif" style="plain"/>
+                </TextBoxConfig>
+            </Widget>
+            <Widget id="prompts3" class="com.bepco.gui.PromptBox" posX="3" posY="265" width="1005" height="100" border="true">
+                <DataSource tagname="PromptBox2" messagetype="Subscribe"  />
+                <DataSource tagname="PromptBox2BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                <TextBoxConfig>
+                    <Font size="48" name="sans-serif" style="plain"/>
+                </TextBoxConfig>
+            </Widget>
+            <!-- END OF Driver Prompt Boxes ================================= -->
+
+            <!-- Transmission Shift Points -->
+            <HBox width="1005" height="250" posX="0" posY="370"
+                border="true" borderstyle="title" bordertitle="shiftpoints">
+                <!-- Normal accel shift points -->
+                <VBox width="150">
+                    <HBox>
+                        <Label name="normal">
+                            <Font size="45" name="sans-serif" style="bold"/>
+                        </Label>
+                    </HBox>
+                    <HBox>
+                        <Widget id="point1_2_lonorm" class="com.bepco.gui.NumberBox" width="150">
+                            <DataSource tagname="ShiftPoint1-2LowNormalAccel" messagetype="Subscribe"/>
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="60" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <VBox width="10"/>
+                        <Label name="dash">
+                            <Font size="45" name="sans-serif" style="bold"/>
+                        </Label>
+                        <VBox width="10"/>
+                        <Widget id="point1_2_hinorm" class="com.bepco.gui.NumberBox" width="150">
+                            <DataSource tagname="ShiftPoint1-2HighNormalAccel" messagetype="Subscribe"/>
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="60" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </HBox>
+                    <HBox>
+                        <Widget id="point2_3_lonorm" class="com.bepco.gui.NumberBox" width="150">
+                            <DataSource tagname="ShiftPoint2-3LowNormalAccel" messagetype="Subscribe"/>
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="60" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <VBox width="10"/>
+                        <Label name="dash">
+                            <Font size="45" name="sans-serif" style="bold"/>
+                        </Label>
+                        <VBox width="10"/>
+                        <Widget id="point2_3_hinorm" class="com.bepco.gui.NumberBox" width="150">
+                            <DataSource tagname="ShiftPoint2-3HighNormalAccel" messagetype="Subscribe"/>
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="60" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </HBox>
+                </VBox>
+                <VBox width="30"/>
+    
+                <!-- Shift points -->
+                <VBox width="80">
+                    <HBox>
+                        <Label name="shiftpoints">
+                            <Font size="45" name="sans-serif" style="bold"/>
+                        </Label>
+                    </HBox>
+                    <HBox>
+                        <Label name="shiftonetwo">
+                            <Font size="60" name="sans-serif" style="bold"/>
+                        </Label>
+                    </HBox>
+                    <HBox>
+                        <Label name="shifttwothree">
+                            <Font size="60" name="sans-serif" style="bold"/>
+                        </Label>
+                    </HBox>
+                </VBox>
+                <VBox width="30"/>
+
+                <!-- Full Accel Shift Points -->
+                <VBox width="150">
+                    <HBox>
+                        <Label name="full">
+                            <Font size="45" name="sans-serif" style="bold"/>
+                        </Label>
+                    </HBox>
+                    <HBox>
+                        <Widget id="point1_2_lofull" class="com.bepco.gui.NumberBox" width="150">
+                            <DataSource tagname="ShiftPoint1-2LowFullAccel" messagetype="Subscribe"/>
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="60" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <VBox width="10"/>
+                        <Label name="dash">
+                            <Font size="45" name="sans-serif" style="bold"/>
+                        </Label>
+                        <VBox width="10"/>
+                        <Widget id="point1_2_hifull" class="com.bepco.gui.NumberBox" width="150">
+                            <DataSource tagname="ShiftPoint1-2HighFullAccel" messagetype="Subscribe"/>
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="60" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </HBox>
+                    <HBox>
+                        <Widget id="point2_3_lofull" class="com.bepco.gui.NumberBox" width="150">
+                            <DataSource tagname="ShiftPoint2-3LowFullAccel" messagetype="Subscribe"/>
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="60" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <VBox width="10"/>
+                        <Label name="dash">
+                            <Font size="45" name="sans-serif" style="bold"/>
+                        </Label>
+                        <VBox width="10"/>
+                        <Widget id="point2_3_hifull" class="com.bepco.gui.NumberBox" width="150">
+                            <DataSource tagname="ShiftPoint2-3HighFullAccel" messagetype="Subscribe"/>
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="60" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </HBox>
+                </VBox>
+            </HBox>
+
+            <!-- Test setup selections -->
+            <HBox width="1005" height="60" posX="0" posY="620" border="false">
+                <Label name="engine">
+                    <Font size="45" name="sans-serif" style="bold"/>
+                </Label>
+                <VBox width="10"/>
+                <Widget id="engineTypeSetup" class="com.bepco.gui.TextBox" width="150">
+                    <DataSource tagname="EngineType" messagetype="Subscribe"/>
+                    <TextBoxConfig>
+                        <Font size="45" name="sans-serif" style="plain"/>
+                    </TextBoxConfig>
+                </Widget>
+                <VBox width="350"/>
+                <Label name="speedotype">
+                    <Font size="45" name="sans-serif" style="bold"/>
+                </Label>
+                <VBox width="10"/>
+                <Widget id="speedotype" class="com.bepco.gui.TextBox" width="150">
+                    <DataSource tagname="SpeedoType" messagetype="Subscribe"/>
+                    <TextBoxConfig>
+                        <Font size="45" name="sans-serif" style="plain"/>
+                    </TextBoxConfig>
+                </Widget>
+            </HBox>
+
+        </Layout>
+    </XmlWidgetPanel>
+</RtGuiConfig>

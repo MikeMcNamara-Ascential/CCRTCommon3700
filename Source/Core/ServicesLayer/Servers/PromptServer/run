@@ -1,0 +1,2 @@
+../Bin/PromptServer.qxe -f ../../Configuration/Servers/PromptServerConfig.xml &
+

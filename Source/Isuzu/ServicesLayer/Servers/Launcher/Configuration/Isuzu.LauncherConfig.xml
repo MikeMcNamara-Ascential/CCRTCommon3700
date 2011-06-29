@@ -1,0 +1,132 @@
+<LauncherConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <TerminateOnError Description="Yes/No Flag to indicate if the Launcher should terminate the system upon detecting an error">No</TerminateOnError>
+        <EnableSystemShutdown Description="Yes/No flag that indicates if the sytem will be shut down upon the writing of Shutdown to true (1)">No</EnableSystemShutdown>
+        <InterTaskDelayTime Description="The amount of time (in ms) to wait between starting tasks">250</InterTaskDelayTime>
+        <TaskStartupTime Description="The amount of time (in ms) to wait for a task to start">5000</TaskStartupTime>
+        <TaskTerminateTime Description="The amount of time (in ms) to wait for a task to terminate">10000</TaskTerminateTime>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>Launcher</ProcessName>
+            <AdditionalLogFile Type="/Servers/Launcher.log or Disabled">/Servers/Launcher.log</AdditionalLogFile>
+            <Debug>On</Debug>
+            <LocalEcho>Enabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>core/Launcher</Name>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Timeout>2000</Timeout>
+            <BufferSize>1024</BufferSize>
+        </Communication>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <PublishTags>
+                <Shutdown>0</Shutdown>
+            </PublishTags>
+        </TagList>
+    </Setup>
+    <TasksToLaunch>
+        <Logger Name="LogDaemon.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="LogDaemonConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0001" RegisteredName="core/Log" Register="No" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerbosityLevel="">System Data Logger</Logger>
+
+        <NDB Name="NamedDataBroker.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="NDBConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0002" RegisteredName="core/NamedDataBroker" Register="No" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Named Data Broker</NDB>
+
+        <SerialServer Name="SerialServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="SerialServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0003" RegisteredName="mgr/SerialServer" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Serial Communication Server</SerialServer>
+
+        <PLC Name="PlcMgr.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="SerialPlcConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0010" RegisteredName="mgr/PLC" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="0">Programmable Logic Controller</PLC>
+
+        <ICM Name="IpIcmMgr.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="IpIcmConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0011" RegisteredName="mgr/ICM" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="FF">Intelegent Counter Module Manager</ICM>
+
+        <FaultServer Name="FaultServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="FaultServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0101" RegisteredName="core/FaultServer" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Fault Server</FaultServer>
+
+        <SystemMonitor Name="IsuzuSystemMonitor.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="SystemMonitorConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0107" RegisteredName="core/SystemMonitor" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="0xFF">System Monitor</SystemMonitor>
+
+        <MachineDataBroker Name="MachineDataBroker.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="MachineDataBroker3600Config.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0103" RegisteredName="core/MachineDataBroker" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Machine Data Broker</MachineDataBroker>
+        <PlantHostInbound Name="IsuzuPlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="PlantHostInboundConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
+
+        <PromptServer Name="PromptServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="PromptServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0100" RegisteredName="core/PromptServer" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Prompt Server</PromptServer>
+        <TestResultServer Name="TestResultServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="TestResultServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0102" RegisteredName="core/TestResultServer" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Test Result Server</TestResultServer>
+        <VehicleDataBroker Name="VehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="VehicleDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0105" RegisteredName="core/VehicleDataBroker" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Data Broker</VehicleDataBroker>
+        <InputServer Name="InputServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="InputServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0106" RegisteredName="core/InputServer" Register="Yes" 
+            DemoMode="" ConsoleMode="" AddressValue="" PortValue="" VerboseMode="">Input Server</InputServer>
+        <DataServer Name="DataServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="DataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0450" RegisteredName="core/DataServer" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Data Server</DataServer>
+        <MotorController Name="ABMotorController.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="ABMotorControllerConfig.xml" ConfigPath="/Configuration/Machine/" 
+            OrderToLaunch="0500" RegisteredName="core/MotorController" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Motor Controller</MotorController>
+
+        <VehicleTest Name="VehicleTest.qxe" Path="/ApplicationLayer/Bin/" 
+            ConfigFile="VehicleTestConfig.xml" ConfigPath="/Configuration/VehicleTest/" 
+            OrderToLaunch="1000" RegisteredName="application/VehicleTest" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Test Server</VehicleTest>
+
+     </TasksToLaunch>
+    <DoNotLaunch>
+
+
+        <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="VehicleDataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0108" RegisteredName="core/VehicleDataServer" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
+    </DoNotLaunch>
+</LauncherConfig>

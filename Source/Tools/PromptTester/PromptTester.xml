@@ -1,0 +1,12 @@
+<PromptTester>
+	<NumberOfPromptBoxes>2</NumberOfPromptBoxes>
+	<PromptDisplayTime>2000</PromptDisplayTime>
+    <UseMasterPromptList>Yes</UseMasterPromptList>
+    <MasterPromptList>/Configuration/Client/Prompts.properties</MasterPromptList>
+	<PromptFiles>
+		<Emissions_1 Path="/Configuration/Components/Emissions/">KwpNGC3EmissionsTC.xml</Emissions_1>
+        <Emissions_2 Path="/Configuration/Components/Emissions/">KwpGPECEmissionsTC.xml</Emissions_2>
+        <ELSD Path="/Configuration/Components/Axle/">KwpElectronicLimitedSlipDifferentialTC.xml</ELSD>
+        <Brake Path="/Configuration/Components/Brake/">DCX.JNAP.KwpTevesMk25ETC.xml</ELSD>
+	</PromptFiles>
+</PromptTester>

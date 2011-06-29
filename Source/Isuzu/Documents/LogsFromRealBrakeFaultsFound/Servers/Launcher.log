@@ -1,0 +1,156 @@
+€12/13/10 15:23:38.737 (1) Launcher                   Activated additional log [/home/CCRT/Rewrite/Logs/Servers/Launcher.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:38.737 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:38.989 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/NamedDataBroker.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/NDBConfig.xml
+€
+€12/13/10 15:23:39.286 (1) Launcher                   Looking For: core/NamedDataBroker
+€
+€12/13/10 15:23:40.014 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:40.266 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/SerialServer.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/SerialServerConfig.xml
+€
+€12/13/10 15:23:40.648 (1) Launcher                   Looking For: mgr/SerialServer
+€
+€12/13/10 15:23:40.758 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:41.013 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/PlcMgr.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/SerialPlcConfig.xml
+€
+€12/13/10 15:23:42.281 (1) Launcher                   Looking For: mgr/PLC
+€
+€12/13/10 15:23:42.745 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:42.997 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/IpIcmMgr.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/IpIcmConfig.xml
+€
+€12/13/10 15:23:43.391 (1) Launcher                   Looking For: mgr/ICM
+€
+€12/13/10 15:23:43.494 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:43.746 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/PromptServer.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/PromptServerConfig.xml
+€
+€12/13/10 15:23:44.091 (1) Launcher                   Looking For: core/PromptServer
+€
+€12/13/10 15:23:44.194 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:44.446 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/FaultServer.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/FaultServerConfig.xml
+€
+€12/13/10 15:23:44.770 (1) Launcher                   Looking For: core/FaultServer
+€
+€12/13/10 15:23:44.874 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:45.126 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/TestResultServer.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/TestResultServerConfig.xml
+€
+€12/13/10 15:23:45.477 (1) Launcher                   Looking For: core/TestResultServer
+€
+€12/13/10 15:23:45.580 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:45.832 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/MachineDataBroker.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/MachineDataBroker3600Config.xml
+€
+€12/13/10 15:23:46.191 (1) Launcher                   Looking For: core/MachineDataBroker
+€
+€12/13/10 15:23:46.294 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:46.546 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/VehicleDataBroker.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/VehicleDataBrokerConfig.xml
+€
+€12/13/10 15:23:46.845 (1) Launcher                   Looking For: core/VehicleDataBroker
+€
+€12/13/10 15:23:46.948 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:47.200 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/InputServer.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/InputServerConfig.xml
+€
+€12/13/10 15:23:47.556 (1) Launcher                   Looking For: core/InputServer
+€
+€12/13/10 15:23:47.659 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:47.923 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/IsuzuSystemMonitor.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/SystemMonitorConfig.xml
+€
+€12/13/10 15:23:48.663 (1) Launcher                   Looking For: core/SystemMonitor
+€
+€12/13/10 15:23:48.876 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:49.128 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/PlantHostInbound.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/PlantHostInboundConfig.xml
+€
+€12/13/10 15:23:49.445 (1) Launcher                   Looking For: core/PlantHostInbound
+€
+€12/13/10 15:23:49.547 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:49.799 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/DataServer.qxe,  -f/home/CCRT/Rewrite/Configuration/Servers/DataServerConfig.xml
+€
+€12/13/10 15:23:50.180 (1) Launcher                   Looking For: core/DataServer
+€
+€12/13/10 15:23:50.283 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:50.535 (1) Launcher                   Launching: /home/CCRT/Rewrite/ServicesLayer/Bin/ABMotorController.qxe,  -f/home/CCRT/Rewrite/Configuration/Machine/ABMotorControllerConfig.xml
+€
+€12/13/10 15:23:50.968 (1) Launcher                   Looking For: core/MotorController
+€
+€12/13/10 15:23:51.070 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:51.322 (1) Launcher                   Launching: /home/CCRT/Rewrite/ApplicationLayer/Bin/VehicleTest.qxe,  -f/home/CCRT/Rewrite/Configuration/VehicleTest/VehicleTestConfig.xml
+€
+€12/13/10 15:23:51.744 (1) Launcher                   Looking For: application/VehicleTest
+€
+€12/13/10 15:23:51.848 (1) Launcher                     STARTED!
+€
+€12/13/10 15:23:51.848 (1) Launcher                   Warning: /home/CCRT/Rewrite/ServicesLayer/Bin/LogDaemon.qxe Is not being registered
+€
+€12/13/10 15:23:51.848 (1) Launcher                   Warning: /home/CCRT/Rewrite/ServicesLayer/Bin/NamedDataBroker.qxe Is not being registered
+€
+€12/13/10 15:23:51.848 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/SerialServer.qxe to Register
+€
+€12/13/10 15:23:51.851 (1) Launcher                   Launcher Commanded mgr/SerialServer to Register
+€
+€12/13/10 15:23:51.852 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/PlcMgr.qxe to Register
+€
+€12/13/10 15:23:52.272 (1) Launcher                   Launcher Commanded mgr/PLC to Register
+€
+€12/13/10 15:23:52.272 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/IpIcmMgr.qxe to Register
+€
+€12/13/10 15:23:52.286 (1) Launcher                   Launcher Commanded mgr/ICM to Register
+€
+€12/13/10 15:23:52.286 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/PromptServer.qxe to Register
+€
+€12/13/10 15:23:52.288 (1) Launcher                   Launcher Commanded core/PromptServer to Register
+€
+€12/13/10 15:23:52.288 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/FaultServer.qxe to Register
+€
+€12/13/10 15:23:52.290 (1) Launcher                   Launcher Commanded core/FaultServer to Register
+€
+€12/13/10 15:23:52.290 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/TestResultServer.qxe to Register
+€
+€12/13/10 15:23:52.384 (1) Launcher                   Launcher Commanded core/TestResultServer to Register
+€
+€12/13/10 15:23:52.384 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/MachineDataBroker.qxe to Register
+€
+€12/13/10 15:23:54.538 (1) Launcher                   Launcher Could NOT Command core/MachineDataBroker to Register
+€
+€12/13/10 15:23:54.539 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/VehicleDataBroker.qxe to Register
+€
+€12/13/10 15:23:54.770 (1) Launcher                   Launcher Commanded core/VehicleDataBroker to Register
+€
+€12/13/10 15:23:54.770 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/InputServer.qxe to Register
+€
+€12/13/10 15:23:54.807 (1) Launcher                   Launcher Commanded core/InputServer to Register
+€
+€12/13/10 15:23:54.807 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/IsuzuSystemMonitor.qxe to Register
+€
+€12/13/10 15:23:54.880 (1) Launcher                   Launcher Commanded core/SystemMonitor to Register
+€
+€12/13/10 15:23:54.881 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/PlantHostInbound.qxe to Register
+€
+€12/13/10 15:23:54.904 (1) Launcher                   Launcher Commanded core/PlantHostInbound to Register
+€
+€12/13/10 15:23:54.905 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/DataServer.qxe to Register
+€
+€12/13/10 15:23:54.907 (1) Launcher                   Launcher Commanded core/DataServer to Register
+€
+€12/13/10 15:23:54.907 (1) Launcher                   Commanding /home/CCRT/Rewrite/ServicesLayer/Bin/ABMotorController.qxe to Register
+€
+€12/13/10 15:23:55.415 (1) Launcher                   Launcher Commanded core/MotorController to Register
+€
+€12/13/10 15:23:55.416 (1) Launcher                   Commanding /home/CCRT/Rewrite/ApplicationLayer/Bin/VehicleTest.qxe to Register
+€
+€12/13/10 15:23:55.472 (1) Launcher                   Launcher Commanded application/VehicleTest to Register
+€
+€12/13/10 15:23:55.473 (1) Launcher                   All Tasks Registered: Failure
+€
+€12/13/10 15:23:55.473 (1) Launcher                   Error Could 

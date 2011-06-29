@@ -1,0 +1,314 @@
+<DAQTestResultMap>
+   <Field0010 Type="VehicleBuild">DriveCurve</Field0010>
+   <Field0020 Type="Separator">Blank</Field0020>
+   <Field0030 Type="VehicleBuild">VIN</Field0030>
+   <Field0040 Type="Separator">Blank</Field0040>
+   <Field0050 Type="VehicleBuild">RearWheelDriveToPLC</Field0050>
+   <Field0055 Type="Separator">Blank</Field0055>
+   <Field0060 Type="VehicleBuild">FrontWheelDriveToPLC</Field0060>
+   <Field0070 Type="Separator">Blank</Field0070>
+   <Field0080 Type="VehicleBuild">AllWheelDriveEquipped</Field0080>
+   <Field0090 Type="Separator">Blank</Field0090>
+   <Field0100 Type="VehicleBuild">FourWDSelected</Field0100>
+   <Field0110 Type="Separator">Blank</Field0110>
+   <Field0120 Type="Detail" DetailNode="TireSize" Length="5">VehicleTireSize</Field0120>
+   <Field0130 Type="Separator">Blank</Field0130>
+   <Field0140 Type="Detail" DetailNode="DriverNumber" Length="7">DriverNumber</Field0140>
+   <Field0150 Type="Separator">Blank</Field0150>
+   <Field0160 Type="VehicleBuild">Transmission</Field0160>
+   <Field0170 Type="Separator">Blank</Field0170>
+   <Field0180 Type="VehicleBuild">BrakeType</Field0180>
+   <Field0190 Type="Separator">Blank</Field0190>
+   <Field0200 Type="Result">EmissionsOverallTest</Field0200>
+   <Field0210 Type="Separator">Blank</Field0210>
+   <Field0220 Type="Detail" DetailNode="EngineRPM" Length="4">EmissionsCheckIdleSpeed</Field0220>
+   <Field0230 Type="Separator">Blank</Field0230>
+   <Field0240 Type="Detail" DetailNode="MeasuredValue" Length="3">EmissionsEGRTest</Field0240>
+   <Field0250 Type="Separator">Blank</Field0250>
+   <Field0260 Type="Result">EmissionsWaitForEngineRunning</Field0260>
+   <Field0270 Type="Separator">Blank</Field0270>
+   <Field0280 Type="Result">IgnitionOffOverallTest</Field0280>
+   <Field0290 Type="Separator">Blank</Field0290>
+   <Field0300 Type="Result">SKIMOverallTest</Field0300>
+   <Field0310 Type="Separator">Blank</Field0310>
+   <Field0320 Type="Result">ChimeOverallTest</Field0320>
+   <Field0330 Type="Separator">Blank</Field0330>
+   <Field0340 Type="Result">RemoteKeylessEntryOverallTest</Field0340>
+   <Field0350 Type="Separator">Blank</Field0350>
+   <Field0360 Type="Result">ClusterOverallTest</Field0360>
+   <Field0370 Type="Separator">Blank</Field0370>
+   <Field0380 Type="Result">DaytimeRunningLampsOverallTest</Field0380>
+   <Field0390 Type="Separator">Blank</Field0390>
+   <Field0400 Type="Result">BrakeDragTest</Field0400>
+   <Field0410 Type="Separator">Blank</Field0410>
+   <Field0420 Type="Result">SpeedControlOverallTest</Field0420>
+   <Field0430 Type="Separator">Blank</Field0430>
+   <Field0440 Type="Result">FirstRunCapability</Field0440>
+   <Field0450 Type="Separator">Blank</Field0450>
+   <Field0460 Type="Result">OverallTest</Field0460>
+   <Field0470 Type="Separator">Blank</Field0470>
+   <Field0480 Type="Detail" DetailNode="DragForce" Length="3">BrakeLeftFrontDragTest</Field0480>
+   <Field0490 Type="Separator">Blank</Field0490>
+   <Field0500 Type="Result">BrakeLeftFrontDragTest</Field0500>
+   <Field0510 Type="Separator">Blank</Field0510>
+   <Field0520 Type="Detail" DetailNode="DragForce" Length="3">BrakeRightFrontDragTest</Field0520>
+   <Field0530 Type="Separator">Blank</Field0530>
+   <Field0540 Type="Result">BrakeRightFrontDragTest</Field0540>
+   <Field0550 Type="Separator">Blank</Field0550>
+   <Field0560 Type="Detail" DetailNode="DragForce" Length="3">BrakeLeftRearDragTest</Field0560>
+   <Field0570 Type="Separator">Blank</Field0570>
+   <Field0580 Type="Result">BrakeLeftRearDragTest</Field0580>
+   <Field0590 Type="Separator">Blank</Field0590>
+   <Field0600 Type="Detail" DetailNode="DragForce" Length="3">BrakeRightRearDragTest</Field0600>
+   <Field0610 Type="Separator">Blank</Field0610>
+   <Field0620 Type="Result">BrakeRightRearDragTest</Field0620>
+   <Field0630 Type="Separator">Blank</Field0630>
+   <Field0640 Type="Detail" DetailNode="BrakeForce" Length="3">BrakeLeftFrontForceTest</Field0640>
+   <Field0650 Type="Separator">Blank</Field0650>
+   <Field0660 Type="Result">BrakeLeftFrontForceTest</Field0660>
+   <Field0670 Type="Separator">Blank</Field0670>
+   <Field0680 Type="Detail" DetailNode="BrakeForce" Length="3">BrakeRightFrontForceTest</Field0680>
+   <Field0690 Type="Separator">Blank</Field0690>
+   <Field0700 Type="Result">BrakeRightFrontForceTest</Field0700>
+   <Field0710 Type="Separator">Blank</Field0710>
+   <Field0720 Type="Detail" DetailNode="BrakeForce" Length="3">BrakeLeftRearForceTest</Field0720>
+   <Field0730 Type="Separator">Blank</Field0730>
+   <Field0740 Type="Result">BrakeLeftRearForceTest</Field0740>
+   <Field0750 Type="Separator">Blank</Field0750>
+   <Field0760 Type="Detail" DetailNode="BrakeForce" Length="3">BrakeRightRearForceTest</Field0760>
+   <Field0770 Type="Separator">Blank</Field0770>
+   <Field0780 Type="Result">BrakeRightRearForceTest</Field0780>
+   <Field0790 Type="Separator">Blank</Field0790>
+   <Field0800 Type="Detail" DetailNode="Value" Length="3">BrakeFrontBalanceTest</Field0800>
+   <Field0810 Type="Separator">Blank</Field0810>
+   <Field0820 Type="Result">BrakeFrontBalanceTest</Field0820>
+   <Field0830 Type="Separator">Blank</Field0830>
+   <Field0840 Type="Detail" DetailNode="Value" Length="3">BrakeRearBalanceTest</Field0840>
+   <Field0850 Type="Separator">Blank</Field0850>
+   <Field0860 Type="Result">BrakeRearBalanceTest</Field0860>
+   <Field0870 Type="Separator">Blank</Field0870>
+   <Field0880 Type="Detail" DetailNode="Value" Length="3">BrakeFrontToRearBalanceTest</Field0880>
+   <Field0890 Type="Separator">Blank</Field0890>
+   <Field0900 Type="Result">BrakeFrontToRearBalanceTest</Field0900>
+   <Field0910 Type="Separator">Blank</Field0910>
+   <Field0920 Type="SerialNumber" DetailNode="SerialNumber" Length="14">BrakeCollectTraceData</Field0920>
+   <Field0930 Type="Separator">Blank</Field0930>
+   <Field0940 Type="Detail" DetailNode="DTC" Length="4">ABSDTCTest</Field0940>
+   <Field0950 Type="Separator">Blank</Field0950>
+   <Field0960 Type="Result">BrakeOverallTest</Field0960>
+   <Field0970 Type="Separator">Blank</Field0970>
+   <Field0980 Type="Result">BrakeBrakeSwitchOnTest</Field0980>
+   <Field0990 Type="Separator">Blank</Field0990>
+   <Field1000 Type="Result">BrakeBrakeSwitchOffTest</Field1000>
+   <Field1010 Type="Separator">Blank</Field1010>
+   <Field1020 Type="Result">BrakeHighSpeedSensorTest</Field1020>
+   <Field1030 Type="Separator">Blank</Field1030>
+   <Field1040 Type="Result">ABSFrontSensorCrossTest</Field1040>
+   <Field1050 Type="Separator">Blank</Field1050>
+   <Field1060 Type="Result">ABSRearSensorCrossTest</Field1060>
+   <Field1070 Type="Separator">Blank</Field1070>
+   <Field1080 Type="Result">ABSFrontToRearSensorCrossTest</Field1080>
+   <Field1090 Type="Separator">Blank</Field1090>
+   <Field1100 Type="Detail" DetailNode="LeftFrontSensor" Length="1">BrakeLowSpeedSensorTest</Field1100>
+   <Field1110 Type="Separator">Blank</Field1110>
+   <Field1120 Type="Detail" DetailNode="RightFrontSensor" Length="1">BrakeLowSpeedSensorTest</Field1120>
+   <Field1130 Type="Separator">Blank</Field1130>
+   <Field1140 Type="Detail" DetailNode="LeftRearSensor" Length="1">BrakeLowSpeedSensorTest</Field1140>
+   <Field1150 Type="Separator">Blank</Field1150>
+   <Field1160 Type="Detail" DetailNode="RightRearSensor" Length="1">BrakeLowSpeedSensorTest</Field1160>
+   <Field1170 Type="Separator">Blank</Field1170>
+   <Field1180 Type="Detail" DetailNode="LeftFrontSensor" Length="1">BrakeHighSpeedSensorTest</Field1180>
+   <Field1190 Type="Separator">Blank</Field1190>
+   <Field1200 Type="Detail" DetailNode="RightFrontSensor" Length="1">BrakeHighSpeedSensorTest</Field1200>
+   <Field1210 Type="Separator">Blank</Field1210>
+   <Field1220 Type="Detail" DetailNode="LeftRearSensor" Length="1">BrakeHighSpeedSensorTest</Field1220>
+   <Field1230 Type="Separator">Blank</Field1230>
+   <Field1240 Type="Detail" DetailNode="RightRearSensor" Length="1">BrakeHighSpeedSensorTest</Field1240>
+   <Field1250 Type="Separator">Blank</Field1250>
+   <Field1260 Type="Result">ABSLFInletValveTest</Field1260>
+   <Field1270 Type="Separator">Blank</Field1270>
+   <Field1280 Type="Result">ABSLFOutletValveTest</Field1280>
+   <Field1290 Type="Separator">Blank</Field1290>
+   <Field1300 Type="Result">ABSRFInletValveTest</Field1300>
+   <Field1310 Type="Separator">Blank</Field1310>
+   <Field1320 Type="Result">ABSRFOutletValveTest</Field1320>
+   <Field1330 Type="Separator">Blank</Field1330>
+   <Field1340 Type="Result">ABSLRInletValveTest</Field1340>
+   <Field1350 Type="Separator">Blank</Field1350>
+   <Field1360 Type="Result">ABSLROutletValveTest</Field1360>
+   <Field1370 Type="Separator">Blank</Field1370>
+   <Field1380 Type="Result">ABSRRInletValveTest</Field1380>
+   <Field1390 Type="Separator">Blank</Field1390>
+   <Field1400 Type="Result">ABSRROutletValveTest</Field1400>
+   <Field1410 Type="Separator">Blank</Field1410>
+   <Field1420 Type="Detail" DetailNode="LeftFrontABSReductionPercent" Length="3">BrakeLeftFrontABSReduction</Field1420>
+   <Field1430 Type="Separator">Blank</Field1430>
+   <Field1440 Type="Result">BrakeLeftFrontABSReduction</Field1440>
+   <Field1450 Type="Separator">Blank</Field1450>
+   <Field1460 Type="Detail" DetailNode="RightFrontABSReductionPercent" Length="3">BrakeRightFrontABSReduction</Field1460>
+   <Field1470 Type="Separator">Blank</Field1470>
+   <Field1480 Type="Result">BrakeRightFrontABSReduction</Field1480>
+   <Field1490 Type="Separator">Blank</Field1490>
+   <Field1500 Type="Detail" DetailNode="LeftRearABSReductionPercent" Length="3">BrakeLeftRearABSReduction</Field1500>
+   <Field1510 Type="Separator">Blank</Field1510>
+   <Field1520 Type="Result">BrakeLeftRearABSReduction</Field1520>
+   <Field1530 Type="Separator">Blank</Field1530>
+   <Field1540 Type="Detail" DetailNode="RightRearABSReductionPercent" Length="3">BrakeRightRearABSReduction</Field1540>
+   <Field1550 Type="Separator">Blank</Field1550>
+   <Field1560 Type="Result">BrakeRightRearABSReduction</Field1560>
+   <Field1570 Type="Separator">Blank</Field1570>
+   <Field1580 Type="Detail" DetailNode="LeftFrontABSRecoveryValue" Length="3">BrakeLeftFrontABSRecovery</Field1580>
+   <Field1590 Type="Separator">Blank</Field1590>
+   <Field1600 Type="Result">BrakeLeftFrontABSRecovery</Field1600>
+   <Field1610 Type="Separator">Blank</Field1610>
+   <Field1620 Type="Detail" DetailNode="RightFrontABSRecoveryValue" Length="3">BrakeRightFrontABSRecovery</Field1620>
+   <Field1630 Type="Separator">Blank</Field1630>
+   <Field1640 Type="Result">BrakeRightFrontABSRecovery</Field1640>
+   <Field1650 Type="Separator">Blank</Field1650>
+   <Field1660 Type="Detail" DetailNode="LeftRearABSRecoveryValue" Length="3">BrakeLeftRearABSRecovery</Field1660>
+   <Field1670 Type="Separator">Blank</Field1670>
+   <Field1680 Type="Result">BrakeLeftRearABSRecovery</Field1680>
+   <Field1690 Type="Separator">Blank</Field1690>
+   <Field1700 Type="Detail" DetailNode="RightRearABSRecoveryValue" Length="3">BrakeRightRearABSRecovery</Field1700>
+   <Field1710 Type="Separator">Blank</Field1710>
+   <Field1720 Type="Result">BrakeRightRearABSRecovery</Field1720>
+   <Field1730 Type="Separator">Blank</Field1730>
+   <Field1740 Type="Result">OneTwoUpshiftTest</Field1740>
+   <Field1750 Type="Separator">Blank</Field1750>
+   <Field1760 Type="Detail" DetailNode="OutputShaftSpeed" Length="4">OneTwoUpshiftTest</Field1760>
+   <Field1770 Type="Separator">Blank</Field1770>
+   <Field1780 Type="Detail" DetailNode="Rpm" Length="4">OneTwoUpshiftTest</Field1780>
+   <Field1790 Type="Separator">Blank</Field1790>
+   <Field1800 Type="Detail" DetailNode="Mph" Length="4">OneTwoUpshiftTest</Field1800>
+   <Field1810 Type="Separator">Blank</Field1810>
+   <Field1820 Type="Detail" DetailNode="GovPressure" Length="4">OneTwoUpshiftTest</Field1820>
+   <Field1830 Type="Separator">Blank</Field1830>
+   <Field1840 Type="Detail" DetailNode="TPSPercent" Length="3">OneTwoUpshiftTest</Field1840>
+   <Field1850 Type="Separator">Blank</Field1850>
+   <Field1860 Type="Detail" DetailNode="MaxRPM" Length="4">OneTwoUpshiftTest</Field1860>
+   <Field1870 Type="Separator">Blank</Field1870>
+   <Field1880 Type="Result">TransmissionsMonitor2To3Shift</Field1880>
+   <Field1890 Type="Separator">Blank</Field1890>
+   <Field1900 Type="Detail" Length="4" DetailNode="PeakOutputShaftSpeed">TransmissionsMonitor2To3Shift</Field1900>
+   <Field1910 Type="Separator">Blank</Field1910>
+   <Field1920 Type="Detail" Length="4" DetailNode="PeakEngineSpeed">TransmissionsMonitor2To3Shift</Field1920>
+   <Field1930 Type="Separator">Blank</Field1930>
+   <Field1940 Type="Detail" Length="4" DetailNode="PeakVehicleSpeed">TransmissionsMonitor2To3Shift</Field1940>
+   <Field1950 Type="Separator">Blank</Field1950>
+   <Field1960 Type="Detail" Length="4" DetailNode="ActualGovernorPressurePressure">TransmissionsMonitor2To3ShiftExtra</Field1960>
+   <Field1970 Type="Separator">Blank</Field1970>
+   <Field1980 Type="Detail" Length="3" DetailNode="ThrottlePosition">TransmissionsMonitor2To3Shift</Field1980>
+   <Field1990 Type="Separator">Blank</Field1990>
+   <Field2000 Type="Detail" Length="4" DetailNode="PeakEngineSpeed">TransmissionsMonitor2To3Shift</Field2000>
+   <Field2010 Type="Separator">Blank</Field2010>
+   <Field2020 Type="Result">ThreeFourUpshift</Field2020>
+   <Field2030 Type="Separator">Blank</Field2030>
+   <Field2040 Type="Detail" Length="4" DetailNode="OutputShaftSpeed">ThreeFourUpshift</Field2040>
+   <Field2050 Type="Separator">Blank</Field2050>
+   <Field2060 Type="Detail" Length="4" DetailNode="Rpm">ThreeFourUpshift</Field2060>
+   <Field2070 Type="Separator">Blank</Field2070>
+   <Field2080 Type="Detail" Length="4" DetailNode="Mph">ThreeFourUpshift</Field2080>
+   <Field2090 Type="Separator">Blank</Field2090>
+   <Field2100 Type="Detail" Length="4" DetailNode="GovPressure">ThreeFourUpshift</Field2100>
+   <Field2110 Type="Separator">Blank</Field2110>
+   <Field2120 Type="Detail" Length="3" DetailNode="TPSPercent">ThreeFourUpshift</Field2120>
+   <Field2130 Type="Separator">Blank</Field2130>
+   <Field2140 Type="Detail" Length="4" DetailNode="MaxRPM">ThreeFourUpshift</Field2140>
+   <Field2150 Type="Separator">Blank</Field2150>
+   <Field2160 Type="Result">TransmissionMonitorKickDown</Field2160>
+   <Field2170 Type="Separator">Blank</Field2170>
+   <Field2180 Type="Detail" Length="4" DetailNode="OutputShaftSpeed">TransmissionCheckKickDownExtra</Field2180>
+   <Field2190 Type="Separator">Blank</Field2190>
+   <Field2200 Type="Detail" Length="4" DetailNode="EngineSpeedDifference">TransmissionCheckKickDown</Field2200>
+   <Field2210 Type="Separator">Blank</Field2210>
+   <Field2220 Type="Detail" Length="4" DetailNode="VehicleSpeed">TransmissionCheckKickDownExtra</Field2220>
+   <Field2230 Type="Separator">Blank</Field2230>
+   <Field2240 Type="Detail" Length="4" DetailNode="GovPressure">FourOneDownshift</Field2240>
+   <Field2250 Type="Separator">Blank</Field2250>
+   <Field2260 Type="Detail" Length="3" DetailNode="ThrottlePosition">TransmissionCheckKickDownExtra</Field2260>
+   <Field2270 Type="Separator">Blank</Field2270>
+   <Field2280 Type="Detail" Length="4" DetailNode="MaximumEngineSpeed">TransmissionCheckKickDown</Field2280>
+   <Field2290 Type="Separator">Blank</Field2290>
+   <Field2300 Type="Result">TransmissionMonitorOverdriveLockout</Field2300>
+   <Field2310 Type="Separator">Blank</Field2310>
+   <Field2320 Type="Detail" Length="4" DetailNode="OutputShaftSpeed">FourThreeDownshift</Field2320>
+   <Field2330 Type="Separator">Blank</Field2330>
+   <Field2340 Type="Detail" Length="4" DetailNode="Rpm">FourThreeDownshift</Field2340>
+   <Field2350 Type="Separator">Blank</Field2350>
+   <Field2360 Type="Detail" Length="4" DetailNode="Mph">FourThreeDownshift</Field2360>
+   <Field2370 Type="Separator">Blank</Field2370>
+   <Field2380 Type="Detail" Length="4" DetailNode="GovPressure">FourThreeDownshift</Field2380>
+   <Field2390 Type="Separator">Blank</Field2390>
+   <Field2400 Type="Detail" Length="3" DetailNode="TPSPercent">FourThreeDownshift</Field2400>
+   <Field2410 Type="Separator">Blank</Field2410>
+   <Field2420 Type="Detail" Length="4" DetailNode="MaxRPM">FourThreeDownshift</Field2420>
+   <Field2430 Type="Separator">Blank</Field2430>
+   <Field2440 Type="Result">ThreeTwoDownshift</Field2440>
+   <Field2450 Type="Separator">Blank</Field2450>
+   <Field2460 Type="Detail" Length="4" DetailNode="OutputShaftSpeed">ThreeTwoDownshift</Field2460>
+   <Field2470 Type="Separator">Blank</Field2470>
+   <Field2480 Type="Detail" Length="4" DetailNode="Rpm">ThreeTwoDownshift</Field2480>
+   <Field2490 Type="Separator">Blank</Field2490>
+   <Field2500 Type="Detail" Length="4" DetailNode="Mph">ThreeTwoDownshift</Field2500>
+   <Field2510 Type="Separator">Blank</Field2510>
+   <Field2520 Type="Detail" Length="4" DetailNode="GovPressure">ThreeTwoDownshift</Field2520>
+   <Field2530 Type="Separator">Blank</Field2530>
+   <Field2540 Type="Detail" Length="3" DetailNode="TPSPercent">ThreeTwoDownshift</Field2540>
+   <Field2550 Type="Separator">Blank</Field2550>
+   <Field2560 Type="Detail" Length="4" DetailNode="MaxRPM">ThreeTwoDownshift</Field2560>
+   <Field2570 Type="Separator">Blank</Field2570>
+   <Field2580 Type="Detail" Length="5" DetailNode="ActualAxleRatio">TransferCaseCheckAxleRatio</Field2580>
+   <Field2590 Type="Separator">Blank</Field2590>
+   <Field2600 Type="Result">TransferCaseCheckAxleRatio</Field2600>
+   <Field2610 Type="Separator">Blank</Field2610>
+   <Field2620 Type="Result">TracLocOverallTest</Field2620>
+   <Field2630 Type="Separator">Blank</Field2630>
+   <Field2640 Type="Result">TracLocValveCrossTest</Field2640>
+   <Field2650 Type="Separator">Blank</Field2650>
+   <Field2660 Type="Result">PowerSteeringOverallTest</Field2660>
+   <Field2670 Type="Separator">Blank</Field2670>
+   <Field2680 Type="Result">TransmissionOverallTest</Field2680>
+   <Field2690 Type="Separator">Blank</Field2690>
+   <Field2700 Type="Detail" Length="14" DetailNode="SerialNumber">EmissionsCollectTraceData</Field2700>
+   <Field2710 Type="Separator">Blank</Field2710>
+   <Field2720 Type="Detail" Length="14" DetailNode="SerialNumber">TransmissionCollectTraceData</Field2720>
+   <Field2730 Type="Separator">Blank</Field2730>
+   <Field2740 Type="Result">TransmissionReverseGearObserved</Field2740>
+   <Field2750 Type="Separator">Blank</Field2750>
+   <Field2760 Type="Result">MachineDriverPassFail</Field2760>
+   <Field2770 Type="Separator">Blank</Field2770>
+   <Field2780 Type="Result">AirbagOverallTest</Field2780>
+   <Field2790 Type="Separator">Blank</Field2790>
+   <Field2800 Type="Detail" Length="14" DetailNode="MeasuredValue">AirbagPartNumberTest</Field2800>
+   <Field2810 Type="Separator">Blank</Field2810>
+   <Field2820 Type="Detail" Length="14" DetailNode="MeasuredValue">AirbagSerialNumberTest</Field2820>
+   <Field2830 Type="Separator">Blank</Field2830>
+   <Field2840 Type="Detail" Length="4" DetailNode="FaultCode">AirbagFaultCodeTest</Field2840>
+   <Field2850 Type="Separator">Blank</Field2850>
+   <Field2860 Type="Detail" Length="3" DetailNode="TirePressure">TPMLFTirePressureTest</Field2860>
+   <Field2870 Type="Separator">Blank</Field2870>
+   <Field2880 Type="Detail" Length="3" DetailNode="TirePressure">TPMRFTirePresureTest</Field2880>
+   <Field2890 Type="Separator">Blank</Field2890>
+   <Field2900 Type="Detail" Length="3" DetailNode="TirePressure">TPMLRTirePressureTest</Field2900>
+   <Field2910 Type="Separator">Blank</Field2910>
+   <Field2920 Type="Detail" Length="3" DetailNode="TirePressure">TPMRRTirePressureTest</Field2920>
+   <Field2930 Type="Separator">Blank</Field2930>
+   <Field2940 Type="Detail" Length="4" DetailNode="Error0">ErrorCodeTest</Field2940>
+   <Field2950 Type="Separator">Blank</Field2950>
+   <Field2960 Type="Detail" Length="4" DetailNode="Error1">ErrorCodeTest</Field2960>
+   <Field2970 Type="Separator">Blank</Field2970>
+   <Field2980 Type="Detail" Length="4" DetailNode="Error2">ErrorCodeTest</Field2980>
+   <Field2990 Type="Separator">Blank</Field2990>
+   <Field3000 Type="Detail" Length="4" DetailNode="Error3">ErrorCodeTest</Field3000>
+   <Field3010 Type="Separator">Blank</Field3010>
+   <Field3020 Type="Detail" Length="4" DetailNode="Error4">ErrorCodeTest</Field3020>
+   <Field3030 Type="Separator">Blank</Field3030>
+   <Field3040 Type="Detail" Length="4" DetailNode="Error5">ErrorCodeTest</Field3040>
+   <Field3050 Type="Separator">Blank</Field3050>
+   <Field3060 Type="Detail" Length="4" DetailNode="Error6">ErrorCodeTest</Field3060>
+   <Field3070 Type="Separator">Blank</Field3070>
+   <Field3080 Type="Detail" Length="4" DetailNode="Error7">ErrorCodeTest</Field3080>
+   <Field3090 Type="Separator">Blank</Field3090>
+   <Field3100 Type="Detail" Length="4" DetailNode="Error8">ErrorCodeTest</Field3100>
+   <Field3110 Type="Separator">Blank</Field3110>
+</DAQTestResultMap>

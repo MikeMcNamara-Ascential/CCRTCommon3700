@@ -1,0 +1,573 @@
+<TrwEbc325J2190ModuleInterface>
+    <Setup>
+        <CommunicationProtocol>J2190</CommunicationProtocol>
+		<ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+		<KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+		<SwitchMonitorDelay>500</SwitchMonitorDelay>
+		<EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+		<AutomaticallyEnterDiagnosticMode>No</AutomaticallyEnterDiagnosticMode>
+		<ResponsePendingReads>3</ResponsePendingReads>
+		<ModuleRequestID>0x28</ModuleRequestID>
+		<DataByteCountIndex>3</DataByteCountIndex>
+		<DataStartIndex>2</DataStartIndex>
+		<DataHeaderLength>2</DataHeaderLength>
+		<CheckSumLength>1</CheckSumLength>
+		<NumberOfRetries>3</NumberOfRetries>
+		<ValidResponseOffset>0x40</ValidResponseOffset>
+		<SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+		<NegativeResponseValue>0x7F</NegativeResponseValue>
+		<NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+		<ModuleResponseDelay>500</ModuleResponseDelay>
+		<ModuleResponseEndDelay>10</ModuleResponseEndDelay>
+		<DiagnosticRequestCode>0x24</DiagnosticRequestCode>
+		<DiagnosticResponseCode>0x26</DiagnosticResponseCode>
+		<WaitForSpontaneousReset>0</WaitForSpontaneousReset>
+        <FirstPinionRegister>0x2820</FirstPinionRegister>
+        <NumberOfPinionRegisters>3</NumberOfPinionRegisters> 
+        <PassFailRegister>0x4004</PassFailRegister>
+        <MonthYearRegister>0x4005</MonthYearRegister>
+        <DayRegister>0x4006</DayRegister>
+        <NumberOfPartNumberReads>3</NumberOfPartNumberReads>
+        <NumberOfTraceDataReads>3</NumberOfTraceDataReads>
+        <TraceDataNumberOfCharacters>14</TraceDataNumberOfCharacters>
+        <TraceabilityHeader>T</TraceabilityHeader>
+        <DTCData>
+            <FirstFaultRegister>0x2E30</FirstFaultRegister>
+            <NumberOfFaultRegisters>3</NumberOfFaultRegisters>
+            <FirstDTCByteIndex>1</FirstDTCByteIndex>
+            <DTCType>BitEncoded</DTCType>
+            <StopDTCReadOnZero>Yes</StopDTCReadOnZero>
+        </DTCData>
+        <NegativeResponseCodes>
+            <Code_0x11>Test mode not supported</Code_0x11>
+			<Code_0x12>Subfunction/Pid not supported</Code_0x12>
+			<Code_0x21>Busy, repeat request</Code_0x21>
+			<Code_0x22>Conditions not correct for requested operation</Code_0x22>
+			<Code_0x31>Request data is out of range - e. g. control parameter</Code_0x31>
+			<Code_0x33>Requested operation is secured and security access has not been granted</Code_0x33>
+			<Code_0x50>Upload not accepted - the data for the data block identifier and data block index could not be read</Code_0x50>
+			<Code_0x90>Engine is running</Code_0x90>
+			<Code_0x91>Engine is not running</Code_0x91>
+			<Code_0x92>Vehicle is in motion</Code_0x92>
+			<Code_0x93>Vehicle is not in motion</Code_0x93>
+			<Code_0x94>Vehicle is in gear</Code_0x94>
+			<Code_0x95>Vehicle is not in gear</Code_0x95>
+			<Code_0x9A>Sustained loss of programming voltage detected</Code_0x9A>
+			<Code_0xA1>Wrong shift lever position</Code_0xA1>
+			<Code_0xA5>Actuator tests inhibited</Code_0xA5>
+			<Code_0xA9>Actuator tests inhibited. Controller is in limp-in</Code_0xA9>
+			<Code_0xAA>Brakes not on</Code_0xAA>
+			<Code_0xAB>Shift lever not in park</Code_0xAB>
+			<Code_0xB0>Requested DPid is undefined</Code_0xB0>
+			<Code_0xB1>Requested DPid is out of permissible range</Code_0xB1>
+			<Code_0xB2>Requested DPid area is too large</Code_0xB2>
+			<Code_0xB3>Number of data items is too large</Code_0xB3>
+			<Code_0xB4>Data for item extends past end of data area</Code_0xB4>
+			<Code_0xB6>Data item was not found in the DPid data table</Code_0xB6>
+			<Code_0xB7>Requested DPid is not yet reserved/defined</Code_0xB7>
+			<Code_0xC0>Security Access Mode seed not previously requested</Code_0xC0>
+			<Code_0xD0>No parameter substitution currently active for the requested Pid</Code_0xD0>
+			<Code_0xE0>Routine started and completed</Code_0xE0>
+			<Code_0xE1>Routine started and in progress</Code_0xE1>
+			<Code_0xE2>Routine Pending - Routine request is valid, however, execution will take place at a later time</Code_0xE2>
+			<Code_0xE3>Routine stopped</Code_0xE3>
+			<Code_0xE4>Routine execution already completed</Code_0xE4>
+			<Code_0xE5>Routine execution is pending, thus never started</Code_0xE5>
+			<Code_0xE6>Routine still running</Code_0xE6>
+			<Code_0xE7>Routine already running - Specified routine is already running</Code_0xE7>
+			<Code_0xE8>Routine not running - Specified routine was never requested to enter/start</Code_0xE8>
+			<EnterDiagnosticMode>0x22</EnterDiagnosticMode>
+			<ResponsePending>0x78</ResponsePending>
+			<ModuleBusy>0x21</ModuleBusy>
+		</NegativeResponseCodes>
+		<Communication>
+			<Debug>Off</Debug>
+			<Name>AvtJ2190</Name>
+			<BufferSize>4096</BufferSize>
+			<CommSize>1</CommSize>
+			<Timeout>10000000</Timeout>
+			<Retries>3</Retries>
+		</Communication>
+        <Logging>
+			<Status>Enabled</Status>
+			<ProcessName>J2190TrwEbc325Brakes</ProcessName>
+			<AdditionalLogFile>/Communication/J2190TrwEbc325Brakes.log</AdditionalLogFile>
+			<Debug>Off</Debug>
+			<LocalEcho>Disabled</LocalEcho>
+			<Verbose>0x1F</Verbose>
+		</Logging>
+        <SensorDataRegisters>
+             <SensorDataRegister01>ReadLFSensorSpeed</SensorDataRegister01>
+             <SensorDataRegister02>ReadRFSensorSpeed</SensorDataRegister02>
+             <SensorDataRegister03>ReadLRSensorSpeed</SensorDataRegister03>
+        </SensorDataRegisters>
+         <FaultByteCodes>
+            <Byte00 Byte="1">
+                 <FaultCode_8525>0x01</FaultCode_8525>
+                 <FaultCode_8521>0x02</FaultCode_8521>
+                 <FaultCode_8531>0x04</FaultCode_8531>
+                 <FaultCode_8535>0x08</FaultCode_8535>
+                 <FaultCode_8526>0x10</FaultCode_8526>
+                 <FaultCode_8522>0x20</FaultCode_8522>
+                 <FaultCode_8532>0x40</FaultCode_8532>
+                 <FaultCode_8536>0x80</FaultCode_8536>
+            </Byte00>
+            <Byte01 Byte="2">
+                 <FaultCode_8527>0x01</FaultCode_8527>
+                 <FaultCode_8523>0x02</FaultCode_8523>
+                 <FaultCode_8533>0x04</FaultCode_8533>
+                 <FaultCode_8537>0x08</FaultCode_8537>
+            </Byte01>
+            <Byte02 Byte="3">
+                 <FaultCode_8571>0x01</FaultCode_8571>
+                 <FaultCode_8572>0x02</FaultCode_8572>
+                 <FaultCode_8573>0x04</FaultCode_8573>
+                 <FaultCode_8538>0x08</FaultCode_8538>
+                 <FaultCode_8566>0x10</FaultCode_8566>
+                 <FaultCode_8578>0x80</FaultCode_8578>
+            </Byte02>
+            <Byte03 Byte="5">
+                 <FaultCode_8520>0x01</FaultCode_8520>
+                 <FaultCode_8524>0x02</FaultCode_8524>
+                 <FaultCode_8530>0x04</FaultCode_8530>
+                 <FaultCode_8569>0x10</FaultCode_8569>
+                 <FaultCode_8582>0x20</FaultCode_8582>
+                 <FaultCode_8583>0x40</FaultCode_8583>
+                 <FaultCode_8584>0x80</FaultCode_8584>
+            </Byte03>
+            <Byte04 Byte="6">
+                 <FaultCode_8547>0x01</FaultCode_8547>
+                 <FaultCode_8548>0x02</FaultCode_8548>
+                 <FaultCode_8543>0x04</FaultCode_8543>
+                 <FaultCode_8544>0x10</FaultCode_8544>
+                 <FaultCode_8553>0x20</FaultCode_8553>
+                 <FaultCode_8554>0x40</FaultCode_8554>
+            </Byte04>
+            <Byte05 Byte="7">
+                 <FaultCode_8545>0x01</FaultCode_8545>
+                 <FaultCode_8546>0x02</FaultCode_8546>
+                 <FaultCode_8541>0x04</FaultCode_8541>
+                 <FaultCode_8542>0x10</FaultCode_8542>
+                 <FaultCode_8551>0x20</FaultCode_8551>
+                 <FaultCode_8552>0x40</FaultCode_8552>
+            </Byte05>
+            <Byte06 Byte="9">
+                 <FaultCode_8565>0x01</FaultCode_8565>
+                 <FaultCode_8567>0x02</FaultCode_8567>
+                 <FaultCode_8568>0x04</FaultCode_8568>
+                 <FaultCode_8574>0x10</FaultCode_8574>
+                 <FaultCode_8581>0x20</FaultCode_8581>
+            </Byte06>
+         </FaultByteCodes>
+	</Setup>
+	<SerialMessages>
+		<VehicleMessages>
+			<EnterDiagnosticMode>
+				<TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+				<ReplyInterpretation/>
+			</EnterDiagnosticMode>
+			<ClearFaults>
+				<TransmitMessage>ClearFaults</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>ClearFaults</ReplyMessage>
+				<ReplyInterpretation/>
+			</ClearFaults>
+            <ReadFaultRegister>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>ReadPid</ReplyMessage>
+                <ReplyInterpretation>ReadFaults</ReplyInterpretation>
+            </ReadFaultRegister>
+            <ReadPartNumber01>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadPartNumberPid1</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>ReadPartNumberBcdToString</ReplyInterpretation>
+            </ReadPartNumber01>
+            <ReadPartNumber02>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadPartNumberPid2</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>ReadPartNumberBcdToString</ReplyInterpretation>
+            </ReadPartNumber02>
+            <ReadPartNumber03>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadPartNumberPid3</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>ReadPartNumberAsciiToString</ReplyInterpretation>
+            </ReadPartNumber03>
+            <ReadTraceData01>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadTraceDataPid1</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>ReadTraceDataPid1</ReplyInterpretation>
+            </ReadTraceData01>
+            <ReadTraceData02>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadTraceDataPid2</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>ReadTraceDataPid2</ReplyInterpretation>
+            </ReadTraceData02>
+            <ReadTraceData03>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadTraceDataPid3</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>ReadTraceDataPid3</ReplyInterpretation>
+            </ReadTraceData03>
+            <WriteByteIntoRegister>
+                <TransmitMessage>WritePid</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>WritePid</ReplyMessage>
+                <ReplyInterpretation/>
+            </WriteByteIntoRegister>
+            <ReadByteFromRegister>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadPid</ReplyMessage>
+                <ReplyInterpretation>ReadByteFromRegister</ReplyInterpretation>
+            </ReadByteFromRegister>
+            <SpontaneousReset>
+				<TransmitMessage>ResetModule</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>SpontaneousReset</ReplyMessage>
+				<ReplyInterpretation/>
+			</SpontaneousReset>
+            <PerformPowerOnReset>
+                <TransmitMessage>ResetModule</TransmitMessage>
+                <TransmitInterpretation></TransmitInterpretation>
+                <ReplyMessage>SpontaneousReset</ReplyMessage>
+                <ReplyInterpretation></ReplyInterpretation>
+            </PerformPowerOnReset>
+            <ReadBrakeSwitch>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadBrakeSwitch</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>ReadBrakeSwitchString</ReplyInterpretation>
+			</ReadBrakeSwitch>
+            <ReadBrakeSwitchBool>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadBrakeSwitch</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>ReadBrakeSwitchBool</ReplyInterpretation>
+			</ReadBrakeSwitchBool>
+            <ReadLFSensorSpeed>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadLFSensorSpeed</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>WheelSpeed</ReplyInterpretation>
+			</ReadLFSensorSpeed>
+			<ReadRFSensorSpeed>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadRFSensorSpeed</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>WheelSpeed</ReplyInterpretation>
+			</ReadRFSensorSpeed>
+			<ReadLRSensorSpeed>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadLRSensorSpeed</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>WheelSpeed</ReplyInterpretation>
+			</ReadLRSensorSpeed>
+           <ArmRollTestMode>
+				<TransmitMessage>EnableMode</TransmitMessage>
+				<TransmitInterpretation>ArmRollTestMode</TransmitInterpretation>
+				<ReplyMessage>EnableMode</ReplyMessage>
+				<ReplyInterpretation/>
+            </ArmRollTestMode>
+            <StopRollTestMode>
+				<TransmitMessage>StopRollTestMode</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>StopRollTestMode</ReplyMessage>
+				<ReplyInterpretation/>
+            </StopRollTestMode>
+			<ReadRearSensorSpeed>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadLRSensorSpeed</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation>WheelSpeed</ReplyInterpretation>
+			</ReadRearSensorSpeed>
+            <RunPumpMotor>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>RunPumpMotor</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation/>
+			</RunPumpMotor>
+			<RecoverAllValves>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>RecoverAllValves</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</RecoverAllValves>
+			<HoldAllValves>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>HoldAllValves</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</HoldAllValves>
+			<DumpAllValves>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>Reduction</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</DumpAllValves>
+			<DumpFrontValves>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>DumpFrontValves</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</DumpFrontValves>
+			<DumpRearValves>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>DumpRearValves</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</DumpRearValves>
+            <ActuateLeftFrontRecovery>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>ActuateLFRecovery</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation></ReplyInterpretation>
+            </ActuateLeftFrontRecovery>
+            <ActuateLeftFrontReduction>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>ActuateLFReduction</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</ActuateLeftFrontReduction>
+            <ActuateRightFrontRecovery>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>ActuateRFRecovery</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</ActuateRightFrontRecovery>
+            <ActuateRightFrontReduction>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>ActuateRFReduction</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</ActuateRightFrontReduction>
+			<ActuateRearRecovery>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>ActuateRearRecovery</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</ActuateRearRecovery>
+            <ActuateRearReduction>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>ActuateRearReduction</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</ActuateRearReduction>
+            <TurnAllValvesOff>
+				<TransmitMessage>IOControl</TransmitMessage>
+				<TransmitInterpretation>TurnAllValvesOff</TransmitInterpretation>
+				<ReplyMessage>IOControl</ReplyMessage>
+				<ReplyInterpretation></ReplyInterpretation>
+			</TurnAllValvesOff>
+            <ModuleKeepAlive>
+				<TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+				<TransmitInterpretation/>
+				<ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+				<ReplyInterpretation/>
+            </ModuleKeepAlive>
+            <!--
+            <ModuleKeepAlive>
+				<TransmitMessage>ReadPid</TransmitMessage>
+				<TransmitInterpretation>ReadBrakeSwitch</TransmitInterpretation>
+				<ReplyMessage>ReadPid</ReplyMessage>
+				<ReplyInterpretation/>
+            </ModuleKeepAlive>
+            -->
+		</VehicleMessages>
+		<TransmitMessages>
+			<EnterDiagnosticMode>0x10,0x01,0x00,0x00</EnterDiagnosticMode>
+            <ResetModule>0x11,0x01,0x02,0x00</ResetModule>
+            <ClearFaults>0x14,0xFF,0x00,0x00</ClearFaults>
+			<ReadPid>0x22,0x??,0x??,0x00</ReadPid>
+            <EnableMode>0x31,0x01,0x??,0x??</EnableMode>
+            <StopRollTestMode>0x32,0x00,0x00,0x00</StopRollTestMode>
+            <IOControl>0x30,0x02,0x??,0x00</IOControl>
+            <WritePid>0xB4,0x??,0x??,0x??</WritePid>
+        </TransmitMessages>
+		<TransmitInterpretations>
+            <ReadPartNumberPid1>0x20,0x00</ReadPartNumberPid1>
+            <ReadPartNumberPid2>0x20,0x01</ReadPartNumberPid2>
+            <ReadPartNumberPid3>0x20,0x02</ReadPartNumberPid3>
+            <ReadTraceDataPid1>0x20,0x03</ReadTraceDataPid1>
+            <ReadTraceDataPid2>0x20,0x04</ReadTraceDataPid2>
+            <ReadTraceDataPid3>0x20,0x05</ReadTraceDataPid3>
+            <ReadLFSensorSpeed>0x36,0x06</ReadLFSensorSpeed>
+			<ReadRFSensorSpeed>0x36,0x07</ReadRFSensorSpeed>
+			<ReadLRSensorSpeed>0x36,0x08</ReadLRSensorSpeed>
+            <ProgramPassFail>0x40,0x40,0x??</ProgramPassFail>
+            <UpdateModuleDateMY>0x40,0x05,0x??</UpdateModuleDateMY>
+            <UpdateModuleDateDay>0x40,0x06,0x??</UpdateModuleDateDay>
+            <UpdateModuleFail>0x40,0x04,0x00</UpdateModuleFail>
+            <ReadBrakeSwitch>0x36,0x00</ReadBrakeSwitch>
+            <ArmRollTestMode>0x10,0x00</ArmRollTestMode>
+            <RunPumpMotor>0x40</RunPumpMotor>
+			<RecoverAllValves>0x80</RecoverAllValves>
+            <HoldAllValves>0x95</HoldAllValves>
+			<!--<Reduction>0x2A</Reduction>-->
+            <Reduction>0x3F</Reduction>
+			<DumpFrontValves>0x9F</DumpFrontValves>
+            <ActuateLFRecovery>0xB4</ActuateLFRecovery>
+			<ActuateLFReduction>0x97</ActuateLFReduction>
+            <ActuateRFRecovery>0xB1</ActuateRFRecovery>
+			<ActuateRFReduction>0x9D</ActuateRFReduction>
+            <ActuateRearRecovery>0x85</ActuateRearRecovery>
+            <ActuateRearReduction>0xB5</ActuateRearReduction>
+            <DumpRearValves>0xB5</DumpRearValves>
+            <TurnAllValvesOff>0xC0</TurnAllValvesOff>
+        </TransmitInterpretations>
+		<ReplyMessages>
+			<EnterDiagnosticMode>
+				<Reply_00>0x50,0x01,0x??,0x??</Reply_00>
+				<Reply_01>0x7F,0x10,0x??,0x??</Reply_01>
+			</EnterDiagnosticMode>
+            <SpontaneousReset>
+				<Reply_00>0x51,0x01,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x11,0x??,0x??</Reply_01>
+			</SpontaneousReset>
+            <ClearFaults>
+				<Reply_00>0x54,0xFF,0x??,0x??</Reply_00>
+				<Reply_01>0x7F,0x14,0x??,0x??</Reply_01>
+			</ClearFaults>
+			<ReadPid>
+				<Reply_00>0x62,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??,0x??</Reply_01>
+			</ReadPid>
+            <EnableMode>
+				<Reply_00>0x71,0x01,0x??,0x??</Reply_00>
+				<Reply_01>0x7F,0x31,0x??,0x??</Reply_01>
+            </EnableMode>
+            <StopRollTestMode>
+                <Reply_00>0x72,0x00,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x32,0x??,0x??</Reply_01>
+            </StopRollTestMode>
+			<IOControl>
+				<Reply_00>0x70,0x02,0x??,0x??</Reply_00>
+				<Reply_01>0x7F,0x30,0x??,0x??</Reply_01>
+			</IOControl>
+            <WritePid>
+                <Reply_00>0xF4,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0xB4,0x??,0x??</Reply_01>
+            </WritePid>
+		</ReplyMessages>
+		<ReplyInterpretations>
+            <ReadFaults>
+                <String>
+                    <Substring format="%02X">
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="2" mask="0xFF" output_index="0"/>
+                            <Byte2 input_index="3" mask="0xFF" output_index="1"/>
+                            <Byte3 input_index="4" mask="0xFF" output_index="2"/>
+                        </Integer>
+                    </Substring>
+                </String>
+            </ReadFaults>
+            <WheelSpeed>
+				<Float scale="1" offset="0">
+					<Integer type="unsigned" bits="16" scale="1" offset="0">
+						<Byte1 input_index="1" mask="0xFF" output_index="0"/>
+                    </Integer>
+				</Float>
+			</WheelSpeed>
+
+            <ReadByteFromRegister>
+                <Integer type="unsigned" bits="8" scale="1" offset="0">
+                    <Byte1 input_index="1" mask="0xFF" output_index="0"/>
+                </Integer>
+            </ReadByteFromRegister>
+
+            <ReadPartNumberBcdToString>
+				<String>
+                    <Substring00 format="%02X">
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="1" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Substring00>
+                    <Substring01 format="%02X">
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte2 input_index="2" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Substring01>
+                </String>
+            </ReadPartNumberBcdToString>
+			<ReadPartNumberAsciiToString>
+				<String>
+                    <Substring00>
+                        <Chars input_index="1" mask="0xFF" length="1"/>
+                    </Substring00>
+                    <Substring01>
+                        <Chars input_index="2" mask="0xFF" length="1"/>
+                    </Substring01>
+                </String>
+            </ReadPartNumberAsciiToString>
+            <ReadTraceDataPid1>
+				<String>
+					<Substring00>
+						<Chars input_index="1" mask="0xFF" length="1"/>
+					</Substring00>
+					<Substring01>
+						<Chars input_index="2" mask="0xFF" length="1"/>
+					</Substring01>
+					<Substring02>
+						<Chars input_index="3" mask="0xFF" length="1"/>
+					</Substring02>
+                </String>
+            </ReadTraceDataPid1>
+            <ReadTraceDataPid2>
+				<String>
+					<Substring00>
+						<Chars input_index="1" mask="0xFF" length="1"/>
+					</Substring00>
+                    <Substring01 format="%02X">
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="2" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Substring01>
+                    <Substring02 format="%02X">
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Substring02>
+                </String>
+            </ReadTraceDataPid2>
+            <ReadTraceDataPid3>
+				<String>
+					<Substring00>
+						<Chars input_index="1" mask="0xFF" length="1"/>
+					</Substring00>
+                    <Substring01 format="%02X">
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="2" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Substring01>
+                    <Substring02 format="%02X">
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Substring02>
+                </String>
+            </ReadTraceDataPid3>
+            <ReadBrakeSwitchString>
+				<String>
+					<Substring>
+						<Chars input_index="1" mask="0x02" length="1">
+							<StringSubstitute00 condition="equals" compare="0x02" replace="On"/>
+							<StringSubstitute01 condition="equals" compare="0x00" replace="Off"/>
+						</Chars>
+					</Substring>
+				</String>
+			</ReadBrakeSwitchString>
+            <ReadBrakeSwitchBool>
+                <Boolean>
+                    <Byte1 input_index="1" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </ReadBrakeSwitchBool>
+		</ReplyInterpretations>
+	</SerialMessages>
+</TrwEbc325J2190ModuleInterface>

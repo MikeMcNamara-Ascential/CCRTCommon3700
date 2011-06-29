@@ -1,0 +1,112 @@
+
+An unexpected exception has been detected in native code outside the VM.
+Unexpected Signal : EXCEPTION_ACCESS_VIOLATION (0xc0000005) occurred at PC=0x2C9FB514
+Function=Java_sun_java2d_loops_MaskFill_MaskFill+0x6DE4
+Library=C:\Burke_PorterCCRT\jre\bin\awt.dll
+
+Current Java thread:
+	at sun.java2d.loops.Blit.Blit(Native Method)
+	at sun.java2d.pipe.DrawImage.blitSurfaceData(Unknown Source)
+	at sun.java2d.pipe.DrawImage.renderSurfaceData(Unknown Source)
+	at sun.java2d.pipe.DrawImage.copyImage(Unknown Source)
+	at sun.java2d.pipe.DrawImage.copyImage(Unknown Source)
+	at sun.java2d.pipe.DrawImage.copyImage(Unknown Source)
+	at sun.java2d.SunGraphics2D.drawImage(Unknown Source)
+	at sun.java2d.SunGraphics2D.drawImage(Unknown Source)
+	at javax.swing.JComponent.paintWithOffscreenBuffer(Unknown Source)
+	at javax.swing.JComponent.paintDoubleBuffered(Unknown Source)
+	at javax.swing.JComponent.paint(Unknown Source)
+	at java.awt.GraphicsCallback$PaintCallback.run(Unknown Source)
+	at sun.awt.SunGraphicsCallback.runOneComponent(Unknown Source)
+	at sun.awt.SunGraphicsCallback.runComponents(Unknown Source)
+	at java.awt.Container.paint(Unknown Source)
+	at sun.awt.RepaintArea.paint(Unknown Source)
+	at sun.awt.windows.WComponentPeer.handleEvent(Unknown Source)
+	at java.awt.Component.dispatchEventImpl(Unknown Source)
+	at java.awt.Container.dispatchEventImpl(Unknown Source)
+	at java.awt.Window.dispatchEventImpl(Unknown Source)
+	at java.awt.Component.dispatchEvent(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+
+Dynamic libraries:
+0x00400000 - 0x00407000 	C:\Burke_PorterCCRT\jre\bin\javaw.exe
+0x77F80000 - 0x77FFC000 	C:\WINNT\system32\ntdll.dll
+0x7C2D0000 - 0x7C335000 	C:\WINNT\system32\ADVAPI32.dll
+0x7C570000 - 0x7C624000 	C:\WINNT\system32\KERNEL32.dll
+0x77D30000 - 0x77D9F000 	C:\WINNT\system32\RPCRT4.dll
+0x77E10000 - 0x77E6F000 	C:\WINNT\system32\USER32.dll
+0x77F40000 - 0x77F7C000 	C:\WINNT\system32\GDI32.dll
+0x78000000 - 0x78045000 	C:\WINNT\system32\MSVCRT.dll
+0x08000000 - 0x08138000 	C:\Burke_PorterCCRT\jre\bin\client\jvm.dll
+0x77570000 - 0x775A0000 	C:\WINNT\system32\WINMM.dll
+0x10000000 - 0x10007000 	C:\Burke_PorterCCRT\jre\bin\hpi.dll
+0x007E0000 - 0x007EE000 	C:\Burke_PorterCCRT\jre\bin\verify.dll
+0x007F0000 - 0x00809000 	C:\Burke_PorterCCRT\jre\bin\java.dll
+0x00810000 - 0x0081D000 	C:\Burke_PorterCCRT\jre\bin\zip.dll
+0x2C9F0000 - 0x2CAFF000 	C:\Burke_PorterCCRT\jre\bin\awt.dll
+0x77800000 - 0x7781E000 	C:\WINNT\system32\WINSPOOL.DRV
+0x76620000 - 0x76631000 	C:\WINNT\system32\MPR.DLL
+0x75E60000 - 0x75E7A000 	C:\WINNT\system32\IMM32.dll
+0x7CE20000 - 0x7CF0F000 	C:\WINNT\system32\ole32.dll
+0x2CB00000 - 0x2CB50000 	C:\Burke_PorterCCRT\jre\bin\fontmanager.dll
+0x72800000 - 0x72846000 	C:\WINNT\system32\ddraw.dll
+0x728A0000 - 0x728A6000 	C:\WINNT\system32\DCIMAN32.dll
+0x2CBF0000 - 0x2CBFF000 	C:\Burke_PorterCCRT\jre\bin\net.dll
+0x75030000 - 0x75044000 	C:\WINNT\system32\WS2_32.dll
+0x75020000 - 0x75028000 	C:\WINNT\system32\WS2HELP.DLL
+0x782C0000 - 0x782CC000 	C:\WINNT\System32\rnr20.dll
+0x77980000 - 0x779A4000 	C:\WINNT\system32\DNSAPI.DLL
+0x75050000 - 0x75058000 	C:\WINNT\system32\WSOCK32.dll
+0x77340000 - 0x77353000 	C:\WINNT\system32\iphlpapi.dll
+0x77520000 - 0x77525000 	C:\WINNT\system32\ICMP.dll
+0x77320000 - 0x77337000 	C:\WINNT\system32\MPRAPI.dll
+0x75150000 - 0x75160000 	C:\WINNT\system32\SAMLIB.DLL
+0x7CDC0000 - 0x7CE10000 	C:\WINNT\system32\NETAPI32.DLL
+0x7C340000 - 0x7C34F000 	C:\WINNT\system32\Secur32.dll
+0x77BF0000 - 0x77C01000 	C:\WINNT\system32\NTDSAPI.dll
+0x77950000 - 0x7797B000 	C:\WINNT\system32\WLDAP32.DLL
+0x751C0000 - 0x751C6000 	C:\WINNT\system32\NETRAP.dll
+0x779B0000 - 0x77A4C000 	C:\WINNT\system32\OLEAUT32.DLL
+0x773B0000 - 0x773DF000 	C:\WINNT\system32\ACTIVEDS.DLL
+0x77380000 - 0x773A3000 	C:\WINNT\system32\ADSLDPC.DLL
+0x77830000 - 0x7783E000 	C:\WINNT\system32\RTUTILS.DLL
+0x77880000 - 0x7790E000 	C:\WINNT\system32\SETUPAPI.DLL
+0x7C0F0000 - 0x7C154000 	C:\WINNT\system32\USERENV.DLL
+0x774E0000 - 0x77514000 	C:\WINNT\system32\RASAPI32.dll
+0x774C0000 - 0x774D1000 	C:\WINNT\system32\rasman.dll
+0x77530000 - 0x77552000 	C:\WINNT\system32\TAPI32.dll
+0x71710000 - 0x71794000 	C:\WINNT\system32\COMCTL32.DLL
+0x70A70000 - 0x70AD6000 	C:\WINNT\system32\SHLWAPI.DLL
+0x77360000 - 0x77379000 	C:\WINNT\system32\DHCPCSVC.DLL
+0x777E0000 - 0x777E8000 	C:\WINNT\System32\winrnr.dll
+0x777F0000 - 0x777F5000 	C:\WINNT\system32\rasadhlp.dll
+0x74FD0000 - 0x74FEE000 	C:\WINNT\system32\msafd.dll
+0x75010000 - 0x75017000 	C:\WINNT\System32\wshtcpip.dll
+0x2D130000 - 0x2D14E000 	C:\Burke_PorterCCRT\jre\bin\jpeg.dll
+0x77920000 - 0x77943000 	C:\WINNT\system32\imagehlp.dll
+0x72A00000 - 0x72A2D000 	C:\WINNT\system32\DBGHELP.dll
+0x690A0000 - 0x690AB000 	C:\WINNT\system32\PSAPI.DLL
+
+Heap at VM Abort:
+Heap
+ def new generation   total 2304K, used 1833K [0x10010000, 0x10280000, 0x11d90000)
+  eden space 2112K,  86% used [0x10010000, 0x101d9400, 0x10220000)
+  from space 192K,   2% used [0x10250000, 0x102511d8, 0x10280000)
+  to   space 192K,   0% used [0x10220000, 0x10220000, 0x10250000)
+ tenured generation   total 30272K, used 2712K [0x11d90000, 0x13b20000, 0x28010000)
+   the space 30272K,   8% used [0x11d90000, 0x120361a8, 0x12036200, 0x13b20000)
+ compacting perm gen  total 4864K, used 4733K [0x28010000, 0x284d0000, 0x2c010000)
+   the space 4864K,  97% used [0x28010000, 0x284af648, 0x284af800, 0x284d0000)
+
+Local Time = Wed Dec 31 13:04:52 2008
+Elapsed Time = 14
+#
+# The exception above was detected in native code outside the VM
+#
+# Java VM: Java HotSpot(TM) Client VM (1.4.2_04-b05 mixed mode)
+#

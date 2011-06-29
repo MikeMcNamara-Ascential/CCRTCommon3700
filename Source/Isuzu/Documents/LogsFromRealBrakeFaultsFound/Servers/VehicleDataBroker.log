@@ -1,0 +1,307 @@
+€12/13/10 15:23:46.872 (1) core/VehicleDataBroker     Activated additional log [/home/CCRT/Rewrite/Logs/Servers/VehicleDataBroker.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:46.872 (1) core/VehicleDataBroker     BepComponent::Initialize()
+€
+€12/13/10 15:23:46.876 (1) core/VehicleDataBroker     Process core/VehicleDataBroker running at priority 10
+€
+€12/13/10 15:23:46.877 (1) core/VehicleDataBroker     Updated process core/VehicleDataBroker running at priority 10
+€
+€12/13/10 15:23:46.881 (1) core/VehicleDataBroker     BepComponent::Initialize(<VehicleDataBrokerConfig>
+   <Setup>
+      <ActiveVehicleData>
+         <AvtJ2190>
+            <SerialMessages>
+               <ReplyInterpretations>
+                  <AirbagReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </AirbagReadFaults>                  <ClusterReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </ClusterReadFaults>                  <SKIMReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </SKIMReadFaults>               </ReplyInterpretations>               <ReplyMessages>
+                  <AirbagReadDataByPid>
+                     <Reply_00>0x26,0x5A,0x62,0x??,0x??,0x??,0x??</Reply_00>                     <Reply_01>0x26,0x5A,0x62,0x??,0x??,0x??</Reply_01€
+€12/13/10 15:23:46.882 (1) core/VehicleDataBroker     Retrieved Publish tags
+€
+€12/13/10 15:23:46.882 (1) core/VehicleDataBroker     Cleared data from all lists
+€
+€12/13/10 15:23:46.885 (1) core/VehicleDataBroker     Stored all Publish Tags
+€
+€12/13/10 15:23:46.888 (1) core/VehicleDataBroker     Preparing to deal with subscribe tags:    <Setup>
+      <ActiveVehicleData>
+         <AvtJ2190>
+            <SerialMessages>
+               <ReplyInterpretations>
+                  <AirbagReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </AirbagReadFaults>                  <ClusterReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </ClusterReadFaults>                  <SKIMReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </SKIMReadFaults>               </ReplyInterpretations>               <ReplyMessages>
+                  <AirbagReadDataByPid>
+                     <Reply_00>0x26,0x5A,0x62,0x??,0x??,0x??,0x??</Reply_00>                     <Reply_01>0x26,0x5A,0x62,0x??,0x??,0x??</Reply_01>           €
+€12/13/10 15:23:46.889 (1) core/VehicleDataBroker     Retrieved Subscribe Tags
+€
+€12/13/10 15:23:46.889 (1) core/VehicleDataBroker     Stored all Subscribe Tags
+€
+€12/13/10 15:23:46.889 (1) core/VehicleDataBroker     Creating Thread Pool
+€
+€12/13/10 15:23:46.893 (1) core/VehicleDataBroker     BepServer::Initialize(<VehicleDataBrokerConfig>
+   <Setup>
+      <ActiveVehicleData>
+         <AvtJ2190>
+            <SerialMessages>
+               <ReplyInterpretations>
+                  <AirbagReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </AirbagReadFaults>                  <ClusterReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </ClusterReadFaults>                  <SKIMReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </SKIMReadFaults>               </ReplyInterpretations>               <ReplyMessages>
+                  <AirbagReadDataByPid>
+                     <Reply_00>0x26,0x5A,0x62,0x??,0x??,0x??,0x??</Reply_00>                     <Reply_01>0x26,0x5A,0x62,0x??,0x??,0x??</Reply_01>  €
+€12/13/10 15:23:46.898 (1) core/VehicleDataBroker     VehicleDataBroker::Initialize(<VehicleDataBrokerConfig>
+   <Setup>
+      <ActiveVehicleData>
+         <AvtJ2190>
+            <SerialMessages>
+               <ReplyInterpretations>
+                  <AirbagReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </AirbagReadFaults>                  <ClusterReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </ClusterReadFaults>                  <SKIMReadFaults>
+                     <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+                     <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+                  </SKIMReadFaults>               </ReplyInterpretations>               <ReplyMessages>
+                  <AirbagReadDataByPid>
+                     <Reply_00>0x26,0x5A,0x62,0x??,0x??,0x??,0x??</Reply_00>                     <Reply_01>0x26,0x5A,0x62,0x??,0x??,0x??</Rep€
+€12/13/10 15:23:46.898 (1) core/VehicleDataBroker     BepServer::SetData(<DriverNumber>T0000xx</DriverNumber>)
+€
+€12/13/10 15:23:46.899 (1) core/VehicleDataBroker     BepServer::SetData(<DriverNumber>T0000xx</DriverNumber>) done, returning Success
+€
+€12/13/10 15:23:46.899 (1) core/VehicleDataBroker     Invalid NotificationList in core/VehicleDataBroker or no subscribers
+€
+€12/13/10 15:23:46.899 (1) core/VehicleDataBroker     Could not open /home/CCRT/Rewrite/Configuration/Components/CommonModuleFaults.dat - No such file or directory€
+€12/13/10 15:23:52.329 (3) core/VehicleDataBroker     BepComponent::Subscribe(DriverNumber, core/TestResultServer)
+€
+€12/13/10 15:23:52.330 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: T0000xx€
+€12/13/10 15:23:52.330 (3) core/VehicleDataBroker     Additional log [Servers/VehicleDataBroker.log] already activated.€
+€12/13/10 15:23:52.333 (3) core/VehicleDataBroker     NotificationThreadSpinner::Initialize(<VehicleDataBrokerConfig>
+   <Setup>
+      <ActiveVehicleData>
+      <AvtJ2190>
+      <SerialMessages>
+      <ReplyInterpretations>
+      <AirbagReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </AirbagReadFaults>      <ClusterReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </ClusterReadFaults>      <SKIMReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </SKIMReadFaults>      </ReplyInterpretations>      <ReplyMessages>
+      <AirbagReadDataByPid>
+      <Reply_00>0x26,0x5A,0x62,0x??,0x??,0x??,0x??</Reply_00>      <Reply_01>0x26,0x5A,0x62,0x??,0x??,0x??</Reply_01>      <Reply_02>0x26,0x5A,0x7F,0x22,0x??,0x00</Reply_02>      </AirbagReadDataByPid>      <ClusterReadDataByPid>
+      <Reply00>0x26,0x60,0x62,0x??,0x??,0x??,0x??</Reply00>      <Reply01>0x26,0x60,0x62,0x??,0x??,0x??</Reply01>€
+€12/13/10 15:23:52.334 (3) core/VehicleDataBroker     Additional log [Servers/VehicleDataBroker.log] already activated.€
+€12/13/10 15:23:52.337 (3) core/VehicleDataBroker     NotificationList::Initialize(<VehicleDataBrokerConfig>
+   <Setup>
+      <ActiveVehicleData>
+      <AvtJ2190>
+      <SerialMessages>
+      <ReplyInterpretations>
+      <AirbagReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </AirbagReadFaults>      <ClusterReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </ClusterReadFaults>      <SKIMReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </SKIMReadFaults>      </ReplyInterpretations>      <ReplyMessages>
+      <AirbagReadDataByPid>
+      <Reply_00>0x26,0x5A,0x62,0x??,0x??,0x??,0x??</Reply_00>      <Reply_01>0x26,0x5A,0x62,0x??,0x??,0x??</Reply_01>      <Reply_02>0x26,0x5A,0x7F,0x22,0x??,0x00</Reply_02>      </AirbagReadDataByPid>      <ClusterReadDataByPid>
+      <Reply00>0x26,0x60,0x62,0x??,0x??,0x??,0x??</Reply00>      <Reply01>0x26,0x60,0x62,0x??,0x??,0x??</Reply01>      <Re€
+€12/13/10 15:23:52.340 (3) core/VehicleDataBroker     NotificationThreadSpinner::Initialize(<VehicleDataBrokerConfig>
+   <Setup>
+      <ActiveVehicleData>
+      <AvtJ2190>
+      <SerialMessages>
+      <ReplyInterpretations>
+      <AirbagReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </AirbagReadFaults>      <ClusterReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </ClusterReadFaults>      <SKIMReadFaults>
+      <Byte3 Desc="Fault Byte 1" Mask="0xFF"/>
+      <Byte4 Desc="Fault Byte 2" Mask="0xFF"/>
+      </SKIMReadFaults>      </ReplyInterpretations>      <ReplyMessages>
+      <AirbagReadDataByPid>
+      <Reply_00>0x26,0x5A,0x62,0x??,0x??,0x??,0x??</Reply_00>      <Reply_01>0x26,0x5A,0x62,0x??,0x??,0x??</Reply_01>      <Reply_02>0x26,0x5A,0x7F,0x22,0x??,0x00</Reply_02>      </AirbagReadDataByPid>      <ClusterReadDataByPid>
+      <Reply00>0x26,0x60,0x62,0x??,0x??,0x??,0x??</Reply00>      <Reply01>0x26,0x60,0x62,0x??,0x??,0x??</Reply01>€
+€12/13/10 15:23:52.340 (3) core/VehicleDataBroker     NotificationList::AddToList(DriverNumber, 0)
+€
+€12/13/10 15:23:52.340 (3) core/VehicleDataBroker     Adding elem for Tag: DriverNumber
+€
+€12/13/10 15:23:52.340 (3) core/VehicleDataBroker     Added new list and process for tag: DriverNumber
+€
+€12/13/10 15:23:52.341 (3) core/VehicleDataBroker     NotificationList::AddToList(DriverNumber, 0) done
+€
+€12/13/10 15:23:52.341 (3) core/VehicleDataBroker     BepComponent::Subscribe(DriverNumber core/TestResultServer) done returning T0000xx
+€
+€12/13/10 15:23:52.379 (3) core/VehicleDataBroker     BepComponent::Subscribe(VIN, core/TestResultServer)
+€
+€12/13/10 15:23:52.379 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: 1C3AY75S65A100030€
+€12/13/10 15:23:52.379 (3) core/VehicleDataBroker     NotificationList::AddToList(VIN, 0)
+€
+€12/13/10 15:23:52.379 (3) core/VehicleDataBroker     Adding elem for Tag: VIN
+€
+€12/13/10 15:23:52.379 (3) core/VehicleDataBroker     Added new list and process for tag: VIN
+€
+€12/13/10 15:23:52.379 (3) core/VehicleDataBroker     NotificationList::AddToList(VIN, 0) done
+€
+€12/13/10 15:23:52.379 (3) core/VehicleDataBroker     BepComponent::Subscribe(VIN core/TestResultServer) done returning 1C3AY75S65A100030
+€
+€12/13/10 15:23:52.382 (3) core/VehicleDataBroker     BepComponent::Subscribe(VehicleBuild, core/TestResultServer)
+€
+€12/13/10 15:23:52.382 (3) core/VehicleDataBroker     VehicleDataBroker::Read() - <VehicleBuild/>
+
+€
+€12/13/10 15:23:52.382 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: €
+€12/13/10 15:23:52.382 (3) core/VehicleDataBroker     NotificationList::AddToList(VehicleBuild, 0)
+€
+€12/13/10 15:23:52.382 (3) core/VehicleDataBroker     Adding elem for Tag: VehicleBuild
+€
+€12/13/10 15:23:52.382 (3) core/VehicleDataBroker     Added new list and process for tag: VehicleBuild
+€
+€12/13/10 15:23:52.382 (3) core/VehicleDataBroker     NotificationList::AddToList(VehicleBuild, 0) done
+€
+€12/13/10 15:23:52.382 (3) core/VehicleDataBroker     BepComponent::Subscribe(VehicleBuild core/TestResultServer) done returning 
+€
+€12/13/10 15:23:54.543 (3) core/VehicleDataBroker     Enter VehicleDataBroker::Register()
+€
+€12/13/10 15:23:54.544 (3) core/VehicleDataBroker     Exit VehicleDataBroker::Register()
+€
+€12/13/10 15:23:54.544 (3) core/VehicleDataBroker     Number Of Tags: 3, -1
+€
+€12/13/10 15:23:54.769 (3) core/VehicleDataBroker     BepServer::SubscribeTags() 0
+€
+€12/13/10 15:23:54.784 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: T0000xx€
+€12/13/10 15:23:54.790 (3) core/VehicleDataBroker     BepComponent::Subscribe(DriverNumber, core/Pendant)
+€
+€12/13/10 15:23:54.790 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: T0000xx€
+€12/13/10 15:23:54.791 (3) core/VehicleDataBroker     NotificationList::AddToList(DriverNumber, 0)
+€
+€12/13/10 15:23:54.791 (5) core/VehicleDataBroker     VehicleDataBroker::Publish(node:    <RollsDownElevUp>0</RollsDownElevUp>)
+€
+€12/13/10 15:23:54.791 (3) core/VehicleDataBroker     Adding elem for Tag: DriverNumber
+€
+€12/13/10 15:23:54.791 (5) core/VehicleDataBroker     BepServer::Publish(RollsDownElevUp)
+€
+€12/13/10 15:23:54.791 (3) core/VehicleDataBroker     Added process for tag: DriverNumber
+€
+€12/13/10 15:23:54.792 (3) core/VehicleDataBroker     NotificationList::AddToList(DriverNumber, 0) done
+€
+€12/13/10 15:23:54.792 (3) core/VehicleDataBroker     BepComponent::Subscribe(DriverNumber core/Pendant) done returning T0000xx
+€
+€12/13/10 15:23:54.792 (5) core/VehicleDataBroker     BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>)
+€
+€12/13/10 15:23:54.794 (5) core/VehicleDataBroker     BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>) done, returning Success
+€
+€12/13/10 15:23:54.919 (3) core/VehicleDataBroker     BepComponent::Subscribe(DriveAxle, core/MotorController)
+€
+€12/13/10 15:23:54.919 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: Front€
+€12/13/10 15:23:54.920 (3) core/VehicleDataBroker     NotificationList::AddToList(DriveAxle, 0)
+€
+€12/13/10 15:23:54.920 (3) core/VehicleDataBroker     Adding elem for Tag: DriveAxle
+€
+€12/13/10 15:23:54.920 (3) core/VehicleDataBroker     Added new list and process for tag: DriveAxle
+€
+€12/13/10 15:23:54.920 (3) core/VehicleDataBroker     NotificationList::AddToList(DriveAxle, 0) done
+€
+€12/13/10 15:23:54.920 (3) core/VehicleDataBroker     BepComponent::Subscribe(DriveAxle core/MotorController) done returning Front
+€
+€12/13/10 15:24:12.428 (3) core/VehicleDataBroker     BepServer::SetData(<BrakeActive>0</BrakeActive>)
+€
+€12/13/10 15:24:12.428 (3) core/VehicleDataBroker     BepServer::SetData(<BrakeActive>0</BrakeActive>) done, returning Success
+€
+€12/13/10 15:24:12.429 (3) core/VehicleDataBroker     NotificationThreadSpinner::Notify(   <BrakeActive>0</BrakeActive>)
+€
+€12/13/10 15:24:12.429 (6) core/VehicleDataBroker     NotificationThreadSpinner::SendNotification(<BrakeActive>0</BrakeActive>)
+€
+€12/13/10 15:24:12.429 (6) core/VehicleDataBroker     NotificationList::Notify(<BrakeActive>0</BrakeActive>)
+€
+€12/13/10 15:24:12.430 (6) core/VehicleDataBroker     NotificationList::Notify locked(<BrakeActive>0</BrakeActive>)
+€
+€12/13/10 15:24:12.431 (6) core/VehicleDataBroker     NotificationList::Notify unlocked(<BrakeActive>0</BrakeActive>)
+€
+€12/13/10 15:24:12.431 (6) core/VehicleDataBroker     NotificationThreadSpinner::SendNotification(<BrakeActive>0</BrakeActive>) done
+€
+€12/13/10 15:24:32.705 (3) core/VehicleDataBroker     BepComponent::Subscribe(ABSPartNo, Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml)
+€
+€12/13/10 15:24:32.705 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: 05273138AA€
+€12/13/10 15:24:32.705 (3) core/VehicleDataBroker     NotificationList::AddToList(ABSPartNo, 0)
+€
+€12/13/10 15:24:32.705 (3) core/VehicleDataBroker     Adding elem for Tag: ABSPartNo
+€
+€12/13/10 15:24:32.706 (3) core/VehicleDataBroker     Added new list and process for tag: ABSPartNo
+€
+€12/13/10 15:24:32.706 (3) core/VehicleDataBroker     NotificationList::AddToList(ABSPartNo, 0) done
+€
+€12/13/10 15:24:32.706 (3) core/VehicleDataBroker     BepComponent::Subscribe(ABSPartNo Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml) done returning 05273138AA
+€
+€12/13/10 15:24:32.718 (3) core/VehicleDataBroker     BepComponent::Subscribe(DriveAxle, Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml)
+€
+€12/13/10 15:24:32.719 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: Front€
+€12/13/10 15:24:32.719 (3) core/VehicleDataBroker     NotificationList::AddToList(DriveAxle, 0)
+€
+€12/13/10 15:24:32.719 (3) core/VehicleDataBroker     Adding elem for Tag: DriveAxle
+€
+€12/13/10 15:24:32.719 (3) core/VehicleDataBroker     Added process for tag: DriveAxle
+€
+€12/13/10 15:24:32.719 (3) core/VehicleDataBroker     NotificationList::AddToList(DriveAxle, 0) done
+€
+€12/13/10 15:24:32.719 (3) core/VehicleDataBroker     BepComponent::Subscribe(DriveAxle Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml) done returning Front
+€
+€12/13/10 15:24:32.744 (3) core/VehicleDataBroker     BepComponent::Subscribe(VIN, Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml)
+€
+€12/13/10 15:24:32.744 (3) core/VehicleDataBroker     VehicleDataBroker::Read() returning: 1C3AY75S65A100030€
+€12/13/10 15:24:32.744 (3) core/VehicleDataBroker     NotificationList::AddToList(VIN, 0)
+€
+€12/13/10 15:24:32.744 (3) core/VehicleDataBroker     Adding elem for Tag: VIN
+€
+€12/13/10 15:24:32.744 (3) core/VehicleDataBroker     Added process for tag: VIN
+€
+€12/13/10 15:24:32.744 (3) core/VehicleDataBroker     NotificationList::AddToList(VIN, 0) done
+€
+€12/13/10 15:24:32.744 (3) core/VehicleDataBroker     BepComponent::Subscribe(VIN Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml) done returning 1C3AY75S65A100030
+€
+€12/13/10 15:25:04.416 (3) core/VehicleDataBroker     Removing Tag: ABSPartNo
+€
+€12/13/10 15:25:04.416 (3) core/VehicleDataBroker     list loop Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml
+€
+€12/13/10 15:25:04.416 (3) core/VehicleDataBroker     NotificationList Removed: Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml for tag ABSPartNo
+€
+€12/13/10 15:25:04.419 (5) core/VehicleDataBroker     Removing Tag: DriveAxle
+€
+€12/13/10 15:25:04.420 (5) core/VehicleDataBroker     list loop Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml
+€
+€12/13/10 15:25:04.420 (5) core/VehicleDataBroker     NotificationList Removed: Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml fo

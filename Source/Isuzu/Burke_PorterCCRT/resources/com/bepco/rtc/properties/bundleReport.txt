@@ -1,0 +1,88 @@
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Backuper.properties
+# Properties changed between new file and old file (new property listed)
+backup.all.script=ntbackup backup "@C:\\Burke_PorterCCRT\\ccrt.bks" /L:f /j "CCRT full backup job" /F "@C:\\backups\\ccrt.bkf"
+backup.configuration.script=ntbackup backup "@C:\\Burke_PorterCCRT\\configuration.bks" /L:f /j "CCRT configuration backup job" /F "@C:\\backups\\configuration.bkf"
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Colors.constants
+# Properties changed between new file and old file (new property listed)
+bordercolor = 100 100 100
+lfcolor = 255 0 0
+rfcolor = 0 255 0
+lrcolor = 0 0 255
+rrcolor = 255 0 255
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.constants
+# Properties in new file but missing from old 
+commandpulsebutton.led.image.0=/com/bepco/resource/led_gray_on.png
+commandpulsebutton.led.image.1=/com/bepco/resource/led_yellow_on.png
+commandpulsebutton.led.image.2=/com/bepco/resource/led_green_on.png
+commandpulsebutton.led.image.3=/com/bepco/resource/led_red_on.png
+commandholdbutton.led.image.0=/com/bepco/resource/led_gray_on.png
+commandholdbutton.led.image.1=/com/bepco/resource/led_yellow_on.png
+commandholdbutton.led.image.2=/com/bepco/resource/led_green_on.png
+commandholdbutton.led.image.3=/com/bepco/resource/led_red_on.png
+commandtogglebutton.led.image.0=/com/bepco/resource/led_gray_on.png
+commandtogglebutton.led.image.1=/com/bepco/resource/led_yellow_on.png
+commandtogglebutton.led.image.2=/com/bepco/resource/led_green_on.png
+commandtogglebutton.led.image.3=/com/bepco/resource/led_red_on.png
+commandtxtbutton.led.image.0=/com/bepco/resource/led_gray_on.png
+commandtxtbutton.led.image.1=/com/bepco/resource/led_yellow_on.png
+commandtxtbutton.led.image.2=/com/bepco/resource/led_green_on.png
+commandtxtbutton.led.image.3=/com/bepco/resource/led_red_on.png
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties in new file but missing from old 
+commandpulsebutton.pulseTest.label=Pulse Test
+commandholdbutton.holdTest.label=Hold Test
+commandtogglebutton.toggleTest.label=Toggle Test
+commandtxtbutton.txtTest.label=Text Test
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties changed between new file and old file (new property listed)
+label.accelspeed.text=Acceleration
+label.axleratio.text=AxleRatio
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/DriveCurveView.constants
+# Properties in new file but missing from old 
+panel.brakeforce.chartarea.background=white
+panel.brakeforce.chartarea.foreground=100 100 100
+panel.brakeforce.xaxis.color=100 100 100
+panel.brakeforce.yaxis.color=100 100 100
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/DriveCurveView.properties
+# Properties in new file but missing from old 
+panel.brakeforce.xaxis.title=Time (s)
+panel.brakeforce.yaxis.title=Force (lbf)
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/EnterVinDialog.properties
+# Properties in new file but missing from old 
+panel.entervindialog.title=Enter Vehicle Barcode Number
+main.icon=/com/bepco/rtc/images/CCRT_app_icon64.png
+button.cancel.text=Close
+button.enter.text=Enter VIN
+barcode.vcnumber.startindex=0
+barcode.vcnumber.length=3
+barcode.vcnumber.datatag=VCNumber
+barcode.vin.startindex=5
+barcode.vin.length=17
+barcode.vin.datatag=NextVIN
+barcode.display.datatag=VINDisplay
+barcode.error.insufficientlength=Barcode Number Not Long Enough!
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/GuiTestResultViewerApp.properties
+# Properties in new file but missing from old 
+command.resendResult.QNXUserName=CCRT
+command.savereport.defaultOpenPath=C:\\
+command.savereport.defaultSavePath=C:\\
+button.savereports.text=Save Report
+button.tooltip.savereports.text=Save Electronic Copy Of the Test Report
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts.properties
+# Properties changed between new file and old file (new property listed)
+PerformingFinishUp = Performing FinishUp
+PressSpeedoButtonAtSpeed = Press SPEEDO TEST button at test speed
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/TestStatusColors.constants
+# Properties in new file but missing from old 
+UntestedTab = darkGray
+
+

@@ -1,0 +1,1 @@
+../Bin/ElectricMotorController -f ../../Configuration/Servers/ElectricMotorControllerConfig.xml &

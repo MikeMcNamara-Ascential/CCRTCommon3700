@@ -1,0 +1,2 @@
+../Bin/SendCmd -tRegister -xRegister,0 -ncore/InputServer
+

@@ -1,0 +1,45 @@
+<GenericABSModuleTemplate>
+  <SerialMessages>
+    <VehicleMessages>
+      <ReadSensorSpeeds>
+        <TransmitMessage>ReadData</TransmitMessage>
+        <TransmitInterpretation/>
+        <ReplyMessage>ReadData</ReplyMessage>
+        <ReplyInterpretationLF>ReadLFSensor</ReplyInterpretationLF>
+        <ReplyInterpretationRF>ReadRFSensor</ReplyInterpretationRF>
+        <ReplyInterpretationLR>ReadLRSensor</ReplyInterpretationLR>
+        <ReplyInterpretationRR>ReadRRSensor</ReplyInterpretationRR>
+      </ReadSensorSpeeds>
+    </VehicleMessages>
+    <ReplyInterpretations>
+      <ReadLFSensor>
+        <Float scale="1.1" offset="0">
+          <Integer type="unsigned" scale="1.0" offset="0.0">
+            <Byte input_index="0" mask="0xFF" output_index="0"/>
+          </Integer>
+        </Float>
+      </ReadLFSensor>
+      <ReadRFSensor>
+        <Float scale="1.1" offset="0">
+          <Integer type="unsigned" scale="1.0" offset="0.0">
+            <Byte input_index="1" mask="0xFF" output_index="0"/>
+          </Integer>
+        </Float>
+      </ReadRFSensor>
+      <ReadLRSensor>
+        <Float scale="1.1" offset="0">
+          <Integer type="unsigned" scale="1.0" offset="0.0">
+            <Byte input_index="2" mask="0xFF" output_index="0"/>
+          </Integer>
+        </Float>
+      </ReadLRSensor>
+      <ReadRRSensor>
+        <Float scale="1.1" offset="0">
+          <Integer type="unsigned" scale="1.0" offset="0.0">
+            <Byte input_index="3" mask="0xFF" output_index="0"/>
+          </Integer>
+        </Float>
+      </ReadRRSensor>
+    </ReplyInterpretations>
+  </SerialMessages>
+</GenericABSModuleTemplate>

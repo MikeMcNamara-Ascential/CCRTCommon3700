@@ -1,0 +1,7 @@
+E:\Projects\Ccrt2\DatabaseLibrary\CcrtDatabaseLibrary\bin\Debug\CcrtDataBaseLibrary.dll
+E:\Projects\Ccrt2\DatabaseLibrary\CcrtDatabaseLibrary\bin\Debug\CcrtDataBaseLibrary.pdb
+E:\Projects\Ccrt2\DatabaseLibrary\CcrtDatabaseLibrary\bin\Debug\SerialPortLibrary.dll
+E:\Projects\Ccrt2\DatabaseLibrary\CcrtDatabaseLibrary\bin\Debug\SerialPortLibrary.pdb
+E:\Projects\Ccrt2\DatabaseLibrary\CcrtDatabaseLibrary\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\Ccrt2\DatabaseLibrary\CcrtDatabaseLibrary\obj\Debug\CcrtDataBaseLibrary.dll
+E:\Projects\Ccrt2\DatabaseLibrary\CcrtDatabaseLibrary\obj\Debug\CcrtDataBaseLibrary.pdb

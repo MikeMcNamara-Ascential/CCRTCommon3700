@@ -1,0 +1,2 @@
+../Bin/SerialServer.qxe -f ../../Configuration/Servers/SerialServerConfig.xml &
+

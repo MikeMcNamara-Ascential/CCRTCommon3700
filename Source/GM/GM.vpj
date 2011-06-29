@@ -1,0 +1,386 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.1/vpj.dtd">
+<Project
+	Version="9.1"
+	VendorName="SlickEdit"
+	WorkingDir=".">
+	<Config
+		Name="Release"
+		OutputFile=""
+		CompilerConfigName="Latest Version">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec CmdLine='"GM.exe"'/>
+			</Target>
+		</Menu>
+	</Config>
+	<CustomFolders>
+		<Folder
+			Name="Source Files"
+			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl">
+		</Folder>
+		<Folder
+			Name="Header Files"
+			Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.inc;*.sh;*.cpy;*.if">
+		</Folder>
+		<Folder
+			Name="Resource Files"
+			Filters="*.ico;*.cur;*.dlg"/>
+		<Folder
+			Name="Bitmaps"
+			Filters="*.bmp"/>
+		<Folder
+			Name="Other Files"
+			Filters=""/>
+	</CustomFolders>
+	<Files AutoFolders="DirectoryView">
+		<Folder Name="ApplicationLayer">
+			<Folder Name="TestComponents">
+				<Folder Name="Brake">
+					<Folder Name="GM">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/GM/Configuration/CMakeLists.txt"/>
+							<F N="ApplicationLayer/TestComponents/Brake/GM/Configuration/GM.AMG.BrakeTCConfig.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/GM/Configuration/GM.BrakeTCConfig.xml"/>
+						</Folder>
+						<F N="ApplicationLayer/TestComponents/Brake/GM/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Brake/GM/GMBrakeTC.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/GM/GMBrakeTCMain.cpp"/>
+					</Folder>
+					<Folder Name="Include">
+						<F N="ApplicationLayer/TestComponents/Brake/Include/GMBrakeTC.h"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/Brake/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="Common">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/Common/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Common/Configuration/GM.FaultList.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/Common/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="LossCompensation">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/GM.AMG.LossCompensation.xml"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/GM.Gravatai.LossCompensation.xml"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/GM.Gunsan.LossCompensation.xml"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/GM.Holden.LossCompensation.xml"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/GM.LossCompensation.xml"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/GM.Rosario.LossCompensation.xml"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/GM.SaoCaetano.3658.LossCompensation.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/LossCompensation/CMakeLists.txt"/>
+					<F N="ApplicationLayer/TestComponents/LossCompensation/GMLossCompensation.cpp"/>
+					<F N="ApplicationLayer/TestComponents/LossCompensation/GMLossCompensation.h"/>
+					<F N="ApplicationLayer/TestComponents/LossCompensation/GMLossCompensationMain.cpp"/>
+				</Folder>
+				<Folder Name="Machine">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/Machine/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Machine/Configuration/GM.LCMachineComponent.xml"/>
+						<F N="ApplicationLayer/TestComponents/Machine/Configuration/GM.MachineComponent.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/Machine/CMakeLists.txt"/>
+					<F N="ApplicationLayer/TestComponents/Machine/GMMachineTC.cpp"/>
+					<F N="ApplicationLayer/TestComponents/Machine/GMMachineTC.h"/>
+					<F N="ApplicationLayer/TestComponents/Machine/GMMachineTCMain.cpp"/>
+				</Folder>
+				<Folder Name="TransferCase">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/TransferCase/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/TransferCase/Configuration/GM.TcaseTC.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/TransferCase/CMakeLists.txt"/>
+				</Folder>
+				<F N="ApplicationLayer/TestComponents/CMakeLists.txt"/>
+			</Folder>
+			<Folder Name="VehicleTest">
+				<Folder Name="Configuration">
+					<Folder Name="BuildRecords">
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/CMakeLists.txt"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/Vin00000000.xml"/>
+					</Folder>
+					<Folder Name="DriveCurves">
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/GM.DriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/GM.LossCompensationDriveCurve.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/VehicleTest/Configuration/CMakeLists.txt"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/GM.SaoCaetano.VehicleTestConfig.xml"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/GM.SelectionTable.xml"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/GM.VehicleTestConfig.xml"/>
+				</Folder>
+				<F N="ApplicationLayer/VehicleTest/CMakeLists.txt"/>
+				<F N="ApplicationLayer/VehicleTest/GMVehicleTest.cpp"/>
+				<F N="ApplicationLayer/VehicleTest/GMVehicleTest.h"/>
+				<F N="ApplicationLayer/VehicleTest/GMVehicleTestMain.cpp"/>
+			</Folder>
+			<F N="ApplicationLayer/CMakeLists.txt"/>
+		</Folder>
+		<Folder Name="ClientConfigurations">
+			<F N="ClientConfigurations/CMakeLists.txt"/>
+			<F N="ClientConfigurations/GM.PLCDisplayConfig.xml"/>
+		</Folder>
+		<Folder Name="Documentation">
+			<F N="Documentation/GmFaultList.txt"/>
+		</Folder>
+		<Folder Name="ServicesLayer">
+			<Folder Name="Include">
+				<F N="ServicesLayer/Include/DvtProcess.h"/>
+				<F N="ServicesLayer/Include/GmBepTagDefs.h"/>
+				<F N="ServicesLayer/Include/JLH_Helper.h"/>
+			</Folder>
+			<Folder Name="Managers">
+				<Folder Name="ICM">
+					<Folder Name="IpIcm">
+						<Folder Name="Configuration">
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/CMakeLists.txt"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.507106.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.AMG.1.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.AMG.2.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.BEP.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Dongyue.50755901.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Dongyue.50755902.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Dongyue.50755903.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Gravatai.4121.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Gravatai.4122.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Gunsan.3768.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Gunsan.3769.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Gunsan.3770.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Holden.1.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Holden.2.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Holden.3.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Ramos.50759601.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Ramos.50759602.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Rosario.2939.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Rosario.3235.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.SaoCaetano.507400.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.SaoCaetano.50753401.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.SaoCaetano.50753402.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.SaoCaetano.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.SaoJose.3659.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.SaoJose.3958.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Thailand.507282.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Thailand.507392.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Thailand.507598.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Uzbekistan.507223.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Uzbekistan.507549.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/GM.Vietnam.507239.IpIcmConfig.xml"/>
+						</Folder>
+						<F N="ServicesLayer/Managers/ICM/IpIcm/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Managers/ICM/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="PlcMgr">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/GM.AMG.SerialPlcConfig.xml"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/GM.Gunsan.SerialPlcConfig.xml"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/GM.Holden.SerialPlcConfig.xml"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/GM.PlcConfig.xml"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/GM.SaoCaetano.3658.SerialPlcConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Managers/PlcMgr/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="SerialServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.AMG.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.BEP.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.Gravatai.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.Gunsan.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.Holden.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.SaoCaetano.3658.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.SaoJose.3958.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.Thailand.507282.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.Thailand.507392.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.Uzbekistan.507223.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/GM.Vietnam.507239.SerialServerConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Managers/SerialServer/CMakeLists.txt"/>
+				</Folder>
+				<F N="ServicesLayer/Managers/CMakeLists.txt"/>
+			</Folder>
+			<Folder Name="Servers">
+				<Folder Name="FaultServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/FaultServer/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/FaultServer/Configuration/GM.FaultServerConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/FaultServer/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="Gen3Interface">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/Gen3InterfaceConfig.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.AMG.Gen3InterfaceConfig.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.AMG.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Dongyue.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Gravatai.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Gunsan.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Halol.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Holden.Gen3InterfaceConfig.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Holden.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Ramos.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Rosario.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.SaoCaetano.507400.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.SaoCaetano.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Thailand.507392.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Thailand.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Uzbekistan.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/GM.Vietnam.WheelbasePositionTable.xml"/>
+						<F N="ServicesLayer/Servers/Gen3Interface/Configuration/WheelbasePositionTable.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/Gen3Interface/CMakeLists.txt"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3Incoming.cpp"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3Incoming.h"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3Interface.cpp"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3Interface.h"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3InterfaceMain.cpp"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3Message.cpp"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3Message.h"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3Outgoing.cpp"/>
+					<F N="ServicesLayer/Servers/Gen3Interface/Gen3Outgoing.h"/>
+				</Folder>
+				<Folder Name="Launcher">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/Launcher/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.AMG.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.BEP.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.Gravatai.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.Gunsan.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.Rosario.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.SaoCaetano.3658.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.SaoJose.3659.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/GM.SaoJose.3958.LauncherConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/Launcher/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="MachineDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/GM.AMG.MachineDataBrokerConfig.xml"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/GM.Gunsan.MachineDataBrokerConfig.xml"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/GM.Holden.MachineDataBrokerConfig.xml"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/GM.MachineDataBroker3600Config.xml"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/GM.MachineDataBroker360Config.xml"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/GM.MachineDataBrokerConfig.xml"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/GM.SaoCaetano.3658.MachineDataBrokerConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="MotorController">
+					<Folder Name="Electric">
+						<Folder Name="AB">
+							<Folder Name="Configuration">
+								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/CMakeLists.txt"/>
+								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/GM.ABMotorControllerConfig.xml"/>
+								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/GM.AMG.ABMotorControllerConfig.xml"/>
+								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/GM.Holden.ABMotorControllerConfig.xml"/>
+								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/GM.Ramos.ABMotorControllerConfig.xml"/>
+							</Folder>
+							<F N="ServicesLayer/Servers/MotorController/Electric/AB/CMakeLists.txt"/>
+						</Folder>
+						<Folder Name="Baldor">
+							<Folder Name="Configuration">
+								<F N="ServicesLayer/Servers/MotorController/Electric/Baldor/Configuration/CMakeLists.txt"/>
+								<F N="ServicesLayer/Servers/MotorController/Electric/Baldor/Configuration/GM.AMG.BaldorMotorControllerConfig.xml"/>
+								<F N="ServicesLayer/Servers/MotorController/Electric/Baldor/Configuration/GM.BaldorMotorControllerConfig.xml"/>
+								<F N="ServicesLayer/Servers/MotorController/Electric/Baldor/Configuration/GM.SaoCaetano.BaldorMotorControllerConfig.xml"/>
+							</Folder>
+							<F N="ServicesLayer/Servers/MotorController/Electric/Baldor/CMakeLists.txt"/>
+						</Folder>
+						<F N="ServicesLayer/Servers/MotorController/Electric/CMakeLists.txt"/>
+					</Folder>
+					<Folder Name="Hydraulic">
+						<Folder Name="Configuration">
+							<F N="ServicesLayer/Servers/MotorController/Hydraulic/Configuration/CMakeLists.txt"/>
+							<F N="ServicesLayer/Servers/MotorController/Hydraulic/Configuration/GM.HydraulicMotorControllerConfig.xml"/>
+						</Folder>
+						<F N="ServicesLayer/Servers/MotorController/Hydraulic/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/MotorController/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="PromptServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PromptServer/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PromptServer/Configuration/GM.PromptServerConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/PromptServer/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="SystemMonitor">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/GM.SystemMonitorConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/SystemMonitor/CMakeLists.txt"/>
+					<F N="ServicesLayer/Servers/SystemMonitor/GmSystemMonitor.cpp"/>
+					<F N="ServicesLayer/Servers/SystemMonitor/GmSystemMonitor.h"/>
+					<F N="ServicesLayer/Servers/SystemMonitor/GmSystemMonitorMain.cpp"/>
+				</Folder>
+				<Folder Name="TestResultServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/TestResultServer/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/TestResultServer/Configuration/GM.TestResultServerConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/TestResultServer/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="VehicleDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/GM.VehicleDataBrokerConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/VehicleDataBroker/CMakeLists.txt"/>
+				</Folder>
+				<F N="ServicesLayer/Servers/CMakeLists.txt"/>
+			</Folder>
+			<F N="ServicesLayer/CMakeLists.txt"/>
+		</Folder>
+		<F N="507208 - GM AM General.txt"/>
+		<F N="507233 - GM Uzbekistan Notes.txt"/>
+		<F N="507239 - GM Vietnam Vidamco Notes.txt"/>
+		<F N="507262 - GM Holden Notes.txt"/>
+		<F N="CMakeLists.txt"/>
+		<F N="UninstallCoreCfgFile.cmake"/>
+	</Files>
+	<CompatibleVersions>
+		<PrevVersion VersionNumber="9.0"/>
+	</CompatibleVersions>
+</Project>

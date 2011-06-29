@@ -1,0 +1,333 @@
+<PlantHostInbound>
+  <Setup>
+    <Debug>Off</Debug>
+    <InputServer>core/InputServer</InputServer>
+    <Broadcast>
+      <BuildRecordMap>/Configuration/VehicleBuildRecord.xml</BuildRecordMap>
+      <Data>
+        <MessageDescriptionLength>50</MessageDescriptionLength>
+        <TestDataSectionLength>17</TestDataSectionLength>
+        <PartNumberSectionLength>60</PartNumberSectionLength>
+        <TestCodeSectionLength>28</TestCodeSectionLength>
+        <WccTimeIndex>157</WccTimeIndex>
+        <WccTimeLength>4</WccTimeLength>
+        <WccDateIndex>162</WccDateIndex>
+        <WccDateLength>6</WccDateLength>
+        <WccChecksumIndex>168</WccChecksumIndex>
+      </Data>
+      <BroadcastCommunication>
+        <Setup>
+          <Communication>
+            <Name>/dev/LogicalPorts/Wcc</Name>
+            <BufferSize>2000</BufferSize>
+            <Timeout>3000</Timeout>
+            <Debug>Off</Debug>
+          </Communication>
+          <Logging>
+            <ProcessName>BroadcastCommunication</ProcessName>
+            <Status>Disabled</Status>
+            <AdditionalLogFile Types="/Servers/BroadCastCommunication.log or Disabled">/Servers/BroadCastCommunication.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+          </Logging>
+          <MaxAttempts>3</MaxAttempts>
+          <MaxResponseTime>3000</MaxResponseTime>
+          <MessageDelay>100</MessageDelay>
+        </Setup>
+      </BroadcastCommunication>
+      <RequestHandlerConfig>
+        <Setup>
+          <Communication>
+            <Name>/dev/LogicalPorts/Wcc</Name>
+            <BufferSize>2000</BufferSize>
+            <Timeout>5000</Timeout>
+            <Debug>Off</Debug>
+          </Communication>
+          <Logging>
+            <Debug>Off</Debug>
+            <ProcessName>Blank</ProcessName>
+            <Status>Disable</Status>
+            <AdditionalLogFile Types="/Server/RequestHandler.log or Disabled">Disabled</AdditionalLogFile>
+            <LocalEcho>Disable</LocalEcho>
+            <Verbose>0x00</Verbose>
+          </Logging>
+          <WccRequests>
+            <CommunicationCheck>0</CommunicationCheck>
+          </WccRequests>
+          <RequestResponses>
+            <CommunicationCheck>R1</CommunicationCheck>
+          </RequestResponses>
+          <MaxAttempts>3</MaxAttempts>
+          <MessageDelay>25</MessageDelay>
+          <MaxRequestLength>5</MaxRequestLength>
+        </Setup>
+      </RequestHandlerConfig>
+    </Broadcast>
+    <Communication>
+      <Type>Server</Type>
+      <Debug>Off</Debug>
+      <Name>core/PlantHostInbound</Name>
+      <Comm>IPC</Comm>
+      <Timeout>1000</Timeout>
+      <BufferSize>2000</BufferSize>
+    </Communication>
+    <DCLCommunication>
+      <Setup>
+        <Communication>
+          <Name>/dev/LogicalPorts/DCL</Name>
+          <BufferSize>2000</BufferSize>
+          <Timeout>3000</Timeout>
+          <Debug>Off</Debug>
+        </Communication>
+        <Logging>
+          <ProcessName>DCLCommsIn</ProcessName>
+          <Status>Disabled</Status>
+          <AdditionalLogFile Types="/Servers/DCLCommsIn.log">/Communication/DCLCommsIn.log</AdditionalLogFile>
+          <Debug>Off</Debug>
+          <LocalEcho>Disabled</LocalEcho>
+          <Verbose>0x1F</Verbose>
+        </Logging>
+        <ResultStrings>
+          <Pass>0x02</Pass>
+          <Fail>0xFF</Fail>
+          <Abort>0xFE</Abort>
+          <TestInProgress>0x01</TestInProgress>
+        </ResultStrings>
+        <MaxAttempts>3</MaxAttempts>
+        <MaxResponseTime>3000</MaxResponseTime>
+        <MessageDelay>100</MessageDelay>
+        <ExpectedMessageLength>22</ExpectedMessageLength>
+        <SetIncomingMessageID>0x2B</SetIncomingMessageID>
+      </Setup>
+    </DCLCommunication>
+    <DataTags>
+      <VehicleBuild>NextVehicleBuild</VehicleBuild>
+      <BuildRecord>BuildRecord</BuildRecord>
+      <Vin>VIN</Vin>
+      <NextVIN>NextVIN</NextVIN>
+      <VINDisplay>VINDisplay</VINDisplay>
+      <VINReadStatus>VINReadStatus</VINReadStatus>
+      <VehiclePresent>VehiclePresent</VehiclePresent>
+      <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+      <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
+      <VehicleType>VehicleType</VehicleType>
+      <RequestDclResend>RequestDclResend</RequestDclResend>
+      <PlanthostOutboundName>core/PlantHostOutbound</PlanthostOutboundName>
+    </DataTags>
+    <Logging>
+      <Status>Disabled</Status>
+      <ProcessName>core/PlantHostInbound</ProcessName>
+      <AdditionalLogFile Type="/Servers/FordDCLIn.log or Disabled">/Servers/FordDCLIn.log</AdditionalLogFile>
+      <LocalEcho>Disabled</LocalEcho>
+      <Verbose>0x1F</Verbose>
+      <Debug>Off</Debug>
+    </Logging>
+    <TagList>
+      <SubscribeTags>
+        <RollsDownElevUp/>
+        <NextVIN/>
+      </SubscribeTags>
+      <PublishTags>
+        <VehicleBuildRecordStatus/>
+        <BuildRecord/>
+        <StopCurrentTest>0</StopCurrentTest>
+      </PublishTags>
+    </TagList>
+    <ThreadPool>
+      <Debug>Off</Debug>
+      <MinBlockedLimit>2</MinBlockedLimit>
+      <MaxBlockedLimit>7</MaxBlockedLimit>
+      <Increment>2</Increment>
+      <Maximum>10</Maximum>
+    </ThreadPool>
+    <NotificationList>
+      <Setup>
+        <Debug>Off</Debug>
+        <HighWater>3</HighWater>
+        <Increment>1</Increment>
+        <LowWater>1</LowWater>
+        <Maximum>5</Maximum>
+        <StartOnCreate>No</StartOnCreate>
+      </Setup>
+    </NotificationList>
+    <VehicleBuildFilePath>/Configuration/VehicleTest/BuildRecords1/</VehicleBuildFilePath>
+    <VehicleBuildRecordSource Type="File, Broadcast, None">Broadcast</VehicleBuildRecordSource>
+    <!-- <WheelbaseConfigFile>/Configuration/WheelbaseConfig.xml</WheelbaseConfigFile> -->
+  </Setup>
+  <DCLTests>
+    <Test00>
+      <!-- No Prompt -->
+      <Value>NOTEST</Value>
+    </Test00>
+    <Test01>
+      <!-- Start ABS Sensor Test [DABSSEN0] -->
+      <Value>DABSSEN0</Value>
+    </Test01>
+    <Test02>
+      <!-- Start Brake Test [DBRAKE_0] -->
+      <Value>DBRAKE_0</Value>
+    </Test02>
+    <Test03>
+      <!-- Start Parking Brake/Pawl Test (FWD) [DPBRKPL0] -->
+      <Value>DPBRKPL0</Value>
+    </Test03>
+    <Test04>
+      <!-- Start Parking Pawl Test (RWD) [DPRKPWL0] -->
+      <Value>DPRKPWL0</Value>
+    </Test04>
+    <Test05>
+      <!-- Unused -->
+      <Value>NOTEST</Value>
+    </Test05>
+    <Test06>
+      <!-- Start Speed Control Test [DSPDTRL0] -->
+      <Value>DSPDTRL0</Value>
+    </Test06>
+    <Test07>
+      <!-- Start Axle Ratio Test [DAXLRAT0] -->
+      <Value>DAXLRAT0</Value>
+    </Test07>
+    <Test08>
+      <!-- Start Reverse Test [DREV_GR0] -->
+      <Value>DREV_GR0</Value>
+    </Test08>
+    <Test09>
+      <!-- Start Vehicle Test [PBPROLL0] -->
+      <Value>PBPROLL0</Value>
+    </Test09>
+    <Test0A>
+      <!-- Start Parking Brake Test (RWD) [DPRKBRK0] -->
+      <Value>DPRKBRK0</Value>
+    </Test0A>
+    <Test0B>
+      <!-- Start Parking Brake Test (Dynamic) [DYNPBRK0] -->
+      <Value>DYNPBRK0</Value>
+    </Test0B>
+    <Test0C>
+      <!-- Start ABS Module ID Test [DABS_ID0] -->
+      <Value>DABS_ID0</Value>
+    </Test0C>
+    <Test0D>
+      <!-- Start Clear Continuous Codes [DABSCLR0] -->
+      <Value>DABSCLR0</Value>
+    </Test0D>
+    <Test0E>
+      <!-- Start Collect Continuous Codes [DABSCOL0] -->
+      <Value>DABSCOL0</Value>
+    </Test0E>
+    <Test0F>
+      <!-- Start TC Test [DTRACTL0] -->
+      <Value>DTRACTL0</Value>
+    </Test0F>
+    <Test10>
+      <!-- Start Dynamic Brake Circuit Fill Test [DBRKFIL0] -->
+      <Value>DBRKFIL0</Value>
+    </Test10>
+    <Test11>
+      <!-- Unused -->
+      <Value>NOTEST</Value>
+    </Test11>
+    <Test12>
+      <!-- Start Enter Diagnostic [DABSCOM0] -->
+      <Value>DABSCOM0</Value>
+    </Test12>
+    <Test13>
+      <!-- Start Brake Switch Test [DBRK_SW0] -->
+      <Value>DBRK_SW0</Value>
+    </Test13>
+    <Test14>
+      <!-- Start Axle Ratio/RWABS Combo Test [DRAB4X40] -->
+      <Value>DRAB4X40</Value>
+    </Test14>
+    <Test15>
+      <!-- Finished With Vehicle Testing [SBPCLNUP] -->
+      <Value>SBPCLNUP</Value>
+    </Test15>
+    <Test16>
+      <!-- Start ABS Disable (96MY FN10) [D2WDMOD0] -->
+      <Value>D2WDMOD0</Value>
+    </Test16>
+    <Test17>
+      <!-- Start Module Program Speed Verification -->
+      <Value>NOTEST</Value>
+    </Test17>
+    <Test86>
+      <!--IWE 4X4 test start (declutch)-->
+      <Value>Generic86</Value>
+    </Test86>
+    <Test87>
+      <!--IWE 4X4 test end (clutch)-->
+      <Value>Generic87</Value>
+    </Test87>
+    <Test92>
+      <!--Stack Light Command - Red-->
+      <Value>Generic92</Value>
+    </Test92>
+    <Test93>
+      <!--Stack Light Command - Yellow-->
+      <Value>Generic93</Value>
+    </Test93>
+  </DCLTests>
+  <FordVehicleBuild>
+    <!-- translation table -->
+    <ModelYears>
+      <!-- Use decimal values -->
+      <Type_00>2000</Type_00>
+      <Type_01>2001</Type_01>
+      <Type_02>2002</Type_02>
+      <Type_03>2003</Type_03>
+      <Type_04>2004</Type_04>
+      <Type_05>2005</Type_05>
+      <Type_06>2006</Type_06>
+      <Type_07>2007</Type_07>
+      <Type_08>2008</Type_08>
+      <Type_09>2009</Type_09>
+      <Type_10>2010</Type_10>
+    </ModelYears>
+    <ABSTypes>
+      <!-- Use hex values -->
+      <Type_00>No ABS</Type_00>
+      <Type_01>RWABS</Type_01>
+      <Type_02>4WABS</Type_02>
+      <Type_03>4WABSTC</Type_03>
+      <Type_04>ZWAL</Type_04>
+      <Type_05>4WABS/IVD</Type_05>
+    </ABSTypes>
+    <RunFlat/>
+    <FrontWD/>
+    <FourWD/>
+    <AllWD/>
+    <Diesel/>
+    <DiskBrakes/>
+    <CruiseInstalled/>
+    <AutoTrans/>
+    <MetricSelect/>
+    <TODInstalled/>
+    <Manual4X4/>
+    <VehicleTypes>
+      <!-- Use hex values -->
+      <Type_00 Description="Invalid">Unused</Type_00>
+      <Type_02 Description="Mustang">S197</Type_02>
+      <Type_05 Description="Winstar">WIN126</Type_05>
+      <Type_06 Description="Montego">D219</Type_06>
+      <Type_07 Description="Freestar">V229</Type_07>
+      <Type_08 Description="Edge">U38x</Type_08>
+      <Type_1A Description="E150">E150</Type_1A>
+      <Type_1B Description="E250">E250</Type_1B>
+      <Type_1C Description="E350 Single">E351</Type_1C>
+      <Type_1D Description="E350 Dual">E352</Type_1D>
+      <Type_1E Description="E350 Single">E450</Type_1E>
+      <Type_1F Description="E STRIP CHASSIS">EStrip</Type_1F>
+      <Type_2C Description="E550">E550</Type_2C>
+      <Type_36 Description="F150">P221</Type_36>
+      <Type_37 Description="Explorer">U152</Type_37>
+      <Type_40 Description="Mazda 6">Mazda</Type_40>
+      <Type_42 Description="Focus">C170</Type_42>
+      <Type_4C Description="E350 CAN">E350</Type_4C>
+      <Type_67 Description="Fusion">CD338</Type_67>
+    </VehicleTypes>
+    <DCLVIN/>
+  </FordVehicleBuild>
+  <VehicleConvert/>
+</PlantHostInbound>

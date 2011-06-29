@@ -1,0 +1,1032 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.1/vpj.dtd">
+<Project
+	Version="9.1"
+	VendorName="SlickEdit"
+	WorkingDir=".">
+	<Config
+		Name="Release"
+		OutputFile=""
+		CompilerConfigName="Latest Version">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec CmdLine='"Tests.exe"'/>
+			</Target>
+		</Menu>
+	</Config>
+	<CustomFolders>
+		<Folder
+			Name="Source Files"
+			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl">
+		</Folder>
+		<Folder
+			Name="Header Files"
+			Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.inc;*.sh;*.cpy;*.if">
+		</Folder>
+		<Folder
+			Name="Resource Files"
+			Filters="*.ico;*.cur;*.dlg"/>
+		<Folder
+			Name="Bitmaps"
+			Filters="*.bmp"/>
+		<Folder
+			Name="Other Files"
+			Filters="">
+		</Folder>
+	</CustomFolders>
+	<Files AutoFolders="DirectoryView">
+		<Folder Name="Core">
+			<Folder Name="Unit">
+				<Folder Name="ApplicationLayer">
+					<Folder Name="ModuleInterfaces">
+						<Folder Name="Brake">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Brake/Configuration/GenericABSModuleTemplateConfig.xml"/>
+								<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Brake/Configuration/GenericABSModuleTemplateConfigNotFloat.xml"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Brake/BrakeModuleInterfacesTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Brake/BrakeModuleInterfacesTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Brake/BrakeModuleInterfacesTestSuite.h"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Brake/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Brake/GenericABSModuleTemplateTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Brake/GenericABSModuleTemplateTest.h"/>
+						</Folder>
+						<Folder Name="Common">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/Configuration/ReplyInterpreterConfig.xml"/>
+								<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/Configuration/ReplyInterpreterConfigNoChildren.xml"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/BackgroundMonitorTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/BackgroundMonitorTest.h"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/CommonModuleInterfacesTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/CommonModuleInterfacesTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/CommonModuleInterfacesTestSuite.h"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/GenericModuleTemplateTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/GenericModuleTemplateTest.h"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/MockBackgroundMonitor.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/MockBackgroundMonitor.h"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/ReplyInterpreterTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/ReplyInterpreterTest.h"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/SendModuleKeepAliveTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Common/SendModuleKeepAliveTest.h"/>
+						</Folder>
+						<Folder Name="EngineController">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/EngineController/Configuration/EngineControllerModuleConfig.xml"/>
+								<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/EngineController/Configuration/EngineControllerModuleConfigMissingTags.xml"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/EngineController/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/EngineController/EngineControllerTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/EngineController/EngineControllerTest.h"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/EngineController/EngineControllerTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/EngineController/EngineControllerTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/EngineController/EngineControllerTestSuite.h"/>
+						</Folder>
+						<Folder Name="Transmission">
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Transmission/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Transmission/TransmissionModuleInterfacesTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Transmission/TransmissionModuleInterfacesTest.h"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Transmission/TransmissionModuleInterfacesTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Transmission/TransmissionModuleInterfacesTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/Transmission/TransmissionModuleInterfacesTestSuite.h"/>
+						</Folder>
+						<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/CMakeLists.txt"/>
+						<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/ModuleInterfacesTestRunner.cpp"/>
+						<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/ModuleInterfacesTestSuite.cpp"/>
+						<F N="Core/Unit/ApplicationLayer/ModuleInterfaces/ModuleInterfacesTestSuite.h"/>
+					</Folder>
+					<Folder Name="ProtocolFilters">
+						<Folder Name="Common">
+							<F N="Core/Unit/ApplicationLayer/ProtocolFilters/Common/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/ProtocolFilters/Common/CommonProtocolFiltersTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ProtocolFilters/Common/CommonProtocolFiltersTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ProtocolFilters/Common/CommonProtocolFiltersTestSuite.h"/>
+							<F N="Core/Unit/ApplicationLayer/ProtocolFilters/Common/ProtocolFilterTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/ProtocolFilters/Common/ProtocolFilterTest.h"/>
+						</Folder>
+						<F N="Core/Unit/ApplicationLayer/ProtocolFilters/CMakeLists.txt"/>
+						<F N="Core/Unit/ApplicationLayer/ProtocolFilters/ProtocolFiltersTestRunner.cpp"/>
+						<F N="Core/Unit/ApplicationLayer/ProtocolFilters/ProtocolFiltersTestSuite.cpp"/>
+						<F N="Core/Unit/ApplicationLayer/ProtocolFilters/ProtocolFiltersTestSuite.h"/>
+					</Folder>
+					<Folder Name="TestComponents">
+						<Folder Name="Brake">
+							<Folder Name="Common">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/Configuration/BaseBrakeToolConfig.xml"/>
+									<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/Configuration/BaseBrakeToolNoMultiplier.xml"/>
+								</Folder>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/BaseBrakeToolTest.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/BaseBrakeToolTest.h"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/CMakeLists.txt"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/CommonBrakeTestRunner.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/CommonBrakeTestSuite.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/CommonBrakeTestSuite.h"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/GenericABSTCTemplateTest.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/Common/GenericABSTCTemplateTest.h"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/BrakeTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/BrakeTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/BrakeTestSuite.h"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Brake/CMakeLists.txt"/>
+						</Folder>
+						<Folder Name="Common">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Common/Configuration/GenericTcConfig.xml"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Common/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Common/CommonTestComponentsTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Common/CommonTestComponentsTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Common/CommonTestComponentsTestSuite.h"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Common/GenericTcTemplateTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Common/GenericTcTemplateTest.h"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Common/GenericTcTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Common/GenericTcTest.h"/>
+						</Folder>
+						<Folder Name="Emissions">
+							<Folder Name="Common">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/Common/Configuration/CommonEmissionsConfig.xml"/>
+								</Folder>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/Common/CMakeLists.txt"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/Common/CommonEmissionsTest.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/Common/CommonEmissionsTest.h"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/Common/CommonEmissionsTestRunner.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/Common/CommonEmissionsTestSuite.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/Common/CommonEmissionsTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/EmissionsTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/EmissionsTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Emissions/EmissionsTestSuite.h"/>
+						</Folder>
+						<Folder Name="LossCompensation">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ApplicationLayer/TestComponents/LossCompensation/Configuration/LossCompensation.xml"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/LossCompensation/Configuration/LossCompensationRunoutError.xml"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/LossCompensation/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/LossCompensation/LossCompensationTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/LossCompensation/LossCompensationTest.h"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/LossCompensation/LossCompensationTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/LossCompensation/LossCompensationTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/LossCompensation/LossCompensationTestSuite.h"/>
+						</Folder>
+						<Folder Name="Machine">
+							<Folder Name="Common">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/Common/Configuration/MachineComponent.xml"/>
+									<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/Common/Configuration/MachineComponentTimeout.xml"/>
+								</Folder>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/Common/CMakeLists.txt"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/Common/CommonMachineTest.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/Common/CommonMachineTest.h"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/Common/CommonMachineTestRunner.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/Common/CommonMachineTestSuite.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/Common/CommonMachineTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/MachineTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/MachineTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Machine/MachineTestSuite.h"/>
+						</Folder>
+						<Folder Name="SpeedControl">
+							<Folder Name="Common">
+								<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/Common/CMakeLists.txt"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/Common/CommonSpeedControlTest.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/Common/CommonSpeedControlTest.h"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/Common/CommonSpeedControlTestRunner.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/Common/CommonSpeedControlTestSuite.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/Common/CommonSpeedControlTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/SpeedControlTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/SpeedControlTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/SpeedControl/SpeedControlTestSuite.h"/>
+						</Folder>
+						<Folder Name="Transmission">
+							<Folder Name="Common">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/Common/Configuration/CommonTransmissionConfig.xml"/>
+								</Folder>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/Common/CMakeLists.txt"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/Common/CommonTransmissionTest.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/Common/CommonTransmissionTest.h"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/Common/CommonTransmissionTestRunner.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/Common/CommonTransmissionTestSuite.cpp"/>
+								<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/Common/CommonTransmissionTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/TransmissionTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/TransmissionTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/TestComponents/Transmission/TransmissionTestSuite.h"/>
+						</Folder>
+						<F N="Core/Unit/ApplicationLayer/TestComponents/CMakeLists.txt"/>
+						<F N="Core/Unit/ApplicationLayer/TestComponents/TestCompTestRunner.cpp"/>
+						<F N="Core/Unit/ApplicationLayer/TestComponents/TestCompTestSuite.cpp"/>
+						<F N="Core/Unit/ApplicationLayer/TestComponents/TestCompTestSuite.h"/>
+					</Folder>
+					<Folder Name="VehicleTest">
+						<Folder Name="Library">
+							<F N="Core/Unit/ApplicationLayer/VehicleTest/Library/CMakeLists.txt"/>
+							<F N="Core/Unit/ApplicationLayer/VehicleTest/Library/VehicleTestLibraryTest.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/VehicleTest/Library/VehicleTestLibraryTest.h"/>
+							<F N="Core/Unit/ApplicationLayer/VehicleTest/Library/VehicleTestLibraryTestRunner.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/VehicleTest/Library/VehicleTestLibraryTestSuite.cpp"/>
+							<F N="Core/Unit/ApplicationLayer/VehicleTest/Library/VehicleTestLibraryTestSuite.h"/>
+						</Folder>
+						<F N="Core/Unit/ApplicationLayer/VehicleTest/CMakeLists.txt"/>
+						<F N="Core/Unit/ApplicationLayer/VehicleTest/VehicleTestTestRunner.cpp"/>
+						<F N="Core/Unit/ApplicationLayer/VehicleTest/VehicleTestTestSuite.cpp"/>
+						<F N="Core/Unit/ApplicationLayer/VehicleTest/VehicleTestTestSuite.h"/>
+					</Folder>
+					<F N="Core/Unit/ApplicationLayer/ApplicationLayerTestRunner.cpp"/>
+					<F N="Core/Unit/ApplicationLayer/ApplicationLayerTestSuite.cpp"/>
+					<F N="Core/Unit/ApplicationLayer/ApplicationLayerTestSuite.h"/>
+					<F N="Core/Unit/ApplicationLayer/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="MockClasses">
+					<Folder Name="FaultServer">
+						<F N="Core/Unit/MockClasses/FaultServer/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/FaultServer/MockFaultServer.cpp"/>
+						<F N="Core/Unit/MockClasses/FaultServer/MockFaultServer.h"/>
+					</Folder>
+					<Folder Name="GenericEmissionsModuleTemplate">
+						<F N="Core/Unit/MockClasses/GenericEmissionsModuleTemplate/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/GenericEmissionsModuleTemplate/MockGenericEmissionsModuleTemplate.cpp"/>
+						<F N="Core/Unit/MockClasses/GenericEmissionsModuleTemplate/MockGenericEmissionsModuleTemplate.h"/>
+					</Folder>
+					<Folder Name="GenericTc">
+						<F N="Core/Unit/MockClasses/GenericTc/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/GenericTc/MockGenericTc.cpp"/>
+						<F N="Core/Unit/MockClasses/GenericTc/MockGenericTc.h"/>
+					</Folder>
+					<Folder Name="NamedDataBroker">
+						<F N="Core/Unit/MockClasses/NamedDataBroker/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/NamedDataBroker/MockNamedDataBroker.cpp"/>
+						<F N="Core/Unit/MockClasses/NamedDataBroker/MockNamedDataBroker.h"/>
+					</Folder>
+					<Folder Name="PlantHostOutbound">
+						<F N="Core/Unit/MockClasses/PlantHostOutbound/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/PlantHostOutbound/MockPlantHostOutbound.cpp"/>
+						<F N="Core/Unit/MockClasses/PlantHostOutbound/MockPlantHostOutbound.h"/>
+					</Folder>
+					<Folder Name="PromptServer">
+						<F N="Core/Unit/MockClasses/PromptServer/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/PromptServer/MockPromptServer.cpp"/>
+						<F N="Core/Unit/MockClasses/PromptServer/MockPromptServer.h"/>
+					</Folder>
+					<Folder Name="ProtocolFilter">
+						<F N="Core/Unit/MockClasses/ProtocolFilter/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/ProtocolFilter/MockProtocolFilter.cpp"/>
+						<F N="Core/Unit/MockClasses/ProtocolFilter/MockProtocolFilter.h"/>
+					</Folder>
+					<Folder Name="SystemMonitor">
+						<F N="Core/Unit/MockClasses/SystemMonitor/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/SystemMonitor/MockSystemMonitor.cpp"/>
+						<F N="Core/Unit/MockClasses/SystemMonitor/MockSystemMonitor.h"/>
+					</Folder>
+					<Folder Name="TestResultServer">
+						<F N="Core/Unit/MockClasses/TestResultServer/CMakeLists.txt"/>
+						<F N="Core/Unit/MockClasses/TestResultServer/MockTestResultServer.cpp"/>
+						<F N="Core/Unit/MockClasses/TestResultServer/MockTestResultServer.h"/>
+					</Folder>
+					<F N="Core/Unit/MockClasses/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="ServicesLayer">
+					<Folder Name="Library">
+						<Folder Name="Debuggable">
+							<F N="Core/Unit/ServicesLayer/Library/Debuggable/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Library/Debuggable/DebuggableTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/Debuggable/DebuggableTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Library/Debuggable/DebuggableTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/Debuggable/DebuggableTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/Debuggable/DebuggableTestSuite.h"/>
+						</Folder>
+						<Folder Name="GeneralUtilities">
+							<F N="Core/Unit/ServicesLayer/Library/GeneralUtilities/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Library/GeneralUtilities/GeneralUtilitiesTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/GeneralUtilities/GeneralUtilitiesTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Library/GeneralUtilities/GeneralUtilitiesTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/GeneralUtilities/GeneralUtilitiesTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/GeneralUtilities/GeneralUtilitiesTestSuite.h"/>
+						</Folder>
+						<Folder Name="NotificationThreadSpinner">
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/BogusCommType.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/BogusCommType.h"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/BogusNotificationType.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/BogusNotificationType.h"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/NotificationThreadSpinnerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/NotificationThreadSpinnerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/NotificationThreadSpinnerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/NotificationThreadSpinnerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/NotificationThreadSpinner/NotificationThreadSpinnerTestSuite.h"/>
+						</Folder>
+						<Folder Name="SoftwareId">
+							<F N="Core/Unit/ServicesLayer/Library/SoftwareId/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Library/SoftwareId/SoftwareIdTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/SoftwareId/SoftwareIdTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Library/SoftwareId/SoftwareIdTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/SoftwareId/SoftwareIdTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/SoftwareId/SoftwareIdTestSuite.h"/>
+						</Folder>
+						<Folder Name="SystemCommunication">
+							<Folder Name="ITcpIp">
+								<Folder Name="ConfigFiles">
+									<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ConfigFiles/ClientConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ConfigFiles/LargeMessage.xml"/>
+									<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ConfigFiles/ServerConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ConfigFiles/SmallMessage.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ITcpIpTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ITcpIpTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ITcpIpTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ITcpIpTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/ITcpIp/ITcpIpTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/SystemCommunicationTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/SystemCommunicationTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/SystemCommunication/SystemCommunicationTestSuite.h"/>
+						</Folder>
+						<Folder Name="XmlProcessor">
+							<Folder Name="ConfigFiles">
+								<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/ConfigFiles/AddXmlDocumentAsChildNodeValueTest.xml"/>
+								<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/ConfigFiles/DeleteNodeTest.xml"/>
+								<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/ConfigFiles/GetChildNotPresentTest.xml"/>
+								<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/ConfigFiles/NotWellFormedTest.xml"/>
+								<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/ConfigFiles/ReturnXMLDocMemLeakTest.xml"/>
+								<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/ConfigFiles/WriteValueFromFileTest.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/XMLNodeMapTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/XMLNodeMapTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/XMLParserTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/XMLParserTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/XMLParserTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/XMLParserTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Library/XmlProcessor/XMLParserTestSuite.h"/>
+						</Folder>
+						<F N="Core/Unit/ServicesLayer/Library/BepServerTest.cpp"/>
+						<F N="Core/Unit/ServicesLayer/Library/BepServerTest.h"/>
+						<F N="Core/Unit/ServicesLayer/Library/CMakeLists.txt"/>
+						<F N="Core/Unit/ServicesLayer/Library/LibraryTestRunner.cpp"/>
+						<F N="Core/Unit/ServicesLayer/Library/LibraryTestSuite.cpp"/>
+						<F N="Core/Unit/ServicesLayer/Library/LibraryTestSuite.h"/>
+					</Folder>
+					<Folder Name="Managers">
+						<Folder Name="CommProxy">
+							<Folder Name="AVT">
+								<Folder Name="CAN">
+									<Folder Name="Configuration">
+										<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CAN/Configuration/AvtCanProxyConfig.xml"/>
+										<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CAN/Configuration/AvtCanProxyConfigMissingTags.xml"/>
+									</Folder>
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CAN/AvtCanProxyTest.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CAN/AvtCanProxyTest.h"/>
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CAN/AvtCanProxyTestRunner.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CAN/AvtCanProxyTestSuite.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CAN/AvtCanProxyTestSuite.h"/>
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CAN/CMakeLists.txt"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/AvtCommProxyTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/AvtCommProxyTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/AvtCommProxyTestSuite.h"/>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/AVT/CMakeLists.txt"/>
+							</Folder>
+							<Folder Name="Common">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/Configuration/CommonCommProxyConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/Configuration/CommonCommProxyConfigMissingTags.xml"/>
+									<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/Configuration/CommonCommProxyConfigReload.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/CommonCommProxyTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/CommonCommProxyTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/CommonCommProxyTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/CommonCommProxyTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/CommProxy/Common/CommonCommProxyTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Managers/CommProxy/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Managers/CommProxy/CommProxyTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/CommProxy/CommProxyTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/CommProxy/CommProxyTestSuite.h"/>
+						</Folder>
+						<Folder Name="ICM">
+							<Folder Name="IpIcm">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/Configuration/IpIcmConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/Configuration/IpIcmConfigMissingTags.xml"/>
+									<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/Configuration/MachineLosses1.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/IpIcmMgrTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/IpIcmMgrTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/IpIcmMgrTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/IpIcmMgrTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/ICM/IpIcm/IpIcmMgrTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Managers/ICM/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Managers/ICM/ICMTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/ICM/ICMTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/ICM/ICMTestSuite.h"/>
+						</Folder>
+						<Folder Name="PlcMgr">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/Configuration/IDf1ProtocolConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/Configuration/IDf1ProtocolConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/Configuration/PlcDf1Config.xml"/>
+								<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/Configuration/PlcDf1ConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/Configuration/PlcMgrConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/Configuration/PlcMgrConfigReload.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/IDf1ProtocolTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/IDf1ProtocolTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/IRk512ProtocolTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/IRk512ProtocolTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/MelsecProtocolTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/MelsecProtocolTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcDf1Test.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcDf1Test.h"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcMgrTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcMgrTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcMgrTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcMgrTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcMgrTestSuite.h"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcRk512Test.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/PlcMgr/PlcRk512Test.h"/>
+						</Folder>
+						<Folder Name="SerialServer">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Managers/SerialServer/Configuration/SerialServerConfigPC.xml"/>
+								<F N="Core/Unit/ServicesLayer/Managers/SerialServer/Configuration/SerialServerConfigPCReload.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Managers/SerialServer/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Managers/SerialServer/SerialServerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/SerialServer/SerialServerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Managers/SerialServer/SerialServerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/SerialServer/SerialServerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/SerialServer/SerialServerTestSuite.h"/>
+						</Folder>
+						<Folder Name="TaskMon">
+							<Folder Name="Common">
+								<F N="Core/Unit/ServicesLayer/Managers/TaskMon/Common/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Managers/TaskMon/Common/CommonTaskMonTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/TaskMon/Common/CommonTaskMonTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/TaskMon/Common/CommonTaskMonTestSuite.h"/>
+								<F N="Core/Unit/ServicesLayer/Managers/TaskMon/Common/TaskMonTaskListTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/TaskMon/Common/TaskMonTaskListTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Managers/TaskMon/Common/TaskMonTaskTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Managers/TaskMon/Common/TaskMonTaskTest.h"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Managers/TaskMon/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Managers/TaskMon/TaskMonTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/TaskMon/TaskMonTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Managers/TaskMon/TaskMonTestSuite.h"/>
+						</Folder>
+						<F N="Core/Unit/ServicesLayer/Managers/CMakeLists.txt"/>
+						<F N="Core/Unit/ServicesLayer/Managers/ManagersTestRunner.cpp"/>
+						<F N="Core/Unit/ServicesLayer/Managers/ManagersTestSuite.cpp"/>
+						<F N="Core/Unit/ServicesLayer/Managers/ManagersTestSuite.h"/>
+					</Folder>
+					<Folder Name="Servers">
+						<Folder Name="DataServer">
+							<F N="Core/Unit/ServicesLayer/Servers/DataServer/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/DataServer/DataServerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/DataServer/DataServerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/DataServer/DataServerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/DataServer/DataServerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/DataServer/DataServerTestSuite.h"/>
+						</Folder>
+						<Folder Name="InputServer">
+							<Folder Name="CLV295ScannerMgr">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Servers/InputServer/CLV295ScannerMgr/Configuration/CLV295ScannerMgrConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/InputServer/CLV295ScannerMgr/Configuration/CLV295ScannerMgrConfigMissingTags.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/CLV295ScannerMgr/CLV295ScannerMgrTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/CLV295ScannerMgr/CLV295ScannerMgrTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/CLV295ScannerMgr/CLV295ScannerMgrTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/CLV295ScannerMgr/CLV295ScannerMgrTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/CLV295ScannerMgr/CLV295ScannerMgrTestSuite.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/CLV295ScannerMgr/CMakeLists.txt"/>
+							</Folder>
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/Configuration/InputServerConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/Configuration/InputServerConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/Configuration/InputServerConfigReload.xml"/>
+							</Folder>
+							<Folder Name="MapleKeypadManager">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Servers/InputServer/MapleKeypadManager/Configuration/MapleKeypadManagerConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/InputServer/MapleKeypadManager/Configuration/MapleKeypadManagerConfigMissingTags.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/MapleKeypadManager/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/MapleKeypadManager/MapleKeypadManagerTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/MapleKeypadManager/MapleKeypadManagerTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/MapleKeypadManager/MapleKeypadManagerTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/MapleKeypadManager/MapleKeypadManagerTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/MapleKeypadManager/MapleKeypadManagerTestSuite.h"/>
+							</Folder>
+							<Folder Name="PendantManager">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Servers/InputServer/PendantManager/Configuration/PendantManagerConfig.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/PendantManager/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/PendantManager/PendantManagerTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/PendantManager/PendantManagerTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/PendantManager/PendantManagerTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/PendantManager/PendantManagerTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/PendantManager/PendantManagerTestSuite.h"/>
+							</Folder>
+							<Folder Name="SymbolScannerMgr">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Servers/InputServer/SymbolScannerMgr/Configuration/SymbolScannerMgrConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/InputServer/SymbolScannerMgr/Configuration/SymbolScannerMgrConfigMissingTags.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/SymbolScannerMgr/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/SymbolScannerMgr/SymbolScannerMgrTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/SymbolScannerMgr/SymbolScannerMgrTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/SymbolScannerMgr/SymbolScannerMgrTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/SymbolScannerMgr/SymbolScannerMgrTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/InputServer/SymbolScannerMgr/SymbolScannerMgrTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/InputServer/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/InputServer/InputServerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/InputServer/InputServerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/InputServer/InputServerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/InputServer/InputServerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/InputServer/InputServerTestSuite.h"/>
+						</Folder>
+						<Folder Name="LogDaemon">
+							<Folder Name="ConfigFiles">
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/ConfigFiles/LogDaemonInit.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/ConfigFiles/LogDaemonInit_missing.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/ConfigFiles/LogDaemonInit_someBad.xml"/>
+							</Folder>
+							<Folder Name="HandTest">
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/Benchmark.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/BreakIt.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/ConfigSendMesg.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/IncrementConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/IncrementTestNumber.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/LaunchLoggingClients.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/LaunchMeTemplate.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/HandTest/TestComponentConfigFile.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusCoreLogFile.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusCoreLogFile.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusCoreLogFile2.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusCoreLogFile2.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusLogFile.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusLogFile.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusLogWriter.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusLogWriter.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusNdb.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/BogusNdb.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/CoreLogFileTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/CoreLogFileTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogDaemonTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogDaemonTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogDaemonTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogDaemonTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogDaemonTestSuite.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogFileIteratorTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogFileIteratorTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogFileMapTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogFileMapTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogFileTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogFileTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogMessageTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogMessageTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogMsgQueueTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogMsgQueueTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogRotatorTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogRotatorTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogWriterTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/LogWriterTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/PrivilegedLoggerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/LogDaemon/PrivilegedLoggerTest.h"/>
+						</Folder>
+						<Folder Name="MachineDataBroker">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/Configuration/MachineDataBrokerConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/Configuration/MachineDataBrokerConfigEnv.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/Configuration/MachineDataBrokerConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/Configuration/MachineDataBrokerConfigReload.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/Configuration/MachineDataBrokerConfigZeroRate.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/MachineDataBrokerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/MachineDataBrokerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/MachineDataBrokerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/MachineDataBrokerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/MachineDataBroker/MachineDataBrokerTestSuite.h"/>
+						</Folder>
+						<Folder Name="MotorController">
+							<Folder Name="Common">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Common/Configuration/MotorControllerConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Common/Configuration/MotorControllerConfigMissingTags.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Common/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Common/CommonMotorControllerTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Common/CommonMotorControllerTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Common/CommonMotorControllerTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Common/CommonMotorControllerTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Common/CommonMotorControllerTestSuite.h"/>
+							</Folder>
+							<Folder Name="Electric">
+								<Folder Name="AB">
+									<Folder Name="Configuration">
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/Configuration/AB700sMotorConfig.xml"/>
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/Configuration/AB700sMotorConfigMissingTags.xml"/>
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/Configuration/ABMotorControllerConfig.xml"/>
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/Configuration/ABMotorControllerConfigMissingTags.xml"/>
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/Configuration/ABMotorControllerConfigReload.xml"/>
+									</Folder>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/AB700sMotorTest.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/AB700sMotorTest.h"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/ABMotorControllerTest.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/ABMotorControllerTest.h"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/ABMotorControllerTestRunner.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/ABMotorControllerTestSuite.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/ABMotorControllerTestSuite.h"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/AB/CMakeLists.txt"/>
+								</Folder>
+								<Folder Name="Baldor">
+									<Folder Name="Configuration">
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/Configuration/BaldorMotorControllerConfig.xml"/>
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/Configuration/BaldorMotorControllerConfigMissingTags.xml"/>
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/Configuration/BaldorMotorControllerConfigReload.xml"/>
+									</Folder>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/BaldorMotorControllerTest.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/BaldorMotorControllerTest.h"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/BaldorMotorControllerTestRunner.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/BaldorMotorControllerTestSuite.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/BaldorMotorControllerTestSuite.h"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Baldor/CMakeLists.txt"/>
+								</Folder>
+								<Folder Name="Motor">
+									<Folder Name="Configuration">
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Motor/Configuration/ElectricMotorConfig.xml"/>
+										<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Motor/Configuration/ElectricMotorConfigNegCommFaultLimit.xml"/>
+									</Folder>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Motor/CMakeLists.txt"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Motor/ElectricMotorTest.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Motor/ElectricMotorTest.h"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Motor/ElectricMotorTestRunner.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Motor/ElectricMotorTestSuite.cpp"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/Motor/ElectricMotorTestSuite.h"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/ElectricMotorControllerTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/ElectricMotorControllerTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Electric/ElectricMotorControllerTestSuite.h"/>
+							</Folder>
+							<Folder Name="Hydraulic">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Hydraulic/Configuration/HydraulicMotorControllerConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/MotorController/Hydraulic/Configuration/HydraulicMotorControllerConfigMissingTags.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Hydraulic/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Hydraulic/HydraulicMotorControllerTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Hydraulic/HydraulicMotorControllerTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Hydraulic/HydraulicMotorControllerTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Hydraulic/HydraulicMotorControllerTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/MotorController/Hydraulic/HydraulicMotorControllerTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/MotorController/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/MotorController/MotorControllerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/MotorController/MotorControllerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/MotorController/MotorControllerTestSuite.h"/>
+						</Folder>
+						<Folder Name="NamedDataBroker">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/NamedDataBroker/Configuration/NDBConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/NamedDataBroker/Configuration/NDBConfigReload.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/NamedDataBroker/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/NamedDataBroker/NamedDataBrokerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/NamedDataBroker/NamedDataBrokerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/NamedDataBroker/NamedDataBrokerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/NamedDataBroker/NamedDataBrokerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/NamedDataBroker/NamedDataBrokerTestSuite.h"/>
+						</Folder>
+						<Folder Name="PlantHostInbound">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/Configuration/PlantHostInboundConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/Configuration/PlantHostInboundConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/Configuration/PlantHostInboundConfigReload.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/Configuration/VehicleBuildRecord.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/Configuration/VehicleBuildRecordReload.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/Configuration/Vin12345678.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/Configuration/WheelbaseConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/Configuration/WheelbaseConfigReload.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/PlantHostInboundTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/PlantHostInboundTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/PlantHostInboundTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/PlantHostInboundTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostInbound/PlantHostInboundTestSuite.h"/>
+						</Folder>
+						<Folder Name="PlantHostOutbound">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/Configuration/PlantHostOutboundConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/Configuration/PlantHostOutboundConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/Configuration/PlantHostOutboundConfigReload.xml"/>
+							</Folder>
+							<Folder Name="DAQ">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/Configuration/DaqInterfaceConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/Configuration/DaqInterfaceConfigMissingTags.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/Configuration/DAQLossCompensationMap.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/Configuration/DAQTestResultMap.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/DAQInterfaceTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/DAQInterfaceTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/DAQInterfaceTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/DAQInterfaceTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/DAQ/DAQInterfaceTestSuite.h"/>
+							</Folder>
+							<Folder Name="HostInterface">
+								<Folder Name="Configuration">
+									<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/HostInterface/Configuration/HostInterfaceConfig.xml"/>
+									<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/HostInterface/Configuration/SampleResultMap.xml"/>
+								</Folder>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/HostInterface/CMakeLists.txt"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/HostInterface/HostInterfaceTest.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/HostInterface/HostInterfaceTest.h"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/HostInterface/HostInterfaceTestRunner.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/HostInterface/HostInterfaceTestSuite.cpp"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/HostInterface/HostInterfaceTestSuite.h"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/PlantHostOutboundTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/PlantHostOutboundTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/PlantHostOutboundTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/PlantHostOutboundTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PlantHostOutbound/PlantHostOutboundTestSuite.h"/>
+						</Folder>
+						<Folder Name="PromptServer">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/PromptServer/Configuration/PromptServerConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PromptServer/Configuration/PromptServerConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/PromptServer/Configuration/PromptServerConfigReload.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/PromptServer/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PromptServer/PromptServerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PromptServer/PromptServerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PromptServer/PromptServerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PromptServer/PromptServerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/PromptServer/PromptServerTestSuite.h"/>
+						</Folder>
+						<Folder Name="SystemMonitor">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/SystemMonitor/Configuration/SystemMonitorConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/SystemMonitor/Configuration/SystemMonitorConfigMissingTags.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemMonitor/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemMonitor/SystemMonitorTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemMonitor/SystemMonitorTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemMonitor/SystemMonitorTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemMonitor/SystemMonitorTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemMonitor/SystemMonitorTestSuite.h"/>
+						</Folder>
+						<Folder Name="SystemScreenSaver">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/SystemScreenSaver/Configuration/SystemScreenSaverConfig.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemScreenSaver/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemScreenSaver/SystemScreenSaverTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemScreenSaver/SystemScreenSaverTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemScreenSaver/SystemScreenSaverTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemScreenSaver/SystemScreenSaverTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/SystemScreenSaver/SystemScreenSaverTestSuite.h"/>
+						</Folder>
+						<Folder Name="TestResultServer">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/Configuration/TestResultServerConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/Configuration/TestResultServerConfigInvalidName.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/Configuration/TestResultServerConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/Configuration/TestResultServerConfigReload.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/TestResultServerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/TestResultServerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/TestResultServerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/TestResultServerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/TestResultServer/TestResultServerTestSuite.h"/>
+						</Folder>
+						<Folder Name="VehicleDataBroker">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/Configuration/VehicleDataBrokerConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/Configuration/VehicleDataBrokerConfigInvalidName.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/Configuration/VehicleDataBrokerConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/Configuration/VehicleDataBrokerConfigReload.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/VehicleDataBrokerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/VehicleDataBrokerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/VehicleDataBrokerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/VehicleDataBrokerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataBroker/VehicleDataBrokerTestSuite.h"/>
+						</Folder>
+						<Folder Name="VehicleDataServer">
+							<Folder Name="Configuration">
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/HMMA.VehicleDataServerConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServer-00.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServer-01.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServer-02.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServer-03.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServer-04.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServer.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServerConfig.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServerConfigMissingTags.xml"/>
+								<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/Configuration/VehicleDataServerConfigReload.xml"/>
+							</Folder>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/CMakeLists.txt"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/VehicleDataServerTest.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/VehicleDataServerTest.h"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/VehicleDataServerTestRunner.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/VehicleDataServerTestSuite.cpp"/>
+							<F N="Core/Unit/ServicesLayer/Servers/VehicleDataServer/VehicleDataServerTestSuite.h"/>
+						</Folder>
+						<F N="Core/Unit/ServicesLayer/Servers/CMakeLists.txt"/>
+						<F N="Core/Unit/ServicesLayer/Servers/ServersTestRunner.cpp"/>
+						<F N="Core/Unit/ServicesLayer/Servers/ServersTestSuite.cpp"/>
+						<F N="Core/Unit/ServicesLayer/Servers/ServersTestSuite.h"/>
+					</Folder>
+					<F N="Core/Unit/ServicesLayer/CMakeLists.txt"/>
+					<F N="Core/Unit/ServicesLayer/ServicesLayerTestRunner.cpp"/>
+					<F N="Core/Unit/ServicesLayer/ServicesLayerTestSuite.cpp"/>
+					<F N="Core/Unit/ServicesLayer/ServicesLayerTestSuite.h"/>
+				</Folder>
+				<Folder Name="Tools">
+					<Folder Name="ConfigChecker">
+						<F N="Core/Unit/Tools/ConfigChecker/ConfigCheckerTest.cpp"/>
+						<F N="Core/Unit/Tools/ConfigChecker/ConfigCheckerTest.h"/>
+						<F N="Core/Unit/Tools/ConfigChecker/ConfigCheckerTestRunner.cpp"/>
+						<F N="Core/Unit/Tools/ConfigChecker/ConfigCheckerTestSuite.cpp"/>
+						<F N="Core/Unit/Tools/ConfigChecker/ConfigCheckerTestSuite.h"/>
+					</Folder>
+					<F N="Core/Unit/Tools/ToolsTestRunner.cpp"/>
+					<F N="Core/Unit/Tools/ToolsTestSuite.cpp"/>
+					<F N="Core/Unit/Tools/ToolsTestSuite.h"/>
+				</Folder>
+				<F N="Core/Unit/CMakeLists.txt"/>
+				<F N="Core/Unit/UnitTestRunner.cpp"/>
+				<F N="Core/Unit/UnitTestSuite.cpp"/>
+				<F N="Core/Unit/UnitTestSuite.h"/>
+			</Folder>
+			<F N="Core/CMakeLists.txt"/>
+		</Folder>
+		<Folder Name="DCX">
+			<Folder Name="Stress">
+				<Folder Name="XML">
+					<F N="DCX/Stress/XML/CMakeLists.txt"/>
+					<F N="DCX/Stress/XML/FileToStress.xml"/>
+					<F N="DCX/Stress/XML/XMLStressTest.cpp"/>
+				</Folder>
+				<F N="DCX/Stress/CMakeLists.txt"/>
+			</Folder>
+			<Folder Name="Unit">
+				<Folder Name="ApplicationLayer">
+					<Folder Name="ModuleInterfaces">
+						<Folder Name="Brake">
+							<Folder Name="Teves">
+								<Folder Name="Configuration">
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/Configuration/CMakeLists.txt"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/Configuration/J2190TevesMk20EModule.xml"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/Configuration/J2190TevesMk25EModule.xml"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/Configuration/KwpTevesMk25EModule.xml"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/Configuration/MY05.KwpTevesMk25EModule.xml"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/Configuration/MY05.KwpTevesMk25ETC.xml"/>
+								</Folder>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/CMakeLists.txt"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/TevesBrakeModuleInterfacesTestRunner.cpp"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/TevesBrakeModuleInterfacesTestSuite.cpp"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/TevesBrakeModuleInterfacesTestSuite.h"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/TevesMk20EModuleTest.cpp"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/TevesMk20EModuleTest.h"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/TevesMk25EModuleTest.cpp"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/Teves/TevesMk25EModuleTest.h"/>
+							</Folder>
+							<Folder Name="TRW">
+								<Folder Name="Configuration">
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/Configuration/CMakeLists.txt"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/Configuration/J2190TrwEbc2Module.xml"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/Configuration/J2190TrwEbc325Module.xml"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/Configuration/KwpTrwEbc125Module.xml"/>
+									<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/Configuration/KwpTrwEbc340Module.xml"/>
+								</Folder>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/CMakeLists.txt"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/GenericTrwABSModuleTemplateTest.cpp"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/GenericTrwABSModuleTemplateTest.h"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/TrwBrakeModuleInterfacesTestRunner.cpp"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/TrwBrakeModuleInterfacesTestSuite.cpp"/>
+								<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/TRW/TrwBrakeModuleInterfacesTestSuite.h"/>
+							</Folder>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/BrakeModuleInterfacesDCXTestRunner.cpp"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/BrakeModuleInterfacesDCXTestSuite.cpp"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/BrakeModuleInterfacesDCXTestSuite.h"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Brake/CMakeLists.txt"/>
+						</Folder>
+						<Folder Name="Common">
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Common/CMakeLists.txt"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Common/CommonDCXModuleInterfacesTestRunner.cpp"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Common/CommonDCXModuleInterfacesTestSuite.cpp"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Common/CommonDCXModuleInterfacesTestSuite.h"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Common/GenericDCXCANModuleTest.cpp"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Common/GenericDCXCANModuleTest.h"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Common/GenericDCXSCIModuleTest.cpp"/>
+							<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/Common/GenericDCXSCIModuleTest.h"/>
+						</Folder>
+						<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/CMakeLists.txt"/>
+						<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/DCXModuleInterfacesTestRunner.cpp"/>
+						<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/DCXModuleInterfacesTestSuite.cpp"/>
+						<F N="DCX/Unit/ApplicationLayer/ModuleInterfaces/DCXModuleInterfacesTestSuite.h"/>
+					</Folder>
+					<F N="DCX/Unit/ApplicationLayer/CMakeLists.txt"/>
+					<F N="DCX/Unit/ApplicationLayer/DCXApplicationLayerTestRunner.cpp"/>
+					<F N="DCX/Unit/ApplicationLayer/DCXApplicationLayerTestSuite.cpp"/>
+					<F N="DCX/Unit/ApplicationLayer/DCXApplicationLayerTestSuite.h"/>
+				</Folder>
+				<Folder Name="MockClasses">
+					<Folder Name="ProtocolFilter">
+						<F N="DCX/Unit/MockClasses/ProtocolFilter/CMakeLists.txt"/>
+						<F N="DCX/Unit/MockClasses/ProtocolFilter/DcxCANKeyword2000Sim.cpp"/>
+						<F N="DCX/Unit/MockClasses/ProtocolFilter/DcxCANKeyword2000Sim.h"/>
+					</Folder>
+					<F N="DCX/Unit/MockClasses/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="ServicesLayer">
+					<Folder Name="Servers">
+						<Folder Name="PlantHostOutbound">
+							<F N="DCX/Unit/ServicesLayer/Servers/PlantHostOutbound/DcxPlantHostOutboundTestSuite.cpp"/>
+							<F N="DCX/Unit/ServicesLayer/Servers/PlantHostOutbound/DcxPlantHostOutboundTestSuite.h"/>
+						</Folder>
+						<F N="DCX/Unit/ServicesLayer/Servers/DcxServersTestRunner.cpp"/>
+						<F N="DCX/Unit/ServicesLayer/Servers/DcxServersTestSuite.cpp"/>
+						<F N="DCX/Unit/ServicesLayer/Servers/DcxServersTestSuite.h"/>
+					</Folder>
+					<F N="DCX/Unit/ServicesLayer/DcxServicesLayerTestRunner.cpp"/>
+					<F N="DCX/Unit/ServicesLayer/DcxServicesLayerTestSuite.cpp"/>
+					<F N="DCX/Unit/ServicesLayer/DcxServicesLayerTestSuite.h"/>
+				</Folder>
+				<F N="DCX/Unit/CMakeLists.txt"/>
+				<F N="DCX/Unit/DCXUnitTestRunner.cpp"/>
+				<F N="DCX/Unit/DCXUnitTestSuite.cpp"/>
+				<F N="DCX/Unit/DCXUnitTestSuite.h"/>
+			</Folder>
+			<F N="DCX/CMakeLists.txt"/>
+		</Folder>
+		<Folder Name="Include">
+			<F N="Include/DebugLevel.h"/>
+			<F N="Include/ProgressListener.h"/>
+		</Folder>
+		<F N="CMakeLists.txt"/>
+	</Files>
+</Project>

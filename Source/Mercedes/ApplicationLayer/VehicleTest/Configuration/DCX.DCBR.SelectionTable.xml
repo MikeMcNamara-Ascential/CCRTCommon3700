@@ -1,0 +1,445 @@
+<!-- DCBR Selection Table -->
+<SelectionTable Description="Daimler Chrysler Brazil drive curve selection table">
+    <BaseBrakeDrum DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurve.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </BaseBrakeDrum>
+    <BaseBrakeDisc DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurve.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </BaseBrakeDisc>
+    <Abs DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrAbsDriveCurve.xml">
+        <EngineType/>
+        <BrakeType>ABS</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </Abs>
+    <AbsSwitchable DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrAbsDriveCurve.xml">
+        <EngineType/>
+        <BrakeType>ABS switchable</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </AbsSwitchable>
+    <BaseBrakeDrum4x4Integral DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurve.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </BaseBrakeDrum4x4Integral>
+    <BaseBrakeDisc4x4Integral DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurve.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </BaseBrakeDisc4x4Integral>
+    <BaseBrakeDrumIns2004 DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveIns.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS 2004</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrumIns2004>
+    <BaseBrakeDiscIns2004 DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveIns.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS 2004</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDiscIns2004>
+    <BaseBrakeDrum4x4IntegralIns2004 DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurveIns.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS 2004</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrum4x4IntegralIns2004>
+    <BaseBrakeDisc4x4IntegralIns2004 DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurveIns.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS 2004</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDisc4x4IntegralIns2004>
+    <BaseBrakeDrumInsLtc DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveIns.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS LTC</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrumInsLtc>
+    <BaseBrakeDiscInsLtc DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveIns.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS LTC</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDiscInsLtc>
+    <BaseBrakeDrum4x4IntegralInsLtc DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurveIns.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS LTC</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrum4x4IntegralInsLtc>
+    <BaseBrakeDisc4x4IntegralInsLtc DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurveIns.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS LTC</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDisc4x4IntegralInsLtc>
+    <BaseBrakeDrumNoTach DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveNoTach.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>Undefined</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrumNoTach>
+    <BaseBrakeDiscNoTach DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveNoTach.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>Undefined</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDiscNoTach>
+    <AbsNoTach DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrAbsDriveCurveNoTach.xml">
+        <EngineType/>
+        <BrakeType>ABS</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>Undefined</Tachograph>
+        <ReducedGear/>
+    </AbsNoTach>
+    <AbsSwitchableNoTach DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrAbsDriveCurveNoTach.xml">
+        <EngineType/>
+        <BrakeType>ABS switchable</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>Undefined</Tachograph>
+        <ReducedGear/>
+    </AbsSwitchableNoTach>
+    <BaseBrakeDrum4x4IntegralNoTach DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurveNoTach.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>Undefined</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrum4x4IntegralNoTach>
+    <BaseBrakeDisc4x4IntegralNoTach DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurveNoTach.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>Undefined</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDisc4x4IntegralNoTach>
+    <BaseBrakeDrumKtco DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveKtco.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>KTCO</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrumKtco>
+    <BaseBrakeDiscKtco DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveKtco.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>KTCO</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDiscKtco>
+    <AbsKtco DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrAbsDriveCurveKtco.xml">
+        <EngineType/>
+        <BrakeType>ABS</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>KTCO</Tachograph>
+        <ReducedGear/>
+    </AbsKtco>
+    <AbsSwitchableKtco DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrAbsDriveCurveKtco.xml">
+        <EngineType/>
+        <BrakeType>ABS switchable</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>KTCO</Tachograph>
+        <ReducedGear/>
+    </AbsSwitchableKtco>
+    <BaseBrakeDrum4x4IntegralKtco DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurveKtco.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>KTCO</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrum4x4IntegralKtco>
+    <BaseBrakeDisc4x4IntegralKtco DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrake4x4IntegralDriveCurveKtco.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction>4x4 Integral</Traction>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>KTCO</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDisc4x4IntegralKtco>
+    <AbsRet DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrAbsDriveCurveRet.xml">
+        <EngineType/>
+        <BrakeType>ABS Ret</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </AbsRet>
+    <AbsSwitchableRet DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrAbsDriveCurveRet.xml">
+        <EngineType/>
+        <BrakeType>ABS switchable Ret</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </AbsSwitchableRet>
+    <BaseBrakeDrumIns2004Ret DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveInsRet.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes Ret</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS 2004</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrumIns2004Ret>
+    <BaseBrakeDiscIns2004Ret DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveInsRet.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes Ret</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS 2004</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDiscIns2004Ret>
+    <BaseBrakeDrumInsLtcRet DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveInsRet.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes Ret</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS LTC</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDrumInsLtcRet>
+    <BaseBrakeDiscInsLtcRet DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveInsRet.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes Ret</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph>INS LTC</Tachograph>
+        <ReducedGear/>
+    </BaseBrakeDiscInsLtcRet>
+    <BaseBrakeDrumRet DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveRet.xml">
+        <EngineType/>
+        <BrakeType>Drum Brakes Ret</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </BaseBrakeDrumRet>
+    <BaseBrakeDiscRet DriveCurve="/Configuration/VehicleTest/DriveCurves/DcbrBaseBrakeDriveCurveRet.xml">
+        <EngineType/>
+        <BrakeType>Disc Brakes Ret</BrakeType>
+        <MaxSpeed/>
+        <TransferCase/>
+        <AxleLongLock/>
+        <AxleTransLock/>
+        <Traction/>
+        <ParkBrake/>
+        <AWD/>
+        <Tachograph/>
+        <ReducedGear/>
+    </BaseBrakeDiscRet>
+</SelectionTable>

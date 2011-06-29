@@ -1,0 +1,823 @@
+<DieselEmissionsComponent>
+   <Setup>
+      <Debug>Off</Debug>
+      <Name>Emissions</Name>
+      <ProcessPriority>12</ProcessPriority>
+      <Communication>
+         <Debug>Off</Debug>
+         <Type>Server</Type>
+         <Comm>IPC</Comm>
+         <Name>component/Emissions</Name>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <TagList>
+         <SubscribeTags>
+            <MarketType/>
+            <VIN/>
+            <PCMPartNo/>
+            <ZerospeedToPLC/>
+            <Abort/>
+            <Transmission/>
+            <CableConnect/>
+            <SpeedControl/>
+         </SubscribeTags>
+      </TagList>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+         </Setup>
+      </NotificationList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>BaseEmissions</ProcessName>
+         <AdditionalLogFile Types="/Component/BaseEmissions or Disable">/Component/BaseEmissions</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Enabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <DataTags>
+         <ZeroSpeed>ZerospeedToPLC</ZeroSpeed>
+         <TransmissionType>Transmission</TransmissionType>
+         <ManualTransmission>Manual</ManualTransmission>
+         <Abort>Abort</Abort>
+         <TestInProgress>TestInProgress</TestInProgress>
+         <OverallTest>OverallTest</OverallTest>
+         <CableConnect>CableConnect</CableConnect>
+         <NotEquipped>NotEquipped</NotEquipped>
+      </DataTags>
+      <Parameters>
+         <IdleRPMStatusByte>0x60</IdleRPMStatusByte>
+         <BrakeSwitchStatusByte>0x60</BrakeSwitchStatusByte>
+         <ParkNeutralStatusByte>0x60</ParkNeutralStatusByte>
+         <ClutchSwitchStatusByte>0x60</ClutchSwitchStatusByte>
+         <DeltaTPSStatusByte>0x60</DeltaTPSStatusByte>
+         <BoostPressureStatusByte>0x60</BoostPressureStatusByte>
+         <EOLStatusByte>0x60</EOLStatusByte>
+         <EOLStatusByteUplines>0xFD7C</EOLStatusByteUplines>
+         <EOLStatusByteMSB>2</EOLStatusByteMSB>
+         <EOLStatusByteLSB>3</EOLStatusByteLSB>
+         <VINUplineMask>0x0200</VINUplineMask>
+         <InPlantModeMask>0x0080</InPlantModeMask>
+         <OnlineTestMask>0x0002</OnlineTestMask>
+         <FailAtOnlineMask>0x0001</FailAtOnlineMask>
+         <RollsTestComplete>0xFF00</RollsTestComplete>
+         <RollsTestCompleteNoSpeedControl>0xBF00</RollsTestCompleteNoSpeedControl>
+         <FinalTestDoneBit>3</FinalTestDoneBit>
+         <OkToShipBit>5</OkToShipBit>
+         <ClearedByRollsBit>6</ClearedByRollsBit>
+         <TestResultBitValidatePartNumber>8</TestResultBitValidatePartNumber>
+         <TestResultBitValidateVIN>9</TestResultBitValidateVIN>
+         <TestResultBitIdleRPM>10</TestResultBitIdleRPM>
+         <TestResultBitParkNeutralSwitch>11</TestResultBitParkNeutralSwitch>
+         <TestResultBitClutchSwitch>11</TestResultBitClutchSwitch>
+         <TestResultBitBrakeSwitch>12</TestResultBitBrakeSwitch>
+         <TestResultBitThrottlePositionSensor>13</TestResultBitThrottlePositionSensor>
+         <TestResultBitBoostSensor>15</TestResultBitBoostSensor>
+         <MinimumIdleRPM>600</MinimumIdleRPM>
+         <MaximumIdleRPM>1100</MaximumIdleRPM>
+         <EngineOnPrompt>StartVehicle</EngineOnPrompt>
+         <EngineOnPromptBox>2</EngineOnPromptBox>
+         <EngineOnDelay>100</EngineOnDelay>
+         <KeyOnPrompt>KeyOn</KeyOnPrompt>
+         <KeyOnPromptBox>2</KeyOnPromptBox>
+         <KeyOnDelay>100</KeyOnDelay>
+         <EngineOffKeyOnPrompt>EngineOffIgnitionOn</EngineOffKeyOnPrompt>
+         <EngineOffKeyOnPromptBox>2</EngineOffKeyOnPromptBox>
+         <EngineOffKeyOnDelay>100</EngineOffKeyOnDelay>
+         <KeyOffPrompt>KeyOff</KeyOffPrompt>
+         <KeyOffPromptBox>2</KeyOffPromptBox>
+         <KeyOffDelay>100</KeyOffDelay>
+         <CableConnectPrompt>ConnectCable</CableConnectPrompt>
+         <CableConnectPromptBox>2</CableConnectPromptBox>
+         <CableConnectDelay>100</CableConnectDelay>
+         <MinimumBoostPressure>940</MinimumBoostPressure>
+         <MaximumBoostPressure>1060</MaximumBoostPressure>
+         <MinimumBoostPressureToluca>690</MinimumBoostPressureToluca>
+         <MaximumBoostPressureToluca>810</MaximumBoostPressureToluca>
+         <ClosedThrottle>0.00</ClosedThrottle>
+         <DeltaTPSRequired>40.0</DeltaTPSRequired>
+         <ThrottleClosedPercent>10.0</ThrottleClosedPercent>
+         <TPSUnits>Percent</TPSUnits>
+         <IgnitionOffReadDelay>100</IgnitionOffReadDelay>
+         <IgnitionOffReadAttempts>3</IgnitionOffReadAttempts>
+         <IdleConditionWaitDelay>500</IdleConditionWaitDelay>
+         <IdleConditionAttempts>3</IdleConditionAttempts>
+         <ReadSensorsPedalPosition1>1</ReadSensorsPedalPosition1>
+         <ReadSensorsPedalPosition2>1</ReadSensorsPedalPosition2>
+         <ReadSensorsEngineRPM>1</ReadSensorsEngineRPM>
+         <ReadSensorsBoostPressure>1</ReadSensorsBoostPressure>
+         <ReadSensorsMassAirFlow>0</ReadSensorsMassAirFlow>
+         <PedalPosition1MSB>14</PedalPosition1MSB>
+         <PedalPosition1LSB>15</PedalPosition1LSB>
+         <PedalPosition2MSB>10</PedalPosition2MSB>
+         <PedalPosition2LSB>11</PedalPosition2LSB>
+         <TPSConversionFactor>100</TPSConversionFactor>
+         <EngineRPMMSB>12</EngineRPMMSB>
+         <EngineRPMLSB>13</EngineRPMLSB>
+         <RPMConversionFactor>1</RPMConversionFactor>
+         <BoostPressureMSB>18</BoostPressureMSB>
+         <BoostPressureLSB>19</BoostPressureLSB>
+         <BoostPressureConversionFactor>1</BoostPressureConversionFactor>
+         <ModelYearBaseCode>7</ModelYearBaseCode>
+         <ModelYearBaseYear>1990</ModelYearBaseYear>
+         <TransmissionTypeByte>11</TransmissionTypeByte>
+         <TestRedundantBrakeSwitch>1</TestRedundantBrakeSwitch>
+         <PrimaryBrakeSwitchByte>7</PrimaryBrakeSwitchByte>
+         <RedundantBrakeSwitchByte>7</RedundantBrakeSwitchByte>
+         <PrimaryBrakeSwitchOnMask>0x10</PrimaryBrakeSwitchOnMask>
+         <RedundantBrakeSwitchOnMask>0x80</RedundantBrakeSwitchOnMask>
+         <ParkNeutralSwitchByte>7</ParkNeutralSwitchByte>
+         <ParkNeutralSwitchMask>0x40</ParkNeutralSwitchMask>
+         <ClutchSwitchByte>7</ClutchSwitchByte>
+         <ClutchSwitchMask>0x40</ClutchSwitchMask>
+         <DTCCountByte>1</DTCCountByte>
+         <FirstDTCByte>2</FirstDTCByte>
+         <BytesPerDTC>3</BytesPerDTC>
+         <OKToShipByte>1</OKToShipByte>
+         <OKToShipMask>0x20</OKToShipMask>
+         <StatusByteMSB>2</StatusByteMSB>
+         <StatusByteLSB>3</StatusByteLSB>
+         <ReadEOLStatusByteTag>ReadEOLStatusByte</ReadEOLStatusByteTag>
+         <EEPROMWriteTag>WriteEOLStatusByte</EEPROMWriteTag>
+         <ReadModuleFaultsTag>ReadModuleFaults</ReadModuleFaultsTag>
+         <ReadSecuritySeedTag>ReadSecuritySeed</ReadSecuritySeedTag>
+         <UnlockSecurityTag>SendAccessKey</UnlockSecurityTag>
+         <ReadSensorsTag>ReadSensors</ReadSensorsTag>
+         <ReadVINTag>ReadVIN</ReadVINTag>
+         <VINStartByte>2</VINStartByte>
+         <ReadSerialNumberTag>ReadSerialNumber</ReadSerialNumberTag>
+         <SerialNumberStartByte>2</SerialNumberStartByte>
+         <SerialNumberSize>14</SerialNumberSize>
+         <ReadPartNumberTag>ReadPartNumber</ReadPartNumberTag>
+         <PartNumberStartByte>6</PartNumberStartByte>
+         <PartNumberSize>10</PartNumberSize>
+         <ReadConfigurationTag>ReadConfiguration</ReadConfigurationTag>
+         <ReadConfigBodyStyle>1</ReadConfigBodyStyle>
+         <BodyStyleByte>12</BodyStyleByte>
+         <ReadConfigEngineController>1</ReadConfigEngineController>
+         <EngineControllerByte>11</EngineControllerByte>
+         <ReadConfigEngineType>1</ReadConfigEngineType>
+         <EngineTypeByte>8</EngineTypeByte>
+         <ReadConfigModelYear>1</ReadConfigModelYear>
+         <ModelYearByte>7</ModelYearByte>
+         <ReadConfigEmissionsType>1</ReadConfigEmissionsType>
+         <EmissionsTypeByte>2</EmissionsTypeByte>
+         <ReadConfigTransmissionType>1</ReadConfigTransmissionType>
+         <TransmissionTypeByte>13</TransmissionTypeByte>
+         <ReadSwitchesTag>ReadSwitches</ReadSwitchesTag>
+         <ReadThrottlePositionSensorTag>ReadTPS</ReadThrottlePositionSensorTag>
+         <MonitorSpeedLimit>40</MonitorSpeedLimit>
+         <VehicleSpeedTag>SpeedValue</VehicleSpeedTag>
+         <ReadEngineRPMTag>ReadEngineRPM</ReadEngineRPMTag>
+         <ModuleWakeUpTag>ModuleWakeUp</ModuleWakeUpTag>
+         <ModuleKeepAliveTag>ModuleKeepAlive</ModuleKeepAliveTag>
+         <ModuleKeepAliveTime>2000</ModuleKeepAliveTime>
+         <KeepAlivePriority>12</KeepAlivePriority>
+         <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+         <UseFiveBaudInitSequence>0</UseFiveBaudInitSequence>
+         <BeginDiagnosticSessionTag>BeginDiagnosticSession</BeginDiagnosticSessionTag>
+         <BoschUtilityConfig>/Configuration/Components/ModuleInterfaces/BoschEDCUtilities.xml</BoschUtilityConfig>
+      </Parameters>
+      <DataConversions>
+         <BodyStyles>
+            <BodyStyle_0x19>PT/PG</BodyStyle_0x19>
+         </BodyStyles>
+         <EngineControllers>
+            <EngineController_0x10>Bosch EDC 15C-C5</EngineController_0x10>
+         </EngineControllers>
+         <TransmissionTypes>
+            <TransmissionType_0x02>Manual</TransmissionType_0x02>
+            <TransmissionType_0x04>Automatic</TransmissionType_0x04>
+         </TransmissionTypes>
+         <EngineTypes>
+            <EngineType_0x01>2.2L I4 EW</EngineType_0x01>
+            <EngineType_0x02>2.5L I4 NS</EngineType_0x02>
+            <EngineType_0x03>2.8L V6 NS</EngineType_0x03>
+         </EngineTypes>
+         <EmissionsTypes>
+            <EmissionsType_0x02>Mexican</EmissionsType_0x02>
+            <EmissionsType_0x03>California Non-TLEV</EmissionsType_0x03>
+            <EmissionsType_0x04>Federal / Canadian</EmissionsType_0x04>
+            <EmissionsType_0x05>BUX</EmissionsType_0x05>
+            <EmissionsType_0x07>50 State / Canadian</EmissionsType_0x07>
+            <EmissionsType_0x08>California TLEV</EmissionsType_0x08>
+            <EmissionsType_0x0D>Canada Only</EmissionsType_0x0D>
+            <EmissionsType_0x0E>Federal Only</EmissionsType_0x0E>
+            <EmissionsType_0x0F>50 State Only</EmissionsType_0x0F>
+            <EmissionsType_0x13>Euro Stage III OBD</EmissionsType_0x13>
+         </EmissionsTypes>
+      </DataConversions>
+      <EmissionsFaultList>/Configuration/Components/Emissions/EmissionsFaults.xml</EmissionsFaultList>
+   </Setup>
+   <Objectives>
+      <PreInitialize>
+         <TestStep010>UnlockModuleSecurity</TestStep010>
+         <TestStep020>EngineOn</TestStep020>
+      </PreInitialize>
+      <Initialize>
+         <TestStep010>UnlockModuleSecurity</TestStep010>
+         <TestStep020>StartModuleKeepAlive</TestStep020>
+         <TestStep040>DeterminePreviousPass</TestStep040>
+         <TestStep050>CheckForModuleFaults</TestStep050>
+         <TestStep060>CheckEOLStatusBytes</TestStep060>
+         <TestStep070>VerifyVINDigits</TestStep070>
+         <TestStep080>VerifyPartNumber</TestStep080>
+         <TestStep090>RecordTraceabilityCode</TestStep090>
+         <TestStep100>DetermineModuleConfiguration</TestStep100>
+         <TestStep110>CheckIdleSpeed</TestStep110>
+         <TestStep120>ValidateBoostSensor</TestStep120>
+      </Initialize>
+      <BeginDataMonitors>
+         <TestStep10>StartSwitchMonitor</TestStep10>
+         <TestStep20>StartThrottlePositionMonitor</TestStep20>
+      </BeginDataMonitors>
+      <CheckEnd>
+         <TestSetp10>StopSwitchMonitor</TestSetp10>
+         <TestStep20>StopThrottlePositionMonitor</TestStep20>
+         <TestStep30>CheckForModuleFaults</TestStep30>
+         <TestStep35>PerformModuleFinishUp</TestStep35>
+         <TestStep40>StopModuleKeepAlive</TestStep40>
+      </CheckEnd>
+      <FinishUp>
+         <TestStep10>FinishUp</TestStep10>
+      </FinishUp>
+      <ModuleSetup>
+         <TestStep10>UnlockModuleSecurity</TestStep10>
+         <TestStep20>DeterminePreviousPass</TestStep20>
+         <TestStep40>StartModuleKeepAlive</TestStep40>
+      </ModuleSetup>
+      <UnlockModule>
+         <TestStep10>UnlockModuleSecurity</TestStep10>
+      </UnlockModule>
+      <CheckForFaults>
+         <TestStep10>CheckForModuleFaults</TestStep10>
+      </CheckForFaults>
+      <ValidateUplineTests>
+         <TestStep10>CheckEOLStatusBytes</TestStep10>
+      </ValidateUplineTests>
+      <ConfirmModuleID>
+         <TestStep10>VerifyVINDigits</TestStep10>
+         <TestStep20>VerifyPartNumber</TestStep20>
+         <TestStep30>RecordTraceabilityCode</TestStep30>
+         <TestStep40>DetermineModuleConfiguration</TestStep40>
+      </ConfirmModuleID>
+      <EngineIdleTests>
+         <TestStep10>CheckIdleSpeed</TestStep10>
+         <TestStep20>ValidateBoostSensor</TestStep20>
+      </EngineIdleTests>
+      <StartSwitchMonitor>
+         <TestStep10>StartSwitchMonitor</TestStep10>
+      </StartSwitchMonitor>
+      <StopSwitchMonitor>
+         <TestStep10>StopSwitchMonitor</TestStep10>
+      </StopSwitchMonitor>
+      <TestStepUnlockModuleSecurity>
+         <TestStep10>UnlockModuleSecurity</TestStep10>
+      </TestStepUnlockModuleSecurity>
+      <TestStepStartModuleKeepAlive>
+         <TestStep10>StartModuleKeepAlive</TestStep10>
+      </TestStepStartModuleKeepAlive>
+      <TestStepCheckEOLStatusBytes>
+         <TestStep10>StartModuleKeepAlive</TestStep10>
+      </TestStepCheckEOLStatusBytes>
+      <TestStepVerifyVINDigits>
+         <TestStep10>VerifyVINDigits</TestStep10>
+      </TestStepVerifyVINDigits>
+      <TestStepVerifyPartNumber>
+         <TestStep10>VerifyPartNumber</TestStep10>
+      </TestStepVerifyPartNumber>
+      <TestStepRecordTraceabilityCode>
+         <TestStep10>RecordTraceabilityCode</TestStep10>
+      </TestStepRecordTraceabilityCode>
+      <TestStepDetermineModuleConfiguration>
+         <TestStep10>DetermineModuleConfiguration</TestStep10>
+      </TestStepDetermineModuleConfiguration>
+      <TestStepCheckIdleSpeed>
+         <TestStep10>StepCheckIdleSpeed</TestStep10>
+      </TestStepCheckIdleSpeed>
+      <TestStepValidateBoostSensor>
+         <TestStep10>ValidateBoostSensor</TestStep10>
+      </TestStepValidateBoostSensor>
+      <TestStepStartSwitchMonitor>
+         <TestStep10>StartSwitchMonitor</TestStep10>
+      </TestStepStartSwitchMonitor>
+      <TestStepStartThrottlePositionMonitor>
+         <TestStep10>StartThrottlePositionMonitor</TestStep10>
+      </TestStepStartThrottlePositionMonitor>
+      <TestStepStopThrottlePositionMonitor>
+         <TestStep10>StopThrottlePositionMonitor</TestStep10>
+      </TestStepStopThrottlePositionMonitor>
+      <TestStepDeterminePreviousPass>
+         <TestStep10>DeterminePreviousPass</TestStep10>
+      </TestStepDeterminePreviousPass>
+      <TestStepCheckEOLStatusBytes>
+         <TestStep10>CheckEOLStatusBytes</TestStep10>
+      </TestStepCheckEOLStatusBytes>
+      <TestStepCheckForModuleFaults>
+         <TestStep10>CheckForModuleFaults</TestStep10>
+      </TestStepCheckForModuleFaults>
+      <TestStepStopSwitchMonitor>
+         <TestStep10>StopSwitchMonitor</TestStep10>
+      </TestStepStopSwitchMonitor>
+      <TestStepPerformModuleFinishUp>
+         <TestStep10>PerformModuleFinishUp</TestStep10>
+      </TestStepPerformModuleFinishUp>
+      <TestStepStopModuleKeepAlive>
+         <TestStep10>StopModuleKeepAlive</TestStep10>
+      </TestStepStopModuleKeepAlive>
+      <TestStepFinishUp>
+         <TestStep10>FinishUp</TestStep10>
+      </TestStepFinishUp>
+      <TestStepEngineOn>
+         <TestStep10>EngineOn</TestStep10>
+      </TestStepEngineOn>
+      <TestStepEngineOffKeyOn>
+         <TestStep10>EngineOffKeyOn</TestStep10>
+      </TestStepEngineOffKeyOn>
+      <TestStepKeyOn>
+         <TestStep10>KeyOn</TestStep10>
+      </TestStepKeyOn>
+      <TestStepKeyOff>
+         <TestStep10>KeyOff</TestStep10>
+      </TestStepKeyOff>
+      <TestStepResetModuleUplines>
+         <TestStep10>ResetModuleUplines</TestStep10>
+      </TestStepResetModuleUplines>
+   </Objectives>
+   <TestSteps>
+      <UnlockModuleSecurity Result="Not Tested" Timeout="30000" Description="Unlock security to the module" Retries="2" KeyOffDelay="3000" EngineOnDelay="3000"/>
+      <StartModuleKeepAlive Result="Not Tested" Timeout="30000" Description="Start sending keep alive message to the module"/>
+      <CheckEOLStatusBytes Result="Not Tested" Timeout="30000" Description="Verify all upline tests have been successfully completed"/>
+      <VerifyVINDigits Result="Not Tested" Timeout="10000" Description="Verify Module VIN matches Broadcast"/>
+      <VerifyPartNumber Result="Not Tested" Timeout="10000" Description="Verify module part number matches Broadcast"/>
+      <RecordTraceabilityCode Result="Not Tested" Timeout="10000" Description="Retrieve Serial Number stored in PCM"/>
+      <DetermineModuleConfiguration Result="Not Tested" Timeout="10000" Description="Retrieve vehicle configuration from the PCM"/>
+      <CheckIdleSpeed Result="Not Tested" Timeout="20000" Description="Verify Idle RPM falls within parameter range"/>
+      <ValidateBoostSensor Result="Not Tested" Timeout="30000" Description="Verify the boost sensor is functioning"/>
+      <StartSwitchMonitor Result="Not Tested" Timeout="30000" Description="Begin monitoring switches"/>
+      <StopSwitchMonitor Result="Not Tested" Timeout="5000" Description="Stop monitoring switches and determine which switch states were observed" BrakeDescription="Verify the functionality of the primary and redundant brake switches" ClutchDescription="Verify the functionality of the clutch switch" ParkNeutralDescription="Verify the functionality of the Park/Neutral switch" PressBrakePromptBox="1" PressBrakePrompt="ApplyBrake" PressBrakePromptPriority="0" ReleaseBrakePromptBox="1" ReleaseBrakePrompt="FootOffBrake" ReleaseBrakePromptPriority="0" PressClutchPromptBox="1" PressClutchPrompt="PressClutchPedal" PressClutchPromptPriority="0" ReleaseClutchPromptBox="1" ReleaseClutchPrompt="RemoveFootFromClutch" ReleaseClutchPromptPriority="0" ShiftToParkPromptBox="1" ShiftToParkPrompt="ShiftToPark" ShiftToParkPromptPriority="0" ShiftToReversePromptBox="1" ShiftToReversePrompt="ShiftToReverse" ShiftToReversePromptPriority="0"/>
+      <StartThrottlePositionMonitor Result="Not Tested" Timeout="30000" Description="Begin monitoring the throttle position after idle conditions achieved"/>
+      <StopThrottlePositionMonitor Result="Not Tested" Timeout="10000" Description="Stop monitoring throttle position and check test results" TPSDescription="Validate the functionality of the Throttle Position Sensor" PressThrottlePromptBox="1" PressThrottlePrompt="PressThrottle" PressThrottlePromptPriority="0"/>
+      <DeterminePreviousPass Result="Not Tested" Timeout="30000" Description="Determine if emissions testing has already passed"/>
+      <CheckEOLStatusBytes Result="Not Tested" Timeout="30000" Description="Verify all upline tests have been successfully completed"/>
+      <CheckForModuleFaults Result="Not Tested" Timeout="30000" Description="Look for faults in the module"/>
+      <PerformModuleFinishUp Result="Not Tested" Timeout="30000" Description="Update the module with the test results and place into proper mode"/>
+      <StopModuleKeepAlive Result="Not Tested" Timeout="30000" Description="Stop sending keep alive message to the module"/>
+      <FinishUp Result="" Timeout="5000" Description="Perform the module finishup"/>
+      <EngineOn Result="" Timeout="30000" Description="Prompt operator to turn the engine on and validate">Prompt operator to turn the engine on and validate</EngineOn>
+      <EngineOffKeyOn Result="" Timeout="" Description="Prompt the operator to turn the engine off with key on">Prompt the operator to turn the engine off with key on</EngineOffKeyOn>
+      <KeyOn Result="" Timeout="20000" Description="Prompt operator to turn the key on">Prompt operator to turn the key on</KeyOn>
+      <KeyOff Result="" Timeout="20000" Description="Prompt operator to turn the key off">Prompt operator to turn the key off</KeyOff>
+      <ResetModuleUplines Result="" Timeout="20000" Description="Reset module uplines" BoschUtilityConfig="/Configuration/Components/ModuleInterfaces/BoschEDCUtilities.xml">Reset the module uplines</ResetModuleUplines>
+   </TestSteps>
+   <VehicleCommunication>
+      <Setup>
+         <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK</Name>
+            <BufferSize>128</BufferSize>
+            <Timeout>1000</Timeout>
+         </Communication>
+         <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>DieselEmissKwpIso</ProcessName>
+            <AdditionalLogFile>/Communication/DieselEmissKwpIso</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Enabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+         </Logging>
+         <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+         </NegativeResponseCodes>
+         <DataStartIndex>3</DataStartIndex>
+         <DataHeaderLength>3</DataHeaderLength>
+         <CheckSumLength>1</CheckSumLength>
+         <NumberOfRetries>5</NumberOfRetries>
+         <ValidResponseOffset>0x40</ValidResponseOffset>
+         <NegativeResponseValue>0x7F</NegativeResponseValue>
+         <NegativeResponseCodeIndex>5</NegativeResponseCodeIndex>
+         <ModuleResponseDelay>200</ModuleResponseDelay>
+      </Setup>
+      <SerialMessages>
+         <VehicleMessages>
+            <ReadEOLStatusByte>
+               <TransmitMessage>ReadLID</TransmitMessage>
+               <TransmitInterpretation>ReadEOLStatusByte</TransmitInterpretation>
+               <ReplyMessage>ReadEOLStatusByte</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadEOLStatusByte>
+            <WriteEOLStatusByte>
+               <TransmitMessage>WriteEOLStatusByte</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage ReplyTimeout="500">WriteEOLStatusByte</ReplyMessage>
+               <ReplyInterpretation/>
+            </WriteEOLStatusByte>
+            <ReadModuleFaults>
+               <TransmitMessage>ReadModuleFaults</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage ReplyTimeout="500">ReadModuleFaults</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadModuleFaults>
+            <ReadSecuritySeed>
+               <TransmitMessage>ReadSecuritySeed</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>ReadSecuritySeed</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadSecuritySeed>
+            <SendAccessKey>
+               <TransmitMessage>SendAccessKey</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>SendAccessKey</ReplyMessage>
+               <ReplyInterpretation/>
+            </SendAccessKey>
+            <ReadSensors>
+               <TransmitMessage>ReadLID</TransmitMessage>
+               <TransmitInterpretation>ReadSensors</TransmitInterpretation>
+               <ReplyMessage>ReadSensors</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadSensors>
+            <ReadVIN>
+               <TransmitMessage>ReadLID</TransmitMessage>
+               <TransmitInterpretation>ReadVIN</TransmitInterpretation>
+               <ReplyMessage>ReadVIN</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadVIN>
+            <ReadSerialNumber>
+               <TransmitMessage>ReadLID</TransmitMessage>
+               <TransmitInterpretation>ReadSerialNumber</TransmitInterpretation>
+               <ReplyMessage>ReadSerialNumber</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadSerialNumber>
+            <ReadPartNumber>
+               <TransmitMessage>ReadID</TransmitMessage>
+               <TransmitInterpretation>ReadPartNumber</TransmitInterpretation>
+               <ReplyMessage>ReadPartNumber</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadPartNumber>
+            <ReadConfiguration>
+               <TransmitMessage>ReadID</TransmitMessage>
+               <TransmitInterpretation>ReadConfiguration</TransmitInterpretation>
+               <ReplyMessage>ReadConfiguration</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadConfiguration>
+            <ReadEngineRPM>
+               <TransmitMessage>ReadLID</TransmitMessage>
+               <TransmitInterpretation>ReadSensors</TransmitInterpretation>
+               <ReplyMessage>ReadSensors</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadEngineRPM>
+            <ModuleWakeUp>
+               <TransmitMessage>ModuleWakeUp</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>ModuleWakeUp</ReplyMessage>
+               <ReplyInterpretation/>
+            </ModuleWakeUp>
+            <FiveBaudInit>
+               <TransmitMessage>FiveBaudInit</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>FiveBaudInit</ReplyMessage>
+               <ReplyInterpretation/>
+            </FiveBaudInit>
+            <InvertKey>
+               <TransmitMessage>InvertKey</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>InvertKey</ReplyMessage>
+               <ReplyInterpretation/>
+            </InvertKey>
+            <BeginDiagnosticSession>
+               <TransmitMessage>BeginDiagnosticSession</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>BeginDiagnosticSession</ReplyMessage>
+               <ReplyInterpretation/>
+            </BeginDiagnosticSession>
+         </VehicleMessages>
+         <TransmitMessages>
+            <ReadID>0x82,0x15,0x75,0x1A,0x??</ReadID>
+            <ReadLID>0x82,0x15,0x75,0x21,0x??</ReadLID>
+            <WriteEOLStatusByte>0x84,0x15,0x75,0x3B,0x10,0x??,0x??</WriteEOLStatusByte>
+            <ReadModuleFaults>0x84,0x15,0x75,0x18,0x02,0x00,0x00</ReadModuleFaults>
+            <ReadSecuritySeed>0x82,0x15,0x75,0x27,0x01</ReadSecuritySeed>
+            <BeginDiagnosticSession>0x82,0x15,0x75,0x10,0x81</BeginDiagnosticSession>
+            <SendAccessKey>0x84,0x15,0x75,0x27,0x02,0x??,0x??</SendAccessKey>
+            <ModuleWakeUp>0x81,0x15,0x75,0x81</ModuleWakeUp>
+            <FiveBaudInit>0x15</FiveBaudInit>
+            <InvertKey>0x70</InvertKey>
+         </TransmitMessages>
+         <TransmitInterpretations>
+            <ReadEOLStatusByte>0x60</ReadEOLStatusByte>
+            <ReadSensors>0x12</ReadSensors>
+            <ReadVIN>0x90</ReadVIN>
+            <ReadSerialNumber>0x97</ReadSerialNumber>
+            <ReadPartNumber>0x86</ReadPartNumber>
+            <ReadConfiguration>0x91</ReadConfiguration>
+         </TransmitInterpretations>
+         <ReplyMessages>
+            <ReadEOLStatusByte>
+               <Reply_00>0x84,0x75,0x15,0x61,0x60,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x21,0x??,0x??</Reply_01>
+            </ReadEOLStatusByte>
+            <WriteEOLStatusByte>
+               <Reply_00>0x82,0x75,0x15,0x7B,0x10,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x3B,0x??,0x??</Reply_01>
+               <Reply_02>0x83,0x75,0x15,0x7F,0x3B,0x78,0x??,0x82,0x75,0x15,0x7B,0x10,0x??</Reply_02>
+            </WriteEOLStatusByte>
+            <ReadModuleFaults>
+               <Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x??,0x75,0x15,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+            </ReadModuleFaults>
+            <ReadSecuritySeed>
+               <Reply_00>0x84,0x75,0x15,0x67,0x01,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x27,0x??,0x??</Reply_01>
+            </ReadSecuritySeed>
+            <SendAccessKey>
+               <Reply_00>0x83,0x75,0x15,0x67,0x02,0x34,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x??,0x??,0x??</Reply_01>
+            </SendAccessKey>
+            <ReadSensors>
+               <Reply_00>0xA2,0x75,0x15,0x61,0x12,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x21,0x??,0x??</Reply_01>
+            </ReadSensors>
+            <ReadVIN>
+               <Reply_00>0x93,0x75,0x15,0x61,0x90,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x21,0x??,0x??</Reply_01>
+            </ReadVIN>
+            <ReadSerialNumber>
+               <Reply_00>0x8E,0x75,0x15,0x61,0x97,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x21,0x??,0x??</Reply_01>
+            </ReadSerialNumber>
+            <ReadPartNumber>
+               <Reply_00>0x92,0x75,0x15,0x5A,0x86,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x1A,0x??,0x??</Reply_01>
+            </ReadPartNumber>
+            <ReadConfiguration>
+               <Reply_00>0x96,0x75,0x15,0x5A,0x91,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x1A,0x??,0x??</Reply_01>
+            </ReadConfiguration>
+            <ModuleWakeUp>
+               <Reply_05>0x83,0x75,0x15,0xC1,0xEF,0x8F,0x4C</Reply_05>
+            </ModuleWakeUp>
+            <BeginDiagnosticSession>
+               <Reply_00>0x82,0x75,0x15,0x50,0x81,0xDD</Reply_00>
+            </BeginDiagnosticSession>
+            <FiveBaudInit>
+               <Reply_00>0x55,0xEF,0x8F</Reply_00>
+               <Reply_01>0xEF,0x8F</Reply_01>
+            </FiveBaudInit>
+            <InvertKey>
+               <Reply_00>0x??</Reply_00>
+            </InvertKey>
+         </ReplyMessages>
+         <ReplyInterpretations/>
+      </SerialMessages>
+   </VehicleCommunication>
+   <SwitchMonitorCommunication>
+      <Setup>
+         <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK</Name>
+            <BufferSize>128</BufferSize>
+            <Timeout>500</Timeout>
+         </Communication>
+         <Logging>
+            <Status>Disabled</Status>
+            <ProcessName>EmissSwitchMonKwpIso</ProcessName>
+            <AdditionalLogFile>/Communication/EmissSwitchMonKwpIso</AdditionalLogFile>
+            <Debug>On</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+         </Logging>
+         <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+         </NegativeResponseCodes>
+         <DataStartIndex>3</DataStartIndex>
+         <DataHeaderLength>3</DataHeaderLength>
+         <CheckSumLength>1</CheckSumLength>
+         <NumberOfRetries>3</NumberOfRetries>
+         <ValidResponseOffset>0x40</ValidResponseOffset>
+         <NegativeResponseValue>0x7F</NegativeResponseValue>
+         <ModuleResponseDelay>500</ModuleResponseDelay>
+         <NegativeResponseCodeIndex>5</NegativeResponseCodeIndex>
+      </Setup>
+      <SerialMessages>
+         <VehicleMessages>
+            <ReadSwitches>
+               <TransmitMessage>ReadLID</TransmitMessage>
+               <TransmitInterpretation>ReadSwitches</TransmitInterpretation>
+               <ReplyMessage>ReadSwitches</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadSwitches>
+         </VehicleMessages>
+         <TransmitMessages>
+            <ReadLID>0x82,0x15,0x75,0x21,0x??</ReadLID>
+         </TransmitMessages>
+         <TransmitInterpretations>
+            <ReadSwitches>0x14</ReadSwitches>
+         </TransmitInterpretations>
+         <ReplyMessages>
+            <ReadSwitches>
+               <Reply_00>0x8E,0x75,0x15,0x61,0x14,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x21,0x??,0x??</Reply_01>
+            </ReadSwitches>
+         </ReplyMessages>
+         <ReplyInterpretations/>
+      </SerialMessages>
+   </SwitchMonitorCommunication>
+   <KeepAliveCommunication>
+      <Setup>
+         <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK</Name>
+            <BufferSize>128</BufferSize>
+            <Timeout>500</Timeout>
+         </Communication>
+         <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>EmissKeepAliveKwpIso</ProcessName>
+            <AdditionalLogFile>/Communication/EmissKeepAlive</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+         </Logging>
+         <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+         </NegativeResponseCodes>
+         <DataStartIndex>3</DataStartIndex>
+         <DataHeaderLength>3</DataHeaderLength>
+         <CheckSumLength>1</CheckSumLength>
+         <NumberOfRetries>3</NumberOfRetries>
+         <ValidResponseOffset>0x40</ValidResponseOffset>
+         <NegativeResponseValue>0x7F</NegativeResponseValue>
+         <ModuleResponseDelay>250</ModuleResponseDelay>
+         <NegativeResponseCodeIndex>5</NegativeResponseCodeIndex>
+      </Setup>
+      <SerialMessages>
+         <VehicleMessages>
+            <ModuleKeepAlive>
+               <TransmitMessage>ModuleKeepAlive</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>ModuleKeepAlive</ReplyMessage>
+               <ReplyInterpretation/>
+            </ModuleKeepAlive>
+            <ModuleKeepAliveAttempt2>
+               <TransmitMessage>ReadModuleFaults</TransmitMessage>
+               <TransmitInterpretation/>
+               <ReplyMessage>ReadModuleFaults</ReplyMessage>
+               <ReplyInterpretation/>
+            </ModuleKeepAliveAttempt2>
+         </VehicleMessages>
+         <TransmitMessages>
+            <ModuleKeepAlive>0x81,0x15,0x75,0x3E</ModuleKeepAlive>
+            <ReadModuleFaults>0x84,0x15,0x75,0x18,0x02,0x00,0x00</ReadModuleFaults>
+         </TransmitMessages>
+         <ReplyMessages>
+            <ModuleKeepAlive>
+               <Reply_00>0x81,0x75,0x15,0x7E,0x??</Reply_00>
+            </ModuleKeepAlive>
+            <ReadModuleFaults>
+               <Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x??,0x75,0x15,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+            </ReadModuleFaults>
+         </ReplyMessages>
+         <ReplyInterpretations/>
+      </SerialMessages>
+   </KeepAliveCommunication>
+   <ThrottlePositionMonitorCommunication>
+      <Setup>
+         <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK</Name>
+            <BufferSize>128</BufferSize>
+            <Timeout>500</Timeout>
+         </Communication>
+         <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>EmissTPSMonKwpIso</ProcessName>
+            <AdditionalLogFile>/Communication/EmissTPSMonKwpIso</AdditionalLogFile>
+            <Debug>On</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+         </Logging>
+         <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+         </NegativeResponseCodes>
+         <DataStartIndex>3</DataStartIndex>
+         <DataHeaderLength>3</DataHeaderLength>
+         <CheckSumLength>1</CheckSumLength>
+         <NumberOfRetries>3</NumberOfRetries>
+         <ValidResponseOffset>0x40</ValidResponseOffset>
+         <NegativeResponseValue>0x7F</NegativeResponseValue>
+         <ModuleResponseDelay>150</ModuleResponseDelay>
+         <NegativeResponseCodeIndex>5</NegativeResponseCodeIndex>
+      </Setup>
+      <SerialMessages>
+         <VehicleMessages>
+            <ReadTPS>
+               <TransmitMessage>ReadLID</TransmitMessage>
+               <TransmitInterpretation>ReadSensors</TransmitInterpretation>
+               <ReplyMessage>ReadSensors</ReplyMessage>
+               <ReplyInterpretation/>
+            </ReadTPS>
+         </VehicleMessages>
+         <TransmitMessages>
+            <ReadLID>0x82,0x15,0x75,0x21,0x??</ReadLID>
+         </TransmitMessages>
+         <TransmitInterpretations>
+            <ReadSensors>0x12</ReadSensors>
+         </TransmitInterpretations>
+         <ReplyMessages>
+            <ReadSensors>
+               <Reply_00>0xA2,0x75,0x15,0x61,0x12,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+               <Reply_01>0x83,0x75,0x15,0x7F,0x21,0x??,0x??</Reply_01>
+            </ReadSensors>
+         </ReplyMessages>
+         <ReplyInterpretations/>
+      </SerialMessages>
+   </ThrottlePositionMonitorCommunication>
+</DieselEmissionsComponent>

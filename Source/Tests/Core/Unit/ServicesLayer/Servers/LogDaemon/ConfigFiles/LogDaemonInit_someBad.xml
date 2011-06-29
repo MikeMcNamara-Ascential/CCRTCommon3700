@@ -1,0 +1,73 @@
+<Logger_Configuration>
+   <Setup>
+	    <!-- Activate debugging in LogDaemon [On|Off] -->
+			<Debug>BAD VAL</Debug>
+
+      <!-- Path for log files (relative to "$FTP_ROOT" -->
+      <Path>/MyPath</Path>
+
+      <!-- Core log file, before tests begin -->
+      <StartFile>MyFile1</StartFile>
+
+			<!-- 
+			   Max size of StartLog files (in MB).  Once StartLog exceeds 
+				 this size, it will be rotated.  
+				 Use "0" to disable StartLog rotation.
+			-->
+			<StartFileMaxSize>BAD VAL</StartFileMaxSize>
+
+			<!-- Max number of files for StartLog rotation -->
+			<StartFileMaxFiles>BAD VAL</StartFileMaxFiles>
+
+			<!-- Core log file base name, once tests have begun -->
+      <StandardFile>MyFile2</StandardFile>
+
+			<!-- 
+			  Max size of standard logs (in MB).  Once size is exceeded, 
+				the file will be "capped".  Core log output is then 
+				suppressed until the next test begins, and a new standard
+				core log file is opened.
+
+				Enter "0" here to disable capping.
+			-->
+			<StandardFileMaxSize>BAD VAL</StandardFileMaxSize>
+
+			<!-- 
+			  Max number of old standard core log files to keep around.
+				(At any given time after reaching max, you'll have n+1 log files,
+				 including the current core log file.)
+			-->
+      <StandardFileMaxFiles>BAD VAL</StandardFileMaxFiles>
+
+      <!-- 
+			  Priproty of the thread which listens for 
+				incoming messages.
+			-->
+      <ReceiverPriority>BAD VAL</ReceiverPriority>
+
+			<!-- 
+			  Priority of the LogRotator thread 
+			-->
+			<LogRotatorPriority>BAD VAL</LogRotatorPriority>
+			
+			<!-- 
+			  LogRotator wake-up period (in seconds) 
+	    -->
+			<LogRotatorPeriod>BAD VAL</LogRotatorPeriod>
+
+			<!-- 
+			  Default priority of the LogWriter thread 
+			-->
+			<LogWriterPriority>BAD VAL</LogWriterPriority>
+			
+			<!-- 
+			  Maximum size of the log message queue.  Eg, "1000" means
+				the queue will not hold more than 1000 messages at a time.
+			-->
+			<MessageQueueSize>BAD VAL</MessageQueueSize>
+			
+
+
+   </Setup>
+</Logger_Configuration>
+

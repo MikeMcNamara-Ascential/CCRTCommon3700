@@ -1,0 +1,15 @@
+<SelectionTable Description="Drive curve selection table">
+
+    <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+        <BrakeType>Base Brake</BrakeType>
+    </BaseBrake>
+    <TevesMk70Abs DriveCurve="/Configuration/VehicleTest/DriveCurves/TevesMk70AbsDriveCurve.xml">
+        <BrakeType>TevesMk70</BrakeType>
+        <!-- BodyStyle>B207</BodyStyle-->
+    </TevesMk70>
+    <TrwAbs DriveCurve="/Configuration/VehicleTest/DriveCurves/TrwAbsDriveCurve.xml">
+        <BrakeType>TRW</BrakeType>
+        <!-- BodyStyle>CD101</BodyStyle-->
+    </TrwAbs>
+
+</SelectionTable>

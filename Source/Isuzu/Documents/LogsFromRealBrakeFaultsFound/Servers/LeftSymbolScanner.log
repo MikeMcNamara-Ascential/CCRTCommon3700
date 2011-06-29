@@ -1,0 +1,145 @@
+€12/13/10 15:23:48.140 (1) core/LeftSymbolScanner     Activated additional log [/home/CCRT/Rewrite/Logs/Servers/LeftSymbolScanner.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:48.177 (1) core/LeftSymbolScanner     BepComponent::Initialize()
+€
+€12/13/10 15:23:48.208 (1) core/LeftSymbolScanner     Process core/LeftSymbolScanner running at priority 10
+€
+€12/13/10 15:23:48.209 (1) core/LeftSymbolScanner     Updated process core/LeftSymbolScanner running at priority 10
+€
+€12/13/10 15:23:48.211 (1) core/LeftSymbolScanner     BepComponent::Initialize(         <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+            <Setup>
+               <BadDataIndex>0x01</BadDataIndex>               <BadDataIndicator>0x00</BadDataIndicator>               <BadDataReplacementValue>0x31</BadDataReplacementValue>               <Communication>
+                  <BufferSize>2000</BufferSize>                  <Comm>IPC</Comm>                  <Debug>Off</Debug>                  <Name>core/LeftSymbolScanner</Name>                  <Timeout>1000</Timeout>                  <Type>Server</Type>               </Communication>               <CorrectBadScannerData>No</CorrectBadScannerData>               <DataDelay>3000</DataDelay>               <DriverNumberLength>7</DriverNumberLength>               <Logging>
+                  <AdditionalLogFile>/Servers/LeftSymbolScanner.log</AdditionalLogFile>                  <Debug>Off</Debug>                  <LocalEcho>Disabled</LocalEcho>                  <ProcessName>core/€
+€12/13/10 15:23:48.212 (1) core/LeftSymbolScanner     Preparing to deal with subscribe tags:             <Setup>
+               <BadDataIndex>0x01</BadDataIndex>               <BadDataIndicator>0x00</BadDataIndicator>               <BadDataReplacementValue>0x31</BadDataReplacementValue>               <Communication>
+                  <BufferSize>2000</BufferSize>                  <Comm>IPC</Comm>                  <Debug>Off</Debug>                  <Name>core/LeftSymbolScanner</Name>                  <Timeout>1000</Timeout>                  <Type>Server</Type>               </Communication>               <CorrectBadScannerData>No</CorrectBadScannerData>               <DataDelay>3000</DataDelay>               <DriverNumberLength>7</DriverNumberLength>               <Logging>
+                  <AdditionalLogFile>/Servers/LeftSymbolScanner.log</AdditionalLogFile>                  <Debug>Off</Debug>                  <LocalEcho>Disabled</LocalEcho>                  <ProcessName>core/LeftSymbolScanner</ProcessName>                  <Status>Enabled</Status>          €
+€12/13/10 15:23:48.212 (1) core/LeftSymbolScanner     No SubscribeTags node found
+€
+€12/13/10 15:23:48.213 (1) core/LeftSymbolScanner     Creating Thread Pool
+€
+€12/13/10 15:23:48.214 (1) core/LeftSymbolScanner     BepServer::Initialize(         <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+            <Setup>
+               <BadDataIndex>0x01</BadDataIndex>               <BadDataIndicator>0x00</BadDataIndicator>               <BadDataReplacementValue>0x31</BadDataReplacementValue>               <Communication>
+                  <BufferSize>2000</BufferSize>                  <Comm>IPC</Comm>                  <Debug>Off</Debug>                  <Name>core/LeftSymbolScanner</Name>                  <Timeout>1000</Timeout>                  <Type>Server</Type>               </Communication>               <CorrectBadScannerData>No</CorrectBadScannerData>               <DataDelay>3000</DataDelay>               <DriverNumberLength>7</DriverNumberLength>               <Logging>
+                  <AdditionalLogFile>/Servers/LeftSymbolScanner.log</AdditionalLogFile>                  <Debug>Off</Debug>                  <LocalEcho>Disabled</LocalEcho>                  <ProcessName>core/Lef€
+€12/13/10 15:23:48.214 (1) core/LeftSymbolScanner     InputDeviceBase::Initialize()
+€
+€12/13/10 15:23:48.215 (1) core/LeftSymbolScanner     InputDeviceBase::Initialize() done
+€
+€12/13/10 15:23:48.215 (1) core/LeftSymbolScanner     SymbolScannerMgr::Initialize()
+€
+€12/13/10 15:23:48.215 (1) LeftSymbolScanner          Additional log [Servers/LeftSymbolScanner.log] already activated.€
+€12/13/10 15:23:48.216 (1) LeftSymbolScanner          	XmlException in ILogicalPort::Initialize: Tag Not Found: SerialMessages
+€
+€12/13/10 15:23:48.216 (1) LeftSymbolScanner          	BepException in ILogicalPort::Initialize InitMessage: Tag Not Found: SerialMessages
+€
+€12/13/10 15:23:48.216 (1) LeftSymbolScanner          Retry count not found using default value of 5
+€
+€12/13/10 15:23:48.216 (1) LeftSymbolScanner          BufferSize: 128
+€
+€12/13/10 15:23:48.216 (1) LeftSymbolScanner          SerialChannel::OpenPort(/dev/LogicalPorts/Scanner, 2)
+€
+€12/13/10 15:23:48.232 (1) LeftSymbolScanner          SerialChannel::OpenPort(/dev/LogicalPorts/Scanner, 2) Passed [initialized = 1]
+€
+€12/13/10 15:23:48.233 (1) LeftSymbolScanner          SerialChannel::Initialize() done
+€
+€12/13/10 15:23:48.233 (1) core/LeftSymbolScanner     ERROR SymbolScannerMgr::Initialize() Unable to find MaxVinLength, defaulting to 17
+€
+€12/13/10 15:23:48.234 (1) core/LeftSymbolScanner     SymbolScannerMgr::Initialize() done
+€
+€12/13/10 15:23:48.234 (1) core/LeftSymbolScanner     SymbolScannerMgr::Execute() begin
+€
+€12/13/10 15:23:48.234 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:23:51.236 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:23:51.236 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:23:54.237 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:23:54.237 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:23:57.239 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:23:57.239 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:00.241 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:00.241 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:03.243 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:03.243 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:06.244 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:06.244 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:09.246 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:09.252 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:12.253 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:12.253 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:15.255 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:15.255 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:18.267 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:18.267 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:21.268 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:21.268 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:24.270 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:24.270 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:27.271 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:27.271 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:30.273 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:30.273 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:33.274 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:33.274 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:36.276 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:36.276 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:39.277 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:39.277 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:42.279 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:42.279 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:45.280 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:45.280 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:48.282 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:48.282 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:51.284 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:51.284 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:54.285 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:54.285 (1) core/LeftSymbolScanner     Waiting for scan data
+€
+€12/13/10 15:24:57.287 (1) core/LeftSymbolScanner     Received -1 bytes from scanner
+€
+€12/13/10 15:24:57.287 (1) core/LeftSymbolScanner

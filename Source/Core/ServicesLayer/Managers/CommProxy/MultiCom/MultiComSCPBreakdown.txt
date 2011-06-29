@@ -1,0 +1,54 @@
+To Vehicle:     34 05 C4 28 22 29 00 B8
+From Vehicle:   34 00 28 D1 02 81 28 7B D0 0C 84 F3 22 28 00 C4 F3 28 62 29 00 00 00 90
+
+To Vehicle Breakdown
+=====================
+    34 - MIB (Message Identifier Byte), SCP Send
+    05 - MBC (Message Byte Count)
+    C4 - P/T (Priority/Header/Type)
+    28 - DST (SCP Destination Address)
+    22 - DB1 (Data Byte 1) Module Command $22
+    29 - DB2 (Data Byte 2)
+    00 - DB3 (Data Byte 3)
+    B8 - CRC
+
+From Vehicle Breakdown
+=======================
+3 "packets" (not including the data rfom the vehicle) in the message:
+    
+    Packet 1 (MultiCom ACK)
+    =======================================
+    34 00 28
+    
+    Packet 2 (MultiCom "Message Sent")
+    =======================================
+    D1 02 81 28 7B
+        D1 - MIB (Message Identifier Byte)
+        02 - MBC (Message Byte Count)
+        81 - IR1 (HBCC IR1 Register)
+        28 - DST (SCP Destination Address)
+        7B - CRC
+    
+    Packet 3 (MultiCom "Message Received")
+    =======================================
+    D0 0C 84 F3 22 28 00
+        D0 - MIB (Message Identifier Byte)
+        0C - MBC (Message Byte Count)
+        84 - IR1 (HBCC IR1 Register)
+        F3 - TSl (Timestamp low byte)
+        22 - TS2 (Timestamp byte 2)
+        28 - TSh (Timestamp high byte)
+        00 - MSG (Message number)
+    
+    Packet 3 Data (Vehicle Response)
+    =======================================
+    C4 F3 28 62 29 00 00 00 90
+        C4 - P/T (Priority/Header/Type)
+        F3 - DST (SCP Destination Address)
+        28 - SRC (SCP Source Address)
+        62 - DB1 (Data Byte 1)
+        29 - DB2 (Data Byte 2)
+        00 - DB3 (Data Byte 3)
+        00 - DB4 (Data Byte 4)
+        00 - DB5 (Data Byte 5)
+        90 - CRC

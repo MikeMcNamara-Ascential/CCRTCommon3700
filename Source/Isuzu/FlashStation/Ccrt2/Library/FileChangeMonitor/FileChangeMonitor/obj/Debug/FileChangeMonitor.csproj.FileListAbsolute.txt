@@ -1,0 +1,5 @@
+E:\Projects\Ccrt2\Library\FileChangeMonitor\FileChangeMonitor\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\Ccrt2\Library\FileChangeMonitor\FileChangeMonitor\obj\Debug\FileChangeMonitor.dll
+E:\Projects\Ccrt2\Library\FileChangeMonitor\FileChangeMonitor\obj\Debug\FileChangeMonitor.pdb
+E:\Projects\Ccrt2\Library\FileChangeMonitor.dll
+E:\Projects\Ccrt2\Library\FileChangeMonitor.pdb

@@ -1,0 +1,1 @@
+SciIsoMuxMgr.qxe -f ../../Configuration/Servers/SciIsoMuxConfig.xml -R &

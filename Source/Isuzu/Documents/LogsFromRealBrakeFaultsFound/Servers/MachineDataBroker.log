@@ -1,0 +1,112 @@
+€12/13/10 15:23:46.220 (1) core/MachineDataBroker     Activated additional log [/home/CCRT/Rewrite/Logs/Servers/MachineDataBroker.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:46.220 (1) core/MachineDataBroker     BepComponent::Initialize()
+€
+€12/13/10 15:23:46.225 (1) core/MachineDataBroker     Process core/MachineDataBroker running at priority 10
+€
+€12/13/10 15:23:46.225 (1) core/MachineDataBroker     Updated process core/MachineDataBroker running at priority 10
+€
+€12/13/10 15:23:46.235 (1) core/MachineDataBroker     BepComponent::Initialize(<MachineDataBrokerConfig>
+   <Setup>
+      <Communication>
+         <BufferSize>1024</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/MachineDataBroker</Name>         <Timeout>5000</Timeout>         <Type>Server</Type>      </Communication>      <CustBld Description="This is the build date code string yymmddrr">01010101</CustBld>      <CustId Description="This is the customer identifier Code">????</CustId>      <CycleTimeUpdateRate Description="Delay in mS between updates, 0 disables the feature">500</CycleTimeUpdateRate>      <DataFile Description="This is the file where persistent data is stored">/TestResults/Machine/LossCompensationTimeDate.dat</DataFile>      <DataTags>
+         <CycleTime>CycleTime</CycleTime>         <MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>         <MachineNumberTag>MachineNumber</MachineNumberTag>         <TestInProgress>TestInProgress</TestInProgress>      </DataTags>      <Debug>Off</Debug>      <Logging>
+       €
+€12/13/10 15:23:46.236 (1) core/MachineDataBroker     Retrieved Publish tags
+€
+€12/13/10 15:23:46.236 (1) core/MachineDataBroker     Cleared data from all lists
+€
+€12/13/10 15:23:46.244 (1) core/MachineDataBroker     Stored all Publish Tags
+€
+€12/13/10 15:23:46.251 (1) core/MachineDataBroker     Preparing to deal with subscribe tags:    <Setup>
+      <Communication>
+         <BufferSize>1024</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/MachineDataBroker</Name>         <Timeout>5000</Timeout>         <Type>Server</Type>      </Communication>      <CustBld Description="This is the build date code string yymmddrr">01010101</CustBld>      <CustId Description="This is the customer identifier Code">????</CustId>      <CycleTimeUpdateRate Description="Delay in mS between updates, 0 disables the feature">500</CycleTimeUpdateRate>      <DataFile Description="This is the file where persistent data is stored">/TestResults/Machine/LossCompensationTimeDate.dat</DataFile>      <DataTags>
+         <CycleTime>CycleTime</CycleTime>         <MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>         <MachineNumberTag>MachineNumber</MachineNumberTag>         <TestInProgress>TestInProgress</TestInProgress>      </DataTags>      <Debug>Off</Debug>      <Logging>
+         <Additiona€
+€12/13/10 15:23:46.252 (1) core/MachineDataBroker     Retrieved Subscribe Tags
+€
+€12/13/10 15:23:46.252 (1) core/MachineDataBroker     Stored all Subscribe Tags
+€
+€12/13/10 15:23:46.252 (1) core/MachineDataBroker     Creating Thread Pool
+€
+€12/13/10 15:23:46.262 (1) core/MachineDataBroker     BepServer::Initialize(<MachineDataBrokerConfig>
+   <Setup>
+      <Communication>
+         <BufferSize>1024</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/MachineDataBroker</Name>         <Timeout>5000</Timeout>         <Type>Server</Type>      </Communication>      <CustBld Description="This is the build date code string yymmddrr">01010101</CustBld>      <CustId Description="This is the customer identifier Code">????</CustId>      <CycleTimeUpdateRate Description="Delay in mS between updates, 0 disables the feature">500</CycleTimeUpdateRate>      <DataFile Description="This is the file where persistent data is stored">/TestResults/Machine/LossCompensationTimeDate.dat</DataFile>      <DataTags>
+         <CycleTime>CycleTime</CycleTime>         <MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>         <MachineNumberTag>MachineNumber</MachineNumberTag>         <TestInProgress>TestInProgress</TestInProgress>      </DataTags>      <Debug>Off</Debug>      <Logging>
+         <€
+€12/13/10 15:23:46.262 (1) core/MachineDataBroker     BepServer::SetData(<DriverNumberDisplay>T0000xx</DriverNumberDisplay>)
+€
+€12/13/10 15:23:46.263 (1) core/MachineDataBroker     BepServer::SetData(<DriverNumberDisplay>T0000xx</DriverNumberDisplay>) done, returning Success
+€
+€12/13/10 15:23:46.263 (1) core/MachineDataBroker     Invalid NotificationList in core/MachineDataBroker or no subscribers
+€
+€12/13/10 15:23:46.263 (1) core/MachineDataBroker     Using Data File: /TestResults/Machine/LossCompensationTimeDate.dat
+€
+€12/13/10 15:23:46.263 (1) core/MachineDataBroker     Machine DataBroker Opening: /home/CCRT/Rewrite/TestResults/Machine/LossCompensationTimeDate.dat
+€
+€12/13/10 15:23:46.263 (1) core/MachineDataBroker     File Does Not Exist: No such file or directory
+€
+€12/13/10 15:23:46.263 (1) core/MachineDataBroker     BepServer::SetData(<MachineLossTime>00:00:00</MachineLossTime>)
+€
+€12/13/10 15:23:46.264 (1) core/MachineDataBroker     BepServer::SetData(<MachineLossTime>00:00:00</MachineLossTime>) done, returning Success
+€
+€12/13/10 15:23:46.264 (1) core/MachineDataBroker     Invalid NotificationList in core/MachineDataBroker or no subscribers
+€
+€12/13/10 15:23:46.264 (1) core/MachineDataBroker     BepServer::SetData(<MachineLossDate>00/00/00</MachineLossDate>)
+€
+€12/13/10 15:23:46.264 (1) core/MachineDataBroker     BepServer::SetData(<MachineLossDate>00/00/00</MachineLossDate>) done, returning Success
+€
+€12/13/10 15:23:46.264 (1) core/MachineDataBroker     Invalid NotificationList in core/MachineDataBroker or no subscribers
+€
+€12/13/10 15:23:46.264 (1) core/MachineDataBroker     Number of tests since last loss compensation cycle: 0
+€
+€12/13/10 15:23:46.264 (1) core/MachineDataBroker     BepServer::SetData(<SoftwareID>CcrtR07103101-____-01010101</SoftwareID>)
+€
+€12/13/10 15:23:46.264 (1) core/MachineDataBroker     BepServer::SetData(<SoftwareID>CcrtR07103101-____-01010101</SoftwareID>) done, returning Success
+€
+€12/13/10 15:23:46.265 (1) core/MachineDataBroker     Invalid NotificationList in core/MachineDataBroker or no subscribers
+€
+€12/13/10 15:23:46.265 (1) core/MachineDataBroker     Using MachineNumber from environment variable: 507106€
+€12/13/10 15:23:46.265 (1) core/MachineDataBroker     BepServer::SetData(<MachineNumber>507106</MachineNumber>)
+€
+€12/13/10 15:23:46.265 (1) core/MachineDataBroker     BepServer::SetData(<MachineNumber>507106</MachineNumber>) done, returning Success
+€
+€12/13/10 15:23:46.265 (1) core/MachineDataBroker     Invalid NotificationList in core/MachineDataBroker or no subscribers
+€
+€12/13/10 15:23:46.265 (1) core/MachineDataBroker     Using CycleTimeUpdateRate = 0.000000
+€
+€12/13/10 15:23:46.265 (1) core/MachineDataBroker     Using PowerSupplyUpdateRate = 0.000000
+€
+€12/13/10 15:23:46.266 (1) core/MachineDataBroker     Encoder data update rate not specified, not supplying encoder data to external systems: Tag Not Found: EncoderDataUpdateRate€
+€12/13/10 15:23:46.266 (1) core/MachineDataBroker     Could not load encoder data string format: Tag Not Found: EncoderDataString€
+€12/13/10 15:23:46.266 (1) core/MachineDataBroker     No data formatter specified, using 5.1f: Tag Not Found: EncoderDataformat€
+€12/13/10 15:23:46.266 (1) core/MachineDataBroker     Not starting ICM data timer: Tag Not Found: IcmDataUpdateRate€
+€12/13/10 15:23:46.266 (1) core/MachineDataBroker     Not connecting to QNX Data Server: Tag Not Found: ConnectToQnxDataServer€
+€12/13/10 15:23:46.266 (1) core/MachineDataBroker     Speed Scaling factor not specified, using 1.0 - Tag Not Found: SpeedScalingFactor€
+€12/13/10 15:23:46.274 (1) core/MachineDataBroker     MachineDataBroker::Initialize(<MachineDataBrokerConfig>
+   <Setup>
+      <Communication>
+         <BufferSize>1024</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/MachineDataBroker</Name>         <Timeout>5000</Timeout>         <Type>Server</Type>      </Communication>      <CustBld Description="This is the build date code string yymmddrr">01010101</CustBld>      <CustId Description="This is the customer identifier Code">????</CustId>      <CycleTimeUpdateRate Description="Delay in mS between updates, 0 disables the feature">500</CycleTimeUpdateRate>      <DataFile Description="This is the file where persistent data is stored">/TestResults/Machine/LossCompensationTimeDate.dat</DataFile>      <DataTags>
+         <CycleTime>CycleTime</CycleTime>         <MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>         <MachineNumberTag>MachineNumber</MachineNumberTag>         <TestInProgress>TestInProgress</TestInProgress>      </DataTags>      <Debug>Off</Debug>      <Logging>
+  €
+€12/13/10 15:23:52.294 (2) core/MachineDataBroker     BepComponent::Subscribe(CycleTime, core/TestResultServer)
+€
+€12/13/10 15:23:52.294 (2) core/MachineDataBroker     Additional log [Servers/MachineDataBroker.log] already activated.€
+€12/13/10 15:23:52.305 (2) core/MachineDataBroker     NotificationThreadSpinner::Initialize(<MachineDataBrokerConfig>
+   <Setup>
+      <Communication>
+      <BufferSize>1024</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/MachineDataBroker</Name>      <Timeout>5000</Timeout>      <Type>Server</Type>      </Communication>      <CustBld Description="This is the build date code string yymmddrr">01010101</CustBld>      <CustId Description="This is the customer identifier Code">????</CustId>      <CycleTimeUpdateRate Description="Delay in mS between updates, 0 disables the feature">500</CycleTimeUpdateRate>      <DataFile Description="This is the file where persistent data is stored">/TestResults/Machine/LossCompensationTimeDate.dat</DataFile>      <DataTags>
+      <CycleTime>CycleTime</CycleTime>      <MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>      <MachineNumberTag>MachineNumber</MachineNumberTag>      <TestInProgress>TestInProgress</TestInProgress>      </DataTags>      <Debug>Off</Debug>      <Logging>
+      <AdditionalLogFile€
+€12/13/10 15:23:52.306 (2) core/MachineDataBroker     Additional log [Servers/MachineDataBroker.log] already activated.€
+€12/13/10 15:23:52.313 (2) core/MachineDataBroker     NotificationList::Initialize(<MachineDataBrokerConfig>
+   <Setup>
+      <Communication>
+      <BufferSize>1024</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/MachineDataBroker</Name>      <Timeout>5000</Timeout>      <Type>Server</Type>      </Communication>      <CustBld Description="This is the build date code string yymmddrr">01010101</CustBld>      <CustId Description="This is the customer identifier Code">????</CustId>      <CycleTimeUpdateRate Description="Delay in mS between updates, 0 disables the feature">500</CycleTimeUpdateRate>      <DataFile Description="This is the file where persistent data is stored">/TestResults/Machine/LossCompensationTimeDate.dat</DataFile>      <DataTags>
+      <CycleTime>CycleTime</CycleTime>      <MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>      <MachineNumberTag>MachineNumber</MachineNumberTag>      <TestInProgress>TestInProgress</TestInProgress>      </DataTags>      <Debug>Off</Debug>      <Logging>
+      <AdditionalLogFile Types="/€
+€12/13/10 15:23:52.321 (2) core/MachineDataBroker     NotificationThreadSpinner::Initialize(<MachineDataBrokerConfig>
+   <Setup>
+      <Communication>
+      <BufferSize>1024</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/MachineDataBroker</Name>      <Timeout>5000</Timeout>      <Type>Server</Type>      </Communication>      <CustBld Description="This is the build date code string yymmddrr">01010101</CustBld>      <CustId Description="This is the customer identifier Code">????</CustId>      <CycleTimeUpdateRate Description="Delay in mS between updates, 0 disables the feature">500</CycleTimeUpdateRate>      <DataFile Description="This is the file where persistent data is stored">/TestResults/Machine/LossCompensationTimeDate.dat</DataFile>      <DataTags>
+      <CycleTime>CycleTime</CycleTime>      <MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>      <MachineNumberTag>Machine

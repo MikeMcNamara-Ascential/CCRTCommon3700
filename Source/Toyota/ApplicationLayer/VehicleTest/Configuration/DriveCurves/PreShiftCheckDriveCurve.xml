@@ -1,0 +1,39 @@
+<DriveCurve Description="Toyota Pre-Shift check drive curve">
+
+    <Components Debug="Off">
+        <Brake>
+            <ComponentName>ToyotaBrakeTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>BrakeTC.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Brake</ConfigPath>
+        </Brake>
+        <Machine>
+            <ComponentName>ToyotaMachineTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>MachineTC.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Machine</ConfigPath>
+        </Machine>
+    </Components>
+
+    <Test Result="Not Tested" Debug="Off">
+        <TestPhase000 Description="Setup the system for testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Setup machine" Result="" Timeout="" Component="Machine">
+                    <Initialize/>
+                </Objective0>
+                <Objective1 Description="Setup brake test component" Result="" Timeout="" Component="Brake">
+                    <Setup/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase000>
+
+        <TestPhase015 Description="Run max brake force motors" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Max brake force Test" Result="" Timeout="" Component="Brake">
+                    <PreShiftMachineCheck/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase015>
+
+    </Test>
+</DriveCurve>

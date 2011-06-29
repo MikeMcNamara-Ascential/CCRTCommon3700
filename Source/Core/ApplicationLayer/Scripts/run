@@ -1,0 +1,3 @@
+slay -f VehicleTest.qxe
+VehicleTest.qxe -f ../../Configuration/VehicleTest/VehicleTestConfig.xml &
+

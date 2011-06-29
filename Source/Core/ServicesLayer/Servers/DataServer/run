@@ -1,0 +1,2 @@
+../Bin/DataServer.qxe -f ../../Configuration/Servers/DataServerConfig.xml &
+

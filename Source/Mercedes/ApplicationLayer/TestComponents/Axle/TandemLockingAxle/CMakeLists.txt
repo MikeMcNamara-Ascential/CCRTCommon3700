@@ -1,0 +1,38 @@
+#------------------------------------------------------------------------------------------
+# Define the name of executable we will create
+#------------------------------------------------------------------------------------------
+SET(EXE_NAME TandemLockingDifferentialTC)
+
+#------------------------------------------------------------------------------------------
+# Where to find the common headers
+#------------------------------------------------------------------------------------------
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}
+		    ${CORE_COMMON_TC_INC_PATH}
+		   )
+
+#------------------------------------------------------------------------------------------
+# All components link against the protocol filter, module interface and test component 
+# libraries
+#------------------------------------------------------------------------------------------
+LINK_DIRECTORIES(${CORE_COMMON_TC_LIB_PATH} )
+LINK_LIBRARIES(commoncomponent)
+
+#------------------------------------------------------------------------------------------
+# Define the default file where our QNX use message is located
+#------------------------------------------------------------------------------------------
+SET(USE_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/${EXE_NAME}Main.cpp)
+                  
+#------------------------------------------------------------------------------------------
+# Tell CMake what source file to build
+#------------------------------------------------------------------------------------------
+CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp ${EXE_NAME}.cpp)
+
+#------------------------------------------------------------------------------------------
+# Tell CMake where to install the executable
+#------------------------------------------------------------------------------------------
+INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${EXE_NAME})
+
+#------------------------------------------------------------------------------------------
+# Tell CMake what subdirectories to recurse into
+#------------------------------------------------------------------------------------------
+ADD_SUBDIRECTORY(Configuration)

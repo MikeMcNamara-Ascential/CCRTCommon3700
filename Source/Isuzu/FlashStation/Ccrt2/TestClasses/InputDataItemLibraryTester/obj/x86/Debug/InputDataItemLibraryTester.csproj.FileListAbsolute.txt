@@ -1,0 +1,11 @@
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\bin\Debug\InputDataItemLibraryTester.exe
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\bin\Debug\InputDataItemLibraryTester.pdb
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\bin\Debug\InputDataItemLibrary.dll
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\bin\Debug\InputDataItemLibrary.pdb
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\obj\x86\Debug\InputDataItemLibraryTester.InputItemTesterForm.resources
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\obj\x86\Debug\InputDataItemLibraryTester.Properties.Resources.resources
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\obj\x86\Debug\GenerateResource.read.1.tlog
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\obj\x86\Debug\GenerateResource.write.1.tlog
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\obj\x86\Debug\InputDataItemLibraryTester.exe
+E:\Projects\Ccrt2\TestClasses\InputDataItemLibraryTester\obj\x86\Debug\InputDataItemLibraryTester.pdb

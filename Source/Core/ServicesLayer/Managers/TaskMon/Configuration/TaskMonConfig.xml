@@ -1,0 +1,49 @@
+<TaskMonConfig>
+	<Setup>
+		<Debug Options="On or Off">Off</Debug>
+		<MgrPool lowWater="5" hiWater="10" maximum="12" increment="1" priority="30"/>
+		<Logging>
+			<Status>Disabled</Status>
+			<ProcessName>TaskMon</ProcessName>
+			<AdditionalLogFile Types="/Servers/TaskMon.log or Disabled">/Servers/TaskMon.log</AdditionalLogFile>
+			<LocalEcho>Disabled</LocalEcho>
+			<ConsoleDumpOnError>Disabled</ConsoleDumpOnError>
+			<Debug>Off</Debug>
+			<Verbose>0x1F</Verbose>
+		</Logging>
+		<Demo>0</Demo>
+		<Priority>60</Priority>
+		<LoopTime>500</LoopTime>
+		<ShowDeadProcesses>Yes</ShowDeadProcesses>
+		<ShowCpuUsage Comment="Use the F1 key (or pulse 50,51) from TaskMonTerm to toggle this">Yes</ShowCpuUsage>
+		<ShowMemUsage Comment="Use the F2 key (or pulse 50,52) from TaskMonTerm to toggle this">No</ShowMemUsage>
+		<DiscoverDirs>
+			<!-- Directory list (relative to /dev/name/local) to scan when starting up to retrieve the list of currently running CCRT processes -->
+			<application/>
+			<core/>
+			<component/>
+			<logport/>
+			<mgr/>
+		</DiscoverDirs>
+		<Tasks>
+			<Colors>
+				<!-- Color Options: black red green yellow blue magenta cyan white -->
+				<Registered foreground="white" background="black"/>
+				<Running foreground="green" background="black"/>
+				<Terminating foreground="magenta" background="black"/>
+				<Dead foreground="red" background="black"/>
+				<Unknown foreground="white" background="red"/>
+			</Colors>
+		</Tasks>
+		<NotificationList>
+			<Setup>
+				<Debug>Off</Debug>
+				<HighWater>3</HighWater>
+				<Increment>1</Increment>
+				<LowWater>1</LowWater>
+				<Maximum>5</Maximum>
+				<StartOnCreate>No</StartOnCreate>
+			</Setup>
+		</NotificationList>
+	</Setup>
+</TaskMonConfig>

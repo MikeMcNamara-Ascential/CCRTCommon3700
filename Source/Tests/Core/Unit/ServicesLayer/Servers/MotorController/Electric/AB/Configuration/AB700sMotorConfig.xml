@@ -1,0 +1,357 @@
+<AllenBradleyMotorController>
+	<Setup>
+		<Debug>Off</Debug>
+		<ProcessPriority>12</ProcessPriority>
+		<ClutchOnZeroSpeed>Yes</ClutchOnZeroSpeed>
+		<ThreadPool>
+			<Debug>Off</Debug>
+			<MinBlockedLimit>2</MinBlockedLimit>
+			<MaxBlockedLimit>4</MaxBlockedLimit>
+			<Increment>1</Increment>
+			<Maximum>10</Maximum>
+		</ThreadPool>
+		<NotificationList>
+			<Setup>
+				<Debug>Off</Debug>
+				<HighWater>3</HighWater>
+				<Increment>1</Increment>
+				<LowWater>1</LowWater>
+				<Maximum>5</Maximum>
+				<StartOnCreate>No</StartOnCreate>
+			</Setup>
+		</NotificationList>
+		<Communication>
+			<Comm>IPC</Comm>
+			<Type>Server</Type>
+			<Name>core/MotorController</Name>
+			<Debug>Off</Debug>
+			<Timeout>0</Timeout>
+			<BufferSize>1024</BufferSize>
+		</Communication>
+		<TagList>
+			<SubscribeTags>
+				<SimulatorSwitchStatus/>
+				<LossCompensationSwitchStatusToPLC/>
+				<ZerospeedToPLC/>
+				<Clutch/>
+				<Declutch/>
+				<Boost/>
+				<RollsUpElevDown/>
+				<RollsDownElevUp/>
+				<DriveAxle/>
+				<VehiclePresent/>
+				<LFRollMotorDriveCommFault/>
+				<RFRollMotorDriveCommFault/>
+				<LRRollMotorDriveCommFault/>
+				<RRRollMotorDriveCommFault/>
+				<LFRollMotorOperationalFault/>
+				<RFRollMotorOperationalFault/>
+				<LRRollMotorOperationalFault/>
+				<RRRollMotorOperationalFault/>
+				<Start4WDTestSignalToPLC/>
+				<MachineType/>
+				<AllRollDrivesEnabled/>
+				<EnableAllRollDrives/>
+				<AllRollDrivesEnabled/>
+				<LeftFrontRollMotorDriveFault/>
+				<RightFrontRollMotorDriveFault/>
+				<LeftRearRollMotorDriveFault/>
+				<RightRearRollMotorDriveFault/>
+				<PlcSystemIsReady/>
+				<PowerSenseLostToIORack/>
+				<MotorTaskHearbeatFault/>
+				<MotorControllerTaskHeartbeat/>
+				<ReflectedVmeHeartBeat/>
+			</SubscribeTags>
+			<PublishTags>
+				<MotorMode>Boost</MotorMode>
+				<CommandSpeed>0.0</CommandSpeed>
+				<CommandTorque>0.0</CommandTorque>
+				<SpeedValue>0.0</SpeedValue>
+				<LeftFrontTorqueValue>0.0</LeftFrontTorqueValue>
+				<RightFrontTorqueValue>0.0</RightFrontTorqueValue>
+				<LeftRearTorqueValue>0.0</LeftRearTorqueValue>
+				<RightRearTorqueValue>0.0</RightRearTorqueValue>
+				<LeftFrontSpeedValue>0.0</LeftFrontSpeedValue>
+				<RightFrontSpeedValue>0.0</RightFrontSpeedValue>
+				<LeftRearSpeedValue>0.0</LeftRearSpeedValue>
+				<RightRearSpeedValue>0.0</RightRearSpeedValue>
+				<LeftFrontMotorMode>Boost</LeftFrontMotorMode>
+				<RightFrontMotorMode>Boost</RightFrontMotorMode>
+				<LeftRearMotorMode>Boost</LeftRearMotorMode>
+				<RightRearMotorMode>Boost</RightRearMotorMode>
+				<RollerCount>4</RollerCount>
+			</PublishTags>
+		</TagList>
+		<Logging>
+			<Status>Enabled</Status>
+			<ProcessName>MotorController</ProcessName>
+			<AdditionalLogFile Types="/Servers/MotorController.log or Disabled">/Servers/MotorController.log</AdditionalLogFile>
+			<Debug>Off</Debug>
+			<LocalEcho>Disabled</LocalEcho>
+			<Verbose>0x01</Verbose>
+		</Logging>
+		<MotorParameters>
+			<BrakeDetectLimit Description="Accelleration value indicating that a roll is under excessive force (brakes probably applied)" Units="MPH/sec.">-30.0</BrakeDetectLimit>
+			<BrakeClearLimit Description="Accelleration value indicating that a roll has stopped braking" Units="MPH/sec.">.01</BrakeClearLimit>
+			<SpeedDeltaForBoost Description="Speed difference required to cause non-driven roll(s) to be commanded to follow master" Units="MPH">2.0</SpeedDeltaForBoost>
+			<ReverseBoost Description="Whether or not to boost while in reverse 1=Boost in reverse, else do not boost in reverse">0</ReverseBoost>
+			<UpdateInterval Description="Amount of time between commands (Main loop delay time)" Units="ms">250</UpdateInterval>
+			<MinimumSpeedForBoost Description="Minimum speed master roll must acheive before boost is applied to non-driven rolls" Units="MPH">2.1</MinimumSpeedForBoost>
+			<CurrentSpeeds Description="Name of file of read for roll speeds">/dev/Icm/Block/Speed</CurrentSpeeds>
+			<CurrentAccelerations Description="Name of file of read for roll accelerations">/dev/Icm/Block/Acceleration</CurrentAccelerations>
+			<AccelerationLoading Description="Force used to load vehicle while accellerating" Units="Pounds">0.0</AccelerationLoading>
+			<SpeedLoading Description="Amount of force to apply as speed increases (per roll as function of speed squared)" Units="Pounds/MPH^2">0.0</SpeedLoading>
+			<MotorLoadingMinSpeed Description="Minimum speed for motor loading" Units="MPH">2.0</MotorLoadingMinSpeed>
+			<MotorLoadingMaxSpeed Description="Maximum speed for motor loading (0 to disable upper limit)" Units="MPH">90.0</MotorLoadingMaxSpeed>
+		</MotorParameters>
+		<HeartBeatParameters>
+			<Setup>
+				<Logging>
+					<Status>Disabled</Status>
+					<ProcessName>MotorControllerHb</ProcessName>
+					<AdditionalLogFile Types="/Servers/MotorControllerHb.log or Disabled">/Servers/MotorControllerHb.log</AdditionalLogFile>
+					<Debug>Off</Debug>
+					<LocalEcho>Disabled</LocalEcho>
+					<Verbose>0x0B</Verbose>
+				</Logging>
+				<HeartbeatSamplingInterval Description="Amount of time beween samples of heartbeat data" Units="ms">100</HeartbeatSamplingInterval>
+				<ReflectedHeartbeatTag Description="Tag updated by remote system (reflection of task heartbeat)">ReflectedVmeHeartBeat</ReflectedHeartbeatTag>
+				<HeartbeatTag Description="Task heartbeat tag">MotorControllerTaskHeartbeat</HeartbeatTag>
+				<EnableNdbCommDebugging Description="If diagnostic information should be printed for communication for heatrbeat">0</EnableNdbCommDebugging>
+			</Setup>
+		</HeartBeatParameters>
+		<DataTags>
+			<SimulationSwitchStatus>SimulatorSwitchStatus</SimulationSwitchStatus>
+			<LossCompensationSwitchStatus>LossCompensationSwitchStatusToPLC</LossCompensationSwitchStatus>
+			<Zerospeed>ZerospeedToPLC</Zerospeed>
+			<RollCount>RollerCount</RollCount>
+			<RollsUpElevatorDown>RollsUpElevDown</RollsUpElevatorDown>
+			<RollsDownElevatorsUp>RollsDownElevUp</RollsDownElevatorsUp>
+			<DriveWheel>DriveAxle</DriveWheel>
+			<VehiclePresent>VehiclePresent</VehiclePresent>
+			<LeftFrontRollerDirection>LeftFrontRollerDirection</LeftFrontRollerDirection>
+			<RightFrontRollerDirection>RightFrontRollerDirection</RightFrontRollerDirection>
+			<LeftRearRollerDirection>LeftRearRollerDirection</LeftRearRollerDirection>
+			<RightRearRollerDirection>RightRearRollerDirection</RightRearRollerDirection>
+			<BoostPressure>BoostPressureFeedBack</BoostPressure>
+			<BoostPressureOut>BoostPressureOut</BoostPressureOut>
+			<LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+			<RightFrontSpeed>RFSpeed</RightFrontSpeed>
+			<LeftRearSpeed>LRSpeed</LeftRearSpeed>
+			<RightRearSpeed>RRSpeed</RightRearSpeed>
+			<LeftFrontAcceleration>LFAcceleration</LeftFrontAcceleration>
+			<RightFrontAcceleration>RFAcceleration</RightFrontAcceleration>
+			<LeftRearAcceleration>LRAcceleration</LeftRearAcceleration>
+			<RightRearAcceleration>RRAcceleration</RightRearAcceleration>
+			<WarmupTimeRemaining>LCWarmupTimeRemaining</WarmupTimeRemaining>
+			<CommandedSpeed>CommandSpeed</CommandedSpeed>
+			<CommandedTorque>CommandTorque</CommandedTorque>
+			<FourWheelDriveStatus>Start4WDTestSignalToPLC</FourWheelDriveStatus>
+			<LeftFrontRollMotorDisconnectOpen>LeftFrontRollMotorDisconnectOpen</LeftFrontRollMotorDisconnectOpen>
+			<LeftRearRollMotorDisconnectOpen>LeftRearRollMotorDisconnectOpen</LeftRearRollMotorDisconnectOpen>
+			<RightFrontRollMotorDisconnectOpen>RightFrontRollMotorDisconnectOpen</RightFrontRollMotorDisconnectOpen>
+			<RightRearRollMotorDisconnectOpen>RightRearRollMotorDisconnectOpen</RightRearRollMotorDisconnectOpen>
+			<LeftFrontRollMotorDriveCommFault>LFRollMotorDriveCommFault</LeftFrontRollMotorDriveCommFault>
+			<RightFrontRollMotorDriveCommFault>RFRollMotorDriveCommFault</RightFrontRollMotorDriveCommFault>
+			<LeftRearRollMotorDriveCommFault>LRRollMotorDriveCommFault</LeftRearRollMotorDriveCommFault>
+			<RightRearRollMotorDriveCommFault>RRRollMotorDriveCommFault</RightRearRollMotorDriveCommFault>
+			<LeftFrontRollMotorOperationalFault>LFRollMotorOperationalFault</LeftFrontRollMotorOperationalFault>
+			<RightFrontRollMotorOperationalFault>RFRollMotorOperationalFault</RightFrontRollMotorOperationalFault>
+			<LeftRearRollMotorOperationalFault>LRRollMotorOperationalFault</LeftRearRollMotorOperationalFault>
+			<RightRearRollMotorOperationalFault>RRRollMotorOperationalFault</RightRearRollMotorOperationalFault>
+			<LeftFrontRollMotorDriveFault>LeftFrontRollMotorDriveFault</LeftFrontRollMotorDriveFault>
+			<RightFrontRollMotorDriveFault>RightFrontRollMotorDriveFault</RightFrontRollMotorDriveFault>
+			<LeftRearRollMotorDriveFault>LeftRearRollMotorDriveFault</LeftRearRollMotorDriveFault>
+			<RightRearRollMotorDriveFault>RightRearRollMotorDriveFault</RightRearRollMotorDriveFault>
+			<MotorControllerTaskHeartbeat>MotorControllerTaskHeartbeat</MotorControllerTaskHeartbeat>
+			<MachineType>MachineType3600</MachineType>
+			<MachineTypeValue>1</MachineTypeValue>
+			<SpeedValue>SpeedValue</SpeedValue>
+			<DrivesEnabled>AllRollDrivesEnabled</DrivesEnabled>
+			<EnableAllRollDrives>EnableAllRollDrives</EnableAllRollDrives>
+			<AllRollDrivesEnabled>AllRollDrivesEnabled</AllRollDrivesEnabled>
+			<ReflectedVmeHeartBeat>ReflectedVmeHeartBeat</ReflectedVmeHeartBeat>
+			<PlcSystemIsReady>PlcSystemIsReady</PlcSystemIsReady>
+			<PowerSenseLostToIORack>PowerSenseLostToIORack</PowerSenseLostToIORack>
+			<MotorTaskHeartbeatFault>MotorTaskHearbeatFault</MotorTaskHeartbeatFault>
+			<LeftFrontSpeedValue>LeftFrontSpeedValue</LeftFrontSpeedValue>
+			<RightFrontSpeedValue>RightFrontSpeedValue</RightFrontSpeedValue>
+			<LeftRearSpeedValue>LeftRearSpeedValue</LeftRearSpeedValue>
+			<RightRearSpeedValue>RightRearSpeedValue</RightRearSpeedValue>
+			<LeftTandemSpeedValue>LeftTandemSpeedValue</LeftTandemSpeedValue>
+			<RightTandemSpeedValue>RightTandemSpeedValue</RightTandemSpeedValue>
+			<LeftFrontTorqueValue>LeftFrontTorqueValue</LeftFrontTorqueValue>
+			<RightFrontTorqueValue>RightFrontTorqueValue</RightFrontTorqueValue>
+			<LeftRearTorqueValue>LeftRearTorqueValue</LeftRearTorqueValue>
+			<RightRearTorqueValue>RightRearTorqueValue</RightRearTorqueValue>
+			<LeftTandemTorqueValue>LeftTandemTorqueValue</LeftTandemTorqueValue>
+			<RightTandemTorqueValue>RightTandemTorqueValue</RightTandemTorqueValue>
+			<LeftFrontMotorMode>LeftFrontMotorMode</LeftFrontMotorMode>
+			<RightFrontMotorMode>RightFrontMotorMode</RightFrontMotorMode>
+			<LeftRearMotorMode>LeftRearMotorMode</LeftRearMotorMode>
+			<RightRearMotorMode>RightRearMotorMode</RightRearMotorMode>
+			<LeftTandemMotorMode>LeftTandemMotorMode</LeftTandemMotorMode>
+			<RightTandemMotorMode>RightTandemMotorMode</RightTandemMotorMode>
+		</DataTags>
+		<ElectricMotorParameters>
+			<MinBrakeAssistSpeed Description="Minimum speed required to enable rear brake assist" Units="MPH">5.0</MinBrakeAssistSpeed>
+			<MaxBrakeAssistForce Description="Maximum amount of force used to assist brakes" Units="Pounds">-2000.0</MaxBrakeAssistForce>
+			<MinBrakeAssistForce Description="Minimum amount of force used to assist brakes" Units="Pounds">0</MinBrakeAssistForce>
+			<BrakeAssistForce Description="Amount of force used to assist brakes" Units="Pounds">-200.0</BrakeAssistForce>
+			<TorqueAssistMinSpeed Description="Minimum speed required for torque assist" Units="MPH">10.0</TorqueAssistMinSpeed>
+			<SpeedCheckDelayTime Description="Amount of time to delay before checking for operational faults during loss compensation accellerate" Units="ms">3000</SpeedCheckDelayTime>
+			<LCRollerValidationSpeed Description="Minimum speed that rolls must acheive to prevent operational faults during loss compensation accelleration" Units="MPH">3.0</LCRollerValidationSpeed>
+			<InterMotorLossCompensationDelay Description="Amount of time between motor commands during loss compensation (Stagger-start delay time)" Units="ms">2000</InterMotorLossCompensationDelay>
+			<BrakingFactor Description="Percent of previous speed to command next speed when braking (0 &amp;lt; BF &amp;lt; 1)">0.7</BrakingFactor>
+			<EnableStatusChecking Description="Enable thread lock up checking 1=on, else off">0</EnableStatusChecking>
+			<EnableQuickBrake Description="Enable quick brake avter loss compensation 1=on, else off">1</EnableQuickBrake>
+			<TorqueModeSpeedLimit Description="Speed above which in torque " Units="MPH">5.0</TorqueModeSpeedLimit>
+			<ProtocolFile Description="File containing protocol for communicating with motor drives">/Configuration/Machine/Baldor25mProtocol.xml</ProtocolFile>
+		</ElectricMotorParameters>
+		<DriveParameters>
+			<LeftFrontMotor Description="The configuration file to use for the left fornt drive">/Configuration/Machine/LeftFrontBaldorDriveParameters-25M.xml</LeftFrontMotor>
+			<RightFrontMotor Description="The configuration file to use for the right fornt drive">/Configuration/Machine/RightFrontBaldorDriveParameters-25M.xml</RightFrontMotor>
+			<LeftRearMotor Description="The configuration file to use for the left rear drive">/Configuration/Machine/LeftRearBaldorDriveParameters-25M.xml</LeftRearMotor>
+			<RightRearMotor Description="The configuration file to use for the right rear drive">/Configuration/Machine/RightRearBaldorDriveParameters-25M.xml</RightRearMotor>
+			<LeftTandemMotor Description="The configuration file to use for the left rear drive">/Configuration/Machine/LeftTandemBaldorDriveParameters-25M.xml</LeftTandemMotor>
+			<RightTandemMotor Description="The configuration file to use for the right tandem drive">/Configuration/Machine/RightTandemBaldorDriveParameters-25M.xml</RightTandemMotor>
+		</DriveParameters>
+		<Motors>
+			<LeftFrontMotor>
+				<Setup>
+					<IPAddress address="192.168.10.0" port="44818"/>
+					<Parameters>
+						<MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">28.30612546</MphToRpm>
+						<TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
+						<MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
+						<MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1175</MotorBaseSpeed>
+						<MotorHorsePower Description="Motor max horsepower output" Units="HP">31.0</MotorHorsePower>
+						<FootPoundsPerHP Description="Foot punds of torque per HP drive rating" Units="none">4.5</FootPoundsPerHP>
+						<MaxPositiveTorqueLimit Description="% of max torque to use when accelerating" Units="%">150</MaxPositiveTorqueLimit>
+						<MaxNegativeTorqueLimit Description="% of max torque to use when decelerating" Units="%">-150</MaxNegativeTorqueLimit>
+						<ThreadLockupLimit Description="Number of failed attempts to command a motor before indicating that a motor thread may be locked up">10</ThreadLockupLimit>
+						<CommFaultLimit Description="Nuber of consecutive communicatin failures required to generate fault 0=disabled">5</CommFaultLimit>
+						<MaxiumumSpeedChange Description="Maximum change for consecutive speed commands" Units="RPM">10</MaxiumumSpeedChange>
+						<CommInterval Description="Desired interval between consecutive packets from the drive" Units="msec">500</CommInterval>
+						<Priority Description="Priority to run this motor thread at">58</Priority>
+					</Parameters>
+					<Logging>
+						<Status>Enabled</Status>
+						<ProcessName>LeftFrontMotor</ProcessName>
+						<AdditionalLogFile Types="/Communication/LfMotor.log or Disabled">/Communication/LfMotor.log</AdditionalLogFile>
+						<LocalEcho>Disabled</LocalEcho>
+						<Verbose>0x01</Verbose>
+						<Debug>Off</Debug>
+					</Logging>
+					<DataTags>
+						<CommFault>LFRollMotorDriveCommFault</CommFault>
+					</DataTags>
+				</Setup>
+			</LeftFrontMotor>
+			<RightFrontMotor>
+				<Setup>
+					<IPAddress address="192.168.10.1" port="44818"/>
+					<Parameters>
+						<MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">28.30612546</MphToRpm>
+						<TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
+						<MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
+						<MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1175</MotorBaseSpeed>
+						<MotorHorsePower Description="Motor max horsepower output" Units="HP">30.0</MotorHorsePower>
+						<FootPoundsPerHP Description="Foot punds of torque per HP drive rating" Units="none">4.5</FootPoundsPerHP>
+						<MaxPositiveTorqueLimit Description="% of max torque to use when accelerating" Units="%">150</MaxPositiveTorqueLimit>
+						<MaxNegativeTorqueLimit Description="% of max torque to use when decelerating" Units="%">-150</MaxNegativeTorqueLimit>
+						<ThreadLockupLimit Description="Number of failed attempts to command a motor before indicating that a motor thread may be locked up">10</ThreadLockupLimit>
+						<CommFaultLimit Description="Number of consecutive communicatin failures required to generate fault 0=disabled">5</CommFaultLimit>
+						<MaxiumumSpeedChange Description="Maximum change for consecutive speed commands" Units="RPM">10</MaxiumumSpeedChange>
+						<CommInterval Description="Desired interval between consecutive packets from the drive" Units="msec">500</CommInterval>
+						<Priority Description="Priority to run this motor thread at">58</Priority>
+					</Parameters>
+					<Logging>
+						<Status>Enabled</Status>
+						<ProcessName>RightFrontMotor</ProcessName>
+						<AdditionalLogFile Types="/Communication/RfMotor.log or Disabled">/Communication/RfMotor.log</AdditionalLogFile>
+						<LocalEcho>Disabled</LocalEcho>
+						<Verbose>0x01</Verbose>
+						<Debug>Off</Debug>
+					</Logging>
+					<DataTags>
+						<CommFault>RFRollMotorDriveCommFault</CommFault>
+					</DataTags>
+				</Setup>
+			</RightFrontMotor>
+			<LeftRearMotor>
+				<Setup>
+					<IPAddress address="192.168.10.2" port="44818"/>
+					<Parameters>
+						<MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">28.30612546</MphToRpm>
+						<TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
+						<MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
+						<MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1175</MotorBaseSpeed>
+						<MotorHorsePower Description="Motor max horsepower output" Units="HP">30.0</MotorHorsePower>
+						<FootPoundsPerHP Description="Foot punds of torque per HP drive rating" Units="none">4.5</FootPoundsPerHP>
+						<MaxPositiveTorqueLimit Description="% of max torque to use when accelerating" Units="%">150</MaxPositiveTorqueLimit>
+						<MaxNegativeTorqueLimit Description="% of max torque to use when decelerating" Units="%">-150</MaxNegativeTorqueLimit>
+						<ThreadLockupLimit Description="Number of failed attempts to command a motor before indicating that a motor thread may be locked up">10</ThreadLockupLimit>
+						<CommFaultLimit Description="Nuber of consecutive communicatin failures required to generate fault 0=disabled">5</CommFaultLimit>
+						<MaxiumumSpeedChange Description="Maximum change for consecutive speed commands" Units="RPM">10</MaxiumumSpeedChange>
+						<CommInterval Description="Desired interval between consecutive packets from the drive" Units="msec">500</CommInterval>
+						<Priority Description="Priority to run this motor thread at">58</Priority>
+					</Parameters>
+					<Logging>
+						<Status>Enabled</Status>
+						<ProcessName>LeftRearMotor</ProcessName>
+						<AdditionalLogFile Types="/Communication/LrMotor.log or Disabled">/Communication/LrMotor.log</AdditionalLogFile>
+						<LocalEcho>Disabled</LocalEcho>
+						<Verbose>0x01</Verbose>
+						<Debug>Off</Debug>
+					</Logging>
+					<DataTags>
+						<CommFault>LRRollMotorDriveCommFault</CommFault>
+					</DataTags>
+				</Setup>
+			</LeftRearMotor>
+			<RightRearMotor>
+				<Setup>
+					<IPAddress address="192.168.10.3" port="44818"/>
+					<Parameters>
+						<MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">28.30612546</MphToRpm>
+						<TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
+						<MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
+						<MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1175</MotorBaseSpeed>
+						<MotorHorsePower Description="Motor max horsepower output" Units="HP">30.0</MotorHorsePower>
+						<FootPoundsPerHP Description="Foot punds of torque per HP drive rating" Units="none">4.5</FootPoundsPerHP>
+						<MaxPositiveTorqueLimit Description="% of max torque to use when accelerating" Units="%">150</MaxPositiveTorqueLimit>
+						<MaxNegativeTorqueLimit Description="% of max torque to use when decelerating" Units="%">-150</MaxNegativeTorqueLimit>
+						<ThreadLockupLimit Description="Number of failed attempts to command a motor before indicating that a motor thread may be locked up">10</ThreadLockupLimit>
+						<CommFaultLimit Description="Nuber of consecutive communicatin failures required to generate fault 0=disabled">5</CommFaultLimit>
+						<MaxiumumSpeedChange Description="Maximum change for consecutive speed commands" Units="RPM">10</MaxiumumSpeedChange>
+						<CommInterval Description="Desired interval between consecutive packets from the drive" Units="msec">500</CommInterval>
+						<Priority Description="Priority to run this motor thread at">58</Priority>
+					</Parameters>
+					<Logging>
+						<Status>Enabled</Status>
+						<ProcessName>RightRearMotor</ProcessName>
+						<AdditionalLogFile Types="/Communication/RrMotor.log or Disabled">/Communication/RrMotor.log</AdditionalLogFile>
+						<LocalEcho>Disabled</LocalEcho>
+						<Verbose>0x01</Verbose>
+						<Debug>Off</Debug>
+					</Logging>
+					<DataTags>
+						<CommFault>RRRollMotorDriveCommFault</CommFault>
+					</DataTags>
+				</Setup>
+			</RightRearMotor>
+		</Motors>
+		<Faults>
+			<LeftFrontRollMotorOperationalFault PreviousState="-1">Left Front Roll Motor Operational Fault</LeftFrontRollMotorOperationalFault>
+			<RightFrontRollMotorOperationalFault PreviousState="-1">Right Front Roll Motor Operational Fault</RightFrontRollMotorOperationalFault>
+			<LeftRearRollMotorOperationalFault PreviousState="-1">Left Rear Roll Motor Operational Fault</LeftRearRollMotorOperationalFault>
+			<RightRearRollMotorOperationalFault PreviousState="-1">Right Rear Roll Motor Operational Fault</RightRearRollMotorOperationalFault>
+			<LeftFrontRollMotorDriveCommFault PreviousState="-1">Left Front Roll Motor Communication Fault</LeftFrontRollMotorDriveCommFault>
+			<RightFrontRollMotorDriveCommFault PreviousState="-1">Right Front Roll Motor Communication Fault</RightFrontRollMotorDriveCommFault>
+			<LeftRearRollMotorDriveCommFault PreviousState="-1">Left Rear Roll Motor Communication Fault</LeftRearRollMotorDriveCommFault>
+			<RightRearRollMotorDriveCommFault PreviousState="-1">Right Rear Roll Motor Communication Fault</RightRearRollMotorDriveCommFault>
+		</Faults>
+	</Setup>
+</AllenBradleyMotorController>

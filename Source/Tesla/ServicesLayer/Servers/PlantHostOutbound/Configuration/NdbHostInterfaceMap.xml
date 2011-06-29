@@ -1,0 +1,60 @@
+<TeslaMESReportItems>
+    <MESVINCharacter16 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="0" Length="1">VIN</MESVINCharacter16>
+    <MESVINCharacters1514 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="1" Length="2">VIN</MESVINCharacters1514>
+    <MESVINCharacters1312 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="3" Length="2">VIN</MESVINCharacters1312>
+    <MESVINCharacters1110 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="5" Length="2">VIN</MESVINCharacters1110>
+    <MESVINCharacters0908 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="7" Length="2">VIN</MESVINCharacters0908>
+    <MESVINCharacters0706 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="9" Length="2">VIN</MESVINCharacters0706>
+    <MESVINCharacters0504 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="11" Length="2">VIN</MESVINCharacters0504>
+    <MESVINCharacters0302 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="13" Length="2">VIN</MESVINCharacters0302>
+    <MESVINCharacters0100 Type="VehicleBuild" Format="%02x" DataType="ASCIIInt" Offset="15" Length="2">VIN</MESVINCharacters0100>
+        <!-- Component P/F -->
+    <MESOverallTestResult Type="Result">OverallTest</MESOverallTestResult>
+    <MESAirbagTestResult Type="Result">AirbagOverallTest</MESAirbagTestResult>
+    <MESBrakeTestResult Type="Result">BrakeOverallTest</MESBrakeTestResult>
+    <MESDriveTrainTestResult Type="Result">DriveTrainOverallTest</MESDriveTrainTestResult>
+    <MESCruiseTestResult Type="Result">SpeedControlOverallTest</MESCruiseTestResult>
+        <!-- Brake Tests P/F -->
+    <MESFrontLRBalanceTestResult Type="Result">BrakeFrontBalanceTest</MESFrontLRBalanceTestResult>
+    <MESRearLRBalanceTestResult Type="Result">BrakeRearBalanceTest</MESRearLRBalanceTestResult>
+    <MESFRBalanceTestResult Type="Result">BrakeFrontToRearBalanceTest</MESFRBalanceTestResult>
+    <MESParkBrakeTestResult Type="Result">BrakeElectricParkBrake</MESParkBrakeTestResult>
+    <MESSensorLFTestResult Type="Result">BrakeLeftFrontSensorSpeedTest</MESSensorLFTestResult>
+    <MESSensorRFTestResult Type="Result">BrakeRightFrontSensorSpeedTest</MESSensorRFTestResult>
+    <MESSensorLRTestResult Type="Result">BrakeLeftRearSensorSpeedTest</MESSensorLRTestResult>
+    <MESSensorRRTestResult Type="Result">BrakeRightRearSensorSpeedTest</MESSensorRRTestResult>
+    <MESDragLFTestResult Type="Result">BrakeLeftFrontDragTest</MESDragLFTestResult>
+    <MESDragRFTestResult Type="Result">BrakeRightFrontDragTest</MESDragRFTestResult>
+    <MESDragLRTestResult Type="Result">BrakeLeftRearDragTest</MESDragLRTestResult>
+    <MESDragRRTestResult Type="Result">BrakeRightRearDragTest</MESDragRRTestResult>
+    <MESBrakeLFTestResult Type="Result">BrakeLeftFrontForceTest</MESBrakeLFTestResult>
+    <MESBrakeRFTestResult Type="Result">BrakeRightFrontForceTest</MESBrakeRFTestResult>
+    <MESBrakeLRTestResult Type="Result">BrakeLeftRearForceTest</MESBrakeLRTestResult>
+    <MESBrakeRRTestResult Type="Result">BrakeRightRearForceTest</MESBrakeRRTestResult>
+    <MESReductionLFTestResult Type="Result">BrakeLeftFrontReduction</MESReductionLFTestResult>
+    <MESReductionRFTestResult Type="Result">BrakeRightFrontReduction</MESReductionRFTestResult>
+    <MESReductionLRTestResult Type="Result">BrakeLeftRearReduction</MESReductionLRTestResult>
+    <MESReductionRRTestResult Type="Result">BrakeRightRearReduction</MESReductionRRTestResult>
+    <MESRecoveryLFTestResult Type="Result">BrakeLeftFrontRecovery</MESRecoveryLFTestResult>
+    <MESRecoveryRFTestResult Type="Result">BrakeRightFrontRecovery</MESRecoveryRFTestResult>
+    <MESRecoveryLRTestResult Type="Result">BrakeLeftRearRecovery</MESRecoveryLRTestResult>
+    <MESRecoveryRRTestResult Type="Result">BrakeRightRearRecovery</MESRecoveryRRTestResult>
+        <!-- Brake Test Values -->
+    <MESDragLFValue Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeLeftFrontDragTest</MESDragLFValue>
+    <MESDragRFValue Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeRightFrontDragTest</MESDragRFValue>
+    <MESDragLRValue Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeLeftRearDragTest</MESDragLRValue>
+    <MESDragRRValue Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeRightRearDragTest</MESDragRRValue>
+    <MESBrakeLFValue Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeLeftFrontForceTest</MESBrakeLFValue>
+    <MESBrakeRFValue Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeRightFrontForceTest</MESBrakeRFValue>
+    <MESBrakeLRValue Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeLeftRearForceTest</MESBrakeLRValue>
+    <MESBrakeRRValue Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeRightRearForceTest</MESBrakeRRValue>
+    <MESReductionLFValue Type="Detail" DetailNode="LeftFrontABSReductionPercent" Format="%03d" DataType="Integer">BrakeLeftFrontABSReduction</MESReductionLFValue>
+    <MESReductionRFValue Type="Detail" DetailNode="RightFrontABSReductionPercent" Format="%03d" DataType="Integer">BrakeRightFrontABSReduction</MESReductionRFValue>
+    <MESReductionLRValue Type="Detail" DetailNode="LeftRearABSReductionPercent" Format="%03d" DataType="Integer">BrakeLeftRearABSReduction</MESReductionLRValue>
+    <MESReductionRRValue Type="Detail" DetailNode="RightRearABSReductionPercent" Format="%03d" DataType="Integer">BrakeRightRearABSReduction</MESReductionRRValue>
+    <MESRecoveryLFValue Type="Detail" DetailNode="LeftFrontABSRecoveryValue" Format="%03d" DataType="Integer">BrakeLeftFrontABSRecovery</MESRecoveryLFValue>
+    <MESRecoveryRFValue Type="Detail" DetailNode="RightFrontABSRecoveryValue" Format="%03d" DataType="Integer">BrakeRightFrontABSRecovery</MESRecoveryRFValue>
+    <MESRecoveryLRValue Type="Detail" DetailNode="LeftRearABSRecoveryValue" Format="%03d" DataType="Integer">BrakeLeftRearABSRecovery</MESRecoveryLRValue>
+    <MESRecoveryRRValue Type="Detail" DetailNode="RightRearABSRecoveryValue" Format="%03d" DataType="Integer">BrakeRightRearABSRecovery</MESRecoveryRRValue>
+</TeslaMESReportItems>
+

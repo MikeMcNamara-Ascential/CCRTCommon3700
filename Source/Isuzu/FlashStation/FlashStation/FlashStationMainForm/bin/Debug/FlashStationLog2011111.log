@@ -1,0 +1,222 @@
+1/11/2011 12:50:51 PM	
+
+------------------------------------------------------
+Flash Station Application Started
+1/11/2011 12:52:45 PM	
+
+------------------------------------------------------
+Flash Station Application Started
+1/11/2011 12:53:34 PM	
+
+----------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 12:54:01 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 12:57:58 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 12:58:03 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 12:58:16 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 1:02:06 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:03:09 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:05:15 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:05:40 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:09:19 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:10:36 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:10:41 PM	INFO:  View Update Task Thread Started
+1/11/2011 1:10:41 PM	INFO:  Main Task Thread Started
+1/11/2011 1:10:41 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:10:59 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 1:10:59 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 1:11:04 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:11:09 PM	INFO:  View Update Task Thread Ended
+1/11/2011 1:12:35 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:12:41 PM	INFO:  View Update Task Thread Started
+1/11/2011 1:12:41 PM	INFO:  Main Task Thread Started
+1/11/2011 1:12:41 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:12:44 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 1:12:45 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 1:12:50 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:12:53 PM	INFO:  View Update Task Thread Ended
+1/11/2011 1:15:36 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:15:41 PM	INFO:  View Update Task Thread Started
+1/11/2011 1:15:41 PM	INFO:  Main Task Thread Started
+1/11/2011 1:15:41 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:15:44 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 1:15:45 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 1:15:50 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:15:52 PM	INFO:  View Update Task Thread Ended
+1/11/2011 1:15:57 PM	INFO:  Main Task Thread Ended
+1/11/2011 1:17:28 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:17:34 PM	INFO:  View Update Task Thread Started
+1/11/2011 1:17:34 PM	INFO:  Main Task Thread Started
+1/11/2011 1:17:42 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:17:55 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 1:17:57 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 1:18:03 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:18:11 PM	INFO:  View Update Task Thread Ended
+1/11/2011 1:18:17 PM	INFO:  Main Task Thread Ended
+1/11/2011 1:20:29 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:20:34 PM	INFO:  View Update Task Thread Started
+1/11/2011 1:20:34 PM	INFO:  Main Task Thread Started
+1/11/2011 1:20:38 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:20:41 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 1:20:41 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 1:20:46 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:20:52 PM	INFO:  View Update Task Thread Ended
+1/11/2011 1:20:57 PM	INFO:  Main Task Thread Ended
+1/11/2011 1:23:29 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:23:38 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:23:44 PM	INFO:  Main Task Thread Started
+1/11/2011 1:23:44 PM	INFO:  View Update Task Thread Started
+1/11/2011 1:23:44 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:23:48 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 1:23:48 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 1:23:53 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:30:42 PM	
+
+---------------------------------------------------------------------------------------------------------------
+Flash Station Application Started
+1/11/2011 1:30:47 PM	INFO:  View Update Task Thread Started
+1/11/2011 1:30:47 PM	INFO:  Main Task Thread Started
+1/11/2011 1:30:47 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:31:03 PM	INFO:  EcuCommDeviceEntryForm: comm devices reverted to original values
+1/11/2011 1:31:12 PM	INFO:  Default Comm device updated to: CarDAQ PLUS
+1/11/2011 1:31:12 PM	INFO:  Default Comm device updated to: GMLAN
+1/11/2011 1:48:25 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/11/2011 1:48:30 PM	INFO:  View Update Task Thread Started
+1/11/2011 1:48:30 PM	INFO:  Main Task Thread Started
+1/11/2011 1:48:30 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 1:48:43 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 1:48:43 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 1:48:48 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:36:10 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/11/2011 3:36:15 PM	INFO:  View Update Task Thread Started
+1/11/2011 3:36:15 PM	INFO:  Main Task Thread Started
+1/11/2011 3:36:15 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:36:21 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 3:36:21 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 3:36:26 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:38:51 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/11/2011 3:38:56 PM	INFO:  View Update Task Thread Started
+1/11/2011 3:38:56 PM	INFO:  Main Task Thread Started
+1/11/2011 3:38:56 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:39:03 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 3:39:04 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 3:43:58 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/11/2011 3:44:04 PM	INFO:  View Update Task Thread Started
+1/11/2011 3:44:04 PM	INFO:  Main Task Thread Started
+1/11/2011 3:44:04 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:44:10 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 3:44:11 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 3:44:11 PM	ERROR:  Invalid Barcode Length Required: 30 received: 4
+1/11/2011 3:44:11 PM	ERROR:  Build data load failure
+1/11/2011 3:44:16 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:44:32 PM	INFO:  Submitted barcode Value: 123456789012345678901234567890
+1/11/2011 3:44:33 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 3:44:33 PM	ERROR:  No matching file found for file pre:C:\BuildFiles\Ps89012_34_567_
+1/11/2011 3:44:33 PM	ERROR:  Build data load failure
+1/11/2011 3:44:38 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:45:25 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120999
+1/11/2011 3:45:25 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 3:45:34 PM	ERROR:  Exception loading file:C:\BuildFiles\Ps20027_A8_120_001.xml
+1/11/2011 3:45:34 PM	ERROR:  Build data load failure
+1/11/2011 3:45:39 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:46:39 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/11/2011 3:46:44 PM	INFO:  View Update Task Thread Started
+1/11/2011 3:46:44 PM	INFO:  Main Task Thread Started
+1/11/2011 3:46:44 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:47:05 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120999
+1/11/2011 3:47:05 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 3:47:43 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/11/2011 3:47:49 PM	INFO:  View Update Task Thread Started
+1/11/2011 3:47:49 PM	INFO:  Main Task Thread Started
+1/11/2011 3:47:49 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:48:10 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120999
+1/11/2011 3:48:10 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 3:48:11 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/11/2011 3:55:18 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/11/2011 3:55:23 PM	INFO:  View Update Task Thread Started
+1/11/2011 3:55:23 PM	INFO:  Main Task Thread Started
+1/11/2011 3:55:27 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 3:55:55 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120002
+1/11/2011 3:55:55 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 3:55:56 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/11/2011 4:14:26 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/11/2011 4:14:31 PM	INFO:  View Update Task Thread Started
+1/11/2011 4:14:31 PM	INFO:  Main Task Thread Started
+1/11/2011 4:14:31 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 4:14:39 PM	INFO:  Cannot clear build info in current state
+1/11/2011 4:14:45 PM	INFO:  Submitted barcode Value: 1234
+1/11/2011 4:14:46 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 4:14:46 PM	ERROR:  Invalid Barcode Length Required: 30 received: 4
+1/11/2011 4:14:46 PM	ERROR:  Build data load failure
+1/11/2011 4:14:51 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/11/2011 4:15:20 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/11/2011 4:15:21 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/11/2011 4:15:21 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/11/2011 4:15:25 PM	INFO:  User Aborted
+1/11/2011 4:15:30 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT

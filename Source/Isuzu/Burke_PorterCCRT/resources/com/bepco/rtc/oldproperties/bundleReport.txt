@@ -1,0 +1,65 @@
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Colors.constants
+# Properties changed between new file and old file (new property listed)
+bordercolor = 100 100 100
+lfcolor = 255 0 0
+rfcolor = 0 255 0
+lrcolor = 0 0 255
+rrcolor = 255 0 255
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CommonConfig.constants
+# Properties in new file but missing from old 
+configpanel.icon.log=/com/bepco/rtc/images/log64.png
+configpanel.icon.log.large=/com/bepco/rtc/images/log128.png
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CrtDesigner.properties
+# Properties in new file but missing from old 
+action.format.name=Format
+action.format.description=Auto aligns XML code indentations
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.constants
+# Properties in new file but missing from old 
+widget.bepimage.image.default=/com/bepco/resource/bepimage.png
+widget.bepimage.image.0=/com/bepco/resource/bepimage.png
+widget.bepimage.image.1=/com/bepco/resource/bepimage.png
+widget.header.image.default=/com/bepco/resource/header.png
+widget.header.image.0=/com/bepco/resource/header.png
+widget.header.image.1=/com/bepco/resource/header.png
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties in new file but missing from old 
+label.tirepressure.text=Tire Pressure
+label.bep.text=BURKE E. PORTER
+label.mc.text=MACHINERY COMPANY
+label.address1.text=730 Plymouth N.E.
+label.address2.text=Grand Rapids, MI 49505
+label.phone.text=24hr Support Line\: (616) 234-1234
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties changed between new file and old file (new property listed)
+label.axleratio.text=AxleRatio
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/DriveCurveView.constants
+# Properties in new file but missing from old 
+panel.brakeforce.grid.color=225 225 225
+panel.brakeforce.samplerate=0.020
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/DriveCurveView.constants
+# Properties changed between new file and old file (new property listed)
+panel.brakeforce.chartarea.background=white
+panel.brakeforce.chartarea.foreground=100 100 100
+panel.brakeforce.xaxis.color=100 100 100
+panel.brakeforce.yaxis.color=100 100 100
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/DriveCurveView.properties
+# Properties in new file but missing from old 
+panel.brakeforce.yaxis.force.title=Force (lbf)
+panel.brakeforce.yaxis.speed.title=Speed (mph)
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/DriveCurveView.properties
+# Properties changed between new file and old file (new property listed)
+panel.brakeforce.xaxis.title=Time (s)
+panel.brakeforce.yaxis.title=Force (lbf)
+panel.brakeforce.loaddata.dialog.error.message=There was a problem loading\n the drive curve force data.\n\nYou can resolve this issue by\nrestarting the RTOS and GUI PCs.\n\nThe error detail is:\n
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts.properties
+# Properties changed between new file and old file (new property listed)
+PerformingFinishUp = Performing FinishUp
+
+

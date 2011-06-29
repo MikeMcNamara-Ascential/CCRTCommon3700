@@ -1,0 +1,15 @@
+<!DOCTYPE Workspace SYSTEM "http://www.slickedit.com/dtd/vse/9.1/vpw.dtd">
+<Workspace Version="9.1" VendorName="SlickEdit">
+	<Projects>
+		<Project File="Aymesa/Aymesa.vpj"/>
+		<Project File="Core/Core.vpj"/>
+		<Project File="GM/GM.vpj"/>
+		<Project File="Isuzu/Isuzu.vpj"/>
+		<Project File="Mercedes/Mercedes.vpj"/>
+		<Project File="Tesla/Tesla.vpj"/>
+		<Project File="Tests/Tests.vpj"/>
+		<Project File="Tools/Tools.vpj"/>
+		<Project File="Toyota/Toyota.vpj"/>
+		<Project File="Volkswagen/Volkswagen.vpj"/>
+	</Projects>
+</Workspace>

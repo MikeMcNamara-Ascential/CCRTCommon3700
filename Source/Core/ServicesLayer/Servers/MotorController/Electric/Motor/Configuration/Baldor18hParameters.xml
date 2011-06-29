@@ -1,0 +1,137 @@
+<Baldor18hParameters>
+   <Level1>
+      <Block0 Description="PRESET SPEEDS">
+         <P1001 Description="PRESET SPEED #1">0</P1001>
+         <P1002 Description="PRESET SPEED #2">0</P1002>
+         <P1003 Description="PRESET SPEED #3">0</P1003>
+         <P1004 Description="PRESET SPEED #4">0</P1004>
+         <P1005 Description="PRESET SPEED #5">0</P1005>
+         <P1006 Description="PRESET SPEED #6">0</P1006>
+         <P1007 Description="PRESET SPEED #7">0</P1007>
+         <P1008 Description="PRESET SPEED #8">0</P1008>
+         <P1009 Description="PRESET SPEED #9">0</P1009>
+         <P1010 Description="PRESET SPEED #10">0</P1010>
+         <P1011 Description="PRESET SPEED #11">0</P1011>
+         <P1012 Description="PRESET SPEED #12">0</P1012>
+         <P1013 Description="PRESET SPEED #13">0</P1013>
+         <P1014 Description="PRESET SPEED #14">0</P1014>
+         <P1015 Description="PRESET SPEED #15">0</P1015>
+      </Block0>
+      <Block1 Description="ACCEL/DECEL RATE">
+         <P1101 Description="ACCEL TIME #1">0.0</P1101>
+         <P1102 Description="DECEL TIME #1">0.0</P1102>
+         <P1103 Description="S-CURVE #1">0</P1103>
+         <P1104 Description="ACCEL TIME #2">0.0</P1104>
+         <P1105 Description="DECEL TIME #2">0.0</P1105>
+         <P1106 Description="S-CURVE #2">0</P1106>
+      </Block1>
+      <Block2 Description="JOG SETTINGS">
+         <P1201 Description="JOG SPEED">200</P1201>
+         <P1202 Description="JOG ACCEL TIME">3.0</P1202>
+         <P1203 Description="JOG DECEL TIME">3.0</P1203>
+         <P1204 Description="JOG S-CURVE TIME">0</P1204>
+      </Block2>
+      <Block3 Description="KEYPAD SETUP">
+         <P1301 Description="KEYPAD STOP KEY">1</P1301>
+         <P1302 Description="KEYPAD STOP MODE">1</P1302>
+         <P1303 Description="KEYPAD RUN FWD">1</P1303>
+         <P1304 Description="KEYPAD RUN REV">1</P1304>
+         <P1305 Description="KEYPAD JOG FWD">1</P1305>
+         <P1306 Description="KEYPAD JOG REV">1</P1306>
+      </Block3>
+      <Block4 Description="INPUT">
+         <P1401 Description="OPERATING MODE">4</P1401>
+         <P1402 Description="COMMAND SELECT">1</P1402>
+         <P1403 Description="ANA CMD INVERSE">0</P1403>
+         <P1404 Description="ANA CMD OFFSET">0.9</P1404>
+         <P1405 Description="ANA 2 DEADBAND">0.00</P1405>
+      </Block4>
+      <Block5 Description="OUTPUT">
+         <P1501 Description="OPTO OUTPUT #1">6</P1501>
+         <P1502 Description="OPTO OUTPUT #2">6</P1502>
+         <P1503 Description="OPTO OUTPUT #3">2</P1503>
+         <P1504 Description="OPTO OUTPUT #4">6</P1504>
+         <P1505 Description="ZERO SPD SET PT">200</P1505>
+         <P1506 Description="AT SPEED BAND">100</P1506>
+         <P1507 Description="SET SPEED">1780</P1507>
+         <P1508 Description="ANALOG OUT #1">0</P1508>
+         <P1509 Description="ANALOG OUT #2">8</P1509>
+         <P1510 Description="ANALOG #1 SCALE">100</P1510>
+         <P1511 Description="ANALOG #2 SCALE">100</P1511>
+         <P1512 Description="POSITION BAND">6</P1512>
+      </Block5>
+      <Block6 Description="VECTOR CONTROL">
+         <P1601 Description="CTRL BASE SPEED">1930</P1601>
+         <P1602 Description="ENCODER FILTER">3</P1602>
+         <P1603 Description="ENCODER ALIGN">1</P1603>
+         <P1604 Description="CURRNT PROP GAIN">20</P1604>
+         <P1605 Description="CURRENT INT GAIN">10</P1605>
+         <P1606 Description="SPEED PROP GAIN">40</P1606>
+         <P1607 Description="SPEED INT GAIN">0.20</P1607>
+         <P1608 Description="SPEED DIFF GAIN">0</P1608>
+         <P1609 Description="POSITION GAIN">31</P1609>
+         <P1610 Description="SLIP FREQUENCY">0.67</P1610>
+      </Block6>
+   </Level1>
+   <Level2>
+      <Block0 Description="OUTPUT LIMITS">
+         <P2001 Description="OPERATING ZONE">1</P2001>
+         <P2002 Description="MIN OUTPUT SPEED">0</P2002>
+         <P2003 Description="MAX OUTPUT SPEED">2800</P2003>
+         <P2004 Description="PK CURRENT LIMIT">68.0</P2004>
+         <P2005 Description="PWM FREQUENCY">2.5</P2005>
+         <P2006 Description="TORQ RATE LIMIT">1.000</P2006>
+      </Block0>
+      <Block1 Description="CUSTOM UNITS">
+         <P2101 Description="DECIMAL PLACES">5</P2101>
+         <P2102 Description="VALUE AT SPEED">0</P2102>
+         <P2103 Description="UNITS OF MEASURE">10794</P2103>
+      </Block1>
+      <Block2 Description="PROTECTION">
+         <P2201 Description="OVERLOAD ">0</P2201>
+         <P2202 Description="EXTERNAL TRIP">0</P2202>
+         <P2203 Description="FOLLOWING ERROR">0</P2203>
+         <P2204 Description="TORQUE PROVING">0</P2204>
+      </Block2>
+      <Block3 Description="MISCELLANEOUS">
+         <P2301 Description="RESTART AUTO/MAN">0</P2301>
+         <P2302 Description="RESTART FAULT/HR">0</P2302>
+         <P2303 Description="RESTART DELAY">0</P2303>
+         <P2304 Description="FACTORY SETTINGS">0</P2304>
+         <P2305 Description="HOMING SPEED">100</P2305>
+         <P2306 Description="HOMING OFFSET">1024</P2306>
+      </Block3>
+      <Block4 Description="SECURITY CONTROL">
+         <P2401 Description="SECURITY STATE">0</P2401>
+         <P2402 Description="ACCESS TIMEOUT">0</P2402>
+         <P2403 Description="ACCESS CODE">23957</P2403>
+      </Block4>
+      <Block5 Description="MOTOR DATA">
+         <P2501 Description="MOTOR VOLTAGE">460</P2501>
+         <P2502 Description="MOTOR RATED AMPS">34.0</P2502>
+         <P2503 Description="MOTOR RATED SPD">1780</P2503>
+         <P2504 Description="MOTOR RATED FREQ">60.0</P2504>
+         <P2505 Description="MOTOR MAG AMPS">11.87</P2505>
+         <P2506 Description="ENCODER COUNTS">1024</P2506>
+         <P2507 Description="RESOLVER SPEEDS">0</P2507>
+      </Block5>
+      <Block6 Description="BRAKE ADJUST">
+         <P2601 Description="RESISTOR OHMS">22</P2601>
+         <P2602 Description="RESISTOR WATTS">16000</P2602>
+      </Block6>
+      <Block7 Description="PROCESS CONTROL">
+         <P2701 Description="PROCESS FEEDBACK">21845</P2701>
+         <P2702 Description="PROCESS INVERSE">32130</P2702>
+         <P2703 Description="SETPOINT SOURCE">0</P2703>
+         <P2704 Description="SETPOINT COMMAND">0.0</P2704>
+         <P2705 Description="SET PT ADJ LIMIT">0.0</P2705>
+         <P2706 Description="PROCESS ERR TOL">0</P2706>
+         <P2707 Description="PROCSS PROP GAIN">0</P2707>
+         <P2708 Description="PROCESS INT GAIN">0.00</P2708>
+         <P2709 Description="PROCSS DIFF GAIN">0</P2709>
+         <P2710 Description="FOLLOW I:O RATIO">1</P2710>
+         <P2711 Description="FOLLOW I:O OUT">1</P2711>
+         <P2712 Description="MASTER ENCODER">29976</P2712>
+      </Block7>
+   </Level2>
+</Baldor18hParameters>

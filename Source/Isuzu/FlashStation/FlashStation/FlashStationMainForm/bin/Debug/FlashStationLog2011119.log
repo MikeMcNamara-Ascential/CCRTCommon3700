@@ -1,0 +1,446 @@
+1/19/2011 4:17:02 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:17:09 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:17:09 PM	INFO:  Main Task Thread Started
+1/19/2011 4:17:09 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:17:38 PM	INFO:  Comm device updated to: Gryphon/SCAT/SCAT2/SCAT3
+1/19/2011 4:17:38 PM	INFO:  Comm channel updated to: GMLAN
+1/19/2011 4:17:55 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:17:57 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:17:57 PM	INFO:  Main Task Thread Started
+1/19/2011 4:17:57 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:18:02 PM	INFO:  EcuCommDeviceEntryForm: comm devices reverted to original values
+1/19/2011 4:18:19 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:18:19 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:18:20 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:18:20 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:18:20 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:18:20 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:18:20 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 4:18:20 PM	INFO:  Sending Message: 10-02
+1/19/2011 4:18:21 PM	INFO:  Message Failure
+1/19/2011 4:18:21 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 4:18:22 PM	INFO:  StartingPCMFlash Process
+1/19/2011 4:18:22 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:19:34 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:19:35 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:19:35 PM	INFO:  Main Task Thread Started
+1/19/2011 4:19:35 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:19:49 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:19:50 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:19:50 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:19:50 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:19:50 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:19:50 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:19:50 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 4:19:50 PM	INFO:  Sending Message: 10-02
+1/19/2011 4:19:50 PM	INFO:  Message Failure
+1/19/2011 4:19:51 PM	INFO:  StartingPCMFlash Process
+1/19/2011 4:19:51 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 4:25:58 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:26:01 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:26:01 PM	INFO:  Main Task Thread Started
+1/19/2011 4:26:01 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:26:24 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:26:24 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:26:25 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:26:25 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:26:25 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:26:25 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:26:25 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 4:26:30 PM	INFO:  Sending Message: 10-02
+1/19/2011 4:26:32 PM	INFO:  Message Failure
+1/19/2011 4:26:57 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 4:26:57 PM	INFO:  StartingPCMFlash Process
+1/19/2011 4:26:57 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:28:04 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:28:06 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:28:06 PM	INFO:  Main Task Thread Started
+1/19/2011 4:28:06 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:28:23 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:28:24 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:28:24 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:28:24 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:28:24 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:28:24 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:28:24 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 4:30:17 PM	INFO:  Sending Message: 10-02
+1/19/2011 4:30:17 PM	INFO:  Message Failure
+1/19/2011 4:30:17 PM	INFO:  StartingPCMFlash Process
+1/19/2011 4:30:17 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 4:30:59 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:31:00 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:31:00 PM	INFO:  Main Task Thread Started
+1/19/2011 4:31:00 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:31:14 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:31:14 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:31:15 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:31:15 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:31:15 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:31:15 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:31:15 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 4:32:54 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:32:56 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:32:56 PM	INFO:  Main Task Thread Started
+1/19/2011 4:32:56 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:33:09 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:33:09 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:33:10 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:33:10 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:33:10 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:33:10 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:33:10 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 4:35:47 PM	INFO:  Sending Message: 10-02
+1/19/2011 4:39:01 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:39:02 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:39:02 PM	INFO:  Main Task Thread Started
+1/19/2011 4:39:02 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:44:09 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:44:09 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:44:10 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:44:10 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:44:10 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:44:10 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:44:10 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 4:44:20 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 4:49:11 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:49:12 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:49:12 PM	INFO:  Main Task Thread Started
+1/19/2011 4:49:12 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:49:31 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:49:32 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:49:32 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:49:33 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:49:33 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:49:33 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:49:50 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 4:49:50 PM	INFO:  StartingPCMFlash Process
+1/19/2011 4:49:51 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:53:00 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:53:02 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:53:02 PM	INFO:  Main Task Thread Started
+1/19/2011 4:53:02 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:53:20 PM	INFO:  EcuCommDeviceEntryForm: comm devices reverted to original values
+1/19/2011 4:53:35 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:53:35 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:53:36 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:53:36 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:53:36 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:53:36 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:53:39 PM	INFO:  StartingPCMFlash Process
+1/19/2011 4:53:39 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 4:55:39 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:55:41 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:55:41 PM	INFO:  Main Task Thread Started
+1/19/2011 4:55:41 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:55:56 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:55:56 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:55:57 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:55:57 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:55:57 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:55:57 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:56:42 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 4:56:44 PM	INFO:  View Update Task Thread Started
+1/19/2011 4:56:44 PM	INFO:  Main Task Thread Started
+1/19/2011 4:56:44 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 4:57:01 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 4:57:01 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 4:57:02 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 4:57:02 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 4:57:02 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 4:57:02 PM	INFO:  Starting Tester Present Thread
+1/19/2011 4:57:14 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 4:57:14 PM	INFO:  StartingPCMFlash Process
+1/19/2011 4:57:19 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:03:30 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 5:03:31 PM	INFO:  View Update Task Thread Started
+1/19/2011 5:03:31 PM	INFO:  Main Task Thread Started
+1/19/2011 5:03:31 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:03:44 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:03:44 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:03:45 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:03:45 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:03:45 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:03:45 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:03:45 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:22:52 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 5:22:55 PM	INFO:  View Update Task Thread Started
+1/19/2011 5:22:55 PM	INFO:  Main Task Thread Started
+1/19/2011 5:22:55 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:23:13 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:23:13 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:23:14 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:23:14 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:23:14 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:23:14 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:23:14 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:23:47 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 5:33:09 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 5:33:12 PM	INFO:  View Update Task Thread Started
+1/19/2011 5:33:12 PM	INFO:  Main Task Thread Started
+1/19/2011 5:33:12 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:33:24 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:33:24 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:33:25 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:33:25 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:33:25 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:33:25 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:33:40 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:33:42 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 5:34:14 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 5:34:15 PM	INFO:  View Update Task Thread Started
+1/19/2011 5:34:15 PM	INFO:  Main Task Thread Started
+1/19/2011 5:34:15 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:34:32 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:34:32 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:34:32 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:34:33 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:34:33 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:34:33 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:34:37 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:34:37 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 5:34:38 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:34:38 PM	INFO:  Received: 00-00-07-E8-50
+1/19/2011 5:34:38 PM	INFO:  Received: 
+1/19/2011 5:34:38 PM	INFO:  Sending Message Disable Normal Communications
+1/19/2011 5:34:39 PM	INFO:  Sending Message: FE-28
+1/19/2011 5:34:41 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:34:41 PM	INFO:  Received: 00-00-07-E8-68
+1/19/2011 5:34:41 PM	INFO:  Received: 
+1/19/2011 5:34:41 PM	INFO:  Sending Message Request Programming
+1/19/2011 5:34:42 PM	INFO:  Sending Message: FE-A5-02
+1/19/2011 5:34:44 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:34:44 PM	INFO:  Received: 00-00-07-E8-7F-A5-12
+1/19/2011 5:34:44 PM	INFO:  Received: 
+1/19/2011 5:34:44 PM	INFO:  Sending Message Enable Programming
+1/19/2011 5:34:44 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 5:34:44 PM	INFO:  StartingPCMFlash Process
+1/19/2011 5:34:44 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:41:45 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 5:41:47 PM	INFO:  View Update Task Thread Started
+1/19/2011 5:41:47 PM	INFO:  Main Task Thread Started
+1/19/2011 5:41:47 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:42:03 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:42:03 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:42:03 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:42:04 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:42:04 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:42:04 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:42:09 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:42:13 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 5:42:16 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:42:16 PM	INFO:  Received: 00-00-07-E8-50
+1/19/2011 5:42:16 PM	INFO:  Received: 
+1/19/2011 5:42:16 PM	INFO:  Sending Message Disable Normal Communications
+1/19/2011 5:42:16 PM	INFO:  Sending Message: FE-28
+1/19/2011 5:42:17 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:42:17 PM	INFO:  Received: 00-00-07-E8-68
+1/19/2011 5:42:17 PM	INFO:  Received: 
+1/19/2011 5:42:17 PM	INFO:  Sending Message Request Programming
+1/19/2011 5:42:17 PM	INFO:  Sending Message: FE-A5-02
+1/19/2011 5:42:17 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:42:17 PM	INFO:  Received: 00-00-07-E8-7F-A5-12
+1/19/2011 5:42:17 PM	INFO:  Received: 
+1/19/2011 5:42:17 PM	INFO:  Sending Message Enable Programming
+1/19/2011 5:42:17 PM	INFO:  Sending Message: FE-A5-03
+1/19/2011 5:42:17 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:42:17 PM	INFO:  Received: 00-00-07-E8-7F-A5-22
+1/19/2011 5:42:17 PM	INFO:  Received: 
+1/19/2011 5:42:17 PM	INFO:  StartingPCMFlash Process
+1/19/2011 5:42:18 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 5:42:54 PM	INFO:  User Aborted
+1/19/2011 5:42:59 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:43:19 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:43:19 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:43:20 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:43:20 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:43:20 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:43:20 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:43:20 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:43:20 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 5:43:21 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:43:21 PM	INFO:  Received: 00-00-07-E8-50
+1/19/2011 5:43:21 PM	INFO:  Received: 
+1/19/2011 5:43:21 PM	INFO:  Sending Message Disable Normal Communications
+1/19/2011 5:43:21 PM	INFO:  Sending Message: FE-28
+1/19/2011 5:43:21 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:43:21 PM	INFO:  Received: 00-00-07-E8-68
+1/19/2011 5:43:21 PM	INFO:  Received: 
+1/19/2011 5:43:21 PM	INFO:  Sending Message Request Programming
+1/19/2011 5:43:21 PM	INFO:  Sending Message: FE-A5-02
+1/19/2011 5:43:22 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:43:22 PM	INFO:  Received: 00-00-07-E8-7F-A5-12
+1/19/2011 5:43:22 PM	INFO:  Received: 
+1/19/2011 5:43:22 PM	INFO:  Sending Message Enable Programming
+1/19/2011 5:43:22 PM	INFO:  Sending Message: FE-A5-03
+1/19/2011 5:43:22 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:43:22 PM	INFO:  Received: 00-00-07-E8-7F-A5-22
+1/19/2011 5:43:22 PM	INFO:  Received: 
+1/19/2011 5:43:22 PM	INFO:  StartingPCMFlash Process
+1/19/2011 5:43:22 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 5:47:30 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 5:47:32 PM	INFO:  View Update Task Thread Started
+1/19/2011 5:47:47 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:48:05 PM	INFO:  User Aborted
+1/19/2011 5:48:05 PM	INFO:  Not Reporting results: did not begin flash process
+1/19/2011 5:48:20 PM	INFO:  User Aborted
+1/19/2011 5:48:20 PM	INFO:  Not Reporting results: did not begin flash process
+1/19/2011 5:48:25 PM	INFO:  Cannot clear build info in current state
+1/19/2011 5:48:29 PM	INFO:  User Aborted
+1/19/2011 5:48:29 PM	INFO:  Not Reporting results: did not begin flash process
+1/19/2011 5:48:49 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 5:48:50 PM	INFO:  View Update Task Thread Started
+1/19/2011 5:48:50 PM	INFO:  Main Task Thread Started
+1/19/2011 5:48:50 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:49:17 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:49:17 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:49:18 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:49:18 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:49:18 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:49:18 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:49:18 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:49:18 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 5:49:20 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:49:20 PM	INFO:  Received: 00-00-07-E8-50
+1/19/2011 5:49:20 PM	INFO:  Received: 
+1/19/2011 5:49:20 PM	INFO:  Received: 
+1/19/2011 5:49:20 PM	INFO:  Received: 
+1/19/2011 5:49:20 PM	INFO:  Sending Message Disable Normal Communications
+1/19/2011 5:49:20 PM	INFO:  Sending Message: FE-28
+1/19/2011 5:49:21 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:49:21 PM	INFO:  Received: 00-00-07-E8-68
+1/19/2011 5:49:21 PM	INFO:  Received: 
+1/19/2011 5:49:21 PM	INFO:  Sending Message Request Programming
+1/19/2011 5:49:21 PM	INFO:  Sending Message: FE-A5-02
+1/19/2011 5:49:21 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:49:21 PM	INFO:  Received: 00-00-07-E8-7F-A5-12
+1/19/2011 5:49:21 PM	INFO:  Received: 
+1/19/2011 5:49:21 PM	INFO:  Sending Message Enable Programming
+1/19/2011 5:49:21 PM	INFO:  Sending Message: FE-A5-03
+1/19/2011 5:49:21 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:49:21 PM	INFO:  Received: 00-00-07-E8-7F-A5-22
+1/19/2011 5:49:21 PM	INFO:  Received: 
+1/19/2011 5:49:21 PM	INFO:  StartingPCMFlash Process
+1/19/2011 5:49:21 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 5:49:35 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:49:43 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:49:43 PM	ERROR:  Invalid Barcode Length Required: 30 received: 0
+1/19/2011 5:49:43 PM	ERROR:  Build data load failure
+1/19/2011 5:49:49 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:50:26 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:50:26 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:50:26 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:50:27 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:50:27 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:50:27 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:50:27 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:50:27 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 5:50:27 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:50:27 PM	INFO:  Received: 00-00-07-E8-50
+1/19/2011 5:50:27 PM	INFO:  Received: 
+1/19/2011 5:50:27 PM	INFO:  Sending Message Disable Normal Communications
+1/19/2011 5:50:27 PM	INFO:  Sending Message: FE-28
+1/19/2011 5:50:28 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:50:28 PM	INFO:  Received: 00-00-07-E8-68
+1/19/2011 5:50:28 PM	INFO:  Received: 
+1/19/2011 5:50:28 PM	INFO:  Sending Message Request Programming
+1/19/2011 5:50:28 PM	INFO:  Sending Message: FE-A5-02
+1/19/2011 5:50:34 PM	INFO:  Message Failure
+1/19/2011 5:50:34 PM	INFO:  StartingPCMFlash Process
+1/19/2011 5:50:34 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 5:50:37 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:52:53 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/19/2011 5:52:54 PM	INFO:  View Update Task Thread Started
+1/19/2011 5:52:54 PM	INFO:  Main Task Thread Started
+1/19/2011 5:52:55 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/19/2011 5:53:09 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/19/2011 5:53:09 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/19/2011 5:53:10 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/19/2011 5:53:10 PM	INFO:  Commanded State: FLASH_ECUS
+1/19/2011 5:53:10 PM	INFO:  Performing Pre Utility File Process
+1/19/2011 5:53:10 PM	INFO:  Starting Tester Present Thread
+1/19/2011 5:53:10 PM	INFO:  Sending Message Disable DTCs
+1/19/2011 5:53:10 PM	INFO:  Sending Message: FE-10-02
+1/19/2011 5:53:12 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:53:12 PM	INFO:  Received: 00-00-07-E8-50
+1/19/2011 5:53:12 PM	INFO:  Received: 
+1/19/2011 5:53:12 PM	INFO:  Received: 
+1/19/2011 5:53:12 PM	INFO:  Received: 
+1/19/2011 5:53:12 PM	INFO:  Sending Message Disable Normal Communications
+1/19/2011 5:53:12 PM	INFO:  Sending Message: FE-28
+1/19/2011 5:53:12 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:53:12 PM	INFO:  Received: 00-00-07-E8-68
+1/19/2011 5:53:12 PM	INFO:  Received: 
+1/19/2011 5:53:12 PM	INFO:  Sending Message Request Programming
+1/19/2011 5:53:12 PM	INFO:  Sending Message: FE-A5-02
+1/19/2011 5:53:13 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:53:13 PM	INFO:  Received: 00-00-07-E8-7F-A5-12
+1/19/2011 5:53:13 PM	INFO:  Received: 
+1/19/2011 5:53:13 PM	INFO:  Sending Message Enable Programming
+1/19/2011 5:53:13 PM	INFO:  Sending Message: FE-A5-03
+1/19/2011 5:53:13 PM	INFO:  Message Sent, Received: 
+1/19/2011 5:53:13 PM	INFO:  Received: 00-00-07-E8-7F-A5-22
+1/19/2011 5:53:13 PM	INFO:  Received: 
+1/19/2011 5:53:13 PM	INFO:  StartingPCMFlash Process
+1/19/2011 5:53:13 PM	INFO:  Commanded State: REPORT_DATA
+1/19/2011 5:53:15 PM	INFO:  Reporting Fail
+1/19/2011 5:54:36 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001

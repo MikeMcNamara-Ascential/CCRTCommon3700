@@ -1,0 +1,94 @@
+
+<LsdTc>
+    <Setup>
+        <Name>Axle</Name>
+        <Debug>Off</Debug>
+        <DebugLevel>0</DebugLevel>
+        <ProcessPriority>11</ProcessPriority>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/LsdTc</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <NamedDataBrokerComm>
+            <Comm>IPC</Comm>
+            <Type>Client</Type>
+            <Name>core/NamedDataBroker</Name>
+            <Debug>Off</Debug>
+            <Timeout>0</Timeout>
+            <BufferSize>1024</BufferSize>
+        </NamedDataBrokerComm>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>LsdTc</ProcessName>
+            <AdditionalLogFile>/Components/LsdTc.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <ForegroundTestInProgress/>
+                <DriveAxle/>
+                <Zerospeed/>
+            </SubscribeTags>
+        </TagList>
+        <DataTags>
+            <Axle>Axle</Axle>
+        </DataTags>
+        <Parameters>
+            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+            <DeveloperTest>False</DeveloperTest>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <ICMName>mgr/ICM</ICMName>
+            <LsdTestSpeedValue>5</LsdTestSpeedValue>
+        </Parameters>
+        <Prompts>
+            <AxleCheck PromptBox="1" Priority="0">AxleCheck</AxleCheck>
+            <FootOffBrake PromptBox="2" Priority="0">FootOffBrake</FootOffBrake>
+            <ShiftNeutral PromptBox="1" Priority="0" Duration="4000">ShiftToNeutral</ShiftNeutral>
+            <ZeroSpeed PromptBox="1" Priority="0" Duration="4000">BrakeToStop</ZeroSpeed>
+        </Prompts>
+        <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
+        <TestDomain>Foreground</TestDomain>
+    </Setup>
+    <Objectives>
+        <LsdTest>
+            <TestStep0>TurnWheel</TestStep0>
+            <TestStep1>GetTestResults</TestStep1>
+            <TestStep2>FinishUp</TestStep2>
+        </LsdTest>
+    </Objectives>
+    <TestSteps>
+        <TurnWheel Result="Not Tested" Timeout="30000" Description="Turn wheel and check wheel speeds." ScanDelay="250"/>
+        <GetTestResults Result="Not Tested" Timeout="500" Description="Get the results of the test."/>
+        <FinishUp Result="Not Tested" Timeout="500" Description="Finish Lsd testing"/>
+    </TestSteps>
+</LsdTc>

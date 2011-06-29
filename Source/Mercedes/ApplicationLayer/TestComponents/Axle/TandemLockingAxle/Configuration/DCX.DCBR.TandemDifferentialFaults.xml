@@ -1,0 +1,19 @@
+<Faults>
+   <!-- System Status -->
+   <SoftwareFailure Code="3000" Description="Falha do software usando interface com modulo"/>
+   <StatusCheckFailure Code="3001" Description="Cheque de Status da Maquina Falhou"/>
+   <UnknownStatus Code="3002" Description="Desconhecido, nao contado para status durante teste ELSD"/>
+   <!-- Test Condition Failures -->
+   <ZeroSpeedFailure Code="3100" Description="Timeout esperando alcancar velocidade zero"/>
+   <TimeoutFailure Code="3101" Description="Timeout em etapa do teste"/>
+   <MaintainSpeedTimeoutFailure Code="3102" Description="Falha por nao manter velocidade por periodo de tempo requerido"/>
+   <AccelerateToSpeedFailure Code="3103" Description="Timeout esperando por velocidade requerida"/>
+   <!-- Communication Failures -->
+   <CommunicationFailure Code="3200" Description="Falha de comunicacao FDCM"/>
+   <!-- Test Failures -->
+   <ProgramCodeFailure Code="3300" Description="Erro no Codigo da Maquina"/>
+   <TransversalLockFailure Code="3322" Description="Falha enquanto checando trava do eixo transversal"/>
+   <LongitudinalLockFailureFrontToRear Code="3323" Description="Falha enquanto checando trava do eixo longitudinal do dianteiro para o traseiro"/>
+   <LongitudinalLockFailureRearToTandem Code="3324" Description="Falha enquanto checando trava do eixo longitudinal do traseiro para o dianteiro"/>
+   <DriveRollsTimeoutFailure Code="3325" Description="Timeout epserando os rolos alcancarem a velocidade requerida"/>
+</Faults>

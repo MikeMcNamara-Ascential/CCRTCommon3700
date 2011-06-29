@@ -1,0 +1,233 @@
+<DsaServerConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <IncomingMessageData>
+            <ExpectedMessageId>0x02</ExpectedMessageId>
+            <NumberOfPaBytes>6</NumberOfPaBytes>
+            <MessageTimeout>250</MessageTimeout>
+            <ByteLocations>
+                <MessageIdByte>0</MessageIdByte>
+                <RequestedServiceByte>1</RequestedServiceByte>
+                <StatusInfoByte>2</StatusInfoByte>
+                <ToggleByte>3</ToggleByte>
+                <RquestedMachineStatusByte>4</RquestedMachineStatusByte>
+                <RequestedMotorModeByte>5</RequestedMotorModeByte>
+                <LfTargetSpeedByte>6</LfTargetSpeedByte>
+                <LfTargetRevsByte>8</LfTargetRevsByte>
+                <Parameter1Byte>10</Parameter1Byte>
+                <MftNumberByte>19</MftNumberByte>
+                <PaNumberByte>28</PaNumberByte>
+                <RfTargetSpeedByte>28</RfTargetSpeedByte>
+                <RfTargetRevsByte>30</RfTargetRevsByte>
+                <LrTargetSpeedByte>32</LrTargetSpeedByte>
+                <LrTargetRevsByte>34</LrTargetRevsByte>
+                <RrTargetSpeedByte>36</RrTargetSpeedByte>
+                <RrTargetRevsByte>38</RrTargetRevsByte>
+                <ContinuousMftNumberByte>41</ContinuousMftNumberByte>
+                <ChecksumByte>42</ChecksumByte>
+                <DiagnosticDataByte>43</DiagnosticDataByte>
+            </ByteLocations>
+            <ValidMotorModes>
+                <Mode000>Free Roll</Mode000>
+                <Mode001>Front Wheel Drive</Mode001>
+                <Mode002>Rear Wheel Drive</Mode002>
+                <Mode003>All Wheel Drive</Mode003>
+                <Mode004>Static Brake/Sensor Test</Mode004>
+                <Mode005>Dynamic Brake Test 1</Mode005>
+                <Mode006>Dynamic Brake Test 2</Mode006>
+                <Mode007>Stopped</Mode007>
+                <Mode255>Simulated Mass</Mode255>
+            </ValidMotorModes>
+            <ValidServiceRequests>
+                <Service00>Abort</Service00>
+                <Service01>Start of Test</Service01>
+                <Service02>End of Test</Service02>
+                <Service03>Access to Control Devices</Service03>
+                <Service04>Wheelbase Positioning</Service04>
+                <Service05>Default Status</Service05>
+                <Service14>Data Logging</Service14>
+                <Service31>Transfer Height Results</Service31>
+                <Service32>Store PA Number</Service32>
+                <Service33>Start Power Measurement</Service33>
+                <Service34>Stop Power Measurement</Service34>
+            </ValidServiceRequests>
+        </IncomingMessageData>
+        <OutgoingMessageData>
+            <MessageLength>44</MessageLength>
+            <MessageId>1</MessageId>
+            <ByteLocations>
+                <MessageIdByte>0</MessageIdByte>
+                <FunctionResult>1</FunctionResult>
+                <ErrorStatus1>2</ErrorStatus1>
+                <ErrorStatus2>3</ErrorStatus2>
+                <StatusInfo1>4</StatusInfo1>
+                <StatusInfo2>5</StatusInfo2>
+                <MotorModeAck>6</MotorModeAck>
+                <VehicleCenteringCopy>7</VehicleCenteringCopy>
+                <ZeroSpeedCheck>8</ZeroSpeedCheck>
+                <ExtendedUnitState1>9</ExtendedUnitState1>
+                <ExtendedUnitState2>10</ExtendedUnitState2>
+                <ToggleByte>11</ToggleByte>
+                <LfSpeedHi>12</LfSpeedHi>
+                <LfSpeedLo>13</LfSpeedLo>
+                <RfSpeedHi>14</RfSpeedHi>
+                <RfSpeedLo>15</RfSpeedLo>
+                <LrSpeedHi>16</LrSpeedHi>
+                <LrSpeedLo>17</LrSpeedLo>
+                <RrSpeedHi>18</RrSpeedHi>
+                <RrSpeedLo>19</RrSpeedLo>
+                <LfAccelHi>20</LfAccelHi>
+                <LfAccelLo>21</LfAccelLo>
+                <RfAccelHi>22</RfAccelHi>
+                <RfAccelLo>23</RfAccelLo>
+                <LrAccelHi>24</LrAccelHi>
+                <LrAccelLo>25</LrAccelLo>
+                <RrAccelHi>26</RrAccelHi>
+                <RrAccelLo>27</RrAccelLo>
+                <LfForceHi>28</LfForceHi>
+                <LfForceLo>29</LfForceLo>
+                <RfForceHi>30</RfForceHi>
+                <RfForceLo>31</RfForceLo>
+                <LrForceHi>32</LrForceHi>
+                <LrForceLo>33</LrForceLo>
+                <RrForceHi>34</RrForceHi>
+                <RrForceLo>35</RrForceLo>
+                <TimeHi>36</TimeHi>
+                <TimeLo>37</TimeLo>
+                <MachineNumber>38</MachineNumber>
+                <VehicleCentering>39</VehicleCentering>
+                <ContinuousMftNumber>41</ContinuousMftNumber>
+                <Checksum>42</Checksum>
+            </ByteLocations>
+            <BitLocations>
+                <MessageID>0</MessageID>
+                <ServiceRequest>1</ServiceRequest>
+                <MotorMode>4</MotorMode>
+                <MachineFault>6</MachineFault>
+                <ServiceRequestError>7</ServiceRequestError>
+                <ZeroSpeed>2</ZeroSpeed>
+                <EStop>0</EStop>
+                <MftStatus>3</MftStatus>
+                <CalibrationMode>6</CalibrationMode>
+                <ReadyForTest>7</ReadyForTest>
+                <LfZeroSpeed>1</LfZeroSpeed>
+                <RfZeroSpeed>2</RfZeroSpeed>
+                <LfRetRollDown>1</LfRetRollDown>
+                <RfRetRollDown>2</RfRetRollDown>
+                <LrRetRollDown>3</LrRetRollDown>
+                <RrRetRollDown>4</RrRetRollDown>
+                <RetRollsUp>5</RetRollsUp>
+                <FrontVehiclePresent>6</FrontVehiclePresent>
+                <RearVehiclePresent>7</RearVehiclePresent>
+                <ExhaustFlapUp>2</ExhaustFlapUp>
+            </BitLocations>
+        </OutgoingMessageData>
+        <Parameters>
+            <WheelbasePositionTimeout Units="ms">20000</WheelbasePositionTimeout>
+            <RaiseRetainersMask>0x80</RaiseRetainersMask>
+            <MftFaultBit>0x02</MftFaultBit>
+            <MachineComponent>component/MachineComponent</MachineComponent>
+            <ServiceProcessingStatus>
+                <NoService>0</NoService>
+                <ServiceRequestAck>0</ServiceRequestAck>
+                <ServiceCompletePass>1</ServiceCompletePass>
+                <ServiceCompleteFail>-1</ServiceCompleteFail>
+                <ServiceInProgress>2</ServiceInProgress>
+            </ServiceProcessingStatus>
+            <DisengageMachine>DisengageMachine</DisengageMachine>
+            <EnableBoost>EnableElectricMotorBoost</EnableBoost>
+            <AllStop>QuickStop</AllStop>
+            <LogRollerData>StartRollerDataLogging</LogRollerData>
+            <HeightMeasurement>PerformHeightMeasurement</HeightMeasurement>
+        </Parameters>
+        <DataTags>
+            <MotorMode>MotorMode</MotorMode>
+            <TorqueMode>Torque</TorqueMode>
+            <CommandTorque>CommandTorque</CommandTorque>
+            <Clutch>Clutch</Clutch>
+            <Declutch>Declutch</Declutch>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <DriveAxleFwd>Front</DriveAxleFwd>
+            <DriveAxleRwd>Rear</DriveAxleRwd>
+            <AllFaults>AllFaults</AllFaults>
+            <ZeroSpeed>Zerospeed</ZeroSpeed>
+            <PowerSense>PowerSense</PowerSense>
+            <EStop>PanelEStopPushbuttonDepressed</EStop>
+            <Calibrate>LossCompensation</Calibrate>
+            <ReadyForTest>PLCSystemIsReady</ReadyForTest>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentAccels>/dev/Icm/Block/Acceleration</CurrentAccels>
+            <RollerCount>4</RollerCount>
+            <MachineNumber>MachineNumber</MachineNumber>
+            <RollsDown>RollsDownElevUp</RollsDown>
+            <VehiclePresent>VehiclePresent</VehiclePresent>
+        </DataTags>
+        <DsaCommunications>
+            <Setup>
+                <Communication>
+                    <Debug>Off</Debug>
+                    <Name>/dev/LogicalPorts/Dsa</Name>
+                    <BufferSize>128</BufferSize>
+                    <Timeout>10000</Timeout>
+                </Communication>
+                <Logging>
+                    <Status>Enabled</Status>
+                    <ProcessName>DsaComm</ProcessName>
+                    <AdditionalLogFile Types="/Communication/DsaComm.log or Disabled">/Communication/DsaComm.log</AdditionalLogFile>
+                    <Debug>Off</Debug>
+                    <LocalEcho>Disabled</LocalEcho>
+                    <Verbose>0x3F</Verbose>
+                </Logging>
+            </Setup>
+        </DsaCommunications>
+        <Communication>
+            <Type>Server</Type>
+            <Debug>Off</Debug>
+            <Name>core/DsaServer</Name>
+            <Comm>IPC</Comm>
+            <Timeout>5000</Timeout>
+            <BufferSize>2000</BufferSize>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>core/DsaServer</ProcessName>
+            <AdditionalLogFile Type="/Servers/DsaServer or Disabled">/Servers/DsaServer.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <Debug>Off</Debug>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <VehiclePresent/>
+                <RollsDownElevUp/>
+                <AllFaults/>
+                <Zerospeed/>
+                <PowerSense/>
+                <PanelEStopPushbuttonDepressed/>
+                <LossCompensation/>
+                <PLCSystemIsReady/>
+                <MachineNumber/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>7</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+    </Setup>
+</DsaServerConfig>
+

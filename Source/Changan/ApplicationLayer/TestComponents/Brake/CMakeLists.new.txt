@@ -1,0 +1,30 @@
+
+#------------------------------------------------------------------------------------------
+# Define a cache variable to hold the path to the DCX common component headers and .cpp
+#------------------------------------------------------------------------------------------
+SET(CHANGAN_BRAKE_TC_PATHS
+                ${CMAKE_CURRENT_SOURCE_DIR}/Include
+                ${CMAKE_CURRENT_SOURCE_DIR}/Common)
+
+#------------------------------------------------------------------------------------------
+# Where to find the common headers
+#------------------------------------------------------------------------------------------
+INCLUDE_DIRECTORIES( 
+                ${CHANGAN_BRAKE_TC_PATHS}
+                ${CORE_MODULES_DIR}
+                ${CORE_BRAKE_TC_INC_PATH})
+
+#------------------------------------------------------------------------------------------
+# All components link against the common library
+#------------------------------------------------------------------------------------------
+LINK_DIRECTORIES(${CORE_BRAKE_TC_LIB_PATH})
+LINK_LIBRARIES(basebrake)
+
+#------------------------------------------------------------------------------------------
+# Tell CMake what subdirectories to recurse into
+#------------------------------------------------------------------------------------------
+ADD_SUBDIRECTORY(BaseBrake)
+ADD_SUBDIRECTORY(Common)
+ADD_SUBDIRECTORY(Include)
+ADD_SUBDIRECTORY(Teves)
+ADD_SUBDIRECTORY(TRW)

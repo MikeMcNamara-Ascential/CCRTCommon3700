@@ -1,0 +1,238 @@
+€12/13/10 15:23:51.771 (1) VehicleTest                Activated additional log [/home/CCRT/Rewrite/Logs/VehicleTest/VehicleTest] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:51.771 (1) VehicleTest                BepComponent::Initialize()
+€
+€12/13/10 15:23:51.774 (1) VehicleTest                Updated process VehicleTest running at priority 11
+€
+€12/13/10 15:23:51.775 (1) VehicleTest                BepComponent::Initialize(<VehicleTest>
+   <Setup>
+      <Communication>
+         <BufferSize>4096</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>application/VehicleTest</Name>         <Timeout>0</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <CommandTest>CommandTest</CommandTest>         <DriveCurve>DriveCurve</DriveCurve>         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>         <OverallPassFail>OverallTest</OverallPassFail>         <RetainersDown>RollsDownElevUp</RetainersDown>         <StartVehicleTest>StartVehicleTest</StartVehicleTest>         <TestInProgress>TestInProgress</TestInProgress>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>0ff</Debug>      <DebugLevel>0</DebugLevel>      <LogIndexFile>/TestResults/Machine/NextTestLogIndex.dat</LogIndexFile>      <Logging>
+         <AdditionalLogFile Type="/VehicleTest/VehicleTest or Disabled">/Veh€
+€12/13/10 15:23:51.775 (1) VehicleTest                Retrieved Publish tags
+€
+€12/13/10 15:23:51.775 (1) VehicleTest                Cleared data from all lists
+€
+€12/13/10 15:23:51.776 (1) VehicleTest                Stored all Publish Tags
+€
+€12/13/10 15:23:51.777 (1) VehicleTest                Preparing to deal with subscribe tags:    <Setup>
+      <Communication>
+         <BufferSize>4096</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>application/VehicleTest</Name>         <Timeout>0</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <CommandTest>CommandTest</CommandTest>         <DriveCurve>DriveCurve</DriveCurve>         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>         <OverallPassFail>OverallTest</OverallPassFail>         <RetainersDown>RollsDownElevUp</RetainersDown>         <StartVehicleTest>StartVehicleTest</StartVehicleTest>         <TestInProgress>TestInProgress</TestInProgress>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>0ff</Debug>      <DebugLevel>0</DebugLevel>      <LogIndexFile>/TestResults/Machine/NextTestLogIndex.dat</LogIndexFile>      <Logging>
+         <AdditionalLogFile Type="/VehicleTest/VehicleTest or Disabled">/Veh€
+€12/13/10 15:23:51.777 (1) VehicleTest                Retrieved Subscribe Tags
+€
+€12/13/10 15:23:51.777 (1) VehicleTest                Stored all Subscribe Tags
+€
+€12/13/10 15:23:51.777 (1) VehicleTest                Creating Thread Pool
+€
+€12/13/10 15:23:51.779 (1) VehicleTest                BepServer::Initialize(<VehicleTest>
+   <Setup>
+      <Communication>
+         <BufferSize>4096</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>application/VehicleTest</Name>         <Timeout>0</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <CommandTest>CommandTest</CommandTest>         <DriveCurve>DriveCurve</DriveCurve>         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>         <OverallPassFail>OverallTest</OverallPassFail>         <RetainersDown>RollsDownElevUp</RetainersDown>         <StartVehicleTest>StartVehicleTest</StartVehicleTest>         <TestInProgress>TestInProgress</TestInProgress>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>0ff</Debug>      <DebugLevel>0</DebugLevel>      <LogIndexFile>/TestResults/Machine/NextTestLogIndex.dat</LogIndexFile>      <Logging>
+         <AdditionalLogFile Type="/VehicleTest/VehicleTest or Disabled">/Vehicl€
+€12/13/10 15:23:51.779 (1) VehicleTest                VehicleTest::Initialize(document)
+€
+€12/13/10 15:23:51.779 (1) VehicleTest                VehicleTest Initialize SequencerComm€
+€12/13/10 15:23:51.780 (1) VehicleTest                VehicleTest Initialize Sequencer€
+€12/13/10 15:23:51.780 (1) TestSequencer              Additional log [VehicleTest/VehicleTest] already activated.€
+€12/13/10 15:23:51.780 (1) TestSequencer              BepComponent::Initialize()
+€
+€12/13/10 15:23:51.781 (1) TestSequencer              Updated process TestSequencer running at priority 11
+€
+€12/13/10 15:23:51.781 (1) TestSequencer              BepComponent::Initialize(      <Sequencer>
+         <Debug>Off</Debug>         <LoadingParametersPromptBox>1</LoadingParametersPromptBox>         <MaxRetests Value="0,1,2,...">1</MaxRetests>         <OverallTestResultPromptBox>1</OverallTestResultPromptBox>         <RetestQuestionTimeout Value="The ammount of time in miliseconds to wait for the drive to respond to the retest question.">60000</RetestQuestionTimeout>         <RetestType Type="ReRun, Incycle, None">Incycle</RetestType>         <RetestYesOrNoPromptBox>2</RetestYesOrNoPromptBox>         <ReuseComponents>True</ReuseComponents>         <Setup>
+            <Debug>Off</Debug>            <DebugLevel>0</DebugLevel>            <Logging>
+               <AdditionalLogFile Type="/VehicleTest/TestSequencer.log or Disabled">/VehicleTest/VehicleTest</AdditionalLogFile>               <Debug>Off</Debug>               <LocalEcho>Disabled</LocalEcho>               <ProcessName>TestSequencer</ProcessName>               <Status>Enabled</Status>               <Verb€
+€12/13/10 15:23:51.781 (1) TestSequencer              PLC Buttons in use: True€
+€12/13/10 15:23:51.781 (1) TestSequencer              Pass button tag not defined, using YesPB - Tag Not Found: PlcPassButtonTag€
+€12/13/10 15:23:51.781 (1) TestSequencer              Fail button tag not defined, using NoPB - Tag Not Found: PlcFailButtonTag€
+€12/13/10 15:23:51.781 (1) TestSequencer              Initialized the commuincation handler for: TestSequencer
+€
+€12/13/10 15:23:51.782 (1) VehicleTest                VehicleTest Initialize selector€
+€12/13/10 15:23:51.782 (1) TestSelector               Additional log [VehicleTest/VehicleTest] already activated.€
+€12/13/10 15:23:51.782 (1) TestSelector               BepComponent::Initialize()
+€
+€12/13/10 15:23:51.782 (1) TestSelector               Process TestSelector running at priority 11
+€
+€12/13/10 15:23:51.782 (1) TestSelector               Updated process TestSelector running at priority 11
+€
+€12/13/10 15:23:51.783 (1) TestSelector               BepComponent::Initialize(      <Selector>
+         <CommandableDriveCurves/>
+         <Setup>
+            <Debug>Off</Debug>            <Logging>
+               <AdditionalLogFile Type="/VehicleTest/TestSelector.log or Disabled">/VehicleTest/VehicleTest</AdditionalLogFile>               <Debug>Off</Debug>               <LocalEcho>Enabled</LocalEcho>               <ProcessName>TestSelector</ProcessName>               <Status>Enabled</Status>               <Verbose>0x1F</Verbose>            </Logging>            <ThreadPool>
+               <Debug>Off</Debug>               <Increment>2</Increment>               <MaxBlockedLimit>4</MaxBlockedLimit>               <Maximum>50</Maximum>               <MinBlockedLimit>2</MinBlockedLimit>            </ThreadPool>         </Setup>         <Table>/Configuration/VehicleTest/SelectionTable.xml</Table>      </Selector>) done
+€
+€12/13/10 15:23:51.793 (1) TestSelector               TestSelector::Initialize Table: 
+€
+€12/13/10 15:23:51.794 (1) TestSelector               Could not find BodyModel DataTag, using BodyModel - Tag Not Found: DataTags
+€
+€12/13/10 15:23:51.794 (1) TestSelector               Loaded the DriveCurves:          <CommandableDriveCurves/>
+
+€
+€12/13/10 15:23:51.794 (1) VehicleTest                VehicleTest Initialize component termination€
+€12/13/10 15:23:51.794 (1) VehicleTest                VehicleTest Set maximum index number€
+€12/13/10 15:23:51.794 (1) VehicleTest                VehicleTest Initialize the log file index€
+€12/13/10 15:23:51.794 (1) VehicleTest                VehicleTest::InitializeLogFileIndex() - Enter
+€
+€12/13/10 15:23:51.794 (1) VehicleTest                VehicleTest::InitializeLogFileIndex log suffix extension: $s
+€
+€12/13/10 15:23:51.794 (1) VehicleTest                VehicleTest::InitializeLogFileIndex Use vin as log suffix: No : 0
+€
+€12/13/10 15:23:51.794 (1) VehicleTest                VehicleTest::IncrementLogFileIndex() - Enter - using /home/CCRT/Rewrite/TestResults/Machine/NextTestLogIndex.dat€
+€12/13/10 15:23:51.813 (1) VehicleTest                Start with log index: 47€
+€12/13/10 15:23:51.815 (1) VehicleTest                VehicleTest::IncrementLogFileIndex() - Exit: index Number: 47€
+€12/13/10 15:23:51.815 (1) VehicleTest                VehicleTest::InitializeLogFileIndex() - Exit
+€
+€12/13/10 15:23:51.815 (1) VehicleTest                VehicleTest::Initialize(/home/CCRT/Rewrite/Configuration/VehicleTest/VehicleTestConfig.xml) done
+€
+€12/13/10 15:23:51.815 (1) VehicleTest                VehicleTest Priority: 11
+€
+€12/13/10 15:23:51.815 (1) VehicleTest                Enter VehicleTest::CommandTest(Complete)
+€
+€12/13/10 15:23:51.815 (1) VehicleTest                Commanding Test Complete
+€
+€12/13/10 15:23:51.815 (1) VehicleTest                BepServer::SetData(<StartVehicleTest>0</StartVehicleTest>)
+€
+€12/13/10 15:23:51.816 (1) VehicleTest                BepServer::SetData(<StartVehicleTest>0</StartVehicleTest>) done, returning Success
+€
+€12/13/10 15:23:51.816 (1) VehicleTest                Invalid NotificationList in VehicleTest or no subscribers
+€
+€12/13/10 15:23:51.816 (1) VehicleTest                Exit VehicleTest::CommandTest(Complete->), status=Invalid
+€
+€12/13/10 15:23:51.816 (1) TestSequencer              RemoveTestComponents() - Removing all test components
+€
+€12/13/10 15:23:51.816 (1) TestSequencer              RemoveComponents()
+€
+€12/13/10 15:23:51.816 (1) TestSequencer              Entering Component Manager TerminateAll()
+€
+€12/13/10 15:23:51.816 (1) TestSequencer              No components to terminate
+€
+€12/13/10 15:23:52.277 (2) VehicleTest                BepComponent::Subscribe(TestInProgress, mgr/ICM)
+€
+€12/13/10 15:23:52.278 (2) VehicleTest                Additional log [VehicleTest/VehicleTest] already activated.€
+€12/13/10 15:23:52.279 (2) VehicleTest                NotificationThreadSpinner::Initialize(<VehicleTest>
+   <Setup>
+      <Communication>
+      <BufferSize>4096</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>application/VehicleTest</Name>      <Timeout>0</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <CommandTest>CommandTest</CommandTest>      <DriveCurve>DriveCurve</DriveCurve>      <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>      <OverallPassFail>OverallTest</OverallPassFail>      <RetainersDown>RollsDownElevUp</RetainersDown>      <StartVehicleTest>StartVehicleTest</StartVehicleTest>      <TestInProgress>TestInProgress</TestInProgress>      <VehicleBuild>VehicleBuild</VehicleBuild>      <Vin>VIN</Vin>      </DataTags>      <Debug>0ff</Debug>      <DebugLevel>0</DebugLevel>      <LogIndexFile>/TestResults/Machine/NextTestLogIndex.dat</LogIndexFile>      <Logging>
+      <AdditionalLogFile Type="/VehicleTest/VehicleTest or Disabled">/VehicleTest/VehicleTest</AdditionalLog€
+€12/13/10 15:23:52.279 (2) VehicleTest                Additional log [VehicleTest/VehicleTest] already activated.€
+€12/13/10 15:23:52.281 (2) VehicleTest                NotificationList::Initialize(<VehicleTest>
+   <Setup>
+      <Communication>
+      <BufferSize>4096</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>application/VehicleTest</Name>      <Timeout>0</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <CommandTest>CommandTest</CommandTest>      <DriveCurve>DriveCurve</DriveCurve>      <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>      <OverallPassFail>OverallTest</OverallPassFail>      <RetainersDown>RollsDownElevUp</RetainersDown>      <StartVehicleTest>StartVehicleTest</StartVehicleTest>      <TestInProgress>TestInProgress</TestInProgress>      <VehicleBuild>VehicleBuild</VehicleBuild>      <Vin>VIN</Vin>      </DataTags>      <Debug>0ff</Debug>      <DebugLevel>0</DebugLevel>      <LogIndexFile>/TestResults/Machine/NextTestLogIndex.dat</LogIndexFile>      <Logging>
+      <AdditionalLogFile Type="/VehicleTest/VehicleTest or Disabled">/VehicleTest/VehicleTest</AdditionalLogFile>    €
+€12/13/10 15:23:52.281 (2) VehicleTest                Setup/NotificationList/Setup/ResponseTimeout not provided, using 2000 - Tag Not Found: Setup€
+€12/13/10 15:23:52.282 (2) VehicleTest                NotificationThreadSpinner::Initialize(<VehicleTest>
+   <Setup>
+      <Communication>
+      <BufferSize>4096</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>application/VehicleTest</Name>      <Timeout>0</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <CommandTest>CommandTest</CommandTest>      <DriveCurve>DriveCurve</DriveCurve>      <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>      <OverallPassFail>OverallTest</OverallPassFail>      <RetainersDown>RollsDownElevUp</RetainersDown>      <StartVehicleTest>StartVehicleTest</StartVehicleTest>      <TestInProgress>TestInProgress</TestInProgress>      <VehicleBuild>VehicleBuild</VehicleBuild>      <Vin>VIN</Vin>      </DataTags>      <Debug>0ff</Debug>      <DebugLevel>0</DebugLevel>      <LogIndexFile>/TestResults/Machine/NextTestLogIndex.dat</LogIndexFile>      <Logging>
+      <AdditionalLogFile Type="/VehicleTest/VehicleTest or Disabled">/VehicleTest/VehicleTest</AdditionalLog€
+€12/13/10 15:23:52.282 (2) VehicleTest                NotificationList::AddToList(TestInProgress, 0)
+€
+€12/13/10 15:23:52.282 (2) VehicleTest                Adding elem for Tag: TestInProgress
+€
+€12/13/10 15:23:52.283 (2) VehicleTest                Added new list and process for tag: TestInProgress
+€
+€12/13/10 15:23:52.283 (2) VehicleTest                NotificationList::AddToList(TestInProgress, 0) done
+€
+€12/13/10 15:23:52.283 (2) VehicleTest                BepComponent::Subscribe(TestInProgress mgr/ICM) done returning 0
+€
+€12/13/10 15:23:52.326 (2) VehicleTest                BepComponent::Subscribe(DriveCurve, core/TestResultServer)
+€
+€12/13/10 15:23:52.326 (2) VehicleTest                NotificationList::AddToList(DriveCurve, 0)
+€
+€12/13/10 15:23:52.326 (2) VehicleTest                Adding elem for Tag: DriveCurve
+€
+€12/13/10 15:23:52.326 (2) VehicleTest                Added new list and process for tag: DriveCurve
+€
+€12/13/10 15:23:52.327 (2) VehicleTest                NotificationList::AddToList(DriveCurve, 0) done
+€
+€12/13/10 15:23:52.327 (2) VehicleTest                BepComponent::Subscribe(DriveCurve core/TestResultServer) done returning 
+€
+€12/13/10 15:23:52.364 (2) VehicleTest                BepComponent::Subscribe(OverallTest, core/TestResultServer)
+€
+€12/13/10 15:23:52.364 (2) VehicleTest                NotificationList::AddToList(OverallTest, 0)
+€
+€12/13/10 15:23:52.365 (2) VehicleTest                Adding elem for Tag: OverallTest
+€
+€12/13/10 15:23:52.365 (2) VehicleTest                Added new list and process for tag: OverallTest
+€
+€12/13/10 15:23:52.365 (2) VehicleTest                NotificationList::AddToList(OverallTest, 0) done
+€
+€12/13/10 15:23:52.365 (2) VehicleTest                BepComponent::Subscribe(OverallTest core/TestResultServer) done returning Testing
+€
+€12/13/10 15:23:52.374 (2) VehicleTest                BepComponent::Subscribe(StartVehicleTest, core/TestResultServer)
+€
+€12/13/10 15:23:52.375 (2) VehicleTest                NotificationList::AddToList(StartVehicleTest, 0)
+€
+€12/13/10 15:23:52.375 (2) VehicleTest                Adding elem for Tag: StartVehicleTest
+€
+€12/13/10 15:23:52.375 (2) VehicleTest                Added new list and process for tag: StartVehicleTest
+€
+€12/13/10 15:23:52.375 (2) VehicleTest                NotificationList::AddToList(StartVehicleTest, 0) done
+€
+€12/13/10 15:23:52.375 (2) VehicleTest                BepComponent::Subscribe(StartVehicleTest core/TestResultServer) done returning 0
+€
+€12/13/10 15:23:52.390 (2) VehicleTest                BepComponent::Subscribe(TestInProgress, core/MachineDataBroker)
+€
+€12/13/10 15:23:52.390 (2) VehicleTest                NotificationList::AddToList(TestInProgress, 0)
+€
+€12/13/10 15:23:52.390 (2) VehicleTest                Adding elem for Tag: TestInProgress
+€
+€12/13/10 15:23:52.390 (2) VehicleTest                Added process for tag: TestInProgress
+€
+€12/13/10 15:23:52.390 (2) VehicleTest                NotificationList::AddToList(TestInProgress, 0) done
+€
+€12/13/10 15:23:52.390 (2) VehicleTest                BepComponent::Subscribe(TestInProgress core/MachineDataBroker) done returning 0
+€
+€12/13/10 15:23:53.817 (1) TestSequencer              RemoveTestComponents() - Removing all background test components
+€
+€12/13/10 15:23:53.817 (1) TestSequencer              RemoveComponents()
+€
+€12/13/10 15:23:53.817 (1) TestSequencer              Entering Background Component TerminateAll()
+€
+€12/13/10 15:23:53.817 (1) TestSequencer              Entering Component Manager TerminateAll()
+€
+€12/13/10 15:23:53.817 (1) TestSequencer              No components to terminate
+€
+€12/13/10 15:23:54.546 (2) VehicleTest                BepComponent::Subscribe(OverallTest, core/VehicleDataBroker)
+€
+€12/13/10 15:23:54.546 (2) VehicleTest                NotificationList::AddToList(OverallTest, 0)
+€
+€12/13/10 15:23:54.546 (2) VehicleTest                Adding elem for Tag: OverallTest
+€
+€12/13/10 15:23:54.546 (2) VehicleTest                Added process for tag: OverallTest
+€
+€12/13/10 15:23:54.546 (2) VehicleTest                NotificationList::AddToList(OverallTest, 0) done
+€
+€12/13/10 15:23:54.546 (2) VehicleTest                BepComponent::Subscribe(OverallTest core/VehicleDataBroker) done returning Testing
+€
+€12/13/10 15:23:54.840 (2) VehicleTest                BepComponent::Subscribe(TestInProgress, core/SystemMonitor)
+€
+€12/13/10 15:23:54.841 (2) VehicleTest                NotificationList::AddToList(TestInProgress, 0)
+€
+€12/13/10 15:23:54.841 (2) VehicleTest                Adding elem for Tag: TestInProgress
+€
+€12/13/10 15:23:54.841 (2) VehicleTest                Added process for tag: TestInProgress
+€
+€12/13/10 15:23:54.841 (2) VehicleTest                NotificationList::AddToList(TestInProgress, 0) done
+€
+€12/13/10 15:23:54.841 (2) VehicleTest                BepComponent::Subscribe(TestInProgress core/SystemMonitor) done returning 0
+€
+€12/13/10 15:23:55.421 (2) VehicleTest                Registering the VehicleTest
+€
+€12/13/10 15:23:55.424 (2) VehicleTest                Number Of Tags: 1, -1
+€
+€12/13/10 15:23:55.471 (2) VehicleTest                BepServer::SubscribeTags() 0
+€
+€12/13/10 15:23:55.472 (2) VehicleTest                Creating a new IFaultServer
+€
+€12/13/10 15:23:55.472 (2) TestSequencer              Registering the TestSequencer
+€
+€12/13/10 15:23:55.819 (1) TestSequencer              RemoveTestComponents() - Done removing all test 

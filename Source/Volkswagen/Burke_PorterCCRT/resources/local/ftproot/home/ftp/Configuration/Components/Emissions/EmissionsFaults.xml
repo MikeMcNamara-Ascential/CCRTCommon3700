@@ -1,0 +1,85 @@
+<EmissionsFaults>
+         <CommFailure Code="7020" Description="PCM Communication Failure"/>
+         <TestAborted Code="0111" Description="Testing aborted, conditions not correct"/>
+         <VINMismatch Code="700A" Description="VIN programmed in PCM does not match Broadcast"/>
+         <PartNumberMismatch Code="700B" Description="Part Number programmed in PCM does not match Broadcast"/>
+         <IdleRPMOutOfRange Code="704C" Description="Idle RPM is out of parameter range"/>
+         <IdleRPMConditionsNotCorrect Code="704D" Description="Conditions not correct to test Idle RPM"/>
+         <BoostPressureOutOfRange Code="8815" Description="Boost Pressure out of range at Idle"/>
+         <BoostPressureConditionsNotCorrect Code="8814" Description="Conditions not correct to test Boost Pressure"/>
+         <BrakeSwitchOnOffNotSeen Code="701C" Description="Failed to see Brake switch On and Off"/>
+         <BrakeSwitchOnNotSeen Code="7018" Description="Failed to see Brake switch On"/>
+         <BrakeSwitchOffNotSeen Code="7019" Description="Failed to see Brake switch Off"/>
+         <BrakeSwitchOnOffSoftwareFail Code="7017" Description="Software failure during Brake Switch On/Off test"/>
+         <ParkNeutralSwitchOnOffNotSeen Code="7034" Description="Failed to see Park/Neutral switch On and Off"/>
+         <ParkNeutralSwitchOnNotSeen Code="7046" Description="Failed to see Park/Neutral switch On"/>
+         <ParkNeutralSwitchOffNotSeen Code="7047" Description="Failed to see Park/Neutral switch Off"/>
+         <ParkNeutralSwitchOnOffSoftwareFail Code="7048" Description="Software failure during Park/Neutral Switch On/Off test"/>
+         <ClutchSwitchOnOffNotSeen Code="7026" Description="Failed to see Clutch switch On and Off"/>
+         <ClutchSwitchOnNotSeen Code="7024" Description="Failed to see Clutch switch On"/>
+         <ClutchSwitchOffNotSeen Code="7025" Description="Failed to see Clutch switch Off"/>
+         <ClutchSwitchOnOffSoftwareFail Code="7027" Description="Software failure during Clutch Switch On/Off test"/>
+         <IdleTPSConditionsNotCorrect Code="7028" Description="Idle TPS conditions not correct"/>
+         <DeltaTPSNotAchieved Code="701D" Description="TPS failed to give required voltage change"/>
+         <DeltaTPSSoftwareFail Code="701E" Description="Software failure during Delta TPS test"/>
+         <ModuleDTCs Code="7000" Description="DTCs recorded in the PCM"/>
+         <SecurityUnlock Code="7023" Description="Failed to unlock module security"/>
+         <UplineTestsNotComplete Code="7700" Description="Upline tests failed or not complete"/>
+         <UnknownTestResult Code="7999" Description="Unknown test result"/>
+         <DTC_0070 Code="0070" Description="Ambient temperature sensor"/>
+         <DTC_0100 Code="0100" Description="Airflow sensor"/>
+         <DTC_0105 Code="0105" Description="Atmospheric pressure sensor"/>
+         <DTC_0110 Code="0110" Description="Air temperature sensor"/>
+         <DTC_0115 Code="0115" Description="Water temperature sensor"/>
+         <DTC_0190 Code="0190" Description="Rail pressure sensor"/>
+         <DTC_0201 Code="0201" Description="Injector cylinder 1"/>
+         <DTC_0202 Code="0202" Description="Injector cylinder 2"/>
+         <DTC_0203 Code="0203" Description="Injector cylinder 3"/>
+         <DTC_0204 Code="0204" Description="Injector cylinder 4"/>
+         <DTC_0235 Code="0235" Description="Boost pressure sensor"/>
+         <DTC_0243 Code="0243" Description="Boost pressure actuator (waste gate solenoid)"/>
+         <DTC_0335 Code="0335" Description="Engine speed sensor"/>
+         <DTC_0340 Code="0340" Description="Camshaft sensor"/>
+         <DTC_0380 Code="0380" Description="Glow relay"/>
+         <DTC_0403 Code="0403" Description="EGR actuator"/>
+         <DTC_0480 Code="0480" Description="Low speed engine fan"/>
+         <DTC_0481 Code="0481" Description="High speed engine fan"/>
+         <DTC_0500 Code="0500" Description="Vehicle speed sensor"/>
+         <DTC_0514 Code="0514" Description="Battery temperature sensor"/>
+         <DTC_0520 Code="0520" Description="Oil pressure sensor"/>
+         <DTC_0560 Code="0560" Description="Battery voltage"/>
+         <DTC_0579 Code="0579" Description="Cruise control switch"/>
+         <DTC_0606 Code="0606" Description="Internal ECM processor"/>
+         <DTC_0615 Code="0615" Description="Starter relay circuit"/>
+         <DTC_0620 Code="0620" Description="Alternator field control"/>
+         <DTC_0641 Code="0641" Description="Sensor supply voltage 1"/>
+         <DTC_0645 Code="0645" Description="A/C relay circuit"/>
+         <DTC_0651 Code="0651" Description="Sensor supply voltage 2"/>
+         <DTC_0685 Code="0685" Description="Main relay"/>
+         <DTC_0703 Code="0703" Description="Brake switch"/>
+         <DTC_0833 Code="0833" Description="Clutch upstop switch"/>
+         <DTC_1130 Code="1130" Description="CR pressure monitoring"/>
+         <DTC_1131 Code="1131" Description="CR pressure control valve"/>
+         <DTC_1205 Code="1205" Description="Injectors not classified"/>
+         <DTC_1206 Code="1206" Description="Calculated boost voltage"/>
+         <DTC_1270 Code="1270" Description="Intake swirl control"/>
+         <DTC_1511 Code="1511" Description="Battery sense line 1"/>
+         <DTC_1512 Code="1512" Description="Battery sense line 2"/>
+         <DTC_1535 Code="1535" Description="CR current control"/>
+         <DTC_1536 Code="1536" Description="Alternator field current"/>
+         <DTC_1601 Code="1601" Description="Capacitor 1 voltage"/>
+         <DTC_1605 Code="1605" Description="Ignition switch"/>
+         <DTC_1606 Code="1606" Description="After run test (post shutoff)"/>
+         <DTC_1608 Code="1608" Description="A/D converter"/>
+         <DTC_1609 Code="1609" Description="Power stage"/>
+         <DTC_1610 Code="1610" Description="Voltage regulator"/>
+         <DTC_1612 Code="1612" Description="Vehicle speed limitation"/>
+         <DTC_1641 Code="1641" Description="Cabin heater 1"/>
+         <DTC_1642 Code="1642" Description="Cabiin heater 2"/>
+         <DTC_1651 Code="1651" Description="MIL lamp"/>
+         <DTC_1652 Code="1652" Description="J1850 bus"/>
+         <DTC_1680 Code="1680" Description="EEPROM"/>
+         <DTC_1685 Code="1685" Description="Anti-theft system"/>
+         <DTC_2120 Code="2120" Description="Accelerator pedal sensor 1"/>
+         <DTC_2125 Code="2125" Description="Accelerator pedal sensor 2"/>
+</EmissionsFaults>

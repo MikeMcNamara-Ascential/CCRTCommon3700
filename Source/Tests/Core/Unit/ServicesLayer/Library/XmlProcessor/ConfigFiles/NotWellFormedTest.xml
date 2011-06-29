@@ -1,0 +1,4 @@
+<BepXMLMssg>
+   <Test Debug="Off">
+      <Testing Status="Run" ConfigFile="/Testing/ServicesLayer/BaseReuse/XmlProcessor/ConfigFiles/NotWellFormed.xml">
+</BepXMLMssg>

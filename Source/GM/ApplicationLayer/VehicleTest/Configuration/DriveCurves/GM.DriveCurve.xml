@@ -1,0 +1,85 @@
+<GMDriveCurve Description="Drive Curve For The Base Brake Test" TestType="CommandPhase">
+   <Components Debug="Off">
+      <Brake>
+         <ComponentName>BaseBrakeTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>BaseBrake.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+         <Debug>Off</Debug>
+      </Brake>
+      <Machine>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MachineComponent.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <Debug>Off</Debug>
+      </Machine>
+   </Components>
+   <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="On">
+      <PBPROLL0 Description="Obtain vehicle build info...initialize AVT" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="20000" Component="Machine">
+               <Initialize/>
+            </Objective0>
+         </ForegroundObjectives>
+      </PBPROLL0>
+      <DPBRKPL0 Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Machine">
+               <ParkBrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </DPBRKPL0>
+      <DPRKPWL0 Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Machine">
+               <ParkPawlTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </DPRKPWL0>
+      <DPRKBRK0 Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Machine">
+               <ParkBrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </DPRKBRK0>
+      <DBRAKE_0 Description="Perform a base brake test" Result="Not Tested" Timeout="">
+         <ForegroundObjectives Result="Not Tested" Timeout="">
+            <Objective0 Description="Test the base brake force" Result="Not Tested" Timeout="" Component="Brake">
+               <BrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+         <Objective1 Description="Wait for the vehicle to brake to a stop" Result="Not Tested" Timeout="" Component="Machine">
+            <BrakeToStop/>
+         </Objective1>
+         <Objective2 Description="Remove the brake force meter from the display" Result="Not Tested" Timeout="" Component="Machine">
+            <PromptDriverAlways>ClearPrompts</PromptDriverAlways>
+         </Objective2>
+      </DBRAKE_0>
+      <SBPCLNUP Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Brake">
+               <FinishUp/>
+            </Objective0>
+            <Objective1 Description="Turn on the Red Stack Light" Result="Not Tested" Timeout="" Component="Machine">
+               <StackLight>GreenOn</StackLight>
+            </Objective1>
+         </ForegroundObjectives>
+      </SBPCLNUP>
+      <Generic92 Description="Turn on the Red Stack Light" Result="Not Tested" Timeout="">
+         <ForegroundObjectives Result="Not Tested" Timeout="">
+            <Objective0 Description="Turn on the Red Stack Light" Result="Not Tested" Timeout="" Component="Machine">
+               <StackLight>RedOn</StackLight>
+            </Objective0>
+         </ForegroundObjectives>
+      </Generic92>
+      <Generic93 Description="Turn on the Yellow Stack Light" Result="Not Tested" Timeout="">
+         <ForegroundObjectives Result="Not Tested" Timeout="">
+            <Objective0 Description="Turn on the Yellow Stack Light" Result="Not Tested" Timeout="" Component="Machine">
+               <StackLight>YellowOn</StackLight>
+            </Objective0>
+         </ForegroundObjectives>
+      </Generic93>
+   </Test>
+</GMDriveCurve>

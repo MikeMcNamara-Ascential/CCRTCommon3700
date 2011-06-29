@@ -1,0 +1,158 @@
+<EpsIIITransmissionconfig>
+    <Setup>
+        <Name>Transmission</Name>
+        <DebugLevel>0</DebugLevel>
+        <Debug>Off</Debug>
+        <ProcessPriority>11</ProcessPriority>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/Eps3Transmission</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>Eps3Transmission</ProcessName>
+            <AdditionalLogFile Type="/Component/Tachograph.log or Disabled">/Components/Eps3Transmission.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Debug>Off</Debug>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <DriveAxle/>
+            </SubscribeTags>
+        </TagList>
+
+        <!-- ===== Data Tags ===== -->
+        <DataTags>
+            <!-- Data Values -->
+            <EpsIIITransmissionValue>EPS-III</EpsIIITransmissionValue>
+
+            <!-- System Tags -->
+            <DriveAxle>DriveAxle</DriveAxle>
+            <LFSpeed>LRSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <LTSpeed>LRSpeed</LTSpeed>
+            <RFSpeed>RRSpeed</RFSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <RTSpeed>RRSpeed</RTSpeed>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+        </DataTags>
+
+        <!-- ===== Test Component Parameters ===== -->
+        <Parameters>
+            <!-- Test Component Behavior Parameters -->
+            <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+
+            <!-- Auto mode torque loading parameters -->
+            <MotorLoadingAccelConst Units="%"
+                Description="Percentage of motor torque to apply to the drive axle proportional to acceleration">25.0</MotorLoadingAccelConst>
+            <MotorLoadingSpeedConst Units="%" 
+                Description="Percentage of motor torque to apply to the drive axle proportional to the square of the speed">50.0</MotorLoadingSpeedConst>
+            <MotorLoadingTorqueConst>500</MotorLoadingTorqueConst>
+            <MotorLoadingIncreasePerSecond>1</MotorLoadingIncreasePerSecond>
+
+            <!-- Gear speed verifications -->
+            <MaxSpeedDelay Units="ms">2000</MaxSpeedDelay>
+            <MaxSpeedTarget Units="mph">30</MaxSpeedTarget>
+            <MinSpeedTarget Units="mph">20</MinSpeedTarget>
+            <NumberOfFwdGears>12</NumberOfFwdGears>
+            <MinSpeedTarget_1 Units="mph">5</MinSpeedTarget_1>
+            <MaxSpeedTarget_1 Units="mph">8</MaxSpeedTarget_1>
+            <MinSpeedTarget_2 Units="mph">7</MinSpeedTarget_2>
+            <MaxSpeedTarget_2 Units="mph">12</MaxSpeedTarget_2>
+            <MinSpeedTarget_3 Units="mph">9</MinSpeedTarget_3>
+            <MaxSpeedTarget_3 Units="mph">15</MaxSpeedTarget_3>
+            <MinSpeedTarget_4 Units="mph">12</MinSpeedTarget_4>
+            <MaxSpeedTarget_4 Units="mph">17</MaxSpeedTarget_4>
+            <MinSpeedTarget_5 Units="mph">14</MinSpeedTarget_5>
+            <MaxSpeedTarget_5 Units="mph">18</MaxSpeedTarget_5>
+            <MinSpeedTarget_6 Units="mph">18</MinSpeedTarget_6>
+            <MaxSpeedTarget_6 Units="mph">23</MaxSpeedTarget_6>
+            <MinSpeedTarget_7 Units="mph">23</MinSpeedTarget_7>
+            <MaxSpeedTarget_7 Units="mph">32</MaxSpeedTarget_7>
+            <MinSpeedTarget_8 Units="mph">28</MinSpeedTarget_8>
+            <MaxSpeedTarget_8 Units="mph">35</MaxSpeedTarget_8>
+            <MinSpeedTarget_9 Units="mph">37</MinSpeedTarget_9>
+            <MaxSpeedTarget_9 Units="mph">45</MaxSpeedTarget_9>
+            <MinSpeedTarget_10 Units="mph">50</MinSpeedTarget_10>
+            <MaxSpeedTarget_10 Units="mph">60</MaxSpeedTarget_10>
+            <MinSpeedTarget_11 Units="mph">63</MinSpeedTarget_11>
+            <MaxSpeedTarget_11 Units="mph">70</MaxSpeedTarget_11>
+            <MinSpeedTarget_12 Units="mph">74</MinSpeedTarget_12>
+            <MaxSpeedTarget_12 Units="mph">80</MaxSpeedTarget_12>
+
+        </Parameters>
+
+        <!-- ===== Test Component Prompts ===== -->
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <CheckShiftingPrompt>CheckTransmissionShifting</CheckShiftingPrompt>
+            <ShiftToGear PromptBox="1" Priority="0">ShiftToGear</ShiftToGear>
+            <ShiftToMode PromptBox="1" Priority="0" Duration="5000">ShiftToMode</ShiftToMode>
+        </Prompts>
+
+    </Setup>
+
+    <!-- ===== Test Objectives ============================================= -->
+    <Objectives>
+        <AutoModeTest>
+            <TestStep00>CheckTransmissionType</TestStep00>
+            <TestStep05 AltValue="Auto">SelectTransmissionMode</TestStep05>
+        </AutoModeTest>
+
+        <FinishUp>
+            <TestStep00>CheckShifting</TestStep00>
+            <TestStep05>FinishUp</TestStep05>
+        </FinishUp>
+
+        <ManualModeTest>
+            <TestStep05 AltValue="Manual">SelectTransmissionMode</TestStep05>
+            <TestStep10 AltValue="1">SpeedBasedGearTest</TestStep10>
+            <TestStep15 AltValue="2">SpeedBasedGearTest</TestStep15>
+            <TestStep20 AltValue="3">SpeedBasedGearTest</TestStep20>
+            <TestStep25 AltValue="4">SpeedBasedGearTest</TestStep25>
+            <TestStep30 AltValue="5">SpeedBasedGearTest</TestStep30>
+            <TestStep35 AltValue="6">SpeedBasedGearTest</TestStep35>
+            <TestStep40 AltValue="7">SpeedBasedGearTest</TestStep40>
+            <TestStep45 AltValue="8">SpeedBasedGearTest</TestStep45>
+            <TestStep50 AltValue="9">SpeedBasedGearTest</TestStep50>
+            <TestStep55 AltValue="10">SpeedBasedGearTest</TestStep55>
+            <TestStep60 AltValue="11">SpeedBasedGearTest</TestStep60>
+            <TestStep65 AltValue="12">SpeedBasedGearTest</TestStep65>
+        </ManualModeTest>
+
+    </Objectives>
+
+    <!-- ===== Test Steps ================================================== -->
+    <TestSteps>
+        <CheckShifting Result="Not Tested" Timeout="30000"  ScanDelay="500"
+            Description="Prompt operator for shifting performance"/>
+        <CheckTransmissionType Result="Not Tested" Timeout="1000" Description="Verify the transmision type"/>
+        <FinishUp Result="Not Tested" Timeout="500" Description="Finish testing sequence"/>
+        <SelectTransmissionMode Result="Not Tested" Timeout="10000" Description="Select the shifting mode"/>
+        <SpeedBasedGearTest Result="Not Tested" Timeout="15000" ScanDelay="500"
+            Description="Verify vehicle speed in specified gear"/>
+    </TestSteps>
+</EpsIIITransmissionconfig>

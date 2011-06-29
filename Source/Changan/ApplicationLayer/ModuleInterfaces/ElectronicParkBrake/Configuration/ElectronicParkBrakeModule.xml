@@ -1,0 +1,264 @@
+<UdsElectronicParkBrakeModule>
+    <Setup>
+        <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+        <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+        <SwitchMonitorDelay>2000</SwitchMonitorDelay>
+        <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+        <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <ModuleRequestID>0x784</ModuleRequestID>
+        <DataByteCountIndex>3</DataByteCountIndex>
+        <DataStartIndex>6</DataStartIndex>
+        <DataHeaderLength>2</DataHeaderLength>
+        <CheckSumLength>1</CheckSumLength>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
+        <TraceabilityHeader>T</TraceabilityHeader>
+        <DTCData>
+            <DTCCountIndex>-1</DTCCountIndex>
+            <BytesPerDTC>4</BytesPerDTC>
+            <FirstDTCByteIndex>3</FirstDTCByteIndex>
+            <NumberOfFaultRegisters>7</NumberOfFaultRegisters>
+        </DTCData>
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x13>Incorrect Message Length</Code_0x13>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct</Code_0x22>
+            <Code_0x24>Request Sequence Error</Code_0x24>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x70>Upload / Download Not Accepted</Code_0x70>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x72>General Programming Failure</Code_0x72>
+            <Code_0x73>Wrong Block Sequence Counter</Code_0x73>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x7E>Subfunction Not Supported In Active Diagnostic Session</Code_0x7E>
+            <Code_0x7F>Service Not Supported In Active Diagnostic Session</Code_0x7F>
+            <Code_0x81>rpm Too High</Code_0x81>
+            <Code_0x82>rpm Too Low</Code_0x82>
+            <Code_0x83>Engine Is Running</Code_0x83>
+            <Code_0x84>Engine Is Not Running</Code_0x84>
+            <Code_0x85>Engine Run Time Too Low</Code_0x85>
+            <Code_0x86>Temperature Too High</Code_0x86>
+            <Code_0x87>Temperature Too Low</Code_0x87>
+            <Code_0x88>Vehicle Speed Too High</Code_0x88>
+            <Code_0x89>Vehicle Speed Too Low</Code_0x89>
+            <Code_0x8A>Throttle / Pedal Too High</Code_0x8A>
+            <Code_0x8B>Throttle / Pedal Too Low</Code_0x8B>
+            <Code_0x8C>Transmission Range Not In Neutral</Code_0x8C>
+            <Code_0x8D>Transmission Range Not In Gear</Code_0x8D>
+            <Code_0x8F>Brake Switch(es) Not Closed</Code_0x8F>
+            <Code_0x90>Shifter Lever Not In Park</Code_0x90>
+            <Code_0x91>Torque Converter Clutch Locked</Code_0x91>
+            <Code_0x92>Voltage Too High</Code_0x92>
+            <Code_0x93>Voltage Too Low</Code_0x93>
+            <EnterDiagnosticMode>0x7F</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>CANElectronicParkBrakeModule</ProcessName>
+            <AdditionalLogFile>/Communication/ElectronicParkBrakeModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+
+    <VehicleMessages>
+        <!-- Diagnostic Messages -->
+        <ClearFaults>
+            <TransmitMessage>ClearFaults</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ClearFaults</ReplyMessage>
+            <ReplyInterpretation/>
+        </ClearFaults>
+        <EnterDiagnosticMode>
+            <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+            <ReplyInterpretation/>
+        </EnterDiagnosticMode>
+        <EnterNormalMode>
+            <TransmitMessage>EnterNormalMode</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>EnterNormalMode</ReplyMessage>
+            <ReplyInterpretation/>
+        </EnterNormalMode>
+        <ModuleKeepAlive>
+            <TransmitMessage>TesterPresent</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>TesterPresent</ReplyMessage>
+            <ReplyInterpretation/>
+        </ModuleKeepAlive>
+        <PerformAssemblyCheck>
+            <TransmitMessage>StartRoutine</TransmitMessage>
+            <TransmitInterpretation>AssemblyCheck</TransmitInterpretation>
+            <ReplyMessage>AssemblyCheck</ReplyMessage>
+            <ReplyInterpretation/>
+        </PerformAssemblyCheck>
+        <AssemblyCheckStatus>
+            <TransmitMessage>CheckStatus</TransmitMessage>
+            <TransmitInterpretation>AssemblyCheck</TransmitInterpretation>
+            <ReplyMessage>CheckStatus</ReplyMessage>
+            <ReplyInterpretation/>
+        </AssemblyCheckStatus>
+        <ReadLeftBrakeState>
+            <TransmitMessage>ReadDID</TransmitMessage>
+            <TransmitInterpretation>LeftBrakeState</TransmitInterpretation>
+            <ReplyMessage>BrakeState</ReplyMessage>
+            <ReplyInterpretation>BrakeState</ReplyInterpretation>
+        </ReadLeftBrakeState>
+        <ReadRightBrakeState>
+            <TransmitMessage>ReadDID</TransmitMessage>
+            <TransmitInterpretation>RightBrakeState</TransmitInterpretation>
+            <ReplyMessage>BrakeState</ReplyMessage>
+            <ReplyInterpretation>BrakeState</ReplyInterpretation>
+        </ReadRightBrakeState>
+        <ReadSecuritySeed>
+            <TransmitMessage>ReadSecuritySeed</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadSecuritySeed</ReplyMessage>
+            <ReplyInterpretation>ReadSecuritySeed</ReplyInterpretation>
+        </ReadSecuritySeed>
+        <ReadFaults>
+            <TransmitMessage>ReadFaults</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadFaults</ReplyMessage>
+            <ReplyInterpretation/>
+        </ReadFaults>
+        <UnlockModuleSecurity>
+            <TransmitMessage>SendAccessKey</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>SendAccessKey</ReplyMessage>
+            <ReplyInterpretation/>
+        </UnlockModuleSecurity>
+    </VehicleMessages>
+
+    <TransmitMessages>
+        <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
+        <EnterDiagnosticMode>0x10,0x03</EnterDiagnosticMode>
+        <EnterNormalMode>0x10,0x01</EnterNormalMode>
+        <ReadFaults>0x19,0x02,0x09</ReadFaults>
+        <ReadDID>0x22,0x??,0x??</ReadDID>
+        <ReadSecuritySeed>0x27,0x07</ReadSecuritySeed>
+        <RequestResults>0x31,0x03,0x??,0x??</RequestResults>
+        <SendAccessKey>0x27,0x08,0x??,0x??,0x??,0x??</SendAccessKey>
+        <StartRoutine>0x31,0x01,0x??,0x??</StartRoutine>
+        <TesterPresent>0x3E,0x00</TesterPresent>
+    </TransmitMessages>
+
+    <TransmitInterpretations>
+        <AssemblyCheck>0x02,0x02</AssemblyCheck>
+        <LeftBrakeState>0x10,0x0C</LeftBrakeState>
+        <RightBrakeState>0x10,0x0D</RightBrakeState>
+        
+
+
+    </TransmitInterpretations>
+
+    <ReplyMessages>
+        <ClearFaults>
+            <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x54</Reply_00>
+            <Reply_01>0x7F,0x14,0x??</Reply_01>
+        </ClearFaults>
+        <EnterDiagnosticMode>
+            <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x50,0x03,0x??</Reply_00>
+            <Reply_01>0x7F,0x10,0x??</Reply_01>
+        </EnterDiagnosticMode>
+        <EnterNormalMode>
+            <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x50,0x01,0x??</Reply_00>
+            <Reply_01>0x7F,0x10,0x??</Reply_01>
+        </EnterNormalMode>
+        <ReadFaults>
+            <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x59,0x02,0x??</Reply_00>
+            <Reply_01>0x7F,0x19,0x??</Reply_01>
+        </ReadFaults>
+        <ReadDIDResponse>
+            <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x62,0x??,0x??,0x??</Reply_00>
+            <Reply_01>0x7F,0x22,0x??</Reply_01>
+        </ReadDIDResponse>
+        <ReadSecuritySeed>
+            <Reply_00>0x67,0x07,0x??,0x??,0x??,0x??</Reply_00>
+            <Reply_01>0x7F,0x27,0x??</Reply_01>
+        </ReadSecuritySeed>
+        <BrakeState>
+            <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x62,0x01,0x0C,0x??</Reply_00>
+            <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x62,0x01,0x0D,0x??</Reply_01>
+            <Reply_02>0x7F,0x22,0x??</Reply_02>
+        </BrakeState>
+        <SendAccessKey>
+            <Reply_00>0x67,0x08,0x34</Reply_00>
+            <Reply_01>0x7F,0x27,0x??</Reply_01>
+        </SendAccessKey>
+        <TesterPresent>
+            <Reply_00>0x7E,0x00</Reply_00>
+            <Reply_01>0x7E,0x??</Reply_01>
+        </TesterPresent>
+    </ReplyMessages>
+
+    <ReplyInterpretations>
+        <FaultsCleared>
+            <Boolean>
+                <Byte01 input_index="0" mask="0xFF" compare="0x54"/>
+            </Boolean>
+        </FaultsCleared>
+        <BrakeState>
+            <String>
+                <Substring>
+                    <Chars input_index="3" mask="0xFF" length="1">
+                        <StringSubstitute00 condition="equals" compare="0x0F" replace="Applied"/>
+                        <StringSubstitute01 condition="equals" compare="0x33" replace="Applying"/>
+                        <StringSubstitute02 condition="equals" compare="0x3C" replace="FullyApplied"/>
+                        <StringSubstitute03 condition="equals" compare="0x55" replace="Released"/>
+                        <StringSubstitute04 condition="equals" compare="0x5A" replace="Releasing"/>
+                        <StringSubstitute05 condition="equals" compare="0x66" replace="Unknown"/>
+                        <StringSubstitute06 condition="equals" compare="0x69" replace="Init"/>
+                        <StringSubstitute07 condition="equals" compare="0x96" replace="FullyReleased"/>
+                        <StringSubstitute08 condition="equals" compare="0x99" replace="ReleasingFully"/>
+                    </Chars>
+                </Substring>
+            </String>
+        </BrakeState>
+        <CheckResults>
+            <String>
+                <Substring>
+                    <Chars input_index="3" mask="0xFF" length="1">
+                        <!-- Response not provided in spec - below items are just placeholders -->
+                        <StringSubstitute00 condition="equals" compare="0x01" replace="TestInProgress"/>
+                        <StringSubstitute00 condition="equals" compare="0x00" replace="TestComplete"/>
+                    </Chars>
+                </Substring>
+            </String>
+        </CheckResults>
+        <ReadSecuritySeed>
+            <Integer type="unsigned" bits="32" scale="1" offset="0">
+                <Byte1 input_index="2" mask="0xFF" output_index="3"/>
+                <Byte2 input_index="3" mask="0xFF" output_index="2"/>
+                <Byte3 input_index="4" mask="0xFF" output_index="1"/>
+                <Byte4 input_index="5" mask="0xFF" output_index="0"/>
+            </Integer>
+        </ReadSecuritySeed>
+    </ReplyInterpretations>
+
+</UdsElectronicParkBrakeModule>

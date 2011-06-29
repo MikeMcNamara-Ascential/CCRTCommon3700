@@ -1,0 +1,2 @@
+../Bin/MachineDataBroker.qxe -f ../ConfigFiles/MachineDataBrokerConfig.xml &
+

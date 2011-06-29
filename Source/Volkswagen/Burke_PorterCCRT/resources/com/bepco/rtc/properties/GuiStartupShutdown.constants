@@ -1,0 +1,19 @@
+# 
+main.icon=/com/bepco/rtc/images/CCRT_app_icon64.png
+main.splash=images/CCRT_splash.jpg
+main.logo=images/beplogo.jpg
+main.systemrequirements=System Requirements: Pentium III PC, 512MB RAM, 1GB on hard drive
+main.address1=Burke E. Porter Machinery Company
+main.address2=730 Plymouth Rd NE
+main.address3=Grand Rapids, MI 49505
+main.phone.main=(616) 234-1200
+main.phone.fax=(616) 459-1032
+main.phone.support=(616) 234-1234
+main.web=http://www.bepco.com
+
+#
+controller.warning.image = /com/bepco/rtc/images/warningtriangle.png
+
+# shutdown frame
+shutdown.text.stopping.shutdown=Ryivf unf yrsg gur ohvyqvat.
+shutdown.quick.enabled=true

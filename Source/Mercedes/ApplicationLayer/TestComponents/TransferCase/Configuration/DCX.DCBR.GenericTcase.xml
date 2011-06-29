@@ -1,0 +1,382 @@
+<GenericTcase>
+    <Setup>
+        <Name>TransferCase</Name>
+        <Debug>Off</Debug>
+        <TestDomain>Foreground</TestDomain>
+        <CommunicationProtocol>ISO-K</CommunicationProtocol>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/GenericTcase</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <ForegroundTestInProgress/>
+                <Zerospeed/>
+                <CableConnect/>
+                <DriveAxle/>
+                <Clutch/>
+                <Declutch/>
+                <Traction/>
+            </SubscribeTags>
+            <PublishTags>
+                <OverallPassFail>Pass</OverallPassFail>
+            </PublishTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>GenericTcase</ProcessName>
+            <AdditionalLogFile Types="/Component/GenericTcase or Disabled">/Components/GenericTcase.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+        </Logging>
+        <NamedDataBrokerComm>
+            <Comm>IPC</Comm>
+            <Type>Client</Type>
+            <Name>core/NamedDataBroker</Name>
+            <Debug>Off</Debug>
+            <Timeout>0</Timeout>
+            <BufferSize>1024</BufferSize>
+        </NamedDataBrokerComm>
+        <DataTags>
+            <OverallTest>GenericTcaseOverallTest</OverallTest>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <Rear>Rear</Rear>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+            <Zerospeed>Zerospeed</Zerospeed>
+            <Abort>Abort</Abort>
+            <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+            <PromptBox1>PromptBox1</PromptBox1>
+            <PromptBox2>PromptBox2</PromptBox2>
+            <SpeedValue>SpeedValue</SpeedValue>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <TargetSpeed>SpeedTarget</TargetSpeed>
+            <IcmSpeedArray>/dev/ArraySpeed</IcmSpeedArray>
+            <TagIndex>TagIndex</TagIndex>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+            <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+            <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+            <RightRearSpeed>RRSpeed</RightRearSpeed>
+            <MotorMode>MotorMode</MotorMode>
+            <Clutch>Clutch</Clutch>
+            <Declutch>Declutch</Declutch>
+            <Boost>Boost</Boost>
+            <BoostMode>Boost</BoostMode>
+            <SpeedMode>Speed</SpeedMode>
+            <TorqueMode>Torque</TorqueMode>
+            <CommandTorque>CommandTorque</CommandTorque>
+            <GetTractionPassFailPrompt>TractionPassFail</GetTractionPassFailPrompt>
+        </DataTags>
+        <Parameters>
+            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+            <DeveloperTest>False</DeveloperTest>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <AxleRatioMinimum>97</AxleRatioMinimum>
+            <AxleRatioMaximum>103</AxleRatioMaximum>
+            <AxleRatioTargetSpeed>15</AxleRatioTargetSpeed>
+            <AxleRatioDirection>Forward</AxleRatioDirection>
+            <MaximumAxleRatioAttempts>3</MaximumAxleRatioAttempts>
+            <MinimumShiftSpeed>0</MinimumShiftSpeed>
+            <!-- Neutral -->
+            <CheckShiftNeutralVerifyMethod>Driver</CheckShiftNeutralVerifyMethod>
+            <CheckShiftNeutralTransmissionGear>Neutral</CheckShiftNeutralTransmissionGear>
+            <CheckShiftNeutralThrottlePosition>Closed</CheckShiftNeutralThrottlePosition>
+            <CheckShiftNeutralEngineRunning>Off</CheckShiftNeutralEngineRunning>
+            <CheckShiftNeutralKeyPosition>On</CheckShiftNeutralKeyPosition>
+            <CheckShiftNeutralApplyBrakeShiftTransmission>1</CheckShiftNeutralApplyBrakeShiftTransmission>
+            <CheckShiftNeutralMinimumShiftSpeed>0</CheckShiftNeutralMinimumShiftSpeed>
+            <!-- LOW -->
+            <CheckShiftLowVerifyMethod>Driver</CheckShiftLowVerifyMethod>
+            <CheckShiftLowTransmissionGear>Prompt</CheckShiftLowTransmissionGear>
+            <CheckShiftLowThrottlePosition>NotRequired</CheckShiftLowThrottlePosition>
+            <CheckShiftLowEngineRunning>NotRequired</CheckShiftLowEngineRunning>
+            <CheckShiftLowKeyPosition>On</CheckShiftLowKeyPosition>
+            <CheckShiftLowApplyBrakeShiftTransmission>1</CheckShiftLowApplyBrakeShiftTransmission>
+            <CheckShiftLowMinimumShiftSpeed>0</CheckShiftLowMinimumShiftSpeed>
+            <!-- AWD -->
+            <CheckShiftAWDVerifyMethod>Driver</CheckShiftAWDVerifyMethod>
+            <CheckShiftAWDTransmissionGear>Prompt</CheckShiftAWDTransmissionGear>
+            <CheckShiftAWDThrottlePosition>NotRequired</CheckShiftAWDThrottlePosition>
+            <CheckShiftAWDEngineRunning>NotRequired</CheckShiftAWDEngineRunning>
+            <CheckShiftAWDKeyPosition>NotRequired</CheckShiftAWDKeyPosition>
+            <CheckShiftAWDApplyBrakeShiftTransmission>1</CheckShiftAWDApplyBrakeShiftTransmission>
+            <CheckShiftAWDMinimumShiftSpeed>0</CheckShiftAWDMinimumShiftSpeed>
+            <!-- 2WD -->
+            <CheckShift2WDVerifyMethod>Driver</CheckShift2WDVerifyMethod>
+            <CheckShift2WDTransmissionGear>NotRequired</CheckShift2WDTransmissionGear>
+            <CheckShift2WDThrottlePosition>NotRequired</CheckShift2WDThrottlePosition>
+            <CheckShift2WDEngineRunning>NotRequired</CheckShift2WDEngineRunning>
+            <CheckShift2WDKeyPosition>NotRequired</CheckShift2WDKeyPosition>
+            <CheckShift2WDApplyBrakeShiftTransmission>0</CheckShift2WDApplyBrakeShiftTransmission>
+            <CheckShift2WDMinimumShiftSpeed>0</CheckShift2WDMinimumShiftSpeed>
+            <!-- 4WD -->
+            <CheckShift4WDVerifyMethod>Driver</CheckShift4WDVerifyMethod>
+            <CheckShift4WDTransmissionGear>NotRequired</CheckShift4WDTransmissionGear>
+            <CheckShift4WDThrottlePosition>NotRequired</CheckShift4WDThrottlePosition>
+            <CheckShift4WDEngineRunning>NotRequired</CheckShift4WDEngineRunning>
+            <CheckShift4WDKeyPosition>On</CheckShift4WDKeyPosition>
+            <CheckShift4WDApplyBrakeShiftTransmission>1</CheckShift4WDApplyBrakeShiftTransmission>
+            <CheckShift4WDMinimumShiftSpeed>0</CheckShift4WDMinimumShiftSpeed>
+            <!-- 4HI -->
+            <CheckShift4HIVerifyMethod>Driver</CheckShift4HIVerifyMethod>
+            <CheckShift4HITransmissionGear>NotRequired</CheckShift4HITransmissionGear>
+            <CheckShift4HIThrottlePosition>NotRequired</CheckShift4HIThrottlePosition>
+            <CheckShift4HIEngineRunning>NotRequired</CheckShift4HIEngineRunning>
+            <CheckShift4HIKeyPosition>NotRequired</CheckShift4HIKeyPosition>
+            <CheckShift4HIApplyBrakeShiftTransmission>0</CheckShift4HIApplyBrakeShiftTransmission>
+            <CheckShift4HIMinimumShiftSpeed>30</CheckShift4HIMinimumShiftSpeed>
+            <!-- 4LOW -->
+            <CheckShift4LOWVerifyMethod>Driver</CheckShift4LOWVerifyMethod>
+            <CheckShift4LOWTransmissionGear>NotRequired</CheckShift4LOWTransmissionGear>
+            <CheckShift4LOWThrottlePosition>NotRequired</CheckShift4LOWThrottlePosition>
+            <CheckShift4LOWEngineRunning>NotRequired</CheckShift4LOWEngineRunning>
+            <CheckShift4LOWKeyPosition>NotRequired</CheckShift4LOWKeyPosition>
+            <CheckShift4LOWApplyBrakeShiftTransmission>1</CheckShift4LOWApplyBrakeShiftTransmission>
+            <CheckShift4LOWMinimumShiftSpeed>0</CheckShift4LOWMinimumShiftSpeed>
+            <!-- FullTime -->
+            <CheckShift4FullTimeVerifyMethod>Driver</CheckShift4FullTimeVerifyMethod>
+            <CheckShift4FullTimeTransmissionGear>Prompt</CheckShift4FullTimeTransmissionGear>
+            <CheckShift4FullTimeThrottlePosition>NotRequired</CheckShift4FullTimeThrottlePosition>
+            <CheckShift4FullTimeEngineRunning>NotRequired</CheckShift4FullTimeEngineRunning>
+            <CheckShift4FullTimeKeyPosition>NotRequired</CheckShift4FullTimeKeyPosition>
+            <CheckShift4FullTimeApplyBrakeShiftTransmission>1</CheckShift4FullTimeApplyBrakeShiftTransmission>
+            <CheckShift4FullTimeMinimumShiftSpeed>0</CheckShift4FullTimeMinimumShiftSpeed>
+            <!-- AWD Axle Balance -->
+            <CheckAWDAxleBalanceMaxFrontToRearDelta>20</CheckAWDAxleBalanceMaxFrontToRearDelta>
+            <CheckAWDAxleBalanceMaxLeftToRightDelta>1</CheckAWDAxleBalanceMaxLeftToRightDelta>
+            <CheckAWDAxleBalanceTargetSpeed>15</CheckAWDAxleBalanceTargetSpeed>
+            <CheckAWDAxleBalanceMinimumSpeed>15</CheckAWDAxleBalanceMinimumSpeed>
+            <CheckAWDAxleBalanceMaximumSpeed>30</CheckAWDAxleBalanceMaximumSpeed>
+            <!-- 4Hi Axle Balance -->
+            <Check4HiAxleBalanceMaxFrontToRearDelta>20</Check4HiAxleBalanceMaxFrontToRearDelta>
+            <Check4HiAxleBalanceMaxLeftToRightDelta>1</Check4HiAxleBalanceMaxLeftToRightDelta>
+            <Check4HiAxleBalanceTargetSpeed>3</Check4HiAxleBalanceTargetSpeed>
+            <Check4HiAxleBalanceMinimumSpeed>3</Check4HiAxleBalanceMinimumSpeed>
+            <Check4HiAxleBalanceMaximumSpeed>8</Check4HiAxleBalanceMaximumSpeed>
+            <!-- FullTime Axle Balance -->
+            <Check4FullTimeAxleBalanceMaxFrontToRearDelta>20</Check4FullTimeAxleBalanceMaxFrontToRearDelta>
+            <Check4FullTimeAxleBalanceMaxLeftToRightDelta>1</Check4FullTimeAxleBalanceMaxLeftToRightDelta>
+            <Check4FullTimeAxleBalanceTargetSpeed>15</Check4FullTimeAxleBalanceTargetSpeed>
+            <Check4FullTimeAxleBalanceMinimumSpeed>15</Check4FullTimeAxleBalanceMinimumSpeed>
+            <Check4FullTimeAxleBalanceMaximumSpeed>30</Check4FullTimeAxleBalanceMaximumSpeed>
+            <!-- Traction On-->
+            <CheckShiftTractionOnVerifyMethod>Driver</CheckShiftTractionOnVerifyMethod>
+            <CheckShiftTractionOnTransmissionGear>NotRequired</CheckShiftTractionOnTransmissionGear>
+            <CheckShiftTractionOnThrottlePosition>NotRequired</CheckShiftTractionOnThrottlePosition>
+            <CheckShiftTractionOnEngineRunning>NotRequired</CheckShiftTractionOnEngineRunning>
+            <CheckShiftTractionOnKeyPosition>NotRequired</CheckShiftTractionOnKeyPosition>
+            <CheckShiftTractionOnApplyBrakeShiftTransmission>1</CheckShiftTractionOnApplyBrakeShiftTransmission>
+            <CheckShiftTractionOnMinimumShiftSpeed>0</CheckShiftTractionOnMinimumShiftSpeed>
+            <!-- Traction Off-->
+            <CheckShiftTractionOffVerifyMethod>Driver</CheckShiftTractionOffVerifyMethod>
+            <CheckShiftTractionOffTransmissionGear>NotRequired</CheckShiftTractionOffTransmissionGear>
+            <CheckShiftTractionOffThrottlePosition>NotRequired</CheckShiftTractionOffThrottlePosition>
+            <CheckShiftTractionOffEngineRunning>NotRequired</CheckShiftTractionOffEngineRunning>
+            <CheckShiftTractionOffKeyPosition>NotRequired</CheckShiftTractionOffKeyPosition>
+            <CheckShiftTractionOffApplyBrakeShiftTransmission>1</CheckShiftTractionOffApplyBrakeShiftTransmission>
+            <CheckShiftTractionOffMinimumShiftSpeed>0</CheckShiftTractionOffMinimumShiftSpeed>
+            <!-- Traction Speed Range -->
+            <AccelerateToTractionSpeedTargetSpeed>32.28</AccelerateToTractionSpeedTargetSpeed>
+            <AccelerateToTractionSpeedTargetSpeedRange>32 37</AccelerateToTractionSpeedTargetSpeedRange>
+            <CoastToStopAllowBraking>No</CoastToStopAllowBraking>
+            <ICMName>mgr/ICM</ICMName>
+        </Parameters>
+        <Prompts>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+            <ShiftToReverse PromptBox="1" Priority="0">ShiftToReverse</ShiftToReverse>
+            <ApplyBrakePedal PromptBox="1" Priority="0">ApplyBrake</ApplyBrakePedal>
+            <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+            <TestSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</TestSpeed>
+            <EnterYesOrNo PromptBox="2" Priority="0">EnterYesOrNo</EnterYesOrNo>
+            <TcaseTesting PromptBox="1" Priority="0">TransferCaseTest</TcaseTesting>
+            <!-- Neutral -->
+            <CheckShiftNeutralShiftTcase PromptBox="2" Priority="0">ShiftTransferCaseToNeutral</CheckShiftNeutralShiftTcase>
+            <CheckShiftNeutralShiftTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShiftNeutralShiftTransmission>
+            <CheckShiftNeutralThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShiftNeutralThrottlePosition>
+            <CheckShiftNeutralEngineOnOff PromptBox="2" Priority="0">EngineOffIgnitionOn</CheckShiftNeutralEngineOnOff>
+            <CheckShiftNeutralKeyOnOff PromptBox="2" Priority="0">EngineOffIgnitionOn</CheckShiftNeutralKeyOnOff>
+            <!-- Low -->
+            <CheckShiftLowShiftTcase PromptBox="2" Priority="0" bgColor="white" valueOne="4-LOW">ShiftTransferCase</CheckShiftLowShiftTcase>
+            <CheckShiftLowShiftTransmission PromptBox="1" Priority="0">ShiftToNeutral</CheckShiftLowShiftTransmission>
+            <CheckShiftLowThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShiftLowThrottlePosition>
+            <CheckShiftLowEngineOnOff PromptBox="2" Priority="0">StartVehicle</CheckShiftLowEngineOnOff>
+            <CheckShiftLowKeyOnOff PromptBox="2" Priority="0">StartVehicle</CheckShiftLowKeyOnOff>
+            <!-- AWD -->
+            <CheckShiftAWDShiftTcase PromptBox="1" Priority="0" bgColor="White" valueOne="4 All Time">ShiftTransferCase</CheckShiftAWDShiftTcase>
+            <CheckShiftAWDShiftTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShiftAWDShiftTransmission>
+            <CheckShiftAWDThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShiftAWDThrottlePosition>
+            <CheckShiftAWDEngineOnOff PromptBox="2" Priority="0">StartVehicle</CheckShiftAWDEngineOnOff>
+            <CheckShiftAWDKeyOnOff PromptBox="2" Priority="0">StartVehicle</CheckShiftAWDKeyOnOff>
+            <!-- 2WD -->
+            <CheckShift2WDShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift2WDShiftTcase>
+            <CheckShift2WDShiftTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShift2WDShiftTransmission>
+            <CheckShift2WDThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShift2WDThrottlePosition>
+            <CheckShift2WDEngineOnOff PromptBox="2" Priority="0">StartVehicle</CheckShift2WDEngineOnOff>
+            <CheckShift2WDKeyOnOff PromptBox="2" Priority="0">StartVehicle</CheckShift2WDKeyOnOff>
+            <!-- 4WD -->
+            <CheckShift4WDShiftTcase PromptBox="2" Priority="0">ShiftTransferCaseTo4wd</CheckShift4WDShiftTcase>
+            <CheckShift4WDShiftTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShift4WDShiftTransmission>
+            <CheckShift4WDThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShift4WDThrottlePosition>
+            <CheckShift4WDEngineOnOff PromptBox="2" Priority="0">EngineOffIgnitionOn</CheckShift4WDEngineOnOff>
+            <CheckShift4WDKeyOnOff PromptBox="2" Priority="0">EngineOffIgnitionOn</CheckShift4WDKeyOnOff>
+            <!-- 4HI -->
+            <CheckShift4HIShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4HIShiftTcase>
+            <CheckShift4HIShiftTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShift4HIShiftTransmission>
+            <CheckShift4HIThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShift4HIThrottlePosition>
+            <CheckShift4HIEngineOnOff PromptBox="2" Priority="0">StartVehicle</CheckShift4HIEngineOnOff>
+            <CheckShift4HIKeyOnOff PromptBox="2" Priority="0">StartVehicle</CheckShift4HIKeyOnOff>
+            <!-- 4LOW -->
+            <CheckShift4LOWShiftTcase PromptBox="1" Priority="0" bgColor="white" valueOne="4-LOW">ShiftTransferCase</CheckShift4LOWShiftTcase>
+            <CheckShift4LOWShiftTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShift4LOWShiftTransmission>
+            <CheckShift4LOWThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShift4LOWThrottlePosition>
+            <CheckShift4LOWEngineOnOff PromptBox="2" Priority="0">StartVehicle</CheckShift4LOWEngineOnOff>
+            <CheckShift4LOWKeyOnOff PromptBox="2" Priority="0">StartVehicle</CheckShift4LOWKeyOnOff>
+            <!-- FullTime -->
+            <CheckShift4FullTimeShiftTcase PromptBox="1" Priority="0" bgColor="white" valueOne="4-FullTime">ShiftTransferCase</CheckShift4FullTimeShiftTcase>
+            <CheckShift4FullTimeShiftTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShift4FullTimeShiftTransmission>
+            <CheckShift4FullTimeThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShift4FullTimeThrottlePosition>
+            <CheckShift4FullTimeEngineOnOff PromptBox="2" Priority="0">StartVehicle</CheckShift4FullTimeEngineOnOff>
+            <CheckShift4FullTimeKeyOnOff PromptBox="2" Priority="0">StartVehicle</CheckShift4FullTimeKeyOnOff>
+            <!-- Traction On -->
+            <CheckShiftTractionOnShiftTcase  PromptBox="1" Priority="0" bgColor="white" valueOne="4-FullTime">TurnTractionOn</CheckShiftTractionOnShiftTcase>
+            <CheckShiftTractionOnShiftTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShiftTractionOnShiftTransmission>
+            <CheckShiftTractionOnThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShiftTractionOnThrottlePosition>
+            <CheckShiftTractionOnEngineOnOff PromptBox="2" Priority="0">StartVehicle</CheckShiftTractionOnEngineOnOff>
+            <CheckShiftTractionOnKeyOnOff PromptBox="2" Priority="0">StartVehicle</CheckShiftTractionOnKeyOnOff>
+            <!-- Traction Off -->
+            <CheckShiftTractionOffShiftTcase  PromptBox="1" Priority="0" bgColor="white" valueOne="4-FullTime">TurnTractionOff</CheckShiftTractionOffShiftTcase>
+            <CheckShiftTractionOffTransmission PromptBox="2" Priority="0">ShiftToNeutral</CheckShiftTractionOffTransmission>
+            <CheckShiftTractionOffThrottlePosition PromptBox="2" Priority="0">RemoveFootFromAccelerator</CheckShiftTractionOffThrottlePosition>
+            <CheckShiftTractionOffEngineOnOff PromptBox="2" Priority="0">StartVehicle</CheckShiftTractionOffEngineOnOff>
+            <CheckShiftTractionOffKeyOnOff PromptBox="2" Priority="0">StartVehicle</CheckShiftTractionOffKeyOnOff>
+            <!-- Traction General -->
+            <TractionPassFailPrompt PromptBox="2" Priority="0">TractionPassFail</TractionPassFailPrompt>
+            <CoastToStop PromptBox="2" Priority="0">CoastToStop</CoastToStop>
+            <CoastToStopSpeed>1.0</CoastToStopSpeed>
+        </Prompts>
+        <FaultList>/Configuration/Components/TransferCase/TcaseFaults.xml</FaultList>
+        <IgnoreFaults/>
+        <TcaseTypes>
+            <Type01>4x4</Type01>
+            <Type02>4x4 Integral</Type02>
+        </TcaseTypes>
+    </Setup>
+    <Objectives>
+        <AxleRatio>
+            <TestStep00>CheckShift4LOW</TestStep00>
+            <TestStep05>CheckAxleRatio</TestStep05>
+        </AxleRatio>
+        <AWDAxleBalance>
+            <TestStep00>CheckAWDAxleBalance</TestStep00>
+        </AWDAxleBalance>
+        <PartTimeAxleBalance>
+            <TestStep00>Check4HiAxleBalance</TestStep00>
+        </PartTimeAxleBalance>
+        <FullTimeAxleBalance>
+            <TestStep00>Check4FullTimeAxleBalance</TestStep00>
+        </FullTimeAxleBalance>
+        <CheckShiftNeutral>
+            <TestStep0>CheckShiftNeutral</TestStep0>
+        </CheckShiftNeutral>
+        <CheckShiftLow>
+            <TestStep0>CheckShiftLow</TestStep0>
+        </CheckShiftLow>
+        <CheckShiftAWD>
+            <TestStep0>CheckShiftAWD</TestStep0>
+        </CheckShiftAWD>
+        <CheckShift2WD>
+            <TestStep0>CheckShift2WD</TestStep0>
+        </CheckShift2WD>
+        <CheckShift4WD>
+            <TestStep0>CheckShift4WD</TestStep0>
+        </CheckShift4WD>
+        <CheckShift4HI>
+            <TestStep0>CheckShift4HI</TestStep0>
+        </CheckShift4HI>
+        <CheckShift4LOW>
+            <TestStep0>CheckShift4LOW</TestStep0>
+        </CheckShift4LOW>
+        <CheckShift4FullTime>
+            <TestStep00>CheckShift4FullTime</TestStep00>
+        </CheckShift4FullTime>
+        <CheckAxleRatio>
+            <TestStep0>CheckAxleRatio</TestStep0>
+        </CheckAxleRatio>
+        <FinishUp>
+            <TestStep00>FinishUp</TestStep00>
+        </FinishUp>
+        <TestTransferCase>
+            <TestStep05>CheckShift4HI</TestStep05>
+            <TestStep10>CheckAxleRatio</TestStep10>
+            <TestStep15>CheckShift2WD</TestStep15>
+            <TestStep20>FinishUp</TestStep20>
+        </TestTransferCase>
+        <TractionControlTest>
+            <TestStep05>CheckShiftTractionOn</TestStep05>
+            <TestStep10>AccelerateToTractionSpeed</TestStep10>
+            <TestStep15>CoastToStop</TestStep15>
+            <TestStep20>CheckShiftTractionOff</TestStep20>
+            <TestStep25>GetTractionPassFail</TestStep25>
+            <TestStep30>FinishUp</TestStep30>
+        </TractionControlTest>
+        <EngageTraction>
+            <TestStep05>CheckShiftTractionOn</TestStep05>
+            <TestStep30>FinishUp</TestStep30>
+        </EngageTraction>
+    </Objectives>
+    <TestSteps>
+        <CheckShiftNeutral Result="Not Tested" Timeout="30000" Description="Check Tcase Neutral" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3">Test Tcase Neutral</CheckShiftNeutral>
+        <CheckShiftLow Result="Not Tested" Timeout="30000" Description="Test Tcase Low" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3">Test Tcase Low</CheckShiftLow>
+        <CheckShiftAWD Result="Not Tested" Timeout="30000" Description="Test Tcase AWD" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="2000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TcaseGear="4-All Time" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3">Test Tcase AWD</CheckShiftAWD>
+        <CheckShift2WD Result="Not Tested" Timeout="30000" Description="Test Tcase 2WD" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="1000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TcaseGear="2H" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3" >Test Tcase 2WD</CheckShift2WD>
+        <CheckShift4WD Result="Not Tested" Timeout="30000" Description="Test Tcase 4WD" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TcaseGear="4WD" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3" >Test Tcase 4WD</CheckShift4WD>
+        <CheckShift4FullTime Result="Not Tested" Timeout="30000" Description="Test Tcase 4FullTime" ScanDelay="500" SpeedSamplDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="2000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TcaseGear="4-FullTime" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3" >Test Tcase 4FullTime</CheckShift4FullTime>
+        <CheckShift4HI Result="Not Tested" Timeout="30000" Description="Test Tcase 4HI" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="2000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TcaseGear="4H" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3" >Test Tcase 4H</CheckShift4HI>
+        <CheckShift4LOW Result="Not Tested" Timeout="30000" Description="Test Tcase 4LO" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TcaseGear="4L" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3">Test Tcase 4L</CheckShift4LOW>
+        <CheckAxleRatio Result="Not Tested" Timeout="30000" Description="Verify Axle Ratio" ScanDelay="500" SpeedSampleDelay="500" TargetSpeed="15" MinimumSpeed="15" MaximumSpeed="25" RatioSamples="10" SampleTime="500">Verify Axle Ratio</CheckAxleRatio>
+        <CheckAWDAxleBalance Result="Not Tested" Timeout="30000" Description="Verify AWD Axle Balance" ScanDelay="500" AbortOnFail="0">Verify AWD Axle Balance</CheckAWDAxleBalance>
+        <Check4HiAxleBalance Result="Not Tested" Timeout="30000" Description="Verify 4Hi Axle Balance" ScanDelay="500" AbortOnFail="0">Verify 4HI Axle Balance</Check4HiAxleBalance>
+        <Check4FullTimeAxleBalance Result="Not Tested" Timeout="30000" Description="Verify 4 Full Time Axle Balance" ScanDelay="500" AbortOnFail="0">Verify 4WD Full Time Axle Balance</Check4FullTimeAxleBalance>
+        <CheckShiftTractionOn Result="Not Tested" Timeout="30000" Description="Test Traction on" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3">Shift Traction On</CheckShiftTractionOn>
+        <CheckShiftTractionOff Result="Not Tested" Timeout="30000" Description="Test Traction on" ScanDelay="500" SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" CommandMessageDelay="5000" TargetSpeed="0" MinimumSpeed="0" MaximumSpeed="3">Shift Traction Off</CheckShiftTractionOff>
+        <AccelerateToTractionSpeed Result="" Timeout="60000" Description="Accelerate to Tcase Speed" Prompt1="AccelerateToTargetSpeed" ScanDelay="250"/>
+        <CoastToStop Result="" Timeout="60000" Description="Coast down to speed" Prompt1="CoastToStop" ScanDelay="250"/>
+        <GetTractionPassFail Result="" Timeout="30000" Description="Driver test for Traction overall pass or fail">Prompt the driver to enter Tcase overall pass fail</GetTractionPassFail>
+        <FinishUp Result="Not Tested" Timeout="500" Description="finish Tcase testing"/>
+    </TestSteps>
+</GenericTcase>

@@ -1,0 +1,38 @@
+<SelectionTable Description="Tesla drive curve selection table">
+   <Roadster DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
+      <BrakeType>Teves Abs</BrakeType>
+   </Roadster>
+   <Sedan DriveCurve="/Configuration/VehicleTest/DriveCurves/SedanDriveCurve.xml">
+      <BrakeType>Bosch Abs</BrakeType>
+   </Sedan>
+   <StaticABS DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.ABSStatic.xml">
+      <Vin>ABSSTATICTEST0R01</Vin>
+   </StaticABS>
+   <LowSpeedSensor DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.ABSLowSpeedSensor.xml">
+      <Vin>ABSSPEEDSENSORR02</Vin>
+   </LowSpeedSensor>
+   <ReverseWarning DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.ReverseWarning.xml">
+      <Vin>REVERSEWARNINGR03</Vin>
+   </ReverseWarning>
+   <DriveTrainLoading DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.DriveTrainLoading.xml">
+      <Vin>DRIVETRAINLOADR04</Vin>
+   </DriveTrainLoading>
+   <BrakeBedding DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.BrakeBedding.xml">
+      <Vin>BRAKEBEDDING00R05</Vin>
+   </BrakeBedding>
+   <CruiseControl DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.CruiseControl.xml">
+      <Vin>CRUISECONTROL0R06</Vin>
+   </CruiseControl>
+   <DynamicABS DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.ABSDynamic.xml">
+      <Vin>ABSDYNAMICTESTR07</Vin>
+   </DynamicABS>
+   <ParkingBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.ParkingBrake.xml">
+      <Vin>PARKINGBRAKE00R08</Vin>
+   </ParkingBrake>
+   <Airbag DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.Airbag.xml">
+      <Vin>AIRBAGSELFTESTR09</Vin>
+   </Airbag>
+   <FullABSTests DriveCurve="/Configuration/VehicleTest/DriveCurves/Tesla.Roadster.FullABSTests.xml">
+      <Vin>FULLABSTESTS00R10</Vin>
+   </FullABSTests>
+</SelectionTable>

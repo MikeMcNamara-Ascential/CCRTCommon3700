@@ -1,0 +1,3 @@
+../Bin/UniverseMgr.qxe &
+../Bin/PlcMgr.qxe -f ../../Configuration/Servers/PlcConfig.xml &
+

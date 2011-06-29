@@ -1,0 +1,111 @@
+<VehicleBuildRecord>
+    <!--
+    -
+    - Message Description Section
+    -
+    -->
+    <SequenceNumber Section="MessageDescription" Offset="14" Length="6" Type="Value"/>
+    <VIN Section="MessageDescription" Offset="20" Length="17" Type="Value"/>
+    <ProductionNumber Section="MessageDescription" Offset="37" Length="9" Type="Value"/>
+    <Baumuster Section="MessageDescription" Offset="46" Length="21" Type="Value"/>
+    <PerformAbortTest Section="MessageDescription" Offset="67" Length="1" Type="Code">
+        <P>Perform</P>
+        <A>Abort</A>
+        <S>Ship</S>
+    </PerformAbortTest>
+    <BuildDate Section="MessageDescription" Offset="68" Length="8" Type="Value"/>
+    <BuildTime Section="MessageDescription" Offset="76" Length="4" Type="Value"/>
+    <!--
+    -
+    - Test Data Section
+    -
+    -->
+    <!-- {TIRESIZE} -->
+    <TireSize Section="TestDataSection" Offset="0" Length="5" Type="Value"/>
+    <!-- {WHEELBAS} -->
+    <Wheelbase Section="TestDataSection" Offset="5" Length="5" Type="Value"/>
+    <!-- {ENGPOWER} -->
+    <EnginePower Section="TestDataSection" Offset="10" Length="5" Type="Value"/>
+    <!--
+    -
+    - Test Code Section
+    -
+    -->
+    <!-- {ENG_TYPE} -->
+    <EngineType Section="TestCodeSection" Offset="0" Length="2" Type="Code" TestNumber="01">
+        <Type00>Undefined</Type00>
+    </EngineType>
+    <!-- {BRAKES} -->
+    <BrakeType Section="TestCodeSection" Offset="2" Length="2" Type="Code" TestNumber="02">
+        <Type00>Undefined</Type00>
+        <Type01>Drum Brakes</Type01>
+        <Type02>Disc Brakes</Type02>
+        <Type03>ABS</Type03>
+        <Type04>ABS switchable</Type04>
+        <Type05>Drum Brakes Ret</Type05>
+        <Type06>Disc Brakes Ret</Type06>
+        <Type07>ABS Ret</Type07>
+        <Type08>ABS switchable Ret</Type08>
+    </BrakeType>
+    <!-- {SPEEDCTR} -->
+    <MaxSpeed Section="TestCodeSection" Offset="4" Length="2" Type="Code" TestNumber="03">
+        <Type00>Undefined</Type00>
+        <Type01>120</Type01>
+        <Type02>110</Type02>
+        <Type03>100</Type03>
+        <Type04>90</Type04>
+        <Type05>80</Type05>
+        <Type06>70</Type06>
+        <Type07>60</Type07>
+    </MaxSpeed>
+    <!-- {TRANSCASE} -->
+    <TransferCase Section="TestCodeSection" Offset="6" Length="2" Type="Code" TestNumber="04">
+        <Type00>Undefined</Type00>
+        <Type01>EPS-III</Type01>
+    </TransferCase>
+    <!-- {AXLELONG} -->
+    <AxleLongLock Section="TestCodeSection" Offset="8" Length="2" Type="Code" TestNumber="05">
+        <Type00>Undefined</Type00>
+        <Type01>Rear/Tandem</Type01>
+        <Type02>Front/Rear</Type02>
+    </AxleLongLock>
+    <!-- {AXLETRAN} -->
+    <AxleTransLock Section="TestCodeSection" Offset="10" Length="2" Type="Code" TestNumber="06">
+        <Type00>Undefined</Type00>
+        <Type01>Rear</Type01>
+        <Type02>Rear/Tandem</Type02>
+        <Type03>Front/Rear</Type03>
+    </AxleTransLock>
+    <!-- {TRACTION} -->
+    <Traction Section="TestCodeSection" Offset="12" Length="2" Type="Code" TestNumber="07">
+        <Type00>Undefined</Type00>
+        <Type01>4x2</Type01>
+        <Type02>4x4</Type02>
+        <Type03>4x4 Integral</Type03>
+        <Type04>6x2</Type04>
+        <Type05>6x4</Type05>
+    </Traction>
+    <!-- {PARK_BRK} -->
+    <ParkBrake Section="TestCodeSection" Offset="14" Length="2" Type="Code" TestNumber="08">
+        <Type00>Undefined</Type00>
+        <Type01>Standard</Type01>
+        <Type02>Manual Adjust</Type02>
+    </ParkBrake>
+    <!-- {AWD} -->
+    <AWD Section="TestCodeSection" Offset="16" Length="2" Type="Code" TestNumber="09">
+        <Type00>Undefined</Type00>
+    </AWD>
+    <!-- {TACHO} -->
+    <Tachograph Section="TestCodeSection" Offset="18" Length="2" Type="Code" TestNumber="10">
+        <Type00>Undefined</Type00>
+        <Type01>KTCO</Type01>
+        <Type02>MTCO/TSU</Type02>
+        <Type03>MTCO II</Type03>
+        <Type04>INS LTC</Type04>
+        <Type05>INS 2004</Type05>
+    </Tachograph>
+    <!-- {REDGEAR} -->
+    <ReducedGear Section="TestCodeSection" Offset="20" Length="2" Type="Code" TestNumber="11">
+        <Type00>Undefined</Type00>
+    </ReducedGear>
+</VehicleBuildRecord>

@@ -1,0 +1,930 @@
+€12/13/10 15:23:45.499 (1) core/TestResultServer      Activated additional log [/home/CCRT/Rewrite/Logs/Servers/TestResultServer.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:45.499 (1) core/TestResultServer      BepComponent::Initialize()
+€
+€12/13/10 15:23:45.500 (1) core/TestResultServer      Process core/TestResultServer running at priority 10
+€
+€12/13/10 15:23:45.500 (1) core/TestResultServer      Updated process core/TestResultServer running at priority 10
+€
+€12/13/10 15:23:45.501 (1) core/TestResultServer      BepComponent::Initialize(<TestResultServerConfig>
+   <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/TestResultServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllFailures>AllFailures</AllFailures>         <ClearScrollBox>ClearScrollBox</ClearScrollBox>         <DriveCurve>DriveCurve</DriveCurve>         <DriverNumber>DriverNumber</DriverNumber>         <KeyPress>KeyPress</KeyPress>         <OverallTest>OverallTest</OverallTest>         <StartTest>StartVehicleTest</StartTest>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Yes</I€
+€12/13/10 15:23:45.501 (1) core/TestResultServer      Preparing to deal with subscribe tags:    <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/TestResultServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllFailures>AllFailures</AllFailures>         <ClearScrollBox>ClearScrollBox</ClearScrollBox>         <DriveCurve>DriveCurve</DriveCurve>         <DriverNumber>DriverNumber</DriverNumber>         <KeyPress>KeyPress</KeyPress>         <OverallTest>OverallTest</OverallTest>         <StartTest>StartVehicleTest</StartTest>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Yes</IncludeAbort€
+€12/13/10 15:23:45.502 (1) core/TestResultServer      Retrieved Subscribe Tags
+€
+€12/13/10 15:23:45.502 (1) core/TestResultServer      Stored all Subscribe Tags
+€
+€12/13/10 15:23:45.504 (1) core/TestResultServer      BepServer::Initialize(<TestResultServerConfig>
+   <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/TestResultServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllFailures>AllFailures</AllFailures>         <ClearScrollBox>ClearScrollBox</ClearScrollBox>         <DriveCurve>DriveCurve</DriveCurve>         <DriverNumber>DriverNumber</DriverNumber>         <KeyPress>KeyPress</KeyPress>         <OverallTest>OverallTest</OverallTest>         <StartTest>StartVehicleTest</StartTest>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Yes</Incl€
+€12/13/10 15:23:45.505 (1) core/TestResultServer      TestResultServer::Initialize(<TestResultServerConfig>
+   <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/TestResultServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllFailures>AllFailures</AllFailures>         <ClearScrollBox>ClearScrollBox</ClearScrollBox>         <DriveCurve>DriveCurve</DriveCurve>         <DriverNumber>DriverNumber</DriverNumber>         <KeyPress>KeyPress</KeyPress>         <OverallTest>OverallTest</OverallTest>         <StartTest>StartVehicleTest</StartTest>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Ye€
+€12/13/10 15:23:45.506 (1) core/TestResultServer      Fault alarm option not specified, not enabling use of fault alarm - Tag Not Found: FaultAlarm€
+€12/13/10 15:23:45.506 (1) core/TestResultServer      Test complete signaling not enabled - Tag Not Found: TestCompleteSignal€
+€12/13/10 15:23:45.507 (1) core/TestResultServer      TestResultServer::Initialize(<TestResultServerConfig>
+   <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/TestResultServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllFailures>AllFailures</AllFailures>         <ClearScrollBox>ClearScrollBox</ClearScrollBox>         <DriveCurve>DriveCurve</DriveCurve>         <DriverNumber>DriverNumber</DriverNumber>         <KeyPress>KeyPress</KeyPress>         <OverallTest>OverallTest</OverallTest>         <StartTest>StartVehicleTest</StartTest>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Ye€
+€12/13/10 15:23:45.507 (1) core/TestResultServer      Clearing old test results
+€
+€12/13/10 15:23:45.507 (1) core/TestResultServer      Clearing old failures
+€
+€12/13/10 15:23:45.507 (1) core/TestResultServer      Clearing old DTCs
+€
+€12/13/10 15:23:45.522 (1) core/TestResultServer      Result file name: 1J4FT28W07A200378.0001
+€
+€12/13/10 15:23:45.522 (1) core/TestResultServer      Adding 1J4FT28W07A200378.0001 to the test result list€
+€12/13/10 15:23:45.523 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J4FT28W07A200378.0001)
+€
+€12/13/10 15:23:45.523 (1) core/TestResultServer      Data from file -- VIN: 1J4FT28W07A200378.0001, Sequence number: 1
+€
+€12/13/10 15:23:45.523 (1) core/TestResultServer      Added: 1J4FT28W07A200378.0001 to back of list: -->1J4FT28W07A200378.0001<--
+€
+€12/13/10 15:23:45.523 (1) core/TestResultServer      Checking number of saved files: have 1;  max 1000
+€
+€12/13/10 15:23:45.523 (1) core/TestResultServer      Added 1J4FT28W07A200378.0001 to the test result list€
+€12/13/10 15:23:45.523 (1) core/TestResultServer      Result file name: 1J4FT28W07A200378.0002
+€
+€12/13/10 15:23:45.523 (1) core/TestResultServer      Adding 1J4FT28W07A200378.0002 to the test result list€
+€12/13/10 15:23:45.523 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J4FT28W07A200378.0002)
+€
+€12/13/10 15:23:45.524 (1) core/TestResultServer      Data from file -- VIN: 1J4FT28W07A200378.0002, Sequence number: 2
+€
+€12/13/10 15:23:45.524 (1) core/TestResultServer      Added: 1J4FT28W07A200378.0002 to back of list: -->1J4FT28W07A200378.0002<--
+€
+€12/13/10 15:23:45.524 (1) core/TestResultServer      Checking number of saved files: have 2;  max 1000
+€
+€12/13/10 15:23:45.524 (1) core/TestResultServer      Added 1J4FT28W07A200378.0002 to the test result list€
+€12/13/10 15:23:45.524 (1) core/TestResultServer      Result file name: 3C3HY75SX6T200088.0003
+€
+€12/13/10 15:23:45.524 (1) core/TestResultServer      Adding 3C3HY75SX6T200088.0003 to the test result list€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 3C3HY75SX6T200088.0003)
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Data from file -- VIN: 3C3HY75SX6T200088.0003, Sequence number: 3
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Added: 3C3HY75SX6T200088.0003 to back of list: -->3C3HY75SX6T200088.0003<--
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Checking number of saved files: have 3;  max 1000
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Added 3C3HY75SX6T200088.0003 to the test result list€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Result file name: 3C3HY75SX6T200088.0004
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Adding 3C3HY75SX6T200088.0004 to the test result list€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 3C3HY75SX6T200088.0004)
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Data from file -- VIN: 3C3HY75SX6T200088.0004, Sequence number: 4
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Added: 3C3HY75SX6T200088.0004 to back of list: -->3C3HY75SX6T200088.0004<--
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Checking number of saved files: have 4;  max 1000
+€
+€12/13/10 15:23:45.525 (1) core/TestResultServer      Added 3C3HY75SX6T200088.0004 to the test result list€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Result file name: 3C3HY75SX6T200088.0005
+€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Adding 3C3HY75SX6T200088.0005 to the test result list€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 3C3HY75SX6T200088.0005)
+€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Data from file -- VIN: 3C3HY75SX6T200088.0005, Sequence number: 5
+€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Added: 3C3HY75SX6T200088.0005 to back of list: -->3C3HY75SX6T200088.0005<--
+€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Checking number of saved files: have 5;  max 1000
+€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Added 3C3HY75SX6T200088.0005 to the test result list€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Result file name: 3C3HY75SX6T200088.0006
+€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Adding 3C3HY75SX6T200088.0006 to the test result list€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 3C3HY75SX6T200088.0006)
+€
+€12/13/10 15:23:45.526 (1) core/TestResultServer      Data from file -- VIN: 3C3HY75SX6T200088.0006, Sequence number: 6
+€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Added: 3C3HY75SX6T200088.0006 to back of list: -->3C3HY75SX6T200088.0006<--
+€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Checking number of saved files: have 6;  max 1000
+€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Added 3C3HY75SX6T200088.0006 to the test result list€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Result file name: 3C3HY75SX6T200088.0007
+€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Adding 3C3HY75SX6T200088.0007 to the test result list€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 3C3HY75SX6T200088.0007)
+€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Data from file -- VIN: 3C3HY75SX6T200088.0007, Sequence number: 7
+€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Added: 3C3HY75SX6T200088.0007 to back of list: -->3C3HY75SX6T200088.0007<--
+€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Checking number of saved files: have 7;  max 1000
+€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Added 3C3HY75SX6T200088.0007 to the test result list€
+€12/13/10 15:23:45.527 (1) core/TestResultServer      Result file name: 3C3HY75SX6T200088.0008
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Adding 3C3HY75SX6T200088.0008 to the test result list€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 3C3HY75SX6T200088.0008)
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Data from file -- VIN: 3C3HY75SX6T200088.0008, Sequence number: 8
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Added: 3C3HY75SX6T200088.0008 to back of list: -->3C3HY75SX6T200088.0008<--
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Checking number of saved files: have 8;  max 1000
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Added 3C3HY75SX6T200088.0008 to the test result list€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Result file name: 3C3HY75SX6T200088.0009
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Adding 3C3HY75SX6T200088.0009 to the test result list€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 3C3HY75SX6T200088.0009)
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Data from file -- VIN: 3C3HY75SX6T200088.0009, Sequence number: 9
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Added: 3C3HY75SX6T200088.0009 to back of list: -->3C3HY75SX6T200088.0009<--
+€
+€12/13/10 15:23:45.528 (1) core/TestResultServer      Checking number of saved files: have 9;  max 1000
+€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Added 3C3HY75SX6T200088.0009 to the test result list€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Result file name: 1J4FT28W07A200378.0010
+€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Adding 1J4FT28W07A200378.0010 to the test result list€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J4FT28W07A200378.0010)
+€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Data from file -- VIN: 1J4FT28W07A200378.0010, Sequence number: 10
+€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Added: 1J4FT28W07A200378.0010 to back of list: -->1J4FT28W07A200378.0010<--
+€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Checking number of saved files: have 10;  max 1000
+€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Added 1J4FT28W07A200378.0010 to the test result list€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Result file name: 1C3LC65MX7A980011.0011
+€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      Adding 1C3LC65MX7A980011.0011 to the test result list€
+€12/13/10 15:23:45.529 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC65MX7A980011.0011)
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Data from file -- VIN: 1C3LC65MX7A980011.0011, Sequence number: 11
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Added: 1C3LC65MX7A980011.0011 to back of list: -->1C3LC65MX7A980011.0011<--
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Checking number of saved files: have 11;  max 1000
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Added 1C3LC65MX7A980011.0011 to the test result list€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Result file name: 1C3LC65MX7A980011.0012
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Adding 1C3LC65MX7A980011.0012 to the test result list€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC65MX7A980011.0012)
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Data from file -- VIN: 1C3LC65MX7A980011.0012, Sequence number: 12
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Added: 1C3LC65MX7A980011.0012 to back of list: -->1C3LC65MX7A980011.0012<--
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Checking number of saved files: have 12;  max 1000
+€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Added 1C3LC65MX7A980011.0012 to the test result list€
+€12/13/10 15:23:45.530 (1) core/TestResultServer      Result file name: 1C3LC65MX7A980011.0013
+€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Adding 1C3LC65MX7A980011.0013 to the test result list€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC65MX7A980011.0013)
+€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Data from file -- VIN: 1C3LC65MX7A980011.0013, Sequence number: 13
+€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Added: 1C3LC65MX7A980011.0013 to back of list: -->1C3LC65MX7A980011.0013<--
+€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Checking number of saved files: have 13;  max 1000
+€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Added 1C3LC65MX7A980011.0013 to the test result list€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Result file name: 1C3LC65MX7A980011.0014
+€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Adding 1C3LC65MX7A980011.0014 to the test result list€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC65MX7A980011.0014)
+€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Data from file -- VIN: 1C3LC65MX7A980011.0014, Sequence number: 14
+€
+€12/13/10 15:23:45.531 (1) core/TestResultServer      Added: 1C3LC65MX7A980011.0014 to back of list: -->1C3LC65MX7A980011.0014<--
+€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Checking number of saved files: have 14;  max 1000
+€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Added 1C3LC65MX7A980011.0014 to the test result list€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Result file name: 1C3LC65MX7A980011.0015
+€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Adding 1C3LC65MX7A980011.0015 to the test result list€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC65MX7A980011.0015)
+€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Data from file -- VIN: 1C3LC65MX7A980011.0015, Sequence number: 15
+€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Added: 1C3LC65MX7A980011.0015 to back of list: -->1C3LC65MX7A980011.0015<--
+€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Checking number of saved files: have 15;  max 1000
+€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Added 1C3LC65MX7A980011.0015 to the test result list€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Result file name: 1C3LC65MX7A980011.0016
+€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      Adding 1C3LC65MX7A980011.0016 to the test result list€
+€12/13/10 15:23:45.532 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC65MX7A980011.0016)
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Data from file -- VIN: 1C3LC65MX7A980011.0016, Sequence number: 16
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Added: 1C3LC65MX7A980011.0016 to back of list: -->1C3LC65MX7A980011.0016<--
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Checking number of saved files: have 16;  max 1000
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Added 1C3LC65MX7A980011.0016 to the test result list€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Result file name: 1C3LC65M07A980017.0017
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Adding 1C3LC65M07A980017.0017 to the test result list€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC65M07A980017.0017)
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Data from file -- VIN: 1C3LC65M07A980017.0017, Sequence number: 17
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Added: 1C3LC65M07A980017.0017 to back of list: -->1C3LC65M07A980017.0017<--
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Checking number of saved files: have 17;  max 1000
+€
+€12/13/10 15:23:45.533 (1) core/TestResultServer      Added 1C3LC65M07A980017.0017 to the test result list€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Result file name: 1C3LC65M07A980017.0018
+€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Adding 1C3LC65M07A980017.0018 to the test result list€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC65M07A980017.0018)
+€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Data from file -- VIN: 1C3LC65M07A980017.0018, Sequence number: 18
+€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Added: 1C3LC65M07A980017.0018 to back of list: -->1C3LC65M07A980017.0018<--
+€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Checking number of saved files: have 18;  max 1000
+€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Added 1C3LC65M07A980017.0018 to the test result list€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0019
+€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0019 to the test result list€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0019)
+€
+€12/13/10 15:23:45.534 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0019, Sequence number: 19
+€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0019 to back of list: -->1J8FF28W37A200364.0019<--
+€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Checking number of saved files: have 19;  max 1000
+€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Added 1J8FF28W37A200364.0019 to the test result list€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0020
+€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0020 to the test result list€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0020)
+€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0020, Sequence number: 20
+€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0020 to back of list: -->1J8FF28W37A200364.0020<--
+€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Checking number of saved files: have 20;  max 1000
+€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Added 1J8FF28W37A200364.0020 to the test result list€
+€12/13/10 15:23:45.535 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0021
+€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0021 to the test result list€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0021)
+€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0021, Sequence number: 21
+€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0021 to back of list: -->1J8FF28W37A200364.0021<--
+€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Checking number of saved files: have 21;  max 1000
+€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Added 1J8FF28W37A200364.0021 to the test result list€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Result file name: 1J4FT28W07A200378.0022
+€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Adding 1J4FT28W07A200378.0022 to the test result list€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J4FT28W07A200378.0022)
+€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Data from file -- VIN: 1J4FT28W07A200378.0022, Sequence number: 22
+€
+€12/13/10 15:23:45.536 (1) core/TestResultServer      Added: 1J4FT28W07A200378.0022 to back of list: -->1J4FT28W07A200378.0022<--
+€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Checking number of saved files: have 22;  max 1000
+€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Added 1J4FT28W07A200378.0022 to the test result list€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Result file name: 1J4FT28W07A200378.0023
+€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Adding 1J4FT28W07A200378.0023 to the test result list€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J4FT28W07A200378.0023)
+€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Data from file -- VIN: 1J4FT28W07A200378.0023, Sequence number: 23
+€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Added: 1J4FT28W07A200378.0023 to back of list: -->1J4FT28W07A200378.0023<--
+€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Checking number of saved files: have 23;  max 1000
+€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Added 1J4FT28W07A200378.0023 to the test result list€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0024
+€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0024 to the test result list€
+€12/13/10 15:23:45.537 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0024)
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0024, Sequence number: 24
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0024 to back of list: -->1J8FF28W37A200364.0024<--
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Checking number of saved files: have 24;  max 1000
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Added 1J8FF28W37A200364.0024 to the test result list€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0025
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0025 to the test result list€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0025)
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0025, Sequence number: 25
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0025 to back of list: -->1J8FF28W37A200364.0025<--
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Checking number of saved files: have 25;  max 1000
+€
+€12/13/10 15:23:45.538 (1) core/TestResultServer      Added 1J8FF28W37A200364.0025 to the test result list€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Result file name: 1J4FT28W07A200378.0026
+€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Adding 1J4FT28W07A200378.0026 to the test result list€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J4FT28W07A200378.0026)
+€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Data from file -- VIN: 1J4FT28W07A200378.0026, Sequence number: 26
+€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Added: 1J4FT28W07A200378.0026 to back of list: -->1J4FT28W07A200378.0026<--
+€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Checking number of saved files: have 26;  max 1000
+€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Added 1J4FT28W07A200378.0026 to the test result list€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Result file name: 1J8FF28W17A200363.0027
+€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Adding 1J8FF28W17A200363.0027 to the test result list€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W17A200363.0027)
+€
+€12/13/10 15:23:45.539 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W17A200363.0027, Sequence number: 27
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Added: 1J8FF28W17A200363.0027 to back of list: -->1J8FF28W17A200363.0027<--
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Checking number of saved files: have 27;  max 1000
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Added 1J8FF28W17A200363.0027 to the test result list€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Result file name: 1J8FF28W17A200363.0028
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Adding 1J8FF28W17A200363.0028 to the test result list€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W17A200363.0028)
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W17A200363.0028, Sequence number: 28
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Added: 1J8FF28W17A200363.0028 to back of list: -->1J8FF28W17A200363.0028<--
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Checking number of saved files: have 28;  max 1000
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Added 1J8FF28W17A200363.0028 to the test result list€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Result file name: 1J8FF28W17A200363.0029
+€
+€12/13/10 15:23:45.540 (1) core/TestResultServer      Adding 1J8FF28W17A200363.0029 to the test result list€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W17A200363.0029)
+€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W17A200363.0029, Sequence number: 29
+€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Added: 1J8FF28W17A200363.0029 to back of list: -->1J8FF28W17A200363.0029<--
+€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Checking number of saved files: have 29;  max 1000
+€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Added 1J8FF28W17A200363.0029 to the test result list€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0030
+€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0030 to the test result list€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0030)
+€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0030, Sequence number: 30
+€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0030 to back of list: -->1J8FF28W37A200364.0030<--
+€
+€12/13/10 15:23:45.541 (1) core/TestResultServer      Checking number of saved files: have 30;  max 1000
+€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Added 1J8FF28W37A200364.0030 to the test result list€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0031
+€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0031 to the test result list€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0031)
+€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0031, Sequence number: 31
+€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0031 to back of list: -->1J8FF28W37A200364.0031<--
+€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Checking number of saved files: have 31;  max 1000
+€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Added 1J8FF28W37A200364.0031 to the test result list€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0032
+€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0032 to the test result list€
+€12/13/10 15:23:45.542 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0032)
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0032, Sequence number: 32
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0032 to back of list: -->1J8FF28W37A200364.0032<--
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Checking number of saved files: have 32;  max 1000
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Added 1J8FF28W37A200364.0032 to the test result list€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Result file name: 1J4FT28W07A200378.0033
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Adding 1J4FT28W07A200378.0033 to the test result list€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J4FT28W07A200378.0033)
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Data from file -- VIN: 1J4FT28W07A200378.0033, Sequence number: 33
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Added: 1J4FT28W07A200378.0033 to back of list: -->1J4FT28W07A200378.0033<--
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Checking number of saved files: have 33;  max 1000
+€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Added 1J4FT28W07A200378.0033 to the test result list€
+€12/13/10 15:23:45.543 (1) core/TestResultServer      Result file name: 1J8F7F8W37A200384.0034
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Adding 1J8F7F8W37A200384.0034 to the test result list€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8F7F8W37A200384.0034)
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Data from file -- VIN: 1J8F7F8W37A200384.0034, Sequence number: 34
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Added: 1J8F7F8W37A200384.0034 to back of list: -->1J8F7F8W37A200384.0034<--
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Checking number of saved files: have 34;  max 1000
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Added 1J8F7F8W37A200384.0034 to the test result list€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0035
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0035 to the test result list€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0035)
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0035, Sequence number: 35
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0035 to back of list: -->1J8FF28W37A200364.0035<--
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Checking number of saved files: have 35;  max 1000
+€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Added 1J8FF28W37A200364.0035 to the test result list€
+€12/13/10 15:23:45.544 (1) core/TestResultServer      Result file name: 1C3LC55T27A980019.0036
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Adding 1C3LC55T27A980019.0036 to the test result list€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC55T27A980019.0036)
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Data from file -- VIN: 1C3LC55T27A980019.0036, Sequence number: 36
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Added: 1C3LC55T27A980019.0036 to back of list: -->1C3LC55T27A980019.0036<--
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Checking number of saved files: have 36;  max 1000
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Added 1C3LC55T27A980019.0036 to the test result list€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Result file name: 1C3LC55T27A980019.0037
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Adding 1C3LC55T27A980019.0037 to the test result list€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC55T27A980019.0037)
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Data from file -- VIN: 1C3LC55T27A980019.0037, Sequence number: 37
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Added: 1C3LC55T27A980019.0037 to back of list: -->1C3LC55T27A980019.0037<--
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Checking number of saved files: have 37;  max 1000
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Added 1C3LC55T27A980019.0037 to the test result list€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Result file name: 1J8FF28W37A200364.0038
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Adding 1J8FF28W37A200364.0038 to the test result list€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J8FF28W37A200364.0038)
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Data from file -- VIN: 1J8FF28W37A200364.0038, Sequence number: 38
+€
+€12/13/10 15:23:45.545 (1) core/TestResultServer      Added: 1J8FF28W37A200364.0038 to back of list: -->1J8FF28W37A200364.0038<--
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Checking number of saved files: have 38;  max 1000
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Added 1J8FF28W37A200364.0038 to the test result list€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Result file name: 1C3LC55T27A980019.0039
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Adding 1C3LC55T27A980019.0039 to the test result list€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC55T27A980019.0039)
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Data from file -- VIN: 1C3LC55T27A980019.0039, Sequence number: 39
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Added: 1C3LC55T27A980019.0039 to back of list: -->1C3LC55T27A980019.0039<--
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Checking number of saved files: have 39;  max 1000
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Added 1C3LC55T27A980019.0039 to the test result list€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Result file name: 1C3LC55T27A980019.0040
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Adding 1C3LC55T27A980019.0040 to the test result list€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC55T27A980019.0040)
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Data from file -- VIN: 1C3LC55T27A980019.0040, Sequence number: 40
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Added: 1C3LC55T27A980019.0040 to back of list: -->1C3LC55T27A980019.0040<--
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Checking number of saved files: have 40;  max 1000
+€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Added 1C3LC55T27A980019.0040 to the test result list€
+€12/13/10 15:23:45.546 (1) core/TestResultServer      Result file name: 1C3LC55T27A980019.0041
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Adding 1C3LC55T27A980019.0041 to the test result list€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC55T27A980019.0041)
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Data from file -- VIN: 1C3LC55T27A980019.0041, Sequence number: 41
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Added: 1C3LC55T27A980019.0041 to back of list: -->1C3LC55T27A980019.0041<--
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Checking number of saved files: have 41;  max 1000
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Added 1C3LC55T27A980019.0041 to the test result list€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Result file name: 1C3LC46R67N534557.0042
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Adding 1C3LC46R67N534557.0042 to the test result list€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC46R67N534557.0042)
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Data from file -- VIN: 1C3LC46R67N534557.0042, Sequence number: 42
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Added: 1C3LC46R67N534557.0042 to back of list: -->1C3LC46R67N534557.0042<--
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Checking number of saved files: have 42;  max 1000
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Added 1C3LC46R67N534557.0042 to the test result list€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Result file name: 1C3ACC6AX7N529390.0043
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Adding 1C3ACC6AX7N529390.0043 to the test result list€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3ACC6AX7N529390.0043)
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Data from file -- VIN: 1C3ACC6AX7N529390.0043, Sequence number: 43
+€
+€12/13/10 15:23:45.547 (1) core/TestResultServer      Added: 1C3ACC6AX7N529390.0043 to back of list: -->1C3ACC6AX7N529390.0043<--
+€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      Checking number of saved files: have 43;  max 1000
+€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      Added 1C3ACC6AX7N529390.0043 to the test result list€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      Result file name: 1C3LC46R67N534557.0044
+€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      Adding 1C3LC46R67N534557.0044 to the test result list€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1C3LC46R67N534557.0044)
+€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      Data from file -- VIN: 1C3LC46R67N534557.0044, Sequence number: 44
+€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      Added: 1C3LC46R67N534557.0044 to back of list: -->1C3LC46R67N534557.0044<--
+€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      Checking number of saved files: have 44;  max 1000
+€
+€12/13/10 15:23:45.548 (1) core/TestResultServer      Added 1C3LC46R67N534557.0044 to the test result list€
+€12/13/10 15:23:45.550 (1) core/TestResultServer      Result file name: 1J458KS4KBC500123.0045
+€
+€12/13/10 15:23:45.550 (1) core/TestResultServer      Adding 1J458KS4KBC500123.0045 to the test result list€
+€12/13/10 15:23:45.550 (1) core/TestResultServer      TestResultServer::AddTestResult(vin: 1J458KS4KBC500123.0045)
+€
+€12/13/10 15:23:45.550 (1) core/TestResultServer      Data from file -- VIN: 1J458KS4KBC500123.0045, Sequence number: 45
+€
+€12/13/10 15:23:45.550 (1) core/TestResultServer      Added: 1J458KS4KBC500123.0045 to back of list: -->1J458KS4KBC500123.0045<--
+€
+€12/13/10 15:23:45.550 (1) core/TestResultServer      Checking number of saved files: have 45;  max 1000
+€
+€12/13/10 15:23:45.551 (1) core/TestResultServer      Added 1J458KS4KBC500123.0045 to the test result list€
+€12/13/10 15:23:45.555 (1) core/TestResultServer      TestResultServer::Initialize(<TestResultServerConfig>
+   <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/TestResultServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllFailures>AllFailures</AllFailures>         <ClearScrollBox>ClearScrollBox</ClearScrollBox>         <DriveCurve>DriveCurve</DriveCurve>         <DriverNumber>DriverNumber</DriverNumber>         <KeyPress>KeyPress</KeyPress>         <OverallTest>OverallTest</OverallTest>         <StartTest>StartVehicleTest</StartTest>         <VehicleBuild>VehicleBuild</VehicleBuild>         <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Ye€
+€12/13/10 15:23:45.555 (1) core/TestResultServer      Connect to qnx data server not specified, not connecting: Tag Not Found: ConnectToQnxDataServer€
+€12/13/10 15:23:52.291 (2) core/TestResultServer      Number Of Tags: 9, -1
+€
+€12/13/10 15:23:52.383 (2) core/TestResultServer      BepServer::SubscribeTags() 0
+€
+€12/13/10 15:23:52.393 (2) core/TestResultServer      BepComponent::Subscribe(TestResult, core/MachineDataBroker)
+€
+€12/13/10 15:23:52.393 (2) core/TestResultServer      BepServer::GetData(TestResult) was unable to provide requested data
+€
+€12/13/10 15:23:52.394 (2) core/TestResultServer      Additional log [Servers/TestResultServer.log] already activated.€
+€12/13/10 15:23:52.394 (2) core/TestResultServer      NotificationThreadSpinner::Initialize(<TestResultServerConfig>
+   <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/TestResultServer</Name>      <Timeout>1000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <AllFailures>AllFailures</AllFailures>      <ClearScrollBox>ClearScrollBox</ClearScrollBox>      <DriveCurve>DriveCurve</DriveCurve>      <DriverNumber>DriverNumber</DriverNumber>      <KeyPress>KeyPress</KeyPress>      <OverallTest>OverallTest</OverallTest>      <StartTest>StartVehicleTest</StartTest>      <VehicleBuild>VehicleBuild</VehicleBuild>      <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Yes</IncludeAbortInAllFailures>      <€
+€12/13/10 15:23:52.395 (2) core/TestResultServer      Additional log [Servers/TestResultServer.log] already activated.€
+€12/13/10 15:23:52.395 (2) core/TestResultServer      NotificationList::Initialize(<TestResultServerConfig>
+   <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/TestResultServer</Name>      <Timeout>1000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <AllFailures>AllFailures</AllFailures>      <ClearScrollBox>ClearScrollBox</ClearScrollBox>      <DriveCurve>DriveCurve</DriveCurve>      <DriverNumber>DriverNumber</DriverNumber>      <KeyPress>KeyPress</KeyPress>      <OverallTest>OverallTest</OverallTest>      <StartTest>StartVehicleTest</StartTest>      <VehicleBuild>VehicleBuild</VehicleBuild>      <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Yes</IncludeAbortInAllFailures>      <Logging>
+€
+€12/13/10 15:23:52.396 (2) core/TestResultServer      NotificationThreadSpinner::Initialize(<TestResultServerConfig>
+   <Setup>
+      <AddForceArray Value="Yes or No">Yes</AddForceArray>      <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/TestResultServer</Name>      <Timeout>1000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <AllFailures>AllFailures</AllFailures>      <ClearScrollBox>ClearScrollBox</ClearScrollBox>      <DriveCurve>DriveCurve</DriveCurve>      <DriverNumber>DriverNumber</DriverNumber>      <KeyPress>KeyPress</KeyPress>      <OverallTest>OverallTest</OverallTest>      <StartTest>StartVehicleTest</StartTest>      <VehicleBuild>VehicleBuild</VehicleBuild>      <Vin>VIN</Vin>      </DataTags>      <Debug>Off</Debug>      <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>      <IncludeAbortInAllFailures Value="Yes or No">Yes</IncludeAbortInAllFailures>      <€
+€12/13/10 15:23:52.396 (2) core/TestResultServer      NotificationList::AddToList(TestResult, 0)
+€
+€12/13/10 15:23:52.396 (2) core/TestResultServer      Adding elem for Tag: TestResult
+€
+€12/13/10 15:23:52.396 (2) core/TestResultServer      Added new list and process for tag: TestResult
+€
+€12/13/10 15:23:52.396 (2) core/TestResultServer      NotificationList::AddToList(TestResult, 0) done
+€
+€12/13/10 15:23:52.397 (2) core/TestResultServer      BepComponent::Subscribe(TestResult core/MachineDataBroker) done returning Unavailable
+€
+€12/13/10 15:24:32.700 (2) core/TestResultServer      BepServer::SetData(<BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>)
+€
+€12/13/10 15:24:32.700 (2) core/TestResultServer      BepServer::SetData(<BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>) done, returning Success
+€
+€12/13/10 15:24:32.701 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:32.701 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:32.701 (2) core/TestResultServer      TestResultServer::CheckTestResult(   <BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>
+) begin
+€
+€12/13/10 15:24:32.701 (6) core/TestResultServer      NotificationList::Notify(<BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:32.701 (2) core/TestResultServer      Initial test of BrakeOverallTest, TestInProgress
+€
+€12/13/10 15:24:32.701 (6) core/TestResultServer      NotificationList::Notify locked(<BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:32.701 (2) core/TestResultServer      Test BrakeOverallTest not added to allFailures because result is TestInProgress
+€
+€12/13/10 15:24:32.701 (6) core/TestResultServer      NotificationList::Notify unlocked(<BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:32.702 (2) core/TestResultServer      TestResultServer::CheckTestResult() complete
+€
+€12/13/10 15:24:32.702 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>
+) done
+€
+€12/13/10 15:24:32.702 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="TestInProgress" TestResultCode="0000"/>
+
+€
+€12/13/10 15:24:51.082 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.082 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>) done, returning Success
+€
+€12/13/10 15:24:51.083 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.084 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.084 (2) core/TestResultServer      Creating new node for Brake DTCs
+€
+€12/13/10 15:24:51.084 (6) core/TestResultServer      NotificationList::Notify(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.085 (2) core/TestResultServer      Stored DTC information for module Brake:       <ModuleFault_4221 DTCCode="4221">ModuleFault_4221 Description Unavailable</ModuleFault_4221>
+€
+€12/13/10 15:24:51.085 (6) core/TestResultServer      NotificationList::Notify locked(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.085 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>
+€
+€12/13/10 15:24:51.085 (6) core/TestResultServer      NotificationList::Notify unlocked(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.086 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>) done
+€
+€12/13/10 15:24:51.089 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.090 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>) done, returning Success
+€
+€12/13/10 15:24:51.090 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.091 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.091 (2) core/TestResultServer      Stored DTC information for module Brake:       <ModuleFault_4221 DTCCode="4221">ModuleFault_4221 Description Unavailable</ModuleFault_4221>
+€
+€12/13/10 15:24:51.091 (6) core/TestResultServer      NotificationList::Notify(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.091 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>
+€
+€12/13/10 15:24:51.091 (6) core/TestResultServer      NotificationList::Notify locked(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.092 (6) core/TestResultServer      NotificationList::Notify unlocked(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>)
+€
+€12/13/10 15:24:51.093 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4221 Description Unavailable" Process="Brake" Result="ModuleFault_4221" TestResultCode="4221">4221</SetDTC>) done
+€
+€12/13/10 15:24:51.095 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.095 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>) done, returning Success
+€
+€12/13/10 15:24:51.095 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.096 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.096 (2) core/TestResultServer      Stored DTC information for module Brake:       <ModuleFault_4225 DTCCode="4225">ModuleFault_4225 Description Unavailable</ModuleFault_4225>
+€
+€12/13/10 15:24:51.096 (6) core/TestResultServer      NotificationList::Notify(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.096 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>
+€
+€12/13/10 15:24:51.096 (6) core/TestResultServer      NotificationList::Notify locked(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.097 (6) core/TestResultServer      NotificationList::Notify unlocked(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.097 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>) done
+€
+€12/13/10 15:24:51.099 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.099 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>) done, returning Success
+€
+€12/13/10 15:24:51.100 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.100 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.101 (2) core/TestResultServer      Stored DTC information for module Brake:       <ModuleFault_4225 DTCCode="4225">ModuleFault_4225 Description Unavailable</ModuleFault_4225>
+€
+€12/13/10 15:24:51.101 (6) core/TestResultServer      NotificationList::Notify(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.101 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>
+€
+€12/13/10 15:24:51.101 (6) core/TestResultServer      NotificationList::Notify locked(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.101 (6) core/TestResultServer      NotificationList::Notify unlocked(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>)
+€
+€12/13/10 15:24:51.102 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4225 Description Unavailable" Process="Brake" Result="ModuleFault_4225" TestResultCode="4225">4225</SetDTC>) done
+€
+€12/13/10 15:24:51.104 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.104 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>) done, returning Success
+€
+€12/13/10 15:24:51.104 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.105 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.105 (2) core/TestResultServer      Stored DTC information for module Brake:       <ModuleFault_4231 DTCCode="4231">ModuleFault_4231 Description Unavailable</ModuleFault_4231>
+€
+€12/13/10 15:24:51.105 (6) core/TestResultServer      NotificationList::Notify(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.105 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>
+€
+€12/13/10 15:24:51.105 (6) core/TestResultServer      NotificationList::Notify locked(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.106 (6) core/TestResultServer      NotificationList::Notify unlocked(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.107 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>) done
+€
+€12/13/10 15:24:51.108 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.109 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>) done, returning Success
+€
+€12/13/10 15:24:51.109 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.110 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.110 (2) core/TestResultServer      Stored DTC information for module Brake:       <ModuleFault_4231 DTCCode="4231">ModuleFault_4231 Description Unavailable</ModuleFault_4231>
+€
+€12/13/10 15:24:51.110 (6) core/TestResultServer      NotificationList::Notify(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.110 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>
+€
+€12/13/10 15:24:51.110 (6) core/TestResultServer      NotificationList::Notify locked(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.111 (6) core/TestResultServer      NotificationList::Notify unlocked(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>)
+€
+€12/13/10 15:24:51.111 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4231 Description Unavailable" Process="Brake" Result="ModuleFault_4231" TestResultCode="4231">4231</SetDTC>) done
+€
+€12/13/10 15:24:51.113 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.113 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>) done, returning Success
+€
+€12/13/10 15:24:51.114 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.114 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.114 (2) core/TestResultServer      Stored DTC information for module Brake:       <ModuleFault_4235 DTCCode="4235">ModuleFault_4235 Description Unavailable</ModuleFault_4235>
+€
+€12/13/10 15:24:51.114 (6) core/TestResultServer      NotificationList::Notify(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.115 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>
+€
+€12/13/10 15:24:51.115 (6) core/TestResultServer      NotificationList::Notify locked(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.115 (6) core/TestResultServer      NotificationList::Notify unlocked(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.116 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>) done
+€
+€12/13/10 15:24:51.118 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.118 (2) core/TestResultServer      BepServer::SetData(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>) done, returning Success
+€
+€12/13/10 15:24:51.118 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.119 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.119 (2) core/TestResultServer      Stored DTC information for module Brake:       <ModuleFault_4235 DTCCode="4235">ModuleFault_4235 Description Unavailable</ModuleFault_4235>
+€
+€12/13/10 15:24:51.119 (6) core/TestResultServer      NotificationList::Notify(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.119 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>
+€
+€12/13/10 15:24:51.119 (6) core/TestResultServer      NotificationList::Notify locked(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.120 (6) core/TestResultServer      NotificationList::Notify unlocked(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>)
+€
+€12/13/10 15:24:51.121 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<SetDTC Description="ModuleFault_4235 Description Unavailable" Process="Brake" Result="ModuleFault_4235" TestResultCode="4235">4235</SetDTC>) done
+€
+€12/13/10 15:24:51.123 (2) core/TestResultServer      BepServer::SetData(<BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>)
+€
+€12/13/10 15:24:51.123 (2) core/TestResultServer      BepServer::SetData(<BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>) done, returning Success
+€
+€12/13/10 15:24:51.124 (2) core/TestResultServer      NotificationThreadSpinner::Notify(   <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+)
+€
+€12/13/10 15:24:51.125 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+)
+€
+€12/13/10 15:24:51.125 (2) core/TestResultServer      TestResultServer::CheckTestResult(   <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+) begin
+€
+€12/13/10 15:24:51.125 (6) core/TestResultServer      NotificationList::Notify(<BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+)
+€
+€12/13/10 15:24:51.125 (2) core/TestResultServer      Initial test of BrakeCommTest, Fail
+€
+€12/13/10 15:24:51.126 (6) core/TestResultServer      NotificationList::Notify locked(<BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+)
+€
+€12/13/10 15:24:51.126 (2) core/TestResultServer      Added test BrakeCommTest(Fail) to allFailures node
+€
+€12/13/10 15:24:51.126 (6) core/TestResultServer      NotificationList::Notify unlocked(<BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+)
+€
+€12/13/10 15:24:51.126 (2) core/TestResultServer      NotificationThreadSpinner::Notify(<AllFailures>
+   <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.126 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+) done
+€
+€12/13/10 15:24:51.129 (7) core/TestResultServer      NotificationThreadSpinner::SendNotification(<AllFailures>
+   <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.129 (2) core/TestResultServer      TestResultServer::CheckTestResult() complete
+€
+€12/13/10 15:24:51.129 (7) core/TestResultServer      NotificationList::Notify(<AllFailures>
+   <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.129 (2) core/TestResultServer      TestResultServer::Write() - Added Node:    <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+
+€
+€12/13/10 15:24:51.129 (7) core/TestResultServer      NotificationList::Notify locked(<AllFailures>
+   <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.130 (7) core/TestResultServer      NotificationList::Notify unlocked(<AllFailures>
+   <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.131 (7) core/TestResultServer      NotificationThreadSpinner::SendNotification(<AllFailures>
+   <BrakeCommTest Description="Faults detected in module" Process="Brake" Result="Fail" TestResultCode="4400"/>
+</AllFailures>) done
+€
+€12/13/10 15:24:51.133 (5) core/TestResultServer      BepServer::SetData(<BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>)
+€
+€12/13/10 15:24:51.133 (5) core/TestResultServer      BepServer::SetData(<BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>) done, returning Success
+€
+€12/13/10 15:24:51.134 (5) core/TestResultServer      NotificationThreadSpinner::Notify(   <BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:51.134 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:51.134 (5) core/TestResultServer      TestResultServer::CheckTestResult(   <BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+) begin
+€
+€12/13/10 15:24:51.134 (6) core/TestResultServer      NotificationList::Notify(<BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:51.135 (5) core/TestResultServer      Test BrakeCommTest was previously reported as Fail
+€
+€12/13/10 15:24:51.135 (6) core/TestResultServer      NotificationList::Notify locked(<BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:51.135 (5) core/TestResultServer      Added test BrakeCommTest(Fail) to allFailures node
+€
+€12/13/10 15:24:51.135 (6) core/TestResultServer      NotificationList::Notify unlocked(<BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+)
+€
+€12/13/10 15:24:51.135 (6) core/TestResultServer      NotificationThreadSpinner::SendNotification(<BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+) done
+€
+€12/13/10 15:24:51.135 (5) core/TestResultServer      NotificationThreadSpinner::Notify(<AllFailures>
+   <BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.136 (7) core/TestResultServer      NotificationThreadSpinner::SendNotification(<AllFailures>
+   <BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.136 (5) core/TestResultServer      TestResultServer::CheckTestResult() complete
+€
+€12/13/10 15:24:51.136 (7) core/TestResultServer      NotificationList::Notify(<AllFailures>
+   <BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.136 (5) core/TestResultServer      TestResultServer::Write() - Added Node:    <BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+
+€
+€12/13/10 15:24:51.136 (7) core/TestResultServer      NotificationList::Notify locked(<AllFailures>
+   <BrakeCommTest Description="Eric Testing" Process="Brake" Result="Fail" TestResultCode="0000"/>
+</AllFailures>)
+€
+€12/13/10 15:24:51.137 (7) core/TestResultServer      No

@@ -1,0 +1,1280 @@
+<Gen3InterfaceConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <Parameters>
+            <AutoRaiseRetainers>False</AutoRaiseRetainers>
+            <AutoLowerRetainers>False</AutoLowerRetainers>
+            <AutoReatinersToggleDelay Units="ms">500</AutoReatinersToggleDelay>
+            <FortyKmhButtonLatchTime Units="ms">1500</FortyKmhButtonLatchTime>
+        </Parameters>
+        <DataTags>
+            <AxleRatioResultName>TransferCaseCheckAxleRatio</AxleRatioResultName>
+            <MotorMode>MotorMode</MotorMode>
+            <TorqueMode>Torque</TorqueMode>
+            <CommandTorque>CommandTorque</CommandTorque>
+            <Clutch>Clutch</Clutch>
+            <Declutch>Declutch</Declutch>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <DriveAxleFwd>Front</DriveAxleFwd>
+            <DriveAxleRwd>Rear</DriveAxleRwd>
+            <AllFaults>AllFaults</AllFaults>
+            <ZeroSpeed>Zerospeed</ZeroSpeed>
+            <PowerSense>PowerSense</PowerSense>
+            <EStop>PanelEStopPushbuttonDepressed</EStop>
+            <Calibrate>LossCompensation</Calibrate>
+            <ReadyForTest>PLCSystemIsReady</ReadyForTest>
+            <RollerCount>4</RollerCount>
+            <MachineNumber>MachineNumber</MachineNumber>
+            <RollsDown>RollsDownElevUp</RollsDown>
+            <Start40kphTag>Start40kphTest</Start40kphTag>
+            <VehiclePresent>VehiclePresent</VehiclePresent>
+            <MotorControllerName>core/MotorController</MotorControllerName>
+            <BrakeTestComponentName>component/GMBrake</BrakeTestComponentName>
+            <TcaseTestComponentName>component/GMTcase</TcaseTestComponentName>
+            <ObjectiveInitialize>Initialize</ObjectiveInitialize>
+            <ObjectiveDragTest>DragTest</ObjectiveDragTest>
+            <ObjectiveBrakeTestStart>BeginBrakeTest</ObjectiveBrakeTestStart>
+            <ObjectiveBrakeTestStop>EndBrakeTest</ObjectiveBrakeTestStop>
+            <ObjectiveAbsValveFiringStart>BeginAbsValveFiring</ObjectiveAbsValveFiringStart>
+            <ObjectiveAbsValveFiringEnd>EndAbsValveFiring</ObjectiveAbsValveFiringEnd>
+            <ObjectiveStartParkBrake>BeginParkBrakeTest</ObjectiveStartParkBrake>
+            <ObjectiveStopParkBrake>EndParkBrakeTest</ObjectiveStopParkBrake>
+            <ObjectiveDeclutchMachine>DisengageMachine</ObjectiveDeclutchMachine>
+            <ObjectiveClutchMachine>EngageMachine</ObjectiveClutchMachine>
+            <ObjectiveStartMaxBrake>BeginMaxBrakeTest</ObjectiveStartMaxBrake>
+            <ObjectiveEndMaxBrake>EndMaxBrakeTest</ObjectiveEndMaxBrake>
+            <ObjectiveStartTractionTest>BeginTractionControlTest</ObjectiveStartTractionTest>
+            <ObjectiveStopTractionTest>EndTractionControlTest</ObjectiveStopTractionTest>
+        </DataTags>
+        <MonitorSystemDataItems>
+            <DataItems>
+                <PLCReadyToTest/>
+                <RollsDownElevUp/>
+                <RollsUpElevDown/>
+                <WheelbaseInPosition/>
+                <Zerospeed/>
+            </DataItems>
+            <SystemDataUpdateDelay>1000</SystemDataUpdateDelay>
+        </MonitorSystemDataItems>
+        <DvtCommunications>
+            <Setup>
+                <Communication>
+                    <Debug>Off</Debug>
+                    <Name>/dev/LogicalPorts/DVT</Name>
+                    <BufferSize>128</BufferSize>
+                    <Timeout>10000</Timeout>
+                    <Retries>1</Retries>
+                </Communication>
+                <Logging>
+                    <Status>Enabled</Status>
+                    <ProcessName>DvtComm</ProcessName>
+                    <AdditionalLogFile Types="/Communication/DvtComm.log or Disabled">/Communication/DvtComm.log</AdditionalLogFile>
+                    <Debug>Off</Debug>
+                    <LocalEcho>Disabled</LocalEcho>
+                    <Verbose>0x3F</Verbose>
+                </Logging>
+            </Setup>
+        </DvtCommunications>
+        <MessageData>
+            <DataLengthOffset>0x55</DataLengthOffset>
+            <MessageIdByte>0</MessageIdByte>
+            <DataLengthByte>1</DataLengthByte>
+            <ModeByte>2</ModeByte>
+            <MessageTypeByte>3</MessageTypeByte>
+            <Mode1DataByte>4</Mode1DataByte>
+            <MachineSerialNumberLength>6</MachineSerialNumberLength>
+            <MaxMachineFaults>10</MaxMachineFaults>
+            <Incoming>
+                <MessageTimeout units="ms">3000</MessageTimeout>
+                <MessageEndDelay units="ms">25</MessageEndDelay>
+                <ExpectedMessageId>0x07</ExpectedMessageId>
+                <IncomingMessageCheckDelay units="ms">1</IncomingMessageCheckDelay>
+            </Incoming>
+            <Outgoing>
+                <DataStartIndex>3</DataStartIndex>
+                <MessageId>0x07</MessageId>
+            </Outgoing>
+            <TestResultTags>
+                <BrakeAccelerateToTestSpeed/>
+                <BrakeDragTest/>
+                <BrakeAnalyzeDragTest/>
+                <BrakeTractionControlTest/>
+                <BrakeBrakeTest/>
+                <BrakeStopBaseBrakeTest/>
+                <BrakeValveFiringTest/>
+                <OverallTest/>
+                <MachineMaxBrakeForce/>
+                <MachineParkBrake/>
+                <BrakePinionFactorProgramming/>
+                <TransferCaseCheckAxleRatio/>
+                <MachinePositraction/>
+                <MachineVibrationAnalysis/>
+                <BrakeEvaluateABS/>
+            </TestResultTags>
+            <TestStatusTags>
+                <BrakeReadFaults/>
+                <BrakeHighSpeedSensorTest/>
+                <BrakeMachineFault/>
+            </TestStatusTags>
+            <BrakeStatData>
+                <BrakeLeftFrontDragTestStats/>
+                <BrakeRightFrontDragTestStats/>
+                <BrakeLeftRearDragTestStats/>
+                <BrakeRightRearDragTestStats/>
+                <BrakeLeftFrontSecondReduction/>
+                <BrakeRightFrontSecondReduction/>
+                <BrakeLeftRearSecondReduction/>
+                <BrakeRightRearSecondReduction/>
+                <BrakeLeftFrontBrakeTestStats/>
+                <BrakeRightFrontBrakeTestStats/>
+                <BrakeLeftRearBrakeTestStats/>
+                <BrakeRightRearBrakeTestStats/>
+                <BrakeLeftFrontTractionControlStats/>
+                <BrakeRightFrontTractionControlStats/>
+                <BrakeLeftRearTractionControlStats/>
+                <BrakeRightRearTractionControlStats/>
+                <BrakeLeftFrontAbsStats/>
+                <BrakeRightFrontAbsStats/>
+                <BrakeLeftRearAbsStats/>
+                <BrakeRightRearAbsStats/>
+                <BrakeLeftFrontParkBrakeStats/>
+                <BrakeRightFrontParkBrakeStats/>
+                <BrakeLeftRearParkBrakeStats/>
+                <BrakeRightRearParkBrakeStats/>
+            </BrakeStatData>
+            <PlcCodes>
+                <Lvi>0</Lvi>
+                <Opto22>1</Opto22>
+                <Plc5Ltv>3</Plc5Ltv>
+                <Plc5V30B>4</Plc5V30B>
+                <SerialAb>5</SerialAb>
+                <SerialGe>6</SerialGe>
+            </PlcCodes>
+            <Messages>
+                <Mode1>
+                    <Message00 Description="Short data list">
+                        <Length>21</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <LfSpeed scaleFactor="100">1</LfSpeed>
+                            <RfSpeed scaleFactor="100">3</RfSpeed>
+                            <LrSpeed scaleFactor="100">5</LrSpeed>
+                            <RrSpeed scaleFactor="100">7</RrSpeed>
+                            <AbsoluteForce scaleFactor="1">9</AbsoluteForce>
+                            <!-- Test Completion Status Byte 1 -->
+                            <TestCompleteStatus1>11</TestCompleteStatus1>
+                            <ResetComplete bit="0">11</ResetComplete>
+                            <BrakeAccelerateToTestSpeed bit="1">11</BrakeAccelerateToTestSpeed>
+                            <BrakeAnalyzeDragTest bit="2">11</BrakeAnalyzeDragTest>
+                            <BrakeTractionControlTest bit="3">11</BrakeTractionControlTest>
+                            <BrakeStopBaseBrakeTest bit="4">11</BrakeStopBaseBrakeTest>
+                            <BrakeValveFiringTest bit="5">11</BrakeValveFiringTest>
+                            <OverallTest bit="7">11</OverallTest>
+                            <!-- Test Completion Status Byte 2 -->
+                            <TestCompleteStatus2>12</TestCompleteStatus2>
+                            <BrakeMaxBrakeForce bit="0">12</BrakeMaxBrakeForce>
+                            <BrakeParkBrake bit="1">12</BrakeParkBrake>
+                            <BrakePinionFactorProgramming bit="2">12</BrakePinionFactorProgramming>
+                            <TransferCaseCheckAxleRatio bit="3">12</TransferCaseCheckAxleRatio>
+                            <MachinePositraction bit="4">12</MachinePositraction>
+                            <MachineVibrationAnalysis bit="5">12</MachineVibrationAnalysis>
+                            <BrakeEvaluateABS bit="6">12</BrakeEvaluateABS>
+                            <!-- Machine Status Byte 1 -->
+                            <AllFaults bit="0">13</AllFaults>
+                            <AldlNeutralSpeedAchieved bit="1">13</AldlNeutralSpeedAchieved>
+                            <BrakeReadFaults bit="2">13</BrakeReadFaults>
+                            <BrakeHighSpeedSensorTest bit="3">13</BrakeHighSpeedSensorTest>
+                            <BrakeMachineFault bit="4">13</BrakeMachineFault>
+                            <MaxMachineSpeedFault bit="5">13</MaxMachineSpeedFault>
+                            <Zerospeed bit="6">13</Zerospeed>
+                            <!-- Machine Status Byte 2 -->
+                            <RollsUpElevDown mask="0x03">14</RollsUpElevDown>
+                            <DeclutchFrontAndRearHydraulicClutches bit="2">14</DeclutchFrontAndRearHydraulicClutches>
+                            <BrakeTestArmed mask="0x18">7</BrakeTestArmed>
+                            <WheelbaseInPosition bit="5">14</WheelbaseInPosition>
+                            <PanelEStopPushbuttonDepressed bit="6">14</PanelEStopPushbuttonDepressed>
+                            <PLCReadyToTest bit="7">14</PLCReadyToTest>
+                            <!-- Machine Status Byte 3 -->
+                            <RollsDownElevUp mask="0x0F">15</RollsDownElevUp>
+                            <HydraulicSystemIdleTimeout bit="4">15</HydraulicSystemIdleTimeout>
+                            <StartRearEBSDrives mask="0xC0">15</StartRearEBSDrives>
+                            <!-- Machine Status Byte 4 -->
+                            <HornSignal bit="0">16</HornSignal>
+                            <TurnOnAuxillaryOutputOne bit="1">16</TurnOnAuxillaryOutputOne>
+                            <TurnOnAuxillaryOutputTwo bit="2">16</TurnOnAuxillaryOutputTwo>
+                            <!-- Machine Status Byte 5 -->
+                            <FrontForceMinFault bit="0">17</FrontForceMinFault>
+                            <FrontForceMaxFault bit="1">17</FrontForceMaxFault>
+                            <RearForceMinFault bit="2">17</RearForceMinFault>
+                            <RearForceMaxFault bit="3">17</RearForceMaxFault>
+                            <!-- Machine Status Byte 6 -->
+                            <WheelbasePositionSelected>18</WheelbasePositionSelected>
+                            <WheelbasePosition01Selected bit="0">18</WheelbasePosition01Selected>
+                            <WheelbasePosition02Selected bit="1">18</WheelbasePosition02Selected>
+                            <WheelbasePosition03Selected bit="2">18</WheelbasePosition03Selected>
+                            <WheelbasePosition04Selected bit="3">18</WheelbasePosition04Selected>
+                            <WheelbasePosition05Selected bit="4">18</WheelbasePosition05Selected>
+                            <WheelbasePosition06Selected bit="5">18</WheelbasePosition06Selected>
+                            <WheelbasePosition07Selected bit="6">18</WheelbasePosition07Selected>
+                            <SelectWheelbase08Selected bit="7">18</SelectWheelbase08Selected>
+                            <SelectWheelbase09Selected mask="0x09">18</SelectWheelbase09Selected>
+                            <SelectWheelbase10Selected mask="0x0A">18</SelectWheelbase10Selected>
+                            <SelectWheelbase11Selected mask="0x0B">18</SelectWheelbase11Selected>
+                            <SelectWheelbase12Selected mask="0x0C">18</SelectWheelbase12Selected>
+                            <SelectWheelbase13Selected mask="0x0D">18</SelectWheelbase13Selected>
+                            <SelectWheelbase14Selected mask="0x0E">18</SelectWheelbase14Selected>
+                            <SelectWheelbase15Selected mask="0x0F">18</SelectWheelbase15Selected>
+                            <!-- Current ICM Index -->
+                            <TagIndex>19</TagIndex>
+                        </DataLocations>
+                    </Message00>
+                    <Message01 Description="Reserved">
+                        <Length>1</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                        </DataLocations>
+                    </Message01>
+                    <Message02 Description="Reserved">
+                        <Length>1</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                        </DataLocations>
+                    </Message02>
+                    <Message03 Description="Loss Compensation Data">
+                        <Length>3</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <!--
+                            <CycleTime>1</CycleTime>
+                            <ArmSpeed>3</ArmSpeed>
+                            <LCSampleSpeedStart>5</LCSampleSpeedStart>
+                            <LCSampleSpeedEnd>7</LCSampleSpeedEnd>
+                            <LFMachineLossCurrent>9</LFMachineLossCurrent>
+                            <RFMachineLossCurrent>11</RFMachineLossCurrent>
+                            <LRMachineLossCurrent>13</LRMachineLossCurrent>
+                            <RRMachineLossCurrent>15</RRMachineLossCurrent>
+                            <LFMachineLossPrevious>17</LFMachineLossPrevious>
+                            <RFMachineLossPrevious>19</RFMachineLossPrevious>
+                            <LRMachineLossPrevious>21</LRMachineLossPrevious>
+                            <RRMachineLossPrevious>23</RRMachineLossPrevious>
+                            <LFEncoderRunoutError bit="0">25</LFEncoderRunoutError>
+                            <RFEncoderRunoutError bit="1">25</RFEncoderRunoutError>
+                            <LREncoderRunoutError bit="2">25</LREncoderRunoutError>
+                            <RREncoderRunoutError bit="3">25</RREncoderRunoutError>
+                            <LFEncoderNoiseError bit="4">25</LFEncoderNoiseError>
+                            <RFEncoderNoiseError bit="5">25</RFEncoderNoiseError>
+                            <LREncoderNoiseError bit="6">25</LREncoderNoiseError>
+                            <RREncoderNoiseError bit="7">25</RREncoderNoiseError>
+                            -->
+                            <PositractionStatus>1</PositractionStatus>
+                            <PositractionResult>2</PositractionResult>
+                        </DataLocations>
+                    </Message03>
+                    <Message04 Description="Axle Ratio results">
+                        <Length>3</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <TransferCaseCheckAxleRatio bit="0">1</TransferCaseCheckAxleRatio>
+                            <AxleRatioValue>2</AxleRatioValue>
+                        </DataLocations>
+                    </Message04>
+                    <Message05 Description="Wheel distances">
+                        <Length>17</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <LfDistance>1</LfDistance>
+                            <RfDistance>5</RfDistance>
+                            <LrDistance>9</LrDistance>
+                            <RrDistance>13</RrDistance>
+                        </DataLocations>
+                    </Message05>
+                    <Message06 Description="Vibration Analysis">
+                        <Length>2</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <VibrationAnalysisStatus>1</VibrationAnalysisStatus>
+                        </DataLocations>
+                    </Message06>
+                    <Message07 Description="Test marker data">
+                        <Length>5</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <NumberOfMarkers>1</NumberOfMarkers>
+                            <CurrentArrayIndex>3</CurrentArrayIndex>
+                            <!-- Marker info layout 
+                            <MarkerIndex>5</MarkerIndex>
+                            <MarkerType>7</MarkerType> 
+                            <MarkerName>9</MarkerName>
+                            -->
+                        </DataLocations>
+                    </Message07>
+                    <Message08 Description="ABS Controller Data">
+                        <Length>6</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <AbsLeftFrontWheelSpeed>1</AbsLeftFrontWheelSpeed>
+                            <AbsRightFrontWheelSpeed>2</AbsRightFrontWheelSpeed>
+                            <AbsLeftRearWheelSpeed>3</AbsLeftRearWheelSpeed>
+                            <AbsRightRearWheelSpeed>4</AbsRightRearWheelSpeed>
+                            <AbsBrakeSwitchStatusByte>5</AbsBrakeSwitchStatusByte>
+                        </DataLocations>
+                    </Message08>
+                    <Message09 Description="Keyboard parameters">
+                        <Length>77</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <NeutralSpeed parameter="2">3</NeutralSpeed>
+                            <StartAbsTestSpeed parameter="6">11</StartAbsTestSpeed>
+                            <FrontRetRollRelaxPressure parameter="7">13</FrontRetRollRelaxPressure>
+                            <RearRetRollRelaxPressure parameter="8">15</RearRetRollRelaxPressure>
+                            <Time parameter="13">25</Time>
+                            <Date parameter="14">27</Date>
+                            <Year parameter="15">29</Year>
+                            <BaseBrakeTestTime parameter="16">31</BaseBrakeTestTime>
+                            <StandAloneWssArmSpeed parameter="17">33</StandAloneWssArmSpeed>
+                            <TotalStandAloneWssMinVariation parameter="18">35</TotalStandAloneWssMinVariation>
+                            <TotalStandAloneWssMaxVariation parameter="19">37</TotalStandAloneWssMaxVariation>
+                            <MaximumMachineSpeed parameter="20">39</MaximumMachineSpeed>
+                            <MinForceFaultFront parameter="21">41</MinForceFaultFront>
+                            <MaxForceFaultFront parameter="22">43</MaxForceFaultFront>
+                            <MinForceFaultRear parameter="23">45</MinForceFaultRear>
+                            <MaxForceFaultRear parameter="24">47</MaxForceFaultRear>
+                            <GmGen3 parameter="25">49</GmGen3>
+                            <BoostPressure parameter="27">53</BoostPressure>
+                            <BoostToArm parameter="28">55</BoostToArm>
+                            <TwoWheelTcsSequence parameter="29">57</TwoWheelTcsSequence>
+                            <FourWheelTcsSequence parameter="30">59</FourWheelTcsSequence>
+                            <MotorSpeedLoading parameter="32">63</MotorSpeedLoading>
+                            <MotorAccelLoading parameter="33">65</MotorAccelLoading>
+                            <ParkBrakeArmSpeed parameter="34">67</ParkBrakeArmSpeed>
+                            <RwalValveFiringTime parameter="36">71</RwalValveFiringTime>
+                            <FourWalTireCalibrationIndex parameter="37">73</FourWalTireCalibrationIndex>
+                            <MaxBrakeForceStartSpeed parameter="38">75</MaxBrakeForceStartSpeed>
+                        </DataLocations>
+                    </Message09>
+                    <Message10 Description="Reserved">
+                        <Length>1</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                        </DataLocations>
+                    </Message10>
+                    <Message11 Description="Memory Pointers to Wheel Speed Data">
+                        <Length>15</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <DragStart>1</DragStart>
+                            <TractionControlStartIndex>3</TractionControlStartIndex>
+                            <BaseBrakeStartForce>5</BaseBrakeStartForce>
+                            <AbsLeftFrontStartIndex>7</AbsLeftFrontStartIndex>
+                            <AbsRightFrontStartIndex>9</AbsRightFrontStartIndex>
+                            <AbsLeftRearStartIndex>11</AbsLeftRearStartIndex>
+                            <AbsRightRearStartIndex>13</AbsRightRearStartIndex>
+                        </DataLocations>
+                    </Message11>
+                    <Message12 Description="Software Version">
+                        <SoftwareRevisionData>
+                            <CoreVersion StartIndex="5" Length="4"/>
+                            <ReleaseVersion StartIndex="19" Length="4"/>
+                        </SoftwareRevisionData>
+                        <MachineTypes>
+                            <M360>0</M360>
+                            <M3600>1</M3600>
+                            <M5700>2</M5700>
+                            <M1072>3</M1072>
+                            <M4217>4</M4217>
+                            <M3700>5</M3700>
+                        </MachineTypes>
+                        <Length>19</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <BaseSoftwareVersion>1</BaseSoftwareVersion>
+                            <SoftwareRevisionLevel>3</SoftwareRevisionLevel>
+                            <MachineType>13</MachineType>
+                            <GraphLogging>15</GraphLogging>
+                        </DataLocations>
+                    </Message12>
+                    <Message13 Description="Machine Config Parameters">
+                        <Length>83</Length>
+                        <DateFormat>
+                            <Year StartIndex="8" Length="2"/>
+                            <Month StartIndex="0" Length="2"/>
+                            <Day StartIndex="3" Length="2"/>
+                            <Hour StartIndex="0" Length="2"/>
+                        </DateFormat>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <LFMachineLossCurrent>1</LFMachineLossCurrent>
+                            <RFMachineLossCurrent>3</RFMachineLossCurrent>
+                            <LRMachineLossCurrent>5</LRMachineLossCurrent>
+                            <RRMachineLossCurrent>7</RRMachineLossCurrent>
+                            <LFRollerFactor>9</LFRollerFactor>
+                            <RFRollerFactor>11</RFRollerFactor>
+                            <LRRollerFactor>13</LRRollerFactor>
+                            <RRRollerFactor>15</RRRollerFactor>
+                            <LCMachineLossMaxLeft>17</LCMachineLossMaxLeft>
+                            <LCMachineLossMinLeft>19</LCMachineLossMinLeft>
+                            <LCMachineLossMaxRight>21</LCMachineLossMaxRight>
+                            <LCMachineLossMinRight>23</LCMachineLossMinRight>
+                            <ArmSpeed>25</ArmSpeed>
+                            <LCSampleSpeedStart>27</LCSampleSpeedStart>
+                            <LCSampleSpeedEnd>29</LCSampleSpeedEnd>
+                            <LCWarmupTime>31</LCWarmupTime>
+                            <LossCompYearMonth>35</LossCompYearMonth>
+                            <LossCompDayHour>37</LossCompDayHour>
+                            <PlcCode>43</PlcCode>
+                            <MachineSerialNumber>45</MachineSerialNumber>
+                        </DataLocations>
+                    </Message13>
+                    <Message14 Description="Machine Control Parameters">
+                        <Length>7</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <CurrentTestResult>1</CurrentTestResult>
+                            <PreviousTestResult>3</PreviousTestResult>
+                            <PrinterControl>5</PrinterControl>
+                        </DataLocations>
+                    </Message14>
+                    <Message15 Description="4WAL Vehicle DTC List">
+                        <Length>21</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <AbsDtc1>1</AbsDtc1>
+                            <AbsDtc2>3</AbsDtc2>
+                            <AbsDtc3>5</AbsDtc3>
+                            <AbsDtc4>7</AbsDtc4>
+                            <AbsDtc5>9</AbsDtc5>
+                            <AbsDtc6>11</AbsDtc6>
+                            <AbsDtc7>13</AbsDtc7>
+                            <AbsDtc8>15</AbsDtc8>
+                            <AbsDtc9>17</AbsDtc9>
+                            <AbsDtc10>19</AbsDtc10>
+                        </DataLocations>
+                    </Message15>
+                    <Message16 Description="4WAL Machine DTC List">
+                        <Length>21</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <MachineDtc1>1</MachineDtc1>
+                            <MachineDtc2>3</MachineDtc2>
+                            <MachineDtc3>5</MachineDtc3>
+                            <MachineDtc4>7</MachineDtc4>
+                            <MachineDtc5>9</MachineDtc5>
+                            <MachineDtc6>11</MachineDtc6>
+                            <MachineDtc7>13</MachineDtc7>
+                            <MachineDtc8>15</MachineDtc8>
+                            <MachineDtc9>17</MachineDtc9>
+                            <MachineDtc10>19</MachineDtc10>
+                        </DataLocations>
+                    </Message16>
+                    <Message17 Description="Machine Error Codes List">
+                        <Length>21</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <MachineDtc1>1</MachineDtc1>
+                            <MachineDtc2>3</MachineDtc2>
+                            <MachineDtc3>5</MachineDtc3>
+                            <MachineDtc4>7</MachineDtc4>
+                            <MachineDtc5>9</MachineDtc5>
+                            <MachineDtc6>11</MachineDtc6>
+                            <MachineDtc7>13</MachineDtc7>
+                            <MachineDtc8>15</MachineDtc8>
+                            <MachineDtc9>17</MachineDtc9>
+                            <MachineDtc10>19</MachineDtc10>
+                        </DataLocations>
+                        <FaultCodes>
+                            <PowerSense>0x0057</PowerSense>
+                            <PLCDidNotInitialize>0x005D</PLCDidNotInitialize>
+                            <LFMachLossChangeOver5LBS>0x0062</LFMachLossChangeOver5LBS>
+                            <RFMachLossChangeOver5LBS>0x0063</RFMachLossChangeOver5LBS>
+                            <LRMachLossChangeOver5LBS>0x0064</LRMachLossChangeOver5LBS>
+                            <RRMachLossChangeOver5LBS>0x0065</RRMachLossChangeOver5LBS>
+                            <LFMachLossOutOfLimits>0x0066</LFMachLossOutOfLimits>
+                            <RFMachLossOutOfLimits>0x0067</RFMachLossOutOfLimits>
+                            <LRMachLossOutOfLimits>0x0068</LRMachLossOutOfLimits>
+                            <RRMachLossOutOfLimits>0x0069</RRMachLossOutOfLimits>
+                            <LFEncoderRunoutError>0x006A</LFEncoderRunoutError>
+                            <RFEncoderRunoutError>0x006B</RFEncoderRunoutError>
+                            <LREncoderRunoutError>0x006C</LREncoderRunoutError>
+                            <RREncoderRunoutError>0x006D</RREncoderRunoutError>
+                            <CycleLimitExceeded>0x006E</CycleLimitExceeded>
+                            <CycleLimitWarning>0x006F</CycleLimitWarning>
+                            <PLCSerialReadFault>0x0083</PLCSerialReadFault>
+                            <PLCSerialWriteFault>0x0084</PLCSerialWriteFault>
+                            <LFRollMotorOperationalFault>0x0088</LFRollMotorOperationalFault>
+                            <RFRollMotorOperationalFault>0x0089</RFRollMotorOperationalFault>
+                            <LRRollMotorOperationalFault>0x008A</LRRollMotorOperationalFault>
+                            <RRRollMotorOperationalFault>0x008B</RRRollMotorOperationalFault>
+                            <WheelbaseMotorDriveFault>0x8030</WheelbaseMotorDriveFault>
+                            <SystemAirPressureLowFault>0x8036</SystemAirPressureLowFault>
+                            <PLCSystemFailure>0x8037</PLCSystemFailure>
+                            <PLCRackFault>0x8039</PLCRackFault>
+                            <WBPositionValueOutOfLimit>0x803C</WBPositionValueOutOfLimit>
+                            <WheelbasePositioningFault>0x803E</WheelbasePositioningFault>
+                            <LeftFrontRollMotorDriveFault>0x80D8</LeftFrontRollMotorDriveFault>
+                            <RightFrontRollMotorDriveFault>0x80D9</RightFrontRollMotorDriveFault>
+                            <LeftRearRollMotorDriveFault>0x80DA</LeftRearRollMotorDriveFault>
+                            <RightRearRollMotorDriveFault>0x80DB</RightRearRollMotorDriveFault>
+                            <MotorTaskHearbeatFault>0x80DD</MotorTaskHearbeatFault>
+                        </FaultCodes>
+                    </Message17>
+                    <Message18 Description="Reserved">
+                        <Length>1</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                        </DataLocations>
+                    </Message18>
+                    <Message19 Description="Reserved">
+                        <Length>1</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                        </DataLocations>
+                    </Message19>
+                    <Message20 Description="Quad Steering Data">
+                        <Length>7</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <AlignmentProcessStarted>1</AlignmentProcessStarted>
+                            <RearThrustAngleValid>2</RearThrustAngleValid>
+                            <SteringSweepComplete>3</SteringSweepComplete>
+                            <AlignmentProcessFailed>4</AlignmentProcessFailed>
+                            <RearThrustAngle scaleFactor="100">5</RearThrustAngle>
+                        </DataLocations>
+                    </Message20>
+                    <Message21 Description="Short Speeds/Forces Message">
+                        <Length>28</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <PromptNumber>1</PromptNumber>
+                            <TagIndex>2</TagIndex>
+                            <!-- Test Completion Status Byte 1 -->
+                            <TestCompleteStatus1>4</TestCompleteStatus1>
+                            <ResetComplete bit="0">4</ResetComplete>
+                            <BrakeAccelerateToTestSpeed bit="1">4</BrakeAccelerateToTestSpeed>
+                            <BrakeAnalyzeDragTest bit="2">4</BrakeAnalyzeDragTest>
+                            <BrakeTractionControlTest bit="3">4</BrakeTractionControlTest>
+                            <BrakeStopBaseBrakeTest bit="4">4</BrakeStopBaseBrakeTest>
+                            <BrakeValveFiringTest bit="5">4</BrakeValveFiringTest>
+                            <OverallTest bit="7">4</OverallTest>
+                            <!-- Test Completion Status Byte 2 -->
+                            <TestCompleteStatus2>5</TestCompleteStatus2>
+                            <MachineMaxBrakeForce bit="0">5</MachineMaxBrakeForce>
+                            <BrakeParkBrake bit="1">5</BrakeParkBrake>
+                            <BrakePinionFactorProgramming bit="2">5</BrakePinionFactorProgramming>
+                            <TransferCaseCheckAxleRatio bit="3">5</TransferCaseCheckAxleRatio>
+                            <MachinePositraction bit="4">5</MachinePositraction>
+                            <MachineVibrationAnalysis bit="5">5</MachineVibrationAnalysis>
+                            <BrakeEvaluateABS bit="6">5</BrakeEvaluateABS>
+                            <!-- Machine Status Byte 1 -->
+                            <AllFaults bit="0">6</AllFaults>
+                            <AldlNeutralSpeedAchieved bit="1">6</AldlNeutralSpeedAchieved>
+                            <BrakeReadFaults bit="2">6</BrakeReadFaults>
+                            <BrakeHighSpeedSensorTest bit="3">6</BrakeHighSpeedSensorTest>
+                            <BrakeMachineFault bit="4">6</BrakeMachineFault>
+                            <MaxMachineSpeedFault bit="5">6</MaxMachineSpeedFault>
+                            <Zerospeed bit="6">6</Zerospeed>
+                            <!-- Machine Status Byte 2 -->
+                            <RollsUpElevDown mask="0x03">7</RollsUpElevDown>
+                            <BrakeTestArmed mask="0x18">7</BrakeTestArmed>
+                            <WheelbaseInPosition mask="0x20">7</WheelbaseInPosition>
+                            <PanelEStopPushbuttonDepressed mask="0x40">7</PanelEStopPushbuttonDepressed>
+                            <PLCReadyToTest bit="7">7</PLCReadyToTest>
+                            <!-- Machine Status Byte 3 -->
+                            <RollsDownElevUp mask="0x0F">8</RollsDownElevUp>
+                            <RetRollHiPosition bit="5">8</RetRollHiPosition>
+                            <StartRearEBSDrives mask="0xC0">8</StartRearEBSDrives>
+                            <!-- Machine Status Byte 4 -->
+                            <HornSignal bit="0">9</HornSignal>
+                            <TurnOnAuxillaryOutputOne bit="1">9</TurnOnAuxillaryOutputOne>
+                            <TurnOnAuxillaryOutputTwo bit="2">9</TurnOnAuxillaryOutputTwo>
+                            <DriveAxleFront bit="4">9</DriveAxleFront>
+                            <DriveAxleRear bit="5">9</DriveAxleRear>
+                            <Tcase4wd bit="6">9</Tcase4wd>
+                            <TcaseAwd bit="7">9</TcaseAwd>
+                            <!-- Machine Status Byte 5 -->
+                            <FrontForceMinFault bit="0">10</FrontForceMinFault>
+                            <FrontForceMaxFault bit="1">10</FrontForceMaxFault>
+                            <RearForceMinFault bit="2">10</RearForceMinFault>
+                            <RearForceMaxFault bit="3">10</RearForceMaxFault>
+                            <Start40kphTest bit="5">10</Start40kphTest>
+                            <!-- Machine Status Byte 6 -->
+                            <WheelbasePositionSelected>11</WheelbasePositionSelected>
+                            <WheelbasePosition01Selected bit="0">11</WheelbasePosition01Selected>
+                            <WheelbasePosition02Selected bit="1">11</WheelbasePosition02Selected>
+                            <WheelbasePosition03Selected bit="2">11</WheelbasePosition03Selected>
+                            <WheelbasePosition04Selected bit="3">11</WheelbasePosition04Selected>
+                            <WheelbasePosition05Selected bit="4">11</WheelbasePosition05Selected>
+                            <WheelbasePosition06Selected bit="5">11</WheelbasePosition06Selected>
+                            <WheelbasePosition07Selected bit="6">11</WheelbasePosition07Selected>
+                            <SelectWheelbase08Selected bit="7">11</SelectWheelbase08Selected>
+                            <SelectWheelbase09Selected mask="0x09">11</SelectWheelbase09Selected>
+                            <SelectWheelbase10Selected mask="0x0A">11</SelectWheelbase10Selected>
+                            <SelectWheelbase11Selected mask="0x0B">11</SelectWheelbase11Selected>
+                            <SelectWheelbase12Selected mask="0x0C">11</SelectWheelbase12Selected>
+                            <SelectWheelbase13Selected mask="0x0D">11</SelectWheelbase13Selected>
+                            <SelectWheelbase14Selected mask="0x0E">11</SelectWheelbase14Selected>
+                            <SelectWheelbase15Selected mask="0x0F">11</SelectWheelbase15Selected>
+                            <!-- Wheel speeds in tenths mph-->
+                            <LfSpeed scaleFactor="10">12</LfSpeed>
+                            <RfSpeed scaleFactor="10">14</RfSpeed>
+                            <LrSpeed scaleFactor="10">16</LrSpeed>
+                            <RrSpeed scaleFactor="10">18</RrSpeed>
+                            <!-- Wheel forces -->
+                            <LfForce scaleFactor="1">20</LfForce>
+                            <RfForce scaleFactor="1">22</RfForce>
+                            <LrForce scaleFactor="1">24</LrForce>
+                            <RrForce scaleFactor="1">26</RrForce>
+                        </DataLocations>
+                    </Message21>
+                    <Message22 Description="Brake/Speed Data">
+                        <Length>163</Length>
+                        <DataLocations>
+                            <MessageNumber>0</MessageNumber>
+                            <MemoryIndex>1</MemoryIndex>
+                            <LfSpeed0 scalFactor="100">3</LfSpeed0>
+                            <RfSpeed0 scalFactor="100">5</RfSpeed0>
+                            <LrSpeed0 scalFactor="100">7</LrSpeed0>
+                            <RrSpeed0 scalFactor="100">9</RrSpeed0>
+                            <LfForce0>11</LfForce0>
+                            <RfForce0>13</RfForce0>
+                            <LrForce0>15</LrForce0>
+                            <RrForce0>17</RrForce0>
+
+                            <LfSpeed1 scalFactor="100">19</LfSpeed1>
+                            <RfSpeed1 scalFactor="100">21</RfSpeed1>
+                            <LrSpeed1 scalFactor="100">23</LrSpeed1>
+                            <RrSpeed1 scalFactor="100">25</RrSpeed1>
+                            <LfForce1>27</LfForce1>
+                            <RfForce1>29</RfForce1>
+                            <LrForce1>31</LrForce1>
+                            <RrForce1>33</RrForce1>
+
+                            <LfSpeed2 scalFactor="100">35</LfSpeed2>
+                            <RfSpeed2 scalFactor="100">37</RfSpeed2>
+                            <LrSpeed2 scalFactor="100">39</LrSpeed2>
+                            <RrSpeed2 scalFactor="100">41</RrSpeed2>
+                            <LfForce2>43</LfForce2>
+                            <RfForce2>45</RfForce2>
+                            <LrForce2>47</LrForce2>
+                            <RrForce2>49</RrForce2>
+
+                            <LfSpeed3 scalFactor="100">51</LfSpeed3>
+                            <RfSpeed3 scalFactor="100">53</RfSpeed3>
+                            <LrSpeed3 scalFactor="100">55</LrSpeed3>
+                            <RrSpeed3 scalFactor="100">57</RrSpeed3>
+                            <LfForce3>59</LfForce3>
+                            <RfForce3>61</RfForce3>
+                            <LrForce3>63</LrForce3>
+                            <RrForce3>65</RrForce3>
+
+                            <LfSpeed4 scalFactor="100">67</LfSpeed4>
+                            <RfSpeed4 scalFactor="100">69</RfSpeed4>
+                            <LrSpeed4 scalFactor="100">71</LrSpeed4>
+                            <RrSpeed4 scalFactor="100">73</RrSpeed4>
+                            <LfForce4>75</LfForce4>
+                            <RfForce4>77</RfForce4>
+                            <LrForce4>79</LrForce4>
+                            <RrForce4>81</RrForce4>
+
+                            <LfSpeed5 scalFactor="100">83</LfSpeed5>
+                            <RfSpeed5 scalFactor="100">85</RfSpeed5>
+                            <LrSpeed5 scalFactor="100">87</LrSpeed5>
+                            <RrSpeed5 scalFactor="100">89</RrSpeed5>
+                            <LfForce5>91</LfForce5>
+                            <RfForce5>93</RfForce5>
+                            <LrForce5>95</LrForce5>
+                            <RrForce5>97</RrForce5>
+
+                            <LfSpeed6 scalFactor="100">99</LfSpeed6>
+                            <RfSpeed6 scalFactor="100">101</RfSpeed6>
+                            <LrSpeed6 scalFactor="100">103</LrSpeed6>
+                            <RrSpeed6 scalFactor="100">105</RrSpeed6>
+                            <LfForce6>107</LfForce6>
+                            <RfForce6>109</RfForce6>
+                            <LrForce6>111</LrForce6>
+                            <RrForce6>113</RrForce6>
+
+                            <LfSpeed7 scalFactor="100">115</LfSpeed7>
+                            <RfSpeed7 scalFactor="100">117</RfSpeed7>
+                            <LrSpeed7 scalFactor="100">119</LrSpeed7>
+                            <RrSpeed7 scalFactor="100">121</RrSpeed7>
+                            <LfForce7>123</LfForce7>
+                            <RfForce7>125</RfForce7>
+                            <LrForce7>127</LrForce7>
+                            <RrForce7>129</RrForce7>
+
+                            <LfSpeed8 scalFactor="100">131</LfSpeed8>
+                            <RfSpeed8 scalFactor="100">133</RfSpeed8>
+                            <LrSpeed8 scalFactor="100">135</LrSpeed8>
+                            <RrSpeed8 scalFactor="100">137</RrSpeed8>
+                            <LfForce8>139</LfForce8>
+                            <RfForce8>141</RfForce8>
+                            <LrForce8>143</LrForce8>
+                            <RrForce8>145</RrForce8>
+
+                            <LfSpeed9 scalFactor="100">147</LfSpeed9>
+                            <RfSpeed9 scalFactor="100">149</RfSpeed9>
+                            <LrSpeed9 scalFactor="100">151</LrSpeed9>
+                            <RrSpeed9 scalFactor="100">153</RrSpeed9>
+                            <LfForce9>155</LfForce9>
+                            <RfForce9>157</RfForce9>
+                            <LrForce9>159</LrForce9>
+                            <RrForce9>161</RrForce9>
+
+                        </DataLocations>
+                    </Message22>
+                </Mode1>
+                <Mode2>
+                    <Incoming>
+                        <MarkerTypeByte>3</MarkerTypeByte>
+                        <MarkerNameByte>5</MarkerNameByte>
+                        <MarkerIndexByte>7</MarkerIndexByte>
+                    </Incoming>
+                    <Length>68</Length>
+                    <DataLocations>
+                        <TotalSamplePoints>0</TotalSamplePoints>
+                        <MarkerIndex>2</MarkerIndex>
+                        <LfSpeed1 scaleFactor="100">4</LfSpeed1>
+                        <RfSpeed1 scaleFactor="100">6</RfSpeed1>
+                        <LrSpeed1 scaleFactor="100">8</LrSpeed1>
+                        <RrSpeed1 scaleFactor="100">10</RrSpeed1>
+                        <LfForce1>12</LfForce1>
+                        <RfForce1>14</RfForce1>
+                        <LrForce1>16</LrForce1>
+                        <RrForce1>18</RrForce1>
+
+                        <LfSpeed2 scaleFactor="100">20</LfSpeed2>
+                        <RfSpeed2 scaleFactor="100">22</RfSpeed2>
+                        <LrSpeed2 scaleFactor="100">24</LrSpeed2>
+                        <RrSpeed2 scaleFactor="100">26</RrSpeed2>
+                        <LfForce2>28</LfForce2>
+                        <RfForce2>30</RfForce2>
+                        <LrForce2>32</LrForce2>
+                        <RrForce2>34</RrForce2>
+
+                        <LfSpeed3 scaleFactor="100">36</LfSpeed3>
+                        <RfSpeed3 scaleFactor="100">38</RfSpeed3>
+                        <LrSpeed3 scaleFactor="100">40</LrSpeed3>
+                        <RrSpeed3 scaleFactor="100">42</RrSpeed3>
+                        <LfForce3>44</LfForce3>
+                        <RfForce3>46</RfForce3>
+                        <LrForce3>48</LrForce3>
+                        <RrForce3>50</RrForce3>
+
+                        <LfSpeed4 scaleFactor="100">52</LfSpeed4>
+                        <RfSpeed4 scaleFactor="100">54</RfSpeed4>
+                        <LrSpeed4 scaleFactor="100">56</LrSpeed4>
+                        <RrSpeed4 scaleFactor="100">58</RrSpeed4>
+                        <LfForce4>60</LfForce4>
+                        <RfForce4>62</RfForce4>
+                        <LrForce4>64</LrForce4>
+                        <RrForce4>66</RrForce4>
+                    </DataLocations>
+                </Mode2>
+                <Mode4>
+                    <Incoming>
+                        <CommandByte>3</CommandByte>
+                        <CommandValueByte>4</CommandValueByte>
+                        <ResetSystemDelay Units="ms">1000</ResetSystemDelay>
+                    </Incoming>
+                    <WheelbaseAdjustStartDelay Units="ms">1000</WheelbaseAdjustStartDelay>
+                    <WheelbaseInPositionTimeout Units="ms">20000</WheelbaseInPositionTimeout>
+                    <WheelbasePositionTable>/Configuration/Servers/WheelbasePositionTable.xml</WheelbasePositionTable>
+                </Mode4>
+                <Mode6>
+                    <ParameterCount>40</ParameterCount>
+                    <Incoming>
+                        <ParameterNumberByte>3</ParameterNumberByte>
+                        <ParameterValueByte>4</ParameterValueByte>
+                    </Incoming>
+                    <Parameters>
+                        <NeutralSpeed Default="45">2</NeutralSpeed>
+                        <StartAbsTestSpeed Default="45">6</StartAbsTestSpeed>
+                        <FrontRetRollRelaxPressure Default="0">7</FrontRetRollRelaxPressure>
+                        <RearRetRollRelaxPressure Default="0">8</RearRetRollRelaxPressure>
+                        <Time Default="0000">13</Time>
+                        <Date Default="1209">14</Date>
+                        <Year Default="1973">15</Year>
+                        <BaseBrakeTestTime Default="30">16</BaseBrakeTestTime>
+                        <StandAloneWssArmSpeed Default="45">17</StandAloneWssArmSpeed>
+                        <TotalStandAloneWssMinVariation Default="2">18</TotalStandAloneWssMinVariation>
+                        <TotalStandAloneWssMaxVariation Default="2">19</TotalStandAloneWssMaxVariation>
+                        <MaximumMachineSpeed Default="10">20</MaximumMachineSpeed>
+                        <MinForceFaultFront Default="100">21</MinForceFaultFront>
+                        <MaxForceFaultFront Default="100">22</MaxForceFaultFront>
+                        <MinForceFaultRear Default="100">23</MinForceFaultRear>
+                        <MaxForceFaultRear Default="100">24</MaxForceFaultRear>
+                        <GmGen3>25</GmGen3>
+                        <BoostPressure Default="100">27</BoostPressure>
+                        <BoostToArm Default="10">28</BoostToArm>
+                        <TwoWheelTcsSequence>29</TwoWheelTcsSequence>
+                        <FourWheelTcsSequence>30</FourWheelTcsSequence>
+                        <MotorSpeedLoading Default="0">32</MotorSpeedLoading>
+                        <MotorAccelLoading Default="0">33</MotorAccelLoading>
+                        <ParkBrakeArmSpeed Default="10">34</ParkBrakeArmSpeed>
+                        <RwalValveFiringTime>36</RwalValveFiringTime>
+                        <FourWalTireCalibrationIndex>37</FourWalTireCalibrationIndex>
+                        <MaxBrakeForceStartSpeed Default="10">38</MaxBrakeForceStartSpeed>
+                    </Parameters>
+                </Mode6>
+                <Mode7>
+                    <Incoming>
+                        <MarkerTypeByte>3</MarkerTypeByte>
+                        <MarkerNameByte>5</MarkerNameByte>
+                    </Incoming>
+                    <MarkerTranslationTable>
+                        <TypeTranslation>
+                            <Type00>Lf</Type00>
+                            <Type01>Rf</Type01>
+                            <Type02>Lr</Type02>
+                            <Type03>Rr</Type03>
+                            <Type04>Lt</Type04>
+                            <Type05>Rt</Type05>
+                            <Type1E>All</Type1E>
+                            <Type3C>TestSeq</Type3C>
+                            <Type5A>AldlAll</Type5A>
+                            <Type5B>AldlLf</Type5B>
+                            <Type5C>AldlRf</Type5C>
+                            <Type5D>AldlLr</Type5D>
+                            <Type5E>AldlRr</Type5E>
+                        </TypeTranslation>
+                        <NameTranslation>
+                            <Name01>ArmSpeed</Name01>
+                            <Name02>DragTestStart</Name02>
+                            <Name03>DragTestEnd</Name03>
+                            <Name04>BaseBrakeTestStart</Name04>
+                            <Name05>BaseBrakeTestEnd</Name05>
+                            <Name06>TractionControlTestStart</Name06>
+                            <Name07>TractionControlTestEnd</Name07>
+                            <Name08>AbsTestStart</Name08>
+                            <Name09>AbsTestEnd</Name09>
+                            <Name0A>AbsFired</Name0A>
+                            <Name0B>AbsWheelSpeed</Name0B>
+                            <Name0C>MaxBrakeTestStart</Name0C>
+                            <Name0D>MaxBrakeTestEnd</Name0D>
+                            <Name0E>MaxSampleTestStart</Name0E>
+                            <Name0F>MaxSampleTestEnd</Name0F>
+                            <Name10>MaxPoint</Name10>
+                            <Name11>CalSampleTestStart</Name11>
+                            <Name12>CalSampleTestEnd</Name12>
+                            <Name13>MinAchieved</Name13>
+                            <Name14>RefSampleStart</Name14>
+                            <Name15>RefSampleEnd</Name15>
+                            <Name16>Reference</Name16>
+                            <Name17>Reduction</Name17>
+                            <Name18>Recovery</Name18>
+                            <Name19>Reduction2</Name19>
+                            <Name1A>Recovery2</Name1A>
+                            <Name1B>MinSpeed</Name1B>
+                            <Name1C>LastSample</Name1C>
+                            <Name1D>Undefined_1D</Name1D>
+                            <Name1E>AxleRatioStart</Name1E>
+                            <Name1F>AxleRatioEnd</Name1F>
+                            <Name20>GenericBrakeTestStart</Name20>
+                            <Name21>GenericBrakeTestEnd</Name21>
+                            <Name22>TractionBuild</Name22>
+                            <Name23>TractionRelease</Name23>
+                            <Name24>ZeroWheelTravel</Name24>
+                            <Name25>ReadWheelTravel</Name25>
+                            <Name50>DriveTrip</Name50>
+                            <Name64>LfMinReduction</Name64>
+                            <Name65>LfMaxRecovery</Name65>
+                            <Name66>LfMinReduction2</Name66>
+                            <Name67>LfMaxRecovery2</Name67>
+                            <Name68>RfMinReduction</Name68>
+                            <Name69>RfMaxRecovery</Name69>
+                            <Name6A>RfMinReduction2</Name6A>
+                            <Name6B>RfMaxRecovery2</Name6B>
+                            <Name6C>LrMinReduction</Name6C>
+                            <Name6D>LrMaxRecovery</Name6D>
+                            <Name6E>LrMinReduction2</Name6E>
+                            <Name6F>LrMaxRecovery2</Name6F>
+                            <Name70>RrMinReduction</Name70>
+                            <Name71>RrMaxRecovery</Name71>
+                            <Name72>RrMinReduction2</Name72>
+                            <Name73>RrMaxRecovery2</Name73>
+                            <Name74>LtMinReduction</Name74>
+                            <Name75>LtMaxRecovery</Name75>
+                            <Name76>LtMinReduction2</Name76>
+                            <Name77>LtMaxRecovery2</Name77>
+                            <Name78>RtMinReduction</Name78>
+                            <Name79>RtMaxRecovery</Name79>
+                            <Name7A>RtMinReduction2</Name7A>
+                            <Name7B>RtMaxRecovery2</Name7B>
+                        </NameTranslation>
+                    </MarkerTranslationTable>
+                </Mode7>
+                <Mode20>
+                    <Incoming>
+                        <TestResultIdByte>3</TestResultIdByte>
+                    </Incoming>
+                    <Messages>
+                        <Message00 Description="Not Supported">
+                            <Length>2</Length>
+                            <DataLocations>
+                                <TestResultId>0</TestResultId>
+                            </DataLocations>
+                        </Message00>
+                        <Message01 Description="Drag test results">
+                            <Length>58</Length>
+                            <DataLocations>
+                                <TestResultId>1</TestResultId>
+                                <!-- Left Front Drag Data -->
+                                <BrakeLeftFrontDragTestStatsMinDragValue>2</BrakeLeftFrontDragTestStatsMinDragValue>
+                                <BrakeLeftFrontDragTestStatsMaxDragValue>4</BrakeLeftFrontDragTestStatsMaxDragValue>
+                                <BrakeLeftFrontDragTestStatsAverageDragValue>6</BrakeLeftFrontDragTestStatsAverageDragValue>
+                                <BrakeLeftFrontDragTestStatsMinDragIndex>8</BrakeLeftFrontDragTestStatsMinDragIndex>
+                                <BrakeLeftFrontDragTestStatsMaxDragIndex>10</BrakeLeftFrontDragTestStatsMaxDragIndex>
+                                <!-- Right Front Drag Data -->
+                                <BrakeRightFrontDragTestStatsMinDragValue>12</BrakeRightFrontDragTestStatsMinDragValue>
+                                <BrakeRightFrontDragTestStatsMaxDragValue>14</BrakeRightFrontDragTestStatsMaxDragValue>
+                                <BrakeRightFrontDragTestStatsAverageDragValue>16</BrakeRightFrontDragTestStatsAverageDragValue>
+                                <BrakeRightFrontDragTestStatsMinDragIndex>18</BrakeRightFrontDragTestStatsMinDragIndex>
+                                <BrakeRightFrontDragTestStatsMaxDragIndex>20</BrakeRightFrontDragTestStatsMaxDragIndex>
+                                <!-- Left Rear Drag Data -->
+                                <BrakeLeftRearDragTestStatsMinDragValue>22</BrakeLeftRearDragTestStatsMinDragValue>
+                                <BrakeLeftRearDragTestStatsMaxDragValue>24</BrakeLeftRearDragTestStatsMaxDragValue>
+                                <BrakeLeftRearDragTestStatsAverageDragValue>26</BrakeLeftRearDragTestStatsAverageDragValue>
+                                <BrakeLeftRearDragTestStatsMinDragIndex>28</BrakeLeftRearDragTestStatsMinDragIndex>
+                                <BrakeLeftRearDragTestStatsMaxDragIndex>30</BrakeLeftRearDragTestStatsMaxDragIndex>
+                                <!-- Right Rear Drag Data -->
+                                <BrakeRightRearDragTestStatsMinDragValue>32</BrakeRightRearDragTestStatsMinDragValue>
+                                <BrakeRightRearDragTestStatsMaxDragValue>34</BrakeRightRearDragTestStatsMaxDragValue>
+                                <BrakeRightRearDragTestStatsAverageDragValue>36</BrakeRightRearDragTestStatsAverageDragValue>
+                                <BrakeRightRearDragTestStatsMinDragIndex>38</BrakeRightRearDragTestStatsMinDragIndex>
+                                <BrakeRightRearDragTestStatsMaxDragIndex>40</BrakeRightRearDragTestStatsMaxDragIndex>
+                                <!-- Second reduction min data -->
+                                <BrakeLeftFrontSecondReductionMinValue>42</BrakeLeftFrontSecondReductionMinValue>
+                                <BrakeLeftFrontSecondReductionMinValueIndex>44</BrakeLeftFrontSecondReductionMinValueIndex>
+                                <BrakeRightFrontSecondReductionMinValue>46</BrakeRightFrontSecondReductionMinValue>
+                                <BrakeRightFrontSecondReductionMinValueIndex>48</BrakeRightFrontSecondReductionMinValueIndex>
+                                <BrakeLeftRearSecondReductionMinValue>50</BrakeLeftRearSecondReductionMinValue>
+                                <BrakeLeftRearSecondReductionMinValueIndex>52</BrakeLeftRearSecondReductionMinValueIndex>
+                                <BrakeRightRearSecondReductionMinValue>54</BrakeRightRearSecondReductionMinValue>
+                                <BrakeRightRearSecondReductionMinValueIndex>56</BrakeRightRearSecondReductionMinValueIndex>
+                            </DataLocations>
+                        </Message01>
+                        <Message02 Description="Brake test results">
+                            <Length>58</Length>
+                            <DataLocations>
+                                <TestResultId>1</TestResultId>
+                                <!-- Left Front Brake Data -->
+                                <BrakeLeftFrontBrakeTestStatsMinBrakeValue>2</BrakeLeftFrontBrakeTestStatsMinBrakeValue>
+                                <BrakeLeftFrontBrakeTestStatsMaxBrakeValue>4</BrakeLeftFrontBrakeTestStatsMaxBrakeValue>
+                                <BrakeLeftFrontBrakeTestStatsAverageBrakeValue>6</BrakeLeftFrontBrakeTestStatsAverageBrakeValue>
+                                <BrakeLeftFrontBrakeTestStatsMinBrakeIndex>8</BrakeLeftFrontBrakeTestStatsMinBrakeIndex>
+                                <BrakeLeftFrontBrakeTestStatsMaxBrakeIndex>10</BrakeLeftFrontBrakeTestStatsMaxBrakeIndex>
+                                <!-- Right Front Brake Data -->
+                                <BrakeRightFrontBrakeTestStatsMinBrakeValue>12</BrakeRightFrontBrakeTestStatsMinBrakeValue>
+                                <BrakeRightFrontBrakeTestStatsMaxBrakeValue>14</BrakeRightFrontBrakeTestStatsMaxBrakeValue>
+                                <BrakeRightFrontBrakeTestStatsAverageBrakeValue>16</BrakeRightFrontBrakeTestStatsAverageBrakeValue>
+                                <BrakeRightFrontBrakeTestStatsMinBrakeIndex>18</BrakeRightFrontBrakeTestStatsMinBrakeIndex>
+                                <BrakeRightFrontBrakeTestStatsMaxBrakeIndex>20</BrakeRightFrontBrakeTestStatsMaxBrakeIndex>
+                                <!-- Left Rear Brake Data -->
+                                <BrakeLeftRearBrakeTestStatsMinBrakeValue>22</BrakeLeftRearBrakeTestStatsMinBrakeValue>
+                                <BrakeLeftRearBrakeTestStatsMaxBrakeValue>24</BrakeLeftRearBrakeTestStatsMaxBrakeValue>
+                                <BrakeLeftRearBrakeTestStatsAverageBrakeValue>26</BrakeLeftRearBrakeTestStatsAverageBrakeValue>
+                                <BrakeLeftRearBrakeTestStatsMinBrakeIndex>28</BrakeLeftRearBrakeTestStatsMinBrakeIndex>
+                                <BrakeLeftRearBrakeTestStatsMaxBrakeIndex>30</BrakeLeftRearBrakeTestStatsMaxBrakeIndex>
+                                <!-- Right Rear Brake Data -->
+                                <BrakeRightRearBrakeTestStatsMinBrakeValue>32</BrakeRightRearBrakeTestStatsMinBrakeValue>
+                                <BrakeRightRearBrakeTestStatsMaxBrakeValue>34</BrakeRightRearBrakeTestStatsMaxBrakeValue>
+                                <BrakeRightRearBrakeTestStatsAverageBrakeValue>36</BrakeRightRearBrakeTestStatsAverageBrakeValue>
+                                <BrakeRightRearBrakeTestStatsMinBrakeIndex>38</BrakeRightRearBrakeTestStatsMinBrakeIndex>
+                                <BrakeRightRearBrakeTestStatsMaxBrakeIndex>40</BrakeRightRearBrakeTestStatsMaxBrakeIndex>
+                                <!-- Second reduction min data -->
+                                <BrakeLeftFrontSecondReductionMinValue>42</BrakeLeftFrontSecondReductionMinValue>
+                                <BrakeLeftFrontSecondReductionMinValueIndex>44</BrakeLeftFrontSecondReductionMinValueIndex>
+                                <BrakeRightFrontSecondReductionMinValue>46</BrakeRightFrontSecondReductionMinValue>
+                                <BrakeRightFrontSecondReductionMinValueIndex>48</BrakeRightFrontSecondReductionMinValueIndex>
+                                <BrakeLeftRearSecondReductionMinValue>50</BrakeLeftRearSecondReductionMinValue>
+                                <BrakeLeftRearSecondReductionMinValueIndex>52</BrakeLeftRearSecondReductionMinValueIndex>
+                                <BrakeRightRearSecondReductionMinValue>54</BrakeRightRearSecondReductionMinValue>
+                                <BrakeRightRearSecondReductionMinValueIndex>56</BrakeRightRearSecondReductionMinValueIndex>
+                            </DataLocations>
+                        </Message02>
+                        <Message03 Description="Traction Control Results">
+                            <Length>58</Length>
+                            <DataLocations>
+                                <TestResultId>1</TestResultId>
+                                <!-- Left Front Traction Control Data -->
+                                <BrakeLeftFrontTractionControlStatsMinReduction>2</BrakeLeftFrontTractionControlStatsMinReduction>
+                                <BrakeLeftFrontTractionControlStatsMaxRecovery>4</BrakeLeftFrontTractionControlStatsMaxRecovery>
+                                <BrakeLeftFrontTractionControlStatsAverage>6</BrakeLeftFrontTractionControlStatsAverage>
+                                <BrakeLeftFrontTractionControlStatsMinReductionIndex>8</BrakeLeftFrontTractionControlStatsMinReductionIndex>
+                                <BrakeLeftFrontTractionControlStatsMaxRecoveryIndex>10</BrakeLeftFrontTractionControlStatsMaxRecoveryIndex>
+                                <!-- Right Front Traction Control Data -->
+                                <BrakeRightFrontTractionControlStatsMinReduction>12</BrakeRightFrontTractionControlStatsMinReduction>
+                                <BrakeRightFrontTractionControlStatsMaxRecovery>14</BrakeRightFrontTractionControlStatsMaxRecovery>
+                                <BrakeRightFrontTractionControlStatsAverage>16</BrakeRightFrontTractionControlStatsAverage>
+                                <BrakeRightFrontTractionControlStatsMinReductionIndex>18</BrakeRightFrontTractionControlStatsMinReductionIndex>
+                                <BrakeRightFrontTractionControlStatsMaxRecoveryIndex>20</BrakeRightFrontTractionControlStatsMaxRecoveryIndex>
+                                <!-- Left Rear Traction Control Data -->
+                                <BrakeLeftRearTractionControlStatsMinReduction>22</BrakeLeftRearTractionControlStatsMinReduction>
+                                <BrakeLeftRearTractionControlStatsMaxRecovery>24</BrakeLeftRearTractionControlStatsMaxRecovery>
+                                <BrakeLeftRearTractionControlStatsAverage>26</BrakeLeftRearTractionControlStatsAverage>
+                                <BrakeLeftRearTractionControlStatsMinReductionIndex>28</BrakeLeftRearTractionControlStatsMinReductionIndex>
+                                <BrakeLeftRearTractionControlStatsMaxRecoveryIndex>30</BrakeLeftRearTractionControlStatsMaxRecoveryIndex>
+                                <!-- Right Rear Traction Control Data -->
+                                <BrakeRightRearTractionControlStatsMinReduction>32</BrakeRightRearTractionControlStatsMinReduction>
+                                <BrakeRightRearTractionControlStatsMaxRecovery>34</BrakeRightRearTractionControlStatsMaxRecovery>
+                                <BrakeRightRearTractionControlStatsAverage>36</BrakeRightRearTractionControlStatsAverage>
+                                <BrakeRightRearTractionControlStatsMinReductionIndex>38</BrakeRightRearTractionControlStatsMinReductionIndex>
+                                <BrakeRightRearTractionControlStatsMaxRecoveryIndex>40</BrakeRightRearTractionControlStatsMaxRecoveryIndex>
+                                <!-- Second reduction min data -->
+                                <BrakeLeftFrontSecondReductionMinValue>42</BrakeLeftFrontSecondReductionMinValue>
+                                <BrakeLeftFrontSecondReductionMinValueIndex>44</BrakeLeftFrontSecondReductionMinValueIndex>
+                                <BrakeRightFrontSecondReductionMinValue>46</BrakeRightFrontSecondReductionMinValue>
+                                <BrakeRightFrontSecondReductionMinValueIndex>48</BrakeRightFrontSecondReductionMinValueIndex>
+                                <BrakeLeftRearSecondReductionMinValue>50</BrakeLeftRearSecondReductionMinValue>
+                                <BrakeLeftRearSecondReductionMinValueIndex>52</BrakeLeftRearSecondReductionMinValueIndex>
+                                <BrakeRightRearSecondReductionMinValue>54</BrakeRightRearSecondReductionMinValue>
+                                <BrakeRightRearSecondReductionMinValueIndex>56</BrakeRightRearSecondReductionMinValueIndex>
+                            </DataLocations>
+                        </Message03>
+                        <Message04 Description="Traction Control Results">
+                            <Length>58</Length>
+                            <DataLocations>
+                                <TestResultId>1</TestResultId>
+                                <!-- Left Front Traction Control Data -->
+                                <BrakeLeftFrontAbsStatsMinReduction>2</BrakeLeftFrontAbsStatsMinReduction>
+                                <BrakeLeftFrontAbsStatsMaxRecovery>4</BrakeLeftFrontAbsStatsMaxRecovery>
+                                <BrakeLeftFrontAbsStatsAverage>6</BrakeLeftFrontAbsStatsAverage>
+                                <BrakeLeftFrontAbsStatsMinReductionIndex>8</BrakeLeftFrontAbsStatsMinReductionIndex>
+                                <BrakeLeftFrontAbsStatsMaxRecoveryIndex>10</BrakeLeftFrontAbsStatsMaxRecoveryIndex>
+                                <!-- Right Front Traction Control Data -->
+                                <BrakeRightFrontAbsStatsMinReduction>12</BrakeRightFrontAbsStatsMinReduction>
+                                <BrakeRightFrontAbsStatsMaxRecovery>14</BrakeRightFrontAbsStatsMaxRecovery>
+                                <BrakeRightFrontAbsStatsAverage>16</BrakeRightFrontAbsStatsAverage>
+                                <BrakeRightFrontAbsStatsMinReductionIndex>18</BrakeRightFrontAbsStatsMinReductionIndex>
+                                <BrakeRightFrontAbsStatsMaxRecoveryIndex>20</BrakeRightFrontAbsStatsMaxRecoveryIndex>
+                                <!-- Left Rear Traction Control Data -->
+                                <BrakeLeftRearAbsStatsMinReduction>22</BrakeLeftRearAbsStatsMinReduction>
+                                <BrakeLeftRearAbsStatsMaxRecovery>24</BrakeLeftRearAbsStatsMaxRecovery>
+                                <BrakeLeftRearAbsStatsAverage>26</BrakeLeftRearAbsStatsAverage>
+                                <BrakeLeftRearAbsStatsMinReductionIndex>28</BrakeLeftRearAbsStatsMinReductionIndex>
+                                <BrakeLeftRearAbsStatsMaxRecoveryIndex>30</BrakeLeftRearAbsStatsMaxRecoveryIndex>
+                                <!-- Right Rear Traction Control Data -->
+                                <BrakeRightRearAbsStatsMinReduction>32</BrakeRightRearAbsStatsMinReduction>
+                                <BrakeRightRearAbsStatsMaxRecovery>34</BrakeRightRearAbsStatsMaxRecovery>
+                                <BrakeRightRearAbsStatsAverage>36</BrakeRightRearAbsStatsAverage>
+                                <BrakeRightRearAbsStatsMinReductionIndex>38</BrakeRightRearAbsStatsMinReductionIndex>
+                                <BrakeRightRearAbsStatsMaxRecoveryIndex>40</BrakeRightRearAbsStatsMaxRecoveryIndex>
+                                <!-- Second reduction min data -->
+                                <BrakeLeftFrontSecondReductionMinValue>42</BrakeLeftFrontSecondReductionMinValue>
+                                <BrakeLeftFrontSecondReductionMinValueIndex>44</BrakeLeftFrontSecondReductionMinValueIndex>
+                                <BrakeRightFrontSecondReductionMinValue>46</BrakeRightFrontSecondReductionMinValue>
+                                <BrakeRightFrontSecondReductionMinValueIndex>48</BrakeRightFrontSecondReductionMinValueIndex>
+                                <BrakeLeftRearSecondReductionMinValue>50</BrakeLeftRearSecondReductionMinValue>
+                                <BrakeLeftRearSecondReductionMinValueIndex>52</BrakeLeftRearSecondReductionMinValueIndex>
+                                <BrakeRightRearSecondReductionMinValue>54</BrakeRightRearSecondReductionMinValue>
+                                <BrakeRightRearSecondReductionMinValueIndex>56</BrakeRightRearSecondReductionMinValueIndex>
+                            </DataLocations>
+                        </Message04>
+                        <Message05 Description="Max Brake Results">
+                            <Length>58</Length>
+                            <DataLocations>
+                                <TestResultId>1</TestResultId>
+                                <!-- Left Front Max Brake Data -->
+                                <BrakeLeftFrontMaxBrakeStatsMinBrakeForce>2</BrakeLeftFrontMaxBrakeStatsMinBrakeForce>
+                                <BrakeLeftFrontMaxBrakeStatsMaxBrakeForce>4</BrakeLeftFrontMaxBrakeStatsMaxBrakeForce>
+                                <BrakeLeftFrontMaxBrakeStatsAverage>6</BrakeLeftFrontMaxBrakeStatsAverage>
+                                <BrakeLeftFrontMaxBrakeStatsMinBrakeIndex>8</BrakeLeftFrontMaxBrakeStatsMinBrakeIndex>
+                                <BrakeLeftFrontMaxBrakeStatsMaxBrakeIndex>10</BrakeLeftFrontMaxBrakeStatsMaxBrakeIndex>
+                                <!-- Right Front Max Brake Data -->
+                                <BrakeRightFrontMaxBrakeStatsMinBrakeForce>12</BrakeRightFrontMaxBrakeStatsMinBrakeForce>
+                                <BrakeRightFrontMaxBrakeStatsMaxBrakeForce>14</BrakeRightFrontMaxBrakeStatsMaxBrakeForce>
+                                <BrakeRightFrontMaxBrakeStatsAverage>16</BrakeRightFrontMaxBrakeStatsAverage>
+                                <BrakeRightFrontMaxBrakeStatsMinBrakeIndex>18</BrakeRightFrontMaxBrakeStatsMinBrakeIndex>
+                                <BrakeRightFrontMaxBrakeStatsMaxBrakeIndex>20</BrakeRightFrontMaxBrakeStatsMaxBrakeIndex>
+                                <!-- Left Rear Max Brake Data -->
+                                <BrakeLeftRearMaxBrakeStatsMinBrakeForce>22</BrakeLeftRearMaxBrakeStatsMinBrakeForce>
+                                <BrakeLeftRearMaxBrakeStatsMaxBrakeForce>24</BrakeLeftRearMaxBrakeStatsMaxBrakeForce>
+                                <BrakeLeftRearMaxBrakeStatsAverage>26</BrakeLeftRearMaxBrakeStatsAverage>
+                                <BrakeLeftRearMaxBrakeStatsMinBrakeIndex>28</BrakeLeftRearMaxBrakeStatsMinBrakeIndex>
+                                <BrakeLeftRearMaxBrakeStatsMaxBrakeIndex>30</BrakeLeftRearMaxBrakeStatsMaxBrakeIndex>
+                                <!-- Right Rear Max Brake Data -->
+                                <BrakeRightRearMaxBrakeStatsMinBrakeForce>32</BrakeRightRearMaxBrakeStatsMinBrakeForce>
+                                <BrakeRightRearMaxBrakeStatsMaxBrakeForce>34</BrakeRightRearMaxBrakeStatsMaxBrakeForce>
+                                <BrakeRightRearMaxBrakeStatsAverage>36</BrakeRightRearMaxBrakeStatsAverage>
+                                <BrakeRightRearMaxBrakeStatsMinBrakeIndex>38</BrakeRightRearMaxBrakeStatsMinBrakeIndex>
+                                <BrakeRightRearMaxBrakeStatsMaxBrakeIndex>40</BrakeRightRearMaxBrakeStatsMaxBrakeIndex>
+                                <!-- Second reduction min data -->
+                                <BrakeLeftFrontSecondReductionMinValue>42</BrakeLeftFrontSecondReductionMinValue>
+                                <BrakeLeftFrontSecondReductionMinValueIndex>44</BrakeLeftFrontSecondReductionMinValueIndex>
+                                <BrakeRightFrontSecondReductionMinValue>46</BrakeRightFrontSecondReductionMinValue>
+                                <BrakeRightFrontSecondReductionMinValueIndex>48</BrakeRightFrontSecondReductionMinValueIndex>
+                                <BrakeLeftRearSecondReductionMinValue>50</BrakeLeftRearSecondReductionMinValue>
+                                <BrakeLeftRearSecondReductionMinValueIndex>52</BrakeLeftRearSecondReductionMinValueIndex>
+                                <BrakeRightRearSecondReductionMinValue>54</BrakeRightRearSecondReductionMinValue>
+                                <BrakeRightRearSecondReductionMinValueIndex>56</BrakeRightRearSecondReductionMinValueIndex>
+                            </DataLocations>
+                        </Message05>
+                        <Message06 Description="Park Brake Results">
+                            <Length>58</Length>
+                            <DataLocations>
+                                <TestResultId>1</TestResultId>
+                                <!-- Left Front Park Brake Data -->
+                                <BrakeLeftFrontParkBrakeStatsMinParkBrakeForce>2</BrakeLeftFrontParkBrakeStatsMinParkBrakeForce>
+                                <BrakeLeftFrontParkBrakeStatsMaxParkBrakeForce>4</BrakeLeftFrontParkBrakeStatsMaxParkBrakeForce>
+                                <BrakeLeftFrontParkBrakeStatsAverage>6</BrakeLeftFrontParkBrakeStatsAverage>
+                                <BrakeLeftFrontParkBrakeStatsMinParkBrakeIndex>8</BrakeLeftFrontParkBrakeStatsMinParkBrakeIndex>
+                                <BrakeLeftFrontParkBrakeStatsMaxParkBrakeIndex>10</BrakeLeftFrontParkBrakeStatsMaxParkBrakeIndex>
+                                <!-- Right Front Park Brake Data -->
+                                <BrakeRightFrontParkBrakeStatsMinParkBrakeForce>12</BrakeRightFrontParkBrakeStatsMinParkBrakeForce>
+                                <BrakeRightFrontParkBrakeStatsMaxParkBrakeForce>14</BrakeRightFrontParkBrakeStatsMaxParkBrakeForce>
+                                <BrakeRightFrontParkBrakeStatsAverage>16</BrakeRightFrontParkBrakeStatsAverage>
+                                <BrakeRightFrontParkBrakeStatsMinParkBrakeIndex>18</BrakeRightFrontParkBrakeStatsMinParkBrakeIndex>
+                                <BrakeRightFrontParkBrakeStatsMaxParkBrakeIndex>20</BrakeRightFrontParkBrakeStatsMaxParkBrakeIndex>
+                                <!-- Left Rear Park Brake Data -->
+                                <BrakeLeftRearParkBrakeStatsMinParkBrakeForce>22</BrakeLeftRearParkBrakeStatsMinParkBrakeForce>
+                                <BrakeLeftRearParkBrakeStatsMaxParkBrakeForce>24</BrakeLeftRearParkBrakeStatsMaxParkBrakeForce>
+                                <BrakeLeftRearParkBrakeStatsAverage>26</BrakeLeftRearParkBrakeStatsAverage>
+                                <BrakeLeftRearParkBrakeStatsMinParkBrakeIndex>28</BrakeLeftRearParkBrakeStatsMinParkBrakeIndex>
+                                <BrakeLeftRearParkBrakeStatsMaxParkBrakeIndex>30</BrakeLeftRearParkBrakeStatsMaxParkBrakeIndex>
+                                <!-- Right Rear Park Brake Data -->
+                                <BrakeRightRearParkBrakeStatsMinParkBrakeForce>32</BrakeRightRearParkBrakeStatsMinParkBrakeForce>
+                                <BrakeRightRearParkBrakeStatsMaxParkBrakeForce>34</BrakeRightRearParkBrakeStatsMaxParkBrakeForce>
+                                <BrakeRightRearParkBrakeStatsAverage>36</BrakeRightRearParkBrakeStatsAverage>
+                                <BrakeRightRearParkBrakeStatsMinParkBrakeIndex>38</BrakeRightRearParkBrakeStatsMinParkBrakeIndex>
+                                <BrakeRightRearParkBrakeStatsMaxParkBrakeIndex>40</BrakeRightRearParkBrakeStatsMaxParkBrakeIndex>
+                                <!-- Second reduction min data -->
+                                <BrakeLeftFrontSecondReductionMinValue>42</BrakeLeftFrontSecondReductionMinValue>
+                                <BrakeLeftFrontSecondReductionMinValueIndex>44</BrakeLeftFrontSecondReductionMinValueIndex>
+                                <BrakeRightFrontSecondReductionMinValue>46</BrakeRightFrontSecondReductionMinValue>
+                                <BrakeRightFrontSecondReductionMinValueIndex>48</BrakeRightFrontSecondReductionMinValueIndex>
+                                <BrakeLeftRearSecondReductionMinValue>50</BrakeLeftRearSecondReductionMinValue>
+                                <BrakeLeftRearSecondReductionMinValueIndex>52</BrakeLeftRearSecondReductionMinValueIndex>
+                                <BrakeRightRearSecondReductionMinValue>54</BrakeRightRearSecondReductionMinValue>
+                                <BrakeRightRearSecondReductionMinValueIndex>56</BrakeRightRearSecondReductionMinValueIndex>
+                            </DataLocations>
+                        </Message06>
+                    </Messages>
+                </Mode20>
+                <Mode42>
+                    <Incoming>
+                        <MsgSlot0Index>3</MsgSlot0Index>
+                        <TotalMsgSlots>20</TotalMsgSlots>
+                    </Incoming>
+                    <Outgoing>
+                        <ScheduledMessageDelay Units="ms">50</ScheduledMessageDelay>
+                    </Outgoing>
+                </Mode42>
+            </Messages>
+        </MessageData>
+        <IcmData>
+            <DataUpdateRate Units="ms">40</DataUpdateRate>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+            <ForceArray>/dev/ArrayForce</ForceArray>
+            <SpeedArray>/dev/ArraySpeed</SpeedArray>
+            <DistanceArray>/dev/ArrayDistance</DistanceArray>
+            <IcmName>mgr/ICM</IcmName>
+        </IcmData>
+        <Communication>
+            <Type>Server</Type>
+            <Debug>Off</Debug>
+            <Name>core/Gen3Interface</Name>
+            <Comm>IPC</Comm>
+            <Timeout>5000</Timeout>
+            <BufferSize>2000</BufferSize>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>core/Gen3Interface</ProcessName>
+            <AdditionalLogFile Type="/Servers/DsaServer or Disabled">/Servers/Gen3Interface.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <Debug>Off</Debug>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <AllFaults/>
+                <ArmSpeed/>
+                <BrakeAnalyzeDragTest/>
+                <BrakeDragTest/>
+                <BrakeEvaluateABS/>
+                <BrakeLeftFrontAbsStats/>
+                <BrakeLeftFrontBrakeTestStats/>
+                <BrakeLeftFrontDragTestStats/>
+                <BrakeLeftFrontMaxBrakeStats/>
+                <BrakeLeftFrontParkBrakeStats/>
+                <BrakeLeftFrontTractionControlStats/>
+                <BrakeLeftRearAbsStats/>
+                <BrakeLeftRearBrakeTestStats/>
+                <BrakeLeftRearDragTestStats/>
+                <BrakeLeftRearMaxBrakeStats/>
+                <BrakeLeftRearParkBrakeStats/>
+                <BrakeLeftRearTractionControlStats/>
+                <BrakeHighSpeedSensorTest/>
+                <BrakeMachineFault/>
+                <BrakeMaxBrakeForce/>
+                <BrakePinionFactorProgramming/>
+                <BrakeReadFaults/>
+                <BrakeRightFrontAbsStats/>
+                <BrakeRightFrontBrakeTestStats/>
+                <BrakeRightFrontDragTestStats/>
+                <BrakeRightFrontMaxBrakeStats/>
+                <BrakeRightFrontParkBrakeStats/>
+                <BrakeRightFrontTractionControlStats/>
+                <BrakeRightRearAbsStats/>
+                <BrakeRightRearBrakeTestStats/>
+                <BrakeRightRearDragTestStats/>
+                <BrakeRightRearMaxBrakeStats/>
+                <BrakeRightRearParkBrakeStats/>
+                <BrakeRightRearTractionControlStats/>
+                <BrakeStopBaseBrakeTest/>
+                <DriveAxle/>
+                <LCMachineLossMaxLeft/>
+                <LCMachineLossMaxRight/>
+                <LCMachineLossMinLeft/>
+                <LCMachineLossMinRight/>
+                <LCSampleSpeedEnd/>
+                <LFEncoderRunoutError/>
+                <LFMachineLossCurrent/>
+                <LFMachineLossPrevious/>
+                <LossCompensation/>
+                <LREncoderRunoutError/>
+                <LRMachineLossCurrent/>
+                <LRMachineLossPrevious/>
+                <MachineLossDate/>
+                <MachineLossTime/>
+                <OverallTest/>
+                <PanelEStopPBDepressed/>
+                <PLCSystemIsReady/>
+                <PowerSense/>
+                <RFEncoderRunoutError/>
+                <RFMachineLossCurrent/>
+                <RFMachineLossPrevious/>
+                <RREncoderRunoutError/>
+                <RRMachineLossCurrent/>
+                <RRMachineLossPrevious/>
+                <RollsDownElevUp/>
+                <RollsUpElevDown/>
+                <Start40kphTest/>
+                <TransferCaseCheckAxleRatio/>
+                <VehiclePresent/>
+                <WheelbaseInPosition/>
+                <Zerospeed/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>17</MaxBlockedLimit>
+            <Increment>4</Increment>
+            <Maximum>20</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+    </Setup>
+</Gen3InterfaceConfig>

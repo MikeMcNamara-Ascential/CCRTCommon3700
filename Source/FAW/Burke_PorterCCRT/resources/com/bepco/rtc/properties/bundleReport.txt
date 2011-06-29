@@ -1,0 +1,19 @@
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties changed between new file and old file (new property listed)
+label.axleratio.text=AxleRatio
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/EnterVinDialog.properties
+# Properties changed between new file and old file (new property listed)
+barcode.vcnumber.length=0
+barcode.vin.startindex=0
+barcode.error.insufficientlength=Input Data Not Long Enough!
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/LocalizationConfig.properties
+# Properties in new file but missing from old 
+language.units.ForceUnitsN.label=Display Force in Newtons
+
+# File C:\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts.properties
+# Properties changed between new file and old file (new property listed)
+PerformingFinishUp = Performing FinishUp
+
+

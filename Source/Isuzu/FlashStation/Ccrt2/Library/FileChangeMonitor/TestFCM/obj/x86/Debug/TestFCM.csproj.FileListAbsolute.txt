@@ -1,0 +1,13 @@
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\ResolveAssemblyReference.cache
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.FCMTestMainForm.resources
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.Properties.Resources.resources
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\GenerateResource.read.1.tlog
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\GenerateResource.write.1.tlog
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\TestFCM.exe
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\TestFCM.pdb
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\FileChangeMonitor.dll
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\LoggingInterface.dll
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\FileChangeMonitor.pdb
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\LoggingInterface.pdb
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.exe
+E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.pdb

@@ -1,0 +1,497 @@
+€12/13/10 15:23:51.012 (1) MotorController            Activated additional log [/home/CCRT/Rewrite/Logs/Servers/MotorController.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:55.412 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(RightMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(RightMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(RightMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(RightMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.413 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.414 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.414 (2) MotorController            BepServer::GetData(RightMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.414 (2) MotorController            BepServer::GetData(LeftMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:55.414 (2) MotorController            BepServer::GetData(RightMotorMode) was unable to provide requested data
+€
+€12/13/10 15:23:57.776 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:23:58.098 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:23:58.392 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:23:58.685 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:23:58.978 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:23:59.272 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:23:59.565 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:23:59.858 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:00.151 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:00.444 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:00.737 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:01.030 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:01.323 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:01.616 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:01.910 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:02.203 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:02.497 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:02.790 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:03.083 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:03.376 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:03.669 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:03.963 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:04.256 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:04.549 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:04.843 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:05.136 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:05.429 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:05.721 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:06.014 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:06.307 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:06.600 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:06.894 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:07.188 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:07.482 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:07.777 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:08.070 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:08.364 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:08.657 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:08.950 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:09.258 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:09.628 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:09.990 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:10.312 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:10.610 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:10.903 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:11.197 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:11.490 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:11.783 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:12.077 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:12.369 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:12.663 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:12.957 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:13.250 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:13.543 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:13.836 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:14.129 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:14.422 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:14.715 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:15.009 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:15.303 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:15.596 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:15.890 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:16.183 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:16.476 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:16.771 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:17.064 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:17.357 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:17.650 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:17.944 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:18.237 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:18.530 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:18.822 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:19.116 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:19.410 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:19.704 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:19.998 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:20.291 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:20.585 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:20.879 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:21.173 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:21.467 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:21.762 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:22.056 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:22.350 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:22.643 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:22.937 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:23.230 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:23.524 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:23.817 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:24.110 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:24.404 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:24.698 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:24.991 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:25.285 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:25.578 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:25.871 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:26.165 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:26.458 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:26.751 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:27.045 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:27.339 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:27.633 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:27.926 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:28.221 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:28.514 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:28.807 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:29.100 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:29.394 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:29.688 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:29.981 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:30.276 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:30.570 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:30.864 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:31.157 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:31.450 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:31.743 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:32.035 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:32.329 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:32.638 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:32.722 (2) MotorController            Additional log [Servers/MotorController.log] already activated.€
+€12/13/10 15:24:32.726 (2) MotorController            Additional log [Servers/MotorController.log] already activated.€
+€12/13/10 15:24:32.731 (2) MotorController            Setup/NotificationList/Setup/ResponseTimeout not provided, using 2000 - Tag Not Found: ResponseTimeout€
+€12/13/10 15:24:32.939 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:33.233 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:33.527 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:33.821 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:34.115 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:34.409 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:34.703 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:34.997 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:35.291 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:35.585 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:35.879 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:36.172 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:36.466 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:36.759 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:37.053 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:37.347 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:37.640 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:37.934 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:38.227 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:38.520 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:38.813 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:39.107 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:39.401 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:39.695 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:39.989 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:40.283 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:40.576 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:40.870 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:41.164 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:41.457 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:41.751 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:42.045 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:42.339 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:42.633 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:42.927 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:43.221 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:43.514 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:43.808 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:44.102 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:44.396 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:44.690 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:44.983 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:45.278 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:45.571 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:45.865 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:46.159 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:46.452 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:46.746 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:47.040 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:47.334 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:47.628 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:47.922 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:48.216 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:48.510 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:48.804 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:49.098 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:49.392 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:49.686 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:49.979 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:50.274 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:50.576 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:50.888 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:51.219 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:51.512 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:51.805 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:52.099 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:52.393 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:52.687 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:52.981 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:53.276 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:53.570 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:53.864 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:54.158 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:54.451 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:54.745 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:55.039 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:55.333 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:55.626 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:55.920 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:56.213 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:56.507 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:56.801 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:57.095 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:57.389 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:57.683 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:57.976 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:58.271 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:58.565 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:58.858 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:59.152 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:59.447 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:24:59.741 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:00.035 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:00.329 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:00.623 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:00.916 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:01.210 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:01.504 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:01.798 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:02.092 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:02.386 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:02.680 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:02.974 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:03.269 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:03.563 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:03.857 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:04.154 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:04.456 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:04.752 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:05.052 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:05.352 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:05.650 (1) MotorController            MotorController Could Not UpdateMachineStatus because: Bad file descriptor
+€
+€12/13/10 15:25:05.94

@@ -1,0 +1,842 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+   <xsl:template match="/BepVehicleTestResult">
+      <html>
+         <body>
+            
+            <!-- Build Data -->
+            <xsl:call-template name="BuildData"/>
+
+            <!-- Test Results -->
+            <xsl:call-template name="TestResults"/>
+
+         </body>
+      </html>
+   </xsl:template>
+
+   <!-- Build Data -->
+   <xsl:template name="BuildData" match="/BepVehicleTestResult/VehicleBuild">
+      <h3>
+         <u>Vehicle Inspection Report</u>
+      </h3>
+      <table border="1" rules="all" cellpadding="1">
+         <tr bgcolor="white">
+            <th align="center" colspan="4">
+               <b>
+                  <u>Vehicle Data</u>
+               </b>
+            </th>
+         </tr>
+         <tr>
+            <td align="right">Date:</td>
+            <td>
+               <xsl:value-of select="//TestResult/MachineInitialize/Date"/>
+            </td>
+            <td align="right">Time:</td>
+            <td>
+               <xsl:value-of select="//TestResult/MachineInitialize/Time"/>
+            </td>
+         </tr>
+         <tr>
+            <td align="left">Assy Line:</td>
+            <td>
+               <xsl:value-of select="//TestResult/MachineInitialize/MachineNumber"/>
+            </td>
+            <td/>
+            <td/>
+         </tr>
+         <tr>
+            <td align="left">VIN</td>
+            <td align="left">
+               <u>
+                  <xsl:value-of select="//VIN"/>
+               </u>
+            </td>
+            <td align="left">Year</td>
+            <td align="left"/>
+         </tr>
+         <tr>
+            <td align="left">Make</td>
+            <td align="left"/>
+            <td align="left">Model</td>
+            <td align="left"/>
+         </tr>
+         <tr>
+            <td align="left">Weight</td>
+            <td align="left"/>
+            <td align="left">Odometer</td>
+            <td align="left"/>
+         </tr>
+         <tr>
+            <td align="left">Chassis</td>
+            <td align="left" colspan="3"/>
+         </tr>
+         <tr>
+            <td align="left">Abort Code</td>
+            <td align="left" colspan="3"/>
+         </tr>
+      </table>
+   </xsl:template>
+
+   <!-- Test Results -->
+   <xsl:template name="TestResults" match="/BepVehicleTestResult/TestResult">
+
+      <h3/>
+      <table border="1" rules="all" title="Test Results" cellpadding="1">
+         <xsl:call-template name="headerRow"/>
+
+         <!-- HLA Test Results -->
+         <tr bgcolor="white">
+            <th align="center" rowspan="11">HEADLIGHT TEST</th>
+         </tr>
+         <tr>
+            <td align="center" colspan="3">
+               <b>Left Low Beam</b>
+            </td>
+            <td align="center" colspan="3">
+               <b>Right Low Beam</b>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Intensity</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftLampLuminousIntensity/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftLampLuminousIntensity"/>
+               </u>
+            </td>
+            <td align="right">Intensity</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightLampLuminousIntensity/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightLampLuminousIntensity"/>
+               </u>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Inclination</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftLampUpDownDeviationAngle/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftLampUpDownDeviationAngle"/>
+               </u>
+            </td>
+            <td align="right">Inclination</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightLampUpDownDeviationAngle/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightLampUpDownDeviationAngle"/>
+               </u>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Direction</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftLampLeftRightDeviationAngle/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftLampLeftRightDeviationAngle"/>
+               </u>
+            </td>
+            <td align="right">Direction</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightLampLeftRightDeviationAngle/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightLampLeftRightDeviationAngle"/>
+               </u>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Blinding</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftLampHeight/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftLampHeight"/>
+               </u>
+            </td>
+            <td align="right">Blinding</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightLampHeight/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightLampHeight"/>
+               </u>
+            </td>
+         </tr>
+
+         <tr>
+            <td align="center" colspan="3">
+               <b>Left High Beam</b>
+            </td>
+            <td align="center" colspan="3">
+               <b>Right High Beam</b>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Intensity</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftLampHighLuminousIntensity/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftLampHighLuminousIntensity"/>
+               </u>
+            </td>
+            <td align="right">Intensity</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightLampHighLuminousIntensity/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightLampHighLuminousIntensity"/>
+               </u>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Inclination</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftLampHighUpDownDeviationAngle/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftLampHighUpDownDeviationAngle"/>
+               </u>
+            </td>
+            <td align="right">Inclination</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightLampHighUpDownDeviationAngle/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightLampHighUpDownDeviationAngle"/>
+               </u>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Direction</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftLampHighLeftRightDeviationAngle/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftLampHighLeftRightDeviationAngle"/>
+               </u>
+            </td>
+            <td align="right">Direction</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightLampHighLeftRightDeviationAngle/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightLampHighLeftRightDeviationAngle"/>
+               </u>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Blinding</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftLampHighHeight/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftLampHighHeight"/>
+               </u>
+            </td>
+            <td align="right">Blinding</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightLampHighHeight/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightLampHighHeight"/>
+               </u>
+            </td>
+         </tr>
+
+         
+         <!-- Steering Angle Test Results -->
+         <xsl:call-template name="sectionSpacer"/>
+         <tr bgcolor="white">
+            <th align="center" rowspan="2">STG ANGLE</th>
+         </tr>
+         <tr>
+            <td align="right">Left Angle</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/LeftWheelLeftAngleResult"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/LeftWheelLeftAngle"/>
+                  deg
+               </u>
+            </td>
+            <td align="right">Right Angle</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//HLA/RightWheelLeftAngleResult"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//HLA/RightWheelLeftAngle"/>
+                  deg
+               </u>
+            </td>
+         </tr>
+
+         <!-- Side Slip Test Results -->
+         <xsl:call-template name="sectionSpacer"/>
+         <tr bgcolor="white">
+            <th align="center" rowspan="2">SIDE SLIP TEST</th>
+         </tr>
+         <tr>
+            <td align="right">Left Toe In</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//SideSlip/FrontSideSlipValue/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//SideSlip/FrontSideSlipValue"/>
+                  m/km
+               </u>
+            </td>
+            <td align="right">Right Toe In</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//SideSlip/RearSideSlipValue/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//SideSlip/RearSideSlipValue"/>
+                  m/km
+               </u>
+            </td>
+         </tr>
+
+         <!-- Sound Test Results -->
+         <xsl:call-template name="sectionSpacer"/>
+         <tr bgcolor="white">
+            <th align="center" rowspan="2">SOUND TEST</th>
+         </tr>
+         <tr>
+            <td align="right">Noise Test</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//SoundLevelRunningHornTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//SoundLevelRunningHornTest/SoundPressureLevel"/>
+                  db
+               </u>
+            </td>
+            <td align="right">Horn Test</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//SoundLevelIdleHornTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//SoundLevelIdleHornTest/SoundPressureLevel"/>
+                  db
+               </u>
+            </td>
+         </tr>
+
+         <!-- Brake Test Results -->
+         <xsl:call-template name="sectionSpacer"/>
+         <tr bgcolor="white">
+            <th align="center" rowspan="6">BRAKE TEST</th>
+            <td align="left" colspan="6">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeBrakeTest/@Result"/>
+               </xsl:call-template>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Left Front</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeTandemAxleLeftFrontForceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertForce">
+                     <xsl:with-param name="FORCE" select="//BrakeTandemAxleLeftFrontForceTest/BrakeForce"/>
+                     <xsl:with-param name="UNITS" select="//BrakeTandemAxleLeftFrontForceTest/BrakeForce/@Units"/>
+                  </xsl:call-template>
+                  KGF
+               </u>
+            </td>
+            <td align="right">Right Front</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeTandemAxleRightFrontForceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertForce">
+                     <xsl:with-param name="FORCE" select="//BrakeTandemAxleRightFrontForceTest/BrakeForce"/>
+                     <xsl:with-param name="UNITS" select="//BrakeTandemAxleRightFrontForceTest/BrakeForce/@Units"/>
+                  </xsl:call-template>
+                  KGF
+               </u>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Left Rear</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeTandemAxleLeftRearForceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertForce">
+                     <xsl:with-param name="FORCE" select="//BrakeTandemAxleLeftRearForceTest/BrakeForce"/>
+                     <xsl:with-param name="UNITS" select="//BrakeTandemAxleLeftRearForceTest/BrakeForce/@Units"/>
+                  </xsl:call-template>
+                  KGF
+               </u>
+            </td>
+            <td align="right">Right Rear</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeTandemAxleRightRearForceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertForce">
+                     <xsl:with-param name="FORCE" select="//BrakeTandemAxleRightRearForceTest/BrakeForce"/>
+                     <xsl:with-param name="UNITS" select="//BrakeTandemAxleRightRearForceTest/BrakeForce/@Units"/>
+                  </xsl:call-template>
+                  KGF
+               </u>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Front Bal</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeTandemAxleFrontBalanceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//BrakeTandemAxleFrontBalanceTest/Value"/>
+                  %
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+         <tr>
+            <td align="right">Rear Bal</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeRearBalanceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//BrakeRearBalanceTest/Value"/>
+                  %
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+         <tr>
+            <td align="right">Frt/Rr Bal</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeFrontToRearBalanceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//BrakeFrontToRearBalanceTest/Value"/>
+                  %
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+
+         <!-- Parking Brake Test Results -->
+         <xsl:call-template name="sectionSpacer"/>
+         <tr bgcolor="white">
+            <th align="center" rowspan="3">PARKING BRAKE</th>
+            <td align="left" colspan="6">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeDynamicParkBrakeTest/@Result"/>
+               </xsl:call-template>
+            </td>
+         </tr>
+         <tr>
+            <td align="right">Left Front</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeLeftFrontParkBrakeForceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertForce">
+                     <xsl:with-param name="FORCE" select="//BrakeLeftFrontParkBrakeForceTest/ParkBrakeForce"/>
+                     <xsl:with-param name="UNITS" select="//BrakeLeftFrontParkBrakeForceTest/ParkBrakeForce/@Units"/>
+                  </xsl:call-template>
+                  KGF
+               </u>
+            </td>
+            <td align="right">Right Front</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeRightFrontParkBrakeForceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertForce">
+                     <xsl:with-param name="FORCE" select="//BrakeRightFrontParkBrakeForceTest/ParkBrakeForce"/>
+                     <xsl:with-param name="UNITS" select="//BrakeRightFrontParkBrakeForceTest/ParkBrakeForce/@Units"/>
+                  </xsl:call-template>
+                  KGF
+               </u>
+            </td>
+         </tr>
+         <!--tr>
+            <td align="right">Left Rear</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeLeftRearParkBrakeForceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertForce">
+                     <xsl:with-param name="FORCE" select="//BrakeLeftRearParkBrakeForceTest/ParkBrakeForce"/>
+                     <xsl:with-param name="UNITS" select="//BrakeLeftRearParkBrakeForceTest/ParkBrakeForce/@Units"/>
+                  </xsl:call-template>
+                  KGF
+               </u>
+            </td>
+            <td align="right">Right Rear</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//BrakeRightRearParkBrakeForceTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertForce">
+                     <xsl:with-param name="FORCE" select="//BrakeRightRearParkBrakeForceTest/ParkBrakeForce"/>
+                     <xsl:with-param name="UNITS" select="//BrakeRightRearParkBrakeForceTest/ParkBrakeForce/@Units"/>
+                  </xsl:call-template>
+                  KGF
+               </u>
+            </td>
+         </tr-->
+
+         <!-- Speedo test -->
+         <xsl:call-template name="sectionSpacer"/>
+         <tr bgcolor="white">
+            <th align="center" rowspan="3">SPEEDOMETER TEST</th>
+            <td align="left" colspan="6">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//SpeedometerOverallTest/@Result"/>
+               </xsl:call-template>
+            </td>
+         </tr>
+         <tr>
+            <td align="right" colspan="1">Speed</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//SpeedometerSpeedometerTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertSpeed">
+                     <xsl:with-param name="SPEED" select="//SpeedometerSpeedometerTest/ActualSpeed"/>
+                     <xsl:with-param name="UNITS" select="//SpeedometerSpeedometerTest/ActualSpeed/@Units"/>
+                  </xsl:call-template>
+                  KPH
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+         <tr>
+            <td align="right" colspan="1">Accuracy</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//SpeedometerSpeedometerTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:value-of select="//SpeedometerSpeedometerTest/Accuracy"/>
+                  %
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+
+         <!-- Accel/Transmission test -->
+         <xsl:call-template name="sectionSpacer"/>
+         <tr bgcolor="white">
+            <th align="center" rowspan="4">MAX SPEED TEST</th>
+            <td align="left" colspan="6">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//TransmissionAccelerationTest/@Result"/>
+               </xsl:call-template>
+            </td>
+         </tr>
+         <tr>
+            <td align="right" colspan="1">Max Speed</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//TransmissionAccelerationTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertSpeed">
+                     <xsl:with-param name="SPEED" select="//TransmissionAccelerationTest/TopSpeed"/>
+                     <xsl:with-param name="UNITS" select="//TransmissionAccelerationTest/TopSpeed/@Units"/>
+                  </xsl:call-template>
+                  KPH
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+         <tr>
+            <td align="right" colspan="1">Time</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//TransmissionAccelerationTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <u>
+                     <xsl:value-of select="//TransmissionAccelerationTest/ElapsedTime"/>
+                  sec
+                  </u>
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+         <tr>
+            <td align="right" colspan="1">Reverse</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//TransmissionAccelerateInReverse/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <xsl:call-template name="convertSpeed">
+                     <xsl:with-param name="SPEED" select="//TransmissionAccelerateInReverse/ReverseSpeed"/>
+                     <xsl:with-param name="UNITS" select="//TransmissionAccelerateInReverse/ReverseSpeed/@Units"/>
+                  </xsl:call-template>
+                  KPH
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+
+         <!-- Exhaust test -->
+         <xsl:call-template name="sectionSpacer"/>
+         <tr bgcolor="white">
+            <th align="center" rowspan="2">OPACITY TEST</th>
+            <td align="left" colspan="6">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//ExhaustOverallTest/@Result"/>
+               </xsl:call-template>
+            </td>
+         </tr>
+         <tr>
+            <td align="right" colspan="1">Opacity</td>
+            <td align="center">
+               <xsl:call-template name="showResult">
+                  <xsl:with-param name="RESULT" select="//ExhaustOverallTest/@Result"/>
+               </xsl:call-template>
+            </td>
+            <td align="center">
+               <u>
+                  <u>
+                     <xsl:value-of select="//ExhaustExhaustLevelTest/ExhaustSaturationLevel"/>
+                  </u>
+               </u>
+            </td>
+            <td align="left"/>
+            <td align="left"/>
+            <td align="left"/>
+         </tr>
+      </table>
+   </xsl:template>
+
+   <!-- Inserts a spacer row between sections -->
+   <xsl:template name="sectionSpacer">
+      <tr bgcolor="white">
+         <th align="left" colspan="7" height="15"/>
+      </tr>
+   </xsl:template>
+
+   <!-- Callout to allow cutomization of test result flags -->
+   <xsl:template name="showResult">
+      <xsl:param name="RESULT"/>
+      <i>
+         <xsl:choose>
+            <xsl:when test="$RESULT != ''">
+               <xsl:value-of select="$RESULT"/>
+            </xsl:when>
+            <xsl:otherwise>
+               <xsl:text/>
+            </xsl:otherwise>
+         </xsl:choose>
+      </i>
+   </xsl:template>
+
+   <!-- Converts argument 1 from LBF to KGF -->
+   <xsl:template name="convertForce">
+      <xsl:param name="FORCE"/>
+      <xsl:param name="UNITS"/>
+      <xsl:choose>
+         <!-- The force value is a valid number -->
+         <xsl:when test="string(number($FORCE)) != 'NaN'">
+            <xsl:choose>
+               <!-- Check if units are lbf -->
+               <xsl:when test="translate($UNITS,'LBF','lbf')='lbf'">
+                  <xsl:value-of select="format-number(number($FORCE)*0.45359237,'#.##')"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:value-of select="format-number(number($FORCE),'#.##')"/>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>----</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!-- Converts argument 1 from MPH to KPH -->
+   <xsl:template name="convertSpeed">
+      <xsl:param name="SPEED"/>
+      <xsl:param name="UNITS"/>
+      <xsl:choose>
+         <!-- The force value is a valid number -->
+         <xsl:when test="string(number($SPEED)) != 'NaN'">
+            <xsl:choose>
+               <!-- Check if units are mph -->
+               <xsl:when test="translate($UNITS,'MPH','mph')='mph'">
+                  <xsl:value-of select="format-number(number($SPEED)*1.609343387125249,'#.##')"/>
+               </xsl:when>
+               <xsl:otherwise>
+                  <xsl:value-of select="format-number(number($SPEED),'#.##')"/>
+               </xsl:otherwise>
+            </xsl:choose>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>----</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <xsl:template name="headerRow">
+      <tr>
+         <th align="center"/>
+         <th align="center"/>
+         <th align="center">Result</th>
+         <th align="center">Measured</th>
+         <th align="center"/>
+         <th align="center">Result</th>
+         <th align="center">Measured</th>
+      </tr>
+   </xsl:template>
+
+   <xsl:template name="fixedHeaderRow">
+      <tr>
+         <th align="center" width="50"/>
+         <th align="center" width="175"/>
+         <th align="center" width="50">Result</th>
+         <th align="center" width="100">Measured</th>
+         <th align="center" width="175"/>
+         <th align="center" width="50">Result</th>
+         <th align="center" width="100">Measured</th>
+      </tr>
+   </xsl:template>
+
+</xsl:stylesheet>

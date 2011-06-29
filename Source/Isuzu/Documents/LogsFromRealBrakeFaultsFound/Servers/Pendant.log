@@ -1,0 +1,348 @@
+€12/13/10 15:23:48.829 (1) core/Pendant               Activated additional log [/home/CCRT/Rewrite/Logs/Servers/Pendant.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:48.829 (1) core/Pendant               BepComponent::Initialize()
+€
+€12/13/10 15:23:48.832 (1) core/Pendant               Process core/Pendant running at priority 10
+€
+€12/13/10 15:23:48.832 (1) core/Pendant               Updated process core/Pendant running at priority 10
+€
+€12/13/10 15:23:48.834 (1) core/Pendant               BepComponent::Initialize(         <Pendant enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/PendantManager.qxe">
+            <Setup>
+               <Communication>
+                  <BufferSize>2000</BufferSize>                  <Comm>IPC</Comm>                  <Debug>Off</Debug>                  <Name>core/Pendant</Name>                  <Timeout>1000</Timeout>                  <Type>Server</Type>               </Communication>               <KeyPressTag>KeyPress</KeyPressTag>               <Logging>
+                  <AdditionalLogFile>/Servers/Pendant.log</AdditionalLogFile>                  <Debug>Off</Debug>                  <LocalEcho>Disabled</LocalEcho>                  <ProcessName>core/Pendant</ProcessName>                  <Status>Enabled</Status>                  <Verbose>0x1F</Verbose>               </Logging>               <NotificationList>
+                  <Setup>
+                     <Debug>Off</Debug>                     <HighWater>3</HighWater>                     <Increment>1</Increm€
+€12/13/10 15:23:48.840 (1) core/Pendant               Preparing to deal with subscribe tags:             <Setup>
+               <Communication>
+                  <BufferSize>2000</BufferSize>                  <Comm>IPC</Comm>                  <Debug>Off</Debug>                  <Name>core/Pendant</Name>                  <Timeout>1000</Timeout>                  <Type>Server</Type>               </Communication>               <KeyPressTag>KeyPress</KeyPressTag>               <Logging>
+                  <AdditionalLogFile>/Servers/Pendant.log</AdditionalLogFile>                  <Debug>Off</Debug>                  <LocalEcho>Disabled</LocalEcho>                  <ProcessName>core/Pendant</ProcessName>                  <Status>Enabled</Status>                  <Verbose>0x1F</Verbose>               </Logging>               <NotificationList>
+                  <Setup>
+                     <Debug>Off</Debug>                     <HighWater>3</HighWater>                     <Increment>1</Increment>                     <LowWater>1</LowWater>                     <Maximum€
+€12/13/10 15:23:48.841 (1) core/Pendant               Retrieved Subscribe Tags
+€
+€12/13/10 15:23:48.842 (1) core/Pendant               Stored all Subscribe Tags
+€
+€12/13/10 15:23:48.842 (1) core/Pendant               Creating Thread Pool
+€
+€12/13/10 15:23:48.853 (1) core/Pendant               BepServer::Initialize(         <Pendant enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/PendantManager.qxe">
+            <Setup>
+               <Communication>
+                  <BufferSize>2000</BufferSize>                  <Comm>IPC</Comm>                  <Debug>Off</Debug>                  <Name>core/Pendant</Name>                  <Timeout>1000</Timeout>                  <Type>Server</Type>               </Communication>               <KeyPressTag>KeyPress</KeyPressTag>               <Logging>
+                  <AdditionalLogFile>/Servers/Pendant.log</AdditionalLogFile>                  <Debug>Off</Debug>                  <LocalEcho>Disabled</LocalEcho>                  <ProcessName>core/Pendant</ProcessName>                  <Status>Enabled</Status>                  <Verbose>0x1F</Verbose>               </Logging>               <NotificationList>
+                  <Setup>
+                     <Debug>Off</Debug>                     <HighWater>3</HighWater>                     <Increment>1</Increment€
+€12/13/10 15:23:48.854 (1) core/Pendant               InputDeviceBase::Initialize()
+€
+€12/13/10 15:23:48.854 (1) core/Pendant               InputDeviceBase::Initialize() done
+€
+€12/13/10 15:23:48.854 (1) core/Pendant               PendantManager::Initialize()
+€
+€12/13/10 15:23:48.868 (1) core/Pendant               PendantManager::SetCurrentState(state:Normal)
+€
+€12/13/10 15:23:48.868 (1) core/Pendant               SetCurrentState() - writeDataNode value = False
+€
+€12/13/10 15:23:48.868 (1) core/Pendant               PendantManager::Initialize() complete -- Current state: Normal.
+€
+€12/13/10 15:23:48.868 (1) core/Pendant               PendantManager::Execute() begin
+€
+€12/13/10 15:23:48.868 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:49.399 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:49.913 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:50.415 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:50.936 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:51.454 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:51.976 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:52.478 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:52.984 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:53.486 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:53.988 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:54.494 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:54.787 (2) core/Pendant               Number Of Tags: 4, -1
+€
+€12/13/10 15:23:54.805 (2) core/Pendant               BepServer::SubscribeTags() 0
+€
+€12/13/10 15:23:55.021 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:55.523 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:56.025 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:56.527 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:57.029 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:57.531 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:58.035 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:58.537 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:59.039 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:23:59.540 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:00.042 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:00.544 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:01.060 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:01.562 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:02.064 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:02.566 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:03.068 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:03.570 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:04.072 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:04.579 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:05.081 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:05.583 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:06.084 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:06.586 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:07.088 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:07.590 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:08.100 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:08.602 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:09.104 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:09.628 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:10.132 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:10.640 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:11.142 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:11.644 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:12.146 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:12.647 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:13.149 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:13.651 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:14.159 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:14.661 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:15.163 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:15.665 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:16.167 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:16.669 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:17.171 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:17.680 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:18.182 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:18.684 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:19.185 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:19.687 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:20.189 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:20.691 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:21.203 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:21.705 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:22.207 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:22.709 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:23.211 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:23.713 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:24.215 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:24.728 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:25.229 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:25.731 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:26.233 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:26.735 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:27.237 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:27.739 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:28.251 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:28.753 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:29.255 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:29.757 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:30.259 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:30.761 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:31.263 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:31.772 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:32.274 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:32.776 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:33.278 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:33.780 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:34.282 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:34.784 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:35.286 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:35.788 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:36.290 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:36.792 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:37.294 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:37.796 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:38.297 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:38.799 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:39.301 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:39.803 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:40.313 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:40.815 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:41.317 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:41.819 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:42.321 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:42.823 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:43.325 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:43.838 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:44.340 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:44.841 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:45.343 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:45.845 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:46.347 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:46.849 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:47.364 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:47.866 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:48.368 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:48.870 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:49.372 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:49.874 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:50.376 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:50.883 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:51.384 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:51.886 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:52.388 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:52.890 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:53.392 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:53.894 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:54.396 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:54.898 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:55.400 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:55.902 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:56.404 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:56.906 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:57.419 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:57.920 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:58.422 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:58.924 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:59.426 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:24:59.928 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:25:00.430 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:25:00.946 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:25:01.448 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:25:01.950 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:25:02.452 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:25:02.954 (1) core/Pendant               Waiting for Key Press
+€
+€12/13/10 15:25:03.456 (1) core/Pendant               Waiting for

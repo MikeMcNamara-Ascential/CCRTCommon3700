@@ -1,0 +1,24 @@
+# mappings from states from the server, into colors
+
+# map initial value
+=yellow
+
+TestNotStarted = white
+TestInProgress = 130 130 255
+TestPassed = green
+TestFailed = red
+TestAbort = yellow
+TestError = orange
+TestTimeout = magenta
+
+# BEP Definitions
+Untested = white
+Testing = 130 130 225
+Running = 130 130 225
+Pass = green
+Fail = red
+Abort = yellow
+FatalFail = red
+HardwareFail = red
+SoftwareFail = red
+Timeout = magenta

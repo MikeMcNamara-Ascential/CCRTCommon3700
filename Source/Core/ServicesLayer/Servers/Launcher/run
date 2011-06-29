@@ -1,0 +1,15 @@
+find $USR_ROOT/Logs -type f -remove!
+#find $USR_ROOT/TestResults/Vehicle -type f -remove!
+
+#rm -f $USR_ROOT/Logs/*
+#rm -f $USR_ROOT/Logs/Servers/*
+#rm -f $USR_ROOT/Logs/Component/*
+#rm -f $USR_ROOT/Logs/Communication/*
+#rm -f $USR_ROOT/Logs/VehicleTest/*
+#rm -f $USR_ROOT/TestResults/Vehicle/*
+echo not eraseing vehicle tests due we are endurance testing
+rm -f $USR_ROOT/TestResults/Machine/*
+rm -f $USR_ROOT/TestResults/Machine/BrakeForceData/*
+slay -f Log.qxe
+../Bin/Launcher.qxe -f $FTP_ROOT/Configuration/Servers/LauncherConfig.xml &
+

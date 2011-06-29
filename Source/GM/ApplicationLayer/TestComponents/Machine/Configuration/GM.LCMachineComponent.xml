@@ -1,0 +1,181 @@
+<VehicleTestMachineComponent>
+	<Setup>
+		<Name>Machine</Name>
+        <TestDomain>Foreground</TestDomain>
+		<Debug>Off</Debug>
+		<DebugLevel>0</DebugLevel>
+		<ProcessPriority>11</ProcessPriority>
+		<ThreadPool>
+			<Debug>Off</Debug>
+			<MinBlockedLimit>2</MinBlockedLimit>
+			<MaxBlockedLimit>4</MaxBlockedLimit>
+			<Increment>2</Increment>
+			<Maximum>50</Maximum>
+		</ThreadPool>
+		<NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+		</NotificationList>
+		<Communication>
+			<Comm>IPC</Comm>
+			<Type>Server</Type>
+			<Name>component/MachineComponent</Name>
+			<Debug>Off</Debug>
+			<BufferSize>1024</BufferSize>
+			<Timeout>0</Timeout>
+		</Communication>
+		<TagList>
+			<SubscribeTags>
+				<KeyPress/>
+				<DriverNumber/>
+				<VehiclePresent/>
+				<RollsUpElevDown/>
+				<Abort/>
+				<ForegroundTestInProgress/>
+				<Zerospeed/>
+				<DriveAxle/>
+				<CableConnect/>
+				<VehiclePresent/>
+                <BoostMode/>
+				<Clutch/>
+				<Declutch/>
+				<MotorMode/>
+			</SubscribeTags>
+		</TagList>
+		<Logging>
+			<Status>Enabled</Status>
+			<ProcessName>LCMachineComponent</ProcessName>
+			<AdditionalLogFile Types="/Components/LCMachineComponent or Disabled">/Components/LCMachineComponent.log</AdditionalLogFile>
+			<Debug>Off</Debug>
+			<LocalEcho>Disabled</LocalEcho>
+			<Verbose>0x1F</Verbose>
+		</Logging>
+		<DataTags>
+			<KeyPress>KeyPress</KeyPress>
+			<OverallTest>MachineOverallTest</OverallTest>
+			<DriverNumber>DriverNumber</DriverNumber>
+			<DriverNumberBGColor>DriverNumberDisplayBGColor</DriverNumberBGColor>
+			<InputServerState>InputServerState</InputServerState>
+			<YesValue>Pass</YesValue>
+			<NoValue>Fail</NoValue>
+			<Pass>green</Pass>
+			<Fail>red</Fail>
+			<ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
+			<ServerStateNormal>Normal</ServerStateNormal>
+			<VehiclePresent>VehiclePresent</VehiclePresent>
+			<RetainersUp>RollsUpElevDown</RetainersUp>
+			<ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+            <Zerospeed>Zerospeed</Zerospeed>
+			<!--
+            <HydraulicPumpMotor>StartReverseTest</HydraulicPumpMotor>
+            -->
+		</DataTags>
+		<SystemTagsToReset>
+			<LCWarmupTime>000</LCWarmupTime>
+			<LCTimeCurrent>00:00:00</LCTimeCurrent>
+			<LCTimeCurrentBGColor>white</LCTimeCurrentBGColor>
+			<LCDateCurrent>00/00/00</LCDateCurrent>
+			<LCDateCurrentBGColor>white</LCDateCurrentBGColor>
+			<LCWarmupTime>000</LCWarmupTime>
+			<LCWarmupTimeBGColor>white</LCWarmupTimeBGColor>
+			<LCWarmupTimeRemaining>000</LCWarmupTimeRemaining>
+			<LCWarmupTimeRemainingBGColor>white</LCWarmupTimeRemainingBGColor>
+            <ArmSpeed>40</ArmSpeed>
+            <ArmSpeedBGColor>white</ArmSpeedBGColor>
+            <StartSampleSpeed>35</StartSampleSpeed>
+            <EndSampleSpeed>20</EndSampleSpeed>
+            <MachineLossMaxLeft>10</MachineLossMaxLeft>
+            <MachineLossMinLeft>0</MachineLossMinLeft>
+            <MachineLossMaxRight>10</MachineLossMaxRight>
+            <MachineLossMinRight>0</MachineLossMinRight>
+            <MachineLossMaxDelta>5</MachineLossMaxDelta>
+			<LossCompensationPreviousTime>TBD</LossCompensationPreviousTime>
+			<LossCompensationPreviousDate>TBD</LossCompensationPreviousDate>
+			<VINDisplay>LossCompensation</VINDisplay>
+			<VIN>LossCompensation</VIN>
+			<LeftFrontCurrentLoss>0</LeftFrontCurrentLoss>
+			<LeftFrontCurrentLossBGColor>white</LeftFrontCurrentLossBGColor>
+			<LeftFrontPreviousLossBGColor>white</LeftFrontPreviousLossBGColor>
+			<RightFrontCurrentLoss>0</RightFrontCurrentLoss>
+			<RightFrontCurrentLossBGColor>white</RightFrontCurrentLossBGColor>
+			<RightFrontPreviousLossBGColor>white</RightFrontPreviousLossBGColor>
+			<LeftRearCurrentLoss>0</LeftRearCurrentLoss>
+			<LeftRearCurrentLossBGColor>white</LeftRearCurrentLossBGColor>
+			<LeftRearPreviousLossBGColor>white</LeftRearPreviousLossBGColor>
+			<RightRearCurrentLoss>0</RightRearCurrentLoss>
+			<RightRearCurrentLossBGColor>white</RightRearCurrentLossBGColor>
+			<RightRearPreviousLossBGColor>white</RightRearPreviousLossBGColor>
+        </SystemTagsToReset>
+        <VehicleTestStatusUpdates/>
+        <VehicleTestStatusUpdatesDontRun>
+			<EmissionsOverallTest>TestNotStarted</EmissionsOverallTest>
+			<TransmissionOverallTest>TestNotStarted</TransmissionOverallTest>
+			<CruiseOverallTest>TestNotStarted</CruiseOverallTest>
+			<BrakeOverallTest>TestNotStarted</BrakeOverallTest>
+			<TransferCaseOverallTest>TestNotStarted</TransferCaseOverallTest>
+			<AxleOverallTest>TestNotStarted</AxleOverallTest>
+			<SKIMOverallTest>TestNotStarted</SKIMOverallTest>
+			<AirbagOverallTest>TestNotStarted</AirbagOverallTest>
+			<ClusterOverallTest>TestNotStarted</ClusterOverallTest>
+			<RemoteKeylessEntryOverallTest>TestNotStarted</RemoteKeylessEntryOverallTest>
+			<DTRLOverallTest>TestNotStarted</DTRLOverallTest>
+			<SteeringOverallTest>TestNotStarted</SteeringOverallTest>
+			<ChimeOverallTest>TestNotStarted</ChimeOverallTest>
+			<TPMOverallTest>TestNotStarted</TPMOverallTest>
+		</VehicleTestStatusUpdatesDontRun>
+		<Parameters>
+            <ICMName>mgr/ICM</ICMName>
+			<ResetCommHardware Values="Yes or No">No</ResetCommHardware>
+			<CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+		</Parameters>
+	</Setup>
+	<Objectives>
+		<EnableHydraulicPumpMotor>
+			<TestStep1>EnableHydraulicPumpMotor</TestStep1>
+		</EnableHydraulicPumpMotor>
+        <LCEnableElectricMotors>
+            <TestStep1>EngageMachine</TestStep1>
+        </LCEnableElectricMotors>
+		<DriverQuestion>
+			<TestStep1>DriverQuestion</TestStep1>
+		</DriverQuestion>
+		<PromptDriver>
+			<TestStep1>PromptDriver</TestStep1>
+		</PromptDriver>
+		<DriverNumber>
+			<TestStep1>DriverNumber</TestStep1>
+		</DriverNumber>
+		<FinishUp>
+			<TestStep1>FinishUp</TestStep1>
+		</FinishUp>
+        <LCDisAbleElectricMotors>
+            <TestStep1>DisengageMachine</TestStep1>
+        </LCDisAbleElectricMotors>
+	</Objectives>
+	<TestSteps>
+		<DriverQuestion Description="Prompt The Driver With And Get A Response of Pass/Fail or Yes/No">
+			<DriverPassFail Result="" Timeout="10000" Prompt1="OverallPassOrFail" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
+		</DriverQuestion>
+		<PromptDriver Description="Display A Prompt To The Driver But Do Not Require Driver Input">
+			<SpeedometerWorks Result="" Timeout="5000" Prompt2="CheckSpeedometer" TestResultName="SpeedoTest" Description="Test to determine if the speedometer was functional during the test."/>
+			<DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights"/>
+		</PromptDriver>
+		<DriverNumber Result="" Description="Prompt the driver to input their ID and validate" Timeout="0" Prompt1="InputDriverID" Prompt1Priority="0" Validate="Yes" DriverNumberFile="/Configuration/Components/Machine/DriverNumberList.xml" DefaultDriverNumber="T0000xx"/>
+		<BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="120000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
+		<AccelerateToSpeed Result="" Description="Prompt the driver to accelerate to the commanded speed" Timeout="120000" Prompt1="AccelerateToTargetSpeed" Prompt1Priority="0" SpeedTarget=""/>
+		<QuickStop Result="" Description="Command the rollers to stop and verify that Zerospeed is achieved" Timeout="30000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
+		<ConnectCable Result="" Description="Prompt the driver to connect the vehicle cable" Timeout="15000" Prompt1="ConnectCable" Prompt1Priority="0"/>
+		<EnableMotors Result="" Description="Enable Electric Motors" PumpStatusChangeDelay="1000" Timeout="1000"/>
+        <EnableHydraulicPumpMotor Result="" Description="Turn on the hydraulic pump motor" PumpStatusChangeDelay="1000" Timeout="1000"/>
+        <EngageMachine Result="Not Tested" Timeout="2000" Description="Clutch rollers and enable boost" ScanDelay="250"/>
+        <DisengageMachine Result="Not Tested" Timeout="2000" Description="Declutch rollers and disable boost"/>
+		<FinishUp Result="" Description="Machine Component FinishUp" Timeout=""/>
+	</TestSteps>
+</VehicleTestMachineComponent>

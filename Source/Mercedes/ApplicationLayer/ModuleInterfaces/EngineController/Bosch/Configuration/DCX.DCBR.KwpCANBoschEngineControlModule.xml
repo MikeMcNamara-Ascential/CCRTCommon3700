@@ -1,0 +1,637 @@
+\<BoschEngineController>
+    <Setup>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+		<CommunicationBus>CAN</CommunicationBus>
+        <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+        <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+        <KeepAlivePriority>10</KeepAlivePriority>
+        <SecuritySeedStartIndex>2</SecuritySeedStartIndex>
+        <NumberOfSecuritySeedBytes>4</NumberOfSecuritySeedBytes>
+        <SecurityLookupTable>LookupTable.dat</SecurityLookupTable>
+        <SecurityKeyGeneration>1</SecurityKeyGeneration>
+        <EOLStatusByteStartIndex>2</EOLStatusByteStartIndex>
+        <NumberOfEOLStatusBytes>6</NumberOfEOLStatusBytes>
+        <SwitchMonitorDelay>500</SwitchMonitorDelay>
+        <TPSMonitorDelay>500</TPSMonitorDelay>
+        <DeltaTPSRequired>0.4</DeltaTPSRequired>
+        <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+        <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <ModuleRequestID>0x07E0</ModuleRequestID>
+        <DataByteCountIndex>3</DataByteCountIndex>
+        <DataStartIndex>6</DataStartIndex>
+        <DataHeaderLength>2</DataHeaderLength>
+        <CheckSumLength>1</CheckSumLength>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseEndDelay>100</ModuleResponseEndDelay>
+        <NumberOfOdometerRegisters>4</NumberOfOdometerRegisters>
+        <OKToShipRegister>C0</OKToShipRegister>
+        <OKToShipBit>0</OKToShipBit>
+        <ACStatusBit>7</ACStatusBit>
+        <MonitorRedundantBrakeSwitch Value="Yes or No">Yes</MonitorRedundantBrakeSwitch>
+        <UnlockIfUpdateFailed>True</UnlockIfUpdateFailed>
+        <DTCData>
+            <DTCCountIndex>1</DTCCountIndex>
+            <BytesPerDTC>3</BytesPerDTC>
+            <FirstDTCByteIndex>2</FirstDTCByteIndex>
+            <NumberOfFaultRegisters>7</NumberOfFaultRegisters>
+        </DTCData>
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>BoschKwpEmissions</ProcessName>
+            <AdditionalLogFile>/Communication/BoschKwpEmissions.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+        <EngineTypes>
+            <EngineType_0x01>2.2L I4 EW</EngineType_0x01>
+            <EngineType_0x02>2.5L I4 NS</EngineType_0x02>
+            <EngineType_0x03>2.8L V6 NS</EngineType_0x03>
+        </EngineTypes>
+        <EmissionsTypes>
+            <EmissionsType_0x02>Mexican</EmissionsType_0x02>
+            <EmissionsType_0x03>California Non-TLEV</EmissionsType_0x03>
+            <EmissionsType_0x04>Federal / Canadian</EmissionsType_0x04>
+            <EmissionsType_0x05>BUX</EmissionsType_0x05>
+            <EmissionsType_0x07>50 State / Canadian</EmissionsType_0x07>
+            <EmissionsType_0x08>California TLEV</EmissionsType_0x08>
+            <EmissionsType_0x0D>Canada Only</EmissionsType_0x0D>
+            <EmissionsType_0x0E>Federal Only</EmissionsType_0x0E>
+            <EmissionsType_0x0F>50 State Only</EmissionsType_0x0F>
+            <EmissionsType_0x13>Euro Stage III OBD</EmissionsType_0x13>
+        </EmissionsTypes>
+        <BodyStyles>
+            <BodyStyle_0x19>PT/PG</BodyStyle_0x19>
+        </BodyStyles>
+        <EngineControllers>
+            <EngineController_0x10>Bosch EDC 15C-C5</EngineController_0x10>
+        </EngineControllers>
+        <TransmissionTypes>
+            <TransmissionType_0x02>Manual</TransmissionType_0x02>
+            <TransmissionType_0x04>Automatic</TransmissionType_0x04>
+        </TransmissionTypes>
+    </Setup>
+    <SerialMessages>
+        <VehicleMessages>
+            <ModuleKeepAlive>
+                <TransmitMessage>KeepAlive</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KeepAlive</ReplyMessage>
+                <ReplyInterpretation/>
+            </ModuleKeepAlive>
+            <EnterDiagnosticMode>
+                <TransmitMessage>BeginDiagnosticSession</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>BeginDiagnosticSession</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnterDiagnosticMode>
+			<IsPreviousPass>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>ReadEOLStatusBytes</TransmitInterpretation>
+                <ReplyMessage>ReadEOLStatusBytes</ReplyMessage>
+                <ReplyInterpretation>IsPreviousPass</ReplyInterpretation>
+			</IsPreviousPass>
+            <ReadSecuritySeed>
+                <TransmitMessage>ReadSecuritySeed</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadSecuritySeed</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadSecuritySeed>
+            <SendAccessKey>
+                <TransmitMessage>SendAccessKey</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>SendAccessKey</ReplyMessage>
+                <ReplyInterpretation/>
+            </SendAccessKey>
+            <ReadFaults>
+                <TransmitMessage>ReadFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadFaults</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadFaults>
+            <ReadVIN>
+                <TransmitMessage>ReadEcuId</TransmitMessage>
+                <TransmitInterpretation>ReadVIN</TransmitInterpretation>
+                <ReplyMessage>ReadVIN</ReplyMessage>
+                <ReplyInterpretation>ReadVIN</ReplyInterpretation>
+            </ReadVIN>
+            <ReadTraceData>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>ReadSerialNumber</TransmitInterpretation>
+                <ReplyMessage>ReadSerialNumber</ReplyMessage>
+                <ReplyInterpretation>ReadSerialNumber</ReplyInterpretation>
+            </ReadTraceData>
+            <WriteEOLStatusRegister>
+                <TransmitMessage>WriteEOLStatusRegister</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>WriteEOLStatusRegister</ReplyMessage>
+                <ReplyInterpretation/>
+            </WriteEOLStatusRegister>
+            <ReadEOLStatusBytes>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>ReadEOLStatusBytes</TransmitInterpretation>
+                <ReplyMessage>ReadEOLStatusBytes</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadEOLStatusBytes>
+            <ReadProcessRegister>
+                <TransmitMessage>ReadEcuId</TransmitMessage>
+                <TransmitInterpretation>ReadEOLStatusBytes</TransmitInterpretation>
+                <ReplyMessage>ReadEOLStatusBytes</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadProcessRegister>
+            <ReadPartNumber>
+                <TransmitMessage>ReadEcuId</TransmitMessage>
+                <TransmitInterpretation>ReadPartNumber</TransmitInterpretation>
+                <ReplyMessage>ReadPartNumber</ReplyMessage>
+                <ReplyInterpretation>ReadPartNumber</ReplyInterpretation>
+            </ReadPartNumber>
+            <ReadSensors>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadSensors>
+            <!-- New tandem EngineTorque Temperature Mssg "real message unknown" -->
+            <ReadEngineTemperature>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadEngineTemperature>
+            <!-- New tandem EngineTorque RPM Mssg "real message unknown" -->
+            <ReadEngineRPM>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadEngineRPM</ReplyInterpretation>
+            </ReadEngineRPM>
+            <ReadEngineIdleRPM>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadEngineRPM</ReplyInterpretation>
+            </ReadEngineIdleRPM>
+            <ReadEngineRPMActual>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadEngineRPM</ReplyInterpretation>
+            </ReadEngineRPMActual>
+            <ReadBoostPressure>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadBoostPressure</ReplyInterpretation>
+            </ReadBoostPressure>
+            <ReadVehicleSpeed>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>VoltageData</TransmitInterpretation>
+                <ReplyMessage>ReadVoltageData</ReplyMessage>
+                <ReplyInterpretation>ReadVehicleSpeed</ReplyInterpretation>
+            </ReadVehicleSpeed>
+            <ReadClosedThrottleNonETC>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadThrottlePosition</ReplyInterpretation>
+            </ReadClosedThrottleNonETC>
+            <ReadThrottlePosition>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadThrottlePosition</ReplyInterpretation>
+            </ReadThrottlePosition>
+            <ReadThrottleVoltage>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>VoltageData</TransmitInterpretation>
+                <ReplyMessage>ReadVoltageData</ReplyMessage>
+                <ReplyInterpretation>ReadThrottlePosition</ReplyInterpretation>
+            </ReadThrottleVoltage>
+            <ReadCruiseMode>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>VoltageData</TransmitInterpretation>
+                <ReplyMessage>ReadVoltageData</ReplyMessage>
+                <ReplyInterpretation>ReadCruiseMode</ReplyInterpretation>
+            </ReadCruiseMode>
+            <ReadCruiseState>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>VoltageData</TransmitInterpretation>
+                <ReplyMessage>ReadVoltageData</ReplyMessage>
+                <ReplyInterpretation>ReadCruiseState</ReplyInterpretation>
+            </ReadCruiseState>
+            <ReadSwitches>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadSwitches>
+            <ReadBrakeSwitchOn>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadBrakeSwitchOn</ReplyInterpretation>
+            </ReadBrakeSwitchOn>
+            <ReadBrakeSwitchOff>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadBrakeSwitchOff</ReplyInterpretation>
+            </ReadBrakeSwitchOff>
+            <ReadParkNeutralSwitchOn>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadParkNeutralSwitchOn</ReplyInterpretation>
+            </ReadParkNeutralSwitchOn>
+            <ReadParkNeutralSwitchOff>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadParkNeutralSwitchOff</ReplyInterpretation>
+            </ReadParkNeutralSwitchOff>
+            <ReadClutchSwitchOn>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadClutchSwitchOn</ReplyInterpretation>
+            </ReadClutchSwitchOn>
+            <ReadClutchSwitchOff>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretation>ReadClutchSwitchOff</ReplyInterpretation>
+            </ReadClutchSwitchOff>
+            <WriteEOLStatusBytes>
+                <TransmitMessage>WriteEOLStatusBytes</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>WriteEOLStatusBytes</ReplyMessage>
+                <ReplyInterpretation/>
+            </WriteEOLStatusBytes>
+            <ReadMAF>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>VoltageData</TransmitInterpretation>
+                <ReplyMessage>ReadVoltageData</ReplyMessage>
+                <ReplyInterpretation>MafReading</ReplyInterpretation>
+            </ReadMAF>
+            <ActivateEGRActuator>
+                <TransmitMessage>CommandActuator</TransmitMessage>
+                <TransmitInterpretation>ActivateEGRActuator</TransmitInterpretation>
+                <ReplyMessage>CommandActuator</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActivateEGRActuator>
+            <DeactivateEGRActuator>
+                <TransmitMessage>CommandActuator</TransmitMessage>
+                <TransmitInterpretation>DeactivateEGRActuator</TransmitInterpretation>
+                <ReplyMessage>CommandActuator</ReplyMessage>
+                <ReplyInterpretation/>
+            </DeactivateEGRActuator>
+            <!--ReadAxleSpeedFront>
+                <TransmitMessage>ReadID</TransmitMessage>
+                <TransmitInterpretation>FrontAxleSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadFrontAxleSpeed</ReplyMessage>
+                <ReplyInterpretation>ReadFrontAxleSpeed</ReplyInterpretation>
+            </ReadAxleSpeedFront>
+            <ReadAxleSpeedRear>
+                <TransmitMessage>ReadID</TransmitMessage>
+                <TransmitInterpretation>RearAxleSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadRearAxleSpeed</ReplyMessage>
+                <ReplyInterpretation>ReadRearAxleSpeed</ReplyInterpretation>
+            </ReadAxleSpeedRear-->
+            <!-- 09/23/05 Mike Molenda requested change, Diesel only supports 1 sensor -->
+            <ReadAxleSpeedFront>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SpeedData</TransmitInterpretation>
+                <ReplyMessage>ReadSpeedData</ReplyMessage>
+                <ReplyInterpretation>ReadFrontAxleSpeed</ReplyInterpretation>
+            </ReadAxleSpeedFront>
+            <ReadAxleSpeedRear>
+                <TransmitMessage>ReadLID</TransmitMessage>
+                <TransmitInterpretation>SpeedData</TransmitInterpretation>
+                <ReplyMessage>ReadSpeedData</ReplyMessage>
+                <ReplyInterpretation>ReadRearAxleSpeed</ReplyInterpretation>
+            </ReadAxleSpeedRear>
+        </VehicleMessages>
+        <TransmitMessages>
+            <KeepAlive>0x3E,0x01</KeepAlive>
+            <BeginDiagnosticSession>0x10,0x92</BeginDiagnosticSession>
+            <ReadSecuritySeed>0x27,0x01</ReadSecuritySeed>
+            <SendAccessKey>0x27,0x02,0x??,0x??,0x??,0x??</SendAccessKey>
+            <ReadEcuId>0x1A,0x??</ReadEcuId>
+            <ReadLID>0x21,0x??</ReadLID>
+            <ReadID>0x22,0x??,0x??</ReadID>
+            <WriteEOLStatusRegister>0x3B,0xC0,0x??,0x??,0x??,0x??,0x??,0x??</WriteEOLStatusRegister>
+            <ReadFaults>0x18,0x00,0xFF,0x00</ReadFaults>
+            <WriteEOLStatusBytes>0x3B,0xC0,0x??,0x??,0x??,0x??,0x??,0x??</WriteEOLStatusBytes>
+            <CommandActuator>0x30,0x11,0x25,0x??,0x??</CommandActuator>
+            <ClearDynamicLID>0x2C,0xF1,0x04</ClearDynamicLID>
+            <SetupDynamicLID>0x2C,0xF1,0x01,0x01,0x02,0x06,0x01,0x01,0x03,0x02,0x27,0x03,0x01,0x05,0x02,0x24,0x08,0x01,0x07,0x02,0x05,0x07,0x01,0x09,0x01,0x32,0x03,0x01,0x0A,0x01,0x32,0x01,0x01,0x0B,0x01,0x03,0x0F,0x01,0x0C,0x01,0x27,0x13,0x01,0x0D,0x01,0x31,0x09</SetupDynamicLID>
+        </TransmitMessages>
+        <TransmitInterpretations>
+            <ReadConfiguration>0x91</ReadConfiguration>
+            <ReadVIN>0x90</ReadVIN>
+            <ReadSerialNumber>0xE1</ReadSerialNumber>
+            <ReadPartNumber>0x87</ReadPartNumber>
+            <ReadEOLStatusBytes>0xC0</ReadEOLStatusBytes>
+            <SensorData>0xC4</SensorData>
+            <VoltageData>0xC5</VoltageData>
+            <SpeedData>0xC5</SpeedData>
+            <ActivateEGRActuator>0x1C,0x00</ActivateEGRActuator>
+            <DeactivateEGRActuator>0x00,0x00</DeactivateEGRActuator>
+            <FrontAxleSpeed>0x03,0xD7</FrontAxleSpeed>
+            <RearAxleSpeed>0x09,0x22</RearAxleSpeed>
+        </TransmitInterpretations>
+        <ReplyMessages>
+            <ReadEOLStatusBytes>
+                <Reply_00 lengthType="Variable" ReplyTimeout="100" endGapTime="0">0x61,0xC0,0x??</Reply_00>
+                <Reply_01>0x7F,0x21,0x??</Reply_01>
+            </ReadEOLStatusBytes>
+            <KeepAlive>
+                <Reply_04>0x7E</Reply_04>
+                <Reply_05>0x7E,0x??</Reply_05>
+                <Reply_06>0x7F,0x3E,0x??</Reply_06>
+            </KeepAlive>
+            <BeginDiagnosticSession>
+                <Reply_00>0x50,0x92</Reply_00>
+                <Reply_02>0x7F,0x10,0x??</Reply_02>
+            </BeginDiagnosticSession>
+            <WriteEOLStatusRegister>
+                <Reply_01>0x7B,0xC0</Reply_01>
+                <Reply_02>0x7F,0x3B,0x??</Reply_02>
+            </WriteEOLStatusRegister>
+            <ReadFaults>
+                <Reply_00>0x58,0x00</Reply_00>
+                <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x58,0x??,0x??,0x??</Reply_01>
+                <Reply_02>0x7F,0x18,0x??</Reply_02>
+            </ReadFaults>
+            <ReadSecuritySeed>
+                <Reply_00>0x67,0x01,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_02>0x7F,0x27,0x??</Reply_02>
+            </ReadSecuritySeed>
+            <SendAccessKey>
+                <Reply_00>0x67,0x02,0x34</Reply_00>
+                <Reply_02>0x7F,0x27,0x??</Reply_02>
+            </SendAccessKey>
+            <ReadVIN>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x5A,0x90,0x??</Reply_00>
+                <Reply_02>0x7F,0x1A,0x??</Reply_02>
+            </ReadVIN>
+            <ReadSerialNumber>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x61,0xE1,0x??</Reply_00>
+                <Reply_02>0x7F,0x21,0x??</Reply_02>
+            </ReadSerialNumber>
+            <ReadPartNumber>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x5A,0x87,0x??</Reply_00>
+                <Reply_02>0x7F,0x1A,0x??</Reply_02>
+            </ReadPartNumber>
+            <ReadSensorData>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x61,0xC4,0x??</Reply_00>
+                <Reply_02>0x7F,0x21,0x??</Reply_02>
+            </ReadSensorData>
+            <ReadVoltageData>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x61,0xC5,0x??</Reply_00>
+                <Reply_02>0x7F,0x21,0x??</Reply_02>
+            </ReadVoltageData>
+            <ReadSpeedData>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x61,0xC5,0x??</Reply_00>
+                <Reply_02>0x7F,0x21,0x??</Reply_02>
+            </ReadSpeedData>
+            <WriteEOLStatusBytes>
+                <Reply_00>0x7B,0xC0</Reply_00>
+                <Reply_01>0x7F,0x3B,0x??</Reply_01>
+            </WriteEOLStatusBytes>
+            <CommandActuator>
+                <Reply_00>0x70</Reply_00>
+                <Reply_01>0x7F,0x30,0x??</Reply_01>
+            </CommandActuator>
+            <ClearDynamicLID>
+                <Reply_00>0x6C,0xF1</Reply_00>
+                <Reply_01>0x7F,0x2C,0x??</Reply_01>
+            </ClearDynamicLID>
+            <SetupDynamicLID>
+                <Reply_00>0x6C,0xF1</Reply_00>
+                <Reply_01>0x7F,0x2C,0x??</Reply_01>
+            </SetupDynamicLID>
+            <ReadFrontAxleSpeed>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0x03,0xD7,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+            </ReadFrontAxleSpeed>
+            <ReadRearAxleSpeed>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0x09,0x22,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+            </ReadRearAxleSpeed>
+        </ReplyMessages>
+        <ReplyInterpretations>
+            <ReadVIN>
+                <STRING>
+                    <SUBSTRING format="%17s">
+                        <CHARS input_index="2" mask="0xFF" length="17"/>
+                    </SUBSTRING>
+                </STRING>
+            </ReadVIN>
+            <ReadPartNumber>
+                <STRING>
+                  <SUBSTRING format="%12s">
+                      <CHARS input_index="12" mask="0xFF" length="10"/>
+                  </SUBSTRING>
+                </STRING>
+            </ReadPartNumber>
+            <ReadSerialNumber>
+                <STRING>
+                    <SUBSTRING format="%12s">
+                        <CHARS input_index="2" mask="0xFF" length="12"/>
+                    </SUBSTRING>
+                </STRING>
+            </ReadSerialNumber>
+			<IsPreviousPass>
+				<Boolean>
+					<OR>
+						<Byte0 input_index="2" mask="0x03" compare="0x01"/>
+						<Byte1 input_index="2" mask="0x03" compare="0x02"/>
+					</OR>
+				</Boolean>
+			</IsPreviousPass>
+            <ReadEngineRPM>
+                <Integer type="simple signed" bits="16" scale="1" offset="0">
+	                  <Byte1 input_index="6" mask="0xFF" output_index="1"/>
+	                  <Byte2 input_index="7" mask="0xFF" output_index="0"/>
+                </Integer>
+            </ReadEngineRPM>
+            <ReadBoostPressure>
+                <Integer type="simple signed" bits="16" scale="1" offset="0">
+	                <Byte1 input_index="8" mask="0xFF" output_index="1"/>
+	                <Byte2 input_index="9" mask="0xFF" output_index="0"/>
+                </Integer>
+            </ReadBoostPressure>
+            <ReadVehicleSpeed>
+                <Float scale="0.00621118012" offset="0">
+                    <Integer type="simple signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </ReadVehicleSpeed>
+            <ReadThrottlePosition>
+                <Float scale="0.0122" offset="0">
+                    <Integer type="simple signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="2" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </ReadThrottlePosition>
+            <MafReading>
+                <Integer type="simple signed" bits="8" scale="1" offset="0">
+                    <Byte1 input_index="5" mask="0xFF" output_index="0"/>
+                </Integer>
+            </MafReading>
+            <ReadCruiseMode>
+                <STRING>
+                    <SUBSTRING>
+                        <CHARS input_index="10" mask="0x0F" length="1">
+                            <StringSubstitute00 condition="equals" compare="0x00" replace="Off"/>
+                            <StringSubstitute01 condition="equals" compare="0x01" replace="On"/>
+                        </CHARS>
+                    </SUBSTRING>
+                </STRING>
+            </ReadCruiseMode>
+            <ReadCruiseState>
+                <Integer type="unsigned" bits="8" scale="1" offset="0">
+                    <Byte1 input_index="10" mask="0xFF" output_index="0"/>
+                </Integer>
+            </ReadCruiseState>
+            <ReadProcessRegister>
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="2" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </ReadProcessRegister>
+            <ReadBrakeSwitchOn>
+                <Boolean>
+					<!-- Original
+                    <Byte1 input_index="12" mask="0x04" compare="0x04"/>
+					-->
+					<!-- This is what PM is doing -->
+               		<Byte1 input_index="10" mask="0xC0" compare="0xC0"/>
+                </Boolean>
+            </ReadBrakeSwitchOn>
+            <ReadBrakeSwitchOff>
+                <Boolean>
+					<!-- Oringinal 
+                    <NOT>
+                        <Byte1 input_index="12" mask="0x04" compare="0x04"/>
+                    </NOT>
+					-->
+					<!-- This is what PM is doing -->
+               		<Byte1 input_index="10" mask="0xC0" compare="0x00"/>
+                </Boolean>
+            </ReadBrakeSwitchOff>
+            <ReadParkNeutralSwitchOn>
+                <Boolean>
+                    <Byte1 input_index="10" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </ReadParkNeutralSwitchOn>
+            <ReadParkNeutralSwitchOff>
+                <Boolean>
+                    <NOT>
+                        <Byte1 input_index="10" mask="0x02" compare="0x02"/>
+                    </NOT>
+                </Boolean>
+            </ReadParkNeutralSwitchOff>
+			<!-- Original
+            <ReadClutchSwitchOn>
+                <Boolean>
+                    <Byte1 input_index="11" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </ReadClutchSwitchOn>
+            <ReadClutchSwitchOff>
+                <Boolean>
+                    <NOT>
+                        <Byte1 input_index="11" mask="0x02" compare="0x02"/>
+                    </NOT>
+                </Boolean>
+            </ReadClutchSwitchOff>
+			-->
+			<!-- PM does it this way -->
+            <ReadClutchSwitchOn>
+            	<Boolean>
+                	<Byte1 input_index="10" mask="0x20" compare="0x00"/>
+            	</Boolean>
+         	</ReadClutchSwitchOn>
+         	<ReadClutchSwitchOff>
+            	<Boolean>
+                    <Byte1 input_index="10" mask="0x20" compare="0x20"/>
+            	</Boolean>
+         	</ReadClutchSwitchOff>
+            <!--ReadFrontAxleSpeed>
+                <Float scale="0.015625" offset="0">
+                    <Integer type="simple signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </ReadFrontAxleSpeed>
+            <ReadRearAxleSpeed>
+                <Float scale="0.5" offset="0">
+                    <Integer type="simple signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </ReadRearAxleSpeed-->
+            <ReadFrontAxleSpeed>
+                <Float scale="0.00621" offset="0">
+                    <Integer type="simple signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </ReadFrontAxleSpeed>
+            <ReadRearAxleSpeed>
+                <Float scale="0.00621" offset="0">
+                    <Integer type="simple signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </ReadRearAxleSpeed>
+        </ReplyInterpretations>
+    </SerialMessages>
+</BoschEngineController>

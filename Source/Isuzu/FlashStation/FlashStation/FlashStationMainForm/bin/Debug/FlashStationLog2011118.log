@@ -1,0 +1,79 @@
+1/18/2011 12:44:23 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/18/2011 12:44:28 PM	INFO:  View Update Task Thread Started
+1/18/2011 12:44:28 PM	INFO:  Main Task Thread Started
+1/18/2011 12:44:28 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 12:44:43 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/18/2011 12:44:44 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/18/2011 12:44:44 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/18/2011 12:44:45 PM	INFO:  Commanded State: FLASH_ECUS
+1/18/2011 12:44:45 PM	INFO:  Commanded State: REPORT_DATA
+1/18/2011 12:44:46 PM	INFO:  StartingPCMFlash Process
+1/18/2011 12:44:46 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 12:45:26 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/18/2011 12:45:28 PM	INFO:  View Update Task Thread Started
+1/18/2011 12:46:06 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/18/2011 12:46:08 PM	INFO:  View Update Task Thread Started
+1/18/2011 12:46:08 PM	INFO:  Main Task Thread Started
+1/18/2011 12:46:08 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 12:46:23 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/18/2011 12:46:23 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/18/2011 12:46:23 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/18/2011 12:46:24 PM	INFO:  Commanded State: FLASH_ECUS
+1/18/2011 12:46:24 PM	INFO:  StartingPCMFlash Process
+1/18/2011 12:46:24 PM	INFO:  Commanded State: REPORT_DATA
+1/18/2011 12:49:01 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/18/2011 12:49:03 PM	INFO:  View Update Task Thread Started
+1/18/2011 12:49:03 PM	INFO:  Main Task Thread Started
+1/18/2011 12:49:03 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 12:49:16 PM	INFO:  Submitted barcode Value: 1234567890123456720027120001
+1/18/2011 12:49:16 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/18/2011 12:49:16 PM	ERROR:  Invalid Barcode Length Required: 30 received: 28
+1/18/2011 12:49:16 PM	ERROR:  Build data load failure
+1/18/2011 12:49:22 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 12:49:41 PM	INFO:  Submitted barcode Value: 1234567891234567720027A8120001
+1/18/2011 12:49:41 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/18/2011 12:49:41 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/18/2011 12:49:42 PM	INFO:  Commanded State: FLASH_ECUS
+1/18/2011 12:49:42 PM	INFO:  Commanded State: REPORT_DATA
+1/18/2011 12:49:42 PM	INFO:  StartingPCMFlash Process
+1/18/2011 12:49:42 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 12:50:03 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120001
+1/18/2011 12:50:03 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/18/2011 12:50:04 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/18/2011 12:50:04 PM	INFO:  Commanded State: FLASH_ECUS
+1/18/2011 12:50:04 PM	INFO:  Commanded State: REPORT_DATA
+1/18/2011 12:50:04 PM	INFO:  StartingPCMFlash Process
+1/18/2011 12:50:04 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 12:50:45 PM	INFO:  Submitted barcode Value: 1234567890123456720027A8120101
+1/18/2011 12:50:45 PM	INFO:  Commanded State: OBTAIN_BUILD_DATA
+1/18/2011 12:50:45 PM	INFO:  Commanded State: WAIT_FOR_CABLECONNECT
+1/18/2011 12:50:46 PM	INFO:  Commanded State: FLASH_ECUS
+1/18/2011 12:50:46 PM	INFO:  Commanded State: REPORT_DATA
+1/18/2011 12:50:46 PM	INFO:  StartingPCMFlash Process
+1/18/2011 12:50:46 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 1:02:06 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/18/2011 1:02:08 PM	INFO:  View Update Task Thread Started
+1/18/2011 1:02:08 PM	INFO:  Main Task Thread Started
+1/18/2011 1:02:08 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT
+1/18/2011 1:05:09 PM	
+
+---------------------------------------------------------------------------------------------------------------
+FlashStationLogStarted
+1/18/2011 1:05:11 PM	INFO:  View Update Task Thread Started
+1/18/2011 1:05:11 PM	INFO:  Main Task Thread Started
+1/18/2011 1:05:11 PM	INFO:  Commanded State: WAIT_FOR_USER_INPUT

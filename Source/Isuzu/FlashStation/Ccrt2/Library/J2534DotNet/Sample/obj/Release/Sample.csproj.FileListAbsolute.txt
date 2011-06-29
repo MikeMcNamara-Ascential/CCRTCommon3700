@@ -1,0 +1,4 @@
+E:\home\SVN\StaticStation\J2534DotNet\Sample\obj\Release\ResolveAssemblyReference.cache
+E:\home\SVN\StaticStation\J2534DotNet\Sample\obj\Release\Sample.Form1.resources
+E:\home\SVN\StaticStation\J2534DotNet\Sample\obj\Release\Sample.Properties.Resources.resources
+E:\home\SVN\StaticStation\J2534DotNet\Sample\obj\Release\Sample.csproj.GenerateResource.Cache

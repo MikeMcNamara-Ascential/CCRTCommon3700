@@ -1,0 +1,86 @@
+<LossCompensationComponent>
+    <Setup>
+        <Name>GasAnalyzer</Name>
+        <DebugLevel>0</DebugLevel>
+        <Debug>Off</Debug>
+        <ProcessPriority>11</ProcessPriority>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/GasAnalyzer</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <VehiclePresent/>
+                <RollsUpElevDown/>
+                <StartLossCompensation/>
+                <ZerospeedToPLC/>
+                <Clutch/>
+                <Declutch/>
+                <Abort/>
+                <ForegroundTestInProgress/>
+                <TestInProgress/>
+            </SubscribeTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>GasAnalyzer</ProcessName>
+            <AdditionalLogFile Type="/Component/GasAnalyzer.log or Disabled">/Components/GasAnalyzer.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Debug>Off</Debug>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <DataTags>
+            <OverallTest>GasAnalyzer</OverallTest>
+            <VehiclePresent>VehiclePresent</VehiclePresent>
+            <Zerospeed>ZerospeedToPLC</Zerospeed>
+            <Abort>Abort</Abort>
+        </DataTags>
+        <Parameters>
+            <ConfigFile>/Configuration/Components/GasAnalyzer/MexaAnalyzer.xml</ConfigFile>
+            <DelayModuleInitialization>False</DelayModuleInitialization>
+            <GasAnalyzerData>
+                <HCppm>3</HCppm>
+                <COpercent>2</COpercent>
+                <CO2>1</CO2>
+            </GasAnalyzerData>
+        </Parameters>
+    </Setup>
+    <Objectives>
+        <GetAnalyzerResults>
+            <TestStep00>Setup</TestStep00>
+            <TestStep05>EnableMeasurementMode</TestStep05>
+            <TestStep10>GatherAnalyzerData</TestStep10>
+            <TestStep15>EnableStandbyMode</TestStep15>
+            <TestStep20>FinishUp</TestStep20>
+        </GetAnalyzerResults>
+    </Objectives>
+    <TestSteps>
+        <Setup Result="Not Tested" Timeout="500" Description="Setup the gas analyzer"/>
+        <EnableMeasurementMode Result="Not tested" Timeout="500" Description="Put the analyzer into measurement mode"/>
+        <GatherAnalyzerData Result="Not Tested" Timeout="500" Description="Read the analyzer data"/>
+        <EnableStandbyMode Result="Not Tested" Timeout="500" Description="Place the analyzer into standby mode"/>
+        <FinishUp Result="Pass" Timeout="1200000" Description="Set machine signals back to known state" Prompt1="LossCompensationComplete" Prompt1Priority="0">Update the results</FinishUp>
+    </TestSteps>
+</LossCompensationComponent>

@@ -1,0 +1,19 @@
+<TestDataExtractor>
+    <VIN/>
+    <ExtractResults>
+        <Categroy>VehicleBuild/Baumuster</Categroy>
+        <AltCategory>VehicleBuild/VehicleProgram</AltCategory>
+        <ResultFields>
+            <Field000>TestResult/BrakeLeftFrontForceTest/BrakeForce</Field000>
+            <Field005>TestResult/BrakeRightFrontForceTest/BrakeForce</Field005>
+            <Field010>TestResult/BrakeLeftRearForceTest/BrakeForce</Field010>
+            <Field015>TestResult/BrakeRightRearForceTest/BrakeForce</Field015>
+            <Field020>TestResult/BrakeLeftTandemForceTest/BrakeForce</Field020>
+            <Field025>TestResult/BrakeRightTandemForceTest/BrakeForce</Field025>
+
+            <Field030>TestResult/BrakeFrontBalanceTest/Value</Field030>
+            <Field035>TestResult/BrakeRearBalanceTest/Value</Field035>
+            <Field040>TestResult/BrakeTandemBalanceTest/Value</Field040>
+        </ResultFields>
+    </ExtractResults>
+</TestDataExtractor>

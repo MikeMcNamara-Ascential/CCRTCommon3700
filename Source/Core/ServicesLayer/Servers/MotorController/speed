@@ -1,0 +1,4 @@
+SendCmd -tCommand -xCommandClutch,1 -ncore/MotorController
+SendCmd -tCommand -xMotorMode,Speed -ncore/MotorController
+SendCmd -tCommand -xCommandSpeed,$1 -ncore/MotorController
+

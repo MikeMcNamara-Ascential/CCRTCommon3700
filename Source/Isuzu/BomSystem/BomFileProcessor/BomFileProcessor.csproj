@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E7ED100-A2E2-4379-B995-7D681237748B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BomFileProcessor</RootNamespace>
+    <AssemblyName>BomFileProcessor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>E:\CCRT\Tools\InstallPackages\BomFileProcessor\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>00E2B129254025A268E3F9425EC79FDF7A994417</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>BomFileProcessor_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddBuildItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddBuildItemForm.Designer.cs">
+      <DependentUpon>AddBuildItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddOptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOptionForm.Designer.cs">
+      <DependentUpon>AddOptionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddOptionListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddOptionListForm.Designer.cs">
+      <DependentUpon>AddOptionListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BrakeForce.cs" />
+    <Compile Include="BrakeForceCollection.cs" />
+    <Compile Include="BrakeForceSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BrakeForceSetupForm.Designer.cs">
+      <DependentUpon>BrakeForceSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditVehicleBuildFileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditVehicleBuildFileForm.Designer.cs">
+      <DependentUpon>EditVehicleBuildFileForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RemoveOptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemoveOptionForm.Designer.cs">
+      <DependentUpon>RemoveOptionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VehicleOption.cs" />
+    <Compile Include="BomFileSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BomFileSetupForm.Designer.cs">
+      <DependentUpon>BomFileSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BomProcessorMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BomProcessorMainForm.Designer.cs">
+      <DependentUpon>BomProcessorMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BuildItem.cs" />
+    <Compile Include="BuildItemCollection.cs" />
+    <Compile Include="RemoveBuildItemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemoveBuildItemForm.Designer.cs">
+      <DependentUpon>RemoveBuildItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UpcFnaSetupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpcFnaSetupForm.Designer.cs">
+      <DependentUpon>UpcFnaSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogFileChooserDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogFileChooserDialog.designer.cs">
+      <DependentUpon>LogFileChooserDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logger.cs" />
+    <Compile Include="LogViewerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogViewerForm.designer.cs">
+      <DependentUpon>LogViewerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VehicleOptionCollection.cs" />
+    <Compile Include="VehicleOptionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VehicleOptionForm.Designer.cs">
+      <DependentUpon>VehicleOptionForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddBuildItemForm.resx">
+      <DependentUpon>AddBuildItemForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddOptionForm.resx">
+      <DependentUpon>AddOptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddOptionListForm.resx">
+      <DependentUpon>AddOptionListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BomFileSetupForm.resx">
+      <DependentUpon>BomFileSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BomProcessorMainForm.resx">
+      <DependentUpon>BomProcessorMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BrakeForceSetupForm.resx">
+      <DependentUpon>BrakeForceSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditVehicleBuildFileForm.resx">
+      <DependentUpon>EditVehicleBuildFileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogFileChooserDialog.resx">
+      <DependentUpon>LogFileChooserDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogViewerForm.resx">
+      <DependentUpon>LogViewerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="RemoveBuildItemForm.resx">
+      <DependentUpon>RemoveBuildItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoveOptionForm.resx">
+      <DependentUpon>RemoveOptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpcFnaSetupForm.resx">
+      <DependentUpon>UpcFnaSetupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VehicleOptionForm.resx">
+      <DependentUpon>VehicleOptionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="BomFileProcessor_TemporaryKey.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bep best.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="VehicleBuildFileTemplate.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

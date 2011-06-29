@@ -1,0 +1,22 @@
+<SelectionTable Description="Volkswagen drive curve selection table">
+
+    <FoxEu DriveCurve="/Configuration/VehicleTest/DriveCurves/BoschDriveCurve.xml">
+        <BrakeType>Bosch 8.0</BrakeType>
+        <VehicleType>Fox EU</VehicleType>
+    </FoxEu>
+
+    <FoxLam DriveCurve="/Configuration/VehicleTest/DriveCurves/BoschDriveCurve.xml">
+        <BrakeType>Bosch 8.2</BrakeType>
+        <VehicleType>Fox LAM</VehicleType>
+    </FoxLam>
+
+    <Golf DriveCurve="/Configuration/VehicleTest/DriveCurves/Mk60DriveCurve.xml">
+        <BrakeType>MK60</BrakeType>
+        <VehicleType>Golf</VehicleType>
+    </Golf>
+
+    <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+        <BrakeType>Base Brake</BrakeType>
+    </BaseBrake>
+
+</SelectionTable>

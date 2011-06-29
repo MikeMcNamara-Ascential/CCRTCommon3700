@@ -1,0 +1,287 @@
+<VehicleDataBrokerConfig>
+   <Setup>
+      <Debug>Off</Debug>
+      <PlantHost>core/WorkCellController</PlantHost>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Debug>Off</Debug>
+         <Name>core/VehicleDataBroker</Name>
+         <BufferSize>4000</BufferSize>
+         <Timeout>2000</Timeout>
+         <Type>Server</Type>
+      </Communication>
+      <DataTags>
+         <VehicleBuild>VehicleBuild</VehicleBuild>
+         <NextVehicleBuild>NextVehicleBuild</NextVehicleBuild>
+         <StartTest>StartTest</StartTest>
+         <DriverNumber>DriverNumber</DriverNumber>
+         <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>
+         <DriverNumberBGColor>DriverNumberDisplayBGColor</DriverNumberBGColor>
+         <DefaultDriverNumber>T0000xx</DefaultDriverNumber>
+         <VIN>VIN</VIN>
+         <VINDisplay>VINDisplay</VINDisplay>
+         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+         <OverallTest>OverallTest</OverallTest>
+         <DriverNumberDisplayBGColorDefault>white</DriverNumberDisplayBGColorDefault>
+         <ReadLatestBuildData>ReadLatestBuildData</ReadLatestBuildData>
+         <CableConnect>CableConnect</CableConnect>
+      </DataTags>
+      <DataToPLC>
+         <FrontWheelDriveSelectedToPLC DataType="bool">No</FrontWheelDriveSelectedToPLC>
+         <RearWheelDriveToPLC DataType="bool">Yes</RearWheelDriveToPLC>
+         <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
+         <ParkBrakePressure DataType="integer">200</ParkBrakePressure>
+         <PfsBlocked DataType="bool">No</PfsBlocked>
+         <BodyStyleType DataTYpe="integer">0000</BodyStyleType>
+         <FourWDSelected DataType="bool">No</FourWDSelected>
+      </DataToPLC>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/VehicleDataBroker</ProcessName>
+         <AdditionalLogFile Type="/Servers/VehicleDataBroker.log or Disabled">/Servers/VehicleDataBroker.log</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+         <Debug>Off</Debug>
+      </Logging>
+      <TagList>
+         <SubscribeTags>
+            <RollsDownElevUp>1</RollsDownElevUp>
+            <StartTest>0</StartTest>
+            <OverallTest>Testing</OverallTest>
+         </SubscribeTags>
+         <PublishTags>
+            <ABSPartNo DataType="string">05273138AA</ABSPartNo>
+            <Airbag DataType="string">Integrated Dab J1850</Airbag>
+            <AirbagBGColor DataType="color">white</AirbagBGColor>
+            <AirbagReadFaults DataType="string">AF</AirbagReadFaults>
+            <ClusterReadFaults DataType="string">CF</ClusterReadFaults>
+            <SKIMReadFaults DataType="string">SF</SKIMReadFaults>
+            <Axle DataType="string">Standard</Axle>
+            <AxleBGColor DataType="color">white</AxleBGColor>
+            <AxleRatio DataType="string">0</AxleRatio>
+            <BodyStyle DataType="string">PT0000</BodyStyle>
+            <BodyStyleBGColor DataType="color">white</BodyStyleBGColor>
+            <BodyStyleDisplay DataType="string">BP</BodyStyleDisplay>
+            <BrakeActive DataType="bool">0</BrakeActive>
+            <BrakeDomain DataType="range" Units="LBF">0 500</BrakeDomain>
+            <BrakeTarget DataType="range" Units="LBF">0 0</BrakeTarget>
+            <BrakeType DataType="string">Teves Mk20 TC J1850</BrakeType>
+            <BrakeTypeBGColor DataType="color">white</BrakeTypeBGColor>
+            <BuildDate DataType="string">04/29/2002</BuildDate>
+            <BuildTime DataType="string">13:30</BuildTime>
+            <Cluster DataType="string">Cluster J1850</Cluster>
+            <ClusterBGColor DataType="color">white</ClusterBGColor>
+			<CommonModuleFault DataType="Fault"/>
+            <DaytimeRunningLamps DataType="string">NotEquipped</DaytimeRunningLamps>
+            <DaytimeRunningLampsBGColor DataType="color">white</DaytimeRunningLampsBGColor>
+            <DriveAxle DataType="string">Front</DriveAxle>
+            <DriverNumber DataType="string">T0000xx</DriverNumber>
+            <ECC DataType="string">NotEquipped</ECC>
+            <ECCBGColor DataType="color">white</ECCBGColor>
+            <EngineController DataType="string">Not Equipped</EngineController>
+            <EngineControllerBGColor DataType="color">white</EngineControllerBGColor>
+            <EngineRPM DataType="int"/>
+            <FourWDSelected DataType="bool">No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC DataType="bool">No</FrontWheelDriveSelectedToPLC>
+            <HighSpeedChime DataType="string">NotEquipped</HighSpeedChime>
+            <HighSpeedChimeBGColor DataType="color">white</HighSpeedChimeBGColor>
+            <LSIACMPartNo DataType="string">0000000000</LSIACMPartNo>
+            <MarketType DataType="string">NGC3</MarketType>
+            <MarketTypeBGColor DataType="color">white</MarketTypeBGColor>
+            <ORCACMPartNo DataType="string">05084055AA</ORCACMPartNo>
+            <PCMPartNo DataType="string">05033288AA</PCMPartNo>
+            <PerformAbortTest DataType="string">P</PerformAbortTest>
+            <PerformAbortTestBGColor DataType="color">white</PerformAbortTestBGColor>
+            <PinionFactor DataType="string">11863</PinionFactor>
+            <PowerSteering DataType="string">Standard</PowerSteering>
+            <PowerSteeringBGColor DataType="color">white</PowerSteeringBGColor>
+            <Radio DataType="string">NTG4</Radio>
+            <RadioBGColor DataType="color">white</RadioBGColor>
+            <RSIACMPartNo DataType="string">0000000000</RSIACMPartNo>
+            <RearWheelDriveToPLC DataType="bool">Yes</RearWheelDriveToPLC>
+            <RemoteKeylessEntry DataType="string">Not Equipped</RemoteKeylessEntry>
+            <RemoteKeylessEntryBGColor DataType="color">white</RemoteKeylessEntryBGColor>
+            <SKIMPin DataType="string">1411</SKIMPin>
+            <SentryKeyImmobilizer DataType="string">SKIM J1850</SentryKeyImmobilizer>
+            <SentryKeyImmobilizerBGColor DataType="color">white</SentryKeyImmobilizerBGColor>
+            <SpeedActive DataType="bool">1</SpeedActive>
+            <SpeedControl DataType="string">NGC Cruise</SpeedControl>
+            <SpeedControlBGColor DataType="color">white</SpeedControlBGColor>
+            <SpeedDomain DataType="range" Units="MPH">0 100</SpeedDomain>
+            <SpeedometerTestSpeed DataType="short">0</SpeedometerTestSpeed>
+            <SpeedometerTestSpeedBGColor DataType="color">white</SpeedometerTestSpeedBGColor>
+            <SpeedTarget DataType="range" Units="MPH">0 0</SpeedTarget>
+            <Start4WDTestSignal DataType="bool">0</Start4WDTestSignal>
+            <Suspension DataType="string">Not Tested</Suspension>
+            <SuspensionBGColor DataType="color">white</SuspensionBGColor>
+            <SuspensionPartNo DataType="string">0000000000</SuspensionPartNo>
+            <TCMPartNo DataType="string">05033255AB</TCMPartNo>
+            <TPMPartNo DataType="string">0000000000</TPMPartNo>
+            <TPSActive DataType="bool">0</TPSActive>
+            <TPSTarget DataType="range">0 0</TPSTarget>
+            <TPSValue DataType="float">0</TPSValue>
+            <Tipm DataType="string">NotEquipped</Tipm>
+            <TipmBGColor DataType="color">white</TipmBGColor>
+            <TirePressureMonitor DataType="string">No Test</TirePressureMonitor>
+            <TirePressureMonitorBGColor DataType="color">white</TirePressureMonitorBGColor>
+            <TireSize DataType="string">00000</TireSize>
+            <TransferCase DataType="string">NotEquipped</TransferCase>
+            <TransferCaseBGColor DataType="color">white</TransferCaseBGColor>
+            <Transmission DataType="string">41TE J1850 AutoStick</Transmission>
+            <TransmissionBGColor DataType="color">white</TransmissionBGColor>
+            <VIN DataType="string">1C3AY75S65A100030</VIN>
+            <VINBGColor DataType="color">white</VINBGColor>
+            <VehicleBuild DataType="string">Blank</VehicleBuild>
+            <VehicleTypeImg DataType="string">FWD</VehicleTypeImg>
+            <WheelbasePositionInchesX10 DataType="int">1095</WheelbasePositionInchesX10>
+            <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
+         </PublishTags>
+      </TagList>
+      <ActiveVehicleData>
+         <AvtJ2190>
+            <Setup>
+               <Communication>
+                  <Debug>Off</Debug>
+                  <Name>AvtJ2190</Name>
+                  <BufferSize>64</BufferSize>
+                  <Timeout>10000</Timeout>
+               </Communication>
+               <Logging>
+                  <Debug>Off</Debug>
+                  <ProcessName>core/VehicleDataBroker</ProcessName>
+                  <AdditionalLogFile>/Servers/VehicleDataBroker.log</AdditionalLogFile>
+                  <Status>Disabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+            </Setup>
+            <SerialMessages>
+               <VehicleMessages>
+                  <AirbagReadFaults>
+                     <TransmitMessage>AirbagReadDataByPid</TransmitMessage>
+                     <TransmitInterpretation>AirbagReadFaults</TransmitInterpretation>
+                     <ReplyMessage>AirbagReadDataByPid</ReplyMessage>
+                     <ReplyInterpretation>AirbagReadFaults</ReplyInterpretation>
+                     <ConversionOperation>None</ConversionOperation>
+                     <ConversionFactor>1</ConversionFactor>
+                     <FirstResultByte>3</FirstResultByte>
+                     <TotalResultBytes>1</TotalResultBytes>
+                  </AirbagReadFaults>
+                  <ClusterReadFaults>
+                     <TransmitMessage>ClusterReadDataByPid</TransmitMessage>
+                     <TransmitInterpretation>ClusterReadFaults</TransmitInterpretation>
+                     <ReplyMessage>ClusterReadDataByPid</ReplyMessage>
+                     <ReplyInterpretation>ClusterReadFaults</ReplyInterpretation>
+                     <ConversionOperation>None</ConversionOperation>
+                     <ConversionFactor>1</ConversionFactor>
+                     <FirstResultByte>3</FirstResultByte>
+                     <TotalResultBytes>1</TotalResultBytes>
+                  </ClusterReadFaults>
+                  <SKIMReadFaults>
+                     <TransmitMessage>SKIMReadDataByPid</TransmitMessage>
+                     <TransmitInterpretation>SKIMReadFaults</TransmitInterpretation>
+                     <ReplyMessage>SKIMReadDataByPid</ReplyMessage>
+                     <ReplyInterpretation>SKIMReadFaults</ReplyInterpretation>
+                     <ConversionOperation>None</ConversionOperation>
+                     <ConversionFactor>1</ConversionFactor>
+                     <FirstResultByte>3</FirstResultByte>
+                     <TotalResultBytes>1</TotalResultBytes>
+                  </SKIMReadFaults>
+                  <EngineRPM>
+                     <TransmitMessage>EngineRPM</TransmitMessage>
+                     <TransmitInterpretation/>
+                     <ReplyMessage>EngineRPM</ReplyMessage>
+                     <ReplyInterpretation/>
+                     <ConversionOperation>None</ConversionOperation>
+                     <ConversionFactor>1</ConversionFactor>
+                     <FirstResultByte>3</FirstResultByte>
+                     <TotalResultBytes>2</TotalResultBytes>
+                  </EngineRPM>
+                  <TPSValue>
+                     <TransmitMessage>TPSValue</TransmitMessage>
+                     <TransmitInterpretation/>
+                     <ReplyMessage>TPSValue</ReplyMessage>
+                     <ConversionOperation>Divide</ConversionOperation>
+                     <ConversionFactor>2.55</ConversionFactor>
+                     <FirstResultByte>3</FirstResultByte>
+                     <TotalResultBytes>2</TotalResultBytes>
+                  </TPSValue>
+               </VehicleMessages>
+               <TransmitMessages>
+                  <AirbagReadDataByPid>0x24,0x5A,0x22,0x??,0x??,0x00</AirbagReadDataByPid>
+                  <ClusterReadDataByPid>0x24,0x60,0x22,0x??,0x??,0x00</ClusterReadDataByPid>
+                  <SKIMReadDataByPid>0x24,0xC0,0x22,0x??,0x??,0x00</SKIMReadDataByPid>
+                  <EngineRPM>0x24,0x10,0x22,0x01,0xD7,0x00</EngineRPM>
+                  <TPSValue>0x24,0x10,0x22,0x01,0x8B,0x00</TPSValue>
+               </TransmitMessages>
+               <TransmitInterpretations>
+                  <AirbagReadFaults>0x2E,0x00</AirbagReadFaults>
+                  <ClusterReadFaults>0x2E,0x00</ClusterReadFaults>
+                  <SKIMReadFaults>0x2E,0x00</SKIMReadFaults>
+               </TransmitInterpretations>
+               <ReplyMessages>
+                  <AirbagReadDataByPid>
+                     <Reply_00>0x26,0x5A,0x62,0x??,0x??,0x??,0x??</Reply_00>
+                     <Reply_01>0x26,0x5A,0x62,0x??,0x??,0x??</Reply_01>
+                     <Reply_02>0x26,0x5A,0x7F,0x22,0x??,0x00</Reply_02>
+                  </AirbagReadDataByPid>
+                  <ClusterReadDataByPid>
+                     <Reply00>0x26,0x60,0x62,0x??,0x??,0x??,0x??</Reply00>
+                     <Reply01>0x26,0x60,0x62,0x??,0x??,0x??</Reply01>
+                     <Reply02>0x26,0x60,0x7F,0x22,0x??,0x00</Reply02>
+                  </ClusterReadDataByPid>
+                  <SKIMReadDataByPid>
+                     <Reply00>0x26,0xC0,0x62,0x??,0x??,0x??,0x??</Reply00>
+                     <Reply01>0x26,0xC0,0x62,0x??,0x??,0x??</Reply01>
+                     <Reply02>0x26,0xC0,0x7F,0x22,0x??,0x00</Reply02>
+                  </SKIMReadDataByPid>
+                  <EngineRPM>0x26,0x10,0x62,0x??,0x??,0x00</EngineRPM>
+                  <TPSValue>0x26,0x10,0x62,0x??,0x??,0x00</TPSValue>
+               </ReplyMessages>
+               <ReplyInterpretations>
+                  <AirbagReadFaults>
+                     <Byte3 Mask="0xFF" Desc="Fault Byte 1"/>
+                     <Byte4 Mask="0xFF" Desc="Fault Byte 2"/>
+                  </AirbagReadFaults>
+                  <ClusterReadFaults>
+                     <Byte3 Mask="0xFF" Desc="Fault Byte 1"/>
+                     <Byte4 Mask="0xFF" Desc="Fault Byte 2"/>
+                  </ClusterReadFaults>
+                  <SKIMReadFaults>
+                     <Byte3 Mask="0xFF" Desc="Fault Byte 1"/>
+                     <Byte4 Mask="0xFF" Desc="Fault Byte 2"/>
+                  </SKIMReadFaults>
+               </ReplyInterpretations>
+            </SerialMessages>
+         </AvtJ2190>
+      </ActiveVehicleData>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <Increment>2</Increment>
+         <MaxBlockedLimit>7</MaxBlockedLimit>
+         <Maximum>10</Maximum>
+         <MinBlockedLimit>2</MinBlockedLimit>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+	  <CommonModuleFaultList>
+	      <FaultFile>/Configuration/Components/CommonModuleFaults.dat</FaultFile>
+		  <DataLine Desc="Characters the data lines begins with">0x</DataLine>
+		  <MaxLineLength>80</MaxLineLength>
+		  <LineFormat Field1="Code" Field2="Description" Field3="ItemCode"/>
+		  <FieldSeparator>\"</FieldSeparator>
+		  <DefaultFaultNode>
+		      <ModuleFault_xxxx Code="" ItemCode="EFLTxx">Undefined fault</ModuleFault_xxxx>
+		  </DefaultFaultNode>
+	  </CommonModuleFaultList>
+   </Setup>
+</VehicleDataBrokerConfig>

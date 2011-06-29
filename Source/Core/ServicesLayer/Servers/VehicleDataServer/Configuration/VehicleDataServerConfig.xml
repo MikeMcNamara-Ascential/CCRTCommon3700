@@ -1,0 +1,127 @@
+<VehicleDataServerConfig>
+   <Setup>
+      <Debug>Off</Debug>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+         </Setup>
+      </NotificationList>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>core/VehicleDataServer</Name>
+         <Debug>Off</Debug>
+         <Timeout>5000</Timeout>
+         <BufferSize>1024</BufferSize>
+      </Communication>
+      <DataTags>
+         <ABSTestSelectedFromPLC>ABSTestSelectedFromPLC</ABSTestSelectedFromPLC>
+         <BaseBrake>Base Brake</BaseBrake>
+         <BrakeType>BrakeType</BrakeType>
+         <CableConnect>CableConnect</CableConnect>
+         <DefaultVehicleType>VehicleType0</DefaultVehicleType>
+         <ESPEnabled>ESPEnabled</ESPEnabled>
+         <ESPTestSelected>ESPTestSelected</ESPTestSelected>
+         <LatestVIN>LatestVIN</LatestVIN>
+         <NextVIN>NextVIN</NextVIN>
+         <TestInProgress>TestInProgress</TestInProgress>
+         <TractionControlSelected>TractionControlSelected</TractionControlSelected>
+         <TractionEnabled>TractionEnabled</TractionEnabled>
+         <VIN>VIN</VIN>
+         <VehicleBuild>NextVehicleBuild</VehicleBuild>
+         <VehicleType>VehicleType</VehicleType>
+         <VehicleTypeFromPLC>VehicleTypeFromPLC</VehicleTypeFromPLC>
+         <Wheelbase>Wheelbase</Wheelbase>
+         <WheelbasePosition01Selected>WheelbasePosition01Selected</WheelbasePosition01Selected>
+         <WheelbasePosition02Selected>WheelbasePosition02Selected</WheelbasePosition02Selected>
+         <WheelbasePosition03Selected>WheelbasePosition03Selected</WheelbasePosition03Selected>
+         <WheelbasePosition04Selected>WheelbasePosition04Selected</WheelbasePosition04Selected>
+         <WheelbasePosition05Selected>WheelbasePosition05Selected</WheelbasePosition05Selected>
+         <WheelbasePosition06Selected>WheelbasePosition06Selected</WheelbasePosition06Selected>
+      </DataTags>
+      <VehicleBuildDefinitions>
+        <Build00 Definition="This is the default case">
+            <BrakeType>Base Brake</BrakeType>
+            <VehicleType>Vehicle0</VehicleType>
+        </Build00>
+        <Build01>
+            <BrakeType>MandoMgh25</BrakeType>
+            <VehicleType>2WD</VehicleType>
+        </Build01>
+        <Build02>
+            <BrakeType>Base Brake</BrakeType>
+            <VehicleType>4WD</VehicleType>
+        </Build02>
+        <Build03>
+            <BrakeType>Base Brake</BrakeType>
+            <VehicleType>KM4WD</VehicleType>
+        </Build03>
+        <Build04>
+            <BrakeType>Base Brake</BrakeType>
+            <VehicleType>Vehicle4</VehicleType>
+        </Build04>
+        <Build05>
+            <BrakeType>Base Brake</BrakeType>
+            <VehicleType>Vehicle5</VehicleType>
+        </Build05>
+        <Build06>
+            <BrakeType>Base Brake</BrakeType>
+            <VehicleType>Vehicle6</VehicleType>
+        </Build06>
+      </VehicleBuildDefinitions>
+      <TagList>
+         <SubscribeTags>
+            <ABSTestSelectedFromPLC/>
+            <CableConnect/>
+            <ESPTestSelected/>
+            <NextVIN/>
+            <TestInProgress/>
+            <TractionControlSelected/>
+            <VehicleTypeFromPLC/>
+            <WheelbasePosition01Selected/>
+            <WheelbasePosition02Selected/>
+            <WheelbasePosition03Selected/>
+            <WheelbasePosition04Selected/>
+            <WheelbasePosition05Selected/>
+            <WheelbasePosition06Selected/>
+         </SubscribeTags>
+         <PublishTags>
+            <BrakeType/>
+            <ESPEnabled/>
+            <LatestVIN/>
+            <NextVehicleBuild/>
+            <TractionEnabled/>
+            <VehicleType/>
+            <Wheelbase/>
+         </PublishTags>
+      </TagList>
+      <Logging>
+         <Status>Disabled</Status>
+         <ProcessName>core/VehicleDataServer</ProcessName>
+         <AdditionalLogFile Types="/Servers/VehicleDataServer">/Servers/VehicleDataServer.log</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+         <Debug>Off</Debug>
+      </Logging>
+      <VinServerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/VehicleDataServer</Name>
+         <Debug>On</Debug>
+         <Timeout>1000</Timeout>
+         <BufferSize>1024</BufferSize>
+      </VinServerComm>
+   </Setup>
+</VehicleDataServerConfig>

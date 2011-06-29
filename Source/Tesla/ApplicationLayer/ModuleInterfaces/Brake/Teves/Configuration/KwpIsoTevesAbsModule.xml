@@ -1,0 +1,302 @@
+<Ebs430AbsModule>
+    <Setup>
+        <ModuleKeepAliveTime>2000</ModuleKeepAliveTime>
+        <KeepAliveResponseRequired>No</KeepAliveResponseRequired>
+        <SwitchMonitorDelay>500</SwitchMonitorDelay>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <DataStartIndex>4</DataStartIndex>
+        <DataHeaderLength>4</DataHeaderLength>
+        <CheckSumLength>1</CheckSumLength>
+        <ValidateChecksum>Yes</ValidateChecksum>
+        <ChecksumCalculationMethod>Xor</ChecksumCalculationMethod>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+        <SentMessageIdentifierIndex>4</SentMessageIdentifierIndex>
+        <ModuleResponseDelay>250</ModuleResponseDelay>
+        <ModuleResponseEndDelay>50</ModuleResponseEndDelay>
+        <DtcData>
+            <DtcCountIndex>1</DtcCountIndex>
+            <DtcStartByte>2</DtcStartByte>
+            <BytesPerDtc>3</BytesPerDtc>
+        </DtcData>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>TevesAbsModule</ProcessName>
+            <AdditionalLogFile>/Communication/TevesAbsModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+    <SerialMessages>
+        <VehicleMessages>
+            <EnterDiagnosticMode>
+                <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnterDiagnosticMode>
+            <EnterNormalMode>
+                <TransmitMessage>EnterNormalMode</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>EnterNormalMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnterNormalMode>
+            <ModuleKeepAlive>
+                <TransmitMessage>KeepAlive</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KeepAlive</ReplyMessage>
+                <ReplyInterpretation/>
+            </ModuleKeepAlive>
+            <ReadPartNumber>
+                <TransmitMessage>ReadEcuId</TransmitMessage>
+                <TransmitInterpretation>PartNumber</TransmitInterpretation>
+                <ReplyMessage>ReadEcuId</ReplyMessage>
+                <ReplyInterpretation>PartNumber</ReplyInterpretation>
+            </ReadPartNumber>
+            <ClearFaults>
+                <TransmitMessage>ClearFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ClearFaults</ReplyMessage>
+                <ReplyInterpretation>FaultsCleared</ReplyInterpretation>
+            </ClearFaults>
+            <ReadFaults>
+                <TransmitMessage>ReadFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadFaults</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadFaults>
+            <ReadBrakeSwitch>
+                <TransmitMessage>ReadLid</TransmitMessage>
+                <TransmitInterpretation>BrakeSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadLid</ReplyMessage>
+                <ReplyInterpretation>BrakeSwitchOnStatus</ReplyInterpretation>
+            </ReadBrakeSwitch>
+            <ReadSensorSpeeds>
+                <TransmitMessage>ReadLid</TransmitMessage>
+                <TransmitInterpretation>WheelSpeedSensors</TransmitInterpretation>
+                <ReplyMessage>ReadLid</ReplyMessage>
+                <ReplyInterpretation/>
+                <ReplyInterpretationLF>LfWheelSpeed</ReplyInterpretationLF>
+                <ReplyInterpretationRF>RfWheelSpeed</ReplyInterpretationRF>
+                <ReplyInterpretationLR>LrWheelSpeed</ReplyInterpretationLR>
+                <ReplyInterpretationRR>RrWheelSpeed</ReplyInterpretationRR>
+            </ReadSensorSpeeds>
+            <DumpAllValves>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>DumpAll</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </DumpAllValves>
+            <HoldAllValves>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>DumpAll</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </HoldAllValves>
+            <ActuateLeftFrontRecovery>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>LfRecovery</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftFrontRecovery>
+            <ActuateLeftFrontReduction>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>DumpAll</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftFrontReduction>
+
+            <ActuateRightFrontRecovery>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>RfRecovery</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightFrontRecovery>
+            <ActuateRightFrontReduction>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>DumpAll</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightFrontReduction>
+
+            <ActuateLeftRearReduction>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>DumpAll</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftRearReduction>
+            <ActuateLeftRearRecovery>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>LrRecovery</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftRearRecovery>
+
+            <ActuateRightRearReduction>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>DumpAll</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightRearReduction>
+            <ActuateRightRearRecovery>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>RrRecovery</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightRearRecovery>
+            <RecoverAllValves>
+                <TransmitMessage>ValveControl</TransmitMessage>
+                <TransmitInterpretation>Recovery</TransmitInterpretation>
+                <ReplyMessage>ValveControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </RecoverAllValves>
+        </VehicleMessages>
+
+        <TransmitMessages>
+            <EnterDiagnosticMode>0x80,0x29,0xF0,0x02,0x10,0x87</EnterDiagnosticMode>
+            <EnterNormalMode>0x80,0x29,0xF0,0x01,0x20</EnterNormalMode>
+            <KeepAlive>0x80,0x29,0xF0,0x01,0x3E</KeepAlive>
+            <ReadEcuId>0x80,0x29,0xF0,0x02,0x1A,0x??</ReadEcuId>
+            <ClearFaults>0x80,0x29,0xF0,0x03,0x14,0xFF,0xFF</ClearFaults>
+            <ReadFaults>0x80,0x29,0xF0,0x04,0x18,0x00,0xFF,0xFF</ReadFaults>
+            <ReadLid>0x80,0x29,0xF0,0x02,0x21,0x??</ReadLid>
+            <ValveControl>0x80,0x29,0xF0,0x08,0x30,0x01,0x07,0x??,0x??,0x0A,0x??,0x??</ValveControl>
+        </TransmitMessages>
+
+        <TransmitInterpretations>
+            <PartNumber>0x8B</PartNumber>
+            <BrakeSwitch>0x01</BrakeSwitch>
+            <WheelSpeedSensors>0x03</WheelSpeedSensors>
+            <DumpAll>0xFF,0x10,0xFF,0x10</DumpAll>
+            <LfRecovery>0xFC,0x10,0xFC,0x10</LfRecovery>
+            <RfRecovery>0xF3,0x10,0xF3,0x10</RfRecovery>
+            <LrRecovery>0xCF,0x10,0xCF,0x10</LrRecovery>
+            <RrRecovery>0x3F,0x10,0x3F,0x10</RrRecovery>
+            <Recovery>0x00,0x00,0x00,0x00</Recovery>
+        </TransmitInterpretations>
+
+        <ReplyMessages>
+            <EnterDiagnosticMode>
+                <Reply_00>0x80,0xF0,0x29,0x02,0x50,0x87,0x??</Reply_00>
+                <Reply_02>0x80,0xF0,0x29,0x??,0x7F,0x10,0x??,0x??</Reply_02>
+            </EnterDiagnosticMode>
+            <EnterNormalMode>
+                <Reply_00>0x80,0xF0,0x29,0x??,0x60,0x??</Reply_00>
+                <Reply_02>0x80,0xF0,0x29,0x??,0x7F,0x20,0x??,0x??</Reply_02>
+            </EnterNormalMode>
+            <KeepAlive>
+                <Reply_00>0x80,0xF0,0x29,0x01,0x7E</Reply_00>
+                <Reply_02>0x80,0xF0,0x29,0x??,0x7F,0x3E,0x??,0x??</Reply_02>
+            </KeepAlive>
+            <ReadEcuId>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x80,0xF0,0x29,0x??,0x5A,0x??</Reply_00>
+                <Reply_02>0x80,0xF0,0x29,0x??,0x7F,0x1A,0x??,0x??</Reply_02>
+            </ReadEcuId>
+            <ClearFaults>
+                <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x80,0xF0,0x29,0x??,0x54,0x??</Reply_01>
+                <Reply_02>0x80,0xF0,0x29,0x??,0x7F,0x14,0x??,0x??</Reply_02>
+            </ClearFaults>
+            <ReadFaults>
+                <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x80,0xF0,0x29,0x??,0x58,0x??</Reply_01>
+                <Reply_02>0x80,0xF0,0x29,0x??,0x7F,0x18,0x??,0x??</Reply_02>
+            </ReadFaults>
+            <ReadLid>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x80,0xF0,0x29,0x??,0x61,0x??</Reply_00>
+                <Reply_02>0x80,0xF0,0x29,0x??,0x7F,0x21,0x??,0x??</Reply_02>
+            </ReadLid>
+            <ValveControl>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x80,0xF0,0x29,0x??,0x70,0x??</Reply_00>
+                <Reply_02>0x80,0xF0,0x29,0x??,0x7F,0x30,0x??,0x??</Reply_02>
+            </ValveControl>
+        </ReplyMessages>
+
+        <ReplyInterpretations>
+            <PartNumber>
+                <String>
+                    <Substring format="%11s">
+                        <chars input_index="3" mask="0xFF" length="11"/>
+                    </Substring>
+                </String>
+            </PartNumber>
+            <FaultsCleared>
+                <Boolean>
+                    <Byte01 input_index="0" mask="0xFF" compare="0x54"/>
+                </Boolean>
+            </FaultsCleared>
+            <BrakeSwitchOnStatus>
+                <Boolean>
+                    <Byte01 input_index="2" mask="0x01" compare="0x01"/>
+                </Boolean>
+            </BrakeSwitchOnStatus>
+            <LfWheelSpeed>
+                <Float scale="0.006213712" offset="0">
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="2" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LfWheelSpeed>
+            <RfWheelSpeed>
+                <Float scale="0.006213712" offset="0">
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="4" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="5" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </RfWheelSpeed>
+            <LrWheelSpeed>
+                <Float scale="0.006213712" offset="0">
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="6" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="7" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LrWheelSpeed>
+            <RrWheelSpeed>
+                <Float scale="0.006213712" offset="0">
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="8" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="9" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </RrWheelSpeed>
+    
+        </ReplyInterpretations>
+    </SerialMessages>
+</Ebs430AbsModule>

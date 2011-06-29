@@ -1,0 +1,15 @@
+<BepXmlMssg>
+   <Child_Element Attribute1="">
+      Test Text     
+      <First Attribute1="">
+         <Second Attribute1="">
+            <Third/>
+         </Second>
+      </First>
+   </Child_Element>
+   <Testing Debug="Off">
+      <Dummy Status="Skip" ConfigFile="">
+         <Parameters/>
+      </Dummy>
+   </Testing>
+</BepXmlMssg>

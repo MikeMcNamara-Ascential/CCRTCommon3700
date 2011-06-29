@@ -1,0 +1,127 @@
+<Faults>
+  <CommunicationFailure Code="0001" Description="Module communication failure"/>
+  <CommLinkFailure Code="0002" Description="Gryphon symbolic link failure"/>
+  <LinkInfoMissing Code="0003" Description="Gryphon link information missing failure"/>
+  <SoftwareFailure Code="0004" Description="Software failure detected"/>
+  <FailedToDisengage Code="0005" Description="Machine failed to disengage when commanded"/>
+  <FailedToEngage Code="0006" Description="Machine failed to engage when commanded"/>
+  <TargetSpeedTimeout Code="0007" Description="Timeout waiting for vehicle to be in speed range"/>
+  <SystemStatus Code="0008" Description="System status not correct to perform test"/>
+  <MotorMode Code="0009" Description="Motor mode could not be changed to the requested mode"/>
+  <ZeroSpeedTimeout Code="0010" Description="Timeout waiting for zero speed"/>
+  <StatusCheckFailure Code="0011" Description="System status not correct to perform test"/>
+  <MaintainSpeedTimeoutFailure Code="0012" Description="Timeout waiting for steady speed"/>
+  <MaintainSpeedFailure Code="0013" Description="Failed to maintain constant speed"/>
+  <AccelerateInReverseTimeout Code="0014" Description="Timeout waiting for reverse speed"/>
+  <UnknownFailure Code="0015" Description="Unknown failure"/>
+  <AccelerateInReverseZeroSpeedTimeout Code="0016" Description="Timeout waiting for zerospeed in reverse"/>
+  <ParkPawlFault Code="0017" Description="Failed Park Pawl Test"/>
+  <FaultStaticParkBrake Code="0018" Description="Failed Park Brake Test"/>
+  <ParkBrakeParkPawlFault Code="0019" Description="Failed Combo Park Brake / Park Pawl Test"/>
+  <ParkBrakeFault Code="0020" Description="Failed Static Park Brake Test"/>
+  <ParkPawlDriverInfluenceFault Code="0021" Description="Park Pawl driver influence Fault"/>
+  <ParkBrakeDriverInfluenceFault Code="0022" Description="Parl Brake Driver Influence Fault"/>
+  <ExcessiveBrakeForce Code="0023" Description="Excessive Brake Force Fault"/>
+  <WheelForceDataReadError Code="0024" Description="Error Reading Wheel Force Data"/>
+  <LeftFrontDragFault Code="0025" Description="Left Front Drag Force Too High"/>
+  <RightFrontDragFault Code="0026" Description="Right Front Drag Force Too High"/>
+  <LeftRearDragFault Code="0027" Description="Left Rear Drag Force Too High"/>
+  <RightRearDragFault Code="0028" Description="Right Rear Drag Force Too High"/>
+  <LeftTandemDragFault Code="0029" Description="Left Tandem Drag Force Too High"/>
+  <RightTandemDragFault Code="0030" Description="Right Tandem Drag Force Too High"/>
+  <LeftFrontForceFault Code="0031" Description="Left Front Brake Force Fault"/>
+  <RightFrontForceFault Code="0032" Description="Right Front Brake Force Fault"/>
+  <LeftRearForceFault Code="0033" Description="Left Rear Brake Force Fault"/>
+  <RightRearForceFault Code="0034" Description="Right Rear Brake Force Fault"/>
+  <LeftTandemForceFault Code="0035" Description="Left Tandem Brake Force Fault"/>
+  <RightTandemForceFault Code="0036" Description="Right Tandem Brake Force Fault"/>
+  <FrontBalanceFault Code="0037" Description="Front Brake Force Balance Fault"/>
+  <RearBalanceFault Code="0038" Description="Rear Brake Force Balance Fault"/>
+  <FrontToRearBalanceFault Code="0039" Description="Front To Rear Brake Force Balance Fault"/>
+  <TandemBalanceFault Code="0040" Description="Tandem Brake Force Balance Fault"/>
+  <TandemToRearBalanceFault Code="0041" Description="Tandem To Rear Brake Force Balance Fault"/>
+  <StartModuleKeepAliveFail Code="0042" Description="Unable to start module keep alive"/>
+  <StopModuleKeepAliveFail Code="0043" Description="Unable to stop module keep alive"/>
+  <PartNumberMismatch Code="0044" Description="Module part number mismatch"/>
+  <FaultLockModuleCommError Code="0045" Description="Communication error trying to lock the module"/>
+  <FaultException Code="0046" Description="A software exception was thrown"/>
+  <FaultUnlockModuleCommError Code="0047" Description="Communication error trying to unlock the module"/>
+  <SecurityUnlockFailed Code="0048" Description="Module security unlock failed"/>
+  <TimeoutFailure Code="0049" Description="Time out failure"/>
+  <VINMismatch Code="0050" Description="VIN mismatch fault"/>
+  <FaultVINCommError Code="0051" Description="Communication error trying to program the VIN"/>
+  <FaultProgramVINBadVIN Code="0052" Description="VIN length mismatch trying to program the VIN"/>
+  <FaultProgramVINBadVINLength Code="0053" Description="VIN length of less than or equal to 0 trying to program the VIN"/>
+  <ModuleFaults Code="0054" Description="Faults in the module"/>
+  <TestStepTimeout Code="0055" Description="The current test step timed out"/>
+  <GSensorCrossedWithLeftFront Code="0056" Description="G-Sensor crossed with left front sensor"/>
+  <GSensorCrossedWithRightFront Code="0057" Description="G-Sensor crossed with right front sensor"/>
+  <GSensorCrossedWithLeftRear Code="0058" Description="G-Sensor crossed with left rear sensor"/>
+  <GSensorCrossedWithRightRear Code="0059" Description="G-Sensor crossed with right rear sensor"/>
+  <CalibrateGSensorFail Code="0060" Description="G-Sensor calibration failed"/>
+  <GSwitchMissing Code="0061" Description="G-Sensor missing"/>
+  <FluidFillSwitchOn Code="0062" Description="Fluid fill switch on"/>
+  <NoTireSize Code="0063" Description="No tire size specified"/>
+  <TestTimeout Code="0064" Description="Test timed out"/>
+  <BrakeSwitchStatesNotSeen Code="0065" Description="Both brake switch states not observed"/>
+  <BrakeSwitchTimeout Code="0066" Description="Brake switch test timed out"/>
+  <LeftFrontSensorTestSensorHigh Code="0067" Description="Left Front sensor too high"/>
+  <RightFrontSensorTestSensorHigh Code="0068" Description="Right Front sensor too high"/>
+  <LeftRearSensorTestSensorHigh Code="0069" Description="Left Rear sensor too high"/>
+  <RightRearSensorTestSensorHigh Code="0070" Description="Right Rear sensor too high"/>
+  <LeftTandemSensorTestSensorHigh Code="0071" Description="Left Tandem sensor too high"/>
+  <RightTandemSensorTestSensorHigh Code="0072" Description="Left Tandem sensor too high"/>
+  <LeftFrontSensorTestSensorLow Code="0073" Description="Left Front sensor too low"/>
+  <RightFrontSensorTestSensorLow Code="0074" Description="Right Front sensor too low"/>
+  <LeftRearSensorTestSensorLow Code="0075" Description="Left Rear sensor too low"/>
+  <RightRearSensorTestSensorLow Code="0076" Description="Right Rear sensor too low"/>
+  <LeftTandemSensorTestSensorLow Code="0077" Description="Left Tandem sensor too low"/>
+  <RightTandemSensorTestSensorLow Code="0078" Description="Left Tandem sensor too low"/>
+  <SensorTestFail Code="0079" Description="Sensor test failed"/>
+  <SensorTestSystemCommFailure Code="0080" Description="Communication failure during the sensor test"/>
+  <EngineRunningTimeout Code="0081" Description="Engine running timeout"/>
+  <VehicleNotConnected Code="0082" Description="Vehicle cable not connected"/>
+  <PreconditionTimeout Code="0083" Description="Timeout waiting for preconditions"/>
+  <ModuleUpdateCommunicationFailure Code="0084" Description="Module communication failure"/>
+  <PreviousPcmFailure Code="0085" Description="Previous PCM failure"/>
+  <IncorrectModuleType Code="0086" Description="Incorrect module failure"/>
+  <SRIRegistersInvalid Code="0087" Description="SRI registers invalid failure"/>
+  <MapSensorThrotlleNotCorrect Code="0088" Description="Map sensor throttle not correct failure"/>
+  <MapSensorIdleRPMNotCorrect Code="0089" Description="Map sensor idle RPM not correct failure"/>
+  <MAPSensorTooLow Code="0090" Description="Map sensor too low"/>
+  <StartHydraulicCoolingFanFailed Code="0091" Description="Start hydraulic cooling fan failure"/>
+  <StopHydraulicCoolingFanFailed Code="0092" Description="Stop hydraulic cooling fan failure"/>
+  <StartSwitchMonitorFail Code="0093" Description="Start switch monitor failure"/>
+  <StopSwitchMonitor Code="0094" Description="Stop switch monitor failure"/>
+  <SwitchMonitorSwitchTestFailure Code="0095" Description="Switch monitor switch test failure"/>
+  <InitialTpsThrotlleNotCorrect Code="0096" Description="Initial TPS throttle not correct"/>
+  <StartTPSMonitorFail Code="0097" Description="Start TPS monitor failure"/>
+  <DeltaTPSFail Code="0098" Description="Delta TPS failure"/>
+  <StopTPSMonitor Code="0099" Description="Stop TPS monitor failure"/>
+  <IdleSpeedThrotlleNotCorrect Code="0100" Description="Idle speed throttle not correct"/>
+  <EngineIdleRPMOutOfRange Code="0101" Description="Engine ide RPM out of range"/>
+  <BrakeSwitchOnFail Code="0102" Description="Brake switch on failure"/>
+  <BrakeSwitchOffFail Code="0103" Description="Brake switch off failure"/>
+  <BrakeSwitchFail Code="0104" Description="Brake switch on failure"/>
+  <ParkNeutralSwitchOnFail Code="0105" Description="Park/Neutral switch on failure"/>
+  <ParkNeutralSwitchOffFail Code="0106" Description="Park/Neutral switch off failure"/>
+  <ParkNeutralSwitchFail Code="0107" Description="Park/Neutral switch failure"/>
+  <ClutchSwitchOnFail Code="0108" Description="Clutch switch on failure"/>
+  <ClutchSwitchOffFail Code="0109" Description="Clutch switch off failure"/>
+  <ClutchSwitchFail Code="0110" Description="Clutch switch failure"/>
+  <ClutchUpstopSwitchOnFail Code="0111" Description="Clutch upstop switch on failure"/>
+  <ClutchUpstopSwitchOffFail Code="0112" Description="Clutch upstop switch off failure"/>
+  <ClutchUpstopSwitchFail Code="0113" Description="Clutch updatop switch failure"/>
+  <RedundantBrakeSwitchOnFail Code="0114" Description="Redundant brake switch on failure"/>
+  <RedundantBrakeSwitchOffFail Code="0115" Description="Redundant brake switch off failure"/>
+  <RedundantBrakeSwitchFail Code="0116" Description="Redundant brake switch failure"/>
+  <TcaseCommunicationError Code="0117" Description="Transfer case communication error"/>
+  <TcaseCommandShiftTimeout Code="0118" Description="Transfer case command shift timeout"/>
+  <SystemFail Code="0119" Description="System failure"/>
+  <TcaseCommandShiftFail Code="0120" Description="Transfer case command shift failure"/>
+  <TcaseCheckGearTimeout Code="0121" Description="Transfer case check gear timeout"/>
+  <TcaseCheckGearFail Code="0122" Description="Transfer case check gear failure"/>
+  <FailRatio Code="0123" Description="Axle ratio failure"/>
+  <ReadRatio Code="0124" Description="Failure reading the axle ratio"/>
+</Faults>
+

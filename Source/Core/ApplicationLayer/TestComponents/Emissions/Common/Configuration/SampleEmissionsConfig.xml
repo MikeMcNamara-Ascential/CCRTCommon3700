@@ -1,0 +1,355 @@
+<SampleEmissionsTest>
+  <Setup>
+    <Name>Emissions</Name>
+    <Debug>Off</Debug>
+    <DebugLevel>0</DebugLevel>
+    <ProcessPriority>11</ProcessPriority>
+    <Communication>
+      <Comm>IPC</Comm>
+      <Type>Server</Type>
+      <Name>component/Emissions</Name>
+      <Debug>Off</Debug>
+      <BufferSize>1024</BufferSize>
+      <Timeout>2000</Timeout>
+    </Communication>
+    <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+    <ThreadPool>
+      <Debug>Off</Debug>
+      <MinBlockedLimit>2</MinBlockedLimit>
+      <MaxBlockedLimit>4</MaxBlockedLimit>
+      <Increment>2</Increment>
+      <Maximum>10</Maximum>
+    </ThreadPool>
+    <NotificationList>
+      <Setup>
+        <Debug>Off</Debug>
+        <StartOnCreate>Off</StartOnCreate>
+        <LowWater>1</LowWater>
+        <HighWater>3</HighWater>
+        <Maximum>5</Maximum>
+        <Increment>1</Increment>
+        <ResponseTimeout>2000</ResponseTimeout>
+      </Setup>
+    </NotificationList>
+    <Logging>
+      <Debug>Off</Debug>
+      <MessageTimeout>100</MessageTimeout>
+      <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+      <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+      <Status>Enabled</Status>
+      <ProcessName>Emissions</ProcessName>
+      <AdditionalLogFile>/Components/Emissions.log</AdditionalLogFile>
+      <LocalEcho>Disabled</LocalEcho>
+      <Verbose>0x01</Verbose>
+    </Logging>
+    <EngineAuthenticationRepresentation>
+      <Stopped>Routine Not Running</Stopped>
+      <Running>Routine Running</Running>
+      <StopPending>Stop Request Pending</StopPending>
+      <StartPending>Start Request Pending</StartPending>
+    </EngineAuthenticationRepresentation>
+    <TagList>
+      <SubscribeTags>
+        <Abort/>
+        <CableConnect/>
+        <PCMPartNo/>
+        <Transmission/>
+        <VIN/>
+        <Zerospeed/>
+      </SubscribeTags>
+    </TagList>
+    <DataTags>
+      <Abort>Abort</Abort>
+      <BrakeSwitchResultBit>2</BrakeSwitchResultBit>
+      <BroadcastSpeedControlType>SpeedControl</BroadcastSpeedControlType>
+      <EmissionsConfiguration>ReadEmissionsConfiguration</EmissionsConfiguration>
+      <EmissionsModelYear>ReadEmissionsModelYear</EmissionsModelYear>
+      <EngineConfiguration>ReadEngineType</EngineConfiguration>
+      <EngineRunningMessage>ReadEngineIdleRPM</EngineRunningMessage>
+      <EngineSize>EngineSize</EngineSize>
+      <EOLBrakeSwitchResultRegister>ProcessRegister2</EOLBrakeSwitchResultRegister>
+      <EOLClutchSwitchResultRegister>ProcessRegister2</EOLClutchSwitchResultRegister>
+      <EOLMAPSensorResultRegister>ProcessRegister2</EOLMAPSensorResultRegister>
+      <EOLPartNumberResultRegister>ProcessRegister1</EOLPartNumberResultRegister>
+      <EOLTPSResultRegister>ProcessRegister2</EOLTPSResultRegister>
+      <ETCBuildOption>SpeedControl</ETCBuildOption>
+      <ETCEquippedValue>ETC</ETCEquippedValue>
+      <ModulePartNumber>PCMPartNo</ModulePartNumber>
+      <ReadAirConditionerStatus>ReadAirConditionerStatus</ReadAirConditionerStatus>
+      <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+      <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+      <ReadModuleType>ReadModuleType</ReadModuleType>
+      <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+      <ReadNeutralCellID>ReadNeutralState</ReadNeutralCellID>
+      <ReadThrottlePositionNonETC>ReadClosedThrottleNonETC</ReadThrottlePositionNonETC>
+      <SpeedTarget>SpeedTarget</SpeedTarget>
+      <StaticTesterName>core/StaticTesterServer</StaticTesterName>
+      <StaticTestResult>STTestResult</StaticTestResult>
+      <ThrottleClosedVoltageMessage>ReadClosedThrottleNonETC</ThrottleClosedVoltageMessage>
+      <ThrottleClosedVoltageMessage5.7L>ReadClosedThrottleETC</ThrottleClosedVoltageMessage5.7L>
+      <TPSValue>TPSValue</TPSValue>
+      <TransmissionType>Transmission</TransmissionType>
+      <VehicleType>ReadVehicleType</VehicleType>
+      <VehicleVIN>VIN</VehicleVIN>
+    </DataTags>
+    <Parameters>
+      <AbortForBadStatus>1</AbortForBadStatus>
+      <AbortIfDTCPresent>Yes</AbortIfDTCPresent>
+      <AbortIfVinMismatch>Yes</AbortIfVinMismatch>
+      <AbortIgnitionNotOn>1</AbortIgnitionNotOn>
+      <AISTransmissionInNeutral>1</AISTransmissionInNeutral>
+      <AlwaysEnterDiagnosticMode>Yes</AlwaysEnterDiagnosticMode>
+      <AlwaysRunCoolingFan>1</AlwaysRunCoolingFan>
+      <AlwaysStartKeepAlive>1</AlwaysStartKeepAlive>
+      <AlwaysWaitForEngineOffKeyOn>No</AlwaysWaitForEngineOffKeyOn>
+      <BypassPartNumberValidation Value="Yes or No">No</BypassPartNumberValidation>
+      <BypassVINValidation Value="Yes or No">No</BypassVINValidation>
+      <CheckFieldModeBit>1</CheckFieldModeBit>
+      <ClosedThrottleAtoDVoltage>0.96</ClosedThrottleAtoDVoltage>
+      <ClosedThrottleVoltage>0.06</ClosedThrottleVoltage>
+      <ClosedThrottleVoltage5.7L>0.00</ClosedThrottleVoltage5.7L>
+      <ClutchSwitchResultBit>7</ClutchSwitchResultBit>
+      <ConfigFile>/Configuration/Components/Emissions/SampleEngineControlModule.xml</ConfigFile>
+      <DelayModuleInitialization>No</DelayModuleInitialization>
+      <DeltaTPSSpeedRange>45 60</DeltaTPSSpeedRange>
+      <DeveloperTest>0</DeveloperTest>
+      <DevelopmentRegisters>
+        <DevelRegister00 Value="0xF3FF">0x9E00</DevelRegister00>
+        <DevelRegister01 Value="0xFFFF">0x9E01</DevelRegister01>
+      </DevelopmentRegisters>
+      <EngineRunningTimeout>10000</EngineRunningTimeout>
+      <EngineSizeForHydraulicCoolingFanTest>5.7L V8</EngineSizeForHydraulicCoolingFanTest>
+      <EOLIdleRPMResultRegister>ProcessRegister2</EOLIdleRPMResultRegister>
+      <EOLParkNeutralSwitchResultRegister>ProcessRegister2</EOLParkNeutralSwitchResultRegister>
+      <FirstTumbleSRIOdometerRegisterUsed>2</FirstTumbleSRIOdometerRegisterUsed>
+      <IdleBeforeRunningWaitTime>500</IdleBeforeRunningWaitTime>
+      <IdleRPMResultBit>8</IdleRPMResultBit>
+      <IgnitionOnTimeout>10000</IgnitionOnTimeout>
+      <InitialSRIOdometerRegisterUsed>1</InitialSRIOdometerRegisterUsed>
+      <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+      <LoadStaticTestResults>True</LoadStaticTestResults>
+      <ManualTransmissionTypes>
+        <Manual/>
+      </ManualTransmissionTypes>
+      <MapSensorResultBit>5</MapSensorResultBit>
+      <MaximumIdleBeforeRunningChecks>6</MaximumIdleBeforeRunningChecks>
+      <MaximumIdleRPM>1100</MaximumIdleRPM>
+      <MinimumEngineRunningRPM>450</MinimumEngineRunningRPM>
+      <MinimumIdleRPM>500</MinimumIdleRPM>
+      <MinimumMAPReading>17.0</MinimumMAPReading>
+      <ModuleType>NGC4</ModuleType>
+      <NeutralCellID>0x18</NeutralCellID>
+      <NoAbortForHydraulicCoolingFan>1</NoAbortForHydraulicCoolingFan>
+      <OdometerUplineComplete>0x0400</OdometerUplineComplete>
+      <ParkNeutralSwitchResultBit>3</ParkNeutralSwitchResultBit>
+      <PartNumberResultBit>12</PartNumberResultBit>
+      <ProcessRegister1>0x9E00</ProcessRegister1>
+      <ProcessRegister2>0x9E01</ProcessRegister2>
+      <ResetEOLStatusBytes>
+        <ProcessRegister1>0xF3FF</ProcessRegister1>
+        <ProcessRegister2>0xFFFF</ProcessRegister2>
+      </ResetEOLStatusBytes>
+      <ResetPCMRegisters>
+        <UpdateRegister01 Value="0xFFFF">0x9E0A</UpdateRegister01>
+        <UpdateRegister02 Value="0xFFFF">0x9E0B</UpdateRegister02>
+      </ResetPCMRegisters>
+      <RequiredDeltaTPS>0.40</RequiredDeltaTPS>
+      <SecondTumbleSRIOdometerRegisterUsed>3</SecondTumbleSRIOdometerRegisterUsed>
+      <SecurityUnlockAttempts>2</SecurityUnlockAttempts>
+      <SecurityUnlockDelay>1000</SecurityUnlockDelay>
+      <SetClutchUpstopSwitchEquipped>No</SetClutchUpstopSwitchEquipped>
+      <SetRedundantBrakeSwitchEquipped>No</SetRedundantBrakeSwitchEquipped>
+      <SkipAirConditioningCheck>0</SkipAirConditioningCheck>
+      <SkipNeutralCheck>0</SkipNeutralCheck>
+      <SkipParkNeutralSwitch>0</SkipParkNeutralSwitch>
+      <SkipPartNumberResultUpdate>0</SkipPartNumberResultUpdate>
+      <SRIFirstTumble>
+        <Register0>0x0000</Register0>
+        <Register1>0x0001</Register1>
+        <Register2>0x0002</Register2>
+        <Register3>0xFFFF</Register3>
+      </SRIFirstTumble>
+      <SRIInitialSetting>
+        <Register0>0x0000</Register0>
+        <Register1>0x0001</Register1>
+        <Register2>0xFFFF</Register2>
+        <Register3>0xFFFF</Register3>
+      </SRIInitialSetting>
+      <SRISecondTumble>
+        <Register0>0x0000</Register0>
+        <Register1>0x0001</Register1>
+        <Register2>0x0002</Register2>
+        <Register3>0x0003</Register3>
+      </SRISecondTumble>
+      <ThrottlePositionSensorResultBit>6</ThrottlePositionSensorResultBit>
+      <UplineTestComplete>0x0C00</UplineTestComplete>
+      <ValidatePartNumberList>No</ValidatePartNumberList>
+      <ValidETCSpeedControlTypes>
+        <Etc0>ETC</Etc0>
+      </ValidETCSpeedControlTypes>
+      <VINUplineComplete>0x0800</VINUplineComplete>
+    </Parameters>
+    <Prompts>
+      <ThrottleClosed PromptBox="1" Priority="0">RemoveFootFromAccelerator</ThrottleClosed>
+      <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
+      <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
+      <TurnOffAC PromptBox="2" Priority="0">TurnOffACFanDefrost</TurnOffAC>
+      <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+      <PressAcceleratorPedal PromptBox="1" Priority="0">PressThrottle</PressAcceleratorPedal>
+      <PressBrakePedal PromptBox="1" Priority="0">ApplyBrake</PressBrakePedal>
+      <ReleaseBrakePedal PromptBox="1" Priority="0">FootOffBrake</ReleaseBrakePedal>
+      <ShiftToPark PromptBox="1" Priority="0">ShiftToPark</ShiftToPark>
+      <PressClutchPedal PromptBox="1" Priority="0">ApplyClutchPedal</PressClutchPedal>
+      <ReleaseClutchPedal PromptBox="1" Priority="0">RemoveFootFromClutch</ReleaseClutchPedal>
+      <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+      <IgnitionOn PromptBox="1" Priority="0">KeyOn</IgnitionOn>
+      <EngineRunning PromptBox="1" Priority="0">StartVehicle</EngineRunning>
+      <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+      <EngineOffIgnitionOn PromptBox="1" Priority="0">EngineOffIgnitionOn</EngineOffIgnitionOn>
+      <MaintainSpeed PromptBox="2" Priority="0">MaintainSpeed</MaintainSpeed>
+    </Prompts>
+    <IgnoreFaults>
+      <ModuleFault_0633/>
+      <ModuleFault_0700/>
+      <ModuleFault_0480/>
+    </IgnoreFaults>
+    <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
+    <TestDomain>Foreground</TestDomain>
+  </Setup>
+  <Objectives>
+    <CheckIdleSpeed>
+      <TestStep05>CheckIdleSpeed</TestStep05>
+    </CheckIdleSpeed>
+    <CheckUplineRegisters>
+      <TestStep05>CheckUplineRegisters</TestStep05>
+    </CheckUplineRegisters>
+    <CommandSecurityUnlock>
+      <TestStep05>CommandSecurityUnlock</TestStep05>
+    </CommandSecurityUnlock>
+    <DetermineModuleConfig>
+      <TestStep05>DetermineModuleConfig</TestStep05>
+    </DetermineModuleConfig>
+    <DeterminePreviousPass>
+      <TestStep05>DeterminePreviousPass</TestStep05>
+    </DeterminePreviousPass>
+    <EvaluateOdometerIntegrity>
+      <TestStep05>EvaluateOdometerIntegrity</TestStep05>
+    </EvaluateOdometerIntegrity>
+    <MonitorMAPSensor>
+      <TestStep05>MonitorMAPSensor</TestStep05>
+    </MonitorMAPSensor>
+    <StartHydraulicCoolingFan>
+      <TestStep05>StartHydraulicCoolingFan</TestStep05>
+    </StartHydraulicCoolingFan>
+    <StopHydraulicCoolingFan>
+      <TestStep05>StopHydraulicCoolingFan</TestStep05>
+    </StopHydraulicCoolingFan>
+    <ProgramEOLStatus>
+      <TestStep05>ProgramEOLStatus</TestStep05>
+    </ProgramEOLStatus>
+    <StartSwitchMonitor>
+      <TestStep05>StartSwitchMonitor</TestStep05>
+    </StartSwitchMonitor>
+    <StartTPSMonitor>
+      <TestStep05>StartTPSMonitor</TestStep05>
+    </StartTPSMonitor>
+    <StopSwitchMonitor>
+      <TestStep05>StopSwitchMonitor</TestStep05>
+    </StopSwitchMonitor>
+    <StopTPSMonitor>
+      <TestStep05>StopTPSMonitor</TestStep05>
+    </StopTPSMonitor>
+    <VerifyModuleType>
+      <TestStep05>VerifyModuleType</TestStep05>
+    </VerifyModuleType>
+    <SetStatusRegistersFirstRun>
+      <TestStep05>SetStatusRegistersFirstRun</TestStep05>
+    </SetStatusRegistersFirstRun>
+    <SetStatusRegistersPreviousPass>
+      <TestStep05>SetStatusRegistersPreviousPass</TestStep05>
+    </SetStatusRegistersPreviousPass>
+    <WaitForEngineRunning>
+      <TestStep05>WaitForEngineRunning</TestStep05>
+    </WaitForEngineRunning>
+    <CheckPartNumber>
+      <TestStep05>CheckPartNumber</TestStep05>
+    </CheckPartNumber>
+    <Setup>
+      <TestStep05>Setup</TestStep05>
+    </Setup>
+    <EnterDiagnosticMode>
+      <TestStep05>EnterDiagnosticMode</TestStep05>
+    </EnterDiagnosticMode>
+    <ExitDiagnosticMode>
+      <TestStep05>ExitDiagnosticMode</TestStep05>
+    </ExitDiagnosticMode>
+    <CommandSecurityUnlock>
+      <TestStep05>CommandSecurityUnlock</TestStep05>
+    </CommandSecurityUnlock>
+    <CheckVIN>
+      <TestStep05>CheckVIN</TestStep05>
+    </CheckVIN>
+    <ClearFaults>
+      <TestStep05>ClearFaults</TestStep05>
+    </ClearFaults>
+    <ReadFaults>
+      <TestStep05>ReadFaults</TestStep05>
+    </ReadFaults>
+    <CollectTraceData>
+      <TestStep05>CollectTraceData</TestStep05>
+    </CollectTraceData>
+    <StartModuleKeepAlive>
+      <TestStep05>StartModuleKeepAlive</TestStep05>
+    </StartModuleKeepAlive>
+    <StopModuleKeepAlive>
+      <TestStep05>StopModuleKeepAlive</TestStep05>
+    </StopModuleKeepAlive>
+    <StopBackgroundMonitors>
+      <TestStep05>StopBackgroundMonitors</TestStep05>
+    </StopBackgroundMonitors>
+    <ResumeBackgroundMonitors>
+      <TestStep05>ResumeBackgroundMonitors</TestStep05>
+    </ResumeBackgroundMonitors>
+    <WaitForEngineOffKeyOn>
+      <TestStep05>WaitForEngineOffKeyOn</TestStep05>
+    </WaitForEngineOffKeyOn>
+    <FinishUp>
+      <TestStep05>FinishUp</TestStep05>
+    </FinishUp>
+  </Objectives>
+  <TestSteps>
+    <CheckIdleSpeed Result="Not Tested" Timeout="15000" Description="Verify the Idle RPM is adjusted properly"/>
+    <CheckUplineRegisters Result="Not Tested" Timeout="1000" Description="Validate upline testing has been completed"/>
+    <CommandSecurityUnlock Result="Not Tested" Timeout="1000" Description="Unlock module security"/>
+    <DetermineModuleConfig Result="Not Tested" Timeout="1000" Description="Read module configuration"/>
+    <DeterminePreviousPass Result="Not Tested" Timeout="1000" Description="Determine if emissions has been previously passed"/>
+    <EvaluateOdometerIntegrity Result="Not Tested" Timeout="1000" Description="Verify SRI mileage registers are initialized properly"/>
+    <MonitorMAPSensor Result="Not Tested" Timeout="1000" Description="Validate functionality of the MAP sensor"/>
+    <StartHydraulicCoolingFan Result="Not Tested" Timeout="10000" Description="Start the hydraulic cooling fan"/>
+    <StopHydraulicCoolingFan Result="Not Tested" Timeout="30000" Description="Stop the hydraulic cooling fan"/>
+    <ProgramEOLStatus Result="Not Tested" Timeout="1000" Description="Reset Rolls affected EOL status bits"/>
+    <StartSwitchMonitor Result="Not Tested" Timeout="1000" Description="Start the background switch monitor for Brake Switch and Park/Neutral switch"/>
+    <StartTPSMonitor Result="Not Tested" Timeout="1000" Description="Start the background TPS monitor"/>
+    <StopSwitchMonitor Result="Not Tested" Timeout="10000" Description="Stop the background switch monitor for brake switch and park/neutral switch"/>
+    <StopTPSMonitor Result="Not Tested" Timeout="10000" Description="Stop the background TPS monitor" ScanDelay="500"/>
+    <VerifyModuleType Result="Not Tested" Timeout="1000" Description="Verify the correct module is in the vehicle"/>
+    <SetStatusRegistersFirstRun Result="Not Tested" Timeout="500" Description="Development - Reset all EOL Status registers to first-run"/>
+    <SetStatusRegistersPreviousPass Result="Not Tested" Timeout="500" Description="Development - Reset all EOL Status registers to previous pass"/>
+    <WaitForEngineRunning Result="Not Tested" Timeout="20000" Description="Wait for operator to start engine"/>
+    <CheckPartNumber Result="Not Tested" Timeout="5000" Description="Validate module part number against broadcast" ValidatePartNumber="1" ScanDelay="500"/>
+    <Setup Result="" Timeout="500" Description="Set up component for testing"/>
+    <EnterDiagnosticMode Result="" Timeout="5000" Description="Enter diagnostic mode"/>
+    <ExitDiagnosticMode Result="" Timeout="5000" Description="Exit diagnostic mode"/>
+    <CommandSecurityUnlock Result="" Timeout="5000" Description="Unlock the module security"/>
+    <CheckVIN Result="Not Tested" Timeout="1000" Description="Validate module VIN matches broadcast" ValidateVIN="1"/>
+    <ClearFaults Result="Not Tested" Timeout="1000" Description="Clear faults from the module" ScanDelay="500"/>
+    <ReadFaults Result="Not Tested" Timeout="1000" Description="Read all faults from the module" ScanDelay="500"/>
+    <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read the Serial number from the PCM" ScanDelay="500"/>
+    <StartModuleKeepAlive Result="Not Tested" Timeout="5000" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
+    <StopModuleKeepAlive Result="Not Tested" Timeout="5000" Description="Stop sending the tester present message" ScanDelay="500"/>
+    <StopBackgroundMonitors Result="Not Tested" Timeout="1000" Description="Stop TPS monitor, switch monitor and keep alive"/>
+    <ResumeBackgroundMonitors Result="Not Tested" Timeout="1000" Description="Restart TPS monitor, switch monitor and keep alive"/>
+    <WaitForEngineOffKeyOn Result="Not Tested" Timeout="20000" Description="Need Engine Off and Key in ON position" ScanDelay="500"/>
+    <FinishUp Result="Not Tested" Timeout="500" Description="Report the overall test result" ScanDelay="250"/>
+  </TestSteps>
+</SampleEmissionsTest>

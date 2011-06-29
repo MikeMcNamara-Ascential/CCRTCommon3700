@@ -1,0 +1,166 @@
+<TachographConfig>
+    <Setup>
+        <Name>Tachograph</Name>
+        <DebugLevel>0</DebugLevel>
+        <Debug>Off</Debug>
+        <ProcessPriority>11</ProcessPriority>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TachographCommConfig>
+            <Setup>
+                <Communication>
+                    <Name>/dev/LogicalPorts/TachComm</Name>
+                    <BufferSize>2000</BufferSize>
+                    <Timeout>2000</Timeout>
+                    <Debug>Off</Debug>
+                </Communication>
+                <Logging>
+                    <ProcessName>TachographComms</ProcessName>
+                    <Status>Disabled</Status>
+                    <AdditionalLogFile Types="/Communication/TachographComms.log">/Communication/TachographComms.log</AdditionalLogFile>
+                    <Debug>Off</Debug>
+                    <LocalEcho>Disabled</LocalEcho>
+                    <Verbose>0x01</Verbose>
+                </Logging>
+                <MaxAttempts>3</MaxAttempts>
+                <MaxResponseTime>5000</MaxResponseTime>
+                <MessageDelay>5000</MessageDelay>
+            </Setup>
+        </TachographCommConfig>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/Tachograph</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <VehiclePresent/>
+                <RollsUpElevDown/>
+                <ZerospeedToPLC/>
+                <Abort/>
+                <ForegroundTestInProgress/>
+                <TestInProgress/>
+                <VIN/>
+                <DriveAxle/>
+            </SubscribeTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>Tachograph</ProcessName>
+            <AdditionalLogFile Type="/Component/Tachograph.log or Disabled">/Components/Tachograph.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Debug>Off</Debug>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <DataTags>
+            <Zerospeed>ZerospeedToPLC</Zerospeed>
+            <Abort>Abort</Abort>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <SpeedRange>SpeedRange</SpeedRange>
+            <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+            <TestInProgress>TestInProgress</TestInProgress>
+            <RollerDistanceTag>LRDistance</RollerDistanceTag>
+            <TachographCountHiTag>TachographHiCount</TachographCountHiTag>
+            <TachographCountLoTag>TachographLoCount</TachographCountLoTag>
+            <ResetTachCountTag>ResetTachCount</ResetTachCountTag>
+            <TachographType>Tachograph</TachographType>
+            <CalConstantMsgTag>CalConstant</CalConstantMsgTag>
+            <TachUpdateSuccessValue>Pass</TachUpdateSuccessValue>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+            <Rear>Rear</Rear>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <TachographCircuitSelectLo>TachographCircuitSelectLo</TachographCircuitSelectLo>
+            <TachographCircuitSelectHi>TachographCircuitSelectHi</TachographCircuitSelectHi>
+        </DataTags>
+        <Parameters>
+            <ConfigFile>/Configuration/Components/Cluster/KwpInsModule.xml</ConfigFile>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+            <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+            <ResetTachographCount>True</ResetTachographCount>
+            <ResetTachCountPulseLength units="ms">50</ResetTachCountPulseLength>
+            <TachographUpdateDelay>10000</TachographUpdateDelay>
+            <PortReconnectDelay>1000</PortReconnectDelay>
+            <TachographTestSpeed units="mph">24</TachographTestSpeed>
+            <TachographSpeedRange units="mph">25 35</TachographSpeedRange>
+            <!-- 0.5km ~ 0.311miles -->
+            <MinTachographDistance units="miles">0.310686</MinTachographDistance>
+            <SwitchSettingsFile>/Configuration/Components/Tachograph/SwitchSettingTable.dat</SwitchSettingsFile>
+            <SwitchSettingPromptDelay>23000</SwitchSettingPromptDelay>
+            <MinCalConst>2000</MinCalConst>
+            <MaxCalConst>30000</MaxCalConst>
+            <SwitchTypeTachographs>
+                <Type01>KTCO</Type01>
+            </SwitchTypeTachographs>
+            <InsTypeTacographs>
+                <Type04>INS LTC</Type04>
+                <Type05>INS 2004</Type05>
+            </InsTypeTacographs>
+            <TachographPlcControl00>
+                <Type02>MTCO/TSU</Type02>
+                <Type03>MTCO II</Type03>
+            </TachographPlcControl00>
+            <TachographPlcControl01>
+                <Type01>KTCO</Type01>
+            </TachographPlcControl01>
+            <TachographPlcControl10>
+                <Type04>INS LTC</Type04>
+                <Type05>INS 2004</Type05>
+            </TachographPlcControl10>
+            <TachographPlcControl11/>
+        </Parameters>
+        <FaultList>/Configuration/Components/Tachograph/TachographFaults.xml</FaultList>
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <SwitchSettings PromptBox="1" Priority="0">SwitchSettings</SwitchSettings>
+            <TestingTachograph PromptBox="2" Priority="0">TestingTachograph</TestingTachograph>
+            <MaintainSpeed PromptBox="1" PromptPriority="0">MaintainSpeed</MaintainSpeed>
+            <SteadySpeed PromptBox="1" PromptPriority="0">SteadySpeed</SteadySpeed>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+            <WritingCalData PromptBox="2" Priority="0">WritingCalData</WritingCalData>
+        </Prompts>
+    </Setup>
+    <Objectives>
+        <CalibrateTachograph>
+            <TestStep01>TachographTest</TestStep01>
+            <TestStep02>FinishUp</TestStep02>
+        </CalibrateTachograph>
+        <TestTachDll>
+            <TestStep01>TestTachographInterface</TestStep01>
+        </TestTachDll>
+        <BlackBoxCircuitSelect>
+            <TestStep1>BlackBoxCircuitSelect</TestStep1>
+        </BlackBoxCircuitSelect>
+    </Objectives>
+    <TestSteps>
+        <TachographTest Result="Not Tested" Timeout="120000" Description="Medir pulsos do Tacografo e preparar constante Cal para o modulo" EnglishDescription="Measure tach pulses and set cal constant for module" ScanDelay="40"/>
+        <FinishUp Result="Not Tested" Timeout="1000" Description="Determinar resultado geral do teste" EnglishDescription="Determine overall test result"/>
+        <TestTachographInterface Result="Not Tested" Timeout="120000" Description="Testar interface com DLL do aplicativo" EnglishDescription="Test interface to DLL application"/>
+        <BlackBoxCircuitSelect Result="Not Tested" Timeout="10000" Description="Preparar o hardware para um determinado Tacografo" EnglishDescription="Set the hardware up for a certain Tachograph" ScanDelay="1000"/>
+    </TestSteps>
+</TachographConfig>

@@ -1,0 +1,2 @@
+SendCmd -tPublish -x$1,$2 -ncore/DataServer -d
+

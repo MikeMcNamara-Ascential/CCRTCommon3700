@@ -1,0 +1,497 @@
+<?xml-stylesheet type="text/xsl" href="ReportLayout.xsl"?>
+<BepVehicleTestResult>
+   <VehicleBuild>
+      <ABSPartNo/>
+      <BrakeType>720 ABS</BrakeType>
+      <CycleTime>125</CycleTime>
+      <DriveAxle>Rear</DriveAxle>
+      <DriveCurve>/Configuration/VehicleTest/DriveCurves/Isuzu.DriveCurve.xml</DriveCurve>
+      <SpeedControl>Not Equipped</SpeedControl>
+      <TCMPartNo/>
+      <VIN>4KDB4B1U78J800001</VIN>
+   </VehicleBuild>
+   <TestResult>
+      <AllFailures>
+         <EmissionsAcceleratorPedalWOTTest Description="TimeoutFailure Description Unavailable" Process="Emissions" Result="Timeout" TestResultCode="TimeoutFailure Code Unavailable">
+            <AccleratorPedalPosition1 Units="%">85.09</AccleratorPedalPosition1>
+            <AccleratorPedalPosition2 Units="%">40.78</AccleratorPedalPosition2>
+         </EmissionsAcceleratorPedalWOTTest>
+         <EmissionsCheckCASELearn Description="Verify the CASE Learn was successful" Process="Emissions" Result="Fail" TestResultCode="0000"/>
+         <EmissionsCheckEngineOilLevelLow Description="EngineOilLevelLowOutOfRange Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="EngineOilLevelLowOutofRangeHigh Code Unavailable">
+            <SensorReading>True</SensorReading>
+            <ValueToCompare>False</ValueToCompare>
+         </EmissionsCheckEngineOilLevelLow>
+         <EmissionsCheckKnockSensor1Status Description="KnockSensor1OutOfRange Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="KnockSensor1OutofRangeHigh Code Unavailable">
+            <SensorReading Units="Boolean">False</SensorReading>
+            <ValueToCompare Units="Boolean">True</ValueToCompare>
+         </EmissionsCheckKnockSensor1Status>
+         <EmissionsCheckMisfireCatalystFailureStatus Description="MisfireCatalystFailureOutOfRange Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="MisfireCatalystFailureOutofRangeHigh Code Unavailable">
+            <SensorReading Units="Boolean">False</SensorReading>
+            <ValueToCompare Units="Boolean">True</ValueToCompare>
+         </EmissionsCheckMisfireCatalystFailureStatus>
+         <EmissionsCheckMisfireEmissionsFailureStatus Description="MisfireEmissionsFailureOutOfRange Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="MisfireEmissionsFailureOutofRangeHigh Code Unavailable">
+            <SensorReading Units="Boolean">False</SensorReading>
+            <ValueToCompare Units="Boolean">True</ValueToCompare>
+         </EmissionsCheckMisfireEmissionsFailureStatus>
+         <EmissionsCheckOxygenSensor1Bank2 Description="OxygenSensor1Bank2OutOfRangeLow Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="OxygenSensor1Bank2OutOfRangeLow Code Unavailable">
+            <MaxParam Units="V">0.9</MaxParam>
+            <MinParam Units="V">0.2</MinParam>
+            <SensorReading Units="V">0.06</SensorReading>
+         </EmissionsCheckOxygenSensor1Bank2>
+         <EmissionsOverallTest Description="Emissions Overall Test Result" Process="Emissions" Result="Timeout" TestResultCode="0000"/>
+      </AllFailures>
+      <BrakeABSValveCrossCheck Description="Test the ABS system for Valve Cross" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeAccelerateToBrakeSpeed Description="Accelerate to Brake Test Arm Speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Armspeed Units="mph">60.00</Armspeed>
+         <ElapsedTime Units="seconds">0.01</ElapsedTime>
+      </BrakeAccelerateToBrakeSpeed>
+      <BrakeAnalyzeBalance Description="Analyze brake force balance" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeAnalyzeBrakeTest Description="Analyze brake forces" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeAnalyzeDragTest Description="Analyze drag force data" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeBrakeSwitchOffTest Description="Verify the brake switch is in the off position" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeBrakeSwitchOnTest Description="Verify the brake switch is in the on position" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeBrakeTest Description="Perform the base brake test" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeCheckPartNumber Description="Verify the module part number" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BroadcastPartNumber/>
+         <ModulePartNumber>8980316070</ModulePartNumber>
+      </BrakeCheckPartNumber>
+      <BrakeClearFaults Description="Clear fault codes from the module" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeDisableDiagnosticSpeedLimit Description="Disable Diagnostic Speed Limit" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeDragTest Description="Measure vehicle drag forces" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeDumpAndIsolateAllWheels Description="Dump brake pressure at all wheels" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeEnterDiagnosticMode Description="Place the module into diagnostic mode" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeEnterNormalMode Description="Command the module to return to normal mode" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeEvaluateABS Description="Analyze the ABS valve firing data" Process="Brake" Result="Pass" TestResultCode="0000">
+         <OverallRecovery>Pass</OverallRecovery>
+         <OverallReduction>Pass</OverallReduction>
+         <OverallValveCross>Pass</OverallValveCross>
+      </BrakeEvaluateABS>
+      <BrakeFinishUp Description="Finish up the test component testing" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeFrontBalanceTest Description="LF to RF Balance Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxPercentBalance Units="Percent">60.00</MaxPercentBalance>
+         <MinPercentBalance Units="Percent">40.00</MinPercentBalance>
+         <Value Units="Percent">51.59</Value>
+      </BrakeFrontBalanceTest>
+      <BrakeFrontToRearBalanceTest Description="Front To Rear Balance Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxPercentBalance Units="Percent">80.00</MaxPercentBalance>
+         <MinPercentBalance Units="Percent">50.00</MinPercentBalance>
+         <Value Units="Percent">54.11</Value>
+      </BrakeFrontToRearBalanceTest>
+      <BrakeIndividualSensorTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeInitialize Description="Initialize the force thread and data arrays" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftFrontABSRecovery Description="Brake Force Recovery Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <LeftFrontABSRecoveryValue Units="Percent">158.56</LeftFrontABSRecoveryValue>
+         <LeftFrontRecoveryForceValue Units="lbf">717.13</LeftFrontRecoveryForceValue>
+         <LeftFrontRecoveryMinPercent Units="Percent">60.0</LeftFrontRecoveryMinPercent>
+      </BrakeLeftFrontABSRecovery>
+      <BrakeLeftFrontABSReduction Description="LeftFront Reduction Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <LeftFrontABSReductionPercent Units="Percent">23.18</LeftFrontABSReductionPercent>
+         <LeftFrontReductionForceValue Units="lbf">104.83</LeftFrontReductionForceValue>
+         <LeftFrontReductionMinParameter Units="Percent">40.0</LeftFrontReductionMinParameter>
+      </BrakeLeftFrontABSReduction>
+      <BrakeLeftFrontAbsStats Description="ABS Stats" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Average Units="lbf">410.98</Average>
+         <MaxRecovery Units="lbf">717.13</MaxRecovery>
+         <MaxRecoveryInex>4464</MaxRecoveryInex>
+         <MinReduction Units="lbf">104.83</MinReduction>
+         <MinReductionIndex>4491</MinReductionIndex>
+      </BrakeLeftFrontAbsStats>
+      <BrakeLeftFrontBrakeTestStats Description="LeftFront Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageBrakeValue Units="lbf">452.28</AverageBrakeValue>
+         <MaxBrakeIndex>4337</MaxBrakeIndex>
+         <MaxBrakeValue Units="lbf">492.26</MaxBrakeValue>
+         <MinBrakeIndex>4322</MinBrakeIndex>
+         <MinBrakeValue Units="lbf">403.24</MinBrakeValue>
+      </BrakeLeftFrontBrakeTestStats>
+      <BrakeLeftFrontDragTest Description="LeftFront Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <DragForce Units="lbf">70.20</DragForce>
+         <MaxDragForce Units="lbf">90</MaxDragForce>
+      </BrakeLeftFrontDragTest>
+      <BrakeLeftFrontDragTestStats Description="LeftFront Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageDragValue Units="lbf">70.20</AverageDragValue>
+         <MaxDragIndex>4095</MaxDragIndex>
+         <MaxDragValue Units="lbf">73.63</MaxDragValue>
+         <MinDragIndex>4116</MinDragIndex>
+         <MinDragValue Units="lbf">67.24</MinDragValue>
+      </BrakeLeftFrontDragTestStats>
+      <BrakeLeftFrontForceTest Description="LeftFront Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BrakeForce Units="lbf">452.28</BrakeForce>
+         <BrakeForceWithMultiplier Units="lbf">452.28</BrakeForceWithMultiplier>
+         <MaxBrakeForce Units="lbf">800</MaxBrakeForce>
+         <MinBrakeForce Units="lbf">350</MinBrakeForce>
+         <MinBrakeForceWithMultiplier Units="lbf">350.00</MinBrakeForceWithMultiplier>
+      </BrakeLeftFrontForceTest>
+      <BrakeLeftFrontRecovery Description="Performing recovery for LeftFront" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftFrontReduction Description="Performing reduction for LeftFront" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftFrontSensorSpeedTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxLimit Units="mph">6.26</MaxLimit>
+         <MinLimit Units="mph">3.76</MinLimit>
+         <RollerSpeed Units="mph">5</RollerSpeed>
+         <SensorSpeed Units="mph">4.35</SensorSpeed>
+      </BrakeLeftFrontSensorSpeedTest>
+      <BrakeLeftRearABSRecovery Description="Brake Force Recovery Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <LeftRearABSRecoveryValue Units="Percent">85.67</LeftRearABSRecoveryValue>
+         <LeftRearRecoveryForceValue Units="lbf">324.26</LeftRearRecoveryForceValue>
+         <LeftRearRecoveryMinPercent Units="Percent">60.0</LeftRearRecoveryMinPercent>
+      </BrakeLeftRearABSRecovery>
+      <BrakeLeftRearABSReduction Description="LeftRear Reduction Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <LeftRearABSReductionPercent Units="Percent">0.00</LeftRearABSReductionPercent>
+         <LeftRearReductionForceValue Units="lbf">0.00</LeftRearReductionForceValue>
+         <LeftRearReductionMinParameter Units="Percent">40.0</LeftRearReductionMinParameter>
+      </BrakeLeftRearABSReduction>
+      <BrakeLeftRearAbsStats Description="ABS Stats" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Average Units="lbf">146.98</Average>
+         <MaxRecovery Units="lbf">324.26</MaxRecovery>
+         <MaxRecoveryInex>4558</MaxRecoveryInex>
+         <MinReduction Units="lbf">-30.30</MinReduction>
+         <MinReductionIndex>4585</MinReductionIndex>
+      </BrakeLeftRearAbsStats>
+      <BrakeLeftRearBrakeTestStats Description="LeftRear Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageBrakeValue Units="lbf">378.49</AverageBrakeValue>
+         <MaxBrakeIndex>4337</MaxBrakeIndex>
+         <MaxBrakeValue Units="lbf">418.59</MaxBrakeValue>
+         <MinBrakeIndex>4322</MinBrakeIndex>
+         <MinBrakeValue Units="lbf">319.14</MinBrakeValue>
+      </BrakeLeftRearBrakeTestStats>
+      <BrakeLeftRearDragTest Description="LeftRear Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <DragForce Units="lbf">67.90</DragForce>
+         <MaxDragForce Units="lbf">90</MaxDragForce>
+      </BrakeLeftRearDragTest>
+      <BrakeLeftRearDragTestStats Description="LeftRear Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageDragValue Units="lbf">67.90</AverageDragValue>
+         <MaxDragIndex>4093</MaxDragIndex>
+         <MaxDragValue Units="lbf">72.64</MaxDragValue>
+         <MinDragIndex>4138</MinDragIndex>
+         <MinDragValue Units="lbf">63.68</MinDragValue>
+      </BrakeLeftRearDragTestStats>
+      <BrakeLeftRearForceTest Description="LeftRear Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BrakeForce Units="lbf">378.49</BrakeForce>
+         <BrakeForceWithMultiplier Units="lbf">378.49</BrakeForceWithMultiplier>
+         <MaxBrakeForce Units="lbf">800</MaxBrakeForce>
+         <MinBrakeForce Units="lbf">300</MinBrakeForce>
+         <MinBrakeForceWithMultiplier Units="lbf">300.00</MinBrakeForceWithMultiplier>
+      </BrakeLeftRearForceTest>
+      <BrakeLeftRearRecovery Description="Performing recovery for LeftRear" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftRearReduction Description="Performing reduction for LeftRear" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftRearSensorSpeedTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxLimit Units="mph">18.87</MaxLimit>
+         <MinLimit Units="mph">11.32</MinLimit>
+         <RollerSpeed Units="mph">15</RollerSpeed>
+         <SensorSpeed Units="mph">14.29</SensorSpeed>
+      </BrakeLeftRearSensorSpeedTest>
+      <BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeReadFaults Description="Read faults from the module" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRearBalanceTest Description="LR to RR Balance Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxPercentBalance Units="Percent">60.00</MaxPercentBalance>
+         <MinPercentBalance Units="Percent">40.00</MinPercentBalance>
+         <Value Units="Percent">50.90</Value>
+      </BrakeRearBalanceTest>
+      <BrakeRecoverAllWheels Description="Recover brake force at all wheels" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightFrontABSRecovery Description="Brake Force Recovery Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <RightFrontABSRecoveryValue Units="Percent">170.87</RightFrontABSRecoveryValue>
+         <RightFrontRecoveryForceValue Units="lbf">725.20</RightFrontRecoveryForceValue>
+         <RightFrontRecoveryMinPercent Units="Percent">60.0</RightFrontRecoveryMinPercent>
+      </BrakeRightFrontABSRecovery>
+      <BrakeRightFrontABSReduction Description="RightFront Reduction Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <RightFrontABSReductionPercent Units="Percent">0.00</RightFrontABSReductionPercent>
+         <RightFrontReductionForceValue Units="lbf">0.00</RightFrontReductionForceValue>
+         <RightFrontReductionMinParameter Units="Percent">40.0</RightFrontReductionMinParameter>
+      </BrakeRightFrontABSReduction>
+      <BrakeRightFrontAbsStats Description="ABS Stats" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Average Units="lbf">255.32</Average>
+         <MaxRecovery Units="lbf">725.20</MaxRecovery>
+         <MaxRecoveryInex>4510</MaxRecoveryInex>
+         <MinReduction Units="lbf">-214.5</MinReduction>
+         <MinReductionIndex>4523</MinReductionIndex>
+      </BrakeRightFrontAbsStats>
+      <BrakeRightFrontBrakeTestStats Description="RightFront Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageBrakeValue Units="lbf">424.42</AverageBrakeValue>
+         <MaxBrakeIndex>4337</MaxBrakeIndex>
+         <MaxBrakeValue Units="lbf">452.96</MaxBrakeValue>
+         <MinBrakeIndex>4322</MinBrakeIndex>
+         <MinBrakeValue Units="lbf">383.60</MinBrakeValue>
+      </BrakeRightFrontBrakeTestStats>
+      <BrakeRightFrontDragTest Description="RightFront Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <DragForce Units="lbf">60.88</DragForce>
+         <MaxDragForce Units="lbf">90</MaxDragForce>
+      </BrakeRightFrontDragTest>
+      <BrakeRightFrontDragTestStats Description="RightFront Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageDragValue Units="lbf">60.88</AverageDragValue>
+         <MaxDragIndex>4095</MaxDragIndex>
+         <MaxDragValue Units="lbf">62.50</MaxDragValue>
+         <MinDragIndex>4133</MinDragIndex>
+         <MinDragValue Units="lbf">59.37</MinDragValue>
+      </BrakeRightFrontDragTestStats>
+      <BrakeRightFrontForceTest Description="RightFront Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BrakeForce Units="lbf">424.42</BrakeForce>
+         <BrakeForceWithMultiplier Units="lbf">424.42</BrakeForceWithMultiplier>
+         <MaxBrakeForce Units="lbf">800</MaxBrakeForce>
+         <MinBrakeForce Units="lbf">350</MinBrakeForce>
+         <MinBrakeForceWithMultiplier Units="lbf">350.00</MinBrakeForceWithMultiplier>
+      </BrakeRightFrontForceTest>
+      <BrakeRightFrontRecovery Description="Performing recovery for RightFront" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightFrontReduction Description="Performing reduction for RightFront" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightFrontSensorSpeedTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxLimit Units="mph">12.53</MaxLimit>
+         <MinLimit Units="mph">7.52</MinLimit>
+         <RollerSpeed Units="mph">10</RollerSpeed>
+         <SensorSpeed Units="mph">9.32</SensorSpeed>
+      </BrakeRightFrontSensorSpeedTest>
+      <BrakeRightRearABSRecovery Description="Brake Force Recovery Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <RightRearABSRecoveryValue Units="Percent">85.41</RightRearABSRecoveryValue>
+         <RightRearRecoveryForceValue Units="lbf">311.83</RightRearRecoveryForceValue>
+         <RightRearRecoveryMinPercent Units="Percent">60.0</RightRearRecoveryMinPercent>
+      </BrakeRightRearABSRecovery>
+      <BrakeRightRearABSReduction Description="RightRear Reduction Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <RightRearABSReductionPercent Units="Percent">0.00</RightRearABSReductionPercent>
+         <RightRearReductionForceValue Units="lbf">0.00</RightRearReductionForceValue>
+         <RightRearReductionMinParameter Units="Percent">40.0</RightRearReductionMinParameter>
+      </BrakeRightRearABSReduction>
+      <BrakeRightRearAbsStats Description="ABS Stats" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Average Units="lbf">149.72</Average>
+         <MaxRecovery Units="lbf">311.83</MaxRecovery>
+         <MaxRecoveryInex>4602</MaxRecoveryInex>
+         <MinReduction Units="lbf">-12.39</MinReduction>
+         <MinReductionIndex>4628</MinReductionIndex>
+      </BrakeRightRearAbsStats>
+      <BrakeRightRearBrakeTestStats Description="RightRear Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageBrakeValue Units="lbf">365.08</AverageBrakeValue>
+         <MaxBrakeIndex>4337</MaxBrakeIndex>
+         <MaxBrakeValue Units="lbf">398.66</MaxBrakeValue>
+         <MinBrakeIndex>4322</MinBrakeIndex>
+         <MinBrakeValue Units="lbf">317.63</MinBrakeValue>
+      </BrakeRightRearBrakeTestStats>
+      <BrakeRightRearDragTest Description="RightRear Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <DragForce Units="lbf">66.48</DragForce>
+         <MaxDragForce Units="lbf">90</MaxDragForce>
+      </BrakeRightRearDragTest>
+      <BrakeRightRearDragTestStats Description="RightRear Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageDragValue Units="lbf">66.48</AverageDragValue>
+         <MaxDragIndex>4093</MaxDragIndex>
+         <MaxDragValue Units="lbf">68.25</MaxDragValue>
+         <MinDragIndex>4137</MinDragIndex>
+         <MinDragValue Units="lbf">64.64</MinDragValue>
+      </BrakeRightRearDragTestStats>
+      <BrakeRightRearForceTest Description="RightRear Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BrakeForce Units="lbf">365.08</BrakeForce>
+         <BrakeForceWithMultiplier Units="lbf">365.08</BrakeForceWithMultiplier>
+         <MaxBrakeForce Units="lbf">800</MaxBrakeForce>
+         <MinBrakeForce Units="lbf">300</MinBrakeForce>
+         <MinBrakeForceWithMultiplier Units="lbf">300.00</MinBrakeForceWithMultiplier>
+      </BrakeRightRearForceTest>
+      <BrakeRightRearRecovery Description="Performing recovery for RightRear" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightRearReduction Description="Performing reduction for RightRear" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightRearSensorSpeedTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxLimit Units="mph">25.32</MaxLimit>
+         <MinLimit Units="mph">15.19</MinLimit>
+         <RollerSpeed Units="mph">20</RollerSpeed>
+         <SensorSpeed Units="mph">19.26</SensorSpeed>
+      </BrakeRightRearSensorSpeedTest>
+      <BrakeStartModuleKeepAlive Description="Start sending keep alive messages" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeStopModuleKeepAlive Description="Stop sending keep alive messages" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeValveFiringTest Description="Fire each ABS valve" Process="Brake" Result="Pass" TestResultCode="0000">
+         <OverallRecoverySequence>Pass</OverallRecoverySequence>
+         <OverallReductionSequence>Pass</OverallReductionSequence>
+      </BrakeValveFiringTest>
+      <EmissionsAccelerateToTestSpeed Description="Accelerate to the required speed range" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsAcceleratorPedalWOTTest Description="TimeoutFailure Description Unavailable" Process="Emissions" Result="Timeout" TestResultCode="TimeoutFailure Code Unavailable">
+         <AccleratorPedalPosition1 Units="%">85.09</AccleratorPedalPosition1>
+         <AccleratorPedalPosition2 Units="%">40.78</AccleratorPedalPosition2>
+      </EmissionsAcceleratorPedalWOTTest>
+      <EmissionsCheckBarometricPressure Description="Verify the barometric pressure sensor is in range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="kPa">120</MaxParam>
+         <MinParam Units="kPa">80</MinParam>
+         <SensorReading Units="kPa">100</SensorReading>
+      </EmissionsCheckBarometricPressure>
+      <EmissionsCheckBatteryVoltage Description="Verify battery voltage is in operating range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="V">14</MaxParam>
+         <MinParam Units="V">10</MinParam>
+         <SensorReading Units="V">13.40</SensorReading>
+      </EmissionsCheckBatteryVoltage>
+      <EmissionsCheckCASELearn Description="Verify the CASE Learn was successful" Process="Emissions" Result="Fail" TestResultCode="0000"/>
+      <EmissionsCheckEgrError Description="" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam>5.0</MaxParam>
+         <MinParam>-5.0</MinParam>
+         <SensorReading>0.00</SensorReading>
+      </EmissionsCheckEgrError>
+      <EmissionsCheckEngineCoolantTemperature Description="Verify engine coolant temp is in operating range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="C">200</MaxParam>
+         <MinParam Units="C">70</MinParam>
+         <SensorReading Units="C">127</SensorReading>
+      </EmissionsCheckEngineCoolantTemperature>
+      <EmissionsCheckEngineOilLevelLow Description="EngineOilLevelLowOutOfRange Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="EngineOilLevelLowOutofRangeHigh Code Unavailable">
+         <SensorReading>True</SensorReading>
+         <ValueToCompare>False</ValueToCompare>
+      </EmissionsCheckEngineOilLevelLow>
+      <EmissionsCheckEngineOilPressure Description="Verify engine oil pressure is in acceptable range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="kPa">250</MaxParam>
+         <MinParam Units="kPa">100</MinParam>
+         <SensorReading Units="kPa">208</SensorReading>
+      </EmissionsCheckEngineOilPressure>
+      <EmissionsCheckEngineOilPressureLow Description="Verify engine oil pressure low status is not set" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <SensorReading>False</SensorReading>
+         <ValueToCompare>False</ValueToCompare>
+      </EmissionsCheckEngineOilPressureLow>
+      <EmissionsCheckEngineOilTemperature Description="Verify engine temperature temp is in operating range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="C">100</MaxParam>
+         <MinParam Units="C">40</MinParam>
+         <SensorReading Units="C">85</SensorReading>
+      </EmissionsCheckEngineOilTemperature>
+      <EmissionsCheckFuelLevelPrimaryTankLevel Description="Verify Fuel level in primary tank is in acceptable range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="%">100</MaxParam>
+         <MinParam Units="%">10</MinParam>
+         <SensorReading Units="%">18.43</SensorReading>
+      </EmissionsCheckFuelLevelPrimaryTankLevel>
+      <EmissionsCheckFuelLevelSecondaryTankLevel Description="Verify Fuel level in Secondary tank is in acceptable range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam/>
+         <MinParam/>
+         <SensorReading>0.00</SensorReading>
+      </EmissionsCheckFuelLevelSecondaryTankLevel>
+      <EmissionsCheckFuelRailPressure Description="Verify Fuel Rail pressure is in acceptable range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="kPa">700</MaxParam>
+         <MinParam Units="kPa">300</MinParam>
+         <SensorReading Units="kPa">143</SensorReading>
+      </EmissionsCheckFuelRailPressure>
+      <EmissionsCheckIdleFuelTrim Description="Check short and long fuel trim for both banks at idle speed" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsCheckIdleRPM Description="Verify engine speed is in operating range during idle condition" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="RPM">1500</MaxParam>
+         <MinParam Units="RPM">500</MinParam>
+         <SensorReading Units="RPM">584</SensorReading>
+      </EmissionsCheckIdleRPM>
+      <EmissionsCheckKnockSensor1Status Description="KnockSensor1OutOfRange Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="KnockSensor1OutofRangeHigh Code Unavailable">
+         <SensorReading Units="Boolean">False</SensorReading>
+         <ValueToCompare Units="Boolean">True</ValueToCompare>
+      </EmissionsCheckKnockSensor1Status>
+      <EmissionsCheckKnockSensor2Status Description="Verifty the Knock Sensor Status is good" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <SensorReading Units="Boolean">True</SensorReading>
+         <ValueToCompare Units="Boolean">True</ValueToCompare>
+      </EmissionsCheckKnockSensor2Status>
+      <EmissionsCheckMAFResidual Description="Verifty the MAF Residual is not out of tolerance." Process="Emissions" Result="Pass" TestResultCode="0000">
+         <SensorReading>False</SensorReading>
+         <ValueToCompare>False</ValueToCompare>
+      </EmissionsCheckMAFResidual>
+      <EmissionsCheckMAP1Residual Description="Verifty the MAP1 Residual is not out of tolerance." Process="Emissions" Result="Pass" TestResultCode="0000">
+         <SensorReading>False</SensorReading>
+         <ValueToCompare>False</ValueToCompare>
+      </EmissionsCheckMAP1Residual>
+      <EmissionsCheckMAP2Residual Description="Verifty the MAP2 Residual is not out of tolerance." Process="Emissions" Result="Pass" TestResultCode="0000">
+         <SensorReading>False</SensorReading>
+         <ValueToCompare>False</ValueToCompare>
+      </EmissionsCheckMAP2Residual>
+      <EmissionsCheckManifoldAbsolutePressureAtIdle Description="Verify pedal position sensors both don't disagree" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsCheckMassAirFlowAtIdle Description="Verify pedal position sensors both don't disagree" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsCheckMisfireCatalystFailureStatus Description="MisfireCatalystFailureOutOfRange Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="MisfireCatalystFailureOutofRangeHigh Code Unavailable">
+         <SensorReading Units="Boolean">False</SensorReading>
+         <ValueToCompare Units="Boolean">True</ValueToCompare>
+      </EmissionsCheckMisfireCatalystFailureStatus>
+      <EmissionsCheckMisfireEmissionsFailureStatus Description="MisfireEmissionsFailureOutOfRange Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="MisfireEmissionsFailureOutofRangeHigh Code Unavailable">
+         <SensorReading Units="Boolean">False</SensorReading>
+         <ValueToCompare Units="Boolean">True</ValueToCompare>
+      </EmissionsCheckMisfireEmissionsFailureStatus>
+      <EmissionsCheckOxygenSensor1Bank1 Description="Verify the Oxygen Sensor1 Bank1 sensor is in range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="V">0.9</MaxParam>
+         <MinParam Units="V">0.2</MinParam>
+         <SensorReading Units="V">0.43</SensorReading>
+      </EmissionsCheckOxygenSensor1Bank1>
+      <EmissionsCheckOxygenSensor1Bank2 Description="OxygenSensor1Bank2OutOfRangeLow Description Unavailable" Process="Emissions" Result="Fail" TestResultCode="OxygenSensor1Bank2OutOfRangeLow Code Unavailable">
+         <MaxParam Units="V">0.9</MaxParam>
+         <MinParam Units="V">0.2</MinParam>
+         <SensorReading Units="V">0.06</SensorReading>
+      </EmissionsCheckOxygenSensor1Bank2>
+      <EmissionsCheckOxygenSensor2Bank1 Description="Verify the Oxygen Sensor2 Bank1 sensor is in range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="V">0.9</MaxParam>
+         <MinParam Units="V">0.2</MinParam>
+         <SensorReading Units="V">0.85</SensorReading>
+      </EmissionsCheckOxygenSensor2Bank1>
+      <EmissionsCheckOxygenSensor2Bank2 Description="Verify the Oxygen Sensor2 Bank2 sensor is in range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <MaxParam Units="V">0.9</MaxParam>
+         <MinParam Units="V">0.2</MinParam>
+         <SensorReading Units="V">0.88</SensorReading>
+      </EmissionsCheckOxygenSensor2Bank2>
+      <EmissionsCheckSteadySpeedFuelTrim Description="Check fuel trim values at steady speed" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsCheckVIN Description="Verify the module VIN matches the scanned VIN" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <BroadcastVIN>4KDB4B1U78J800001</BroadcastVIN>
+         <ModuleVIN>4KDB4B1U78J800001</ModuleVIN>
+      </EmissionsCheckVIN>
+      <EmissionsCheckVehicleSpeedSensor Description="0000" Process="Emissions" Result="Pass" TestResultCode="Validate vehicle speed sensor reading">
+         <MaxSpeed Units="mph">63.66</MaxSpeed>
+         <MinSpeed Units="mph">57.66</MinSpeed>
+         <RollerSpeed Units="mph">60.66</RollerSpeed>
+         <VehicleSpeedSensor Units="mph">60.89</VehicleSpeedSensor>
+      </EmissionsCheckVehicleSpeedSensor>
+      <EmissionsEnterDiagnosticMode Description="Begin a diagnostic session with the module" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsFinishUp Description="Finish testing and determine overall result" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsOverallTest Description="Emissions Overall Test Result" Process="Emissions" Result="Timeout" TestResultCode="0000"/>
+      <EmissionsSetup Description="Setup conditions for testing" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsStartModuleKeepAlive Description="Start sending the tester present message peridocally" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsStopModuleKeepAlive Description="Start sending the tester present message peridocally" Process="Emissions" Result="Pass" TestResultCode="0000"/>
+      <EmissionsWaitForEngineTemperature Description="Wait for engine coolant temperature to be in operating range" Process="Emissions" Result="Pass" TestResultCode="0000">
+         <EngineTemperature Units="C">91</EngineTemperature>
+         <MaxTemperature Units="C">200</MaxTemperature>
+         <MinTemperature Units="C">70</MinTemperature>
+      </EmissionsWaitForEngineTemperature>
+      <MachineBrakeToStop Description="Prompt the driver to brake to stop" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineConnectCable Description="Prompt the driver to connect the vehicle cable" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineInitialize Description="Initialize the machine for testing" Process="Machine" Result="Pass" TestResultCode="0000">
+         <Date>2010-10-04</Date>
+         <MachineNumber>507382</MachineNumber>
+         <Time>06:45:31</Time>
+         <Version>CcrtR07103101-ISUZU-10072901</Version>
+      </MachineInitialize>
+      <MachineMachineReady Description="Wait until the machine is ready to perform a test" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineOverallTest Description="Machine Overall Test Result" Process="Machine" Result="TestInProgress" TestResultCode="0000"/>
+      <MachinePerformingFinalTesting Description="" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <OverallTest Description="TestResult" Process="core/TestResultServer" Result="Fail"/>
+      <SpeedControlOverallTest Description="SpeedControl Overall Test Result" Process="SpeedControl" Result="TestNotStarted" TestResultCode="0000"/>
+      <TestStats Description="Test Result Statistics" Process="Statistics">
+         <NumberOfTests>129</NumberOfTests>
+         <TestPassCount>122</TestPassCount>
+         <TestPassPercent> 94.57</TestPassPercent>
+      </TestStats>
+      <TransmissionAccelerateInReverse Description="Validate Reverse gear functionality" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionEvaluateTccSlipError Description="Verify the TCC slip error is acceptable" Process="Transmission" Result="Pass" TestResultCode="0000">
+         <ActualTccSlipError Units="rpm">0.0000</ActualTccSlipError>
+         <MaximumTccSlipError Units="rpm">0.5</MaximumTccSlipError>
+         <MinimumTccSlipError Units="rpm">-0.5</MinimumTccSlipError>
+      </TransmissionEvaluateTccSlipError>
+      <TransmissionFail Description="ReverseGearTimeout Code Unavailable" Process="Transmission" Result="ReverseGearTimeout Description Unavailable" TestResultCode="0000"/>
+      <TransmissionFifthGearObserved Description="Fifth Gear observed" Process="Transmission" Result="Skip" TestResultCode="FifthGearNotSeen Code Unavailable"/>
+      <TransmissionFinishUp Description="Finish testing sequence" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionFirstGearObserved Description="First Gear observed" Process="Transmission" Result="Pass" TestResultCode="FirstGearNotSeen Code Unavailable"/>
+      <TransmissionFirstGearUpdate Description="Update first gear result in module" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionFourthGearObserved Description="Fourth Gear observed" Process="Transmission" Result="Pass" TestResultCode="FourthGearNotSeen Code Unavailable"/>
+      <TransmissionFourthGearUpdate Description="Update fourth gear result in module" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionNeutralGearObserved Description="Neutral Gear observed" Process="Transmission" Result="Pass" TestResultCode="NeutralGearNotSeen Code Unavailable"/>
+      <TransmissionNeutralGearUpdate Description="Update neutral gear result in module" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionOverallTest Description="Transmission Overall Test Result" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionParkObserved Description="Park observed" Process="Transmission" Result="Skip" TestResultCode="ParkNotSeen Code Unavailable"/>
+      <TransmissionPass Description="0000" Process="Transmission" Result="Validate Reverse gear functionality" TestResultCode="0000"/>
+      <TransmissionReverseGearObserved Description="Reverse Gear observed" Process="Transmission" Result="Pass" TestResultCode="ReverseGearNotSeen Code Unavailable"/>
+      <TransmissionReverseGearUpdate Description="Update reverse gear result in module" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionSecondGearObserved Description="Second Gear observed" Process="Transmission" Result="Pass" TestResultCode="SecondGearNotSeen Code Unavailable"/>
+      <TransmissionSecondGearUpdate Description="Update second gear result in module" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionShiftLeverTest Description="Check shift lever" Process="Transmission" Result="Pass" TestResultCode="0000">
+         <PRNDL_1>Pass</PRNDL_1>
+         <PRNDL_2>Pass</PRNDL_2>
+         <PRNDL_D3>Pass</PRNDL_D3>
+         <PRNDL_D4>Pass</PRNDL_D4>
+         <PRNDL_N>Pass</PRNDL_N>
+         <PRNDL_P>Pass</PRNDL_P>
+         <PRNDL_R>Pass</PRNDL_R>
+      </TransmissionShiftLeverTest>
+      <TransmissionSixthGearObserved Description="Sixth Gear observed" Process="Transmission" Result="Skip" TestResultCode="SixthGearNotSeen Code Unavailable"/>
+      <TransmissionStartGearMonitor Description="Start the gear monitor" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionStopGearMonitor Description="Stop the gear monitor" Process="Transmission" Result="Pass" TestResultCode="0000">
+         <ForwardDrivingGears>Pass</ForwardDrivingGears>
+         <NeutralGearObserved>Pass</NeutralGearObserved>
+         <ParkObserved>Skip</ParkObserved>
+         <ReverseGearObserved>Pass</ReverseGearObserved>
+      </TransmissionStopGearMonitor>
+      <TransmissionThirdGearObserved Description="Third Gear observed" Process="Transmission" Result="Pass" TestResultCode="ThirdGearNotSeen Code Unavailable"/>
+      <TransmissionThirdGearUpdate Description="Update third gear result in module" Process="Transmission" Result="Pass" TestResultCode="0000"/>
+      <TransmissionWaitForGears Description="Wait for torque converter clutch full lock" Process="Transmission" Result="Pass" TestResultCode="0000">
+         <AllGearsObserved>Pass</AllGearsObserved>
+      </TransmissionWaitForGears>
+      <DTC/>
+   </TestResult>
+</BepVehicleTestResult>

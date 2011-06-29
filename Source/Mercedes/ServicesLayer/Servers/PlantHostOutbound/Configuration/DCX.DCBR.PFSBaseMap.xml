@@ -1,0 +1,46 @@
+<BasePFSRecord>
+    <Field00000 Type="VehicleBuild" ExcludeIfNotTested="No">ProductionNumber</Field00000>
+    <Field00001 Type="VehicleBuild" ExcludeIfNotTested="No">VIN</Field00001>
+    <Field00002 Type="VehicleBuild" ExcludeIfNotTested="No">SequenceNumber</Field00002>
+    <Field00003 Type="VehicleBuild" ExcludeIfNotTested="No">Baumuster</Field00003>
+    <Field00005 Type="Value" ExcludeIfNotTested="No">Date</Field00005>
+    <Field00010 Type="Value" ExcludeIfNotTested="No">Time</Field00010>
+
+    <Field00020 Type="Result" ExcludeIfNotTested="No">OverallTest</Field00020>
+    <Field00025 Type="Result" ExcludeIfNotTested="No">EmissionsOverallTest</Field00025>
+    <Field00030 Type="Result" ExcludeIfNotTested="No">TransmissionOverallTest</Field00030>
+    <Field00035 Type="Result" ExcludeIfNotTested="No">BrakeOverallTest</Field00035>
+    <Field00040 Type="Result" ExcludeIfNotTested="No">SpeedControlOverallTest</Field00040>
+    <Field00045 Type="Result" ExcludeIfNotTested="No">AxleOverallTest</Field00045>
+   
+
+    <Field00050 Type="Detail" DetailNode="TachographTachoDetail" Format="%10.10s" DataType="String" ExcludeIfNotTested="No">W</Field00050>
+    <Field00055 Type="Detail" DetailNode="TachographTachoDetail" Format="%10.10s" DataType="String" ExcludeIfNotTested="No">W</Field00055>
+    <Field00060 Type="Detail" DetailNode="TachographTachoDetail" Format="%10.10s" DataType="String" ExcludeIfNotTested="No">W</Field00060>
+   
+
+    <Field00065 Type="Detail" DetailNode="DriverNumber" Format="%7.7s" DataType="String" ExcludeIfNotTested="No">MachineDriverNumber</Field00065>
+    <!-- TestProgramNumber does not exist -->
+    <Field00070 Type="Detail" DetailNode="TestProgramNumber" Format="%10.10s" DataType="String" ExcludeIfNotTested="No">MachineProgramNumber</Field00070>
+   
+
+    <Field00075 Type="Detail" DetailNode="MaxSpeed" Format="%03d" DataType="Integer" ExcludeIfNotTested="No">EngineTorqueTest</Field00075>
+    <Field00080 Type="Detail" DetailNode="MaxSpeed" Format="%03d" DataType="Integer" ExcludeIfNotTested="No">EngineMaxSpeedTest</Field00080>
+
+    <Field00085 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeRightFrontForceTest</Field00085>
+    <Field00090 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeLeftFrontForceTest</Field00090>
+    <Field00095 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeRightRearForceTest</Field00095>
+    <Field00100 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeLeftRearForceTest</Field00100>
+    <Field00105 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeRightTandemForceTest</Field00105>
+    <Field00110 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeLeftTandemForceTest</Field00110>
+    <!-- Park brake test force values do not exist -->
+    <Field00115 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeRightRearParkBrakeTest</Field00115>
+    <Field00120 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeLeftRearParkBrakeTest</Field00120>
+    <Field00125 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeRightTandemParkBrakeTest</Field00125>
+    <Field00130 Type="Detail" DetailNode="BrakeForce" Format="%08d" DataType="Integer">BrakeLeftTandemParkBrakeTest</Field00130>
+
+    <Field00135 Type="Result" ExcludeIfNotTested="No">AxleLongitudinalLockTest</Field00135>
+    <Field00140 Type="Result" DetailNode="AxleCheckWheelSpeedTransversalLock" ExcludeIfNotTested="No">TransversalLockFront</Field00140>
+    <Field00145 Type="Result" DetailNode="AxleCheckWheelSpeedTransversalLock" ExcludeIfNotTested="No">TransversalLockRear</Field00145>
+    <Field00150 Type="Result" DetailNode="AxleCheckWheelSpeedTransversalLock" ExcludeIfNotTested="No">TransversalLockTandem</Field00150>
+</BasePFSRecord>

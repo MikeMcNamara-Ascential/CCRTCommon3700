@@ -1,0 +1,299 @@
+<?xml-stylesheet type="text/xsl" href="Tesla.ReportLayout.xsl"?>
+<BepVehicleTestResult>
+   <VehicleBuild>
+      <BrakeType>Teves Abs</BrakeType>
+      <DriveAxle>Rear</DriveAxle>
+      <DriveCurve>/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml</DriveCurve>
+      <VIN/>
+      <VehicleType>Roadster</VehicleType>
+   </VehicleBuild>
+   <TestResult>
+      <AllFailures/>
+      <BrakeABSValveCrossCheck Description="Test the ABS system for Valve Cross" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeAccelerateToBrakeSpeed Description="Accelerate to the brake test speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Armspeed Units="mph">55.00</Armspeed>
+         <ElapsedTime Units="seconds">19.59</ElapsedTime>
+      </BrakeAccelerateToBrakeSpeed>
+      <BrakeAnalyzeBalance Description="Analyze brake force balance" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeAnalyzeBrakeTest Description="Analyze brake forces" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeAnalyzeDragTest Description="Analyze drag force data" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeBrakeBurnishCycle Description="Burnish the brakes" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeBrakeSwitchOffTest Description="Verify the brake switch is in the off position" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeBrakeSwitchOnTest Description="Verify the brake switch is in the on position" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeBrakeTest Description="Perform the base brake test" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeCheckPartNumber Description="Verify the module part number" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BroadcastPartNumber>XZ_RAB00030</BroadcastPartNumber>
+         <ModulePartNumber>XZ_RAB00030</ModulePartNumber>
+      </BrakeCheckPartNumber>
+      <BrakeClearFaults Description="Clear fault codes from the module" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeDragTest Description="Measure vehicle drag forces" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeDumpAndIsolateAllWheels Description="Dump brake pressure at all wheels" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeElectricParkBrake Description="Verify park brake is properly adjusted" Process="Brake" Result="Pass" TestResultCode="0000">
+         <ModifiedMaxParkBrakeForce Units="lbf">250.00</ModifiedMaxParkBrakeForce>
+      </BrakeElectricParkBrake>
+      <BrakeEnterDiagnosticMode Description="Place the module into diagnostic mode" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeEnterNormalMode Description="Command the module to return to normal mode" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeEvaluateABS Description="Analyze the ABS valve firing data" Process="Brake" Result="Pass" TestResultCode="0000">
+         <OverallRecovery>Pass</OverallRecovery>
+         <OverallReduction>Pass</OverallReduction>
+         <OverallValveCross>Pass</OverallValveCross>
+      </BrakeEvaluateABS>
+      <BrakeFinishUp Description="Finish up the test component testing" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeFrontBalanceTest Description="LF to RF Balance Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxPercentBalance Units="Percent">60.00</MaxPercentBalance>
+         <MinPercentBalance Units="Percent">40.00</MinPercentBalance>
+         <Value Units="Percent">50.24</Value>
+      </BrakeFrontBalanceTest>
+      <BrakeFrontToRearBalanceTest Description="Front To Rear Balance Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxPercentBalance Units="Percent">80.00</MaxPercentBalance>
+         <MinPercentBalance Units="Percent">50.00</MinPercentBalance>
+         <Value Units="Percent">67.12</Value>
+      </BrakeFrontToRearBalanceTest>
+      <BrakeInitialize Description="Initialize the force thread and data arrays" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftFrontABSRecovery Description="Brake Force Recovery Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <LeftFrontABSRecoveryValue Units="Percent">106.35</LeftFrontABSRecoveryValue>
+         <LeftFrontRecoveryForceValue Units="lbf">223.07</LeftFrontRecoveryForceValue>
+         <LeftFrontRecoveryMinPercent Units="Percent">60.0</LeftFrontRecoveryMinPercent>
+      </BrakeLeftFrontABSRecovery>
+      <BrakeLeftFrontABSReduction Description="LeftFront Reduction Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <LeftFrontABSReductionPercent Units="Percent">7.48</LeftFrontABSReductionPercent>
+         <LeftFrontReductionForceValue Units="lbf">15.69</LeftFrontReductionForceValue>
+         <LeftFrontReductionMinParameter Units="Percent">40.0</LeftFrontReductionMinParameter>
+      </BrakeLeftFrontABSReduction>
+      <BrakeLeftFrontAbsStats Description="ABS Stats" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Average Units="lbf">119.38</Average>
+         <MaxRecovery Units="lbf">223.07</MaxRecovery>
+         <MaxRecoveryInex>14410</MaxRecoveryInex>
+         <MinReduction Units="lbf">15.69</MinReduction>
+         <MinReductionIndex>14459</MinReductionIndex>
+      </BrakeLeftFrontAbsStats>
+      <BrakeLeftFrontBrakeTestStats Description="LeftFront Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageBrakeValue Units="lbf">209.76</AverageBrakeValue>
+         <MaxBrakeIndex>14322</MaxBrakeIndex>
+         <MaxBrakeValue Units="lbf">230.33</MaxBrakeValue>
+         <MinBrakeIndex>14245</MinBrakeIndex>
+         <MinBrakeValue Units="lbf">160.89</MinBrakeValue>
+      </BrakeLeftFrontBrakeTestStats>
+      <BrakeLeftFrontDragTest Description="LeftFront Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <DragForce Units="lbf">20.72</DragForce>
+         <MaxDragForce Units="lbf">45</MaxDragForce>
+      </BrakeLeftFrontDragTest>
+      <BrakeLeftFrontDragTestStats Description="LeftFront Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageDragValue Units="lbf">20.72</AverageDragValue>
+         <MaxDragIndex>14124</MaxDragIndex>
+         <MaxDragValue Units="lbf">21.65</MaxDragValue>
+         <MinDragIndex>14111</MinDragIndex>
+         <MinDragValue Units="lbf">19.95</MinDragValue>
+      </BrakeLeftFrontDragTestStats>
+      <BrakeLeftFrontForceTest Description="LeftFront Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BrakeForce Units="lbf">209.76</BrakeForce>
+         <BrakeForceWithMultiplier Units="lbf">209.76</BrakeForceWithMultiplier>
+         <MaxBrakeForce Units="lbf">400</MaxBrakeForce>
+         <MinBrakeForce Units="lbf">150</MinBrakeForce>
+         <MinBrakeForceWithMultiplier Units="lbf">150.00</MinBrakeForceWithMultiplier>
+      </BrakeLeftFrontForceTest>
+      <BrakeLeftFrontRecovery Description="Performing recovery for LeftFront" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftFrontReduction Description="Performing reduction for LeftFront" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftFrontSensorSpeedTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxLimit Units="mph">4.40</MaxLimit>
+         <MinLimit Units="mph">3.60</MinLimit>
+         <RollerSpeed Units="mph">4</RollerSpeed>
+         <SensorSpeed Units="mph">3.74</SensorSpeed>
+      </BrakeLeftFrontSensorSpeedTest>
+      <BrakeLeftRearABSRecovery Description="Brake Force Recovery Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <LeftRearABSRecoveryValue Units="Percent">184.68</LeftRearABSRecoveryValue>
+         <LeftRearRecoveryForceValue Units="lbf">188.16</LeftRearRecoveryForceValue>
+         <LeftRearRecoveryMinPercent Units="Percent">60.0</LeftRearRecoveryMinPercent>
+      </BrakeLeftRearABSRecovery>
+      <BrakeLeftRearABSReduction Description="LeftRear Reduction Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <LeftRearABSReductionPercent Units="Percent">0.00</LeftRearABSReductionPercent>
+         <LeftRearReductionForceValue Units="lbf">0.00</LeftRearReductionForceValue>
+         <LeftRearReductionMinParameter Units="Percent">40.0</LeftRearReductionMinParameter>
+      </BrakeLeftRearABSReduction>
+      <BrakeLeftRearAbsStats Description="ABS Stats" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Average Units="lbf">93.96</Average>
+         <MaxRecovery Units="lbf">188.16</MaxRecovery>
+         <MaxRecoveryInex>14602</MaxRecoveryInex>
+         <MinReduction Units="lbf">-0.24</MinReduction>
+         <MinReductionIndex>14623</MinReductionIndex>
+      </BrakeLeftRearAbsStats>
+      <BrakeLeftRearBrakeTestStats Description="LeftRear Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageBrakeValue Units="lbf">101.88</AverageBrakeValue>
+         <MaxBrakeIndex>14313</MaxBrakeIndex>
+         <MaxBrakeValue Units="lbf">110.04</MaxBrakeValue>
+         <MinBrakeIndex>14245</MinBrakeIndex>
+         <MinBrakeValue Units="lbf">82.88</MinBrakeValue>
+      </BrakeLeftRearBrakeTestStats>
+      <BrakeLeftRearDragTest Description="LeftRear Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <DragForce Units="lbf">28.63</DragForce>
+         <MaxDragForce Units="lbf">45</MaxDragForce>
+      </BrakeLeftRearDragTest>
+      <BrakeLeftRearDragTestStats Description="LeftRear Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageDragValue Units="lbf">28.63</AverageDragValue>
+         <MaxDragIndex>14105</MaxDragIndex>
+         <MaxDragValue Units="lbf">30.12</MaxDragValue>
+         <MinDragIndex>14099</MinDragIndex>
+         <MinDragValue Units="lbf">27.40</MinDragValue>
+      </BrakeLeftRearDragTestStats>
+      <BrakeLeftRearForceTest Description="LeftRear Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BrakeForce Units="lbf">101.88</BrakeForce>
+         <BrakeForceWithMultiplier Units="lbf">101.88</BrakeForceWithMultiplier>
+         <MaxBrakeForce Units="lbf">400</MaxBrakeForce>
+         <MinBrakeForce Units="lbf">75</MinBrakeForce>
+         <MinBrakeForceWithMultiplier Units="lbf">75.00</MinBrakeForceWithMultiplier>
+      </BrakeLeftRearForceTest>
+      <BrakeLeftRearRecovery Description="Performing recovery for LeftRear" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftRearReduction Description="Performing reduction for LeftRear" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeLeftRearSensorSpeedTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxLimit Units="mph">4.40</MaxLimit>
+         <MinLimit Units="mph">3.60</MinLimit>
+         <RollerSpeed Units="mph">4</RollerSpeed>
+         <SensorSpeed Units="mph">3.67</SensorSpeed>
+      </BrakeLeftRearSensorSpeedTest>
+      <BrakeOverallTest Description="Brake Overall Test Result" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeReadFaults Description="Read faults from the module" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRearBalanceTest Description="LR to RR Balance Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxPercentBalance Units="Percent">60.00</MaxPercentBalance>
+         <MinPercentBalance Units="Percent">40.00</MinPercentBalance>
+         <Value Units="Percent">49.81</Value>
+      </BrakeRearBalanceTest>
+      <BrakeRecoverAllWheels Description="Recover brake force at all wheels" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightFrontABSRecovery Description="Brake Force Recovery Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <RightFrontABSRecoveryValue Units="Percent">109.50</RightFrontABSRecoveryValue>
+         <RightFrontRecoveryForceValue Units="lbf">227.53</RightFrontRecoveryForceValue>
+         <RightFrontRecoveryMinPercent Units="Percent">60.0</RightFrontRecoveryMinPercent>
+      </BrakeRightFrontABSRecovery>
+      <BrakeRightFrontABSReduction Description="RightFront Reduction Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <RightFrontABSReductionPercent Units="Percent">0.00</RightFrontABSReductionPercent>
+         <RightFrontReductionForceValue Units="lbf">0.00</RightFrontReductionForceValue>
+         <RightFrontReductionMinParameter Units="Percent">40.0</RightFrontReductionMinParameter>
+      </BrakeRightFrontABSReduction>
+      <BrakeRightFrontAbsStats Description="ABS Stats" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Average Units="lbf">113.60</Average>
+         <MaxRecovery Units="lbf">227.53</MaxRecovery>
+         <MaxRecoveryInex>14484</MaxRecoveryInex>
+         <MinReduction Units="lbf">-0.32</MinReduction>
+         <MinReductionIndex>14524</MinReductionIndex>
+      </BrakeRightFrontAbsStats>
+      <BrakeRightFrontBrakeTestStats Description="RightFront Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageBrakeValue Units="lbf">207.79</AverageBrakeValue>
+         <MaxBrakeIndex>14322</MaxBrakeIndex>
+         <MaxBrakeValue Units="lbf">227.65</MaxBrakeValue>
+         <MinBrakeIndex>14245</MinBrakeIndex>
+         <MinBrakeValue Units="lbf">156.96</MinBrakeValue>
+      </BrakeRightFrontBrakeTestStats>
+      <BrakeRightFrontDragTest Description="RightFront Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <DragForce Units="lbf">20.04</DragForce>
+         <MaxDragForce Units="lbf">45</MaxDragForce>
+      </BrakeRightFrontDragTest>
+      <BrakeRightFrontDragTestStats Description="RightFront Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageDragValue Units="lbf">20.04</AverageDragValue>
+         <MaxDragIndex>14138</MaxDragIndex>
+         <MaxDragValue Units="lbf">21.46</MaxDragValue>
+         <MinDragIndex>14143</MinDragIndex>
+         <MinDragValue Units="lbf">18.97</MinDragValue>
+      </BrakeRightFrontDragTestStats>
+      <BrakeRightFrontForceTest Description="RightFront Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BrakeForce Units="lbf">207.79</BrakeForce>
+         <BrakeForceWithMultiplier Units="lbf">207.79</BrakeForceWithMultiplier>
+         <MaxBrakeForce Units="lbf">400</MaxBrakeForce>
+         <MinBrakeForce Units="lbf">150</MinBrakeForce>
+         <MinBrakeForceWithMultiplier Units="lbf">150.00</MinBrakeForceWithMultiplier>
+      </BrakeRightFrontForceTest>
+      <BrakeRightFrontRecovery Description="Performing recovery for RightFront" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightFrontReduction Description="Performing reduction for RightFront" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightFrontSensorSpeedTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxLimit Units="mph">4.40</MaxLimit>
+         <MinLimit Units="mph">3.60</MinLimit>
+         <RollerSpeed Units="mph">4</RollerSpeed>
+         <SensorSpeed Units="mph">3.80</SensorSpeed>
+      </BrakeRightFrontSensorSpeedTest>
+      <BrakeRightRearABSRecovery Description="Brake Force Recovery Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <RightRearABSRecoveryValue Units="Percent">176.81</RightRearABSRecoveryValue>
+         <RightRearRecoveryForceValue Units="lbf">181.53</RightRearRecoveryForceValue>
+         <RightRearRecoveryMinPercent Units="Percent">60.0</RightRearRecoveryMinPercent>
+      </BrakeRightRearABSRecovery>
+      <BrakeRightRearABSReduction Description="RightRear Reduction Test" Process="Brake" Result="Pass" TestResultCode="0000">
+         <RightRearABSReductionPercent Units="Percent">0.00</RightRearABSReductionPercent>
+         <RightRearReductionForceValue Units="lbf">0.00</RightRearReductionForceValue>
+         <RightRearReductionMinParameter Units="Percent">40.0</RightRearReductionMinParameter>
+      </BrakeRightRearABSReduction>
+      <BrakeRightRearAbsStats Description="ABS Stats" Process="Brake" Result="Pass" TestResultCode="0000">
+         <Average Units="lbf">90.67</Average>
+         <MaxRecovery Units="lbf">181.53</MaxRecovery>
+         <MaxRecoveryInex>14556</MaxRecoveryInex>
+         <MinReduction Units="lbf">-0.19</MinReduction>
+         <MinReductionIndex>14577</MinReductionIndex>
+      </BrakeRightRearAbsStats>
+      <BrakeRightRearBrakeTestStats Description="RightRear Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageBrakeValue Units="lbf">102.67</AverageBrakeValue>
+         <MaxBrakeIndex>14313</MaxBrakeIndex>
+         <MaxBrakeValue Units="lbf">111.09</MaxBrakeValue>
+         <MinBrakeIndex>14245</MinBrakeIndex>
+         <MinBrakeValue Units="lbf">83.05</MinBrakeValue>
+      </BrakeRightRearBrakeTestStats>
+      <BrakeRightRearDragTest Description="RightRear Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <DragForce Units="lbf">29.36</DragForce>
+         <MaxDragForce Units="lbf">45</MaxDragForce>
+      </BrakeRightRearDragTest>
+      <BrakeRightRearDragTestStats Description="RightRear Brake Drag Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <AverageDragValue Units="lbf">29.36</AverageDragValue>
+         <MaxDragIndex>14107</MaxDragIndex>
+         <MaxDragValue Units="lbf">30.30</MaxDragValue>
+         <MinDragIndex>14131</MinDragIndex>
+         <MinDragValue Units="lbf">28.03</MinDragValue>
+      </BrakeRightRearDragTestStats>
+      <BrakeRightRearForceTest Description="RightRear Brake Force Test Result" Process="Brake" Result="Pass" TestResultCode="0000">
+         <BrakeForce Units="lbf">102.67</BrakeForce>
+         <BrakeForceWithMultiplier Units="lbf">102.67</BrakeForceWithMultiplier>
+         <MaxBrakeForce Units="lbf">400</MaxBrakeForce>
+         <MinBrakeForce Units="lbf">75</MinBrakeForce>
+         <MinBrakeForceWithMultiplier Units="lbf">75.00</MinBrakeForceWithMultiplier>
+      </BrakeRightRearForceTest>
+      <BrakeRightRearRecovery Description="Performing recovery for RightRear" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightRearReduction Description="Performing reduction for RightRear" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeRightRearSensorSpeedTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000">
+         <MaxLimit Units="mph">4.40</MaxLimit>
+         <MinLimit Units="mph">3.60</MinLimit>
+         <RollerSpeed Units="mph">4</RollerSpeed>
+         <SensorSpeed Units="mph">3.73</SensorSpeed>
+      </BrakeRightRearSensorSpeedTest>
+      <BrakeSensorTest Description="Check the wheel speed sensors at low speed" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeStartModuleKeepAlive Description="Start sending keep alive messages" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeStopModuleKeepAlive Description="Stop sending keep alive messages" Process="Brake" Result="Pass" TestResultCode="0000"/>
+      <BrakeValveFiringTest Description="Fire each ABS valve" Process="Brake" Result="Pass" TestResultCode="0000">
+         <OverallRecoverySequence>Pass</OverallRecoverySequence>
+         <OverallReductionSequence>Pass</OverallReductionSequence>
+      </BrakeValveFiringTest>
+      <DriveTrainAccelerateToTestSpeed Description="Accelerate to the target speed" Process="DriveTrain" Result="Pass" TestResultCode="0000"/>
+      <DriveTrainBrakeToSpeed Description="Brake to the target speed" Process="DriveTrain" Result="Pass" TestResultCode="0000"/>
+      <DriveTrainCruise Description="Test speed control functionality" Process="DriveTrain" Result="Pass" TestResultCode="0000"/>
+      <DriveTrainDriveProfileSetup Description="Setup machine for acceleration loading" Process="DriveTrain" Result="Pass" TestResultCode="0000"/>
+      <DriveTrainFinishUp Description="Finishup test processing" Process="DriveTrain" Result="Pass" TestResultCode="0000"/>
+      <DriveTrainOverallTest Description="DriveTrain Overall Test Result" Process="DriveTrain" Result="Pass" TestResultCode="0000"/>
+      <DriveTrainRestoreMachineState Description="Restore machine to original conditions when accel loading is complete" Process="DriveTrain" Result="Pass" TestResultCode="0000"/>
+      <DriveTrainReverseWarning Description="Shift to reverse while moving forward to verify warning light" Process="DriveTrain" Result="Pass" TestResultCode="0000"/>
+      <MachineBrakeToStop Description="Prompt the driver to brake to stop" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineConnectCable Description="Prompt the driver to connect the vehicle cable" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineDisableTractionControl Description="Instruct the operator to disable the traction control" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineInitialize Description="Initialize the machine for testing" Process="Machine" Result="Pass" TestResultCode="0000">
+         <Date>2009-05-27</Date>
+         <MachineNumber>507211</MachineNumber>
+         <Time>09:14:47</Time>
+         <Version>CcrtR07103101-CORE-09052701</Version>
+      </MachineInitialize>
+      <MachineMachineReady Description="Wait until the machine is ready to perform a test" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineOverallTest Description="Machine Overall Test Result" Process="Machine" Result="TestNotStarted" TestResultCode="0000"/>
+      <MachinePerformingFinishUp Description="" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineShiftToDrive Description="Prompt Driver to Shift To Drive" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineShiftToNeutral Description="Prompt Driver to Shift To Neutral" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <MachineSteeringWheelCentered Description="Check if steering wheel is cenetered" Process="Machine" Result="Pass" TestResultCode="0000"/>
+      <OverallTest Description="TestResult" Process="core/TestResultServer" Result="Pass"/>
+      <TestStats Description="Test Result Statistics" Process="Statistics">
+         <NumberOfTests>84</NumberOfTests>
+         <TestPassCount>84</TestPassCount>
+         <TestPassPercent>100.00</TestPassPercent>
+      </TestStats>
+      <DTC/>
+   </TestResult>
+</BepVehicleTestResult>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ParameterTranslation>
+	<!-- Vehicle Parameters -->
+	<BodyStyle>Vehicle</BodyStyle>
+	<DriveAxle>Drive Axle</DriveAxle>
+	<WheelbasePositionInchesX10>Wheelbase</WheelbasePositionInchesX10>
+
+	<!-- Brake Test Parameters -->
+	<BrakeDistanceTestStartMeasureSpeed>Start Distance Measurement Speed</BrakeDistanceTestStartMeasureSpeed>
+	<FrontMaximumStoppingDistance>Front Maximum Stopping Distance</FrontMaximumStoppingDistance>
+	<FrontMinimumStoppingDistance>Front Minimum Stopping Distance</FrontMinimumStoppingDistance>
+	<RearMaximumStoppingDistance>Rear Maximum Stopping Distance</RearMaximumStoppingDistance>
+	<RearMinimumStoppingDistance>Rear Minimum Stopping Distance</RearMinimumStoppingDistance>
+	<RequiredBrakeForceFront>Minimum Front Brake Force</RequiredBrakeForceFront>
+	<RequiredBrakeForceRear>Minimum Rear Brake Force</RequiredBrakeForceRear>
+	<MaxFrontDifference>Maximum Front Brake Difference</MaxFrontDifference>
+	<MaxRearDifference>Maximum Rear Brake Difference</MaxRearDifference>
+	<RequiredParkBrakeForce>Minimum Park Brake Force</RequiredParkBrakeForce>
+	<MinimumTotalParkBrakeForce>Minimum Total Park Brake Force</MinimumTotalParkBrakeForce>
+
+	<!-- TRansmission Shift Point Parameters -->
+	<ShiftPoint1-2LowNormalAccel>1 - 2 Normal</ShiftPoint1-2LowNormalAccel>
+	<ShiftPoint2-3LowNormalAccel>2 - 3 Normal</ShiftPoint2-3LowNormalAccel>
+	<ShiftPoint1-2LowFullAccel>1 - 2 Full</ShiftPoint1-2LowFullAccel>
+	<ShiftPoint2-3LowFullAccel>2 - 3 Full</ShiftPoint2-3LowFullAccel>
+
+	<!-- Speed Targets -->
+	<MPH_SpeedometerSpeedTargetLow>Speedometer Check (mph)</MPH_SpeedometerSpeedTargetLow>
+	<KPH_SpeedometerSpeedTargetLow>Speedometer Check (kph)</KPH_SpeedometerSpeedTargetLow>
+	<ReverseTestSpeed>Reverse Check</ReverseTestSpeed>
+	<AwdTestSpeed>AWD Target Speed</AwdTestSpeed>
+	<AwdMaxAxleDiff>AWD Front To Rear Maximum Difference</AwdMaxAxleDiff>
+</ParameterTranslation>

@@ -1,0 +1,188 @@
+Walking tree from /home/CCRT/Rewrite/Configuration for:
+	CUSTOMER: Isuzu
+	   PLANT: na
+	 MACHINE: 507106
+
+Found base filenam of 'MachineComponent.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.MachineComponent.xml
+Adding new field list for MachineComponent.xml
+Adding <MachineComponent.xml,Isuzu>
+
+Found base filenam of 'ABMotorControllerConfig.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.ABMotorControllerConfig.xml
+Adding new field list for ABMotorControllerConfig.xml
+Adding <ABMotorControllerConfig.xml,Isuzu>
+
+Found base filenam of 'LauncherConfig.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.LauncherConfig.xml
+Adding new field list for LauncherConfig.xml
+Adding <LauncherConfig.xml,Isuzu>
+
+Found base filenam of 'SystemMonitorConfig.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.SystemMonitorConfig.xml
+Adding new field list for SystemMonitorConfig.xml
+Adding <SystemMonitorConfig.xml,Isuzu>
+
+Found base filenam of 'xml.swp', '.NDBConfig.' remaining
+Found CUSTOMER name of '', 'NDBConfig.' remaining
+Found PLANT name of 'NDBConfig', '' remaining
+Found potential match: .NDBConfig.xml.swp
+Adding new field list for xml.swp
+Adding <xml.swp,.NDBConfig>
+
+Found base filenam of 'xml.swp', '.LauncherConfig.' remaining
+Found CUSTOMER name of '', 'LauncherConfig.' remaining
+Found PLANT name of 'LauncherConfig', '' remaining
+Found potential match: .LauncherConfig.xml.swp
+Adding to existing list for xml.swp
+Adding <xml.swp,.LauncherConfig>
+
+Found base filenam of 'LauncherConfig.xml~', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.LauncherConfig.xml~
+Adding new field list for LauncherConfig.xml~
+Adding <LauncherConfig.xml~,Isuzu>
+
+Found base filenam of 'IpIcmConfig.xml', 'Isuzu.Charlotte.507382.' remaining
+Found CUSTOMER name of 'Isuzu', 'Charlotte.507382.' remaining
+Found PLANT name of 'Charlotte', '507382.' remaining
+Found MACHINE name of '507382', '' remaining
+Found potential match: Isuzu.Charlotte.507382.IpIcmConfig.xml
+Adding new field list for IpIcmConfig.xml
+Adding <IpIcmConfig.xml,Isuzu.Charlotte.507382>
+
+Found base filenam of 'InputServerConfig.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.InputServerConfig.xml
+Adding new field list for InputServerConfig.xml
+Adding <InputServerConfig.xml,Isuzu>
+
+Found base filenam of 'MachineDataBroker3600Config.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.MachineDataBroker3600Config.xml
+Adding new field list for MachineDataBroker3600Config.xml
+Adding <MachineDataBroker3600Config.xml,Isuzu>
+
+Found base filenam of 'PlantHostInboundConfig.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.PlantHostInboundConfig.xml
+Adding new field list for PlantHostInboundConfig.xml
+Adding <PlantHostInboundConfig.xml,Isuzu>
+
+Found base filenam of 'VehicleDataBrokerConfig.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.VehicleDataBrokerConfig.xml
+Adding new field list for VehicleDataBrokerConfig.xml
+Adding <VehicleDataBrokerConfig.xml,Isuzu>
+
+Found base filenam of 'SerialServerConfig.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.SerialServerConfig.xml
+Adding new field list for SerialServerConfig.xml
+Adding <SerialServerConfig.xml,Isuzu>
+
+Found base filenam of 'DriveCurve.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.DriveCurve.xml
+Adding new field list for DriveCurve.xml
+Adding <DriveCurve.xml,Isuzu>
+
+Found base filenam of 'StaticBrakeDriveCurve.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.StaticBrakeDriveCurve.xml
+Adding new field list for StaticBrakeDriveCurve.xml
+Adding <StaticBrakeDriveCurve.xml,Isuzu>
+
+Found base filenam of 'SelectionTable.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.SelectionTable.xml
+Adding new field list for SelectionTable.xml
+Adding <SelectionTable.xml,Isuzu>
+
+Found base filenam of 'VehicleTestConfig.xml', 'Isuzu.' remaining
+Found CUSTOMER name of 'Isuzu', '' remaining
+Found potential match: Isuzu.VehicleTestConfig.xml
+Adding new field list for VehicleTestConfig.xml
+Adding <VehicleTestConfig.xml,Isuzu>
+
+
+Evaluating Isuzu.ABMotorControllerConfig.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Machine/ABMotorControllerConfig.xml' => '/home/CCRT/Rewrite/Configuration/Machine/Isuzu.ABMotorControllerConfig.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'ABMotorControllerConfig.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.DriveCurve.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/VehicleTest/DriveCurves/DriveCurve.xml' => '/home/CCRT/Rewrite/Configuration/VehicleTest/DriveCurves/Isuzu.DriveCurve.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'DriveCurve.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.InputServerConfig.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Servers/InputServerConfig.xml' => '/home/CCRT/Rewrite/Configuration/Servers/Isuzu.InputServerConfig.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'InputServerConfig.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.Charlotte.507382.IpIcmConfig.xml for Isuzu.na.507106
+Match failed: PLANT Charlotte != na
+
+Evaluating Isuzu.LauncherConfig.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Servers/LauncherConfig.xml' => '/home/CCRT/Rewrite/Configuration/Servers/Isuzu.LauncherConfig.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'LauncherConfig.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.LauncherConfig.xml~ for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Servers/LauncherConfig.xml~' => '/home/CCRT/Rewrite/Configuration/Servers/Isuzu.LauncherConfig.xml~'
+
+	!!!!! OVERWRITING EXISTING FILE 'LauncherConfig.xml~' WITH NEW LINK !!!!
+
+Evaluating Isuzu.MachineComponent.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Components/Machine/MachineComponent.xml' => '/home/CCRT/Rewrite/Configuration/Components/Machine/Isuzu.MachineComponent.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'MachineComponent.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.MachineDataBroker3600Config.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Servers/MachineDataBroker3600Config.xml' => '/home/CCRT/Rewrite/Configuration/Servers/Isuzu.MachineDataBroker3600Config.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'MachineDataBroker3600Config.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.PlantHostInboundConfig.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Servers/PlantHostInboundConfig.xml' => '/home/CCRT/Rewrite/Configuration/Servers/Isuzu.PlantHostInboundConfig.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'PlantHostInboundConfig.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.SelectionTable.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/VehicleTest/SelectionTable.xml' => '/home/CCRT/Rewrite/Configuration/VehicleTest/Isuzu.SelectionTable.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'SelectionTable.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.SerialServerConfig.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Servers/SerialServerConfig.xml' => '/home/CCRT/Rewrite/Configuration/Servers/Isuzu.SerialServerConfig.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'SerialServerConfig.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.StaticBrakeDriveCurve.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/VehicleTest/DriveCurves/StaticBrakeDriveCurve.xml' => '/home/CCRT/Rewrite/Configuration/VehicleTest/DriveCurves/Isuzu.StaticBrakeDriveCurve.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'StaticBrakeDriveCurve.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.SystemMonitorConfig.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Servers/SystemMonitorConfig.xml' => '/home/CCRT/Rewrite/Configuration/Servers/Isuzu.SystemMonitorConfig.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'SystemMonitorConfig.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.VehicleDataBrokerConfig.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/Servers/VehicleDataBrokerConfig.xml' => '/home/CCRT/Rewrite/Configuration/Servers/Isuzu.VehicleDataBrokerConfig.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'VehicleDataBrokerConfig.xml' WITH NEW LINK !!!!
+
+Evaluating Isuzu.VehicleTestConfig.xml for Isuzu.na.507106
+Found maximal match (1, 0) of 'Isuzu..'. Linking '/home/CCRT/Rewrite/Configuration/VehicleTest/VehicleTestConfig.xml' => '/home/CCRT/Rewrite/Configuration/VehicleTest/Isuzu.VehicleTestConfig.xml'
+
+	!!!!! OVERWRITING EXISTING FILE 'VehicleTestConfig.xml' WITH NEW LINK !!!!
+
+Evaluating .NDBConfig.xml.swp for Isuzu.na.507106
+
+Evaluating .LauncherConfig.xml.swp for Isuzu.na.507106

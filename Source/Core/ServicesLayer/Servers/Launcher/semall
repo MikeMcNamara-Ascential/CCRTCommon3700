@@ -1,0 +1,7 @@
+cd ../Bin
+semall
+cd ../Launcher
+cd ../../ApplicationLayer/Bin/
+semall
+cd ../../ServicesLayer/Launcher
+

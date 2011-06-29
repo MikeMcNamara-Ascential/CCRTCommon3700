@@ -1,0 +1,111 @@
+<SiemensAirbagTC>
+    <Setup>
+        <Name>Airbag</Name>
+        <Debug>Off</Debug>
+        <TestDomain>Foreground</TestDomain>
+        <FaultList>/Configuration/Components/Airbag/AirbagFaultList.xml</FaultList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/SiemensAirbagTc</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>SiemensAirbagTc</ProcessName>
+            <AdditionalLogFile>/Components/SiemensAirbagTc.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+        </Logging>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <VehiclePresent/>
+                <VIN/>
+            </SubscribeTags>
+        </TagList>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <FailButton>NoPB</FailButton>
+            <PassButton>YesPB</PassButton>
+            <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+            <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+            <ResistanceValuesMessage>ResistanceValues</ResistanceValuesMessage>
+        </DataTags>
+        <Parameters>
+            <ConfigFile>/Configuration/Components/Airbag/KwpIsoSiemensSab8xAirbagModule.xml</ConfigFile>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>No</DeveloperTest>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+            <UsePlcResultButtons>True</UsePlcResultButtons>
+            <!-- Part Number Parameters -->
+            <AbortOnPartMismatch>No</AbortOnPartMismatch>
+            <BypassPartNumberValidation>No</BypassPartNumberValidation>
+            <ValidatePartNumberList>Yes</ValidatePartNumberList>
+            <ValidPartNumbers>
+                <PNA121B0060F>A121B0060F</PNA121B0060F>
+            </ValidPartNumbers>
+            <!-- Fault Read Parameters -->
+            <AbortIfDTCPresent>No</AbortIfDTCPresent>
+            <!-- Airbag System Resistance Data -->
+            <AirbagResistanceData>
+                <ResistanceValue00 Description="Driver Airbag" Min="1.9" Max="4.9" Units="Ohms">FAD</ResistanceValue00>
+                <ResistanceValue01 Description="Driver Belt Pre-tensioner" Min="1.3" Max="4.4" Units="Ohms">BPD</ResistanceValue01>
+                <ResistanceValue02 Description="Passenger Belt Pre-tensioner" Min="1.3" Max="4.4" Units="Ohms">BPP</ResistanceValue02>
+            </AirbagResistanceData>
+        </Parameters>
+        <Prompts>
+            <AirbagLampOffResult PromptBox="2" Priority="0">AirbagLampOffResult</AirbagLampOffResult>
+            <AirbagLampOnResult PromptBox="2" Priority="0">AirbagLampOnResult</AirbagLampOnResult>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+        </Prompts>
+    </Setup>
+    <Objectives>
+        <AirbagTest>
+            <TestStep05>PerformModuleLinkup</TestStep05>
+         <!--TestStep10 AltValue="On">CheckAirbagLamp</TestStep10-->
+            <TestStep15>ClearFaults</TestStep15>
+            <TestStep20>CheckPartNumber</TestStep20>
+            <TestStep25>CheckResistanceValues</TestStep25>
+            <TestStep30>ReadFaults</TestStep30>
+            <TestStep35>ExitDiagnosticMode</TestStep35>
+            <TestStep40 AltValue="Off">CheckAirbagLamp</TestStep40>
+        </AirbagTest>
+      <FinishUp>
+          <TestStep00>FinishUp</TestStep00>
+      </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <CheckAirbagLamp Result="Not Tested" Timeout="5000" Description="Check airbag lamp status"/>
+        <CheckPartNumber Result="Not Tested" Timeout="500" Description="Verify the module part number"/>
+        <CheckResistanceValues Result="Not Tested" Timeout="500" Description="Check airbag system resistance values"/>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
+        <ExitDiagnosticMode Result="Not Tested" Timeout="1000" Description="Exit diagnostic mode"/>
+        <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
+        <PerformModuleLinkup Result="Not Tested" Timeout="5000" Description="Establish communications with the module" ScanDelay="100"/>
+        <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
+    </TestSteps>
+</SiemensAirbagTC>

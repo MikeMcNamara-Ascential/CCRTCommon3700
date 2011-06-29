@@ -1,0 +1,159 @@
+<DensoAirbagModule>
+    <Setup>
+        <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+        <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+        <SwitchMonitorDelay>500</SwitchMonitorDelay>
+        <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+        <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
+        <KeepAlivePriority>10</KeepAlivePriority>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <ModuleAccessTaskPriority>50</ModuleAccessTaskPriority>
+        <DataByteCountIndex>3</DataByteCountIndex>
+        <DataStartIndex>3</DataStartIndex>
+        <DataHeaderLength>3</DataHeaderLength>
+        <CheckSumLength>1</CheckSumLength>
+        <NumberOfRetries>1</NumberOfRetries>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+        <SentMessageIdentifierIndex>3</SentMessageIdentifierIndex>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>5</NegativeResponseCodeIndex>
+        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseEndDelay>100</ModuleResponseEndDelay>
+        <CommInitData>
+            <SignalHighTime>24</SignalHighTime>
+            <SignalLowTime>24</SignalLowTime>
+            <WakeUpResponseDelay>100</WakeUpResponseDelay>
+            <WakeUpAttempts>3</WakeUpAttempts>
+        </CommInitData>
+        <DtcData>
+            <DtcCountIndex>1</DtcCountIndex>
+            <BytesPerDtc>2</BytesPerDtc>
+            <DtcStartIndex>2</DtcStartIndex>
+        </DtcData>
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>DensoAirbagModule</ProcessName>
+            <AdditionalLogFile>/Communication/DensoAirbagModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+    <SerialMessages>
+        <VehicleMessages>
+            <ModuleWakeUp>
+                <TransmitMessage>ModuleWakeUp</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ModuleWakeUp</ReplyMessage>
+                <ReplyInterpretation/>
+            </ModuleWakeUp>
+            <ExitDiagnosticMode>
+                <TransmitMessage>ExitDiagMode</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ExitDiagMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </ExitDiagnosticMode>
+            <ModuleKeepAlive>
+                <TransmitMessage>ModuleKeepAlive</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ModuleKeepAlive</ReplyMessage>
+                <ReplyInterpretation/>
+            </ModuleKeepAlive>
+            <ReadFaults>
+                <TransmitMessage>ReadFaults</TransmitMessage>
+                <TransmitInterpretation></TransmitInterpretation>
+                <ReplyMessage>ReadFaults</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadFaults>
+            <ClearFaults>
+                <TransmitMessage>ClearFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ClearFaults</ReplyMessage>
+                <ReplyInterpretation/>
+            </ClearFaults>
+            <ReadPartNumber>
+                <TransmitMessage>ReadPartNumber</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadPartNumber</ReplyMessage>
+                <ReplyInterpretation>ReadPartNumber</ReplyInterpretation>
+            </ReadPartNumber>
+        </VehicleMessages>
+        <TransmitMessages>
+            <ModuleWakeUp>0x81,0x58,0xF0,0x81</ModuleWakeUp>
+            <ExitDiagMode>0x81,0x58,0xF0,0x82</ExitDiagMode>
+            <ModuleKeepAlive>0x81,0x58,0xF0,0x3E</ModuleKeepAlive>
+            <ReadFaults>0x81,0x58,0xF0,0x13</ReadFaults>
+            <ClearFaults>0x83,0x28,0xF0,0x14</ClearFaults>
+            <ReadPartNumber>0x82,0x28,0xF0,0x1A,0x86</ReadPartNumber>
+        </TransmitMessages>
+        <TransmitInterpretations>
+        </TransmitInterpretations>
+        <ReplyMessages>
+            <ModuleWakeUp>
+                <Reply_00>0x83,0xF0,0x28,0xC1,0x6B,0x8F,0x??</Reply_00>
+            </ModuleWakeUp>
+            <ExitDiagMode>
+                <Reply_00>0x81,0xF0,0x58,0xC2,0x??</Reply_00>
+                <Reply_01>0x81,0xF0,0x58,0xC2</Reply_01>
+            </ExitDiagMode>
+            <ModuleKeepAlive>
+                <Reply_00>0x81,0xF0,0x58,0x7E</Reply_00>
+                <Reply_01>0x81,0xF0,0x58,0x7E,0x??</Reply_01>
+                <Reply_02>0x82,0xF0,0x58,0x7F,0x3E,0x??</Reply_02>
+            </ModuleKeepAlive>
+            <ReadFaults>
+                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x??,0xF0,0x58,0x53,0x??</Reply_00>
+            </ReadFaults>
+            <ClearFaults>
+                <Reply_00>0x83,0xF0,0x28,0x54,0x??</Reply_00>
+                <Reply_01>0x83,0xF0,0x28,0x7F,0x14,0x??,0x??</Reply_01>
+            </ClearFaults>
+            <ReadPartNumber>
+                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x??,0xF0,0x28,0x5A,0x86,0x??</Reply_00>
+                <Reply_01>0x??,0xF0,0x28,0x7F,0x1A,0x??</Reply_01>
+            </ReadPartNumber>
+        </ReplyMessages>
+        <ReplyInterpretations>
+            <ReadPartNumber>
+                <STRING>
+                    <SUBSTRING format="%6s">
+                        <CHARS input_index="2" mask="0xFF" length="6"/>
+                    </SUBSTRING>
+                </STRING>
+            </ReadPartNumber>
+        </ReplyInterpretations>
+    </SerialMessages>
+</DensoAirbagModule>

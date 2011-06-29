@@ -1,0 +1,60 @@
+<DriveCurve Description="Drive Curve For The Roadster Test">
+   <Components Debug="Off">
+      <Airbag>
+         <ComponentName>SiemensAirbagTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+         <ConfigFile>KwpIsoSiemensSab8xAirbagTC.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Airbag</ConfigPath>
+         <Debug>Off</Debug>
+      </Airbag>
+      <Machine>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MachineComponent.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <Debug>Off</Debug>
+      </Machine>
+   </Components>
+   <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="Off">
+      <TestPhase000 Description="Validate the driver numbrer" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Prompt the driver to input the driver number" Result="" Timeout="" Component="Machine">
+               <Initialize>DisableTractionControl</Initialize>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase000>
+      <!--Airbag Testing-->
+      <TestPhase150 Description="Airbag test phase starting" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Display airbag test phase" Result="" Timeout="" Component="Machine">
+               <PromptDriverAlways>AirbagTestPhase</PromptDriverAlways>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase150>
+      <TestPhase160 Description="Airbag testing" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Airbag Test" Result="" Timeout="" Component="Airbag">
+               <AirbagTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase160>
+      <TestPhase170 Description="Airbag test phase Completed" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Display airbag test phase complete" Result="" Timeout="" Component="Machine">
+               <PromptDriverAlways>AirbagTestPhaseComplete</PromptDriverAlways>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase170>
+      <!-- Finish up processing -->
+      <TestPhase999 Description="Finishup" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective1 Result="" Description="Perform module finish-up" Timeout="" Component="Machine">
+               <FinishUp>PerformingFinishUp</FinishUp>
+            </Objective1>
+            <Objective2 Result="" Description="Perform Airbag finish-up" Timeout="" Component="Airbag">
+               <FinishUp/>
+            </Objective2>
+         </ForegroundObjectives>
+      </TestPhase999>
+   </Test>
+</DriveCurve>

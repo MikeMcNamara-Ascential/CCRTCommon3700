@@ -1,0 +1,634 @@
+<InputServerConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <PlantHostInboundName>core/WorkCellController</PlantHostInboundName>
+        <InputDevices>
+            <!-- ******************************************************* -->
+            <!-- *                     Pendant                         * -->
+            <!-- ******************************************************* -->
+            <Pendant enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/PendantManager.qxe">
+                <Setup>
+                    <TagList>
+                        <SubscribeTags>
+                            <InputServerState/>
+                            <VehicleBuildRecordStatus/>
+                            <RollsDownElevUp/>
+                            <DriverNumber/>
+                        </SubscribeTags>
+                    </TagList>
+                    <Communication>
+                        <Debug>Off</Debug>
+                        <Name>core/Pendant</Name>
+                        <Type>Server</Type>
+                        <Comm>IPC</Comm>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                    </Communication>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>core/Pendant</ProcessName>
+                        <AdditionalLogFile>/Servers/Pendant.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Enabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <ThreadPool>
+                        <Debug>Off</Debug>
+                        <MinBlockedLimit>1</MinBlockedLimit>
+                        <MaxBlockedLimit>3</MaxBlockedLimit>
+                        <Increment>1</Increment>
+                        <Maximum>5</Maximum>
+                    </ThreadPool>
+                    <NotificationList>
+                        <Setup>
+                            <Debug>Off</Debug>
+                            <HighWater>3</HighWater>
+                            <Increment>1</Increment>
+                            <LowWater>1</LowWater>
+                            <Maximum>5</Maximum>
+                            <StartOnCreate>No</StartOnCreate>
+                        </Setup>
+                    </NotificationList>
+                    <PendantCommunication>
+                        <Setup>
+                            <Communication>
+                                <Debug>Off</Debug>
+                                <Name>/dev/LogicalPorts/Pendant</Name>
+                                <BufferSize>32</BufferSize>
+                                <Timeout>500</Timeout>
+                            </Communication>
+                            <Logging>
+                                <Status>Disabled</Status>
+                                <ProcessName>Pendant</ProcessName>
+                                <AdditionalLogFile Types="/Servers/PendantManager.log or Disabled">/Servers/PendantManager.log</AdditionalLogFile>
+                                <Debug>Off</Debug>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                            </Logging>
+                        </Setup>
+                    </PendantCommunication>
+                    <PendantModes>
+                        <Vin>
+                            <DataMap>
+                                <Char01 DefaultValue="?" Type="Integer"/>
+                                <Char02 DefaultValue="?" Type="Character"/>
+                                <Char03 DefaultValue="?" Type="Integer"/>
+                                <Char04 DefaultValue="?" Type="Character"/>
+                                <Char05 DefaultValue="?" Type="Alphanumeric"/>
+                                <Char06 DefaultValue="?" Type="Alphanumeric"/>
+                                <Char07 DefaultValue="?" Type="Integer"/>
+                                <Char08 DefaultValue="?" Type="Alphanumeric"/>
+                                <Char09 DefaultValue="?" Type="Alphanumeric"/>
+                                <Char10 DefaultValue="5" Type="Alphanumeric"/>
+                                <Char11 DefaultValue="C" Type="Alphanumeric"/>
+                                <Char12 DefaultValue="_" Type="Integer"/>
+                                <Char13 DefaultValue="_" Type="Integer"/>
+                                <Char14 DefaultValue="_" Type="Integer"/>
+                                <Char15 DefaultValue="_" Type="Integer"/>
+                                <Char16 DefaultValue="_" Type="Integer"/>
+                                <Char17 DefaultValue="_" Type="Integer"/>
+                            </DataMap>
+                            <ValidKeyPad>
+                                <K0>0</K0>
+                                <K1>1</K1>
+                                <K2>2</K2>
+                                <K3>3</K3>
+                                <K4>4</K4>
+                                <K5>5</K5>
+                                <K6>6</K6>
+                                <K7>7</K7>
+                                <K8>8</K8>
+                                <K9>9</K9>
+                                <KU>NextCharacter</KU>
+                                <KD>PreviousCharacter</KD>
+                                <KL>DecrementIndex</KL>
+                                <KR>IncrementIndex</KR>
+                                <KF1>ReprintResults</KF1>
+                                <KF2>FunctionKey2</KF2>
+                            </ValidKeyPad>
+                            <DefaultStartIndex>11</DefaultStartIndex>
+                            <DataLength>17</DataLength>
+                            <DataTag>NextVIN</DataTag>
+                            <DisplayTag>VINDisplay</DisplayTag>
+                            <PublishKeyPress>No</PublishKeyPress>
+                            <CurrentFieldIndicator>+</CurrentFieldIndicator>
+                        </Vin>
+                        <DriverNumber>
+                            <DataMap>
+                                <Char01 DefaultValue="T" Type="Character"/>
+                                <Char02 DefaultValue="_" Type="Integer"/>
+                                <Char03 DefaultValue="_" Type="Integer"/>
+                                <Char04 DefaultValue="_" Type="Integer"/>
+                                <Char05 DefaultValue="_" Type="Integer"/>
+                                <Char06 DefaultValue="_" Type="Character"/>
+                                <Char07 DefaultValue="_" Type="Character"/>
+                            </DataMap>
+                            <ValidKeyPad>
+                                <K0>0</K0>
+                                <K1>1</K1>
+                                <K2>2</K2>
+                                <K3>3</K3>
+                                <K4>4</K4>
+                                <K5>5</K5>
+                                <K6>6</K6>
+                                <K7>7</K7>
+                                <K8>8</K8>
+                                <K9>9</K9>
+                                <KU>NextCharacter</KU>
+                                <KD>PreviousCharacter</KD>
+                                <KL>DecrementIndex</KL>
+                                <KR>IncrementIndex</KR>
+                                <KF1>ReprintResults</KF1>
+                                <KF2>FunctionKey2</KF2>
+                            </ValidKeyPad>
+                            <DefaultStartIndex>1</DefaultStartIndex>
+                            <DataLength>7</DataLength>
+                            <DataTag>DriverNumber</DataTag>
+                            <DisplayTag>DriverNumberDisplay</DisplayTag>
+                            <PublishKeyPress>No</PublishKeyPress>
+                            <CurrentFieldIndicator>+</CurrentFieldIndicator>
+                        </DriverNumber>
+                        <TestResult>
+                            <ValidKeyPad>
+                                <KL>Pass</KL>
+                                <KR>Fail</KR>
+                                <K0>Abort</K0>
+                                <KF1>ReprintResults</KF1>
+                                <KF2>FunctionKey2</KF2>
+                            </ValidKeyPad>
+                            <DataLength>1</DataLength>
+                            <DataTag>KeyPress</DataTag>
+                            <PublishKeyPress>Yes</PublishKeyPress>
+                        </TestResult>
+                        <YesNo>
+                            <ValidKeyPad>
+                                <KL>Yes</KL>
+                                <KR>No</KR>
+                                <KF1>ReprintResults</KF1>
+                                <KF2>FunctionKey2</KF2>
+                            </ValidKeyPad>
+                            <DataLength>1</DataLength>
+                            <DataTag>KeyPress</DataTag>
+                            <PublishKeyPress>Yes</PublishKeyPress>
+                        </YesNo>
+                        <Normal>
+                            <ValidKeyPad>
+                                <K0>0</K0>
+                                <K1>1</K1>
+                                <K2>2</K2>
+                                <K3>3</K3>
+                                <K4>4</K4>
+                                <K5>5</K5>
+                                <K6>6</K6>
+                                <K7>7</K7>
+                                <K8>8</K8>
+                                <K9>9</K9>
+                                <KU>Up</KU>
+                                <KD>Down</KD>
+                                <KL>Left</KL>
+                                <KR>Right</KR>
+                                <KF1>ReprintResults</KF1>
+                                <KF2>FunctionKey2</KF2>
+                            </ValidKeyPad>
+                            <DataLength>1</DataLength>
+                            <DataTag>KeyPress</DataTag>
+                            <PublishKeyPress>Yes</PublishKeyPress>
+                        </Normal>
+                    </PendantModes>
+                    <KeyPressTag>KeyPress</KeyPressTag>
+                </Setup>
+            </Pendant>
+            <!-- ******************************************************* -->
+            <!-- *                   Handheld Scanner                  * -->
+            <!-- ******************************************************* -->
+            <Handheld enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+                <Setup>
+                    <Communication>
+                        <Debug>Off</Debug>
+                        <Name>core/SymbolScanner</Name>
+                        <Type>Server</Type>
+                        <Comm>IPC</Comm>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                    </Communication>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>core/SymbolScanner</ProcessName>
+                        <AdditionalLogFile>/Servers/SymbolScanner.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <ThreadPool>
+                        <Debug>Off</Debug>
+                        <MinBlockedLimit>1</MinBlockedLimit>
+                        <MaxBlockedLimit>3</MaxBlockedLimit>
+                        <Increment>1</Increment>
+                        <Maximum>5</Maximum>
+                    </ThreadPool>
+                    <NotificationList>
+                        <Setup>
+                            <Debug>Off</Debug>
+                            <HighWater>3</HighWater>
+                            <Increment>1</Increment>
+                            <LowWater>1</LowWater>
+                            <Maximum>5</Maximum>
+                            <StartOnCreate>No</StartOnCreate>
+                        </Setup>
+                    </NotificationList>
+                    <ScannerCommunication>
+                        <Setup>
+                            <Communication>
+                                <Debug>Off</Debug>
+                                <Name>/dev/LogicalPorts/Scanner</Name>
+                                <BufferSize>128</BufferSize>
+                                <Timeout>10000</Timeout>
+                            </Communication>
+                            <Logging>
+                                <Status>Disabled</Status>
+                                <ProcessName>SymbolScanner</ProcessName>
+                                <AdditionalLogFile Types="/Servers/SymbolScanner.log or Disabled">/Servers/SymbolScanner.log</AdditionalLogFile>
+                                <Debug>Off</Debug>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                            </Logging>
+                        </Setup>
+                    </ScannerCommunication>
+                    <DataDelay>3000</DataDelay>
+                    <VinLength>17</VinLength>
+                    <DriverNumberLength>7</DriverNumberLength>
+                    <MaximumRetries>3</MaximumRetries>
+                    <LookForCarriageReturn>Yes</LookForCarriageReturn>
+                    <CorrectBadScannerData>Yes</CorrectBadScannerData>
+                    <BadDataIndex>0x01</BadDataIndex>
+                    <BadDataIndicator>0x00</BadDataIndicator>
+                    <BadDataReplacementValue>0x31</BadDataReplacementValue>
+                </Setup>
+            </Handheld>
+            <!-- ******************************************************* -->
+            <!-- *                   Overhead Scanner                  * -->
+            <!-- ******************************************************* -->
+            <OverheadScanner enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+                <Setup>
+                    <Communication>
+                        <Debug>Off</Debug>
+                        <Name>core/OverheadScanner</Name>
+                        <Type>Server</Type>
+                        <Comm>IPC</Comm>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                    </Communication>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>core/OverheadScanner</ProcessName>
+                        <AdditionalLogFile>/Servers/SymbolScanner.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <ThreadPool>
+                        <Debug>Off</Debug>
+                        <MinBlockedLimit>1</MinBlockedLimit>
+                        <MaxBlockedLimit>3</MaxBlockedLimit>
+                        <Increment>1</Increment>
+                        <Maximum>5</Maximum>
+                    </ThreadPool>
+                    <NotificationList>
+                        <Setup>
+                            <Debug>Off</Debug>
+                            <HighWater>3</HighWater>
+                            <Increment>1</Increment>
+                            <LowWater>1</LowWater>
+                            <Maximum>5</Maximum>
+                            <StartOnCreate>No</StartOnCreate>
+                        </Setup>
+                    </NotificationList>
+                    <ScannerCommunication>
+                        <Setup>
+                            <Communication>
+                                <Debug>Off</Debug>
+                                <Name>/dev/LogicalPorts/Scanner</Name>
+                                <BufferSize>128</BufferSize>
+                                <Timeout>10000</Timeout>
+                            </Communication>
+                            <Logging>
+                                <Status>Disabled</Status>
+                                <ProcessName>SymbolScanner</ProcessName>
+                                <AdditionalLogFile Types="/Servers/SymbolScanner.log or Disabled">/Servers/SymbolScanner.log</AdditionalLogFile>
+                                <Debug>Off</Debug>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                            </Logging>
+                        </Setup>
+                    </ScannerCommunication>
+                    <DataDelay>3000</DataDelay>
+                    <VinLength>17</VinLength>
+                    <DriverNumberLength>7</DriverNumberLength>
+                    <MaximumRetries>3</MaximumRetries>
+                    <LookForCarriageReturn>No</LookForCarriageReturn>
+                    <CorrectBadScannerData>Yes</CorrectBadScannerData>
+                    <BadDataIndex>0x01</BadDataIndex>
+                    <BadDataIndicator>0x00</BadDataIndicator>
+                    <BadDataReplacementValue>0x31</BadDataReplacementValue>
+                </Setup>
+            </OverheadScanner>
+            <!-- ******************************************************* -->
+            <!-- *                   CLV 295 Scanner                   * -->
+            <!-- ******************************************************* -->
+            <CLV295Scanner enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/CLV295ScannerMgr.qxe">
+                <Setup>
+                    <TagList>
+                        <SubscribeTags>
+                            <VehicleBuildRecordStatus/>
+                            <VehicleAtBarcodeScanner/>
+                            <RollsDownElevUp/>
+                        </SubscribeTags>
+                    </TagList>
+                    <Communication>
+                        <Debug>Off</Debug>
+                        <Name>core/CLV295Scanner</Name>
+                        <Type>Server</Type>
+                        <Comm>IPC</Comm>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                    </Communication>
+                    <Logging>
+                        <Status>Disabled</Status>
+                        <ProcessName>core/CLV295Scanner</ProcessName>
+                        <AdditionalLogFile>/Servers/CLV295Scanner.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <ThreadPool>
+                        <Debug>Off</Debug>
+                        <MinBlockedLimit>1</MinBlockedLimit>
+                        <MaxBlockedLimit>3</MaxBlockedLimit>
+                        <Increment>1</Increment>
+                        <Maximum>5</Maximum>
+                    </ThreadPool>
+                    <NotificationList>
+                        <Setup>
+                            <Debug>Off</Debug>
+                            <HighWater>3</HighWater>
+                            <Increment>1</Increment>
+                            <LowWater>1</LowWater>
+                            <Maximum>5</Maximum>
+                            <StartOnCreate>No</StartOnCreate>
+                        </Setup>
+                    </NotificationList>
+                    <ScannerCommunication>
+                        <Setup>
+                            <Communication>
+                                <Debug>Off</Debug>
+                                <Name>/dev/LogicalPorts/Scanner</Name>
+                                <BufferSize>128</BufferSize>
+                                <Timeout>10000</Timeout>
+                            </Communication>
+                            <Logging>
+                                <Status>Disabled</Status>
+                                <ProcessName>CLV295Scanner</ProcessName>
+                                <AdditionalLogFile>/Communication/CLV295ScannerComm.log</AdditionalLogFile>
+                                <Debug>Off</Debug>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x3F</Verbose>
+                            </Logging>
+                        </Setup>
+                    </ScannerCommunication>
+                    <ScannerCommands>
+                        <BeamOn>21</BeamOn>
+                        <BeamOff>22</BeamOff>
+                        <StackLightAllOff>2800000000</StackLightAllOff>
+                        <StackLightAllOn>2800001111</StackLightAllOn>
+                        <StackLightRed>2800000001</StackLightRed>
+                        <StackLightYellow>2800000010</StackLightYellow>
+                        <StackLightGreen>2800000100</StackLightGreen>
+                        <StackLightBlue>2800001000</StackLightBlue>
+                        <NoRead>2800000001</NoRead>
+                        <LowPerformance>2800000010</LowPerformance>
+                        <VinDataRead>2800000100</VinDataRead>
+                        <BarcodeScanned>2800001000</BarcodeScanned>
+                        <ValidVinData>2800001100</ValidVinData>
+                        <ValidVinDataMaintenanceNeeded>2800001110</ValidVinDataMaintenanceNeeded>
+                        <BadVinData>2800001001</BadVinData>
+                        <BadVinDataMaintenanceNeeded>2800001011</BadVinDataMaintenanceNeeded>
+                    </ScannerCommands>
+                </Setup>
+            </CLV295Scanner>
+            <!-- ******************************************************* -->
+            <!-- *                  Left Maple Keypad                  * -->
+            <!-- ******************************************************* -->
+            <LeftMapleKeypad  enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+                <Setup>
+                    <TagList>
+                        <SubscribeTags>
+                            <VehicleBuildRecordStatus/>
+                            <VehicleAtBarcodeScanner/>
+                            <RollsDownElevUp/>
+                        </SubscribeTags>
+                    </TagList>
+                    <Communication>
+                        <Debug>Off</Debug>
+                        <Name>core/LeftMapleKeypad</Name>
+                        <Type>Server</Type>
+                        <Comm>IPC</Comm>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                    </Communication>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>core/LeftMapleKeypad</ProcessName>
+                        <AdditionalLogFile>/Servers/LeftMapleKeypad.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <ThreadPool>
+                        <Debug>Off</Debug>
+                        <MinBlockedLimit>1</MinBlockedLimit>
+                        <MaxBlockedLimit>3</MaxBlockedLimit>
+                        <Increment>1</Increment>
+                        <Maximum>5</Maximum>
+                    </ThreadPool>
+                    <NotificationList>
+                        <Setup>
+                            <Debug>Off</Debug>
+                            <HighWater>3</HighWater>
+                            <Increment>1</Increment>
+                            <LowWater>1</LowWater>
+                            <Maximum>5</Maximum>
+                            <StartOnCreate>No</StartOnCreate>
+                        </Setup>
+                    </NotificationList>
+                    <MapleKeypadCommunication>
+                        <Setup>
+                            <Communication>
+                                <Debug>Off</Debug>
+                                <Name>/dev/LogicalPorts/Pendant</Name>
+                                <BufferSize>128</BufferSize>
+                                <Timeout>10000</Timeout>
+                            </Communication>
+                            <Logging>
+                                <Status>Disabled</Status>
+                                <ProcessName>LeftMapleKeypad</ProcessName>
+                                <AdditionalLogFile>/Servers/LeftMapleKeypad.log</AdditionalLogFile>
+                                <Debug>Off</Debug>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                            </Logging>
+                        </Setup>
+                    </MapleKeypadCommunication>
+                    <DataTags>
+                        <VINEntryRow>2</VINEntryRow>
+                        <VINEntryColumn>11</VINEntryColumn>
+                        <VINDisplayLine>2</VINDisplayLine>
+                        <VINDisplayColumn>11</VINDisplayColumn>
+                        <BlockModeFieldStart>11</BlockModeFieldStart>
+                        <BlockModeFieldEnd>27</BlockModeFieldEnd>
+                        <BlockModeFillCharacter/>
+                        <DisableKeyboard>1</DisableKeyboard>
+                        <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER VIN #</EnterVIN>
+                        <ReadyToTest RowIndex="1" ColumnIndex="18">READY!</ReadyToTest>
+                        <NotReady RowIndex="1" ColumnIndex="11">NOT READY TO TEST</NotReady>
+                        <PleaseWait RowIndex="2" ColumnIndex="12">PLEASE WAIT</PleaseWait>
+                    </DataTags>
+                    <DataDelay>100</DataDelay>
+                    <MaximumRetries>3</MaximumRetries>
+                </Setup>
+            </LeftMapleKeypad>
+            <!-- ******************************************************* -->
+            <!-- *                 Right Maple Keypad                  * -->
+            <!-- ******************************************************* -->
+            <RightMapleKeypad enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+                <Setup>
+                    <TagList>
+                        <SubscribeTags>
+                            <NextVIN/>
+                            <VehicleBuildRecordStatus/>
+                        </SubscribeTags>
+                    </TagList>
+                    <Communication>
+                        <Debug>Off</Debug>
+                        <Name>core/RightMapleKeypad</Name>
+                        <Type>Server</Type>
+                        <Comm>IPC</Comm>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                    </Communication>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>core/RightMapleKeypad</ProcessName>
+                        <AdditionalLogFile>/Servers/RightMapleKeypad.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <ThreadPool>
+                        <Debug>Off</Debug>
+                        <MinBlockedLimit>1</MinBlockedLimit>
+                        <MaxBlockedLimit>3</MaxBlockedLimit>
+                        <Increment>1</Increment>
+                        <Maximum>5</Maximum>
+                    </ThreadPool>
+                    <NotificationList>
+                        <Setup>
+                            <Debug>Off</Debug>
+                            <HighWater>3</HighWater>
+                            <Increment>1</Increment>
+                            <LowWater>1</LowWater>
+                            <Maximum>5</Maximum>
+                            <StartOnCreate>No</StartOnCreate>
+                        </Setup>
+                    </NotificationList>
+                    <MapleKeypadCommunication>
+                        <Setup>
+                            <Communication>
+                                <Debug>Off</Debug>
+                                <Name>/dev/LogicalPorts/Pendant</Name>
+                                <BufferSize>128</BufferSize>
+                                <Timeout>10000</Timeout>
+                            </Communication>
+                            <Logging>
+                                <Status>Disabled</Status>
+                                <ProcessName>RightMapleKeypad</ProcessName>
+                                <AdditionalLogFile>/Servers/RightMapleKeypad.log</AdditionalLogFile>
+                                <Debug>Off</Debug>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                            </Logging>
+                        </Setup>
+                    </MapleKeypadCommunication>
+                    <DataTags>
+                        <VINEntryRow>2</VINEntryRow>
+                        <VINEntryColumn>11</VINEntryColumn>
+                        <VINDisplayLine>2</VINDisplayLine>
+                        <VINDisplayColumn>11</VINDisplayColumn>
+                        <BlockModeFieldStart>11</BlockModeFieldStart>
+                        <BlockModeFieldEnd>27</BlockModeFieldEnd>
+                        <BlockModeFillCharacter/>
+                        <DisableKeyboard>1</DisableKeyboard>
+                        <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER VIN #</EnterVIN>
+                        <ReadyToTest RowIndex="1" ColumnIndex="18">READY!</ReadyToTest>
+                        <NotReady RowIndex="1" ColumnIndex="11">NOT READY TO TEST</NotReady>
+                        <PleaseWait RowIndex="2" ColumnIndex="12">PLEASE WAIT</PleaseWait>
+                    </DataTags>
+                    <DataDelay>100</DataDelay>
+                    <MaximumRetries>3</MaximumRetries>
+                </Setup>
+            </RightMapleKeypad>
+        </InputDevices>
+        <DataTags>
+            <Vin>NextVIN</Vin>
+            <VinDisplay>VINDisplay</VinDisplay>
+            <DriverNumber>DriverNumber</DriverNumber>
+            <ClearKeyPress>ClearKeyPress</ClearKeyPress>
+            <InputServerState>InputServerState</InputServerState>
+            <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>
+            <VehicleAtBarcodeScanner>VehicleAtBarcodeScanner</VehicleAtBarcodeScanner>
+            <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
+            <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+            <VinLength>16</VinLength>
+        </DataTags>
+        <Logging>
+            <Status>Disabled</Status>
+            <ProcessName>core/InputServer</ProcessName>
+            <AdditionalLogFile Types="/Servers/InputServer.log or Disabled">/Servers/InputServer.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbosity>0x1F</Verbosity>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <VehicleAtBarcodeScanner/>
+                <VehicleBuildRecordStatus/>
+                <RollsDownElevUp/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>1</MinBlockedLimit>
+            <MaxBlockedLimit>3</MaxBlockedLimit>
+            <Increment>1</Increment>
+            <Maximum>5</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>core/InputServer</Name>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <BufferSize>2000</BufferSize>
+            <Timeout>1000</Timeout>
+        </Communication>
+    </Setup>
+</InputServerConfig>

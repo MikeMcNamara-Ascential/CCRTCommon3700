@@ -1,0 +1,105 @@
+<EmissionsFaults>
+    <!-- System Status -->
+    <TestAborted Code="7000" Description="Teste abortado, condicoes incorretas"/>
+    <SoftwareFailure Code="7001" Description="Falha do software usando interface do modulo"/>
+    <SystemStatus Code="7002" Description="Falha do teste, status do sistema incorreto"/>
+    <!-- Test Condition Failures -->
+    <PreconditionTimeout Code="7100" Description="Timeout esperando por pre condicoes"/>
+    <IdleRPMConditionsNotCorrect Code="7101" Description="Condicoes incorretas para testar RPM ponto morto"/>
+    <BoostPressureConditionsNotCorrect Code="7102" Description="Condicoes incorretas para testar pressao de impulso"/>
+    <AISIdleConditions Code="7103" Description="Veiculo nao esta em condicoes apropriadas para teste AIS ponto morto"/>
+    <IdleTPSConditionsNotCorrect Code="7104" Description="Condicoes incorretas do TPS ponto morto"/>
+	<MDSEngineRPMOutOfRange Code="7105" Description="RPM do motor fora de escala durante teste MDS"/>
+	<TimeoutWaitingForVehicleSpeed Code="7106" Description="Timeout esperando velocidade do veiculo entrar na faixa"/>
+	<EngineRunningTimeout Code="7107" Description="Timeout esperando para acionar motor"/>
+	<VehicleNotConnected Code="7108" Description="Veiculo nao conectado ao testor"/>
+	<TLCIdleConditions Code="7109" Description="Veiculo nao esta no ponto morto para ajustar Easy Learn TLC"/>
+	<TLCSpeedTimeout Code="710A" Description="Timeout esperando o veiculo na faixa de velocidade TLC"/>
+	<TLCClosedThrottleTimeout Code="710B" Description="Timeout esperando aceleracao fechada para iniciar teste TLC"/>
+	<TLCTestTimeout Code="710C" Description="Timeout esperando para completar teste TLC"/>
+   	<MapSensorIdleRPMNotCorrect Code="710D" Description="RPM de ponto morto fora da faixa para condicoes requeridas pelo teste"/>
+    <MapSensorThrotlleNotCorrect Code="710C" Description="Acelerador fora da faixa para condicoes requeridas pelo teste"/>
+    <InitialTpsThrotlleNotCorrect Code="710E" Description="Acelerador inicial fora da faixa para condicoes requeridas pelo teste"/>
+    <!-- Communication Failures -->
+    <CommunicationFailure Code="7200" Description="Falha de comunicacao PCM"/>
+    <ModuleUpdateCommunicationFailure Code="7201" Description="Falha de comunicacao fazendo update dos registros de status EOL"/>
+	<SetOKToShipFail Code="7203" Description="Falha setando modulo para OK To Ship"/>
+	<SetNotOKToShipFail Code="7204" Description="Falha setando modulo para Not OK to Ship"/>
+	<OnlineRegistersNotReset Code="7205" Description="Falha resetando registradores online"/>
+	<UplineRegistersNotReset Code="7206" Description="Falha resetando registradores upline"/>
+	<StartHydraulicCoolingFanFailed Code="7207" Description="Falha de comunicacao iniciando ventilador de resfriamento hidraulico"/>
+	<StopHydraulicCoolingFanFailed Code="7208" Description="Falha de comunicacao parando ventilador de resfriamento hidraulico"/>
+	<DisablePurgeFailed Code="7209" Description="Falha de comunicacao desabilitando purga"/>
+	<EnablePurgeFailed Code="720A" Description="Falha de comunicacao habilitando purga"/>
+    <SetupDynamicLID Code="720B" Description="Falha de comunicacao setando LID dinamico"/>
+    <ClearDynamicLID Code="720C" Description="Falha de comunicacao limpando LID dinamico"/>
+
+    <!-- Test Failures -->
+    <ModuleFaults Code="7300" Description="DTCs gravados no PCM"/>
+    <SecurityUnlockFailed Code="7301" Description="Falha para destravar modulo de seguranca"/>
+    <IncorrectModuleType Code="7310" Description="Tipos de modulo nao combina com transmissao"/>
+    <VINMismatch Code="7311" Description="VIN programada no PCM nao combina com transmissao"/>
+    <PartNumberMismatch Code="7312" Description="Numero da parte programada no PCM nao combina com transmissao"/>
+    <FieldModeNotSet Code="7313" Description="Falha setando modulo para Modo de Campo"/>
+    <EngineIdleRPMOutOfRange Code="7320" Description="RPM de ponto morto esta fora da faixa de parametro"/>
+    <BoostPressureOutOfRange Code="7321" Description="Pressao de impulso fora da faixa no ponto morto"/>
+    <MAPSensorTooLow Code="7322" Description="Sensor MAP lendo muito baixo"/>
+    <VaccuumLeak Code="7323" Description="Posicao AIS incorreta, possivel escape do vacuo"/>
+    <BrakeSwitchFail Code="7330" Description="Falha por nao ver o interruptor do freio On e Off"/>
+    <BrakeSwitchOnFail Code="7331" Description="Falha por nao ver o interrutor do freio On"/>
+    <BrakeSwitchOffFail Code="7332" Description="Falha por nao ver o interruptor do freio Off"/>
+    <ParkNeutralSwitchFail Code="7333" Description="Falha por nao ver o interruptor Park/Neutral On e Off"/>
+    <ParkNeutralSwitchOnFail Code="7334" Description="Falha por nao ver o interruptor Park/Neutral On"/>
+    <ParkNeutralSwitchOffFail Code="7335" Description="Falha por nao ver o interruptor Park/Neutral Off"/>
+    <ClutchSwitchFail Code="7336" Description="Falha por nao ver o interruptor Clutch On e Off"/>
+    <ClutchSwitchOnFail Code="7337" Description="Falha por nao ver o interruptor Clutch On"/>
+    <ClutchSwitchOffFail Code="7338" Description="Falha por nao ver o interruptor Clutch Off"/>
+    <DeltaTPSFail Code="7339" Description="TPS falhou ao dar mudanca de voltagem requerida"/>
+    <RedundantBrakeSwitchFail Code="733A" Description="Falha por nao ver o interruptor do freio redundante On e Off"/>
+    <RedundantBrakeSwitchOnFail Code="733B" Description="Falha por nao ver o interruptor do freio On"/>
+    <RedundantBrakeSwitchOffFail Code="733C" Description="Falha por nao ver o interruptor do freio Off"/>
+    <StartModuleKeepAliveFail Code="7340" Description="Falha por nao iniciar a linha viva de sustento"/>
+    <StopModuleKeepAliveFail Code="7341" Description="Falha por nao parar a linha viva de sustento"/>
+    <StartSwitchMonitorFail Code="7342" Description="Falha por nao iniciar o interruptor do monitor do fundo"/>
+    <StopSwitchMonitor Code="7343" Description="Falha por nao parar o interruptor do monitor do fundo"/>
+    <StartTPSMonitorFail Code="7344" Description="Falha por nao iniciar o monitor TPS do fundo"/>
+	<StopTPSMonitor Code="7345" Description="Falha por nao iniciar o monitor TPS do fundo"/>
+    <ClutchUpstopSwitchFail Code="734A" Description="Falha por nao ver o interruptor Clutch Upstop On e Off"/>
+    <ClutchUpstopSwitchOnFail Code="734B" Description="Falha por nao ver o inerruptor Clutch Upstop On"/>
+    <ClutchUpstopSwitchOffFail Code="734C" Description="Falha por nao ver o inerruptor Clutch Upstop Off"/>
+    <ClutchOffUpstopOnFail Code="734D" Description="Falha por nao ver o interruptor Clutch Off e Upstop On switch no mesmo intante"/>
+    <EOLStatusRegisterCheck Code="7350" Description="Registrador do status EOL nao setado apropriadamente no fim do teste"/>
+    <EOLStatusRegistersFail Code="7351" Description="Falha durante o teste dos rolos"/>
+    <EOLStatusRegister1Fail Code="7352" Description="Falha dos rolos gravada no registro do status 1"/>
+    <EOLStatusRegister2Fail Code="7353" Description="Falha dos rolos gravada no registro do status 2"/>
+    <OnlineCounts Code="7360" Description="Falhas de ignicao ou sistema de combustivel"/>
+    <FuelRich1Online Code="7361" Description="Combustivel Rico 1  Falha Online"/>
+    <FuelRich2Online Code="7362" Description="Combustivel Rico 2  Falha Online"/>
+    <FuelLean1Online Code="7363" Description="Comustivel Pobre 1 Falha Online"/>
+    <FuelLean2Online Code="7364" Description="Comustivel Pobre 2 Falha Online"/>
+    <MisfireOnline Code="7365" Description="Falha de ignicao online, falha de ignicao gravada no modulo"/>
+	<FuelRichLean Code="7366" Description="Valor do combustivel Rico - Pobre fora da faixa"/>
+	<SRIRegistersInvalid Code="7367" Description="Valores do registro SRI invalido"/>
+    <OdometerRAMNotSynchronized Code="7368" Description="RAM do odometro nao compina com a EEPROM do odometro"/>
+    <OdometerLimitExceeded Code="7369" Description="Odometro da corrente excede limite do In-Plan. Reprograme limite do In-Plant."/>
+	<TLCSpeedOutOfRange Code="7380" Description="Velocidade do veiculo fora da faixa antes de completar TLC"/>
+	<SpeedRationality Code="7385" Description="Velocidade do veiculo nao combina com velocidade do rolo"/>
+	<SpeedRationalitySpeedFailure Code="7386" Description="Velocidade fora da faixa para teste de racionalidade de velocidade"/>
+	<EGRAirFlow Code="7390" Description="Entrada de ar do fluxo do MAF decresceu nao o suficiente durante teste EGR"/>
+    <UplineTestsNotComplete Code="7400" Description="Teste upline falhou ou nao completado"/>
+    <InFieldMode Code="7401" Description="Modulo no Modo de Campo, esperado Modo de Planta"/>
+    <FieldModeComplementWrong Code="7402" Description="Complemento do Modo de Campo incorreto, modulo pode estar em Modo de Campo"/>
+	<UplineTestRPMTooHigh Code="7403" Description="Valor da RPM Upline muito alto"/>
+	<UplineTestRPMTooLow Code="7404" Description="Valor da RPM Upline muito baixo"/>
+	<NVLDUplineFail Code="7405" Description="Teste NVLD Upline falhou ou nao completo"/>
+    <OnlineTestsNotComplete Code="7500" Description="Testes online nao completos antes dos rolos"/>
+
+    <!-- New Brazil Faults -->
+    <EngineTorqueRpmFailure Code="7510" Description="Falha de carregamento de torque no cheque de RPM"/>
+    <EngineTorqueTemperatureFailure Code="7511" Description="Falha de carregamento de torque no cheuqe de temperatura"/>
+    <EngineTorqueOperatorFailure Code="7512" Description="Operador com falha de torque para vibracao e ruido"/>
+    <EngineTorqueSpeedFailure Code="7513" Description="Falha para pegar Torque a velocidade alvo"/>
+    <MotorBrakeRpmFailure Code="7520" Description="Falha de RPM abaixo do minimo"/>
+    <MotorBrakeModeFailure Code="7521" Description="Falha para setar modulo para Modo Freio Motor"/>
+    <MotorBrakeSwitchFailure Code="7522" Description="Falha do Operador setada no Modo Freio Motor"/>
+</EmissionsFaults>

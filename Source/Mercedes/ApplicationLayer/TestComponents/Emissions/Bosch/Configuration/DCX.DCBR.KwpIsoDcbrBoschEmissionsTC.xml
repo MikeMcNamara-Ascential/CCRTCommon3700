@@ -1,0 +1,162 @@
+<BoschKeywordEmissionsTest>
+    <Setup>
+        <Debug>Off</Debug>
+        <Name>Emissions</Name>
+        <TestDomain>Foreground</TestDomain>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <CommunicationBus>ISO-K</CommunicationBus>
+        <Communication>
+            <Debug>Off</Debug>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <Name>component/BoschEmissions</Name>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <DriveAxle/>
+                <CableConnect/>
+                <EnginePower/>
+                <HP/>
+                <PCMPartNo/>
+                <Traction/>
+                <Transmission/>
+                <VIN/>
+                <Zerospeed/>
+                <TorqueConstant/>
+                <TorqueConstantEnable/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>BoschKeywordEmissions</ProcessName>
+            <AdditionalLogFile Types="/Components/BoschKeywordEmissions or Disable">/Components/BoschKeywordEmissions.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <DataTags>
+            <!-- Begin Brazil Specific DataTags -->
+            <CheckTorquePrompt>CheckVibrationAndNoise</CheckTorquePrompt>
+            <RpmTarget>RpmTarget</RpmTarget>
+            <RpmRange>RpmRange</RpmRange>
+            <EngineHP>EnginePower</EngineHP>
+            <MaxSpeed>MaxSpeed</MaxSpeed>
+            <EngineTorqueBuildOption>EnginePower</EngineTorqueBuildOption>
+            <NoEngineTorqueTestValue>00000</NoEngineTorqueTestValue>
+            <!-- End Brazil Specific DataTags -->
+            <ZeroSpeed>ZerospeedToPLC</ZeroSpeed>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <TransmissionType>Transmission</TransmissionType>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <SpeedRange>SpeedRange</SpeedRange>
+            <Abort>Abort</Abort>
+            <TestInProgress>TestInProgress</TestInProgress>
+            <OverallTest>OverallTest</OverallTest>
+            <CableConnect>CableConnect</CableConnect>
+            <NotEquipped>NotEquipped</NotEquipped>
+            <VehicleVIN>VIN</VehicleVIN>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <LTSpeed>LTSpeed</LTSpeed>
+            <RTSpeed>RTSpeed</RTSpeed>
+            <Rear>Rear</Rear>
+            <TorqueConstant>TorqueConstant</TorqueConstant>
+            <TorqueConstantEnable>TorqueConstantEnable</TorqueConstantEnable>
+        </DataTags>
+        <Parameters>
+            <!-- Begin Brazil specific parameters-->
+            <!-- Motor Loading Parameters -->
+            <EngineTorqueMinSpeed units="mph">36</EngineTorqueMinSpeed>
+            <EngineTorqueMaxSpeed units="mph">78</EngineTorqueMaxSpeed>
+            <MotorLoadingAccelConst Description="Percentage of motor torque to apply to the drive axle proportional to acceleration" Units="%">0.0</MotorLoadingAccelConst>
+            <MotorLoadingSpeedConst Description="Percentage of motor torque to apply to the drive axle proportional to the square of the speed" Units="%">0.0</MotorLoadingSpeedConst>
+            <MotorLoadingTestTime units="seconds">300000</MotorLoadingTestTime>
+            <EngineTorqueScalingFactor Description="Scaling factor used to determine the raw torque to apply during the torque test (Scaling Factor * HP = torque)">0.4</EngineTorqueScalingFactor>
+            <EngineTorqueTestTime units="seconds">300000</EngineTorqueTestTime>
+            <!-- End Brazil specific parameters-->
+            <ConfigFile>/Configuration/Components/Emissions/KwpISOBoschEngineControlModule.xml</ConfigFile>
+            <DeveloperTest>0</DeveloperTest>
+            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+            <AddPrefixToTestResultName>1</AddPrefixToTestResultName>
+            <TestResultPrefix>Diesel</TestResultPrefix>
+            <PostMaxSpeedDelay>5000</PostMaxSpeedDelay>
+         <AlwaysRunMaxSpeedTest>1</AlwaysRunMaxSpeedTest>
+            <PercentIncrease>0.05</PercentIncrease>
+        </Parameters>
+        <Prompts>
+            <!-- Begin Brazil specific prompts -->
+            <EngineTorqueTest PromptBox="1" Priority="0">EngineTorqueTest</EngineTorqueTest>
+            <EngineTorquePassFail PromptBox="1" Priority="0">EngineTorquePassFail</EngineTorquePassFail>
+            <CheckVibrationAndNoise PromptBox="2" Priority="1">CheckVibrationAndNoise</CheckVibrationAndNoise>
+            <MotorBrakeTapBrake PromptBox="2" Priority="1">FootOffBrake</MotorBrakeTapBrake>
+            <MotorBrakeLiftAccelerator PromptBox="2" Priority="1">RemoveFootFromAccelerator</MotorBrakeLiftAccelerator>
+            <MaxSpeedTest PromptBox="1" Priority="1">MaxSpeedTest</MaxSpeedTest>
+            <MaxSpeedPassFail PromptBox="2" Priority="1">MaxSpeedPassFail</MaxSpeedPassFail>
+            <!-- End Brazil specific prompts -->
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+            <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <ShiftToPark PromptBox="1" Priority="0">ShiftToPark</ShiftToPark>
+            <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
+            <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
+            <ThrottleClosed PromptBox="1" Priority="0">RemoveFootFromAccelerator</ThrottleClosed>
+            <HoldThrottleSteady PromptBox="2" Priority="0">MaintainThrottleInGreenBand</HoldThrottleSteady>
+            <IgnitionOn PromptBox="1" Priority="0">KeyOn</IgnitionOn>
+            <EngineRunning PromptBox="1" Priority="0">StartVehicle</EngineRunning>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+            <Stop PromptBox="2" Priority="0">BrakeToStop</Stop>
+            <MaintainSpeed PromptBox="2" Priority="0">MaintainSpeed</MaintainSpeed>
+            <EngineOffIgnitionOn PromptBox="1" Priority="0">EngineOffIgnitionOn</EngineOffIgnitionOn>
+        </Prompts>
+        <FaultList>/Configuration/Components/Emissions/EmissionsFaults.xml</FaultList>
+        <NormalTorqueTypes>
+            <Type01>4x2</Type01>
+            <Type02>6x2</Type02>
+        </NormalTorqueTypes>
+        <MaxSpeedTestEnabledTypes>
+            <Type01>4x2</Type01>
+            <Type02>6x2</Type02>
+            <Type03>6x4</Type03>
+        </MaxSpeedTestEnabledTypes>
+    </Setup>
+    <Objectives>
+        <MaxSpeedTest>
+            <TestStep10>PerformMaxSpeedTest</TestStep10>
+        </MaxSpeedTest>
+        <EngineTorqueTest>
+            <TestStep00>PerformEngineTorqueTest</TestStep00>
+        </EngineTorqueTest>
+        <FinishUp>
+            <TestStep25>FinishUp</TestStep25>
+        </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <PerformEngineTorqueTest Result="Not Tested" Timeout="300000" Description="Add load then monitor RPM an temperature " ScanDelay="250"/>
+        <PerformMaxSpeedTest Result="Not Tested" Timeout="300000" Description="Prompt driver to max speed" ScanDelay="250"/>
+        <CheckEngineTorquePerformace Result="Not Tested" Timeout="15000" Description="Verify performance during Torque test"/>
+        <FinishUp Result="" Timeout="5000" Description="Perform the module finishup"/>
+    </TestSteps>
+</BoschKeywordEmissionsTest>

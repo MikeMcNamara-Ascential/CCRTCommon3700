@@ -1,0 +1,187 @@
+<Tcase>
+    <Setup>
+        <Name>TransferCase</Name>
+        <Debug>Off</Debug>
+        <DebugLevel>0</DebugLevel>
+        <ProcessPriority>11</ProcessPriority>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/GenericTcase</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <NamedDataBrokerComm>
+            <Comm>IPC</Comm>
+            <Type>Client</Type>
+            <Name>core/NamedDataBroker</Name>
+            <Debug>Off</Debug>
+            <Timeout>0</Timeout>
+            <BufferSize>1024</BufferSize>
+        </NamedDataBrokerComm>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Debug>Off</Debug>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+            <Status>Enable</Status>
+            <ProcessName>GenericTcase</ProcessName>
+            <AdditionalLogFile>/Components/Tcase.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <Clutch/>
+                <Declutch/>
+                <DriveAxle/>
+                <ForegroundTestInProgress/>
+                <Zerospeed/>
+            </SubscribeTags>
+        </TagList>
+
+        <SystemTagsToReset>
+            <AxleRatioValue>0</AxleRatioValue>
+            <AxleRatioValueBGColor>white</AxleRatioValueBGColor>
+        </SystemTagsToReset>
+
+        <!-- ============================================================================== -->
+        <!-- Data Tags -->
+        <!-- ============================================================================== -->
+        <DataTags>
+            <!-- System Tags -->
+            <DriveAxle>DriveAxle</DriveAxle>
+            <FourWdTag>FourWD</FourWdTag>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+            <TagIndex>TagIndex</TagIndex>
+            <TargetSpeed>SpeedTarget</TargetSpeed>
+            <Transmission>Transmission</Transmission>
+
+            <!-- Roller speed Tags -->
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+
+            <!-- Data Values -->
+            <ManualTransType>Manual</ManualTransType>
+            <Rear>Rear</Rear>
+
+            <!-- ICM Data -->
+            <IcmSpeedArray>/dev/ArraySpeed</IcmSpeedArray>
+
+        </DataTags>
+
+        <!-- ============================================================================== -->
+        <!-- Test Component Parameters -->
+        <!-- ============================================================================== -->
+        <Parameters>
+            <!-- Test Component Setup Parameters -->
+            <CheckIf4wdEquipped>True</CheckIf4wdEquipped>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <DeveloperTest>False</DeveloperTest>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <ICMName>mgr/ICM</ICMName>
+            <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+
+            <!-- Four Wheel Drive Parameters -->
+            <AxleRatioBrakeToStopNotRequired>False</AxleRatioBrakeToStopNotRequired>
+            <AxleRatioDirection>Forward</AxleRatioDirection>
+            <AxleRatioMaximum Units="%">103</AxleRatioMaximum>
+            <AxleRatioMinimum Units="%">97</AxleRatioMinimum>
+            <ValidFourWdValue>True</ValidFourWdValue>
+
+            <!-- 2WD Shifting Parameters -->
+            <CheckShift2WDEngineRunning>NotRequired</CheckShift2WDEngineRunning>
+            <CheckShift2WDKeyPosition>NotRequired</CheckShift2WDKeyPosition>
+            <CheckShift2WDMinimumShiftSpeed>0</CheckShift2WDMinimumShiftSpeed>
+            <CheckShift2WDThrottlePosition>NotRequired</CheckShift2WDThrottlePosition>
+            <CheckShift2WDTransmissionGear>NotRequired</CheckShift2WDTransmissionGear>
+            <CheckShift2WDVerifyMethod>Prompt</CheckShift2WDVerifyMethod>
+
+            <!-- 4WD Shifting Parameters -->
+            <CheckShift4WDEngineRunning>NotRequired</CheckShift4WDEngineRunning>
+            <CheckShift4WDKeyPosition>NotRequired</CheckShift4WDKeyPosition>
+            <CheckShift4WDMinimumShiftSpeed>0</CheckShift4WDMinimumShiftSpeed>
+            <CheckShift4WDThrottlePosition>NotRequired</CheckShift4WDThrottlePosition>
+            <CheckShift4WDTransmissionGear>NotRequired</CheckShift4WDTransmissionGear>
+            <CheckShift4WDVerifyMethod>Prompt</CheckShift4WDVerifyMethod>
+
+            <MinimumShiftSpeed Units="mph">0</MinimumShiftSpeed>
+
+        </Parameters>
+
+        <!-- ============================================================================== -->
+        <!-- Test Component Prompts -->
+        <!-- ============================================================================== -->
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <CheckShift2WDShiftTcase PromptBox="1" Priority="0">ShiftTransferCaseTo2wd</CheckShift2WDShiftTcase>
+            <CheckShift4WDShiftTcase PromptBox="2" Priority="0">ShiftTransferCaseTo4wd</CheckShift4WDShiftTcase>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+            <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
+            <TcaseTesting PromptBox="1" Priority="0">TransferCaseTest</TcaseTesting>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+        </Prompts>
+
+        <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
+        <TestDomain>Foreground</TestDomain>
+
+    </Setup>
+
+
+    <!-- ============================================================================== -->
+    <!-- Test Objectives -->
+    <!-- ============================================================================== -->
+    <Objectives>
+        <AXleRatio>
+            <TestStep00>CheckShift4WD</TestStep00>
+            <TestStep05>CheckAxleRatio</TestStep05>
+            <TestStep10>CheckShift2WD</TestStep10>
+            <TestStep15>FinishUp</TestStep15>
+        </AXleRatio>
+
+    </Objectives>
+
+
+    <!-- ============================================================================== -->
+    <!-- Test Steps -->
+    <!-- ============================================================================== -->
+    <TestSteps>
+        <CheckAxleRatio Result="Not Tested" Timeout="30000" Description="Verify Axle Ratio" 
+            ScanDelay="500" SpeedSampleDelay="500"  SampleTime="500"
+            TargetSpeed="5" MinimumSpeed="5" MaximumSpeed="10" RatioSamples="10"/>
+
+        <CheckShift2WD Result="Not Tested" Timeout="30000" Description="Test Tcase 2WD" ScanDelay="500" 
+            MinimumSpeed="0" MaximumSpeed="3" SpeedSampleDelay="500"
+            TcaseMessageDelay="5000"/>
+
+        <CheckShift4WD Result="Not Tested" Timeout="30000" Description="Test Tcase 4WD" ScanDelay="500" 
+            MinimumSpeed="0" MaximumSpeed="3" SpeedSampleDelay="500"
+            TcaseMessageDelay="5000"/>
+
+        <FinishUp Result="Not Tested" Timeout="500" Description="Finish Tcase testing"/>
+
+    </TestSteps>
+
+</Tcase>

@@ -1,0 +1,757 @@
+<EmissionsComponent>
+   <Setup>
+      <Name>Emissions</Name>
+      <Debug>Off</Debug>
+      <ProcessPriority>11</ProcessPriority>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+         </Setup>
+      </NotificationList>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/Emissions</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <TagList>
+         <SubscribeTags>
+            <MarketType/>
+            <VIN/>
+            <PCMPartNo/>
+            <EATXPartNumberTest/>
+            <SpeedControlOverAllTest/>
+            <Transmission/>
+            <ZerospeedToPLC/>
+            <Abort/>
+            <ForegroundTestInProgress/>
+            <TestInProgress/>
+            <CableConnect/>
+            <PinionFactor/>
+         </SubscribeTags>
+      </TagList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>Emissions</ProcessName>
+         <AdditionalLogFile Types="/Component/Emissions or Disabled">/Component/Emissions</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <DataTags>
+         <OverallTest>EmissionsOverallTest</OverallTest>
+         <Zerospeed>ZerospeedToPLC</Zerospeed>
+         <Abort>Abort</Abort>
+         <SpeedValue>SpeedValue</SpeedValue>
+         <SpeedControlOverAllTest>SpeedControlOverAllTest</SpeedControlOverAllTest>
+         <EATXPartNumberTest>EATXPartNumberTest</EATXPartNumberTest>
+         <ETC_SpeedControl>ETC Cruise</ETC_SpeedControl>
+         <LFSpeed>LFSpeed</LFSpeed>
+         <LRSpeed>LRSpeed</LRSpeed>
+         <MarketType>MarketType</MarketType>
+         <PCMPartNo>PCMPartNo</PCMPartNo>
+         <PinionFactor>PinionFactor</PinionFactor>
+         <RFSpeed>RFSpeed</RFSpeed>
+         <RRSpeed>RRSpeed</RRSpeed>
+         <SpeedControl>SpeedControl</SpeedControl>
+         <Trans41TE>Trans41TE</Trans41TE>
+         <Trans41TE_J1850_AutoStick>Trans41TE_J1850_AutoStick</Trans41TE_J1850_AutoStick>
+         <Trans42RLE_J1850>Trans42RLE_J1850</Trans42RLE_J1850>
+         <Trans45RFE_CCD>Trans45RFE_CCD</Trans45RFE_CCD>
+         <Trans45RFE_J1850>Trans45RFE_J1850</Trans45RFE_J1850>
+         <Trans545RFE_J1850>Trans545RFE_J1850</Trans545RFE_J1850>
+         <TransE_VAN>TransE_VAN</TransE_VAN>
+         <TransManual>Manual</TransManual>
+         <TransNGC_III_J1850>TransNGC_III_J1850</TransNGC_III_J1850>
+         <TransNGC_II_J1850>TransNGC_II_J1850</TransNGC_II_J1850>
+         <TransNGC_I_J1850>TransNGC_I_J1850</TransNGC_I_J1850>
+         <TransGetrag>Getrag J1850</TransGetrag>
+         <Transmission>Transmission</Transmission>
+         <VIN>VIN</VIN>
+         <SecuredAccessRequest>SecuredAccessRequest</SecuredAccessRequest>
+         <Abort>Abort</Abort>
+         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+         <TestInProgress>TestInProgress</TestInProgress>
+         <CableConnect>CableConnect</CableConnect>
+      </DataTags>
+      <Parameters>
+         <SkipTurboOverboost>0</SkipTurboOverboost>
+         <ForceZeroSpeed>1</ForceZeroSpeed>
+         <ForceEngineOn>1</ForceEngineOn>
+         <EngineOnDelay>10</EngineOnDelay>
+         <EngineOnPrompt>StartVehicle</EngineOnPrompt>
+         <EngineOnPromptBox>2</EngineOnPromptBox>
+         <KeyOnPrompt>KeyOn</KeyOnPrompt>
+         <KeyOnPromptBox>2</KeyOnPromptBox>
+         <KeyOffPrompt>KeyOff</KeyOffPrompt>
+         <KeyOffPromptBox>2</KeyOffPromptBox>
+         <CableConnectPrompt>ConnectCable</CableConnectPrompt>
+         <CableConnectPromptBox>2</CableConnectPromptBox>
+         <EngineOffDelay>10</EngineOffDelay>
+         <EngineOffPrompt>EngineOffIgnitionOn</EngineOffPrompt>
+         <EngineOffPromptBox>2</EngineOffPromptBox>
+         <EngineOnRPM>500</EngineOnRPM>
+         <StopPrompt>BrakeToStop</StopPrompt>
+         <StopPromptBox>1</StopPromptBox>
+         <NGC2190Delay>12</NGC2190Delay>
+         <BypassOnlineDTC>0</BypassOnlineDTC>
+         <BypassDTCS>0</BypassDTCS>
+         <NGCMinIdle>350</NGCMinIdle>
+         <NGCMaxIdle>1100</NGCMaxIdle>
+         <NGCMaxTPS>10</NGCMaxTPS>
+         <J2190ConfigFile>/Configuration/Components/Emissions/EmissionsProtocol.xml</J2190ConfigFile>
+         <J2190Port>AvtJ2190</J2190Port>
+      </Parameters>
+      <Faults>
+         <Fault0x77 Code="77" Description="UPLINE O2 2/1 LEAN STATE NOT SEEN">UPLINE O2 2/1 LEAN STATE NOT SEEN</Fault0x77>
+         <Fault0x770 Code="770" Description="UPLINE O2 2/1 CENTER STATE NOT SEEN">UPLINE O2 2/1 CENTER STATE NOT SEEN</Fault0x770>
+         <Fault0x7000 Code="7000" Description="ROLLS TEST FAILURES OR MODULE FAULTS DETECTED">ROLLS TEST FAILURES OR MODULE FAULTS DETECTED</Fault0x7000>
+         <Fault0x7001 Code="7001" Description="ONLINE TESTS NOT RUN BEFORE ROLLS">ONLINE TESTS NOT RUN BEFORE ROLLS</Fault0x7001>
+         <Fault0x7002 Code="7002" Description="ONLINE TESTS DID NOT LEAVE PCM IN PLANT MODE">ONLINE TESTS DID NOT LEAVE PCM IN PLANT MODE</Fault0x7002>
+         <Fault0x7003 Code="7003" Description="2ND DRB TEST NOT PASSED (LDP)">2ND DRB TEST NOT PASSED (LDP)</Fault0x7003>
+         <Fault0x7004 Code="7004" Description="Fuel System Lean/Rich Value Out of Range. Re-Run O">Fuel System Lean/Rich Value Out of Range. Re-Run O</Fault0x7004>
+         <Fault0x7005 Code="7005" Description="MAP SENSOR TEST FAILED (SNAP THROTTLE).">MAP SENSOR TEST FAILED (SNAP THROTTLE).</Fault0x7005>
+         <Fault0x7006 Code="7006" Description="TIMING ADVANCE TEST FAILED (SNAP THROTTLE).">TIMING ADVANCE TEST FAILED (SNAP THROTTLE).</Fault0x7006>
+         <Fault0x7007 Code="7007" Description="ENGINE RPM NOT SUFFICIENT TO START TEST">ENGINE RPM NOT SUFFICIENT TO START TEST</Fault0x7007>
+         <Fault0x7008 Code="7008" Description="NO BROADCAST INFORMATION AVAILABLE">NO BROADCAST INFORMATION AVAILABLE</Fault0x7008>
+         <Fault0x7010 Code="7010" Description="EGR FAULTED IN OPEN LOOP">EGR FAULTED IN OPEN LOOP</Fault0x7010>
+         <Fault0x7011 Code="7011" Description="EGR FAULTED IN CLOSED LOOP">EGR FAULTED IN CLOSED LOOP</Fault0x7011>
+         <Fault0x7012 Code="7012" Description="EGR WOULD NOT GO TO OFF STATE">EGR WOULD NOT GO TO OFF STATE</Fault0x7012>
+         <Fault0x7013 Code="7013" Description="EGR WOULD NOT GO TO ON STATE">EGR WOULD NOT GO TO ON STATE</Fault0x7013>
+         <Fault0x7014 Code="7014" Description="THROTTLE OUT OF RANGE AT START OF TEST">THROTTLE OUT OF RANGE AT START OF TEST</Fault0x7014>
+         <Fault0x7015 Code="7015" Description="MAP OUT OF RANGE AT START OF TEST">MAP OUT OF RANGE AT START OF TEST</Fault0x7015>
+         <Fault0x7016 Code="7016" Description="RPM OUT OF RANGE AT START OF TEST">RPM OUT OF RANGE AT START OF TEST</Fault0x7016>
+         <Fault0x7017 Code="7017" Description="EGR TEST FAILED DATA CHECK">EGR TEST FAILED DATA CHECK</Fault0x7017>
+         <Fault0x7018 Code="7018" Description="FAILED TO SEE BRAKE SWITCH ON">FAILED TO SEE BRAKE SWITCH ON</Fault0x7018>
+         <Fault0x7019 Code="7019" Description="FAILED TO SEE BRAKE SWITCH OFF">FAILED TO SEE BRAKE SWITCH OFF</Fault0x7019>
+         <EmissionsFaultPCMCommInconsistent Code="7020" Description="PCM COMMUNICATIONS INCONSISTENT">PCM COMMUNICATIONS INCONSISTENT</EmissionsFaultPCMCommInconsistent>
+         <EmissionsFaultPCMWrite Code="7021" Description="PCM EEPROM WRITE FAILED">PCM EEPROM WRITE FAILED</EmissionsFaultPCMWrite>
+         <Fault0x7022 Code="7022" Description="PCM EEPROM READ FAILED">PCM EEPROM READ FAILED</Fault0x7022>
+         <EmissionsFaultSecurityUnlock Code="7023" Description="UNABLE TO UNLOCK PCM SECURITY MODE">UNABLE TO UNLOCK PCM SECURITY MODE</EmissionsFaultSecurityUnlock>
+         <EmissionsFaultPCMUnavailable Code="7028" Description="PCM DATA NOT AVAILABLE FOR TEST">PCM DATA NOT AVAILABLE FOR TEST</EmissionsFaultPCMUnavailable>
+         <Fault0x7029 Code="7029" Description="PCM PN INVALID DATA">PCM PN INVALID DATA</Fault0x7029>
+         <Fault0x7032 Code="7032" Description="PCM MATURED PCODE(S) DETECTED">PCM MATURED PCODE(S) DETECTED</Fault0x7032>
+         <EmissionsFaultPCMOneTrip Code="7033" Description="PCM ONE-TRIP PCODE(S) DETECTED">PCM ONE-TRIP PCODE(S) DETECTED</EmissionsFaultPCMOneTrip>
+         <Fault0x7040 Code="7040" Description="DETECTED FAULT DURING EGR TEST">DETECTED FAULT DURING EGR TEST</Fault0x7040>
+         <Fault0x7041 Code="7041" Description="DETECTED 02 FAULT DURING EGR TEST">DETECTED 02 FAULT DURING EGR TEST</Fault0x7041>
+         <Fault0x7042 Code="7042" Description="UNABLE TO COMMAND EGR OFF">UNABLE TO COMMAND EGR OFF</Fault0x7042>
+         <Fault0x7043 Code="7043" Description="UNABLE TO COMMAND EGR ON">UNABLE TO COMMAND EGR ON</Fault0x7043>
+         <Fault0x7044 Code="7044" Description="TPS OUT OF RANGE AT START OF TEST">TPS OUT OF RANGE AT START OF TEST</Fault0x7044>
+         <Fault0x7045 Code="7045" Description="MAP OUT OF RANGE AT START OF TEST">MAP OUT OF RANGE AT START OF TEST</Fault0x7045>
+         <Fault0x7046 Code="7046" Description="FAILED TO SEE P/N SWITCH ON">FAILED TO SEE P/N SWITCH ON</Fault0x7046>
+         <Fault0x7047 Code="7047" Description="FAILED TO SEE P/N SWITCH OFF">FAILED TO SEE P/N SWITCH OFF</Fault0x7047>
+         <Fault0x7048 Code="7048" Description="TIMEOUT WHILE MONITORING P/N SWITCH">TIMEOUT WHILE MONITORING P/N SWITCH</Fault0x7048>
+         <EmissionsFaultMapFailed Code="7049" Description="MAP FAILED TO GIVE &gt; 5.0in Hg CHANGE">MAP FAILED TO GIVE &gt; 5.0in Hg CHANGE</EmissionsFaultMapFailed>
+         <EmissionsFaultSRIMileageRead Code="7053" Description="SRI MILEAGE FAILED; COULD NOT READ BEFORE ROLLS TE">SRI MILEAGE FAILED; COULD NOT READ BEFORE ROLLS TE</EmissionsFaultSRIMileageRead>
+         <EmissionsFaultSRIInvalid Code="7054" Description="SRI MILEAGE FAILED; REGISTER VALUES INVALID">SRI MILEAGE FAILED; REGISTER VALUES INVALID</EmissionsFaultSRIInvalid>
+         <Fault0x7055 Code="7055" Description="SRI MILEAGE FAILED; COULD NOT READ AFTER ROLLS TES">SRI MILEAGE FAILED; COULD NOT READ AFTER ROLLS TES</Fault0x7055>
+         <EmissionsFaultAISLow Code="7066" Description="AIS POSITION TOO LOW (POSSIBLE VAC. LEAK)">AIS POSITION TOO LOW (POSSIBLE VAC. LEAK)</EmissionsFaultAISLow>
+         <Fault0x7067 Code="7067" Description="AIS PCM COMMUNICATIONS INCONSISTENT">AIS PCM COMMUNICATIONS INCONSISTENT</Fault0x7067>
+         <Fault0x7068 Code="7068" Description="AIS THROTTLE VOLTAGE OVER LIMITS">AIS THROTTLE VOLTAGE OVER LIMITS</Fault0x7068>
+         <Fault0x7069 Code="7069" Description="AIS TRANSMISSION NOT IN NEUTRAL">AIS TRANSMISSION NOT IN NEUTRAL</Fault0x7069>
+         <Fault0x7070 Code="7070" Description="HCF FAILED TO START">HCF FAILED TO START</Fault0x7070>
+         <Fault0x7071 Code="7071" Description="HCF FAILED TO STOP">HCF FAILED TO STOP</Fault0x7071>
+         <Fault0x7101 Code="7101" Description="1-2 SHIFT TEST FAILED">1-2 SHIFT TEST FAILED</Fault0x7101>
+         <Fault0x7102 Code="7102" Description="1-2 SHIFT TEST FAILED">1-2 SHIFT TEST FAILED</Fault0x7102>
+         <Fault0x7103 Code="7103" Description="1-2 SHIFT TEST ABORTED">1-2 SHIFT TEST ABORTED</Fault0x7103>
+         <Fault0x7111 Code="7111" Description="2-3 SHIFT TEST FAILED">2-3 SHIFT TEST FAILED</Fault0x7111>
+         <Fault0x7112 Code="7112" Description="2-3 SHIFT TEST FAILED">2-3 SHIFT TEST FAILED</Fault0x7112>
+         <Fault0x7113 Code="7113" Description="2-3 SHIFT TEST ABORTED">2-3 SHIFT TEST ABORTED</Fault0x7113>
+         <Fault0x7114 Code="7114" Description="2-3 SHIFT SPEED OVER RANGE">2-3 SHIFT SPEED OVER RANGE</Fault0x7114>
+         <Fault0x7125 Code="7125" Description="3-1 SHIFT OUT OF RPM RANGE">3-1 SHIFT OUT OF RPM RANGE</Fault0x7125>
+         <Fault0x7126 Code="7126" Description="3-1 SHIFTTPS OUT OF LIMIT">3-1 SHIFTTPS OUT OF LIMIT</Fault0x7126>
+         <Fault0x7127 Code="7127" Description="3-1 SHIFT TEST TIMEOUT">3-1 SHIFT TEST TIMEOUT</Fault0x7127>
+         <Fault0x7128 Code="7128" Description="3-1 SHIFT SPEED OVER RANGE">3-1 SHIFT SPEED OVER RANGE</Fault0x7128>
+         <Fault0x7220 Code="7220" Description="J1850 BUS COMMUNICATIONS INCONSISTENT">J1850 BUS COMMUNICATIONS INCONSISTENT</Fault0x7220>
+         <Fault0x7700 Code="7700" Description="UPLINE TEST(S) FAILED">UPLINE TEST(S) FAILED</Fault0x7700>
+         <Fault0x7700 Code="7700" Description="UPLINE O2 2/1 RICH STATE NOT SEEN">UPLINE O2 2/1 RICH STATE NOT SEEN</Fault0x7700>
+         <Fault0x7770 Code="7770" Description="UPLINE OFF TEST NOT DONE">UPLINE OFF TEST NOT DONE</Fault0x7770>
+         <Fault0x7771 Code="7771" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7771>
+         <EmissionsFaultUplineRollsFailed Code="7772" Description="UPLINE ROLL TEST NOT PASSED">UPLINE ROLL TEST NOT PASSED</EmissionsFaultUplineRollsFailed>
+         <Fault0x7773 Code="7773" Description="UPLINE FINAL TEST NOT DONE">UPLINE FINAL TEST NOT DONE</Fault0x7773>
+         <EmissionsFaultUplineRollsTest Code="7774" Description="UPLINE ROLLS TEST NOT DONE">UPLINE ROLLS TEST NOT DONE</EmissionsFaultUplineRollsTest>
+         <Fault0x7775 Code="7775" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7775>
+         <Fault0x7776 Code="7776" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7776>
+         <Fault0x7777 Code="7777" Description="UPLINE VALVE RECYCLE FAILED">UPLINE VALVE RECYCLE FAILED</Fault0x7777>
+         <Fault0x7780 Code="7780" Description="UPLINE 02 1/3 HEATER TEST FAILED">UPLINE 02 1/3 HEATER TEST FAILED</Fault0x7780>
+         <Fault0x7781 Code="7781" Description="UPLINE O2 2/2 HEATER TEST FAILED">UPLINE O2 2/2 HEATER TEST FAILED</Fault0x7781>
+         <Fault0x7782 Code="7782" Description="UPLINE O2 2/1 HEATER TEST FAILED">UPLINE O2 2/1 HEATER TEST FAILED</Fault0x7782>
+         <Fault0x7783 Code="7783" Description="UPLINE O2 1/2 HEATER TEST FAILED">UPLINE O2 1/2 HEATER TEST FAILED</Fault0x7783>
+         <Fault0x7784 Code="7784" Description="UPLINE O2 1/1 HEATER TEST FAILED">UPLINE O2 1/1 HEATER TEST FAILED</Fault0x7784>
+         <Fault0x7785 Code="7785" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7785>
+         <Fault0x7786 Code="7786" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7786>
+         <Fault0x7787 Code="7787" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7787>
+         <Fault0x7790 Code="7790" Description="UPLINE FAULT AT OFF TEST">UPLINE FAULT AT OFF TEST</Fault0x7790>
+         <EmissionsFaultUplineOdometer Code="7791" Description="UPLINE FAULT DURING ODOMETER PROGRAMMING">UPLINE FAULT DURING ODOMETER PROGRAMMING</EmissionsFaultUplineOdometer>
+         <EmissionsFaultUplineVINInit Code="7792" Description="UPLINE VIN FAILED DURING INIT">UPLINE VIN FAILED DURING INIT</EmissionsFaultUplineVINInit>
+         <Fault0x7793 Code="7793" Description="UPLINE LEAK DETECT PUMP FAILED">UPLINE LEAK DETECT PUMP FAILED</Fault0x7793>
+         <Fault0x7794 Code="7794" Description="UPLINE LOW-OIL FUEL SHUTOFF">UPLINE LOW-OIL FUEL SHUTOFF</Fault0x7794>
+         <Fault0x7795 Code="7795" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7795>
+         <Fault0x7796 Code="7796" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7796>
+         <Fault0x7797 Code="7797" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x7797>
+         <Fault0x77000 Code="77000" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77000>
+         <Fault0x770000 Code="770000" Description="UPLINE O2 1/1 LEAN STATE NOT SEEN">UPLINE O2 1/1 LEAN STATE NOT SEEN</Fault0x770000>
+         <Fault0x7700000 Code="7700000" Description="UPLINE O2 1/1 CENTER STATE NOT SEEN">UPLINE O2 1/1 CENTER STATE NOT SEEN</Fault0x7700000>
+         <Fault0x77000000 Code="77000000" Description="UPLINE O2 1/1 RICH STATE NOT SEEN">UPLINE O2 1/1 RICH STATE NOT SEEN</Fault0x77000000>
+         <Fault0x770000000 Code="770000000" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x770000000>
+         <EmissionsFaultVINMismatch Code="700A" Description="VIN PROGRAMMED IN PCM DOES NOT MATCH BROADCAST">VIN PROGRAMMED IN PCM DOES NOT MATCH BROADCAST</EmissionsFaultVINMismatch>
+         <EmissionsFaultPNMismatch Code="700B" Description="PN PROGRAMMED IN PCM DOES NOT MATCH BROADCAST">PN PROGRAMMED IN PCM DOES NOT MATCH BROADCAST</EmissionsFaultPNMismatch>
+         <EmissionsFaultSerialNumber Code="700C" Description="SN PROGRAMMED IN PCM NOT READ OR NOT VALID">SN PROGRAMMED IN PCM NOT READ OR NOT VALID</EmissionsFaultSerialNumber>
+         <Fault0x700E Code="700E" Description="TEST TIMEOUT OVERALL">TEST TIMEOUT OVERALL</Fault0x700E>
+         <Fault0x701D Code="701D" Description="TPS FAILED TO GIVE &gt; 0.5 VOLT CHANGE">TPS FAILED TO GIVE &gt; 0.5 VOLT CHANGE</Fault0x701D>
+         <Fault0x701E Code="701E" Description="PCM MODULE IS NOT CLEARING FAULTS">PCM MODULE IS NOT CLEARING FAULTS</Fault0x701E>
+         <Fault0x701F Code="701F" Description="PCM COMMUNICATIONS FAILURES EXCEED MAXIMUM">PCM COMMUNICATIONS FAILURES EXCEED MAXIMUM</Fault0x701F>
+         <Fault0x702A Code="702A" Description="PCM SN INCOMPLETE DATA">PCM SN INCOMPLETE DATA</Fault0x702A>
+         <Fault0x702B Code="702B" Description="PCM SN INVALID DATA">PCM SN INVALID DATA</Fault0x702B>
+         <EmissionsFaultPCMChecksum Code="702C" Description="PCM CHECKSUM FAILED WHILE READING PCODES">PCM CHECKSUM FAILED WHILE READING PCODES</EmissionsFaultPCMChecksum>
+         <Fault0x704A Code="704A" Description="TIMEOUT WHILE MONITORING BRAKE SWITCH">TIMEOUT WHILE MONITORING BRAKE SWITCH</Fault0x704A>
+         <Fault0x704B Code="704B" Description="JTEC SPEED DOES NOT MATCH ROLLS">JTEC SPEED DOES NOT MATCH ROLLS</Fault0x704B>
+         <EmissionsFaultRPMAbort Code="704C" Description="RPM CHECK ABORTED">RPM CHECK ABORTED</EmissionsFaultRPMAbort>
+         <Fault0x706A Code="706A" Description="AIS A/C WAS RUNNING">AIS A/C WAS RUNNING</Fault0x706A>
+         <Fault0x706B Code="706B" Description="AIS TIMEOUT WAITING FOR INITIAL CONDITIONS">AIS TIMEOUT WAITING FOR INITIAL CONDITIONS</Fault0x706B>
+         <Fault0x71C0 Code="71C0" Description="FAILED TRANSMISSION, SPEEDOMETER OUT OF LIMIT">FAILED TRANSMISSION, SPEEDOMETER OUT OF LIMIT</Fault0x71C0>
+         <Fault0x721F Code="721F" Description="J1850 BUS COMMUNICATIONS FAILURES EXCEED MAXIMUM">J1850 BUS COMMUNICATIONS FAILURES EXCEED MAXIMUM</Fault0x721F>
+         <Fault0x72F1 Code="72F1" Description="UNDEFINED">UNDEFINED</Fault0x72F1>
+         <Fault0x72F2 Code="72F2" Description="UNDEFINED">UNDEFINED</Fault0x72F2>
+         <Fault0x72F3 Code="72F3" Description="MODULE GAVE BUSY RESPONSE">MODULE GAVE BUSY RESPONSE</Fault0x72F3>
+         <Fault0x72F4 Code="72F4" Description="UNDEFINED">UNDEFINED</Fault0x72F4>
+         <Fault0x72F5 Code="72F5" Description="CONDITIONS NOT CORRECT FOR COMMAND">CONDITIONS NOT CORRECT FOR COMMAND</Fault0x72F5>
+         <Fault0x72F6 Code="72F6" Description="MODULE UNPLUGGED OR NOT COMMUNICATING">MODULE UNPLUGGED OR NOT COMMUNICATING</Fault0x72F6>
+         <Fault0x72F7 Code="72F7" Description="J1850 BUS OR J2190 MODULE NOT RESPONDING">J1850 BUS OR J2190 MODULE NOT RESPONDING</Fault0x72F7>
+         <Fault0x72F8 Code="72F8" Description="CANNOT INITIALIZE J1850 MODULE">CANNOT INITIALIZE J1850 MODULE</Fault0x72F8>
+         <Fault0x77A0 Code="77A0" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77A0>
+         <Fault0x77A1 Code="77A1" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77A1>
+         <Fault0x77A2 Code="77A2" Description="UPLINE LEAK DETECT PUMP FAILED">UPLINE LEAK DETECT PUMP FAILED</Fault0x77A2>
+         <Fault0x77A3 Code="77A3" Description="UPLINE CHARGING SYSTEM/AIS FAILURE">UPLINE CHARGING SYSTEM/AIS FAILURE</Fault0x77A3>
+         <Fault0x77A4 Code="77A4" Description="UPLINE O2 STATES R/C/L FAILURE">UPLINE O2 STATES R/C/L FAILURE</Fault0x77A4>
+         <Fault0x77A5 Code="77A5" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77A5>
+         <Fault0x77A6 Code="77A6" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77A6>
+         <Fault0x77A7 Code="77A7" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77A7>
+         <Fault0x77B0 Code="77B0" Description="UPLINE ACTIVE RUN TEST FAULTS">UPLINE ACTIVE RUN TEST FAULTS</Fault0x77B0>
+         <Fault0x77B1 Code="77B1" Description="UPLINE RPM TEST FAILURE">UPLINE RPM TEST FAILURE</Fault0x77B1>
+         <Fault0x77B2 Code="77B2" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77B2>
+         <Fault0x77B3 Code="77B3" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77B3>
+         <Fault0x77B4 Code="77B4" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77B4>
+         <Fault0x77B5 Code="77B5" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77B5>
+         <Fault0x77B6 Code="77B6" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77B6>
+         <Fault0x77B7 Code="77B7" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77B7>
+         <Fault0x77C0 Code="77C0" Description="UPLINE FAULT AT FINAL TEST">UPLINE FAULT AT FINAL TEST</Fault0x77C0>
+         <Fault0x77C1 Code="77C1" Description="UPLINE BRAKE SWITCH SENSOR FAILURE">UPLINE BRAKE SWITCH SENSOR FAILURE</Fault0x77C1>
+         <Fault0x77C2 Code="77C2" Description="UPLINE PARK/NEUTRAL SWITCH FAILURE">UPLINE PARK/NEUTRAL SWITCH FAILURE</Fault0x77C2>
+         <Fault0x77C3 Code="77C3" Description="UPLINE PCM PN DOES NOT VERIFY">UPLINE PCM PN DOES NOT VERIFY</Fault0x77C3>
+         <Fault0x77C4 Code="77C4" Description="UPLINE TCM PN DOES NOT VERIFY">UPLINE TCM PN DOES NOT VERIFY</Fault0x77C4>
+         <Fault0x77C5 Code="77C5" Description="UPLINE EGR SYSTEM FAILED">UPLINE EGR SYSTEM FAILED</Fault0x77C5>
+         <Fault0x77C6 Code="77C6" Description="UPLINE TIMING ADVANCE SENSE FAILED">UPLINE TIMING ADVANCE SENSE FAILED</Fault0x77C6>
+         <Fault0x77C7 Code="77C7" Description="UPLINE MAP SENSE FAILED">UPLINE MAP SENSE FAILED</Fault0x77C7>
+         <Fault0x77D0 Code="77D0" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77D0>
+         <Fault0x77D1 Code="77D1" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77D1>
+         <Fault0x77D2 Code="77D2" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77D2>
+         <Fault0x77D3 Code="77D3" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77D3>
+         <Fault0x77D4 Code="77D4" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77D4>
+         <Fault0x77D5 Code="77D5" Description="UPLINE UNDEFINED">UPLINE UNDEFINED</Fault0x77D5>
+         <Fault0x77D6 Code="77D6" Description="UPLINE TPS SENSE FAILED">UPLINE TPS SENSE FAILED</Fault0x77D6>
+         <Fault0x77D7 Code="77D7" Description="UPLINE IDLE RPM TEST FAILURE">UPLINE IDLE RPM TEST FAILURE</Fault0x77D7>
+         <Fault0x77F0 Code="77F0" Description="UPLINE PCM CURB IDLE OUT OF LIMITS (450 TO 1200)">UPLINE PCM CURB IDLE OUT OF LIMITS (450 TO 1200)</Fault0x77F0>
+         <Fault0x7CC0 Code="7CC0" Description="ONLINE O2 1/1 HEATER TEST NOT COMPLETE">ONLINE O2 1/1 HEATER TEST NOT COMPLETE</Fault0x7CC0>
+         <Fault0x7CC1 Code="7CC1" Description="ONLINE O2 1/2 HEATER TEST NOT COMPLETE">ONLINE O2 1/2 HEATER TEST NOT COMPLETE</Fault0x7CC1>
+         <Fault0x7CC2 Code="7CC2" Description="ONLINE O2 2/1 HEATER TEST NOT COMPLETE">ONLINE O2 2/1 HEATER TEST NOT COMPLETE</Fault0x7CC2>
+         <Fault0x7CC3 Code="7CC3" Description="ONLINE O2 2/2 HEATER TEST NOT COMPLETE">ONLINE O2 2/2 HEATER TEST NOT COMPLETE</Fault0x7CC3>
+         <Fault0x7CC4 Code="7CC4" Description="ONLINE O2 1/1 HEATER TEST FAILED">ONLINE O2 1/1 HEATER TEST FAILED</Fault0x7CC4>
+         <Fault0x7CC5 Code="7CC5" Description="ONLINE O2 1/2 HEATER TEST FAILED">ONLINE O2 1/2 HEATER TEST FAILED</Fault0x7CC5>
+         <Fault0x7CC6 Code="7CC6" Description="ONLINE O2 2/1 HEATER TEST FAILED">ONLINE O2 2/1 HEATER TEST FAILED</Fault0x7CC6>
+         <Fault0x7CC7 Code="7CC7" Description="ONLINE O2 2/2 HEATER TEST FAILED">ONLINE O2 2/2 HEATER TEST FAILED</Fault0x7CC7>
+         <Fault0x7CD0 Code="7CD0" Description="ONLINE O2 1/3 HEATER TEST NOT COMPLETE">ONLINE O2 1/3 HEATER TEST NOT COMPLETE</Fault0x7CD0>
+         <Fault0x7CD1 Code="7CD1" Description="ONLINE O2 1/3 HEATER TEST FAILED">ONLINE O2 1/3 HEATER TEST FAILED</Fault0x7CD1>
+         <Fault0x7CD2 Code="7CD2" Description="ONLINE O2 HEATER TEST NOT COMPLETE">ONLINE O2 HEATER TEST NOT COMPLETE</Fault0x7CD2>
+         <Fault0x7CD3 Code="7CD3" Description="ONLINE ACTUATOR TEST NOT COMPLETE">ONLINE ACTUATOR TEST NOT COMPLETE</Fault0x7CD3>
+         <Fault0x7CD4 Code="7CD4" Description="ONLINE ACTUATOR TEST FAILED">ONLINE ACTUATOR TEST FAILED</Fault0x7CD4>
+         <Fault0x7CD5 Code="7CD5" Description="ONLINE FUEL PRIMING NOT COMPLETE">ONLINE FUEL PRIMING NOT COMPLETE</Fault0x7CD5>
+         <EmissionsFaultMisfire Code="7CD6" Description="ONLINE MISFIRE TEST FAILED IN PLANT">ONLINE MISFIRE TEST FAILED IN PLANT</EmissionsFaultMisfire>
+         <EmissionsFaultFuelSystem Code="7CD7" Description="ONLINE FUEL SYSTEM TEST FAILED IN PLANT">ONLINE FUEL SYSTEM TEST FAILED IN PLANT</EmissionsFaultFuelSystem>
+         <Fault0x7CE0 Code="7CE0" Description="ONLINE LDP TEST NOT COMPLETE">ONLINE LDP TEST NOT COMPLETE</Fault0x7CE0>
+         <Fault0x7CE1 Code="7CE1" Description="ONLINE LDP TEST FAILED">ONLINE LDP TEST FAILED</Fault0x7CE1>
+         <Fault0x7CE2 Code="7CE2" Description="ONLINE FAULT DURING ENGINE RUNNING TEST">ONLINE FAULT DURING ENGINE RUNNING TEST</Fault0x7CE2>
+         <Fault0x7CE3 Code="7CE3" Description="ONLINE IAC TEST HIGH IDLE TEST FAILED">ONLINE IAC TEST HIGH IDLE TEST FAILED</Fault0x7CE3>
+         <Fault0x7CE4 Code="7CE4" Description="ONLINE IAC TEST LOW IDLE TEST FAILED">ONLINE IAC TEST LOW IDLE TEST FAILED</Fault0x7CE4>
+         <Fault0x7CE5 Code="7CE5" Description="ONLINE IAC TEST NOT COMPLETE">ONLINE IAC TEST NOT COMPLETE</Fault0x7CE5>
+         <Fault0x7CE6 Code="7CE6" Description="ONLINE IN-PLANT MODE ACTIVE">ONLINE IN-PLANT MODE ACTIVE</Fault0x7CE6>
+         <Fault0x7CE7 Code="7CE7" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7CE7>
+         <Fault0x7CF0 Code="7CF0" Description="ONLINE CHARGING SYSTEM TEST FAILED">ONLINE CHARGING SYSTEM TEST FAILED</Fault0x7CF0>
+         <Fault0x7CF1 Code="7CF1" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7CF1>
+         <Fault0x7CF2 Code="7CF2" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7CF2>
+         <Fault0x7CF3 Code="7CF3" Description="ONLINE FLEX FUEL SENSOR TEST NOT COMPLETE">ONLINE FLEX FUEL SENSOR TEST NOT COMPLETE</Fault0x7CF3>
+         <Fault0x7CF4 Code="7CF4" Description="ONLINE FLEX FUEL SENSOR TEST FAILED">ONLINE FLEX FUEL SENSOR TEST FAILED</Fault0x7CF4>
+         <Fault0x7CF5 Code="7CF5" Description="ONLINE START FUEL OPERATION NOT COMPLETE">ONLINE START FUEL OPERATION NOT COMPLETE</Fault0x7CF5>
+         <Fault0x7CF6 Code="7CF6" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7CF6>
+         <Fault0x7CF7 Code="7CF7" Description="PWM O2 HEATER TEST SUSPENDED">PWM O2 HEATER TEST SUSPENDED</Fault0x7CF7>
+         <Fault0x7D00 Code="7D00" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7D00>
+         <Fault0x7D01 Code="7D01" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7D01>
+         <Fault0x7D02 Code="7D02" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7D02>
+         <Fault0x7D03 Code="7D03" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7D03>
+         <Fault0x7D04 Code="7D04" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7D04>
+         <Fault0x7D05 Code="7D05" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7D05>
+         <Fault0x7D06 Code="7D06" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7D06>
+         <Fault0x7D07 Code="7D07" Description="ONLINE TEST UNDEFINED">ONLINE TEST UNDEFINED</Fault0x7D07>
+         <Fault0x7EA1 Code="7EA1" Description="ONLINE FUEL PRIME NOT COMPLETE">ONLINE FUEL PRIME NOT COMPLETE</Fault0x7EA1>
+         <Fault0x7EA2 Code="7EA2" Description="ONLINE RAIL BLEED NOT COMPLETE">ONLINE RAIL BLEED NOT COMPLETE</Fault0x7EA2>
+         <Fault0x7EA4 Code="7EA4" Description="ONLINE DTI TEST NOT COMPLETE">ONLINE DTI TEST NOT COMPLETE</Fault0x7EA4>
+         <Fault0x7EA5 Code="7EA5" Description="ONLINE DTI TEST FAILED">ONLINE DTI TEST FAILED</Fault0x7EA5>
+         <Fault0x7EA6 Code="7EA6" Description="ONLINE IAC HIGH RPM TEST NOT COMPLETE">ONLINE IAC HIGH RPM TEST NOT COMPLETE</Fault0x7EA6>
+         <Fault0x7EA7 Code="7EA7" Description="ONLINE IAC HIGH RPM TEST FAILED">ONLINE IAC HIGH RPM TEST FAILED</Fault0x7EA7>
+         <Fault0x7EA8 Code="7EA8" Description="ONLINE IAC LOW RPM TEST NOT COMPLETE">ONLINE IAC LOW RPM TEST NOT COMPLETE</Fault0x7EA8>
+         <Fault0x7EA9 Code="7EA9" Description="ONLINE IAC LOW RPM TEST FAILED">ONLINE IAC LOW RPM TEST FAILED</Fault0x7EA9>
+         <Fault0x7EAA Code="7EAA" Description="ONLINE BATTERY TEST NOT COMPLETE">ONLINE BATTERY TEST NOT COMPLETE</Fault0x7EAA>
+         <Fault0x7EAB Code="7EAB" Description="ONLINE BATTERY TEST CHARGING FAILED">ONLINE BATTERY TEST CHARGING FAILED</Fault0x7EAB>
+         <Fault0x7EB0 Code="7EB0" Description="ONLINE MISFIRE TEST NOT COMPLETE">ONLINE MISFIRE TEST NOT COMPLETE</Fault0x7EB0>
+         <Fault0x7EB1 Code="7EB1" Description="ONLINE MISFIRE TEST FAILED">ONLINE MISFIRE TEST FAILED</Fault0x7EB1>
+         <Fault0x7EC0 Code="7EC0" Description="ONLINE EGR MONITOR TEST NOT COMPLETE">ONLINE EGR MONITOR TEST NOT COMPLETE</Fault0x7EC0>
+         <Fault0x7EC1 Code="7EC1" Description="ONLINE EGR MONITOR TEST FAILED">ONLINE EGR MONITOR TEST FAILED</Fault0x7EC1>
+         <Fault0x7ECB Code="7ECB" Description="ONLINE SMALL LEAK TEST FAILED">ONLINE SMALL LEAK TEST FAILED</Fault0x7ECB>
+         <Fault0x7ECC Code="7ECC" Description="ONLINE MEDIUM LEAK TEST NOT COMPLETE">ONLINE MEDIUM LEAK TEST NOT COMPLETE</Fault0x7ECC>
+         <Fault0x7ECD Code="7ECD" Description="ONLINE MEDIUM LEAK TEST FAILED">ONLINE MEDIUM LEAK TEST FAILED</Fault0x7ECD>
+         <Fault0x7ECE Code="7ECE" Description="ONLINE LARGE LEAK TEST NOT COMPLETE">ONLINE LARGE LEAK TEST NOT COMPLETE</Fault0x7ECE>
+         <Fault0x7ECF Code="7ECF" Description="ONLINE LARGE LEAK TEST FAILED">ONLINE LARGE LEAK TEST FAILED</Fault0x7ECF>
+         <Fault0x7ED0 Code="7ED0" Description="ONLINE FUEL RICH 1 TEST NOT COMPLETE">ONLINE FUEL RICH 1 TEST NOT COMPLETE</Fault0x7ED0>
+         <Fault0x7ED1 Code="7ED1" Description="ONLINE FUEL RICH 1 TEST FAILED">ONLINE FUEL RICH 1 TEST FAILED</Fault0x7ED1>
+         <Fault0x7ED2 Code="7ED2" Description="ONLINE FUEL RICH 2 TEST NOT COMPLETE">ONLINE FUEL RICH 2 TEST NOT COMPLETE</Fault0x7ED2>
+         <Fault0x7ED3 Code="7ED3" Description="ONLINE FUEL RICH 2 TEST FAILED">ONLINE FUEL RICH 2 TEST FAILED</Fault0x7ED3>
+         <Fault0x7ED4 Code="7ED4" Description="ONLINE FUEL LEAN 1 TEST NOT COMPLETE">ONLINE FUEL LEAN 1 TEST NOT COMPLETE</Fault0x7ED4>
+         <Fault0x7ED5 Code="7ED5" Description="ONLINE FUEL LEAN 1 TEST FAILED">ONLINE FUEL LEAN 1 TEST FAILED</Fault0x7ED5>
+         <Fault0x7ED6 Code="7ED6" Description="ONLINE FUEL LEAN 2 TEST NOT COMPLETE">ONLINE FUEL LEAN 2 TEST NOT COMPLETE</Fault0x7ED6>
+         <Fault0x7ED7 Code="7ED7" Description="ONLINE FUEL LEAN 2 TEST FAILED">ONLINE FUEL LEAN 2 TEST FAILED</Fault0x7ED7>
+         <Fault0x7EE0 Code="7EE0" Description="ONLINE O2 HEATER 11 TEST NOT COMPLETE">ONLINE O2 HEATER 11 TEST NOT COMPLETE</Fault0x7EE0>
+         <Fault0x7EE1 Code="7EE1" Description="ONLINE O2 HEATER 11 TEST FAILED">ONLINE O2 HEATER 11 TEST FAILED</Fault0x7EE1>
+         <Fault0x7EE2 Code="7EE2" Description="ONLINE O2 HEATER 21 TEST NOT COMPLETE">ONLINE O2 HEATER 21 TEST NOT COMPLETE</Fault0x7EE2>
+         <Fault0x7EE3 Code="7EE3" Description="ONLINE O2 HEATER 21 TEST FAILED">ONLINE O2 HEATER 21 TEST FAILED</Fault0x7EE3>
+         <Fault0x7EE4 Code="7EE4" Description="ONLINE O2 HEATER 12 TEST NOT COMPLETE">ONLINE O2 HEATER 12 TEST NOT COMPLETE</Fault0x7EE4>
+         <Fault0x7EE5 Code="7EE5" Description="ONLINE O2 HEATER 12 TEST FAILED">ONLINE O2 HEATER 12 TEST FAILED</Fault0x7EE5>
+         <Fault0x7EE6 Code="7EE6" Description="ONLINE O2 HEATER 22 TEST NOT COMPLETE">ONLINE O2 HEATER 22 TEST NOT COMPLETE</Fault0x7EE6>
+         <Fault0x7EE7 Code="7EE7" Description="ONLINE O2 HEATER 22 TEST FAILED">ONLINE O2 HEATER 22 TEST FAILED</Fault0x7EE7>
+         <Fault0x7EE8 Code="7EE8" Description="ONLINE O2 HEATER 13 TEST NOT COMPLETE">ONLINE O2 HEATER 13 TEST NOT COMPLETE</Fault0x7EE8>
+         <Fault0x7EE9 Code="7EE9" Description="ONLINE O2 HEATER 13 TEST FAILED">ONLINE O2 HEATER 13 TEST FAILED</Fault0x7EE9>
+         <Fault0x7F00 Code="7F00" Description="DTC OBSOLETE FAULT CODE">DTC OBSOLETE FAULT CODE</Fault0x7F00>
+         <Fault0x7FF6 Code="7FF6" Description="JTEC MODULE UNPLUGGED OR NOT COMMUNICATING">JTEC MODULE UNPLUGGED OR NOT COMMUNICATING</Fault0x7FF6>
+         <Fault0x7FFF Code="7FFF" Description="ROLLS TEST FAILURE(S)">ROLLS TEST FAILURE(S)</Fault0x7FFF>
+         <Fault0xFDFD Code="FDFD" Description="PCODE COMMAND NOT SUPPORTED">PCODE COMMAND NOT SUPPORTED</Fault0xFDFD>
+         <Fault0xFEFE Code="FEFE" Description="PCODE DISPLAY END">PCODE DISPLAY END</Fault0xFEFE>
+         <Fault0xFFFF Code="FFFF" Description="PCODE NO CODES AVAILABLE">PCODE NO CODES AVAILABLE</Fault0xFFFF>
+         <EmissionsFaultTurboOverboost Code="001D" Description="Failed turbo overboost test after multiple tries">Failed turbo overboost test after multiple tries</EmissionsFaultTurboOverboost>
+         <EmissionsFaultGetragPID Code="7058" Description="Failed to read Getrag PID (2811)">Failed to read Getrag PID (2811)</EmissionsFaultGetragPID>
+         <EmissionsFaultGetragMismatch Code="7059" Description="broadcast test code mismatch - transmission is not a Getrag">broadcast test code mismatch - transmission is not a Getrag</EmissionsFaultGetragMismatch>
+         <EmissionsFaultGetragWrite Code="705B" Description="failed writing Getrag pulses per mile complement to the PCM">failed writing Getrag pulses per mile complement to the PCM</EmissionsFaultGetragWrite>
+         <EmissionsFaultGetragRead9EE8 Code="705C" Description="failed reading Getrag PPM - 9EE8">failed reading Getrag PPM - 9EE8</EmissionsFaultGetragRead9EE8>
+         <EmissionsFaultGetragRead9EE9 Code="705D" Description="failed reading Getrag PPM - 9EE9">failed reading Getrag PPM - 9EE9</EmissionsFaultGetragRead9EE9>
+         <EmissionsFaultGetragVerify Code="705E" Description="verify Getrag PPM failed - PIDs 9EE8 and 9EE9 did not verify">verify Getrag PPM failed - PIDs 9EE8 and 9EE9 did not verify</EmissionsFaultGetragVerify>
+         <EmissionsFaultGetragWriteRegister Code="705F" Description="failed to write Getrag Program Status Register (9EEA)">failed to write Getrag Program Status Register (9EEA)</EmissionsFaultGetragWriteRegister>
+         <EmissionsFaultTurbocity Code="7060" Description="Failed to check turbocity">Failed to check turbocity</EmissionsFaultTurbocity>
+         <EmissionsFaultTurboTimeout Code="7061" Description="Timed out in turbo overboost test">Timed out in turbo overboost test</EmissionsFaultTurboTimeout>
+         <EmissionsFaultValidateModuleType Code="7062" Description="Validate module type -vs- broadcast">Validate module type -vs- broadcast</EmissionsFaultValidateModuleType>
+         <EmissionsFaultClutchSwitchValidation Code="7063" Description="Unable to validate the clutch switch on the vehcile">Unable to validate the clutch switch on the vehcile</EmissionsFaultClutchSwitchValidation>
+         <EmissionsFaultSixteenMileWrite Code="7064" Description="Unable to update the mileage in the module for testing">Unable to update the mileage in the module for testing</EmissionsFaultSixteenMileWrite>
+         <Fault0xC516 Code="C516" Description="Crankshaft position">Crankshaft position</Fault0xC516>
+         <Fault0xC530 Code="C530" Description="02 heater control 1/1 (open)">02 heater control 1/1 (open)</Fault0xC530>
+         <Fault0xC531 Code="C531" Description="02 heater control 1/1 (low)">02 heater control 1/1 (low)</Fault0xC531>
+         <Fault0xC532 Code="C532" Description="02 heater control 1/1 (high)">02 heater control 1/1 (high)</Fault0xC532>
+         <Fault0xC533 Code="C533" Description=" turbo charger bypass valve (open)"> turbo charger bypass valve (open)</Fault0xC533>
+         <Fault0xC534 Code="C534" Description=" turbo charger bypass valve (low)"> turbo charger bypass valve (low)</Fault0xC534>
+         <Fault0xC535 Code="C535" Description=" Turbo charger bypass valve (high)"> Turbo charger bypass valve (high)</Fault0xC535>
+         <Fault0xC536 Code="C536" Description="02 heater control 1/2(open)">02 heater control 1/2(open)</Fault0xC536>
+         <Fault0xC537 Code="C537" Description="02 heater control 1/2(low)">02 heater control 1/2(low)</Fault0xC537>
+         <Fault0xC538 Code="C538" Description="02 heater control 1/2 (high)">02 heater control 1/2 (high)</Fault0xC538>
+         <Fault0xC550 Code="C550" Description="02 heater control 2/1">02 heater control 2/1</Fault0xC550>
+         <Fault0xC551 Code="C551" Description="02 heater control 2/1(low)">02 heater control 2/1(low)</Fault0xC551>
+         <Fault0xC552 Code="C552" Description="02 heater control 2/1 (high)">02 heater control 2/1 (high)</Fault0xC552>
+         <Fault0xC568 Code="C568" Description="Map(high airflow/vacuum leak detected">Map(high airflow/vacuum leak detected</Fault0xC568>
+         <Fault0xC569 Code="C569" Description="No Description Provided">No Description Provided</Fault0xC569>
+         <Fault0xC570 Code="C570" Description="Ambient temp sensor (stuck)">Ambient temp sensor (stuck)</Fault0xC570>
+         <Fault0xC571 Code="C571" Description="Ambient temp sensor (Performance/Rationality)">Ambient temp sensor (Performance/Rationality)</Fault0xC571>
+         <Fault0xC572 Code="C572" Description="Ambient temp sensor (low)">Ambient temp sensor (low)</Fault0xC572>
+         <Fault0xC573 Code="C573" Description="Ambient temp sensor (high)">Ambient temp sensor (high)</Fault0xC573>
+         <Fault0xC606 Code="C606" Description="Manifold Absolute Pressure Sensor Rationality / Barometric Pressure Out-of-Range Low">Manifold Absolute Pressure Sensor Rationality / Barometric Pressure Out-of-Range Low</Fault0xC606>
+         <Fault0xC607 Code="C607" Description="Manifold Absolute Pressure Sensor Low">Manifold Absolute Pressure Sensor Low</Fault0xC607>
+         <Fault0xC610 Code="C610" Description="Intake Air / Charge Temperature Sensor Stuck">Intake Air / Charge Temperature Sensor Stuck</Fault0xC610>
+         <Fault0xC611 Code="C611" Description="Intake Air / Charge Temperature Sensor Performance / Rationality">Intake Air / Charge Temperature Sensor Performance / Rationality</Fault0xC611>
+         <Fault0xC612 Code="C612" Description="Intake Air / Charge Temperature Sensor Low">Intake Air / Charge Temperature Sensor Low</Fault0xC612>
+         <Fault0xC613 Code="C613" Description="Intake Air / Charge Temperature Sensor High">Intake Air / Charge Temperature Sensor High</Fault0xC613>
+         <Fault0xC616 Code="C616" Description="Engine Coolant Temperature Sensor Performance / Rationality">Engine Coolant Temperature Sensor Performance / Rationality</Fault0xC616>
+         <Fault0xC617 Code="C617" Description="Engine Coolant Temperature Sensor Low">Engine Coolant Temperature Sensor Low</Fault0xC617>
+         <Fault0xC618 Code="C618" Description="Engine Coolant Temperature Sensor High">Engine Coolant Temperature Sensor High</Fault0xC618>
+         <Fault0xC621 Code="C621" Description="Throttle Position Sensor Performance / Rationality">Throttle Position Sensor Performance / Rationality</Fault0xC621>
+         <Fault0xC622 Code="C622" Description="Throttle Position Sensor Low / Throttle Position Sensor #1 Low">Throttle Position Sensor Low / Throttle Position Sensor #1 Low</Fault0xC622>
+         <Fault0xC623 Code="C623" Description="Throttle Position Sensor High / Throttle PositionSensor #1 High">Throttle Position Sensor High / Throttle PositionSensor #1 High</Fault0xC623>
+         <Fault0xC625 Code="C625" Description="Coolant Temp Not Reached For Closed-Loop Fuel Control">Coolant Temp Not Reached For Closed-Loop Fuel Control</Fault0xC625>
+         <Fault0xC628 Code="C628" Description="Cooling System Error / Thermostat Rationality">Cooling System Error / Thermostat Rationality</Fault0xC628>
+         <Fault0xC629 Code="C629" Description="Barometric Pressure Out-of-Range Low">Barometric Pressure Out-of-Range Low</Fault0xC629>
+         <Fault0xC630 Code="C630" Description="No Description Provided">No Description Provided</Fault0xC630>
+         <Fault0xC631 Code="C631" Description="O2 Sensor 1/1 Voltage Low">O2 Sensor 1/1 Voltage Low</Fault0xC631>
+         <Fault0xC632 Code="C632" Description="O2 Sensor 1/1 Voltage High">O2 Sensor 1/1 Voltage High</Fault0xC632>
+         <Fault0xC633 Code="C633" Description="O2 Sensor 1/1 Slow Response">O2 Sensor 1/1 Slow Response</Fault0xC633>
+         <Fault0xC635 Code="C635" Description="O2 Sensor 1/1 Heater Performance / Rationality">O2 Sensor 1/1 Heater Performance / Rationality</Fault0xC635>
+         <Fault0xC637 Code="C637" Description="O2 Sensor 1/2 Voltage Low">O2 Sensor 1/2 Voltage Low</Fault0xC637>
+         <Fault0xC638 Code="C638" Description="O2 Sensor 1/2 Voltage High">O2 Sensor 1/2 Voltage High</Fault0xC638>
+         <Fault0xC639 Code="C639" Description="O2 Sensor 1/2 Slow Response">O2 Sensor 1/2 Slow Response</Fault0xC639>
+         <Fault0xC641 Code="C641" Description="O2 Sensor 1/2 Heater Performance / Rationality">O2 Sensor 1/2 Heater Performance / Rationality</Fault0xC641>
+         <Fault0xC643 Code="C643" Description="O2 Sensor 1/3 Voltage Low">O2 Sensor 1/3 Voltage Low</Fault0xC643>
+         <Fault0xC644 Code="C644" Description="O2 Sensor 1/3 Voltage High">O2 Sensor 1/3 Voltage High</Fault0xC644>
+         <Fault0xC645 Code="C645" Description="O2 Sensor 1/3 Slow Response">O2 Sensor 1/3 Slow Response</Fault0xC645>
+         <Fault0xC647 Code="C647" Description="O2 Sensor 1/3 Heater Performance / Rationality">O2 Sensor 1/3 Heater Performance / Rationality</Fault0xC647>
+         <Fault0xC651 Code="C651" Description="O2 Sensor 2/1 Voltage Low">O2 Sensor 2/1 Voltage Low</Fault0xC651>
+         <Fault0xC652 Code="C652" Description="O2 Sensor 2/1 Voltage High">O2 Sensor 2/1 Voltage High</Fault0xC652>
+         <Fault0xC653 Code="C653" Description="O2 Sensor 2/1 Slow Response">O2 Sensor 2/1 Slow Response</Fault0xC653>
+         <Fault0xC655 Code="C655" Description="O2 Sensor 2/1 Heater Performance / Rationality">O2 Sensor 2/1 Heater Performance / Rationality</Fault0xC655>
+         <Fault0xC657 Code="C657" Description="O2 Sensor 2/2 Voltage Low">O2 Sensor 2/2 Voltage Low</Fault0xC657>
+         <Fault0xC658 Code="C658" Description="O2 Sensor 2/2 Voltage High">O2 Sensor 2/2 Voltage High</Fault0xC658>
+         <Fault0xC659 Code="C659" Description="O2 Sensor 2/2 Slow Response">O2 Sensor 2/2 Slow Response</Fault0xC659>
+         <Fault0xC661 Code="C661" Description="O2 Sensor 2/2 Heater Performance / Rationality">O2 Sensor 2/2 Heater Performance / Rationality</Fault0xC661>
+         <Fault0xC671 Code="C671" Description="Fuel System 1/1 Lean">Fuel System 1/1 Lean</Fault0xC671>
+         <Fault0xC672 Code="C672" Description="Fuel System 1/1 Rich">Fuel System 1/1 Rich</Fault0xC672>
+         <Fault0xC674 Code="C674" Description="Fuel System 2/1 Lean">Fuel System 2/1 Lean</Fault0xC674>
+         <Fault0xC675 Code="C675" Description="Fuel System 2/1 Rich">Fuel System 2/1 Rich</Fault0xC675>
+         <Fault0xC701 Code="C701" Description="Fuel Injector #1 Circuit / Open  or  Injector 12">Fuel Injector #1 Circuit / Open  or  Injector 12</Fault0xC701>
+         <Fault0xC702 Code="C702" Description="Fuel Injector #2 Circuit / Open  or  Injector 21">Fuel Injector #2 Circuit / Open  or  Injector 21</Fault0xC702>
+         <Fault0xC703 Code="C703" Description="Fuel Injector #3 Circuit / Open  or  Injector 11">Fuel Injector #3 Circuit / Open  or  Injector 11</Fault0xC703>
+         <Fault0xC704 Code="C704" Description="Fuel Injector #4 Circuit / Open  or  Injector 22">Fuel Injector #4 Circuit / Open  or  Injector 22</Fault0xC704>
+         <Fault0xC705 Code="C705" Description="Fuel Injector #5 Circuit">Fuel Injector #5 Circuit</Fault0xC705>
+         <Fault0xC706 Code="C706" Description="Fuel Injector #6 Circuit">Fuel Injector #6 Circuit</Fault0xC706>
+         <Fault0xC707 Code="C707" Description="Fuel Injector #7 Circuit">Fuel Injector #7 Circuit</Fault0xC707>
+         <Fault0xC708 Code="C708" Description="Fuel Injector #8 Circuit">Fuel Injector #8 Circuit</Fault0xC708>
+         <Fault0xC709 Code="C709" Description="Fuel Injector #9 Circuit">Fuel Injector #9 Circuit</Fault0xC709>
+         <Fault0xC710 Code="C710" Description="Fuel Injector #10 Circuit">Fuel Injector #10 Circuit</Fault0xC710>
+         <Fault0xC800 Code="C800" Description="Multiple Cylinder Misfire">Multiple Cylinder Misfire</Fault0xC800>
+         <Fault0xC801 Code="C801" Description="Cylinder #1 Misfire">Cylinder #1 Misfire</Fault0xC801>
+         <Fault0xC802 Code="C802" Description="Cylinder #2 Misfire">Cylinder #2 Misfire</Fault0xC802>
+         <Fault0xC803 Code="C803" Description="Cylinder #3 Misfire">Cylinder #3 Misfire</Fault0xC803>
+         <Fault0xC804 Code="C804" Description="Cylinder #4 Misfire">Cylinder #4 Misfire</Fault0xC804>
+         <Fault0xC805 Code="C805" Description="Cylinder #5 Misfire">Cylinder #5 Misfire</Fault0xC805>
+         <Fault0xC806 Code="C806" Description="Cylinder #6 Misfire">Cylinder #6 Misfire</Fault0xC806>
+         <Fault0xC807 Code="C807" Description="Cylinder #7 Misfire">Cylinder #7 Misfire</Fault0xC807>
+         <Fault0xC808 Code="C808" Description="Cylinder #8 Misfire">Cylinder #8 Misfire</Fault0xC808>
+         <Fault0xC809 Code="C809" Description="Cylinder #9 Misfire">Cylinder #9 Misfire</Fault0xC809>
+         <Fault0xC810 Code="C810" Description="Cylinder #10 Misfire">Cylinder #10 Misfire</Fault0xC810>
+         <Fault0xC815 Code="C815" Description="No Crank Sensor Learned">No Crank Sensor Learned</Fault0xC815>
+         <Fault0xC825 Code="C825" Description="Knock Sensor #1 Circuit">Knock Sensor #1 Circuit</Fault0xC825>
+         <Fault0xC830 Code="C830" Description="Knock Sensor #2 Circuit">Knock Sensor #2 Circuit</Fault0xC830>
+         <Fault0xC835 Code="C835" Description="Crankshaft Position Sensor Circuit">Crankshaft Position Sensor Circuit</Fault0xC835>
+         <Fault0xC839 Code="C839" Description="Crankshaft Position Sensor Circuit Intermittent">Crankshaft Position Sensor Circuit Intermittent</Fault0xC839>
+         <Fault0xC840 Code="C840" Description="Camshaft Position Sensor Circuit">Camshaft Position Sensor Circuit</Fault0xC840>
+         <Fault0xC844 Code="C844" Description="Camshaft Position Sensor Circuit Intermittent">Camshaft Position Sensor Circuit Intermittent</Fault0xC844>
+         <Fault0xC851 Code="C851" Description="Ignition Coil #1 Circuit">Ignition Coil #1 Circuit</Fault0xC851>
+         <Fault0xC852 Code="C852" Description="Ignition Coil #2 Circuit">Ignition Coil #2 Circuit</Fault0xC852>
+         <Fault0xC853 Code="C853" Description="Ignition Coil #3 Circuit">Ignition Coil #3 Circuit</Fault0xC853>
+         <Fault0xC854 Code="C854" Description="Ignition Coil #4 Circuit">Ignition Coil #4 Circuit</Fault0xC854>
+         <Fault0xC855 Code="C855" Description="Ignition Coil #5 Circuit">Ignition Coil #5 Circuit</Fault0xC855>
+         <Fault0xC856 Code="C856" Description="Ignition Coil #6 Circuit">Ignition Coil #6 Circuit</Fault0xC856>
+         <Fault0xC857 Code="C857" Description="Ignition Coil #7 Circuit">Ignition Coil #7 Circuit</Fault0xC857>
+         <Fault0xC858 Code="C858" Description="Ignition Coil #8 Circuit">Ignition Coil #8 Circuit</Fault0xC858>
+         <Fault0xC901 Code="C901" Description="EGR System Performance">EGR System Performance</Fault0xC901>
+         <Fault0xC903 Code="C903" Description="EGR Solenoid Circuit / Open">EGR Solenoid Circuit / Open</Fault0xC903>
+         <Fault0xC904 Code="C904" Description="EGR Position Sensor Performance / Rationality">EGR Position Sensor Performance / Rationality</Fault0xC904>
+         <Fault0xC905 Code="C905" Description="EGR Position Sensor Low">EGR Position Sensor Low</Fault0xC905>
+         <Fault0xC906 Code="C906" Description="EGR Position Sensor High">EGR Position Sensor High</Fault0xC906>
+         <Fault0xC920 Code="C920" Description="Catalyst 1/1 Efficiency">Catalyst 1/1 Efficiency</Fault0xC920>
+         <Fault0xC932 Code="C932" Description="Catalyst 2/1 Efficiency">Catalyst 2/1 Efficiency</Fault0xC932>
+         <Fault0xC940 Code="C940" Description="Natural Vacuum Leak Detection (NVLD) General Emission System Failure">Natural Vacuum Leak Detection (NVLD) General Emission System Failure</Fault0xC940>
+         <Fault0xC941 Code="C941" Description="Evap Purge System Performance">Evap Purge System Performance</Fault0xC941>
+         <Fault0xC942 Code="C942" Description="Evap System Small Leak">Evap System Small Leak</Fault0xC942>
+         <Fault0xC943 Code="C943" Description="Evap Purge Solenoid Circuit">Evap Purge Solenoid Circuit</Fault0xC943>
+         <Fault0xC952 Code="C952" Description="Natural Vacuum Leak Detection (NVLD) Pressure Switch Stuck Closed">Natural Vacuum Leak Detection (NVLD) Pressure Switch Stuck Closed</Fault0xC952>
+         <Fault0xC953 Code="C953" Description="Natural Vacuum Leak Detection (NVLD) Pressure Switch Stuck Open">Natural Vacuum Leak Detection (NVLD) Pressure Switch Stuck Open</Fault0xC953>
+         <Fault0xC955 Code="C955" Description="Evap System Gross Leak">Evap System Gross Leak</Fault0xC955>
+         <Fault0xC956 Code="C956" Description="Evap System Very Small Leak">Evap System Very Small Leak</Fault0xC956>
+         <Fault0xC961 Code="C961" Description="Fuel Level Sensor Performance / Rationality">Fuel Level Sensor Performance / Rationality</Fault0xC961>
+         <Fault0xC962 Code="C962" Description="Fuel Level Sensor Low">Fuel Level Sensor Low</Fault0xC962>
+         <Fault0xC963 Code="C963" Description="Fuel Level Sensor High">Fuel Level Sensor High</Fault0xC963>
+         <Fault0xC980 Code="C980" Description="Low Speed Fan Relay Circuit / Cooling Fan Control #1 Circuit">Low Speed Fan Relay Circuit / Cooling Fan Control #1 Circuit</Fault0xC980>
+         <Fault0xC981 Code="C981" Description="High Speed Fan Relay Circuit / Cooling Fan Control #2 Circuit">High Speed Fan Relay Circuit / Cooling Fan Control #2 Circuit</Fault0xC981>
+         <Fault0xC998 Code="C998" Description="Natural Vacuum Leak Detection (NVLD) Canister Vent Valve Solenoid Circuit Low">Natural Vacuum Leak Detection (NVLD) Canister Vent Valve Solenoid Circuit Low</Fault0xC998>
+         <Fault0xC999 Code="C999" Description="Natural Vacuum Leak Detection (NVLD) Canister Vent Valve Solenoid Circuit High">Natural Vacuum Leak Detection (NVLD) Canister Vent Valve Solenoid Circuit High</Fault0xC999>
+         <Fault0xCA01 Code="CA01" Description="Vehicle Speed Sensor Signal Performance / Rationality">Vehicle Speed Sensor Signal Performance / Rationality</Fault0xCA01>
+         <Fault0xCA08 Code="CA08" Description="Idle Air Control Motor Sense Circuit Low / Undercurrent">Idle Air Control Motor Sense Circuit Low / Undercurrent</Fault0xCA08>
+         <Fault0xCA09 Code="CA09" Description="Idle Air Control Motor Sense Circuit High / Overcurrent">Idle Air Control Motor Sense Circuit High / Overcurrent</Fault0xCA09>
+         <Fault0xCA11 Code="CA11" Description="Idle Air Control (IAC) Motor Circuits">Idle Air Control (IAC) Motor Circuits</Fault0xCA11>
+         <Fault0xCA13 Code="CA13" Description="Invalid SKIM Key">Invalid SKIM Key</Fault0xCA13>
+         <Fault0xCA16 Code="CA16" Description="Battery Temperature Sensor Low">Battery Temperature Sensor Low</Fault0xCA16>
+         <Fault0xCA17 Code="CA17" Description="Battery Temperature Sensor High">Battery Temperature Sensor High</Fault0xCA17>
+         <Fault0xCA19 Code="CA19" Description="Idle Speed Performance / Rationality">Idle Speed Performance / Rationality</Fault0xCA19>
+         <Fault0xCA22 Code="CA22" Description="Oil Pressure Sensor Low">Oil Pressure Sensor Low</Fault0xCA22>
+         <Fault0xCA23 Code="CA23" Description="Oil Pressure Sensor High">Oil Pressure Sensor High</Fault0xCA23>
+         <Fault0xCA32 Code="CA32" Description="A/C Pressure Sensor Low">A/C Pressure Sensor Low</Fault0xCA32>
+         <Fault0xCA33 Code="CA33" Description="A/C Pressure Sensor High">A/C Pressure Sensor High</Fault0xCA33>
+         <Fault0xCA51 Code="CA51" Description="Power Steering Switch Performance / Rationality">Power Steering Switch Performance / Rationality</Fault0xCA51>
+         <Fault0xCA62 Code="CA62" Description="Charging System / Battery Voltage Low">Charging System / Battery Voltage Low</Fault0xCA62>
+         <Fault0xCA63 Code="CA63" Description="Charging System / Battery Voltage High">Charging System / Battery Voltage High</Fault0xCA63>
+         <Fault0xCA79 Code="CA79" Description="Speed Control Multiplexed Switch Stuck / Rationality">Speed Control Multiplexed Switch Stuck / Rationality</Fault0xCA79>
+         <Fault0xCA80 Code="CA80" Description="Speed Control Multiplexed Switch Low">Speed Control Multiplexed Switch Low</Fault0xCA80>
+         <Fault0xCA81 Code="CA81" Description="Speed Control Multiplexed Switch High">Speed Control Multiplexed Switch High</Fault0xCA81>
+         <Fault0xCA82 Code="CA82" Description="Speed Control Vacuum Solenoid Circuit">Speed Control Vacuum Solenoid Circuit</Fault0xCA82>
+         <Fault0xCA86 Code="CA86" Description="Speed Control Vent Solenoid Circuit">Speed Control Vent Solenoid Circuit</Fault0xCA86>
+         <Fault0xCA94 Code="CA94" Description="Speed Control Servo Power Relay Circuit">Speed Control Servo Power Relay Circuit</Fault0xCA94>
+         <Fault0xCB00 Code="CB00" Description="Serial Peripheral Interface (SPI) / Serial Communication Link">Serial Peripheral Interface (SPI) / Serial Communication Link</Fault0xCB00>
+         <Fault0xCB01 Code="CB01" Description="Internal Memory Checksum Invalid">Internal Memory Checksum Invalid</Fault0xCB01>
+         <Fault0xCB15 Code="CB15" Description="Starter Relay Circuit">Starter Relay Circuit</Fault0xCB15>
+         <Fault0xCB22 Code="CB22" Description="Generator Field Circuit">Generator Field Circuit</Fault0xCB22>
+         <Fault0xCB27 Code="CB27" Description="Fuel Pump Relay Control Circuit">Fuel Pump Relay Control Circuit</Fault0xCB27>
+         <Fault0xCB30 Code="CB30" Description="VIN Not Programmed in PCM">VIN Not Programmed in PCM</Fault0xCB30>
+         <Fault0xCB32 Code="CB32" Description="Odometer Not Programmed in PCM">Odometer Not Programmed in PCM</Fault0xCB32>
+         <Fault0xCB33 Code="CB33" Description="SKIM Key Not Programmed in PCM">SKIM Key Not Programmed in PCM</Fault0xCB33>
+         <Fault0xCB45 Code="CB45" Description="A/C Clutch Relay Circuit">A/C Clutch Relay Circuit</Fault0xCB45>
+         <Fault0xCB60 Code="CB60" Description="Manifold Tuning Valve (MTV) Solenoid Circuit">Manifold Tuning Valve (MTV) Solenoid Circuit</Fault0xCB60>
+         <Fault0xCB85 Code="CB85" Description="Auto Shutdown Relay Circuit">Auto Shutdown Relay Circuit</Fault0xCB85>
+         <Fault0xCB88 Code="CB88" Description="PCM Main Relay Sense Circuit/Open or Auto Shutdown Relay Sense Circuit">PCM Main Relay Sense Circuit/Open or Auto Shutdown Relay Sense Circuit</Fault0xCB88>
+         <Fault0xCC00 Code="CC00" Description="Transmission Controller Fault (Watchdog circuit test / shutdown)">Transmission Controller Fault (Watchdog circuit test / shutdown)</Fault0xCC00>
+         <Fault0xCD33 Code="CD33" Description="Clutch Upstop Switch Performance / Rationality">Clutch Upstop Switch Performance / Rationality</Fault0xCD33>
+         <Fault0xCD50 Code="CD50" Description="Park/Neutral Switch Circuit Performance / Rationality">Park/Neutral Switch Circuit Performance / Rationality</Fault0xCD50>
+         <Fault0xD743 Code="D743" Description="Turbocharger Surge Valve Solenoid">Turbocharger Surge Valve Solenoid</Fault0xD743>
+         <Fault0xD615 Code="D615" Description="General Temperature Rationality">General Temperature Rationality</Fault0xD615>
+         <Fault0xDB02 Code="DB02" Description="PCM Not Programmed">PCM Not Programmed</Fault0xDB02>
+         <Fault0xDB03 Code="DB03" Description="PCM Internal Dual-Port RAM Communication Failure">PCM Internal Dual-Port RAM Communication Failure</Fault0xDB03>
+         <Fault0xDB04 Code="DB04" Description="PCM Internal Dual-Port RAM Read/Write Integrity Failure">PCM Internal Dual-Port RAM Read/Write Integrity Failure</Fault0xDB04>
+         <Fault0xDB07 Code="DB07" Description="PCM Internal Shutdown Timer Rationality">PCM Internal Shutdown Timer Rationality</Fault0xDB07>
+         <Fault0xDB34 Code="DB34" Description="Fuel Tank Capacity Not Programmed in PCM">Fuel Tank Capacity Not Programmed in PCM</Fault0xDB34>
+         <Fault0xDB82 Code="DB82" Description="Charging System Output Low">Charging System Output Low</Fault0xDB82>
+         <Fault0xDB86 Code="DB86" Description="No SKIM Bus Messages">No SKIM Bus Messages</Fault0xDB86>
+         <Fault0xDB87 Code="DB87" Description="No Cluster Bus Messages">No Cluster Bus Messages</Fault0xDB87>
+         <Fault0xDB95 Code="DB95" Description="No Body Bus Messages">No Body Bus Messages</Fault0xDB95>
+         <Fault0xDB96 Code="DB96" Description="EEPROM Memory Write Denied / Invalid">EEPROM Memory Write Denied / Invalid</Fault0xDB96>
+         <Fault0xDB97 Code="DB97" Description="EMR (SRI) Mileage Not Stored">EMR (SRI) Mileage Not Stored</Fault0xDB97>
+         <Fault0xDB98 Code="DB98" Description="No Transmission Bus Messages">No Transmission Bus Messages</Fault0xDB98>
+         <Fault0xDD51 Code="DD51" Description="Waste Gate Solenoid Ckt.">Waste Gate Solenoid Ckt.</Fault0xDD51>
+         <Fault0xDD52 Code="DD52" Description="Tip Voltage Low">Tip Voltage Low</Fault0xDD52>
+         <Fault0xDD53 Code="DD53" Description="Tip Voltage High">Tip Voltage High</Fault0xDD53>
+         <Fault0xDD54 Code="DD54" Description="Tip Baro (out of range)">Tip Baro (out of range)</Fault0xDD54>
+         <Fault0xE508 Code="E508" Description="Short Runner Valve (SRV) Solenoid Circuit">Short Runner Valve (SRV) Solenoid Circuit</Fault0xE508>
+         <Fault0xE802 Code="E802" Description="Ignition Coil #1 Secondary Circuit - Insufficient Ionization">Ignition Coil #1 Secondary Circuit - Insufficient Ionization</Fault0xE802>
+         <Fault0xE805 Code="E805" Description="Ignition Coil #2 Secondary Circuit - Insufficient Ionization">Ignition Coil #2 Secondary Circuit - Insufficient Ionization</Fault0xE805>
+         <Fault0xE808 Code="E808" Description="Ignition Coil #3 Secondary Circuit - Insufficient Ionization">Ignition Coil #3 Secondary Circuit - Insufficient Ionization</Fault0xE808>
+         <Fault0xE811 Code="E811" Description="Ignition Coil #4 Secondary Circuit - Insufficient Ionization">Ignition Coil #4 Secondary Circuit - Insufficient Ionization</Fault0xE811>
+         <Fault0xE814 Code="E814" Description="Ignition Coil #5 Secondary Circuit - Insufficient Ionization">Ignition Coil #5 Secondary Circuit - Insufficient Ionization</Fault0xE814>
+         <Fault0xE817 Code="E817" Description="Ignition Coil #6 Secondary Circuit - Insufficient Ionization">Ignition Coil #6 Secondary Circuit - Insufficient Ionization</Fault0xE817>
+         <Fault0xE820 Code="E820" Description="Ignition Coil #7 Secondary Circuit - Insufficient Ionization">Ignition Coil #7 Secondary Circuit - Insufficient Ionization</Fault0xE820>
+         <Fault0xE823 Code="E823" Description="Ignition Coil #8 Secondary Circuit - Insufficient Ionization ">Ignition Coil #8 Secondary Circuit - Insufficient Ionization </Fault0xE823>
+      </Faults>
+   </Setup>
+   <Objectives>
+      <EngineOffKeyOn>
+         <TestStep010>EngineOffKeyOn</TestStep010>
+      </EngineOffKeyOn>
+      <PreInitialize>
+         <TestStep020>DeterminePreviousPass</TestStep020>
+         <TestStep030>ResetAdaptiveMemory</TestStep030>
+         <TestStep040>ProgramGetragPPM</TestStep040>
+         <TestStep050>SetInPlantModeMileageLimit</TestStep050>
+      </PreInitialize>
+      <EngineOn>
+         <TestStep010>EngineOn</TestStep010>
+      </EngineOn>
+      <KeyOff>
+         <TestStep010>KeyOff</TestStep010>
+      </KeyOff>
+      <Initialize>
+         <TestStep020>DetermineModuleConfiguration</TestStep020>
+         <TestStep040>ProgramEOLStatus</TestStep040>
+         <TestStep050>EvaluateOdometerIntegrity</TestStep050>
+         <TestStep060>VerifyVINDigits</TestStep060>
+         <TestStep070>VerifyPartNumber</TestStep070>
+         <TestStep080>RecordTraceabilityCode</TestStep080>
+         <TestStep090>RecordInitialModuleFaults</TestStep090>
+         <TestStep100>VerifyModuleType</TestStep100>
+         <TestStep150>EvaluateAISPosition</TestStep150>
+         <TestStep110>MonitorMAPSensor</TestStep110>
+         <TestStep120>MonitorTPSVoltage</TestStep120>
+         <TestStep130>MonitorBrakeSwitch</TestStep130>
+         <TestStep140>MonitorParkNeutralSwitch</TestStep140>
+      </Initialize>
+      <ClutchTest>
+         <TestStep10>MonitorClutchSwitch</TestStep10>
+      </ClutchTest>
+      <TurboTest>
+         <TestStep10>TurboOverboostTest</TestStep10>
+      </TurboTest>
+      <CheckEnd>
+         <TestStep10>StopMonitorBrakeSwitch</TestStep10>
+         <TestStep20>StopMonitorTPSVoltage</TestStep20>
+         <TestStep30>StopMonitorParkNeutralSwitch</TestStep30>
+         <TestStep40>CheckIdleSpeed</TestStep40>
+         <TestStep50>RecordPCMSelfTestResults</TestStep50>
+         <TestStep60>RecordFinalModuleFaults</TestStep60>
+         <TestStep80>ValidateOverallTestResults</TestStep80>
+         <TestStep90>ClearEOLStatus</TestStep90>
+      </CheckEnd>
+      <FinishUp>
+         <TestStep10>FinishUp</TestStep10>
+      </FinishUp>
+      <TestStepCommandSecurityUnlock>
+         <TestStep1>CommandSecurityUnlock</TestStep1>
+      </TestStepCommandSecurityUnlock>
+      <TestStepResetAdaptiveMemory>
+         <TestStep1>ResetAdaptiveMemory</TestStep1>
+      </TestStepResetAdaptiveMemory>
+      <TestStepDetermineModuleConfiguration>
+         <TestStep1>DetermineModuleConfiguration</TestStep1>
+      </TestStepDetermineModuleConfiguration>
+      <TestStepDeterminePreviousPass>
+         <TestStep1>DeterminePreviousPass</TestStep1>
+      </TestStepDeterminePreviousPass>
+      <TestStepProgramEOLStatus>
+         <TestStep1>ProgramEOLStatus</TestStep1>
+      </TestStepProgramEOLStatus>
+      <TestStepEvaluateOdometerIntegrity>
+         <TestStep1>EvaluateOdometerIntegrity</TestStep1>
+      </TestStepEvaluateOdometerIntegrity>
+      <TestStepVerifyVINDigits>
+         <TestStep1>VerifyVINDigits</TestStep1>
+      </TestStepVerifyVINDigits>
+      <TestStepVerifyPartNumber>
+         <TestStep1>VerifyPartNumber</TestStep1>
+      </TestStepVerifyPartNumber>
+      <TestStepRecordTraceabilityCode>
+         <TestStep1>RecordTraceabilityCode</TestStep1>
+      </TestStepRecordTraceabilityCode>
+      <TestStepRecordInitialModuleFaults>
+         <TestStep1>RecordInitialModuleFaults</TestStep1>
+      </TestStepRecordInitialModuleFaults>
+      <TestStepVerifyModuleType>
+         <TestStep1>VerifyModuleType</TestStep1>
+      </TestStepVerifyModuleType>
+      <TestStepMonitorMAPSensor>
+         <TestStep1>MonitorMAPSensor</TestStep1>
+      </TestStepMonitorMAPSensor>
+      <TestStepMonitorTPSVoltage>
+         <TestStep1>MonitorTPSVoltage</TestStep1>
+      </TestStepMonitorTPSVoltage>
+      <TestStepMonitorBrakeSwitch>
+         <TestStep1>MonitorBrakeSwitch</TestStep1>
+      </TestStepMonitorBrakeSwitch>
+      <TestStepMonitorParkNeutralSwitch>
+         <TestStep1>MonitorParkNeutralSwitch</TestStep1>
+      </TestStepMonitorParkNeutralSwitch>
+      <TestStepEvaluateAISPosition>
+         <TestStep1>EvaluateAISPosition</TestStep1>
+      </TestStepEvaluateAISPosition>
+      <TestStepRecordPCMSelfTestResults>
+         <TestStep1>RecordPCMSelfTestResults</TestStep1>
+      </TestStepRecordPCMSelfTestResults>
+      <TestStepRecordFinalModuleFaults>
+         <TestStep1>RecordFinalModuleFaults</TestStep1>
+      </TestStepRecordFinalModuleFaults>
+      <TestStepRecordNonPCMTestResults>
+         <TestStep1>RecordNonPCMTestResults</TestStep1>
+      </TestStepRecordNonPCMTestResults>
+      <TestStepValidateOverallTestResults>
+         <TestStep1>ValidateOverallTestResults</TestStep1>
+      </TestStepValidateOverallTestResults>
+      <TestStepUpdateOverallRollTestStatus>
+         <TestStep1>UpdateOverallRollTestStatus</TestStep1>
+      </TestStepUpdateOverallRollTestStatus>
+      <TestStepCheckIdleSpeed>
+         <TestStep1>CheckIdleSpeed</TestStep1>
+      </TestStepCheckIdleSpeed>
+      <TestStepStopDeltaTPSTest>
+         <TestStep1>StopDeltaTPSTest</TestStep1>
+      </TestStepStopDeltaTPSTest>
+      <TestStepStopMonitorBrakeSwitch>
+         <TestStep1>StopMonitorBrakeSwitch</TestStep1>
+      </TestStepStopMonitorBrakeSwitch>
+      <TestStepStopMonitorParkNeutralSwitch>
+         <TestStep1>StopMonitorParkNeutralSwitch</TestStep1>
+      </TestStepStopMonitorParkNeutralSwitch>
+      <TestStepMonitorClutchSwitch>
+         <TestStep1>MonitorClutchSwitch</TestStep1>
+      </TestStepMonitorClutchSwitch>
+      <TestStepEngineOn>
+         <TestStep1>EngineOn</TestStep1>
+      </TestStepEngineOn>
+      <TestStepKeyOn>
+         <TestStep1>KeyOn</TestStep1>
+      </TestStepKeyOn>
+      <TestStepEngineOffKeyOn>
+         <TestStep1>EngineOffKeyOn</TestStep1>
+      </TestStepEngineOffKeyOn>
+      <TestStepProgramGetragPPM>
+         <TestStep1>ProgramGetragPPM</TestStep1>
+      </TestStepProgramGetragPPM>
+      <TestStepSetInPlantModeMileageLimit>
+         <TestStep1>SetInPlantModeMileageLimit</TestStep1>
+      </TestStepSetInPlantModeMileageLimit>
+   </Objectives>
+   <TestSteps>
+      <EngineOffKeyOn Result="" Timeout="30000" Description="Prompt the operator to turn the engine off with key on">Prompt the operator to turn the engine off with key on</EngineOffKeyOn>
+      <DeterminePreviousPass Result="" Timeout="10000" Description="Determine if the status of the module in reference to the test" Prompt1="Initialize" Prompt1Priority="0">Determine if the status of the module in reference to the test</DeterminePreviousPass>
+      <ResetAdaptiveMemory Result="" Timeout="30000" Description="Reset the modules adaptive memory" Retries="3" ResetDelay="500">Reset the modules adaptive memory</ResetAdaptiveMemory>
+      <ProgramGetragPPM Result="" Timeout="10000" Description="Program the broadcast pinion (pulses per mile) in the PCM">Program the broadcast pinion (pulses per mile) in the PCM</ProgramGetragPPM>
+      <SetInPlantModeMileageLimit Result="" Timeout="10000" Description="Set the in-plant mode milage limit">Set the in-plant mode milage limit</SetInPlantModeMileageLimit>
+      <EngineOn Result="" Timeout="30000" Description="Prompt operator to turn the engine on and validate">Prompt operator to turn the engine on and validate</EngineOn>
+      <CommandSecurityUnlock Result="" Timeout="10000" Description="Unlock the PCM module by entering secured access mode">Command the module into secure mode</CommandSecurityUnlock>
+      <DetermineModuleConfiguration Result="" Timeout="10000" Description="Read the PCM configuration" Prompt1="Initialize" Prompt1Priority="0">Read the PCM configuration</DetermineModuleConfiguration>
+      <ProgramEOLStatus Result="" Timeout="10000" Description="Set the module EOL status flags to testing">Program the EOL testing status in the module</ProgramEOLStatus>
+      <EvaluateOdometerIntegrity Result="" Timeout="10000" Description="Evaluate the integrity of the SRI mileage registers">Evaluate the SRI module registers</EvaluateOdometerIntegrity>
+      <VerifyVINDigits Result="" Timeout="10000" Description="Verify the VIN programmed in the module">Verify the VIN digits match broadcast</VerifyVINDigits>
+      <VerifyPartNumber Result="" Timeout="10000" Description="Validate PCM Part Number">Verify the PCM part number matches broadcast</VerifyPartNumber>
+      <RecordTraceabilityCode Result="" Timeout="10000" Description="Read the PCM Serial Number and report to broadcast">Record the Traceability Code that is in the module</RecordTraceabilityCode>
+      <RecordInitialModuleFaults Result="" Timeout="10000" Description="Record Initial Module Faults that are detected in the module">Record the initial module faults (pre dynamic test)</RecordInitialModuleFaults>
+      <VerifyModuleType Result="" Timeout="10000" Description="Verify the module type -vs- broadcast" NGCIControllerType="0x01" NGCIIControllerType="0x02" NGCIIIControllerType="0x03" NGCIIIManualControllerTypeI="0x0A" NGCIIIManualControllerTypeII="0x06" ValidateMarketType="false">Verify the PCM module type</VerifyModuleType>
+      <MonitorMAPSensor Result="" Timeout="10000" Description="Validate the MAP sensor is functional" Prompt1="RemoveFootFromAccelerator" RPMThreshhold="1300" TPSThreshhold="1.0">Validate the MAP sensor is functional</MonitorMAPSensor>
+      <MonitorTPSVoltage Result="" Timeout="10000" Description="Start the monitoring of the TPS voltage in the background">Start the monitoring of the TPS voltage in the background</MonitorTPSVoltage>
+      <MonitorBrakeSwitch Result="" Timeout="10000" Description="Start the monitoring of the brake switch">Start the monitoring of the brake switch status</MonitorBrakeSwitch>
+      <MonitorParkNeutralSwitch Result="" Timeout="10000" Description="Start the monitoring of the park neutral switch">Start the monitoring of the park neutral switch</MonitorParkNeutralSwitch>
+      <EvaluateAISPosition Result="" Timeout="10000" Description="Evaluate the Automatic Idle Speed Position" Prompt1="RemoveFootFromAccelerator" DeltaThrottle="0.6" MaxVehicleSpeed="1.5" ACStatusMask="0x01" NeutralMask="0x18" ThrottleConversionFactor="51.0" AISPosMin="250" AISPosScanDelay="500" AISPosActualDelay="200">Evaluate the Automatic Idle Speed Position</EvaluateAISPosition>
+      <MonitorClutchSwitch Result="" Timeout="10000" Description="Validate the Clutch switch is functional" Prompt2="PressAndReleaseClutch">Validate the Clutch switch is functional</MonitorClutchSwitch>
+      <TurboOverboostTest Result="" Timeout="30000" Description="Validate that the vehicle turbo overboost ran and passed" Prompt1="AccelerateModeratelyToTargetSpeed" Promp1Priority="0" DecelPrompt="CoastDownToTargetSpeed" ManualGearPrompt="ShiiftToThird" ManualGearPromptBox="2" ShiftPrompt="DoNotShift" ShiftPromptBox="2" ManualGearPromptTime="2000" DecelPromptBox="1" TurboRetries="3" TurboMinSpeed="30" TurboMaxSpeed="60" TurboTarget="50 60" TurboDecelMinSpeed="20" TurboDecelMaxSpeed="30" TurboDecelTarget="20 30" AccelTimout="10000" ReadPidTries="50">Validate that the vehicle turbo overboost ran and passed</TurboOverboostTest>
+      <StopMonitorBrakeSwitch Result="" Timeout="10000" Description="Stop the monitoring of the brake swich and return the status of validating both states">Stop the monitoring of the brake switch status and return the results of validating both states</StopMonitorBrakeSwitch>
+      <StopMonitorTPSVoltage Result="" Timeout="10000" Description="Stop the monitoring of TPS voltage in the background and collect the results">Stop the monitoring of TPS voltage in the background and collect the results</StopMonitorTPSVoltage>
+      <StopMonitorParkNeutralSwitch Result="" Timeout="10000" Description="Stop the monitoring of the park neutral swith and return the status of validating both states">Stop the monitoring of the park neutral swith and return the status of validating both states</StopMonitorParkNeutralSwitch>
+      <CheckIdleSpeed Result="" Timeout="10000" MinimumIdleRPM="600" MaximumIdleRPM="1100" MaximumTPSPercent="0.06" Description="Check the idle speed of the engine to determine if it is in the acceptable parameters" Prompt1="RemoveFootFromAccelerator" Prompt1Priority="0">Check the idle speed of the engine to determine if it is in the acceptable parameters</CheckIdleSpeed>
+      <RecordPCMSelfTestResults Result="" Timeout="10000" Description="Record the PCM self test resutls">Record the PCM self test resutls</RecordPCMSelfTestResults>
+      <RecordFinalModuleFaults Result="" Timeout="10000" Description="Record the final module faults (post dynamic test)">Record the final module faults (post dynamic test)</RecordFinalModuleFaults>
+      <RecordNonPCMTestResults Result="" Timeout="10000" Description="Record the final results of all non PCM tests in module">Record the final results of all non PCM tests in module</RecordNonPCMTestResults>
+      <ValidateOverallTestResults Result="" Timeout="10000" Description="Validate that all of the rolls test were performed and passed">Validate that all of the rolls test were performed and passed</ValidateOverallTestResults>
+      <ClearEOLStatus Result="" Timeout="10000" Description="Update the modules status registers at the end of the test and set OK to Ship if passed">Update the modules status registers at the end of the test and set OK to Ship if passed</ClearEOLStatus>
+      <FinishUp Result="" Timeout="10000" Description="Request the overall result from the component">Request the overall result from the component</FinishUp>
+      <KeyOn Result="" Timeout="20000" Description="Prompt operator to turn the key on">Prompt operator to turn the key on</KeyOn>
+      <KeyOff Result="" Timeout="20000" Description="Prompt the driver to turn the key off">Prompt operator to turn the key off</KeyOff>
+      <EngineOff Result="" Timeout="" Description=""/>
+   </TestSteps>
+   <UnusedTestSteps>
+      <CheckUplineRegisters Result="" Timeout="10000" Description="Check the vehicles upline registers for results">Check the status of the upline tests</CheckUplineRegisters>
+      <CheckOnlineRegisters Result="" Timeout="10000" Description="Check the online registers for results">Check the status of the online tests</CheckOnlineRegisters>
+      <NGCTestSetup Result="" Timeout="10000" Description="NGCTestSetup">Combination setup test step for NGC PCMs</NGCTestSetup>
+      <StartDeltaTPSTest Result="" Timeout="10000" Description="StartDeltaTPSTest"/>
+      <EndTesting Result="" Timeout="10000" Description="EndTesting" TPSParkNeutralPromptBox="1" TPSParkNeutralPrompt="ShiftToParkOrNeutral" EmissionsPromptBox="1" EmissionsPrompt="EmissionsTesting" TPSFlipPromptBox="1" TPSFlipPrompt="LiftFootPunchThrottle" BrakePromptBox="1" BrakePrompt="ApplyBrake" DebrakePromptBox="1" DebrakePrompt="FootOffBrake" ReversePromptBox="2" ReversePrompt="ApplyBrakeShiftToReverse" NeutralPromptBox="2" NeutralPrompt="ShiftToNeutral"/>
+      <SetResult Result="" Timeout="10000" Description="SetResult"/>
+      <CheckNeutralSeen Result="" Timeout="10000" Description="CheckNeutralSeen"/>
+      <StartBrakeSwitchTest Result="" Timeout="" Description=""/>
+      <StopBrakeSwitchTest Result="" Timeout="" Description=""/>
+      <StartParkNeutralTest Result="" Timeout="10000" Description="StartParkNeutralTest"/>
+      <StopParkNeutralTest Result="" Timeout="10000" Description="StopParkNeutralTest"/>
+      <DeltaTPSTest Result="" Timeout="10000" Description="Foreground delta TPS test">Foreground delta TPS test</DeltaTPSTest>
+      <StopDeltaTPSTest Result="" Timeout="10000" Description="StopDeltaTPSTest"/>
+      <UpdateOverallRollTestStatus Result="" Timeout="10000" Description="EEPROMUpdate">Update the overall roll test status in rolls</UpdateOverallRollTestStatus>
+      <EnableUtilityMode Result="" Timeout="10000" Description="EnableUtilityMode"/>
+      <SetNgcModuleOne Result="" Timeout="10000" Description="SetNgcModuleOne"/>
+      <DisplayEEPROM Result="" Timeout="10000" Description="DisplayEEPROM"/>
+      <ResetVehicleUplineTests Result="" Timeout="10000" Description="ResetVehicleUplineTests"/>
+      <ResetBEPFlags Result="" Timeout="10000" Description="ResetBEPFlags"/>
+      <SetNgcModuleTwo Result="" Timeout="10000" Description="SetNgcModuleTwo"/>
+      <TeleVINRead Result="" Timeout="10000" Description="TeleVINRead"/>
+      <EnableUtilityMode Result="" Timeout="10000" Description="Enable Utility Mode"/>
+      <SetNgcModuleOne Result="" Timeout="10000" Description="Set Module to NGC 1"/>
+      <SetNgcModuleTwo Result="" Timeout="10000" Description="Set Module to NGC 2"/>
+      <ResetVehicleUplineTests Result="" Timeout="10000" Description="Reset Vehicle Upline Tests"/>
+      <ResetBEPFlags Result="" Timeout="10000" Description="Reset BEP Flags"/>
+      <ClearDTCFaultCodes Result="" Timeout="10000" Description="Clear DTC Fault Codes"/>
+   </UnusedTestSteps>
+</EmissionsComponent>

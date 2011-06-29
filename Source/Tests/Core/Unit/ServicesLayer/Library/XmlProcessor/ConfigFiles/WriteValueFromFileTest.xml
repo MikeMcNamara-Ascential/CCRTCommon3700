@@ -1,0 +1,14 @@
+<BepXMLMssg>
+   <Testing Debug="Off">
+      <WriteValueFromFileTest Status="Run" ConfigFile="/Testing/ServicesLayer/BaseReuse/XmlProcessor/ConfigFiles/WellFormed.xml">
+         <Parameters>
+            <Parent>Parent</Parent>
+            <ParentValue>ParentValue</ParentValue>
+            <NewNodeName>NewNode</NewNodeName>
+            <TestValue>Test</TestValue>
+            <NextValue>Next</NextValue>
+            <Root>ROOT</Root>
+         </Parameters>
+      </WriteValueFromFileTest>
+   </Testing>
+</BepXMLMssg>

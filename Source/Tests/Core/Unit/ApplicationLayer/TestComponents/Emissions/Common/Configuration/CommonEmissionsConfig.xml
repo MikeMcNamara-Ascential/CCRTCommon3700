@@ -1,0 +1,15 @@
+<Emissions>
+  <Setup>
+    <FaultList>
+      <StartHydraulicCoolingFanFailed Code="0001" Description="StartHydraulicCoolingFan Failed"/>
+      <SoftwareFailure Code="0002" Description="Software Failure"/>
+      <StopHydraulicCoolingFanFailed Code="0003" Description="StopHydraulicCoolingFan Failed"/>
+      <CommunicationFailure Code="0004" Description="Communication Failed"/>
+    </FaultList>
+    <TestSteps>
+      <StartHydraulicCoolingFan Result="" Timeout="10000" Description="StartHydraulicCoolingFan Test Step">Start the hydraulic cooling fan</StartHydraulicCoolingFan>
+      <StopHydraulicCoolingFan Result="" Timeout="10000" Description="StopHydraulicCoolingFan Test Step">Stop the hydraulic cooling fan</StopHydraulicCoolingFan>
+      <DetermineModuleConfig Result="" Timeout="10000" Description="DetermineModuleConfig Test Step">Determine module configuration</DetermineModuleConfig>
+    </TestSteps>
+  </Setup>
+</Emissions>

@@ -1,0 +1,13 @@
+C:\Documents and Settings\jsemann\My Documents\Visual Studio 2010\Projects\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\jsemann\My Documents\Visual Studio 2010\Projects\J2534ChannelLibrary\J2534ChannelLibrary\bin\Debug\J2534ChannelLibrary.dll
+C:\Documents and Settings\jsemann\My Documents\Visual Studio 2010\Projects\J2534ChannelLibrary\J2534ChannelLibrary\bin\Debug\J2534ChannelLibrary.pdb
+C:\Documents and Settings\jsemann\My Documents\Visual Studio 2010\Projects\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\J2534ChannelLibrary.dll
+C:\Documents and Settings\jsemann\My Documents\Visual Studio 2010\Projects\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\J2534ChannelLibrary.pdb
+E:\Projects\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\J2534ChannelLibrary.dll
+E:\Projects\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\J2534ChannelLibrary.pdb
+E:\Projects\Ccrt2\Library\J2534ChannelLibrary.dll
+E:\Projects\Ccrt2\Library\J2534ChannelLibrary.pdb
+E:\Projects\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\J2534ChannelLibrary.Properties.Resources.resources
+E:\Projects\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\GenerateResource.read.1.tlog
+E:\Projects\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\GenerateResource.write.1.tlog

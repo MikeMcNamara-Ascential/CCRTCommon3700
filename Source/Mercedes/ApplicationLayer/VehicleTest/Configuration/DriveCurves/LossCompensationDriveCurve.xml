@@ -1,0 +1,52 @@
+<LossCompensationDriveCurve Description="Drive Curve For The Loss Compensation Test" TestType="CommandSequence">
+   <Components Debug="Off">
+      <LossCompensation>
+         <ComponentName>LossCompensationTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>LossCompensation.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/LossCompensation/</ConfigPath>
+         <DebugLevel>0</DebugLevel>
+      </LossCompensation>
+      <Machine>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <!--ConfigFile>LCMachineComponent.xml</ConfigFile-->
+         <ConfigFile>MachineComponent.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <DebugLevel>0</DebugLevel>
+      </Machine>
+   </Components>
+   <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="On">
+      <TestPhase10 Description="Loss Compensation Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Initialize the LossCompensation Component" Result="" Timeout="" Component="LossCompensation">
+               <Initialize/>
+            </Objective0>
+            <Objective1 Description="Enable motors for test" Result="" Timeout="" Component="Machine">
+               <LCEnableElectricMotors/>
+            </Objective1>
+         </ForegroundObjectives>
+      </TestPhase10>
+      <TestPhase20 Description="Perform the LossCompensation test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="LossCompensation">
+               <PerformTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase20>
+      <TestPhase30 Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Command the rollers to stop on and electric machine" Result="" Timeout="" Component="LossCompensation">
+               <QuickStop/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase30>
+      <TestPhase40 Description="Perform the LossCompensation finish-up" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="LossCompensation">
+               <Finishup/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase40>
+   </Test>
+</LossCompensationDriveCurve>

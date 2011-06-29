@@ -1,0 +1,11 @@
+<SelectionTable Description="Tesla drive curve selection table">
+   <Vehicle0 DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
+      <BrakeType>Teves Abs</BrakeType>
+   </Vehicle0>
+   <Vehicle1 DriveCurve="/Configuration/VehicleTest/DriveCurves/SedanDriveCurve.xml">
+      <BrakeType>Bosch Abs</BrakeType>
+   </Vehicle1>
+   <Vehicle2 DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+      <BrakeType>Base Brake</BrakeType>
+   </Vehicle2>
+</SelectionTable>

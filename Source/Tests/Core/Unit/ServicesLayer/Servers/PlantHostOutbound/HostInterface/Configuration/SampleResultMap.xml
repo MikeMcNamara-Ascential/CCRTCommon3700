@@ -1,0 +1,37 @@
+<BasePFSRecord>
+   <Field00000 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" ExcludeIfNotTested="No">VIN</Field00000>
+   <Field00005 Type="Value" Format="%-6.6s" Length="6" DataType="String" ExcludeIfNotTested="No">Date</Field00005>
+   <Field00010 Type="Value" Format="%-4.4s" Length="4" DataType="String" ExcludeIfNotTested="No">Time</Field00010>
+   <Field00015 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">EmissionsCollectTraceData</Field00015>
+   <Field00020 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">TransmissionCollectTraceData</Field00020>
+   <Field00025 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">AirbagCollectTraceData</Field00025>
+   <Field00030 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">ClusterCollectTraceData</Field00030>
+   <Field00035 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">RadioCollectTraceData</Field00035>
+   <Field00040 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">BrakeCollectTraceData</Field00040>
+   <Field00045 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">SKIMCollectTraceData</Field00045>
+   <Field00050 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">TansferCaseCollectTraceData</Field00050>
+   <Field00055 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">TirePressureMonitorCollectTraceData</Field00055>
+   <Field00060 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14.14s" Length="14" DataType="String" ExcludeIfNotTested="Yes">SuspensionCollectTraceData</Field00060>
+   <Field00065 Type="Result" ExcludeIfNotTested="No">OverallTest</Field00065>
+   <Field00070 Type="Result" ExcludeIfNotTested="No">EmissionsOverallTest</Field00070>
+   <Field00075 Type="Detail" DetailNode="EngineRPM" Format="%04d" DataType="Integer" ExcludeIfNotTested="No">EmissionsCheckIdleSpeed</Field00075>
+   <Field00080 Type="Detail" DetailNode="DriverNumber" Format="%7.7s" DataType="String" ExcludeIfNotTested="No">MachineDriverNumber</Field00080>
+   <Field00085 Type="Detail" DetailNode="EGRValue" Format="%03d" DataType="Integer" ExcludeIfNotTested="No">EmissionsEGRTest</Field00085>
+   <Field00090 Type="Detail" DetailNode="DeltaAISPosition" Format="%02d" DataType="Integer" ExcludeIfNotTested="No">EmissionsEvaluateAISPosition</Field00090>
+   <Field00095 Type="Detail" DetailNode="MisfireCount" Format="%02X" DataType="Integer" ExcludeIfNotTested="No">EmissionsMisfireOnline</Field00095>
+   <Field00100 Type="Result" ExcludeIfNotTested="No">TransmissionOverallTest</Field00100>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeOverallTest</Field00105>
+   <Field00110 ExcludeIfNotTested="No" Type="Result">SpeedControlOverallTest</Field00110>
+   <Field00115 ExcludeIfNotTested="No" Type="Result">TransferCaseOverallTest</Field00115>
+   <Field00120 ExcludeIfNotTested="No" Type="Result">DaytimeRunningLampsOverallTest</Field00120>
+   <Field00125 ExcludeIfNotTested="No" Type="Result">AxleOverallTest</Field00125>
+   <Field00130 ExcludeIfNotTested="No" Type="Result">PowerSteeringOverallTest</Field00130>
+   <Field00135 ExcludeIfNotTested="No" Type="Result">HighSpeedChimeOverallTest</Field00135>
+   <Field00140 ExcludeIfNotTested="No" Type="Result">SKIMOverallTest</Field00140>
+   <Field00145 ExcludeIfNotTested="No" Type="Result">AirbagOverallTest</Field00145>
+   <Field00150 ExcludeIfNotTested="No" Type="Result">ClusterOverallTest</Field00150>
+   <Field00155 ExcludeIfNotTested="No" Type="Result">RemoteKeylessEntryOverallTest</Field00155>
+   <Field00160 ExcludeIfNotTested="No" Type="Result">TPMOverallTest</Field00160>
+   <Field00165 ExcludeIfNotTested="No" Type="Result">MarketTypeOverallTest</Field00165>
+   <Field00170 ExcludeIfNotTested="No" Type="Result">SuspensionOverallTest</Field00170>
+</BasePFSRecord>

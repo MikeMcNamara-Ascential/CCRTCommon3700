@@ -1,0 +1,4 @@
+SendCmd -p50,20 -nlogport/ISOK 
+SendCmd -p50,20 -nlogport/SCI2
+SendCmd -p50,20 -nlogport/AvtJ2190
+

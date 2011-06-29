@@ -1,0 +1,153 @@
+<SpeedControlConfig>
+    <Setup>
+        <Name>SpeedControl</Name>
+        <Debug>Off</Debug>
+        <DebugLevel>0</DebugLevel>
+        <ProcessPriority>11</ProcessPriority>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/SpeedControl</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Debug>Off</Debug>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+            <Status>Enabled</Status>
+            <ProcessName>SpeedControl</ProcessName>
+            <AdditionalLogFile>/Components/SpeedControl.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <DriveAxle/>
+                <Zerospeed/>
+                <CableConnect/>
+            </SubscribeTags>
+        </TagList>
+        <DataTags>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <FailButton>NoPB</FailButton>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <PassButton>YesPB</PassButton>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <Rear>Rear</Rear>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <!--
+            <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+            <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+            <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+            <RightRearSpeed>RRSpeed</RightRearSpeed>
+            <SpeedControl>SpeedControl</SpeedControl>
+            <SpeedRange>SpeedRange</SpeedRange>
+            -->
+        </DataTags>
+        <Parameters>
+            <CheckForClosedThrottle>True</CheckForClosedThrottle>
+            <DelayModuleInitialization>True</DelayModuleInitialization>
+            <DeltaSpeedCheckDelay Units="ms">150</DeltaSpeedCheckDelay>
+            <DeveloperTest>False</DeveloperTest>
+            <ICMName>mgr/ICM</ICMName>
+            <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+            <NoModuleComms>True</NoModuleComms>
+            <OverallResultPrompt>SpeedControlOverallResult</OverallResultPrompt>
+            <SkipOnTestResult>True</SkipOnTestResult>
+         <SpeedControlDeltaSpeed Units="mph">3.0</SpeedControlDeltaSpeed>
+         <SpeedControlMaxSpeed Units="mph">45</SpeedControlMaxSpeed>
+         <SpeedControlMinSpeed Units="mph">35</SpeedControlMinSpeed>
+            <SpeedIncreaseSamples>50</SpeedIncreaseSamples>
+            <SpeedRangeCheckDelay Units="ms">500</SpeedRangeCheckDelay>
+            <StableSpeedMaxVariation Units="mph">40.0</StableSpeedMaxVariation>
+            <StableSpeedMinVariation Units="mph">20.0</StableSpeedMinVariation>
+            <StableSpeedPoints>10</StableSpeedPoints>
+            <StableSpeedSampleDelay Units="ms">500</StableSpeedSampleDelay>
+            <StableSpeedVariation Units="mph">5.0</StableSpeedVariation>
+            <UseModuleSpeed>False</UseModuleSpeed>
+            <UsePlcResultButtons>True</UsePlcResultButtons>
+            <!--
+            <CheckSpeedAgainstLimit>1</CheckSpeedAgainstLimit>
+            <MinimumSpeedOverLimit>2.0</MinimumSpeedOverLimit>
+            <ReadSpeedLimitFromModule>1</ReadSpeedLimitFromModule>
+            <SpeedControlModeCheckDelay>200</SpeedControlModeCheckDelay>
+            <SpeedLimiterEngageDelay>500</SpeedLimiterEngageDelay>
+            <SpeedLimiterRange>50 60</SpeedLimiterRange>
+            <SpeedLimiterSpeedLimit>50.0</SpeedLimiterSpeedLimit>
+            <TapSpeedChangeMinSpeedChange>3.0</TapSpeedChangeMinSpeedChange>
+            -->
+        </Parameters>
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <AccelToSpeedLimiter PromptBox="1" Priority="0">SpeedControlAccelToSpeedLimiter</AccelToSpeedLimiter>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+            <CancelPrompt PromptBox="1" Priority="0">SpeedControlCancel</CancelPrompt>
+            <CheckStableSpeed PromptBox="1" Priority="0">CheckForStableSpeed</CheckStableSpeed>
+            <DisengageSpeedLimiter PromptBox="1" Priority="0">SpeedControlDisengageSpeedLimiter</DisengageSpeedLimiter>
+            <EngageSpeedLimiter PromptBox="1" Priority="0">SpeedControlEngageSpeedLimiter</EngageSpeedLimiter>
+            <EngineRunning PromptBox="1" Priority="0">StartVehicle</EngineRunning>
+            <IgnitionOn PromptBox="1" Priority="0">KeyOn</IgnitionOn>
+            <MaintainSpeed PromptBox="1" PromptPriority="0">MaintainSpeed</MaintainSpeed>
+            <PressClutchPrompt PromptBox="1" Priority="0">SpeedControlClutch</PressClutchPrompt>
+            <PressFailPrompt PromptBox="2" Priority="0">SpeedControlPressFail</PressFailPrompt>
+            <PressResumePrompt PromptBox="1" Priority="0">SpeedControlResume</PressResumePrompt>
+            <PressTapDownButton PromptBox="1" Priority="0">SpeedControlTapDown</PressTapDownButton>
+            <PressTapUpButton PromptBox="1" Priority="0">SpeedControlTapUp</PressTapUpButton>
+            <RemoveFootPrompt PromptBox="2" Priority="0">RemoveFootFromAccelerator</RemoveFootPrompt>
+            <SetPrompt PromptBox="1" Priority="0">SpeedControlSet</SetPrompt>
+         <SpeedControlOff PromptBox="2" Priority="0" Duration="3000">SpeedControlOff</SpeedControlOff>
+         <SpeedControlOn PromptBox="2" Priority="0" Duration="0">SpeedControlOn</SpeedControlOn>
+            <SpeedControlOverallResult PromptBox="1" Priority="0">SpeedControlOperatorResult</SpeedControlOverallResult>
+            <TapBrakePrompt PromptBox="1" Priority="0">SpeedControlTapBrakes</TapBrakePrompt>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+        </Prompts>
+      <FaultList>/Configuration/Components/SpeedControl/SpeedControlFaults.xml</FaultList>
+        <TestDomain>Foreground</TestDomain>
+    </Setup>
+    <Objectives>
+        <SpeedControlTest>
+            <TestStep00>CheckOnEnable</TestStep00>
+            <TestStep03>CheckSetEngagement</TestStep03>
+            <TestStep05>CheckBrakeCutOut</TestStep05>
+            <TestStep10>CheckResumeEngagement</TestStep10>
+            <TestStep15>CheckOffDisable</TestStep15>
+            <TestStep20>OperatorResult</TestStep20>
+            <TestStep25>FinishUp</TestStep25>
+        </SpeedControlTest>
+    </Objectives>
+    <TestSteps>
+        <CheckOnEnable Result="" Timeout="10000" Description="Prompt operator to enable speed control"/>
+        <CheckOffDisable Result="" Timeout="10000" Description="Verify the Off switch and functionality"/>
+        <CheckBrakeCutOut Result="" Timeout="40000" Description="Verify cruise cuts out when the brake pedal is tapped"/>
+        <CheckResumeEngagement Result="" Timeout="25000" Description="Verify the Resume button and functionality" ScanDelay="100"/>
+        <CheckSetEngagement Result="" Timeout="60000" Description="Verify the Set button and functionality" ScanDelay="150"/>
+        <FinishUp Result="" Timeout="3000" Description="Finish testing and update results in the module"/>
+        <OperatorResult Result="" Timeout="5000" Description="Operator input speed control result" ScanDelay="250"/>
+    </TestSteps>
+</SpeedControlConfig>

@@ -1,0 +1,1241 @@
+€12/13/10 15:23:43.429 (1) mgr/ICM                    Activated additional log [/home/CCRT/Rewrite/Logs/Servers/IcmMgr.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:43.429 (1) mgr/ICM                    BepComponent::Initialize()
+€
+€12/13/10 15:23:43.431 (1) mgr/ICM                    Process mgr/ICM running at priority 10
+€
+€12/13/10 15:23:43.431 (1) mgr/ICM                    Updated process mgr/ICM running at priority 10
+€
+€12/13/10 15:23:43.433 (1) mgr/ICM                    BepComponent::Initialize(<IcmConfig>
+   <DataMap>
+      <Acceleration channelIndex="6" portDir="IN"/>
+      <Count channelIndex="9" portDir="OUT"/>
+      <Distance channelIndex="3" portDir="IN"/>
+      <Force channelIndex="7" portDir="IN"/>
+      <Frequency channelIndex="4" portDir="IN"/>
+      <KAccel channelIndex="1" portDir="OUT"/>
+      <KForce channelIndex="2" portDir="OUT"/>
+      <KSpeed channelIndex="0" portDir="OUT"/>
+      <Loss channelIndex="8" portDir="OUT"/>
+      <Speed channelIndex="5" portDir="IN"/>
+   </DataMap>   <Setup>
+      <DataLogFiles>
+         <Acceleration link="/TestResults/Machine/BrakeForceData/Acceleration.dat" name="/TestResults/Machine/BrakeForceData/Acceleration.log" status="Disabled"/>
+         <BrakeForce link="/TestResults/Machine/BrakeForceData/BrakeForceTrace.dat" name="/TestResults/Machine/BrakeForceData/BrakeForce.log" status="Enabled"/>
+         <Distance link="/TestResults/Machine/BrakeForceData/Distance.dat" name="/TestResults/Machine/BrakeForceData/Distance.log" s€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    Exit ResManagerBase::Initialize
+€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    Enter ResManagerMt::ThreadPoolInit()
+€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    Exit ResManagerMt::ThreadPoolInit(), thread Priority = 35
+€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    Exit ResManagerMt::Initialize()
+€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    Enter IpIcmMgr::ReadDataMap()
+€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    	TAG                 	CHNL	BIT	LVL	DIR	BRD
+€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    	*LFAcceleration      	0	6	1	1	0
+€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    	*LRAcceleration      	2	6	1	1	0
+€
+€12/13/10 15:23:43.434 (1) mgr/ICM                    	*LTAcceleration      	0	6	1	1	1
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RFAcceleration      	1	6	1	1	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RRAcceleration      	3	6	1	1	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RTAcceleration      	1	6	1	1	1
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*LFCount             	0	9	1	2	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*LRCount             	2	9	1	2	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*LTCount             	0	9	1	2	1
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RFCount             	1	9	1	2	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RRCount             	3	9	1	2	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RTCount             	1	9	1	2	1
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*LFDistance          	0	3	1	1	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*LRDistance          	2	3	1	1	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*LTDistance          	0	3	1	1	1
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RFDistance          	1	3	1	1	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RRDistance          	3	3	1	1	0
+€
+€12/13/10 15:23:43.435 (1) mgr/ICM                    	*RTDistance          	1	3	1	1	1
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*LFForce             	0	7	1	1	0
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*LRForce             	2	7	1	1	0
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*LTForce             	0	7	1	1	1
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*RFForce             	1	7	1	1	0
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*RRForce             	3	7	1	1	0
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*RTForce             	1	7	1	1	1
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*LFFrequency         	0	4	1	1	0
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*LRFrequency         	2	4	1	1	0
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*LTFrequency         	0	4	1	1	1
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*RFFrequency         	1	4	1	1	0
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*RRFrequency         	3	4	1	1	0
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*RTFrequency         	1	4	1	1	1
+€
+€12/13/10 15:23:43.436 (1) mgr/ICM                    	*LFKAccel            	0	1	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*LRKAccel            	2	1	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*LTKAccel            	0	1	1	2	1
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*RFKAccel            	1	1	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*RRKAccel            	3	1	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*RTKAccel            	1	1	1	2	1
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*LFKForce            	0	2	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*LRKForce            	2	2	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*LTKForce            	0	2	1	2	1
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*RFKForce            	1	2	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*RRKForce            	3	2	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*RTKForce            	1	2	1	2	1
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*LFKSpeed            	0	0	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*LRKSpeed            	2	0	1	2	0
+€
+€12/13/10 15:23:43.437 (1) mgr/ICM                    	*LTKSpeed            	0	0	1	2	1
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RFKSpeed            	1	0	1	2	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RRKSpeed            	3	0	1	2	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RTKSpeed            	1	0	1	2	1
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*LFLoss              	0	8	1	2	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*LRLoss              	2	8	1	2	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*LTLoss              	0	8	1	2	1
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RFLoss              	1	8	1	2	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RRLoss              	3	8	1	2	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RTLoss              	1	8	1	2	1
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*LFSpeed             	0	5	1	1	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*LRSpeed             	2	5	1	1	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*LTSpeed             	0	5	1	1	1
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RFSpeed             	1	5	1	1	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RRSpeed             	3	5	1	1	0
+€
+€12/13/10 15:23:43.438 (1) mgr/ICM                    	*RTSpeed             	1	5	1	1	1
+€
+€12/13/10 15:23:43.439 (1) mgr/ICM                    Exit IpIcmMgr::ReadDataMap()
+€
+€12/13/10 15:23:43.439 (1) mgr/ICM                    Exit ResManagerXml::Initialize
+€
+€12/13/10 15:23:43.439 (1) mgr/ICM                    Enter IpIcmMgr::LoadMachineLosses()
+€
+€12/13/10 15:23:43.439 (1) mgr/ICM                    	Error parsing machine loss data file /home/CCRT/Rewrite//Configuration/Servers/MachineLosses.xml: File does not exist: /home/CCRT/Rewrite//Configuration/Servers/MachineLosses.xml - No such file or directory
+€
+€12/13/10 15:23:43.439 (1) mgr/ICM                    Exit IpIcmMgr::LoadMachineLosses()
+€
+€12/13/10 15:23:43.439 (1) mgr/ICM                    Exit IpIcmMgr::Initialize()
+€
+€12/13/10 15:23:43.439 (1) mgr/ICM                    Exit ResManagerBase::ReadConfigFile
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    Enter ResManagerBase::InitHandlers
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    Exit ResManagerBase::InitHandlers
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    Exit ResManagerBase::InitManager
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    	Data logs contain 0 floats
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    Enter IpIcmMgr::PathAttach( Icm)
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    Enter IpIcmMgr::AttachInstPaths( Icm)
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    Exit IpIcmMgr::AttachInstPaths( Icm)
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    Enter IpIcmMgr::AttachArrayPaths( Icm)
+€
+€12/13/10 15:23:43.440 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( ArrayDistance)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( ArrayDistance)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Path ArrayDistance adopted as device # 0, inode 611
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( ArraySpeed)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( ArraySpeed)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Path ArraySpeed adopted as device # 1, inode 612
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( ArrayAccel)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( ArrayAccel)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Path ArrayAccel adopted as device # 2, inode 613
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( ArrayForce)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( ArrayForce)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Path ArrayForce adopted as device # 3, inode 614
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( ArrayFrequency)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( ArrayFrequency)
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Path ArrayFrequency adopted as device # 4, inode 615
+€
+€12/13/10 15:23:43.441 (1) mgr/ICM                    Exit IpIcmMgr::AttachArrayPaths( Icm)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Enter IpIcmMgr::AttachBlockPaths( Icm)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( Icm/Block/Speed)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( Icm/Block/Speed)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Path Icm/Block/Speed adopted as device # 5, inode 616
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( Icm/Block/Acceleration)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( Icm/Block/Acceleration)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Path Icm/Block/Acceleration adopted as device # 6, inode 617
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( Icm/Block/Force)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( Icm/Block/Force)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Path Icm/Block/Force adopted as device # 7, inode 618
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( Icm/Block/Loss)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( Icm/Block/Loss)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Path Icm/Block/Loss adopted as device # 8, inode 619
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( Icm/Block/PulseCount)
+€
+€12/13/10 15:23:43.442 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( Icm/Block/PulseCount)
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Path Icm/Block/PulseCount adopted as device # 9, inode 620
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Enter ResManagerBase::PathAttach( Icm/Block/Drag)
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Exit ResManagerBase::PathAttach( Icm/Block/Drag)
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Path Icm/Block/Drag adopted as device # 10, inode 621
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Exit IpIcmMgr::AttachBlockPaths( Icm)
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Exit IpIcmMgr::PathAttach( Icm)
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Enter ResManagerBase::RegisterManager
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Enter IpIcmMgr::AttachIoPulses()
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    	Attaching pulse code 50 to I/O channel
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    	Attaching pulse code 51 to I/O channel
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Exit IpIcmMgr::AttachIoPulses()
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    	m_mssgCoid = 1073741839
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Exit ResManagerBase::RegisterManager
+€
+€12/13/10 15:23:43.443 (1) mgr/ICM                    Exit IpIcmMgr::InitManager()
+€
+€12/13/10 15:23:43.443 (2) mgr/ICM                    Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.444 (2) mgr/ICM                    Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.444 (2) mgr/ICM                    Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.444 (2) mgr/ICM                    Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.444 (2) mgr/ICM                    Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.444 (2) mgr/ICM                    CommObj object initialized
+€
+€12/13/10 15:23:43.444 (2) mgr/ICM                    Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.444 (2) mgr/ICM                    Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.444 (3) mgr/ICM                    Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.444 (3) mgr/ICM                    Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.444 (3) mgr/ICM                    Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.444 (3) mgr/ICM                    Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.444 (3) mgr/ICM                    Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.444 (3) mgr/ICM                    CommObj object initialized
+€
+€12/13/10 15:23:43.444 (3) mgr/ICM                    Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.444 (3) mgr/ICM                    Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.444 (4) mgr/ICM                    Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.445 (5) mgr/ICM                    Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.445 (4) mgr/ICM                    Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.445 (4) mgr/ICM                    Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.445 (6) mgr/ICM                    Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.445 (4) mgr/ICM                    Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.445 (5) mgr/ICM                    Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.445 (7) mgr/ICM                    Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.445 (4) mgr/ICM                    Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.445 (6) mgr/ICM                    Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.445 (5) mgr/ICM                    Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (4) mgr/ICM                    CommObj object initialized
+€
+€12/13/10 15:23:43.445 (8) mgr/ICM                    Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.446 (9) mgr/ICM                    Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.445 (7) mgr/ICM                    Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (4) mgr/ICM                    Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (8) mgr/ICM                    Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (6) mgr/ICM                    Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (5) mgr/ICM                    Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (11) mgr/ICM                   Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.446 (9) mgr/ICM                    Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (8) mgr/ICM                    Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (6) mgr/ICM                    Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (5) mgr/ICM                    Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.447 (11) mgr/ICM                   Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (7) mgr/ICM                    Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.446 (4) mgr/ICM                    Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.446 (10) mgr/ICM                   Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.447 (5) mgr/ICM                    CommObj object initialized
+€
+€12/13/10 15:23:43.447 (11) mgr/ICM                   Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.447 (7) mgr/ICM                    Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.447 (10) mgr/ICM                   Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.447 (5) mgr/ICM                    Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.447 (11) mgr/ICM                   Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.447 (7) mgr/ICM                    Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.447 (10) mgr/ICM                   Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.447 (8) mgr/ICM                    Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.447 (6) mgr/ICM                    Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.447 (9) mgr/ICM                    Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.447 (10) mgr/ICM                   Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.448 (8) mgr/ICM                    Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.448 (6) mgr/ICM                    CommObj object initialized
+€
+€12/13/10 15:23:43.448 (9) mgr/ICM                    Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:43.448 (10) mgr/ICM                   Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.448 (8) mgr/ICM                    CommObj object initialized
+€
+€12/13/10 15:23:43.447 (7) mgr/ICM                    CommObj object initialized
+€
+€12/13/10 15:23:43.447 (5) mgr/ICM                    Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.447 (11) mgr/ICM                   Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.448 (10) mgr/ICM                   CommObj object initialized
+€
+€12/13/10 15:23:43.448 (6) mgr/ICM                    Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.448 (9) mgr/ICM                    Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:43.448 (8) mgr/ICM                    Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.448 (7) mgr/ICM                    Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.448 (11) mgr/ICM                   CommObj object initialized
+€
+€12/13/10 15:23:43.448 (10) mgr/ICM                   Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.448 (6) mgr/ICM                    Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.448 (9) mgr/ICM                    CommObj object initialized
+€
+€12/13/10 15:23:43.449 (11) mgr/ICM                   Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.449 (10) mgr/ICM                   Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.449 (9) mgr/ICM                    Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:43.448 (8) mgr/ICM                    Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.448 (7) mgr/ICM                    Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.449 (9) mgr/ICM                    Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.449 (11) mgr/ICM                   Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:43.449 (1) mgr/ICM                    Enter ResManagerXml::IoMssgLoop
+€
+€12/13/10 15:23:52.273 (11) mgr/ICM                   Received data
+€
+€12/13/10 15:23:52.273 (12) mgr/ICM                   Enter ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:52.273 (12) mgr/ICM                   Enter ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:52.273 (12) mgr/ICM                   Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:52.273 (12) mgr/ICM                   Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:52.273 (12) mgr/ICM                   Initialize commObj object: 17, mgr/ICM, 0
+€
+€12/13/10 15:23:52.273 (12) mgr/ICM                   CommObj object initialized
+€
+€12/13/10 15:23:52.273 (12) mgr/ICM                   Exit ResManagerXml::InitializePoolParam()
+€
+€12/13/10 15:23:52.274 (12) mgr/ICM                   Exit ResManagerXml::PoolContextAlloc
+€
+€12/13/10 15:23:52.274 (11) mgr/ICM                   Initialize handler object
+€
+€12/13/10 15:23:52.274 (11) mgr/ICM                   Handler object initialized
+€
+€12/13/10 15:23:52.274 (11) mgr/ICM                   Enter IpIcmMgr::InitializeNdb()
+€
+€12/13/10 15:23:52.286 (11) mgr/ICM                   Exit IpIcmMgr::InitializeNdb()
+€
+€12/13/10 15:23:52.286 (11) mgr/ICM                   Request Handled:
+'<BepXmlMssg DataRate="0" MssgType="Register"><Register>Success</Register></BepXmlMssg>'
+€
+€12/13/10 15:23:52.299 (1) mgr/ICM                    Wrote ZerospeedToPLC = 1
+€
+€12/13/10 15:23:52.299 (1) mgr/ICM                    	Sending initial ZEROSPEED TO PLC = 1
+€
+€12/13/10 15:23:52.299 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:52.299 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.299 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.316 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.316 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.336 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.336 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.356 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.356 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.376 (1) mgr/ICM                    	Sending ZEROSPEED TO PLC = 1
+€
+€12/13/10 15:23:52.376 (1) mgr/ICM                    Setting Zerospeed = 1
+€
+€12/13/10 15:23:52.377 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.377 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.396 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.396 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.416 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.416 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.436 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.436 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.456 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.456 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.476 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.476 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.496 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.496 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.516 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.516 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.536 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.536 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.555 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.555 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.575 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.575 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.595 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:52.595 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.595 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.615 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.615 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.635 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.635 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.655 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.655 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.675 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.675 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.695 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.695 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.715 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.715 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.735 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.735 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.755 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.755 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.775 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.775 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.795 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.795 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.815 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.815 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.835 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.835 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.855 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.855 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.875 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.875 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.895 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:52.895 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.895 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.915 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.915 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.935 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.935 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.955 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.955 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.975 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.975 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.995 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:52.995 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.015 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.015 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.035 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.035 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.055 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.055 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.075 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.075 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.095 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.095 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.115 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.115 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.135 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.135 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.155 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.155 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.175 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.175 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.195 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:53.195 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.195 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.215 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.215 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.235 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.235 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.255 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.255 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.275 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.275 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.295 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.295 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.315 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.315 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.335 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.335 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.355 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.355 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.375 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.375 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.395 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.395 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.415 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.415 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.435 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.435 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.455 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.455 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.475 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.475 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.495 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:53.495 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.495 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.515 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.515 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.535 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.535 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.555 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.555 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.575 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.575 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.595 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.595 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.615 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.615 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.635 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.635 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.655 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.655 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.675 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.675 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.695 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.695 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.715 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.715 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.735 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.735 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.755 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.755 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.775 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.775 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.795 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:53.795 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.795 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.815 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.815 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.835 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.835 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.855 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.855 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.875 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.875 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.895 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.895 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.915 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.915 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.935 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.935 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.955 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.955 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.975 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.975 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.995 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:53.995 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.015 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.015 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.035 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.035 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.055 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.055 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.075 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.075 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.095 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:54.095 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.095 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.115 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.115 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.135 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.135 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.155 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.155 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.175 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.175 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.195 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.195 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.215 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.215 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.235 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.235 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.255 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.255 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.275 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.275 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.295 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.295 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.315 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.315 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.335 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.335 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.355 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.355 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.375 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.375 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.395 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:54.395 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.395 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.415 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.415 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.435 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.435 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.455 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.455 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.475 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.475 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.495 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.495 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.515 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.515 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.535 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.535 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.555 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.555 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.575 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.575 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.595 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.595 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.615 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.615 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.635 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.635 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.655 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.655 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.675 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.675 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.695 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:54.695 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.695 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.715 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.715 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.735 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.735 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.755 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.755 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.775 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.775 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.795 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.795 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.815 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.815 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.835 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.835 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.847 (11) mgr/ICM                   Received data
+€
+€12/13/10 15:23:54.847 (11) mgr/ICM                   Initialize handler object
+€
+€12/13/10 15:23:54.847 (11) mgr/ICM                   Handler object initialized
+€
+€12/13/10 15:23:54.848 (11) mgr/ICM                   BepComponent::Subscribe(Zerospeed, core/SystemMonitor)
+€
+€12/13/10 15:23:54.848 (11) mgr/ICM                   Enter IcmMgr::Read( Zerospeed, 0)
+€
+€12/13/10 15:23:54.848 (11) mgr/ICM                   Exit IcmMgr::Read( Zerospeed, 0) = 1
+€
+€12/13/10 15:23:54.849 (11) mgr/ICM                   Additional log [Servers/IcmMgr.log] already activated.€
+€12/13/10 15:23:54.850 (11) mgr/ICM                   NotificationThreadSpinner::Initialize(<IcmConfig>
+   <DataMap>
+      <Acceleration channelIndex="6" portDir="IN"/>
+      <Count channelIndex="9" portDir="OUT"/>
+      <Distance channelIndex="3" portDir="IN"/>
+      <Force channelIndex="7" portDir="IN"/>
+      <Frequency channelIndex="4" portDir="IN"/>
+      <KAccel channelIndex="1" portDir="OUT"/>
+      <KForce channelIndex="2" portDir="OUT"/>
+      <KSpeed channelIndex="0" portDir="OUT"/>
+      <Loss channelIndex="8" portDir="OUT"/>
+      <Speed channelIndex="5" portDir="IN"/>
+   </DataMap>   <Setup>
+      <DataLogFiles>
+      <Acceleration link="/TestResults/Machine/BrakeForceData/Acceleration.dat" name="/TestResults/Machine/BrakeForceData/Acceleration.log" status="Disabled"/>
+      <BrakeForce link="/TestResults/Machine/BrakeForceData/BrakeForceTrace.dat" name="/TestResults/Machine/BrakeForceData/BrakeForce.log" status="Enabled"/>
+      <Distance link="/TestResults/Machine/BrakeForceData/Distance.dat" name="/TestResults/Machine/BrakeForceData/Distance.lo€
+€12/13/10 15:23:54.851 (11) mgr/ICM                   Additional log [Servers/IcmMgr.log] already activated.€
+€12/13/10 15:23:54.852 (11) mgr/ICM                   NotificationList::Initialize(<IcmConfig>
+   <DataMap>
+      <Acceleration channelIndex="6" portDir="IN"/>
+      <Count channelIndex="9" portDir="OUT"/>
+      <Distance channelIndex="3" portDir="IN"/>
+      <Force channelIndex="7" portDir="IN"/>
+      <Frequency channelIndex="4" portDir="IN"/>
+      <KAccel channelIndex="1" portDir="OUT"/>
+      <KForce channelIndex="2" portDir="OUT"/>
+      <KSpeed channelIndex="0" portDir="OUT"/>
+      <Loss channelIndex="8" portDir="OUT"/>
+      <Speed channelIndex="5" portDir="IN"/>
+   </DataMap>   <Setup>
+      <DataLogFiles>
+      <Acceleration link="/TestResults/Machine/BrakeForceData/Acceleration.dat" name="/TestResults/Machine/BrakeForceData/Acceleration.log" status="Disabled"/>
+      <BrakeForce link="/TestResults/Machine/BrakeForceData/BrakeForceTrace.dat" name="/TestResults/Machine/BrakeForceData/BrakeForce.log" status="Enabled"/>
+      <Distance link="/TestResults/Machine/BrakeForceData/Distance.dat" name="/TestResults/Machine/BrakeForceData/Distance.log" status€
+€12/13/10 15:23:54.853 (11) mgr/ICM                   Setup/NotificationList/Setup/ResponseTimeout not provided, using 2000 - Tag Not Found: ResponseTimeout€
+€12/13/10 15:23:54.854 (11) mgr/ICM                   NotificationThreadSpinner::Initialize(<IcmConfig>
+   <DataMap>
+      <Acceleration channelIndex="6" portDir="IN"/>
+      <Count channelIndex="9" portDir="OUT"/>
+      <Distance channelIndex="3" portDir="IN"/>
+      <Force channelIndex="7" portDir="IN"/>
+      <Frequency channelIndex="4" portDir="IN"/>
+      <KAccel channelIndex="1" portDir="OUT"/>
+      <KForce channelIndex="2" portDir="OUT"/>
+      <KSpeed channelIndex="0" portDir="OUT"/>
+      <Loss channelIndex="8" portDir="OUT"/>
+      <Speed channelIndex="5" portDir="IN"/>
+   </DataMap>   <Setup>
+      <DataLogFiles>
+      <Acceleration link="/TestResults/Machine/BrakeForceData/Acceleration.dat" name="/TestResults/Machine/BrakeForceData/Acceleration.log" status="Disabled"/>
+      <BrakeForce link="/TestResults/Machine/BrakeForceData/BrakeForceTrace.dat" name="/TestResults/Machine/BrakeForceData/BrakeForce.log" status="Enabled"/>
+      <Distance link="/TestResults/Machine/BrakeForceData/Distance.dat" name="/TestResults/Machine/BrakeForceData/Distance.lo€
+€12/13/10 15:23:54.854 (11) mgr/ICM                   NotificationList::AddToList(Zerospeed, 0)
+€
+€12/13/10 15:23:54.855 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.855 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.855 (11) mgr/ICM                   Adding elem for Tag: Zerospeed
+€
+€12/13/10 15:23:54.855 (11) mgr/ICM                   Added new list and process for tag: Zerospeed
+€
+€12/13/10 15:23:54.855 (11) mgr/ICM                   NotificationList::AddToList(Zerospeed, 0) done
+€
+€12/13/10 15:23:54.855 (11) mgr/ICM                   BepComponent::Subscribe(Zerospeed core/SystemMonitor) done returning 1
+€
+€12/13/10 15:23:54.855 (11) mgr/ICM                   Request Handled:
+'<BepXmlMssg DataRate="0" MssgType="Subscribe"><Zerospeed>1</Zerospeed></BepXmlMssg>'
+€
+€12/13/10 15:23:54.875 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.875 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.895 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.895 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.915 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.915 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.935 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.935 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.955 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.955 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.975 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.975 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.984 (11) mgr/ICM                   Received data
+€
+€12/13/10 15:23:54.984 (11) mgr/ICM                   Initialize handler object
+€
+€12/13/10 15:23:54.985 (11) mgr/ICM                   Handler object initialized
+€
+€12/13/10 15:23:54.985 (11) mgr/ICM                   Enter IcmMgr::Read( RollerCount, 0)
+€
+€12/13/10 15:23:54.985 (11) mgr/ICM                   Exit IcmMgr::Read( RollerCount, 0) = 4
+€
+€12/13/10 15:23:54.985 (11) mgr/ICM                   Request Handled:
+'<BepXmlMssg DataRate="0" MssgType="Read"><RollerCount>4</RollerCount></BepXmlMssg>'
+€
+€12/13/10 15:23:54.995 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:54.995 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:54.995 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.015 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.015 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.035 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.035 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.055 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.055 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.075 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.075 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.095 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.095 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.115 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.115 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.135 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.135 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.155 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.155 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.175 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.175 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.195 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.195 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.215 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.215 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.235 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.235 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.255 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.255 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.275 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.275 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.295 (1) mgr/ICM                    Updating PLC for 4 channels (m_isrFifo.size(): 0,  ICM_CHANNEL_COUNT: 6)€
+€12/13/10 15:23:55.295 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.295 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.315 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.315 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.335 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.335 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.355 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.355 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.375 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.375 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.395 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.395 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.415 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.415 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.435 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.435 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.455 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.455 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.475 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.475 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.495 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.495 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.515 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.515 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.535 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.535 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.555 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.555 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.575 (1) mgr/ICM                    Enter IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.575 (1) mgr/ICM                    Exit IpIcmMgr::CheckAccelLimit()
+€
+€12/13/10 15:23:55.582 (1) mgr/ICM                    Enter OcbCalloc
+€
+€12/13/10 15:23:55.582 (1) mgr/ICM       

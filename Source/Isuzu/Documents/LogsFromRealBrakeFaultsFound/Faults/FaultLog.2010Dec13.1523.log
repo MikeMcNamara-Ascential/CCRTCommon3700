@@ -1,0 +1,10 @@
+€12/13/10 15:23:44.800 (1) FaultLogger                Activated additional log [/home/CCRT/Rewrite/Logs/Faults/FaultLog.2010Dec13.1523.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:55.030 (6) FaultLogger                +  PLCSystemIsReady [1]€
+€12/13/10 15:23:57.093 (6) FaultLogger                +  InvalidLicenseNotification [1]€
+€12/13/10 15:23:57.788 (6) FaultLogger                -  LeftFrontRollMotorDriveCommFault [0]€
+€12/13/10 15:23:57.792 (3) FaultLogger                -  LeftFrontRollMotorOperationalFault [0]€
+€12/13/10 15:23:57.796 (5) FaultLogger                -  LeftRearRollMotorDriveCommFault [0]€
+€12/13/10 15:23:57.800 (4) FaultLogger                -  LeftRearRollMotorOperationalFault [0]€
+€12/13/10 15:23:57.804 (3) FaultLogger                -  RightFrontRollMotorDriveCommFault [0]€
+€12/13/10 15:23:57.807 (6) FaultLogger                -  RightFrontRollMotorOperationalFault [0]€
+€12/13/10 15:23:57.810 (5) FaultLogger                -  RightRearRollMotorDriveCommFault [0]€

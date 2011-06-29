@@ -1,0 +1,22 @@
+<GenericABSModuleTemplate>
+  <SerialMessages>
+    <VehicleMessages>
+      <ReadSensorSpeeds>
+        <TransmitMessage>ReadData</TransmitMessage>
+        <TransmitInterpretation/>
+        <ReplyMessage>ReadData</ReplyMessage>
+        <ReplyInterpretationLF>ReadLFSensor</ReplyInterpretationLF>
+        <ReplyInterpretationRF>ReadRFSensor</ReplyInterpretationRF>
+        <ReplyInterpretationLR>ReadLRSensor</ReplyInterpretationLR>
+        <ReplyInterpretationRR>ReadRRSensor</ReplyInterpretationRR>
+      </ReadSensorSpeeds>
+    </VehicleMessages>
+    <ReplyInterpretations>
+      <ReadLFSensor>
+        <Integer type="unsigned" scale="1.0" offset="0.0">
+          <Byte input_index="0" mask="0xFF" output_index="0"/>
+        </Integer>
+      </ReadLFSensor>
+    </ReplyInterpretations>
+  </SerialMessages>
+</GenericABSModuleTemplate>

@@ -1,0 +1,174 @@
+<VehicleTestMachineComponent>
+   <Setup>
+      <Name>Machine</Name>
+      <Debug>Off</Debug>
+      <DebugLevel>0</DebugLevel>
+      <ProcessPriority>11</ProcessPriority>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Debug>Off</Debug>
+         <StartOnCreate>Off</StartOnCreate>
+         <LowWater>1</LowWater>
+         <HighWater>3</HighWater>
+         <Maximum>5</Maximum>
+         <Increment>1</Increment>
+      </NotificationList>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/MachineComponent</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <TagList>
+         <SubscribeTags>
+            <KeyPress/>
+            <DriverNumber/>
+            <VehiclePresent/>
+            <RollsUpElevDown/>
+            <Abort/>
+            <ForegroundTestInProgress/>
+            <TestInProgress/>
+            <ZerospeedToPLC/>
+            <MachineType2400/>
+            <Boost/>
+            <MotorMode/>
+            <CableConnect/>
+         </SubscribeTags>
+      </TagList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>MachineComponent</ProcessName>
+         <AdditionalLogFile Types="/Component/MachineComponent or Disabled">/Component/MachineComponent</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <DataTags>
+         <KeyPress>KeyPress</KeyPress>
+         <CableConnect>CableConnect</CableConnect>
+         <OverallTest>MachineOverallTest</OverallTest>
+         <DriverNumber>DriverNumber</DriverNumber>
+         <DriverNumberBGColor>DriverNumberDisplayBGColor</DriverNumberBGColor>
+         <InputServerState>InputServerState</InputServerState>
+         <YesValue>Pass</YesValue>
+         <NoValue>Fail</NoValue>
+         <Pass>green</Pass>
+         <Fail>red</Fail>
+         <ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
+         <ServerStateNormal>Normal</ServerStateNormal>
+         <VehiclePresent>VehiclePresent</VehiclePresent>
+         <RetainersUp>RollsUpElevDown</RetainersUp>
+         <Abort>Abort</Abort>
+         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+         <TestInProgress>TestInProgress</TestInProgress>
+         <InputServerState>InputServerState</InputServerState>
+         <NormalMode>Normal</NormalMode>
+         <TestResultMode>TestResult</TestResultMode>
+         <DriverNumberMode>DriverNumber</DriverNumberMode>
+         <Zerospeed>ZerospeedToPLC</Zerospeed>
+         <MotorMode>MotorMode</MotorMode>
+         <QuickBrakeMode>QuickBrake</QuickBrakeMode>
+         <BoostMode>Boost</BoostMode>
+         <MachineType>MachineType2400</MachineType>
+         <SpeedTarget>SpeedTarget</SpeedTarget>
+      </DataTags>
+      <SystemTagsToReset>
+         <MarketTypeBGColor>white</MarketTypeBGColor>
+         <PerformAbortTest/>
+         <PerformAbortTestBGColor>white</PerformAbortTestBGColor>
+         <VINDisplayBGColor>white</VINDisplayBGColor>
+      </SystemTagsToReset>
+      <VehicleTestStatusUpdates>
+         <EmissionsOverallTest>TestNotStarted</EmissionsOverallTest>
+         <TransmissionOverallTest>TestNotStarted</TransmissionOverallTest>
+         <CruiseOverallTest>TestNotStarted</CruiseOverallTest>
+         <BrakeOverallTest>TestNotStarted</BrakeOverallTest>
+         <TransferCaseOverallTest>TestNotStarted</TransferCaseOverallTest>
+         <AxleOverallTest>TestNotStarted</AxleOverallTest>
+         <SKIMOverallTest>TestNotStarted</SKIMOverallTest>
+         <AirbagOverallTest>TestNotStarted</AirbagOverallTest>
+         <ClusterOverallTest>TestNotStarted</ClusterOverallTest>
+         <RemoteKeylessEntryOverallTest>TestNotStarted</RemoteKeylessEntryOverallTest>
+         <DTRLOverallTest>TestNotStarted</DTRLOverallTest>
+         <SteeringOverallTest>TestNotStarted</SteeringOverallTest>
+         <ChimeOverallTest>TestNotStarted</ChimeOverallTest>
+         <TPMOverallTest>TestNotStarted</TPMOverallTest>
+      </VehicleTestStatusUpdates>
+      <Parameters>
+         <ResetCommHardware Values="Yes or No">Yes</ResetCommHardware>
+         <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+      </Parameters>
+   </Setup>
+   <Objectives>
+      <Initialize>
+         <TestStep1>Initialize</TestStep1>
+         <TestStep2>MachineReady</TestStep2>
+         <TestStep3>DriverNumber</TestStep3>
+         <TestStep4>ConnectCable</TestStep4>
+      </Initialize>
+      <DriverQuestion>
+         <TestStep1>DriverQuestion</TestStep1>
+      </DriverQuestion>
+      <PromptDriver>
+         <TestStep1>PromptDriver</TestStep1>
+      </PromptDriver>
+      <PromptDriverAlways>
+         <TestStep1>PromptDriverAlways</TestStep1>
+      </PromptDriverAlways>
+      <DriverNumber>
+         <TestStep1>DriverNumber</TestStep1>
+      </DriverNumber>
+      <AccelerateToSpeed>
+         <TestStep1>AccelerateToSpeed</TestStep1>
+      </AccelerateToSpeed>
+      <BrakeToStop>
+         <TestStep1>BrakeToStop</TestStep1>
+      </BrakeToStop>
+      <ConnectCable>
+         <TestStep1>ConnectCable</TestStep1>
+      </ConnectCable>
+      <FinishUp>
+         <TestStep1>PromptDriverAlways</TestStep1>
+         <TestStep2>FinishUp</TestStep2>
+      </FinishUp>
+   </Objectives>
+   <TestSteps>
+      <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1="Launching" Prompt1Priority="0"/>
+      <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
+         <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
+      </DriverQuestion>
+      <PromptDriver Description="Display A Prompt To The Driver But Do Not Require Driver Input">
+         <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
+         <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
+         <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
+         <PerformingFinishUp Description="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+         <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
+         <PreInitialize Description="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
+      </PromptDriver>
+      <PromptDriverAlways Description="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input">
+         <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
+         <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
+         <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
+         <PerformingFinishUp Description="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+         <PerformingFinalTesting Description="" Timeout="" Result="" Prompt1="PerformingFinalTesting" Prompt1Priority="0"/>
+         <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
+         <EmissionsInitialization Description="Display prompt to indicate currently initializing emissions" Timeout="" Result="" Prompt1="EmissionsInitialization" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0"/>
+         <PreInitialize Description="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
+      </PromptDriverAlways>
+      <DriverNumber Result="" Description="Prompt the driver to input their ID and validate" Timeout="0" Prompt1="InputDriverID" Prompt1Priority="0" Validate="Skip" DriverNumberFile="/Configuration/Components/Machine/DriverNumberList.xml" DefaultDriverNumber="T0000xx"/>
+      <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="120000" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
+      <AccelerateToSpeed Result="" Description="Prompt the driver to accelerate to the commanded speed" Timeout="120000" Prompt2="AccelerateToTargetSpeed" Prompt1Priority="0" SpeedTarget=""/>
+      <QuickStop Result="" Description="Command the rollers to stop and verify that Zerospeed is achieved" Timeout="30000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
+      <ConnectCable Result="" Description="Prompt the driver to connect the vehicle cable" Timeout="20000" Prompt1="ConnectCable" Prompt1Priority="0"/>
+      <MachineReady Result="" Description="Wait until the machine is ready to perform a test" Timeout="15000" Prompt1="" Prompt1Priority="" Prompt2="" Prompt2Priority=""/>
+      <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+   </TestSteps>
+</VehicleTestMachineComponent>

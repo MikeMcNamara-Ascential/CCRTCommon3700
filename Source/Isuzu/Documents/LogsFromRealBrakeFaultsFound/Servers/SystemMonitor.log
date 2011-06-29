@@ -1,0 +1,2728 @@
+€12/13/10 15:23:48.843 (1) core/SystemMonitor         Activated additional log [/home/CCRT/Rewrite/Logs/Servers/SystemMonitor.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:48.843 (1) core/SystemMonitor         BepComponent::Initialize()
+€
+€12/13/10 15:23:48.844 (1) core/SystemMonitor         Updated process core/SystemMonitor running at priority 12
+€
+€12/13/10 15:23:48.845 (1) core/SystemMonitor         BepComponent::Initialize(<IsuzuSystemMonitorConfig>
+   <Setup>
+      <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">0</CableConnectTime>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/SystemMonitor</Name>         <Timeout>2000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllWheelDrive>AllWheelDrive</AllWheelDrive>         <CycleLimitExceeded>CycleLimitExceeded</CycleLimitExceeded>         <DriveAxle>DriveAxle</DriveAxle>      </DataTags>      <Debug>Off</Debug>      <Demo>0</Demo>      <DisconnectAbort Description="Flag that indicates if the system monitor should abort if a cable diconnect is detected">0</DisconnectAbort>      <Logging>
+         <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>         <Debug>Off</Debug>         <LocalEcho>Disabled</LocalEcho> €
+€12/13/10 15:23:48.845 (1) core/SystemMonitor         Retrieved Publish tags
+€
+€12/13/10 15:23:48.845 (1) core/SystemMonitor         Cleared data from all lists
+€
+€12/13/10 15:23:48.846 (1) core/SystemMonitor         Stored all Publish Tags
+€
+€12/13/10 15:23:48.846 (1) core/SystemMonitor         Preparing to deal with subscribe tags:    <Setup>
+      <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">0</CableConnectTime>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/SystemMonitor</Name>         <Timeout>2000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllWheelDrive>AllWheelDrive</AllWheelDrive>         <CycleLimitExceeded>CycleLimitExceeded</CycleLimitExceeded>         <DriveAxle>DriveAxle</DriveAxle>      </DataTags>      <Debug>Off</Debug>      <Demo>0</Demo>      <DisconnectAbort Description="Flag that indicates if the system monitor should abort if a cable diconnect is detected">0</DisconnectAbort>      <Logging>
+         <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>         <Debug>Off</Debug>         <LocalEcho>Disabled</LocalEcho>         <Proc€
+€12/13/10 15:23:48.846 (1) core/SystemMonitor         Retrieved Subscribe Tags
+€
+€12/13/10 15:23:48.846 (1) core/SystemMonitor         Stored all Subscribe Tags
+€
+€12/13/10 15:23:48.847 (1) core/SystemMonitor         Creating Thread Pool
+€
+€12/13/10 15:23:48.848 (1) core/SystemMonitor         BepServer::Initialize(<IsuzuSystemMonitorConfig>
+   <Setup>
+      <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">0</CableConnectTime>      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/SystemMonitor</Name>         <Timeout>2000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllWheelDrive>AllWheelDrive</AllWheelDrive>         <CycleLimitExceeded>CycleLimitExceeded</CycleLimitExceeded>         <DriveAxle>DriveAxle</DriveAxle>      </DataTags>      <Debug>Off</Debug>      <Demo>0</Demo>      <DisconnectAbort Description="Flag that indicates if the system monitor should abort if a cable diconnect is detected">0</DisconnectAbort>      <Logging>
+         <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>         <Debug>Off</Debug>         <LocalEcho>Disabled</LocalEcho>    €
+€12/13/10 15:23:48.848 (1) core/SystemMonitor         Using VehiclePresHystTime = 1000.000000
+€
+€12/13/10 15:23:48.848 (1) core/SystemMonitor         Using LCSwitchHystTime = 1000.000000
+€
+€12/13/10 15:23:48.848 (1) core/SystemMonitor         Using CableConnectTime = 0.000000
+€
+€12/13/10 15:23:48.849 (1) core/SystemMonitor         Exit Initialize()
+€
+€12/13/10 15:23:48.849 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::Initialize()
+€
+€12/13/10 15:23:48.849 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:48.849 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:52.368 (2) core/SystemMonitor         BepComponent::Subscribe(StartLossCompensation, core/TestResultServer)
+€
+€12/13/10 15:23:52.368 (2) core/SystemMonitor         Additional log [Servers/SystemMonitor.log] already activated.€
+€12/13/10 15:23:52.369 (2) core/SystemMonitor         NotificationThreadSpinner::Initialize(<IsuzuSystemMonitorConfig>
+   <Setup>
+      <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">0</CableConnectTime>      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/SystemMonitor</Name>      <Timeout>2000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <AllWheelDrive>AllWheelDrive</AllWheelDrive>      <CycleLimitExceeded>CycleLimitExceeded</CycleLimitExceeded>      <DriveAxle>DriveAxle</DriveAxle>      </DataTags>      <Debug>Off</Debug>      <Demo>0</Demo>      <DisconnectAbort Description="Flag that indicates if the system monitor should abort if a cable diconnect is detected">0</DisconnectAbort>      <Logging>
+      <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>      <Debug>Off</Debug>      <LocalEcho>Disabled</LocalEcho>      <ProcessName>core/€
+€12/13/10 15:23:52.369 (2) core/SystemMonitor         Additional log [Servers/SystemMonitor.log] already activated.€
+€12/13/10 15:23:52.370 (2) core/SystemMonitor         NotificationList::Initialize(<IsuzuSystemMonitorConfig>
+   <Setup>
+      <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">0</CableConnectTime>      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/SystemMonitor</Name>      <Timeout>2000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <AllWheelDrive>AllWheelDrive</AllWheelDrive>      <CycleLimitExceeded>CycleLimitExceeded</CycleLimitExceeded>      <DriveAxle>DriveAxle</DriveAxle>      </DataTags>      <Debug>Off</Debug>      <Demo>0</Demo>      <DisconnectAbort Description="Flag that indicates if the system monitor should abort if a cable diconnect is detected">0</DisconnectAbort>      <Logging>
+      <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>      <Debug>Off</Debug>      <LocalEcho>Disabled</LocalEcho>      <ProcessName>core/SystemMon€
+€12/13/10 15:23:52.370 (2) core/SystemMonitor         Setup/NotificationList/Setup/ResponseTimeout not provided, using 2000 - Tag Not Found: ResponseTimeout€
+€12/13/10 15:23:52.371 (2) core/SystemMonitor         NotificationThreadSpinner::Initialize(<IsuzuSystemMonitorConfig>
+   <Setup>
+      <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">0</CableConnectTime>      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/SystemMonitor</Name>      <Timeout>2000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <AllWheelDrive>AllWheelDrive</AllWheelDrive>      <CycleLimitExceeded>CycleLimitExceeded</CycleLimitExceeded>      <DriveAxle>DriveAxle</DriveAxle>      </DataTags>      <Debug>Off</Debug>      <Demo>0</Demo>      <DisconnectAbort Description="Flag that indicates if the system monitor should abort if a cable diconnect is detected">0</DisconnectAbort>      <Logging>
+      <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>      <Debug>Off</Debug>      <LocalEcho>Disabled</LocalEcho>      <ProcessName>core/€
+€12/13/10 15:23:52.371 (2) core/SystemMonitor         NotificationList::AddToList(StartLossCompensation, 0)
+€
+€12/13/10 15:23:52.372 (2) core/SystemMonitor         Adding elem for Tag: StartLossCompensation
+€
+€12/13/10 15:23:52.372 (2) core/SystemMonitor         Added new list and process for tag: StartLossCompensation
+€
+€12/13/10 15:23:52.372 (2) core/SystemMonitor         NotificationList::AddToList(StartLossCompensation, 0) done
+€
+€12/13/10 15:23:52.372 (2) core/SystemMonitor         BepComponent::Subscribe(StartLossCompensation core/TestResultServer) done returning 0
+€
+€12/13/10 15:23:52.399 (2) core/SystemMonitor         BepComponent::Subscribe(VehiclePresent, core/MachineDataBroker)
+€
+€12/13/10 15:23:52.399 (2) core/SystemMonitor         NotificationList::AddToList(VehiclePresent, 0)
+€
+€12/13/10 15:23:52.400 (2) core/SystemMonitor         Adding elem for Tag: VehiclePresent
+€
+€12/13/10 15:23:52.400 (2) core/SystemMonitor         Added new list and process for tag: VehiclePresent
+€
+€12/13/10 15:23:52.400 (2) core/SystemMonitor         NotificationList::AddToList(VehiclePresent, 0) done
+€
+€12/13/10 15:23:52.400 (2) core/SystemMonitor         BepComponent::Subscribe(VehiclePresent core/MachineDataBroker) done returning 0
+€
+€12/13/10 15:23:54.768 (2) core/SystemMonitor         BepComponent::Subscribe(StartTest, core/VehicleDataBroker)
+€
+€12/13/10 15:23:54.768 (2) core/SystemMonitor         NotificationList::AddToList(StartTest, 0)
+€
+€12/13/10 15:23:54.768 (2) core/SystemMonitor         Adding elem for Tag: StartTest
+€
+€12/13/10 15:23:54.768 (2) core/SystemMonitor         Added new list and process for tag: StartTest
+€
+€12/13/10 15:23:54.769 (2) core/SystemMonitor         NotificationList::AddToList(StartTest, 0) done
+€
+€12/13/10 15:23:54.769 (2) core/SystemMonitor         BepComponent::Subscribe(StartTest core/VehicleDataBroker) done returning 0
+€
+€12/13/10 15:23:54.808 (2) core/SystemMonitor         Enter SystemMonitor::Register()
+€
+€12/13/10 15:23:54.809 (2) core/SystemMonitor         Number Of Tags: 12, -1
+€
+€12/13/10 15:23:54.837 (5) core/SystemMonitor         BepComponent::Subscribe(StartLossCompensation, core/SystemMonitor)
+€
+€12/13/10 15:23:54.837 (5) core/SystemMonitor         NotificationList::AddToList(StartLossCompensation, 0)
+€
+€12/13/10 15:23:54.837 (5) core/SystemMonitor         Adding elem for Tag: StartLossCompensation
+€
+€12/13/10 15:23:54.837 (5) core/SystemMonitor         Added process for tag: StartLossCompensation
+€
+€12/13/10 15:23:54.837 (5) core/SystemMonitor         NotificationList::AddToList(StartLossCompensation, 0) done
+€
+€12/13/10 15:23:54.837 (5) core/SystemMonitor         BepComponent::Subscribe(StartLossCompensation core/SystemMonitor) done returning 0
+€
+€12/13/10 15:23:54.856 (2) core/SystemMonitor         BepServer::SubscribeTags() 0
+€
+€12/13/10 15:23:54.858 (2) core/SystemMonitor         m_promptServer::Initialize()
+€
+€12/13/10 15:23:54.858 (2) core/SystemMonitor         m_faultServer::Initialize()
+€
+€12/13/10 15:23:54.879 (2) core/SystemMonitor         ReadNdbData(MachineType, )
+€
+€12/13/10 15:23:54.879 (2) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:54.879 (2) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:54.880 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:54.880 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:54.880 (2) core/SystemMonitor         Exit SystemMonitor::Register()
+€
+€12/13/10 15:23:54.891 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:54.892 (2) core/SystemMonitor         BepServer::Publish(RollsUpElevDown)
+€
+€12/13/10 15:23:54.892 (2) core/SystemMonitor         BepServer::SetData(<RollsUpElevDown>0</RollsUpElevDown>)
+€
+€12/13/10 15:23:54.892 (2) core/SystemMonitor         BepServer::SetData(<RollsUpElevDown>0</RollsUpElevDown>) done, returning Success
+€
+€12/13/10 15:23:54.893 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:54.893 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:54.893 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:54.893 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:54.893 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:54.893 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:54.894 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:54.895 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:54.896 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:54.897 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:54.897 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:54.897 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:54.897 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:54.897 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:54.897 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:54.902 (5) core/SystemMonitor         BepComponent::Subscribe(VehiclePresent, core/PlantHostInbound)
+€
+€12/13/10 15:23:54.902 (5) core/SystemMonitor         NotificationList::AddToList(VehiclePresent, 0)
+€
+€12/13/10 15:23:54.903 (5) core/SystemMonitor         Adding elem for Tag: VehiclePresent
+€
+€12/13/10 15:23:54.903 (5) core/SystemMonitor         Added process for tag: VehiclePresent
+€
+€12/13/10 15:23:54.903 (5) core/SystemMonitor         NotificationList::AddToList(VehiclePresent, 0) done
+€
+€12/13/10 15:23:54.903 (5) core/SystemMonitor         BepComponent::Subscribe(VehiclePresent core/PlantHostInbound) done returning 0
+€
+€12/13/10 15:23:54.977 (5) core/SystemMonitor         BepComponent::Subscribe(VehiclePresent, core/MotorController)
+€
+€12/13/10 15:23:54.978 (5) core/SystemMonitor         NotificationList::AddToList(VehiclePresent, 0)
+€
+€12/13/10 15:23:54.978 (5) core/SystemMonitor         Adding elem for Tag: VehiclePresent
+€
+€12/13/10 15:23:54.978 (5) core/SystemMonitor         Added process for tag: VehiclePresent
+€
+€12/13/10 15:23:54.978 (5) core/SystemMonitor         NotificationList::AddToList(VehiclePresent, 0) done
+€
+€12/13/10 15:23:54.978 (5) core/SystemMonitor         BepComponent::Subscribe(VehiclePresent core/MotorController) done returning 0
+€
+€12/13/10 15:23:55.032 (5) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:55.032 (5) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:55.032 (5) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:55.032 (5) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:55.032 (5) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:55.032 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:55.032 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:55.032 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:55.032 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:55.033 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:55.034 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:55.035 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:55.036 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:55.036 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:55.036 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:55.036 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:55.036 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:55.036 (5) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:55.449 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:55.449 (2) core/SystemMonitor         BepServer::Publish(LossCompensationSwitchStatusFromPLC)
+€
+€12/13/10 15:23:55.449 (2) core/SystemMonitor         BepServer::SetData(<LossCompensationSwitchStatusFromPLC>0</LossCompensationSwitchStatusFromPLC>)
+€
+€12/13/10 15:23:55.449 (2) core/SystemMonitor         BepServer::SetData(<LossCompensationSwitchStatusFromPLC>0</LossCompensationSwitchStatusFromPLC>) done, returning Success
+€
+€12/13/10 15:23:55.450 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:55.450 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:55.451 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:55.452 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:55.453 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:55.453 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:55.453 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:55.453 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:55.453 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:55.453 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:55.453 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:55.453 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:55.453 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.105 (5) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.107 (5) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.108 (5) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.109 (5) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.109 (5) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.109 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.110 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.110 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.110 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.110 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.111 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.111 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.111 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.112 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.112 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.112 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.113 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.113 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.113 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.113 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.114 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.114 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.114 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.115 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.115 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.115 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.115 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.115 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.116 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.116 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.116 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.116 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.116 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.117 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.117 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.117 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.117 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.117 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.118 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.118 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.118 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.118 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.118 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.118 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.119 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.119 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.119 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.119 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.119 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.119 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.120 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.120 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.120 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.120 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.120 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.120 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.121 (5) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.107 (2) core/SystemMonitor         Enter Write()
+€
+€12/13/10 15:23:57.124 (2) core/SystemMonitor         Exit Write() Unsupported
+€
+€12/13/10 15:23:57.836 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.836 (2) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.836 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.837 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.837 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.837 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.837 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.837 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.838 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.839 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.840 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.841 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.841 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.841 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.841 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.844 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.844 (4) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:57.845 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:57.845 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:57.845 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.846 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.847 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.848 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.849 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.849 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.852 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.853 (2) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.853 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.853 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.854 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.854 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.855 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.856 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.857 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.857 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.860 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.860 (4) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:57.860 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:57.860 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:57.861 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.861 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.861 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.861 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.861 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.861 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.861 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.861 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.862 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.863 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.864 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.864 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.868 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.868 (2) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.868 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.869 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.869 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.870 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.871 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.872 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.873 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.873 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.876 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.876 (4) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:57.876 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:57.877 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:57.877 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.877 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.877 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.877 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.877 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.877 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.878 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.879 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.880 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.881 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.884 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.884 (2) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.884 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.885 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.885 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.885 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.885 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.885 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.885 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.885 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.885 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.885 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.886 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.887 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.888 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.888 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.891 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.891 (4) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:57.891 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:57.892 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:57.892 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.892 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.892 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.892 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.892 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.892 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.892 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.893 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.894 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.895 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.896 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.899 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.899 (2) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.899 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.900 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.900 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.900 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.900 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.900 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.900 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.901 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.902 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.903 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.904 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.904 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.906 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.906 (4) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:57.906 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:57.907 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:57.907 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.910 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.911 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.911 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.911 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.911 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.911 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.911 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.914 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.915 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.917 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.917 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.917 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.917 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.920 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.920 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.931 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.931 (2) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.936 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.936 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.936 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.936 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.936 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.936 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.936 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.937 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.937 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.937 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.937 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.944 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.944 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.944 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.944 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.945 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.945 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.945 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.945 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.945 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.946 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.947 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.948 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.948 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.948 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.948 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.948 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.948 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.948 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.948 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.951 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.951 (4) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:57.951 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:57.952 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:57.952 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.953 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.953 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.953 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.953 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.953 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.953 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.953 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.953 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.954 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.955 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.956 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.956 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.962 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.963 (2) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.963 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.963 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.963 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.963 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.965 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.965 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.965 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.965 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.965 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.965 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.965 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.966 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.966 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.966 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.966 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.966 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.966 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.966 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.966 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.967 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.968 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.969 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.969 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.969 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.971 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.971 (4) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:57.971 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:57.971 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:57.971 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.972 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.972 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.972 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.972 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.972 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.972 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.972 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.972 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.973 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.974 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.975 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.975 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.979 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.979 (2) core/SystemMonitor         BepServer::Publish(_3)
+€
+€12/13/10 15:23:57.979 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>)
+€
+€12/13/10 15:23:57.980 (2) core/SystemMonitor         BepServer::SetData(<_3><InvalidLicenseNotification Description="System License not valid - Please contact Burke Porter" Process="core/Launcher" Severity="3">1</InvalidLicenseNotification></_3>) done, returning Success
+€
+€12/13/10 15:23:57.980 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.981 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.982 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.983 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.984 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.984 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:23:57.987 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:23:57.987 (4) core/SystemMonitor         BepServer::Publish(_9)
+€
+€12/13/10 15:23:57.987 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>)
+€
+€12/13/10 15:23:57.987 (4) core/SystemMonitor         BepServer::SetData(<_9><PLCSystemIsReady Description="" Process="mgr/PLC" Severity="9">1</PLCSystemIsReady></_9>) done, returning Success
+€
+€12/13/10 15:23:57.988 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:23:57.988 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.988 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:23:57.988 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:23:57.988 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.988 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:23:57.989 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.990 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.991 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:23:57.992 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:23:57.992 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:23:57.992 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:24:01.595 (2) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:24:01.595 (2) core/SystemMonitor         BepServer::Publish(_2)
+€
+€12/13/10 15:24:01.595 (2) core/SystemMonitor         BepServer::SetData(<_2><PLCSerialReadFault Description="" Process="mgr/PLC" Severity="2">1</PLCSerialReadFault></_2>)
+€
+€12/13/10 15:24:01.596 (2) core/SystemMonitor         BepServer::SetData(<_2><PLCSerialReadFault Description="" Process="mgr/PLC" Severity="2">1</PLCSerialReadFault></_2>) done, returning Success
+€
+€12/13/10 15:24:01.596 (2) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:24:01.596 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:24:01.596 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:24:01.596 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:24:01.596 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:24:01.596 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:24:01.596 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:24:01.596 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:24:01.596 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:24:01.597 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:24:01.598 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:24:01.599 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:24:01.599 (2) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:24:11.655 (4) core/SystemMonitor         Enter Publish()
+€
+€12/13/10 15:24:11.656 (4) core/SystemMonitor         BepServer::Publish(_2)
+€
+€12/13/10 15:24:11.656 (4) core/SystemMonitor         BepServer::SetData(<_2><PLCSerialReadFault Description="" Process="mgr/PLC" Severity="2">1</PLCSerialReadFault><PLCSerialWriteFault Description="" Process="mgr/PLC" Severity="2">1</PLCSerialWriteFault></_2>)
+€
+€12/13/10 15:24:11.657 (4) core/SystemMonitor         BepServer::SetData(<_2><PLCSerialReadFault Description="" Process="mgr/PLC" Severity="2">1</PLCSerialReadFault><PLCSerialWriteFault Description="" Process="mgr/PLC" Severity="2">1</PLCSerialWriteFault></_2>) done, returning Success
+€
+€12/13/10 15:24:11.657 (4) core/SystemMonitor         NotifyDataChanged()
+€
+€12/13/10 15:24:11.657 (1) core/SystemMonitor         Enter Isuzu GetCurrentControlData()
+€
+€12/13/10 15:24:11.657 (1) core/SystemMonitor         Enter GetCurrentControlData()
+€
+€12/13/10 15:24:11.657 (1) core/SystemMonitor         BepServer::GetData(VINReadStatus) was unable to provide requested data
+€
+€12/13/10 15:24:11.657 (1) core/SystemMonitor         BepServer::GetData(StartTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:24:11.657 (1) core/SystemMonitor         BepServer::GetData(CableConnect6Pin) was unable to provide requested data
+€
+€12/13/10 15:24:11.657 (1) core/SystemMonitor         BepServer::GetData(CableConnect8Pin) was unable to provide requested data
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::GetData(CableConnect16Pin) was unable to provide requested data
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::GetData(InputServerState) was unable to provide requested data
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::GetData(VMESystemReady) was unable to provide requested data
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         Invalid Data Tag Requested: AbortTestFromPLC, Tag Not Found: AbortTestFromPLC
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::GetData(AbortTestFromPLC) was unable to provide requested data
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::GetData(PLCSystemIsReady) was unable to provide requested data
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>)
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         Exit GetCurrentControlData()
+€
+€12/13/10 15:24:11.658 (1) core/SystemMonitor         BepServer::GetData(PLCCableConnect) was unable to provide requested data
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         BepServer::GetData(TestsSinceLossCompensation) was unable to provide requested data
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         BepServer::GetData(CycleLimitExceeded) was unable to provide requested data
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Exit Isuzu GetCurrentControlData()
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Enter Isuzu UpdateControl()
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Not Updating OkToRoll to FALSE
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() 0, 0, 0
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         SystemMonitor::CheckMachineStatus() exit
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Enter CheckVehiclePresent() 0
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Exit CheckVehiclePresent()
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Enter CheckCableConnect()
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Exit CheckCableConnect(): 0
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Enter CheckAbort()
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         BepServer::GetData(InvalidLicenseFatalFault) was unable to provide requested data
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Exit CheckAbort()
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::CheckTesting()
+€
+€12/13/10 15:24:11.659 (1) core/SystemMonitor         Enter UpdateCommandPhase()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Not Commanding the phase: 
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Exit UpdateCommandPhase()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Enter CheckLossCompensation()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         	testInProgress: 0
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         	 calInProgress: 0
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         	     calSwitch: 0
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         	calSwitchToPLC: 0
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         	 simInProgress: 0
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         	  cableConnect: 0
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         	vehiclePresent: 0
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Exit CheckLossCompensation()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Enter UpdateDriverMonitor()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Exit UpdateDriverMonitor()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Enter IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Exit IsuzuSystemMonitor::UpdateDriveAxle()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         Exit UpdateControl()
+€
+€12/13/10 15:24:11.660 (1) core/SystemMonitor         WaitForChange()
+€
+€12/13/10 15:24:11.660 (4) core/SystemMonitor         Exit Publish() Success
+€
+€12/13/10 15:24:32.708 (2) core/SystemMonitor         BepComponent::Subscribe(Abort, Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml)
+€
+€12/13/10 15:24:32.708 (2) core/SystemMonitor         NotificationList::AddToList(Abort, 0)
+€
+€12/13/10 15:24:32.709 (2) core/SystemMonitor         Adding elem for Tag: Abort
+€
+€12/13/10 15:24:32.709 (2) core/SystemMonitor         Added new list and process for tag: Abort
+€
+€12/13/10 15:24:32.709 (2) core/SystemMonitor         NotificationList::AddToList(Abort, 0) done
+€
+€12/13/10 15:24:32.709 (2) core/SystemMonitor         BepComponent::Subscribe(Abort Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml) done returning 0
+€
+€12/13/10 15:24:32.711 (2) core/SystemMonitor         BepComponent::Subscribe(CableConnect, Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml)
+€
+€12/13/10 15:24:32.711 (2) core/SystemMonitor         NotificationList::AddToList(CableConnect, 0)
+€
+€12/13/10 15:24:32.712 (2) core/SystemMonitor         Adding elem for Tag: CableConnect
+€
+€12/13/10 15:24:32.712 (2) core/SystemMonitor         Added new list and process for tag: CableConnect
+€
+€12/13/10 15:24:32.712 (2) core/SystemMonitor         NotificationList::AddToList(CableConnect, 0) done
+€
+€12/13/10 15:24:32.712 (2) core/SystemMonitor         BepComponent::Subscribe(CableConnect Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml) done returning 0
+€
+€12/13/10 15:24:32.747 (2) core/SystemMonitor         BepComponent::Subscribe(VehiclePresent, Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml)
+€
+€12/13/10 15:24:32.747 (2) core/SystemMonitor         NotificationList::AddToList(VehiclePresent, 0)
+€
+€12/13/10 15:24:32.747 (2) core/SystemMonitor         Adding elem for Tag: VehiclePresent
+€
+€12/13/10 15:24:32.747 (2) core/SystemMonitor         Added process for tag: VehiclePresent
+€
+€12/13/10 15:24:32.747 (2) core/SystemMonitor         NotificationList::AddToList(VehiclePresent, 0) done
+€
+€12/13/10 15:24:32.747 (2) core/SystemMonitor         BepComponent::Subscribe(VehiclePresent Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml) done returning 0
+€
+€12/13/10 15:25:04.417 (2) core/SystemMonitor         Removing Tag: Abort
+€
+€12/13/10 15:25:04.417 (2) core/SystemMonitor         list loop Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml
+€
+€12/13/10 15:25:04.417 (2) core/SystemMonitor         NotificationList Removed: Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml for tag Abort
+€
+€12/13/10 15:25:04.417 (4) core/SystemMonitor         Removing Tag: CableConnect
+€
+€12/13/10 15:25:04.417 (4) core/SystemMonitor         list loop Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml
+€
+€12/13/10 15:25:04.417 (4) core/SystemMonitor         NotificationList Removed: Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml for tag CableConnect
+€
+€12/13/10 15:25:04.423 (5) core/SystemMonitor         Removing Tag: VehiclePresent
+€
+€12/13/10 15:25:04.423 (5) core/SystemMonitor         list loop Isuzu720AbsTc.qxe/home/IsuzuTesting/Rewrite/Configuration/Components/Brake/Isuzu720AbsTc.xml
+€
+€12/13/10 

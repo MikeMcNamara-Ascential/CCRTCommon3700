@@ -1,0 +1,17 @@
+<BaseBrakeToolConfig>
+  <Setup>
+    <Parameters>
+      <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+      <BrakeForceMultiplier>2.0</BrakeForceMultiplier>
+    </Parameters>
+    <FaultList>
+      <LeftFrontForceFault Code="0001" Description="Left Front brake force fault"/>
+      <RightFrontForceFault Code="0002" Description="Right Front brake force fault"/>
+      <LeftRearForceFault Code="0003" Description="Left Rear brake force fault"/>
+      <RightRearForceFault Code="0004" Description="Right Rear brake force fault"/>
+    </FaultList>
+  </Setup>
+  <TestSteps>
+    <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="75" RearMinBrakeForce="50" FrontMaxBrakeForce="600" RearMaxBrakeForce="400" Prompt1="" Prompt2="">Perform Vehicle BaseBrake Test Analysis</AnalyzeBrakeTest>
+  </TestSteps>
+</BaseBrakeToolConfig>

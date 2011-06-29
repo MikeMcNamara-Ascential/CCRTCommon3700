@@ -1,0 +1,133 @@
+<BrakeTestFaults>
+    <!-- System Status -->
+    <SystemStatus Code="4000" Description="Status do sistema incorreto para iniciar o teste"/>
+    <StatusCheckFailure Code="4000" Description="Status do sistema incorreto para iniciar o teste"/>
+    <NoABSData Code="4001" Description="Nao pode avaliar resultados do ABS, nenhum dado foi mostrado"/>
+    <!-- Test Step Preconditions -->
+    <CableConnectTimeout Code="4010" Description="Timeout esperando por conexao do cabo"/>
+    <ZeroSpeedTimeout Code="4011" Description="Timeout esperando por velocidade zero"/>
+    <MaintainSpeedTimeoutFailure Code="4012" Description="Timeout esperando por velocidade constante"/>
+    <InvalidBroadcastTireSize Code="4013" Description="Tamanho de roda invalido fornecido pela transmissao"/>
+    <!-- Communication Failures -->
+    <SystemCommunication Code="4040" Description=" Falha de comunicacao lendo dados do sistema"/>
+    <CommunicationFailure Code="4041" Description="Falha de comunicacao com modulo"/>
+    <WheelForceDataReadError Code="4042" Description="Erro de sistema lendo vetor de dados da forca da roda"/>
+    <LowSpeedSensorTestSystemCommFailure Code="4043" Description="Falha lendo velocidade dos rolos durante teste do sensor de baixa velocidade"/>
+    <HighSpeedSensorTestSystemCommFailure Code="4044" Description="Falha lendo velocidade dos rolos durante teste do sensor de alta velocidade"/>
+    <DumpAllValvesFail Code="4045" Description="Falha de comunicacao despejando todas as valvulas ABS"/>
+    <DumpFrontValvesFail Code="4046" Description="Falha de comunicacao despejando as valvulas ABS dianteiras"/>
+    <DumpRearValvesFail Code="4047" Description="Falha de comunicacao despejando as valvulas ABS traseiras"/>
+    <HoldAllValvesFail Code="4050" Description="Falha de comunicacao mantendo todas as valvulas ABS"/>
+    <RecoverAllValvesFail Code="4060" Description="Falha de comunicacao recuperando a forca do freio em todas as valvulas"/>
+    <StopRollTestModeFail Code="4070" Description="Falha de comunicacao levando modulo fora do rolo"/>
+    <!-- Test Failures -->
+    <ABSFailure Code="4080" Description="Teste do ABS falhou"/>
+    <SoftwareFailure Code="4081" Description="Falha do software detectada - Por favor notifique Burke E. Porter!"/>
+    <UplineTestsIncomplete Code="4082" Description="Teste upline nao completo antes de testar os rolos"/>
+    <TimeoutFailure Code="4090" Description="Timeout durante o teste"/>
+    <TestTimeout Code="4090" Description="Timeout durante o teste"/>
+    <TargetSpeedTimeout Code="4091" Description="Timeout esperando o veiculo entrar na faixa de velocidade"/>
+    <BrakeSwitchTimeout Code="4092" Description="Timeout esperando o interruptor do freio estar ativado"/>
+    <MaintainSpeedFailure Code="4093" Description="Falha por nao manter a velocidade constante"/>
+    <BrakeSwitchStatesNotSeen Code="4094" Description="Falha por nao ver o interruptor do freio em ambas as posicoes Liga, Desl."/>
+    <StartModuleKeepAliveFail Code="40A0" Description="Falha por nao iniciar linha viva do sustento do modulo"/>
+    <StopModuleKeepAliveFail Code="40A1" Description="Falha por nao parar linha viva do sustento do modulo"/>
+    <PartNumberMismatch Code="40A2" Description="Numero da peca do modulo nao combina com a transmissao"/>
+    <VINMismatch Code="40A3" Description="Modulo VIN nao combina com a transmissao"/>
+    <EvacAndFillIncomplete Code="40A4" Description="Evac e procedimento de suficiencia nao completados antes do teste do rolo"/>
+    <CalibrateGSensorFail Code="40A5" Description="Falha por nao calibrar Sensor-G"/>
+    <GSwitchMissing Code="40A6" Description="Modulo faltando do Interruptor-G"/>
+    <FluidFillSwitchOn Code="40A7" Description="Interruptor para encher de fluido esta ligado - Cheque nivel do fluido de freio\n"/>
+    <LowSpeedSensorTestFail Code="40B0" Description="Teste do sensor de baixa velocidade da roda falhou"/>
+    <LeftFrontLowSpeedSensorTestSensorHigh Code="40B1" Description="Baixa velocidade: sensor de velocidade da roda esquerda dianteira lendo alto"/>
+    <RightFrontLowSpeedSensorTestSensorHigh Code="40B2" Description="Baixa velocidade: sensor de velocidade da roda direita dianteira lendo alto"/>
+    <LeftRearLowSpeedSensorTestSensorHigh Code="40B3" Description="Baixa velocidade: sensor de velocidade da roda esquerda traseira lendo alto"/>
+    <RightRearLowSpeedSensorTestSensorHigh Code="40B4" Description="Baixa velocidade: sensor de velocidade da roda direita traseira lendo alto"/>
+    <LeftFrontLowSpeedSensorTestSensorLow Code="40B5" Description="Baixa velocidade: sensor de velocidade da roda esquerda dianteira lendo baixo"/>
+    <RightFrontLowSpeedSensorTestSensorLow Code="40B6" Description="Baixa velocidade: sensor de velocidade da roda direita dianteira lendo baixo"/>
+    <LeftRearLowSpeedSensorTestSensorLow Code="40B7" Description="Baixa velocidade: sensor de velocidade da roda esquerda traseira lendo baixo"/>
+    <RightRearLowSpeedSensorTestSensorLow Code="40B8" Description="Baixa velocidade: sensor de velocidade da roda direita traseira lendo baixo"/>
+    <HighSpeedSensorTestFail Code="40C0" Description="Teste do sensor de alta velocidade da roda falhou"/>
+    <LeftFrontHighSpeedSensorTestSensorHigh Code="40C1" Description="Alta velocidade: sensor de velocidade da roda esquerda dianteira lendo alto"/>
+    <RightFrontHighSpeedSensorTestSensorHigh Code="40C2" Description="Alta velocidade: sensor de velocidade da roda direita dianteira lendo alto"/>
+    <LeftRearHighSpeedSensorTestSensorHigh Code="40C3" Description="Alta velocidade: sensor de velocidade da roda esquerda traseira lendo alto"/>
+    <RightRearHighSpeedSensorTestSensorHigh Code="40C4" Description="Alta velocidade: sensor de velocidade da roda direita traseira lendo alto"/>
+    <LeftFrontHighSpeedSensorTestSensorLow Code="40C5" Description="Alta velocidade: sensor de velocidade da roda esquerda dianteira lendo baixo"/>
+    <RightFrontHighSpeedSensorTestSensorLow Code="40C6" Description="Alta velocidade: sensor de velocidade da roda direita dianteira lendo baixo"/>
+    <LeftRearHighSpeedSensorTestSensorLow Code="40C7" Description="Alta velocidade: sensor de velocidade da roda esquerda traseira lendo baixo"/>
+    <RightRearHighSpeedSensorTestSensorLow Code="40C8" Description="Alta velocidade: sensor de velocidade da roda direita traseira lendo baixo"/>
+    <ExcessiveBrakeForce Code="40D0" Description="Forca usada no freio excessiva para parar o veiculo, inspecione danos nos pneus"/>
+    <LeftFrontDragFault Code="40E0" Description="Arrasto esquerdo dianteiro muito alto"/>
+    <RightFrontDragFault Code="40E1" Description="Arrasto direito dianteiro muito alto"/>
+    <LeftRearDragFault Code="40E2" Description="Arrasto esquerdo traseiro muito alto"/>
+    <RightRearDragFault Code="40E3" Description="Arrasto direito traseiro muito alto"/>
+    <LeftFrontForceFault Code="40E4" Description="Forca do freio esquerdo dianteiro muito baixa"/>
+    <RightFrontForceFault Code="40E5" Description="Forca do freio direito dianteiro muito baixa"/>
+    <LeftRearForceFault Code="40E6" Description="Forca do freio esquerdo traseiro muito baixa"/>
+    <RightRearForceFault Code="40E7" Description="Forca do freio direito traseiro muito baixa"/>
+    <FrontBalanceFault Code="40E8" Description="Balanco de frenagem lado a lado frontal fora dos limites"/>
+    <RearBalanceFault Code="40E9" Description="Balanco de frenagem lado a lado traseiro fora dos limites"/>
+    <FrontToRearBalanceFault Code="40EA" Description="Balanco de frenagem dianteiro traseiro fora dos limites"/>
+    <ReduxRecovSequenceFail Code="40F0" Description="Falha executando reducao/sequencia de recuperacao"/>
+    <LeftFrontReductionFail Code="40F1" Description="Reducao esquerda dianteira nao suficiente"/>
+    <RightFrontReductionFail Code="40F2" Description="Reducao direita dianteira nao suficiente"/>
+    <LeftRearReductionFail Code="40F3" Description="Reducao esquerda traseira nao suficiente"/>
+    <RightRearReductionFail Code="40F4" Description="Reducao direita traseira nao suficiente"/>
+    <LeftFrontRecoveryFail Code="40F5" Description="Recuperacao esquerda dianteira nao suficiente"/>
+    <RightFrontRecoveryFail Code="40F6" Description="Recuperacao direita dianteira nao suficiente"/>
+    <LeftRearRecoveryFail Code="40F7" Description="Recuperacao esquerda traseira nao suficiente"/>
+    <RightRearRecoveryFail Code="40F8" Description="Recuperacao direita traseira nao suficiente"/>
+    <LeftFrontValveCrossedWithRightFront Code="4100" Description="Valvula esquerda dianteira cruzada com valvula direita dianteira"/>
+    <LeftFrontValveCrossedWithRightRear Code="4101" Description="Valvula esquerda dianteira cruzada com valvula direita traseira"/>
+    <LeftFrontValveCrossedWithLeftRear Code="4102" Description="Valvula esquerda dianteira cruzada com valvula esquerda traseira"/>
+    <LeftRearValveCrossedWithLeftFront Code="4103" Description="Valvula esquerda traseira cruzada com valvula esquerda dianteira"/>
+    <LeftRearValveCrossedWithRightFront Code="4104" Description="Valvula esquerda traseira cruzada com valvula direita dianteira"/>
+    <LeftRearValveCrossedWithRightRear Code="4105" Description="Valvula esquerda traseira cruzada com valvula direita traseira"/>
+    <RightFrontValveCrossedWithLeftFront Code="4106" Description="Valvula direita dianteira cruzada com valvula esquerda dianteira"/>
+    <RightFrontValveCrossedWithRightRear Code="4107" Description="Valvula direita dianteira cruzada com valvula direita traseira"/>
+    <RightFrontValveCrossedWithLeftRear Code="4108" Description="Valvula direita dianteira cruzada com valvula esquerda traseira"/>
+    <RightRearValveCrossedWithLeftFront Code="4109" Description="Valvula direita traseira cruzada com valvula esquerda dianteira"/>
+    <RightRearValveCrossedWithRightFront Code="410A" Description="Valvula direita traseira cruzada com valvula direita dianteira"/>
+    <RightRearValveCrossedWithLeftRear Code="410B" Description="Valvula direita traseira cruzada com valvula esquerda traseira"/>
+    <LeftFrontSensorCrossedWithRightFront Code="4110" Description="Sensor de velocidade da roda esquerda dianteira cruzado com direito dianteiro"/>
+    <LeftFrontSensorCrossedWithRightRear Code="4111" Description="Sensor de velocidade da roda esquerda dianteira cruzado com direito traseiro"/>
+    <LeftFrontSensorCrossedWithLeftRear Code="4112" Description="Sensor de velocidade da roda esquerda dianteira cruzado com esquerdo traseiro"/>
+    <LeftRearSensorCrossedWithLeftFront Code="4113" Description="Sensor de velocidade da roda esquerda traseira cruzado com esquerdo dianteiro"/>
+    <LeftRearSensorCrossedWithRightFront Code="4114" Description="Sensor de velocidade da roda esquerda traseira cruzado com direito dianteiro"/>
+    <LeftRearSensorCrossedWithRightRear Code="4115" Description="Sensor de velocidade da roda esquerda traseira cruzado com direito traseiro"/>
+    <RightFrontSensorCrossedWithLeftFront Code="4116" Description="Sensor de velocidade da roda direita dianteira cruzado com esquerdo dianteiro"/>
+    <RightFrontSensorCrossedWithRightRear Code="4117" Description="Sensor de velocidade da roda direita dianteira cruzado com direito traseiro"/>
+    <RightFrontSensorCrossedWithLeftRear Code="4118" Description="Sensor de velocidade da roda direita dianteira cruzado com esquerdo traseiro"/>
+    <RightRearSensorCrossedWithLeftFront Code="4119" Description="Sensor de velocidade da roda direita traseira cruzado com esquerdo dianteiro"/>
+    <RightRearSensorCrossedWithRightFront Code="411A" Description="Sensor de velocidade da roda direita traseira cruzado com direito dianteiro"/>
+    <RightRearSensorCrossedWithLeftRear Code="411B" Description="Sensor de velocidade da roda direita traseira cruzado com esquerdo traseiro"/>
+    <RearSensorCrossedWithLeftFront Code="411C" Description="Sensor de velocidade da roda traseira cruzado com esquerdo dianteiro"/>
+    <RearSensorCrossedWithRightFront Code="411D" Description="Sensor de velocidade da roda traseira cruzado com direito dianteiro"/>
+    <!--Tandem Test Failures-->
+    <RightTandemLowSpeedSensorTestSensorHigh Code="40B9" Description="Baixa velocidade: sensor leitura Roda Tandem direita alto" />
+    <RightTandemLowSpeedSensorTestSensorLow Code="40BA" Description="Baixa velocidade: sensor leitura Roda Tandem direita baixo" />
+    <RightTandemHighSpeedSensorTestSensorHigh Code="40C9" Description="Alta velocidade: sensor leitura Roda Tandem direita alto" />
+    <RightTandemHighSpeedSensorTestSensorLow Code="40CA" Description="Alta velocidade: sensor leitura Roda Tandem direita baixo" />
+    <RightTandemDragFault Code="40EB" Description="Arrasto Tandem direito muito alto" />
+    <RightTandemForceFault Code="40EC" Description="Forca frenagem Tandem direito muito baixa" />
+    <RightTandemReductionFail Code="40F9" Description="Reducao do Tandem direito insuficiente" />
+    <RightTandemRecoveryFail Code="40FA" Description="Recuperacao do Tandem direito insuficiente" />
+    <LeftTandemLowSpeedSensorTestSensorHigh Code="40BB" Description="Baixa Velocidade: sensor leitura Roda Tandem esquerda alto" />
+    <LeftTandemLowSpeedSensorTestSensorLow Code="40BC" Description="Baixa velocidade: sensor leitura Roda Tandem esquerda baixo" />
+    <LeftTandemHighSpeedSensorTestSensorHigh Code="40CB" Description="Alta velocidade: sensor leitura Roda Tandem esquerda alto" />
+    <LeftTandemHighSpeedSensorTestSensorLow Code="40CC" Description="Alta velocidade: sensor leitura Roda Tandem esquerda baixo" />
+    <LeftTandemDragFault Code="40ED" Description="Arrasto Tandem esquerdo muito alto" />
+    <LeftTandemForceFault Code="40EE" Description="Forca frenagem Tandem esquerdo muito baixa" />
+    <LeftTandemReductionFail Code="40FB" Description="Reducao do Tandem esquerdo insuficiente" />
+    <LeftTandemRecoveryFail Code="40FC" Description="Recuperacao do Tandem esquerdo insuficiente" />
+    <!--Retarder Test Failures-->
+    <MultipositionalFailure Code="4201" Description="A alavanca do retarder falhou"/>
+    <MultipositionalForceFailure Code="4202" Description="A alavanca do retarder falhou por forca sequencial nao crescente"/>
+    <AccelFailure Code="4203" Description="Falhou a acelerar a velocidade alvo antes do teste de retarder"/>
+    <DecelFailure Code="4204" Description="Falhou a desacelerar a velocidade alvo apos o teste de retarder"/>
+    <BoostSpeedLimit Code="4205" Description="Limite de velocidade do limitador excedido durante a aplicacao de forca"/>
+    <TestSpeedLimit Code="4206" Description="Limite de velocidade do limitador excedido durante fase de teste"/>
+    <LimiterAccelFailure Code="4207" Description="Falha a acelerar para velocidade de teste do limitador"/>
+    <LimiterSetFailure Code="4208" Description="Falha manual do operador - nao pode ajustar o limitador"/>
+    <LimiterOperatorFailure Code="4209" Description="Falha manual do operador - ma funcao geral do limitador"/>
+</BrakeTestFaults>

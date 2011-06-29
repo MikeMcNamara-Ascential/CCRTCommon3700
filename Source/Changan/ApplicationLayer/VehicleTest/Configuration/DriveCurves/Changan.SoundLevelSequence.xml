@@ -1,0 +1,48 @@
+<TandemBaseBrakeDriveCurve Description="Drive curve for the tandem axle base brake test">
+   <Components Debug="Off">
+      <SoundLevel>
+         <ComponentName>ChanganSoundLevelTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+         <ConfigFile>SoundLevelComponent.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/SoundLevel</ConfigPath>
+         <Debug>Off</Debug>
+      </SoundLevel>
+   </Components>
+   <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="Off">
+      <TestPhase010 Description="Start monitoring sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
+               <StartSoundTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase010>
+      <TestPhase020 Description="Read idle sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Read idle sound level" Result="" Timeout="" Component="SoundLevel">
+               <IdleHornTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase020>
+      <TestPhase030 Description="Read running sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Read running sound level" Result="" Timeout="" Component="SoundLevel">
+               <RunningHornTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase030>
+      <TestPhase040 Description="Stop the sound monitor thread" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Stop the sound monitor thread" Result="" Timeout="" Component="SoundLevel">
+               <StopSoundTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase040>
+      <TestPhase090 Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective3 Description="Perform finish-up" Result="" Timeout="" Component="SoundLevel">
+               <FinishUp>PerformingFinishUp</FinishUp>
+            </Objective3>
+         </ForegroundObjectives>
+      </TestPhase090>
+   </Test>
+</TandemBaseBrakeDriveCurve>

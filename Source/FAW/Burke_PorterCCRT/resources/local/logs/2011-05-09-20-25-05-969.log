@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<log>
+
+<record> <date>2011-05-09 20:25:06.281 GMT</date> <millis>1304972706281</millis> <sequence>1</sequence> <logger>com.bepco.rtc</logger> <level>WARNING</level> <class>com.bepco.rtc.Main</class> <method>main</method> <thread>10</thread> <message>Separate Instance of client already running!</message> <exception><message>com.bepco.rtc.InitException: Separate Instance of client already running!
+	at com.bepco.rtc.ClientLock.&lt;init&gt;(ClientLock.java:49)
+	at com.bepco.rtc.ClientLock.&lt;init&gt;(ClientLock.java:33)
+	at com.bepco.rtc.Main.main(Main.java:258)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.zerog.lax.LAX.launch(DashoA8113)
+	at com.zerog.lax.LAX.main(DashoA8113)
+</message><frame><class /><method /></frame></exception> </record>

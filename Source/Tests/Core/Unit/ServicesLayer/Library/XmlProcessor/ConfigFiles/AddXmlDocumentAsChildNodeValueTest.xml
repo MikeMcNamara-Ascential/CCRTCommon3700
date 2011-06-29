@@ -1,0 +1,7 @@
+<BepXmlMssg>
+   <Test Status="Junk">
+      <Child>
+         <GrandChild>Tester</GrandChild>
+      </Child>
+   </Test>
+</BepXmlMssg>

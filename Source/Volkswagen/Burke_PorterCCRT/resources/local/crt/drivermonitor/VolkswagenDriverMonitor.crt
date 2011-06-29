@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+
+<!-- 
+  First stab at writing a config file for the GUI panels.
+  Config for specific XMLWidgetPanels is under the
+  $Revision: 9525 $
+-->
+
+<RtGuiConfig>
+    <Metadata author="Burke Porter, Inc" version="1.0"
+      description="Standard implementation of the Driver Monitor view."/>
+    <XmlWidgetPanel id="DriverMonitor">
+        <Layout bgcolor="white">
+            <!-- START OF Three radial gauges ================================= -->
+            <HBox posX="150" posY="0" width="820" height="270">
+                <!-- space -->
+                <VBox width="5"/>
+
+                <!-- Speedometer gauge -->
+                <Widget id="speed" height="300" width="300" class="com.bepco.gui.RadialGauge">
+                    <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
+                    <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
+                    <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" >
+                        <Font size="30" name="sans-serif" style="plain"/>
+                    </RadialGaugeConfig>
+                </Widget>
+                <!-- Brake force gauge -->
+                <Widget id="brakeforce" height="300" width="300" class="com.bepco.gui.RadialGauge">
+                    <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10"/>
+                    <DataSource tagname="BrakeTarget" tagrole="targetrange" messagetype="Subscribe"/>
+                    <DataSource tagname="BrakeActive" messagetype="Subscribe" tagrole="enabled"/>
+                    <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="600" targetlow="0" targethigh="0" >
+                        <Font size="30" name="sans-serif" style="plain"/>
+                    </RadialGaugeConfig>
+                </Widget>
+                <!-- ABS Selected Logo -->
+                <VBox width="30"/>
+                <VBox>
+                    <HBox>
+                        <VBox width="40"/>
+                        <Widget id="_bodystyle" height="40" width="160" class="com.bepco.gui.TextBox">
+                            <DataSource tagname="VehicleType" messagetype="Subscribe"/>
+                            <TextBoxConfig>
+                                <Font size="36" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </HBox>
+                    <Widget id="absindicator" width="200" class="com.bepco.gui.ImagePhaseBox">
+                        <DataSource tagname="CableConnect" messagetype="Subscribe"/>
+                    </Widget>
+                </VBox>
+            </HBox>
+            <!-- END OF Three radial gauges =================================== -->
+            <!-- START OF Driver Prompt Boxes ================================= -->
+            <Widget id="prompts1" class="com.bepco.gui.PromptBox" posX="7" posY="275" width="1005" height="90" border="true">
+                <DataSource tagname="PromptBox1" messagetype="Subscribe" />
+                <DataSource tagname="PromptBox1BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                <TextBoxConfig>
+                    <Font size="48" name="sans-serif" style="plain"/>
+                </TextBoxConfig>
+            </Widget>
+            <Widget id="prompts2" class="com.bepco.gui.PromptBox" posX="7" posY="365" width="1005" height="90" border="true">
+                <DataSource tagname="PromptBox2" messagetype="Subscribe" />
+                <DataSource tagname="PromptBox2BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                <TextBoxConfig>
+                    <Font size="48" name="sans-serif" style="plain"/>
+                </TextBoxConfig>
+            </Widget>
+            <!-- END OF Driver Prompt Boxes ================================= -->
+            <!-- Row 2 of 3 -->
+            <HBox border="false" posX="7" posY="410" width="1012" height="300">
+                <HBox height="170" width="200">
+                    <!-- subsystem test pass/fail widgets 
+                        TestStates:
+                            TestInProgress 	- Blue
+                            Timeout		- Orange
+                            Pass		- Green
+                            Fail		- Red
+                            Abort		- Yellow
+                    -->
+                    <VBox width='185'>
+                        <Widget width='175' height='31'  id="brake" class="com.bepco.gui.OverallTestPhaseBox" >
+                            <DataSource tagname="BrakeOverallTest" messagetype="Subscribe"/>
+                            <TextBoxConfig>
+                                <Font size="22" name="serif" style="bold"></Font>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+                </HBox>
+                <!-- END OF subsystem test pass/fail widgets ========================================== -->
+                <!-- START of Test Failures Box===================================================== -->
+                <HBox height="175" border="true" borderstyle="title" bordertitle="testfailures">
+                    <VBox width="520">
+                        <!--HBox>
+                          <Label name="testfailures">
+                            <Font size="24" name="sans-serif" style="bold"/>
+                          </Label>
+                        </HBox-->
+                        <Widget height="160" width="520" id="testfailures" class="com.bepco.gui.ListBox">
+                            <DataSource tagname="AllFailures" messagetype="Subscribe"/>
+                            <ScrollBoxConfig stringmap="com.bepco.rtc.properties.TestFailureStrings" scrollbar="false">
+                                <Font style="bold" name="serif" size="20"/>
+                            </ScrollBoxConfig>
+                        </Widget>
+                    </VBox>
+                </HBox>
+                <!-- END of Test Failures Box ===================================================== -->
+		  
+                <!-- Wheel Speeds ======================================================================== -->
+                <HBox height="175" border="true" borderstyle="title" bordertitle="">
+                    <VBox>
+                        <Widget id="_lf" class="com.bepco.gui.NumberBox" width="71">
+                            <DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig>
+                                <Font size="38" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <HBox height="80"/>
+                        <Widget id="_lr" class="com.bepco.gui.NumberBox" width="71">
+                            <DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig>
+                                <Font size="38" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+		  
+
+                    <Widget id="axleimage" class="com.bepco.gui.ImagePhaseBox" border="false" width='110'>
+                        <DataSource tagname="VehicleTypeImg" messagetype="Subscribe"/>
+                    </Widget>
+		  
+
+                    <VBox>
+                        <Widget id="_rf" class="com.bepco.gui.NumberBox" width='71'>
+                            <DataSource tagname="RFSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig>
+                                <Font size="38" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <HBox height="80"/>
+                        <Widget id="_rr" class="com.bepco.gui.NumberBox" width='71'>
+                            <DataSource tagname="RRSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="RRSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig>
+                                <Font size="38" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+                </HBox>
+            </HBox>
+            <!-- END of Wheel Speeds ================================================================ -->
+            <!-- START of VIN BOX ============================================================== -->
+            <HBox posX='7' posY='670' width='1012' height='68' border="false">
+                <!-- VIN -->
+                <Label name="vin" border="false" height='68' width='100'>
+                    <Font size="45" name="sans-serif" style="plain"/>
+                </Label>
+                <Widget id="_vin" height='68' width="550" class="com.bepco.gui.TextBox">
+                    <DataSource tagname="VINDisplay" messagetype="Subscribe" />
+                    <DataSource tagname="VINDisplayBGColor" messagetype="Subscribe"
+                      tagrole="backgroundcolor" />
+                    <TextBoxConfig>
+                        <Font size="45" name="sans-serif" style="plain"/>
+                    </TextBoxConfig>
+                </Widget>
+            </HBox>
+            <!-- START of Driver ID ============================================================ -->
+            <!-- END of Driver ID ============================================================== -->
+        </Layout>
+    </XmlWidgetPanel>
+</RtGuiConfig>
+

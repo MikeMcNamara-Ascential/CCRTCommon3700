@@ -1,0 +1,133 @@
+<IsuzuPIMTc>
+    <Setup>
+        <Debug>Off</Debug>
+        <Name>PIM</Name>
+        <TestDomain>Foreground</TestDomain>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <Communication>
+            <Debug>Off</Debug>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <Name>component/IsuzuPIM</Name>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <VIN/>
+                <Zerospeed/>
+                <OverallTest/>
+                <CurrentTestStatus/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>component/IsuzuPIM</ProcessName>
+            <AdditionalLogFile Types="/Components/IsuzuPIM.log or Disable">/Components/IsuzuPIM.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <DataTags>
+            <!-- Message Tags -->
+            <EngineRunningMessage>ReadEngineIdleRPM</EngineRunningMessage>
+            <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+            <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+            <!-- System Tags -->
+            <EngineCoolantTemp>EngineOperatingTemp</EngineCoolantTemp>
+            <ModulePartNumber>PCMPartNo</ModulePartNumber>
+            <UseBypassPartNumberList TestSteps="CheckPartNumbers">UseBypassPartNumberList</UseBypassPartNumberList>
+            <VehicleVIN>VIN</VehicleVIN>
+            <!-- Static Tester Data Items -->
+            <StaticTestResult>STTestResult</StaticTestResult>
+            <StaticTesterName>core/StaticTesterServer</StaticTesterName>
+            <StaticTesterServerName>StaticTesterServer</StaticTesterServerName>
+            <!-- Oxygen Sensor Tags -->
+            <OxygenSensor1Name>OxygenSensor1Bank1</OxygenSensor1Name>
+            <OxygenSensor2Name>OxygenSensor2Bank1</OxygenSensor2Name>
+            <OxygenSensor3Name>OxygenSensor1Bank2</OxygenSensor3Name>
+            <OxygenSensor4Name>OxygenSensor2Bank2</OxygenSensor4Name>
+        </DataTags>
+        <Parameters>
+            <!-- Test Component Behavior Parameters -->
+            <AbortOnTestStepFailure>True</AbortOnTestStepFailure>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <DelayBeforeDtcRead>30000</DelayBeforeDtcRead>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>0</DeveloperTest>
+            <ICMName>mgr/ICM</ICMName>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+            <LoadStaticTestResults>False</LoadStaticTestResults>
+            <!-- Module Parameters -->
+            <ConfigFile>/Configuration/Components/Emissions/IsuzuPIM.xml</ConfigFile>
+            <!-- Diagnostic Mode Parameters -->
+            <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">False</AlwaysEnterDiagnosticMode>
+            <!-- DTC Parameters -->
+            <AbortIfDTCPresent TestSteps="ReadFaultCount" Comment="Flag to determine if the test sequence will be aborted it DTCs are detected">False</AbortIfDTCPresent>
+            <!-- Ignition Status Parameters -->
+            <AbortIgnitionNotOn TestSteps="Setup" Comment="Abort the test sequence if the ignition is not in the ON position">True</AbortIgnitionNotOn>
+            <IgnitionOnTimeout Units="ms" TestSteps="Setup" Comment="Amount of time to wait for ignition in the ON position">10000</IgnitionOnTimeout>
+            <!-- Tester Present Parameters -->
+            <AlwaysStartKeepAlive TestSteps="StartModuleKeepAlive" Comment="Send tester present message to module if module does not need to be tested">False</AlwaysStartKeepAlive>
+        </Parameters>
+        <Prompts>
+            <AbortEngineTemp PromptBox="1" Priority="0" Duration="5000" TestSteps="WaitForEngineTemperature">AbortEngineTempTooHigh</AbortEngineTemp>
+            <CableConnect PromptBox="1" Priority="0" TestSteps="EnterDiagnosticMode,Setup,StartModuleKeepAlive">ConnectCable</CableConnect>
+            <CaseLearnInProgress PromptBox="1" Priority="0" TestSteps="CheckCASELearn">CaseLearnInProgress</CaseLearnInProgress>
+            <CheckingO2Sensors PromptBox="1" Priority="0" TestSteps="CheckOxygenSensors">CheckingO2Sensors</CheckingO2Sensors>
+            <DelayBeforeDtcRead PromptBox="1" Priority="0" TestSteps="DelayBeforeDtcRead">DelayBeforeDtcRead</DelayBeforeDtcRead>
+            <EngineRunning PromptBox="1" Priority="0" TestSteps="WaitForEngineRunning">StartVehicle</EngineRunning>
+            <EngineMustIdle PromptBox="2" Priority="0" TestSteps="CheckOxygenSensors">EngineMustIdle</EngineMustIdle>
+            <LeftFootOnBrake PromptBox="2" Priority="0" TestSteps="CheckCASELearn">LeftFootOnBrake</LeftFootOnBrake>
+            <IgnitionOn PromptBox="1" Priority="0" TestSteps="Setup">KeyOn</IgnitionOn>
+            <PCMCommFailure PromptBox="1" Priority="0" TestSteps="Setup">AbortPcmCommFailure</PCMCommFailure>
+            <PushAcceleratorPedalToFloor PromptBox="2" Priority="0" TestSteps="AcceleratorPedalWOTTest,CheckCASELearn">PushAcceleratorToFloor</PushAcceleratorPedalToFloor>
+            <ReleaseThrottle PromptBox="2" Priority="0" Duration="3000" TestSteps="CheckCASELearn">ReleaseThrottle</ReleaseThrottle>
+            <ShiftToNeutral PromptBox="1" Priority="0" TestSteps="AcceleratorPedalWOTTest">ShiftToNeutral</ShiftToNeutral>
+            <ShiftToPark PromptBox="2" Priority="0" Duration="3000" TestSteps="CheckCASELearn">ShiftToPark</ShiftToPark>
+            <TurnEngineOffKeyOn PromptBox="2" Priority="0" TestSteps="Setup">TurnEngineOffAndKeyOn</TurnEngineOffKeyOn>
+            <TurnOnAc PromptBox="2" Priority="0" TestSteps="CheckAcStatus">TurnOnAc</TurnOnAc>
+            <WaitForEngineTemp PromptBox="2" Priority="0" TestSteps="WaitForEngineTemperature">WaitForEngineTemp</WaitForEngineTemp>
+            <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
+        </Prompts>
+        <IgnoreFaults/>
+        <FaultList>/Configuration/Components/Emissions/EmissionsFaults.xml</FaultList>
+    </Setup>
+    <Objectives>
+        <ClearFaults>
+            <TestStep00>Setup</TestStep00>
+            <TestStep05>EnterDiagnosticMode</TestStep05>
+            <TestStep15>ClearFaultsFinal</TestStep15>
+            <TestStep99>FinishUp</TestStep99>
+        </ClearFaults>
+    </Objectives>
+    <TestSteps>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
+        <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" AbortIfFailed="False"/>
+        <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
+        <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
+        <Setup Result="" Timeout="500" Description="Setup conditions for testing" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
+    </TestSteps>
+</IsuzuPIMTc>

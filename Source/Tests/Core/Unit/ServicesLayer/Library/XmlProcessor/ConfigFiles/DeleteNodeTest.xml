@@ -1,0 +1,5 @@
+<BepXMLMssg>
+   <Child Debug="Off">
+      <Grandchild Status="Run" ConfigFile="/home/Tim.Bochenek/Rewrite/Testing/ServicesLayer/BaseReuse/XmlProcessor/ConfigFiles/DeleteNodeData.xml"/>
+   </Child>
+</BepXMLMssg>

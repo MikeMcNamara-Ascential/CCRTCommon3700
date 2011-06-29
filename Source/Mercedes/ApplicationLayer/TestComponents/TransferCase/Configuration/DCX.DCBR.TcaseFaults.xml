@@ -1,0 +1,95 @@
+<Faults>
+    <SystemStatus Code="3000" Description="Falha do sistema de desligamento do teste"/>
+    <SoftwareFailure Code="3001" Description="Arquivos de configuracao ruins ou faltando"/>
+    <DisengageMotor Code="3002" Description="Falha ao desativar motores dos rolos"/>
+    <ZeroSpeed Code="3003" Description="Timeout esperando por velocidade zero"/>
+    <SpeedTimeout Code="3004" Description="Timeout esperando por velocidade alvo"/>
+    <SpeedFail Code="3005" Description="Falha para atingir velocidade alvo"/>
+    <ClutchMotorsFail Code="3006" Description="Falha de embreagem e motores do impulso"/>
+    <ClutchMotorsTimeout Code="3007" Description="Timeout de embreagem e motores de impulso"/>
+    <DeclutchMotorsFail Code="3008" Description="Falha de embreagem e desabilita motores de impulso"/>
+    <DeclutchMotorsTimeout Code="3009" Description="Timeout na embreagem e desabilita motores de impulso"/>
+    <DisengageMotor Code="300A" Description="Falha motores de teste nao desativados"/>
+    <SystemReadFail Code="300B" Description="Falha leitura dos dados do sistema"/>
+    <TargetSpeedTimeout Code="300C" Description="Falha para alcancar velocidade alvo no teste"/>
+    <CheckAxleRatioReadFail Code="3020" Description="Errada ou insuficiente dado da velocidade da roda"/>
+    <FailRatio Code="3021" Description="Falha dianteira para traseira teste de alcance do eixo"/>
+    <CheckAxleRatioTimeout Code="3022" Descrption="Timeout alcancando a velocidade"/>
+    <ReadRatio Code="3023" Descrption="Falha de leitura dos dados do alcance do eixo"/>
+    <CheckShiftNeutralVehicleConditionsFailure Code="3040" Description="Falha Tcase do deslocamento Neutro para condicoes do veiculo incorretas"/>
+    <CheckShiftNeutralShiftTcaseFailure Code="3041" Description="Falha do deslocamento do Tcase para Neutro"/>
+    <CheckShiftNeutralVerifyShiftFailure Code="3042" Description="Falha de verificacao do deslocamento do Tcase Neutro"/>
+    <CheckShiftLowVehicleConditionsFailure Code="3050" Description="Falha do deslocamento Tcase Baixo para condicoes do veiculo incorreto"/>
+    <CheckShiftLowShiftTcaseFailure Code="3051" Description="Falha do movimento Tcase para Baixo"/>
+    <CheckShiftLowVerifyShiftFailure Code="3052" Description="Falha de verificacao do deslocamento do Tcase Baixo"/>
+    <CheckShiftAWDVehicleConditionsFailure Code="3060" Description="Falha deslocamento Tcase AWD para condicoes do veiculo incorreto"/>
+    <CheckShiftAWDShiftTcaseFailure Code="3061" Description="Falha de deslocamento Tcase para AWD"/>
+    <CheckShiftAWDVerifyShiftFailure Code="3062" Description="Falha de verificacao do deslocamento do Tcase AWD"/>
+    <CheckShift2WDVehicleConditionsFailure Code="3070" Description="Falha do deslocamento Tcase 2WD para condicoes do veiculo incorreto"/>
+    <CheckShift2WDShiftTcaseFailure Code="3071" Description="Falha de deslocamento do Tcase para 2WD"/>
+    <CheckShift2WDVerifyShiftFailure Code="3072" Description="Falha de verificacao do deslocamento do Tcase 2WD"/>
+    <CheckShift4WDVehicleConditionsFailure Code="3080" Description="Falha do deslocamento do Tcase 4WD para condicoes do veiculo incorreto"/>
+    <CheckShift4WDShiftTcaseFailure Code="3081" Description="Falha do deslocamento Tcase para 4WD"/>
+    <CheckShift4WDVerifyShiftFailure Code="3082" Description="Falha de verificacao do deslocamento do Tcase 4WD"/>
+    <CheckShift4HIVehicleConditionsFailure Code="3090" Description="Falha do deslocamento do Tcase 4HI para condicoes do veiculo incorreto"/>
+    <CheckShift4HIShiftTcaseFailure Code="3091" Description="Falha de deslocamento do Tcase para 4HI"/>
+    <CheckShift4HIVerifyShiftFailure Code="3092" Description="Falha de verificacao do deslocamento do Tcase 4HI"/>
+    <CheckShift4LOWVehicleConditionsFailure Code="30A0" Description="Falha do deslocamento do Tcase 4LOW para condicoes do veiculo incorreto"/>
+    <CheckShift4LOWShiftTcaseFailure Code="30A1" Description="Falha do deslocamento do Tcase para o 4LOW"/>
+    <CheckShift4LOWVerifyShiftFailure Code="30A2" Description="Falha de verificacao do deslocamento do Tcase 4LOW"/>
+    <CheckShift4FullTimeVehicleConditionsFailure Code="30B0" Description="Falha do deslocamentodo Tcase 4FullTime para condicoes do veiculo incorreto"/>
+    <CheckShift4FullTimeShiftTcaseFailure Code="30B1" Description="Falha do deslocamento Tcase para 4FullTime"/>
+    <CheckShift4FullTimeVerifyShiftFailure Code="30B2" Description="Falha de verificacao do deslocamento do Tcase 4FullTime"/>
+    <TcaseCommunicationError Code="3100" Description="Comunicacao com Modulo Tcase com falha"/>
+    <TcaseCheckGearFail Code="3101" Description="Marcha do modulo Tcase nao combina com velocidade desejada para o teste"/>
+    <TcaseCheckGearTimeout Code="3102" Description="Timeout esperando pela marcha desejada"/>
+    <TcaseEnterDiagnosticModeFail Code="3103" Description="Falha do modulo Tcase entre modo diagnostico"/>
+    <TcasStartKeepAliveFail Code="3104" Description="Falha do modulo Tcase inicio continua ativado"/>
+    <TcaseStopKeepAliveFail Code="3105" Description="Falha do modulo Tcase stop continua ativado"/>
+    <TcaseCommandShiftTimeout Code="3106" Description="Timeout durante comando de deslocamento do modulo Tcase"/>
+    <TcaseCommandShiftFail Code="3107" Description="Falha do comando de deslocamento do modulo Tcase"/>
+    <TcaseDriverTimeout Code="3108" Description="Timeout esperando pelo motorista verificar deslocamento"/>
+    <TcaseDriverFail Code="3109" Description="Falha de deslocamento do Tcase entrada pelo motorista"/>
+    <EngineCommunicationFail Code="3200" Description="Falha do Tcase comunicacao com modulo do motor"/>
+    <EngineEnterDiagnosticModeFail Code="3201" Description="Falha do Tcase Entre modo Motor no Modo Diagnostico"/>
+    <EngineStartKeepAliveFail Code="3202" Description="Falha Tcase Inicio do Modulo do Motor continua aticado"/>
+    <EngineStopKeepAliveFail Code="3203" Description="Falha do Tcase modulo Stap continua ativado"/>
+    <EngineOnOffFail Code="3210" Description="Falha do Tcase coloque motor On/Off"/>
+    <EngineOnOffTimeout Code="3211" Description="Timeout do Tcase esperando Motor On/Off"/>
+    <EngineOnOffZeroSpeedFail Code="3212" Description="Timeout do Tcase de velocidade zero durante cheque do motor On/Off"/>
+    <KeyOnOffFail Code="3220" Description="Falha do Tcase coloque chave On/Off"/>
+    <KeyOnOffTimeout Code="3221" Description="Timeout do Tcase esperando chave On/Off"/>
+    <KeyOnOffZeroSpeedFail Code="3222" Description="Timeout do Tcase velocidade zero durante checagem de chave On/Off"/>
+    <ThrottlePositionFail Code="3230" Description="Falha do Tcase corrija a posicao do acelerador"/>
+    <ThrottlePositionTimeout Code="3231" Description="Timeout do Tcase esperando posicao do acelerador"/>
+    <TransmissionCommunicationFail Code="3270" Description="Falha do Tcase de comunicacao com modo de transmissao"/>
+    <TransmissionEnterDiagnosticModeFail Code="3271" Description="Falha do Tcase Entre modo de transmissao no modo diagnostico"/>
+    <TransmissionStartKeepAliveFail Code="3272" Description="Falha do Tcase start do modo de transmissao continua ativado"/>
+    <TransmissionStopKeepAliveFail Code="3273" Description="Falha Tcase stop do modo de transmissao continua ativado"/>
+    <TransmissionShiftFail Code="3274" Description="Falha do Tcase deslocamento da transmissao"/>
+    <TransmissionShiftTimeout Code="3275" Description="Timeout do Tcase esperando por deslocamento da transmissao"/>
+    <CheckLowAxleBalanceTimeout Code="3300" Description="Timeout no Tcase Baixo teste do balanco do eixo"/>
+    <CheckLowAxleBalanceFail Code="3301" Description=" Falha do teste do balanco do eixo do Tcase baixo"/>
+    <CheckLowAxleBalanceAbort Code="3302" Description="Abortada falha do balanco do eixo do Tcase baixo"/>
+    <CheckAWDAxleBalanceTimeout Code="3310" Description="Timeout no teste de balanco do eixo do Tcase AWD"/>
+    <CheckAWDAxleBalanceFail Code="3311" Description="Falha no teste de balando fo eixo do Tcase AWD"/>
+    <CheckAWDAxleBalanceAbort Code="3312" Description="Abortada falha do balando do eixo do Tcase AWD"/>
+    <Check4WDAxleBalanceTimeout Code="3313" Description="Timeout no teste do balanco do eixo do Tcase 4WD"/>
+    <Check4WDAxleBalanceFail Code="3314" Description="Falha do teste do balanco do eixo do Tcase 4WD"/>
+    <Check4WDAxleBalanceAbort Code="3315" Description="Abortada falha do balanco do eixo do Tcase 4WD"/>
+    <Check4HIAxleBalanceTimeout Code="3330" Description="Timeout no teste do balanco do eixo do Tcase 4HI"/>
+    <Check4HIAxleBalanceFail Code="3331" Description="Falha no teste do balanco do eixo do Tcase 4HI"/>
+    <Check4HIAxleBalanceAbort Code="3332" Description="Abortada falha do balanco do eixo do Tcase 4HI"/>
+    <Check4HiAxleBalanceTimeout Code="3330" Description="Timeout no teste do balanco do eixo do Tcase 4HI"/>
+    <Check4HiAxleBalanceFail Code="3331" Description="Falha no teste do balanco do eixo do Tcase 4HI"/>
+    <Check4HiAxleBalanceAbort Code="3332" Description="Abortada falha do balanco do eixo do Tcase 4HI"/>
+    <Check4LOWAxleBalanceTimeout Code="3340" Description="Timeout no teste do balanco do eixo Tcase LOW"/>
+    <Check4LOWAxleBalanceFail Code="3341" Description="Falha no teste do balanco do eixo do  Tcase 4Low"/>
+    <Check4LOWAxleBalanceAbort Code="3342" Description="Abortada falha do balanco do eixo do Tcase 4Low"/>
+    <Check4FullTimeAxleBalanceTimeout Code="3350" Description="Timeout no teste do balanco do eixo do Tcase 4-FullTime"/>
+    <Check4FullTimeAxleBalanceFail Code="3351" Description="Falha no teste do balando do eixo do Tcase 4-FullTime"/>
+    <Check4FullTimeAxleBalanceAbort Code="3352" Description="Abortada falha do balanco do eixo do Tcase 4-FullTime"/>
+    <CheckAxleBalanceTimeout Code="3360" Description="Timeout no teste do balanco do eixo do Tcase"/>
+    <CheckAxleBalanceFail Code="3361" Description="Falha no teste do balanco do eixo do Tcase"/>
+    <CheckAxleBalanceAbort Code="3362" Description="Abortado balanco do eixo Tcase"/>
+</Faults>

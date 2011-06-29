@@ -1,0 +1,107 @@
+<IcmConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>mgr/ICM</ProcessName>
+            <AdditionalLogFile Types="/Servers/ICM or Disabled">/Servers/ICM.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x01</Verbose>
+            <Debug>Off</Debug>
+        </Logging>
+        <Demo>0</Demo>
+        <EncoderPhasing DataType="Quadrature or Single">Quadrature</EncoderPhasing>
+        <SamplePeriod>20</SamplePeriod>
+        <ScannerPriority>40</ScannerPriority>
+        <SampleDelta>10</SampleDelta>
+        <InterruptAccumulator>65000</InterruptAccumulator>
+        <MachineLossDataFile>/Configuration/Servers/MachineLosses.xml</MachineLossDataFile>
+        <MgrPool lowWater="10" hiWater="10" maximum="10" increment="1" priority="35"/>
+        <Zerospeed Units="mph" Description="Zero speed threshold">0.5</Zerospeed>
+        <TagNames>
+            <!--This section lists the system tag names for data items used by the ICM manager-->
+            <LfChannelTag>LF</LfChannelTag>
+            <RfChannelTag>RF</RfChannelTag>
+            <LrChannelTag>LR</LrChannelTag>
+            <RrChannelTag>RR</RrChannelTag>
+            <LtChannelTag>LT</LtChannelTag>
+            <RtChannelTag>RT</RtChannelTag>
+            <ZerospeedTag>Zerospeed</ZerospeedTag>
+            <StartTestTag>TestInProgress</StartTestTag>
+            <EndTestTag>TestComplete</EndTestTag>
+            <TagArrayEntry>TagIndex</TagArrayEntry>
+            <RollerCountTag>RollerCount</RollerCountTag>
+            <ZerospeedLatchTag>ZerospeedToPLC</ZerospeedLatchTag>
+            <LfRollDirTag>LeftFrontRollerDirection</LfRollDirTag>
+            <RfRollDirTag>RightFrontRollerDirection</RfRollDirTag>
+            <LrRollDirTag>LeftRearRollerDirection</LrRollDirTag>
+            <RrRollDirTag>RightRearRollerDirection</RrRollDirTag>
+            <LtRollDirTag>LeftTandemRollerDirection</LtRollDirTag>
+            <RtRollDirTag>RightTandemRollerDirection</RtRollDirTag>
+            <SampleDelta>SampleDelta</SampleDelta>
+            <AccumulatorTarget>AccumulatorTarget</AccumulatorTarget>
+            <PrescaleMode>PrescaleMode</PrescaleMode>
+            <Machine3600IdTag>MachineType3600</Machine3600IdTag>
+        </TagNames>
+        <DataLogFiles>
+            <Distance status="Disabled" name="/TestResults/Machine/BrakeForceData/Distance.log" link="/TestResults/Machine/BrakeForceData/Distance.dat"/>
+            <Speed status="Enabled" name="/TestResults/Machine/BrakeForceData/Speed.log" link="/TestResults/Machine/BrakeForceData/Speed.dat"/>
+            <BrakeForce status="Enabled" name="/TestResults/Machine/BrakeForceData/BrakeForce.log" link="/TestResults/Machine/BrakeForceData/BrakeForceTrace.dat"/>
+            <Acceleration status="Disabled" name="/TestResults/Machine/BrakeForceData/Acceleration.log" link="/TestResults/Machine/BrakeForceData/Acceleration.dat"/>
+            <Frequency status="Disabled" name="/TestResults/Machine/BrakeForceData/Frequency.log" link="/TestResults/Machine/BrakeForceData/Frequency.dat"/>
+        </DataLogFiles>
+        <LF boardIdx="0" channelIndex="0">
+            <RollFactor>100</RollFactor>
+            <EncoderPulses>1250</EncoderPulses>
+            <RollDiameter>13.785</RollDiameter>
+            <MachineLoss>10.0</MachineLoss>
+        </LF>
+        <RF boardIdx="0" channelIndex="1">
+            <RollFactor>100</RollFactor>
+            <EncoderPulses>1250</EncoderPulses>
+            <RollDiameter>13.785</RollDiameter>
+            <MachineLoss>10.0</MachineLoss>
+        </RF>
+        <LR boardIdx="0" channelIndex="2">
+            <RollFactor>100</RollFactor>
+            <EncoderPulses>1250</EncoderPulses>
+            <RollDiameter>13.785</RollDiameter>
+            <MachineLoss>10.0</MachineLoss>
+        </LR>
+        <RR boardIdx="0" channelIndex="3">
+            <RollFactor>100</RollFactor>
+            <EncoderPulses>1250</EncoderPulses>
+            <RollDiameter>13.785</RollDiameter>
+            <MachineLoss>10.0</MachineLoss>
+        </RR>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>5</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+            </Setup>
+        </NotificationList>
+    </Setup>
+    <DataMap>
+        <KSpeed channelIndex="0" portDir="OUT"/>
+        <KAccel channelIndex="1" portDir="OUT"/>
+        <KForce channelIndex="2" portDir="OUT"/>
+        <Distance channelIndex="3" portDir="IN"/>
+        <Frequency channelIndex="4" portDir="IN"/>
+        <Speed channelIndex="5" portDir="IN"/>
+        <Acceleration channelIndex="6" portDir="IN"/>
+        <Force channelIndex="7" portDir="IN"/>
+        <Loss channelIndex="8" portDir="OUT"/>
+        <Count channelIndex="9" portDir="OUT"/>
+    </DataMap>
+</IcmConfig>

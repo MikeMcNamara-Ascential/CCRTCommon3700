@@ -1,0 +1,320 @@
+<KwpInsModule>
+    <Setup>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <CommunicationBus>ISO-K</CommunicationBus>
+        <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+        <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+        <KeepAlivePriority>10</KeepAlivePriority>
+        <WakeUpAttempts>3</WakeUpAttempts>
+        <ModuleAccessTaskPriority>50</ModuleAccessTaskPriority>
+        <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+        <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <DataByteCountIndex>3</DataByteCountIndex>
+        <DataStartIndex>0</DataStartIndex>
+        <DataHeaderLength>3</DataHeaderLength>
+        <CheckSumLength>1</CheckSumLength>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+        <ModuleResponseDelay>300</ModuleResponseDelay>
+        <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
+        <SignalLowTime>25</SignalLowTime>
+        <SignalHighTime>25</SignalHighTime>
+        <GatewayInitLowTime>1800</GatewayInitLowTime>
+        <GatewayInitHighTime>25</GatewayInitHighTime>
+        <WakeUpResponseDelay>200</WakeUpResponseDelay>
+        <AllowRoutineNotComplete>1</AllowRoutineNotComplete>
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK_PLD</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>InsModule</ProcessName>
+            <AdditionalLogFile>/Communication/InsModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+    <SerialMessages>
+        <VehicleMessages>
+            <EnterDiagnosticMode>
+                <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+                <TransmitInterpretation></TransmitInterpretation>
+                <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+                <ReplyInterpretation></ReplyInterpretation>
+            </EnterDiagnosticMode>
+            <ModuleWakeUp>
+                <TransmitMessage>ModuleWakeUp</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ModuleWakeUp</ReplyMessage>
+                <ReplyInterpretation/>
+            </ModuleWakeUp>
+            <InitializeGateway>
+                <TransmitMessage>InitializeGateway</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>InitializeGateway</ReplyMessage>
+                <ReplyInterpretation/>
+            </InitializeGateway>
+            <InitializeGatewayStep2>
+                <TransmitMessage>InitializeGatewayStep2</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>InitializeGatewayStep2</ReplyMessage>
+                <ReplyInterpretation/>
+            </InitializeGatewayStep2>
+            <ReadSecuritySeed>
+                <TransmitMessage>ReadSecuritySeed</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadSecuritySeed</ReplyMessage>
+                <ReplyInterpretation>SecuritySeed</ReplyInterpretation>
+            </ReadSecuritySeed>
+            <UnlockSecurity>
+                <TransmitMessage>UnlockSecurity</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>UnlockSecurity</ReplyMessage>
+                <ReplyInterpretation/>
+            </UnlockSecurity>
+            <WriteCurrentDate>
+                <TransmitMessage>WriteCurrentDate</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>WriteCurrentDate</ReplyMessage>
+                <ReplyInterpretation/>
+            </WriteCurrentDate>
+            <ReadKFactorInit>
+                <TransmitMessage>KFactorReadInit</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KFactorReadInit</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadKFactorInit>
+            <ReadKData>
+                <TransmitMessage>KFactorRead</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KFactorRead</ReplyMessage>
+                <ReplyInterpretation>KData</ReplyInterpretation>
+            </ReadKData>
+            <ReadKDataStop>
+                <TransmitMessage>KFactorReadStop</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KFactorReadStop</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadKDataStop>
+            <WriteKFactorInit>
+                <TransmitMessage>KFactorWriteInit</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KFactorWriteInit</ReplyMessage>
+                <ReplyInterpretation/>
+            </WriteKFactorInit>
+            <WriteKFactors>
+                <TransmitMessage>KFactorWrite</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KFactorWrite</ReplyMessage>
+                <ReplyInterpretation/>
+            </WriteKFactors>
+            <KFactorWriteComplete>
+                <TransmitMessage>KFactorWriteComplete</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KFactorWriteComplete</ReplyMessage>
+                <ReplyInterpretation/>
+            </KFactorWriteComplete>
+            <FinalizeDiagnostics>
+                <TransmitMessage>FinalizeDiagnostics</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>FinalizeDiagnostics</ReplyMessage>
+                <ReplyInterpretation/>
+            </FinalizeDiagnostics>
+            <EndCommunications>
+                <TransmitMessage>EndCommunications</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>EndCommunications</ReplyMessage>
+                <ReplyInterpretation/>
+            </EndCommunications>
+            <KFactorReadLtc>
+                <TransmitMessage>KFactorReadLtc</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KFactorReadLtc</ReplyMessage>
+                <ReplyInterpretation>KDataLtc</ReplyInterpretation>
+            </KFactorReadLtc>
+            <KFactorWriteLtc>
+                <TransmitMessage>KFactorWriteLtc</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>KFactorWriteLtc</ReplyMessage>
+                <ReplyInterpretation/>
+            </KFactorWriteLtc>
+        </VehicleMessages>
+        <TransmitMessages>
+            <EnterDiagnosticMode>0x87,0x15,0xF0,0x10,0x02,0xFF,0xFF,0xFF,0xFF,0xFF</EnterDiagnosticMode>
+            <ModuleWakeUp>0x81,0x15,0xF0,0x81</ModuleWakeUp>
+            <InitializeGateway/>
+            <InitializeGatewayStep2>0xFB</InitializeGatewayStep2>
+            <ReadSecuritySeed>0x87,0x15,0xF0,0x27,0x71,0x01,0x00,0x01,0x05,0x10</ReadSecuritySeed>
+            <UnlockSecurity>0x87,0x15,0xF0,0x27,0x72,0x??,0x??,0xFF,0xFF,0xFF</UnlockSecurity>
+            <WriteCurrentDate>0x87,0x15,0xF0,0x3B,0x72,0x??,0x??,0xFF,0xFF,0xFF</WriteCurrentDate>
+            <KFactorReadInit>0x87,0x15,0xF0,0x35,0x35,0xFF,0xFF,0xFF,0xFF,0xFF</KFactorReadInit>
+            <KFactorRead>0x87,0x15,0xF0,0x36,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF</KFactorRead>
+            <KFactorReadLtc>0x87,0x15,0xF0,0x22,0xA0,0x01,0xFF,0xFF,0xFF,0xFF</KFactorReadLtc>
+            <KFactorReadStop>0x87,0x15,0xF0,0x37,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF</KFactorReadStop>
+            <KFactorWriteInit>0x87,0x15,0xF0,0x34,0x35,0x11,0xFF,0xFF,0x??,0x??</KFactorWriteInit>
+            <KFactorWrite>0x87,0x15,0xF0,0x36,0x??,0x??,0x??,0x??,0x??,0x??</KFactorWrite>
+            <KFactorWriteLtc>0x87,0x15,0xF0,0x2E,0xA0,0x01,0x??,0x??,0x??,0x??</KFactorWriteLtc>
+            <KFactorWriteComplete>0x87,0x15,0xF0,0x37,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF</KFactorWriteComplete>
+            <FinalizeDiagnostics>0x87,0x15,0xF0,0x20,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF</FinalizeDiagnostics>
+            <EndCommunications>0x87,0x15,0xF0,0x82,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF</EndCommunications>
+        </TransmitMessages>
+        <TransmitInterpretations/>
+        <ReplyMessages>
+            <EnterDiagnosticMode>
+                <Reply_00>0x87,0xF0,0x15,0x50,0x02,0xFF,0xFF,0xFF,0xFF,0xFF,0xD9</Reply_00>
+            </EnterDiagnosticMode>
+            <ModuleWakeUp>
+                <Reply_01>0x87,0xF0,0x15,0xC1,0x4C,0x04,0x??,0x??,0xFF,0xFF,0x??</Reply_01>
+            </ModuleWakeUp>
+            <InitializeGateway>
+                <Reply_00>0x55,0x4C,0x04</Reply_00>
+            </InitializeGateway>
+            <InitializeGatewayStep2>
+                <Reply_00>0xFF</Reply_00>
+            </InitializeGatewayStep2>
+            <ReadSecuritySeed>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x67,0x71,0x??,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x27,0x??</Reply_02>
+            </ReadSecuritySeed>
+            <UnlockSecurity>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x67,0x72,0x34,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x27,0x??</Reply_02>
+            </UnlockSecurity>
+            <WriteCurrentDate>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7B,0x72,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x3B,0x??</Reply_02>
+            </WriteCurrentDate>
+            <KFactorReadInit>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x75,0x00,0x11,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x35,0x??</Reply_02>
+            </KFactorReadInit>
+            <KFactorRead>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x76,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x36,0x??</Reply_02>
+            </KFactorRead>
+            <KFactorReadLtc>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x62,0xA0,0x01,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x22,0x??</Reply_02>
+            </KFactorReadLtc>
+            <KFactorReadStop>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x77,0x00,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x37,0x??</Reply_02>
+            </KFactorReadStop>
+            <KFactorWriteInit>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x74,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x34,0x??</Reply_02>
+            </KFactorWriteInit>
+            <KFactorWrite>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x76,0xFF,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x36,0x??</Reply_02>
+            </KFactorWrite>
+            <KFactorWriteLtc>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x6E,0xA0,0x01,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x2E,0x??</Reply_02>
+            </KFactorWriteLtc>
+            <KFactorWriteComplete>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x77,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x37,0x??</Reply_02>
+            </KFactorWriteComplete>
+            <FinalizeDiagnostics>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x60,0xFF,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x20,0x??</Reply_02>
+            </FinalizeDiagnostics>
+            <EndCommunications>
+                <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0xC2,0xFF,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="100">0x87,0xF0,0x15,0x7F,0x82,0x??</Reply_02>
+            </EndCommunications>
+        </ReplyMessages>
+        <ReplyInterpretations>
+            <SecuritySeed>
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                </Integer>
+            </SecuritySeed>
+            <KData>
+                <Vector type="fixed">
+                    <Subvector00>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="1" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector00>
+                    <Subvector01>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="2" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector01>
+                    <Subvector02>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector02>
+                    <Subvector03>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="4" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector03>
+                    <Subvector04>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="5" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector04>
+                    <Subvector05>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector05>
+                </Vector>
+            </KData>
+            <KDataLtc>
+                <Vector type="fixed">
+                    <Subvector00>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="1" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector00>
+                    <Subvector01>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="2" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector01>
+                </Vector>
+            </KDataLtc>
+        </ReplyInterpretations>
+    </SerialMessages>
+</KwpInsModule>

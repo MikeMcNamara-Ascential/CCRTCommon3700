@@ -1,0 +1,289 @@
+<SiemensAirbagModule>
+    <Setup>
+        <ModuleKeepAliveTime>2000</ModuleKeepAliveTime>
+        <KeepAliveResponseRequired>No</KeepAliveResponseRequired>
+        <SwitchMonitorDelay>500</SwitchMonitorDelay>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <DataStartIndex>0</DataStartIndex>
+        <DataHeaderLength>0</DataHeaderLength>
+        <CheckSumLength>1</CheckSumLength>
+        <ValidateChecksum>Yes</ValidateChecksum>
+        <ChecksumCalculationMethod>Add</ChecksumCalculationMethod>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ValidResponseOffset>0x90</ValidResponseOffset>
+        <SentMessageIdentifierIndex>4</SentMessageIdentifierIndex>
+        <ModuleResponseDelay>50</ModuleResponseDelay>
+        <ModuleResponseEndDelay>5</ModuleResponseEndDelay>
+        <MessageWindowDetectAttempts>250</MessageWindowDetectAttempts>
+        <MessageSendWindowDetectTime Units="ms">5</MessageSendWindowDetectTime>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>SiemensAirbagModule</ProcessName>
+            <AdditionalLogFile>/Communication/SiemensAirbagModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+
+    <SerialMessages>
+        <InitMessage>
+            <Byte_00 alias="AddressByte" byteType="Tx" timeOut="2000" value="0x62" baud="5"/>
+            <Byte_01 alias="SyncByte" byteType="Rx" timeOut="3000" baud="9600"/>
+            <Byte_02 alias="Keyword1" byteType="Rx" timeOut="2000"/>
+            <Byte_03 alias="Keyword2" byteType="Rx" timeOut="2000"/>
+            <Byte_04 alias="InvKeyword" byteType="Tx" timeOut="28" value="0x7F"/>
+        </InitMessage>
+
+        <VehicleMessages>
+            <ClearFaults>
+                <TransmitMessage>ClearFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ClearFaults</ReplyMessage>
+                <ReplyInterpretation>ClearFaults</ReplyInterpretation>
+            </ClearFaults>
+            <ExitDiagnosticMode>
+                <TransmitMessage>ExitDiagMode</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ExitDiagMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </ExitDiagnosticMode>
+            <ReadFaults>
+                <TransmitMessage>TransmitSnapshot</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>TransmitSnapshot</ReplyMessage>
+                <ReplyInterpretation>FaultCodes</ReplyInterpretation>
+            </ReadFaults>
+            <ReadPartNumber>
+                <TransmitMessage>ReadEcuId</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadEcuId</ReplyMessage>
+                <ReplyInterpretation>PartNumber</ReplyInterpretation>
+            </ReadPartNumber>
+            <ResistanceValues>
+                <TransmitMessage>TransmitSnapshot</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>TransmitSnapshot</ReplyMessage>
+                <ReplyInterpretation>ResistanceValues</ReplyInterpretation>
+            </ResistanceValues>
+        </VehicleMessages>
+
+        <TransmitMessages>
+            <ClearFaults>0x02,0xB1</ClearFaults>
+            <ExitDiagMode>0x02,0xB2</ExitDiagMode>
+            <ReadEcuId>0x02,0x10</ReadEcuId>
+            <TransmitSnapshot>0x02,0x11</TransmitSnapshot>
+        </TransmitMessages>
+
+        <TransmitInterpretations>
+        </TransmitInterpretations>
+
+        <ReplyMessages>
+            <ClearFaults>
+                <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="15">0x06,0xF0,0xAA,0x??</Reply_01>
+                <Reply_02 lengthType="Variable" ReplyTimeout="500" endGapTime="15">0x06,0xF0,0x55,0x??</Reply_02>
+            </ClearFaults>
+            <ExitDiagMode>
+                <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="15">0x06,0xF0,0xAA,0x??</Reply_01>
+            </ExitDiagMode>
+            <ReadEcuId>
+                <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="15">0x22,0xA0,0x??</Reply_01>
+            </ReadEcuId>
+            <TransmitSnapshot>
+                <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="15">0x2A,0xA1,0x10,0x??</Reply_01>
+            </TransmitSnapshot>
+        </ReplyMessages>
+
+        <ReplyInterpretations>
+            <ClearFaults>
+                <Boolean>
+                    <Byte1 input_index="2" mask="0xFF" compare="0xAA"/>
+                </Boolean>
+            </ClearFaults>
+            <FaultCodes>
+                <Vector type="fixed">
+                    <Subvector01>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="3" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector01>
+                    <Subvector02>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="4" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector02>
+                    <Subvector03>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="5" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector03>
+                    <Subvector04>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="6" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector04>
+                    <Subvector05>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="8" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector05>
+                    <Subvector06>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="9" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector06>
+                    <Subvector07>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="10" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector07>
+                    <Subvector08>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="11" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector08>
+                    <Subvector09>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="13" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector09>
+                    <Subvector10>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="14" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector10>
+                    <Subvector11>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="15" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector11>
+                    <Subvector12>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="16" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector12>
+                    <Subvector13>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="18" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector13>
+                    <Subvector14>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="19" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector14>
+                    <Subvector15>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="20" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector15>
+                    <Subvector16>
+                        <String>
+                            <Substring format="%02X">
+                                <chars input_index="21" mask="0xFF" length="1"/>
+                            </Substring>
+                        </String>
+                    </Subvector16>
+                </Vector>
+            </FaultCodes>
+            <PartNumber>
+                <String>
+                    <Substring format="%10s">
+                        <chars input_index="3" mask="0xFF" length="10"/>
+                    </Substring>
+                </String>
+            </PartNumber>
+            <ResistanceValues>
+                <Vector type="fixed">
+                    <Subvector00 Description="FAD resistance value">
+                        <Float scale="0.0285714" offset="0">
+                            <Integer type="unsigned" bits="8" scale="1" offset="0">
+                                <Byte0 input_index="24" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector00>
+                    <Subvector01 Description="BPD resistance value">
+                        <Float scale="0.0285714" offset="0">
+                            <Integer type="unsigned" bits="8" scale="1" offset="0">
+                                <Byte0 input_index="26" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector01>
+                    <Subvector02 Description="BPP resistance value">
+                        <Float scale="0.0285714" offset="0">
+                            <Integer type="unsigned" bits="8" scale="1" offset="0">
+                                <Byte0 input_index="27" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector02>
+                </Vector>
+            </ResistanceValues>
+        </ReplyInterpretations>
+    </SerialMessages>
+
+</SiemensAirbagModule>

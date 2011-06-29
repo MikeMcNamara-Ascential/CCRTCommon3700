@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+  <asmv1:assemblyIdentity name="StaticTestStation.exe" version="1.0.0.8" publicKeyToken="b2402631bcaaafc5" language="neutral" processorArchitecture="x86" type="win32" />
+  <description asmv2:iconFile="beplogo.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="StaticTestStation" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+    <commandLine file="StaticTestStation.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FileChangeMonitor.dll" size="7168">
+      <assemblyIdentity name="FileChangeMonitor" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>KGuXKYICvieMQhzeuJ8kWSCysYM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="FlashStation.dll" size="29696">
+      <assemblyIdentity name="FlashStation" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>KDbt0YMtO2YabhzryMzbJ0wmyfM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="InputServer.dll" size="24576">
+      <assemblyIdentity name="InputServer" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>74b8/LyoErGCoL1EsGI5reUQb7s=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="J2534ChannelLibrary.dll" size="22016">
+      <assemblyIdentity name="J2534ChannelLibrary" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>oeBLdpQBH3035dZS/f7xOoDk+0o=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="J2534DotNet.dll" size="24064">
+      <assemblyIdentity name="J2534DotNet" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>bbQFQn5I2SQJY/+L+zpdRvW75Ps=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="LoggingInterface.dll" size="8192">
+      <assemblyIdentity name="LoggingInterface" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>ydxT6wNK9QmMveMtMjpnge2hYtU=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SerialPortLibrary.dll" size="18944">
+      <assemblyIdentity name="SerialPortLibrary" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>7cpBYNC8Zmo76XSRSci97O7BK1M=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="StaticTestStation.exe" size="69120">
+      <assemblyIdentity name="StaticTestStation" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>lSxHpxwiRdfQgDZdfh3L71ULsR4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="UtilityFileInterpreter.dll" size="37888">
+      <assemblyIdentity name="UtilityFileInterpreter" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>fwIN0RhKLNyPnJ6h32Bg3M4m3kM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="VehicleCommServer.dll" size="2212864">
+      <assemblyIdentity name="VehicleCommServer" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>QEdfbKBekfxLlOz37vT25Yg0y+c=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="beplogo.ico" size="3774">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>x02OyKD5XAHpE2TmboECL18lkrc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="StaticTestStation.exe.config" size="1097">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>xRT2r1yhurYQpKZd5nN6vmmyPY0=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=BEPCO\JSemann" issuerKeyHash="10eb36f1a468a0c37307fae6ef1b60217ceeac78" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>pT8sYccQ7dOJu/ft4cfPVoUXBus=</DigestValue></Reference></SignedInfo><SignatureValue>NUItOgpfejKq2JGuNYuXr0DOaM9lA9lVBausQ0tIBYgqgVMDg3WHcj22NX5xowYUEO13GIY1I0I1PxOXukeYz9q+AMLXo2HH290PfOt4xXjsS9npKbqtH5G7kLpj4MdaeTXWVHf3Pvb06XCIhNZXvV07x1Ms5ww90bX032H4X4c=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>rdaaZb4sNJjWXWoKjNpb+TR3isqI7ZFwUFG+cCNq+SWCzJDFnMCXCIGJseKsDqVvwChQ/jBTjzCrGeaAEKN5X4Ud8Qa1TPFaZDMgEFnN8HOSlRcPKN8KvfvQfocqKa/S0R0GtHYULGoF8E72DQ7A0giCZDs48QtBkqvALoDgZO8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="eb06178556cfc7e1edf7bb89d3ed10c7612c3fa5" Description="" Url=""><as:assemblyIdentity name="StaticTestStation.exe" version="1.0.0.8" publicKeyToken="b2402631bcaaafc5" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=BEPCO\JSemann</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>Tvp1/fLFrgTU/in+GcYd5vwcvkA=</DigestValue></Reference></SignedInfo><SignatureValue>UjpFyoqWEIm/PFLK6prD52Hdayz8egiLsAk3co4DNGW/+ZL6emPejANMHwvK4cpUi/NDqq9Qh60ah4KAjo2HpkDJ+I+RDN2Apk6z00tQ/Way/r1d2GmAuB1tsClWViruQj4Vi63YGd5VNyTkebaElNBOOxPHGqJj23M89AZXQ2Q=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>rdaaZb4sNJjWXWoKjNpb+TR3isqI7ZFwUFG+cCNq+SWCzJDFnMCXCIGJseKsDqVvwChQ/jBTjzCrGeaAEKN5X4Ud8Qa1TPFaZDMgEFnN8HOSlRcPKN8KvfvQfocqKa/S0R0GtHYULGoF8E72DQ7A0giCZDs48QtBkqvALoDgZO8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBxTCCATKgAwIBAgIQFrTUb2NRwY1BVJTpf0ig9zAJBgUrDgMCHQUAMCUxIzAhBgNVBAMeGgBCAEUAUABDAE8AXABKAFMAZQBtAGEAbgBuMB4XDTEwMTEwNDE4MDcwMVoXDTExMTEwNTAwMDcwMVowJTEjMCEGA1UEAx4aAEIARQBQAEMATwBcAEoAUwBlAG0AYQBuAG4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAK3WmmW+LDSY1l1qCozaW/k0d4rKiO2RcFBRvnAjavklgsyQxZzAlwiBibHirA6lb8AoUP4wU48wqxnmgBCjeV+FHfEGtUzxWmQzIBBZzfBzkpUXDyjfCr370H6HKimv0tEdBrR2FCxqBfBO9g0OwNIIgmQ7OPELQZKrwC6A4GTvAgMBAAEwCQYFKw4DAh0FAAOBgQCaGlD/dEifeHJiilr9B2ij6usOU+uU+na8QoxjBHJ5md76EYkXFBafG47DZvM8lf8cIkSxmOEkTwc3rHgo9n5lWXYZN054nJiTOGBz6EvxbWoMA33U+Qg/rscFCsuwHBY6SVJvVka9EnaIvPIGn9ZEyELcI5iJlZIO+WvubBj/1Q==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

@@ -1,0 +1,258 @@
+<VehicleTestMachineComponent>
+    <Setup>
+        <Name>Machine</Name>
+        <Debug>Off</Debug>
+        <DebugLevel>0</DebugLevel>
+        <ProcessPriority>11</ProcessPriority>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/MachineComponent</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <KeyPress/>
+                <DriverNumber/>
+                <VehiclePresent/>
+                <RollsUpElevDown/>
+                <Abort/>
+                <ForegroundTestInProgress/>
+                <TestInProgress/>
+                <Zerospeed/>
+                <MachineType2400/>
+                <Boost/>
+                <MotorMode/>
+                <CableConnect/>
+                <Clutch/>
+                <Declutch/>
+                <BoostRearAndTandemOnly/>
+            </SubscribeTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>MachineComponent</ProcessName>
+            <AdditionalLogFile Types="/Component/MachineComponent or Disabled">/Components/MachineComponent.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <DataTags>
+            <KeyPress>KeyPress</KeyPress>
+            <CableConnect>CableConnect</CableConnect>
+            <Clutch>Clutch</Clutch>
+            <Declutch>Declutch</Declutch>
+            <OverallTest>MachineOverallTest</OverallTest>
+            <DriverNumber>DriverNumber</DriverNumber>
+            <DriverNumberBGColor>DriverNumberDisplayBGColor</DriverNumberBGColor>
+            <InputServerState>InputServerState</InputServerState>
+            <YesValue>Pass</YesValue>
+            <NoValue>Fail</NoValue>
+            <Pass>green</Pass>
+            <Fail>red</Fail>
+            <ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
+            <ServerStateNormal>Normal</ServerStateNormal>
+            <VehiclePresent>VehiclePresent</VehiclePresent>
+            <RetainersUp>RollsUpElevDown</RetainersUp>
+            <Abort>Abort</Abort>
+            <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+            <TestInProgress>TestInProgress</TestInProgress>
+            <InputServerState>InputServerState</InputServerState>
+            <NormalMode>Normal</NormalMode>
+            <TestResultMode>TestResult</TestResultMode>
+            <DriverNumberMode>DriverNumber</DriverNumberMode>
+            <Zerospeed>Zerospeed</Zerospeed>
+            <MotorMode>MotorMode</MotorMode>
+            <QuickBrakeMode>QuickBrake</QuickBrakeMode>
+            <BoostMode>Boost</BoostMode>
+            <Boost>Boost</Boost>
+            <TorqueMode>Torque</TorqueMode>
+            <CommandTorque>CommandTorque</CommandTorque>
+            <MachineType>MachineType2400</MachineType>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <HydraulicPumpMotor>StartReverseTest</HydraulicPumpMotor>
+            <RighthandDriveSelected>RighthandDriveSelected</RighthandDriveSelected>
+            <LastCableConnected>LastCableConnected</LastCableConnected>
+            <FourWDSelected>FourWDSelected</FourWDSelected>
+            <Start4WDTestSignalToPLC>Start4WDTestSignalToPLC</Start4WDTestSignalToPLC>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <LRSpeed>LTSpeed</LRSpeed>
+            <RRSpeed>RTSpeed</RRSpeed>
+            <LFForce>LFForce</LFForce>
+            <RFForce>RFForce</RFForce>
+            <LRForce>LRForce</LRForce>
+            <RRForce>RRForce</RRForce>
+            <LRForce>LTForce</LRForce>
+            <RRForce>RTForce</RRForce>
+        </DataTags>
+        <SystemTagsToReset>
+            <VINDisplayBGColor>white</VINDisplayBGColor>
+        </SystemTagsToReset>
+        <VehicleTestStatusUpdates>
+            <CruiseOverallTest>TestNotStarted</CruiseOverallTest>
+            <BrakeOverallTest>TestNotStarted</BrakeOverallTest>
+        </VehicleTestStatusUpdates>
+        <Parameters>
+            <ResetCommHardware Values="Yes or No">Yes</ResetCommHardware>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <TestResultServerDelay>0</TestResultServerDelay>
+            <MaintainSpeedTime>30000</MaintainSpeedTime>
+            <MaintainSpeedMinSpeed>40</MaintainSpeedMinSpeed>
+            <MaintainSpeedMaxSpeed>45</MaintainSpeedMaxSpeed>
+            <BrakeToStopPrompt>BrakeToStop</BrakeToStopPrompt>
+            <SetOperatorConsoleTo4WDPrompt>SetOperatorConsoleTo4WD</SetOperatorConsoleTo4WDPrompt>
+            <AccelerateToTargetSpeedPrompt>AccelerateToTargetSpeed</AccelerateToTargetSpeedPrompt>
+        </Parameters>
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+            <MaintainSpeed PromptBox="2" Priority="0">MaintainSpeed</MaintainSpeed>
+            <AccelerateAboveMphAndHold PromptBox="1" Priority="0">AccelerateAboveMphAndHold</AccelerateAboveMphAndHold>
+        </Prompts>
+    </Setup>
+    <Objectives>
+        <Initialize>
+            <TestStep1>Initialize</TestStep1>
+            <TestStep2>MachineReady</TestStep2>
+            <!--
+            <TestStep3>ConnectCable</TestStep3>
+            <TestStep4>SelectDriverSide</TestStep4>
+            <TestStep5>DriverNumber</TestStep5>
+            -->
+        </Initialize>
+        <VdoTest>
+            <TestStep00>Initialize</TestStep00>
+            <TestStep05>MachineReady</TestStep05>
+            <!--TestStep10>DriverNumber</TestStep10-->
+            <TestStep15>MaintainSpeedForTime</TestStep15>
+            <TestStep20>BrakeToStop</TestStep20>
+            <!--TestStep25>ConnectCable</TestStep25-->
+            <!--TestStep30>SelectDriverSide</TestStep30-->
+        </VdoTest>
+        <DriverQuestion>
+            <TestStep1>DriverQuestion</TestStep1>
+        </DriverQuestion>
+        <PromptDriver>
+            <TestStep1>PromptDriver</TestStep1>
+        </PromptDriver>
+        <PromptDriverAlways>
+            <TestStep1>PromptDriverAlways</TestStep1>
+        </PromptDriverAlways>
+        <DriverNumber>
+            <TestStep1>DriverNumber</TestStep1>
+        </DriverNumber>
+        <AccelerateToSpeed>
+            <TestStep1>AccelerateToSpeed</TestStep1>
+        </AccelerateToSpeed>
+        <BrakeToStop>
+            <TestStep1>BrakeToStop</TestStep1>
+            <!--TestStep2>EngageMachine</TestStep2-->
+        </BrakeToStop>
+        <ConnectCable>
+            <TestStep1>ConnectCable</TestStep1>
+        </ConnectCable>
+        <AxleRatio>
+            <TestStep0>DisengageMachine</TestStep0>
+            <TestStep1>AxleRatio</TestStep1>
+            <TestStep2>BrakeToStop</TestStep2>
+            <TestStep3>EngageMachine</TestStep3>
+        </AxleRatio>
+        <DisengageMachine>
+            <TestStep1>DisengageMachine</TestStep1>
+        </DisengageMachine>
+        <EngageMachine>
+            <TestStep1>EngageMachine</TestStep1>
+        </EngageMachine>
+        <BoostRearAndTandem>
+            <TestStep1>BoostRearAndTandem</TestStep1>
+        </BoostRearAndTandem>
+        <BoostFrontRearAndTandem>
+            <TestStep1>BoostFrontRearAndTandem</TestStep1>
+        </BoostFrontRearAndTandem>
+        <LCEnableElectricMotors>
+            <TestStep1>EngageMachine</TestStep1>
+        </LCEnableElectricMotors>
+        <LCDisAbleElectricMotors>
+            <TestStep1>DisengageMachine</TestStep1>
+        </LCDisAbleElectricMotors>
+        <FinishUp>
+            <TestStep1>PromptDriverAlways</TestStep1>
+            <TestStep2>FinishUp</TestStep2>
+        </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <Initialize Result="" Description="Initialize the machine for testing" EnglishDescription="Initialize the machine for testing" Timeout="0" Prompt1="Launching" Prompt1Priority="0"/>
+        <BoostFrontRearAndTandem Result="" Description="Enable boost for all axles" EnglishDescription="Enable boost for all axles" Timeout="1000"/>
+        <BoostRearAndTandem Result="" Description="Enable boost for rear and tandem axles" EnglishDescription="Enable boost for rear and tandem axles" Timeout="1000"/>
+        <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No" EnglishDescription="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
+            <DriverPassFail Result="" Timeout="60000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail" EnglishDescription="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
+            <TransmissionShifting Result="" Timeout="30000" Prompt1="CheckTransmissionShifting" Prompt1Priority="0" TestResultName="TransmissionShifting" Description="Driver test for acceptable manual transmission shifting" EnglishDescription="Driver test for acceptable manual transmission shifting"/>
+            <TachPassFail Result="" Timeout="600000" Prompt1="CheckTach" Prompt1Priority="0" TestResultName="CheckTachTest" Description="Tach test" EnglishDescription="Tach test"/>
+        </DriverQuestion>
+        <PromptDriver Description="Display A Prompt To The Driver But Do Not Require Driver Input" EnglishDescription="Display A Prompt To The Driver But Do Not Require Driver Input">
+            <IgnitionOff5Sec Result="" Timeout="6000" Description="Prompt driver to turn ignition off for 5 seconds" EnglishDescription="Prompt driver to turn ignition off for 5 seconds" Prompt1="IgnitionOff5Sec" Prompt1Priority="0" TestResultName="TachTest"/>
+            <BeginTachTest Result="" Timeout="5000" Description="Test to program the tachograph." EnglishDescription="Test to program the tachograph." Prompt1="ConnectTach" Prompt1Priority="0" Prompt2="BeginTachTest" Prompt2Priority="0" TestResultName="TachTest"/>
+            <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." EnglishDescription="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
+            <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" EnglishDescription="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
+            <CheckVibration Result="" Timeout="2000" Description="prompt driver to check vibration" EnglishDescription="prompt driver to check vibration" Prompt1="CheckVibrationAndNoise" Prompt1Priority="0"/>
+            <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" EnglishDescription="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
+            <PerformingFinishUp Description="" EnglishDescription="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+            <InitializingVehicleModules Description="" EnglishDescription="" Timeout="" Result="" Prompt1="Initialize" Prompt2="FastenSeatbelt" Prompt1Priority="0" Prompt2Priority="0"/>
+            <PreInitialize Description="Display the pre-initialize prompt" EnglishDescription="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
+            <WaitForMachine Description="Display a prompt while we wait for the motor drive contactors to engage" EnglishDescription="Display a prompt while we wait for the motor drive contactors to engage" Timeout="5000" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
+            <WaitForMotorEngage Description="Display a prompt while we wait for the motors to engage" EnglishDescription="Display a prompt while we wait for the motors to engage" Timeout="8000" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
+        </PromptDriver>
+        <PromptDriverAlways Description="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input" EnglishDescription="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input">
+            <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." EnglishDescription="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
+            <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" 
+                EnglishDescription="Prompt Driver to Shift To Drive" 
+                Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
+            <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" EnglishDescription="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
+            <PerformingFinishUp Description="" EnglishDescription="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+            <PerformingFinalTesting Description="" EnglishDescription="" Timeout="" Result="" Prompt1="PerformingFinalTesting" Prompt1Priority="0"/>
+            <InitializingVehicleModules Description="" EnglishDescription="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
+            <EmissionsInitialization Description="Display prompt to indicate currently initializing emissions" EnglishDescription="Display prompt to indicate currently initializing emissions" Timeout="" Result="" Prompt1="EmissionsInitialization" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0"/>
+            <PreInitialize Description="Display the pre-initialize prompt" EnglishDescription="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
+            <FootOnBrake Description="Prompt operator to place foot on brake pedal" EnglishDescription="Prompt operator to place foot on brake pedal" Timeout="2000" Result="" Prompt1="ApplyBrake" Prompt1Priority="0"/>
+        </PromptDriverAlways>
+        <DriverNumber Result="" Description="Prompt the driver to input their ID and validate" EnglishDescription="Prompt the driver to input their ID and validate" Timeout="0" Prompt1="ScanDriverID" Prompt1Priority="0" Validate="No" DriverNumberFile="/Configuration/Components/Machine/DriverNumberList.xml" DefaultDriverNumber="T0000xx"/>
+        <BrakeToStop Result="" Description="Prompt the driver to brake to stop" EnglishDescription="Prompt the driver to brake to stop" Timeout="90000" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
+        <AccelerateToSpeed Result="" Description="Prompt the driver to accelerate to the commanded speed" EnglishDescription="Prompt the driver to accelerate to the commanded speed" Timeout="120000" Prompt2="AccelerateToTargetSpeed" Prompt1Priority="0" SpeedTarget=""/>
+        <MaintainSpeedForTime Result = "" Description="Prompt the operator to accelerate to and maintain speed" EnglishDescription="Prompt the operator to accelerate to and maintain speed" Timeout="30000" SecondaryTimeout="30000"/>
+        <QuickStop Result="" Description="Command the rollers to stop and verify that Zerospeed is achieved" EnglishDescription="Command the rollers to stop and verify that Zerospeed is achieved" Timeout="30000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
+        <ConnectCable Result="" Description="Prompt the driver to connect the vehicle cable" EnglishDescription="Prompt the driver to connect the vehicle cable" Timeout="600000" Prompt1="ConnectCable" Prompt1Priority="0"/>
+        <MachineReady Result="" Description="Wait until the machine is ready to perform a test" EnglishDescription="Wait until the machine is ready to perform a test" Timeout="15000" Prompt1="" Prompt1Priority="" Prompt2="" Prompt2Priority=""/>
+        <DisableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" EnglishDescription="Turn off the hydraulic pump motor" PumpStatusChangeDelay="500" Timeout="1000"/>
+        <EnableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" EnglishDescription="Turn off the hydraulic pump motor" PumpStatusChangeDelay="1000" Timeout="1000"/>
+        <DisengageMachine Result="" Description="Disengage the machine, clutchee, boost, etc." EnglishDescription="Disengage the machine, clutchee, boost, etc." Timeout="1000"/>
+        <EngageMachine Result="" Description="Engage the machine, clutches, boost, etc." EnglishDescription="Engage the machine, clutches, boost, etc." Timeout="3000" ScanDelay="500"/>
+        <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" EnglishDescription="Move the symbolic link for vehicle comms to proper side" Timeout="0" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>
+        <AxleRatio Result="" Description="Front to Rear axle ratio" EnglishDescription="Front to Rear axle ratio" Timeout="60000" SpeedTarget="10" AxleRatioMin="97.0" AxleRatioMax="103.0"/>
+        <FinishUp Result="" Description="Machine Component FinishUp Test Step" EnglishDescription="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+    </TestSteps>
+</VehicleTestMachineComponent>

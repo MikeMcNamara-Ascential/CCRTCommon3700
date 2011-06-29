@@ -1,0 +1,2 @@
+../Bin/VehicleDataBroker.qxe -f ../../Configuration/Servers/VehicleDataBrokerConfig.xml &
+

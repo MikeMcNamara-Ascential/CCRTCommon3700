@@ -1,0 +1,17 @@
+<WheelbasePositions Units="mm">
+    <Position01 value="0x01">2697</Position01>
+    <Position02 value="0x02">2915</Position02>
+    <Position03 value="0x04">2938</Position03>
+    <Position04 value="0x08">3009</Position04>
+    <Position05 value="0x10">3020</Position05>
+    <Position06 value="0x20">3200</Position06>
+    <Position07 value="0x40">2500</Position07>
+    <Position08 value="0x80">2600</Position08>
+    <Position09 value="0x09">2810</Position09>
+    <Position10 value="0x0A">2800</Position10>
+    <Position11 value="0x0B">2900</Position11>
+    <Position12 value="0x0C">3000</Position12>
+    <Position13 value="0x0D">3100</Position13>
+    <Position14 value="0x0E">3200</Position14>
+    <Position15 value="0x0F">3300</Position15>
+</WheelbasePositions>

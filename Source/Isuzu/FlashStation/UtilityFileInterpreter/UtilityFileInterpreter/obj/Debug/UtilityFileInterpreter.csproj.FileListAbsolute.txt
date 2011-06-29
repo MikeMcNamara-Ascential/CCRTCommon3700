@@ -1,0 +1,13 @@
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\bin\Debug\UtilityFileInterpreter.dll
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\bin\Debug\UtilityFileInterpreter.pdb
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\obj\Debug\UtilityFileInterpreter.dll
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\obj\Debug\UtilityFileInterpreter.pdb
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\bin\Debug\VehicleCommServer.dll
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\bin\Debug\J2534ChannelLibrary.dll
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\bin\Debug\J2534DotNet.dll
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\bin\Debug\VehicleCommServer.pdb
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\bin\Debug\J2534ChannelLibrary.pdb
+E:\Projects\UtilityFileInterpreter\UtilityFileInterpreter\bin\Debug\J2534DotNet.pdb
+E:\Projects\FlashStation\UtilityFileInterpreter.dll
+E:\Projects\FlashStation\UtilityFileInterpreter.pdb

@@ -1,0 +1,5 @@
+# Run the script and output to the specified file
+echo "Path:    " $1
+echo "File:    " $2
+echo "Results: " $3
+find $1 -name "$2" -exec $USR_ROOT/Tools/ModuleMessageTester -f{} > $3

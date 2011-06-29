@@ -1,0 +1,224 @@
+<DetailRecord>
+    <DetailSectionLength>543</DetailSectionLength>
+    <!-- Drag Test Results -->
+    <Field000215 Type="Result">BrakeLeftFrontDragTest</Field000215>
+    <Field000220 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeLeftFrontDragTest</Field000220>
+    <Field000225 Type="Separator">@</Field000225>
+    <Field000230 Type="Separator">-</Field000230>
+    <Field000235 Type="Detail" DetailNode="MaxDragForce" Format="%03d" DataType="Integer">BrakeLeftFrontDragTest</Field000235>
+    <Field000240 Type="Separator">Blank</Field000240>
+
+    <Field000245 Type="Result">BrakeRightFrontDragTest</Field000245>
+    <Field000250 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeRightFrontDragTest</Field000250>
+    <Field000255 Type="Separator">@</Field000255>
+    <Field000260 Type="Separator">-</Field000260>
+    <Field000265 Type="Detail" DetailNode="MaxDragForce" Format="%03d" DataType="Integer">BrakeRightFrontDragTest</Field000265>
+    <Field000270 Type="Separator">Blank</Field000270>
+
+    <Field000275 Type="Result">BrakeLeftRearDragTest</Field000275>
+    <Field000280 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeLeftRearDragTest</Field000280>
+    <Field000285 Type="Separator">@</Field000285>
+    <Field000290 Type="Separator">-</Field000290>
+    <Field000295 Type="Detail" DetailNode="MaxDragForce" Format="%03d" DataType="Integer">BrakeLeftRearDragTest</Field000295>
+    <Field000300 Type="Separator">Blank</Field000300>
+
+    <Field000305 Type="Result">BrakeRightRearDragTest</Field000305>
+    <Field000310 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeRightRearDragTest</Field000310>
+    <Field000315 Type="Separator">@</Field000315>
+    <Field000320 Type="Separator">-</Field000320>
+    <Field000325 Type="Detail" DetailNode="MaxDragForce" Format="%03d" DataType="Integer">BrakeRightRearDragTest</Field000325>
+    <Field000330 Type="Separator">Blank</Field000330>
+
+    <Field000335 Type="Result">BrakeLeftTandemDragTest</Field000335>
+    <Field000340 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeLeftTandemDragTest</Field000340>
+    <Field000345 Type="Separator">@</Field000345>
+    <Field000350 Type="Separator">-</Field000350>
+    <Field000355 Type="Detail" DetailNode="MaxDragForce" Format="%03d" DataType="Integer">BrakeLeftTandemDragTest</Field000355>
+    <Field000360 Type="Separator">Blank</Field000360>
+
+    <Field000365 Type="Result">BrakeRightTandemDragTest</Field000365>
+    <Field000370 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeRightTandemDragTest</Field000370>
+    <Field000375 Type="Separator">@</Field000375>
+    <Field000380 Type="Separator">-</Field000380>
+    <Field000385 Type="Detail" DetailNode="MaxDragForce" Format="%03d" DataType="Integer">BrakeRightTandemDragTest</Field000385>
+    <Field000390 Type="Separator">Blank</Field000390>
+
+    <!-- Brake Test Results -->
+    <Field000395 Type="Result">BrakeLeftFrontForceTest</Field000395>
+    <Field000400 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeLeftFrontForceTest</Field000400>
+    <Field000405 Type="Separator">@</Field000405>
+    <Field000410 Type="Separator">-</Field000410>
+    <Field000415 Type="Detail" DetailNode="MinBrakeForce" Format="%03d" DataType="Integer">BrakeLeftFrontForceTest</Field000415>
+    <Field000420 Type="Separator">Blank</Field000420>
+
+    <Field000425 Type="Result">BrakeRightFrontForceTest</Field000425>
+    <Field000430 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeRightFrontForceTest</Field000430>
+    <Field000435 Type="Separator">@</Field000435>
+    <Field000440 Type="Separator">-</Field000440>
+    <Field000445 Type="Detail" DetailNode="MinBrakeForce" Format="%03d" DataType="Integer">BrakeRightFrontForceTest</Field000445>
+    <Field000450 Type="Separator">Blank</Field000450>
+
+    <Field000455 Type="Result">BrakeLeftRearForceTest</Field000455>
+    <Field000460 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeLeftRearForceTest</Field000460>
+    <Field000465 Type="Separator">@</Field000465>
+    <Field000470 Type="Separator">-</Field000470>
+    <Field000475 Type="Detail" DetailNode="MinBrakeForce" Format="%03d" DataType="Integer">BrakeLeftRearForceTest</Field000475>
+    <Field000480 Type="Separator">Blank</Field000480>
+
+    <Field000485 Type="Result">BrakeRightRearForceTest</Field000485>
+    <Field000490 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeRightRearForceTest</Field000490>
+    <Field000495 Type="Separator">@</Field000495>
+    <Field000500 Type="Separator">-</Field000500>
+    <Field000505 Type="Detail" DetailNode="MinBrakeForce" Format="%03d" DataType="Integer">BrakeRightRearForceTest</Field000505>
+    <Field000510 Type="Separator">Blank</Field000510>
+
+    <Field000515 Type="Result">BrakeLeftTandemForceTest</Field000515>
+    <Field000520 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeLeftTandemForceTest</Field000520>
+    <Field000525 Type="Separator">@</Field000525>
+    <Field000530 Type="Separator">-</Field000530>
+    <Field000535 Type="Detail" DetailNode="MinBrakeForce" Format="%03d" DataType="Integer">BrakeLeftTandemForceTest</Field000535>
+    <Field000540 Type="Separator">Blank</Field000540>
+
+    <Field000545 Type="Result">BrakeRightTandemForceTest</Field000545>
+    <Field000550 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeRightTandemForceTest</Field000550>
+    <Field000555 Type="Separator">@</Field000555>
+    <Field000560 Type="Separator">-</Field000560>
+    <Field000565 Type="Detail" DetailNode="MinBrakeForce" Format="%03d" DataType="Integer">BrakeRightTandemForceTest</Field000565>
+    <Field000570 Type="Separator">Blank</Field000570>
+
+    <!-- Brake Balance Results -->
+    <Field000575 Type="Result">BrakeFrontBalanceTest</Field000575>
+    <Field000580 Type="Detail" DetailNode="Value" Format="%03d" DataType="Integer">BrakeFrontBalanceTest</Field000580>
+    <Field000585 Type="Separator">@</Field000585>
+    <Field000590 Type="Detail" DetailNode="MinPercentBalance" Format="%03d" DataType="Integer">BrakeFrontBalanceTest</Field000590>
+    <Field000595 Type="Separator">-</Field000595>
+    <Field000600 Type="Detail" DetailNode="MaxPercentBalance" Format="%03d" DataType="Integer">BrakeFrontBalanceTest</Field000600>
+    <Field000605 Type="Separator">Blank</Field000605>
+
+    <Field000610 Type="Result">BrakeRearBalanceTest</Field000610>
+    <Field000615 Type="Detail" DetailNode="Value" Format="%03d" DataType="Integer">BrakeRearBalanceTest</Field000615>
+    <Field000620 Type="Separator">@</Field000620>
+    <Field000625 Type="Detail" DetailNode="MinPercentBalance" Format="%03d" DataType="Integer">BrakeRearBalanceTest</Field000625>
+    <Field000630 Type="Separator">-</Field000630>
+    <Field000635 Type="Detail" DetailNode="MaxPercentBalance" Format="%03d" DataType="Integer">BrakeRearBalanceTest</Field000635>
+    <Field000640 Type="Separator">Blank</Field000640>
+
+    <Field000650 Type="Result">BrakeTandemBalanceTest</Field000650>
+    <Field000655 Type="Detail" DetailNode="Value" Format="%03d" DataType="Integer">BrakeTandemBalanceTest</Field000655>
+    <Field000660 Type="Separator">@</Field000660>
+    <Field000665 Type="Detail" DetailNode="MinPercentBalance" Format="%03d" DataType="Integer">BrakeTandemBalanceTest</Field000665>
+    <Field000670 Type="Separator">-</Field000670>
+    <Field000675 Type="Detail" DetailNode="MaxPercentBalance" Format="%03d" DataType="Integer">BrakeTandemBalanceTest</Field000675>
+    <Field000680 Type="Separator">Blank</Field000680>
+
+    <Field000685 Type="Result">BrakeFrontToRearBalanceTest</Field000685>
+    <Field000690 Type="Detail" DetailNode="Value" Format="%03d" DataType="Integer">BrakeFrontToRearBalanceTest</Field000690>
+    <Field000695 Type="Separator">@</Field000695>
+    <Field000700 Type="Detail" DetailNode="MinPercentBalance" Format="%03d" DataType="Integer">BrakeFrontToRearBalanceTest</Field000700>
+    <Field000705 Type="Separator">-</Field000705>
+    <Field000710 Type="Detail" DetailNode="MaxPercentBalance" Format="%03d" DataType="Integer">BrakeFrontToRearBalanceTest</Field000710>
+    <Field000715 Type="Separator">Blank</Field000715>
+
+    <Field000725 Type="Result">BrakeFrontToTandemBalanceTest</Field000725>
+    <Field000730 Type="Detail" DetailNode="Value" Format="%03d" DataType="Integer">BrakeFrontToTandemBalanceTest</Field000730>
+    <Field000735 Type="Separator">@</Field000735>
+    <Field000740 Type="Detail" DetailNode="MinPercentBalance" Format="%03d" DataType="Integer">BrakeFrontToTandemBalanceTest</Field000740>
+    <Field000745 Type="Separator">-</Field000745>
+    <Field000750 Type="Detail" DetailNode="MaxPercentBalance" Format="%03d" DataType="Integer">BrakeFrontToTandemBalanceTest</Field000750>
+    <Field000755 Type="Separator">Blank</Field000755>
+
+    <!-- ABS Reduction Results -->
+    <Field000760 Type="Result">BrakeLeftFrontABSReduction</Field000760>
+    <Field000765 Type="Detail" DetailNode="LeftFrontABSReductionPercent" Format="%03d" DataType="Integer">BrakeLeftFrontABSReduction</Field000765>
+    <Field000770 Type="Separator">@</Field000770>
+    <Field000775 Type="Separator">-</Field000775>
+    <Field000780 Type="Detail" DetailNode="LeftFrontReductionMinParameter" Format="%03d" DataType="Integer">BrakeLeftFrontABSReduction</Field000780>
+    <Field000785 Type="Separator">Blank</Field000785>
+
+    <Field000790 Type="Result">BrakeRightFrontABSReduction</Field000790>
+    <Field000795 Type="Detail" DetailNode="RightFrontABSReductionPercent" Format="%03d" DataType="Integer">BrakeRightFrontABSReduction</Field000795>
+    <Field000800 Type="Separator">@</Field000800>
+    <Field000805 Type="Separator">-</Field000805>
+    <Field000810 Type="Detail" DetailNode="RightFrontReductionMinParameter" Format="%03d" DataType="Integer">BrakeRightFrontABSReduction</Field000810>
+    <Field000815 Type="Separator">Blank</Field000815>
+
+    <Field000820 Type="Result">BrakeLeftRearABSReduction</Field000820>
+    <Field000825 Type="Detail" DetailNode="LeftRearABSReductionPercent" Format="%03d" DataType="Integer">BrakeLeftRearABSReduction</Field000825>
+    <Field000830 Type="Separator">@</Field000830>
+    <Field000835 Type="Separator">-</Field000835>
+    <Field000840 Type="Detail" DetailNode="LeftRearReductionMinParameter" Format="%03d" DataType="Integer">BrakeLeftRearABSReduction</Field000840>
+    <Field000845 Type="Separator">Blank</Field000845>
+
+    <Field000850 Type="Result">BrakeRightRearABSReduction</Field000850>
+    <Field000855 Type="Detail" DetailNode="RightRearABSReductionPercent" Format="%03d" DataType="Integer">BrakeRightRearABSReduction</Field000855>
+    <Field000860 Type="Separator">@</Field000860>
+    <Field000865 Type="Separator">-</Field000865>
+    <Field000870 Type="Detail" DetailNode="RightRearReductionMinParameter" Format="%03d" DataType="Integer">BrakeRightRearABSReduction</Field000870>
+    <Field000875 Type="Separator">Blank</Field000875>
+
+    <Field000880 Type="Result">BrakeLeftTandemABSReduction</Field000880>
+    <Field000885 Type="Detail" DetailNode="LeftRearABSReductionPercent" Format="%03d" DataType="Integer">BrakeLeftTandemABSReduction</Field000885>
+    <Field000890 Type="Separator">@</Field000890>
+    <Field000895 Type="Separator">-</Field000895>
+    <Field000900 Type="Detail" DetailNode="LeftRearReductionMinParameter" Format="%03d" DataType="Integer">BrakeLeftTandemABSReduction</Field000900>
+    <Field000905 Type="Separator">Blank</Field000905>
+
+    <Field000910 Type="Result">BrakeRightTandemABSReduction</Field000910>
+    <Field000915 Type="Detail" DetailNode="RightRearABSReductionPercent" Format="%03d" DataType="Integer">BrakeRightTandemABSReduction</Field000915>
+    <Field000920 Type="Separator">@</Field000920>
+    <Field000925 Type="Separator">-</Field000925>
+    <Field000930 Type="Detail" DetailNode="RightRearReductionMinParameter" Format="%03d" DataType="Integer">BrakeRightTandemABSReduction</Field000930>
+    <Field000935 Type="Separator">Blank</Field000935>
+
+    <!-- ABS Recovery Results -->
+    <Field000940 Type="Result">BrakeLeftFrontABSRecovery</Field000940>
+    <Field000945 Type="Detail" DetailNode="LeftFrontABSRecoveryValue" Format="%03d" DataType="Integer">BrakeLeftFrontABSRecovery</Field000945>
+    <Field000950 Type="Separator">@</Field000950>
+    <Field000955 Type="Separator">-</Field000955>
+    <Field000960 Type="Detail" DetailNode="LeftFrontRecoveryMinPercent" Format="%03d" DataType="Integer">BrakeLeftFrontABSRecovery</Field000960>
+    <Field000965 Type="Separator">Blank</Field000965>
+
+    <Field000970 Type="Result">BrakeRightFrontABSRecovery</Field000970>
+    <Field000975 Type="Detail" DetailNode="RightFrontABSRecoveryValue" Format="%03d" DataType="Integer">BrakeRightFrontABSRecovery</Field000975>
+    <Field000980 Type="Separator">@</Field000980>
+    <Field000985 Type="Separator">-</Field000985>
+    <Field000990 Type="Detail" DetailNode="RightFrontRecoveryMinPercent" Format="%03d" DataType="Integer">BrakeRightFrontABSRecovery</Field000990>
+    <Field000995 Type="Separator">Blank</Field000995>
+
+    <Field001000 Type="Result">BrakeLeftRearABSRecovery</Field001000>
+    <Field001005 Type="Detail" DetailNode="LeftRearABSRecoveryValue" Format="%03d" DataType="Integer">BrakeLeftRearABSRecovery</Field001005>
+    <Field001010 Type="Separator">@</Field001010>
+    <Field001015 Type="Separator">-</Field001015>
+    <Field001020 Type="Detail" DetailNode="LeftRearRecoveryMinPercent" Format="%03d" DataType="Integer">BrakeLeftRearABSRecovery</Field001020>
+    <Field001025 Type="Separator">Blank</Field001025>
+
+    <Field001030 Type="Result">BrakeRightRearABSRecovery</Field001030>
+    <Field001035 Type="Detail" DetailNode="RightRearABSRecoveryValue" Format="%03d" DataType="Integer">BrakeRightRearABSRecovery</Field001035>
+    <Field001040 Type="Separator">@</Field001040>
+    <Field001045 Type="Separator">-</Field001045>
+    <Field001050 Type="Detail" DetailNode="RightRearRecoveryMinPercent" Format="%03d" DataType="Integer">BrakeRightRearABSRecovery</Field001050>
+    <Field001055 Type="Separator">Blank</Field001055>
+
+    <Field001060 Type="Result">BrakeLeftTandemABSRecovery</Field001060>
+    <Field001065 Type="Detail" DetailNode="LeftRearABSRecoveryValue" Format="%03d" DataType="Integer">BrakeLeftTandemABSRecovery</Field001065>
+    <Field001070 Type="Separator">@</Field001070>
+    <Field001075 Type="Separator">-</Field001075>
+    <Field001080 Type="Detail" DetailNode="LeftRearRecoveryMinPercent" Format="%03d" DataType="Integer">BrakeLeftTandemABSRecovery</Field001080>
+    <Field001085 Type="Separator">Blank</Field001085>
+
+    <Field001090 Type="Result">BrakeRightTandemABSRecovery</Field001090>
+    <Field001095 Type="Detail" DetailNode="RightRearABSRecoveryValue" Format="%03d" DataType="Integer">BrakeRightTandemABSRecovery</Field001095>
+    <Field001100 Type="Separator">@</Field001100>
+    <Field001105 Type="Separator">-</Field001105>
+    <Field001110 Type="Detail" DetailNode="RightRearRecoveryMinPercent" Format="%03d" DataType="Integer">BrakeRightTandemABSRecovery</Field001110>
+    <Field001115 Type="Separator">Blank</Field001115>
+
+    <!-- Overal test flags -->
+    <Field001120 Type="Result" ExcludeIfNotTested="No">BrakeOverallTest</Field001120>
+    <Field001130 Type="Result" ExcludeIfNotTested="No">SpeedControlOverallTest</Field001130>
+    <Field001135 Type="Result" ExcludeIfNotTested="No">AxleOverallTest</Field001135>
+    <Field001145 Type="Result" ExcludeIfNotTested="No">EmissionsMotorBrake</Field001145>
+    <Field001155 Type="Result" ExcludeIfNotTested="No">EmissionsEngineLoading</Field001155>
+    <Field001165 Type="Result" ExcludeIfNotTested="No">MachineVibrationCheck</Field001165>
+    <Field001175 Type="Result" ExcludeIfNotTested="No">EmissionsCheckTurboEngagement</Field001175>
+</DetailRecord>

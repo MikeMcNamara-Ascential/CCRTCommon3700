@@ -1,0 +1,37 @@
+<Vinxxxxxxxxxxxxxxxxx>
+   <VehicleBuild>
+      <VIN/>
+      <DriveAxle/>
+      <ABSPartNo/>
+      <Airbag/>
+      <Axle/>
+      <AxleRatio/>
+      <BodyStyle>??0000</BodyStyle>
+      <BrakeType/>
+      <BuildDate>MMDDYYYY</BuildDate>
+      <BuildTime>HHMM</BuildTime>
+      <Cluster/>
+      <DaytimeRunningLamps/>
+      <HighSpeedChime/>
+      <LSIACMPartNo/>
+      <MarketType/>
+      <ORCACMPartNo/>
+      <PCMPartNo/>
+      <PerformAbortTest>P</PerformAbortTest>
+      <PinionFactor/>
+      <PowerSteering/>
+      <RSIACMPartNo/>
+      <RemoteKeylessEntry/>
+      <SKIMPin/>
+      <SentryKeyImmobilizer/>
+      <SpeedControl/>
+      <Suspension/>
+      <SuspensionPartNo/>
+      <TCMPartNo/>
+      <TPMPartNo/>
+      <TirePressureMonitor/>
+      <TireSize/>
+      <TransferCase/>
+      <Transmission/>
+   </VehicleBuild>
+</Vinxxxxxxxxxxxxxxxxx>

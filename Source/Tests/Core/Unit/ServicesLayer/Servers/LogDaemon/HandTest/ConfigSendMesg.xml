@@ -1,0 +1,121 @@
+<TestComponent>
+   <Setup>
+      <Name>devel/SendMesgProc</Name>
+      <Debug>Off</Debug>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>SendMesg</ProcessName>
+         <AdditionalLogFile>devel/SendMesgLog</AdditionalLogFile>
+         <Debug>On</Debug>
+         <LocalEcho>Off</LocalEcho>
+
+				 <!-- Rotation parms -->
+				 <AdditionalLogMaxFiles>7</AdditionalLogMaxFiles>
+				 <AdditionalLogMaxSize>2</AdditionalLogMaxSize>
+				 <!-- Timeout parm -->
+				 <MessageTimeout>100</MessageTimeout>
+      </Logging>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/LossCompensation</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <TagList>
+         <SubscribeTags>
+            <VehiclePresent>0</VehiclePresent>
+            <CalibrateSwitchOn>0</CalibrateSwitchOn>
+            <RaiseRolls-LowerElevators>0</RaiseRolls-LowerElevators>
+         </SubscribeTags>
+         <PublishTags>
+            <OverallPassFail>Pass</OverallPassFail>
+         </PublishTags>
+      </TagList>
+      <FaultServerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/FaultServer</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </FaultServerComm>
+      <NamedDataBrokerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/NamedDataBroker</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </NamedDataBrokerComm>
+      <PromptServerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/PromptServer</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </PromptServerComm>
+      <TestResultServerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/TestResultServer</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </TestResultServerComm>
+      <DataTags>
+         <SomeDataTag>The Value Of The Tag</SomeDataTag>
+      </DataTags>
+   </Setup>
+   <Objectives>
+      <Calibrate>
+         <TestStep1>Initialize</TestStep1>
+         <TestStep2>Accelerate</TestStep2>
+         <TestStep3>WarmUp</TestStep3>
+         <TestStep4>LossCompensation</TestStep4>
+         <TestStep5>Stop</TestStep5>
+         <TestStep6>FinishUp</TestStep6>
+      </Calibrate>
+      <Calibrate1>
+         <TestStep1>Initialize</TestStep1>
+         <TestStep2>Initialize</TestStep2>
+         <TestStep3>Initialize</TestStep3>
+         <TestStep4>Initialize</TestStep4>
+         <TestStep5>Initialize</TestStep5>
+         <TestStep6>Initialize</TestStep6>
+      </Calibrate1>
+      <Calibrate2>
+         <TestStep1>Stop</TestStep1>
+         <TestStep2>Stop</TestStep2>
+         <TestStep3>Stop</TestStep3>
+         <TestStep4>Stop</TestStep4>
+         <TestStep5>Stop</TestStep5>
+         <TestStep6>Stop</TestStep6>
+      </Calibrate2>
+      <Calibrate3>
+         <TestStep1>FinishUp</TestStep1>
+         <TestStep2>FinishUp</TestStep2>
+         <TestStep3>FinishUp</TestStep3>
+         <TestStep4>InvalidTestStep</TestStep4>
+         <TestStep5>FinishUp</TestStep5>
+         <TestStep6>FinishUp</TestStep6>
+      </Calibrate3>
+   </Objectives>
+   <TestSteps>
+      <Initialize Result="Pass" Timeout="10" Description="Wait for proper calibrate conditions">Wait until machine conditions are valid for calibration</Initialize>
+      <Accelerate Result="Pass" Timeout="10" Description="Accelerate above CalibrateArmSpeed" CalibrateArmSpeed="45">Accelerate to speed</Accelerate>
+      <WarmUp Result="Pass" Timeout="180" Description="Warm up the machine bearings" WarmUpTime="120">Warm up the machine for the Loss Compensation calculation</WarmUp>
+      <LossCompensation Result="Pass" Timeout="240" Description="Sample roll speeds as rolls decelerate" StartSampleSpeed="40" StopSampleSpeed="45" minCal="10" MachineLossMinLeft="3" MachineLossMaxLeft="25" MachineLossMinRight="3" MachineLossMaxRight="25" lfMachineLoss="3" rfMachineLoss="3" lrMachineLoss="3" rrMachineLoss="3">Sample and Calculate the Loss Compensation</LossCompensation>
+      <Stop Result="Pass" Timeout="15" Description="Wait for zerospeed">Stop the rollers</Stop>
+      <FinishUp Result="Pass" Timeout="15" Description="Set machine signals back to known state">Update the results</FinishUp>
+   </TestSteps>
+</TestComponent>

@@ -1,0 +1,295 @@
+<MachineDataBrokerConfig>
+    <!-- DCBR: Updated with LT, RT rollers -->
+    <Setup>
+      <Debug>Off</Debug>
+      <DataFile Description="This is the file where persistent data is stored">/TestResults/Machine/LossCompensationTimeDate.dat</DataFile>
+      <CycleTimeUpdateRate Description="Delay in mS between updates, 0 disables the feature">500</CycleTimeUpdateRate>
+      <EncoderDataUpdateRate Units="ms">100</EncoderDataUpdateRate>
+      <CustId Description="This is the customer identifier Code">Mercedes</CustId>
+      <CustBld Description="This is the build date code string yymmddrr">10111201</CustBld>
+	  <UseConfigMachineNumber>No</UseConfigMachineNumber>
+      <IcmDataFiles>
+          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+          <ForceArray>/dev/ArrayForce</ForceArray>
+          <SpeedArray>/dev/ArraySpeed</SpeedArray>
+          <DistanceArray>/dev/ArrayDistance</DistanceArray>
+      </IcmDataFiles>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>core/MachineDataBroker</Name>
+         <Debug>Off</Debug>
+         <Timeout>5000</Timeout>
+         <BufferSize>1024</BufferSize>
+      </Communication>
+      <DataTags>
+          <CycleTime>CycleTime</CycleTime>
+          <RollerCount>RollerCount</RollerCount>
+          <TestInProgress>TestInProgress</TestInProgress>
+		  <LastCableConnected>LastCableConnected</LastCableConnected>
+		  <MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>
+		  <MachineNumberTag>MachineNumber</MachineNumberTag>
+		  <RHDSelected>RighthandDriveSelected</RHDSelected>
+      </DataTags>
+      <TagList>
+         <SubscribeTags>
+            <AllFaults/>
+            <VehiclePresent/>
+            <TestResult/>
+			<RighthandDriveSelected/>
+         </SubscribeTags>
+         <PublishTags>
+            <ArmSpeed DataType="float" Units="MPH">0</ArmSpeed>
+            <ArmSpeedBGColor DataType="color">white</ArmSpeedBGColor>
+            <BrakeForceValue DataType="float" Units="LBF">0</BrakeForceValue>
+            <BrakeTarget DataType="range" Units="">0 0</BrakeTarget>
+            <ConnectRequest DataType="string">Success</ConnectRequest>
+            <CycleTime DataType="short" Units="">0</CycleTime>
+            <DisplayDriverMonitor DataType="string">drivermonitor</DisplayDriverMonitor>
+            <DisplayRackMonitor DataType="string">frontpanel</DisplayRackMonitor>
+            <DriverNumberDisplay DataType="" Units=""/>
+            <DriverNumberDisplayBGColor DataType="" Units="">white</DriverNumberDisplayBGColor>
+            <FrontBalanceBGColor DataType="color">white</FrontBalanceBGColor>
+            <FrontBalanceValue DataType="string">0</FrontBalanceValue>
+            <FrontToRearBalanceBGColor DataType="color">white</FrontToRearBalanceBGColor>
+            <FrontToRearBalanceValue DataType="string">0</FrontToRearBalanceValue>
+            <GUIKeepAlive DataType="bool">0</GUIKeepAlive>
+			<LastCableConnected DataType="string">Left</LastCableConnected>
+            <LCDateCurrent DataType="float">0</LCDateCurrent>
+            <LCDateCurrentBGColor DataType="color">white</LCDateCurrentBGColor>
+            <LCDatePrevious DataType="float">0</LCDatePrevious>
+            <LCDatePreviousBGColor DataType="color">white</LCDatePreviousBGColor>
+            <LCSampleSpeedEnd DataType="float" Units="MPH">0</LCSampleSpeedEnd>
+            <LCSampleSpeedEndBGColor DataType="color">white</LCSampleSpeedEndBGColor>
+            <LCSampleSpeedStart DataType="float" Units="MPH">0</LCSampleSpeedStart>
+            <LCSampleSpeedStartBGColor DataType="color">white</LCSampleSpeedStartBGColor>
+            <LCTimeCurrent DataType="float">0</LCTimeCurrent>
+            <LCTimeCurrentBGColor DataType="color">white</LCTimeCurrentBGColor>
+            <LCTimePrevious DataType="float">0</LCTimePrevious>
+            <LCTimePreviousBGColor DataType="color">white</LCTimePreviousBGColor>
+            <LCWarmupTimeRemaining DataType="float">0</LCWarmupTimeRemaining>
+            <LCWarmupTimeRemainingBGColor DataType="color">white</LCWarmupTimeRemainingBGColor>
+            <LCWarmupTime DataType="float">0</LCWarmupTime>
+            <LCWarmupTimeBGColor DataType="color">white</LCWarmupTimeBGColor>
+            
+            <LFABSRecoveryBGColor DataType="string">white</LFABSRecoveryBGColor>
+            <LFABSRecoveryValue DataType="float">0</LFABSRecoveryValue>
+            <LFABSReductionBGColor DataType="string">white</LFABSReductionBGColor>
+            <LFABSReductionValue DataType="float" Units="LBF">0</LFABSReductionValue>
+            <LFDragBGColor DataType="string">white</LFDragBGColor>
+            <LFDragValue DataType="float" Units="LBF">0</LFDragValue>
+            <LFForceBGColor DataType="color">white</LFForceBGColor>
+            <LFForceDomain DataType="range" Units="LBF">0 500</LFForceDomain>
+            <LFForceTarget DataType="range" Units="LBF">200 400</LFForceTarget>
+            <LFForceValue DataType="float" Units="LBF">0</LFForceValue>
+            <LFMachineLossCurrent DataType="float" Units="LBF">0</LFMachineLossCurrent>
+            <LFMachineLossCurrentBGColor DataType="color">white</LFMachineLossCurrentBGColor>
+            <LFMachineLossPrevious DataType="float" Units="LBF">0</LFMachineLossPrevious>
+            <LFMachineLossPreviousBGColor DataType="int">white</LFMachineLossPreviousBGColor>
+            <LFSpeedBGColor DataType="color">white</LFSpeedBGColor>
+            <LFTractionControlRecoveryBGColor DataType="color">white</LFTractionControlRecoveryBGColor>
+            <LFTractionControlRecoveryValue DataType="float" Units="LBF">0</LFTractionControlRecoveryValue>
+            <LFTractionControlReductionBGColor DataType="color">white</LFTractionControlReductionBGColor>
+            <LFTractionControlReductionValue DataType="float" Units="LBF">0</LFTractionControlReductionValue>
+            <LFWheelDomain DataType="range" Units="MPH">0 80</LFWheelDomain>
+            <LFWheelTarget DataType="range" Units="MPH">45 55</LFWheelTarget>
+            
+            <LRABSRecoveryBGColor DataType="string">white</LRABSRecoveryBGColor>
+            <LRABSRecoveryValue DataType="float">0</LRABSRecoveryValue>
+            <LRABSReductionBGColor DataType="string">white</LRABSReductionBGColor>
+            <LRABSReductionValue DataType="float" Units="LBF">0</LRABSReductionValue>
+            <LRDragBGColor DataType="color">white</LRDragBGColor>
+            <LRDragValue DataType="float" Units="LBF">0</LRDragValue>
+            <LRForceBGColor DataType="color">white</LRForceBGColor>
+            <LRForceDomain DataType="range" Units="LBF">0 500</LRForceDomain>
+            <LRForceTarget DataType="range" Units="LBF">200 400</LRForceTarget>
+            <LRForceValue DataType="float" Units="LBF">0</LRForceValue>
+            <LRMachineLossCurrent DataType="float" Units="LBF">0</LRMachineLossCurrent>
+            <LRMachineLossCurrentBGColor DataType="color">white</LRMachineLossCurrentBGColor>
+            <LRMachineLossPrevious DataType="float" Units="LBF">0</LRMachineLossPrevious>
+            <LRMachineLossPreviousBGColor DataType="color">white</LRMachineLossPreviousBGColor>
+            <LRSpeedBGColor DataType="color">white</LRSpeedBGColor>
+            <LRTractionControlRecoveryBGColor DataType="color">white</LRTractionControlRecoveryBGColor>
+            <LRTractionControlRecoveryValue DataType="float" Units="LBF">0</LRTractionControlRecoveryValue>
+            <LRTractionControlReductionBGColor DataType="color">white</LRTractionControlReductionBGColor>
+            <LRTractionControlReductionValue DataType="float" Units="LBF">0</LRTractionControlReductionValue>
+            <LRWheelDomain DataType="range" Units="MPH">0 80</LRWheelDomain>
+            <LRWheelTarget DataType="range" Units="MPH">45 55</LRWheelTarget>
+            
+            <LTABSRecoveryBGColor DataType="string">white</LTABSRecoveryBGColor>
+            <LTABSRecoveryValue DataType="float">0</LTABSRecoveryValue>
+            <LTABSReductionBGColor DataType="string">white</LTABSReductionBGColor>
+            <LTABSReductionValue DataType="float" Units="LBF">0</LTABSReductionValue>
+            <LTDragBGColor DataType="color">white</LTDragBGColor>
+            <LTDragValue DataType="float" Units="LBF">0</LTDragValue>
+            <LTForceBGColor DataType="color">white</LTForceBGColor>
+            <LTForceDomain DataType="range" Units="LBF">0 500</LTForceDomain>
+            <LTForceTarget DataType="range" Units="LBF">200 400</LTForceTarget>
+            <LTForceValue DataType="float" Units="LBF">0</LTForceValue>
+            <LTMachineLossCurrent DataType="float" Units="LBF">0</LTMachineLossCurrent>
+            <LTMachineLossCurrentBGColor DataType="color">white</LTMachineLossCurrentBGColor>
+            <LTMachineLossPrevious DataType="float" Units="LBF">0</LTMachineLossPrevious>
+            <LTMachineLossPreviousBGColor DataType="color">white</LTMachineLossPreviousBGColor>
+            <LTSpeedBGColor DataType="color">white</LTSpeedBGColor>
+            <LTTractionControlRecoveryBGColor DataType="color">white</LTTractionControlRecoveryBGColor>
+            <LTTractionControlRecoveryValue DataType="float" Units="LBF">0</LTTractionControlRecoveryValue>
+            <LTTractionControlReductionBGColor DataType="color">white</LTTractionControlReductionBGColor>
+            <LTTractionControlReductionValue DataType="float" Units="LBF">0</LTTractionControlReductionValue>
+            <LTWheelDomain DataType="range" Units="MPH">0 80</LTWheelDomain>
+            <LTWheelTarget DataType="range" Units="MPH">45 55</LTWheelTarget>
+            
+            <LowerNeg12VoltPowerSupplyDomain DataType="range">0 0</LowerNeg12VoltPowerSupplyDomain>
+            <LowerNeg12VoltPowerSupplyTarget DataType="range">0 0</LowerNeg12VoltPowerSupplyTarget>
+            <LowerPos12VoltPowerSupplyDomain DataType="range">0 0</LowerPos12VoltPowerSupplyDomain>
+            <LowerPos12VoltPowerSupplyTarget DataType="range">0 0</LowerPos12VoltPowerSupplyTarget>
+            <LowerPos5VoltPowerSupplyDomain DataType="range">0 0</LowerPos5VoltPowerSupplyDomain>
+            <LowerPos5VoltPowerSupplyTarget DataType="range">0 0</LowerPos5VoltPowerSupplyTarget>
+            <MachineLossMaxDelta DataType="float" Units="LBF">0</MachineLossMaxDelta>
+            <MachineLossMaxDeltaBGColor DataType="color">white</MachineLossMaxDeltaBGColor>
+            <MachineLossMaxLeft DataType="float" Units="LBF">0</MachineLossMaxLeft>
+            <MachineLossMaxLeftBGColor DataType="color">white</MachineLossMaxLeftBGColor>
+            <MachineLossMaxRight DataType="float" Units="LBF">0</MachineLossMaxRight>
+            <MachineLossMaxRightBGColor DataType="color">white</MachineLossMaxRightBGColor>
+            <MachineLossMinLeft DataType="float" Units="LBF">0</MachineLossMinLeft>
+            <MachineLossMinLeftBGColor DataType="color">white</MachineLossMinLeftBGColor>
+            <MachineLossMinRight DataType="float" Units="LBF">0</MachineLossMinRight>
+            <MachineLossMinRightBGColor DataType="color">white</MachineLossMinRightBGColor>
+            <MachineLossTime DataType="string">00:00:00</MachineLossTime>
+            <MachineLossDate DataType="string">00/00/00</MachineLossDate>
+            <MachineNumber DataType="short">9</MachineNumber>
+            <MachineType DataType="">3600</MachineType>
+            
+            <RFABSRecoveryBGColor DataType="string">white</RFABSRecoveryBGColor>
+            <RFABSRecoveryValue DataType="float">0</RFABSRecoveryValue>
+            <RFABSReductionBGColor DataType="string">white</RFABSReductionBGColor>
+            <RFABSReductionValue DataType="float" Units="LBF">0</RFABSReductionValue>
+            <RFDragBGColor DataType="color">white</RFDragBGColor>
+            <RFDragValue DataType="float" Units="LBF">0</RFDragValue>
+            <RFForceBGColor DataType="color">white</RFForceBGColor>
+            <RFForceDomain DataType="range" Units="LBF">0 500</RFForceDomain>
+            <RFForceTarget DataType="range" Units="LBF">200 400</RFForceTarget>
+            <RFForceValue DataType="float" Units="LBF">0</RFForceValue>
+            <RFMachineLossCurrent DataType="float" Units="LBF">0</RFMachineLossCurrent>
+            <RFMachineLossCurrentBGColor DataType="color">white</RFMachineLossCurrentBGColor>
+            <RFMachineLossPrevious DataType="float" Units="LBF">0</RFMachineLossPrevious>
+            <RFMachineLossPreviousBGColor DataType="color">white</RFMachineLossPreviousBGColor>
+            <RFSpeedBGColor DataType="color">white</RFSpeedBGColor>
+            <RFTractionControlRecoveryBGColor DataType="color">white</RFTractionControlRecoveryBGColor>
+            <RFTractionControlRecoveryValue DataType="float" Units="LBF">0</RFTractionControlRecoveryValue>
+            <RFTractionControlReductionBGColor DataType="color">white</RFTractionControlReductionBGColor>
+            <RFTractionControlReductionValue DataType="float" Units="LBF">0</RFTractionControlReductionValue>
+            <RFWheelDomain DataType="range" Units="MPH">0 80</RFWheelDomain>
+            <RFWheelTarget DataType="range" Units="MPH">45 55</RFWheelTarget>
+            
+            <RRABSRecoveryBGColor DataType="string">white</RRABSRecoveryBGColor>
+            <RRABSRecoveryValue DataType="float">0</RRABSRecoveryValue>
+            <RRABSReductionBGColor DataType="string">white</RRABSReductionBGColor>
+            <RRABSReductionValue DataType="float" Units="LBF">0</RRABSReductionValue>
+            <RRDragBGColor DataType="color">white</RRDragBGColor>
+            <RRDragValue DataType="float" Units="LBF">0</RRDragValue>
+            <RRForceBGColor DataType="color">white</RRForceBGColor>
+            <RRForceDomain DataType="range" Units="LBF">0 500</RRForceDomain>
+            <RRForceTarget DataType="range" Units="LBF">200 400</RRForceTarget>
+            <RRForceValue DataType="float" Units="LBF">0</RRForceValue>
+            <RRMachineLossCurrent DataType="float" Units="LBF">0</RRMachineLossCurrent>
+            <RRMachineLossCurrentBGColor DataType="color">white</RRMachineLossCurrentBGColor>
+            <RRMachineLossPrevious DataType="float" Units="LBF">0</RRMachineLossPrevious>
+            <RRMachineLossPreviousBGColor DataType="color">white</RRMachineLossPreviousBGColor>
+            <RRSpeedBGColor DataType="color">white</RRSpeedBGColor>
+            <RRTractionControlRecoveryBGColor DataType="color">white</RRTractionControlRecoveryBGColor>
+            <RRTractionControlRecoveryValue DataType="float" Units="LBF">0</RRTractionControlRecoveryValue>
+            <RRTractionControlReductionBGColor DataType="color">white</RRTractionControlReductionBGColor>
+            <RRTractionControlReductionValue DataType="float" Units="LBF">0</RRTractionControlReductionValue>
+            <RRWheelDomain DataType="range" Units="MPH">0 80</RRWheelDomain>
+            <RRWheelTarget DataType="range" Units="MPH">45 55</RRWheelTarget>
+            
+            <RTABSRecoveryBGColor DataType="string">white</RTABSRecoveryBGColor>
+            <RTABSRecoveryValue DataType="float">0</RTABSRecoveryValue>
+            <RTABSReductionBGColor DataType="string">white</RTABSReductionBGColor>
+            <RTABSReductionValue DataType="float" Units="LBF">0</RTABSReductionValue>
+            <RTDragBGColor DataType="color">white</RTDragBGColor>
+            <RTDragValue DataType="float" Units="LBF">0</RTDragValue>
+            <RTForceBGColor DataType="color">white</RTForceBGColor>
+            <RTForceDomain DataType="range" Units="LBF">0 500</RTForceDomain>
+            <RTForceTarget DataType="range" Units="LBF">200 400</RTForceTarget>
+            <RTForceValue DataType="float" Units="LBF">0</RTForceValue>
+            <RTMachineLossCurrent DataType="float" Units="LBF">0</RTMachineLossCurrent>
+            <RTMachineLossCurrentBGColor DataType="color">white</RTMachineLossCurrentBGColor>
+            <RTMachineLossPrevious DataType="float" Units="LBF">0</RTMachineLossPrevious>
+            <RTMachineLossPreviousBGColor DataType="color">white</RTMachineLossPreviousBGColor>
+            <RTSpeedBGColor DataType="color">white</RTSpeedBGColor>
+            <RTTractionControlRecoveryBGColor DataType="color">white</RTTractionControlRecoveryBGColor>
+            <RTTractionControlRecoveryValue DataType="float" Units="LBF">0</RTTractionControlRecoveryValue>
+            <RTTractionControlReductionBGColor DataType="color">white</RTTractionControlReductionBGColor>
+            <RTTractionControlReductionValue DataType="float" Units="LBF">0</RTTractionControlReductionValue>
+            <RTWheelDomain DataType="range" Units="MPH">0 80</RTWheelDomain>
+            <RTWheelTarget DataType="range" Units="MPH">45 55</RTWheelTarget>
+            
+            <RearBalanceBGColor DataType="color">white</RearBalanceBGColor>
+            <RearBalanceValue DataType="string">0</RearBalanceValue>
+			<SoftwareID/>
+            <SpeedTarget DataType="range" Units="MPH">60 80</SpeedTarget>
+            <SpeedValue DataType="float" Units="MPH">0</SpeedValue>
+            <TandemBalanceBGColor DataType="color">white</TandemBalanceBGColor>
+            <TandemBalanceValue DataType="string">0</TandemBalanceValue>
+            <TestResultBox1 DataType="testcomponentstatus">TestNotTested</TestResultBox1>
+            <TestResultBox2 DataType="testcomponentstatus">TestNotTested</TestResultBox2>
+            <TestResultBox3 DataType="testcomponentstatus">TestNotTested</TestResultBox3>
+            <TestResultBox4 DataType="testcomponentstatus">TestNotTested</TestResultBox4>
+            <TestResultBox5 DataType="testcomponentstatus">TestNotTested</TestResultBox5>
+            <TestResultBox6 DataType="testcomponentstatus">TestNotTested</TestResultBox6>
+            <TestResultBox7 DataType="testcomponentstatus">TestNotTested</TestResultBox7>
+            <TestResultBox8 DataType="testcomponentstatus">TestNotTested</TestResultBox8>
+            <TestResultBox9 DataType="testcomponentstatus">TestNotTested</TestResultBox9>
+            <TestResultBox10 DataType="testcomponentstatus">TestNotTested</TestResultBox10>
+            <TestResultToPrint DataType="string"/>
+            <UpperNeg12VoltPowerSupplyDomain DataType="range">0 0</UpperNeg12VoltPowerSupplyDomain>
+            <UpperNeg12VoltPowerSupplyTarget DataType="range">0 0</UpperNeg12VoltPowerSupplyTarget>
+            <UpperPos12VoltPowerSupplyDomain DataType="range">0 0</UpperPos12VoltPowerSupplyDomain>
+            <UpperPos12VoltPowerSupplyTarget DataType="range">0 0</UpperPos12VoltPowerSupplyTarget>
+            <UpperPos5VoltPowerSupplyDomain DataType="range">0 0</UpperPos5VoltPowerSupplyDomain>
+            <UpperPos5VoltPowerSupplyTarget DataType="range">0 0</UpperPos5VoltPowerSupplyTarget>
+            <VINReadStatus DataType="string">Red</VINReadStatus>
+            <VINDisplay DataType="string"/>
+            <VINDisplayBGColor DataType="color">white</VINDisplayBGColor>
+            <WheelbaseInPositionStatus DataType="color">white</WheelbaseInPositionStatus>
+         </PublishTags>
+      </TagList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/MachineDataBroker</ProcessName>
+         <AdditionalLogFile Types="/Servers/MachineDataBroker">/Servers/MachineDataBroker.log</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+         <Debug>Off</Debug>
+      </Logging>
+      <NamedDataBrokerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/NamedDataBroker</Name>
+         <Debug>On</Debug>
+         <Timeout>1000</Timeout>
+         <BufferSize>1024</BufferSize>
+      </NamedDataBrokerComm>
+   </Setup>
+</MachineDataBrokerConfig>

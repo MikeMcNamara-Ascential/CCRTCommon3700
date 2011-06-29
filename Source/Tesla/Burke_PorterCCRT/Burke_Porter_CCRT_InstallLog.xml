@@ -1,0 +1,1367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InstallationLog>
+	<ProductName>Burke_Porter_CCRT</ProductName>
+	<Creator>Installed by InstallAnywhere 6.1 Standard Build 2325, by Zero G</Creator>
+	<InstallationDirectory>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT</InstallationDirectory>
+	<InstallationSummary status="Installation: Successful."/>
+	<InstallDuration begin="Tue Jun 16 14:27:34 EDT 2009" end="Tue Jun 16 14:29:13 EDT 2009"/>
+	<ActionsSummary>
+		<Successes>457</Successes>
+		<Warnings>0</Warnings>
+		<NonFatalErrors>0</NonFatalErrors>
+		<FatalErrors>0</FatalErrors>
+		<ActionNotes>None</ActionNotes>
+	</ActionsSummary>
+	<InstallLogDetails>
+		<action name="Execute Script/Batch file" status="successful"/>
+		<action name="Custom Action" target="com.bepco.rtc.IACustomCodeCopydir" status="successful"/>
+		<action name="Install Directory" target="jre" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install Directory" target="Burke_PorterCCRT" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install Directory" target="UninstallerData" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\UninstallerData</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install Uninstaller" target="Uninstall Burke Porter CCRT.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\UninstallerData\</destination>
+		</action>
+		<action name="Install File" target="Uninstall Burke Porter CCRT.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\UninstallerData\</destination>
+		</action>
+		<action name="Install File" target="Uninstall Burke Porter CCRT.lax" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\UninstallerData\</destination>
+		</action>
+		<action name="Install Directory" target="resource" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\UninstallerData\resource</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install File" target="iawin32.dll" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\UninstallerData\resource\</destination>
+		</action>
+		<action name="Install File" target="remove.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\UninstallerData\resource\</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: DisplayName, Value: Burke Porter CCRT" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: UninstallString, Value: &quot;E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\UninstallerData\Uninstall Burke Porter CCRT.exe&quot;" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: Publisher, Value: Burke Porter Machinery Company" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: URLInfoAbout, Value: http://www.bepco.com" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: Contact, Value: john.verbrugge@bepco.com" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: ProductID, Value: b2bf0e5d-1ec4-11b2-bb1a-a151d7b0faf7" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: InstallLocation, Value: E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: InstallDate, Value: Tue Jun 16 14:28:56 EDT 2009" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Make Registry Entry" target="Value Name: DisplayVersion, Value: 1.1.0.0" status="successful">
+			<destination>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT</destination>
+		</action>
+		<action name="Create LaunchAnywhere" target="CCRTClient.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="CCRTClient.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="CCRTClient.lax" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Create LaunchAnywhere" target="ExtDiagnostics.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="ExtDiagnostics.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="ExtDiagnostics.lax" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="jspWin.dll" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install Directory" target="lib" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install File" target="Serialio.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="activation.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="com.sun.net.ssl.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="ftpd.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="javax.servlet.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="jcchart.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="jspComm.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="org.apache.jasper.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="org.mortbay.jetty.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="tools.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="mail.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="ao-util.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="gnu-regexp.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="servlet.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="jfreechart-0.9.20.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="jcommon-0.9.5.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="jrgwin32-1_06.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="acrobat-libs.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="edtftpj-1.5.0.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="avalon-framework-4.2.0.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="batik-all-1.6.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="commons-io-1.1.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="commons-logging-1.0.4.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="fop-hyph.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="fop-sandbox.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="fop.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install File" target="xmlgraphics-commons-1.0.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\lib\</destination>
+		</action>
+		<action name="Install Directory" target="endorsed" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\endorsed</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install File" target="crimson.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\endorsed\</destination>
+		</action>
+		<action name="Install File" target="xalan.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\endorsed\</destination>
+		</action>
+		<action name="Install File" target="serializer-2.7.0.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\endorsed\</destination>
+		</action>
+		<action name="Install File" target="xercesImpl-2.7.1.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\endorsed\</destination>
+		</action>
+		<action name="Install File" target="xml-apis-1.3.02.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\endorsed\</destination>
+		</action>
+		<action name="Install Directory" target="resources" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install File" target="DemoGraphic.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\drivermonitor</destination>
+		</action>
+		<action name="Install File" target="DefaultDriverMonitor.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\drivermonitor</destination>
+		</action>
+		<action name="Install File" target="DriverMonitorWithBackground.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\drivermonitor</destination>
+		</action>
+		<action name="Install File" target="DefaultDriverMonitorColor.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\drivermonitor</destination>
+		</action>
+		<action name="Install File" target="DriverMonitorStandard.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\drivermonitor</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\drivermonitor</destination>
+		</action>
+		<action name="Install File" target="DriverMonitorBigGraph.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\drivermonitor</destination>
+		</action>
+		<action name="Install File" target="DriverMonitorWithGraph.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\drivermonitor</destination>
+		</action>
+		<action name="Install File" target="DefaultLossCompensation.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\losscompensation</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\losscompensation</destination>
+		</action>
+		<action name="Install File" target="AboutServerWithLicenseBits.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\aboutserver</destination>
+		</action>
+		<action name="Install File" target="DefaultAboutServer.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\aboutserver</destination>
+		</action>
+		<action name="Install File" target="crtviewconfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt</destination>
+		</action>
+		<action name="Install File" target="DefaultPowerDisplay.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\powerdisplay</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\powerdisplay</destination>
+		</action>
+		<action name="Install File" target="EncoderPowerDisplay.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\powerdisplay</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\vehiclepresence</destination>
+		</action>
+		<action name="Install File" target="DefaultVehiclePresence.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\vehiclepresence</destination>
+		</action>
+		<action name="Install File" target="FrontPanelForceEnglish.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="FrontPanelStandard.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="FrontPanelNumberBoxChangeTest.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="WithDriveCurve.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="DefaultFrontPanel.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="FrontPanelScreenSaver.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="DemoRadialGuageSizing.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="DefaultFrontPanelColor.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="DemoUnitsConversion.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="DemoRadialGuage.crt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\crt\frontpanel</destination>
+		</action>
+		<action name="Install File" target="bepLog.txt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="emptytestresult.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="RandLongBrake.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="sampleServer.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="testresult1.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="testresult2.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="testresult3.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="bus_communication.txt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="SerialMotorControllerConfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim\params</destination>
+		</action>
+		<action name="Install File" target="MotorControllerConfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim\params</destination>
+		</action>
+		<action name="Install File" target="BALDOR.XMO" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim\params</destination>
+		</action>
+		<action name="Install File" target="special.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="BrakeForceTrace.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="wheelbaseconfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\sim</destination>
+		</action>
+		<action name="Install File" target="README" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\logs</destination>
+		</action>
+		<action name="Install File" target="client_dies_on_this.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\logs</destination>
+		</action>
+		<action name="Install File" target="dashboard.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local</destination>
+		</action>
+		<action name="Install File" target="NDBConfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ndbconfig</destination>
+		</action>
+		<action name="Install File" target="password.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local</destination>
+		</action>
+		<action name="Install File" target="web_play_off.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="web_pause_on.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="web_reset_off.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="all_buttons.xcf" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="web_ff_off.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="web_pause_off.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="web_play_on.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="driveAxleConnected.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="web_reset_on.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="web_ff_on.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\img</destination>
+		</action>
+		<action name="Install File" target="ipaq.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\conf</destination>
+		</action>
+		<action name="Install File" target="playportal.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="ipaq-home.html" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="streaming.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="remote.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="navbar.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="testresults.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="stream_poster.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="log.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\client</destination>
+		</action>
+		<action name="Install File" target="errorbox.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="stream_panel.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="index.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="nocache.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\imgstore</destination>
+		</action>
+		<action name="Install File" target="prototype_bfgraph.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot\imgstore</destination>
+		</action>
+		<action name="Install File" target="stream_frame.html" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="vehiclebuild.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="brokertest.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="header.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="portalfooter.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="brakeforce.jsp" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\httproot</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local</destination>
+		</action>
+		<action name="Install File" target="QuickLog.java" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local</destination>
+		</action>
+		<action name="Install File" target="sampleServer.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs</destination>
+		</action>
+		<action name="Install File" target="Airbag" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="Eatx" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="SKIM" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="Teves" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="ABRModule" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="Emissions" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="SpeedControlModule" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="Cluster" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="ABLModule" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="TevesModule" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="ABMModule" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="SpeedControl" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="BaseBrake" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="EmissionsModule" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="EatxModule" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="ClusterModule" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Components</destination>
+		</action>
+		<action name="Install File" target="VehicleTest0" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\VehicleTest</destination>
+		</action>
+		<action name="Install File" target="StartLog" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs</destination>
+		</action>
+		<action name="Install File" target="EmptyLog" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Servers</destination>
+		</action>
+		<action name="Install File" target="CCD_BusComm.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Communication</destination>
+		</action>
+		<action name="Install File" target="CAN_BusComm.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Communication</destination>
+		</action>
+		<action name="Install File" target="broadcast.txt" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Communication</destination>
+		</action>
+		<action name="Install File" target="SCI_BusComm.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Communication</destination>
+		</action>
+		<action name="Install File" target="J2190_BusComm.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Logs\Communication</destination>
+		</action>
+		<action name="Install File" target="beplog-test.log" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp</destination>
+		</action>
+		<action name="Install File" target="emptytestresult.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Vehicle</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Vehicle</destination>
+		</action>
+		<action name="Install File" target="testresult1.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Vehicle</destination>
+		</action>
+		<action name="Install File" target="testresult2.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Vehicle</destination>
+		</action>
+		<action name="Install File" target="testresult3.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Vehicle</destination>
+		</action>
+		<action name="Install File" target="realresults.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Vehicle</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults</destination>
+		</action>
+		<action name="Install File" target="bogusBrakeForceTrace.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Machine\BrakeForceData</destination>
+		</action>
+		<action name="Install File" target="BrakeForceTrace.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Machine\BrakeForceData</destination>
+		</action>
+		<action name="Install File" target="kevinBrakeForce.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Machine\BrakeForceData</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\TestResults\Machine</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Client</destination>
+		</action>
+		<action name="Install File" target="PLCDisplayConfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Client</destination>
+		</action>
+		<action name="Install File" target="wheelbaseconfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Client</destination>
+		</action>
+		<action name="Install File" target="Airbag.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Airbag</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Airbag</destination>
+		</action>
+		<action name="Install File" target="SKIM.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\SKIM</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\SKIM</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Brake</destination>
+		</action>
+		<action name="Install File" target="BaseBrake.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Brake</destination>
+		</action>
+		<action name="Install File" target="EmissionsFaults.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="EmissionsNew.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="Diesel_KWP_ISOToluca.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="SCIEmissions2003.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="EmissionsProtocol.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="SCIEmissionsProtocol2003.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="Emissions.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="BaseEmissions.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="Diesel_KWP_ISODetroit.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="Diesel_KWP_ISO.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="vssver.scc" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Emissions</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Transmission</destination>
+		</action>
+		<action name="Install File" target="TransmissionComponent.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Transmission</destination>
+		</action>
+		<action name="Install File" target="Cluster.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Cluster</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Cluster</destination>
+		</action>
+		<action name="Install File" target="SpeedControl.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\SpeedControl</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\SpeedControl</destination>
+		</action>
+		<action name="Install File" target="SpeedControlNew.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\SpeedControl</destination>
+		</action>
+		<action name="Install File" target="MachineComponent.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Machine</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\Machine</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Components\LossCompensation</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\VehicleTest</destination>
+		</action>
+		<action name="Install File" target="BaseBrakeDriveCurve.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\VehicleTest\DriveCurves</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\VehicleTest\DriveCurves</destination>
+		</action>
+		<action name="Install File" target="Emissions.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\VehicleTest\DriveCurves</destination>
+		</action>
+		<action name="Install File" target="testTwo.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\VehicleTest\BuildRecords</destination>
+		</action>
+		<action name="Install File" target="Vin0934Q33A.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\VehicleTest\BuildRecords</destination>
+		</action>
+		<action name="Install File" target="testOne.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\VehicleTest\BuildRecords</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\VehicleTest\BuildRecords</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration</destination>
+		</action>
+		<action name="Install File" target="VehicleBuildRecordDefinition.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Servers</destination>
+		</action>
+		<action name="Install File" target="VehicleBuildRecord.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Servers</destination>
+		</action>
+		<action name="Install File" target="VehicleBuildTable.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Servers</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Servers</destination>
+		</action>
+		<action name="Install File" target="MotorControllerConfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Servers</destination>
+		</action>
+		<action name="Install File" target="ZtsOptions.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Servers</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Machine</destination>
+		</action>
+		<action name="Install File" target="Baldor18hConfig.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot\home\ftp\Configuration\Machine</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\ftproot</destination>
+		</action>
+		<action name="Install File" target="logger.dtd" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\params</destination>
+		</action>
+		<action name="Install File" target="ticketlayout.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="ticketlayoutExample.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="ReportLayout.xsl" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="reportlayout.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="NewReportLayout.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="reportlayoutExample.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="Tata.AshokLeyland.ReportLayout.Reg.xsl" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="resultxform.xsl" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="Tata.AshokLeyland.ReportLayout.Audit.FO.xsl" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\report</destination>
+		</action>
+		<action name="Install File" target="watermark.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local</destination>
+		</action>
+		<action name="Install File" target="tpsvalues.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="tracelog.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="commands.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="powersupply.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="synthtracelog.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="defaultValues.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="GenerateTrace.java" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="filelist.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="testsequence.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="prompts.dat" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\playback</destination>
+		</action>
+		<action name="Install File" target="README" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\vehiclebuildrecord</destination>
+		</action>
+		<action name="Install File" target="diagnosticview.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\diagnostics</destination>
+		</action>
+		<action name="Install File" target="PLCmap.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\diagnostics</destination>
+		</action>
+		<action name="Install File" target="faultdescriptions.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\diagnostics</destination>
+		</action>
+		<action name="Install File" target="DO_NOT_REMOVE" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\diagnostics\schematics\PLC</destination>
+		</action>
+		<action name="Install File" target="FaultSchematicMap.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\local\diagnostics\schematics</destination>
+		</action>
+		<action name="Install Directory" target="com" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install Directory" target="bepco" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install Directory" target="rtc" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install File" target="ResultsPanel.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="GuiStartupShutdown.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CommonConfig.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="HeartBeat.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ServerLogChooser.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="WheelbaseConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="BackupRestore.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="HelpSystem.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ServerLogMenu.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="NetworkConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="MachineFaultStrings.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="Colors.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="NDBUpdate.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="VehicleBuildRecordConfig.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="DiagnosticView.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ControllerBuild.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ServerParameters.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="MachineFaultStrings.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ZtsConfig.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="TestStatusColors.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="WindowTitles.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ZtsConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="Prompts.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ServerLogWindows.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="LongTestFailureStrings.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="DriveCurveView.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="Backuper.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="Menu.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ReportParser.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="SystemPrinters.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="build.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="Prompts_ko_KR.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="GuiStartupShutdown.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ReportConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="Prompts.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CRTPreviewerApp.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="Menu.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="BroadcastConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="Prompts_es_MX.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="BusCommViewer.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="TestFailureStrings.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CRTPanelLabels.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="LicenseBackup.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="PLCDisplay.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="UsersConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="locales.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="BusCommMenu.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CrtDesigner.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="GuiLogViewerApp.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CrtDesigner.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CrtPanelConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="RemoteFileBrowser.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="WheelbaseConfig.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="NetworkConfig.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="GuiLoggerConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="DriveCurveView.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ControlLinesConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="NDBUpdate.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="GuiTestResultViewerApp.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="SystemPrinters.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="GuiLogViewerApp.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="TestFailureStrings.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ServerProxy.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ClientLogEmail.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="GuiTestResultViewerApp.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CommonConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ServerLogMenu.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="VehicleBuildRecordConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ParameterReportPrinter.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ServerConfigurationDirectories.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="LocalizationConfig.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CRTPreviewerApp.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="CRTPanelLabels.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ShortTestFailureStrings.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ztsrecords.xml" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ServerLogChooser.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="DiagnosticView.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ClientLogEmail.constants" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ParameterReportIgnoredAttributes.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="ReportManager.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install File" target="LicensePanelDialog.properties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\properties</destination>
+		</action>
+		<action name="Install Directory" target="oldproperties" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\oldproperties</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install File" target="broadcast128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="warningtriangle.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CRT_app_icon128.gif" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CRT_app_icon128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="buildrecord64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="driveAxle-AWD.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="beplogo.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="wheelbase64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="shift_drive.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="driveAxle-4WD.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_app_icon16.gif" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_app_icon16.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="report64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="ztseditor128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_app_icon32.gif" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_app_icon32.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_app_icon64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="crt64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CRT_app.icns" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="traffic_yellow.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="traffic_yellow.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="shift_park.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="splash.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="ndbupdate128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="traffic_green.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="traffic_green.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="ndbupdate64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="machine128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_app_icon128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="crt128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="splash_gui.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="localizerapp64.gif" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="localizerapp64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="network64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="traffic_off.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="traffic_off.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="localization64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="cracked64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="users128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="driveAxle-RWD.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="shift_reverse.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="controllines128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="broken_splash.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="wheelbase128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="prndl.xcf" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="controllines64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_app.icns" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="vehiclebuildrecord64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="log64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="BEP.gif" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="machine64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="users64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="vehiclebuildrecord128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="driveAxle-FWD.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="report128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="buildrecord128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="broadcast64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="ztseditor64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="traffic_red.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="traffic_red.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="localizerapp128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="network128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="trafficlight.xcf" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CRT_app_icon64.gif" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CRT_app_icon64.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="localization128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="cracked128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="log128.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="shift_neutral.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="shift_low.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_splash.jpg" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Install File" target="CCRT_splash.png" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\resources\com\bepco\rtc\images</destination>
+		</action>
+		<action name="Create LaunchAnywhere" target="CCRTDesigner.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="CCRTDesigner.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="CCRTDesigner.lax" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="tools.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Create LaunchAnywhere" target="CCRTLogViewer.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="CCRTLogViewer.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="CCRTLogViewer.lax" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Create LaunchAnywhere" target="CCRTLocalizer.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="CCRTLocalizer.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="CCRTLocalizer.lax" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="ccrt-client.jar" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="jrgwin32.dll" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="configuration.bks" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="ccrt.bks" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Create LaunchAnywhere" target="NDB Updater.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="NDB Updater.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="NDB Updater.lax" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Create LaunchAnywhere" target="TestResultsViewer.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="TestResultsViewer.exe" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install File" target="TestResultsViewer.lax" status="successful">
+			<destination>E:\home\branches\GM\Source\Tesla\Burke_PorterCCRT\</destination>
+		</action>
+		<action name="Install Directory" target="Fonts" status="successful">
+			<destination>C:\WINDOWS\Fonts</destination>
+			<AdditionalNotes>
+				<note>Directory already existed</note>
+			</AdditionalNotes>
+		</action>
+		<action name="Install File" target="Cyberbit.ttf" status="successful">
+			<destination>C:\WINDOWS\Fonts\</destination>
+		</action>
+		<action name="Custom Action" target="com.bepco.rtc.IACustomCodeBundleDiff" status="successful"/>
+	</InstallLogDetails>
+</InstallationLog>

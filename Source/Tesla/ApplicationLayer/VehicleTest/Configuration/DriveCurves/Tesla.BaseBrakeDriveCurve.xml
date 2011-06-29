@@ -1,0 +1,68 @@
+<DriveCurve Description="Drive Curve For The Base Brake Test">
+   <Components Debug="Off">
+      <Brake>
+         <ComponentName>GenericBaseBrakeTest.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>BaseBrake.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+         <Debug>Off</Debug>
+      </Brake>
+      <Machine>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MachineComponent.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <Debug>Off</Debug>
+      </Machine>
+   </Components>
+   <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="Off">
+      <TestPhase10 Description="Validate the driver number" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Prompt the driver to input the driver number" Result="" Timeout="20000" Component="Machine">
+               <Initialize/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase10>
+      <TestPhase20 Description="Initialize the Base Brake Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Init Base Brake Component" Result="" Timeout="" Component="Brake">
+               <Initialize/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase20>
+      <TestPhase50 Description="Run The Base Brake" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Brake">
+               <BrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+         <BackgroundObjectives Result="" Timeout="">
+            <Objective0 Description="Prompt to check the speedometer" Result="" Timeout="0" Component="Machine">
+               <PromptDriver>SpeedometerWorks</PromptDriver>
+            </Objective0>
+         </BackgroundObjectives>
+      </TestPhase50>
+      <TestPhase60 Description="Brake to stop" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Machine">
+               <BrakeToStop/>
+            </Objective0>
+         </ForegroundObjectives>
+         <BackgroundObjectives Result="" Timeout="">
+            <Objective0 Description="Analyze the brake test results" Result="" Timeout="" Component="Brake">
+               <AnalyzeBrakeTest/>
+            </Objective0>
+         </BackgroundObjectives>
+      </TestPhase60>
+      <TestPhase70 Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Brake">
+               <FinishUp/>
+            </Objective0>
+            <Objective2 Result="" Description="Perform module finish-up" Timeout="" Component="Machine">
+               <FinishUp>PerformingFinishUp</FinishUp>
+            </Objective2>
+         </ForegroundObjectives>
+      </TestPhase70>
+   </Test>
+</DriveCurve>

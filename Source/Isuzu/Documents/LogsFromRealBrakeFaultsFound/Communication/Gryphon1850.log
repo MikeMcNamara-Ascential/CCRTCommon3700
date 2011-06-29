@@ -1,0 +1,2550 @@
+€12/13/10 15:23:41.619 (1) logport/Gryphon1850        Activated additional log [/home/CCRT/Rewrite/Logs/Communication/Gryphon1850.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:41.619 (1) logport/Gryphon1850        BepComponent::Initialize()
+€
+€12/13/10 15:23:41.620 (1) logport/Gryphon1850        Process logport/Gryphon1850 running at priority 35
+€
+€12/13/10 15:23:41.620 (1) logport/Gryphon1850        Updated process logport/Gryphon1850 running at priority 35
+€
+€12/13/10 15:23:41.620 (1) logport/Gryphon1850        BepComponent::Initialize(         <GryphonJ1850 driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonJ1850CommProxy.qxe" enabled="1">
+            <Setup>
+               <Alias>/home/CCRT/Rewrite/GryphonJ1850</Alias>               <CommLog>
+                  <ContentType>RAW</ContentType>                  <Setup>
+                     <Logging>
+                        <AdditionalLogFile>/Communication/Gryphon1850Comm.log</AdditionalLogFile>                        <Debug>Off</Debug>                        <LocalEcho>Disabled</LocalEcho>                        <ProcessName>J1850</ProcessName>                        <Status>Enabled</Status>                        <Verbose>0x3F</Verbose>                     </Logging>                  </Setup>               </CommLog>               <Logging>
+                  <AdditionalLogFile>/Communication/Gryphon1850.log</AdditionalLogFile>                  <LocalEcho>Disabled</LocalEcho>                  <ProcessName>logport/Gryphon1850</ProcessName>                  <Status>Enabled€
+€12/13/10 15:23:41.620 (1) logport/Gryphon1850        Exit ResManagerBase::Initialize
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Enter ResManagerMt::ThreadPoolInit()
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Exit ResManagerMt::ThreadPoolInit(), thread Priority = 35
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Exit ResManagerMt::Initialize()
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Talking on serial device '/dev/socket'
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Enter RawCommProxy::ReadCommLogConfig()
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Exit RawCommProxy::ReadCommLogConfig()
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Enter RawCommProxy::ReadPortProtocol(GryphonJ1850)
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Protocol settings read from node 'Setup/Protocol'
+€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Additional log [Communication/Gryphon1850.log] already activated.€
+€12/13/10 15:23:41.621 (1) logport/Gryphon1850        Exit RawCommProxy::ReadPortProtocol()
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Enter RawCommProxy::ReadCommLogFileName(GryphonJ1850)
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Exit RawCommProxy::ReadCommLogFileName(GryphonJ1850)
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Exit RawCommProxy::ReadPortConfig()
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Exit RawCommProxy::Initialize()
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Enter(2) GryphonJ1850Proxy::Initialize(SerialServerConfig)
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        	ip1EndIndex: 3€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        	ip2EndIndex: 6€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        	ip3EndIndex: 10
+
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        	ipAdress: 172.€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        	ipAdress: 172.16.€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        	ipAdress: 172.16.250.€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        	ipAdress: 172.16.250.111€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        [GryphonJ1850Proxy] port dev path and alias: "/dev/LogicalPorts/GryphonJ1850"  "/home/CCRT/Rewrite/GryphonJ1850"
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Exit GryphonJ1850Proxy::Initialize()
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Exit ResManagerBase::ReadConfigFile
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Enter ResManagerBase::InitHandlers
+€
+€12/13/10 15:23:41.622 (1) logport/Gryphon1850        Exit ResManagerBase::InitHandlers
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        Exit ResManagerBase::InitManager
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        Enter ResManagerBase::PathAttach( /dev/LogicalPorts/GryphonJ1850)
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        Exit ResManagerBase::PathAttach( /dev/LogicalPorts/GryphonJ1850)
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        Enter ResManagerBase::RegisterManager
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        Enter RawCommProxy::AttachIoPulses()
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        	Attaching pulse code 5 to I/O channel
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        	Attaching pulse code 2 to I/O channel
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        	Attaching pulse code 3 to I/O channel
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        	Attaching pulse code 7 to I/O channel
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        	Attaching pulse code 4 to I/O channel
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        	Attaching pulse code 6 to I/O channel
+€
+€12/13/10 15:23:41.623 (1) logport/Gryphon1850        	Attaching pulse code 50 to I/O channel
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        Exit RawCommProxy::AttachIoPulses()
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        	m_mssgCoid = 1073741831
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        Exit ResManagerBase::RegisterManager
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        Exit RawCommProxy::InitManager()
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        Enter ResManagerMt::IoMssgLoop(), waitChid=3
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        Enter HandleResMgrPulse( -33, 0)
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        Enter ResManagerBase::HandleResMgrPulse( -33, 0)
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        Exit ResManagerBase::HandleResMgrPulse( -33, 0)
+€
+€12/13/10 15:23:41.624 (1) logport/Gryphon1850        Exit HandleResMgrPulse( -33, 0)
+€
+€12/13/10 15:23:41.624 (2) logport/Gryphon1850        Enter ResManagerMt::PoolContextAlloc()
+€
+€12/13/10 15:23:41.624 (2) logport/Gryphon1850        Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:41.625 (2) logport/Gryphon1850        Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:41.625 (2) logport/Gryphon1850        Exit ResManagerMt::PoolContextAlloc()
+€
+€12/13/10 15:23:41.625 (2) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:23:41.625 (3) logport/Gryphon1850        Enter ResManagerMt::PoolContextAlloc()
+€
+€12/13/10 15:23:41.625 (3) logport/Gryphon1850        Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:41.625 (3) logport/Gryphon1850        Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:23:41.625 (3) logport/Gryphon1850        Exit ResManagerMt::PoolContextAlloc()
+€
+€12/13/10 15:23:41.625 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:23:51.850 (1) logport/Gryphon1850        Enter HandleResMgrPulse( 6, 0)
+€
+€12/13/10 15:23:51.850 (1) logport/Gryphon1850        Enter IGryphonChannel::Register() 
+€
+€12/13/10 15:23:51.850 (1) logport/Gryphon1850        Enter RawCommProxy::Register()
+€
+€12/13/10 15:23:51.851 (1) logport/Gryphon1850        Enter IGryphonChannel::OpenPort()
+€
+€12/13/10 15:23:51.852 (1) logport/Gryphon1850        Enter IGryphonChannel::Connect() ipAddr = "172.16.250.111" 
+€
+€12/13/10 15:23:51.854 (1) logport/Gryphon1850        hp = -1205228080
+€
+€12/13/10 15:23:51.855 (1) logport/Gryphon1850        MySocket = 6  ready to call connect()
+€
+€12/13/10 15:23:51.856 (1) logport/Gryphon1850        Exit IGryphonChannel::Connect()    retVal = 6
+€
+€12/13/10 15:23:51.856 (1) logport/Gryphon1850        Exit IGryphonChannel::OpenPort() myEPort = 6
+€
+€12/13/10 15:23:51.856 (1) logport/Gryphon1850        Serial device '/dev/socket' opened
+€
+€12/13/10 15:23:51.856 (1) logport/Gryphon1850        Port configured
+€
+€12/13/10 15:23:51.857 (1) logport/Gryphon1850        Driver FIFOs flushed
+€
+€12/13/10 15:23:51.857 (1) logport/Gryphon1850        Enter RawCommProxy::StartReaderThread()
+€
+€12/13/10 15:23:51.857 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.857 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.857 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.857 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.857 (1) logport/Gryphon1850        Exit RawCommProxy::StartReaderThread()
+€
+€12/13/10 15:23:51.858 (1) logport/Gryphon1850        Reader thread launched; thread ID=4
+€
+€12/13/10 15:23:51.858 (1) logport/Gryphon1850        Exit RawCommProxy::Register( Success)
+€
+€12/13/10 15:23:51.858 (1) logport/Gryphon1850        Login to Gryphon server...
+€
+€12/13/10 15:23:51.859 (1) logport/Gryphon1850        Enter IGryphonChannel::Login()
+€
+€12/13/10 15:23:51.859 (1) logport/Gryphon1850        IGryphonChannel::Login() - Login message: 
+€
+€12/13/10 15:23:51.859 (1) logport/Gryphon1850        50 00 00 00 67 72 79 70 68 6f 6e 00 00 00 00 00 00 00 00 00 67 72 79 70 68 6f 6e 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+€
+€12/13/10 15:23:51.859 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:51.860 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:51.861 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:51.861 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.861 (4) logport/Gryphon1850        	Driver has 20 bytes available
+€
+€12/13/10 15:23:51.861 (4) logport/Gryphon1850        	Read 20, 20 bytes
+€
+€12/13/10 15:23:51.861 (4) logport/Gryphon1850        	Wait up to 0 ns for 1004 data bytes
+€
+€12/13/10 15:23:51.861 (4) logport/Gryphon1850        Received 20 data bytes
+€
+€12/13/10 15:23:51.861 (4) logport/Gryphon1850        Comm Message: $02 $00 $03 $05 $00 $0C $02 $08 $50 $00 $00 $00 $00 $00 $00 $00 $05 $00 $CC $BF 
+€
+€12/13/10 15:23:51.861 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewServerMsg()
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Gryphon Acknowledge Message
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Gryphon CMD_SERVER_REG
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewServerMsg() - status: Success
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 20
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:51.862 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:51.863 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.863 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.863 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.863 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.863 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.863 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.863 (1) logport/Gryphon1850        Gryphon Login Successful
+€
+€12/13/10 15:23:51.863 (1) logport/Gryphon1850        Exit IGryphonChannel::Login()    retVal = 0
+€
+€12/13/10 15:23:51.864 (1) logport/Gryphon1850        Gathering Gryphon config data...
+€
+€12/13/10 15:23:51.864 (1) logport/Gryphon1850        Enter IGryphonChannel::GetGryphonConfiguration()
+€
+€12/13/10 15:23:51.864 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:51.865 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:51.866 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:51.866 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.866 (4) logport/Gryphon1850        	Driver has 400 bytes available
+€
+€12/13/10 15:23:51.866 (4) logport/Gryphon1850        	Read 400, 400 bytes
+€
+€12/13/10 15:23:51.866 (4) logport/Gryphon1850        	Wait up to 0 ns for 624 data bytes
+€
+€12/13/10 15:23:51.867 (4) logport/Gryphon1850        Received 400 data bytes
+€
+€12/13/10 15:23:51.867 (4) logport/Gryphon1850        Comm Message: $02 $00 $03 $05 $01 $88 $02 $08 $03 $01 $00 $00 $00 $00 $00 $00 $47 $52 $59 $50 $48 $4F $4E $32 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $32 $30 $30 $38 $30 $39 $30 $39 $30 $30 $3A $39 $30 $3A $35 $41 $3A $30 $32 $3A $30 $30 $3A $45 $37 $00 $00 $00 $04 $52 $65 $6C $65 $61 $73 $65 $00 $00 $00 $00 $00 $00 $00 $00 $44 $47 $2D $43 $41 $4E $2D $53 $4A $41 $31 $30 $30 $30 $00 $00 $00 $00 $00 $00 $32 $2E $30 $2E $31 $00 $00 $00 $00 $00 $1F $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $14 $00 $08 $00 $00 $34 $33 $35 $38 $34 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $02 $02 $01 $01 $00 $00 $00 $00 $44 $47 $2D $43 $41 $4E $2D $53 $4A $41 $31 $30 $30 $30 $00 $00 $00 $00 $00 $00 $32 $2E $30 $2E $31 $00 $00 $00 $00 $00 $1F $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $14 $00 $08 $00 $00 $34 $33 $35 $38 $34 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $00 $02 $02 $02 $01 $00 $00 $00 $00 $44 $47 $2D $44 $4C $43 $00 $00 $00 $00 $00 $00 €
+€12/13/10 15:23:51.867 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:51.867 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:51.867 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.867 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:51.867 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:51.867 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewServerMsg()
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Gryphon Acknowledge Message
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Gryphon CMD_GET_CONFIG
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Enter IGryphonChannel::copyConfig()
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        IGryphonCannel::copyConfig()-found channelId(3) to match channelType(3)
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Exit IGryphonChannel::copyConfig(channel=3)
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewServerMsg() - status: Success
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:51.868 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 400
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.869 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.869 (1) logport/Gryphon1850        Exit IGryphonChannel::GetGryphonConfiguration()
+€
+€12/13/10 15:23:51.870 (1) logport/Gryphon1850        Informing Gryphon server to send all messages...
+€
+€12/13/10 15:23:51.870 (1) logport/Gryphon1850        Enter IGryphonChannel::BroadcastOn()
+€
+€12/13/10 15:23:51.870 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:51.872 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:51.873 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:51.873 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.873 (4) logport/Gryphon1850        	Driver has 16 bytes available
+€
+€12/13/10 15:23:51.873 (4) logport/Gryphon1850        	Read 16, 16 bytes
+€
+€12/13/10 15:23:51.873 (4) logport/Gryphon1850        	Wait up to 0 ns for 1008 data bytes
+€
+€12/13/10 15:23:51.873 (4) logport/Gryphon1850        Received 16 data bytes
+€
+€12/13/10 15:23:51.873 (4) logport/Gryphon1850        Comm Message: $02 $03 $03 $05 $00 $08 $02 $08 $09 $02 $00 $00 $00 $00 $00 $00 
+€
+€12/13/10 15:23:51.873 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewServerMsg()
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Gryphon Acknowledge Message
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Gryphon CMD_BCAST_ON
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewServerMsg() - status: Success
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:51.874 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:51.875 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.875 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.875 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.875 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.875 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.875 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.875 (1) logport/Gryphon1850        Exit IGryphonChannel::BroadcastOn()
+€
+€12/13/10 15:23:51.876 (1) logport/Gryphon1850        Getting channel event names from the Gryphon server...
+€
+€12/13/10 15:23:51.876 (1) logport/Gryphon1850        Enter IGryphonChannel::GetEventNames()
+€
+€12/13/10 15:23:51.876 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:51.877 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        	Driver has 216 bytes available
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        	Read 216, 216 bytes
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        	Wait up to 0 ns for 808 data bytes
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        Received 216 data bytes
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $D0 $02 $08 $4F $03 $00 $00 $00 $00 $00 $00 $01 $49 $6E $69 $74 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $00 $02 $53 $70 $65 $65 $64 $20 $43 $68 $67 $20 $20 $20 $20 $20 $20 $20 $20 $20 $00 $41 $52 $78 $20 $4F $76 $65 $72 $72 $75 $6E $20 $20 $20 $20 $20 $20 $20 $20 $00 $42 $43 $52 $43 $20 $45 $72 $72 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $00 $43 $49 $6E $63 $6F $6D $70 $6C $65 $74 $65 $20 $42 $79 $74 $65 $20 $20 $20 $00 $44 $42 $69 $74 $20 $54 $69 $6D $69 $6E $67 $20 $45 $72 $72 $20 $20 $20 $20 $00 $45 $42 $72 $65 $61 $6B $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $00 $46 $4E $65 $74 $20 $46 $61 $75 $6C $74 $20 $20 $20 $20 $20 $20 $20 $20 $20 $00 $47 $54 $78 $20 $55 $6E $64 $65 $72 $72 $75 $6E $20 $20 $20 $20 $20 $20 $20 $00 $48 $41 $72 $62 $20 $4C $6F $73 $74 $20 $20 $20 $20 $20 $20 $20 $20 $20 $20 $00 
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.880 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Gryphon Acknowledgement
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Gryphon CMD_CARD_GET_EVNAMES
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Enter IGryphonChannel::CopyEventNames()
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Exit IGryphonChannel::CopyEventNames()
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:51.881 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 216
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.882 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.882 (1) logport/Gryphon1850        Exit IGryphonChannel::GetEventNames()
+€
+€12/13/10 15:23:51.882 (1) logport/Gryphon1850        Enabling all events for our card...
+€
+€12/13/10 15:23:51.883 (1) logport/Gryphon1850        Enter IGryphonChannel::EventEnable()
+€
+€12/13/10 15:23:51.883 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:51.884 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        	Driver has 16 bytes available
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        	Read 16, 16 bytes
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        	Wait up to 0 ns for 1008 data bytes
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Received 16 data bytes
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $08 $02 $00 $04 $04 $00 $00 $00 $00 $00 $00 
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:51.885 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Gryphon Acknowledgement
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Gryphon CMD_EVENT_ENABLE
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.886 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.887 (1) logport/Gryphon1850        Exit IGryphonChannel::EventEnable()
+€
+€12/13/10 15:23:51.887 (1) logport/Gryphon1850        Resetting the hardware...
+€
+€12/13/10 15:23:51.887 (1) logport/Gryphon1850        Enter IGryphonChannel::InitCard()
+€
+€12/13/10 15:23:51.887 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:51.888 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        	Driver has 16 bytes available
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        	Read 16, 16 bytes
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        	Wait up to 0 ns for 1008 data bytes
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Received 16 data bytes
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $08 $02 $00 $01 $05 $00 $00 $00 $00 $00 $00 
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:23:51.892 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Gryphon Acknowledgement
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Gryphon CMD_INIT
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.893 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.894 (1) logport/Gryphon1850        Exit IGryphonChannel::InitCard()
+€
+€12/13/10 15:23:51.894 (1) logport/Gryphon1850        Performing channel specific initialization...
+€
+€12/13/10 15:23:51.894 (1) logport/Gryphon1850        GryphonJ1850Proxy::ChannelSpecificInit() -- Enter€
+€12/13/10 15:23:51.894 (1) logport/Gryphon1850        Enter IGryphonChannel::AddFilter(03, 1, 1, 1, 0, fffffff1)
+€
+€12/13/10 15:23:51.894 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:51.895 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:51.895 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:51.895 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        	Driver has 16 bytes available
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        	Read 16, 16 bytes
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        	Wait up to 0 ns for 1008 data bytes
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Received 16 data bytes
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $08 $04 $08 $01 $00 $00 $00 $35 $61 $0D $08 
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Enter IGryphonChannel::GetEventName()
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Exit IGryphonChannel::GetEventName() found
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Gryphon event received: 1, card 3 - Init               * * * * * Gryphon Event
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:51.896 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        FTEVENT 0x01
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:51.897 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:52.059 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        	Driver has 20 bytes available
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        	Read 20, 20 bytes
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        	Wait up to 0 ns for 1004 data bytes
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Received 20 data bytes
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $09 $02 $00 $48 $06 $00 $00 $00 $00 $00 $00 $01 $49 $6E $69 
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Gryphon Acknowledgement
+€
+€12/13/10 15:23:52.060 (4) logport/Gryphon1850        Gryphon CMD_CARD_ADD_FILTER
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 20
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:52.061 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:52.062 (1) logport/Gryphon1850        Added Filter
+€
+€12/13/10 15:23:52.062 (1) logport/Gryphon1850        Exit IGryphonChannel::AddFilter()
+€
+€12/13/10 15:23:52.063 (1) logport/Gryphon1850        Enter IGryphonChannel::SetFilterMode(5)
+€
+€12/13/10 15:23:52.064 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:52.066 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:52.067 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:52.067 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:52.067 (4) logport/Gryphon1850        	Driver has 16 bytes available
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        	Read 16, 16 bytes
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        	Wait up to 0 ns for 1008 data bytes
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Received 16 data bytes
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $08 $02 $00 $4D $07 $00 $00 $00 $00 $00 $00 
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Gryphon Acknowledgement
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Gryphon CMD_CARD_SET_FILTER_MODE
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:52.068 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:52.069 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:52.069 (1) logport/Gryphon1850        Exit IGryphonChannel::SetFilterMode()
+€
+€12/13/10 15:23:52.069 (1) logport/Gryphon1850        Enter IGryphonChannel::SetDefaultFilterMode(0)
+€
+€12/13/10 15:23:52.070 (1) logport/Gryphon1850        Enter IGryphonChannel::SendRawFrame()
+€
+€12/13/10 15:23:52.071 (1) logport/Gryphon1850        Exit IGryphonChannel::SendRawFrame() retVal = 0
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        	Driver has 16 bytes available
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        	Read 16, 16 bytes
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        	Wait up to 0 ns for 1008 data bytes
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        Received 16 data bytes
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $08 $02 $00 $4B $08 $00 $00 $00 $00 $00 $00 
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:52.072 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Gryphon Response Message
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Gryphon Acknowledgement
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:52.073 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:23:52.074 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:23:57.072 (1) logport/Gryphon1850        Exit IGryphonChannel::SetDefaultFilterMode()
+€
+€12/13/10 15:23:57.072 (1) logport/Gryphon1850        GryphonJ1850Proxy::ChannelSpecificInit() complete - retval: 0€
+€12/13/10 15:23:57.145 (1) logport/Gryphon1850        IGryphonChannel::Register() symlink successfully unlinked.
+€
+€12/13/10 15:23:57.145 (1) logport/Gryphon1850        IGryphonChannel::Register() Attempting to set alias to /home/CCRT/Rewrite/GryphonJ1850 -> /dev/LogicalPorts/GryphonJ1850.
+€
+€12/13/10 15:23:57.332 (1) logport/Gryphon1850        IGryphonChannel::Register() symbolic link successfully created
+€
+€12/13/10 15:23:57.332 (1) logport/Gryphon1850        Exit IGryphonChannel::Register() RetVal: 2  Return: Success
+€
+€12/13/10 15:23:57.332 (1) logport/Gryphon1850        Exit HandleResMgrPulse( 6, 0)
+€
+€12/13/10 15:23:57.332 (1) logport/Gryphon1850        Enter HandleResMgrPulse( -33, 0)
+€
+€12/13/10 15:23:57.332 (1) logport/Gryphon1850        Enter ResManagerBase::HandleResMgrPulse( -33, 0)
+€
+€12/13/10 15:23:57.332 (1) logport/Gryphon1850        Exit ResManagerBase::HandleResMgrPulse( -33, 0)
+€
+€12/13/10 15:23:57.332 (1) logport/Gryphon1850        Exit HandleResMgrPulse( -33, 0)
+€
+€12/13/10 15:24:12.336 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:12.337 (5) logport/Gryphon1850        Enter ResManagerMt::PoolContextAlloc()
+€
+€12/13/10 15:24:12.337 (5) logport/Gryphon1850        Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:24:12.337 (5) logport/Gryphon1850        Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:24:12.337 (5) logport/Gryphon1850        Exit ResManagerMt::PoolContextAlloc()
+€
+€12/13/10 15:24:12.337 (5) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:12.338 (6) logport/Gryphon1850        Enter ResManagerMt::PoolContextAlloc()
+€
+€12/13/10 15:24:12.338 (6) logport/Gryphon1850        Enter ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:24:12.338 (6) logport/Gryphon1850        Exit ResManagerMt::InitializePoolParam()
+€
+€12/13/10 15:24:12.338 (6) logport/Gryphon1850        Exit ResManagerMt::PoolContextAlloc()
+€
+€12/13/10 15:24:12.338 (6) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:12.338 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:12.338 (3) logport/Gryphon1850        Enter IGryphonChannel::OcbCalloc()
+€
+€12/13/10 15:24:12.339 (3) logport/Gryphon1850        Exit IGryphonChannel::OcbCalloc()
+€
+€12/13/10 15:24:12.339 (3) logport/Gryphon1850        Enter IGryphonChannel::OcbInit()
+€
+€12/13/10 15:24:12.339 (3) logport/Gryphon1850        Enter RawCommProxy::OcbInit( 3579968, 1)
+€
+€12/13/10 15:24:12.350 (3) logport/Gryphon1850        Client rx ID = 1292271852339971894
+€
+€12/13/10 15:24:12.350 (3) logport/Gryphon1850        Exit RawCommProxy::OcbInit( 3579968, 1)
+€
+€12/13/10 15:24:12.350 (3) logport/Gryphon1850        Exit IGryphonChannel::OcbInit()
+€
+€12/13/10 15:24:12.350 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:12.350 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:12.365 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:12.365 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:12.366 (3) logport/Gryphon1850        Enter IGryphonChannel::OcbCalloc()
+€
+€12/13/10 15:24:12.366 (3) logport/Gryphon1850        Exit IGryphonChannel::OcbCalloc()
+€
+€12/13/10 15:24:12.366 (3) logport/Gryphon1850        Enter IGryphonChannel::OcbInit()
+€
+€12/13/10 15:24:12.366 (3) logport/Gryphon1850        Enter RawCommProxy::OcbInit( 3579968, 1)
+€
+€12/13/10 15:24:12.377 (3) logport/Gryphon1850        Client rx ID = 1292271852366967763
+€
+€12/13/10 15:24:12.377 (3) logport/Gryphon1850        Exit RawCommProxy::OcbInit( 3579968, 1)
+€
+€12/13/10 15:24:12.377 (3) logport/Gryphon1850        Exit IGryphonChannel::OcbInit()
+€
+€12/13/10 15:24:12.377 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:12.377 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:12.408 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:12.408 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:12.408 (3) logport/Gryphon1850        Enter IGryphonChannel::OcbCalloc()
+€
+€12/13/10 15:24:12.408 (3) logport/Gryphon1850        Exit IGryphonChannel::OcbCalloc()
+€
+€12/13/10 15:24:12.408 (3) logport/Gryphon1850        Enter IGryphonChannel::OcbInit()
+€
+€12/13/10 15:24:12.408 (3) logport/Gryphon1850        Enter RawCommProxy::OcbInit( 3579968, 1)
+€
+€12/13/10 15:24:12.419 (3) logport/Gryphon1850        Client rx ID = 1292271852408961337
+€
+€12/13/10 15:24:12.419 (3) logport/Gryphon1850        Exit RawCommProxy::OcbInit( 3579968, 1)
+€
+€12/13/10 15:24:12.419 (3) logport/Gryphon1850        Exit IGryphonChannel::OcbInit()
+€
+€12/13/10 15:24:12.419 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:12.419 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.847 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.847 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.847 (3) logport/Gryphon1850        Enter RawCommProxy::IoDevCtl( pid 3579968, tid 1) cmd=6
+€
+€12/13/10 15:24:50.847 (3) logport/Gryphon1850        Enter RawCommProxy::ResetConnectionHandler()
+€
+€12/13/10 15:24:50.847 (3) logport/Gryphon1850        Exit RawCommProxy::ResetConnectionHandler()
+€
+€12/13/10 15:24:50.847 (3) logport/Gryphon1850        Exit RawCommProxy::IoDevCtl( pid 3579968, tid 1) cmd=1048582
+€
+€12/13/10 15:24:50.847 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Enter IGryphonChannel::IoWrite()
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Enter RawCommProxy::CanClientWrite()
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        OK to write...port not locked
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Exit RawCommProxy::CanClientWrite()
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Enter RawCommProxy::ReadSendersBuffer(7)
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Exit RawCommProxy::ReadSendersBuffer( 7)
+€
+€12/13/10 15:24:50.848 (3) logport/Gryphon1850        Gryphon Sending: $0C $29 $F1 $19 $D2 $FF $00 
+€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleIdFromRaw(41)
+€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Exit GryphonJ1850Proxy::getExpectedFromRaw(89)
+€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Set response pending for module ID 0029€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Enter IGryphonChannel::BuildCardMessage()
+€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        GryphonJ1850Proxy::BuildMessage()€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Enter IGryphonChannel::WrapMessage()
+€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Exit IGryphonChannel::WrapMessage()
+€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Exit IGryphonChannel::BuildCardMessage()
+€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Enter RawCommProxy::JustWrite(xmtLen=32)
+€
+€12/13/10 15:24:50.849 (3) logport/Gryphon1850        Enter RawCommProxy::CanClientWrite()
+€
+€12/13/10 15:24:50.850 (3) logport/Gryphon1850        OK to write...port not locked
+€
+€12/13/10 15:24:50.850 (3) logport/Gryphon1850        Exit RawCommProxy::CanClientWrite()
+€
+€12/13/10 15:24:50.850 (3) logport/Gryphon1850        	TX String: $03 $05 $01 $03 $00 $17 $03 $00 $03 $18 $00 $04 $00 $20 $00 $00 $00 $00 $00 $00 $09 $00 $00 $00 $0C $29 $F1 $19 $D2 $FF $00 $00 
+€
+€12/13/10 15:24:50.850 (3) logport/Gryphon1850        Transmitting: $03 $05 $01 $03 $00 $17 $03 $00 $03 $18 $00 $04 $00 $20 $00 $00 $00 $00 $00 $00 $09 $00 $00 $00 $0C $29 $F1 $19 $D2 $FF $00 $00 
+€
+€12/13/10 15:24:50.850 (3) logport/Gryphon1850        Enter IGryphonChannel::ArmReplyTimeoutTimer(), module $0029
+€
+€12/13/10 15:24:50.850 (3) logport/Gryphon1850        Exit IGryphonChannel::ArmReplyTimeoutTimer(), module $0029
+€
+€12/13/10 15:24:50.850 (3) logport/Gryphon1850        Exit RawCommProxy::JustWrite(), 32 bytes
+€
+€12/13/10 15:24:50.850 (3) logport/Gryphon1850        Exit IGryphonChannel::IoWrite(), 7 bytes status=0 module=$29
+€
+€12/13/10 15:24:50.851 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.851 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.851 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.851 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.851 (3) logport/Gryphon1850        Enter IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        IGryphonChannel::IoRead() calling RawCommProxy::IoRead()
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        Enter RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        	IoRead: Client FIFO Locked
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        	Client FIFO contains 0 bytes
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        	Client requesting 1024 bytes, 0 available
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        	Adding client to blocked reader list
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        	IoRead: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        Exit RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        RawCommProxy::IoRead() returned -2147483648
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        Exit IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.852 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.853 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        	Driver has 32 bytes available
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        	Read 32, 32 bytes
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        	Wait up to 0 ns for 992 data bytes
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        Received 32 data bytes
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $11 $2F $74 $20 $20 $20 $0C $F1 $29 $59 $42 $21 $D2 $20 
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:24:50.874 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Incoming Msg: : $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $11 $2F $74 $20 $20 
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Module Msg: : $0C $F1 $29 $59 $42 $21 $D2 
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.875 (4) logport/Gryphon1850        Response pending for module ID 0029: True€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Cleared response pending for module ID 0029€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Replying to blocked client (3579968,1) with 11 bytes (11, 1024)
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Client's Data: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $21 $D2 
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.876 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.877 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.877 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.877 (3) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.877 (3) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.878 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.877 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:24:50.878 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:24:50.878 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:24:50.878 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.878 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.878 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.878 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.878 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Adding 11 bytes to subscriber (3579968,1) FIFO
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        FIFO Contents: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $21 $D2 
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.879 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.880 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.881 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.881 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.881 (6) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.882 (6) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.882 (6) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.882 (6) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.882 (6) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.881 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:24:50.882 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:24:50.882 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:24:50.882 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:24:50.882 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:24:50.882 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:24:50.882 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:24:50.882 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:24:50.882 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:24:50.884 (6) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.884 (6) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.884 (6) logport/Gryphon1850        Enter IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.884 (6) logport/Gryphon1850        IGryphonChannel::IoRead() calling RawCommProxy::IoRead()
+€
+€12/13/10 15:24:50.885 (6) logport/Gryphon1850        Enter RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.885 (6) logport/Gryphon1850        	IoRead: Client FIFO Locked
+€
+€12/13/10 15:24:50.885 (6) logport/Gryphon1850        	Client FIFO contains 11 bytes
+€
+€12/13/10 15:24:50.886 (6) logport/Gryphon1850        	Data already available: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $21 $D2 
+€
+€12/13/10 15:24:50.887 (6) logport/Gryphon1850        	IoRead: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.887 (6) logport/Gryphon1850        Exit RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.887 (6) logport/Gryphon1850        RawCommProxy::IoRead() returned -2147483648
+€
+€12/13/10 15:24:50.888 (6) logport/Gryphon1850        Exit IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.888 (6) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.888 (6) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.888 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.889 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.889 (3) logport/Gryphon1850        Enter IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.889 (3) logport/Gryphon1850        IGryphonChannel::IoRead() calling RawCommProxy::IoRead()
+€
+€12/13/10 15:24:50.890 (3) logport/Gryphon1850        Enter RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.890 (3) logport/Gryphon1850        	IoRead: Client FIFO Locked
+€
+€12/13/10 15:24:50.890 (3) logport/Gryphon1850        	Client FIFO contains 0 bytes
+€
+€12/13/10 15:24:50.890 (3) logport/Gryphon1850        	Client requesting 1002 bytes, 0 available
+€
+€12/13/10 15:24:50.890 (3) logport/Gryphon1850        	Adding client to blocked reader list
+€
+€12/13/10 15:24:50.890 (3) logport/Gryphon1850        	IoRead: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.890 (3) logport/Gryphon1850        Exit RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.891 (3) logport/Gryphon1850        RawCommProxy::IoRead() returned -2147483648
+€
+€12/13/10 15:24:50.891 (3) logport/Gryphon1850        Exit IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.894 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.894 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.916 (4) logport/Gryphon1850        ReaderThread handling pulse 5,0
+€
+€12/13/10 15:24:50.916 (4) logport/Gryphon1850        Enter HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:24:50.916 (4) logport/Gryphon1850        	Driver has 128 bytes available
+€
+€12/13/10 15:24:50.916 (4) logport/Gryphon1850        	Read 128, 128 bytes
+€
+€12/13/10 15:24:50.916 (4) logport/Gryphon1850        	Wait up to 0 ns for 896 data bytes
+€
+€12/13/10 15:24:50.916 (4) logport/Gryphon1850        Received 128 data bytes
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Comm Message: $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $14 $68 $74 $20 $20 $20 $0C $F1 $29 $59 $42 $25 $D2 $20 $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $17 $8E $74 $20 $20 $20 $0C $F1 $29 $59 $42 $31 $D2 $20 $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $1A $AE $74 $20 $20 $20 $0C $F1 $29 $59 $42 $35 $D2 $20 $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $1D $EF $74 $20 $20 $20 $0C $F1 $29 $59 $00 $00 $D2 $20 
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        	Wait up to 0 ns for 1024 data bytes
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Received 0 data bytes
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Enter RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Enter RawCommProxy::ReadPortData()
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Enter IGryphonChannel::ReadPortDataUnlocked()
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Incoming Msg: : $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $14 $68 $74 $20 $20 
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Module Msg: : $0C $F1 $29 $59 $42 $25 $D2 
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.917 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Replying to blocked client (3579968,1) with 11 bytes (11, 1002)
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Client's Data: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.918 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.919 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.920 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.920 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.920 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.920 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.921 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Adding 11 bytes to subscriber (3579968,1) FIFO
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        FIFO Contents: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.922 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:24:50.923 (6) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.923 (6) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.923 (6) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.923 (6) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.923 (6) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.923 (6) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.924 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.924 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.924 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.924 (6) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.924 (6) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.924 (6) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.924 (6) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.924 (6) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.923 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Incoming Msg: : $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $17 $8E $74 $20 $20 
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Module Msg: : $0C $F1 $29 $59 $42 $31 $D2 
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.924 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Adding 11 bytes to subscriber (3579968,1) FIFO
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        FIFO Contents: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.925 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.926 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.927 (5) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.927 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:24:50.927 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:24:50.927 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.928 (4) logport/Gryphon1850        Adding 11 bytes to subscriber (3579968,1) FIFO
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        FIFO Contents: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.929 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.930 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.930 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.930 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.930 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.930 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.930 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.930 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:24:50.930 (2) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.930 (2) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.930 (2) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.930 (2) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.930 (2) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.930 (2) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.930 (2) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.931 (2) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.931 (2) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.931 (2) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.931 (2) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.931 (2) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.931 (2) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.931 (2) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.930 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Incoming Msg: : $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $1A $AE $74 $20 $20 
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Module Msg: : $0C $F1 $29 $59 $42 $35 $D2 
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.931 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Adding 11 bytes to subscriber (3579968,1) FIFO
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        FIFO Contents: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.932 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.933 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.933 (2) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.934 (2) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.934 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:24:50.934 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.935 (4) logport/Gryphon1850        Adding 11 bytes to subscriber (3579968,1) FIFO
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        FIFO Contents: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.936 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:24:50.937 (6) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.937 (6) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.937 (6) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.937 (6) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.937 (6) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.938 (6) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.937 (4) logport/Gryphon1850        Enter IGryphonChannel::processNewMessage()
+€
+€12/13/10 15:24:50.938 (4) logport/Gryphon1850        Enter IGryphonChannel::ProcessNewCardMessage()
+€
+€12/13/10 15:24:50.938 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.938 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Incoming Msg: : $01 $03 $03 $05 $00 $17 $03 $00 $03 $18 $00 $04 $00 $60 $00 $00 $35 $BB $1D $EF $74 $20 $20 
+€
+€12/13/10 15:24:50.938 (4) logport/Gryphon1850        IGryphonChannel::ProcessNewCardMessage() Gryphon Module Msg: : $0C $F1 $29 $59 $00 $00 $D2 
+€
+€12/13/10 15:24:50.938 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.938 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.938 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.938 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Adding 11 bytes to subscriber (3579968,1) FIFO
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        FIFO Contents: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $00 $00 $D2 
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.939 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.940 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.941 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.941 (5) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.941 (4) logport/Gryphon1850        Exit IGryphonChannel::ProcessNewCardMessage() - status: Success
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Exit IGryphonChannel::processNewMessage() - status: Success
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Enter IGryphonChannel::DecodeRead()
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        GryphonJ1850Proxy::CheckForBlock()
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Enter RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0029 incoming module ID: $0029
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored resp code: $0059 incoming resp code: $0059
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Response pending for module ID 0029: False€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        WARNING: No response pending entry for module ID 0029€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(true)
+€
+€12/13/10 15:24:50.942 (4) logport/Gryphon1850        Enter IGryphonChannel::AddToClientFifo( 7)
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Locked
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Adding 11 bytes to subscriber (3579968,1) FIFO
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        	AddToClientFifo: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        FIFO Contents: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $00 $00 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $00 $00 $D2 
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Exit IGryphonChannel::AddToClientFifo( 11)
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.943 (4) logport/Gryphon1850        Enter IGryphonChannel::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Enter RawCommProxy::CanAddToClientFifo()
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        No filter strings for client
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Exit RawCommProxy::CanAddToClientFifo(1)
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Enter GryphonJ1850Proxy::getModuleId
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getModuleId(41)
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Exit GryphonJ1850Proxy::getRespCode(89)
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        IGryphonChannel::CanAddToClientFifo() stored module ID: $0000 incoming module ID: $0029
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Not OK to add to client fifo because module ID does not match: $0029 != $0000
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Exit IGryphonChannel::CanAddToClientFifo(false)
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Exit RawCommProxy::UpdateClientFifos()
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Exit IGryphonChannel::DecodeRead()  retVal = 16
+€
+€12/13/10 15:24:50.944 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.944 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Enter ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Enter HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Enter RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Notifying Rx subscribers: 3
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852339971894
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852366967763
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        	Not notifying RX subscriber 1292271852408961337
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Exit RawCommProxy::UpdateSubscribers( 1)
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Exit HandleResMgrPulse( 2, 1)
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Exit ResManagerBase::PulseHandler
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.945 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.944 (4) logport/Gryphon1850        Exit IGryphonChannel::ReadPortDataUnlocked(0)
+€
+€12/13/10 15:24:50.945 (4) logport/Gryphon1850        Exit RawCommProxy::ReadPortData(0)
+€
+€12/13/10 15:24:50.945 (4) logport/Gryphon1850        RX 0 bytes of data
+€
+€12/13/10 15:24:50.945 (4) logport/Gryphon1850        Exit RawCommProxy::ProcessReadData()
+€
+€12/13/10 15:24:50.945 (4) logport/Gryphon1850        Exit HandleDriverNotificationPulse( 5, 0)
+€
+€12/13/10 15:24:50.945 (4) logport/Gryphon1850        Enter RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:24:50.946 (4) logport/Gryphon1850        Enter RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:24:50.946 (4) logport/Gryphon1850        Exit RawCommProxy::CancelDriverNotification()
+€
+€12/13/10 15:24:50.946 (4) logport/Gryphon1850        Exit RawCommProxy::DriverDataRegister()
+€
+€12/13/10 15:24:50.956 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.956 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.956 (3) logport/Gryphon1850        Enter IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.957 (3) logport/Gryphon1850        IGryphonChannel::IoRead() calling RawCommProxy::IoRead()
+€
+€12/13/10 15:24:50.957 (3) logport/Gryphon1850        Enter RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.957 (3) logport/Gryphon1850        	IoRead: Client FIFO Locked
+€
+€12/13/10 15:24:50.957 (3) logport/Gryphon1850        	Client FIFO contains 77 bytes
+€
+€12/13/10 15:24:50.957 (3) logport/Gryphon1850        	Data already available: $00 $00 $00 $07 $0C $F1 $29 $59 $42 $25 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $31 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $42 $35 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $00 $00 $D2 $00 $00 $00 $07 $0C $F1 $29 $59 $00 $00 $D2 
+€
+€12/13/10 15:24:50.958 (3) logport/Gryphon1850        	IoRead: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.958 (3) logport/Gryphon1850        Exit RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.958 (3) logport/Gryphon1850        RawCommProxy::IoRead() returned -2147483648
+€
+€12/13/10 15:24:50.959 (3) logport/Gryphon1850        Exit IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.959 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.959 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.959 (5) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:50.959 (5) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.960 (5) logport/Gryphon1850        Enter IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.960 (5) logport/Gryphon1850        IGryphonChannel::IoRead() calling RawCommProxy::IoRead()
+€
+€12/13/10 15:24:50.960 (5) logport/Gryphon1850        Enter RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.960 (5) logport/Gryphon1850        	IoRead: Client FIFO Locked
+€
+€12/13/10 15:24:50.960 (5) logport/Gryphon1850        	Client FIFO contains 0 bytes
+€
+€12/13/10 15:24:50.961 (5) logport/Gryphon1850        	Client requesting 914 bytes, 0 available
+€
+€12/13/10 15:24:50.961 (5) logport/Gryphon1850        	Adding client to blocked reader list
+€
+€12/13/10 15:24:50.961 (5) logport/Gryphon1850        	IoRead: Client FIFO Unlocked
+€
+€12/13/10 15:24:50.961 (5) logport/Gryphon1850        Exit RawCommProxy::IoRead( pid 3579968, tid 1)
+€
+€12/13/10 15:24:50.961 (5) logport/Gryphon1850        RawCommProxy::IoRead() returned -2147483648
+€
+€12/13/10 15:24:50.961 (5) logport/Gryphon1850        Exit IGryphonChannel::IoRead(), module=$0029
+€
+€12/13/10 15:24:50.962 (5) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:50.962 (5) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:51.061 (5) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:24:51.061 (5) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:51.061 (5) logport/Gryphon1850        Enter IGryphonChannel::IoUnblock(), module: $0029
+€
+€12/13/10 15:24:51.061 (5) logport/Gryphon1850        Enter RawCommProxy::IoUnblock( pid 3579968, tid 1)
+€
+€12/13/10 15:24:51.061 (5) logport/Gryphon1850        Enter RawCommProxy::ProcessReaderUnblockRequest()
+€
+€12/13/10 15:24:51.061 (5) logport/Gryphon1850        Removing client from blocked reader list
+€
+€12/13/10 15:24:51.061 (5) logport/Gryphon1850        Exit RawCommProxy::ProcessReaderUnblockRequest()
+€
+€12/13/10 15:24:51.061 (5) logport/Gryphon1850        Exit RawCommProxy::IoUnblock( pid 3579968, tid 1)
+€
+€12/13/10 15:24:51.062 (5) logport/Gryphon1850        Exit IGryphonChannel::IoUnblock(), module: $0029
+€
+€12/13/10 15:24:51.062 (5) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:24:51.062 (5) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:04.430 (5) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:04.430 (5) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:25:04.430 (5) logport/Gryphon1850        Enter RawCommProxy::IoCloseOcb( 3579968, 1)
+€
+€12/13/10 15:25:04.431 (5) logport/Gryphon1850        Enter IGryphonChannel::OcbFinalize(Module ID: 0x0029)
+€
+€12/13/10 15:25:04.431 (5) logport/Gryphon1850        			Removed blocked readers...€
+€12/13/10 15:25:04.431 (5) logport/Gryphon1850        			Removed blocked writers...€
+€12/13/10 15:25:04.431 (5) logport/Gryphon1850        			Released client port lock...€
+€12/13/10 15:25:04.432 (5) logport/Gryphon1850        			Freed RX subscribers...€
+€12/13/10 15:25:04.432 (5) logport/Gryphon1850        			Freed TX subscribers...€
+€12/13/10 15:25:04.432 (5) logport/Gryphon1850        			Freed Lock subscribers...€
+€12/13/10 15:25:04.432 (5) logport/Gryphon1850        			Freed Unlock subscribers...€
+€12/13/10 15:25:04.432 (5) logport/Gryphon1850        Exit IGryphonChannel::OcbFinalize()
+€
+€12/13/10 15:25:04.432 (5) logport/Gryphon1850        Enter IGryphonChannel::OcbFree()
+€
+€12/13/10 15:25:04.432 (5) logport/Gryphon1850        Exit IGryphonChannel::OcbFree()
+€
+€12/13/10 15:25:04.432 (5) logport/Gryphon1850        Exit RawCommProxy::IoCloseOcb( 3579968, 1)
+€
+€12/13/10 15:25:04.433 (5) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:25:04.433 (5) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        Enter RawCommProxy::IoCloseOcb( 3579968, 1)
+€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        Enter IGryphonChannel::OcbFinalize(Module ID: 0x0000)
+€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        			Removed blocked readers...€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        			Removed blocked writers...€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        			Released client port lock...€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        			Freed RX subscribers...€
+€12/13/10 15:25:04.433 (3) logport/Gryphon1850        			Freed TX subscribers...€
+€12/13/10 15:25:04.434 (3) logport/Gryphon1850        			Freed Lock subscribers...€
+€12/13/10 15:25:04.434 (3) logport/Gryphon1850        			Freed Unlock subscribers...€
+€12/13/10 15:25:04.434 (3) logport/Gryphon1850        Exit IGryphonChannel::OcbFinalize()
+€
+€12/13/10 15:25:04.434 (3) logport/Gryphon1850        Enter IGryphonChannel::OcbFree()
+€
+€12/13/10 15:25:04.434 (3) logport/Gryphon1850        Exit IGryphonChannel::OcbFree()
+€
+€12/13/10 15:25:04.434 (3) logport/Gryphon1850        Exit RawCommProxy::IoCloseOcb( 3579968, 1)
+€
+€12/13/10 15:25:04.434 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:25:04.434 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:04.434 (5) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:04.434 (5) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:25:04.434 (5) logport/Gryphon1850        Enter RawCommProxy::IoCloseOcb( 3579968, 1)
+€
+€12/13/10 15:25:04.434 (5) logport/Gryphon1850        Enter IGryphonChannel::OcbFinalize(Module ID: 0x0000)
+€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        			Removed blocked readers...€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        			Removed blocked writers...€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        			Released client port lock...€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        			Freed RX subscribers...€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        			Freed TX subscribers...€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        			Freed Lock subscribers...€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        			Freed Unlock subscribers...€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        Exit IGryphonChannel::OcbFinalize()
+€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        Enter IGryphonChannel::OcbFree()
+€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        Exit IGryphonChannel::OcbFree()
+€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        Exit RawCommProxy::IoCloseOcb( 3579968, 1)
+€
+€12/13/10 15:25:04.435 (5) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:25:04.438 (5) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:04.438 (3) logport/Gryphon1850        Exit ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:04.439 (3) logport/Gryphon1850        Enter ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:25:04.439 (3) logport/Gryphon1850        Exit ResManagerMt::PoolHandlerFunc()
+€
+€12/13/10 15:25:04.439 (3) logport/Gryphon1850        Enter ResManagerMt::PoolBlockFunc()
+€
+€12/13/10 15:25:07.722 (1) logport/Gryphon1850        Enter H

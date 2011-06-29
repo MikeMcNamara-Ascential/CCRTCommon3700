@@ -1,0 +1,15 @@
+<DAQLossCompensationMap>
+   <Field001 Type="Separator">LossCompensation</Field001>
+   <Field002 Type="Separator">Blank</Field002>
+   <Field003 Type="Result">OverallTest</Field003>
+   <Field004 Type="Separator">Blank</Field004>
+   <Field005 Type="Result">LossCompensationOverallTest</Field005>
+   <Field006 Type="Separator">Blank</Field006>
+   <Field007 Type="Result">LossCompensationInitialize</Field007>
+   <Field008 Type="Separator">Blank</Field008>
+   <Field009 Type="Result">LossCompensationAccelerate</Field009>
+   <Field010 Type="Separator">Blank</Field010>
+   <Field011 Type="Result">LossCompensationLossCompensation</Field011>
+   <Field012 Type="Separator">Blank</Field012>
+   <Field013 Type="Result">LossCompensationFinishUp</Field013>
+</DAQLossCompensationMap>

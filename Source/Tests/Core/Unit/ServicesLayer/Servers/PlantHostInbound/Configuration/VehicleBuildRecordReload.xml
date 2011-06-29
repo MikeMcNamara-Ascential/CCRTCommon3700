@@ -1,0 +1,183 @@
+<VehicleBuildRecord>
+   <VIN StartIndex="15" Length="17" Type="Value"/>
+   <BodyStyle StartIndex="32" Length="6" Type="Value"/>
+   <PerformAbortTest StartIndex="38" Length="1" Type="Code">
+      <P>Perform</P>
+      <A>Abort</A>
+      <S>Ship</S>
+   </PerformAbortTest>
+   <BuildDate StartIndex="39" Length="8" Type="Value"/>
+   <BuildTime StartIndex="47" Length="4" Type="Value"/>
+   <TireSize StartIndex="51" Length="5" Type="Value"/>
+   <AxleRatio StartIndex="56" Length="3" Type="Value"/>
+   <SKIMPin StartIndex="59" Length="4" Type="Value"/>
+   <PinionFactor StartIndex="63" Length="5" Type="Value"/>
+   <PCMPartNo StartIndex="68" Length="10" Type="Value"/>
+   <TCMPartNo StartIndex="78" Length="10" Type="Value"/>
+   <ORCACMPartNo StartIndex="88" Length="10" Type="Value"/>
+   <LSIACMPartNo StartIndex="98" Length="10" Type="Value"/>
+   <RSIACMPartNo StartIndex="108" Length="10" Type="Value"/>
+   <ABSPartNo StartIndex="118" Length="10" Type="Value"/>
+   <Transmission StartIndex="128" Length="2" Type="Code">
+      <Type00>Undefined/Automatic2</Type00>
+      <Type01>Manual</Type01>
+      <Type02>41TE</Type02>
+      <Type03>42LE</Type03>
+      <Type04>4xRE</Type04>
+      <Type05>42RH</Type05>
+      <Type06>46/47RH</Type06>
+      <Type07>41TE(OD)</Type07>
+      <Type08>3 Speed</Type08>
+      <Type09>42LE AutoStick</Type09>
+      <Type10>41TE AutoStick</Type10>
+      <Type11>42LE</Type11>
+      <Type12>42LE AutoStick</Type12>
+      <Type13>All A/T</Type13>
+      <Type14>45RFE</Type14>
+      <Type15>E-VAN</Type15>
+      <Type16>41TE</Type16>
+      <Type17>545RFE</Type17>
+      <Type18>45RFE</Type18>
+      <Type19>41TE AutoStick</Type19>
+      <Type20>Getrag</Type20>
+      <Type21>42RLE</Type21>
+      <Type22>42RLE Autostick</Type22>
+      <Type23>A580</Type23>
+   </Transmission>
+   <BrakeType StartIndex="130" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>Base Brakes</Type01>
+      <Type02>Teves MkIV CCD</Type02>
+      <Type03>KH RWAL</Type03>
+      <Type04>KH 4WAL</Type04>
+      <Type05>Bendix LC4</Type05>
+      <Type06>Bendix LC6</Type06>
+      <Type07>Bendix ABX4</Type07>
+      <Type08>Teves MkIV TC</Type08>
+      <Type09>Bendix PLC</Type09>
+      <Type10>Teves MKIV ISO</Type10>
+      <Type11>Teves Mk20 CCD</Type11>
+      <Type12>Teves Mk20 TC CCD</Type12>
+      <Type13>Teves Mk20</Type13>
+      <Type14>Teves Mk20 TC</Type14>
+      <Type15>Teves Mk20 ISO</Type15>
+      <Type16>KH EBC2 CCD</Type16>
+      <Type17>KH EBC325 CCD</Type17>
+      <Type18>KH EBC2</Type18>
+      <Type19>KH EBC325</Type19>
+      <Type20>Teves Mk25E</Type20>
+   </BrakeType>
+   <SpeedControl StartIndex="132" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>NotEquipped</Type01>
+      <Type02>SCI Cruise</Type02>
+      <Type03>Servoless Cruise</Type03>
+      <Type04>NGC Cruise</Type04>
+      <Type05>ETC</Type05>
+      <Type06>NGC CAN Cruise</Type06>
+   </SpeedControl>
+   <TransferCase StartIndex="134" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>NotEquipped</Type01>
+      <Type02>231/241</Type02>
+      <Type03>242</Type03>
+      <Type04>247/249</Type04>
+      <Type05>AWD</Type05>
+      <Type06>NV233</Type06>
+      <Type07>NV244</Type07>
+      <Type08>242HD</Type08>
+      <Type09>147/149</Type09>
+      <Type10>NV245</Type10>
+   </TransferCase>
+   <DaytimeRunningLamps StartIndex="136" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>NotEquipped</Type01>
+      <Type02>Canadian</Type02>
+   </DaytimeRunningLamps>
+   <Axle StartIndex="138" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>Standard</Type01>
+      <Type02>Trac-Lok</Type02>
+      <Type03>Progressive</Type03>
+      <Type04>Axle Lockers</Type04>
+      <Type05>Electronic Limited Slip Differential</Type05>
+   </Axle>
+   <PowerSteering StartIndex="140" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>NotEquipped</Type01>
+      <Type02>Standard</Type02>
+      <Type03>Speed Pro</Type03>
+   </PowerSteering>
+   <HighSpeedChime StartIndex="142" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>NotEquipped</Type01>
+      <Type02>Equipped</Type02>
+   </HighSpeedChime>
+   <SentryKeyImmobilizer StartIndex="144" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>NotEquipped</Type01>
+      <Type02>SKIM CCD</Type02>
+      <Type03>BUX CCD</Type03>
+      <Type04>SKIM</Type04>
+      <Type05>BUX</Type05>
+   </SentryKeyImmobilizer>
+   <Airbag StartIndex="146" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>NotEquipped</Type01>
+      <Type02>Airbag CCD</Type02>
+      <Type03>PAD CCD</Type03>
+      <Type04>Dab</Type04>
+      <Type05>DabPad</Type05>
+      <Type06>DabPabSab</Type06>
+      <Type07>DabSabPad</Type07>
+      <Type08>Dab</Type08>
+      <Type09>Integrated</Type09>
+   </Airbag>
+   <Cluster StartIndex="148" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>No Test</Type01>
+      <Type02>Cluster J1850</Type02>
+      <Type03>Upshift no Chime</Type03>
+   </Cluster>
+   <RemoteKeylessEntry StartIndex="150" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>No Test</Type01>
+      <Type02>Hood Ajar</Type02>
+      <Type03>Customer</Type03>
+      <Type04>Ship Mode</Type04>
+      <Type05>Lot Mode</Type05>
+      <Type06>Reserved</Type06>
+      <Type07>Reserved</Type07>
+      <Type08>IOD Fuse</Type08>
+   </RemoteKeylessEntry>
+   <TirePressureMonitor StartIndex="152" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>No Test</Type01>
+      <Type02>TPM CCD</Type02>
+      <Type03>TPM 5 Wheel</Type03>
+      <Type04>TPM 4 Wheel</Type04>
+   </TirePressureMonitor>
+   <MarketType StartIndex="154" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>No Test</Type01>
+      <Type02>NAA</Type02>
+      <Type03>NAE</Type03>
+      <Type04>NAB</Type04>
+      <Type05>CNG</Type05>
+      <Type06>LPG</Type06>
+      <Type07>ATE</Type07>
+      <Type08>ABJ</Type08>
+      <Type09>GAS</Type09>
+      <Type10>DIESEL</Type10>
+      <Type11>NGC1 J1850</Type11>
+      <Type12>NGC2 J1850</Type12>
+      <Type13>NGC3 J1850</Type13>
+      <Type14>NGC3 CAN</Type14>
+   </MarketType>
+   <Suspension StartIndex="156" Length="2" Type="Code">
+      <Type00>Undefined</Type00>
+      <Type01>NotEquipped</Type01>
+      <Type02>Satellite Radio</Type02>
+      <Type03>Dynamic Handling System</Type03>
+   </Suspension>
+</VehicleBuildRecord>

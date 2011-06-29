@@ -1,0 +1,98 @@
+<DensoAirbagTC>
+    <Setup>
+        <Name>Airbag</Name>
+        <Debug>Off</Debug>
+        <TestDomain>Foreground</TestDomain>
+        <FaultList>/Configuration/Components/Airbag/AirbagFaultList.xml</FaultList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/DensoAirbagTc</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>DensoAirbagTc</ProcessName>
+            <AdditionalLogFile>/Components/DensoAirbagTc.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+        </Logging>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <VehiclePresent/>
+                <VIN/>
+            </SubscribeTags>
+        </TagList>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+            <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+        </DataTags>
+        <Parameters>
+            <ConfigFile>/Configuration/Components/Airbag/KwpIsoDenso150300AirbagModule.xml</ConfigFile>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>No</DeveloperTest>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+            <!-- Part Number Parameters -->
+            <AbortOnPartMismatch>No</AbortOnPartMismatch>
+            <BypassPartNumberValidation>No</BypassPartNumberValidation>
+            <ValidatePartNumberList>Yes</ValidatePartNumberList>
+            <ValidPartNumbers>
+                <PNA121B0060F>A121B0060F</PNA121B0060F>
+            </ValidPartNumbers>
+            <!-- Fault Read Parameters -->
+            <AbortIfDTCPresent>No</AbortIfDTCPresent>
+        </Parameters>
+        <Prompts>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+        </Prompts>
+    </Setup>
+    <Objectives>
+        <AirbagTest>
+            <TestStep05>PerformModuleLinkup</TestStep05>
+            <TestStep20>StartModuleKeepAlive</TestStep20>
+            <TestStep25>ClearFaults</TestStep25>
+            <TestStep30>ReadFaults</TestStep30>
+            <TestStep40>StopModuleKeepAlive</TestStep40>
+            <TestStep50>ExitDiagnosticMode</TestStep50>
+            <TestStep60>FinishUp</TestStep60>
+        </AirbagTest>
+      <FinishUp>
+          <TestStep00>FinishUp</TestStep00>
+      </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
+        <EnterDiagnosticMode Result="" Timeout="5000" Description="Enter diagnostic mode" ScanDelay="250"/>
+        <ExitDiagnosticMode Result="Not Tested" Timeout="1000" Description="Exit diagnostic mode"/>
+        <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
+        <PerformModuleLinkup Result="Not Tested" Timeout="5000" Description="Establish communications with the module" ScanDelay="100"/>
+        <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
+        <StartModuleKeepAlive Result="" Timeout="1000" Description="Start sending tester present message to the module" ScanDelay="250"/>
+        <StopModuleKeepAlive Result="" Timeout="1000" Description="Stop sending tester present message to the module" ScanDelay="250"/>
+    </TestSteps>
+</DensoAirbagTC>

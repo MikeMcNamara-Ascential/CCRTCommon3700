@@ -1,0 +1,18 @@
+<WheelbaseConfig>
+    <VehicleConfig>
+        <Vehicle1 BodyStyle="????01" Description="Wheelbase: 3100" ModelYear="????" Wheelbase="122.2" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle2 BodyStyle="????02" Description="Wheelbase: 3300" ModelYear="????" Wheelbase="129.4" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle3 BodyStyle="????03" Description="Wheelbase: 3600" ModelYear="????" Wheelbase="143" TandemWheelbase="54" ButtonIndex="2"/>
+        <Vehicle4 BodyStyle="????04" Description="Wheelbase: 3700" ModelYear="????" Wheelbase="150" TandemWheelbase="53.1" ButtonIndex="1"/>
+        <Vehicle5 BodyStyle="????05" Description="Wheelbase: 4200" ModelYear="????" Wheelbase="164.7" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle6 BodyStyle="????06" Description="Wheelbase: 4250" ModelYear="????" Wheelbase="170.2" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle7 BodyStyle="????07" Description="Wheelbase: 4500" ModelYear="????" Wheelbase="176.5" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle8 BodyStyle="????08" Description="Wheelbase: 4800" ModelYear="????" Wheelbase="189.0" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle9 BodyStyle="????09" Description="Wheelbase: 5230" ModelYear="????" Wheelbase="205.9" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle10 BodyStyle="????10" Description="Wheelbase: 5400" ModelYear="????" Wheelbase="211.8" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle11 BodyStyle="????11" Description="Wheelbase: 5900" ModelYear="????" Wheelbase="231.4" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle12 BodyStyle="????12" Description="Wheelbase: 4400" ModelYear="????" Wheelbase="176.2" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle13 BodyStyle="????13" Description="Wheelbase: 5100" ModelYear="????" Wheelbase="200.8" TandemWheelbase="53.1" ButtonIndex="2"/>
+        <Vehicle14 BodyStyle="????14" Description="Wheelbase: 5100 AXOR" ModelYear="????" Wheelbase="201.9" TandemWheelbase="47.1" ButtonIndex="2"/>
+    </VehicleConfig>
+</WheelbaseConfig>

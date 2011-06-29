@@ -1,0 +1,92 @@
+Notes:
+-------------------------------------------------------
+- Barcode scanner manual:  http://www.intermeccorp.com/pdf/LS3408_APG.pdf - pages 98,253
+- QNX Computer:
+	- IP Address: 	192.168.1.1
+	- Customer:	Tesla
+	- Plant:	MenloPark
+	- Machine:	507211
+- Windows Computer:
+	- IP Address:	192.168.1.2
+- Wheelbase position:	2376mm (93.5in)
+
+
+To Do:
+-------------------------------------------------------
+- Machine fault - Vehicle Test fault at the end of a good test cycle.
+- Setup vehicle selection to be based on VIN scan
+
+
+In Progress:
+-------------------------------------------------------
+
+
+To Load:
+-------------------------------------------------------
+
+
+Items to ensure have been fixed:
+-------------------------------------------------------
+
+
+Work Completed:
+-------------------------------------------------------
+- Added prompt to disable traction control
+- Disable force meter on zero speed
+- Re-enable force updates after valve firing
+- Connect cable bit is incorrect.  Relay was not functioning correctly.  Steve D
+  put in a new relay and corrected PLC logic.
+- Review RF Reduction failure.  Switched valve firing to dump and then 
+  recover/reduce each wheel.  Front valves are slow to respond to recover command.
+- Review DTC handling for ABS.  Added read faults function to module interface.
+- Write sensor and burnish test
+- ABS - Steering wheel centered prompt: N17:7/3 - Pass, N17:7/4 - Fail
+- Add drive curve profiling to test sequence
+- Detect TCS switch state?  Not supported by the module
+- Detect park brake engaged state?  Not supported by the module
+- Finish updating screen
+- Change brake burnish to accel and brake cycles (60 - 30, 33 times).
+- AB Motor controller not setting pos/neg torque limits in torque mode.  Software was doing a /100
+  to convert %.  Multiplied config file limits by 1000 to compensate for software and the fact that
+  PLC expects %x10.
+- Drive axle being set to AllWheelDrive at zero speed.  Updated TeslaSystemMonitor to not 
+  autodetect the drive axle.  Drive axle will always be specified in the build data.
+- Brake meter not updated/activated for brake test.  Drag test timed out, increased timeout
+  from 10s to 30s
+- Brake burnish not updating brake force meter
+- Brake burnish should not disable electric motor boost.
+- Fix test start logic for rolls closed/open.  Blip causes test start after rolls close.  Added 
+  flag to arm the start test condition when the rolls are closed.  Also updated to not end the
+  test until the rolls are closed.
+- Machine Component not getting machine number or version number during initialize test step.
+- TestResultServer is not getting VIN for test result storage
+- Scanned VIN is not being written to VIN data tag
+- Test report not generated at end of test.  OverallTest is not being set.
+- Make sure scanner works.  Data comes into port, does not appear to be programmed correctly.
+- Prompt test phases
+- Test report
+- Speedometer should read max roller speed
+- Brake burnish should be constant speed with applied brake pedal. Rear brakes to use park brake.
+  Need to add prompt, remove foot from brake for cool down period.  Reset Target speed on speedo 
+  after each wheel.  Change end prompt for rear to release park brake.  Reset MotorMode to Boost
+  at end of cycle.
+- Archive brake force data
+- Park brake test resetting DriveAxle to "1"?  Setting to front axle, added cast to string.  Added
+  line to PerformPBTorqueTest to change drive axle back to the original drive axle once completed.
+- Add hard accel phase (5 times to 60) at very end of test cycle
+- Brake cool down prompt bg color light blue, remove blue color after cool down complete
+- Abort button not aborting the test.  Corrected configured tags.
+- Add in cycle retest capability
+	- VehicleTest.qxe
+- Park brake test: prompt release park brake at end of test.
+- Drive train: prompt shift to drive first
+- Prompt shift to drive
+- Add Speed Control test status to screen
+- Add speed control results to report
+- Motor loading acceleration
+- Move cruise testing to just prior to brake testing
+- Add disconnect cable prompt at end of test sequence
+- Update loss comp 2 motor accel to accel motors individually
+- Setup QNX to launch CCRT on boot up
+- Add airbag test.  Update software to send message within 8ms window.
+- Add airbag results to test report

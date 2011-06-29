@@ -1,0 +1,16 @@
+<WheelbaseConfig>
+   <PendantConfig>
+      <Button0 Wheelbase="120.5"/>
+      <Button1 Wheelbase="140.5"/>
+      <Button2 Wheelbase="160.5"/>
+      <Button3 Wheelbase="109.5"/>
+   </PendantConfig>
+   <VehicleConfig>
+      <Vehicle0 BodyStyle="D???61" Description="Dodge Truck" ModelYear="????" Wheelbase="120.5" ButtonIndex="0"/>
+      <Vehicle1 BodyStyle="D???62" Description="Dodge Truck" ModelYear="????" Wheelbase="140.5" ButtonIndex="1"/>
+      <Vehicle2 BodyStyle="D???41" Description="Dodge Truck" ModelYear="????" Wheelbase="140.5" ButtonIndex="1"/>
+      <Vehicle3 BodyStyle="D???42" Description="Dodge Truck" ModelYear="????" Wheelbase="160.5" ButtonIndex="2"/>
+      <Vehicle4 BodyStyle="D???64" Description="Dodge Truck" ModelYear="????" Wheelbase="160.5" ButtonIndex="2"/>
+      <Vehicle5 BodyStyle="D???81" Description="Dodge Truck" ModelYear="????" Wheelbase="161.5" ButtonIndex="2"/>
+   </VehicleConfig>
+</WheelbaseConfig>

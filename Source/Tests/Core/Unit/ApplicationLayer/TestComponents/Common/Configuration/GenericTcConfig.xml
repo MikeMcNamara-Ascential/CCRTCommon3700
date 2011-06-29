@@ -1,0 +1,31 @@
+<GenericTcConfig>
+  <Setup>
+    <Name>GenericTc</Name>
+    <Communication>
+      <Comm>IPC</Comm>
+      <Type>Server</Type>
+      <Name>component/GenericTc</Name>
+      <Debug>Off</Debug>
+      <BufferSize>1024</BufferSize>
+      <Timeout>0</Timeout>
+    </Communication>
+    <ThreadPool>
+      <Debug>Off</Debug>
+      <MinBlockedLimit>2</MinBlockedLimit>
+      <MaxBlockedLimit>4</MaxBlockedLimit>
+      <Increment>2</Increment>
+      <Maximum>50</Maximum>
+    </ThreadPool>
+    <Parameters>
+      <DelayModuleInitialization>yes</DelayModuleInitialization>
+    </Parameters>
+  </Setup>
+  <Objectives>
+    <Initialize>
+      <TestStep1>Initialize</TestStep1>
+    </Initialize>
+  </Objectives>
+  <TestSteps>
+    <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test." Prompt1="Initialize" ZerospeedPrompt="BrakeToStop">Initialize the system for a new brake test</Initialize>
+  </TestSteps>
+</GenericTcConfig>

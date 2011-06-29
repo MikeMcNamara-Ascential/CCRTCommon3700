@@ -1,0 +1,178 @@
+<HydraulicMotorController>
+    <Setup>
+        <Debug>Off</Debug>
+        <ProcessPriority>10</ProcessPriority>
+        <ClutchOnZeroSpeed>Yes</ClutchOnZeroSpeed>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>core/MotorController</Name>
+            <Debug>Off</Debug>
+            <Timeout>0</Timeout>
+            <BufferSize>1024</BufferSize>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Boost/>
+                <Clutch/>
+                <Declutch/>
+                <DriveAxle/>
+                <FrontHydraulicClutchEngagedFault/>
+                <HydraulicCirculationMotorOvercurrent/>
+                <HydraulicIntakeFilterBlocked/>
+                <HydraulicMotorDisconnectOpen/>
+                <HydraulicMotorOvercurrent/>
+                <HydraulicMotorOverloadOpen/>
+                <HydraulicOilCircPumpDiscOpen/>
+                <HydraulicOilCircPumpOverloadOpen/>
+                <HydraulicOilCoolingFanOvercurrent/>
+                <HydraulicOilHeatExFanDiscOpen/>
+                <HydraulicOilHeatExFanOverloadOpen/>
+                <HydraulicOilLevelFault/>
+                <HydraulicOilTemperatureFault/>
+                <HydraulicSystemIdleTimeout/>
+                <LeftFrontRollerDirection/>
+                <LeftRearRollerDirection/>
+                <LossCompensationSwitchStatusFromPLC/>
+                <MachineType3600/>
+                <MotorControllerTaskHeartbeat/>
+                <ReflectedVmeHeartBeat/>
+                <RightFrontRollerDirection/>
+                <RightRearRollerDirection/>
+                <RollerCount/>
+                <RollsUpElevDown/>
+                <SimulatorSwitchStatus/>
+                <VehiclePresent/>
+                <Zerospeed/>
+                <ZerospeedToPLC/>
+            </SubscribeTags>
+            <PublishTags>
+                <CommandSpeed>0</CommandSpeed>
+                <CommandTorque>0</CommandTorque>
+                <MotorMode>Boost</MotorMode>
+                <SpeedValue>0</SpeedValue>
+            </PublishTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>MotorController</ProcessName>
+            <AdditionalLogFile Types="/Servers/MotorController.log or Disabled">/Servers/MotorController.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <Debug>Off</Debug>
+        </Logging>
+        <MotorParameters>
+            <MPHToRPM>28.30612546</MPHToRPM>
+            <BrakeDetectLimit>-3.0</BrakeDetectLimit>
+            <BrakeClearLimit>1.0</BrakeClearLimit>
+            <SpeedDeltaForBoost>2.0</SpeedDeltaForBoost>
+            <ReverseBoost>0</ReverseBoost>
+            <TransferCaseMode>0</TransferCaseMode>
+            <UpdateInterval>250</UpdateInterval>
+            <MinimumSpeedForBoost>2.0</MinimumSpeedForBoost>
+            <HeartbeatSamplingInterval>100</HeartbeatSamplingInterval>
+            <HeartbeatInterval>500</HeartbeatInterval>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentAccelerations>/dev/Icm/Block/Acceleration</CurrentAccelerations>
+            <RollCount>4</RollCount>
+        </MotorParameters>
+        <HeartBeatParameters>
+            <Setup>
+                <Logging>
+                    <Status>Disabled</Status>
+                    <ProcessName>MotorControllerHb</ProcessName>
+                    <AdditionalLogFile Types="/Servers/MotorControllerHb.log or Disabled">Disabled</AdditionalLogFile>
+                    <Debug>Off</Debug>
+                    <LocalEcho>Disabled</LocalEcho>
+                    <Verbose>0x00</Verbose>
+                </Logging>
+                <HeartbeatSamplingInterval Description="Amount of time beween samples of heartbeat data" Units="ms">100</HeartbeatSamplingInterval>
+                <ReflectedHeartbeatTag Description="Tag updated by remote system (reflection of task heartbeat)">ReflectedVmeHeartBeat</ReflectedHeartbeatTag>
+                <HeartbeatTag Description="Task heartbeat tag">MotorControllerTaskHeartbeat</HeartbeatTag>
+                <EnableNdbCommDebugging Description="If diagnostic information should be printed for communication for heatrbeat">0</EnableNdbCommDebugging>
+            </Setup>
+        </HeartBeatParameters>
+        <HydraulicMotorParameters>
+            <MinimumBoostPressure>600.0</MinimumBoostPressure>
+            <MaximumBoostPressure>800.0</MaximumBoostPressure>
+            <BoostPressure>600.0</BoostPressure>
+            <PSIConversion>4.095</PSIConversion>
+            <Boost>Boost</Boost>
+        </HydraulicMotorParameters>
+        <DataTags>
+            <BoostPressure>BoostPressureFeedBack</BoostPressure>
+            <BoostPressureOut>BoostPressureOut</BoostPressureOut>
+            <CommandedSpeed>CommandSpeed</CommandedSpeed>
+            <CommandedTorque>CommandTorque</CommandedTorque>
+            <DriveWheel>DriveAxle</DriveWheel>
+            <FrontHydraulicClutchEngagedFault>FrontHydraulicClutchEngagedFault</FrontHydraulicClutchEngagedFault>
+            <HydraulicCirculationMotorOvercurrent>HydraulicCirculationMotorOvercurrent</HydraulicCirculationMotorOvercurrent>
+            <HydraulicIntakeFilterBlocked>HydraulicIntakeFilterBlocked</HydraulicIntakeFilterBlocked>
+            <HydraulicMotorDisconnectOpen>HydraulicMotorDisconnectOpen</HydraulicMotorDisconnectOpen>
+            <HydraulicMotorOvercurrent>HydraulicMotorOvercurrent</HydraulicMotorOvercurrent>
+            <HydraulicMotorOverloadOpen>HydraulicMotorOverloadOpen</HydraulicMotorOverloadOpen>
+            <HydraulicOilCircPumpDiscOpen>HydraulicOilCircPumpDiscOpen</HydraulicOilCircPumpDiscOpen>
+            <HydraulicOilCircPumpOverloadOpen>HydraulicOilCircPumpOverloadOpen</HydraulicOilCircPumpOverloadOpen>
+            <HydraulicOilCoolingFanOvercurrent>HydraulicOilCoolingFanOvercurrent</HydraulicOilCoolingFanOvercurrent>
+            <HydraulicOilHeatExFanDiscOpen>HydraulicOilHeatExFanDiscOpen</HydraulicOilHeatExFanDiscOpen>
+            <HydraulicOilHeatExFanOverloadOpen>HydraulicOilHeatExFanOverloadOpen</HydraulicOilHeatExFanOverloadOpen>
+            <HydraulicOilLevelFault>HydraulicOilLevelFault</HydraulicOilLevelFault>
+            <HydraulicOilTemperatureFault>HydraulicOilTemperatureFault</HydraulicOilTemperatureFault>
+            <HydraulicSystemIdleTimeout>HydraulicSystemIdleTimeout</HydraulicSystemIdleTimeout>
+            <LeftFrontRollerDirection>LeftFrontRollerDirection</LeftFrontRollerDirection>
+            <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+            <LeftRearRollerDirection>LeftRearRollerDirection</LeftRearRollerDirection>
+            <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+            <LossCompensationPressure>LossCompensationPressure</LossCompensationPressure>
+            <LossCompensationSwitchStatus>LossCompensationSwitchStatusFromPLC</LossCompensationSwitchStatus>
+            <MachineType>MachineType3600</MachineType>
+            <MotorControllerTaskHeartbeat>MotorControllerTaskHeartbeat</MotorControllerTaskHeartbeat>
+            <ReflectedVmeHeartBeat>ReflectedVmeHeartBeat</ReflectedVmeHeartBeat>
+            <RightFrontRollerDirection>RightFrontRollerDirection</RightFrontRollerDirection>
+            <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+            <RightRearRollerDirection>RightRearRollerDirection</RightRearRollerDirection>
+            <RightRearSpeed>RRSpeed</RightRearSpeed>
+            <RollCount>RollerCount</RollCount>
+            <RollsUpElevatorDown>RollsUpElevDown</RollsUpElevatorDown>
+            <SimulationSwitchStatus>SimulatorSwitchStatus</SimulationSwitchStatus>
+            <SpeedValue>SpeedValue</SpeedValue>
+            <VehiclePresence>VehiclePresent</VehiclePresence>
+            <WarmupTimeRemaining>LCWarmupTimeRemaining</WarmupTimeRemaining>
+            <Zerospeed>Zerospeed</Zerospeed>
+        </DataTags>
+        <Faults>
+            <HydraulicCirculationMotorOvercurrent PreviousState="-1">System Detected a HydraulicCirculationMotorOvercurrent Fault</HydraulicCirculationMotorOvercurrent>
+            <HydraulicIntakeFilterBlocked PreviousState="-1">System Detected a HydraulicIntakeFilterBlocked Fault</HydraulicIntakeFilterBlocked>
+            <HydraulicMotorDisconnectOpen PreviousState="-1">System Detected a HydraulicMotorDisconnectOpen Fault</HydraulicMotorDisconnectOpen>
+            <HydraulicMotorOvercurrent PreviousState="-1">System Detected a HydraulicMotorOvercurrent Fault</HydraulicMotorOvercurrent>
+            <HydraulicMotorOverloadOpen PreviousState="-1">System Detected a HydraulicMotorOverloadOpen Fault</HydraulicMotorOverloadOpen>
+            <HydraulicOilCircPumpDiscOpen PreviousState="-1">System Detected a HydraulicOilCircPumpDiscOpen Fault</HydraulicOilCircPumpDiscOpen>
+            <HydraulicOilCircPumpOverloadOpen PreviousState="-1">System Detected a HydraulicOilCircPumpOverloadOpen Fault</HydraulicOilCircPumpOverloadOpen>
+            <HydraulicOilCoolingFanOvercurrent PreviousState="-1">System Detected a HydraulicOilCoolingFanOvercurrent  Fault</HydraulicOilCoolingFanOvercurrent>
+            <HydraulicOilHeatExFanDiscOpen PreviousState="-1">System Detected a HydraulicOilHeatExFanDiscOpen Fault</HydraulicOilHeatExFanDiscOpen>
+            <HydraulicOilHeatExFanOverloadOpen PreviousState="-1">System Detected a HydraulicOilHeatExFanOverloadOpen Fault</HydraulicOilHeatExFanOverloadOpen>
+            <HydraulicOilLevelFault PreviousState="-1">System Detected a HydraulicOilLevelFault Fault</HydraulicOilLevelFault>
+            <HydraulicOilTemperatureFault PreviousState="-1">System Detected a HydraulicOilTemperatureFault Fault</HydraulicOilTemperatureFault>
+            <HydraulicSystemIdleTimeout PreviousState="-1">System Detected a HydraulicSystemIdleTimeout Fault</HydraulicSystemIdleTimeout>
+            <FrontHydraulicClutchEngagedFault PreviousState="-1">Fault engaging the front hydraulic clutch.</FrontHydraulicClutchEngagedFault>
+        </Faults>
+    </Setup>
+</HydraulicMotorController>

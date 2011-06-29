@@ -1,0 +1,273 @@
+€12/13/10 15:23:47.596 (1) core/InputServer           Activated additional log [/home/CCRT/Rewrite/Logs/Servers/InputServer.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:47.596 (1) core/InputServer           BepComponent::Initialize()
+€
+€12/13/10 15:23:47.604 (1) core/InputServer           Process core/InputServer running at priority 10
+€
+€12/13/10 15:23:47.604 (1) core/InputServer           Updated process core/InputServer running at priority 10
+€
+€12/13/10 15:23:47.610 (1) core/InputServer           BepComponent::Initialize(<InputServerConfig>
+   <Setup>
+      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/InputServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <ClearKeyPress>ClearKeyPress</ClearKeyPress>         <DriverNumber>DriverNumber</DriverNumber>         <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>         <InputServerState>InputServerState</InputServerState>         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>         <VehicleAtBarcodeScanner>VehicleAtBarcodeScanner</VehicleAtBarcodeScanner>         <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>         <Vin>NextVIN</Vin>         <VinDisplay>VINDisplay</VinDisplay>      </DataTags>      <Debug>Off</Debug>      <InputDevices>
+         <CLV295Scanner enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/CLV295ScannerMgr.qxe">
+            <Setup>
+  €
+€12/13/10 15:23:47.617 (1) core/InputServer           Preparing to deal with subscribe tags:    <Setup>
+      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/InputServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <ClearKeyPress>ClearKeyPress</ClearKeyPress>         <DriverNumber>DriverNumber</DriverNumber>         <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>         <InputServerState>InputServerState</InputServerState>         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>         <VehicleAtBarcodeScanner>VehicleAtBarcodeScanner</VehicleAtBarcodeScanner>         <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>         <Vin>NextVIN</Vin>         <VinDisplay>VINDisplay</VinDisplay>      </DataTags>      <Debug>Off</Debug>      <InputDevices>
+         <CLV295Scanner enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/CLV295ScannerMgr.qxe">
+            <Setup>
+        €
+€12/13/10 15:23:47.617 (1) core/InputServer           Retrieved Subscribe Tags
+€
+€12/13/10 15:23:47.617 (1) core/InputServer           Stored all Subscribe Tags
+€
+€12/13/10 15:23:47.617 (1) core/InputServer           Creating Thread Pool
+€
+€12/13/10 15:23:47.626 (1) core/InputServer           BepServer::Initialize(<InputServerConfig>
+   <Setup>
+      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/InputServer</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <ClearKeyPress>ClearKeyPress</ClearKeyPress>         <DriverNumber>DriverNumber</DriverNumber>         <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>         <InputServerState>InputServerState</InputServerState>         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>         <VehicleAtBarcodeScanner>VehicleAtBarcodeScanner</VehicleAtBarcodeScanner>         <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>         <Vin>NextVIN</Vin>         <VinDisplay>VINDisplay</VinDisplay>      </DataTags>      <Debug>Off</Debug>      <InputDevices>
+         <CLV295Scanner enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/CLV295ScannerMgr.qxe">
+            <Setup>
+     €
+€12/13/10 15:23:47.634 (1) core/InputServer           Enter InputServer::ReadInputDeviceMap()
+€
+€12/13/10 15:23:47.634 (1) core/InputServer           7 InputDevice nodes
+€
+€12/13/10 15:23:47.635 (1) core/InputServer           Name of the process before expansion: $(USR_ROOT)/ServicesLayer/Bin/CLV295ScannerMgr.qxe
+€
+€12/13/10 15:23:47.635 (1) core/InputServer           EnvName: USR_ROOT
+€
+€12/13/10 15:23:47.635 (1) core/InputServer           deviceProcess in FixUpDevicePath: /home/CCRT/Rewrite/ServicesLayer/Bin/CLV295ScannerMgr.qxe
+€
+€12/13/10 15:23:47.635 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/CLV295ScannerMgr.qxe, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/CLV295ScannerMgr.qxe
+€
+€12/13/10 15:23:47.635 (1) core/InputServer           	Input Device CLV295Scanner is disabled
+€
+€12/13/10 15:23:47.635 (1) core/InputServer           Name of the process before expansion: $(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.635 (1) core/InputServer           EnvName: USR_ROOT
+€
+€12/13/10 15:23:47.635 (1) core/InputServer           deviceProcess in FixUpDevicePath: /home/CCRT/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.636 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.636 (1) core/InputServer           Adding input device LeftHandheld (core/LeftSymbolScanner) -> /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.636 (1) core/InputServer           Name of the process before expansion: $(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe
+€
+€12/13/10 15:23:47.636 (1) core/InputServer           EnvName: USR_ROOT
+€
+€12/13/10 15:23:47.636 (1) core/InputServer           deviceProcess in FixUpDevicePath: /home/CCRT/Rewrite/ServicesLayer/Bin/MapleKeypadManager.qxe
+€
+€12/13/10 15:23:47.636 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/MapleKeypadManager.qxe, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/MapleKeypadManager.qxe
+€
+€12/13/10 15:23:47.636 (1) core/InputServer           	Input Device LeftMapleKeypad is disabled
+€
+€12/13/10 15:23:47.636 (1) core/InputServer           Name of the process before expansion: $(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.637 (1) core/InputServer           EnvName: USR_ROOT
+€
+€12/13/10 15:23:47.637 (1) core/InputServer           deviceProcess in FixUpDevicePath: /home/CCRT/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.637 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.637 (1) core/InputServer           	Input Device OverheadScanner is disabled
+€
+€12/13/10 15:23:47.637 (1) core/InputServer           Name of the process before expansion: $(USR_ROOT)/ServicesLayer/Bin/PendantManager.qxe
+€
+€12/13/10 15:23:47.637 (1) core/InputServer           EnvName: USR_ROOT
+€
+€12/13/10 15:23:47.637 (1) core/InputServer           deviceProcess in FixUpDevicePath: /home/CCRT/Rewrite/ServicesLayer/Bin/PendantManager.qxe
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/PendantManager.qxe, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/PendantManager.qxe
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           Adding input device Pendant (core/Pendant) -> /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/PendantManager.qxe
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           Name of the process before expansion: $(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           EnvName: USR_ROOT
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           deviceProcess in FixUpDevicePath: /home/CCRT/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           	Input Device RightHandheld is disabled
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           Name of the process before expansion: $(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe
+€
+€12/13/10 15:23:47.638 (1) core/InputServer           EnvName: USR_ROOT
+€
+€12/13/10 15:23:47.639 (1) core/InputServer           deviceProcess in FixUpDevicePath: /home/CCRT/Rewrite/ServicesLayer/Bin/MapleKeypadManager.qxe
+€
+€12/13/10 15:23:47.639 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/MapleKeypadManager.qxe, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/MapleKeypadManager.qxe
+€
+€12/13/10 15:23:47.639 (1) core/InputServer           	Input Device RightMapleKeypad is disabled
+€
+€12/13/10 15:23:47.639 (1) core/InputServer           Exit InputServer::ReadInputDeviceMap()
+€
+€12/13/10 15:23:47.639 (1) core/InputServer           BepServer::SetData(<InputServerState>Normal</InputServerState>)
+€
+€12/13/10 15:23:47.639 (1) core/InputServer           BepServer::SetData(<InputServerState>Normal</InputServerState>) done, returning Success
+€
+€12/13/10 15:23:47.639 (1) core/InputServer           Invalid NotificationList in core/InputServer or no subscribers
+€
+€12/13/10 15:23:47.639 (1) core/InputServer           Enter InputServer::LaunchInputDevice(LeftHandheld)
+€
+€12/13/10 15:23:47.640 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/Configuration/Servers/Isuzu.InputServerConfig.xml, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/Configuration/Servers/Isuzu.InputServerConfig.xml
+€
+€12/13/10 15:23:47.640 (1) core/InputServer           	Spawning /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe -vf -f/home/CCRT/Rewrite/Configuration/Servers/InputServerConfig.xml  -Pcore/InputServer -pLeftHandheld
+€
+€12/13/10 15:23:47.988 (1) core/InputServer           Wait for /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/SymbolScannerMgr.qxe (core/LeftSymbolScanner)
+€
+€12/13/10 15:23:47.989 (1) core/InputServer           Exit InputServer::LaunchInputDevice(LeftHandheld), running=1
+€
+€12/13/10 15:23:47.989 (1) core/InputServer           Enter InputServer::LaunchInputDevice(Pendant)
+€
+€12/13/10 15:23:47.990 (1) core/InputServer           FixUpDevicePath realpath If statement:
+	realPath: /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/Configuration/Servers/Isuzu.InputServerConfig.xml, deviceProcess/net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/Configuration/Servers/Isuzu.InputServerConfig.xml
+€
+€12/13/10 15:23:47.990 (1) core/InputServer           	Spawning /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/PendantManager.qxe -vf -f/home/CCRT/Rewrite/Configuration/Servers/InputServerConfig.xml  -Pcore/InputServer -pPendant
+€
+€12/13/10 15:23:48.776 (1) core/InputServer           Wait for /net/CCRT_PIT.ccrt.rtos/home/IsuzuTesting/Rewrite/ServicesLayer/Bin/PendantManager.qxe (core/Pendant)
+€
+€12/13/10 15:23:48.777 (1) core/InputServer           Exit InputServer::LaunchInputDevice(Pendant), running=1
+€
+€12/13/10 15:23:48.777 (1) core/InputServer           InputServer::Initialize() complete
+€
+€12/13/10 15:23:52.343 (2) core/InputServer           BepComponent::Subscribe(KeyPress, core/TestResultServer)
+€
+€12/13/10 15:23:52.343 (2) core/InputServer           BepServer::Read(<KeyPress/>
+, 0)
+€
+€12/13/10 15:23:52.344 (2) core/InputServer           BepServer::GetData(KeyPress)
+€
+€12/13/10 15:23:52.344 (2) core/InputServer           There are 1 tags in the map
+€
+€12/13/10 15:23:52.344 (2) core/InputServer           BepServer::GetData(KeyPress) was unable to provide requested data
+€
+€12/13/10 15:23:52.344 (2) core/InputServer           BepServer::GetData(KeyPress) done, returning Unavailable
+€
+€12/13/10 15:23:52.344 (2) core/InputServer           Additional log [Servers/InputServer.log] already activated.€
+€12/13/10 15:23:52.349 (2) core/InputServer           NotificationThreadSpinner::Initialize(<InputServerConfig>
+   <Setup>
+      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/InputServer</Name>      <Timeout>1000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <ClearKeyPress>ClearKeyPress</ClearKeyPress>      <DriverNumber>DriverNumber</DriverNumber>      <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>      <InputServerState>InputServerState</InputServerState>      <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>      <VehicleAtBarcodeScanner>VehicleAtBarcodeScanner</VehicleAtBarcodeScanner>      <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>      <Vin>NextVIN</Vin>      <VinDisplay>VINDisplay</VinDisplay>      </DataTags>      <Debug>Off</Debug>      <InputDevices>
+      <CLV295Scanner enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/CLV295ScannerMgr.qxe">
+      <Setup>
+      <CommandDelay>100</CommandDelay>     €
+€12/13/10 15:23:52.350 (2) core/InputServer           Additional log [Servers/InputServer.log] already activated.€
+€12/13/10 15:23:52.356 (2) core/InputServer           NotificationList::Initialize(<InputServerConfig>
+   <Setup>
+      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/InputServer</Name>      <Timeout>1000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <ClearKeyPress>ClearKeyPress</ClearKeyPress>      <DriverNumber>DriverNumber</DriverNumber>      <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>      <InputServerState>InputServerState</InputServerState>      <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>      <VehicleAtBarcodeScanner>VehicleAtBarcodeScanner</VehicleAtBarcodeScanner>      <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>      <Vin>NextVIN</Vin>      <VinDisplay>VINDisplay</VinDisplay>      </DataTags>      <Debug>Off</Debug>      <InputDevices>
+      <CLV295Scanner enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/CLV295ScannerMgr.qxe">
+      <Setup>
+      <CommandDelay>100</CommandDelay>      <Communi€
+€12/13/10 15:23:52.361 (2) core/InputServer           NotificationThreadSpinner::Initialize(<InputServerConfig>
+   <Setup>
+      <Communication>
+      <BufferSize>2000</BufferSize>      <Comm>IPC</Comm>      <Debug>Off</Debug>      <Name>core/InputServer</Name>      <Timeout>1000</Timeout>      <Type>Server</Type>      </Communication>      <DataTags>
+      <ClearKeyPress>ClearKeyPress</ClearKeyPress>      <DriverNumber>DriverNumber</DriverNumber>      <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>      <InputServerState>InputServerState</InputServerState>      <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>      <VehicleAtBarcodeScanner>VehicleAtBarcodeScanner</VehicleAtBarcodeScanner>      <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>      <Vin>NextVIN</Vin>      <VinDisplay>VINDisplay</VinDisplay>      </DataTags>      <Debug>Off</Debug>      <InputDevices>
+      <CLV295Scanner enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/CLV295ScannerMgr.qxe">
+      <Setup>
+      <CommandDelay>100</CommandDelay>     €
+€12/13/10 15:23:52.361 (2) core/InputServer           NotificationList::AddToList(KeyPress, 0)
+€
+€12/13/10 15:23:52.361 (2) core/InputServer           Adding elem for Tag: KeyPress
+€
+€12/13/10 15:23:52.362 (2) core/InputServer           Added new list and process for tag: KeyPress
+€
+€12/13/10 15:23:52.362 (2) core/InputServer           NotificationList::AddToList(KeyPress, 0) done
+€
+€12/13/10 15:23:52.362 (2) core/InputServer           BepComponent::Subscribe(KeyPress core/TestResultServer) done returning Unavailable
+€
+€12/13/10 15:23:54.771 (2) core/InputServer           Number Of Tags: 3, -1
+€
+€12/13/10 15:23:54.779 (2) core/InputServer           BepServer::SubscribeTags() 0
+€
+€12/13/10 15:23:54.779 (2) core/InputServer           InputServer::Register() - begin
+€
+€12/13/10 15:23:54.780 (2) core/InputServer           Enter InputServer::RegisterInputDevice(LeftHandheld)
+€
+€12/13/10 15:23:54.782 (2) core/InputServer           InputServer - Successfully Commanded core/LeftSymbolScanner to Register
+€
+€12/13/10 15:23:54.783 (2) core/InputServer           Enter InputServer::RegisterInputDevice(Pendant)
+€
+€12/13/10 15:23:54.785 (3) core/InputServer           BepServer::Read(<InputServerState/>
+, 0)
+€
+€12/13/10 15:23:54.785 (3) core/InputServer           BepServer::GetData(InputServerState)
+€
+€12/13/10 15:23:54.786 (3) core/InputServer           There are 4 tags in the map
+€
+€12/13/10 15:23:54.786 (3) core/InputServer           BepServer::GetData(InputServerState) done, returning Normal
+€
+€12/13/10 15:23:54.786 (3) core/InputServer           SendDriverNumber() - Rolls Down: False, DriverNumber Status: , Default DriverNumber: , Current DriverNumber: T0000xx, InputServerState: Normal
+€
+€12/13/10 15:23:54.786 (3) core/InputServer           BepServer::Read(<InputServerState/>
+, 0)
+€
+€12/13/10 15:23:54.787 (3) core/InputServer           BepServer::GetData(InputServerState)
+€
+€12/13/10 15:23:54.787 (3) core/InputServer           There are 4 tags in the map
+€
+€12/13/10 15:23:54.788 (3) core/InputServer           BepServer::GetData(InputServerState) done, returning Normal
+€
+€12/13/10 15:23:54.788 (3) core/InputServer           BepServer::Publish(RollsDownElevUp)
+€
+€12/13/10 15:23:54.788 (3) core/InputServer           BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>)
+€
+€12/13/10 15:23:54.789 (3) core/InputServer           BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>) done, returning Success
+€
+€12/13/10 15:23:54.796 (4) core/InputServer           BepComponent::Subscribe(InputServerState, core/Pendant)
+€
+€12/13/10 15:23:54.797 (4) core/InputServer           BepServer::Read(<InputServerState/>
+, 0)
+€
+€12/13/10 15:23:54.797 (4) core/InputServer           BepServer::GetData(InputServerState)
+€
+€12/13/10 15:23:54.797 (4) core/InputServer           There are 4 tags in the map
+€
+€12/13/10 15:23:54.797 (4) core/InputServer           BepServer::GetData(InputServerState) done, returning Normal
+€
+€12/13/10 15:23:54.797 (4) core/InputServer           NotificationList::AddToList(InputServerState, 0)
+€
+€12/13/10 15:23:54.797 (4) core/InputServer           Adding elem for Tag: InputServerState
+€
+€12/13/10 15:23:54.798 (4) core/InputServer           Added new list and process for tag: InputServerState
+€
+€12/13/10 15:23:54.798 (4) core/InputServer           NotificationList::AddToList(InputServerState, 0) done
+€
+€12/13/10 15:23:54.798 (4) core/InputServer           BepComponent::Subscribe(InputServerState core/Pendant) done returning Normal
+€
+€12/13/10 15:23:54.806 (2) core/InputServer           InputServer - Successfully Commanded core/Pendant to Register
+€
+€12/13/10 15:23:54.806 (2) core/InputServer           InputServer::Register() - end
+€
+€12/13/10 15:23:54.887 (2) core/InputServer           BepComponent::Subscribe(NextVIN, core/PlantHostInbound)
+€
+€12/13/10 15:23:54.888 (2) core/InputServer           BepServer::Read(<NextVIN/>
+, 0)
+€
+€12/13/10 15:23:54.888 (2) core/InputServer           BepServer::GetData(NextVIN)
+€
+€12/13/10 15:23:54.888 (2) core/InputServer           There are 4 tags in the map
+€
+€12/13/10 15:23:54.888 (2) core/InputServer           BepServer::GetData(NextVIN) was unable to provide requested data
+€
+€12/13/10 15:23:54.888 (2) core/InputServer           Bep

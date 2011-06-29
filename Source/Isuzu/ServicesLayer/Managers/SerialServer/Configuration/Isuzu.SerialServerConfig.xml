@@ -1,0 +1,238 @@
+<SerialServerConfig>
+    <Verbose>0x1F</Verbose>
+    <Setup>
+        <Demo>0</Demo>
+        <MgrPool lowWater="2" hiWater="5" maximum="10" increment="1"/>
+        <Logging>
+            <ProcessName>mgr/SerialServer</ProcessName>
+            <AdditionalLogFile>/Servers/SerialServer.log</AdditionalLogFile>
+            <Status>Disabled</Status>
+            <LocalEcho>Disabled</LocalEcho>
+            <Debug>Off</Debug>
+            <Verbose>0x00</Verbose>
+        </Logging>
+        <LogicalPorts>
+            <GryphonCCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>5120</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/GryphonCAN</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonCAN.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>CAN</ProcessName>
+                                <AdditionalLogFile>/Communication/GryphonCANComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    <Login>
+                        <IPAddress>192.168.1.1</IPAddress>
+                        <Port>7000</Port>
+                        <UserID>gryphon</UserID>
+                        <Password>gryphon</Password>
+                    </Login>
+                    <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
+                    <NodePairs>
+                        <EngineController1 Outgoing="0x7E0" Incoming="0x7E8"/>
+                        <EngineControllerUUDT Outgoing="0x7E0" Incoming="0x5E8"/>
+                        <Transmission Outgoing="0x7E2" Incoming="0x7EA"/>
+                        <TransmissionUUDT Outgoing="0x7E2" Incoming="0x5EA"/>
+                        <PIM Outgoing="0x244" Incoming="0x644"/>
+                    </NodePairs>
+                    <NodePairSetup>
+                        <Range1 FirstRequestID="0x7E0" FirstResponseID="0x7E8" FirstUUDTResponseID="0x5E8" Offset="0x008" NumberOfPairs="1"/>
+                        <Range2 FirstRequestID="0x7E2" FirstResponseID="0x7EA" FirstUUDTResponseID="0x5EA" Offset="0x008" NumberOfPairs="1"/>
+                        <Range3 FirstRequestID="0x244" FirstResponseID="0x644" Offset="0x008" NumberOfPairs="1"/>
+                    </NodePairSetup>
+                </Setup>
+            </GryphonCCan>
+            <GryphonJ1850 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonJ1850CommProxy.qxe">
+                <Setup>                                                                                       
+					<SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/Gryphon1850</ProcessName>
+                        <AdditionalLogFile>/Communication/Gryphon1850.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x3F</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>J1850</ProcessName>
+                                <AdditionalLogFile>/Communication/Gryphon1850Comm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x3F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    <Login>
+                        <IPAddress>192.168.1.1</IPAddress>
+                        <Port>7000</Port>
+                        <UserID>gryphon</UserID>
+                        <Password>gryphon</Password>
+                    </Login>
+                    <Alias>/home/CCRT/Rewrite/GryphonJ1850</Alias>
+                    <NodePairs>
+                        <Brake Outgoing="0x29" Incoming="0x80"/>
+                    </NodePairs>
+                    <NodePairSetup>
+                        <Range1 FirstRequestID="0x29" FirstResponseID="0x80" NumberOfPairs="1"/>
+                    </NodePairSetup>
+                </Setup>
+            </GryphonJ1850>
+
+            <PlcDf1 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/ser1</SerialDevice>
+                    <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/PlcDf1</ProcessName>
+                        <AdditionalLogFile>/Servers/PlcDf1.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <AdditionalLogFile>/Communication/PlcDf1_Comm.log</AdditionalLogFile>
+                                <ProcessName>DF1</ProcessName>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x01</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </PlcDf1>
+
+            <Pendant enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser1</SerialDevice>
+                    <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/Pendant</ProcessName>
+                        <AdditionalLogFile>/Servers/Pendant.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <AdditionalLogFile>/Communication/Pendant_Comm.log</AdditionalLogFile>
+                                <ProcessName>Pendant</ProcessName>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x01</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </Pendant>
+
+            <Scanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser2</SerialDevice>
+                    <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/Scanner</ProcessName>
+                        <AdditionalLogFile>/Servers/Scanner.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <AdditionalLogFile>/Communication/Scanner_Comm.log</AdditionalLogFile>
+                                <ProcessName>Scanner</ProcessName>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x01</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </Scanner>
+
+        </LogicalPorts>
+    </Setup>
+</SerialServerConfig>

@@ -1,0 +1,37 @@
+<Vin3C8FY78G03T532514>
+   <VehicleBuild>
+      <VIN>3C4FY48V73T500082</VIN>
+      <DriveAxle>Front</DriveAxle>
+      <ABSPartNo>0000000000</ABSPartNo>
+      <Airbag>Dab J1850</Airbag>
+      <Axle>Standard</Axle>
+      <AxleRatio>0</AxleRatio>
+      <BodyStyle>PT0000</BodyStyle>
+      <BrakeType>Base Brake</BrakeType>
+      <BuildDate>11072002</BuildDate>
+      <BuildTime>1932</BuildTime>
+      <Cluster>NotEquipped</Cluster>
+      <DaytimeRunningLamps>NotEquipped</DaytimeRunningLamps>
+      <HighSpeedChime>NotEquipped</HighSpeedChime>
+      <LSIACMPartNo>0000000000</LSIACMPartNo>
+      <MarketType>NGC3</MarketType>
+      <ORCACMPartNo>04671419AF</ORCACMPartNo>
+      <PCMPartNo>05033062AG</PCMPartNo>
+      <PerformAbortTest>P</PerformAbortTest>
+      <PinionFactor>95680</PinionFactor>
+      <PowerSteering>Standard</PowerSteering>
+      <RSIACMPartNo>0000000000</RSIACMPartNo>
+      <RemoteKeylessEntry>No Test</RemoteKeylessEntry>
+      <SKIMPin>0000</SKIMPin>
+      <SentryKeyImmobilizer>Not Equipped</SentryKeyImmobilizer>
+      <SpeedControl>Not Equipped</SpeedControl>
+      <Suspension>Not Tested</Suspension>
+      <SuspensionPartNo>0000000000</SuspensionPartNo>
+      <TCMPartNo>0000000000</TCMPartNo>
+      <TPMPartNo>0000000000</TPMPartNo>
+      <TirePressureMonitor>No Test</TirePressureMonitor>
+      <TireSize>00000</TireSize>
+      <TransferCase>NotEquipped</TransferCase>
+      <Transmission>Manual</Transmission>
+   </VehicleBuild>
+</Vin3C8FY78G03T532514>

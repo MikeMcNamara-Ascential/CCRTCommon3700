@@ -1,0 +1,120 @@
+<ManualTransmission>
+    <Setup>
+        <Parameters>
+            <!-- Begin User Configurable Parameters -->
+            <ReverseSpeedMinimum units="mph">2.0</ReverseSpeedMinimum>
+            <ReverseSpeedMaximum units="mph">4.0</ReverseSpeedMaximum>
+            <TopSpeedMinimum units="mph">36</TopSpeedMinimum>
+            <TopSpeedMaximum units="mph">78</TopSpeedMaximum>
+            <!-- End User Configurable Parameters -->
+            <SkipGearRead>1</SkipGearRead>
+            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+            <ICMName>mgr/ICM</ICMName>
+            <DeveloperTest>False</DeveloperTest>
+        </Parameters>
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+            <ShiftToReverse PromptBox="1" Priority="0">ShiftToReverse</ShiftToReverse>
+            <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
+        </Prompts>
+        <Debug>Off</Debug>
+        <Name>Transmission</Name>
+        <TestDomain>Foreground</TestDomain>
+        <SystemTagsToReset/>
+        <Communication>
+            <Debug>Off</Debug>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <Name>component/Transmission</Name>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <TCMPartNo/>
+                <VIN/>
+                <DriveAxle/>
+                <CableConnect/>
+                <Zerospeed/>
+                <Transmission/>
+                <ForegroundTestInProgress/>
+                <Abort/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>ManualTransmission</ProcessName>
+            <AdditionalLogFile Types="/Components/ReverseTestTransmission or Disabled">/Components/ManualTransmission.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+        </Logging>
+        <NamedDataBrokerComm>
+            <Comm>IPC</Comm>
+            <Type>Client</Type>
+            <Name>core/NamedDataBroker</Name>
+            <Debug>Off</Debug>
+            <Timeout>0</Timeout>
+            <BufferSize>1024</BufferSize>
+        </NamedDataBrokerComm>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <SpeedValue>SpeedValue</SpeedValue>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <Rear>Rear</Rear>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <LTSpeed>LTSpeed</LTSpeed>
+            <RTSpeed>RTSpeed</RTSpeed>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <ReadVehicleSpeed>ReadTransmissionVehicleSpeed</ReadVehicleSpeed>
+            <SpeedActive>SpeedActive</SpeedActive>
+			<CheckShiftingPrompt>CheckTransmissionShifting</CheckShiftingPrompt>
+        </DataTags>
+        <SystemTagsToReset/>
+    </Setup>
+    <Objectives>
+        <ForwardTesting>
+            <TestStep00>ShiftThrough</TestStep00>
+        </ForwardTesting>
+        <ReverseTesting>
+            <TestStep00>AccelerateInReverse</TestStep00>
+        </ReverseTesting>
+        <FinishUp>
+			<TestStep00>CheckShifting</TestStep00>
+            <TestStep05>FinishUp</TestStep05>
+        </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <AccelerateInReverse Result="" Timeout="30000" Description="Validate Reverse gear functionality" ScanDelay="250"/>
+		<CheckShifting Result="Not Tested" Timeout="30000" Description="Prompt operator for shifting performance" ScanDelay="500"/>
+        <ShiftThrough Result="Not Tested" Timeout="180000" Description="Prompt operator to shift through all gears" ScanDelay="250"/>
+        <FinishUp Result="Not Tested" Timeout="500" Description="Finish testing sequence"/>
+    </TestSteps>
+</ManualTransmission>

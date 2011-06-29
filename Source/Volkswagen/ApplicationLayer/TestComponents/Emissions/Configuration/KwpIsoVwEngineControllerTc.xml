@@ -1,0 +1,100 @@
+<KwpIsoVwEngineControllerTc>
+
+    <Setup>
+        <Name>Emissions</Name>
+        <Debug>Off</Debug>
+        <TestDomain>Foreground</TestDomain>
+        <FaultList>/Configuration/Components/Emissions/EmissionsFaultList.xml</FaultList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/VwEngine</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <VIN/>
+            </SubscribeTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>VwEngine</ProcessName>
+            <AdditionalLogFile Types="/Component/TrwEnc430Abs.log or Disabled">/Components/VwEngine.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+        </Logging>
+        <SystemTagsToReset/>
+
+        <DataTags>
+            <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+            <VehicleVIN>VIN</VehicleVIN>
+        </DataTags>
+
+        <Parameters>
+            <!-- Test Component Behavior and Setup Parameters -->
+            <AlwaysEnterDiagnosticMode>No</AlwaysEnterDiagnosticMode>
+            <ConfigFile>/Configuration/Components/Emissions/KwpIsoVwEngineControlModule.xml</ConfigFile>
+            <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>No</DeveloperTest>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <ICMName>mgr/ICM</ICMName>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+
+            <!-- VIN Validation Parameters -->
+            <AbortIfVinMismatch>Yes</AbortIfVinMismatch>
+            <BypassVINValidation>No</BypassVINValidation>
+            <PromptDriverVinMismatch>Yes</PromptDriverVinMismatch>
+
+        </Parameters>
+
+        <Prompts>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+            <VinMismatchPrompt PromptBox="1" Priority="0" Duration="5000">VinMismatchPrompt</VinMismatchPrompt>
+        </Prompts>
+    </Setup>
+
+    <Objectives>
+        <ValidateVin>
+            <TestStep00>EnterDiagnosticMode</TestStep00>
+            <TestStep05>CheckVIN</TestStep05>
+            <TestStep10>ExitDiagnosticMode</TestStep10>
+            <TestStep15>FinishUp</TestStep15>
+        </ValidateVin>
+    </Objectives>
+
+    <TestSteps>
+        <CheckVIN Result="" Timeout="500" Description="Validate the VIN matches the scanned VIN"/>
+        <EnterDiagnosticMode Result="" Timeout="30000" Description="Place the engine controller in diag mode"
+            ScanDelay="250"/>
+        <ExitDiagnosticMode Result="" Timeout="1000" Description="Exit diagnostic mode"/>
+        <FinishUp Result="" Timeout="500" Description="Finish up testing"/>
+    </TestSteps>
+
+</KwpIsoVwEngineControllerTc>

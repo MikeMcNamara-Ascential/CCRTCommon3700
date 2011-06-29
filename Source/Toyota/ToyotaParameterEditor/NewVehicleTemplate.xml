@@ -1,0 +1,89 @@
+﻿<Venza>
+	<VehicleBuild>
+		<!-- Vehicle Data -->
+		<BodyStyle></BodyStyle>
+		<WheelbasePositionInchesX10 Units="mm"></WheelbasePositionInchesX10>
+		<DriveAxle></DriveAxle>
+		<VIN/>
+		<!-- Speedometer Test Parameters -->
+		<SpeedTargets>
+			<KPH>
+				<SpeedometerSpeedTargetLow Units="kph"></SpeedometerSpeedTargetLow>
+				<SpeedometerSpeedTargetHi Units="kph"></SpeedometerSpeedTargetHi>
+			</KPH>
+			<MPH>
+				<SpeedometerSpeedTargetLow Units="mph"></SpeedometerSpeedTargetLow>
+				<SpeedometerSpeedTargetHi Units="mph"></SpeedometerSpeedTargetHi>
+			</MPH>
+		</SpeedTargets>
+		<!-- Reverse Test Parameters -->
+		<ReverseTestSpeed Units="mph"></ReverseTestSpeed>
+		<!-- Brake Stopping Distance Parameters -->
+		<BrakeDistanceTestSpeed Units="mph"></BrakeDistanceTestSpeed>
+		<BrakeDistanceTestStartMeasureSpeed Units="mph"></BrakeDistanceTestStartMeasureSpeed>
+		<FrontMaximumStoppingDistance Units="m"></FrontMaximumStoppingDistance>
+		<FrontMinimumStoppingDistance Units="m"></FrontMinimumStoppingDistance>
+		<RearMaximumStoppingDistance Units="m"></RearMaximumStoppingDistance>
+		<RearMinimumStoppingDistance Units="m"></RearMinimumStoppingDistance>
+		<!-- Max Brake Force Parameters -->
+		<RequiredBrakeForceFront Units="kgf"></RequiredBrakeForceFront>
+		<RequiredBrakeForceRear Units="kgf"></RequiredBrakeForceRear>
+		<MaxFrontDifference Units="kgf"></MaxFrontDifference>
+		<MaxRearDifference Units="kgf"></MaxRearDifference>
+		<!-- Park Brake Force Parameters -->
+		<RequiredParkBrakeForce Units="kgf"></RequiredParkBrakeForce>
+		<MinimumTotalParkBrakeForce Units="kgf"></MinimumTotalParkBrakeForce>
+		<!-- Traction Control Parameters -->
+		<TractionControlSpeed Units="kph"></TractionControlSpeed>
+		<!-- AWD Parameters -->
+		<AwdTestSpeed Units="mph"></AwdTestSpeed>
+		<AwdMaxAxleDiff Units="mph"></AwdMaxAxleDiff>
+		<!--Transmission Shift Points-->
+		<TransmissionShiftPoints>
+			<L4>
+				<KPH>
+					<ShiftPoint1-2LowNormalAccel Units="kph"></ShiftPoint1-2LowNormalAccel>
+					<ShiftPoint1-2HighNormalAccel Units="kph"></ShiftPoint1-2HighNormalAccel>
+					<ShiftPoint2-3LowNormalAccel Units="kph"></ShiftPoint2-3LowNormalAccel>
+					<ShiftPoint2-3HighNormalAccel Units="kph"></ShiftPoint2-3HighNormalAccel>
+					<ShiftPoint1-2LowFullAccel Units="kph"></ShiftPoint1-2LowFullAccel>
+					<ShiftPoint1-2HighFullAccel Units="kph"></ShiftPoint1-2HighFullAccel>
+					<ShiftPoint2-3LowFullAccel Units="kph"></ShiftPoint2-3LowFullAccel>
+					<ShiftPoint2-3HighFullAccel Units="kph"></ShiftPoint2-3HighFullAccel>
+				</KPH>
+				<MPH>
+					<ShiftPoint1-2LowNormalAccel Units="mph"></ShiftPoint1-2LowNormalAccel>
+					<ShiftPoint1-2HighNormalAccel Units="mph"></ShiftPoint1-2HighNormalAccel>
+					<ShiftPoint2-3LowNormalAccel Units="mph"></ShiftPoint2-3LowNormalAccel>
+					<ShiftPoint2-3HighNormalAccel Units="mph"></ShiftPoint2-3HighNormalAccel>
+					<ShiftPoint1-2LowFullAccel Units="mph"></ShiftPoint1-2LowFullAccel>
+					<ShiftPoint1-2HighFullAccel Units="mph"></ShiftPoint1-2HighFullAccel>
+					<ShiftPoint2-3LowFullAccel Units="mph"></ShiftPoint2-3LowFullAccel>
+					<ShiftPoint2-3HighFullAccel Units="mph"></ShiftPoint2-3HighFullAccel>
+				</MPH>
+			</L4>
+			<V6>
+				<KPH>
+					<ShiftPoint1-2LowNormalAccel Units="kph"></ShiftPoint1-2LowNormalAccel>
+					<ShiftPoint1-2HighNormalAccel Units="kph"></ShiftPoint1-2HighNormalAccel>
+					<ShiftPoint2-3LowNormalAccel Units="kph"></ShiftPoint2-3LowNormalAccel>
+					<ShiftPoint2-3HighNormalAccel Units="kph"></ShiftPoint2-3HighNormalAccel>
+					<ShiftPoint1-2LowFullAccel Units="kph"></ShiftPoint1-2LowFullAccel>
+					<ShiftPoint1-2HighFullAccel Units="kph"></ShiftPoint1-2HighFullAccel>
+					<ShiftPoint2-3LowFullAccel Units="kph"></ShiftPoint2-3LowFullAccel>
+					<ShiftPoint2-3HighFullAccel Units="kph"></ShiftPoint2-3HighFullAccel>
+				</KPH>
+				<MPH>
+					<ShiftPoint1-2LowNormalAccel Units="mph"></ShiftPoint1-2LowNormalAccel>
+					<ShiftPoint1-2HighNormalAccel Units="mph"></ShiftPoint1-2HighNormalAccel>
+					<ShiftPoint2-3LowNormalAccel Units="mph"></ShiftPoint2-3LowNormalAccel>
+					<ShiftPoint2-3HighNormalAccel Units="mph"></ShiftPoint2-3HighNormalAccel>
+					<ShiftPoint1-2LowFullAccel Units="mph"></ShiftPoint1-2LowFullAccel>
+					<ShiftPoint1-2HighFullAccel Units="mph"></ShiftPoint1-2HighFullAccel>
+					<ShiftPoint2-3LowFullAccel Units="mph"></ShiftPoint2-3LowFullAccel>
+					<ShiftPoint2-3HighFullAccel Units="mph"></ShiftPoint2-3HighFullAccel>
+				</MPH>
+			</V6>
+		</TransmissionShiftPoints>
+	</VehicleBuild>
+</Venza>

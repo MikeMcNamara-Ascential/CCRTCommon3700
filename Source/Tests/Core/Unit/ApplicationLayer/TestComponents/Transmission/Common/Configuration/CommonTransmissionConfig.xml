@@ -1,0 +1,457 @@
+<CVTComponent>
+  <Setup>
+    <Name>Transmission</Name>
+    <Debug>Off</Debug>
+    <ProcessPriority>11</ProcessPriority>
+    <TestDomain>Foreground</TestDomain>
+    <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+    <TagList>
+      <SubscribeTags>
+        <VIN/>
+        <TCMPartNo/>
+        <PinionFactor/>
+        <Zerospeed/>
+        <Transmission/>
+        <Abort/>
+        <ForegroundTestInProgress/>
+        <TestInProgress/>
+        <CableConnect/>
+        <DriveAxle/>
+        <VehiclePresent/>
+        <RollsUpElevDown/>
+        <ReadModulePartNumber>CheckPartNumber</ReadModulePartNumber>
+      </SubscribeTags>
+    </TagList>
+    <ThreadPool>
+      <Debug>Off</Debug>
+      <MinBlockedLimit>2</MinBlockedLimit>
+      <MaxBlockedLimit>4</MaxBlockedLimit>
+      <Increment>2</Increment>
+      <Maximum>50</Maximum>
+    </ThreadPool>
+    <NotificationList>
+      <Setup>
+        <Debug>Off</Debug>
+        <StartOnCreate>Off</StartOnCreate>
+        <LowWater>1</LowWater>
+        <HighWater>3</HighWater>
+        <Maximum>5</Maximum>
+        <Increment>1</Increment>
+      </Setup>
+    </NotificationList>
+    <Communication>
+      <Comm>IPC</Comm>
+      <Type>Server</Type>
+      <Name>component/CVT</Name>
+      <Debug>Off</Debug>
+      <BufferSize>1024</BufferSize>
+      <Timeout>0</Timeout>
+    </Communication>
+    <Logging>
+      <Status>Enabled</Status>
+      <ProcessName>CVT</ProcessName>
+      <AdditionalLogFile Types="/Components/CVTransmission or Disabled">/Components/CVTransmission.log</AdditionalLogFile>
+      <Debug>Off</Debug>
+      <LocalEcho>Disabled</LocalEcho>
+      <Verbose>0x3F</Verbose>
+    </Logging>
+    <NamedDataBrokerComm>
+      <Comm>IPC</Comm>
+      <Type>Client</Type>
+      <Name>core/NamedDataBroker</Name>
+      <Debug>Off</Debug>
+      <Timeout>0</Timeout>
+      <BufferSize>1024</BufferSize>
+    </NamedDataBrokerComm>
+    <DataTags>
+      <Abort>Abort</Abort>
+      <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+      <DriveAxle>DriveAxle</DriveAxle>
+      <Rear>Rear</Rear>
+      <LFSpeed>LFSpeed</LFSpeed>
+      <RFSpeed>RFSpeed</RFSpeed>
+      <LRSpeed>LRSpeed</LRSpeed>
+      <RRSpeed>RRSpeed</RRSpeed>
+      <SpeedTarget>SpeedTarget</SpeedTarget>
+      <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+      <ModulePartNumber>TCMPartNo</ModulePartNumber>
+      <ReadTraceData>ReadTraceData</ReadTraceData>
+      <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+      <VehicleVIN>VIN</VehicleVIN>
+      <ReadLimpInStatus>ReadLimpInStatus</ReadLimpInStatus>
+      <ReadEOLStatusBytes>ReadEOLStatusBytes</ReadEOLStatusBytes>
+      <ReadCurrentGear>ReadCurrentGear</ReadCurrentGear>
+      <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+      <ReadVehicleSpeed>ReadVehicleSpeed</ReadVehicleSpeed>
+      <ReadShiftLeverPosition>ReadShiftLeverPosition</ReadShiftLeverPosition>
+      <ReadPRNDLDisplay>ReadPRNDLDisplay</ReadPRNDLDisplay>
+      <ReadAutostickDisplay>ReadAutostickDisplay</ReadAutostickDisplay>
+      <ReadMaximumGearRange>ReadMaximumGearRange</ReadMaximumGearRange>
+      <ActivateEOLTestMode>ActivateEOLTestMode</ActivateEOLTestMode>
+      <ReadAutostickPosition>ReadAutostickPosition</ReadAutostickPosition>
+      <CVT_Autostick>CVT Autostick</CVT_Autostick>
+      <Transmission>Transmission</Transmission>
+      <ReadAutostickEquipped>ReadAutostickEquipped</ReadAutostickEquipped>
+    </DataTags>
+    <Parameters>
+      <ConfigFile>/Configuration/Components/Transmission/KwpCVTransmissionModule.xml</ConfigFile>
+      <ICMName>mgr/ICM</ICMName>
+      <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+      <EngineOnPrompt>KeyOn</EngineOnPrompt>
+      <EngineOnPromptBox>1</EngineOnPromptBox>
+      <EngineOnRPM>600</EngineOnRPM>
+      <EngineOffPrompt>KeyOff</EngineOffPrompt>
+      <EngineOffPromptBox>1</EngineOffPromptBox>
+      <EngineOffRPM>0</EngineOffRPM>
+      <DeveloperTest>False</DeveloperTest>
+      <SlapLeverNeutralWaitTime>1500</SlapLeverNeutralWaitTime>
+      <UpdateTCCStatesInModule>0</UpdateTCCStatesInModule>
+      <!-- Parameters for Checking Reverse Gear Operation -->
+      <ReverseSpeedMinimum>2.0</ReverseSpeedMinimum>
+      <ReverseSpeedMaximum>5.0</ReverseSpeedMaximum>
+      <!-- Parameters for CVT Ratio Check -->
+      <RatioMinimumSpeed>6</RatioMinimumSpeed>
+      <LowRatioMaximum>0.5</LowRatioMaximum>
+      <MidRatioMinimum>0.5</MidRatioMinimum>
+      <MidRatioMaximum>1.02</MidRatioMaximum>
+      <HighRatioMinimum>1.02</HighRatioMinimum>
+      <!--ValidRatioMinimum>0.394</ValidRatioMinimum WE'RE ONLY GETTING 2 DECIMAL PLACES -->
+      <ValidRatioMinimum>0.39</ValidRatioMinimum>
+      <!--ValidRatioMaximum>2.349</ValidRatioMaximum WE'RE ONLY GETTING 2 DECIMAL PLACES -->
+      <ValidRatioMaximum>2.35</ValidRatioMaximum>
+      <RatioTestSpeedRange>65 70</RatioTestSpeedRange>
+      <!-- At Speed CVT Autostick test parameters -->
+      <AutostickOperationAtSpeedInitialSpeedTarget>60</AutostickOperationAtSpeedInitialSpeedTarget>
+      <AutostickOperationAtSpeedInitialSpeedRange>60 65</AutostickOperationAtSpeedInitialSpeedRange>
+      <AutostickOperationAtSpeedFinalSpeedTarget>65</AutostickOperationAtSpeedFinalSpeedTarget>
+      <AutostickOperationAtSpeedFinalSpeedRange>65 70</AutostickOperationAtSpeedFinalSpeedRange>
+      <MinimumAutostickValidPosition>1</MinimumAutostickValidPosition>
+      <MaximumAutostickValidPosition>6</MaximumAutostickValidPosition>
+      <!-- Status Byte Initial Settings -->
+      <ResetEOLStatusBytes>
+        <StatusByte01>0x0C</StatusByte01>
+        <StatusByte02>0xFF</StatusByte02>
+        <StatusByte03>0x3F</StatusByte03>
+        <StatusByte04>0xC0</StatusByte04>
+        <StatusByte05>0x0C</StatusByte05>
+        <StatusByte06>0xFF</StatusByte06>
+        <StatusByte07>0xFF</StatusByte07>
+        <StatusByte08>0x0F</StatusByte08>
+      </ResetEOLStatusBytes>
+      <!-- Status Byte Parameters -->
+      <AutostickSwitchTestStatusRegister>4</AutostickSwitchTestStatusRegister>
+      <AutostickSwitchTestTestBit>6</AutostickSwitchTestTestBit>
+      <PartNumberStatusRegister>7</PartNumberStatusRegister>
+      <PartNumberTestBit>0</PartNumberTestBit>
+      <VinStatusRegister>7</VinStatusRegister>
+      <VinTestBit>6</VinTestBit>
+      <TraceDataStatusRegister>7</TraceDataStatusRegister>
+      <TraceDataTestBit>4</TraceDataTestBit>
+      <ReadFaultsStatusRegister>6</ReadFaultsStatusRegister>
+      <ReadFaultsTestBit>0</ReadFaultsTestBit>
+      <LimpInStatusRegister>6</LimpInStatusRegister>
+      <LimpInTestBit>2</LimpInTestBit>
+      <ReverseTestStatusRegister>2</ReverseTestStatusRegister>
+      <ReverseTestTestBit>6</ReverseTestTestBit>
+      <NeutralGateStatusRegister>6</NeutralGateStatusRegister>
+      <NeutralGateTestBit>6</NeutralGateTestBit>
+      <TccLockupStatusRegister>5</TccLockupStatusRegister>
+      <TccLockupTestBit>2</TccLockupTestBit>
+      <ControllerLearningStatusRegister>6</ControllerLearningStatusRegister>
+      <ControllerLearningTestBit>4</ControllerLearningTestBit>
+      <AutostickConfigStatusRegister>7</AutostickConfigStatusRegister>
+      <AutostickConfigTestBit>2</AutostickConfigTestBit>
+      <AutostickFunctionStatusRegister>8</AutostickFunctionStatusRegister>
+      <AutostickFunctionTestBit>0</AutostickFunctionTestBit>
+      <LowRatioStatusRegister>3</LowRatioStatusRegister>
+      <LowRatioTestBit>4</LowRatioTestBit>
+      <MidRatioStatusRegister>3</MidRatioStatusRegister>
+      <MidRatioTestBit>2</MidRatioTestBit>
+      <HighRatioStatusRegister>3</HighRatioStatusRegister>
+      <HighRatioTestBit>0</HighRatioTestBit>
+      <ValidRatioStatusRegister>8</ValidRatioStatusRegister>
+      <ValidRatioTestBit>2</ValidRatioTestBit>
+      <ParkGearStatusRegister>2</ParkGearStatusRegister>
+      <ParkGearTestBit>0</ParkGearTestBit>
+      <NeutralGearStatusRegister>2</NeutralGearStatusRegister>
+      <NeutralGearTestBit>2</NeutralGearTestBit>
+      <ReverseGearStatusRegister>2</ReverseGearStatusRegister>
+      <ReverseGearTestBit>4</ReverseGearTestBit>
+      <ShiftLeverStatusRegister>1</ShiftLeverStatusRegister>
+      <ShiftLeverTestBit>2</ShiftLeverTestBit>
+      <OverallStatusByte>1</OverallStatusByte>
+      <EOLTestStatusBit>0</EOLTestStatusBit>
+      <SuccessiveLeverReadMinimum>1</SuccessiveLeverReadMinimum>
+    </Parameters>
+    <StatusCheckItems/>
+    <Prompts>
+      <AccelerateThrottleInGreen PromptBox="1" Priority="0">AccelerateThrottleInGreen</AccelerateThrottleInGreen>
+      <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+      <BrakeToStop PromptBox="1" Priority="0">BrakeToStop</BrakeToStop>
+      <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+      <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+      <CancelOverdrive PromptBox="2" Priority="0">CancelOverdrive</CancelOverdrive>
+      <FootOnBrake PromptBox="2" Priority="0">FootOnBrake</FootOnBrake>
+      <MaintainBrake PromptBox="2" Priority="0">MaintainBrake</MaintainBrake>
+      <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+      <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+      <RangeSelectDown PromptBox="2" Priority="0">RangeSelectDown</RangeSelectDown>
+      <RangeSelectRelease PromptBox="2" Priority="0">RangeSelectRelease</RangeSelectRelease>
+      <RangeSelectUp PromptBox="2" Priority="0">RangeSelectUp</RangeSelectUp>
+      <ReleaseThrottle PromptBox="1" Priority="0">ReleaseThrottle</ReleaseThrottle>
+      <RemoveFootFromAccelerator PromptBox="1" Priority="0">RemoveFootFromAccelerator</RemoveFootFromAccelerator>
+      <SelectOD PromptBox="2" Priority="0">SelectOD</SelectOD>
+      <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
+      <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
+      <ShiftToPark PromptBox="1" Priority="0">ShiftToPark</ShiftToPark>
+      <ShiftToReverse PromptBox="1" Priority="0">ShiftToReverse</ShiftToReverse>
+      <SlapShiftLeverReverse PromptBox="1" Priority="0">SlapShiftLeverReverse</SlapShiftLeverReverse>
+      <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+      <WaitForFullLock PromptBox="1" Priority="0">WaitForTCCFullLock</WaitForFullLock>
+      <ShiftToAutostick PromptBox="1" Priority="0">ShiftToAutostick</ShiftToAutostick>
+    </Prompts>
+    <SystemTagsToReset/>
+    <FaultList>/Configuration/Components/Transmission/TransmissionFaultCodes.xml</FaultList>
+    <IgnoredFaults>
+      <ModuleFault_0826/><!--Updown Shift Circuit fault (Unmask for S2-->
+    </IgnoredFaults>
+    <ValidPartNumbers/>
+  </Setup>
+
+  <Objectives>
+
+    <Setup>
+
+      <TestStep00>EnterDiagnosticMode</TestStep00>
+
+      <!-- <TestStep05>ResetTestStatus</TestStep05> -->
+
+      <TestStep10>ClearFaults</TestStep10>
+
+      <TestStep13>EnterDiagnosticMode</TestStep13>
+
+      <TestStep15>CheckLimpInStatus</TestStep15>
+
+      <TestStep20>StartModuleKeepAlive</TestStep20>
+
+    </Setup>
+
+    <StaticTests>
+
+      <TestStep00>EnterDiagnosticMode</TestStep00>
+
+      <TestStep03>CheckPartNumber</TestStep03>
+
+      <TestStep05>ControllerLearningCheck</TestStep05>
+
+      <TestStep10>CollectTraceData</TestStep10>
+
+      <TestStep20>CheckVIN</TestStep20>
+
+      <TestStep25>ReadFaults</TestStep25>
+
+      <TestStep30>CheckAutostickEquipped</TestStep30>
+
+      <TestStep35>StopModuleKeepAlive</TestStep35>
+
+      <TestStep40>StartShiftLeverMonitor</TestStep40>
+
+      <TestStep45>StartFaultLimpInMonitor</TestStep45>
+
+    </StaticTests>
+
+    <ShiftLeverTesting>
+
+      <TestStep50>NeutralGateTest</TestStep50>
+
+      <!-- <TestStep55>AutostickOperationTest</TestStep55> -->
+
+    </ShiftLeverTesting>
+
+    <ReverseTesting>
+
+      <TestStep60>AccelerateInReverse</TestStep60>
+
+    </ReverseTesting>
+
+    <StartRatioMonitor>
+
+      <TestStep65>StartRatioMonitor</TestStep65>
+
+      <TestStep70>StartLockUpMonitor</TestStep70>
+
+    </StartRatioMonitor>
+
+    <StopHighSpeedMonitors>
+
+      <TestStep75>StopRatioMonitor</TestStep75>
+
+      <TestStep80>StopLockUpMonitor</TestStep80>
+
+    </StopHighSpeedMonitors>
+
+    <ElectronicRangeSelect>
+
+      <TestStep00>EnterDiagnosticMode</TestStep00>
+
+      <!-- <TestStep85>ElectronicRangeSelect</TestStep85> -->
+
+    </ElectronicRangeSelect>
+
+    <StopShiftLeverMonitorMonitor>
+
+      <TestStep90>StopShiftLeverMonitor</TestStep90>
+
+    </StopShiftLeverMonitorMonitor>
+
+    <FinishUp>
+
+      <TestStep00>EnterDiagnosticMode</TestStep00>
+
+      <TestStep95>StopFaultLimpInMonitor</TestStep95>
+
+      <TestStep96>ClearDiagnosticTellTale</TestStep96>
+
+      <!-- <TestStep97>ClearOverallStatus</TestStep97> -->
+
+      <TestStep98>FinishUp</TestStep98>
+
+    </FinishUp>
+
+    <ReadFaults>
+
+      <TestStep40>EnterDiagnosticMode</TestStep40>
+
+      <TestStep50>ReadFaults</TestStep50>
+
+    </ReadFaults>
+
+    <ClearFaults>
+
+      <TestStep40>EnterDiagnosticMode</TestStep40>
+
+      <TestStep50>ClearFaults</TestStep50>
+
+    </ClearFaults>
+
+    <Testing>
+
+      <TestStep00>EnterDiagnosticMode</TestStep00>
+
+      <!-- <TestStep05>ResetTestStatus</TestStep05> -->
+
+      <TestStep10>ClearFaults</TestStep10>
+
+      <TestStep15>CheckLimpInStatus</TestStep15>
+
+      <TestStep20>StartModuleKeepAlive</TestStep20>
+
+      <!-- <TestStep00>CheckPartNumber</TestStep00> -->
+
+      <TestStep22>ControllerLearningCheck</TestStep22>
+
+      <TestStep23>CollectTraceData</TestStep23>
+
+      <!-- <TestStep20>CheckVIN</TestStep20> -->
+
+      <TestStep25>ReadFaults</TestStep25>
+
+      <TestStep30>CheckAutostickEquipped</TestStep30>
+
+      <TestStep35>StopModuleKeepAlive</TestStep35>
+
+      <TestStep40>StartShiftLeverMonitor</TestStep40>
+
+      <TestStep45>StartFaultLimpInMonitor</TestStep45>
+
+      <TestStep50>NeutralGateTest</TestStep50>
+
+      <TestStep60>AccelerateInReverse</TestStep60>
+
+      <TestStep65>StartRatioMonitor</TestStep65>
+
+      <TestStep70>StartLockUpMonitor</TestStep70>
+
+      <TestStep75>StopRatioMonitor</TestStep75>
+
+      <TestStep80>StopLockUpMonitor</TestStep80>
+
+      <TestStep90>StopShiftLeverMonitor</TestStep90>
+
+      <TestStep95>StopFaultLimpInMonitor</TestStep95>
+
+      <!-- <TestStep96>ClearDiagnosticTellTale</TestStep96> -->
+
+      <!-- <TestStep97>ClearOverallStatus</TestStep97> -->
+
+      <TestStep98>FinishUp</TestStep98>
+
+    </Testing>
+
+  </Objectives>
+
+  <TestSteps>
+
+    <EnterDiagnosticMode Result="Not Tested" Timeout="10000" Description="Establish communication with the transmission module" ScanDelay="250"/>
+
+    <ResetTestStatus Result="Not Tested" Timeout="1000" Description="Reset the EOL status bytes in the module" ScanDelay="250"/>
+
+    <CheckLimpInStatus Result="Not Tested" Timeout="1000" Description="Verify Transmission is not in Limp-In" ScanDelay="250"/>
+
+    <ClearFaults Result="" Timeout="10000" Description="Clear the current faults in the module" ScanDelay="250"/>
+
+    <CheckPartNumber Result="Not Tested" Timeout="500" Description="Verify TCM part number" ScanDelay="250"/>
+
+    <ControllerLearningCheck Result="Not Tested" Timeout="500" Description="Verify the Controller learning by ensuring valid PRNDL Display value" ScanDelay="250"/>
+
+    <CollectTraceData Result="Not Tested" Timeout="500" Description="Collect Trace Information from TCM" ScanDelay="250"/>
+
+    <CheckVIN Result="Not Tested" Timeout="1000" Description="Verify the module VIN matches broadcast" ScanDelay="250"/>
+
+    <CheckAutostickEquipped Result="Not Tested" Timeout="1000" Description="Verify autostick configuration matches broadcast" ScanDelay="250"/>
+
+    <ReadFaults Result="Not Tested" Timeout="500" Description="Read faults from the TCM" ScanDelay="250"/>
+
+    <NeutralGateTest Result="Not Tested" Timeout="20000" Description="Test the shift lever neutral gate" ScanDelay="250"/>
+
+    <AccelerateInReverse Result="Not Tested" Timeout="30000" Description="Accelerate In Reverse To Test Speed" ScanDelay="250"/>
+
+    <ElectronicRangeSelect Result="Not Tested" Timeout="30000" Description="Verify Electronic Range Select operates properly" ScanDelay="250" SecondaryTimeoutTime="10000"/>
+
+    <CheckAutostickOperationAtSpeed Result="Not Tested" Timeout="30000" Description="Verify proper operation of autostick at speed" ScanDelay="250" SecondaryTimeoutTime="10000"/>
+
+    <ClearDiagnosticTellTale Result="Not Tested" Timeout="1000" Description="Clear diagnostic information" ScanDelay="250"/>
+
+    <ClearOverallStatus Result="Not Tested" Timeout="1000" Description="Clear the EOL test status in the module" ScanDelay="250"/>
+
+    <FinishUp Result="Not Tested" Timeout="60000" Description="Finish Test" ScanDelay="250"/>
+
+    <!-- Monitors -->
+
+    <StartShiftLeverMonitor Result="Not Tested" Timeout="1000" Description="Start the shift lever monitor" ScanDelay="250"/>
+
+    <StopShiftLeverMonitor Result="Not Tested" Timeout="20000" Description="Stop the shift lever monitor" ScanDelay="200"/>
+
+    <StartFaultLimpInMonitor Result="Not Tested" Timeout="1000" Description="Start the Fault monitor and Limp-In monitor" ScanDelay="250"/>
+
+    <StopFaultLimpInMonitor Result="Not Tested" Timeout="1000" Description="Stop the fault and limp-in monitor" ScanDelay="250"/>
+
+    <StartLockUpMonitor Result="Not Tested" Timeout="1000" Description="Start the Torque Converter Lockup monitor" ScanDelay="250"/>
+
+    <StopLockUpMonitor Result="Not Tested" Timeout="15000" Description="Stop the torque converter lockup monitor" SpeedRange="70 75" ScanDelay="250"/>
+
+    <StartRatioMonitor Result="Not Tested" Timeout="1000" Description="Start the transmission ratio monitor" ScanDelay="250"/>
+
+    <StopRatioMonitor Result="Not Tested" Timeout="15000" Description="Stop the transmission ratio monitor" ScanDelay="250"/>
+
+    <!-- Utility Test Steps -->
+
+    <StartModuleKeepAlive Result="Not Tested" Timeout="500" Description="Start sending tester present messages to the module" ScanDelay="250"/>
+
+    <StopModuleKeepAlive Result="Not Tested" Timeout="500" Description="Stop sending tester present messages to the module" ScanDelay="250"/>
+
+    <WaitForEngineOffIgnitionOff Result="Not Tested" Timeout="1000" ScanDelay="1"/>
+  </TestSteps>
+
+</CVTComponent>
+

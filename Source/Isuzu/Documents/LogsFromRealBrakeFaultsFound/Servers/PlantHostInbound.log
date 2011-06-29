@@ -1,0 +1,53 @@
+€12/13/10 15:23:49.464 (1) core/PlantHostInbound      Activated additional log [/home/CCRT/Rewrite/Logs/Servers/PlantHostInbound.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:49.464 (1) core/PlantHostInbound      BepComponent::Initialize()
+€
+€12/13/10 15:23:49.465 (1) core/PlantHostInbound      Process core/PlantHostInbound running at priority 10
+€
+€12/13/10 15:23:49.465 (1) core/PlantHostInbound      Updated process core/PlantHostInbound running at priority 10
+€
+€12/13/10 15:23:49.467 (1) core/PlantHostInbound      BepComponent::Initialize(<PlantHostInbound>
+   <Setup>
+      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/PlantHostInbound</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllWheelDriveEquipped>
+            <AWD>Yes</AWD>         </AllWheelDriveEquipped>         <BuildRecord>BuildRecord</BuildRecord>         <FourWheelDriveEquipped>
+            <AWD>No</AWD>            <NotEquipped>No</NotEquipped>            <Undefined>No</Undefined>         </FourWheelDriveEquipped>         <InputServerState>InputServerState</InputServerState>         <NextVIN>NextVIN</NextVIN>         <PlanthostOutboundName>core/PlantHostOutbound</PlanthostOutboundName>         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>         <VINDisplay>VINDisplay</VINDisplay>         <VINReadStatus>VINReadStatus</VINReadStatus>         <VehicleBuild>NextVehicleBuild</VehicleBuild>         <VehicleB€
+€12/13/10 15:23:49.467 (1) core/PlantHostInbound      Retrieved Publish tags
+€
+€12/13/10 15:23:49.467 (1) core/PlantHostInbound      Cleared data from all lists
+€
+€12/13/10 15:23:49.468 (1) core/PlantHostInbound      Stored all Publish Tags
+€
+€12/13/10 15:23:49.469 (1) core/PlantHostInbound      Preparing to deal with subscribe tags:    <Setup>
+      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/PlantHostInbound</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllWheelDriveEquipped>
+            <AWD>Yes</AWD>         </AllWheelDriveEquipped>         <BuildRecord>BuildRecord</BuildRecord>         <FourWheelDriveEquipped>
+            <AWD>No</AWD>            <NotEquipped>No</NotEquipped>            <Undefined>No</Undefined>         </FourWheelDriveEquipped>         <InputServerState>InputServerState</InputServerState>         <NextVIN>NextVIN</NextVIN>         <PlanthostOutboundName>core/PlantHostOutbound</PlanthostOutboundName>         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>         <VINDisplay>VINDisplay</VINDisplay>         <VINReadStatus>VINReadStatus</VINReadStatus>         <VehicleBuild>NextVehicleBuild</VehicleBuild>         <VehicleBuildR€
+€12/13/10 15:23:49.469 (1) core/PlantHostInbound      Retrieved Subscribe Tags
+€
+€12/13/10 15:23:49.469 (1) core/PlantHostInbound      Stored all Subscribe Tags
+€
+€12/13/10 15:23:49.470 (1) core/PlantHostInbound      Creating Thread Pool
+€
+€12/13/10 15:23:49.471 (1) core/PlantHostInbound      BepServer::Initialize(<PlantHostInbound>
+   <Setup>
+      <Communication>
+         <BufferSize>2000</BufferSize>         <Comm>IPC</Comm>         <Debug>Off</Debug>         <Name>core/PlantHostInbound</Name>         <Timeout>1000</Timeout>         <Type>Server</Type>      </Communication>      <DataTags>
+         <AllWheelDriveEquipped>
+            <AWD>Yes</AWD>         </AllWheelDriveEquipped>         <BuildRecord>BuildRecord</BuildRecord>         <FourWheelDriveEquipped>
+            <AWD>No</AWD>            <NotEquipped>No</NotEquipped>            <Undefined>No</Undefined>         </FourWheelDriveEquipped>         <InputServerState>InputServerState</InputServerState>         <NextVIN>NextVIN</NextVIN>         <PlanthostOutboundName>core/PlantHostOutbound</PlanthostOutboundName>         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>         <VINDisplay>VINDisplay</VINDisplay>         <VINReadStatus>VINReadStatus</VINReadStatus>         <VehicleBuild>NextVehicleBuild</VehicleBuild>         <VehicleBuil€
+€12/13/10 15:23:49.471 (1) core/PlantHostInbound      PlantHostInbound::Initialize()
+€
+€12/13/10 15:23:49.472 (1) core/PlantHostInbound      Could not find Broadcast node in config file or error loading maps!
+€
+€12/13/10 15:23:49.472 (1) core/PlantHostInbound      LoadDataMaps XmlException - Tag Not Found: Broadcast€
+€12/13/10 15:23:49.472 (1) core/PlantHostInbound      BepServer::SetData(<VehicleBuildRecordStatus>Invalid</VehicleBuildRecordStatus>)
+€
+€12/13/10 15:23:49.473 (1) core/PlantHostInbound      BepServer::SetData(<VehicleBuildRecordStatus>Invalid</VehicleBuildRecordStatus>) done, returning Success
+€
+€12/13/10 15:23:49.473 (1) core/PlantHostInbound      Invalid NotificationList in core/PlantHostInbound or no subscribers
+€
+€12/13/10 15:23:54.883 (2) core/PlantHostInbound      PlantHostInbound::Register - Initialized prompt server communications
+€
+€12/13/10 15:23:54.883 (2) core/PlantHostInboun

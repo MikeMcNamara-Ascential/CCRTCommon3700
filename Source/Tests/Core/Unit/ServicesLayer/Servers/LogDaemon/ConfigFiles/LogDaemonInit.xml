@@ -1,0 +1,93 @@
+<Logger_Configuration>
+   <Setup>
+	    <!-- Activate debugging in LogDaemon [On|Off] -->
+			<Debug>On</Debug>
+
+      <!-- Path for log files (relative to "$FTP_ROOT" -->
+      <Path>/Other</Path>
+
+      <!-- Core log file, before tests begin -->
+      <StartFile>FileOne</StartFile>
+
+			<!-- 
+			   Max size of StartLog files (in MB).  Once StartLog exceeds 
+				 this size, it will be rotated.  
+				 Use "0" to disable StartLog rotation.
+			-->
+			<StartFileMaxSize>6</StartFileMaxSize>
+
+			<!-- Max number of files for StartLog rotation -->
+			<StartFileMaxFiles>11</StartFileMaxFiles>
+
+			<!-- Core log file base name, once tests have begun -->
+      <StandardFile>FileTwo</StandardFile>
+
+			<!-- 
+			  Max size of standard logs (in MB).  Once size is exceeded, 
+				the file will be "capped".  Core log output is then 
+				suppressed until the next test begins, and a new standard
+				core log file is opened.
+
+				Enter "0" here to disable capping.
+			-->
+			<StandardFileMaxSize>3</StandardFileMaxSize>
+
+			<!-- 
+			  Max number of old standard core log files to keep around.
+				(At any given time after reaching max, you'll have n+1 log files,
+				 including the current core log file.)
+			-->
+      <StandardFileMaxFiles>5</StandardFileMaxFiles>
+
+      <!-- 
+			  Priproty of the thread which listens for 
+				incoming messages.
+			-->
+      <ReceiverPriority>33</ReceiverPriority>
+
+			<!-- 
+			  Priority of the LogRotator thread 
+			-->
+			<LogRotatorPriority>44</LogRotatorPriority>
+			
+			<!-- 
+			  LogRotator wake-up period (in seconds) 
+	    -->
+			<LogRotatorPeriod>55</LogRotatorPeriod>
+
+			<!-- 
+			  Default priority of the LogWriter thread 
+			-->
+			<LogWriterPriority>66</LogWriterPriority>
+			
+			<!-- 
+			  Maximum size of the log message queue.  Eg, "1000" means
+				the queue will not hold more than 1000 messages at a time.
+			-->
+			<MessageQueueSize>77</MessageQueueSize>
+			
+
+	    <!-- 
+        FIXME: Logging configuration for privileged logger object(s)
+				inside LogDaemon
+			-->
+<!--       <Logging> -->
+<!--          <ProcessName>mgr/Log</ProcessName> -->
+<!--          <Status>Enabled</Status> -->
+<!--          <LocalEcho>Disabled</LocalEcho> -->
+<!--          <Verbose>0x1F</Verbose> -->
+<!--          <Debug>On</Debug> -->
+<!--       </Logging> -->
+
+<!-- XXX: these options are probably obsolete: -->
+<!--       <Console>False</Console> -->
+<!--       <Verbosity>8</Verbosity> -->
+
+<!--       <SharedMemoryFile>core/LogMemory</SharedMemoryFile> -->
+<!--       <DriveType>HardDrive</DriveType> -->
+<!--       <ShmemBuffer>32</ShmemBuffer> -->
+
+
+   </Setup>
+</Logger_Configuration>
+

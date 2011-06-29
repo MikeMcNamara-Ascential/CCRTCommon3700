@@ -1,0 +1,15 @@
+€12/13/10 15:23:44.796 (1) FaultServer                Activated additional log [/home/CCRT/Rewrite/Logs/Servers/FaultServer.log] with rotation params: maxSize=10, maxFiles=5€
+€12/13/10 15:23:44.798 (1) FaultServer                No SubscribeTags node found
+€
+€12/13/10 15:23:44.801 (1) FaultServer                Connect to qnx data server not specified, not connecting: Tag Not Found: ConnectToQnxDataServer€
+€12/13/10 15:23:52.387 (3) FaultServer                BepServer::GetData(AllFaults) was unable to provide requested data
+€
+€12/13/10 15:23:54.859 (3) FaultServer                BepServer::GetData(_0) was unable to provide requested data
+€
+€12/13/10 15:23:54.861 (6) FaultServer                BepServer::GetData(_1) was unable to provide requested data
+€
+€12/13/10 15:23:54.863 (3) FaultServer                BepServer::GetData(_2) was unable to provide requested data
+€
+€12/13/10 15:23:54.864 (6) FaultServer                BepServer::GetData(_3) was unable to provide requested data
+€
+€12/13/10 15:23:54.866 (3) 

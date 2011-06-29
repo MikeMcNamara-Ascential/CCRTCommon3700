@@ -1,0 +1,5 @@
+E:\Projects\Ccrt2\Library\Logger\Logger\obj\Debug\ResolveAssemblyReference.cache
+E:\Projects\Ccrt2\Library\Logger\Logger\obj\Debug\LoggingInterface.dll
+E:\Projects\Ccrt2\Library\Logger\Logger\obj\Debug\LoggingInterface.pdb
+E:\Projects\Ccrt2\Library\LoggingInterface.dll
+E:\Projects\Ccrt2\Library\LoggingInterface.pdb

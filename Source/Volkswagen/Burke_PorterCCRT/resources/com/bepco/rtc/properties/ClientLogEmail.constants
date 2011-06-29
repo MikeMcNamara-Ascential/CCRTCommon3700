@@ -1,0 +1,7 @@
+# Configuration for CCRT client-based email messages
+# (Configuration for com.atomicobject.util.Emailer)
+#clientlogemail.constants
+
+email.smtp.host = localhost
+email.default.from = CCRT System <ccrt@bepco.com>
+email.default.subject = CCRT Client Log XML

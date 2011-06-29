@@ -1,0 +1,185 @@
+<GmTransferCase>
+   <Setup>
+      <Name>DriveTrain</Name>
+      <Debug>Off</Debug>
+      <DebugLevel>0</DebugLevel>
+      <ProcessPriority>11</ProcessPriority>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/DriveTrain</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <NamedDataBrokerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/NamedDataBroker</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </NamedDataBrokerComm>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>DriveTrain</ProcessName>
+         <AdditionalLogFile>/Components/DriveTrain.log</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+         <MessageTimeout>100</MessageTimeout>
+         <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+         <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+      </Logging>
+      <TagList>
+         <SubscribeTags>
+            <Abort/>
+            <ForegroundTestInProgress/>
+            <Zerospeed/>
+            <CableConnect/>
+            <DriveAxle/>
+            <Clutch/>
+            <Declutch/>
+            <Zerospeed/>
+         </SubscribeTags>
+      </TagList>
+      <DataTags>
+         <OverallTest>GmTcaseOverallTest</OverallTest>
+         <DriveAxle>DriveAxle</DriveAxle>
+         <FailButton>NoPB</FailButton>
+         <Rear>Rear</Rear>
+         <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+         <Zerospeed>Zerospeed</Zerospeed>
+         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+         <PassButton>YesPB</PassButton>
+         <PromptBox1>PromptBox1</PromptBox1>
+         <PromptBox2>PromptBox2</PromptBox2>
+         <SpeedControlPrompt>SpeedControlPressFail</SpeedControlPrompt>
+         <ShiftingPrompt/>
+         <SpeedValue>SpeedValue</SpeedValue>
+         <SpeedTarget>SpeedTarget</SpeedTarget>
+         <TargetSpeed>SpeedTarget</TargetSpeed>
+         <IcmSpeedArray>/dev/ArraySpeed</IcmSpeedArray>
+         <TagIndex>TagIndex</TagIndex>
+         <LFSpeed>LFSpeed</LFSpeed>
+         <LRSpeed>LRSpeed</LRSpeed>
+         <RFSpeed>RFSpeed</RFSpeed>
+         <RRSpeed>RRSpeed</RRSpeed>
+         <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+         <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+         <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+         <RightRearSpeed>RRSpeed</RightRearSpeed>
+         <MachineType>MachineType</MachineType>
+         <ElectricMachineType>3700</ElectricMachineType>
+      </DataTags>
+      <Parameters>
+         <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+         <DeveloperTest>False</DeveloperTest>
+         <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+         <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+         <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+         <AxleRatioSkipPreconditions>True</AxleRatioSkipPreconditions>
+         <AxleRatioMinimum>97</AxleRatioMinimum>
+         <AxleRatioMaximum>103</AxleRatioMaximum>
+         <AxleRatioTargetSpeed>10</AxleRatioTargetSpeed>
+         <AxleRatioDirection>Reverse</AxleRatioDirection>
+         <MaximumAxleRatioAttempts>3</MaximumAxleRatioAttempts>
+         <MinimumShiftSpeed>0</MinimumShiftSpeed>
+         <ICMName>mgr/ICM</ICMName>
+         <UsePlcResultButtons>True</UsePlcResultButtons>
+         <!-- Acceleration Parmaeters -->
+         <DriveProfileTargetSpeed Units="MPH">65</DriveProfileTargetSpeed>
+         <DriveProfileTargetSpeedRange Units="MPH">65 70</DriveProfileTargetSpeedRange>
+         <DriveProfileSpeedScanDelay Units="ms">250</DriveProfileSpeedScanDelay>
+         <DriveProfileTorque Units="lbf">-1350</DriveProfileTorque>
+         <!-- Cruise Parameters -->
+         <CruiseTime Units="ms">40000</CruiseTime>
+         <!-- Brake to target speed parameters -->
+         <BrakeToSpeedTargetSpeed Units="MPH">10</BrakeToSpeedTargetSpeed>
+         <BrakeToSpeedTargetRange Units="MPH">0 10</BrakeToSpeedTargetRange>
+         <BrakeToTargetSpeedPrompt>CoastDownToTargetSpeed</BrakeToTargetSpeedPrompt>
+         <!-- Reverse Warning Parameters -->
+         <ReverseWarningTargetSpeed Units="MPH">10.0</ReverseWarningTargetSpeed>
+         <ReverseWarningSpeedRange Units="MPH">10 15</ReverseWarningSpeedRange>
+         <ReverseWarningTimeout Units="ms">30000</ReverseWarningTimeout>
+         <!-- Vehicle checkout parameters -->
+         <VehicleCheckOutAccelerationCycles>5</VehicleCheckOutAccelerationCycles>
+         <VehicleCheckoutTargetSpeed Units="mph">55</VehicleCheckoutTargetSpeed>
+         <VehicleCheckoutTargetSpeedRange Units="mph">55 65</VehicleCheckoutTargetSpeedRange>
+         <PromptDelay>3000</PromptDelay>
+      </Parameters>
+      <Prompts>
+         <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+         <BrakeToTargetSpeed PromptBox="1" Priority="0">BrakeToTargetSpeed</BrakeToTargetSpeed>
+         <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+         <MaintainSpeedShiftToR PromptBox="1" Priority="0">MaintainSpeedShiftToR</MaintainSpeedShiftToR>
+         <PassOrFail PromptBox="2" Priority="0">PassOrFail</PassOrFail>
+         <PerformSpeedControlTest PromptBox="2" Priority="0">PerformSpeedControlTest</PerformSpeedControlTest>
+         <ReverseWarningLamp PromptBox="2" Priority="0">ReverseWarningLamp</ReverseWarningLamp>
+         <ShiftToGear PromptBox="2" Priority="0">ShiftToGear</ShiftToGear>
+         <ShiftToReverse PromptBox="1" Priority="0">ShiftToReverse</ShiftToReverse>
+         <SlowDownToTargetSpeed PromptBox="1" Priority="0">RegenToTargetSpeed</SlowDownToTargetSpeed>
+         <SpeedControlTest PromptBox="1" Priority="0">SpeedControlTest</SpeedControlTest>
+         <TestSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</TestSpeed>
+         <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+      </Prompts>
+      <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
+      <TestDomain>Foreground</TestDomain>
+   </Setup>
+   <Objectives>
+      <Cruise>
+         <TestStep1>Cruise</TestStep1>
+      </Cruise>
+      <FinishUp>
+         <TestStep1>FinishUp</TestStep1>
+      </FinishUp>
+      <Reverse>
+         <TestStep1>ReverseWarning</TestStep1>
+      </Reverse>
+      <!-- Stand-alone test -->
+      <DriveProfile>
+         <TestStep00>DriveProfileSetup</TestStep00>
+         <TestStep05>AccelerateToTestSpeed</TestStep05>
+         <TestStep10>Cruise</TestStep10>
+         <TestStep15>BrakeToSpeed</TestStep15>
+         <TestStep20>RestoreMachineState</TestStep20>
+         <TestStep25>ReverseWarning</TestStep25>
+         <TestStep30>FinishUp</TestStep30>
+      </DriveProfile>
+      <VehicleCheckout>
+         <TestStep00>DriveProfileSetup</TestStep00>
+         <TestStep05>VehicleCheckoutCycle</TestStep05>
+         <TestStep10>RestoreMachineState</TestStep10>
+         <!--TestStep15>ReverseWarning</TestStep15-->
+         <TestStep20>FinishUp</TestStep20>
+      </VehicleCheckout>
+   </Objectives>
+   <TestSteps>
+      <AccelerateToTestSpeed Result="" Timeout="60000" Description="Accelerate to the target speed" TargetSpeedParameter="DriveProfileTargetSpeed" SpeedRangeParameter="DriveProfileTargetSpeedRange" ScanDelayParameter="DriveProfileSpeedScanDelay"/>
+      <BrakeToSpeed Result="" Timeout="40000" Description="Brake to the target speed" ScanDelay="250"/>
+      <Cruise Result="" Timeout="20000" Description="Test speed control functionality" ScanDelay="500"/>
+      <DriveProfileSetup Result="" Timeout="1000" Description="Setup machine for acceleration loading"/>
+      <FinishUp Result="" Timeout="100" Description="Finishup test processing"/>
+      <RestoreMachineState Result="" Timeout="500" Description="Restore machine to original conditions when accel loading is complete"/>
+      <ReverseWarning Result="" Timeout="20000" Description="Shift to reverse while moving forward to verify warning light" ScanDelay="500" Prompt1="MantainSpeed" Prompt2="ShiftToReverse" PromptDelay="3000"/>
+      <VehicleCheckoutCycle Result="" Timeout="300000" Description="Perform repeated accelerations to check out vehicle" ScanDelay="500"/>
+   </TestSteps>
+</GmTransferCase>

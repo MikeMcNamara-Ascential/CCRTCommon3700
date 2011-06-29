@@ -1,0 +1,201 @@
+<TandemLockingDifferential>
+	<Setup>
+		<Name>Axle</Name>
+		<Debug>Off</Debug>
+		<TestDomain>Foreground</TestDomain>
+		<CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+		<ThreadPool>
+			<Debug>Off</Debug>
+			<MinBlockedLimit>2</MinBlockedLimit>
+			<MaxBlockedLimit>4</MaxBlockedLimit>
+			<Increment>2</Increment>
+			<Maximum>50</Maximum>
+		</ThreadPool>
+		<NotificationList>
+			<Setup>
+				<Debug>Off</Debug>
+				<StartOnCreate>Off</StartOnCreate>
+				<LowWater>1</LowWater>
+				<HighWater>3</HighWater>
+				<Maximum>5</Maximum>
+				<Increment>1</Increment>
+			</Setup>
+		</NotificationList>
+		<Communication>
+			<Debug>Off</Debug>
+			<Comm>IPC</Comm>
+			<Type>Server</Type>
+			<Name>component/TLD</Name>
+			<BufferSize>1024</BufferSize>
+			<Timeout>0</Timeout>
+		</Communication>
+		<TagList>
+			<SubscribeTags>
+				<ZerospeedToPLC/>
+				<Abort/>
+				<ForegroundTestInProgress/>
+				<Zerospeed/>
+				<CableConnect/>
+				<DriveAxle/>
+				<Clutch/>
+				<Declutch/>
+                <MotorMode/>
+                <LeftFrontTorqueValue/>
+                <RightFrontTorqueValue/>
+                <LeftRearTorqueValue/>
+                <RightRearTorqueValue/>
+                <LeftTandemTorqueValue/>
+                <RightTandemTorqueValue/>
+                <LeftFrontSpeedValue/>
+                <RightFrontSpeedValue/>
+                <LeftRearSpeedValue/>
+                <RightRearSpeedValue/>
+                <LeftTandemSpeedValue/>
+                <RightTandemSpeedValue/>
+                <LeftFrontMotorMode/>
+                <RightFrontMotorMode/>
+                <LeftRearMotorMode/>
+                <RightRearMotorMode/>
+                <LeftTandemMotorMode/>
+                <RightTandemMotorMode/>
+			</SubscribeTags>
+			<PublishTags>
+				<OverallPassFail>Pass</OverallPassFail>
+			</PublishTags>
+		</TagList>
+		<Logging>
+			<Status>Enabled</Status>
+			<ProcessName>TandemLockingDifferential</ProcessName>
+			<AdditionalLogFile Types="/Components/TandemLockingDifferential or Disabled">/Components/TandemLockingDifferential.log</AdditionalLogFile>
+			<Debug>Off</Debug>
+			<LocalEcho>Disabled</LocalEcho>
+			<Verbose>0x1F</Verbose>
+			<MessageTimeout>100</MessageTimeout>
+			<AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+			<AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+		</Logging>
+		<NamedDataBrokerComm>
+			<Debug>Off</Debug>
+			<Comm>IPC</Comm>
+			<Type>Client</Type>
+			<Name>core/NamedDataBroker</Name>
+			<Timeout>0</Timeout>
+			<BufferSize>1024</BufferSize>
+		</NamedDataBrokerComm>
+		<DataTags>
+			<OverallTest>TandemLockingDifferentialOverallTest</OverallTest>
+			<Zerospeed>ZerospeedToPLC</Zerospeed>
+			<Abort>Abort</Abort>
+			<ReadModuleFaults>ReadFaults</ReadModuleFaults>
+			<SpeedValue>SpeedValue</SpeedValue>
+			<ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+			<PromptBox1>PromptBox1</PromptBox1>
+			<PromptBox2>PromptBox2</PromptBox2>
+			<FrontDifferential>Front</FrontDifferential>
+			<RearDifferential>Rear</RearDifferential>
+			<CenterDifferential>Center</CenterDifferential>
+			<RightValves>RightSide</RightValves>
+			<LFSpeed>LFSpeed</LFSpeed>
+			<LRSpeed>LRSpeed</LRSpeed>
+            <LTSpeed>LRSpeed</LTSpeed>
+			<RFSpeed>RFSpeed</RFSpeed>
+			<RRSpeed>RRSpeed</RRSpeed>
+            <RTSpeed>RTSpeed</RTSpeed>
+			<FrontValves>Front</FrontValves>
+			<DriveAxle>DriveAxle</DriveAxle>
+			<Rear>Rear</Rear>
+			<SpeedTarget>SpeedTarget</SpeedTarget>
+			<FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+			<MotorMode>MotorMode</MotorMode>
+			<TorqueMode>Torque</TorqueMode>
+			<BoostMode>Boost</BoostMode>
+			<CommandTorque>CommandTorque</CommandTorque>
+			<Clutch>Clutch</Clutch>
+			<Declutch>Declutch</Declutch>
+			<Boost>Boost</Boost>
+			<Transmission>Transmission</Transmission>
+			<ReadShiftLeverPosition>ReadShiftLeverPosition</ReadShiftLeverPosition>
+            <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+            <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+            <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+            <RightRearSpeed>RRSpeed</RightRearSpeed>
+            <LeftTandemSpeed>LTSpeed</LeftTandemSpeed>
+            <RightTandemSpeed>RTSpeed</RightTandemSpeed>
+            <TractionTag>Traction</TractionTag>
+            <TagRearAndTandem>Rear/Tandem</TagRearAndTandem>
+            <TagFrontAndRear>Front/Rear</TagFrontAndRear>
+            <TagRear>Rear</TagRear>
+            <AxleTransLockTag>AxleTransLock</AxleTransLockTag>
+            <AxleLongLockTag>AxleLongLock</AxleLongLockTag>
+		</DataTags>
+		<Parameters>
+            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+			<DeveloperTest>False</DeveloperTest>
+			<ICMName>mgr/ICM</ICMName>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <!-- Tandem axle specific test parameters -->
+            <!-- Shift to neutral parameters-->
+            <VerifyShiftToNeutral>0</VerifyShiftToNeutral>
+            <ShiftToNeutralMessageDelay Units="ms">3000</ShiftToNeutralMessageDelay>
+            <!-- Engage transversal axle lock parameters-->
+            <VerifyShiftToTransLock>1</VerifyShiftToTransLock>
+            <ShiftToTransLockMessageDelay Units="ms">3000</ShiftToTransLockMessageDelay>
+            <TransversalLockWheelSpeed Units="mph">6.21</TransversalLockWheelSpeed>
+            <TransversalLockWheelTorque>0</TransversalLockWheelTorque>
+            <TransversalLockWheelSpeedTolerance Units="% / 100">0.25</TransversalLockWheelSpeedTolerance>
+            <!-- Engage longitudinal axle lock parameters-->
+            <VerifyShiftToLongLock>1</VerifyShiftToLongLock>
+            <ShiftToLongLockMessageDelay Units="ms">3000</ShiftToLongLockMessageDelay>
+            <LongitudinalLockWheelSpeed Units="mph">6.21</LongitudinalLockWheelSpeed>
+            <LongitudinalLockWheelTorque>0</LongitudinalLockWheelTorque>
+            <LongitudinalLockWheelSpeedTolerance Units="% / 100">0.25</LongitudinalLockWheelSpeedTolerance>
+            <!-- Disengage axle lock parameters -->
+            <VerifyShiftToNoLock>1</VerifyShiftToNoLock>
+            <ShiftToNoLockMessageDelay Units="ms">3000</ShiftToNoLockMessageDelay>
+            <AdditionalTimeToAllowAxleLocking Units="ms">5000</AdditionalTimeToAllowAxleLocking>
+		</Parameters>
+		<Prompts>
+			<AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+			<SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+			<CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+			<ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+			<MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+			<ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
+			<RemoveFootFromBrake PromptBox="2" Priority="0">FootOffBrake</RemoveFootFromBrake>
+            <ShiftToTransLock PromptBox="1" Priority="0">ShiftToTransLock</ShiftToTransLock>
+            <ShiftToLongLock PromptBox="1" Priority="0">ShiftToLongLock</ShiftToLongLock>
+            <ShiftToNoLock PromptBox="1" Priority="0">ShiftToNoLock</ShiftToNoLock>
+            <PassOrFail PromptBox="2" Priority="0">PassOrFail</PassOrFail>
+            <DrivingRolls PromptBox="1" Priority="0">DrivingRolls</DrivingRolls>
+		</Prompts>
+		<Faults>/Configuration/Components/Axle/TandemDifferentialFaults.xml</Faults>
+		<IgnoreFaults/>
+        <StatusCheckItems/>
+	</Setup>
+	<Objectives>
+        <AxleLockTests>
+            <TestStep00>BrakeToStop</TestStep00>
+            <TestStep05>ShiftToNeutral</TestStep05>
+            <TestStep10>LongitudinalLockTest</TestStep10>
+            <TestStep15>BrakeToStop</TestStep15>
+            <TestStep20>TransversalLockTest</TestStep20>
+            <TestStep30>ShiftToNoLock</TestStep30>
+            <TestStep40>SetRollsToBoostMode</TestStep40>
+            <TestStep50>FinishUp</TestStep50>
+        </AxleLockTests>
+	</Objectives>
+	<TestSteps>
+    <Setup Result="Not Tested" Timeout="30000" Description="Preparar para teste ELSD, pe fora do freio" ScanDelay="500"/>
+    <BrakeToStop Result="Not Tested" Timeout="20000" Description="Avisar o motorista para freiar ate parar" ScanDelay="250"/>
+    <SetRollsToTorqueMode Result="Not Tested" Timeout="5000" Description="Ajustar rolos para modo livre de rodagem" ScanDelay="250"/>
+    <SetRollsToBoostMode Result="Not Tested" Timeout="5000" Description="Retornar rolos para modo de forca" ScanDelay="250"/>
+    <Delay Result="Not Tested" Timeout="1000" Description="Ajustar rolos para modo de torque, ajustar velocidade zero" Delay="20000"/>
+    <LongitudinalLockTest Result="Not Tested" Timeout="20000" Description="Verificar trava do eixo da dianteira a traseira" ScanDelay="250"/>
+    <TransversalLockTest Result="Not Tested" Timeout="20000" Description="Verificar trava do eixo de lado a lado" ScanDelay="250"/>
+    <ShiftToNoLock Result="Not Tested" Timeout="5000" Description="Avisar motorista para mudar para posicao sem trava" ScanDelay="250"/>
+    <ShiftToNeutral Result="Not Tested" Timeout="5000" Description="Avisar motorista para engatar neutro" ScanDelay="250"/>
+    <FinishUp Result="Not Tested" Timeout="500" Description="Terminar sequencia de teste"/>
+	</TestSteps>
+</TandemLockingDifferential>

@@ -1,0 +1,9 @@
+<Faults>
+   <!-- System Status -->
+   <ReadDistanceFailure Code="3000" Description="Falha ao determinar distancia percorrida"/>
+   <TachographConstOutOfRange Code="3001" Description="Constante do tacografo fora da faixa"/>
+   <TimeoutWaitingForDistance Code="3002" Description="Tempo esgotado: esperando o veiculo atingir distancia"/>
+   <SystemStatus Code="3003" Description="Status do sistema ruim"/>
+   <VehicleSpeedTimeout Code="3004" Description="Tempo esgotado: esperando a velocidade do veiculo"/>
+   <TachographType Code="3005" Description="Falha na identificacao do tacografo"/>
+</Faults>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<registry install_date="2010-07-15 18:00:52" version="1.1" last_modified="2010-07-15 18:01:13">
+	<products>
+		<product name="Burke Porter CCRT" id="b2bf0e5d-1ec4-11b2-bb1a-a151d7b0faf7" version="1.1.0.0" copyright="2004" info_url="" support_url="" location="C:\Burke_PorterCCRT" last_modified="2010-07-15 18:00:52">
+			<vendor name="Burke Porter Machinery Company" id="529c6a03-1ecc-11b2-ac1d-ac7445ed2dbf" home_page="http://www.bepco.com" email="john.verbrugge@bepco.com"/>
+			<feature name="Application" last_modified="2010-07-15 18:01:01">
+			<![CDATA[This installs the application components.]]>
+				<component ref_id="b2b49d23-1ec4-11b2-bb0d-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\UninstallerData\Uninstall Burke Porter CCRT.exe"/>
+				<component ref_id="b2b49d23-1ec4-11b2-bb0c-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\CCRTClient.exe"/>
+				<component ref_id="b2b49d25-1ec4-11b2-bb0e-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\lib\Serialio.jar"/>
+			</feature>
+			<feature name="Help" last_modified="2010-07-15 18:01:01">
+			<![CDATA[This installs the help components.]]>
+				<component ref_id="b2b49d23-1ec4-11b2-bb0d-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\UninstallerData\Uninstall Burke Porter CCRT.exe"/>
+				<component ref_id="b2b49d23-1ec4-11b2-bb0c-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\CCRTClient.exe"/>
+				<component ref_id="b2b49d25-1ec4-11b2-bb0e-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\lib\Serialio.jar"/>
+			</feature>
+			<feature name="Libraries" last_modified="2010-07-15 18:01:01">
+			<![CDATA[Loadable libraries for Java JNI code.
+]]>
+				<component ref_id="b2b49d23-1ec4-11b2-bb0d-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\UninstallerData\Uninstall Burke Porter CCRT.exe"/>
+				<component ref_id="b2b49d25-1ec4-11b2-bb0d-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\libjspMacOSX.jnilib"/>
+				<component ref_id="b2b49d25-1ec4-11b2-bb0e-a151d7b0faf7" version="1.0.0.0" location="C:\Burke_PorterCCRT\lib\Serialio.jar"/>
+			</feature>
+		</product>
+	</products>
+	<components>
+		<component id="b2b49d25-1ec4-11b2-bb0d-a151d7b0faf7" version="1.0.0.0" name="C- JNI" location="C:\Burke_PorterCCRT\libjspMacOSX.jnilib" vendor="Burke Porter Machinery Company">
+			<resource keyfile="false" name="jspWin.dll" location="C:\Burke_PorterCCRT\jspWin.dll" type="file" uninstall="true"/>
+		</component>
+		<component id="b2b49d23-1ec4-11b2-bb0d-a151d7b0faf7" version="1.0.0.0" name="InstallAnywhere Uninstall Component" location="C:\Burke_PorterCCRT\UninstallerData\Uninstall Burke Porter CCRT.exe" vendor="Burke Porter Machinery Company">
+			<resource keyfile="false" name="Burke_Porter_CCRT_InstallLog.xml" location="C:\Burke_PorterCCRT\Burke_Porter_CCRT_InstallLog.xml" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Burke_PorterCCRT" location="C:\Burke_PorterCCRT" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="jre" location="C:\Burke_PorterCCRT\jre" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="UninstallerData" location="C:\Burke_PorterCCRT\UninstallerData" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="uninstaller.jar" location="C:\Burke_PorterCCRT\UninstallerData\uninstaller.jar" type="file" uninstall="true"/>
+			<resource keyfile="true" name="Uninstall Burke Porter CCRT.exe" location="C:\Burke_PorterCCRT\UninstallerData\Uninstall Burke Porter CCRT.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="Uninstall Burke Porter CCRT.lax" location="C:\Burke_PorterCCRT\UninstallerData\Uninstall Burke Porter CCRT.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="resource" location="C:\Burke_PorterCCRT\UninstallerData\resource" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="iawin32.dll" location="C:\Burke_PorterCCRT\UninstallerData\resource\iawin32.dll" type="file" uninstall="true"/>
+			<resource keyfile="false" name="remove.exe" location="C:\Burke_PorterCCRT\UninstallerData\resource\remove.exe" type="file" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|DisplayName|STRING|Burke Porter CCRT$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|DisplayName" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|UninstallString|STRING|&quot;C:\Burke_PorterCCRT\UninstallerData\Uninstall Burke Porter CCRT.exe&quot;$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|UninstallString" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|Publisher|STRING|Burke Porter Machinery Company$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|Publisher" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|URLInfoAbout|STRING|http://www.bepco.com$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|URLInfoAbout" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|Contact|STRING|john.verbrugge@bepco.com$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|Contact" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|ProductID|STRING|b2bf0e5d-1ec4-11b2-bb1a-a151d7b0faf7$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|ProductID" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|InstallLocation|STRING|C:\Burke_PorterCCRT$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|InstallLocation" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|InstallDate|STRING|Thu Jul 15 18:01:01 EDT 2010$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|InstallDate" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="win_reg_entry" location="$INSTALLED$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|DisplayVersion|STRING|1.1.0.0$DELETE$|HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Burke Porter CCRT|DisplayVersion" type="win_reg_entry" uninstall="true"/>
+			<resource keyfile="false" name="ZGWin32LaunchHelper.exe" location="C:\Burke_PorterCCRT\UninstallerData\resource\ZGWin32LaunchHelper.exe" type="file" uninstall="true"/>
+			<resource keyfile="false" name=".com.zerog.registry.xml" location="C:\Burke_PorterCCRT\UninstallerData\.com.zerog.registry.xml" type="file" uninstall="true"/>
+		</component>
+		<component id="b2b49d25-1ec4-11b2-bb0e-a151d7b0faf7" version="1.0.0.0" name="C- Applica, JNI, Help" location="C:\Burke_PorterCCRT\lib\Serialio.jar" vendor="Burke Porter Machinery Company">
+			<resource keyfile="false" name="lib" location="C:\Burke_PorterCCRT\lib" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="true" name="Serialio.jar" location="C:\Burke_PorterCCRT\lib\Serialio.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="activation.jar" location="C:\Burke_PorterCCRT\lib\activation.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="com.sun.net.ssl.jar" location="C:\Burke_PorterCCRT\lib\com.sun.net.ssl.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="ftpd.jar" location="C:\Burke_PorterCCRT\lib\ftpd.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="javax.servlet.jar" location="C:\Burke_PorterCCRT\lib\javax.servlet.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jcchart.jar" location="C:\Burke_PorterCCRT\lib\jcchart.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jspComm.jar" location="C:\Burke_PorterCCRT\lib\jspComm.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org.apache.jasper.jar" location="C:\Burke_PorterCCRT\lib\org.apache.jasper.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="org.mortbay.jetty.jar" location="C:\Burke_PorterCCRT\lib\org.mortbay.jetty.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="tools.jar" location="C:\Burke_PorterCCRT\lib\tools.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="mail.jar" location="C:\Burke_PorterCCRT\lib\mail.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="ao-util.jar" location="C:\Burke_PorterCCRT\lib\ao-util.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="gnu-regexp.jar" location="C:\Burke_PorterCCRT\lib\gnu-regexp.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="servlet.jar" location="C:\Burke_PorterCCRT\lib\servlet.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jfreechart-0.9.20.jar" location="C:\Burke_PorterCCRT\lib\jfreechart-0.9.20.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jcommon-0.9.5.jar" location="C:\Burke_PorterCCRT\lib\jcommon-0.9.5.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jrgwin32-1_06.jar" location="C:\Burke_PorterCCRT\lib\jrgwin32-1_06.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="acrobat-libs.jar" location="C:\Burke_PorterCCRT\lib\acrobat-libs.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="edtftpj-1.5.0.jar" location="C:\Burke_PorterCCRT\lib\edtftpj-1.5.0.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="avalon-framework-4.2.0.jar" location="C:\Burke_PorterCCRT\lib\avalon-framework-4.2.0.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="batik-all-1.6.jar" location="C:\Burke_PorterCCRT\lib\batik-all-1.6.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="commons-io-1.1.jar" location="C:\Burke_PorterCCRT\lib\commons-io-1.1.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="commons-logging-1.0.4.jar" location="C:\Burke_PorterCCRT\lib\commons-logging-1.0.4.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="fop-hyph.jar" location="C:\Burke_PorterCCRT\lib\fop-hyph.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="fop-sandbox.jar" location="C:\Burke_PorterCCRT\lib\fop-sandbox.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="fop.jar" location="C:\Burke_PorterCCRT\lib\fop.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="xmlgraphics-commons-1.0.jar" location="C:\Burke_PorterCCRT\lib\xmlgraphics-commons-1.0.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="endorsed" location="C:\Burke_PorterCCRT\endorsed" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="crimson.jar" location="C:\Burke_PorterCCRT\endorsed\crimson.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="xalan.jar" location="C:\Burke_PorterCCRT\endorsed\xalan.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="serializer-2.7.0.jar" location="C:\Burke_PorterCCRT\endorsed\serializer-2.7.0.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="xercesImpl-2.7.1.jar" location="C:\Burke_PorterCCRT\endorsed\xercesImpl-2.7.1.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="xml-apis-1.3.02.jar" location="C:\Burke_PorterCCRT\endorsed\xml-apis-1.3.02.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="tools.jar" location="C:\Burke_PorterCCRT\tools.jar" type="file" uninstall="true"/>
+		</component>
+		<component id="b2b49d23-1ec4-11b2-bb0c-a151d7b0faf7" version="1.0.0.0" name="C- Applica, Help" location="C:\Burke_PorterCCRT\CCRTClient.exe" vendor="Burke Porter Machinery Company">
+			<resource keyfile="false" name="lax.jar" location="C:\Burke_PorterCCRT\lax.jar" type="file" uninstall="true"/>
+			<resource keyfile="true" name="CCRTClient.exe" location="C:\Burke_PorterCCRT\CCRTClient.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="CCRTClient.lax" location="C:\Burke_PorterCCRT\CCRTClient.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="lax.jar" location="C:\Burke_PorterCCRT\lax.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="ExtDiagnostics.exe" location="C:\Burke_PorterCCRT\ExtDiagnostics.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="ExtDiagnostics.lax" location="C:\Burke_PorterCCRT\ExtDiagnostics.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="resources" location="C:\Burke_PorterCCRT\resources" type="directory" uninstall="false">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="local" location="C:\Burke_PorterCCRT\resources\local" type="directory" uninstall="false">
+			<![CDATA[true]]>
+			</resource>
+			<resource keyfile="false" name="com" location="C:\Burke_PorterCCRT\resources\com" type="directory" uninstall="false">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="bepco" location="C:\Burke_PorterCCRT\resources\com\bepco" type="directory" uninstall="false">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="rtc" location="C:\Burke_PorterCCRT\resources\com\bepco\rtc" type="directory" uninstall="false">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="properties" location="C:\Burke_PorterCCRT\resources\com\bepco\rtc\properties" type="directory" uninstall="false">
+			<![CDATA[true]]>
+			</resource>
+			<resource keyfile="false" name="oldproperties" location="C:\Burke_PorterCCRT\resources\com\bepco\rtc\oldproperties" type="directory" uninstall="true">
+			<![CDATA[false]]>
+			</resource>
+			<resource keyfile="false" name="images" location="C:\Burke_PorterCCRT\resources\com\bepco\rtc\images" type="directory" uninstall="false">
+			<![CDATA[true]]>
+			</resource>
+			<resource keyfile="false" name="lax.jar" location="C:\Burke_PorterCCRT\lax.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="CCRTDesigner.exe" location="C:\Burke_PorterCCRT\CCRTDesigner.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="CCRTDesigner.lax" location="C:\Burke_PorterCCRT\CCRTDesigner.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="lax.jar" location="C:\Burke_PorterCCRT\lax.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="CCRTLogViewer.exe" location="C:\Burke_PorterCCRT\CCRTLogViewer.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="CCRTLogViewer.lax" location="C:\Burke_PorterCCRT\CCRTLogViewer.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="lax.jar" location="C:\Burke_PorterCCRT\lax.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="CCRTLocalizer.exe" location="C:\Burke_PorterCCRT\CCRTLocalizer.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="CCRTLocalizer.lax" location="C:\Burke_PorterCCRT\CCRTLocalizer.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="ccrt-client.jar" location="C:\Burke_PorterCCRT\ccrt-client.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="jrgwin32.dll" location="C:\Burke_PorterCCRT\jrgwin32.dll" type="file" uninstall="true"/>
+			<resource keyfile="false" name="configuration.bks" location="C:\Burke_PorterCCRT\configuration.bks" type="file" uninstall="true"/>
+			<resource keyfile="false" name="ccrt.bks" location="C:\Burke_PorterCCRT\ccrt.bks" type="file" uninstall="true"/>
+			<resource keyfile="false" name="lax.jar" location="C:\Burke_PorterCCRT\lax.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="NDB Updater.exe" location="C:\Burke_PorterCCRT\NDB Updater.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="NDB Updater.lax" location="C:\Burke_PorterCCRT\NDB Updater.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="lax.jar" location="C:\Burke_PorterCCRT\lax.jar" type="file" uninstall="true"/>
+			<resource keyfile="false" name="TestResultsViewer.exe" location="C:\Burke_PorterCCRT\TestResultsViewer.exe" type="executable" uninstall="true"/>
+			<resource keyfile="false" name="TestResultsViewer.lax" location="C:\Burke_PorterCCRT\TestResultsViewer.lax" type="file" uninstall="true"/>
+			<resource keyfile="false" name="Cyberbit.ttf" location="C:\WINDOWS\Fonts\Cyberbit.ttf" type="file" uninstall="true"/>
+		</component>
+	</components>
+</registry>

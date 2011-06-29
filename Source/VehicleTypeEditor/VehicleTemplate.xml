@@ -1,0 +1,21 @@
+﻿<VcTemplate>
+    <VehicleBuild>
+        <VehicleType></VehicleType>
+        <BrakeType></BrakeType>
+        <DriveAxle>Front</DriveAxle>
+        <WheelbasePositionInchesX10 Units="mm"></WheelbasePositionInchesX10>
+        <BrakeForces>
+            <!-- Drag Forces -->
+            <FrontMaxDragForce Units="LBF"></FrontMaxDragForce>
+            <RearMaxDragForce Units="LBF"></RearMaxDragForce>
+            <!-- Brake Forces -->
+            <FrontMinBrakeForce Units="LBF"></FrontMinBrakeForce>
+            <FrontMaxBrakeForce Units="LBF"></FrontMaxBrakeForce>
+            <RearMinBrakeForce Units="LBF"></RearMinBrakeForce>
+            <RearMaxBrakeForce Units="LBF"></RearMaxBrakeForce>
+            <!-- Park brake forces -->
+            <ParkBrakeMinForce Units="LBF"></ParkBrakeMinForce>
+            <ParkBrakeMaxForce Units="LBF"></ParkBrakeMaxForce>
+        </BrakeForces>
+    </VehicleBuild>
+</VcTemplate>

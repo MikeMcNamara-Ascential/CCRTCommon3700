@@ -1,0 +1,12 @@
+#------------------------------------------------------------------------------------------
+# Tell CMake what subdirectories to recurse into
+#------------------------------------------------------------------------------------------
+ADD_SUBDIRECTORY(FaultServer)
+ADD_SUBDIRECTORY(Gen3Interface)
+ADD_SUBDIRECTORY(Launcher)
+ADD_SUBDIRECTORY(MachineDataBroker)
+ADD_SUBDIRECTORY(MotorController)
+ADD_SUBDIRECTORY(PromptServer)
+ADD_SUBDIRECTORY(SystemMonitor)
+ADD_SUBDIRECTORY(TestResultServer)
+ADD_SUBDIRECTORY(VehicleDataBroker)

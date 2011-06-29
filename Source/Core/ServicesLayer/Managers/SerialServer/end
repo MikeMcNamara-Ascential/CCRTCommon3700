@@ -1,0 +1,3 @@
+SendCmd -p50,20 -nmgr/SerialServer
+slay -f LogPortDrv.qxe
+

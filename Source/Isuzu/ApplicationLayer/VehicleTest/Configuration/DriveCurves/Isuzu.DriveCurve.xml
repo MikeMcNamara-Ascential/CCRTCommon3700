@@ -232,15 +232,13 @@
         </TestPhase304>
         <TestPhase305 Description="Brake to stop" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
-                    <BrakeToStop/>
-                </Objective0>
-            </ForegroundObjectives>
-            <BackgroundObjectives Result="" Timeout="">
                 <Objective0 Description="Analyze brake test results" Result="" Timeout="" Component="Brakes">
                     <AnalyzeBrakeTest/>
                 </Objective0>
-            </BackgroundObjectives>
+                <Objective1 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective1>
+            </ForegroundObjectives>
         </TestPhase305>
         <TestPhase310 Description="Dynamic park brake testing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">

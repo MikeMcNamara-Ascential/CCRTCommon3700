@@ -606,6 +606,14 @@ protected:
      */
     void ClearDTC(const XmlNode *dtcNode);
     /**
+     * Check if retest is starting and if so, clear reported DTCs.
+     */
+    void CheckClearAllDTCs(const string &retestNumber);
+    /**
+     * Clear all reported DTCs from the list.
+     */
+    void ClearAllReportedDTCs(void);
+    /**
      * Calculate test statistics.
      * Current supported stats are:
      * 
@@ -984,6 +992,10 @@ private:
      * @since Version 2.3
      */
     string m_lossCompensationVin;
+
+    int m_retestNumber;
+
+    int m_prevRetestNumber;
 
     /**
      * Semaphore to wait on when waiting to update the vehicle build.

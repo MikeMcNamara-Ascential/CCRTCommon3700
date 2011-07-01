@@ -20,6 +20,7 @@
             <StartTest>StartVehicleTest</StartTest>
             <AllFailures>AllFailures</AllFailures>
             <OverallTest>OverallTest</OverallTest>
+			<StartRetest>StartRetest</StartRetest>
             <VehicleBuild>VehicleBuild</VehicleBuild>
             <Vin>VIN</Vin>
             <ClearScrollBox>ClearScrollBox</ClearScrollBox>
@@ -40,6 +41,7 @@
         <TagList>
             <SubscribeTags>
                 <StartVehicleTest/>
+				<StartRetest/>
                 <StartLossCompensation/>
                 <OverallTest/>
                 <VehicleBuild/>

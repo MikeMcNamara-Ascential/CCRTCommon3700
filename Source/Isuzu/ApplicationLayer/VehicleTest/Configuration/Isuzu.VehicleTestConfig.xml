@@ -18,6 +18,7 @@
             <DriveCurve>DriveCurve</DriveCurve>
             <RetainersDown>RollsDownElevUp</RetainersDown>
             <StartVehicleTest>StartVehicleTest</StartVehicleTest>
+			<StartRetest>StartRetest</StartRetest>
             <Vin>VIN</Vin>
         </DataTags>
         <TagList>
@@ -39,6 +40,7 @@
                 <VehicleTestStatus/>
                 <DriveCurve/>
                 <StartVehicleTest>0</StartVehicleTest>
+				<StartRetest>0</StartRetest>
                 <CurrentTestStatus>Testing</CurrentTestStatus>
             </PublishTags>
         </TagList>

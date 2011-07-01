@@ -591,9 +591,13 @@ const std::string TestSequencer::SequenceTest(const std::string type)
 			currentTestStatus="Pass";				// the status of the current test
 			m_backgroundObjectiveStatus = "Pass";	// the status of the background tests
 			retestNumber++;							// increment the number of retests performed
+            char startRetestVal[11];
+            sprintf(startRetestVal,"%d",retestNumber);
+            m_ndb->Write(string("StartRetest"),startRetestVal,response,true);   // set the StartRetest tag to the current retestNumber
 		}
 	} while((GetStatus() != BEP_COMPLETE_STATUS) && (GetStatus() != BEP_SOFTWAREFAIL_STATUS));
 
+    m_ndb->Write(string("StartRetest"),"0",response,true);           // clear the StartRetest tag
 	result->setValue(testStatus);		// set the overall result value
 	return(testStatus);
 };

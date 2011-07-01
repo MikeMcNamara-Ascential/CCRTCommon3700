@@ -1011,6 +1011,11 @@ const std::string TestResultServer::Publish(const XmlNode* node)
         // Publish the test results
         BepServer::Write(TEST_RESULT_TAG, node->getValue());
     }
+    else if(node->getName() == std::string("StartRetest"))
+    {
+        // Retest is starting, so clear all reported DTCs
+        CheckClearAllDTCs(node->getValue());
+    }
 
     Log(LOG_FN_ENTRY, "TestResultServer::Publish() done\n");
 
@@ -1107,6 +1112,8 @@ void TestResultServer::ResetTestResults(void)
         Log(LOG_DEV_DATA,"Clearing old DTCs\n");
         m_reportedDTC.clear();
         m_reportedDTC.setName(DTC_TAG);
+        m_retestNumber = 0;
+        m_prevRetestNumber = 0;
         m_data.Unlock();
     }
     else
@@ -1321,6 +1328,36 @@ void TestResultServer::ClearDTC(const XmlNode *dtcNode)
     catch (...)
     {
         Log(LOG_ERRORS, "Could not find a DTC node for vehicle module %s\n", vehicleModule.c_str());
+    }
+}
+
+void TestResultServer::CheckClearAllDTCs(const string &retestNumber)
+{
+    int newRetestNumber = atoi(retestNumber.c_str());
+    if (newRetestNumber != 0)
+    {
+        if (m_prevRetestNumber != newRetestNumber)
+        {
+            Log(LOG_DEV_DATA, "Clearing all reported DTCs for retest number %d.\n", newRetestNumber);
+            m_prevRetestNumber = newRetestNumber;
+            ClearAllReportedDTCs();
+        }
+    }
+}
+
+void TestResultServer::ClearAllReportedDTCs()
+{
+    if(m_data.Lock() == EOK)
+    {
+        // Clear all reported DTCs
+        m_reportedDTC.clear();
+        m_reportedDTC.setName(DTC_TAG);
+        Log(LOG_DEV_DATA,"Reported DTCs cleared\n");
+        m_data.Unlock();
+    }
+    else
+    {
+        Log(LOG_ERRORS, "TestResultServer::ClearAllReportedDTCs() was unable to clear reported DTCs!\n");
     }
 }
 

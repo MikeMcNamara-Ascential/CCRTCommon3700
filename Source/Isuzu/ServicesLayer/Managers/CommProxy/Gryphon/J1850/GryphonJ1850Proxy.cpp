@@ -20,6 +20,14 @@
 //     any way is strictly prohibited.
 //
 //******************************************************************************
+#include <sys/neutrino.h>
+
+#if _NTO_VERSION >= 630
+    #include <sys/types.h>
+    #include <sys/socket.h>
+	#include <arpa/inet.h>
+#endif
+
 #include "IGryphonChannel.h"
 #include "IGCDebug.h"
 #include "GryphonJ1850Proxy.h"

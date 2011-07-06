@@ -17,7 +17,7 @@ INCLUDE_DIRECTORIES(
 # All components link against the common library
 #------------------------------------------------------------------------------------------
 LINK_DIRECTORIES(${CORE_BRAKE_TC_LIB_PATH})
-LINK_LIBRARIES(basebrake)
+LINK_LIBRARIES(basebrake m)
 
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into

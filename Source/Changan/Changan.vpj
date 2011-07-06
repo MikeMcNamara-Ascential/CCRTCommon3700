@@ -138,6 +138,7 @@
 				<Folder Name="ElectronicParkBrake">
 					<Folder Name="Configuration">
 						<F N="ApplicationLayer/TestComponents/ElectronicParkBrake/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/ElectronicParkBrake/Configuration/ElectronicParkBrakeFaultList.xml"/>
 						<F N="ApplicationLayer/TestComponents/ElectronicParkBrake/Configuration/ElectronicParkBrakeTC.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/ElectronicParkBrake/CMakeLists.txt"/>

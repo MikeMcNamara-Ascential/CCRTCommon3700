@@ -1,31 +1,313 @@
 [Global]
-CurrentProject=Tools\Tools.vpj
+CurrentProject=Changan\Changan.vpj
 [ActiveConfig]
 Changan\Changan.vpj=Release
 Core\Core.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Changan\Changan.vpj=20110629125103215
-Core\Core.vpj=20110629125435594
-Tests\Tests.vpj=20110629125520843
-Tools\Tools.vpj=20110629125438656
+Changan\Changan.vpj=20110705140249541
+Core\Core.vpj=20110701100154249
+Tests\Tests.vpj=20110701100211327
+Tools\Tools.vpj=20110701100155451
 [TreeExpansion2]
-+ Changan\Changan.vpj
-+ Core\Core.vpj
+- Changan\Changan.vpj
+  - ApplicationLayer
+    - ModuleInterfaces
+      + Brake
+        + Teves
+          + Configuration
+        + TRW
+          + Configuration
+      - ElectronicParkBrake
+        - Configuration
+    - TestComponents
+      + Brake
+        + BaseBrake
+          + Configuration
+        + Teves
+          + Configuration
+        + TRW
+          + Configuration
+      - ElectronicParkBrake
+        - Configuration
+      + LossCompensation
+        + Configuration
+      + Machine
+        + Configuration
+      - SoundLevel
+        - Configuration
+      + TransferCase
+        + Configuration
+    - VehicleTest
+      - Configuration
+        + BuildRecords
+        - DriveCurves
+  + Burke_PorterCCRT
+    + jre
+      + bin
+        + client
+      + lib
+    + resources
+      + com
+        + bepco
+          + rtc
+            + properties
+      + local
+        + crt
+        + ftproot
+          + home
+            + ftp
+              + Configuration
+                + Client
+                + Components
+                  + Airbag
+                  + Brake
+                  + Cluster
+                  + Emissions
+                  + Machine
+                  + SKIM
+                  + SpeedControl
+                  + Transmission
+                + Machine
+                + Servers
+                + VehicleTest
+                  + BuildRecords
+                  + DriveCurves
+              + Logs
+                + Communication
+              + TestResults
+                + Vehicle
+        + httproot
+          + conf
+        + ndbconfig
+        + report
+        + sim
+          + params
+    + UninstallerData
+  + ServicesLayer
+    + Managers
+      + ICM
+        + Configuration
+      + SerialServer
+        + Configuration
+    + Servers
+      + InputServer
+        + Configuration
+      + Launcher
+        + Configuration
+      + MachineDataBroker
+        + Configuration
+      + MotorController
+        + Configuration
+      + PlantHostInbound
+        + Configuration
+      + SystemMonitor
+        + Configuration
+      + VehicleDataBroker
+        + Configuration
+      + VehicleDataServer
+        + Configuration
+- Core\Core.vpj
+  - ApplicationLayer
+    + ModuleInterfaces
+      + Brake
+      + Common
+      + EngineController
+      + Include
+      + Transmission
+    + ProtocolFilters
+      + Common
+      + GMClassII
+      + Include
+      + ISO
+      + J2190
+      + KeyWord2000
+      + SCI
+    - TestComponents
+      + Brake
+        + BaseBrake
+          + Configuration
+        + Common
+          + Configuration
+        + Include
+      - Common
+        - Configuration
+      + Emissions
+        + Common
+          + Configuration
+        + Include
+      + GasAnalyzer
+        + Common
+        + GasAnalyzer
+          + Configuration
+        + Include
+      + Include
+      + LossCompensation
+        + Common
+        + Include
+        + LossCompensation
+          + Configuration
+      + Machine
+        + Common
+        + Include
+        + Machine
+          + Configuration
+      + SpeedControl
+        + Common
+          + Configuration
+        + GenericSpeedControl
+        + Include
+      + TransferCase
+        + Common
+          + Configuration
+        + GenericTransferCase
+        + Include
+      + Transmission
+        + Common
+        + Include
+        + Transmission
+    + VehicleTest
+      + Common
+      + ComponentManager
+      + ComponentProxy
+      + Include
+      + Library
+      + PhaseCommander
+      + TestSelector
+      + TestSequencer
+      + VehicleTest
+  + ClientConfigurations
+  + ServicesLayer
+    + Include
+    + Library
+      + Bepos
+      + License
+        + Include
+      + SoftwareId
+      + SystemCommunication
+      + XmlProcessor
+        + gennmtab
+        + xmlparse
+        + xmltok
+        + xmlwf
+    + Managers
+      + Common
+      + CommProxy
+        + AVT
+          + CAN
+          + Common
+          + Include
+          + J2190
+        + Common
+        + Gryphon
+          + CAN
+          + Common
+          + Include
+            + hw
+        + Include
+        + MultiCom
+        + Raw
+          + ISO
+          + SCI
+        + TcpIp
+        + Tests
+      + ICM
+        + Include
+        + IpIcm
+          + Configuration
+      + Include
+      + PlcMgr
+        + Configuration
+      + SciIsoMuxMgr
+      + SerialServer
+      + TaskMon
+        + Common
+        + Configuration
+        + TaskMon
+        + TaskMonOld
+        + TaskMonTerm
+    + Servers
+      + DataServer
+        + Configuration
+      + DsaServer
+        + Configuration
+      + FaultServer
+        + Configuration
+      + GenericServer
+      + InputServer
+        + CLV295ScannerMgr
+        + Common
+        + Configuration
+        + Include
+        + MapleKeypadManager
+        + PendantManager
+        + SymbolScannerMgr
+      + Launcher
+        + Configuration
+      + LogDaemon
+        + Configuration
+      + MachineDataBroker
+        + Configuration
+      + MotorController
+        + Common
+        + Electric
+          + AB
+            + Configuration
+          + Baldor
+            + Configuration
+          + Motor
+            + Configuration
+        + Hydraulic
+          + Configuration
+        + Include
+      + NamedDataBroker
+        + Configuration
+      + PlantHostInbound
+        + Include
+        + Library
+      + PlantHostOutbound
+        + Configuration
+        + DAQ
+        + GenericText
+        + HostInterface
+        + Include
+        + Library
+      + PromptServer
+        + Configuration
+      + SystemMonitor
+        + Configuration
+        + Include
+        + Library
+      + SystemScreenSaver
+        + Configuration
+      + TestResultServer
+        + Configuration
+      + VehicleDataBroker
+        + Configuration
+      + VehicleDataServer
+        + Configuration
+        + Include
+        + Library
 + Tests\Tests.vpj
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1680 1050 23 24 1344 722 0 0 M 0 0 0 0 1227 713
-CWD: Tools
+SCREEN: 1920 1080 23 24 1344 722 0 0 M 0 0 0 0 1646 624
+CWD: Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\Configuration
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\ElectronicParkBrakeTc.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=24 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 0 1213 564 -1 -1 N  WF=0 WT=1 "@GulimChe,10,0,1"
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\ElectronicParkBrakeTc.cpp"
+VIEW: LN=.7137 CL=25 LE=0 CX=31 CY=6 WI=130 BI=24 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\ISO\IsoCommProxyMain.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxy.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxyMain.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Common\RawCommProxy.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Include\RawCommProxy.h
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxy.h
-..\..\GM\Source\GM\507208 - GM AM General.txt
-..\..\GM\Source\GM\ApplicationLayer\TestComponents\Brake\GM\GMBrakeTC.cpp
-..\..\GM\Source\Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp
+Changan\ApplicationLayer\ModuleInterfaces\ElectronicParkBrake\Configuration\ElectronicParkBrakeModule.xml
+Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp
+Core\ApplicationLayer\TestComponents\Common\Configuration\SampleFaultList.xml
+Changan\ApplicationLayer\VehicleTest\Configuration\DriveCurves\TevesMk70AbsDriveCurve.xml
+Changan\ApplicationLayer\TestComponents\SoundLevel\Configuration\Changan.SoundLevelFaultList.xml
+Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\Configuration\ElectronicParkBrakeTC.xml
+Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\Configuration\ElectronicParkBrakeFaultList.xml
+Core\ApplicationLayer\TestComponents\Common\GenericTC.cpp
+Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\ElectronicParkBrakeTc.cpp

@@ -96,7 +96,8 @@ string ElectronicParkBrakeTc<ModuleType>::ReadBrakeState(const string &requested
 	string testResultCode = "0000";
 	string testDescription = GetTestStepInfo("Description");
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-    string brakeState = "Unknown";
+    string leftBrakeState = "Unknown";
+    string rightBrakeState = "Unknown";
     bool displayPrompt = true;
 
     // Read the park brake state
@@ -104,17 +105,27 @@ string ElectronicParkBrakeTc<ModuleType>::ReadBrakeState(const string &requested
     do
     {	// Read the brake state from the module
         // BrakeState must be read from both Left and Right
-        status = m_vehicleModule.GetInfo(GetDataTag("ReadBrakeState"), brakeState);
+        status = m_vehicleModule.GetInfo(GetDataTag("ReadLeftBrakeState"), leftBrakeState);
         if(BEP_STATUS_SUCCESS == status)
-        {	// Good read, determine brake position
-            if(brakeState == requestedBrakeState)
+        {
+            status = m_vehicleModule.GetInfo(GetDataTag("ReadRightBrakeState"), rightBrakeState);
+        }
+        else
+        {
+            testResult = testFail;
+            testResultCode = GetFaultCode("CommunicationFailure");         
+            testDescription = GetFaultDescription("CommunicationFailure");
+        }
+        if(BEP_STATUS_SUCCESS == status)
+        {	// Good read, determine brake position for both left and right brakes
+            if((leftBrakeState == requestedBrakeState) && (rightBrakeState == requestedBrakeState))
             {   
                 testResult = testPass;
                 displayPrompt = false;
             }
             else 
             {
-                Log(LOG_DEV_DATA, "BrakeState is %s. Waiting for %s.\n",brakeState.c_str(),requestedBrakeState.c_str());
+                Log(LOG_DEV_DATA, "LeftBrakeState is %s. RightBrakeState is %s. Waiting for both to be %s.\n",leftBrakeState.c_str(),rightBrakeState.c_str(),requestedBrakeState.c_str());
             }
             if(displayPrompt)
             {	// Throw the prompt up for the operator
@@ -145,7 +156,7 @@ string ElectronicParkBrakeTc<ModuleType>::ReadBrakeState(const string &requested
 
     RemovePrompt(GetPromptBox(requestedBrakeState), GetPrompt(requestedBrakeState), GetPromptPriority(requestedBrakeState));
     // Send the test results
-    SendSubtestResultWithDetail("ReadBrakeState" + requestedBrakeState, testResult, testDescription, testResultCode);
+    SendSubtestResultWithDetail("ReadBrakeState" + requestedBrakeState, testResult, testDescription, testResultCode, "Left Park Brake: ", leftBrakeState, "", "Right Park Brake: ", rightBrakeState, "");
 
     return testResult;
 }

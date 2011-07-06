@@ -59,14 +59,14 @@
          <BufferSize>1024</BufferSize>
       </NamedDataBrokerComm>
       <DataTags>
-         <OnState>applied</OnState>
-         <OffState>released</OffState>
+         <OnState>Applied</OnState>
+         <OffState>Released</OffState>
          <ReadBrakeState>ReadBrakeState</ReadBrakeState>
       </DataTags>
       <Parameters>
          <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
          <DelayModuleInitialization>Yes</DelayModuleInitialization>
-         <ConfigFile>/Configuration/Components/Radio/KwpElectronicParkBrakeModule.xml</ConfigFile>
+         <ConfigFile>/Configuration/Components/ElectronicParkBrake/ElectronicParkBrakeModule.xml</ConfigFile>
          <ICMName>mgr/ICM</ICMName>
          <DeveloperTest>False</DeveloperTest>
          <OffStateReadTime>10000</OffStateReadTime>
@@ -77,7 +77,7 @@
           <Applied PromptBox="2" Priority="0">ApplyParkBrake</Applied>
           <Released PromptBox="2" Priority="0">ReleaseParkBrake</Released>
       </Prompts>
-      <FaultList>/Configuration/Components/ElectronicParkBrake/ElectronicParkBrakeFaultCodes.xml</FaultList>
+      <FaultList>/Configuration/Components/ElectronicParkBrake/ElectronicParkBrakeFaultList.xml</FaultList>
    </Setup>
    <Objectives>
       <ParkBrakeTest>

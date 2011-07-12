@@ -146,7 +146,7 @@
         <VehicleBuildRecordSource Type="File, Broadcast, None">File</VehicleBuildRecordSource>
         <VINIntermittentCharacterSelection Type="Zero based Index">
             <SelectedChar00>3</SelectedChar00>
-            <SelectedChar01>11</SelectedChar01>
+            <SelectedChar01>7</SelectedChar01>
         </VINIntermittentCharacterSelection>
         <WheelbaseConfigFile>/Configuration/Servers/WheelbaseConfig.xml</WheelbaseConfigFile>
     </Setup>

@@ -161,6 +161,45 @@
                     </CommLog>
                 </Setup>
             </PlcDf1>
+         <BBKWireless enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/BBKWirelessCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/sl7804/ser5</SerialDevice>
+               <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
+               <StartByte>66</StartByte>
+               <StyopByte>88</StyopByte>
+               <Protocol>
+                  <Baud>38400</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>TxRx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/BBKWireless</ProcessName>
+                  <AdditionalLogFile>/Servers/BBKWireless.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x3F</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>BBKWireless_Comm</ProcessName>
+                        <AdditionalLogFile>/Communication/BBKWireless.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1f</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+            </Setup>
+         </BBKWireless>
         </LogicalPorts>
     </Setup>
 </SerialServerConfig>

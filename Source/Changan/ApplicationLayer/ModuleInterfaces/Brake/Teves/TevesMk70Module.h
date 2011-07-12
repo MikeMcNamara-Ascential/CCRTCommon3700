@@ -34,16 +34,6 @@ public:
     virtual string ModuleName(void);
 
     /**
-     * Enter diagnostic mode.
-     * <p><b>Description:</b><br>
-     * The module will be commanded to enter a new diagnostic session.
-     * <p>
-     *
-     * @return Status of commanding the module to enter diagnostic mode.
-     */
-    virtual BEP_STATUS_TYPE EnterDiagnosticMode(void);
-
-    /**
      * Initialize the module interface.
      * <p><b>Description:</b><br>
      * Module specific initialization will be completed.  The main module communication object will be intialized.

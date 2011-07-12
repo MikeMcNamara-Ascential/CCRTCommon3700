@@ -31,6 +31,7 @@ LINK_LIBRARIES(commproxy)
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(AVT)
+ADD_SUBDIRECTORY(BBKWireless)
 ADD_SUBDIRECTORY(Gryphon)
 ADD_SUBDIRECTORY(MultiCom)
 ADD_SUBDIRECTORY(Raw)

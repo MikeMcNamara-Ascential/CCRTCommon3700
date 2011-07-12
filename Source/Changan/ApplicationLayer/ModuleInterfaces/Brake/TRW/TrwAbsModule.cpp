@@ -35,53 +35,6 @@ inline string TrwAbsModule<ProtocolFilterType>::ModuleName(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-template<class ProtocolFilterType>
-BEP_STATUS_TYPE TrwAbsModule<ProtocolFilterType>::EnterDiagnosticMode(void)
-{
-    Log( LOG_FN_ENTRY, "Enter BoschAbsModule::PerformModuleLinkup()");
-    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-    // Check to see that all our objects are in place
-    CheckObjectsStatus();
-    BposSleep(1000);               // Make sure the module has completed its self test
-    // Send the init message at low baud rate
-    m_protocolFilter->ResetConnection();
-    if(m_protocolFilter->LowSpeedInit() == EOK)
-    {
-        Log( LOG_DEV_DATA, "Low speed init message sent to module");
-        SerialString_t moduleResponse;
-        // Set end of line test in the module
-        status = CommandModule("SetEolTest");
-        if(BEP_STATUS_SUCCESS == status)
-        {   // Command the module to enter diagnostic mode
-            status = m_protocolFilter->GetModuleData("EnterDiagnosticMode",moduleResponse);
-            Log(LOG_ERRORS, "Enter diagnostic mode: %s", ConvertStatusToResponse(status).c_str());
-        }
-        else
-        {
-            Log(LOG_ERRORS, "Could not tell module we are doing EOL testing: status - %s", 
-                ConvertStatusToResponse(status).c_str());
-        }
-    }
-    else
-    {
-        status = BEP_STATUS_FAILURE;
-        Log(LOG_ERRORS, "Error during low speed init");
-    }
-
-    if(BEP_STATUS_SUCCESS == status)
-    {
-        Log( LOG_DEV_DATA, "Started diagnostic session");
-    }
-    else
-    {
-        Log(LOG_ERRORS, "Failed to start diagnostic session");
-    }
-    // Log the exit and return the status
-    Log( LOG_FN_ENTRY, "Exit BoschAbsModule::EnterDiagnosticMode(), status=%d", status);
-    return status;
-}
-
-//-------------------------------------------------------------------------------------------------
 template<class ProtocolFilter>
 bool TrwAbsModule<ProtocolFilter>::InitializeHook(const XmlNode *configNode)
 {   // Begin by initializing the base class

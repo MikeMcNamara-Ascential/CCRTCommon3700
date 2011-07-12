@@ -250,8 +250,10 @@ string AisinTransmissionTC<VehicleModuleType>::ClearFaults(void)
     string testResult(BEP_TESTING_RESPONSE);
     string testResultCode("0000");
     string testDescription = GetTestStepInfo("Description");
-    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass))
-    {   // Read the current fault count from the module
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    //Short Circuit not needed - if test previously passed will skip in CommandTestStepFunction
+    //if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass))
+    //{   // Read the current fault count from the module
         //UINT8 faultCount = 0xFF;
         //BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("ReadFaultCount", faultCount);
         //if(BEP_STATUS_SUCCESS == status)
@@ -276,7 +278,29 @@ string AisinTransmissionTC<VehicleModuleType>::ClearFaults(void)
                (!GetTestStepInfoBool("CheckCompletePassStatus") || 
                 ((GetOverallResult() == testPass) && SystemRead("CurrentTestStatus") == BEP_PASS_STATUS)))
             {
-                testResult = GenericTCTemplate<VehicleModuleType>::ClearFaults();
+                try
+                {   // Tell the module to clear faults
+                    moduleStatus = m_vehicleModule.ClearFaults();
+                    // Determine the test results
+                    if(moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
+                    testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+                    testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+                    testDescription = 
+                        (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+                    // Log the data
+                    Log(LOG_DEV_DATA, "Clear Faults: %s - status: %s\n",
+                        testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+                }
+                catch(ModuleException &moduleException)
+                {
+                    Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                        GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+                    testResult = testSoftwareFail;
+                    testResultCode = GetFaultCode("SoftwareFailure");
+                    testDescription = GetFaultDescription("SoftwareFailure");
+                }
+                // Send the test result
+                SendTestResult(testResult, testDescription, testResultCode);
             }
             else
             {
@@ -296,17 +320,17 @@ string AisinTransmissionTC<VehicleModuleType>::ClearFaults(void)
         //char buff[8];
         //SendSubtestResultWithDetail(GetTestStepName() + "ReadFaultCount", result, GetTestStepInfo("Description"), "0000",
         //                         "DtcCount", CreateMessage(buff, sizeof(buff), "%d", faultCount), "");
-    }
-    else if(!GetTestStepResult().compare(testPass))
-    {   // This test already passed, skip it but leave it marked as pass
-        Log(LOG_DEV_DATA, "Already passed clear faults, not testing again");
-        testResult = testPass;
-    }
-    else
-    {   // Need to skip this step
-        Log(LOG_FN_ENTRY, "Skipping clear faults");
-        testResult = testSkip;
-    }
+    //}
+    //else if(!GetTestStepResult().compare(testPass))
+    //{   // This test already passed, skip it but leave it marked as pass
+    //    Log(LOG_DEV_DATA, "Already passed clear faults, not testing again");
+    //    testResult = testPass;
+    //}
+    //else
+    //{   // Need to skip this step
+    //    Log(LOG_FN_ENTRY, "Skipping clear faults");
+    //    testResult = testSkip;
+    //}
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "AisinTransmissionTC::ClearFaults() - Exit");
     return testResult;

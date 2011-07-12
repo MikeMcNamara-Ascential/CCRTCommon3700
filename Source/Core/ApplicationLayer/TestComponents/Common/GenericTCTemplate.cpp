@@ -1046,8 +1046,8 @@ string GenericTCTemplate<ModuleType>::LockModule(void)
     string faultTag("FaultLockModuleCommError");
     BEP_STATUS_TYPE status;
 
-    if (!ShortCircuitTestStep() && (GetOverallResult() == testPass) && 
-        SystemRead("CurrentTestStatus") == BEP_PASS_STATUS && GetTestStepResult().compare(testPass))
+    if ((!ShortCircuitTestStep() || GetTestStepResult().compare(testPass)) && 
+        (GetOverallResult() == testPass) && SystemRead("CurrentTestStatus") == BEP_PASS_STATUS)
     {
         Log(LOG_FN_ENTRY, "%s: ENTER", GetTestStepName().c_str());
         try

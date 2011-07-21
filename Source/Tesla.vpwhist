@@ -1,31 +1,321 @@
 [Global]
-CurrentProject=Tools\Tools.vpj
+CurrentProject=Tesla\Tesla.vpj
 [ActiveConfig]
 Core\Core.vpj=Release
 Tesla\Tesla.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Core\Core.vpj=20110629125435594
-Tesla\Tesla.vpj=20110629125230095
-Tests\Tests.vpj=20110629125520843
-Tools\Tools.vpj=20110629125438656
+Core\Core.vpj=20110701100154249
+Tesla\Tesla.vpj=20110720132709002
+Tests\Tests.vpj=20110701100211327
+Tools\Tools.vpj=20110701100155451
 [TreeExpansion2]
-+ Core\Core.vpj
-+ Tesla\Tesla.vpj
+- Core\Core.vpj
+  - ApplicationLayer
+    + ModuleInterfaces
+      - Brake
+      + Common
+      + EngineController
+      + Include
+      + Transmission
+    + ProtocolFilters
+      + Common
+      + GMClassII
+      + Include
+      + ISO
+      + J2190
+      + KeyWord2000
+      + SCI
+    - TestComponents
+      + Brake
+        + BaseBrake
+          + Configuration
+        + Common
+          + Configuration
+        + Include
+      + Common
+        + Configuration
+      + Emissions
+        + Common
+          + Configuration
+        + Include
+      + GasAnalyzer
+        + Common
+        + GasAnalyzer
+          + Configuration
+        + Include
+      + Include
+      + LossCompensation
+        + Common
+        + Include
+        + LossCompensation
+          + Configuration
+      - Machine
+        - Common
+        + Include
+        + Machine
+          + Configuration
+      + SpeedControl
+        + Common
+          + Configuration
+        + GenericSpeedControl
+        + Include
+      + TransferCase
+        + Common
+          + Configuration
+        + GenericTransferCase
+        + Include
+      + Transmission
+        + Common
+        + Include
+        + Transmission
+    + VehicleTest
+      + Common
+      + ComponentManager
+      + ComponentProxy
+      + Include
+      + Library
+      + PhaseCommander
+      + TestSelector
+      + TestSequencer
+      + VehicleTest
+  + ClientConfigurations
+  + ServicesLayer
+    + Include
+    + Library
+      + Bepos
+      + License
+        + Include
+      + SoftwareId
+      + SystemCommunication
+      + XmlProcessor
+        + gennmtab
+        + xmlparse
+        + xmltok
+        + xmlwf
+    + Managers
+      + Common
+      + CommProxy
+        + AVT
+          + CAN
+          + Common
+          + Include
+          + J2190
+        + Common
+        + Gryphon
+          + CAN
+          + Common
+          + Include
+            + hw
+        + Include
+        + MultiCom
+        + Raw
+          + ISO
+          + SCI
+        + TcpIp
+        + Tests
+      + ICM
+        + Include
+        + IpIcm
+          + Configuration
+      + Include
+      + PlcMgr
+        + Configuration
+      + SciIsoMuxMgr
+      + SerialServer
+      + TaskMon
+        + Common
+        + Configuration
+        + TaskMon
+        + TaskMonOld
+        + TaskMonTerm
+    + Servers
+      + DataServer
+        + Configuration
+      + DsaServer
+        + Configuration
+      + FaultServer
+        + Configuration
+      + GenericServer
+      + InputServer
+        + CLV295ScannerMgr
+        + Common
+        + Configuration
+        + Include
+        + MapleKeypadManager
+        + PendantManager
+        + SymbolScannerMgr
+      + Launcher
+        + Configuration
+      + LogDaemon
+        + Configuration
+      + MachineDataBroker
+        + Configuration
+      + MotorController
+        + Common
+        + Electric
+          + AB
+            + Configuration
+          + Baldor
+            + Configuration
+          + Motor
+            + Configuration
+        + Hydraulic
+          + Configuration
+        + Include
+      + NamedDataBroker
+        + Configuration
+      + PlantHostInbound
+        + Include
+        + Library
+      + PlantHostOutbound
+        + Configuration
+        + DAQ
+        + GenericText
+        + HostInterface
+        + Include
+        + Library
+      + PromptServer
+        + Configuration
+      + SystemMonitor
+        + Configuration
+        + Include
+        + Library
+      + SystemScreenSaver
+        + Configuration
+      + TestResultServer
+        + Configuration
+      + VehicleDataBroker
+        + Configuration
+      + VehicleDataServer
+        + Configuration
+        + Include
+        + Library
+- Tesla\Tesla.vpj
+  - ApplicationLayer
+    - ModuleInterfaces
+      + Airbag
+        + Configuration
+      - Brake
+        + Bosch
+          + Configuration
+        + Teves
+          + Configuration
+    - TestComponents
+      + Airbag
+        + Configuration
+      - Brake
+        - Bosch
+          + Configuration
+        + Teves
+          + Configuration
+      + Common
+        + Configuration
+      + Drivetrain
+        + Configuration
+      + LossCompensation
+        + Configuration
+      + Machine
+        + Configuration
+      + SpeedControl
+        + Configuration
+    - VehicleTest
+      - Configuration
+        - DriveCurves
+  + Burke_PorterCCRT
+    + jre
+      + bin
+        + client
+      + lib
+        + images
+          + cursors
+    + resources
+      + com
+        + bepco
+          + rtc
+            + oldproperties
+            + properties
+      + local
+        + crt
+        + diagnostics
+          + schematics
+        + ftproot
+          + home
+            + ftp
+              + Configuration
+                + Client
+                + Components
+                  + Airbag
+                  + Brake
+                  + Cluster
+                  + Emissions
+                  + Machine
+                  + SKIM
+                  + SpeedControl
+                  + Transmission
+                + Machine
+                + Servers
+                + VehicleTest
+                  + BuildRecords
+                  + DriveCurves
+              + TestResults
+                + Machine
+                  + BrakeForceData
+                + Vehicle
+        + httproot
+          + conf
+        + ndbconfig
+        + playback
+        + report
+        + sim
+          + params
+    + UninstallerData
+  + ServicesLayer
+    + Managers
+      + ICM
+        + IpIcm
+          + Configuration
+      + PlcMgr
+        + Configuration
+      + SerialServer
+        + Configuration
+    + Servers
+      + InputServer
+        + Configuration
+      + Launcher
+        + Configuration
+      + MachineDataBroker
+        + Configuration
+      + MotorController
+        + Electric
+          + AB
+            + Configuration
+      + NamedDataBroker
+        + Configuration
+      + PlantHostOutbound
+        + Configuration
+      + SystemMonitor
+        + Configuration
+      + TestResultServer
+        + Configuration
+      + VehicleDataBroker
+        + Configuration
+      + VehicleDataServer
+        + Configuration
 + Tests\Tests.vpj
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1680 1050 23 24 1344 722 0 0 M 0 0 0 0 1227 713
-CWD: Tools
+SCREEN: 1920 1080 23 24 1344 722 0 0 M 0 0 0 0 1594 728
+CWD: Tesla
 FILEHIST: 9
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\ISO\IsoCommProxyMain.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxy.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxyMain.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Common\RawCommProxy.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Include\RawCommProxy.h
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxy.h
-..\..\GM\Source\GM\507208 - GM AM General.txt
-..\..\GM\Source\GM\ApplicationLayer\TestComponents\Brake\GM\GMBrakeTC.cpp
-..\..\GM\Source\Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp
+Tesla\ApplicationLayer\VehicleTest\Configuration\DriveCurves\Tesla.SedanDriveCurve.xml
+Tesla\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp
+Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp
+Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp
+Core\ApplicationLayer\TestComponents\Common\GenericTC.cpp
+Tesla\ApplicationLayer\TestComponents\Drivetrain\TeslaDrivetrainTC.cpp
+Tesla\ApplicationLayer\TestComponents\Brake\Bosch\BoschABSTC.cpp
+Tesla\ApplicationLayer\TestComponents\Machine\Configuration\Tesla.MachineComponent.xml
+Core\ApplicationLayer\TestComponents\Machine\Common\MachineTC.cpp

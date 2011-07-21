@@ -44,6 +44,20 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase000>
+      <TestPhase010 Description="Turn Ignition Off" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Brake">
+               <IgnitionOff/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase010>
+      <TestPhase020 Description="Turn Ignition On" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Brake">
+               <IgnitionOn/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase020>
       <!-- ABS Static Testing -->
       <TestPhase100 Description="Prompt ABS testing in progress" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -66,6 +80,13 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase120>
+      <TestPhase125 Description="Test brake switch" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Brake">
+               <BrakeSwitchTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase125>
       <TestPhase130 Description="Prompt ABS testing complete" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Display ABS static test phase complete" Result="" Timeout="" Component="Machine">

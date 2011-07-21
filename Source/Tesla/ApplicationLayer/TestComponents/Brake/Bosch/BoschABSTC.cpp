@@ -524,9 +524,12 @@ string BoschABSTC<ModuleType>::CheckParkBrakeSignal(void)
         testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("ReadParkBrakeSignal"));
 
         RemovePrompt(1,"ApplyParkingBrake");
-        DisplayPrompt(1,"ReleaseParkingBrake");
-        BposSleep(2000);
-        RemovePrompt(1,"ReleaseParkingBrake");
+        if(!GetParameterBool("PBTestAfterCheckPBSignal"))
+        {
+            DisplayPrompt(1,"ReleaseParkingBrake");
+            BposSleep(2000);
+            RemovePrompt(1,"ReleaseParkingBrake");
+        }
 
         Log(LOG_DEV_DATA, "Read Park Brake Signal: %s - status: %s\n", 
             testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
@@ -786,6 +789,10 @@ string BoschABSTC<ModuleType>::IgnitionOn()
 
         // Remove our prompts
         RemovePrompts();
+
+        DisplayPrompt(1,"Initialize");
+        BposSleep(GetParameterInt("IgnitionOnStartupTime"));
+        RemovePrompt(1,"Initialize");
 
         // Send the test result
         SendTestResult(testResult, testDescription, testResultCode);

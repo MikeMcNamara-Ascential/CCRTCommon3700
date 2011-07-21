@@ -84,6 +84,11 @@
 					<F N="ApplicationLayer/ModuleInterfaces/Airbag/SiemensAirbagModule.h"/>
 				</Folder>
 				<Folder Name="Brake">
+					<Folder Name="Bosch">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch/Configuration/Tesla.BoschAbsModuleConfig.xml"/>
+						</Folder>
+					</Folder>
 					<Folder Name="Teves">
 						<Folder Name="Configuration">
 							<F N="ApplicationLayer/ModuleInterfaces/Brake/Teves/Configuration/CMakeLists.txt"/>
@@ -110,6 +115,15 @@
 					<F N="ApplicationLayer/TestComponents/Airbag/SiemensAirbagTCMain.cpp"/>
 				</Folder>
 				<Folder Name="Brake">
+					<Folder Name="Bosch">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/Tesla.BoschABSTC.xml"/>
+						</Folder>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschABSTC.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschABSTC.h"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschAbsTcMain.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch/KoreaAbsTcTemplate.cpp"/>
+					</Folder>
 					<Folder Name="Teves">
 						<Folder Name="Configuration">
 							<F N="ApplicationLayer/TestComponents/Brake/Teves/Configuration/CMakeLists.txt"/>
@@ -171,10 +185,23 @@
 				<Folder Name="Configuration">
 					<Folder Name="DriveCurves">
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.BaseBrakeDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.LossCompensationDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ABSDynamic.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ABSLowSpeedSensor.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ABSStatic.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.Airbag.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.BrakeBedding.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.CruiseControl.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.DriveTrainLoading.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.FullABSTests.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ParkingBrake.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ReverseWarning.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.RoadsterDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.SedanDriveCurve.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/VehicleTest/Configuration/CMakeLists.txt"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/Tesla.SelectionTable.subtests.xml"/>
 					<F N="ApplicationLayer/VehicleTest/Configuration/Tesla.SelectionTable.xml"/>
 					<F N="ApplicationLayer/VehicleTest/Configuration/Tesla.VehicleTestConfig.xml"/>
 				</Folder>
@@ -544,6 +571,13 @@
 					</Folder>
 					<F N="ServicesLayer/Managers/ICM/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="PlcMgr">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/Tesla.SerialPlcConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Managers/PlcMgr/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="SerialServer">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/CMakeLists.txt"/>
@@ -587,6 +621,21 @@
 						<F N="ServicesLayer/Servers/MotorController/Electric/CMakeLists.txt"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/MotorController/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="NamedDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/NamedDataBroker/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/NamedDataBroker/Configuration/Tesla.NDBConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/NamedDataBroker/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="PlantHostOutbound">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/NdbHostInterfaceMap.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Tesla.PlantHostOutboundConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="SystemMonitor">
 					<Folder Name="Configuration">

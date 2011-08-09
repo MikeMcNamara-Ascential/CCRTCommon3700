@@ -1,6 +1,6 @@
-<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.1/vpj.dtd">
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.0/vpj.dtd">
 <Project
-	Version="9.1"
+	Version="9.0"
 	VendorName="SlickEdit"
 	WorkingDir=".">
 	<Config
@@ -72,6 +72,16 @@
 		<Folder Name="ApplicationLayer">
 			<Folder Name="ModuleInterfaces">
 				<Folder Name="Brake">
+					<Folder Name="Bosch8">
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch8/Bosch8Module.cpp"/>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch8/CMakeLists.txt"/>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch8/KoreaAbsModuleTemplate.cpp"/>
+					</Folder>
+					<Folder Name="Include">
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Include/Bosch8Module.h"/>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Include/KoreaAbsModuleTemplate.h"/>
+					</Folder>
+					<F N="ApplicationLayer/ModuleInterfaces/Brake/CMakeLists.txt"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Brake/GenericABSModuleTemplate.cpp"/>
 				</Folder>
 				<Folder Name="Common">
@@ -157,11 +167,18 @@
 				<Folder Name="Brake">
 					<Folder Name="BaseBrake">
 						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/BaseBrake.xml"/>
 							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/CMakeLists.txt"/>
 							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/SampleBaseBrakeConfig.xml"/>
 						</Folder>
 						<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/CMakeLists.txt"/>
 						<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/GenericBaseBrakeTCMain.cpp"/>
+					</Folder>
+					<Folder Name="Bosch8">
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Bosch8TC.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Bosch8TCMain.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch8/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch8/KoreaAbsTcTemplate.cpp"/>
 					</Folder>
 					<Folder Name="Common">
 						<Folder Name="Configuration">
@@ -175,8 +192,10 @@
 					</Folder>
 					<Folder Name="Include">
 						<F N="ApplicationLayer/TestComponents/Brake/Include/BaseBrakeTool.h"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Include/Bosch8TC.h"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Include/GenericABSTCTemplate.h"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Include/GenericBaseBrakeTC.h"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Include/KoreaAbsTcTemplate.h"/>
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Brake/CMakeLists.txt"/>
 				</Folder>
@@ -244,6 +263,12 @@
 						</Folder>
 						<F N="ApplicationLayer/TestComponents/LossCompensation/LossCompensation/CMakeLists.txt"/>
 						<F N="ApplicationLayer/TestComponents/LossCompensation/LossCompensation/LossCompensationTCMain.cpp"/>
+					</Folder>
+					<Folder Name="PhotonLossCompensation">
+						<F N="ApplicationLayer/TestComponents/LossCompensation/PhotonLossCompensation/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/PhotonLossCompensation/PhotonLossCompensation.cpp"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/PhotonLossCompensation/PhotonLossCompensation.h"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/PhotonLossCompensation/PhotonLossCompensationMain.cpp"/>
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/LossCompensation/CMakeLists.txt"/>
 				</Folder>
@@ -501,6 +526,7 @@
 					<F N="ServicesLayer/Library/SystemCommunication/IInterProcessCommunication.cpp"/>
 					<F N="ServicesLayer/Library/SystemCommunication/IOpenChannelIpc.cpp"/>
 					<F N="ServicesLayer/Library/SystemCommunication/ITcpIp.cpp"/>
+					<F N="ServicesLayer/Library/SystemCommunication/ITcpIplingershutdown.cpp"/>
 				</Folder>
 				<Folder Name="XmlProcessor">
 					<Folder Name="gennmtab">
@@ -615,6 +641,12 @@
 							<F N="ServicesLayer/Managers/CommProxy/AVT/J2190/CMakeLists.txt"/>
 						</Folder>
 						<F N="ServicesLayer/Managers/CommProxy/AVT/CMakeLists.txt"/>
+					</Folder>
+					<Folder Name="BBKWireless">
+						<F N="ServicesLayer/Managers/CommProxy/BBKWireless/BBKWirelessProxy.cpp"/>
+						<F N="ServicesLayer/Managers/CommProxy/BBKWireless/BBKWirelessProxy.h"/>
+						<F N="ServicesLayer/Managers/CommProxy/BBKWireless/BBKWirelessProxyMain.cpp"/>
+						<F N="ServicesLayer/Managers/CommProxy/BBKWireless/CMakeLists.txt"/>
 					</Folder>
 					<Folder Name="Common">
 						<F N="ServicesLayer/Managers/CommProxy/Common/CMakeLists.txt"/>
@@ -1068,18 +1100,26 @@
 					<Folder Name="HostInterface">
 						<F N="ServicesLayer/Servers/PlantHostOutbound/HostInterface/CMakeLists.txt"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/HostInterface/HostInterface.cpp"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/HostInterface/HostInterfaceKeepAlive.cpp"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/HostInterface/HostInterfaceMain.cpp"/>
 					</Folder>
 					<Folder Name="Include">
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/DAQInterface.h"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/GenericTextInterface.h"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/HostInterface.h"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/HostInterfaceKeepAlive.h"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/NdbInterface.h"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/PlantHostOutbound.h"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/PlantHostOutboundDefs.h"/>
 					</Folder>
 					<Folder Name="Library">
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Library/CMakeLists.txt"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Library/PlantHostOutbound.cpp"/>
+					</Folder>
+					<Folder Name="NDB">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/NDB/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/NDB/NdbInterface.cpp"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/NDB/NdbInterfaceMain.cpp"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
 					<F N="ServicesLayer/Servers/PlantHostOutbound/PlantHostOutboundMain.cpp"/>
@@ -1164,7 +1204,4 @@
 		</Folder>
 		<F N="CMakeLists.txt"/>
 	</Files>
-	<CompatibleVersions>
-		<PrevVersion VersionNumber="9.0"/>
-	</CompatibleVersions>
 </Project>

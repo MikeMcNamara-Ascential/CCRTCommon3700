@@ -887,25 +887,34 @@ private:
      * @return Result of processing the test results.
      */
     string ProcessTestResults(void);
-    /**
-     * File name to store test results in.
-     * @since Version 1.0
-     */
+
+	/**
+	 * Get/Set the flag indicating if a pass confirmation file should be generated.
+	 * 
+	 * @param create Flag indicating if a pass confirmation file should be generated.
+	 * 
+	 * @return Flag indicating if a pass confirmation file should be generated.
+	 */
+	const bool& GeneratePassConfirmationFile(const bool *create=NULL);
+
+	/**
+	 * Get/Set the directory to use for storing pass confirmation files.
+	 * 
+	 * @param path   Directory to use for storing pass confirmation files.
+	 * 
+	 * @return Directory to use for storing pass confirmation files.
+	 */
+	const string& PassConfirmationFilePath(const string *path=NULL);
+
+    /** File name to store test results in. */
     string m_testResultFile;
-    /**
-     * Path to store test results.
-     * @since Version 1.0
-     */
+    /** Path to store test results. */
     string m_testResultPath;
-    /**
-     * Path to store test results.
-     * @since Version 1.0
-     */
+    /** Path to store test results. */
     string m_testResultPublshedPath;
-    /**
-     * Number of tests to keep in archive.
-     * @since Version 1.0
-     */
+	/** Directory to store the pass confirmation file in */
+	string m_passConfirmationPath;
+    /** Number of tests to keep in archive. */
     INT16 m_numberOfTests;
     /**
      * flag used to indicate that we need to clear the build data when
@@ -1088,6 +1097,8 @@ private:
     BepTimer m_faultAlarmTimer;
     /** Timer to use for signaling test complete to the PLC */
     BepTimer m_testCompleteSignalTimer;
+	/** Flag to determine if a pass confirmation file should be generated */
+	bool m_createPassConfirmationFile;
 };
 #endif  //TestResultServer_h
 

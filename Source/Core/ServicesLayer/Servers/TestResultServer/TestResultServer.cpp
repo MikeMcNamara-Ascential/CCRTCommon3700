@@ -415,6 +415,33 @@ void TestResultServer::Initialize(const XmlNode *document)
         connect = false;
     }
     ConnectToQnxDataServer(&connect);
+	// Determine if a pass confirmation file should be generated
+	bool createPassConfirmation = false;
+	try
+	{
+		createPassConfirmation = atob(document->getChild("Setup/CreatePassConfirmationFile")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Create pass confirmation file not configured, not generating pass confirmation files: %s",
+			excpt.GetReason());
+		createPassConfirmation = false;
+	}
+	GeneratePassConfirmationFile(&createPassConfirmation);
+	if(GeneratePassConfirmationFile())
+	{   // Need to store the location to place the file
+		string path;
+		try
+		{
+			path = document->getChild("Setup/TestResults/PassConfirmationFilePath")->getValue();
+		}
+		catch(XmlException &excpt)
+		{
+			path = string(getenv("USR_ROOT")) + string("/TestResults/PassConfirmation/");
+			Log(LOG_ERRORS, "Pass confirmation file path not specified, using %s - %s", path.c_str(), excpt.GetReason());
+		}
+		PassConfirmationFilePath(&path);
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -1601,6 +1628,34 @@ string TestResultServer::ProcessTestResults(void)
     // Publish the test results
     Log(LOG_DEV_DATA, "Publishing test results...");
     BepServer::Write(TEST_RESULT_TAG, ReportResults());
+	// Possibly generate a pass confirmation file
+	if(GeneratePassConfirmationFile())
+	{   // Check if the overall result was pass and this is not a loss comp result
+		XmlNodeMapItr iter = m_data.find(GetOverallTestTag());
+		string result = (iter != m_data.end()) ? iter->second->getAttribute(BEP_RESULT)->getValue() : BEP_UNAVAILABLE_RESPONSE;
+		Log(LOG_DEV_DATA, "Generate Pass Confirmation file - Overall Test Result: %s", result.c_str());
+		if(GetCurrentVin().compare(GetLossCompensationVin()) && !result.compare(BEP_PASS_RESPONSE))
+		{  
+			FILE *passFile = NULL;
+			string fileName = PassConfirmationFilePath() + GetCurrentVin() + ".DVT";
+			Log(LOG_DEV_DATA, "Creating pass confirmation file: %s", fileName.c_str());
+			if((passFile = fopen(fileName.c_str(), "w")) != NULL)
+			{   // Get the current date to write into the file
+				string currentDate(GetTimeAndDate(GetDataTag("DateFormat")));
+				Log(LOG_DEV_DATA, "Writing date %s to pass confirmation file", currentDate.c_str());
+				fprintf(passFile, "%s", currentDate.c_str());
+				fclose(passFile);
+			}
+			else
+			{
+				Log(LOG_ERRORS, "Could not open %s, not saving pass confirmation file", fileName.c_str());
+			}
+		}
+		else
+		{
+			Log(LOG_DEV_DATA, "Not generating pass confirmation file for %s", GetCurrentVin().c_str());
+		}
+	}
     // 3/2/5 - ews - added this conditional, so we can retest.
     if(true == m_clearBuildOnOverall)
     {   // Test has been completed, set flag
@@ -1708,4 +1763,18 @@ inline void TestResultServer::ToggleTestCompleteSignal(const bool signalTestComp
     INamedDataBroker ndb;
     string response;
     ndb.Write(GetDataTag("TestCompleteSignalTag"), signalTestComplete ? "1" : "0", response, true);
+}
+
+//-----------------------------------------------------------------------------
+const bool& TestResultServer::GeneratePassConfirmationFile(const bool *create/*=NULL*/)
+{
+	if(create != NULL)  m_createPassConfirmationFile = *create;
+	return m_createPassConfirmationFile;
+}
+
+//-----------------------------------------------------------------------------
+const string& TestResultServer::PassConfirmationFilePath(const string *path/*=NULL*/)
+{
+	if(path != NULL)  m_passConfirmationPath = *path;
+	return m_passConfirmationPath;
 }

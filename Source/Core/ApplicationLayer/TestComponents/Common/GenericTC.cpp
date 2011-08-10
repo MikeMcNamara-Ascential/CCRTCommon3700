@@ -1547,7 +1547,7 @@ BEP_STATUS_TYPE GenericTC::Engage(void)
 			Log(LOG_DEV_DATA, "Waiting For System To Engage\n");
 			BposSleep(100);
 		}
-		if(systemOk)    status = BEP_STATUS_SUCCESS;
+		if(systemOk)	status = BEP_STATUS_SUCCESS;
 		else			status = BEP_STATUS_FAILURE;
 
 	}
@@ -2363,7 +2363,7 @@ INT32 GenericTC::TagArray(const string arrayTag)
 	string response, indexTag, indexValue;
 	// Attempt to tag the data array
 	do 
-	{   // Tell the ICM manager to tag the array
+	{	// Tell the ICM manager to tag the array
 		status = m_icmMgrComm.Command(GetDataTag("TagIndex"), arrayTag, response, true);
 		// Check the status of the command
 		if(BEP_STATUS_SUCCESS == status)
@@ -2376,7 +2376,7 @@ INT32 GenericTC::TagArray(const string arrayTag)
 		{		// Error tagging the array
 			Log(LOG_ERRORS, "Error tagging the data array - status: %s, attempt: %d", ConvertStatusToResponse(status).c_str(), attempt);
 		}
-	} while ((attempt-- > 0) && (BEP_STATUS_SUCCESS != status));
+	} while((attempt-- > 0) && (BEP_STATUS_SUCCESS != status));
 	// If not a good status, throw the exception
 	if(BEP_STATUS_SUCCESS != status)
 	{
@@ -2426,22 +2426,22 @@ INT32 GenericTC::ReadDataArrays(const string &array, int startIdx, int endIdx, W
 				// create a wheel information array to store the values
 				WHEELINFO wheelInfoArray[samples+1];
 				Log(LOG_DEV_DATA, "Reading %d Samples\n", samples);
-                if (4 < GetRollerCount())
-                {
-				bytes = read(arrayFd, (void *) wheelInfoArray, (sizeof(float) * GetRollerCount() * samples));
-                }
-                else
-                {
-                    WHEELINFO2AXLE wheelInfoArray2Axle[samples+1];
-                    bytes = read(arrayFd, (void *) wheelInfoArray2Axle, (sizeof(float) * GetRollerCount() * samples));
-                    for (int x = 0; x < samples+1; x++)
-                    {
-                        wheelInfoArray[x].lfWheel = wheelInfoArray2Axle[x].lfWheel;
-                        wheelInfoArray[x].rfWheel = wheelInfoArray2Axle[x].rfWheel;
-                        wheelInfoArray[x].lrWheel = wheelInfoArray2Axle[x].lrWheel;
-                        wheelInfoArray[x].rrWheel = wheelInfoArray2Axle[x].rrWheel;
-                    }
-                }
+				if(4 < GetRollerCount())
+				{
+					bytes = read(arrayFd, (void *) wheelInfoArray, (sizeof(float) * GetRollerCount() * samples));
+				}
+				else
+				{
+					WHEELINFO2AXLE wheelInfoArray2Axle[samples+1];
+					bytes = read(arrayFd, (void *) wheelInfoArray2Axle, (sizeof(float) * GetRollerCount() * samples));
+					for(int x = 0; x < samples+1; x++)
+					{
+						wheelInfoArray[x].lfWheel = wheelInfoArray2Axle[x].lfWheel;
+						wheelInfoArray[x].rfWheel = wheelInfoArray2Axle[x].rfWheel;
+						wheelInfoArray[x].lrWheel = wheelInfoArray2Axle[x].lrWheel;
+						wheelInfoArray[x].rrWheel = wheelInfoArray2Axle[x].rrWheel;
+					}
+				}
 				if(bytes == (ssize_t)(sizeof(float) * GetRollerCount() * samples))
 				{
 					for(int index=0;(index < samples) && (status == BEP_STATUS_SUCCESS); index++)
@@ -5564,28 +5564,28 @@ void GenericTC::SetObjectiveResult(const std::string result)
 //=============================================================================
 const std::string GenericTC::GetParameter(const std::string dataTag)
 {
-    std::string value, units;
-    bool convertToEnglishUnits = false;
-    try
-    {
-        units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
-        convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    try
-    {
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, m_parameters.getNode(dataTag)->getValue()) :
-                m_parameters.getNode(dataTag)->getValue();
-    }
-    catch(XmlException &e)
-    {
-        Log(LOG_ERRORS, "Invalid Parameter Requested: %s, %s\n", dataTag.c_str(), e.what());
-        value.erase();
-    }
+	std::string value, units;
+	bool convertToEnglishUnits = false;
+	try
+	{
+		units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
+		convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	try
+	{
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, m_parameters.getNode(dataTag)->getValue()) :
+				m_parameters.getNode(dataTag)->getValue();
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "Invalid Parameter Requested: %s, %s\n", dataTag.c_str(), e.what());
+		value.erase();
+	}
 
 	return(value);
 }
@@ -5600,25 +5600,25 @@ std::string GenericTC::GetParameter( const std::string &dataTag, std::string &va
 //=============================================================================
 INT32 GenericTC::GetParameter ( const std::string &dataTag, int &value) throw(BepException)
 {
-    std::string     strVal, units;
-    bool convertToEnglishUnits = false;
+	std::string     strVal, units;
+	bool convertToEnglishUnits = false;
 
 	// Will throw an exception if the desired dataTag does not exist in the parameters
 	value = BposReadInt( GetParameter( dataTag, strVal).c_str());
-    try
-    {
-        units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
-        convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    INT32 retVal = BposReadInt( GetParameter( dataTag, strVal).c_str());
-    // Will throw an exception if the desired dataTag does not exist in the parameters
-    value = convertToEnglishUnits ? ConvertToEnglishUnits(units, retVal) : 
-            retVal;
+	try
+	{
+		units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
+		convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	INT32 retVal = BposReadInt( GetParameter( dataTag, strVal).c_str());
+	// Will throw an exception if the desired dataTag does not exist in the parameters
+	value = convertToEnglishUnits ? ConvertToEnglishUnits(units, retVal) : 
+			retVal;
 
 	return( value);
 }
@@ -5626,25 +5626,25 @@ INT32 GenericTC::GetParameter ( const std::string &dataTag, int &value) throw(Be
 //=============================================================================
 float GenericTC::GetParameter ( const std::string &dataTag, float &value) throw(BepException)
 {
-    std::string     strVal, units;
-    bool convertToEnglishUnits = false;
+	std::string     strVal, units;
+	bool convertToEnglishUnits = false;
 
 	// Will throw an exception if the desired dataTag does not exist in the parameters
 	value = atof( GetParameter( dataTag, strVal).c_str());
-    try
-    {
-        units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
-        convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    float fltVal = atof( GetParameter( dataTag, strVal).c_str());
-    // Will throw an exception if the desired dataTag does not exist in the parameters
-    value = convertToEnglishUnits ? ConvertToEnglishUnits(units, fltVal) : 
-            fltVal;
+	try
+	{
+		units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
+		convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	float fltVal = atof( GetParameter( dataTag, strVal).c_str());
+	// Will throw an exception if the desired dataTag does not exist in the parameters
+	value = convertToEnglishUnits ? ConvertToEnglishUnits(units, fltVal) : 
+			fltVal;
 
 	return( value);
 }
@@ -5670,30 +5670,30 @@ bool GenericTC::GetParameter ( const std::string &dataTag, bool &value) throw(Be
 const INT32 GenericTC::GetParameterInt(const std::string dataTag)
 {
 	INT32 value = 0;
-    string units;
-    bool convertToEnglishUnits = false;
+	string units;
+	bool convertToEnglishUnits = false;
 
-    try
-    {
-        units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
-        convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
+	try
+	{
+		units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
+		convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
 
-    try
-    {
-        INT32 retVal = BposReadInt(m_parameters.getNode(dataTag)->getValue().c_str());
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, retVal) : 
-                retVal;
-    }
-    catch(XmlException &e)
-    {
-        Log(LOG_ERRORS, "Invalid Parameter Requested: %s, %s\n", dataTag.c_str(), e.what());
-    }
+	try
+	{
+		INT32 retVal = BposReadInt(m_parameters.getNode(dataTag)->getValue().c_str());
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, retVal) : 
+				retVal;
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "Invalid Parameter Requested: %s, %s\n", dataTag.c_str(), e.what());
+	}
 
 	return(value);
 }
@@ -5701,30 +5701,30 @@ const INT32 GenericTC::GetParameterInt(const std::string dataTag)
 //=============================================================================
 const float GenericTC::GetParameterFloat(const std::string dataTag)
 {
-    float value = 0;
-    string units;
-    bool convertToEnglishUnits = false;
+	float value = 0;
+	string units;
+	bool convertToEnglishUnits = false;
 
-    try
-    {
-        units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
-        convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    try
-    {
-        float fltVal = atof(m_parameters.getNode(dataTag)->getValue().c_str());
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, fltVal) : 
-                fltVal;
-    }
-    catch(XmlException &e)
-    {
-        Log(LOG_ERRORS, "Invalid Parameter Requested: %s, %s\n", dataTag.c_str(), e.what());
-    }
+	try
+	{
+		units = m_parameters.getNode(dataTag)->getAttribute(BEP_UNITS)->getValue().c_str();
+		convertToEnglishUnits = atob(m_parameters.getNode(dataTag)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	try
+	{
+		float fltVal = atof(m_parameters.getNode(dataTag)->getValue().c_str());
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, fltVal) : 
+				fltVal;
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "Invalid Parameter Requested: %s, %s\n", dataTag.c_str(), e.what());
+	}
 
 	return(value);
 }
@@ -5754,40 +5754,40 @@ const float GenericTC::GetVehicleParameter(const string &parameterName, const fl
 {	// Get the vehicle build data
 	XmlNode vehicleBuildRequest(VEHICLE_BUILD_TAG, "");
 	XmlNode buildData("", "");
-    std::string strVal;
+	std::string strVal;
 	SystemRead(&vehicleBuildRequest, buildData);
 	float value = defValue;
-    string units;
-    bool convertToEnglishUnits = false;
+	string units;
+	bool convertToEnglishUnits = false;
 	try
 	{
 		value = atof(buildData.getChild(parameterName)->getValue().c_str());
-        try
-        {
-            units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
-            convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-        }
-        catch(XmlException &e)
-        {//units do not exist
-            units = "";
-            convertToEnglishUnits = false;
-        }
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
-                value;
+		try
+		{
+			units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
+			convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+		}
+		catch(XmlException &e)
+		{//units do not exist
+			units = "";
+			convertToEnglishUnits = false;
+		}
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
+				value;
 	}
 	catch(XmlException &excpt)
 	{	// Parameter is not in the build data, try just the normal parameter list
 		int startIndex = parameterName.find_last_of("/") + 1;
-        try 
-        {
-            //check if parameter exists
-            GetParameter(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0),strVal);
-		value = GetParameterFloat(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
-	}
-        catch(XmlException &excpt)
-        {	// Parameter is not in the normal parameter list, try test step info
-            value = GetTestStepInfoFloat(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
-        }
+		try
+		{
+			//check if parameter exists
+			GetParameter(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0),strVal);
+			value = GetParameterFloat(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
+		}
+		catch(XmlException &excpt)
+		{	// Parameter is not in the normal parameter list, try test step info
+			value = GetTestStepInfoFloat(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
+		}
 	}
 	// Delete the build data node since we are returned a copy
 	return value;
@@ -5798,40 +5798,40 @@ const int GenericTC::GetVehicleParameter(const string &parameterName, const int 
 {	// Get the vehicle build data
 	XmlNode vehicleBuildRequest(VEHICLE_BUILD_TAG, "");
 	XmlNode buildData("", "");
-    std::string strVal;
+	std::string strVal;
 	SystemRead(&vehicleBuildRequest, buildData);
 	int value = defValue;
-    string units;
-    bool convertToEnglishUnits = false;
+	string units;
+	bool convertToEnglishUnits = false;
 	try
 	{
 		value = BposReadInt(buildData.getChild(parameterName)->getValue().c_str());
-        try
-        {
-            units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
-            convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-        }
-        catch(XmlException &e)
-        {//units do not exist
-            units = "";
-            convertToEnglishUnits = false;
-        }
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
-                value;
+		try
+		{
+			units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
+			convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+		}
+		catch(XmlException &e)
+		{//units do not exist
+			units = "";
+			convertToEnglishUnits = false;
+		}
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
+				value;
 	}
 	catch(XmlException &excpt)
 	{	// Parameter is not in the build data, try just the normal parameter list
 		int startIndex = parameterName.find_last_of("/") + 1;
-        try
-        {
-            //check if parameter exists
-            GetParameter(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0),strVal);
-		value = GetParameterInt(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
-	}
-        catch(XmlException &excpt)
-        {	// Parameter is not in the normal parameter list, try test step info
-            value = GetTestStepInfoInt(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
-        }
+		try
+		{
+			//check if parameter exists
+			GetParameter(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0),strVal);
+			value = GetParameterInt(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
+		}
+		catch(XmlException &excpt)
+		{	// Parameter is not in the normal parameter list, try test step info
+			value = GetTestStepInfoInt(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
+		}
 	}
 	// Delete the build data node since we are returned a copy
 	return value;
@@ -5842,40 +5842,40 @@ const string GenericTC::GetVehicleParameter(const string &parameterName, const s
 {	// Get the vehicle build data
 	XmlNode vehicleBuildRequest(VEHICLE_BUILD_TAG, "");
 	XmlNode buildData("", "");
-    std::string strVal;
+	std::string strVal;
 	SystemRead(&vehicleBuildRequest, buildData);
 	string value(defValue);
-    string units;
-    bool convertToEnglishUnits = false;
+	string units;
+	bool convertToEnglishUnits = false;
 	try
 	{
 		value = buildData.getChild(parameterName)->getValue();
-        try
-        {
-            units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
-            convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-        }
-        catch(XmlException &e)
-        {//units do not exist
-            units = "";
-            convertToEnglishUnits = false;
-        }
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
-                value;
+		try
+		{
+			units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
+			convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+		}
+		catch(XmlException &e)
+		{//units do not exist
+			units = "";
+			convertToEnglishUnits = false;
+		}
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
+				value;
 	}
 	catch(XmlException &excpt)
 	{	// Parameter is not in the build data, try just the normal parameter list
 		int startIndex = parameterName.find_last_of("/") + 1;
-        try
-        {
-            //check if parameter exists
-            GetParameter(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0),strVal);
-		value = GetParameter(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
-	}
-        catch(XmlException &excpt)
-        {	// Parameter is not in the normal parameter list, try test step info
-            value = GetTestStepInfo(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
-        }
+		try
+		{
+			//check if parameter exists
+			GetParameter(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0),strVal);
+			value = GetParameter(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
+		}
+		catch(XmlException &excpt)
+		{	// Parameter is not in the normal parameter list, try test step info
+			value = GetTestStepInfo(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
+		}
 	}
 	// Delete the build data node since we are returned a copy
 	return value;
@@ -6000,66 +6000,66 @@ bool GenericTC::GetTestStepParameter( const std::string &dataTag, bool &value, c
 
 const std::string GenericTC::ConvertToEnglishUnits( std::string &units, const std::string &value) throw(BepException)
 {
-    string resultString = value;
-    if(units != "")
-    {
-        UINT32 spacePos = 0;
-        char buffer[128];
-        if((spacePos = value.find(' ')) != value.npos)
-        {//if contains space
-            try
-            {
-                float value1 = atof(value.substr(0,spacePos).c_str());
-                float value2 = atof(value.substr(spacePos+1,value.length()-(spacePos+1)).c_str());
-                value1 = ConvertToEnglishUnits(units,value1);
-                value2 = ConvertToEnglishUnits(units,value2);
-                //reassemble string
-                resultString =  CreateMessage(buffer, sizeof(buffer),"%.5f", value1) + std::string(" ") + 
-                                CreateMessage(buffer, sizeof(buffer),"%.5f", value2);
-            }
-            catch(...)
-            {
-                Log(LOG_ERRORS, "Error Converting String value to English Units\n");
-            }
-        }
-        else
-        {
-            float value1 = atof(value.c_str());
-            value1 = ConvertToEnglishUnits(units,value1);                 
-            //reassemble string
-            resultString =  CreateMessage(buffer, sizeof(buffer),"%.5f", value1);
-        }
-    }
-    return resultString;
+	string resultString = value;
+	if(units != "")
+	{
+		UINT32 spacePos = 0;
+		char buffer[128];
+		if((spacePos = value.find(' ')) != value.npos)
+		{//if contains space
+			try
+			{
+				float value1 = atof(value.substr(0,spacePos).c_str());
+				float value2 = atof(value.substr(spacePos+1,value.length()-(spacePos+1)).c_str());
+				value1 = ConvertToEnglishUnits(units,value1);
+				value2 = ConvertToEnglishUnits(units,value2);
+				//reassemble string
+				resultString =  CreateMessage(buffer, sizeof(buffer),"%.5f", value1) + std::string(" ") + 
+								CreateMessage(buffer, sizeof(buffer),"%.5f", value2);
+			}
+			catch(...)
+			{
+				Log(LOG_ERRORS, "Error Converting String value to English Units\n");
+			}
+		}
+		else
+		{
+			float value1 = atof(value.c_str());
+			value1 = ConvertToEnglishUnits(units,value1);                 
+			//reassemble string
+			resultString =  CreateMessage(buffer, sizeof(buffer),"%.5f", value1);
+		}
+	}
+	return resultString;
 }
 
 //=============================================================================
 INT32 GenericTC::ConvertToEnglishUnits ( std::string &units, int &value) throw(BepException)
 {
-    if(units != "")
-    {
-        float fVal = (float) value;
-        fVal = ConvertToEnglishUnits(units,fVal) + .5;
-        value = (INT32) fVal;
-    }
-    return value;
+	if(units != "")
+	{
+		float fVal = (float) value;
+		fVal = ConvertToEnglishUnits(units,fVal) + .5;
+		value = (INT32) fVal;
+	}
+	return value;
 }
 
 //=============================================================================
 float GenericTC::ConvertToEnglishUnits ( std::string &units, float &value) throw(BepException)
 {
-    if(units != "")
-    {
-        if (units == unitsKPH)
-        {
-            value /= (KPH_MPH); 
-        }
-        else if (units == unitsKGF)
-        {
-            value /= (KGF_LBS); 
-        }
-    }
-    return value;
+	if(units != "")
+	{
+		if(units == unitsKPH)
+		{
+			value /= (KPH_MPH); 
+		}
+		else if(units == unitsKGF)
+		{
+			value /= (KGF_LBS); 
+		}
+	}
+	return value;
 }
 
 
@@ -6077,30 +6077,30 @@ const std::string GenericTC::CreateTestResultName(const std::string name/* = ""*
 //=============================================================================
 const std::string GenericTC::GetTestStepInfo(const std::string tag)
 {
-    std::string value, units;
-    bool convertToEnglishUnits = false;
-    try
-    {
-        units = m_currentTestStep->getAttributes().getNode(tag+BEP_UNITS)->getValue();
-        convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    try
-    {
-        Log(LOG_DETAILED_DATA, "Getting Description %s\n", tag.c_str());
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, m_currentTestStep->getAttributes().getNode(tag)->getValue()) : 
-                m_currentTestStep->getAttributes().getNode(tag)->getValue();
-        Log(LOG_DETAILED_DATA, "Got Description %s\n", tag.c_str());
-    }
-    catch(XmlException &e)
-    {
-        Log(LOG_ERRORS, "Unable To Retrieve String %s From The TestStep Attributes: %s\n", tag.c_str(), e.what());
-        value.erase();
-    }
+	std::string value, units;
+	bool convertToEnglishUnits = false;
+	try
+	{
+		units = m_currentTestStep->getAttributes().getNode(tag+BEP_UNITS)->getValue();
+		convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	try
+	{
+		Log(LOG_DETAILED_DATA, "Getting Description %s\n", tag.c_str());
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, m_currentTestStep->getAttributes().getNode(tag)->getValue()) : 
+				m_currentTestStep->getAttributes().getNode(tag)->getValue();
+		Log(LOG_DETAILED_DATA, "Got Description %s\n", tag.c_str());
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "Unable To Retrieve String %s From The TestStep Attributes: %s\n", tag.c_str(), e.what());
+		value.erase();
+	}
 
 	return(value);
 }
@@ -6116,22 +6116,22 @@ std::string GenericTC::GetTestStepInfo( const std::string &dataTag, std::string 
 //=============================================================================
 int GenericTC::GetTestStepInfo( const std::string &dataTag, int &value) throw(BepException)
 {
-    std::string     strVal, units;
-    bool convertToEnglishUnits = false;
-    try
-    {
-        units = m_currentTestStep->getAttributes().getNode(dataTag+BEP_UNITS)->getValue();
-        convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    int retVal = BposReadInt( GetTestStepInfo( dataTag, strVal).c_str());
-    // Will throw an exception if the desired dataTag does not exist in the test step info
-    value = convertToEnglishUnits ? ConvertToEnglishUnits(units, retVal) : 
-            retVal;
+	std::string     strVal, units;
+	bool convertToEnglishUnits = false;
+	try
+	{
+		units = m_currentTestStep->getAttributes().getNode(dataTag+BEP_UNITS)->getValue();
+		convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	int retVal = BposReadInt( GetTestStepInfo( dataTag, strVal).c_str());
+	// Will throw an exception if the desired dataTag does not exist in the test step info
+	value = convertToEnglishUnits ? ConvertToEnglishUnits(units, retVal) : 
+			retVal;
 
 	return( value);
 }
@@ -6139,22 +6139,22 @@ int GenericTC::GetTestStepInfo( const std::string &dataTag, int &value) throw(Be
 //=============================================================================
 float GenericTC::GetTestStepInfo( const std::string &dataTag, float &value) throw(BepException)
 {
-    std::string     strVal, units;
-    bool convertToEnglishUnits = false;
-    try
-    {
-        units = m_currentTestStep->getAttributes().getNode(dataTag+BEP_UNITS)->getValue();
-        convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    float fltVal = atof( GetTestStepInfo( dataTag, strVal).c_str());
-    // Will throw an exception if the desired dataTag does not exist in the test step info
-    value = convertToEnglishUnits ? ConvertToEnglishUnits(units, fltVal): 
-            fltVal;
+	std::string     strVal, units;
+	bool convertToEnglishUnits = false;
+	try
+	{
+		units = m_currentTestStep->getAttributes().getNode(dataTag+BEP_UNITS)->getValue();
+		convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	float fltVal = atof( GetTestStepInfo( dataTag, strVal).c_str());
+	// Will throw an exception if the desired dataTag does not exist in the test step info
+	value = convertToEnglishUnits ? ConvertToEnglishUnits(units, fltVal): 
+			fltVal;
 
 	return( value);
 }
@@ -6173,30 +6173,30 @@ bool GenericTC::GetTestStepInfo( const std::string &dataTag, bool &value) throw(
 //=============================================================================
 const float GenericTC::GetTestStepInfoFloat(const std::string tag)
 {
-    float value=0;
+	float value=0;
 
-    std::string     units;
-    bool convertToEnglishUnits = false;
-    try
-    {
-        units = m_currentTestStep->getAttributes().getNode(tag+BEP_UNITS)->getValue();
-        convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    try
-    {
-        float fltVal = atof(m_currentTestStep->getAttributes().getNode(tag)->getValue().c_str());
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, fltVal) : 
-                fltVal;
-    }
-    catch(XmlException &e)
-    {
-        Log(LOG_ERRORS, "Error Trying To Retrieve Float %s From The TestStep Attributes: %s\n", tag.c_str(), e.what());
-    }
+	std::string     units;
+	bool convertToEnglishUnits = false;
+	try
+	{
+		units = m_currentTestStep->getAttributes().getNode(tag+BEP_UNITS)->getValue();
+		convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	try
+	{
+		float fltVal = atof(m_currentTestStep->getAttributes().getNode(tag)->getValue().c_str());
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, fltVal) : 
+				fltVal;
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "Error Trying To Retrieve Float %s From The TestStep Attributes: %s\n", tag.c_str(), e.what());
+	}
 
 	return(value);
 }
@@ -6204,29 +6204,29 @@ const float GenericTC::GetTestStepInfoFloat(const std::string tag)
 //=============================================================================
 const INT32 GenericTC::GetTestStepInfoInt(const std::string tag)
 {
-    INT32 value=0;
-    std::string     units;
-    bool convertToEnglishUnits = false;
-    try
-    {
-        units = m_currentTestStep->getAttributes().getNode(tag+BEP_UNITS)->getValue();
-        convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-    }
-    catch(XmlException &e)
-    {//units do not exist
-        units = "";
-        convertToEnglishUnits = false;
-    }
-    try
-    {
-        INT32 retVal =  BposReadInt(m_currentTestStep->getAttributes().getNode(tag)->getValue().c_str());
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, retVal):
-                retVal;
-    }
-    catch(XmlException &e)
-    {
-        Log(LOG_ERRORS, "Error Trying To Retrieve Integer %s From The TestStep Attributes: %s\n", tag.c_str(), e.what());
-    }
+	INT32 value=0;
+	std::string     units;
+	bool convertToEnglishUnits = false;
+	try
+	{
+		units = m_currentTestStep->getAttributes().getNode(tag+BEP_UNITS)->getValue();
+		convertToEnglishUnits = atob(m_currentTestStep->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{//units do not exist
+		units = "";
+		convertToEnglishUnits = false;
+	}
+	try
+	{
+		INT32 retVal =  BposReadInt(m_currentTestStep->getAttributes().getNode(tag)->getValue().c_str());
+		value = convertToEnglishUnits ? ConvertToEnglishUnits(units, retVal):
+				retVal;
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "Error Trying To Retrieve Integer %s From The TestStep Attributes: %s\n", tag.c_str(), e.what());
+	}
 
 	return(value);
 }

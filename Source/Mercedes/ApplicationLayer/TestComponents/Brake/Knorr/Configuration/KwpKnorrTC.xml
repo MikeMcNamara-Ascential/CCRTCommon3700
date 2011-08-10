@@ -553,7 +553,7 @@
         <AnalyzeBalance Result="" Timeout="5000" Description="Teste de balanco do freio" EnglishDescription="Base Brake Component Brake Balance Test" FrontSideToSideBalance="10" RearSideToSideBalance="10" TandemSideToSideBalance="10" BalanceFrontToRearMin="0" BalanceFrontToRearMax="100" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
         <ExcessiveBrakeForceCheck Result="Not Tested" Timeout="1000" Description="Verifique forca excessiva do freio" EnglishDescription="Check for excessive brake force"/>
         <DisengageMachine Result="" Description="Desative a maquina, embreagem, aplicacao de forca, etc." EnglishDescription="Disengage the machine, clutches, boost, etc." Timeout="1000"/>
-        <EngageMachine Result="" Description="Ative a maquina, embreagem, aplicacao de forca, etc." EnglishDescription="Engage the machine, clutches, boost, etc." Timeout="3000" ScanDelay="500"/>
+        <EngageMachine Result="" Description="Ative a maquina, embreagem, aplicacao de forca, etc." EnglishDescription="Engage the machine, clutches, boost, etc." Timeout="30000" ScanDelay="500"/>
         <!-- From KnorrTC -->
         <Setup Result="" Timeout="500" Description="Ajuste o componente para teste" EnglishDescription="Set up component for testing" ScanDelay="250"/>
         <InitializeGateway Result="" Timeout="500" Description="Inicialize o modulo do gateway" EnglishDescription="Initialize the gateway module" ScanDelay="250"/>

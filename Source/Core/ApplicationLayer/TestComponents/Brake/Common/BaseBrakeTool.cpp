@@ -2009,7 +2009,7 @@ INT32 BaseBrakeTool::AnalyzeBrakeForces(INT32 brakeStart, INT32 brakeEnd)
 	m_brakeForce.clear();
 	// read in the data from the brake force array
 	testStatus = m_component->ReadDataArrays(m_component->GetParameter("IcmForceArray"), brakeStart, brakeEnd, m_wheelForceArray);
-	for(UINT32 roller = 0; (roller < m_component->GetRollerCount()); roller++)
+	for(UINT32 roller = 0; (roller < m_component->GetWheelCount()); roller++)
 	{	// calculate the average forces and validate the results
 		testStatus = AverageForces(roller, force, m_brakeTestStats[roller]);
 		if(testStatus == BEP_STATUS_SUCCESS)
@@ -2182,6 +2182,15 @@ INT32 BaseBrakeTool::ValidateBrakeForce(INT32 roller, float average)
 	// Get the parameters from the vehicle build info
 	float minBrakeForce = m_component->GetVehicleParameter("BrakeForces/" + minParamName, float(0.0));
 	float maxBrakeForce = m_component->GetVehicleParameter("BrakeForces/" + maxParamName, float(0.0));
+	// Make sure the parameters are valid
+	if(minBrakeForce == 0.0)
+	{
+		minBrakeForce = m_component->GetTestStepInfoFloat(minParamName);
+	}
+	if(maxBrakeForce == 0.0)
+	{
+		maxBrakeForce = m_component->GetTestStepInfoFloat(maxParamName);
+	}
 	m_component->Log(LOG_FN_ENTRY, "ValidateBrakeForce(%d, %f), min: %f, max: %f\n", roller, average, minBrakeForce, maxBrakeForce);
 
 	// if brake force is in the valid limits set ok
@@ -2346,6 +2355,8 @@ INT32 BaseBrakeTool::FrontToRearBalance(void)
 	// load the parameters and convert to %
 	float min = m_component->GetVehicleParameter("BrakeForces/BalanceFrontToRearMin", float(0.0)) / 100.0;
 	float max = m_component->GetVehicleParameter("BrakeForces/BalanceFrontToRearMax", float(0.0)) / 100.0;
+	if(min == 0)  min = m_component->GetTestStepInfoFloat("BalanceFrontToRearMin") / 100.0;
+	if(max == 0)  max = m_component->GetTestStepInfoFloat("BalanceFrontToRearMax") / 100.0;
 
 	float frontSum = m_brakeForce[LFWHEEL] + m_brakeForce[RFWHEEL];
 	float rearSum = m_brakeForce[LRWHEEL] + m_brakeForce[RRWHEEL];

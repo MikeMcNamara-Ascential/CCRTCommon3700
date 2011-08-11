@@ -39,6 +39,12 @@ namespace BomFileProcessor
             m_brakeForces = new BrakeForceCollection(m_logger);
             // Start the timer to look for new BOM files
             m_fileCheckTimer.Start();
+            // Check if we should start the pass confirmation file check timer
+            if (BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles)
+            {   // Set the timer tick interval
+                m_passFileCheckTimer.Interval = BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay;
+                m_passFileCheckTimer.Start();
+            }
         }
 
 
@@ -636,6 +642,58 @@ namespace BomFileProcessor
             }
             // Start the timer again
             m_fileCheckTimer.Start();
+        }
+
+        /// <summary>
+        /// check for new Pass Confirmation files to move from the CCRT directory to the Spartan directory.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_passFileCheckTimer_Tick(object sender, EventArgs e)
+        {   // Stop the timer while processing any new pass confirmation files
+            m_passFileCheckTimer.Stop();
+            // Check for any new pass confirmation files
+            String[] newFiles = Directory.GetFiles(BomFileProcessor.Properties.Settings.Default.CcrtFileLocation);
+            if (newFiles.Count() > 0)
+            {   // Process the CCRT generated pass confirmation files
+                m_logger.Log("INFO: Found " + Convert.ToString(newFiles.Count()) + " new CCRT Pass Confirmation File(s)");
+                System.Threading.Thread.Sleep(3000);   // Make sure any current files are closed
+                // Process each pass confirmation file
+                foreach (String file in newFiles)
+                {
+                    String dest = BomFileProcessor.Properties.Settings.Default.SpartanFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
+                    try
+                    {
+                        File.Move(file, dest);
+                        m_logger.Log("INFO: Moved " + file + " to " + BomFileProcessor.Properties.Settings.Default.SpartanFileLocation + "\\" + file);
+                    }
+                    catch (NotSupportedException excpt)
+                    {
+                        m_logger.Log("ERROR: NotSupportedException attempting to move pass confirmation file - " + excpt.Message);
+                    }
+                }
+            }
+            // Restart the timer to look for more pass confirmation files
+            m_passFileCheckTimer.Start();
+        }
+
+        /// <summary>
+        /// Bring up the form to allow the user to configure data for Pass Confirmation files.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void passConfirmationFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PassConfirmationFileSetupForm frm = new PassConfirmationFileSetupForm();
+            frm.ShowDialog();
+            if (BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles)
+            {
+                m_passFileCheckTimer.Start();
+            }
+            else
+            {
+                m_passFileCheckTimer.Stop();
+            }
         }
 
         /// <summary>

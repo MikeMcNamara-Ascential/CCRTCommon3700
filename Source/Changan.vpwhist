@@ -6,28 +6,28 @@ Core\Core.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Changan\Changan.vpj=20110705140249541
-Core\Core.vpj=20110701100154249
+Changan\Changan.vpj=20110816105701978
+Core\Core.vpj=20110811082254041
 Tests\Tests.vpj=20110701100211327
 Tools\Tools.vpj=20110701100155451
 [TreeExpansion2]
 - Changan\Changan.vpj
   - ApplicationLayer
     - ModuleInterfaces
-      + Brake
+      - Brake
         + Teves
           + Configuration
-        + TRW
-          + Configuration
+        - TRW
+          - Configuration
       - ElectronicParkBrake
         - Configuration
     - TestComponents
-      + Brake
+      - Brake
         + BaseBrake
           + Configuration
-        + Teves
+        - Teves
           + Configuration
-        + TRW
+        - TRW
           + Configuration
       - ElectronicParkBrake
         - Configuration
@@ -35,6 +35,9 @@ Tools\Tools.vpj=20110701100155451
         + Configuration
       + Machine
         + Configuration
+      - ModuleServer
+        - Include
+        - VehicleModuleVinReader
       - SoundLevel
         - Configuration
       + TransferCase
@@ -85,13 +88,13 @@ Tools\Tools.vpj=20110701100155451
         + sim
           + params
     + UninstallerData
-  + ServicesLayer
+  - ServicesLayer
     + Managers
       + ICM
         + Configuration
       + SerialServer
         + Configuration
-    + Servers
+    - Servers
       + InputServer
         + Configuration
       + Launcher
@@ -102,8 +105,8 @@ Tools\Tools.vpj=20110701100155451
         + Configuration
       + PlantHostInbound
         + Configuration
-      + SystemMonitor
-        + Configuration
+      - SystemMonitor
+        - Configuration
       + VehicleDataBroker
         + Configuration
       + VehicleDataServer
@@ -112,11 +115,13 @@ Tools\Tools.vpj=20110701100155451
   - ApplicationLayer
     + ModuleInterfaces
       + Brake
+        + Bosch8
+        + Include
       + Common
       + EngineController
       + Include
       + Transmission
-    + ProtocolFilters
+    - ProtocolFilters
       + Common
       + GMClassII
       + Include
@@ -128,6 +133,7 @@ Tools\Tools.vpj=20110701100155451
       + Brake
         + BaseBrake
           + Configuration
+        + Bosch8
         + Common
           + Configuration
         + Include
@@ -148,6 +154,7 @@ Tools\Tools.vpj=20110701100155451
         + Include
         + LossCompensation
           + Configuration
+        + PhotonLossCompensation
       + Machine
         + Common
         + Include
@@ -178,7 +185,7 @@ Tools\Tools.vpj=20110701100155451
       + TestSequencer
       + VehicleTest
   + ClientConfigurations
-  + ServicesLayer
+  - ServicesLayer
     + Include
     + Library
       + Bepos
@@ -191,7 +198,7 @@ Tools\Tools.vpj=20110701100155451
         + xmlparse
         + xmltok
         + xmlwf
-    + Managers
+    - Managers
       + Common
       + CommProxy
         + AVT
@@ -199,6 +206,7 @@ Tools\Tools.vpj=20110701100155451
           + Common
           + Include
           + J2190
+        + BBKWireless
         + Common
         + Gryphon
           + CAN
@@ -217,8 +225,8 @@ Tools\Tools.vpj=20110701100155451
         + IpIcm
           + Configuration
       + Include
-      + PlcMgr
-        + Configuration
+      - PlcMgr
+        - Configuration
       + SciIsoMuxMgr
       + SerialServer
       + TaskMon
@@ -227,7 +235,7 @@ Tools\Tools.vpj=20110701100155451
         + TaskMon
         + TaskMonOld
         + TaskMonTerm
-    + Servers
+    - Servers
       + DataServer
         + Configuration
       + DsaServer
@@ -273,12 +281,13 @@ Tools\Tools.vpj=20110701100155451
         + HostInterface
         + Include
         + Library
+        + NDB
       + PromptServer
         + Configuration
-      + SystemMonitor
+      - SystemMonitor
         + Configuration
         + Include
-        + Library
+        - Library
       + SystemScreenSaver
         + Configuration
       + TestResultServer
@@ -293,21 +302,51 @@ Tools\Tools.vpj=20110701100155451
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1920 1080 23 24 1344 722 0 0 M 0 0 0 0 1646 624
-CWD: Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\Configuration
-BUFFER: BN="Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\ElectronicParkBrakeTc.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=24 HT=0 HN=0 HF=0 HC=4
-WINDOW: 0 0 1213 564 -1 -1 N  WF=0 WT=1 "@GulimChe,10,0,1"
-BUFFER: BN="Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\ElectronicParkBrakeTc.cpp"
-VIEW: LN=.7137 CL=25 LE=0 CX=31 CY=6 WI=130 BI=24 HT=0 HN=0 HF=0 HC=4
+SCREEN: 1920 1080 43 24 896 711 0 0 M 0 0 0 0 1536 727
+CWD: Changan\ApplicationLayer\VehicleTest\Configuration\DriveCurves
+BUFFER: BN="Changan\ServicesLayer\Servers\SystemMonitor\Configuration\Changan.SystemMonitorConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ServicesLayer\Servers\SystemMonitor\Library\SystemMonitor.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.39942 CL=46 LE=0 CX=45 CY=28 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReaderMain.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.1156 CL=23 LE=0 CX=22 CY=28 WI=5 BI=24 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=4400 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.7309 CL=14 LE=0 CX=13 CY=10 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\Include\VehicleModuleVinReader.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.6509 CL=29 LE=0 CX=28 CY=28 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 200 200 1311 502 -1 -1 N  WF=0 WT=7 "Default Unicode Font,10,0,1"
+BUFFER: BN="Changan\ServicesLayer\Servers\SystemMonitor\Configuration\Changan.SystemMonitorConfig.xml"
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=136 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1311 502 -1 -1 N  WF=0 WT=2 "SimHei,11,0,1"
+BUFFER: BN="Core\ServicesLayer\Servers\SystemMonitor\Library\SystemMonitor.cpp"
+VIEW: LN=.39942 CL=46 LE=0 CX=45 CY=28 WI=137 BI=28 HT=0 HN=0 HF=0 HC=4
+WINDOW: 175 175 1311 502 -1 -1 N  WF=0 WT=6 "Default Unicode Font,10,0,1"
+BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml"
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=138 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1311 502 -1 -1 N  WF=0 WT=15 "SimHei,11,0,1"
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReaderMain.cpp"
+VIEW: LN=.1156 CL=23 LE=0 CX=22 CY=28 WI=139 BI=24 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1311 502 -1 -1 N  WF=0 WT=3 "SimHei,11,0,1"
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\Include\VehicleModuleVinReader.h"
+VIEW: LN=.6509 CL=29 LE=0 CX=28 CY=28 WI=140 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 0 1311 502 -1 -1 M  WF=0 WT=4 "SimHei,11,0,1"
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp"
+VIEW: LN=.7309 CL=14 LE=0 CX=13 CY=10 WI=141 BI=26 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Changan\ApplicationLayer\ModuleInterfaces\ElectronicParkBrake\Configuration\ElectronicParkBrakeModule.xml
-Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp
-Core\ApplicationLayer\TestComponents\Common\Configuration\SampleFaultList.xml
-Changan\ApplicationLayer\VehicleTest\Configuration\DriveCurves\TevesMk70AbsDriveCurve.xml
-Changan\ApplicationLayer\TestComponents\SoundLevel\Configuration\Changan.SoundLevelFaultList.xml
-Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\Configuration\ElectronicParkBrakeTC.xml
-Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\Configuration\ElectronicParkBrakeFaultList.xml
-Core\ApplicationLayer\TestComponents\Common\GenericTC.cpp
-Changan\ApplicationLayer\TestComponents\ElectronicParkBrake\ElectronicParkBrakeTc.cpp
+Z:\common3700\source\changan\ServicesLayer\Servers\Launcher\Configuration\Changan.LauncherConfig.xml
+Changan\ApplicationLayer\TestComponents\Machine\Configuration\MachineTc.xml
+Z:\common3700\source\changan\ApplicationLayer\TestComponents\Machine\Configuration\MachineTc.xml
+Z:\common3700\source\changan\applicationlayer\vehicletest\configuration\drivecurves\Changan.Beijing.507612.TevesMk70Abs.xml
+Y:\common3700\source\changan\ApplicationLayer\TestComponents\ModuleServer\Include\VehicleModuleVinReader.h
+Y:\common3700\source\changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp
+Y:\common3700\source\changan\ServicesLayer\Managers\SerialServer\Configuration\Changan.Beijing.507609.SerialServer.xml
+Y:\common3700\source\changan\ServicesLayer\Servers\InputServer\Configuration\Changan.InputServerConfig.xml
+Y:\common3700\source\changan\ServicesLayer\Servers\Launcher\Configuration\Changan.LauncherConfig.xml

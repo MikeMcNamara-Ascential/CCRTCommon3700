@@ -160,6 +160,17 @@
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Machine/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="ModuleServer">
+					<Folder Name="Include">
+						<F N="ApplicationLayer/TestComponents/ModuleServer/Include/VehicleModuleVinReader.h"/>
+					</Folder>
+					<Folder Name="VehicleModuleVinReader">
+						<F N="ApplicationLayer/TestComponents/ModuleServer/VehicleModuleVinReader/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/ModuleServer/VehicleModuleVinReader/VehicleModuleVinReader.cpp"/>
+						<F N="ApplicationLayer/TestComponents/ModuleServer/VehicleModuleVinReader/VehicleModuleVinReaderMain.cpp"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/ModuleServer/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="SoundLevel">
 					<Folder Name="Configuration">
 						<F N="ApplicationLayer/TestComponents/SoundLevel/Configuration/Changan.DSP80Protocol.xml"/>
@@ -194,6 +205,8 @@
 					</Folder>
 					<Folder Name="DriveCurves">
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.Beijing.507612.TevesMk70AbsDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.Beijing.507612.TrwAbsDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.SoundLevelSequence.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/LossCompensationDriveCurve.xml"/>

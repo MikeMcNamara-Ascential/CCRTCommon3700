@@ -1,167 +1,204 @@
 <SerialServerConfig>
-    <Verbose>0x1F</Verbose>
-    <Setup>
-        <Demo>0</Demo>
-        <MgrPool lowWater="2" hiWater="5" maximum="10" increment="1"/>
-        <Logging>
-            <ProcessName>mgr/SerialServer</ProcessName>
-            <AdditionalLogFile>/Servers/SerialServer.log</AdditionalLogFile>
-            <Status>Enabled</Status>
-            <LocalEcho>Disabled</LocalEcho>
-            <Debug>Off</Debug>
-            <Verbose>0x01</Verbose>
-        </Logging>
-        <LogicalPorts>
-            <ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
-                <Setup>
-                    <SerialDevice>/dev/sl7804/ser2</SerialDevice>
-                    <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
-                    <DefaultReplyTimeout units="milliseconds">5000</DefaultReplyTimeout>
-                    <Protocol>
-                        <Baud>9600</Baud>
-                        <Parity>Even</Parity>
-                        <DataBits>8</DataBits>
-                        <StopBits>1</StopBits>
-                        <Reflection>1</Reflection>
-                        <ByteGap>5</ByteGap>
-                        <MssgGap>0</MssgGap>
-                        <Interrupts>Rx</Interrupts>
-                        <FifoSize>1024</FifoSize>
-                    </Protocol>
-                    <Logging>
-                        <ProcessName>logport/ISOK</ProcessName>
-                        <AdditionalLogFile>/Servers/ISOKComm.log</AdditionalLogFile>
+   <Verbose>0x1F</Verbose>
+   <Setup>
+      <Demo>0</Demo>
+      <MgrPool lowWater="2" hiWater="5" maximum="10" increment="1"/>
+      <Logging>
+         <ProcessName>mgr/SerialServer</ProcessName>
+         <AdditionalLogFile>/Servers/SerialServer.log</AdditionalLogFile>
+         <Status>Enabled</Status>
+         <LocalEcho>Disabled</LocalEcho>
+         <Debug>Off</Debug>
+         <Verbose>0x01</Verbose>
+      </Logging>
+      <LogicalPorts>
+         <ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/sl7804/ser2</SerialDevice>
+               <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
+               <DefaultReplyTimeout units="milliseconds">5000</DefaultReplyTimeout>
+               <Protocol>
+                  <Baud>9600</Baud>
+                  <Parity>Even</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>1</Reflection>
+                  <ByteGap>5</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>Rx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/ISOK</ProcessName>
+                  <AdditionalLogFile>/Servers/ISOKComm.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>ISOK_Comm</ProcessName>
+                        <AdditionalLogFile>/Communication/ISO_BusComm.log</AdditionalLogFile>
                         <Status>Enabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x01</Verbose>
-                    </Logging>
-                    <CommLog>
-                        <ContentType>RAW</ContentType>
-                        <Setup>
-                            <Logging>
-                                <ProcessName>ISOK_Comm</ProcessName>
-                                <AdditionalLogFile>/Communication/ISO_BusComm.log</AdditionalLogFile>
-                                <Status>Enabled</Status>
-                                <LocalEcho>Disabled</LocalEcho>
-                                <Verbose>0x1F</Verbose>
-                                <Debug>Off</Debug>
-                            </Logging>
-                        </Setup>
-                    </CommLog>
-                </Setup>
-            </ISOK>
-            <LeftScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
-                <Setup>
-                    <SerialDevice>/dev/sl7804/ser3</SerialDevice>
-                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-                    <Protocol>
-                        <Baud>9600</Baud>
-                        <Parity>None</Parity>
-                        <DataBits>8</DataBits>
-                        <StopBits>1</StopBits>
-                        <Reflection>0</Reflection>
-                        <ByteGap>0</ByteGap>
-                        <MssgGap>0</MssgGap>
-                        <Interrupts>Rx</Interrupts>
-                        <FifoSize>1024</FifoSize>
-                    </Protocol>
-                    <Logging>
-                        <ProcessName>logport/LeftScanner</ProcessName>
-                        <AdditionalLogFile>LeftScannerComm.log</AdditionalLogFile>
-                        <Status>Enabled</Status>
-                        <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x01</Verbose>
-                    </Logging>
-                    <CommLog>
-                        <ContentType>RAW</ContentType>
-                        <Setup>
-                            <Logging>
-                                <ProcessName>LeftScanner_Comm</ProcessName>
-                                <AdditionalLogFile>LeftScanner_BusComm.log</AdditionalLogFile>
-                                <Status>Disabled</Status>
-                                <LocalEcho>Disabled</LocalEcho>
-                                <Verbose>0x09</Verbose>
-                                <Debug>Off</Debug>
-                            </Logging>
-                        </Setup>
-                    </CommLog>
-                </Setup>
-            </LeftScanner>
-            <RightScanner enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
-                <Setup>
-                    <SerialDevice>/dev/sl7804/ser4</SerialDevice>
-                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-                    <Protocol>
-                        <Baud>9600</Baud>
-                        <Parity>None</Parity>
-                        <DataBits>8</DataBits>
-                        <StopBits>1</StopBits>
-                        <Reflection>0</Reflection>
-                        <ByteGap>0</ByteGap>
-                        <MssgGap>0</MssgGap>
-                        <Interrupts>Rx</Interrupts>
-                        <FifoSize>1024</FifoSize>
-                    </Protocol>
-                    <Logging>
-                        <ProcessName>logport/RightScanner</ProcessName>
-                        <AdditionalLogFile>RightScannerComm.log</AdditionalLogFile>
-                        <Status>Enabled</Status>
-                        <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x01</Verbose>
-                    </Logging>
-                    <CommLog>
-                        <ContentType>RAW</ContentType>
-                        <Setup>
-                            <Logging>
-                                <ProcessName>RightScanner_Comm</ProcessName>
-                                <AdditionalLogFile>RightScanner_BusComm.log</AdditionalLogFile>
-                                <Status>Disabled</Status>
-                                <LocalEcho>Disabled</LocalEcho>
-                                <Verbose>0x09</Verbose>
-                                <Debug>Off</Debug>
-                            </Logging>
-                        </Setup>
-                    </CommLog>
-                </Setup>
-            </RightScanner>
-            <PlcDf1 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
-                <Setup>
-                    <SerialDevice>/dev/ser1</SerialDevice>
-                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
-                    <Protocol>
-                        <Baud>19200</Baud>
-                        <Parity>None</Parity>
-                        <DataBits>8</DataBits>
-                        <StopBits>1</StopBits>
-                        <Reflection>0</Reflection>
-                        <ByteGap>0</ByteGap>
-                        <MssgGap>0</MssgGap>
-                        <Interrupts>TxRx</Interrupts>
-                        <FifoSize>1024</FifoSize>
-                    </Protocol>
-                    <Logging>
-                        <ProcessName>logport/PlcDf1</ProcessName>
-                        <AdditionalLogFile>/Servers/PlcDf1.log</AdditionalLogFile>
+                        <Verbose>0x1F</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+            </Setup>
+         </ISOK>
+         <LeftScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/sl7804/ser3</SerialDevice>
+               <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+               <Protocol>
+                  <Baud>9600</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>Rx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/LeftScanner</ProcessName>
+                  <AdditionalLogFile>LeftScannerComm.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>LeftScanner_Comm</ProcessName>
+                        <AdditionalLogFile>LeftScanner_BusComm.log</AdditionalLogFile>
                         <Status>Disabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x3F</Verbose>
-                    </Logging>
-                    <CommLog>
-                        <ContentType>RAW</ContentType>
-                        <Setup>
-                            <Logging>
-                                <ProcessName>DF1_Comm</ProcessName>
-                                <AdditionalLogFile>/Communication/PlcDf1_Comm.log</AdditionalLogFile>
-                                <Status>Disabled</Status>
-                                <LocalEcho>Disabled</LocalEcho>
-                                <Verbose>0x1f</Verbose>
-                                <Debug>Off</Debug>
-                            </Logging>
-                        </Setup>
-                    </CommLog>
-                </Setup>
-            </PlcDf1>
-         <BBKWireless enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/BBKWirelessCommProxy.qxe">
+                        <Verbose>0x09</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+            </Setup>
+         </LeftScanner>
+         <RightScanner enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/sl7804/ser4</SerialDevice>
+               <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+               <Protocol>
+                  <Baud>9600</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>Rx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/RightScanner</ProcessName>
+                  <AdditionalLogFile>RightScannerComm.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>RightScanner_Comm</ProcessName>
+                        <AdditionalLogFile>RightScanner_BusComm.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x09</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+            </Setup>
+         </RightScanner>
+         <SoundMeter enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/sl7804/ser5</SerialDevice>
+               <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+               <Protocol>
+                  <Baud>9600</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>Rx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/SoundMeter</ProcessName>
+                  <AdditionalLogFile>/Servers/SoundMeterComm.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>SoundMeter_Comm</ProcessName>
+                        <AdditionalLogFile>/Communication/SoundMeter_BusComm.log</AdditionalLogFile>
+                        <Status>disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x09</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+            </Setup>
+         </SoundMeter>
+         <PlcDf1 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/ser1</SerialDevice>
+               <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
+               <Protocol>
+                  <Baud>19200</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>TxRx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/PlcDf1</ProcessName>
+                  <AdditionalLogFile>/Servers/PlcDf1.log</AdditionalLogFile>
+                  <Status>Disabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x3F</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>DF1_Comm</ProcessName>
+                        <AdditionalLogFile>/Communication/PlcDf1_Comm.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1f</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+            </Setup>
+         </PlcDf1>
+         <BBKWireless enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/BBKWirelessCommProxy.qxe">
             <Setup>
                <SerialDevice>/dev/sl7804/ser5</SerialDevice>
                <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
@@ -200,6 +237,56 @@
                </CommLog>
             </Setup>
          </BBKWireless>
-        </LogicalPorts>
-    </Setup>
+         <GryphonCCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/socket</SerialDevice>
+               <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+               <Protocol>
+                  <Baud>19200</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>TxRx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/GryphonCAN</ProcessName>
+                  <AdditionalLogFile>/Communication/GryphonCAN.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>CAN</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonCANComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+               <Login>
+                  <IPAddress>192.168.1.20</IPAddress>
+                  <Port>7000</Port>
+                  <UserID>gryphon</UserID>
+                  <Password>gryphon</Password>
+               </Login>
+               <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
+               <NodePairs>
+                  <ABS Outgoing="0x780" Incoming="0x788"/>
+               </NodePairs>
+               <NodePairSetup>
+                  <Range1 FirstRequestID="0x780" FirstResponseID="0x788" NumberOfPairs="1"/>
+               </NodePairSetup>
+            </Setup>
+         </GryphonCCan>
+      </LogicalPorts>
+   </Setup>
 </SerialServerConfig>

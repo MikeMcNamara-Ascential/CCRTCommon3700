@@ -660,6 +660,65 @@
                     <MaximumRetries>3</MaximumRetries>
                 </Setup>
             </RightMapleKeypad>
+			<!-- ******************************************************* -->
+			 <!-- *                 Module Vin Reader                   * -->
+			 <!-- ******************************************************* -->
+			 <ModuleVinReader enabled="1" process="$(USR_ROOT)/ApplicationLayer/Bin/VehicleModuleVinReader.qxe">
+				 <Setup>
+					 <TagList>
+						 <SubscribeTags>
+							 <CableConnect/>
+							 <VehiclePresent/>
+						 </SubscribeTags>
+					 </TagList>
+					 <Communication>
+						 <Debug>Off</Debug>
+						 <Name>core/ModuleVinReader</Name>
+						 <Type>Server</Type>
+						 <Comm>IPC</Comm>
+						 <BufferSize>2000</BufferSize>
+						 <Timeout>1000</Timeout>
+					 </Communication>
+					 <Logging>
+						 <Status>Enabled</Status>
+						 <ProcessName>core/ModuleVinReader</ProcessName>
+						 <AdditionalLogFile>/Servers/ModuleVinReader.log</AdditionalLogFile>
+						 <Debug>On</Debug>
+						 <LocalEcho>Disabled</LocalEcho>
+						 <Verbose>0x1F</Verbose>
+					 </Logging>
+					 <ThreadPool>
+						 <Debug>Off</Debug>
+						 <MinBlockedLimit>1</MinBlockedLimit>
+						 <MaxBlockedLimit>3</MaxBlockedLimit>
+						 <Increment>1</Increment>
+						 <Maximum>5</Maximum>
+					 </ThreadPool>
+					 <NotificationList>
+						 <Setup>
+							 <Debug>Off</Debug>
+							 <HighWater>3</HighWater>
+							 <Increment>1</Increment>
+							 <LowWater>1</LowWater>
+							 <Maximum>5</Maximum>
+							 <StartOnCreate>No</StartOnCreate>
+						 </Setup>
+					 </NotificationList>
+				 </Setup>
+				<CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+				<ModuleConfigFile>/Configuration/Components/Brake/UdsTrwAbsModule_ReaderConfig.xml</ModuleConfigFile>		 
+				<Vin>NextVIN</Vin>
+				<PresenceDetected>WirelessCableConnected</PresenceDetected>
+				<ReaderMode ValidModes="ReadVIN or CheckPresence">CheckPresence</ReaderMode>
+				<VinReadMessages>
+					<VinReadMessage01>ReadVIN</VinReadMessage01>
+					<VinReadMessage02>ReadVINUds</VinReadMessage02>
+				</VinReadMessages>
+				<PresenceMessages>
+					<PresenceMessage01>EnterDiagnosticMode</PresenceMessage01>
+					<PresenceMessage02>ModuleKeepAlive</PresenceMessage02>
+				</PresenceMessages>
+			 </ModuleVinReader>
         </InputDevices>
         <DataTags>
             <Vin>NextVIN</Vin>
@@ -671,6 +730,8 @@
             <VehicleAtBarcodeScanner>VehicleAtBarcodeScanner</VehicleAtBarcodeScanner>
             <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
             <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+			<CableConnect>CableConnect</CableConnect>
+			<VehiclePresent>VehiclePresent</VehiclePresent>
         </DataTags>
         <Logging>
             <Status>Enabled</Status>

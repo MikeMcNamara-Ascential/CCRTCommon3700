@@ -67,7 +67,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/DaqInterface.qxe
 	ServicesLayer/Bin/DsaServer.qxe
 	ServicesLayer/Bin/GenericTextInterface.qxe
-	ServicesLayer/Bin/GryphonCANCommProxy.qxe
 	ServicesLayer/Bin/HostInterface.qxe
 	ServicesLayer/Bin/HydraulicMotorController.qxe
 	ServicesLayer/Bin/MapleKeypadManager.qxe

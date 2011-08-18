@@ -1,6 +1,6 @@
-<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.0/vpj.dtd">
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.1/vpj.dtd">
 <Project
-	Version="9.0"
+	Version="9.1"
 	VendorName="SlickEdit"
 	WorkingDir=".">
 	<Config
@@ -1204,4 +1204,7 @@
 		</Folder>
 		<F N="CMakeLists.txt"/>
 	</Files>
+	<CompatibleVersions>
+		<PrevVersion VersionNumber="9.0"/>
+	</CompatibleVersions>
 </Project>

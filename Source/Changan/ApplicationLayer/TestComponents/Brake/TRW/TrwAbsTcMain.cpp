@@ -16,7 +16,7 @@
 #include "TrwAbsModule.cpp"
 #include "TrwAbsTc.cpp"
 #include "CmdLineProcessor.h"
-#include "KeywordProtocolFilter.h"
+#include "KwpCanProtocolFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	{
 		clp.ParseArguments(argc, argv);     // parse the command line
         if(clp.IsDebugOn())	printf("Creating the Trw Brake Component\n");
-        object = new TrwAbsTc<TrwAbsModule<KeywordProtocolFilter> >();
+        object = new TrwAbsTc<TrwAbsModule<KwpCanProtocolFilter> >();
 
 		if(clp.IsDebugOn())	printf("Initializing the Trw Brake Component\n");
 		object->Initialize(clp.GetConfigFile());

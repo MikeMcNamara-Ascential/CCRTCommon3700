@@ -38,6 +38,13 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase000>
+	  <TestPhase001 Description="Connect the cable" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Machine">
+               <ConnectCable/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase001>
       <TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">

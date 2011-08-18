@@ -124,7 +124,7 @@
                </CommLog>
             </Setup>
          </RightScanner>
-         <SoundMeter enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+         <SoundMeter enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
             <Setup>
                <SerialDevice>/dev/sl7804/ser5</SerialDevice>
                <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
@@ -198,6 +198,56 @@
                </CommLog>
             </Setup>
          </PlcDf1>
+         <GryphonCCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/socket</SerialDevice>
+               <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+               <Protocol>
+                  <Baud>19200</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>TxRx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/GryphonCAN</ProcessName>
+                  <AdditionalLogFile>/Communication/GryphonCAN.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>CAN</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonCANComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+               <Login>
+                  <IPAddress>192.168.1.20</IPAddress>
+                  <Port>7000</Port>
+                  <UserID>gryphon</UserID>
+                  <Password>gryphon</Password>
+               </Login>
+               <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
+               <NodePairs>
+                  <ABS Outgoing="0x780" Incoming="0x788"/>
+               </NodePairs>
+               <NodePairSetup>
+                  <Range1 FirstRequestID="0x780" FirstResponseID="0x788" NumberOfPairs="1"/>
+               </NodePairSetup>
+            </Setup>
+         </GryphonCCan>
       </LogicalPorts>
    </Setup>
 </SerialServerConfig>

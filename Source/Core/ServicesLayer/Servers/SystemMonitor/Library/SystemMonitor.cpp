@@ -886,7 +886,8 @@ void SystemMonitor::GetCurrentControlData( ControlData *ctrl)
     ctrl->vmeSystemReady = (bool) (ReadSubscribeData( VME_SYSTEM_READY_TAG) == "1");
     ctrl->abortPb = (bool)(ReadSubscribeData( GetDataTag("AbortTestFromPLC")) == "1");
     // Cable connect is any of the possible cable connection modes
-    ctrl->cableConnect = atob(ReadSubscribeData(PLC_CBL_CONNECT).c_str());
+    ctrl->cableConnect = atob(ReadSubscribeData(PLC_CBL_CONNECT).c_str()) ||
+        atob(ReadSubscribeData( GetDataTag("WirelessCableConnected")).c_str());
     ctrl->plcSystemIsReady = (bool)(ReadSubscribeData( PLC_SYSTEM_IS_READY_TAG) == "1");
 
     // If a test was just started and a valid vin does not exist, check the

@@ -5,4 +5,5 @@
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
         UdsTrwAbsModule.xml
+		UdsTrwAbsModule_ReaderConfig.xml
 )

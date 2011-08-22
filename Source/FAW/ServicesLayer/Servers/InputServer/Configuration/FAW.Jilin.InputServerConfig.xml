@@ -628,7 +628,7 @@
                         <Setup>
                             <Communication>
                                 <Debug>Off</Debug>
-                                <Name>/dev/LogicalPorts/Pendant</Name>
+                                <Name>/dev/LogicalPorts/RightMapleKeypad</Name>
                                 <BufferSize>128</BufferSize>
                                 <Timeout>10000</Timeout>
                             </Communication>

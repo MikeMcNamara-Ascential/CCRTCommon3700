@@ -7,7 +7,13 @@ SET(CORE_SERVICES_LIB_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH
 #------------------------------------------------------------------------------------------
 # We need to build the license library
 #------------------------------------------------------------------------------------------
+IF("$ENV{PATH}" MATCHES "qnx630+")
+    MESSAGE(STATUS "Using 6.3 License")
 ADD_SUBDIRECTORY(License)
+ELSE("$ENV{PATH}" MATCHES "qnx630+")
+    MESSAGE(STATUS "Using 6.2 License")
+        ADD_SUBDIRECTORY(License6.2.1)
+ENDIF("$ENV{PATH}" MATCHES "qnx630+")
 
 #------------------------------------------------------------------------------------------
 # make sure the parser can find our expat headers

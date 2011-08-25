@@ -23,5 +23,6 @@ namespace Common.Lib.Interfaces
         void StopProgressBar();
         void SetProgressBarValue(int value);
         void SetProgressBarRange(int min, int max);
+        void DisplayTimedDialogBox(string dialogText, string labelText, string buttonText, int timeout);
     }
 }

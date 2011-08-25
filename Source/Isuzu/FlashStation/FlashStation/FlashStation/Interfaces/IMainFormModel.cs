@@ -52,5 +52,7 @@ namespace Common.Lib.Interfaces
         void ToggleUsingForcedCableConnect();
         void SetPerformTCMFlash(bool perform);
         void SetPerformECMFlash(bool perform);
+        void SetDisplayDisconnectBatteryBox(bool display);
+        bool GetDisplayDisconnectBatteryBox();
     }
 }

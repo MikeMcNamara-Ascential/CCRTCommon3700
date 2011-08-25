@@ -653,25 +653,50 @@ namespace BomFileProcessor
         {   // Stop the timer while processing any new pass confirmation files
             m_passFileCheckTimer.Stop();
             // Check for any new pass confirmation files
-            String[] newFiles = Directory.GetFiles(BomFileProcessor.Properties.Settings.Default.CcrtFileLocation);
-            if (newFiles.Count() > 0)
-            {   // Process the CCRT generated pass confirmation files
-                m_logger.Log("INFO: Found " + Convert.ToString(newFiles.Count()) + " new CCRT Pass Confirmation File(s)");
-                System.Threading.Thread.Sleep(3000);   // Make sure any current files are closed
-                // Process each pass confirmation file
-                foreach (String file in newFiles)
-                {
-                    String dest = BomFileProcessor.Properties.Settings.Default.SpartanFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
-                    try
+            try
+            {
+                String[] newFiles = Directory.GetFiles(BomFileProcessor.Properties.Settings.Default.CcrtFileLocation);
+                if (newFiles.Count() > 0)
+                {   // Process the CCRT generated pass confirmation files
+                    m_logger.Log("INFO: Found " + Convert.ToString(newFiles.Count()) + " new CCRT Pass Confirmation File(s)");
+                    System.Threading.Thread.Sleep(3000);   // Make sure any current files are closed
+                    // Process each pass confirmation file
+                    foreach (String file in newFiles)
                     {
-                        File.Move(file, dest);
-                        m_logger.Log("INFO: Moved " + file + " to " + BomFileProcessor.Properties.Settings.Default.SpartanFileLocation + "\\" + file);
-                    }
-                    catch (NotSupportedException excpt)
-                    {
-                        m_logger.Log("ERROR: NotSupportedException attempting to move pass confirmation file - " + excpt.Message);
+                        String dest = BomFileProcessor.Properties.Settings.Default.SpartanFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
+                        String flashDest = BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
+                        try
+                        {
+                            if (file.Substring(file.LastIndexOf('.')) == ".DVT")
+                            {
+                                if (System.IO.File.Exists(dest))
+                                {
+                                    File.Delete(dest);
+                                }
+                                File.Move(file, dest);
+                                m_logger.Log("INFO: Moved " + file + " to " + dest);
+                            }
+                            else
+                            {
+                                if (System.IO.File.Exists(flashDest))
+                                {
+                                    File.Delete(flashDest);
+                                }
+                                File.Move(file, flashDest);
+                                m_logger.Log("INFO: Moved " + file + " to " + flashDest);
+                            }
+                            
+                        }
+                        catch (NotSupportedException excpt)
+                        {
+                            m_logger.Log("ERROR: NotSupportedException attempting to move pass confirmation file - " + excpt.Message);
+                        }
                     }
                 }
+            }
+            catch(System.IO.IOException ex)
+            {
+                m_logger.Log("ERROR: IOException accessing file or folder - " + ex.Message);
             }
             // Restart the timer to look for more pass confirmation files
             m_passFileCheckTimer.Start();

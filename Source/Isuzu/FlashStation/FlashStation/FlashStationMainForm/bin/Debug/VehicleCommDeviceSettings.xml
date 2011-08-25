@@ -5,7 +5,7 @@
     <DeviceName>CarDAQ PLUS</DeviceName>
     <ChannelIndex>1</ChannelIndex>
     <ConnectFlag>Both</ConnectFlag>
-    <BaudRate>CAN</BaudRate>
+    <BaudRate>ISO15765</BaudRate>
     <ProtocolID>ISO15765</ProtocolID>
   </VehicleCommDeviceSettings>
   <VehicleCommDeviceSettings>
@@ -14,6 +14,22 @@
     <ChannelIndex>1</ChannelIndex>
     <ConnectFlag>Both</ConnectFlag>
     <BaudRate>CAN</BaudRate>
+    <ProtocolID>ISO15765</ProtocolID>
+  </VehicleCommDeviceSettings>
+  <VehicleCommDeviceSettings>
+    <CommChannelName>Test</CommChannelName>
+    <DeviceName>CarDAQ PLUS</DeviceName>
+    <ChannelIndex>1</ChannelIndex>
+    <ConnectFlag>Both</ConnectFlag>
+    <BaudRate>ISO15765</BaudRate>
+    <ProtocolID>ISO15765</ProtocolID>
+  </VehicleCommDeviceSettings>
+  <VehicleCommDeviceSettings>
+    <CommChannelName>test1</CommChannelName>
+    <DeviceName>CarDAQ PLUS</DeviceName>
+    <ChannelIndex>1</ChannelIndex>
+    <ConnectFlag>Both</ConnectFlag>
+    <BaudRate>ISO15765</BaudRate>
     <ProtocolID>ISO15765</ProtocolID>
   </VehicleCommDeviceSettings>
 </ArrayOfVehicleCommDeviceSettings>

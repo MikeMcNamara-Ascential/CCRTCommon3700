@@ -38,6 +38,7 @@ namespace FlashStationMainForm
         delegate void SetStopProgressBarCallback();
         delegate void SetEngineControllerTextCallback(string type);
         delegate void SetTransmissionTextCallback(string type);
+        delegate void SetDisplayTimedDialogBoxCallback(string dialogText, string labelText, string buttonText, int timeout);
         private Logger m_logger;
         public Form1()
         {
@@ -397,6 +398,20 @@ namespace FlashStationMainForm
             {
                 box.Image = Properties.Resources.led_green_off;
             }
+        }
+        public void DisplayTimedDialogBox(string dialogText, string labelText, string buttonText, int timeout)
+        {
+            if (this.InvokeRequired)
+            {
+                SetDisplayTimedDialogBoxCallback d = new SetDisplayTimedDialogBoxCallback(DisplayTimedDialogBox);
+                this.Invoke(d, new object[] { dialogText,labelText, buttonText, timeout });
+            }
+            else
+            {
+                TimedDialogBox frm = new TimedDialogBox(dialogText, labelText, buttonText, timeout);
+                frm.Show();
+            }
+
         }
 
         private void barcodeInputDeviceToolStripMenuItem_Click(object sender, EventArgs e)

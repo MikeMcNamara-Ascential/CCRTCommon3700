@@ -43,6 +43,7 @@ namespace J2534ChannelLibrary
                 m_interval = 250;
                 m_retries = 3;
                 m_msgRetryDelay = 100;
+                m_noResponseRetries = 3;
                 m_responsePendingRetries = 3;
                 m_responsePendingDelay = 100;
                 m_responsePendingID = 0x78;
@@ -68,6 +69,7 @@ namespace J2534ChannelLibrary
             public int m_interval;
             public int m_retries;
             public int m_msgRetryDelay;
+            public int m_noResponseRetries;
             public int m_responsePendingRetries;
             public int m_responsePendingDelay;
             public byte m_responsePendingID;

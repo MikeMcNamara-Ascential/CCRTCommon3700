@@ -174,6 +174,11 @@ namespace Common.Lib.Presenters
                         MainFormView.SetPrompt2BGColor(MainFormModel.GetPrompt2BGColor());
                         MainFormView.SetECMResultBoxBGColor(MainFormModel.GetECMResultBGColor());
                         MainFormView.SetTCMResultBoxBGColor(MainFormModel.GetTCMResultBGColor());
+                        if (MainFormModel.GetDisplayDisconnectBatteryBox())
+                        {
+                            MainFormView.DisplayTimedDialogBox("Flash Retest Conducted", "Perform Battery Disconnect Procedure", "Ok", 10000);
+                            MainFormModel.SetDisplayDisconnectBatteryBox(false);
+                        }
                     }
                     catch (ObjectDisposedException ex)
                     {//ignore form closing

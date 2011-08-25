@@ -18,3 +18,5 @@ E:\Projects\UtilityFileInterpreter\UtilityFileInterpreterViewer\bin\Debug\J2534D
 E:\Projects\UtilityFileInterpreter\UtilityFileInterpreterViewer\bin\Debug\LoggingInterface.dll
 E:\Projects\UtilityFileInterpreter\UtilityFileInterpreterViewer\bin\Debug\LoggingInterface.pdb
 E:\Projects\UtilityFileInterpreter\UtilityFileInterpreterViewer\bin\Debug\VehicleCommServer.dll
+C:\Users\jsemann\Desktop\Joe\Transfer\Source\Projects\UtilityFileInterpreter\UtilityFileInterpreterViewer\obj\x86\Debug\UtilityFileInterpreterViewer.exe
+C:\Users\jsemann\Desktop\Joe\Transfer\Source\Projects\UtilityFileInterpreter\UtilityFileInterpreterViewer\obj\x86\Debug\UtilityFileInterpreterViewer.pdb

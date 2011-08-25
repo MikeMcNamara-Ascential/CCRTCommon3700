@@ -29,6 +29,7 @@ namespace BomFileProcessor
         {
             m_ccrtPassConfirmFileLocationTextBox.Text = BomFileProcessor.Properties.Settings.Default.CcrtFileLocation;
             m_spartanPassFileLocationTextBox.Text = BomFileProcessor.Properties.Settings.Default.SpartanFileLocation;
+            m_spartanFlashPassFileLocationTextBox.Text = BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation;
             m_fileCheckDelayNumericUpDown.Value = Convert.ToInt32(BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay);
             m_monitorPassConfirmFilesCheckBox.Checked = BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles;
         }
@@ -93,7 +94,24 @@ namespace BomFileProcessor
                 m_spartanPassFileLocationTextBox.Text = directory;
             }
         }
+        /// <summary>
+        /// A folder selection dialog will be displayed so the user can select the location 
+        /// to place the Pass confirmation files for Spartan.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_SpartanFlashSelectButton_Click(object sender, EventArgs e)
+        {
+            String directory = SelectPassFileLocation(BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation, "Spartan");
+            if (directory.Length > 0)
+            {
+                BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation = directory;
+                BomFileProcessor.Properties.Settings.Default.Save();
+                m_spartanFlashPassFileLocationTextBox.Clear();
+                m_spartanFlashPassFileLocationTextBox.Text = directory;
+            }
 
+        }
         /// <summary>
         /// Store all the data the user has entered.
         /// </summary>
@@ -103,10 +121,13 @@ namespace BomFileProcessor
         { 
             BomFileProcessor.Properties.Settings.Default.CcrtFileLocation = m_ccrtPassConfirmFileLocationTextBox.Text;
             BomFileProcessor.Properties.Settings.Default.SpartanFileLocation = m_spartanPassFileLocationTextBox.Text;
+            BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation = m_spartanFlashPassFileLocationTextBox.Text;
             BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles = m_monitorPassConfirmFilesCheckBox.Checked;
             BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay = Convert.ToInt32(m_fileCheckDelayNumericUpDown.Value);
             BomFileProcessor.Properties.Settings.Default.Save();
         }
+
+
 
     }
 }

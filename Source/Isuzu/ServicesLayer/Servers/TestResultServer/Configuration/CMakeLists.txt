@@ -1,5 +1,5 @@
 #------------------------------------------------------------------------------------------
 # Tell CMake what files to install
 #------------------------------------------------------------------------------------------
-INSTALL_FILES(${CORE_SL_CFG_DEPLOY_DIR} FILES 
+INSTALL_FILES(${CUSTOMER_SERVICES_CFG_DEPLOY_DIR} FILES 
     Isuzu.TestResultServerConfig.xml)

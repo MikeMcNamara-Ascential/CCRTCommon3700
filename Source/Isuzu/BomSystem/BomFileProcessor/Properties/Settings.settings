@@ -86,5 +86,8 @@
     <Setting Name="PassConfirmationCheckDelay" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">500</Value>
     </Setting>
+    <Setting Name="SpartanFlashFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

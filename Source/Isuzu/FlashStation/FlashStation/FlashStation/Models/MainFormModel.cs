@@ -69,6 +69,7 @@ namespace Common.Lib.Models
                         m_progressBarValue = 0;
                         m_progressBarRangeMax = 0;
                         m_progressBarRangeMin = 0;
+                        m_flashRetryAttempted = false;
                         SetPrompt1(prompt.WAIT_FOR_USER_INPUT1);
                         SetPrompt2(prompt.WAIT_FOR_USER_INPUT2);
                         SetPrompt1BGColor(Color.White);
@@ -90,6 +91,12 @@ namespace Common.Lib.Models
                         SetPrompt2("");
                         taskDelegate = new ThreadStart(WaitForCableConnect);
                         break;
+                    /*case StateName.WAIT_FOR_KEY_ON:
+                        //Start Wait for key on thread
+                        SetPrompt1(prompt.KEY_ON);
+                        SetPrompt2("");
+                        taskDelegate = new ThreadStart(WaitForKeyOn);
+                        break;*/
                     case StateName.FLASH_ECUS:
                         //Start vehicle flash thread
                         SetPrompt1(prompt.FLASH_ECUS1);
@@ -102,6 +109,12 @@ namespace Common.Lib.Models
                         SetPrompt2(prompt.REPORT_DATA2);
                         taskDelegate = new ThreadStart(ReportDataState);
                         break;
+                    /*case StateName.WAIT_FOR_KEY_OFF:
+                        //Start Wait for key off thread
+                        SetPrompt1(prompt.KEY_OFF);
+                        SetPrompt2("");
+                        taskDelegate = new ThreadStart(WaitForKeyOff);
+                        break;*/
                     case StateName.WAIT_FOR_CABLEDISCONNECT:
                         //Start Wait for cable connect thread
                         //prompt 1 will be set by report data
@@ -120,6 +133,10 @@ namespace Common.Lib.Models
         {
             m_logger = logger;
             m_fcm = new FCM(m_remoteBuildFileDirectory, m_buildFileDirectory, m_tempBuildFileDirectory, 10000, m_logger);
+            ThreadStart taskDelegate = null;
+            taskDelegate = new ThreadStart(PassFileIndicationTransferThread);
+            Thread transferPassedTestResults = new Thread(taskDelegate);
+            transferPassedTestResults.Start();
         }
 
         public Status GetStatus()
@@ -187,6 +204,7 @@ namespace Common.Lib.Models
             }
             if (GetStatus() != Status.TERMINATE) SetStatus(Status.SUCCESS);
         }
+
         public void GetSerialDeviceInput()
         {
             if (m_serialPort==null)
@@ -198,8 +216,9 @@ namespace Common.Lib.Models
             string barcode="";
             byte[] interReceivedData = new byte[BARCODE_LENGTH];
             List<byte> receivedData = new List<byte>();
-
-            while (totalBytesRead < BARCODE_LENGTH && GetBarcode() == "" && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
+            int attempts = BARCODE_LENGTH;
+            while (totalBytesRead < BARCODE_LENGTH && GetBarcode() == "" && GetStatus() == Status.IN_PROGRESS && 
+                !m_terminateThreads && (attempts > 0))
             {//wait for user input or scanned data
                 bytesRead = m_serialPort.ReadSerialData(interReceivedData, BARCODE_LENGTH);
                 if (bytesRead > 0)
@@ -209,6 +228,7 @@ namespace Common.Lib.Models
                     {
                         receivedData.Add(interReceivedData[x]);
                     }
+                    attempts--;
                 }
                 Thread.Sleep(100);
             }
@@ -219,11 +239,12 @@ namespace Common.Lib.Models
             if (GetStatus() == Status.IN_PROGRESS)
             {
                 barcode = System.Text.Encoding.ASCII.GetString(receivedData.ToArray());
-                if (totalBytesRead == 30)
-                {//set barcode value
+                //ignore input size, this will be checked later
+                //if (totalBytesRead == BARCODE_LENGTH)
+                //{//set barcode value
                     m_logger.Log("INFO:  Received Barcode Input: " + barcode);
                     SetBarcode(barcode);
-                }
+                //}
             }
             m_serialPort.StopRxDataMonitor();
             m_serialPort.ClosePort();
@@ -249,7 +270,7 @@ namespace Common.Lib.Models
             else
             {//invalid barcode length
                 buildDataValid = false;
-                m_logger.Log("ERROR:  Invalid Barcode Length Required: " + BARCODE_LENGTH.ToString() + " received: " + barcode.Length.ToString());
+                m_logger.Log("ERROR:  Invalid Barcode - Length Required: " + BARCODE_LENGTH.ToString() + " received: " + barcode.Length.ToString());
             }
             if (!buildDataValid)
             {
@@ -386,6 +407,26 @@ namespace Common.Lib.Models
                 GetStatus() != Status.ABORT)
                 SetStatus(Status.SUCCESS);
         }
+        /*public void WaitForKeyOn()
+        {
+            while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            {
+                Thread.Sleep(500);
+            }
+            if (GetStatus() != Status.TERMINATE &&
+                GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS);
+        }
+        public void WaitForKeyOff()
+        {
+            while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            {
+                Thread.Sleep(500);
+            }
+            if (GetStatus() != Status.TERMINATE &&
+                GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS);
+        }*/
 
         string m_resultText;
         public void FlashECUs()
@@ -400,6 +441,14 @@ namespace Common.Lib.Models
                         //m_progressBarValue = 0;
                         //m_logger.Log("INFO:  Starting Flash Process Iteration: " + iteration.ToString());
                         //end repeatability test add
+            for (int x = 0; x < FLASH_RETRIES; x++)
+            {
+                m_progressBarValue = 0;
+                m_logger.Log("INFO:  Starting Flash Process Attempt: " + x.ToString());
+                if (x < 0)
+                {
+                    m_flashRetryAttempted = true;
+                }
                         Status preFileProcessStatus = Status.FAILURE;
                         m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
                         preFileProcessStatus = PreUtilityFileProcess();
@@ -432,8 +481,6 @@ namespace Common.Lib.Models
                                     Thread.Sleep(1000);
                                 }
 
-                                //m_buildData[0].ProgrammingSuccess = true;
-                                //m_ecmThreadComplete = true;
                                 if (m_buildData[0].ProgrammingSuccess)
                                 {
                                     m_ecmResultColor = Color.Green;
@@ -465,10 +512,8 @@ namespace Common.Lib.Models
                                         m_tcmResultColor = Color.Red;
                                     }
                                 }
-                                //m_tcmThreadComplete = true;
-                                //m_buildData[1].ProgrammingSuccess = true;
 
-                        }
+                }
                         //stop tester present
                         m_stopTesterPresentThread = true;
                         m_stopProgressBarThread = true;
@@ -476,6 +521,11 @@ namespace Common.Lib.Models
                         PostUtilityFileProcess();
                         m_tcmInterpreter = null;
                         m_ecmInterpreter = null;
+                if (m_buildData[0].ProgrammingSuccess && m_buildData[1].ProgrammingSuccess)
+                {//break out of retry for loop
+                    break;
+                }
+            }
                     // Repeatability Test}
             if (GetStatus() != Status.TERMINATE &&
                 GetStatus() != Status.ABORT) SetStatus(Status.SUCCESS);
@@ -573,21 +623,40 @@ namespace Common.Lib.Models
 
             //all nodes disable DTCs
             m_logger.Log("INFO:  Sending Message Disable DTCs");
+            
             txMessage.Clear();
-            //txMessage.Add(0xfe);
             txMessage.Add(0x10);
             txMessage.Add(0x02);
-            //status = SendMessage(txMessage,true);
             SendMessage(txMessage, false);
+
+            txMessage.Clear();
+            txMessage.Add(0xFE);
+            txMessage.Add(0x10);
+            txMessage.Add(0x02);
+            message = new CcrtJ2534Defs.ECUMessage();
+            message = CreateAllNodesMessage(txMessage);
+            message.m_responseExpected = false;
+            message.m_rxTimeout = 10;
+            List<List<byte>> data = new List<List<byte>>();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data, true);
             //if (status == Status.SUCCESS)
             if (true)
             {
                 //all nodes disable Normal communications
                 m_logger.Log("INFO:  Sending Message Disable Normal Communications");
                 txMessage.Clear();
-                //txMessage.Add(0xfe);
                 txMessage.Add(0x28);
                 status = SendMessage(txMessage,false);
+                txMessage.Clear();
+                txMessage.Add(0xFE);
+                txMessage.Add(0x28);
+                message = new CcrtJ2534Defs.ECUMessage();
+                message = CreateAllNodesMessage(txMessage);
+                message.m_responseExpected = false;
+                message.m_rxTimeout = 10;
+                data = new List<List<byte>>();
+                m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data, true);
+
                 //if (status == Status.SUCCESS)
                 if (true)
                 {
@@ -631,20 +700,37 @@ namespace Common.Lib.Models
             //all nodes disable DTCs
             m_logger.Log("INFO:  Sending Message Disable DTCs");
             txMessage.Clear();
-            //txMessage.Add(0xfe);
             txMessage.Add(0x10);
             txMessage.Add(0x02);
-            //status = SendMessage(txMessage,true);
             SendMessage(txMessage, false);
+            txMessage.Clear();
+            txMessage.Add(0xFE);
+            txMessage.Add(0x10);
+            txMessage.Add(0x02);
+            CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+            message = CreateAllNodesMessage(txMessage);
+            message.m_responseExpected = false;
+            message.m_rxTimeout = 10;
+            List<List<byte>> data = new List<List<byte>>();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data, true);
             //if (status == Status.SUCCESS)
             if (true)
             {
                 //all nodes disable Normal communications
                 m_logger.Log("INFO:  Sending Message Disable Normal Communications");
                 txMessage.Clear();
-                //txMessage.Add(0xfe);
                 txMessage.Add(0x28);
                 status = SendMessage(txMessage, false);
+                txMessage.Clear();
+                txMessage.Add(0xFE);
+                txMessage.Add(0x28);
+                message = new CcrtJ2534Defs.ECUMessage();
+                message = CreateAllNodesMessage(txMessage);
+                message.m_responseExpected = false;
+                message.m_rxTimeout = 10;
+                data = new List<List<byte>>();
+                m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data, true);
+
                 //if (status == Status.SUCCESS)
                 if (true)
                 {
@@ -721,6 +807,17 @@ namespace Common.Lib.Models
                 status = SendMessage(txMessage, true);
                 Thread.Sleep(250);
             }
+                //all nodes clear faults
+                m_logger.Log("INFO:  Sending Message Clear faults");
+                txMessage.Clear();
+                txMessage.Add(0xFD);
+                txMessage.Add(0x04);
+                CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+                message = CreateAllNodesMessage(txMessage);
+                message.m_responseExpected = false;
+                message.m_rxTimeout = 100;
+                List<List<byte>> datalist = new List<List<byte>>();
+                m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref datalist, true);
         }
         public Status SendAllNodesMessage(List<byte> txMessage, bool responseExpected)
         {
@@ -1146,6 +1243,8 @@ namespace Common.Lib.Models
                         passed = true;
                         m_logger.Log("INFO:  Reporting Pass");
                         resultNode.InnerText = "Pass";
+                        //write file to shared folder
+                        WritePassIndicationFile();
                     }
                 }
                 if (GetStatus() == Status.ABORT)
@@ -1187,10 +1286,55 @@ namespace Common.Lib.Models
     .OrderByDescending(fi => fi.CreationTime).First();
                     fileInfo.Delete();
                 }
+                if (m_flashRetryAttempted)
+                {//Display message box to operator
+                    m_displayDisconnectBatteryBox = true;
+                }
             }
 
         }
-
+        //Write pass indication to a local folder first
+        public void WritePassIndicationFile()
+        { 
+            string filename = m_buildData[0].VIN + ".ECM";
+            using (StreamWriter outfile = new StreamWriter(m_passIndicationLocalDirectory + filename))
+            {
+                outfile.Write(DateTime.Today.ToString("yyyyMMdd"));
+            }
+        }
+        public void PassFileIndicationTransferThread()
+        {
+            while (!m_terminateThreads)
+            {
+                //Check if specified transfer folder exists
+                if (System.IO.Directory.Exists(m_passIndicationSharedDirectory))
+                {//copy files over
+                    string[] files = System.IO.Directory.GetFiles(m_passIndicationLocalDirectory);
+                    try
+                    {
+                        foreach (string fileName in files)
+                        {
+                            string destFile = m_passIndicationSharedDirectory + fileName.Substring(fileName.LastIndexOf("\\")+1);
+                            System.IO.File.Copy(fileName, destFile, true);
+                        }
+                        //delete files from local directory
+                        foreach (string fileName in files)
+                        {
+                            System.IO.File.Delete(fileName);
+                        }
+                    }
+                    catch
+                    {
+                        m_logger.Log("ERROR:  Pass Result File Transfer Error");
+                    }
+                }
+                else
+                {
+                    m_logger.Log("Warning:  Unable To Access Shared Directory, results will be saved locally until connection restored");
+                }
+                Thread.Sleep(10000);
+            }
+        }
         public void CreateCableConnectCheckMessage()
         {
             List<byte> txMessage = new List<byte>();
@@ -1236,6 +1380,44 @@ namespace Common.Lib.Models
             else
                 return true;
         }
+        public void CreateKeyOnMessage()
+        {
+            List<byte> txMessage = new List<byte>();
+            txMessage.Clear();
+            txMessage.Add(0x1A);
+            txMessage.Add(0x90);
+            List<byte> requestID = new List<byte>();
+            List<byte> responseID = new List<byte>();
+            requestID.Add(0x00);
+            requestID.Add(0x00);
+            requestID.Add(0x07);
+            requestID.Add(0xe0);
+            responseID.Add(0x00);
+            responseID.Add(0x00);
+            responseID.Add(0x07);
+            responseID.Add(0xe8);
+            m_keyOnMessage = CreateECUMessage(txMessage, requestID, responseID);
+            m_keyOnMessage.m_txTimeout = 200;
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+            m_keyOnMessage.m_messageFilter);
+        }
+        /*public bool IsKeyOn()
+        {
+            if (m_keyOnMessage == null)
+            {
+                CreateKeyOnMessage();
+            }
+            List<byte> data = new List<byte>();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, m_cableConnectMessage, ref data);
+            if (data[] == )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }*/
         public bool ValidBuildDataReceived()
         {
             return m_buildDataValid;
@@ -1350,6 +1532,14 @@ namespace Common.Lib.Models
                 m_buildData[1].PerformFlash = perform;
             }
         }
+        public void SetDisplayDisconnectBatteryBox(bool display)
+        {
+            m_displayDisconnectBatteryBox = display;
+        }
+        public bool GetDisplayDisconnectBatteryBox()
+        {
+            return m_displayDisconnectBatteryBox;
+        }
 
         /// <summary>
         /// Main Form Model Member Variables
@@ -1373,6 +1563,8 @@ namespace Common.Lib.Models
         public const int BARCODE_LENGTH = 30;
         public const int MAX_RESULT_FILES = 1000;
         public const int TESTER_PRESENT_DELAY = 1000;
+        public const int FLASH_RETRIES = 1;
+        public bool m_flashRetryAttempted;
         private List<ECUBuildData> m_buildData;
         private List<String> m_ecuNames;
         //To do Make Configurable
@@ -1382,6 +1574,8 @@ namespace Common.Lib.Models
         private string m_resultsDirectory = "C:\\FlashStation\\Results\\";
         private string m_logsDirectory = "C:\\FlashStation\\Logs\\";       
         private string m_remoteBuildFileDirectory = "G:\\Rewrite\\Configuration\\VehicleTest\\BuildRecords\\";
+        private string m_passIndicationSharedDirectory = "G:\\Rewrite\\TestResults\\PassConfirmation\\";
+        private string m_passIndicationLocalDirectory = "C:\\FlashStation\\TransferFiles\\";
         //Test
         //private string m_remoteBuildFileDirectory = "C:\\FlashStation\\BuildRecords\\";
         //End test
@@ -1397,6 +1591,7 @@ namespace Common.Lib.Models
         private volatile bool m_usingCableConnectForced;
         private volatile bool m_ecmThreadComplete;
         private volatile bool m_tcmThreadComplete;
+        private volatile bool m_displayDisconnectBatteryBox;
         private volatile int m_progressBarValue;
         private volatile int m_progressBarRangeMin;
         private volatile int m_progressBarRangeMax;
@@ -1408,6 +1603,7 @@ namespace Common.Lib.Models
         private Logger m_tcmLogger;
         private List<CcrtJ2534Defs.ECUMessage> m_testerPresentMessages;
         private J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage m_cableConnectMessage;
+        private J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage m_keyOnMessage;
         private XmlDocument m_currentBuild;
         private FCM m_fcm;
         private Interpreter m_ecmInterpreter;

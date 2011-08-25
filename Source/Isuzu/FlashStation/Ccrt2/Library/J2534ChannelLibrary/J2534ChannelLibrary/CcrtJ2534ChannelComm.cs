@@ -236,17 +236,28 @@ namespace J2534ChannelLibrary
         {//determine if our message has been received starting from end of response list
             bool responsePending = true;
             int retryCount = ecuMessage.m_responsePendingRetries;
+            int noReplyRetryCount = ecuMessage.m_noResponseRetries;
 
             List<CcrtJ2534Defs.Response> responses = null;
             while ((retryCount-- > 0) && responsePending)
             {//retrieve response from device
                 if (!GetResponse(ecuMessage, ref responses))
                 {
-                    responses = null;
-                    return false;
+                    if (noReplyRetryCount != 0)
+                    {//error getting message allow multiple attempts
+                        responses = null;
+                        responsePending = false;
+                    }
+                    else
+                    {
+                        responses = null;
+                        return false;
+                    }
                 }
-                for (int i = (responses.Count - 1); i > -1; i--)
-                {//check if message filter matches
+                if (responses != null)
+                {
+                    for (int i = (responses.Count - 1); i > -1; i--)
+                    {//check if message filter matches
                         byte[] messageFilter = responses[i].m_rxMessage.GetRange(0, 4).ToArray();
                         if (BitConverter.ToString(messageFilter) == BitConverter.ToString(ecuMessage.m_messageFilter.responseID))
                         {//ID matches - check identifier
@@ -293,10 +304,22 @@ namespace J2534ChannelLibrary
                                 responsePending = false;
                             }
                         }
+                    }
                 }
                 if (responsePending)
-                {//receive latest data
+                {//delay before next check
+                    //reset no response count since we received a reply
+                    noReplyRetryCount = ecuMessage.m_noResponseRetries;
                     System.Threading.Thread.Sleep(ecuMessage.m_responsePendingDelay);
+                }
+                else
+                {//no message filter match found 
+                    if (noReplyRetryCount != 0)
+                    {//allow multiple attempts
+                        responsePending = true;
+                        noReplyRetryCount--;
+                        System.Threading.Thread.Sleep(ecuMessage.m_responsePendingDelay);
+                    }
                 }
             }
 
@@ -315,76 +338,99 @@ namespace J2534ChannelLibrary
                 ecuData.Add(new List<byte>());
             }
             int retryCount = ecuMessage.m_responsePendingRetries;
+            int noReplyRetryCount = ecuMessage.m_noResponseRetries;
             List<CcrtJ2534Defs.Response> responses = null;
             while ((retryCount-- > 0) && responsePending)
             {//retrieve response from device
                 if (!GetResponse(ecuMessage, ref responses))
                 {
-                    return false;
-                }
-                for (int i = (responses.Count - 1); i > -1; i--)
-                {//check if message filter matches
-                    byte[] messageFilter = responses[i].m_rxMessage.GetRange(0, 4).ToArray();
-                    for (int filterIndex = 0; filterIndex < ecuMessage.m_messageFilter.responseIDs.Count; filterIndex++) 
+                    if (noReplyRetryCount != 0)
+                    {//error getting message allow multiple attempts
+                        responses = null;
+                        responsePending = false;
+                    }
+                    else
                     {
-                        if (BitConverter.ToString(messageFilter) == BitConverter.ToString(ecuMessage.m_messageFilter.responseIDs[filterIndex]))
-                        {//ID matches - check identifier
-                            try
-                            {
-                                if (responses[i].m_rxMessage[m_protocolSpecDefs.m_posRspIndex] ==
-                                    ecuMessage.m_txMessage[1] + m_protocolSpecDefs.m_posRspOffset)
-                                {//positive response message received
-                                    //set ecu Data
-                                    ecuData[filterIndex] = new List<byte>(responses[i].m_rxMessage);
-                                    //remove message from buffer
-                                    RemoveResponseFromBuffer(responses[i]);
-                                    return true;
-                                }
-                                //check to see if the message is a negative response for our message ID
-                                else if ((responses[i].m_rxMessage[m_protocolSpecDefs.m_posRspIndex] ==
-                                    m_protocolSpecDefs.m_negRspID))
-                                {//neg response received - check for our request id
-                                    if ((responses[i].m_rxMessage[m_protocolSpecDefs.m_posRspIndex + 1] ==
-                                    ecuMessage.m_txMessage[0]))
-                                    {
-                                        if (responses[i].m_rxMessage[m_protocolSpecDefs.m_posRspIndex + 2] ==
-                                            ecuMessage.m_responsePendingID)
+                        return false;
+                    }
+                }
+                if (responses != null)
+                {
+                    for (int i = (responses.Count - 1); i > -1; i--)
+                    {//check if message filter matches
+                        byte[] messageFilter = responses[i].m_rxMessage.GetRange(0, 4).ToArray();
+                        for (int filterIndex = 0; filterIndex < ecuMessage.m_messageFilter.responseIDs.Count; filterIndex++)
+                        {
+                            if (BitConverter.ToString(messageFilter) == BitConverter.ToString(ecuMessage.m_messageFilter.responseIDs[filterIndex]))
+                            {//ID matches - check identifier
+                                try
+                                {
+                                    if (responses[i].m_rxMessage[m_protocolSpecDefs.m_posRspIndex] ==
+                                        ecuMessage.m_txMessage[1] + m_protocolSpecDefs.m_posRspOffset)
+                                    {//positive response message received
+                                        //set ecu Data
+                                        ecuData[filterIndex] = new List<byte>(responses[i].m_rxMessage);
+                                        //remove message from buffer
+                                        RemoveResponseFromBuffer(responses[i]);
+                                        return true;
+                                    }
+                                    //check to see if the message is a negative response for our message ID
+                                    else if ((responses[i].m_rxMessage[m_protocolSpecDefs.m_posRspIndex] ==
+                                        m_protocolSpecDefs.m_negRspID))
+                                    {//neg response received - check for our request id
+                                        if ((responses[i].m_rxMessage[m_protocolSpecDefs.m_posRspIndex + 1] ==
+                                        ecuMessage.m_txMessage[0]))
                                         {
-                                            //remove message from buffer
-                                            RemoveResponseFromBuffer(responses[i]);
-                                            //exit for loop
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            //remove message from buffer
-                                            RemoveResponseFromBuffer(responses[i]);
-                                            ecuData[filterIndex] = new List<byte>(responses[i].m_rxMessage);
-                                            return true;
+                                            if (responses[i].m_rxMessage[m_protocolSpecDefs.m_posRspIndex + 2] ==
+                                                ecuMessage.m_responsePendingID)
+                                            {
+                                                //remove message from buffer
+                                                RemoveResponseFromBuffer(responses[i]);
+                                                //exit for loop
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                //remove message from buffer
+                                                RemoveResponseFromBuffer(responses[i]);
+                                                ecuData[filterIndex] = new List<byte>(responses[i].m_rxMessage);
+                                                return true;
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            catch (ArgumentOutOfRangeException)
-                            {// data position exceeded
-                                return false;
+                                catch (ArgumentOutOfRangeException)
+                                {// data position exceeded
+                                    return false;
+                                }
                             }
                         }
-                    }
-                    //add response pending logic
-                    foreach (List<byte> data in ecuData)
-                    {
-                        if (data.Count == 0)
+                        //add response pending logic
+                        foreach (List<byte> data in ecuData)
                         {
-                            //still waiting for data
-                            responsePending = true;
-                            break;
+                            if (data.Count == 0)
+                            {
+                                //still waiting for data
+                                responsePending = true;
+                                break;
+                            }
                         }
                     }
                 }
                 if (responsePending)
-                {//receive latest data
+                {//delay before next check
+                    //reset no response count since we received a reply
+                    noReplyRetryCount = ecuMessage.m_noResponseRetries;
                     System.Threading.Thread.Sleep(ecuMessage.m_responsePendingDelay);
+                }
+                else
+                {//no message filter match found 
+                    if (noReplyRetryCount != 0)
+                    {//allow multiple attempts
+                        responsePending = true;
+                        noReplyRetryCount--;
+                        System.Threading.Thread.Sleep(ecuMessage.m_responsePendingDelay);
+                    }
                 }
             }
 
@@ -437,6 +483,7 @@ namespace J2534ChannelLibrary
             int timeOut = ecuMessage.m_rxTimeout;
             ErrorCode status = ErrorCode.STATUS_NOERROR;
             List<PassThruMsg> rxMsgs = new List<PassThruMsg>();
+            List<PassThruMsg> fullMsgList = new List<PassThruMsg>();
             //need to set up a timer and check for our message also check for neg. response pending msg
             lock (m_j2534Interface)
             {
@@ -444,15 +491,17 @@ namespace J2534ChannelLibrary
                 while (ErrorCode.STATUS_NOERROR == status)
                 {
                     status = m_j2534Interface.ReadMsgs(m_channelID, ref rxMsgs, ref numMsgs, timeOut);
+                    fullMsgList.AddRange(rxMsgs);
+                    rxMsgs.Clear();
                 }
             }
             if (ErrorCode.ERR_BUFFER_EMPTY == status || ErrorCode.ERR_TIMEOUT == status)
             {
-               if (rxMsgs.Count > 1)
+                if (fullMsgList.Count > 0)
                 {
                     lock (m_responseBuffer)
                     {
-                        foreach (PassThruMsg msg in rxMsgs)
+                        foreach (PassThruMsg msg in fullMsgList)
                         {
                             //message Ids are sent and received for some reason
 

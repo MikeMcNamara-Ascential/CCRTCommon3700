@@ -62,7 +62,7 @@
     </Reference>
     <Reference Include="VehicleCommServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Ccrt2\Library\VehicleCommServer.dll</HintPath>
+      <HintPath>..\VehicleCommServer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +85,7 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="Presenters\app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

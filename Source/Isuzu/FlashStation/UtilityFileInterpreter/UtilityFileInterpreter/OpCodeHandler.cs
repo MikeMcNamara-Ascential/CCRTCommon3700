@@ -2153,6 +2153,7 @@ namespace UtilityFileInterpreter
                         message.m_responsePendingRetries = 50;
                         message.m_txTimeout = 20000;
                         message.m_rxTimeout = 250;
+                        message.m_noResponseRetries = 9;
                         //only one attempt to send message
                         message.m_retries = 1;
                         m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
@@ -2171,6 +2172,7 @@ namespace UtilityFileInterpreter
                         else
                         {
                             m_logger.Log("ERROR:  " + m_ecuName + "::Block Tx Response Not Received Continue attempts");
+                            LogResponseBufferInfo();
                             for (int x = 0; x < messageReceiveRetries; x++)
                             {//attempt to receive message multiple times
                                 status = m_vehicleCommInterface.ProcessMessageCAN(m_deviceName, m_channelName, message, ref recData);
@@ -2193,21 +2195,7 @@ namespace UtilityFileInterpreter
                                 recData.Add(0x7F);
                                 recData.Add(0x36);
                                 recData.Add(0x85);
-                                //Log detailed information for debugging
-                                List<CcrtJ2534Defs.Response> responses = new List<CcrtJ2534Defs.Response>();
-                                responses = m_vehicleCommInterface.GetResponseBuffer(m_deviceName, m_channelName);
-                                List<CcrtJ2534Defs.Response> removedResponses = new List<CcrtJ2534Defs.Response>();
-                                removedResponses = m_vehicleCommInterface.GetRemovedResponsesBuffer(m_deviceName, m_channelName);
-                                m_logger.Log("INFO:  " + m_ecuName + "::Response Buffer: ");
-                                foreach (CcrtJ2534Defs.Response response in responses)
-                                {
-                                    m_logger.Log(BitConverter.ToString(response.m_rxMessage.ToArray()));
-                                }
-                                m_logger.Log("INFO:  " + m_ecuName + "::Removed Response Buffer: ");
-                                foreach (CcrtJ2534Defs.Response response in removedResponses)
-                                {
-                                    m_logger.Log(BitConverter.ToString(response.m_rxMessage.ToArray()));
-                                }
+                                LogResponseBufferInfo();
                                 break;
                             }
                         }
@@ -2226,6 +2214,24 @@ namespace UtilityFileInterpreter
                 m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, ecuMessages[0], ref recData);
             }
             return GMLANResponseProcessing(effectiveGotoBytes, recData);
+        }
+
+        public void LogResponseBufferInfo()
+        {//Log detailed information for debugging
+            List<CcrtJ2534Defs.Response> responses = new List<CcrtJ2534Defs.Response>();
+            responses = m_vehicleCommInterface.GetResponseBuffer(m_deviceName, m_channelName);
+            List<CcrtJ2534Defs.Response> removedResponses = new List<CcrtJ2534Defs.Response>();
+            removedResponses = m_vehicleCommInterface.GetRemovedResponsesBuffer(m_deviceName, m_channelName);
+            m_logger.Log("INFO:  " + m_ecuName + "::Response Buffer: ");
+            foreach (CcrtJ2534Defs.Response response in responses)
+            {
+                m_logger.Log(BitConverter.ToString(response.m_rxMessage.ToArray()));
+            }
+            m_logger.Log("INFO:  " + m_ecuName + "::Removed Response Buffer: ");
+            foreach (CcrtJ2534Defs.Response response in removedResponses)
+            {
+                m_logger.Log(BitConverter.ToString(response.m_rxMessage.ToArray()));
+            }
         }
 
     }

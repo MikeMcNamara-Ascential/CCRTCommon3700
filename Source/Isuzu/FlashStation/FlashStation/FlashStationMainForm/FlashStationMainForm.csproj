@@ -14,7 +14,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>E:\CCRT\Tools\InstallPackages\FlashStation\</PublishUrl>
+    <PublishUrl>C:\MyData\VisualStudioDeployProjects\FlashStation\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>28</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -106,6 +106,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimedDialogBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimedDialogBox.Designer.cs">
+      <DependentUpon>TimedDialogBox.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="BarcodeEntryForm.resx">
       <DependentUpon>BarcodeEntryForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -129,6 +135,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TimedDialogBox.resx">
+      <DependentUpon>TimedDialogBox.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="FlashStationMainForm_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">

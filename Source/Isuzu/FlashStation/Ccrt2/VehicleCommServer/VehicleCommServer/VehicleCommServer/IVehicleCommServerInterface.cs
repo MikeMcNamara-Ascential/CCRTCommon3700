@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CcrtDataBaseLibrary;
 using J2534ChannelLibrary;
 using J2534DotNet;
 

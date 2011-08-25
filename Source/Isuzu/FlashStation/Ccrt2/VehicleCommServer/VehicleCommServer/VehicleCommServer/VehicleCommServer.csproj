@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0F464F21-EE60-41D5-A48C-74E9BAADCA34}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VehicleCommServer</RootNamespace>
     <AssemblyName>VehicleCommServer</AssemblyName>
@@ -81,10 +81,12 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CcrtDataBaseLibrary">
-      <HintPath>..\..\..\Library\CcrtDataBaseLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="J2534ChannelLibrary">
       <HintPath>..\..\..\Library\J2534ChannelLibrary.dll</HintPath>
     </Reference>

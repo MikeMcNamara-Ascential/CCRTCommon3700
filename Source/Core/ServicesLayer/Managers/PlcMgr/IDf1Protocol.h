@@ -258,7 +258,7 @@ private:
 	 * @param plcAddr PLC Address (i.e. N17:0) from which the data should be read
 	 * @return Number of integers read
 	 */
-	long BufferRead( uint8_t destId, short byteCnt, char *plcAddr);
+	long SendReadCommand( uint8_t destId, short byteCnt, char *plcAddr);
 
 	/**
 	 * Acknowledge a successful read operation by sending ACK to the PLC

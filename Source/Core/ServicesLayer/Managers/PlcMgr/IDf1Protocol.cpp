@@ -232,10 +232,10 @@ void IDf1Protocol::LoadAdditionalConfigurationItems(const XmlNode *df1Config)
  *
  * @return true if PLC data was read successfully
  */
-bool IDf1Protocol::Read( uint8_t dest, uint32_t *buff, uint32_t count, const char *addr)
+bool IDf1Protocol::Read( uint8_t dest, uint32_t *buff, uint32_t numOfWordsToRead, const char *addr)
 {
-	const int		inBytes = 2*count;
-	int 			loopCount = inBytes / m_df1BytesPerBlock;
+	const int		numOfBytesToRead = 2*numOfWordsToRead;
+	int 			loopCount = numOfBytesToRead / m_df1BytesPerBlock;
 	int             loopIdx=0, wordsToUpdate=m_df1BytesPerBlock/2;
 	int             cnt=5;
 	int             byteCount, wordIdx=m_df1BytesPerBlock/2;
@@ -244,10 +244,10 @@ bool IDf1Protocol::Read( uint8_t dest, uint32_t *buff, uint32_t count, const cha
 	bool            good = true;
 
 	// Loop 1 additional time if we need to read a partial block of data
-	if( (loopCount*m_df1BytesPerBlock) < inBytes)	loopCount++;
+	if( (loopCount*m_df1BytesPerBlock) < numOfBytesToRead)	loopCount++;
 
 	m_logger.Log( LOG_DEV_DATA, "Enter IDf1Protocol::Read(), Bytes: %d, Block Size: %d, Loops: %d\n",
-				  inBytes, m_df1BytesPerBlock, loopCount);
+				  numOfBytesToRead, m_df1BytesPerBlock, loopCount);
 
 	if( m_df1Lock.Acquire() == EOK)
 	{
@@ -261,8 +261,8 @@ bool IDf1Protocol::Read( uint8_t dest, uint32_t *buff, uint32_t count, const cha
 			byteCount = m_df1BytesPerBlock;					// 50 Bytes per block max
 			if(loopIdx == (loopCount-1))							// if last block to process
 			{
-				byteCount = inBytes % m_df1BytesPerBlock;	// calc remaining bytes
-				wordsToUpdate = count;
+				byteCount = numOfBytesToRead % m_df1BytesPerBlock;	// calc remaining bytes
+				wordsToUpdate = numOfWordsToRead;
 			}
 
 			cnt = 5;
@@ -276,7 +276,7 @@ bool IDf1Protocol::Read( uint8_t dest, uint32_t *buff, uint32_t count, const cha
 
 				// Send the DF1 "Read Block" string
                 //ews-  the below function also "eats" the ack message.
-				if( BufferRead( dest, byteCount/2, plcAddr) > 0)
+				if( SendReadCommand( dest, byteCount/2, plcAddr) > 0)
 				{
 					int rspLen = 11 + byteCount;
 
@@ -285,7 +285,7 @@ bool IDf1Protocol::Read( uint8_t dest, uint32_t *buff, uint32_t count, const cha
 					if( CheckBufferRead(plcData, rspLen, &buff[ loopIdx*(m_df1BytesPerBlock/2)], wordsToUpdate) == 0)
 					{
 						// How many words left to update
-						count -= wordsToUpdate;
+						numOfWordsToRead -= wordsToUpdate;
 						// Tell PLC his message was good
 						AckBufferRead();
 						// Send request for next block
@@ -618,7 +618,7 @@ uint32_t IDf1Protocol::CalculateBufferLen( const uint32_t *plcOut, uint32_t buff
  * @param plcAddr PLC Address (i.e. N17:0) from which the data should be read
  * @return Number of integers read
  */
-long IDf1Protocol::BufferRead( uint8_t destId, short byteCnt, char *plcAddr)
+long IDf1Protocol::SendReadCommand( uint8_t destId, short byteCnt, char *plcAddr)
 {
 	const uint32_t		buffLen = 19 + strlen( plcAddr);
 	uint8_t				xmtBuff[ buffLen];

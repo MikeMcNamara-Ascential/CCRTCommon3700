@@ -635,16 +635,16 @@ void* PlcRk512::Rk512CommThread( void *threadArg)
 	pthread_rwlock_t	*rwLock = arg->rwLock;
 	ILogger*			logger = arg->logger;
 	
-	//const int 			toCount = arg->toCount;
-	//const int			fromCount=arg->fromCount;
+	const int    			toCount = arg->toCount;
+	const int			    fromCount= arg->fromCount;
 	const int				readAddress = arg->readAddress;
 	const int				writeAddress = arg->writeAddress;
 	
 	arg->logger->Log( LOG_FN_ENTRY, "Enter PlcRk512::Rk512CommThread() arg->toCount=0x%02x, arg->fromCount=0x%02x, arg->readAddress=0x%02x, arg->writeAddress=0x%02x\n", arg->toCount, arg->fromCount, arg->readAddress, arg->writeAddress);
 
 	//TEMP
-	const int			toCount = 0x1A;
-	const int			fromCount = 0x1C;
+	//const int			toCount = 0x1A;
+	//const int			fromCount = 0x1C;
 	//const int			readAddress = 0xC9;
 	//const int			writeAddress = 0xC8;
 	//TEMP

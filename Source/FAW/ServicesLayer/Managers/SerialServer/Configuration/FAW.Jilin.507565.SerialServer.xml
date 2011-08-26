@@ -52,7 +52,7 @@
             </ISOK>
             <LeftMapleKeypad enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                <Setup>
-                  <SerialDevice>/dev/sl7804/ser1</SerialDevice>
+                  <SerialDevice>/dev/sl7804/ser3</SerialDevice>
                   <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
                   <Protocol>
                      <Baud>9600</Baud>
@@ -89,7 +89,7 @@
             </LeftMapleKeypad>
             <RightMapleKeypad enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                <Setup>
-                  <SerialDevice>/dev/sl7804/ser2</SerialDevice>
+                  <SerialDevice>/dev/sl7804/ser7</SerialDevice>
                   <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
                   <Protocol>
                      <Baud>9600</Baud>
@@ -126,7 +126,7 @@
             </RightMapleKeypad>
             <LeftScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
-                    <SerialDevice>/dev/sl7804/ser3</SerialDevice>
+                    <SerialDevice>/dev/sl7804/ser4</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
                     <Protocol>
                         <Baud>9600</Baud>
@@ -163,7 +163,7 @@
             </LeftScanner>
             <RightScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
-                    <SerialDevice>/dev/sl7804/ser4</SerialDevice>
+                    <SerialDevice>/dev/sl7804/ser8</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
                     <Protocol>
                         <Baud>9600</Baud>
@@ -198,6 +198,43 @@
                     </CommLog>
                 </Setup>
             </RightScanner>
+            <Host enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser2</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/Host</ProcessName>
+                        <AdditionalLogFile>HostComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>Host_Comm</ProcessName>
+                                <AdditionalLogFile>Host_BusComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </Host>
             <PlcRk512 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/ser1</SerialDevice>

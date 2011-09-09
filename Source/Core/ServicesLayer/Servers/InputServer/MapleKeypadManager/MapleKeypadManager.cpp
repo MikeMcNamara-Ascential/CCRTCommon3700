@@ -114,8 +114,13 @@ MapleKeypadManager::LoadAdditionalConfigurationItems(const XmlNode *configNode)
     // if we should open the logical ports
     if(m_openLogicalPort == true)
     {
-    // Setup the Maple Keypad Communication object
-    m_keypadComm.Initialize(document->getChild("MapleKeypadCommunication"));
+        // Setup the name of the Keypad 
+        SetName(document->getChild("MapleKeypadCommunication"));
+        SetReconnectDelay(250);
+        // Wait for Maple Keypad's serial port to be set with the Serial Server
+        WaitForKeypad();
+        // Setup the Maple Keypad Communication object
+        m_keypadComm.Initialize(document->getChild("MapleKeypadCommunication"));
     }
 
     // Set the keypad buffer size
@@ -492,6 +497,42 @@ void MapleKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteCoun
 }
 }
 
+void MapleKeypadManager::WaitForKeypad(void)
+{
+    TaskMonTask_t keypadTask;
+    do
+    {   // Get the state of the keypad in the task monitor
+        if (ITaskMon::ReadTaskInfo(keypadTask, m_name.c_str(), TASKMON_CLASS_SERIAL) != -1)
+        {
+               // If the state is not run, register the port driver
+            if(keypadTask.m_taskState != TASKSTATE_RUN)
+            {   // Delay before attempting to reconnect/register since the other PC may not be completely up.
+                BposSleep(m_reconnectDelay);
+                // Register the port driver
+                m_keypadComm.RegisterPortDriver();
+            }
+            else
+            {
+                Log(LOG_FN_ENTRY, "Info: Keypad Task already in run state\n");
+            }
+            // Delay after registering to allow the port driver to finish registering.
+            BposSleep(m_reconnectDelay);
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Unable to read keypad task info - Install latest TaskMon / TaskMonTerm to /usr/local/bin dir\n");
+        }
+        // Keep looking until state is run
+    } while(keypadTask.m_taskState != TASKSTATE_RUN);
+}
+
+void MapleKeypadManager::SetName(const XmlNode *configNode)
+{
+    // Setting the name based on configuration file
+    m_name = configNode->getChild("Setup")->getChild("Logging")->getChild("ProcessName")->getValue();
+    Log(LOG_FN_ENTRY, "Name of keypad was set to: %s", m_name.c_str());
+}
+
 inline void MapleKeypadManager::PrintSendBuffer(const std::string &buffer)
 {   // Print each character individually
     Log(LOG_DEV_DATA,"MapleKeypadManager::PrintSendBuffer() -- buffer length: %d\n", buffer.length());
@@ -517,6 +558,11 @@ inline const INT32 &MapleKeypadManager::GetMaximumRetries(void)
 inline const INT32 &MapleKeypadManager::GetDataDelay(void)
 {
     return m_dataDelay;
+}
+
+inline void MapleKeypadManager::SetReconnectDelay(int delay_ms)
+{
+    m_reconnectDelay = delay_ms;
 }
 
 inline void MapleKeypadManager::SetCurrentMode(const std::string mode)

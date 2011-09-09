@@ -254,6 +254,24 @@ protected:
      */
     void PrintSendBuffer(const std::string &buffer);
     /**
+     * Waits for the Maple Keypad to be running in the task monitor
+     */
+    void MapleKeypadManager::WaitForKeypad(void);
+    /**
+     * Sets the name of the keypad based on the information
+     * found in the appropriate configuration file.
+     * 
+     * @param configNode Starting node in the configuration file
+     *                   (Expected to be in MapleKeypadCommunication in InputServerConfig.xml)
+     */
+    void MapleKeypadManager::SetName(const XmlNode *configNode);
+    /**
+     * Sets the amount of time to wait before attempting a reconnect.
+     * 
+     * @param delay_ms amount of time to wait in milliseconds
+     */ 
+    inline void MapleKeypadManager::SetReconnectDelay(int delay_ms);
+    /**
      * Store the current mode of the Maple Keypad.
      *
      * @param mode   Current mode (VIN, Body Style, Driver Number, etc.)
@@ -369,6 +387,11 @@ private:
      */
     INT32 m_bufferSize;
     /**
+     * Name of the Maple Keypad, denoting whether
+     * it is LeftMapleKeypad or RightMapleKeypad
+     */
+    std::string m_name;
+    /**
      * Amount of delay between incoming characters.
      * @since Version 1.0
      */
@@ -378,6 +401,10 @@ private:
      * @since Version 1.0
      */
     INT32 m_maxRetries;
+    /**
+     * Amount of time to wait before reconnecting
+     */
+    int m_reconnectDelay;
     /**
      * Store the future state of the Input Server state.  Used to
      * allow the publish method to return immediately without

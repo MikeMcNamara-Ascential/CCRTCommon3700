@@ -17,25 +17,21 @@
     <xsl:template name="BuildData" match="/BepVehicleTestResult/VehicleBuild">
         <table border="1" rules="all" cellpadding="1">
             <tr>
-                <td align="left">Build Data:</td>
+                <td width="15" align="left">Build Data:</td>
             </tr>
             <tr>
                 <td width="7" align="left">Date:</td>
-                <td align="left"><xsl:value-of select="//TestResult/MachineInitialize/Date"/></td>
+                <td width="11" align="left"><xsl:value-of select="//TestResult/MachineInitialize/Date"/></td>
             </tr>
             <tr>
                 <td width="7" align="left">Time:</td>
-                <td align="left"><xsl:value-of select="//TestResult/MachineInitialize/Time"/></td>
+                <td width="11" align="left"><xsl:value-of select="//TestResult/MachineInitialize/Time"/></td>
             </tr>
             <tr>
                 <td width="7" align="left">VIN #:</td>
-                <td align="left"><xsl:value-of select="//VehicleBuild/VIN"/></td>
+                <td width="22" align="left"><xsl:value-of select="//VehicleBuild/VIN"/></td>
             </tr>
-            <tr>
-                <td width="7" align="left">ZTS #:</td>
-                <td align="left"><xsl:value-of select="//VehicleBuild/ZTSCode"/></td>
-            </tr>
-        </table>
+         </table>
     </xsl:template>
 
     <!-- Test Results -->
@@ -44,7 +40,7 @@
             <!-- Drag Test Results -->
             <xsl:call-template name="sectionSpacer"/>
             <tr>
-                <td align="left">Test Results:</td>
+                <td width="22" align="left">Test Results:</td>
             </tr>
             <tr>
                 <td width="4" align="left"/>
@@ -55,36 +51,34 @@
                 <!-- xsl:call-template name="fixedHeaderRow"/ -->
             </tr>
             <tr>
-                <td align="left">Drags: KGF</td>
-            </tr>
-            <tr>
-                <td align="left">
-                    <table border="0">
-                        <tr>
-                            <td width="4">LF:</td>
-                            <td width="7">----</td>
-                            <td width="7">
-                                <xsl:call-template name="convertForce">
-                                    <xsl:with-param name="FORCE" select="//BrakeLeftFrontDragTest/MaxDragForce"/>
-                                    <xsl:with-param name="UNITS" select="//BrakeLeftFrontDragTest/MaxDragForce/@Units"/>
-                                </xsl:call-template>
-                            </td>
-                            <td width="7">
-                                <xsl:call-template name="convertForce">
-                                    <xsl:with-param name="FORCE" select="//BrakeLeftFrontDragTest/DragForce"/>
-                                    <xsl:with-param name="UNITS" select="//BrakeLeftFrontDragTest/DragForce/@Units"/>
-                                </xsl:call-template>
-                            </td>
-                            <td width="7">
-                                <xsl:call-template name="showResult">
-                                    <xsl:with-param name="RESULT" select="//BrakeLeftFrontDragTest/@Result"/>
-                                </xsl:call-template>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
+                <td width="7" align="left"> </td>
             </tr>
 
+            <!-- Drag Test Results -->
+            <tr>
+                <td width="11" align="left">Drags: KGF</td>
+            </tr>
+            <tr>
+                <td width="4" align="left">LF:</td>
+                <td width="7" align="left">----</td>
+                <td width="7" align="left">
+                     <xsl:call-template name="convertForce">
+                        <xsl:with-param name="FORCE" select="//BrakeLeftFrontDragTest/MaxDragForce"/>
+                        <xsl:with-param name="UNITS" select="//BrakeLeftFrontDragTest/MaxDragForce/@Units"/>
+                     </xsl:call-template>
+                </td>
+                <td width="7" align="left">
+                     <xsl:call-template name="convertForce">
+                         <xsl:with-param name="FORCE" select="//BrakeLeftFrontDragTest/DragForce"/>
+                         <xsl:with-param name="UNITS" select="//BrakeLeftFrontDragTest/DragForce/@Units"/>
+                     </xsl:call-template>
+                </td>
+                <td width="7">
+                    <xsl:call-template name="showResult">
+                         <xsl:with-param name="RESULT" select="//BrakeLeftFrontDragTest/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
             <tr>
                 <td width="4" align="left">RF:</td>
                 <td width="7" align="left">----</td>
@@ -121,7 +115,7 @@
                         <xsl:with-param name="UNITS" select="//BrakeLeftRearDragTest/DragForce/@Units"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeLeftRearDragTest/@Result"/>
                     </xsl:call-template>
@@ -142,16 +136,19 @@
                         <xsl:with-param name="UNITS" select="//BrakeRightRearDragTest/DragForce/@Units"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeRightRearDragTest/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
-
-            <!-- Brake Test Results -->
             <tr>
-                <td align="left">Brake: KGF</td>
+                <td width="7" align="left"> </td>
+            </tr>
+
+            <!-- Brake Test Results -->        
+            <tr>
+                <td width="11" align="left">Brake: KGF</td>
             </tr>
             <tr>
                 <td  width="4" align="left">LF:</td>
@@ -173,7 +170,7 @@
                         <xsl:with-param name="UNITS" select="//BrakeLeftFrontForceTest/BrakeForce/@Units"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeLeftFrontForceTest/@Result"/>
                     </xsl:call-template>
@@ -199,7 +196,7 @@
                         <xsl:with-param name="UNITS" select="//BrakeRightFrontForceTest/BrakeForce/@Units"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeRightFrontForceTest/@Result"/>
                     </xsl:call-template>
@@ -225,7 +222,7 @@
                         <xsl:with-param name="UNITS" select="//BrakeLeftRearForceTest/BrakeForce/@Units"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeLeftRearForceTest/@Result"/>
                     </xsl:call-template>
@@ -251,11 +248,14 @@
                         <xsl:with-param name="UNITS" select="//BrakeRightRearForceTest/BrakeForce/@Units"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeRightRearForceTest/@Result"/>
                     </xsl:call-template>
                 </td>
+            </tr>
+            <tr>
+                <td  width="7" align="left"> </td>
             </tr>
 
             <!-- Brake Balance Results -->
@@ -263,7 +263,7 @@
                 <td  width="7" align="left">Balance: %</td>
             </tr>
             <tr>
-                <td width="4" align="left">F:</td>
+                <td  width="4" align="left">F:</td>
                 <td  width="7" align="left">
                     <xsl:value-of select="//BrakeFrontBalanceTest/MinPercentBalance"/>
                 </td>
@@ -273,14 +273,14 @@
                 <td  width="7" align="left">
                     <xsl:value-of select="//BrakeFrontBalanceTest/Value"/>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeFrontBalanceTest/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
             <tr>
-                <td width="4" align="left">R:</td>
+                <td  width="4" align="left">R:</td>
                 <td  width="7" align="left">
                     <xsl:value-of select="//BrakeRearBalanceTest/MinPercentBalance"/>
                 </td>
@@ -290,7 +290,7 @@
                 <td  width="7" align="left">
                     <xsl:value-of select="//BrakeRearBalanceTest/Value"/>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeRearBalanceTest/@Result"/>
                     </xsl:call-template>
@@ -307,16 +307,19 @@
                 <td  width="7" align="left">
                     <xsl:value-of select="//BrakeFrontToRearBalanceTest/Value"/>
                 </td>
-                <td>
+                <td width="7">
                     <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeRearBalanceTest/@Result"/>
+                        <xsl:with-param name="RESULT" select="//BrakeFrontToRearBalanceTest/@Result"/>
                     </xsl:call-template>
                 </td>
+            </tr>
+            <tr>
+                <td  width="7" align="left"> </td>
             </tr>
 	
             <!-- Speedometer test results -->
             <tr>
-                <td align="left">Speedo: KPH</td>
+                <td width="7" align="left">Speedo: KPH</td>
             </tr>
             <tr>
                 <td width="4" align="left"/>
@@ -344,24 +347,10 @@
                     </xsl:call-template>
                 </td>
             </tr>
-            <!-- tr>
-                <td align="left">Horn: dB</td>
-            </tr>
             <tr>
-                <td width="4" align="left"/>
-                <td  width="7" align="left">
-                    <xsl:value-of select="//SoundLevelSoundPressureLevelTest/MinSoundPressureLevel"/>
-                </td>
-                <td  width="7" align="left">----</td>
-                <td  width="7" align="left">
-                    <xsl:value-of select="//SoundLevelSoundPressureLevelTest/SoundPressureLevel"/>
-                </td>
-                <td  width="7" align="left">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//SoundLevelSoundPressureLevelTest/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr -->
+                <td  width="7" align="left"> </td>
+            </tr>
+            
             <!-- Component Overall Test Resulst -->
             <tr>
                 <td width="25" align="left">Reverse:</td>
@@ -371,14 +360,6 @@
                     </xsl:call-template>
                 </td>
             </tr>
-            <!-- tr>
-                <td width="25" align="left">Axle Ratio:</td>
-                <td width="7" align="left">    
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//MachineAxleRatio/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr --> 
 
             <!-- Overal Test Result -->
             <tr bgcolor="white">
@@ -389,7 +370,19 @@
                     </xsl:call-template>
                 </td>
             </tr>
-        </table>
+            <tr> 
+                <td> 
+                </td>
+            </tr>
+            <tr> 
+                <td> 
+                </td>
+            </tr>
+            <tr>
+                <td> 
+                </td>
+            </tr>
+		</table>
     </xsl:template>
 
     <!-- Inserts a spacer row between sections -->

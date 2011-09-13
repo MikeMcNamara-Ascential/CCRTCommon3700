@@ -242,6 +242,7 @@ const std::string ABMotorController::Register(void)
     UINT32  ii;
     std::string status(BEP_FAILURE_RESPONSE), name;
     int     driveRefIndexes[] = { 4,0,5,0,0,0};
+	int     phase2DriveRefIndexes[] = {5,0,6,0,0,0};
 
     Log(LOG_FN_ENTRY, "ABMotorController::Register()\n");
 
@@ -286,12 +287,14 @@ const std::string ABMotorController::Register(void)
                          * Create new Motor objects with proper speed reference index values. The
                          *  speed reference index is used with the AB drives for speed matching
                          *  (i.e. following a master drive).
-                         *  The LF drive has a speed reference index of 4
-                         *  The LR drive has a speed reference index of 5
+                         *  The LF drive has a speed reference index of 4 (5 for AB700s Phase 2)
+                         *  The LR drive has a speed reference index of 5 (6 for AB700s Phase 2)
                          *  All other drives have no speed reference index
                          */
                         if(!motorType.compare("AB700s"))
                             m_motors.push_back(new AB700sMotor( driveRefIndexes[ ii%6]));
+						else if(!motorType.compare("AB700s-Phase 2"))
+							m_motors.push_back(new AB700sMotor(phase2DriveRefIndexes[ii%6]));
                         else if(!motorType.compare("AB700"))
                             m_motors.push_back(new AB700Motor( driveRefIndexes[ ii%6]));
                         else   // Unknown type, default to 700s
@@ -1023,7 +1026,6 @@ const INT32 ABMotorController::Boost(void)
                 FrontWheelBoost();
                 masterRoll = LeftFront;
             }
-
             if((masterRoll != All) && MachineType().compare(MACHINE_TYPE_3700) && GetDataTag("ABMotorType").compare("AB700")) 
             {
                 status = ApplyMotorLoad( CalculateTorqueLoad( masterRoll), masterRoll);
@@ -1285,14 +1287,14 @@ const INT32 ABMotorController::AllWheelBoost(void)
 
     if( (status=m_motors.Lock()) == EOK)
     {
-        m_motors[ LeftFront]->FollowMaster( m_motors[ LeftFront], m_speeds[LeftFront]);
-        m_motors[ RightFront]->FollowMaster( m_motors[ LeftFront], m_speeds[LeftFront]);
-        m_motors[ LeftRear]->FollowMaster( m_motors[ LeftRear], m_speeds[LeftRear]);
-        m_motors[ RightRear]->FollowMaster( m_motors[ LeftRear], m_speeds[LeftRear]);
+        m_motors[ LeftFront]->FollowMaster( m_motors[ LeftFront], m_speeds[LeftFront], m_motors.size());
+        m_motors[ RightFront]->FollowMaster( m_motors[ LeftFront], m_speeds[LeftFront], m_motors.size());
+        m_motors[ LeftRear]->FollowMaster( m_motors[ LeftRear], m_speeds[LeftRear], m_motors.size());
+        m_motors[ RightRear]->FollowMaster( m_motors[ LeftRear], m_speeds[LeftRear], m_motors.size());
         if( wheelCount == 6)
         {
-            m_motors[ LeftTandem]->FollowMaster( m_motors[ LeftTandem], m_speeds[LeftTandem]);
-            m_motors[ RightTandem]->FollowMaster( m_motors[ LeftTandem], m_speeds[LeftTandem]);
+            m_motors[ LeftTandem]->FollowMaster( m_motors[ LeftTandem], m_speeds[LeftTandem], m_motors.size());
+            m_motors[ RightTandem]->FollowMaster( m_motors[ LeftTandem], m_speeds[LeftTandem], m_motors.size());
         }
 
         m_motors.Unlock();
@@ -1332,11 +1334,11 @@ const INT32 ABMotorController::RearWheelBoost(void)
                 {
                     if(!MachineType().compare(MACHINE_TYPE_3700) )
                     {
-                        m_motors[ ii]->FollowMaster( m_motors[ LeftFront], m_speeds[LeftRear]);
+                        m_motors[ ii]->FollowMaster( m_motors[ LeftFront], m_speeds[LeftRear], m_motors.size());
                     }
                     else
                     {
-                        m_motors[ ii]->FollowMaster( m_motors[ LeftRear], m_speeds[LeftRear]);
+                        m_motors[ ii]->FollowMaster( m_motors[ LeftRear], m_speeds[LeftRear], m_motors.size());
                     }
                 }
                 else
@@ -1375,7 +1377,7 @@ const INT32 ABMotorController::FrontWheelBoost(void)
             }
             else
             {
-                m_motors[ ii]->FollowMaster( m_motors[ LeftFront], m_speeds[LeftFront]);
+                m_motors[ ii]->FollowMaster( m_motors[ LeftFront], m_speeds[LeftFront], m_motors.size());
             }
         }
 
@@ -1485,7 +1487,7 @@ const INT32 ABMotorController::IndividualControlMode(void)
                 {
                     command = GetCommandValue(MotorDescriptions[ii] + "SpeedValue");
 
-                    Log(LOG_DEV_DATA, "%s of %3.2f for %s\n", COMMAND_SPEED, mode.c_str(), MotorDescriptions[ii].c_str());
+                    Log(LOG_DEV_DATA, "%s of %3.2f for %s\n", COMMAND_SPEED, command, MotorDescriptions[ii].c_str());
 
                     motor->CommandSpeed(command);
                     if( drivesEnabled == True)
@@ -1503,7 +1505,7 @@ const INT32 ABMotorController::IndividualControlMode(void)
                 {
                     command = GetCommandValue(MotorDescriptions[ii] + "TorqueValue");
 
-                    Log(LOG_DEV_DATA, "%s of %3.2f for %s\n", COMMAND_TORQUE, mode.c_str(), MotorDescriptions[ii].c_str());
+                    Log(LOG_DEV_DATA, "%s of %3.2f for %s\n", COMMAND_TORQUE, command, MotorDescriptions[ii].c_str());
                     motor->CommandTorque(command);
                     if( drivesEnabled == True)
                     {

@@ -131,12 +131,12 @@ void AB700Motor::ClearFault()
 }
 
 //-----------------------------------------------------------------------------
-const INT32 AB700Motor::FollowMaster(const ABMotor *master, const float &masterRollSpeed)
+const INT32 AB700Motor::FollowMaster(const ABMotor *master, const float &masterRollSpeed, const INT32 motorCount /*= 4*/)
 {
     INT32   status = EINVAL;
     ABMotor *masterMotor = const_cast<ABMotor *>(master);
     Log( LOG_DEV_DATA, "Enter AB700Motor::FollowMaster(%d)", masterMotor->SpeedRefDriveIndex());
-	if(master != this)
+	if((master != this) || (motorCount == 2))
 	{   // Set my speed to the master's speed
 		status = CommandSpeed(masterRollSpeed, 0);
 	}

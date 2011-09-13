@@ -98,7 +98,7 @@ public:
      *
      * @return EOK if successull, any other value indicates an error
      */
-    virtual const INT32 FollowMaster( const ABMotor *master, const float &masterRollSpeed);
+    virtual const INT32 FollowMaster( const ABMotor *master, const float &masterRollSpeed, const INT32 motorCount = 4);
 
 protected:
     /**

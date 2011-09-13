@@ -159,7 +159,7 @@ void ABMotor::ClearFault()
 }
 
 //-----------------------------------------------------------------------------
-const INT32 ABMotor::FollowMaster( const ABMotor *master, const float &masterRollSpeed)
+const INT32 ABMotor::FollowMaster( const ABMotor *master, const float &masterRollSpeed, const INT32 motorCount /*= 4*/)
 {
     return ENOTSUP;
 }

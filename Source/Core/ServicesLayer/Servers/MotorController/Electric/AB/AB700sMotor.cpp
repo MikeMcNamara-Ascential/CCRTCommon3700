@@ -471,7 +471,7 @@ const uint16_t AB700sMotor::GetSpeedRefIdx() const
  *
  * @return EOK if successull, any other value indicates an error
  */
-const INT32 AB700sMotor::FollowMaster( const ABMotor *master, const float &masterRollSpeed)
+const INT32 AB700sMotor::FollowMaster( const ABMotor *master, const float &masterRollSpeed, const INT32 motorCount /*= 4*/)
 {
     INT32   status = EINVAL;
     bool    signalToSend = false;
@@ -479,7 +479,7 @@ const INT32 AB700sMotor::FollowMaster( const ABMotor *master, const float &maste
     ABMotor *masterMotor = const_cast<ABMotor *>(master);
     Log( LOG_DEV_DATA, "Enter AB700sMotor::FollowMaster( %d)\n", masterMotor->SpeedRefDriveIndex());
     // If I am not the master
-    if( master != this)
+    if( (master != this) || (motorCount == 2) )
     {
         // If we need to follow a different drive
         // or if we are not in speed mode

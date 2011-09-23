@@ -557,6 +557,7 @@
       <VentilationExhaustFlowFault channelIndex="21" bitIndex="5" logic="1" portDir="IN" boardIdx="0"/>
       <VentilationSupplyMotorDisconnectFault channelIndex="21" bitIndex="6" logic="1" portDir="IN" boardIdx="0"/>
       <VentilationExhaustMotorDisconnectFault channelIndex="21" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
+      <DynamicBrakeResistorOverTempFault channelIndex="21" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
       <AirbagTestOnly channelIndex="22" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
       <AirbagInLockBox channelIndex="22" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
       <LockBoxDoorClose channelIndex="22" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -855,6 +856,7 @@
       <VentilationExhaustFlowFault channelTag="VentilationExhaustFlowFault" description="VentilationExhaustFlowFault Diagnostic" value="1" level="Warning"/>
       <VentilationSupplyMotorDisconnectFault channelTag="VentilationSupplyMotorDisconnectFault" description="VentilationSupplyMotorDisconnectFault Diagnostic" value="1" level="Warning"/>
       <VentilationExhaustMotorDisconnectFault channelTag="VentilationExhaustMotorDisconnectFault" description="VentilationExhaustMotorDisconnectFault Diagnostic" value="1" level="Warning"/>
+      <DynamicBrakeResistorOverTempFault channelTag="DynamicBrakeResistorOverTempFault" description="DynamicBrakeResistorOverTempFault Diagnostic" value="1" level="Warning"/>
    </DiagnosticMap>
    <FordNonStandardNotReallyFaults>
       <FrontEbsDriverOverloadOpenFault channelTag="FrontEbsDriverOverloadOpenFault" description="FrontEbsDriverOverloadOpenFault Diagnostic" value="1" level="Warning"/>

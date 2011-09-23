@@ -1,0 +1,96 @@
+<DelphiAirbagTC>
+  <Setup>
+    <Name>Airbag</Name>
+    <Debug>Off</Debug>
+    <TestDomain>Foreground</TestDomain>
+    <FaultList>/Configuration/Components/Airbag/AirbagFaultList.xml</FaultList>
+    <ThreadPool>
+      <Debug>Off</Debug>
+      <MinBlockedLimit>2</MinBlockedLimit>
+      <MaxBlockedLimit>4</MaxBlockedLimit>
+      <Increment>2</Increment>
+      <Maximum>50</Maximum>
+    </ThreadPool>
+    <Communication>
+      <Comm>IPC</Comm>
+      <Type>Server</Type>
+      <Name>component/DelphiAirbagTc</Name>
+      <Debug>Off</Debug>
+      <BufferSize>1024</BufferSize>
+      <Timeout>0</Timeout>
+    </Communication>
+    <Logging>
+      <Status>Enabled</Status>
+      <ProcessName>DelphiAirbagTc</ProcessName>
+      <AdditionalLogFile>/Components/DelphiAirbagTc.log</AdditionalLogFile>
+      <Debug>Off</Debug>
+      <LocalEcho>Disabled</LocalEcho>
+      <Verbose>0x1F</Verbose>
+      <MessageTimeout>100</MessageTimeout>
+    </Logging>
+    <NotificationList>
+      <Setup>
+        <Debug>Off</Debug>
+        <StartOnCreate>Off</StartOnCreate>
+        <LowWater>1</LowWater>
+        <HighWater>3</HighWater>
+        <Maximum>5</Maximum>
+        <Increment>1</Increment>
+        <ResponseTimeout>2000</ResponseTimeout>
+      </Setup>
+    </NotificationList>
+    <TagList>
+      <SubscribeTags>
+        <Abort/>
+        <CableConnect/>
+        <VehiclePresent/>
+        <VIN/>
+      </SubscribeTags>
+    </TagList>
+    <DataTags>
+      <Abort>Abort</Abort>
+      <FailButton>NoPB</FailButton>
+      <PassButton>YesPB</PassButton>
+      <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+      <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+      <ResistanceValuesMessage>ResistanceValues</ResistanceValuesMessage>
+    </DataTags>
+    <Parameters>
+      <ConfigFile>/Configuration/Components/Airbag/DelphiAirbagModule.xml</ConfigFile>
+      <DelayModuleInitialization>No</DelayModuleInitialization>
+      <DeveloperTest>No</DeveloperTest>
+      <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+      <UsePlcResultButtons>True</UsePlcResultButtons>
+      <!-- Part Number Parameters -->
+      <AbortOnPartMismatch>No</AbortOnPartMismatch>
+      <BypassPartNumberValidation>No</BypassPartNumberValidation>
+      <ValidatePartNumberList>Yes</ValidatePartNumberList>
+      <ValidPartNumbers>
+        <PNA121B0060F>A121B0060F</PNA121B0060F>
+      </ValidPartNumbers>
+      <!-- Fault Read Parameters -->
+      <AbortIfDTCPresent>No</AbortIfDTCPresent>
+
+    </Parameters>
+    <Prompts>
+      <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+    </Prompts>
+  </Setup>
+  <Objectives>
+    <AirbagTest>
+    </AirbagTest>
+    <FinishUp>
+      <TestStep00>FinishUp</TestStep00>
+    </FinishUp>
+  </Objectives>
+  <TestSteps>
+    <Setup/>
+    <EnterDiagnosticMode Result="Not Tested" Timeout="5000" Description="Enter diag mode"/>
+    <CommandSecurityAccess Result="Not Tested" Timeout="500" Description="Verify the module part number"/>
+    <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
+    <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
+    <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
+    <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Enable the airbag module"/>
+    <ReadFaults Result="Not Tested" Timeout="1000" Description="ReadFaults"/> 
+  </TestSteps>
+</DelphiAirbagTC>

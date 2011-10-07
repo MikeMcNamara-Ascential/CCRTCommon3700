@@ -64,6 +64,12 @@
             <VehicleType>Sedan</VehicleType>
             <VIN/>
          </Build01>
+         <Build02 Definition="This is the case for the Roadster">
+            <BrakeType>Teves Abs</BrakeType>
+            <DriveAxle>Rear</DriveAxle>
+            <VehicleType>Roadster</VehicleType>
+            <VIN/>
+         </Build02>
       </VehicleBuildDefinitions>
       <TagList>
          <SubscribeTags>

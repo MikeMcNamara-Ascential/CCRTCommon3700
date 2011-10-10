@@ -14,6 +14,20 @@
          <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
          <Debug>Off</Debug>
       </Machine>
+      <SoundLevel>
+         <ComponentName>ChanganSoundLevelTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+         <ConfigFile>SoundLevelComponent.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/SoundLevel</ConfigPath>
+         <Debug>Off</Debug>
+      </SoundLevel>
+      <SpeedControl>
+         <ComponentName>GenericSpeedControl.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+         <ConfigFile>SpeedControlTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/SpeedControl</ConfigPath>
+         <Debug>Off</Debug>
+      </SpeedControl>
    </Components>
    <Test Result="" Debug="Off">
       <!-- Initialize the system -->
@@ -47,6 +61,21 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase060>
+      <!--Perform Idle Horn Test-->
+      <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
+               <StartSoundTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase065>
+      <TestPhase066 Description="Read idle sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Read idle sound level" Result="" Timeout="" Component="SoundLevel">
+               <IdleHornTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase066>
       <!-- Perform the 40kph Speedo test -->
       <TestPhase070 Description="40kph Speedo Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -63,6 +92,22 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase080>
+      <!--Perform Running Horn Test-->
+      <TestPhase085 Description="Read running sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Read running sound level" Result="" Timeout="" Component="SoundLevel">
+               <RunningHornTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase085>
+      <!-- Speed Control Testing -->
+      <TestPhase090 Description="Speed Control Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Speed Control Test" Result="" Timeout="" Component="SpeedControl">
+               <SpeedControlTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase090>
       <!-- Perform the brake test -->
       <TestPhase100 Description="Perform the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -83,6 +128,20 @@
             </Objective0>
          </BackgroundObjectives>
       </TestPhase105>
+      <TestPhase140 Description="Stop the sound monitor thread" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Stop the sound monitor thread" Result="" Timeout="" Component="SoundLevel">
+               <StopSoundTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase140>
+      <TestPhase145 Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective3 Description="Perform finish-up" Result="" Timeout="" Component="SoundLevel">
+               <FinishUp>PerformingFinishUp</FinishUp>
+            </Objective3>
+         </ForegroundObjectives>
+      </TestPhase145>
       <!-- Perform operator buyoff checks -->
       <TestPhase150 Description="Check vehicle Lamps" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

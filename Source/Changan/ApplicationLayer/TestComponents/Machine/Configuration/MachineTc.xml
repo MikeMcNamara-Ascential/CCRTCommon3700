@@ -77,7 +77,7 @@
          <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
          <FourWDSelected>FourWDSelected</FourWDSelected>
          <FourWheelDriveEquipped>FourWDSelected</FourWheelDriveEquipped>
-         <HornSignal>HornSignal</HornSignal>
+         <HornSignal>Start40kphTest</HornSignal>
          <HydraulicPumpMotor>HydraulicPumptMotor</HydraulicPumpMotor>
          <InputServerState>InputServerState</InputServerState>
          <KeyPress>KeyPress</KeyPress>

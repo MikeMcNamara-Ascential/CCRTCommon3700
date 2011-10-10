@@ -80,7 +80,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/VehicleDataServer.qxe
 
 	ApplicationLayer/Bin/GasAnalyzerTC.qxe
-	ApplicationLayer/Bin/GenericSpeedControl.qxe
 	)
 
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/UninstallCoreCfgFile.cmake 

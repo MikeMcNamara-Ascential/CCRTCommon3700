@@ -1,0 +1,17 @@
+<SelectionTable Description="Tesla drive curve selection table">
+    <Roadster DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
+       <BrakeType>Teves Abs</BrakeType>
+    </Roadster>
+    <Sedan DriveCurve="/Configuration/VehicleTest/DriveCurves/SedanDriveCurve.xml">
+       <BrakeType>Bosch Abs</BrakeType>
+    </Sedan>
+    <Vehicle2 DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+       <BrakeType>Base Brake</BrakeType>
+    </Vehicle2>
+   <RoadsterBarcode DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
+      <Vin>ROADSTER0000000000</Vin>
+   </RoadsterBarcode>
+   <Sedan DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
+      <Vin>SEDAN0000000000000</Vin>
+   </Sedan>
+</SelectionTable>

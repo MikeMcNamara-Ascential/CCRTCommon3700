@@ -77,6 +77,15 @@ void EpsIIITransmissionTc::Initialize(const XmlNode *config)
     Log(LOG_FN_ENTRY, "EpsIIITransmissionTc::InitializeHook() - Enter");
     // Reset system tags
     ResetSystemTags();
+	// Store the list of valid EPS-III transmission types
+	try
+	{
+		m_epsTransTypes.DeepCopy(config->getChild("Setup/Parameters/EpsIIITransmissionTypes")->getChildren());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "List of EPS-III not specified!  EPS-III transmission will not be tested!! (%s)", excpt.GetReason());
+	}
     // Set Initialization Complete and log the exit
     InitializationComplete();
     Log(LOG_FN_ENTRY, "EpsIIITransmissionTc::InitializeHook() - Exit");
@@ -145,8 +154,8 @@ string EpsIIITransmissionTc::SpeedBasedGearTest(const string &gear)
         INT32 maxGear = GetVehicleParameter("Transmission/NumberOfFwdGears", int(0));
         if(BposReadInt(gear.c_str()) <= maxGear)
         {   // Display the target speed for the operator and instruct the operator to speed
-            string minSpeedTarget(GetVehicleParameter("MinSpeedTarget_" + gear, string("")));
-            string maxSpeedTarget(GetVehicleParameter("MaxSpeedTarget_" + gear, string("")));
+            string minSpeedTarget(GetVehicleParameter("Transmission/MinSpeedTarget_" + gear, string("")));
+            string maxSpeedTarget(GetVehicleParameter("Transmission/MaxSpeedTarget_" + gear, string("")));
             string speedRange(minSpeedTarget + " " + maxSpeedTarget);
             DisplayPrompt(GetPromptBox("ShiftToGear"), GetPrompt("ShiftToGear"), GetPromptPriority("ShiftToGear"),
                           "white", gear);
@@ -190,9 +199,18 @@ string EpsIIITransmissionTc::SpeedBasedGearTest(const string &gear)
 void EpsIIITransmissionTc::CheckIfEpsTransmissionEquipped(void)
 {
     string transType(SystemRead(TRANSFER_CASE_TAG));   // NOTE: T-case type was always 00, so DCBR decided to re-use
-    bool equipped = !transType.compare(GetDataTag("EpsIIITransmissionValue"));
+	bool equipped = false;
+#if 0
+	equipped = !transType.compare(GetDataTag("EpsIIITransmissionValue"));
     Log(LOG_DEV_DATA, "Transmission Type: %s  [EPS-III value: %s]", 
         transType.c_str(), GetDataTag("EpsIIITransmissionValue").c_str());
+#else
+	for(XmlNodeMapItr iter = m_epsTransTypes.begin(); (iter != m_epsTransTypes.end())) && !equipped; iter++
+	{
+		equipped = !transType.compare(iter->second->getValue());
+	}
+	Log(LOG_DEV_DATA, "Transmission Type: %s - EPS-III type: %s", transType.c_str(), equipped ? "True" : "False");
+#endif 
     // Store the flag indicating if this is an EPS-III transmission
     EpsTransmissionEquipped(&equipped);
 }

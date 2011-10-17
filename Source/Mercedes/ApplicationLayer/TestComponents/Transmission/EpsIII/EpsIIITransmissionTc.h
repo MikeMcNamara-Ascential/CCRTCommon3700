@@ -92,6 +92,9 @@ private:
 
     /** Flag used to track if the truck is equipped with EPS-III transmission */
     bool m_isEpsTransEquipped;
+
+	/** List of valid EPS-III transmission types */
+	XmlNodeMap m_epsTransTypes;
 };
 
 //-------------------------------------------------------------------------------------------------

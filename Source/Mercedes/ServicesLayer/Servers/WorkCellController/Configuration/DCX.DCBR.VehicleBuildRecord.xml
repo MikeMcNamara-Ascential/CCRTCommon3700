@@ -61,7 +61,8 @@
     <!-- {TRANSCASE} -->
     <TransferCase Section="TestCodeSection" Offset="6" Length="2" Type="Code" TestNumber="04">
         <Type00>Undefined</Type00>
-        <Type01>EPS-III</Type01>
+        <Type01>EPS-III 12 Gear</Type01>
+        <Type02>EPS-III 16 Gear</Type02>
     </TransferCase>
     <!-- {AXLELONG} -->
     <AxleLongLock Section="TestCodeSection" Offset="8" Length="2" Type="Code" TestNumber="05">

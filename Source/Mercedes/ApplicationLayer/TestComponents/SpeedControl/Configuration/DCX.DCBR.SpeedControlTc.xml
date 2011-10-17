@@ -80,6 +80,8 @@
             <CheckForClosedThrottle>True</CheckForClosedThrottle>
             <ValidSpeedControlTypes>
                 <Type00>EPS-III</Type00>
+                <Type01>EPS-III 12 Gear</Type01>
+                <Type02>EPS-III 16 Gear</Type02>
             </ValidSpeedControlTypes>
 
             <!-- Speed Control Test Parameters -->

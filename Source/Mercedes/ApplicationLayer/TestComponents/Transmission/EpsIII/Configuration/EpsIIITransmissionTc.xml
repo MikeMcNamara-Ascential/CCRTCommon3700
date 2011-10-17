@@ -73,6 +73,13 @@
             <MotorLoadingTorqueConst>500</MotorLoadingTorqueConst>
             <MotorLoadingIncreasePerSecond>1</MotorLoadingIncreasePerSecond>
 
+            <!-- EPS-III Transmission Types -->
+            <EpsIIITransmissionTypes>
+                <Type00>EPS-III</Type00>
+                <Type01>EPS-III 12 Gear</Type01>
+                <Type02>EPS-III 16 Gear</Type02>
+            </EpsIIITransmissionTypes>
+
             <!-- Gear speed verifications -->
             <MaxSpeedDelay Units="ms">2000</MaxSpeedDelay>
             <MaxSpeedTarget Units="mph">30</MaxSpeedTarget>

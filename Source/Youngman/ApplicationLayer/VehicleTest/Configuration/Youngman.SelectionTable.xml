@@ -1,0 +1,18 @@
+<SelectionTable Description="Chery drive curve selection table">
+   <Vehicle0 DriveCurve="/Configuration/VehicleTest/DriveCurves/BoschAbsDriveCurve.xml">
+      <BrakeType>Bosch ABS</BrakeType>
+      <TransferCase ValidTypes="NotEquipped,4wd">NotEquipped</TransferCase>
+    </Vehicle0>
+   <Vehicle04wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BoschAbs4wdDriveCurve.xml">
+        <BrakeType>Bosch ABS</BrakeType>
+      <TransferCase ValidTypes="NotEquipped,4wd">4wd</TransferCase>
+   </Vehicle04wd>
+   <Vehicle1 DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+      <BrakeType>Base Brake</BrakeType>
+      <TransferCase ValidTypes="NotEquipped,4wd">NotEquipped</TransferCase>
+    </Vehicle1>
+   <Vehicle14wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrake4wdDriveCurve.xml">
+      <BrakeType>Base Brake</BrakeType>
+      <TransferCase ValidTypes="NotEquipped,4wd">4wd</TransferCase>
+   </Vehicle14wd>
+</SelectionTable>

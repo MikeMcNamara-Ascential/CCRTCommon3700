@@ -1,0 +1,8 @@
+<ZTSFile>
+   <VehicleBuild>
+      <BrakeType ValidTypes="Base Brake,Bosch ABS">Bosch ABS</BrakeType>
+      <DriveAxle ValidTypes="Front,Rear">Front</DriveAxle>
+      <TransferCase ValidTypes="NotEquipped,4wd">NotEquipped</TransferCase>
+      <WheelbasePositionInchesX10 Units="Inches X 10" Conversion="mm * .3937">1012</WheelbasePositionInchesX10>
+   </VehicleBuild>
+</ZTSFile>

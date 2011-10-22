@@ -136,6 +136,7 @@
 
 #include "GenericABSTCTemplate.h"
 #include "DataAnalysis.h"
+#include <math.h>
 
 //-------------------------------------------------------------------------------------------------
 template <class VehicleModuleType>

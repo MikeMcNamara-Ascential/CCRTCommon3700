@@ -18,7 +18,10 @@
 // LOG:
 //    $Log: /HMMA/Source/HMMA/ApplicationLayer/ModuleInterfaces/Include/Bosch8Module.h $
 // 
-// 1     3/09/06 3:15p Gswope
+// 1     10/24/11 dmazur
+// made funtion ReadFaults() to be virtual 
+//
+//1     3/09/06 3:15p Gswope
 // After changes to bring HMMA up to "current core"
 // 
 // 1     1/18/05 10:49a Gswope
@@ -284,7 +287,7 @@ private:
      * @param faultCodes Vector to store fault codes fromt the module
      * @return The status of the operation
      */ 
-    BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
+    virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
 
     /**
      * Configuration file for the module interface.

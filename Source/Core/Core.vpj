@@ -68,6 +68,9 @@
 			Filters="">
 		</Folder>
 	</CustomFolders>
+	<CompatibleVersions>
+		<PrevVersion VersionNumber="9.0"/>
+	</CompatibleVersions>
 	<Files AutoFolders="DirectoryView">
 		<Folder Name="ApplicationLayer">
 			<Folder Name="ModuleInterfaces">
@@ -515,6 +518,17 @@
 					<F N="ServicesLayer/Library/License/CCRTLicense.cpp"/>
 					<F N="ServicesLayer/Library/License/CMakeLists.txt"/>
 					<F N="ServicesLayer/Library/License/ReadMe.txt"/>
+				</Folder>
+				<Folder Name="License6.2.1">
+					<Folder Name="Include">
+						<F N="ServicesLayer/Library/License6.2.1/Include/CCRTLicense.h"/>
+						<F N="ServicesLayer/Library/License6.2.1/Include/License.h"/>
+						<F N="ServicesLayer/Library/License6.2.1/Include/MacAddress.h"/>
+						<F N="ServicesLayer/Library/License6.2.1/Include/MaskMatcher.h"/>
+					</Folder>
+					<F N="ServicesLayer/Library/License6.2.1/CCRTLicense.cpp"/>
+					<F N="ServicesLayer/Library/License6.2.1/CMakeLists.txt"/>
+					<F N="ServicesLayer/Library/License6.2.1/ReadMe.txt"/>
 				</Folder>
 				<Folder Name="SoftwareId">
 					<F N="ServicesLayer/Library/SoftwareId/CoreId.h"/>
@@ -1204,7 +1218,4 @@
 		</Folder>
 		<F N="CMakeLists.txt"/>
 	</Files>
-	<CompatibleVersions>
-		<PrevVersion VersionNumber="9.0"/>
-	</CompatibleVersions>
 </Project>

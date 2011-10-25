@@ -56,20 +56,36 @@ BEP_STATUS_TYPE DelphiAirbagModule<ProtocolFilterType>::GetSecurityAccess()
     //bool AccessGranted;
     // Read the security seed from the module
     if ((status = ReadModuleData("CommandSecurityAccess", seed)) == BEP_STATUS_SUCCESS)
-    {   // Read security seed from the module. Check for special conditions
-        //log stuff
-        //calculate key using algorithum algorithm
-        //transmist key back to module
-        // Log(LOG_DEV_DATA, "Read security seed");
-       status=CommandModule("TransmitSecurityKey",&securityKeyc);
-        //log stuff
-        //Log(LOG_DEV_DATA, "Read security seed");
+    {   
+        if (seed.size()!=0) 
+        {
+        
+            //calculate key using Ones Complement
+            for (UINT32 ii = 0; ii < seed.size();ii++) 
+            {
+                securityKeyc.push_back(~seed[ii]);
+            }
+            //transmist key back to module
+            if ((status=CommandModule("TransmitSecurityKey",&securityKeyc)) == BEP_STATUS_SUCCESS)
+            {
+                Log(LOG_DEV_DATA, "Security Key sent successfully");
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Failed to send Security Key from the module - status: %s",ConvertStatusToResponse(status).c_str());
+            }
+        }
+        else
+        {
+             Log(LOG_DEV_DATA, "Seed Key is NULL");
+        }
+        
+        
 
     }
     else
-    {   // Error reading security seed
-        //Log(LOG_ERRORS, "Failed to read security seed from the module - status: %s",
-        // ConvertStatusToResponse(status).c_str());
+    {   
+        Log(LOG_ERRORS, "Failed to read Security Seed from the module - status: %s",ConvertStatusToResponse(status).c_str());
     }
     Log(LOG_FN_ENTRY, "DelphiAirbagModule::GetSecurityAccess() - Exit\n");
     // Return the status     

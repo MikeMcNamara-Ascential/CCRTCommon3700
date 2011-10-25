@@ -6,8 +6,8 @@ Core\Core.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Changan\Changan.vpj=20110816105701978
-Core\Core.vpj=20110811082254041
+Changan\Changan.vpj=20111025092222470
+Core\Core.vpj=20111024152309112
 Tests\Tests.vpj=20110701100211327
 Tools\Tools.vpj=20110701100155451
 [TreeExpansion2]
@@ -15,6 +15,8 @@ Tools\Tools.vpj=20110701100155451
   - ApplicationLayer
     - ModuleInterfaces
       - Brake
+        - Bosch9
+          + Configuration
         + Teves
           + Configuration
         - TRW
@@ -24,6 +26,8 @@ Tools\Tools.vpj=20110701100155451
     - TestComponents
       - Brake
         + BaseBrake
+          + Configuration
+        - Bosch
           + Configuration
         - Teves
           + Configuration
@@ -40,6 +44,8 @@ Tools\Tools.vpj=20110701100155451
         - VehicleModuleVinReader
       - SoundLevel
         - Configuration
+      + SpeedControl
+        + Configuration
       + TransferCase
         + Configuration
     - VehicleTest
@@ -51,6 +57,8 @@ Tools\Tools.vpj=20110701100155451
       + bin
         + client
       + lib
+        + images
+          + cursors
     + resources
       + com
         + bepco
@@ -58,6 +66,14 @@ Tools\Tools.vpj=20110701100155451
             + properties
       + local
         + crt
+          + aboutserver
+          + drivermonitor
+          + frontpanel
+          + losscompensation
+          + powerdisplay
+          + vehiclepresence
+        + diagnostics
+          + schematics
         + ftproot
           + home
             + ftp
@@ -84,6 +100,7 @@ Tools\Tools.vpj=20110701100155451
         + httproot
           + conf
         + ndbconfig
+        + playback
         + report
         + sim
           + params
@@ -113,10 +130,10 @@ Tools\Tools.vpj=20110701100155451
         + Configuration
 - Core\Core.vpj
   - ApplicationLayer
-    + ModuleInterfaces
-      + Brake
-        + Bosch8
-        + Include
+    - ModuleInterfaces
+      - Brake
+        - Bosch8
+        - Include
       + Common
       + EngineController
       + Include
@@ -130,13 +147,13 @@ Tools\Tools.vpj=20110701100155451
       + KeyWord2000
       + SCI
     - TestComponents
-      + Brake
+      - Brake
         + BaseBrake
           + Configuration
-        + Bosch8
-        + Common
+        - Bosch8
+        - Common
           + Configuration
-        + Include
+        - Include
       - Common
         - Configuration
       + Emissions
@@ -190,6 +207,8 @@ Tools\Tools.vpj=20110701100155451
     + Library
       + Bepos
       + License
+        + Include
+      + License6.2.1
         + Include
       + SoftwareId
       + SystemCommunication
@@ -300,53 +319,83 @@ Tools\Tools.vpj=20110701100155451
         + Library
 + Tests\Tests.vpj
 + Tools\Tools.vpj
-scroll:0
+scroll:122
 [State]
-SCREEN: 1920 1080 43 24 896 711 0 0 M 0 0 0 0 1536 727
-CWD: Changan\ApplicationLayer\VehicleTest\Configuration\DriveCurves
-BUFFER: BN="Changan\ServicesLayer\Servers\SystemMonitor\Configuration\Changan.SystemMonitorConfig.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+SCREEN: 1920 1080 44 24 896 711 0 0 M 0 0 0 0 1578 693
+CWD: Changan
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\Bosch9Module.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.3022 CL=2 LE=0 CX=1 CY=19 WI=5 BI=31 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TC.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.4898 CL=21 LE=0 CX=20 CY=13 WI=5 BI=32 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Z:\Common3700\Source\Core\ApplicationLayer\ModuleInterfaces\Brake\Include\Bosch8Module.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.10557 CL=1 LE=0 CX=0 CY=24 WI=5 BI=37 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\Bosch9Module.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.4792 CL=6 LE=0 CX=5 CY=17 WI=5 BI=33 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TCMain.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.1338 CL=28 LE=0 CX=27 CY=26 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\CMakeLists.txt"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=0 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
 VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ServicesLayer\Servers\SystemMonitor\Library\SystemMonitor.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.39942 CL=46 LE=0 CX=45 CY=28 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\CMakeLists.txt"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=0 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
 VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReaderMain.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.1156 CL=23 LE=0 CX=22 CY=28 WI=5 BI=24 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=4400 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.7309 CL=14 LE=0 CX=13 CY=10 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\Include\VehicleModuleVinReader.h"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.6509 CL=29 LE=0 CX=28 CY=28 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
-WINDOW: 200 200 1311 502 -1 -1 N  WF=0 WT=7 "Default Unicode Font,10,0,1"
-BUFFER: BN="Changan\ServicesLayer\Servers\SystemMonitor\Configuration\Changan.SystemMonitorConfig.xml"
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=136 BI=27 HT=0 HN=0 HF=0 HC=4
-WINDOW: 125 125 1311 502 -1 -1 N  WF=0 WT=2 "SimHei,11,0,1"
-BUFFER: BN="Core\ServicesLayer\Servers\SystemMonitor\Library\SystemMonitor.cpp"
-VIEW: LN=.39942 CL=46 LE=0 CX=45 CY=28 WI=137 BI=28 HT=0 HN=0 HF=0 HC=4
-WINDOW: 175 175 1311 502 -1 -1 N  WF=0 WT=6 "Default Unicode Font,10,0,1"
-BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml"
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=138 BI=25 HT=0 HN=0 HF=0 HC=4
-WINDOW: 125 125 1311 502 -1 -1 N  WF=0 WT=15 "SimHei,11,0,1"
-BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReaderMain.cpp"
-VIEW: LN=.1156 CL=23 LE=0 CX=22 CY=28 WI=139 BI=24 HT=0 HN=0 HF=0 HC=4
-WINDOW: 125 125 1311 502 -1 -1 N  WF=0 WT=3 "SimHei,11,0,1"
-BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\Include\VehicleModuleVinReader.h"
-VIEW: LN=.6509 CL=29 LE=0 CX=28 CY=28 WI=140 BI=29 HT=0 HN=0 HF=0 HC=4
-WINDOW: 0 0 1311 502 -1 -1 M  WF=0 WT=4 "SimHei,11,0,1"
-BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp"
-VIEW: LN=.7309 CL=14 LE=0 CX=13 CY=10 WI=141 BI=26 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\CMakeLists.txt"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=0 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.93 CL=57 LE=0 CX=56 CY=2 WI=5 BI=30 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\CMakeLists.txt"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=0 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.1128 CL=46 LE=0 CX=45 CY=20 WI=5 BI=35 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TC.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.4844 CL=17 LE=0 CX=16 CY=13 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Bosch8\Bosch8TC.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=256 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1353 468 -1 -1 N  WF=0 WT=11 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TC.h"
+VIEW: LN=.4898 CL=21 LE=0 CX=27 CY=13 WI=648 BI=32 HT=0 HN=0 HF=0 HC=4
+WINDOW: 225 225 1353 468 -1 -1 N  WF=0 WT=9 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Core\ApplicationLayer\ModuleInterfaces\Brake\Include\Bosch8Module.h"
+VIEW: LN=.10557 CL=1 LE=0 CX=7 CY=24 WI=654 BI=37 HT=0 HN=0 HF=0 HC=4
+WINDOW: 175 175 1353 468 -1 -1 N  WF=0 WT=7 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\Bosch9Module.cpp"
+VIEW: LN=.4792 CL=6 LE=0 CX=12 CY=17 WI=671 BI=33 HT=0 HN=0 HF=0 HC=4
+WINDOW: 200 200 1353 468 -1 -1 N  WF=0 WT=8 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TCMain.cpp"
+VIEW: LN=.1338 CL=28 LE=0 CX=34 CY=26 WI=663 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 200 200 1353 468 -1 -1 N  WF=0 WT=5 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\CMakeLists.txt"
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=672 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 150 150 1353 468 -1 -1 N  WF=0 WT=3 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\CMakeLists.txt"
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=660 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 49 4 1353 468 -1 -1 N  WF=0 WT=1 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\CMakeLists.txt"
+VIEW: LN=.93 CL=57 LE=0 CX=56 CY=2 WI=656 BI=30 HT=0 HN=0 HF=0 HC=4
+WINDOW: 175 175 1353 468 -1 -1 N  WF=0 WT=4 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\CMakeLists.txt"
+VIEW: LN=.1128 CL=46 LE=0 CX=45 CY=20 WI=667 BI=35 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1353 468 -1 -1 N  WF=0 WT=6 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\Bosch9Module.h"
+VIEW: LN=.3022 CL=2 LE=0 CX=8 CY=19 WI=173 BI=31 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 0 1353 468 -1 -1 N  WF=0 WT=10 "SimHei,11,0,1"
+BUFFER: BN="Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TC.cpp"
+VIEW: LN=.4844 CL=17 LE=0 CX=23 CY=13 WI=659 BI=28 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1353 468 -1 -1 N  WF=0 WT=12 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Bosch8\Bosch8TC.cpp"
+VIEW: LN=.0 CL=1 LE=0 CX=7 CY=1 WI=673 BI=26 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Z:\common3700\source\changan\ServicesLayer\Servers\Launcher\Configuration\Changan.LauncherConfig.xml
-Changan\ApplicationLayer\TestComponents\Machine\Configuration\MachineTc.xml
-Z:\common3700\source\changan\ApplicationLayer\TestComponents\Machine\Configuration\MachineTc.xml
-Z:\common3700\source\changan\applicationlayer\vehicletest\configuration\drivecurves\Changan.Beijing.507612.TevesMk70Abs.xml
-Y:\common3700\source\changan\ApplicationLayer\TestComponents\ModuleServer\Include\VehicleModuleVinReader.h
-Y:\common3700\source\changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp
-Y:\common3700\source\changan\ServicesLayer\Managers\SerialServer\Configuration\Changan.Beijing.507609.SerialServer.xml
-Y:\common3700\source\changan\ServicesLayer\Servers\InputServer\Configuration\Changan.InputServerConfig.xml
-Y:\common3700\source\changan\ServicesLayer\Servers\Launcher\Configuration\Changan.LauncherConfig.xml
+Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TCMain.cpp
+Z:\Common3700\Source\Core\ApplicationLayer\ModuleInterfaces\Brake\Include\Bosch8Module.h
+Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\Bosch9Module.cpp
+Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TC.cpp
+Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TC.h
+..\..\Chrysler\BVAP\Source_PF_Validation\DCX\ApplicationLayer\TestComponents\Brake\Bosch8\FiatAbsTC.cpp
+Z:\Common3700\Source\Changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\Bosch9Module.h
+Z:\Common3700\Source\Changan\ApplicationLayer\TestComponents\Brake\Bosch\CMakeLists.txt
+Core\ApplicationLayer\TestComponents\Brake\Bosch8\Bosch8TC.cpp

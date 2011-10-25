@@ -130,6 +130,7 @@
 						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschABSTC.cpp"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschABSTC.h"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschAbsTcMain.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch/CMakeLists.txt"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Bosch/KoreaAbsTcTemplate.cpp"/>
 					</Folder>
 					<Folder Name="Teves">

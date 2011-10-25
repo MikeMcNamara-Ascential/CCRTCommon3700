@@ -14,6 +14,7 @@ SET(CHANGAN_BRAKE_TC_PATHS
 INCLUDE_DIRECTORIES( 
                 ${CHANGAN_BRAKE_TC_PATHS}
                 ${BRAKE_MODULE_PATHS}
+                ${COMMON_BRAKE_MODULE_PATHS}
                 ${CORE_BRAKE_TC_INC_PATH})
 
 #------------------------------------------------------------------------------------------

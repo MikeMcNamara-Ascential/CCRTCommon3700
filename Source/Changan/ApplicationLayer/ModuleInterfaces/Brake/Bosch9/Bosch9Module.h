@@ -63,7 +63,7 @@
 #ifndef BOSCH9MODULE_H
 #define BOSCH9MODULE_H
 
-#include "../Bosch8/Bosch8Module.cpp"
+#include "../../../../../Core/ApplicationLayer/ModuleInterfaces/Brake/Include/Bosch8Module.h"
 
 /**
  * Module interface for the Bosch9 ABS module.

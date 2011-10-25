@@ -25,8 +25,8 @@
 #include "GenericABSTCTemplate.cpp"
 //-----------------------------------------------------------------------------
 
-template<class ModuleInterface>
-class BoschABSTC : public GenericABSTCTemplate<ModuleInterface>
+template<class ModuleType>
+class BoschABSTC : public KoreaAbsTcTemplate<ModuleType>
 {
 public:
     /** Class constructor */

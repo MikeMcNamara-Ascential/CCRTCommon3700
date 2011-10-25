@@ -24,11 +24,11 @@
 // $NoKeywords: $
 //==============================================================================
 
-#include "BoschABSTC.h"
-#include "BoschABSTC.cpp"
+#include "Bosch9TC.h"
+#include "Bosch9TC.cpp"
 #include "CmdLineProcessor.h"
 #include "Bosch9Module.cpp"
-#include "KeywordProtocolFilter.h"
+#include "KwpCanProtocolFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -38,28 +38,28 @@ int main(int argc, char *argv[])
 	try
 	{
 		clp.ParseArguments(argc, argv);     // parse the command line
-        object = new BoschABSTC<Bosch9Module<KeywordProtocolFilter> >();
-		if(clp.IsDebugOn())	printf("Creating the Tesla Brake Component\n");
+        object = new Bosch9TC<Bosch9Module<KwpCanProtocolFilter> >();
+		if(clp.IsDebugOn())	printf("Creating the Changan Bosch Brake Component\n");
 
-		if(clp.IsDebugOn())	printf("Initializing the Tesla Brake Component\n");
+		if(clp.IsDebugOn())	printf("Initializing the Changan Bosch Brake Component\n");
 		object->Initialize(clp.GetConfigFile());
 
-		if(clp.IsDebugOn())	printf("Running the Tesla Brake Component\n");
+		if(clp.IsDebugOn())	printf("Running the Changan Bosch Brake Component\n");
 		object->Run();							// process until terminated
 	}
 	catch(XmlException &XmlErr)
 	{
-		printf("Tesla Brake -%s: XmlException: %s", clp.GetConfigFile().c_str(), XmlErr.what());
+		printf("Changan Bosch Brake -%s: XmlException: %s", clp.GetConfigFile().c_str(), XmlErr.what());
 	}
 	catch(BepException &BepErr)
 	{
-		printf("Tesla Brake -%s: BepException: %s", clp.GetConfigFile().c_str(), BepErr.what());
+		printf("Changan Bosch Brake -%s: BepException: %s", clp.GetConfigFile().c_str(), BepErr.what());
 	}
 	catch(...)
 	{
-		printf("Tesla Brake -%s: Unknown Exception\n", clp.GetConfigFile().c_str());
+		printf("Changan Bosch Brake -%s: Unknown Exception\n", clp.GetConfigFile().c_str());
 	}
 
 	if(clp.IsDebugOn())
-		printf("Tesla Brake (%d, %s): Terminating\n", BposGetMyTaskId(), clp.GetConfigFile().c_str());
+		printf("Changan Bosch Brake (%d, %s): Terminating\n", BposGetMyTaskId(), clp.GetConfigFile().c_str());
 };

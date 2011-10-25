@@ -61,19 +61,16 @@
 // 
 //*************************************************************************
 
-#include "../Include/Bosch9Module.h"
+#include "Bosch9Module.h"
 
 template <class ProtocolFilterType>
 Bosch9Module<ProtocolFilterType>::Bosch9Module(void) : Bosch8Module<ProtocolFilterType>(), 
-m_moduleConfig(NULL)
 {
 }
 
 template <class ProtocolFilterType>
 Bosch9Module<ProtocolFilterType>::~Bosch9Module()
-{                                  // Get rid of the module config
-    if (m_moduleConfig != NULL) delete m_moduleConfig;
-    m_moduleConfig = NULL;
+{
 }
 
 

@@ -106,11 +106,6 @@
             OrderToLaunch="0107" RegisteredName="core/SystemMonitor" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="0xFF">System Monitor</SystemMonitor>
 
-        <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 
-            ConfigFile="VehicleDataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
-            OrderToLaunch="0108" RegisteredName="core/VehicleDataServer" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
-            AddressValue="" PortValue="" VerboseMode=""/>
-
         <PlantHostInbound Name="ChinaPlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="PlantHostInbound.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
@@ -140,5 +135,10 @@
             ConfigFile="LossCompensation.xml" ConfigPath="/Configuration/Components/LossCompensation/" 
             OrderToLaunch="132" RegisteredName="component/LossCompensation" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode=""/>
+        <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="VehicleDataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0108" RegisteredName="core/VehicleDataServer" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
+            AddressValue="" PortValue="" VerboseMode=""/>
+
     </DoNotLaunch>
 </LauncherConfig>

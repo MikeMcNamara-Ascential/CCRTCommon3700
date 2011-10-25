@@ -94,7 +94,7 @@
                 <AWD>No</AWD>
             </FourWheelDriveEquipped>
             <SecondarySelectionDataTag>ZTSCode</SecondarySelectionDataTag>
-            <SecondarySelectionData SelectedCharacterType = "SpecifiedCharacters">
+            <SecondarySelectionData SelectedCharacterType="SpecifiedCharacters">
                 <ZTSCodeIndex01>0</ZTSCodeIndex01>
                 <ZTSCodeIndex02>1</ZTSCodeIndex02>
             </SecondarySelectionData>

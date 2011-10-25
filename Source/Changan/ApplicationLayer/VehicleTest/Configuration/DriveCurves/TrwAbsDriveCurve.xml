@@ -28,6 +28,13 @@
          <ConfigPath>/Configuration/Components/SoundLevel</ConfigPath>
          <Debug>Off</Debug>
       </SoundLevel>
+      <SpeedControl>
+         <ComponentName>GenericSpeedControl.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+         <ConfigFile>SpeedControlTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/SpeedControl</ConfigPath>
+         <Debug>Off</Debug>
+      </SpeedControl>
    </Components>
    <Test Result="" Debug="Off">
       <!-- Initialize the system -->
@@ -48,7 +55,7 @@
       <TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">
-               <Initialize/>
+               <Setup/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase005>
@@ -114,6 +121,14 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase085>
+      <!-- Speed Control Testing -->
+      <TestPhase090 Description="Speed Control Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Speed Control Test" Result="" Timeout="" Component="SpeedControl">
+               <SpeedControlTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase090>
       <!-- Perform the brake test -->
       <TestPhase100 Description="Perform the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

@@ -1,9 +1,9 @@
 <DriveCurve Description="Base brake drive curve">
    <Components Debug="Off">
       <Brake>
-         <ComponentName>TevesMk70AbsTc.qxe</ComponentName>
+         <ComponentName>Bosch9TC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-         <ConfigFile>KwpTevesMk70AbsTc.xml</ConfigFile>
+         <ConfigFile>UdsBosch9TC.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
          <Debug>Off</Debug>
       </Brake>
@@ -14,7 +14,14 @@
          <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
          <Debug>Off</Debug>
       </Machine>
-	  <SoundLevel>
+      <ElectronicParkBrake>
+         <ComponentName>ElectronicParkBrakeTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>ElectronicParkBrakeTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/ElectronicParkBrake/</ConfigPath>
+         <Debug>Off</Debug>
+      </ElectronicParkBrake>
+      <SoundLevel>
          <ComponentName>ChanganSoundLevelTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
          <ConfigFile>SoundLevelComponent.xml</ConfigFile>
@@ -38,7 +45,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase000>
-	  <TestPhase001 Description="Connect the cable" Result="" Timeout="">
+      <TestPhase001 Description="Connect the cable" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Machine">
                <ConnectCable/>
@@ -75,15 +82,15 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase060>
-	  <!--Perform Idle Horn Test-->
-	  <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
+      <!--Perform Idle Horn Test-->
+      <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
                <StartSoundTest/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase065>
-	  <TestPhase066 Description="Read idle sound level" Result="" Timeout="">
+      <TestPhase066 Description="Read idle sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Read idle sound level" Result="" Timeout="" Component="SoundLevel">
                <IdleHornTest/>
@@ -106,8 +113,8 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase080>
-	  <!--Perform Running Horn Test-->
-	  <TestPhase085 Description="Read running sound level" Result="" Timeout="">
+      <!--Perform Running Horn Test-->
+      <TestPhase085 Description="Read running sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Read running sound level" Result="" Timeout="" Component="SoundLevel">
                <RunningHornTest/>
@@ -142,7 +149,14 @@
             </Objective0>
          </BackgroundObjectives>
       </TestPhase105>
-	  <TestPhase140 Description="Stop the sound monitor thread" Result="" Timeout="">
+      <TestPhase130 Description="Perform Electronic Park Brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Perform Electronic Park Brake test" Result="" Timeout="" Component="ElectronicParkBrake">
+               <ParkBrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase130>
+      <TestPhase140 Description="Stop the sound monitor thread" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Stop the sound monitor thread" Result="" Timeout="" Component="SoundLevel">
                <StopSoundTest/>

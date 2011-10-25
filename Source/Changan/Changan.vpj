@@ -124,9 +124,11 @@
 					</Folder>
 					<Folder Name="Bosch">
 						<Folder Name="Configuration">
-							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/Tesla.BoschABSTC.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/UdsBosch9TC.xml"/>
 						</Folder>
-						<F N="ApplicationLayer/TestComponents/Brake/Bosch/Bosch9AbsTcMain.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch/Bosch9TC.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch/Bosch9TC.h"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch/Bosch9TCMain.cpp"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschABSTC.cpp"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschABSTC.h"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschAbsTcMain.cpp"/>
@@ -153,7 +155,6 @@
 						<F N="ApplicationLayer/TestComponents/Brake/TRW/TrwAbsTc.h"/>
 						<F N="ApplicationLayer/TestComponents/Brake/TRW/TrwAbsTcMain.cpp"/>
 					</Folder>
-					<F N="ApplicationLayer/TestComponents/Brake/CMakeLists.new.txt"/>
 					<F N="ApplicationLayer/TestComponents/Brake/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="ElectronicParkBrake">
@@ -233,6 +234,7 @@
 					</Folder>
 					<Folder Name="DriveCurves">
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Bosch9AbsDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.Beijing.507612.TevesMk70AbsDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.Beijing.507612.TrwAbsDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.SoundLevelSequence.xml"/>

@@ -2,9 +2,8 @@
    <Setup>
       <Name>Brake</Name>
       <Debug>Off</Debug>
-      <FaultList>/Configuration/Components/Brake/BoschBrakeFaultList.xml</FaultList>
+      <FaultList>/Configuration/Components/Brake/BrakeFaultList.xml</FaultList>
       <TestDomain>Foreground</TestDomain>
-      <CommunicationProtocol>IsoProtocol</CommunicationProtocol>
       <ThreadPool>
          <Debug>Off</Debug>
          <MinBlockedLimit>2</MinBlockedLimit>
@@ -15,7 +14,7 @@
       <Communication>
          <Comm>IPC</Comm>
          <Type>Server</Type>
-         <Name>component/BoschAbs</Name>
+         <Name>component/Bosch9Abs</Name>
          <Debug>Off</Debug>
          <BufferSize>1024</BufferSize>
          <Timeout>0</Timeout>
@@ -239,7 +238,7 @@
          <AlwaysStartGUIForceThread>Yes</AlwaysStartGUIForceThread>
          <AlwaysStartKeepAlive>Yes</AlwaysStartKeepAlive>
          <CheckAxleSpeeds>1</CheckAxleSpeeds>
-         <ConfigFile>/Configuration/Components/Brake/BoschABSModule.xml</ConfigFile>
+         <ConfigFile>/Configuration/Components/Brake/UdsBosch9ModuleConfig.xml</ConfigFile>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
@@ -364,11 +363,9 @@
    <Objectives>
       <Setup>
          <TestStep00>Setup</TestStep00>
-         <TestStep01>DetermineSystemConfiguartion</TestStep01>
          <TestStep05>Initialize</TestStep05>
-         <TestStep01>EnterDiagnosticMode</TestStep01>
-         <TestStep20>CheckPartNumber</TestStep20>
-         <TestStep>ReadFaults</TestStep>
+         <TestStep10>EnterDiagnosticMode</TestStep10>
+         <TestStep20>ReadFaults</TestStep20>
          <TestStep25>ClearFaults</TestStep25>
          <TestStep90>StartModuleKeepAlive</TestStep90>
       </Setup>
@@ -411,7 +408,7 @@
       <BrakeSwitchTest>
          <TestStep00>BrakeSwitchTest</TestStep00>
       </BrakeSwitchTest>
-      <BaseBrakeTest>
+      <BrakeTest>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
          <TestStep10>Coast</TestStep10>
          <TestStep15>DragTest</TestStep15>
@@ -420,9 +417,9 @@
          <TestStep30>BrakeTest</TestStep30>
          <TestStep35>BrakeSwitchOnTest</TestStep35>
          <TestStep40>DumpAndIsolateAllWheels</TestStep40>
-         <TestStep45>ValveFiringTest</TestStep45>
+         <TestStep45>ABSValveFiringTest</TestStep45>
          <TestStep50>RecoverAllWheels</TestStep50>
-      </BaseBrakeTest>
+      </BrakeTest>
       <AnalyzeBrakeTest>
          <TestStep00>AnalyzeBrakeTest</TestStep00>
          <TestStep05>AnalyzeBalance</TestStep05>
@@ -441,8 +438,10 @@
          <TestStep00>DisableForceMeter</TestStep00>
       </DisableForceMeter>
       <ParkBrakeTest>
-         <TestStep00>CheckParkBrakeSignal</TestStep00>
-         <TestStep01>ElectricParkBrake</TestStep01>
+         <TestStep00>AccelerateToParkBrakeSpeed</TestStep00>
+         <TestStep01>DynamicParkBrakeTest</TestStep01>
+         <TestStep02>AnalyzeDynamicParkBrake</TestStep02>
+         <TestStep03/>
       </ParkBrakeTest>
       <CheckSensorTest>
          <TestStep00>EnterDiagnosticMode</TestStep00>
@@ -478,93 +477,97 @@
          <TestStep55>StartModuleKeepAlive</TestStep55>
       </ABSValveFiringTest>
       <FinishUp>
-         <TestStep00>StopModuleKeepAlive</TestStep00>
-         <TestStep01>ReadFaults</TestStep01>
-         <TestStep05>ExitDiagnosticMode</TestStep05>
-         <TestStep10>FinishUp</TestStep10>
+         <TestStep00>DisableForceMeter</TestStep00>
+         <TestStep05>StopModuleKeepAlive</TestStep05>
+         <TestStep10>ReadFaults</TestStep10>
+         <TestStep15>ExitDiagnosticMode</TestStep15>
+         <TestStep20>FinishUp</TestStep20>
       </FinishUp>
    </Objectives>
    <TestSteps>
       <!--From GenericTestComponent-->
-      <Setup Result="" Timeout="500" Description="Set up component for testing"/>
-      <FinishUp Result="" Timeout="3000" Description="Brake test finishup"/>
       <AccelerateToTestSpeed Result="" Timeout="10000" Description="Accelerate to test speed"/>
+      <CalProgram Result="" Timeout="10000" Description="Program calibration values"/>
       <CheckPartNumber Result="" Timeout="5000" Description="Verify module part number matches broadcast" ScanDelay="250"/>
-      <StartModuleKeepAlive Result="" Timeout="1000" Description="Start sending tester present message to the module" ScanDelay="250"/>
-      <StopModuleKeepAlive Result="" Timeout="1000" Description="Stop sending tester present message to the module" ScanDelay=""/>
-      <LockModule Result="" Timeout="10000" Description="Lock Module"/>
-      <UnLockModule Result="" Timeout="10000" Description="Unlock Module"/>
+      <CheckVIN Result="" Timeout="10000" ValidateVIN="0" Description="Check and optionally validate VIN"/>
+      <ClearFaults Result="" Timeout="5000" Description="Clear faults from the module" ScanDelay="250"/>
+      <CollectTraceData Result="" Timeout="10000" Description="Collect and report trae data"/>
       <EnterDiagnosticMode Result="" Timeout="5000" Description="Enter diagnostic mode" ScanDelay="250"/>
       <ExitDiagnosticMode Result="" Timeout="5000" Description="Exit diagnostic mode" ScanDelay="250"/>
-      <CheckVIN Result="" Timeout="10000" ValidateVIN="0" Description="Check and optionally validate VIN"/>
-      <ProgramVIN Result="" Timeout="10000" Description="Write VIN to the module"/>
-      <ClearFaults Result="" Timeout="5000" Description="Clear faults from the module" ScanDelay="250"/>
-      <ReadFaults Result="" Timeout="5000" Description="Read faults from the module" ScanDelay="250"/>
-      <CollectTraceData Result="" Timeout="10000" Description="Collect and report trae data"/>
+      <FinishUp Result="" Timeout="3000" Description="Brake test finishup"/>
+      <LockModule Result="" Timeout="10000" Description="Lock Module"/>
       <MonitorFaults Result="" Timeout="10000" Description="Monitor and repotrt fault codes"/>
-      <CalProgram Result="" Timeout="10000" Description="Program calibration values"/>
+      <ProgramVIN Result="" Timeout="10000" Description="Write VIN to the module"/>
+      <ReadFaults Result="" Timeout="5000" Description="Read faults from the module" ScanDelay="250"/>
+      <Setup Result="" Timeout="500" Description="Set up component for testing"/>
+      <StartModuleKeepAlive Result="" Timeout="1000" Description="Start sending tester present message to the module" ScanDelay="250"/>
+      <StopModuleKeepAlive Result="" Timeout="1000" Description="Stop sending tester present message to the module" ScanDelay=""/>
+      <UnLockModule Result="" Timeout="10000" Description="Unlock Module"/>
       <!--From BaseBrake-->
-      <Initialize Result="" Timeout="1000" Description="Initialize the BaseBrake portion of the test" Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
       <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="40" Prompt1="AccelerateToTargetSpeed">Accelerate to Brake Test Arm Speed</AccelerateToBrakeSpeed>
-      <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" DragDelay="1000" DragSpeed="33" DragSamples="50">Perform Vehicle Drag Test</DragTest>
-      <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="80" RearMaxDragForce="55">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
-      <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank">Perform Vehicle Coast</Coast>
-      <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" StartBrakeSampleSpeed="25" EndBrakeSampleSpeed="10" BrakeDomain="0 500" BrakeTarget="250 350" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test </BrakeTest>
-      <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="222" RearMinBrakeForce="99" FrontMaxBrakeForce="600" RearMaxBrakeForce="400" Prompt1="" Prompt2="">Perform Vehicle BaseBrake Test Analysis</AnalyzeBrakeTest>
       <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="8" RearSideToSideBalance="8" TandemSideToSideBalance="20" BalanceFrontToRearMin="20" BalanceFrontToRearMax="40" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
+      <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="222" RearMinBrakeForce="99" FrontMaxBrakeForce="600" RearMaxBrakeForce="400" Prompt1="" Prompt2="">Perform Vehicle BaseBrake Test Analysis</AnalyzeBrakeTest>
+      <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="80" RearMaxDragForce="55">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
+      <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" StartBrakeSampleSpeed="25" EndBrakeSampleSpeed="10" BrakeDomain="0 500" BrakeTarget="250 350" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test </BrakeTest>
       <BrakeToStop Result="" Timeout="120000" Description="Prompt the driver to brake to stop" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
+      <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank">Perform Vehicle Coast</Coast>
+      <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" DragDelay="1000" DragSpeed="33" DragSamples="50">Perform Vehicle Drag Test</DragTest>
+      <Initialize Result="" Timeout="1000" Description="Initialize the BaseBrake portion of the test" Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
       <!--From GenericABSTestComponent-->
-      <ConnectToModule Result="" Timeout="" Description=""/>
-      <BrakeSwitchTest Result="" Timeout="10000" RemoveFootFromBrake="FootOffBrake" DepressBrake="FootOnBrake" Description="Brake Switch Test"/>
-      <SensorTest Result="" Timeout="10000" Description="Sensor Test"/>
-      <ValveFiringTest Result="" Timeout="30000" Description="Cycle the valves to perform reduction recovery testing" Prompt1="MaintainBrake" BrakeDomain="0 500" BrakeTarget="300 450" ScanDelay="250"/>
       <ABSValveFiringTest Result="" Timeout="10000" Description="Fire valves"/>
-      <Evaluation Result="" Timeout="10000" Description="Evaluate valve firing"/>
-      <LFSensorTest Result="" Timeout="10000" Prompt1="LFSensorTest" Prompt2="FootOffBrake" Description="Left Front Sensor Test"/>
-      <RFSensorTest Result="" Timeout="10000" Prompt1="RFSensorTest" Prompt2="FootOffBrake" Description="Right Front Sensor Test"/>
-      <LRSensorTest Result="" Timeout="10000" Prompt1="LFSensorTest" Prompt2="FootOffBrake" Description="Left Rear Sensor Test"/>
-      <RRSensorTest Result="" Timeout="10000" Prompt1="RRSensorTest" Prompt2="FootOffBrake" Description="Right Rear Sensor Test"/>
-      <FireLFReduction Result="" Timeout="10000" Description="Fire Left Front Reduction"/>
-      <FireRFReduction Result="" Timeout="10000" Description="Fire Right Front Reduction"/>
-      <FireLRReduction Result="" Timeout="10000" Description="Fire Left Rear Reduction"/>
-      <FireRRReduction Result="" Timeout="10000" Description="Fire Right Rear Reduction"/>
-      <FireLFRecovery Result="" Timeout="10000" Description="Fire Left Front Recovery"/>
-      <FireRFRecovery Result="" Timeout="10000" Description="Fire Right Front Recovery"/>
-      <FireLRRecovery Result="" Timeout="10000" Description="Fire Left Rear Recovery"/>
-      <FireRRRecovery Result="" Timeout="10000" Description="Fire Right Rear Recovery"/>
-      <EvaluateABS Result="" Timeout="5000" Description="Evaluate ABS pulses to ensure minimum requirements are met"/>
-      <DriverLiftFootCheck Result="" Timeout="10000" Description="Driver Lift Foot Check"/>
-      <TireChunkingTest Result="" Timeout="10000" Description="Tire Chunking Test" ABSUpperForceLimit="2"/>
+      <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" Prompt1="AccelerateToTargetSpeed" SpeedTarget="18 25" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
+      <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" RollerDirection="Forward" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake"/>
+      <AnalyzeDynamicParkBrake Result="" Timeout="10000" Description="Analyze Dynamic Park Brake forces"/>
       <AnalyzeRecoveryForces Result="" Timeout="10000" Description="Analyze Recovery Forces"/>
+      <BrakeSwitchTest Result="" Timeout="10000" RemoveFootFromBrake="FootOffBrake" DepressBrake="FootOnBrake" Description="Brake Switch Test"/>
+      <ConnectToModule Result="" Timeout="" Description=""/>
+      <DriverLiftFootCheck Result="" Timeout="10000" Description="Driver Lift Foot Check"/>
+      <EvaluateABS Result="" Timeout="5000" Description="Evaluate ABS pulses to ensure minimum requirements are met"/>
+      <Evaluation Result="" Timeout="10000" Description="Evaluate valve firing"/>
+      <FireLFRecovery Result="" Timeout="10000" Description="Fire Left Front Recovery"/>
+      <FireLFReduction Result="" Timeout="10000" Description="Fire Left Front Reduction"/>
+      <FireLRRecovery Result="" Timeout="10000" Description="Fire Left Rear Recovery"/>
+      <FireLRReduction Result="" Timeout="10000" Description="Fire Left Rear Reduction"/>
+      <FireRFRecovery Result="" Timeout="10000" Description="Fire Right Front Recovery"/>
+      <FireRFReduction Result="" Timeout="10000" Description="Fire Right Front Reduction"/>
+      <FireRRRecovery Result="" Timeout="10000" Description="Fire Right Rear Recovery"/>
+      <FireRRReduction Result="" Timeout="10000" Description="Fire Right Rear Reduction"/>
+      <LFSensorTest Result="" Timeout="10000" Prompt1="LFSensorTest" Prompt2="FootOffBrake" Description="Left Front Sensor Test"/>
+      <LRSensorTest Result="" Timeout="10000" Prompt1="LFSensorTest" Prompt2="FootOffBrake" Description="Left Rear Sensor Test"/>
+      <RFSensorTest Result="" Timeout="10000" Prompt1="RFSensorTest" Prompt2="FootOffBrake" Description="Right Front Sensor Test"/>
+      <RRSensorTest Result="" Timeout="10000" Prompt1="RRSensorTest" Prompt2="FootOffBrake" Description="Right Rear Sensor Test"/>
+      <SensorTest Result="" Timeout="10000" Description="Sensor Test"/>
+      <TireChunkingTest Result="" Timeout="10000" Description="Tire Chunking Test" ABSUpperForceLimit="2"/>
+      <ValveFiringTest Result="" Timeout="30000" Description="Cycle the valves to perform reduction recovery testing" Prompt1="MaintainBrake" BrakeDomain="0 500" BrakeTarget="300 450" ScanDelay="250"/>
       <!--From BoschABSTestComponent-->
-      <StartAbsTest Result="" Timeout="" Description=""/>
-      <SensorQualityTest Result="" Timeout="30000" Description="Test Sensor Quality" Prompt1="SensorQualityTest" Prompt2="FootOffBrake" ScanDelay="250"/>
-      <CheckRelayState Result="" Timeout="10000" Description="Check Relay State"/>
-      <CheckParkBrakeSignal Result="" Timeout="10000" Description="Park Brake Signal Test"/>
-      <EnableSpeedLimit Result="" Timeout="10000" Description="Enable Speed Limit"/>
-      <DisableSpeedLimiit Result="" Timeout="10000" Description="Disable Speed Limit"/>
-      <EnableDiagnosticSpeedLimit Result="" Timeout="500" Description="Enable Diagnostic Speed Limit"/>
-      <DisableDiagnosticSpeedLimit Result="" Timeout="1000" Description="Disable Diagnostic Speed Limit" ScanDelay="250"/>
-      <DisableValveRelayShutdown Result="" Timeout="10000" Description="Disable Valve Relay Shutdown"/>
-      <RunPumpMotor Result="" Timeout="1000" Description="Run ABS pump motor"/>
-      <StopPumpMotor Result="" Timeout="1000" Description="Stop running the pump motor"/>
-      <AllInletValvesOn Result="" Timeout="1000" Description="Turn all inlet valves on"/>
       <AllInletValvesOff Result="" Timeout="1000" Description="Turn all inlet valves off"/>
+      <AllInletValvesOn Result="" Timeout="1000" Description="Turn all inlet valves on"/>
+      <CheckEolByte Result="" Timeout="20000" Description="Check EOL byte status" ScanDelay="500"/>
+      <CheckParkBrakeSignal Result="" Timeout="10000" Description="Park Brake Signal Test"/>
+      <CheckRelayState Result="" Timeout="10000" Description="Check Relay State"/>
       <CheckUplineProcessByte Result="" Timeout="10000" Description="Check the status of the evac/fill procedure"/>
-      <ReadSensorSpeeds Result="" Timeout="10000" Description="Just read the wheel speed sensors from the ABS module"/>
+      <DisableDiagnosticSpeedLimit Result="" Timeout="1000" Description="Disable Diagnostic Speed Limit" ScanDelay="250"/>
+      <DisableSpeedLimiit Result="" Timeout="10000" Description="Disable Speed Limit"/>
+      <DisableValveRelayShutdown Result="" Timeout="10000" Description="Disable Valve Relay Shutdown"/>
+      <EnableDiagnosticSpeedLimit Result="" Timeout="500" Description="Enable Diagnostic Speed Limit"/>
+      <EnableSpeedLimit Result="" Timeout="10000" Description="Enable Speed Limit"/>
+      <EvaluateSensorCross Result="" Timeout="10000" Description="Check for ABS wheel speed sensor cross"/>
       <IgnitionOff Result="" Timeout="10000" Description="Wait for the ignition to be turned off" ScanDelay="500" Prompt1="ShiftToParkOrNeutral" Prompt1BGColor="white" Prompt2="KeyOff" Prompt2BGColor="white"/>
       <IgnitionOn Result="" Timeout="10000" Description="Wait for the ignition to be turned on" ScanDelay="500" Prompt1="ShiftToParkOrNeutral" Prompt1BGColor="white" Prompt2="KeyOn" Prompt2BGColor="white"/>
-      <EvaluateSensorCross Result="" Timeout="10000" Description="Check for ABS wheel speed sensor cross"/>
+      <ReadSensorSpeeds Result="" Timeout="10000" Description="Just read the wheel speed sensors from the ABS module"/>
       <ReadSpeedDeltas Result="" Timeout="10000" Description="Read the deceleration rates from the ABS module"/>
-      <CheckEolByte Result="" Timeout="20000" Description="Check EOL byte status" ScanDelay="500"/>
+      <RunPumpMotor Result="" Timeout="1000" Description="Run ABS pump motor"/>
+      <SensorQualityTest Result="" Timeout="30000" Description="Test Sensor Quality" Prompt1="SensorQualityTest" Prompt2="FootOffBrake" ScanDelay="250"/>
+      <StartAbsTest Result="" Timeout="" Description=""/>
+      <StopPumpMotor Result="" Timeout="1000" Description="Stop running the pump motor"/>
       <!--Origin Unspecified-->
-      <CheckModuleType Result="" Timeout="20000" Description="Check Module Type"/>
       <BrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>
-      <StaticBrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>
-      <LowSpeedSensorTest Result="" Timeout="15000" Description="Low Speed Wheel Sensor Test" ScanDelay="250"/>
-      <ElectricParkBrake Result="" Timeout="30000" Description="Verify park brake is properly adjusted" Prompt1="ShiftToNeutralApplyParkBrake" Prompt2="FootOffBrake" RollerDirection="Forward" TestTime="3000"/>
+      <CheckModuleType Result="" Timeout="20000" Description="Check Module Type"/>
       <DisableForceMeter Result="" Timeout="1000" Description="Disable the brake force meter"/>
       <DumpAndIsolateAllWheels Result="" Timeout="1000" Description="Dump brake pressure at all wheels"/>
+      <ElectricParkBrake Result="" Timeout="30000" Description="Verify park brake is properly adjusted" Prompt1="ShiftToNeutralApplyParkBrake" Prompt2="FootOffBrake" RollerDirection="Forward" TestTime="3000"/>
+      <LowSpeedSensorTest Result="" Timeout="15000" Description="Low Speed Wheel Sensor Test" ScanDelay="250"/>
       <RecoverAllWheels Result="" Timeout="1000" Description="Recover brake force at all wheels"/>
+      <StaticBrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>
    </TestSteps>
 </BoschAbs>

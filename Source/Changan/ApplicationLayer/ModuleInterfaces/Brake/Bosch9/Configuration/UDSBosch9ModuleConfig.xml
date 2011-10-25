@@ -239,7 +239,7 @@
             <TransmitMessage>ReadNumberOfFaults</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>ReadNumberOfFaults</ReplyMessage>
-            <ReplyInterpretation>ReadNumberOfFaults</ReplyInterpretation>
+            <ReplyInterpretation/>
          </ReadNumberOfFaults>
          <ReadFaults>
             <TransmitMessage>ReadFaults</TransmitMessage>
@@ -791,12 +791,6 @@
                <Byte1 input_index="11" mask="0x01" compare="0x00"><!--Signal valid if bit 0 is equal to 0--></Byte1>
             </Boolean>
          </YawRateStatus>
-         <ReadNumberOfFaults>
-            <Integer type="unsigned" bits="16" scale="1" offset="0">
-               <Byte1 input_index="4" mask="0xFF" output_index="1"/>
-               <Byte2 input_index="5" mask="0xFF" output_index="0"/>
-            </Integer>
-         </ReadNumberOfFaults>
       </ReplyInterpretations>
    </SerialMessages>
 </BoschModuleInterface>

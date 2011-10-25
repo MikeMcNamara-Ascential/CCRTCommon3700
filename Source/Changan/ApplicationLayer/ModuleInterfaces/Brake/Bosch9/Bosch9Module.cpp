@@ -78,6 +78,7 @@ template <class ProtocolFilterType>
 BEP_STATUS_TYPE Bosch9Module<ProtocolFilterType>::ReadFaults(FaultVector_t &faultCodes)
 {
     SerialString_t response(255, 0);
+    SerialString_t response_dtcCount(255, 0);
     BEP_STATUS_TYPE status;
     UINT16     dtcCount=0, dtcIdx=0;
     UINT32    dtcVal;
@@ -85,15 +86,19 @@ BEP_STATUS_TYPE Bosch9Module<ProtocolFilterType>::ReadFaults(FaultVector_t &faul
 
     // Check to see that all our objects are in place
     CheckObjectsStatus();
-    status = m_protocolFilter->ReadModuleData("ReadNumberOfFaults", dtcCount);
+    
+    status = m_protocolFilter->GetModuleData("ReadNumberOfFaults", response_dtcCount);
+
     if (status == BEP_STATUS_SUCCESS)
     {
+        // Extract the number of DTCs from the positive response...
+        // e.g.    response_dtcCount = 0x59,0x01,0xFB,0x00,0x??,0x??
+        dtcCount = ((response_dtcCount[4] << 8) & 0xFF00) | response_dtcCount[5];
         Log( LOG_DEV_DATA, "Module is reporting %d DTCs\n", dtcCount);
 
+        //since reading the number of faults was successful let read the faults themselves.
         status = m_protocolFilter->GetModuleData("ReadFaults", response);
     }
-
-
 
     if (status == BEP_STATUS_SUCCESS)
     {

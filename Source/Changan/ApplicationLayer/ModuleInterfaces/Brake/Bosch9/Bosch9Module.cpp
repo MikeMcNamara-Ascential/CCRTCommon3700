@@ -64,7 +64,7 @@
 #include "Bosch9Module.h"
 
 template <class ProtocolFilterType>
-Bosch9Module<ProtocolFilterType>::Bosch9Module(void) : Bosch8Module<ProtocolFilterType>(), 
+Bosch9Module<ProtocolFilterType>::Bosch9Module(void) : Bosch8Module<ProtocolFilterType>()
 {
 }
 
@@ -79,8 +79,8 @@ BEP_STATUS_TYPE Bosch9Module<ProtocolFilterType>::ReadFaults(FaultVector_t &faul
 {
     SerialString_t response(255, 0);
     BEP_STATUS_TYPE status;
-    uint16_t     dtcCount=0, dtcIdx=0;
-    uint32_t    dtcVal;
+    UINT16     dtcCount=0, dtcIdx=0;
+    UINT32    dtcVal;
     char    dtcStr[16];
 
     // Check to see that all our objects are in place

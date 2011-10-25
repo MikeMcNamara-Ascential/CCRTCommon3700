@@ -108,7 +108,7 @@
 #ifndef Bosch9TC_h
 #define Bosch9TC_h
 
-#include "Bosch8TC.h"
+#include "../../../../../Core/ApplicationLayer/TestComponents/Brake/Bosch8/Bosch8TC.cpp"
 #include "ModuleException.h"
 
 

@@ -188,3 +188,5 @@ bool KoreaAbsModuleTemplate<ProtocolFilterType>::InitializeHook(const XmlNode *c
     return GenericABSModuleTemplate<ProtocolFilterType>::InitializeHook(configNode);
 }
 
+
+

@@ -534,8 +534,21 @@ const std::string  VehicleDataBroker::UpdateVehicleBuildTags(const XmlNode *vehi
         for(XmlNodeMapItr iter = buildInfo.begin(); iter != buildInfo.end(); iter++)
         {
             Log("Updating Data: %s, %s\n", (*iter).second->getName().c_str(), (*iter).second->getValue().c_str());
-            if( publishTags)    result = Write((*iter).second);
-            else                result = SetData( iter->second);
+            if( publishTags)    
+            {
+                // If the data tag is not equal to the SecondarySelectionDataTag, publish it.
+                // Publishing the SecondarySelectionDataTag here will cause the build record to endlessly reload
+                if ((*iter).second->getName().compare(GetDataTag("SecondarySelectionDataTag"))) 
+                {
+                    result = Write((*iter).second);
+                }
+                else
+                    Log("Not writing tag %s because it is already published", (*iter).second->getName().c_str());
+            }
+            else                
+            {
+                result = SetData( iter->second);
+            }
         }
     }
     else

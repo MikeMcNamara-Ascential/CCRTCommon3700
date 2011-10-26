@@ -22,6 +22,7 @@
             <OverallTest>OverallTest</OverallTest>
             <ReadLatestBuildData>ReadLatestBuildData</ReadLatestBuildData>
             <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+            <SecondarySelectionDataTag>ZTSCode</SecondarySelectionDataTag>
             <StartTest>StartTest</StartTest>
             <VIN>VIN</VIN>
             <VINDisplay>VINDisplay</VINDisplay>

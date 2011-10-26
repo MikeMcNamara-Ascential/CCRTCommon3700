@@ -63,3 +63,5 @@ int main(int argc, char *argv[])
 	if(clp.IsDebugOn())
 		printf("Changan Bosch Brake (%d, %s): Terminating\n", BposGetMyTaskId(), clp.GetConfigFile().c_str());
 };
+
+

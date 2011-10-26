@@ -175,6 +175,12 @@
             <ReplyMessage>EnterDiagnosticSession</ReplyMessage>
             <ReplyInterpretation/>
          </DefaultDiagnosticMode>
+         <EnableECUTransmission>
+            <TransmitMessage>CommunicationControl</TransmitMessage>
+            <TransmitInterpretation>EnableRxAndEnableTx</TransmitInterpretation>
+            <ReplyMessage>CommunicationControl</ReplyMessage>
+            <ReplyInterpretation/>
+         </EnableECUTransmission>
          <DisableECUTransmission>
             <TransmitMessage>CommunicationControl</TransmitMessage>
             <TransmitInterpretation>EnableRxAndDisableTx</TransmitInterpretation>
@@ -187,12 +193,6 @@
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </DumpAllValves>
-         <EnableECUTransmission>
-            <TransmitMessage>CommunicationControl</TransmitMessage>
-            <TransmitInterpretation>EnableRxAndEnableTx</TransmitInterpretation>
-            <ReplyMessage>CommunicationControl</ReplyMessage>
-            <ReplyInterpretation/>
-         </EnableECUTransmission>
          <EnterDiagnosticMode>
             <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
             <TransmitInterpretation>ExtendedSession</TransmitInterpretation>
@@ -236,14 +236,14 @@
             <ReplyInterpretation>BatteryVoltage</ReplyInterpretation>
          </ReadBrakeSwitch>
          <ReadNumberOfFaults>
-            <TransmitMessage>ReadNumberOfFaults</TransmitMessage>
-            <TransmitInterpretation/>
+            <TransmitMessage>ReadFaults</TransmitMessage>
+            <TransmitInterpretation>ReadNumberOfFaults</TransmitInterpretation>
             <ReplyMessage>ReadNumberOfFaults</ReplyMessage>
             <ReplyInterpretation/>
          </ReadNumberOfFaults>
          <ReadFaults>
             <TransmitMessage>ReadFaults</TransmitMessage>
-            <TransmitInterpretation/>
+            <TransmitInterpretation>ReadFaults</TransmitInterpretation>
             <ReplyMessage>ReadFaults</ReplyMessage>
             <ReplyInterpretation/>
          </ReadFaults>
@@ -264,15 +264,10 @@
             <TransmitInterpretation>SensorData</TransmitInterpretation>
             <ReplyMessage>ReadSensorData</ReplyMessage>
             <ReplyInterpretationMasterCylinder>MasterCylinderPressure</ReplyInterpretationMasterCylinder>
-            <ReplyInterpretationMasterCylinderStatus>MasterCylinderPressureStatus</ReplyInterpretationMasterCylinderStatus>
             <ReplyInterpretationSteeringAngle>SteeringAngle</ReplyInterpretationSteeringAngle>
-            <ReplyInterpretationSteeringAngleStatus>SteeringAngleStatus</ReplyInterpretationSteeringAngleStatus>
             <ReplyInterpretationYawRate>YawRate</ReplyInterpretationYawRate>
-            <ReplyInterpretationYawRateStatus>YawRateStatus</ReplyInterpretationYawRateStatus>
             <ReplyInterpretationLatAccel>LateralAcceleration</ReplyInterpretationLatAccel>
-            <ReplyInterpretationLatAccelStatus>LateralAccelerationStatus</ReplyInterpretationLatAccelStatus>
             <ReplyInterpretationLongAccel>LongitudinalAcceleration</ReplyInterpretationLongAccel>
-            <ReplyInterpretationLongAccelStatus>LongitudinalAccelerationStatus</ReplyInterpretationLongAccelStatus>
             <ReplyInterpretationVacuum>PressureVaccumSensor</ReplyInterpretationVacuum>
          </ReadSensorData>
          <ReadSensorSpeeds>
@@ -390,8 +385,7 @@
          <ExitDiagMode>0x20</ExitDiagMode>
          <IOControl>0x2F,0x??,0x??,0x00</IOControl>
          <ReadECUId>0x22,0x??,0x??</ReadECUId>
-         <ReadNumberOfFaults>0x19,0x01,0xFF</ReadNumberOfFaults>
-         <ReadFaults>0x19,0x02,0xFF</ReadFaults>
+         <ReadFaults>0x19,0x??,0x??</ReadFaults>
          <ResetModule>0x11,0x03</ResetModule>
          <RoutineResults>0x31,0x03,0x??,0x??</RoutineResults>
          <RoutineControl>0x31,0x01,0x??,0x??</RoutineControl>
@@ -437,11 +431,13 @@
          <HardwareVersion>0xF1,0x93</HardwareVersion>
          <IdentifySessionType>0xF1,0x86</IdentifySessionType>
          <PartNumber>0xF1,0x91</PartNumber>
+         <ReadNumberOfFaults>0x01,0xFF</ReadNumberOfFaults>
+         <ReadFaults>0x02,0xFF</ReadFaults>
          <ReprogrammingSession>0x02</ReprogrammingSession>
          <ResumeSettingDTC>0x01</ResumeSettingDTC>
-         <SensorData>0xFD,0x03</SensorData>
-         <SoftwareId>0xF1,0x81</SoftwareId>
-         <SoftwareVersion>0xF1,0x80</SoftwareVersion>
+         <SensorData>0xFD,0x05</SensorData>
+         <SoftwareId>0xF1,0x95</SoftwareId>
+         <SoftwareVersion>0xF1,0x95</SoftwareVersion>
          <StaticTestId>0x03</StaticTestId>
          <StopSettingDTC>0x02</StopSettingDTC>
          <VINNumber>0xF1,0x90</VINNumber>
@@ -455,9 +451,9 @@
       <ReplyMessages>
          <BrakePedalStatus>
             <!--Not applied-->
-            <Reply_00>0x62,0xFD,0x01,0x??,0x00,0x00</Reply_00>
+            <Reply_00>0x62,0xFD,0x01,0x??,0x00</Reply_00>
             <!--Applied-->
-            <Reply_01>0x62,0xFD,0x01,0x??,0x01,0x00</Reply_01>
+            <Reply_01>0x62,0xFD,0x01,0x??,0x01</Reply_01>
             <Reply_02>0x7F,0x22,0x??</Reply_02>
          </BrakePedalStatus>
          <ClearFaults>
@@ -466,7 +462,7 @@
             <Reply_02>0x7F,0x14,0x??</Reply_02>
          </ClearFaults>
          <CommunicationControl>
-            <Reply_00>0x68</Reply_00>
+            <Reply_00>0x68.0x??</Reply_00>
             <Reply_01>0x7F,0x28,0x??</Reply_01>
          </CommunicationControl>
          <ControlDTCSetting>
@@ -509,16 +505,16 @@
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadPartNumber>
          <ReadSensorData>
-            <Reply_00>0x62,0xFD,0x03,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+            <Reply_00>0x62,0xFD,0x05,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadSensorData>
          <ReadSoftwareNumber>
-            <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0xF1,0x81,0x01,0x??</Reply_00>
+            <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0xF1,0x95,0x01,0x??</Reply_00>
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadSoftwareNumber>
          <ReadSoftwareVersion>
             <!--Last three bytes denote year/week/patch level-->
-            <Reply_00>0x62,0xF1,0x80,0x01,0x??,0x??,0x??</Reply_00>
+            <Reply_00>0x62,0xF1,0x95,0x01,0x??,0x??,0x??</Reply_00>
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadSoftwareVersion>
          <ReadVINNumber>
@@ -526,7 +522,7 @@
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadVINNumber>
          <ReadWheelSpeeds>
-            <Reply_00>0x62,0xFD,0x00,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+            <Reply_00>0x62,0xFD,0x00,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadWheelSpeeds>
          <ResetModule>
@@ -588,30 +584,20 @@
             <Float scale="0.02713" offset="0">
                <!--In m/s^2-->
                <Integer type="signed" bits="16" scale="1" offset="0">
-                  <Byte1 input_index="12" mask="0xFF" output_index="1"/>
-                  <Byte2 input_index="13" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="9" mask="0xFF" output_index="1"/>
+                  <Byte2 input_index="10" mask="0xFF" output_index="0"/>
                </Integer>
             </Float>
          </LateralAcceleration>
-         <LateralAccelerationStatus>
-            <Boolean>
-               <Byte1 input_index="14" mask="0x01" compare="0x00"><!--Signal valid if bit 0 is equal to 0--></Byte1>
-            </Boolean>
-         </LateralAccelerationStatus>
          <LongitudinalAcceleration>
             <Float scale="0.02713" offset="0">
                <!--In m/s^2-->
                <Integer type="signed" bits="16" scale="1" offset="0">
-                  <Byte1 input_index="15" mask="0xFF" output_index="1"/>
-                  <Byte2 input_index="16" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="11" mask="0xFF" output_index="1"/>
+                  <Byte2 input_index="12" mask="0xFF" output_index="0"/>
                </Integer>
             </Float>
          </LongitudinalAcceleration>
-         <LongitudinallAccelerationStatus>
-            <Boolean>
-               <Byte1 input_index="17" mask="0x01" compare="0x00"><!--Signal valid if bit 0 is equal to 0--></Byte1>
-            </Boolean>
-         </LongitudinallAccelerationStatus>
          <LRWheelSpeed>
             <Float scale="0.0078125" offset="0">
                <!--km/h-->
@@ -630,11 +616,6 @@
                </Integer>
             </Float>
          </MasterCylinderPressure>
-         <MasterCylinderPressureStatus>
-            <Boolean>
-               <Byte1 input_index="5" mask="0x01" compare="0x00"><!--Signal valid if bit 0 is equal to 0--></Byte1>
-            </Boolean>
-         </MasterCylinderPressureStatus>
          <PartNumber>
             <String>
                <Substring format="%10s">
@@ -682,8 +663,8 @@
                   <Float scale="0.0078125" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
-                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
-                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                        <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="6" mask="0xFF" output_index="0"/>
                      </Integer>
                   </Float>
                </Subvector00>
@@ -691,8 +672,8 @@
                   <Float scale="0.0078125" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
-                        <Byte1 input_index="5" mask="0xFF" output_index="1"/>
-                        <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                        <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="8" mask="0xFF" output_index="0"/>
                      </Integer>
                   </Float>
                </Subvector01>
@@ -700,8 +681,8 @@
                   <Float scale="0.0078125" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
-                        <Byte1 input_index="7" mask="0xFF" output_index="1"/>
-                        <Byte2 input_index="8" mask="0xFF" output_index="0"/>
+                        <Byte1 input_index="9" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="10" mask="0xFF" output_index="0"/>
                      </Integer>
                   </Float>
                </Subvector02>
@@ -709,8 +690,8 @@
                   <Float scale="0.0078125" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
-                        <Byte1 input_index="9" mask="0xFF" output_index="1"/>
-                        <Byte2 input_index="10" mask="0xFF" output_index="0"/>
+                        <Byte1 input_index="11" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="10" mask="0xFF" output_index="12"/>
                      </Integer>
                   </Float>
                </Subvector03>
@@ -720,16 +701,11 @@
             <Float scale="0.1" offset="0">
                <!--In degrees-->
                <Integer type="signed" bits="16" scale="1" offset="0">
-                  <Byte1 input_index="6" mask="0xFF" output_index="1"/>
-                  <Byte2 input_index="7" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                  <Byte2 input_index="6" mask="0xFF" output_index="0"/>
                </Integer>
             </Float>
          </SteeringAngle>
-         <SteeringAngleStatus>
-            <Boolean>
-               <Byte1 input_index="8" mask="0x01" compare="0x00"><!--Signal valid if bit 0 is equal to 0--></Byte1>
-            </Boolean>
-         </SteeringAngleStatus>
          <WheelSpeeds>
             <Vector type="fixed">
                <Subvector00 Description="Front Left Wheel Speed">
@@ -781,16 +757,11 @@
             <Float scale="0.12219" offset="0">
                <!--In degrees per second-->
                <Integer type="signed" bits="16" scale="1" offset="0">
-                  <Byte1 input_index="9" mask="0xFF" output_index="1"/>
-                  <Byte2 input_index="10" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                  <Byte2 input_index="8" mask="0xFF" output_index="0"/>
                </Integer>
             </Float>
          </YawRate>
-         <YawRateStatus>
-            <Boolean>
-               <Byte1 input_index="11" mask="0x01" compare="0x00"><!--Signal valid if bit 0 is equal to 0--></Byte1>
-            </Boolean>
-         </YawRateStatus>
       </ReplyInterpretations>
    </SerialMessages>
 </BoschModuleInterface>

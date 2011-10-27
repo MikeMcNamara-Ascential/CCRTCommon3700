@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ 
+ This is the default configuration file for the standard 
+ views available in the CCRT application.
+ 
+--><!DOCTYPE CrtViewConfig SYSTEM "resource:///com/bepco/rtc/crt/crtviewconfig.dtd">
+<CrtViewConfig> <View id="drivermonitor" crt="BrazilDriverMonitor.crt" label="Driver Monitor" tabLabel="Driver"/> <View id="vehiclepresence" crt="__DEFAULT" label="Vehicle Presence" tabLabel="Vehicle"/> <View id="frontpanel" crt="DCBRFrontPanelNew.crt" label="Front Panel" tabLabel="Front"/> <View id="losscompensation" crt="DCBRLossCompensation.crt" label="Loss Compensation" tabLabel="LossComp"/> <View id="powerdisplay" crt="__DEFAULT" label="Power Display" tabLabel="Power"/> </CrtViewConfig>

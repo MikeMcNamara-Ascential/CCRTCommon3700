@@ -1,0 +1,26 @@
+#brakeforce.constants
+#contains constants from brakeforce.properties
+
+panel.brakeforce.background=white
+panel.brakeforce.foreground=black
+panel.brakeforce.chartarea.background=black
+panel.brakeforce.chartarea.foreground=0 50 0
+panel.brakeforce.labels.border.color=black
+panel.brakeforce.labels.background=white
+panel.brakeforce.labels.foreground=102 102 153
+panel.brakeforce.xaxis.visible=true
+panel.brakeforce.xaxis.color=0 50 0
+panel.brakeforce.yaxis.visible=true
+panel.brakeforce.yaxis.color=0 50 0
+panel.brakeforce.boundingbox=true
+panel.brakeforce.legend.visible=true
+panel.brakeforce.reset.key=r
+panel.brakeforce.header.visible=true
+panel.brakeforce.footer.visible=true
+panel.brakeforce.lf.color=lfcolor
+panel.brakeforce.rf.color=rfcolor
+panel.brakeforce.lr.color=lrcolor
+panel.brakeforce.rr.color=rrcolor
+panel.brakeforce.lt.color=ltcolor
+panel.brakeforce.rt.color=rtcolor
+

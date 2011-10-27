@@ -1,0 +1,458 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+<!-- 
+
+-->
+
+<RtGuiConfig> 
+  <Metadata author="Burke Porter, Inc" version="1.0"
+	description="Standard implementation of the Loss Compensation view."/>
+  <XmlWidgetPanel id="LossCompensation">
+
+	<Layout>
+		<Label width="420" height="35" posX="300" posY="5" name="losstitle">
+			<Font size="36" name="sans-serif" style="bold"/>
+		</Label>
+      <!-- Row 1 of 3  -->	  
+      <!-- Wheel speeds -->
+      <HBox height="290" width="1020" posX="0" posY="40" border="false">
+	      <VBox width="560" posX="0" posY="40" border="false">
+		<HBox height="35">
+			<Label width="40" height="35" name="lf">
+				<Font size="20" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget width="450" height="35" id="lc_fpspeed1" class="com.bepco.gui.HorizontalBarGraph">
+				<DataSource tagname="LFSpeed" messagetype="Read" datarate="10"/>
+				<DataSource tagname="LFWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
+				<DataSource tagname="LFWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
+				<BarGraphConfig domainhigh="100" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="30"/>
+			<Widget id="_lfspeed" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="LFSpeed" messagetype="Read" datarate="10"/>
+				<TextBoxConfig>
+	   				<Font size="30" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+			</Widget>
+		  </HBox>
+		  <HBox height="35">
+			<Label width="40" height="35" name="rf">
+				<Font size="20" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget width="450" height="35" id="lc_fpspeed2" class="com.bepco.gui.HorizontalBarGraph">
+				<DataSource tagname="RFSpeed" messagetype="Read" datarate="10"/>
+				<DataSource tagname="RFWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
+				<DataSource tagname="RFWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
+				<BarGraphConfig domainhigh="100" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="30"/>
+			<Widget id="_rfspeed" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="RFSpeed" messagetype="Read" datarate="10"/>
+				<TextBoxConfig>
+	   				<Font size="30" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+			</Widget>
+		  </HBox>
+		  <HBox height="35">
+			  <Label width="40" height="35" name="lr">
+				<Font size="20" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget width="450" height="35" id="lc_fpspeed3" class="com.bepco.gui.HorizontalBarGraph">
+				<DataSource tagname="LRSpeed" messagetype="Read" datarate="10"/>
+				<DataSource tagname="LRWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
+				<DataSource tagname="LRWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
+				<BarGraphConfig domainhigh="100" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="30"/>
+			<Widget id="_lrspeed" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="LRSpeed" messagetype="Read" datarate="10"/>
+				<TextBoxConfig>
+	   				<Font size="30" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+			</Widget>
+		  </HBox>
+		  <HBox height="35">
+			<Label width="40" height="35" name="rr">
+				<Font size="20" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget width="450" height="35" id="lc_fpspeed4" class="com.bepco.gui.HorizontalBarGraph">
+				<DataSource tagname="RRSpeed" messagetype="Read" datarate="10"/>
+				<DataSource tagname="RRWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
+				<DataSource tagname="RRWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
+				<BarGraphConfig domainhigh="100" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="30"/>
+			<Widget id="_rrspeed" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="RRSpeed" messagetype="Read" datarate="10"/>
+				<TextBoxConfig>
+	   				<Font size="30" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+			</Widget>
+		  </HBox>
+		  <!-- Tandem Axles -->
+		  <HBox height="35">
+			<Label width="40" height="35" name="lt">
+				<Font size="20" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget width="450" height="35" id="lc_fpspeed5" class="com.bepco.gui.HorizontalBarGraph">
+				<DataSource tagname="LTSpeed" messagetype="Read" datarate="10"/>
+				<DataSource tagname="LTWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
+				<DataSource tagname="LTWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
+				<BarGraphConfig domainhigh="100" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="30"/>
+			<Widget id="_ltspeed" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="LTSpeed" messagetype="Read" datarate="10"/>
+				<TextBoxConfig>
+	   				<Font size="30" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+			</Widget>
+		  </HBox>
+		  <HBox height="35">
+			<Label width="40" height="35" name="rt">
+				<Font size="20" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget width="450" height="35" id="lc_fpspeed6" class="com.bepco.gui.HorizontalBarGraph">
+				<DataSource tagname="RTSpeed" messagetype="Read" datarate="10"/>
+				<DataSource tagname="RTWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
+				<DataSource tagname="RTWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
+				<BarGraphConfig domainhigh="100" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="30"/>
+			<Widget id="_rtspeed" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="RTSpeed" messagetype="Read" datarate="10"/>
+				<TextBoxConfig>
+	   				<Font size="30" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+			</Widget>
+		  </HBox>
+	</VBox>
+	<!-- Top right panel -->
+	<VBox posX="400" posY="40" width="445" border="false">
+	<HBox width="360" height="150" border="true">
+      <!-- Loss compensation (Wheel speeds) -->
+	<!-- Previous Box -->	
+	<VBox width="111" height="0" posX="0" posY="0" border="false">
+          <HBox height="30">
+            <Label height="20" width="111" name="previous"/>
+          </HBox>
+          <HBox height="20">
+            <Widget height="20" width="111" id="lc_tablecell0" class="com.bepco.gui.NumberBox">
+          		<DataSource tagname="LFMachineLossPrevious" messagetype="Subscribe"/>
+			<DataSource tagname="LFMachineLossPreviousBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			<TextBoxConfig format="{0,number,#.##}"/>        		
+            </Widget>
+          </HBox>
+          <HBox height="20">
+            <Widget height="20" width="111" id="lc_tablecell1" class="com.bepco.gui.NumberBox">
+            	<DataSource tagname="RFMachineLossPrevious" messagetype="Subscribe"/>
+			<DataSource tagname="RFMachineLossPreviousBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			<TextBoxConfig format="{0,number,#.##}"/>        		
+            </Widget>
+          </HBox>
+          <HBox height="20">
+            <Widget height="20" width="111" id="lc_tablecell2" class="com.bepco.gui.NumberBox">
+            	<DataSource tagname="LRMachineLossPrevious" messagetype="Subscribe"/>
+			<DataSource tagname="LRMachineLossPreviousBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			<TextBoxConfig format="{0,number,#.##}"/>        		
+            </Widget>
+          </HBox>
+          <HBox height="20">
+		<Widget height="20" width="111" id="lc_tablecell3" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="RRMachineLossPrevious" messagetype="Subscribe"/>
+			<DataSource tagname="RRMachineLossPreviousBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			<TextBoxConfig format="{0,number,#.##}"/>        		
+            </Widget>
+   		 </HBox>
+		<HBox height="20">
+		<Widget height="20" width="111" id="lc_tablecell4" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="LTMachineLossPrevious" messagetype="Subscribe"/>
+			<DataSource tagname="LTMachineLossPreviousBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			<TextBoxConfig format="{0,number,#.##}"/>        		
+		</Widget>
+	</HBox>
+	<HBox height="20">
+		<Widget height="20" width="111" id="lc_tablecell5" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="RTMachineLossPrevious" messagetype="Subscribe"/>
+			<DataSource tagname="RTMachineLossPreviousBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			<TextBoxConfig format="{0,number,#.##}"/>        		
+		</Widget>
+	</HBox>
+ </VBox>
+ 	<!-- Wheel box (Label descriptions) -->
+	<VBox width="111" height="0" posX="0" posY="0" border="false">
+	<HBox height="20">	
+		<Label height="20" width="111" name="wheeltitle"/>
+	</HBox>
+	<HBox height="20">
+		<Label height="20" width="111" name="lf"/>
+	</HBox>
+	<HBox height="20">
+		<Label height="20" width="111" name="rf"/>
+	</HBox>
+	<HBox height="20">
+		<Label height="20" width="111" name="lr"/>
+	</HBox>
+	<HBox height="20">
+		<Label height="20" width="111" name="rr"/>
+	</HBox>
+	<HBox height="20">
+		<Label height="20" width="111" name="lt"/>
+	</HBox>
+	<HBox height="20">
+		<Label height="20" width="111" name="rt"/>
+	</HBox>
+	    </VBox>
+	    <!-- Current box --> 
+
+	    <VBox width="111" height="0" posX="0" posY="0" border="false">
+		<HBox height="30">
+			<Label height="20" width="111" name="current"/>
+		</HBox>
+	      	<HBox height="20">
+			<Widget height="20" width="111" id="lc_tablecell6" class="com.bepco.gui.NumberBox">
+              		<DataSource tagname="LFMachineLossCurrent" messagetype="Subscribe"/>
+				<DataSource tagname="LFMachineLossCurrentBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}"/>        		
+			</Widget>
+		</HBox>
+		<HBox height="20">
+		<Widget height="20" width="111" id="lc_tablecell7" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="RFMachineLossCurrent" messagetype="Subscribe"/>
+			<DataSource tagname="RFMachineLossCurrentBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			<TextBoxConfig format="{0,number,#.##}"/>        		
+		</Widget>	
+	</HBox>
+		<HBox height="20">
+		<Widget height="20" width="111" id="lc_tablecell8" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="LRMachineLossCurrent" messagetype="Subscribe"/>
+			<DataSource tagname="LRMachineLossCurrentBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}"/>        		
+		</Widget>	
+		</HBox>
+		<HBox height="20">
+		<Widget height="20" width="111" id="lc_tablecell9" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="RRMachineLossCurrent" messagetype="Subscribe"/>
+			<DataSource tagname="RRMachineLossCurrentBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}"/>        		
+		</Widget>	
+	</HBox>
+		<HBox height="20">
+		<Widget height="20" width="111" id="lc_tablecell10" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="LTMachineLossCurrent" messagetype="Subscribe"/>
+			<DataSource tagname="LTMachineLossCurrentBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}"/>        		
+		</Widget>	
+	</HBox>
+	<HBox height="20">
+		<Widget height="20" width="111" id="lc_tablecell11" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="RTMachineLossCurrent" messagetype="Subscribe"/>
+			<DataSource tagname="RTMachineLossCurrentBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}"/>        		
+		</Widget>	
+		</HBox>
+    </VBox>
+    </HBox>
+    <!-- Date and time -->
+    <HBox width="200" height="20" border="true">
+	    
+	    <VBox width="200" height="150" border="false">
+		    <HBox height="20" width="100">
+			    <Label height="20" width="145" name="previous"/>
+			    <Label height="20" width="70" name="current"/>
+		    </HBox>
+		    <HBox height="20">
+			<Label height="20" width="111" name="time"/>
+			<Widget id="lc_previous_caltime" class="com.bepco.gui.TextBox" width="111" height="20">
+				<DataSource tagname="LCTimePrevious" messagetype="Subscribe"/>
+				<DataSource tagname="LCTimePreviousBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			</Widget>
+			<Widget id="lc_current_caltime" class="com.bepco.gui.TextBox" width="111" height="20">
+				<DataSource tagname="LCTimeCurrent" messagetype="Subscribe"/>
+				<DataSource tagname="LCTimeCurrentBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			</Widget>
+		     </HBox>
+		     <HBox height="20">
+			<Label height="20" width="111" name="date"/>
+			<Widget id="lc_previous_caldate" class="com.bepco.gui.TextBox" width="111" height="20">
+				<DataSource tagname="LCDatePrevious" messagetype="Subscribe"/>
+				<DataSource tagname="LCDatePreviousBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			</Widget>	
+			<Widget id="lc_current_caldate" class="com.bepco.gui.TextBox" width="111" height="20">	
+				<DataSource tagname="LCDateCurrent" messagetype="Subscribe"/>
+				<DataSource tagname="LCDateCurrentBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			</Widget>
+		      </HBox>	
+	    </VBox>	
+    </HBox>
+       </VBox>
+	</HBox>
+	<!-- Prompt Boxes -->
+	<Widget id="prompt1" class="com.bepco.gui.PromptBox" posX="0" posY="310" width="1020" height="55" border="true">
+		<DataSource tagname="PromptBox1" messagetype="Subscribe"/>
+		<DataSource tagname="PromptBox1BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+		<TextBoxConfig>
+			<Font size="35" name="sans-serif" style="bold"/>
+		</TextBoxConfig>  
+	</Widget>
+	<Widget id="prompt2" class="com.bepco.gui.PromptBox" posX="0" posY="365" width="1020" height="55" border="true">
+		<DataSource tagname="PromptBox2" messagetype="Subscribe"/>
+		<DataSource tagname="PromptBox2BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+		<TextBoxConfig>
+			<Font size="35" name="sans-serif" style="bold"/>
+		</TextBoxConfig>  
+	</Widget>
+		
+	<!-- Row 2 of 3 -->
+	        
+    <!-- Warmup Time -->
+    <VBox width="820" height="290" posX="0" posY="430" border="true">
+	<HBox height="50">
+		<Label height="45" width="306" name="warmuptime">
+			<Font size="35" name="sans-serif" style="bold"/>
+		</Label>
+	</HBox>
+	<HBox height="40">
+	   <Widget height="35" width="306" id="lc_warmuptime" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="LCWarmupTimeRemaining" messagetype="Subscribe"/>
+			<DataSource tagname="LCWarmupTimeRemainingBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+			<TextBoxConfig>
+				<Font size="30" name="sans-serif" style="bold"/>
+			</TextBoxConfig>
+	   </Widget>
+	</HBox>
+	<HBox height="180">
+		<VBox width="400">
+		  <HBox><Label height="30" name="testfaults">
+			<Font size="14" name="sans-serif" style="bold"/>
+          </Label></HBox>
+          <Widget height="150" width="400" id="lc_testfailures" class="com.bepco.gui.ListBox">
+		    <DataSource tagname="AllFailures" messagetype="Subscribe"/>
+			<ScrollBoxConfig stringmap="com.bepco.rtc.properties.TestFailureStrings">
+			  <Font style="bold" name="serif" size="14"/>
+      	    </ScrollBoxConfig>
+		  </Widget>
+        </VBox>
+		<VBox width="400">
+		  <HBox><Label height="30" name="machinefaults">
+			<Font size="14" name="sans-serif" style="bold"/>
+          </Label></HBox>
+		  <Widget height="150" width="400" id="lc_machinefaults" class="com.bepco.gui.ListBox">
+            <DataSource tagname="AllFaults" messagetype="Subscribe"/>
+			<ScrollBoxConfig stringmap="com.bepco.rtc.properties.MachineFaultStrings">
+			  <Font style="bold" name="serif" size="14"/>
+      	 	</ScrollBoxConfig>
+		  </Widget>
+        </VBox>
+	  </HBox>
+        </VBox>
+        
+        <!-- Criteria -->
+        <VBox width="200" height="290" posX="820" posY="430" border="true">
+		<HBox height="50">
+			<Label height="45" name="criteria">
+				<Font size="35" name="sans-serif" style="bold"/>
+			</Label>
+		</HBox>
+		<HBox>
+			<VBox width="20">
+			<Label name="warmup" height="25">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Label name="arm" height="25">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Label name="startsample" height="25">
+			  	<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Label name="endsample" height="25">
+			 	<Font size="16" name="sans-serif" style="bold"/>
+		  	</Label>
+			<Label name="maxlossleft" height="25">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Label name="minlossleft" height="25">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Label name="maxlossright" height="25">
+			  	<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Label name="minlossright" height="25">
+			 	<Font size="16" name="sans-serif" style="bold"/>
+		  	</Label>
+			<Label name="maxlossdelta" height="25">
+			 	<Font size="16" name="sans-serif" style="bold"/>
+		  	</Label>
+		</VBox>
+		<VBox width="75">
+			<Widget height="25" id="lc_tablecell24" class="com.bepco.gui.NumberBox">
+		    	<DataSource tagname="LCWarmupTime" messagetype="Subscribe"/>
+				<DataSource tagname="LCWarmupTimeBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>        		
+			</Widget>
+            <Widget height="25" id="lc_tablecell26" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="ArmSpeed" messagetype="Subscribe"/>
+				<DataSource tagname="ArmSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+			<Widget height="25" id="lc_tablecell28" class="com.bepco.gui.NumberBox">
+             	<DataSource tagname="LCSampleSpeedStart" messagetype="Subscribe"/>
+				<DataSource tagname="LCSampleSpeedStartBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+            <Widget height="25" id="lc_tablecell30" class="com.bepco.gui.NumberBox">
+            	<DataSource tagname="LCSampleSpeedEnd" messagetype="Subscribe"/>
+				<DataSource tagname="LCSampleSpeedEndBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+          	</Widget>
+<!-- change me!!! -->
+		<Widget height="25" id="machine_loss_max_left_br" class="com.bepco.gui.NumberBox">
+            	<DataSource tagname="MachineLossMaxLeft" messagetype="Subscribe"/>
+				<DataSource tagname="MachineLossMaxLeftBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+          	</Widget>
+			<Widget height="25" id="machine_loss_min_left_br" class="com.bepco.gui.NumberBox">
+            	<DataSource tagname="MachineLossMinLeft" messagetype="Subscribe"/>
+				<DataSource tagname="MachineLossMinLeftBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+          	</Widget>
+            <Widget height="25" id="machine_loss_max_right_br" class="com.bepco.gui.NumberBox">
+            	<DataSource tagname="MachineLossMaxRight" messagetype="Subscribe"/>
+				<DataSource tagname="MachineLossMaxRightBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+          	</Widget>
+            <Widget height="25" id="machine_loss_min_right_br" class="com.bepco.gui.NumberBox">
+            	<DataSource tagname="MachineLossMinRight" messagetype="Subscribe"/>
+				<DataSource tagname="MachineLossMinRightBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+          	</Widget>
+            <Widget height="25" id="machine_loss_max_br" class="com.bepco.gui.NumberBox">
+            	<DataSource tagname="MachineLossMaxDelta" messagetype="Subscribe"/>
+				<DataSource tagname="MachineLossMaxDeltaBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.##}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+          	</Widget>
+		</VBox>
+		</HBox>
+        </VBox>
+    </Layout>
+  </XmlWidgetPanel>
+</RtGuiConfig>
+

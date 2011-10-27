@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+<!-- 
+
+-->
+
+<RtGuiConfig>
+    <Metadata author="Burke Porter, Inc" version="1.0"
+      description="JNAP implementation of the Power Supply view."/>
+
+    <XmlWidgetPanel id="PowerDisplay">
+
+        <Layout>
+            <HBox height="675" width="1000" posX="0" posY="0" border="false">
+                <Widget height="675" width="1000" id="JeepPower" class="com.bepco.gui.ImagePhaseBox">
+                    <DataSource tagname="CableConnect" messagetype="Subscribe"/>
+                </Widget>
+            </HBox>
+        </Layout>
+
+
+    </XmlWidgetPanel>
+</RtGuiConfig>
+

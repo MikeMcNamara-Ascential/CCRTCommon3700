@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtReportConfig SYSTEM "resource:///com/bepco/rtc/report/rtreportconfig.dtd">
+
+<RtReportConfig>
+    <ReportLayout>
+        <Title>Relatorio de Teste</Title>
+        <TestIdBlock>
+            <Column>
+                <ServerTag tagname="DriverNumber" label="Nr.de Producao"/>
+                <ServerTag tagname="ProductionNumber" label=""/>
+                <ServerTag tagname="VehicleProgram" label="Programa Aplicado"/>
+                <Timestamp/>
+            </Column>
+        </TestIdBlock>
+        <TestResultsBlock>
+            <Column>
+                <TestProcess showdetail="all" tagname="MachineTachPassFail" label="Teste de Tacografo"/>
+                <TestProcess showdetail="all" tagname="EmissionsOverallTest" label="Teste de Torque"/>
+                <TestProcess showdetail="all" tagname="BrakeOverallTest" label="Teste de Freio"/>
+                <TestProcess showdetail="all" tagname="BrakeAnalyzeParkBrake" label="Freio de Estacionamento"/>
+                <TestProcess showdetail="all" tagname="TransmissionAccelerateInReverse" label="Marcha a Re"/>
+                <TestProcess showdetail="all" tagname="AxleOverallTest" label="Bloqueio de Eixo"/>
+                <TestProcess showdetail="all" tagname="MachineDriverPassFail" label="Interpretacao do Operador"/>
+            </Column>
+        </TestResultsBlock>
+
+    </ReportLayout>
+
+</RtReportConfig>
+
+
+

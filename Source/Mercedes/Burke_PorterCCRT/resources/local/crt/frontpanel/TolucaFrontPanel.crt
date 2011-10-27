@@ -1,0 +1,1010 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+<!-- 
+  $Revision: 1.1 $
+-->
+
+<RtGuiConfig> 
+  <Metadata author="Burke Porter, Inc" version="1.0"
+	description="Standard implementation of the Front Panel view."/>
+
+  <XmlWidgetPanel id="FrontPanel">
+	<Layout>
+
+      <!-- Row 1 of 4  -->	  
+		
+		<!-- test subsystems pass/fail widgets -->
+		<VBox height="660" width='100' posX="0" posY="0" border="false">
+		  <Widget width='100' height='24'  id="emiss" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="EmissionsOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="trans" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="TransmissionOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="cruise" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="SpeedControlOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="brake" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="BrakeOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="xfer" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="TransferCaseOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="axle" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="AxleOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="skim" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="SKIMOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="airbag" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="AirbagOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="cluster" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="ClusterOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="alarm" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="RemoteKeylessEntryOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="running" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="DTRLOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="steering" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="SteeringOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="chime" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="ChimeOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="tpm" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="TPMOverallTest" messagetype="Subscribe"/>
+		  </Widget>
+		<!-- empty boxes 
+		  <Widget width='100' height='24'  id="BLANK_1" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="NOTHING" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="BLANK_2" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="NOTHING" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="BLANK_3" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="NOTHING" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="BLANK_4" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="NOTHING" messagetype="Subscribe"/>
+		  </Widget>	
+		  <Widget width='100' height='24'  id="BLANK_5" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="NOTHING" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="BLANK_6" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="NOTHING" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="BLANK_7" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="NOTHING" messagetype="Subscribe"/>
+		  </Widget>
+		  <Widget width='100' height='24'  id="BLANK_8" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="NOTHING" messagetype="Subscribe"/>
+		  </Widget>
+		 --> 	  
+		</VBox>
+
+	
+        <!-- Wheel speeds -->
+        <VBox height="200" width="300" posX="110" posY="0" border="false">
+		<HBox height="10"/>
+		<HBox height="20">
+			<Label name="force">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+		</HBox>
+		<!-- Wheel Speeds -->
+		<HBox width="300" border="false">
+			<VBox width="110">
+				<HBox>
+					<Label name="lf">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+				<Widget id="_lf" class="com.bepco.gui.NumberBox" width="90">
+			  		<DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
+			  		<TextBoxConfig bgcolor="lfcolor">
+						<Font size="24" name="sans-serif" style="plain"/>
+			  		</TextBoxConfig>
+				</Widget>
+				<HBox>
+					<Label name="speed">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+			</VBox>
+			<Widget id="_lfg" class="com.bepco.gui.VerticalBarGraph" height="75" width="30">
+			  <DataSource tagname="LFForce" messagetype="Read" datarate="10" />
+			  <DataSource tagname="LFForceTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			  <BarGraphConfig domainhigh="600" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+
+			<VBox width="20"/>
+
+			<Widget id="_rfg" class="com.bepco.gui.VerticalBarGraph" width="30" height="75" >
+			  <DataSource tagname="RFForce" messagetype="Read" datarate="10" />
+              <DataSource tagname="RFForceTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			  <BarGraphConfig domainhigh="600" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="110">
+				<HBox>
+					<Label name="rf">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+				<Widget id="_rf" class="com.bepco.gui.NumberBox" width="90">
+			  		<DataSource tagname="RFSpeed" messagetype="Read" datarate="10" />
+			  		<TextBoxConfig bgcolor="rfcolor">
+						<Font size="24" name="sans-serif" style="plain"/>
+			  		</TextBoxConfig>  
+				</Widget>
+				<HBox>
+					<Label name="speed">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+			</VBox>
+
+		</HBox>
+		<HBox height="10"/>
+		<HBox width="300">
+			<VBox width="110">
+				<HBox>
+					<Label name="lr">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+				<Widget id="_lr" class="com.bepco.gui.NumberBox" width="90">
+			  		<DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
+			  		<TextBoxConfig bgcolor="lrcolor">
+						<Font size="24" name="sans-serif" style="plain"/>
+			  		</TextBoxConfig>  
+				</Widget>
+				<HBox>
+					<Label name="speed">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+			</VBox>
+
+			<Widget id="_lrg" class="com.bepco.gui.VerticalBarGraph" height="75" width="30" >
+			  <DataSource tagname="LRForce" messagetype="Read" datarate="10" />
+              <DataSource tagname="LRForceTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			  <BarGraphConfig domainhigh="600" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="20"/>
+
+			<Widget id="_rrg" class="com.bepco.gui.VerticalBarGraph" width="30" height="75" >
+			  <DataSource tagname="RRForce" messagetype="Read" datarate="10" />
+              <DataSource tagname="RRForceTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			  <BarGraphConfig domainhigh="600" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+
+			<VBox width="110">
+				<HBox>
+					<Label name="rr">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+				<Widget id="_rr" class="com.bepco.gui.NumberBox" width="90">
+			  		<DataSource tagname="RRSpeed" messagetype="Read" datarate="10" />
+			  		<TextBoxConfig bgcolor="rrcolor">
+						<Font size="24" name="sans-serif" style="plain"/>
+			  		</TextBoxConfig>  
+				</Widget>
+				<HBox>
+					<Label name="speed">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+			</VBox>
+		</HBox>
+			
+        </VBox>
+		
+		<!-- Test Drive Status traffic light indicator
+			NoVIN = OFF
+			TestReady = GREEN
+			ProcessingVIN = YELLOW
+			ReadVIN = RED
+		-->
+		<VBox height="200" width="140" posX="410" posY="0" border="false">
+			<HBox height="10"/>
+			<HBox height="20">
+				<Label name="vinread">
+					<Font size="14" name="sans-serif" style="bold"/>
+				</Label>
+			</HBox>
+			<HBox height="5"/>
+			<VBox height="160">
+				<Widget id="trafficlight" class="com.bepco.gui.ImagePhaseBox" 
+					width="58" height="147">
+					<DataSource tagname="VINReadStatus" messagetype="Subscribe"/>
+				</Widget>
+			</VBox> 
+		</VBox>
+		
+		<!-- top right corner -->
+		<!-- VIN STUFF -->
+		<HBox height="38" width="450" posX="550" posY="0" border="true">
+			<!-- spacer -->
+			<VBox width="100"/>
+			<Label name="vin">
+				<Font size="18" name="sans-serif" style="plain"/>
+			</Label>
+			<!-- spacer -->
+			<VBox width="20"/>
+			<Widget id="_vin" width="250" class="com.bepco.gui.TextBox">
+				<DataSource tagname="VINDisplay" messagetype="Subscribe"/>
+				<DataSource tagname="VINDisplayBGColor" messagetype="Subscribe"
+					tagrole="backgroundcolor" />
+  				<TextBoxConfig>
+					<Font size="18" name="sans-serif" style="plain"/>
+				</TextBoxConfig>  
+			</Widget>
+		</HBox>
+		<HBox height="170" width="450" posX="550" posY="30" border="true">
+			<HBox height="180" posX="0" posY="0" border="false">
+				<!-- Left Pane Widget VBox-->
+				<VBox width="20">
+					<Label name="bodystyle">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="driverid">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="performaborttest">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="transmission">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="brake">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="speedcontrol">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="transfercase">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="daytimerunninglamps">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="axle">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+				</VBox>
+				<!-- spacer -->
+				<VBox width="3"/>
+				<VBox>
+					<Widget id="_bodystyle" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="BodyStyle" messagetype="Subscribe"/>
+						<DataSource tagname="BodyStyleBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+  						<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_driverid" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="DriverNumberDisplay" messagetype="Subscribe"/>
+						<DataSource tagname="DriverNumberDisplayBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+  						<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_performaborttest" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="PerformAbortTest" messagetype="Subscribe"/>
+						<DataSource tagname="PerformAbortTestBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+  						<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_transmission" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="Transmission" messagetype="Subscribe"/>
+						<DataSource tagname="TransmissionBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+  						<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_brake" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="BrakeType" messagetype="Subscribe"/>
+						<DataSource tagname="BrakeTypeBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+							<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_speedcontrol" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="SpeedControl" messagetype="Subscribe"/>
+						<DataSource tagname="SpeedControlBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	 						<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_transfercase" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="TransferCase" messagetype="Subscribe"/>
+						<DataSource tagname="TransferCaseBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	  					<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_daytimerunninglamps" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="DaytimeRunningLamps" messagetype="Subscribe"/>
+						<DataSource tagname="DaytimeRunningLampsBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	  					<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_axle" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="Axle" messagetype="Subscribe"/>
+						<DataSource tagname="AxleBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	  					<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+				</VBox>
+			</HBox>
+			<!-- spacer -->
+			<HBox width="10"/>
+			<HBox height="200" border="false">
+				<VBox>
+					<Label name="powersteering">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="highspeedchime">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="sentrykeyimmoblizer">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="airbag">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="cluster">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="remotekeylessentry">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="tirepressuremonitor">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="markettype">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+					<Label name="suspension">
+						<Font size="12" name="sans-serif" style="plain"/>
+					</Label>
+				</VBox>
+				<!-- spacer -->
+				<VBox width="3"/>
+				<VBox>
+					<Widget id="_powersteering" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="PowerSteering" messagetype="Subscribe"/>
+						<DataSource tagname="PowerSteeringBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+  						<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_highspeedchime" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="HighSpeedChime" messagetype="Subscribe"/>
+						<DataSource tagname="HighSpeedChimeBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+  						<TextBoxConfig>
+						<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_sentrykeyimmobilizer" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="SentryKeyImmobilizer" messagetype="Subscribe"/>
+						<DataSource tagname="SentryKeyImmobilizerBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+						<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_airbag" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="Airbag" messagetype="Subscribe"/>
+						<DataSource tagname="AirbagBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	 						<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_cluster" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="Cluster" messagetype="Subscribe"/>
+						<DataSource tagname="ClusterBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	  					<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_remotekeylessentry" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="RemoteKeylessEntry" messagetype="Subscribe"/>
+						<DataSource tagname="RemoteKeylessEntryBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	  					<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+							</TextBoxConfig>  
+					</Widget>
+					<Widget id="_tirepressuremonitor" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="TirePressureMonitor" messagetype="Subscribe"/>
+						<DataSource tagname="TirePressureMonitorBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	  					<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_markettype" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="MarketType" messagetype="Subscribe"/>
+						<DataSource tagname="MarketTypeBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	  					<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+					<Widget id="_suspension" width="130" class="com.bepco.gui.TextBox">
+						<DataSource tagname="Suspension" messagetype="Subscribe"/>
+						<DataSource tagname="SuspensionBGColor" messagetype="Subscribe"
+							tagrole="backgroundcolor" />
+	  					<TextBoxConfig>
+							<Font size="12" name="sans-serif" style="plain"/>
+						</TextBoxConfig>  
+					</Widget>
+				</VBox>			
+			</HBox>
+		</HBox>
+				
+			
+	  <!-- Row 2 of 4: Prompt message text box -->
+	  <Widget id="prompts" class="com.bepco.gui.PromptBox" posX="100" posY="200" width="900" height="50" border="true">
+	      <DataSource tagname="PromptBox1" messagetype="Subscribe"  />
+		<DataSource tagname="PromptBox1BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+		<TextBoxConfig>
+			<Font size="24" name="sans-serif" style="plain"/>
+		</TextBoxConfig>  
+	  </Widget>
+  	  <Widget id="prompts3" class="com.bepco.gui.PromptBox" posX="100" posY="250" width="900" height="50" border="true">
+		  <DataSource tagname="PromptBox2" messagetype="Subscribe"  />
+	    <DataSource tagname="PromptBox2BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+		<TextBoxConfig>
+			<Font size="24" name="sans-serif" style="plain"/>
+		</TextBoxConfig>  
+	  </Widget>
+
+      <!-- Row 3 of 4 -->
+		<!-- drag, brake -->
+		<VBox width="225" height="230" posX="100" posY="300" border="true">
+      	  <HBox height="42">
+      	    <Label height="42" width="65" name="blank">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Label height="42" width="65" name="drag">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Label height="42" width="70" name="brake">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+		  </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="lf">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+				
+		<Widget height="38" width="65" id="LFDrag" class="com.bepco.gui.NumberBox">
+              	<DataSource tagname="LFDragValue" messagetype="Subscribe"/>
+		<DataSource tagname="LFDragBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>  
+            </Widget>
+	    <Widget height="38" width="70" id="LFForce" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="LFForceValue" messagetype="Subscribe"/>
+		    <DataSource tagname="LFForceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>  
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="rf">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+
+		<Widget height="38" width="65" id="RFDrag" class="com.bepco.gui.NumberBox">
+		<DataSource tagname="RFDragValue" messagetype="Subscribe"/>
+		<DataSource tagname="RFDragBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+            <Widget height="38" width="70" id="RFBrake" class="com.bepco.gui.NumberBox">
+		<DataSource tagname="RFForceValue" messagetype="Subscribe"/>
+		<DataSource tagname="RFForceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="lr">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+
+            <Widget height="38" width="65" id="LRDrag" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="LRDragValue" messagetype="Subscribe"/>
+		    <DataSource tagname="LRDragBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+	    <Widget height="38" width="70" id="LRForce" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="LRForceValue" messagetype="Subscribe"/>
+		    <DataSource tagname="LRForceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="rr">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+
+            <Widget height="38" width="65" id="RRDrag" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="RRDragValue" messagetype="Subscribe"/>
+		    <DataSource tagname="RRDragBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+            <Widget height="38" width="70" id="RRForce" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="RRForceValue" messagetype="Subscribe"/>
+		    <DataSource tagname="RRForceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          
+        </VBox>
+        
+        <!-- ABS -->
+        <VBox width="225" height="230" posX="325" posY="300" border="true">
+          <HBox height="42">
+            <Label height="42" width="65" name="abs">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Label height="42" width="65" name="red">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Label height="42" width="70" name="rec">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="lf">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget height="38" width="65" id="LFABSReductionValue" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="LFABSReductionValue" messagetype="Subscribe"/>
+				<DataSource tagname="LFABSReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+	    <Widget height="38" width="70" id="LFABSRecoveryValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="LFABSRecoveryValue" messagetype="Subscribe"/>
+		    <DataSource tagname="LFABSRecoveryBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="rf">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget height="38" width="65" id="RFABSReductionValue" class="com.bepco.gui.NumberBox">
+			<DataSource tagname="RFABSReductionValue" messagetype="Subscribe"/>
+		    	<DataSource tagname="RFABSReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+	    <Widget height="38" width="70" id="RFABSRecoveryValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="RFABSRecoveryValue" messagetype="Subscribe"/>
+		    <DataSource tagname="RFABSRecoveryBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="lr">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget height="38" width="65" id="LRABSReductionValue" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="LRABSReductionValue" messagetype="Subscribe"/>
+				<DataSource tagname="LRABSReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+	    <Widget height="38" width="70" id="LRABSRecoveryValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="LRABSRecoveryValue" messagetype="Subscribe"/>
+		    <DataSource tagname="LRABSRecoveryBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="rr">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Widget height="38" width="65" id="RRReductionValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="RRABSReductionValue" messagetype="Subscribe"/>
+		    <DataSource tagname="RRABSReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+	    <Widget height="38" width="70" id="RRABSRecoveryValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="RRABSRecoveryValue" messagetype="Subscribe"/>
+		    <DataSource tagname="RRABSRecoveryBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          
+        </VBox>
+        
+        <!-- TCS-->
+        <VBox width="225" height="230" posX="550" posY="300" border="true">
+          <HBox height="42">
+            <Label height="42" width="65" name="tcs">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Label height="42" width="65" name="red">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Label height="42" width="70" name="rec">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="lf">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget height="38" width="65" id="LFTractionControlReductionValue" class="com.bepco.gui.NumberBox">
+              	<DataSource tagname="LFTractionControlReductionValue" messagetype="Subscribe"/>
+		<DataSource tagname="LFTractionControlReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+            <Widget height="38" width="70" id="LFTractionControlRecoveryValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="LFTractionControlRecoveryValue" messagetype="Subscribe"/>
+		    <DataSource tagname="LFTractionControlRecoveryBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="rf">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Widget height="38" width="65" id="RFTractionControlReductionValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="RFTractionControlReductionValue" messagetype="Subscribe"/>
+		    <DataSource tagname="RFTractionControlReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+            <Widget height="38" width="70" id="RFTractionControlRecoveryValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="RFTractionControlRecoveryValue" messagetype="Subscribe"/>
+		    <DataSource tagname="RFTractionControlRecoveryBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="lr">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget height="38" width="65" id="LRTractionControlReductionValue" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="LRTractionControlReductionValue" messagetype="Subscribe"/>
+				<DataSource tagname="LRTractionControlReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+	    <Widget height="38" width="70" id="LRTractionControlRecoveryValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="LRTractionControlRecoveryValue" messagetype="Subscribe"/>
+		    <DataSource tagname="LRTractionControlRecoveryBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="65" name="rr">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+			<Widget height="38" width="65" id="RRTractionControlReductionValue" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="RRTractionControlReductionValue" messagetype="Subscribe"/>
+				<DataSource tagname="RRTractionControlReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+	    <Widget height="38" width="70" id="RRTractionControlRecoveryValue" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="RRTractionControlRecoveryValue" messagetype="Subscribe"/>
+		    <DataSource tagname="RRTractionControlRecoveryBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+        </VBox>
+        
+        <!-- Balance  -->
+        <VBox width="225" height="230" posX="775" posY="300" border="true">
+          <HBox height="38">
+            <Label height="38" width="200" name="balance">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="100" name="front">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Widget height="38" width="100" id="FrontBalance" class="com.bepco.gui.NumberBox">
+		    <DataSource tagname="FrontBalanceValue" messagetype="Subscribe"/>
+				<DataSource tagname="FrontBalanceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="100" name="rear">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+            <Widget height="38" width="100" id="RearBalance" class="com.bepco.gui.NumberBox">
+              	<DataSource tagname="RearBalanceValue" messagetype="Subscribe"/>
+				<DataSource tagname="RearBalanceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+          <HBox height="38">
+            <Label height="38" width="100" name="f/r">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>    
+			<Widget height="38" width="100" id="FRBalance" class="com.bepco.gui.NumberBox">
+				<DataSource tagname="FrontToRearBalanceValue" messagetype="Subscribe"/>
+				<DataSource tagname="FrontToRearBalanceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+				<TextBoxConfig format="{0,number,#.0}">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</TextBoxConfig>
+            </Widget>
+          </HBox>
+		  <HBox height="38">
+			<!-- removed F/T widget -->
+          </HBox>
+          
+          
+        </VBox>
+        
+        <!-- Other  -->
+<!--
+        <VBox width="200" height="260" posX="800" posY="280" border="true">
+          <HBox height="45">
+            <Label height="45" width="100" name="tireindex"/>
+            <Widget height="45" width="100" id="tablecell41" class="com.bepco.gui.NumberBox">
+              <DataSource tagname="data1" messagetype="Subscribe"/>
+            </Widget>
+          </HBox>
+          <HBox height="45">
+            <Label height="45" width="100" name="tirerpm"/>
+            <Widget height="45" width="100" id="tablecell42" class="com.bepco.gui.NumberBox">
+              <DataSource tagname="data1" messagetype="Subscribe"/>
+            </Widget>
+          </HBox>
+          <HBox height="45">
+            <Label height="45" width="100" name="sensorcross"/>
+            <Widget height="45" width="100" id="tablecell43" class="com.bepco.gui.NumberBox">
+              <DataSource tagname="data1" messagetype="Subscribe"/>
+            </Widget>
+          </HBox>
+          <HBox height="45">
+            <Label height="45" width="100" name="wheelspeed"/>
+            <Widget height="45" width="100" id="tablecell44" class="com.bepco.gui.NumberBox">
+              <DataSource tagname="data1" messagetype="Subscribe"/>
+            </Widget>
+          </HBox>
+          <HBox height="45">
+            <Label height="45" width="100" name="horsepower"/>
+            <Widget height="45" width="100" id="tablecell45" class="com.bepco.gui.NumberBox">
+              <DataSource tagname="data1" messagetype="Subscribe"/>
+            </Widget>
+          </HBox>
+          <HBox height="45">
+            <Label height="45" width="100" name="axleratio"/>
+            <Widget height="45" width="100" id="tablecell46" class="com.bepco.gui.NumberBox">
+              <DataSource tagname="data1" messagetype="Subscribe"/>
+            </Widget>
+          </HBox>
+          <HBox height="10"/>
+        </VBox>
+-->
+        <!-- END code generated by tablegen.pl -->
+
+      
+      <!-- Row 4 of 4 -->
+
+        <!-- Test Failures -->
+        <VBox height="150" width="334" posX="0" posY="530" border="true">
+			<HBox>
+		  		<Label name="testfailures" width="334" height="30">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</Label>
+			</HBox>
+			<Widget height="105" width="334" id="testfailures" class="com.bepco.gui.ListBox">
+		    	<DataSource tagname="AllFailures" messagetype="Subscribe"/>
+				<ScrollBoxConfig stringmap="com.bepco.rtc.properties.TestFailureStrings">
+			  		<Font style="bold" name="sans-serif" size="14"/>
+      	    	</ScrollBoxConfig>
+		  	</Widget>
+        </VBox>
+        
+        <!-- LED Panel -->
+        <VBox height="150" width="333" posX="333" posY="530" border="true">
+	      <!-- Inputs from PLC -->
+<!--
+	      <HBox width="333">
+			<HBox width="162" height="30">
+				<Label name="fromplc">
+					<Font style="bold" name="sans-serif" size="14"/>
+				</Label>
+			</HBox>
+
+			<VBox width="20"/>
+
+			<HBox width="162" height="30">
+				<Label name="toplc">
+					<Font style="bold" name="sans-serif" size="14"/>
+				</Label>
+			</HBox>
+		  </HBox>
+-->
+
+    	  <HBox height="140">
+			  <VBox>
+				<Widget id="powersense" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="PowerSense" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="vmeready" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="VMESystemReady" messagetype="Subscribe"/>
+				</Widget>
+					
+				<Widget id="plcready" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="PLCSystemIsReady" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="rackfault" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="PLCRackFault" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="vehiclepresent" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="VehiclePresent" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="cableconnect" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="CableConnect" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="hostfault" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="WCCFatalFault" messagetype="Subscribe"/>
+				</Widget>
+
+			  </VBox>
+
+			  <!-- SPACER -->
+			  <VBox width="10"/>
+
+			  <VBox>
+				<Label name="powersense"/>
+				<Label name="vmeready"/>
+				<Label name="plcready"/>
+				<Label name="rackfault"/>
+				<Label name="vehiclepresent"/>
+				<Label name="cableconnect"/>
+				<Label name="hostfault"/>
+			  </VBox>
+
+			  <!-- SPACER -->
+			  <VBox width="30"/>
+	
+			  <VBox>
+				<Widget id="driveenable" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="EnableAllRollDrives" messagetype="Subscribe"/>
+				</Widget>
+				
+				<Widget id="rollsup" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="RollsUpElevDown" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="rollsdown" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="RollsDownElevUp" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="rearwd" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="RearWheelDriveToPLC" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="allwd" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="AllWheelDrive" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="zerospeed" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="ZerospeedToPLC" messagetype="Subscribe"/>
+				</Widget>
+
+				<Widget id="teststatuswidget" class="com.bepco.gui.ImagePhaseBox">
+					<DataSource tagname="TestInProgress" messagetype="Subscribe"/>
+				</Widget>
+
+			  </VBox>
+
+			  <!-- SPACER -->
+			  <VBox width="10"/>
+
+			  <VBox>
+				<Label name="driveenable"/>
+				<Label name="rollsup"/>
+				<Label name="rollsdown"/>
+				<Label name="rearwd"/>
+				<Label name="allwd"/>
+				<Label name="zerospeed"/>
+				<Label name="teststatuswidget"/>
+			  </VBox>
+
+			</HBox>
+        </VBox>
+
+        <!-- Machine Faults -->
+        <VBox height="150" width="334" posX="666" posY="530" border="true">
+			<HBox>
+		  		<Label name="machinefaults" width="334" height="30">
+					<Font size="16" name="sans-serif" style="bold"/>
+				</Label>
+			</HBox>
+			<Widget height="105" width="334" id="machine_faults" class="com.bepco.gui.ListBox">
+		    	<DataSource tagname="AllFaults" messagetype="Subscribe"/>
+				<ScrollBoxConfig stringmap="com.bepco.rtc.properties.MachineFaultStrings">
+			  		<Font style="bold" name="sans-serif" size="14"/>
+      	    	</ScrollBoxConfig>
+		  	</Widget>
+        </VBox>
+
+    </Layout>
+  </XmlWidgetPanel>
+</RtGuiConfig>
+

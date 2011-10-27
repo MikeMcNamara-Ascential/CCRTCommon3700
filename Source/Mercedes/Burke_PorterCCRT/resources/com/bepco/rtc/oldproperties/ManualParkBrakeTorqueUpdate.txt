@@ -1,0 +1,3 @@
+E:\Rewrite\Configuration\Components\Brake\KwpKnorrTC.xml
+Setup\Parameters\ManualParkBrakeTorque
+Default = -150

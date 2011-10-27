@@ -1,0 +1,8 @@
+# This properties file contains all the information strings that
+# relate to the configuration of our printing system.
+#
+# $Revision: 1.1 $
+
+reportprinter.testpage.url=/com/bepco/rtc/report/ReportTestPage.html
+ticketprinter.testpage.url=/com/bepco/rtc/report/ReportTestPage.html
+graphicsprinter.testpage.url=/com/bepco/rtc/images/CCRT_splash.png

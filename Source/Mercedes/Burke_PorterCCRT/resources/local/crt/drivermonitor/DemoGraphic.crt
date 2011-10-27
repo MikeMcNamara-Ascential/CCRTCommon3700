@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+
+<!-- 
+  First stab at writing a config file for the GUI panels.
+  Config for specific XMLWidgetPanels is under the
+  $Revision: 1.3 $
+-->
+
+<RtGuiConfig> 
+  <Metadata author="Burke Porter, Inc" version="1.0"
+	description="Demo drivers monitor with background graphic"/>
+  <XmlWidgetPanel id="DriverMonitor">
+  <Layout bgimage="/home/john/cvswork/bepco/dashboard.jpg">
+<!-- row 1 of three -->
+
+<!-- blade angle x=110, y=222 -->
+<!-- TPS - Blade angle -->
+		<HBox posX='170' posY='282' width='200' height='180'>
+		  <Widget id="blade" height="150" width="150" class="com.bepco.gui.RadialGauge"  >
+			<DataSource tagname="TPSValue" messagetype="Read" datarate="10"/>
+			<DataSource tagname="TPSTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			<DataSource tagname="TPSActive" messagetype="Subscribe" tagrole="enabled"/>
+			<RadialGaugeConfig placement="southwest" startangle="270" stopangle="360" domainlow="0" domainhigh="100" targetlow="33" targethigh="66" bgcolor="bgcolor" textcolor="white" >
+			  <Font size="20" name="sans-serif" style="plain"/>
+			</RadialGaugeConfig>  
+		  </Widget>
+		</HBox>
+
+
+<!-- START OF Speedometer ================================= -->
+	  <HBox posX="410" posY="190" width="250" height="230">
+<!-- Speedometer gauge -->
+		<Widget id="speed"  width="218" height="198" class="com.bepco.gui.RadialGauge"  >
+		  <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
+		  <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
+		  <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" bgcolor="bgcolor" textcolor="white" >
+			<Font size="20" name="sans-serif" style="plain"/>
+		  </RadialGaugeConfig>
+		</Widget>
+	  </HBox>
+<!-- END OF Speedometer  =================================== -->
+
+
+<!-- START OF Brakeforce  ================================= -->
+	  <HBox posX="680" posY="272" width="230" height="210">
+<!-- Brake force gauge -->
+		<Widget id="brakeforce"  width="200" height="178" class="com.bepco.gui.RadialGauge" bgcolor="bgcolor">
+		  <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10"/>
+		  <DataSource tagname="BrakeTarget" tagrole="targetrange" messagetype="Subscribe"/>
+		  <DataSource tagname="BrakeActive" messagetype="Subscribe" tagrole="enabled"/>
+		  <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="600" targetlow="0" targethigh="0" bgcolor="bgcolor" textcolor="white"  >  
+			<Font size="30" name="sans-serif" style="plain"/>
+		  </RadialGaugeConfig>  
+		</Widget>
+    </HBox>
+<!-- END OF BrakeForce  =================================== -->
+
+
+
+
+<!-- Row 2 of 3 -->
+	  <HBox border="false" posX="830" posY="0" width="180" height="240">
+	 
+<!-- subsystem test pass/fail widgets 
+	TestStates:
+		TestInProgress 	- Blue
+		Timeout		- Orange
+		Pass		- Green
+		Fail		- Red
+		Abort		- Yellow
+-->
+		<VBox width='170'>
+		  <Widget width='150' height='31' id="emiss" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="EmissionsOverallTest" messagetype="Subscribe"/>
+			<TextBoxConfig bgcolor="bgcolor">
+				<Font size="22" name="serif" style="bold"></Font>
+			</TextBoxConfig>
+		  </Widget>
+		  <Widget width='150' height='31'  id="trans" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="TransmissionOverallTest" messagetype="Subscribe"/>
+			<TextBoxConfig bgcolor="bgcolor">
+				<Font size="22" name="serif" style="bold"></Font>
+			</TextBoxConfig>
+		  </Widget>		        
+		  <Widget width='150' height='31'  id="cruise" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="SpeedControlOverallTest" messagetype="Subscribe"/>
+			<TextBoxConfig bgcolor="bgcolor">
+				<Font size="22" name="serif" style="bold"></Font>
+			</TextBoxConfig>
+		  </Widget>
+		  <Widget width='150' height='31'  id="brake" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="BrakeOverallTest" messagetype="Subscribe"/>
+			<TextBoxConfig bgcolor="bgcolor">
+				<Font size="22" name="serif" style="bold"></Font>
+			</TextBoxConfig>
+		  </Widget>
+		  <Widget width='150' height='31'  id="skim" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="SKIMOverallTest" messagetype="Subscribe"/>
+			<TextBoxConfig bgcolor="bgcolor">
+				<Font size="22" name="serif" style="bold"></Font>
+			</TextBoxConfig>
+		  </Widget>
+		  <Widget width='150' height='31'  id="airbag" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="AirbagOverallTest" messagetype="Subscribe"/>
+			<TextBoxConfig bgcolor="bgcolor">
+				<Font size="22" name="serif" style="bold"></Font>
+			</TextBoxConfig>
+		  </Widget>
+		  <Widget width='150' height='31'  id="cluster" class="com.bepco.gui.OverallTestPhaseBox" >
+			<DataSource tagname="ClusterOverallTest" messagetype="Subscribe"/>
+			<TextBoxConfig bgcolor="bgcolor">
+				<Font size="22" name="serif" style="bold"></Font>
+			</TextBoxConfig>
+		  </Widget>
+		</VBox>
+	</HBox>
+<!-- END OF subsystem test pass/fail widgets ========================================== -->
+
+<!-- START of Test Failures Box===================================================== -->
+		<HBox border="true" posX="10" posY="708" height="50" width="980">
+
+			<HBox>
+			  <Label name="testfailures">
+				<Font size="16" name="sans-serif" style="bold"/>
+			  </Label>
+			</HBox>
+			<Widget height="50" width="850" id="testfailures" class="com.bepco.gui.ListBox" bgcolor="bgcolor"> 
+			  <DataSource tagname="AllFailures" messagetype="Subscribe"/>
+			  <ScrollBoxConfig stringmap="com.bepco.rtc.properties.TestFailureStrings" scrollbar="false">
+				<Font style="bold" name="serif" size="16"/>
+			  </ScrollBoxConfig>
+			</Widget>
+
+		</HBox>		  
+<!-- END of Test Failures Box ===================================================== -->
+		  
+
+
+<!-- START of VIN BOX ============================================================== -->
+	  <HBox posX='7' posY='10' width='300' height='58' border="false">
+		<!-- VIN -->
+		  <Label name="vin" border="false" height='48' width='90'>
+			<Font size="32" name="sans-serif" style="plain"/>
+		  </Label>
+		  <Widget id="_vin" height='58' width="300" class="com.bepco.gui.TextBox" bgcolor="bgcolor">
+			<DataSource tagname="VINDisplay" messagetype="Subscribe" />
+			<DataSource tagname="VINDisplayBGColor" messagetype="Subscribe"
+			  tagrole="backgroundcolor" />
+			<TextBoxConfig>
+			  <Font size="24" name="sans-serif" style="plain"/>
+			</TextBoxConfig>  
+		  </Widget>
+		</HBox>
+<!-- START of Driver ID ============================================================ -->
+	  <HBox posX='380' posY='10' width='300' height='58' border="false">	
+			<!-- DRIVER ID -->
+			  <Label name="driverid" border="false" height='48' width='140'>
+				<Font size="32" name="sans-serif" style="plain"/>
+			  </Label>	
+			  <Widget id="_driverid" height='58' width="300" class="com.bepco.gui.TextBox">
+				<DataSource tagname="DriverNumberDisplay" messagetype="Subscribe"/>
+				<DataSource tagname="DriverNumberDisplayBGColor" messagetype="Subscribe"
+				  tagrole="backgroundcolor" />
+				<TextBoxConfig>
+				  <Font size="24" name="sans-serif" style="plain"/>
+				</TextBoxConfig> 
+			  </Widget>
+	  </HBox>  
+
+<!-- END of Driver ID ============================================================== -->
+
+<!-- START OF Driver Prompt Boxes ================================= -->
+	  <Widget id="prompts1" class="com.bepco.gui.PromptBox" posX="10" posY="644" width="490" height="50" border="true" bgcolor="bgcolor">
+		<DataSource tagname="PromptBox1" messagetype="Subscribe" />
+		<DataSource tagname="PromptBox1BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+		<TextBoxConfig textcolor="black">
+		  <Font size="22" name="sans-serif" style="plain"/>
+		</TextBoxConfig>  
+	  </Widget>
+	  <Widget id="prompts2" class="com.bepco.gui.PromptBox" posX="500" posY="644" width="500" height="50" border="true" bgcolor="bgcolor">
+		<DataSource tagname="PromptBox2" messagetype="Subscribe" />
+	    <DataSource tagname="PromptBox2BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+		<TextBoxConfig>
+		  <Font size="22" name="sans-serif" style="plain"/>
+		</TextBoxConfig>  
+	  </Widget>
+<!-- END OF Driver Prompt Boxes ================================= -->
+
+	</Layout>
+  </XmlWidgetPanel>
+</RtGuiConfig>
+

@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+<!-- 
+
+-->
+
+<RtGuiConfig>
+    <Metadata author="Burke Porter, Inc" version="1.0"
+      description="Standard implementation of the Power Supply view."/>
+
+    <XmlWidgetPanel id="PowerDisplay">
+
+        <Layout>
+            <Label width="1020" height="30" posX="0" posY="5" name="powertitle">
+                <Font size="16" name="sans-serif" style="bold"/>
+            </Label>
+            <HBox height="70" width="1020" posX="0" posY="25" border="false">
+                <!-- Place bars in VBoxes with their corresponding NumberBox -->
+
+                <!-- Upper Positive 12 Volt Power Supply -->
+                <Label width="170" height="40" name="up12vps"/>
+                <Label width="170" height="40" name="lp12vps"/>
+                <Label width="170" height="40" name="up5vps"/>
+                <Label width="170" height="40" name="lp5vps"/>
+                <Label width="170" height="40" name="un12vps"/>
+                <Label width="170" height="40" name="ln12vps"/>
+            </HBox>
+            <HBox height="750" width="1020" posX="0" posY="0" border="false">
+                <VBox height="750" width="170" posX="0" posY="0" border="false">
+                    <Widget height="40" width="100" id="UP12VPS_c" class="com.bepco.gui.NumberBox">
+                        <DataSource tagname="UpperPos12VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <TextBoxConfig bgcolor="192 0 0" format="{0,number,+##.00;-##.00}" >
+                            <Font size="24" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget height="550" width="40" id="UP12VPS" class="com.bepco.gui.VerticalBarGraph">
+                        <DataSource tagname="UpperPos12VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <BarGraphConfig domainhigh="14" domainlow="-14" targethigh="13" targetlow="11.5" />
+                    </Widget>
+                </VBox>
+
+                <!-- Lower Positive 12 Volt Power Supply -->
+                <VBox height="750" width="170" posX="0" posY="0" border="false">
+                    <Widget height="40" width="100" id="LP12VPS_c" class="com.bepco.gui.NumberBox">
+                        <DataSource tagname="LowerPos12VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <TextBoxConfig bgcolor="192 0 0" format="{0,number,+##.00;-##.00}" >
+                            <Font size="24" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget height="550" width="40" id="LP12VPS" class="com.bepco.gui.VerticalBarGraph">
+                        <DataSource tagname="LowerPos12VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <BarGraphConfig domainhigh="14" domainlow="-14" targethigh="13" targetlow="11.5" />
+                    </Widget>
+                </VBox>
+
+                <!-- Upper Positive 5 Volt Power Supply -->
+                <VBox height="750" width="170" posX="0" posY="0" border="false">
+                    <Widget height="40" width="100" id="UP5VPS_c" class="com.bepco.gui.NumberBox">
+                        <DataSource tagname="UpperPos5VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <TextBoxConfig bgcolor="192 0 0" format="{0,number,+##.00;-##.00}" >
+                            <Font size="24" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget height="550" width="40" id="UP5VPS" class="com.bepco.gui.VerticalBarGraph">
+                        <DataSource tagname="UpperPos5VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <BarGraphConfig domainhigh="14" domainlow="-14" targethigh="6" targetlow="4.8" />
+                    </Widget>
+                </VBox>
+
+                <!-- Lower Positive 5 Volt Power Supply -->
+                <VBox height="750" width="170" posX="0" posY="0" border="false">
+                    <Widget height="40" width="100" id="LP5VPS_c" class="com.bepco.gui.NumberBox">
+                        <DataSource tagname="LowerPos5VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <TextBoxConfig bgcolor="192 0 0" format="{0,number,+##.00;-##.00}" >
+                            <Font size="24" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget height="550" width="40" id="LP5VPS" class="com.bepco.gui.VerticalBarGraph">
+                        <DataSource tagname="LowerPos5VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <BarGraphConfig domainhigh="14" domainlow="-14" targethigh="6" targetlow="4.8" />
+                    </Widget>
+                </VBox>
+
+                <!-- Upper Negative 12 Volt Power Supply -->
+                <VBox height="750" width="170" posX="0" posY="0" border="false">
+                    <Widget height="40" width="100" id="UN12VPS_c" class="com.bepco.gui.NumberBox">
+                        <DataSource tagname="UpperNeg12VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <TextBoxConfig bgcolor="192 0 0" format="{0,number,+##.00;-##.00}" >
+                            <Font size="24" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget height="550" width="40" id="UN12VPS" class="com.bepco.gui.VerticalBarGraph">
+                        <DataSource tagname="UpperNeg12VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <BarGraphConfig domainhigh="14" domainlow="-14" targethigh="-11.5" targetlow="-13"/>
+                    </Widget>
+                </VBox>
+
+                <!-- Lower Negative 12 Volt Power Supply -->
+                <VBox height="750" width="170" posX="0" posY="0" border="false">
+                    <Widget height="40" width="100" id="LN12VPS_c" class="com.bepco.gui.NumberBox">
+                        <DataSource tagname="LowerNeg12VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <TextBoxConfig bgcolor="192 0 0" format="{0,number,+##.00;-##.00}" >
+                            <Font size="24" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget height="550" width="40" id="LN12VPS" class="com.bepco.gui.VerticalBarGraph">
+                        <DataSource tagname="LowerNeg12VoltPowerSupply" messagetype="Read" datarate="10"/>
+                        <BarGraphConfig domainhigh="14" domainlow="-14" targethigh="-11.5" targetlow="-13"/>
+                    </Widget>
+                </VBox>
+            </HBox>
+        </Layout>
+
+
+    </XmlWidgetPanel>
+</RtGuiConfig>
+
+
+
+
+
+
+
+
+
+
+

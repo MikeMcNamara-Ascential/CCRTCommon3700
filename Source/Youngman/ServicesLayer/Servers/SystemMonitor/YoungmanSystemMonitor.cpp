@@ -89,6 +89,18 @@ void YoungmanSystemMonitor::CheckTesting(ControlData *ctrl)
         {
             CommandNdbData(READ_LATEST_BUILD_DATA_TAG, true);
             DisplayPrompt(1, "MachineReady");
+            BposSleep(250);
+            bool wheelbaseCmdStart = false;
+            if (GetSystemMonitorWheelbaseAdjust())
+            {
+                if (ReadNdbData(WHEELBASE_MOVE_TAG, wheelbaseCmdStart)) 
+                {
+                    WriteNdbData(WHEELBASE_MOVE_TAG, false);
+                    BposSleep(2000);
+                }
+                Log(LOG_DEV_DATA,"Wheelbase/Setup received telling PLC to adjust");
+                StartWheelbaseAdjust();
+            }
         }
     }
     else

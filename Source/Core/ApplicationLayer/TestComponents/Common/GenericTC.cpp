@@ -2817,6 +2817,8 @@ BEP_STATUS_TYPE GenericTC::WaitForTargetSpeed(const float targetSpeed, Direction
 		if(proceed && (StatusCheck() == BEP_STATUS_SUCCESS))
 		{	// Target speed achieved and good status
 			rtnStat = BEP_STATUS_SUCCESS;
+			// Allow a wait period
+			BposSleep(GetParameterInt("PostAccelerationDelayPeriod"));
 		}
 		else if(StatusCheck() == BEP_STATUS_ABORT)
 		{	// Target speed not achieved and bad status
@@ -4759,6 +4761,8 @@ const string GenericTC::PerformPBTorqueTest(const std::string &direction, bool i
 	float   torqueVal = 
 	((GetParameterFloat("ParkBrakeApplyForce") != 0) ? GetParameterFloat("ParkBrakeApplyForce") : 350) * 0.5;
 	float   speedVal = (GetParameterFloat("ParkBrakeSpeedValue") != 0) ? GetParameterFloat("ParkBrakeSpeedValue") : 5;
+
+
 	string  frontMotorMode, rearMotorMode, tandemMotorMode;
 	string  lfMotorValTag, rfMotorValTag;
 	string  lrMotorValTag, rrMotorValTag;
@@ -4790,6 +4794,9 @@ const string GenericTC::PerformPBTorqueTest(const std::string &direction, bool i
 	}
 
 	BposSleep( 100);
+	// Allow vehicle specific torque and speed values.
+	torqueVal = GetVehicleParameter("ParkBrakeParameters/ParkBrakeApplyForce", torqueVal);
+	speedVal  = GetVehicleParameter("ParkBrakeParameters/ParkBrakeSpeedValue", speedVal);
 
 	// If we want the wheels to turn forward, we need a negative torque
 	if( ((direction == "Forward") && (torqueVal > 0)) ||

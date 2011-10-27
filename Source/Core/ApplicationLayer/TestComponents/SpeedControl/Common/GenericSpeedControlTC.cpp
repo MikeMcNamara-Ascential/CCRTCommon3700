@@ -138,6 +138,7 @@ const string GenericSpeedControlTC<VehicleModuleType>::CommandTestStep(const str
                 else if (GetTestStepName() == "UpdateModuleResult")    testResult = UpdateModuleResult();
                 // Get the operator result
                 else if(GetTestStepName() == "OperatorResult")         testResult = SpeedControlOperatorResult();
+				else if(!GetTestStepName().compare("VerifyStableSpeed"))  testResult = VerifySteadySpeed();
                 // Unknown test step requested - try the base class
                 else   testResult = GenericTCTemplate<VehicleModuleType>::CommandTestStep(value);
             }
@@ -479,9 +480,16 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckSetEngagement(void)
             // Check if speed range was achieved
             if (testPass == speedInRange)
             {   // Speed is in range, set the cruise
-                DisplayPrompt(GetPromptBox("SetPrompt"), GetPrompt("SetPrompt"), GetPromptPriority("SetPrompt"));
-                DisplayPrompt(GetPromptBox("RemoveFootPrompt"), GetPrompt("RemoveFootPrompt"),
-                              GetPromptPriority("RemoveFootPrompt"));
+				if(!GetParameterBool("CombinedSetAndFootoffThrottlePrompts"))
+				{
+					DisplayPrompt(GetPromptBox("SetPrompt"), GetPrompt("SetPrompt"), GetPromptPriority("SetPrompt"));
+					DisplayPrompt(GetPromptBox("RemoveFootPrompt"), GetPrompt("RemoveFootPrompt"),
+								  GetPromptPriority("RemoveFootPrompt"));
+				}
+				else
+				{
+					DisplayPrompt(GetPromptBox("SetAndRemovePrompt"), GetPrompt("SetAndRemovePrompt"), GetPromptPriority("SetAndRemovePrompt"));
+				}
                 // Setup the InputServer to get operator input
                 SetupForOperatorInput();
                 // Set the timer so we can look for the SET switch
@@ -522,7 +530,14 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckSetEngagement(void)
                 else
                 {   // SET button pressed, look for speed stabilization
                     bool zeroThrottle = false;
-                    RemovePrompt(GetPromptBox("SetPrompt"), GetPrompt("SetPrompt"), GetPromptPriority("SetPrompt"));
+					if(!GetParameterBool("CombinedSetAndFootoffThrottlePrompts"))
+					{
+						RemovePrompt(GetPromptBox("SetPrompt"), GetPrompt("SetPrompt"), GetPromptPriority("SetPrompt"));
+					}
+					else
+					{
+						RemovePrompt(GetPromptBox("SetAndRemovePrompt"), GetPrompt("SetAndRemovePrompt"), GetPromptPriority("SetAndRemovePrompt"));
+					}
                     DisplayPrompt(GetPromptBox("CheckStableSpeed"), GetPrompt("CheckStableSpeed"),
                                   GetPromptPriority("CheckStableSpeed"));
                     // Store the target speed
@@ -993,12 +1008,13 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckTapSpeedChange(const
     Log(LOG_FN_ENTRY, "%s::%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
     if (!ShortCircuitTestStep())
     {   // Get the initial vehicle speed
-        float initialSpeed = 0.0;
         float finalSpeed = 0.0;
         bool  speedChanged = false;
-        if (ReadVehicleSpeed(initialSpeed) == BEP_STATUS_SUCCESS)
+		float targetSpeed = GetParameterFloat("TapSpeedChangeTarget" + direction);
+        if (ReadVehicleSpeed(finalSpeed) == BEP_STATUS_SUCCESS)
         {   // Prompt the operator to press the accel button
             DisplayPrompt(GetPromptBox(promptTag), GetPrompt(promptTag), GetPromptPriority(promptTag));
+			SystemWrite(GetDataTag("SpeedTarget"), GetParameter("TapSpeedChangeRange" + direction));
             // Setup the InputServer to get operator input
             SetupForOperatorInput();
             // Wait for the vehicle speed to increase
@@ -1008,8 +1024,17 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckTapSpeedChange(const
             {   // Read the vehicle speed and compare to the initial speed
                 status = ReadVehicleSpeed(finalSpeed);
                 if (BEP_STATUS_SUCCESS == status)
-                {   // Check if the speed diff has ben met
-                    speedChanged = (fabs(finalSpeed - initialSpeed) > GetParameterFloat("TapSpeedChangeMinSpeedChange"));
+                {   // Check if the speed diff has been met
+					if(!direction.compare("Up"))
+					{
+						Log(LOG_DEV_DATA, "Waiting for minimum vehicle speed of: %.2f, currently: %.2f", targetSpeed, finalSpeed);
+						speedChanged = (finalSpeed >= targetSpeed);
+					}
+					else
+					{
+						Log(LOG_DEV_DATA, "Waiting for maximum vehicle speed of: %.2f, currently: %.2f", targetSpeed, finalSpeed);
+						speedChanged = (finalSpeed <= targetSpeed);
+					}
                     // If speed increase not observed, wait a bit
                     if (!speedChanged)  BposSleep(GetTestStepInfoInt("ScanDelay"));
                 }
@@ -1018,8 +1043,11 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckTapSpeedChange(const
                 // Keep checking while good status and speed has not increased
             } while (TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status) &&
                      !speedChanged && operatorInput.compare(testFail));
+			// optional post wait time
+			BposSleep(GetParameterInt("PostTapSpeedChangeDelay"));
             // Remove the prompts
             RemovePrompt(GetPromptBox(promptTag), GetPrompt(promptTag), GetPromptPriority(promptTag));
+			SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
             // Check if we passed or failed
             if (!TimeRemaining())
             {   // We have timed out
@@ -1065,7 +1093,7 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckTapSpeedChange(const
         // Report the results
         char buf[32];
         SendTestResultWithDetail(testResult, testDescription, testResultCode,
-                                 "InitialSpeed", CreateMessage(buf, sizeof(buf), "%05.2f", initialSpeed), unitsMPH,
+                                 "TargetSpeed", CreateMessage(buf, sizeof(buf), "%05.2f", targetSpeed), unitsMPH,
                                  "FinalSpeed", CreateMessage(buf, sizeof(buf), "%05.2f", finalSpeed), unitsMPH,
                                  "MinSpeedChange", GetParameter("TapSpeedChangeMinSpeedChange"), unitsMPH);
     }
@@ -1091,75 +1119,102 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckSpeedLimiter(void)
     // Log the entry and check if the test should be performed
     Log(LOG_FN_ENTRY, "%s::%s - Enter", GetComponentName().c_str(), GetTestStepName().c_str());
     if (!ShortCircuitTestStep())
-    {   // Prompt the operator to engage the speed limiter
-        DisplayPrompt(GetPromptBox("EngageSpeedLimiter"), GetPrompt("EngageSpeedLimiter"), GetPromptPriority("EngageSpeedLimiter"));
-        // Wait for the operator to engage the speed limiter
-        BposSleep(GetParameterInt("SpeedLimiterEngageDelay"));
-        RemovePrompt(GetPromptBox("EngageSpeedLimiter"), GetPrompt("EngageSpeedLimiter"), GetPromptPriority("EngageSpeedLimiter"));
-        // Prompt the operator to accelerate to the speed limiter
-        DisplayPrompt(GetPromptBox("AccelToSpeedLimiter"), GetPrompt("AccelToSpeedLimiter"), GetPromptPriority("AccelToSpeedLimiter"));
-        // Determine if we know what the set speed limit is
-        if (GetParameterBool("CheckSpeedAgainstLimit"))
-        {   // Determine where to get the speed limit from
-            if (GetParameterBool("ReadSpeedLimitFromModule"))
-            {   // Read the speed limit from the module
-                status = m_vehicleModule.ReadModuleData(GetDataTag("ReadSpeedLimit"), speedLimit);
-            }
-            else
-            {   // Use the speed limit from the config file
-                speedLimit = GetParameterFloat("SpeedLimiterSpeedLimit");
-                status = BEP_STATUS_SUCCESS;
-            }
-            // Only continue with the test if good status
-            if (BEP_STATUS_SUCCESS == status)
-            {   // Wait for operator to acclerate above the speed limit
-                float speedLimitTarget = speedLimit + GetParameterFloat("MinimumSpeedOverLimit");
-                testResult = AccelerateToTestSpeed(speedLimitTarget, GetParameter("SpeedLimiterRange"), GetTestStepInfoInt("ScanDelay"), false);
-                // Check result of limit testing, if timeout vehicle passes
-                testResult = !testResult.compare(testTimeout) ? testPass : testFail;
-                testResultCode = !testResult.compare(testPass) ? testResultCode : GetFaultCode("SpeedLimiterFail");
-                testDescription = !testResult.compare(testPass) ? testDescription : GetFaultDescription("SpeedLimiterFail");
-                Log(LOG_DEV_DATA, "Speed Limiter Result: %s", testResult.c_str());
-            }
-            else
-            {   // Could not read speed limit from the module
-                Log(LOG_ERRORS, "Could not read speed limit from the module: %s", ConvertStatusToResponse(status).c_str());
-                testResult = testFail;
-                testResultCode = GetFaultCode("VehicleSpeedLimitRead");
-                testDescription = GetFaultDescription("VehicleSpeedLimitRead");
-            }
-        }
-        else
-        {   // Just prompt the operator
-            SetupForOperatorInput();
-            vector<string> validResponses;
-            SetupOperatorResponses(INPUT_SERVER_TEST_RESULT_STATE, validResponses);
-            testResult = GetOperatorInput(INPUT_SERVER_TEST_RESULT_STATE, "SpeedLimiterResult", validResponses);
-            Log(LOG_DEV_DATA, "Speed Limiter Operator result: %s", testResult.c_str());
-            // Check the result to set the fault codes
-            if (!testResult.compare(testTimeout))
-            {   // Tiemout waiting for operator to buyoff feature
-                testResultCode = GetFaultCode("OperatorTimeoutSpeedLimiter");
-                testDescription = GetFaultDescription("OperatorTimeoutSpeedLimiter");
-            }
-            else if (!testResult.compare(testFail))
-            {   // Operator pressed the fail button
-                testResultCode = GetFaultCode("OperatorFailSpeedLimiter");
-                testDescription = GetFaultDescription("OperatorFailSpeedLimiter");
-            }
-            else if (!testResult.compare(testAbort))
-            {   // Operator pressed the abort key
-                testResultCode = GetFaultCode("OperatorAbortSpeedLimiter");
-                testDescription = GetFaultDescription("OperatorAbortSpeedLimiter");
-            }
-        }
-        // Promt the operator to disengage the speed limitor
-        RemovePrompt(GetPromptBox("AccelToSpeedLimiter"), GetPrompt("AccelToSpeedLimiter"), GetPromptPriority("AccelToSpeedLimiter"));
-        DisplayPrompt(GetPromptBox("DisengageSpeedLimiter"), GetPrompt("DisengageSpeedLimiter"), GetPromptPriority("DisengageSpeedLimiter"));
+    {   // Wait for vehicle speed in range before running the speed limiter test
+		float minSpeed = (SystemReadFloat("MaxSpeed") * 0.621371192) - GetParameterFloat("SpeedBelowMaxSpeedForLimiterTest") - GetParameterFloat("SpeedLimiterSpeedRange");
+		float maxSpeed = (SystemReadFloat("MaxSpeed") * 0.621371192) - GetParameterFloat("SpeedBelowMaxSpeedForLimiterTest") + GetParameterFloat("SpeedLimiterSpeedRange");
+		testResult = WaitAndPromptForSpeed(minSpeed, maxSpeed, GetTestStepInfoInt("ScanDelay"));
+		if(!testResult.compare(testPass))
+		{   // Prompt the operator to engage the speed limiter
+			DisplayPrompt(GetPromptBox("EngageSpeedLimiter"), GetPrompt("EngageSpeedLimiter"), GetPromptPriority("EngageSpeedLimiter"));
+			// Wait for the operator to engage the speed limiter
+			BposSleep(GetParameterInt("SpeedLimiterEngageDelay"));
+			RemovePrompt(GetPromptBox("EngageSpeedLimiter"), GetPrompt("EngageSpeedLimiter"), GetPromptPriority("EngageSpeedLimiter"));
+			// Prompt the operator to accelerate to the speed limiter
+			DisplayPrompt(GetPromptBox("AccelToSpeedLimiter"), GetPrompt("AccelToSpeedLimiter"), GetPromptPriority("AccelToSpeedLimiter"));
+			// Determine if we know what the set speed limit is
+			if(GetParameterBool("CheckSpeedAgainstLimit"))
+			{	// Determine where to get the speed limit from
+				if(GetParameterBool("ReadSpeedLimitFromModule"))
+				{	// Read the speed limit from the module
+					status = m_vehicleModule.ReadModuleData(GetDataTag("ReadSpeedLimit"), speedLimit);
+				}
+				else
+				{	// Use the speed limit from the config file
+					speedLimit = GetParameterFloat("SpeedLimiterSpeedLimit");
+					status = BEP_STATUS_SUCCESS;
+				}
+				// Only continue with the test if good status
+				if(BEP_STATUS_SUCCESS == status)
+				{	// Wait for operator to acclerate above the speed limit
+					float speedLimitTarget = speedLimit + GetParameterFloat("MinimumSpeedOverLimit");
+					testResult = AccelerateToTestSpeed(speedLimitTarget, GetParameter("SpeedLimiterRange"), GetTestStepInfoInt("ScanDelay"), false);
+					// Check result of limit testing, if timeout vehicle passes
+					testResult = !testResult.compare(testTimeout) ? testPass : testFail;
+					testResultCode = !testResult.compare(testPass) ? testResultCode : GetFaultCode("SpeedLimiterFail");
+					testDescription = !testResult.compare(testPass) ? testDescription : GetFaultDescription("SpeedLimiterFail");
+					Log(LOG_DEV_DATA, "Speed Limiter Result: %s", testResult.c_str());
+				}
+				else
+				{	// Could not read speed limit from the module
+					Log(LOG_ERRORS, "Could not read speed limit from the module: %s", ConvertStatusToResponse(status).c_str());
+					testResult = testFail;
+					testResultCode = GetFaultCode("VehicleSpeedLimitRead");
+					testDescription = GetFaultDescription("VehicleSpeedLimitRead");
+				}
+			}
+			else
+			{	// Just prompt the operator
+#if 0
+				SetupForOperatorInput();
+				vector<string> validResponses;
+				SetupOperatorResponses(INPUT_SERVER_TEST_RESULT_STATE, validResponses);
+				testResult = GetOperatorInput(INPUT_SERVER_TEST_RESULT_STATE, "SpeedLimiterResult", validResponses);
+				Log(LOG_DEV_DATA, "Speed Limiter Operator result: %s", testResult.c_str());
+#else
+				testResult = testPass;
+#endif 
+				if(!testResult.compare(testPass))
+				{
+					bool zeroThrottle = false;
+					DisplayPrompt(GetPromptBox("CheckStableSpeed"), GetPrompt("CheckStableSpeed"), GetPromptPriority("CheckStableSpeed"));
+					testResult = IsVehicleSpeedStable(GetRollSpeed(), zeroThrottle) ? testPass : testFail;
+					RemovePrompt(GetPromptBox("CheckStableSpeed"), GetPrompt("CheckStableSpeed"), GetPromptPriority("CheckStableSpeed"));
+				}
+				// Check the result to set the fault codes
+				if(!testResult.compare(testTimeout))
+				{	// Tiemout waiting for operator to buyoff feature
+					testResultCode = GetFaultCode("OperatorTimeoutSpeedLimiter");
+					testDescription = GetFaultDescription("OperatorTimeoutSpeedLimiter");
+				}
+				else if(!testResult.compare(testFail))
+				{	// Operator pressed the fail button
+					testResultCode = GetFaultCode("OperatorFailSpeedLimiter");
+					testDescription = GetFaultDescription("OperatorFailSpeedLimiter");
+				}
+				else if(!testResult.compare(testAbort))
+				{	// Operator pressed the abort key
+					testResultCode = GetFaultCode("OperatorAbortSpeedLimiter");
+					testDescription = GetFaultDescription("OperatorAbortSpeedLimiter");
+				}
+			}
+			// Promt the operator to disengage the speed limitor
+			RemovePrompt(GetPromptBox("AccelToSpeedLimiter"), GetPrompt("AccelToSpeedLimiter"), GetPromptPriority("AccelToSpeedLimiter"));
+			if(GetParameterBool("PromptToDisengageSpeedLimiter"))
+			{
+				DisplayPrompt(GetPromptBox("DisengageSpeedLimiter"), GetPrompt("DisengageSpeedLimiter"), GetPromptPriority("DisengageSpeedLimiter"));
+			}
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Vehicle failed to reach speed limiter speed");
+		}
         // Report the result
         SendTestResult(testResult, testDescription, testResultCode);
         BposSleep(GetParameterInt("SpeedLimiterEngageDelay"));
-        RemovePrompt(GetPromptBox("DisengageSpeedLimiter"), GetPrompt("DisengageSpeedLimiter"), GetPromptPriority("DisengageSpeedLimiter"));
+		if(GetParameterBool("PromptToDisengageSpeedLimiter"))
+		{
+			RemovePrompt(GetPromptBox("DisengageSpeedLimiter"), GetPrompt("DisengageSpeedLimiter"), GetPromptPriority("DisengageSpeedLimiter"));
+		}
     }
     else
     {   // Need to skip this test
@@ -1179,12 +1234,20 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckKickDown(void)
     Log(LOG_FN_ENTRY, "GenericSpeedControlTC::CheckKickDown() - Enter");
     if(!ShortCircuitTestStep())
     {   // Reset the speed control set point
-        SetSpeedControlTargetSpeed();
+		if(!GetParameterBool("UseVehicleMaxSpeedForKickdownTarget"))
+		{
+			SetSpeedControlTargetSpeed();
+		}
+		else
+		{
+			m_targetSpeed = SystemReadFloat("MaxSpeed");
+		}
         // Prompt the operator to accelerate at full throttle
         DisplayPrompt(GetPromptBox("AccelerateAtFullThrottle"), GetPrompt("AccelerateAtFullThrottle"), 
                       GetPromptPriority("AccelerateAtFullThrottle"));
         // Check for speed increasing
         result = IsSpeedIncreasing() ? testPass : testFail;
+		BposSleep(GetParameterInt("PostKickdownDelay"));
         RemovePrompt(GetPromptBox("AccelerateAtFullThrottle"), GetPrompt("AccelerateAtFullThrottle"), 
                      GetPromptPriority("AccelerateAtFullThrottle"));
         // Report the result
@@ -1599,7 +1662,7 @@ const bool GenericSpeedControlTC<VehicleModuleType>::IsSpeedIncreasing(void)
             {   // Current speed is greater than previous sample
                 speedSample++;                  // Increment the sample counter
                 Log(LOG_DEV_DATA, "Speed Sample: %02d - Previous Sample: %4.1f, Current Sample: %4.1f, Target: %4.1f\n",
-                    speedSample, previousSpeed, currentSpeed, targetSpeed);
+                    speedSample, previousSpeed, currentSpeed, targetSpeedMin);
                 previousSpeed = currentSpeed;   // Save the speed sample
             }
             else if (((m_analyze.CompareData(currentSpeed, targetSpeedMin, GREATER_EQUAL) &&
@@ -2065,4 +2128,29 @@ inline void GenericSpeedControlTC<VehicleModuleType>::SetCruiseEquipped(const bo
     {
         UpdateTestStatus(BEP_TEST_NOT_STARTED);
     }
+}
+
+//-------------------------------------------------------------------------------------------------
+template <class VehicleModuleType>
+string GenericSpeedControlTC<VehicleModuleType>::VerifySteadySpeed(void)
+{   // Log the entry and determine if this step should be performed
+	Log(LOG_FN_ENTRY, "GenericSpeedControlTC::VerifySteadySpeed() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{   // Check if the speed is stable
+		DisplayPrompt(GetPromptBox("CheckStableSpeed"), GetPrompt("CheckStableSpeed"), GetPromptPriority("CheckStableSpeed"));
+		bool zeroThrottle = false;
+		result = IsVehicleSpeedStable(GetRollSpeed(), zeroThrottle) ? testPass : testFail;
+		RemovePrompt(GetPromptBox("CheckStableSpeed"), GetPrompt("CheckStableSpeed"), GetPromptPriority("CheckStableSpeed"));
+		Log(LOG_DEV_DATA, "Verify steady speed: %s", result.c_str());
+		SendTestResult(result,GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{   // Need to skip this step
+		Log(LOG_FN_ENTRY, "Skipping Verify Steady Speed");
+		result = testSkip;
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "GenericSpeedControlTC::VerifySteadySpeed() - Exit");
+	return result;
 }

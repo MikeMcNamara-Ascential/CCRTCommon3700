@@ -1757,7 +1757,16 @@ protected:
      *      </ul>
      */
     virtual void SetCruiseEquipped(const bool &equipped);
-    /**
+
+	/**
+	 * Verify the vehicle speed is stable.
+	 * This simply makes a test step out of IsStableSpeed() but passes in the current roller speed.
+	 * 
+	 * @return Result of verifying the vehicle is at steady speed.
+	 */
+	string VerifySteadySpeed(void);
+
+	/**
      * Status of the individual cruise tests.
      */
     SpeedControlTestStatus m_testStepStatus;

@@ -1,7 +1,10 @@
 ﻿<ParameterTemplate>
   <VehicleBuild>
-    <BrakeForces>
+      <BrakeForces>
       
-    </BrakeForces>
+      </BrakeForces>
+      <ParkBrakeParameters>
+          
+      </ParkBrakeParameters>
   </VehicleBuild>
 </ParameterTemplate>

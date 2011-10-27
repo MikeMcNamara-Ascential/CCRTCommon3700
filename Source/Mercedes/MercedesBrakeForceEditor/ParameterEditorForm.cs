@@ -131,11 +131,12 @@ namespace MercedesBrakeForceEditor
         /// Get the value of the specified parameter.
         /// </summary>
         /// <param name="parameterName">Name of the parameter.</param>
+        /// <param name="path">Path where to find the specified parameter.</param>
         /// <returns>Value of the specified parameter.</returns>
-        private String GetParameterValue(String parameterName)
+        private String GetParameterValue(String parameterName, String path = "VehicleBuild/BrakeForces/")
         {
             String value = "0";
-            XmlNode paramNode = m_vehicleParameters.DocumentElement.SelectSingleNode("VehicleBuild/BrakeForces/" + parameterName);
+            XmlNode paramNode = m_vehicleParameters.DocumentElement.SelectSingleNode(path + parameterName);
             // Make sure the parameter exists
             if (paramNode != null)
             {   // Make sure there is a value to be had
@@ -162,6 +163,8 @@ namespace MercedesBrakeForceEditor
             m_brakeForceParamDataGridView.Rows.Add(rear2Row);
             // Clear the truck family text box
             m_truckFamilyTextBox.Clear();
+            m_parkBrakeForceTextBox.Clear();
+            m_brkStopDistSpeedTextBox.Clear();
             // Reset the form data changed flag
             FormDataChanged = false;
         }
@@ -247,6 +250,11 @@ namespace MercedesBrakeForceEditor
                                                           Convert.ToDouble(GetParameterValue("BrakeStopdistanceStartSpeed")));
             String speedDisp = String.Format("{0:F0}", convertedSpeed);
             m_brkStopDistSpeedTextBox.Text = speedDisp;
+            // Display the park brake force
+            Double convertedForce = ConvertParameterValue(ConversionTypes.LbfKgf,
+                                                          Convert.ToDouble(GetParameterValue("ParkBrakeApplyForce", "VehicleBuild/ParkBrakeParameters/")));
+            String forceDisp = String.Format("{0:F0}", convertedForce);
+            m_parkBrakeForceTextBox.Text = forceDisp;
             FormDataChanged = false;
         }
 
@@ -271,6 +279,10 @@ namespace MercedesBrakeForceEditor
                 {   // Update the stopping distance start speed
                     SetParameterValue("BrakeStopdistanceStartSpeed",
                                       ConvertParameterValue(ConversionTypes.KmhMph, Convert.ToDouble(m_brkStopDistSpeedTextBox.Text)).ToString());
+                    // Save the park brake apply force
+                    SetParameterValue("ParkBrakeApplyForce",
+                                      ConvertParameterValue(ConversionTypes.KgfLbf, Convert.ToDouble(m_parkBrakeForceTextBox.Text)).ToString(),
+                                      "VehicleBuild/ParkBrakeParameters");
                     // Save the data to file.
                     String baumuster = m_truckFamilyTextBox.Text;
                     while (baumuster.Length < Convert.ToInt32(MercedesBrakeForceEditor.Properties.Resources.BaumusterLength))
@@ -290,15 +302,16 @@ namespace MercedesBrakeForceEditor
         /// </summary>
         /// <param name="name">Name of the parameter.</param>
         /// <param name="value">Value of the specified parameter.</param>
-        private void SetParameterValue(String name, String value)
+        /// <param name="path">Path to save parameters to.</param>
+        private void SetParameterValue(String name, String value, String path="VehicleBuild/BrakeForces")
         {
-            XmlNode paramNode = m_vehicleParameters.DocumentElement.SelectSingleNode("VehicleBuild/BrakeForces/" + name);
+            XmlNode paramNode = m_vehicleParameters.DocumentElement.SelectSingleNode(path + "/" + name);
             // Make sure the node was found, if not, create it
             if (paramNode == null)
             {   // Create a new node to be added to the list
                 XmlElement newParam = m_vehicleParameters.CreateElement(name);
-                m_vehicleParameters.DocumentElement.SelectSingleNode("VehicleBuild/BrakeForces").AppendChild(newParam);
-                paramNode = m_vehicleParameters.DocumentElement.SelectSingleNode("VehicleBuild/BrakeForces/" + name);
+                m_vehicleParameters.DocumentElement.SelectSingleNode(path).AppendChild(newParam);
+                paramNode = m_vehicleParameters.DocumentElement.SelectSingleNode(path + "/" + name);
             }
             // Update the value of the node if it has been found or created
             if (paramNode.FirstChild != null)
@@ -398,6 +411,16 @@ namespace MercedesBrakeForceEditor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void m_brkStopDistSpeedTextBox_TextChanged(object sender, EventArgs e)
+        {
+            FormDataChanged = true;
+        }
+
+        /// <summary>
+        /// A new value has been set for the park brake apply force.  Set the flag that the data has changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_parkBrakeForceTextBox_TextChanged(object sender, EventArgs e)
         {
             FormDataChanged = true;
         }
@@ -508,5 +531,6 @@ namespace MercedesBrakeForceEditor
             MeterFeet,
             FeetMeter
         };
+
     }
 }

@@ -47,6 +47,8 @@ namespace MercedesBrakeForceEditor
             this.MaxBrakeForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaxDiffForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaxStopDist = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.m_parkBrakeForceLabel = new System.Windows.Forms.Label();
+            this.m_parkBrakeForceTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_brakeForceParamDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -70,34 +72,34 @@ namespace MercedesBrakeForceEditor
             this.saveToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -106,13 +108,13 @@ namespace MercedesBrakeForceEditor
             this.setupToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.vehicleBuildFolderToolStripMenuItem});
             this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
-            this.setupToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+            this.setupToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.setupToolStripMenuItem.Text = "Setup";
             // 
             // vehicleBuildFolderToolStripMenuItem
             // 
             this.vehicleBuildFolderToolStripMenuItem.Name = "vehicleBuildFolderToolStripMenuItem";
-            this.vehicleBuildFolderToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.vehicleBuildFolderToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.vehicleBuildFolderToolStripMenuItem.Text = "Vehicle Build Folder";
             this.vehicleBuildFolderToolStripMenuItem.Click += new System.EventHandler(this.vehicleBuildFolderToolStripMenuItem_Click);
             // 
@@ -209,12 +211,32 @@ namespace MercedesBrakeForceEditor
             this.MaxStopDist.HeaderText = "Maximum Stopping Distance (m)";
             this.MaxStopDist.Name = "MaxStopDist";
             // 
+            // m_parkBrakeForceLabel
+            // 
+            this.m_parkBrakeForceLabel.AutoSize = true;
+            this.m_parkBrakeForceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_parkBrakeForceLabel.Location = new System.Drawing.Point(338, 94);
+            this.m_parkBrakeForceLabel.Name = "m_parkBrakeForceLabel";
+            this.m_parkBrakeForceLabel.Size = new System.Drawing.Size(136, 13);
+            this.m_parkBrakeForceLabel.TabIndex = 7;
+            this.m_parkBrakeForceLabel.Text = "Park Brake Force (kgf)";
+            // 
+            // m_parkBrakeForceTextBox
+            // 
+            this.m_parkBrakeForceTextBox.Location = new System.Drawing.Point(381, 110);
+            this.m_parkBrakeForceTextBox.Name = "m_parkBrakeForceTextBox";
+            this.m_parkBrakeForceTextBox.Size = new System.Drawing.Size(57, 20);
+            this.m_parkBrakeForceTextBox.TabIndex = 8;
+            this.m_parkBrakeForceTextBox.TextChanged += new System.EventHandler(this.m_parkBrakeForceTextBox_TextChanged);
+            // 
             // ParameterEditorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.ClientSize = new System.Drawing.Size(584, 335);
+            this.Controls.Add(this.m_parkBrakeForceTextBox);
+            this.Controls.Add(this.m_parkBrakeForceLabel);
             this.Controls.Add(this.m_brakeForceParamDataGridView);
             this.Controls.Add(this.m_brakeForceParamsLabel);
             this.Controls.Add(this.m_brkStopDistSpeedTextBox);
@@ -255,6 +277,8 @@ namespace MercedesBrakeForceEditor
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxBrakeForce;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxDiffForce;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxStopDist;
+        private System.Windows.Forms.Label m_parkBrakeForceLabel;
+        private System.Windows.Forms.TextBox m_parkBrakeForceTextBox;
     }
 }
 

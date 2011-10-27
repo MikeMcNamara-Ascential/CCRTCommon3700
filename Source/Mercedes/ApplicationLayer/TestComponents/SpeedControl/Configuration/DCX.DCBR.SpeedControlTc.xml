@@ -53,6 +53,7 @@
         <DataTags>
             <BroadcastSpeedControlType>TransferCase</BroadcastSpeedControlType>
             <DriveAxle>DriveAxle</DriveAxle>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
             <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
             <LeftRearSpeed>LRSpeed</LeftRearSpeed>
             <LFSpeed>LFSpeed</LFSpeed>
@@ -83,28 +84,44 @@
                 <Type01>EPS-III 12 Gear</Type01>
                 <Type02>EPS-III 16 Gear</Type02>
             </ValidSpeedControlTypes>
+            <PostKickdownDelay Units="ms">5000</PostKickdownDelay>
+            <UsePlcResultButtons>False</UsePlcResultButtons>
+            <UseModuleSpeed>False</UseModuleSpeed>
+            <UseVehicleMaxSpeedForKickdownTarget>True</UseVehicleMaxSpeedForKickdownTarget>
+            <StableSpeedVariation Units="mph">5.0</StableSpeedVariation>
+            <SkipOnTestResult>True</SkipOnTestResult>
 
             <!-- Speed Control Test Parameters -->
-            <SpeedControlMaxSpeed Units="mph">70</SpeedControlMaxSpeed>
+            <CombinedSetAndFootoffThrottlePrompts>True</CombinedSetAndFootoffThrottlePrompts>
+            <SpeedControlMaxSpeed Units="mph">80</SpeedControlMaxSpeed>
             <SpeedControlMinSpeed Units="mph">60</SpeedControlMinSpeed>
             <SpeedControlTargetRange Units="mph" Description="Displayed target range size">10.0</SpeedControlTargetRange>
             <SpeedRangeCheckDelay Units="ms">500</SpeedRangeCheckDelay>
             <StableSpeedMaxVariation>5.0</StableSpeedMaxVariation>
             <StableSpeedMinVariation>5.0</StableSpeedMinVariation>
-            <StableSpeedPoints>10</StableSpeedPoints>
-            <StableSpeedSampleDelay>1000</StableSpeedSampleDelay>
+            <StableSpeedPoints>20</StableSpeedPoints>
+            <StableSpeedSampleDelay>500</StableSpeedSampleDelay>
 
             <!-- Tap Speed Change Parameters -->
             <TapSpeedChangeMinSpeedChange Units="mph">3.0</TapSpeedChangeMinSpeedChange>
+            <PostTapSpeedChangeDelay Units="ms">5000</PostTapSpeedChangeDelay>
+            <TapUpWaitforMaxSpeed>True</TapUpWaitforMaxSpeed>
+            <TapSpeedChangeTargetDown Units="mph">62</TapSpeedChangeTargetDown>
+            <TapSpeedChangeRangeDown>55 62</TapSpeedChangeRangeDown>
+            <TapSpeedChangeTargetUp>70</TapSpeedChangeTargetUp>
+            <TapSpeedChangeRangeUp>70 75</TapSpeedChangeRangeUp>
 
             <!-- Speed Control Cutout Parameters -->
             <SpeedControlDeltaSpeed Units="mph">5.0</SpeedControlDeltaSpeed>
 
             <!-- Speed Limiter Parameters -->
             <CheckSpeedAgainstLimit>False</CheckSpeedAgainstLimit>
-            <SpeedLimiterEngageDelay Units="ms">3000</SpeedLimiterEngageDelay>
+            <PromptToDisengageSpeedLimiter>false</PromptToDisengageSpeedLimiter>
+            <SpeedLimiterEngageDelay Units="ms">10000</SpeedLimiterEngageDelay>
             <SpeedLimiterMaxSpeed Units="mph">75</SpeedLimiterMaxSpeed>
             <SpeedLimiterMinSpeed Units="mph">10</SpeedLimiterMinSpeed>
+            <SpeedBelowMaxSpeedForLimiterTest Units="mph">12.43</SpeedBelowMaxSpeedForLimiterTest>
+            <SpeedLimiterSpeedRange Units="mph">3.10</SpeedLimiterSpeedRange>
             <SpeedIncreaseSamples>3</SpeedIncreaseSamples>
         </Parameters>
 
@@ -126,9 +143,11 @@
             <PressTapDownButton PromptBox="1" Priority="0">SpeedControlTapDown</PressTapDownButton>
             <PressTapUpButton PromptBox="1" Priority="0">SpeedControlTapUp</PressTapUpButton>
             <RemoveFootPrompt PromptBox="2" Priority="0">RemoveFootFromAccelerator</RemoveFootPrompt>
+            <SetAndRemovePrompt PromptBox="1" Priority="0">SpeedControlSetAndRemoveFoot</SetAndRemovePrompt>
             <SetPrompt PromptBox="1" Priority="0">SpeedControlSet</SetPrompt>
+            <SlowDownToTargetSpeed PromptBox="2" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
             <SpeedControlOff PromptBox="2" Priority="0" Duration="3000">SpeedControlOff</SpeedControlOff>
-            <SpeedControlOn PromptBox="2" Priority="0" Duration="3000">SpeedControlOn</SpeedControlOn>
+            <SpeedControlOn PromptBox="2" Priority="0" Duration="10000">SpeedControlOn</SpeedControlOn>
             <TapBrakePrompt PromptBox="1" Priority="0">SpeedControlTapBrakes</TapBrakePrompt>
             <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
         </Prompts>
@@ -140,13 +159,13 @@
     <Objectives>
         <SpeedControlTest>
             <TestStep00>CheckSpeedControlEquipped</TestStep00>
-            <TestStep01>CheckOnEnable</TestStep01>
-            <TestStep05>CheckSetEngagement</TestStep05>
-            <TestStep10>CheckTapUpAccel</TestStep10>
-            <TestStep15>CheckBrakeCutOut</TestStep15>
-            <TestStep20>CheckSpeedLimiter</TestStep20>
-            <TestStep25>CheckKickDown</TestStep25>
-            <TestStep30>CheckOffDisable</TestStep30>
+            <TestStep10>CheckSetEngagement</TestStep10>
+            <TestStep15>CheckTapDownDecel</TestStep15>
+            <TestStep20>CheckOnEnable</TestStep20>
+            <TestStep25>VerifyStableSpeed</TestStep25>
+            <TestStep30>CheckTapUpAccel</TestStep30>
+            <TestStep40>CheckSpeedLimiter</TestStep40>
+            <TestStep45>CheckKickDown</TestStep45>
             <TestStep99>FinishUp</TestStep99>
         </SpeedControlTest>
     </Objectives>
@@ -168,7 +187,8 @@
 
         <CheckSpeedLimiter Result="" Timeout="60000" Description="Check the speed limiter" ScanDelay="250"/>
         <CheckKickDown Result="" Timeout="30000" Description="Verify speed limiter disengage at full accel"
-            IgnoreTargets="True" ScanDelay="1000"/>
+            IgnoreTargets="False" ScanDelay="1000"/>
         <FinishUp Result="" Timeout="3000" Description="Finish testing and update results in the module"/>
+        <VerifyStableSpeed Result="" Timeout="60000" Description="Verify vehicle speed is stable"/>
     </TestSteps>
 </SpeedControlConfig>

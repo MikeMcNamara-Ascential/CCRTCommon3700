@@ -371,7 +371,7 @@ string MercedesVehicleTest::LoadComponents(string testType)
 	// sequence the test
 	Log(LOG_DEV_DATA, "Loading Drive Curve %s\n", driveCurve.c_str());
 	Log(LOG_DETAILED_DATA, "MEM: LoadComponents()1 Enter m_testSequencer.LoadDriveCurve() - %d\n",ReturnMemArena());
-	m_testSequencer.LoadDriveCurve(driveCurveDoc);
+	m_testSequencer.LoadDriveCurve(driveCurveDoc, getenv("USR_ROOT"));
 	Log(LOG_DETAILED_DATA, "MEM: LoadComponents()2 Exit m_testSequencer.LoadDriveCurve() - %d\n",ReturnMemArena());
 	return(driveCurve);
 }
@@ -387,7 +387,8 @@ string MercedesVehicleTest::LoadDriveCurve(void)
 
 	if (GetVehicleBuild() != NULL)
     {
-        driveCurve = m_testSelector.SelectDriveCurve(GetVehicleBuild());
+		string rootDir(getenv("USR_ROOT"));
+        driveCurve = m_testSelector.SelectDriveCurve(GetVehicleBuild(), rootDir);
     }
 	// Return the drive curve name
 	return(driveCurve);

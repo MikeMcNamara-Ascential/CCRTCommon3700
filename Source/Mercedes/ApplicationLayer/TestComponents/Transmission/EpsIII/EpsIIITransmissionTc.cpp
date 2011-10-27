@@ -47,6 +47,7 @@ const string EpsIIITransmissionTc::CommandTestStep(const string &value)
             }
             else if(!GetTestStepName().compare("SelectTransmissionMode"))   result = SelectMode(value);
             else if(!GetTestStepName().compare("SpeedBasedGearTest"))       result = SpeedBasedGearTest(value);
+			else if(!GetTestStepName().compare("MaximumGearTest"))          result = MaximumGearTest();
             else                                                            result = GenericTC::CommandTestStep(value);
         }
         else
@@ -112,6 +113,30 @@ string EpsIIITransmissionTc::CheckShifting(void)
 }
 
 //-------------------------------------------------------------------------------------------------
+string EpsIIITransmissionTc::MaximumGearTest(void)
+{   // Log the entry and deterine if this test should be performed
+	Log(LOG_FN_ENTRY, "EpsIIITransmissionTc::MaximumGearTest() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep() && EpsTransmissionEquipped())
+	{   // Prompt the operator and then wait for maximum gear
+		DisplayPrompt(GetPromptBox("ShiftThroughGears"), GetPrompt("ShiftThroughGears"), GetPromptPriority("ShiftThroughGears"));
+		float targetSpeed = (SystemReadFloat("MaxSpeed") * 0.621371192) - GetParameterFloat("MaxSpeedTolerance");
+		char buff[32];
+		string speedRange = CreateMessage(buff, sizeof(buff), "%.2f %.2f", targetSpeed, targetSpeed + (GetParameterFloat("MaxSpeedTolerance") * 2));
+		result = AccelerateToTestSpeed(targetSpeed, speedRange, GetTestStepInfoInt("ScanDelay"), true);
+		RemovePrompt(GetPromptBox("ShiftThroughGears"), GetPrompt("ShiftThroughGears"), GetPromptPriority("ShiftThroughGears"));
+	}
+	else
+	{   // Need to skip this test
+		Log(LOG_FN_ENTRY, "Skipping MaximumGearTest()");
+		result = testSkip;
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "EpsIIITransmissionTc::MaximumGearTest() - Exit");
+	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
 string EpsIIITransmissionTc::SelectMode(const string &mode)
 {   // Log the entry and determine if this step should be performed
     Log(LOG_FN_ENTRY, "EpsIIITransmissionTc::SelectMode(mode: %s) - Enter", mode.c_str());
@@ -120,14 +145,27 @@ string EpsIIITransmissionTc::SelectMode(const string &mode)
     {   // Prompt the operator to shift to manual mode
         DisplayTimedPrompt(GetPrompt("ShiftToMode"), GetPromptBox("ShiftToMode"), 
                            GetPromptPriority("ShiftToMode"), GetPromptDuration("ShiftToMode"), mode);
+		// Check if we need to prompt the operator about the ASR switch
+		string asrEquipped("No");
+		// Determine how to handle the wheel boosting
         if(!mode.compare("Auto"))
         {
-            EnableMotorLoading(mode);
-            SystemWrite("BoostRearAndTandemOnly", false);
+			EnableMotorLoading(mode);
+			asrEquipped = OperatorYesNo("AsrEquipped", GetTestStepInfoInt("Timeout"));
+			SystemWrite(string("BoostRearAndTandemOnly"), asrEquipped.compare("No"));
+			if(!asrEquipped.compare("No"))
+			{   // Limit speed to 60 km/h
+				string orgSpeed = SystemRead("MaxSpeed");
+				OriginalMaximumSpeed(&orgSpeed);
+				SystemWrite(string("MaxSpeed"), GetParameter("NonAsrMaximumSpeed"));
+				Log(LOG_DEV_DATA, "Transmission not equipped with ASR button, changing Max Speed to %s km/h",
+					GetParameter("NonAsrMaximumSpeed").c_str());
+			}
         }
         else
         {
             DisableMotorLoading(mode);
+			SystemWrite(string("MaxSpeed"), OriginalMaximumSpeed());
             SystemWrite("BoostRearAndTandemOnly", true);
         }
         result = testPass;
@@ -205,7 +243,7 @@ void EpsIIITransmissionTc::CheckIfEpsTransmissionEquipped(void)
     Log(LOG_DEV_DATA, "Transmission Type: %s  [EPS-III value: %s]", 
         transType.c_str(), GetDataTag("EpsIIITransmissionValue").c_str());
 #else
-	for(XmlNodeMapItr iter = m_epsTransTypes.begin(); (iter != m_epsTransTypes.end())) && !equipped; iter++
+	for(XmlNodeMapItr iter = m_epsTransTypes.begin(); (iter != m_epsTransTypes.end()) && !equipped; iter++)
 	{
 		equipped = !transType.compare(iter->second->getValue());
 	}
@@ -220,4 +258,11 @@ inline const bool& EpsIIITransmissionTc::EpsTransmissionEquipped(const bool *equ
 {
     if(equipped != NULL)  m_isEpsTransEquipped = *equipped;
     return m_isEpsTransEquipped;
+}
+
+//-------------------------------------------------------------------------------------------------
+const string& EpsIIITransmissionTc::OriginalMaximumSpeed(const string *orgMaxSpeed /*= NULL*/)
+{
+	if(orgMaxSpeed != NULL)  m_originalSpeed = *orgMaxSpeed;
+	return m_originalSpeed;
 }

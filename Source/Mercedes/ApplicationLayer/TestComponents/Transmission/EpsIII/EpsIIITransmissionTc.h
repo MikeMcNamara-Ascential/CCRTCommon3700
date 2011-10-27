@@ -58,6 +58,16 @@ protected:
      */
     string CheckShifting(void);
 
+	/**
+	 * The maximum gear and vehicle speed will be checked to make sure the transmission is functional.
+	 * The operator will be prompted to shift through all gears.  Maximum gear speeds will not be
+	 * checked.  After the maximum speed is reached, the speed will be checked against the Max Speed
+	 * parameter.
+	 * 
+	 * @return Result of checking the maximum vehicle speed and gear.
+	 */
+	string MaximumGearTest(void);
+
     /**
      * Select the shifting mode of the transmission
      * 
@@ -90,8 +100,21 @@ private:
      */
     const bool& EpsTransmissionEquipped(const bool *equipped = NULL);
 
+	/**
+	 * Get/Set the original maximum vehicle speed.
+	 * 
+	 * @param orgMaxSpeed
+	 *               The original maximum vehicle speed.
+	 * 
+	 * @return The original maximum vehicle speed.
+	 */
+	const string& OriginalMaximumSpeed(const string *orgMaxSpeed = NULL);
+
     /** Flag used to track if the truck is equipped with EPS-III transmission */
     bool m_isEpsTransEquipped;
+
+	/** Original maximum speed from he build data */
+	string m_originalSpeed;
 
 	/** List of valid EPS-III transmission types */
 	XmlNodeMap m_epsTransTypes;

@@ -47,7 +47,10 @@
         <!-- ===== Data Tags ===== -->
         <DataTags>
             <!-- Data Values -->
-            <EpsIIITransmissionValue>EPS-III</EpsIIITransmissionValue>
+            <CheckShiftingPrompt Comment="Prompt tag to use for prompting the operator to input the pass/fail result of transmission shifting"
+                TestSteps="CheckShifting">CheckShifting</CheckShiftingPrompt>
+            <EpsIIITransmissionValue Comment="Vehicle build value that indicates the vehicle is equipped with an EPS-III transmission"
+                TestSteps="CheckTransmissionType">EPS-III</EpsIIITransmissionValue>
 
             <!-- System Tags -->
             <DriveAxle>DriveAxle</DriveAxle>
@@ -64,6 +67,7 @@
         <Parameters>
             <!-- Test Component Behavior Parameters -->
             <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+            <UsePlcResultButtons>False</UsePlcResultButtons>
 
             <!-- Auto mode torque loading parameters -->
             <MotorLoadingAccelConst Units="%"
@@ -72,6 +76,7 @@
                 Description="Percentage of motor torque to apply to the drive axle proportional to the square of the speed">50.0</MotorLoadingSpeedConst>
             <MotorLoadingTorqueConst>500</MotorLoadingTorqueConst>
             <MotorLoadingIncreasePerSecond>1</MotorLoadingIncreasePerSecond>
+            <NonAsrMaximumSpeed Units="kph">60</NonAsrMaximumSpeed>
 
             <!-- EPS-III Transmission Types -->
             <EpsIIITransmissionTypes>
@@ -109,13 +114,17 @@
             <MaxSpeedTarget_11 Units="mph">70</MaxSpeedTarget_11>
             <MinSpeedTarget_12 Units="mph">74</MinSpeedTarget_12>
             <MaxSpeedTarget_12 Units="mph">80</MaxSpeedTarget_12>
-
+            <MaxSpeedTolerance Units="mph">3.10</MaxSpeedTolerance>
+            <PostAccelerationDelayPeriod Units="ms">5000</PostAccelerationDelayPeriod>
         </Parameters>
 
         <!-- ===== Test Component Prompts ===== -->
         <Prompts>
             <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
-            <CheckShiftingPrompt>CheckTransmissionShifting</CheckShiftingPrompt>
+            <AsrEquipped PromptBox="2" Priority="0">IsTransmissionAsrEquipped</AsrEquipped>
+            <CheckShifting TestSteps="CheckShifting">CheckTransmissionShifting</CheckShifting>
+            <EnterYesOrNo PromptBox="2" Priority="0">EnterYesOrNo</EnterYesOrNo>
+            <ShiftThroughGears PromptBox="1" Priority="0">ShiftThroughAllGears</ShiftThroughGears>
             <ShiftToGear PromptBox="1" Priority="0">ShiftToGear</ShiftToGear>
             <ShiftToMode PromptBox="1" Priority="0" Duration="5000">ShiftToMode</ShiftToMode>
         </Prompts>
@@ -136,6 +145,8 @@
 
         <ManualModeTest>
             <TestStep05 AltValue="Manual">SelectTransmissionMode</TestStep05>
+            <TestStep10>MaximumGearTest</TestStep10>
+            <!--
             <TestStep10 AltValue="1">SpeedBasedGearTest</TestStep10>
             <TestStep15 AltValue="2">SpeedBasedGearTest</TestStep15>
             <TestStep20 AltValue="3">SpeedBasedGearTest</TestStep20>
@@ -148,6 +159,11 @@
             <TestStep55 AltValue="10">SpeedBasedGearTest</TestStep55>
             <TestStep60 AltValue="11">SpeedBasedGearTest</TestStep60>
             <TestStep65 AltValue="12">SpeedBasedGearTest</TestStep65>
+            <TestStep70 AltValue="13">SpeedBasedGearTest</TestStep70>
+            <TestStep75 AltValue="14">SpeedBasedGearTest</TestStep75>
+            <TestStep80 AltValue="15">SpeedBasedGearTest</TestStep80>
+            <TestStep85 AltValue="16">SpeedBasedGearTest</TestStep85>
+            -->
         </ManualModeTest>
 
     </Objectives>
@@ -158,6 +174,7 @@
             Description="Prompt operator for shifting performance"/>
         <CheckTransmissionType Result="Not Tested" Timeout="1000" Description="Verify the transmision type"/>
         <FinishUp Result="Not Tested" Timeout="500" Description="Finish testing sequence"/>
+        <MaximumGearTest Result="" Timeout="300000" Description="Verify maximum gear and speed" ScanDelay="500"/>
         <SelectTransmissionMode Result="Not Tested" Timeout="10000" Description="Select the shifting mode"/>
         <SpeedBasedGearTest Result="Not Tested" Timeout="15000" ScanDelay="500"
             Description="Verify vehicle speed in specified gear"/>

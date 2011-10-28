@@ -1769,10 +1769,8 @@ string Bosch8TC<ModuleType>::ESPValveFiringTest(void)
         // run the individual wheel ESP tests
         testResult = LFESPTest();
         if(testResult == testPass) RFESPTest();
-
-        // 2005.02.28 ews removed at HMMA emergency request
-        //			if(testResult == testPass) LRESPTest();
-        //			if(testResult == testPass) RRESPTest();
+        if(testResult == testPass) LRESPTest();
+        if(testResult == testPass) RRESPTest();
 
         m_ESPEndIndex = TagArray("ESPEnd");
 
@@ -2217,7 +2215,7 @@ string Bosch8TC<ModuleType>::RFESPTest(void)
         case ESP_FINALIZE:
             m_ESPIndex[RFWHEEL].reductionEnd = TagArray("RFESPReductionEnd");
             // 2005.02.28 ews added at HMMA emergency request
-            espCommand = "LRESPFinalize";
+            // espCommand = "LRESPFinalize";                // Taken out because RF uses the same primary valves as LR
             break;
         case ESP_DONE:
             done = true;

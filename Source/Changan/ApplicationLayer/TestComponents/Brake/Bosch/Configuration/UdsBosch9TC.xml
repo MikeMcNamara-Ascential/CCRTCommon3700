@@ -414,17 +414,21 @@
          <TestStep15>DragTest</TestStep15>
          <TestStep20>AnalyzeDragTest</TestStep20>
          <TestStep25>BrakeSwitchOffTest</TestStep25>
-         <TestStep30>BrakeTest</TestStep30>
-         <TestStep35>BrakeSwitchOnTest</TestStep35>
-         <TestStep40>DumpAndIsolateAllWheels</TestStep40>
-         <TestStep45>ABSValveFiringTest</TestStep45>
-         <TestStep50>RecoverAllWheels</TestStep50>
+         <TestStep30>ESPValveFiringTest</TestStep30>
+         <TestStep35>StopESPPumpMotor</TestStep35>
+         <TestStep40>BrakeTest</TestStep40>
+         <TestStep45>BrakeSwitchOnTest</TestStep45>
       </BrakeTest>
       <AnalyzeBrakeTest>
          <TestStep00>AnalyzeBrakeTest</TestStep00>
          <TestStep05>AnalyzeBalance</TestStep05>
          <TestStep10>EvaluateABS</TestStep10>
       </AnalyzeBrakeTest>
+      <AnalyzeESPBrakeTest>
+         <TestStep00>AnalyzeBrakeTest</TestStep00>
+         <TestStep05>AnalyzeBalance</TestStep05>
+         <TestStep10>EvaluateESP</TestStep10>
+      </AnalyzeESPBrakeTest>
       <BurnishCycle>
          <TestStep00>StaticBrakeBurnishCycle</TestStep00>
       </BurnishCycle>
@@ -515,6 +519,7 @@
       <Initialize Result="" Timeout="1000" Description="Initialize the BaseBrake portion of the test" Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
       <!--From GenericABSTestComponent-->
       <ABSValveFiringTest Result="" Timeout="10000" Description="Fire valves"/>
+      <ESPValveFiringTest Result="" Timeout="10000" Description="Fire valves"/>
       <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" Prompt1="AccelerateToTargetSpeed" SpeedTarget="18 25" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
       <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" RollerDirection="Forward" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake"/>
       <AnalyzeDynamicParkBrake Result="" Timeout="10000" Description="Analyze Dynamic Park Brake forces"/>
@@ -523,6 +528,7 @@
       <ConnectToModule Result="" Timeout="" Description=""/>
       <DriverLiftFootCheck Result="" Timeout="10000" Description="Driver Lift Foot Check"/>
       <EvaluateABS Result="" Timeout="5000" Description="Evaluate ABS pulses to ensure minimum requirements are met"/>
+      <EvaluateESP Result="" Timeout="5000" Description="Evaluate ABS pulses to ensure minimum requirements are met"/>
       <Evaluation Result="" Timeout="10000" Description="Evaluate valve firing"/>
       <FireLFRecovery Result="" Timeout="10000" Description="Fire Left Front Recovery"/>
       <FireLFReduction Result="" Timeout="10000" Description="Fire Left Front Reduction"/>
@@ -559,7 +565,7 @@
       <RunPumpMotor Result="" Timeout="1000" Description="Run ABS pump motor"/>
       <SensorQualityTest Result="" Timeout="30000" Description="Test Sensor Quality" Prompt1="SensorQualityTest" Prompt2="FootOffBrake" ScanDelay="250"/>
       <StartAbsTest Result="" Timeout="" Description=""/>
-      <StopPumpMotor Result="" Timeout="1000" Description="Stop running the pump motor"/>
+      <StopESPPumpMotor Result="" Timeout="1000" Description="Stop running the pump motor"/>
       <!--Origin Unspecified-->
       <BrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>
       <CheckModuleType Result="" Timeout="20000" Description="Check Module Type"/>

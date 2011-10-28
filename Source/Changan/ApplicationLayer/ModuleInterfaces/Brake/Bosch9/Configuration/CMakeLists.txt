@@ -4,6 +4,6 @@
 #------------------------------------------------------------------------------------------
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
-        UDSBosch9ModuleConfig.xml
+        UdsBosch9ModuleConfig.xml
 
         )          

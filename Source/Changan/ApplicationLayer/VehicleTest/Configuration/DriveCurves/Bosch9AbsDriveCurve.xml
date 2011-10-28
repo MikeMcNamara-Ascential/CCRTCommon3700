@@ -145,7 +145,7 @@
          </ForegroundObjectives>
          <BackgroundObjectives Result="" Timeout="">
             <Objective0 Description="Analyze brake test data" Result="" Timeout="" Component="Brake">
-               <AnalyzeBrakeTest/>
+               <AnalyzeESPBrakeTest/>
             </Objective0>
          </BackgroundObjectives>
       </TestPhase105>

@@ -93,8 +93,10 @@
 
             <!-- Speed Control Test Parameters -->
             <CombinedSetAndFootoffThrottlePrompts>True</CombinedSetAndFootoffThrottlePrompts>
+            <SetButtonPromptForTime>True</SetButtonPromptForTime>
             <SpeedControlMaxSpeed Units="mph">80</SpeedControlMaxSpeed>
             <SpeedControlMinSpeed Units="mph">60</SpeedControlMinSpeed>
+            <SpeedControlSetPromptTime Units="ms">5000</SpeedControlSetPromptTime>
             <SpeedControlTargetRange Units="mph" Description="Displayed target range size">10.0</SpeedControlTargetRange>
             <SpeedRangeCheckDelay Units="ms">500</SpeedRangeCheckDelay>
             <StableSpeedMaxVariation>5.0</StableSpeedMaxVariation>
@@ -127,8 +129,8 @@
 
         <Prompts>
             <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
-            <AccelToSpeedLimiter PromptBox="1" Priority="0">SpeedControlAccelToSpeedLimiter</AccelToSpeedLimiter>
-            <AccelerateAtFullThrottle PromptBox="1" Priority="0">AccelerateAtWOT</AccelerateAtFullThrottle>
+            <AccelToSpeedLimiter PromptBox="2" Priority="0">SpeedControlAccelToSpeedLimiter</AccelToSpeedLimiter>
+            <AccelerateAtFullThrottle PromptBox="2" Priority="0">AccelerateAtWOT</AccelerateAtFullThrottle>
             <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
             <CancelPrompt PromptBox="1" Priority="0">SpeedControlCancel</CancelPrompt>
             <CheckStableSpeed PromptBox="1" Priority="0">CheckForStableSpeed</CheckStableSpeed>
@@ -137,6 +139,7 @@
             <EngineRunning PromptBox="1" Priority="0">StartVehicle</EngineRunning>
             <IgnitionOn PromptBox="1" Priority="0">KeyOn</IgnitionOn>
             <MaintainSpeed PromptBox="1" PromptPriority="0">MaintainSpeed</MaintainSpeed>
+            <OperateKickDownPedal PromptBox="1" Priority="0">OperateKickDownPedal</OperateKickDownPedal>
             <PressClutchPrompt PromptBox="1" Priority="0">SpeedControlClutch</PressClutchPrompt>
             <PressFailPrompt PromptBox="2" Priority="0">SpeedControlPressFail</PressFailPrompt>
             <PressResumePrompt PromptBox="1" Priority="0">SpeedControlResume</PressResumePrompt>
@@ -145,9 +148,9 @@
             <RemoveFootPrompt PromptBox="2" Priority="0">RemoveFootFromAccelerator</RemoveFootPrompt>
             <SetAndRemovePrompt PromptBox="1" Priority="0">SpeedControlSetAndRemoveFoot</SetAndRemovePrompt>
             <SetPrompt PromptBox="1" Priority="0">SpeedControlSet</SetPrompt>
-            <SlowDownToTargetSpeed PromptBox="2" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+            <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
             <SpeedControlOff PromptBox="2" Priority="0" Duration="3000">SpeedControlOff</SpeedControlOff>
-            <SpeedControlOn PromptBox="2" Priority="0" Duration="10000">SpeedControlOn</SpeedControlOn>
+            <SpeedControlOn PromptBox="1" Priority="0" Duration="5000">SpeedControlOn</SpeedControlOn>
             <TapBrakePrompt PromptBox="1" Priority="0">SpeedControlTapBrakes</TapBrakePrompt>
             <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
         </Prompts>

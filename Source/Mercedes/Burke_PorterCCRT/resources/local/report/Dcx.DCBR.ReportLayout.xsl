@@ -451,114 +451,131 @@
                 <th align="center" rowspan="8">Geral</th>
             </tr>
             <tr bgcolor="white">
-                <td align="Left">Geral</td>
-                <td align="left">
+                <td align="Left" width="18">Geral</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//OverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="5">
                 </td>
-                <td align="left">Validacao do Operador</td>
-                <td align="left">
+                <td align="left" width="23">Validacao do Operador</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//MachineDriverPassFail/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
             <tr>
-                <td align="left">Freio</td>
-                <td align="left">
+                <td align="left" width="18">Freio</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeOverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="5">
                 </td>
-                <td align="left">Freio de Estacionamento</td>
-                <td align="left">
+                <td align="left" width="23">Freio Estacionamento</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeAnalyzeParkBrake/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
             <tr>
-                <td align="left">Eixo</td>
-                <td align="left">
+                <td align="left" width="18">Eixo</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//AxleOverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="5">
                 </td>
-                <td align="left">Tacografo</td>
-                <td align="left">
+                <td align="left" width="23">Tacografo</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//TachographOverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
             <tr>
-                <td align="left">Transmissao</td>
-                <td align="left">
+                <td align="left" width="18">Transmissao</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//TransmissionOverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="5">
                 </td>
-                <td align="left">Diferencial</td>
-                <td align="left">
+                <td align="left" width="23">Diferencial</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//TransferCaseOverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
             <tr>
-                <td align="left">Emissoes</td>
-                <td align="left">
+                <td align="left" width="18">Emissoes</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//EmissionsOverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="5">
                 </td>
-                <td align="left">Maquina</td>
-                <td align="left">
+                <td align="left" width="23">Maquina</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//MachineOverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
             <tr>
-                <td align="left">Freio ABS</td>
-                <td align="left">
+                <td align="left" width="18">Freio ABS</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeStaticAbsTest/@Result"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="5">
                 </td>
-                <td align="left"></td>
-                <td align="left"></td>
+                <td align="left" width="23"></td>
+                <td align="left" width="8"></td>
             </tr>
             <tr>
-                <td align="left">Bloquero Trans.</td>
-                <td align="left">
+                <td align="left" width="18">Bloqueio Trans.</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//AxleTransversalLockTest/@Result"/>
                     </xsl:call-template>
                 </td>
-                <td>
+                <td width="5">
                 </td>
-                <td align="left">Bloquero Long</td>
-                <td align="left">
+                <td align="left" width="23">Bloqueio Long</td>
+                <td align="left" width="8">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//AxleLongitudinalLockTest/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
-
+            <xsl:if test="//TransmissionSelectTransmissionMode">
+                <tr>
+                    <td align="left" width="18">Piloto Aut.</td>
+                    <td align="left" width="8">
+                        <xsl:call-template name="showResult">
+                            <xsl:with-param name="RESULT" select="//SpeedControlOverallTest/@Result"/>
+                        </xsl:call-template>
+                    </td>
+                    <td width="5">
+                    </td>
+                    <td align="left" width="23">Cambio Aut.</td>
+                    <td align="left" width="8">
+                        <xsl:call-template name="showResult">
+                            <xsl:with-param name="RESULT" select="//TransmissionAccelerateToTestSpeed/@Result"/>
+                        </xsl:call-template>
+                    </td>
+                </tr>
+            </xsl:if>
         </table>
 
         <!-- DTC Table -->

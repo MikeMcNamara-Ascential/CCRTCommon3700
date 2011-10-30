@@ -133,7 +133,7 @@ const string KnorrTC<ModuleType>::CommandTestStep(const string &value)
 		// Disengage machine
 		else if (step == "DisengageMachine")			status = DisengageMachine();
 		// Perform the parking brake test
-		else if (step == "AnalyzeParkBrake")			status = GenericTC::AnalyzeParkBrakeTest(value, m_isTandemAxle);
+		else if (step == "AnalyzeParkBrake")			status = !ShortCircuitTestStep() ? GenericTC::AnalyzeParkBrakeTest(value, m_isTandemAxle) : testSkip;
         // Analyze the stopping distance
         else if(step == "AnalyzeStoppingDistance")      status = m_baseBrakeTool->AnalyzeStoppingDistance();
 		// No special method, try the base class
@@ -152,13 +152,31 @@ const string KnorrTC<ModuleType>::CommandTestStep(const string &value)
 template <class ModuleType>
 string KnorrTC<ModuleType>::ModuleWakeUp(void)
 {	// Establish comms with the module
-	return BEP_STATUS_SUCCESS == m_vehicleModule.SendModuleWakeUpMessage() ? testPass : testFail;
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{
+		result = BEP_STATUS_SUCCESS == m_vehicleModule.SendModuleWakeUpMessage() ? testPass : testFail;
+	}
+	else
+	{
+		result = testSkip;
+	}
+	return result;
 }
 
 template <class ModuleType>
 string KnorrTC<ModuleType>::DisableInsCommunication(void)
 {
-	return BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("DisableInsCommunication") ? testPass : testFail;
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{
+		result = BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("DisableInsCommunication") ? testPass : testFail;
+	}
+	else
+	{
+		result = testSkip;
+	}
+	return result;
 }
 
 template <class ModuleType>

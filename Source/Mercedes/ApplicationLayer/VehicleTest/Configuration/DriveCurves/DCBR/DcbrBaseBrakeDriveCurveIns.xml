@@ -29,7 +29,7 @@
             <Debug>Off</Debug>
         </Emissions>
         <Cruise>
-            <ComponentName>MercedesSpeedControlTc.qxe</ComponentName>
+            <ComponentName>GenericSpeedControl.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
             <ConfigFile>SpeedControlTc.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/SpeedControl/</ConfigPath>
@@ -170,52 +170,52 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase300>
-
-        <!-- Torque load testing -->
-        <TestPhase350 Description="Maximum Speed Test" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="" Result="" Timeout="" Component="Emissions">
-                    <MaxSpeedTest/>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase350>
-        <TestPhase360 Description="Manual Engine Torque Test" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="" Result="" Timeout="" Component="Emissions">
-                    <EngineTorqueTest/>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase360>
-        <TestPhase370 Description="Brake to stop" Result="" Timeout="">
+        <TestPhase310 Description="Brake to stop" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="" Result="" Timeout="" Component="Machine">
                     <BrakeToStop/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase370>
+        </TestPhase310>
 
         <!-- Manul-Mode Transmission Testing -->
-        <TestPhase410 Description="Test transmission manual mode" Result="" Timeout="">
+        <TestPhase350 Description="Test transmission manual mode" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Check transmission gears" Result="" Timeout="" Component="Transmission">
                     <ManualModeTest/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase410>
-        <TestPhase420 Description="Test the speed control and limiter" Result="" Timeout="">
+        </TestPhase350>
+        <TestPhase360 Description="Test the speed control and limiter" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Speed control and speed limiter test" Result="" Timeout="" Component="Cruise">
                     <SpeedControlTest/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase420>
-        <TestPhase430 Description="Brake to stop" Result="" Timeout="">
+        </TestPhase360>
+
+        <!-- Torque load testing -->
+        <TestPhase400 Description="Maximum Speed Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="" Result="" Timeout="" Component="Emissions">
+                    <MaxSpeedTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase400>
+        <TestPhase410 Description="Manual Engine Torque Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="" Result="" Timeout="" Component="Emissions">
+                    <EngineTorqueTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase410>
+        <TestPhase420 Description="Brake to stop" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="" Result="" Timeout="" Component="Machine">
                     <BrakeToStop/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase430>
+        </TestPhase420>
 
         <!-- Brake Testing -->
         <TestPhase480 Description="Engage the machine!" Result="" Timeout="">

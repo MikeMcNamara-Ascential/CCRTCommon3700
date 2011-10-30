@@ -70,6 +70,8 @@
             <UsePlcResultButtons>False</UsePlcResultButtons>
 
             <!-- Auto mode torque loading parameters -->
+            <AutoModeTargetSpeed Units="mph">37</AutoModeTargetSpeed>
+            <AutoModeSpeedRange Units="mph">37 40</AutoModeSpeedRange>
             <MotorLoadingAccelConst Units="%"
                 Description="Percentage of motor torque to apply to the drive axle proportional to acceleration">25.0</MotorLoadingAccelConst>
             <MotorLoadingSpeedConst Units="%" 
@@ -120,6 +122,7 @@
 
         <!-- ===== Test Component Prompts ===== -->
         <Prompts>
+            <AccelerateToAutoModeSpeed PromptBox="1" Priority="0">AutoModeAccelToTargetSpeed</AccelerateToAutoModeSpeed>
             <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
             <AsrEquipped PromptBox="2" Priority="0">IsTransmissionAsrEquipped</AsrEquipped>
             <CheckShifting TestSteps="CheckShifting">CheckTransmissionShifting</CheckShifting>
@@ -136,6 +139,7 @@
         <AutoModeTest>
             <TestStep00>CheckTransmissionType</TestStep00>
             <TestStep05 AltValue="Auto">SelectTransmissionMode</TestStep05>
+            <TestStep10>AccelerateToTestSpeed</TestStep10>
         </AutoModeTest>
 
         <FinishUp>
@@ -170,12 +174,13 @@
 
     <!-- ===== Test Steps ================================================== -->
     <TestSteps>
+        <AccelerateToTestSpeed Result="" Timeout="300000" ScanDelay="500" Description="Prompt operator to accelerate in auto mode"/>
         <CheckShifting Result="Not Tested" Timeout="30000"  ScanDelay="500"
             Description="Prompt operator for shifting performance"/>
         <CheckTransmissionType Result="Not Tested" Timeout="1000" Description="Verify the transmision type"/>
         <FinishUp Result="Not Tested" Timeout="500" Description="Finish testing sequence"/>
         <MaximumGearTest Result="" Timeout="300000" Description="Verify maximum gear and speed" ScanDelay="500"/>
-        <SelectTransmissionMode Result="Not Tested" Timeout="10000" Description="Select the shifting mode"/>
+        <SelectTransmissionMode Result="Not Tested" Timeout="20000" Description="Select the shifting mode"/>
         <SpeedBasedGearTest Result="Not Tested" Timeout="15000" ScanDelay="500"
             Description="Verify vehicle speed in specified gear"/>
     </TestSteps>

@@ -48,6 +48,11 @@ const string EpsIIITransmissionTc::CommandTestStep(const string &value)
             else if(!GetTestStepName().compare("SelectTransmissionMode"))   result = SelectMode(value);
             else if(!GetTestStepName().compare("SpeedBasedGearTest"))       result = SpeedBasedGearTest(value);
 			else if(!GetTestStepName().compare("MaximumGearTest"))          result = MaximumGearTest();
+			else if(!GetTestStepName().compare("AccelerateToTestSpeed") && EpsTransmissionEquipped())
+			{
+				result = AccelerateToTestSpeed(GetParameterFloat("AutoModeTargetSpeed"), GetParameter("AutoModeSpeedRange"),
+											   GetTestStepInfoInt("ScanDelay"), true, "AccelerateToAutoModeSpeed");
+			}
             else                                                            result = GenericTC::CommandTestStep(value);
         }
         else

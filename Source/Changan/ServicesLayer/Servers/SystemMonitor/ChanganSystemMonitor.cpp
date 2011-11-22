@@ -58,7 +58,7 @@ void ChanganSystemMonitor::CheckTesting(ControlData *ctrl)
         {   // Remove prompts and command test to start
             RemovePrompt(2, "RaiseRetainers");
             // Start the test sequence 
-            CommandNdbData(string(START_VEHICLE_TEST_DATA_TAG), true);
+            CommandNdbData(string(COMMAND_TEST), string(TEST_BASE_BRAKE));
             testSelected = true;
         }
 #if 0

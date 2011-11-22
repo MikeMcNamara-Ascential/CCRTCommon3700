@@ -319,6 +319,72 @@ const string BaseBrakeTool::TestStepInitialize(void)
 }
 
 //-------------------------------------------------------------------------------------------------
+const string BaseBrakeTool::DisplaySpeedTimeGraph (void)
+{
+    INT32 testStatus = BEP_STATUS_SUCCESS;      // the status of the test being performed
+    string status;
+    m_component->Log(LOG_FN_ENTRY, "BaseBrakeTool::DisplaySpeedTimeGraph()\n");
+    if (!m_component->ShortCircuitTestStep())
+    {
+        try
+        {
+            //Set up Lower / upper limit lines if available
+            m_component->SystemWrite(m_component->GetDataTag("GraphLowerSeries"), m_component->GetParameter("SpeedGraphLowerSeries"));
+            m_component->SystemWrite(m_component->GetDataTag("GraphUpperSeries"), m_component->GetParameter("SpeedGraphUpperSeries"));
+            //display graph
+            m_component->SystemWrite(m_component->GetDataTag("DisplayDriverMonitor"),string("speedtime"));
+
+            // update the test status
+            m_component->UpdateResult(testStatus, status);
+        }
+        catch (BepException &e)
+        {
+            m_component->Log(LOG_ERRORS, "DisplaySpeedTimeGraph Exception: %s\n", e.what());
+            testStatus = BEP_STATUS_SOFTWARE;
+        }
+    }
+    else
+    {   // Skip the test
+        m_component->Log(LOG_FN_ENTRY, "Skipping test step - %s\n", m_component->GetTestStepName().c_str());
+        status = BEP_SKIP_RESPONSE;
+    }
+
+    m_component->Log(LOG_FN_ENTRY, "BaseBrakeTool::DisplaySpeedTimeGraph(): %s, %d\n", status.c_str(), testStatus);
+
+    return(status);
+}
+
+const string BaseBrakeTool::RemoveSpeedTimeGraph (void)
+{
+    INT32 testStatus = BEP_STATUS_SUCCESS;      // the status of the test being performed
+    string status;
+    m_component->Log(LOG_FN_ENTRY, "BaseBrakeTool::RemoveSpeedTimeGraph()\n");
+    if (!m_component->ShortCircuitTestStep())
+    {
+        try
+        {
+            //remove graph
+            m_component->SystemWrite(m_component->GetDataTag("DisplayDriverMonitor"),string("drivermonitor")); 
+            // update the test status
+            m_component->UpdateResult(testStatus, status);
+        }
+        catch (BepException &e)
+        {
+            m_component->Log(LOG_ERRORS, "RemoveSpeedTimeGraph Exception: %s\n", e.what());
+            testStatus = BEP_STATUS_SOFTWARE;
+        }
+    }
+    else
+    {   // Skip the test
+        m_component->Log(LOG_FN_ENTRY, "Skipping test step - %s\n", m_component->GetTestStepName().c_str());
+        status = BEP_SKIP_RESPONSE;
+    }
+
+    m_component->Log(LOG_FN_ENTRY, "BaseBrakeTool::RemoveSpeedTimeGraph(): %s, %d\n", status.c_str(), testStatus);
+
+    return(status);
+}
+
 const string BaseBrakeTool::TestStepAccelerate (void)
 {
 	INT32 testStatus = BEP_STATUS_SUCCESS;		// the status of the test being performed
@@ -358,6 +424,16 @@ const string BaseBrakeTool::TestStepAccelerate (void)
 						int numAccelPts = m_component->GetParameterInt("NumberOfAccelerationPoints");
 						bool recordAccelPtsDone = false;
 
+                        if (m_component->GetParameterBool("DisplaySpeedTimeGraph"))
+                        {
+                            //Set up Lower / upper limit lines if available
+                            m_component->SystemWrite(m_component->GetDataTag("GraphLowerSeries"), m_component->GetParameter("SpeedGraphLowerSeries"));
+                            m_component->SystemWrite(m_component->GetDataTag("GraphUpperSeries"), m_component->GetParameter("SpeedGraphUpperSeries"));
+                            //display graph
+                            m_component->SystemWrite("DisplayDriverMonitor","speedtime"); 
+                            //set start parameter
+                            m_component->SystemWrite(m_component->GetDataTag("StartSpeedGraph"), 1);
+                        }
 						if(m_component->GetParameterBool("WaitForAccelStart"))
 						{// wait for zero speed to be broken
 							if(m_component->ReadSubscribeData(m_component->GetDataTag("Zerospeed")) != "0")
@@ -456,6 +532,14 @@ const string BaseBrakeTool::TestStepAccelerate (void)
 			m_component->Log(LOG_ERRORS, "TestStepAccelerate Exception: %s\n", e.what());
 			testStatus = BEP_STATUS_SOFTWARE;
 		}
+
+        if (m_component->GetParameterBool("DisplaySpeedTimeGraph"))
+        {
+            //remove graph
+            m_component->SystemWrite("DisplayDriverMonitor","drivermonitor"); 
+            //clear start parameter
+            m_component->SystemWrite(m_component->GetDataTag("StartSpeedGraph"), 0);
+        }
 
 		// update the test status
 		m_component->UpdateResult(testStatus, status);

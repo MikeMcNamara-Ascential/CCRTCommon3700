@@ -2,7 +2,7 @@
    <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
       <BrakeType>Base Brake</BrakeType>
    </BaseBrake>
-   <TevesMk70Abs DriveCurve="/Configuration/VehicleTest/DriveCurves/TevesMk70AbsDriveCurve.xml">
+   <TevesMk70Abs DriveCurve="/Configuration/VehicleTest/DriveCurves/TevesMk70DriveCurve.xml">
       <BrakeType>TevesMk70</BrakeType>
       <!-- BodyStyle>B207</BodyStyle-->
    </TevesMk70Abs>

@@ -1,7 +1,12 @@
 <KwpIsoTevesMk60Module>
    <Setup>
-      <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+      <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+      <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
       <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+      <SwitchMonitorDelay>2000</SwitchMonitorDelay>
+      <EnterDiagnosticMode>EnterDiagnosticMode</EnterDiagnosticMode>
+      <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
+      <ModuleRequestID>0x784</ModuleRequestID>
       <DataByteCountIndex>3</DataByteCountIndex>
       <DataStartIndex>3</DataStartIndex>
       <DataHeaderLength>3</DataHeaderLength>
@@ -20,7 +25,7 @@
       </DtcData>
       <Communication>
          <Debug>Off</Debug>
-         <Name>ISOK</Name>
+         <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
          <BufferSize>4096</BufferSize>
          <CommSize>1</CommSize>
          <Timeout>10000000</Timeout>
@@ -28,7 +33,7 @@
       </Communication>
       <Logging>
          <Status>Enabled</Status>
-         <ProcessName>TevesMk60AbsModule</ProcessName>
+         <ProcessName>TevesMk70AbsModule</ProcessName>
          <AdditionalLogFile>/Communication/TevesMk60AbsModule.log</AdditionalLogFile>
          <Debug>Off</Debug>
          <LocalEcho>Disabled</LocalEcho>

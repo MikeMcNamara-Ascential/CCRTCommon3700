@@ -258,6 +258,10 @@ const string GenericBaseBrakeTC::CommandTestStep(const std::string &value)
 			else if("AccelerateToParkBrakeSpeed" == step)	 status = m_baseBrakeTool->TestStepAccelerateToParkBrakeSpeed();
 			// Perform dynamic park brake test
 			else if("DynamicParkBrakeTest" == step)			 status = m_baseBrakeTool->TestStepDynamicParkBrake();
+            // Accelerate to brake test speed
+            else if (step == "DisplaySpeedTimeGraph")         status = m_baseBrakeTool->DisplaySpeedTimeGraph();
+            // Accelerate to brake test speed
+            else if (step == "RemoveSpeedTimeGraph")          status = m_baseBrakeTool->RemoveSpeedTimeGraph();
 			// Analyze dynamic park brake test
 			else if("AnalyzeDynamicParkBrake" == step)		 status = m_baseBrakeTool->AnalyzeDynamicParkBrake();
 			else
@@ -335,4 +339,32 @@ void GenericBaseBrakeTC::Reset(void)
 	m_baseBrakeTool->Reset();
 	// Call the base clas to complete the reset
 	GenericTC::Reset();
+}
+
+void GenericBaseBrakeTC::Abort(void)
+{//Abort Called return motors to boost mode
+    Log(LOG_FN_ENTRY,"GenericBaseBrakeTC Abort Called! Resetting motor mode\n");
+    // Return the speed set point to 0
+    for(UINT8 wheel = 0; wheel < GetRollerCount(); wheel++)
+    {   // Clear out any torque or speed values
+        m_MotorController.Write(rollerName[wheel]+"TorqueValue", "0.00", false);
+        m_MotorController.Write(rollerName[wheel]+"SpeedValue", "0.00", true);
+    }
+    // Set each roller to boost mode
+    for(UINT8 wheel = 0; wheel < GetRollerCount(); wheel++)
+    {
+        m_MotorController.Write(rollerName[wheel]+"MotorMode", BOOST_MODE, true);
+    }
+
+
+    Log(LOG_FN_ENTRY,"GenericBaseBrakeTC Abort Called! DisplaySpeedTimeGraph Parameter Value: %s \n",GetParameter("DisplaySpeedTimeGraph").c_str());
+    //Call to remove the Speed time Graph during abort
+    Log(LOG_FN_ENTRY,"GenericBaseBrakeTC Abort Called! Removing Speed Time Graph\n");
+    m_baseBrakeTool->RemoveSpeedTimeGraph();
+    Log(LOG_FN_ENTRY,"GenericBaseBrakeTC Abort Called! Removed Speed Time Graph\n");
+    
+
+    // Call the base class to complete the abort processing
+    GenericTC::Abort();
+    
 }

@@ -1,15 +1,15 @@
 [Global]
-CurrentProject=Changan\Changan.vpj
+CurrentProject=Core\Core.vpj
 [ActiveConfig]
 Changan\Changan.vpj=Release
 Core\Core.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Changan\Changan.vpj=20111025163607589
-Core\Core.vpj=20111024152309112
-Tests\Tests.vpj=20110701100211327
-Tools\Tools.vpj=20110701100155451
+Changan\Changan.vpj=20111025153607589
+Core\Core.vpj=20111024142309112
+Tests\Tests.vpj=20110701090211327
+Tools\Tools.vpj=20110701090155451
 [TreeExpansion2]
 - Changan\Changan.vpj
   - ApplicationLayer
@@ -39,9 +39,9 @@ Tools\Tools.vpj=20110701100155451
         + Configuration
       + Machine
         + Configuration
-      + ModuleServer
+      - ModuleServer
         + Include
-        + VehicleModuleVinReader
+        - VehicleModuleVinReader
       + SoundLevel
         + Configuration
       + SpeedControl
@@ -105,15 +105,15 @@ Tools\Tools.vpj=20110701100155451
         + sim
           + params
     + UninstallerData
-  + ServicesLayer
+  - ServicesLayer
     + Managers
       + ICM
         + Configuration
       + SerialServer
         + Configuration
-    + Servers
-      + InputServer
-        + Configuration
+    - Servers
+      - InputServer
+        - Configuration
       + Launcher
         + Configuration
       + MachineDataBroker
@@ -128,7 +128,7 @@ Tools\Tools.vpj=20110701100155451
         + Configuration
       + VehicleDataServer
         + Configuration
-- Core\Core.vpj
++ Core\Core.vpj
   - ApplicationLayer
     - ModuleInterfaces
       - Brake
@@ -151,9 +151,9 @@ Tools\Tools.vpj=20110701100155451
         + BaseBrake
           + Configuration
         - Bosch8
-        + Common
+        - Common
           + Configuration
-        + Include
+        - Include
       + Common
         + Configuration
       + Emissions
@@ -321,15 +321,27 @@ Tools\Tools.vpj=20110701100155451
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1920 1080 44 24 896 711 0 0 M 0 0 0 0 1258 853
-CWD: Changan
+SCREEN: 1920 1080 44 24 896 711 0 0 M 0 0 0 0 1470 766
+CWD: Changan\ApplicationLayer\VehicleTest\Configuration\DriveCurves
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Include\BaseBrakeTool.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=264 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=264 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1220 516 0 739 I  WF=0 WT=3 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Include\BaseBrakeTool.h"
+VIEW: LN=.0 CL=1 LE=0 CX=23 CY=1 WI=431 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 250 250 1220 516 -1 -1 M  WF=0 WT=4 "SimHei,11,0,1"
+BUFFER: BN="Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp"
+VIEW: LN=.0 CL=1 LE=0 CX=7 CY=1 WI=806 BI=27 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Z:\common3700\source\changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TC.cpp
-Z:\common3700\source\changan\ApplicationLayer\TestComponents\Brake\Bosch\Bosch9TCMain.cpp
-Z:\common3700\source\changan\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp
-Z:\common3700\source\changan\ApplicationLayer\VehicleTest\Configuration\Changan.SelectionTable.xml
-Z:\common3700\source\changan\ApplicationLayer\VehicleTest\Configuration\DriveCurves\CMakeLists.txt
-Z:\common3700\source\changan\ApplicationLayer\VehicleTest\Configuration\DriveCurves\TevesMk70AbsDriveCurve.xml
-Z:\common3700\source\changan\ApplicationLayer\VehicleTest\Configuration\DriveCurves\TrwAbsDriveCurve.xml
-Z:\common3700\source\changan\ApplicationLayer\ModuleInterfaces\Brake\Bosch9\Configuration\CMakeLists.txt
-Z:\common3700\source\changan\Changan.vpj
+Z:\Common3700\Source\Changan\ApplicationLayer\VehicleTest\Configuration\Changan.SelectionTable.xml
+Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp
+Core\ApplicationLayer\TestComponents\Brake\Include\GenericBaseBrakeTC.h
+Core\ApplicationLayer\TestComponents\Common\GenericTC.cpp
+Z:\common3700\source\core\ApplicationLayer\TestComponents\Brake\Include\GenericBaseBrakeTC.h
+Core\ApplicationLayer\TestComponents\Brake\Common\GenericBaseBrakeTC.cpp
+Z:\common3700\source\core\ApplicationLayer\TestComponents\Brake\Common\GenericBaseBrakeTC.cpp
+Changan\ServicesLayer\Servers\InputServer\Configuration\Changan.InputServerConfig.xml
+Changan\ApplicationLayer\TestComponents\ModuleServer\VehicleModuleVinReader\VehicleModuleVinReader.cpp

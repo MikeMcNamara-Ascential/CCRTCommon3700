@@ -433,6 +433,12 @@ protected:
      * @return The result of completing the test sequence.
      */
     const string TestStepEngageMachine(void);
+    /**
+     * <b>Description:</b>
+     * Method used to abort the current processing based on the needs of the 
+     * component.
+     */
+    virtual void Abort(void);
 
     /**
      * The Base Brake utility object that contains most of the funtionality

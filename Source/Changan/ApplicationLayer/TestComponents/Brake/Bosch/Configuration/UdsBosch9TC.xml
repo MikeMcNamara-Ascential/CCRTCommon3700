@@ -342,6 +342,9 @@
          <StaticBrakeBurnishTime Units="ms">120000</StaticBrakeBurnishTime>
          <!--Ignition On Startup Time-->
          <IgnitionOnStartupTime>5000</IgnitionOnStartupTime>
+		 <DisplaySpeedTimeGraph>True</DisplaySpeedTimeGraph>
+         <SpeedGraphLowerSeries UnitsX="s" UnitsY="km/h">0 -5,20 15,30 15,50 40,60 40,80 60,90 60,120 90</SpeedGraphLowerSeries>
+         <SpeedGraphUpperSeries UnitsX="s" UnitsY="km/h">0 10,20 30,30 30,50 70,60 70,80 100,90 100,120 120</SpeedGraphUpperSeries>
       </Parameters>
       <Prompts>
          <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
@@ -409,7 +412,9 @@
          <TestStep00>BrakeSwitchTest</TestStep00>
       </BrakeSwitchTest>
       <BrakeTest>
+		 <TestStep00>DisplaySpeedTimeGraph</TestStep00>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
+		 <TestStep06>RemoveSpeedTimeGraph</TestStep06>
          <TestStep10>Coast</TestStep10>
          <TestStep15>DragTest</TestStep15>
          <TestStep20>AnalyzeDragTest</TestStep20>
@@ -575,5 +580,7 @@
       <LowSpeedSensorTest Result="" Timeout="15000" Description="Low Speed Wheel Sensor Test" ScanDelay="250"/>
       <RecoverAllWheels Result="" Timeout="1000" Description="Recover brake force at all wheels"/>
       <StaticBrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>
+	  <DisplaySpeedTimeGraph Result="" Timeout="5000" Description="Display Speed Time Graph" ScanDelay="250"/>
+      <RemoveSpeedTimeGraph Result="" Timeout="5000" Description="Remove Speed Time Graph" ScanDelay="250"/>
    </TestSteps>
 </BoschAbs>

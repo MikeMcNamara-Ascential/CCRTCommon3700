@@ -522,6 +522,8 @@ public:
      *      </ul>
      */
     const string TestStepInitialize(void);
+    virtual const string DisplaySpeedTimeGraph(void);
+    virtual const string RemoveSpeedTimeGraph(void);
     /**
      * Prompt the operator to brake test speed.
      * <p>

@@ -3,7 +3,7 @@
       <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
       <Communication>
          <Debug>Off</Debug>
-         <Name>ISOK</Name>
+         <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
          <BufferSize>4096</BufferSize>
          <CommSize>1</CommSize>
          <Timeout>10000000</Timeout>

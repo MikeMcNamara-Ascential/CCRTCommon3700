@@ -2185,7 +2185,12 @@ protected:
      *      </ul>
      */
     virtual string CheckEvacAndFill(void);
-
+    /**
+     * <b>Description:</b>
+     * Method used to abort the current processing based on the needs of the 
+     * component.
+     */
+    virtual void Abort(void);
     /**
 	 * Store the value indicating the number of ABS channels.
 	 * <b>Category:</b> Utility

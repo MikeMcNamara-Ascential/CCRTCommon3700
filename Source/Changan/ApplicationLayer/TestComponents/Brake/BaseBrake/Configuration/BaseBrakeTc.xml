@@ -169,8 +169,10 @@
             <ParkBrakeEndSampleSpeed Units="mph">0</ParkBrakeEndSampleSpeed>
             <ParkBrakeStartSamplingAtMinimumForce>True</ParkBrakeStartSamplingAtMinimumForce>
             <ParkBrakeMinimumStartForce Units="lbf">120</ParkBrakeMinimumStartForce>
-            <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount>
-
+            <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount> 
+            <DisplaySpeedTimeGraph>True</DisplaySpeedTimeGraph>
+            <SpeedGraphLowerSeries UnitsX="s" UnitsY="km/h">0 -5,20 15,30 15,50 40,60 40,80 60,90 60,120 90</SpeedGraphLowerSeries>
+            <SpeedGraphUpperSeries UnitsX="s" UnitsY="km/h">0 10,20 30,30 30,50 70,60 70,80 100,90 100,120 120</SpeedGraphUpperSeries>
         </Parameters>
         <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
         <Prompts>
@@ -254,9 +256,15 @@
             <TestStep2>AnalyzeBrakeTest</TestStep2>
             <TestStep3>AnalyzeBalance</TestStep3>
         </AnalyzeBrakeTest>
+        <AccelerateToSpeed>
+          <TestStep00>DisplaySpeedTimeGraph</TestStep00>
+          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
+        </AccelerateToSpeed>
 
         <BrakeTest>
-            <TestStep00>AccelerateToBrakeSpeed</TestStep00>
+			<TestStep00>DisplaySpeedTimeGraph</TestStep00>
+            <TestStep03>AccelerateToBrakeSpeed</TestStep03>
+			<TestStep04>RemoveSpeedTimeGraph</TestStep04>
             <TestStep05>DragTest</TestStep05>
             <TestStep10>AnalyzeDragTest</TestStep10>
             <TestStep15>BrakeTest</TestStep15>
@@ -331,6 +339,8 @@
 
         <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test."
             Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
+		<DisplaySpeedTimeGraph Result="" Timeout="5000" Description="Display Speed Time Graph" ScanDelay="250"/>
+        <RemoveSpeedTimeGraph Result="" Timeout="5000" Description="Remove Speed Time Graph" ScanDelay="250"/>
 
         <!--  Unused Test Steps
                 <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank" SpeedTarget="23 33" CoastEndSpeed="33">Perform Vehicle Coast</Coast>

@@ -332,6 +332,10 @@ const string GenericABSTCTemplate<VehicleModuleType>::CommandTestStep(const stri
 		else if(step == "Initialize")					 status = m_baseBrakeTool->TestStepInitialize();
 		// Accelerate to brake test speed
 		else if(step == "AccelerateToBrakeSpeed")		 status = m_baseBrakeTool->TestStepAccelerate();
+        // Accelerate to brake test speed
+        else if (step == "DisplaySpeedTimeGraph")         status = m_baseBrakeTool->DisplaySpeedTimeGraph();
+        // Accelerate to brake test speed
+        else if (step == "RemoveSpeedTimeGraph")          status = m_baseBrakeTool->RemoveSpeedTimeGraph();
 		// Coast down to drag speed
 		else if(step == "Coast")						 status = m_baseBrakeTool->TestStepCoast();
 		// Perform the drag test
@@ -3007,4 +3011,33 @@ template <class VehicleModuleType>
 inline const bool& GenericABSTCTemplate<VehicleModuleType>::IsESPEquipped(void)
 {
 	return m_isESPEquipped;
+}
+
+template <class VehicleModuleType>
+void GenericABSTCTemplate<VehicleModuleType>::Abort(void)
+{//Abort Called return motors to boost mode
+    Log(LOG_FN_ENTRY,"GenericABSTCTemplate Abort Called! Resetting motor mode\n");
+    // Return the speed set point to 0
+    for(UINT8 wheel = 0; wheel < GetRollerCount(); wheel++)
+    {   // Clear out any torque or speed values
+        m_MotorController.Write(rollerName[wheel]+"TorqueValue", "0.00", false);
+        m_MotorController.Write(rollerName[wheel]+"SpeedValue", "0.00", true);
+    }
+    // Set each roller to boost mode
+    for(UINT8 wheel = 0; wheel < GetRollerCount(); wheel++)
+    {
+        m_MotorController.Write(rollerName[wheel]+"MotorMode", BOOST_MODE, true);
+    }
+
+
+    Log(LOG_FN_ENTRY,"GenericABSTCTemplate Abort Called! DisplaySpeedTimeGraph Parameter Value: %s \n",GetParameter("DisplaySpeedTimeGraph").c_str());
+    //Call to remove the Speed time Graph during abort
+    Log(LOG_FN_ENTRY,"GenericABSTCTemplate Abort Called! Removing Speed Time Graph\n");
+    m_baseBrakeTool->RemoveSpeedTimeGraph();
+    Log(LOG_FN_ENTRY,"GenericABSTCTemplate Abort Called! Removed Speed Time Graph\n");
+    
+
+    // Call the base class to complete the abort processing
+    GenericTCTemplate<VehicleModuleType>::Abort();
+    
 }

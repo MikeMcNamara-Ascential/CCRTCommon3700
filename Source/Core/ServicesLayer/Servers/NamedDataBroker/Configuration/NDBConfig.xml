@@ -336,6 +336,8 @@
             <FrontWDBGColor DataType="color">VehicleDataBroker</FrontWDBGColor>
             <FrontWheelDriveSelectedToPLC DataType="bool">PLC</FrontWheelDriveSelectedToPLC>
             <FrontWheelDriveSelectedToPLCSpecial DataType="bool">PLC</FrontWheelDriveSelectedToPLCSpecial>
+            <GraphLowerSeries DataType="string">VehicleTest</GraphLowerSeries>
+            <GraphUpperSeries DataType="string">VehicleTest</GraphUpperSeries>
             <GUIKeepAlive DataType="bool">MachineDataBroker</GUIKeepAlive>
             <HolddownPlatformLockDisengagedFault DataType="bool">PLC</HolddownPlatformLockDisengagedFault>
             <HolddownPlatformLockEngagedFault DataType="bool">PLC</HolddownPlatformLockEngagedFault>

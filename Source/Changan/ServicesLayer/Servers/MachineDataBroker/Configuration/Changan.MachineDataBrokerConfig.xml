@@ -45,6 +45,8 @@
             <AxleRatio DatType="float">0</AxleRatio>
             <BrakeForceValue DataType="float" Units="LBF">0</BrakeForceValue>
             <ConnectRequest DataType="string">Unknown</ConnectRequest>
+            <DisplayDriverMonitor>drivermonitor</DisplayDriverMonitor>
+            <DisplayRackMonitor>frontpanel</DisplayRackMonitor>
             <DriverNumberDisplay DataType="" Units=""/>
             <DriverNumberDisplayBGColor DataType="" Units="">white</DriverNumberDisplayBGColor>
             <FrontBalanceBGColor DataType="color">white</FrontBalanceBGColor>

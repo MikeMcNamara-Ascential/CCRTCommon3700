@@ -114,53 +114,53 @@
          <NoButton>DriverFail</NoButton>
       </DataTags>
       <Parameters>
-         <ResetCommHardware Values="Yes or No">No</ResetCommHardware>
-         <UsePlcYesNoButtons>True</UsePlcYesNoButtons>
-         <DateFormat>%F</DateFormat>
-         <TimeFormat>%H:%M:%S</TimeFormat>
-         <BrakeToStopPrompt>BrakeToStop</BrakeToStopPrompt>
-         <SetOperatorConsoleTo4WDPrompt>SetOperatorConsoleTo4WD</SetOperatorConsoleTo4WDPrompt>
          <AccelerateToTargetSpeedPrompt>AccelerateToTargetSpeed</AccelerateToTargetSpeedPrompt>
-         <SpeedometerTestLowLimit>22</SpeedometerTestLowLimit>
-         <SpeedometerTestHighLimit>28</SpeedometerTestHighLimit>
-         <SpeedometerSpeedTarget>22 28</SpeedometerSpeedTarget>
+         <BrakeToStopPrompt>BrakeToStop</BrakeToStopPrompt>
+         <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+         <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+         <DateFormat>%F</DateFormat>
          <DcxStyleSpeedoTest>0</DcxStyleSpeedoTest>
-         <SpeedometerStableTime>6000</SpeedometerStableTime>
-         <TargetSpeed40kph>24.85</TargetSpeed40kph>
-         <ReverseTestSpeed>5</ReverseTestSpeed>
-         <ReverseSpeedTarget>5 10</ReverseSpeedTarget>
-         <KeepTestStatusOnExit>0</KeepTestStatusOnExit>
-         <TargetSpeedParameter>30</TargetSpeedParameter>
-         <SpeedRangeParameter>30 35</SpeedRangeParameter>
-         <ScanDelayParameter>500</ScanDelayParameter>
-         <MaintainSpeedTime>1000</MaintainSpeedTime>
-         <MaintainSpeedMinSpeed>25</MaintainSpeedMinSpeed>
-         <MaintainSpeedMaxSpeed>35</MaintainSpeedMaxSpeed>
-         <PreForcedAccelerateWait>3000</PreForcedAccelerateWait>
          <ForcedAccelerateSpeedStep>10</ForcedAccelerateSpeedStep>
          <ForcedAccelerateSpeedStepDelay>500</ForcedAccelerateSpeedStepDelay>
-         <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+         <ICMName>mgr/ICM</ICMName>
+         <KeepTestStatusOnExit>0</KeepTestStatusOnExit>
+         <LogTaskStatInfo>Yes</LogTaskStatInfo>
+         <MaintainSpeedMaxSpeed>35</MaintainSpeedMaxSpeed>
+         <MaintainSpeedMinSpeed>25</MaintainSpeedMinSpeed>
+         <MaintainSpeedTime>1000</MaintainSpeedTime>
+         <MaxHydraulicBoostPressure>800</MaxHydraulicBoostPressure>
          <MotorLoadingAccelConst>0.0</MotorLoadingAccelConst>
          <MotorLoadingSpeedConst>0.0</MotorLoadingSpeedConst>
-         <ParkBrakeDriverDelay>2000</ParkBrakeDriverDelay>
          <ParkBrakeApplyForce>250</ParkBrakeApplyForce>
-         <UnidirectionalParkBrakeTest>No</UnidirectionalParkBrakeTest>
-         <ParkBrakePrepTime>5000</ParkBrakePrepTime>
-         <ReleaseParkBrakePrompt>ReleaseParkBrake</ReleaseParkBrakePrompt>
-         <ParkPawlApplyForce>250</ParkPawlApplyForce>
-         <UnidirectionalParkPawlTest>No</UnidirectionalParkPawlTest>
-         <ParkPawlPrepTime>5000</ParkPawlPrepTime>
-         <ParkPawlDriverDelay>2000</ParkPawlDriverDelay>
-         <ParkPawlSpeedValue>5</ParkPawlSpeedValue>
-         <ParkBrakeSpeedValue>5</ParkBrakeSpeedValue>
-         <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
-         <ParkPawlMaxDistance>20</ParkPawlMaxDistance>
-         <ParkPawlMinDistance>50</ParkPawlMinDistance>
+         <ParkBrakeDriverDelay>2000</ParkBrakeDriverDelay>
          <ParkBrakeMaxDistance>20</ParkBrakeMaxDistance>
          <ParkBrakeMinDistance>50</ParkBrakeMinDistance>
-         <LogTaskStatInfo>Yes</LogTaskStatInfo>
-         <MaxHydraulicBoostPressure>800</MaxHydraulicBoostPressure>
-         <ICMName>mgr/ICM</ICMName>
+         <ParkBrakePrepTime>5000</ParkBrakePrepTime>
+         <ParkBrakeSpeedValue>5</ParkBrakeSpeedValue>
+         <ParkPawlApplyForce>250</ParkPawlApplyForce>
+         <ParkPawlDriverDelay>2000</ParkPawlDriverDelay>
+         <ParkPawlMaxDistance>20</ParkPawlMaxDistance>
+         <ParkPawlMinDistance>50</ParkPawlMinDistance>
+         <ParkPawlPrepTime>5000</ParkPawlPrepTime>
+         <ParkPawlSpeedValue>5</ParkPawlSpeedValue>
+         <PreForcedAccelerateWait>3000</PreForcedAccelerateWait>
+         <ReleaseParkBrakePrompt>ReleaseParkBrake</ReleaseParkBrakePrompt>
+         <ResetCommHardware Values="Yes or No">No</ResetCommHardware>
+         <ReverseSpeedTarget>5 10</ReverseSpeedTarget>
+         <ReverseTestSpeed>5</ReverseTestSpeed>
+         <ScanDelayParameter>500</ScanDelayParameter>
+         <SetOperatorConsoleTo4WDPrompt>SetOperatorConsoleTo4WD</SetOperatorConsoleTo4WDPrompt>
+         <SpeedometerSpeedTarget>22 28</SpeedometerSpeedTarget>
+         <SpeedometerStableTime>6000</SpeedometerStableTime>
+         <SpeedometerTestHighLimit>28</SpeedometerTestHighLimit>
+         <SpeedometerTestLowLimit>22</SpeedometerTestLowLimit>
+         <SpeedRangeParameter>30 35</SpeedRangeParameter>
+         <TargetSpeed40kph>24.85</TargetSpeed40kph>
+         <TargetSpeedParameter>30</TargetSpeedParameter>
+         <TimeFormat>%H:%M:%S</TimeFormat>
+         <UnidirectionalParkBrakeTest>No</UnidirectionalParkBrakeTest>
+         <UnidirectionalParkPawlTest>No</UnidirectionalParkPawlTest>
+         <UsePlcYesNoButtons>True</UsePlcYesNoButtons>
       </Parameters>
       <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
       <Prompts>

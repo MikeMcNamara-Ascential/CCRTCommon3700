@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This script was automatically generated using Zero G's InstallAnywhere 6.1 Standard, builtInInstaller
      STATUS: Fully-Functional UNLICENSED Trial Edition
-     DATE:   Tue Oct 19 07:49:30 EDT 2010 -->
+     DATE:   Fri May 20 09:30:06 EDT 2011 -->
 <InstallAnywhere_Deployment_Project increments="480">
 	<!-- ** DO NOT EDIT ** Essential authorization and configuration data ** DO NOT EDIT ** -->
 	<essentialScriptInfo>
@@ -10,10 +10,10 @@
 		<scriptID>12,42,11,117,110,105,110,115,116,97,108,108,101,114</scriptID>
 		<buildID>3,13,71,87,105,110,100,111,119,115,32,88,80,44,32,53,46,49,44,32,120,56,54,59,32,74,97,118,97,32,49,46,52,46,50,95,48,52,44,32,83,117,110,32,77,105,99,114,111,115,121,115,116,101,109,115,32,73,110,99,46,44,32,104,116,116,112,58,47,47,106,97,118,97,46,115,117,110,46,99,111,109,47,59,32,101,110,44,32,85,110,107,110,111,119,110,59,32,67,112,49,50,53,50</buildID>
 		<!-- The authorizationID may change between project saves and builds.  This does not effect the integrity of the project, nor do changes in this value represent changes in the actual InstallAnywhere project. -->
-		<authorizationID>1,0,0,32,-61,80,-112,64,64,99,70,101,125,121,100,96,105,48,48,49,56,52,67,98,113,112,124,44,81,100,99,62,57,15,14,12,14,2,116,11,1,0,0</authorizationID>
+		<authorizationID>1,0,0,48,3,-112,64,16,64,99,70,101,125,121,100,96,105,48,48,49,56,52,67,98,113,112,124,44,81,100,99,62,57,15,14,11,6,9,125,0,1,0,0</authorizationID>
 	</essentialScriptInfo>
 	<installationObjects uniqueObjects="19">
-		<object class="com.zerog.ia.installer.Installer" objectID="d7d3de0eaa62">
+		<object class="com.zerog.ia.installer.Installer" objectID="211a85dda526">
 			<property name="classpath">
 				<object class="java.util.Vector"/>
 			</property>
@@ -184,7 +184,7 @@
 				<string><![CDATA[jre]]></string>
 			</property>
 			<property name="installFrameConfigurator">
-				<object class="com.zerog.ia.installer.util.InstallFrameConfigurator" objectID="d7d3de0faa66">
+				<object class="com.zerog.ia.installer.util.InstallFrameConfigurator" objectID="211a85dea52a">
 					<property name="decorationType">
 						<int>2</int>
 					</property>
@@ -248,7 +248,7 @@
 				</object>
 			</property>
 			<property name="customInstallSet">
-				<object class="com.zerog.ia.installer.InstallSet" objectID="d7d3de5caa66">
+				<object class="com.zerog.ia.installer.InstallSet" objectID="211a862ba52a">
 					<property name="imagePath">
 						<string><![CDATA[]]></string>
 					</property>
@@ -285,7 +285,7 @@
 				<boolean>false</boolean>
 			</property>
 			<property name="installerInfoData">
-				<object class="com.zerog.ia.installer.util.InstallerInfoData" objectID="d7d3de0eaa65">
+				<object class="com.zerog.ia.installer.util.InstallerInfoData" objectID="211a85dda529">
 					<property name="installerTitle">
 						<string><![CDATA[$INSTALLER_TITLE$]]></string>
 					</property>
@@ -298,7 +298,7 @@
 					<property name="productID">
 						<object class="com.zerog.registry.UUID">
 							<method name="update">
-								<string><![CDATA[d7d3de0e-1efd-11b2-aa66-e69d17f68a90]]></string>
+								<string><![CDATA[211a85dd-1f02-11b2-a52a-f8f294f03acc]]></string>
 							</method>
 						</object>
 					</property>
@@ -317,12 +317,12 @@
 					<property name="vendorID">
 						<object class="com.zerog.registry.UUID">
 							<method name="update">
-								<string><![CDATA[d7d3de0f-1efd-11b2-aa65-e69d17f68a90]]></string>
+								<string><![CDATA[211a85de-1f02-11b2-a529-f8f294f03acc]]></string>
 							</method>
 						</object>
 					</property>
 					<property name="copyright">
-						<string><![CDATA[2010]]></string>
+						<string><![CDATA[2011]]></string>
 					</property>
 				</object>
 			</property>
@@ -333,14 +333,14 @@
 				<boolean>false</boolean>
 			</property>
 			<property name="suggestedMedias">
-				<object class="com.zerog.resources.Medias" objectID="d7d3de0faa64">
+				<object class="com.zerog.resources.Medias" objectID="211a85dea528">
 					<property name="medias">
 						<object class="java.util.Vector"/>
 					</property>
 				</object>
 			</property>
 			<property name="help">
-				<object class="com.zerog.ia.installer.util.Help" objectID="d7d3de0eaa64">
+				<object class="com.zerog.ia.installer.util.Help" objectID="211a85dda528">
 					<property name="showHelp">
 						<boolean>false</boolean>
 					</property>

@@ -31,14 +31,14 @@
 		
  	  <TestResultsBlock>
 		<Column>
-		  <TestProcess showdetail="failures" tagname="EmissionsOverallTest" label="Emissions"/>
-		  <TestProcess showdetail="failures" tagname="AirbagOverallTest" label="Airbag"/>
-		  <TestProcess showdetail="failures" tagname="BrakeOverallTest" label="Brake"/>
-		  <TestProcess showdetail="failures" tagname="SpeedControlOverallTest" label="Speed Control"/>
-		  <TestProcess showdetail="failures" tagname="TransmissionOverallTest" label="Transmission"/>
-		  <TestProcess showdetail="all" tagname="SKIMOverallTest" label="SKIM"/>
-		  <TestProcess showdetail="all" tagname="CruiseOverallTest" label="Cruise"/>
-		  <TestProcess showdetail="all" tagname="ClusterOverallTest" label="Cluster"/>
+		  <TestProcess showfailures="true" showdetail="failures" tagname="EmissionsOverallTest" label="Emissions"/>
+		  <TestProcess showfailures="true" showdetail="failures" tagname="AirbagOverallTest" label="Airbag"/>
+		  <TestProcess showfailures="true" showdetail="failures" tagname="BrakeOverallTest" label="Brake"/>
+		  <TestProcess showfailures="true" showdetail="failures" tagname="SpeedControlOverallTest" label="Speed Control"/>
+		  <TestProcess showfailures="true" showdetail="failures" tagname="TransmissionOverallTest" label="Transmission"/>
+		  <TestProcess showfailures="true" showdetail="all" tagname="SKIMOverallTest" label="SKIM"/>
+		  <TestProcess showfailures="true" showdetail="all" tagname="CruiseOverallTest" label="Cruise"/>
+		  <TestProcess showfailures="true" showdetail="all" tagname="ClusterOverallTest" label="Cluster"/>
 		</Column>
 	  </TestResultsBlock>
 

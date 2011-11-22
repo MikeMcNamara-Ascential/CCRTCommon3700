@@ -55,25 +55,25 @@
          <Frequency status="Disabled" name="/TestResults/Machine/BrakeForceData/Frequency.log" link="/TestResults/Machine/BrakeForceData/Frequency.dat"/>
       </DataLogFiles>
       <LF boardIdx="0" channelIndex="0">
-         <RollFactor>236</RollFactor>
+         <RollFactor>210</RollFactor>
          <EncoderPulses>1250</EncoderPulses>
          <RollDiameter>19.5275</RollDiameter>
          <MachineLoss>2.812159</MachineLoss>
       </LF>
       <RF boardIdx="0" channelIndex="1">
-         <RollFactor>237</RollFactor>
+         <RollFactor>208</RollFactor>
          <EncoderPulses>1250</EncoderPulses>
          <RollDiameter>19.5275</RollDiameter>
          <MachineLoss>11.929525</MachineLoss>
       </RF>
       <LR boardIdx="0" channelIndex="2">
-         <RollFactor>237</RollFactor>
+         <RollFactor>212</RollFactor>
          <EncoderPulses>1250</EncoderPulses>
          <RollDiameter>19.5275</RollDiameter>
          <MachineLoss>3.707658</MachineLoss>
       </LR>
       <RR boardIdx="0" channelIndex="3">
-         <RollFactor>235</RollFactor>
+         <RollFactor>211</RollFactor>
          <EncoderPulses>1250</EncoderPulses>
          <RollDiameter>19.5275</RollDiameter>
          <MachineLoss>15.502554</MachineLoss>

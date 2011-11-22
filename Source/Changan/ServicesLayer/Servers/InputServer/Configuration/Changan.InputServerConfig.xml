@@ -258,7 +258,7 @@
                     <VinLength>17</VinLength>
                     <DriverNumberLength>7</DriverNumberLength>
                     <MaximumRetries>3</MaximumRetries>
-                    <LookForCarriageReturn>No</LookForCarriageReturn>
+                    <LookForCarriageReturn>Yes</LookForCarriageReturn>
                     <CorrectBadScannerData>No</CorrectBadScannerData>
                     <BadDataIndex>0x01</BadDataIndex>
                     <BadDataIndicator>0x00</BadDataIndicator>
@@ -267,7 +267,7 @@
                     <SecondaryDataLength>15</SecondaryDataLength>
                 </Setup>
             </LeftHandheld>
-            <RightHandheld enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+            <RightHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
                 <Setup>
                     <Communication>
                         <Debug>Off</Debug>
@@ -324,7 +324,7 @@
                     <VinLength>17</VinLength>
                     <DriverNumberLength>7</DriverNumberLength>
                     <MaximumRetries>3</MaximumRetries>
-                    <LookForCarriageReturn>No</LookForCarriageReturn>
+                    <LookForCarriageReturn>Yes</LookForCarriageReturn>
                     <CorrectBadScannerData>No</CorrectBadScannerData>
                     <BadDataIndex>0x01</BadDataIndex>
                     <BadDataIndicator>0x00</BadDataIndicator>
@@ -663,7 +663,7 @@
 			<!-- ******************************************************* -->
 			 <!-- *                 Module Vin Reader                   * -->
 			 <!-- ******************************************************* -->
-			 <ModuleVinReader enabled="1" process="$(USR_ROOT)/ApplicationLayer/Bin/VehicleModuleVinReader.qxe">
+			 <ModuleVinReader enabled="0" process="$(USR_ROOT)/ApplicationLayer/Bin/VehicleModuleVinReader.qxe">
 				 <Setup>
 					 <TagList>
 						 <SubscribeTags>

@@ -60,13 +60,6 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase050>
-      <TestPhase055 Description="Check Reverse Lamps" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Check reverse lamps on the vehicle" Result="" Timeout="" Component="Machine">
-               <DriverQuestion>CheckReverseLamps</DriverQuestion>
-            </Objective0>
-         </ForegroundObjectives>
-      </TestPhase055>
       <!--Perform Idle Horn Test-->
       <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

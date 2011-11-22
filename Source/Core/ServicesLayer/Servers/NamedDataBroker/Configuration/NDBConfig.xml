@@ -1253,6 +1253,7 @@
             <SpeedometerTestSpeedBGColor DataType="color">VehicleDataBroker</SpeedometerTestSpeedBGColor>
             <SpeedoTestBGColor DataType="color">MachineDataBroker</SpeedoTestBGColor>
             <SpeedoTestValue DataType="float" Units="KPH">MachineDataBroker</SpeedoTestValue>
+            <StartSpeedGraph DataType="bool">VehicleTest</StartSpeedGraph>
             <SpeedoType DataType="string">VehicleDataBroker</SpeedoType>
             <SpeedProTest DataType="bool">PLC</SpeedProTest>
             <SpeedTarget DataType="range" Units="MPH">VehicleDataBroker</SpeedTarget>

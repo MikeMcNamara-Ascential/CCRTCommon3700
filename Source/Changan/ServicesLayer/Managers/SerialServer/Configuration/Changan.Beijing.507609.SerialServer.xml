@@ -9,7 +9,7 @@
          <Status>Enabled</Status>
          <LocalEcho>Disabled</LocalEcho>
          <Debug>Off</Debug>
-         <Verbose>0x01</Verbose>
+         <Verbose>0x1F</Verbose>
       </Logging>
       <LogicalPorts>
          <ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
@@ -87,9 +87,9 @@
                </CommLog>
             </Setup>
          </LeftScanner>
-         <RightScanner enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+         <RightScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
             <Setup>
-               <SerialDevice>/dev/sl7804/ser4</SerialDevice>
+               <SerialDevice>/dev/sl7804/ser1</SerialDevice>
                <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
                <Protocol>
                   <Baud>9600</Baud>

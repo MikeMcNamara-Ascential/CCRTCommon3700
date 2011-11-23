@@ -14,13 +14,13 @@
          <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
          <Debug>Off</Debug>
       </Machine>
-      <SoundLevel>
+      <!-- SoundLevel>
          <ComponentName>ChanganSoundLevelTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
          <ConfigFile>SoundLevelComponent.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/SoundLevel</ConfigPath>
          <Debug>Off</Debug>
-      </SoundLevel>
+      </SoundLevel -->
       <SpeedControl>
          <ComponentName>GenericSpeedControl.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin</ComponentPath>

@@ -235,12 +235,12 @@
 					<Folder Name="DriveCurves">
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Bosch9AbsDriveCurve.xml"/>
-						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.Beijing.507612.TevesMk70AbsDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.Beijing.507612.TevesMk70DriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.Beijing.507612.TrwAbsDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Changan.SoundLevelSequence.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/LossCompensationDriveCurve.xml"/>
-						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/TevesMk70AbsDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/TevesMk70DriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/TrwAbsDriveCurve.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/VehicleTest/Configuration/Changan.SelectionTable.xml"/>

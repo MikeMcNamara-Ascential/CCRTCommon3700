@@ -164,11 +164,11 @@
             <!-- Park Brake Parameters -->
             <ParkBrakeArmSpeed Units="mph">9</ParkBrakeArmSpeed>
             <ParkBrakeMaxForce Units="lbf">400</ParkBrakeMaxForce>
-            <ParkBrakeMinForce Units="lbf">120</ParkBrakeMinForce>
+            <ParkBrakeMinForce Units="lbf">18</ParkBrakeMinForce>
             <ParkBrakeStartSampleSpeed Units="mph">8</ParkBrakeStartSampleSpeed>
             <ParkBrakeEndSampleSpeed Units="mph">0</ParkBrakeEndSampleSpeed>
             <ParkBrakeStartSamplingAtMinimumForce>True</ParkBrakeStartSamplingAtMinimumForce>
-            <ParkBrakeMinimumStartForce Units="lbf">120</ParkBrakeMinimumStartForce>
+            <ParkBrakeMinimumStartForce Units="lbf">15</ParkBrakeMinimumStartForce>
             <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount> 
             <DisplaySpeedTimeGraph>True</DisplaySpeedTimeGraph>
             <SpeedGraphLowerSeries UnitsX="s" UnitsY="km/h">0 -5,20 15,30 15,50 40,60 40,80 60,90 60,120 90</SpeedGraphLowerSeries>
@@ -309,7 +309,7 @@
 
         <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis"
             FrontMinBrakeForce="150" FrontMaxBrakeForce="600"
-            RearMinBrakeForce="50" RearMaxBrakeForce="400"
+            RearMinBrakeForce="40" RearMaxBrakeForce="400"
             Prompt1="" Prompt2=""/>
 
         <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis"

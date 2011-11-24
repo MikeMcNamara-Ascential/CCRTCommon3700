@@ -119,7 +119,7 @@
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
          <DateFormat>%F</DateFormat>
-         <DcxStyleSpeedoTest>0</DcxStyleSpeedoTest>
+         <DcxStyleSpeedoTest>1</DcxStyleSpeedoTest>
          <ForcedAccelerateSpeedStep>10</ForcedAccelerateSpeedStep>
          <ForcedAccelerateSpeedStepDelay>500</ForcedAccelerateSpeedStepDelay>
          <ICMName>mgr/ICM</ICMName>

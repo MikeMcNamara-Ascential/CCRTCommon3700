@@ -24,5 +24,7 @@ panel.brakeforce.lr.color=lrcolor
 panel.brakeforce.rr.color=rrcolor
 panel.brakeforce.lt.color=ltcolor
 panel.brakeforce.rt.color=rtcolor
+panel.brakeforce.l4.color=l4color
+panel.brakeforce.r4.color=r4color
 panel.brakeforce.samplerate=0.020
 

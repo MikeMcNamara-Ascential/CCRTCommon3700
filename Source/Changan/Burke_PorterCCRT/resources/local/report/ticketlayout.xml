@@ -15,7 +15,7 @@
 	  <HorizontalBar/>
 
  	  <BuildDataBlock label="Build Data">
-		<Column>	
+		<Column>
 		</Column>
 	  </BuildDataBlock>
 
@@ -23,7 +23,6 @@
 
  	  <TestResultsBlock>
 		<Column>
-		    <TestProcess showfailures="false" tagname="BrakeOverallTest" label="Brake"/>
 		</Column>
 	  </TestResultsBlock>
 

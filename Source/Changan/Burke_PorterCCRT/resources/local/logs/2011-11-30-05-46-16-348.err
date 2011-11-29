@@ -1,0 +1,213 @@
+05:46:16.582 EVENT  Checking Resource aliases
+05:46:16.597 EVENT  Starting Jetty/3.1.5
+05:46:16.597 EVENT  Started ServletHandler in ServletHandlerContext[/]
+05:46:16.597 EVENT  ResourceHandler started in file:/C:/Burke_PorterCCRT/resources/local/httproot
+05:46:16.597 EVENT  Started ResourceHandler in ServletHandlerContext[/]
+05:46:16.597 EVENT  Started SocketListener on 192.168.1.2:10080
+05:46:16.597 EVENT  Started SocketListener on 127.0.0.1:10080
+05:46:16.597 EVENT  Started org.mortbay.jetty.Server@19ce060
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+SafeTrimmedResourceBundle: key not found: xmldatamodel.openingdataconnection
+java.io.IOException: /home/ftp/Configuration/Servers/VehicleBuildRecord.xml: No such file or directory.
+	at com.atomicobject.net.www.protocol.ftp.FTPURLConnection.getInputStream(FTPURLConnection.java:135)
+	at java.net.URL.openStream(Unknown Source)
+	at com.bepco.io.URLRemoteFile.getInputStream(URLRemoteFile.java:49)
+	at com.bepco.rtc.gui.config.VehicleBuildRecordConfiguration.<init>(VehicleBuildRecordConfiguration.java:64)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigItemsFromResource(ConfigurationManagerBuilder.java:315)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.getConfigPanelItems(ConfigurationManagerBuilder.java:188)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigurationManager(ConfigurationManagerBuilder.java:125)
+	at com.bepco.rtc.builder.GUIBuilder.addConfigurationPanel(GUIBuilder.java:551)
+	at com.bepco.rtc.builder.GUIBuilder.buildGUIManager(GUIBuilder.java:81)
+	at com.bepco.rtc.builder.ControllerBuilder.addGUIManager(ControllerBuilder.java:293)
+	at com.bepco.rtc.builder.ControllerBuilder.buildController(ControllerBuilder.java:111)
+	at com.bepco.rtc.Main$1.run(Main.java:568)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+java.io.IOException: /home/ftp/Configuration/Client/WheelbaseConfig.xml: No such file or directory.
+	at com.atomicobject.net.www.protocol.ftp.FTPURLConnection.getInputStream(FTPURLConnection.java:135)
+	at java.net.URL.openStream(Unknown Source)
+	at com.bepco.io.URLRemoteFile.getInputStream(URLRemoteFile.java:49)
+	at com.bepco.rtc.gui.config.WheelbaseConfigModel.load(WheelbaseConfigModel.java:172)
+	at com.bepco.rtc.gui.config.WheelbaseConfigModel.<init>(WheelbaseConfigModel.java:115)
+	at com.bepco.rtc.gui.config.WheelbaseConfiguration.getConfigComponent(WheelbaseConfiguration.java:151)
+	at com.bepco.rtc.gui.config.BaseConfiguration.displayChild(BaseConfiguration.java:202)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigItemsFromResource(ConfigurationManagerBuilder.java:353)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.getConfigPanelItems(ConfigurationManagerBuilder.java:188)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigurationManager(ConfigurationManagerBuilder.java:125)
+	at com.bepco.rtc.builder.GUIBuilder.addConfigurationPanel(GUIBuilder.java:551)
+	at com.bepco.rtc.builder.GUIBuilder.buildGUIManager(GUIBuilder.java:81)
+	at com.bepco.rtc.builder.ControllerBuilder.addGUIManager(ControllerBuilder.java:293)
+	at com.bepco.rtc.builder.ControllerBuilder.buildController(ControllerBuilder.java:111)
+	at com.bepco.rtc.Main$1.run(Main.java:568)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+java.io.IOException: /home/ftp/Configuration/Servers/VehicleBuildTable.xml: No such file or directory.
+	at com.atomicobject.net.www.protocol.ftp.FTPURLConnection.getInputStream(FTPURLConnection.java:135)
+	at java.net.URL.openStream(Unknown Source)
+	at com.bepco.io.URLRemoteFile.getInputStream(URLRemoteFile.java:49)
+	at com.bepco.rtc.gui.config.ZtsConfiguration.readZtsFromXML(ZtsConfiguration.java:865)
+	at com.bepco.rtc.gui.config.ZtsConfiguration.getConfigComponent(ZtsConfiguration.java:204)
+	at com.bepco.rtc.gui.config.BaseConfiguration.displayChild(BaseConfiguration.java:202)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigItemsFromResource(ConfigurationManagerBuilder.java:353)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.getConfigPanelItems(ConfigurationManagerBuilder.java:188)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigurationManager(ConfigurationManagerBuilder.java:125)
+	at com.bepco.rtc.builder.GUIBuilder.addConfigurationPanel(GUIBuilder.java:551)
+	at com.bepco.rtc.builder.GUIBuilder.buildGUIManager(GUIBuilder.java:81)
+	at com.bepco.rtc.builder.ControllerBuilder.addGUIManager(ControllerBuilder.java:293)
+	at com.bepco.rtc.builder.ControllerBuilder.buildController(ControllerBuilder.java:111)
+	at com.bepco.rtc.Main$1.run(Main.java:568)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+java.util.MissingResourceException: Can't find resource for bundle com.atomicobject.util.TrimmedResourceBundle, key xmldatamodel.screensaver.winxp
+	at java.util.ResourceBundle.getObject(Unknown Source)
+	at java.util.ResourceBundle.getString(Unknown Source)
+	at com.bepco.gui.XMLDataWidget.<init>(XMLDataWidget.java:210)
+	at com.bepco.gui.TextBox.<init>(TextBox.java:81)
+	at com.bepco.rtc.gui.config.ControlLinesConfiguration.getModelsList(ControlLinesConfiguration.java:195)
+	at com.bepco.rtc.gui.config.ControlLinesConfiguration.getConfigComponent(ControlLinesConfiguration.java:92)
+	at com.bepco.rtc.gui.config.BaseConfiguration.displayChild(BaseConfiguration.java:202)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigItemsFromResource(ConfigurationManagerBuilder.java:353)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.getConfigPanelItems(ConfigurationManagerBuilder.java:188)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigurationManager(ConfigurationManagerBuilder.java:125)
+	at com.bepco.rtc.builder.GUIBuilder.addConfigurationPanel(GUIBuilder.java:551)
+	at com.bepco.rtc.builder.GUIBuilder.buildGUIManager(GUIBuilder.java:81)
+	at com.bepco.rtc.builder.ControllerBuilder.addGUIManager(ControllerBuilder.java:293)
+	at com.bepco.rtc.builder.ControllerBuilder.buildController(ControllerBuilder.java:111)
+	at com.bepco.rtc.Main$1.run(Main.java:568)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+java.lang.RuntimeException: Main: Could not construct Controller!
+	at com.bepco.rtc.Main.main(Main.java:581)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.zerog.lax.LAX.launch(DashoA8113)
+	at com.zerog.lax.LAX.main(DashoA8113)
+CCRT shutting down with exception: java.lang.RuntimeException: Main: Could not construct Controller!
+0.0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+0.16
+0.18
+0.2
+0.22
+0.24
+0.26
+0.28
+0.3
+0.32
+0.34
+0.36
+0.38
+0.4
+0.42
+0.44
+0.46
+0.48
+0.5
+0.52
+0.54
+0.56
+0.58
+0.6
+0.62
+0.64
+0.66
+0.68
+0.7
+0.72
+0.74
+0.76
+0.78
+0.8
+0.82
+0.84
+0.86
+0.88
+0.9
+0.92
+0.94
+0.96
+0.98
+1.0
+1.02
+Greater than one, count = 51
+1.04
+Greater than one, count = 52
+1.06
+Greater than one, count = 53
+0.52884614
+0.53846157
+0.5480769
+0.5576923
+0.5673077
+0.5769231
+0.58653843
+0.59615386
+0.6057692
+0.61538464

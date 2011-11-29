@@ -10,33 +10,25 @@
         </Communication>
         <Debug>Off</Debug>
         <Logging>
-			<AdditionalLogFile Types="/Servers/NamedDataBroker or Disabled">Disabled</AdditionalLogFile>
+            <Status>Disabled</Status>
+            <ProcessName>NamedDataBroker</ProcessName>
+            <AdditionalLogFile Types="/Server/NamedDataBroker.log or Disabled">/Servers/NamedDataBroker.log</AdditionalLogFile>
             <Debug>Off</Debug>
             <LocalEcho>Disabled</LocalEcho>
-			<ProcessName>NamedDataBroker</ProcessName>
-			<Status>Disabled</Status>
-			<Verbose>0x1F</Verbose>
+            <Verbose>0x01</Verbose>
         </Logging>
-		<NotificationList>
-			<Setup>
-				<Debug>Off</Debug>
-				<HighWater>3</HighWater>
-				<Increment>1</Increment>
-				<LowWater>1</LowWater>
-				<Maximum>5</Maximum>
-				<StartOnCreate>No</StartOnCreate>
-			</Setup>
-		</NotificationList>
         <Servers>
-			<FaultServer Status="Available">core/FaultServer</FaultServer>
+            <AIN Status="Available">mgr/AIN</AIN>
+            <AOUT Status="Available">mgr/AOUT</AOUT>
+            <DataServer Status="Available">core/DataServer</DataServer>
+            <DIO Status="Available">mgr/DIO</DIO>
             <ICM Status="Available">mgr/ICM</ICM>
             <InputServer Status="Available">core/InputServer</InputServer>
+            <FaultServer Status="Available">core/FaultServer</FaultServer>
             <Launcher Status="Available">core/Launcher</Launcher>
             <MachineDataBroker Status="Available">core/MachineDataBroker</MachineDataBroker>
             <MotorController Status="Available">core/MotorController</MotorController>
             <PLC Status="Available">mgr/PLC</PLC>
-			<PlantHostInbound Status="Available">core/PlantHostInbound</PlantHostInbound>
-			<PlantHostOutbound Status="Available">core/PlantHostOutbound</PlantHostOutbound>
             <PromptServer Status="Available">core/PromptServer</PromptServer>
 			<SystemMonitor Status="Available">core/SystemMonitor</SystemMonitor>
             <TestResultServer Status="Available">core/TestResultServer</TestResultServer>
@@ -53,19 +45,51 @@
                 <ABSDTCTest DataType="string">VehicleTest</ABSDTCTest>
                 <ABSOverallTest DataType="testcomponentstatus">TestResultServer</ABSOverallTest>
                 <ABSPartNo DataType="string">VehicleDataBroker</ABSPartNo>
-				<ABSPartNumber DataType="string">VehicleDataBroker</ABSPartNumber>
-				<ABSPartNumberBGColor DataType="color">VehicleDataBroker</ABSPartNumberBGColor>
                 <ABSPartNumberTest DataType="string">VehicleTest</ABSPartNumberTest>
                 <ABSSerialNumberTest DataType="string">VehicleTest</ABSSerialNumberTest>
                 <ABSTestSelectedFromPLC DataType="bool">PLC</ABSTestSelectedFromPLC>
                 <ABSTestSelectedIRToPLC DataType="bool">PLC</ABSTestSelectedIRToPLC>
                 <ABSTestSelectedLamp DataType="bool">PLC</ABSTestSelectedLamp>
                 <ABSTestSelectedToPLC DataType="bool">PLC</ABSTestSelectedToPLC>
-				<ABSType DataType="string">VehicleDataBroker</ABSType>
-				<ABSTypeBGColor DataType="color">VehicleDataBroker</ABSTypeBGColor>
+                <ABSVINVerificationTest DataType="string">VehicleTest</ABSVINVerificationTest>
                 <AccellerateLamp DataType="bool">PLC</AccellerateLamp>
                 <AcceptLamp DataType="bool">PLC</AcceptLamp>
+                <AINChannel00 DataType="float">AIN</AINChannel00>
+                <AINChannel01 DataType="float">AIN</AINChannel01>
+                <AINChannel02 DataType="float">AIN</AINChannel02>
+                <AINChannel03 DataType="float">AIN</AINChannel03>
+                <AINChannel04 DataType="float">AIN</AINChannel04>
+                <AINChannel05 DataType="float">AIN</AINChannel05>
+                <AINChannel06 DataType="float">AIN</AINChannel06>
+                <AINChannel07 DataType="float">AIN</AINChannel07>
+                <AINChannel08 DataType="float">AIN</AINChannel08>
+                <AINChannel09 DataType="float">AIN</AINChannel09>
+                <AINChannel10 DataType="float">AIN</AINChannel10>
+                <AINChannel11 DataType="float">AIN</AINChannel11>
+                <AINChannel12 DataType="float">AIN</AINChannel12>
+                <AINChannel13 DataType="float">AIN</AINChannel13>
+                <AINChannel14 DataType="float">AIN</AINChannel14>
+                <AINChannel15 DataType="float">AIN</AINChannel15>
+                <AINChannel16 DataType="float">AIN</AINChannel16>
+                <AINChannel17 DataType="float">AIN</AINChannel17>
+                <AINChannel18 DataType="float">AIN</AINChannel18>
+                <AINChannel19 DataType="float">AIN</AINChannel19>
+                <AINChannel20 DataType="float">AIN</AINChannel20>
+                <AINChannel21 DataType="float">AIN</AINChannel21>
+                <AINChannel22 DataType="float">AIN</AINChannel22>
+                <AINChannel23 DataType="float">AIN</AINChannel23>
+                <AINChannel24 DataType="float">AIN</AINChannel24>
+                <AINChannel25 DataType="float">AIN</AINChannel25>
+                <AINChannel26 DataType="float">AIN</AINChannel26>
+                <AINChannel27 DataType="float">AIN</AINChannel27>
+                <AINChannel28 DataType="float">AIN</AINChannel28>
+                <AINChannel29 DataType="float">AIN</AINChannel29>
+                <AINChannel30 DataType="float">AIN</AINChannel30>
+                <AINChannel31 DataType="float">AIN</AINChannel31>
+                <Airbag DataType="string">VehicleDataBroker</Airbag>
+                <AirbagBGColor DataType="color">VehicleDataBroker</AirbagBGColor>
                 <AirbagInLockBox DataType="bool">PLC</AirbagInLockBox>
+                <AirbagOverallTest DataType="testcomponentstatus">TestResultServer</AirbagOverallTest>
                 <AirbagTestFailed DataType="bool">PLC</AirbagTestFailed>
                 <AirbagTestInProgress DataType="bool">PLC</AirbagTestInProgress>
                 <AirbagTestOnly DataType="bool">PLC</AirbagTestOnly>
@@ -74,15 +98,15 @@
                 <AirDoorNotRaisedFault DataType="bool">PLC</AirDoorNotRaisedFault>
                 <AirDoorStopPinProx1Activated DataType="bool">PLC</AirDoorStopPinProx1Activated>
                 <AirDoorStopPinProx2Activated DataType="bool">PLC</AirDoorStopPinProx2Activated>
+                <AisPositionTest DataType="string">VehicleTest</AisPositionTest>
                 <AlarmOverallTest DataType="testcomponentstatus">TestResultServer</AlarmOverallTest>
                 <ALDLTestEnabled DataType="bool">PLC</ALDLTestEnabled>
                 <ALDLTestRunning DataType="bool">PLC</ALDLTestRunning>
                 <AllFailures DataType="failurekey">TestResultServer</AllFailures>
                 <AllFaults DataType="string">FaultServer</AllFaults>
                 <AllFlyWheelsAtZerospeed DataType="bool">PLC</AllFlyWheelsAtZerospeed>
+                <AllGearsSeenTest DataType="string">VehicleTest</AllGearsSeenTest>
                 <AllRollDrivesEnabled DataType="bool">PLC</AllRollDrivesEnabled>
-				<AllWD DataType="string">VehicleDataBroker</AllWD>
-				<AllWDBGColor DataType="color">VehicleDataBroker</AllWDBGColor>
                 <AllWheelDrive DataType="bool">PLC</AllWheelDrive>
                 <AllWheelDriveSelected DataType="bool">PLC</AllWheelDriveSelected>
                 <AntiLockRejectLamp DataType="bool">PLC</AntiLockRejectLamp>
@@ -92,12 +116,12 @@
                 <ArmSpeedBGColor DataType="color">MachineDataBroker</ArmSpeedBGColor>
                 <AutomaticTransmissionFromPLC DataType="bool">PLC</AutomaticTransmissionFromPLC>
                 <AutomaticTransmissionToPLC DataType="bool">PLC</AutomaticTransmissionToPLC>
-				<AutoTrans DataType="string">VehicleDataBroker</AutoTrans>
-				<AutoTransBGColor DataType="color">VehicleDataBroker</AutoTransBGColor>
+                <Axle DataType="string">VehicleDataBroker</Axle>
+                <AxleBGColor DataType="color">VehicleDataBroker</AxleBGColor>
                 <AxleOverallTest DataType="testcomponentstatus">TestResultServer</AxleOverallTest>
+                <AxleRatio DataType="string">VehicleDataBroker</AxleRatio>
+                <AxleRatioPercentageTest DataType="string">VehicleTest</AxleRatioPercentageTest>
                 <AxleRatioRejectLamp DataType="bool">PLC</AxleRatioRejectLamp>
-				<AxleType DataType="string">VehicleDataBroker</AxleType>
-				<AxleTypeBGColor DataType="color">VehicleDataBroker</AxleTypeBGColor>
                 <BadMessageFromCCDTranslator DataType="bool">PLC</BadMessageFromCCDTranslator>
                 <BarcodeModeSelected DataType="bool">PLC</BarcodeModeSelected>
                 <BarcodeVerifyDelayTime DataType="short">PLC</BarcodeVerifyDelayTime>
@@ -107,7 +131,7 @@
                 <BoostPressure DataType="short" Units="PSI">PLC</BoostPressure>
                 <BoostPressureFailure DataType="bool">PLC</BoostPressureFailure>
                 <BoostPressureFeedBack DataType="short" Units="PSI">PLC</BoostPressureFeedBack>
-				<BoostPressureOut DataType="short" Units="PSI">PLC</BoostPressureOut>
+                <BoostPressureOut DataType="int" Units="PSI">PLC</BoostPressureOut>
                 <BoostPressureSensorTest DataType="string">VehicleTest</BoostPressureSensorTest>
                 <BoschABSSelected DataType="bool">PLC</BoschABSSelected>
                 <BrakeActive DataType="bool">VehicleDataBroker</BrakeActive>
@@ -115,29 +139,30 @@
                 <BrakeForceValue DataType="float" Units="LBF">MachineDataBroker</BrakeForceValue>
                 <BrakeLamp DataType="bool">PLC</BrakeLamp>
                 <BrakeOverallTest DataType="testcomponentstatus">TestResultServer</BrakeOverallTest>
-                <BrakePedalForce DataType="int">PLC</BrakePedalForce>
-				<BrakePedalForceDomain DataType="range">MachineDataBroker</BrakePedalForceDomain>
-				<BrakePedalForceTarget DataType="range">MachineDataBroker</BrakePedalForceTarget>
+                <BrakeSimulation DataType="bool">DIO</BrakeSimulation>
                 <BrakeTarget DataType="range" Units="LBF">VehicleDataBroker</BrakeTarget>
                 <BrakeTestLamp DataType="bool">PLC</BrakeTestLamp>
                 <BrakeTestPushbutton DataType="bool">PLC</BrakeTestPushbutton>
                 <BrakeType DataType="string">VehicleDataBroker</BrakeType>
                 <BrakeTypeBGColor DataType="color">VehicleDataBroker</BrakeTypeBGColor>
-				<BrakeYear DataType="string">VehicleDataBroker</BrakeYear>
-				<BrakeYearBGColor DataType="color">VehicleDataBroker</BrakeYearBGColor>
                 <BuildDate DataType="string">VehicleDataBroker</BuildDate>
                 <BuildTime DataType="string">VehicleDataBroker</BuildTime>
                 <CableConnect DataType="bool">SystemMonitor</CableConnect>
                 <CableConnect16Pin DataType="bool">PLC</CableConnect16Pin>
+                <CableConnect6Pin DataType="bool">DIO</CableConnect6Pin>
+                <CableConnect8Pin DataType="bool">DIO</CableConnect8Pin>
+                <CCDBusBiasEnable DataType="bool">DIO</CCDBusBiasEnable>
                 <CCDTranslatorNotAcceptingCommands DataType="bool">PLC</CCDTranslatorNotAcceptingCommands>
                 <CCDTranslatorNotResponding DataType="bool">PLC</CCDTranslatorNotResponding>
                 <Check24VoltPowerSupply DataType="bool">PLC</Check24VoltPowerSupply>
                 <CheckWheelbasePositionAgain DataType="bool">PLC</CheckWheelbasePositionAgain>
+                <ChimeOverallTest DataType="testcomponentstatus">TestResultServer</ChimeOverallTest>
                 <ClearPushbutton DataType="bool">PLC</ClearPushbutton>
+                <Cluster DataType="string">VehicleDataBroker</Cluster>
+                <ClusterBGColor DataType="color">VehicleDataBroker</ClusterBGColor>
+                <ClusterOverallTest DataType="testcomponentstatus">TestResultServer</ClusterOverallTest>
                 <Clutch DataType="bool">PLC</Clutch>
                 <CommandClutch DataType="bool">MotorController</CommandClutch>
-				<CommandMotorLoading DataType="bool">MotorController</CommandMotorLoading>
-				<CommandPhase DataType="string">VehicleTest</CommandPhase>
                 <CommandSpeed DataType="float" Units="RPM">MotorController</CommandSpeed>
                 <CommandTest DataType="string">VehicleTest</CommandTest>
                 <CommandTorque DataType="float" Units="FT-LBS">MotorController</CommandTorque>
@@ -146,15 +171,17 @@
                 <ConnectRequest DataType="string">MachineDataBroker</ConnectRequest>
                 <ContinueTest DataType="bool">SystemMonitor</ContinueTest>
                 <ControlPowerCircuitBreakerOpen DataType="bool">PLC</ControlPowerCircuitBreakerOpen>
-				<CoolantTemperature DataType="short">MachineDataBroker</CoolantTemperature>
                 <CruiseBrakeTest DataType="string">VehicleTest</CruiseBrakeTest>
                 <CruiseCancelSwitchTest DataType="string">VehicleTest</CruiseCancelSwitchTest>
                 <CruiseClutchTest DataType="string">VehicleTest</CruiseClutchTest>
                 <CruiseControlFromPLC DataType="bool">PLC</CruiseControlFromPLC>
                 <CruiseControlSelectedToPLC DataType="bool">PLC</CruiseControlSelectedToPLC>
-				<CruiseInstalled DataType="string">VehicleDataBroker</CruiseInstalled>
-				<CruiseInstalledBGColor DataType="color">VehicleDataBroker</CruiseInstalledBGColor>
+                <CruiseOffSwitchTest DataType="string">VehicleTest</CruiseOffSwitchTest>
+                <CruiseOnSwitchTest DataType="string">VehicleTest</CruiseOnSwitchTest>
                 <CruiseOverallTest DataType="testcomponentstatus">TestResultServer</CruiseOverallTest>
+                <CruiseResumeSwitchTest DataType="string">VehicleTest</CruiseResumeSwitchTest>
+                <CruiseSetSpeedTest DataType="string">VehicleTest</CruiseSetSpeedTest>
+                <CruiseSetSwitchTest DataType="string">VehicleTest</CruiseSetSwitchTest>
                 <CurrentLFMachineLoss DataType="float">ICM</CurrentLFMachineLoss>
                 <CurrentLRMachineLoss DataType="float" Units="LBF">ICM</CurrentLRMachineLoss>
                 <CurrentLTMachineLoss DataType="float" Units="LBF">ICM</CurrentLTMachineLoss>
@@ -162,27 +189,37 @@
                 <CurrentRFMachineLoss DataType="float" Units="LBF">ICM</CurrentRFMachineLoss>
                 <CurrentRRMachineLoss DataType="float" Units="LBF">ICM</CurrentRRMachineLoss>
                 <CurrentRTMachineLoss DataType="float">ICM</CurrentRTMachineLoss>
-                <CurrentWheelbasePosition DataType="short" Units="mm">PLC</CurrentWheelbasePosition>
+                <CurrentWheelbasePosition DataType="short" Units="Inch*10">PLC</CurrentWheelbasePosition>
                 <CycleLimitExceeded DataType="bool">PLC</CycleLimitExceeded>
                 <CycleLimitWarning DataType="bool">PLC</CycleLimitWarning>
-				<CycleTime DataType="short">MachineDataBroker</CycleTime>
-				<DaytimeRunningLightsSelectedFromPLC DataType="bool">PLC</DaytimeRunningLightsSelectedFromPLC>
-				<DaytimeRunningLightsSelectedToPLC DataType="bool">PLC</DaytimeRunningLightsSelectedToPLC>
-				<DCHoldingBrakeDisabled DataType="bool">PLC</DCHoldingBrakeDisabled>
-				<DCLControl DataType="bool">PLC</DCLControl>
+                <CycleSimulation DataType="bool">DIO</CycleSimulation>
+                <CycleTime DataType="bool">MachineDataBroker</CycleTime>
+                <ComponentLoaded DataType="bool">VehicleTest</ComponentLoaded>
                 <Declutch DataType="bool">PLC</Declutch>
                 <DeclutchFrontAndRearHydraulicClutches DataType="bool">PLC</DeclutchFrontAndRearHydraulicClutches>
                 <DeclutchFrontRollClutch DataType="bool">PLC</DeclutchFrontRollClutch>
                 <DeclutchRearRollClutch DataType="bool">PLC</DeclutchRearRollClutch>
+                <DCHoldingBrakeDisabled DataType="bool">PLC</DCHoldingBrakeDisabled>
+                <DCLControl DataType="bool">PLC</DCLControl>
                 <DeployVibrationSensor DataType="bool">PLC</DeployVibrationSensor>
-				<DifferentialLockTestPb DataType="bool">PLC</DifferentialLockTestPb>
-				<DiscBrakes DataType="string">VehicleDataBroker</DiscBrakes>
-				<DiscBrakesBGColor DataType="color">VehicleDataBroker</DiscBrakesBGColor>
-				<DisplayDriverMonitor DataType="string">SystemMonitor</DisplayDriverMonitor>
-				<DisplayRackMonitor DataType="string">SystemMonitor</DisplayRackMonitor>
+                <DifferentialLockTestPB DataType="bool">PLC</DifferentialLockTestPB>
+                <DIOChanel00 DataType="short">DIO</DIOChanel00>
+                <DIOChanel01 DataType="short">DIO</DIOChanel01>
+                <DIOChanel02 DataType="short">DIO</DIOChanel02>
+                <DIOChanel03 DataType="short">DIO</DIOChanel03>
+                <DIOChanel04 DataType="short">DIO</DIOChanel04>
+                <DIOChanel05 DataType="short">DIO</DIOChanel05>
+                <DIOChanel06 DataType="short">DIO</DIOChanel06>
+                <DIOChanel07 DataType="short">DIO</DIOChanel07>
+                <DaytimeRunningLamps DataType="string">VehicleDataBroker</DaytimeRunningLamps>
+                <DaytimeRunningLampsBGColor DataType="color">VehicleDataBroker</DaytimeRunningLampsBGColor>
+                <DaytimeRunningLampsOverallTest DataType="testcomponentstatus">TestResultServer</DaytimeRunningLampsOverallTest>
+                <DaytimeRunningLightsSelectedFromPLC DataType="bool">PLC</DaytimeRunningLightsSelectedFromPLC>
+                <DaytimeRunningLightsSelectedToPLC DataType="bool">PLC</DaytimeRunningLightsSelectedToPLC>
+                <DisplayDriverMonitor DataType="string">MachineDataBroker</DisplayDriverMonitor>
+                <DisplayRackMonitor DataType="string">MachineDataBroker</DisplayRackMonitor>
                 <DripPanFullFault DataType="bool">PLC</DripPanFullFault>
                 <DriveAxle DataType="string">VehicleDataBroker</DriveAxle>
-				<DriveAxleBGColor DataType="color">VehicleDataBroker</DriveAxleBGColor>
                 <DriveCurve DataType="string">VehicleTest</DriveCurve>
                 <DriverFail DataType="bool">PLC</DriverFail>
                 <DriverInterfaceExtendedFault DataType="bool">PLC</DriverInterfaceExtendedFault>
@@ -196,24 +233,41 @@
                 <DriverOverallTest DataType="testcomponentstatus">TestResultServer</DriverOverallTest>
                 <DriverPass DataType="bool">PLC</DriverPass>
                 <DriversFaultSignal DataType="bool">PLC</DriversFaultSignal>
-				<DriveType DataType="string">VehicleDataBroker</DriveType>
-				<DriveTypeBGColor DataType="color">VehicleDataBroker</DriveTypeBGColor>
+                <DTRLOverallTest DataType="testcomponentstatus">TestResultServer</DTRLOverallTest>
                 <EATX DataType="bool">PLC</EATX>
+                <EATXPartNumberTest DataType="string">TestResultServer</EATXPartNumberTest>
                 <EBSDriveSpeed DataType="bool">PLC</EBSDriveSpeed>
                 <ECULamp DataType="bool">PLC</ECULamp>
+                <EDCBrakeSwitchTest DataType="string">VehicleTest</EDCBrakeSwitchTest>
+                <EDCDTCTest DataType="string">VehicleTest</EDCDTCTest>
+                <EDCEngineIdleSpeedTest DataType="string">VehicleTest</EDCEngineIdleSpeedTest>
+                <EDCParkNeutralSwitchTest DataType="string">VehicleTest</EDCParkNeutralSwitchTest>
+                <EDCPartNumberTest DataType="string">VehicleTest</EDCPartNumberTest>
+                <EDCPCMSerialNumberTest DataType="string">VehicleTest</EDCPCMSerialNumberTest>
+                <EDCPowerSteeringSwitchTest DataType="string">VehicleTest</EDCPowerSteeringSwitchTest>
+                <EDCUplineTest DataType="string">VehicleTest</EDCUplineTest>
+                <EDCVINVerificationTest DataType="string">VehicleTest</EDCVINVerificationTest>
+                <EGRValueTest DataType="string">VehicleTest</EGRValueTest>
+                <ElectronicTcaseSerialNumberTest DataType="string">VehicleTest</ElectronicTcaseSerialNumberTest>
+                <ElectronicTransmission DataType="string">VehicleTest</ElectronicTransmission>
                 <ElectronicTransmissionSelected DataType="bool">PLC</ElectronicTransmissionSelected>
                 <ElevatorsLoweredLight DataType="bool">PLC</ElevatorsLoweredLight>
                 <ElevatorsRaisedLight DataType="bool">PLC</ElevatorsRaisedLight>
                 <EmissionsOverallTest DataType="testcomponentstatus">TestResultServer</EmissionsOverallTest>
                 <EnableAllRollDrives DataType="bool">PLC</EnableAllRollDrives>
                 <EnableDifferentialLockTestBrake DataType="bool">PLC</EnableDifferentialLockTestBrake>
-				<Encoder5VPowerSupplyVoltage DataType="int">PLC</Encoder5VPowerSupplyVoltage>
+                <EnableSimulation DataType="bool">DIO</EnableSimulation>
                 <EndSampleSpeed DataType="float" Units="MPH">VehicleTest</EndSampleSpeed>
                 <EngageRollClutchesWhenSensorsCrossed DataType="bool">PLC</EngageRollClutchesWhenSensorsCrossed>
-				<EngineType DataType="string">VehicleDataBroker</EngineType>
-				<EngineTypeBGColor DataType="color">VehicleDataBroker</EngineTypeBGColor>
+                <EngineController DataType="string">VehicleDataBroker</EngineController>
+                <EngineControllerBGColor DataType="color">VehicleDataBroker</EngineControllerBGColor>
+                <EngineIdleSpeedTest DataType="string">VehicleTest</EngineIdleSpeedTest>
                 <EntranceDoorFault DataType="bool">PLC</EntranceDoorFault>
                 <ErrorCodeTest DataType="string">VehicleTest</ErrorCodeTest>
+                <EtcHighSpeedTest DataType="string">VehicleTest</EtcHighSpeedTest>
+                <EtcLowSpeedTest DataType="string">VehicleTest</EtcLowSpeedTest>
+                <EtcZeroSpeedTest DataType="string">VehicleTest</EtcZeroSpeedTest>
+                <ETCOverallTest DataType="testcomponentstatus">TestResultServer</ETCOverallTest>
                 <ExcessiveBrakeForceTest DataType="string">VehicleTest</ExcessiveBrakeForceTest>
                 <ExhaustCarriageDriveFault DataType="bool">PLC</ExhaustCarriageDriveFault>
                 <ExhaustDoorLoweredFault DataType="bool">PLC</ExhaustDoorLoweredFault>
@@ -222,6 +276,7 @@
                 <ExhaustStopPinProx1Activated DataType="bool">PLC</ExhaustStopPinProx1Activated>
                 <ExhaustStopPinProx2Activated DataType="bool">PLC</ExhaustStopPinProx2Activated>
                 <ExitDoorFault DataType="bool">PLC</ExitDoorFault>
+                <FRollSpeedsNotEqualWhenClutched DataType="bool">PLC</FRollSpeedsNotEqualWhenClutched>
                 <FactoryInfoSystemDataValid DataType="bool">PLC</FactoryInfoSystemDataValid>
                 <FatalFaultFlasher DataType="bool">PLC</FatalFaultFlasher>
                 <FaultLamp DataType="bool">PLC</FaultLamp>
@@ -229,20 +284,23 @@
                 <FireAlarm DataType="bool">PLC</FireAlarm>
                 <FlywheelClutch DataType="bool">PLC</FlywheelClutch>
                 <FlywheelDeclutch DataType="bool">PLC</FlywheelDeclutch>
+                <ForceMeter DataType="int" Units="LBF">AOUT</ForceMeter>
                 <ForegroundTestInProgress DataType="bool">VehicleTest</ForegroundTestInProgress>
                 <FortyKPHLamp DataType="bool">PLC</FortyKPHLamp>
-				<FourWD DataType="string">VehicleDataBroker</FourWD>
-				<FourWDBGColor DataType="color">VehicleDataBroker</FourWDBGColor>
+                <FourOneDownShiftTest DataType="string">VehicleTest</FourOneDownShiftTest>
+                <FourThreeDownShiftTest DataType="string">VehicleTest</FourThreeDownShiftTest>
+                <FourWDHighSwitchTest DataType="string">VehicleTest</FourWDHighSwitchTest>
+                <FourWDHighTest DataType="string">VehicleTest</FourWDHighTest>
+                <FourWDLowSwitchTest DataType="string">VehicleTest</FourWDLowSwitchTest>
+                <FourWDLowTest DataType="string">VehicleTest</FourWDLowTest>
                 <FourWDSelected DataType="bool">PLC</FourWDSelected>
                 <FourWheelDrive DataType="bool">PLC</FourWheelDrive>
                 <FreePassPB DataType="bool">PLC</FreePassPB>
-				<FRollSpeedsNotEqualWhenClutched DataType="bool">PLC</FRollSpeedsNotEqualWhenClutched>
                 <FrontBalanceBGColor DataType="color">MachineDataBroker</FrontBalanceBGColor>
                 <FrontBalancePercentageTest DataType="string">VehicleTest</FrontBalancePercentageTest>
                 <FrontBalanceRejectLamp DataType="bool">PLC</FrontBalanceRejectLamp>
                 <FrontBalanceValue DataType="float">MachineDataBroker</FrontBalanceValue>
-				<FrontBoostForce DataType="short">PLC</FrontBoostForce>
-				<FrontBoostPressure DataType="short">PLC</FrontBoostPressure>
+                <FrontBCDSpeedOutput DataType="char">DIO</FrontBCDSpeedOutput>
                 <FrontEBSDriveDisconnectOpen DataType="bool">PLC</FrontEBSDriveDisconnectOpen>
                 <FrontEBSDriveNotLoweredFault DataType="bool">PLC</FrontEBSDriveNotLoweredFault>
                 <FrontEBSDriveNotRaisedFault DataType="bool">PLC</FrontEBSDriveNotRaisedFault>
@@ -257,17 +315,22 @@
                 <FrontHydraulicClutchEngagedFault DataType="bool">PLC</FrontHydraulicClutchEngagedFault>
                 <FrontInterRollClutchDisengageFault DataType="bool">PLC</FrontInterRollClutchDisengageFault>
                 <FrontInterRollClutchEngageFault DataType="bool">PLC</FrontInterRollClutchEngageFault>
+                <FrontRearBalancePercentageTest DataType="string">VehicleTest</FrontRearBalancePercentageTest>
                 <FrontRetainingRollsLoweredFault DataType="bool">PLC</FrontRetainingRollsLoweredFault>
                 <FrontRetainingRollsRaisedFault DataType="bool">PLC</FrontRetainingRollsRaisedFault>
                 <FrontRollsHydraulicAssist4WD DataType="bool">PLC</FrontRollsHydraulicAssist4WD>
                 <FrontToRearBalanceBGColor DataType="color">MachineDataBroker</FrontToRearBalanceBGColor>
                 <FrontToRearBalanceRejectLamp DataType="bool">PLC</FrontToRearBalanceRejectLamp>
                 <FrontToRearBalanceValue DataType="float">MachineDataBroker</FrontToRearBalanceValue>
-				<FrontWD DataType="string">VehicleDataBroker</FrontWD>
-				<FrontWDBGColor DataType="color">VehicleDataBroker</FrontWDBGColor>
                 <FrontWheelDriveSelectedToPLC DataType="bool">PLC</FrontWheelDriveSelectedToPLC>
                 <FrontWheelDriveSelectedToPLCSpecial DataType="bool">PLC</FrontWheelDriveSelectedToPLCSpecial>
+                <GatewayOverallTest DataType="testcomponentstatus">TestResultServer</GatewayOverallTest>
+                <GraphLowerSeries DataType="string">VehicleTest</GraphLowerSeries>
+                <GraphUpperSeries DataType="string">VehicleTest</GraphUpperSeries>
                 <GUIKeepAlive DataType="bool">MachineDataBroker</GUIKeepAlive>
+                <HighSpeedChime DataType="string">VehicleDataBroker</HighSpeedChime>
+                <HighSpeedChimeBGColor DataType="color">VehicleDataBroker</HighSpeedChimeBGColor>
+                <HighSpeedChimeOverallTest DataType="testcomponentstatus">TestResultServer</HighSpeedChimeOverallTest>
                 <HolddownPlatformLockDisengagedFault DataType="bool">PLC</HolddownPlatformLockDisengagedFault>
                 <HolddownPlatformLockEngagedFault DataType="bool">PLC</HolddownPlatformLockEngagedFault>
                 <HolddownPlatformLoweredFault DataType="bool">PLC</HolddownPlatformLoweredFault>
@@ -316,13 +379,17 @@
                 <InterRollPressureHighShutdown DataType="bool">PLC</InterRollPressureHighShutdown>
                 <InterRollPressureHighWarning DataType="bool">PLC</InterRollPressureHighWarning>
                 <Inter-RollPressureOff DataType="bool">PLC</Inter-RollPressureOff>
-				<InvalidLicenseFatalFault DataType="bool">SystemMonitor</InvalidLicenseFatalFault>
                 <JounceCycles DataType="short">PLC</JounceCycles>
                 <JounceFrequency DataType="short">PLC</JounceFrequency>
                 <JounceMotorDisconnectOpen DataType="bool">PLC</JounceMotorDisconnectOpen>
                 <JounceMotorDriveFault DataType="bool">PLC</JounceMotorDriveFault>
                 <JounceSystemCompletionFault DataType="bool">PLC</JounceSystemCompletionFault>
                 <JounceTestComplete DataType="bool">PLC</JounceTestComplete>
+                <JTECDTCTest DataType="string">VehicleTest</JTECDTCTest>
+                <JTECPartNumberTest DataType="string">VehicleTest</JTECPartNumberTest>
+                <JTECUplineTest DataType="string">VehicleTest</JTECUplineTest>
+                <JTECVINVerificationTest DataType="string">VehicleTest</JTECVINVerificationTest>
+                <KelseyHayes4WALBattery DataType="bool">DIO</KelseyHayes4WALBattery>
                 <KelseyHayes4WALTestSelected DataType="bool">PLC</KelseyHayes4WALTestSelected>
                 <KelseyHayesRwalTestSelected DataType="bool">PLC</KelseyHayesRwalTestSelected>
                 <KeyboardTripSwitchControl DataType="bool">PLC</KeyboardTripSwitchControl>
@@ -349,6 +416,8 @@
                 <LCWarmupTimeBGColor DataType="color">MachineDataBroker</LCWarmupTimeBGColor>
                 <LCWarmupTimeRemaining DataType="float">MachineDataBroker</LCWarmupTimeRemaining>
                 <LCWarmupTimeRemainingBGColor DataType="color">MachineDataBroker</LCWarmupTimeRemainingBGColor>
+                <LdpPumpUpTimeTest DataType="string">VehicleTest</LdpPumpUpTimeTest>
+                <LeftFrontRollerDirection DataType="bool">ICM</LeftFrontRollerDirection>
                 <LeftFrontRollMotorContactorFault DataType="bool">PLC</LeftFrontRollMotorContactorFault>
                 <LeftFrontRollMotorDisconnectOpen DataType="bool">PLC</LeftFrontRollMotorDisconnectOpen>
                 <LeftFrontRollMotorDriveFault DataType="bool">PLC</LeftFrontRollMotorDriveFault>
@@ -356,6 +425,7 @@
                 <LeftFrontRollMotorOverloadOpen DataType="bool">PLC</LeftFrontRollMotorOverloadOpen>
                 <LeftJounceStabDisengagedFault DataType="bool">PLC</LeftJounceStabDisengagedFault>
                 <LeftJounceStabEngagedFault DataType="bool">PLC</LeftJounceStabEngagedFault>
+                <LeftRearRollerDirection DataType="bool">ICM</LeftRearRollerDirection>
                 <LeftRearMachineEStopPBDepressed DataType="bool">PLC</LeftRearMachineEStopPBDepressed>
                 <LeftRearParkBrakeCylinderFailedToExtend DataType="bool">PLC</LeftRearParkBrakeCylinderFailedToExtend>
                 <LeftRearRollMotorContactorFault DataType="bool">PLC</LeftRearRollMotorContactorFault>
@@ -371,9 +441,9 @@
                 <LeftTandemRollMotorDisconnectOpen DataType="bool">PLC</LeftTandemRollMotorDisconnectOpen>
                 <LeftTandemRollMotorDriveFault DataType="bool">PLC</LeftTandemRollMotorDriveFault>
                 <LFABSRecoveryBGColor DataType="color">MachineDataBroker</LFABSRecoveryBGColor>
-				<LFABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</LFABSRecoveryValue>
+                <LFABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</LFABSRecoveryValue>
                 <LFABSReductionBGColor DataType="color">MachineDataBroker</LFABSReductionBGColor>
-				<LFABSReductionValue DataType="float" Units="Percent">MachineDataBroker</LFABSReductionValue>
+                <LFABSReductionValue DataType="float" Units="Percent">MachineDataBroker</LFABSReductionValue>
                 <LFAcceleration DataType="float" Units="MPH/s">ICM</LFAcceleration>
                 <LFBrakeForceTest DataType="string">VehicleTest</LFBrakeForceTest>
                 <LFBrakeRejectLamp DataType="bool">PLC</LFBrakeRejectLamp>
@@ -408,40 +478,54 @@
                 <LFSpeed DataType="float" Units="MPH">ICM</LFSpeed>
                 <LFSpeedBGColor DataType="color">MachineDataBroker</LFSpeedBGColor>
                 <LFStopPostPinInserted DataType="bool">PLC</LFStopPostPinInserted>
+                <LFTirePressureBGColor DataType="color">MachineDataBroker</LFTirePressureBGColor>
+                <LFTirePressureValue DataType="float" Units="PSI">MachineDataBroker</LFTirePressureValue>
                 <LFTractionControlBuildForceTest DataType="string">VehicleTest</LFTractionControlBuildForceTest>
                 <LFTractionControlDumpForceTest DataType="string">VehicleTest</LFTractionControlDumpForceTest>
                 <LFTractionControlRecoveryBGColor DataType="color">MachineDataBroker</LFTractionControlRecoveryBGColor>
-				<LFTractionControlRecoveryValue DataType="float" Units="Percent">MachineDataBroker</LFTractionControlRecoveryValue>
+                <LFTractionControlRecoveryValue DataType="float" Units="LBF">MachineDataBroker</LFTractionControlRecoveryValue>
                 <LFTractionControlReductionBGColor DataType="color">MachineDataBroker</LFTractionControlReductionBGColor>
-				<LFTractionControlReductionValue DataType="float" Units="Percent">MachineDataBroker</LFTractionControlReductionValue>
+                <LFTractionControlReductionValue DataType="float" Units="LBF">MachineDataBroker</LFTractionControlReductionValue>
                 <LFWheelDomain DataType="range" Units="MPH">MachineDataBroker</LFWheelDomain>
                 <LFWheelSpeed DataType="short" Units="MPH">PLC</LFWheelSpeed>
                 <LFWheelTarget DataType="range" Units="MPH">MachineDataBroker</LFWheelTarget>
+                <LHD-RHDRelay DataType="bool">DIO</LHD-RHDRelay>
                 <LHPendantFault DataType="bool">PLC</LHPendantFault>
+                <LoadVehicleTestData DataType="bool">VehicleTest</LoadVehicleTestData>
+                <LoadingTestComponents DataType="bool">VehicleTest</LoadingTestComponents>
                 <LockBoxDoorClosed DataType="bool">PLC</LockBoxDoorClosed>
                 <LossCompensation DataType="bool">PLC</LossCompensation>
                 <LossCompensationCycle DataType="bool">PLC</LossCompensationCycle>
+                <LossCompensationHighSimulation DataType="bool">DIO</LossCompensationHighSimulation>
+                <LossCompensationLowSimulation DataType="bool">DIO</LossCompensationLowSimulation>
                 <LossCompensationPressure DataType="short" Units="PSI">PLC</LossCompensationPressure>
+                <LossCompensationRampsSimulation DataType="bool">DIO</LossCompensationRampsSimulation>
                 <LossCompensationSwitchCycleStatus DataType="bool">PLC</LossCompensationSwitchCycleStatus>
                 <LossCompensationSwitchCycleStatusFromPLC DataType="bool">PLC</LossCompensationSwitchCycleStatusFromPLC>
                 <LossCompensationSwitchStatus DataType="bool">PLC</LossCompensationSwitchStatus>
-				<LossCompensationSwitchStatusFromPLC DataType="bool">PLC</LossCompensationSwitchStatusFromPLC>
                 <LossCompensationSwitchStatusToPLC DataType="bool">PLC</LossCompensationSwitchStatusToPLC>
+                <LossCompensationSwitchStatusFromPLC DataType="bool">PLC</LossCompensationSwitchStatusFromPLC>
+                <LowDownShiftTest DataType="string">VehicleTest</LowDownShiftTest>
                 <LowerElevatorsPushbutton DataType="bool">PLC</LowerElevatorsPushbutton>
+                <LowerNeg12VoltPowerSupply DataType="float">PLC</LowerNeg12VoltPowerSupply>
                 <LowerNeg12VoltPowerSupplyDomain DataType="range">MachineDataBroker</LowerNeg12VoltPowerSupplyDomain>
                 <LowerNeg12VoltPowerSupplyTarget DataType="range">MachineDataBroker</LowerNeg12VoltPowerSupplyTarget>
                 <LowerNeg12VoltPowerSupplyTolerance DataType="bool">PLC</LowerNeg12VoltPowerSupplyTolerance>
+                <LowerPos12VoltPowerSupply DataType="float">PLC</LowerPos12VoltPowerSupply>
                 <LowerPos12VoltPowerSupplyDomain DataType="range">MachineDataBroker</LowerPos12VoltPowerSupplyDomain>
                 <LowerPos12VoltPowerSupplyTarget DataType="range">MachineDataBroker</LowerPos12VoltPowerSupplyTarget>
                 <LowerPos12VoltPowerSupplyTolerance DataType="bool">PLC</LowerPos12VoltPowerSupplyTolerance>
+                <LowerPos5VoltPowerSupply DataType="float">PLC</LowerPos5VoltPowerSupply>
                 <LowerPos5VoltPowerSupplyDomain DataType="range">MachineDataBroker</LowerPos5VoltPowerSupplyDomain>
                 <LowerPos5VoltPowerSupplyTarget DataType="range">MachineDataBroker</LowerPos5VoltPowerSupplyTarget>
                 <LowerPos5VoltPowerSupplyTolerance DataType="bool">PLC</LowerPos5VoltPowerSupplyTolerance>
                 <LRABSRecoveryBGColor DataType="color">MachineDataBroker</LRABSRecoveryBGColor>
-				<LRABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</LRABSRecoveryValue>
+                <LRABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</LRABSRecoveryValue>
                 <LRABSReductionBGColor DataType="color">MachineDataBroker</LRABSReductionBGColor>
-				<LRABSReductionValue DataType="float" Units="Percent">MachineDataBroker</LRABSReductionValue>
+                <LRABSReductionValue DataType="float" Units="Percent">MachineDataBroker</LRABSReductionValue>
                 <LRAcceleration DataType="float" Units="MPH/s">ICM</LRAcceleration>
+                <LRBrakeForceOutput DataType="int" Units="LBF">AOUT</LRBrakeForceOutput>
+                <LRBrakeForceTest DataType="string">VehicleTest</LRBrakeForceTest>
                 <LRBrakeRejectLamp DataType="bool">PLC</LRBrakeRejectLamp>
                 <LRDistance DataType="float">ICM</LRDistance>
                 <LRDragBGColor DataType="color">MachineDataBroker</LRDragBGColor>
@@ -472,15 +556,21 @@
                 <LRRollerFactor DataType="float">ICM</LRRollerFactor>
                 <LRRollMotorDriveCommFault DataType="bool">PLC</LRRollMotorDriveCommFault>
                 <LRRollMotorOperationalFault DataType="bool">PLC</LRRollMotorOperationalFault>
+                <LRShaftEncoderSignal DataType="bool">DIO</LRShaftEncoderSignal>
                 <LRSpeed DataType="float" Units="MPH">ICM</LRSpeed>
                 <LRSpeedBGColor DataType="color">MachineDataBroker</LRSpeedBGColor>
+                <LRTirePressureBGColor DataType="color">MachineDataBroker</LRTirePressureBGColor>
+                <LRTirePressureValue DataType="float" Units="PSI">MachineDataBroker</LRTirePressureValue>
                 <LRTractionControlRecoveryBGColor DataType="color">MachineDataBroker</LRTractionControlRecoveryBGColor>
-				<LRTractionControlRecoveryValue DataType="float" Units="Percent">MachineDataBroker</LRTractionControlRecoveryValue>
+                <LRTractionControlRecoveryValue DataType="float" Units="LBF">MachineDataBroker</LRTractionControlRecoveryValue>
                 <LRTractionControlReductionBGColor DataType="color">MachineDataBroker</LRTractionControlReductionBGColor>
-				<LRTractionControlReductionValue DataType="float" Units="Percent">MachineDataBroker</LRTractionControlReductionValue>
+                <LRTractionControlReductionValue DataType="float" Units="LBF">MachineDataBroker</LRTractionControlReductionValue>
                 <LRWheelDomain DataType="range" Units="MPH">MachineDataBroker</LRWheelDomain>
                 <LRWheelSpeed DataType="short" Units="MPH">PLC</LRWheelSpeed>
                 <LRWheelTarget DataType="range" Units="MPH">MachineDataBroker</LRWheelTarget>
+                <LSIACMPartNo DataType="string">VehicleDataBroker</LSIACMPartNo>
+                <LSIACMPartNumberTest DataType="string">VehicleTest</LSIACMPartNumberTest>
+                <LSIACMSerialNumberTest DataType="string">VehicleTest</LSIACMSerialNumberTest>
                 <LTAcceleration DataType="float" Units="MPH/s">ICM</LTAcceleration>
                 <LTDistance DataType="float" Units="Mile">ICM</LTDistance>
                 <LTForce DataType="float" Units="LBF">ICM</LTForce>
@@ -516,20 +606,21 @@
                 <MachineLossMinLeftBGColor DataType="color">MachineDataBroker</MachineLossMinLeftBGColor>
                 <MachineLossMinRight DataType="float" Units="LBF">MachineDataBroker</MachineLossMinRight>
                 <MachineLossMinRightBGColor DataType="color">MachineDataBroker</MachineLossMinRightBGColor>
-				<MachineLossTime DataType="string">MachineDataBroker</MachineLossTime>
-				<MachineNumber DataType="string">MachineDataBroker</MachineNumber>
+                <MachineLossTime DataType="float">MachineDataBroker</MachineLossTime>
+                <MachineNumber DataType="short">MachineDataBroker</MachineNumber>
+                <MachineOverallTest DataType="testcomponentstatus">TestResultServer</MachineOverallTest>
                 <MachineType DataType="string">MachineDataBroker</MachineType>
                 <MachineType2400 DataType="bool">PLC</MachineType2400>
                 <MachineType3600 DataType="bool">PLC</MachineType3600>
-				<Manual4x4 DataType="string">VehicleDataBroker</Manual4x4>
-				<Manual4x4BGColor DataType="color">VehicleDataBroker</Manual4x4BGColor>
                 <ManualTransmissionSelectedFromPLC DataType="bool">PLC</ManualTransmissionSelectedFromPLC>
                 <ManualTransmissionSelectedToPLC DataType="bool">PLC</ManualTransmissionSelectedToPLC>
-				<MetricSelect DataType="string">VehicleDataBroker</MetricSelect>
-				<MetricSelectBGColor DataType="color">VehicleDataBroker</MetricSelectBGColor>
+                <MapSensorTest DataType="string">VehicleTest</MapSensorTest>
+                <MarketType DataType="string">VehicleDataBroker</MarketType>
+                <MarketTypeBGColor DataType="color">VehicleDataBroker</MarketTypeBGColor>
+                <MarketTypeOverallTest DataType="testcomponentstatus">TestResultServer</MarketTypeOverallTest>
                 <MinimumBoostPressure DataType="short" Units="PSI">PLC</MinimumBoostPressure>
-				<ModelYear DataType="string">VehicleDataBroker</ModelYear>
-				<ModelYearBGColor DataType="color">VehicleDataBroker</ModelYearBGColor>
+                <MinimumIdleRpmTest DataType="string">VehicleTest</MinimumIdleRpmTest>
+                <MisfireCountTest DataType="string">VehicleTest</MisfireCountTest>
                 <ModelYearSwitch DataType="bool">PLC</ModelYearSwitch>
                 <MonitorBoomNotExtendedFault DataType="bool">PLC</MonitorBoomNotExtendedFault>
                 <MonitorBoomNotRetractedFault DataType="bool">PLC</MonitorBoomNotRetractedFault>
@@ -538,96 +629,27 @@
                 <MonitorStopNotRetracting DataType="bool">PLC</MonitorStopNotRetracting>
                 <MotorBlowerFuseOpenJBox DataType="bool">PLC</MotorBlowerFuseOpenJBox>
                 <MotorControllerTaskHeartbeat DataType="bool">PLC</MotorControllerTaskHeartbeat>
-				<MotorLoadingAccelConst DataType="float">MotorController</MotorLoadingAccelConst>
-				<MotorLoadingSpeedConst DataType="float">MotorController</MotorLoadingSpeedConst>
                 <MotorMode DataType="string">MotorController</MotorMode>
                 <MotorTaskHearbeatFault DataType="bool">PLC</MotorTaskHearbeatFault>
                 <MoveDriverInterfacePanelIn DataType="bool">PLC</MoveDriverInterfacePanelIn>
                 <MoveDriverInterfacePanelOut DataType="bool">PLC</MoveDriverInterfacePanelOut>
                 <NeutralLamp DataType="bool">PLC</NeutralLamp>
-				<NextVehicleBuild DataType="string">VehicleBuildServer</NextVehicleBuild>
+                <NextVehicleBuild DataType="string">WorkCellController</NextVehicleBuild>
                 <NextVIN DataType="string">InputServer</NextVIN>
                 <NextVINRequest DataType="bool">PLC</NextVINRequest>
                 <NissinboABSSelected DataType="bool">PLC</NissinboABSSelected>
                 <NoABSSelected DataType="bool">PLC</NoABSSelected>
                 <NoPB DataType="bool">PLC</NoPB>
-				<OkToRoll DataType="bool">SystemMonitor</OkToRoll>
-				<OldLTSpeed DataType="float" Units="MPH">ICM</OldLTSpeed>
-				<Open_N16_20_10 DataType="bool">PLC</Open_N16_20_10>
-				<Open_N16_20_11 DataType="bool">PLC</Open_N16_20_11>
-				<Open_N16_20_12 DataType="bool">PLC</Open_N16_20_12>
-				<Open_N16_20_13 DataType="bool">PLC</Open_N16_20_13>
-				<Open_N16_20_14 DataType="bool">PLC</Open_N16_20_14>
-				<Open_N16_20_15 DataType="bool">PLC</Open_N16_20_15>
-				<Open_N16_20_2 DataType="bool">PLC</Open_N16_20_2>
-				<Open_N16_20_3 DataType="bool">PLC</Open_N16_20_3>
-				<Open_N16_20_4 DataType="bool">PLC</Open_N16_20_4>
-				<Open_N16_20_5 DataType="bool">PLC</Open_N16_20_5>
-				<Open_N16_20_6 DataType="bool">PLC</Open_N16_20_6>
-				<Open_N16_20_7 DataType="bool">PLC</Open_N16_20_7>
-				<Open_N16_20_8 DataType="bool">PLC</Open_N16_20_8>
-				<Open_N16_20_9 DataType="bool">PLC</Open_N16_20_9>
-				<OpenN16_19_10 DataType="bool">PLC</OpenN16_19_10>
-				<OpenN16_19_11 DataType="bool">PLC</OpenN16_19_11>
-				<OpenN16_19_12 DataType="bool">PLC</OpenN16_19_12>
-				<OpenN16_19_13 DataType="bool">PLC</OpenN16_19_13>
-				<OpenN16_19_14 DataType="bool">PLC</OpenN16_19_14>
-				<OpenN16_19_15 DataType="bool">PLC</OpenN16_19_15>
-				<OpenN16_19_8 DataType="bool">PLC</OpenN16_19_8>
-				<OpenN16_19_9 DataType="bool">PLC</OpenN16_19_9>
-				<OpenN16_21_10 DataType="bool">PLC</OpenN16_21_10>
-				<OpenN16_21_11 DataType="bool">PLC</OpenN16_21_11>
-				<OpenN16_21_12 DataType="bool">PLC</OpenN16_21_12>
-				<OpenN16_21_13 DataType="bool">PLC</OpenN16_21_13>
-				<OpenN16_21_14 DataType="bool">PLC</OpenN16_21_14>
-				<OpenN16_21_15 DataType="bool">PLC</OpenN16_21_15>
-				<OpenN16_21_6 DataType="bool">PLC</OpenN16_21_6>
-				<OpenN16_21_9 DataType="bool">PLC</OpenN16_21_9>
-				<OpenN16_24_10 DataType="bool">PLC</OpenN16_24_10>
-				<OpenN16_24_11 DataType="bool">PLC</OpenN16_24_11>
-				<OpenN16_24_12 DataType="bool">PLC</OpenN16_24_12>
-				<OpenN16_24_13 DataType="bool">PLC</OpenN16_24_13>
-				<OpenN16_24_14 DataType="bool">PLC</OpenN16_24_14>
-				<OpenN16_24_15 DataType="bool">PLC</OpenN16_24_15>
-				<OpenN16_24_6 DataType="bool">PLC</OpenN16_24_6>
-				<OpenN16_24_7 DataType="bool">PLC</OpenN16_24_7>
-				<OpenN16_24_8 DataType="bool">PLC</OpenN16_24_8>
-				<OpenN16_24_9 DataType="bool">PLC</OpenN16_24_9>
-				<OpenN16_8_7 DataType="bool">PLC</OpenN16_8_7>
-				<OpenN17_15_1 DataType="bool">PLC</OpenN17_15_1>
-				<OpenN17_15_10 DataType="bool">PLC</OpenN17_15_10>
-				<OpenN17_15_11 DataType="bool">PLC</OpenN17_15_11>
-				<OpenN17_15_12 DataType="bool">PLC</OpenN17_15_12>
-				<OpenN17_15_13 DataType="bool">PLC</OpenN17_15_13>
-				<OpenN17_15_14 DataType="bool">PLC</OpenN17_15_14>
-				<OpenN17_15_15 DataType="bool">PLC</OpenN17_15_15>
-				<OpenN17_15_2 DataType="bool">PLC</OpenN17_15_2>
-				<OpenN17_15_3 DataType="bool">PLC</OpenN17_15_3>
-				<OpenN17_15_4 DataType="bool">PLC</OpenN17_15_4>
-				<OpenN17_15_5 DataType="bool">PLC</OpenN17_15_5>
-				<OpenN17_15_6 DataType="bool">PLC</OpenN17_15_6>
-				<OpenN17_15_7 DataType="bool">PLC</OpenN17_15_7>
-				<OpenN17_15_8 DataType="bool">PLC</OpenN17_15_8>
-				<OpenN17_15_9 DataType="bool">PLC</OpenN17_15_9>
-				<OpenN17_20_15 DataType="bool">PLC</OpenN17_20_15>
-				<OpenN17_21_10 DataType="bool">PLC</OpenN17_21_10>
-				<OpenN17_21_11 DataType="bool">PLC</OpenN17_21_11>
-				<OpenN17_21_12 DataType="bool">PLC</OpenN17_21_12>
-				<OpenN17_21_13 DataType="bool">PLC</OpenN17_21_13>
-				<OpenN17_21_14 DataType="bool">PLC</OpenN17_21_14>
-				<OpenN17_21_15 DataType="bool">PLC</OpenN17_21_15>
-				<OpenN17_21_8 DataType="bool">PLC</OpenN17_21_8>
-				<OpenN17_21_9 DataType="bool">PLC</OpenN17_21_9>
-				<OpenN17_22_12 DataType="bool">PLC</OpenN17_22_12>
-				<OpenN17_22_13 DataType="bool">PLC</OpenN17_22_13>
-				<OpenN17_22_14 DataType="bool">PLC</OpenN17_22_14>
-				<OpenN17_22_15 DataType="bool">PLC</OpenN17_22_15>
-				<OpenN17_22_5 DataType="bool">PLC</OpenN17_22_5>
-				<OpenN17_22_6 DataType="bool">PLC</OpenN17_22_6>
+                <OasisOverallTest DataType="testcomponentstatus">TestResultServer</OasisOverallTest>
+                <OcsOverallTest DataType="testcomponentstatus">TestResultServer</OcsOverallTest>
+                <OneTwoUpshiftTest DataType="string">VehicleTest</OneTwoUpshiftTest>
                 <OperateStamp DataType="bool">PLC</OperateStamp>
                 <OperatorCrtDriveFault DataType="bool">PLC</OperatorCrtDriveFault>
                 <OperatorCrtPositioningFault DataType="bool">PLC</OperatorCrtPositioningFault>
                 <OperatorPendOnDriverConsole DataType="bool">PLC</OperatorPendOnDriverConsole>
+                <ORCACMPartNo DataType="string">VehicleDataBroker</ORCACMPartNo>
+                <ORCACMPartNumberTest DataType="string">VehicleTest</ORCACMPartNumberTest>
+                <ORCACMSerialNumberTest DataType="string">VehicleTest</ORCACMSerialNumberTest>
                 <OutputToPlcWord00 DataType="short">PLC</OutputToPlcWord00>
                 <OutputToPlcWord01 DataType="short">PLC</OutputToPlcWord01>
                 <OutputToPlcWord02 DataType="short">PLC</OutputToPlcWord02>
@@ -656,6 +678,7 @@
                 <OutputToPlcWord25 DataType="short">PLC</OutputToPlcWord25>
                 <OutputToPlcWord26 DataType="short">PLC</OutputToPlcWord26>
                 <OverallTest DataType="testcomponentstatus">VehicleTest</OverallTest>
+                <OverdriveLockoutTest DataType="string">VehicleTest</OverdriveLockoutTest>
                 <OverheadInPosition DataType="bool">PLC</OverheadInPosition>
                 <OverheadMotorDriveFault DataType="bool">PLC</OverheadMotorDriveFault>
                 <OverheadPosition_InchesX10 DataType="short" Units="Inch*10">PLC</OverheadPosition_InchesX10>
@@ -666,13 +689,7 @@
                 <Panel2HighTempWarning DataType="bool">PLC</Panel2HighTempWarning>
                 <PanelEStopPushbuttonDepressed DataType="bool">PLC</PanelEStopPushbuttonDepressed>
                 <PanelTemperatureHighWarning DataType="bool">PLC</PanelTemperatureHighWarning>
-				<ParameterListDay DataType="short">VehicleTest</ParameterListDay>
-				<ParameterListHour DataType="short">VehicleTest</ParameterListHour>
-				<ParameterListMinute DataType="short">VehicleTest</ParameterListMinute>
-				<ParameterListMonth DataType="short">VehicleTest</ParameterListMonth>
-				<ParameterListNumber DataType="short">VehicleTest</ParameterListNumber>
-				<ParameterListYear DataType="short">VehicleTest</ParameterListYear>
-				<ParkBrakePressure DataType="short" Units="PSI">PLC</ParkBrakePressure>
+                <ParkAssistOverallTest DataType="testcomponentstatus">TestResultServer</ParkAssistOverallTest>
                 <ParkingBrakeRejectLamp DataType="bool">PLC</ParkingBrakeRejectLamp>
                 <ParkingBrakeTest DataType="bool">PLC</ParkingBrakeTest>
                 <ParkingBrakeTestFailed DataType="bool">PLC</ParkingBrakeTestFailed>
@@ -682,8 +699,13 @@
                 <ParkingPawlCylFailToRetract DataType="bool">PLC</ParkingPawlCylFailToRetract>
                 <ParkingPawlTestFailed DataType="bool">PLC</ParkingPawlTestFailed>
                 <ParkingPawlTestPassed DataType="bool">PLC</ParkingPawlTestPassed>
-				<PhaseStatus DataType="string">VehicleTest</PhaseStatus>
+                <ParkNeutralSwitchTest DataType="string">VehicleTest</ParkNeutralSwitchTest>
+                <PerformAbortTest DataType="string">VehicleDataBroker</PerformAbortTest>
+                <PerformAbortTestBGColor DataType="color">VehicleDataBroker</PerformAbortTestBGColor>
+                <PinionFactor DataType="string">VehicleDataBroker</PinionFactor>
                 <PitVentilationInterlockFault DataType="bool">PLC</PitVentilationInterlockFault>
+                <PCMPartNo DataType="string">VehicleDataBroker</PCMPartNo>
+                <PCMSerialNumberTest DataType="string">VehicleTest</PCMSerialNumberTest>
                 <PLC5Rack0Fault DataType="bool">PLC</PLC5Rack0Fault>
                 <PLC5Rack1Fault DataType="bool">PLC</PLC5Rack1Fault>
                 <PLC5Rack2Fault DataType="bool">PLC</PLC5Rack2Fault>
@@ -706,6 +728,10 @@
                 <PositractionTest DataType="bool">PLC</PositractionTest>
                 <PowerSense DataType="bool">PLC</PowerSense>
                 <PowerSenseLostToIORack DataType="bool">PLC</PowerSenseLostToIORack>
+                <PowerSteering DataType="string">VehicleDataBroker</PowerSteering>
+                <PowerSteeringBGColor DataType="color">VehicleDataBroker</PowerSteeringBGColor>
+                <PowerSteeringOverallTest DataType="testcomponentstatus">TestResultServer</PowerSteeringOverallTest>
+                <PowerSteeringSwitchTestTest DataType="string">VehicleTest</PowerSteeringSwitchTestTest>
                 <PowerSupplyFault24Volt DataType="bool">PLC</PowerSupplyFault24Volt>
                 <PreviousLFMachineLoss DataType="float" Units="LBF">ICM</PreviousLFMachineLoss>
                 <PreviousLRMachineLoss DataType="float" Units="LBF">ICM</PreviousLRMachineLoss>
@@ -721,15 +747,16 @@
                 <PromptBox1BGColor DataType="color">PromptServer</PromptBox1BGColor>
                 <PromptBox2 DataType="prompt">PromptServer</PromptBox2>
                 <PromptBox2BGColor DataType="color">PromptServer</PromptBox2BGColor>
+                <PromptDefaultBGColor DataType="color">PromptServer</PromptDefaultBGColor>
+                <RadioOverallTest DataType="testcomponentstatus">TestResultServer</RadioOverallTest>
                 <RaiseElevatorsPushbutton DataType="bool">PLC</RaiseElevatorsPushbutton>
                 <RaiseRolls-LowerElevators DataType="bool">PLC</RaiseRolls-LowerElevators>
                 <ReadLatestBuildData DataType="bool">VehicleDataBroker</ReadLatestBuildData>
+                <RearBCDSpeedOutput DataType="char">DIO</RearBCDSpeedOutput>
                 <RearBalanceBGColor DataType="color">MachineDataBroker</RearBalanceBGColor>
                 <RearBalancePercentageTest DataType="string">VehicleTest</RearBalancePercentageTest>
                 <RearBalanceRejectLamp DataType="bool">PLC</RearBalanceRejectLamp>
                 <RearBalanceValue DataType="float">MachineDataBroker</RearBalanceValue>
-				<RearBoostForce DataType="short">PLC</RearBoostForce>
-				<RearBoostPressure DataType="short">PLC</RearBoostPressure>
                 <RearEBSDriveDisconnectOpen DataType="bool">PLC</RearEBSDriveDisconnectOpen>
                 <RearEBSDriveNotLoweredFault DataType="bool">PLC</RearEBSDriveNotLoweredFault>
                 <RearEBSDriveNotRaisedFault DataType="bool">PLC</RearEBSDriveNotRaisedFault>
@@ -750,23 +777,31 @@
                 <RearStopPostRaisedFault DataType="bool">PLC</RearStopPostRaisedFault>
                 <RearWheelDriveFromPLC DataType="bool">PLC</RearWheelDriveFromPLC>
                 <RearWheelDriveToPLC DataType="bool">PLC</RearWheelDriveToPLC>
+                <RemovingTestComponents DataType="bool">VehicleTest</RemovingTestComponents>
                 <ReflectedVmeHeartBeat DataType="bool">PLC</ReflectedVmeHeartBeat>
                 <RegenDrivePowerTimerActive DataType="bool">PLC</RegenDrivePowerTimerActive>
+                <RelayBoardControl DataType="char">DIO</RelayBoardControl>
                 <ReleaseLFBrake DataType="bool">PLC</ReleaseLFBrake>
                 <ReleaseLRBrake DataType="bool">PLC</ReleaseLRBrake>
-				<RequestDclResend DataType="bool">PlantHostOutbound</RequestDclResend>
+                <RemoteKeylessEntry DataType="string">VehicleDataBroker</RemoteKeylessEntry>
+                <RemoteKeylessEntryBGColor DataType="color">VehicleDataBroker</RemoteKeylessEntryBGColor>
+                <RemoteKeylessEntryOverallTest DataType="testcomponentstatus">TestResultServer</RemoteKeylessEntryOverallTest>
+                <RemoveVehicleTestData DataType="bool">VehicleTest</RemoveVehicleTestData>
+                <ReprintResults DataType="string">TestResultServer</ReprintResults>
                 <ResetPLC DataType="bool">PLC</ResetPLC>
                 <ResetSimulation DataType="bool">PLC</ResetSimulation>
+                <RestartCCRT DataType="string">Launcher</RestartCCRT>
                 <RetainingRollLockDisengagedFault DataType="bool">PLC</RetainingRollLockDisengagedFault>
                 <RetainingRollLockEngagedFault DataType="bool">PLC</RetainingRollLockEngagedFault>
+                <Retest DataType="bool">DIO</Retest>
                 <RetestPushButton DataType="bool">PLC</RetestPushButton>
                 <RetestSignal DataType="bool">PLC</RetestSignal>
                 <ReverseOverallTest DataType="testcomponentstatus">TestResultServer</ReverseOverallTest>
                 <ReverseTest DataType="string">VehicleTest</ReverseTest>
                 <RFABSRecoveryBGColor DataType="color">MachineDataBroker</RFABSRecoveryBGColor>
-				<RFABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</RFABSRecoveryValue>
+                <RFABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</RFABSRecoveryValue>
                 <RFABSReductionBGColor DataType="color">MachineDataBroker</RFABSReductionBGColor>
-				<RFABSReductionValue DataType="float" Units="Percent">MachineDataBroker</RFABSReductionValue>
+                <RFABSReductionValue DataType="float" Units="Percent">MachineDataBroker</RFABSReductionValue>
                 <RFAcceleration DataType="float" Units="MPH/s">ICM</RFAcceleration>
                 <RFBrakeForceTest DataType="string">VehicleTest</RFBrakeForceTest>
                 <RFBrakeRejectLamp DataType="bool">PLC</RFBrakeRejectLamp>
@@ -801,17 +836,21 @@
                 <RFSpeed DataType="float" Units="MPH">ICM</RFSpeed>
                 <RFSpeedBGColor DataType="color">MachineDataBroker</RFSpeedBGColor>
                 <RFStopPostPinInserted DataType="bool">PLC</RFStopPostPinInserted>
+                <RFTirePressureBGColor DataType="color">MachineDataBroker</RFTirePressureBGColor>
+                <RFTirePressureValue DataType="float" Units="PSI">MachineDataBroker</RFTirePressureValue>
                 <RFTractionControlBuildForceTest DataType="string">VehicleTest</RFTractionControlBuildForceTest>
                 <RFTractionControlDumpForceTest DataType="string">VehicleTest</RFTractionControlDumpForceTest>
                 <RFTractionControlRecoveryBGColor DataType="color">MachineDataBroker</RFTractionControlRecoveryBGColor>
-				<RFTractionControlRecoveryValue DataType="float" Units="Percent">MachineDataBroker</RFTractionControlRecoveryValue>
+                <RFTractionControlRecoveryValue DataType="float" Units="LBF">MachineDataBroker</RFTractionControlRecoveryValue>
                 <RFTractionControlReductionBGColor DataType="color">MachineDataBroker</RFTractionControlReductionBGColor>
-				<RFTractionControlReductionValue DataType="float" Units="Percent">MachineDataBroker</RFTractionControlReductionValue>
+                <RFTractionControlReductionValue DataType="float" Units="LBF">MachineDataBroker</RFTractionControlReductionValue>
                 <RFWheelDomain DataType="range" Units="MPH">MachineDataBroker</RFWheelDomain>
                 <RFWheelSpeed DataType="short" Units="MPH">PLC</RFWheelSpeed>
                 <RFWheelTarget DataType="range" Units="MPH">MachineDataBroker</RFWheelTarget>
+                <RHDCableConnect DataType="bool">DIO</RHDCableConnect>
                 <RHPendantFault DataType="bool">PLC</RHPendantFault>
                 <RightFrontMachineEStopPBDepressed DataType="bool">PLC</RightFrontMachineEStopPBDepressed>
+                <RightFrontRollerDirection DataType="bool">ICM</RightFrontRollerDirection>
                 <RightFrontRollMotorContactorFault DataType="bool">PLC</RightFrontRollMotorContactorFault>
                 <RightFrontRollMotorDisconnectOpen DataType="bool">PLC</RightFrontRollMotorDisconnectOpen>
                 <RightFrontRollMotorDriveFault DataType="bool">PLC</RightFrontRollMotorDriveFault>
@@ -822,6 +861,7 @@
                 <RightJounceStabDisengagedFault DataType="bool">PLC</RightJounceStabDisengagedFault>
                 <RightJounceStabEngagedFault DataType="bool">PLC</RightJounceStabEngagedFault>
                 <RightRearParkBrakeCylinderFailedToExtend DataType="bool">PLC</RightRearParkBrakeCylinderFailedToExtend>
+                <RightRearRollerDirection DataType="bool">ICM</RightRearRollerDirection>
                 <RightRearRollMotorContactorFault DataType="bool">PLC</RightRearRollMotorContactorFault>
                 <RightRearRollMotorDisconnectOpen DataType="bool">PLC</RightRearRollMotorDisconnectOpen>
                 <RightRearRollMotorDriveFault DataType="bool">PLC</RightRearRollMotorDriveFault>
@@ -845,10 +885,11 @@
                 <RollsUpElevDown DataType="bool">PLC</RollsUpElevDown>
                 <RollTestLamp DataType="bool">PLC</RollTestLamp>
                 <RRABSRecoveryBGColor DataType="color">MachineDataBroker</RRABSRecoveryBGColor>
-				<RRABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</RRABSRecoveryValue>
+                <RRABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</RRABSRecoveryValue>
                 <RRABSReductionBGColor DataType="color">MachineDataBroker</RRABSReductionBGColor>
-				<RRABSReductionValue DataType="float" Units="Percent">MachineDataBroker</RRABSReductionValue>
+                <RRABSReductionValue DataType="float" Units="Percent">MachineDataBroker</RRABSReductionValue>
                 <RRAcceleration DataType="float" Units="MPH/s">ICM</RRAcceleration>
+                <RRBrakeForceOutput DataType="int" Units="LBF">AOUT</RRBrakeForceOutput>
                 <RRBrakeForceTest DataType="string">VehicleTest</RRBrakeForceTest>
                 <RRBrakeRejectLamp DataType="bool">PLC</RRBrakeRejectLamp>
                 <RRDistance DataType="float">ICM</RRDistance>
@@ -873,7 +914,6 @@
                 <RRMachineLossPreviousBGColor DataType="color">MachineDataBroker</RRMachineLossPreviousBGColor>
                 <RRMachLossChangeOver5LBS DataType="bool">PLC</RRMachLossChangeOver5LBS>
                 <RRMachLossOutOfLimits DataType="bool">PLC</RRMachLossOutOfLimits>
-				<RRollSpeedsNotEqualWhenClutched DataType="bool">PLC</RRollSpeedsNotEqualWhenClutched>
                 <RRParkBrakeCylinderNotRetracted DataType="bool">PLC</RRParkBrakeCylinderNotRetracted>
                 <RRRecoveryTest DataType="string">VehicleTest</RRRecoveryTest>
                 <RRReductionTest DataType="string">VehicleTest</RRReductionTest>
@@ -881,15 +921,21 @@
                 <RRRollerFactor DataType="float">ICM</RRRollerFactor>
                 <RRRollMotorDriveCommFault DataType="bool">PLC</RRRollMotorDriveCommFault>
                 <RRRollMotorOperationalFault DataType="bool">PLC</RRRollMotorOperationalFault>
+                <RRollSpeedsNotEqualWhenClutched DataType="bool">PLC</RRollSpeedsNotEqualWhenClutched>
                 <RRSpeed DataType="float" Units="MPH">ICM</RRSpeed>
                 <RRSpeedBGColor DataType="color">MachineDataBroker</RRSpeedBGColor>
+                <RRTirePressureBGColor DataType="color">MachineDataBroker</RRTirePressureBGColor>
+                <RRTirePressureValue DataType="float" Units="PSI">MachineDataBroker</RRTirePressureValue>
                 <RRTractionControlRecoveryBGColor DataType="color">MachineDataBroker</RRTractionControlRecoveryBGColor>
-				<RRTractionControlRecoveryValue DataType="float" Units="Percent">MachineDataBroker</RRTractionControlRecoveryValue>
+                <RRTractionControlRecoveryValue DataType="float" Units="LBF">MachineDataBroker</RRTractionControlRecoveryValue>
                 <RRTractionControlReductionBGColor DataType="color">MachineDataBroker</RRTractionControlReductionBGColor>
-				<RRTractionControlReductionValue DataType="float" Units="Percent">MachineDataBroker</RRTractionControlReductionValue>
+                <RRTractionControlReductionValue DataType="float" Units="LBF">MachineDataBroker</RRTractionControlReductionValue>
                 <RRWheelDomain DataType="range" Units="MPH">MachineDataBroker</RRWheelDomain>
                 <RRWheelSpeed DataType="short" Units="MPH">PLC</RRWheelSpeed>
                 <RRWheelTarget DataType="range" Units="MPH">MachineDataBroker</RRWheelTarget>
+                <RSIACMPartNo DataType="string">VehicleDataBroker</RSIACMPartNo>
+                <RSIACMPartNumberTest DataType="string">VehicleTest</RSIACMPartNumberTest>
+                <RSIACMSerialNumberTest DataType="string">VehicleTest</RSIACMSerialNumberTest>
                 <RTAcceleration DataType="float" Units="MPH/s">ICM</RTAcceleration>
                 <RTDistance DataType="float">ICM</RTDistance>
                 <RTForce DataType="float" Units="LBF">ICM</RTForce>
@@ -907,28 +953,46 @@
                 <RTSpeed DataType="float" Units="MPH">ICM</RTSpeed>
                 <RTWheelDomain DataType="range" Units="MPH">MachineDataBroker</RTWheelDomain>
                 <RTWheelTarget DataType="range" Units="MPH">MachineDataBroker</RTWheelTarget>
-				<RunFlat DataType="string">VehicleDataBroker</RunFlat>
-				<RunFlatBGColor DataType="color">VehicleDataBroker</RunFlatBGColor>
                 <RunflatTestSelected DataType="bool">PLC</RunflatTestSelected>
+                <RWALSensor DataType="short">AIN</RWALSensor>
                 <ScannerCommFault DataType="bool">PLC</ScannerCommFault>
                 <SCI2BusEnable DataType="bool">PLC</SCI2BusEnable>
                 <SensorCrossAndTracLock DataType="bool">PLC</SensorCrossAndTracLock>
                 <SensorOverallTest DataType="testcomponentstatus">TestResultServer</SensorOverallTest>
+                <SentryKeyImmobilizer DataType="string">VehicleDataBroker</SentryKeyImmobilizer>
+                <SentryKeyImmobilizerBGColor DataType="color">VehicleDataBroker</SentryKeyImmobilizerBGColor>
+                <SequenceValveRampsSimulation DataType="bool">DIO</SequenceValveRampsSimulation>
                 <Shutdown DataType="bool">Launcher</Shutdown>
                 <SideGuideContact DataType="bool">PLC</SideGuideContact>
+                <SimSwitch DataType="bool">DIO</SimSwitch>
+                <SimulateCycling DataType="bool">DIO</SimulateCycling>
+                <SimulateEnabledAck DataType="bool">DIO</SimulateEnabledAck>
                 <SimulateLeftFrontRollerDirection DataType="bool">ICM</SimulateLeftFrontRollerDirection>
                 <SimulateLeftRearRollerDirection DataType="bool">ICM</SimulateLeftRearRollerDirection>
                 <SimulateRightFrontRollerDirection DataType="bool">ICM</SimulateRightFrontRollerDirection>
                 <SimulateRightRearRollerDirection DataType="bool">ICM</SimulateRightRearRollerDirection>
+                <SimulatorAutocycleReset DataType="bool">DIO</SimulatorAutocycleReset>
+                <SimulatorSwitchCycleStatus DataType="bool">DIO</SimulatorSwitchCycleStatus>
                 <SimulatorSwitchCycleStatusToPLC DataType="bool">PLC</SimulatorSwitchCycleStatusToPLC>
                 <SimulatorSwitchStatus DataType="bool">PLC</SimulatorSwitchStatus>
                 <SimulatorSwitchStatusToPLC DataType="bool">PLC</SimulatorSwitchStatusToPLC>
                 <SixtyGpmHydOutputFilterBlocked DataType="bool">PLC</SixtyGpmHydOutputFilterBlocked>
+                <SKIMCountryCodeTest DataType="string">VehicleTest</SKIMCountryCodeTest>
+                <SKIMDTCTest DataType="string">VehicleTest</SKIMDTCTest>
+                <SKIMNumberOfKeysLearnedTest DataType="string">VehicleTest</SKIMNumberOfKeysLearnedTest>
+                <SKIMOverallTest DataType="testcomponentstatus">TestResultServer</SKIMOverallTest>
+                <SKIMPin DataType="string">VehicleDataBroker</SKIMPin>
+                <SKIMSecurityAccessTest DataType="string">VehicleTest</SKIMSecurityAccessTest>
+                <SKIMSerialNumberTest DataType="string">VehicleTest</SKIMSerialNumberTest>
+                <SmartbeamOverallTest DataType="testcomponentstatus">TestResultServer</SmartbeamOverallTest>
                 <SoftwareID DataType="string">MachineDataBroker</SoftwareID>
                 <SolenoidCircuitBreakerOpenJBox DataType="bool">PLC</SolenoidCircuitBreakerOpenJBox>
                 <SolenoidCircuitBreakerOpenPanel DataType="bool">PLC</SolenoidCircuitBreakerOpenPanel>
                 <SolenoidFuseOpenJBox DataType="bool">PLC</SolenoidFuseOpenJBox>
                 <SolenoidFuseOpenPanel DataType="bool">PLC</SolenoidFuseOpenPanel>
+                <SoundLevelBGColor DataType="color">VehicleDataBroker</SoundLevelBGColor>
+                <SoundLevelOverallTest DataType="testcomponentstatus">TestResultServer</SoundLevelOverallTest>
+                <SoundLevelValue DataType="float">MachineDataBroker</SoundLevelValue>
                 <SpecificVINRequest DataType="bool">PLC</SpecificVINRequest>
                 <SpeedActive DataType="bool">VehicleDataBroker</SpeedActive>
                 <SpeedControl DataType="string">VehicleDataBroker</SpeedControl>
@@ -936,6 +1000,8 @@
                 <SpeedControlOverallTest DataType="testcomponentstatus">TestResultServer</SpeedControlOverallTest>
                 <SpeedDisplayScaling DataType="bool">PLC</SpeedDisplayScaling>
                 <SpeedDomain DataType="range" Units="MPH">VehicleDataBroker</SpeedDomain>
+                <SpeedoTestBGColor DataType="color">MachineDataBroker</SpeedoTestBGColor>
+                <SpeedoTestValue DataType="float" Units="KPH">MachineDataBroker</SpeedoTestValue>
                 <SpeedProTest DataType="bool">PLC</SpeedProTest>
                 <SpeedTarget DataType="range" Units="MPH">VehicleDataBroker</SpeedTarget>
                 <SpeedValue DataType="float" Units="MPH">MotorController</SpeedValue>
@@ -961,15 +1027,22 @@
                 <StartReverseTest DataType="bool">PLC</StartReverseTest>
                 <StartSampleSpeed DataType="short" Units="MPH">ICM</StartSampleSpeed>
                 <StartSequencePushbutton DataType="bool">PLC</StartSequencePushbutton>
+                <StartSim DataType="bool">DIO</StartSim>
+                <StartSpeedGraph DataType="bool">VehicleTest</StartSpeedGraph>
                 <StartTest DataType="bool">SystemMonitor</StartTest>
                 <StartTestFromPLC DataType="bool">PLC</StartTestFromPLC>
                 <StartVehicleTest DataType="bool">VehicleTest</StartVehicleTest>
+                <SteeringOverallTest DataType="testcomponentstatus">TestResultServer</SteeringOverallTest>
                 <SteeringWheelToolInPlace DataType="bool">PLC</SteeringWheelToolInPlace>
-				<StopCurrentTest DataType="bool">PlantHostInbound</StopCurrentTest>
                 <StopPBDepressedLHPendant DataType="bool">PLC</StopPBDepressedLHPendant>
                 <StopPBDepressedRHPendant DataType="bool">PLC</StopPBDepressedRHPendant>
                 <StopPostBlockedFault DataType="bool">PLC</StopPostBlockedFault>
                 <StopPostSafetyPinsNotRemoved DataType="bool">PLC</StopPostSafetyPinsNotRemoved>
+                <Suspension DataType="string">VehicleDataBroker</Suspension>
+                <SuspensionBGColor DataType="color">VehicleDataBroker</SuspensionBGColor>
+                <SuspensionOverallTest DataType="testcomponentstatus">TestResultServer</SuspensionOverallTest>
+                <SuspensionPartNo DataType="string">VehicleDataBroker</SuspensionPartNo>
+                <SuspensionSerialNumberTest DataType="string">VehicleTest</SuspensionSerialNumberTest>
                 <SystemAirPressureLowFault DataType="bool">PLC</SystemAirPressureLowFault>
                 <SystemConfigurationReload DataType="bool">Launcher</SystemConfigurationReload>
                 <SystemControllerTaskFault DataType="bool">PLC</SystemControllerTaskFault>
@@ -979,84 +1052,85 @@
                 <TandemToRearBalanceBGColor DataType="color">MachineDataBroker</TandemToRearBalanceBGColor>
                 <TandemToRearBalanceValue DataType="float">MachineDataBroker</TandemToRearBalanceValue>
                 <Test90PercentComplete DataType="bool">PLC</Test90PercentComplete>
-				<TestingTOD DataType="bool">VehicleDataBroker</TestingTOD>
                 <TestInProgress DataType="bool">VehicleTest</TestInProgress>
                 <TestResult DataType="string">TestResultServer</TestResult>
-				<TestResultBox1 DataType="string">MachineDataBroker</TestResultBox1>
-				<TestResultBox10 DataType="string">MachineDataBroker</TestResultBox10>
-				<TestResultBox10BGColor DataType="string">MachineDataBroker</TestResultBox10BGColor>
-				<TestResultBox1BGColor DataType="color">MachineDataBroker</TestResultBox1BGColor>
-				<TestResultBox2 DataType="string">MachineDataBroker</TestResultBox2>
-				<TestResultBox2BGColor DataType="color">MachineDataBroker</TestResultBox2BGColor>
-				<TestResultBox3 DataType="string">MachineDataBroker</TestResultBox3>
-				<TestResultBox3BGColor DataType="color">MachineDataBroker</TestResultBox3BGColor>
-				<TestResultBox4 DataType="string">MachineDataBroker</TestResultBox4>
-				<TestResultBox4BGColor DataType="color">MachineDataBroker</TestResultBox4BGColor>
-				<TestResultBox5 DataType="string">MachineDataBroker</TestResultBox5>
-				<TestResultBox5BGColor DataType="color">MachineDataBroker</TestResultBox5BGColor>
-				<TestResultBox6 DataType="string">MachineDataBroker</TestResultBox6>
-				<TestResultBox6BGColor DataType="color">MachineDataBroker</TestResultBox6BGColor>
-				<TestResultBox7 DataType="string">MachineDataBroker</TestResultBox7>
-				<TestResultBox7BGColor DataType="color">MachineDataBroker</TestResultBox7BGColor>
-				<TestResultBox8 DataType="string">MachineDataBroker</TestResultBox8>
-				<TestResultBox8BGColor DataType="color">MachineDataBroker</TestResultBox8BGColor>
-				<TestResultBox9 DataType="string">MachineDataBroker</TestResultBox9>
-				<TestResultBox9BGColor DataType="color">MachineDataBroker</TestResultBox9BGColor>
+                <TestResultBox1 DataType="testcomponentstatus">MachineDataBroker</TestResultBox1>
+                <TestResultBox2 DataType="testcomponentstatus">MachineDataBroker</TestResultBox2>
+                <TestResultBox3 DataType="testcomponentstatus">MachineDataBroker</TestResultBox3>
+                <TestResultBox4 DataType="testcomponentstatus">MachineDataBroker</TestResultBox4>
+                <TestResultBox5 DataType="testcomponentstatus">MachineDataBroker</TestResultBox5>
+                <TestResultBox6 DataType="testcomponentstatus">MachineDataBroker</TestResultBox6>
+                <TestResultBox7 DataType="testcomponentstatus">MachineDataBroker</TestResultBox7>
+                <TestResultBox8 DataType="testcomponentstatus">MachineDataBroker</TestResultBox8>
+                <TestResultBox9 DataType="testcomponentstatus">MachineDataBroker</TestResultBox9>
+                <TestResultBox10 DataType="testcomponentstatus">MachineDataBroker</TestResultBox10>
                 <TestResultToPrint DataType="string">MachineDataBroker</TestResultToPrint>
                 <TestResultValue DataType="string">InputServer</TestResultValue>
-				<TestsSinceLossCompensation DataType="short">MachineDataBroker</TestsSinceLossCompensation>
                 <TevesABSSelected DataType="bool">PLC</TevesABSSelected>
+                <ThreeFourUpshiftTest DataType="string">VehicleTest</ThreeFourUpshiftTest>
+                <ThreeOneDownShiftTest DataType="string">VehicleTest</ThreeOneDownShiftTest>
+                <ThreeTwoDownShiftTest DataType="string">VehicleTest</ThreeTwoDownShiftTest>
                 <TiltSteeringWheelTest DataType="bool">PLC</TiltSteeringWheelTest>
                 <TiltTestSelected DataType="bool">PLC</TiltTestSelected>
-				<TODInstalled DataType="string">VehicleDataBroker</TODInstalled>
-				<TODInstalledBGColor DataType="color">VehicleDataBroker</TODInstalledBGColor>
+                <TirePressureMonitor DataType="string">VehicleDataBroker</TirePressureMonitor>
+                <TirePressureMonitorBGColor DataType="color">VehicleDataBroker</TirePressureMonitorBGColor>
+                <TireSize DataType="string">VehicleDataBroker</TireSize>
+                <TireSizeProgrammingTest DataType="string">VehicleTest</TireSizeProgrammingTest>
+                <TorqueConverterTest DataType="string">VehicleTest</TorqueConverterTest>
                 <TorqueOkFromTorqueController DataType="bool">PLC</TorqueOkFromTorqueController>
+                <TCMPartNo DataType="string">VehicleDataBroker</TCMPartNo>
+                <TCMSerialNumberTest DataType="string">VehicleTest</TCMSerialNumberTest>
+                <TPMOverallTest DataType="testcomponentstatus">TestResultServer</TPMOverallTest>
+                <TPMPartNo DataType="string">VehicleDataBroker</TPMPartNo>
+                <TPMSerialNumberTest DataType="string">VehicleTest</TPMSerialNumberTest>
                 <TPSActive DataType="bool">VehicleDataBroker</TPSActive>
                 <TPSTarget DataType="range">VehicleDataBroker</TPSTarget>
+                <TPSTest DataType="string">VehicleTest</TPSTest>
                 <TPSValue DataType="float">VehicleDataBroker</TPSValue>
                 <TractionControlLamp DataType="bool">PLC</TractionControlLamp>
                 <TractionControlSelected DataType="bool">PLC</TractionControlSelected>
                 <TractionControlTestOn DataType="bool">PLC</TractionControlTestOn>
+                <TransferCase DataType="string">VehicleDataBroker</TransferCase>
+                <TransferCaseBGColor DataType="color">VehicleDataBroker</TransferCaseBGColor>
                 <TransferCaseOverallTest DataType="testcomponentstatus">TestResultServer</TransferCaseOverallTest>
+                <Transmission DataType="string">VehicleDataBroker</Transmission>
+                <TransmissionBGColor DataType="color">VehicleDataBroker</TransmissionBGColor>
+                <TransmissionOverallTest DataType="testcomponentstatus">TestResultServer</TransmissionOverallTest>
                 <TurnOnAuxillaryOutputOne DataType="bool">PLC</TurnOnAuxillaryOutputOne>
                 <TurnOnAuxillaryOutputTwo DataType="bool">PLC</TurnOnAuxillaryOutputTwo>
                 <TwelveGpmHydOutputFilterBlocked DataType="bool">PLC</TwelveGpmHydOutputFilterBlocked>
+                <TwoThreeUpshiftMphTest DataType="string">VehicleTest</TwoThreeUpshiftMphTest>
+                <TwoThreeUpshiftRpmTest DataType="string">VehicleTest</TwoThreeUpshiftRpmTest>
+                <TwoThreeUpshiftTest DataType="string">VehicleTest</TwoThreeUpshiftTest>
+                <TwoThreeUpshiftTpsTest DataType="string">VehicleTest</TwoThreeUpshiftTpsTest>
                 <UnableToCommunicateToWCC DataType="bool">PLC</UnableToCommunicateToWCC>
                 <UnableToLoadDriveCurve DataType="bool">FaultServer</UnableToLoadDriveCurve>
                 <UnalbeToLoadMachineConfiguration DataType="bool">FaultServer</UnalbeToLoadMachineConfiguration>
                 <UniDirectionalPark-PawlTest DataType="bool">PLC</UniDirectionalPark-PawlTest>
                 <UnitControllerCommFault DataType="bool">PLC</UnitControllerCommFault>
+                <UpperNeg12VoltPowerSupply DataType="float">PLC</UpperNeg12VoltPowerSupply>
                 <UpperNeg12VoltPowerSupplyDomain DataType="range">MachineDataBroker</UpperNeg12VoltPowerSupplyDomain>
                 <UpperNeg12VoltPowerSupplyTarget DataType="range">MachineDataBroker</UpperNeg12VoltPowerSupplyTarget>
                 <UpperNeg12VoltPowerSupplyTolerance DataType="bool">PLC</UpperNeg12VoltPowerSupplyTolerance>
+                <UpperPos12VoltPowerSupply DataType="float">PLC</UpperPos12VoltPowerSupply>
                 <UpperPos12VoltPowerSupplyDomain DataType="range">MachineDataBroker</UpperPos12VoltPowerSupplyDomain>
                 <UpperPos12VoltPowerSupplyTarget DataType="range">MachineDataBroker</UpperPos12VoltPowerSupplyTarget>
                 <UpperPos12VoltPowerSupplyTolerance DataType="bool">PLC</UpperPos12VoltPowerSupplyTolerance>
+                <UpperPos5VoltPowerSupply DataType="float">PLC</UpperPos5VoltPowerSupply>
                 <UpperPos5VoltPowerSupplyDomain DataType="range">MachineDataBroker</UpperPos5VoltPowerSupplyDomain>
                 <UpperPos5VoltPowerSupplyTarget DataType="range">MachineDataBroker</UpperPos5VoltPowerSupplyTarget>
                 <UpperPos5VoltPowerSupplyTolerance DataType="bool">PLC</UpperPos5VoltPowerSupplyTolerance>
                 <ValidBarcodeScan DataType="bool">PLC</ValidBarcodeScan>
-				<VCNumber DataType="string">VehicleDataBroker</VCNumber>
                 <VehicleAtBarcodeScanner DataType="bool">PLC</VehicleAtBarcodeScanner>
                 <VehicleBuild DataType="string">VehicleDataBroker</VehicleBuild>
                 <VehicleBuildRecordStatus DataType="string">WorkCellController</VehicleBuildRecordStatus>
-				<VehicleDynamicControl DataType="string">VehicleDataBroker</VehicleDynamicControl>
-				<VehicleDynamicControlBGColor DataType="color">VehicleDataBroker</VehicleDynamicControlBGColor>
-				<VehicleNumber DataType="short">VehicleDataBroker</VehicleNumber>
-				<VehiclePosition DataType="short">PLC</VehiclePosition>
-				<VehiclePositionDomain DataType="range" Units="">MachineDataBroker</VehiclePositionDomain>
-				<VehiclePositionTarget DataType="range" Units="">MachineDataBroker</VehiclePositionTarget>
                 <VehiclePresent DataType="bool">SystemMonitor</VehiclePresent>
                 <VehiclePresentAtBarcodeDelayTime DataType="short">PLC</VehiclePresentAtBarcodeDelayTime>
                 <VehiclePushersExtendedFault DataType="bool">PLC</VehiclePushersExtendedFault>
                 <VehiclePushersRetractedFault DataType="bool">PLC</VehiclePushersRetractedFault>
                 <VehicleTestStatus DataType="string">VehicleTest</VehicleTestStatus>
-				<VehicleType DataType="string">VehicleDataBroker</VehicleType>
-				<VehicleTypeBGColor DataType="color">VehicleDataBroker</VehicleTypeBGColor>
-				<VehicleTypeFromPLC DataType="short">PLC</VehicleTypeFromPLC>
+                <VehicleType DataType="short">PLC</VehicleType>
                 <VehicleTypeImg DataType="string">VehicleDataBroker</VehicleTypeImg>
-				<VehicleTypeNumeric DataType="int">VehicleDataBroker</VehicleTypeNumeric>
-				<VehicleTypeToPLC DataType="short">PLC</VehicleTypeToPLC>
                 <VentilationExhaustFlowFault DataType="bool">PLC</VentilationExhaustFlowFault>
                 <VentilationExhaustMotorDisconnectFault DataType="bool">PLC</VentilationExhaustMotorDisconnectFault>
                 <VentilationSupplyFlowFault DataType="bool">PLC</VentilationSupplyFlowFault>
@@ -1072,8 +1146,7 @@
                 <WCCFatalFault DataType="bool">PLC</WCCFatalFault>
                 <WCCInternalFaults DataType="bool">PLC</WCCInternalFaults>
                 <WCCToBroadcastCommunicationFault DataType="bool">PLC</WCCToBroadcastCommunicationFault>
-				<Wheelbase DataType="string">VehicleDataBroker</Wheelbase>
-				<WheelbaseBGColor DataType="color">VehicleDataBroker</WheelbaseBGColor>
+                <WheelbaseStartCommand DataType="bool">PLC</WheelbaseStartCommand>
                 <WheelbaseEncoderFault DataType="bool">PLC</WheelbaseEncoderFault>
                 <WheelbaseInPosition DataType="bool">PLC</WheelbaseInPosition>
                 <WheelbaseInPositionStatus DataType="color">MachineDataBroker</WheelbaseInPositionStatus>
@@ -1113,13 +1186,11 @@
                 <WheelbasePosition16Selected DataType="bool">PLC</WheelbasePosition16Selected>
                 <WheelbasePositionInchesX10 DataType="short" Units="Inch*10">PLC</WheelbasePositionInchesX10>
                 <WheelbasePositioningFault DataType="bool">PLC</WheelbasePositioningFault>
-				<WheelbaseStartCommand DataType="bool">PLC</WheelbaseStartCommand>
-				<WillTestDiffLock DataType="bool">SystemMonitor</WillTestDiffLock>
+                <WideOpenThrottleTest DataType="string">VehicleTest</WideOpenThrottleTest>
                 <YesPB DataType="bool">PLC</YesPB>
                 <Zerospeed DataType="bool">ICM</Zerospeed>
                 <ZerospeedToPLC DataType="bool">PLC</ZerospeedToPLC>
-				<ZTSCode DataType="string">VehicleDataBroker</ZTSCode>
-				<ZTSCodeBGColor DataType="color">VehicleDataBroker</ZTSCodeBGColor>
+								<DTC DataType="string">TestResultServer</DTC>
             </PublishTags>
         </TagList>
         <ThreadPool>
@@ -1129,5 +1200,16 @@
             <Maximum>50</Maximum>
             <MinBlockedLimit>10</MinBlockedLimit>
         </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
     </Setup>
 </NamedDataBrokerConfig>

@@ -22,9 +22,8 @@
 	  <HorizontalBar/>
 
  	  <TestResultsBlock>
-		<Column>		    
-		  <TestProcess showfailures="true" tagname="BrakeOverallTest" label="Brake"/>
-		</Column>		
+		<Column>
+		</Column>
 	  </TestResultsBlock>
 
 	</ReportLayout>

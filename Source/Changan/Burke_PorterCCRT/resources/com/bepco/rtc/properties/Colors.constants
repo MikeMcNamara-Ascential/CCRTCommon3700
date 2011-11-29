@@ -26,10 +26,14 @@ rfcolor = 0 255 0
 lrcolor = 0 0 255
 #
 rrcolor = 255 0 255
-# 
+#yellow 
 ltcolor = 255 255 0
 # cyan
 rtcolor = 0 255 255
+#orange 
+l4color = 255 80 0
+# dark green
+r4color = 0 55 0
 
 black = 0 0 0
 white = 255 255 255

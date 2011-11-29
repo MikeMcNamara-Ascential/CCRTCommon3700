@@ -1,7 +1,5 @@
-<?xml version="1.0"?>
-
-<locales>
+<?xml version="1.0" encoding="UTF-8"?><locales>
    <locale language="en" country="US"/>
    <locale language="es" country="MX"/>
    <locale language="ko" country="KR"/>
-</locales>
+<locale language="zh" country="CN"/></locales>

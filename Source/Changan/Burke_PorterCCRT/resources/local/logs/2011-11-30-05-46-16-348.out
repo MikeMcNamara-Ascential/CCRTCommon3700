@@ -1,0 +1,107 @@
+useUNCProperty is false
+useUNCBool is false
+Last Cable Connected Tag: LastCableConnected
+GUIManager.creeateScreens: clickToExit=false
+The background color has been set to white
+image path is C:\Burke_PorterCCRT\resources\local/null
+userTickMarks is 0
+userTickMarks is 0
+The background color has been set to white
+image path is C:\Burke_PorterCCRT\resources\local/null
+userTickMarks is 0
+userTickMarks is 0
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.64 : ---> USER burke
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.64 : 331 Password required for burke.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.64 : ---> PASS ********
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.64 : 230-No directory! Logging in with home=/
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.282 : 230-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.282 :     Welcome to QNX Neutrino!!
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.282 : 230 User burke logged in.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.282 : ---> TYPE I
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.282 : 200 Type set to I.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.282 : ---> PASV
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.282 : 227 Entering Passive Mode (192,168,1,1,255,109)
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.282 : ---> RETR /home/ftp/Configuration/Servers/VehicleBuildRecord.xml
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.298 : 550 /home/ftp/Configuration/Servers/VehicleBuildRecord.xml: No such file or directory.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.298 : ---> QUIT
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.298 : 221-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.298 :     Data traffic for this session was 0 bytes in 0 files.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.298 :     Total traffic for this session was 501 bytes in 0 transfers.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.298 : 221 Thank you for using the FTP service on CCRT_RTOS.
+URLRemoteFile IO exception
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.360 : 220 CCRT_RTOS FTP server ready.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.360 : ---> USER burke
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.360 : 331 Password required for burke.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.360 : ---> PASS ********
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.360 : 230-No directory! Logging in with home=/
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : 230-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 :     Welcome to QNX Neutrino!!
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : 230 User burke logged in.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : ---> TYPE I
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : 200 Type set to I.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : ---> PASV
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : 227 Entering Passive Mode (192,168,1,1,255,108)
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : ---> RETR /home/ftp/Configuration/Client/WheelbaseConfig.xml
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : 550 /home/ftp/Configuration/Client/WheelbaseConfig.xml: No such file or directory.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : ---> QUIT
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : 221-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 :     Data traffic for this session was 0 bytes in 0 files.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 :     Total traffic for this session was 493 bytes in 0 transfers.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.578 : 221 Thank you for using the FTP service on CCRT_RTOS.
+URLRemoteFile IO exception
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.625 : 220 CCRT_RTOS FTP server ready.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.625 : ---> USER burke
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.625 : 331 Password required for burke.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.625 : ---> PASS ********
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.641 : 230-No directory! Logging in with home=/
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : 230-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 :     Welcome to QNX Neutrino!!
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : 230 User burke logged in.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : ---> TYPE I
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : 200 Type set to I.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : ---> PASV
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : 227 Entering Passive Mode (192,168,1,1,255,107)
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : ---> RETR /home/ftp/Configuration/Servers/VehicleBuildTable.xml
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : 550 /home/ftp/Configuration/Servers/VehicleBuildTable.xml: No such file or directory.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : ---> QUIT
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : 221-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 :     Data traffic for this session was 0 bytes in 0 files.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 :     Total traffic for this session was 499 bytes in 0 transfers.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.844 : 221 Thank you for using the FTP service on CCRT_RTOS.
+URLRemoteFile IO exception
+serverAddress is 192.168.1.1
+ndbConfigLocalPath is C:\Burke_PorterCCRT\resources\local/ndbconfig/NDBConfig.xml
+useUNCProperty is false
+useUNCBool is false
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.906 : 220 CCRT_RTOS FTP server ready.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.906 : ---> USER burke
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.906 : 331 Password required for burke.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.906 : ---> PASS ********
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:18.906 : 230-No directory! Logging in with home=/
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.124 : 230-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.124 :     Welcome to QNX Neutrino!!
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.124 : 230 User burke logged in.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.124 : ---> QUIT
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.124 : 221-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.124 :     Data traffic for this session was 0 bytes in 0 files.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.124 :     Total traffic for this session was 269 bytes in 0 transfers.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.124 : 221 Thank you for using the FTP service on CCRT_RTOS.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.202 : 220 CCRT_RTOS FTP server ready.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.202 : ---> USER burke
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.202 : 331 Password required for burke.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.202 : ---> PASS ********
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.202 : 230-No directory! Logging in with home=/
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : 230-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 :     Welcome to QNX Neutrino!!
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : 230 User burke logged in.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : ---> TYPE I
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : 200 Type set to I.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : ---> PASV
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : 227 Entering Passive Mode (192,168,1,1,255,106)
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : ---> RETR /home/ftp/Configuration/Servers/VehicleBuildRecord.xml
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : 550 /home/ftp/Configuration/Servers/VehicleBuildRecord.xml: No such file or directory.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : ---> QUIT
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : 221-
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 :     Data traffic for this session was 0 bytes in 0 files.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 :     Total traffic for this session was 501 bytes in 0 transfers.
+DEBUG [com.enterprisedt.net.ftp.FTPControlSocket] 30 ??? 2011 05:46:19.421 : 221 Thank you for using the FTP service on CCRT_RTOS.

@@ -26,7 +26,7 @@ lax.command.line.args=$CMD_LINE_ARGUMENTS$
 #   -------
 #   path to directory holding LaunchAnywhere's native launcher
 
-lax.dir=C:\\Documents and Settings\\rsmith\\Desktop\\Tata.Oremco.Burke_PorterCCRT\\
+lax.dir=C:\\Burke_PorterCCRT\\
 
 
 #   LAX.MAIN.CLASS
@@ -65,7 +65,7 @@ lax.nl.java.launcher.main.method=main
 
 
 
-lax.nl.java.option.additional=-Djava.endorsed.dirs="endorsed" -Djava.library.path="C:\\Documents and Settings\\rsmith\\Desktop\\Tata.Oremco.Burke_PorterCCRT"
+lax.nl.java.option.additional=-Djava.endorsed.dirs="endorsed" -Djava.library.path="C:\\Burke_PorterCCRT"
 
 
 
@@ -96,7 +96,7 @@ lax.nl.win32.microsoftvm.min.version=2750
 #   --------------------
 #   path to the installdir magic folder
 
-lax.root.install.dir=C:\\Documents and Settings\\rsmith\\Desktop\\Tata.Oremco.Burke_PorterCCRT
+lax.root.install.dir=C:\\Burke_PorterCCRT
 
 
 #   LAX.STDERR.REDIRECT

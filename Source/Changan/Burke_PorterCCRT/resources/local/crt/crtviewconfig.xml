@@ -9,7 +9,7 @@
     <View id="speedtime" crt="DriverMonitorBigGraph.crt" label="Speed Time" tabLabel="SpeedTime"/>
     <!--View id="vehiclepresence" crt="DefaultVehiclePresence.crt" label="Vehicle Presence" tabLabel="Vehicle"/-->
     <View id="frontpanel" crt="TataFrontPanelStandard.crt" label="Front Panel" tabLabel="Front"/>
-    <View id="losscompensation" crt="DefaultLossCompensation.crt" label="Loss Compensation" tabLabel="LossComp"/>
+    <View id="losscompensation" crt="TataLossCompensation.crt" label="Loss Compensation" tabLabel="LossComp"/>
     <!--View id="powerdisplay" crt="DefaultPowerDisplay.crt" label="Power Display" tabLabel="Power"/-->
     <!--View id="aboutserver" crt="AboutServer.crt" label="About the Server" tabLabel="About"/-->
 </CrtViewConfig>

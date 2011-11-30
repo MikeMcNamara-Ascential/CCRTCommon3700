@@ -173,7 +173,10 @@ $Revision: 1.3 $
 
 			<!-- test subsystems pass/fail widgets -->
             <HBox height="40" width='415' posX="5" posY="189" border="false">						
-                <Widget width='83' height='40'  id="cruise" class="com.bepco.gui.OverallTestPhaseBox" >
+                <Widget width='83' height='40'  id="speedo" class="com.bepco.gui.OverallTestPhaseBox" >
+                    <DataSource tagname="SpeedoTestBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                </Widget>
+				<Widget width='83' height='40'  id="cruise" class="com.bepco.gui.OverallTestPhaseBox" >
                     <DataSource tagname="SpeedControlOverallTest" messagetype="Subscribe"/>
                 </Widget>
                 <Widget width='83' height='40'  id="brake" class="com.bepco.gui.OverallTestPhaseBox" >

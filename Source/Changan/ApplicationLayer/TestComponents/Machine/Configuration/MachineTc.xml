@@ -108,6 +108,7 @@
          <Start4WDTestSignalToPLC>Start4WDTestSignalToPLC</Start4WDTestSignalToPLC>
          <TagIndex>TagIndex</TagIndex>
          <TestResultMode>TestResult</TestResultMode>
+         <TestResultBox3>SpeedoTestBGColor</TestResultBox3>
          <YesValue>Pass</YesValue>
          <Zerospeed>Zerospeed</Zerospeed>
          <YesButton>DriverPass</YesButton>
@@ -182,6 +183,7 @@
       <TestDomain>Foreground</TestDomain>
       <SystemTagsToReset>
          <VINDisplayBGColor>white</VINDisplayBGColor>
+         <SpeedoTestBGColor>white</SpeedoTestBGColor>
       </SystemTagsToReset>
       <TaskMon>
          <Name>MachineTc</Name>

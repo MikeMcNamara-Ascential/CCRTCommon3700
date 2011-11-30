@@ -8,18 +8,18 @@
    <Metadata author="Burke Porter, Inc" version="1.0" description="Standard implementation of the Loss Compensation view."/>
    <XmlWidgetPanel id="LossCompensation">
       <Layout>
-         <Label width="1280" height="35" posX="0" posY="5" name="losstitle">
+         <Label width="1020" height="35" posX="0" posY="5" name="losstitle">
             <Font size="36" name="sans-serif" style="bold"/>
          </Label>
          <!-- Row 1 of 3  -->
          <!-- Wheel speeds -->
-         <HBox height="270" width="1140" posX="0" posY="50" border="false">
-            <VBox width="700" posX="0" posY="40" border="false">
+         <HBox height="270" width="1020" posX="0" posY="50" border="false">
+            <VBox width="560" posX="0" posY="40" border="false">
                <HBox height="55">
                   <Label width="40" height="40" name="lf">
                      <Font size="20" name="sans-serif" style="bold"/>
                   </Label>
-                  <Widget width="600" height="40" id="lc_fpspeed1" class="com.bepco.gui.HorizontalBarGraph">
+                  <Widget width="450" height="40" id="lc_fpspeed1" class="com.bepco.gui.HorizontalBarGraph">
                      <DataSource tagname="LFSpeed" messagetype="Read" datarate="10"/>
                      <DataSource tagname="LFWheelTarget" tagrole="targetrange" messagetype="Subscribe"/>
                      <DataSource tagname="LFWheelDomain" tagrole="domainrange" messagetype="Subscribe"/>
@@ -37,7 +37,7 @@
                   <Label width="40" height="40" name="rf">
                      <Font size="20" name="sans-serif" style="bold"/>
                   </Label>
-                  <Widget width="600" height="40" id="lc_fpspeed2" class="com.bepco.gui.HorizontalBarGraph">
+                  <Widget width="450" height="40" id="lc_fpspeed2" class="com.bepco.gui.HorizontalBarGraph">
                      <DataSource tagname="RFSpeed" messagetype="Read" datarate="10"/>
                      <DataSource tagname="RFWheelTarget" tagrole="targetrange" messagetype="Subscribe"/>
                      <DataSource tagname="RFWheelDomain" tagrole="domainrange" messagetype="Subscribe"/>
@@ -55,7 +55,7 @@
                   <Label width="40" height="40" name="lr">
                      <Font size="20" name="sans-serif" style="bold"/>
                   </Label>
-                  <Widget width="600" height="40" id="lc_fpspeed3" class="com.bepco.gui.HorizontalBarGraph">
+                  <Widget width="450" height="40" id="lc_fpspeed3" class="com.bepco.gui.HorizontalBarGraph">
                      <DataSource tagname="LRSpeed" messagetype="Read" datarate="10"/>
                      <DataSource tagname="LRWheelTarget" tagrole="targetrange" messagetype="Subscribe"/>
                      <DataSource tagname="LRWheelDomain" tagrole="domainrange" messagetype="Subscribe"/>
@@ -73,7 +73,7 @@
                   <Label width="40" height="40" name="rr">
                      <Font size="20" name="sans-serif" style="bold"/>
                   </Label>
-                  <Widget width="600" height="40" id="lc_fpspeed4" class="com.bepco.gui.HorizontalBarGraph">
+                  <Widget width="450" height="40" id="lc_fpspeed4" class="com.bepco.gui.HorizontalBarGraph">
                      <DataSource tagname="RRSpeed" messagetype="Read" datarate="10"/>
                      <DataSource tagname="RRWheelTarget" tagrole="targetrange" messagetype="Subscribe"/>
                      <DataSource tagname="RRWheelDomain" tagrole="domainrange" messagetype="Subscribe"/>
@@ -90,7 +90,7 @@
                <!--
 		  <HBox height="35">
 			<Label width="40" height="40" name="lt"/>
-			<Widget width="600" height="30" id="lc_fpspeed5" class="com.bepco.gui.HorizontalBarGraph">
+			<Widget width="450" height="30" id="lc_fpspeed5" class="com.bepco.gui.HorizontalBarGraph">
 				<DataSource tagname="LTSpeed" messagetype="Read" datarate="10"/>
 				<DataSource tagname="LTWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
 				<DataSource tagname="LTWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
@@ -99,7 +99,7 @@
 		  </HBox>
 		  <HBox height="35">
 			<Label width="40" height="40" name="rt"/>
-			<Widget width="600" height="30" id="lc_fpspeed6" class="com.bepco.gui.HorizontalBarGraph">
+			<Widget width="450" height="30" id="lc_fpspeed6" class="com.bepco.gui.HorizontalBarGraph">
 				<DataSource tagname="RTSpeed" messagetype="Read" datarate="10"/>
 				<DataSource tagname="RTWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
 				<DataSource tagname="RTWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
@@ -109,7 +109,7 @@
 -->
             </VBox>
             <!-- Top right panel -->
-            <VBox posX="440" posY="40" width="445" border="false">
+            <VBox posX="400" posY="40" width="445" border="false">
                <HBox width="360" height="150" border="true">
                   <!-- Loss compensation (Wheel speeds) -->
                   <!-- Previous Box -->
@@ -273,14 +273,14 @@
             </VBox>
          </HBox>
          <!-- Prompt Boxes -->
-         <Widget id="prompt1" class="com.bepco.gui.PromptBox" posX="0" posY="315" width="1280" height="55" border="true">
+         <Widget id="prompt1" class="com.bepco.gui.PromptBox" posX="0" posY="315" width="1020" height="55" border="true">
             <DataSource tagname="PromptBox1" messagetype="Subscribe"/>
             <DataSource tagname="PromptBox1BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
             <TextBoxConfig>
                <Font size="35" name="sans-serif" style="bold"/>
             </TextBoxConfig>
          </Widget>
-         <Widget id="prompt2" class="com.bepco.gui.PromptBox" posX="0" posY="370" width="1280" height="55" border="true">
+         <Widget id="prompt2" class="com.bepco.gui.PromptBox" posX="0" posY="370" width="1020" height="55" border="true">
             <DataSource tagname="PromptBox2" messagetype="Subscribe"/>
             <DataSource tagname="PromptBox2BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
             <TextBoxConfig>
@@ -289,21 +289,43 @@
          </Widget>
          <!-- Row 2 of 3 -->
          <!-- Warmup Time -->
-         <VBox width="950" height="290" posX="0" posY="430" border="true">
-            <HBox height="50">
-               <Label height="45" width="306" name="warmuptime">
-                  <Font size="35" name="sans-serif" style="bold"/>
-               </Label>
-            </HBox>
-            <HBox height="40">
-               <Widget height="35" width="306" id="lc_warmuptime" class="com.bepco.gui.NumberBox">
-                  <DataSource tagname="LCWarmupTimeRemaining" messagetype="Subscribe"/>
-                  <DataSource tagname="LCWarmupTimeRemainingBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
-                  <TextBoxConfig>
-                     <Font size="30" name="sans-serif" style="bold"/>
-                  </TextBoxConfig>
-               </Widget>
-            </HBox>
+         <VBox width="800" height="290" posX="0" posY="430" border="true">
+            <HBox height="95">
+				<VBox>
+					<CommandButton height="50" posX="15" id="losscompsequence" commandtag="CommandTest" commandvalue="LossCompensation" bgcolor="white"/>
+				</VBox>
+				<VBox>
+					<HBox height="50">
+					   <Label height="45" width="306" name="warmuptime">
+						  <Font size="35" name="sans-serif" style="bold"/>
+					   </Label>
+					</HBox>
+					<HBox height="40">
+					   <Widget height="35" width="306" id="lc_warmuptime" class="com.bepco.gui.NumberBox">
+						  <DataSource tagname="LCWarmupTimeRemaining" messagetype="Subscribe"/>
+						  <DataSource tagname="LCWarmupTimeRemainingBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+						  <TextBoxConfig>
+							 <Font size="30" name="sans-serif" style="bold"/>
+						  </TextBoxConfig>
+					   </Widget>
+					</HBox>
+				</VBox>
+				<VBox>
+					<VBox>
+						<HBox>
+							<Label height="40" width="200" name="currentwheelbase">
+								<Font size="20" name="sans-serif" style="bold"/>
+							</Label>
+						</HBox>
+						<Widget height="35" width="100" id="currentwheelbase" class="com.bepco.gui.NumberBox">
+							<DataSource tagname="CurrentWheelbasePosition" messagetype="Read" datarate="10"/>
+							<TextBoxConfig>
+								<Font size="20" name="sans-serif" style="bold"/>
+							</TextBoxConfig>
+						</Widget>
+					</VBox>
+				</VBox>
+			</HBox>
             <HBox height="180">
                <VBox width="400">
                   <HBox>
@@ -334,7 +356,7 @@
             </HBox>
          </VBox>
          <!-- Criteria -->
-         <VBox width="330" height="290" posX="950" posY="430" border="true">
+         <VBox width="220" height="290" posX="800" posY="430" border="true">
             <HBox height="50">
                <Label height="45" name="criteria">
                   <Font size="35" name="sans-serif" style="bold"/>
@@ -438,28 +460,6 @@
                </VBox>
             </HBox>
          </VBox>
-         <HBox height="70" width="1280" posX="0" posY="720" border="false">
-            <VBox width="640">
-               <HBox height="17"/>
-               <CommandButton width="250" height="55" posX="15" id="losscompsequence" 
-                        commandtag="CommandTest" commandvalue="LossCompensation" bgcolor="white"/>
-            </VBox>
-            <VBox width="640">
-               <HBox>
-                  <HBox>
-                     <Label height="45" width="200" name="currentwheelbase">
-                        <Font size="20" name="sans-serif" style="bold"/>
-                     </Label>
-                  </HBox>
-                  <Widget height="35" width="100" id="currentwheelbase" class="com.bepco.gui.NumberBox">
-                     <DataSource tagname="CurrentWheelbasePosition" messagetype="Read" datarate="10"/>
-                     <TextBoxConfig>
-                        <Font size="20" name="sans-serif" style="bold"/>
-                     </TextBoxConfig>
-                  </Widget>
-               </HBox>
-            </VBox>
-         </HBox>
       </Layout>
    </XmlWidgetPanel>
 </RtGuiConfig>

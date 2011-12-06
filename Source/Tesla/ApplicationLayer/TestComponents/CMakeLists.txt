@@ -1,39 +1,38 @@
 #------------------------------------------------------------------------------------------
-# Define a cache variable to hold the path to the root of the module interface tree
+# Define a cache variable to hold the path to the libcommoncomponent.a library
 #------------------------------------------------------------------------------------------
-SET(CUSTOMER_MODULES_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH
-	"Path to the root of the customer module interfaces tree" FORCE)
+SET(CUSTOMER_COMMON_TC_LIB_PATH ${CMAKE_CURRENT_BINARY_DIR}/Common CACHE PATH 
+	"Path to the core common test component library" FORCE)
 
 #------------------------------------------------------------------------------------------
-# Define a cache variable to hold the path to the customermoduleinterfaces.a library
+# Define a cache variable to hold the path to the common component headers
 #------------------------------------------------------------------------------------------
-SET(CUSTOMER_MODULES_LIB_PATH ${CMAKE_CURRENT_BINARY_DIR}/Common CACHE PATH
-	"Path to the customer module interfaces library" FORCE)
+SET(CUSTOMER_TC_INC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/Common ${CMAKE_CURRENT_SOURCE_DIR}/Include")
+SET(CUSTOMER_COMMON_TC_INC_PATH ${CUSTOMER_TC_INC_PATH} CACHE STRING 
+	"Path(s) to the core common test component include files" FORCE)
 
 #------------------------------------------------------------------------------------------
-# Define a cache variable to hold the path to the module interface headers
+# Where to find the common headers
 #------------------------------------------------------------------------------------------
-SET(CUSTOMER_MODULE_PATHS
-                ${CMAKE_CURRENT_SOURCE_DIR}/Include
-                ${CMAKE_CURRENT_SOURCE_DIR}/Common)
-SET(CUSTOMER_MODULES_INC_PATH ${CUSTOMER_MODULE_PATHS} CACHE STRING
-    "Path to the customer module interfaces include files" FORCE)
-
-#------------------------------------------------------------------------------------------
-# Where are our headers
-#------------------------------------------------------------------------------------------
-INCLUDE_DIRECTORIES(${CORE_MODULES_INC_PATH} 
+INCLUDE_DIRECTORIES(${CUSTOMER_COMMON_TC_INC_PATH}
 		    ${CUSTOMER_MODULES_INC_PATH}
+		    ${CUSTOMER_PROTOCOLS_INC_PATH}
+		    ${CORE_COMMON_TC_INC_PATH}
                     ${CORE_PROTOCOLS_INC_PATH} 
-		    ${CUSTOMER_PROTOCOLS_INC_PATH})
+		    ${CORE_MODULES_INC_PATH})
 
 #------------------------------------------------------------------------------------------
-# Where is the core module interface library located
+# All components link against the protocol filter, module interface and test component 
+# libraries
 #------------------------------------------------------------------------------------------
-LINK_DIRECTORIES(${CORE_MODULES_DIR}/Common)
+LINK_DIRECTORIES(${CUSTOMER_COMMON_TC_LIB_PATH} ${CUSTOMER_MODULES_LIB_PATH} ${CUSTOMER_PROTOCOLS_LIB_PATH}
+				${CORE_COMMON_TC_LIB_PATH} ${CORE_MODULES_LIB_PATH} ${CORE_PROTOCOLS_LIB_PATH})
+LINK_LIBRARIES(commoncomponent moduleinterfaces)
+
 
 #------------------------------------------------------------------------------------------
-# Build the individual module interfaces next
+# Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Airbag)
 ADD_SUBDIRECTORY(Brake)
+

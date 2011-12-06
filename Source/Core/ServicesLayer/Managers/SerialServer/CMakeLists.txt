@@ -11,7 +11,7 @@ SET(EXE_NAME SerialServer)
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
-ADD_SUBDIRECTORY(Configuration)
+#ADD_SUBDIRECTORY(Configuration)
 
 #------------------------------------------------------------------------------------------
 # This is a listing of all of the source files necessary to create

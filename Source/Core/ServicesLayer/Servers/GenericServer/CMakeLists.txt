@@ -6,7 +6,7 @@ SET(EXE_NAME BepServer)
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
-ADD_SUBDIRECTORY(Configuration)
+#ADD_SUBDIRECTORY(Configuration)
 
 #------------------------------------------------------------------------------------------
 # Tell CMake what source file to build

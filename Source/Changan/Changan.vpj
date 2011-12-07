@@ -179,6 +179,7 @@
 					<Folder Name="Configuration">
 						<F N="ApplicationLayer/TestComponents/Machine/Configuration/CMakeLists.txt"/>
 						<F N="ApplicationLayer/TestComponents/Machine/Configuration/MachineTc.xml"/>
+						<F N="ApplicationLayer/TestComponents/Machine/Configuration/MachineTc_Speedometer.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Machine/CMakeLists.txt"/>
 				</Folder>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtReportConfig SYSTEM "resource:///com/bepco/rtc/report/rtreportconfig.dtd">
+
+<RtReportConfig>
+    <ReportLayout>
+        <Title>CCRT Vehicle Test Result Report</Title>
+        <TestIdBlock>
+            <Column>
+                <ServerTag tagname="VIN" label="VIN"/>
+                <Timestamp/>
+                <TestResultDetail tagname="MachineDriverNumber" childtagname="DriverNumber" label="Driver"/>
+            </Column>
+        </TestIdBlock>
+
+        <HorizontalBar/>
+
+        <BuildDataBlock label="Build Data">
+            <Column>
+                <ServerTag tagname="BrakeType" label="Brake"/>
+            </Column>
+        </BuildDataBlock>
+
+        <HorizontalBar/>
+
+        <TestResultsBlock>
+            <Column>
+                <TestProcess showdetail="all" tagname="BrakeOverallTest" label="Brake"/>
+                <TestProcess showdetail="all" tagname="SpeedometerOverallTest" label="40kph Test"/>
+                <TestProcess showdetail="all" tagname="CruiseOverallTest" label="Cruise"/>
+				<TestProcess showdetail="all" tagname="LossCompensationOverallTest" label="Loss Compensation"/>
+                <TestProcess showdetail="all" tagname="DTC" label="Diagnostic Trouble Codes"/>
+                <TestProcess showdetail="all" tagname="AllFailures" label="All Failures"/>
+            </Column>
+        </TestResultsBlock>
+    </ReportLayout>
+</RtReportConfig>
+
+
+

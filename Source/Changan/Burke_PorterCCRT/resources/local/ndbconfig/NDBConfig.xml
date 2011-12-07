@@ -496,6 +496,7 @@
             <LockBoxDoorClosed DataType="bool">PLC</LockBoxDoorClosed>
             <LossCompensation DataType="bool">PLC</LossCompensation>
             <LossCompensationCycle DataType="bool">PLC</LossCompensationCycle>
+            <LossCompensationOverallTest DataType="testcomponentstatus">TestResultServer</LossCompensationOverallTest>
             <LossCompensationHighSimulation DataType="bool">DIO</LossCompensationHighSimulation>
             <LossCompensationLowSimulation DataType="bool">DIO</LossCompensationLowSimulation>
             <LossCompensationPressure DataType="short" Units="PSI">PLC</LossCompensationPressure>
@@ -998,6 +999,7 @@
             <SpeedControl DataType="string">VehicleDataBroker</SpeedControl>
             <SpeedControlBGColor DataType="color">VehicleDataBroker</SpeedControlBGColor>
             <SpeedControlOverallTest DataType="testcomponentstatus">TestResultServer</SpeedControlOverallTest>
+            <SpeedometerOverallTest DataType="testcomponentstatus">TestResultServer</SpeedometerOverallTest>
             <SpeedDisplayScaling DataType="bool">PLC</SpeedDisplayScaling>
             <SpeedDomain DataType="range" Units="MPH">VehicleDataBroker</SpeedDomain>
             <SpeedoTestBGColor DataType="color">MachineDataBroker</SpeedoTestBGColor>

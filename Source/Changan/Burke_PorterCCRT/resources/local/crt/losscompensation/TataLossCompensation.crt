@@ -317,7 +317,7 @@
 								<Font size="20" name="sans-serif" style="bold"/>
 							</Label>
 						</HBox>
-						<Widget height="35" width="100" id="currentwheelbase" class="com.bepco.gui.NumberBox">
+						<Widget height="35" width="100" id="currentwheelbase" class="com.bepco.gui.TextBox">
 							<DataSource tagname="CurrentWheelbasePosition" messagetype="Read" datarate="10"/>
 							<TextBoxConfig>
 								<Font size="20" name="sans-serif" style="bold"/>

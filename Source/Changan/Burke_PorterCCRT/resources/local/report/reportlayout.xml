@@ -23,6 +23,7 @@
 
  	  <TestResultsBlock>
 		<Column>
+		  <TestProcess showfailures="true" tagname="BrakeOverallTest" label="Brake"/>
 		</Column>
 	  </TestResultsBlock>
 

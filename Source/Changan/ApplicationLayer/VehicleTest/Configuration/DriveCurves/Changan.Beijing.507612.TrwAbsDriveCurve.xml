@@ -35,6 +35,13 @@
          <ConfigPath>/Configuration/Components/SpeedControl</ConfigPath>
          <Debug>Off</Debug>
       </SpeedControl>
+      <Speedometer>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MachineTc_Speedometer.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <Debug>Off</Debug>
+      </Speedometer>
    </Components>
    <Test Result="" Debug="Off">
       <!-- Initialize the system -->
@@ -45,7 +52,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase000>
-	  <TestPhase001 Description="Connect the cable" Result="" Timeout="">
+      <TestPhase001 Description="Connect the cable" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Machine">
                <ConnectCable/>
@@ -92,7 +99,7 @@
       <!-- Perform the 40kph Speedo test -->
       <TestPhase070 Description="40kph Speedo Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="40kph Speedo Test" Result="" Timeout="" Component="Machine">
+            <Objective0 Description="40kph Speedo Test" Result="" Timeout="" Component="Speedometer">
                <Speedometer/>
             </Objective0>
          </ForegroundObjectives>

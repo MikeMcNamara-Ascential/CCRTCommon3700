@@ -566,6 +566,7 @@
             <LossCompensation DataType="string">LossCompensation</LossCompensation>
             <LossCompensationBitToPlc DataType="bool">PLC</LossCompensationBitToPlc>
             <LossCompensationCycle DataType="bool">PLC</LossCompensationCycle>
+            <LossCompensationOverallTest DataType="testcomponentstatus">TestResultServer</LossCompensationOverallTest>
             <LossCompensationPressure DataType="short" Units="PSI">PLC</LossCompensationPressure>
             <LossCompensationSwitchCycleStatus DataType="bool">PLC</LossCompensationSwitchCycleStatus>
             <LossCompensationSwitchCycleStatusFromPLC DataType="bool">PLC</LossCompensationSwitchCycleStatusFromPLC>

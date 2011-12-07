@@ -63,6 +63,7 @@
             <CommandSpeed>CommandSpeed</CommandSpeed>
             <CommandTorque>CommandTorque</CommandTorque>
             <Declutch>Declutch</Declutch>
+            <DriveAxle>DriveAxle</DriveAxle>
             <EndSampleSpeed>LCSampleSpeedEnd</EndSampleSpeed>
             <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
             <LeftFrontCurrentLoss>LFMachineLossCurrent</LeftFrontCurrentLoss>
@@ -202,6 +203,7 @@
         <LossCompensation>
             <TestStep2>TwoMotorAccelerate</TestStep2>
             <TestStep4>LossCompensation</TestStep4>
+            <TestStep5 AltValue="Front">ResetDriveAxle</TestStep5>
             <TestStep6>FinishUp</TestStep6>
         </LossCompensation>
         <Initialize>
@@ -217,6 +219,7 @@
         <TwoMotorAccelerate Result="Pass" Timeout="240000" Description="Accelerate above LCArmSpeed and Warm The Machine Up" LCArmSpeed="45" WarmUpTime="10000" Prompt2="LossCompensationAccelToWarmup" Prompt2Priority="0" WarmupPrompt="LossCompensationWarmup" WarmupPromptBox="2">Accelerate to speed</TwoMotorAccelerate>
         <LossCompensation Result="Pass" Timeout="600000" Description="Sample roll speeds as rolls decelerate" StartSampleSpeed="35" StopSampleSpeed="20" MaxArraySize="1024" MachineLossMinLeft="2" MachineLossMaxLeft="25" MachineLossMinRight="2" MachineLossMaxRight="25" MachineLossDiffMax="5" NoiseDifference="15.0" NoiseMaxError="1" RunoutDifference="3.0" RunoutErrorMultiplier="0.293" RunoutSamplesPerAverage="500" Prompt2="LossCompensationInProgress" Promp2Priority="0">Perform Loss Compensation Coastdown and Calculations</LossCompensation>
         <Stop Result="Pass" Timeout="1200000" Description="Wait for zerospeed" Prompt1="LossCompensationBrakingRolls" Prompt1Priority="0" Prompt2="Blank">Stop the rollers</Stop>
+        <ResetDriveAxle Result="Pass" Timeout="3000" Description="Set the drive axle" Prompt1="" Prompt1Priority="0" Prompt2="Blank">Reset the drive axle</ResetDriveAxle>
         <FinishUp Result="Pass" Timeout="1200000" Description="Set machine signals back to known state" Prompt1="LossCompensationComplete" Prompt1Priority="0" ScanDelay="2000">Update the results</FinishUp>
     </TestSteps>
 </LossCompensationComponent>

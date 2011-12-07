@@ -152,7 +152,7 @@ $Revision: 1.3 $
             </VBox>
             
 			<!-- VIN Display -->
-			<VBox height="80" width="270" posX="5" posY="120" border="false">
+			<VBox height="160" width="270" posX="5" posY="120" border="false">
 				<HBox>
 					<VBox width="10"/>
 					<Label name="vin">
@@ -166,6 +166,20 @@ $Revision: 1.3 $
 							tagrole="backgroundcolor" />
 						<TextBoxConfig>
 							<Font size="18" name="sans-serif" style="plain"/>
+						</TextBoxConfig>
+					</Widget>
+				</HBox>
+				<HBox>
+					<VBox width="10"/>
+					<Label name="currentwheelbase">
+						<Font size="18" name="sans-serif" style="plain"/>
+					</Label>
+					<!-- spacer -->
+					<VBox width="20"/>
+					<Widget height="35" width="100" id="currentwheelbase" class="com.bepco.gui.TextBox">
+						<DataSource tagname="CurrentWheelbasePosition" messagetype="Read" datarate="10"/>
+						<TextBoxConfig>
+							<Font size="20" name="sans-serif" style="bold"/>
 						</TextBoxConfig>
 					</Widget>
 				</HBox>

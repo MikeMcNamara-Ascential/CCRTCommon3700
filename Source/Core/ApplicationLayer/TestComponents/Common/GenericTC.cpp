@@ -1183,6 +1183,7 @@ const std::string GenericTC::CommandTestStep(const std::string &value)
 		else if(step == "DisableElectricMotorBoost")  status = DisableElectricMotorBoost();
 		else if(step == "EngageMachine")			  status = EngageMachine();
 		else if(step == "DisengageMachine")			  status = DisengageMachine();
+        else if(step == "ResetDriveAxle")             status = ResetDriveAxle(value);
 		else if(step == "ParkBrake")				  status = TestStepParkBrake(value);
 		else if(step == "ParkPawl")					  status = TestStepParkPawl(value);
 		else if(step == "ParkBrakePawl")			  status = TestStepParkBrakePawl(value);
@@ -2625,6 +2626,27 @@ string GenericTC::EngageMachine(void)
 	testDescription = testPass == testDescription ? testDescription : GetFaultDescription("FailedToEngage");
 	// Log the exit and return the result
 	Log(LOG_FN_ENTRY, "GenericTC::EngageMachine() - Exit\n");
+	return(testResult);
+}
+
+//=============================================================================
+string GenericTC::ResetDriveAxle(const std::string &value)
+{
+	string testResult = BEP_PASS_STATUS;
+	string testResultCode = "0000";
+	string testDescription = GetTestStepInfo("Description");
+	// Log the entry
+	Log(LOG_FN_ENTRY, "GenericTC::ResetDriveAxle() - Enter\n");
+	// Reset the drive axle
+    if(!value.compare("Front") || !value.compare("Rear"))
+        testResult = (BEP_STATUS_SUCCESS == SystemWrite(GetDataTag("DriveAxle"), value)) ? testPass : testSoftwareFail;
+    else
+        Log(LOG_DEV_DATA, "Invalid Drive Axle value - %s. Leaving Drive Axle value unchanged.",value.c_str());
+	// Determine the reporting items
+	testResultCode = testPass == testResult ? testResultCode : GetFaultCode("DriveAxleFailedToSet");
+	testDescription = testPass == testDescription ? testDescription : GetFaultDescription("DriveAxleFailedToSet");
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "GenericTC::ResetDriveAxle() - Exit\n");
 	return(testResult);
 }
 

@@ -3288,6 +3288,39 @@ protected:
 	 */
 	virtual string EngageMachine(void);
 
+    /**
+	 * Engage the machine.
+	 * <p><b>Category:</b> Utility
+	 * <p><b>Description:</b><br>
+	 * Engage the machine.  This will enable boost and clutch all rollers.  If the rollers are not at zero speed, the
+	 * operator will be prompted to brake to stop.  The software will then wait until zero speed has been achieved
+	 * or test time has expired.  If the machine is not at zero speed, the clutches will be destroyed when they are
+	 * pulled in.
+	 * <p>
+	 * <b>Test Step Info:</b>
+	 *      <ul>
+	 *      <li> Description - Description of the test step. </li>
+	 *      </ul>
+	 * 
+	 * <b>Fault Tags:</b>
+	 *      <ul>
+	 *      <li> FailedToEngage - Could not Clutch the rollers and enable boost. </li>
+	 *      </ul>
+	 * 
+	 * <b>Functions Called:</b>
+	 *      <ul>
+	 *      <li> GetTestStepInfo() </li>
+	 *      <li> CheckZeroSpeed() </li>
+	 *      <li> TimeRemaining() </li>
+	 *      <li> Engage() </li>
+	 *      <li> GetFaultCode() </li>
+	 *      <li> GetFaultDescription() </li>
+	 *      </ul>
+	 * 
+	 * @return Result of engaging the machine.
+	 */
+	virtual string ResetDriveAxle(const std::string &value);
+
 	/**
 	 * Enable electric motor boost.
 	 * <br><p>

@@ -261,7 +261,7 @@ const string LossCompensationTC::CommandTestStep(const string &value)
         else if( step=="Stop")                  status = TestStepStop();
         else if( step=="CoastToStop")           status = CoastToStop();
         else if( step=="FinishUp")              status = TestStepFinishUp();
-        else                                    status = BEP_UNSUPPORTED_RESPONSE;
+        else                                    status = GenericTC::CommandTestStep(value);
     }
     catch(BepException &e)
     {

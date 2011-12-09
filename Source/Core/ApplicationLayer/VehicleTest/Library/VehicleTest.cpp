@@ -935,6 +935,11 @@ std::string VehicleTest::CommandTest(const std::string testType)
             m_testCommandInProgress = true;
 		}
 
+        if (testType == TEST_LOSS_COMPENSATION) 
+        {
+            Write(VIN_DATA_TAG, LOSS_COMPENSATION_VIN);
+        }
+
         // indicate the test status
         Write(START_VEHICLE_TEST_DATA_TAG, testStatus);
 

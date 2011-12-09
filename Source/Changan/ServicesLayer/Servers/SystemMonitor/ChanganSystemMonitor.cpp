@@ -58,8 +58,16 @@ void ChanganSystemMonitor::CheckTesting(ControlData *ctrl)
         {   // Remove prompts and command test to start
             RemovePrompt(2, "RaiseRetainers");
             // Start the test sequence 
-            WriteNdbData( VIN_DATA_TAG, string("BASE_BRAKE_TEST__"));
-            CommandNdbData(string(COMMAND_TEST), string(TEST_BASE_BRAKE));
+            if (ctrl->vehVinReadStatus != VALID_VEHICLE_VIN) 
+            {
+                WriteNdbData( VIN_DATA_TAG, string("BASE_BRAKE_TEST__"));
+                CommandNdbData(string(COMMAND_TEST), string(TEST_BASE_BRAKE));
+            }
+            else
+            {
+                CommandNdbData(string(COMMAND_TEST), string(TEST_START));
+            }
+            
             testSelected = true;
         }
 #if 0

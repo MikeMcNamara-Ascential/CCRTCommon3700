@@ -52,22 +52,14 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase005>
-      <!-- Perform Reverse testing -->
-      <TestPhase050 Description="Perform reverse driving test" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Check reverse driving gear on the vehicle" Result="" Timeout="" Component="Machine">
-               <Reverse/>
-            </Objective0>
-         </ForegroundObjectives>
-      </TestPhase050>
       <!--Perform Park Brake Test-->
-      <TestPhase060 Description="Perform the park brake test" Result="" Timeout="">
+      <!--TestPhase060 Description="Perform the park brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Run the park brake test" Result="" Timeout="" Component="Brake">
                <ParkBrakeTest/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase060>
+      </TestPhase060-->
       <!--Perform Idle Horn Test-->
       <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -138,6 +130,14 @@
             </Objective0>
          </BackgroundObjectives>
       </TestPhase105>
+	  <!-- Perform Reverse testing -->
+      <TestPhase135 Description="Perform reverse driving test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Check reverse driving gear on the vehicle" Result="" Timeout="" Component="Machine">
+               <Reverse/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase135>
       <!--TestPhase140 Description="Stop the sound monitor thread" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Stop the sound monitor thread" Result="" Timeout="" Component="SoundLevel">

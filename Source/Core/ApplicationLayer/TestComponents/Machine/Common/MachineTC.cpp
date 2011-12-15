@@ -1295,6 +1295,7 @@ const std::string MachineTC::TestStepSpeedometer(const std::string &value)
 				else if(!done)							status = BEP_FATALFAIL_STATUS;
 				else
 				{
+                                        SystemWrite("SpeedoTestValue",speedometerTestResult);  
 					// check if the test result is within the limits
 					if((speedometerTestResult >= lowLimit) &&
 					   (speedometerTestResult <= highLimit))

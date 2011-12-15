@@ -14,20 +14,20 @@
          <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
          <Debug>Off</Debug>
       </Machine>
-      <ElectronicParkBrake>
+      <!--ElectronicParkBrake>
          <ComponentName>ElectronicParkBrakeTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
          <ConfigFile>ElectronicParkBrakeTc.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/ElectronicParkBrake/</ConfigPath>
          <Debug>Off</Debug>
-      </ElectronicParkBrake>
-      <SoundLevel>
+      </ElectronicParkBrake-->
+      <!-- SoundLevel>
          <ComponentName>ChanganSoundLevelTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
          <ConfigFile>SoundLevelComponent.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/SoundLevel</ConfigPath>
          <Debug>Off</Debug>
-      </SoundLevel>
+      </SoundLevel -->
       <SpeedControl>
          <ComponentName>GenericSpeedControl.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
@@ -66,44 +66,24 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase005>
-      <!-- Perform Reverse testing -->
-      <TestPhase050 Description="Perform reverse driving test" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Check reverse driving gear on the vehicle" Result="" Timeout="" Component="Machine">
-               <Reverse/>
-            </Objective0>
-         </ForegroundObjectives>
-      </TestPhase050>
-      <TestPhase055 Description="Check Reverse Lamps" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Check reverse lamps on the vehicle" Result="" Timeout="" Component="Machine">
-               <DriverQuestion>CheckReverseLamps</DriverQuestion>
-            </Objective0>
-         </ForegroundObjectives>
-      </TestPhase055>
-      <!--Perform Park Brake Test-->
-      <TestPhase060 Description="Perform the park brake test" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Run the park brake test" Result="" Timeout="" Component="Brake">
-               <ParkBrakeTest/>
-            </Objective0>
-         </ForegroundObjectives>
-      </TestPhase060>
       <!--Perform Idle Horn Test-->
       <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
+            <!--Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
                <StartSoundTest/>
-            </Objective0>
+            </Objective0-->
+            <Objective1 Description="Engage the machine" Result="" Timeout="" Component="Machine">
+               <EngageMachine/>
+            </Objective1>
          </ForegroundObjectives>
       </TestPhase065>
-      <TestPhase066 Description="Read idle sound level" Result="" Timeout="">
+      <!--TestPhase066 Description="Read idle sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Read idle sound level" Result="" Timeout="" Component="SoundLevel">
                <IdleHornTest/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase066>
+      </TestPhase066-->
       <!-- Perform the 40kph Speedo test -->
       <TestPhase070 Description="40kph Speedo Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -121,13 +101,13 @@
          </ForegroundObjectives>
       </TestPhase080>
       <!--Perform Running Horn Test-->
-      <TestPhase085 Description="Read running sound level" Result="" Timeout="">
+      <!--TestPhase085 Description="Read running sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Read running sound level" Result="" Timeout="" Component="SoundLevel">
                <RunningHornTest/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase085>
+      </TestPhase085-->
       <!-- Speed Control Testing -->
       <TestPhase090 Description="Speed Control Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -156,14 +136,22 @@
             </Objective0>
          </BackgroundObjectives>
       </TestPhase105>
-      <TestPhase130 Description="Perform Electronic Park Brake test" Result="" Timeout="">
+<!-- Perform Reverse testing -->
+      <TestPhase135 Description="Perform reverse driving test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Check reverse driving gear on the vehicle" Result="" Timeout="" Component="Machine">
+               <Reverse/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase135>
+      <!--TestPhase130 Description="Perform Electronic Park Brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Perform Electronic Park Brake test" Result="" Timeout="" Component="ElectronicParkBrake">
                <ParkBrakeTest/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase130>
-      <TestPhase140 Description="Stop the sound monitor thread" Result="" Timeout="">
+      </TestPhase135>
+      <!--TestPhase140 Description="Stop the sound monitor thread" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Stop the sound monitor thread" Result="" Timeout="" Component="SoundLevel">
                <StopSoundTest/>
@@ -176,7 +164,7 @@
                <FinishUp>PerformingFinishUp</FinishUp>
             </Objective3>
          </ForegroundObjectives>
-      </TestPhase145>
+      </TestPhase145-->
       <!-- Perform operator buyoff checks -->
       <TestPhase150 Description="Check vehicle Lamps" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

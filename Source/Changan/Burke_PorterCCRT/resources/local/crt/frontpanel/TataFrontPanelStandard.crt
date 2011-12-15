@@ -544,6 +544,18 @@ $Revision: 1.3 $
                         </TextBoxConfig>
                     </Widget>
                 </HBox>
+				<HBox height="30">
+                    <Label height="30" width="50" name="speedo">
+                        <Font size="16" name="sans-serif" style="bold"/>
+                    </Label>
+                    <Widget height="30" width="50" id="SpeedoTest" class="com.bepco.gui.NumberBox">
+                        <DataSource tagname="SpeedoTestValue" messagetype="Subscribe"/>
+                        <DataSource tagname="SpeedoTestBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                        <TextBoxConfig format="{0,number,#.0}">
+                            <Font size="16" name="sans-serif" style="bold"/>
+                        </TextBoxConfig>
+                    </Widget>
+                </HBox>
             </VBox>
 
            <!-- Brake Pedal Force  >

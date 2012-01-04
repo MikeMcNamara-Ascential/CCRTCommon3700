@@ -19,7 +19,7 @@ INCLUDE_DIRECTORIES(${CORE_SERVICES_LAYER_DIR}/Include)
 #------------------------------------------------------------------------------------------
 STRING(TOLOWER ${EXE_NAME} TMP_LIB_NAME)
 SET(LIB_NAME ${TMP_LIB_NAME}lib)
-ADD_LIBRARY(${LIB_NAME} STATIC MachineDataBroker.cpp )
+ADD_LIBRARY(${LIB_NAME} STATIC MachineDataBroker.cpp MaintenanceItem.cpp)
 
 #------------------------------------------------------------------------------------------
 # Tell CMake what source file to build

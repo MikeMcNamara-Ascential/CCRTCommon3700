@@ -113,6 +113,7 @@
 #include "MachineDataBroker.h"
 #include "SoftwareId.h"
 #include <math.h>
+#include <unistd.h>
 
 //-----------------------------------------------------------------------------
 MachineDataBroker::MachineDataBroker(void) : BepServer(),
@@ -137,6 +138,12 @@ MachineDataBroker::~MachineDataBroker(void)
         delete m_encoderDataComm;
         m_encoderDataComm = NULL;
     }
+	// Clear out the maintenance data items
+	for(UINT8 index = 0; index < m_maintenaceItems.size(); index++)
+	{
+		delete m_maintenaceItems[index];
+	}
+	m_maintenaceItems.clear();
     Log(LOG_FN_ENTRY, "MachineDataBroker Destroyed\n");
 }
 
@@ -163,6 +170,8 @@ void MachineDataBroker::Initialize(const XmlNode *document)
             // load the additional configuration items need by the
             // machine data broker
             LoadAdditionalConfigurationItems(document);
+			// Create any maintenance items
+			LoadMaintenanceItems(document->getChild("Setup/MaintenanceItems"));
         }
         else
         {
@@ -717,7 +726,7 @@ INT32 MachineDataBroker::IcmDataPulseHandler(void)
     string maxSpeed(CreateMessage(buff, sizeof(buff), "%.2f", maxRollerSpeed));
     Log(LOG_DEV_DATA, "Setting max roller speed to %s", maxSpeed.c_str());
     SetData(string("MaxRollerSpeed"), maxSpeed);
-    return BEP_STATUS_SUCCESS;
+    return status;
 }
 
 //-----------------------------------------------------------------------------
@@ -783,6 +792,20 @@ const std::string MachineDataBroker::Command(const XmlNode *node)
         if(m_nList != NULL) m_nList->Notify(node);     // Do the notify thing
         else Log(LOG_ERRORS, "Invalid NotificationList in %s or no subscribers\n", GetProcessName().c_str());
     }
+	else if(!node->getName().compare(GetDataTag("ResetMaintenanceItem")))
+	{   // Find the maintenance item and reset the elapsed time
+		bool done = false;
+		for(vector<MaintenanceItem*>::iterator iter = m_maintenaceItems.begin();
+			(iter != m_maintenaceItems.end()) && !done; iter++)
+		{
+			if(!(*iter)->MaintenanceItemName().compare(node->getValue()))
+			{
+				(*iter)->ResetInUseTime();
+				done = true;
+			}
+		}
+		StoreMaintenanceItemElapsedTime(node->getValue(), 0.0);
+	}
     else result = BEP_UNSUPPORTED_RESPONSE;
     return(result);
 }
@@ -845,10 +868,36 @@ const std::string MachineDataBroker::Publish(const XmlNode *node)
             m_currentSpeedScalingFactor = 1.0;
         }
     }
+	else if(!node->getName().compare(ROLLS_UP_DATA_TAG) && atob(node->getValue().c_str()))
+	{   // Rolls up, start the maintenance timers
+		for(vector<MaintenanceItem*>::iterator iter = m_maintenaceItems.begin(); 
+			 iter != m_maintenaceItems.end(); iter++)
+		{   // Start the timer if it is not already running
+			if(!((*iter)->IsTimerRunning()))
+			{
+				(*iter)->StartInUseTimer();
+				Log(LOG_DEV_DATA, "Started timer for maintenance item: %s", (*iter)->MaintenanceItemName().c_str());
+			}
+		}
+	}
+	else if(!node->getName().compare(ROLLS_DOWN_DATA_TAG) && atob(node->getValue().c_str()))
+	{   // Rolls down, stop the timers
+		for(vector<MaintenanceItem*>::iterator iter = m_maintenaceItems.begin();
+			 iter != m_maintenaceItems.end(); iter++)
+		{   // If the machine is in use (timer is running), stop the timer
+			if((*iter)->IsTimerRunning())
+			{   // Stop the timer and update the time
+				double elapsedTime = (*iter)->StopInUseTimer();
+				Log(LOG_DEV_DATA, "Stopped timer for maintenance item: %s - total elapsed time: %0.6f hours",
+					(*iter)->MaintenanceItemName().c_str(), elapsedTime);
+				// Store the elapsed time
+				StoreMaintenanceItemElapsedTime((*iter)->MaintenanceItemName(), elapsedTime);
+			}
+		}
+	}
     // then just call the base class to update the internal data
     result = BepServer::Publish(node);
     // Update the variable in the QNX Data Server 
-//    if(ConnectToQnxDataServer())  UpdateQnxDataServerVariable(node);
     if(ConnectToQnxDataServer())  m_qnxDataServer.UpdateQnxDataServerVariable(node);
 
     return(result);
@@ -1337,4 +1386,73 @@ const bool& MachineDataBroker::ConnectToQnxDataServer(const bool *connectToServe
 {
     if(connectToServer != NULL)  m_connectToQnxDataServer = *connectToServer;
     return m_connectToQnxDataServer;
+}
+
+//-----------------------------------------------------------------------------
+void MachineDataBroker::LoadMaintenanceItems(const XmlNode *config)
+{   // Load the current in use time file
+	Log(LOG_FN_ENTRY, "MachineDataBroker::LoadMaintenanceItems() - Enter");
+	XmlParser parser;
+	m_maintenanceTimeFileName = getenv("USR_ROOT") + config->getAttribute("MaintenanceTrackingFile")->getValue();
+	// Make sure the file actually exists
+	if(!access(m_maintenanceTimeFileName.c_str(), R_OK | W_OK))
+	{   // Need to copy the XmlNode since after this function, the parser is destroyed and there will be 
+		// nothing at the other end of the pointer.
+		m_maintenanceItemTimes = parser.ReturnXMLDocument(m_maintenanceTimeFileName)->Copy();
+	}
+	else
+	{
+		Log(LOG_DEV_DATA, "No maintenance tracking file found, creating new tracking list");
+		m_maintenanceItemTimes = new XmlNode("MaintenanceItems", "");
+	}
+	// Create all the maintenance items
+	for(XmlNodeMapCItr iter = config->getChildren().begin(); iter != config->getChildren().end(); iter++)
+	{   // Find the current elapsed time of the current item
+		XmlNodeMapCItr mItemIter = m_maintenanceItemTimes->getChildren().find(iter->second->getName());
+		double elapsedTime = 0.0;
+		if(mItemIter != m_maintenanceItemTimes->getChildren().end())
+		{
+			elapsedTime = atof(mItemIter->second->getValue().c_str());
+		}
+		else
+		{
+			elapsedTime = 0.0;
+			m_maintenanceItemTimes->addChild(iter->second->getName(), "0.0", ELEMENT_NODE);
+		}
+		// Create a new maintenance item
+		Log(LOG_DEV_DATA, "Creating maintenance item for %s with current elapsed time %0.6f hours", 
+			iter->second->getName().c_str(), elapsedTime);
+		MaintenanceItem *item = new MaintenanceItem(this);
+		item->Initialize(iter->second, elapsedTime);
+		m_maintenaceItems.push_back(item);
+	}
+	Log(LOG_FN_ENTRY, "MachineDataBroker::LoadMaintenanceItems() - Exit");
+}
+
+//-----------------------------------------------------------------------------
+void MachineDataBroker::StoreMaintenanceItemElapsedTime(string itemName, double elapsedTime)
+{
+	Log(LOG_FN_ENTRY, "MachineDataBroker::StoreMaintenanceItemElapsedTime(name: %s, elapsedTime: %0.6f) - Enter", itemName.c_str(), elapsedTime);
+	XmlNodeMapCItr itemIter = m_maintenanceItemTimes->getChildren().find(itemName);
+	if(itemIter != m_maintenanceItemTimes->getChildren().end())
+	{
+		char buff[32];
+		Log(LOG_DEV_DATA, "Updating stored time...");
+		itemIter->second->setValue(string(CreateMessage(buff, sizeof(buff), "%0.6f", elapsedTime)));
+		Log(LOG_DEV_DATA, "Done storing elapsed time");
+		// Write the times out to file
+		FILE *maintenanceFile = NULL;
+		if((maintenanceFile = fopen(m_maintenanceTimeFileName.c_str(), "w")) != NULL)
+		{  
+			Log(LOG_DEV_DATA, "Writing updated times to file...");
+			fprintf(maintenanceFile, "%s", m_maintenanceItemTimes->ToString().c_str());
+			fclose(maintenanceFile);
+			Log(LOG_DEV_DATA, "Done writing updated times to file");
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Could not open %s for updating maintenance item times", m_maintenanceTimeFileName.c_str());
+		}
+	}
+	Log(LOG_FN_ENTRY, "MachineDataBroker::StoreMaintenanceItemElapsedTime(name: %s, elapsedTime: %0.6f) - Exit", itemName.c_str(), elapsedTime);
 }

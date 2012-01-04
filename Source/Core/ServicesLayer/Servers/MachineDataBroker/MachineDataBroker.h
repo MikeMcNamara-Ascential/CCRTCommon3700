@@ -83,6 +83,7 @@
 #include "SerialChannel.h"
 #include "IcmDataSupplier.h"
 #include "IQnxDataServer.h"
+#include "MaintenanceItem.h"
 #include <unistd.h>
 #include <time.h>
 
@@ -110,6 +111,8 @@
 const static string m_speedTags[] = {"LfSpeed", "RfSpeed", "LrSpeed", "RrSpeed", "LtSpeed", "RtSpeed"};
 const static string m_forceTags[] = {"LfForce", "RfForce", "LrForce", "RrForce", "LtForce", "RtForce"};
 const static string m_distTags[]  = {"LfDist", "RfDist", "LrDist", "RrDist", "LtDist", "RtDist"};
+
+class MaintenanceItem;
 
 /**
  * MachineDataBroker class responsible for maintaining machine specific information.
@@ -649,6 +652,23 @@ private:
      * @return Flag indicating if the QNX data Server should be used.
      */
     const bool& ConnectToQnxDataServer(const bool *connectToServer = NULL);
+
+	/**
+	 * Load the maintenance data items to track as well as the elapsed times.
+	 * 
+	 * @param config Configuration data for the maintenance items to be tracked.
+	 */
+	void LoadMaintenanceItems(const XmlNode *config);
+
+	/**
+	 * Store the elapsed time for the specified maintenance data item.
+	 * 
+	 * @param itemName Maintenance item name.
+	 * @param elapsedTime
+	 *                 New elapsed time to store.
+	 */
+	void StoreMaintenanceItemElapsedTime(string itemName, double elapsedTime);
+
     /**
 	 * The file to store the persistent data in.
 	 */
@@ -774,6 +794,12 @@ private:
     float m_speedScalingFactor;
     /** Current speed scaling factor in use */
     float m_currentSpeedScalingFactor;
+	// Vector of maintenance items to track
+	vector<MaintenanceItem*> m_maintenaceItems;
+	// Current elapsed times for each maintenance times
+	XmlNode *m_maintenanceItemTimes;
+	// Name of the file for storing the maintenance times
+	string m_maintenanceTimeFileName;
 };
 #endif  //MACHINEDATABROKER_H
 

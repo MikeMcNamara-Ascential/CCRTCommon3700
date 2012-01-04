@@ -15,6 +15,9 @@
             <SpeedArray>/dev/ArraySpeed</SpeedArray>
             <DistanceArray>/dev/ArrayDistance</DistanceArray>
         </IcmDataFiles>
+        <MaintenanceItems MaintenanceTrackingFile="/Configuration/Machine/MaintenanceLog.xml">
+            <BearingLube FaultText="Bearing Lubrication Required" FaultLevel="3" MaintenanceInterval="5500" IntervalUnits="hours"/>
+        </MaintenanceItems>
 		<DataTags>
 			<CycleTime>CycleTime</CycleTime>
 			<TestInProgress>TestInProgress</TestInProgress>
@@ -23,6 +26,7 @@
 			<MachineNumberEnvVar>MACHINE</MachineNumberEnvVar>
 			<MachineNumberTag>MachineNumber</MachineNumberTag>
 			<MachineNumberFormat>Mach%d</MachineNumberFormat>
+            <ResetMaintenanceItem>ResetMaintenanceItem</ResetMaintenanceItem>
             <RollerCount>4</RollerCount>
 		</DataTags>
 		<TagList>

@@ -1,3 +1,0 @@
-<record> <date>2011-05-18 20:42:24.380 GMT</date> <millis>1305751344380</millis> <sequence>0</sequence> <logger>com.bepco.rtc</logger> <level>CONFIG</level> <class>com.bepco.rtc.LocalUserProperties</class> <method>&lt;init&gt;</method> <thread>10</thread> <message>Reading User Properties: file:/C:/Burke_PorterCCRT/resources/local/rtc.properties</message> <exception><message></message><frame><class /><method /></frame></exception> </record>
-Property label.blank.text cannot be localized because  the property exists in /com/bepco/rtc/properties/CRTPanelLabels.constants.
-Property label.blank.text cannot be localized because  the property exists in /com/bepco/rtc/properties/CRTPanelLabels.constants.

@@ -398,6 +398,8 @@ private:
      * Overloaded method to check if it is a retest first
      */
     virtual string KeyOffEngineOffKeyOn(void);
+    string GetSerialNumberFromFile(void);
+    string CheckSerialNumber(void);
 
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;

@@ -27,6 +27,7 @@
     <ThrottlePositionSensorsAgreeOutOfRange Code="" Description="Throttle Position Sensors Disagree"/>
     <VINMismatch Code="" Description="ECM VIN does not match scanned VIN"/>
     <ModuleFaults Code="" Description="ECM Module Faults Present"/>
+    <SerialNumberMismatch Code="" Description="Serial Number does not match file"/>
     <!-- Miscellaneous Test Failures -->
     <StartModuleKeepAliveFail Code="7400" Description="Failed to start keep alive thread"/>
     <!-- Module Faults From 'DTC setting for DVT 20110126.xls'-->

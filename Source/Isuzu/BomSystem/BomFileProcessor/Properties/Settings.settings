@@ -89,5 +89,11 @@
     <Setting Name="SpartanFlashFileLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Temp\</Value>
     </Setting>
+    <Setting Name="WindowsPCESNFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\ESN\</Value>
+    </Setting>
+    <Setting Name="RealTimePCESNFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\ESN\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

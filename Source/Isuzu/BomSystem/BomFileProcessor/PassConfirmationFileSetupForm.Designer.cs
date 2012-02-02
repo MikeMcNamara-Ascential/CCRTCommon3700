@@ -42,6 +42,12 @@
             this.m_spartanPassConfirmLabelFlash = new System.Windows.Forms.Label();
             this.m_spartanFlashPassFileLocationTextBox = new System.Windows.Forms.TextBox();
             this.m_SpartanFlashSelectButton = new System.Windows.Forms.Button();
+            this.m_widowsESNSelectButton = new System.Windows.Forms.Button();
+            this.m_widowsESNFileLocationTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.m_realTimeESNSelectButton = new System.Windows.Forms.Button();
+            this.m_realTimeESNFileLocationTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.m_fileCheckDelayNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,7 +113,7 @@
             // 
             this.m_monitorPassConfirmFilesCheckBox.AutoSize = true;
             this.m_monitorPassConfirmFilesCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.m_monitorPassConfirmFilesCheckBox.Location = new System.Drawing.Point(551, 183);
+            this.m_monitorPassConfirmFilesCheckBox.Location = new System.Drawing.Point(551, 248);
             this.m_monitorPassConfirmFilesCheckBox.Margin = new System.Windows.Forms.Padding(4);
             this.m_monitorPassConfirmFilesCheckBox.Name = "m_monitorPassConfirmFilesCheckBox";
             this.m_monitorPassConfirmFilesCheckBox.Size = new System.Drawing.Size(249, 21);
@@ -118,7 +124,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(69, 183);
+            this.label1.Location = new System.Drawing.Point(69, 248);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(270, 17);
@@ -127,7 +133,7 @@
             // 
             // m_fileCheckDelayNumericUpDown
             // 
-            this.m_fileCheckDelayNumericUpDown.Location = new System.Drawing.Point(347, 183);
+            this.m_fileCheckDelayNumericUpDown.Location = new System.Drawing.Point(347, 248);
             this.m_fileCheckDelayNumericUpDown.Margin = new System.Windows.Forms.Padding(4);
             this.m_fileCheckDelayNumericUpDown.Maximum = new decimal(new int[] {
             10000,
@@ -151,7 +157,7 @@
             // m_saveButton
             // 
             this.m_saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_saveButton.Location = new System.Drawing.Point(700, 212);
+            this.m_saveButton.Location = new System.Drawing.Point(700, 283);
             this.m_saveButton.Margin = new System.Windows.Forms.Padding(4);
             this.m_saveButton.Name = "m_saveButton";
             this.m_saveButton.Size = new System.Drawing.Size(100, 28);
@@ -164,7 +170,7 @@
             // 
             this.m_closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.m_closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_closeButton.Location = new System.Drawing.Point(592, 212);
+            this.m_closeButton.Location = new System.Drawing.Point(592, 283);
             this.m_closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.m_closeButton.Name = "m_closeButton";
             this.m_closeButton.Size = new System.Drawing.Size(100, 28);
@@ -201,6 +207,64 @@
             this.m_SpartanFlashSelectButton.UseVisualStyleBackColor = true;
             this.m_SpartanFlashSelectButton.Click += new System.EventHandler(this.m_SpartanFlashSelectButton_Click);
             // 
+            // m_widowsESNSelectButton
+            // 
+            this.m_widowsESNSelectButton.Location = new System.Drawing.Point(701, 153);
+            this.m_widowsESNSelectButton.Margin = new System.Windows.Forms.Padding(4);
+            this.m_widowsESNSelectButton.Name = "m_widowsESNSelectButton";
+            this.m_widowsESNSelectButton.Size = new System.Drawing.Size(100, 28);
+            this.m_widowsESNSelectButton.TabIndex = 16;
+            this.m_widowsESNSelectButton.Text = "Select";
+            this.m_widowsESNSelectButton.UseVisualStyleBackColor = true;
+            this.m_widowsESNSelectButton.Click += new System.EventHandler(this.m_widowsESNSelectButton_Click);
+            // 
+            // m_widowsESNFileLocationTextBox
+            // 
+            this.m_widowsESNFileLocationTextBox.Location = new System.Drawing.Point(379, 153);
+            this.m_widowsESNFileLocationTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_widowsESNFileLocationTextBox.Name = "m_widowsESNFileLocationTextBox";
+            this.m_widowsESNFileLocationTextBox.Size = new System.Drawing.Size(313, 22);
+            this.m_widowsESNFileLocationTextBox.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 153);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(206, 17);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Windows PC ESN File Location:";
+            // 
+            // m_realTimeESNSelectButton
+            // 
+            this.m_realTimeESNSelectButton.Location = new System.Drawing.Point(700, 192);
+            this.m_realTimeESNSelectButton.Margin = new System.Windows.Forms.Padding(4);
+            this.m_realTimeESNSelectButton.Name = "m_realTimeESNSelectButton";
+            this.m_realTimeESNSelectButton.Size = new System.Drawing.Size(100, 28);
+            this.m_realTimeESNSelectButton.TabIndex = 19;
+            this.m_realTimeESNSelectButton.Text = "Select";
+            this.m_realTimeESNSelectButton.UseVisualStyleBackColor = true;
+            this.m_realTimeESNSelectButton.Click += new System.EventHandler(this.m_realTimeESNSelectButton_Click);
+            // 
+            // m_realTimeESNFileLocationTextBox
+            // 
+            this.m_realTimeESNFileLocationTextBox.Location = new System.Drawing.Point(378, 192);
+            this.m_realTimeESNFileLocationTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_realTimeESNFileLocationTextBox.Name = "m_realTimeESNFileLocationTextBox";
+            this.m_realTimeESNFileLocationTextBox.Size = new System.Drawing.Size(313, 22);
+            this.m_realTimeESNFileLocationTextBox.TabIndex = 18;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 192);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(210, 17);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "RealTime PC ESN File Location:";
+            // 
             // PassConfirmationFileSetupForm
             // 
             this.AcceptButton = this.m_saveButton;
@@ -208,8 +272,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightSteelBlue;
             this.CancelButton = this.m_closeButton;
-            this.ClientSize = new System.Drawing.Size(829, 255);
+            this.ClientSize = new System.Drawing.Size(829, 326);
             this.ControlBox = false;
+            this.Controls.Add(this.m_realTimeESNSelectButton);
+            this.Controls.Add(this.m_realTimeESNFileLocationTextBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.m_widowsESNSelectButton);
+            this.Controls.Add(this.m_widowsESNFileLocationTextBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.m_SpartanFlashSelectButton);
             this.Controls.Add(this.m_spartanFlashPassFileLocationTextBox);
             this.Controls.Add(this.m_spartanPassConfirmLabelFlash);
@@ -250,5 +320,11 @@
         private System.Windows.Forms.Label m_spartanPassConfirmLabelFlash;
         private System.Windows.Forms.TextBox m_spartanFlashPassFileLocationTextBox;
         private System.Windows.Forms.Button m_SpartanFlashSelectButton;
+        private System.Windows.Forms.Button m_widowsESNSelectButton;
+        private System.Windows.Forms.TextBox m_widowsESNFileLocationTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button m_realTimeESNSelectButton;
+        private System.Windows.Forms.TextBox m_realTimeESNFileLocationTextBox;
+        private System.Windows.Forms.Label label3;
     }
 }

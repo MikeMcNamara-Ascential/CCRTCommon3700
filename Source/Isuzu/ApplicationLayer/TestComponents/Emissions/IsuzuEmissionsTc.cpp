@@ -12,6 +12,8 @@
 // any way is strictly prohibited.
 //===========================================================================
 #include "IsuzuEmissionsTc.h"
+#include <fstream.h>
+#include <dirent.h>
 
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
@@ -97,6 +99,7 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if(!GetTestStepName().compare("CheckOxygenSensors"))                  testResult = CheckOxygenSensors();
             else if(!GetTestStepName().compare("KeyOffEngineOffKeyOn"))                testResult = KeyOffEngineOffKeyOn();
             else if(!GetTestStepName().compare("ClearFaultsFinal"))                    testResult = ClearFaults();
+            else if(!GetTestStepName().compare("CheckSerialNumber"))                   testResult = CheckSerialNumber();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -2293,6 +2296,149 @@ string IsuzuEmissionsTc<ModuleType>::ClearFaults(void)
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ClearFaults() - Exit");
     return testResult;
 
+}
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::GetSerialNumberFromFile(void)
+{
+    string serialNumber = "";
+    string serialNumberDirectory = GetParameter("SerialNumberDirectory");
+    string vin = ReadSubscribeData(GetDataTag("VehicleVIN"));
+    DIR *snDir;
+    struct dirent *dirEntry;
+    FILE *snFile;
+    char buff[20];
+
+    Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::GetSerialNumberFromFile() serial number directory: %s vin: %s\n",
+        serialNumberDirectory.c_str(), vin.c_str());
+    try
+    {
+    //get list of files in directory
+    // Attempt to open the directory
+    if((snDir = opendir(serialNumberDirectory.c_str())) != NULL)
+    {   // Get each file in the directory
+
+        while((dirEntry = readdir(snDir)) != NULL)
+        {   //check if name of file start matches current vin
+            string name(dirEntry->d_name);
+            if(!name.compare(0,17,vin))
+            {//match
+                name = serialNumberDirectory + name;
+                Log(LOG_DEV_DATA, "Opening file: %s", name.c_str());
+                if ((snFile = fopen(name.c_str(), "r")) != NULL)
+                {   // Add the header to the file
+                    //serialNumber = name.substr(17,16);
+                    if ( fgets (buff , 16 , snFile) != NULL )
+                    {
+                        serialNumber = buff;
+                        Log(LOG_DEV_DATA, "SerailNumberExtracted: %s", serialNumber.c_str());
+                        fclose(snFile);
+                        return serialNumber;
+                    }
+                    else
+                    {
+                        Log(LOG_ERRORS, "Failed to get sn from file\n");
+                    }
+                }
+                else
+                {
+                    Log(LOG_ERRORS, "Failed to open sn file: %s\n", name.c_str());
+                }
+            }
+        }
+    }
+    else
+    {   // Error opening the directory
+        Log(LOG_ERRORS, "Failed to open directory: %s\n", serialNumberDirectory.c_str());
+    }
+    }
+    catch (...)
+    {
+        Log(LOG_ERRORS, "Exception occured when trying to obtain serial number\n");
+    }
+
+    Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::GetSerialNumberFromFile() serial number: %s\n",
+        serialNumber.c_str());
+    return serialNumber;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::CheckSerialNumber(void)
+{
+    string testResult = BEP_TESTING_STATUS;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    string moduleSerialNumber;
+    string fileSerialNumber = GetSerialNumberFromFile();
+
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    // Check if this step needs to be performed
+    Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::CheckSerialNumber()\n");
+    if(!ShortCircuitTestStep() && fileSerialNumber != "")
+    {   // Do not need to skip
+        try
+        {   // Read the part number from the module
+            moduleStatus = m_vehicleModule.ReadModuleData("ReadSerialNumber", moduleSerialNumber);
+            // Check the status of the data
+            if(BEP_STATUS_SUCCESS == moduleStatus)
+            {   // Good data, Check serial number
+                if(moduleSerialNumber == fileSerialNumber)
+                {   // Part numbers match, test passes
+                    testResult = testPass;
+                }
+                else
+                {   // Part number do not match, test fails
+                    testResult = testFail;
+                }
+                // Log the data
+                Log(LOG_DEV_DATA, "Serial Number Verification: %s - file: %s, Module: %s\n",
+                    testResult.c_str(), fileSerialNumber.c_str(), moduleSerialNumber.c_str());
+                testResultCode = (testResult == testPass ? "0000" : GetFaultCode("SerialNumberMismatch"));
+                testDescription = 
+                    (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("SerialNumberMismatch"));
+            }
+            else
+            {   // Error getting data from the module
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+                Log(LOG_ERRORS, "Error reading module serial number - status: %s\n",
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+        }
+        catch(ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Send the test result
+        SendTestResultWithDetail(testResult, testDescription, testResultCode,
+                                 "ModuleSerialNumber", moduleSerialNumber, "",
+                                 "FileSerialNumber", fileSerialNumber, "");
+        //abort after result is sent so failure is recorded
+        if(GetParameterBool("AbortOnSerialMismatch") && (testResult == testFail))
+        {   // Part number do not match, test aborts
+            testResult = testAbort;
+        }
+    }
+    else
+    {   // Need to skip this test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+    }
+    // Log the function exit
+    if (testResult == testAbort) 
+    {
+        SystemWrite(ABORT_DATA_TAG, "1");
+    }
+    Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::CheckSerialNumber()\n");
+    // Return the status
+    return(testResult);
 }
 
 

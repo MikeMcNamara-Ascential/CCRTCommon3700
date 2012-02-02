@@ -633,6 +633,13 @@
                 <ReplyInterpretation>IsModuleLocked</ReplyInterpretation>
             </IsModuleLocked>
 
+            <ReadSerialNumber>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SerialNumber</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>SerialNumber</ReplyInterpretation>
+            </ReadSerialNumber>
+
         </VehicleMessages>
 
         <!-- ============ Message Formats ============ -->
@@ -707,6 +714,7 @@
             <SoftwareModule04PartNo>0xC4</SoftwareModule04PartNo>
             <SoftwareModule01PartNo>0xC1</SoftwareModule01PartNo>
             <SoftwareModule09PartNo>0xC9</SoftwareModule09PartNo>
+            <SerialNumber>0xB4</SerialNumber>
         </TransmitInterpretations>
 
         <!-- ============ Message Responses ============ -->
@@ -1136,6 +1144,14 @@
                     <Byte01 input_index="2" mask="0xFF" compare="0x00"/>
                 </Boolean>
             </IsModuleLocked>
+
+            <SerialNumber>
+                <String>
+                    <Substring format="%16s">
+                        <chars input_index="2" mask="0xFF" length="16"/>
+                    </Substring>
+                </String>
+            </SerialNumber>
 
         </ReplyInterpretations>
 

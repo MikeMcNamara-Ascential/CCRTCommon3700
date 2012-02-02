@@ -45,7 +45,10 @@ namespace BomFileProcessor
                 m_passFileCheckTimer.Interval = BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay;
                 m_passFileCheckTimer.Start();
             }
+            m_esnFileCheckTimer.Interval = BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay;
+            m_esnFileCheckTimer.Start();
         }
+        
 
 
         // ----------------------------------------------------------------------------------------
@@ -700,6 +703,58 @@ namespace BomFileProcessor
             }
             // Restart the timer to look for more pass confirmation files
             m_passFileCheckTimer.Start();
+        }
+
+        /// <summary>
+        /// check for new ESN files to move from the Windows directory to the CCRT directory.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_esnFileCheckTimer_Tick(object sender, EventArgs e)
+        {   // Stop the timer while processing any new pass confirmation files
+            m_esnFileCheckTimer.Stop();
+            // Check for any new pass confirmation files
+            try
+            {
+                String[] newFiles = Directory.GetFiles(BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation);
+                if (newFiles.Count() > 0)
+                {   // Process the CCRT generated pass confirmation files
+                    m_logger.Log("INFO: Found " + Convert.ToString(newFiles.Count()) + " new ESN File(s)");
+                    System.Threading.Thread.Sleep(3000);   // Make sure any current files are closed
+                    // Process each esn file
+                    foreach (String file in newFiles)
+                    {
+                        String dest = BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
+                        try
+                        {
+
+                                if (System.IO.File.Exists(dest))
+                                {
+                                    File.Delete(dest);
+                                }
+                                File.Move(file, dest);
+                                m_logger.Log("INFO: Moved " + file + " to " + dest);                            
+                        }
+                        catch (NotSupportedException excpt)
+                        {
+                            m_logger.Log("ERROR: NotSupportedException attempting to move esn file - " + excpt.Message);
+                        }
+                        //delete oldest file in directory
+                        DirectoryInfo destDI = new DirectoryInfo(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation);
+                        if (destDI.GetFiles().Count() > 1000)
+                        {
+                            var oldestFile2 = destDI.GetFiles().OrderBy(f => f.CreationTime).First();
+                            File.Delete(destDI.FullName + "\\" + oldestFile2);
+                        }
+                    }
+                }
+            }
+            catch (System.IO.IOException ex)
+            {
+                m_logger.Log("ERROR: IOException accessing file or folder - " + ex.Message);
+            }
+            // Restart the timer to look for more pass confirmation files
+            m_esnFileCheckTimer.Start();
         }
 
         /// <summary>

@@ -32,6 +32,8 @@ namespace BomFileProcessor
             m_spartanFlashPassFileLocationTextBox.Text = BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation;
             m_fileCheckDelayNumericUpDown.Value = Convert.ToInt32(BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay);
             m_monitorPassConfirmFilesCheckBox.Checked = BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles;
+            m_widowsESNFileLocationTextBox.Text = BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation;
+            m_realTimeESNFileLocationTextBox.Text = BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation;
         }
 
         /// <summary>
@@ -41,11 +43,11 @@ namespace BomFileProcessor
         /// <param name="initPath">Starting directory location.</param>
         /// <param name="systemType">Type of system to select the location for.</param>
         /// <returns>Pass Confirmation file location selected by the user.</returns>
-        private String SelectPassFileLocation(String initPath, String systemType)
+        private String SelectFileLocation(String initPath, String systemType, String fileType)
         {
             String location = initPath;
             FolderBrowserDialog dlg = new FolderBrowserDialog();
-            dlg.Description = "Select location for " + systemType + " Pass Confirmation Files";
+            dlg.Description = "Select location for " + systemType + " " + fileType + " " +"Files";
             dlg.ShowNewFolderButton = true;
             dlg.SelectedPath = location;
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -67,7 +69,7 @@ namespace BomFileProcessor
         /// <param name="e"></param>
         private void m_ccrtSelectButton_Click(object sender, EventArgs e)
         {
-            String directory = SelectPassFileLocation(BomFileProcessor.Properties.Settings.Default.CcrtFileLocation, "CCRT");
+            String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.CcrtFileLocation, "CCRT", "Pass Confirmation");
             if (directory.Length > 0)
             {
                 BomFileProcessor.Properties.Settings.Default.CcrtFileLocation = directory;
@@ -85,7 +87,7 @@ namespace BomFileProcessor
         /// <param name="e"></param>
         private void m_SpartanSelectButton_Click(object sender, EventArgs e)
         {
-            String directory = SelectPassFileLocation(BomFileProcessor.Properties.Settings.Default.SpartanFileLocation, "Spartan");
+            String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.SpartanFileLocation, "Spartan", "Pass Confirmation");
             if (directory.Length > 0)
             {
                 BomFileProcessor.Properties.Settings.Default.SpartanFileLocation = directory;
@@ -102,7 +104,7 @@ namespace BomFileProcessor
         /// <param name="e"></param>
         private void m_SpartanFlashSelectButton_Click(object sender, EventArgs e)
         {
-            String directory = SelectPassFileLocation(BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation, "Spartan");
+            String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation, "Spartan", "Pass Confirmation");
             if (directory.Length > 0)
             {
                 BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation = directory;
@@ -111,6 +113,41 @@ namespace BomFileProcessor
                 m_spartanFlashPassFileLocationTextBox.Text = directory;
             }
 
+        }
+        /// <summary>
+        /// A folder selection dialog will be displayed so the user can select the location 
+        /// Spartan places ESN file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_widowsESNSelectButton_Click(object sender, EventArgs e)
+        {
+            String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation, "Spartan", "ESN File");
+            if (directory.Length > 0)
+            {
+                BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation = directory;
+                BomFileProcessor.Properties.Settings.Default.Save();
+                m_widowsESNFileLocationTextBox.Clear();
+                m_widowsESNFileLocationTextBox.Text = directory;
+            }
+
+        }
+        /// <summary>
+        /// A folder selection dialog will be displayed so the user can select the location 
+        /// to place ESN on real time PC.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_realTimeESNSelectButton_Click(object sender, EventArgs e)
+        {
+            String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation, "CCRT", "ESN File");
+            if (directory.Length > 0)
+            {
+                BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation = directory;
+                BomFileProcessor.Properties.Settings.Default.Save();
+                m_realTimeESNFileLocationTextBox.Clear();
+                m_realTimeESNFileLocationTextBox.Text = directory;
+            }
         }
         /// <summary>
         /// Store all the data the user has entered.
@@ -124,10 +161,9 @@ namespace BomFileProcessor
             BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation = m_spartanFlashPassFileLocationTextBox.Text;
             BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles = m_monitorPassConfirmFilesCheckBox.Checked;
             BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay = Convert.ToInt32(m_fileCheckDelayNumericUpDown.Value);
+            BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation = m_widowsESNFileLocationTextBox.Text;
+            BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation = m_realTimeESNFileLocationTextBox.Text;
             BomFileProcessor.Properties.Settings.Default.Save();
         }
-
-
-
     }
 }

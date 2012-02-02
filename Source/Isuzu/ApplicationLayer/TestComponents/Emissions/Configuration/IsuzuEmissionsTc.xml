@@ -324,6 +324,10 @@
             <MinimumReadIAT3Bank2ValueRangeDelta>10</MinimumReadIAT3Bank2ValueRangeDelta>
             <!-- Keyoffengineoffkeyon parameters -->
             <AlwaysPerformKeyOffEngineOff TestSteps="KeyOffEngineOffKeyOn" Comment="flag indicating if test should be performed on passed retests">True</AlwaysPerformKeyOffEngineOff>
+            <!-- CheckSerialNumber parameters -->
+            <SerialNumberDirectory TestSteps="CheckSerialNumber" Comment="Directory containing Scanned Serial numbers sent by Spartan">/TestResults/ESN/</SerialNumberDirectory>
+            <AbortOnSerialMismatch  TestSteps="CheckSerialNumber" Comment="Flag which determines if test should be aborted on serial number mismatch">False</AbortOnSerialMismatch>
+
         </Parameters>
         <Prompts>
             <AbortEngineTemp PromptBox="1" Priority="0" Duration="5000" TestSteps="WaitForEngineTemperature">AbortEngineTempTooHigh</AbortEngineTemp>
@@ -372,6 +376,7 @@
         <EngineWarmUp>
             <TestStep10>CheckVIN</TestStep10>
             <TestStep15>CheckPartNumbers</TestStep15>
+            <TestStep20>CheckSerialNumber</TestStep20>
             <TestStep25>WaitForEngineTemperature</TestStep25>
             <TestStep30>CheckCASELearn</TestStep30>
             <TestStep40>StartSwitchMonitors</TestStep40>
@@ -460,6 +465,7 @@
         <CheckMisfireEmissionsFailureStatus Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty a misfire didn't cause a Emissions failure."/>
         <CheckOxygenSensors Result="" Timeout="120000" AlwaysPerform="False" AbortIfFailed="False" Description="Test the oxygen sensors for correct values"/>
         <CheckPartNumbers Result="" Timeout="500" Description="Verify the module part number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckSerialNumber Result="" Timeout="500" Description="Verify the module serial number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckSteadySpeedFuelTrim Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Check fuel trim values at steady speed"/>
         <CheckVehicleSpeedSensor Result="" AlwaysPerform="False" AbortIfFailed="True" Timeout="500" Description="Validate vehicle speed sensor reading"/>
         <CheckVIN Result="" Timeout="500" Description="Verify the module VIN matches the scanned VIN" AlwaysPerform="False" AbortIfFailed="False"/>

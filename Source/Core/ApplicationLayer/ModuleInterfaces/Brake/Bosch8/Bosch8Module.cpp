@@ -584,58 +584,329 @@ BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::StartSensorQualityTest(WheelSp
 template <class ProtocolFilterType>
 BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::ReadFaults(FaultVector_t &faultCodes)
 {
-	SerialString_t response(255, 0);
-	BEP_STATUS_TYPE status;
-	uint8_t     dtcCount=0, dtcIdx=0;
-	uint16_t    dtcVal;
-	char    dtcStr[ 16];
+    if(GetDTCFormatUDS()) 
+    {
+        return (UDSReadFaults(faultCodes));
+    }
+    else
+    {
+        SerialString_t response(255, 0);
+    	BEP_STATUS_TYPE status;
+    	uint8_t     dtcCount=0, dtcIdx=0;
+    	uint16_t    dtcVal;
+    	char    dtcStr[ 16];
+    
+    	// Check to see that all our objects are in place
+    	CheckObjectsStatus();
+    
+    	status = m_protocolFilter->GetModuleData("ReadFaults", response);
+    
+    	if(status == BEP_STATUS_SUCCESS)
+    	{
+    		// The first byte after the ID is a DTC count
+    		if( response.size() >= 2)
+    		{
+    			// Erase the first byte
+    			response.erase( 0, 1);
+    			// Read the number of DTC's to follow
+    			dtcCount = response[ 0];
+    		}
+    		Log( LOG_DEV_DATA, "Module is reporting %d DTC's\n", dtcCount);
+    
+    		// Extract the DTCs from the respnse
+    		for( dtcIdx=0; (dtcIdx<dtcCount) && (response.size()>1); dtcIdx++)
+    		{
+    			// DTC are sent as [ HI,LO]
+    			dtcVal = response[ 0];
+    			dtcVal = ((dtcVal << 8) & 0xFF00) | response[1];
+    			Log( LOG_DEV_DATA, "\tDTC %d: $%04X\n", dtcIdx, dtcVal);
+    			// Erase the bytes for this DTC
+    			response.erase( 0,2);
+    
+    			// Add the DTC to the fault list
+    			std::string faultStr( CreateMessage(dtcStr, 16, "%04X", dtcVal));
+    			FaultCode_t fault(faultStr);
+    			faultCodes.push_back( fault);
+    		}
+    
+    		// If we did not receive the full DTC list from the module
+    		if( dtcIdx < dtcCount)
+    		{
+    			// Log a message
+    			Log( LOG_ERRORS, "Did not receive full list of DTCs: %d of %d DTCs received\n",
+    				 dtcIdx, dtcCount);
+    		}
+    
+    		return(BEP_STATUS_SUCCESS);
+    	}
+    	else
+    	{
+    		return(status);
+    	}
+    }
+}
 
-	// Check to see that all our objects are in place
-	CheckObjectsStatus();
+template <class ProtocolFilterType>
+bool Bosch8Module<ProtocolFilterType>::Initialize (const XmlNode *configNode)
+{
+    Log(LOG_DEV_DATA, "Enter Bosch8Module<ProtocolFilterType>::Initialize\n");
+    GenericModuleTemplate<ProtocolFilterType>::Initialize(configNode);
 
-	status = m_protocolFilter->GetModuleData("ReadFaults", response);
-
-	if(status == BEP_STATUS_SUCCESS)
+    // Get the DTC format (UDS style DTCs or not)
+    try
+    {
+        SetDTCFormatUDS(atob(configNode->getChild("Setup/DTCData/DTCFormatUDS")->getValue().c_str()));
+    }
+    catch (XmlException &err)
+    {
+        Log(LOG_ERRORS, "XmlException getting DTCFormatUDS, defaulting to FALSE: %s\n", err.Reason().c_str());
+		SetDTCFormatUDS(false);
+    }
+    // Store the DTC count index
+	try
+	{	// Get the DTC count index
+		SetDTCCountIndex(BposReadInt(configNode->getChild("Setup/DTCData/DTCCountIndex")->getValue().c_str()));
+	}
+	catch (XmlException &err)
 	{
-		// The first byte after the ID is a DTC count
-		if( response.size() >= 2)
-		{
-			// Erase the first byte
-			response.erase( 0, 1);
-			// Read the number of DTC's to follow
-			dtcCount = response[ 0];
+		Log(LOG_ERRORS, "XmlException getting DTC count index, using 2: %s\n", err.Reason().c_str());
+		SetDTCCountIndex(2);
+	}
+	// Store the Number of bytes per DTC
+	try
+	{
+		SetBytesPerDTC(BposReadInt(configNode->getChild("Setup/DTCData/BytesPerDTC")->getValue().c_str()));
+	}
+	catch (XmlException &err)
+	{
+		Log(LOG_ERRORS, "XmlException getting number of bytes per DTC field, using 3: %s\n", err.Reason().c_str());
+		SetBytesPerDTC(3);
+	}
+	// Store the index of the first DTC byte
+	try
+	{
+		SetFirstDTCByteIndex(BposReadInt(configNode->getChild("Setup/DTCData/FirstDTCByteIndex")->getValue().c_str()));
+	}
+	catch (XmlException &err)
+	{
+		Log(LOG_ERRORS, "XmlException getting index of the first DTC field, using 4: %s\n", err.Reason().c_str());
+		SetFirstDTCByteIndex(4);
+	}
+	// Load the FaultRegisters used to determine which byte of the module readfault response corresponds to what set
+	// 		of register codes
+	try
+	{
+		m_faultByteCodes.DeepCopy(configNode->getChild("Setup/FaultByteCodes")->getChildren());
+	}
+	catch (XmlException &err)
+	{	// Error loading the Fault Registers
+		Log(LOG_ERRORS, "No Fault byte codes to load - %s\n", err.what());
+	}
+	// Load the first byte address of the fault registers
+	try
+	{
+		SetFirstFaultRegister(atoh(configNode->getChild("Setup/DTCData/FirstFaultRegister")->getValue().c_str()));
+	}
+	catch (XmlException &err)
+	{	// Error loading the First Fault Register address
+		Log(LOG_ERRORS, "No Fault Register address to load - %s\n", err.what());
+	}
+	// Load the number of fault registers
+	try
+	{
+		SetNumberOfFaultRegisters(atoi(configNode->getChild("Setup/DTCData/NumberOfFaultRegisters")->getValue().c_str()));
+	}
+	catch (XmlException &err)
+	{	// Error loading the number of fault registers
+		Log(LOG_ERRORS, "No Number of Fault Registers to load - %s\n", err.what());
+	}
+  	// Load the option to stop read if first data byte returned is zero
+	try
+	{
+        SetStopNoDTCs(configNode->getChild("Setup/DTCData/StopDTCReadOnZero")->getValue());
+	}
+	catch (XmlException &err)
+	{	// Error loading the number of fault registers
+		Log(LOG_ERRORS, "No stop DTC read option to load - %s\n", err.what());
+	}
+	// Save the configuration data
+    m_moduleConfig = configNode->Copy();
+    Log(LOG_DEV_DATA, "Exit Bosch8Module<ProtocolFilterType>::Initialize\n");
+}
+
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::UDSReadFaults(FaultVector_t &faultCodes)
+{
+    SerialString_t response(255, 0);
+    BEP_STATUS_TYPE status;
+    UINT16 dtcCount;
+    // Check to see that all our objects are in place
+    CheckObjectsStatus();
+    // Read th faults from the module
+    status = m_protocolFilter->GetModuleData("ReadFaults", response);
+    // Check the status of the read
+    if (BEP_STATUS_SUCCESS == status)
+	{	// Good read, check the number of DTCs reported
+        if(GetDTCCountIndex() >= 0)
+        {
+            dtcCount = response[GetDTCCountIndex()];
+        }
+        else
+        {
+            dtcCount = (response.length() - GetFirstDTCByteIndex()) / GetBytesPerDTC();
+            Log(LOG_DEV_DATA, "No DTC Count Index, calculating number of DTCs\n");
+            Log(LOG_DEV_DATA, "response length: %d, FirstDTCByteIndex: %d, BytesPerDTC: %d\n",
+                response.length(), GetFirstDTCByteIndex(), GetBytesPerDTC());
+        }
+		// Check the number of DTCs reported
+		if (dtcCount == 0 || dtcCount > 5000)
+		{	// No DTCs reported
+			Log(LOG_DEV_DATA, "No faults recorded in the module\n");
 		}
-		Log( LOG_DEV_DATA, "Module is reporting %d DTC's\n", dtcCount);
-
-		// Extract the DTCs from the respnse
-		for( dtcIdx=0; (dtcIdx<dtcCount) && (response.size()>1); dtcIdx++)
-		{
-			// DTC are sent as [ HI,LO]
-			dtcVal = response[ 0];
-			dtcVal = ((dtcVal << 8) & 0xFF00) | response[1];
-			Log( LOG_DEV_DATA, "\tDTC %d: $%04X\n", dtcIdx, dtcVal);
-			// Erase the bytes for this DTC
-			response.erase( 0,2);
-
-			// Add the DTC to the fault list
-			std::string faultStr( CreateMessage(dtcStr, 16, "%04X", dtcVal));
-			FaultCode_t fault(faultStr);
-			faultCodes.push_back( fault);
+		else
+		{	// DTCs reported, loop to get them all
+			UINT16 currentDTCIndex = GetFirstDTCByteIndex();
+			Log(LOG_DEV_DATA, "Found %d DTCs recorded in the module:\n", dtcCount);
+			for (UINT16 currentDTC = 0; currentDTC < dtcCount; currentDTC++)
+			{	// Build a string representation of the DTC
+			     char buffer[8];
+				string dtc = "";
+                for(INT16 currentByte = 0; currentByte < (GetBytesPerDTC()-1); currentByte++)
+                {
+                    dtc = dtc + CreateMessage(buffer, (UINT32)sizeof(buffer), "%02X", response[currentDTCIndex+currentByte]);
+                    if ((currentDTCIndex + currentByte) >= response.length())
+                    {
+                        Log(LOG_ERRORS, "Accessing invalid data in moduleResonse, accessing: %d, resonse length: %d",
+                            (currentDTCIndex + currentByte), response.length());
+                        status = BEP_STATUS_SOFTWARE;
+                    }
+                }
+				// Log the DTC
+				Log(LOG_DEV_DATA, "\tDTC %03d - %s\n", currentDTC, dtc.c_str());
+				// Stuff the DTC into the fault vector
+				faultCodes.push_back(dtc);
+				// Update the index to the next DTC field
+				currentDTCIndex += GetBytesPerDTC();
+			}
+			// Check to make sure all reported faults were stored
+			if (faultCodes.size() != dtcCount)
+			{
+				Log(LOG_ERRORS, "Error storing all reported DTCs - stored: %d, reported: %d\n",
+					faultCodes.size(), dtcCount);
+				status = BEP_STATUS_SOFTWARE;
+			}
 		}
-
-		// If we did not receive the full DTC list from the module
-		if( dtcIdx < dtcCount)
-		{
-			// Log a message
-			Log( LOG_ERRORS, "Did not receive full list of DTCs: %d of %d DTCs received\n",
-				 dtcIdx, dtcCount);
-		}
-
-		return(BEP_STATUS_SUCCESS);
 	}
 	else
-	{
-		return(status);
+	{	// Error reading faults
+		Log(LOG_ERRORS, "Error reading faults from the module - status: %s\n", ConvertStatusToResponse(status).c_str());
 	}
+	// Return the status
+	return status;
+}
+
+template <class ProtocolFilterType>
+const INT32& Bosch8Module<ProtocolFilterType>::GetDTCCountIndex(void)
+{
+	return m_dtcCountIndex;
+}
+
+template <class ProtocolFilterType>
+const INT32& Bosch8Module<ProtocolFilterType>::GetBytesPerDTC(void)
+{
+	return m_bytesPerDTC;
+}
+
+template <class ProtocolFilterType>
+const INT32& Bosch8Module<ProtocolFilterType>::GetFirstDTCByteIndex(void)
+{
+	return m_firstDTCByteIndex;
+}
+
+template <class ProtocolFilterType>
+const INT16& Bosch8Module<ProtocolFilterType>::GetFirstFaultRegister(void)
+{
+	return m_firstFaultRegister;
+}
+
+template <class ProtocolFilterType>
+const INT32& Bosch8Module<ProtocolFilterType>::GetNumberOfFaultRegisters(void)
+{
+	return m_numberOfFaultRegisters;
+}
+
+template <class ProtocolFilterType>
+const bool& Bosch8Module<ProtocolFilterType>::FaultReadInProgress(void)
+{
+	return m_readingFaults;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetDTCCountIndex(const INT32 &index)
+{
+	m_dtcCountIndex = index;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetBytesPerDTC(const INT32 &bytesPerDTC)
+{
+	m_bytesPerDTC = bytesPerDTC;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetFirstDTCByteIndex(const INT32 &firstDTCByteIndex)
+{
+	m_firstDTCByteIndex = firstDTCByteIndex;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetFirstFaultRegister(const INT16 &firstFaultRegister)
+{
+	m_firstFaultRegister = firstFaultRegister;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetNumberOfFaultRegisters(const INT32 &numberOfFaultRegisters)
+{
+	m_numberOfFaultRegisters = numberOfFaultRegisters;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetReadFaultsInProgress(void)
+{
+	m_readingFaults = true;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetReadFaultsComplete(void)
+{
+	m_readingFaults = false;
+}
+
+template <class ProtocolFilterType>
+const bool& Bosch8Module<ProtocolFilterType>::GetStopNoDTCs(void)
+{
+	return m_stopNoDTCs;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetStopNoDTCs(const string &stopDTCRead)
+{
+	if(stopDTCRead == "Yes")
+       m_stopNoDTCs = true;
+    else
+       m_stopNoDTCs = false;
+}
+
+template <class ProtocolFilterType>
+void Bosch8Module<ProtocolFilterType>::SetDTCFormatUDS(const bool &setValue)
+{
+    m_dtcFormatUds = setValue;
+}
+
+template <class ProtocolFilterType>
+bool Bosch8Module<ProtocolFilterType>::GetDTCFormatUDS(void)
+{
+    return m_dtcFormatUds;
 }
 

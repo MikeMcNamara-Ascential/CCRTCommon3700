@@ -38,7 +38,7 @@
          <ProcessName>BaseBrake</ProcessName>
          <AdditionalLogFile>/Components/BaseBrake</AdditionalLogFile>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x01</Verbose>
+         <Verbose>0x1F</Verbose>
       </Logging>
       <TagList>
          <!-- There are no publish tags for the base brake test component -->

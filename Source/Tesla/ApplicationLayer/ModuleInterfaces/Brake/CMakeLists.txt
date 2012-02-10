@@ -9,3 +9,4 @@ SET(BRAKE_MODULE_PATHS
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Teves)
+ADD_SUBDIRECTORY(Bosch)

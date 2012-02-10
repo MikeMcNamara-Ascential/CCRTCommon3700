@@ -31,6 +31,34 @@ public:
     virtual ~DelphiAirbagModule();
     virtual string ModuleName();
     BEP_STATUS_TYPE GetSecurityAccess();
+	virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
+	virtual bool Initialize(const XmlNode *configNode);
+protected:
+	virtual const INT32& GetDTCCountIndex(void);
+	virtual const INT32& GetBytesPerDTC(void);
+	virtual const INT32& GetFirstDTCByteIndex(void);
+	virtual const INT16& GetFirstFaultRegister(void);
+	virtual const INT32& GetNumberOfFaultRegisters(void);
+	const bool& FaultReadInProgress(void);
+    const bool& GetStopNoDTCs(void);
+	void SetReadFaultsInProgress(void);
+	void SetReadFaultsComplete(void);
+    XmlNodeMap m_faultByteCodes;
+    XmlNode *m_moduleConfig;
+private:
+	void SetDTCCountIndex(const INT32 &index);
+	void SetBytesPerDTC(const INT32 &bytesPerDTC);
+	void SetFirstDTCByteIndex(const INT32 &firstDTCByteIndex);
+	void SetFirstFaultRegister(const INT16 &firstFaultRegister);
+	void SetNumberOfFaultRegisters(const INT32 &numberOfFaultRegisters);
+    void SetStopNoDTCs(const string &stopDTCRead);
+	INT32 m_dtcCountIndex;
+	INT32 m_bytesPerDTC;
+	INT32 m_firstDTCByteIndex;
+	bool m_readingFaults;
+	INT16 m_firstFaultRegister;
+	INT32 m_numberOfFaultRegisters;
+	bool m_stopNoDTCs;
 };
 //-----------------------------------------------------------------------------
 #endif //DelphiAirbagModule_h

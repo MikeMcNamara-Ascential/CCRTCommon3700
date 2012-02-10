@@ -1,6 +1,7 @@
 #------------------------------------------------------------------------------------------
-# Tell CMake what files to install
+# Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
-INSTALL_FILES(${CUSTOMER_SERVICES_CFG_DEPLOY_DIR} FILES Tesla.SerialPlcConfig.xml)
-
-
+INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
+	Tesla.BoschABSTC.xml
+	)
+	

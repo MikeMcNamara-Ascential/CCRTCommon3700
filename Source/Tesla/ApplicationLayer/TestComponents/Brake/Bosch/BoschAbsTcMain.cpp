@@ -24,8 +24,8 @@
 #include "BoschABSTC.h"
 #include "BoschABSTC.cpp"
 #include "CmdLineProcessor.h"
-#include "BoschAbsModule.cpp"
-#include "KeywordProtocolFilter.h"
+#include "Bosch8Module.cpp"
+#include "KwpCanProtocolFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	try
 	{
 		clp.ParseArguments(argc, argv);     // parse the command line
-        object = new BoschABSTC<BoschAbsModule<KeywordProtocolFilter> >();
+        object = new BoschABSTC<Bosch8Module<KwpCanProtocolFilter> >();
 		if(clp.IsDebugOn())	printf("Creating the Tesla Brake Component\n");
 
 		if(clp.IsDebugOn())	printf("Initializing the Tesla Brake Component\n");

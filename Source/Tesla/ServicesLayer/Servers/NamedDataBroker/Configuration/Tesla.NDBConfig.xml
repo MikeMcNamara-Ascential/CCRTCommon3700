@@ -905,6 +905,7 @@
                 <PLCDidNotInitialize DataType="bool">PLC</PLCDidNotInitialize>
                 <PLCRackFault DataType="bool">PLC</PLCRackFault>
                 <PLCReadyToTest DataType="bool">PLC</PLCReadyToTest>
+                <PLCRHSCableConnect DataType="bool">PLC</PLCRHSCableConnect>
                 <PLCSerialReadFault DataType="bool">PLC</PLCSerialReadFault>
                 <PLCSerialWriteFault DataType="bool">PLC</PLCSerialWriteFault>
                 <PLCSystemFailure DataType="bool">PLC</PLCSystemFailure>

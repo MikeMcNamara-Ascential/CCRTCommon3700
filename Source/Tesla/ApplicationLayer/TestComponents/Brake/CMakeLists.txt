@@ -2,7 +2,8 @@
 # Where to find the common headers
 #------------------------------------------------------------------------------------------
 INCLUDE_DIRECTORIES(    ${BRAKE_MODULE_PATHS}
-				${CORE_BRAKE_TC_INC_PATH})
+				${CORE_BRAKE_TC_INC_PATH}
+				${BOSCH8_MODULE_INC_PATH})
 
 #------------------------------------------------------------------------------------------
 # All components link against the common libraries
@@ -14,3 +15,4 @@ LINK_LIBRARIES(basebrake m)
 # Build the executables after the library
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Teves)
+ADD_SUBDIRECTORY(Bosch)

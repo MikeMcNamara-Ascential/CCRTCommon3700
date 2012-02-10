@@ -3,7 +3,7 @@
       <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
       <Communication>
          <Debug>Off</Debug>
-         <Name>ISOK</Name>
+         <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
          <BufferSize>4096</BufferSize>
          <CommSize>1</CommSize>
          <Timeout>10000000</Timeout>
@@ -15,13 +15,16 @@
       <DataHeaderLength>2</DataHeaderLength>
       <DataStartIndex>6</DataStartIndex>
       <DTCData>
-         <DTCCountIndex>1</DTCCountIndex>
-         <BytesPerDTC>3</BytesPerDTC>
-         <FirstDTCByteIndex>2</FirstDTCByteIndex>
+         <DTCFormatUDS>Yes</DTCFormatUDS>
+         <DTCCountIndex>-1</DTCCountIndex>
+         <BytesPerDTC>4</BytesPerDTC>
+         <FirstDTCByteIndex>3</FirstDTCByteIndex>
+         <NumberOfFaultRegisters>6</NumberOfFaultRegisters>
+         <NoFaultsPresentValue></NoFaultsPresentValue>
       </DTCData>
       <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
       <KeepAlivePriority>10</KeepAlivePriority>
-      <KeepAliveResponseRequired>No</KeepAliveResponseRequired>
+      <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
       <KeepAliveResponseTime>500</KeepAliveResponseTime>
       <Logging>
          <Status>Enabled</Status>
@@ -31,10 +34,10 @@
          <LocalEcho>Disabled</LocalEcho>
          <Verbose>0x3F</Verbose>
       </Logging>
-      <ModuleKeepAliveTime>250</ModuleKeepAliveTime>
-      <ModuleRequestID>0x7DF</ModuleRequestID>
+      <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+      <ModuleRequestID>0x645</ModuleRequestID>
       <ModuleResponseDelay>500</ModuleResponseDelay>
-      <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
+      <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
       <NegativeResponseCodes>
          <Code_0x10>General Reject</Code_0x10>
          <Code_0x11>Service Not Supported</Code_0x11>
@@ -152,13 +155,13 @@
             <ReplyInterpretation/>
          </ActuateVacuumPump>
          <AllInletValvesOff>
-            <TransmitMeassage>MultipleValveActuation</TransmitMeassage>
+            <TransmitMessage>MultipleValveActuation</TransmitMessage>
             <TransmitInterpretation>AllInletValvesOff</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </AllInletValvesOff>
          <AllInletValvesOn>
-            <TransmitMeassage>MultipleValveActuation</TransmitMeassage>
+            <TransmitMessage>MultipleValveActuation</TransmitMessage>
             <TransmitInterpretation>AllInletValvesOn</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
@@ -172,7 +175,7 @@
          <DefaultDiagnosticMode>
             <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
             <TransmitInterpretation>DefaultSession</TransmitInterpretation>
-            <ReplyMessage>EnterDiagnosticSession</ReplyMessage>
+            <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
             <ReplyInterpretation/>
          </DefaultDiagnosticMode>
          <DisableECUTransmission>
@@ -200,9 +203,9 @@
             <ReplyInterpretation/>
          </EnterDiagnosticMode>
          <ExitDiagnosticMode>
-            <TransmitMessage>ExitDiagMode</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>ExitDiagMode</ReplyMessage>
+            <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+            <TransmitInterpretation>DefaultSession</TransmitInterpretation>
+            <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
             <ReplyInterpretation/>
          </ExitDiagnosticMode>
          <EvacAndFill>
@@ -374,23 +377,22 @@
       </VehicleMessages>
       <TransmitMessages>
          <!--For actuating one valve or for single-corner reduction/recovery-->
-         <ActuatorOperation>0x31,0x01,0xF0,0x04,0x00,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActuatorOperation>
+         <ActuatorOperation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActuatorOperation>
          <!--For turning all/multiple valves on/off-->
-         <MultipleValveActuation>0x31,0x01,0xF0,0x04,0x00,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x01,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??</MultipleValveActuation>
+         <MultipleValveActuation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x01,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??</MultipleValveActuation>
          <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
          <CommunicationControl>0x28,0x??,0x01</CommunicationControl>
          <ControlDTCSetting>0x85,0x??</ControlDTCSetting>
          <EnterDiagnosticMode>0x10,0x??</EnterDiagnosticMode>
-         <ExitDiagMode>0x20</ExitDiagMode>
          <IOControl>0x2F,0x??,0x??,0x00</IOControl>
          <ReadECUId>0x22,0x??,0x??</ReadECUId>
-         <ReadFaults>0x19</ReadFaults>
+         <ReadFaults>0x19,0x02,0xFF</ReadFaults>
          <ResetModule>0x11,0x03</ResetModule>
          <RoutineResults>0x31,0x03,0x??,0x??</RoutineResults>
          <RoutineControl>0x31,0x01,0x??,0x??</RoutineControl>
-         <StartRoutine>0x31, 0x01,0xF0,0x??,0x??,0x??</StartRoutine>
+         <StartRoutine>0x31,0x01,0xF0,0x??,0x??,0x??</StartRoutine>
          <StaticTest>0x31,0x01,0xF0,0x03</StaticTest>
-         <StopRoutine>0x31, 0x02,0xF0,0x??</StopRoutine>
+         <StopRoutine>0x31,0x02,0xF0,0x??</StopRoutine>
          <TesterPresent>0x3E,0x00</TesterPresent>
          <WheelSpeedSensorTest>0x31,0x01,0xF0,0x02,0x??,0x??,0x??</WheelSpeedSensorTest>
       </TransmitMessages>
@@ -398,7 +400,7 @@
          <ActivateControlValveUSV1>0x64,0x4E,0x00,0x00</ActivateControlValveUSV1>
          <ActivateControlValveUSV2>0x64,0x50,0x00,0x00</ActivateControlValveUSV2>
          <ActivateHighPressureControlValveHSV1>0x64,0x52,0x00,0x00</ActivateHighPressureControlValveHSV1>
-         <ActivateHighPressureControlValveHSV2>0x64,0x540x00,0x00</ActivateHighPressureControlValveHSV2>
+         <ActivateHighPressureControlValveHSV2>0x64,0x54,0x00,0x00</ActivateHighPressureControlValveHSV2>
          <ActivateLFInletValve>0x64,0x30,0x00,0x32</ActivateLFInletValve>
          <ActivateLFOutletValve>0x64,0x32,0x00,0x30</ActivateLFOutletValve>
          <ActivateLRInletValve>0x64,0x3C,0x00,0x3E</ActivateLRInletValve>
@@ -410,7 +412,7 @@
          <ActivateRROutletValve>0x64,0x3A,0x00,0x00</ActivateRROutletValve>
          <ActuatorTestId>0x04</ActuatorTestId>
          <AllInletValvesOff>0x00,0x30,0x00,0x34,0x00,0x38,0x00,0x3C</AllInletValvesOff>
-         <AllIntletValvesOn>0x64,0x30,0x64,0x34,0x64,0x38,0x64,0x3C</AllIntletValvesOn>
+         <AllInletValvesOn>0x64,0x30,0x64,0x34,0x64,0x38,0x64,0x3C</AllInletValvesOn>
          <AllOutletValvesOff>0x00,0x32,0x00,0x36,0x00,0x3A,0x00,0x3E</AllOutletValvesOff>
          <AllOutletValvesOn>0x64,0x32,0x64,0x36,0x64,0x3A,0x64,0x3E</AllOutletValvesOn>
          <BrakePedalStatus>0xFD,0x01</BrakePedalStatus>
@@ -437,7 +439,7 @@
          <SoftwareVersion>0xF1,0x80</SoftwareVersion>
          <StaticTestId>0x03</StaticTestId>
          <StopSettingDTC>0x02</StopSettingDTC>
-         <VINNumber>0xF1,0x90</VINNumber>
+         <VINNumber>0xF1,0xA0</VINNumber>
          <WheelSpeedSensor0TestDecel>0x00,0x00,0x00</WheelSpeedSensor0TestDecel>
          <WheelSpeedSensor2TestDecel>0x00,0xC8,0x00</WheelSpeedSensor2TestDecel>
          <WheelSpeedSensor2TestAccel>0x00,0xC8,0x01</WheelSpeedSensor2TestAccel>

@@ -64,12 +64,12 @@
       <DataTags>
          <OverallTest>GmTcaseOverallTest</OverallTest>
          <DriveAxle>DriveAxle</DriveAxle>
-         <FailButton>NoPB</FailButton>
+         <FailButton>DriverFail</FailButton>
          <Rear>Rear</Rear>
          <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
          <Zerospeed>Zerospeed</Zerospeed>
          <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
-         <PassButton>YesPB</PassButton>
+         <PassButton>DriverPass</PassButton>
          <PromptBox1>PromptBox1</PromptBox1>
          <PromptBox2>PromptBox2</PromptBox2>
          <SpeedControlPrompt>SpeedControlPressFail</SpeedControlPrompt>

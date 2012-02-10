@@ -638,6 +638,7 @@
         <MachineType3600 channelIndex="22" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
         <MachineType2400 channelIndex="22" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>
         <PLCCableConnect channelIndex="22" bitIndex="11" logic="1" portDir="IN" boardIdx="0"/>
+        <PLCRHSCableConnect channelIndex="22" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
         <PLCReadyToTest channelIndex="22" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
         <Encoder5VPowerSupplyVoltage channelIndex="25" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <BoostPressureFeedBack channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>

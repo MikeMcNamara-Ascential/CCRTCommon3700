@@ -4,7 +4,7 @@
       <Debug>Off</Debug>
       <FaultList>/Configuration/Components/Brake/BoschBrakeFaultList.xml</FaultList>
       <TestDomain>Foreground</TestDomain>
-      <CommunicationProtocol>IsoProtocol</CommunicationProtocol>
+      <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
       <ThreadPool>
          <Debug>Off</Debug>
          <MinBlockedLimit>2</MinBlockedLimit>
@@ -130,7 +130,7 @@
          <EnableValveRelayShutdown>EnableValveRelayShutdown</EnableValveRelayShutdown>
          <EnterDiagnosticMode>EnterDiagnosticMode</EnterDiagnosticMode>
          <ExitDiagnosticMode>ExitDiagnosticMode</ExitDiagnosticMode>
-         <FailButton>NoPB</FailButton>
+         <FailButton>DriverFail</FailButton>
          <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
          <Front>FWD</Front>
          <FrontBalanceBGColor>FrontBalanceBGColor</FrontBalanceBGColor>
@@ -169,7 +169,7 @@
          <ModulePartNumber>ABSPartNo</ModulePartNumber>
          <ModuleVIN>ModuleVIN</ModuleVIN>
          <MotorMode>MotorMode</MotorMode>
-         <PassButton>YesPB</PassButton>
+         <PassButton>DriverPass</PassButton>
          <ProgramVIN>ProgramVIN</ProgramVIN>
          <ReadBrakeSwitch>ReadBrakeSwitch</ReadBrakeSwitch>
          <ReadEngineSpeed>ReadEngineSpeed</ReadEngineSpeed>
@@ -239,7 +239,7 @@
          <AlwaysStartGUIForceThread>Yes</AlwaysStartGUIForceThread>
          <AlwaysStartKeepAlive>Yes</AlwaysStartKeepAlive>
          <CheckAxleSpeeds>1</CheckAxleSpeeds>
-         <ConfigFile>/Configuration/Components/Brake/BoschABSModule.xml</ConfigFile>
+         <ConfigFile>/Configuration/Components/Brake/BoschAbsModuleConfig.xml</ConfigFile>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
@@ -284,7 +284,7 @@
             <Wheel_2>LeftFront</Wheel_2>
             <Wheel_3>RightFront</Wheel_3>
          </ABS3ChannelFiringSequence>
-         <AbsFourChannelSystem>True</AbsFourChannelSystem>
+         <IsFourChannelSystem>True</IsFourChannelSystem>
          <BrakeForceStabilizeTime Units="ms">500</BrakeForceStabilizeTime>
          <CollectSensorSpeedData>No</CollectSensorSpeedData>
          <DisableMeterForValveFiring>Yes</DisableMeterForValveFiring>
@@ -341,8 +341,13 @@
          <StaticBrakeBurnishOperatorSetupTime Units="ms">5000</StaticBrakeBurnishOperatorSetupTime>
          <StaticBrakeBurnishParkBrakeClicks>4</StaticBrakeBurnishParkBrakeClicks>
          <StaticBrakeBurnishTime Units="ms">120000</StaticBrakeBurnishTime>
+         <BurnishPromptTimeout Units="ms">15000</BurnishPromptTimeout>
          <!--Ignition On Startup Time-->
          <IgnitionOnStartupTime>5000</IgnitionOnStartupTime>
+         <!--PLC Result Buttons-->
+         <UsePlcResultButtons>true</UsePlcResultButtons>
+         <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
+         <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
       </Parameters>
       <Prompts>
          <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
@@ -364,13 +369,13 @@
    <Objectives>
       <Setup>
          <TestStep00>Setup</TestStep00>
-         <TestStep01>DetermineSystemConfiguartion</TestStep01>
-         <TestStep05>Initialize</TestStep05>
-         <TestStep01>EnterDiagnosticMode</TestStep01>
-         <TestStep20>CheckPartNumber</TestStep20>
-         <TestStep>ReadFaults</TestStep>
-         <TestStep25>ClearFaults</TestStep25>
-         <TestStep90>StartModuleKeepAlive</TestStep90>
+         <!--TestStep10>DetermineSystemConfiguartion</TestStep10-->
+         <TestStep20>Initialize</TestStep20>
+         <TestStep30>EnterDiagnosticMode</TestStep30>
+         <TestStep40>CheckPartNumber</TestStep40>
+         <TestStep50>ReadFaults</TestStep50>
+         <TestStep60>ClearFaults</TestStep60>
+         <TestStep70>StartModuleKeepAlive</TestStep70>
       </Setup>
       <EnterDiagnosticMode>
          <TestStep00>EnterDiagnosticMode</TestStep00>
@@ -413,7 +418,6 @@
       </BrakeSwitchTest>
       <BaseBrakeTest>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
-         <TestStep10>Coast</TestStep10>
          <TestStep15>DragTest</TestStep15>
          <TestStep20>AnalyzeDragTest</TestStep20>
          <TestStep25>BrakeSwitchOffTest</TestStep25>

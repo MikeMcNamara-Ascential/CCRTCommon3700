@@ -33,7 +33,9 @@
             <Boost/>
             <CableConnect/>
             <DriveAxle/>
+            <DriverFail/>
             <DriverNumber/>
+            <DriverPass/>
             <ForegroundTestInProgress/>
             <KeyPress/>
             <MachineNumber/>
@@ -45,6 +47,7 @@
             <ParkingBrakeTestPass/>
             <ParkingPawlTestFailed/>
             <ParkingPawlTestPassed/>
+            <PLCRHSCableConnect/>
             <RollsUpElevDown/>
             <SoftwareID/>
             <TestInProgress/>
@@ -75,8 +78,8 @@
          <InputServerState>InputServerState</InputServerState>
          <InputServerState>InputServerState</InputServerState>
          <KeyPress>KeyPress</KeyPress>
-         <YesButton>YesPB</YesButton>
-         <NoButton>NoPB</NoButton>
+         <YesButton>DriverPass</YesButton>
+         <NoButton>DriverFail</NoButton>
          <MachineNumber>MachineNumber</MachineNumber>
          <MachineType>3700</MachineType>
          <MachineType3600>0</MachineType3600>
@@ -93,6 +96,7 @@
          <ParkPawlTestPass>ParkingPawlTestPassed</ParkPawlTestPass>
          <ParkPawlTestFail>ParkingPawlTestFailed</ParkPawlTestFail>
          <RetainersUp>RollsUpElevDown</RetainersUp>
+         <RighthandDriveSelected>PLCRHSCableConnect</RighthandDriveSelected>
          <ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
          <ServerStateNormal>Normal</ServerStateNormal>
          <SoftwareVersion>SoftwareID</SoftwareVersion>
@@ -151,8 +155,14 @@
          <TestStep20>MachineReady</TestStep20>
          <TestStep30>EngageMachine</TestStep30>
          <TestStep40>ConnectCable</TestStep40>
+         <TestStep50>SelectDriverSide</TestStep50>
          <TestStep50>PromptDriverAlways</TestStep50>
       </Initialize>
+      <InitializeNoCableConnect>
+         <TestStep10>Initialize</TestStep10>
+         <TestStep20>MachineReady</TestStep20>
+         <TestStep30>EngageMachine</TestStep30>
+      </InitializeNoCableConnect>
       <DriverQuestion>
          <TestStep1>DriverQuestion</TestStep1>
       </DriverQuestion>
@@ -233,6 +243,8 @@
          <DriveProfileTestPhaseComplete Description="Inform operator drive profile testing is starting" Timeout="5000" Result="" Prompt1="DriveProfileTestsComplete" Prompt1Priority="0"/>
          <AbsTestPhase Description="Inform operator ABS testing is starting" Timeout="5000" Result="" Prompt1="ABSTest" Prompt1Priority="0"/>
          <AbsTestPhaseComplete Description="Inform operator ABS testing is complete" Timeout="5000" Result="" Prompt1="ABSTestComplete" Prompt1Priority="0"/>
+         <ReverseWarningTestPhase Description="Inform operator Reverse Warning testing is starting" Timeout="5000" Result="" Prompt1="ReverseWarningTest" Prompt1Priority="0"/>
+         <ReverseWarningTestPhaseComplete Description="Inform operator Reverse Warning testing is complete" Timeout="5000" Result="" Prompt1="ReverseWarningTestComplete" Prompt1Priority="0"/>
          <ParkBrakeTestPhase Description="Inform operator park brake testing is starting" Timeout="5000" Result="" Prompt1="ParkBrakeTest" Prompt1Priority="0"/>
          <ParkBrakeTestPhaseComplete Description="Inform operator park brake testing is complete" Timeout="5000" Result="" Prompt1="ParkBrakeTestComplete" Prompt1Priority="0"/>
          <BrakeBurnishTestPhase Description="Inform operator brake burnish test is starting" Timeout="5000" Result="" Prompt1="BrakeBurnishTest" Prompt1Priority="0"/>
@@ -263,5 +275,6 @@
       <EnableMotorLoading Result="" Description="Apply a load to the drive axle of the vehicle" Timeout="2000"/>
       <DisableMotorLoading Result="" Description="Disable the loading of the drive axle of the vehicle" Timeout="2000"/>
       <EngageMachine Result="" Description="Engage the machine" Timeout="2000"/>
+      <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" Timeout="100" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>
    </TestSteps>
 </GMMachineComponent>

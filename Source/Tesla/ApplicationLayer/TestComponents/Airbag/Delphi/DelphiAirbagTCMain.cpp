@@ -24,7 +24,7 @@
 #include "DelphiAirbagTC.cpp"
 #include "CmdLineProcessor.h"
 #include "DelphiAirbagModule.cpp"
-#include "Keyword82ProtocolFilter.h"
+#include "KwpCanProtocolFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 	try
 	{
 		clp.ParseArguments(argc, argv);     // parse the command line
-        object = new DelphiAirbagTC<DelphiAirbagModule<Keyword82ProtocolFilter> >();
+        object = new DelphiAirbagTC<DelphiAirbagModule<KwpCanProtocolFilter> >();
 		if(clp.IsDebugOn())	printf("Creating the Tesla Airbag Component\n");
 
 		if(clp.IsDebugOn())	printf("Initializing the Tesla Airbag Component\n");

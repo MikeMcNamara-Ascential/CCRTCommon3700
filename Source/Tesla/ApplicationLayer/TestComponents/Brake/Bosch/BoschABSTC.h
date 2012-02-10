@@ -22,11 +22,37 @@
 #ifndef BoschABSTC_h
 #define BoschABSTC_h
 //-----------------------------------------------------------------------------
-#include "GenericABSTCTemplate.cpp"
+#include "KoreaAbsTcTemplate.cpp"
 //-----------------------------------------------------------------------------
 
+/**
+ * Possible steps for each wheel in the ESP test
+ */
+typedef enum
+{
+    ESP_INIT,
+    ESP_PUMP_ON,
+    ESP_PRIMARY_ON,
+    ESP_START,
+    ESP_PRIMARY_OFF,
+    ESP_END,
+    ESP_FINALIZE,
+    ESP_DONE
+} ESPSteps_t;
+
+/**
+ * Array index of the reduction speed delta data in the 
+ * m_absSpeedDeltas data array
+ */
+#define RED_DELTA_IDX		0
+/**
+ * Array index of the recovery speed delta data in the 
+ * m_absSpeedDeltas data array
+ */
+#define REC_DELTA_IDX		1
+
 template<class ModuleInterface>
-class BoschABSTC : public GenericABSTCTemplate<ModuleInterface>
+class BoschABSTC : public KoreaAbsTcTemplate<ModuleInterface>
 {
 public:
     /** Class constructor */
@@ -479,7 +505,7 @@ protected:
      * 
      * @return Result of determining the system configuration
      */
-    virtual string DetermineSystemConfiguration(void);
+    //virtual string DetermineSystemConfiguration(void);
     /**
      * Initialize the park brake test.
      * <p><b>Category:</b> Utility
@@ -492,7 +518,7 @@ protected:
      * 
      * @return The system status after waiting for the operator to place the vehicle in a testable state.
      */
-    virtual INT32 ElectricParkBrakeInit(void);
+    //virtual INT32 ElectricParkBrakeInit(void);
     /**
      * Test the park brake
      * <p><b>Category:</b> Utility
@@ -546,7 +572,7 @@ protected:
      *
      * @return The result of testing the park brake.
      */
-    virtual const string PerformPBTorqueTest(const string &direction);
+    //virtual const string PerformPBTorqueTest(const string &direction);
     /**
      * Place the module back into normal mode once testing is completed.
      * 

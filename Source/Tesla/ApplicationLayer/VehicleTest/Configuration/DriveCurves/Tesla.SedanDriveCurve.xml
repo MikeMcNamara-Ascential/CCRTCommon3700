@@ -1,16 +1,16 @@
 <DriveCurve Description="Drive Curve For The Roadster Test">
    <Components Debug="Off">
       <Airbag>
-         <ComponentName>SiemensAirbagTC.qxe</ComponentName>
+         <ComponentName>DelphiAirbagTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
-         <ConfigFile>KwpIsoSiemensSab8xAirbagTC.xml</ConfigFile>
+         <ConfigFile>DelphiAirbagTC.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Airbag</ConfigPath>
          <Debug>Off</Debug>
       </Airbag>
       <Brake>
-         <ComponentName>BoschABSTC.qxe</ComponentName>
+         <ComponentName>BoschAbsTc.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-         <ConfigFile>BoschABSTC.xml</ConfigFile>
+         <ConfigFile>Tesla.BoschABSTC.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
          <Debug>Off</Debug>
       </Brake>
@@ -44,7 +44,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase000>
-      <TestPhase010 Description="Turn Ignition Off" Result="" Timeout="">
+      <!-- TestPhase010 Description="Turn Ignition Off" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Brake">
                <IgnitionOff/>
@@ -57,7 +57,7 @@
                <IgnitionOn/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase020>
+      </TestPhase020 -->
       <!-- ABS Static Testing -->
       <TestPhase100 Description="Prompt ABS testing in progress" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -131,7 +131,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase310>
-      <TestPhase320 Description="Perofrm reverse warning" Result="" Timeout="">
+      <TestPhase320 Description="Perform reverse warning" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Perform reverse warning test" Result="" Timeout="" Component="DriveTrain">
                <Reverse/>

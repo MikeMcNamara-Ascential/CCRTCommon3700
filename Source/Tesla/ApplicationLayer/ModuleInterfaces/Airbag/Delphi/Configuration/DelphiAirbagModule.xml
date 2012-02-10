@@ -1,23 +1,33 @@
 <DelphiAirbagModule>
    <Setup>
-      <ModuleKeepAliveTime>2000</ModuleKeepAliveTime>
-      <KeepAliveResponseRequired>No</KeepAliveResponseRequired>
-      <SwitchMonitorDelay>500</SwitchMonitorDelay>
-      <ResponsePendingReads>3</ResponsePendingReads>
-      <DataStartIndex>0</DataStartIndex>
-      <DataHeaderLength>0</DataHeaderLength>
+      <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
       <CheckSumLength>1</CheckSumLength>
-      <ValidateChecksum>Yes</ValidateChecksum>
-      <ChecksumCalculationMethod>Add</ChecksumCalculationMethod>
-      <NumberOfRetries>3</NumberOfRetries>
-      <ValidResponseOffset>0x90</ValidResponseOffset>
-      <SentMessageIdentifierIndex>4</SentMessageIdentifierIndex>
-      <ModuleResponseDelay>50</ModuleResponseDelay>
-      <ModuleResponseEndDelay>5</ModuleResponseEndDelay>
-      <MessageWindowDetectAttempts>250</MessageWindowDetectAttempts>
-      <MessageSendWindowDetectTime Units="ms">5</MessageSendWindowDetectTime>
+      <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+      <DataByteCountIndex>3</DataByteCountIndex>
+      <DataHeaderLength>2</DataHeaderLength>
+      <DataStartIndex>6</DataStartIndex>
+      <DTCData>
+         <DTCCountIndex>-1</DTCCountIndex>
+         <BytesPerDTC>4</BytesPerDTC>
+         <FirstDTCByteIndex>3</FirstDTCByteIndex>
+         <NumberOfFaultRegisters>6</NumberOfFaultRegisters>
+         <NoFaultsPresentValue></NoFaultsPresentValue>
+      </DTCData>
+      <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+      <KeepAlivePriority>10</KeepAlivePriority>
+      <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+      <KeepAliveResponseTime>500</KeepAliveResponseTime>
+      <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+      <ModuleRequestID>0x641</ModuleRequestID>
+      <ModuleResponseDelay>500</ModuleResponseDelay>
+      <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
       <NegativeResponseValue>0x7F</NegativeResponseValue>
       <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+      <NumberOfRetries>3</NumberOfRetries>
+      <ResponsePendingReads>3</ResponsePendingReads>
+      <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+      <SwitchMonitorDelay>500</SwitchMonitorDelay>
+      <ValidResponseOffset>0x40</ValidResponseOffset>
       <NegativeResponseCodes>
          <Code_0x10>General Reject</Code_0x10>
          <Code_0x11>Service Not Supported</Code_0x11>
@@ -45,7 +55,7 @@
       </NegativeResponseCodes>
       <Communication>
          <Debug>Off</Debug>
-         <Name>ISOK</Name>
+         <Name>GryphonCCan</Name>
          <BufferSize>4096</BufferSize>
          <CommSize>1</CommSize>
          <Timeout>10000000</Timeout>
@@ -61,13 +71,6 @@
       </Logging>
    </Setup>
    <SerialMessages>
-      <InitMessage>
-         <Byte_00 alias="AddressByte" byteType="Tx" timeOut="2000" value="0x62" baud="5"/>
-         <Byte_01 alias="SyncByte" byteType="Rx" timeOut="3000" baud="9600"/>
-         <Byte_02 alias="Keyword1" byteType="Rx" timeOut="2000"/>
-         <Byte_03 alias="Keyword2" byteType="Rx" timeOut="2000"/>
-         <Byte_04 alias="InvKeyword" byteType="Tx" timeOut="28" value="0x7F"/>
-      </InitMessage>
       <VehicleMessages>
          <EnterDiagnosticMode>
             <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
@@ -103,7 +106,7 @@
             <TransmitMessage>ReadFaults</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>ReadFaults</ReplyMessage>
-            <ReplyInterpretation>ReadFaults</ReplyInterpretation>
+            <ReplyInterpretation/>
          </ReadFaults>
          <TransmitSecurityKey>
            <TransmitMessage>TransmitSecurityKey</TransmitMessage>
@@ -111,55 +114,71 @@
             <ReplyMessage>TransmitSecurityKey</ReplyMessage>
             <ReplyInterpretation></ReplyInterpretation>
          </TransmitSecurityKey>
+         <ReadTraceData>
+            <TransmitMessage>ReadTraceData</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadTraceData</ReplyMessage>
+            <ReplyInterpretation>ReadTraceData</ReplyInterpretation>
+         </ReadTraceData>
       </VehicleMessages>
       <TransmitMessages>
-         <ClearFaults>0x06.0x41,0x04,0x14,0xFF,0xFF,0xFF,0x00,0x00,0x00,0x08,0xFE,0x92 </ClearFaults>
-         <ReadFaults>0x06,0x41,0x03,0x19,0x02,0x09 </ReadFaults>
-         <EnterDiagnosticMode>0x06,0x41,0x02,0x10,0x03</EnterDiagnosticMode>
-         <CommandSecurityAccess>0x06,0x41,0x02,0x27.0x01</CommandSecurityAccess>
-         <ReadByID>0x06,0x41,0x03,0x22,0xfd,0x40</ReadByID>
-         <WriteByID>0x06,0x41,0x2e,0xfd,0x40</WriteByID>
-         <TransmitSecurityKey>0x06,0x41,0x04,0x??,0x??,0x4A,0x0E</TransmitSecurityKey>
+         <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
+         <ReadFaults>0x19,0x02,0x09</ReadFaults>
+         <EnterDiagnosticMode>0x10,0x03</EnterDiagnosticMode>
+         <CommandSecurityAccess>0x27,0x01</CommandSecurityAccess>
+         <ReadByID>0x22,0xFD,0x40</ReadByID>
+         <WriteByID>0x2E,0xFD,0x40</WriteByID>
+         <TransmitSecurityKey>0x27,0x02,0x??,0x??</TransmitSecurityKey>
+         <ReadTraceData>0x22,0xFD,0x02</ReadTraceData>
       </TransmitMessages>
       <TransmitInterpretations/>
       <ReplyMessages>
          <ClearFaults>
-            <Reply_01>0x06,0x51,0x01,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0xFE,0xA3 </Reply_01>
-            <Reply_02>0x7f,0x14,0x??</Reply_02>
+            <Reply_01>0x54</Reply_01>
+            <Reply_02>0x7F,0x14,0x??</Reply_02>
          </ClearFaults>
          <EnterDiagnosticMode>
-           <Reply_01>0x06,0x51,0x06,0x50,0x03,0x00,0x32,0x01,0xf4</Reply_01>
-           <Reply_02>0x7f,0x10,0x??</Reply_02> 
+           <Reply_01>0x50,0x03</Reply_01>
+           <Reply_02>0x7F,0x10,0x??</Reply_02> 
          </EnterDiagnosticMode>
          <CommandSecurityAccess>
-           <Reply_01>0x06,0x51,0x04,0x67,0x01,0x??,0x??</Reply_01>
-           <Reply_02>0x7f,0x27,0x??</Reply_02>
+           <Reply_01>0x67,0x01,0x??,0x??</Reply_01>
+           <Reply_02>0x7F,0x27,0x??</Reply_02>
          </CommandSecurityAccess>
          <ReadByID>
-           <Reply_01>0x06,0x51,0x05,0x62,0xFD,0x40,0x??</Reply_01>
-           <Reply_02>0x7f,0x22,0x??</Reply_02>
+           <Reply_01>0x62,0xFD,0x40,0x??</Reply_01>
+           <Reply_02>0x7F,0x22,0x??</Reply_02>
          </ReadByID>
          <WriteByID>
-           <Reply_01>0x06,0x51,0x03,0x6E,0xFD,0x40</Reply_01>
-           <Reply_02>0x7f,0x6e,0x??</Reply_02>
+           <Reply_01>0x6E,0xFD,0x40</Reply_01>
+           <Reply_02>0x7F,0x2E,0x??</Reply_02>
          </WriteByID>
          <ReadFaults>
-           <Reply_01>0x06,0x51,0x03,0x59,0x02,0xC9</Reply_01>
-           <Reply_02>0x7f,0x19,0x??</Reply_02>
+           <Reply_01>0x59,0x02,0xC9,0x??,0x??,0x??</Reply_01>
+           <Reply_02>0x7F,0x19,0x??</Reply_02>
          </ReadFaults>
          <TransmitSecurityKey>
-           <Reply_01>0x06,ox51,0x02,0x67,0x02</Reply_01>
-           <Reply_02>0x7f,0x27,0x??</Reply_02>
+           <Reply_01>0x67,0x02</Reply_01>
+           <Reply_02>0x7F,0x27,0x??</Reply_02>
          </TransmitSecurityKey>
+         <ReadTraceData>
+            <Reply_01>0x62,0xFD,0x02,0x??,0x??,0x??,0x??</Reply_01>
+            <Reply_02>0x7F,0x22,0x??</Reply_02>
+         </ReadTraceData>
       </ReplyMessages>
       <ReplyInterpretations>
-         <CommandSecurityAccess/>
          <ReadByID>
            <Boolean>
-                    <Byte1 input_index="7" mask="0xFF" compare="0x00"/>
+                    <Byte1 input_index="3" mask="0xFF" compare="0x00"/>
            </Boolean>
          </ReadByID>
-         <WriteByID/>
+         <ReadTraceData>
+            <String>
+               <Substring format="%4s">
+                  <Chars input_index="3" mask="0xFF" length="4"/>
+               </Substring>
+            </String>
+         </ReadTraceData>
       </ReplyInterpretations>
    </SerialMessages>
 </DelphiAirbagModule>

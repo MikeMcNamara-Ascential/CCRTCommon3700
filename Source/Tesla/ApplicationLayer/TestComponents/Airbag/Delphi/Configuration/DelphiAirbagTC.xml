@@ -49,8 +49,8 @@
     </TagList>
     <DataTags>
       <Abort>Abort</Abort>
-      <FailButton>NoPB</FailButton>
-      <PassButton>YesPB</PassButton>
+      <FailButton>DriverPass</FailButton>
+      <PassButton>DriverFail</PassButton>
       <ReadModuleFaults>ReadFaults</ReadModuleFaults>
       <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
       <ResistanceValuesMessage>ResistanceValues</ResistanceValuesMessage>
@@ -78,6 +78,11 @@
   </Setup>
   <Objectives>
     <AirbagTest>
+       <TestStep00>Setup</TestStep00>
+       <TestStep10>EnterDiagnosticMode</TestStep10>
+       <TestStep20>CommandSecurityAccess</TestStep20>
+       <TestStep30>EnableAirBagModule</TestStep30>
+       <TestStep40>CollectTraceData</TestStep40>
     </AirbagTest>
     <FinishUp>
       <TestStep00>FinishUp</TestStep00>
@@ -90,7 +95,7 @@
     <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
     <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
     <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
-    <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Enable the airbag module"/>
-    <ReadFaults Result="Not Tested" Timeout="1000" Description="ReadFaults"/> 
+    <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Read and Clear Faults and Enable the airbag module"/>
+    <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read Traceablilty number from the module"/> 
   </TestSteps>
 </DelphiAirbagTC>

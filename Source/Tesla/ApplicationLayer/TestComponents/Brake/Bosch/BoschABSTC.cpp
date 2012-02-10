@@ -187,15 +187,15 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
             BposSleep(GetParameterInt("LeftFrontReductionPulseLength"));
         }
 		 // Command the module back to normal mode
-        else if(!GetTestStepName().compare("EnterNormalMode"))           result = EnterNormalMode();
+        else if(!GetTestStepName().compare("EnterNormalMode"))           status = EnterNormalMode();
         // Disable the force meter
-        else if(!GetTestStepName().compare("DisableForceMeter"))         result = DisableForceMeter();
+        else if(!GetTestStepName().compare("DisableForceMeter"))         status = DisableForceMeter();
         // Perform the sensor and burnish test
-        else if(!GetTestStepName().compare("SensorTest"))                result = IndividualSensorTest();
+        else if(!GetTestStepName().compare("SensorTest"))                status = IndividualSensorTest();
         // Perform the brake burnish cycle
-        else if(!GetTestStepName().compare("BrakeBurnishCycle"))         result = BrakeBurnishCycle();
-        else if(!GetTestStepName().compare("StaticBrakeBurnishCycle"))   result = StaticBrakeBurnishCycle();
-        else if(!GetTestStepName().compare("AccelerateToBrakeSpeed"))    result = AccelerateToBrakeSpeed();
+        else if(!GetTestStepName().compare("BrakeBurnishCycle"))         status = BrakeBurnishCycle();
+        else if(!GetTestStepName().compare("StaticBrakeBurnishCycle"))   status = StaticBrakeBurnishCycle();
+        else if(!GetTestStepName().compare("AccelerateToBrakeSpeed"))    status = AccelerateToBrakeSpeed();
         // Call the base class to handle the test step
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
@@ -224,7 +224,7 @@ string BoschABSTC<ModuleType>::EnterDiagnosticMode(void)
         UpdatePrompts();
 
         // Lety the driver react to the prompts
-        BposSleep( 10000);
+        //BposSleep( 10000);
 
         if(!GetParameter("Port").compare("ISOK"))
         {
@@ -1968,10 +1968,8 @@ string BoschABSTC<ModuleType>::ESPValveFiringTest(void)
         // run the individual wheel ESP tests
         testResult = LFESPTest();
         if(testResult == testPass) RFESPTest();
-
-        // 2005.02.28 ews removed at HMMA emergency request
-        //			if(testResult == testPass) LRESPTest();
-        //			if(testResult == testPass) RRESPTest();
+        if(testResult == testPass) LRESPTest();
+        if(testResult == testPass) RRESPTest();
 
         m_ESPEndIndex = TagArray("ESPEnd");
 
@@ -3889,7 +3887,8 @@ string BoschABSTC<ModuleInterface>::StaticBrakeBurnishCycle(void)
     string result(BEP_TESTING_STATUS);
     // Log the entry and determine if the test should be performed
     Log(LOG_FN_ENTRY, "BoschABSTC::StaticBrakeBurnishCycle() - Enter");
-    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && OperatorPassFail("PerformBrakeBurnish").compare(testFail))
+    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && 
+       OperatorPassFail("PerformBrakeBurnish",(GetParameterInt("BurnishPromptTimeout") ? GetParameterInt("BurnishPromptTimeout") : NULL)).compare(testFail))
     {   // Place the motors in speed mode
         m_MotorController.Write(COMMAND_SPEED, string("0"), false);
         m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);

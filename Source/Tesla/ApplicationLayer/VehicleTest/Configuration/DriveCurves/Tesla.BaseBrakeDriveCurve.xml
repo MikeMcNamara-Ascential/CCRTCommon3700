@@ -19,7 +19,7 @@
       <TestPhase10 Description="Validate the driver number" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Prompt the driver to input the driver number" Result="" Timeout="20000" Component="Machine">
-               <Initialize/>
+               <InitializeNoCableConnect/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase10>

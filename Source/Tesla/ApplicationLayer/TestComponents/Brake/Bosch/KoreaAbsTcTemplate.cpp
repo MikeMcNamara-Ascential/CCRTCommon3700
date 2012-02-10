@@ -110,16 +110,16 @@ const string KoreaAbsTcTemplate<VehicleModuleType>::CommandTestStep(const string
             status = GenericABSTCTemplate<VehicleModuleType>::CommandTestStep(value);
         }
     }
-    catch (BepException &ex)
-    {
-        Log(LOG_ERRORS,"KoreaAbsTcTemplate::CommandTestStep %s BepException %s\n",
-            GetTestStepName().c_str(),ex.what());
-        status = BEP_SOFTWAREFAIL_RESPONSE;
-    }
     catch (ModuleException &ex)
     {
         Log(LOG_ERRORS,"KoreaAbsTcTemplate::CommandTestStep %s ModuleException %s\n",
             GetTestStepName().c_str(),ex.GetReason());
+        status = BEP_SOFTWAREFAIL_RESPONSE;
+    }
+    catch (BepException &ex)
+    {
+        Log(LOG_ERRORS,"KoreaAbsTcTemplate::CommandTestStep %s BepException %s\n",
+            GetTestStepName().c_str(),ex.what());
         status = BEP_SOFTWAREFAIL_RESPONSE;
     }
     Log(LOG_DEV_DATA,"KoreaAbsTcTemplate::CommandTestStep(%s): Returning %s\n",
@@ -1813,3 +1813,4 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeValveCross(void)
 
     return(status);
 }
+

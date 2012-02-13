@@ -118,7 +118,7 @@ namespace Common.Lib.Presenters
                             }
                             else
                             {//allow time for user to see abort
-                                Thread.Sleep(5000);
+                                Thread.Sleep(10000);
                                 SetStatus(Status.IN_PROGRESS);
                                 m_currentState = DEFAULT_STATE;
                                 MainFormView.ClearLogDisplay();

@@ -86,17 +86,10 @@ namespace Common.Lib.Models
                         break;
                     case StateName.WAIT_FOR_CABLECONNECT:
                         //Start Wait for cable connect thread
-                        //SetPrompt1(prompt.WAIT_FOR_CABLECONNECT1);
                         SetPrompt1(prompt.WAIT_FOR_CABLECONNECT2);
                         SetPrompt2("");
                         taskDelegate = new ThreadStart(WaitForCableConnect);
                         break;
-                    /*case StateName.WAIT_FOR_KEY_ON:
-                        //Start Wait for key on thread
-                        SetPrompt1(prompt.KEY_ON);
-                        SetPrompt2("");
-                        taskDelegate = new ThreadStart(WaitForKeyOn);
-                        break;*/
                     case StateName.FLASH_ECUS:
                         //Start vehicle flash thread
                         SetPrompt1(prompt.FLASH_ECUS1);
@@ -105,16 +98,9 @@ namespace Common.Lib.Models
                         break;
                     case StateName.REPORT_DATA:
                         //Start vehicle flash thread
-                        //SetPrompt1(prompt.REPORT_DATA1);
                         SetPrompt2(prompt.REPORT_DATA2);
                         taskDelegate = new ThreadStart(ReportDataState);
                         break;
-                    /*case StateName.WAIT_FOR_KEY_OFF:
-                        //Start Wait for key off thread
-                        SetPrompt1(prompt.KEY_OFF);
-                        SetPrompt2("");
-                        taskDelegate = new ThreadStart(WaitForKeyOff);
-                        break;*/
                     case StateName.WAIT_FOR_CABLEDISCONNECT:
                         //Start Wait for cable connect thread
                         //prompt 1 will be set by report data
@@ -133,6 +119,7 @@ namespace Common.Lib.Models
         {
             m_logger = logger;
             m_fcm = new FCM(m_remoteBuildFileDirectory, m_buildFileDirectory, m_tempBuildFileDirectory, 10000, m_logger);
+            m_esnFcm = new FCM(m_remoteESNDirectory, m_esnDirectory, m_tempESNDirectory, 10000, m_logger);
             ThreadStart taskDelegate = null;
             taskDelegate = new ThreadStart(PassFileIndicationTransferThread);
             Thread transferPassedTestResults = new Thread(taskDelegate);
@@ -232,10 +219,6 @@ namespace Common.Lib.Models
                 }
                 Thread.Sleep(100);
             }
-            //for (int x = 0; x < totalBytesRead; x++)
-            //{
-            //    receivedData.Add(serialPort.RxData[x]);
-            //}
             if (GetStatus() == Status.IN_PROGRESS)
             {
                 barcode = System.Text.Encoding.ASCII.GetString(receivedData.ToArray());
@@ -257,6 +240,7 @@ namespace Common.Lib.Models
             {
                 string vin = barcode.Substring(0, 17);
                 string modelCode = barcode.Substring(17, 5);
+                m_modelCode = modelCode;
                 string bookCode = barcode.Substring(22, 2);
                 string modelYear = barcode.Substring(24, 3);
                 string lotNumber = barcode.Substring(27, 3);
@@ -282,7 +266,60 @@ namespace Common.Lib.Models
             }
             else
             {
-                SetStatus(Status.SUCCESS);
+                if (m_buildData[0].ESNWriteRequired)
+                {
+                    Prompt prompt = new Prompt();
+                    string esn = GetESN(m_buildData[0].VIN, m_esnDirectory).Remove(5,1);
+                    m_buildData[0].EngineSerialNumber = esn;
+                    string esnLeadingChars = m_buildData[0].ESNLeadingCharacters;
+                    if (m_buildData[0].EngineSerialNumber.Length == 15)
+                    {
+                        if (esnLeadingChars.Length <= m_buildData[0].EngineSerialNumber.Length)
+                        {//validate leading characters match
+                            if (m_buildData[0].EngineSerialNumber.Substring(0, esnLeadingChars.Length) != esnLeadingChars)
+                            {//fail
+                                buildDataValid = false;
+                                m_logger.Log("ERROR:  ESN Leading Character mismatch ESN: " + m_buildData[0].EngineSerialNumber + "Leading Characters to match: " + esnLeadingChars);
+                                SetPrompt1BGColor(Color.Yellow);
+                                SetPrompt2BGColor(Color.Yellow);
+                                SetPrompt1(prompt.ABORT_INVALID_ESN_VALUE);
+                                SetPrompt2(prompt.ABORT_INVALID_BUILD_DATA2);
+                                SetStatus(Status.ABORT);
+                            }
+                            else
+                            {
+                                SetStatus(Status.SUCCESS);
+                            }
+                        }
+                        else
+                        {//failure
+                            buildDataValid = false;
+                            m_logger.Log("ERROR:  ESN Check length greater than esn");
+                            SetPrompt1BGColor(Color.Yellow);
+                            SetPrompt2BGColor(Color.Yellow);
+                            SetPrompt1(prompt.ABORT_INVALID_ESN_LENGTH);
+                            SetPrompt2(prompt.ABORT_INVALID_BUILD_DATA2);
+                            SetStatus(Status.ABORT);
+                        }
+                    }
+                    else
+                    {//failure
+                        buildDataValid = false;
+                        m_logger.Log("ERROR:  ESN Incorrect length: " + m_buildData[0].EngineSerialNumber.Length + " Required: 15");
+                        SetPrompt1BGColor(Color.Yellow);
+                        SetPrompt2BGColor(Color.Yellow);
+                        SetPrompt1(prompt.ABORT_INVALID_ESN_LENGTH);
+                        SetPrompt2(prompt.ABORT_INVALID_BUILD_DATA2);
+                        SetStatus(Status.ABORT);
+                    }
+                }
+                else
+                {// no esn write required
+                    m_buildData[0].EngineSerialNumber = "";
+                    m_logger.Log("INFO: ESN Write not required");
+                    SetStatus(Status.SUCCESS);
+                }
+
             }
             m_buildDataValid = buildDataValid;
         }
@@ -367,6 +404,16 @@ namespace Common.Lib.Models
                             {//nothing special - pn might not exist
                             }
                         }
+                        try
+                        {
+                            ecuBuild.ESNWriteRequired = (m_currentBuild.GetElementsByTagName("WriteESN")[0].InnerText == "True");
+                            ecuBuild.ESNLeadingCharacters = m_currentBuild.GetElementsByTagName("ESNLeadingCharacters")[0].InnerText;
+                        }
+                        catch
+                        {
+                            ecuBuild.ESNWriteRequired = false;
+                            ecuBuild.ESNLeadingCharacters = "";
+                        }
                         
                         m_buildData.Add(ecuBuild);
                     }
@@ -407,40 +454,20 @@ namespace Common.Lib.Models
                 GetStatus() != Status.ABORT)
                 SetStatus(Status.SUCCESS);
         }
-        /*public void WaitForKeyOn()
-        {
-            while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
-            {
-                Thread.Sleep(500);
-            }
-            if (GetStatus() != Status.TERMINATE &&
-                GetStatus() != Status.ABORT)
-                SetStatus(Status.SUCCESS);
-        }
-        public void WaitForKeyOff()
-        {
-            while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
-            {
-                Thread.Sleep(500);
-            }
-            if (GetStatus() != Status.TERMINATE &&
-                GetStatus() != Status.ABORT)
-                SetStatus(Status.SUCCESS);
-        }*/
 
         string m_resultText;
         public void FlashECUs()
         {
-                                //Repeatability Test
-                    //int iteration = 0;
-                    //m_buildData[0].ProgrammingSuccess = true;
-                    //m_buildData[1].ProgrammingSuccess = true;
-                    //while ((GetStatus() == Status.IN_PROGRESS) && m_buildData[0].ProgrammingSuccess && m_buildData[1].ProgrammingSuccess)
-                    //{
-                        //iteration++;
-                        //m_progressBarValue = 0;
-                        //m_logger.Log("INFO:  Starting Flash Process Iteration: " + iteration.ToString());
-                        //end repeatability test add
+            //Repeatability Test
+            //int iteration = 0;
+            //m_buildData[0].ProgrammingSuccess = true;
+            //m_buildData[1].ProgrammingSuccess = true;
+            //while ((GetStatus() == Status.IN_PROGRESS) && m_buildData[0].ProgrammingSuccess && m_buildData[1].ProgrammingSuccess)
+            //{
+            //iteration++;
+            //m_progressBarValue = 0;
+            //m_logger.Log("INFO:  Starting Flash Process Iteration: " + iteration.ToString());
+            //end repeatability test add
             for (int x = 0; x < FLASH_RETRIES; x++)
             {
                 m_progressBarValue = 0;
@@ -449,100 +476,87 @@ namespace Common.Lib.Models
                 {
                     m_flashRetryAttempted = true;
                 }
-                        Status preFileProcessStatus = Status.FAILURE;
-                        m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
-                        preFileProcessStatus = PreUtilityFileProcess();
-                        OpenTCMInterpreter();
-                        OpenECMInterpreter();
-                        m_resultText = "";
-                        m_ecmThreadComplete = false;
-                        m_tcmThreadComplete = false;
-                        //start progress update thread
-                        m_stopProgressBarThread = false;
-                        ThreadStart taskDelegatePB = null;
-                        taskDelegatePB = new ThreadStart(ProgressUpdateThread);
-                        Thread taskThreadPB = new Thread(taskDelegatePB);
-                        taskThreadPB.Start();
+                Status preFileProcessStatus = Status.FAILURE;
+                m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
+                preFileProcessStatus = PreUtilityFileProcess();
+                OpenTCMInterpreter();
+                OpenECMInterpreter();
+                m_resultText = "";
+                m_ecmThreadComplete = false;
+                m_tcmThreadComplete = false;
+                //start progress update thread
+                m_stopProgressBarThread = false;
+                ThreadStart taskDelegatePB = null;
+                taskDelegatePB = new ThreadStart(ProgressUpdateThread);
+                Thread taskThreadPB = new Thread(taskDelegatePB);
+                taskThreadPB.Start();
 
-                        if (preFileProcessStatus == Status.SUCCESS)
+                if (preFileProcessStatus == Status.SUCCESS)
+                {
+                    if (m_performECMFlash)
+                    {
+                        //for each ecu start a utility file interpreter thread
+                        ThreadStart taskDelegate = null;
+                        taskDelegate = new ThreadStart(SequenceECMInterpreter);
+                        Thread taskThread = new Thread(taskDelegate);
+                        taskThread.Start();
+
+
+                        //while not complete....
+                        while (!m_ecmThreadComplete && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
                         {
-                            if (m_performECMFlash)
-                            {
-                                //for each ecu start a utility file interpreter thread
-                                ThreadStart taskDelegate = null;
-                                taskDelegate = new ThreadStart(SequenceECMInterpreter);
-                                Thread taskThread = new Thread(taskDelegate);
-                                taskThread.Start();
+                            Thread.Sleep(1000);
+                        }
 
-
-                                //while not complete....
-                                while (!m_ecmThreadComplete && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
-                                {
-                                    Thread.Sleep(1000);
-                                }
-
-                                if (m_buildData[0].ProgrammingSuccess)
-                                {
-                                    m_ecmResultColor = Color.Green;
-                                }
-                                else
-                                {
-                                    m_ecmResultColor = Color.Red;
-                                }
-                            }
-                                m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
-                                if (m_performTCMFlash)
-                                {
-                                    PreUtilityFileProcessTCM();
-                                    ThreadStart taskDelegate1 = null;
-                                    taskDelegate1 = new ThreadStart(SequenceTCMInterpreter);
-                                    Thread taskThread1 = new Thread(taskDelegate1);
-                                    taskThread1.Start();
-                                    //while not complete....
-                                    while (!m_tcmThreadComplete && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
-                                    {
-                                        Thread.Sleep(1000);
-                                    }
-                                    if (m_buildData[1].ProgrammingSuccess)
-                                    {
-                                        m_tcmResultColor = Color.Green;
-                                    }
-                                    else
-                                    {
-                                        m_tcmResultColor = Color.Red;
-                                    }
-                                }
+                        if (m_buildData[0].ProgrammingSuccess)
+                        {
+                            m_ecmResultColor = Color.Green;
+                        }
+                        else
+                        {
+                            m_ecmResultColor = Color.Red;
+                        }
+                    }
+                    m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
+                    if (m_performTCMFlash)
+                    {
+                        PreUtilityFileProcessTCM();
+                        ThreadStart taskDelegate1 = null;
+                        taskDelegate1 = new ThreadStart(SequenceTCMInterpreter);
+                        Thread taskThread1 = new Thread(taskDelegate1);
+                        taskThread1.Start();
+                        //while not complete....
+                        while (!m_tcmThreadComplete && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
+                        {
+                            Thread.Sleep(1000);
+                        }
+                        if (m_buildData[1].ProgrammingSuccess)
+                        {
+                            m_tcmResultColor = Color.Green;
+                        }
+                        else
+                        {
+                            m_tcmResultColor = Color.Red;
+                        }
+                    }
 
                 }
-                        //stop tester present
-                        m_stopTesterPresentThread = true;
-                        m_stopProgressBarThread = true;
-                        //return ecu to normal mode
-                        PostUtilityFileProcess();
-                        m_tcmInterpreter = null;
-                        m_ecmInterpreter = null;
+                //stop tester present
+                m_stopTesterPresentThread = true;
+                m_stopProgressBarThread = true;
+                //return ecu to normal mode
+                PostUtilityFileProcess();
+                m_tcmInterpreter = null;
+                m_ecmInterpreter = null;
                 if (m_buildData[0].ProgrammingSuccess && m_buildData[1].ProgrammingSuccess)
                 {//break out of retry for loop
                     break;
                 }
             }
-                    // Repeatability Test}
+            // Repeatability Test}
             if (GetStatus() != Status.TERMINATE &&
                 GetStatus() != Status.ABORT) SetStatus(Status.SUCCESS);
         }
-        /*public void TesterPresentThread()
-        {
-
-            List<byte> data = new List<byte>();
-            while (!m_terminateThreads && !m_stopTesterPresentThread && GetStatus() != Status.ABORT)
-            {
-                foreach (CcrtJ2534Defs.ECUMessage message in m_testerPresentMessages)
-                {                 
-                    m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
-                }
-                System.Threading.Thread.Sleep(TESTER_PRESENT_DELAY);
-            }
-        }*/
         public void TesterPresentThread()
         {
 
@@ -553,15 +567,6 @@ namespace Common.Lib.Models
                 {
                     m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data, true);
                 }
-                /*foreach (ECUBuildData build in m_buildData)
-                {//ensure filter always set
-                    CcrtJ2534Defs.ECUMessage setFiltermessage = new CcrtJ2534Defs.ECUMessage();
-                    List<byte> testPresent = new List<byte>();
-                    testPresent.Add(0x3e);
-                    setFiltermessage = CreateECUMessage(testPresent, build.RequestID, build.ResponseID);
-                    m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
-                            setFiltermessage.m_messageFilter);
-                }*/
                 System.Threading.Thread.Sleep(TESTER_PRESENT_DELAY);
             }
         }
@@ -574,14 +579,14 @@ namespace Common.Lib.Models
             m_stopTesterPresentThread = false;
             //ensure filter is set up properly
             foreach (ECUBuildData build in m_buildData)
-{//ensure filter always set
-    CcrtJ2534Defs.ECUMessage setFiltermessage = new CcrtJ2534Defs.ECUMessage();
-    List<byte> testPresent = new List<byte>();
-    testPresent.Add(0x3e);
-    setFiltermessage = CreateECUMessage(testPresent, build.RequestID, build.ResponseID);
-    m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
-            setFiltermessage.m_messageFilter);
-}
+            {//ensure filter always set
+                CcrtJ2534Defs.ECUMessage setFiltermessage = new CcrtJ2534Defs.ECUMessage();
+                List<byte> testPresent = new List<byte>();
+                testPresent.Add(0x3e);
+                setFiltermessage = CreateECUMessage(testPresent, build.RequestID, build.ResponseID);
+                m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+                        setFiltermessage.m_messageFilter);
+            }
 
             //create message to be sent
             List<byte> txMessage = new List<byte>();
@@ -590,16 +595,7 @@ namespace Common.Lib.Models
             txMessage.Add(0xFE);
             txMessage.Add(0x3E);
             m_testerPresentMessages = new List<CcrtJ2534Defs.ECUMessage>();
-            /*foreach (ECUBuildData build in m_buildData)
-            {
-                CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
-                message = CreateECUMessage(txMessage, build.RequestID, build.ResponseID);
-                message.m_responseExpected = false;
-                message.m_rxTimeout = 10;
-                m_testerPresentMessages.Add(message);
-                m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
-                        message.m_messageFilter);
-            }*/
+
             // using all nodes message: no response will be received
             
                 CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
@@ -624,9 +620,9 @@ namespace Common.Lib.Models
             //all nodes disable DTCs
             m_logger.Log("INFO:  Sending Message Disable DTCs");
             
-            txMessage.Clear();
+            txMessage.Clear();            
             txMessage.Add(0x10);
-            txMessage.Add(0x02);
+            txMessage.Add(0x02);    
             SendMessage(txMessage, false);
 
             txMessage.Clear();
@@ -699,9 +695,9 @@ namespace Common.Lib.Models
 
             //all nodes disable DTCs
             m_logger.Log("INFO:  Sending Message Disable DTCs");
-            txMessage.Clear();
+            txMessage.Clear(); 
             txMessage.Add(0x10);
-            txMessage.Add(0x02);
+            txMessage.Add(0x02);    
             SendMessage(txMessage, false);
             txMessage.Clear();
             txMessage.Add(0xFE);
@@ -720,7 +716,7 @@ namespace Common.Lib.Models
                 m_logger.Log("INFO:  Sending Message Disable Normal Communications");
                 txMessage.Clear();
                 txMessage.Add(0x28);
-                status = SendMessage(txMessage, false);
+                status = SendMessage(txMessage,false);
                 txMessage.Clear();
                 txMessage.Add(0xFE);
                 txMessage.Add(0x28);
@@ -762,62 +758,156 @@ namespace Common.Lib.Models
             return status;
         }
 
-
-
         public void PostUtilityFileProcess()
         {//perform pre utility file all node messages
             m_logger.Log("INFO:  Performing Post Utility File Process");
             List<byte> txMessage = new List<byte>();
             int retries = 25;
             Status status = Status.ERROR;
-            if (m_buildData[0].ProgrammingSuccess || m_buildData[1].ProgrammingSuccess)
-            {//write vin hard coded utility file logic flawed
-                m_logger.Log("INFO:  Sending Write VIN Message");
-                txMessage.Add(0x3B);
-                txMessage.Add(0x90);
-                txMessage.AddRange(
-                m_ecmInterpreter.m_opCodeHandler.stringToASCIIByteArray(m_ecmInterpreter.m_opCodeHandler.GetVIT2Data(0x41)).ToList());
-                //retries to allow time for VIN message to respond
-                for (int x = 0; x < retries && status != Status.SUCCESS; x++)
-                {
-                    status = SendMessageConditional(txMessage, true);
-                    Thread.Sleep(250);
-                }
-                if (status == Status.SUCCESS)
-                {
-                    m_logger.Log("INFO:  Write VIN Message Successful");
+
+            //Write VIN
+            txMessage.Add(0x3B);
+            txMessage.Add(0x90);
+            txMessage.AddRange(
+            m_ecmInterpreter.m_opCodeHandler.stringToASCIIByteArray(m_ecmInterpreter.m_opCodeHandler.GetVIT2Data(0x41)).ToList());
+            foreach (ECUBuildData build in m_buildData)
+            {
+                if (build.ProgrammingSuccess)
+                {//only send message if ecu was successfully flashed
+                    status = Status.ERROR;
+                    m_logger.Log("INFO:  Sending Write VIN Message");
+                    //retries to allow time for VIN message to respond
+                    for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                    {
+                        status = SendMessage(build, txMessage, true);
+                        Thread.Sleep(250);
+                    }
+                    if (status == Status.SUCCESS)
+                    {
+                        m_logger.Log("INFO:  Write VIN Message Successful");
+                    }
+                    else
+                    {
+                        m_logger.Log("INFO:  Write VIN Message Failure");
+                        build.VinWriteSuccess = false;
+                    }
+                }                
+            }
+            if (m_buildData[0].ESNWriteRequired)
+            {
+                if (m_buildData[0].ProgrammingSuccess && m_performECMFlash)
+                {// ECM flash successful and model requires ESN write
+                    string esn = m_buildData[0].EngineSerialNumber;
+                        //write ESN
+                        txMessage.Clear();
+                        status = Status.ERROR;
+                        m_logger.Log("INFO:  Sending Write ESN Message");
+                        txMessage.Add(0x3B);
+                        txMessage.Add(0x17);
+                        txMessage.Add(0x00);
+                        txMessage.Add(0x00);
+                        txMessage.AddRange(
+                        m_ecmInterpreter.m_opCodeHandler.stringToASCIIByteArray(esn).ToList());
+                        //retries to allow time for ESN message to respond
+                        for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                        {
+                            status = SendMessage(m_buildData[0], txMessage, true);
+                            Thread.Sleep(250);
+                        }
+                        if (status == Status.SUCCESS)
+                        {
+                            m_logger.Log("INFO:  Write ESN Message Successful");
+                            //read ESN
+                            txMessage.Clear();
+                            m_logger.Log("INFO:  Sending read ESN Message");
+                            txMessage.Add(0x1A);
+                            txMessage.Add(0x17);
+                            SendMessage(m_buildData[0], txMessage, true);
+                        }
+                        else
+                        {
+                            m_logger.Log("INFO:  Write ESN Message Failure");
+                            m_buildData[0].SerialNumberWriteSuccess = false;
+                        }
                 }
                 else
                 {
-                    m_logger.Log("INFO:  Write VIN Message Failure");
+                    m_logger.Log("INFO:  ECM Not Flashed Do not write ESN");
                 }
-                status = Status.ERROR;
             }
-            //End Test
-          
-            txMessage.Clear();
+            else
+            {
+                m_logger.Log("INFO:  No ESN Write Required");
+            }
 
-
-            //all nodes disable DTCs
             m_logger.Log("INFO:  Sending Message Return to normal mode");
             txMessage.Clear();
             txMessage.Add(0x20);
+            status = Status.ERROR;
             for (int x = 0; x < retries && status != Status.SUCCESS; x++)
             {
                 status = SendMessage(txMessage, true);
                 Thread.Sleep(250);
             }
-                //all nodes clear faults
-                m_logger.Log("INFO:  Sending Message Clear faults");
-                txMessage.Clear();
-                txMessage.Add(0xFD);
-                txMessage.Add(0x04);
-                CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
-                message = CreateAllNodesMessage(txMessage);
-                message.m_responseExpected = false;
-                message.m_rxTimeout = 100;
-                List<List<byte>> datalist = new List<List<byte>>();
-                m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref datalist, true);
+          
+            txMessage.Clear();
+
+            //all nodes disable DTCs
+            m_logger.Log("INFO:  Sending Message Return to normal mode");
+            txMessage.Clear();
+            txMessage.Add(0x20);
+            status = Status.ERROR;
+            for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+            {
+                status = SendMessage(txMessage, true);
+                Thread.Sleep(250);
+            }
+            //all nodes clear faults
+            m_logger.Log("INFO:  Sending Message Clear faults");
+            txMessage.Clear();
+            txMessage.Add(0xFD);
+            txMessage.Add(0x04);
+            CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+            message = CreateAllNodesMessage(txMessage);
+            message.m_responseExpected = false;
+            message.m_rxTimeout = 100;
+            List<List<byte>> datalist = new List<List<byte>>();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref datalist, true);
+        }
+        public string GetESN(string vin, string esnDirectory)
+        {
+            string esn = "";   
+            //obtain ESN from file
+            DirectoryInfo esnDirInfo = new DirectoryInfo(esnDirectory);
+
+            foreach (FileInfo fi in esnDirInfo.GetFiles())
+            {
+                if (fi.Name.Length > 17)
+                {//check if VIN matches
+                    if (fi.Name.Substring(0,17) == vin)
+                    {//get serial number from file
+                        // Read the file as one string.
+                        System.IO.StreamReader myFile =
+                        new System.IO.StreamReader(fi.FullName);
+                        esn = myFile.ReadLine();
+                        if (esn.Length == 16)
+                        {
+                            m_logger.Log("INFO:  ESN Obtained: " + esn);
+                            return esn;
+                        }
+                        else
+                        {
+                            m_logger.Log("ERROR:  ESN incorrect length");
+                            return esn;
+                        }
+                    }
+                }
+                else
+                {
+                    m_logger.Log("ERROR:  File name length error");
+                }
+            }
+            return esn;
         }
         public Status SendAllNodesMessage(List<byte> txMessage, bool responseExpected)
         {
@@ -846,6 +936,47 @@ namespace Common.Lib.Models
             else
             {
                 m_logger.Log("INFO:  Message Failure");
+                return Status.FAILURE;
+            }
+        }
+        public Status SendMessage(ECUBuildData build, List<byte> txMessage, bool responseExpected)
+        {
+            List<byte> data = new List<byte>();
+            bool messageSuccess = true;
+            CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+            message = CreateECUMessage(txMessage, build.RequestID, build.ResponseID);
+            message.m_responseExpected = responseExpected;
+            message.m_retries = 1;
+            if (txMessage.Count > 4)
+            {
+                message.m_txTimeout = 200;
+            }
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+                    message.m_messageFilter);
+
+            m_logger.Log("INFO:  Sending Message: " + BitConverter.ToString(txMessage.ToArray()));
+            if (m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data))
+            {
+                if (responseExpected)
+                {
+                    m_logger.Log("INFO:  Received: " + BitConverter.ToString(data.ToArray()));
+                }
+                else
+                {
+                    m_logger.Log("INFO:  Message sent successfully");
+                }
+            }
+            else
+            {
+                m_logger.Log("INFO:  Message Failure");
+                messageSuccess = false;
+            }
+            if (messageSuccess)
+            {
+                return Status.SUCCESS;
+            }
+            else
+            {
                 return Status.FAILURE;
             }
         }
@@ -899,60 +1030,7 @@ namespace Common.Lib.Models
                 return Status.FAILURE;
             }
         }
-        public Status SendMessageConditional(List<byte> txMessage, bool responseExpected)
-        {
-            List<byte> data = new List<byte>();
-            bool messageSuccess = true;
-            List<CcrtJ2534Defs.ECUMessage> ecuMessages = new List<CcrtJ2534Defs.ECUMessage>();
-            foreach (ECUBuildData build in m_buildData)
-            {
-                if (build.ProgrammingSuccess)
-                {//only send message if ecu was successfully flashed
-                    CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
-                    message = CreateECUMessage(txMessage, build.RequestID, build.ResponseID);
-                    message.m_responseExpected = responseExpected;
-                    message.m_retries = 1;
-                    if (txMessage.Count > 4)
-                    {
-                        message.m_txTimeout = 200;
-                    }
-                    ecuMessages.Add(message);
-                    m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
-                            message.m_messageFilter);
-                }
-            }
-
-            m_logger.Log("INFO:  Sending Message: " + BitConverter.ToString(txMessage.ToArray()));
-            foreach (CcrtJ2534Defs.ECUMessage message in ecuMessages)
-            {
-                if (m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data))
-                {
-                    if (responseExpected)
-                    {
-                        m_logger.Log("INFO:  Received: " + BitConverter.ToString(data.ToArray()));
-                    }
-                    else
-                    {
-                        m_logger.Log("INFO:  Message sent successfully");
-                    }
-                }
-                else
-                {
-                    m_logger.Log("INFO:  Message Failure");
-                    messageSuccess = false;
-                }
-
-            }
-            if (messageSuccess)
-            {
-                return Status.SUCCESS;
-            }
-            else
-            {
-                return Status.FAILURE;
-            }
-        }
-        //create message using global module response / request id and tx message
+        //create message using module response / request id and tx message
         public CcrtJ2534Defs.ECUMessage CreateECUMessage(List<byte> txMessage, List<byte> requestID, List<byte> responseID)
         {
             CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
@@ -1212,9 +1290,17 @@ namespace Common.Lib.Models
                     {
                         if (bd.PerformFlash)
                         {
-                            if (!bd.ProgrammingSuccess)
+                            if (!bd.ProgrammingSuccess || !bd.VinWriteSuccess || !bd.SerialNumberWriteSuccess)
                             {
                                 pass = false;
+                                if (!bd.VinWriteSuccess)
+                                {
+                                    m_resultText += bd.ECUName + "Vin Write Failed ";
+                                }
+                                if (!bd.SerialNumberWriteSuccess)
+                                {
+                                    m_resultText += bd.ECUName + "Serial # Write Failed ";
+                                }
                                 break;
                             }
                             else
@@ -1358,8 +1444,6 @@ namespace Common.Lib.Models
         }
         public bool IsCableConnected()
         {//drewtech device powered by cable connect - using diagnostic message to determine if cable is connected
-            //return m_vehicleCommInterface.IsVehicleConnected(m_deviceName, m_channelName);
-
             if (m_currentState != StateName.FLASH_ECUS)
             {
                 if (!m_usingCableConnectForced)
@@ -1380,44 +1464,6 @@ namespace Common.Lib.Models
             else
                 return true;
         }
-        public void CreateKeyOnMessage()
-        {
-            List<byte> txMessage = new List<byte>();
-            txMessage.Clear();
-            txMessage.Add(0x1A);
-            txMessage.Add(0x90);
-            List<byte> requestID = new List<byte>();
-            List<byte> responseID = new List<byte>();
-            requestID.Add(0x00);
-            requestID.Add(0x00);
-            requestID.Add(0x07);
-            requestID.Add(0xe0);
-            responseID.Add(0x00);
-            responseID.Add(0x00);
-            responseID.Add(0x07);
-            responseID.Add(0xe8);
-            m_keyOnMessage = CreateECUMessage(txMessage, requestID, responseID);
-            m_keyOnMessage.m_txTimeout = 200;
-            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
-            m_keyOnMessage.m_messageFilter);
-        }
-        /*public bool IsKeyOn()
-        {
-            if (m_keyOnMessage == null)
-            {
-                CreateKeyOnMessage();
-            }
-            List<byte> data = new List<byte>();
-            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, m_cableConnectMessage, ref data);
-            if (data[] == )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }*/
         public bool ValidBuildDataReceived()
         {
             return m_buildDataValid;
@@ -1469,6 +1515,7 @@ namespace Common.Lib.Models
         public void Terminate()
         {//stop all active threads            
             m_fcm.StopFCMThread();
+            m_esnFcm.StopFCMThread();
             SetStatus(Status.TERMINATE);
             m_terminateThreads = true;
         }
@@ -1541,76 +1588,300 @@ namespace Common.Lib.Models
             return m_displayDisconnectBatteryBox;
         }
 
+
         /// <summary>
         /// Main Form Model Member Variables
         /// </summary>
+
+        /// <summary>
+        /// Current flash status
+        /// </summary>
         private volatile Status m_status;
+
+        /// <summary>
+        /// Prompt 1 text
+        /// </summary>
         private string m_prompt1;
+
+        /// <summary>
+        /// Prompt 2 text
+        /// </summary>
         private string m_prompt2;
+
+        /// <summary>
+        /// Color to set prompt1
+        /// </summary>
         private Color m_prompt1BGColor;
+
+        /// <summary>
+        /// Color to set prompt2
+        /// </summary>
         private Color m_prompt2BGColor;
+
+        /// <summary>
+        /// Color to set ecm result box
+        /// </summary>
         private Color m_ecmResultColor;
+
+        /// <summary>
+        /// Color to set tcm result box
+        /// </summary>
         private Color m_tcmResultColor;
+
+        /// <summary>
+        /// Current scanned barcode
+        /// </summary>
         private string m_barcode;
+
+        /// <summary>
+        /// Interface to vehicle comm device
+        /// </summary>
         private IVehicleCommServerInterface m_vehicleCommInterface;
+
+        /// <summary>
+        /// Input server interface for barcode device settings
+        /// </summary>
         private IInputServerInterface m_inputServerInterface;
-        private string m_deviceName;
+
+        /// <summary>
+        /// Name of barcode input device
+        /// </summary>
         private string m_barcodeInputDevice;
+        
+        /// <summary>
+        /// Name of Vehilce comm device
+        /// </summary>
+        private string m_deviceName;
+        
+        /// <summary>
+        /// Name of Vehilce comm channel
+        /// </summary>
         private string m_channelName;
+
+        /// <summary>
+        /// flag indicating status of build data retrieved
+        /// </summary>
         private bool m_buildDataValid;
+
+        /// <summary>
+        /// Current flash step running ie connect cable
+        /// </summary>
         private StateName m_currentState;
-        public const int MAX_NUM_SOFTWARE_PART_NOS = 20;
-        public const int BARCODE_LENGTH = 30;
-        public const int MAX_RESULT_FILES = 1000;
-        public const int TESTER_PRESENT_DELAY = 1000;
-        public const int FLASH_RETRIES = 1;
+
+        /// <summary>
+        /// flag indicated a retry has been attempted
+        /// </summary>
         public bool m_flashRetryAttempted;
+
+        /// <summary>
+        /// Collection of build data for each ecu
+        /// </summary>
         private List<ECUBuildData> m_buildData;
+
+        /// <summary>
+        /// Name used to identify ECU being flash - BEP assigned
+        /// </summary>
         private List<String> m_ecuNames;
+
+        /// <summary>
+        /// Main Flash station Logger
+        /// </summary>
+        public Logger m_logger;
+
+        /// <summary>
+        /// Constant value - Index of pn where file name begins
+        /// </summary>
+        public const int FILE_NAME_PN_START_INDEX = 1;
+
+        /// <summary>
+        /// Constant value - length of calibration files begining with aN "8"
+        /// </summary>
+        public const int CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT = 8;
+
+        /// <summary>
+        /// Constant value - length of calibration files begining with a "1"
+        /// </summary>
+        public const int CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE = 10;
+
+        /// <summary>
+        /// Constant value - default length of utility file names
+        /// </summary>
+        public const int UTILITY_FILE_NAME_LENGTH = 8;
+        
+        /// <summary>
+        /// Constant value - maximum number of softare part numbers
+        /// </summary>        
+        public const int MAX_NUM_SOFTWARE_PART_NOS = 20;
+
+        /// <summary>
+        /// Constant value - Length of barcode scan
+        /// </summary> 
+        public const int BARCODE_LENGTH = 30;
+
+        /// <summary>
+        /// Constant value - delay between keep alive messages
+        /// </summary>
+        public const int TESTER_PRESENT_DELAY = 1000;
+
+        /// <summary>
+        /// Constant value - number of retries allowed in a given flash process
+        /// </summary>
+        public const int FLASH_RETRIES = 1;
+
+        /// <summary>
+        /// Flag used to command threads to terminate
+        /// </summary>
+        private volatile bool m_terminateThreads;
+
+        /// <summary>
+        /// Flag used to stop tester present thread
+        /// </summary>
+        private volatile bool m_stopTesterPresentThread;
+
+        /// <summary>
+        /// Flag used to stop progress bar thread
+        /// </summary>
+        private volatile bool m_stopProgressBarThread;
+
+        /// <summary>
+        /// Flag indicating If user selected to force cable connect on
+        /// </summary>
+        private volatile bool m_cableConnectForced;
+
+        /// <summary>
+        /// Flag indicating If debug force cable connect is being used
+        /// </summary>
+        private volatile bool m_usingCableConnectForced;
+
+        /// <summary>
+        /// Flag indicating ECM flash thread complete
+        /// </summary>
+        private volatile bool m_ecmThreadComplete;
+
+        /// <summary>
+        /// Flag indicating TCM flash thread complete
+        /// </summary>
+        private volatile bool m_tcmThreadComplete;
+
+        /// <summary>
+        /// Flag used to command view to display instructional battery disconnect message
+        /// </summary>
+        private volatile bool m_displayDisconnectBatteryBox;
+
+        /// <summary>
+        /// Current Progress bar value
+        /// </summary>
+        private volatile int m_progressBarValue;
+        
+        /// <summary>
+        /// Min Progress bar value
+        /// </summary>
+        private volatile int m_progressBarRangeMin;
+        
+        /// <summary>
+        /// Max Progress bar value
+        /// </summary>
+        private volatile int m_progressBarRangeMax;
+
+        /// <summary>
+        /// Estimated Data size to be transfered to ECM
+        /// </summary>
+        private volatile int m_ecmDataSizeAdjusted;
+
+        /// <summary>
+        /// Estimated Data size to be transfered to TCM
+        /// </summary>
+        private volatile int m_tcmDataSizeAdjusted;
+
+        /// <summary>
+        /// Flag which enables step through debugging of utility file instructions
+        /// </summary>
+        private volatile bool m_debugMode = false;
+
+        /// <summary>
+        /// Seperate log for ECM flash process details
+        /// </summary>
+        private Logger m_ecmLogger;
+
+        /// <summary>
+        /// Seperate log for TCM flash process details
+        /// </summary>
+        private Logger m_tcmLogger;
+
+        /// <summary>
+        /// Keep alive message to be sent throughout flash process
+        /// </summary>
+        private List<CcrtJ2534Defs.ECUMessage> m_testerPresentMessages;
+        
+        /// <summary>
+        /// Message used to determine cable connect status
+        /// </summary>
+        private J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage m_cableConnectMessage;
+        
+        /// <summary>
+        /// Build data for current scanned vehicle
+        /// </summary>
+        private XmlDocument m_currentBuild;
+        
+        /// <summary>
+        /// File Change monitor for Build data on DVT
+        /// </summary>
+        private FCM m_fcm;
+        
+        /// <summary>
+        /// File Change monitor for ESN File on DVT
+        /// </summary>
+        private FCM m_esnFcm;
+        
+        /// <summary>
+        /// Interpreter for ECM utility file
+        /// </summary>
+        private Interpreter m_ecmInterpreter;
+        
+        /// <summary>
+        /// Interpreter for TCM utility file
+        /// </summary>
+        private Interpreter m_tcmInterpreter;
+        
+        /// <summary>
+        /// Serial port used for barcode read.
+        /// </summary>
+        private SerialPortLibrary.CcrtSerialPort m_serialPort;
+        
+        /// <summary>
+        /// boolean option to perform TCM Flash Process.
+        /// </summary>
+        private bool m_performTCMFlash;
+        
+        /// <summary>
+        /// boolean option to perform ECM Flash Process.
+        /// </summary>
+        private bool m_performECMFlash;
+        
+        
+        /// <summary>
+        /// Model code of current scanned Vehicle.
+        /// </summary>
+        private string m_modelCode;
+
+
         //To do Make Configurable
         private string m_flashFileDirectory = "C:\\FlashStation\\CalFiles\\";
         private string m_buildFileDirectory = "C:\\FlashStation\\BuildFiles\\";
+        private string m_esnDirectory = "C:\\FlashStation\\ESN\\";
         private string m_tempBuildFileDirectory = "C:\\FlashStation\\TempBuildFiles\\";
+        private string m_tempESNDirectory = "C:\\FlashStation\\TempESNFiles\\";
         private string m_resultsDirectory = "C:\\FlashStation\\Results\\";
-        private string m_logsDirectory = "C:\\FlashStation\\Logs\\";       
+        private string m_logsDirectory = "C:\\FlashStation\\Logs\\";
         private string m_remoteBuildFileDirectory = "G:\\Rewrite\\Configuration\\VehicleTest\\BuildRecords\\";
+        private string m_remoteESNDirectory = "G:\\Rewrite\\TestResults\\ESN\\";
+        //private string m_remoteESNDirectory = "C:\\FlashStation\\ESNFrom\\";
         private string m_passIndicationSharedDirectory = "G:\\Rewrite\\TestResults\\PassConfirmation\\";
         private string m_passIndicationLocalDirectory = "C:\\FlashStation\\TransferFiles\\";
-        //Test
-        //private string m_remoteBuildFileDirectory = "C:\\FlashStation\\BuildRecords\\";
-        //End test
-        private Logger m_logger;
-        public const int FILE_NAME_PN_START_INDEX = 1;
-        public const int CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT = 8;
-        public const int CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE = 10;
-        public const int UTILITY_FILE_NAME_LENGTH = 8;
-        private volatile bool m_terminateThreads;
-        private volatile bool m_stopTesterPresentThread;
-        private volatile bool m_stopProgressBarThread;
-        private volatile bool m_cableConnectForced;
-        private volatile bool m_usingCableConnectForced;
-        private volatile bool m_ecmThreadComplete;
-        private volatile bool m_tcmThreadComplete;
-        private volatile bool m_displayDisconnectBatteryBox;
-        private volatile int m_progressBarValue;
-        private volatile int m_progressBarRangeMin;
-        private volatile int m_progressBarRangeMax;
-        private volatile int m_ecmDataSizeAdjusted;
-        private volatile int m_tcmDataSizeAdjusted;
-        //change to false for customer deploy
-        private volatile bool m_debugMode = false;
-        private Logger m_ecmLogger;
-        private Logger m_tcmLogger;
-        private List<CcrtJ2534Defs.ECUMessage> m_testerPresentMessages;
-        private J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage m_cableConnectMessage;
-        private J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage m_keyOnMessage;
-        private XmlDocument m_currentBuild;
-        private FCM m_fcm;
-        private Interpreter m_ecmInterpreter;
-        private Interpreter m_tcmInterpreter;
-        private SerialPortLibrary.CcrtSerialPort m_serialPort;
-        private bool m_performTCMFlash;
-        private bool m_performECMFlash;
-    }
 
+        /// <summary>
+        /// Constant value - max result files to store
+        /// </summary>
+        public const int MAX_RESULT_FILES = 1000;
+    }
 }

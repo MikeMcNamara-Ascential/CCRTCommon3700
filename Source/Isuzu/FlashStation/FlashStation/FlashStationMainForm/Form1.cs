@@ -45,7 +45,7 @@ namespace FlashStationMainForm
             InitializeComponent();
             //determine if comm device is set up
             m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", "C:\\FlashStation\\Logs\\");
-            m_presenter = new MainFormDataPresenter(this,m_logger);           
+            m_presenter = new MainFormDataPresenter(this,m_logger);
             string deviceName = Properties.Settings.Default.Device;
             string channelName = Properties.Settings.Default.CommChannel;
             if (deviceName == "null" || channelName == "null")
@@ -79,6 +79,7 @@ namespace FlashStationMainForm
             m_overallProgressBar.Minimum = 0;
             m_overallProgressBar.Maximum = 100;
             m_overallProgressBar.Value = 0;
+
         }
         public void SetPrompt1Text(string text)
         {
@@ -456,7 +457,5 @@ namespace FlashStationMainForm
             m_presenter.SetPerformTCMFlash(flashTCMToolStripMenuItem.Checked);
             m_tcmResultBox.Enabled = flashTCMToolStripMenuItem.Checked;
         }
-
-
     }
 }

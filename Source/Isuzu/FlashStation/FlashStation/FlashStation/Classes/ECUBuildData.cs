@@ -15,8 +15,12 @@ namespace Common.Classes
             m_responseID = new List<byte>();
             m_programmingSuccess = false;
             m_performFlash = true;
+            m_vinWriteSuccess = true;
+            m_serialNumberWriteSuccess = true;
+            m_esnLeadingChars = "";
+            m_esnWriteRequired = false;
         }
-        public ECUBuildData(string ecuName, string vin, string partNo, string utilFilePartNo, List<String> swmiPartNos)
+        public ECUBuildData(string ecuName, string vin, string partNo, string utilFilePartNo, List<String> swmiPartNos, string esnLeadingChars, bool esnWriteRequired)
         {
             m_ecuName = ecuName;
             m_vin = vin;
@@ -27,6 +31,11 @@ namespace Common.Classes
             m_responseID = new List<byte>();
             m_programmingSuccess = false;
             m_performFlash = true;
+            m_vinWriteSuccess = true;
+            m_serialNumberWriteSuccess = true;
+            m_esn = "";
+            m_esnLeadingChars = esnLeadingChars;
+            m_esnWriteRequired = esnWriteRequired;
         }
         private String m_ecuName;
         private String m_vin;
@@ -37,6 +46,11 @@ namespace Common.Classes
         private List<byte> m_responseID;
         private bool m_programmingSuccess;
         private bool m_performFlash;
+        private bool m_vinWriteSuccess;
+        private bool m_serialNumberWriteSuccess;
+        private String m_esn;
+        private String m_esnLeadingChars;
+        private bool m_esnWriteRequired;
 
         public String ECUName
         {
@@ -87,6 +101,31 @@ namespace Common.Classes
         {
             get { return m_performFlash; }
             set { m_performFlash = value; }
+        }
+        public bool VinWriteSuccess
+        {
+            get { return m_vinWriteSuccess; }
+            set { m_vinWriteSuccess = value; }
+        }
+        public bool SerialNumberWriteSuccess
+        {
+            get { return m_serialNumberWriteSuccess; }
+            set { m_serialNumberWriteSuccess = value; }
+        }
+        public String EngineSerialNumber
+        {
+            get { return m_esn; }
+            set { m_esn = value; }
+        }
+        public String ESNLeadingCharacters
+        {
+            get { return m_esnLeadingChars; }
+            set { m_esnLeadingChars = value; }
+        }
+        public bool ESNWriteRequired
+        {
+            get { return m_esnWriteRequired; }
+            set { m_esnWriteRequired = value; }
         }
     }
 }

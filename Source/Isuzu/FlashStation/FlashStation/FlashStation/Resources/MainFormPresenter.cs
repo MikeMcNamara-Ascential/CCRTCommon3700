@@ -11,10 +11,14 @@ namespace Common.Lib.Presenters
     {
         protected static IMainFormModel MainFormModel { get; private set; }
         protected T MainFormView { get; private set; }
+
+        //protected static IMainFormModel MainFormModelTests { get; private set; }
         
         static MainFormPresenter()
         {
             MainFormModel = new MainFormModel();
+            //MainFormModelTests = new MainFormModelTests
+         
         }
         public MainFormPresenter(T view)
         {

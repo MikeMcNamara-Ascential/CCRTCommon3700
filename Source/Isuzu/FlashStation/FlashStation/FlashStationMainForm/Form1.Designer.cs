@@ -43,6 +43,8 @@
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.vehicleCommunicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.barcodeInputDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flashECMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flashTCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_vinLabel = new System.Windows.Forms.Label();
             this.m_vinTitleLabel = new System.Windows.Forms.Label();
             this.m_buildInfoGroupBox = new System.Windows.Forms.GroupBox();
@@ -52,9 +54,6 @@
             this.m_cableConnectLabel = new System.Windows.Forms.Label();
             this.m_buildDataLabel = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.m_buildDataPB = new System.Windows.Forms.PictureBox();
-            this.m_cableConnectPB = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.m_promptBox2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -67,16 +66,17 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.m_tcmResultBox = new System.Windows.Forms.Label();
             this.m_ecmResultBox = new System.Windows.Forms.Label();
-            this.flashECMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.flashTCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.m_cableConnectPB = new System.Windows.Forms.PictureBox();
+            this.m_buildDataPB = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.m_buildInfoGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.m_buildDataPB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_cableConnectPB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_cableConnectPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_buildDataPB)).BeginInit();
             this.SuspendLayout();
             // 
             // m_promptBox1
@@ -116,13 +116,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -135,27 +135,27 @@
             this.useForcedCableConnectToolStripMenuItem,
             this.forcedCableConnectToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // enterBarcodeToolStripMenuItem
             // 
             this.enterBarcodeToolStripMenuItem.Name = "enterBarcodeToolStripMenuItem";
-            this.enterBarcodeToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.enterBarcodeToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.enterBarcodeToolStripMenuItem.Text = "Enter Barcode";
             this.enterBarcodeToolStripMenuItem.Click += new System.EventHandler(this.enterBarcodeToolStripMenuItem_Click);
             // 
             // clearBuildDataToolStripMenuItem
             // 
             this.clearBuildDataToolStripMenuItem.Name = "clearBuildDataToolStripMenuItem";
-            this.clearBuildDataToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.clearBuildDataToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.clearBuildDataToolStripMenuItem.Text = "Clear Barcode";
             this.clearBuildDataToolStripMenuItem.Click += new System.EventHandler(this.clearBuildDataToolStripMenuItem_Click);
             // 
             // abortFlashProcessToolStripMenuItem
             // 
             this.abortFlashProcessToolStripMenuItem.Name = "abortFlashProcessToolStripMenuItem";
-            this.abortFlashProcessToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.abortFlashProcessToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.abortFlashProcessToolStripMenuItem.Text = "Abort Flash Process";
             this.abortFlashProcessToolStripMenuItem.Click += new System.EventHandler(this.abortFlashProcessToolStripMenuItem_Click);
             // 
@@ -163,7 +163,7 @@
             // 
             this.useForcedCableConnectToolStripMenuItem.CheckOnClick = true;
             this.useForcedCableConnectToolStripMenuItem.Name = "useForcedCableConnectToolStripMenuItem";
-            this.useForcedCableConnectToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.useForcedCableConnectToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.useForcedCableConnectToolStripMenuItem.Text = "Use Forced Cable Connect";
             this.useForcedCableConnectToolStripMenuItem.Click += new System.EventHandler(this.useForcedCableConnectToolStripMenuItem_Click);
             // 
@@ -171,7 +171,7 @@
             // 
             this.forcedCableConnectToolStripMenuItem.CheckOnClick = true;
             this.forcedCableConnectToolStripMenuItem.Name = "forcedCableConnectToolStripMenuItem";
-            this.forcedCableConnectToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.forcedCableConnectToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.forcedCableConnectToolStripMenuItem.Text = "Forced Cable Connect";
             this.forcedCableConnectToolStripMenuItem.Click += new System.EventHandler(this.forcedCableConnectToolStripMenuItem_Click);
             // 
@@ -183,22 +183,42 @@
             this.flashECMToolStripMenuItem,
             this.flashTCMToolStripMenuItem});
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.configurationToolStripMenuItem.Text = "&Configuration";
             // 
             // vehicleCommunicationToolStripMenuItem
             // 
             this.vehicleCommunicationToolStripMenuItem.Name = "vehicleCommunicationToolStripMenuItem";
-            this.vehicleCommunicationToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.vehicleCommunicationToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.vehicleCommunicationToolStripMenuItem.Text = "Vehicle Communication";
             this.vehicleCommunicationToolStripMenuItem.Click += new System.EventHandler(this.vehicleCommunicationToolStripMenuItem_Click);
             // 
             // barcodeInputDeviceToolStripMenuItem
             // 
             this.barcodeInputDeviceToolStripMenuItem.Name = "barcodeInputDeviceToolStripMenuItem";
-            this.barcodeInputDeviceToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.barcodeInputDeviceToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
             this.barcodeInputDeviceToolStripMenuItem.Text = "Barcode Input Device";
             this.barcodeInputDeviceToolStripMenuItem.Click += new System.EventHandler(this.barcodeInputDeviceToolStripMenuItem_Click);
+            // 
+            // flashECMToolStripMenuItem
+            // 
+            this.flashECMToolStripMenuItem.Checked = true;
+            this.flashECMToolStripMenuItem.CheckOnClick = true;
+            this.flashECMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.flashECMToolStripMenuItem.Name = "flashECMToolStripMenuItem";
+            this.flashECMToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.flashECMToolStripMenuItem.Text = "Flash ECM";
+            this.flashECMToolStripMenuItem.Click += new System.EventHandler(this.flashECMToolStripMenuItem_Click);
+            // 
+            // flashTCMToolStripMenuItem
+            // 
+            this.flashTCMToolStripMenuItem.Checked = true;
+            this.flashTCMToolStripMenuItem.CheckOnClick = true;
+            this.flashTCMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.flashTCMToolStripMenuItem.Name = "flashTCMToolStripMenuItem";
+            this.flashTCMToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.flashTCMToolStripMenuItem.Text = "Flash TCM";
+            this.flashTCMToolStripMenuItem.Click += new System.EventHandler(this.flashTCMToolStripMenuItem_Click);
             // 
             // m_vinLabel
             // 
@@ -296,36 +316,6 @@
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Flash Progress";
-            // 
-            // m_buildDataPB
-            // 
-            this.m_buildDataPB.Image = ((System.Drawing.Image)(resources.GetObject("m_buildDataPB.Image")));
-            this.m_buildDataPB.Location = new System.Drawing.Point(1250, 141);
-            this.m_buildDataPB.Name = "m_buildDataPB";
-            this.m_buildDataPB.Size = new System.Drawing.Size(26, 27);
-            this.m_buildDataPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.m_buildDataPB.TabIndex = 21;
-            this.m_buildDataPB.TabStop = false;
-            // 
-            // m_cableConnectPB
-            // 
-            this.m_cableConnectPB.Image = ((System.Drawing.Image)(resources.GetObject("m_cableConnectPB.Image")));
-            this.m_cableConnectPB.Location = new System.Drawing.Point(1250, 104);
-            this.m_cableConnectPB.Name = "m_cableConnectPB";
-            this.m_cableConnectPB.Size = new System.Drawing.Size(26, 24);
-            this.m_cableConnectPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.m_cableConnectPB.TabIndex = 20;
-            this.m_cableConnectPB.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 24);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1432, 70);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
             // 
             // m_promptBox2
             // 
@@ -450,32 +440,42 @@
             this.m_ecmResultBox.TabIndex = 10;
             this.m_ecmResultBox.Text = "      Engine      ";
             // 
-            // flashECMToolStripMenuItem
+            // pictureBox1
             // 
-            this.flashECMToolStripMenuItem.Checked = true;
-            this.flashECMToolStripMenuItem.CheckOnClick = true;
-            this.flashECMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.flashECMToolStripMenuItem.Name = "flashECMToolStripMenuItem";
-            this.flashECMToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.flashECMToolStripMenuItem.Text = "Flash ECM";
-            this.flashECMToolStripMenuItem.Click += new System.EventHandler(this.flashECMToolStripMenuItem_Click);
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(0, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1432, 70);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
-            // flashTCMToolStripMenuItem
+            // m_cableConnectPB
             // 
-            this.flashTCMToolStripMenuItem.Checked = true;
-            this.flashTCMToolStripMenuItem.CheckOnClick = true;
-            this.flashTCMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.flashTCMToolStripMenuItem.Name = "flashTCMToolStripMenuItem";
-            this.flashTCMToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
-            this.flashTCMToolStripMenuItem.Text = "Flash TCM";
-            this.flashTCMToolStripMenuItem.Click += new System.EventHandler(this.flashTCMToolStripMenuItem_Click);
+            this.m_cableConnectPB.Image = ((System.Drawing.Image)(resources.GetObject("m_cableConnectPB.Image")));
+            this.m_cableConnectPB.Location = new System.Drawing.Point(1250, 104);
+            this.m_cableConnectPB.Name = "m_cableConnectPB";
+            this.m_cableConnectPB.Size = new System.Drawing.Size(26, 24);
+            this.m_cableConnectPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.m_cableConnectPB.TabIndex = 20;
+            this.m_cableConnectPB.TabStop = false;
+            // 
+            // m_buildDataPB
+            // 
+            this.m_buildDataPB.Image = ((System.Drawing.Image)(resources.GetObject("m_buildDataPB.Image")));
+            this.m_buildDataPB.Location = new System.Drawing.Point(1250, 141);
+            this.m_buildDataPB.Name = "m_buildDataPB";
+            this.m_buildDataPB.Size = new System.Drawing.Size(26, 27);
+            this.m_buildDataPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.m_buildDataPB.TabIndex = 21;
+            this.m_buildDataPB.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1432, 866);
+            this.ClientSize = new System.Drawing.Size(1432, 856);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.m_lotNumberLabel);
             this.Controls.Add(this.m_modelYearLabel);
@@ -509,11 +509,11 @@
             this.m_buildInfoGroupBox.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.m_buildDataPB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.m_cableConnectPB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_cableConnectPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_buildDataPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -522,7 +522,6 @@
         #endregion
 
         private System.Windows.Forms.TextBox m_promptBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ProgressBar m_overallProgressBar;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -533,13 +532,10 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label m_cableConnectLabel;
         private System.Windows.Forms.Label m_buildDataLabel;
-        private System.Windows.Forms.PictureBox m_cableConnectPB;
-        private System.Windows.Forms.PictureBox m_buildDataPB;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enterBarcodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem vehicleCommunicationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem barcodeInputDeviceToolStripMenuItem;
         private System.Windows.Forms.RichTextBox m_logMessageTextBox;
         private System.Windows.Forms.ToolStripMenuItem clearBuildDataToolStripMenuItem;
@@ -561,6 +557,10 @@
         private System.Windows.Forms.Label m_ecmResultBox;
         private System.Windows.Forms.ToolStripMenuItem flashECMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flashTCMToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vehicleCommunicationToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox m_cableConnectPB;
+        private System.Windows.Forms.PictureBox m_buildDataPB;
     }
 }
 

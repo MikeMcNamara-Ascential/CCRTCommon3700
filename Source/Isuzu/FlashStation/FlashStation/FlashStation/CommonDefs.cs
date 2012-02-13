@@ -42,6 +42,8 @@ namespace Common.Lib
             WAIT_FOR_USER_INPUT2 = "Scan or Key In Barcode",
             ABORT_INVALID_BUILD_DATA1 = "Build Data Invalid",
             ABORT_INVALID_BUILD_DATA2 = "Aborting Flash Sequence",
+            ABORT_INVALID_ESN_LENGTH = "ESN Invalid Length",
+            ABORT_INVALID_ESN_VALUE = "ESN Invalid Value",
             ABORT_USER1 = "User Aborted Flash Sequence",
             REPORT_DATA1 = "Reporting Data",
             REPORT_DATA2 = "Please Wait...",

@@ -47,7 +47,6 @@ namespace Common.Lib.Interfaces
         void Terminate();
         void SetStatus(Status status);
         void SetLogger(Logger logger);
-        void ReportData();
         void ToggleForcedCableConnect();
         void ToggleUsingForcedCableConnect();
         void SetPerformTCMFlash(bool perform);

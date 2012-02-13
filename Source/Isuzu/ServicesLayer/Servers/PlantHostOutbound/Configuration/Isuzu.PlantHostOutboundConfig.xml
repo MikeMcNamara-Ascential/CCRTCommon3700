@@ -1,0 +1,145 @@
+<PlantHostOutboundConfig>
+    <!-- PlantHostOutbound config items -->
+    <Setup>
+        <Debug>Off</Debug>
+        <ReportAbortedTestResults>True</ReportAbortedTestResults>
+        <Communication>
+            <Type>Server</Type>
+            <Debug>Off</Debug>
+            <Name>core/PlantHostOutbound</Name>
+            <Comm>IPC</Comm>
+            <Timeout>1000</Timeout>
+            <BufferSize>2000</BufferSize>
+        </Communication>
+        <DataTags/>
+        <Logging>
+            <Debug>Off</Debug>
+            <ProcessName>PlantHostOutbound</ProcessName>
+            <Status>Enabled</Status>
+            <AdditionalLogFile Types="/Server/PlantHostOutbound or Disabled">/Servers/PlantHostOutbound.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x01</Verbose>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <RollsDownElevUp/>
+                <TestResult/>
+                <VehiclePresent/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>7</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <PrintForFlaggedFailures>False</PrintForFlaggedFailures>
+        <FlaggedFailuresToPrint>
+            <MachineMPBOBrakeInterlock/>
+        </FlaggedFailuresToPrint>
+        <PrintServerCommands>
+            <Command1 process="core/DataServer" msgType="Publish" tag="OverallTest" value="Fail">SendCmd</Command1>
+            <Command2 process="core/DataServer" msgType="Publish" tag="TestResult" value="TestResultFileName">SendCmd</Command2>
+        </PrintServerCommands>
+        <!-- External Host Interface List -->
+        <HostInterfaces>
+            <!-- ============================================================== -->
+            <!-- Archive Interface                                                  -->
+            <!-- ============================================================== -->
+            <ArchiveInterface Enabled="1" Process="$(USR_ROOT)/ServicesLayer/Bin/HostInterface.qxe">
+                <Setup>
+                    <SendResultsToHost>No</SendResultsToHost>
+                    <VinIndex>18</VinIndex>
+                    <MaxResponseTime>20000</MaxResponseTime>
+                    <MaxAttempts>3</MaxAttempts>
+                    <ResultMap>/Configuration/Servers/ArchiveTestDataFileNameMap.xml</ResultMap>
+                    <ArchiveFilenameMap>/Configuration/Servers/ArchiveTestDataFileNameMap.xml</ArchiveFilenameMap>
+                    <MessageID>0x13</MessageID>
+                    <TestResultConversion>
+                        <Pass>P</Pass>
+                        <Fail>F</Fail>
+                        <Abort>A</Abort>
+                        <NotTested>Z</NotTested>
+                        <TestInProgress>A</TestInProgress>
+                        <Timeout>F</Timeout>
+                    </TestResultConversion>
+                    <ArchiveTestData>True</ArchiveTestData>
+                    <FilesToArchive>
+                      <ForceFile Path="/home/CCRT/Rewrite/TestResults/Machine/BrakeForceData/" FileName="BrakeForce.log"/>
+                      <LogFile Path="/home/CCRT/Rewrite/Logs/" Format="TestLog.%s.*.log" DataItem="VehicleBuild/VIN" Length="17" Offset="0"/>
+                      <SpeedFile Path="/home/CCRT/Rewrite/TestResults/Machine/BrakeForceData/" FileName="Speed.log"/>
+                      <TestResultFile Path="/home/CCRT/Rewrite/TestResults/Vehicle/" Format="%s.*" DataItem="VehicleBuild/VIN" Length="17" Offset="0"/>
+                    </FilesToArchive>
+                    <ComponentNameMapping/>
+                    <DataTags>
+                        <OverallTest>OverallTest</OverallTest>
+                        <MachineNumber>MachineNumber</MachineNumber>
+                    </DataTags>
+                    <HostCommunication>
+                        <Setup>
+                            <Communication>
+                        <Name>/dev/LogicalPorts/Archiver</Name>
+                                <BufferSize>2048</BufferSize>
+                                <Timeout>3000</Timeout>
+                                <Debug>Off</Debug>
+                            </Communication>
+                            <Logging>
+                                <Debug>Off</Debug>
+                        <ProcessName>Archiver</ProcessName>
+                                <Status>Enabled</Status>
+                        <AdditionalLogFile Types="/Server/PFSCommunication.log">/Servers/ArchiverInterfaceCommunication.log</AdditionalLogFile>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                            </Logging>
+                        </Setup>
+                    </HostCommunication>
+                    <Communication>
+                        <Debug>Off</Debug>
+                        <Name>core/ResultArchiver</Name>
+                        <Type>Server</Type>
+                        <Comm>IPC</Comm>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                    </Communication>
+                    <Logging>
+                  <Status>Disabled</Status>
+                        <ProcessName>core/ResultArchiver</ProcessName>
+                        <AdditionalLogFile>/Servers/ResultArchiver.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Enabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <ThreadPool>
+                        <Debug>Off</Debug>
+                        <MinBlockedLimit>1</MinBlockedLimit>
+                        <MaxBlockedLimit>3</MaxBlockedLimit>
+                        <Increment>1</Increment>
+                        <Maximum>5</Maximum>
+                    </ThreadPool>
+                    <NotificationList>
+                        <Setup>
+                            <Debug>Off</Debug>
+                            <HighWater>3</HighWater>
+                            <Increment>1</Increment>
+                            <LowWater>1</LowWater>
+                            <Maximum>5</Maximum>
+                            <StartOnCreate>No</StartOnCreate>
+                        </Setup>
+                    </NotificationList>
+                </Setup>
+            </ArchiveInterface>
+        </HostInterfaces>
+    </Setup>
+</PlantHostOutboundConfig>

@@ -38,7 +38,7 @@
             <ProcessName>core/TestResultServer</ProcessName>
             <Status>Enabled</Status>
             <LocalEcho>Disabled</LocalEcho>
-            <Verbose>0x1F</Verbose>
+         <Verbose>0x03</Verbose>
         </Logging>
         <TagList>
             <SubscribeTags>

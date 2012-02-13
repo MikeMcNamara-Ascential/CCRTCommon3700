@@ -25,7 +25,7 @@
                         <Timeout>1000</Timeout>
                     </Communication>
                     <Logging>
-                        <Status>Enabled</Status>
+                        <Status>Disabled</Status>
                         <ProcessName>core/Pendant</ProcessName>
                         <AdditionalLogFile>/Servers/Pendant.log</AdditionalLogFile>
                         <Debug>Off</Debug>
@@ -202,7 +202,7 @@
                         <Timeout>1000</Timeout>
                     </Communication>
                     <Logging>
-                        <Status>Enabled</Status>
+                        <Status>Disabled</Status>
                         <ProcessName>core/LeftSymbolScanner</ProcessName>
                         <AdditionalLogFile>/Servers/LeftSymbolScanner.log</AdditionalLogFile>
                         <Debug>Off</Debug>
@@ -235,7 +235,7 @@
                                 <Timeout>10000</Timeout>
                             </Communication>
                             <Logging>
-                                <Status>Enabled</Status>
+                                <Status>Disabled</Status>
                                 <ProcessName>LeftSymbolScanner</ProcessName>
                                 <AdditionalLogFile Types="/Servers/SymbolScanner.log or Disabled">/Servers/LeftSymbolScanner.log</AdditionalLogFile>
                                 <Debug>Off</Debug>
@@ -276,7 +276,7 @@
                         <Timeout>1000</Timeout>
                     </Communication>
                     <Logging>
-                        <Status>Enabled</Status>
+                        <Status>Disabled</Status>
                         <ProcessName>core/RightSymbolScanner</ProcessName>
                         <AdditionalLogFile>/Servers/RightSymbolScanner.log</AdditionalLogFile>
                         <Debug>Off</Debug>
@@ -309,7 +309,7 @@
                                 <Timeout>10000</Timeout>
                             </Communication>
                             <Logging>
-                                <Status>Enabled</Status>
+                                <Status>Disabled</Status>
                                 <ProcessName>RightSymbolScanner</ProcessName>
                                 <AdditionalLogFile Types="/Servers/SymbolScanner.log or Disabled">/Servers/RightSymbolScanner.log</AdditionalLogFile>
                                 <Debug>Off</Debug>
@@ -345,7 +345,7 @@
                         <Timeout>1000</Timeout>
                     </Communication>
                     <Logging>
-                        <Status>Enabled</Status>
+                        <Status>Disabled</Status>
                         <ProcessName>core/OverheadScanner</ProcessName>
                         <AdditionalLogFile>/Servers/SymbolScanner.log</AdditionalLogFile>
                         <Debug>Off</Debug>
@@ -671,7 +671,7 @@
             <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
         </DataTags>
         <Logging>
-            <Status>Enabled</Status>
+            <Status>Disabled</Status>
             <ProcessName>core/InputServer</ProcessName>
             <AdditionalLogFile Types="/Servers/InputServer.log or Disabled">/Servers/InputServer.log</AdditionalLogFile>
             <Debug>Off</Debug>

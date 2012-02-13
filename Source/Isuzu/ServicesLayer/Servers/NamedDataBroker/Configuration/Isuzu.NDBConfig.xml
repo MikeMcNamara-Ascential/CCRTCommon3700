@@ -263,6 +263,7 @@
                 <EngineTypeBGColor DataType="color">VehicleDataBroker</EngineTypeBGColor>
                 <EntranceDoorFault DataType="bool">PLC</EntranceDoorFault>
                 <ErrorCodeTest DataType="string">VehicleTest</ErrorCodeTest>
+                <ESNLeadingCharacters DataType="string">VehicleDataBroker</ESNLeadingCharacters>
                 <ExcessiveBrakeForceTest DataType="string">VehicleTest</ExcessiveBrakeForceTest>
                 <ExhaustCarriageDriveFault DataType="bool">PLC</ExhaustCarriageDriveFault>
                 <ExhaustDoorLoweredFault DataType="bool">PLC</ExhaustDoorLoweredFault>
@@ -1279,6 +1280,7 @@
                 <WheelbasePositioningFault DataType="bool">PLC</WheelbasePositioningFault>
                 <WheelbaseStartCommand DataType="bool">PLC</WheelbaseStartCommand>
                 <WillTestDiffLock DataType="bool">SystemMonitor</WillTestDiffLock>
+                <WriteESN DataType="string">VehicleDataBroker</WriteESN>
                 <YesPB DataType="bool">PLC</YesPB>
                 <Zerospeed DataType="bool">ICM</Zerospeed>
                 <ZerospeedToPLC DataType="bool">PLC</ZerospeedToPLC>

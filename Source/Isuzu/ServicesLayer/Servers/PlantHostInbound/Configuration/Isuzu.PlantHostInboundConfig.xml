@@ -1,68 +1,6 @@
 <PlantHostInbound>
     <Setup>
         <Debug>Off</Debug>
-        <!--InputServer>core/InputServer</InputServer-->
-        <!--Broadcast>
-            <Data>
-                <MessageDescriptionLength>50</MessageDescriptionLength>
-                <TestDataSectionLength>17</TestDataSectionLength>
-                <PartNumberSectionLength>60</PartNumberSectionLength>
-                <TestCodeSectionLength>28</TestCodeSectionLength>
-                <WccTimeIndex>157</WccTimeIndex>
-                <WccTimeLength>4</WccTimeLength>
-                <WccDateIndex>162</WccDateIndex>
-                <WccDateLength>6</WccDateLength>
-                <WccChecksumIndex>168</WccChecksumIndex>
-            </Data>
-            <BroadcastCommunication>
-                <Setup>
-                    <Communication>
-                        <Name>/dev/LogicalPorts/Wcc</Name>
-                        <BufferSize>2000</BufferSize>
-                        <Timeout>3000</Timeout>
-                        <Debug>Off</Debug>
-                    </Communication>
-                    <Logging>
-                        <ProcessName>BroadcastCommunication</ProcessName>
-                        <Status>Enabled</Status>
-                        <AdditionalLogFile Types="/Servers/BroadCastCommunication.log or Disabled">/Servers/BroadCastCommunication.log</AdditionalLogFile>
-                        <Debug>Off</Debug>
-                        <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x1F</Verbose>
-                    </Logging>
-                    <MaxAttempts>3</MaxAttempts>
-                    <MaxResponseTime>3000</MaxResponseTime>
-                    <MessageDelay>100</MessageDelay>
-                </Setup>
-            </BroadcastCommunication>
-            <RequestHandlerConfig>
-                <Setup>
-                    <Communication>
-                        <Name>/dev/LogicalPorts/Wcc</Name>
-                        <BufferSize>2000</BufferSize>
-                        <Timeout>5000</Timeout>
-                        <Debug>Off</Debug>
-                    </Communication>
-                    <Logging>
-                        <Debug>Off</Debug>
-                        <ProcessName>Blank</ProcessName>
-                        <Status>Disable</Status>
-                        <AdditionalLogFile Types="/Server/RequestHandler.log or Disabled">Disabled</AdditionalLogFile>
-                        <LocalEcho>Disable</LocalEcho>
-                        <Verbose>0x00</Verbose>
-                    </Logging>
-                    <WccRequests>
-                        <CommunicationCheck>0</CommunicationCheck>
-                    </WccRequests>
-                    <RequestResponses>
-                        <CommunicationCheck>R1</CommunicationCheck>
-                    </RequestResponses>
-                    <MaxAttempts>3</MaxAttempts>
-                    <MessageDelay>25</MessageDelay>
-                    <MaxRequestLength>5</MaxRequestLength>
-                </Setup>
-            </RequestHandlerConfig>
-        </Broadcast-->
         <Communication>
             <Type>Server</Type>
             <Debug>Off</Debug>
@@ -89,7 +27,6 @@
             <VINDisplay>VINDisplay</VINDisplay>
             <VINReadStatus>VINReadStatus</VINReadStatus>
             <WheelbasePositionTag>WheelbasePositionInchesX10</WheelbasePositionTag>
-
             <AllWheelDriveEquipped>
                 <AWD>Yes</AWD>
             </AllWheelDriveEquipped>
@@ -104,7 +41,7 @@
             <ProcessName>core/PlantHostInbound</ProcessName>
             <AdditionalLogFile Type="/Servers/PlantHostInbound.log or Disabled">/Servers/PlantHostInbound.log</AdditionalLogFile>
             <LocalEcho>Disabled</LocalEcho>
-            <Verbose>0x1F</Verbose>
+         <Verbose>0x01</Verbose>
             <Debug>Off</Debug>
         </Logging>
         <TagList>

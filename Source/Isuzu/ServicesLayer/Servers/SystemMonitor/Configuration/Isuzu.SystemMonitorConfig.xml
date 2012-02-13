@@ -10,18 +10,16 @@
                 <LossCompensationSwitchTime Description="The amount of time to wait in miliseconds to debounce the LC switch">1000</LossCompensationSwitchTime>
                 <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">0</CableConnectTime>
                 <LossCompensationCycleLimit Description="Maximum number of test cycles between consecutive loss compensation cycles">0</LossCompensationCycleLimit>
-
                 <!-- Wheelbase Parameters -->
                 <SystemMonitorWheelbaseAdjust>True</SystemMonitorWheelbaseAdjust>
                 <MoveWheelbasePulseWidth Units="ms">2000</MoveWheelbasePulseWidth>
-
                 <Logging>
                         <Status>Enabled</Status>
                         <ProcessName>core/SystemMonitor</ProcessName>
                         <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>
                         <LocalEcho>Disabled</LocalEcho>
                         <Debug>Off</Debug>
-                        <Verbose>0x1F</Verbose>
+         <Verbose>0x03</Verbose>
                 </Logging>
                 <ThreadPool>
                         <Debug>Off</Debug>

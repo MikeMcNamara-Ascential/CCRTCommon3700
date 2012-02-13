@@ -90,6 +90,11 @@
             OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
 
+        <PlantHostOutbound Name="PlantHostOutbound.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="PlantHostOutboundConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0116" RegisteredName="core/PlantHostOutbound" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Outbound Server</PlantHostOutbound>
+
         <PromptServer Name="PromptServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="PromptServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0100" RegisteredName="core/PromptServer" Register="Yes" 

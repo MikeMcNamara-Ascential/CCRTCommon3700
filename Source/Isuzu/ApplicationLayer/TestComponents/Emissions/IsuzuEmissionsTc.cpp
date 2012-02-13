@@ -25,10 +25,10 @@ IsuzuEmissionsTc<ModuleType>::IsuzuEmissionsTc() : GenericEmissionsTCTemplate<Mo
 template<class ModuleType>
 IsuzuEmissionsTc<ModuleType>::~IsuzuEmissionsTc()
 {   // Empty the switch monitors if any were created
-    for(BackgroundSwitchMonitorVectorItr iter = m_switchMonitors.begin();
-       iter != m_switchMonitors.end(); iter++)
+    for (BackgroundSwitchMonitorVectorItr iter = m_switchMonitors.begin();
+        iter != m_switchMonitors.end(); iter++)
     {
-        if(*iter != NULL)  delete *iter;
+        if (*iter != NULL)  delete *iter;
         *iter = NULL;
     }
     m_switchMonitors.clear();
@@ -36,10 +36,10 @@ IsuzuEmissionsTc<ModuleType>::~IsuzuEmissionsTc()
     m_switchMonitorItems.clear(true);
 
     // Empty the pid range check monitors if any were created
-    for(BackgroundRangeCheckMonitorVectorItr iter = m_rangeCheckMonitors.begin();
-       iter != m_rangeCheckMonitors.end(); iter++)
+    for (BackgroundRangeCheckMonitorVectorItr iter = m_rangeCheckMonitors.begin();
+        iter != m_rangeCheckMonitors.end(); iter++)
     {
-        if(*iter != NULL)  delete *iter;
+        if (*iter != NULL)  delete *iter;
         *iter = NULL;
     }
     m_rangeCheckMonitors.clear();
@@ -53,53 +53,53 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
 {
     string testResult(BEP_TESTING_STATUS);
     // Make sure it is OK to perform this test
-    if(BEP_STATUS_SUCCESS == StatusCheck())
+    if (BEP_STATUS_SUCCESS == StatusCheck())
     {   // Perform the current test step
-        if(GetTestStepResult().compare(testPass) || GetTestStepInfoBool("AlwaysPerform"))
+        if (GetTestStepResult().compare(testPass) || GetTestStepInfoBool("AlwaysPerform"))
         {   // Only perform the step if it did not pass
-            if(!GetTestStepName().compare("AcceleratorPedalWOTTest"))                  testResult = AcceleratorPedalWOTTest();
-            else if(!GetTestStepName().compare("CheckAcStatus"))                       testResult = CheckAirConditionCompressor();
-            else if(!GetTestStepName().compare("CheckBarometricPressure"))             testResult = CheckSensorRangeUint8(value);
-            else if(!GetTestStepName().compare("CheckBatteryVoltage"))                 testResult = CheckSensorRangeFloat(value);
-            else if(!GetTestStepName().compare("CheckCASELearn"))                      testResult = CheckCASELearn();
-            else if(!GetTestStepName().compare("CheckEgrError"))                       testResult = CheckSensorRangeFloat(value);
-            else if(!GetTestStepName().compare("CheckEngineCoolantTemperature"))       testResult = CheckSensorRangeInt(value);
-            else if(!GetTestStepName().compare("CheckEngineFan"))                      testResult = CheckEngineFan();
-            else if(!GetTestStepName().compare("CheckEngineOilLevelLow"))              testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckEngineOilPressure"))              testResult = CheckSensorRangeUint8(value);
-            else if(!GetTestStepName().compare("CheckEngineOilPressureLow"))           testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckEngineOilTemperature"))           testResult = CheckSensorRangeInt(value);
-            else if(!GetTestStepName().compare("CheckFuelLevelPrimaryTankLevel"))      testResult = CheckSensorRangeFloat(value);
-            else if(!GetTestStepName().compare("CheckFuelLevelSecondaryTankLevel"))    testResult = CheckSensorRangeFloat(value);
-            else if(!GetTestStepName().compare("CheckFuelRailPressure"))               testResult = CheckSensorRangeUint8(value);
-            else if(!GetTestStepName().compare("CheckIdleFuelTrim"))                   testResult = CheckFuelTrim(true);
-            else if(!GetTestStepName().compare("CheckIdleRPM"))                        testResult = CheckSensorRangeUint16(value);
-            else if(!GetTestStepName().compare("CheckKnockSensor1Status"))             testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckKnockSensor2Status"))             testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckMAFResidual"))                    testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckManifoldAbsolutePressureAtIdle")) testResult = CheckSensorRangeAtIdleFloat(value);
-            else if(!GetTestStepName().compare("CheckMAP1Residual"))                   testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckMAP2Residual"))                   testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckMassAirFlowAtIdle"))              testResult = CheckSensorRangeAtIdleFloat(value);
-            else if(!GetTestStepName().compare("CheckMisfireCatalystFailureStatus"))   testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckMisfireEmissionsFailureStatus"))  testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckNeutralRPMOverspeed"))            testResult = CheckNeutralRPMOverspeed();
-            else if(!GetTestStepName().compare("CheckFuelTankVaporPressure"))          testResult = CheckSensorRangeFloat(value);
-            else if(!GetTestStepName().compare("CheckPedalPositionSensorsAgree"))      testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckSteadySpeedFuelTrim"))            testResult = CheckFuelTrim(false);
-            else if(!GetTestStepName().compare("CheckThrottlePositionSensorsAgree"))   testResult = CheckSensorRangeBool(value);
-            else if(!GetTestStepName().compare("CheckVehicleSpeedSensor"))             testResult = CheckVehicleSpeedSensor();
-            else if(!GetTestStepName().compare("ReadFaultCount"))                      testResult = CheckFaultCount();
-            else if(!GetTestStepName().compare("StartRangeCheckMonitors"))             testResult = StartRangeCheckMonitors();
-            else if(!GetTestStepName().compare("StartSwitchMonitors"))                 testResult = StartSwitchMonitors();
-            else if(!GetTestStepName().compare("StopSwitchMonitors"))                  testResult = StopSwitchMonitors();
-            else if(!GetTestStepName().compare("StopRangeCheckMonitors"))              testResult = StopRangeCheckMonitors();
-            else if(!GetTestStepName().compare("WaitForEngineTemperature"))            testResult = WaitForOperatingTemperature();
-            else if(!GetTestStepName().compare("DelayBeforeDtcRead"))                  testResult = DelayBeforeDtcRead();
-            else if(!GetTestStepName().compare("CheckOxygenSensors"))                  testResult = CheckOxygenSensors();
-            else if(!GetTestStepName().compare("KeyOffEngineOffKeyOn"))                testResult = KeyOffEngineOffKeyOn();
-            else if(!GetTestStepName().compare("ClearFaultsFinal"))                    testResult = ClearFaults();
-            else if(!GetTestStepName().compare("CheckSerialNumber"))                   testResult = CheckSerialNumber();
+            if (!GetTestStepName().compare("AcceleratorPedalWOTTest"))                  testResult = AcceleratorPedalWOTTest();
+            else if (!GetTestStepName().compare("CheckAcStatus"))                       testResult = CheckAirConditionCompressor();
+            else if (!GetTestStepName().compare("CheckBarometricPressure"))             testResult = CheckSensorRangeUint8(value);
+            else if (!GetTestStepName().compare("CheckBatteryVoltage"))                 testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckCASELearn"))                      testResult = CheckCASELearn();
+            else if (!GetTestStepName().compare("CheckEgrError"))                       testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckEngineCoolantTemperature"))       testResult = CheckSensorRangeInt(value);
+            else if (!GetTestStepName().compare("CheckEngineFan"))                      testResult = CheckEngineFan();
+            else if (!GetTestStepName().compare("CheckEngineOilLevelLow"))              testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckEngineOilPressure"))              testResult = CheckSensorRangeUint8(value);
+            else if (!GetTestStepName().compare("CheckEngineOilPressureLow"))           testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckEngineOilTemperature"))           testResult = CheckSensorRangeInt(value);
+            else if (!GetTestStepName().compare("CheckFuelLevelPrimaryTankLevel"))      testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckFuelLevelSecondaryTankLevel"))    testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckFuelRailPressure"))               testResult = CheckSensorRangeUint8(value);
+            else if (!GetTestStepName().compare("CheckIdleFuelTrim"))                   testResult = CheckFuelTrim(true);
+            else if (!GetTestStepName().compare("CheckIdleRPM"))                        testResult = CheckSensorRangeUint16(value);
+            else if (!GetTestStepName().compare("CheckKnockSensor1Status"))             testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckKnockSensor2Status"))             testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckMAFResidual"))                    testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckManifoldAbsolutePressureAtIdle")) testResult = CheckSensorRangeAtIdleFloat(value);
+            else if (!GetTestStepName().compare("CheckMAP1Residual"))                   testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckMAP2Residual"))                   testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckMassAirFlowAtIdle"))              testResult = CheckSensorRangeAtIdleFloat(value);
+            else if (!GetTestStepName().compare("CheckMisfireCatalystFailureStatus"))   testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckMisfireEmissionsFailureStatus"))  testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckNeutralRPMOverspeed"))            testResult = CheckNeutralRPMOverspeed();
+            else if (!GetTestStepName().compare("CheckFuelTankVaporPressure"))          testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckPedalPositionSensorsAgree"))      testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckSteadySpeedFuelTrim"))            testResult = CheckFuelTrim(false);
+            else if (!GetTestStepName().compare("CheckThrottlePositionSensorsAgree"))   testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckVehicleSpeedSensor"))             testResult = CheckVehicleSpeedSensor();
+            else if (!GetTestStepName().compare("ReadFaultCount"))                      testResult = CheckFaultCount();
+            else if (!GetTestStepName().compare("StartRangeCheckMonitors"))             testResult = StartRangeCheckMonitors();
+            else if (!GetTestStepName().compare("StartSwitchMonitors"))                 testResult = StartSwitchMonitors();
+            else if (!GetTestStepName().compare("StopSwitchMonitors"))                  testResult = StopSwitchMonitors();
+            else if (!GetTestStepName().compare("StopRangeCheckMonitors"))              testResult = StopRangeCheckMonitors();
+            else if (!GetTestStepName().compare("WaitForEngineTemperature"))            testResult = WaitForOperatingTemperature();
+            else if (!GetTestStepName().compare("DelayBeforeDtcRead"))                  testResult = DelayBeforeDtcRead();
+            else if (!GetTestStepName().compare("CheckOxygenSensors"))                  testResult = CheckOxygenSensors();
+            else if (!GetTestStepName().compare("KeyOffEngineOffKeyOn"))                testResult = KeyOffEngineOffKeyOn();
+            else if (!GetTestStepName().compare("ClearFaultsFinal"))                    testResult = ClearFaults();
+            else if (!GetTestStepName().compare("CheckSerialNumber"))                   testResult = CheckSerialNumber();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -108,8 +108,8 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             testResult = GetTestStepResult();
         }
         // Check if testing should abort on a failure
-        if(GetParameterBool("AbortOnTestStepFailure") && GetTestStepInfoBool("AbortIfFailed") &&
-           testResult.compare(testPass) && testResult.compare(testSkip))
+        if (GetParameterBool("AbortOnTestStepFailure") && GetTestStepInfoBool("AbortIfFailed") &&
+            testResult.compare(testPass) && testResult.compare(testSkip))
         {   // Tell ourselves to abort and then tell the system to abort.
             Abort();
             SystemWrite(ABORT_DATA_TAG, string("1"));
@@ -129,23 +129,23 @@ template<class ModuleType>
 const INT32 IsuzuEmissionsTc<ModuleType>::HandlePulse(const INT32 code, const INT32 value)
 {
     INT32 status = BEP_STATUS_ERROR;
-    switch(code)
+    switch (code)
     {
     case ISUZU_EMISSIONS_PULSE_CODE:
         {
-            switch(value)
+            switch (value)
             {
             case SWITCH_MON_PULSE:
                 {   // Check each of the switches that have been configured
                     bool allMonitorsAreComplete = true;
                     status = BEP_STATUS_SUCCESS;
-                    for(UINT32 index = 0; (index < m_switchMonitors.size()) && (BEP_STATUS_SUCCESS == status); index++)
+                    for (UINT32 index = 0; (index < m_switchMonitors.size()) && (BEP_STATUS_SUCCESS == status); index++)
                     {   // Read the switch state and check if the monitor is complete
                         status = m_switchMonitors[index]->ReadCurrentSwitchState();
-                        if(allMonitorsAreComplete)  allMonitorsAreComplete = m_switchMonitors[index]->SwitchMonitoringComplete();
+                        if (allMonitorsAreComplete)  allMonitorsAreComplete = m_switchMonitors[index]->SwitchMonitoringComplete();
                     }
                     // Check if switch monitoring should continue
-                    if(allMonitorsAreComplete)
+                    if (allMonitorsAreComplete)
                     {
                         Log(LOG_DEV_DATA, "All switch monitors have completed, stopping switch monitor timer");
                         m_switchMonitorTimer.Stop();
@@ -156,7 +156,7 @@ const INT32 IsuzuEmissionsTc<ModuleType>::HandlePulse(const INT32 code, const IN
             case SENSOR_MON_PULSE:
                 // Check each sensor that has been configured
                 status = BEP_STATUS_SUCCESS;
-                for(UINT32 index = 0; (index < m_rangeCheckMonitors.size()) && (BEP_STATUS_SUCCESS == status); index++)
+                for (UINT32 index = 0; (index < m_rangeCheckMonitors.size()) && (BEP_STATUS_SUCCESS == status); index++)
                 {   // Read the sensor data from the module
                     status = m_rangeCheckMonitors[index]->ReadCurrentSensorValue();
                 }
@@ -197,7 +197,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckAirConditionCompressor(void)
 {   // Log the entry and check if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckAirConditionCompressor() - Enter");
     string result(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Prompt the operator to turn on the A/C
         DisplayPrompt(GetPromptBox("TurnOnAc"), GetPrompt("TurnOnAc"), GetPromptPriority("TurnOnAc"));
         // Monitor the AC status until it is complete
@@ -207,9 +207,9 @@ string IsuzuEmissionsTc<ModuleType>::CheckAirConditionCompressor(void)
         {   // Read the A/C status from the module
             status = m_vehicleModule.ReadModuleData("ReadAcStatus", acCheckComplete);
             // If the A/C check is not complete, then wait a bit before checking again
-            if(!acCheckComplete)  BposSleep(GetTestStepInfoInt("ScanDelay"));
+            if (!acCheckComplete)  BposSleep(GetTestStepInfoInt("ScanDelay"));
             // Keep checking until the A/C check is complete, or time expires
-        } while(!acCheckComplete && TimeRemaining() && (BEP_STATUS_SUCCESS == status) && (BEP_STATUS_SUCCESS == StatusCheck()));
+        } while (!acCheckComplete && TimeRemaining() && (BEP_STATUS_SUCCESS == status) && (BEP_STATUS_SUCCESS == StatusCheck()));
         // Determine the overall result
         result = acCheckComplete ? testPass : testFail;
         Log(LOG_DEV_DATA, "A/C Check Complete: %s", result.c_str());
@@ -232,16 +232,16 @@ string IsuzuEmissionsTc<ModuleType>::CheckFaultCount(void)
 {   // Log the entry and determine if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckFaultCount() - Enter");
     string result(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Read the current fault count from the module
         UINT8 faultCount = 0xFF;
         BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("ReadFaultCount", faultCount);
-        if(BEP_STATUS_SUCCESS == status)
+        if (BEP_STATUS_SUCCESS == status)
         {
             result = (faultCount == 0x00) ? testPass : testFail;
             Log(LOG_DEV_DATA, "DTC Count: %d", faultCount);
             // Determine if testing should be aborted
-            if((faultCount > 0) && GetParameterBool("AbortIfDTCPresent"))
+            if ((faultCount > 0) && GetParameterBool("AbortIfDTCPresent"))
             {
                 Log(LOG_DEV_DATA, "DTCs present - aborting test!");
                 SystemWrite(ABORT_DATA_TAG, true);
@@ -273,7 +273,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeBool(const string &sensorNa
 {   // Log the entry and check if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckSensorRangeBool(sensorName: %s) - Enter", sensorName.c_str());
     string testResult(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Read the sensor from the module
         bool sensorValue = 0;
         bool valueToCompare = GetParameterBool(sensorName + "CompareValue");
@@ -281,13 +281,13 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeBool(const string &sensorNa
         BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName, sensorValue);
         string testDescription(GetTestStepInfo("Description"));
         string testCode("0000");
-        if(BEP_STATUS_SUCCESS == status)
+        if (BEP_STATUS_SUCCESS == status)
         {   // Good data from the module, evaluate against parameters
             testResult = (valueToCompare == sensorValue) ? testPass : testFail;
 
             Log(LOG_DEV_DATA, "%s value: %02X (%d) - compare to: %02X (%d) - result: %s",
                 sensorName.c_str(), sensorValue, sensorValue, valueToCompare, valueToCompare, testResult.c_str());
-            if(testResult.compare(testPass))
+            if (testResult.compare(testPass))
             {   // Sensor value out of range
                 testDescription = GetFaultDescription(sensorName + "OutOfRange");
                 testCode = GetFaultCode(sensorName + "OutofRangeHigh");                
@@ -323,7 +323,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeInt(const string &sensorNam
 {   // Log the entry and check if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckSensorRangeInt(sensorName: %s) - Enter", sensorName.c_str());
     string testResult(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Read the sensor from the module
         INT32 sensorValue = 0;
         INT32 minValue = GetParameterInt("Minimum" + sensorName);
@@ -331,14 +331,14 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeInt(const string &sensorNam
         BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName + "Sensor", sensorValue);
         string testDescription(GetTestStepInfo("Description"));
         string testCode("0000");
-        if(BEP_STATUS_SUCCESS == status)
+        if (BEP_STATUS_SUCCESS == status)
         {   // Good data from the module, evaluate against parameters
             testResult = ((minValue <= sensorValue) && (sensorValue <= maxValue)) ? testPass : testFail;
             Log(LOG_DEV_DATA, "%s value: %d - range: %d - %d - result: %s",
                 sensorName.c_str(), sensorValue, minValue, maxValue, testResult.c_str());
-            if(testResult.compare(testPass))
+            if (testResult.compare(testPass))
             {   // Sensor value out of range
-                if(sensorValue > maxValue)
+                if (sensorValue > maxValue)
                 {   // Sensor reading out of range - high
                     testDescription = GetFaultDescription(sensorName + "OutofRangeHigh");
                     testCode = GetFaultCode(sensorName + "OutofRangeHigh");
@@ -382,7 +382,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeUint8(const string &sensorN
 {   // Log the entry and check if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckSensorRangeUint8(sensorName: %s) - Enter", sensorName.c_str());
     string testResult(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Read the sensor from the module
         UINT8 sensorValue = 0;
         UINT8 minValue = GetParameterInt("Minimum" + sensorName);
@@ -390,14 +390,14 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeUint8(const string &sensorN
         BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName + "Sensor", sensorValue);
         string testDescription(GetTestStepInfo("Description"));
         string testCode("0000");
-        if(BEP_STATUS_SUCCESS == status)
+        if (BEP_STATUS_SUCCESS == status)
         {   // Good data from the module, evaluate against parameters
             testResult = ((minValue <= sensorValue) && (sensorValue <= maxValue)) ? testPass : testFail;
             Log(LOG_DEV_DATA, "%s value: %02X (%d) - range: %02X (%d) - %02X (%d) - result: %s",
                 sensorName.c_str(), sensorValue, sensorValue, minValue, minValue, maxValue, maxValue, testResult.c_str());
-            if(testResult.compare(testPass))
+            if (testResult.compare(testPass))
             {   // Sensor value out of range
-                if(sensorValue > maxValue)
+                if (sensorValue > maxValue)
                 {   // Sensor reading out of range - high
                     testDescription = GetFaultDescription(sensorName + "OutofRangeHigh");
                     testCode = GetFaultCode(sensorName + "OutofRangeHigh");
@@ -441,7 +441,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeUint16(const string &sensor
 {   // Log the entry and check if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckSensorRangeUint16(sensorName: %s) - Enter", sensorName.c_str());
     string testResult(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Read the sensor from the module
         UINT16 sensorValue = 0;
         UINT16 minValue = GetParameterInt("Minimum" + sensorName);
@@ -449,14 +449,14 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeUint16(const string &sensor
         BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName + "Sensor", sensorValue);
         string testDescription(GetTestStepInfo("Description"));
         string testCode("0000");
-        if(BEP_STATUS_SUCCESS == status)
+        if (BEP_STATUS_SUCCESS == status)
         {   // Good data from the module, evaluate against parameters
             testResult = ((minValue <= sensorValue) && (sensorValue <= maxValue)) ? testPass : testFail;
             Log(LOG_DEV_DATA, "%s value: %04X (%d) - range: %04X (%d) - %04X (%d) - result: %s",
                 sensorName.c_str(), sensorValue, sensorValue, minValue, minValue, maxValue, maxValue, testResult.c_str());
-            if(testResult.compare(testPass))
+            if (testResult.compare(testPass))
             {   // Sensor value out of range
-                if(sensorValue > maxValue)
+                if (sensorValue > maxValue)
                 {   // Sensor reading out of range - high
                     testDescription = GetFaultDescription(sensorName + "OutofRangeHigh");
                     testCode = GetFaultCode(sensorName + "OutofRangeHigh");
@@ -500,7 +500,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckVehicleSpeedSensor(void)
 {   // Log the entry and determine if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckVehicleSpeedSensor() - Enter");
     string result(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Read the sensor speed from the module
         float vehicleSpeed = 0.0;
         BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("ReadVehicleSpeedSensor", vehicleSpeed);
@@ -510,7 +510,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckVehicleSpeedSensor(void)
         float rollerSpeed = GetRollSpeed();
         float minSpeed = rollerSpeed - GetParameterFloat("VehicleSpeedSensorTolerance");
         float maxSpeed = rollerSpeed + GetParameterFloat("VehicleSpeedSensorTolerance");
-        if(BEP_STATUS_SUCCESS == status)
+        if (BEP_STATUS_SUCCESS == status)
         {
             result = ((minSpeed <= vehicleSpeed) && (vehicleSpeed <= maxSpeed)) ? testPass : testFail;
             Log(LOG_DEV_DATA, "Vehicle Speed Sensor: %.2f,  roller: %.2f, min: %.2f, max: %.2f -- %s",
@@ -547,7 +547,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeFloat(const string &sensorN
 {   // Log the entry and check if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckSensorRangeFloat(%s) - Enter", sensorName.c_str());
     string testResult(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Read the current engine coolant temperature
         float sensorValue = 0.0;
         float minValue = GetParameterFloat("Minimum" + sensorName);
@@ -557,14 +557,14 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeFloat(const string &sensorN
         string testCode("0000");
         Log(LOG_DEV_DATA, "Read %s from the module: %.2f - status: %s", sensorName.c_str(), sensorValue,
             ConvertStatusToResponse(status).c_str());
-        if(BEP_STATUS_SUCCESS == status)
+        if (BEP_STATUS_SUCCESS == status)
         {   // Good data from the module, evaluate against parameters
             testResult = ((minValue <= sensorValue) && (sensorValue <= maxValue)) ? testPass : testFail;
             Log(LOG_DEV_DATA, "%s value: (%.2f) - range: (%.2f) - (%.2f) - result: %s",
                 sensorName.c_str(), sensorValue, minValue, maxValue, testResult.c_str());
-            if(testResult.compare(testPass))
+            if (testResult.compare(testPass))
             {   // Sensor value out of range
-                if(sensorValue > maxValue)
+                if (sensorValue > maxValue)
                 {   // Sensor reading out of range - high
                     testDescription = GetFaultDescription(sensorName + "OutOfRangeHigh");
                     testCode = GetFaultCode(sensorName + "OutOfRangeHigh");
@@ -608,17 +608,17 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadCurrentSwitchStates(void)
 {
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     bool allMonitorsAreComplete = true;
-    for(BackgroundSwitchMonitorVectorItr iter = m_switchMonitors.begin();
-       iter != m_switchMonitors.end(); iter++)
+    for (BackgroundSwitchMonitorVectorItr iter = m_switchMonitors.begin();
+        iter != m_switchMonitors.end(); iter++)
     {   // Read the current switch state if this switch has not completed
-        if(!*iter.SwitchMonitoringComplete())
+        if (!*iter.SwitchMonitoringComplete())
         {
             status = ReadCurrentSwitchState();
-            if(!*iter.SwitchMonitoringComplete()) allMonitorsAreComplete = false;
+            if (!*iter.SwitchMonitoringComplete()) allMonitorsAreComplete = false;
         }
     }
     // Check if all monitors have completed
-    if(allMonitorsAreComplete)
+    if (allMonitorsAreComplete)
     {   // Disable the timer
         Log(LOG_DEV_DATA, "All switch monitoring complete, stopping timer");
         m_switchMonitorTimer.Stop();
@@ -646,13 +646,13 @@ void IsuzuEmissionsTc<ModuleType>::SetupSensorMonitorTimer(const XmlNode *config
         updateRate = BposReadInt(config->getChild("SensorUpdateRate")->getValue().c_str());
         Log(LOG_DEV_DATA, "Sensor monitor update rate: %d", updateRate);
     }
-    catch(XmlException &excpt)
+    catch (XmlException &excpt)
     {
         Log(LOG_ERRORS, "Sensor monitor update rate not specified, setting update rate to 0 - %s", excpt.GetReason());
         updateRate = 0;
     }
     // Make sure we have a vaild update rate
-    if(updateRate > 0)
+    if (updateRate > 0)
     {
         m_sensorMonitorTimer.SetPulseCode(ISUZU_EMISSIONS_PULSE_CODE);
         m_sensorMonitorTimer.SetPulseValue(SENSOR_MON_PULSE);
@@ -675,13 +675,13 @@ void IsuzuEmissionsTc<ModuleType>::SetupSwitchMonitorTimer(const XmlNode *config
         updateRate = BposReadInt(config->getChild("SwitchUpdateRate")->getValue().c_str());
         Log(LOG_DEV_DATA, "Switch monitor update rate: %d", updateRate);
     }
-    catch(XmlException &excpt)
+    catch (XmlException &excpt)
     {
         Log(LOG_ERRORS, "Switch monitor update rate not specified, setting update rate to 0 - %s", excpt.GetReason());
         updateRate = 0;
     }
     // Make sure we have a vaild update rate
-    if(updateRate > 0)
+    if (updateRate > 0)
     {
         m_switchMonitorTimer.SetPulseCode(ISUZU_EMISSIONS_PULSE_CODE);
         m_switchMonitorTimer.SetPulseValue(SWITCH_MON_PULSE);
@@ -700,9 +700,9 @@ string IsuzuEmissionsTc<ModuleType>::StartSwitchMonitors(void)
 {   // Log the entry and determine if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::StartSwitchMonitors() - Enter");
     string testResult(testPass);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Create new switch monitors
-        for(XmlNodeMapItr iter = m_switchMonitorItems.begin(); iter != m_switchMonitorItems.end(); iter++)
+        for (XmlNodeMapItr iter = m_switchMonitorItems.begin(); iter != m_switchMonitorItems.end(); iter++)
         {   // Create a new switch monitor
             Log(LOG_DEV_DATA, "Create Switch Monitor for %s", iter->second->getName().c_str());
             BackgroundSwitchMonitor *monitor = new BackgroundSwitchMonitor(iter->second->getName(),
@@ -711,7 +711,7 @@ string IsuzuEmissionsTc<ModuleType>::StartSwitchMonitors(void)
             m_switchMonitors.push_back(monitor);
         }
         // Start the timer if there are switches to monitor
-        if(m_switchMonitors.size() > 0)  m_switchMonitorTimer.Start();
+        if (m_switchMonitors.size() > 0)  m_switchMonitorTimer.Start();
         // Report the result
         SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
     }
@@ -731,12 +731,12 @@ string IsuzuEmissionsTc<ModuleType>::StopSwitchMonitors(void)
 {   // Log the entery and determine if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::StopSwitchMonitors() - Enter");
     string result(BEP_TESTING_STATUS);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Stop the switch monitor timer
         m_switchMonitorTimer.Stop();
         // Stop each switch monitor
         TestResultDetails details;
-        for(UINT32 index = 0; index < m_switchMonitors.size(); index++)
+        for (UINT32 index = 0; index < m_switchMonitors.size(); index++)
         {   // Make sure both states have been detected
             string switchResult = (m_switchMonitors[index]->SwitchOnDetected() && 
                                    m_switchMonitors[index]->SwitchOffDetected()) ? testPass : testFail;
@@ -787,9 +787,9 @@ string IsuzuEmissionsTc<ModuleType>::StartRangeCheckMonitors()
 {   // Log the entry and determine if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::StartRangeCheckMonitors() - Enter");
     string testResult(testPass);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Create new range check monitors
-        for(XmlNodeMapItr iter = m_rangeCheckMonitorItems.begin(); iter != m_rangeCheckMonitorItems.end(); iter++)
+        for (XmlNodeMapItr iter = m_rangeCheckMonitorItems.begin(); iter != m_rangeCheckMonitorItems.end(); iter++)
         {
             Log(LOG_DEV_DATA, "Create Sensor Range Check Monitor for %s", iter->second->getName().c_str());
             // Create a new switch monitor
@@ -800,7 +800,7 @@ string IsuzuEmissionsTc<ModuleType>::StartRangeCheckMonitors()
             m_rangeCheckMonitors.push_back(monitor);           
         }
         // If there were sensor monitors started, start the timer
-        if(m_rangeCheckMonitors.size() > 0)   m_sensorMonitorTimer.Start();
+        if (m_rangeCheckMonitors.size() > 0)   m_sensorMonitorTimer.Start();
         // Report the result
         SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
     }
@@ -823,11 +823,11 @@ string IsuzuEmissionsTc<ModuleType>::StopRangeCheckMonitors()
     string testDescription(GetTestStepInfo("Description"));;
     string testCode("0000");
 
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {
         TestResultDetails details;
         m_sensorMonitorTimer.Stop();
-        for(UINT32 index = 0; index < m_rangeCheckMonitors.size(); index++)
+        for (UINT32 index = 0; index < m_rangeCheckMonitors.size(); index++)
         {   // Take the last reading
             m_rangeCheckMonitors[index]->ReadCurrentSensorValue();
             string sensorValueName(m_rangeCheckMonitors[index]->SensorName());
@@ -863,7 +863,7 @@ string IsuzuEmissionsTc<ModuleType>::WaitForOperatingTemperature(void)
 {   // Log the entry and determine if this step should be performed
     string testResult(BEP_TESTING_RESPONSE);
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::WaitForOperatingTemperature() - Enter");
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Keep monitoring until engine temperature reaches operating temperature
         bool engineTempInRange = false;
         INT32 engineTemp = 0;
@@ -876,39 +876,39 @@ string IsuzuEmissionsTc<ModuleType>::WaitForOperatingTemperature(void)
         {   // Read the engine temperature from the module
             moduleStatus = ReadEngineTemperature(engineTemp);
             Log(LOG_DEV_DATA, "Current engine coolant temp: %d [%d  %d]", engineTemp, minTemp, maxTemp);
-            if(BEP_STATUS_SUCCESS == moduleStatus)
+            if (BEP_STATUS_SUCCESS == moduleStatus)
             {   // Check if the engine coolant temperature is in range
                 engineTempInRange = (minTemp <= engineTemp) && (engineTemp <= maxTemp);
                 SystemWrite(GetDataTag("EngineCoolantTemp"), engineTemp);
-                if(!engineTempInRange) BposSleep(GetTestStepInfoInt("ScanDelay"));
+                if (!engineTempInRange) BposSleep(GetTestStepInfoInt("ScanDelay"));
             }
-        } while((BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == moduleStatus) &&
-                !engineTempInRange && (engineTemp <= maxTemp));
+        } while ((BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == moduleStatus) &&
+                 !engineTempInRange && (engineTemp <= maxTemp));
         RemovePrompt(GetPromptBox("WaitForEngineTemp"), GetPrompt("WaitForEngineTemp"), 
                      GetPromptPriority("WaitForEngineTemp"));
         // Determine the overall result
         testResult = engineTempInRange ? testPass : testAbort;
         string testDescription(GetTestStepInfo("Description"));;
         string testCode("0000");
-        if(!engineTempInRange)
+        if (!engineTempInRange)
         {   // Figure out the correct fault message to report
-            if(BEP_STATUS_SUCCESS != StatusCheck())
+            if (BEP_STATUS_SUCCESS != StatusCheck())
             {
                 testDescription = GetFaultDescription("SystemStatus");
                 testCode = GetFaultCode("SystemStatus");
             }
-            else if(BEP_STATUS_SUCCESS != moduleStatus)
+            else if (BEP_STATUS_SUCCESS != moduleStatus)
             {
                 testDescription = GetFaultDescription("CommunicationFailure");
                 testCode = GetFaultCode("CommunicationFailure");
             }
-            else if(engineTemp < minTemp)
+            else if (engineTemp < minTemp)
             {
                 testDescription = GetFaultDescription("EngineTemperatureTooLow");
                 testCode = GetFaultCode("EngineTemperatureTooLow");
                 SystemWrite(ABORT_DATA_TAG, string("1"));
             }
-            else if(engineTemp > maxTemp)
+            else if (engineTemp > maxTemp)
             {
                 testDescription = GetFaultDescription("EngineTemperatureTooHigh");
                 testCode = GetFaultCode("EngineTemperatureTooHigh");
@@ -972,7 +972,7 @@ string IsuzuEmissionsTc<ModuleType>::AcceleratorPedalWOTTest()
     float maxWOTPercent = GetParameterFloat("AcceleratorPedalWOTTestMax"); 
 
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::AcceleratorPedalWOTTest() - Enter");
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {
         bool isEngineRunning = false;
         BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
@@ -980,7 +980,7 @@ string IsuzuEmissionsTc<ModuleType>::AcceleratorPedalWOTTest()
         {   // Make sure the engine is not running
             status = ReadIsEngineRunning(isEngineRunning);
             // If the engine is running, prompt the operator to shift to N and turn engine off key on
-            if(isEngineRunning && (BEP_STATUS_SUCCESS == status))
+            if (isEngineRunning && (BEP_STATUS_SUCCESS == status))
             {   // Prompt to turn engine off and key in on position
                 DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), 
                               GetPromptPriority("ShiftToNeutral"));
@@ -995,11 +995,11 @@ string IsuzuEmissionsTc<ModuleType>::AcceleratorPedalWOTTest()
                              GetPrompt("TurnEngineOffKeyOn"), GetPromptPriority("TurnEngineOffKeyOn"));
             }
             // Wait before the next check
-            if(isEngineRunning)  BposSleep(GetTestStepInfoInt("ScanDelay"));
-        }while(isEngineRunning && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && 
-               (BEP_STATUS_SUCCESS == status));
+            if (isEngineRunning)  BposSleep(GetTestStepInfoInt("ScanDelay"));
+        }while (isEngineRunning && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && 
+                (BEP_STATUS_SUCCESS == status));
         // If all is well
-        if(!isEngineRunning && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status))
+        if (!isEngineRunning && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status))
         {   // Prompt to push pedal to wot
             DisplayPrompt(GetPromptBox("PushAcceleratorPedalToFloor"), GetPrompt("PushAcceleratorPedalToFloor"), 
                           GetPromptPriority("PushAcceleratorPedalToFloor"));
@@ -1007,16 +1007,16 @@ string IsuzuEmissionsTc<ModuleType>::AcceleratorPedalWOTTest()
             do
             {   // Read pedal position 1 and 2 to verify
                 status = m_vehicleModule.ReadModuleData("ReadAcceleratorPedalSensor1", acceleratorPedalPos1);
-                if(BEP_STATUS_SUCCESS == status)
+                if (BEP_STATUS_SUCCESS == status)
                 {   // Compare the two and also with 100% with some tolerance
-                    if( (acceleratorPedalPos1 >= minWOTPercent) && 
-                        (acceleratorPedalPos1 <= maxWOTPercent) )
+                    if ( (acceleratorPedalPos1 >= minWOTPercent) && 
+                         (acceleratorPedalPos1 <= maxWOTPercent) )
                     {   // Passed within tolerance so check next sensor
                         status = m_vehicleModule.ReadModuleData("ReadAcceleratorPedalSensor2", acceleratorPedalPos2);
-                        if(BEP_STATUS_SUCCESS == status)
+                        if (BEP_STATUS_SUCCESS == status)
                         {   // Compare the two and also with 100% with some tolerance
-                            if( (acceleratorPedalPos2 >= minWOTPercent) && 
-                                (acceleratorPedalPos2 <= maxWOTPercent) )
+                            if ( (acceleratorPedalPos2 >= minWOTPercent) && 
+                                 (acceleratorPedalPos2 <= maxWOTPercent) )
                             {   // Passed within tolerance
                                 testResult = testPass;
                             }
@@ -1051,8 +1051,8 @@ string IsuzuEmissionsTc<ModuleType>::AcceleratorPedalWOTTest()
                     //Log(LOG_DEV_DATA, "Error reading Accelerator Pedal Position D from the module");
                     Log(LOG_DEV_DATA, "Error reading Accelerator Pedal Sensor 1 from the module");
                 }
-            } while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && testResult.compare(testPass) &&
-                    (BEP_STATUS_SUCCESS == status));
+            } while (TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && testResult.compare(testPass) &&
+                     (BEP_STATUS_SUCCESS == status));
         }
         // Remove the prompts
         RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
@@ -1092,7 +1092,7 @@ string IsuzuEmissionsTc<ModuleType>::ReadAndVerifySensor(string &sensorName, UIN
     UINT8 minValue = GetParameterInt("Minimum" + sensorName);
     UINT8 maxValue = GetParameterInt("Maximum" + sensorName);
     BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName + "Sensor", sensorValue);
-    if(BEP_STATUS_SUCCESS == status)
+    if (BEP_STATUS_SUCCESS == status)
     {   // Good data from the module, evaluate against parameters
         testResult = ((minValue <= sensorValue) && (sensorValue <= maxValue)) ? testPass : testFail;
         Log(LOG_DEV_DATA, "%s value: %02X (%d) - range: %02X (%d) - %02X (%d) - result: %s",
@@ -1107,9 +1107,9 @@ string IsuzuEmissionsTc<ModuleType>::ReadAndVerifySensor(string &sensorName, UIN
 
     string sensorValueUnits(GetParameter(sensorName + "Units"));
     SendSubtestResultWithDetail(GetTestStepName()+"_"+sensorName, testResult, testDescription, "0000", 
-                             "SensorReading", CreateMessage(buffer, sizeof(buffer), "%d", sensorValue), sensorValueUnits, 
-                             "MinParam", CreateMessage(bufferMin, sizeof(bufferMin), "%d", minValue), sensorValueUnits,
-                             "MaxParam", CreateMessage(bufferMax, sizeof(bufferMax), "%d", maxValue), sensorValueUnits);
+                                "SensorReading", CreateMessage(buffer, sizeof(buffer), "%d", sensorValue), sensorValueUnits, 
+                                "MinParam", CreateMessage(bufferMin, sizeof(bufferMin), "%d", minValue), sensorValueUnits,
+                                "MaxParam", CreateMessage(bufferMax, sizeof(bufferMax), "%d", maxValue), sensorValueUnits);
 
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ReadAndVerifySensor(%s) - Exit", sensorName.c_str());
@@ -1132,7 +1132,7 @@ string IsuzuEmissionsTc<ModuleType>::ReadAndVerifySensor(string &sensorName, flo
     float minValue = GetParameterFloat("Minimum" + sensorName);
     float maxValue = GetParameterFloat("Maximum" + sensorName);
     BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName + "Sensor", sensorValue);
-    if(BEP_STATUS_SUCCESS == status)
+    if (BEP_STATUS_SUCCESS == status)
     {   // Good data from the module, evaluate against parameters
         testResult = ((minValue <= sensorValue) && (sensorValue <= maxValue)) ? testPass : testFail;
         Log(LOG_DEV_DATA, "%s value: %.2f - range: %.2f - %.2f - result: %s",
@@ -1147,9 +1147,9 @@ string IsuzuEmissionsTc<ModuleType>::ReadAndVerifySensor(string &sensorName, flo
 
     string sensorValueUnits(GetParameter(sensorName + "Units"));
     SendSubtestResultWithDetail(GetTestStepName()+"_"+sensorName, testResult, testDescription, "0000", 
-                             "SensorReading", CreateMessage(buffer, sizeof(buffer), "%.2f", sensorValue), sensorValueUnits, 
-                             "MinParam", CreateMessage(bufferMin, sizeof(bufferMin), "%.2f", minValue), sensorValueUnits,
-                             "MaxParam", CreateMessage(bufferMax, sizeof(bufferMax), "%.2f", maxValue), sensorValueUnits);
+                                "SensorReading", CreateMessage(buffer, sizeof(buffer), "%.2f", sensorValue), sensorValueUnits, 
+                                "MinParam", CreateMessage(bufferMin, sizeof(bufferMin), "%.2f", minValue), sensorValueUnits,
+                                "MaxParam", CreateMessage(bufferMax, sizeof(bufferMax), "%.2f", maxValue), sensorValueUnits);
 
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ReadAndVerifySensor(%s) - Exit", sensorName.c_str());
@@ -1169,7 +1169,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckEngineFan()
     string desiredFanSpeedTestResult(BEP_TESTING_RESPONSE);
 
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckEngineFan() - Enter");
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {
         // Read and verify the actual fan speed with config min and max
         string actualFanSpeedName("ActualFanSpeed");
@@ -1180,17 +1180,17 @@ string IsuzuEmissionsTc<ModuleType>::CheckEngineFan()
 
         actualFanSpeedTestResult = ReadAndVerifySensor(actualFanSpeedName, actualFanSpeedValue);
 
-        if(actualFanSpeedTestResult.compare(testFail))
+        if (actualFanSpeedTestResult.compare(testFail))
         {
             // No failure and verify of the actual speed sensor
             // Read and verify the desired fan speed with config min and max
             desiredFanSpeedTestResult = ReadAndVerifySensor(desiredFanSpeedName, desiredFanSpeedValue);
 
-            if(desiredFanSpeedTestResult.compare(testFail))
+            if (desiredFanSpeedTestResult.compare(testFail))
             {
                 // Compare the desired fan speed with the actual fan speed and compare with config tolerance
-                if( (actualFanSpeedValue >= (desiredFanSpeedValue - toleranceRPM)) && 
-                    (actualFanSpeedValue <= (desiredFanSpeedValue + toleranceRPM)) )
+                if ( (actualFanSpeedValue >= (desiredFanSpeedValue - toleranceRPM)) && 
+                     (actualFanSpeedValue <= (desiredFanSpeedValue + toleranceRPM)) )
                 {
                     // Passed within tolerance
                     testResult = testPass;
@@ -1256,33 +1256,33 @@ string IsuzuEmissionsTc<ModuleType>::CheckCASELearn()
     string testDescription(GetTestStepInfo("Description"));;
     string testCode("0000");
     bool caseLearnInProgress(false);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {   // Check if CASE learn has been completed already
         BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
         UINT8 caseLearnStatus = 0x00;
         status = m_vehicleModule.ReadModuleData("ReadCaseLearnStatus", caseLearnStatus);
-        if(caseLearnStatus != GetParameterInt("CaseLearnCompleteValue"))
+        if (caseLearnStatus != GetParameterInt("CaseLearnCompleteValue"))
         {   // command the module to begin the CASE learn procedure after operator is applying brake pedal
             DisplayPrompt(GetPromptBox("CaseLearnInProgress"), GetPrompt("CaseLearnInProgress"), GetPromptPriority("CaseLearnInProgress"));
             DisplayPrompt(GetPromptBox("LeftFootOnBrake"), GetPrompt("LeftFootOnBrake"), GetPromptPriority("LeftFootOnBrake"));
             bool brakeOn = false;
             BEP_STATUS_TYPE brakeStatus = BEP_STATUS_SUCCESS;
-            while(!brakeOn && TimeRemaining() && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            while (!brakeOn && TimeRemaining() && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
             {
                 brakeStatus = m_vehicleModule.ReadModuleData("ReadBrakeSwitchPosition", brakeOn);
-                if(!brakeOn)
-                {          
+                if (!brakeOn)
+                {
                     BposSleep(GetTestStepInfoInt("ScanDelay"));
                 }
             }
             RemovePrompt(GetPromptBox("LeftFootOnBrake"), GetPrompt("LeftFootOnBrake"), GetPromptPriority("LeftFootOnBrake"));
             // Command the CASE Learn process to begin if all is well
-            if(brakeOn && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            if (brakeOn && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
             {
                 result = StartCaseLearnSequence();
             }
             // Look for CASE learn complete if the learn process has begun
-            if(!result.compare(testPass))
+            if (!result.compare(testPass))
             {   // Prompt the operator to get vehicle conditions correct
                 DisplayPrompt(GetPromptBox("PushAcceleratorPedalToFloor"), GetPrompt("PushAcceleratorPedalToFloor"),
                               GetPromptPriority("PushAcceleratorPedalToFloor"));
@@ -1295,25 +1295,25 @@ string IsuzuEmissionsTc<ModuleType>::CheckCASELearn()
                     status = m_vehicleModule.ReadModuleData("ReadCaseLearnStatus", caseLearnStatus);
                     // If case learn is not complete, wait a bit before checking again
                     caseLearnInProgress = (caseLearnStatus & caseLearnInProgressMask);
-                    if(!caseLearnInProgress)  BposSleep(GetTestStepInfoInt("ScanDelay"));
+                    if (!caseLearnInProgress)  BposSleep(GetTestStepInfoInt("ScanDelay"));
                     // Keep checking until case learn is complete, or we run out of time
-                } while(TimeRemaining() && !caseLearnInProgress && 
-                        (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status));
+                } while (TimeRemaining() && !caseLearnInProgress && 
+                         (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status));
                 // Wait for CASE Learn to complete
-                if(caseLearnInProgress)
+                if (caseLearnInProgress)
                 {
                     do
                     {   // Read the CASE learn status from the module
                         status = m_vehicleModule.ReadModuleData("ReadCaseLearnStatus", caseLearnStatus);
                         // If case learn is not complete, wait a bit before checking again
                         caseLearnInProgress = (caseLearnStatus & caseLearnInProgressMask);
-                        if(caseLearnInProgress)  BposSleep(GetTestStepInfoInt("ScanDelay"));
+                        if (caseLearnInProgress)  BposSleep(GetTestStepInfoInt("ScanDelay"));
                         // Keep checking until case learn is complete, or we run out of time
-                    } while(TimeRemaining() && caseLearnInProgress && 
-                            (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status));
+                    } while (TimeRemaining() && caseLearnInProgress && 
+                             (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status));
                 }
                 // If case learn has completed, make sure it was successful
-                if(!caseLearnInProgress)
+                if (!caseLearnInProgress)
                 {   // Make sure it is completed
 
                     result = (caseLearnStatus ==  GetParameterInt("CaseLearnCompleteValue")) ? testPass : testFail;
@@ -1369,7 +1369,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckFuelTrim(const bool &checkAtIdle)
     string longTermFuelTrimBank2TestResult(BEP_TESTING_RESPONSE);
 
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckIdleFuelTrim() - Enter");
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {
         UINT8 engineSpeedValue = 0;
         string shortTermFuelTrimBank1Name("ShortTermFuelTrimBank1");
@@ -1382,7 +1382,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckFuelTrim(const bool &checkAtIdle)
         float longTermFuelTrimBank2Value = 0;
         BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
         bool engineSpeedGood = false;
-        if(checkAtIdle)
+        if (checkAtIdle)
         {   //Verify we are at idle rpm
             status = m_vehicleModule.ReadModuleData("ReadEngineSpeedSensor", engineSpeedValue);
             engineSpeedGood = (engineSpeedValue < GetParameterInt("MaximumEngineSpeed"));
@@ -1392,7 +1392,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckFuelTrim(const bool &checkAtIdle)
             status = BEP_STATUS_SUCCESS;
             engineSpeedGood = true;
         }
-        if((BEP_STATUS_SUCCESS == status) && engineSpeedGood)
+        if ((BEP_STATUS_SUCCESS == status) && engineSpeedGood)
         {   // read short term bank 1
             shortTermFuelTrimBank1TestResult = ReadAndVerifySensor(shortTermFuelTrimBank1Name, shortTermFuelTrimBank1Value);
             //read short term bank 2
@@ -1409,27 +1409,27 @@ string IsuzuEmissionsTc<ModuleType>::CheckFuelTrim(const bool &checkAtIdle)
         }
 
         // Look at all test results for an overal pass/fail
-        if(testResult == testFail)
+        if (testResult == testFail)
         {
             //already failed for no vehicle comms or above idle rpm
             Log(LOG_DEV_DATA, "Already failed for no vehicle comms or above idle rpm");
         }
-        else if(shortTermFuelTrimBank1TestResult.compare(testPass) != 0)
+        else if (shortTermFuelTrimBank1TestResult.compare(testPass) != 0)
         {
             testResult = testFail;
             Log(LOG_DEV_DATA, "Failure in short term fuel trim bank 1 test");
         }
-        else if(shortTermFuelTrimBank2TestResult.compare(testPass) != 0)
+        else if (shortTermFuelTrimBank2TestResult.compare(testPass) != 0)
         {
             testResult = testFail;
             Log(LOG_DEV_DATA, "Failure in short term fuel trim bank 2 test");
         }
-        else if(longTermFuelTrimBank1TestResult.compare(testPass) != 0)
+        else if (longTermFuelTrimBank1TestResult.compare(testPass) != 0)
         {
             testResult = testFail;
             Log(LOG_DEV_DATA, "Failure in long term fuel trim bank 1 test");
         }
-        else if(longTermFuelTrimBank2TestResult.compare(testPass) != 0)
+        else if (longTermFuelTrimBank2TestResult.compare(testPass) != 0)
         {
             testResult = testFail;
             Log(LOG_DEV_DATA, "Failure in long term fuel trim bank 2 test");
@@ -1468,7 +1468,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeAtIdleFloat(const string &s
 {   // Log the entry and check if this step should be performed
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckSensorRangeAtIdleFloat(%s) - Enter", sensorName.c_str());
     string testResult(BEP_TESTING_RESPONSE);
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {
         UINT16 engineSpeedValue = 0;
         float sensorValue = 0.0;
@@ -1480,17 +1480,17 @@ string IsuzuEmissionsTc<ModuleType>::CheckSensorRangeAtIdleFloat(const string &s
 
         //Verify we are at idle rpm
         BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("ReadEngineSpeedSensor", engineSpeedValue);
-        if((BEP_STATUS_SUCCESS == status) && (engineSpeedValue < GetParameterInt("MaximumEngineSpeed")) )
+        if ((BEP_STATUS_SUCCESS == status) && (engineSpeedValue < GetParameterInt("MaximumEngineSpeed")) )
         {
             BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read" + sensorName + "Sensor", sensorValue);
-            if(BEP_STATUS_SUCCESS == status)
+            if (BEP_STATUS_SUCCESS == status)
             {   // Good data from the module, evaluate against parameters
                 testResult = ((minValue <= sensorValue) && (sensorValue <= maxValue)) ? testPass : testFail;
                 Log(LOG_DEV_DATA, "%s value: (%.2f) - range: (%.2f) - (%.2f) - result: %s",
                     sensorName.c_str(), sensorValue, minValue, maxValue, testResult.c_str());
-                if(testResult.compare(testPass))
+                if (testResult.compare(testPass))
                 {   // Sensor value out of range
-                    if(sensorValue > maxValue)
+                    if (sensorValue > maxValue)
                     {   // Sensor reading out of range - high
                         testDescription = GetFaultDescription(sensorName + "OutOfRangeHigh");
                         testCode = GetFaultCode(sensorName + "OutOfRangeHigh");
@@ -1550,7 +1550,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckNeutralRPMOverspeed()
     string testDescription(GetTestStepInfo("Description"));
     string testCode("0000");
 
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {
         // Keep monitoring until we are in neutral
         bool inNeutral = false;
@@ -1562,17 +1562,17 @@ string IsuzuEmissionsTc<ModuleType>::CheckNeutralRPMOverspeed()
         {   // Read the transmission gear from the module
             moduleStatus = m_vehicleModule.ReadModuleData("ReadCurrentGear", transGear);
             Log(LOG_DEV_DATA, "Current transgear: %s", transGear.c_str());
-            if(BEP_STATUS_SUCCESS == moduleStatus)
+            if (BEP_STATUS_SUCCESS == moduleStatus)
             {   // Check if the engine coolant temperature is in range
-                if(transGear.compare("Neutral") == 0)
+                if (transGear.compare("Neutral") == 0)
                 {
                     //we are in neutral
                     inNeutral = true;
                 }
-                if(!inNeutral) BposSleep(GetTestStepInfoInt("ScanDelay"));
+                if (!inNeutral) BposSleep(GetTestStepInfoInt("ScanDelay"));
             }
-        } while((BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == moduleStatus) &&
-                !inNeutral);
+        } while ((BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == moduleStatus) &&
+                 !inNeutral);
         RemovePrompt(GetPromptBox("WaitForNeutral"), GetPrompt("WaitForNeutral"), 
                      GetPromptPriority("WaitForNeutral"));
 
@@ -1589,28 +1589,28 @@ string IsuzuEmissionsTc<ModuleType>::CheckNeutralRPMOverspeed()
         {   // Read the throttle position from the module
             moduleStatus = m_vehicleModule.ReadModuleData("ReadThrottlePosition", throttlePosition);
             Log(LOG_DEV_DATA, "Current throttle position: %.2f", throttlePosition);
-            if(BEP_STATUS_SUCCESS == moduleStatus)
+            if (BEP_STATUS_SUCCESS == moduleStatus)
             {   // Check if the throttle position is in range
-                if( throttlePosition >= 90.0 )
+                if ( throttlePosition >= 90.0 )
                 {
                     //we are in neutral
                     inWOT = true;
 
                     //NOW READ RPM TO VERIFY AGAINST PARAMETER
                     moduleStatus = m_vehicleModule.ReadModuleData("ReadEngineSpeedSensor", engineRPM);
-                    if(BEP_STATUS_SUCCESS == moduleStatus)
+                    if (BEP_STATUS_SUCCESS == moduleStatus)
                     {
                         minEngineRPM = GetParameterFloat("MinimumNeutralOverspeedLimitRpm");
-                        if(engineRPM < minEngineRPM)
+                        if (engineRPM < minEngineRPM)
                             testResult = testFail;
                         else
                             testResult = testPass;
                     }
                 }
-                if(!inWOT) BposSleep(GetTestStepInfoInt("ScanDelay"));
+                if (!inWOT) BposSleep(GetTestStepInfoInt("ScanDelay"));
             }
-        } while((BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == moduleStatus) &&
-                !inWOT);
+        } while ((BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == moduleStatus) &&
+                 !inWOT);
         RemovePrompt(GetPromptBox("WaitForWOT"), GetPrompt("WaitForWOT"), 
                      GetPromptPriority("WaitForWOT"));
 
@@ -1667,10 +1667,10 @@ string IsuzuEmissionsTc<ModuleType>::ReadFaults(void)
                         bool ignored;
                         try
                         {
-                              statusMask = atoh(GetFaultFailureStatusMask(faultTag).c_str()); 
-                              ignored = !(statusMask & dtcStatus);
+                            statusMask = atoh(GetFaultFailureStatusMask(faultTag).c_str()); 
+                            ignored = !(statusMask & dtcStatus);
                         }
-                        catch(...)
+                        catch (...)
                         {
                             ignored = false;
                         }
@@ -1679,7 +1679,7 @@ string IsuzuEmissionsTc<ModuleType>::ReadFaults(void)
                         ignored = (ignored ? ignored : !(m_ignoreFaults.find(faultTag) == m_ignoreFaults.end()));
                         if (((faultCode != 0) && !ignored) || ((faultCode != 0) && GetParameterBool("ReportIgnoredFaults")))
                         {   // This is a fault to report
-                            if(!ignored)
+                            if (!ignored)
                             {
                                 faultStatus = "Reported";
                                 faultsRecorded = true;
@@ -1697,20 +1697,20 @@ string IsuzuEmissionsTc<ModuleType>::ReadFaults(void)
                             bool dtcHistoryBitOn = (dtcStatus & (1<<dtcHistoryBit)) ? true : false;
                             bool dtcNotPassBitOn = (dtcStatus & (1<<dtcNotPassBit)) ? true : false;
 
-                            if(checkDtcActive && dtcActiveBitOn && checkDtcHistory && dtcHistoryBitOn &&
-                                        checkDtcNotPass && dtcNotPassBitOn)
+                            if (checkDtcActive && dtcActiveBitOn && checkDtcHistory && dtcHistoryBitOn &&
+                                checkDtcNotPass && dtcNotPassBitOn)
                                 strDtcStatus = "Active, History, and Not Passed";
-                            else if(checkDtcActive && dtcActiveBitOn && checkDtcHistory && dtcHistoryBitOn)
+                            else if (checkDtcActive && dtcActiveBitOn && checkDtcHistory && dtcHistoryBitOn)
                                 strDtcStatus = "Active and History";
-                            else if(checkDtcActive && dtcActiveBitOn && checkDtcNotPass && dtcNotPassBitOn)
+                            else if (checkDtcActive && dtcActiveBitOn && checkDtcNotPass && dtcNotPassBitOn)
                                 strDtcStatus = "Active and Not Passed";
-                            else if(checkDtcHistory && dtcHistoryBitOn && checkDtcNotPass && dtcNotPassBitOn)
+                            else if (checkDtcHistory && dtcHistoryBitOn && checkDtcNotPass && dtcNotPassBitOn)
                                 strDtcStatus = "History and Not Passed";
-                            else if(checkDtcActive && dtcActiveBitOn)
+                            else if (checkDtcActive && dtcActiveBitOn)
                                 strDtcStatus = "Active";
-                            else if(checkDtcHistory && dtcHistoryBitOn)
+                            else if (checkDtcHistory && dtcHistoryBitOn)
                                 strDtcStatus = "History";
-                            else if(checkDtcNotPass && dtcNotPassBitOn)
+                            else if (checkDtcNotPass && dtcNotPassBitOn)
                                 strDtcStatus = "Not Passed";
                             else
                                 strDtcStatus = "SOFTWARE FAILURE!";
@@ -1783,7 +1783,7 @@ string IsuzuEmissionsTc<ModuleType>::DelayBeforeDtcRead(void)
 {
     string result(BEP_TESTING_RESPONSE);
 
-    if(GetParameterInt("DelayBeforeDtcRead") != 0)
+    if (GetParameterInt("DelayBeforeDtcRead") != 0)
     {
         DisplayPrompt(GetPromptBox("DelayBeforeDtcRead"), GetPrompt("DelayBeforeDtcRead"), GetPromptPriority("DelayBeforeDtcRead"));
         BposSleep(GetParameterInt("DelayBeforeDtcRead"));
@@ -1808,7 +1808,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckOxygenSensors(void)
 
     Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::CheckOxygenSensors() - Enter");
 
-    if(!ShortCircuitTestStep())
+    if (!ShortCircuitTestStep())
     {
         UINT16 engineSpeedValue = 0;
         UINT16 engineMaxIdleSpeedValue = GetParameterInt("MaximumEngineSpeed");
@@ -1855,27 +1855,31 @@ string IsuzuEmissionsTc<ModuleType>::CheckOxygenSensors(void)
                       GetPromptPriority("EngineMustIdle"));
 
 
-        if(!s1TestDelta){
+        if (!s1TestDelta)
+        {
             GetO2SensorParams(s1Name, s1BandLimits);
             Log(LOG_DEV_DATA, "Oxygen Sensor #1 Info: Name=%s - BandLimits=%f, %f, %f, %f", 
                 s1Name.c_str(), s1BandLimits[0], s1BandLimits[1], s1BandLimits[2], s1BandLimits[3]);
         }
-        if(!s2TestDelta){
+        if (!s2TestDelta)
+        {
             GetO2SensorParams(s2Name, s2BandLimits);
             Log(LOG_DEV_DATA, "Oxygen Sensor #2 Info: Name=%s - BandLimits=%f, %f, %f, %f",
                 s2Name.c_str(), s2BandLimits[0], s2BandLimits[1], s2BandLimits[2], s2BandLimits[3]);
         }
-        if(!s3TestDelta){
+        if (!s3TestDelta)
+        {
             GetO2SensorParams(s3Name, s3BandLimits);
             Log(LOG_DEV_DATA, "Oxygen Sensor #3 Info: Name=%s - BandLimits=%f, %f, %f, %f",
                 s3Name.c_str(), s3BandLimits[0], s3BandLimits[1], s3BandLimits[2], s3BandLimits[3]);
         }
-        if(!s4TestDelta){
+        if (!s4TestDelta)
+        {
             GetO2SensorParams(s4Name, s4BandLimits);
             Log(LOG_DEV_DATA, "Oxygen Sensor #4 Info: Name=%s - BandLimits=%f, %f, %f, %f",
                 s4Name.c_str(), s4BandLimits[0], s4BandLimits[1], s4BandLimits[2], s4BandLimits[3]);
         }
-        
+
 
         SetStartTime();
         //Verify we are at idle rpm
@@ -1887,43 +1891,43 @@ string IsuzuEmissionsTc<ModuleType>::CheckOxygenSensors(void)
         UINT32 i=0;
         char buffer[8];
         UINT8 percent = 0;
-        
-        while(engineStatus==BEP_STATUS_SUCCESS && i<numSamples && TimeRemaining() && s1Status==BEP_STATUS_SUCCESS && 
-              s2Status==BEP_STATUS_SUCCESS && s3Status==BEP_STATUS_SUCCESS && s4Status==BEP_STATUS_SUCCESS)
+
+        while (engineStatus==BEP_STATUS_SUCCESS && i<numSamples && TimeRemaining() && s1Status==BEP_STATUS_SUCCESS && 
+               s2Status==BEP_STATUS_SUCCESS && s3Status==BEP_STATUS_SUCCESS && s4Status==BEP_STATUS_SUCCESS)
         {
             //Update engine speed to make sure that we are idling
             engineStatus = m_vehicleModule.ReadModuleData("ReadEngineSpeedSensor", engineSpeedValue);
 
-            if(engineSpeedValue<=engineMaxIdleSpeedValue)
+            if (engineSpeedValue<=engineMaxIdleSpeedValue)
             { //Engine is idling so read sensors
                 //Read and process Oxygen Sensor #1 data
-                if(!s1TestDelta)
+                if (!s1TestDelta)
                     s1Status = ReadAndProcessO2Sensor(s1Name, s1BandLimits, s1Counts, s1LastBand);
-                else if(i==0 || i==(numSamples-1))
+                else if (i==0 || i==(numSamples-1))
                     s1Status = ReadAndProcessO2Sensor(s1Name, s1FLVals, i);
-                    
+
                 //Read and process Oxygen Sensor #2 data
-                if(!s2TestDelta)
+                if (!s2TestDelta)
                     s2Status = ReadAndProcessO2Sensor(s2Name, s2BandLimits, s2Counts, s2LastBand);
-                else if(i==0 || i==(numSamples-1))
+                else if (i==0 || i==(numSamples-1))
                     s2Status = ReadAndProcessO2Sensor(s2Name, s2FLVals, i);
 
                 //Read and process Oxygen Sensor #3 data
-                if(!s3TestDelta)
+                if (!s3TestDelta)
                     s3Status = ReadAndProcessO2Sensor(s3Name, s3BandLimits, s3Counts, s3LastBand);
-                else if(i==0 || i==(numSamples-1))
+                else if (i==0 || i==(numSamples-1))
                     s3Status = ReadAndProcessO2Sensor(s3Name, s3FLVals, i);
 
                 //Read and process Oxygen Sensor #4 data
-                if(!s4TestDelta)
+                if (!s4TestDelta)
                     s4Status = ReadAndProcessO2Sensor(s4Name, s4BandLimits, s4Counts, s4LastBand);
-                else if(i==0 || i==(numSamples-1))
+                else if (i==0 || i==(numSamples-1))
                     s4Status = ReadAndProcessO2Sensor(s4Name, s4FLVals, i);
 
                 i++;
                 // Display percent complete
                 percent = i*100/numSamples;
-                if(percent%10 == 0)
+                if (percent%10 == 0)
                 {
                     RemovePrompt(GetPromptBox("CheckingO2Sensors"), GetPrompt("CheckingO2Sensors"), GetPromptPriority("CheckingO2Sensors"));
                     DisplayPrompt(GetPromptBox("CheckingO2Sensors"), GetPrompt("CheckingO2Sensors"), 
@@ -1941,64 +1945,71 @@ string IsuzuEmissionsTc<ModuleType>::CheckOxygenSensors(void)
         }
 
         // Check for errors
-        if(!TimeRemaining()){
+        if (!TimeRemaining())
+        {
             Log(LOG_ERRORS,"Timeout reading Oxygen Sensors");
             testDescription = "Oxygen Sensor Read: "+GetFaultDescription("TimeoutFailure");
             testResult = testTimeout;
         }
-        if(s1Status!=BEP_STATUS_SUCCESS){
+        if (s1Status!=BEP_STATUS_SUCCESS)
+        {
             Log(LOG_ERRORS,"Error reading data from %s", s1Name.c_str());
             testDescription = GetFaultDescription("CommunicationFailure");
             testResult = testFail;
         }
-        if(s2Status!=BEP_STATUS_SUCCESS){
+        if (s2Status!=BEP_STATUS_SUCCESS)
+        {
             Log(LOG_ERRORS,"Error reading data from %s", s2Name.c_str());
             testDescription = GetFaultDescription("CommunicationFailure");
             testResult = testFail;
         }
-        if(s3Status!=BEP_STATUS_SUCCESS){
+        if (s3Status!=BEP_STATUS_SUCCESS)
+        {
             Log(LOG_ERRORS,"Error reading data from %s", s3Name.c_str());
             testDescription = GetFaultDescription("CommunicationFailure");
             testResult = testFail;
         }
-        if(s4Status!=BEP_STATUS_SUCCESS){
+        if (s4Status!=BEP_STATUS_SUCCESS)
+        {
             Log(LOG_ERRORS,"Error reading data from %s", s4Name.c_str());
             testDescription = GetFaultDescription("CommunicationFailure");
             testResult = testFail;
         }
-        if(engineStatus!=BEP_STATUS_SUCCESS){
+        if (engineStatus!=BEP_STATUS_SUCCESS)
+        {
             Log(LOG_ERRORS,"Error reading engine RPM");
             testDescription = GetFaultDescription("CommunicationFailure");
             testResult = testFail;
         }
-        
 
-        if(testResult.compare(BEP_TESTING_RESPONSE) == 0)
+
+        if (testResult.compare(BEP_TESTING_RESPONSE) == 0)
         { //No error yet, keep going...
             bool s1Passed, s2Passed, s3Passed, s4Passed;
 
-            if(!s1TestDelta)    testResult = AnalyzeO2SensorData(s1Name, s1Counts);
+            if (!s1TestDelta)    testResult = AnalyzeO2SensorData(s1Name, s1Counts);
             else                testResult = AnalyzeO2SensorDelta(s1Name, s1FLVals);
             Log(LOG_DEV_DATA, "%s: %s finished analysis with a result of %s", GetTestStepName().c_str(), s1Name.c_str(), testResult.c_str());
             s1Passed = testResult.compare(testPass)==0 ? true : false;
 
-            if(!s2TestDelta)    testResult = AnalyzeO2SensorData(s2Name, s2Counts);
+            if (!s2TestDelta)    testResult = AnalyzeO2SensorData(s2Name, s2Counts);
             else                testResult = AnalyzeO2SensorDelta(s2Name, s2FLVals);
             Log(LOG_DEV_DATA, "%s: %s finished analysis with a result of %s", GetTestStepName().c_str(), s2Name.c_str(), testResult.c_str());
             s2Passed = testResult.compare(testPass)==0 ? true : false;
 
-            if(!s3TestDelta)    testResult = AnalyzeO2SensorData(s3Name, s3Counts);
+            if (!s3TestDelta)    testResult = AnalyzeO2SensorData(s3Name, s3Counts);
             else                testResult = AnalyzeO2SensorDelta(s3Name, s3FLVals);
             Log(LOG_DEV_DATA, "%s: %s finished analysis with a result of %s", GetTestStepName().c_str(), s3Name.c_str(), testResult.c_str());
             s3Passed = testResult.compare(testPass)==0 ? true : false;
 
-            if(!s4TestDelta)    testResult = AnalyzeO2SensorData(s4Name, s4Counts);
+            if (!s4TestDelta)    testResult = AnalyzeO2SensorData(s4Name, s4Counts);
             else                testResult = AnalyzeO2SensorDelta(s4Name, s4FLVals);
             Log(LOG_DEV_DATA, "%s: %s finished analysis with a result of %s", GetTestStepName().c_str(), s4Name.c_str(), testResult.c_str());
             s4Passed = testResult.compare(testPass)==0 ? true : false;
 
 
-            if(!s1Passed || !s2Passed || !s3Passed || !s4Passed){
+            if (!s1Passed || !s2Passed || !s3Passed || !s4Passed)
+            {
                 testResult = testFail;
                 testDescription = GetFaultDescription("OxygenSensorsFailedAnalysis");
                 testCode = GetFaultCode("OxygenSensorsFailedAnalysis");
@@ -2006,9 +2017,9 @@ string IsuzuEmissionsTc<ModuleType>::CheckOxygenSensors(void)
         }
 
         RemovePrompt(GetPromptBox("CheckingO2Sensors"), GetPrompt("CheckingO2Sensors"), 
-                         GetPromptPriority("CheckingO2Sensors"));
+                     GetPromptPriority("CheckingO2Sensors"));
         RemovePrompt(GetPromptBox("EngineMustIdle"), GetPrompt("EngineMustIdle"), 
-                      GetPromptPriority("EngineMustIdle"));
+                     GetPromptPriority("EngineMustIdle"));
 
     }
     else
@@ -2038,19 +2049,20 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
 {
     float sensorValue = 0.0;
     BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read"+O2Name+"Sensor", sensorValue);
-    if(status==BEP_STATUS_SUCCESS)
+    if (status==BEP_STATUS_SUCCESS)
     {
-        if(sensorValue<=limits[0])
+        if (sensorValue<=limits[0])
         { //In Low Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=Low", O2Name.c_str(), sensorValue);
             counts[0]++; //Increment Low Band count
-            if(lastBand.compare("Low") != 0){
-                if(lastBand.compare("") != 0)
+            if (lastBand.compare("Low") != 0)
+            {
+                if (lastBand.compare("") != 0)
                     counts[3]++; //Increment Band Switch count
                 lastBand = "Low";
             }
         }
-        else if(limits[1]<=sensorValue && sensorValue<=limits[2])
+        else if (limits[1]<=sensorValue && sensorValue<=limits[2])
         { //In Open Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=Open", O2Name.c_str(), sensorValue);
             counts[1]++; //Increment Open Band count
@@ -2064,12 +2076,13 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
             }
             */
         }
-        else if(limits[3]<=sensorValue)
+        else if (limits[3]<=sensorValue)
         { //In High Band
             Log(LOG_DEV_DATA, "%s Value=%.3f, Band=High", O2Name.c_str(), sensorValue);
             counts[2]++; //Increment High Band count
-            if(lastBand.compare("High") != 0){
-                if(lastBand.compare("") != 0)
+            if (lastBand.compare("High") != 0)
+            {
+                if (lastBand.compare("") != 0)
                     counts[3]++; //Increment Band Switch count
                 lastBand = "High";
             }
@@ -2089,9 +2102,9 @@ BEP_STATUS_TYPE IsuzuEmissionsTc<ModuleType>::ReadAndProcessO2Sensor(string O2Na
 {
     float sensorValue = 0.0;
     BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("Read"+O2Name+"Sensor", sensorValue);
-    if(status==BEP_STATUS_SUCCESS)
+    if (status==BEP_STATUS_SUCCESS)
     {
-        if(sampleNum == 0)
+        if (sampleNum == 0)
         {
             FLVals[0] = sensorValue;
             Log(LOG_DEV_DATA, "%s Value=%.3f, First Value", O2Name.c_str(), sensorValue);
@@ -2118,39 +2131,43 @@ string IsuzuEmissionsTc<ModuleType>::AnalyzeO2SensorData(string O2Name, int coun
     char highCountStr[16];
     char switchCountStr[16];
 
-    if(counts[0]*100/numSamples > GetParameterInt(O2Name+"MaxPercentLow")){
+    if (counts[0]*100/numSamples > GetParameterInt(O2Name+"MaxPercentLow"))
+    {
         testDescription = O2Name+"  has too high percent in Low Band";
         Log(LOG_DEV_DATA, "%s has too high percent in Low Band - Count=%d, Samples=%d, Max=%d%%", 
             O2Name.c_str(), counts[0], numSamples, GetParameterInt(O2Name+"MaxPercentLow"));
         testResult = testFail;
     }
-    if(counts[1]*100/numSamples > GetParameterInt(O2Name+"MaxPercentOpen")){
+    if (counts[1]*100/numSamples > GetParameterInt(O2Name+"MaxPercentOpen"))
+    {
         testDescription = O2Name+"  has too high percent in Open Band";
         Log(LOG_DEV_DATA, "%s has too high percent in Open Band - Count=%d, Samples=%d, Max=%d%%", 
             O2Name.c_str(), counts[1], numSamples, GetParameterInt(O2Name+"MaxPercentOpen"));
         testResult = testFail;
     }
-    if(counts[2]*100/numSamples > GetParameterInt(O2Name+"MaxPercentHigh")){
+    if (counts[2]*100/numSamples > GetParameterInt(O2Name+"MaxPercentHigh"))
+    {
         testDescription = O2Name+"  has too high percent in High Band";
         Log(LOG_DEV_DATA, "%s has too high percent in High Band - Count=%d, Samples=%d, Max=%d%%", 
             O2Name.c_str(), counts[2], numSamples, GetParameterInt(O2Name+"MaxPercentHigh"));
         testResult = testFail;
     }
-    if(counts[3] < GetParameterInt(O2Name+"MinBandSwitches")){
+    if (counts[3] < GetParameterInt(O2Name+"MinBandSwitches"))
+    {
         testDescription = O2Name+"  does not have enough Band switches";
         Log(LOG_DEV_DATA, "%s does not have enough Band switches - Count=%d, Min=%d", 
             O2Name.c_str(), counts[3], GetParameterInt(O2Name+"MinBandSwitches"));
         testResult = testFail;
     }
 
-    if(testResult != testFail)
+    if (testResult != testFail)
         testResult = testPass;
 
     SendSubtestResultWithDetail(GetTestStepName()+"_"+O2Name, testResult, testDescription, "0000", 
-                             "LowBandCount", CreateMessage(lowCountStr, sizeof(lowCountStr), "%d", counts[0]), "Count", 
-                             "OpenBandCount", CreateMessage(openCountStr, sizeof(openCountStr), "%d", counts[1]), "Count",
-                             "HighBandCount", CreateMessage(highCountStr, sizeof(highCountStr), "%d", counts[2]), "Count",
-                             "BandSwitches", CreateMessage(switchCountStr, sizeof(switchCountStr), "%d", counts[3]), "Count");
+                                "LowBandCount", CreateMessage(lowCountStr, sizeof(lowCountStr), "%d", counts[0]), "Count", 
+                                "OpenBandCount", CreateMessage(openCountStr, sizeof(openCountStr), "%d", counts[1]), "Count",
+                                "HighBandCount", CreateMessage(highCountStr, sizeof(highCountStr), "%d", counts[2]), "Count",
+                                "BandSwitches", CreateMessage(switchCountStr, sizeof(switchCountStr), "%d", counts[3]), "Count");
 
     return testResult;
 
@@ -2174,28 +2191,30 @@ string IsuzuEmissionsTc<ModuleType>::AnalyzeO2SensorDelta(string O2Name, float F
     float delta = FLVals[1]-FLVals[0];
     float deltaPercent = delta*100/FLVals[0];
 
-    if(deltaPercent<minPercent){
+    if (deltaPercent<minPercent)
+    {
         testDescription = O2Name+"  has a delta percentage too low";
         Log(LOG_DEV_DATA, "%s has a delta percentage too low - First=%.3f, Last=%.3f, Min%%=%.2f%%", 
             O2Name.c_str(), FLVals[0], FLVals[1], minPercent);
         testResult = testFail;
     }
-    if(deltaPercent>maxPercent){
+    if (deltaPercent>maxPercent)
+    {
         testDescription = O2Name+"  has a delta percentage too high";
         Log(LOG_DEV_DATA, "%s has a delta percentage too high - First=%.3f, Last=%.3f, Max%%=%.2f%%", 
             O2Name.c_str(), FLVals[0], FLVals[1], maxPercent);
         testResult = testFail;
     }
 
-    if(testResult != testFail)
+    if (testResult != testFail)
         testResult = testPass;
 
     SendSubtestResultWithDetail(GetTestStepName()+"_"+O2Name, testResult, testDescription, "0000", 
-                             "FirstValue", CreateMessage(firstValStr, sizeof(firstValStr), "%.3f", FLVals[0]), "V", 
-                             "LastValue", CreateMessage(lastValStr, sizeof(lastValStr), "%.3f", FLVals[1]), "V",
-                             "MinDeltaPercent", CreateMessage(minPercentStr, sizeof(minPercentStr), "%.2f", minPercent), "%",
-                             "MaxDeltaPercent", CreateMessage(maxPercentStr, sizeof(maxPercentStr), "%.2f", maxPercent), "%",
-                             "DeltaPercent", CreateMessage(deltaPercentStr, sizeof(deltaPercentStr), "%.2f", deltaPercent), "%");
+                                "FirstValue", CreateMessage(firstValStr, sizeof(firstValStr), "%.3f", FLVals[0]), "V", 
+                                "LastValue", CreateMessage(lastValStr, sizeof(lastValStr), "%.3f", FLVals[1]), "V",
+                                "MinDeltaPercent", CreateMessage(minPercentStr, sizeof(minPercentStr), "%.2f", minPercent), "%",
+                                "MaxDeltaPercent", CreateMessage(maxPercentStr, sizeof(maxPercentStr), "%.2f", maxPercent), "%",
+                                "DeltaPercent", CreateMessage(deltaPercentStr, sizeof(deltaPercentStr), "%.2f", deltaPercent), "%");
 
     return testResult;
 
@@ -2215,72 +2234,72 @@ string IsuzuEmissionsTc<ModuleType>::ClearFaults(void)
     //Short Circuit not needed - if test previously passed will skip in CommandTestStepFunction
     //if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass))
     //{   // Read the current fault count from the module
-        //UINT8 faultCount = 0xFF;
-        //BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("ReadFaultCount", faultCount);
-        //if(BEP_STATUS_SUCCESS == status)
-        //{
-            bool isLocked = true;
-            // Attempt to read the locked status from the module
-            try
-            {   // Read the locked status from the module
-                m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
-            }
-            catch(ModuleException &exception)
-            {   // Exception reading data
-                Log(LOG_ERRORS, "Module exception in ClearFaults() while reading IsModuleLocked - %s\n", exception.message().c_str());
-                isLocked = true;
-            }
-            result = testPass;
-            //Log(LOG_DEV_DATA, "DTC Count: %d", faultCount);
-            Log(LOG_DEV_DATA, "Module Locked: %s", (isLocked ? "True" : "False"));
-            // Determine if testing should be aborted
-            //if(faultCount > 0 && !isLocked)
-            if((!isLocked || GetTestStepInfoBool("IgnoreModuleLockedStatus")) && 
-               (!GetTestStepInfoBool("CheckCompletePassStatus") || 
-                ((GetOverallResult() == testPass) && SystemRead("CurrentTestStatus") == BEP_PASS_STATUS)))
-            {
-                try
-                {   // Tell the module to clear faults
-                    moduleStatus = m_vehicleModule.ClearFaults();
-                    // Determine the test results
-                    if(moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
-                    testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-                    testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
-                    testDescription = 
-                        (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
-                    // Log the data
-                    Log(LOG_DEV_DATA, "Clear Faults: %s - status: %s\n",
-                        testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
-                }
-                catch(ModuleException &moduleException)
-                {
-                    Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
-                        GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
-                    testResult = testSoftwareFail;
-                    testResultCode = GetFaultCode("SoftwareFailure");
-                    testDescription = GetFaultDescription("SoftwareFailure");
-                }
-                // Send the test result
-                SendTestResult(testResult, testDescription, testResultCode);
-            }
-            else
-            {
-                testResult = testSkip;
-            }
-        //}
-        //else
-        //{
-        //    Log(LOG_ERRORS, "Could not read fault count from the module: %s", ConvertStatusToResponse(status).c_str());
-        //    result = testFail;
-        //    testResult = testFail;
-        //    testResultCode = GetFaultCode("CommunicationFailure");
-        //    testDescription = GetFaultDescription("CommunicationFailure");
-        //    SendTestResult(testResult, testDescription, testResultCode);
-        //}
-        // Report the result
-        //char buff[8];
-        //SendSubtestResultWithDetail(GetTestStepName() + "ReadFaultCount", result, GetTestStepInfo("Description"), "0000",
-        //                         "DtcCount", CreateMessage(buff, sizeof(buff), "%d", faultCount), "");
+    //UINT8 faultCount = 0xFF;
+    //BEP_STATUS_TYPE status = m_vehicleModule.ReadModuleData("ReadFaultCount", faultCount);
+    //if(BEP_STATUS_SUCCESS == status)
+    //{
+    bool isLocked = true;
+    // Attempt to read the locked status from the module
+    try
+    {   // Read the locked status from the module
+        m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
+    }
+    catch (ModuleException &exception)
+    {   // Exception reading data
+        Log(LOG_ERRORS, "Module exception in ClearFaults() while reading IsModuleLocked - %s\n", exception.message().c_str());
+        isLocked = true;
+    }
+    result = testPass;
+    //Log(LOG_DEV_DATA, "DTC Count: %d", faultCount);
+    Log(LOG_DEV_DATA, "Module Locked: %s", (isLocked ? "True" : "False"));
+    // Determine if testing should be aborted
+    //if(faultCount > 0 && !isLocked)
+    if ((!isLocked || GetTestStepInfoBool("IgnoreModuleLockedStatus")) && 
+        (!GetTestStepInfoBool("CheckCompletePassStatus") || 
+         ((GetOverallResult() == testPass) && SystemRead("CurrentTestStatus") == BEP_PASS_STATUS)))
+    {
+        try
+        {   // Tell the module to clear faults
+            moduleStatus = m_vehicleModule.ClearFaults();
+            // Determine the test results
+            if (moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+            testDescription = 
+            (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+            // Log the data
+            Log(LOG_DEV_DATA, "Clear Faults: %s - status: %s\n",
+                testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+        }
+        catch (ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Send the test result
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {
+        testResult = testSkip;
+    }
+    //}
+    //else
+    //{
+    //    Log(LOG_ERRORS, "Could not read fault count from the module: %s", ConvertStatusToResponse(status).c_str());
+    //    result = testFail;
+    //    testResult = testFail;
+    //    testResultCode = GetFaultCode("CommunicationFailure");
+    //    testDescription = GetFaultDescription("CommunicationFailure");
+    //    SendTestResult(testResult, testDescription, testResultCode);
+    //}
+    // Report the result
+    //char buff[8];
+    //SendSubtestResultWithDetail(GetTestStepName() + "ReadFaultCount", result, GetTestStepInfo("Description"), "0000",
+    //                         "DtcCount", CreateMessage(buff, sizeof(buff), "%d", faultCount), "");
     //}
     //else if(!GetTestStepResult().compare(testPass))
     //{   // This test already passed, skip it but leave it marked as pass
@@ -2313,44 +2332,44 @@ string IsuzuEmissionsTc<ModuleType>::GetSerialNumberFromFile(void)
         serialNumberDirectory.c_str(), vin.c_str());
     try
     {
-    //get list of files in directory
-    // Attempt to open the directory
-    if((snDir = opendir(serialNumberDirectory.c_str())) != NULL)
-    {   // Get each file in the directory
+        //get list of files in directory
+        // Attempt to open the directory
+        if ((snDir = opendir(serialNumberDirectory.c_str())) != NULL)
+        {   // Get each file in the directory
 
-        while((dirEntry = readdir(snDir)) != NULL)
-        {   //check if name of file start matches current vin
-            string name(dirEntry->d_name);
-            if(!name.compare(0,17,vin))
-            {//match
-                name = serialNumberDirectory + name;
-                Log(LOG_DEV_DATA, "Opening file: %s", name.c_str());
-                if ((snFile = fopen(name.c_str(), "r")) != NULL)
-                {   // Add the header to the file
-                    //serialNumber = name.substr(17,16);
-                    if ( fgets (buff , 16 , snFile) != NULL )
-                    {
-                        serialNumber = buff;
-                        Log(LOG_DEV_DATA, "SerailNumberExtracted: %s", serialNumber.c_str());
-                        fclose(snFile);
-                        return serialNumber;
+            while ((dirEntry = readdir(snDir)) != NULL)
+            {   //check if name of file start matches current vin
+                string name(dirEntry->d_name);
+                if (!name.compare(0,17,vin))
+                {//match
+                    name = serialNumberDirectory + name;
+                    Log(LOG_DEV_DATA, "Opening file: %s", name.c_str());
+                    if ((snFile = fopen(name.c_str(), "r")) != NULL)
+                    {   // Add the header to the file
+                        //serialNumber = name.substr(17,16);
+                        if ( fgets (buff , 17 , snFile) != NULL )
+                        {
+                            serialNumber = buff;
+                            Log(LOG_DEV_DATA, "SerialNumberExtracted: %s", serialNumber.c_str());
+                            fclose(snFile);
+                            return serialNumber;
+                        }
+                        else
+                        {
+                            Log(LOG_ERRORS, "Failed to get sn from file\n");
+                        }
                     }
                     else
                     {
-                        Log(LOG_ERRORS, "Failed to get sn from file\n");
+                        Log(LOG_ERRORS, "Failed to open sn file: %s\n", name.c_str());
                     }
-                }
-                else
-                {
-                    Log(LOG_ERRORS, "Failed to open sn file: %s\n", name.c_str());
                 }
             }
         }
-    }
-    else
-    {   // Error opening the directory
-        Log(LOG_ERRORS, "Failed to open directory: %s\n", serialNumberDirectory.c_str());
-    }
+        else
+        {   // Error opening the directory
+            Log(LOG_ERRORS, "Failed to open directory: %s\n", serialNumberDirectory.c_str());
+        }
     }
     catch (...)
     {
@@ -2370,58 +2389,90 @@ string IsuzuEmissionsTc<ModuleType>::CheckSerialNumber(void)
     string testResultCode("0000");
     string testDescription = GetTestStepInfo("Description");
     string moduleSerialNumber;
-    string fileSerialNumber = GetSerialNumberFromFile();
+    string leadingCharacters = ReadSubscribeData("ESNLeadingCharacters");
+    string fileSerialNumber = "";
 
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     // Check if this step needs to be performed
     Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::CheckSerialNumber()\n");
-    if(!ShortCircuitTestStep() && fileSerialNumber != "")
+    if (!ShortCircuitTestStep())
     {   // Do not need to skip
         try
-        {   // Read the part number from the module
-            moduleStatus = m_vehicleModule.ReadModuleData("ReadSerialNumber", moduleSerialNumber);
-            // Check the status of the data
-            if(BEP_STATUS_SUCCESS == moduleStatus)
-            {   // Good data, Check serial number
-                if(moduleSerialNumber == fileSerialNumber)
-                {   // Part numbers match, test passes
-                    testResult = testPass;
+        {//check if necessary   
+            if (atob(ReadSubscribeData("WriteESN").c_str()))
+            {
+                // Read the part number from the module
+                fileSerialNumber = GetSerialNumberFromFile();
+                // Remove space from serial number
+                fileSerialNumber = fileSerialNumber.substr(0,5) + fileSerialNumber.substr(6,10);
+                if (fileSerialNumber.length() == GetParameterInt("ESNLength"))                
+                {
+                    if (!fileSerialNumber.compare(0,leadingCharacters.length(),leadingCharacters))
+                    {
+                        moduleStatus = m_vehicleModule.ReadModuleData("ReadSerialNumber", moduleSerialNumber);
+                        // Check the status of the data
+                        if (BEP_STATUS_SUCCESS == moduleStatus)
+                        {   // Good data, Check serial number
+                            if (moduleSerialNumber == fileSerialNumber)
+                            {   // Part numbers match, test passes
+                                testResult = testPass;
+                            }
+                            else
+                            {   // Part number do not match, test fails
+                                testResult = testFail;
+                            }
+                            // Log the data
+                            Log(LOG_DEV_DATA, "Serial Number Verification: %s - file: %s, Module: %s\n",
+                                testResult.c_str(), fileSerialNumber.c_str(), moduleSerialNumber.c_str());
+                            testResultCode = (testResult == testPass ? "0000" : GetFaultCode("SerialNumberMismatch"));
+                            testDescription = 
+                            (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("SerialNumberMismatch"));
+                        }
+                        else
+                        {   // Error getting data from the module
+                            testResult = testFail;
+                            testResultCode = GetFaultCode("CommunicationFailure");
+                            testDescription = GetFaultDescription("CommunicationFailure");
+                            SetCommunicationFailure(true);
+                            Log(LOG_ERRORS, "Error reading module serial number - status: %s\n",
+                                ConvertStatusToResponse(moduleStatus).c_str());
+                        }
+                    }
+                    else
+                    {//ESN leading characters do not match -fail
+                        testResult = testFail;
+                        testResultCode = GetFaultCode("ESNLeadingCharacterMismatch");
+                        testDescription = GetFaultDescription("ESNLeadingCharacterMismatch");
+                        Log(LOG_ERRORS, "ESN Leading Characters not correct\n");
+                    }
                 }
                 else
-                {   // Part number do not match, test fails
+                {//ESN Length not correct
                     testResult = testFail;
+                    testResultCode = GetFaultCode("ESNLengthNotCorrect");
+                    testDescription = GetFaultDescription("ESNLengthNotCorrect");
+                    Log(LOG_ERRORS, "ESN Length not correct\n");
                 }
-                // Log the data
-                Log(LOG_DEV_DATA, "Serial Number Verification: %s - file: %s, Module: %s\n",
-                    testResult.c_str(), fileSerialNumber.c_str(), moduleSerialNumber.c_str());
-                testResultCode = (testResult == testPass ? "0000" : GetFaultCode("SerialNumberMismatch"));
-                testDescription = 
-                    (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("SerialNumberMismatch"));
             }
             else
-            {   // Error getting data from the module
-                testResult = testFail;
-                testResultCode = GetFaultCode("CommunicationFailure");
-                testDescription = GetFaultDescription("CommunicationFailure");
-                SetCommunicationFailure(true);
-                Log(LOG_ERRORS, "Error reading module serial number - status: %s\n",
-                    ConvertStatusToResponse(moduleStatus).c_str());
+            {//ESN Check not necessary
+                testResult = testSkip;
+                Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
             }
         }
-        catch(ModuleException &moduleException)
+        catch (ModuleException &moduleException)
         {
             Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
                 GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
-            testResult = testSoftwareFail;
-            testResultCode = GetFaultCode("SoftwareFailure");
-            testDescription = GetFaultDescription("SoftwareFailure");
+            testResult = testFail;
         }
         // Send the test result
         SendTestResultWithDetail(testResult, testDescription, testResultCode,
+                                 "RequiredLeadingCharacters", leadingCharacters, "",
                                  "ModuleSerialNumber", moduleSerialNumber, "",
                                  "FileSerialNumber", fileSerialNumber, "");
         //abort after result is sent so failure is recorded
-        if(GetParameterBool("AbortOnSerialMismatch") && (testResult == testFail))
+        if (GetParameterBool("AbortOnSerialMismatch") && (testResult == testFail))
         {   // Part number do not match, test aborts
             testResult = testAbort;
         }
@@ -2432,7 +2483,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckSerialNumber(void)
         Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
     }
     // Log the function exit
-    if (testResult == testAbort) 
+    if (testResult == testAbort)
     {
         SystemWrite(ABORT_DATA_TAG, "1");
     }
@@ -2448,7 +2499,7 @@ string IsuzuEmissionsTc<ModuleType>::KeyOffEngineOffKeyOn(void)
 {
     string testResult(BEP_TESTING_RESPONSE);
 
-    if(!IsRetest())
+    if (!IsRetest())
     {
         testResult = GenericTCTemplate<ModuleType>::KeyOffEngineOffKeyOn();
     }

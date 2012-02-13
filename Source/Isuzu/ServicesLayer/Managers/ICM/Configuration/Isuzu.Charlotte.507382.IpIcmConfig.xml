@@ -2,7 +2,7 @@
     <Setup>
         <Debug>Off</Debug>
         <Logging>
-            <Status>Enabled</Status>
+            <Status>Disabled</Status>
             <ProcessName>mgr/ICM</ProcessName>
             <AdditionalLogFile Types="/Servers/ICM or Disabled">/Servers/ICM.log</AdditionalLogFile>
             <LocalEcho>Disabled</LocalEcho>

@@ -40,7 +40,7 @@
          <ProcessName>core/VehicleDataBroker</ProcessName>
          <AdditionalLogFile Type="/Servers/VehicleDataBroker.log or Disabled">/Servers/VehicleDataBroker.log</AdditionalLogFile>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x1F</Verbose>
+         <Verbose>0x03</Verbose>
          <Debug>Off</Debug>
       </Logging>
       <TagList>
@@ -84,6 +84,7 @@
             <EngineControllerBGColor DataType="color">white</EngineControllerBGColor>
             <EngineOperatingTemp DataType="int">0</EngineOperatingTemp>
             <EngineRPM DataType="int"/>
+            <ESNLeadingCharacters DataType="string">10</ESNLeadingCharacters>
             <FourWDSelected DataType="bool">No</FourWDSelected>
             <FrontWheelDriveSelectedToPLC DataType="bool">No</FrontWheelDriveSelectedToPLC>
             <HighSpeedChime DataType="string">NotEquipped</HighSpeedChime>
@@ -165,6 +166,7 @@
             <VehicleType DataType="string">00000</VehicleType>
             <VehicleTypeImg DataType="string">FWD</VehicleTypeImg>
             <WheelbasePositionInchesX10 DataType="int">0</WheelbasePositionInchesX10>
+            <WriteESN DataType="string">False</WriteESN>
             <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
          </PublishTags>
       </TagList>

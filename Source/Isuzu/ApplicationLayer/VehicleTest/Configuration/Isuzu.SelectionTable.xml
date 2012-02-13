@@ -5,4 +5,8 @@
    <AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/Isuzu.DriveCurve.xml">
        <BrakeType>720 ABS</BrakeType>
    </AbsDriveCurve>
+   <My13AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My13Isuzu.DriveCurve.xml">
+       <BrakeType>720 ABS</BrakeType>
+       <ModelYear>130</ModelYear>
+   </My13AbsDriveCurve>
 </SelectionTable>

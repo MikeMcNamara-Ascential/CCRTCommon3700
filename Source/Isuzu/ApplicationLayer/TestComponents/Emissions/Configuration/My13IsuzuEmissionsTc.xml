@@ -261,7 +261,7 @@
             <PNCheckCompareEqualStartIndex TestSteps="CheckPartNumbers" Comment="pn start index if char value comparison is equal">1</PNCheckCompareEqualStartIndex>
             <PNCheckCompareEqualLength TestSteps="CheckPartNumbers" Comment="pn length if char value comparison is equal">8</PNCheckCompareEqualLength>
             <PNCheckCompareNotEqualStartIndex TestSteps="CheckPartNumbers" Comment="pn start index if char value comparison is not equal">0</PNCheckCompareNotEqualStartIndex>
-            <PNCheckCompareNotEqualLength TestSteps="CheckPartNumbers" Comment="pn length if char value comparison is not equal">10</PNCheckCompareNotEqualLength>
+            <PNCheckCompareNotEqualLength TestSteps="CheckPartNumbers" Comment="pn length if char value comparison is not equal">8</PNCheckCompareNotEqualLength>
             <PartNumbersToCheck TestSteps="CheckPartNumbers" Comment="Partnumbers to be verified">
                 <PCMPartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">ReadPartNumber</PCMPartNo>
                 <!-- EndModelPartNumber -->
@@ -328,8 +328,8 @@
             <AlwaysPerformKeyOffEngineOff TestSteps="KeyOffEngineOffKeyOn" Comment="flag indicating if test should be performed on passed retests">True</AlwaysPerformKeyOffEngineOff>
             <!-- CheckSerialNumber parameters -->
             <SerialNumberDirectory TestSteps="CheckSerialNumber" Comment="Directory containing Scanned Serial numbers sent by Spartan">/TestResults/ESN/</SerialNumberDirectory>
-            <AbortOnSerialMismatch  TestSteps="CheckSerialNumber" Comment="Flag which determines if test should be aborted on serial number mismatch">False</AbortOnSerialMismatch>
-            <ESNLength>16</ESNLength>
+            <AbortOnSerialMismatch  TestSteps="CheckSerialNumber" Comment="Flag which determines if test should be aborted on serial number mismatch">True</AbortOnSerialMismatch>
+            <ESNLength>15</ESNLength>
         </Parameters>
         <Prompts>
             <AbortEngineTemp PromptBox="1" Priority="0" Duration="5000" TestSteps="WaitForEngineTemperature">AbortEngineTempTooHigh</AbortEngineTemp>
@@ -352,7 +352,7 @@
             <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <IgnoreFaults/>
-        <FaultList>/Configuration/Components/Emissions/EmissionsFaults.xml</FaultList>
+        <FaultList>/Configuration/Components/Emissions/My13EmissionsFaults.xml</FaultList>
     </Setup>
     <Objectives>
         <Test>

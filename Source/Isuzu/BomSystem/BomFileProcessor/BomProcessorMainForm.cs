@@ -35,6 +35,8 @@ namespace BomFileProcessor
             m_axleTypes.Load();
             m_wheelbase = new VehicleOptionCollection(m_logger, "WheelbasePosition");
             m_wheelbase.Load();
+            m_modelCodeOptions = new ModelCodeOptionsCollection(m_logger);
+            m_modelCodeOptions.Load();
             // Create and load the brake force parameter sets
             m_brakeForces = new BrakeForceCollection(m_logger);
             // Start the timer to look for new BOM files
@@ -255,6 +257,12 @@ namespace BomFileProcessor
                                         if (axleType != null)
                                         {
                                             AddVehicleBuildParameter(buildData, "VehicleBuild", "Axle", axleType.OptionValue);
+                                        }
+                                        ModelCodeOptions modelOptions = m_modelCodeOptions.Find(modelCode);
+                                        if (modelOptions != null)
+                                        {
+                                            AddVehicleBuildParameter(buildData, "VehicleBuild", "WriteESN", modelOptions.WriteESN);
+                                            AddVehicleBuildParameter(buildData, "VehicleBuild", "ESNLeadingCharacters", modelOptions.ESNLeadingCharacters);
                                         }
                                         // Add the brake force parameters
                                         BrakeForce brakeForces = m_brakeForces.Find(modelCode);
@@ -972,6 +980,18 @@ namespace BomFileProcessor
         /// Wheelbase association.
         /// </summary>
         private VehicleOptionCollection m_wheelbase;
+        
+        /// <summary>
+        /// ESN Settings.
+        /// </summary>
+        private ModelCodeOptionsCollection m_modelCodeOptions;
+
+        private void modeCodeSpcificSttingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModelCodeSpecificSettings modelSpecific = new ModelCodeSpecificSettings(m_modelCodeOptions);
+            modelSpecific.ShowDialog();
+
+        }
 
     }
 }

@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <ApplicationRevision>18</ApplicationRevision>
+    <ApplicationRevision>19</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -51,10 +51,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>00E2B129254025A268E3F9425EC79FDF7A994417</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>2D7E3F25D1D08BBD393FD0EA611013231E11CF01</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>BomFileProcessor_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -80,6 +81,12 @@
     </Compile>
     <Compile Include="AddBuildItemForm.Designer.cs">
       <DependentUpon>AddBuildItemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddModelSpecificOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddModelSpecificOptionsForm.designer.cs">
+      <DependentUpon>AddModelSpecificOptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="AddOptionForm.cs">
       <SubType>Form</SubType>
@@ -107,11 +114,25 @@
     <Compile Include="EditVehicleBuildFileForm.Designer.cs">
       <DependentUpon>EditVehicleBuildFileForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModelCodeOptions.cs" />
+    <Compile Include="ModelCodeOptionsCollection.cs" />
+    <Compile Include="ModelCodeSpecificSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModelCodeSpecificSettings.designer.cs">
+      <DependentUpon>ModelCodeSpecificSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="PassConfirmationFileSetupForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PassConfirmationFileSetupForm.Designer.cs">
       <DependentUpon>PassConfirmationFileSetupForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RemoveModelCodeSpecificOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemoveModelCodeSpecificOptionsForm.designer.cs">
+      <DependentUpon>RemoveModelCodeSpecificOptionsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RemoveOptionForm.cs">
       <SubType>Form</SubType>
@@ -172,6 +193,9 @@
       <DependentUpon>AddBuildItemForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddModelSpecificOptionsForm.resx">
+      <DependentUpon>AddModelSpecificOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddOptionForm.resx">
       <DependentUpon>AddOptionForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -196,6 +220,9 @@
     <EmbeddedResource Include="LogViewerForm.resx">
       <DependentUpon>LogViewerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ModelCodeSpecificSettings.resx">
+      <DependentUpon>ModelCodeSpecificSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PassConfirmationFileSetupForm.resx">
       <DependentUpon>PassConfirmationFileSetupForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -211,6 +238,9 @@
     </Compile>
     <EmbeddedResource Include="RemoveBuildItemForm.resx">
       <DependentUpon>RemoveBuildItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RemoveModelCodeSpecificOptionsForm.resx">
+      <DependentUpon>RemoveModelCodeSpecificOptionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RemoveOptionForm.resx">
       <DependentUpon>RemoveOptionForm.cs</DependentUpon>

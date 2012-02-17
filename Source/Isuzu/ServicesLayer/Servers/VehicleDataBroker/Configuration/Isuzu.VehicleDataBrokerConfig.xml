@@ -40,7 +40,7 @@
          <ProcessName>core/VehicleDataBroker</ProcessName>
          <AdditionalLogFile Type="/Servers/VehicleDataBroker.log or Disabled">/Servers/VehicleDataBroker.log</AdditionalLogFile>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x03</Verbose>
+         <Verbose>0x3F</Verbose>
          <Debug>Off</Debug>
       </Logging>
       <TagList>

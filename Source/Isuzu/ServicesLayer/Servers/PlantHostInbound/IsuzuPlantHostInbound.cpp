@@ -42,6 +42,7 @@ const string IsuzuPlantHostInbound::LoadVehicleBuildFromFile(const string &vin,
     string response;
     string status = BEP_ERROR_RESPONSE;
     bool allIdData = false;
+    BposSleep(1000);   // Wait for the scan to be received
     // Get the Model Code, Book Code, Model year and lot number from the system
     if(m_broker->Read(GetDataTag("ModelCode"), response, true) == BEP_STATUS_SUCCESS)
     {
@@ -166,10 +167,12 @@ void IsuzuPlantHostInbound::FindMatchingFiles(const string &pattern, vector<stri
 //-------------------------------------------------------------------------------------------------
 string IsuzuPlantHostInbound::FindPreviousVersionFile(vector<string> matchingFiles, const string &specificFile)
 {
+    //place requested file in matching file list
     matchingFiles.push_back(specificFile);
     // Sort the vector
     sort(matchingFiles.begin(), matchingFiles.end());
+    //return file at postion before matching file (one lot earlier)
     vector<string>::iterator foundFile = find(matchingFiles.begin(), matchingFiles.end(), specificFile) - 1;
-    Log(LOG_DEV_DATA, "Selecting file: ", (*foundFile).c_str());;
+    Log(LOG_DEV_DATA, "Selecting file: ", (*foundFile).c_str());
     return *foundFile;
 }

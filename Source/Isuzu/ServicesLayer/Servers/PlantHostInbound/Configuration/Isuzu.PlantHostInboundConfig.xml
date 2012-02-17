@@ -41,7 +41,7 @@
             <ProcessName>core/PlantHostInbound</ProcessName>
             <AdditionalLogFile Type="/Servers/PlantHostInbound.log or Disabled">/Servers/PlantHostInbound.log</AdditionalLogFile>
             <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x01</Verbose>
+         <Verbose>0x3F</Verbose>
             <Debug>Off</Debug>
         </Logging>
         <TagList>

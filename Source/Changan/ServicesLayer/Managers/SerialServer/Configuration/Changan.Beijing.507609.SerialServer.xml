@@ -287,6 +287,81 @@
                </NodePairSetup>
             </Setup>
          </GryphonCCan>
+         <Host enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/socket</SerialDevice>
+               <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+               <IpAddress>172.16.253.1</IpAddress>
+               <PortNo>1024</PortNo>
+               <TcpType>Client</TcpType>
+               <Protocol>
+                  <Baud>19200</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>TxRx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/Host</ProcessName>
+                  <AdditionalLogFile>/Communication/HostProxy.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x1F</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>HostComm</ProcessName>
+                        <AdditionalLogFile>/Communication/HostComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x3F</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+               <!--
+                    <SerialDevice>/dev/sl7804/ser6</SerialDevice>
+                    <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/Host</ProcessName>
+                        <AdditionalLogFile>HostComm.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x00</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <AdditionalLogFile>Host_BusComm.log</AdditionalLogFile>
+                                <ProcessName>HostInterface</ProcessName>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x00</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    -->
+            </Setup>
+         </Host>
       </LogicalPorts>
    </Setup>
 </SerialServerConfig>

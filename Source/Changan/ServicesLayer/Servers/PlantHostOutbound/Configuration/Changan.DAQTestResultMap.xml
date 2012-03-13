@@ -1,0 +1,145 @@
+<DAQTestResultMap>
+    <!-- Reporting metric values Speed KPH Force N -->
+   <Field0030 Type="VehicleBuild" Length="17">VIN</Field0030>
+   <Field0040 Type="Separator">Blank</Field0040>
+   <Field0140 Type="Detail" DetailNode="DriverNumber" Format="%.7s" Length="7" DataType="String">MachineDriverNumber</Field0140>
+   <Field0175 Type="Separator">Blank</Field0175>
+   <Field0180 Type="VehicleBuild" Length="25">BrakeType</Field0180>
+   <Field0190 Type="Separator">Blank</Field0190>
+   <Field0460 Type="Result">OverallTest</Field0460>
+   <Field0470 Type="Separator">Blank</Field0470>
+    <Field0480 Type="Detail" DetailNode="DragForce" Format="%04.2f" DataType="Float" Scale="4.4482" Length="7">BrakeLeftFrontDragTest</Field0480>
+   <Field0490 Type="Separator">Blank</Field0490>
+   <Field0500 Type="Result">BrakeLeftFrontDragTest</Field0500>
+   <Field0510 Type="Separator">Blank</Field0510>
+    <Field0520 Type="Detail" DetailNode="DragForce" Format="%04.2f" DataType="Float" Scale="4.4482" Length="7">BrakeRightFrontDragTest</Field0520>
+   <Field0530 Type="Separator">Blank</Field0530>
+   <Field0540 Type="Result">BrakeRightFrontDragTest</Field0540>
+   <Field0550 Type="Separator">Blank</Field0550>
+    <Field0560 Type="Detail" DetailNode="DragForce" Format="%04.2f" DataType="Float" Scale="4.4482" Length="7">BrakeLeftRearDragTest</Field0560>
+   <Field0570 Type="Separator">Blank</Field0570>
+   <Field0580 Type="Result">BrakeLeftRearDragTest</Field0580>
+   <Field0590 Type="Separator">Blank</Field0590>
+    <Field0600 Type="Detail" DetailNode="DragForce" Format="%04.2f" DataType="Float" Scale="4.4482" Length="7">BrakeRightRearDragTest</Field0600>
+   <Field0610 Type="Separator">Blank</Field0610>
+   <Field0620 Type="Result">BrakeRightRearDragTest</Field0620>
+   <Field0630 Type="Separator">Blank</Field0630>
+    <Field0640 Type="Detail" DetailNode="BrakeForce" Format="%04.2f" DataType="Float" Scale="4.4482" Length="7">BrakeLeftFrontForceTest</Field0640>
+   <Field0650 Type="Separator">Blank</Field0650>
+   <Field0660 Type="Result">BrakeLeftFrontForceTest</Field0660>
+   <Field0670 Type="Separator">Blank</Field0670>
+    <Field0680 Type="Detail" DetailNode="BrakeForce" Format="%04.2f" DataType="Float" Scale="4.4482" Length="7">BrakeRightFrontForceTest</Field0680>
+   <Field0690 Type="Separator">Blank</Field0690>
+   <Field0700 Type="Result">BrakeRightFrontForceTest</Field0700>
+   <Field0710 Type="Separator">Blank</Field0710>
+    <Field0720 Type="Detail" DetailNode="BrakeForce" Format="%04.2f" DataType="Float" Scale="4.4482" Length="7">BrakeLeftRearForceTest</Field0720>
+   <Field0730 Type="Separator">Blank</Field0730>
+   <Field0740 Type="Result">BrakeLeftRearForceTest</Field0740>
+   <Field0750 Type="Separator">Blank</Field0750>
+    <Field0760 Type="Detail" DetailNode="BrakeForce" Format="%04.2f" DataType="Float" Scale="4.4482" Length="7">BrakeRightRearForceTest</Field0760>
+   <Field0770 Type="Separator">Blank</Field0770>
+   <Field0780 Type="Result">BrakeRightRearForceTest</Field0780>
+   <Field0790 Type="Separator">Blank</Field0790>
+    <Field0800 Type="Detail" DetailNode="Value" Format="%04.2f" DataType="Float" Length="7">BrakeFrontBalanceTest</Field0800>
+   <Field0810 Type="Separator">Blank</Field0810>
+   <Field0820 Type="Result">BrakeFrontBalanceTest</Field0820>
+   <Field0830 Type="Separator">Blank</Field0830>
+    <Field0840 Type="Detail" DetailNode="Value" Format="%04.2f" DataType="Float" Length="7">BrakeRearBalanceTest</Field0840>
+   <Field0850 Type="Separator">Blank</Field0850>
+   <Field0860 Type="Result">BrakeRearBalanceTest</Field0860>
+   <Field0870 Type="Separator">Blank</Field0870>
+    <Field0880 Type="Detail" DetailNode="Value" Format="%04.2f" DataType="Float" Length="7">BrakeFrontToRearBalanceTest</Field0880>
+   <Field0890 Type="Separator">Blank</Field0890>
+   <Field0900 Type="Result">BrakeFrontToRearBalanceTest</Field0900>
+   <Field0910 Type="Separator">Blank</Field0910>
+   <Field0920 Type="SerialNumber" DetailNode="SerialNumber" Format="%-14s" Length="14" DataType="String">BrakeCollectTraceData</Field0920>
+   <Field0930 Type="Separator">Blank</Field0930>
+   <Field0940 Type="Detail" DetailNode="DTC" Format="%.4s" Length="4" DataType="String">ABSDTCTest</Field0940>
+   <Field0950 Type="Separator">Blank</Field0950>
+   <Field0960 Type="Result">BrakeOverallTest</Field0960>
+   <Field0970 Type="Separator">Blank</Field0970>
+   <Field0980 Type="Result">BrakeBrakeSwitchOffTest</Field0980>
+   <Field0990 Type="Separator">Blank</Field0990>
+   <Field1000 Type="Result">BrakeBrakeSwitchOnTest</Field1000>
+   <Field1010 Type="Separator">Blank</Field1010>
+   <Field1020 Type="Result">BrakeHighSpeedSensorTest</Field1020>
+   <Field1030 Type="Separator">Blank</Field1030>
+   <Field1040 Type="Result">ABSFrontSensorCrossTest</Field1040>
+   <Field1050 Type="Separator">Blank</Field1050>
+   <Field1060 Type="Result">ABSRearSensorCrossTest</Field1060>
+   <Field1070 Type="Separator">Blank</Field1070>
+   <Field1080 Type="Result">ABSFrontToRearSensorCrossTest</Field1080>
+   <Field1090 Type="Separator">Blank</Field1090>
+   <Field1100 Type="Detail" DetailNode="LeftFrontSensor" Format="%.1s" Length="1" DataType="String">BrakeLowSpeedSensorTest</Field1100>
+   <Field1110 Type="Separator">Blank</Field1110>
+   <Field1120 Type="Detail" DetailNode="RightFrontSensor" Format="%.1s" Length="1" DataType="String">BrakeLowSpeedSensorTest</Field1120>
+   <Field1130 Type="Separator">Blank</Field1130>
+   <Field1140 Type="Detail" DetailNode="LeftRearSensor" Format="%.1s" Length="1" DataType="String">BrakeLowSpeedSensorTest</Field1140>
+   <Field1150 Type="Separator">Blank</Field1150>
+   <Field1160 Type="Detail" DetailNode="RightRearSensor" Format="%.1s" Length="1" DataType="String">BrakeLowSpeedSensorTest</Field1160>
+   <Field1170 Type="Separator">Blank</Field1170>
+   <Field1180 Type="Detail" DetailNode="LeftFrontSensor" Format="%.1s" Length="1" DataType="String">BrakeHighSpeedSensorTest</Field1180>
+   <Field1190 Type="Separator">Blank</Field1190>
+   <Field1200 Type="Detail" DetailNode="RightFrontSensor" Format="%.1s" Length="1" DataType="String">BrakeHighSpeedSensorTest</Field1200>
+   <Field1210 Type="Separator">Blank</Field1210>
+   <Field1220 Type="Detail" DetailNode="LeftRearSensor" Format="%.1s" Length="1" DataType="String">BrakeHighSpeedSensorTest</Field1220>
+   <Field1230 Type="Separator">Blank</Field1230>
+   <Field1240 Type="Detail" DetailNode="RightRearSensor" Format="%.1s" Length="1" DataType="String">BrakeHighSpeedSensorTest</Field1240>
+   <Field1250 Type="Separator">Blank</Field1250>
+   <Field1260 Type="Result">ABSLFInletValveTest</Field1260>
+   <Field1270 Type="Separator">Blank</Field1270>
+   <Field1280 Type="Result">ABSLFOutletValveTest</Field1280>
+   <Field1290 Type="Separator">Blank</Field1290>
+   <Field1300 Type="Result">ABSRFInletValveTest</Field1300>
+   <Field1310 Type="Separator">Blank</Field1310>
+   <Field1320 Type="Result">ABSRFOutletValveTest</Field1320>
+   <Field1330 Type="Separator">Blank</Field1330>
+   <Field1340 Type="Result">ABSLRInletValveTest</Field1340>
+   <Field1350 Type="Separator">Blank</Field1350>
+   <Field1360 Type="Result">ABSLROutletValveTest</Field1360>
+   <Field1370 Type="Separator">Blank</Field1370>
+   <Field1380 Type="Result">ABSRRInletValveTest</Field1380>
+   <Field1390 Type="Separator">Blank</Field1390>
+   <Field1400 Type="Result">ABSRROutletValveTest</Field1400>
+   <Field1410 Type="Separator">Blank</Field1410>
+    <Field1420 Type="Detail" DetailNode="LeftFrontABSReductionPercent" Format="%04.2f" DataType="Float" Length="7">BrakeLeftFrontABSReduction</Field1420>
+   <Field1430 Type="Separator">Blank</Field1430>
+   <Field1440 Type="Result">BrakeLeftFrontABSReduction</Field1440>
+   <Field1450 Type="Separator">Blank</Field1450>
+    <Field1460 Type="Detail" DetailNode="RightFrontABSReductionPercent" Format="%04.2f" DataType="Float" Length="7">BrakeRightFrontABSReduction</Field1460>
+   <Field1470 Type="Separator">Blank</Field1470>
+   <Field1480 Type="Result">BrakeRightFrontABSReduction</Field1480>
+   <Field1490 Type="Separator">Blank</Field1490>
+    <Field1500 Type="Detail" DetailNode="LeftRearABSReductionPercent" Format="%04.2f" DataType="Float" Length="7">BrakeLeftRearABSReduction</Field1500>
+   <Field1510 Type="Separator">Blank</Field1510>
+   <Field1520 Type="Result">BrakeLeftRearABSReduction</Field1520>
+   <Field1530 Type="Separator">Blank</Field1530>
+    <Field1540 Type="Detail" DetailNode="RightRearABSReductionPercent" Format="%04.2f" DataType="Float" Length="7">BrakeRightRearABSReduction</Field1540>
+   <Field1550 Type="Separator">Blank</Field1550>
+   <Field1560 Type="Result">BrakeRightRearABSReduction</Field1560>
+   <Field1570 Type="Separator">Blank</Field1570>
+    <Field1580 Type="Detail" DetailNode="LeftFrontABSRecoveryValue" Format="%04.2f" DataType="Float" Length="7">BrakeLeftFrontABSRecovery</Field1580>
+   <Field1590 Type="Separator">Blank</Field1590>
+   <Field1600 Type="Result">BrakeLeftFrontABSRecovery</Field1600>
+   <Field1610 Type="Separator">Blank</Field1610>
+    <Field1620 Type="Detail" DetailNode="RightFrontABSRecoveryValue" Format="%04.2f" DataType="Float" Length="7">BrakeRightFrontABSRecovery</Field1620>
+   <Field1630 Type="Separator">Blank</Field1630>
+   <Field1640 Type="Result">BrakeRightFrontABSRecovery</Field1640>
+   <Field1650 Type="Separator">Blank</Field1650>
+    <Field1660 Type="Detail" DetailNode="LeftRearABSRecoveryValue" Format="%04.2f" DataType="Float" Length="7">BrakeLeftRearABSRecovery</Field1660>
+   <Field1670 Type="Separator">Blank</Field1670>
+   <Field1680 Type="Result">BrakeLeftRearABSRecovery</Field1680>
+   <Field1690 Type="Separator">Blank</Field1690>
+    <Field1700 Type="Detail" DetailNode="RightRearABSRecoveryValue" Format="%04.2f" DataType="Float" Length="7">BrakeRightRearABSRecovery</Field1700>
+   <Field1710 Type="Separator">Blank</Field1710>
+   <Field1720 Type="Result">BrakeRightRearABSRecovery</Field1720>
+   <Field1750 Type="Separator">Blank</Field1750>
+    <Field1760 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1.609" Length="5">MachineSpeedometer</Field1760>
+   <Field1770 Type="Separator">Blank</Field1770>
+   <Field1780 Type="Result">MachineSpeedometer</Field1780>
+   <Field1790 Type="Separator">Blank</Field1790>
+    <Field1800 Type="Detail" DetailNode="SoundPressureLevel" Format="%04.2f" DataType="Float" Length="7">SoundLevelSoundPressureLevelTest</Field1800>
+   <Field1810 Type="Separator">Blank</Field1810>
+   <Field1820 Type="Result">SoundLevelOverallTest</Field1820>
+   <Field1830 Type="Separator">Blank</Field1830>
+</DAQTestResultMap>

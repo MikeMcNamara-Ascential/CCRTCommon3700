@@ -66,17 +66,14 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/CLV295ScannerMgr.qxe
 	ServicesLayer/Bin/DaqInterface.qxe
 	ServicesLayer/Bin/DsaServer.qxe
-	ServicesLayer/Bin/GenericTextInterface.qxe
 	ServicesLayer/Bin/HostInterface.qxe
 	ServicesLayer/Bin/HydraulicMotorController.qxe
 	ServicesLayer/Bin/MapleKeypadManager.qxe
 	ServicesLayer/Bin/MultiComProxy.qxe
 	ServicesLayer/Bin/PendantManager.qxe
-	ServicesLayer/Bin/PlantHostOutbound.qxe
 	ServicesLayer/Bin/SciCommProxy.qxe 
 	ServicesLayer/Bin/SciIsoMuxMgr.qxe
 	ServicesLayer/Bin/SystemScreenSaver.qxe
-	ServicesLayer/Bin/TcpCommProxy.qxe
 	ServicesLayer/Bin/VehicleDataServer.qxe
 
 	ApplicationLayer/Bin/GasAnalyzerTC.qxe

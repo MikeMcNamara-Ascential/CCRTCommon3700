@@ -606,6 +606,22 @@
 					</Folder>
 					<F N="ServicesLayer/Servers/PlantHostInbound/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="PlantHostOutbound">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Changan.DAQTestResultMap.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Changan.PlantHostOutboundConfig.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/DAQLossCompensationMap.xml"/>
+					</Folder>
+					<Folder Name="GenericText">
+						<Folder Name="Configuration">
+							<F N="ServicesLayer/Servers/PlantHostOutbound/GenericText/Configuration/Changan.ResultStringMap.xml"/>
+							<F N="ServicesLayer/Servers/PlantHostOutbound/GenericText/Configuration/CMakeLists.txt"/>
+						</Folder>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/GenericText/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="SystemMonitor">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/Changan.SystemMonitorConfig.xml"/>

@@ -291,7 +291,7 @@
             <Setup>
                <SerialDevice>/dev/socket</SerialDevice>
                <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-               <IpAddress>172.16.253.1</IpAddress>
+               <IpAddress>192.168.1.5</IpAddress>
                <PortNo>1024</PortNo>
                <TcpType>Client</TcpType>
                <Protocol>

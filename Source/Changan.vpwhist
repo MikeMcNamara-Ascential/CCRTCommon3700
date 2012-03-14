@@ -323,42 +323,41 @@ Tools\Tools.vpj=20110701100155451
         + Library
 + Tests\Tests.vpj
 + Tools\Tools.vpj
-scroll:36
+scroll:0
 [State]
 SCREEN: 1920 1080 2496 350 1024 718 0 0 M 0 0 0 0 1288 615
-CWD: Changan\ServicesLayer\Servers\PlantHostOutbound
+CWD: Changan
 BUFFER: BN="Core\ApplicationLayer\TestComponents\Machine\Common\MachineTC.cpp"
 BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=0 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.45079 CL=79 LE=0 CX=78 CY=26 WI=5 BI=24 HT=0 HN=0 HF=0 HC=4
+VIEW: LN=.45079 CL=79 LE=0 CX=78 CY=26 WI=5 BI=5 HT=0 HN=0 HF=0 HC=4
 BUFFER: BN="Core\ApplicationLayer\TestComponents\Common\GenericTC.cpp"
 BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
 VIEW: LN=.125834 CL=1 LE=0 CX=0 CY=24 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
 BUFFER: BN="Changan\ServicesLayer\Servers\Launcher\Configuration\Changan.LauncherConfig.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
 BUFFER: BN="Changan\ServicesLayer\Servers\PlantHostOutbound\Configuration\Changan.PlantHostOutboundConfig.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=872 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.11891 CL=37 LE=0 CX=36 CY=16 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
 BUFFER: BN="Changan\ServicesLayer\Managers\SerialServer\Configuration\Changan.Beijing.507609.SerialServer.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.12904 CL=10 LE=0 CX=9 CY=14 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
-WINDOW: 150 150 1374 521 -1 -1 N  WF=0 WT=2 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\TestComponents\Machine\Common\MachineTC.cpp"
-VIEW: LN=.45079 CL=79 LE=0 CX=85 CY=26 WI=133 BI=24 HT=0 HN=0 HF=0 HC=4
-WINDOW: 50 50 1374 521 -1 -1 N  WF=0 WT=3 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\TestComponents\Common\GenericTC.cpp"
-VIEW: LN=.125834 CL=1 LE=0 CX=7 CY=24 WI=134 BI=25 HT=0 HN=0 HF=0 HC=4
-WINDOW: 100 100 1088 415 -1 -1 N  WF=0 WT=1 "Default Unicode Font,10,0,1"
-BUFFER: BN="Changan\ServicesLayer\Managers\SerialServer\Configuration\Changan.Beijing.507609.SerialServer.xml"
-VIEW: LN=.12904 CL=10 LE=0 CX=14 CY=14 WI=135 BI=26 HT=0 HN=0 HF=0 HC=4
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.12904 CL=10 LE=0 CX=9 CY=14 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
 WINDOW: 175 175 1088 415 -1 -1 N  WF=0 WT=5 "Default Unicode Font,10,0,1"
 BUFFER: BN="Changan\ServicesLayer\Servers\Launcher\Configuration\Changan.LauncherConfig.xml"
-VIEW: LN=.0 CL=1 LE=0 CX=8 CY=1 WI=137 BI=29 HT=0 HN=0 HF=0 HC=4
-WINDOW: 50 50 1088 415 -1 -1 M  WF=0 WT=4 "Default Unicode Font,10,0,1"
+VIEW: LN=.0 CL=1 LE=0 CX=8 CY=1 WI=137 BI=26 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1088 415 -1 -1 N  WF=0 WT=4 "Default Unicode Font,10,0,1"
 BUFFER: BN="Changan\ServicesLayer\Servers\PlantHostOutbound\Configuration\Changan.PlantHostOutboundConfig.xml"
-VIEW: LN=.11891 CL=37 LE=0 CX=44 CY=16 WI=436 BI=27 HT=0 HN=0 HF=0 HC=4
+VIEW: LN=.11891 CL=37 LE=0 CX=44 CY=16 WI=138 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 150 150 1374 521 -1 -1 N  WF=0 WT=2 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Machine\Common\MachineTC.cpp"
+VIEW: LN=.45079 CL=79 LE=0 CX=85 CY=26 WI=134 BI=5 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1374 521 -1 -1 N  WF=0 WT=3 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Common\GenericTC.cpp"
+VIEW: LN=.125834 CL=1 LE=0 CX=7 CY=24 WI=135 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 100 100 1088 415 -1 -1 M  WF=0 WT=1 "Default Unicode Font,10,0,1"
+BUFFER: BN="Changan\ServicesLayer\Managers\SerialServer\Configuration\Changan.Beijing.507609.SerialServer.xml"
+VIEW: LN=.13161 CL=38 LE=0 CX=43 CY=18 WI=136 BI=28 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Z:\common3700\source\changan\serviceslayer\Managers\SerialServer\Configuration\Changan.Beijing.507609.SerialServer.xml
 Z:\common3700\source\changan\serviceslayer\Servers\CMakeLists.txt
 Z:\common3700\source\changan\serviceslayer\Servers\Launcher\Configuration\Changan.LauncherConfig.xml
 Z:\common3700\source\changan\serviceslayer\Servers\NamedDataBroker\Configuration\Changan.NDBConfig.xml
@@ -367,3 +366,4 @@ Z:\common3700\source\changan\CMakeLists.txt
 Z:\common3700\source\changan\ApplicationLayer\TestComponents\LossCompensation\Configuration\LossCompensationTc.xml
 Z:\common3700\source\changan\ApplicationLayer\TestComponents\Machine\Configuration\MachineTc_Speedometer.xml
 Changan\ServicesLayer\Servers\PlantHostOutbound\Configuration\Changan.PlantHostOutboundConfig.xml
+Changan\ServicesLayer\Managers\SerialServer\Configuration\Changan.Beijing.507609.SerialServer.xml

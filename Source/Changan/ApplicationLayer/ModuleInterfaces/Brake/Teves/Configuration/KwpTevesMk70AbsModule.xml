@@ -25,7 +25,7 @@
       </DtcData>
       <Communication>
          <Debug>Off</Debug>
-         <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
+         <Name>/home/CCRT/Rewrite/ISOK</Name>
          <BufferSize>4096</BufferSize>
          <CommSize>1</CommSize>
          <Timeout>10000000</Timeout>

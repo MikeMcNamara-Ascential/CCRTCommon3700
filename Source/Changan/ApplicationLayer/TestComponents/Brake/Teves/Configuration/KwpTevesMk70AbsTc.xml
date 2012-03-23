@@ -185,7 +185,8 @@
             <AlwaysEnterDiagnosticMode>Yes</AlwaysEnterDiagnosticMode>
             <AlwaysStartGUIForceThread>Yes</AlwaysStartGUIForceThread>
             <AlwaysStartKeepAlive>Yes</AlwaysStartKeepAlive>
-            <ConfigFile>/Configuration/Components/Brake/KwpIsoTevesMk60AbsModule.xml</ConfigFile>
+            <!-- ConfigFile>/Configuration/Components/Brake/KwpIsoTevesMk60AbsModule.xml</ConfigFile -->
+            <ConfigFile>/Configuration/Components/Brake/KwpTevesMk70AbsModule.xml</ConfigFile>
             <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
             <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>

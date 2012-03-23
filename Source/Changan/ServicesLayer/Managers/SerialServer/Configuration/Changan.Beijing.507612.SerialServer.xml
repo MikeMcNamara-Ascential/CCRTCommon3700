@@ -12,7 +12,7 @@
          <Verbose>0x01</Verbose>
       </Logging>
       <LogicalPorts>
-         <ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
+         <ISOK enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
             <Setup>
                <SerialDevice>/dev/sl7804/ser5</SerialDevice>
                <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>

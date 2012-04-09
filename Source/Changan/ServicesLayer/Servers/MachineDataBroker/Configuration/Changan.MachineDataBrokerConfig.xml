@@ -15,6 +15,7 @@
          <SpeedArray>/dev/ArraySpeed</SpeedArray>
          <DistanceArray>/dev/ArrayDistance</DistanceArray>
       </IcmDataFiles>
+      <MaintenanceItems MaintenanceTrackingFile="/Configuration/Machine/MaintenanceLog.xml"/>
       <DataTags>
          <CycleTime>CycleTime</CycleTime>
          <TestInProgress>TestInProgress</TestInProgress>

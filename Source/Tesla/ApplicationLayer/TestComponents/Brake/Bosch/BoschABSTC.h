@@ -44,12 +44,12 @@ typedef enum
  * Array index of the reduction speed delta data in the 
  * m_absSpeedDeltas data array
  */
-#define RED_DELTA_IDX		0
+#define RED_DELTA_IDX       0
 /**
  * Array index of the recovery speed delta data in the 
  * m_absSpeedDeltas data array
  */
-#define REC_DELTA_IDX		1
+#define REC_DELTA_IDX       1
 
 template<class ModuleInterface>
 class BoschABSTC : public KoreaAbsTcTemplate<ModuleInterface>
@@ -496,7 +496,7 @@ protected:
      */
     virtual BEP_STATUS_TYPE AnalyzeValveCross(void);
 
-	/**
+    /**
      * Determine the configuration of the vehicle.
      * <p><b>Category:</b> Test Step
      * <br><p>
@@ -518,7 +518,7 @@ protected:
      * 
      * @return The system status after waiting for the operator to place the vehicle in a testable state.
      */
-    //virtual INT32 ElectricParkBrakeInit(void);
+    virtual INT32 ElectricParkBrakeInit(void);
     /**
      * Test the park brake
      * <p><b>Category:</b> Utility
@@ -572,7 +572,7 @@ protected:
      *
      * @return The result of testing the park brake.
      */
-    //virtual const string PerformPBTorqueTest(const string &direction);
+    virtual const string PerformPBTorqueTest(const string &direction, bool isTandemAxle = false);
     /**
      * Place the module back into normal mode once testing is completed.
      * 
@@ -624,12 +624,16 @@ private:
      * 
      * @return Drive axle value to be restored after park brake testing is completed.
      */
-    string& OriginalDriveAxle(const string *driveAxle = NULL);
+    //string& OriginalDriveAxle(const string *driveAxle = NULL);
     /**
      * Original drive axle value.
      */
-    string m_originalDriveAxle;
-	/**
+    //string m_originalDriveAxle;
+    // Removed because this should be inherited from the parent class KoreaAbsTcTemplate.
+    // In a test, there end up being two instances of OriginalDriveAxle and one gets set and the other is null
+    
+
+    /**
      * Test the left front ESP valves.
      * 
      * @return The status of the operation.

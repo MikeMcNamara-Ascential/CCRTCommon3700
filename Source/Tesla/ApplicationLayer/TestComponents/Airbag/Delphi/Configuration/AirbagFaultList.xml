@@ -3,19 +3,169 @@
     <TestAborted Code="2500" Description="Testing aborted, conditions not correct"/>
     <SoftwareFailure Code="2501" Description="Software failure using module interface"/>
     <SystemStatus Code="2502" Description="Test failure, system status not correct"/>
-	
+    
     <!-- Test Condition Failures -->
     <CableConnectTimeout Code="2600" Description="Diagnostic cable not connected"/>
     <ModuleLinkupFailure Code="2601" Description="Unable to connect to SRS module"/>
-	
+    
     <!-- Communication Failures -->
     <CommunicationFailure Code="2700" Description="Airbag Module Communication Failure"/>
-	
+    
     <!-- Test Failures -->
     <ModuleFaults Code="2800" Description="DTCs recorded in the Airbag Module"/>
     <PartNumberMismatch Code="2801" Description="Part Number programmed in ORC does not match Broadcast"/>
     <ResistanceOutOfLimits Code="2802" Description="Resistance Value out of Limits"/>
+    <ModuleDisabled Code="2803" Description="Airbag Module Could Not Be Enabled"/>
     <!-- Module Faults -->
     <ModuleFault_2B00 Code="2B00" Description="Module not responding ..."/>
+	<ModuleFault_800113 Code="800113" Description="Driver Front Airbag 1st Stage Open"/>
+	<ModuleFault_80011B Code="80011B" Description="Driver Front Airbag 1st Stage Resistance Too High"/>
+	<ModuleFault_80011A Code="80011A" Description="Driver Front Airbag 1st Stage Resistance Too Low"/>
+	<ModuleFault_800111 Code="800111" Description="Driver Front Airbag 1st Stage Short To Ground"/>
+	<ModuleFault_800112 Code="800112" Description="Driver Front Airbag 1st Stage Short To Battery"/>
+	<ModuleFault_800213 Code="800213" Description="Driver Front Airbag 2nd Stage Open"/>
+	<ModuleFault_80021B Code="80021B" Description="Driver Front Airbag 2nd Stage Resistance Too High"/>
+	<ModuleFault_80021A Code="80021A" Description="Driver Front Airbag 2nd Stage Resistance Too Low"/>
+	<ModuleFault_800211 Code="800211" Description="Driver Front Airbag 2nd Stage Short To Ground"/>
+	<ModuleFault_800212 Code="800212" Description="Driver Front Airbag 2nd Stage Short To Battery"/>
+	<ModuleFault_800413 Code="800413" Description="Driver Front Knee Airbag Open"/>
+	<ModuleFault_80041B Code="80041B" Description="Driver Front Knee Airbag Resistance Too High"/>
+	<ModuleFault_80041A Code="80041A" Description="Driver Front Knee Airbag Resistance Too Low"/>
+	<ModuleFault_800411 Code="800411" Description="Driver Front Knee Airbag Short To Ground"/>
+	<ModuleFault_800412 Code="800412" Description="Driver Front Knee Airbag Short To Battery"/>
+	<ModuleFault_800613 Code="800113" Description="High Voltage Battery Cutoff Loop Open"/>
+	<ModuleFault_80061B Code="80011B" Description="High Voltage Battery Cutoff Loop Resistance Too High"/>
+	<ModuleFault_80061A Code="80011A" Description="High Voltage Battery Cutoff Loop Resistance Too Low"/>
+	<ModuleFault_800611 Code="800111" Description="High Voltage Battery Cutoff Loop Short To Ground"/>
+	<ModuleFault_800612 Code="800112" Description="High Voltage Battery Cutoff Loop Short To Battery"/>
+	<ModuleFault_801013 Code="801013" Description="Passenger Front Airbag 1st Stage Open"/>
+	<ModuleFault_80101B Code="80101B" Description="Passenger Front Airbag 1st Stage Resistance Too High"/>
+	<ModuleFault_80101A Code="80101A" Description="Passenger Front Airbag 1st Stage Resistance Too Low"/>
+	<ModuleFault_801011 Code="801011" Description="Passenger Front Airbag 1st Stage Short To Ground"/>
+	<ModuleFault_801012 Code="801012" Description="Passenger Front Airbag 1st Stage Short To Battery"/>
+	<ModuleFault_801113 Code="801113" Description="Passenger Front Airbag 2nd Stage Open"/>
+	<ModuleFault_80111B Code="80111B" Description="Passenger Front Airbag 2nd Stage Resistance Too High"/>
+	<ModuleFault_80111A Code="80111A" Description="Passenger Front Airbag 2nd Stage Resistance Too Low"/>
+	<ModuleFault_801111 Code="801111" Description="Passenger Front Airbag 2nd Stage Short To Ground"/>
+	<ModuleFault_801112 Code="801112" Description="Passenger Front Airbag 2nd Stage Short To Battery"/>
+	<ModuleFault_801313 Code="801313" Description="Passenger Front Knee Airbag Open"/>
+	<ModuleFault_80131B Code="80131B" Description="Passenger Front Knee Airbag Resistance Too High"/>
+	<ModuleFault_80131A Code="80131A" Description="Passenger Front Knee Airbag Resistance Too Low"/>
+	<ModuleFault_801311 Code="801311" Description="Passenger Front Knee Airbag Short To Ground"/>
+	<ModuleFault_801312 Code="801312" Description="Passenger Front Knee Airbag Short To Battery"/>
+	<ModuleFault_802013 Code="802013" Description="Driver Side Airbag Open"/>
+	<ModuleFault_80201B Code="80201B" Description="Driver Side Airbag Resistance Too High"/>
+	<ModuleFault_80201A Code="80201A" Description="Driver Side Airbag Resistance Too Low"/>
+	<ModuleFault_802011 Code="802011" Description="Driver Side Airbag Short To Ground"/>
+	<ModuleFault_802012 Code="802012" Description="Driver Side Airbag Short To Battery"/>
+	<ModuleFault_802113 Code="802113" Description="Left Curtain Airbag Open"/>
+	<ModuleFault_80211B Code="80211B" Description="Left Curtain Airbag Resistance Too High"/>
+	<ModuleFault_80211A Code="80211A" Description="Left Curtain Airbag Resistance Too Low"/>
+	<ModuleFault_802111 Code="802111" Description="Left Curtain Airbag Short To Ground"/>
+	<ModuleFault_802112 Code="802112" Description="Left Curtain Airbag Short To Battery"/>
+	<ModuleFault_802813 Code="802813" Description="Passenger Side Airbag Open"/>
+	<ModuleFault_80281B Code="80281B" Description="Passenger Side Airbag Resistance Too High"/>
+	<ModuleFault_80281A Code="80281A" Description="Passenger Side Airbag Resistance Too Low"/>
+	<ModuleFault_802811 Code="802811" Description="Passenger Side Airbag Short To Ground"/>
+	<ModuleFault_802812 Code="802812" Description="Passenger Side Airbag Short To Battery"/>
+	<ModuleFault_802913 Code="802913" Description="Right Curtain Airbag Open"/>
+	<ModuleFault_80291B Code="80291B" Description="Right Curtain Airbag Resistance Too High"/>
+	<ModuleFault_80291A Code="80291A" Description="Right Curtain Airbag Resistance Too Low"/>
+	<ModuleFault_802911 Code="802911" Description="Right Curtain Airbag Short To Ground"/>
+	<ModuleFault_802912 Code="802912" Description="Right Curtain Airbag Short To Battery"/>
+	<ModuleFault_805011 Code="805011" Description="Driver Buckle Switch Open Or Short To Battery"/>
+	<ModuleFault_805015 Code="805015" Description="Driver Buckle Switch Short Or Short To Ground"/>
+	<ModuleFault_80501E Code="80501E" Description="Driver Buckle Switch Mid-Current Fault"/>
+	<ModuleFault_805211 Code="805211" Description="Passenger Buckle Switch Open Or Short To Battery"/>
+	<ModuleFault_805215 Code="805215" Description="Passenger Buckle Switch Short Or Short To Ground"/>
+	<ModuleFault_80521E Code="80521E" Description="Passenger Buckle Switch Mid-Current Fault"/>
+	<ModuleFault_807013 Code="807013" Description="Driver Seatbelt Retractor Pretensioner Open"/>
+	<ModuleFault_80701B Code="80701B" Description="Driver Seatbelt Retractor Pretensioner Resistance Too High"/>
+	<ModuleFault_80701A Code="80701A" Description="Driver Seatbelt Retractor Pretensioner Resistance Too Low"/>
+	<ModuleFault_807011 Code="807011" Description="Driver Seatbelt Retractor Pretensioner Short To Ground"/>
+	<ModuleFault_807012 Code="807012" Description="Driver Seatbelt Retractor Pretensioner Short To Battery"/>
+	<ModuleFault_807213 Code="807213" Description="Passenger Seatbelt Retractor Pretensioner Open"/>
+	<ModuleFault_80721B Code="80721B" Description="Passenger Seatbelt Retractor Pretensioner Resistance Too High"/>
+	<ModuleFault_80721A Code="80721A" Description="Passenger Seatbelt Retractor Pretensioner Resistance Too Low"/>
+	<ModuleFault_807211 Code="807211" Description="Passenger Seatbelt Retractor Pretensioner Short To Ground"/>
+	<ModuleFault_807212 Code="807212" Description="Passenger Seatbelt Retractor Pretensioner Short To Battery"/>
+	<ModuleFault_809031 Code="809031" Description="Left Front Impact Acceleration Sensor Open / Shorted / No Comm"/>
+	<ModuleFault_80902F Code="80902F" Description="Left Front Impact Acceleration Sensor Noisey"/>
+	<ModuleFault_809029 Code="809029" Description="Left Front Impact Acceleration Sensor Defect"/>
+	<ModuleFault_809062 Code="809062" Description="Left Front Impact Acceleration Sensor False Deploy"/>
+	<ModuleFault_80904A Code="80904A" Description="Left Front Impact Acceleration Sensor Wrong ID"/>
+	<ModuleFault_809131 Code="809131" Description="Left Front Door Side Impact Pressure Sensor Open / Shorted / No Comm"/>
+	<ModuleFault_80912F Code="80912F" Description="Left Front Door Side Impact Pressure Sensor Noisey"/>
+	<ModuleFault_809129 Code="809129" Description="Left Front Door Side Impact Pressure Sensor Defect"/>
+	<ModuleFault_809162 Code="809162" Description="Left Front Door Side Impact Pressure Sensor False Deploy"/>
+	<ModuleFault_80914A Code="80914A" Description="Left Front Door Side Impact Pressure Sensor Wrong ID"/>
+	<ModuleFault_809231 Code="809231" Description="Left B-pillar Side Impact Acceleration Sensor Open / Shorted / No Comm"/>
+	<ModuleFault_80922F Code="80922F" Description="Left B-pillar Side Impact Acceleration Sensor Noisey"/>
+	<ModuleFault_809229 Code="809229" Description="Left B-pillar Side Impact Acceleration Sensor Defect"/>
+	<ModuleFault_809262 Code="809262" Description="Left B-pillar Side Impact Acceleration Sensor False Deploy"/>
+	<ModuleFault_80924A Code="80924A" Description="Left B-pillar Side Impact Acceleration Sensor Wrong ID"/>
+	<ModuleFault_809331 Code="809331" Description="Left C-pillar Side Impact Acceleration Sensor Open / Shorted / No Comm"/>
+	<ModuleFault_80932F Code="80932F" Description="Left C-pillar Side Impact Acceleration Sensor Noisey"/>
+	<ModuleFault_809329 Code="809329" Description="Left C-pillar Side Impact Acceleration Sensor Defect"/>
+	<ModuleFault_809362 Code="809362" Description="Left C-pillar Side Impact Acceleration Sensor False Deploy"/>
+	<ModuleFault_80934A Code="80934A" Description="Left C-pillar Side Impact Acceleration Sensor Wrong ID"/>
+	<ModuleFault_809531 Code="809531" Description="Right Front Impact Acceleration Sensor Open / Shorted / No Comm"/>
+	<ModuleFault_80952F Code="80952F" Description="Right Front Impact Acceleration Sensor Noisey"/>
+	<ModuleFault_809529 Code="809529" Description="Right Front Impact Acceleration Sensor Defect"/>
+	<ModuleFault_809562 Code="809562" Description="Right Front Impact Acceleration Sensor False Deploy"/>
+	<ModuleFault_80954A Code="80954A" Description="Right Front Impact Acceleration Sensor Wrong ID"/>
+	<ModuleFault_809631 Code="809631" Description="Right Front Door Side Impact Pressure Sensor Open / Shorted / No Comm"/>
+	<ModuleFault_80962F Code="80962F" Description="Right Front Door Side Impact Pressure Sensor Noisey"/>
+	<ModuleFault_809629 Code="809629" Description="Right Front Door Side Impact Pressure Sensor Defect"/>
+	<ModuleFault_809662 Code="809662" Description="Right Front Door Side Impact Pressure Sensor False Deploy"/>
+	<ModuleFault_80964A Code="80964A" Description="Right Front Door Side Impact Pressure Sensor Wrong ID"/>
+	<ModuleFault_809731 Code="809731" Description="Right B-pillar Side Impact Acceleration Sensor Open / Shorted / No Comm"/>
+	<ModuleFault_80972F Code="80972F" Description="Right B-pillar Side Impact Acceleration Sensor Noisey"/>
+	<ModuleFault_809729 Code="809729" Description="Right B-pillar Side Impact Acceleration Sensor Defect"/>
+	<ModuleFault_809762 Code="809762" Description="Right B-pillar Side Impact Acceleration Sensor False Deploy"/>
+	<ModuleFault_80974A Code="80974A" Description="Right B-pillar Side Impact Acceleration Sensor Wrong ID"/>
+	<ModuleFault_809831 Code="809831" Description="Right C-pillar Side Impact Acceleration Sensor Open / Shorted / No Comm"/>
+	<ModuleFault_80982F Code="80982F" Description="Right C-pillar Side Impact Acceleration Sensor Noisey"/>
+	<ModuleFault_809829 Code="809829" Description="Right C-pillar Side Impact Acceleration Sensor Defect"/>
+	<ModuleFault_809862 Code="809862" Description="Right C-pillar Side Impact Acceleration Sensor False Deploy"/>
+	<ModuleFault_80984A Code="80984A" Description="Right C-pillar Side Impact Acceleration Sensor Wrong ID"/>
+	<ModuleFault_80A029 Code="80A029" Description="Occupant Classification Sensor Defect"/>
+	<ModuleFault_80A02F Code="80A02F" Description="Occupant Classification Sensor Communication Error"/>
+	<ModuleFault_80A04A Code="80A04A" Description="Occupant Classification Sensor Wrong ID"/>
+	<ModuleFault_80B511 Code="80B511" Description="Driver Seat Track Position Sensor Short Or Short To Ground"/>
+	<ModuleFault_80B515 Code="80B515" Description="Driver Seat Track Position Sensor Open Or Short To Battery"/>
+	<ModuleFault_80B51E Code="80B51E" Description="Driver Seat Track Position Sensor Mid-Range Defect"/>
+	<ModuleFault_80C711 Code="80C711" Description="Passenger SBR (EU ONLY) Short Or Short To Ground"/>
+	<ModuleFault_80C715 Code="80C715" Description="Passenger SBR (EU ONLY) Open Or Short To Battery"/>
+	<ModuleFault_80C71E Code="80C71E" Description="Passenger SBR (EU ONLY) Mid-Range Defect"/>
+	<ModuleFault_931217 Code="931217" Description="Ignition Voltage Too High"/>
+	<ModuleFault_931218 Code="931218" Description="Ignition Voltage Too Low"/>
+	<ModuleFault_931304 Code="931304" Description="Internal Fault (Replace PSRCM)"/>
+	<ModuleFault_931404 Code="931404" Description="Pretensioner Only Deploy Event Detected (Replace PSRCM)"/>
+	<ModuleFault_931504 Code="931504" Description="Deploy Event Detected - Frontal (Replace PSRCM)"/>
+	<ModuleFault_931604 Code="931604" Description="Deploy Event Detected With Loop Fault Present (Replace PSRCM)"/>
+	<ModuleFault_931813 Code="931813" Description="Driver Outboard Lap Pretensioner Open"/>
+	<ModuleFault_93181B Code="93181B" Description="Driver Outboard Lap Pretensioner Resistance Too High"/>
+	<ModuleFault_93181A Code="93181A" Description="Driver Outboard Lap Pretensioner Resistance Too Low"/>
+	<ModuleFault_931811 Code="931811" Description="Driver Outboard Lap Pretensioner Short To Ground"/>
+	<ModuleFault_931812 Code="931812" Description="Driver Outboard Lap Pretensioner Short To Battery"/>
+	<ModuleFault_931913 Code="931913" Description="Passenger Outboard Lap Pretensioner Open"/>
+	<ModuleFault_93191B Code="93191B" Description="Passenger Outboard Lap Pretensioner Resistance Too High"/>
+	<ModuleFault_93191A Code="93191A" Description="Passenger Outboard Lap Pretensioner Resistance Too Low"/>
+	<ModuleFault_931911 Code="931911" Description="Passenger Outboard Lap Pretensioner Short To Ground"/>
+	<ModuleFault_931912 Code="931912" Description="Passenger Outboard Lap Pretensioner Short To Battery"/>
+	<ModuleFault_932004 Code="932004" Description="End of Life ISO Disposal"/>
+	<ModuleFault_C00188 Code="C00188" Description="High Speed CAN Communication Bus Off"/>
+	<ModuleFault_C12187 Code="C12187" Description="Lost Communication With ESP"/>
+	<ModuleFault_C12687 Code="C12687" Description="Lost Communication With SCCM"/>
+	<ModuleFault_D01087 Code="D01087" Description="Lost Communication With GTW (DI Torque)"/>
+	<ModuleFault_D02087 Code="D02087" Description="Lost Communication With GTW (MCU)"/>
+	<ModuleFault_D03087 Code="D03087" Description="Lost Communication With ESP"/>
+	<ModuleFault_C41541 Code="C41541" Description="ESP Checksum Error"/>
+	<ModuleFault_C42841 Code="C42841" Description="SCCM Checksum Error"/>
+	<ModuleFault_D01141 Code="D01141" Description="GTW Checksum Error"/>
+	<ModuleFault_D02141 Code="D02141" Description="GTW Checksum Error"/>
+	<ModuleFault_D03141 Code="D03141" Description="ESPM Checksum Error"/>
+	<ModuleFault_D02241 Code="D02241" Description="Airbag Warning Indicator Mismatch"/>
   
 </AirbagFaults>

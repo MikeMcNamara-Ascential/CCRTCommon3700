@@ -57,6 +57,8 @@ const string TeslaDrivetrainTC::CommandTestStep(const string &value)
                                              GetTestStepInfoInt("ScanDelay"), true, GetParameter("BrakeToTargetSpeedPrompt"));
         }
         else if(!GetTestStepName().compare("ReverseWarning"))       testResult = ReverseWarning();
+        else if(!GetTestStepName().compare("ReverseTest"))          testResult = GenericTC::AccelerateInReverse(GetParameterFloat("ReverseTestSpeedMin"),
+                                                                                                                GetParameterFloat("ReverseTestSpeedMax"));
         else if(!GetTestStepName().compare("DriveProfileSetup"))    testResult = SetupMachineForDriveProfileTest();
         else if(!GetTestStepName().compare("RestoreMachineState"))  testResult = ResetMachineToInitialCondition();
         else if(!GetTestStepName().compare("VehicleCheckoutCycle")) testResult = VehicleCheckOutCycle();
@@ -118,6 +120,7 @@ const string TeslaDrivetrainTC::ResetMachineToInitialCondition(void)
     {   // Disable the torque setting
         SystemWrite(COMMAND_TORQUE, string("0"));
         // Restore the original drive axle
+        Log(LOG_DEV_DATA, "Returning DriveAxle to %s\n",OriginalDriveAxle().c_str());
         SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
         BposSleep(500);
         // Place the motors in Boost mode

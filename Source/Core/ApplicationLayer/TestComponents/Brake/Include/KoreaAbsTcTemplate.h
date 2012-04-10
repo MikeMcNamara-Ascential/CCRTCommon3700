@@ -299,6 +299,10 @@ protected:
     */
    float m_newDrags[6];
 
+   string& OriginalDriveAxle(const string *driveAxle = NULL);
+
+   string m_originalDriveAxle;
+
 private:
 
    /**
@@ -351,6 +355,7 @@ private:
     * @since 16 December 2003
     */
    virtual BEP_STATUS_TYPE AnalyzeValveCross(void);
+
 };
 
 #endif

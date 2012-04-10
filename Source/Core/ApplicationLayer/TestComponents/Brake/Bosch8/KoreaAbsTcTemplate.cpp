@@ -110,12 +110,12 @@ const string KoreaAbsTcTemplate<VehicleModuleType>::CommandTestStep(const string
             status = GenericABSTCTemplate<VehicleModuleType>::CommandTestStep(value);
         }
     }
-	catch (ModuleException &ex)
-	{
-		Log(LOG_ERRORS,"KoreaAbsTcTemplate::CommandTestStep %s ModuleException %s\n",
-			GetTestStepName().c_str(),ex.GetReason());
-		status = BEP_SOFTWAREFAIL_RESPONSE;
-	}
+    catch (ModuleException &ex)
+    {
+        Log(LOG_ERRORS,"KoreaAbsTcTemplate::CommandTestStep %s ModuleException %s\n",
+            GetTestStepName().c_str(),ex.GetReason());
+        status = BEP_SOFTWAREFAIL_RESPONSE;
+    }
     catch (BepException &ex)
     {
         Log(LOG_ERRORS,"KoreaAbsTcTemplate::CommandTestStep %s BepException %s\n",
@@ -257,6 +257,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LFSensorTest(void)
         else                 // error reading the sensors
         {
             SetCommunicationFailure(true);     // set comm fault flag
+            testResult = testFail;
             testDescription = GetFaultDescription("CommunicationFailure");
         }
     }
@@ -345,6 +346,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RFSensorTest(void)
         else                 // error reading the sensors
         {
             SetCommunicationFailure(true);     // set comm fault flag
+            testResult = testFail;
             testDescription = GetFaultDescription("CommunicationFailure");
         }
     }
@@ -432,6 +434,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LRSensorTest(void)
         else                 // error reading the sensors
         {
             SetCommunicationFailure(true);     // set comm fault flag
+            testResult = testFail;
             testDescription = GetFaultDescription("CommunicationFailure");
         }
     }
@@ -629,11 +632,11 @@ string KoreaAbsTcTemplate<VehicleModuleType>::SensorQualityTest(void)
         testDescription = GetFaultDescription("SoftwareFailure");
     }
 
-    // command the drives to zero torque	
+    // command the drives to zero torque    
     Log(LOG_DEV_DATA, "commanding torque to zero\n");
     SystemCommand(COMMAND_TORQUE, 0);    
 
-    // command the drives to zero speed	
+    // command the drives to zero speed 
     Log(LOG_DEV_DATA, "commanding speed to zero\n");
     SystemCommand(COMMAND_SPEED, 0);
 
@@ -931,6 +934,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateABS(void)
     string wheelRecovResults[GetRollerCount()];
     string overallRedux = testPass, overallRecov = testPass;
     string valveCrossResult = BEP_TESTING_STATUS;
+    BEP_STATUS_TYPE valveCrossStatus = BEP_STATUS_ERROR;
     // Log the function exit and return the result
     Log(LOG_FN_ENTRY, "%s::%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
     // Determine if t his step should be performed
@@ -971,7 +975,15 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateABS(void)
                         wheelReduxResults[wheelIndex].c_str(), wheelRecovResults[wheelIndex].c_str());
                 }
                 // Perform the valve cross check
-                BEP_STATUS_TYPE valveCrossStatus = AnalyzeValveCross();
+                if(!overallRedux.compare(testPass) && !overallRecov.compare(testPass))
+                {
+                    valveCrossStatus = AnalyzeValveCross();
+                }
+                else
+                {
+                    valveCrossStatus = BEP_STATUS_SKIP;
+                    Log(LOG_DEV_DATA, "Failure occured during reduction/recovery. Skipping AnalyzeValveCross().\n");
+                }
                 // Translate the status to a result
                 switch (valveCrossStatus)
                 {
@@ -1690,7 +1702,7 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPValveCross(void
         if ((lfBuildPoint < rfBuildPoint)
 // 2005.2.28 ews changed per emergency HMMA request
 //                && (rfBuildPoint < lrBuildPoint) && 
-//			   (lrBuildPoint < rrBuildPoint)
+//             (lrBuildPoint < rrBuildPoint)
            )
         {
             valveCrossPass=1;
@@ -1740,7 +1752,7 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeValveCross(void)
     m_baseBrakeTool->GetWheelForceArray(LRWHEEL,lrForce);
     m_baseBrakeTool->GetWheelForceArray(RRWHEEL,rrForce);
 
-    // read in the data from the speed array	 
+    // read in the data from the speed array     
     INT32 testStatus = ReadDataArrays(GetParameter("IcmSpeedArray"), 
                                       m_absStartIndex, m_absEndIndex, 
                                       wheelSpeedArray);
@@ -1813,3 +1825,4 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeValveCross(void)
 
     return(status);
 }
+

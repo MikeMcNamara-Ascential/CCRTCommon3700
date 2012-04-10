@@ -128,7 +128,7 @@ string DelphiAirbagTC<ModuleType>::EnableAirBagModule(void)
     Log(LOG_FN_ENTRY, "DelphiAirbagTC::EnableAirBagModule()\n");
     // a flag that is true if the compared bytes are correct
     bool AirBagEnabled = false;  
-    bool Faults = false;
+    FaultVector_t Faults;
     if (!ShortCircuitTestStep())
     {   // Need to perform this test step
         if (CheckCableConnect())
@@ -136,68 +136,85 @@ string DelphiAirbagTC<ModuleType>::EnableAirBagModule(void)
             try
             {   // Try to read whether the module is enabled or disabled 
                 moduleStatus = m_vehicleModule.ReadModuleData("ReadByID", AirBagEnabled);
-                // Determine the test result
-                if (moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
-                testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
-                testDescription =  (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
-                Log(LOG_DEV_DATA, "EnableAirBagModule: ReadByID: %s - status: %s\n",
-                    testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
-
                 //Determines if the module is already turned on 
                 if (AirBagEnabled == true && moduleStatus==BEP_STATUS_SUCCESS)
                 {
-                    testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+                    testResult = testPass;
+                    Log(LOG_DEV_DATA,"DelphiAirbagTC::EnableAirBagModule() - Airbag module already enabled\n");
                 }
                 // if not turns it on
-                else
+                else if (moduleStatus == BEP_STATUS_SUCCESS) 
                 {
                     //read faults
-                    moduleStatus = m_vehicleModule.ReadModuleData("ReadFaults", Faults);
-                    if (moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
-                    testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
-                    testDescription =  (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
-
-                    Log(LOG_DEV_DATA, "EnableAirBagModule: ReadFaults: %s - status: %s\n",
-                        testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
-                    //if faults clear them 
-                    if (Faults)
+                    Log(LOG_DEV_DATA,"Checking for faults\n");
+                    moduleStatus = m_vehicleModule.GetInfo("ReadFaults", Faults);
+                    if (moduleStatus != BEP_STATUS_SUCCESS) 
                     {
-                        moduleStatus = m_vehicleModule.CommandModule("ClearFaults");
-                        if (moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
-                        testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
-                        testDescription =  (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
-
-                        Log(LOG_DEV_DATA, "EnableAirBagModule: ClearFaults: %s - status: %s\n",
-                            testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+                        SetCommunicationFailure(true);
+                        testResult = testFail;
+                        testResultCode = GetFaultCode("CommunicationFailure");
+                        testDescription =  GetFaultDescription("CommunicationFailure");
                     }
-                    moduleStatus = m_vehicleModule.CommandModule("WriteByID");
-                    if (moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
-                    testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
-                    testDescription =  (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
-
-                    Log(LOG_DEV_DATA, "EnableAirBagModule: WriteByID: %s - status: %s\n",
-                        testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
-                    if (moduleStatus == BEP_STATUS_SUCCESS)
+                    else
                     {
-                        // checks to make sure that it is on and if it is not fails the test
-                        moduleStatus = m_vehicleModule.ReadModuleData("ReadByID", AirBagEnabled);
-                        if (moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
-                        testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
-                        testDescription =  (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
-
-                        Log(LOG_DEV_DATA, "EnableAirBagModule: ReadByID: %s - status: %s\n",
-                            testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
-                    }
-                    if (AirBagEnabled == true && moduleStatus==BEP_STATUS_SUCCESS)
-                    {
-                        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+                        //fail if faults found
+                        if (Faults.size() > 0)
+                        {
+                            testResult = testFail;
+                            testResultCode = GetFaultCode("ModuleFaults");
+                            testDescription = GetFaultDescription("ModuleFaults");
+                            Log(LOG_ERRORS, "DelphiAirbagTC::EnableAirBagModule - Faults found in module! NOT enabling airbag module!\n");
+                        }
+                        else
+                        {
+                            moduleStatus = m_vehicleModule.CommandModule("WriteByID");
+                            if (moduleStatus != BEP_STATUS_SUCCESS) 
+                            {
+                                SetCommunicationFailure(true);
+                                testResult = testFail;
+                                testResultCode = GetFaultCode("CommunicationFailure");
+                                testDescription =  GetFaultDescription("CommunicationFailure");
+                            }
+                            else
+                            {
+                                
+                                // checks to make sure that it is on and if it is not fails the test
+                                moduleStatus = m_vehicleModule.ReadModuleData("ReadByID", AirBagEnabled);
+                                if (moduleStatus != BEP_STATUS_SUCCESS) 
+                                {
+                                    SetCommunicationFailure(true);
+                                    testResult = testFail;
+                                    testResultCode = GetFaultCode("CommunicationFailure");
+                                    testDescription =  GetFaultDescription("CommunicationFailure");
+                                }
+                                else
+                                {
+                                    if (AirBagEnabled == true)
+                                    {
+                                        testResult = testPass;
+                                        Log(LOG_DEV_DATA,"DelphiAirbagTC::EnableAirBagModule - Airbag Module ENABLED");
+                                    }
+                                    else
+                                    {
+                                        testResult = testFail;
+                                        testResultCode = GetFaultCode("ModuleDisabled");
+                                        testDescription = GetFaultDescription("ModuleDisabled");
+                                        Log(LOG_DEV_DATA,"DelphiAirbagTC::EnableAirBagModule - Airbag Module NOT ENABLED");
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-
-                testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
-                testDescription =  (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+                else
+                {
+                    SetCommunicationFailure(true);
+                    testResult = testFail;
+                    testResultCode = GetFaultCode("CommunicationFailure");
+                    testDescription =  GetFaultDescription("CommunicationFailure");
+                }
                 // Log the data
-                Log(LOG_DEV_DATA, "EnableAirBagModule: %s - status: %s\n",
+                Log(LOG_DEV_DATA, "DelphiAirbagTC::EnableAirBagModule: %s - status: %s\n",
                     testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
             }
             catch (ModuleException &moduleException)

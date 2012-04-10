@@ -120,11 +120,15 @@
          <ReverseWarningTargetSpeed Units="MPH">10.0</ReverseWarningTargetSpeed>
          <ReverseWarningSpeedRange Units="MPH">10 15</ReverseWarningSpeedRange>
          <ReverseWarningTimeout Units="ms">30000</ReverseWarningTimeout>
+         <!-- Reverse Test Parameters -->
+         <ReverseTestSpeedMin Units="MPH">5.0</ReverseTestSpeedMin>
+         <ReverseTestSpeedMax Units="MPH">10.0</ReverseTestSpeedMax>
          <!-- Vehicle checkout parameters -->
          <VehicleCheckOutAccelerationCycles>5</VehicleCheckOutAccelerationCycles>
          <VehicleCheckoutTargetSpeed Units="mph">55</VehicleCheckoutTargetSpeed>
          <VehicleCheckoutTargetSpeedRange Units="mph">55 65</VehicleCheckoutTargetSpeedRange>
          <PromptDelay>3000</PromptDelay>
+         <AbsoluteValueSpeed>0</AbsoluteValueSpeed>
       </Parameters>
       <Prompts>
          <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
@@ -152,7 +156,7 @@
          <TestStep1>FinishUp</TestStep1>
       </FinishUp>
       <Reverse>
-         <TestStep1>ReverseWarning</TestStep1>
+         <TestStep1>ReverseTest</TestStep1>
       </Reverse>
       <!-- Stand-alone test -->
       <DriveProfile>
@@ -180,6 +184,7 @@
       <FinishUp Result="" Timeout="100" Description="Finishup test processing"/>
       <RestoreMachineState Result="" Timeout="500" Description="Restore machine to original conditions when accel loading is complete"/>
       <ReverseWarning Result="" Timeout="20000" Description="Shift to reverse while moving forward to verify warning light" ScanDelay="500" Prompt1="MantainSpeed" Prompt2="ShiftToReverse" PromptDelay="3000"/>
+      <ReverseTest Result="" Timeout="20000" Description="Accelerate to target speed in reverse" Prompt1="MantainSpeed" Prompt2="ShiftToReverse" PromptDelay="3000"/>
       <VehicleCheckoutCycle Result="" Timeout="300000" Description="Perform repeated accelerations to check out vehicle" ScanDelay="500"/>
    </TestSteps>
 </GmTransferCase>

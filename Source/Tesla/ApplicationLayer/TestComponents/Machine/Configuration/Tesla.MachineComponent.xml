@@ -55,6 +55,7 @@
             <WheelbaseInPosition/>
             <YesPB/>
             <ZerospeedToPLC/>
+            <Zerospeed/>
          </SubscribeTags>
       </TagList>
       <Logging>
@@ -212,11 +213,11 @@
    </Objectives>
    <TestSteps>
       <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1="Launching" Prompt1Priority="0"/>
-      <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
+      <DriverQuestion Result="" Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
          <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
          <SteeringWheelCentered Result="" Timeout="10000" Description="Check if steering wheel is cenetered" Prompt2="SteeringWheelCentered" Prompt2Priority="0" TestResultName="SteeringWheelCentered"/>
       </DriverQuestion>
-      <PromptDriver Description="Display A Prompt To The Driver But Do Not Require Driver Input">
+      <PromptDriver Result="" Description="Display A Prompt To The Driver But Do Not Require Driver Input">
          <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
          <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
          <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
@@ -224,9 +225,10 @@
          <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
          <PreInitialize Description="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
       </PromptDriver>
-      <PromptDriverAlways Description="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input">
+      <PromptDriverAlways Result="" Description="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input">
          <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
          <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
+         <ShiftToReverse Result="" Timeout="3000" Description="Prompt Driver to Shift To Reverse" Prompt2="ShiftToReverse" Prompt2Priority="0" TestResultName="ShiftToReverse"/>
          <ShiftToNeutral Result="" Timeout="3000" Description="Prompt Driver to Shift To Neutral" Prompt2="ShiftToNeutral" Prompt2Priority="0" TestResultName="ShiftToNeutral"/>
          <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
          <PerformingFinishUp Description="" Timeout="3000" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
@@ -245,6 +247,8 @@
          <AbsTestPhaseComplete Description="Inform operator ABS testing is complete" Timeout="5000" Result="" Prompt1="ABSTestComplete" Prompt1Priority="0"/>
          <ReverseWarningTestPhase Description="Inform operator Reverse Warning testing is starting" Timeout="5000" Result="" Prompt1="ReverseWarningTest" Prompt1Priority="0"/>
          <ReverseWarningTestPhaseComplete Description="Inform operator Reverse Warning testing is complete" Timeout="5000" Result="" Prompt1="ReverseWarningTestComplete" Prompt1Priority="0"/>
+         <ReverseTestPhase Description="Inform operator Reverse testing is starting" Timeout="5000" Result="" Prompt1="ReverseTest" Prompt1Priority="0"/>
+         <ReverseTestPhaseComplete Description="Inform operator Reverse testing is complete" Timeout="5000" Result="" Prompt1="ReverseTestComplete" Prompt1Priority="0"/>
          <ParkBrakeTestPhase Description="Inform operator park brake testing is starting" Timeout="5000" Result="" Prompt1="ParkBrakeTest" Prompt1Priority="0"/>
          <ParkBrakeTestPhaseComplete Description="Inform operator park brake testing is complete" Timeout="5000" Result="" Prompt1="ParkBrakeTestComplete" Prompt1Priority="0"/>
          <BrakeBurnishTestPhase Description="Inform operator brake burnish test is starting" Timeout="5000" Result="" Prompt1="BrakeBurnishTest" Prompt1Priority="0"/>

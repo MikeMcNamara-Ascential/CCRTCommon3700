@@ -6,15 +6,17 @@ Tesla\Tesla.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Core\Core.vpj=20110701100154249
-Tesla\Tesla.vpj=20110720132709002
+Core\Core.vpj=20111122174157429
+Tesla\Tesla.vpj=20120208122709247
 Tests\Tests.vpj=20110701100211327
 Tools\Tools.vpj=20110701100155451
 [TreeExpansion2]
 - Core\Core.vpj
   - ApplicationLayer
-    + ModuleInterfaces
+    - ModuleInterfaces
       - Brake
+        - Bosch8
+        + Include
       + Common
       + EngineController
       + Include
@@ -31,6 +33,7 @@ Tools\Tools.vpj=20110701100155451
       + Brake
         + BaseBrake
           + Configuration
+        + Bosch8
         + Common
           + Configuration
         + Include
@@ -46,11 +49,12 @@ Tools\Tools.vpj=20110701100155451
           + Configuration
         + Include
       + Include
-      + LossCompensation
-        + Common
+      - LossCompensation
+        - Common
         + Include
         + LossCompensation
           + Configuration
+        + PhotonLossCompensation
       - Machine
         - Common
         + Include
@@ -67,7 +71,7 @@ Tools\Tools.vpj=20110701100155451
         + GenericTransferCase
         + Include
       + Transmission
-        + Common
+        - Common
         + Include
         + Transmission
     + VehicleTest
@@ -87,6 +91,8 @@ Tools\Tools.vpj=20110701100155451
       + Bepos
       + License
         + Include
+      + License6.2.1
+        + Include
       + SoftwareId
       + SystemCommunication
       + XmlProcessor
@@ -102,6 +108,7 @@ Tools\Tools.vpj=20110701100155451
           + Common
           + Include
           + J2190
+        + BBKWireless
         + Common
         + Gryphon
           + CAN
@@ -176,6 +183,7 @@ Tools\Tools.vpj=20110701100155451
         + HostInterface
         + Include
         + Library
+        + NDB
       + PromptServer
         + Configuration
       + SystemMonitor
@@ -195,29 +203,35 @@ Tools\Tools.vpj=20110701100155451
 - Tesla\Tesla.vpj
   - ApplicationLayer
     - ModuleInterfaces
-      + Airbag
-        + Configuration
-      - Brake
-        + Bosch
+      - Airbag
+        - Delphi
+          - Configuration
+        + Siemens
           + Configuration
-        + Teves
-          + Configuration
-    - TestComponents
-      + Airbag
-        + Configuration
       - Brake
         - Bosch
+          - Configuration
+        - Teves
           + Configuration
+    - TestComponents
+      - Airbag
+        - Delphi
+          - Configuration
+        - Siemens
+          - Configuration
+      - Brake
+        - Bosch
+          - Configuration
         + Teves
           + Configuration
       + Common
         + Configuration
-      + Drivetrain
-        + Configuration
+      - Drivetrain
+        - Configuration
       + LossCompensation
         + Configuration
-      + Machine
-        + Configuration
+      - Machine
+        - Configuration
       + SpeedControl
         + Configuration
     - VehicleTest
@@ -228,8 +242,6 @@ Tools\Tools.vpj=20110701100155451
       + bin
         + client
       + lib
-        + images
-          + cursors
     + resources
       + com
         + bepco
@@ -238,8 +250,6 @@ Tools\Tools.vpj=20110701100155451
             + properties
       + local
         + crt
-        + diagnostics
-          + schematics
         + ftproot
           + home
             + ftp
@@ -260,26 +270,23 @@ Tools\Tools.vpj=20110701100155451
                   + BuildRecords
                   + DriveCurves
               + TestResults
-                + Machine
-                  + BrakeForceData
                 + Vehicle
         + httproot
           + conf
         + ndbconfig
-        + playback
         + report
         + sim
           + params
     + UninstallerData
-  + ServicesLayer
-    + Managers
+  - ServicesLayer
+    - Managers
       + ICM
         + IpIcm
           + Configuration
       + PlcMgr
         + Configuration
-      + SerialServer
-        + Configuration
+      - SerialServer
+        - Configuration
     + Servers
       + InputServer
         + Configuration
@@ -307,15 +314,129 @@ Tools\Tools.vpj=20110701100155451
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1920 1080 23 24 1344 722 0 0 M 0 0 0 0 1594 728
+SCREEN: 1920 1080 120 0 960 728 0 0 M 0 0 0 0 1646 515
 CWD: Tesla
+BUFFER: BN="E:\Tesla Logs\TestLog.C1R00062.447.log"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.5829692 CL=160 LE=1 CX=158 CY=7 WI=5 BI=32 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.68509 CL=1 LE=0 CX=0 CY=17 WI=5 BI=42 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\KoreaAbsModuleTemplate.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.2719 CL=64 LE=0 CX=63 CY=19 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\Bosch8Module.cpp"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.31949 CL=1 LE=0 CX=0 CY=17 WI=5 BI=31 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\GenericABSModuleTemplate.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.10619 CL=60 LE=0 CX=59 CY=19 WI=5 BI=36 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Common\GenericModuleTemplate.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.69942 CL=107 LE=0 CX=106 CY=15 WI=5 BI=45 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\ModuleInterfaces\Brake\Bosch\Configuration\Tesla.BoschAbsModuleConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.14525 CL=68 LE=0 CX=67 CY=4 WI=5 BI=44 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="\Users\rsmith\Desktop\507560 Tesla Support\5YJSB1A25C1R00078.0661"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.11443 CL=122 LE=0 CX=121 CY=19 WI=5 BI=34 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.17255 CL=89 LE=0 CX=88 CY=5 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\VehicleTest\Configuration\DriveCurves\Tesla.SedanDriveCurve.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.6968 CL=54 LE=0 CX=53 CY=18 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Drivetrain\Configuration\Tesla.DrivetrainTC.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.5768 CL=52 LE=0 CX=51 CY=20 WI=5 BI=37 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.3011 CL=1 LE=0 CX=0 CY=25 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\BoschABSTC.cpp"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.77053 CL=52 LE=0 CX=51 CY=28 WI=5 BI=38 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Include\GenericModuleTemplate.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.68954 CL=5 LE=0 CX=4 CY=17 WI=5 BI=43 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Include\GenericABSModuleTemplate.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.40903 CL=5 LE=0 CX=4 CY=17 WI=5 BI=39 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Include\KoreaAbsModuleTemplate.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.6578 CL=5 LE=0 CX=4 CY=17 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Include\Bosch8Module.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.9467 CL=5 LE=0 CX=4 CY=17 WI=5 BI=33 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\Configuration\Tesla.BoschABSTC.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.8443 CL=31 LE=0 CX=30 CY=7 WI=5 BI=30 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="\Users\rsmith\AppData\Local\Temp\Rar$DI11.538\TestLog458.log"
+BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=272 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.23247741 CL=1 LE=0 CX=0 CY=12 WI=5 BI=41 HT=0 HN=0 HF=0 HC=4
+WINDOW: 75 75 1421 498 -1 -1 N  WF=0 WT=5 "Default Unicode Font,10,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\Configuration\Tesla.BoschABSTC.xml"
+VIEW: LN=.8443 CL=31 LE=0 CX=41 CY=7 WI=98 BI=30 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1496 365 -1 -1 N  WF=0 WT=12 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Include\Bosch8Module.h"
+VIEW: LN=.9467 CL=5 LE=0 CX=11 CY=17 WI=204 BI=33 HT=0 HN=0 HF=0 HC=4
+WINDOW: 150 150 1496 365 -1 -1 N  WF=0 WT=13 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Include\KoreaAbsModuleTemplate.h"
+VIEW: LN=.6578 CL=5 LE=0 CX=11 CY=17 WI=202 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 0 1496 365 -1 -1 N  WF=0 WT=14 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Include\GenericABSModuleTemplate.h"
+VIEW: LN=.40903 CL=5 LE=0 CX=11 CY=17 WI=155 BI=39 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1496 365 -1 -1 N  WF=0 WT=16 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Include\GenericModuleTemplate.h"
+VIEW: LN=.68954 CL=5 LE=0 CX=11 CY=17 WI=145 BI=43 HT=0 HN=0 HF=0 HC=4
+WINDOW: 100 100 1421 498 -1 -1 N  WF=0 WT=6 "SimHei,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\BoschABSTC.cpp"
+VIEW: LN=.77053 CL=52 LE=0 CX=58 CY=28 WI=139 BI=38 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1421 498 -1 -1 N  WF=0 WT=4 "SimHei,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp"
+VIEW: LN=.3011 CL=1 LE=0 CX=7 CY=25 WI=205 BI=26 HT=0 HN=0 HF=0 HC=4
+WINDOW: 225 225 1421 498 -1 -1 N  WF=0 WT=9 "Default Unicode Font,10,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Drivetrain\Configuration\Tesla.DrivetrainTC.xml"
+VIEW: LN=.5768 CL=52 LE=0 CX=67 CY=20 WI=171 BI=37 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 0 1421 498 -1 -1 N  WF=0 WT=10 "Default Unicode Font,10,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\VehicleTest\Configuration\DriveCurves\Tesla.SedanDriveCurve.xml"
+VIEW: LN=.6968 CL=54 LE=0 CX=64 CY=18 WI=143 BI=28 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1421 498 -1 -1 N  WF=0 WT=11 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp"
+VIEW: LN=.17255 CL=89 LE=0 CX=95 CY=5 WI=131 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1496 365 -1 -1 N  WF=0 WT=2 "SimHei,11,0,1"
+BUFFER: BN="\Users\rsmith\Desktop\507560 Tesla Support\5YJSB1A25C1R00078.0661"
+VIEW: LN=.11443 CL=122 LE=0 CX=128 CY=19 WI=136 BI=34 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1421 498 -1 -1 N  WF=0 WT=3 "Default Unicode Font,10,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\ModuleInterfaces\Brake\Bosch\Configuration\Tesla.BoschAbsModuleConfig.xml"
+VIEW: LN=.14525 CL=68 LE=0 CX=78 CY=4 WI=194 BI=44 HT=0 HN=0 HF=0 HC=4
+WINDOW: 100 100 1496 365 -1 -1 N  WF=0 WT=19 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Common\GenericModuleTemplate.cpp"
+VIEW: LN=.69942 CL=107 LE=0 CX=113 CY=15 WI=147 BI=45 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1496 365 -1 -1 N  WF=0 WT=20 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\GenericABSModuleTemplate.cpp"
+VIEW: LN=.10619 CL=60 LE=0 CX=66 CY=19 WI=137 BI=36 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1496 365 -1 -1 N  WF=0 WT=8 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\Bosch8Module.cpp"
+VIEW: LN=.31949 CL=1 LE=0 CX=7 CY=17 WI=134 BI=31 HT=0 HN=0 HF=0 HC=4
+WINDOW: 75 75 1496 365 -1 -1 N  WF=0 WT=18 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\KoreaAbsModuleTemplate.cpp"
+VIEW: LN=.2719 CL=64 LE=0 CX=70 CY=19 WI=135 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1496 365 -1 -1 N  WF=0 WT=17 "SimHei,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp"
+VIEW: LN=.68509 CL=1 LE=0 CX=7 CY=17 WI=144 BI=42 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1496 365 -1 -1 N  WF=0 WT=1 "SimHei,11,0,1"
+BUFFER: BN="E:\Tesla Logs\TestLog.C1R00062.447.log"
+VIEW: LN=.5829692 CL=160 LE=1 CX=165 CY=7 WI=201 BI=32 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 0 1496 365 -1 -1 M  WF=0 WT=7 "SimHei,11,0,1"
+BUFFER: BN="\Users\rsmith\AppData\Local\Temp\Rar$DI11.538\TestLog458.log"
+VIEW: LN=.27229856 CL=89 LE=0 CX=97 CY=17 WI=196 BI=41 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Tesla\ApplicationLayer\VehicleTest\Configuration\DriveCurves\Tesla.SedanDriveCurve.xml
-Tesla\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp
-Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp
-Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp
-Core\ApplicationLayer\TestComponents\Common\GenericTC.cpp
-Tesla\ApplicationLayer\TestComponents\Drivetrain\TeslaDrivetrainTC.cpp
-Tesla\ApplicationLayer\TestComponents\Brake\Bosch\BoschABSTC.cpp
-Tesla\ApplicationLayer\TestComponents\Machine\Configuration\Tesla.MachineComponent.xml
-Core\ApplicationLayer\TestComponents\Machine\Common\MachineTC.cpp
+Z:\common3700\source\tesla\applicationlayer\TestComponents\Machine\Configuration\Tesla.MachineComponent.xml
+Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\CMakeLists.txt
+Tesla\ApplicationLayer\ModuleInterfaces\Brake\CMakeLists.txt
+Tesla\ApplicationLayer\ModuleInterfaces\CMakeLists.txt
+Tesla\ApplicationLayer\TestComponents\Brake\Bosch\CMakeLists.txt
+Tesla\ApplicationLayer\TestComponents\Brake\CMakeLists.txt
+Z:\common3700\source\tesla\applicationlayer\TestComponents\Brake\CMakeLists.txt
+E:\Tesla Logs\TestLog.C1R00062.447.log
+\Users\rsmith\AppData\Local\Temp\Rar$DI11.538\TestLog458.log

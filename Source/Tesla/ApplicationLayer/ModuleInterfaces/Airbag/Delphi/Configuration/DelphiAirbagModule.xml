@@ -55,7 +55,7 @@
       </NegativeResponseCodes>
       <Communication>
          <Debug>Off</Debug>
-         <Name>GryphonCCan</Name>
+         <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
          <BufferSize>4096</BufferSize>
          <CommSize>1</CommSize>
          <Timeout>10000000</Timeout>
@@ -82,7 +82,7 @@
             <TransmitMessage>CommandSecurityAccess</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>CommandSecurityAccess</ReplyMessage>
-            <ReplyInterpretation/>
+            <ReplyInterpretation>CommandSecurityAccess</ReplyInterpretation>
          </CommandSecurityAccess>
          <ReadByID>
             <TransmitMessage>ReadByID</TransmitMessage>
@@ -120,25 +120,39 @@
             <ReplyMessage>ReadTraceData</ReplyMessage>
             <ReplyInterpretation>ReadTraceData</ReplyInterpretation>
          </ReadTraceData>
+         <ReadVIN>
+            <TransmitMessage>ReadVIN</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadVIN</ReplyMessage>
+            <ReplyInterpretation>ReadVIN</ReplyInterpretation>
+         </ReadVIN>
+         <WriteVIN>
+            <TransmitMessage>WriteVIN</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>WriteVIN</ReplyMessage>
+            <ReplyInterpretation></ReplyInterpretation>
+         </WriteVIN>
       </VehicleMessages>
       <TransmitMessages>
          <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
-         <ReadFaults>0x19,0x02,0x09</ReadFaults>
+         <ReadFaults>0x19,0x02,0xFF</ReadFaults>
          <EnterDiagnosticMode>0x10,0x03</EnterDiagnosticMode>
          <CommandSecurityAccess>0x27,0x01</CommandSecurityAccess>
          <ReadByID>0x22,0xFD,0x40</ReadByID>
-         <WriteByID>0x2E,0xFD,0x40</WriteByID>
+         <WriteByID>0x2E,0xFD,0x40,0x00,0x00</WriteByID>
          <TransmitSecurityKey>0x27,0x02,0x??,0x??</TransmitSecurityKey>
          <ReadTraceData>0x22,0xFD,0x02</ReadTraceData>
+         <WriteVIN>0x2E,0xF1,0x90,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</WriteVIN>
+         <ReadVIN>0x22,0xF1,0x90</ReadVIN>
       </TransmitMessages>
       <TransmitInterpretations/>
       <ReplyMessages>
          <ClearFaults>
-            <Reply_01>0x54</Reply_01>
+            <Reply_01 lengthType="Variable">0x54,0x??</Reply_01>
             <Reply_02>0x7F,0x14,0x??</Reply_02>
          </ClearFaults>
          <EnterDiagnosticMode>
-           <Reply_01>0x50,0x03</Reply_01>
+           <Reply_01 lengthType="Variable">0x50,0x03,0x??</Reply_01>
            <Reply_02>0x7F,0x10,0x??</Reply_02> 
          </EnterDiagnosticMode>
          <CommandSecurityAccess>
@@ -146,7 +160,7 @@
            <Reply_02>0x7F,0x27,0x??</Reply_02>
          </CommandSecurityAccess>
          <ReadByID>
-           <Reply_01>0x62,0xFD,0x40,0x??</Reply_01>
+           <Reply_01 lengthType="Variable">0x62,0xFD,0x40,0x??</Reply_01>
            <Reply_02>0x7F,0x22,0x??</Reply_02>
          </ReadByID>
          <WriteByID>
@@ -154,7 +168,7 @@
            <Reply_02>0x7F,0x2E,0x??</Reply_02>
          </WriteByID>
          <ReadFaults>
-           <Reply_01>0x59,0x02,0xC9,0x??,0x??,0x??</Reply_01>
+           <Reply_01 lengthType="Variable">0x59,0x02,0x??</Reply_01>
            <Reply_02>0x7F,0x19,0x??</Reply_02>
          </ReadFaults>
          <TransmitSecurityKey>
@@ -165,6 +179,14 @@
             <Reply_01>0x62,0xFD,0x02,0x??,0x??,0x??,0x??</Reply_01>
             <Reply_02>0x7F,0x22,0x??</Reply_02>
          </ReadTraceData>
+         <WriteVIN>
+             <Reply_01>0x6E,0xF1,0x90</Reply_01>
+             <Reply_02>0x7F,0x2E,0x??</Reply_02>
+         </WriteVIN>
+         <ReadVIN>
+             <Reply_01 lengthType="Variable">0x62,0xF1,0x90,0x??</Reply_01>
+             <Reply_02>0x7F,0x22,0x??</Reply_02>
+         </ReadVIN>
       </ReplyMessages>
       <ReplyInterpretations>
          <ReadByID>
@@ -179,6 +201,27 @@
                </Substring>
             </String>
          </ReadTraceData>
+         <ReadVIN>
+            <String>
+               <Substring format="%17s">
+                  <Chars input_index="3" mask="0xFF" length="17"/>
+               </Substring>
+            </String>
+         </ReadVIN>
+         <CommandSecurityAccess>
+                <Vector type="fixed">
+                    <Subvector00>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="2" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector00>
+                    <Subvector01>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector01>
+                </Vector>
+         </CommandSecurityAccess>
       </ReplyInterpretations>
    </SerialMessages>
 </DelphiAirbagModule>

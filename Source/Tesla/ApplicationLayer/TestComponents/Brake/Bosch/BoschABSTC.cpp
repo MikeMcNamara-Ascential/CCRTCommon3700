@@ -3,7 +3,7 @@
 //    $Header: /HMMA/Source/HMMA/ApplicationLayer/TestComponents/Brake/Bosch8/Bosch8TC.cpp 3     5/23/06 11:28a Gswope $
 //
 // FILE DESCRIPTION:
-//		ABS test component for the Bosch8 system.
+//      ABS test component for the Bosch8 system.
 //
 //===========================================================================
 // Copyright (c) 2004 Burke E. Porter Machinery
@@ -186,7 +186,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
             // Wait a bit before sending the next command
             BposSleep(GetParameterInt("LeftFrontReductionPulseLength"));
         }
-		 // Command the module back to normal mode
+         // Command the module back to normal mode
         else if(!GetTestStepName().compare("EnterNormalMode"))           status = EnterNormalMode();
         // Disable the force meter
         else if(!GetTestStepName().compare("DisableForceMeter"))         status = DisableForceMeter();
@@ -1841,85 +1841,64 @@ string BoschABSTC<ModuleType>::SensorQualityTest(void)
         m_MotorController.Write("RightRearSpeedValue", GetParameter("SensorTestRrSpeed"), true);
         // Wait a bit for the rollers to start accelerating
         BposSleep(GetParameterInt("SensorTestStartDelay"));
-        // Command the module to start the sensior quality test
-        BEP_STATUS_TYPE status = m_vehicleModule.CommandModule("StartSensorQualityTest");
         string description(GetTestStepInfo("Description"));
         string code("0000");
         vector<string> results;
         results.reserve(GetRollerCount());
         results.resize(GetRollerCount());
         for(UINT8 index = 0; index < GetRollerCount(); index++) results[index] = testSkip;
-        if(BEP_STATUS_SUCCESS == status)
-        {   // Wait until the sensor quality test is complete
-            bool complete = false;
-            while((BEP_STATUS_SUCCESS == status) && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && !complete)
+       
+        // Check the results for each wheel
+        float rollerSpeeds[GetRollerCount()];
+        GetWheelSpeeds(rollerSpeeds);
+        WheelSpeeds_t sensorSpeeds;
+        BEP_STATUS_TYPE status = m_vehicleModule.GetInfo("ReadSensorSpeeds", sensorSpeeds);
+        if(status == BEP_STATUS_SUCCESS)
+        {   // Check each wheel against the allowable tolerance
+            for(UINT8 index = LFWHEEL; index <= RRWHEEL; index++)
             {
-                status = m_vehicleModule.ReadModuleData("SensorTestComplete", complete);
-                BposSleep(100);   // leave some time between reads
+                float upperLimit = rollerSpeeds[index] + ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollerSpeeds[index]);
+                float lowerLimit = rollerSpeeds[index] - ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollerSpeeds[index]);
+                results[index] = ((sensorSpeeds[index] < upperLimit) && 
+                                  (sensorSpeeds[index] > lowerLimit) ? testPass : testFail);
+                Log(LOG_DEV_DATA, "Sensor test: %s - sensor speed: %.2f, upper limit: %.2f, lower limit: %.2f - Result: %s",
+                    rollerName[index].c_str(), sensorSpeeds[index], upperLimit, lowerLimit,
+                    results[index].c_str());
             }
-            // Check the results
-            if(complete)
-            {   // Check the results for each wheel
-                float rollerSpeeds[GetRollerCount()];
-                GetWheelSpeeds(rollerSpeeds);
-                vector<float> sensorSpeeds;
-                status = m_vehicleModule.ReadModuleData("SensorTestResults", sensorSpeeds);
-                // Check each wheel against the allowable tolerance
-                for(UINT8 index = LFWHEEL; index <= RRWHEEL; index++)
+            // Determine the result
+            testResult = testPass;
+            for(UINT8 index = LFWHEEL; index <= RRWHEEL; index++)
+            {
+                if(results[index].compare(testPass))
                 {
-                    float upperLimit = rollerSpeeds[index] + GetParameterFloat("SensorSpeedTolerance");
-                    float lowerLimit = rollerSpeeds[index] - GetParameterFloat("SensorSpeedTolerance");
-                    results[index] = ((sensorSpeeds[index*2] < upperLimit) && 
-                                      (sensorSpeeds[(index*2)+1] > lowerLimit) ? testPass : testFail);
-                    Log(LOG_DEV_DATA, "Sensor test: %s - Max: %.2f, Min: %.2f, upper limit: %.2f, lower limit: %.2f - Result: %s",
-                        rollerName[index].c_str(), sensorSpeeds[index*2], sensorSpeeds[(index*2)+1], upperLimit, lowerLimit,
-                        results[index].c_str());
+                    testResult = results[index];
+                    description = "Sensor speeds out of range";
                 }
-                // Determine the result
-                testResult = testPass;
-                for(UINT8 index = LFWHEEL; index <= RRWHEEL; index++)
-                {
-                    if(results[index].compare(testPass))
-                    {
-                        testResult = results[index];
-                        description = "Sensor speeds out of range";
-                    }
-                }
-            }
-            else if(BEP_STATUS_SUCCESS != status)
-            {   // Module communication issue
-                Log(LOG_ERRORS, "Could not get sensor test status from the module: %s", ConvertStatusToResponse(status).c_str());
-                description = GetFaultDescription("CommunicationFailure");
-                code = GetFaultCode("CommunicationFailure");
-                testResult = testFail;
-            }
-            else if(!TimeRemaining())
-            {   // Timeout waiting for module to complete the test
-                Log(LOG_ERRORS, "Timeout waiting for module to complete the test");
-                description = "Sensor test timeout in module";
-                testResult = testTimeout;
-            }
-            else if(BEP_STATUS_SUCCESS != StatusCheck())
-            {   // Bad system status
-                Log(LOG_ERRORS, "System status is preventing testing: %s", ConvertStatusToResponse(StatusCheck()).c_str());
-                testResult = testFail;
-                description = GetFaultDescription("SystemStatus");
-                code = GetFaultCode("SystemStatus");
-            }
-            else
-            {   // Unexpected
-                Log(LOG_ERRORS, "Unexpected sensor test exit condition!!");
-                testResult = testSoftwareFail;
-                description = GetFaultDescription("SoftwareFailure");
-                code = GetFaultCode("SoftwareFailure");
             }
         }
         else
-        {   // Could not start the sensor quality test
-            Log(LOG_ERRORS, "Failure commanding module to start the sensor test: %s", ConvertStatusToResponse(status).c_str());
+        {
             testResult = testFail;
-            description = GetFaultDescription("CommunicationFailure");
             code = GetFaultCode("CommunicationFailure");
+            description = GetFaultDescription("CommunicationFailure");
+            SetCommunicationFailure(true);
+            Log(LOG_ERRORS, "Error reading wheel sensor speeds - status: %s\n", 
+                ConvertStatusToResponse(status).c_str());
+        }
+        
+        // command the drives to zero torque    
+        Log(LOG_DEV_DATA, "commanding torque to zero\n");
+        SystemCommand(COMMAND_TORQUE, 0);    
+    
+        // command the drives to zero speed 
+        Log(LOG_DEV_DATA, "commanding speed to zero\n");
+        SystemCommand(COMMAND_SPEED, 0);
+    
+        if(!SystemRead(MACHINE_TYPE).compare("3700"))
+        {
+            Log(LOG_DEV_DATA, "Returning DriveAxle to %s\n",OriginalDriveAxle().c_str());
+            SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
+            BposSleep(500);
         }
         // Set motors back to zero speed
         m_MotorController.Write("LeftFrontMotorMode", BOOST_MODE, false);
@@ -2761,7 +2740,7 @@ string BoschABSTC<ModuleType>::RRESPTest(void)
              * 11/11/2004 BRM
              * Removed this and added a StopPumpMotor test step after the ESP test
              */
-            //				espCommand = "ESPPumpOff";
+            //              espCommand = "ESPPumpOff";
             done = true;
             break;
         default:
@@ -3291,9 +3270,9 @@ string BoschABSTC<ModuleType>::EvaluateSensorCross(void)
     /**
      * Loop through LF, RF and LR (don't need RR in outer loop because
      * it will be covered by comparing t he first 3 wheels):
-     * 		LFWHEEL: LF/RF, LF/LR, LF/RR
-     * 		RFWHEEL: RF/LR, RF/RR
-     * 		LRWHEEL: LR/RR
+     *      LFWHEEL: LF/RF, LF/LR, LF/RR
+     *      RFWHEEL: RF/LR, RF/RR
+     *      LRWHEEL: LR/RR
      */
     for(wheelIdx=LFWHEEL; wheelIdx<=RRWHEEL; wheelIdx++)
     {
@@ -3326,11 +3305,11 @@ string BoschABSTC<ModuleType>::EvaluateSensorCross(void)
              * Look for the other wheel that this wheel is crossed with:
              * Loop through RF, LR and RR (don't need RR in outer loop because
              * it will be covered by comparing t he first 3 wheels):
-             * 		wheelIdx |   ii
-             * 		=========|==========================
-             * 		LFWHEEL  | RFWHEEL, LRWHEEL, RRWHEEL
-             * 		RFWHEEL  | LRWHEEL, RRWHEEL
-             * 		LRWHEEL  | RRWHEEL
+             *      wheelIdx |   ii
+             *      =========|==========================
+             *      LFWHEEL  | RFWHEEL, LRWHEEL, RRWHEEL
+             *      RFWHEEL  | LRWHEEL, RRWHEEL
+             *      LRWHEEL  | RRWHEEL
              */
             for(ii=wheelIdx+1; ii<=RRWHEEL; ii++)
             {
@@ -3818,7 +3797,7 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
     // Log the entry and determine if this test should be performed
     Log(LOG_FN_ENTRY, "BoschABSTC::BrakeBurnishCycle() - Enter");
     
-    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && OperatorPassFail("PerformBrakeBurnish").compare(testPass))
+    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && !OperatorPassFail("PerformBrakeBurnish").compare(testPass))
     {
         for(INT32 burnishCycles = 0; 
              (burnishCycles < GetParameterInt("BrakeBurnishCycles")) && 
@@ -3888,7 +3867,7 @@ string BoschABSTC<ModuleInterface>::StaticBrakeBurnishCycle(void)
     // Log the entry and determine if the test should be performed
     Log(LOG_FN_ENTRY, "BoschABSTC::StaticBrakeBurnishCycle() - Enter");
     if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && 
-       OperatorPassFail("PerformBrakeBurnish",(GetParameterInt("BurnishPromptTimeout") ? GetParameterInt("BurnishPromptTimeout") : NULL)).compare(testFail))
+       !OperatorPassFail("PerformBrakeBurnish",(GetParameterInt("BurnishPromptTimeout") ? GetParameterInt("BurnishPromptTimeout") : NULL)).compare(testPass))
     {   // Place the motors in speed mode
         m_MotorController.Write(COMMAND_SPEED, string("0"), false);
         m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
@@ -3897,62 +3876,69 @@ string BoschABSTC<ModuleInterface>::StaticBrakeBurnishCycle(void)
         OriginalDriveAxle(&driveAxle);
         // Switch to control the front motors
         SystemWrite(DRIVE_AXLE_TAG, string(REAR_WHEEL_DRIVE_VALUE));
+        BposSleep(1000);
+        SetData(DRIVE_AXLE_TAG, OriginalDriveAxle());
+        
         // Run the front wheels
-        for(UINT8 roller = LFWHEEL; (roller <= RFWHEEL) && (BEP_STATUS_SUCCESS == StatusCheck()); roller++)
-        {   // Accelerate the current roller to speed
-            DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
-            DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
-            BposSleep(GetParameterInt("StaticBrakeBurnishOperatorSetupTime"));
-            m_MotorController.Write(rollerName[roller]+"SpeedValue", GetParameter("StaticBrakeBurnishAccelSpeed"), true);
-            // Wait for the roller to get to speed
-            float rollerSpeeds[GetRollerCount()];
-            do
-            {
-                BposSleep(GetTestStepInfoInt("ScanDelay"));
-                GetWheelSpeeds(rollerSpeeds);
-            } while((BEP_STATUS_SUCCESS == StatusCheck()) && 
-                    (rollerSpeeds[roller] < (GetParameterFloat("StaticBrakeBurnishAccelSpeed") - 3.0)));
-            // Check if we can keep testing
-            RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
-            RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
-            if(BEP_STATUS_SUCCESS == StatusCheck())
-            {   // Have operator apply brake to target speed
-                SystemWrite(GetDataTag("SpeedTarget"), GetParameter("StaticBrakeBurnishBrakeSpeedRange"));
-                DisplayPrompt(GetPromptBox("BrakeToTargetSpeed"), GetPrompt("BrakeToTargetSpeed"), GetPromptPriority("BrakeToTargetSpeed"));
-                BEP_STATUS_TYPE status = StatusSleep(GetParameterInt("StaticBrakeBurnishTime"));
-                RemovePrompt(GetPromptBox("BrakeToTargetSpeed"), GetPrompt("BrakeToTargetSpeed"), GetPromptPriority("BrakeToTargetSpeed"));
-                SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
-                if(BEP_STATUS_SUCCESS == status)
-                {   // Cool down period
-                    DisplayPrompt(GetPromptBox("BrakeCoolDown"), GetPrompt("BrakeCoolDown"), 
-                                  GetPromptPriority("BrakeCoolDown"), GetParameter("BrakeCoolDownBgColor"));
-                    DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
-                    m_MotorController.Write(rollerName[roller]+"SpeedValue", GetParameter("StaticBrakeBurnishCoolDownSpeed"), true);
-                    StatusSleep(GetParameterInt("StaticBrakeBurnishCoolDownTime"));
-                    m_MotorController.Write(rollerName[roller]+"SpeedValue", string("0"), true);
-                    // Wait for zero speed
-                    while(!atob(SystemRead(ZEROSPEED_TAG).c_str())) BposSleep(GetTestStepInfoInt("ScanDelay"));
-                    RemovePrompt(GetPromptBox("BrakeCoolDown"), GetPrompt("BrakeCoolDown"), GetPromptPriority("BrakeCoolDown"));
-                    RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
-                    SystemWrite(string("PromptBox1BGColor"), string("white"));
-                    SystemWrite(string("PromptBox2BGColor"), string("white"));
-                }
-                else
-                {
-                    Log(LOG_ERRORS, "Status sleep failed during brake burnish cycle");
-                    result = testFail;
-                }
+        // Accelerate the front rollers to speed
+        DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+        DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+        BposSleep(GetParameterInt("StaticBrakeBurnishOperatorSetupTime"));
+        m_MotorController.Write(rollerName[LFWHEEL]+"SpeedValue", GetParameter("StaticBrakeBurnishAccelSpeed"), false);
+        m_MotorController.Write(rollerName[RFWHEEL]+"SpeedValue", GetParameter("StaticBrakeBurnishAccelSpeed"), true);
+        // Wait for the rollers to get to speed
+        float rollerSpeeds[GetRollerCount()];
+        do
+        {
+            BposSleep(GetTestStepInfoInt("ScanDelay"));
+            GetWheelSpeeds(rollerSpeeds);
+        } while((BEP_STATUS_SUCCESS == StatusCheck()) && 
+                (rollerSpeeds[LFWHEEL] < (GetParameterFloat("StaticBrakeBurnishAccelSpeed") - 3.0)));
+        // Check if we can keep testing
+        RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+        RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+        if(BEP_STATUS_SUCCESS == StatusCheck())
+        {   // Have operator apply brake to target speed
+            SystemWrite(GetDataTag("SpeedTarget"), GetParameter("StaticBrakeBurnishBrakeSpeedRange"));
+            DisplayPrompt(GetPromptBox("BrakeToTargetSpeed"), GetPrompt("BrakeToTargetSpeed"), GetPromptPriority("BrakeToTargetSpeed"));
+            BEP_STATUS_TYPE status = StatusSleep(GetParameterInt("StaticBrakeBurnishTime"));
+            RemovePrompt(GetPromptBox("BrakeToTargetSpeed"), GetPrompt("BrakeToTargetSpeed"), GetPromptPriority("BrakeToTargetSpeed"));
+            SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+            if(BEP_STATUS_SUCCESS == status)
+            {   // Cool down period
+                DisplayPrompt(GetPromptBox("BrakeCoolDown"), GetPrompt("BrakeCoolDown"), 
+                              GetPromptPriority("BrakeCoolDown"), GetParameter("BrakeCoolDownBgColor"));
+                DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+                m_MotorController.Write(rollerName[LFWHEEL]+"SpeedValue", GetParameter("StaticBrakeBurnishCoolDownSpeed"), false);
+                m_MotorController.Write(rollerName[RFWHEEL]+"SpeedValue", GetParameter("StaticBrakeBurnishCoolDownSpeed"), true);
+                StatusSleep(GetParameterInt("StaticBrakeBurnishCoolDownTime"));
+                m_MotorController.Write(rollerName[LFWHEEL]+"SpeedValue", string("0"), false);
+                m_MotorController.Write(rollerName[RFWHEEL]+"SpeedValue", string("0"), true);
+                // Wait for zero speed
+                while(!atob(SystemRead(ZEROSPEED_TAG).c_str())) BposSleep(GetTestStepInfoInt("ScanDelay"));
+                RemovePrompt(GetPromptBox("BrakeCoolDown"), GetPrompt("BrakeCoolDown"), GetPromptPriority("BrakeCoolDown"));
+                RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+                SystemWrite(string("PromptBox1BGColor"), string("white"));
+                SystemWrite(string("PromptBox2BGColor"), string("white"));
             }
             else
             {
-                Log(LOG_ERRORS, "Cannot continue testing: StatusCheck - %s", ConvertStatusToResponse(StatusCheck()).c_str());
+                Log(LOG_ERRORS, "Status sleep failed during brake burnish cycle");
                 result = testFail;
             }
         }
+        else
+        {
+            Log(LOG_ERRORS, "Cannot continue testing: StatusCheck - %s", ConvertStatusToResponse(StatusCheck()).c_str());
+            result = testFail;
+        }
+        
         // Burnish the rears if the fronts have not failed
         if(!result.compare(BEP_TESTING_STATUS))
         {   // Switch the drive axle to control rear rdrives
             SystemWrite(DRIVE_AXLE_TAG, string(FRONT_WHEEL_DRIVE_VALUE));
+            BposSleep(1000);
+            SetData(DRIVE_AXLE_TAG, OriginalDriveAxle());
             DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
             DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
             BposSleep(GetParameterInt("StaticBrakeBurnishOperatorSetupTime"));
@@ -3981,7 +3967,7 @@ string BoschABSTC<ModuleInterface>::StaticBrakeBurnishCycle(void)
                 }
                 DisplayPrompt(GetPromptBox("BrakeToTargetSpeed"), GetPrompt("BrakeToTargetSpeed"), 
                               GetPromptPriority("BrakeToTargetSpeed"));
-                BEP_STATUS_TYPE status = StatusSleep(GetParameterInt("StaticBrakeBurnishTime"));
+                BEP_STATUS_TYPE status = StatusSleep(GetParameterInt("StaticBrakeRearBurnishTime"));
                 RemovePrompt(GetPromptBox("BrakeToTargetSpeed"), GetPrompt("BrakeToTargetSpeed"), 
                              GetPromptPriority("BrakeToTargetSpeed"));
                 SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
@@ -4033,13 +4019,15 @@ string BoschABSTC<ModuleInterface>::StaticBrakeBurnishCycle(void)
     return result;
 }
 
+// Removed because this should be inherited from the parent class KoreaAbsTcTemplate.
+// In a test, there end up being two instances of OriginalDriveAxle and one gets set and the other is null
 //----------------------------------------------------------------------------
-template<class ModuleInterface>
-string& BoschABSTC<ModuleInterface>::OriginalDriveAxle(const string *driveAxle /*= NULL*/)
-{
-    if(driveAxle != NULL)  m_originalDriveAxle = *driveAxle;
-    return m_originalDriveAxle;
-}
+//template<class ModuleInterface>
+//string& BoschABSTC<ModuleInterface>::OriginalDriveAxle(const string *driveAxle /*= NULL*/)
+//{
+//    if(driveAxle != NULL)  m_originalDriveAxle = *driveAxle;
+//    return m_originalDriveAxle;
+//}
 
 
 
@@ -4065,3 +4053,107 @@ string BoschABSTC<ModuleInterface>::AccelerateToBrakeSpeed(void)
     return result;
 }
 
+//----------------------------------------------------------------------------
+template<class ModuleInterface>
+INT32 BoschABSTC<ModuleInterface>::ElectricParkBrakeInit(void)
+{
+    INT32 result = GenericTC::ElectricParkBrakeInit();
+    // Store the oringinal drive axle value so we can restore after the test
+    string driveAxle(SystemRead(DRIVE_AXLE_TAG));
+    OriginalDriveAxle(&driveAxle);
+    // Switch the drive axle so the rear set of motors is enabled
+    SystemWrite(DRIVE_AXLE_TAG, string(FRONT_WHEEL_DRIVE_VALUE));
+    return result;
+}
+
+//----------------------------------------------------------------------------
+template<class ModuleInterface>
+const string BoschABSTC<ModuleInterface>::PerformPBTorqueTest(const string &direction, bool isTandemAxle/*=false*/)
+{
+    string status(BEP_TESTING_STATUS);
+    // Log the entry and check if this step should be performed
+    Log(LOG_FN_ENTRY, "Enter BoschABSTC::PerformPBTorqueTest(%s)\n", direction.c_str());
+    float torqueValue = GetParameterFloat("ParkBrakeApplyForce");
+    // Make sure the speed setpoints are set to 0 and place the motor controller into speed mode
+    m_MotorController.Write(COMMAND_SPEED, "0", false);
+    m_MotorController.Write(COMMAND_TORQUE, "0", true);
+    BposSleep( 100);
+    // Zero check the parameters
+    if(torqueValue == 0)  torqueValue = 350;
+    // Adjust the torque value
+    torqueValue *= 0.5;
+    // If we want the wheels to turn forward, we need a negative torque
+    if( ((direction == "Forward") && (torqueValue > 0)) ||
+        // If we want the wheels to turn in reverse, we need a positive torque value
+        ((direction == "Reverse") && (torqueValue < 0)) )
+    {
+        Log( LOG_DEV_DATA, "Changing torque value from %.02f to %.02f\n", torqueValue, -torqueValue);
+        torqueValue *= -1.0;
+    }
+    // read the current distance of the wheels
+    GetWheelDistances( m_parkBrakeDistances[ 0]);
+    // Tell the motor to turn for the park brake test
+    Log(LOG_DEV_DATA, "Commanding Rear Motors %.2f LBS\n", torqueValue);
+    char temp[32];
+    m_MotorController.Write(COMMAND_TORQUE, CreateMessage(temp, sizeof(temp), "%.2f", torqueValue), true);
+    m_MotorController.Write(MOTOR_MODE, TORQUE_MODE, true);
+    // wait the specified amount of time
+    SetStartTime();
+    bool brakeApplied = false;
+    INT32 testTime = GetTestStepInfoInt("TestTime");
+    float   wheelSpeeds[GetRollerCount()];
+    while((GenericTC::StatusCheck() == BEP_STATUS_SUCCESS) && (testTime > 0) && !brakeApplied)
+    {
+        GetWheelSpeeds(wheelSpeeds);
+        Log(LOG_DEV_DATA, "LF: %f, RF: %f, LR: %f, RR: %f\n", wheelSpeeds[LFWHEEL], wheelSpeeds[RFWHEEL],
+            wheelSpeeds[LRWHEEL], wheelSpeeds[RRWHEEL]);
+        // Check the brake switch to make sure it is off
+        m_vehicleModule.ReadModuleData("ReadBrakeSwitch", brakeApplied);
+        if(brakeApplied)
+        {
+            Log(LOG_ERRORS, "Operator applied brake during park brake test - FAIL");
+        }
+        BposSleep(100);     // wait 1/10th of a second
+        testTime -= 100;    // decrement the time from the total time
+    }
+    // Clear the torque value
+    m_MotorController.Write(COMMAND_TORQUE, string("0"), true);
+    Log( LOG_DEV_DATA, "Waiting for zerospeed\n");
+    // make sure the vehicle is at zerospeed
+    while(TimeRemaining() && (ReadSubscribeData(GetDataTag("Zerospeed")) != "1"))
+    {
+        BposSleep (100);                // wait a tenth of a second
+    }
+    Log( LOG_DEV_DATA, "At zerospeed, check distances\n");
+    // if and error did not occur and not aborted
+    if(!brakeApplied)
+    {
+        INT32 statusCheck = GenericTC::StatusCheck();
+        if( statusCheck == BEP_STATUS_SUCCESS)
+        {   // read the current distance of the rear wheels
+            GetWheelDistances( m_parkBrakeDistances[ 1]);
+            // Analyze the distances that the wheels travelled
+            status = ValidateParkBrakeTestDistances(m_parkBrakeDistances[ 0], m_parkBrakeDistances[ 1]);
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, (GetTestStepName() + ": Failed Status Check\n").c_str());
+            status = ConvertStatusToResponse( statusCheck);
+        }
+    }
+    else
+    {
+        status = testFail;
+        Log(LOG_ERRORS, "Park brake test failed because operator applied brake pedal");
+    }
+    // Reset to the original drive axle
+    SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
+    RemovePrompts();
+    DisplayTimedPrompt(GetPrompt("ReleaseParkBrake"), GetPromptBox("ReleaseParkBrake"), 
+                       GetPromptPriority("ReleaseParkBrake"), GetPromptDuration("ReleaseParkBrake"));
+    // Send the test result info
+    SendTestResult(status, GetTestStepInfo("Description"));
+    Log(LOG_FN_ENTRY, "Exit BoschABSTC::PerformPBTorqueTest(%s), status=%s\n", direction.c_str(), status.c_str());
+
+    return status;
+}

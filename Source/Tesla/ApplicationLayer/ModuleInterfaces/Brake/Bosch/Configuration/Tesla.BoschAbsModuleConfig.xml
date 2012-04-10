@@ -34,7 +34,7 @@
          <LocalEcho>Disabled</LocalEcho>
          <Verbose>0x3F</Verbose>
       </Logging>
-      <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+      <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
       <ModuleRequestID>0x645</ModuleRequestID>
       <ModuleResponseDelay>500</ModuleResponseDelay>
       <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
@@ -236,7 +236,7 @@
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>BrakePedalStatus</TransmitInterpretation>
             <ReplyMessage>BrakePedalStatus</ReplyMessage>
-            <ReplyInterpretation>BatteryVoltage</ReplyInterpretation>
+            <ReplyInterpretation>BrakePedalStatus</ReplyInterpretation>
          </ReadBrakeSwitch>
          <ReadFaults>
             <TransmitMessage>ReadFaults</TransmitMessage>
@@ -277,6 +277,10 @@
             <TransmitInterpretation>WheelSpeeds</TransmitInterpretation>
             <ReplyMessage>ReadWheelSpeeds</ReplyMessage>
             <ReplyInterpretation>SensorSpeeds</ReplyInterpretation>
+            <ReplyInterpretationLF>LFSensorSpeed</ReplyInterpretationLF>
+            <ReplyInterpretationRF>RFSensorSpeed</ReplyInterpretationRF>
+            <ReplyInterpretationLR>LRSensorSpeed</ReplyInterpretationLR>
+            <ReplyInterpretationRR>RRSensorSpeed</ReplyInterpretationRR>
          </ReadSensorSpeeds>
          <ReadSoftwareNumber>
             <TransmitMessage>ReadECUId</TransmitMessage>
@@ -374,6 +378,24 @@
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </WheelSensorDecel2KPH>
+         <StartSensorQualityTest>
+             <TransmitMessage>WheelSpeedSensorTest</TransmitMessage>
+            <TransmitInterpretation>WheelSpeedSensor6TestAccel</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </StartSensorQualityTest>
+         <SensorTestComplete>
+             <TransmitMessage>WheelSpeedSensorResults</TransmitMessage>
+             <TransmitInterpretation/>
+             <ReplyMessage>WheelSpeedSensorResults</ReplyMessage>
+             <ReplyInterpretation>RoutineComplete</ReplyInterpretation>
+         </SensorTestComplete>
+         <SensorTestResults>
+             <TransmitMessage>WheelSpeedSensorResults</TransmitMessage>
+             <TransmitInterpretation/>
+             <ReplyMessage>WheelSpeedSensorResults</ReplyMessage>
+             <ReplyInterpretation>WheelSpeedSensorResults</ReplyInterpretation>
+         </SensorTestResults>
       </VehicleMessages>
       <TransmitMessages>
          <!--For actuating one valve or for single-corner reduction/recovery-->
@@ -395,6 +417,7 @@
          <StopRoutine>0x31,0x02,0xF0,0x??</StopRoutine>
          <TesterPresent>0x3E,0x00</TesterPresent>
          <WheelSpeedSensorTest>0x31,0x01,0xF0,0x02,0x??,0x??,0x??</WheelSpeedSensorTest>
+         <WheelSpeedSensorResults>0x31,0x03,0xF0,0x02</WheelSpeedSensorResults>
       </TransmitMessages>
       <TransmitInterpretations>
          <ActivateControlValveUSV1>0x64,0x4E,0x00,0x00</ActivateControlValveUSV1>
@@ -450,9 +473,9 @@
       <ReplyMessages>
          <BrakePedalStatus>
             <!--Not applied-->
-            <Reply_00>0x62,0xFD,0x01,0x??,0x00,0x00</Reply_00>
+            <Reply_00>0x62,0xFD,0x01,0x??,0x00</Reply_00>
             <!--Applied-->
-            <Reply_01>0x62,0xFD,0x01,0x??,0x01,0x00</Reply_01>
+            <Reply_01>0x62,0xFD,0x01,0x??,0x01</Reply_01>
             <Reply_02>0x7F,0x22,0x??</Reply_02>
          </BrakePedalStatus>
          <ClearFaults>
@@ -470,10 +493,7 @@
             <Reply_02>0x7F,0x85,0x??</Reply_02>
          </ControlDTCSetting>
          <EnterDiagnosticMode>
-            <Reply_00>0x50,0x01,0x00,0x32,0x0F,0xA0</Reply_00>
-            <Reply_01>0x50,0x01,0x??,0x??,0x??,0x??</Reply_01>
-            <Reply_02>0x50,0x02,0x00,0x32,0x0F,0xA0</Reply_02>
-            <Reply_03>0x50,0x03,0x00,0x32,0x0F,0xA0</Reply_03>
+            <Reply_00 lengthType="Variable">0x50,0x??,0x??</Reply_00>
             <Reply_04>0x7F,0x10,0x??</Reply_04>
          </EnterDiagnosticMode>
          <ExitDiagMode>
@@ -485,7 +505,7 @@
             <Reply_01>0x7F,0x2F,0x??</Reply_01>
          </IOControl>
          <ReadFaults>
-            <Reply_00>0x59</Reply_00>
+            <Reply_00 lengthType="Variable">0x59,0x??</Reply_00>
             <Reply_01>0x7F,0x19</Reply_01>
             <Reply_02>0x7F,0x19,0x??</Reply_02>
          </ReadFaults>
@@ -551,12 +571,33 @@
             <Reply_00>0x71,0x03,0xF0,0x00,0x0?</Reply_00>
             <Reply_01>0x7F,0x31,0x??</Reply_01>
          </RoutineResults>
+         <WheelSpeedSensorResults>
+             <Reply_00 lengthType="Variable">0x71,0x03,0xF0,0x02,0x??</Reply_00>
+             <Reply_01>0x7F,0x31,0x??</Reply_01>
+         </WheelSpeedSensorResults>
          <TesterPresent>
             <Reply_00>0x7E,0x00</Reply_00>
             <Reply_01>0x7F,0x3E,0x??</Reply_01>
          </TesterPresent>
       </ReplyMessages>
       <ReplyInterpretations>
+         <BrakePedalStatus>
+            <Boolean>
+                <NOT>
+                    <Byte1 input_index="4" mask="0xFF" compare="0x00"/>
+                </NOT>
+            </Boolean>
+         </BrakePedalStatus>
+         <BrakePedalStatusString>
+            <STRING>
+                <SUBSTRING>
+                    <CHARS input_index="4" mask="0xFF" length="1">
+                        <StringSubstitute00 condition="equals" compare="0x00" replace="Off"/>
+                        <StringSubstitute01 condition="not equal" compare="0x00" replace="On"/>
+                    </CHARS>
+                </SUBSTRING>
+            </STRING>
+         </BrakePedalStatusString>
          <BatteryVoltage>
             <Float scale="0.08" offset="0">
                <!--In Volts-->
@@ -706,6 +747,42 @@
                </Subvector03>
             </Vector>
          </SensorSpeeds>
+         <LFSensorSpeed>
+            <Float scale="0.0078125" offset="0">
+                <!--km/h-->
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                </Integer>
+            </Float>
+         </LFSensorSpeed>
+         <RFSensorSpeed>
+             <Float scale="0.0078125" offset="0">
+                <!--km/h-->
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                </Integer>
+            </Float>
+         </RFSensorSpeed>
+         <LRSensorSpeed>
+             <Float scale="0.0078125" offset="0">
+                <!--km/h-->
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="8" mask="0xFF" output_index="0"/>
+                </Integer>
+            </Float>
+         </LRSensorSpeed>
+         <RRSensorSpeed>
+             <Float scale="0.0078125" offset="0">
+                <!--km/h-->
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="9" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="10" mask="0xFF" output_index="0"/>
+                </Integer>
+            </Float>
+         </RRSensorSpeed>
          <SteeringAngle>
             <Float scale="0.1" offset="0">
                <!--In degrees-->
@@ -781,6 +858,51 @@
                <Byte1 input_index="11" mask="0x01" compare="0x00"><!--Signal valid if bit 0 is equal to 0--></Byte1>
             </Boolean>
          </YawRateStatus>
+         <RoutineComplete>
+             <Boolean>
+               <Byte1 input_index="4" mask="0x0F" compare="0x01"><!--Signal valid if bit 0 is equal to 0--></Byte1>
+            </Boolean>
+         </RoutineComplete>
+         <WheelSpeedSensorResults>
+             <Vector type="fixed">
+               <Subvector00 Description="Front Left Wheel Speed">
+                  <Float scale="1.609344" offset="0">
+                     <!--km/h-->
+                     <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector00>
+               <Subvector01 Description="Front Right Wheel Speed">
+                  <Float scale="1.609344" offset="0">
+                     <!--km/h-->
+                     <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="8" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector01>
+               <Subvector02 Description="Rear Left Wheel Speed">
+                  <Float scale="1.609344" offset="0">
+                     <!--km/h-->
+                     <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="9" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="10" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector02>
+               <Subvector03 Description="Rear Right Wheel Speed ">
+                  <Float scale="1.609344" offset="0">
+                     <!--km/h-->
+                     <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="11" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="12" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector03>
+            </Vector>
+         </WheelSpeedSensorResults>
       </ReplyInterpretations>
    </SerialMessages>
 </BoschModuleInterface>

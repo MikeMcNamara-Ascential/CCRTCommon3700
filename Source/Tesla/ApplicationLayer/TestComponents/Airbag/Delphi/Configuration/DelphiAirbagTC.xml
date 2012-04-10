@@ -54,6 +54,9 @@
       <ReadModuleFaults>ReadFaults</ReadModuleFaults>
       <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
       <ResistanceValuesMessage>ResistanceValues</ResistanceValuesMessage>
+      <VIN>VIN</VIN>
+      <VehicleVIN>VIN</VehicleVIN>
+      <ReadModuleVIN>ReadVIN</ReadModuleVIN>
     </DataTags>
     <Parameters>
       <ConfigFile>/Configuration/Components/Airbag/DelphiAirbagModule.xml</ConfigFile>
@@ -70,7 +73,8 @@
       </ValidPartNumbers>
       <!-- Fault Read Parameters -->
       <AbortIfDTCPresent>No</AbortIfDTCPresent>
-
+      <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
+      <VINLength>17</VINLength>
     </Parameters>
     <Prompts>
       <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
@@ -78,18 +82,25 @@
   </Setup>
   <Objectives>
     <AirbagTest>
-       <TestStep00>Setup</TestStep00>
        <TestStep10>EnterDiagnosticMode</TestStep10>
-       <TestStep20>CommandSecurityAccess</TestStep20>
-       <TestStep30>EnableAirBagModule</TestStep30>
-       <TestStep40>CollectTraceData</TestStep40>
+       <TestStep20>CollectTraceData</TestStep20>
+       <TestStep30>CommandSecurityAccess</TestStep30>
+       <!-- TestStep40>ProgramVIN</TestStep40>
+       <TestStep50>CheckVIN</TestStep50 -->
+       <TestStep60>ReadFaults</TestStep60>
+       <TestStep70>EnableAirBagModule</TestStep70>
     </AirbagTest>
+    <AirbagSetup>
+        <TestStep00>Setup</TestStep00>
+        <TestStep10>EnterDiagnosticMode</TestStep10>
+        <TestStep20>ClearFaults</TestStep20>
+    </AirbagSetup>
     <FinishUp>
       <TestStep00>FinishUp</TestStep00>
     </FinishUp>
   </Objectives>
   <TestSteps>
-    <Setup/>
+    <Setup Result="Not Tested" Timeout="1000" Description="Setup component for testing"/>
     <EnterDiagnosticMode Result="Not Tested" Timeout="5000" Description="Enter diag mode"/>
     <CommandSecurityAccess Result="Not Tested" Timeout="500" Description="Verify the module part number"/>
     <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
@@ -97,5 +108,7 @@
     <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
     <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Read and Clear Faults and Enable the airbag module"/>
     <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read Traceablilty number from the module"/> 
+    <ProgramVIN Result="Not Tested" Timeout="5000" Description="Write VIN to the Module"/>
+    <CheckVIN Result="Not Tested" Timeout="5000" Description="Validate module VIN"/>
   </TestSteps>
 </DelphiAirbagTC>

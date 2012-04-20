@@ -34,7 +34,7 @@
       <Logging>
          <Status>Enabled</Status>
          <ProcessName>TevesMk70AbsModule</ProcessName>
-         <AdditionalLogFile>/Communication/TevesMk60AbsModule.log</AdditionalLogFile>
+         <AdditionalLogFile>/Communication/TevesMk70AbsModule.log</AdditionalLogFile>
          <Debug>Off</Debug>
          <LocalEcho>Disabled</LocalEcho>
          <Verbose>0x3F</Verbose>

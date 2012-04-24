@@ -297,7 +297,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LFSensorTest(void)
         {
             SendTestResultWithDetail(testResult,testDescription,
                                      GetFaultCode(testDescription),
-                                     GetFaultName(testDescription),
+                                     "LeftFrontSensorFail",
                                      GetFaultDescription(testDescription));
         }
     }
@@ -395,7 +395,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RFSensorTest(void)
         {
             SendTestResultWithDetail(testResult,testDescription,
                                      GetFaultCode(testDescription),
-                                     GetFaultName(testDescription),
+                                     "RightFrontSensorFail",
                                      GetFaultDescription(testDescription));
         }
     }
@@ -502,7 +502,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LRSensorTest(void)
         {
             SendTestResultWithDetail(testResult,testDescription,
                                      GetFaultCode(testDescription),
-                                     GetFaultName(testDescription),
+                                     "LeftRearSensorFail",
                                      GetFaultDescription(testDescription));
         }
     }
@@ -583,7 +583,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RRSensorTest(void)
     {
         SendTestResultWithDetail(testResult,testDescription,
                                  GetFaultCode(testDescription),
-                                 GetFaultName(testDescription),
+                                 "RightRearSensorFail",
                                  GetFaultDescription(testDescription));
     }
 

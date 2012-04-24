@@ -1,0 +1,120 @@
+<BrakeFaults>
+    <!-- Test Failures -->
+    <PartNumberMismatch Code="3000" Description="Part Number programmed in ESP module does not match Broadcast"/>
+    <ModuleFaults Code="3010" Description="DTCs recorded in the ESP Module"/>
+    <CommunicationFailure Code="3012" Description="ESP Module Communication Failure"/>
+    <ABSFailure Code="3013" Description="Failure detected when testing ABS"/>
+    <ReduxRecovSequenceFail Code="3020" Description="Failure while performing reduction/recovery sequence"/>
+    <RecoverAllValvesFail Code="3021" Description="Failure to recover all valves"/>
+    <DumpAllValvesFail Code="3022" Description="Failure to dump all valves"/>
+    <LeftFrontSensorFail Code="3041" Description="Left Front wheel speed sensor failure"/>
+    <RightFrontSensorFail Code="3042" Description="Right Front wheel speed sensor failure"/>
+    <LeftRearSensorFail Code="3043" Description="Left Rear wheel speed sensor failure"/>
+    <RightRearSensorFail Code="3044" Description="Right Rear wheel speed sensor failure"/>
+    <LeftFrontForceFault Code="3045" Description="Left Front Brake Force Not Sufficient or Too High"/>
+    <RightFrontForceFault Code="3046" Description="Right Front Brake Force Not Sufficient or Too High"/>
+    <LeftRearForceFault Code="3047" Description="Left Rear Brake Force Not Sufficient or Too High"/>
+    <RightRearForceFault Code="3048" Description="Right Rear Brake Force Not Sufficient or Too High"/>
+    <!-- Module Faults -->
+    <ModuleFault_C44986 Code="C44986" Description="Invalid Data Received From Gateway C: chassis type invalid value"/>
+    <ModuleFault_C44981 Code="C44981" Description="Invalid Data Received From Gateway C: Data Length Code, Checksum or Parity invalid (GTW_CarConfig)"/>
+    <ModuleFault_C44881 Code="C44881" Description="Invalid Data Received From Gateway B: Data Length Code, Checksum or Parity invalid"/>
+    <ModuleFault_C44782 Code="C44782" Description="Invalid Data Received From Gateway A: Alive Counter invalid"/>
+    <ModuleFault_C44781 Code="C44781" Description="Invalid Data Received From Gateway A: Data Length Code, Checksum or Parity invalid"/>
+    <ModuleFault_C43286 Code="C43286" Description="Invalid Data Received From Multi-axis Acceleration Sensor Module: Invalid Signal Status"/>
+    <ModuleFault_C43281 Code="C43281" Description="Invalid Data Received From Multi-axis Acceleration Sensor Module: Data Length Code, Checksum or Parity invalid"/>
+    <ModuleFault_C42886 Code="C42886" Description="Invalid Data Received From Steering Angle Sensor Module: Invalid Signal Status"/>
+    <ModuleFault_C42882 Code="C42882" Description="Invalid Data Received From Steering Angle Sensor Module: Alive Counter invalid"/>
+    <ModuleFault_C42881 Code="C42881" Description="Invalid Data Received From Steering Angle Sensor Module: Data Length Code, Checksum or Parity invalid"/>
+    <ModuleFault_C41186 Code="C41186" Description="Invalid Data Received From Drive Motor Control Module A: Invalid Signal Status"/>
+    <ModuleFault_C41182 Code="C41182" Description="Invalid Data Received From Drive Motor Control Module A: Alive Counter invalid"/>
+    <ModuleFault_C41181 Code="C41181" Description="Invalid Data Received From Drive Motor Control Module A: Data Length Code, Checksum or Parity invalid"/>
+    <ModuleFault_C14687 Code="C14687" Description="Lost Communication With Gateway A: Message Timeout (GTW_ESP1)"/>
+    <ModuleFault_C14787 Code="C14787" Description="Lost Communication With Gateway A: Message Timeout (GTW_Odo)"/>
+    <ModuleFault_C14887 Code="C14887" Description="Lost Communication With Gateway A: Message Timeout (GTW_CarConfig)"/>
+    <ModuleFault_C11087 Code="C11087" Description="Lost Communication With Drive Motor Control Module A: Message Timeout"/>
+    <ModuleFault_C12587 Code="C12587" Description="Lost Communication With Multi-axis Acceleration Sensor Module: Message Timeout"/>
+    <ModuleFault_B03700 Code="B03700" Description="Vehicle Communication Bus B: General Fault"/>
+    <ModuleFault_B02800 Code="B02800" Description="Vehicle Communication Bus A: General Fault"/>
+    <ModuleFault_B00100 Code="B00100" Description="CAN Communication Bus: General Fault"/>
+    <ModuleFault_530068 Code="530068" Description="Roller Bench Mode: Control Event Log"/>
+    <ModuleFault_522087 Code="522087" Description="VIN-Message not received from Gateway"/>
+    <ModuleFault_522081 Code="522081" Description="Invalid Data Received From Gateway (VIN-Message): Data Length Code, Checksum or Parity invalid"/>
+    <ModuleFault_522062 Code="522062" Description="VIN: Received VIN does not match stored VIN"/>
+    <ModuleFault_522051 Code="522051" Description="VIN not programmed"/>
+    <ModuleFault_521062 Code="521062" Description="Reverse Gear Switch: Plausibility against second signal failed"/>
+    <ModuleFault_520086 Code="520086" Description="Variant Management: Invalid Signal Status"/>
+    <ModuleFault_513068 Code="513068" Description="HBA Controller: Control Event Log"/>
+    <ModuleFault_512068 Code="512068" Description="ESP Controller: Control Event Log"/>
+    <ModuleFault_511068 Code="511068" Description="TCS Controller: Control Event Log"/>
+    <ModuleFault_510068 Code="510068" Description="ABS Controller: Control Event Log"/>
+    <ModuleFault_502001 Code="502001" Description="Vacuum Sensor: General electrical failure"/>
+    <ModuleFault_501084 Code="501084" Description="Electric vacuum pump: Signal below allowable range"/>
+    <ModuleFault_501062 Code="501062" Description="Electric vacuum pump: Plausibility against second signal failed"/>
+    <ModuleFault_501062 Code="501062" Description="Electric vacuum pump: Plausibility against second signal failed"/>
+    <ModuleFault_406C49 Code="406C49" Description="Stability System: Internal Electronic failure detected"/>
+    <ModuleFault_406C17 Code="406C17" Description="Stability System: Circuit voltage above threshold"/>
+    <ModuleFault_406C16 Code="406C16" Description="Stability System: Circuit Voltage below threshold"/>
+    <ModuleFault_406B62 Code="406B62" Description="Stability System Active Too Long: Plausibility against second signal failed"/>
+    <ModuleFault_406328 Code="406328" Description="Yaw Rate Sensor: Adjustment not possible (Offset too large)"/>
+    <ModuleFault_406327 Code="406327" Description="Yaw Rate Sensor: High gradient detected"/>
+    <ModuleFault_406322 Code="406322" Description="Yaw Rate Sensor: Signal out of Range"/>
+    <ModuleFault_406309 Code="406309" Description="Yaw Rate Sensor: Generic Component fault"/>
+    <ModuleFault_406262 Code="406262" Description="Longitudinal Acceleration Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_406228 Code="406228" Description="Longitudinal Acceleration Sensor: Adjustment not possible (Offset too large)"/>
+    <ModuleFault_406222 Code="406222" Description="Longitudinal Acceleration Sensor: Signal out of Range"/>
+    <ModuleFault_406209 Code="406209" Description="Longitudinal Acceleration Sensor: Generic Component fault"/>
+    <ModuleFault_406162 Code="406162" Description="Lateral Acceleration Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_406128 Code="406128" Description="Lateral Acceleration Sensor: Adjustment not possible (Offset too large)"/>
+    <ModuleFault_406122 Code="406122" Description="Lateral Acceleration Sensor: Signal out of Range"/>
+    <ModuleFault_406109 Code="406109" Description="Lateral Acceleration Sensor: Generic Component fault"/>
+    <ModuleFault_405162 Code="405162" Description="Steering Wheel Position Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_405128 Code="405128" Description="Steering Wheel Position Sensor: Adjustment not possible (Offset too large)"/>
+    <ModuleFault_405127 Code="405127" Description="Steering Wheel Position Sensor: High gradient detected"/>
+    <ModuleFault_405126 Code="405126" Description="Steering Wheel Position Sensor: Constant signal detected"/>
+    <ModuleFault_405122 Code="405122" Description="Steering Wheel Position Sensor: Signal out of Range"/>
+    <ModuleFault_40497B Code="40497B" Description="Brake Fluid: Fluid level low"/>
+    <ModuleFault_404784 Code="404784" Description="Brake Booster Pressure Sensor: Signal below allowable range"/>
+    <ModuleFault_404462 Code="404462" Description="Brake Pressure Sensor A: Plausibility against second signal failed"/>
+    <ModuleFault_404428 Code="404428" Description="Brake Pressure Sensor A: Adjustment not possible (Offset too large)"/>
+    <ModuleFault_404414 Code="404414" Description="Brake Pressure Sensor A: Line Short to Ground or Interruption"/>
+    <ModuleFault_404062 Code="404062" Description="Brake Pedal Switch A: Plausibility against second signal failed"/>
+    <ModuleFault_404024 Code="404024" Description="Brake Pedal Switch A: Signal stuck high"/>
+    <ModuleFault_403D00 Code="403D00" Description="Rear Wheel Speed Sensor: General Fault"/>
+    <ModuleFault_403B12 Code="403B12" Description="Right Rear Wheel Speed Sensor Supply: Line Short to UBat"/>
+    <ModuleFault_403B11 Code="403B11" Description="Right Rear Wheel Speed Sensor Supply: Line Short to Gnd"/>
+    <ModuleFault_403A62 Code="403A62" Description="Right Rear Wheel Speed Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_403A4A Code="403A4A" Description="Right Rear Wheel Speed Sensor: Wrong Component detected"/>
+    <ModuleFault_403A22 Code="403A22" Description="Right Rear Wheel Speed Sensor: Signal out of Range"/>
+    <ModuleFault_403A14 Code="403A14" Description="Right Rear Wheel Speed Sensor: Line Short to Ground or Interruption"/>
+    <ModuleFault_403A12 Code="403A12" Description="Right Rear Wheel Speed Sensor: Line Short to UBat"/>
+    <ModuleFault_403A11 Code="403A11" Description="Right Rear Wheel Speed Sensor: Line Short to Gnd"/>
+    <ModuleFault_403812 Code="403812" Description="Left Rear Wheel Speed Sensor Supply: Line Short to UBat"/>
+    <ModuleFault_403811 Code="403811" Description="Left Rear Wheel Speed Sensor Supply: Line Short to Gnd"/>
+    <ModuleFault_403776 Code="403776" Description="Left Rear Wheel Speed Sensor: Wrong mounting position"/>
+    <ModuleFault_403762 Code="403762" Description="Left Rear Wheel Speed Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_403762 Code="403762" Description="Left Rear Wheel Speed Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_403762 Code="403762" Description="Left Rear Wheel Speed Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_40374A Code="40374A" Description="Left Rear Wheel Speed Sensor: Wrong Component detected"/>
+    <ModuleFault_403722 Code="403722" Description="Left Rear Wheel Speed Sensor: Signal out of Range"/>
+    <ModuleFault_403714 Code="403714" Description="Left Rear Wheel Speed Sensor: Line Short to Ground or Interruption"/>
+    <ModuleFault_403712 Code="403712" Description="Left Rear Wheel Speed Sensor: Line Short to UBat"/>
+    <ModuleFault_403711 Code="403711" Description="Left Rear Wheel Speed Sensor: Line Short to Gnd"/>
+    <ModuleFault_403511 Code="403511" Description="Right Front Wheel Speed Sensor Supply: Line Short to Gnd"/>
+    <ModuleFault_403462 Code="403462" Description="Right Front Wheel Speed Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_40344A Code="40344A" Description="Right Front Wheel Speed Sensor: Wrong Component detected"/>
+    <ModuleFault_403422 Code="403422" Description="Right Front Wheel Speed Sensor: Signal out of Range"/>
+    <ModuleFault_403414 Code="403414" Description="Right Front Wheel Speed Sensor: Line Short to Ground or Interruption"/>
+    <ModuleFault_403412 Code="403412" Description="Right Front Wheel Speed Sensor: Line Short to UBat"/>
+    <ModuleFault_403411 Code="403411" Description="Right Front Wheel Speed Sensor: Line Short to Gnd"/>
+    <ModuleFault_403212 Code="403212" Description="Left Front Wheel Speed Sensor Supply: Line Short to UBat"/>
+    <ModuleFault_403211 Code="403211" Description="Left Front Wheel Speed Sensor Supply: Line Short to Gnd"/>
+    <ModuleFault_403176 Code="403176" Description="Left Front Wheel Speed Sensor: Wrong mounting position"/>
+    <ModuleFault_403162 Code="403162" Description="Left Front Wheel Speed Sensor: Plausibility against second signal failed"/>
+    <ModuleFault_40314A Code="40314A" Description="Left Front Wheel Speed Sensor: Wrong Component detected"/>
+    <ModuleFault_403122 Code="403122" Description="Left Front Wheel Speed Sensor: Signal out of Range"/>
+    <ModuleFault_403114 Code="403114" Description="Left Front Wheel Speed Sensor: Line Short to Ground or Interruption"/>
+    <ModuleFault_403112 Code="403112" Description="Left Front Wheel Speed Sensor: Line Short to UBat"/>
+    <ModuleFault_403111 Code="403111" Description="Left Front Wheel Speed Sensor: Line Short to Gnd"/>
+    <ModuleFault_402009 Code="402009" Description="ABS Pump Motor Control: Generic Component fault"/>
+</BrakeFaults>

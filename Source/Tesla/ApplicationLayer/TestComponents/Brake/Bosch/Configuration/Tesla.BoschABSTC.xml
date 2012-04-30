@@ -230,7 +230,8 @@
          <TorqueMode>Torque</TorqueMode>
          <UnlockModule>UnlockModule</UnlockModule>
          <VehiclePresent>VehiclePresent</VehiclePresent>
-         <VehicleVIN>VehicleVIN</VehicleVIN>
+         <VehicleVIN>VIN</VehicleVIN>
+         <VIN>VIN</VIN>
          <ZeroSpeed>ZeroSpeed</ZeroSpeed>
       </DataTags>
       <Parameters>
@@ -254,6 +255,7 @@
          <BypassPartNumberValidation>No</BypassPartNumberValidation>
          <ValidatePartNumberList>Yes</ValidatePartNumberList>
          <ModulePartNumber></ModulePartNumber>
+         <VINLength>17</VINLength>
          <!--Sensor Testing Parameters-->
          <DisplayOperatorInstructions>No</DisplayOperatorInstructions>
          <UsePlcResultButtons>True</UsePlcResultButtons>
@@ -382,7 +384,10 @@
          <TestStep40>CheckPartNumber</TestStep40>
          <TestStep50>ReadFaults</TestStep50>
          <TestStep60>ClearFaults</TestStep60>
+         <TestStep62>ProgramVIN</TestStep62>
+         <TestStep64>CheckVIN</TestStep64>
          <TestStep70>StartModuleKeepAlive</TestStep70>
+         <TestStep80>DisableSpeedLimit</TestStep80>
       </Setup>
       <EnterDiagnosticMode>
          <TestStep00>EnterDiagnosticMode</TestStep00>
@@ -424,7 +429,6 @@
          <TestStep00>BrakeSwitchTest</TestStep00>
       </BrakeSwitchTest>
       <BaseBrakeTest>
-         <TestStep00>EnterDiagnosticMode</TestStep00>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
          <TestStep15>DragTest</TestStep15>
          <TestStep20>AnalyzeDragTest</TestStep20>
@@ -471,7 +475,6 @@
          <TestStep40>RRSensorTest</TestStep40>
          <TestStep50>SensorQualityTest</TestStep50>
          <TestStep60>BrakeToStop</TestStep60>
-         <TestStep70>EnterDiagnosticMode</TestStep70><!-- This is here since the vehicle tends to exit diagnostic mode after the sensor test -->
       </SensorTest>
       <ABSValveFiringTest>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
@@ -491,6 +494,7 @@
       <FinishUp>
          <TestStep00>StopModuleKeepAlive</TestStep00>
          <TestStep01>ReadFaults</TestStep01>
+         <TestStep02>EnableSpeedLimit</TestStep02>
          <TestStep05>ExitDiagnosticMode</TestStep05>
          <TestStep10>FinishUp</TestStep10>
       </FinishUp>
@@ -555,7 +559,7 @@
       <CheckRelayState Result="" Timeout="10000" Description="Check Relay State"/>
       <CheckParkBrakeSignal Result="" Timeout="10000" Description="Park Brake Signal Test"/>
       <EnableSpeedLimit Result="" Timeout="10000" Description="Enable Speed Limit"/>
-      <DisableSpeedLimiit Result="" Timeout="10000" Description="Disable Speed Limit"/>
+      <DisableSpeedLimit Result="" Timeout="10000" Description="Disable Speed Limit"/>
       <EnableDiagnosticSpeedLimit Result="" Timeout="500" Description="Enable Diagnostic Speed Limit"/>
       <DisableDiagnosticSpeedLimit Result="" Timeout="1000" Description="Disable Diagnostic Speed Limit" ScanDelay="250"/>
       <DisableValveRelayShutdown Result="" Timeout="10000" Description="Disable Valve Relay Shutdown"/>

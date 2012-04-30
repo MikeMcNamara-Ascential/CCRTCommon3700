@@ -143,6 +143,7 @@
 				<Folder Name="Brake">
 					<Folder Name="Bosch">
 						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/BoschBrakeFaultList.xml"/>
 							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/CMakeLists.txt"/>
 							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/Tesla.BoschABSTC.xml"/>
 						</Folder>

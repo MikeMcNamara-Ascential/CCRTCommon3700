@@ -184,6 +184,12 @@
             <ReplyMessage>CommunicationControl</ReplyMessage>
             <ReplyInterpretation/>
          </DisableECUTransmission>
+         <DisableSpeedLimit>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>DisableDiagnosticSpeedLimit</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </DisableSpeedLimit>
          <DumpAllValves>
             <TransmitMessage>MultipleValveActuation</TransmitMessage>
             <TransmitInterpretation>AllOutletValvesOn</TransmitInterpretation>
@@ -196,6 +202,12 @@
             <ReplyMessage>CommunicationControl</ReplyMessage>
             <ReplyInterpretation/>
          </EnableECUTransmission>
+         <EnableSpeedLimit>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>EnableDiagnosticSpeedLimit</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </EnableSpeedLimit>
          <EnterDiagnosticMode>
             <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
             <TransmitInterpretation>ExtendedSession</TransmitInterpretation>
@@ -294,12 +306,12 @@
             <ReplyMessage>ReadSoftwareVersion</ReplyMessage>
             <ReplyInterpretation/>
          </ReadSoftwareVersion>
-         <ReadVINNumber>
+         <ReadVIN>
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>VINNumber</TransmitInterpretation>
             <ReplyMessage>ReadVINNumber</ReplyMessage>
             <ReplyInterpretation>VINNumber</ReplyInterpretation>
-         </ReadVINNumber>
+         </ReadVIN>
          <ResetModule>
             <TransmitMessage>ResetModule</TransmitMessage>
             <TransmitInterpretation/>
@@ -445,7 +457,9 @@
          <DeactivateHighPressureControlValveHSV2>0x00,0x540x00,0x00</DeactivateHighPressureControlValveHSV2>
          <DeactivatePumpMotor>0x00,0x22,0x00,0x00</DeactivatePumpMotor>
          <DefaultSession>0x01</DefaultSession>
+         <DisableDiagnosticSpeedLimit>0x68,0x00,0x00,0x00</DisableDiagnosticSpeedLimit>
          <ElectricalVacuumPump>0xD0,0x0D</ElectricalVacuumPump>
+         <EnableDiagnosticSpeedLimit>0x68,0x01,0x00,0x00</EnableDiagnosticSpeedLimit>
          <EnableRxAndDisableTx>0x01</EnableRxAndDisableTx>
          <EnableRxAndEnableTx>0x00</EnableRxAndEnableTx>
          <EvacAndFill>0x00,0x0A,0x05</EvacAndFill>

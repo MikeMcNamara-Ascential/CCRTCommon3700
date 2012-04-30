@@ -2,6 +2,7 @@
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
-	Tesla.BoschABSTC.xml
-	)
-	
+        Tesla.BoschABSTC.xml
+        BoschBrakeFaultList.xml
+        )
+        

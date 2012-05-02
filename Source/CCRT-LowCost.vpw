@@ -7,12 +7,15 @@
 		<Project File="Core/Core.vpj"/>
 		<Project File="FAW/FAW.vpj"/>
 		<Project File="Foton/Foton.vpj"/>
+		<Project File="Fujian/Fujian.vpj"/>
 		<Project File="Isuzu/Isuzu.vpj"/>
+		<Project File="Mahindra/Mahindra.vpj"/>
 		<Project File="Mercedes/Mercedes.vpj"/>
 		<Project File="Tesla/Tesla.vpj"/>
 		<Project File="Tests/Tests.vpj"/>
 		<Project File="Tools/Tools.vpj"/>
 		<Project File="Toyota/Toyota.vpj"/>
 		<Project File="Volkswagen/Volkswagen.vpj"/>
+		<Project File="Youngman/Youngman.vpj"/>
 	</Projects>
 </Workspace>

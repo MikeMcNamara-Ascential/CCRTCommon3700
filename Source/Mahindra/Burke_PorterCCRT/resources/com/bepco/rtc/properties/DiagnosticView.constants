@@ -1,0 +1,7 @@
+# constants for Diagnostic Viewer
+
+#file.name.user = /tmp/diagnostic.tmp
+#file.name.user = c:\\temp\\diagnostic.txt
+file.name.user = default
+
+delay.read.user = 3000

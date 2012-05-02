@@ -1,0 +1,7 @@
+Copy to new SVN folder and run Base3700RenameFiles.sh [customer] [plant] [machine] to create
+default 3700 machine install capable of running loss comp and base brake
+
+Serial server, IPICM, MachineDataBroker, and Input server configuration files 
+should be updated according to machine.
+
+

@@ -1,0 +1,11 @@
+#TestFaultStrings.constants
+
+# Map initial blank value.
+=
+
+# Clear ScrollBox command
+# The value of this property is unused. The key is used by ScrollBox
+# to Clear it's display.
+ClearScrollBox = UNUSED
+
+

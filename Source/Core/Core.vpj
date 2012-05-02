@@ -1012,6 +1012,7 @@
 					<Folder Name="Electric">
 						<Folder Name="AB">
 							<Folder Name="Configuration">
+								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/AB700MotorControllerConfig.xml"/>
 								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/ABMotorControllerConfig.xml"/>
 								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/CMakeLists.txt"/>
 							</Folder>

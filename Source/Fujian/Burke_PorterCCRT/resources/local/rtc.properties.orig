@@ -1,0 +1,25 @@
+#User Preferences for Burke Porter CCRT
+#Mon Mar 28 08:12:46 EST 2011
+controlline.drivermonitor.model=DisplayDriverMonitor
+settings.clicktoexit.value=false
+controlline.starttest.model=StartTest
+controlline.softwareid.model=SoftwareID
+preference.country.iso=CN
+controlline.testinprogress.model=TestInProgress
+settings.ticketprinter.layout=C\:\\Burke_PorterCCRT\\resources\\local\\report\\DCAC.ReportLayout.xml
+preference.language.iso=zh
+controlline.testresults.model=TestResultToPrint
+settings.reportprinter.layout=C\:\\Burke_PorterCCRT\\resources\\local\\report\\DCAC.ReportLayout.xml
+settings.ticketprinter.printonpass=false
+preference.units=English
+preference.logging=CONFIG
+controlline.licensefatal.model=InvalidLicenseFatalFault
+settings.graphicsprinter.enabled=false
+controlline.licensewarning.model=InvalidLicenseNotification
+settings.reportprinter.printonpass=true
+network.useproxy=false
+controlline.rackmonitor.model=DisplayRackMonitor
+settings.ticketprinter.printonfail=false
+settings.reportprinter.xslt=C\:\\Burke_PorterCCRT\\resources\\local\\report\\Chinese.TicketReportLayout.xsl
+settings.ticketprinter.xslt=C\:\\Burke_PorterCCRT\\resources\\local\\report\\Chinese.TicketReportLayout.xsl
+settings.reportprinter.printonfail=false

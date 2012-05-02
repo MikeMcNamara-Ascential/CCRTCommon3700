@@ -1,0 +1,153 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.1/vpj.dtd">
+<Project
+	Version="9.1"
+	VendorName="SlickEdit"
+	WorkingDir=".">
+	<Config
+		Name="Release"
+		OutputFile=""
+		CompilerConfigName="Latest Version">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec CmdLine='"Base_3700.exe"'/>
+			</Target>
+		</Menu>
+	</Config>
+	<CustomFolders>
+		<Folder
+			Name="Source Files"
+			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl">
+		</Folder>
+		<Folder
+			Name="Header Files"
+			Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.inc;*.sh;*.cpy;*.if">
+		</Folder>
+		<Folder
+			Name="Resource Files"
+			Filters="*.ico;*.cur;*.dlg"/>
+		<Folder
+			Name="Bitmaps"
+			Filters="*.bmp"/>
+		<Folder
+			Name="Other Files"
+			Filters="">
+		</Folder>
+	</CustomFolders>
+	<Files AutoFolders="DirectoryView">
+		<Folder Name="ApplicationLayer">
+			<Folder Name="TestComponents">
+				<Folder Name="Brake">
+					<Folder Name="BaseBrake">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/BaseBrakeTc.xml"/>
+						</Folder>
+					</Folder>
+				</Folder>
+				<Folder Name="LossCompensation">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/LossCompensationTc.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="Machine">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/Machine/Configuration/MachineTc.xml"/>
+					</Folder>
+				</Folder>
+			</Folder>
+			<Folder Name="VehicleTest">
+				<Folder Name="Configuration">
+					<Folder Name="DriveCurves">
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/LossCompensationDriveCurve.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/VehicleTest/Configuration/Customer.SelectionTable.xml"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/Customer.VehicleTestConfig.xml"/>
+				</Folder>
+			</Folder>
+		</Folder>
+		<Folder Name="ServicesLayer">
+			<Folder Name="Managers">
+				<Folder Name="ICM">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/ICM/Configuration/Customer.Plant.Machine.IpIcmConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="SerialServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/Customer.Plant.Machine.SerialServer.xml"/>
+					</Folder>
+				</Folder>
+			</Folder>
+			<Folder Name="Servers">
+				<Folder Name="InputServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/InputServer/Configuration/Customer.InputServerConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="Launcher">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/Launcher/Configuration/Customer.LauncherConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="MachineDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/Customer.MachineDataBrokerConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="SystemMonitor">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/Customer.SystemMonitorConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/SystemMonitor/Base3700SystemMonitor.cpp"/>
+					<F N="ServicesLayer/Servers/SystemMonitor/Base3700SystemMonitor.h"/>
+					<F N="ServicesLayer/Servers/SystemMonitor/Base3700SystemMonitorMain.cpp"/>
+				</Folder>
+				<Folder Name="VehicleDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/Customer.VehicleDataBrokerConfig.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="VehicleDataServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/VehicleDataServer/Configuration/Customer.VehicleDataServerConfig.xml"/>
+					</Folder>
+				</Folder>
+			</Folder>
+		</Folder>
+	</Files>
+</Project>

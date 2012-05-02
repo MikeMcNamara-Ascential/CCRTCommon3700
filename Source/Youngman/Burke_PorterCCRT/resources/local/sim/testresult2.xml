@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<BepVehicleTestResult>
+
+
+<VehicleBuild>
+  <AbsPartNo>34938743DF</AbsPartNo>   
+  <Airbag>Dooly</Airbag>   
+  <Axle>Standard</Axle>   
+  <AxleRatio>000</AxleRatio>   
+  <BodyStyle>WJTH74</BodyStyle>   
+  <Brake>Teves Mk20 J1850</Brake>   
+  <BuildDate>10022001</BuildDate>   
+  <BuildTime>0932</BuildTime>   
+  <Cluster>No Test</Cluster>   
+  <DaytimeRunningLamps>Not Equipped</DaytimeRunningLamps>      
+  <HighSpeedChime>Not Equipped</HighSpeedChime>  
+  <LsiacmPartNo/>
+  <MarketType>No Test</MarketType>   
+  <OrcamPartNo>56010485AF</OrcamPartNo>   
+  <PcmPartNo>56041833AE</PcmPartNo>   
+  <PerformAbortTest>P</PerformAbortTest>   
+  <PinionFactor>00000</PinionFactor>   
+  <PowerSteering>Not Equipped</PowerSteering>   
+  <RemoteKeylessEntry>No Test</RemoteKeylessEntry>   
+  <RsiacmPartNo/>   <SentryKeyImmobilizer>SKIM J1850</SentryKeyImmobilizer>   
+  <SkimPin>9508</SkimPin>   
+  <SpeedControl>SCI Cruise</SpeedControl>   
+  <Suspension>Not Equipped</Suspension>   
+  <SuspensionPartNo/>
+  <TcmPartNo/>
+  <TirePressureMonitor>No Test</TirePressureMonitor>   
+  <TireSize>3CD54</TireSize>   <TpmPartNo/>
+  <TransferCase>Not Equipped</TransferCase>   
+  <Transmission>5Fx1/2RHS</Transmission>   
+  <Vin>232DRJFCJ58884HD6</Vin>
+</VehicleBuild>
+
+<TestResult>
+  <AirbagOverallPassFail Description="Test Result" Process="application/AirbagTest" Result="Pass"/>
+  <AisPosition Description="Test Result" Process="application/EmissionsTest" Result="Pass">
+    <Param00>21</Param00>
+  </AisPosition>
+  <AllGearsSeen Description="4119" Process="application/TransmissionTest" Result="Fail">
+    <Param00>2</Param00>
+  </AllGearsSeen>
+  <AxleRatioPercentage Description="4050" Process="application/TcaseTest" Result="Pass">
+    <Param00 Units="lbf">106.975</Param00>   
+    <Param01 Units="mph">97</Param01>
+    <Param02 Units="lbf">103</Param02>   
+  </AxleRatioPercentage>
+  <BrakeOverallPassFail Description="Test Result" Process="application/BrakeTest" Result="Pass"/>
+  <BrakeSwitch Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+  <CruiseBrake Description="Test Result" Process="application/SpeedControlTest" Result="Pass"/>
+  <CruiseCancelSwitch Description="Test Result" Process="application/SpeedControlTest" Result="Pass"/>
+  <CruiseOffSwitch Description="Test Result" Process="application/SpeedControlTest" Result="Pass"/>
+  <CruiseOnSwitch Description="Test Result" Process="application/SpeedControlTest" Result="Pass"/>
+  <CruiseResumeSwitch Description="Test Result" Process="application/SpeedControlTest" Result="Pass"/>
+  <CruiseSetSpeed Description="Test Result" Process="application/SpeedControlTest" Result="Pass"/>
+  <CruiseSetSwitch Description="Test Result" Process="application/SpeedControlTest" Result="Pass"/>
+  <EGRValue Description="Test Result" Process="application/EmissionsTest" Result="Pass">
+    <Param00>000</Param00>
+  </EGRValue>
+  <EatxDtc Description="Test Result" Process="application/TransmissionTest" Result="Pass"/>
+  <EatxLimpInMode Description="Test Result" Process="application/TransmissionTest" Result="Pass"/>
+  <EatxPartNumber Description="Test Result" Process="application/TransmissionTest" Result="Pass"/>
+  <EatxQuicklearn Description="Test Result" Process="application/TransmissionTest" Result="Pass">
+    <Param00>+099</Param00>   
+    <Param01>77</Param01>   
+    <Param02>44</Param02>   
+    <Param03>45</Param03>   
+    <Param04>32</Param04>   
+    <Param05>40</Param05>   
+    <Param06>0</Param06>   
+    <Param07>76</Param07>   
+    <Param08>32</Param08>
+  </EatxQuicklearn>
+  <EatxUpline Description="Test Result" Process="application/TransmissionTest" Result="Pass"/>
+  <EatxVinVerification Description="Test Result" Process="application/TransmissionTest" Result="Pass"/>
+  <EmissionsOverallPassFail Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+  <EngineIdleSpeed Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+  <ErrorCode Description="Error Codes" Process="All Tests" Result="Pass">
+    <Param00>0</Param00>    
+    <Param01>0</Param01>   
+    <Param02>0</Param02>   
+	<Param03>0</Param03>   
+	<Param04>0</Param04>   
+	<Param05>0</Param05>   
+	<Param06>0</Param06>   
+	<Param07>0</Param07>
+  </ErrorCode>
+  <ExcessiveBrakeForce Description="Test Result" Process="application/BrakeTest" Result="Pass"/>
+  <FourWDHigh Description="Test Result" Process="application/TcaseTest" Result="Pass"/>
+  <FourWDLow Description="Test Result" Process="application/TcaseTest" Result="Pass"/>
+  <FourthGearLockUp Description="Test Result" Process="application/TransmissionTest" Result="Pass"/>
+
+  <FrontBalancePercentage Description="Test Result" Process="application/BrakeTest" Result="Pass">
+    <Param00 Units="lbs">49</Param00>   
+    <Param01 Units="lbs">40</Param01>   
+    <Param02 Units="lbs">60</Param02>
+  </FrontBalancePercentage>
+  <FrontRearBalancePercentage Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">18</Param00>   <Param01 Units="lbs">5</Param01>   <Param02 Units="lbs">65</Param02></FrontRearBalancePercentage><JtecDtc Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<JtecPartNumber Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<JtecUpline Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<JtecVinVerification Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<LdpPumpUpTime Description="Test Result" Process="application/EmissionsTest" Result="Pass">
+   <Param00>4E</Param00></LdpPumpUpTime><LfBrakeForce Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">214</Param00>   <Param01 Units="lbs">100</Param01></LfBrakeForce><LfDragForce Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">59</Param00>   <Param01 Units="lbs">100</Param01></LfDragForce><LrBrakeForce Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">48</Param00>   <Param01 Units="lbs">15</Param01></LrBrakeForce><LrDragForce Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">39</Param00>   <Param01 Units="lbs">90</Param01></LrDragForce><MapSensor Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<MinimumIdleRpm Description="Test Result" Process="application/EmissionsTest" Result="Pass">
+   <Param00>0704</Param00></MinimumIdleRpm><MisfireCount Description="Test Result" Process="application/EmissionsTest" Result="Pass">
+   <Param00>00</Param00></MisfireCount><OasisOverallPassFail Description="Test Result" Process="application/VehicleTest" Result="Pass"/>
+<OrcamSerialNumber Description="Test Result" Process="application/AirbagTest" Result="Pass">
+   <Param00>TSFME1281A8504</Param00></OrcamSerialNumber><OverallPassFail Description="TestResult" Process="core/TestResultServer" Result="Pass"/>
+<OverdriveLockout Description="4120" Process="application/TransmissionTest" Result="Fail">
+  <Param00 Units="mph">35</Param00>
+  <Param01 Units="mph">55</Param01>
+  <Param02 Units="mph">65</Param02>
+</OverdriveLockout>
+
+<ParkNeutralSwitch Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<PcmSerialNumber Description="Test Result" Process="application/EmissionsTest" Result="Pass">
+   <Param00>TEM1311RC8UI  </Param00></PcmSerialNumber><PowerSteeringOverallPassFail Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<PowerSteeringSwitch Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<RearBalancePercentage Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">51</Param00>   <Param01 Units="lbs">35</Param01>   <Param02 Units="lbs">65</Param02></RearBalancePercentage><Reverse Description="Test Result" Process="application/TransmissionTest" Result="Pass"/>
+<RfBrakeForce Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">223</Param00>   <Param01 Units="lbs">100</Param01></RfBrakeForce><RfDragForce Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">57</Param00>   <Param01 Units="lbs">100</Param01></RfDragForce><RrBrakeForce Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">46</Param00>   <Param01 Units="lbs">15</Param01></RrBrakeForce><RrDragForce Description="Test Result" Process="application/BrakeTest" Result="Pass">
+   <Param00 Units="lbs">40</Param00>   <Param01 Units="lbs">90</Param01></RrDragForce><SkimCountryCode Description="Test Result" Process="application/SkimTest" Result="Pass"/>
+<SkimDtc Description="Test Result" Process="application/SkimTest" Result="Pass"/>
+<SkimNumberOfKeysLearned Description="Test Result" Process="application/SkimTest" Result="Pass"/>
+<SkimOverallPassFail Description="Test Result" Process="application/SkimTest" Result="Pass"/>
+<SkimSecurityAccess Description="Test Result" Process="application/SkimTest" Result="Pass"/>
+<SkimSerialNumber Description="Test Result" Process="application/SkimTest" Result="Pass">
+   <Param00>T  KJ1191A1763</Param00></SkimSerialNumber>
+
+<SpeedControlOverallPassFail Description="Test Result" Process="application/SpeedControlTest" Result="Pass"/>
+<TcmSerialNumber Description="Test Result" Process="application/TransmissionTest" Result="Pass">
+   <Param00>TRDTH1381D2L8Z</Param00></TcmSerialNumber><TireSizeProgramming Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+<Tps Description="Test Result" Process="application/EmissionsTest" Result="Pass"/>
+  <TransferCaseOverallPassFail Description="Test Result" Process="application/TransferCaseTest" Result="Pass"/>
+  <TransmissionOverallPassFail Description="Test Result" Process="application/TransmissionTest" Result="Fail"/>
+
+</TestResult>
+
+ 
+
+</BepVehicleTestResult>

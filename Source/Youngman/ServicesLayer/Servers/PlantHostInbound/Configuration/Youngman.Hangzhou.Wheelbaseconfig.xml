@@ -1,0 +1,14 @@
+<WheelbaseConfig>
+   <PendantConfig>
+      <Button0 Wheelbase="124.5"/>
+      <Button1 Wheelbase="100.0"/>
+      <Button2 Wheelbase="137.5"/>
+      <Button3 Wheelbase="140.5"/>
+   </PendantConfig>
+   <VehicleConfig>
+      <Vehicle1 BodyStyle="WK????" Description="Jeep Grand Cherokee" ModelYear="A" Wheelbase="109.5" ButtonIndex="2"/>
+      <Vehicle2 BodyStyle="XK????" Description="Jeep Commander" ModelYear="?" Wheelbase="109.5" ButtonIndex="2"/>
+      <Vehicle6 BodyStyle="WK????" Description="Jeep Grand Cherokee" ModelYear="?" Wheelbase="114.8" ButtonIndex="1"/>
+      <Vehicle7 BodyStyle="WD????" Description="Durango Replacement" ModelYear="?" Wheelbase="119.8" ButtonIndex="1"/>
+   </VehicleConfig>
+</WheelbaseConfig>

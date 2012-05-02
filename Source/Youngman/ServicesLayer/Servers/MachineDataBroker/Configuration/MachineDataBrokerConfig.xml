@@ -197,6 +197,8 @@
 				<RTMachineLossPreviousBGColor DataType="color">white</RTMachineLossPreviousBGColor>
 				<RTWheelDomain DataType="range" Units="MPH">0 0</RTWheelDomain>
 				<RTWheelTarget DataType="range" Units="MPH">0 0</RTWheelTarget>
+                <SpeedoTestBGColor DataType="color">white</SpeedoTestBGColor>
+                <SpeedoTestValue DataType="float">0.0</SpeedoTestValue>
 				<SoftwareID DataType="string">R07103101-GM-00000000</SoftwareID>
 				<TandemBalanceBGColor DataType="color">white</TandemBalanceBGColor>
 				<TandemBalanceValue DataType="string">0</TandemBalanceValue>

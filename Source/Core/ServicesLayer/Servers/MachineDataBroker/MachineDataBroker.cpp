@@ -171,7 +171,14 @@ void MachineDataBroker::Initialize(const XmlNode *document)
             // machine data broker
             LoadAdditionalConfigurationItems(document);
 			// Create any maintenance items
-			LoadMaintenanceItems(document->getChild("Setup/MaintenanceItems"));
+			try
+			{
+				LoadMaintenanceItems(document->getChild("Setup/MaintenanceItems"));
+			}
+			catch(XmlException &excpt)
+			{
+				Log(LOG_ERRORS, "Maintenance items not setup: %s", excpt.GetReason());
+			}
         }
         else
         {

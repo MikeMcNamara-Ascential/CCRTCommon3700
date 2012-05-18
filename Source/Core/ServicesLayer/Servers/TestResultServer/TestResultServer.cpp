@@ -368,6 +368,7 @@ void TestResultServer::Initialize(const XmlNode *document)
         }
 
         Log(LOG_FN_ENTRY, "TestResultServer::Initialize(%s) done", document->ToString().c_str());
+        Log(LOG_FN_ENTRY, "TestResultServer::Initialize(Configuration) done");
     }
     catch (BepException &e)
     {
@@ -407,19 +408,25 @@ void TestResultServer::Initialize(const XmlNode *document)
     bool connect = false;
     try
     {
+        Log(LOG_FN_ENTRY, "Checkpoint 1");
         connect = atob(document->getChild("Setup/ConnectToQnxDataServer")->getValue().c_str());
+        Log(LOG_FN_ENTRY, "Checkpoint 2a");
+        Log(LOG_DEV_DATA, "Connect to qnx data server: %s", (connect)?"yes":"no");
     }
     catch(XmlException &excpt)
     {
+        Log(LOG_FN_ENTRY, "Checkpoint 2b");
         Log(LOG_ERRORS, "Connect to qnx data server not specified, not connecting: %s", excpt.GetReason());
         connect = false;
     }
+    Log(LOG_FN_ENTRY, "Checkpoint 3");
     ConnectToQnxDataServer(&connect);
 	// Determine if a pass confirmation file should be generated
 	bool createPassConfirmation = false;
 	try
 	{
 		createPassConfirmation = atob(document->getChild("Setup/CreatePassConfirmationFile")->getValue().c_str());
+		Log(LOG_DEV_DATA, "Create pass confirmation file: %s", (createPassConfirmation)?"yes":"no");
 	}
 	catch(XmlException &excpt)
 	{
@@ -434,6 +441,7 @@ void TestResultServer::Initialize(const XmlNode *document)
 		try
 		{
 			path = document->getChild("Setup/TestResults/PassConfirmationFilePath")->getValue();
+            Log(LOG_DEV_DATA, "Pass confirmation file path: %s", path.c_str());
 		}
 		catch(XmlException &excpt)
 		{

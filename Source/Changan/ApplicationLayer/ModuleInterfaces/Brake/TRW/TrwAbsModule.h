@@ -46,6 +46,14 @@ public:
      */
     virtual bool InitializeHook(const XmlNode *configNode);
 
+    /**
+	 * Command the module to unlock security.
+	 * 
+	 * @return Status of unlocking module security.
+	 */
+	BEP_STATUS_TYPE UnlockModuleSecurity(void);
+
+        
 protected:
     /**
      * Read module faults.

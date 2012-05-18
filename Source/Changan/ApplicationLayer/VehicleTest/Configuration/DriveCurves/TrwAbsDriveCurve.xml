@@ -84,6 +84,13 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase066-->
+      <TestPhase067 Description="Perform the wheel speed sensor test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="run the sensor speed" Result="" Timeout="" Component="Brake">
+               <ZeroSpeedSensorTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase067>
       <!-- Perform the 40kph Speedo test -->
       <TestPhase070 Description="40kph Speedo Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -150,7 +157,7 @@
                <ParkBrakeTest/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase135>
+      </TestPhase135-->
       <!--TestPhase140 Description="Stop the sound monitor thread" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Stop the sound monitor thread" Result="" Timeout="" Component="SoundLevel">
@@ -165,6 +172,7 @@
             </Objective3>
          </ForegroundObjectives>
       </TestPhase145-->
+
       <!-- Perform operator buyoff checks -->
       <TestPhase150 Description="Check vehicle Lamps" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

@@ -189,6 +189,8 @@
          <IgnoreMachineConditions>Yes</IgnoreMachineConditions>
          <IncludeDragInBrakeForce>No</IncludeDragInBrakeForce>
          <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+         <SecurityUnlockAttempts>3</SecurityUnlockAttempts>
+         <SecurityUnlockDelay>255</SecurityUnlockDelay>
          <!-- Part Number Parameters -->
          <AbortOnPartMismatch>No</AbortOnPartMismatch>
          <BypassPartNumberValidation>No</BypassPartNumberValidation>
@@ -305,6 +307,7 @@
       <Setup>
          <TestStep00>Initialize</TestStep00>
          <TestStep05>EnterDiagnosticMode</TestStep05>
+         <TestStep06>DisableDiagnosticSpeedLimit</TestStep06>
          <TestStep10>ClearFaults</TestStep10>
          <TestStep15>ReadFaults</TestStep15>
          <TestStep25>StartModuleKeepAlive</TestStep25>
@@ -314,12 +317,16 @@
          <TestStep10>LowSpeedSensorTest</TestStep10>
          <TestStep15>BrakeToStop</TestStep15>
       </LowSpeedTesting>
+      <ZeroSpeedSensorTest>
+          <TestStep00>ZeroSpeedSensorTest</TestStep00>
+      </ZeroSpeedSensorTest>
       <BrakeTest>
 		 <TestStep00>DisplaySpeedTimeGraph</TestStep00>
          <TestStep01>AccelerateToBrakeSpeed</TestStep01>
 		 <TestStep06>RemoveSpeedTimeGraph</TestStep06>
          <TestStep10>DragTest</TestStep10>
          <TestStep15>AnalyzeDragTest</TestStep15>
+         <TestStep16>ESPValveFiringTest</TestStep16>
          <TestStep20>BrakeSwitchOffTest</TestStep20>
          <TestStep25>RunPumpMotor</TestStep25>
          <TestStep30>BrakeTest</TestStep30>
@@ -380,11 +387,13 @@
       <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand" StartBrakeSampleSpeed="55" EndBrakeSampleSpeed="45" BrakeDomain="0 500" BrakeTarget="300 500"/>
       <BrakeToStop Result="Not Tested" Timeout="120000" Description="Bring the vehicle to zero speed" Prompt1="BrakeToStop"/>
       <ClearFaults Result="Not Tested" Timeout="100" Description="Clear faults from the module"/>
+      <DisableDiagnosticSpeedLimit Result="Not Tested" Timeout="500" Description="Command the module to disable safety speed limit"/>
       <DisableForceMeter Result="" Timeout="30000" Description="Disable The Brake Force Meter"/>
       <DragTest Result="Not Tested" Timeout="30000" Description="Measure vehicle drag forces" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="RemoveFootFromAccelerator" DragSpeed="58" DragDelay="1000" DragSamples="50"/>
       <DumpAndIsolateAllWheels Result="Not Tested" Timeout="1000" Description="Dump pressure at all wheels"/>
       <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" RollerDirection="Forward" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake"/>
       <EnterDiagnosticMode Result="Not Tested" Timeout="500" Description="Place the module into diagnostic mode"/>
+      <ESPValveFiringTest Result="Not Tested" Timeout="10000" Description="Fire The ESP valves" ScanDelay="250"/>
       <ExitDiagnosticMode Result="Not Tested" Timeout="500" Description="Exit the current diagnostic session"/>
       <EvaluateABS Result="Not Tested" Timeout="100" Description="Analyze the ABS valve firing data"/>
       <EvaluateTCS Result="" Timeout="5000" Description="Evaluate TCS pulses to ensure minimum requirements are met"/>
@@ -399,5 +408,6 @@
       <ValveFiringTest Result="Not Tested" Timeout="10000" Description="Fire each ABS valve" Prompt1="MaintainBrake"/>
 	  <DisplaySpeedTimeGraph Result="" Timeout="5000" Description="Display Speed Time Graph" ScanDelay="250"/>
       <RemoveSpeedTimeGraph Result="" Timeout="5000" Description="Remove Speed Time Graph" ScanDelay="250"/>
+      <ZeroSpeedSensorTest Result="" Timeout="60000" Description="perform the TRW Sensor Test" ScanDelay="250"/>
    </TestSteps>
 </UdsTrwAbsTc>

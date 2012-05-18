@@ -55,7 +55,7 @@
       <TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">
-               <Initialize/>
+               <Setup/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase005>

@@ -329,8 +329,6 @@ protected:
      */
     void SetDummyScannerCommObject(SerialChannel *commObj);
 
-private:
-
     /**
      * Process the 2D barcode.
      * The data fields will be parsed out of the scanner data and written to the system.
@@ -339,7 +337,20 @@ private:
      *                  Barcode data received from the scanner.
      * @param byteCount Number of bytes received from the scanner.
      */
-    void ProcessTwoDimensionalBarcode(const SerialString_t &barcodeData, const INT32 &byteCount);
+    virtual void ProcessTwoDimensionalBarcode(const SerialString_t &barcodeData, const INT32 &byteCount);
+
+	/** Items contained in the two dimension barcode */
+	XmlNodeMap m_twoDimensionBarcodeItems;
+
+	/**
+	 * Interface to NamedDataBroker process.
+	 * Used to read and write data in the system.
+	 */
+	INamedDataBroker    *m_dataBroker;
+
+
+
+private:
 
     /**
      * Get/Set the flag indicating if 2D barcodes are in use.
@@ -412,15 +423,6 @@ private:
      * Value of the driver number length
      */
     INT32 m_driverNumberLength;
-
-    /** Items contained in the two dimension barcode */
-    XmlNodeMap m_twoDimensionBarcodeItems;
-
-    /**
-     * Interface to NamedDataBroker process.
-     * Used to read and write data in the system.
-     */
-    INamedDataBroker    *m_dataBroker;
 
     /**
      * Get/Set the flag indicating if secondary data is supported.

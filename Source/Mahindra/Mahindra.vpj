@@ -461,6 +461,8 @@
 						<F N="ServicesLayer/Servers/InputServer/Configuration/Mahindra.InputServerConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/InputServer/CMakeLists.txt"/>
+					<F N="ServicesLayer/Servers/InputServer/MahindraScannerManager.cpp"/>
+					<F N="ServicesLayer/Servers/InputServer/MahindraScannerManager.h"/>
 				</Folder>
 				<Folder Name="Launcher">
 					<Folder Name="Configuration">

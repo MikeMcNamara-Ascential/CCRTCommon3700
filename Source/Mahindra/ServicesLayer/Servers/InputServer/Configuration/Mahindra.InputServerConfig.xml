@@ -201,7 +201,7 @@
             <!-- ******************************************************* -->
             <!-- *                   Handheld Scanner                  * -->
             <!-- ******************************************************* -->
-            <LeftHandheld enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+            <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
                 <Setup>
                     <Communication>
                         <Debug>Off</Debug>
@@ -254,6 +254,14 @@
                             </Logging>
                         </Setup>
                     </ScannerCommunication>
+                    <Parameters>
+                        <VehicleTypePosition>17</VehicleTypePosition>
+                        <VehicleCodes>
+                            <U>Xylo</U>
+                            <R>Scorpio</R>
+                            <Default>Balero</Default>
+                        </VehicleCodes>
+                    </Parameters>
                     <DataDelay>3000</DataDelay>
                     <VinLength>17</VinLength>
                     <DriverNumberLength>7</DriverNumberLength>
@@ -265,9 +273,15 @@
                     <BadDataReplacementValue>0x31</BadDataReplacementValue>
                     <SecondaryDataTag>MaterialNumber</SecondaryDataTag>
                     <SecondaryDataLength>15</SecondaryDataLength>
+                    <TwoDimensionBarcode>True</TwoDimensionBarcode>
+                    <TwoDimensionBarcodeItems>
+                        <BaleroVin StartIndex="0" Length="17"/>
+                        <ScorpioVin StartIndex="18" Length="-1"/>
+                        <XyloVin StartIndex="18" Length="-1"/>
+                    </TwoDimensionBarcodeItems>
                 </Setup>
             </LeftHandheld>
-            <RightHandheld enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+            <RightHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
                 <Setup>
                     <Communication>
                         <Debug>Off</Debug>
@@ -320,6 +334,14 @@
                             </Logging>
                         </Setup>
                     </ScannerCommunication>
+                    <Parameters>
+                        <VehicleTypePosition>17</VehicleTypePosition>
+                        <VehicleCodes>
+                            <U>Xylo</U>
+                            <R>Scorpio</R>
+                            <Default>Balero</Default>
+                        </VehicleCodes>
+                    </Parameters>
                     <DataDelay>3000</DataDelay>
                     <VinLength>17</VinLength>
                     <DriverNumberLength>7</DriverNumberLength>
@@ -331,6 +353,12 @@
                     <BadDataReplacementValue>0x31</BadDataReplacementValue>
                     <SecondaryDataTag>MaterialNumber</SecondaryDataTag>
                     <SecondaryDataLength>15</SecondaryDataLength>
+                    <TwoDimensionBarcode>True</TwoDimensionBarcode>
+                    <TwoDimensionBarcodeItems>
+                        <BaleroVin StartIndex="0" Length="17"/>
+                        <ScorpioVin StartIndex="18" Length="-1"/>
+                        <XyloVin StartIndex="18" Length="-1"/>
+                    </TwoDimensionBarcodeItems>
                 </Setup>
             </RightHandheld>
             <!-- ******************************************************* -->

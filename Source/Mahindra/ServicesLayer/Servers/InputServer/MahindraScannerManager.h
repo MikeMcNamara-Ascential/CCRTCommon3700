@@ -24,6 +24,11 @@ public:
 	MahindraScannerManager();
 	virtual ~MahindraScannerManager();
 
+    /**
+     * Initialization method that parses the command line
+     */
+    virtual void Initialize(int argc, char *argv[]);
+
 	/**
 	 * Initializes the scanner manager to talk to the scanner as well as any data that needs to
 	 * be setup before we begin processing inputs.

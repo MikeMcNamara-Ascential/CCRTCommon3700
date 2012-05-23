@@ -201,8 +201,11 @@
             <!-- ******************************************************* -->
             <!-- *                   Handheld Scanner                  * -->
             <!-- ******************************************************* -->
-            <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+            <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MahindraSymbolScannerMgr.qxe">
                 <Setup>
+                    <DataTags>
+                        <ZtsCodeTag>ZTSCode</ZtsCodeTag>
+                    </DataTags>
                     <Communication>
                         <Debug>Off</Debug>
                         <Name>core/LeftSymbolScanner</Name>
@@ -275,14 +278,17 @@
                     <SecondaryDataLength>15</SecondaryDataLength>
                     <TwoDimensionBarcode>True</TwoDimensionBarcode>
                     <TwoDimensionBarcodeItems>
-                        <BaleroVin StartIndex="0" Length="17"/>
-                        <ScorpioVin StartIndex="18" Length="-1"/>
-                        <XyloVin StartIndex="18" Length="-1"/>
+                        <Balero StartIndex="0" Length="17"/>
+                        <Scorpio StartIndex="17" Length="-1"/>
+                        <Xylo StartIndex="17" Length="-1"/>
                     </TwoDimensionBarcodeItems>
                 </Setup>
             </LeftHandheld>
-            <RightHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+            <RightHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MahindraSymbolScannerMgr.qxe">
                 <Setup>
+                    <DataTags>
+                        <ZtsCodeTag>ZTSCode</ZtsCodeTag>
+                    </DataTags>
                     <Communication>
                         <Debug>Off</Debug>
                         <Name>core/RightSymbolScanner</Name>
@@ -355,9 +361,9 @@
                     <SecondaryDataLength>15</SecondaryDataLength>
                     <TwoDimensionBarcode>True</TwoDimensionBarcode>
                     <TwoDimensionBarcodeItems>
-                        <BaleroVin StartIndex="0" Length="17"/>
-                        <ScorpioVin StartIndex="18" Length="-1"/>
-                        <XyloVin StartIndex="18" Length="-1"/>
+                        <Balero StartIndex="0" Length="17"/>
+                        <Scorpio StartIndex="17" Length="-1"/>
+                        <Xylo StartIndex="17" Length="-1"/>
                     </TwoDimensionBarcodeItems>
                 </Setup>
             </RightHandheld>

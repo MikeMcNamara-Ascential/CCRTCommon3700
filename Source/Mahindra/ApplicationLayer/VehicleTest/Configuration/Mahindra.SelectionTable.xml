@@ -1,7 +1,7 @@
 <SelectionTable Description="Drive curve selection table">
 
     <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
-        <BrakeType>Base Brake</BrakeType>
+        <BrakeType>BaseBrake</BrakeType>
     </BaseBrake>
 
 </SelectionTable>

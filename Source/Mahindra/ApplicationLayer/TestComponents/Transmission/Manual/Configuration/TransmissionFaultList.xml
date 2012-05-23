@@ -1,0 +1,439 @@
+<TransmissionFaults>
+   <!-- System Status -->
+   <NoFault Code="0000" Description="No failure detected"/>
+   <SoftwareFailure Code="6000" Description="Software failure in transmission test"/>
+   <QuickLearnUnknownStatus Code="6001" Description="Unknown status received from QuickLearn procedure"/>
+   <TimeoutFailure Code="6002" Description="Test step timeout"/>
+   <StatusCheckFailure Code="6003" Description="System Status Check failed during test"/>
+   <UnknownStatus Code="6004" Description="Unknown, unaccounted for status during transmission test"/>
+   <OperatorResponseFailure Code="6005" Description="Failed to get operator response during test"/>
+    
+   <!-- Test Condition Failures -->
+   <PreconditionTimeout Code="6100" Description="Timeout waiting for test conditions"/>
+   <LimpInMode Code="6101" Description="Transmission in Limp-In"/>
+   <TestStepTimeout Code="6102" Description="Test Step Timeout"/>
+   <ODCancelGearTimeout Code="6103" Description="Timeout waiting for transmission to kick-down"/>
+   <ODCancelButtonTimeout Code="6104" Description="Timeout waiting for OverDrive lockout button"/>
+   <PrndlAllOn Code="6105" Description="PRNDL Status is All-On"/>
+   <ReverseGearTimeout Code="6110" Description="Timeout waiting for Reverse gear"/>
+   <NeutralGearTimeout Code="6111" Description="Timeout waiting for Neutral gear"/>
+   <FirstGearTimeout Code="6112" Description="Timeout waiting for First gear"/>
+   <SecondGearTimeout Code="6113" Description="Timeout waiting for Second gear"/>
+   <ThirdGearTimeout Code="6114" Description="Timeout waiting for Third gear"/>
+   <FourthGearTimeout Code="6115" Description="Timeout waiting for Fourth gear"/>
+   <FifthGearTimeout Code="6116" Description="Timeout waiting for Fifth gear"/>
+   <SpeedRationalityTimeout Code="6117" Description="Timeout waiting for Speed Rationality required speed"/>
+   <TorqueConverterClutchSlipTimeout Code="6118" Description="Timeout waiting for Torque Converter Clutch Slip required speed"/>
+   <TorqueConverterLockupPreconditionFail Code="6119" Description="Conditions not correct to test TCC Lockout"/>
+   <TCClutchNoLockTimeout Code="6120" Description="Timeout waiting for torque converter clutch unlocked"/>
+   <TCCPartialLockTimeout Code="6121" Description="Timeout waiting for torque converter clutch partial lock state"/>
+   <TCCFullLockTimeout Code="6122" Description="Timeout waiting for torque converter clutch full lock state"/>
+   <TCCLockSolenoid Code="6123" Description="Timeout waiting for TCC Lock Solenoid to engage"/>
+   <ParkShiftLeverPositionTimeout Code="6124" Description="Timeout waiting for Park shift lever position"/>
+   <ReverseShiftLeverPositionTimeout Code="6125" Description="Timeout waiting for Reverse shift lever position"/>
+   <NeutralShiftLeverPositionTimeout Code="6126" Description="Timeout waiting for Neutral shift lever position"/>
+   <DriveShiftLeverPositionTimeout Code="6127" Description="Timeout waiting for Drive shift lever position"/>
+   <LowShiftLeverPositionTimeout Code="6128" Description="Timeout waiting for Low shift lever position"/>
+   <Low3ShiftLeverPositionTimeout Code="6129" Description="Timeout waiting for 3 Low shift lever position"/>
+   <QuickLearnZeroSpeedTimeout Code="6130" Description="Timeout waiting for zero speed for QuickLearn"/>
+   <QuickLearnNeutralTimeout Code="6131" Description="Timeout waiting for shift lever to be in Neutral for QuickLearn"/>
+   <QuickLearnWaitForParkTimeout Code="6132" Description="Timeout waiting for shift lever to be in Park for QuickLearn"/>
+   <QuickLearnConditions Code="6133" Description="Module indicates conditions not correct for quicklearn"/>
+   <ModuleFaults Code="6140" Description="Faults detected in the TCM"/>
+   <ShifterModuleFaults Code="6141" Description="Faults detected in the Shifter Module"/>
+   <AccelerateInReverseZeroSpeedTimeout Code="6150" Description="Timeout waiting for zero speed for AccelerateInReverse"/>
+   <AccelerateInReverseTimeout Code="6151" Description="Timeout waiting for reverse gear or required speed for AccelerateInReverse"/>
+   <ElectronicRangeSelectPreconditionTimeout Code="6161" Description="Electronic Range Select timeout waiting for cable connect"/>
+   <ElectronicRangeSelectOperatorResponseTimeout Code="6162" Description="Electronic Range Select timeout waiting for operator response"/>
+   <Monitor23ShiftZeroSpeedTimeout Code="6170" Description="2-3 shift - Timeout waiting for zero speed"/>
+   <Monitor23ShiftCheckEngineRunningTimeout Code="6171" Description="2-3 Shift - Timeout waiting for engine running"/>
+   <Check23ShiftTimeoutFailure Code="6172" Description="Timeout waiting for 2-3 shift to occur"/>
+   <MaximumSpeed23ShiftExceededFailure Code="6173" Description="Vehicle speed out of range for 2-3 shift test"/>
+   <MonitorEngineBrakeTimeoutFailure Code="6180" Description="Timeout waiting for engine braking to occur"/>
+   <CheckKickDownTimeoutFailure Code="6190" Description="Timeout waiting for transmission kickdown"/>
+   <ReleaseAcceleratorTimeoutFailure Code="6191" Description="Timeout waiting for operator to release throttle"/>
+   <ReleaseThrottleTimeoutFailure Code="6191" Description="Timeout waiting for operator to release throttle"/>
+   <KickDownPreconditionTimeoutFailure Code="6192" Description="Conditions not correct to test transmission kickdown"/>
+   <KickDownPreconditionFail Code="6193" Description="Preconditions not met for transmission kickdown test"/>
+   <EngineOffIgnitionOnTimeoutFailure Code="6194" Description="Timeout waiting for Engine off Ignition on"/>
+   <EngineOffIgnitionOffTimeoutFailure Code="6195" Description="Timeout waiting for Engine off Ignition off"/>
+
+   <!-- Communication Failures -->
+   <CommunicationFailure Code="6200" Description="TCM Communication Failure"/>
+   <ReadClutchVolumeFail Code="6201" Description="Communication failure reading clutch volumes"/>
+   <ReadCurrentGearFail Code="6202" Description="Communication failure reading current gear"/>
+   <StatusByteUpdateFailure Code="6203" Description="Communication failure updating EOL status byte"/>
+   <StartBreakInCycleFail Code="6204" Description="Communication failure starting torque converter break-in cycle"/>
+   <StopBreakInCycleFail Code="6205" Description="Communication failure stoping torque converter break-in cycle"/>
+
+   <!-- Test Failures -->
+   <AllGearsLockStatesNotSeen Code="6300" Description="Failed to observe all required gears or TCC Lock States"/>
+   <ReverseGearNotSeen Code="6301" Description="Reverse gear not observed"/>
+   <NeutralGearNotSeen Code="6302" Description="Neutral gear not observed"/>
+   <FirstGearNotSeen Code="6303" Description="First gear not observed"/>
+   <SecondGearNotSeen Code="6304" Description="Second gear not observed"/>
+   <ThirdGearNotSeen Code="6305" Description="Third gear not observed"/>
+   <FourthGearNotSeen Code="6306" Description="Fourth gear not observed"/>
+   <FifthGearNotSeen Code="6307" Description="Fifth gear not observed"/>
+   <SixthGearNotSeen Code="6308" Description="Sixth gear not observed"/>
+   <AllLockupStatesNotSeen Code="6310" Description="All Torque Converter clutch lockup states not observed"/>
+   <TCCNoLockNotSeen Code="6311" Description="Failed to observe TCC unlock state"/>
+   <TCCPartialLockNotSeen Code="6312" Description="Failed to observe TCC partial lock state"/>
+   <TCCFullLockNotSeen Code="6313" Description="Failed to observe TCC full lock state"/>
+   <MaxGearTCCFullLockNotSeen Code="6314" Description="Maximum gear or TCC Full lock not seen"/>
+   <ParkShiftLeverPositionNotSeen Code="6315" Description="Park shift lever position and/or display not observed"/>
+   <ReverseShiftLeverPositionNotSeen Code="6316" Description="Reverse shift lever position and/or display not observed"/>
+   <NeutralShiftLeverPositionNotSeen Code="6317" Description="Neutral shift lever position and/or display not observed"/>
+   <DriveShiftLeverPositionNotSeen Code="6318" Description="Drive shift lever position and/or display not observed"/>
+   <LowShiftLeverPositionNotSeen Code="6319" Description="Low shift lever position and/or display not observed"/>
+   <Low3ShiftLeverPositionNotSeen Code="631A" Description="3 Low shift lever position and/or display not observed"/>
+   <AllShiftLeverPositionsNotSeen Code="631B" Description="Failed to observe all required shift lever positions and/or displays"/>
+   <ODLockoutFailure Code="6315" Description="OD Lockout test failed"/>
+   <TransAxleOilTemperatureOutOfRange Code="6320" Description="Transmission oil temperature out of range"/>
+   <UplinesNotComplete Code="6330"  Description="Transmission upline tests not completed prior to rolls"/>
+   <UplineShiftLeverTest Code="6331" Description="Transmission Upline: Shift lever upline test not completed prior to rolls"/>
+   <UplinePinionFactorProgramming Code="6332" Description="Transmission Upline: Pinion factor programming not complete"/>
+   <StartQuickLearnFail Code="6340" Description="Failed to start the QuickLearn procedure"/>
+   <QuickLearnRestartFail Code="6341" Description="Failed to restart the QuickLearn procedure"/>
+   <QuickLearnMonitorFail Code="6342" Description="Failed while monitoring QuickLearn status"/>
+   <QuickLearnFinishupFail Code="6343" Description="Failed to complete the QuickLearn procedure"/>
+   <QuickLearnOilTooCold Code="6344" Description="Transmission oil temp too cold for QuickLearn"/>
+   <QuickLearnOilTooHot Code="6345" Description="Transmission oil temp too hot for QuickLearn"/>
+   <QuickLearnFaultsPresent Code="6346" Description="Module faults detected during QuickLearn"/>
+   <QuickLearnRPMTooLow Code="6347" Description="Engine RPM too low for QuickLearn"/>
+   <QuickLearnBrakesNotApplied Code="6348" Description="Brakes not applied during QuickLearn"/>
+   <QuickLearnThrottleTooHigh Code="6349" Description="Throttle not closed during QuickLearn"/>
+   <QuickLearnNotInNeutral Code="634A" Description="Transmission not in Neutral during QuickLearn"/>
+   <QuickLearnNotInOverdrive Code="634B" Description="Transmission not in Drive during QuickLearn"/>
+   <StartModuleKeepAliveFail Code="6350" Description="Failure to start sending tester present messages to TCM"/>
+   <StopModuleKeepAliveFail Code="6351" Description="Failure to stop sending tester present messages to TCM"/>
+   <SpeedRationalityFail Code="6360" Description="Vehicle speed does not match rolls"/>
+   <VINMismatch Code="6370" Description="Module VIN does not match Broadcast"/>
+   <PartNumberMismatch Code="6371" Description="TCM Module part number does not match Broadcast"/>
+   <UpdateStatusRegister Code="6380" Description="Failed to update EOL Status byte"/>
+   <TorqueConverterClutchStatus Code="6390" Description="Incorrect Torque Converter Clutch Status"/>
+   <TorqueConverterSlipTolerance Code="6391" Description="Torque Converter Clutch out of tolerance"/>
+   <ElectronicRangeSelectDownTimeout Code="6400" Description="Electronic Range Select timeout waiting for shift lever Down position"/>
+   <ElectronicRangeSelectUpTimeout Code="6401" Description="Electronic Range Select timeout waiting for shift lever Up position"/>
+   <ElectronicRangeSelectReleaseTimeout Code="6402" Description="Electronic Range Select timeout waiting for shift lever Release position"/>
+   <ElectronicRangeSelectDownFailure Code="6403" Description="Electronic Range Select failure shifting lever Down(-)"/>
+   <ElectronicRangeSelectUpFailure Code="6404" Description="Electronic Range Select failure shifting lever Up(+)"/>
+   <ElectronicRangeSelectReleaseFailure Code="6405" Description="Electronic Range Select failure Releasing lever"/>
+   <ClusterDisplayFailure Code="6406" Description="Operator failed cluster gear range display "/>
+   <OutputShaftSpeedOutOfRange Code="6410" Description="2-3 Shift OSS out of range"/>
+   <OutputShaftSpeedFailure Code="6411" Description="2-3 Shift OSS failure"/>
+   <CheckOutputShaftSpeedFailure Code="6412" Description="2-3 Shift Check OSS Failure"/>
+   <OutputShaftSpeedLow Code="6413" Descrption="Output Shaft Speed too low during 2-3 shift"/>
+   <OutputShaftSpeedHigh Code="6414" Description="Output Shaft Speed too high during 2-3 shift"/>
+   <LiftFootFailure Code="6415" Description="Foot removed from throttle during 2-3 shift"/>
+   <ThrottlePositionOutOfRangeFailure Code="6416" Description="Throttle position out of range for 2-3 shift"/>
+   <EngineBrakeThrottlePressed Code="6420" Description="Throttle pressed during engine braking test"/>
+   <EngineBrakeRPMFail Code="6421" Description="Engine RPM did not rise enough during engine braking"/>
+   <CheckKickDownFail Code="6430" Description="Transmission Kickdown test failed"/>
+   <ReleaseAcceleratorFail Code="6431" Description="Closed throttle not observed for kickdown test"/>
+   <AfterKickDownGearTimeoutFailure Code="6432" Description="Timeout waiting for transmission to kickdown"/>
+   <StompThrottleTimeoutFailure Code="6433" Description="Timeout waiting for wide open throttle"/>
+   <KickDownLiftFootFail Code="6434" Description="Foot removed from throttle during kickdown"/>
+   <KickDownOutOfRangeSpeedFailure Code="6435" Description="Vehicle speed out of range before kickdown observed"/>
+   <NeutralGateFailure Code="6436" Description="Shift lever position was seen in reverse during neutral gate test"/>
+   <StartBreakInCycleStatusIncorrect Code="6440" Description="Torque Converter Break-In cycle status not started in module"/>
+   <StopBreakInCycleStatusIncorrect Code="6441" Description="Torque Converter Break-In cycle status not stopped in module"/>
+   <LowRatioCheck Code="6442" Description="Low Ratio Value Out of Range"/>
+   <MidRatioCheck Code="6443" Description="Mid Ratio Value Out of Range"/>
+   <HighRatioCheck Code="6444" Description="High Ratio Value Out of Range"/>
+   <ValidRatioCheck Code="6445" Description="One or More Ratio Values Out of Range"/>
+   <AccelerationTestMaxSpeedFailure Code="6446" Description="vehicle failedto reach max speed in the alotted time"/>
+
+   <!-- Module Faults 2-byte -->
+   <ModuleFault_0122 Code="0122" Description="Throttle/Peddle Position Sensor low"/>
+   <ModuleFault_0123 Code="0123" Description="Throttle/Peddle Position Sensor high"/>
+   <ModuleFault_0124 Code="0124" Description="Throttle/Peddle Position Sensor intermittent"/>
+   <ModuleFault_0218 Code="0218" Description="High Temperature Logic Activated"/>
+   <ModuleFault_0219 Code="0219" Description="Engine Overspeed"/>
+   <ModuleFault_0562 Code="0562" Description="Low Battery Voltage"/>
+   <ModuleFault_0563 Code="0563" Description="Battery  Voltage  High"/>
+   <ModuleFault_0602 Code="0602" Description="Control Module Programming Error/Not Programmed"/>
+   <ModuleFault_0604 Code="0604" Description="Internal Controller (RAM check failure)"/>
+   <ModuleFault_0605 Code="0605" Description="Internal Controller (ROM check failure)"/>
+   <ModuleFault_0607 Code="0607" Description="ECU Internal Performance"/>
+   <ModuleFault_0613 Code="0613" Description="Internal Controller"/>
+   <!-- Chrysler's Fault List has these faults with the same code, which will cause an error in the program
+        The 0613 fault above was put in as a temporary fix until clarification can be obtained.
+   <ModuleFault_0613 Code="0613" Description="Internal Controller (watch dog circuit test)"/>
+   <ModuleFault_0613 Code="0613" Description="Internal Controller (watch dog shutdown)"/>
+   <ModuleFault_0613 Code="0613" Description="Internal Controller (Engine Model Byte Failure)"/>
+   <ModuleFault_0613 Code="0613" Description="Dual Port Ram"/>
+   -->
+   <ModuleFault_0700 Code="0700" Description="TRANS FAULT PRESENT"/>
+   <ModuleFault_0703 Code="0703" Description="BRAKE SW PERFORM/CKT"/>
+   <ModuleFault_0706 Code="0706" Description="Bad Transmission Range"/>
+   <ModuleFault_0710 Code="0710" Description="Transmission Temperature Sensor Circuit"/>
+   <ModuleFault_0711 Code="0711" Description="Transmission Temperature Sensor performance"/>
+   <ModuleFault_0712 Code="0712" Description="Transmission Temperature Sensor low"/>
+   <ModuleFault_0713 Code="0713" Description="Transmission Temperature Sensor high"/>
+   <ModuleFault_0714 Code="0714" Description="Transmission Temperature Sensor intermittent"/>
+   <ModuleFault_0715 Code="0715" Description="Input Speed Sensor error"/>
+   <ModuleFault_0717 Code="0717" Description="Input Speed Sensor 1 Circuit No Signal"/>
+   <ModuleFault_0720 Code="0720" Description="Output Speed Sensor error"/>
+   <ModuleFault_0725 Code="0725" Description="Engine speed input circuit"/>
+   <ModuleFault_0730 Code="0730" Description="Incorrect Gear Ratio"/>
+   <ModuleFault_0731 Code="0731" Description="1st Gear incorrect Ratio"/>
+   <ModuleFault_0732 Code="0732" Description="2nd Gear incorrect Ratio"/>
+   <ModuleFault_0733 Code="0733" Description="3rd Gear incorrect Ratio"/>
+   <ModuleFault_0734 Code="0734" Description="4th Gear incorrect Ratio"/>
+   <ModuleFault_0735 Code="0735" Description="4' Gear incorrect ratio (5th Gear)"/>
+   <ModuleFault_0736 Code="0736" Description="Reverse Gear incorrect Ratio"/>
+   <ModuleFault_0740 Code="0740" Description="Torque Converter Clutch out of Range"/>
+   <ModuleFault_0742 Code="0742" Description="Torque Converter Clutch Stuck On"/>
+   <ModuleFault_0743 Code="0743" Description="TCC SOLENOID CKT"/>
+   <ModuleFault_0748 Code="0748" Description="GOV PRESS SOL CKT"/>
+   <ModuleFault_0750 Code="0750" Description="LR Solenoid Circuit Error"/>
+   <ModuleFault_0751 Code="0751" Description="OVERDRIVE SWITCH LOW"/>
+   <ModuleFault_0752 Code="0752" Description="1-2 / 4-5 Solenoid"/>
+   <ModuleFault_0753 Code="0753" Description="OVERDRIVE SOL CKT"/>
+   <ModuleFault_0755 Code="0755" Description="2C Solenoid Circuit Error"/>
+   <ModuleFault_0756 Code="0756" Description="SHIFT SOL B PERFORM"/>
+   <ModuleFault_0757 Code="0757" Description="2-3 Solenoid"/>
+   <ModuleFault_0758 Code="0758" Description="2-3 Solenoid Circuit"/>
+   <ModuleFault_0760 Code="0760" Description="OD Solenoid Circuit Error"/>
+   <ModuleFault_0762 Code="0762" Description="3-4 Solenoid"/>
+   <ModuleFault_0763 Code="0763" Description="3-4 Solenoid Circuit"/>
+   <ModuleFault_0765 Code="0765" Description="UD Solenoid Circuit Error"/>
+   <ModuleFault_0770 Code="0770" Description="4C Solenoid Circuit Error"/>
+   <ModuleFault_0778 Code="0778" Description="Shift Pressure Solenoid Circuit"/>
+   <ModuleFault_0783 Code="0783" Description="3-4 SHIFT MALFUNCTN"/>
+   <ModuleFault_0801 Code="0801" Description="REV GEAR LOCKOUT CKT"/>
+   <ModuleFault_0817 Code="0817" Description="Starter Disable (P/N) Circuit/Open"/>
+   <ModuleFault_0841 Code="0841" Description="LR pressure switch check"/>
+   <ModuleFault_0845 Code="0845" Description="2C pressure switch test failed"/>
+   <ModuleFault_0846 Code="0846" Description="2C pressure switch check"/>
+   <ModuleFault_0868 Code="0868" Description="Line pressure Low Fault"/>
+   <ModuleFault_0869 Code="0869" Description="Line Pressure High Fault"/>
+   <ModuleFault_0870 Code="0870" Description="OD pressure switch test failed"/>
+   <ModuleFault_0871 Code="0871" Description="OD pressure switch check"/>
+   <ModuleFault_0875 Code="0875" Description="UD pressure switch test failed"/>
+   <ModuleFault_0876 Code="0876" Description="UD pressure switch check"/>
+   <ModuleFault_0884 Code="0884" Description="Power-up at Speed"/>
+   <ModuleFault_0888 Code="0888" Description="Transmission Relay Circuit"/>
+   <ModuleFault_0890 Code="0890" Description="Switched Battery Failure"/>
+   <ModuleFault_0891 Code="0891" Description="Transmission Relay always on (Welded contacts)"/>
+   <ModuleFault_0930 Code="0930" Description="BTSI Control Circuit Low"/>
+   <ModuleFault_0931 Code="0931" Description="BTSI Control Circuit High"/>
+   <ModuleFault_0932 Code="0932" Description="Line Pressure Sensor Circuit Fault"/>
+   <ModuleFault_0934 Code="0934" Description="Line Pressure Sensor Low Fault"/>
+   <ModuleFault_0935 Code="0935" Description="Line Pressure Sensor High Fault"/>
+   <ModuleFault_0944 Code="0944" Description="Loss of Hydraulic Pump Prime"/>
+   <ModuleFault_0987 Code="0987" Description="4C pressure switch test failed"/>
+   <ModuleFault_0988 Code="0988" Description="4C pressure switch check"/>
+   <ModuleFault_1629 Code="1629" Description="TCM Internal - Solenoid Supply/Watchdog"/>
+   <ModuleFault_1631 Code="1631" Description="TCM Internal - Processor Clock Performance"/>
+   <ModuleFault_1632 Code="1632" Description="TCM Internal - Test Internal Watchdog Performance"/>
+   <ModuleFault_1633 Code="1633" Description="TCM Internal - Test External Watchdog Performance"/>
+   <ModuleFault_1634 Code="1634" Description="TCM Internal - Internal Watchdog Performance"/>
+   <ModuleFault_1636 Code="1636" Description="TCM Internal - External Watchdog Performance"/>
+   <ModuleFault_1637 Code="1637" Description="TCM Internal - EEPROM Performance"/>
+   <ModuleFault_1638 Code="1638" Description="TCM Internal - CAN 1 RAM Performance"/>
+   <ModuleFault_1639 Code="1639" Description="TCM Internal - CAN 2 RAM Performance"/>
+   <ModuleFault_1644 Code="1644" Description="Incorrect Variant/Configuration"/>
+   <ModuleFault_1684 Code="1684" Description="Battery was disconnected (Not a Fault)"/>
+   <ModuleFault_1694 Code="1694" Description="Serial Communication Link malfunction"/>
+   <ModuleFault_1698 Code="1698" Description="NO TRANS BUS MESSAGE"/>
+   <ModuleFault_1704 Code="1704" Description="Input Speed Sensor 1 Overspeed"/>
+   <ModuleFault_1705 Code="1705" Description="Input Speed Sensor 2 Overspeed"/>
+   <ModuleFault_1715 Code="1715" Description="Restricted Manual Valve Drive Feed in T3"/>
+   <ModuleFault_1718 Code="1718" Description="Transmission EEPROM Failure"/>
+   <ModuleFault_1719 Code="1719" Description="2-3 GEAR LOCKOUT CKT"/>
+   <ModuleFault_1720 Code="1720" Description="Line Pressure Fault"/>
+   <ModuleFault_1721 Code="1721" Description="Line Pressure Sensor Fault"/>
+   <ModuleFault_1722 Code="1722" Description="Line Pressure Low"/>
+   <ModuleFault_1723 Code="1723" Description="Line Pressure High"/>
+   <ModuleFault_1724 Code="1724" Description="Multiple Hydraulic Pressure Switch CKT"/>
+   <ModuleFault_1725 Code="1725" Description="UD Hydraulic Pressure Switch Circuit"/>
+   <ModuleFault_1726 Code="1726" Description="4C Hydraulic Pressure Switch Circuit"/>
+   <ModuleFault_1728 Code="1728" Description="2C Hydraulic Pressure Switch Circuit"/>
+   <ModuleFault_1729 Code="1729" Description="LR Hydraulic Pressure Switch Circuit"/>
+   <ModuleFault_1730 Code="1730" Description="Multiple Pressure Switch Circuit"/>
+   <ModuleFault_1731 Code="1731" Description="Incorrect Gear Engaged"/>
+   <ModuleFault_1732 Code="1732" Description="UD Pressure Switch Circuit"/>
+   <ModuleFault_1733 Code="1733" Description="4C Pressure Switch Circuit"/>
+   <ModuleFault_1734 Code="1734" Description="2C Pressure Switch Circuit"/>
+   <ModuleFault_1735 Code="1735" Description="Inadequate 4C Element Volume"/>
+   <ModuleFault_1736 Code="1736" Description="2' Gear incorrect Ratio"/>
+   <ModuleFault_1737 Code="1737" Description="FS/LR Solenoid Circuit Error"/>
+   <ModuleFault_1738 Code="1738" Description="Transmission Overheat"/>
+   <ModuleFault_1739 Code="1739" Description="Power-Up at Speed"/>
+   <ModuleFault_1740 Code="1740" Description="TCC OR O/D SOL PERF"/>
+   <ModuleFault_1744 Code="1744" Description="Solenoid A Short Low"/>
+   <ModuleFault_1745 Code="1745" Description="Solenoid A Short Hi"/>
+   <ModuleFault_1746 Code="1746" Description="Solenoid B Short Low"/>
+   <ModuleFault_1747 Code="1747" Description="Solenoid B Short Hi"/>
+   <ModuleFault_1748 Code="1748" Description="Solenoid C Short Low"/>
+   <ModuleFault_1749 Code="1749" Description="Solenoid C Short Hi"/>
+   <ModuleFault_1750 Code="1750" Description="LR/24 Solenoid Circuit in 2nd Gear"/>
+   <ModuleFault_1751 Code="1751" Description="OD Solenoid Circuit in 3rd Gear"/>
+   <ModuleFault_1752 Code="1752" Description="UD Solenoid Circuit in 4th Gear"/>
+   <ModuleFault_1753 Code="1753" Description="OD Solenoid Circuit and TRS data error"/>
+   <ModuleFault_1755 Code="1755" Description="Governor Control System"/>
+   <ModuleFault_1756 Code="1756" Description="GOV-MID PRESS MALF"/>
+   <ModuleFault_1757 Code="1757" Description="GOV-ZERO PRESS MALF"/>
+   <ModuleFault_1762 Code="1762" Description="GOV PRESS SENS OFFSE"/>
+   <ModuleFault_1763 Code="1763" Description="GOV PRESS SENSOR HI"/>
+   <ModuleFault_1764 Code="1764" Description="GOV PRESS SENSOR LOW"/>
+   <ModuleFault_1765 Code="1765" Description="TRANS VOLT RELAY CKT"/>
+   <ModuleFault_1766 Code="1766" Description="Transmission Relay Stuck Off"/>
+   <ModuleFault_1767 Code="1767" Description="Transmission Relay Stuck On"/>
+   <ModuleFault_1768 Code="1768" Description="Transmission Relay Circuit"/>
+   <ModuleFault_1770 Code="1770" Description="Element Volume Malfunction"/>
+   <ModuleFault_1771 Code="1771" Description="Inadequate LR Element Volume"/>
+   <ModuleFault_1772 Code="1772" Description="Inadequate 24 Element Volume"/>
+   <ModuleFault_1773 Code="1773" Description="Inadequate OD Element Volume"/>
+   <ModuleFault_1775 Code="1775" Description="Solenoid Switch Valve Latched in TCC position"/>
+   <ModuleFault_1776 Code="1776" Description="Solenoid Switch Valve Latched in LR position"/>
+   <ModuleFault_1777 Code="1777" Description="Solenoid Switch Stuck In TCC Position"/>
+   <ModuleFault_1780 Code="1780" Description="All Pressure Switch Circuits"/>
+   <ModuleFault_1781 Code="1781" Description="OD Pressure Switch Circuit"/>
+   <ModuleFault_1782 Code="1782" Description="24 Pressure Switch Circuit"/>
+   <ModuleFault_1783 Code="1783" Description="24/OD Pressure Switch Circuit"/>
+   <ModuleFault_1784 Code="1784" Description="LR Pressure Switch Circuit"/>
+   <ModuleFault_1785 Code="1785" Description="LR/OD Pressure Switch Circuit"/>
+   <ModuleFault_1786 Code="1786" Description="LR/24 Pressure Switch Circuit"/>
+   <ModuleFault_1787 Code="1787" Description="OD Hydraulic Pressure Switch Circuit"/>
+   <ModuleFault_1788 Code="1788" Description="24 Hydraulic Pressure Switch Circuit"/>
+   <ModuleFault_1789 Code="1789" Description="24/OD Hydraulic Pressure Switch Circuit"/>
+   <ModuleFault_1790 Code="1790" Description="Fault immediately after a shift"/>
+   <ModuleFault_1791 Code="1791" Description="Hydraulic Pump Loss of Prime"/>
+   <ModuleFault_1792 Code="1792" Description="Battery Was Disconnected"/>
+   <ModuleFault_1793 Code="1793" Description="Loss of Torque Management Signal"/>
+   <ModuleFault_1794 Code="1794" Description="Speed Sensor ground error"/>
+   <ModuleFault_1795 Code="1795" Description="Engine Model Byte Failure"/>
+   <ModuleFault_1796 Code="1796" Description="Autostick Input Circuit"/>
+   <ModuleFault_1797 Code="1797" Description="Manual Shift Overheat"/>
+   <ModuleFault_1798 Code="1798" Description="Deteriorated Transmission Fluid"/>
+   <ModuleFault_1799 Code="1799" Description="Calculated Temperature in use"/>
+   <ModuleFault_1899 Code="1899" Description="PARK/NEUTRAL SW PERF"/>
+   <ModuleFault_2620 Code="2620" Description="ETC Throttle Position output circuit"/>
+   <ModuleFault_2638 Code="2638" Description="Torque Management Feedback Signal Performance"/>
+   <ModuleFault_2700 Code="2700" Description="Inadequate element volume LR"/>
+   <ModuleFault_2701 Code="2701" Description="Inadequate element volume 2C"/>
+   <ModuleFault_2702 Code="2702" Description="Inadequate element volume OD"/>
+   <ModuleFault_2703 Code="2703" Description="Inadequate element volume UD"/>
+   <ModuleFault_2704 Code="2704" Description="Inadequate element volume 4C"/>
+   <ModuleFault_2706 Code="2706" Description="FS/LR Solenoid Circuit Error"/>
+   <ModuleFault_2767 Code="2767" Description="Input Speed Sensor 2 Circuit No Signal"/>
+   <ModuleFault_2775 Code="2775" Description="Autostick Upshift Switch Circuit Performance"/>
+   <ModuleFault_2779 Code="2779" Description="Autostick Downshift Switch Circuit Performance"/>
+   <ModuleFault_2783 Code="2783" Description="Torque Converter Temperature Too High"/>
+   <ModuleFault_2784 Code="2784" Description="Input Speed Sensor 1 / 2 Correlation"/>
+   <ModuleFault_C002 Code="0002" Description="CAN C Bus Off Performance"/>
+   <ModuleFault_C100 Code="0100" Description="Lost Communication With ECM/PCM"/>
+   <ModuleFault_C103 Code="0103" Description="Lost Communication With Electric Gear Shift Module"/>
+   <ModuleFault_C114 Code="0114" Description="Lost Communication With Final Drive Control Module"/>
+   <ModuleFault_C121 Code="0121" Description="Lost Communication With Anti-Lock Brake Module"/>
+   <ModuleFault_C141 Code="0141" Description="Lost Communication With Front Control Module"/>
+   <ModuleFault_C401 Code="0401" Description="Implausible Data Received From ECM/PCM"/>
+   <ModuleFault_C404 Code="0404" Description="Implausible Data Received From ESM"/>
+   <ModuleFault_C414 Code="0414" Description="Implausible Data Received from FDCM"/>
+   <ModuleFault_C415 Code="0415" Description="Implausible Data Received from ABS"/>
+   <ModuleFault_C423 Code="0423" Description="Implausible Data Received from Cluster/CCN"/>
+   <ModuleFault_C424 Code="0424" Description="Implausible Data Received From HVAC Control Module"/>
+   <ModuleFault_C431 Code="0431" Description="Implausible Data Received from FCM"/>
+   <ModuleFault_D10B Code="110B" Description="Lost Engine Coolant Message"/>
+   <ModuleFault_D118 Code="1118" Description="Lost Engine Variant Message"/>
+   <ModuleFault_D119 Code="1119" Description="Lost FCM Variant Message"/>
+   <ModuleFault_D400 Code="1400" Description="Implausible TPS Signal Received"/>
+   <ModuleFault_D401 Code="1401" Description="Implausible Engine Speed Signal Received"/>
+   <ModuleFault_D402 Code="1402" Description="Implausible Engine Temperature Signal Received"/>
+   <ModuleFault_D404 Code="1404" Description="Implausible Static Engine Torque Signal Received"/>
+   <ModuleFault_D405 Code="1405" Description="Implausible Minimum Engine Torque Signal Received"/>
+   <ModuleFault_D406 Code="1406" Description="Implausible Maximum Engine Torque Signal Received"/>
+   <ModuleFault_D407 Code="1407" Description="Implausible Engine Torque Request Signal Received"/>
+   <ModuleFault_D408 Code="1408" Description="Implausible Brake Signal Received"/>
+   <ModuleFault_D409 Code="1409" Description="Implausible Left Front Wheel Speed Signal Received"/>
+   <ModuleFault_D40A Code="140A" Description="Implausible Right Front Wheel Speed Signal Received"/>
+   <ModuleFault_D40B Code="140B" Description="Implausible Left Rear Wheel Speed Signal Received"/>
+   <ModuleFault_D40C Code="140C" Description="Implausible Right Rear Wheel Speed Signal Received"/>
+   <ModuleFault_D40D Code="140D" Description="Implausible Wheel Speed Signals Received"/>
+   <ModuleFault_D40F Code="140F" Description="Implausible Engine Variant Data"/>
+   <ModuleFault_D410 Code="1410" Description="Implausible FCM Variant Data"/>
+   <ModuleFault_D505 Code="1505" Description="Implausible Message Data Length Received from FDCM"/>
+   <ModuleFault_D507 Code="1507" Description="Implausible Engine Temperature Message Data Length Received"/>
+   <ModuleFault_D509 Code="1509" Description="Implausible Engine Variant Message Data Length Received"/>
+   <ModuleFault_D50A Code="150A" Description="Implausible FCM Variant Message Data Length Received"/>
+
+   <!-- Module Faults 1-byte-->
+   <ModuleFault_2A Code="0122" Description="Throttle/Peddle Position Sensor low"/>
+   <ModuleFault_2B Code="0123" Description="Throttle/Peddle Position Sensor high"/>
+   <ModuleFault_29 Code="0124" Description="Throttle/Peddle Position Sensor intermittent"/>
+   <ModuleFault_75 Code="0218" Description="High Temperature Logic Activated"/>
+   <ModuleFault_79 Code="0562" Description="Low Battery Voltage"/>
+   <ModuleFault_10 Code="0602" Description="Control Module Programming Error"/>
+   <ModuleFault_17 Code="0604" Description="Internal Controller (RAM check failure)"/>
+   <ModuleFault_16 Code="0605" Description="Internal Controller (ROM check failure)"/>
+   <ModuleFault_11 Code="0613" Description="Internal Controller"/>
+   <!-- Chrysler's Fault List has these faults with the same code, which will cause an error in the program
+        The 0613 fault above was put in as a temporary fix until clarification can be obtained.
+   <ModuleFault_11 Code="0613" Description="Internal Controller (watch dog circuit test)"/>
+   <ModuleFault_13 Code="0613" Description="Internal Controller (watch dog shutdown)"/>
+   <ModuleFault_45 Code="0613" Description="Internal Controller (Engine Model Byte Failure)"/>
+   <ModuleFault_94 Code="0613" Description="Dual Port Ram"/>
+   -->
+   <ModuleFault_28 Code="0706" Description="Bad Transmission Range"/>
+   <ModuleFault_7A Code="0711" Description="Transmission Temperature Sensor performance"/>
+   <ModuleFault_7B Code="0712" Description="Transmission Temperature Sensor low"/>
+   <ModuleFault_7C Code="0713" Description="Transmission Temperature Sensor high"/>
+   <ModuleFault_7D Code="0714" Description="Transmission Temperature Sensor intermittent"/>
+   <ModuleFault_56 Code="0715" Description="Input Speed Sensor error"/>
+   <ModuleFault_57 Code="0720" Description="Output Speed Sensor error"/>
+   <ModuleFault_18 Code="0725" Description="Engine speed input circuit"/>
+   <ModuleFault_51 Code="0731" Description="1st Gear incorrect Ratio"/>
+   <ModuleFault_52 Code="0732" Description="2nd Gear incorrect Ratio"/>
+   <ModuleFault_53 Code="0733" Description="3rd Gear incorrect Ratio"/>
+   <ModuleFault_54 Code="0734" Description="4th Gear incorrect Ratio"/>
+   <ModuleFault_59 Code="0735" Description="4' Gear incorrect ratio (5th Gear)"/>
+   <ModuleFault_50 Code="0736" Description="Reverse Gear incorrect Ratio"/>
+   <ModuleFault_38 Code="0740" Description="Torque Converter Clutch out of Range"/>
+   <ModuleFault_C1 Code="0750" Description="LR Solenoid Circuit Error"/>
+   <ModuleFault_C2 Code="0755" Description="2C Solenoid Circuit Error"/>
+   <ModuleFault_C3 Code="0760" Description="OD Solenoid Circuit Error"/>
+   <ModuleFault_C5 Code="0765" Description="UD Solenoid Circuit Error"/>
+   <ModuleFault_C4 Code="0770" Description="4C Solenoid Circuit Error"/>
+   <ModuleFault_81 Code="0841" Description="LR pressure switch check"/>
+   <ModuleFault_A2 Code="0845" Description="2C pressure switch test failed"/>
+   <ModuleFault_82 Code="0846" Description="2C pressure switch check"/>
+   <ModuleFault_C8 Code="0867" Description="Line pressure fault"/>
+   <ModuleFault_C9 Code="0868" Description="Line pressure Low Fault"/>
+   <ModuleFault_CB Code="0869" Description="Line pressure high fault"/>
+   <ModuleFault_A4 Code="0870" Description="OD pressure switch test failed"/>
+   <ModuleFault_84 Code="0871" Description="OD pressure switch check"/>
+   <ModuleFault_B0 Code="0875" Description="UD pressure switch test failed"/>
+   <ModuleFault_90 Code="0876" Description="UD pressure switch check"/>
+   <ModuleFault_76 Code="0884" Description="Power-up at Speed"/>
+   <ModuleFault_15 Code="0888" Description="Transmission Relay Circuit"/>
+   <ModuleFault_80 Code="0890" Description="Switched Battery Failure"/>
+   <ModuleFault_14 Code="0891" Description="Transmission Relay always on (Welded contacts)"/>
+   <ModuleFault_CA Code="0932" Description="Line Pressure Sensor Circuit Fault"/>
+   <ModuleFault_CC Code="0934" Description="Line Pressure Sensor Low Fault"/>
+   <ModuleFault_CD Code="0935" Description="Line Pressure Sensor High Fault"/>
+   <ModuleFault_35 Code="0944" Description="Loss of Hydraulic Pump Prime"/>
+   <ModuleFault_A8 Code="0987" Description="4C pressure switch test failed"/>
+   <ModuleFault_88 Code="0988" Description="4C pressure switch check"/>
+   <ModuleFault_12 Code="1684" Description="Battery was disconnected (Not a Fault)"/>
+   <ModuleFault_19 Code="1694" Description="No Communication with the ECU"/>
+   <ModuleFault_65 Code="1715" Description="Restricted Manual Valve in T3"/>
+   <ModuleFault_47 Code="1726" Description="UD Pressure switch test"/>
+   <ModuleFault_A2 Code="1728" Description="2C Pressure switch test"/>
+   <ModuleFault_55 Code="1736" Description="2' Gear incorrect Ratio"/>
+   <ModuleFault_37 Code="1775" Description="Solenoid Switch Valve Latched in TCC position"/>
+   <ModuleFault_47 Code="1776" Description="Solenoid Switch Valve Latched in LR position"/>
+   <ModuleFault_36 Code="1790" Description="Fault immediately after a shift"/>
+   <ModuleFault_48 Code="1793" Description="Loss of Torque Management Signal"/>
+   <ModuleFault_58 Code="1794" Description="Speed Sensor ground error"/>
+   <ModuleFault_74 Code="1799" Description="Calculated Temperature in use"/>
+   <ModuleFault_2C Code="2620" Description="ETC Throttle Position output circuit"/>
+   <ModuleFault_60 Code="2700" Description="Inadequate element volume LR"/>
+   <ModuleFault_61 Code="2701" Description="Inadequate element volume 2C"/>
+   <ModuleFault_62 Code="2702" Description="Inadequate element volume OD"/>
+   <ModuleFault_63 Code="2703" Description="Inadequate element volume UD"/>
+   <ModuleFault_64 Code="2704" Description="Inadequate element volume 4C"/>
+   <ModuleFault_C6 Code="2706" Description="FS/LR Solenoid Circuit Error"/>
+</TransmissionFaults>

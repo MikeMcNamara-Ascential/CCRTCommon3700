@@ -12,7 +12,7 @@
 // Unauthorized use, distribution, copying, or transmittal of this file in
 // any way is strictly prohibited.
 //===========================================================================
-#include "MahindarScannerManager.h"
+#include "MahindraScannerManager.h"
 
 //-------------------------------------------------------------------------------------------------
 MahindraScannerManager::MahindraScannerManager() : SymbolScannerMgr()
@@ -26,12 +26,18 @@ MahindraScannerManager::~MahindraScannerManager()
 }
 
 //-------------------------------------------------------------------------------------------------
+void MahindraScannerManager::Initialize(int argc, char *argv[])
+{
+	InputDeviceBase::Initialize(argc, argv);
+}
+
+//-------------------------------------------------------------------------------------------------
 void MahindraScannerManager::Initialize(const XmlNode *document)
 {   // Call the base class to begin the initialization
 	SymbolScannerMgr::Initialize(document);
 	Log(LOG_FN_ENTRY, "MahindraScannerManager::Initialize() - Enter");
 	// Store the vehicle type character position
-	position = 0;
+	UINT8 position = 0;
 	try
 	{
 		position = BposReadInt(document->getChild("Setup/Parameters/VehicleTypePosition")->getValue().c_str());
@@ -59,7 +65,7 @@ void MahindraScannerManager::Initialize(const XmlNode *document)
 void MahindraScannerManager::ProcessTwoDimensionalBarcode(const SerialString_t &barcodeData, 
 														  const INT32 &byteCount)
 {   // First determine which vehicle type this is
-	string code(barcodeData[VehicleTypePosition()]);
+	string code((char *)&barcodeData[VehicleTypePosition()]);
 	XmlNodeMapItr iter = m_vehicleTypeCodes.find(code);
 	string vehicleType;
 	if(iter != m_vehicleTypeCodes.end())
@@ -79,18 +85,16 @@ void MahindraScannerManager::ProcessTwoDimensionalBarcode(const SerialString_t &
 		UINT8 startIndex = BposReadInt(vehicleIter->second->getAttribute("StartIndex")->getValue().c_str());
 		INT8  length = BposReadInt(vehicleIter->second->getAttribute("Length")->getValue().c_str());
 		string vin;
-		if(length > 0)
+		if(length < 0)
 		{
-			vin = barcodeData.substr(startIndex, length);
+			length = barcodeData.length() - startIndex + 1;
 		}
-		else
-		{
-			vin = barcodeData.substr(startIndex);
-		}
+		vin = string((char *)&barcodeData[startIndex], length);
 		// Write the VIN
 		string response;
 		Log(LOG_DEV_DATA, "Writing VIN %s for vehicle type %s", vin.c_str(), vehicleType.c_str());
 		m_dataBroker->Write(NEXT_VIN_DATA_TAG, vin, response, true);
+		m_dataBroker->Write(GetDataTag("ZtsCodeTag"), vin, response, true);
 	}
 	else
 	{

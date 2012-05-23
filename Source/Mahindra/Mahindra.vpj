@@ -95,10 +95,66 @@
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Machine/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="Transmission">
+					<Folder Name="Manual">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Transmission/Manual/Configuration/CMakeLists.txt"/>
+							<F N="ApplicationLayer/TestComponents/Transmission/Manual/Configuration/ManualTransmissionConfig.xml"/>
+							<F N="ApplicationLayer/TestComponents/Transmission/Manual/Configuration/TransmissionFaultList.xml"/>
+						</Folder>
+						<F N="ApplicationLayer/TestComponents/Transmission/Manual/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Transmission/Manual/ManualTransmissionTC.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Transmission/Manual/ManualTransmissionTC.h"/>
+						<F N="ApplicationLayer/TestComponents/Transmission/Manual/ManualTransmissionTCMain.cpp"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/Transmission/CMakeLists.txt"/>
+				</Folder>
 				<F N="ApplicationLayer/TestComponents/CMakeLists.txt"/>
 			</Folder>
 			<Folder Name="VehicleTest">
 				<Folder Name="Configuration">
+					<Folder Name="BuildRecords">
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/CMakeLists.txt"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodePL2GPK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodePL2GRK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodePL2GXK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodePL2GYK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodePS2GPK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodePS2GRK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSC4BUN.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSL4BUN.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSN2BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSN2BUL.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSN4BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSN4BUL.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSR2BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSR2BUL.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSR4BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSR4BUL.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSS2BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSS4BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeST2BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeST4BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeSU4BUN.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeUF2BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeUG2BKC.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeWE2GPK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeWE2GRK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeWE4GHK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeWG2GHK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeWG2GPK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeWG2GRK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXA2GHK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXA2GPK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXA2GRK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXB2GHK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXB2GPK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXB2GRK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXB4GHK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXS2GHK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXX2GPK.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXX2GRK.xml"/>
+					</Folder>
 					<Folder Name="DriveCurves">
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
@@ -463,6 +519,7 @@
 					<F N="ServicesLayer/Servers/InputServer/CMakeLists.txt"/>
 					<F N="ServicesLayer/Servers/InputServer/MahindraScannerManager.cpp"/>
 					<F N="ServicesLayer/Servers/InputServer/MahindraScannerManager.h"/>
+					<F N="ServicesLayer/Servers/InputServer/MahindraScannerManagerMain.cpp"/>
 				</Folder>
 				<Folder Name="Launcher">
 					<Folder Name="Configuration">
@@ -477,6 +534,18 @@
 						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/Mahindra.MachineDataBrokerConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="PlantHostInbound">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PlantHostInbound/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostInbound/Configuration/Mahindra.PlantHostInboundConfig.xml"/>
+					</Folder>
+					<Folder Name="Include">
+						<F N="ServicesLayer/Servers/PlantHostInbound/Include/MahindraPlantHostInbound.h"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/PlantHostInbound/CMakeLists.txt"/>
+					<F N="ServicesLayer/Servers/PlantHostInbound/MahindraPlantHostInbound.cpp"/>
+					<F N="ServicesLayer/Servers/PlantHostInbound/MahindraPlantHostInboundMain.cpp"/>
 				</Folder>
 				<Folder Name="SystemMonitor">
 					<Folder Name="Configuration">

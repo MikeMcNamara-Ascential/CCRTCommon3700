@@ -1,0 +1,259 @@
+<ManualTransmissionConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <Name>Transmission</Name>
+        <TestDomain>Foreground</TestDomain>
+        <Parameters>
+            <KeepTestStatusOnExit>0</KeepTestStatusOnExit>
+            <ICMName>mgr/ICM</ICMName>
+            <DeveloperTest>False</DeveloperTest>
+            <!-- Parameters for shift tests -->
+            <MaxSpeedTarget_Gear1 Description="Max speed target for 1st gear" Units="MPH">7</MaxSpeedTarget_Gear1>
+            <MaxSpeedTolerance_Gear1 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear1>
+            <MaxSpeedDelay_Gear1 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear1>
+            <MaxSpeedTarget_Gear2 Description="Max speed target for 2nd gear" Units="MPH">14</MaxSpeedTarget_Gear2>
+            <MaxSpeedTolerance_Gear2 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear2>
+            <MaxSpeedDelay_Gear2 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear2>
+            <MaxSpeedTarget_Gear3 Description="Max speed target for 3rd gear" Units="MPH">21</MaxSpeedTarget_Gear3>
+            <MaxSpeedTolerance_Gear3 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear3>
+            <MaxSpeedDelay_Gear3 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear3>
+            <MaxSpeedTarget_Gear4 Description="Max speed target for 4th gear" Units="MPH">28</MaxSpeedTarget_Gear4>
+            <MaxSpeedTolerance_Gear4 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear4>
+            <MaxSpeedDelay_Gear4 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear4>
+            <MaxSpeedTarget_Gear5 Description="Max speed target for 5th gear" Units="MPH">35</MaxSpeedTarget_Gear5>
+            <MaxSpeedTolerance_Gear5 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear5>
+            <MaxSpeedDelay_Gear5 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear5>
+            <MaxSpeedTarget_Gear6 Description="Max speed target for 6th gear" Units="MPH">42</MaxSpeedTarget_Gear6>
+            <MaxSpeedTolerance_Gear6 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear6>
+            <MaxSpeedDelay_Gear6 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear6>
+            <MaxSpeedTarget_Gear7 Description="Max speed target for 7th gear" Units="MPH">49</MaxSpeedTarget_Gear7>
+            <MaxSpeedTolerance_Gear7 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear7>
+            <MaxSpeedDelay_Gear7 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear7>
+            <MaxSpeedTarget_Gear8 Description="Max speed target for 8th gear" Units="MPH">56</MaxSpeedTarget_Gear8>
+            <MaxSpeedTolerance_Gear8 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear8>
+            <MaxSpeedDelay_Gear8 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear8>
+            <MaxSpeedTarget_Gear9 Description="Max speed target for 9th gear" Units="MPH">63</MaxSpeedTarget_Gear9>
+            <MaxSpeedTolerance_Gear9 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear9>
+            <MaxSpeedDelay_Gear9 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear9>
+            <NumberOfFwdGears>6</NumberOfFwdGears>
+            <!-- Parameters for Checking Reverse Gear Operation -->
+            <ReverseSpeedMinimum>2.0</ReverseSpeedMinimum>
+            <ReverseSpeedMaximum>7.0</ReverseSpeedMaximum>
+            <!-- Parameters for acceleration Test -->
+            <AccelerationTestEndSpeed>43.4959835</AccelerationTestEndSpeed>
+            <AccelerationTestMaxTime>30.0</AccelerationTestMaxTime>
+        </Parameters>
+        <Prompts>
+            <AccelerateAboveMph PromptBox="1" Priority="0">AccelerateAboveMph</AccelerateAboveMph>
+            <AccelerateThrottleInGreen PromptBox="1" Priority="0">AccelerateThrottleInGreen</AccelerateThrottleInGreen>
+            <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <BrakeToMph PromptBox="2" Priority="0">BrakeToMph</BrakeToMph>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+            <CancelOverdrive PromptBox="1" Priority="0">CancelOverdrive</CancelOverdrive>
+            <HoldThrottleSteady PromptBox="2" Priority="0">HoldThrottleSteady</HoldThrottleSteady>
+            <KickDownTest PromptBox="1" Priority="0">KickDownTest</KickDownTest>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+            <PressPassWhenComplete PromptBox="2" Priority="0">PressPassWhenComplete</PressPassWhenComplete>
+            <ReleaseThrottle PromptBox="1" Priority="0">ReleaseThrottle</ReleaseThrottle>
+            <RemoveFootFromAccelerator PromptBox="1" Priority="0">RemoveFootFromAccelerator</RemoveFootFromAccelerator>
+            <SelectOD PromptBox="1" Priority="0">SelectOD</SelectOD>
+            <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
+            <ShiftToGear PromptBox="1" Priority="0">ShiftToGearAndAccelerate</ShiftToGear>
+            <ShiftToLo PromptBox="2" Priority="0">ShiftToLo</ShiftToLo>
+            <ShiftToReverse PromptBox="1" Priority="0">ShiftToReverse</ShiftToReverse>
+            <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+            <StompThrottle PromptBox="2" Priority="0">StompThrottle</StompThrottle>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+        </Prompts>
+        <SystemTagsToReset/>
+        <FaultList>/Configuration/Components/Transmission/TransmissionFaultList.xml</FaultList>
+        <IgnoreFaults/>
+        <Communication>
+            <Debug>Off</Debug>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <Name>component/Transmission</Name>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <DriveAxle/>
+                <ForegroundTestInProgress/>
+                <TCMPartNo/>
+                <Transmission/>
+                <VIN/>
+                <Zerospeed/>
+                <ZerospeedToPLC/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>ManualTransmission</ProcessName>
+            <AdditionalLogFile Types="/Components/ManualTransmission.log or Disabled">/Components/ManualTransmission.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+        </Logging>
+        <NamedDataBrokerComm>
+            <Comm>IPC</Comm>
+            <Type>Client</Type>
+            <Name>core/NamedDataBroker</Name>
+            <Debug>Off</Debug>
+            <Timeout>0</Timeout>
+            <BufferSize>1024</BufferSize>
+        </NamedDataBrokerComm>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <BoostMode>Boost</BoostMode>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <Mature>Mature</Mature>
+            <MotorMode>MotorMode</MotorMode>
+            <OneTrip>OneTrip</OneTrip>
+            <OverallTest>TransmissionOverallTest</OverallTest>
+            <ReadActualGovernorPressure>ReadActualGovernorPressure</ReadActualGovernorPressure>
+            <ReadCurrentGear>ReadCurrentGear</ReadCurrentGear>
+            <ReadEngineSpeed>ReadEngineSpeed</ReadEngineSpeed>
+            <ReadMatureFaults>ReadMatureFaults</ReadMatureFaults>
+            <ReadModuleFaults>ReadFaultRegisters</ReadModuleFaults>
+            <ReadODCancelButton>ReadOverDriveCancelSwitch</ReadODCancelButton>
+            <ReadOneTripFaults>ReadOneTripFaults</ReadOneTripFaults>
+            <ReadOutputShaftSpeed>ReadOutputShaftSpeed</ReadOutputShaftSpeed>
+            <ReadOverDriveLampSwitchStatus>ReadOverDriveCancelSwitch</ReadOverDriveLampSwitchStatus>
+            <ReadTCCLockSolenoid>ReadTCCLockSolenoid</ReadTCCLockSolenoid>
+            <ReadTheoreticalGovernorPressure>ReadTheoreticalGovernorPressure</ReadTheoreticalGovernorPressure>
+            <ReadThrottlePosition>ReadThrottlePosition</ReadThrottlePosition>
+            <ReadVehicleSpeed>ReadTransmissionVehicleSpeed</ReadVehicleSpeed>
+            <Rear>Rear</Rear>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <SecondaryRearAxleTag>TandemRearAxle</SecondaryRearAxleTag>
+            <SpeedActive>SpeedActive</SpeedActive>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <SpeedValue>SpeedValue</SpeedValue>
+            <TPSActive>TPSActive</TPSActive>
+            <TPSTarget>TPSTarget</TPSTarget>
+            <TPSValue>TPSValue</TPSValue>
+            <Zerospeed>ZerospeedToPLC</Zerospeed>
+        </DataTags>
+    </Setup>
+    <Objectives>
+        <ReverseTesting>
+            <TestStep00>AccelerateInReverse</TestStep00>
+            <TestStep10>BrakeToStop</TestStep10>
+        </ReverseTesting>
+        <ShiftTest>
+            <TestStep10>GearTest_1</TestStep10>
+            <TestStep20>GearTest_2</TestStep20>
+            <TestStep30>GearTest_3</TestStep30>
+            <TestStep40>GearTest_4</TestStep40>
+            <TestStep50>GearTest_5</TestStep50>
+            <TestStep60>GearTest_6</TestStep60>
+        </ShiftTest>
+        <SpeedBasedShiftTest>
+            <TestStep00 AltValue="1">BlingGearSpeedTest</TestStep00>
+            <TestStep10>SpeedBasedGearTest_2</TestStep10>
+            <TestStep20>SpeedBasedGearTest_3</TestStep20>
+            <TestStep30 AltValue="4">BlingGearSpeedTest</TestStep30>
+            <TestStep40>SpeedBasedGearTest_5</TestStep40>
+        </SpeedBasedShiftTest>
+        <SpeedBasedShiftTestLow>
+            <TestStep10>SpeedBasedGearTest_1</TestStep10>
+            <TestStep20>SpeedBasedGearTest_2</TestStep20>
+            <TestStep30>SpeedBasedGearTest_3</TestStep30>
+        </SpeedBasedShiftTestLow>
+        <SpeedBasedShiftTestHigh>
+            <TestStep40>SpeedBasedGearTest_4</TestStep40>
+            <TestStep50>SpeedBasedGearTest_5</TestStep50>
+            <TestStep60>SpeedBasedGearTest_6</TestStep60>
+        </SpeedBasedShiftTestHigh>
+        <GearTest_1>
+            <TestStep00>GearTest_1</TestStep00>
+        </GearTest_1>
+        <GearTest_2>
+            <TestStep00>GearTest_2</TestStep00>
+        </GearTest_2>
+        <GearTest_3>
+            <TestStep00>GearTest_3</TestStep00>
+        </GearTest_3>
+        <GearTest_4>
+            <TestStep00>GearTest_4</TestStep00>
+        </GearTest_4>
+        <GearTest_5>
+            <TestStep00>GearTest_5</TestStep00>
+        </GearTest_5>
+        <GearTest_6>
+            <TestStep00>GearTest_6</TestStep00>
+        </GearTest_6>
+        <GearTest_7>
+            <TestStep00>GearTest_7</TestStep00>
+        </GearTest_7>
+        <GearTest_8>
+            <TestStep00>GearTest_8</TestStep00>
+        </GearTest_8>
+        <GearTest_9>
+            <TestStep00>GearTest_9</TestStep00>
+        </GearTest_9>
+        <GearTest_10>
+            <TestStep00>GearTest_10</TestStep00>
+        </GearTest_10>
+        <AccelerationTest>
+            <TestStep10>AccelerationTest</TestStep10>
+        </AccelerationTest>
+        <FinishUp>
+            <TestStep00>FinishUp</TestStep00>
+        </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <AccelerateInReverse Result="" Timeout="30000" Description="Validate Reverse gear functionality" ScanDelay="250"/>
+        <BlingGearSpeedTest Result="" Timeout="30000" Description="Check maximum gear speed"/>
+        <GearTest_1 Result="" Timeout="5000" Description="Validate 1st gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="1st" ScanDelay="500" SpeedTarget="38 42" TargetGear="1"/>
+        <GearTest_2 Result="" Timeout="5000" Description="Validate 2nd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="2nd" ScanDelay="500" SpeedTarget="38 42" TargetGear="2"/>
+        <GearTest_3 Result="" Timeout="5000" Description="Validate 3rd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="3rd" ScanDelay="500" SpeedTarget="38 42" TargetGear="3"/>
+        <GearTest_4 Result="" Timeout="5000" Description="Validate 4th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="4th" ScanDelay="500" SpeedTarget="38 42" TargetGear="4"/>
+        <GearTest_5 Result="" Timeout="5000" Description="Validate 5th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="5th" ScanDelay="500" SpeedTarget="38 42" TargetGear="5"/>
+        <GearTest_6 Result="" Timeout="5000" Description="Validate 6th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="6th" ScanDelay="500" SpeedTarget="38 42" TargetGear="6"/>
+        <GearTest_7 Result="" Timeout="4000" Description="Validate 7th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="7th" ScanDelay="250" SpeedTarget="38 42" TargetGear="7"/>
+        <GearTest_8 Result="" Timeout="4000" Description="Validate 8th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="8th" ScanDelay="250" SpeedTarget="38 42" TargetGear="8"/>
+        <GearTest_9 Result="" Timeout="4000" Description="Validate 9th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="9th" ScanDelay="250" SpeedTarget="38 42" TargetGear="9"/>
+        <SpeedBasedGearTest_1 Result="" Timeout="30000" Description="Validate 1st gear functionality" 
+            Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="1st" 
+            ScanDelay="500" SpeedTarget="38 42" TargetGear="1"/>
+        <SpeedBasedGearTest_2 Result="" Timeout="30000" Description="Validate 2nd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="2nd" ScanDelay="500" SpeedTarget="38 42" TargetGear="2"/>
+        <SpeedBasedGearTest_3 Result="" Timeout="30000" Description="Validate 3rd gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="3rd" ScanDelay="500" SpeedTarget="38 42" TargetGear="3"/>
+        <SpeedBasedGearTest_4 Result="" Timeout="30000" Description="Validate 4th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="4th" ScanDelay="500" SpeedTarget="38 42" TargetGear="4"/>
+        <SpeedBasedGearTest_5 Result="" Timeout="30000" Description="Validate 5th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="5th" ScanDelay="500" SpeedTarget="38 42" TargetGear="5"/>
+        <SpeedBasedGearTest_6 Result="" Timeout="30000" Description="Validate 6th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="6th" ScanDelay="500" SpeedTarget="38 42" TargetGear="6"/>
+        <SpeedBasedGearTest_7 Result="" Timeout="30000" Description="Validate 7th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="7th" ScanDelay="250" SpeedTarget="38 42" TargetGear="7"/>
+        <SpeedBasedGearTest_8 Result="" Timeout="30000" Description="Validate 8th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="8th" ScanDelay="250" SpeedTarget="38 42" TargetGear="8"/>
+        <SpeedBasedGearTest_9 Result="" Timeout="30000" Description="Validate 9th gear functionality" Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="9th" ScanDelay="250" SpeedTarget="38 42" TargetGear="9"/>
+        <AccelerationTest Result="" Timeout="90000" Description="Accelerate to armspeed within alotted time" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" SpeedTarget="0 200" ScanDelay="250"/>
+        <BrakeToStop Description="Prompt the driver to brake to stop" Result="" Timeout="120000" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
+        <FinishUp Result="Not Tested" Timeout="500" Description="Finish testing sequence"/>
+    </TestSteps>
+</ManualTransmissionConfig>

@@ -111,6 +111,11 @@
             OrderToLaunch="0107" RegisteredName="core/SystemMonitor" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="0xFF">System Monitor</SystemMonitor>
 
+        <PlantHostInbound Name="MahindraPlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="PlantHostInboundConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
+            AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
+
         <MotorController Name="ABMotorController.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="AB700MotorControllerConfig.xml" ConfigPath="/Configuration/Machine/" 
             OrderToLaunch="0500" RegisteredName="core/MotorController" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
@@ -128,7 +133,6 @@
 
     </TasksToLaunch>
     <DoNotLaunch>
-        <PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" ConfigFile="PlantHostInboundConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
         <TcaseComponent Name="GenericTcaseTest.qxe" Path="/ApplicationLayer/Bin/" ConfigFile="GM.TcaseTC.xml" ConfigPath="/Configuration/Components/TransferCase/" OrderToLaunch="131" RegisteredName="component/GMTcase" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
         <Gen3Interface Name="Gen3Interface.qxe" Path="/ServicesLayer/Bin/" ConfigFile="Gen3InterfaceConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0114" RegisteredName="core/Gen3Interface" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
         <BrakeComponent Name="TrwEbc430AbsTc.qxe" Path="/ApplicationLayer/Bin/" ConfigFile="KwpIsoEbc430AbsTc.xml" ConfigPath="/Configuration/Components/Brake/" OrderToLaunch="130" RegisteredName="component/TrwEbc430Abs" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>

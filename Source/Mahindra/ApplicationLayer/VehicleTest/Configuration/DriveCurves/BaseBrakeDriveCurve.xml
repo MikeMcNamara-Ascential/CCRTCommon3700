@@ -15,6 +15,13 @@
             <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
             <Debug>Off</Debug>
         </Machine>
+        <Transmission>
+            <ComponentName>ManualTransTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>ManualTransmissionConfig.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
+            <Debug>Off</Debug>
+        </Transmission>
     </Components>
 
     <Test Result="" Debug="Off">
@@ -34,15 +41,24 @@
             </ForegroundObjectives>
         </TestPhase005>
 
+        <!-- Perform the transmission testing -->
+        <TestPhase100 Description="Perform the transmission gear test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Run the transmission gear test" Result="" Timeout="" Component="Transmission">
+                    <SpeedBasedShiftTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase100>
+
         <!-- Perform the brake test -->
-        <TestPhase100 Description="Perform the brake test" Result="" Timeout="">
+        <TestPhase200 Description="Perform the brake test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="run the base brake test" Result="" Timeout="" Component="Brake">
                     <BrakeTest/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase100>
-        <TestPhase105 Description="Brake to stop and analyze results" Result="" Timeout="">
+        </TestPhase200>
+        <TestPhase205 Description="Brake to stop and analyze results" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Brake to stop" Result="" Timeout="" Component="Machine">
                     <BrakeToStop/>
@@ -53,16 +69,42 @@
                     <AnalyzeBrakeTest/>
                 </Objective0>
             </BackgroundObjectives>
-        </TestPhase105>
+        </TestPhase205>
+
+        <!-- Final Low Speed Testing -->
+        <TestPhase300 Description="Reverse gear testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Perform the reverse gear test" Result="" Timeout="" Component="Transmission">
+                    <ReverseTesting/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase300>
+        <TestPhase305 Description="Finishup the transmission testing and run the park brake test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Set the transmission result" Result="" Timeout="" Component="Transmission">
+                    <FinishUp/>
+                </Objective0>
+                <Objective1 Description="Perform the park brake test" Result="" Timeout="" Component="Brake">
+                    <ParkBrakeTest/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase305>
+        <TestPhase310 Description="RWAL Sensor Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Perform the RWAL sensor test" Result="" Timeout="" Component="Brake">
+                    <RwalTesting/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase310>
 
         <!-- Finishup and set results -->
-        <TestPhase200 Description="Set the result for the brake test" Result="" Timeout="">
+        <TestPhase400 Description="Set the result for the brake test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
                     <FinishUp/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase200>
+        </TestPhase400>
 
     </Test>
 

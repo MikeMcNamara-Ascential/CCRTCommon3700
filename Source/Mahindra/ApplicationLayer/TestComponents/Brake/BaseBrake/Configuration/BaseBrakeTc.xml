@@ -159,6 +159,15 @@
             <SpeedRangeParameter>30 35</SpeedRangeParameter>
             <StartSamplingAtMinimumForce>1</StartSamplingAtMinimumForce>
             <TargetSpeedParameter>30</TargetSpeedParameter>
+            <!-- Park Brake Parameters -->
+            <ParkBrakeArmSpeed Units="mph">9</ParkBrakeArmSpeed>
+            <ParkBrakeMaxForce Units="lbf">400</ParkBrakeMaxForce>
+            <ParkBrakeMinForce Units="lbf">120</ParkBrakeMinForce>
+            <ParkBrakeStartSampleSpeed Units="mph">8</ParkBrakeStartSampleSpeed>
+            <ParkBrakeEndSampleSpeed Units="mph">0</ParkBrakeEndSampleSpeed>
+            <ParkBrakeStartSamplingAtMinimumForce>True</ParkBrakeStartSamplingAtMinimumForce>
+            <ParkBrakeMinimumStartForce Units="lbf">120</ParkBrakeMinimumStartForce>
+            <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount>
         </Parameters>
         <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
         <Prompts>
@@ -247,6 +256,14 @@
             <TestStep2>AnalyzeBrakeTest</TestStep2>
             <TestStep3>AnalyzeBalance</TestStep3>
         </AnalyzeBrakeTest>
+        <ParkBrakeTest>
+            <TestStep00>EngageMachine</TestStep00>
+            <TestStep05>AccelerateToParkBrakeSpeed</TestStep05>
+            <TestStep10>DynamicParkBrakeTest</TestStep10>
+            <TestStep15>AnalyzeDynamicParkBrake</TestStep15>
+            <TestStep20>BrakeToStop</TestStep20>
+            <TestStep25>DisableForceMeter</TestStep25>
+        </ParkBrakeTest>
         <FinishUp>
             <TestStep0>DisableForceMeter</TestStep0>
             <TestStep1>FinishUp</TestStep1>
@@ -263,19 +280,27 @@
         <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed" 
             SpeedTarget="48 55" ArmSpeed="40" Prompt1="AccelerateToTargetSpeed">Accelerate to brake test speed</AccelerateToBrakeSpeed>
 
+        <AccelerateToParkBrakeSpeed Result="" Timeout="120000" Description="Accelerate to Park Brake Speed"
+            Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed"
+            SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0" SpeedTarget="9 13"/>
+
         <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" 
             Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" 
             DragDelay="1000" DragSpeed="48" DragSamples="50">Perform Vehicle Drag Test</DragTest>
 
+        <DynamicParkBrakeTest Result="" Timeout="60000" Description="Perform park brake test"
+            Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake"/>
+
         <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="55" RearMaxDragForce="55">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
 
         <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" 
-            StartBrakeSampleSpeed="45" EndBrakeSampleSpeed="10" 
-            BrakeDomain="0 500" BrakeTarget="150 250" 
+            StartBrakeSampleSpeed="37" EndBrakeSampleSpeed="10" 
+            BrakeDomain="0 500" BrakeTarget="290 470" 
             Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test</BrakeTest>
 
         <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="150" RearMinBrakeForce="50" FrontMaxBrakeForce="600" RearMaxBrakeForce="400" Prompt1="" Prompt2="">Perform Vehicle BaseBrake Test Analysis</AnalyzeBrakeTest>
         <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="8" RearSideToSideBalance="8" TandemSideToSideBalance="20" BalanceFrontToRearMin="20" BalanceFrontToRearMax="40" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
+        <AnalyzeDynamicParkBrake Result="" Timeout="1000" Description="Validate park brake forces"/>
         <BrakeToStop Result="" Timeout="1200000" Description="Brake The Vehicle To A Stop" Prompt1="BrakeToStop">Brake the vehicle to a stop</BrakeToStop>
         <FinishUp Result="" Timeout="30000" Description="Brake test finishup" Prompt1="" Prompt2="">Perform finishup to complete test</FinishUp>
         <DisableForceMeter Result="" Timeout="30000" Description="Disable The Brake Force Meter">Disable the brake force meter</DisableForceMeter>

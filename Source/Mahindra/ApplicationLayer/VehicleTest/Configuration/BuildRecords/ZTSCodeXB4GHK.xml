@@ -1,0 +1,41 @@
+<VehicleBuildRecord>
+    <VehicleBuild>
+        <BrakeType>BaseBrake</BrakeType>
+        <TransferCase>4WD</TransferCase>
+        <Wheelbase Units="mm">2794</Wheelbase>
+
+        <BrakeForces>
+             <!-- front axle brake forces -->
+             <FrontMinBrakeForce Units="LBF">269.7707317</FrontMinBrakeForce>
+             <FrontMaxBrakeForce Units="LBF">472.0987805</FrontMaxBrakeForce>
+             <!-- rear axle brake forces -->
+             <RearMinBrakeForce Units="LBF">294.4997155</RearMinBrakeForce>
+             <RearMaxBrakeForce Units="LBF">573.2628049</RearMaxBrakeForce>
+             <!-- Park brake Forces -->
+             <ParkBrakeMinForce Units="LBF">112.4044716</ParkBrakeMinForce>
+             <ParkBrakeMaxForce Units="LBF">224.8089431</ParkBrakeMaxForce>
+        </BrakeForces>
+
+        <Transmission>
+            <SpeedBasedShiftTestParameters>
+                <SpeedBasedGearTest_1>
+                    <MaxSpeedTarget Description="Max speed target" Units="KPH">35</MaxSpeedTarget>
+                </SpeedBasedGearTest_1>
+                <SpeedBasedGearTest_2>
+                    <MaxSpeedTarget Description="Max speed target" Units="KPH">62</MaxSpeedTarget>
+                </SpeedBasedGearTest_2>
+                <SpeedBasedGearTest_3>
+                    <MaxSpeedTarget Description="Max speed target" Units="KPH">92</MaxSpeedTarget>
+                </SpeedBasedGearTest_3>
+                <SpeedBasedGearTest_4>
+                    <MaxSpeedTarget Description="Max speed target" Units="KPH">110</MaxSpeedTarget>
+                </SpeedBasedGearTest_4>
+                <SpeedBasedGearTest_5>
+                    <MaxSpeedTarget Description="Max speed target" Units="KPH">118</MaxSpeedTarget>
+                </SpeedBasedGearTest_5>
+            </SpeedBasedShiftTestParameters>
+            <NumberOfFwdGears>5</NumberOfFwdGears>
+        </Transmission>
+
+    </VehicleBuild>
+</VehicleBuildRecord>

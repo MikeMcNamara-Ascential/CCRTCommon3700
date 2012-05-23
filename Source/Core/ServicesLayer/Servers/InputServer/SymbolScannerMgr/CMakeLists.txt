@@ -2,7 +2,9 @@
 # Create a list of all the cpp files in this directory needed to create the executable
 #------------------------------------------------------------------------------------------
 SET(SYMBOL_SCANNER_MGR_SOURCES SymbolScannerMgr.cpp)
-
+SET(SYMBOL_SCANNER_LIB_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH
+	"Path to the symbol scanner lib" FORCE)
+	
 #------------------------------------------------------------------------------------------
 # Define the basename of our executable (for us only...not required by CMake)
 #------------------------------------------------------------------------------------------

@@ -1252,6 +1252,7 @@
             <SpeedDisplayScaling DataType="bool">PLC</SpeedDisplayScaling>
             <SpeedDomain DataType="range" Units="MPH">VehicleDataBroker</SpeedDomain>
             <SpeedometerOverallTest DataType="testcomponentstatus">TestResultServer</SpeedometerOverallTest>
+            <SpeedometerSpeedometer DataType="testresult">TestResultServer</SpeedometerSpeedometer>
             <SpeedometerTestSpeed DataType="short">VehicleDataBroker</SpeedometerTestSpeed>
             <SpeedometerTestSpeedBGColor DataType="color">VehicleDataBroker</SpeedometerTestSpeedBGColor>
             <SpeedoTestBGColor DataType="color">MachineDataBroker</SpeedoTestBGColor>

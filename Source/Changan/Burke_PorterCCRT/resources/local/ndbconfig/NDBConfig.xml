@@ -1137,6 +1137,7 @@
             <VentilationExhaustMotorDisconnectFault DataType="bool">PLC</VentilationExhaustMotorDisconnectFault>
             <VentilationSupplyFlowFault DataType="bool">PLC</VentilationSupplyFlowFault>
             <VentilationSupplyMotorDisconnectFault DataType="bool">PLC</VentilationSupplyMotorDisconnectFault>
+            <VCNumber DataType="string">VehicleDataBroker</VCNumber>
             <VIN DataType="string">VehicleDataBroker</VIN>
             <VINDisplay DataType="string">MachineDataBroker</VINDisplay>
             <VINDisplayBGColor DataType="color">MachineDataBroker</VINDisplayBGColor>

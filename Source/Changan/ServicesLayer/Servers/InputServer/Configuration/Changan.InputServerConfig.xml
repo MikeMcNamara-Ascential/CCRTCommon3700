@@ -663,7 +663,7 @@
 			<!-- ******************************************************* -->
 			 <!-- *                 Module Vin Reader                   * -->
 			 <!-- ******************************************************* -->
-			 <ModuleVinReader enabled="0" process="$(USR_ROOT)/ApplicationLayer/Bin/VehicleModuleVinReader.qxe">
+			 <ModuleVinReader enabled="1" process="$(USR_ROOT)/ApplicationLayer/Bin/VehicleModuleVinReader.qxe">
 				 <Setup>
 					 <TagList>
 						 <SubscribeTags>

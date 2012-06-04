@@ -220,7 +220,7 @@
             <CurrentRFMachineLoss DataType="float" Units="LBF">ICM</CurrentRFMachineLoss>
             <CurrentRRMachineLoss DataType="float" Units="LBF">ICM</CurrentRRMachineLoss>
             <CurrentRTMachineLoss DataType="float">ICM</CurrentRTMachineLoss>
-            <CurrentWheelbasePosition DataType="short" Units="Inch*10">PLC</CurrentWheelbasePosition>
+            <CurrentWheelbasePosition DataType="short" Units="Cm*10">PLC</CurrentWheelbasePosition>
             <CycleLimitExceeded DataType="bool">PLC</CycleLimitExceeded>
             <CycleLimitWarning DataType="bool">PLC</CycleLimitWarning>
             <CycleTime DataType="short">MachineDataBroker</CycleTime>
@@ -566,6 +566,7 @@
             <LossCompensation DataType="string">LossCompensation</LossCompensation>
             <LossCompensationBitToPlc DataType="bool">PLC</LossCompensationBitToPlc>
             <LossCompensationCycle DataType="bool">PLC</LossCompensationCycle>
+            <LossCompensationOverallTest DataType="testcomponentstatus">TestResultServer</LossCompensationOverallTest>
             <LossCompensationPressure DataType="short" Units="PSI">PLC</LossCompensationPressure>
             <LossCompensationSwitchCycleStatus DataType="bool">PLC</LossCompensationSwitchCycleStatus>
             <LossCompensationSwitchCycleStatusFromPLC DataType="bool">PLC</LossCompensationSwitchCycleStatusFromPLC>
@@ -1252,6 +1253,7 @@
             <SpeedDisplayScaling DataType="bool">PLC</SpeedDisplayScaling>
             <SpeedDomain DataType="range" Units="MPH">VehicleDataBroker</SpeedDomain>
             <SpeedometerOverallTest DataType="testcomponentstatus">TestResultServer</SpeedometerOverallTest>
+            <SpeedometerSpeedometer DataType="testresult">TestResultServer</SpeedometerSpeedometer>
             <SpeedometerTestSpeed DataType="short">VehicleDataBroker</SpeedometerTestSpeed>
             <SpeedometerTestSpeedBGColor DataType="color">VehicleDataBroker</SpeedometerTestSpeedBGColor>
             <SpeedoTestBGColor DataType="color">MachineDataBroker</SpeedoTestBGColor>

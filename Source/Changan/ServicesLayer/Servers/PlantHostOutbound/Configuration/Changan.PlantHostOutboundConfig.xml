@@ -65,7 +65,7 @@
                 <Setup>
                     <SendResultsToHost>Yes</SendResultsToHost>
                     <VinIndex>-1</VinIndex>
-                    <MaxResponseTime>20000</MaxResponseTime>
+                    <MaxResponseTime>20001</MaxResponseTime>
                     <MaxAttempts>3</MaxAttempts>
                     <ResultMap>/Configuration/Servers/ResultStringMap.xml</ResultMap>
                     <MessageID>0x13</MessageID>
@@ -133,6 +133,26 @@
                             <StartOnCreate>No</StartOnCreate>
                         </Setup>
                     </NotificationList>
+                    <KeepAliveConfig>
+                       <Setup>
+                          <KeepAliveResponseID>0x06</KeepAliveResponseID>
+                          <KeepAliveRequestID>0xA3</KeepAliveRequestID>
+                          <KeepAliveTime Units="ms">10000</KeepAliveTime>
+                          <MaxResponseTime>10000</MaxResponseTime>
+                          <MinResponseLength>1</MinResponseLength>
+                          <SeverityLevelConversion>
+                             <Fatal>9</Fatal>
+                             <Warning>4</Warning>
+                             <None>0</None>
+                          </SeverityLevelConversion>
+                          <Communication>
+                             <Name>/dev/LogicalPorts/Host</Name>
+                             <BufferSize>2000</BufferSize>
+                             <Timeout>1000</Timeout>
+                             <Debug>Off</Debug>
+                          </Communication>
+                       </Setup>
+                    </KeepAliveConfig>                     
                 </Setup>
             </TextInterface>
             <!-- ============================================================== -->

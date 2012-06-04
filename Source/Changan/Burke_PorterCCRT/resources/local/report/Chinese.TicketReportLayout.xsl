@@ -452,25 +452,25 @@
                 <td width="4" align="left"/>
                 <td  width="7" align="left">
                     <xsl:call-template name="convertSpeed">
-                        <xsl:with-param name="SPEED" select="//MachineSpeedometer/MinSpeedometerSpeed"/>
-                        <xsl:with-param name="UNITS" select="//MachineSpeedometer/MinSpeedometerSpeed/@Units"/>
+                        <xsl:with-param name="SPEED" select="//SpeedometerSpeedometer/MinSpeedometerSpeed"/>
+                        <xsl:with-param name="UNITS" select="//SpeedometerSpeedometer/MinSpeedometerSpeed/@Units"/>
                     </xsl:call-template>
                 </td>
                 <td  width="7" align="left">
                     <xsl:call-template name="convertSpeed">
-                        <xsl:with-param name="SPEED" select="//MachineSpeedometer/MaxSpeedometerSpeed"/>
-                        <xsl:with-param name="UNITS" select="//MachineSpeedometer/MaxSpeedometerSpeed/@Units"/>
+                        <xsl:with-param name="SPEED" select="//SpeedometerSpeedometer/MaxSpeedometerSpeed"/>
+                        <xsl:with-param name="UNITS" select="//SpeedometerSpeedometer/MaxSpeedometerSpeed/@Units"/>
                     </xsl:call-template>
                 </td>
                 <td  width="7" align="left">
                     <xsl:call-template name="convertSpeed">
-                        <xsl:with-param name="SPEED" select="//MachineSpeedometer/SpeedometerSpeed"/>
-                        <xsl:with-param name="UNITS" select="//MachineSpeedometer/SpeedometerSpeed/@Units"/>
+                        <xsl:with-param name="SPEED" select="//SpeedometerSpeedometer/SpeedometerSpeed"/>
+                        <xsl:with-param name="UNITS" select="//SpeedometerSpeedometer/SpeedometerSpeed/@Units"/>
                     </xsl:call-template>
                 </td>
                 <td  width="7" align="left">
                     <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//MachineSpeedometer/@Result"/>
+                        <xsl:with-param name="RESULT" select="//SpeedometerSpeedometer/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>

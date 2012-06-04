@@ -21,6 +21,7 @@
 		<Widget id="speed" height="500" width="500" class="com.bepco.gui.RadialGauge">
 		  <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
 		  <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
+		  <DataSource tagname="SpeedActive" messagetype="Subscribe" tagrole="enabled"/>
 		  <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" >
 			<Font size="35" name="sans-serif" style="plain"/>
 		  </RadialGaugeConfig>

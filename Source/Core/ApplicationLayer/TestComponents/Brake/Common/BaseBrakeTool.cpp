@@ -961,8 +961,8 @@ const string BaseBrakeTool::TestStepDynamicParkBrake(void)
 	m_component->Log( LOG_FN_ENTRY, "Enter BaseBrakeTool::TestStepDynamicParkBrake()\n");
 	if(!m_component->ShortCircuitTestStep())
 	{
-		minForce = m_component->GetVehicleParameter("BrakeForces/ParkBrakeMinForce", 9999.9);
-		maxForce = m_component->GetVehicleParameter("BrakeForces/ParkBrakeMaxForce", 0.0);
+		minForce = m_component->GetVehicleParameter("BrakeForces/ParkBrakeMinForce", float(9999.9));
+		maxForce = m_component->GetVehicleParameter("BrakeForces/ParkBrakeMaxForce", float(0.0));
 		target = (minForce + maxForce) / 2;
 
 		m_component->SetTestStepInfoValue( "BrakeDomain", CreateMessage( buff, sizeof( buff), "0 %.02f", 2*target));

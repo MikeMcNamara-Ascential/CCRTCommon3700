@@ -115,8 +115,8 @@
 
     <!-- Speedomemter Results -->
     <Field6020 Type="Separator">Spdometer </Field6020>
-    <Field6030 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1.609" Length="5">MachineSpeedometer</Field6030>
-    <Field6040 Type="Result">MachineSpeedometer</Field6040>
+    <Field6030 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1.609" Length="5">SpeedometerSpeedometer</Field6030>
+    <Field6040 Type="Result">SpeedometerSpeedometer</Field6040>
     <Field6050 Type="Separator">,</Field6050>
 
 </DCAC_Result>

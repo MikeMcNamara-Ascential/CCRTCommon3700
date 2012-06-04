@@ -155,7 +155,7 @@
          <SpeedometerStableTime>6000</SpeedometerStableTime>
          <SpeedometerTestHighLimit>28</SpeedometerTestHighLimit>
          <SpeedometerTestLowLimit>22</SpeedometerTestLowLimit>
-         <SpeedRangeParameter>30 35</SpeedRangeParameter>
+         <SpeedRangeParameter>33 35</SpeedRangeParameter>
          <TargetSpeed40kph>24.85</TargetSpeed40kph>
          <TargetSpeedParameter>30</TargetSpeedParameter>
          <TimeFormat>%H:%M:%S</TimeFormat>

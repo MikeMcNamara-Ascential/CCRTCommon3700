@@ -564,7 +564,7 @@
             </tr>
 
             <!-- Cruise Control Result -->
-            <tr bgcolor="wihte">
+            <!--tr bgcolor="white">
                 <th align="center" rowspan="1" colspan="7">SPEED CONTROL</th>
             </tr>
             <tr>
@@ -579,13 +579,13 @@
                         <xsl:with-param name="RESULT" select="//SpeedControlOverallTest/@Result"/>
                     </xsl:call-template>
                 </td>
-            </tr>
+            </tr-->
 
             <!-- Cruise Control Result -->
-            <tr bgcolor="wihte">
+            <tr bgcolor="white">
                 <th align="center" rowspan="1" colspan="7">AIRBAG</th>
             </tr>
-            <tr>
+            <!--tr>
                 <td/>
                 <td align="right" width="14">FAD Resistance</td>
                 <td align="center">
@@ -647,7 +647,7 @@
                         <xsl:with-param name="RESULT" select="//AirbagResistanceValueBPP/@Result"/>
                     </xsl:call-template>
                 </td>
-            </tr>
+            </tr-->
             <tr>
                 <td/>
                 <td align="right" width="14">Part Number</td>

@@ -22,9 +22,27 @@ template<class ModuleType>
 class TevesMk70AbsTc : public GenericABSTCTemplate<ModuleType>
 {
 public:
+
+    /**
+     * Constructor
+     */     
     TevesMk70AbsTc();
+    
+    /**
+     * Destructor
+     */    
     virtual ~TevesMk70AbsTc();
 
+    /**
+     * Handle execution of each test step specified by system for each
+     * test objective passed to it.  Overloaded to execute component tests.
+     * 
+     * @param value  value commanded by test sequencer.
+     * 
+     * @return The status of the overall objective.
+     */
+    virtual const string CommandTestStep(const string &value);
+    
 protected:
     /**
      * Initialize the test component.
@@ -59,6 +77,113 @@ protected:
      *      </ul>
      */
     virtual string SensorTest(void);
+
+	/**
+	 * Interface object used to communicate with the WinCcrtInterface server.
+	 */
+    IWinInterfaceServer m_WinCcrtInterface;
+    
+    /**
+     * Sends the 5 baud initialization sequence used to command the module to
+     * enter diagnostic mode.
+     *
+     * @return The result of the method.
+     */
+    string PerformModuleLinkup(void);
+
+    /**
+     * Command the module to begin the EOL testing mode.
+     * 
+     * @param value This is the value that was commanded by the test sequencer.
+     * 
+     * @return The status of the test step.
+     */ 
+    const std::string TestStepBeginEolMode(const std::string &value);
+
+    /**
+     * Send the EOL coding message to the module.
+     * 
+     * @param value This is the value that was commanded by the test sequencer.
+     * 
+     * @return The status of the test step.
+     */ 
+    const std::string TestStepEolCoding(const std::string &value);
+
+    /**
+     * Command the module to enter the EOL testing mode.
+     * 
+     * @param value This is the value that was commanded by the test sequencer.
+     * 
+     * @return The status of the test step.
+     */ 
+    const std::string TestStepEnterEolMode(const std::string &value);
+
+    /**
+     * Apply a constant torque to all rollers.
+     *  
+     * @param value This is the value that was commanded by the test sequencer.
+     * 
+     * @return The status of the test step.
+     */
+    virtual const std::string TestStepApplyTorqueToAllRollers(const std::string &value);
+
+    /**
+     * Helper function to apply torque and send test result values.
+     *  
+     * @param lfTorque  Left front torque value
+     * @param rfTorque  Right front torque value
+     * @param lrTorque  Left rear torque value
+     * @param rrTorque  Right rear torque value
+     * 
+     * @return The status of the test step.
+     */
+    virtual const std::string ApplyTorqueToRollers(string lfTorque, string rfTorque, string lrTorque, string rrTorque);
+
+    /**
+     * Run the low speed valve firing test.  First the rolls will be commanded 
+     * to a constant speed.  Then the driver will be prompted to apply the 
+     * brake.  Commands will then be sent to the module to reduce and build the 
+     * brake pressure.  The motor controller will store the motor load during 
+     * this time for later evaluation.
+     * 
+     * @param value This is the value that was commanded by the test sequencer.
+     * 
+     * @return The status of the test step.
+     */ 
+    virtual const std::string TestStepLowSpeedValveFiringTest(const std::string &value);
+
+    /**
+     * Perform valve firing reduction.
+     * 
+     * @param wheel The wheel to reduce.
+     * 
+     * @return The status of the command.
+     */
+    virtual string Reduction(const string &wheel);
+
+    /**
+     * Perform valve firing recovery.
+     * 
+     * @param wheel The wheel to recovery.
+     * 
+     * @return The status of the command.
+     */
+    virtual string Recovery(const string &wheel);
+
+    /**
+     * Apply zero torque to all rollers.
+     *  
+     * @param value This is the value that was commanded by the test sequencer.
+     * 
+     * @return The status of the test step.
+     */
+    virtual const std::string TestStepTorqueZero(const std::string &value);
+    /**
+     * <b>Description:</b>
+     * Method used to abort the current processing based on the needs of the 
+     * component.
+     */
+    virtual void Abort(void);    
 
 private:
     /**

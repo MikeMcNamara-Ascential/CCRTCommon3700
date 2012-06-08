@@ -134,9 +134,9 @@
    <Field1710 Type="Separator">Blank</Field1710>
    <Field1720 Type="Result">BrakeRightRearABSRecovery</Field1720>
    <Field1750 Type="Separator">Blank</Field1750>
-    <Field1760 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1.609" Length="5">MachineSpeedometer</Field1760>
+    <Field1760 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1.609" Length="5">SpeedometerSpeedometer</Field1760>
    <Field1770 Type="Separator">Blank</Field1770>
-   <Field1780 Type="Result">MachineSpeedometer</Field1780>
+   <Field1780 Type="Result">SpeedometerSpeedometer</Field1780>
    <Field1790 Type="Separator">Blank</Field1790>
     <Field1800 Type="Detail" DetailNode="SoundPressureLevel" Format="%04.2f" DataType="Float" Length="7">SoundLevelSoundPressureLevelTest</Field1800>
    <Field1810 Type="Separator">Blank</Field1810>

@@ -77,6 +77,35 @@ protected:
      */
     virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
 
+    /**
+     * Perform the 5 baud initialization sequence used to command the module
+     * to enter diagnostic mode.
+     * 
+     * @return The status of the operation.
+     */ 
+    virtual BEP_STATUS_TYPE PerformModuleLinkup(void);
+
+    /**
+     * Command the module to begin the eol testing mode.
+     * 
+     * @return The status of the operation.
+     */ 
+    virtual BEP_STATUS_TYPE BeginEolMode(void);
+
+    /**
+     * Send the EOL coding message to the module.
+     * 
+     * @return The status of the operation.
+     */ 
+    virtual BEP_STATUS_TYPE EolCoding(void);
+
+    /**
+     * Command the module to enter the EOL testing mode.
+     * 
+     * @return The status of the operation.
+     */ 
+    virtual BEP_STATUS_TYPE EnterEolMode(void);
+    
 private:
     /**
      * Get/Set the index for the byte that contains the number of reported DTCs.

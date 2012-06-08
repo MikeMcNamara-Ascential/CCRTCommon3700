@@ -1,4 +1,4 @@
-<KwpIsoTevesMk60AbsTc>
+<KwpIsoTevesMk70AbsTc>
     <Setup>
         <Name>Brake</Name>
         <Debug>Off</Debug>
@@ -14,7 +14,7 @@
         <Communication>
             <Comm>IPC</Comm>
             <Type>Server</Type>
-            <Name>component/TevesMk60Abs</Name>
+            <Name>component/TevesMk70Abs</Name>
             <Debug>Off</Debug>
             <BufferSize>1024</BufferSize>
             <Timeout>0</Timeout>
@@ -48,8 +48,8 @@
         </TagList>
         <Logging>
             <Status>Enabled</Status>
-            <ProcessName>TevesMk60Abs</ProcessName>
-            <AdditionalLogFile>/Components/TevesMk60Abs.log</AdditionalLogFile>
+            <ProcessName>TevesMk70Abs</ProcessName>
+            <AdditionalLogFile>/Components/TevesMk70Abs.log</AdditionalLogFile>
             <Debug>Off</Debug>
             <LocalEcho>Disabled</LocalEcho>
             <Verbose>0x1F</Verbose>
@@ -413,4 +413,4 @@
         <RemoveSpeedTimeGraph Result="" Timeout="5000" Description="Remove Speed Time Graph" ScanDelay="250"/>
     </TestSteps>
 
-</KwpIsoTevesMk60AbsTc>
+</KwpIsoTevesMk70AbsTc>

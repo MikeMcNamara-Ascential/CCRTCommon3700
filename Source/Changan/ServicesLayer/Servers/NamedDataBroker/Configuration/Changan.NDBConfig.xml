@@ -43,6 +43,7 @@
          <TestResultServer Status="Available">core/TestResultServer</TestResultServer>
          <VehicleDataBroker Status="Available">core/VehicleDataBroker</VehicleDataBroker>
          <VehicleTest Status="Available">application/VehicleTest</VehicleTest>
+         <WinCcrtInterface Status="Available">core/WinCcrtInterface</WinCcrtInterface>
          <WorkCellController Status="Available">core/WorkCellController</WorkCellController>
       </Servers>
       <TagList>
@@ -118,6 +119,7 @@
             <BarcodeVerifyDelayTime DataType="short">PLC</BarcodeVerifyDelayTime>
             <BaseBrakeStartForce DataType="short">ICM</BaseBrakeStartForce>
             <Baumuster DataType="string">VehicleDataBroker</Baumuster>
+            <BeltTensions DataType="string">WinCcrtInterface</BeltTensions>
             <BodyStyle DataType="string">VehicleDataBroker</BodyStyle>
             <BodyStyleBGColor DataType="color">VehicleDataBroker</BodyStyleBGColor>
             <Boost DataType="bool">PLC</Boost>
@@ -735,6 +737,7 @@
             <NissinboABSSelected DataType="bool">PLC</NissinboABSSelected>
             <NoABSSelected DataType="bool">PLC</NoABSSelected>
             <NoPB DataType="bool">PLC</NoPB>
+            <Notes DataType="string">WinCcrtInterface</Notes>
             <OkToRoll DataType="bool">SystemMonitor</OkToRoll>
             <OldLTSpeed DataType="float" Units="MPH">ICM</OldLTSpeed>
             <Open_N16_20_10 DataType="bool">PLC</Open_N16_20_10>

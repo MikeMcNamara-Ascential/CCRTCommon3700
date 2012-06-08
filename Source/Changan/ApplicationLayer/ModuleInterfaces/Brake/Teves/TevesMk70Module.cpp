@@ -86,6 +86,78 @@ bool TevesMk70Module<ProtocolFilter>::InitializeHook(const XmlNode *configNode)
 }
 
 //-----------------------------------------------------------------------------
+template <class ProtocolFilter>
+BEP_STATUS_TYPE Mk70AbsModule<ProtocolFilter>::PerformModuleLinkup(void)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
+    int stat;
+
+    Log(LOG_FN_ENTRY, "Mk70AbsModule: ENTER PerformModuleLinkup\n");
+
+    if((stat = m_protocolFilter->ResetConnection()) == EOK)
+    {
+        if(m_protocolFilter->LowSpeedInit() == EOK) status = BEP_STATUS_SUCCESS;
+    }
+    else
+    {
+        Log(LOG_ERRORS, "Mk70AbsModule: Failed to reset the connection: %d, %s\n",stat, strerror(errno));
+    }
+
+    Log(LOG_FN_ENTRY, "Mk70AbsModule: EXIT PerformModuleLinkup status: %d\n",status);
+
+    return(status);
+}
+
+//=============================================================================
+template <class ProtocolFilter>
+BEP_STATUS_TYPE Mk70AbsModule<ProtocolFilter>::BeginEolMode(void)
+{
+    BEP_STATUS_TYPE status;
+    SerialString_t response(255,0);
+
+    // Check to see that all our objects are in place
+    CheckObjectsStatus();
+    
+    // Command the module to begin eol testing mode
+    status = m_protocolFilter->GetModuleData("BeginEolMode", response);
+
+    return(status);
+}
+
+//=============================================================================
+template <class ProtocolFilter>
+BEP_STATUS_TYPE Mk70AbsModule<ProtocolFilter>::EolCoding(void)
+{
+    BEP_STATUS_TYPE status;
+    SerialString_t response(255,0);
+
+    // Check to see that all our objects are in place
+    CheckObjectsStatus();
+    
+    // Command the module to begin eol testing mode
+    status = m_protocolFilter->GetModuleData("EolCoding", response);
+
+    return(status);
+}
+
+//=============================================================================
+template <class ProtocolFilter>
+BEP_STATUS_TYPE Mk70AbsModule<ProtocolFilter>::EnterEolMode(void)
+{
+    BEP_STATUS_TYPE status;
+    SerialString_t response(255,0);
+
+    // Check to see that all our objects are in place
+    CheckObjectsStatus();
+    
+    // Command the module to begin eol testing mode
+    status = m_protocolFilter->GetModuleData("EnterEolMode", response);
+
+    return(status);
+}
+
+
+//-----------------------------------------------------------------------------
 template<class ProtocolFilter>
 BEP_STATUS_TYPE TevesMk70Module<ProtocolFilter>::ReadFaults(FaultVector_t &faultCodes)
 {

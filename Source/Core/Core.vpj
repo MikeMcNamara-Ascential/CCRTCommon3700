@@ -459,6 +459,7 @@
 				<F N="ServicesLayer/Include/ITestResultThreadPool.h"/>
 				<F N="ServicesLayer/Include/IThread.h"/>
 				<F N="ServicesLayer/Include/IThreadPool.h"/>
+				<F N="ServicesLayer/Include/IWinInterfaceServer.h"/>
 				<F N="ServicesLayer/Include/IXmlNodeContainer.h"/>
 				<F N="ServicesLayer/Include/J2190ComDefs.h"/>
 				<F N="ServicesLayer/Include/Krnl.h"/>
@@ -607,6 +608,7 @@
 				<F N="ServicesLayer/Library/ITaskMon.cpp"/>
 				<F N="ServicesLayer/Library/ITestResultServer.cpp"/>
 				<F N="ServicesLayer/Library/ITestResultThreadPool.cpp"/>
+				<F N="ServicesLayer/Library/IWinInterfaceServer.cpp"/>
 				<F N="ServicesLayer/Library/LogPortFilterString.cpp"/>
 				<F N="ServicesLayer/Library/Reader.cpp"/>
 				<F N="ServicesLayer/Library/Registrar.cpp"/>
@@ -1003,6 +1005,8 @@
 					<F N="ServicesLayer/Servers/MachineDataBroker/MachineDataBroker.cpp"/>
 					<F N="ServicesLayer/Servers/MachineDataBroker/MachineDataBroker.h"/>
 					<F N="ServicesLayer/Servers/MachineDataBroker/MachineDataBrokerMain.cpp"/>
+					<F N="ServicesLayer/Servers/MachineDataBroker/MaintenanceItem.cpp"/>
+					<F N="ServicesLayer/Servers/MachineDataBroker/MaintenanceItem.h"/>
 				</Folder>
 				<Folder Name="MotorController">
 					<Folder Name="Common">
@@ -1212,6 +1216,16 @@
 					</Folder>
 					<F N="ServicesLayer/Servers/VehicleDataServer/CMakeLists.txt"/>
 					<F N="ServicesLayer/Servers/VehicleDataServer/VehicleDataServerMain.cpp"/>
+				</Folder>
+				<Folder Name="WinCcrtInterface">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/WinCcrtInterface/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/WinCcrtInterface/Configuration/WinCcrtInterfaceConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/WinCcrtInterface/CMakeLists.txt"/>
+					<F N="ServicesLayer/Servers/WinCcrtInterface/WinCcrtInterface.cpp"/>
+					<F N="ServicesLayer/Servers/WinCcrtInterface/WinCcrtInterface.h"/>
+					<F N="ServicesLayer/Servers/WinCcrtInterface/WinCcrtInterfaceMain.cpp"/>
 				</Folder>
 				<F N="ServicesLayer/Servers/CMakeLists.txt"/>
 			</Folder>

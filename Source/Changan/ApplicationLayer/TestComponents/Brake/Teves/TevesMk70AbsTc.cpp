@@ -60,7 +60,7 @@ const string Mk70AbsTc<VehicleModuleType>::CommandTestStep(const string &value)
         else if (step == "ApplyTorqueToAllRollers") status = TestStepApplyTorqueToAllRollers(value);
         else if (step == "LowSpeedValveFiringTest") status = TestStepLowSpeedValveFiringTest(value);
         else if (step == "TorqueZero")              status = TestStepTorqueZero(value);
-        else if (step == "EngageMachine")              status = EngageMachine();
+        else if (step == "EngageMachine")           status = EngageMachine();
         else  status = GenericABSTCTemplate<VehicleModuleType>::CommandTestStep(value);
     }
     catch (BepException &err)
@@ -272,10 +272,12 @@ const std::string Mk70AbsTc<VehicleModuleType>::TestStepEolCoding(const std::str
     {
         try
         {
-            moduleStatus = m_vehicleModule.EolCoding();
+           // TKTODO - RequestCoding2 
+           moduleStatus = m_vehicleModule.EolCoding();
             if (moduleStatus == BEP_STATUS_SUCCESS)
             {
                 testResult = testPass;
+                // TKTODO - SendCoding2
             }
             else
             {

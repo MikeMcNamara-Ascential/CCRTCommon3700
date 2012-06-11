@@ -45,6 +45,12 @@ bool TevesMk70Module<ProtocolFilter>::InitializeHook(const XmlNode *configNode)
         Log(LOG_DEV_DATA, "BoschAbsModule::InitializeHook: Initializing the keep alive comm object\n");
         m_keepAliveComm->Initialize(configNode);
     }
+    
+    if (m_protocolFilter != NULL)
+    {
+       m_protocolFilter.InitializeServer("core/WinCcrt");
+    }
+    
     // Store the byte containing the number of DTCs reported in the module response
     UINT8 byte = 0x00;
     try
@@ -151,7 +157,7 @@ BEP_STATUS_TYPE Mk70AbsModule<ProtocolFilter>::EnterEolMode(void)
     CheckObjectsStatus();
     
     // Command the module to begin eol testing mode
-    status = m_protocolFilter->GetModuleData("EnterEolMode", response);
+    status = m_protocolFilter->GetModuleData("EolSession", response);
 
     return(status);
 }

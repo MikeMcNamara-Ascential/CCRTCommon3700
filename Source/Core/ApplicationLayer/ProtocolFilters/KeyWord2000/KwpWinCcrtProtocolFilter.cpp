@@ -33,7 +33,7 @@ KwpWinCcrtProtocolFilter::~KwpWinCcrtProtocolFilter()
 {
 }
 
-KwpWinCcrtProtocolFilter::Initialize(std::string server)
+KwpWinCcrtProtocolFilter::InitializeServer(std::string server)
 {
    m_WinCcrtComm.Initialize(server);
 }
@@ -41,6 +41,8 @@ KwpWinCcrtProtocolFilter::Initialize(std::string server)
 const BEP_STATUS_TYPE KwpWinCcrtProtocolFilter::SendMessage(std::string messageTag, std::string msgValue)
 {	// Add the module ID to the message
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+   
+   std::string *response;
    
 	Log(LOG_DETAILED_DATA, "KwpWinCcrtProtocolFilter::SendMessage - Resetting The Connection\n");
 	ResetConnection();

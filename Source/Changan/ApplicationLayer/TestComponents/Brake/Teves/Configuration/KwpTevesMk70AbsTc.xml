@@ -289,10 +289,12 @@
             <ParkBrakeStartSamplingAtMinimumForce>True</ParkBrakeStartSamplingAtMinimumForce>
             <ParkBrakeMinimumStartForce Units="lbf">89</ParkBrakeMinimumStartForce>
             <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount>
-		    <DisplaySpeedTimeGraph>True</DisplaySpeedTimeGraph>
+            <DisplaySpeedTimeGraph>True</DisplaySpeedTimeGraph>
             <SpeedGraphLowerSeries UnitsX="s" UnitsY="km/h">0 -5,20 15,30 15,50 40,60 40,80 60,90 60,120 90</SpeedGraphLowerSeries>
             <SpeedGraphUpperSeries UnitsX="s" UnitsY="km/h">0 10,20 30,30 30,50 70,60 70,80 100,90 100,120 120</SpeedGraphUpperSeries>
-
+            
+            <WinCcrtServerInterface>core/WinCcrt</WinCcrtServerInterface>
+            
         </Parameters>
         <Prompts>
             <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
@@ -314,16 +316,17 @@
     </Setup>
 
     <Objectives>
-        <AnalyzeBrakeTest>
-            <TestStep00>AnalyzeBrakeTest</TestStep00>
-            <TestStep05>AnalyzeBalance</TestStep05>
-            <TestStep10>EvaluateABS</TestStep10>
-        </AnalyzeBrakeTest>
-
+         <Setup>
+            <TestStep00>Initialize</TestStep00>
+            <TestStep05>EnterDiagnosticMode</TestStep05>
+            <TestStep10>ClearFaults</TestStep10>
+            <TestStep15>ReadFaults</TestStep15>
+            <TestStep25>StartModuleKeepAlive</TestStep25>
+        </Setup>
         <BrakeTest>
-			<TestStep00>DisplaySpeedTimeGraph</TestStep00>
+            <TestStep00>DisplaySpeedTimeGraph</TestStep00>
             <TestStep01>AccelerateToBrakeSpeed</TestStep01>
-			<TestStep04>RemoveSpeedTimeGraph</TestStep04>
+            <TestStep04>RemoveSpeedTimeGraph</TestStep04>
             <TestStep10>DragTest</TestStep10>
             <TestStep15>AnalyzeDragTest</TestStep15>
             <TestStep20>BrakeSwitchOffTest</TestStep20>
@@ -333,8 +336,12 @@
             <TestStep40>BrakeSwitchOnTest</TestStep40>
             <TestStep45>ValveFiringTest</TestStep45>
             <TestStep60>StartModuleKeepAlive</TestStep60>
-        </BrakeTest>
-
+        </BrakeTest>     
+        <AnalyzeBrakeTest>
+            <TestStep00>AnalyzeBrakeTest</TestStep00>
+            <TestStep05>AnalyzeBalance</TestStep05>
+            <TestStep10>EvaluateABS</TestStep10>
+        </AnalyzeBrakeTest>
         <FinishUp>
             <TestStep00>DisableForceMeter</TestStep00>
             <TestStep05>StopModuleKeepAlive</TestStep05>
@@ -348,22 +355,12 @@
             <TestStep10>LowSpeedSensorTest</TestStep10>
             <TestStep15>BrakeToStop</TestStep15>
         </LowSpeedTesting>
-
         <ParkBrakeTest>
             <TestStep00>AccelerateToParkBrakeSpeed</TestStep00>
             <TestStep05>DynamicParkBrakeTest</TestStep05>
             <TestStep10>AnalyzeDynamicParkBrake</TestStep10>
             <TestStep15>BrakeToStop</TestStep15>
         </ParkBrakeTest>
-
-        <Setup>
-            <TestStep00>Initialize</TestStep00>
-            <TestStep05>EnterDiagnosticMode</TestStep05>
-            <TestStep10>ClearFaults</TestStep10>
-            <TestStep15>ReadFaults</TestStep15>
-            <TestStep25>StartModuleKeepAlive</TestStep25>
-        </Setup>
-
     </Objectives>
 
     <TestSteps>

@@ -66,7 +66,7 @@ class KwpWinCcrtProtocolFilter : public KwpCanProtocolFilter
       * 
       * @return Status of the send.
       */
-      virtual const BEP_STATUS_TYPE SendMessage(std::string a, std::string b);
+      virtual const BEP_STATUS_TYPE SendMessage(std::string messageTag, std::string msgValue);
       
 protected:
       /**

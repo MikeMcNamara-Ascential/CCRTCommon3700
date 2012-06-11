@@ -38,7 +38,7 @@ KwpWinCcrtProtocolFilter::Initialize(std::string server)
    m_WinCcrtComm.Initialize(server);
 }
 
-const BEP_STATUS_TYPE KwpWinCcrtProtocolFilter::SendMessage(std::string messageTag, std::string msgValue, SerialString_t &response)
+const BEP_STATUS_TYPE KwpWinCcrtProtocolFilter::SendMessage(std::string messageTag, std::string msgValue)
 {	// Add the module ID to the message
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
    

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfVehicleCommDeviceSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <VehicleCommDeviceSettings>
+    <CommChannelName>GMLAN</CommChannelName>
+    <DeviceName>CarDAQ PLUS</DeviceName>
+    <ChannelIndex>1</ChannelIndex>
+    <ConnectFlag>Both</ConnectFlag>
+    <BaudRate>ISO15765</BaudRate>
+    <ProtocolID>ISO15765</ProtocolID>
+  </VehicleCommDeviceSettings>
+  <VehicleCommDeviceSettings>
+    <CommChannelName>GMLAN</CommChannelName>
+    <DeviceName>Gryphon/SCAT/SCAT2/SCAT3</DeviceName>
+    <ChannelIndex>1</ChannelIndex>
+    <ConnectFlag>Both</ConnectFlag>
+    <BaudRate>CAN</BaudRate>
+    <ProtocolID>ISO15765</ProtocolID>
+  </VehicleCommDeviceSettings>
+</ArrayOfVehicleCommDeviceSettings>

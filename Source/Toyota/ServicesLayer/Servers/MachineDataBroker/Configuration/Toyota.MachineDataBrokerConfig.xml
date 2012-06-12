@@ -23,7 +23,8 @@
         </RollerDistanceParameters>
         <MaxRollerSpeedMultipliers>
             <Venza>1.0</Venza>
-            <Camry>1.0723</Camry>
+            <!--Camry>1.0723</Camry-->
+            <Camry>1.0</Camry>
         </MaxRollerSpeedMultipliers>
         <IcmDataUpdateRate Units="ms">250</IcmDataUpdateRate>
         <IcmDataFiles>

@@ -96,50 +96,50 @@
       <VehicleMessages>
          <!-- ABS Recovery Messages -->
          <ActuateLeftFrontRecovery>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>LeftFrontRecovery</TransmitMessage>
             <TransmitInterpretation>LfRecovery</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateLeftFrontRecovery>
          <ActuateLeftRearRecovery>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>LeftRearRecovery</TransmitMessage>
             <TransmitInterpretation>LrRecovery</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateLeftRearRecovery>
          <ActuateRightFrontRecovery>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>RightFrontRecovery</TransmitMessage>
             <TransmitInterpretation>RfRecovery</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateRightFrontRecovery>
          <ActuateRightRearRecovery>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>RightRearRecovery</TransmitMessage>
             <TransmitInterpretation>RrRecovery</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateRightRearRecovery>
          <!-- ABS Reduction Messages -->
          <ActuateLeftFrontReduction>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>LeftFrontReduction</TransmitMessage>
             <TransmitInterpretation>LfReduction</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateLeftFrontReduction>
          <ActuateLeftRearReduction>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>LeftRearReduction</TransmitMessage>
             <TransmitInterpretation>LrReduction</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateLeftRearReduction>
          <ActuateRightFrontReduction>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>RightFrontReduction</TransmitMessage>
             <TransmitInterpretation>RfReduction</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateRightFrontReduction>
          <ActuateRightRearReduction>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>RightRearReduction</TransmitMessage>
             <TransmitInterpretation>RrReduction</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
@@ -164,146 +164,114 @@
             <ReplyInterpretation/>
          </RecoverAllValves>
          <!-- Diagnostic Messages -->
-         <EnterDiagnosticMode>
-            <TransmitMessage>DiagComm</TransmitMessage>
-            <TransmitInterpretation>EnterDiagnosticMode</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation/>
-         </EnterDiagnosticMode>         
-         <RequestEolCoding>
-            <TransmitMessage>ReadCommParam</TransmitMessage>
-            <TransmitInterpretation>RequestEolCodingSession</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation/>         
-         </RequestEolCoding>
-         <SendEolCoding>
-            <TransmitMessage>SendEolCoding</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation/>         
-         </SendEolCoding>         
-         <EolSession>
-            <TransmitMessage>DiagComm</TransmitMessage>
-            <TransmitInterpretation>StartEolSession</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation/>         
-         </EolSession>
-         <ReadEcuId>
-            <TransmitMessage>DiagComm</TransmitMessage>
-            <TransmitInterpretation>ReadEcuId</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation/>         
-         </ReadEcuId>
-         <ReadFaults>
-            <TransmitMessage>ReadCommParam</TransmitMessage>
-            <TransmitInterpretation>ReadFaults</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation/>
-         </ReadFaults>         
          <ClearFaults>
-            <TransmitMessage>AccessCommParam</TransmitMessage>
-            <TransmitInterpretation>ClearFaults</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
+            <TransmitMessage>ClearFaults</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ClearFaultsResponse</ReplyMessage>
             <ReplyInterpretation/>
          </ClearFaults>
-         <ReadBrakeSwitch>
-            <TransmitMessage>DiagComm</TransmitMessage>
-            <TransmitInterpretation>CheckBrakeSwitch</TransmitInterpretation>
-            <ReplyMessage>ReadLidResponseBrake</ReplyMessage>
-            <ReplyInterpretation>BrakeSwitchOnStatus</ReplyInterpretation>
-         </ReadBrakeSwitch>
-         <WheelSpeedSensors>
-            <TransmitMessage>DiagComm</TransmitMessage>
-            <TransmitInterpretation>WheelSpeedSensors</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation></ReplyInterpretation>
-         </WheelSpeedSensors>
+         <EnterDiagnosticMode>
+            <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+            <TransmitInterpretation>EolSession</TransmitInterpretation>
+            <ReplyMessage>DiagnosticSessionRequest</ReplyMessage>
+            <ReplyInterpretation/>
+         </EnterDiagnosticMode>         
          <ExitDiagnosticMode>
-            <TransmitMessage>TerminateMode</TransmitMessage>
-            <TransmitInterpretation>ExitDiagnosticMode</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation/>
+            <TransmitMessage>ExitDiagSession</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ExitDiagSession</ReplyMessage>
+            <ReplyInterpretation/>         
          </ExitDiagnosticMode>
-         <StopCommunication>
-            <TransmitMessage>TerminateMode</TransmitMessage>
-            <TransmitInterpretation>StopCommunication</TransmitInterpretation>
-            <ReplyMessage></ReplyMessage>
-            <ReplyInterpretation/>
-         </StopCommunication>         
          <ModuleKeepAlive>
             <TransmitMessage>TesterPresent</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>TesterPresent</ReplyMessage>
-            <ReplyInterpretation/>
+            <ReplyInterpretation/>         
          </ModuleKeepAlive>
+         <ReadBrakeSwitch>
+            <TransmitMessage>ReadBrakeSwitch</TransmitMessage>
+            <TransmitInterpretation>BrakeSwitch</TransmitInterpretation>
+            <ReplyMessage>ReadLidResponseBrake</ReplyMessage>
+            <ReplyInterpretation>BrakeSwitchOnStatus</ReplyInterpretation>
+         </ReadBrakeSwitch>
+         <ReadFaults>
+            <TransmitMessage>ReadFaults</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadFaults</ReplyMessage>
+            <ReplyInterpretation/>
+         </ReadFaults>
 
          <RunPumpMotor>
-            <TransmitMessage>IoControl</TransmitMessage>
+            <TransmitMessage>RunPumpMotor</TransmitMessage>
             <TransmitInterpretation>PumpMotorOn</TransmitInterpretation>
             <ReplyMessage>IoControlResponse</ReplyMessage>
             <ReplyInterpretation/>
          </RunPumpMotor>
-
+         <WheelSpeedSensors>
+            <TransmitMessage>WheelSpeedSensors</TransmitMessage>
+            <TransmitInterpretation>WheelSpeedSensors</TransmitInterpretation>
+            <ReplyMessage>ReadLidResponseWheelspeeds</ReplyMessage>
+            <ReplyInterpretation>WheelSpeedSensors</ReplyInterpretation>
+         </WheelSpeedSensors>
          <SetEolTest>
             <TransmitMessage>SetEolTest</TransmitMessage>
             <TransmitInterpretation>EolTest</TransmitInterpretation>
             <ReplyMessage>UpdateModuleResponse</ReplyMessage>
             <ReplyInterpretation/>
          </SetEolTest>
-
+         <StartDiagnosticSession>
+            <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+            <TransmitInterpretation>EolSession</TransmitInterpretation>
+            <ReplyMessage>DiagnosticSessionRequest</ReplyMessage>
+            <ReplyInterpretation/>
+         </StartDiagnosticSession>
       </VehicleMessages>
       <TransmitMessages>
-         <TerminateMode>0x81,0x28,0xF1,0x??,0x??</TerminateMode>
-         <DiagComm>0x82,0x28,0xF1,0x??,0x??,0x??</DiagComm>
-         <AccessCommParam>0x83,0x28,0xF1,0x??,0x??,0x??,0x??</AccessCommParam>
-         <ReadCommParam>0x84,0x28,0xF1,0x??,0x??,0x??,0x??,0x??</ReadCommParam>
-         <IoControl>0x85,0x28,0xF1,0x30,0x80,0x00,0x??,0x??,0x??</IoControl>
-         <SendEolCoding>0x90,0x28,0xF1,0x3B,0x9A,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x03,0x80,0x27,0xA5,0xCD</SendEolCoding>
-
+         <ClearFaults>0x14,0xFF,0x00</ClearFaults>
+         <DiagnosticSessionRequest>0x10,0x??</DiagnosticSessionRequest>
          <ExitDiagSession>0x20</ExitDiagSession>
-         
+         <IoControl>0x30,0x80,0x00,0x??,0xBF</IoControl>
+         <ReadFaults>0x18,0x02,0xFF,0x00</ReadFaults>
          <ReadLid>0x21,0x??</ReadLid>
          <TesterPresent>0x3E</TesterPresent>
          <UpdateModule>0x3B,0x9A,0x00,0x06,0x46,0x22,0x00,0x00,0xB0,0x31,0x30,0x31,0x03,0x80,0x??,0x??</UpdateModule>
          <WakeUp>0x81</WakeUp>
 
-         <!-- LeftFrontRecovery>0x30,0x80,0x00,0xAB,0xBF</LeftFrontRecovery -->
-         <!-- LeftRearRecovery>0x30,0x80,0x00,0xBA,0xBF</LeftRearRecovery -->
-         <!-- RightFrontRecovery>0x30,0x80,0x00,0xAE,0xBF</RightFrontRecovery -->
-         <!-- RightRearRecovery>0x30,0x80,0x00,0xEA,0xBF</RightRearRecovery -->
-         <!-- LeftFrontReduction>0x30,0x80,0x00,0xA8,0xBF</LeftFrontReduction -->
-         <!-- LeftRearReduction>0x30,0x80,0x00,0x8A,0xBF</LeftRearReduction -->
-         <!-- RightFrontReduction>0x30,0x80,0x00,0xA2,0xBF</RightFrontReduction -->
-         <!-- RightRearReduction>0x30,0x80,0x00,0x2A,0xBF</RightRearReduction -->
-         <!-- DumpAllValves>0x30,0x80,0x00,0x00,0xBF</DumpAllValves -->
-         <!-- HoldAllValves>0x30,0x80,0x00,0xAA,0xBF</HoldAllValves -->
-         <!-- RecoverAllValves>0x30,0x80,0x00,0xFF,0xBF</RecoverAllValves -->
-         <!-- EnterDiagnosticMode>0x10,0x83</EnterDiagnosticMode -->
-         <!-- ReadBrakeSwitch>0x21,0x03</ReadBrakeSwitch -->
-         <!-- RunPumpMotor>0x30,0x80,0x00,0xFF,0xBF,0x0C</RunPumpMotor -->
+         <LeftFrontRecovery>0x30,0x80,0x00,0xAB,0xBF</LeftFrontRecovery>
+         <LeftRearRecovery>0x30,0x80,0x00,0xBA,0xBF</LeftRearRecovery>
+         <RightFrontRecovery>0x30,0x80,0x00,0xAE,0xBF</RightFrontRecovery>
+         <RightRearRecovery>0x30,0x80,0x00,0xEA,0xBF</RightRearRecovery>
+         <LeftFrontReduction>0x30,0x80,0x00,0xA8,0xBF</LeftFrontReduction>
+         <LeftRearReduction>0x30,0x80,0x00,0x8A,0xBF</LeftRearReduction>
+         <RightFrontReduction>0x30,0x80,0x00,0xA2,0xBF</RightFrontReduction>
+         <RightRearReduction>0x30,0x80,0x00,0x2A,0xBF</RightRearReduction>
+         <DumpAllValves>0x30,0x80,0x00,0x00,0xBF</DumpAllValves>
+         <HoldAllValves>0x30,0x80,0x00,0xAA,0xBF</HoldAllValves>
+         <RecoverAllValves>0x30,0x80,0x00,0xFF,0xBF</RecoverAllValves>
+         <EnterDiagnosticMode>0x10,0x83</EnterDiagnosticMode>
+         <ReadBrakeSwitch>0x21,0x03</ReadBrakeSwitch>
+         <RunPumpMotor>0x30,0x80,0x00,0xFF,0xBF</RunPumpMotor>
+         <WheelSpeedSensors>0x21,0x01</WheelSpeedSensors>
+         <SetEolTest>0x3B,0x9A,0x00,0x06,0x46,0x22,0x00,0x00,0xB0,0x31,0x30,0x31,0x03,0x80,0x27,0xA5</SetEolTest>
 
       </TransmitMessages>
       <TransmitInterpretations>
-         <EnterDiagnosticMode>0x10,0x89,0x34</EnterDiagnosticMode>
-         <RequestEolCodingSession>0x31,0xB8,0x01,0x05,0x8C</RequestEolCodingSession>
-         <StartEolSession>0x10,0x83,0x2E</StartEolSession>
-         <ReadEcuId>0x1A,0x9B,0x50</ReadEcuId>         
-         <ReadFaults>0x18,0x02,0xFF,0x00,0xB6</ReadFaults>
-         <ClearFaults>0x14,0xFF,0x00,0xAF</ClearFaults>         
-         <CheckBrakeSwitch>0x21,0x03,0xBF</CheckBrakeSwitch>
-         <WheelSpeedSensors>0x21,0x01,0xBD</WheelSpeedSensors>
-         <PumpMotorOn>0xFF,0xBF,0x0C</PumpMotorOn>
-         <LfRecovery>0xAB,0xBF,0xB8</LfRecovery>
-         <LfReduction>0xA8,0xBF,0xB5</LfReduction>
-         <RfReduction>0xA2,0xBF,0xAF</RfReduction>
-         <RfRecovery>0xAE,0xBF,0xBB</RfRecovery>
-         <LrReduction>0x8A,0xBF,0x97</LrReduction>         
-         <LrRecovery>0xBA,0xBF,0xC7</LrRecovery>
-         <RrReduction>0x2A,0xBF,0x37</RrReduction>
-         <RrRecovery>0xEA,0xBF,0xF7</RrRecovery>
-         <PumpMotorOff>0xFF,0xFF,0x0B</PumpMotorOff>
-         <ExitDiagnosticMode>0x20,0xBA</ExitDiagnosticMode>
-         <StopCommunication>0x82,0x1C</StopCommunication>
+         <BrakeSwitch>0x03</BrakeSwitch>
+         <DumpAllValves>0x00</DumpAllValves>
+         <EolSession>0x83</EolSession>
+         <EolTest>0x27,0xA5</EolTest>
+         <HoldAllValves>0xAA</HoldAllValves>
+         <LfRecovery>0xAB</LfRecovery>
+         <LfReduction>0xA8</LfReduction>
+         <LrRecovery>0xBA</LrRecovery>
+         <LrReduction>0x8A</LrReduction>
+         <PumpMotorOn>0xFF</PumpMotorOn>
+         <RecoverAllValves>0xFF</RecoverAllValves>
+         <RfRecovery>0xAE</RfRecovery>
+         <RfReduction>0xA2</RfReduction>
+         <RrRecovery>0xEA</RrRecovery>
+         <RrReduction>0x2A</RrReduction>
+         <WheelSpeedSensors>0x01</WheelSpeedSensors>
       </TransmitInterpretations>
       <ReplyMessages>
          <ClearFaultsResponse>
@@ -311,11 +279,6 @@
             <Reply_01>0x54,0xFF,0x00,0x??</Reply_01>
             <Reply_02>0x7F,0x14,0x??,0x??</Reply_02>
          </ClearFaultsResponse>
-         <!-- page 8. General MK70 ABS -->
-         <StartEolCodingSessionResponse>
-            <Reply_01 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x50,0x??</Reply_01>
-            <Reply_01>0x7F,0x??</Reply_01>         
-         </StartEolCodingSessionResponse>
          <DiagnosticSessionRequest>
             <Reply_00>0x50,0x??,0x??</Reply_00>
             <Reply_01>0x7F,0x10,0x??,0x??</Reply_01>

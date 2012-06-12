@@ -28,7 +28,7 @@
                 </HBox>
                 <Widget id="_rr" class="com.bepco.gui.NumberBox" width="140">
                     <DataSource tagname="MaxRollerSpeed" messagetype="Read" datarate="10" />
-                    <TextBoxConfig>
+                    <TextBoxConfig convertunits="false" format="{0,number,#.0}">
                         <Font size="60" name="sans-serif" style="plain"/>
                     </TextBoxConfig>
                 </Widget>

@@ -26,7 +26,7 @@
                         <Font size="45" name="sans-serif" style="bold"/>
                     </Label>
                 </HBox>
-                <Widget id="_rr" class="com.bepco.gui.NumberBox" width="140">
+                <Widget id="_rr" class="com.bepco.gui.NumberBox" width="270" border="false">
                     <DataSource tagname="MaxRollerSpeed" messagetype="Read" datarate="10" />
                     <TextBoxConfig convertunits="false" format="{0,number,#.0}">
                         <Font size="60" name="sans-serif" style="plain"/>

@@ -98,9 +98,11 @@
             // 
             // m_configFileLabel
             // 
+            this.m_configFileLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_configFileLabel.AutoSize = true;
             this.m_configFileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_configFileLabel.Location = new System.Drawing.Point(12, 154);
+            this.m_configFileLabel.Location = new System.Drawing.Point(12, 149);
             this.m_configFileLabel.Name = "m_configFileLabel";
             this.m_configFileLabel.Size = new System.Drawing.Size(122, 17);
             this.m_configFileLabel.TabIndex = 6;
@@ -108,17 +110,18 @@
             // 
             // m_configFileTextBox
             // 
-            this.m_configFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.m_configFileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_configFileTextBox.Location = new System.Drawing.Point(15, 174);
+            this.m_configFileTextBox.Location = new System.Drawing.Point(15, 169);
             this.m_configFileTextBox.Name = "m_configFileTextBox";
             this.m_configFileTextBox.Size = new System.Drawing.Size(306, 20);
             this.m_configFileTextBox.TabIndex = 7;
             // 
             // m_browseButton
             // 
-            this.m_browseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_browseButton.Location = new System.Drawing.Point(327, 171);
+            this.m_browseButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_browseButton.Location = new System.Drawing.Point(327, 166);
             this.m_browseButton.Name = "m_browseButton";
             this.m_browseButton.Size = new System.Drawing.Size(75, 23);
             this.m_browseButton.TabIndex = 8;
@@ -128,8 +131,10 @@
             // 
             // m_cancelButton
             // 
+            this.m_cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.m_cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.m_cancelButton.Location = new System.Drawing.Point(327, 212);
+            this.m_cancelButton.Location = new System.Drawing.Point(327, 207);
             this.m_cancelButton.Name = "m_cancelButton";
             this.m_cancelButton.Size = new System.Drawing.Size(75, 23);
             this.m_cancelButton.TabIndex = 9;
@@ -138,7 +143,9 @@
             // 
             // m_addButton
             // 
-            this.m_addButton.Location = new System.Drawing.Point(246, 212);
+            this.m_addButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_addButton.Location = new System.Drawing.Point(246, 207);
             this.m_addButton.Name = "m_addButton";
             this.m_addButton.Size = new System.Drawing.Size(75, 23);
             this.m_addButton.TabIndex = 10;
@@ -153,7 +160,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.m_cancelButton;
-            this.ClientSize = new System.Drawing.Size(410, 247);
+            this.ClientSize = new System.Drawing.Size(410, 245);
             this.ControlBox = false;
             this.Controls.Add(this.m_addButton);
             this.Controls.Add(this.m_cancelButton);

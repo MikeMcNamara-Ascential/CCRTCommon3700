@@ -35,8 +35,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brakeModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.iPAddressesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_logGroupBox = new System.Windows.Forms.GroupBox();
             this.m_logTextBox = new System.Windows.Forms.TextBox();
             this.m_vehicleInterfaceLabel = new System.Windows.Forms.Label();
@@ -49,7 +50,7 @@
             this.ConfigFile = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.m_qnxConnectLabel = new System.Windows.Forms.Label();
             this.m_qnxIpTextBox = new System.Windows.Forms.TextBox();
-            this.iPAddressesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vehicleCommunicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.m_logoPictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.m_logGroupBox.SuspendLayout();
@@ -108,10 +109,18 @@
             this.configurationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.brakeModulesToolStripMenuItem,
             this.logToolStripMenuItem,
-            this.iPAddressesToolStripMenuItem});
+            this.iPAddressesToolStripMenuItem,
+            this.vehicleCommunicationToolStripMenuItem});
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
             this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.configurationToolStripMenuItem.Text = "Configuration";
+            // 
+            // brakeModulesToolStripMenuItem
+            // 
+            this.brakeModulesToolStripMenuItem.Name = "brakeModulesToolStripMenuItem";
+            this.brakeModulesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.brakeModulesToolStripMenuItem.Text = "Brake Modules";
+            this.brakeModulesToolStripMenuItem.Click += new System.EventHandler(this.brakeModulesToolStripMenuItem_Click);
             // 
             // logToolStripMenuItem
             // 
@@ -120,12 +129,12 @@
             this.logToolStripMenuItem.Text = "Log Folder";
             this.logToolStripMenuItem.Click += new System.EventHandler(this.logToolStripMenuItem_Click);
             // 
-            // brakeModulesToolStripMenuItem
+            // iPAddressesToolStripMenuItem
             // 
-            this.brakeModulesToolStripMenuItem.Name = "brakeModulesToolStripMenuItem";
-            this.brakeModulesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.brakeModulesToolStripMenuItem.Text = "Brake Modules";
-            this.brakeModulesToolStripMenuItem.Click += new System.EventHandler(this.brakeModulesToolStripMenuItem_Click);
+            this.iPAddressesToolStripMenuItem.Name = "iPAddressesToolStripMenuItem";
+            this.iPAddressesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.iPAddressesToolStripMenuItem.Text = "IP Addresses";
+            this.iPAddressesToolStripMenuItem.Click += new System.EventHandler(this.iPAddressesToolStripMenuItem_Click);
             // 
             // m_logGroupBox
             // 
@@ -167,7 +176,7 @@
             // m_vehicleInterfaceComboBox
             // 
             this.m_vehicleInterfaceComboBox.FormattingEnabled = true;
-            this.m_vehicleInterfaceComboBox.Location = new System.Drawing.Point(138, 110);
+            this.m_vehicleInterfaceComboBox.Location = new System.Drawing.Point(152, 111);
             this.m_vehicleInterfaceComboBox.Name = "m_vehicleInterfaceComboBox";
             this.m_vehicleInterfaceComboBox.Size = new System.Drawing.Size(198, 21);
             this.m_vehicleInterfaceComboBox.TabIndex = 5;
@@ -254,12 +263,12 @@
             this.m_qnxIpTextBox.TabIndex = 8;
             this.m_qnxIpTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // iPAddressesToolStripMenuItem
+            // vehicleCommunicationToolStripMenuItem
             // 
-            this.iPAddressesToolStripMenuItem.Name = "iPAddressesToolStripMenuItem";
-            this.iPAddressesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.iPAddressesToolStripMenuItem.Text = "IP Addresses";
-            this.iPAddressesToolStripMenuItem.Click += new System.EventHandler(this.iPAddressesToolStripMenuItem_Click);
+            this.vehicleCommunicationToolStripMenuItem.Name = "vehicleCommunicationToolStripMenuItem";
+            this.vehicleCommunicationToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.vehicleCommunicationToolStripMenuItem.Text = "Vehicle Communication";
+            this.vehicleCommunicationToolStripMenuItem.Click += new System.EventHandler(this.vehicleCommunicationToolStripMenuItem_Click);
             // 
             // ModuleCommServerForm
             // 
@@ -315,6 +324,7 @@
         private System.Windows.Forms.Label m_qnxConnectLabel;
         private System.Windows.Forms.TextBox m_qnxIpTextBox;
         private System.Windows.Forms.ToolStripMenuItem iPAddressesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem vehicleCommunicationToolStripMenuItem;
 
     }
 }

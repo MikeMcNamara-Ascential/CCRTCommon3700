@@ -57,6 +57,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="VehicleCommServer">
+      <HintPath>..\VehicleCommServer\VehicleCommServer\VehicleCommServer\bin\Release\VehicleCommServer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddBrakeModuleForm.cs">

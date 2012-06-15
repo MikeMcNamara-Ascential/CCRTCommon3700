@@ -5,6 +5,7 @@ using System.Text;
 using Logger;
 using J2534ChannelLibrary;
 using J2534DotNet;
+using VehicleCommServer;
 
 namespace ModuleCommServer
 {
@@ -33,11 +34,38 @@ namespace ModuleCommServer
         }
 
         /// <summary>
+        /// Setup the vehicle communications.
+        /// </summary>
+        /// <returns>List of configured channels.</returns>
+        public List<String> ConfigureVehicleComms()
+        {
+            if (VehicleInterface == null)
+            {
+                VehicleInterface = new VehicleCommServerInterface();
+            }
+            VehicleInterface.OpenVehicleCommSettingsForm();
+            return VehicleInterface.GetCommChannelNames();
+        }
+
+        /// <summary>
         /// Connect to the J2534 device.
         /// </summary>
         public void ConnectJ2534Device()
+        {   // Create a new vehicle comm server interface
+            VehicleInterface = new VehicleCommServerInterface();
+        }
+
+        /// <summary>
+        /// Get the currently configured comm channels.
+        /// </summary>
+        /// <returns>Currently configured comm channels.</returns>
+        public List<String> GetCommChannels()
         {
-            ActiveJ2534Device.OpenJ2534Interface();
+            if (VehicleInterface == null)
+            {
+                VehicleInterface = new VehicleCommServerInterface();
+            }
+            return VehicleInterface.GetCommChannelNames();
         }
 
         /// <summary>
@@ -48,10 +76,12 @@ namespace ModuleCommServer
         /// <returns>Message received from the module.</returns>
         public List<Byte> SendModuleMessage(BrakeModule module, String messageTag)
         {
-            Boolean status = false;
-            List<Byte> data = new List<Byte>();
-            status = ActiveJ2534Device.GetECUData("1", module.MessageTable[messageTag], ref data);
-            return data;
+            List<Byte> response = new List<Byte>();
+            VehicleInterface.ClearResponseBuffer(ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice,
+                                                 module.CommBus);
+            VehicleInterface.GetECUData(ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice, 
+                                        module.CommBus, module.MessageTable[messageTag], ref response);
+            return response;
         }
 
 
@@ -70,6 +100,11 @@ namespace ModuleCommServer
         /// Logger object to use for logging data and events.
         /// </summary>
         private CcrtLogger Log { get; set; }
+
+        /// <summary>
+        /// Interface to the vehicle comm server object.
+        /// </summary>
+        private VehicleCommServerInterface VehicleInterface { get; set; }
 
 
         //-----------------------------------------------------------------------------------------

@@ -22,10 +22,11 @@ namespace ModuleCommServer
         /// Create a new brake module addition form and add the newly configured brake module.
         /// </summary>
         /// <param name="modules"></param>
-        public AddBrakeModuleForm(List<BrakeModule> modules)
+        public AddBrakeModuleForm(List<BrakeModule> modules, List<String> commChannelNames)
         {
             InitializeComponent();
             BrakeModules = modules;
+            CommChannels = commChannelNames;
             LoadComboBoxes();
         }
 
@@ -46,8 +47,10 @@ namespace ModuleCommServer
             m_protocolComboBox.Items.Clear();
             m_protocolComboBox.Items.Add("Keyword Protocol 2000");
             m_busComboBox.Items.Clear();
-            m_busComboBox.Items.Add(CcrtJ2534Channel.ConvertFromProtocolID(ProtocolID.CAN));
-            m_busComboBox.Items.Add(CcrtJ2534Channel.ConvertFromProtocolID(ProtocolID.ISO9141));
+            foreach (String name in CommChannels)
+            {
+                m_busComboBox.Items.Add(name);
+            }
             // Set the default item
             m_protocolComboBox.SelectedIndex = 0;
             m_busComboBox.SelectedIndex = 0;
@@ -64,6 +67,11 @@ namespace ModuleCommServer
         /// List of configured ABS modules.
         /// </summary>
         private List<BrakeModule> BrakeModules { get; set; }
+
+        /// <summary>
+        /// List of configured comm channels.
+        /// </summary>
+        private List<String> CommChannels { get; set; }
 
 
 

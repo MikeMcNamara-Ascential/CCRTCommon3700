@@ -21,10 +21,11 @@ namespace ModuleCommServer
         /// Create the brake module configuration form and display the configured modules.
         /// </summary>
         /// <param name="modules">Configured brake modules.</param>
-        public BrakeModuleConfigForm(List<BrakeModule> modules)
+        public BrakeModuleConfigForm(List<BrakeModule> modules, List<String> commChannels)
         {
             InitializeComponent();
             BrakeModules = modules;
+            CommChannels = commChannels;
             LoadAbsModuleComboBox();
             if (BrakeModules.Count > 0)
             {
@@ -98,6 +99,11 @@ namespace ModuleCommServer
         /// </summary>
         private List<BrakeModule> BrakeModules { get; set; }
 
+        /// <summary>
+        /// List of configured comm channels.
+        /// </summary>
+        private List<String> CommChannels { get; set; }
+
 
 
 
@@ -122,7 +128,7 @@ namespace ModuleCommServer
         /// <param name="e"></param>
         private void m_addButton_Click(object sender, EventArgs e)
         {
-            AddBrakeModuleForm frm = new AddBrakeModuleForm(BrakeModules);
+            AddBrakeModuleForm frm = new AddBrakeModuleForm(BrakeModules, CommChannels);
             frm.ShowDialog();
             LoadAbsModuleComboBox();
             m_absTypeComboBox.SelectedIndex = 0;

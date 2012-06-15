@@ -106,5 +106,17 @@ namespace ModuleCommServer.Properties {
                 this["QnxCcrtPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string VehicleCommChannel {
+            get {
+                return ((string)(this["VehicleCommChannel"]));
+            }
+            set {
+                this["VehicleCommChannel"] = value;
+            }
+        }
     }
 }

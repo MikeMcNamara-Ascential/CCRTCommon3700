@@ -17,6 +17,7 @@ using J2534ChannelLibrary;
 using J2534DotNet;
 using Logger;
 using QnxCcrtInterface;
+using VehicleCommServer;
 
 namespace ModuleCommServer
 {
@@ -38,6 +39,7 @@ namespace ModuleCommServer
                                     "ModuleCommServer", m_logTextBox,
                                     ModuleCommServer.Properties.Settings.Default.MaxLogFileCount);
             LoadAbsModuleInfo();
+            CommChannels = new List<String>();
             // Create a new Module interface object
             ModInterface = new ModuleInterface(Log);
             PopulateVehicleInterfaceDevices();
@@ -310,6 +312,11 @@ namespace ModuleCommServer
         private BrakeModule ActiveBrakeModule { get; set; }
 
         /// <summary>
+        /// List of configured comm channels.
+        /// </summary>
+        private List<String> CommChannels { get; set; }
+
+        /// <summary>
         /// Thread to handle the connection to the QNX CCRT system.
         /// This will allow the connection to be attempted in the background.
         /// </summary>
@@ -352,7 +359,7 @@ namespace ModuleCommServer
         /// <param name="e"></param>
         private void brakeModulesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            BrakeModuleConfigForm frm = new BrakeModuleConfigForm(BrakeModules);
+            BrakeModuleConfigForm frm = new BrakeModuleConfigForm(BrakeModules, ModInterface.GetCommChannels());
             frm.ShowDialog();
             SaveBrakeModuleConfig();
             DisplayConfiguredAbsModules();
@@ -401,6 +408,19 @@ namespace ModuleCommServer
             ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice = m_vehicleInterfaceComboBox.SelectedItem.ToString();
             ModuleCommServer.Properties.Settings.Default.Save();
             ModInterface.ChangeActiveJ2534Device();
+        }
+
+        /// <summary>
+        /// Configure the vehicle communications.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void vehicleCommunicationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (ModInterface != null)
+            {
+                CommChannels = ModInterface.ConfigureVehicleComms();
+            }
         }
 
     }

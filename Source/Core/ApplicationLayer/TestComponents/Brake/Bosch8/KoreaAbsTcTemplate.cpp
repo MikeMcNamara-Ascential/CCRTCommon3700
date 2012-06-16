@@ -216,9 +216,26 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LFSensorTest(void)
         UpdatePrompts();        // "Shift to neutral and release brake"
         BposSleep(startDelay);     // give driver time to shift
 
+        if(!SystemRead(MACHINE_TYPE).compare("3700"))
+        {
+            // Store the oringinal drive axle
+            string driveAxle(SystemRead(DRIVE_AXLE_TAG));
+            OriginalDriveAxle(&driveAxle);
+            // Switch the drive axle, but make sure we believe in the real drive axle
+            SystemWrite(DRIVE_AXLE_TAG, string(REAR_WHEEL_DRIVE_VALUE));
+            BposSleep(1000);
+            SetData(DRIVE_AXLE_TAG, OriginalDriveAxle());
         // Command all rolls to speed mode
         m_MotorController.Write(std::string("LeftFrontMotorMode"),std::string("Speed"), false);
         m_MotorController.Write(std::string("RightFrontMotorMode"),std::string("Speed"), false);
+            // Command the left front roll to the sensor test speed
+            m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+            m_MotorController.Write(std::string("RightFrontSpeedValue"),std::string("0"), true);
+        }
+        else
+        {   // Command all rolls to speed mode
+            m_MotorController.Write(std::string("LeftFrontMotorMode"),std::string("Speed"), false);
+            m_MotorController.Write(std::string("RightFrontMotorMode"),std::string("Speed"), false);
         m_MotorController.Write(std::string("LeftRearMotorMode"),std::string("Speed"), false);
         m_MotorController.Write(std::string("RightRearMotorMode"),std::string("Speed"), false);
         // Command the left front roll to the sensor test speed
@@ -226,6 +243,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LFSensorTest(void)
         m_MotorController.Write(std::string("RightFrontSpeedValue"),std::string("0"), false);
         m_MotorController.Write(std::string("LeftRearSpeedValue"),std::string("0"), false);
         m_MotorController.Write(std::string("RightRearSpeedValue"),std::string("0"), true);
+        }
 
         std::string tag, value;
         while (m_MotorController.GetNext(tag, value) > 0)
@@ -279,7 +297,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LFSensorTest(void)
         {
             SendTestResultWithDetail(testResult,testDescription,
                                      GetFaultCode(testDescription),
-                                     GetFaultName(testDescription),
+                                     "LeftFrontSensorFail",
                                      GetFaultDescription(testDescription));
         }
     }
@@ -309,11 +327,20 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RFSensorTest(void)
     {
         UpdatePrompts();        // "Shift to neutral and release brake"
 
+        if(!SystemRead(MACHINE_TYPE).compare("3700"))
+        {
+            // Command the right front roll to the sensor test speed
+            m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+            m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, true);
+        }
+        else
+        {
         // Command the right front roll to the sensor test speed
         m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
         m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, false);
         m_MotorController.Write(std::string("LeftRearSpeedValue"),std::string("0"), false);
         m_MotorController.Write(std::string("RightRearSpeedValue"),std::string("0"), true);
+        }
 
         std::string tag, value;
         while (m_MotorController.GetNext(tag, value) > 0)
@@ -368,7 +395,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RFSensorTest(void)
         {
             SendTestResultWithDetail(testResult,testDescription,
                                      GetFaultCode(testDescription),
-                                     GetFaultName(testDescription),
+                                     "RightFrontSensorFail",
                                      GetFaultDescription(testDescription));
         }
     }
@@ -398,11 +425,30 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LRSensorTest(void)
     {
         UpdatePrompts();        // "Shift to neutral and release brake"
 
-        // Command the right front roll to the sensor test speed
+        if(!SystemRead(MACHINE_TYPE).compare("3700"))
+        {
+            // Switch the drive axle - set to zero speed first so we do not trip the drives
+            m_MotorController.Write("LeftFrontSpeedValue", "0", false);
+            m_MotorController.Write("RightFrontSpeedValue", "0", true);
+            BposSleep(2000);
+            SystemWrite(DRIVE_AXLE_TAG, string(FRONT_WHEEL_DRIVE_VALUE));
+            BposSleep(1000);   //Wait for the relay to switch
+            SetData(DRIVE_AXLE_TAG, OriginalDriveAxle());
+            // Command all rolls to speed mode
+            m_MotorController.Write(std::string("LeftFrontMotorMode"),std::string("Speed"), false);
+            m_MotorController.Write(std::string("RightFrontMotorMode"),std::string("Speed"), false);
+            // Command the left front roll to the sensor test speed
+            m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+            m_MotorController.Write(std::string("RightFrontSpeedValue"),std::string("0"), true);
+        }
+        else
+        {
+            // Command the left rear roll to the sensor test speed
         m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
         m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, false);
         m_MotorController.Write(std::string("LeftRearSpeedValue"),sensorTestSpeed, false);
         m_MotorController.Write(std::string("RightRearSpeedValue"),std::string("0"), true);
+        }
 
         std::string tag, value;
         while (m_MotorController.GetNext(tag, value) > 0)
@@ -410,7 +456,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LRSensorTest(void)
             Log("Tag: %s, value: %s\n", tag.c_str(), value.c_str());
         }
 
-        // wait for the right front roll to reach the sensor test speed
+        // wait for the left rear roll to reach the sensor test speed
         rollSpeeds[ 2] = 0;
         while (rollSpeeds[2] < (sensorTestSpeedVal - 2))
         {
@@ -456,7 +502,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::LRSensorTest(void)
         {
             SendTestResultWithDetail(testResult,testDescription,
                                      GetFaultCode(testDescription),
-                                     GetFaultName(testDescription),
+                                     "LeftRearSensorFail",
                                      GetFaultDescription(testDescription));
         }
     }
@@ -484,11 +530,20 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RRSensorTest(void)
     {
         UpdatePrompts();        // "Shift to neutral and release brake"
 
+        if(!SystemRead(MACHINE_TYPE).compare("3700"))
+        {
         // Command the right front roll to the sensor test speed
         m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+            m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, true);
+        }
+        else
+        {
+            // Command the right rear roll to the sensor test speed
+            m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
         m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, false);
         m_MotorController.Write(std::string("LeftRearSpeedValue"),sensorTestSpeed, false);
         m_MotorController.Write(std::string("RightRearSpeedValue"),sensorTestSpeed, true);
+        }
 
         std::string tag, value;
         while (m_MotorController.GetNext(tag, value) > 0)
@@ -496,7 +551,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RRSensorTest(void)
             Log("Tag: %s, value: %s\n", tag.c_str(), value.c_str());
         }
 
-        // wait for the right front roll to reach the sensor test speed
+        // wait for the right rear roll to reach the sensor test speed
         rollSpeeds[ 3] = 0;
         while (rollSpeeds[3] < (sensorTestSpeedVal - 1))
         {
@@ -528,8 +583,37 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RRSensorTest(void)
     {
         SendTestResultWithDetail(testResult,testDescription,
                                  GetFaultCode(testDescription),
-                                 GetFaultName(testDescription),
+                                 "RightRearSensorFail",
                                  GetFaultDescription(testDescription));
+    }
+
+    if(GetParameterBool("ResetAxleAfterIndividualSensorTest"))
+    {
+        // command the drives to zero torque    
+        Log(LOG_DEV_DATA, "commanding torque to zero\n");
+        SystemCommand(COMMAND_TORQUE, 0);    
+    
+        // command the drives to zero speed 
+        Log(LOG_DEV_DATA, "commanding speed to zero\n");
+        SystemCommand(COMMAND_SPEED, 0);
+    
+        if(!SystemRead(MACHINE_TYPE).compare("3700"))
+        {
+            Log(LOG_DEV_DATA, "Returning DriveAxle to %s\n",OriginalDriveAxle().c_str());
+            SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
+            BposSleep(500);
+        }
+        // Set motors back to zero speed
+        m_MotorController.Write("LeftFrontMotorMode", BOOST_MODE, false);
+        m_MotorController.Write("RightFrontMotorMode", BOOST_MODE, false);
+        m_MotorController.Write("LeftRearMotorMode", BOOST_MODE, false);
+        m_MotorController.Write("RightRearMotorMode", BOOST_MODE, false);
+        m_MotorController.Write("LeftFrontSpeedValue", "0", false);
+        m_MotorController.Write("RightFrontSpeedValue", "0", false);
+        m_MotorController.Write("LeftRearSpeedValue", "0", false);
+        m_MotorController.Write("RightRearSpeedValue", "0", true);
+
+        RemovePrompts();
     }
 
     Log(LOG_DEV_DATA, "KoreaAbsTcTemplate::RRSensorTest - Exit %s\n",testResult.c_str());
@@ -639,6 +723,13 @@ string KoreaAbsTcTemplate<VehicleModuleType>::SensorQualityTest(void)
     // command the drives to zero speed 
     Log(LOG_DEV_DATA, "commanding speed to zero\n");
     SystemCommand(COMMAND_SPEED, 0);
+
+    if(!SystemRead(MACHINE_TYPE).compare("3700"))
+    {
+        Log(LOG_DEV_DATA, "Returning DriveAxle to %s\n",OriginalDriveAxle().c_str());
+        SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
+        BposSleep(500);
+    }
 
     // wait for zerospeed
     while ((ReadSubscribeData(GetDataTag("Zerospeed")) == "1") && 
@@ -1824,5 +1915,13 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeValveCross(void)
     }
 
     return(status);
+}
+
+//=============================================================================
+template <class VehicleModuleType>
+string& KoreaAbsTcTemplate<VehicleModuleType>::OriginalDriveAxle(const string *driveAxle /*= NULL*/)
+{
+    if(driveAxle != NULL)  m_originalDriveAxle = *driveAxle;
+    return m_originalDriveAxle;
 }
 

@@ -249,12 +249,27 @@ public:
      */
     virtual BEP_STATUS_TYPE UDSReadFaults(FaultVector_t &faultCodes);
 
+    /**
+     * Method used to perform an ABS reduction or recovery. The Bosch8 module responds to 
+     * the valve actuation commands with a speed delta for all 4 wheels. We can use this
+     * speed data to check for sensor cross.
+     
+     * @param methodName The method to use
+     * @param speeds Buffer to fill with the speed delta values
+     * @throws ModuleException if the method cannot be found, or the
+     *                         method we call throws a module exception
+     * @return The status of the operation
+     */
+    virtual BEP_STATUS_TYPE ABSValveActuation(string methodName, WheelSpeeds_t &speedDeltas) throw(ModuleException);
+
     /** 
      * Method to read the faults from the module
      * @param faultCodes Vector to store fault codes fromt the module
      * @return The status of the operation
      */ 
     virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
+
+    virtual BEP_STATUS_TYPE ProgramVIN(string moduleVin = "");
 
 protected:
 
@@ -268,18 +283,6 @@ protected:
      */
     virtual bool InitializeHook(const XmlNode *configNode);
 
-    /**
-     * Method used to perform an ABS reduction or recovery. The Bosch8 module responds to 
-     * the valve actuation commands with a speed delta for all 4 wheels. We can use this
-     * speed data to check for sensor cross.
-     
-     * @param methodName The method to use
-     * @param speeds Buffer to fill with the speed delta values
-     * @throws ModuleException if the method cannot be found, or the
-     *                         method we call throws a module exception
-     * @return The status of the operation
-     */
-    virtual BEP_STATUS_TYPE ABSValveActuation(string methodName, WheelSpeeds_t &speedDeltas) throw(ModuleException);
 
     /**
      * <p><b>Description:</b><br>

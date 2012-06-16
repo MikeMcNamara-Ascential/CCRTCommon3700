@@ -905,3 +905,34 @@ bool Bosch8Module<ProtocolFilterType>::GetDTCFormatUDS(void)
     return m_dtcFormatUds;
 }
 
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::ProgramVIN(string moduleVin)
+{   
+    BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
+    SerialArgs_t vinToWrite;
+    Log(LOG_FN_ENTRY, "Bosch8Module::ProgramVIN() - Enter\n");
+    if(moduleVin.size())
+    {// add VIN to serial args
+        for(int ind=0; ind < moduleVin.size(); ind++)
+        {
+            vinToWrite.push_back((UINT8)moduleVin.at(ind));
+        }
+        status=CommandModule("WriteVIN",&vinToWrite);
+    }
+    else
+    {// nothing to do with argument "moduleVin" if it is empty.
+     // Tell module to learn VIN from bus
+        status=CommandModule("LearnVIN");
+    }
+    if (status == BEP_STATUS_SUCCESS)
+    {
+        Log(LOG_DEV_DATA, "Vehicle VIN learned in module successfully");
+    }
+    else
+    {
+        Log(LOG_ERRORS, "Failed to learn Vehicle VIN in the module - status: %s",ConvertStatusToResponse(status).c_str());
+    }
+    Log(LOG_FN_ENTRY, "Bosch8Module::ProgramVIN() - Exit\n");
+    return status;
+}
+

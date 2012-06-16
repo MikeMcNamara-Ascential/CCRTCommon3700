@@ -124,7 +124,7 @@
          <ReverseTestSpeedMin Units="MPH">5.0</ReverseTestSpeedMin>
          <ReverseTestSpeedMax Units="MPH">10.0</ReverseTestSpeedMax>
          <!-- Vehicle checkout parameters -->
-         <VehicleCheckOutAccelerationCycles>5</VehicleCheckOutAccelerationCycles>
+         <VehicleCheckOutAccelerationCycles>2</VehicleCheckOutAccelerationCycles>
          <VehicleCheckoutTargetSpeed Units="mph">55</VehicleCheckoutTargetSpeed>
          <VehicleCheckoutTargetSpeedRange Units="mph">55 65</VehicleCheckoutTargetSpeedRange>
          <PromptDelay>3000</PromptDelay>

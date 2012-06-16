@@ -20,7 +20,7 @@
          <BytesPerDTC>4</BytesPerDTC>
          <FirstDTCByteIndex>3</FirstDTCByteIndex>
          <NumberOfFaultRegisters>6</NumberOfFaultRegisters>
-         <NoFaultsPresentValue></NoFaultsPresentValue>
+         <NoFaultsPresentValue/>
       </DTCData>
       <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
       <KeepAlivePriority>10</KeepAlivePriority>
@@ -107,7 +107,7 @@
             <ReplyInterpretation/>
          </ActuateLeftFrontRecovery>
          <ActuateLeftFrontReduction>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitMessage>ActuatorOperationT2</TransmitMessage>
             <TransmitInterpretation>ActivateLFOutletValve</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
@@ -119,7 +119,7 @@
             <ReplyInterpretation/>
          </ActuateLeftRearRecovery>
          <ActuateLeftRearReduction>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitMessage>ActuatorOperationT2</TransmitMessage>
             <TransmitInterpretation>ActivateLROutletValve</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
@@ -131,7 +131,7 @@
             <ReplyInterpretation/>
          </ActuateRightFrontRecovery>
          <ActuateRightFrontReduction>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitMessage>ActuatorOperationT2</TransmitMessage>
             <TransmitInterpretation>ActivateRFOutletValve</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
@@ -143,7 +143,7 @@
             <ReplyInterpretation/>
          </ActuateRightRearRecovery>
          <ActuateRightRearReduction>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitMessage>ActuatorOperationT2</TransmitMessage>
             <TransmitInterpretation>ActivateRROutletValve</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
@@ -184,6 +184,12 @@
             <ReplyMessage>CommunicationControl</ReplyMessage>
             <ReplyInterpretation/>
          </DisableECUTransmission>
+         <DisableElectricVacuumPump>
+            <TransmitMessage>ElectricVacuumPump</TransmitMessage>
+            <TransmitInterpretation>DisableEVP</TransmitInterpretation>
+            <ReplyMessage>ElectricVacuumPump</ReplyMessage>
+            <ReplyInterpretation/>
+         </DisableElectricVacuumPump>
          <DisableSpeedLimit>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
             <TransmitInterpretation>DisableDiagnosticSpeedLimit</TransmitInterpretation>
@@ -202,6 +208,12 @@
             <ReplyMessage>CommunicationControl</ReplyMessage>
             <ReplyInterpretation/>
          </EnableECUTransmission>
+         <EnableElectricVacuumPump>
+            <TransmitMessage>ElectricVacuumPump</TransmitMessage>
+            <TransmitInterpretation>EnableEVP</TransmitInterpretation>
+            <ReplyMessage>ElectricVacuumPump</ReplyMessage>
+            <ReplyInterpretation/>
+         </EnableElectricVacuumPump>
          <EnableSpeedLimit>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
             <TransmitInterpretation>EnableDiagnosticSpeedLimit</TransmitInterpretation>
@@ -226,6 +238,12 @@
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </EvacAndFill>
+         <HoldAllValves>
+            <TransmitMessage>MultipleValveActuation</TransmitMessage>
+            <TransmitInterpretation>AllOutletValvesOff</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </HoldAllValves>
          <IdentifySessionType>
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>IdentifySessionType</TransmitInterpretation>
@@ -238,6 +256,12 @@
             <ReplyMessage>RoutineResults</ReplyMessage>
             <ReplyInterpretation/>
          </IsEvacAndFillComplete>
+         <LearnVIN>
+            <TransmitMessage>LearnVIN</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>LearnVIN</ReplyMessage>
+            <ReplyInterpretation/>
+         </LearnVIN>
          <ModuleKeepAlive>
             <TransmitMessage>TesterPresent</TransmitMessage>
             <TransmitInterpretation/>
@@ -312,6 +336,12 @@
             <ReplyMessage>ReadVINNumber</ReplyMessage>
             <ReplyInterpretation>VINNumber</ReplyInterpretation>
          </ReadVIN>
+         <RecoverAllValves>
+            <TransmitMessage>MultipleValveActuation</TransmitMessage>
+            <TransmitInterpretation>AllInletValvesOff</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RecoverAllValves>
          <ResetModule>
             <TransmitMessage>ResetModule</TransmitMessage>
             <TransmitInterpretation/>
@@ -411,14 +441,17 @@
       </VehicleMessages>
       <TransmitMessages>
          <!--For actuating one valve or for single-corner reduction/recovery-->
-         <ActuatorOperation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x01,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActuatorOperation>
+         <ActuatorOperation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x00,0x00,0x00,0x00,0x1E,0x00,0x??,0x00,0x??,0x00,0x00,0x00,0x00</ActuatorOperation>
+         <ActuatorOperationT2>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x00,0x00,0x00,0x00,0x1E,0x00,0x??,0x00,0x??,0x00,0x00,0x00,0x00</ActuatorOperationT2>
          <!--For turning all/multiple valves on/off-->
          <MultipleValveActuation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x01,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??</MultipleValveActuation>
          <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
          <CommunicationControl>0x28,0x??,0x01</CommunicationControl>
          <ControlDTCSetting>0x85,0x??</ControlDTCSetting>
          <EnterDiagnosticMode>0x10,0x??</EnterDiagnosticMode>
+         <ElectricVacuumPump>0x2F,0xD0,0x0D,0x03,0x??</ElectricVacuumPump>
          <IOControl>0x2F,0x??,0x??,0x00</IOControl>
+         <LearnVIN>0x31,0x01,0x04,0x04</LearnVIN>
          <ReadECUId>0x22,0x??,0x??</ReadECUId>
          <ReadFaults>0x19,0x02,0xFF</ReadFaults>
          <ResetModule>0x11,0x03</ResetModule>
@@ -436,15 +469,15 @@
          <ActivateControlValveUSV2>0x64,0x50,0x00,0x00</ActivateControlValveUSV2>
          <ActivateHighPressureControlValveHSV1>0x64,0x52,0x00,0x00</ActivateHighPressureControlValveHSV1>
          <ActivateHighPressureControlValveHSV2>0x64,0x54,0x00,0x00</ActivateHighPressureControlValveHSV2>
-         <ActivateLFInletValve>0x64,0x30,0x00,0x32</ActivateLFInletValve>
-         <ActivateLFOutletValve>0x64,0x32,0x00,0x30</ActivateLFOutletValve>
-         <ActivateLRInletValve>0x64,0x3C,0x00,0x3E</ActivateLRInletValve>
-         <ActivateLROutletValve>0x64,0x3E,0x00,0x3C</ActivateLROutletValve>
+         <ActivateLFInletValve>0x00,0x30,0x64,0x30</ActivateLFInletValve>
+         <ActivateLFOutletValve>0x64,0x32,0x00,0x32</ActivateLFOutletValve>
+         <ActivateLRInletValve>0x00,0x3C,0x64,0x3C</ActivateLRInletValve>
+         <ActivateLROutletValve>0x64,0x3E,0x00,0x3E</ActivateLROutletValve>
          <ActivatePumpMotor>0x64,0x22,0x00,0x00</ActivatePumpMotor>
-         <ActivateRFInletValve>0x64,0x34,0x00,0x00</ActivateRFInletValve>
-         <ActivateRFOutletValve>0x64,0x36,0x00,0x00</ActivateRFOutletValve>
-         <ActivateRRInletValve>0x64,0x38,0x00,0x00</ActivateRRInletValve>
-         <ActivateRROutletValve>0x64,0x3A,0x00,0x00</ActivateRROutletValve>
+         <ActivateRFInletValve>0x00,0x34,0x64,0x34</ActivateRFInletValve>
+         <ActivateRFOutletValve>0x64,0x36,0x00,0x36</ActivateRFOutletValve>
+         <ActivateRRInletValve>0x00,0x38,0x64,0x38</ActivateRRInletValve>
+         <ActivateRROutletValve>0x64,0x3A,0x00,0x3A</ActivateRROutletValve>
          <ActuatorTestId>0x04</ActuatorTestId>
          <AllInletValvesOff>0x00,0x30,0x00,0x34,0x00,0x38,0x00,0x3C</AllInletValvesOff>
          <AllInletValvesOn>0x64,0x30,0x64,0x34,0x64,0x38,0x64,0x3C</AllInletValvesOn>
@@ -454,12 +487,14 @@
          <DeactivateControlValveUSV1>0x00,0x4E,0x00,0x00</DeactivateControlValveUSV1>
          <DeactivateControlValveUSV2>0x00,0x50,0x00,0x00</DeactivateControlValveUSV2>
          <DeactivateHighPressureControlValveHSV1>0x00,0x52,0x00,0x00</DeactivateHighPressureControlValveHSV1>
-         <DeactivateHighPressureControlValveHSV2>0x00,0x540x00,0x00</DeactivateHighPressureControlValveHSV2>
+         <DeactivateHighPressureControlValveHSV2>0x00,0x54,0x00,0x00</DeactivateHighPressureControlValveHSV2>
          <DeactivatePumpMotor>0x00,0x22,0x00,0x00</DeactivatePumpMotor>
          <DefaultSession>0x01</DefaultSession>
-         <DisableDiagnosticSpeedLimit>0x68,0x00,0x00,0x00</DisableDiagnosticSpeedLimit>
+         <DisableDiagnosticSpeedLimit>0x00,0x68,0x00,0x00</DisableDiagnosticSpeedLimit>
+         <DisableEVP>0x00</DisableEVP>
+         <EnableEVP>0x01</EnableEVP>
          <ElectricalVacuumPump>0xD0,0x0D</ElectricalVacuumPump>
-         <EnableDiagnosticSpeedLimit>0x68,0x01,0x00,0x00</EnableDiagnosticSpeedLimit>
+         <EnableDiagnosticSpeedLimit>0x01,0x68,0x00,0x00</EnableDiagnosticSpeedLimit>
          <EnableRxAndDisableTx>0x01</EnableRxAndDisableTx>
          <EnableRxAndEnableTx>0x00</EnableRxAndEnableTx>
          <EvacAndFill>0x00,0x0A,0x05</EvacAndFill>
@@ -468,6 +503,7 @@
          <ExtendedSession>0x03</ExtendedSession>
          <HardwareVersion>0xF1,0x93</HardwareVersion>
          <IdentifySessionType>0xF1,0x86</IdentifySessionType>
+         <LearnVIN>0x04,0x04</LearnVIN>
          <PartNumber>0xF1,0x91</PartNumber>
          <ReprogrammingSession>0x02</ReprogrammingSession>
          <ResumeSettingDTC>0x01</ResumeSettingDTC>
@@ -506,6 +542,10 @@
             <Reply_01>0xC5,0x02</Reply_01>
             <Reply_02>0x7F,0x85,0x??</Reply_02>
          </ControlDTCSetting>
+         <ElectricVacuumPump>
+            <Reply_00>0x6F,0xD0,0x0D,0x03</Reply_00>
+            <Reply_01>0x7F,0x2F,0x??</Reply_01>
+         </ElectricVacuumPump>
          <EnterDiagnosticMode>
             <Reply_00 lengthType="Variable">0x50,0x??,0x??</Reply_00>
             <Reply_04>0x7F,0x10,0x??</Reply_04>
@@ -518,6 +558,11 @@
             <Reply_00>0x6F,0xD0,0x0D,0x00</Reply_00>
             <Reply_01>0x7F,0x2F,0x??</Reply_01>
          </IOControl>
+         <LearnVIN>
+            <Reply_00>0x71,0x01,0x04,0x04,0x00</Reply_00>
+            <Reply_01>0x71,0x01,0x04,0x04,0x01</Reply_01>
+            <Reply_02>0x7F,0x31,0x??</Reply_02>
+         </LearnVIN>
          <ReadFaults>
             <Reply_00 lengthType="Variable">0x59,0x??</Reply_00>
             <Reply_01>0x7F,0x19</Reply_01>
@@ -546,7 +591,7 @@
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadSoftwareVersion>
          <ReadVINNumber>
-            <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0xF1,0x90,0x??</Reply_00>
+            <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0xF1,0xA0,0x??</Reply_00>
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadVINNumber>
          <ReadWheelSpeeds>
@@ -724,7 +769,7 @@
          <SensorSpeeds>
             <Vector type="fixed">
                <Subvector00 Description="Front Left Speed">
-                  <Float scale="0.0078125" offset="0">
+                  <Float scale="0.03495213" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
                         <Byte1 input_index="3" mask="0xFF" output_index="1"/>
@@ -733,7 +778,7 @@
                   </Float>
                </Subvector00>
                <Subvector01 Description="Front Right Speed">
-                  <Float scale="0.0078125" offset="0">
+                  <Float scale="0.03495213" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
                         <Byte1 input_index="5" mask="0xFF" output_index="1"/>
@@ -742,7 +787,7 @@
                   </Float>
                </Subvector01>
                <Subvector02 Description="Rear Left Speed">
-                  <Float scale="0.0078125" offset="0">
+                  <Float scale="0.03495213" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
                         <Byte1 input_index="7" mask="0xFF" output_index="1"/>
@@ -751,7 +796,7 @@
                   </Float>
                </Subvector02>
                <Subvector03 Description="Rear Right Speed">
-                  <Float scale="0.0078125" offset="0">
+                  <Float scale="0.03495213" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
                         <Byte1 input_index="9" mask="0xFF" output_index="1"/>
@@ -762,7 +807,7 @@
             </Vector>
          </SensorSpeeds>
          <LFSensorSpeed>
-            <Float scale="0.0078125" offset="0">
+            <Float scale="0.03495213" offset="0">
                 <!--km/h-->
                 <Integer type="unsigned" bits="16" scale="1" offset="0">
                     <Byte1 input_index="3" mask="0xFF" output_index="1"/>
@@ -771,7 +816,7 @@
             </Float>
          </LFSensorSpeed>
          <RFSensorSpeed>
-             <Float scale="0.0078125" offset="0">
+             <Float scale="0.03495213" offset="0">
                 <!--km/h-->
                 <Integer type="unsigned" bits="16" scale="1" offset="0">
                     <Byte1 input_index="5" mask="0xFF" output_index="1"/>
@@ -780,7 +825,7 @@
             </Float>
          </RFSensorSpeed>
          <LRSensorSpeed>
-             <Float scale="0.0078125" offset="0">
+             <Float scale="0.03495213" offset="0">
                 <!--km/h-->
                 <Integer type="unsigned" bits="16" scale="1" offset="0">
                     <Byte1 input_index="7" mask="0xFF" output_index="1"/>
@@ -789,7 +834,7 @@
             </Float>
          </LRSensorSpeed>
          <RRSensorSpeed>
-             <Float scale="0.0078125" offset="0">
+             <Float scale="0.03495213" offset="0">
                 <!--km/h-->
                 <Integer type="unsigned" bits="16" scale="1" offset="0">
                     <Byte1 input_index="9" mask="0xFF" output_index="1"/>

@@ -587,6 +587,35 @@ string KoreaAbsTcTemplate<VehicleModuleType>::RRSensorTest(void)
                                  GetFaultDescription(testDescription));
     }
 
+    if(GetParameterBool("ResetAxleAfterIndividualSensorTest"))
+    {
+        // command the drives to zero torque    
+        Log(LOG_DEV_DATA, "commanding torque to zero\n");
+        SystemCommand(COMMAND_TORQUE, 0);    
+    
+        // command the drives to zero speed 
+        Log(LOG_DEV_DATA, "commanding speed to zero\n");
+        SystemCommand(COMMAND_SPEED, 0);
+    
+        if(!SystemRead(MACHINE_TYPE).compare("3700"))
+        {
+            Log(LOG_DEV_DATA, "Returning DriveAxle to %s\n",OriginalDriveAxle().c_str());
+            SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
+            BposSleep(500);
+        }
+        // Set motors back to zero speed
+        m_MotorController.Write("LeftFrontMotorMode", BOOST_MODE, false);
+        m_MotorController.Write("RightFrontMotorMode", BOOST_MODE, false);
+        m_MotorController.Write("LeftRearMotorMode", BOOST_MODE, false);
+        m_MotorController.Write("RightRearMotorMode", BOOST_MODE, false);
+        m_MotorController.Write("LeftFrontSpeedValue", "0", false);
+        m_MotorController.Write("RightFrontSpeedValue", "0", false);
+        m_MotorController.Write("LeftRearSpeedValue", "0", false);
+        m_MotorController.Write("RightRearSpeedValue", "0", true);
+
+        RemovePrompts();
+    }
+
     Log(LOG_DEV_DATA, "KoreaAbsTcTemplate::RRSensorTest - Exit %s\n",testResult.c_str());
 
     return(testResult);

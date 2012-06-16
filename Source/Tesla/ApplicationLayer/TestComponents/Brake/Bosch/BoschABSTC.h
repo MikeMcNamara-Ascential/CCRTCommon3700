@@ -382,6 +382,8 @@ protected:
      *      </ul>
      */
     virtual string RunPumpMotor(void);
+    virtual string EnableElectricVacuumPump(void);
+    virtual string DisableElectricVacuumPump(void);
 
 
     /**
@@ -615,6 +617,10 @@ protected:
      * @return Result of burnishing the brakes.
      */
     string StaticBrakeBurnishCycle(void);
+    string ElectricParkBrakeBurnishCycle(void);
+    string PerformElectricParkBrakeBurnishCycle(void);
+
+    string ProgramVIN(void);
 
 private:
     /**

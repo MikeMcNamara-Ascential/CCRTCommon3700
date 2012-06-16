@@ -174,6 +174,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(step == "WarningLight") status = WarningLight();
         else if(step == "StartAbsTest")  status = StartAbsTest();
         else if(step == "CheckModuleType") status = CheckModuleType();
+        else if(step == "ProgramVIN") status = ProgramVIN();
         else if(step == "RunPumpMotor")
         {
             status = RunPumpMotor();
@@ -195,7 +196,10 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         // Perform the brake burnish cycle
         else if(!GetTestStepName().compare("BrakeBurnishCycle"))         status = BrakeBurnishCycle();
         else if(!GetTestStepName().compare("StaticBrakeBurnishCycle"))   status = StaticBrakeBurnishCycle();
+        else if(!GetTestStepName().compare("ElectricParkBrakeBurnishCycle"))   status = ElectricParkBrakeBurnishCycle();
         else if(!GetTestStepName().compare("AccelerateToBrakeSpeed"))    status = AccelerateToBrakeSpeed();
+        else if(!GetTestStepName().compare("EnableElectricVacuumPump"))   status = EnableElectricVacuumPump();
+        else if(!GetTestStepName().compare("DisableElectricVacuumPump"))   status = DisableElectricVacuumPump();
         // Call the base class to handle the test step
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
@@ -1825,29 +1829,24 @@ string BoschABSTC<ModuleType>::SensorQualityTest(void)
     string testResult(BEP_TESTING_RESPONSE);
     Log(LOG_FN_ENTRY, "BoschABSTC::SensorQualityTest() - Enter");
     if(!ShortCircuitTestStep())
-    {   // Instruct the operator to shift to Neutral with foot off brake
-        DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
-        DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
-        // Allow operator time to make adjustments
-        BposSleep(GetParameterInt("SensorTestStartDelay"));
-        // Place each motor into speed mode
-        m_MotorController.Write("LeftFrontMotorMode", SPEED_MODE, false);
-        m_MotorController.Write("RightFrontMotorMode", SPEED_MODE, false);
-        m_MotorController.Write("LeftRearMotorMode", SPEED_MODE, false);
-        m_MotorController.Write("RightRearMotorMode", SPEED_MODE, false);
-        m_MotorController.Write("LeftFrontSpeedValue", GetParameter("SensorTestLfSpeed"), false);
-        m_MotorController.Write("RightFrontSpeedValue", GetParameter("SensorTestRfSpeed"), false);
-        m_MotorController.Write("LeftRearSpeedValue", GetParameter("SensorTestLrSpeed"), false);
-        m_MotorController.Write("RightRearSpeedValue", GetParameter("SensorTestRrSpeed"), true);
-        // Wait a bit for the rollers to start accelerating
-        BposSleep(GetParameterInt("SensorTestStartDelay"));
+    {   
         string description(GetTestStepInfo("Description"));
         string code("0000");
         vector<string> results;
         results.reserve(GetRollerCount());
         results.resize(GetRollerCount());
         for(UINT8 index = 0; index < GetRollerCount(); index++) results[index] = testSkip;
-       
+
+        if(GetParameterBool("SensorSpeedShiftPrompt"))
+        {
+            DisplayPrompt(GetPromptBox("ShiftToDrive"),GetPrompt("ShiftToDrive"),GetPromptPriority("ShiftToDrive"));
+            BposSleep(GetParameterInt("SensorSpeedShiftPromptDelay"));
+            RemovePrompt(GetPromptBox("ShiftToDrive"),GetPrompt("ShiftToDrive"),GetPromptPriority("ShiftToDrive"));
+        }
+        AccelerateToTestSpeed(GetParameterInt("SensorQualityTestTargetSpeed"), GetParameter("SensorQualityTestSpeedRange"), GetParameterInt("SensorQualityTestScanDelay"),false);
+        // Wait a bit for the rollers to start accelerating
+        BposSleep(GetParameterInt("SensorSpeedDriverDelay"));
+
         // Check the results for each wheel
         float rollerSpeeds[GetRollerCount()];
         GetWheelSpeeds(rollerSpeeds);
@@ -1885,33 +1884,7 @@ string BoschABSTC<ModuleType>::SensorQualityTest(void)
             Log(LOG_ERRORS, "Error reading wheel sensor speeds - status: %s\n", 
                 ConvertStatusToResponse(status).c_str());
         }
-        
-        // command the drives to zero torque    
-        Log(LOG_DEV_DATA, "commanding torque to zero\n");
-        SystemCommand(COMMAND_TORQUE, 0);    
-    
-        // command the drives to zero speed 
-        Log(LOG_DEV_DATA, "commanding speed to zero\n");
-        SystemCommand(COMMAND_SPEED, 0);
-    
-        if(!SystemRead(MACHINE_TYPE).compare("3700"))
-        {
-            Log(LOG_DEV_DATA, "Returning DriveAxle to %s\n",OriginalDriveAxle().c_str());
-            SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
-            BposSleep(500);
-        }
-        // Set motors back to zero speed
-        m_MotorController.Write("LeftFrontMotorMode", BOOST_MODE, false);
-        m_MotorController.Write("RightFrontMotorMode", BOOST_MODE, false);
-        m_MotorController.Write("LeftRearMotorMode", BOOST_MODE, false);
-        m_MotorController.Write("RightRearMotorMode", BOOST_MODE, false);
-        m_MotorController.Write("LeftFrontSpeedValue", "0", false);
-        m_MotorController.Write("RightFrontSpeedValue", "0", false);
-        m_MotorController.Write("LeftRearSpeedValue", "0", false);
-        m_MotorController.Write("RightRearSpeedValue", "0", true);
-        // Remove the prompts
-        RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
-        RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+
         // Report the results
         SendTestResultWithDetail(testResult, description, code, 
                                  "LfSensorResult", results[0], "",
@@ -1925,7 +1898,7 @@ string BoschABSTC<ModuleType>::SensorQualityTest(void)
         Log(LOG_FN_ENTRY, "Skipping Sensor Quality test");
     }
     // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "BoschABSTC::SensorQualityTest() - Enter");
+    Log(LOG_FN_ENTRY, "BoschABSTC::SensorQualityTest() - Exit, status=%s", testResult.c_str());
     return testResult;
 }
 #endif 
@@ -3583,6 +3556,38 @@ string BoschABSTC<ModuleType>::RunPumpMotor(void)
     return testResult;
 }
 
+template<class ModuleInterface>
+string BoschABSTC<ModuleInterface>::EnableElectricVacuumPump(void)
+{
+    string result(BEP_TESTING_STATUS);
+    // Command the module to enter normal mode
+    BEP_STATUS_TYPE status = m_vehicleModule.CommandModule("EnableElectricVacuumPump");
+    result = (BEP_STATUS_SUCCESS == status) ? testPass : testFail;
+    Log(LOG_ERRORS, "Commanded module to enable electric vacuum pump: %s (status: %s)", 
+        result.c_str(), ConvertStatusToResponse(status).c_str());
+    // Report the result
+    SendTestResult(result, GetTestStepInfo("Description"));
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "BoschABSTC::EnableElectricVacuumPump() - Exit");
+    return result;
+}
+
+template<class ModuleInterface>
+string BoschABSTC<ModuleInterface>::DisableElectricVacuumPump(void)
+{
+    string result(BEP_TESTING_STATUS);
+    // Command the module to enter normal mode
+    BEP_STATUS_TYPE status = m_vehicleModule.CommandModule("DisableElectricVacuumPump");
+    result = (BEP_STATUS_SUCCESS == status) ? testPass : testFail;
+    Log(LOG_ERRORS, "Commanded module to enable electric vacuum pump: %s (status: %s)", 
+        result.c_str(), ConvertStatusToResponse(status).c_str());
+    // Report the result
+    SendTestResult(result, GetTestStepInfo("Description"));
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "BoschABSTC::DisableElectricVacuumPump() - Exit");
+    return result;
+}
+
 template <class ModuleType>
 string BoschABSTC<ModuleType>::CheckModuleType(void)
 {
@@ -3799,6 +3804,10 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
     
     if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && !OperatorPassFail("PerformBrakeBurnish").compare(testPass))
     {
+        // Automatically run Electric Park Brake Burnish cycle
+        if(GetParameterBool("BurnishEPBBeforeBrake")) result = PerformElectricParkBrakeBurnishCycle();
+        Log(LOG_DEV_DATA, "Performing Brake Burnish Cycle\n");
+
         for(INT32 burnishCycles = 0; 
              (burnishCycles < GetParameterInt("BrakeBurnishCycles")) && 
              (BEP_STATUS_SUCCESS == StatusCheck()) && 
@@ -3812,7 +3821,7 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
                  burnishIterations++)
             {   // Prompt the operator to achieve the desired speed range
                 result = AccelerateToTestSpeed(GetParameterFloat("BrakeBurnishStartSpeed"), GetParameter("BrakeBurnishStartSpeedRange"), 
-                                               GetTestStepInfoInt("ScanDelay"), false);
+                                               GetTestStepInfoInt("ScanDelay"), false, GetPrompt("AccelerateToTargetSpeed"), true);
                 if(!result.compare(testPass))
                 {
                     // Disable motor boost so the rollers are in free roll mode
@@ -3846,6 +3855,8 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
                 }
             }
         }
+        // Automatically run Electric Park Brake Burnish cycle if everything else passed and not run at the beginning
+        if(GetParameterBool("BurnishEPBAfterBrake") && !GetParameterBool("BurnishEPBBeforeBrake") && !result.compare(testPass)) result = PerformElectricParkBrakeBurnishCycle();
         // Report the result
         SendTestResult(result, GetTestStepInfo("Description"));
     }
@@ -3856,6 +3867,95 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
     }
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "BoschABSTC::BrakeBurnishCycle() - Enter");
+    return result;
+}
+
+//----------------------------------------------------------------------------
+template<class ModuleInterface>
+string BoschABSTC<ModuleInterface>::ElectricParkBrakeBurnishCycle(void)
+{
+    string result(testPass);
+    // Log the entry and determine if this test should be performed
+    Log(LOG_FN_ENTRY, "BoschABSTC::ElectricParkBrakeBurnishCycle() - Enter");
+    
+    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && !OperatorPassFail("PerformBrakeBurnish").compare(testPass))
+    {
+        result = PerformElectricParkBrakeBurnishCycle();
+        // Report the result
+        SendTestResult(result, GetTestStepInfo("Description"));
+    }
+    else
+    {   // Need to skip this test
+        result = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping Brake burnish cycle");
+    }
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "BoschABSTC::ElectricParkBrakeBurnishCycle() - Enter");
+    return result;
+}
+
+template<class ModuleInterface>
+string BoschABSTC<ModuleInterface>::PerformElectricParkBrakeBurnishCycle(void)
+{
+    string result(testPass);
+    Log(LOG_DEV_DATA, "Performing Electric Park Brake Burnish Cycle\n");
+
+    for(INT32 burnishCycles = 0; 
+         (burnishCycles < GetParameterInt("EPBBurnishCycles")) && 
+         (BEP_STATUS_SUCCESS == StatusCheck()) && 
+         !result.compare(testPass); 
+         burnishCycles++)
+    {
+        for(INT32 burnishIterations = 0;
+             (burnishIterations < GetParameterInt("EPBBurnishIterations")) && 
+             (BEP_STATUS_SUCCESS == StatusCheck()) && 
+             !result.compare(testPass);
+             burnishIterations++)
+        {   // Prompt the operator to achieve the desired speed range
+            result = AccelerateToTestSpeed(GetParameterFloat("EPBBurnishStartSpeed"), GetParameter("EPBBurnishStartSpeedRange"), 
+                                           GetTestStepInfoInt("ScanDelay"), false);
+            if(!result.compare(testPass))
+            {
+                
+                // If the target speed has been reached, brake to the target speed
+                DisplayPrompt(GetPromptBox("PressAndHoldParkBrake"), GetPrompt("PressAndHoldParkBrake"),
+                              GetPromptPriority("PressAndHoldParkBrake"));
+                result = SlowDownToTestSpeed(GetParameterFloat("EPBBurnishEndSpeed"), 
+                                             GetParameter("EPBBurnishEndSpeedRange"),
+                                             GetTestStepInfoInt("ScanDelay"), true, 
+                                             GetParameter("EPBBrakeToTargetSpeedPrompt"));
+                // Hold speed while park brake is applied
+                DisplayPrompt(GetPromptBox("MaintainSpeedInBand"), GetPrompt("MaintainSpeedInBand"),
+                              GetPromptPriority("MaintainSpeedInBand"));
+                SystemWrite(GetDataTag("SpeedTarget"), GetParameter("EPBBurnishEndSpeedRange"));
+                string burnishTime = ((burnishIterations == (GetParameterInt("EPBBurnishIterations")-1)) ? 
+                                          "EPBBurnishFinalIterationHoldTime" : "EPBBurnishHoldTime");
+                BposSleep(GetParameterInt(burnishTime));
+                RemovePrompt(GetPromptBox("PressAndHoldParkBrake"), GetPrompt("PressAndHoldParkBrake"),
+                              GetPromptPriority("PressAndHoldParkBrake"));
+                // Hold speed while letting brakes cool down
+                string coolDownTime = ((burnishIterations == (GetParameterInt("EPBBurnishIterations")-1)) ? 
+                                          "EPBBurnishFinalIterationCoolDownTime" : "EPBBurnishCoolDownTime");
+                DisplayPrompt(GetPromptBox("BrakeCoolDown"), GetPrompt("BrakeCoolDown"),
+                              GetPromptPriority("BrakeCoolDown"), GetParameter("BrakeCoolDownBgColor"));
+                BposSleep(GetParameterInt(coolDownTime));
+                // Remove prompts and reset speed target
+                RemovePrompt(GetPromptBox("BrakeCoolDown"), GetPrompt("BrakeCoolDown"),
+                              GetPromptPriority("BrakeCoolDown"));
+                RemovePrompt(GetPromptBox("MaintainSpeedInBand"), GetPrompt("MaintainSpeedInBand"),
+                              GetPromptPriority("MaintainSpeedInBand"));
+                SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+                SystemWrite(string("PromptBox1BGColor"), string("white"));
+                SystemWrite(string("PromptBox2BGColor"), string("white"));
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Timeout waiting for brake burnish start speed");
+                result = testTimeout;
+            }
+        }
+    }
+    Log(LOG_DEV_DATA, "Done Performing Electric Park Brake Burnish Cycle, status=%s\n", result.c_str());
     return result;
 }
 
@@ -4156,4 +4256,51 @@ const string BoschABSTC<ModuleInterface>::PerformPBTorqueTest(const string &dire
     Log(LOG_FN_ENTRY, "Exit BoschABSTC::PerformPBTorqueTest(%s), status=%s\n", direction.c_str(), status.c_str());
 
     return status;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::ProgramVIN(void)
+{
+    string testStatus = testFail;
+    BEP_STATUS_TYPE status;
+    string faultTag("CommunicationFailure");
+
+    Log(LOG_FN_ENTRY, "Enter BoschABSTC::ProgramVIN()\n");
+    if(ShortCircuitTestStep())
+    {
+        Log(LOG_FN_ENTRY, "Skipping test step BoschABSTC::ProgramVin()");
+        testStatus = testSkip;
+    }
+    else
+    {
+        
+
+                try
+                {   // Actually program the vin
+                    status = m_vehicleModule.ProgramVIN();
+                    if(status == BEP_STATUS_SUCCESS)
+                    {
+                        testStatus = testPass;
+                        SendTestResult(testPass, GetTestStepInfo("Description"));
+                    }
+                    else
+                    {
+                        testStatus = testFail;
+                        SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+                                                 GetFaultCode(faultTag), GetFaultName(faultTag),
+                                                 GetFaultDescription(faultTag));
+                    }
+                }
+                catch(ModuleException& caughtModuleException)
+                {
+                    Log(LOG_ERRORS, "%s.%s: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(),
+                        caughtModuleException.message().c_str());
+                    testStatus = testFail;
+                }
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "Exit BoschABSTC::ProgramVIN(), status=%s\n", testStatus.c_str());
+    // Return the test result
+    return(testStatus);
 }

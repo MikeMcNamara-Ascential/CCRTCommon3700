@@ -130,6 +130,8 @@
       </DataTags>
       <SystemTagsToReset>
          <VINDisplayBGColor>white</VINDisplayBGColor>
+         <PromptBox1BGColor>white</PromptBox1BGColor>
+         <PromptBox2BGColor>white</PromptBox2BGColor>
       </SystemTagsToReset>
       <VehicleTestStatusUpdates>
          <BrakeOverallTest>TestNotStarted</BrakeOverallTest>

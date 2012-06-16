@@ -204,7 +204,7 @@
 			</TextBoxConfig>  
 		  </Widget>
 			<!-- DRIVER ID -->
-			  <Label name="driverid" border="false" height='68' width='160'>
+			<!--  <Label name="driverid" border="false" height='68' width='160'>
 				<Font size="45" name="sans-serif" style="plain"/>
 			  </Label>	
 			  <Widget id="_driverid" height='68' width="200" class="com.bepco.gui.TextBox">
@@ -214,7 +214,7 @@
 				<TextBoxConfig>
 				  <Font size="45" name="sans-serif" style="plain"/>
 				</TextBoxConfig> 
-			  </Widget>
+			  </Widget> -->
 	  </HBox>  
 <!-- START of Driver ID ============================================================ -->
 <!-- END of Driver ID ============================================================== -->

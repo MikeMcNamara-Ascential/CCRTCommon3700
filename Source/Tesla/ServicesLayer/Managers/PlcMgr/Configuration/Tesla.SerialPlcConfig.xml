@@ -267,8 +267,9 @@
         <BarcodeVerifyDelayTime channelIndex="26" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <FrontReductionPressure channelIndex="27" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <BodyStyleType channelIndex="31" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <LTWheelSpeed channelIndex="32" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <RTWheelSpeed channelIndex="33" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+        <EnableCenteringArrows channelIndex="33" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+        <!--LTWheelSpeed channelIndex="32" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/-->
+        <!--RTWheelSpeed channelIndex="33" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/-->
         <!-- Left Motor Control -->
         <LeftMotorMode channelIndex="35" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <LeftSpeedRefRpm channelIndex="36" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>

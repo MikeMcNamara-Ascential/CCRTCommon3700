@@ -65,12 +65,19 @@
       <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
       <UsePlcResultButtons>True</UsePlcResultButtons>
       <!-- Part Number Parameters -->
-      <AbortOnPartMismatch>No</AbortOnPartMismatch>
-      <BypassPartNumberValidation>No</BypassPartNumberValidation>
+      <AbortOnPartMismatch>Yes</AbortOnPartMismatch>
+      <BypassPartNumberValidation>False</BypassPartNumberValidation>
       <ValidatePartNumberList>Yes</ValidatePartNumberList>
       <ValidPartNumbers>
-        <PNA121B0060F>A121B0060F</PNA121B0060F>
+        <PN28322746C>28322746C</PN28322746C>
+        <PN1005273-00-C>1005273-00-C</PN1005273-00-C>
+        <PN04E9D12D10D107E1D0>04E9D12D10D107E1D0</PN04E9D12D10D107E1D0>
       </ValidPartNumbers>
+      <PartNumbersToCheck>
+          <ModulePartNumber>ReadPartNumber</ModulePartNumber>
+          <OEMPartNumber>ReadOemPartNumber</OEMPartNumber>
+          <FWChecksum>ReadFWChecksum</FWChecksum>
+      </PartNumbersToCheck>
       <!-- Fault Read Parameters -->
       <AbortIfDTCPresent>No</AbortIfDTCPresent>
       <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
@@ -85,14 +92,15 @@
        <TestStep10>EnterDiagnosticMode</TestStep10>
        <TestStep20>CollectTraceData</TestStep20>
        <TestStep30>CommandSecurityAccess</TestStep30>
-       <!-- TestStep40>ProgramVIN</TestStep40>
-       <TestStep50>CheckVIN</TestStep50 -->
+       <TestStep40>ProgramVIN</TestStep40>
+       <TestStep50>CheckVIN</TestStep50>
        <TestStep60>ReadFaults</TestStep60>
        <TestStep70>EnableAirBagModule</TestStep70>
     </AirbagTest>
     <AirbagSetup>
         <TestStep00>Setup</TestStep00>
         <TestStep10>EnterDiagnosticMode</TestStep10>
+        <TestStep15>CheckPartNumbers</TestStep15>
         <TestStep20>ClearFaults</TestStep20>
     </AirbagSetup>
     <FinishUp>
@@ -110,5 +118,6 @@
     <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read Traceablilty number from the module"/> 
     <ProgramVIN Result="Not Tested" Timeout="5000" Description="Write VIN to the Module"/>
     <CheckVIN Result="Not Tested" Timeout="5000" Description="Validate module VIN"/>
+    <CheckPartNumbers Result="Not Tested" Timeout="5000" Description="Check list of part numbers from the module"/>
   </TestSteps>
 </DelphiAirbagTC>

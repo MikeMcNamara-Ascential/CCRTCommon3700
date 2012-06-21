@@ -16,7 +16,7 @@
 #include "TevesMk70Module.cpp"
 #include "TevesMk70AbsTc.cpp"
 #include "CmdLineProcessor.h"
-#include "KwpWinCcrtCcrtProtocolFilter.h"
+#include "KwpWinCcrtProtocolFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 	{
 		clp.ParseArguments(argc, argv);     // parse the command line
         if(clp.IsDebugOn())	printf("Creating the Teves MK70 Brake Component\n");
-        object = new TevesMk70AbsTc<TevesMk70Module<KwpWinCcrtCcrtProtocolFilter> >();
+        object = new TevesMk70AbsTc<TevesMk70Module<KwpWinCcrtProtocolFilter> >();
 
 		if(clp.IsDebugOn())	printf("Initializing the Teves MK70 Brake Component\n");
 		object->Initialize(clp.GetConfigFile());

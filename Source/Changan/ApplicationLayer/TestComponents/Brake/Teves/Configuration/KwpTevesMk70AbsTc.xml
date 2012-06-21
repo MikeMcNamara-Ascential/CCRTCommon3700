@@ -314,7 +314,8 @@
 
     <Objectives>
          <Setup>
-            <TestStep00>Initialize</TestStep00>
+            <TestStep00>Setup</TestStep00>
+            <TestStep02>Initialize</TestStep02>
             <TestStep05>EnterDiagnosticMode</TestStep05>
             <TestStep10>ClearFaults</TestStep10>
             <TestStep15>ReadFaults</TestStep15>
@@ -399,6 +400,7 @@
         <LowSpeedSensorTest Result="Not Tested" Timeout="100" Description="Validate wheel speed sensors"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read all faults from the ABS module"/>
         <RunPumpMotor Result="Not Tested" Timeout="500" Description="Run the ABS pump motor"/>
+        <Setup Result="" Timeout="500" Description="Set up component for testing"/>
         <StartModuleKeepAlive Result="Not Tested" Timeout="500" Description="Start sending keep alive messages"/>
         <StopModuleKeepAlive Result="Not Tested" Timeout="500" Description="Stop sending keep alive messages"/>
         <ValveFiringTest Result="Not Tested" Timeout="10000" Description="Fire each ABS valve"

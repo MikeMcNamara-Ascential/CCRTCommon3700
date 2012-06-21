@@ -48,7 +48,7 @@ bool TevesMk70Module<ProtocolFilter>::InitializeHook(const XmlNode *configNode)
     
     if (m_protocolFilter != NULL)
     {
-       m_protocolFilter.InitializeServer("core/WinCcrt");
+       m_protocolFilter->InitializeServer("core/WinCcrt");
     }
     
     // Store the byte containing the number of DTCs reported in the module response

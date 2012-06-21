@@ -620,8 +620,8 @@ int KwpCanProtocolFilter::WaitForFullResponse( SerialString_t &response)
 	Log(LOG_DEV_DATA, "Waiting for response from module\n");
 	Log(LOG_DEV_DATA, "\t -- Module Response Delay: %d\n", GetResponseDelay());
 	Log(LOG_DEV_DATA, "\t -- Response End Delay: %d\n", GetResponseEndDelay());
-
-	int         bytesRead;
+#if 0
+	int         bytesRead, retVal = 0;
 	uint8_t     rcvByte;
 	UINT16      responseDelay = GetResponseDelay();
 
@@ -655,6 +655,9 @@ int KwpCanProtocolFilter::WaitForFullResponse( SerialString_t &response)
 			break;
 		}
 	}
+#else
+	retVal = ReadPort( response, GetResponseDelay(), GetResponseEndDelay());
+#endif
 
 	Log(LOG_DEV_DATA, "Done waiting for response.  %d bytes received\n", retVal);
 

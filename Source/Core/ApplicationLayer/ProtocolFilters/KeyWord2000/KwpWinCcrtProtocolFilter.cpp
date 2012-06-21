@@ -56,6 +56,11 @@ KwpWinCcrtProtocolFilter::~KwpWinCcrtProtocolFilter()
 	Log(LOG_FN_ENTRY, "~KwpWinCcrtProtocolFilter() complete\n");
 }
 
+bool KwpWinCcrtProtocolFilter::InitializeServer(std::string server)
+{
+   m_WinCcrtComm.Initialize(std::string("core/WinCcrtInterface"), std::string("Client"));
+}
+
 const BEP_STATUS_TYPE KwpWinCcrtProtocolFilter::SendMessage(std::string messageTag)
 {   // Call the base class
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;

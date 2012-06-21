@@ -78,6 +78,14 @@ class KwpWinCcrtProtocolFilter : public ProtocolFilter
      */
     virtual ~KwpWinCcrtProtocolFilter();
 
+     /**
+     * Initialize the server channel.
+     *
+     * @param config The configuration to use for the channel initialization.
+     * @return true if the initialization is successful.
+     */
+     virtual bool InitializeServer(std::string server);
+      
     /**
      * Send a message to vehicle module.
      *
@@ -106,7 +114,7 @@ protected:
 	 * 
 	 * @return Number of characters received or -1 on error
 	 */
-	virtual int WaitForFullResponse( SerialString_t &response);
+	virtual int WaitForFullResponse(SerialString_t &response);
 
 
 private:

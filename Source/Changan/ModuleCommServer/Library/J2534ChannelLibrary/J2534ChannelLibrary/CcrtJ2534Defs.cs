@@ -99,6 +99,11 @@ namespace J2534ChannelLibrary
                         m_posRspIndex = 4;
                         m_posRspOffset = 0x40;
                         break;
+                    case J2534DotNet.ProtocolID.ISO14230:
+                        m_negRspID = 0x7f;
+                        m_posRspIndex = 3;
+                        m_posRspOffset = 0x40;
+                        break;
                     default:
                         break;
                 }

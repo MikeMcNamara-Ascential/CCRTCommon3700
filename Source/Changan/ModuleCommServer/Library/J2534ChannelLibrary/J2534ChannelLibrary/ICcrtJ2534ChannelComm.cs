@@ -22,6 +22,8 @@ namespace J2534ChannelLibrary
         bool IsVehicleConnected();
         bool SetSTMIN(int stMinValue);
         void ClearResponseBuffer();
+        bool PerformFiveBaudInit(byte address);
+        bool PerformFastInit(ref List<byte> wakeUpMessage, ref List<byte> ecuData);
         List<CcrtJ2534Defs.Response> GetResponseBuffer();
         List<CcrtJ2534Defs.Response> GetRemovedResponsesBuffer();
     }

@@ -52,6 +52,14 @@ namespace J2534DotNet
             ref PassThruMsg flowControlMsg,
             ref int filterId
         );
+        ErrorCode StartMsgFilter
+        (
+            int channelid,
+            FilterType filterType,
+            ref PassThruMsg maskMsg,
+            ref PassThruMsg patternMsg,
+            ref int filterId
+        );
         ErrorCode StopMsgFilter(int channelId, int filterId);
         ErrorCode SetProgrammingVoltage(int deviceId, PinNumber pinNumber, int voltage);
         ErrorCode ReadVersion(int deviceId, ref string firmwareVersion, ref string dllVersion, ref string apiVersion);
@@ -59,8 +67,8 @@ namespace J2534DotNet
         ErrorCode GetConfig(int channelId, ref List<SConfig> config);
         ErrorCode SetConfig(int channelId, ref List<SConfig> config);
         ErrorCode ReadBatteryVoltage(int deviceId, ref int voltage);
-        ErrorCode FiveBaudInit(int channelId, byte targetAddress, ref byte keyword1, ref byte keyword2);
-        ErrorCode FastInit(int channelId, UnsafePassThruMsg txMsg, ref UnsafePassThruMsg rxMsg);
+        ErrorCode FiveBaudInit(int channelId, ref byte targetAddress, ref byte keyword1, ref byte keyword2);
+        ErrorCode FastInit(int channelId, ref PassThruMsg txMsg, ref PassThruMsg rxMsg);
         ErrorCode ClearTxBuffer(int channelId);
         ErrorCode ClearRxBuffer(int channelId);
         ErrorCode ClearPeriodicMsgs(int channelId);

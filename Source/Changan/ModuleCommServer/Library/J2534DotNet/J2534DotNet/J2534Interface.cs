@@ -237,45 +237,73 @@ namespace J2534DotNet
             return returnValue;
         }
 
-        public ErrorCode FiveBaudInit(int channelId, byte targetAddress, ref byte keyword1, ref byte keyword2)
+        public ErrorCode FiveBaudInit(int channelId, ref byte targetAddress, ref byte keyword1, ref byte keyword2)
         {
             ErrorCode returnValue;
-            IntPtr input = IntPtr.Zero;
-            IntPtr output = IntPtr.Zero;
 
             SByteArray inputArray = new SByteArray();
             SByteArray outputArray = new SByteArray();
-            inputArray.NumOfBytes = 1;
+            IntPtr input = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(int)) + Marshal.SizeOf(typeof (byte))*4);
+            IntPtr output = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(int)) + Marshal.SizeOf(typeof(byte))*4);
+            //IntPtr input = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(SByteArray)));
+            //IntPtr output = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(SByteArray)));
             unsafe
             {
-                //inputArray.BytePtr[0] = targetAddress;
-                outputArray.NumOfBytes = 2;
+                byte[] inputByteArray= new byte[]{targetAddress,0x00};
+                
+                byte[] outputByteArray = new byte[]{0x00,0x00};
+                fixed(byte* inByte = &inputByteArray[0])//, byte* outByte = &outputByteArray[0] )
+                {
+                    fixed (byte* outByte = &outputByteArray[0])
+                    {
+                        inputArray.NumOfBytes = 1;
 
-                Marshal.StructureToPtr(inputArray, input, true);
-                Marshal.StructureToPtr(outputArray, output, true);
 
-                returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.FIVE_BAUD_INIT, input, output);
+                        inputArray.BytePtr = inByte;
+                        outputArray.NumOfBytes = 2;
 
-                Marshal.PtrToStructure(output, outputArray);
+                        outputArray.BytePtr = outByte;
+                        Marshal.StructureToPtr(inputArray, input, true);
+                        //Marshal.StructureToPtr(outputArray, output, true);
+
+                        returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.FIVE_BAUD_INIT, input, output);
+                        /*  We dont care about the key bytes really if (returnValue == ErrorCode.STATUS_NOERROR)
+                        {
+                            outputArray = (SByteArray)Marshal.PtrToStructure(output, typeof(SByteArray));
+                            if (outputArray.BytePtr != null)
+                            {
+                                keyword1 = (byte)outputArray.BytePtr[0];
+                                keyword2 = (byte)outputArray.BytePtr[1];
+                            }
+                        }*/
+                    }
+                }
             }
+
+            //Free allocated memory
+            Marshal.FreeHGlobal(input);
+            Marshal.FreeHGlobal(output);
             return returnValue;
         }
 
-        public ErrorCode FastInit(int channelId, UnsafePassThruMsg txMsg, ref UnsafePassThruMsg rxMsg)
+        public ErrorCode FastInit(int channelId, ref PassThruMsg txMsg, ref PassThruMsg rxMsg)
         {
             ErrorCode returnValue;
-            IntPtr input = IntPtr.Zero;
-            IntPtr output = IntPtr.Zero;
+            IntPtr input = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(UnsafePassThruMsg)));
+            IntPtr output = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(UnsafePassThruMsg)));
+            UnsafePassThruMsg usTxMsg = ConvertPassThruMsg(txMsg);
 
-            Marshal.StructureToPtr(txMsg, input, true);
-            Marshal.StructureToPtr(rxMsg, output, true);
+            Marshal.StructureToPtr(usTxMsg, input, true);
 
             returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.FAST_INIT, input, output);
             if (returnValue == ErrorCode.STATUS_NOERROR)
             {
-                Marshal.PtrToStructure(output, rxMsg);
+                UnsafePassThruMsg uMsg = (UnsafePassThruMsg)Marshal.PtrToStructure(output, typeof(UnsafePassThruMsg));
+                rxMsg = ConvertPassThruMsg(uMsg);
             }
-
+            //Free allocated memory
+            Marshal.FreeHGlobal(input);
+            Marshal.FreeHGlobal(output);
             return returnValue;
         }
 

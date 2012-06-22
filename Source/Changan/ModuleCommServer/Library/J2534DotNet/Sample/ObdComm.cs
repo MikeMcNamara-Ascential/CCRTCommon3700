@@ -44,7 +44,8 @@ namespace Sample
         {
             m_j2534Interface = j2534Interface;
             m_isConnected = false;
-            m_protocol = ProtocolID.ISO15765;
+            //m_protocol = ProtocolID.ISO15765;
+            m_protocol = ProtocolID.ISO14230;
             m_status = ErrorCode.STATUS_NOERROR;
         }
 
@@ -146,7 +147,8 @@ namespace Sample
         {
             List<byte> value = new List<byte>();
             //if (ReadObdPid(0x09, 0x02, m_protocol, ref value))
-                if (ReadObdPid(0x1a, 0x90, m_protocol, ref value))
+                //if (ReadObdPid(0x1a, 0x90, m_protocol, ref value))
+            if (ReadObdPid(0x21, 0x90, m_protocol, ref value))
             {
                 if (value.Count > 0)
                 {
@@ -179,14 +181,85 @@ namespace Sample
             //  ProtocolID.ISO9141;  // ISO-K
             //  ProtocolID.J1850PWM;  // J1850PWM
             //  ProtocolID.J1850VPW;  // J1850VPW
-            m_deviceId = 0;
+            m_deviceId = 1;
             m_status = m_j2534Interface.Open(ref m_deviceId);
             if (m_status != ErrorCode.STATUS_NOERROR)
                 return false;
-            if (ConnectIso15765())
+            if (m_protocol == ProtocolID.ISO15765)
             {
-                m_protocol = ProtocolID.ISO15765;
-                m_isConnected = true;
+                if (ConnectIso15765())
+                {
+                    m_protocol = ProtocolID.ISO15765;
+                    m_isConnected = true;
+                }
+            }
+            else if (m_protocol == ProtocolID.ISO14230)
+            {
+                if (ConnectIso14230())
+                {
+                    m_protocol = ProtocolID.ISO15765;
+                    m_isConnected = true;
+                }
+            }
+            return true;
+        }
+        public bool ConnectIso14230()
+        {
+            //do fast or 5 baud init here
+            List<byte> value = new List<byte>();
+
+            m_status = m_j2534Interface.Connect(m_deviceId, ProtocolID.ISO14230, ConnectFlag.NONE, BaudRate.ISO14230, ref m_channelId);
+            if (ErrorCode.STATUS_NOERROR != m_status)
+            {
+                return false;
+            }
+
+            PassThruMsg maskMsg = new PassThruMsg();
+            PassThruMsg patternMsg = new PassThruMsg();
+            int filterId = 0;
+
+            byte i;
+            //for (i=0; i < 8; i++)
+            for (i = 0; i < 1; i++)
+            {
+                maskMsg.protocolID = ProtocolID.ISO14230;
+                maskMsg.txFlags = TxFlag.NONE;
+                maskMsg.Data = new byte[] { 0xf0, 0xff, 0xff, 0x00 };
+
+                patternMsg.protocolID = ProtocolID.ISO14230;
+                patternMsg.txFlags = TxFlag.NONE;
+                patternMsg.Data = new byte[] { 0x80, 0xF1, 0x10, 0x00};
+
+                m_status = m_j2534Interface.StartMsgFilter(m_channelId, FilterType.PASS_FILTER, ref maskMsg, ref patternMsg, ref filterId);
+                if (ErrorCode.STATUS_NOERROR != m_status)
+                {
+                    m_j2534Interface.Disconnect(m_channelId);
+                    return false;
+                }
+            }
+            
+            //Fast Init
+            /*PassThruMsg wakeupMsg = new PassThruMsg();
+            wakeupMsg.Data = new byte[] { 0x81, 0x10, 0xF1, 0x81 };
+            PassThruMsg wakeupRsp = new PassThruMsg();
+            wakeupRsp.Data = new byte[]{};
+            m_status = m_j2534Interface.FastInit(m_channelId, ref wakeupMsg, ref wakeupRsp);*/
+
+            //5 baud Init
+            byte keyword1 = new byte();
+            byte keyword2 = new byte();
+            byte address = new byte(); 
+            address = 0x10;
+            m_status = m_j2534Interface.FiveBaudInit(m_channelId, ref address, ref keyword1, ref keyword2);
+
+            if (ErrorCode.STATUS_NOERROR != m_status)
+            {
+                return false;
+            }
+            if (!ReadObdPid(0x10, 0x81, ProtocolID.ISO14230, ref value))
+            {
+                m_j2534Interface.Disconnect(m_channelId);
+                return false;
             }
             return true;
         }
@@ -280,9 +353,10 @@ namespace Sample
                 case ProtocolID.J1850VPW:
 		        case ProtocolID.ISO9141:
                 case ProtocolID.ISO14230:
-                    byte protocolByte = (byte)((protocolId == ProtocolID.J1850PWM) ? 0x61 : 0x68);
+                    //byte protocolByte = (byte)((protocolId == ProtocolID.J1850PWM) ? 0x61 : 0x68);
+
                     txMsg.txFlags = TxFlag.NONE;
-                    txMsg.Data = new byte[]{protocolByte, 0x6A, 0xF1, mode, pid};
+                    txMsg.Data = new byte[]{0x82, 0x10, 0xF1, mode, pid};
 			        timeout = 100;
 			        break;
 		        default:
@@ -312,7 +386,7 @@ namespace Sample
                 {  //[txMsg.Data.Length -1]
                     // Select the last value
                     value = rxMsgs[rxMsgs.Count - 1].Data.ToList();
-                    value.RemoveRange(0, txMsg.Data.Length);
+                    value.RemoveAt(0);
                     return true;
                 }
                 else

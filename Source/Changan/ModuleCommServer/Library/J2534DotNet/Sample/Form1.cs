@@ -68,7 +68,7 @@ namespace Sample
             }
 
             // Always choose the first J2534 device in the list
-            J2534Device selectedDevice = list[0];
+            J2534Device selectedDevice = list[1];
 
             J2534Interface passThru = new J2534Interface();
             passThru.LoadLibrary(selectedDevice);
@@ -141,7 +141,7 @@ namespace Sample
                 return;
             }
             // Always choose the first J2534 device in the list
-            J2534Device selectedDevice = list[0];
+            J2534Device selectedDevice = list[1];
 
             J2534Interface passThru = new J2534Interface();
             passThru.LoadLibrary(selectedDevice);

@@ -148,6 +148,24 @@ namespace J2534ChannelLibrary
             }
             return channel.ChannelComm.SetSTMIN(stMinValue);
         }
+        public bool PerformFiveBaudInit(string channelName, byte address)
+        {
+            CcrtJ2534Channel channel = GetChannel(channelName);
+            if (!channel.ChannelComm.Connected)
+            {
+                channel.ChannelComm.Connect();
+            }
+            return channel.ChannelComm.PerformFiveBaudInit(address);
+        }
+        public bool PerformFastInit(string channelName, ref List<byte> wakeUpMessage, ref List<byte> ecuData)
+        {
+            CcrtJ2534Channel channel = GetChannel(channelName);
+            if (!channel.ChannelComm.Connected)
+            {
+                channel.ChannelComm.Connect();
+            }
+            return channel.ChannelComm.PerformFastInit(ref wakeUpMessage, ref ecuData);
+        }
         public void ClearRxBuffer(string channelName)
         {
             CcrtJ2534Channel channel = GetChannel(channelName);

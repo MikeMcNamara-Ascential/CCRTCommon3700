@@ -217,7 +217,9 @@ namespace J2534DotNet
     public unsafe struct SByteArray
     {
         public int NumOfBytes;
-        public fixed byte BytePtr[2];
+        public byte* BytePtr;
+        //[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 2)]
+        //public string BytePtr;  
     }
 
     [StructLayout(LayoutKind.Sequential)]

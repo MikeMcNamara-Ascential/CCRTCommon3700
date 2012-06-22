@@ -192,9 +192,9 @@ $Revision: 1.3 $
                 <Widget width='100' height='40'  id="drivetrain" class="com.bepco.gui.OverallTestPhaseBox" >
                     <DataSource tagname="DriveTrainOverallTest" messagetype="Subscribe"/>
                 </Widget>
-                <!--Widget width='100' height='40'  id="cruise" class="com.bepco.gui.OverallTestPhaseBox" >
-                    <DataSource tagname="SpeedControlOverallTest" messagetype="Subscribe"/>
-                </Widget-->
+                <Widget width='100' height='40'  id="steering" class="com.bepco.gui.OverallTestPhaseBox" >
+                    <DataSource tagname="PowerSteeringOverallTest" messagetype="Subscribe"/>
+                </Widget>
             </VBox>
 
             <!-- Radial gauges -->

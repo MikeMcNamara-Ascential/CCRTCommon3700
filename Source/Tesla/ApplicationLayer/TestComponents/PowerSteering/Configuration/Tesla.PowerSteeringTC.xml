@@ -1,0 +1,114 @@
+<PowerSteeringTC>
+   <Setup>
+      <Name>PowerSteering</Name>
+      <Debug>Off</Debug>
+      <TestDomain>Foreground</TestDomain>
+      <FaultList>/Configuration/Components/PowerSteering/EPASFaultList.xml</FaultList>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/PowerSteeringTC</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>PowerSteeringTC</ProcessName>
+         <AdditionalLogFile>/Components/PowerSteeringTC.log</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+         <MessageTimeout>100</MessageTimeout>
+      </Logging>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+      <TagList>
+         <SubscribeTags>
+            <Abort/>
+            <CableConnect/>
+            <VehiclePresent/>
+            <VIN/>
+         </SubscribeTags>
+      </TagList>
+      <DataTags>
+         <Abort>Abort</Abort>
+         <FailButton>DriverPass</FailButton>
+         <PassButton>DriverFail</PassButton>
+         <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+         <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+         <ResistanceValuesMessage>ResistanceValues</ResistanceValuesMessage>
+         <VIN>VIN</VIN>
+         <VehicleVIN>VIN</VehicleVIN>
+         <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+      </DataTags>
+      <Parameters>
+         <ConfigFile>/Configuration/Components/PowerSteering/Tesla.PowerSteeringModule.xml</ConfigFile>
+         <DelayModuleInitialization>No</DelayModuleInitialization>
+         <DeveloperTest>No</DeveloperTest>
+         <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+         <UsePlcResultButtons>True</UsePlcResultButtons>
+         <!-- Part Number Parameters -->
+         <AbortOnPartMismatch>No</AbortOnPartMismatch>
+         <BypassPartNumberValidation>True</BypassPartNumberValidation>
+         <ValidatePartNumberList>Yes</ValidatePartNumberList>
+         <ValidPartNumbers/>
+         <PartNumbersToCheck/>
+         <!-- Fault Read Parameters -->
+         <AbortIfDTCPresent>No</AbortIfDTCPresent>
+         <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
+         <VINLength>17</VINLength>
+         <RequestVinRoutineStatusFromModule>False</RequestVinRoutineStatusFromModule>
+         <DelayBeforeRoutineStatus>10000</DelayBeforeRoutineStatus>
+         <RoutineRequestRetries>3</RoutineRequestRetries>
+         <VinRetryDelay>1000</VinRetryDelay>
+      </Parameters>
+      <Prompts>
+         <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+      </Prompts>
+   </Setup>
+   <Objectives>
+      <EpasSetup>
+         <TestStep00>Setup</TestStep00>
+         <TestStep10>EnterDiagnosticMode</TestStep10>
+         <TestStep20>ProgramVIN</TestStep20>
+         <TestStep25>CheckVIN</TestStep25>
+         <TestStep30>LockSteeringTune</TestStep30>
+      </EpasSetup>
+      <FinishUp>
+         <TestStep00>FinishUp</TestStep00>
+      </FinishUp>
+   </Objectives>
+   <TestSteps>
+      <Setup Result="Not Tested" Timeout="1000" Description="Setup component for testing"/>
+      <EnterDiagnosticMode Result="Not Tested" Timeout="5000" Description="Enter diag mode"/>
+      <CommandSecurityAccess Result="Not Tested" Timeout="500" Description="Verify the module part number"/>
+      <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
+      <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
+      <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
+      <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Read and Clear Faults and Enable the airbag module"/>
+      <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read Traceablilty number from the module"/>
+      <ProgramVIN Result="Not Tested" Timeout="5000" Description="Write VIN to the Module"/>
+      <LockSteeringTune Result="Not Tested" Timeout="5000" Description="Lock steering tune to the Module"/>
+      <CheckVIN Result="Not Tested" Timeout="5000" Description="Validate module VIN"/>
+      <CheckPartNumbers Result="Not Tested" Timeout="5000" Description="Check list of part numbers from the module"/>
+      <StartModuleKeepAlive Result="" Timeout="1000" Description="Start sending tester present message to the module" ScanDelay="250"/>
+      <StopModuleKeepAlive Result="" Timeout="1000" Description="Stop sending tester present message to the module" ScanDelay=""/>
+   </TestSteps>
+</PowerSteeringTC>

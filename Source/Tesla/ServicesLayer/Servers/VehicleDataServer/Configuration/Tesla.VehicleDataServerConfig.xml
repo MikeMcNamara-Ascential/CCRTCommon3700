@@ -113,5 +113,8 @@
          <Timeout>1000</Timeout>
          <BufferSize>1024</BufferSize>
       </VinServerComm>
+      <Parameters>
+          <DefaultVehicle>1</DefaultVehicle>
+      </Parameters>
    </Setup>
 </VehicleDataServerConfig>

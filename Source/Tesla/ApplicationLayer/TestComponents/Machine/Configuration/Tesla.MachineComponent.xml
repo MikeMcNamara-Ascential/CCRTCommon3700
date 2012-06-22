@@ -132,6 +132,7 @@
          <VINDisplayBGColor>white</VINDisplayBGColor>
          <PromptBox1BGColor>white</PromptBox1BGColor>
          <PromptBox2BGColor>white</PromptBox2BGColor>
+         <EnableCenteringArrows>0</EnableCenteringArrows>
       </SystemTagsToReset>
       <VehicleTestStatusUpdates>
          <BrakeOverallTest>TestNotStarted</BrakeOverallTest>

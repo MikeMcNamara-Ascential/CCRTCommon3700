@@ -45,7 +45,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/AvtJ2190Proxy.qxe
 	ServicesLayer/Bin/CLV295ScannerMgr.qxe
 	ServicesLayer/Bin/DaqInterface.qxe
-	ServicesLayer/Bin/GryphonCANCommProxy.qxe
 	ServicesLayer/Bin/IsoCommProxy.qxe
 	ServicesLayer/Bin/MapleKeypadManager.qxe
 	ServicesLayer/Bin/PendentManager.qxe
@@ -60,10 +59,8 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/SystemScreenSaver.qxe               
 	ServicesLayer/Bin/SymbolScannerMgr.qxe            
 	ApplicationLayer/Bin/MachineTC.qxe
-	ApplicationLayer/Bin/VehicleTest.qxe
 	ApplicationLayer/Bin/GenericTcaseTest.qxe
 	ApplicationLayer/Bin/GenericSpeedControl.qxe
-	ApplicationLayer/Bin/GenericBaseBrakeTest.qxe
 	)
 
 #------------------------------------------------------------------------------------------

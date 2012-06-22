@@ -57,10 +57,12 @@
                  <NodePairs>
                      <ABS Outgoing="0x645" Incoming="0x655"/>
                      <SRS Outgoing="0x641" Incoming="0x651"/>
+                     <EPAS Outgoing="0x730" Incoming="0x738"/>
                  </NodePairs>
                  <NodePairSetup>
                      <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
                      <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
+                     <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
                  </NodePairSetup>
              </Setup>
          </GryphonCCanLeft>
@@ -115,10 +117,12 @@
                  <NodePairs>
                      <ABS Outgoing="0x645" Incoming="0x655"/>
                      <SRS Outgoing="0x641" Incoming="0x651"/>
+                     <EPAS Outgoing="0x730" Incoming="0x738"/>
                  </NodePairs>
                  <NodePairSetup>
                      <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
                      <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
+                     <Range02 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
                  </NodePairSetup>
              </Setup>
          </GryphonCCanRight>

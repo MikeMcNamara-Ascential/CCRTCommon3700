@@ -28,6 +28,13 @@
          <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
          <Debug>Off</Debug>
       </Machine>
+      <PowerSteering>
+          <ComponentName>TeslaPowerSteeringTC.qxe</ComponentName>
+          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+          <ConfigFile>Tesla.PowerSteeringTC.xml</ConfigFile>
+          <ConfigPath>/Configuration/Components/PowerSteering/</ConfigPath>
+          <Debug>Off</Debug>
+      </PowerSteering>
       <!--SpeedControl>
          <ComponentName>GenericSpeedControl.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -67,6 +74,9 @@
             <Objective1 Description="Initialize Airbag component" Result="" Timeout="" Component="Airbag">
                <AirbagSetup/>
             </Objective1>
+            <Objective2 Description="Initialize Power Steering component" Result="" Timeout="" Component="PowerSteering">
+               <EpasSetup/>
+            </Objective2>
          </ForegroundObjectives>
       </TestPhase110>
       <TestPhase120 Description="Brake to stop" Result="" Timeout="">
@@ -249,6 +259,9 @@
             <Objective1 Result="" Description="Perform module finish-up" Timeout="" Component="Machine">
                <FinishUp>PerformingFinishUp</FinishUp>
             </Objective1>
+            <Objective2 Description="Perform power steering finish-up" Result="" Timeout="" Component="PowerSteering">
+               <FinishUp/>
+            </Objective2>
             <Objective3 Result="" Description="Perform Airbag finish-up" Timeout="" Component="Airbag">
                <FinishUp/>
             </Objective3>

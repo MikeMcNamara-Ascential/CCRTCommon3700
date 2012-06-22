@@ -37,3 +37,4 @@ LINK_DIRECTORIES(${CORE_MODULES_DIR}/Common)
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Airbag)
 ADD_SUBDIRECTORY(Brake)
+ADD_SUBDIRECTORY(PowerSteering)

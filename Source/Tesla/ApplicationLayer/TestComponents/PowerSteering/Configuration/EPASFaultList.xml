@@ -1,0 +1,23 @@
+<EPASFaults>
+    <!-- System Status -->
+    <TestAborted Code="2500" Description="Testing aborted, conditions not correct"/>
+    <SoftwareFailure Code="2501" Description="Software failure using module interface"/>
+    <SystemStatus Code="2502" Description="Test failure, system status not correct"/>
+    
+    <!-- Test Condition Failures -->
+    <CableConnectTimeout Code="2600" Description="Diagnostic cable not connected"/>
+    <ModuleLinkupFailure Code="2601" Description="Unable to connect to EPAS module"/>
+    
+    <!-- Communication Failures -->
+    <CommunicationFailure Code="2700" Description="Power Steering Module Communication Failure"/>
+    
+    <!-- Test Failures -->
+    <ModuleFaults Code="2800" Description="DTCs recorded in the Power Steering Module"/>
+    <PartNumberMismatch Code="2801" Description="Part Number programmed in EPAS does not match Broadcast"/>
+    <ResistanceOutOfLimits Code="2802" Description="Resistance Value out of Limits"/>
+    <ModuleDisabled Code="2803" Description="Power Steering Module Could Not Be Enabled"/>
+    <VINRoutineFailure Code="2804" Description="The VIN learn routine failed"/>
+    <TuneRoutineFailure Code="2805" Description="The lock tune routine failed"/>
+
+  
+</EPASFaults>

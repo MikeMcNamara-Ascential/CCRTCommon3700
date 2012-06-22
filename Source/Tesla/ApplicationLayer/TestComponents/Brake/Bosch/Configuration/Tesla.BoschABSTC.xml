@@ -273,7 +273,7 @@
          <BrakeForceMultiplier>1.0</BrakeForceMultiplier>
          <DisplayBrakeMeterUntilZeroSpeed>Yes</DisplayBrakeMeterUntilZeroSpeed>
          <FrontToRearBalanceUseFront>Yes</FrontToRearBalanceUseFront>
-         <MinimumStartForce lbf="">150</MinimumStartForce>
+         <MinimumStartForce lbf="">200</MinimumStartForce>
          <StartSamplingAtMinimumForce>Yes</StartSamplingAtMinimumForce>
          <!--ABS Testing Parameters-->
          <ABS4ChannelFiringSequence>
@@ -291,6 +291,7 @@
          <BrakeForceStabilizeTime Units="ms">500</BrakeForceStabilizeTime>
          <CollectSensorSpeedData>No</CollectSensorSpeedData>
          <DisableMeterForValveFiring>Yes</DisableMeterForValveFiring>
+         <DeactivateMeterForValveFiring>Yes</DeactivateMeterForValveFiring>
          <HoldRecovery>No</HoldRecovery>
          <HoldReduction>No</HoldReduction>
          <InterWheelGapDelay ms="ms">200</InterWheelGapDelay>
@@ -316,12 +317,13 @@
          <RightRearMinRecoveryPercent>70.0</RightRearMinRecoveryPercent>
          <!--Park Brake Parameters-->
          <ParkBrakeApplyForce Units="lbf">2000</ParkBrakeApplyForce>
-         <ParkBrakeDriverDelay Units="ms">5000</ParkBrakeDriverDelay>
+         <ParkBrakeDriverDelay Units="ms">10000</ParkBrakeDriverDelay>
          <ParkBrakeMaxDistance Units="number of pulses">50</ParkBrakeMaxDistance>
          <ParkBrakeMinDistance Units="number of pulses">0</ParkBrakeMinDistance>
          <ParkBrakeSpeedValue Units="mph">5</ParkBrakeSpeedValue>
          <PBTestAfterCheckPBSignal>True</PBTestAfterCheckPBSignal>
          <!--Low Speed Sensor Test Parameters-->
+         <SkipPassedSensorRetest>True</SkipPassedSensorRetest>
          <SensorTestLfSpeed Units="mph" ConvertToEnglishUnits="true">10</SensorTestLfSpeed>
          <SensorTestRfSpeed Units="mph" ConvertToEnglishUnits="true">10</SensorTestRfSpeed>
          <SensorTestLrSpeed Units="mph" ConvertToEnglishUnits="true">10</SensorTestLrSpeed>
@@ -377,6 +379,9 @@
          <BurnishPromptTimeout Units="ms">15000</BurnishPromptTimeout>
          <!--Ignition On Startup Time-->
          <IgnitionOnStartupTime>5000</IgnitionOnStartupTime>
+         <!-- Learn Performance Type Parameter -->
+         <PerformanceTypeCheckDelay Units="ms">500</PerformanceTypeCheckDelay>
+         <AlwaysLearnPerformanceType>True</AlwaysLearnPerformanceType>
          <!--PLC Result Buttons-->
          <UsePlcResultButtons>true</UsePlcResultButtons>
          <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
@@ -411,6 +416,7 @@
          <TestStep30>EnterDiagnosticMode</TestStep30>
          <TestStep35>EnableElectricVacuumPump</TestStep35>
          <TestStep40>CheckPartNumber</TestStep40>
+         <TestStep50>LearnPerformanceType</TestStep50>
          <TestStep62>ProgramVIN</TestStep62>
          <TestStep64>CheckVIN</TestStep64>
          <TestStep70>StartModuleKeepAlive</TestStep70>
@@ -456,6 +462,7 @@
          <TestStep00>BrakeSwitchTest</TestStep00>
       </BrakeSwitchTest>
       <BaseBrakeTest>
+         <TestStep00>EnableCenteringArrows</TestStep00>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
          <TestStep15>DragTest</TestStep15>
          <TestStep20>AnalyzeDragTest</TestStep20>
@@ -466,6 +473,7 @@
          <TestStep40>DumpAndIsolateAllWheels</TestStep40>
          <TestStep45>ValveFiringTest</TestStep45>
          <TestStep50>RecoverAllWheels</TestStep50>
+         <TestStep55>DisableCenteringArrows</TestStep55>
       </BaseBrakeTest>
       <AnalyzeBrakeTest>
          <TestStep00>AnalyzeBrakeTest</TestStep00>
@@ -473,7 +481,9 @@
          <TestStep10>EvaluateABS</TestStep10>
       </AnalyzeBrakeTest>
       <BurnishCycle>
-         <TestStep00>BrakeBurnishCycle</TestStep00>
+         <TestStep00>EnableCenteringArrows</TestStep00>
+         <TestStep01>BrakeBurnishCycle</TestStep01>
+         <TestStep02>DisableCenteringArrows</TestStep02>
       </BurnishCycle>
       <IgnitionOn>
          <TestStep00>IgnitionOn</TestStep00>
@@ -503,7 +513,9 @@
          <TestStep30>LRSensorTest</TestStep30>
          <TestStep40>RRSensorTest</TestStep40>
          <TestStep45>BrakeToStop</TestStep45>
+         <TestStep49>EnableCenteringArrows</TestStep49>
          <TestStep50>SensorQualityTest</TestStep50>
+         <TestStep51>DisableCenteringArrows</TestStep51>
          <TestStep60>BrakeToStop</TestStep60>
       </SensorTest>
       <ABSValveFiringTest>
@@ -551,15 +563,18 @@
       <ExitDiagnosticMode Result="" Timeout="5000" Description="Exit diagnostic mode" ScanDelay="250"/>
       <CheckVIN Result="" Timeout="10000" ValidateVIN="0" Description="Check and optionally validate VIN"/>
       <ProgramVIN Result="" Timeout="10000" Description="Write VIN to the module"/>
+      <LearnPerformanceType Result="" Timeout="10000" Description="Command the module to learn the performance type"/>
       <ClearFaults Result="" Timeout="5000" Description="Clear faults from the module" ScanDelay="250"/>
       <ReadFaults Result="" Timeout="5000" Description="Read faults from the module" ScanDelay="250"/>
       <CollectTraceData Result="" Timeout="10000" Description="Collect and report trae data"/>
       <MonitorFaults Result="" Timeout="10000" Description="Monitor and repotrt fault codes"/>
       <CalProgram Result="" Timeout="10000" Description="Program calibration values"/>
+      <EnableCenteringArrows Result="" Timeout="500" Description="Enable the lane centering arrows"/>
+      <DisableCenteringArrows Result="" Timeout="500" Description="Disable the lane centering arrows"/>
       <!--From BaseBrake-->
       <Initialize Result="" Timeout="1000" Description="Initialize the BaseBrake portion of the test" Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
       <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="65" SpeedTarget="65 70" Prompt1="AccelerateToTargetSpeed">Accelerate to Brake Test Arm Speed</AccelerateToBrakeSpeed>
-      <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" DragDelay="1000" DragSpeed="58" DragSamples="50">Perform Vehicle Drag Test</DragTest>
+      <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" DragDelay="1000" DragSpeed="60" DragSamples="50">Perform Vehicle Drag Test</DragTest>
       <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="80" RearMaxDragForce="55">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
       <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank">Perform Vehicle Coast</Coast>
       <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" StartBrakeSampleSpeed="55" EndBrakeSampleSpeed="45" BrakeDomain="0 500" BrakeTarget="300 400" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test </BrakeTest>

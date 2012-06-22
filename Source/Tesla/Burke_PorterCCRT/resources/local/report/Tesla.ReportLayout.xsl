@@ -21,13 +21,13 @@
             <u>Tesla EOL Test Report</u>
         </h3>
         <table border="1" rules="all" cellpadding="1">
-            <tr bgcolor="white">
+            <!--tr bgcolor="white">
                 <th align="left" colspan="4">
                     <b>
                         <u>Vehicle Data</u>
                     </b>
                 </th>
-            </tr>
+            </tr-->
             <tr>
                 <td align="left">Date:</td>
                 <td>
@@ -68,13 +68,15 @@
     <!-- Test Results -->
     <xsl:template name="TestResults" match="/BepVehicleTestResult/TestResult">
 
-        <h3/>
+        <br/>
         <table border="1" rules="all" title="Test Results" cellpadding="1">
             <xsl:call-template name="headerRow"/>
 
             <xsl:call-template name="brakeResults"/>
 
             <xsl:call-template name="airbagResults"/>
+			
+			<xsl:call-template name="steeringResults"/>
 			
 			<xsl:call-template name="drivetrainResults"/>
 
@@ -111,6 +113,40 @@
 			<td width="10" align="left">
 				<xsl:call-template name="showResult">
 					<xsl:with-param name="RESULT" select="//DriveTrainVehicleCheckoutCycle/@Result"/>
+				</xsl:call-template>
+			</td>
+		</tr>
+	</xsl:template>
+	
+	<xsl:template name="steeringResults">
+		<!-- Steering Results -->
+		<tr bgcolor="white">
+			<th align="left" rowspan="1" colspan="7">EPAS</th>
+		</tr>
+		<tr>
+			<td width="10"/>
+			<td align="left" width="14">Learn VIN</td>
+			<td width="10"/>
+			<td width="10"/>
+			<td width="10"/>
+			<td width="10"/>
+			<td width="10" align="left">
+				<xsl:call-template name="showResult">
+					<xsl:with-param name="RESULT" select="//PowerSteeringProgramVIN/@Result"/>
+				</xsl:call-template>
+			</td>
+		</tr>
+		<tr>
+			<td width="10"/>
+			<td align="left" width="14">CheckVIN</td>
+			<td width="20" align="left">
+				<xsl:value-of select="//PowerSteeringCheckVIN/ModuleVIN"/>
+			</td>
+			<td width="10"/>
+			<td width="10"/>
+			<td width="10" align="left">
+				<xsl:call-template name="showResult">
+					<xsl:with-param name="RESULT" select="//PowerSteeringCheckVIN/@Result"/>
 				</xsl:call-template>
 			</td>
 		</tr>
@@ -715,6 +751,20 @@
 			<td width="10" align="left">
 				<xsl:call-template name="showResult">
 					<xsl:with-param name="RESULT" select="//BrakeBrakeSwitchTest/@Result"/>
+				</xsl:call-template>
+			</td>
+		</tr>
+		<tr>
+			<td width="10"/>
+			<td align="left" width="14">Motor Type</td>
+			<td width="20" align="left">
+				<xsl:value-of select="//BrakeLearnPerformanceType/PerformanceType"/>
+			</td>
+			<td width="10"/>
+			<td width="10"/>
+			<td width="10" align="left">
+				<xsl:call-template name="showResult">
+					<xsl:with-param name="RESULT" select="//BrakeLearnPerformanceType/@Result"/>
 				</xsl:call-template>
 			</td>
 		</tr>

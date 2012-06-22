@@ -256,6 +256,12 @@
             <ReplyMessage>RoutineResults</ReplyMessage>
             <ReplyInterpretation/>
          </IsEvacAndFillComplete>
+         <LearnPerformanceType>
+            <TransmitMessage>LearnPerformanceType</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>LearnPerformanceType</ReplyMessage>
+            <ReplyInterpretation/>
+         </LearnPerformanceType>
          <LearnVIN>
             <TransmitMessage>LearnVIN</TransmitMessage>
             <TransmitInterpretation/>
@@ -292,6 +298,12 @@
             <ReplyMessage>ReadPartNumber</ReplyMessage>
             <ReplyInterpretation>PartNumber</ReplyInterpretation>
          </ReadPartNumber>
+         <ReadPerformanceType>
+            <TransmitMessage>ReadECUId</TransmitMessage>
+            <TransmitInterpretation>PerformanceType</TransmitInterpretation>
+            <ReplyMessage>ReadPerformanceType</ReplyMessage>
+            <ReplyInterpretation>PerformanceType</ReplyInterpretation>
+         </ReadPerformanceType>
          <ReadSensorData>
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>SensorData</TransmitInterpretation>
@@ -451,6 +463,7 @@
          <EnterDiagnosticMode>0x10,0x??</EnterDiagnosticMode>
          <ElectricVacuumPump>0x2F,0xD0,0x0D,0x03,0x??</ElectricVacuumPump>
          <IOControl>0x2F,0x??,0x??,0x00</IOControl>
+         <LearnPerformanceType>0x2E,0xF2,0x12</LearnPerformanceType>
          <LearnVIN>0x31,0x01,0x04,0x04</LearnVIN>
          <ReadECUId>0x22,0x??,0x??</ReadECUId>
          <ReadFaults>0x19,0x02,0xFF</ReadFaults>
@@ -505,6 +518,7 @@
          <IdentifySessionType>0xF1,0x86</IdentifySessionType>
          <LearnVIN>0x04,0x04</LearnVIN>
          <PartNumber>0xF1,0x91</PartNumber>
+         <PerformanceType>0xF2,0x12</PerformanceType>
          <ReprogrammingSession>0x02</ReprogrammingSession>
          <ResumeSettingDTC>0x01</ResumeSettingDTC>
          <SensorData>0xFD,0x03</SensorData>
@@ -563,6 +577,10 @@
             <Reply_01>0x71,0x01,0x04,0x04,0x01</Reply_01>
             <Reply_02>0x7F,0x31,0x??</Reply_02>
          </LearnVIN>
+         <LearnPerformanceType>
+            <Reply_00>0x6E,0xF2,0x12</Reply_00>
+            <Reply_01>0x7F,0x2E,0x??</Reply_01>
+         </LearnPerformanceType>
          <ReadFaults>
             <Reply_00 lengthType="Variable">0x59,0x??</Reply_00>
             <Reply_01>0x7F,0x19</Reply_01>
@@ -577,6 +595,10 @@
             <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0xF1,0x91,0x??</Reply_00>
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadPartNumber>
+         <ReadPerformanceType>
+            <Reply_00 lengthType="Variable">0x62,0xF2,0x12,0x??</Reply_00>
+            <Reply_01>0x7F,0x22,0x??</Reply_01>
+         </ReadPerformanceType>
          <ReadSensorData>
             <Reply_00>0x62,0xFD,0x03,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
             <Reply_01>0x7F,0x22,0x??</Reply_01>
@@ -962,6 +984,18 @@
                </Subvector03>
             </Vector>
          </WheelSpeedSensorResults>
+         <PerformanceType>
+             <String>
+                 <Substring>
+                     <Chars input_index="3" mask="0xFF" length="1">
+                         <StringSubstitute00 condition="equals" compare="0x00" replace="NotConfigured"/>
+                         <StringSubstitute01 condition="equals" compare="0x01" replace="400Nm/Standard"/>
+                         <StringSubstitute02 condition="equals" compare="0x02" replace="600Nm/Sport"/>
+                         <StringSubstitute03 condition="greater than" compare="0x02" replace="NotConfigured"/>
+                     </Chars>
+                 </Substring>
+             </String>
+         </PerformanceType>
       </ReplyInterpretations>
    </SerialMessages>
 </BoschModuleInterface>

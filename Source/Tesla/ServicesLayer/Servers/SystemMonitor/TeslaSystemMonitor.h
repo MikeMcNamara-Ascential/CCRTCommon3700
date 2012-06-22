@@ -30,7 +30,7 @@
  ******************/
 class TeslaSystemMonitor;
 
-				
+                
 /*******************
  include files
  ******************/
@@ -41,81 +41,81 @@ class TeslaSystemMonitor;
  */
 class TeslaControlData : public ControlData
 {
-public:	
-	/**
-	 * Allocate a new ControlData object. Required due to non-public
-	 * constructor
-	 *
-	 * @return A new ControlData object
-	 */
-	static TeslaControlData* Allocate()
-	{
-		return( new TeslaControlData);
-	}
-	
-	/**
-	 * Destructor
-	 */
-	virtual ~TeslaControlData()
-	{
-	}
+public: 
+    /**
+     * Allocate a new ControlData object. Required due to non-public
+     * constructor
+     *
+     * @return A new ControlData object
+     */
+    static TeslaControlData* Allocate()
+    {
+        return( new TeslaControlData);
+    }
+    
+    /**
+     * Destructor
+     */
+    virtual ~TeslaControlData()
+    {
+    }
 
-	/**
-	 * Assignment operator
-	 * 
-	 * @param rhs    Object to be copied
-	 * 
-	 * @return this
-	 */
-	TeslaControlData& operator=( const TeslaControlData& rhs)
-	{
-		Assign( rhs);
+    /**
+     * Assignment operator
+     * 
+     * @param rhs    Object to be copied
+     * 
+     * @return this
+     */
+    TeslaControlData& operator=( const TeslaControlData& rhs)
+    {
+        Assign( rhs);
 
-		return( *this);
-	}
-	
-	/**
-	 * Flag that is used to indicate if the rolls tester is ok to roll.
-	 * @since Version 1.0
-	 */
-	bool 		okToRoll;
+        return( *this);
+    }
+    
+    /**
+     * Flag that is used to indicate if the rolls tester is ok to roll.
+     * @since Version 1.0
+     */
+    bool        okToRoll;
 
-	/**
-	 * Number of tests since the last loss compensation
-	 */
-	int			testsSinceLossComp;
+    /**
+     * Number of tests since the last loss compensation
+     */
+    int         testsSinceLossComp;
 
-	/**
-	 * Bit indicating that our inter-loss comp cycle count has been exceeded
-	 */
-	bool		cycleLimitExceeded;
+    /**
+     * Bit indicating that our inter-loss comp cycle count has been exceeded
+     */
+    bool        cycleLimitExceeded;
 
 protected:
 
-	/**
-	 * Assigns the value of rhs to this
-	 * 
-	 * @param rhs    ControlData object to be copied
-	 * 
-	 * @return this
-	 */
-	virtual ControlData& Assign( const ControlData& rhs)
-	{
-		const TeslaControlData *ctrl = (const TeslaControlData*)(&rhs);
-		this->okToRoll = ctrl->okToRoll;
-		this->testsSinceLossComp = ctrl->testsSinceLossComp;
-		this->cycleLimitExceeded = ctrl->cycleLimitExceeded;
+    /**
+     * Assigns the value of rhs to this
+     * 
+     * @param rhs    ControlData object to be copied
+     * 
+     * @return this
+     */
+    virtual ControlData& Assign( const ControlData& rhs)
+    {
+        const TeslaControlData *ctrl = (const TeslaControlData*)(&rhs);
+        this->okToRoll = ctrl->okToRoll;
+        this->testsSinceLossComp = ctrl->testsSinceLossComp;
+        this->cycleLimitExceeded = ctrl->cycleLimitExceeded;
 
-		return( ControlData::Assign( rhs));
-	}
-	
-	/**
-	 * Constructor
-	 */
-	TeslaControlData() : ControlData(),
-		okToRoll( false), testsSinceLossComp(0), cycleLimitExceeded( false)
-	{
-	}
+        return( ControlData::Assign( rhs));
+    }
+    
+    /**
+     * Constructor
+     */
+    TeslaControlData() : ControlData(),
+        okToRoll( false), testsSinceLossComp(0), cycleLimitExceeded( false)
+    {
+    }
 };
 
 
@@ -129,72 +129,72 @@ protected:
 class TeslaSystemMonitor : public SystemMonitor
 {
 public:
-	/**
-	 * Default constructor. Set debug to false, channel ID's to -1, etc
-	 */
-	TeslaSystemMonitor();
+    /**
+     * Default constructor. Set debug to false, channel ID's to -1, etc
+     */
+    TeslaSystemMonitor();
 
-	/**
-	 * Constructor from command line args
-	 *
-	 * @param argc   Number of command line arguments
-	 * @param argv   Array of command line args
-	 */
-	TeslaSystemMonitor( int argc, char *argv[]);
+    /**
+     * Constructor from command line args
+     *
+     * @param argc   Number of command line arguments
+     * @param argv   Array of command line args
+     */
+    TeslaSystemMonitor( int argc, char *argv[]);
 
-	/**
-	 * Class destructor
-	 */
-	virtual ~TeslaSystemMonitor();
+    /**
+     * Class destructor
+     */
+    virtual ~TeslaSystemMonitor();
 
-	/**
-	 * method for component initialization.
-	 *
-	 * @param document Reference to a parsed configuration document.
-	 * @since Version 1.0
-	 */
-	void Initialize(const XmlNode *document);
-	
-	/**
-	 * Request to write a data tag
-	 *
-	 * @param tag    Tag to be written
-	 * @param value  Data to be written
-	 * @return Status of operation
-	 *         Success, Fail, Invalid, Unavailable
-	 * @since Version 2.0
-	 */
-	virtual const std::string Write(const std::string &tag, const std::string &value);
-	/**
-	 * Request to write a data tag
-	 *
-	 * @param node    Data to be written
-	 * @return Status of operation
-	 *         Success, Fail, Invalid, Unavailable
-	 * @since Version 2.0
-	 */
-	virtual const std::string Write(const XmlNode *node);
+    /**
+     * method for component initialization.
+     *
+     * @param document Reference to a parsed configuration document.
+     * @since Version 1.0
+     */
+    void Initialize(const XmlNode *document);
     
     /**
-	 * Request to Perform an action
-	 *
-	 * @param tag    Action to be performed
-	 * @return Status of operation
-	 *         Success, Fail, Invalid, Unavailable
-	 * @since Version 2.0
-	 */
-	virtual const std::string Command(const std::string &tag, const std::string &value);
-	
+     * Request to write a data tag
+     *
+     * @param tag    Tag to be written
+     * @param value  Data to be written
+     * @return Status of operation
+     *         Success, Fail, Invalid, Unavailable
+     * @since Version 2.0
+     */
+    virtual const std::string Write(const std::string &tag, const std::string &value);
     /**
-	 * Request to Perform an action
-	 *
-	 * @param node    Action to be performed
-	 * @return Status of operation
-	 *         Success, Fail, Invalid, Unavailable
-	 * @since Version 2.0
-	 */
-	virtual const std::string Command(const XmlNode *node);
-	
+     * Request to write a data tag
+     *
+     * @param node    Data to be written
+     * @return Status of operation
+     *         Success, Fail, Invalid, Unavailable
+     * @since Version 2.0
+     */
+    virtual const std::string Write(const XmlNode *node);
+    
+    /**
+     * Request to Perform an action
+     *
+     * @param tag    Action to be performed
+     * @return Status of operation
+     *         Success, Fail, Invalid, Unavailable
+     * @since Version 2.0
+     */
+    virtual const std::string Command(const std::string &tag, const std::string &value);
+    
+    /**
+     * Request to Perform an action
+     *
+     * @param node    Action to be performed
+     * @return Status of operation
+     *         Success, Fail, Invalid, Unavailable
+     * @since Version 2.0
+     */
+    virtual const std::string Command(const XmlNode *node);
+    
     /**
      * Overloaded BepServer Publish method which provides the ability
      * to handle the fault level messages that were requested.
@@ -205,20 +205,20 @@ public:
     virtual const std::string Publish(const XmlNode *node);
 
     /**
-	 * Reads current values of control data items. The m_subscribedData data is
-	 * updated asynchronously via subscription notifications from the servers to
-	 * whoim we are subscribed
-	 *
-	 * @param ctrl   Control Data structure to fill with values
-	 */
-	virtual void GetCurrentControlData( ControlData *ctrl);
-	
-	/**
-	 * Monitors for system events such as ABORT, CAL, SIM, START_TEST, etc
-	 *
-	 * @param ctrl   Current value of control data needed for system control events
-	 */
-	virtual void UpdateControl( ControlData *ctrl);
+     * Reads current values of control data items. The m_subscribedData data is
+     * updated asynchronously via subscription notifications from the servers to
+     * whoim we are subscribed
+     *
+     * @param ctrl   Control Data structure to fill with values
+     */
+    virtual void GetCurrentControlData( ControlData *ctrl);
+    
+    /**
+     * Monitors for system events such as ABORT, CAL, SIM, START_TEST, etc
+     *
+     * @param ctrl   Current value of control data needed for system control events
+     */
+    virtual void UpdateControl( ControlData *ctrl);
 
     /**
      * Update the VehicleTest with the commanded phase if capable of performing a test.
@@ -226,7 +226,7 @@ public:
     * @param ctrl   Current value of control data needed for system control events
      */
     virtual void UpdateCommandPhase( ControlData *ctrl);
-	
+    
 
 protected:
     /**
@@ -238,28 +238,28 @@ protected:
      */
     virtual const string Register(void);
 
-	/**
-	 * Changes state of Drivers Monitor and put up some prompts
-	 *
-	 * @param ctrl Current value of control data needed for system control events
-	 */
-	virtual void UpdateDriverMonitor(ControlData *ctrl);
+    /**
+     * Changes state of Drivers Monitor and put up some prompts
+     *
+     * @param ctrl Current value of control data needed for system control events
+     */
+    virtual void UpdateDriverMonitor(ControlData *ctrl);
 
-	/**
-	 * Check to determine if the FACTS test is good to go and publish the OkToRoll tag
-	 * to indicate the status.
-	 * 
-	 * @param ctrl Current value of control data needed for system control events
-	 */
-	void CheckOkToRoll( ControlData *ctrl);
+    /**
+     * Check to determine if the FACTS test is good to go and publish the OkToRoll tag
+     * to indicate the status.
+     * 
+     * @param ctrl Current value of control data needed for system control events
+     */
+    void CheckOkToRoll( ControlData *ctrl);
 
 #if 0
     /**
-	 * Test ABORT logic
-	 *
-	 * @param ctrl Current value of control data needed for system control events
-	 */
-	virtual void CheckAbort( ControlData *ctrl);
+     * Test ABORT logic
+     *
+     * @param ctrl Current value of control data needed for system control events
+     */
+    virtual void CheckAbort( ControlData *ctrl);
 #endif 
     /**
      * Testing control logic
@@ -269,20 +269,20 @@ protected:
     virtual void CheckTesting( ControlData *ctrl);
 
     /**
-	 * Read the current wheel speeds from the system.
-	 * 
-	 * @param wheelSpeed The wheel speed array to populate with the current speeds.
-	 * @return The status of the operation.
-	 */
+     * Read the current wheel speeds from the system.
+     * 
+     * @param wheelSpeed The wheel speed array to populate with the current speeds.
+     * @return The status of the operation.
+     */
     INT32 GetWheelSpeeds(float wheelSpeed[]);
 
-	/**
-	 * Perform a check to determine if the conditions are correct to start a
-	 * Vehicle test and or set the DriveAxle.
-	 * 
-	 * @param ctrl   Current value of control data needed for system control events
-	 */
-	virtual void UpdateDriveAxle( ControlData *ctrl);
+    /**
+     * Perform a check to determine if the conditions are correct to start a
+     * Vehicle test and or set the DriveAxle.
+     * 
+     * @param ctrl   Current value of control data needed for system control events
+     */
+    virtual void UpdateDriveAxle( ControlData *ctrl);
 
     /**
      * Set the number of rollers that the machine is equipped with.
@@ -299,22 +299,22 @@ protected:
      */
     INT32 GetRollerCount( void);
 
-	/**
-	 * Allocates a new ControlData structure to be used to maintain the 
-	 * current state of the system
-	 * 
-	 * @return 
-	 */
-	virtual ControlData* ControlAllocate() const;
+    /**
+     * Allocates a new ControlData structure to be used to maintain the 
+     * current state of the system
+     * 
+     * @return 
+     */
+    virtual ControlData* ControlAllocate() const;
 
-	/**
-	 * Frees a ControlData structure previously allocated via ControlAllocate
-	 * 
-	 * @param controlData
-	 *               ControlData structure previously allocated via ControlAllocate
-	 */
-	virtual void ControlFree(ControlData* &controlData) const;
-	
+    /**
+     * Frees a ControlData structure previously allocated via ControlAllocate
+     * 
+     * @param controlData
+     *               ControlData structure previously allocated via ControlAllocate
+     */
+    virtual void ControlFree(ControlData* &controlData) const;
+    
     /**
      * The last commanded phase that was sent.
      * @since Version 2.0
@@ -326,12 +326,12 @@ protected:
      * @version 1.2
      */
     string              m_ICMSpeedLocation;
-  	
+    
     /**
-	 * The number of rollers that are being controlled.
-	 * @since Version 1.0
-	 */
-	INT32               m_rollerCount;
+     * The number of rollers that are being controlled.
+     * @since Version 1.0
+     */
+    INT32               m_rollerCount;
 
     /**
      * The current drive axle.  This is cleared out at the beginning
@@ -340,15 +340,15 @@ protected:
      */
     std::string         m_currentDriveAxle;
 
-	/**
-	 * Maximum number of tests between consecutive loss compensation cycles
-	 */
-	int					m_testsBetweenLossComp;
+    /**
+     * Maximum number of tests between consecutive loss compensation cycles
+     */
+    int                 m_testsBetweenLossComp;
 
 private:
     /** Flag indicating if a test start condition has been satisfied */
     bool                m_startTestArmed;
 };
 
-#endif	// Tesla_SYSTEM_MONITOR_INCLUDED
+#endif  // Tesla_SYSTEM_MONITOR_INCLUDED
 

@@ -20,6 +20,7 @@
     <FaultProgramVINBadVIN Code="3051" Description="VIN is incorrect length"/>
     <FaultProgramVINBadVINLength Code="3052" Description="Invalid VIN Length parameter set"/>
     <VINMismatch Code="3053" Description="VIN from ESP module does not match Broadcast"/>
+    <PerformanceTypeError Code="3054" Description="Performance Type Incorrect or Not Learned"/>
     <LeftFrontABSReductionFail Code="3060" Description="Left Front Brake Force Reduction not sufficient"/>
     <RightFrontABSReductionFail Code="3061" Description="Right Front Brake Force Reduction not sufficient"/>
     <LeftRearABSReductionFail Code="3062" Description="Left Rear Brake Force Reduction not sufficient"/>

@@ -98,8 +98,10 @@
 				<Folder Name="Brake">
 					<Folder Name="Bosch">
 						<Folder Name="Configuration">
+							<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch/Configuration/CMakeLists.txt"/>
 							<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch/Configuration/Tesla.BoschAbsModuleConfig.xml"/>
 						</Folder>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch/CMakeLists.txt"/>
 					</Folder>
 					<Folder Name="Teves">
 						<Folder Name="Configuration">
@@ -111,6 +113,15 @@
 						<F N="ApplicationLayer/ModuleInterfaces/Brake/Teves/TevesAbsModule.h"/>
 					</Folder>
 					<F N="ApplicationLayer/ModuleInterfaces/Brake/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="PowerSteering">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/ModuleInterfaces/PowerSteering/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/ModuleInterfaces/PowerSteering/Configuration/Tesla.PowerSteeringModule.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/ModuleInterfaces/PowerSteering/CMakeLists.txt"/>
+					<F N="ApplicationLayer/ModuleInterfaces/PowerSteering/PowerSteeringModule.cpp"/>
+					<F N="ApplicationLayer/ModuleInterfaces/PowerSteering/PowerSteeringModule.h"/>
 				</Folder>
 				<F N="ApplicationLayer/ModuleInterfaces/CMakeLists.txt"/>
 			</Folder>
@@ -201,6 +212,17 @@
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Machine/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="PowerSteering">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/PowerSteering/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/PowerSteering/Configuration/EPASFaultList.xml"/>
+						<F N="ApplicationLayer/TestComponents/PowerSteering/Configuration/Tesla.PowerSteeringTC.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/PowerSteering/CMakeLists.txt"/>
+					<F N="ApplicationLayer/TestComponents/PowerSteering/PowerSteeringTC.cpp"/>
+					<F N="ApplicationLayer/TestComponents/PowerSteering/PowerSteeringTC.h"/>
+					<F N="ApplicationLayer/TestComponents/PowerSteering/PowerSteeringTCMain.cpp"/>
+				</Folder>
 				<Folder Name="SpeedControl">
 					<Folder Name="Configuration">
 						<F N="ApplicationLayer/TestComponents/SpeedControl/Configuration/CMakeLists.txt"/>
@@ -227,6 +249,7 @@
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ParkingBrake.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ReverseWarning.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.RoadsterDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.SedanDriveCurve.truncated.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.SedanDriveCurve.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/VehicleTest/Configuration/CMakeLists.txt"/>
@@ -412,6 +435,7 @@
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/CMakeLists.txt"/>
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/Tesla.Freemont.507560.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/Tesla.MenloPark.507211.SerialServerConfig.xml"/>
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/Tesla.SerialServerConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Managers/SerialServer/CMakeLists.txt"/>

@@ -200,6 +200,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(!GetTestStepName().compare("AccelerateToBrakeSpeed"))    status = AccelerateToBrakeSpeed();
         else if(!GetTestStepName().compare("EnableElectricVacuumPump"))   status = EnableElectricVacuumPump();
         else if(!GetTestStepName().compare("DisableElectricVacuumPump"))   status = DisableElectricVacuumPump();
+        else if(!GetTestStepName().compare("LearnPerformanceType"))      status = LearnPerformanceType();
         // Call the base class to handle the test step
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
@@ -3802,7 +3803,7 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
     // Log the entry and determine if this test should be performed
     Log(LOG_FN_ENTRY, "BoschABSTC::BrakeBurnishCycle() - Enter");
     
-    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && !OperatorPassFail("PerformBrakeBurnish").compare(testPass))
+    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && GetTestStepResult().compare(testSkip) && !OperatorPassFail("PerformBrakeBurnish").compare(testPass))
     {
         // Automatically run Electric Park Brake Burnish cycle
         if(GetParameterBool("BurnishEPBBeforeBrake")) result = PerformElectricParkBrakeBurnishCycle();
@@ -4303,4 +4304,87 @@ string BoschABSTC<ModuleInterface>::ProgramVIN(void)
     Log(LOG_FN_ENTRY, "Exit BoschABSTC::ProgramVIN(), status=%s\n", testStatus.c_str());
     // Return the test result
     return(testStatus);
+} 
+
+//-----------------------------------------------------------------------------
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::LearnPerformanceType(void)
+{
+    string testStatus = testFail;
+    BEP_STATUS_TYPE status;
+    string faultTag("CommunicationFailure");
+    string mismatchFaultTag("PerformanceTypeError");
+    string performanceType;
+    string code("0000");
+    string description = GetTestStepInfo("Description");
+
+    Log(LOG_FN_ENTRY, "Enter BoschABSTC::LearnPerformanceType()\n");
+    if(ShortCircuitTestStep())
+    {
+        Log(LOG_FN_ENTRY, "Skipping test step BoschABSTC::LearnPerformanceType()");
+        testStatus = testSkip;
+    }
+    else
+    {
+        try
+        {
+            status = m_vehicleModule.ReadModuleData("ReadPerformanceType",performanceType);
+            if(status == BEP_STATUS_SUCCESS)
+            {
+                if(!performanceType.compare("NotConfigured") || GetParameterBool("AlwaysLearnPerformanceType"))
+                {   // Learn Performance Type
+                    status = m_vehicleModule.CommandModule("LearnPerformanceType");
+                    if(status == BEP_STATUS_SUCCESS)
+                    {
+                        BposSleep(GetParameterInt("PerformanceTypeCheckDelay"));
+                        status = m_vehicleModule.ReadModuleData("ReadPerformanceType",performanceType);
+                        if(status == BEP_STATUS_SUCCESS)
+                        {
+                            testStatus = (performanceType.compare("NotConfigured")) ? testPass : testFail;
+                            code = (testStatus == testPass) ? code : GetFaultCode(mismatchFaultTag);
+                            description = (testStatus == testPass) ? description : GetFaultDescription(mismatchFaultTag);
+                            SendTestResultWithDetail(testStatus, description, code, "Performance Type", performanceType);
+                        }
+                        else
+                        {
+                            testStatus = testFail;
+                            SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+                                                     GetFaultCode(faultTag), GetFaultName(faultTag),
+                                                     GetFaultDescription(faultTag));
+                        }
+                    }
+                    else
+                    {
+                        testStatus = testFail;
+                        SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+                                                 GetFaultCode(faultTag), GetFaultName(faultTag),
+                                                 GetFaultDescription(faultTag));
+                    }
+                }
+                else
+                {
+                    testStatus = testPass;
+                    SendTestResultWithDetail(testStatus, description, code, "Performance Type", performanceType);
+                }
+            }
+            else
+            {
+                testStatus = testFail;
+                SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+                                         GetFaultCode(faultTag), GetFaultName(faultTag),
+                                         GetFaultDescription(faultTag));
+            }
+        }
+        catch(ModuleException& caughtModuleException)
+        {
+            Log(LOG_ERRORS, "%s.%s: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(),
+                caughtModuleException.message().c_str());
+            testStatus = testFail;
+        }
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "Exit BoschABSTC::LearnPerformanceType(), status=%s\n", testStatus.c_str());
+    // Return the test result
+    return(testStatus);
 }
+

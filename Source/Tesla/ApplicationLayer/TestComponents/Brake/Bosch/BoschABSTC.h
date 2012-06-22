@@ -621,6 +621,7 @@ protected:
     string PerformElectricParkBrakeBurnishCycle(void);
 
     string ProgramVIN(void);
+    string LearnPerformanceType(void);
 
 private:
     /**

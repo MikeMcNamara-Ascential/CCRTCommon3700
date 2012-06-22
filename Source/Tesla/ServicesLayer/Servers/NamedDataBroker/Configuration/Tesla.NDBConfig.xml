@@ -268,6 +268,7 @@
                 <EmissionsOverallTest DataType="testcomponentstatus">TestResultServer</EmissionsOverallTest>
                 <EmissionsPerformManualEngineTorqueTest DataType="testcomponentstatus">TestResultServer</EmissionsPerformManualEngineTorqueTest>
                 <EnableAllRollDrives DataType="bool">PLC</EnableAllRollDrives>
+                <EnableCenteringArrows DataType="bool">PLC</EnableCenteringArrows>
                 <EnableDifferentialLockTestBrake DataType="bool">PLC</EnableDifferentialLockTestBrake>
                 <Encoder5VPowerSupplyVoltage DataType="int">PLC</Encoder5VPowerSupplyVoltage>
                 <EndSampleSpeed DataType="float" Units="MPH">VehicleTest</EndSampleSpeed>
@@ -915,6 +916,7 @@
                 <PositractionTest DataType="bool">PLC</PositractionTest>
                 <PowerSense DataType="bool">PLC</PowerSense>
                 <PowerSenseLostToIORack DataType="bool">PLC</PowerSenseLostToIORack>
+                <PowerSteeringOverallTest DataType="testcomponentstatus">TestResultServer</PowerSteeringOverallTest>
                 <PowerSupplyFault24Volt DataType="bool">PLC</PowerSupplyFault24Volt>
                 <PreviousLFMachineLoss DataType="float" Units="LBF">ICM</PreviousLFMachineLoss>
                 <PreviousLRMachineLoss DataType="float" Units="LBF">ICM</PreviousLRMachineLoss>

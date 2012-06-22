@@ -18,6 +18,7 @@ namespace VehicleCommServer
         public ECUCommunicationTestForm(IVehicleCommServerInterface vcsInterface)
         {
             InitializeComponent();
+            m_isISOK = false;
             m_vcsInterface = vcsInterface;
             PopulateDeviceComboBox();
             m_moduleIDDataGridView.Rows.Add();
@@ -95,41 +96,56 @@ namespace VehicleCommServer
             DataGridViewRow row = m_moduleIDDataGridView.Rows[0];
             //add module request ID
             List<byte> moduleID = new List<byte>();
-            foreach (DataGridViewCell cell in row.Cells)
-            {
-                moduleID.Add(Convert.ToByte(Int16.Parse(cell.Value.ToString(), System.Globalization.NumberStyles.HexNumber))); 
-            }
-            message.m_messageFilter.requestID = moduleID.ToArray();
-            //add module response ID
-            List<byte> responseID = new List<byte>();
-            List<byte[]> responseIDs = null;
-            row = m_responseIDDataGridView.Rows[0];
-            if (m_globalRequestCheckBox.Checked)
-            {
-                responseIDs = new List<byte[]>();
-                foreach(DataGridViewRow dgvRow in m_responseIDDataGridView.Rows)
-                {
-                    responseID.Clear();
-                    if (!dgvRow.IsNewRow)
-                    {
-                        foreach (DataGridViewCell cell in row.Cells)
-                        {
-                            responseID.Add(Convert.ToByte(Int16.Parse(cell.Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
-                        }
-                        responseIDs.Add(responseID.ToArray());
-                    }
-                }
-                message.m_messageFilter.responseIDs = responseIDs;
-            }
-            else
+            string logMessage = "";
+            if (!m_isISOK)
             {
                 foreach (DataGridViewCell cell in row.Cells)
                 {
-                    responseID.Add(Convert.ToByte(Int16.Parse(cell.Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+                    moduleID.Add(Convert.ToByte(Int16.Parse(cell.Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
                 }
-                message.m_messageFilter.responseID = responseID.ToArray();
+                message.m_messageFilter.requestID = moduleID.ToArray();
+                //add module response ID
+                List<byte> responseID = new List<byte>();
+                List<byte[]> responseIDs = null;
+                row = m_responseIDDataGridView.Rows[0];
+                if (m_globalRequestCheckBox.Checked)
+                {
+                    responseIDs = new List<byte[]>();
+                    foreach (DataGridViewRow dgvRow in m_responseIDDataGridView.Rows)
+                    {
+                        responseID.Clear();
+                        if (!dgvRow.IsNewRow)
+                        {
+                            foreach (DataGridViewCell cell in row.Cells)
+                            {
+                                responseID.Add(Convert.ToByte(Int16.Parse(cell.Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+                            }
+                            responseIDs.Add(responseID.ToArray());
+                        }
+                    }
+                    message.m_messageFilter.responseIDs = responseIDs;
+                }
+                else
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        responseID.Add(Convert.ToByte(Int16.Parse(cell.Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+                    }
+                    message.m_messageFilter.responseID = responseID.ToArray();
+                }
+                logMessage = "RequestID: [" + BitConverter.ToString(message.m_messageFilter.requestID.ToArray()) + "]\r\n";
+                if (m_globalRequestCheckBox.Checked)
+                {
+                    foreach (byte[] id in message.m_messageFilter.responseIDs)
+                    {
+                        logMessage += "ResponseID: [" + BitConverter.ToString(id) + "]\r\n";
+                    }
+                }
+                else
+                {
+                    logMessage += "ResponseID: [" + BitConverter.ToString(message.m_messageFilter.responseID.ToArray()) + "]\r\n";
+                }
             }
-            
             
             //Add Tx message
             List<byte> txMessage = new List<byte>();
@@ -147,18 +163,7 @@ namespace VehicleCommServer
                 }
             }
             message.m_txMessage = txMessage;
-            string logMessage = "RequestID: [" + BitConverter.ToString(message.m_messageFilter.requestID.ToArray()) + "]\r\n";
-            if (m_globalRequestCheckBox.Checked)
-            {
-                foreach (byte[] id in message.m_messageFilter.responseIDs)
-                {
-                    logMessage += "ResponseID: [" + BitConverter.ToString(id) + "]\r\n";
-                }
-            }
-            else
-            {
-                logMessage += "ResponseID: [" + BitConverter.ToString(message.m_messageFilter.responseID.ToArray()) + "]\r\n";
-            }
+
             logMessage += "TX Message: [" + BitConverter.ToString(message.m_txMessage.ToArray()) + "]";
             Log(logMessage);
             return message;
@@ -166,21 +171,25 @@ namespace VehicleCommServer
 
         private void m_sendMessageButton_Click(object sender, EventArgs e)
         {
-
-            Log("Adding Module Filter");
             J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message = CreateECUMessageFromInput();
             List<List<byte>> datas = new List<List<byte>>();
             List<byte> data = new List<byte>();
-            bool status = m_vcsInterface.AddMessageFilter(m_deviceComboBox.SelectedItem.ToString(), m_channelComboBox.SelectedItem.ToString(),
-                message.m_messageFilter);
-            if (status)
+            bool status = false;
+            if (!m_isISOK)
             {
-                Log("Message Filter Added");
+                Log("Adding Module Filter");
+                status = m_vcsInterface.AddMessageFilter(m_deviceComboBox.SelectedItem.ToString(), m_channelComboBox.SelectedItem.ToString(),
+                    message.m_messageFilter);
+                if (status)
+                {
+                    Log("Message Filter Added");
+                }
+                else
+                {
+                    Log("Message Filter Add Failed");
+                }
             }
-            else
-            {
-                Log("Message Filter Add Failed");
-            }
+
             if (m_globalRequestCheckBox.Checked)
             {
                 status = m_vcsInterface.GetECUData(m_deviceComboBox.SelectedItem.ToString(), m_channelComboBox.SelectedItem.ToString(), message, ref datas,m_globalRequestCheckBox.Checked);
@@ -275,14 +284,18 @@ namespace VehicleCommServer
         private void MessageThread()
         {
             int threadID = m_threadID++;
-            Log(threadID.ToString() + " Adding Module Filter");
             J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message = m_ecuMessage;
             List<byte> data = new List<byte>();
             Random random = new Random();
             string device = m_selectedDevice;
             string channel = m_selectedChannel;
-            bool status = m_vcsInterface.AddMessageFilter(device, channel,
-                message.m_messageFilter);
+            bool status;
+            if (message.m_messageFilter.requestID != null)
+            {
+                Log(threadID.ToString() + " Adding Module Filter");
+                status = m_vcsInterface.AddMessageFilter(device, channel,
+                    message.m_messageFilter);
+
             if (status)
             {
                 Log(threadID.ToString() + " Message Filter Added");
@@ -290,6 +303,7 @@ namespace VehicleCommServer
             else
             {
                 Log(threadID.ToString() + " Message Filter Add Failed");
+            }
             }
             while (!m_stopMessageThreads)
             {
@@ -320,6 +334,127 @@ namespace VehicleCommServer
             taskThread.Start();
         }
 
+        private void m_perform5BaudInitBtn_Click(object sender, EventArgs e)
+        {
+            
+            List<byte> txMessage = new List<byte>();
+            bool status = SetupISOK();
+            //Get Address byte
+            txMessage.Add(Convert.ToByte(UInt16.Parse(m_transmitMessageDataGridView.Rows[0].Cells[0].Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+
+
+            Log("Performing 5 baud Init...");
+            status = m_vcsInterface.PerformFiveBaudInit(m_selectedDevice, m_selectedChannel, txMessage[0]);
+
+            if (status)
+            {
+                Log("Initialization Successful");
+
+                //start keep alive message thread
+                m_stopMessageThreads = false;
+                m_ecuMessage = CreateKwp2000KeepAliveMsg();
+                ThreadStart taskDelegate = new ThreadStart(MessageThread);
+                Thread taskThread = new Thread(taskDelegate);
+                taskThread.Start();
+            }
+            else
+            {
+                Log("Message Failure");
+            }
+        }
+        private bool SetupISOK()
+        {
+            m_isISOK = true;
+            J2534ChannelLibrary.CcrtJ2534Defs.MessageFilter filter = new CcrtJ2534Defs.MessageFilter();
+
+            DataGridViewRow row = m_moduleIDDataGridView.Rows[0];
+            //add module request ID
+            List<byte> moduleID = new List<byte>();
+            moduleID.Add(Convert.ToByte(Int16.Parse(row.Cells[3].Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+            filter.requestID = moduleID.ToArray();
+
+
+
+            //add module response ID
+            List<byte> responseID = new List<byte>();
+            row = m_responseIDDataGridView.Rows[0];
+
+            responseID.Add(Convert.ToByte(Int16.Parse(row.Cells[3].Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+            filter.responseID = responseID.ToArray();
+
+            return m_vcsInterface.AddMessageFilter(m_selectedDevice, m_selectedChannel, filter);
+        }
+        private void m_performFastInitBtn_Click(object sender, EventArgs e)
+        {
+            
+            List<byte> txMessage = new List<byte>();
+            List<byte> response = new List<byte>();
+            bool status = SetupISOK();
+
+            //Get wakeup message
+            foreach (DataGridViewRow dgRow in m_transmitMessageDataGridView.Rows)
+            {
+                if (!dgRow.IsNewRow)
+                {
+                    foreach (DataGridViewCell dgCell in dgRow.Cells)
+                    {
+                        if (dgCell.Value != null)
+                        {
+                            txMessage.Add(Convert.ToByte(UInt16.Parse(dgCell.Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+                        }
+                    }
+                }
+            }
+
+
+            Log("Performing Fast Init...");
+            status = m_vcsInterface.PerformFastInit(m_selectedDevice, m_selectedChannel, ref txMessage, ref response);
+
+            if (status)
+            {
+                Log("Message Successful");
+
+                Log("Received: [" + BitConverter.ToString(response.ToArray()) + "]");
+
+                //start keep alive message thread
+                m_stopMessageThreads = false;
+                m_ecuMessage = CreateKwp2000KeepAliveMsg();
+                ThreadStart taskDelegate = new ThreadStart(MessageThread);
+                Thread taskThread = new Thread(taskDelegate);
+                taskThread.Start();
+            }
+            else
+            {
+                Log("Message Failure");
+            }
+
+        }
+
+        private J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage CreateKwp2000KeepAliveMsg()
+        {
+            J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+            //Add Tx message
+            List<byte> txMessage = new List<byte>();
+            txMessage.Add(0x81);
+            //txMessage.Add(0x82);
+            //add module request ID
+            DataGridViewRow row = m_moduleIDDataGridView.Rows[0];
+            txMessage.Add(Convert.ToByte(Int16.Parse(row.Cells[3].Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+
+            //add module response ID
+            row = m_responseIDDataGridView.Rows[0];
+            txMessage.Add(Convert.ToByte(Int16.Parse(row.Cells[3].Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
+            //Add keep alive message
+            txMessage.Add(0x3E);
+            //txMessage.Add(0x10);
+            //txMessage.Add(0x81);
+            message.m_txMessage = txMessage;
+            string logMessage;
+            logMessage = "TX Message: [" + BitConverter.ToString(message.m_txMessage.ToArray()) + "]";
+            Log(logMessage);
+            return message;
+        }
+
         private void m_stopThreadsButton_Click(object sender, EventArgs e)
         {
             m_stopMessageThreads = true;
@@ -329,6 +464,9 @@ namespace VehicleCommServer
         private string m_selectedDevice;
         private string m_selectedChannel;
         private CcrtJ2534Defs.ECUMessage m_ecuMessage;
+        private bool m_isISOK;
+
+
 
 
     }

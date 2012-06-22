@@ -28,6 +28,8 @@ namespace VehicleCommServer
         bool IsVehicleConnected(string deviceName, string commChannelName);
         void OpenVehicleCommSettingsForm();
         bool SetSTMin(string deviceName, string commChannelName, int stMinValue);
+        bool PerformFiveBaudInit(string deviceName, string commChannelName, byte address);
+        bool PerformFastInit(string deviceName, string commChannelName, ref List<byte> wakeUpMessage, ref List<byte> ecuData);
         void ClearResponseBuffer(string deviceName, string commChannelName);
         VehicleCommDeviceCollection GetVehicleCommDeviceCollection();
         List<CcrtJ2534Defs.Response> GetResponseBuffer(string deviceName, string commChannelName);

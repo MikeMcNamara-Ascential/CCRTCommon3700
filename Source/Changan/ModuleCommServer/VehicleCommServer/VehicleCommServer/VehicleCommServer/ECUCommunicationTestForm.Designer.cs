@@ -71,6 +71,8 @@
             this.m_startThreadButton = new System.Windows.Forms.Button();
             this.m_stopThreadsButton = new System.Windows.Forms.Button();
             this.m_globalRequestCheckBox = new System.Windows.Forms.CheckBox();
+            this.m_perform5BaudInitBtn = new System.Windows.Forms.Button();
+            this.m_performFastInitBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_moduleIDDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_transmitMessageDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_responseIDDataGridView)).BeginInit();
@@ -434,11 +436,33 @@
             this.m_globalRequestCheckBox.Text = "All Nodes Request";
             this.m_globalRequestCheckBox.UseVisualStyleBackColor = true;
             // 
+            // m_perform5BaudInitBtn
+            // 
+            this.m_perform5BaudInitBtn.Location = new System.Drawing.Point(88, 205);
+            this.m_perform5BaudInitBtn.Name = "m_perform5BaudInitBtn";
+            this.m_perform5BaudInitBtn.Size = new System.Drawing.Size(87, 27);
+            this.m_perform5BaudInitBtn.TabIndex = 18;
+            this.m_perform5BaudInitBtn.Text = "5 Baud Init";
+            this.m_perform5BaudInitBtn.UseVisualStyleBackColor = true;
+            this.m_perform5BaudInitBtn.Click += new System.EventHandler(this.m_perform5BaudInitBtn_Click);
+            // 
+            // m_performFastInitBtn
+            // 
+            this.m_performFastInitBtn.Location = new System.Drawing.Point(181, 205);
+            this.m_performFastInitBtn.Name = "m_performFastInitBtn";
+            this.m_performFastInitBtn.Size = new System.Drawing.Size(87, 27);
+            this.m_performFastInitBtn.TabIndex = 19;
+            this.m_performFastInitBtn.Text = "Fast Init";
+            this.m_performFastInitBtn.UseVisualStyleBackColor = true;
+            this.m_performFastInitBtn.Click += new System.EventHandler(this.m_performFastInitBtn_Click);
+            // 
             // ECUCommunicationTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(707, 463);
+            this.Controls.Add(this.m_performFastInitBtn);
+            this.Controls.Add(this.m_perform5BaudInitBtn);
             this.Controls.Add(this.m_globalRequestCheckBox);
             this.Controls.Add(this.m_stopThreadsButton);
             this.Controls.Add(this.m_startThreadButton);
@@ -503,5 +527,7 @@
         private System.Windows.Forms.Button m_startThreadButton;
         private System.Windows.Forms.Button m_stopThreadsButton;
         private System.Windows.Forms.CheckBox m_globalRequestCheckBox;
+        private System.Windows.Forms.Button m_perform5BaudInitBtn;
+        private System.Windows.Forms.Button m_performFastInitBtn;
     }
 }

@@ -139,6 +139,18 @@ namespace VehicleCommServer
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
             return dev.SetSTMin(commChannelName, stMinValue);
         }
+        public bool PerformFiveBaudInit(string deviceName, string commChannelName, byte address)
+        {
+            CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
+            return dev.PerformFiveBaudInit(commChannelName, address);
+
+        }
+        public bool PerformFastInit(string deviceName, string commChannelName, ref List<byte> wakeUpMessage, ref List<byte> ecuData)
+        {
+            CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
+            return dev.PerformFastInit(commChannelName, ref wakeUpMessage, ref ecuData);
+        }
+
         public void ClearResponseBuffer(string deviceName, string commChannelName)
         {
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);

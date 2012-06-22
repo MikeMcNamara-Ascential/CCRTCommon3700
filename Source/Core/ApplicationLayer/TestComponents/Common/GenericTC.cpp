@@ -1195,6 +1195,8 @@ const std::string GenericTC::CommandTestStep(const std::string &value)
                                                                                     GetParameterInt("MaintainSpeedMinSpeed"),
                                                                                     GetParameterInt("MaintainSpeedMaxSpeed"));
         else if(step == "ReadMemoryStatistics")       status = TestStepReadMemStats(value);
+        else if(step == "EnableCenteringArrows")      status = EnableCenteringArrows();
+        else if(step == "DisableCenteringArrows")     status = DisableCenteringArrows();
         // Unknown test step
         else
         {
@@ -2647,6 +2649,36 @@ string GenericTC::ResetDriveAxle(const std::string &value)
     testDescription = testPass == testDescription ? testDescription : GetFaultDescription("DriveAxleFailedToSet");
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "GenericTC::ResetDriveAxle() - Exit\n");
+    return(testResult);
+}
+
+//=============================================================================
+string GenericTC::EnableCenteringArrows(void)
+{
+    string testResult = BEP_PASS_STATUS;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    // Log the entry
+    Log(LOG_FN_ENTRY, "GenericTC::EnableCenteringArrows() - Enter\n");
+    // Enable Centering Arrows
+    SystemWrite(GetDataTag("EnableCenteringArrows"),true);
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "GenericTC::EnableCenteringArrows() - Exit\n");
+    return(testResult);
+}
+
+//=============================================================================
+string GenericTC::DisableCenteringArrows(void)
+{
+    string testResult = BEP_PASS_STATUS;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    // Log the entry
+    Log(LOG_FN_ENTRY, "GenericTC::DisableCenteringArrows() - Enter\n");
+    // Enable Centering Arrows
+    SystemWrite(GetDataTag("EnableCenteringArrows"),false);
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "GenericTC::DisableCenteringArrows() - Exit\n");
     return(testResult);
 }
 
@@ -4105,80 +4137,89 @@ const std::string GenericTC::TestStepElectricParkBrake(const std::string &value,
     int driverDelayTime = (GetParameterInt("ParkBrakeDriverDelay") != 0) ? GetParameterInt("ParkBrakeDriverDelay") : 3000;
 
     Log(LOG_FN_ENTRY, "GenericTC::TestStepElectricParkBrake(%s)\n", value.c_str());
-    try
+    if(!ShortCircuitTestStep())
     {
-        // if the conditions are correct to perform the task
-        status = StatusCheck();
-        if( status == BEP_STATUS_SUCCESS)
+    
+        try
         {
-            if(UpdatePrompts() != BEP_STATUS_SUCCESS) Log(LOG_ERRORS, "Unable to Update Prompts\n");
-            // Allow the driver to shift to Neutral and apply park brake
-            status = ElectricParkBrakeInit();
-            // if everything is still good
+            // if the conditions are correct to perform the task
+            status = StatusCheck();
             if( status == BEP_STATUS_SUCCESS)
             {
-                // get the direction and perform the tests
-                string direction = GetTestStepInfo("RollerDirection");
-                if(IsParkBrakeDirectionValid(direction))
+                if(UpdatePrompts() != BEP_STATUS_SUCCESS) Log(LOG_ERRORS, "Unable to Update Prompts\n");
+                // Allow the driver to shift to Neutral and apply park brake
+                status = ElectricParkBrakeInit();
+                // if everything is still good
+                if( status == BEP_STATUS_SUCCESS)
                 {
-                    if((direction == "Forward") || (direction == "Both"))
+                    // get the direction and perform the tests
+                    string direction = GetTestStepInfo("RollerDirection");
+                    if(IsParkBrakeDirectionValid(direction))
                     {
-                        // perform the roller torque test forwards
-                        testStatus = PerformPBTorqueTest("Forward", isTandemAxle);
+                        if((direction == "Forward") || (direction == "Both"))
+                        {
+                            // perform the roller torque test forwards
+                            testStatus = PerformPBTorqueTest("Forward", isTandemAxle);
+                        }
+                        if( ((testStatus == testPass) && (direction == "Both"))
+                            ||(direction == "Reverse") )
+                        {
+                            // perform the roller torque test in reverse
+                            testStatus = PerformPBTorqueTest("Reverse", isTandemAxle);
+                        }
                     }
-                    if( ((testStatus == testPass) && (direction == "Both"))
-                        ||(direction == "Reverse") )
-                    {
-                        // perform the roller torque test in reverse
-                        testStatus = PerformPBTorqueTest("Reverse", isTandemAxle);
+                    else
+                    {   // Requested direction is not valid, failing the test
+                        Log(LOG_ERRORS, "Specified direction <%s> is not valid.  Failing test step %s.",
+                            direction.c_str(), GetTestStepName().c_str());
+                        testStatus = testFail;
                     }
                 }
                 else
-                {   // Requested direction is not valid, failing the test
-                    Log(LOG_ERRORS, "Specified direction <%s> is not valid.  Failing test step %s.",
-                        direction.c_str(), GetTestStepName().c_str());
-                    testStatus = testFail;
+                {
+                    Log(LOG_DEV_DATA, (GetTestStepName() + ": Failed first StatusCheck\n").c_str());
                 }
+    
+                // store the park brake handle force if specified in the configuration file
+                ProcessParkBrakeHandleForce();
+    
+                // tell the driver to release the parking brake
+                DisplayTimedPrompt(GetParameter("ReleaseParkBrakePrompt"), "1", 0, driverDelayTime);
+    
+                // command the motor controller to boost mode
+                SystemCommand(MOTOR_MODE, string(BOOST_MODE));
+    
+                // update the status of the test
+                if(!TimeRemaining())    status = BEP_STATUS_TIMEOUT;
+                else                    status = StatusCheck();
             }
-            else
-            {
-                Log(LOG_DEV_DATA, (GetTestStepName() + ": Failed first StatusCheck\n").c_str());
-            }
-
-            // store the park brake handle force if specified in the configuration file
-            ProcessParkBrakeHandleForce();
-
-            // tell the driver to release the parking brake
-            DisplayTimedPrompt(GetParameter("ReleaseParkBrakePrompt"), "1", 0, driverDelayTime);
-
-            // command the motor controller to boost mode
-            SystemCommand(MOTOR_MODE, string(BOOST_MODE));
-
-            // update the status of the test
-            if(!TimeRemaining())    status = BEP_STATUS_TIMEOUT;
-            else                    status = StatusCheck();
+    
+            UpdateResult(status, testStatus);
         }
-
-        UpdateResult(status, testStatus);
+        catch(BepException &e)
+        {
+            Log(LOG_ERRORS, "GenericTC::TestStepElectricParkBrake Exception: %s\n", e.what());
+            testStatus = BEP_SOFTWAREFAIL_STATUS;
+        }
+        // Get the max force with the mutliplier applied
+        float maxForceWithMultiplier = ApplyForceMultiplier(GetParameterFloat("ParkBrakeApplyForce"), GetParameterFloat("ParkBrakeForceMultiplier"));
+        // update the test result
+        char buff[16];
+        if(SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"), "0000", 
+                                    "ModifiedMaxParkBrakeForce", 
+                                    CreateMessage(buff, sizeof(buff), "%.2f", maxForceWithMultiplier), unitsLBF) != BEP_STATUS_SUCCESS)
+        {
+            Log(LOG_ERRORS, "GenericTC::TestStepElectricParkBrake Could Not Send Test Result: %s, %s\n",
+                GetTestStepName().c_str(), testStatus.c_str());
+        }
+    
+        RemovePrompts();    // remove the prompts from the screen
     }
-    catch(BepException &e)
+    else
     {
-        Log(LOG_ERRORS, "GenericTC::TestStepElectricParkBrake Exception: %s\n", e.what());
-        testStatus = BEP_SOFTWAREFAIL_STATUS;
+        Log(LOG_FN_ENTRY, "Skipping test step GenericTC::TestStepElectricParkBrake()");
+        testStatus = testSkip;
     }
-    // Get the max force with the mutliplier applied
-    float maxForceWithMultiplier = ApplyForceMultiplier(GetParameterFloat("ParkBrakeApplyForce"), GetParameterFloat("ParkBrakeForceMultiplier"));
-    // update the test result
-    char buff[16];
-    if(SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"), "0000", 
-                                "ModifiedMaxParkBrakeForce", 
-                                CreateMessage(buff, sizeof(buff), "%.2f", maxForceWithMultiplier), unitsLBF) != BEP_STATUS_SUCCESS)
-    {
-        Log(LOG_ERRORS, "GenericTC::TestStepElectricParkBrake Could Not Send Test Result: %s, %s\n",
-            GetTestStepName().c_str(), testStatus.c_str());
-    }
-
-    RemovePrompts();    // remove the prompts from the screen
 
     return(testStatus);     // return the status
 }

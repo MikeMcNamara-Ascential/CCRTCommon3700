@@ -279,12 +279,15 @@ const std::string VehicleDataServer::Publish(const XmlNode *node)
 // If we need to verify that this is truely an edge, we need to do a
 // ReadSubscribeData() before the call to BepServer::Publish() below
 
-            SetData(GetDataTag("LatestVIN"),m_storedVIN);
-            Log(LOG_DEV_DATA, "Updated LatestVIN with m_storedVIN: \"%s\"\n", m_storedVIN.c_str());
-            m_storedVIN.erase();
-            SetData(string("VINReadStatus"),string("Green"));
-            // Make sure the rest of the system is aware of the VIN read status
-            m_dataBroker->Write(VIN_READ_STATUS_TAG, string("Green"), response, true);
+            if(ReadSubscribeData("TestInProgress") == "1")
+            {
+                SetData(GetDataTag("LatestVIN"),m_storedVIN);
+                Log(LOG_DEV_DATA, "Updated LatestVIN with m_storedVIN: \"%s\"\n", m_storedVIN.c_str());
+                m_storedVIN.erase();
+                SetData(string("VINReadStatus"),string("Green"));
+                // Make sure the rest of the system is aware of the VIN read status
+                m_dataBroker->Write(VIN_READ_STATUS_TAG, string("Green"), response, true);
+            }
         }
         else
         {

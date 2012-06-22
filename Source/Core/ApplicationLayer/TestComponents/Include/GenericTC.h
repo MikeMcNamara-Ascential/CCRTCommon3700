@@ -3351,6 +3351,9 @@ protected:
      */
     virtual string ResetDriveAxle(const std::string &value);
 
+    virtual string EnableCenteringArrows(void);
+    virtual string DisableCenteringArrows(void);
+
     /**
      * Enable electric motor boost.
      * <br><p>

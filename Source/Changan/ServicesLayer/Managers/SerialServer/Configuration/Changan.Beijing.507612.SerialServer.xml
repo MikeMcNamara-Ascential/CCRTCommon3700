@@ -31,7 +31,7 @@
                      <FifoSize>1024</FifoSize>
                  </Protocol>
                  <Logging>
-                     <ProcessName>logport/WinCcrt</ProcessName>
+                     <ProcessName>logport/WinCcrtss</ProcessName>
                      <AdditionalLogFile>/Communication/WinCcrt.log</AdditionalLogFile>
                      <Status>Enabled</Status>
                      <LocalEcho>Disabled</LocalEcho>

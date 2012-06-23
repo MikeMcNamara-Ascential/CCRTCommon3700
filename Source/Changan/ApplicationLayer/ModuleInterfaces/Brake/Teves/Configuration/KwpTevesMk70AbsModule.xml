@@ -26,7 +26,7 @@
       </DtcData>
       <Communication>
          <Debug>Off</Debug>
-         <Name>/home/CCRT/Rewrite/ISOK</Name>
+         <Name>/dev/LogicalPorts/ISOK</Name>
          <BufferSize>4096</BufferSize>
          <CommSize>1</CommSize>
          <Timeout>10000000</Timeout>
@@ -83,6 +83,13 @@
          <Code_0xE7>Routine already running - Specified routine is already running</Code_0xE7>
          <Code_0xE8>Routine not running - Specified routine was never requested to enter/start</Code_0xE8>
       </NegativeResponseCodes>
+      <WinCcrtServer>core/WinCcrtInterface</WinCcrtServer>
+      <WinCcrtMsgTags>   
+          <MsgTag001 MessageTag="Teves MK70" MessageType="SetAbsType"/>
+          <MsgTag002 MessageTag="EnterDiagnosticMode”" MessageType="“SendMessage"/>
+          <MsgTag003 MessageTag="5 Baud Init" MessageType="Connect"/>
+          <MsgTag004 MessageTag="" MessageType="“Disconnect"/>
+      </WinCcrtMsgTags>
    </Setup>
    <SerialMessages>
       <InitMessage>

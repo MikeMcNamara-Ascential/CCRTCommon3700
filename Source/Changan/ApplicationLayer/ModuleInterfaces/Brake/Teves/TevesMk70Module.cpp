@@ -48,7 +48,8 @@ bool TevesMk70Module<ProtocolFilter>::InitializeHook(const XmlNode *configNode)
     
     if (m_protocolFilter != NULL)
     {
-       m_protocolFilter->InitializeServer("core/WinCcrt");
+        Log(LOG_DEV_DATA, "TevesMk70Module::InitializeHook - Init WinCcrt Server");
+        m_protocolFilter->InitializeServer(configNode);
     }
     
     // Store the byte containing the number of DTCs reported in the module response

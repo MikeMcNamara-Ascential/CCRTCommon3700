@@ -45,9 +45,11 @@ namespace ModuleCommServer
             PopulateVehicleInterfaceDevices();
             // Display the configred ABS modules in the window
             DisplayConfiguredAbsModules();
+            
             // Create a new QNX interface
             CreateQnxInterfaceThread = new Thread(CreateQnxInterface);
             CreateQnxInterfaceThread.Start();
+
         }
 
         /// <summary>
@@ -98,10 +100,20 @@ namespace ModuleCommServer
             if (ConnectionThread != null)
             {
                 ConnectionThread.Abort();
+                Log.Log("Aborting attempt to connect to QNX");
             }
             // Create a new thread to monitor the connection status to QNX
             ConnectionThread = new Thread(QnxCcrtConnection);
             ConnectionThread.Start();
+
+            // Create a new thread to process the messages coming in from QNX
+            QnxConnectionThread = new Thread(ProcessQnxCcrtMessages);
+            QnxConnectionThread.Start();
+        }
+
+        public System.Windows.Forms.TextBox GetLoggerTextbox()
+        {
+            return m_logTextBox;
         }
 
         /// <summary>
@@ -166,6 +178,8 @@ namespace ModuleCommServer
         /// </summary>
         private void ProcessQnxCcrtMessages()
         {
+            while (!QnxCcrt.QnxConnected) Thread.Sleep(1000);
+
             while (true)
             {   // Wait for a message from the QNX CCRT System
                 String message = QnxCcrt.WaitForQnxCcrtMessage();
@@ -198,7 +212,12 @@ namespace ModuleCommServer
                             {
                                 respMsg += String.Format("{0,02:X2}", respByte);
                             }
-                            QnxCcrt.Write("ModuleResponse", respMsg);
+
+                            respMsg = "7F,7F,7F,7F,7F";
+                            QnxCcrt.Write("ModuleResponse,", respMsg);
+                            //QnxCcrt.Write("ModuleResponse,", "7F,7F,7F,7F,7F");
+                            //QnxCcrt.Write("ModuleResponse", "00,00,00,00,00");
+                            
                             break;
 
                         default:
@@ -261,7 +280,7 @@ namespace ModuleCommServer
         }
 
         /// <summary>
-        /// Set the QNX connection status.
+        /// Set the QNX connection status in a text box.
         /// </summary>
         /// <param name="color">Color to use for the current status.</param>
         private void SetQnxConnectionStatus(Color color)
@@ -321,6 +340,12 @@ namespace ModuleCommServer
         /// This will allow the connection to be attempted in the background.
         /// </summary>
         private Thread ConnectionThread { get; set; }
+
+        /// <summary>
+        /// Thread to process messages from QNX CCRT system.
+        /// </summary>
+        private Thread QnxConnectionThread { get; set; }
+        
 
         /// <summary>
         /// Thread to use for creating the QNX CCRT Interface object.
@@ -421,6 +446,12 @@ namespace ModuleCommServer
             {
                 CommChannels = ModInterface.ConfigureVehicleComms();
             }
+        }
+
+        private void txMonitorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TxMonitorForm TxFrm = new TxMonitorForm();
+            TxFrm.ShowDialog();
         }
 
     }

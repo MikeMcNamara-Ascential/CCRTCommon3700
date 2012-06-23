@@ -90,6 +90,12 @@
     <Compile Include="ModuleInterface.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TxMonitorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TxMonitorForm.Designer.cs">
+      <DependentUpon>TxMonitorForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddBrakeModuleForm.resx">
       <DependentUpon>AddBrakeModuleForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,6 +117,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TxMonitorForm.resx">
+      <DependentUpon>TxMonitorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

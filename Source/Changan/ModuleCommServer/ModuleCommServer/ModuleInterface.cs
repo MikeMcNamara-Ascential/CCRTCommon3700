@@ -30,6 +30,7 @@ namespace ModuleCommServer
         public void ChangeActiveJ2534Device()
         {
             String devName = ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice;
+            List<J2534Device> test = J2534Detect.GetDeviceList();
             ActiveJ2534Device = new CcrtJ2534Device(J2534Detect.GetDeviceList().Find(dev => dev.Name.Equals(devName)));
         }
 
@@ -77,10 +78,23 @@ namespace ModuleCommServer
         public List<Byte> SendModuleMessage(BrakeModule module, String messageTag)
         {
             List<Byte> response = new List<Byte>();
-            VehicleInterface.ClearResponseBuffer(ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice,
-                                                 module.CommBus);
-            VehicleInterface.GetECUData(ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice, 
-                                        module.CommBus, module.MessageTable[messageTag], ref response);
+            Log.Log("Sending Message: " + messageTag);
+            if (VehicleInterface != null)
+            {
+                try
+                {
+
+                    VehicleInterface.ClearResponseBuffer(ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice,
+                                                         module.CommBus);
+                    VehicleInterface.GetECUData(ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice,
+                                                module.CommBus, module.MessageTable[messageTag], ref response);
+                }
+                catch (Exception e)
+                {
+                    string exceptionMsg = e.ToString();
+                }
+            }
+
             return response;
         }
 

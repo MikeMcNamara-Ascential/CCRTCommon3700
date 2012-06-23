@@ -377,10 +377,11 @@ const BEP_STATUS_TYPE ProtocolFilter::GetResponse(const std::string &messageTag,
 	// Get the response from the module
 	INT32 retry = 0;		// retry counter
 	INT32 bytesRead = 0;	// the number of bytes read
-
+    Log(LOG_DEV_DATA, "tk:gr1");
 	do
 	{	// read the data from the port
-		bytesRead = WaitForFullResponse(reply);
+        Log(LOG_DEV_DATA, "tk:gr1 - wffr");
+        bytesRead = WaitForFullResponse(reply);
 		Log(LOG_DETAILED_DATA, "Received %d bytes for message %s\n", bytesRead, messageTag.c_str());
 		// if data is read from the port, determine if it is done
 		if(bytesRead > 0)
@@ -440,7 +441,8 @@ const BEP_STATUS_TYPE ProtocolFilter::GetResponse(const std::string &messageTag,
 const BEP_STATUS_TYPE ProtocolFilter::GetResponse(SerialString_t &reply)
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-	// Get the response from the port
+    Log(LOG_DEV_DATA, "tk:gr2 - wffr");
+    // Get the response from the port
 	INT32 bytesRead = WaitForFullResponse(reply);
 	// Evaluate the number of bytes
 	Log(LOG_DETAILED_DATA, "GetResponse retrieved %d bytes from the module\n", bytesRead);
@@ -464,7 +466,7 @@ const BEP_STATUS_TYPE ProtocolFilter::GetModuleData(std::string messageTag, Seri
 		Log(LOG_DETAILED_DATA, "GetModuleData Locking Port\n");
 		if((portLocked = LockPort()) == true)
 		{	// The port was locked
-			Log(LOG_DETAILED_DATA, "GetModuleData Locked Port\n");
+			Log(LOG_DETAILED_DATA, "ProtocolFilter::GetModuleData Locked Port\n");
 			do
 			{	// Send the message to the module
 				if(args == NULL) status = SendMessage(messageTag);
@@ -475,16 +477,28 @@ const BEP_STATUS_TYPE ProtocolFilter::GetModuleData(std::string messageTag, Seri
 				if(IsResponseExpected(messageTag))
 				{	// Clear the response area
 					reply.erase();
+                    Log(LOG_DETAILED_DATA, "ProtocolFilter::GetModuleData clear response area");
 					// Set the message ID
 					// If send was successful, get the module response
-					if(BEP_STATUS_SUCCESS == status) status = GetResponse(messageTag, reply);
+					if(BEP_STATUS_SUCCESS == status)
+                    { 
+                        Log(LOG_DETAILED_DATA, "ProtocolFilter::GetModuleData getting module response");
+                        status = GetResponse(messageTag, reply);
+                    }
 					// If this is not a valid message, wait a bit beofre trying again
-					if(BEP_STATUS_SUCCESS != status) BposSleep(GetResponseDelay());
+					if(BEP_STATUS_SUCCESS != status)
+                    {
+                        Log(LOG_DETAILED_DATA, "ProtocolFilter::GetModuleData not valid message. delay %dms", GetResponseDelay());
+                        BposSleep(GetResponseDelay());
+                    }
 				}
 				else
 				{
-					// If response NOT expected, exit do-while loop
+
+                    // If response NOT expected, exit do-while loop
 					status = BEP_STATUS_SUCCESS;
+                    Log(LOG_DETAILED_DATA, "ProtocolFilter::GetModuleData response not expected");
+
 				}
 			}
 			while((BEP_STATUS_SUCCESS != status) && (tries-- > 0) && !GetStopCommsFlag());

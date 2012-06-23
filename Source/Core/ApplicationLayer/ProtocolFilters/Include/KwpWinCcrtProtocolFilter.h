@@ -78,13 +78,13 @@ class KwpWinCcrtProtocolFilter : public ProtocolFilter
      */
     virtual ~KwpWinCcrtProtocolFilter();
 
-     /**
+    /**
      * Initialize the server channel.
      *
      * @param config The configuration to use for the channel initialization.
      * @return true if the initialization is successful.
      */
-     virtual bool InitializeServer(std::string server);
+     virtual bool InitializeServer(const XmlNode *configNode);
       
     /**
      * Send a message to vehicle module.
@@ -103,7 +103,6 @@ class KwpWinCcrtProtocolFilter : public ProtocolFilter
      */
 	const SerialString_t ExtractModuleData(SerialString_t &moduleResponse);
 
-
 protected:
 	/**
 	 * Attempts to read an entire message from the Comm Proxy.
@@ -120,6 +119,12 @@ protected:
 private:
 	
    IBepCommunication m_WinCcrtComm;
+
+   /**
+    * Contains the WinCcrt Msg Nodes
+    * 
+    */
+    XmlNodeMap m_WinCcrtMsgNodes;
    
  
 };

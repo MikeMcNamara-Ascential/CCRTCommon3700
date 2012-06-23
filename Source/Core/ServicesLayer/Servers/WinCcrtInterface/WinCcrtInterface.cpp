@@ -49,7 +49,7 @@ void WinCcrtInterface::Initialize(const XmlNode *document)
 	}
 	// Set the inter-message wait time
 	INT32 waitTime = 0;
-	try
+    try
 	{
 		waitTime = BposReadInt(document->getChild("Setup/MessageCheckDelay")->getValue().c_str());
 	}
@@ -58,7 +58,36 @@ void WinCcrtInterface::Initialize(const XmlNode *document)
 		waitTime = 1000;
 		Log(LOG_ERRORS, "No inter-message gap time defined, defaulting to 1000ms between messages - %s", excpt.GetReason());
 	}
-	MessageWaitTime(&waitTime);
+
+	// Set the inter-message wait time
+    INT32 waitTimeReadPortInit = 0;
+	try
+	{
+		waitTimeReadPortInit = BposReadInt(document->getChild("Setup/MessageReadPortInitDelay")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		waitTimeReadPortInit = 100;
+		Log(LOG_ERRORS, "No inter-message gap time defined, defaulting MessageReadPortInitDelay to 100ms between messages - %s", excpt.GetReason());
+	}
+
+	// Set the inter-message wait time
+	INT32 waitTimeReadPortEnd = 0;
+	try
+	{
+		waitTimeReadPortEnd = BposReadInt(document->getChild("Setup/MessageReadPortEndDelay")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		waitTimeReadPortEnd = 100;
+		Log(LOG_ERRORS, "No inter-message gap time defined, defaulting MessageReadPortEndDelay to 100ms between messages - %s", excpt.GetReason());
+	}
+
+	 MessageWaitTime(&waitTime);
+    MessageWaitTimeInit(&waitTimeReadPortInit);
+    MessageWaitTimeEnd(&waitTimeReadPortEnd);
+
+    Log(LOG_DEV_DATA, "waitTime: %d   waitTimeReadPortInit: %d   waitTimeReadPortEnd:%d\n", waitTime, waitTimeReadPortInit, waitTimeReadPortEnd);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -219,7 +248,7 @@ BEP_STATUS_TYPE WinCcrtInterface::CheckForWinCcrtMessage()
 	SerialString_t message;
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	// Check if the test type has been changed from normal
-	INT32 byteCount = m_winCcrtComm.ReadPort(message, 1000, 100);
+	INT32 byteCount = m_winCcrtComm.ReadPort(message, MessageWaitTimeInit(), MessageWaitTimeEnd());
 	if(byteCount > 0)
 	{
 		Log(LOG_DEV_DATA, "Received %d bytes from Windows CCRT system", byteCount);
@@ -240,6 +269,21 @@ INT32& WinCcrtInterface::MessageWaitTime(const INT32 *waitTime /*= NULL*/)
 	if(waitTime != NULL)  m_messageWaitTime = *waitTime;
 	return m_messageWaitTime;
 }
+
+//-------------------------------------------------------------------------------------------------
+INT32& WinCcrtInterface::MessageWaitTimeInit(const INT32 *waitTime /*= NULL*/)
+{
+	if(waitTime != NULL)  m_messageWaitTimeInit = *waitTime;
+	return m_messageWaitTimeInit;
+}
+
+//-------------------------------------------------------------------------------------------------
+INT32& WinCcrtInterface::MessageWaitTimeEnd(const INT32 *waitTime /*= NULL*/)
+{
+	if(waitTime != NULL)  m_messageWaitTimeEnd = *waitTime;
+	return m_messageWaitTimeEnd;
+}
+
 
 //-------------------------------------------------------------------------------------------------
 BEP_STATUS_TYPE WinCcrtInterface::ProcessWinCcrtMessage(const string &message)

@@ -2031,7 +2031,7 @@ string GenericTCTemplate<ModuleType>::EnterDiagnosticModeNoResponse(void)
     string testDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     // Check if this step should be skipped
-    Log(LOG_FN_ENTRY, "Enter GenericTCTemplate::EnterDiagnosticMode()\n");
+    Log(LOG_FN_ENTRY, "Enter GenericTCTemplate::EnterDiagnosticModeNoResponse()\n");
     if(!ShortCircuitTestStep() || GetParameterBool("AlwaysEnterDiagnosticMode"))
     {   // Need to perform this test step
         if(CheckCableConnect())

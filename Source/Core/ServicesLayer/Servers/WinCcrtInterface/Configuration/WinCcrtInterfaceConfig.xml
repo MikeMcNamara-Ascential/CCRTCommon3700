@@ -52,7 +52,7 @@
                     <Debug>Off</Debug>
                 </Communication>
                 <Logging>
-                    <ProcessName>WinCcrtCommunication</ProcessName>
+                    <ProcessName>WinCcrtCommunicationInterface</ProcessName>
                     <Status>Enabled</Status>
                     <AdditionalLogFile>/Servers/WinCcrtCommunication.log</AdditionalLogFile>
                     <Debug>Off</Debug>
@@ -65,6 +65,8 @@
             </Setup>
         </WinCcrtCommunication>
 
-        <MessageCheckDelay Units="ms">0</MessageCheckDelay>
+        <MessageCheckDelay Units="ms">500</MessageCheckDelay>
+        <MessageReadPortInitDelay Units="ms">1000</MessageReadPortInitDelay>
+        <MessageReadPortEndDelay Units="ms">0</MessageReadPortEndDelay>
     </Setup>
 </WinCcrtInterfaceConfig>

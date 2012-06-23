@@ -126,6 +126,25 @@ private:
 	 */
 	INT32& MessageWaitTime(const INT32 *waitTime = NULL);
 
+    /**
+     * Get/Set the time to wait between checks for incoming messages.
+     * 
+     * @param waitTime Time to wait between checks for incoming messages.
+     * 
+     * @return Time to wait between checks for incoming messages.
+     */
+    INT32& MessageWaitTimeInit(const INT32 *waitTime = NULL);
+
+    /**
+     * Get/Set the time to wait between checks for incoming messages.
+     * 
+     * @param waitTime Time to wait between checks for incoming messages.
+     * 
+     * @return Time to wait between checks for incoming messages.
+     */
+    INT32& MessageWaitTimeEnd(const INT32 *waitTime = NULL);
+
+
 	/**
 	 * Process the message received from the Windows CCRT system.
 	 * 
@@ -185,6 +204,10 @@ private:
 	bool m_updateTestType;
 	// Time to wait between checks for incoming messages
 	INT32 m_messageWaitTime;
+    // Time to wait between checks for incoming messages
+    INT32 m_messageWaitTimeInit;
+    // Time to wait between checks for incoming messages
+    INT32 m_messageWaitTimeEnd;
 	// Type of test that was selected
 	string m_testType;
 	// Notes entered by the operator.

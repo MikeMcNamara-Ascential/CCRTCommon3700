@@ -1635,6 +1635,7 @@ BEP_STATUS_TYPE GenericModuleTemplate<ProtocolFilterType>::CommandModule(const s
 {
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     SerialString_t moduleResponse;
+    Log(LOG_DEV_DATA, "GenericModuleTemplate::CommandModule - is commObject NULL? ... %s", (commObject == NULL) ? "yes" : "no");
     IProtocolFilter *comm = (commObject == NULL) ? m_protocolFilter : commObject;
     // Command the module
     status = comm->GetModuleData(command, moduleResponse, args);
@@ -1642,6 +1643,7 @@ BEP_STATUS_TYPE GenericModuleTemplate<ProtocolFilterType>::CommandModule(const s
     if(rawData != NULL)
     {
         *rawData = moduleResponse;
+        Log(LOG_DEV_DATA, "module response being returned to the caller");
     }
     // Check the status of the command
     if(BEP_STATUS_SUCCESS == status)
@@ -2267,7 +2269,7 @@ template <class ProtocolFilterType>
 BEP_STATUS_TYPE GenericModuleTemplate<ProtocolFilterType>::EnterDiagnosticModeNoResponse(void)
 {
     BEP_STATUS_TYPE status;
-    Log(LOG_FN_ENTRY, "GenericModuleTemplate::EnterDiagnosticMode\n");
+    Log(LOG_FN_ENTRY, "GenericModuleTemplate::EnterDiagnosticModeNoResponse\n");
     // Check to see that all our objects are in place
     CheckObjectsStatus();
     Log(LOG_DEV_DATA, "Objects are OK\n");

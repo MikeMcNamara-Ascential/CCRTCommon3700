@@ -119,7 +119,7 @@ const BEP_STATUS_TYPE KwpWinCcrtProtocolFilter::SendMessage(std::string messageT
 
         if (itrMsgTag == messageTag)
         {
-            msgType = iter->second->getAttribute("MessageTag")->getValue();
+            msgType = iter->second->getAttribute("MessageType")->getValue();
             isMsgTagFound = true;
             break;
         }

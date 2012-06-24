@@ -147,6 +147,7 @@
 					<F N="ApplicationLayer/ProtocolFilters/Include/Keyword82ProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/KeywordProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/KwpCanProtocolFilter.h"/>
+					<F N="ApplicationLayer/ProtocolFilters/Include/KwpWinCcrtProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/ProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/SciProtocolFilter.h"/>
 				</Folder>
@@ -160,6 +161,7 @@
 					<F N="ApplicationLayer/ProtocolFilters/KeyWord2000/Keyword82ProtocolFilter.cpp"/>
 					<F N="ApplicationLayer/ProtocolFilters/KeyWord2000/KeywordProtocolFilter.cpp"/>
 					<F N="ApplicationLayer/ProtocolFilters/KeyWord2000/KwpCanProtocolFilter.cpp"/>
+					<F N="ApplicationLayer/ProtocolFilters/KeyWord2000/KwpWinCcrtProtocolFilter.cpp"/>
 				</Folder>
 				<Folder Name="SCI">
 					<F N="ApplicationLayer/ProtocolFilters/SCI/SciProtocolFilter.cpp"/>

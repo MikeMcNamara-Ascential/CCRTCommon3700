@@ -22,7 +22,6 @@
            <SubscribeTags>
                <TestType/>
            </SubscribeTags>
-           <PublishTags/>
         </TagList>
         <ThreadPool>
            <Debug>Off</Debug>

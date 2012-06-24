@@ -796,6 +796,7 @@
 				<Folder Name="bin">
 					<Folder Name="Debug">
 						<F N="ModuleCommServer/ModuleCommServer/bin/Debug/AbsModuleSetup.xml"/>
+						<F N="ModuleCommServer/ModuleCommServer/bin/Debug/VehicleCommDeviceSettings.xml"/>
 					</Folder>
 				</Folder>
 				<Folder Name="obj">
@@ -847,6 +848,9 @@
 							<Folder Name="x86">
 								<Folder Name="Debug">
 									<F N="ModuleCommServer/VehicleCommServer/VehicleCommServer/VehicleCommServer/obj/x86/Debug/VehicleCommServer.csproj.FileListAbsolute.txt"/>
+								</Folder>
+								<Folder Name="Release">
+									<F N="ModuleCommServer/VehicleCommServer/VehicleCommServer/VehicleCommServer/obj/x86/Release/VehicleCommServer.csproj.FileListAbsolute.txt"/>
 								</Folder>
 							</Folder>
 						</Folder>

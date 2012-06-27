@@ -30,6 +30,10 @@ namespace VehicleCommServer
         bool SetSTMin(string deviceName, string commChannelName, int stMinValue);
         bool PerformFiveBaudInit(string deviceName, string commChannelName, byte address);
         bool PerformFastInit(string deviceName, string commChannelName, ref List<byte> wakeUpMessage, ref List<byte> ecuData);
+        bool SetDeviceConfigurationParameter(string deviceName, string commChannelName, ConfigParameter param, int value);
+        bool GetDeviceConfigurationParameter(string deviceName, string commChannelName, ConfigParameter param, ref int value);
+        bool SetDeviceConfiguration(string deviceName, string commChannelName, ref SConfig[] config);
+        bool GetDeviceConfiguration(string deviceName, string commChannelName, ref SConfig[] config);
         void ClearResponseBuffer(string deviceName, string commChannelName);
         VehicleCommDeviceCollection GetVehicleCommDeviceCollection();
         List<CcrtJ2534Defs.Response> GetResponseBuffer(string deviceName, string commChannelName);

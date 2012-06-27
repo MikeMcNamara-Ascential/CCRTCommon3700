@@ -21,6 +21,8 @@ namespace VehicleCommServer
             m_isISOK = false;
             m_vcsInterface = vcsInterface;
             PopulateDeviceComboBox();
+            PopulateGetParameterComboBox();
+            PopulateSetParameterComboBox();
             m_moduleIDDataGridView.Rows.Add();
             m_responseIDDataGridView.Rows.Add();
             m_periodicMsgIds = new List<int>();
@@ -80,7 +82,92 @@ namespace VehicleCommServer
                 m_channelComboBox.SelectedIndex = 0;
             }
         }
+        private void PopulateGetParameterComboBox()
+        {
+            m_getDevParamCmbo.Items.Clear();
+            m_getDevParamCmbo.Text = "";
 
+            m_getDevParamCmbo.Items.Add("BIT_SAMPLE_POINT");
+            m_getDevParamCmbo.Items.Add("BS_TX");
+            m_getDevParamCmbo.Items.Add("DATA_BITS");
+            m_getDevParamCmbo.Items.Add("DATA_RATE");
+            m_getDevParamCmbo.Items.Add("FIVE_BAUD_MOD");
+            m_getDevParamCmbo.Items.Add("ISO15765_BS");
+            m_getDevParamCmbo.Items.Add("ISO15765_STMIN");
+            m_getDevParamCmbo.Items.Add("ISO15765_WFT_MAX");
+            m_getDevParamCmbo.Items.Add("LOOPBACK"); 
+            m_getDevParamCmbo.Items.Add("NETWORK_LINE");
+            m_getDevParamCmbo.Items.Add("NODE_ADDRESS");
+            m_getDevParamCmbo.Items.Add("P1_MAX");
+            m_getDevParamCmbo.Items.Add("P2_MAX");
+            m_getDevParamCmbo.Items.Add("P2_MIN");
+            m_getDevParamCmbo.Items.Add("P3_MAX");
+            m_getDevParamCmbo.Items.Add("P3_MIN");
+            m_getDevParamCmbo.Items.Add("P4_MAX");
+            m_getDevParamCmbo.Items.Add("P4_MIN");
+            m_getDevParamCmbo.Items.Add("PARITY");
+            m_getDevParamCmbo.Items.Add("STMIN_TX");
+            m_getDevParamCmbo.Items.Add("SYNC_JUMP_WIDTH"); 
+            m_getDevParamCmbo.Items.Add("T1_MAX");
+            m_getDevParamCmbo.Items.Add("T2_MAX");
+            m_getDevParamCmbo.Items.Add("T3_MAX");
+            m_getDevParamCmbo.Items.Add("T4_MAX");
+            m_getDevParamCmbo.Items.Add("T5_MAX");
+            m_getDevParamCmbo.Items.Add("TIDLE");
+            m_getDevParamCmbo.Items.Add("TINIL");
+            m_getDevParamCmbo.Items.Add("TWUP");
+            m_getDevParamCmbo.Items.Add("unused");
+    
+            // Select the first item in the list
+            m_getDevParamCmbo.Sorted = true;
+            if (m_getDevParamCmbo.Items.Count > 0)
+            {
+                m_getDevParamCmbo.SelectedIndex = 0;
+            }
+        }
+        private void PopulateSetParameterComboBox()
+        {
+            m_setDevParamCmbo.Items.Clear();
+            m_setDevParamCmbo.Text = "";
+
+            m_setDevParamCmbo.Items.Add("BIT_SAMPLE_POINT");
+            m_setDevParamCmbo.Items.Add("BS_TX");
+            m_setDevParamCmbo.Items.Add("DATA_BITS");
+            m_setDevParamCmbo.Items.Add("DATA_RATE");
+            m_setDevParamCmbo.Items.Add("FIVE_BAUD_MOD");
+            m_setDevParamCmbo.Items.Add("ISO15765_BS");
+            m_setDevParamCmbo.Items.Add("ISO15765_STMIN");
+            m_setDevParamCmbo.Items.Add("ISO15765_WFT_MAX");
+            m_setDevParamCmbo.Items.Add("LOOPBACK");
+            m_setDevParamCmbo.Items.Add("NETWORK_LINE");
+            m_setDevParamCmbo.Items.Add("NODE_ADDRESS");
+            m_setDevParamCmbo.Items.Add("P1_MAX");
+            m_setDevParamCmbo.Items.Add("P2_MAX");
+            m_setDevParamCmbo.Items.Add("P2_MIN");
+            m_setDevParamCmbo.Items.Add("P3_MAX");
+            m_setDevParamCmbo.Items.Add("P3_MIN");
+            m_setDevParamCmbo.Items.Add("P4_MAX");
+            m_setDevParamCmbo.Items.Add("P4_MIN");
+            m_setDevParamCmbo.Items.Add("PARITY");
+            m_setDevParamCmbo.Items.Add("STMIN_TX");
+            m_setDevParamCmbo.Items.Add("SYNC_JUMP_WIDTH");
+            m_setDevParamCmbo.Items.Add("T1_MAX");
+            m_setDevParamCmbo.Items.Add("T2_MAX");
+            m_setDevParamCmbo.Items.Add("T3_MAX");
+            m_setDevParamCmbo.Items.Add("T4_MAX");
+            m_setDevParamCmbo.Items.Add("T5_MAX");
+            m_setDevParamCmbo.Items.Add("TIDLE");
+            m_setDevParamCmbo.Items.Add("TINIL");
+            m_setDevParamCmbo.Items.Add("TWUP");
+            m_setDevParamCmbo.Items.Add("unused");
+
+            // Select the first item in the list
+            m_setDevParamCmbo.Sorted = true;
+            if (m_setDevParamCmbo.Items.Count > 0)
+            {
+                m_setDevParamCmbo.SelectedIndex = 0;
+            }
+        }
         private void m_deviceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateChannelComboBox();
@@ -465,6 +552,38 @@ namespace VehicleCommServer
         private string m_selectedChannel;
         private CcrtJ2534Defs.ECUMessage m_ecuMessage;
         private bool m_isISOK;
+
+        private void m_setParamBtn_Click(object sender, EventArgs e)
+        {
+            if (m_setDevParamTxtBox.Text != "")
+            {
+                try
+                {
+                    int value = Convert.ToInt32(m_setDevParamTxtBox.Text);
+                    J2534DotNet.ConfigParameter param = CcrtJ2534Channel.ConvertToConfigParamter(m_setDevParamCmbo.SelectedItem.ToString());
+                    m_vcsInterface.SetDeviceConfigurationParameter(m_selectedDevice,m_selectedChannel,param,value);
+                }
+                catch
+                {
+                    MessageBox.Show(String.Format("Error with text box value"));
+                }
+            }
+        }
+
+        private void m_getParamBtn_Click(object sender, EventArgs e)
+        {
+                try
+                {
+                    int value = 0;
+                    J2534DotNet.ConfigParameter param = CcrtJ2534Channel.ConvertToConfigParamter(m_getDevParamCmbo.SelectedItem.ToString());
+                    m_vcsInterface.GetDeviceConfigurationParameter(m_selectedDevice, m_selectedChannel, param, ref value);
+                    m_getDevParamTxtBox.Text = value.ToString();
+                }
+                catch
+                {
+                    MessageBox.Show(String.Format("Error with text box value"));
+                }
+        }
 
 
 

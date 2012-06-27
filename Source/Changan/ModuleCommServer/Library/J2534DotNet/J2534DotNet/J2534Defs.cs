@@ -183,6 +183,50 @@ namespace J2534DotNet
         READ_PROG_VOLTAGE = 0x0E
     }
 
+    public enum ConfigParameter
+    {
+        DATA_RATE = 0x01,
+        unused = 0x02, //reserved for SAE
+        LOOPBACK = 0x03,
+        NODE_ADDRESS = 0x04,
+        NETWORK_LINE = 0x05,
+        P1_MIN = 0x06, //not used by interface
+        P1_MAX = 0x07,
+        P2_MIN = 0x08,//not used by interface
+        P2_MAX = 0x09,//not used by interface
+        P3_MIN = 0x0A,
+        P3_MAX = 0x0B,//not used by interface
+        P4_MIN = 0x0C,
+        P4_MAX = 0x0D,//not used by interface
+        W0 = 0x19,
+        W1 = 0x0E,
+        W2 = 0x0F,
+        W3 = 0x10,
+        W4 = 0x11,
+        W5 = 0x12,
+        TIDLE = 0x13,
+        TINIL = 0x14,
+        TWUP = 0x15,
+        PARITY = 0x16,
+        BIT_SAMPLE_POINT = 0x17,
+        SYNC_JUMP_WIDTH = 0x18,
+        T1_MAX = 0x1A,
+        T2_MAX = 0x1B,
+        T3_MAX = 0x24,
+        T4_MAX = 0x1C,
+        T5_MAX = 0x1D,
+        ISO15765_BS = 0x1E,
+        ISO15765_STMIN = 0x1F,
+        BS_TX = 0x22,
+        STMIN_TX = 0x23,
+        DATA_BITS = 0x20,
+        FIVE_BAUD_MOD = 0x21,
+        ISO15765_WFT_MAX = 0x25,
+        //0x26 - 0x7FFF Reserved for SAE
+        //0x8000 - 0xFFFF Reserved for SAE J2534-2
+        //0x10000 - 0xFFFFFFFF Manufacturer Specific
+    }
+
     public enum ErrorCode
     {
         STATUS_NOERROR = 0x00,
@@ -217,9 +261,14 @@ namespace J2534DotNet
     public unsafe struct SByteArray
     {
         public int NumOfBytes;
-        public byte* BytePtr;
-        //[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 2)]
-        //public string BytePtr;  
+        public IntPtr BytePtr; 
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe struct SConfigList
+    {
+        public int NumOfParameters;
+        public IntPtr configPtr;
     }
 
     [StructLayout(LayoutKind.Sequential)]

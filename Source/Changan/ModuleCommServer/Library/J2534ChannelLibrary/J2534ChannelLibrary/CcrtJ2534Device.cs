@@ -166,6 +166,45 @@ namespace J2534ChannelLibrary
             }
             return channel.ChannelComm.PerformFastInit(ref wakeUpMessage, ref ecuData);
         }
+        public bool SetDeviceConfigurationParameter(string channelName, ConfigParameter param, int value)
+        {
+            CcrtJ2534Channel channel = GetChannel(channelName);
+            if (!channel.ChannelComm.Connected)
+            {
+                channel.ChannelComm.Connect();
+            }
+            return channel.ChannelComm.SetDeviceConfigurationParameter(param, value);
+        }
+        public bool GetDeviceConfigurationParameter(string channelName, ConfigParameter param, ref int value)
+        {
+            CcrtJ2534Channel channel = GetChannel(channelName);
+            if (!channel.ChannelComm.Connected)
+            {
+                channel.ChannelComm.Connect();
+            }
+            return channel.ChannelComm.GetDeviceConfigurationParameter(param,ref value);
+        }
+        public bool SetDeviceConfiguration(string channelName, ref SConfig[] config)
+        {
+            CcrtJ2534Channel channel = GetChannel(channelName);
+            if (!channel.ChannelComm.Connected)
+            {
+                channel.ChannelComm.Connect();
+            }
+            return channel.ChannelComm.SetDeviceConfiguration(ref config);
+        }
+        public bool GetDeviceConfiguration(string channelName, ref SConfig[] config)
+        {
+            CcrtJ2534Channel channel = GetChannel(channelName);
+            if (!channel.ChannelComm.Connected)
+            {
+                channel.ChannelComm.Connect();
+            }
+            return channel.ChannelComm.GetDeviceConfiguration(ref config);
+        }
+
+
+
         public void ClearRxBuffer(string channelName)
         {
             CcrtJ2534Channel channel = GetChannel(channelName);

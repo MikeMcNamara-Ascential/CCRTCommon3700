@@ -181,7 +181,7 @@ namespace Sample
             //  ProtocolID.ISO9141;  // ISO-K
             //  ProtocolID.J1850PWM;  // J1850PWM
             //  ProtocolID.J1850VPW;  // J1850VPW
-            m_deviceId = 1;
+            m_deviceId = 0;
             m_status = m_j2534Interface.Open(ref m_deviceId);
             if (m_status != ErrorCode.STATUS_NOERROR)
                 return false;
@@ -213,6 +213,35 @@ namespace Sample
             {
                 return false;
             }
+
+            //for (int j = 0; j < 100; j++)
+            //{
+                SConfig sconfigs1 = new SConfig();
+                sconfigs1.Parameter = (int)ConfigParameter.FIVE_BAUD_MOD;
+                sconfigs1.Value = 2;
+                SConfig sconfigs2 = new SConfig();
+                sconfigs2.Parameter = (int)ConfigParameter.DATA_BITS;
+                sconfigs2.Value = 1;
+                SConfig[] configLists = new SConfig[] { sconfigs1, sconfigs2 };
+                m_status = m_j2534Interface.SetConfig(m_channelId, ref configLists);
+                if (ErrorCode.STATUS_NOERROR != m_status)
+                {
+                    return false;
+                }
+
+                SConfig sconfigs = new SConfig();
+                sconfigs.Parameter = (int)ConfigParameter.FIVE_BAUD_MOD;
+                SConfig sconfigg1 = new SConfig();
+                sconfigg1.Parameter = (int)ConfigParameter.DATA_BITS;
+                SConfig[] configList = new SConfig[] { sconfigs, sconfigg1 };
+                m_status = m_j2534Interface.GetConfig(m_channelId, ref configList);
+                if (ErrorCode.STATUS_NOERROR != m_status)
+                {
+                    return false;
+                }
+            //}
+
+
 
             PassThruMsg maskMsg = new PassThruMsg();
             PassThruMsg patternMsg = new PassThruMsg();
@@ -269,6 +298,39 @@ namespace Sample
             List<byte> value = new List<byte>();
 
             m_status = m_j2534Interface.Connect(m_deviceId, ProtocolID.ISO15765, ConnectFlag.NONE, BaudRate.ISO15765, ref m_channelId);
+            if (ErrorCode.STATUS_NOERROR != m_status)
+            {
+                return false;
+            }
+
+            //test of setting and getting parameters
+            m_status = m_j2534Interface.SetConfigParameter(m_channelId, ConfigParameter.DATA_RATE, 250000);
+            if (ErrorCode.STATUS_NOERROR != m_status)
+            {
+                return false;
+            }
+            int parameterValue = 0;
+            m_status = m_j2534Interface.GetConfigParameter(m_channelId, ConfigParameter.DATA_RATE, ref parameterValue);
+
+            SConfig sconfigs1 = new SConfig();
+            sconfigs1.Parameter = (int)ConfigParameter.DATA_RATE;
+            sconfigs1.Value = 500000;
+            SConfig sconfigs2 = new SConfig();
+            sconfigs2.Parameter = (int)ConfigParameter.DATA_RATE;
+            sconfigs2.Value = 500000;
+            SConfig[] configLists = new SConfig[] { sconfigs1, sconfigs2 };
+            m_status = m_j2534Interface.SetConfig(m_channelId, ref configLists);
+            if (ErrorCode.STATUS_NOERROR != m_status)
+            {
+                return false;
+            }
+
+            SConfig sconfigs = new SConfig();
+            sconfigs.Parameter = (int)ConfigParameter.DATA_RATE;
+            SConfig sconfigg1 = new SConfig();
+            sconfigg1.Parameter = (int)ConfigParameter.DATA_RATE;
+            SConfig[] configList = new SConfig[] { sconfigs, sconfigg1 };
+            m_status = m_j2534Interface.GetConfig(m_channelId, ref configList);
             if (ErrorCode.STATUS_NOERROR != m_status)
             {
                 return false;

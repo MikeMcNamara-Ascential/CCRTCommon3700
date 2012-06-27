@@ -205,21 +205,149 @@ namespace J2534DotNet
             Marshal.FreeHGlobal(pErrorDescription);
             return returnValue;
         }
-
-        public ErrorCode GetConfig(int channelId, ref List<SConfig> config)
+        public ErrorCode GetConfigParameter(int channelId, ConfigParameter parameterId, ref int value)
         {
-            IntPtr input = IntPtr.Zero;
+            ErrorCode returnValue;
+            SConfigList inputSConfigList = new SConfigList();
+            inputSConfigList.NumOfParameters = 1;
+            //allocate memory for pointer to SconfigList structure
+            IntPtr input = Marshal.AllocHGlobal(1024);
+            IntPtr output = IntPtr.Zero;
+            //allocate memory for pointer to config array
+            inputSConfigList.configPtr = Marshal.AllocHGlobal(1024);
+
+            //create a sconfig structure for input
+            SConfig c = new SConfig();
+            c.Parameter = (int)parameterId;
+            c.Value = 0;
+            SConfig[] configArray = new SConfig[1]{c};
+
+            //set pointer to SConfigList structure
+            Marshal.StructureToPtr(inputSConfigList, input, true);
+            //set pointer to SConfig
+            Marshal.WriteInt32(inputSConfigList.configPtr, 0, configArray[0].Parameter);
+            Marshal.WriteInt32(inputSConfigList.configPtr, sizeof(int), 0);
+
+            //call wrapper function (parameter's value will be placed in structure)
+            returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.GET_CONFIG, input, output);
+            
+            //Get value from structure
+            value = Marshal.ReadInt32(inputSConfigList.configPtr, sizeof(int));
+            
+            //Free allocated memory
+            Marshal.FreeHGlobal(input);
+            Marshal.FreeHGlobal(output);
+            Marshal.FreeHGlobal(inputSConfigList.configPtr);
+
+            return returnValue;
+        }
+        public ErrorCode SetConfigParameter(int channelId, ConfigParameter parameterId, int value)
+        {
+            ErrorCode returnValue;
+            SConfigList inputSConfigList = new SConfigList();
+            inputSConfigList.NumOfParameters = 1;
+            //allocate memory for pointer to SconfigList structure
+            IntPtr input = Marshal.AllocHGlobal(1024);
+            IntPtr output = IntPtr.Zero;
+            //allocate memory for pointer to config array
+            inputSConfigList.configPtr = Marshal.AllocHGlobal(1024);
+
+            //create a sconfig structure for input
+            SConfig c = new SConfig();
+            c.Parameter = (int)parameterId;
+            c.Value = value;
+            SConfig[] configArray = new SConfig[1] { c };
+
+            //set pointer to SConfigList structure
+            Marshal.StructureToPtr(inputSConfigList, input, true);
+            //set pointer to SConfig
+            Marshal.WriteInt32(inputSConfigList.configPtr, 0, configArray[0].Parameter);
+            Marshal.WriteInt32(inputSConfigList.configPtr, sizeof(int), configArray[0].Value);
+
+            //call wrapper function (parameter's value will be placed in structure)
+            returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.SET_CONFIG, input, output);
+
+            //Free allocated memory
+            Marshal.FreeHGlobal(input);
+            Marshal.FreeHGlobal(output);
+            Marshal.FreeHGlobal(inputSConfigList.configPtr);
+
+            return returnValue;
+        }
+        public ErrorCode GetConfig(int channelId, ref SConfig[] configArray)
+        {
+            ErrorCode returnValue;
+            SConfigList inputSConfigList = new SConfigList();
+
+            //allocate memory for pointer to SconfigList structure
+            IntPtr input = Marshal.AllocHGlobal(1024);
             IntPtr output = IntPtr.Zero;
 
-            return (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.GET_CONFIG, input, output);
+            //allocate memory for pointer to list of configs
+            inputSConfigList.configPtr = Marshal.AllocHGlobal(1024);
+            inputSConfigList.NumOfParameters = configArray.Length;
+
+            //set pointer to input configs
+            Marshal.StructureToPtr(inputSConfigList, input, true);
+
+            //set pointer to config list
+            for (int i = 0; i < configArray.Length; i++)
+            {
+                int Base = i * sizeof(int) * 2;
+                Marshal.WriteInt32(inputSConfigList.configPtr, Base + 0, configArray[i].Parameter);
+                Marshal.WriteInt32(inputSConfigList.configPtr, Base + sizeof(int), 0x00);
+            }
+            
+
+            returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.GET_CONFIG, input, output);
+
+            //set pointer to config list
+            for (int i = 0; i < configArray.Length; i++)
+            {
+                int Base = i * sizeof(int) * 2;
+                int param= Marshal.ReadInt32(inputSConfigList.configPtr, Base);
+                int val= Marshal.ReadInt32(inputSConfigList.configPtr, Base + sizeof(int));
+                configArray[i].Parameter = param;
+                configArray[i].Value = val; 
+            }
+            //Free allocated memory
+            Marshal.FreeHGlobal(input);
+            Marshal.FreeHGlobal(output);
+            Marshal.FreeHGlobal(inputSConfigList.configPtr);
+            return returnValue;        
         }
 
-        public ErrorCode SetConfig(int channelId, ref List<SConfig> config)
+        public ErrorCode SetConfig(int channelId, ref SConfig[] configArray)
         {
-            IntPtr input = IntPtr.Zero;
+            ErrorCode returnValue;
+            SConfigList inputSConfigList = new SConfigList();
+
+            //allocate memory for pointer to SconfigList structure
+            IntPtr input = Marshal.AllocHGlobal(1024);
             IntPtr output = IntPtr.Zero;
 
-            return (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.SET_CONFIG, input, output);
+            //allocate memory for pointer to list of configs
+            inputSConfigList.configPtr = Marshal.AllocHGlobal(1024);
+            inputSConfigList.NumOfParameters = configArray.Length;
+
+            //set pointer to input configs
+            Marshal.StructureToPtr(inputSConfigList, input, true);
+
+            //set pointer to config list
+            for (int i = 0; i < configArray.Length; i++)
+            {
+                int Base = i * sizeof(int) * 2;
+                Marshal.WriteInt32(inputSConfigList.configPtr, Base + 0, configArray[i].Parameter);
+                Marshal.WriteInt32(inputSConfigList.configPtr, Base + sizeof(int), configArray[i].Value);
+            }
+
+            returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.SET_CONFIG, input, output);
+
+            //Free allocated memory
+            Marshal.FreeHGlobal(input);
+            Marshal.FreeHGlobal(output);
+            Marshal.FreeHGlobal(inputSConfigList.configPtr);
+            return returnValue;
         }
 
         public ErrorCode ReadBatteryVoltage(int deviceId, ref int voltage)
@@ -237,7 +365,7 @@ namespace J2534DotNet
             return returnValue;
         }
 
-        public ErrorCode FiveBaudInit(int channelId, ref byte targetAddress, ref byte keyword1, ref byte keyword2)
+        /*public ErrorCode FiveBaudInit(int channelId, ref byte targetAddress, ref byte keyword1, ref byte keyword2)
         {
             ErrorCode returnValue;
 
@@ -267,15 +395,6 @@ namespace J2534DotNet
                         //Marshal.StructureToPtr(outputArray, output, true);
 
                         returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.FIVE_BAUD_INIT, input, output);
-                        /*  We dont care about the key bytes really if (returnValue == ErrorCode.STATUS_NOERROR)
-                        {
-                            outputArray = (SByteArray)Marshal.PtrToStructure(output, typeof(SByteArray));
-                            if (outputArray.BytePtr != null)
-                            {
-                                keyword1 = (byte)outputArray.BytePtr[0];
-                                keyword2 = (byte)outputArray.BytePtr[1];
-                            }
-                        }*/
                     }
                 }
             }
@@ -283,6 +402,57 @@ namespace J2534DotNet
             //Free allocated memory
             Marshal.FreeHGlobal(input);
             Marshal.FreeHGlobal(output);
+            return returnValue;
+        }*/
+
+        public ErrorCode FiveBaudInit(int channelId, ref byte targetAddress, ref byte keyword1, ref byte keyword2)
+        {
+            ErrorCode returnValue;
+
+            SByteArray inputSByteArray = new SByteArray();
+            SByteArray outputSByteArray = new SByteArray();
+
+            //pointers to SByteArray structure - allocate memory
+            IntPtr input = Marshal.AllocHGlobal(1024);
+            IntPtr output = Marshal.AllocHGlobal(1024);
+            
+            //create input and output byte arrays
+            int[] inputBytes = new int[] { targetAddress };
+            inputSByteArray.NumOfBytes = 1;//must be one
+            int[] outputBytes = new int[] { 0x00, 0x00 };
+            outputSByteArray.NumOfBytes = 2;
+
+
+
+            //pointers to input and output data - allocate memory
+            inputSByteArray.BytePtr = Marshal.AllocHGlobal(1024);
+            outputSByteArray.BytePtr = Marshal.AllocHGlobal(1024);
+
+            //set pointers to sbyte array structure
+            Marshal.StructureToPtr(inputSByteArray, input, true);
+            Marshal.StructureToPtr(outputSByteArray, output, true);
+            
+            //set pointers to input and output data
+            Marshal.WriteInt32(inputSByteArray.BytePtr, 0, inputBytes[0]);
+            //Marshal.WriteInt32(outputSByteArray.BytePtr, 0, outputBytes[0]);
+            //Marshal.WriteInt32(outputSByteArray.BytePtr, sizeof(int), outputBytes[1]);
+
+
+
+            returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.FIVE_BAUD_INIT, input, output);
+
+            //Get keyword values from structure
+            if (returnValue == ErrorCode.STATUS_NOERROR)
+            {
+                keyword1 = Marshal.ReadByte(outputSByteArray.BytePtr, 0);
+                keyword2 = Marshal.ReadByte(outputSByteArray.BytePtr, sizeof(byte));
+            }
+
+            //Free allocated memory
+            Marshal.FreeHGlobal(input);
+            Marshal.FreeHGlobal(output);
+            Marshal.FreeHGlobal(inputSByteArray.BytePtr);
+            Marshal.FreeHGlobal(outputSByteArray.BytePtr);
             return returnValue;
         }
 

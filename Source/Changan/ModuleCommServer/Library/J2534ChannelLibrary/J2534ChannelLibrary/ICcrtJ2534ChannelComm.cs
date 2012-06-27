@@ -21,6 +21,10 @@ namespace J2534ChannelLibrary
         bool StopPeriodicMessage(ref int msgID);
         bool IsVehicleConnected();
         bool SetSTMIN(int stMinValue);
+        bool SetDeviceConfigurationParameter(ConfigParameter param, int value);
+        bool GetDeviceConfigurationParameter(ConfigParameter param, ref int value);
+        bool SetDeviceConfiguration(ref SConfig[] config);
+        bool GetDeviceConfiguration(ref SConfig[] config);
         void ClearResponseBuffer();
         bool PerformFiveBaudInit(byte address);
         bool PerformFastInit(ref List<byte> wakeUpMessage, ref List<byte> ecuData);

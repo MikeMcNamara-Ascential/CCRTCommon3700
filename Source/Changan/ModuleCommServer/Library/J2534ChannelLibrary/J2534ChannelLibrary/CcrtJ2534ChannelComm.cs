@@ -816,16 +816,10 @@ namespace J2534ChannelLibrary
         }
         public bool SetSTMIN(int stMinValue)
         {
-            List<SConfig> config = new List<SConfig>();
-            SConfig item = new SConfig();
-            //stmin param
-            item.Parameter = 0x1F;
-            item.Value = stMinValue;
-            config.Add(item);
             bool status = false;
             lock (m_j2534Interface)
             {
-                status = ErrorCode.STATUS_NOERROR == m_j2534Interface.SetConfig(m_channelID, ref config);
+                status = ErrorCode.STATUS_NOERROR == m_j2534Interface.SetConfigParameter(m_channelID,ConfigParameter.ISO15765_STMIN,stMinValue);
             }
             return (status);
         }
@@ -849,6 +843,30 @@ namespace J2534ChannelLibrary
 
             status = ErrorCode.STATUS_NOERROR == m_j2534Interface.FastInit(m_channelID, ref wakeupMsg, ref wakeupRsp);
             ecuData = wakeupRsp.Data.ToList();
+            return status;
+        }
+        public bool SetDeviceConfigurationParameter(ConfigParameter param, int value)
+        {
+            bool status = false;
+            status = ErrorCode.STATUS_NOERROR == m_j2534Interface.SetConfigParameter(m_channelID, param, value);
+            return status;
+        }
+        public bool GetDeviceConfigurationParameter(ConfigParameter param, ref int value)
+        {
+            bool status = false;
+            status = ErrorCode.STATUS_NOERROR == m_j2534Interface.GetConfigParameter(m_channelID, param, ref value);
+            return status;
+        }
+        public bool SetDeviceConfiguration(ref SConfig[] config)
+        {
+            bool status = false;
+            status = ErrorCode.STATUS_NOERROR == m_j2534Interface.SetConfig(m_channelID, ref config);
+            return status;
+        }
+        public bool GetDeviceConfiguration(ref SConfig[] config)
+        {
+            bool status = false;
+            status = ErrorCode.STATUS_NOERROR == m_j2534Interface.GetConfig(m_channelID, ref config);
             return status;
         }
     }

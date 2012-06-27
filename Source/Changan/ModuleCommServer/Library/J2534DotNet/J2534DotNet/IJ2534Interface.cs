@@ -64,8 +64,10 @@ namespace J2534DotNet
         ErrorCode SetProgrammingVoltage(int deviceId, PinNumber pinNumber, int voltage);
         ErrorCode ReadVersion(int deviceId, ref string firmwareVersion, ref string dllVersion, ref string apiVersion);
         ErrorCode GetLastError(ref string errorDescription);
-        ErrorCode GetConfig(int channelId, ref List<SConfig> config);
-        ErrorCode SetConfig(int channelId, ref List<SConfig> config);
+        ErrorCode GetConfig(int channelId, ref SConfig[] config);
+        ErrorCode GetConfigParameter(int channelId, ConfigParameter parameter, ref int value);
+        ErrorCode SetConfigParameter(int channelId, ConfigParameter parameterId, int value);
+        ErrorCode SetConfig(int channelId, ref SConfig[] config);
         ErrorCode ReadBatteryVoltage(int deviceId, ref int voltage);
         ErrorCode FiveBaudInit(int channelId, ref byte targetAddress, ref byte keyword1, ref byte keyword2);
         ErrorCode FastInit(int channelId, ref PassThruMsg txMsg, ref PassThruMsg rxMsg);

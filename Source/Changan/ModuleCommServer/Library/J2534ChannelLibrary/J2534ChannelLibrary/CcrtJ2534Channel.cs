@@ -172,6 +172,96 @@ namespace J2534ChannelLibrary
             else return ProtocolID.CAN;
         }
         /// <summary>
+        /// Convert Config parameter typ to a string.
+        /// </summary>
+        /// <param name="connFlag">string to convert to config parameter</param>
+        /// <returns>string representation of config parameter</returns>
+        public static String ConvertToConfigParamter(ConfigParameter pID)
+        {
+            if (pID == ConfigParameter.BIT_SAMPLE_POINT) return "BIT_SAMPLE_POINT";
+            else if (pID == ConfigParameter.BS_TX) return "BS_TX";
+            else if (pID ==ConfigParameter.DATA_BITS) return "DATA_BITS";
+            else if (pID ==ConfigParameter.DATA_RATE) return "DATA_RATE";
+            else if (pID ==ConfigParameter.FIVE_BAUD_MOD) return "FIVE_BAUD_MOD";
+            else if (pID ==ConfigParameter.ISO15765_BS) return "ISO15765_BS";
+            else if (pID ==ConfigParameter.ISO15765_STMIN) return "ISO15765_STMIN";
+            else if (pID ==ConfigParameter.ISO15765_WFT_MAX) return "ISO15765_WFT_MAX";
+            else if (pID ==ConfigParameter.LOOPBACK) return "LOOPBACK";
+            else if (pID ==ConfigParameter.NETWORK_LINE) return "NETWORK_LINE";
+            else if (pID ==ConfigParameter.NODE_ADDRESS) return "NODE_ADDRESS";
+            else if (pID ==ConfigParameter.P1_MAX) return "P1_MAX";
+            else if (pID ==ConfigParameter.P2_MAX) return "P2_MAX";
+            else if (pID ==ConfigParameter.P2_MIN) return "P2_MIN";
+            else if (pID ==ConfigParameter.P3_MAX) return "P3_MAX";
+            else if (pID ==ConfigParameter.P3_MIN) return "P3_MIN";
+            else if (pID ==ConfigParameter.P4_MAX) return "P4_MAX";
+            else if (pID ==ConfigParameter.P4_MIN) return "P4_MIN";
+            else if (pID ==ConfigParameter.PARITY) return "PARITY";
+            else if (pID ==ConfigParameter.STMIN_TX) return "STMIN_TX";
+            else if (pID ==ConfigParameter.SYNC_JUMP_WIDTH) return "SYNC_JUMP_WIDTH";
+            else if (pID ==ConfigParameter.T1_MAX) return "T1_MAX";
+            else if (pID ==ConfigParameter.T2_MAX) return "T2_MAX";
+            else if (pID ==ConfigParameter.T3_MAX) return "T3_MAX";
+            else if (pID ==ConfigParameter.T4_MAX) return "T4_MAX";
+            else if (pID ==ConfigParameter.T5_MAX) return "T5_MAX";
+            else if (pID ==ConfigParameter.TIDLE) return "TIDLE";
+            else if (pID ==ConfigParameter.TINIL) return "TINIL";
+            else if (pID ==ConfigParameter.TWUP) return "TWUP";
+            else if (pID ==ConfigParameter.unused) return "unused";
+            else if (pID ==ConfigParameter.W0) return "W0";
+            else if (pID ==ConfigParameter.W1) return "W1";
+            else if (pID ==ConfigParameter.W2) return "W2";
+            else if (pID ==ConfigParameter.W3) return "W3";
+            else if (pID ==ConfigParameter.W4) return "W4";
+            else if (pID == ConfigParameter.W5) return"W5";
+            else return "DATA_RATE";
+        }
+        /// <summary>
+        /// Convert a string to a Config parameter type.
+        /// </summary>
+        /// <param name="connFlag">string to convert to config parameter</param>
+        /// <returns>config parameter</returns>
+        public static ConfigParameter ConvertToConfigParamter(string pID)
+        {
+            if (pID.Equals("BIT_SAMPLE_POINT")) return ConfigParameter.BIT_SAMPLE_POINT;
+            else if (pID.Equals("BS_TX")) return ConfigParameter.BS_TX;
+            else if (pID.Equals("DATA_BITS")) return ConfigParameter.DATA_BITS;
+            else if (pID.Equals("DATA_RATE")) return ConfigParameter.DATA_RATE;
+            else if (pID.Equals("FIVE_BAUD_MOD")) return ConfigParameter.FIVE_BAUD_MOD;
+            else if (pID.Equals("ISO15765_BS")) return ConfigParameter.ISO15765_BS;
+            else if (pID.Equals("ISO15765_STMIN")) return ConfigParameter.ISO15765_STMIN;
+            else if (pID.Equals("ISO15765_WFT_MAX")) return ConfigParameter.ISO15765_WFT_MAX;
+            else if (pID.Equals("LOOPBACK")) return ConfigParameter.LOOPBACK;
+            else if (pID.Equals("NETWORK_LINE")) return ConfigParameter.NETWORK_LINE;
+            else if (pID.Equals("NODE_ADDRESS")) return ConfigParameter.NODE_ADDRESS;
+            else if (pID.Equals("P1_MAX")) return ConfigParameter.P1_MAX;
+            else if (pID.Equals("P2_MAX")) return ConfigParameter.P2_MAX;
+            else if (pID.Equals("P2_MIN")) return ConfigParameter.P2_MIN;
+            else if (pID.Equals("P3_MAX")) return ConfigParameter.P3_MAX;
+            else if (pID.Equals("P3_MIN")) return ConfigParameter.P3_MIN;
+            else if (pID.Equals("P4_MAX")) return ConfigParameter.P4_MAX;
+            else if (pID.Equals("P4_MIN")) return ConfigParameter.P4_MIN;
+            else if (pID.Equals("PARITY")) return ConfigParameter.PARITY;
+            else if (pID.Equals("STMIN_TX")) return ConfigParameter.STMIN_TX;
+            else if (pID.Equals("SYNC_JUMP_WIDTH")) return ConfigParameter.SYNC_JUMP_WIDTH;
+            else if (pID.Equals("T1_MAX")) return ConfigParameter.T1_MAX;
+            else if (pID.Equals("T2_MAX")) return ConfigParameter.T2_MAX;
+            else if (pID.Equals("T3_MAX")) return ConfigParameter.T3_MAX;
+            else if (pID.Equals("T4_MAX")) return ConfigParameter.T4_MAX;
+            else if (pID.Equals("T5_MAX")) return ConfigParameter.T5_MAX;
+            else if (pID.Equals("TIDLE")) return ConfigParameter.TIDLE;
+            else if (pID.Equals("TINIL")) return ConfigParameter.TINIL;
+            else if (pID.Equals("TWUP")) return ConfigParameter.TWUP;
+            else if (pID.Equals("unused")) return ConfigParameter.unused;
+            else if (pID.Equals("W0")) return ConfigParameter.W0;
+            else if (pID.Equals("W1")) return ConfigParameter.W1;
+            else if (pID.Equals("W2")) return ConfigParameter.W2;
+            else if (pID.Equals("W3")) return ConfigParameter.W3;
+            else if (pID.Equals("W4")) return ConfigParameter.W4;
+            else if (pID.Equals("W5")) return ConfigParameter.W5;
+            else return ConfigParameter.DATA_RATE;
+        }
+        /// <summary>
         /// Convert a BaudRate type to it's string representation.
         /// </summary>
         /// <param name="connFlag">Baud Rate type to convert to string.</param>

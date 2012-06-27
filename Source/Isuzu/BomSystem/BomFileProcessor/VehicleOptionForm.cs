@@ -14,6 +14,7 @@ namespace BomFileProcessor
         public VehicleOptionForm(VehicleOptionCollection optionList, String optionName, List<String> validOptions)
         {
             InitializeComponent();
+            OptionName = optionName;
             Text = optionName + " Setup";
             ValidOptions = validOptions;
             m_optionList = optionList;
@@ -24,6 +25,7 @@ namespace BomFileProcessor
         public VehicleOptionForm(VehicleOptionCollection optionList, String optionName)
         {
             InitializeComponent();
+            OptionName = optionName;
             m_optionList = optionList;
             Text = optionName + " Setup";
             UseValidTypeList = false;
@@ -69,8 +71,8 @@ namespace BomFileProcessor
             }
             else
             {
-                AddOptionForm addForm = new AddOptionForm("Add Wheelbase Position");
-                option = addForm.AddNewOption();
+                AddOptionForm addForm = new AddOptionForm("Add " + OptionName);
+                option = addForm.AddNewOption(OptionName);
             }
             // Add the option to the list of options and redisplay the grid
             if (option != null)
@@ -147,5 +149,7 @@ namespace BomFileProcessor
             get { return m_validOptions; }
             set { m_validOptions = value; }
         }
+
+        private String OptionName { get; set; }
     }
 }

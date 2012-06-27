@@ -46,6 +46,7 @@
             this.wheelbaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brakeForcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.passConfirmationFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modeCodeSpcificSttingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewCurrentLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewPreviousLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,7 @@
             this.m_logMessageTextBox = new System.Windows.Forms.RichTextBox();
             this.m_passFileCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.m_esnFileCheckTimer = new System.Windows.Forms.Timer(this.components);
-            this.modeCodeSpcificSttingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.retainingRollerPressureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,7 +84,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -112,7 +113,8 @@
             this.wheelbaseToolStripMenuItem,
             this.brakeForcesToolStripMenuItem,
             this.passConfirmationFilesToolStripMenuItem,
-            this.modeCodeSpcificSttingsToolStripMenuItem});
+            this.modeCodeSpcificSttingsToolStripMenuItem,
+            this.retainingRollerPressureToolStripMenuItem});
             this.setupToolStripMenuItem.Name = "setupToolStripMenuItem";
             this.setupToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.setupToolStripMenuItem.Text = "Setup";
@@ -125,7 +127,7 @@
             this.selectBOMResultFolderToolStripMenuItem1,
             this.vehicleBuildFileFolderToolStripMenuItem});
             this.fileLocationsToolStripMenuItem.Name = "fileLocationsToolStripMenuItem";
-            this.fileLocationsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.fileLocationsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.fileLocationsToolStripMenuItem.Text = "File Locations";
             // 
             // selectBOMFolderToolStripMenuItem1
@@ -159,44 +161,51 @@
             // uPCFNASetupToolStripMenuItem
             // 
             this.uPCFNASetupToolStripMenuItem.Name = "uPCFNASetupToolStripMenuItem";
-            this.uPCFNASetupToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.uPCFNASetupToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.uPCFNASetupToolStripMenuItem.Text = "UPC + FNA Setup";
             this.uPCFNASetupToolStripMenuItem.Click += new System.EventHandler(this.uPCFNASetupToolStripMenuItem_Click);
             // 
             // bOMFileSetupToolStripMenuItem
             // 
             this.bOMFileSetupToolStripMenuItem.Name = "bOMFileSetupToolStripMenuItem";
-            this.bOMFileSetupToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.bOMFileSetupToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.bOMFileSetupToolStripMenuItem.Text = "BOM File Setup";
             this.bOMFileSetupToolStripMenuItem.Click += new System.EventHandler(this.bOMFileSetupToolStripMenuItem_Click);
             // 
             // axleTypesToolStripMenuItem
             // 
             this.axleTypesToolStripMenuItem.Name = "axleTypesToolStripMenuItem";
-            this.axleTypesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.axleTypesToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.axleTypesToolStripMenuItem.Text = "Axle Types";
             this.axleTypesToolStripMenuItem.Click += new System.EventHandler(this.axleTypesToolStripMenuItem_Click);
             // 
             // wheelbaseToolStripMenuItem
             // 
             this.wheelbaseToolStripMenuItem.Name = "wheelbaseToolStripMenuItem";
-            this.wheelbaseToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.wheelbaseToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.wheelbaseToolStripMenuItem.Text = "Wheelbase";
             this.wheelbaseToolStripMenuItem.Click += new System.EventHandler(this.wheelbaseToolStripMenuItem_Click);
             // 
             // brakeForcesToolStripMenuItem
             // 
             this.brakeForcesToolStripMenuItem.Name = "brakeForcesToolStripMenuItem";
-            this.brakeForcesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.brakeForcesToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.brakeForcesToolStripMenuItem.Text = "Brake Forces";
             this.brakeForcesToolStripMenuItem.Click += new System.EventHandler(this.brakeForcesToolStripMenuItem_Click);
             // 
             // passConfirmationFilesToolStripMenuItem
             // 
             this.passConfirmationFilesToolStripMenuItem.Name = "passConfirmationFilesToolStripMenuItem";
-            this.passConfirmationFilesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.passConfirmationFilesToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.passConfirmationFilesToolStripMenuItem.Text = "Pass Confirmation Files";
             this.passConfirmationFilesToolStripMenuItem.Click += new System.EventHandler(this.passConfirmationFilesToolStripMenuItem_Click);
+            // 
+            // modeCodeSpcificSttingsToolStripMenuItem
+            // 
+            this.modeCodeSpcificSttingsToolStripMenuItem.Name = "modeCodeSpcificSttingsToolStripMenuItem";
+            this.modeCodeSpcificSttingsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.modeCodeSpcificSttingsToolStripMenuItem.Text = "ESN Settings";
+            this.modeCodeSpcificSttingsToolStripMenuItem.Click += new System.EventHandler(this.modeCodeSpcificSttingsToolStripMenuItem_Click);
             // 
             // logsToolStripMenuItem
             // 
@@ -262,12 +271,12 @@
             // 
             this.m_esnFileCheckTimer.Tick += new System.EventHandler(this.m_esnFileCheckTimer_Tick);
             // 
-            // modeCodeSpcificSttingsToolStripMenuItem
+            // retainingRollerPressureToolStripMenuItem
             // 
-            this.modeCodeSpcificSttingsToolStripMenuItem.Name = "modeCodeSpcificSttingsToolStripMenuItem";
-            this.modeCodeSpcificSttingsToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.modeCodeSpcificSttingsToolStripMenuItem.Text = "ESN Settings";
-            this.modeCodeSpcificSttingsToolStripMenuItem.Click += new System.EventHandler(this.modeCodeSpcificSttingsToolStripMenuItem_Click);
+            this.retainingRollerPressureToolStripMenuItem.Name = "retainingRollerPressureToolStripMenuItem";
+            this.retainingRollerPressureToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.retainingRollerPressureToolStripMenuItem.Text = "Retaining Roller Pressure";
+            this.retainingRollerPressureToolStripMenuItem.Click += new System.EventHandler(this.retainingRollerPressureToolStripMenuItem_Click);
             // 
             // BomProcessorMainForm
             // 
@@ -316,6 +325,7 @@
         private System.Windows.Forms.Timer m_passFileCheckTimer;
         private System.Windows.Forms.Timer m_esnFileCheckTimer;
         private System.Windows.Forms.ToolStripMenuItem modeCodeSpcificSttingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem retainingRollerPressureToolStripMenuItem;
     }
 }
 

@@ -25,8 +25,16 @@ namespace BomFileProcessor
         /// Add a new option.
         /// </summary>
         /// <returns>Option that was added by the user.</returns>
-        public VehicleOption AddNewOption()
+        public VehicleOption AddNewOption(String optionLabelText = "")
         {
+            if (!String.IsNullOrEmpty(optionLabelText))
+            {
+                m_valueLabel.Text = optionLabelText;
+            }
+            else
+            {
+                m_valueLabel.Text = "Wheelbase Position (in)";
+            }
             ShowDialog();
             return m_option;
         }

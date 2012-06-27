@@ -20,7 +20,8 @@ namespace BomFileProcessor
         /// </summary>
         /// <param name="fileName">Name of the parameter file to edit.</param>
         public EditVehicleBuildFileForm(String fileName, VehicleOptionCollection axleTypes, 
-                                        BrakeForceCollection brakeForces, VehicleOptionCollection wheelbases)
+                                        BrakeForceCollection brakeForces, VehicleOptionCollection wheelbases,
+                                        VehicleOptionCollection retRollRelaxPressures)
         {   // Initialize the form
             InitializeComponent();
             // Store the name of the file so we can save the data to file later
@@ -30,6 +31,7 @@ namespace BomFileProcessor
             m_axleTypes = axleTypes;
             m_brakeForces = brakeForces;
             m_wheelbases = wheelbases;
+            m_retRollRelaxePressures = retRollRelaxPressures;
             // Get the model code from the file name so that we can look up defaults if needed
             ModelCode = fileName.Substring(fileName.LastIndexOf("\\") + 3, 5);
             // Load the file
@@ -165,6 +167,11 @@ namespace BomFileProcessor
                     {
                         SetVehicleParameter("Vin/VehicleBuild", "Axle", axle.OptionValue);
                     }
+                    VehicleOption retRollPressure = m_retRollRelaxePressures.Find(ModelCode);
+                    if (retRollPressure != null)
+                    {
+                        SetVehicleParameter("Vin/VehicleBuild", "FrontReductionPressure", retRollPressure.OptionValue);
+                    }
                 }
                 if (m_brkForceCheckBox.Checked)
                 {
@@ -233,6 +240,11 @@ namespace BomFileProcessor
         /// Configured wheelbase positions.
         /// </summary>
         private VehicleOptionCollection m_wheelbases;
+
+        /// <summary>
+        /// Configured retaining roller relaxation pressures.
+        /// </summary>
+        private VehicleOptionCollection m_retRollRelaxePressures;
 
         /// <summary>
         /// Configured brake force sets.

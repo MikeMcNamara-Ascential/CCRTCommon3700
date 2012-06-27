@@ -37,6 +37,8 @@ namespace BomFileProcessor
             m_wheelbase.Load();
             m_modelCodeOptions = new ModelCodeOptionsCollection(m_logger);
             m_modelCodeOptions.Load();
+            m_retRollPressures = new VehicleOptionCollection(m_logger, "FrontReductionPressure");
+            m_retRollPressures.Load();
             // Create and load the brake force parameter sets
             m_brakeForces = new BrakeForceCollection(m_logger);
             // Start the timer to look for new BOM files
@@ -252,6 +254,12 @@ namespace BomFileProcessor
                                         {
                                             Int32 wheelbase = Convert.ToInt32(Convert.ToDouble(wheelbaseOption.OptionValue) * 25.4);
                                             AddVehicleBuildParameter(buildData, "VehicleBuild", "WheelbasePositionInchesX10", wheelbase.ToString());
+                                        }
+                                        VehicleOption retRollRelaxPressureOption = m_retRollPressures.Find(modelCode);
+                                        if (retRollRelaxPressureOption != null)
+                                        {
+                                            Int32 retRollRelaxPressure = Convert.ToInt32(retRollRelaxPressureOption.OptionValue);
+                                            AddVehicleBuildParameter(buildData, "VehicleBuild", "FrontReductionPressure", retRollRelaxPressure.ToString());
                                         }
                                         VehicleOption axleType = m_axleTypes.Find(modelCode);
                                         if (axleType != null)
@@ -572,7 +580,7 @@ namespace BomFileProcessor
             {   // open each selected file in a new editor window
                 foreach (String file in dlg.FileNames)
                 {
-                    EditVehicleBuildFileForm editForm = new EditVehicleBuildFileForm(file, m_axleTypes, m_brakeForces, m_wheelbase);
+                    EditVehicleBuildFileForm editForm = new EditVehicleBuildFileForm(file, m_axleTypes, m_brakeForces, m_wheelbase, m_retRollPressures);
                     editForm.Show();
                 }
             }
@@ -880,6 +888,17 @@ namespace BomFileProcessor
             wheelbaseForm.ShowDialog();
         }
 
+        /// <summary>
+        /// Setup the retaining roller relaxation pressure associations.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void retainingRollerPressureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VehicleOptionForm pressureForm = new VehicleOptionForm(m_retRollPressures, m_retRollPressures.OptionName);
+            pressureForm.ShowDialog();
+        }
+
 
 
         // ----------------------------------------------------------------------------------------
@@ -980,7 +999,12 @@ namespace BomFileProcessor
         /// Wheelbase association.
         /// </summary>
         private VehicleOptionCollection m_wheelbase;
-        
+
+        /// <summary>
+        /// Retaiing roller relaxation pressure associations.
+        /// </summary>
+        private VehicleOptionCollection m_retRollPressures;
+
         /// <summary>
         /// ESN Settings.
         /// </summary>

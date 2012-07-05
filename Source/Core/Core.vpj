@@ -150,6 +150,7 @@
 					<F N="ApplicationLayer/ProtocolFilters/Include/KwpWinCcrtProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/ProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/SciProtocolFilter.h"/>
+					<F N="ApplicationLayer/ProtocolFilters/Include/SerialProtocolFilter.h"/>
 				</Folder>
 				<Folder Name="ISO">
 					<F N="ApplicationLayer/ProtocolFilters/ISO/IsoProtocolFilter.cpp"/>
@@ -165,6 +166,9 @@
 				</Folder>
 				<Folder Name="SCI">
 					<F N="ApplicationLayer/ProtocolFilters/SCI/SciProtocolFilter.cpp"/>
+				</Folder>
+				<Folder Name="Serial">
+					<F N="ApplicationLayer/ProtocolFilters/Serial/SerialProtocolFilter.cpp"/>
 				</Folder>
 				<F N="ApplicationLayer/ProtocolFilters/CMakeLists.txt"/>
 			</Folder>

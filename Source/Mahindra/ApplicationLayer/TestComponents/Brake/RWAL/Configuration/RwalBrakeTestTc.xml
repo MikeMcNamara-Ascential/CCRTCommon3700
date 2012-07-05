@@ -1,0 +1,284 @@
+<RwalBrakeTest>
+
+    <Setup>
+        <Name>Brake</Name>
+        <Debug>Off</Debug>
+        <TestDomain>Foreground</TestDomain>
+        <FaultList/>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/RwalBrakeTc</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <Clutch/>
+                <Declutch/>
+                <DriveAxle/>
+                <MotorMode/>
+                <RollsUpElevDown/>
+                <VehiclePresent/>
+                <VIN/>
+                <Zerospeed/>
+            </SubscribeTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>TevesAbs</ProcessName>
+            <AdditionalLogFile Types="/Component/TrwEnc430Abs.log or Disabled">/Components/RwalBrakeTest.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+        </Logging>
+        <SystemTagsToReset>
+            <BrakeActive>0</BrakeActive>
+            <FrontBalanceBGColor>white</FrontBalanceBGColor>
+            <FrontBalanceValue>0</FrontBalanceValue>
+            <FrontToRearBalanceBGColor>white</FrontToRearBalanceBGColor>
+            <FrontToRearBalanceValue>0</FrontToRearBalanceValue>
+            <LFDragBGColor>white</LFDragBGColor>
+            <LFDragValue>0</LFDragValue>
+            <LFForceBGColor>white</LFForceBGColor>
+            <LFForceDomain>0 500</LFForceDomain>
+            <LFForceTarget>200 400</LFForceTarget>
+            <LFForceValue>0</LFForceValue>
+            <LRDragBGColor>white</LRDragBGColor>
+            <LRDragValue>0</LRDragValue>
+            <LRForceBGColor>white</LRForceBGColor>
+            <LRForceDomain>0 500</LRForceDomain>
+            <LRForceTarget>200 400</LRForceTarget>
+            <LRForceValue>0</LRForceValue>
+            <RearBalanceBGColor>white</RearBalanceBGColor>
+            <RearBalanceValue>0</RearBalanceValue>
+            <RFDragBGColor>white</RFDragBGColor>
+            <RFDragValue>0</RFDragValue>
+            <RFForceBGColor>white</RFForceBGColor>
+            <RFForceDomain>0 500</RFForceDomain>
+            <RFForceTarget>200 400</RFForceTarget>
+            <RFForceValue>0</RFForceValue>
+            <RRDragBGColor>white</RRDragBGColor>
+            <RRDragValue>0</RRDragValue>
+            <RRForceBGColor>white</RRForceBGColor>
+            <RRForceDomain>0 500</RRForceDomain>
+            <RRForceTarget>200 400</RRForceTarget>
+            <RRForceValue>0</RRForceValue>
+        </SystemTagsToReset>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <BrakeActive>BrakeActive</BrakeActive>
+            <BrakeDomain>BrakeDomain</BrakeDomain>
+            <BrakeTarget>BrakeTarget</BrakeTarget>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <ElectricMachineType>3700</ElectricMachineType>
+            <FailButton>NoPB</FailButton>
+            <FrontBalanceBGColor>FrontBalanceBGColor</FrontBalanceBGColor>
+            <FrontBalanceTest>FrontBalanceTest</FrontBalanceTest>
+            <FrontBalanceValue>FrontBalanceValue</FrontBalanceValue>
+            <FrontToRearBalanceBGColor>FrontToRearBalanceBGColor</FrontToRearBalanceBGColor>
+            <FrontToRearBalanceTest>FrontToRearBalanceTest</FrontToRearBalanceTest>
+            <FrontToRearBalanceValue>FrontToRearBalanceValue</FrontToRearBalanceValue>
+            <LeftFrontDragBGColor>LFDragBGColor</LeftFrontDragBGColor>
+            <LeftFrontDragValue>LFDragValue</LeftFrontDragValue>
+            <LeftFrontForceBGColor>LFForceBGColor</LeftFrontForceBGColor>
+            <LeftFrontForceValue>LFForceValue</LeftFrontForceValue>
+            <LeftRearDragBGColor>LRDragBGColor</LeftRearDragBGColor>
+            <LeftRearDragValue>LRDragValue</LeftRearDragValue>
+            <LeftRearForceBGColor>LRForceBGColor</LeftRearForceBGColor>
+            <LeftRearForceValue>LRForceValue</LeftRearForceValue>
+            <LeftRearParkBrakeForceValue>LeftRearParkBrakeForceValue</LeftRearParkBrakeForceValue>
+            <LeftRearParkBrakeForceBGCOlor>LeftRearParkBrakeForceBGCOlor</LeftRearParkBrakeForceBGCOlor>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <MachineType>MachineType</MachineType>
+            <PassButton>YesPB</PassButton>
+            <Rear>Rear</Rear>
+            <RearBalanceBGColor>RearBalanceBGColor</RearBalanceBGColor>
+            <RearBalanceTest>RearBalanceTest</RearBalanceTest>
+            <RearBalanceValue>RearBalanceValue</RearBalanceValue>
+            <ReadRwalMessageTag>ReadRwalSensor</ReadRwalMessageTag>
+            <RetainersUp>RollsUpElevDown</RetainersUp>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RightFrontDragBGColor>RFDragBGColor</RightFrontDragBGColor>
+            <RightFrontDragValue>RFDragValue</RightFrontDragValue>
+            <RightFrontForceBGColor>RFForceBGColor</RightFrontForceBGColor>
+            <RightFrontForceValue>RFForceValue</RightFrontForceValue>
+            <RightRearDragBGColor>RRDragBGColor</RightRearDragBGColor>
+            <RightRearDragValue>RRDragValue</RightRearDragValue>
+            <RightRearForceBGColor>RRForceBGColor</RightRearForceBGColor>
+            <RightRearForceValue>RRForceValue</RightRearForceValue>
+            <RightRearParkBrakeForceValue>RightRearParkBrakeForceValue</RightRearParkBrakeForceValue>
+            <RightRearParkBrakeForceBGCOlor>RightRearParkBrakeForceBGCOlor</RightRearParkBrakeForceBGCOlor>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <Zerospeed>Zerospeed</Zerospeed>
+        </DataTags>
+
+        <Parameters>
+            <AlwaysStartGUIForceThread>Yes</AlwaysStartGUIForceThread>
+            <ConfigFile>/Configuration/Components/Brake/SerialRwalModule.xml</ConfigFile>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>No</DeveloperTest>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <ICMName>mgr/ICM</ICMName>
+            <IgnoreMachineConditions>No</IgnoreMachineConditions>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+            <DisplayBrakeMeterUntilZeroSpeed>True</DisplayBrakeMeterUntilZeroSpeed>
+
+            <!-- Acceleration Parameters -->
+            <CheckAccelerationElapseTime>False</CheckAccelerationElapseTime>
+            <CheckAccelerationPoints>False</CheckAccelerationPoints>
+            <DisplaySpeedTimeGraph>False</DisplaySpeedTimeGraph>
+            <NumberOfAccelerationPoints>0</NumberOfAccelerationPoints>
+            <WaitForAccelStart>False</WaitForAccelStart>
+
+            <!-- Brake Test Parameters -->
+            <BrakeForceMultiplier>1.0</BrakeForceMultiplier>
+            <BaseBrakeSampleCount>0</BaseBrakeSampleCount>
+            <BrakeStopdistanceStartSpeed Units="mph">30</BrakeStopdistanceStartSpeed>
+            <DisplayBrakeTargetSpeeds>False</DisplayBrakeTargetSpeeds> 
+            <FrontMaxBrakeForce Units="lbf">400</FrontMaxBrakeForce>
+            <FrontMinBrakeForce Units="lbf">150</FrontMinBrakeForce>
+            <MinimumStartForce Units="lbf">150</MinimumStartForce>
+            <RearMaxBrakeForce Units="lbf">400</RearMaxBrakeForce>
+            <RearMinBrakeForce Units="lbf">50</RearMinBrakeForce>
+            <StartSamplingAtMinimumForce>True</StartSamplingAtMinimumForce>
+
+            <!-- Brake Balance Parameters -->
+            <BalanceFrontToRearMax Units="percent">80</BalanceFrontToRearMax>
+            <BalanceFrontToRearMin Units="percent">50</BalanceFrontToRearMin>
+            <FrontSideToSideBalance Description="Offset from 50%" Units="percent">10</FrontSideToSideBalance>
+            <RearSideToSideBalance Description="Offset from 50%" Units="percent">10</RearSideToSideBalance>
+
+            <!-- Drag Test Parameters -->
+            <DisplayBrakeTargetSpeeds>False</DisplayBrakeTargetSpeeds>
+
+            <!-- Park Brake Parameters -->
+            <ParkBrakeArmSpeed Units="mph">15.0</ParkBrakeArmSpeed>
+            <ParkBrakeEndSampleSpeed Units="mph">3</ParkBrakeEndSampleSpeed>
+            <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount>
+            <ParkBrakeMaxForce Units="lbf">300</ParkBrakeMaxForce>
+            <ParkBrakeMinForce Units="lbf">100</ParkBrakeMinForce>
+            <ParkBrakeMinimumStartForce Units="lbf">100</ParkBrakeMinimumStartForce>
+            <ParkBrakeStartSampleSpeed Units="mph">12</ParkBrakeStartSampleSpeed>
+            <ParkBrakeStartSamplingAtMinimumForce>True</ParkBrakeStartSamplingAtMinimumForce>
+
+            <!-- RWAL Test Parameters -->
+            <RwalTestSpeed Units="mph">3.0</RwalTestSpeed>
+            <RwalTestSpeedRange Units="mph">3 6</RwalTestSpeedRange>
+            <RwalSensorCheckInterval Units="ms">200</RwalSensorCheckInterval>
+            <TotalRwalSamples>15</TotalRwalSamples>
+            <RwalSensorTolerance Units="percent">5</RwalSensorTolerance>
+        </Parameters>
+
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <BrakeModeratelyInGreenBand PromptBox="1" Priority="0">BrakeModeratelyInGreenBand</BrakeModeratelyInGreenBand>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+            <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
+            <ZeroSpeed PromptBox="1" Priority="0">ZeroSpeed</ZeroSpeed>
+        </Prompts>
+    </Setup>
+
+
+    <Objectives>
+        <AnalyzeBrakeTest>
+            <TestStep00>AnalyzeBrakeTest</TestStep00>
+            <TestStep05>AnalyzeBalance</TestStep05>
+        </AnalyzeBrakeTest>
+
+        <BrakeTest>
+            <TestStep00>AccelerateToBrakeSpeed</TestStep00>
+            <TestStep05>DragTest</TestStep05>
+            <TestStep10>AnalyzeDragTest</TestStep10>
+            <TestStep20>BrakeTest</TestStep20>
+        </BrakeTest>
+
+        <DisableForceMeter>
+            <TestStep00>DisableForceMeter</TestStep00>
+        </DisableForceMeter>
+
+        <FinishUp>
+            <TestStep99>FinishUp</TestStep99>
+        </FinishUp>
+
+        <ParkBrakeTest>
+            <TestStep00>AccelerateToParkBrakeSpeed</TestStep00>
+            <TestStep05>DynamicParkBrakeTest</TestStep05>
+            <TestStep10>AnalyzeDynamicParkBrake</TestStep10>
+        </ParkBrakeTest>
+
+        <RwalTest>
+            <TestStep00>RwalSensorTest</TestStep00>
+        </RwalTest>
+
+        <Setup>
+            <TestStep00>Setup</TestStep00>
+            <TestStep05>Initialize</TestStep05>
+        </Setup>
+
+    </Objectives>
+
+
+    <TestSteps>
+        <AccelerateToBrakeSpeed Result="Not Tested" Timeout="300000" 
+            Description="Accelerate to the brake test speed" 
+            SpeedTarget="55 65" ArmSpeed="55" 
+            Prompt1="AccelerateToTargetSpeed"/>
+        <AccelerateToParkBrakeSpeed Result="" Timeout="120000" Description="Accel to Park Brake Speed"
+            SpeedTarget="15 20" ArmSpeed="55" 
+            Prompt1="AccelerateToTargetSpeed"/>
+        <AnalyzeBalance Result="Not Tested" Timeout="100" Description="Analyze brake force balance" 
+            FrontSideToSideBalance="10" RearSideToSideBalance="10" 
+            BalanceFrontToRearMin="50" BalanceFrontToRearMax="80"/>
+        <AnalyzeBrakeTest Result="Not Tested" Timeout="500" Description="Analyze brake forces" 
+            FrontMaxBrakeForce="400" FrontMinBrakeForce="150" 
+            RearMaxBrakeForce="400" RearMinBrakeForce="75"/>
+        <AnalyzeDragTest Result="Not Tested" Timeout="500" Description="Analyze drag force data" 
+            FrontMaxDragForce="45" RearMaxDragForce="45"/>
+        <AnalyzeDynamicParkBrake Result="" Timeout="1000" Description="Analyze Park Brake Samples"/>
+        <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" 
+            Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" 
+            StartBrakeSampleSpeed="45" EndBrakeSampleSpeed="35" 
+            BrakeDomain="0 500" BrakeTarget="150 400"/>
+        <DisableForceMeter Result="Not Tested" Timeout="1000" Description="Disable the brake force meter"/>
+        <DragTest Result="Not Tested" Timeout="30000" Description="Measure vehicle drag forces" 
+            Prompt1="ShiftToNeutral" Prompt2="RemoveFootFromAccelerator" 
+            DragSpeed="50" DragDelay="1000" DragSamples="50"/>
+        <DynamicParkBrakeTest Result="" Timeout="30000" Description="Perform the park brake test"
+            BrakeDomain="0 500" BrakeTarget="100 300"/>
+
+        <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
+        <Initialize Result="Not Tested" Timeout="100" Description="Initialize the force thread and data arrays" 
+            ZerospeedPrompt="BrakeToStop"/>
+        <RwalSensorTest Description="Verify RWAL sensor reading is in tolerance"
+            Result="" Timeout="120000" ScanDelay="250"/>
+        <Setup Result="Not Tested" Timeout="100" Description="Setup the test component for testing"/>
+    </TestSteps>
+
+</RwalBrakeTest>

@@ -2,9 +2,9 @@
 
     <Components Debug="Off">
         <Brake>
-            <ComponentName>GenericBaseBrakeTest.qxe</ComponentName>
+            <ComponentName>RwalBrakeTest.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>BaseBrakeTc.xml</ConfigFile>
+            <ConfigFile>RwalBrakeTestTc.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
             <Debug>Off</Debug>
         </Brake>
@@ -92,7 +92,7 @@
         <TestPhase310 Description="RWAL Sensor Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Perform the RWAL sensor test" Result="" Timeout="" Component="Brake">
-                    <RwalTesting/>
+                    <RwalTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase310>

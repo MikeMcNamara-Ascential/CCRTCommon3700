@@ -70,6 +70,19 @@
 	</CustomFolders>
 	<Files AutoFolders="DirectoryView">
 		<Folder Name="ApplicationLayer">
+			<Folder Name="ModuleInterfaces">
+				<Folder Name="Brake">
+					<Folder Name="RWAL">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/ModuleInterfaces/Brake/RWAL/Configuration/CMakeLists.txt"/>
+							<F N="ApplicationLayer/ModuleInterfaces/Brake/RWAL/Configuration/SerialRwalModule.xml"/>
+						</Folder>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/RWAL/CMakeLists.txt"/>
+					</Folder>
+					<F N="ApplicationLayer/ModuleInterfaces/Brake/CMakeLists.txt"/>
+				</Folder>
+				<F N="ApplicationLayer/ModuleInterfaces/CMakeLists.txt"/>
+			</Folder>
 			<Folder Name="TestComponents">
 				<Folder Name="Brake">
 					<Folder Name="BaseBrake">
@@ -78,6 +91,16 @@
 							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/CMakeLists.txt"/>
 						</Folder>
 						<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/CMakeLists.txt"/>
+					</Folder>
+					<Folder Name="RWAL">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/RWAL/Configuration/CMakeLists.txt"/>
+							<F N="ApplicationLayer/TestComponents/Brake/RWAL/Configuration/RwalBrakeTestTc.xml"/>
+						</Folder>
+						<F N="ApplicationLayer/TestComponents/Brake/RWAL/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Brake/RWAL/RwalBrakeTest.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/RWAL/RwalBrakeTest.h"/>
+						<F N="ApplicationLayer/TestComponents/Brake/RWAL/RwalBrakeTestMain.cpp"/>
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Brake/CMakeLists.txt"/>
 				</Folder>

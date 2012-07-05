@@ -12,25 +12,25 @@
             <Verbose>0x01</Verbose>
         </Logging>
         <LogicalPorts>
-            <ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
+            <RWAL enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser2</SerialDevice>
                     <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
                     <DefaultReplyTimeout units="milliseconds">5000</DefaultReplyTimeout>
                     <Protocol>
                         <Baud>9600</Baud>
-                        <Parity>Even</Parity>
+                        <Parity>None</Parity>
                         <DataBits>8</DataBits>
                         <StopBits>1</StopBits>
-                        <Reflection>1</Reflection>
+                        <Reflection>0</Reflection>
                         <ByteGap>5</ByteGap>
                         <MssgGap>0</MssgGap>
                         <Interrupts>Rx</Interrupts>
                         <FifoSize>1024</FifoSize>
                     </Protocol>
                     <Logging>
-                        <ProcessName>logport/ISOK</ProcessName>
-                        <AdditionalLogFile>/Servers/ISOKComm.log</AdditionalLogFile>
+                        <ProcessName>logport/RWAL</ProcessName>
+                        <AdditionalLogFile>/Servers/RWALComm.log</AdditionalLogFile>
                         <Status>Enabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
                         <Verbose>0x01</Verbose>
@@ -39,8 +39,8 @@
                         <ContentType>RAW</ContentType>
                         <Setup>
                             <Logging>
-                                <ProcessName>ISOK_Comm</ProcessName>
-                                <AdditionalLogFile>/Communication/ISO_BusComm.log</AdditionalLogFile>
+                                <ProcessName>RWAL_Comm</ProcessName>
+                                <AdditionalLogFile>/Communication/RWAL_BusComm.log</AdditionalLogFile>
                                 <Status>Enabled</Status>
                                 <LocalEcho>Disabled</LocalEcho>
                                 <Verbose>0x1F</Verbose>
@@ -49,7 +49,7 @@
                         </Setup>
                     </CommLog>
                 </Setup>
-            </ISOK>
+            </RWAL>
             <LeftScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser3</SerialDevice>

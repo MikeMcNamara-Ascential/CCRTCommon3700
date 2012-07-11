@@ -1,6 +1,8 @@
 #------------------------------------------------------------------------------------------
-# Tell CMake what subdirectories to recurse into
+# Auto Generated
+# Tell CMake what files to install
 #------------------------------------------------------------------------------------------
-ADD_SUBDIRECTORY(ModuleInterfaces)
-ADD_SUBDIRECTORY(TestComponents)
-ADD_SUBDIRECTORY(VehicleTest)
+
+INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
+	MandoAbsModule.xml
+)

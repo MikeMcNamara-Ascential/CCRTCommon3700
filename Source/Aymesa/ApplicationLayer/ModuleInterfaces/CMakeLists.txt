@@ -1,18 +1,17 @@
 #------------------------------------------------------------------------------------------
-# All components need the protocol filter and module interface headers
+# Define a cache variable to hold the path to the root of the module interface tree
 #------------------------------------------------------------------------------------------
-INCLUDE_DIRECTORIES(${CORE_MODULES_INC_PATH} ${CORE_PROTOCOLS_INC_PATH} ${CORE_COMMON_TC_INC_PATH})
+SET(KIA_MODULES_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH
+	"Path to the root of the DCX module interfaces tree" FORCE)
 
 #------------------------------------------------------------------------------------------
-# All components link against the common library
+# Where are our headers
 #------------------------------------------------------------------------------------------
-LINK_DIRECTORIES(${CORE_MODULES_LIB_PATH} ${CORE_PROTOCOLS_LIB_PATH} ${CORE_COMMON_TC_LIB_PATH})
-LINK_LIBRARIES( moduleinterfaces protocolfilters commoncomponent)
+INCLUDE_DIRECTORIES(${CORE_MODULES_INC_PATH} 
+                    #${KIA_MODULES_INC_PATH}
+                    ${CORE_PROTOCOLS_INC_PATH})
 
 #------------------------------------------------------------------------------------------
-# Tell CMake what subdirectories to recurse into
+# Build the individual module interfaces next
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Brake)
-ADD_SUBDIRECTORY(LossCompensation)
-ADD_SUBDIRECTORY(Machine)
-ADD_SUBDIRECTORY(TransferCase)

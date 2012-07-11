@@ -1,0 +1,9 @@
+runBosch
+
+waitfor /dev/name/local/component/Bosch8ABS 5
+
+regBosch
+
+sleep 2
+
+objBosch Initialize

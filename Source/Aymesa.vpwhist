@@ -6,25 +6,25 @@ Aymesa\Aymesa.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Core\Core.vpj=20110629125435594
-Aymesa\Aymesa.vpj=20110629124734373
-Tests\Tests.vpj=20110629125520843
-Tools\Tools.vpj=20110629125438656
+Aymesa\Aymesa.vpj=20110701095630324
+Core\Core.vpj=20120616004535109
+Tests\Tests.vpj=20110701100211327
+Tools\Tools.vpj=20110701100155451
 [TreeExpansion2]
-+ Aymesa\Aymesa.vpj
-  + ApplicationLayer
-    + TestComponents
-      + Brake
-        + BaseBrake
-          + Configuration
+- Aymesa\Aymesa.vpj
+  - ApplicationLayer
+    - TestComponents
+      - Brake
+        - BaseBrake
+          - Configuration
       + LossCompensation
         + Configuration
-      + Machine
-        + Configuration
+      - Machine
+        - Configuration
       + TransferCase
         + Configuration
-    + VehicleTest
-      + Configuration
+    - VehicleTest
+      - Configuration
         + BuildRecords
         + DriveCurves
   + Burke_PorterCCRT
@@ -76,33 +76,35 @@ Tools\Tools.vpj=20110629125438656
         + sim
           + params
     + UninstallerData
-  + ServicesLayer
+  - ServicesLayer
     + Managers
       + ICM
         + Configuration
       + SerialServer
         + Configuration
-    + Servers
-      + InputServer
-        + Configuration
+    - Servers
+      - InputServer
+        - Configuration
       + Launcher
-        + Configuration
+        - Configuration
       + MachineDataBroker
         + Configuration
       + MotorController
         + Configuration
-      + PlantHostInbound
-        + Configuration
-      + SystemMonitor
+      - PlantHostInbound
+        - Configuration
+      - SystemMonitor
         + Configuration
       + VehicleDataBroker
         + Configuration
       + VehicleDataServer
         + Configuration
-+ Core\Core.vpj
-  + ApplicationLayer
+- Core\Core.vpj
+  - ApplicationLayer
     + ModuleInterfaces
       + Brake
+        + Bosch8
+        + Include
       + Common
       + EngineController
       + Include
@@ -116,12 +118,13 @@ Tools\Tools.vpj=20110629125438656
       + KeyWord2000
       + SCI
     + TestComponents
-      + Brake
-        + BaseBrake
+      - Brake
+        - BaseBrake
+          - Configuration
+        + Bosch8
+        - Common
           + Configuration
-        + Common
-          + Configuration
-        + Include
+        - Include
       + Common
         + Configuration
       + Emissions
@@ -139,6 +142,7 @@ Tools\Tools.vpj=20110629125438656
         + Include
         + LossCompensation
           + Configuration
+        + PhotonLossCompensation
       + Machine
         + Common
         + Include
@@ -158,22 +162,24 @@ Tools\Tools.vpj=20110629125438656
         + Common
         + Include
         + Transmission
-    + VehicleTest
+    - VehicleTest
       + Common
       + ComponentManager
       + ComponentProxy
       + Include
-      + Library
+      - Library
       + PhaseCommander
       + TestSelector
       + TestSequencer
       + VehicleTest
   + ClientConfigurations
-  + ServicesLayer
+  - ServicesLayer
     + Include
     + Library
       + Bepos
       + License
+        + Include
+      + License6.2.1
         + Include
       + SoftwareId
       + SystemCommunication
@@ -190,6 +196,7 @@ Tools\Tools.vpj=20110629125438656
           + Common
           + Include
           + J2190
+        + BBKWireless
         + Common
         + Gryphon
           + CAN
@@ -218,7 +225,7 @@ Tools\Tools.vpj=20110629125438656
         + TaskMon
         + TaskMonOld
         + TaskMonTerm
-    + Servers
+    - Servers
       + DataServer
         + Configuration
       + DsaServer
@@ -226,7 +233,7 @@ Tools\Tools.vpj=20110629125438656
       + FaultServer
         + Configuration
       + GenericServer
-      + InputServer
+      - InputServer
         + CLV295ScannerMgr
         + Common
         + Configuration
@@ -254,9 +261,9 @@ Tools\Tools.vpj=20110629125438656
         + Include
       + NamedDataBroker
         + Configuration
-      + PlantHostInbound
+      - PlantHostInbound
         + Include
-        + Library
+        - Library
       + PlantHostOutbound
         + Configuration
         + DAQ
@@ -264,6 +271,7 @@ Tools\Tools.vpj=20110629125438656
         + HostInterface
         + Include
         + Library
+        + NDB
       + PromptServer
         + Configuration
       + SystemMonitor
@@ -280,175 +288,21 @@ Tools\Tools.vpj=20110629125438656
         + Configuration
         + Include
         + Library
+      + WinCcrtInterface
+        + Configuration
 + Tests\Tests.vpj
-  + Core
-    + Unit
-      + ApplicationLayer
-        + ModuleInterfaces
-          + Brake
-            + Configuration
-          + Common
-            + Configuration
-          + EngineController
-            + Configuration
-          + Transmission
-        + ProtocolFilters
-          + Common
-        + TestComponents
-          + Brake
-            + Common
-              + Configuration
-          + Common
-            + Configuration
-          + Emissions
-            + Common
-              + Configuration
-          + LossCompensation
-            + Configuration
-          + Machine
-            + Common
-              + Configuration
-          + SpeedControl
-            + Common
-          + Transmission
-            + Common
-              + Configuration
-        + VehicleTest
-          + Library
-      + MockClasses
-        + FaultServer
-        + GenericEmissionsModuleTemplate
-        + GenericTc
-        + NamedDataBroker
-        + PlantHostOutbound
-        + PromptServer
-        + ProtocolFilter
-        + SystemMonitor
-        + TestResultServer
-      + ServicesLayer
-        + Library
-          + Debuggable
-          + GeneralUtilities
-          + NotificationThreadSpinner
-          + SoftwareId
-          + SystemCommunication
-            + ITcpIp
-              + ConfigFiles
-          + XmlProcessor
-            + ConfigFiles
-        + Managers
-          + CommProxy
-            + AVT
-              + CAN
-                + Configuration
-            + Common
-              + Configuration
-          + ICM
-            + IpIcm
-              + Configuration
-          + PlcMgr
-            + Configuration
-          + SerialServer
-            + Configuration
-          + TaskMon
-            + Common
-        + Servers
-          + DataServer
-          + InputServer
-            + CLV295ScannerMgr
-              + Configuration
-            + Configuration
-            + MapleKeypadManager
-              + Configuration
-            + PendantManager
-              + Configuration
-            + SymbolScannerMgr
-              + Configuration
-          + LogDaemon
-            + ConfigFiles
-            + HandTest
-          + MachineDataBroker
-            + Configuration
-          + MotorController
-            + Common
-              + Configuration
-            + Electric
-              + AB
-                + Configuration
-              + Baldor
-                + Configuration
-              + Motor
-                + Configuration
-            + Hydraulic
-              + Configuration
-          + NamedDataBroker
-            + Configuration
-          + PlantHostInbound
-            + Configuration
-          + PlantHostOutbound
-            + Configuration
-            + DAQ
-              + Configuration
-            + HostInterface
-              + Configuration
-          + PromptServer
-            + Configuration
-          + SystemMonitor
-            + Configuration
-          + SystemScreenSaver
-            + Configuration
-          + TestResultServer
-            + Configuration
-          + VehicleDataBroker
-            + Configuration
-          + VehicleDataServer
-            + Configuration
-      + Tools
-        + ConfigChecker
-  + DCX
-    + Stress
-      + XML
-    + Unit
-      + ApplicationLayer
-        + ModuleInterfaces
-          + Brake
-            + Teves
-              + Configuration
-            + TRW
-              + Configuration
-          + Common
-      + MockClasses
-        + ProtocolFilter
-      + ServicesLayer
-        + Servers
-          + PlantHostOutbound
-  + Include
 + Tools\Tools.vpj
-  + bincat
-  + DataServerInterface
-  + IcmTerm
-  + IoPulse
-  + IpIcmTester
-  + ModuleDataReader
-  + ModuleMessageTester
-  + PlcTerm
-  + PromptTester
-  + SendCommand
-  + SendPrompt
-  + TestDataExtractor
-  + TestReportGenerator
-  + TestResultAnalyzer
 scroll:0
 [State]
-SCREEN: 1680 1050 23 24 1344 722 0 0 M 0 0 0 0 1227 713
-CWD: Tools
+SCREEN: 1920 1080 403 190 896 685 0 0 M 0 0 0 0 1674 784
+CWD: ..\..\Chrysler\Saltillo\Source\DCX\ServicesLayer\Servers\SystemMonitor
 FILEHIST: 9
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\ISO\IsoCommProxyMain.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxy.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxyMain.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Common\RawCommProxy.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Include\RawCommProxy.h
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxy.h
-..\..\GM\Source\GM\507208 - GM AM General.txt
-..\..\GM\Source\GM\ApplicationLayer\TestComponents\Brake\GM\GMBrakeTC.cpp
-..\..\GM\Source\Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp
+Core\ServicesLayer\Servers\SystemMonitor\Library\ChinaSystemMonitor.cpp
+Core\ServicesLayer\Include\BepTagDefs.h
+Aymesa\ServicesLayer\Servers\SystemMonitor\AymesaSystemMonitor.cpp
+Z:\common3700\source\aymesa\serviceslayer\Servers\SystemMonitor\AymesaSystemMonitor.cpp
+Z:\common3700\source\aymesa\applicationlayer\TestComponents\Machine\Configuration\MachineTc.xml
+Z:\common3700\source\aymesa\applicationlayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml
+Z:\common3700\source\aymesa\applicationlayer\VehicleTest\Configuration\DriveCurves\CMakeLists.txt
+Z:\common3700\source\aymesa\applicationlayer\VehicleTest\Configuration\DriveCurves\MandoAbsDriveCurve.xml
+E:\Aymesa Logs\TestLog.8LZZZ123456789098.377.log

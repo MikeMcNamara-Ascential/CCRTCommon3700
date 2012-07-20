@@ -88,6 +88,12 @@
                                 <Font size="22" name="serif" style="bold"></Font>
                             </TextBoxConfig>
                         </Widget>
+                        <Widget width='175' height='31'  id="trans" class="com.bepco.gui.OverallTestPhaseBox" >
+                            <DataSource tagname="TransmissionOverallTest" messagetype="Subscribe"/>
+                            <TextBoxConfig>
+                                <Font size="22" name="serif" style="bold"></Font>
+                            </TextBoxConfig>
+                        </Widget>
                     </VBox>
                 </HBox>
                 <!-- END OF subsystem test pass/fail widgets ========================================== -->

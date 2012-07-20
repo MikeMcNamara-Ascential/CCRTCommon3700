@@ -13,6 +13,10 @@
             <Label width="1020" height="35" posX="0" posY="5" name="losstitle">
                 <Font size="36" name="sans-serif" style="bold"/>
             </Label>
+            <CommandButton id="lossCompStartButton" posX="790" posY="0" width="230" height="40"
+                commandtag="CommandTest" commandvalue="LossCompensation" bgcolor="white">
+                <Font style="plain" name="serif" size="20"/>
+            </CommandButton>
             <!-- Row 1 of 3  -->
             <!-- Wheel speeds -->
             <HBox height="270" width="1020" posX="0" posY="40" border="false">

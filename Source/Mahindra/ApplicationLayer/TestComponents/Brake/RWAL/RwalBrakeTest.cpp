@@ -41,7 +41,7 @@ const string RwalBrakeTest<ModuleType>::CommandTestStep(const string &value)
 				ConvertStatusToResponse(StatusCheck()).c_str(), GetTestStepName().c_str());
 		}
 		else if(!GetTestStepName().compare("RwalSensorTest"))   result = ValidateRwalSensor();
-		else       GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
+		else                                                    result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
 	}
 	catch(ModuleException &excpt)
 	{

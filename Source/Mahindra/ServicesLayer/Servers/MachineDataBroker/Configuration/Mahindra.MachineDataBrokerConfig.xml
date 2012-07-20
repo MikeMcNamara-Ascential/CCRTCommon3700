@@ -115,6 +115,8 @@
 				<LRMachineLossCurrentBGColor DataType="color">white</LRMachineLossCurrentBGColor>
 				<LRMachineLossPrevious DataType="float" Units="LBF">0</LRMachineLossPrevious>
 				<LRMachineLossPreviousBGColor DataType="color">white</LRMachineLossPreviousBGColor>
+                <LRParkBrakeBGColor DataType="color">White</LRParkBrakeBGColor>
+                <LRParkBrakeForce DataType="float" Units="LBF">0.0</LRParkBrakeForce>
 				<LRSpeedBGColor DataType="color">white</LRSpeedBGColor>
 				<LRTractionControlRecoveryBGColor DataType="color">white</LRTractionControlRecoveryBGColor>
 				<LRTractionControlRecoveryValue DataType="float" Units="LBF">0</LRTractionControlRecoveryValue>
@@ -184,6 +186,8 @@
 				<RRMachineLossCurrentBGColor DataType="color">white</RRMachineLossCurrentBGColor>
 				<RRMachineLossPrevious DataType="float" Units="LBF">0</RRMachineLossPrevious>
 				<RRMachineLossPreviousBGColor DataType="color">white</RRMachineLossPreviousBGColor>
+                <RRParkBrakeBGColor DataType="color">White</RRParkBrakeBGColor>
+                <RRParkBrakeForce DataType="float" Units="LBF">0.0</RRParkBrakeForce>
 				<RRSpeedBGColor DataType="color">white</RRSpeedBGColor>
 				<RRTractionControlRecoveryBGColor DataType="color">white</RRTractionControlRecoveryBGColor>
 				<RRTractionControlRecoveryValue DataType="float" Units="LBF">0</RRTractionControlRecoveryValue>

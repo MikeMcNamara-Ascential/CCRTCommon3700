@@ -137,7 +137,8 @@ const string ManualTransmissionTC::BlindGearSpeedCheck(const string &gear)
 		DisplayPrompt(GetPromptBox("ShiftToGearAndAccelerate"), GetPrompt("ShiftToGearAndAccelerate"),
 					  GetPromptPriority("ShiftToGearAndAccelerate"), "white", gear);
 		// Wait for the operator to complete
-		result = OperatorPassFail("PressPassWhenComplete");
+		INT32 timeout = GetTestStepInfoInt("Timeout");
+		result = OperatorPassFail("PressPassWhenComplete", timeout);
 		float testSpeed = GetRollSpeed();
 		// Re-enable the speedometer
 		SystemWrite(GetDataTag("SpeedActive"), true);
@@ -146,7 +147,7 @@ const string ManualTransmissionTC::BlindGearSpeedCheck(const string &gear)
 		SendSubtestResultWithDetail(GetTestStepName() + "_" + gear, testPass, GetTestStepInfo("Description"), "0000",
 									"MaxSpeed", CreateMessage(buff, sizeof(buff), "%.4f", testSpeed), unitsMPH,
 									"RealResult", result, "");
-		// NOTE: Setting the result here to PASS is intentional and reuqested by the customer.
+		// NOTE: Setting the result here to PASS is intentional and requested by the customer.
 		//       It is reported as is in the result under the RealResult item so we can track it if needed.
 		//       - Dan Erickson 2012.05.21
 		result = testPass;

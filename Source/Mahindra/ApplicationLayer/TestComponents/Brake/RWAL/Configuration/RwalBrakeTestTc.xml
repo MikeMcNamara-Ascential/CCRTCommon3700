@@ -46,7 +46,7 @@
         </TagList>
         <Logging>
             <Status>Enabled</Status>
-            <ProcessName>TevesAbs</ProcessName>
+            <ProcessName>RwalBrake</ProcessName>
             <AdditionalLogFile Types="/Component/TrwEnc430Abs.log or Disabled">/Components/RwalBrakeTest.log</AdditionalLogFile>
             <Debug>Off</Debug>
             <LocalEcho>Disabled</LocalEcho>

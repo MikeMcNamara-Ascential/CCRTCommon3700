@@ -178,6 +178,9 @@ $Revision: 1.3 $
                 <Widget width='83' height='40'  id="brake" class="com.bepco.gui.OverallTestPhaseBox" >
                     <DataSource tagname="BrakeOverallTest" messagetype="Subscribe"/>
                 </Widget>
+                <Widget width='83' height='40'  id="trans" class="com.bepco.gui.OverallTestPhaseBox" >
+                    <DataSource tagname="TransmissionOverallTest" messagetype="Subscribe"/>
+                </Widget>
             </HBox>
             <!-- Row 2 of 4: Prompt message text box -->
             <Widget id="prompts" class="com.bepco.gui.PromptBox" posX="3" posY="230" width="997" height="60" border="true">

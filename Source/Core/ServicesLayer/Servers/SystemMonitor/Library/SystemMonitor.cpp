@@ -1262,6 +1262,16 @@ void SystemMonitor::CheckAbort( ControlData *ctrl)
             Log(LOG_ERRORS, "ERROR: Driver Lowered Retainers and ABORTED The Test\n");
 //          BepServer::Write( ABORT_DATA_TAG, "1");
         }
+        if (( ((ctrl->inputServerState == INPUT_SERVER_TEST_RESULT_STATE) && !(ctrl->keyPress.compare(PENDANT_START_TEST))) ||
+              ((ctrl->inputServerState == INPUT_SERVER_NORMAL_STATE) &&  !(ctrl->keyPress.compare("Left")) || 
+               ctrl->startTestPb) && Read(ABORT_DATA_TAG) == "1"))
+
+        {//Pass button pressed in abort situation - vehicle test will sequence, so we should clear the test result
+			ITestResultServer testResult;
+			testResult.Initialize(TEST_RESULT_SERVER_NAME, "Client", IsDebugOn());
+			string response;
+			testResult.WriteTestResult("OperatorAbort", PENDANT_START_TEST, GetProcessName(), "", response, true, "0000");
+        }
     }
     // else if the rolls are lowered and not in a test, clear the abort
     else if (ctrl->rollsDown && (ReadSubscribeData(INVALID_LICENSE_FATAL_FAULT_TAG) != "1"))

@@ -240,6 +240,12 @@
 #define STOP_WB_ADJUST_PULSE    90
 
 /**
+ * Pulse value used to indicate that it is time to turn off the ReRelax 
+ * Ret Rollspulse.
+ */ 
+#define STOP_RERELAX_RETROLLS_PULSE    91
+
+/**
  * Name to use when registering with OS
  * @since version 1.0
  */
@@ -1033,6 +1039,15 @@ protected:
     bool const GetSystemMonitorWheelbaseAdjust(void);
 
     /**
+     * Get flag to denote if SysMon is responsible for
+     * ReRelaxing the Retaining Rolls.
+     * 
+     * @return true if SysMon is responsible for ReRelaxing Ret Rolls
+     */
+    bool const GetSystemMonitorFrontReductionPressureAdjust(void);
+
+    
+    /**
      * Set flag to denote if SysMon is responsible for
      * adjusting the wheelbase.
      * 
@@ -1044,11 +1059,24 @@ protected:
      * Start sending the wheelbase adjustment pulse to the PLC.
      */ 
     void StartWheelbaseAdjust(void);
+
+    /**
+     * Start sending the Re Relax Ret Rolls pulse to the PLC.
+     */ 
+    void StartReRelaxRetRollsPulse(void);
+
     /**
      * Stop sending the wheelbase adjustment pulse to the PLC.
      */ 
     void StopWheelbaseAdjust(void);
 
+    /**
+     * Stop sending the Re Relax Ret Rolls pulse to the PLC.
+     */ 
+    void StopReRelaxRetRollsPulse(void);
+
+
+    
     /**
      * Interface to NamedDataBroker process.
      * Used to read and write data in the system.
@@ -1203,12 +1231,27 @@ protected:
     /**
      * The number of mili-seconds to wait before killing the wheelbase move bit
      */
-    double              m_wheelbasePulseTime;   
-    /**
+    double              m_wheelbasePulseTime;
+     /**
      * Timer object used to send the SystemMonitor a pulse after the
      * vehicle present filter time has elapsed.
      */
     BepTimer            m_wheelbasePulseTimer;
+     /**
+     * Flag used to denote that it is the SystemMonitor's
+     * responsibility to send a signal to ReRelax the RetRolls on
+     * publish of WheelbasePositionInchesX10.
+     */
+    bool                m_systemMonitorFrontReductionPressureAdjust;     
+     /**
+     * The number of mili-seconds to wait before killing the ReRelax bit
+     */
+    double              m_ReRelaxRetRollsPulseTime;   
+    /**
+     * Timer object used to send the SystemMonitor a pulse after the
+     * vehicle present filter time has elapsed.
+     */
+    BepTimer            m_ReRelaxRetRollsPulseTimer;
 };
 
 #endif

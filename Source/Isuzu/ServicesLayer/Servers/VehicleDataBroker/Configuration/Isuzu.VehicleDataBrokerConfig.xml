@@ -31,6 +31,7 @@
          <RearWheelDriveToPLC DataType="bool">Yes</RearWheelDriveToPLC>
          <WheelbasePositionInchesX10 DataType="integer">0</WheelbasePositionInchesX10>
          <ParkBrakePressure DataType="integer">200</ParkBrakePressure>
+         <FrontReductionPressure DataType="integer">20</FrontReductionPressure>
          <PfsBlocked DataType="bool">No</PfsBlocked>
          <BodyStyleType DataTYpe="integer">0000</BodyStyleType>
          <FourWDSelected DataType="bool">No</FourWDSelected>
@@ -166,6 +167,7 @@
             <VehicleType DataType="string">00000</VehicleType>
             <VehicleTypeImg DataType="string">FWD</VehicleTypeImg>
             <WheelbasePositionInchesX10 DataType="int">0</WheelbasePositionInchesX10>
+            <FrontReductionPressure DataType="int">20</FrontReductionPressure>
             <WriteESN DataType="string">False</WriteESN>
             <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
          </PublishTags>

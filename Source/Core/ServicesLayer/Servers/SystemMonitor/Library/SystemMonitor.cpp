@@ -659,6 +659,50 @@ void SystemMonitor::Initialize(const XmlNode *document)
         m_useFaultServer = false;
     }
 
+    // check to see if System Monitor is responsible for pulsing the retaining rolls to Re-Relax
+    try
+    {
+        m_systemMonitorFrontReductionPressureAdjust = atob(document->getChild("Setup/SystemMonitorFrontReductionPressureAdjust")->getValue().c_str());
+    }
+    catch (XmlException &err)
+    {
+        m_systemMonitorFrontReductionPressureAdjust = false;
+    }
+
+    if (m_systemMonitorFrontReductionPressureAdjust)
+    {
+        // retrieve the RetRolls ReRelax pulse timer time
+        try
+        {
+            if (document)
+            {
+                const XmlNode *node = document->getChild( XML_T("Setup"))->getChild( XML_T("ReRelaxRetRollsPulseWidth"));
+                m_ReRelaxRetRollsPulseTime = atol( node->getValue().c_str());
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Warning! No ReRelax Ret Rolls pulse time specified, Defaulting to 1sec\n");
+                m_ReRelaxRetRollsPulseTime = 1000;
+            }
+        }
+        catch (XmlException &err)
+        {
+            Log(LOG_ERRORS, "Warning! Exception reading ReRelax Ret Rolls pulse time, Defaulting to 1sec\n");
+            m_ReRelaxRetRollsPulseTime = 1000;
+        }
+
+        // set the update time
+        Log( LOG_DEV_DATA, "Using ReRelax Ret Rolls pulse time = %f\n", m_ReRelaxRetRollsPulseTime);
+        if (m_ReRelaxRetRollsPulseTime)
+        {   // convert the time to seconds
+            m_ReRelaxRetRollsPulseTimer.SetPulseCode( SYS_MON_PULSE_CODE);
+            m_ReRelaxRetRollsPulseTimer.SetPulseValue( STOP_RERELAX_RETROLLS_PULSE); 
+            m_ReRelaxRetRollsPulseTimer.Initialize(GetProcessName().c_str(), 
+                                             NULL, (unsigned long)(mSEC_nSEC(m_ReRelaxRetRollsPulseTime )));
+            m_ReRelaxRetRollsPulseTimer.Stop();
+        }
+    }
+
     // check to see if System Monitor is responsible for adjusting wheelbase
     try
     {
@@ -717,7 +761,19 @@ const std::string SystemMonitor::Publish(const XmlNode *node)
     // Only do special stuff if publish was successful
     if (status == BEP_SUCCESS_RESPONSE)
     {
-        if (node->getName() == "WheelbasePositionInchesX10")
+        if (node->getName() == "FrontReductionPressure")
+        {
+            if (GetSystemMonitorFrontReductionPressureAdjust())
+            {
+                Log(LOG_DEV_DATA,"New Front Reduction Pressure received telling PLC to ReRelax");
+                StartReRelaxRetRollsPulse();
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "SystemMonitor not responsible for adjusting Front Reduction Pressure, ignoring FrontReductionPressure publish!\n");
+            }
+        }
+        else if (node->getName() == "WheelbasePositionInchesX10")
         {
             if (GetSystemMonitorWheelbaseAdjust())
             {
@@ -790,7 +846,10 @@ const INT32 SystemMonitor::HandlePulse(const INT32 code, const INT32 value)
             CheckCableConnect(newCtrl, true);       // validate that the cable is connected
             break;
         case STOP_WB_ADJUST_PULSE:
-            StopWheelbaseAdjust();    // Make sure to disable the start wheelbase adjust
+            StopWheelbaseAdjust();         // Make sure to disable the start wheelbase adjust
+            break;
+        case STOP_RERELAX_RETROLLS_PULSE:
+            StopReRelaxRetRollsPulse();    // Make sure to disable the start ReRelaxRetRolls pulse
             break;
         default:
             retVal = BEP_STATUS_FAILURE;
@@ -1921,6 +1980,27 @@ bool const SystemMonitor::GetSystemMonitorWheelbaseAdjust(void)
 {
     return m_systemMonitorWheelbaseAdjust;
 }
+
+
+
+void SystemMonitor::StartReRelaxRetRollsPulse(void)
+{
+    WriteNdbData(RERELAX_RETROLLS_TAG, true);
+    m_ReRelaxRetRollsPulseTimer.Start();
+    Log( LOG_DEV_DATA, "ReRelaxRetRolls bit set true\n");
+}
+
+void SystemMonitor::StopReRelaxRetRollsPulse(void)
+{
+    WriteNdbData(RERELAX_RETROLLS_TAG, false);
+    Log( LOG_DEV_DATA, "ReRelaxRetRolls bit set false\n");
+}
+
+bool const SystemMonitor::GetSystemMonitorFrontReductionPressureAdjust(void)
+{
+    return m_systemMonitorFrontReductionPressureAdjust;
+}
+
 
 
 void SystemMonitor::SetSystemMonitorWheelbaseAdjust(bool value)

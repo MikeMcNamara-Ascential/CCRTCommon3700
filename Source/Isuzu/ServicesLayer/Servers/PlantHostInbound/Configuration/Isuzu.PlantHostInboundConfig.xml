@@ -27,6 +27,7 @@
             <VINDisplay>VINDisplay</VINDisplay>
             <VINReadStatus>VINReadStatus</VINReadStatus>
             <WheelbasePositionTag>WheelbasePositionInchesX10</WheelbasePositionTag>
+            <FrontReductionPressure>FrontReductionPressure</FrontReductionPressure>
             <AllWheelDriveEquipped>
                 <AWD>Yes</AWD>
             </AllWheelDriveEquipped>

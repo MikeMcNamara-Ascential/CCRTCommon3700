@@ -13,6 +13,8 @@
                 <!-- Wheelbase Parameters -->
                 <SystemMonitorWheelbaseAdjust>True</SystemMonitorWheelbaseAdjust>
                 <MoveWheelbasePulseWidth Units="ms">2000</MoveWheelbasePulseWidth>
+                <SystemMonitorFrontReductionPressureAdjust>True</SystemMonitorFrontReductionPressureAdjust>
+                <ReRelaxRetRollsPulseWidth Units="ms">2000</ReRelaxRetRollsPulseWidth>
                 <Logging>
                         <Status>Enabled</Status>
                         <ProcessName>core/SystemMonitor</ProcessName>
@@ -48,6 +50,7 @@
                                 <DisplayRackMonitor>frontpanel</DisplayRackMonitor>
                                 <OkToRoll>0</OkToRoll>
                                 <Retest>0</Retest>
+                                <ReRelaxRetRolls>0</ReRelaxRetRolls>
                                 <StartLossCompensation>0</StartLossCompensation>
                                 <StartSim>0</StartSim>
                                 <StartTest>0</StartTest>
@@ -56,6 +59,7 @@
                         </PublishTags>
                         <SubscribeTags>
                                 <AbortSignal/>
+                                <FrontReductionPressure/>
                                 <InputServerState/>
                                 <InstVehiclePresent/>
                                 <KeyPress/>

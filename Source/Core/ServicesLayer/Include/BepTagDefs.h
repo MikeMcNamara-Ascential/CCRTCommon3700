@@ -539,6 +539,10 @@
  */
 #define WHEELBASE_MOVE_TAG                  "WheelbaseStartCommand"
 /**
+ * Data tag to use to command the PLC to start/stop moving the wheelbase
+ */
+#define RERELAX_RETROLLS_TAG                  "ReRelaxRetRolls"
+/**
  * Data tag for Vehicle Build Record
  */
 #define BUILD_RECORD_TAG               "BuildRecord"

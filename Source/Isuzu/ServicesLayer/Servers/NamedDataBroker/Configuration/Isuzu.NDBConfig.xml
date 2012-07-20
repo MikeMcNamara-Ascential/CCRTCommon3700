@@ -862,6 +862,7 @@
                 <ReleaseLFBrake DataType="bool">PLC</ReleaseLFBrake>
                 <ReleaseLRBrake DataType="bool">PLC</ReleaseLRBrake>
                 <RequestDclResend DataType="bool">PlantHostOutbound</RequestDclResend>
+                <ReRelaxRetRolls DataType="bool">PLC</ReRelaxRetRolls>
                 <ResetPLC DataType="bool">PLC</ResetPLC>
                 <ResetSimulation DataType="bool">PLC</ResetSimulation>
                 <RetainingRollLockDisengagedFault DataType="bool">PLC</RetainingRollLockDisengagedFault>

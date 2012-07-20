@@ -6,15 +6,17 @@ Isuzu\Isuzu.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Core\Core.vpj=20110629125435594
-Isuzu\Isuzu.vpj=20110629124614789
-Tests\Tests.vpj=20110629125520843
-Tools\Tools.vpj=20110629125438656
+Core\Core.vpj=20120627165359219
+Isuzu\Isuzu.vpj=20120627163918907
+Tests\Tests.vpj=20120627165456912
+Tools\Tools.vpj=20120627165402766
 [TreeExpansion2]
-- Core\Core.vpj
++ Core\Core.vpj
   - ApplicationLayer
     + ModuleInterfaces
       + Brake
+        + Bosch8
+        + Include
       + Common
       + EngineController
       + Include
@@ -27,14 +29,15 @@ Tools\Tools.vpj=20110629125438656
       + J2190
       + KeyWord2000
       + SCI
-    + TestComponents
+    - TestComponents
       + Brake
         + BaseBrake
           + Configuration
+        + Bosch8
         + Common
           + Configuration
         + Include
-      + Common
+      - Common
         + Configuration
       + Emissions
         + Common
@@ -51,6 +54,7 @@ Tools\Tools.vpj=20110629125438656
         + Include
         + LossCompensation
           + Configuration
+        + PhotonLossCompensation
       + Machine
         + Common
         + Include
@@ -87,6 +91,8 @@ Tools\Tools.vpj=20110629125438656
       + Bepos
       + License
         + Include
+      + License6.2.1
+        + Include
       + SoftwareId
       + SystemCommunication
       + XmlProcessor
@@ -102,6 +108,7 @@ Tools\Tools.vpj=20110629125438656
           + Common
           + Include
           + J2190
+        + BBKWireless
         + Common
         + Gryphon
           + CAN
@@ -176,6 +183,7 @@ Tools\Tools.vpj=20110629125438656
         + HostInterface
         + Include
         + Library
+        + NDB
       + PromptServer
         + Configuration
       + SystemMonitor
@@ -192,7 +200,9 @@ Tools\Tools.vpj=20110629125438656
         + Configuration
         + Include
         + Library
-- Isuzu\Isuzu.vpj
+      + WinCcrtInterface
+        + Configuration
++ Isuzu\Isuzu.vpj
   - ApplicationLayer
     + ModuleInterfaces
       + Brake
@@ -244,6 +254,12 @@ Tools\Tools.vpj=20110629125438656
             + properties
       + local
         + crt
+          + aboutserver
+          + drivermonitor
+          + frontpanel
+          + losscompensation
+          + powerdisplay
+          + vehiclepresence
         + diagnostics
           + schematics
         + ftproot
@@ -309,6 +325,15 @@ Tools\Tools.vpj=20110629125438656
           + J2534ChannelLibrary
             + obj
               + Debug
+        + J2534DotNet
+          + J2534DotNet
+            + obj
+              + Debug
+              + Release
+          + Sample
+            + obj
+              + Debug
+              + Release
         + Logger
           + Logger
             + obj
@@ -387,21 +412,35 @@ Tools\Tools.vpj=20110629125438656
         + Configuration
       + SystemMonitor
         + Configuration
+      + TestResultServer
+        + Configuration
       - VehicleDataBroker
         - Configuration
 + Tests\Tests.vpj
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1680 1050 23 24 1344 722 0 0 M 0 0 0 0 1227 713
-CWD: ..\..\Chrysler\JNAP\Source\Core\ServicesLayer\Managers\CommProxy\Gryphon\CAN
+SCREEN: 1680 1050 37 146 1440 790 0 0 M 0 0 0 0 1426 736
+CWD: ..\Source
+BUFFER: BN="Isuzu\Burke_PorterCCRT\resources\local\ndbconfig\NDBConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.53538 CL=14 LE=0 CX=13 CY=12 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=872 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.22069 CL=36 LE=0 CX=35 CY=12 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
+WINDOW: 22 22 1184 494 -1 -1 N  WF=0 WT=2 "Default Unicode Font,10,0,1"
+BUFFER: BN="Isuzu\Burke_PorterCCRT\resources\local\ndbconfig\NDBConfig.xml"
+VIEW: LN=.53538 CL=14 LE=0 CX=17 CY=12 WI=103 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 44 44 1184 494 -1 -1 N  WF=0 WT=3 "Default Unicode Font,10,0,1"
+BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml"
+VIEW: LN=.22069 CL=36 LE=0 CX=47 CY=12 WI=104 BI=26 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Core\ServicesLayer\Servers\TestResultServer\TestResultServer.cpp
-Core\ServicesLayer\Managers\CommProxy\Gryphon\Include\IGCDebug.h
-..\..\Chrysler\JNAP\Source\Core\ServicesLayer\Managers\CommProxy\Gryphon\Include\IGCDebug.h
-Isuzu\ServicesLayer\Managers\CommProxy\Gryphon\J1850\GryphonJ1850Proxy.h
-Core\ServicesLayer\Managers\CommProxy\Gryphon\Include\IGryphonChannel.h
-Core\ServicesLayer\Managers\CommProxy\Gryphon\Include\gryphon.h
-Core\ServicesLayer\Managers\CommProxy\Include\RawCommProxy.h
-..\..\Chrysler\JNAP\Source\Core\ServicesLayer\Managers\CommProxy\Gryphon\CAN\GryphonCCanProxy.cpp
-Isuzu\ServicesLayer\Managers\CommProxy\Gryphon\J1850\GryphonJ1850Proxy.cpp
+S:\Ford FlatRock\Fault\TestLog.237084.9946.log
+S:\Ford FlatRock\Fault\TestLog.237420.7880.log
+S:\Ford FlatRock\Fault\TestLog.238795.9942.log
+S:\Ford FlatRock\Fault\TestLog.236404.9953.log
+S:\Ford FlatRock\Fault\TestLog.236571.7862.log
+..\..\Ford\Ecats\QNX632\Source\Core\ServicesLayer\Servers\MotorController\Common\MotorController.cpp
+..\..\Ford\Ecats\QNX632\Source\Ford\ApplicationLayer\TestComponents\Machine\Configuration\Ford.D385AWDMachineComponent.xml
+Isuzu\Burke_PorterCCRT\resources\local\ndbconfig\NDBConfig.xml
+Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml

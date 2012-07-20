@@ -92,6 +92,8 @@
 					<F N="ApplicationLayer/ModuleInterfaces/Common/BackgroundMonitor.cpp"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Common/GearLockUpMonitor.cpp"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Common/GearMonitor.cpp"/>
+					<F N="ApplicationLayer/ModuleInterfaces/Common/GenericCANModule.cpp"/>
+					<F N="ApplicationLayer/ModuleInterfaces/Common/GenericCANModuleTool.cpp"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Common/GenericModuleTemplate.cpp"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Common/LimpInDetailMonitor.cpp"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Common/LimpInFaultMonitor.cpp"/>
@@ -112,6 +114,8 @@
 					<F N="ApplicationLayer/ModuleInterfaces/Include/GearLockUpMonitor.h"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Include/GearMonitor.h"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Include/GenericABSModuleTemplate.h"/>
+					<F N="ApplicationLayer/ModuleInterfaces/Include/GenericCANModule.h"/>
+					<F N="ApplicationLayer/ModuleInterfaces/Include/GenericCANModuleTool.h"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Include/GenericEmissionsModuleTemplate.h"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Include/GenericModuleTemplate.h"/>
 					<F N="ApplicationLayer/ModuleInterfaces/Include/GenericTransmissionModuleTemplate.h"/>
@@ -140,6 +144,7 @@
 					<F N="ApplicationLayer/ProtocolFilters/GMClassII/GMClassIIProtocolFilter.cpp"/>
 				</Folder>
 				<Folder Name="Include">
+					<F N="ApplicationLayer/ProtocolFilters/Include/DcxCANKeyword2000ProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/GMClassIIProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/IProtocolFilter.h"/>
 					<F N="ApplicationLayer/ProtocolFilters/Include/IsoProtocolFilter.h"/>
@@ -159,6 +164,7 @@
 					<F N="ApplicationLayer/ProtocolFilters/J2190/J2190ProtocolFilter.cpp"/>
 				</Folder>
 				<Folder Name="KeyWord2000">
+					<F N="ApplicationLayer/ProtocolFilters/KeyWord2000/DcxCANKeyword2000ProtocolFilter.cpp"/>
 					<F N="ApplicationLayer/ProtocolFilters/KeyWord2000/Keyword82ProtocolFilter.cpp"/>
 					<F N="ApplicationLayer/ProtocolFilters/KeyWord2000/KeywordProtocolFilter.cpp"/>
 					<F N="ApplicationLayer/ProtocolFilters/KeyWord2000/KwpCanProtocolFilter.cpp"/>

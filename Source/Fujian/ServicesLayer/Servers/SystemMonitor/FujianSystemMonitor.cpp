@@ -59,6 +59,8 @@ void FujianSystemMonitor::CheckTesting(ControlData *ctrl)
             RemovePrompt(2, "RaiseRetainers");
             // Start the test sequence 
             CommandNdbData(string(COMMAND_TEST), string(TEST_BASE_BRAKE));
+			// Invalidate the build data
+			WriteNdbData(VIN_READ_STATUS_TAG, string(INVALID_VEHICLE_VIN));
             testSelected = true;
         }
 #if 0

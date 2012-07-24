@@ -83,30 +83,33 @@ namespace LoggingInterface
         delegate void LogMessageCallback(String message);
         public void LogMessage(String message)
         {
-            if (m_logMessageWindow.InvokeRequired)
-            {   // Create a new callback to prevent thread issues
-                LogMessageCallback callback = new LogMessageCallback(LogMessage);
-                m_logMessageWindow.Invoke(callback, new object[] { message });
-            }
-            else
-            {   // Just add the message to the text box.
-                //                int insertLocation = m_logMessageWindow.Rtf.Length;
-                m_logMessageWindow.AppendText(message);
-                //scroll to bottom of window
-                ScrollTextBoxEnd(m_logMessageWindow);
-                /*
-                                String rtf = m_logMessageWindow.Rtf;
-                                m_logMessageWindow.Clear();
-                                // Change the color for all Error lines
-                                int errorIndex = rtf.IndexOf("INFO", insertLocation);
-                                if (errorIndex != -1)
-                                {   // Set error text to red
-                                    rtf = rtf.Insert(errorIndex, "\\cf1");
-                                    // Reset to black at end of line
-                                    rtf = rtf.Insert(insertLocation + message.Length + 4, "\\cf4");
-                                }
-                                m_logMessageWindow.Rtf = rtf;
-                */
+            if (m_logMessageWindow != null)
+            {
+                if (m_logMessageWindow.InvokeRequired)
+                {   // Create a new callback to prevent thread issues
+                    LogMessageCallback callback = new LogMessageCallback(LogMessage);
+                    m_logMessageWindow.Invoke(callback, new object[] { message });
+                }
+                else
+                {   // Just add the message to the text box.
+                    //                int insertLocation = m_logMessageWindow.Rtf.Length;
+                    m_logMessageWindow.AppendText(message);
+                    //scroll to bottom of window
+                    ScrollTextBoxEnd(m_logMessageWindow);
+                    /*
+                                    String rtf = m_logMessageWindow.Rtf;
+                                    m_logMessageWindow.Clear();
+                                    // Change the color for all Error lines
+                                    int errorIndex = rtf.IndexOf("INFO", insertLocation);
+                                    if (errorIndex != -1)
+                                    {   // Set error text to red
+                                        rtf = rtf.Insert(errorIndex, "\\cf1");
+                                        // Reset to black at end of line
+                                        rtf = rtf.Insert(insertLocation + message.Length + 4, "\\cf4");
+                                    }
+                                    m_logMessageWindow.Rtf = rtf;
+                    */
+                }
             }
         }
 

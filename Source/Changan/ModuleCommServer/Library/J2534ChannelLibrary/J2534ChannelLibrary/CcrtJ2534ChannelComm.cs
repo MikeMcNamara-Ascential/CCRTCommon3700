@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using J2534DotNet;
+using LoggingInterface;
 
 namespace J2534ChannelLibrary
 {
     public class CcrtJ2534ChannelComm : ICcrtJ2534ChannelComm
     {
+        Logger m_logger;
         public CcrtJ2534ChannelComm(ref CcrtJ2534ChannelSettings channel)
         {
             m_channel = channel;
@@ -15,6 +17,8 @@ namespace J2534ChannelLibrary
             m_protocolSpecDefs = new CcrtJ2534Defs.ProtocolSpecificDefs();
             m_responseBuffer = new List<CcrtJ2534Defs.Response>();
             m_removedResponseBuffer = new List<CcrtJ2534Defs.Response>();
+            m_logger = new Logger(null, "CcrtJ2534ChannelCommDebug", "C:\\");
+            m_logger.Log("CcrtJ2534ChannelComm Created");
         }
         public bool Connect()
         {//connect to channel
@@ -652,6 +656,7 @@ namespace J2534ChannelLibrary
                                         CcrtJ2534Defs.Response response = new CcrtJ2534Defs.Response();
                                         response.m_rxMessage = msg.Data.ToList();
                                         m_responseBuffer.Add(response);
+                                        m_logger.Log("ISO15765 response added to buffer: " + BitConverter.ToString(response.m_rxMessage.ToArray()));
                                     }
                                     break;
                                 case ProtocolID.ISO14230:
@@ -660,6 +665,7 @@ namespace J2534ChannelLibrary
                                         CcrtJ2534Defs.Response response = new CcrtJ2534Defs.Response();
                                         response.m_rxMessage = msg.Data.ToList();
                                         m_responseBuffer.Add(response);
+                                        m_logger.Log("ISO14230 response added to buffer: " + BitConverter.ToString(response.m_rxMessage.ToArray()));
                                     }
                                     break;
                             }

@@ -124,6 +124,7 @@ void FujianSystemMonitor::CheckTesting(ControlData *ctrl)
     // Log the exit
     Log(LOG_FN_ENTRY, "FujianSystemMonitor::CheckTesting() - Exit");
 }
+
 //-------------------------------------------------------------------------------------------------
 const string FujianSystemMonitor::Publish(const XmlNode *node)
 {   // If this is the vehicle type, load the build data
@@ -133,7 +134,7 @@ const string FujianSystemMonitor::Publish(const XmlNode *node)
         CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1")); 
     } 
     //if the rolls are down, update vehVinReadStatus to invalid
-    else if (node->getName().compare("RollsDownElevUp") && (node->getValue().compare("1")))
+    else if (!node->getName().compare("RollsDownElevUp") && (!node->getValue().compare("1")))
     { 
         Log(LOG_DEV_DATA, "Publish Enter: (node->getName().compare(\"RollsDownElevUp\") && (node->getValue().compare(\"1\")))");
         // Invalidate the build data

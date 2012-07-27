@@ -12,7 +12,7 @@ namespace VehicleCommServer
         void PopulateVehicleCommChannels();
         CcrtJ2534Device GetCcrtJ2534Device(string deviceName);
         bool ProcessMessageCAN(string deviceName, string commChannelName,
-    J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message, ref List<byte> data);
+                J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message, ref List<byte> data);
         bool GetECUData(string deviceName, string commChannelName, 
             J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message, ref List<byte> data);
         bool GetECUData(string deviceName, string commChannelName,
@@ -38,5 +38,7 @@ namespace VehicleCommServer
         VehicleCommDeviceCollection GetVehicleCommDeviceCollection();
         List<CcrtJ2534Defs.Response> GetResponseBuffer(string deviceName, string commChannelName);
         List<CcrtJ2534Defs.Response> GetRemovedResponsesBuffer(string deviceName, string commChannelName);
+
+        void CloseVehicleCommServer(string m_selectedDevice, string m_selectedChannel);
     }
 }

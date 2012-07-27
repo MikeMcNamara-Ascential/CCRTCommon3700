@@ -65,6 +65,7 @@ void ChanganSystemMonitor::CheckTesting(ControlData *ctrl)
             }
             else
             {
+                CommandNdbData(string("ReadLatestBuildData"),string("1"));
                 CommandNdbData(string(COMMAND_TEST), string(TEST_START));
             }
             

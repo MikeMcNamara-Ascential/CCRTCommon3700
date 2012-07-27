@@ -18,7 +18,7 @@ using J2534DotNet;
 using Logger;
 using QnxCcrtInterface;
 using VehicleCommServer;
-
+using System.Diagnostics;
 namespace ModuleCommServer
 {
     public partial class ModuleCommServerForm : Form
@@ -29,26 +29,48 @@ namespace ModuleCommServer
 
         public ModuleCommServerForm()
         {
+
+            WriteLog("-------------------------");
             InitializeComponent();
+            bool initXmlFiles = false;
+            try
+            {
+
+                initXmlFiles = ModuleCommServer.Properties.Settings.Default.LogFolder.Equals("null");
+            }
+            catch (System.Configuration.ConfigurationException e)
+            {
+                Debug.WriteLine("error loading default values: " + e.ToString());
+            }
+
             // Make sure the log folder has been configured
-            if (ModuleCommServer.Properties.Settings.Default.LogFolder.Equals("null"))
+            if (initXmlFiles)
             {
                 SelectLogFolder();
             }
             Log = new CcrtLogger(ModuleCommServer.Properties.Settings.Default.LogFolder,
                                     "ModuleCommServer", m_logTextBox,
                                     ModuleCommServer.Properties.Settings.Default.MaxLogFileCount);
+            Log.Log("LoadAbsModuleInfo");
             LoadAbsModuleInfo();
+            Log.Log("new List<String>()");
             CommChannels = new List<String>();
             // Create a new Module interface object
+            Log.Log("new ModuleInterface(Log)");
             ModInterface = new ModuleInterface(Log);
+            Log.Log("PopulateVehicleInterfaceDevices");
             PopulateVehicleInterfaceDevices();
             // Display the configred ABS modules in the window
+            Log.Log("DisplayConfiguredAbsModules");
             DisplayConfiguredAbsModules();
-            
+
             // Create a new QNX interface
+            Log.Log("CreateQnxInterfaceThread");
             CreateQnxInterfaceThread = new Thread(CreateQnxInterface);
+            Log.Log("CreateQnxInterfaceThread -start");
             CreateQnxInterfaceThread.Start();
+            Log.Log("CreateQnxInterfaceThread - init finished.");
+            m_disconnectedCmdStatus = false;
 
         }
 
@@ -60,8 +82,10 @@ namespace ModuleCommServer
             Int32 attempts = 3;
             Boolean goodIpAddress = false;
             // Set the default IP Address
+            Log.Log("setting default ip addr");
             SetQnxIpAddress(ModuleCommServer.Properties.Settings.Default.QnxIpAddress);
             Thread.Sleep(2000);
+            Log.Log("creating new ccrt interface");
             QnxCcrt = new CcrtInterface(IPAddress.Parse(ModuleCommServer.Properties.Settings.Default.WindowsIpAddress),
                                                         ModuleCommServer.Properties.Settings.Default.QnxCcrtPort, Log);
             Log.Log("Created new QNX CCRT Interface");
@@ -137,6 +161,7 @@ namespace ModuleCommServer
             BrakeModules = new List<BrakeModule>();
             if (File.Exists(ModuleCommServer.Properties.Settings.Default.ModuleSetupInfo))
             {
+                Log.Log("Filename: " + ModuleCommServer.Properties.Settings.Default.ModuleSetupInfo.ToString());
                 using (FileStream file = new FileStream(ModuleCommServer.Properties.Settings.Default.ModuleSetupInfo,
                        FileMode.Open, FileAccess.Read))
                 {
@@ -144,9 +169,13 @@ namespace ModuleCommServer
                                                                  new XmlRootAttribute("AbsModules"));
                     BrakeModules = (List<BrakeModule>)serializer.Deserialize(file);
                 }
+                Log.Log("LoadAbsModuleInfo(): 1");
                 BrakeModules.Sort((mod1, mod2) => mod1.ModuleName.CompareTo(mod2.ModuleName));
+                Log.Log("LoadAbsModuleInfo(): 2");
                 foreach (BrakeModule module in BrakeModules)
                 {
+                    Log.Log("module: " + module.ModuleName);
+                    module.setLogger(Log);
                     module.LoadMessageTable();
                 }
             }
@@ -157,19 +186,27 @@ namespace ModuleCommServer
         /// </summary>
         private void PopulateVehicleInterfaceDevices()
         {
-            m_vehicleInterfaceComboBox.Items.Clear();
-            foreach (J2534Device dev in J2534Detect.GetDeviceList())
+            try
             {
-                m_vehicleInterfaceComboBox.Items.Add(dev.Name);
+                m_vehicleInterfaceComboBox.Items.Clear();
+                foreach (J2534Device dev in J2534Detect.GetDeviceList())
+                {
+                    m_vehicleInterfaceComboBox.Items.Add(dev.Name);
+                }
+                // Select the default device
+                int devIndex = 0;
+                if (!ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice.Equals("null"))
+                {
+                    devIndex = m_vehicleInterfaceComboBox.FindString(ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice);
+                }
+                m_vehicleInterfaceComboBox.SelectedIndex = devIndex;
             }
-            // Select the default device
-            int devIndex = 0;
-            if (!ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice.Equals("null"))
+            catch (Exception e)
             {
-                devIndex = m_vehicleInterfaceComboBox.FindString(ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice);
+                Log.Log("Could not find VehicleInterface Devices");
             }
-            m_vehicleInterfaceComboBox.SelectedIndex = devIndex;
         }
+
 
         /// <summary>
         /// Wait for a message from the QNX CCRT system.
@@ -182,47 +219,198 @@ namespace ModuleCommServer
 
             while (true)
             {   // Wait for a message from the QNX CCRT System
-                String message = QnxCcrt.WaitForQnxCcrtMessage();
-                // Handle the Message
-                if (message.Length > 0)
+                if (QnxCcrt.QnxConnected)
                 {
-                    String[] fields = message.Split(':');
-                    switch (fields[0])
+                    String message = QnxCcrt.WaitForQnxCcrtMessage();
+
+                    ProcessQnxCcrtMessage(message);
+                }
+            }
+        }
+
+        private void ProcessQnxCcrtMessage(string message)
+        {
+            string respMsg = "";
+            // Handle the Message
+            if (message.Length > 0)
+            {
+                Log.Log("ProcessQnxCcrtMessage: " + message + "\n");
+                String[] fields = message.Split(':');
+                int control = 0;
+                string cmd = "";
+                string value = "";
+                bool process = false;
+                foreach (string msg in fields)
+                {
+                    if (msg.Length > 0)
                     {
-                        case "SetAbsType":
-                            ActiveBrakeModule = BrakeModules.Find(module => module.ModuleName.Equals(fields[1]));
-                            if (ActiveBrakeModule == null)
+                        if (0 == control % 2)
+                        {
+                            cmd = msg.Trim();
+                            /*
+                            if (cmd == "Disconnect")
                             {
-                                MessageBox.Show(fields[1] + ": Brake Module Not Configured!", "Unknown Brake Module",
-                                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                process = true;
+                                control++;
                             }
-                            break;
+                             * */
+                        }
+                        else
+                        {
+                            process = true;
+                            value = msg.Trim();
+                        }
 
-                        case "Connect":   // Connect to the J2534 device.
-                            ModInterface.ConnectJ2534Device();
-                            break;
+                        control++;
 
-                        case "Disconnect":
-                            break;
-
-                        case "SendMessage":
-                            List<Byte> response = ModInterface.SendModuleMessage(ActiveBrakeModule, fields[1]);
-                            String respMsg = "";
-                            foreach (Byte respByte in response)
-                            {
-                                respMsg += String.Format("{0,02:X2}", respByte);
-                            }
-
-                            respMsg = "7F,7F,7F,7F,7F";
-                            QnxCcrt.Write("ModuleResponse,", respMsg);
-                            //QnxCcrt.Write("ModuleResponse,", "7F,7F,7F,7F,7F");
-                            //QnxCcrt.Write("ModuleResponse", "00,00,00,00,00");
+                        if (process)
+                        {
                             
-                            break;
+                            switch (cmd)
+                            {
+                                
+                                case "SetAbsType":
+                                    ActiveBrakeModule = BrakeModules.Find(module => module.ModuleName.Equals(value));
+                                    if (ActiveBrakeModule == null)
+                                    {
+                                        MessageBox.Show(msg + ": Brake Module Not Configured!", "Unknown Brake Module",
+                                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    }
 
-                        default:
-                            break;
+                                    ModInterface.SetActiveBrakeModule(ActiveBrakeModule);
+                                    
+                                    respMsg = "FF,03," + ((ModInterface.GetActiveBrakeModule() == null) ? "10" : "00") + ",00";
+                                    WriteToQNX("ModuleResponse", respMsg);
+                                    //WriteToQNX("ModuleResponse", "FF,01,00,01");
+                                    break;
+
+                                case "Connect":   // Connect to the J2534 device.
+                                    bool status = false;
+
+                                    WriteLog("ModInterface.ConnectJ2534Device()");
+
+
+                                    ModInterface.ConnectJ2534Device();
+
+                                    Log.Log("Connection type: " + value);
+                                    // perform init for module
+                                    status = ModInterface.InitilizeVehicleModuleInterface(value, ActiveBrakeModule);
+                                    if (status)
+                                    {
+                                        ModInterface.InitiateKeepAliveMessage();
+                                        Log.Log("Module keep alive messages started");
+                                    }
+                                    else
+                                    {
+                                        Log.Log("Could not initialize the vehicle");
+                                    }
+                                    //WriteToQNX("ModuleResponse", "FF,02,00,01");
+                                    respMsg = "FF,04," + (status && (ModInterface.IsVehicleInterfaceConnected()) ? "00" : "02") + ",00";
+                                    WriteToQNX("ModuleResponse", respMsg);
+                                    break;
+
+                                case "Disconnect":
+                                    m_disconnectedCmdStatus = ModInterface.ShutdownModuleInterface();
+                                    WriteToQNX("ModuleResponse", "FF,02," + (((m_disconnectedCmdStatus) ? "00" : "10") + ",00"));
+                                    Log.Log("Disconnecting from brake module");
+                                    break;
+
+                                case "SendMessage":
+                                    List<Byte> response;
+
+                                    if (chBx_simulateVehicle.Checked)
+                                        respMsg = checkForModuleDebugCmd(value);
+
+                                    if ( respMsg.Length == 0 )
+                                    switch (value)
+                                    {
+                                        case "WinCcrtBrakeStatus":
+                                            respMsg = "FF,03," + ((ModInterface.GetActiveBrakeModule() == null) ? "10" : "00" )  + ",00";
+                                            break;
+                                        case "WinCcrtConnectStatus":
+                                            // if vehicle is connected, send true (00) else send false (10)
+                                            respMsg = "FF,04," + ((ModInterface.IsVehicleInterfaceConnected()) ? "00" : "02") + ",00";
+                                            break;
+                                        case "WinCcrtDisconnectStatus":
+                                            respMsg = "FF,05," + ((m_disconnectedCmdStatus) ? "10" : "00" ) + ",00";
+                                            break;
+                                        case "StartModuleKeepAlive":
+                                            ModInterface.StartKeepAliveMessage();
+                                            respMsg = "7E,7E";
+                                                break;
+                                        case "StopModuleKeepAlive":
+                                            ModInterface.StopKeepAliveMessage();
+                                            respMsg = "7E,7E";
+                                            break;
+                                        case "IsCableConnected":
+                                            respMsg = "FF,05," + ((ModInterface.IsVehicleInterfaceConnected()) ? "01" : "00") + ",00";
+                                            break;
+                                        default:
+                                            response = ModInterface.SendModuleMessage(ActiveBrakeModule, value);
+                                            foreach (Byte respByte in response)
+                                            {
+                                                respMsg += String.Format("{0,02:X2},", respByte);
+                                            }
+                                            if (respMsg.Length > 1)
+                                            {
+                                                respMsg = respMsg.Remove(respMsg.Length - 1);
+                                            }
+                                            break;
+                                    }
+
+                                    WriteToQNX("ModuleResponse", respMsg);
+
+                                    break;
+
+                                default:
+                                    Log.Log("No activity for cmd: " + cmd + " value: " + value);
+                                    break;
+                            }
+
+                            process = false;
+                        }
                     }
+                }
+            }
+        }
+        private string checkForModuleDebugCmd(string value)
+        {
+            string rVal = "";
+
+            switch (value)
+            {
+                case "EnterDiagnosticMode":         rVal = "50,89"; break;
+                case "RequestCoding":               rVal = "71,B8,01,05"; break;
+                case "SendCoding":                  rVal = "7B,9A"; break;
+                case "StartEolSession":             rVal = "50,83"; break;
+                case "ReadEcuId":                   rVal = "5A,54,20,4D,4B,37,30,4D,20,20,20,20,20"; break;    //rVal = "5A,9B,00"; break;
+                case "ReadFaults":                  rVal = "58,00"; break;
+                case "ClearFaults":                 rVal = "54,FF,00"; break;
+                case "ReadBrakeSwitch":             rVal = "61,03,25,00,A7,25,00,88,25,00,87"; break; //rVal = "50,00,35"; break;
+                case "ReadWheelSpeed":              rVal = "50,00,35"; break;
+                case "RunPumpMotor":                rVal = "70,80,00"; break;
+                case "ActuateLeftFrontReduction":   rVal = "70,80,00"; break;
+                case "ActuateLeftFrontRecovery":    rVal = "70,80,00"; break;
+                case "ActuateRightFrontReduction":  rVal = "70,80,00"; break;
+                case "ActuateRightFrontRecovery":   rVal = "70,80,00"; break;
+                case "ActuateLeftRearReduction":    rVal = "70,80,00"; break;
+                case "ActuateLeftRearRecovery":     rVal = "70,80,00"; break;
+                case "ActuateRightRearReduction":   rVal = "70,80,00"; break;
+                case "ActuateRightRearRecovery":    rVal = "70,80,00"; break;
+                case "MotorOff":                    rVal = "70,80,00"; break;
+            }
+            
+
+            return rVal;
+        }
+        public void WriteToQNX(string type, string msg)
+        {
+            if (msg.Length > 1)
+            {
+                Log.Log("Sending to QNX: " + msg + "\n");
+                if (chBx_txToQnx.Checked)
+                {
+                    QnxCcrt.Write(type, msg + ";");
                 }
             }
         }
@@ -243,7 +431,11 @@ namespace ModuleCommServer
                     }
                     else if (!QnxCcrt.QnxConnected && (m_qnxIpTextBox.BackColor != Color.Red))
                     {
+                        WriteLog("Lost QnxCcrt Connection");
                         SetQnxConnectionStatus(Color.Red);
+                        // Shutdown everything and attempt to reconnect to it.
+                        QnxCcrt.Shutdown();
+                        QnxCcrt.ConnectTCP();
                     }
                     Thread.Sleep(1000);
                 }
@@ -345,7 +537,7 @@ namespace ModuleCommServer
         /// Thread to process messages from QNX CCRT system.
         /// </summary>
         private Thread QnxConnectionThread { get; set; }
-        
+
 
         /// <summary>
         /// Thread to use for creating the QNX CCRT Interface object.
@@ -367,7 +559,7 @@ namespace ModuleCommServer
         /// </summary>
         private CcrtInterface QnxCcrt { get; set; }
 
-
+        private bool m_disconnectedCmdStatus { get; set; }
 
         //-----------------------------------------------------------------------------------------
         // Callbacks, Delegates and Events
@@ -390,6 +582,26 @@ namespace ModuleCommServer
             DisplayConfiguredAbsModules();
         }
 
+        private void ShutdownAndExit()
+        {
+            ModInterface.ShutdownModuleInterface();
+
+
+            if (Log != null)
+            {
+                Log.CloseLogFile();
+            }
+
+            if (QnxCcrt != null)
+            {
+                QnxCcrt.Shutdown();
+            }
+
+            Environment.Exit(0);
+
+            WriteLog("Close-------------------------");
+        }
+
         /// <summary>
         /// Exit the Application.
         /// </summary>
@@ -397,9 +609,7 @@ namespace ModuleCommServer
         /// <param name="e"></param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Log.CloseLogFile();
-            QnxCcrt.Shutdown();
-            Environment.Exit(0);
+            ShutdownAndExit();
         }
 
         /// <summary>
@@ -432,7 +642,7 @@ namespace ModuleCommServer
         {
             ModuleCommServer.Properties.Settings.Default.VehicleInterfaceDevice = m_vehicleInterfaceComboBox.SelectedItem.ToString();
             ModuleCommServer.Properties.Settings.Default.Save();
-            ModInterface.ChangeActiveJ2534Device();
+            //ModInterface.ChangeActiveJ2534Device();
         }
 
         /// <summary>
@@ -448,11 +658,66 @@ namespace ModuleCommServer
             }
         }
 
-        private void txMonitorToolStripMenuItem_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            TxMonitorForm TxFrm = new TxMonitorForm();
-            TxFrm.ShowDialog();
+            string msg = txtBox_txMsg.Text;
+            Log.Log("User Tx: \"" + msg + "\"");
+            ProcessQnxCcrtMessage(msg);
         }
 
+        private void m_startThreadButton_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            string msg = txtBox_MsgToQnx.Text;
+            WriteToQNX("ModuleResponse", msg);
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            ModInterface.StartKeepAliveMessage();
+        }
+        private void WriteLog(string msg)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"debug.log", true))
+            {
+                file.WriteLine(DateTime.Now + "\t" + msg);
+                file.Close();
+            }
+        }
+
+        private void ModuleCommServerForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ShutdownAndExit();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ModInterface.StopKeepAliveMessage();
+        }
+
+        private void chBxHideKeepAlive_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chBxHideKeepAlive.Checked == true)
+            {
+                ModInterface.m_HideKeepAliveMsg = true;
+            }
+            else
+            {
+                ModInterface.m_HideKeepAliveMsg = false;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

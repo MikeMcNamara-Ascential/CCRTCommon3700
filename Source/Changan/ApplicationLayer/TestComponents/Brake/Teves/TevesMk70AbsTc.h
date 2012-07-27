@@ -32,7 +32,21 @@ public:
      * Destructor
      */    
     virtual ~TevesMk70AbsTc();
-
+    
+    /**
+     * Sequence a test step.
+     * <p><b>Category:</b> Utility
+     * <br><p>
+     * <b>Description:</b><br>
+     * This is the method that will handle the execution of each test step that has been specified by the system for each
+     * test objective that is passed to it.  This must be overloaded to execute the component tests.
+     * <br><p>
+     *
+     * @param value    This is the value that was commanded by the test sequencer.
+     * @return  The result of the test step that was executed.
+     */
+    virtual const string CommandTestStep(const string &value);
+    
 protected:
     /**
      * Initialize the test component.
@@ -67,6 +81,24 @@ protected:
      *      </ul>
      */
     virtual string SensorTest(void);
+    
+    virtual string InitWinCcrtInterface(void);
+    
+    virtual string CloseWinCcrtInterface(void);
+    
+    virtual string StartModuleKeepAlive(void);
+    
+    virtual string StopModuleKeepAlive(void);
+    
+    virtual string RequestCoding(void);
+    
+    virtual string SendCoding(void);
+    
+    virtual string StartEolSession(void);
+    
+    virtual string ReadEcuId(void);
+
+    virtual const bool IsCableConnected(void);
 
 private:
     /**
@@ -84,6 +116,10 @@ private:
      */
     string RotateRoller(const UINT8 &rollerIndex, const string &rollerSpeed, 
                         const INT32 &rotationTime, TestResultDetails &details);
+    void SetCoding2Auth(bool val);
+    bool GetCoding2Auth();
+    
+    bool m_HaveCoding2Auth;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //TevesMk70AbsTc_h

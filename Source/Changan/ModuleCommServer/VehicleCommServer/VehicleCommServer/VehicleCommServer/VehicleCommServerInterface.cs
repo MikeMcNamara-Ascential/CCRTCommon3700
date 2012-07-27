@@ -12,18 +12,22 @@ namespace VehicleCommServer
     {
         public VehicleCommServerInterface()
         {
+
+            WriteLog("creating VehicleCommServerInterface()");
+
+
             // Create a new interface to the CCRT Database
             //m_dbInterface = new CcrtDataBaseInterface(Properties.Resources.DatabaseServer);
             m_j2534Devices = new List<J2534Device>();
             m_j2534Devices = J2534Detect.GetDeviceList();
             m_j2534DeviceNames = new List<string>();
             m_vehicleCommDevices = new List<CcrtJ2534Device>();
-            m_vehicleCommDeviceCollection = new VehicleCommDeviceCollection();   
+            m_vehicleCommDeviceCollection = new VehicleCommDeviceCollection();
             PopulateVehicleCommChannels();
         }
         public void PopulateVehicleCommChannels()
         {
-            foreach(J2534Device device in m_j2534Devices)
+            foreach (J2534Device device in m_j2534Devices)
             {
                 List<string> channelNames = new List<string>();
                 channelNames = GetCommChannelNames(device.Name);
@@ -34,7 +38,7 @@ namespace VehicleCommServer
 
                     foreach (string name in channelNames)
                     {
-                        selectedDevice.AddChannel(ReadCommChannelSettings(device.Name,name));
+                        selectedDevice.AddChannel(ReadCommChannelSettings(device.Name, name));
                     }
 
                 }
@@ -63,7 +67,7 @@ namespace VehicleCommServer
             foreach (VehicleCommDeviceSettings settings in m_vehicleCommDeviceCollection.CommDeviceSettings)
             {
 
-                    channelNames.Add(settings.CommChannelName);
+                channelNames.Add(settings.CommChannelName);
 
             }
             return channelNames;
@@ -93,10 +97,10 @@ namespace VehicleCommServer
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
             return dev.ProcessMessageCAN(commChannelName, message, ref data);
         }
-        public bool GetECUData(string deviceName, string commChannelName, J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message,ref List<byte> data)
+        public bool GetECUData(string deviceName, string commChannelName, J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message, ref List<byte> data)
         {//send message to appropriate device
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
-            return dev.GetECUData(commChannelName, message,ref data);
+            return dev.GetECUData(commChannelName, message, ref data);
         }
         public bool GetECUData(string deviceName, string commChannelName, J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message, ref List<List<byte>> data, bool globalRequest)
         {//send message to appropriate device
@@ -105,13 +109,23 @@ namespace VehicleCommServer
         }
         public bool AddMessageFilter(string deviceName, string commChannelName, CcrtJ2534Defs.MessageFilter filter)
         {
+            bool a = false;
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
-            return dev.AddMessageFilter(commChannelName, filter);
+
+
+            WriteLog("VehicleCommServerInterface::AddMessageFilter(). commChannelName: " + commChannelName + " deviceName: " + deviceName + "Filter: req: " + BitConverter.ToString(filter.requestID.ToArray()) + " resp: " + BitConverter.ToString(filter.responseID.ToArray()));
+
+
+            a = dev.AddMessageFilter(commChannelName, filter);
+
+            WriteLog("AddMessageFilter result: " + a);
+
+            return a;
         }
         public bool StartPeriodicMessage(string deviceName, string commChannelName, J2534ChannelLibrary.CcrtJ2534Defs.ECUMessage message, ref int msgID)
         {//start periodic message to appropriate device
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
-            return dev.StartPeriodicMessage(commChannelName,message,ref msgID);
+            return dev.StartPeriodicMessage(commChannelName, message, ref msgID);
         }
         public bool StopPeriodicMessage(string deviceName, string commChannelName, int msgID)
         {//start periodic message to appropriate device
@@ -121,7 +135,7 @@ namespace VehicleCommServer
         public ICcrtJ2534ChannelComm GetCommChannelInterface(string deviceName, string commChannelName)
         {//start periodic message to appropriate device
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
-            
+
             return dev.GetCommChannelInterface(commChannelName);
         }
         public bool IsVehicleConnected(string deviceName, string commChannelName)
@@ -142,7 +156,17 @@ namespace VehicleCommServer
         public bool PerformFiveBaudInit(string deviceName, string commChannelName, byte address)
         {
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
-            return dev.PerformFiveBaudInit(commChannelName, address);
+            bool a = false;
+
+            WriteLog("VehicleCommServerInterface::PerformFiveBaudInit   dev: " + dev.DeviceName);
+
+
+            a = dev.PerformFiveBaudInit(commChannelName, address);
+
+
+            WriteLog("dev.PerformFiveBaudInit: " + a);
+
+            return a;
 
         }
         public bool PerformFastInit(string deviceName, string commChannelName, ref List<byte> wakeUpMessage, ref List<byte> ecuData)
@@ -150,10 +174,20 @@ namespace VehicleCommServer
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
             return dev.PerformFastInit(commChannelName, ref wakeUpMessage, ref ecuData);
         }
+        public void CloseVehicleCommServer(string deviceName, string channelName)
+        {
+            CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
+            dev.CloseJ2534Interface(channelName);
+            WriteLog("VehicleCommServerInterface::CloseVehicleCommServer");
+        }
         public bool SetDeviceConfigurationParameter(string deviceName, string commChannelName, ConfigParameter param, int value)
         {
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
-            return dev.SetDeviceConfigurationParameter(commChannelName, param,value);
+            bool rVal = false;
+
+            rVal = dev.SetDeviceConfigurationParameter(commChannelName, param, value);
+
+            return rVal;
         }
         public bool GetDeviceConfigurationParameter(string deviceName, string commChannelName, ConfigParameter param, ref int value)
         {
@@ -173,6 +207,7 @@ namespace VehicleCommServer
         public void ClearResponseBuffer(string deviceName, string commChannelName)
         {
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
+            WriteLog("ClearResponseBuffer :" + deviceName + " commChannelName: " + commChannelName);
             dev.ClearRxBuffer(commChannelName);
         }
         public List<CcrtJ2534Defs.Response> GetRemovedResponsesBuffer(string deviceName, string commChannelName)
@@ -228,6 +263,22 @@ namespace VehicleCommServer
         public VehicleCommDeviceCollection GetVehicleCommDeviceCollection()
         {
             return m_vehicleCommDeviceCollection;
+        }
+
+        private void WriteLog(string msg)
+        {
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"debug.log", true))
+                {
+                    file.WriteLine(DateTime.Now + "\t" + msg);
+                    file.Close();
+                }
+            }
+            catch (System.IO.IOException e)
+            {
+
+            }
         }
     }
 }

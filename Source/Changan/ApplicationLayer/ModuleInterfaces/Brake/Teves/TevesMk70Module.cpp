@@ -89,7 +89,86 @@ bool TevesMk70Module<ProtocolFilter>::InitializeHook(const XmlNode *configNode)
     }
     Log(LOG_DEV_DATA, "Setting bytes per DTC to %d", byte);
     BytesPerDtc(&byte);
+
+    // Store how the brake module should be initialized
+    try
+    {
+        m_tevesInitType = configNode->getChild("Setup/BrakeInitType")->getValue().c_str();
+    }
+    catch(XmlException &excpt)
+    {
+        m_tevesInitType = "Fast";
+        Log(LOG_ERRORS, "Teves init type not specified. Defaulting to: %s", m_tevesInitType.c_str());
+    }
+    Log(LOG_DEV_DATA, "m_tevesInitType: %s", m_tevesInitType.c_str());
+    
+    // the Teves break module name
+    try
+    {
+        m_tevesBrakeName = configNode->getChild("Setup/SetAbsType")->getValue().c_str();
+    }
+    catch(XmlException &excpt)
+    {
+        m_tevesBrakeName = "TevesMk70";
+        Log(LOG_ERRORS, "Brake type type not specified. Defaulting to: %s", m_tevesBrakeName.c_str());
+    }
+    Log(LOG_DEV_DATA, "m_tevesBrakeName: %s", m_tevesBrakeName.c_str());    
     return status;
+}
+
+//-----------------------------------------------------------------------------
+template<class ProtocolFilter>
+BEP_STATUS_TYPE TevesMk70Module<ProtocolFilter>::InitBrakeModule()
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    Log(LOG_FN_ENTRY, "TevesMk70Module::InitBrakeModule - Enter");
+    /*
+    bool brakeModuleInit = false;
+    bool brakeInitStatus = false;
+
+    //how do you send a command and not look for a response? Do that here.
+    // SetAbsType:TevesMk70. Need to verify there is brake module named TevesMk70 
+    // in WinCcrt windows app.
+    status = m_protocolFilter->SendMessage(m_tevesInitType);
+
+    
+    // check to see if the brake was set correctly
+    if (BEP_STATUS_SUCCESS == status)
+    {
+        
+        status = m_protocolFilter->GetModuleData("WinCcrtBrakeStatus", brakeInitStatus);
+        if (BEP_STATUS_SUCCESS == status && brakeInitStatus)
+        { // brakes were set up. now send command to initialize the modules.
+            status = m_protocolFilter->SendMessage(m_tevesBrakeName);
+             
+            if(BEP_STATUS_SUCCESS == status)
+            { // check to see if the module was intialized
+              status = m_protocolFilter->GetModuleData("WinCcrtConnectStatus", brakeInitStatus);
+              if (BEP_STATUS_SUCCESS == status && brakeInitStatus)
+              {
+                  Log(LOG_DEV_DATA, "InitBrakeModule - A good connection was made with the %s module.");
+              }
+
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "InitBrakeModule - the attempt to have WinCcrt set up module failed.");
+            }
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "InitBrakeModule - WinCcrt reported failed brake test.");
+        }
+    }
+    else
+    {
+        Log(LOG_DEV_DATA, "InitBrakeModule - Failed to send %s to WinCcrt", m_tevesInitType.c_str());
+    }
+     * */
+    Log(LOG_FN_ENTRY, "TevesMk70Module::InitBrakeModule - Exit");
+
+    return status;
+    
 }
 
 //-----------------------------------------------------------------------------
@@ -150,6 +229,12 @@ BEP_STATUS_TYPE TevesMk70Module<ProtocolFilter>::ReadFaults(FaultVector_t &fault
     }
     // Return the status
     return status;
+}
+//-----------------------------------------------------------------------------
+template <class ProtocolFilter>
+BEP_STATUS_TYPE TevesMk70Module<ProtocolFilter>::Perform5BaudInit()
+{   // Init Teves module
+    return CommandModule(m_tevesInitType);
 }
 
 //-----------------------------------------------------------------------------

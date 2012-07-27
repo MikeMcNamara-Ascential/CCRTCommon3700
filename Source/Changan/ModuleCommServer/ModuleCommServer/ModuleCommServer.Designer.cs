@@ -51,7 +51,18 @@
             this.ConfigFile = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.m_qnxConnectLabel = new System.Windows.Forms.Label();
             this.m_qnxIpTextBox = new System.Windows.Forms.TextBox();
-            this.txMonitorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtBox_txMsg = new System.Windows.Forms.TextBox();
+            this.btnSend = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtBox_MsgToQnx = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.chBxHideKeepAlive = new System.Windows.Forms.CheckBox();
+            this.chBx_txToQnx = new System.Windows.Forms.CheckBox();
+            this.chBx_simulateVehicle = new System.Windows.Forms.CheckBox();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.m_logoPictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.m_logGroupBox.SuspendLayout();
@@ -101,8 +112,6 @@
             // 
             // toolsToolStripMenuItem
             // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.txMonitorToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -273,12 +282,119 @@
             this.m_qnxIpTextBox.TabIndex = 8;
             this.m_qnxIpTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txMonitorToolStripMenuItem
+            // label2
             // 
-            this.txMonitorToolStripMenuItem.Name = "txMonitorToolStripMenuItem";
-            this.txMonitorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.txMonitorToolStripMenuItem.Text = "Tx Monitor";
-            this.txMonitorToolStripMenuItem.Click += new System.EventHandler(this.txMonitorToolStripMenuItem_Click);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(358, 148);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Msg From Qnx";
+            // 
+            // txtBox_txMsg
+            // 
+            this.txtBox_txMsg.Location = new System.Drawing.Point(361, 164);
+            this.txtBox_txMsg.Name = "txtBox_txMsg";
+            this.txtBox_txMsg.Size = new System.Drawing.Size(150, 20);
+            this.txtBox_txMsg.TabIndex = 12;
+            this.txtBox_txMsg.Text = "SetAbsType:Mk70";
+            // 
+            // btnSend
+            // 
+            this.btnSend.Location = new System.Drawing.Point(449, 141);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(62, 20);
+            this.btnSend.TabIndex = 11;
+            this.btnSend.Text = "Send";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(531, 145);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "Msg To Qnx";
+            // 
+            // txtBox_MsgToQnx
+            // 
+            this.txtBox_MsgToQnx.Location = new System.Drawing.Point(534, 161);
+            this.txtBox_MsgToQnx.Name = "txtBox_MsgToQnx";
+            this.txtBox_MsgToQnx.Size = new System.Drawing.Size(150, 20);
+            this.txtBox_MsgToQnx.TabIndex = 15;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(622, 138);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(62, 20);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Send";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(734, 138);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(84, 20);
+            this.button2.TabIndex = 17;
+            this.button2.Text = "Start Threads";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(734, 163);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(84, 20);
+            this.button3.TabIndex = 18;
+            this.button3.Text = "Stop Threads";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // chBxHideKeepAlive
+            // 
+            this.chBxHideKeepAlive.AutoSize = true;
+            this.chBxHideKeepAlive.Location = new System.Drawing.Point(836, 163);
+            this.chBxHideKeepAlive.Name = "chBxHideKeepAlive";
+            this.chBxHideKeepAlive.Size = new System.Drawing.Size(125, 17);
+            this.chBxHideKeepAlive.TabIndex = 19;
+            this.chBxHideKeepAlive.Text = "Hide Keep Alive Msg";
+            this.chBxHideKeepAlive.UseVisualStyleBackColor = true;
+            this.chBxHideKeepAlive.CheckedChanged += new System.EventHandler(this.chBxHideKeepAlive_CheckedChanged);
+            // 
+            // chBx_txToQnx
+            // 
+            this.chBx_txToQnx.AutoSize = true;
+            this.chBx_txToQnx.Location = new System.Drawing.Point(836, 141);
+            this.chBx_txToQnx.Name = "chBx_txToQnx";
+            this.chBx_txToQnx.Size = new System.Drawing.Size(76, 17);
+            this.chBx_txToQnx.TabIndex = 20;
+            this.chBx_txToQnx.Text = "Tx to QNX";
+            this.chBx_txToQnx.UseVisualStyleBackColor = true;
+            // 
+            // chBx_simulateVehicle
+            // 
+            this.chBx_simulateVehicle.AutoSize = true;
+            this.chBx_simulateVehicle.Location = new System.Drawing.Point(918, 140);
+            this.chBx_simulateVehicle.Name = "chBx_simulateVehicle";
+            this.chBx_simulateVehicle.Size = new System.Drawing.Size(104, 17);
+            this.chBx_simulateVehicle.TabIndex = 21;
+            this.chBx_simulateVehicle.Text = "Simulate Vehicle";
+            this.chBx_simulateVehicle.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(974, 164);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(84, 20);
+            this.button4.TabIndex = 22;
+            this.button4.Text = "Reconnect";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // ModuleCommServerForm
             // 
@@ -286,6 +402,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1082, 585);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.chBx_simulateVehicle);
+            this.Controls.Add(this.chBx_txToQnx);
+            this.Controls.Add(this.chBxHideKeepAlive);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtBox_MsgToQnx);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtBox_txMsg);
+            this.Controls.Add(this.btnSend);
             this.Controls.Add(this.m_qnxIpTextBox);
             this.Controls.Add(this.m_qnxConnectLabel);
             this.Controls.Add(this.m_brakeModuleConfigGroupBox);
@@ -299,6 +427,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ModuleCommServerForm";
             this.Text = "Module Communication Server";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ModuleCommServerForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.m_logoPictureBox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -335,7 +464,18 @@
         private System.Windows.Forms.TextBox m_qnxIpTextBox;
         private System.Windows.Forms.ToolStripMenuItem iPAddressesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vehicleCommunicationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem txMonitorToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtBox_txMsg;
+        private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtBox_MsgToQnx;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox chBxHideKeepAlive;
+        private System.Windows.Forms.CheckBox chBx_txToQnx;
+        private System.Windows.Forms.CheckBox chBx_simulateVehicle;
+        private System.Windows.Forms.Button button4;
 
     }
 }

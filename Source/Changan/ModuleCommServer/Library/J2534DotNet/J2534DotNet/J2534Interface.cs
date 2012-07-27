@@ -51,27 +51,53 @@ namespace J2534DotNet
         public ErrorCode Open(ref int deviceId)
         {
             int nada = 0;
-            return (ErrorCode)m_wrapper.PassThruOpen(nada, ref deviceId);
+            ErrorCode ec = (ErrorCode)m_wrapper.PassThruOpen(nada, ref deviceId);
+
+            WriteLog("J2534Interface::Open m_wrapper.PassThruOpen: " + ec.ToString() + " deviceId: " + deviceId);
+            return ec;
         }
 
-        public ErrorCode Close(int deviceId)
-        {
-            return (ErrorCode)m_wrapper.PassThruClose(deviceId);
-        }
+
 
         public ErrorCode Connect(int deviceId, ProtocolID protocolId, ConnectFlag flags, BaudRate baudRate, ref int channelId)
         {
-            return (ErrorCode)m_wrapper.PassThruConnect(deviceId, (int)protocolId, (int)flags, (int)baudRate, ref channelId);
+            ErrorCode ec = (ErrorCode)m_wrapper.PassThruConnect(deviceId, (int)protocolId, (int)flags, (int)baudRate, ref channelId);
+            WriteLog("J2534Interface::Connect:(1)" + ec.ToString() + " deviceId: " + deviceId + " protocolId: " + protocolId + " flags: " + flags + " baudRate: " + baudRate + " channelId: " + channelId);
+            return ec;
         }
 
         public ErrorCode Connect(int deviceId, ProtocolID protocolId, ConnectFlag flags, int baudRate, ref int channelId)
         {
-            return (ErrorCode)m_wrapper.PassThruConnect(deviceId, (int)protocolId, (int)flags, baudRate, ref channelId);
+            ErrorCode ec = (ErrorCode)m_wrapper.PassThruConnect(deviceId, (int)protocolId, (int)flags, baudRate, ref channelId);
+
+            WriteLog("J2534Interface::Connect:(2)" + ec.ToString() + " deviceId: " + deviceId + " protocolId: " + protocolId + " flags: " + flags + " baudRate: " + baudRate + " channelId: " + channelId);
+
+            return ec;
         }
 
+        /// <summary>
+        /// Run J2534 PassThruDisconnect command (J2534Interface)
+        /// </summary>
+        /// <param name="channelId">channel id</param>
+        /// <returns>ErrorCode</returns>
         public ErrorCode Disconnect(int channelId)
         {
-            return (ErrorCode)m_wrapper.PassThruDisconnect(channelId);
+            ErrorCode ec = new ErrorCode();
+            ec = (ErrorCode)m_wrapper.PassThruDisconnect(channelId);
+            WriteLog("J2534Interface::Disconnect channelId: " + channelId + " ec: " + ec.ToString());
+            return ec;
+        }
+
+        /// <summary>
+        /// Runs J2534 PassThruClose() command (J2534Interface)
+        /// </summary>
+        /// <param name="deviceId">device id</param>
+        /// <returns>ErrorCode</returns>
+        public ErrorCode Close(int deviceId)
+        {
+            ErrorCode ec = (ErrorCode)m_wrapper.PassThruClose(deviceId);
+            WriteLog("J2534Interface::Close deviceId: " + deviceId + " ec: " + ec.ToString());
+            return ec;
         }
 
         public ErrorCode ReadMsgs(int channelId, ref List<PassThruMsg> msgs, ref int numMsgs, int timeout)
@@ -573,6 +599,14 @@ namespace J2534DotNet
             }
 
             return msg;
+        }
+        private void WriteLog(string msg)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"debug.log", true))
+            {
+                file.WriteLine(DateTime.Now + "\t" + msg);
+                file.Close();
+            }
         }
     }
 }

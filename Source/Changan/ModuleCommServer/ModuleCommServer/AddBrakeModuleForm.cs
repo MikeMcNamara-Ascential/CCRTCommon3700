@@ -51,9 +51,16 @@ namespace ModuleCommServer
             {
                 m_busComboBox.Items.Add(name);
             }
-            // Set the default item
-            m_protocolComboBox.SelectedIndex = 0;
-            m_busComboBox.SelectedIndex = 0;
+            try
+            {
+                // Set the default item
+                m_protocolComboBox.SelectedIndex = 0;
+                m_busComboBox.SelectedIndex = 0;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                MessageBox.Show("Default index not valid. Please create and then select brake module" + Environment.NewLine + e.ToString());
+            }
         }
 
 

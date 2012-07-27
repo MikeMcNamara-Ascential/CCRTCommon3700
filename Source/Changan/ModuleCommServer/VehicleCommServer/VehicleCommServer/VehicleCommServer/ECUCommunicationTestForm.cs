@@ -13,10 +13,14 @@ namespace VehicleCommServer
 {
     public partial class ECUCommunicationTestForm : Form
     {
+
         IVehicleCommServerInterface m_vcsInterface;
         delegate void SetLogCallback(string line);
         public ECUCommunicationTestForm(IVehicleCommServerInterface vcsInterface)
         {
+
+            WriteLog("-------------------------");
+
             InitializeComponent();
             m_isISOK = false;
             m_vcsInterface = vcsInterface;
@@ -95,7 +99,7 @@ namespace VehicleCommServer
             m_getDevParamCmbo.Items.Add("ISO15765_BS");
             m_getDevParamCmbo.Items.Add("ISO15765_STMIN");
             m_getDevParamCmbo.Items.Add("ISO15765_WFT_MAX");
-            m_getDevParamCmbo.Items.Add("LOOPBACK"); 
+            m_getDevParamCmbo.Items.Add("LOOPBACK");
             m_getDevParamCmbo.Items.Add("NETWORK_LINE");
             m_getDevParamCmbo.Items.Add("NODE_ADDRESS");
             m_getDevParamCmbo.Items.Add("P1_MAX");
@@ -107,7 +111,7 @@ namespace VehicleCommServer
             m_getDevParamCmbo.Items.Add("P4_MIN");
             m_getDevParamCmbo.Items.Add("PARITY");
             m_getDevParamCmbo.Items.Add("STMIN_TX");
-            m_getDevParamCmbo.Items.Add("SYNC_JUMP_WIDTH"); 
+            m_getDevParamCmbo.Items.Add("SYNC_JUMP_WIDTH");
             m_getDevParamCmbo.Items.Add("T1_MAX");
             m_getDevParamCmbo.Items.Add("T2_MAX");
             m_getDevParamCmbo.Items.Add("T3_MAX");
@@ -117,7 +121,7 @@ namespace VehicleCommServer
             m_getDevParamCmbo.Items.Add("TINIL");
             m_getDevParamCmbo.Items.Add("TWUP");
             m_getDevParamCmbo.Items.Add("unused");
-    
+
             // Select the first item in the list
             m_getDevParamCmbo.Sorted = true;
             if (m_getDevParamCmbo.Items.Count > 0)
@@ -233,7 +237,7 @@ namespace VehicleCommServer
                     logMessage += "ResponseID: [" + BitConverter.ToString(message.m_messageFilter.responseID.ToArray()) + "]\r\n";
                 }
             }
-            
+
             //Add Tx message
             List<byte> txMessage = new List<byte>();
             foreach (DataGridViewRow dgRow in m_transmitMessageDataGridView.Rows)
@@ -279,7 +283,7 @@ namespace VehicleCommServer
 
             if (m_globalRequestCheckBox.Checked)
             {
-                status = m_vcsInterface.GetECUData(m_deviceComboBox.SelectedItem.ToString(), m_channelComboBox.SelectedItem.ToString(), message, ref datas,m_globalRequestCheckBox.Checked);
+                status = m_vcsInterface.GetECUData(m_deviceComboBox.SelectedItem.ToString(), m_channelComboBox.SelectedItem.ToString(), message, ref datas, m_globalRequestCheckBox.Checked);
             }
             else
             {
@@ -356,7 +360,7 @@ namespace VehicleCommServer
             {
                 Log("Stopping Periodic Message at ID: " + id.ToString());
                 status = m_vcsInterface.StopPeriodicMessage(m_deviceComboBox.SelectedItem.ToString(),
-        m_channelComboBox.SelectedItem.ToString(), id);
+                        m_channelComboBox.SelectedItem.ToString(), id);
                 if (status)
                 {
                     Log("Success");
@@ -383,14 +387,14 @@ namespace VehicleCommServer
                 status = m_vcsInterface.AddMessageFilter(device, channel,
                     message.m_messageFilter);
 
-            if (status)
-            {
-                Log(threadID.ToString() + " Message Filter Added");
-            }
-            else
-            {
-                Log(threadID.ToString() + " Message Filter Add Failed");
-            }
+                if (status)
+                {
+                    Log(threadID.ToString() + " Message Filter Added");
+                }
+                else
+                {
+                    Log(threadID.ToString() + " Message Filter Add Failed");
+                }
             }
             while (!m_stopMessageThreads)
             {
@@ -423,7 +427,7 @@ namespace VehicleCommServer
 
         private void m_perform5BaudInitBtn_Click(object sender, EventArgs e)
         {
-            
+
             List<byte> txMessage = new List<byte>();
             bool status = SetupISOK();
             //Get Address byte
@@ -431,6 +435,9 @@ namespace VehicleCommServer
 
 
             Log("Performing 5 baud Init...");
+            Log("  Sending: " + txMessage[0].ToString());
+            WriteLog("m_selectedDevice: " + m_selectedDevice + " m_selectedChannel: " + m_selectedChannel + "msg: " + txMessage[0].ToString());
+
             status = m_vcsInterface.PerformFiveBaudInit(m_selectedDevice, m_selectedChannel, txMessage[0]);
 
             if (status)
@@ -446,7 +453,7 @@ namespace VehicleCommServer
             }
             else
             {
-                Log("Message Failure");
+                Log("Init Message Failure");
             }
         }
         private bool SetupISOK()
@@ -469,11 +476,21 @@ namespace VehicleCommServer
             responseID.Add(Convert.ToByte(Int16.Parse(row.Cells[3].Value.ToString(), System.Globalization.NumberStyles.HexNumber)));
             filter.responseID = responseID.ToArray();
 
-            return m_vcsInterface.AddMessageFilter(m_selectedDevice, m_selectedChannel, filter);
+            bool a = false;
+
+            WriteLog("m_vcsInterface.AddMessageFilter m_selectedDevice: " + m_selectedDevice + " m_selectedChannel: " + m_selectedChannel + " filter: " + BitConverter.ToString(filter.requestID.ToArray()) + " , " + BitConverter.ToString(filter.responseID.ToArray()));
+
+            a = m_vcsInterface.AddMessageFilter(m_selectedDevice, m_selectedChannel, filter);
+
+
+            WriteLog("AddMessageFilter: " + a.ToString());
+
+
+            return a;
         }
         private void m_performFastInitBtn_Click(object sender, EventArgs e)
         {
-            
+
             List<byte> txMessage = new List<byte>();
             List<byte> response = new List<byte>();
             bool status = SetupISOK();
@@ -495,6 +512,7 @@ namespace VehicleCommServer
 
 
             Log("Performing Fast Init...");
+            Log("Tx: " + BitConverter.ToString(txMessage.ToArray()));
             status = m_vcsInterface.PerformFastInit(m_selectedDevice, m_selectedChannel, ref txMessage, ref response);
 
             if (status)
@@ -561,7 +579,8 @@ namespace VehicleCommServer
                 {
                     int value = Convert.ToInt32(m_setDevParamTxtBox.Text);
                     J2534DotNet.ConfigParameter param = CcrtJ2534Channel.ConvertToConfigParamter(m_setDevParamCmbo.SelectedItem.ToString());
-                    m_vcsInterface.SetDeviceConfigurationParameter(m_selectedDevice,m_selectedChannel,param,value);
+
+                    m_vcsInterface.SetDeviceConfigurationParameter(m_selectedDevice, m_selectedChannel, param, value);
                 }
                 catch
                 {
@@ -572,17 +591,32 @@ namespace VehicleCommServer
 
         private void m_getParamBtn_Click(object sender, EventArgs e)
         {
-                try
-                {
-                    int value = 0;
-                    J2534DotNet.ConfigParameter param = CcrtJ2534Channel.ConvertToConfigParamter(m_getDevParamCmbo.SelectedItem.ToString());
-                    m_vcsInterface.GetDeviceConfigurationParameter(m_selectedDevice, m_selectedChannel, param, ref value);
-                    m_getDevParamTxtBox.Text = value.ToString();
-                }
-                catch
-                {
-                    MessageBox.Show(String.Format("Error with text box value"));
-                }
+            try
+            {
+                int value = 0;
+                J2534DotNet.ConfigParameter param = CcrtJ2534Channel.ConvertToConfigParamter(m_getDevParamCmbo.SelectedItem.ToString());
+                m_vcsInterface.GetDeviceConfigurationParameter(m_selectedDevice, m_selectedChannel, param, ref value);
+                m_getDevParamTxtBox.Text = value.ToString();
+            }
+            catch
+            {
+                MessageBox.Show(String.Format("Error with text box value"));
+            }
+        }
+
+        private void WriteLog(string msg)
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"debug.log", true))
+            {
+                file.WriteLine(DateTime.Now + "\t" + msg);
+                file.Close();
+            }
+        }
+
+        private void ECUCommunicationTestForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // call method to shutdown vehicle comm server
+            m_vcsInterface.CloseVehicleCommServer(m_selectedDevice, m_selectedChannel);
         }
 
 

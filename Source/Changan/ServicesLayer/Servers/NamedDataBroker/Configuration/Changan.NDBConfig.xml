@@ -1460,8 +1460,8 @@
             <WheelbasePositionTandemInchesX10 DataType="short" Units="Inch*10">PLC</WheelbasePositionTandemInchesX10>
             <WheelbaseStartCommand DataType="bool">PLC</WheelbaseStartCommand>
             <WillTestDiffLock DataType="bool">SystemMonitor</WillTestDiffLock>
-            <WinMessage DataType="string">core/WinCcrtInterface</WinMessage>
-            <ModuleResponse DataType="string">core/WinCcrtInterface</ModuleResponse>
+            <WinMessage DataType="string">WinCcrtInterface</WinMessage>
+            <ModuleResponse DataType="string">WinCcrtInterface</ModuleResponse>
             <WirelessCableConnected DataType="bool">InputServer</WirelessCableConnected>
             <YesPB DataType="bool">PLC</YesPB>
             <Zerospeed DataType="bool">ICM</Zerospeed>

@@ -56,6 +56,7 @@
             this.m_closeButton.TabIndex = 0;
             this.m_closeButton.Text = "Close";
             this.m_closeButton.UseVisualStyleBackColor = true;
+            this.m_closeButton.Click += new System.EventHandler(this.m_closeButton_Click);
             // 
             // m_moduleLabel
             // 

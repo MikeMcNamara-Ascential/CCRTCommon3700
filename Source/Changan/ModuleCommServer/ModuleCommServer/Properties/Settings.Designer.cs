@@ -85,7 +85,7 @@ namespace ModuleCommServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.23")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.22")]
         public string WindowsIpAddress {
             get {
                 return ((string)(this["WindowsIpAddress"]));
@@ -97,7 +97,7 @@ namespace ModuleCommServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10011")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10013")]
         public int QnxCcrtPort {
             get {
                 return ((int)(this["QnxCcrtPort"]));

@@ -292,6 +292,13 @@
             <DisplaySpeedTimeGraph>True</DisplaySpeedTimeGraph>
             <SpeedGraphLowerSeries UnitsX="s" UnitsY="km/h">0 -5,20 15,30 15,50 40,60 40,80 60,90 60,120 90</SpeedGraphLowerSeries>
             <SpeedGraphUpperSeries UnitsX="s" UnitsY="km/h">0 10,20 30,30 30,50 70,60 70,80 100,90 100,120 120</SpeedGraphUpperSeries>
+            
+            <DisplayBrakeTargetSpeeds>True</DisplayBrakeTargetSpeeds>
+            <BrakeTargetSpeedRange>61 66</BrakeTargetSpeedRange>
+            <BrakeStopdistanceStartSpeed Units="mph">34.0</BrakeStopdistanceStartSpeed>
+            
+            <SetAbsType>Mk70</SetAbsType>
+            <BrakeInitType Options="FiveBaud, Fast">FiveBaud</BrakeInitType>
         </Parameters>
         <Prompts>
             <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
@@ -313,12 +320,22 @@
     </Setup>
 
     <Objectives>
-         <Setup>
+        <CableConnect>
             <TestStep00>Setup</TestStep00>
             <TestStep02>Initialize</TestStep02>
+            <TestStep03>IsCableConnected</TestStep03>
+        </CableConnect>
+        <Setup>
+            <TestStep00>Setup</TestStep00>
+            <TestStep02>Initialize</TestStep02>
+            <TestStep03>InitWinCcrtInterface</TestStep03>
             <TestStep05>EnterDiagnosticMode</TestStep05>
-            <TestStep10>ClearFaults</TestStep10>
+            <TestStep06>RequestCoding</TestStep06>
+            <TestStep07>SendCoding</TestStep07>
+            <TestStep08>StartEolSession</TestStep08>
+            <!-- TestStep09>ReadEcuId</TestStep09 -->
             <TestStep15>ReadFaults</TestStep15>
+            <TestStep20>ClearFaults</TestStep20>
             <TestStep25>StartModuleKeepAlive</TestStep25>
         </Setup>
         <BrakeTest>
@@ -341,11 +358,12 @@
             <TestStep10>EvaluateABS</TestStep10>
         </AnalyzeBrakeTest>
         <FinishUp>
-            <TestStep00>DisableForceMeter</TestStep00>
-            <TestStep05>StopModuleKeepAlive</TestStep05>
+            <!-- TestStep00>DisableForceMeter</TestStep00 -->
+            <!-- TestStep05>StopModuleKeepAlive</TestStep05 -->
             <TestStep10>ReadFaults</TestStep10>
-            <TestStep15>ExitDiagnosticMode</TestStep15>
-            <TestStep20>FinishUp</TestStep20>
+            <!-- TestStep15>ExitDiagnosticMode</TestStep15 -->
+            <TestStep16>CloseWinCcrtInterface</TestStep16>
+            <!-- TestStep20>FinishUp</TestStep20 -->
         </FinishUp>
 
         <LowSpeedTesting>
@@ -362,6 +380,7 @@
     </Objectives>
 
     <TestSteps>
+        <IsCableConnected  Result="Not Tested" Timeout="300000" Description="Accelerate to the brake test speed"/>
         <AccelerateToBrakeSpeed Result="Not Tested" Timeout="300000" Description="Accelerate to the brake test speed"
             SpeedTarget="60 70" ArmSpeed="60" Prompt1="AccelerateToTargetSpeed"/>
         <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" 
@@ -384,6 +403,7 @@
         <BrakeToStop Result="Not Tested" Timeout="120000" Description="Bring the vehicle to zero speed"
             Prompt1="BrakeToStop"/>
         <ClearFaults Result="Not Tested" Timeout="100" Description="Clear faults from the module"/>
+        <CloseWinCcrtInterface Result="Not Tested" Timeout="500" Description="Have WinCcrt initiate a closing with its connected device"/>
         <DisableForceMeter Result="" Timeout="30000" Description="Disable The Brake Force Meter"/>
         <DragTest Result="Not Tested" Timeout="30000" Description="Measure vehicle drag forces"
             Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="RemoveFootFromAccelerator"
@@ -398,11 +418,16 @@
         <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test." 
             Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
         <LowSpeedSensorTest Result="Not Tested" Timeout="100" Description="Validate wheel speed sensors"/>
+        <ReadEcuId Result="Not Tested" Timeout="500" Description="Read the ECUs ID"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read all faults from the ABS module"/>
+        <RequestCoding Result="Not Tested" Timeout="500" Description="Request Coding 2 from module" ScanDelay="250"/>
         <RunPumpMotor Result="Not Tested" Timeout="500" Description="Run the ABS pump motor"/>
         <Setup Result="" Timeout="500" Description="Set up component for testing"/>
+        <SendCoding Result="Not Tested" Timeout="500" Description="Send Coding 2 from module" ScanDelay="250"/>
         <StartModuleKeepAlive Result="Not Tested" Timeout="500" Description="Start sending keep alive messages"/>
+        <StartEolSession Result="Not Tested" Timeout="500" Description="Command module to begin EOL session" ScanDelay="250"/>
         <StopModuleKeepAlive Result="Not Tested" Timeout="500" Description="Stop sending keep alive messages"/>
+        <InitWinCcrtInterface Result="Not Tested" Timeout="1000" Description="Initialize interface with WinCcrt system"/>
         <ValveFiringTest Result="Not Tested" Timeout="10000" Description="Fire each ABS valve"
             Prompt1="MaintainBrake"/>
 		<DisplaySpeedTimeGraph Result="" Timeout="5000" Description="Display Speed Time Graph" ScanDelay="250"/>

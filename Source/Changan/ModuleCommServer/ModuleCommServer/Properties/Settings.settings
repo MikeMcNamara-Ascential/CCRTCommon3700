@@ -18,10 +18,10 @@
       <Value Profile="(Default)">192.168.1.1</Value>
     </Setting>
     <Setting Name="WindowsIpAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">192.168.1.23</Value>
+      <Value Profile="(Default)">192.168.1.22</Value>
     </Setting>
     <Setting Name="QnxCcrtPort" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">10011</Value>
+      <Value Profile="(Default)">10013</Value>
     </Setting>
     <Setting Name="VehicleCommChannel" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>

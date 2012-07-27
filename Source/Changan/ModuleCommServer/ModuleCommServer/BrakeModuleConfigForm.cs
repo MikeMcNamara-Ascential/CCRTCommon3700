@@ -53,6 +53,7 @@ namespace ModuleCommServer
                 {
                     m_respId.Text += String.Format("{0,02:X2}", respIdByte);
                 }
+                
                 // Populate the message table
                 m_msgDataGridView.Rows.Clear();
                 foreach(KeyValuePair<String, CcrtJ2534Defs.ECUMessage> msg in BrakeModules[moduleIndex].MessageTable)
@@ -131,7 +132,19 @@ namespace ModuleCommServer
             AddBrakeModuleForm frm = new AddBrakeModuleForm(BrakeModules, CommChannels);
             frm.ShowDialog();
             LoadAbsModuleComboBox();
-            m_absTypeComboBox.SelectedIndex = 0;
+            try
+            {
+                m_absTypeComboBox.SelectedIndex = 1;
+            }
+            catch (ArgumentOutOfRangeException err)
+            {
+                MessageBox.Show("Not a valid brake module selected." + Environment.NewLine + err.ToString());
+            }
+        }
+
+        private void m_closeButton_Click(object sender, EventArgs e)
+        {
+            int i = 0;
         }
 
     }

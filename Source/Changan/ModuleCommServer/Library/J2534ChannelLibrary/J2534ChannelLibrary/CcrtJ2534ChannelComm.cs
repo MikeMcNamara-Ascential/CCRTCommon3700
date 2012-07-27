@@ -25,7 +25,15 @@ namespace J2534ChannelLibrary
             ErrorCode status;
             lock (m_j2534Interface)
             {
+
+                WriteLog("CcrtJ2534ChannelComm Connect(): m_deviceID = " + m_channel.m_deviceID + " m_protocolID = " + m_channel.m_protocolID.ToString() + " m_connectFlag: " + m_channel.m_connectFlag.ToString());
+
                 status = m_j2534Interface.Connect(m_channel.m_deviceID, m_channel.m_protocolID, m_channel.m_connectFlag, m_channel.m_baudRate, ref m_channelID);
+
+                WriteLog("Connect result: " + status.ToString());
+
+
+
             }
             if (status != ErrorCode.STATUS_NOERROR)
             {
@@ -77,8 +85,8 @@ namespace J2534ChannelLibrary
                         newFilter.requestID = filter.requestID;
                         newFilter.responseID = id;
                         m_channel.m_filterMessageIDs.Add(newFilter);
-                        StartFilter(newFilter);                        
-                    }                    
+                        StartFilter(newFilter);
+                    }
                 }
                 return true;
             }
@@ -127,7 +135,7 @@ namespace J2534ChannelLibrary
                     patternMsg.protocolID = ProtocolID.ISO14230;
                     patternMsg.txFlags = TxFlag.NONE;
 
-                    patternMsg.Data = new byte[] { 0x80, filter.responseID[0],filter.requestID[0], 0x00};
+                    patternMsg.Data = new byte[] { 0x80, filter.responseID[0], filter.requestID[0], 0x00 };
                     lock (m_j2534Interface)
                     {
                         status = m_j2534Interface.StartMsgFilter(m_channelID, FilterType.PASS_FILTER, ref maskMsg, ref patternMsg, ref filterID);
@@ -153,14 +161,35 @@ namespace J2534ChannelLibrary
         /// <returns>Status of operation</returns>
         public bool Disconnect()
         {
+            bool rVal = false;
+            WriteLog("CcrtJ2534ChannelComm disconnect. not used!");
+            return rVal;
+        }
+        public bool CloseChannelComm()
+        {
+            ErrorCode err = new ErrorCode();
+            err = ErrorCode.ERR_FAILED;
+            bool rVal = false;
             lock (m_j2534Interface)
             {
-                m_j2534Interface.Disconnect(m_channelID);
+                err = m_j2534Interface.Disconnect(m_channelID);
             }
+            WriteLog("CcrtJ2534ChannelComm::CloseChannelComm ErrorCode:" + err.ToString());
             ClearResponseBuffer();
-            return true;
+
+            if (err == ErrorCode.STATUS_NOERROR)
+            {
+                WriteLog("CcrtJ2534ChannelComm::Disconnect disconnected");
+                lock (m_j2534Interface)
+                {
+                    err = m_j2534Interface.Close(m_channel.m_deviceID);
+                }
+                WriteLog("CcrtJ2534ChannelComm::CloseChannelComm ErrorCode:" + err.ToString());
+            }
+
+            return rVal;
         }
-        public void BuildTransmitMessage(ref List<byte> fullMessage,byte[] requestID, List<byte> txMessage)
+        public void BuildTransmitMessage(ref List<byte> fullMessage, byte[] requestID, List<byte> txMessage)
         {
             fullMessage.AddRange(requestID);
             fullMessage.AddRange(txMessage);
@@ -187,7 +216,7 @@ namespace J2534ChannelLibrary
                 switch (m_channel.m_protocolID)
                 {
                     case ProtocolID.ISO15765:
-                                                //process message
+                        //process message
                         if (ecuMessage.m_responseExpected)
                         {
                             //process message
@@ -227,6 +256,9 @@ namespace J2534ChannelLibrary
                     System.Threading.Thread.Sleep(ecuMessage.m_msgRetryDelay);
                 }
             }
+
+            WriteLog("GetECUData = " + BitConverter.ToString(ecuData.ToArray()) + " msgReceived:" + msgReceived);
+
             //check to see if data matches our id and filter
             return msgReceived;
         }
@@ -471,7 +503,7 @@ namespace J2534ChannelLibrary
         {//determine if our message has been received starting from end of response list
             bool responsePending = true;
             //keep track of responses in order of message filters
-            foreach(byte[] byteArray in ecuMessage.m_messageFilter.responseIDs)
+            foreach (byte[] byteArray in ecuMessage.m_messageFilter.responseIDs)
             {
                 ecuData.Add(new List<byte>());
             }
@@ -621,7 +653,7 @@ namespace J2534ChannelLibrary
         /// </summary>
         /// <param name=""></param>
         /// <returns>Get response from channel</returns>
-        public bool GetResponse(CcrtJ2534Defs.ECUMessage ecuMessage,ref List<CcrtJ2534Defs.Response> responses)
+        public bool GetResponse(CcrtJ2534Defs.ECUMessage ecuMessage, ref List<CcrtJ2534Defs.Response> responses)
         {
             int numMsgs = 1;
             int timeOut = ecuMessage.m_rxTimeout;
@@ -631,7 +663,7 @@ namespace J2534ChannelLibrary
             //need to set up a timer and check for our message also check for neg. response pending msg
             lock (m_j2534Interface)
             {
-                
+
                 while (ErrorCode.STATUS_NOERROR == status)
                 {
                     status = m_j2534Interface.ReadMsgs(m_channelID, ref rxMsgs, ref numMsgs, timeOut);
@@ -777,7 +809,7 @@ namespace J2534ChannelLibrary
                 m_responseBuffer.Remove(listResponse);
                 //save last 50 removed messages for debugging purposes
                 CcrtJ2534Defs.Response saveResponse = new CcrtJ2534Defs.Response();
-                saveResponse.m_rxMessage = listResponse.m_rxMessage;                
+                saveResponse.m_rxMessage = listResponse.m_rxMessage;
                 if (m_removedResponseBuffer.Count > 2)
                 {
                     m_removedResponseBuffer.RemoveAt(0);
@@ -813,7 +845,7 @@ namespace J2534ChannelLibrary
         }
         public bool IsVehicleConnected()
         {
-            int voltage=0;
+            int voltage = 0;
             lock (m_j2534Interface)
             {
                 m_j2534Interface.ReadBatteryVoltage(m_channel.m_deviceID, ref voltage);
@@ -825,7 +857,7 @@ namespace J2534ChannelLibrary
             bool status = false;
             lock (m_j2534Interface)
             {
-                status = ErrorCode.STATUS_NOERROR == m_j2534Interface.SetConfigParameter(m_channelID,ConfigParameter.ISO15765_STMIN,stMinValue);
+                status = ErrorCode.STATUS_NOERROR == m_j2534Interface.SetConfigParameter(m_channelID, ConfigParameter.ISO15765_STMIN, stMinValue);
             }
             return (status);
         }
@@ -835,7 +867,18 @@ namespace J2534ChannelLibrary
             //5 baud Init
             byte keyword1 = new byte();
             byte keyword2 = new byte();
-            status = ErrorCode.STATUS_NOERROR == m_j2534Interface.FiveBaudInit(m_channelID, ref address, ref keyword1, ref keyword2);
+
+
+            WriteLog("CcrtJ2534ChannelComm address: " + address.ToString());
+
+
+            ErrorCode err = new ErrorCode();
+            err = m_j2534Interface.FiveBaudInit(m_channelID, ref address, ref keyword1, ref keyword2);
+            status = (ErrorCode.STATUS_NOERROR == err);
+
+
+            WriteLog("m_j2534Interface.FiveBaudInit - ErrorCode: " + err.ToString() + " status:" + status);
+
             return status;
         }
         public bool PerformFastInit(ref List<byte> wakeUpMessage, ref List<byte> ecuData)
@@ -874,6 +917,22 @@ namespace J2534ChannelLibrary
             bool status = false;
             status = ErrorCode.STATUS_NOERROR == m_j2534Interface.GetConfig(m_channelID, ref config);
             return status;
+        }
+
+        private void WriteLog(string msg)
+        {
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"debug.log", true))
+                {
+                    file.WriteLine(DateTime.Now + "\t" + msg);
+                    file.Close();
+                }
+            }
+            catch (System.IO.IOException e)
+            {
+
+            }
         }
     }
 }

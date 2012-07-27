@@ -46,6 +46,9 @@ public:
      */
     virtual bool InitializeHook(const XmlNode *configNode);
 
+    virtual BEP_STATUS_TYPE Perform5BaudInit(void);
+
+
 protected:
     /**
      * Read module faults.
@@ -76,6 +79,8 @@ protected:
      * @return Status of reading the fault data from the module.
      */
     virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
+    
+    virtual BEP_STATUS_TYPE InitBrakeModule();
 
 private:
     /**
@@ -102,6 +107,11 @@ private:
      * @return Number of bytes per DTC record.
      */
     const UINT8& BytesPerDtc(const UINT8 *byte = NULL);
+
+    std::string m_tevesInitType;
+    
+    std::string m_tevesBrakeName;
+
     /** Index of the byte containing the number of DTCs reported in the module response. */
     UINT8 m_dtcCountIndex;
     /** Index of the first byte of the first DTC in the module response. */

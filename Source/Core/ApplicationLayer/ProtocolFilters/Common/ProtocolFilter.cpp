@@ -426,6 +426,11 @@ const BEP_STATUS_TYPE ProtocolFilter::GetResponse(const std::string &messageTag,
 			}
 			retry++;	// increment the retry counter
 		}
+        if (status == BEP_STATUS_NA)
+        {
+            delay(30);
+        }
+
 		// while the result not detemined and retries remain
 	}while((status == BEP_STATUS_NA) && (retry < 3) && !GetStopCommsFlag());
 

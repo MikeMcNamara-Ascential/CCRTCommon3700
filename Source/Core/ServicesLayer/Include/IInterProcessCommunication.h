@@ -328,6 +328,12 @@ public:
      */
     virtual void Write(const std::string &message, INT32 id = -1);
     /**
+     * Clears the receive buffer
+     * @since Version 1.0
+     */
+    virtual void ClearPublicBuffer(void);
+
+    /**
      * Sends a pulse to a channel
      *
      * @param code     Pulse code (8-bit value)

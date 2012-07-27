@@ -403,6 +403,15 @@ public:
                     const INT32 size = DEFAULT_BUFFER_SIZE,
                     const INT32 timeout = DEFAULT_TIMEOUT);
     /**
+     * Clear information from the buffer.
+     * 
+     * @return Status of operation
+     *         Defined return types:
+     *         Buffer was cleared                == BEP_STATUS_SUCCESS
+     * @since Version 1.0
+     */
+    virtual INT32 Clear();
+    /**
      * Read information in the system based on the tag value
      * passed.
      *

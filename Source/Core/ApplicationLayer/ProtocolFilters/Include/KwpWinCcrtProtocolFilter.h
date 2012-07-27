@@ -103,6 +103,16 @@ class KwpWinCcrtProtocolFilter : public ProtocolFilter
      */
 	const SerialString_t ExtractModuleData(SerialString_t &moduleResponse);
 
+    /**
+     * Read a module response to the message with the given tag.
+     *
+     * @param messageTag Tag of the message response to read.
+     * @param reply      Reply from the module.
+     * @return Status of the operation.
+     * @since Version 1.0
+     */
+    const BEP_STATUS_TYPE GetResponse(const std::string &messageTag, SerialString_t &reply);
+
 protected:
 	/**
 	 * Attempts to read an entire message from the Comm Proxy.

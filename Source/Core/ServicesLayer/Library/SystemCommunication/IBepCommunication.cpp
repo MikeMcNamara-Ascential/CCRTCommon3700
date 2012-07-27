@@ -477,7 +477,6 @@ m_ISystemCommunication(NULL), m_terminate(false), m_rxBufferSize(DEFAULT_BUFFER_
     {
         perror( "IBepCommunication: pthread_mutex_init error");
     }
-
     // Pre-parse to get a document to speed things up later
     char* temp = "<"BEP_XML_ROOT"/>";
     m_parser.Parse(temp, strlen(temp), true, "");
@@ -695,7 +694,71 @@ void IBepCommunication::Initialize(const std::string &name, const std::string &t
     }
     else throw BepException("Error in IBepCommunication::Initialize(string, int, int, bool)\n");
 }
+INT32 IBepCommunication::Clear()
+{
+    printf("IBepCommunication::Clear - Enter\n");
+    
+    IInterProcessCommunication *comm;   // Pointer to communication object
 
+    // Lock the node map while using it
+    m_sendData.Lock();
+
+    // Manually send the clear message
+    m_sendData.clear(true);
+
+    // Unlock the node map when done
+    m_sendData.Unlock();
+
+
+    if((comm = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
+    {
+        printf("ClearPublicBuffer - cleared\n");
+        comm->ClearPublicBuffer();
+        //comm->Write("");
+        //m_ISystemCommunication->Write("");
+    }
+    else
+    {
+        printf("ClearPublicBuffer - Did not clear\n");
+    }
+
+    
+    printf("More powerful clearing option\n");
+
+    if( (errno=pthread_mutex_lock( &m_lock)) == EOK)
+    {
+        try
+        {
+              XmlNode *doc = const_cast<XmlNode *>(m_parser.getDocElement());
+              if(doc->getChildren().size() > 0)
+              { // If there are children,
+                // clear them
+                  printf("A. There are %d children\n", (int)doc->getChildren().size());
+                  doc->clear();
+                  printf("  B. There are %d children\n", (int)doc->getChildren().size());
+              }
+              else
+              {
+                  printf("The node has no children\n");
+              }
+
+        }
+        catch (BepException &BepErr)
+        {
+            // dont do anything
+        }
+        pthread_mutex_unlock( &m_lock);
+    }
+    else
+    {
+        printf( "\tError locking mutex in IBepCommunication::GetByTag(): %s\n", strerror( errno));
+    }
+
+    printf("IBepCommunication::Clear - Exit\n");
+    
+    return 1;
+
+}
 INT32 IBepCommunication::Read(const std::string &tag, std::string &response,
                               const bool IsFinal /* = false */)
 {
@@ -1510,6 +1573,7 @@ INT32 IBepCommunication::DoOperation(const std::string operation,
                                      std::string &message,
                                      const bool IsFinal)
 {
+    SetDebug("On");
     if(IsDebugOn()) printf("DoOperation(%s, %s, %s, %d)\n", operation.c_str(),
                            dataNode->getName().c_str(), dataNode->getValue().c_str(), IsFinal);
     INT32 status = BEP_STATUS_ERROR;// Status of operation

@@ -83,7 +83,7 @@ void WinCcrtInterface::Initialize(const XmlNode *document)
 		Log(LOG_ERRORS, "No inter-message gap time defined, defaulting MessageReadPortEndDelay to 100ms between messages - %s", excpt.GetReason());
 	}
 
-	 MessageWaitTime(&waitTime);
+	MessageWaitTime(&waitTime);
     MessageWaitTimeInit(&waitTimeReadPortInit);
     MessageWaitTimeEnd(&waitTimeReadPortEnd);
 
@@ -125,8 +125,8 @@ const string WinCcrtInterface::Read(const XmlNode *node, const INT32 rate /*= 0*
 	{   // Call the base class
 		result = BepServer::Read(node, rate);
 	}
-	Log(LOG_DEV_DATA, "WinCcrtInterface::Read(XmlNode - tag: %s, rate: %d) - Exit", 
-		node->getName().c_str(), rate);
+	Log(LOG_DEV_DATA, "WinCcrtInterface::Read(XmlNode - tag: %s, rate: %d, value: %s) - Exit", 
+		node->getName().c_str(), rate, node->getValue().c_str());
 	return result;
 }
 
@@ -215,16 +215,30 @@ void WinCcrtInterface::Run(volatile bool *terminateFlag/*=NULL*/)
 //-------------------------------------------------------------------------------------------------
 const string WinCcrtInterface::Write(const XmlNode *node)
 {
-	if(!node->getName().compare("Notes"))
+    Log(LOG_DEV_DATA, "WinCcrtInterface::Write - A node value:%s\n", node->getValue().c_str());
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    if(!node->getName().compare("Notes"))
 	{
 		m_notes = node->getValue();
 	}
 	else if(!node->getName().compare("WinMessage"))
 	{
-		string temp(node->getValue());
+        Log(LOG_DEV_DATA, "WinCcrtInterface::Write WinMessage\n");
+        string temp(node->getValue());
 		unsigned char *msg = (unsigned char *)&temp[0];
 		m_winCcrtComm.WritePort(msg, temp.length());
 	}
+	else if(!node->getName().compare("ClearBuffer"))
+	{
+        Log(LOG_DEV_DATA, "WinCcrtInterface::Write ClearBuffer: %s,%s\n", node->getName().c_str(), node->getValue().c_str());
+        status = SystemWrite("ModuleResponse", "00");
+        Log(LOG_DEV_DATA, "WinCcrtInterface::Write ->Cleared\n");
+        //m_ndb->Clear();
+        //string temp(node->getValue());
+		//unsigned char *msg = (unsigned char *)&temp[0];
+		//m_winCcrtComm.WritePort(msg, temp.length());
+	}
+
 	return BepServer::Write(node);
 }
 
@@ -286,53 +300,90 @@ INT32& WinCcrtInterface::MessageWaitTimeEnd(const INT32 *waitTime /*= NULL*/)
 
 
 //-------------------------------------------------------------------------------------------------
-BEP_STATUS_TYPE WinCcrtInterface::ProcessWinCcrtMessage(const string &message)
-{	// Determine what type of message we are dealing with
+BEP_STATUS_TYPE WinCcrtInterface::ProcessWinCcrtMessage(const string &fullMessage)
+{	// Determine what type of fullMessage we are dealing with
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-	Log(LOG_FN_ENTRY, "Processing Win CCRT Message: %s", message.c_str());
-	string msgType = message.substr(0, message.find_first_of(":"));
-	int  tagStart = message.find_first_of(":") + 1;
-	unsigned int  tagValSepIndex = message.find_first_of(",");
-	int  tagLength = tagValSepIndex != string::npos ? (tagValSepIndex - tagStart) : string::npos;
-	string tag = message.substr(tagStart, tagLength);
-	if(msgType == BEP_READ)
-	{	// Read the tag from the system
-		string tempVal = tag.compare("Notes") ? SystemRead(tag) : m_notes;
-		// Send the value back to the Windows CCRT system
-		if(tempVal.length() == 0)
-		{
-			tempVal = BEP_UNAVAILABLE_RESPONSE;
-		}
-		unsigned char *value = (unsigned char *)&tempVal[0];
-		status = (m_winCcrtComm.WritePort(value, tempVal.length(), 3) > 0) ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
-	}
-	else if(msgType == BEP_WRITE)
-	{
-		string value(message.substr(message.find_first_of(",")+1));
-		if(tag.find("BeltTension") != tag.npos)
-		{
-			XmlNode *beltNode = new XmlNode(tag, value);
-			m_beltTensions.addNode(beltNode);
-			Log(LOG_DEV_DATA, "Added new belt tension: %s, %s", tag.c_str(), value.c_str());
-			status = BEP_STATUS_SUCCESS;
-		}
-		else if(tag.find("Notes") != tag.npos)
-		{
-			m_notes += value;
-			Log(LOG_DEV_DATA, "Added new note: %s", value.c_str());
-			Log(LOG_DEV_DATA, "Current Notes: %s", m_notes.c_str());
-			status = BEP_STATUS_SUCCESS;
-		}
-		else
-		{
-			status = SystemWrite(tag, value);
-		}
-	}
-	else
-	{
-		Log(LOG_ERRORS, "Unknown message type: %s", msgType.c_str());
-	}
-	Log(LOG_FN_ENTRY, "Processed Win CCRT message: %s", ConvertStatusToResponse(status).c_str());
+	bool stillProcessing = true;
+    Log(LOG_FN_ENTRY, "Processing Win CCRT Message: %s", fullMessage.c_str());
+    int msgStartPos = 0;
+    //look for second occurrence of ":" to signal the end of the message
+    int msgEndPos = fullMessage.find_first_of(";");
+    int fullMsgLength = fullMessage.size();
+    
+    // maximum number of messages that can come in and before it brakes out a quits
+    int brakeOutCount = 9;
+    
+    string message = "";
+    do
+    {
+        message.clear();
+        //Log(LOG_DEV_DATA, "\t(A)msgStartPos: %d   msgEndPos: %d    fullMsgLength: %d    brakeOutCount: %d\n", msgStartPos, msgEndPos, fullMsgLength, brakeOutCount);
+        
+        message = fullMessage.substr(msgStartPos, msgEndPos-msgStartPos);
+        Log(LOG_DEV_DATA, "\tfullMessage: %s\n", fullMessage.c_str());
+        //Log(LOG_DEV_DATA, "\tmessage [substr(%d,%d)]: %s\n", msgStartPos, msgEndPos-msgStartPos, message.c_str());
+        
+        string msgType = message.substr(0, message.find_first_of(":"));
+        int  tagStart = message.find_first_of(":") + 1;
+        unsigned int  tagValSepIndex = message.find_first_of(",");
+        int  tagLength = tagValSepIndex != string::npos ? (tagValSepIndex - tagStart) : string::npos;
+        string tag = message.substr(tagStart, tagLength);
+
+        Log(LOG_DEV_DATA, "ProcessWinCcrtMessage - msgType: %s   tag: %s", msgType.c_str(), tag.c_str());
+
+        if(msgType == BEP_READ)
+        {	// Read the tag from the system
+            Log(LOG_DEV_DATA, "ProcessWinCcrtMessage - Read");
+            string tempVal = tag.compare("Notes") ? SystemRead(tag) : m_notes;
+            //Log(LOG_DEV_DATA, "tempVal (1): %s",tempVal.c_str());
+            // Send the value back to the Windows CCRT system
+            if(tempVal.length() == 0)
+            {
+                tempVal = BEP_UNAVAILABLE_RESPONSE;
+            }
+            //Log(LOG_DEV_DATA, "tempVal (2): %s",tempVal.c_str());
+            unsigned char *value = (unsigned char *)&tempVal[0];
+            status = (m_winCcrtComm.WritePort(value, tempVal.length(), 3) > 0) ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
+
+            Log(LOG_DEV_DATA, "m_winCcrtComm.WritePort status: %d", status); 
+
+        }
+        else if(msgType == BEP_WRITE)
+        {
+            Log(LOG_DEV_DATA, "ProcessWinCcrtMessage - Write");
+
+            string value(message.substr(message.find_first_of(",")+1));
+            if(tag.find("BeltTension") != tag.npos)
+            {
+                XmlNode *beltNode = new XmlNode(tag, value);
+                m_beltTensions.addNode(beltNode);
+                Log(LOG_DEV_DATA, "Added new belt tension: %s, %s", tag.c_str(), value.c_str());
+                status = BEP_STATUS_SUCCESS;
+            }
+            else if(tag.find("Notes") != tag.npos)
+            {
+                m_notes += value;
+                Log(LOG_DEV_DATA, "Added new note: %s", value.c_str());
+                Log(LOG_DEV_DATA, "Current Notes: %s", m_notes.c_str());
+                status = BEP_STATUS_SUCCESS;
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "ProcessWinCcrtMessage wrote message: %s", value.c_str());
+                status = SystemWrite(tag, value);
+            }
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Unknown message type: %s", msgType.c_str());
+        }
+        msgStartPos = msgEndPos + 1;
+        msgEndPos = fullMessage.find_first_of(";", msgStartPos);
+        //Log(LOG_DEV_DATA, "\t(B)msgStartPos: %d   msgEndPos: %d    fullMsgLength: %d\n", msgStartPos, msgEndPos, fullMsgLength);
+        //Log(LOG_DEV_DATA, "\tShould we be done? %s\n", ((msgEndPos == string::npos) ? "Yes" : "No"));
+        brakeOutCount--;
+    }while (msgEndPos != string::npos && msgStartPos < msgEndPos && brakeOutCount > 0);
+    Log(LOG_FN_ENTRY, "Processed Win CCRT fullMessage: %s", ConvertStatusToResponse(status).c_str());
 	return status;
 }
 
@@ -344,7 +395,11 @@ string WinCcrtInterface::SystemRead(const string &tag)
 	{
 		INT32 status = m_ndb->Read(tag, response, true);
 		if(status == BEP_STATUS_SUCCESS)
-			status = m_ndb->GetByTag(tag, value, response);
+        {
+            status = m_ndb->GetByTag(tag, value, response);
+            Log(LOG_DEV_DATA, "WinCcrtInterface::SystemRead - Read %s,%s - result: %s", tag.c_str(), value.c_str(), ConvertStatusToResponse(status).c_str());
+        }
+			
 		// check for errors
 		if(status != BEP_STATUS_SUCCESS)
 		{
@@ -365,18 +420,23 @@ BEP_STATUS_TYPE WinCcrtInterface::SystemWrite(const string &tag, const string &v
 {
 	BEP_STATUS_TYPE result = BEP_STATUS_SOFTWARE;	// the result of the operation
 	string response;
+
 	if(m_ndb != NULL)
 	{
 		try
 		{
-			result = ConvertIntToBepStatus(m_ndb->Write(tag, value, response, true));
-			Log(LOG_DEV_DATA, "Wrote %s,%s - result: %s", tag.c_str(), value.c_str(), ConvertStatusToResponse(result).c_str());
+            result = ConvertIntToBepStatus(m_ndb->Write(tag, value, response, true));
+			Log(LOG_DEV_DATA, "WinCcrtInterface::SystemWrite - Wrote %s,%s - result: %s", tag.c_str(), value.c_str(), ConvertStatusToResponse(result).c_str());
 		}
 		catch(BepException &excpt)
 		{
 			Log(LOG_ERRORS, "SystemWrite %s Error: %s\n", tag.c_str(), excpt.GetReason());
 		}
 	}
+    else
+    {
+        Log(LOG_ERRORS, "The m_ndb object is null");
+    }
 	return(result);
 }
 

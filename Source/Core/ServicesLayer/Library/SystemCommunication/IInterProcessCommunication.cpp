@@ -769,6 +769,11 @@ void IInterProcessCommunication::SetupChannel(const std::string &name /* = "" */
 	}
 	else if(GetType() == "Client") SetId(name);	   // Attach to a named process for Client
 }
+void IInterProcessCommunication::ClearPublicBuffer(void)
+{
+    printf("ClearPublicBuffer\n");
+    ClearBuffer();
+}
 void IInterProcessCommunication::ClearBuffer(void)
 {	// Clear buffer if it exists
 	if(IsDebugOn())	printf("%s'%s' ClearBuffer()\n", GetType().c_str(), GetName().c_str());

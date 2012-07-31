@@ -113,7 +113,7 @@ void FujianSystemMonitor::CheckTesting(ControlData *ctrl)
         {
             Log(LOG_DEV_DATA, "7 Enter: else if(ctrl->rollsDown && !ctrl->vehiclePresent && (ctrl->vehVinReadStatus == VALID_VEHICLE_VIN) && (m_oldCtrl->vehVinReadStatus != VALID_VEHICLE_VIN))");
             CommandNdbData(READ_LATEST_BUILD_DATA_TAG, true);
-            DisplayPrompt(1, "MachineReady");
+            DisplayPrompt(1, "MachineReady", "white");
         }
     }
     else

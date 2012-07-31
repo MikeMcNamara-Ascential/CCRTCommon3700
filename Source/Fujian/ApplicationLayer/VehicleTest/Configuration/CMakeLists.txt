@@ -4,7 +4,7 @@
 FILE(GLOB VEHICLE_TEST_CONFIG_FILES *.xml)
 
 #------------------------------------------------------------------------------------------
-# Tell CMake to install all the config files in the Configuration/Servers directory
+# Tell CMake to install all the config files in the Configuration/VehicleTest directory
 #------------------------------------------------------------------------------------------
 INSTALL_FILES(${VEHICLETEST_CONFIG_DIR} FILES ${VEHICLE_TEST_CONFIG_FILES})
 

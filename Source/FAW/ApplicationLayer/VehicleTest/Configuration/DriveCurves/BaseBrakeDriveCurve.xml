@@ -7,13 +7,13 @@
          <ConfigPath>/Configuration/Components/Airbag/</ConfigPath>
          <Debug>Off</Debug>
       </Airbag>
-      <Brake>
+      <!--Brake>
          <ComponentName>GenericBaseBrakeTest.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
          <ConfigFile>BaseBrakeTc.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
          <Debug>Off</Debug>
-      </Brake>
+      </Brake-->
       <Machine>
          <ComponentName>MachineTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -31,13 +31,13 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase000>
-      <TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
+      <!--TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">
                <Initialize/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase005>
+      </TestPhase005-->
       <!-- Perform Speedometer testing -->
       <TestPhase060 Description="Perform speedometer test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -47,25 +47,25 @@
          </ForegroundObjectives>
       </TestPhase060>
       <!-- Perform the brake test -->
-      <TestPhase100 Description="Perform the brake test" Result="" Timeout="">
+      <!--TestPhase100 Description="Perform the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="run the base brake test" Result="" Timeout="" Component="Brake">
                <BrakeTest/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase100>
+      </TestPhase100-->
       <TestPhase105 Description="Brake to stop and analyze results" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Brake to stop" Result="" Timeout="" Component="Machine">
                <BrakeToStop/>
             </Objective0>
          </ForegroundObjectives>
-         <BackgroundObjectives Result="" Timeout="">
+         <!--BackgroundObjectives Result="" Timeout="">
             <Objective0 Description="Analyze brake test data" Result="" Timeout="" Component="Brake">
                <AnalyzeBrakeTest/>
             </Objective0>
          </BackgroundObjectives>
-      </TestPhase105>
+      </TestPhase105-->
       <!-- Finishup and set results -->
       <TestPhase200 Description="Set the result for the brake test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -75,9 +75,9 @@
             <Objective1 Description="Perform Airbag Testing" Result="" Timeout="" Component="Airbag">
                <AirbagTest/>
             </Objective1>
-            <Objective2 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
+            <!--Objective2 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
                <FinishUp/>
-            </Objective2>
+            </Objective2-->
          </ForegroundObjectives>
       </TestPhase200>
    </Test>

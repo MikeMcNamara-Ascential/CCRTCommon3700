@@ -78,6 +78,7 @@ void AymesaSystemMonitor::CheckTesting(ControlData *ctrl)
             DisplayPrompt(1, "EnterVIN");
             RemovePrompt(2, "RaiseRetainers");
             WriteNdbData( DISPLAY_RACK_MONITOR_SCREEN, string("frontpanel"));
+			WriteNdbData(INPUT_SERVER_STATE, string(INPUT_SERVER_VIN_STATE));
             testSelected = false;
         }
         // Load the build data

@@ -1,7 +1,8 @@
-<DCAC_Result>
+<Faw_Result>
     <!-- Header Data -->
-    <Field0000 Type="Separator">R/Bresult,</Field0000>
-    <Field0005 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String">VIN</Field0005>
+   <Field0000 Type="Separator">#</Field0000>
+   <Field0001 Type="Separator">R/Bresult,</Field0001>
+    <Field0005 Type="VehicleBuild" Format="%-18.18s" Length="18" DataType="String">VIN</Field0005>
     <Field0006 Type="Separator">,</Field0006>
     <Field0010 Type="Value" Format="%-8.8s" Length="8" DataType="String" ExcludeIfNotTested="No">Date</Field0010>
     <Field0011 Type="Separator">,</Field0011>
@@ -111,12 +112,6 @@
     <Field6000 Type="Separator">SndLevel  </Field6000>
     <Field6005 Type="Detail" DetailNode="SoundPressureLevel" Format="%03d" DataType="Integer">SoundLevelSoundPressureLevelTest</Field6005>
     <Field6010 Type="Result">SoundLevelSoundPressureLevelTest</Field6010>
-    <Field6011 Type="Separator">,</Field6011>
+   <Field6011 Type="Separator">@</Field6011>
 
-    <!-- Speedomemter Results -->
-    <Field6020 Type="Separator">Spdometer </Field6020>
-    <Field6030 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1.609" Length="5">MachineSpeedometer</Field6030>
-    <Field6040 Type="Result">MachineSpeedometer</Field6040>
-    <Field6050 Type="Separator">,</Field6050>
-
-</DCAC_Result>
+</Faw_Result>

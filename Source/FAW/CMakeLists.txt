@@ -74,7 +74,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/SciCommProxy.qxe 
 	ServicesLayer/Bin/SciIsoMuxMgr.qxe
 	ServicesLayer/Bin/SystemScreenSaver.qxe
-	ServicesLayer/Bin/TcpCommProxy.qxe
 	ServicesLayer/Bin/VehicleDataServer.qxe
 
 	ApplicationLayer/Bin/GasAnalyzerTC.qxe

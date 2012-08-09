@@ -75,10 +75,15 @@ void AymesaSystemMonitor::CheckTesting(ControlData *ctrl)
         else if(!ctrl->testInProgress && ctrl->rollsDown && !ctrl->vehiclePresent && 
                 (ctrl->vehVinReadStatus != VALID_VEHICLE_VIN))
         {
+			string tempState;
             DisplayPrompt(1, "EnterVIN");
             RemovePrompt(2, "RaiseRetainers");
             WriteNdbData( DISPLAY_RACK_MONITOR_SCREEN, string("frontpanel"));
-			WriteNdbData(INPUT_SERVER_STATE, string(INPUT_SERVER_VIN_STATE));
+			if(ReadNdbData(INPUT_SERVER_STATE, tempState).compare(INPUT_SERVER_VIN_STATE))
+			{
+				Log(LOG_DEV_DATA, "Setting %s to %s", INPUT_SERVER_STATE, INPUT_SERVER_VIN_STATE);
+				WriteNdbData(INPUT_SERVER_STATE, string(INPUT_SERVER_VIN_STATE));
+			}
             testSelected = false;
         }
         // Load the build data

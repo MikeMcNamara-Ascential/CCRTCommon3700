@@ -36,6 +36,12 @@ void AymesaSystemMonitor::CheckTesting(ControlData *ctrl)
 {   // Log the entry
     static bool testSelected = false;
     Log(LOG_FN_ENTRY, "AymesaSystemMonitor::CheckTesting() - Enter");
+	Log(LOG_DEV_DATA, "\tMachine Fault:       %s", ctrl->machineFault ? "True" : "False");
+	Log(LOG_DEV_DATA, "\tTest In Progress:    %s", ctrl->testInProgress ? "True" : "False");
+	Log(LOG_DEV_DATA, "\tVehicle Present:     %s", ctrl->vehiclePresent ? "True" : "False");
+	Log(LOG_DEV_DATA, "\tRolls Up:            %s", ctrl->rollsUp ? "True" : "False");
+	Log(LOG_DEV_DATA, "\tRolls Down:          %s", ctrl->rollsDown ? "True" : "False");
+	Log(LOG_DEV_DATA, "\tVIN Read Status:     %s", ctrl->vehVinReadStatus.c_str());
     // Make sure there are no machine faults that would prevent testing
     if(!ctrl->machineFault && !ctrl->calSwitch)
     {   //  If a test is in progress, there is nothing to do

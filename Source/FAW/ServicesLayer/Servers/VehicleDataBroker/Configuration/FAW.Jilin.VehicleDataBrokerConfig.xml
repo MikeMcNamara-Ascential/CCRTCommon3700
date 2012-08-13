@@ -30,7 +30,7 @@
         <DataToPLC>
             <FrontWheelDriveSelectedToPLC DataType="bool">No</FrontWheelDriveSelectedToPLC>
             <RearWheelDriveToPLC DataType="bool">Yes</RearWheelDriveToPLC>
-            <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
+            <WheelbasePositionInchesX10 DataType="integer">950</WheelbasePositionInchesX10>
             <ParkBrakePressure DataType="integer">200</ParkBrakePressure>
             <PfsBlocked DataType="bool">No</PfsBlocked>
             <BodyStyleType DataTYpe="integer">0000</BodyStyleType>
@@ -104,7 +104,7 @@
                 <VehicleTypeNumeric DataType="int">0</VehicleTypeNumeric>
                 <VIN DataType="string">1C3AY75S65A100030</VIN>
                 <VINBGColor DataType="color">white</VINBGColor>
-                <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
+                <WheelbasePositionInchesX10 DataType="integer">950</WheelbasePositionInchesX10>
             </PublishTags>
         </TagList>
         <ActiveVehicleData>

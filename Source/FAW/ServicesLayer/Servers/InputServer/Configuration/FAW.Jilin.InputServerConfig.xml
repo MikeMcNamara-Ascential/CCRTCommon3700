@@ -503,6 +503,7 @@
                     <TagList>
                         <SubscribeTags>
                             <InputServerState/>
+                            <NextVIN/>
                             <VehicleBuildRecordStatus/>
                             <VehicleAtBarcodeScanner/>
                             <RollsDownElevUp/>
@@ -587,7 +588,10 @@
                 <Setup>
                     <TagList>
                         <SubscribeTags>
+                            <InputServerState/>
                             <NextVIN/>
+                            <RollsDownElevUp/>
+                            <VehicleAtBarcodeScanner/>
                             <VehicleBuildRecordStatus/>
                         </SubscribeTags>
                     </TagList>
@@ -658,6 +662,9 @@
                     </DataTags>
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
+                    <VinLength>17</VinLength>
+                    <SecondaryDataTag>MaterialNumber</SecondaryDataTag>
+                    <SecondaryDataLength>15</SecondaryDataLength>
                 </Setup>
             </RightMapleKeypad>
         </InputDevices>

@@ -601,6 +601,8 @@ const std::string VehicleDataBroker::UpdatePLC(const XmlNode *vehicleBuildRecord
                 value = vehicleBuildRecord->getChild(tag)->getValue();
             }
             status = m_ndb->Write(tag, value, response, true);
+			Log(LOG_DEV_DATA, "VehicleDataBroker::UpdatePLC() - Wrote tag:%s, value:%s - status: %s", 
+				tag.c_str(), vehicleBuildRecord->getChild(tag)->getValue().c_str(), ConvertStatusToResponse(status).c_str());
         }
         else
         {

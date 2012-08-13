@@ -4,7 +4,7 @@
         <Name>Brake</Name>
         <Debug>Off</Debug>
         <TestDomain>Foreground</TestDomain>
-        <FaultList/>
+        <FaultList>/Configuration/Components/SampleFaultList.xml</FaultList>
         <ThreadPool>
             <Debug>Off</Debug>
             <MinBlockedLimit>2</MinBlockedLimit>

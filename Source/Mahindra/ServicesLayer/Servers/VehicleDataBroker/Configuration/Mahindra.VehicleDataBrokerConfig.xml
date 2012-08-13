@@ -1,7 +1,7 @@
 <VehicleDataBrokerConfig>
     <Setup>
         <Debug>Off</Debug>
-        <PlantHost>core/VehicleDataServer</PlantHost>
+        <PlantHost>core/PlantHostInbound</PlantHost>
         <Communication>
             <Comm>IPC</Comm>
             <Debug>Off</Debug>
@@ -35,6 +35,8 @@
             <PfsBlocked DataType="bool">No</PfsBlocked>
             <BodyStyleType DataTYpe="integer">0000</BodyStyleType>
             <FourWDSelected DataType="bool">No</FourWDSelected>
+            <RetRollHiPosition DataType="integer">0</RetRollHiPosition>
+            <RetRollLoPosition DataType="integer">1</RetRollLoPosition>
         </DataToPLC>
         <Logging>
             <Status>Enabled</Status>
@@ -83,6 +85,8 @@
                 <ModelYear DataType="string">Unknown</ModelYear>
                 <ModelYearBGColor DataType="color">white</ModelYearBGColor>
                 <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
+                <RetRollHiPosition DataTyp="bool">No</RetRollHiPosition>
+                <RetRollLoPosition DataTyp="bool">Yes</RetRollLoPosition>
                 <RunFlat DataType="bool">No</RunFlat>
                 <RunFlatBGColor DataType="color">white</RunFlatBGColor>
                 <SpeedActive DataType="bool">1</SpeedActive>
@@ -100,6 +104,7 @@
                 <VehicleTypeNumeric DataType="int">0</VehicleTypeNumeric>
                 <VehicleTypeImg DataType="string">FWD</VehicleTypeImg>
                 <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
+                <ZTSCode DataType="string">0</ZTSCode>
             </PublishTags>
         </TagList>
         <ActiveVehicleData>

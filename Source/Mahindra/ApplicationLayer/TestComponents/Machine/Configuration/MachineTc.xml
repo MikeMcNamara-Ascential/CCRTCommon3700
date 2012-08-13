@@ -63,6 +63,8 @@
                 <Start40kphTest/>
                 <Zerospeed/>
                 <ZerospeedToPLC/>
+                <YesPB/>
+                <NoPB/>
             </SubscribeTags>
         </TagList>
         <DataTags>
@@ -108,8 +110,11 @@
             <TestResultMode>TestResult</TestResultMode>
             <YesValue>Pass</YesValue>
             <Zerospeed>ZerospeedToPLC</Zerospeed>
+            <YesButton>YesPB</YesButton>
+            <NoButton>NoPB</NoButton>
         </DataTags>
         <Parameters>
+            <UsePlcYesNoButtons>True</UsePlcYesNoButtons>
             <ResetCommHardware Values="Yes or No">No</ResetCommHardware>
             <DateFormat>%F</DateFormat>
             <TimeFormat>%H:%M:%S</TimeFormat>

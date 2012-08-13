@@ -134,17 +134,19 @@ const string MahindraPlantHostInbound::LoadVehicleBuildFromFile(const string &vi
 		// add the secondary selection data item to the build data
 		XmlNode secSelNode(GetDataTag("SecondarySelectionDataTag"),secSelData);
 		buildData.addNode(secSelNode.Copy());
+		XmlNode vinNode(VIN_DATA_TAG, vin);
+		buildData.addNode(vinNode.Copy());
 
-		// convert the <Wheelbase> node to <WheelbasePositionInchesX10> and convert
-		// from mm's to inches x 10
-		//string wheelbaseMm = buildData.getNode("Wheelbase")->getValue();
-		//short wheelbaseInchesX10 = (short)(atoi(wheelbaseMm.c_str()) * mmToInches * 10.0);
-		//char wheelbaseBuffer[8];
-		//CreateMessage(wheelbaseBuffer,sizeof(wheelbaseBuffer),"%d",wheelbaseInchesX10);
+		XmlNode wheelbaseInchesX10Node("WheelbasePositionInchesX10",buildData.getNode("Wheelbase")->getValue());
+		buildData.addNode(wheelbaseInchesX10Node.Copy());
+		buildData.delNode("Wheelbase");
 
-		//XmlNode wheelbaseInchesX10Node("WheelbasePositionInchesX10",wheelbaseBuffer);
-		//buildData.addNode(wheelbaseInchesX10Node.Copy());
-		//buildData.delNode("Wheelbase");
+		// Add the tire size settings
+		bool largeTire = atob(buildData.getNode("UseLargeTireOpening")->getValue().c_str());
+		XmlNode retRollHiNode("RetRollHiPosition", largeTire ? "1" : "0");
+		XmlNode retRollLoNode("RetRollLoPosition", largeTire ? "0" : "1");
+		buildData.addNode(retRollHiNode.Copy());
+		buildData.addNode(retRollLoNode.Copy());
 
 		status = BEP_SUCCESS_RESPONSE;
 	}
@@ -224,7 +226,7 @@ const string MahindraPlantHostInbound::LoadVehicleBuildRecord(const string &vin,
 const string MahindraPlantHostInbound::Publish(const XmlNode *node)
 {
 	string result = BEP_ERROR_RESPONSE, response, loadResult;
-	Log("CheryPlantHostInbound::Publish(%s)\n", node->ToString().c_str());
+	Log("MahindraPlantHostInbound::Publish(%s)\n", node->ToString().c_str());
 	result = BepServer::Publish(node);
 	// Only do special stuff if publish was successful
 	if(result == BEP_SUCCESS_RESPONSE)

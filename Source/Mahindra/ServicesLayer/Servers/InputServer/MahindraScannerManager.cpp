@@ -65,7 +65,7 @@ void MahindraScannerManager::Initialize(const XmlNode *document)
 void MahindraScannerManager::ProcessTwoDimensionalBarcode(const SerialString_t &barcodeData, 
 														  const INT32 &byteCount)
 {   // First determine which vehicle type this is
-	string code((char *)&barcodeData[VehicleTypePosition()]);
+	string code((char *)&barcodeData[VehicleTypePosition()], 1);
 	XmlNodeMapItr iter = m_vehicleTypeCodes.find(code);
 	string vehicleType;
 	if(iter != m_vehicleTypeCodes.end())
@@ -94,6 +94,7 @@ void MahindraScannerManager::ProcessTwoDimensionalBarcode(const SerialString_t &
 		string response;
 		Log(LOG_DEV_DATA, "Writing VIN %s for vehicle type %s", vin.c_str(), vehicleType.c_str());
 		m_dataBroker->Write(NEXT_VIN_DATA_TAG, vin, response, true);
+		m_dataBroker->Write(VINDISPLAY_DATA_TAG, vin, response, true);
 		m_dataBroker->Write(GetDataTag("ZtsCodeTag"), vin, response, true);
 	}
 	else

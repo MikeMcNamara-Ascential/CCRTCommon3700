@@ -4,7 +4,7 @@
         <DebugLevel>0</DebugLevel>
         <ProcessPriority>11</ProcessPriority>
         <UseVinAsTestLogSuffix>Yes</UseVinAsTestLogSuffix>
-        <VinSuffixLength>8</VinSuffixLength>
+        <VinSuffixLength>15</VinSuffixLength>
         <SuffixExtension>log</SuffixExtension>
         <MaxLogFileIndex>10000</MaxLogFileIndex>
         <LogIndexFile>/TestResults/Machine/NextTestLogIndex.dat</LogIndexFile>
@@ -98,8 +98,8 @@
             <OverallTestResultPromptBox>1</OverallTestResultPromptBox>
             <LoadingParametersPromptBox>1</LoadingParametersPromptBox>
             <UsePlcResultButtons>True</UsePlcResultButtons>
-            <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
-            <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
+            <PlcPassButtonTag>YesPB</PlcPassButtonTag>
+            <PlcFailButtonTag>NoPB</PlcFailButtonTag>
             <Setup>
                 <Debug>Off</Debug>
                 <DebugLevel>0</DebugLevel>

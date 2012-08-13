@@ -12,25 +12,24 @@
             <Verbose>0x01</Verbose>
         </Logging>
         <LogicalPorts>
-            <RWAL enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <LeftMapleKeypad enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
-                    <SerialDevice>/dev/sl7804/ser2</SerialDevice>
-                    <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
-                    <DefaultReplyTimeout units="milliseconds">5000</DefaultReplyTimeout>
+                    <SerialDevice>/dev/sl7804/ser1</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
                     <Protocol>
                         <Baud>9600</Baud>
                         <Parity>None</Parity>
                         <DataBits>8</DataBits>
                         <StopBits>1</StopBits>
                         <Reflection>0</Reflection>
-                        <ByteGap>5</ByteGap>
+                        <ByteGap>0</ByteGap>
                         <MssgGap>0</MssgGap>
                         <Interrupts>Rx</Interrupts>
                         <FifoSize>1024</FifoSize>
                     </Protocol>
                     <Logging>
-                        <ProcessName>logport/RWAL</ProcessName>
-                        <AdditionalLogFile>/Servers/RWALComm.log</AdditionalLogFile>
+                        <ProcessName>logport/LeftMapleKeypad</ProcessName>
+                        <AdditionalLogFile>LeftMapleKeypadComm.log</AdditionalLogFile>
                         <Status>Enabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
                         <Verbose>0x01</Verbose>
@@ -39,20 +38,21 @@
                         <ContentType>RAW</ContentType>
                         <Setup>
                             <Logging>
-                                <ProcessName>RWAL_Comm</ProcessName>
-                                <AdditionalLogFile>/Communication/RWAL_BusComm.log</AdditionalLogFile>
-                                <Status>Enabled</Status>
+                                <ProcessName>LeftMapleKeypad_Comm</ProcessName>
+                                <AdditionalLogFile>LeftMapleKeypad_BusComm.log</AdditionalLogFile>
+                                <Status>Disabled</Status>
                                 <LocalEcho>Disabled</LocalEcho>
-                                <Verbose>0x1F</Verbose>
+                                <Verbose>0x09</Verbose>
                                 <Debug>Off</Debug>
                             </Logging>
                         </Setup>
                     </CommLog>
                 </Setup>
-            </RWAL>
+            </LeftMapleKeypad>
+
             <LeftScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
-                    <SerialDevice>/dev/sl7804/ser3</SerialDevice>
+                    <SerialDevice>/dev/sl7804/ser2</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
                     <Protocol>
                         <Baud>9600</Baud>
@@ -87,6 +87,45 @@
                     </CommLog>
                 </Setup>
             </LeftScanner>
+
+            <RightMapleKeypad enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser3</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/RightMapleKeypad</ProcessName>
+                        <AdditionalLogFile>RightMapleKeypad.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>RightMapleKeypad_Comm</ProcessName>
+                                <AdditionalLogFile>RightMapleKeypad_BusComm.log</AdditionalLogFile>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x09</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </RightMapleKeypad>
+
             <RightScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser4</SerialDevice>
@@ -124,6 +163,85 @@
                     </CommLog>
                 </Setup>
             </RightScanner>
+
+            <ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser5</SerialDevice>
+                    <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
+                    <DefaultReplyTimeout units="milliseconds">5000</DefaultReplyTimeout>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>Even</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>1</Reflection>
+                        <ByteGap>5</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/ISOK</ProcessName>
+                        <AdditionalLogFile>/Servers/ISOKComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>ISOK_Comm</ProcessName>
+                                <AdditionalLogFile>/Communication/ISO_BusComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </ISOK>
+
+            <RWAL enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser6</SerialDevice>
+                    <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
+                    <DefaultReplyTimeout units="milliseconds">5000</DefaultReplyTimeout>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>5</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/RWAL</ProcessName>
+                        <AdditionalLogFile>/Servers/RWALComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>RWAL_Comm</ProcessName>
+                                <AdditionalLogFile>/Communication/RWAL_BusComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </RWAL>
+
             <PlcDf1 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/ser1</SerialDevice>

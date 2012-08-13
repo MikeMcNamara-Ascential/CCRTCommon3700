@@ -3,6 +3,7 @@
         <BrakeType>BaseBrake</BrakeType>
         <TransferCase>4WD</TransferCase>
         <Wheelbase Units="mm">3014</Wheelbase>
+        <UseLargeTireOpening>Yes</UseLargeTireOpening>
 
         <BrakeForces>
              <!-- front axle brake forces -->

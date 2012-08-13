@@ -201,7 +201,7 @@
             <!-- ******************************************************* -->
             <!-- *                   Handheld Scanner                  * -->
             <!-- ******************************************************* -->
-            <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MahindraSymbolScannerMgr.qxe">
+            <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MahindraScannerManager.qxe">
                 <Setup>
                     <DataTags>
                         <ZtsCodeTag>ZTSCode</ZtsCodeTag>
@@ -284,7 +284,7 @@
                     </TwoDimensionBarcodeItems>
                 </Setup>
             </LeftHandheld>
-            <RightHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MahindraSymbolScannerMgr.qxe">
+            <RightHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MahindraScannerManager.qxe">
                 <Setup>
                     <DataTags>
                         <ZtsCodeTag>ZTSCode</ZtsCodeTag>
@@ -532,11 +532,12 @@
             <!-- ******************************************************* -->
             <!-- *                  Left Maple Keypad                  * -->
             <!-- ******************************************************* -->
-            <LeftMapleKeypad enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+            <LeftMapleKeypad enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
                 <Setup>
                     <TagList>
                         <SubscribeTags>
                             <InputServerState/>
+                            <NextVIN/>
                             <VehicleBuildRecordStatus/>
                             <VehicleAtBarcodeScanner/>
                             <RollsDownElevUp/>
@@ -584,7 +585,7 @@
                                 <Timeout>10000</Timeout>
                             </Communication>
                             <Logging>
-                                <Status>Disabled</Status>
+                                <Status>Enabled</Status>
                                 <ProcessName>LeftMapleKeypad</ProcessName>
                                 <AdditionalLogFile>/Servers/LeftMapleKeypad.log</AdditionalLogFile>
                                 <Debug>Off</Debug>
@@ -609,19 +610,22 @@
                     </DataTags>
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
-                    <VinLength>17</VinLength>
-                    <SecondaryDataTag>MaterialNumber</SecondaryDataTag>
-                    <SecondaryDataLength>15</SecondaryDataLength>
+                    <VinLength>15</VinLength>
+                    <SecondaryDataTag>ZTSCode</SecondaryDataTag>
+                    <SecondaryDataLength>6</SecondaryDataLength>
                 </Setup>
             </LeftMapleKeypad>
             <!-- ******************************************************* -->
             <!-- *                 Right Maple Keypad                  * -->
             <!-- ******************************************************* -->
-            <RightMapleKeypad enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+            <RightMapleKeypad enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
                 <Setup>
                     <TagList>
                         <SubscribeTags>
+                            <InputServerState/>
                             <NextVIN/>
+                            <RollsDownElevUp/>
+                            <VehicleAtBarcodeScanner/>
                             <VehicleBuildRecordStatus/>
                         </SubscribeTags>
                     </TagList>
@@ -662,12 +666,12 @@
                         <Setup>
                             <Communication>
                                 <Debug>Off</Debug>
-                                <Name>/dev/LogicalPorts/Pendant</Name>
+                                <Name>/dev/LogicalPorts/RightMapleKeypad</Name>
                                 <BufferSize>128</BufferSize>
                                 <Timeout>10000</Timeout>
                             </Communication>
                             <Logging>
-                                <Status>Disabled</Status>
+                                <Status>Enabled</Status>
                                 <ProcessName>RightMapleKeypad</ProcessName>
                                 <AdditionalLogFile>/Servers/RightMapleKeypad.log</AdditionalLogFile>
                                 <Debug>Off</Debug>
@@ -692,6 +696,9 @@
                     </DataTags>
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
+                    <VinLength>15</VinLength>
+                    <SecondaryDataTag>ZTSCode</SecondaryDataTag>
+                    <SecondaryDataLength>6</SecondaryDataLength>
                 </Setup>
             </RightMapleKeypad>
         </InputDevices>

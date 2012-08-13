@@ -71,7 +71,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/GryphonCANCommProxy.qxe
 	ServicesLayer/Bin/HostInterface.qxe
 	ServicesLayer/Bin/HydraulicMotorController.qxe
-	ServicesLayer/Bin/MapleKeypadManager.qxe
 	ServicesLayer/Bin/MultiComProxy.qxe
 	ServicesLayer/Bin/PendantManager.qxe
 	ServicesLayer/Bin/PlantHostInbound.qxe

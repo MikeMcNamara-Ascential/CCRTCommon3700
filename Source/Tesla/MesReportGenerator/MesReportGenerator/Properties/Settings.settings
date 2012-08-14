@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MesReportGenerator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="XsltFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\Burke_PorterCCRT\\resources\\local\\report\\MesTestReportLayout..xsl</Value>
+    </Setting>
+    <Setting Name="ResultDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">G:\\Rewrite\\TestResults\\MES\\</Value>
+    </Setting>
+    <Setting Name="ReportDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\\Temp\\</Value>
+    </Setting>
+    <Setting Name="ResultDirCbo" Type="System.Windows.Forms.ComboBox" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

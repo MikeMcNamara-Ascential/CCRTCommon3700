@@ -274,3 +274,19 @@ const string MahindraPlantHostInbound::Publish(const XmlNode *node)
 	}
 	return(result);
 }
+
+//-----------------------------------------------------------------------------
+void MahindraPlantHostInbound::UpdateInputServerState(void)
+{   // Make sure to keep the input server in VIN state
+	string response;
+	if(m_inputServerComm.Read(GetInputServerStateTag(), response, true) == BEP_STATUS_SUCCESS)
+	{
+		string currentState("Unknown");
+		m_inputServerComm.GetByTag(GetInputServerStateTag(), currentState, response);
+		if(currentState.compare(INPUT_SERVER_VIN_STATE))
+		{   // Input server is not in VIN state, send it there
+			m_inputServerComm.Write(GetInputServerStateTag(), INPUT_SERVER_VIN_STATE, response, true);
+			Log(LOG_DEV_DATA,"Set InputServer state to %s\n", INPUT_SERVER_VIN_STATE);
+		}
+	}
+}

@@ -77,6 +77,11 @@ protected:
 	 */
 	virtual const string Publish(const XmlNode *node);
 
+	/**
+	 * Update the state of the InputServer if it needs to be changed.
+	 */
+	virtual void UpdateInputServerState(void);
+
 
 
 private:

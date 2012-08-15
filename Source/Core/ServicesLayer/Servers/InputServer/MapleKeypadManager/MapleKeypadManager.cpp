@@ -144,6 +144,18 @@ MapleKeypadManager::LoadAdditionalConfigurationItems(const XmlNode *configNode)
         SetDataDelay(10);
         SetMaximumRetries(3);
     }
+	// Store the VIN length
+	INT32 vinLength = 17;
+	try
+	{
+		vinLength = BposReadInt(document->getChild("VinLength")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "VIN Length not defined, using 17 - %s", excpt.GetReason());
+		vinLength = 17;
+	}
+	VinLength(&vinLength);
     // Load any secondary data item
     bool useSecondaryDataItem = false;
     string dataType("");
@@ -393,8 +405,6 @@ void MapleKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteCoun
         dataString += localData;
     }
 
-
-
     // Determine the type of data
 
     Log(LOG_DEV_DATA,"Received %d bytes from Maple Keypad: %s", byteCount ,dataString.c_str());
@@ -442,7 +452,7 @@ void MapleKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteCoun
                     dataType = SecondaryDataType();
                     processData = true;
                 }
-                else if(index == VinLength())
+                else if(index >= VinLength())
                 {
                     Log(LOG_DEV_DATA, "Received VIN data -- Byte count: %d", index);
                     dataType = NEXT_VIN_DATA_TAG;

@@ -428,6 +428,7 @@
             <LCWarmupTimeBGColor DataType="color">MachineDataBroker</LCWarmupTimeBGColor>
             <LCWarmupTimeRemaining DataType="float">MachineDataBroker</LCWarmupTimeRemaining>
             <LCWarmupTimeRemainingBGColor DataType="color">MachineDataBroker</LCWarmupTimeRemainingBGColor>
+            <LeftBrakeForceTransducer DataType="short">PLC</LeftBrakeForceTransducer>
             <LeftFrontAbsAverageValue DataType="float" Units="LBF">MachineDataBroker</LeftFrontAbsAverageValue>
             <LeftFrontAbsMaxRecoveryIndex DataType="short">MachineDataBroker</LeftFrontAbsMaxRecoveryIndex>
             <LeftFrontAbsMaxRecoveryValue DataType="float" Units="LBF">MachineDataBroker</LeftFrontAbsMaxRecoveryValue>

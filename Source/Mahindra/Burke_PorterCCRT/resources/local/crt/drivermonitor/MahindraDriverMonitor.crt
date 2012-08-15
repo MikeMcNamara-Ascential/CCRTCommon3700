@@ -34,24 +34,20 @@
                         <Font size="30" name="sans-serif" style="plain"/>
                     </RadialGaugeConfig>
                 </Widget>
-                <!-- ABS Selected Logo -->
-<!--
-                <VBox width="30"/>
+                <VBox width="10"/>
                 <VBox>
                     <HBox>
-                        <VBox width="40"/>
-                        <Widget id="_bodystyle" height="40" width="160" class="com.bepco.gui.TextBox">
-                            <DataSource tagname="VehicleType" messagetype="Subscribe"/>
-                            <TextBoxConfig>
-                                <Font size="36" name="sans-serif" style="plain"/>
-                            </TextBoxConfig>
-                        </Widget>
+                        <Label name="pedalforce">
+                            <Font size="24" name="sans-serif" style="plain"/>
+                        </Label>
                     </HBox>
-                    <Widget id="absindicator" width="200" class="com.bepco.gui.ImagePhaseBox">
-                        <DataSource tagname="CableConnect" messagetype="Subscribe"/>
+                    <Widget id="_pedalForce" width="100" class="com.bepco.gui.TextBox">
+                        <DataSource tagname="LeftBrakeForceTransducer" messagetype="Subscribe"/>
+                        <TextBoxConfig>
+                            <Font size="24" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
                     </Widget>
                 </VBox>
--->                
             </HBox>
             <!-- END OF Three radial gauges =================================== -->
             <!-- START OF Driver Prompt Boxes ================================= -->
@@ -136,10 +132,12 @@
                     </VBox>
 		  
 
+
                     <Widget id="axleimage" class="com.bepco.gui.ImagePhaseBox" border="false" width='110'>
                         <DataSource tagname="VehicleTypeImg" messagetype="Subscribe"/>
                     </Widget>
 		  
+
 
                     <VBox>
                         <Widget id="_rf" class="com.bepco.gui.NumberBox" width='71'>

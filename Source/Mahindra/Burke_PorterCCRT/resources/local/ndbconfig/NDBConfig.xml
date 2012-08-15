@@ -415,6 +415,7 @@
                 <LCWarmupTimeRemaining DataType="float">MachineDataBroker</LCWarmupTimeRemaining>
                 <LCWarmupTimeRemainingBGColor DataType="color">MachineDataBroker</LCWarmupTimeRemainingBGColor>
                 <LdpPumpUpTimeTest DataType="string">VehicleTest</LdpPumpUpTimeTest>
+                <LeftBrakeForceTransducer DataType="short">PLC</LeftBrakeForceTransducer>
                 <LeftFrontRollerDirection DataType="bool">ICM</LeftFrontRollerDirection>
                 <LeftFrontRollMotorContactorFault DataType="bool">PLC</LeftFrontRollMotorContactorFault>
                 <LeftFrontRollMotorDisconnectOpen DataType="bool">PLC</LeftFrontRollMotorDisconnectOpen>

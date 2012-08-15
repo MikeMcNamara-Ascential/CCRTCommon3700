@@ -106,7 +106,7 @@
             OrderToLaunch="0107" RegisteredName="core/SystemMonitor" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="0xFF">System Monitor</SystemMonitor>
 
-        <PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
+        <PlantHostInbound Name="FawPlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="PlantHostInbound.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>

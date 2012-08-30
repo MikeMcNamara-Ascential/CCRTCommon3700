@@ -41,6 +41,14 @@ protected:
      * @return the status of the operation.
      */
     virtual const string Publish(const XmlNode *node);
+	/**
+	 * Method that is called to command the component to perform any
+	 * system registration functions necessary.
+	 *
+	 * @return Status of the registration process.
+	 *         Success, Fail
+	 */
+	virtual const string Register(void);
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MahindraSystemMonitor_h

@@ -97,43 +97,43 @@
 //-----------------------------------------------------------------------------
 GenericTcaseTC::GenericTcaseTC() : GenericTC()
 {
-    m_tcaseTool = new TcaseTool(this);
+	m_tcaseTool = new TcaseTool(this);
 }
 
 //-----------------------------------------------------------------------------
 GenericTcaseTC::~GenericTcaseTC()
 {
-    // Delete the base brake utility object
-    if (m_tcaseTool != NULL)
+	// Delete the base brake utility object
+	if(m_tcaseTool != NULL)
 	{
 		delete m_tcaseTool;
 	}
 	m_tcaseTool = NULL;
-    Log(LOG_FN_ENTRY, "Generic Tcase Destructor complete\n");
+	Log(LOG_FN_ENTRY, "Generic Tcase Destructor complete\n");
 }
 
 //-----------------------------------------------------------------------------
 void GenericTcaseTC::Initialize(const XmlNode *config)
 {
-    try
-    {
-        Log(LOG_FN_ENTRY, "%s: GenericTcaseTC::Initialize - Enter\n", GetComponentName().c_str());
-        // Call the child class initialize hook
-        Log(LOG_DEV_DATA, "%s: calling InitializeHook()\n", GetComponentName().c_str());
-        InitializeHook(config);
-        // Call the initialize complete method
-        Log(LOG_DEV_DATA, "%s: calling InitializationComplete()\n",GetComponentName().c_str());
-        InitializationComplete();
-        Log(LOG_FN_ENTRY, "%s: Initialize: EXIT",GetComponentName().c_str());
-    }
-    catch (XmlException &e)
-    {
-        Log(LOG_ERRORS, "XML Error Initializing Component %s: %s\n", GetProcessName().c_str(), e.what());
-    }
-    catch (BepException &e)
-    {
-        Log(LOG_ERRORS, "Error Initializing Component %s: %s\n", GetProcessName().c_str(), e.what());
-    }
+	try
+	{
+		Log(LOG_FN_ENTRY, "%s: GenericTcaseTC::Initialize - Enter\n", GetComponentName().c_str());
+		// Call the child class initialize hook
+		Log(LOG_DEV_DATA, "%s: calling InitializeHook()\n", GetComponentName().c_str());
+		InitializeHook(config);
+		// Call the initialize complete method
+		Log(LOG_DEV_DATA, "%s: calling InitializationComplete()\n",GetComponentName().c_str());
+		InitializationComplete();
+		Log(LOG_FN_ENTRY, "%s: Initialize: EXIT",GetComponentName().c_str());
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "XML Error Initializing Component %s: %s\n", GetProcessName().c_str(), e.what());
+	}
+	catch(BepException &e)
+	{
+		Log(LOG_ERRORS, "Error Initializing Component %s: %s\n", GetProcessName().c_str(), e.what());
+	}
 	// Store non t-case types
 	try
 	{
@@ -141,10 +141,10 @@ void GenericTcaseTC::Initialize(const XmlNode *config)
 		Log(LOG_FN_ENTRY, "%s: Initialize: T-Case Equipped #1\n",GetComponentName().c_str());
 		m_tcaseTypes.DeepCopy(config->getChild("Setup/TcaseTypes")->getChildren());
 		Log(LOG_FN_ENTRY, "%s: Initialize: T-Case Equipped #2\n",GetComponentName().c_str());
-		for (XmlNodeMapItr iter = m_tcaseTypes.begin(); iter != m_tcaseTypes.end(); iter++)
+		for(XmlNodeMapItr iter = m_tcaseTypes.begin(); iter != m_tcaseTypes.end(); iter++)
 		{
 			Log(LOG_DEV_DATA, "Config Output: %s; Subscription Output: %s\n", iter->second->getValue().c_str(), SystemRead("Traction").c_str());
-			if (iter->second->getValue() == SystemRead("Traction"))
+			if(iter->second->getValue() == SystemRead("Traction"))
 			{
 				Log(LOG_DEV_DATA, "This truck has powered front wheels.  Register the T-Case test.\n");
 				SetTcaseEquipped(true);
@@ -152,7 +152,7 @@ void GenericTcaseTC::Initialize(const XmlNode *config)
 		}
 		Log(LOG_FN_ENTRY, "%s: Initialize: T-Case Equipped #3\n",GetComponentName().c_str());
 	}
-	catch (XmlException &excpt)
+	catch(XmlException &excpt)
 	{	// Error loading sensor register table
 		Log(LOG_ERRORS, "XmlException loading T-Case types data: %s\n", excpt.GetReason());
 		Log(LOG_FN_ENTRY, "Considering this T-Case exception, assume this is a non-DCBR test; m_tcaseEquipped == TRUE.\n");
@@ -168,7 +168,7 @@ const string GenericTcaseTC::Register(void)
 	// until the component is up and running, sit here and wait
 	m_semInitialized.CriticalSectionEnter();
 	// if the component is equipped with speed control, register
-	if (IsTcaseEquipped())
+	if(IsTcaseEquipped())
 	{	// Indiate that the test has started
 		Log(LOG_FN_ENTRY, "Testing Generic T-Case\n");
 		UpdateTestStatus(TEST_STATUS_IN_PROGRESS);
@@ -178,171 +178,171 @@ const string GenericTcaseTC::Register(void)
 		Log(LOG_FN_ENTRY, "Not testing Generic T-Case\n");
 		UpdateTestStatus(BEP_TEST_NOT_STARTED);
 	}
-    // Return the result of the base class register
+	// Return the result of the base class register
 	return(BepServer::Register());
 }
 
 //-----------------------------------------------------------------------------
 const void GenericTcaseTC::InitializeHook(const XmlNode *config)
-{   // Initialize the base component
-    Log(LOG_FN_ENTRY, "Initializing The GenericTcaseTC Component\n");
+{	// Initialize the base component
+	Log(LOG_FN_ENTRY, "Initializing The GenericTcaseTC Component\n");
 
-    GenericTC::Initialize(config);
+	GenericTC::Initialize(config);
 
-    Log(LOG_FN_ENTRY, ((GetComponentName() + ".InitializeHook: Exit")).c_str());
-    return;
+	Log(LOG_FN_ENTRY, ((GetComponentName() + ".InitializeHook: Exit")).c_str());
+	return;
 }
 
 //-----------------------------------------------------------------------------
 const string GenericTcaseTC::CommandTestStep(const string &value)
 {
-    string status;
+	string status;
 
-    try
-    {   // Get the test step name to perform
-		if (IsTcaseEquipped())
+	try
+	{	// Get the test step name to perform
+		if(IsTcaseEquipped())
 		{
-        string step = GetTestStepName();
-        Log(LOG_DEV_DATA, "%s.CommandTestStep(%s): Entering test step %s\n",
-            GetComponentName().c_str(), value.c_str(), step.c_str());
-        // Check the status to ensure it is alright to run this test step
-        if (StatusCheck() != BEP_STATUS_SUCCESS)
-        {       // Not OK to run the test step
-            UpdateResult(StatusCheck(), status);
-            Log(LOG_ERRORS, (GetComponentName() + ".CommandTestStep: StatusCheck() failed: %s\n").c_str(),
-                status.c_str());
-            status = testSkip;   // Set result to Skip since this step will not be performed
-            SendTestResult(status, GetTestStepInfo("Description"));
-        }
-            // Verify the operator can shift the T-case.
-			else if (step.find("CheckShift") != step.npos)				status = CheckTcaseShift();
+			string step = GetTestStepName();
+			Log(LOG_DEV_DATA, "%s.CommandTestStep(%s): Entering test step %s\n",
+				GetComponentName().c_str(), value.c_str(), step.c_str());
+			// Check the status to ensure it is alright to run this test step
+			if(StatusCheck() != BEP_STATUS_SUCCESS)
+			{		// Not OK to run the test step
+				UpdateResult(StatusCheck(), status);
+				Log(LOG_ERRORS, (GetComponentName() + ".CommandTestStep: StatusCheck() failed: %s\n").c_str(),
+					status.c_str());
+				status = testSkip;	 // Set result to Skip since this step will not be performed
+				SendTestResult(status, GetTestStepInfo("Description"));
+			}
+			// Verify the operator can shift the T-case.
+			else if(step.find("CheckShift") != step.npos)			   status = CheckTcaseShift();
 			// Verify Axle Ratio with in limits at desired speed.
-        else if(GetTestStepName() == "CheckAxleRatio")
-        {
-            if(GetParameterBool("AxleRatioSkipPreconditions"))
-            {
-                float ratio = 0;
-                status = m_tcaseTool->GetAxleRatio(ratio);
-            }
-            else
-            {
-                status = CheckAxleRatio();
-            }
-        }
-            // Check the axle balance
-			else if (step.find("AxleBalance") != step.npos)				status = CheckAxleBalance();
+			else if(GetTestStepName() == "CheckAxleRatio")
+			{
+				if(GetParameterBool("AxleRatioSkipPreconditions"))
+				{
+					float ratio = 0;
+					status = m_tcaseTool->GetAxleRatio(ratio);
+				}
+				else
+				{
+					status = CheckAxleRatio();
+				}
+			}
+			// Check the axle balance
+			else if(step.find("AxleBalance") != step.npos)			   status = CheckAxleBalance();
 			// Prompt operator to accelerate to test speed
-			else if (GetTestStepName() == "AccelerateToTractionSpeed")	status = TcaseAccelerateToSpeed();
+			else if(GetTestStepName() == "AccelerateToTractionSpeed")  status = TcaseAccelerateToSpeed();
 			// Prompt operator to coast to stop
-			else if (GetTestStepName() == "CoastToStop")				status = (CheckZeroSpeed() ? testPass : testFail); /*status = CoastToStop();*/
+			else if(GetTestStepName() == "CoastToStop")				   status = (CheckZeroSpeed() ? testPass : testFail); /*status = CoastToStop();*/
 			// Prompt operator to set test result to Pass or Fail
-			else if (GetTestStepName() == "GetTractionPassFail")		status = GetTcasePassFail();
-            // Finish up any needed testing
-            else if (GetTestStepName() == "FinishUp")
-            {
-                status = FinishUp();
-			SendOverallResult(status);
-            }
-        // Call GenericTCTemplate for addition command steps
-        else
-            status = GenericTC::CommandTestStep(value);
-    }
-        else
+			else if(GetTestStepName() == "GetTractionPassFail")		   status = GetTcasePassFail();
+			// Finish up any needed testing
+			else if(GetTestStepName() == "FinishUp")
+			{
+				status = FinishUp();
+				SendOverallResult(status);
+			}
+			// Call GenericTCTemplate for addition command steps
+			else
+				status = GenericTC::CommandTestStep(value);
+		}
+		else
 		{
-            Log(LOG_DEV_DATA, "Vehicle not equipped with a T-Case, skipping test step: %s", GetTestStepName().c_str());
-            status = testSkip;
-        }
-    }
-    catch (BepException &e)
-    {
-        Log(LOG_DEV_DATA, "%s CommandTestStep %s Exception: %s\n",
-            GetComponentName().c_str(), GetTestStepName().c_str(), e.what());
-        status = BEP_SOFTWAREFAIL_RESPONSE;
-    }
-    Log(LOG_DEV_DATA, "%s.CommandTestStep(%s): Returning %s\n", GetComponentName().c_str(), value.c_str(), status.c_str());
-    return(status);
+			Log(LOG_DEV_DATA, "Vehicle not equipped with a T-Case, skipping test step: %s", GetTestStepName().c_str());
+			status = testSkip;
+		}
+	}
+	catch(BepException &e)
+	{
+		Log(LOG_DEV_DATA, "%s CommandTestStep %s Exception: %s\n",
+			GetComponentName().c_str(), GetTestStepName().c_str(), e.what());
+		status = BEP_SOFTWAREFAIL_RESPONSE;
+	}
+	Log(LOG_DEV_DATA, "%s.CommandTestStep(%s): Returning %s\n", GetComponentName().c_str(), value.c_str(), status.c_str());
+	return(status);
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::CheckTcaseShift ( void )
-{   // Determine if we need to check the t-case shift
-    bool performShift = true;
-    if(GetParameterBool("CheckIf4wdEquipped"))
-    {
-        performShift = !SystemRead(GetDataTag("FourWdTag")).compare(GetParameter("ValidFourWdValue"));
-    }
-    return performShift ? m_tcaseTool->CheckTcaseShift() : testSkip;
+{	// Determine if we need to check the t-case shift
+	bool performShift = true;
+	if(GetParameterBool("CheckIf4wdEquipped"))
+	{
+		performShift = !SystemRead(GetDataTag("FourWdTag")).compare(GetParameter("ValidFourWdValue"));
+	}
+	return performShift ? m_tcaseTool->CheckTcaseShift() : testSkip;
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::PreconditionsForShift ( void )
 {
-    return m_tcaseTool->PreconditionsForShift ();
+	return m_tcaseTool->PreconditionsForShift ();
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::CheckVehicleSpeed ( void )
 {
-    return m_tcaseTool->CheckVehicleSpeed ();
+	return m_tcaseTool->CheckVehicleSpeed ();
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::ShiftTransmission ( const string transGear )
 {
-    return m_tcaseTool->ShiftTransmission (transGear );
+	return m_tcaseTool->ShiftTransmission (transGear );
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::TurnKeyOnOff ( const string keyPosition )
 {
-    return m_tcaseTool->TurnKeyOnOff (keyPosition );
+	return m_tcaseTool->TurnKeyOnOff (keyPosition );
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::EngineOnOff ( const string engineRun )
 {
-    return m_tcaseTool->EngineOnOff(engineRun );
+	return m_tcaseTool->EngineOnOff(engineRun );
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::CheckThrottlePosition ( const string throttlePosition )
 {
-    return m_tcaseTool->CheckThrottlePosition(throttlePosition );
+	return m_tcaseTool->CheckThrottlePosition(throttlePosition );
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::ShiftTcase ( void )
 {
-    return m_tcaseTool->ShiftTcase();
+	return m_tcaseTool->ShiftTcase();
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::VerifyTcaseShift ( const string &verifyMethod )
 {
-    return m_tcaseTool->VerifyTcaseShift(verifyMethod );
+	return m_tcaseTool->VerifyTcaseShift(verifyMethod );
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::TcaseCheckDriver ( void )
 {
-    return m_tcaseTool->TcaseCheckDriver();
+	return m_tcaseTool->TcaseCheckDriver();
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::TcasePromptDriver ( void )
 {
-    return m_tcaseTool->TcasePromptDriver ();
+	return m_tcaseTool->TcasePromptDriver ();
 }
 
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::CheckAxleRatio ( void )
-{   // Determine if we need to check the build data 
-    bool performAxleRatio = true;
-    if(GetParameterBool("CheckIf4wdEquipped"))
-    {
-        performAxleRatio = !SystemRead(GetDataTag("FourWdTag")).compare(GetParameter("ValidFourWdValue"));
-    }
-    return performAxleRatio ? m_tcaseTool->CheckAxleRatio() : testSkip;
+{	// Determine if we need to check the build data 
+	bool performAxleRatio = true;
+	if(GetParameterBool("CheckIf4wdEquipped"))
+	{
+		performAxleRatio = !SystemRead(GetDataTag("FourWdTag")).compare(GetParameter("ValidFourWdValue"));
+	}
+	return performAxleRatio ? m_tcaseTool->CheckAxleRatio() : testSkip;
 }
 
 //-----------------------------------------------------------------------------
@@ -354,7 +354,7 @@ string GenericTcaseTC::CheckAxleBalance ( void )
 //-----------------------------------------------------------------------------
 string GenericTcaseTC::GetAxleRatio ( float &ratio )
 {
-    return m_tcaseTool->GetAxleRatio (ratio );
+	return m_tcaseTool->GetAxleRatio (ratio );
 }
 
 //-----------------------------------------------------------------------------

@@ -610,7 +610,7 @@
                     </DataTags>
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
-                    <VinLength>15</VinLength>
+                    <VinLength>17</VinLength>
                     <SecondaryDataTag>ZTSCode</SecondaryDataTag>
                     <SecondaryDataLength>6</SecondaryDataLength>
                 </Setup>
@@ -696,7 +696,7 @@
                     </DataTags>
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
-                    <VinLength>15</VinLength>
+                    <VinLength>17</VinLength>
                     <SecondaryDataTag>ZTSCode</SecondaryDataTag>
                     <SecondaryDataLength>6</SecondaryDataLength>
                 </Setup>

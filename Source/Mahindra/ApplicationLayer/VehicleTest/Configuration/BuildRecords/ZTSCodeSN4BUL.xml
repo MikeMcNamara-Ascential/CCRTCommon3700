@@ -7,32 +7,37 @@
 
         <BrakeForces>
              <!-- front axle brake forces -->
-             <FrontMinBrakeForce Units="LBF">287.7554472</FrontMinBrakeForce>
-             <FrontMaxBrakeForce Units="LBF">501.3239431</FrontMaxBrakeForce>
+             <FrontMinBrakeForce Units="kn">1.28</FrontMinBrakeForce>
+             <FrontMaxBrakeForce Units="kn">2.23</FrontMaxBrakeForce>
              <!-- rear axle brake forces -->
-             <RearMinBrakeForce Units="LBF">281.0111789</RearMinBrakeForce>
-             <RearMaxBrakeForce Units="LBF">512.5643903</RearMaxBrakeForce>
+             <RearMinBrakeForce Units="kn">1.25</RearMinBrakeForce>
+             <RearMaxBrakeForce Units="kn">2.28</RearMaxBrakeForce>
              <!-- Park brake Forces -->
-             <ParkBrakeMinForce Units="LBF">112.4044716</ParkBrakeMinForce>
-             <ParkBrakeMaxForce Units="LBF">224.8089431</ParkBrakeMaxForce>
+             <ParkBrakeMinForce Units="kn">0.5</ParkBrakeMinForce>
+             <ParkBrakeMaxForce Units="kn">1.0</ParkBrakeMaxForce>
         </BrakeForces>
 
         <Transmission>
             <SpeedBasedShiftTestParameters>
                 <SpeedBasedGearTest_1>
-                    <MaxSpeedTarget Description="Max speed target" Units="KPH">38</MaxSpeedTarget>
+                    <MaxSpeedTarget Description="Max speed target" Units="km/h">38</MaxSpeedTarget>
+                    <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h">3</MaxSpeedTolerance>
                 </SpeedBasedGearTest_1>
                 <SpeedBasedGearTest_2>
-                    <MaxSpeedTarget Description="Max speed target" Units="KPH">68</MaxSpeedTarget>
+                    <MaxSpeedTarget Description="Max speed target" Units="km/h">68</MaxSpeedTarget>
+                    <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h">3</MaxSpeedTolerance>
                 </SpeedBasedGearTest_2>
                 <SpeedBasedGearTest_3>
-                    <MaxSpeedTarget Description="Max speed target" Units="KPH">101</MaxSpeedTarget>
+                    <MaxSpeedTarget Description="Max speed target" Units="km/h">101</MaxSpeedTarget>
+                    <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h">3</MaxSpeedTolerance>
                 </SpeedBasedGearTest_3>
                 <SpeedBasedGearTest_4>
-                    <MaxSpeedTarget Description="Max speed target" Units="KPH">126</MaxSpeedTarget>
+                    <MaxSpeedTarget Description="Max speed target" Units="km/h">126</MaxSpeedTarget>
+                    <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h">3</MaxSpeedTolerance>
                 </SpeedBasedGearTest_4>
                 <SpeedBasedGearTest_5>
-                    <MaxSpeedTarget Description="Max speed target" Units="KPH">136</MaxSpeedTarget>
+                    <MaxSpeedTarget Description="Max speed target" Units="km/h">136</MaxSpeedTarget>
+                    <MaxSpeedTolerance Description="tolerance range to set up min/max acceptable speeds" Units="km/h">3</MaxSpeedTolerance>
                 </SpeedBasedGearTest_5>
             </SpeedBasedShiftTestParameters>
             <NumberOfFwdGears>5</NumberOfFwdGears>

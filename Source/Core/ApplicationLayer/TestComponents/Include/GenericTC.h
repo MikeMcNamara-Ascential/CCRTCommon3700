@@ -303,6 +303,7 @@ using namespace std;
 #define     KPA_PSI                 6.894757291         // KPA per PSI
 #define     KGF_LBS                 0.4359237           // KG FORCE per LBS
 #define     N_LBS                   4.4482216152        // NEWTONS per LBS
+#define     KN_LBS                  0.0044482216152     // KILONEWTONS per LBS
 #define     DEG_GRAD                0.9                 // [deg] per [grad]
 #define     DEG_RAD                 57.2957795131       // [deg] per [rad]
 #define     CM_INCH                 2.54                // [cm/inch]
@@ -360,6 +361,7 @@ const static std::string unitsMPH("mph");
 const static std::string unitsKPH("km/h");
 const static std::string unitsLBF("lbf");
 const static std::string unitsKGF("kgf");
+const static std::string unitsKN("kn");
 const static std::string unitsLB("lb");
 const static std::string unitsKG("kg");
 const static std::string unitsMPHPS("mph/s");

@@ -79,7 +79,14 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase300>
-        <TestPhase305 Description="Finishup the transmission testing and run the park brake test" Result="" Timeout="">
+        <TestPhase305 Description="Engage machine" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Engage the machine" Result="" Timeout="" Component="Machine">
+                    <EngageMachine/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase305>
+        <TestPhase310 Description="Finishup the transmission testing and run the park brake test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Set the transmission result" Result="" Timeout="" Component="Transmission">
                     <FinishUp/>
@@ -88,14 +95,14 @@
                     <ParkBrakeTest/>
                 </Objective1>
             </ForegroundObjectives>
-        </TestPhase305>
-        <TestPhase310 Description="RWAL Sensor Test" Result="" Timeout="">
+        </TestPhase310>
+        <TestPhase315 Description="RWAL Sensor Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Perform the RWAL sensor test" Result="" Timeout="" Component="Brake">
                     <RwalTest/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase310>
+        </TestPhase315>
 
         <!-- Finishup and set results -->
         <TestPhase400 Description="Set the result for the brake test" Result="" Timeout="">

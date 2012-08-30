@@ -550,16 +550,16 @@ $Revision: 1.3 $
                                 </Label>
                             </VBox>
                             <VBox>
-                                <Widget height="25" width="60" id="LfDistance" class="com.bepco.gui.NumberBox">
+                                <Widget height="25" width="80" id="LfDistance" class="com.bepco.gui.NumberBox">
                                     <DataSource tagname="LFCurrentDistance" messagetype="Read" datarate="5"/>
-                                    <TextBoxConfig format="{0,number,#}">
+                                    <TextBoxConfig format="{0,number,#.0}">
                                         <Font size="16" name="sans-serif" style="bold"/>
                                     </TextBoxConfig>
                                 </Widget>
                                 <HBox height="10"/>
-                                <Widget height="25" width="60" id="LrDistance" class="com.bepco.gui.NumberBox">
+                                <Widget height="25" width="80" id="LrDistance" class="com.bepco.gui.NumberBox">
                                     <DataSource tagname="LRCurrentDistance" messagetype="Read" datarate="5"/>
-                                    <TextBoxConfig format="{0,number,#}">
+                                    <TextBoxConfig format="{0,number,#.0}">
                                         <Font size="16" name="sans-serif" style="bold"/>
                                     </TextBoxConfig>
                                 </Widget>
@@ -575,16 +575,16 @@ $Revision: 1.3 $
                                 </Label>
                             </VBox>
                             <VBox>
-                                <Widget height="25" width="60" id="RfDistance" class="com.bepco.gui.NumberBox">
+                                <Widget height="25" width="80" id="RfDistance" class="com.bepco.gui.NumberBox">
                                     <DataSource tagname="RFCurrentDistance" messagetype="Read" datarate="5"/>
-                                    <TextBoxConfig format="{0,number,#}">
+                                    <TextBoxConfig format="{0,number,#.0}">
                                         <Font size="16" name="sans-serif" style="bold"/>
                                     </TextBoxConfig>
                                 </Widget>
                                 <HBox height="10"/>
-                                <Widget height="25" width="60" id="RrDistance" class="com.bepco.gui.NumberBox">
+                                <Widget height="25" width="80" id="RrDistance" class="com.bepco.gui.NumberBox">
                                     <DataSource tagname="RRCurrentDistance" messagetype="Read" datarate="5"/>
-                                    <TextBoxConfig format="{0,number,#}">
+                                    <TextBoxConfig format="{0,number,#.0}">
                                         <Font size="16" name="sans-serif" style="bold"/>
                                     </TextBoxConfig>
                                 </Widget>

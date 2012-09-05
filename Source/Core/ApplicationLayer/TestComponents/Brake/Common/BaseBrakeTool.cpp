@@ -1921,7 +1921,7 @@ INT32 BaseBrakeTool::StatusCheck(void)
 		if(/*(m_component->ReadSubscribeData(m_component->GetDataTag("VehiclePresent")) == "1") && */	   /* vehicle present */
 		   (m_component->ReadSubscribeData(MACHINE_CLUTCH) == "1") &&					/* rollers clutched */
 		   (m_component->ReadSubscribeData(MACHINE_DECLUTCH) == "0") &&					/* and not declutched */
-		   (m_component->ReadSubscribeData(MOTOR_MODE) == BOOST_MODE) &&								   /* and in boost mode */
+		   (m_component->ReadSubscribeData(string(MOTOR_MODE)) == string(BOOST_MODE)) &&								   /* and in boost mode */
 		   (m_component->ReadSubscribeData(m_component->GetDataTag("RetainersUp")) == "1"))	   /* retainers raised or elevators lowered */
 		{
 			status = BEP_STATUS_SUCCESS;
@@ -1933,9 +1933,9 @@ INT32 BaseBrakeTool::StatusCheck(void)
 						 "\n\tDeclutch: %s\n\tMotor Mode: %s\n\tRetainers Up: %s\n",
 						 ConvertStatusToResponse(status).c_str(),
 						 m_component->ReadSubscribeData(m_component->GetDataTag("VehiclePresent")).c_str(),
-						 m_component->ReadSubscribeData(MACHINE_CLUTCH).c_str(),
-						 m_component->ReadSubscribeData(MACHINE_DECLUTCH).c_str(),
-						 m_component->ReadSubscribeData(MOTOR_MODE).c_str(),
+						 m_component->ReadSubscribeData(string(MACHINE_CLUTCH)).c_str(),
+						 m_component->ReadSubscribeData(string(MACHINE_DECLUTCH)).c_str(),
+						 m_component->ReadSubscribeData(string(MOTOR_MODE)).c_str(),
 						 m_component->ReadSubscribeData(m_component->GetDataTag("RetainersUp")).c_str());
 	}
 

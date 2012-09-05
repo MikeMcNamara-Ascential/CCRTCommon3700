@@ -210,7 +210,7 @@ const string ManualTransmissionTC::TestStepBrakeToStop(const string &value)
             {
                 done = true;
             }
-
+			Log(LOG_DEV_DATA, "Vehicle at zero speed: %s", done ? "True" : "False");
             // update the status of the test
             if (StatusCheck() != BEP_STATUS_SUCCESS) UpdateResult(StatusCheck(), status);
             else if (!TimeRemaining())               status = BEP_TIMEOUT_STATUS;
@@ -220,7 +220,8 @@ const string ManualTransmissionTC::TestStepBrakeToStop(const string &value)
             //if successful, ensure that the motor mode is Boost mode
             if (status == BEP_PASS_STATUS)
             {
-                SystemWrite(MOTOR_MODE, BOOST_MODE);
+				Log(LOG_DEV_DATA, "Setting motor mode to %s", string(BOOST_MODE).c_str());
+                SystemWrite(MOTOR_MODE, string(BOOST_MODE));
             }
         }
         // else the conditions are not correct, indicate not started

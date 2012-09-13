@@ -479,6 +479,7 @@
 						<F N="Burke_PorterCCRT/resources/local/playback/tracelog.dat"/>
 					</Folder>
 					<Folder Name="report">
+						<F N="Burke_PorterCCRT/resources/local/report/MahindraReportLayout.FO.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/MahindraReportLayout.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/NewReportLayout.xml"/>
 						<F N="Burke_PorterCCRT/resources/local/report/reportlayout.xml"/>

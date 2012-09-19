@@ -1152,6 +1152,12 @@
 						<F N="ServicesLayer/Servers/PlantHostOutbound/NDB/NdbInterface.cpp"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/NDB/NdbInterfaceMain.cpp"/>
 					</Folder>
+					<Folder Name="ResultFileCopy">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/ResultFileCopy/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/ResultFileCopy/ResultFileCopyHostInterface.cpp"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/ResultFileCopy/ResultFileCopyHostInterface.h"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/ResultFileCopy/ResultFileCopyHostInterfaceMain.cpp"/>
+					</Folder>
 					<F N="ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
 					<F N="ServicesLayer/Servers/PlantHostOutbound/PlantHostOutboundMain.cpp"/>
 				</Folder>

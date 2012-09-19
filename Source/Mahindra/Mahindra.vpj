@@ -572,6 +572,13 @@
 					<F N="ServicesLayer/Servers/PlantHostInbound/MahindraPlantHostInbound.cpp"/>
 					<F N="ServicesLayer/Servers/PlantHostInbound/MahindraPlantHostInboundMain.cpp"/>
 				</Folder>
+				<Folder Name="PlantHostOutbound">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Mahindra.PlantHostOutboundConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="SystemMonitor">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/CMakeLists.txt"/>

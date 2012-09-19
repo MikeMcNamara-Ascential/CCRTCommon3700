@@ -116,6 +116,11 @@
             OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
 
+        <PlantHostOutbound Name="PlantHostOutbound.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="PlantHostOutboundConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0111" RegisteredName="core/PlantHostOutbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
+            AddressValue="" PortValue="" VerboseMode="">Results</PlantHostOutbound>
+
         <MotorController Name="ABMotorController.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="AB700MotorControllerConfig.xml" ConfigPath="/Configuration/Machine/" 
             OrderToLaunch="0500" RegisteredName="core/MotorController" Register="Yes" DemoMode="Off" ConsoleMode="Off" 

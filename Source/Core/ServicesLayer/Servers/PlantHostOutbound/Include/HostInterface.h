@@ -618,6 +618,10 @@ protected:
      * Pointer to INamedDataBroker communication object.
      */
     INamedDataBroker *m_ndb;
+	BepMutex m_testResultMutex;
+
+
+
 
 private:
     /**
@@ -682,7 +686,6 @@ private:
      * @see StaticTesterServer
      */
     vector<XmlNode *>  m_testResultsToProcess;
-    BepMutex m_testResultMutex;
     /**
      * Map of the strings to convert test result to format acceptable by plant 
      * host system.

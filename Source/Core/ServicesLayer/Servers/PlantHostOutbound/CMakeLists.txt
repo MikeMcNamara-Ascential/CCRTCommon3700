@@ -35,6 +35,7 @@ ADD_SUBDIRECTORY(HostInterface)
 ADD_SUBDIRECTORY(GenericText)
 ADD_SUBDIRECTORY(DAQ)
 ADD_SUBDIRECTORY(NDB)
+ADD_SUBDIRECTORY(ResultFileCopy)
 
 #------------------------------------------------------------------------------
 # Make sure the linker can find libplanthostoutbound.a once it is built.

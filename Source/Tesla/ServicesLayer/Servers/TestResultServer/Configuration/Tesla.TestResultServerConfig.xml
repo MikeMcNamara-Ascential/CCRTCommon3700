@@ -17,7 +17,6 @@
             <Type>Server</Type>
         </Communication>
         <DataTags>
-            <MesResultDirectory>/home/CCRT/Rewrite/TestResults/Transfer/</MesResultDirectory>
             <StartTest>StartVehicleTest</StartTest>
             <AllFailures>AllFailures</AllFailures>
             <OverallTest>OverallTest</OverallTest>

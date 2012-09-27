@@ -583,66 +583,6 @@
                     </NotificationList>
                 </Setup>
             </TextInterface>
-            <!-- ============================================================== -->
-            <!-- MES Interface                                -->
-            <!-- ============================================================== -->
-            <MesInterface Enabled="1" Process="$(USR_ROOT)/ServicesLayer/Bin/MesInterface.qxe">
-                <Setup>
-                    <SendResultsToHost>Yes</SendResultsToHost>
-                    <VinIndex>0</VinIndex>
-                    <MaxResponseTime>20000</MaxResponseTime>
-                    <MaxAttempts>3</MaxAttempts>
-                    <MessageID>0x13</MessageID>
-                    <TestResultConversion>
-                        <Pass>P</Pass>
-                        <Fail>F</Fail>
-                        <Abort>A</Abort>
-                        <NotTested>Z</NotTested>
-                        <TestInProgress>A</TestInProgress>
-                        <Timeout>F</Timeout>
-                    </TestResultConversion>
-                    <ComponentNameMapping/>
-                    <DataTags>
-                        <OverallTest>OverallTest</OverallTest>
-                        <MachineNumber>MachineNumber</MachineNumber>
-                        <MesResultDirectory>/home/CCRT/Rewrite/TestResults/Transfer/</MesResultDirectory>
-                    </DataTags>
-                    <Communication>
-                        <Debug>Off</Debug>
-                        <Name>core/MesInterface</Name>
-                        <Type>Server</Type>
-                        <Comm>IPC</Comm>
-                        <BufferSize>2000</BufferSize>
-                        <Timeout>1000</Timeout>
-                    </Communication>
-                    <Logging>
-                        <Status>Enabled</Status>
-                        <ProcessName>core/MesInterface</ProcessName>
-                        <AdditionalLogFile>/Servers/MesInterface.log</AdditionalLogFile>
-                        <Debug>Off</Debug>
-                        <LocalEcho>Enabled</LocalEcho>
-                        <Verbose>0x1F</Verbose>
-                    </Logging>
-                    <ThreadPool>
-                        <Debug>Off</Debug>
-                        <MinBlockedLimit>1</MinBlockedLimit>
-                        <MaxBlockedLimit>3</MaxBlockedLimit>
-                        <Increment>1</Increment>
-                        <Maximum>5</Maximum>
-                    </ThreadPool>
-                    <NotificationList>
-                        <Setup>
-                            <Debug>Off</Debug>
-                            <HighWater>3</HighWater>
-                            <Increment>1</Increment>
-                            <LowWater>1</LowWater>
-                            <Maximum>5</Maximum>
-                            <StartOnCreate>No</StartOnCreate>
-                        </Setup>
-                    </NotificationList>
-                </Setup>
-            </MesInterface>
-
         </HostInterfaces>
     </Setup>
 </PlantHostOutboundConfig>

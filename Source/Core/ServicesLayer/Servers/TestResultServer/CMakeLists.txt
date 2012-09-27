@@ -4,12 +4,6 @@
 SET(EXE_NAME TestResultServer)
 
 #------------------------------------------------------------------------------------------
-# Define a cache variable to hold the path to the test result server headers
-#------------------------------------------------------------------------------------------
-SET(CORE_TEST_RESULT_SERVER_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH
-        "Path to the core test result server headers" FORCE)
-		
-#------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Configuration)

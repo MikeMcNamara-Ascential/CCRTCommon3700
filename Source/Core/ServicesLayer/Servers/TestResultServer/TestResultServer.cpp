@@ -425,13 +425,11 @@ void TestResultServer::Initialize(const XmlNode *document)
 	bool createPassConfirmation = false;
 	try
 	{
-        Log(LOG_FN_ENTRY, "Checkpoint 4");
 		createPassConfirmation = atob(document->getChild("Setup/CreatePassConfirmationFile")->getValue().c_str());
 		Log(LOG_DEV_DATA, "Create pass confirmation file: %s", (createPassConfirmation)?"yes":"no");
 	}
 	catch(XmlException &excpt)
 	{
-        Log(LOG_FN_ENTRY, "Checkpoint 5");
 		Log(LOG_ERRORS, "Create pass confirmation file not configured, not generating pass confirmation files: %s",
 			excpt.GetReason());
 		createPassConfirmation = false;
@@ -442,13 +440,11 @@ void TestResultServer::Initialize(const XmlNode *document)
 		string path;
 		try
 		{
-            Log(LOG_FN_ENTRY, "Checkpoint 6");
 			path = document->getChild("Setup/TestResults/PassConfirmationFilePath")->getValue();
             Log(LOG_DEV_DATA, "Pass confirmation file path: %s", path.c_str());
 		}
 		catch(XmlException &excpt)
 		{
-            Log(LOG_FN_ENTRY, "Checkpoint 7");
 			path = string(getenv("USR_ROOT")) + string("/TestResults/PassConfirmation/");
 			Log(LOG_ERRORS, "Pass confirmation file path not specified, using %s - %s", path.c_str(), excpt.GetReason());
 		}

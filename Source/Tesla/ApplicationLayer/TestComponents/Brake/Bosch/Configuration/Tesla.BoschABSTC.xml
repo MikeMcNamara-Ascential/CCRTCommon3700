@@ -254,7 +254,7 @@
          <AbortOnPartMismatch>No</AbortOnPartMismatch>
          <BypassPartNumberValidation>No</BypassPartNumberValidation>
          <ValidatePartNumberList>Yes</ValidatePartNumberList>
-         <ModulePartNumber>600636300B</ModulePartNumber>
+         <ModulePartNumber>600636300C</ModulePartNumber>
          <VINLength>17</VINLength>
          <!--Sensor Testing Parameters-->
          <DisplayOperatorInstructions>No</DisplayOperatorInstructions>

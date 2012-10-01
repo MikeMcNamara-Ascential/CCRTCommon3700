@@ -272,9 +272,11 @@
                       <Byte4 input_index="6" mask="0xFF" output_index="0"/>
                   </Integer>
                </Substring01>
+               <!--
                <Substring02 format="%1s">
                   <Chars input_index="7" mask="0xFF" length="1"/>
                </Substring02>
+               -->
             </String>
          </ReadOemPartNumber>
          <ReadFWChecksum>

@@ -71,12 +71,15 @@
       <ValidPartNumbers>
         <PN28322746C>28322746C</PN28322746C>
         <PN1005273-00-C>1005273-00-C</PN1005273-00-C>
+        <PN1005273-00-D>1005273-00-D</PN1005273-00-D>
         <PN04E9D12D10D107E1D0>04E9D12D10D107E1D0</PN04E9D12D10D107E1D0>
+        <PN04E9D12D10D15AC3D0>04E9D12D10D15AC3D0</PN04E9D12D10D15AC3D0>
+        <PN28322746>28322746</PN28322746>
       </ValidPartNumbers>
       <PartNumbersToCheck>
-          <ModulePartNumber>ReadPartNumber</ModulePartNumber>
-          <OEMPartNumber>ReadOemPartNumber</OEMPartNumber>
-          <FWChecksum>ReadFWChecksum</FWChecksum>
+          <P3_ModulePartNumber>ReadPartNumber</P3_ModulePartNumber>
+          <P1_OEMPartNumber>ReadOemPartNumber</P1_OEMPartNumber>
+          <P2_FWChecksum>ReadFWChecksum</P2_FWChecksum>
       </PartNumbersToCheck>
       <!-- Fault Read Parameters -->
       <AbortIfDTCPresent>No</AbortIfDTCPresent>

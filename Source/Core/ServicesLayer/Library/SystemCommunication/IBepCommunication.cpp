@@ -1573,7 +1573,7 @@ INT32 IBepCommunication::DoOperation(const std::string operation,
                                      std::string &message,
                                      const bool IsFinal)
 {
-    SetDebug("On");
+//    SetDebug("On");
     if(IsDebugOn()) printf("DoOperation(%s, %s, %s, %d)\n", operation.c_str(),
                            dataNode->getName().c_str(), dataNode->getValue().c_str(), IsFinal);
     INT32 status = BEP_STATUS_ERROR;// Status of operation

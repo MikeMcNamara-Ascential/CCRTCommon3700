@@ -32,6 +32,18 @@ public:
     virtual string ModuleName();
     virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
     virtual bool Initialize(const XmlNode *configNode);
+
+	/**
+	 * Initialize the module interface.
+	 * <p><b>Description:</b><br>
+	 * Module specific initialization will be completed.  The main module communication object will be intialized.
+	 * If any sub-class needs to perform specific initialization, it should override this class instead of Initialize().
+	 * <p>
+	 * @param configNode  Configuration data to use for initializing the module interface.
+	 * @return  Flag indicating if module specific initialization has been completed.
+	 */
+	virtual bool InitializeHook(const XmlNode *configNode);
+
     virtual BEP_STATUS_TYPE ProgramVIN(string moduleVin = "");
 protected:
     virtual const INT32& GetDTCCountIndex(void);

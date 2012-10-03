@@ -274,6 +274,12 @@
             <ReplyMessage>TesterPresent</ReplyMessage>
             <ReplyInterpretation/>
          </ModuleKeepAlive>
+         <ReadIgnitionStatus>
+             <TransmitMessage>TesterPresent</TransmitMessage>
+             <TransmitInterpretation/>
+             <ReplyMessage>TesterPresent</ReplyMessage>
+             <ReplyInterpretation/>
+         </ReadIgnitionStatus>
          <ReadBrakeSwitch>
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>BrakePedalStatus</TransmitInterpretation>

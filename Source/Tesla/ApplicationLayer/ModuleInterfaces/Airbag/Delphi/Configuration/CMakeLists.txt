@@ -5,4 +5,5 @@
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Airbag FILES
 	DelphiAirbagModule.xml
+	OcsModule.xml
 )

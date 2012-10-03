@@ -155,6 +155,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(step == "CheckYawRate")  status = CheckYawRate();
         else if(step == "CheckPressureSensor") status = CheckPressureSensor();
         else if(step == "CheckAYSensorStatus") status = CheckAYSensorStatus();
+		else if(step == "CycleIgnition") status = CycleIgnition();
         else if(step == "SensorQualityTest") status = SensorQualityTest();
         else if(step == "ESPValveFiringTest") status = ESPValveFiringTest();
         else if(step == "ABSValveFiringTest") status = ABSValveFiringTest();
@@ -1521,6 +1522,36 @@ string BoschABSTC<ModuleType>::CheckAYSensorStatus(void)
     return(testResult);
 }
 
+//---------------------------------------------------------------------------------------------------------------------
+template <class ModuleType>
+string BoschABSTC<ModuleType>::CycleIgnition(void)
+{
+	string result(BEP_TESTING_STATUS);
+	Log(LOG_FN_ENTRY, "BoschABSTC::CycleIgnition() - Enter");
+	if(!ShortCircuitTestStep())
+	{   // Wait for the engine to be off
+		result = WaitForEngineOffIgnitionOff();
+		if(!result.compare(testPass))
+		{   // Ignition is off, wait for ignition on
+			result = CheckIgnitionOn() ? testPass : testFail;
+		}
+		else
+		{   // Timeout waiting for engine off
+			Log(LOG_ERRORS, "Timeout waiting for ignition off");
+		}
+		// Report the result
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{ 
+		result = testSkip;
+		Log(LOG_FN_ENTRY, "Skipping Cycle Ignition");
+	}
+	Log(LOG_FN_ENTRY, "BoschABSTC::CycleIgnition() - Exit");
+	return result;
+}
+
+//---------------------------------------------------------------------------------------------------------------------
 template <class ModuleType>
 string BoschABSTC<ModuleType>::DisableSpeedLimit(void)
 {

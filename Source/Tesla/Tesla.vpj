@@ -79,6 +79,7 @@
 						<Folder Name="Configuration">
 							<F N="ApplicationLayer/ModuleInterfaces/Airbag/Delphi/Configuration/CMakeLists.txt"/>
 							<F N="ApplicationLayer/ModuleInterfaces/Airbag/Delphi/Configuration/DelphiAirbagModule.xml"/>
+							<F N="ApplicationLayer/ModuleInterfaces/Airbag/Delphi/Configuration/OcsModule.xml"/>
 						</Folder>
 						<F N="ApplicationLayer/ModuleInterfaces/Airbag/Delphi/CMakeLists.txt"/>
 						<F N="ApplicationLayer/ModuleInterfaces/Airbag/Delphi/DelphiAirbagModule.cpp"/>
@@ -132,6 +133,7 @@
 							<F N="ApplicationLayer/TestComponents/Airbag/Delphi/Configuration/AirbagFaultList.xml"/>
 							<F N="ApplicationLayer/TestComponents/Airbag/Delphi/Configuration/CMakeLists.txt"/>
 							<F N="ApplicationLayer/TestComponents/Airbag/Delphi/Configuration/DelphiAirbagTC.xml"/>
+							<F N="ApplicationLayer/TestComponents/Airbag/Delphi/Configuration/OcsTc.xml"/>
 						</Folder>
 						<F N="ApplicationLayer/TestComponents/Airbag/Delphi/CMakeLists.txt"/>
 						<F N="ApplicationLayer/TestComponents/Airbag/Delphi/DelphiAirbagTC.cpp"/>

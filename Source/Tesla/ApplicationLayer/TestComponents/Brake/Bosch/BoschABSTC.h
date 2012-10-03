@@ -224,6 +224,13 @@ protected:
      */
     virtual string CheckAYSensorStatus(void);
 
+	/**
+	 * Prompt the operator to key off and then start the vehicle.
+	 * 
+	 * @return Result of cycling the ignition.
+	 */
+	string CycleIgnition(void);
+
     /**
      * This test step disables the diagnostic mode speed limit.
      * 

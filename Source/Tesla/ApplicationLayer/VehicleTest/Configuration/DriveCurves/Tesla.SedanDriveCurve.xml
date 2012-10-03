@@ -28,6 +28,13 @@
          <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
          <Debug>Off</Debug>
       </Machine>
+      <OCS>
+          <ComponentName>DelphiAirbagTC.qxe</ComponentName>
+          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+          <ConfigFile>OcsTc.xml</ConfigFile>
+          <ConfigPath>/Configuration/Components/Airbag/</ConfigPath>
+          <Debug>Off</Debug>
+      </OCS>
       <PowerSteering>
           <ComponentName>TeslaPowerSteeringTC.qxe</ComponentName>
           <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -77,6 +84,9 @@
             <Objective2 Description="Initialize Power Steering component" Result="" Timeout="" Component="PowerSteering">
                <EpasSetup/>
             </Objective2>
+            <Objective3 Description="Initialize Ocs component" Result="" Timeout="" Component="OCS">
+               <OcsSetup/>
+            </Objective3>
          </ForegroundObjectives>
       </TestPhase110>
       <TestPhase120 Description="Brake to stop" Result="" Timeout="">
@@ -243,6 +253,9 @@
             <Objective1 Description="Airbag Test" Result="" Timeout="" Component="Airbag">
                <AirbagTest/>
             </Objective1>
+            <Objective2 Description="OCS Test" Result="" Timeout="" Component="OCS">
+               <FinishUp/>
+            </Objective2>
          </ForegroundObjectives>
       </TestPhase840>
       <!--Brake Finishup-->

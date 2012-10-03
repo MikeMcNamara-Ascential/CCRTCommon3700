@@ -3,5 +3,6 @@
 #------------------------------------------------------------------------------------------
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Airbag FILES
         DelphiAirbagTC.xml
-        AirbagFaultList.xml)
+        AirbagFaultList.xml
+	OcsTc.xml)
         

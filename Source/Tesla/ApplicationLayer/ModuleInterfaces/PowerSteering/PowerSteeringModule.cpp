@@ -119,6 +119,14 @@ bool PowerSteeringModule<ProtocolFilterType>::Initialize (const XmlNode *configN
 }
 
 template <class ProtocolFilterType>
+bool PowerSteeringModule<ProtocolFilterType>::InitializeHook(const XmlNode *configNode)
+{   // Call the base class first
+	bool result = GenericModuleTemplate<ProtocolFilterType>::InitializeHook(configNode);
+	m_keepAliveComm->Initialize(configNode);
+	return result;
+}
+
+template <class ProtocolFilterType>
 BEP_STATUS_TYPE PowerSteeringModule<ProtocolFilterType>::ReadFaults(FaultVector_t &faultCodes)
 {
     SerialString_t response(255, 0);

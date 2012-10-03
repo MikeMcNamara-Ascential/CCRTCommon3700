@@ -17,7 +17,7 @@
       <KeepAlivePriority>10</KeepAlivePriority>
       <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
       <KeepAliveResponseTime>500</KeepAliveResponseTime>
-      <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+      <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
       <ModuleRequestID>0x730</ModuleRequestID>
       <ModuleResponseDelay>500</ModuleResponseDelay>
       <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
@@ -44,12 +44,13 @@
          <Code_0x50>Upload Not Accepted</Code_0x50>
          <Code_0x71>Transfer Suspended</Code_0x71>
          <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+         <Code_0x7F>Not in diagnostic mode</Code_0x7F>
          <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
          <Code_0x9A>Data Decompression Failed</Code_0x9A>
          <Code_0x9B>Dta Decryption Failed</Code_0x9B>
          <Code_0xA0>ECU Not Responding</Code_0xA0>
          <Code_0xA1>ECU Address Unknown</Code_0xA1>
-         <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+         <EnterDiagnosticMode>0x7F</EnterDiagnosticMode>
          <ResponsePending>0x78</ResponsePending>
          <ModuleBusy>0x21</ModuleBusy>
       </NegativeResponseCodes>

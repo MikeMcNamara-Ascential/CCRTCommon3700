@@ -74,9 +74,9 @@
          <AbortIfDTCPresent>No</AbortIfDTCPresent>
          <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
          <VINLength>17</VINLength>
-         <RequestVinRoutineStatusFromModule>False</RequestVinRoutineStatusFromModule>
-         <DelayBeforeRoutineStatus>10000</DelayBeforeRoutineStatus>
-         <RoutineRequestRetries>3</RoutineRequestRetries>
+         <RequestVinRoutineStatusFromModule>True</RequestVinRoutineStatusFromModule>
+         <DelayBeforeRoutineStatus>2000</DelayBeforeRoutineStatus>
+         <RoutineRequestRetries>30</RoutineRequestRetries>
          <VinRetryDelay>1000</VinRetryDelay>
       </Parameters>
       <Prompts>
@@ -87,12 +87,14 @@
       <EpasSetup>
          <TestStep00>Setup</TestStep00>
          <TestStep10>EnterDiagnosticMode</TestStep10>
+         <TestStep15>StartModuleKeepAlive</TestStep15>
          <TestStep20>ProgramVIN</TestStep20>
          <TestStep25>CheckVIN</TestStep25>
          <TestStep30>LockSteeringTune</TestStep30>
+         <TestStep35>StopModuleKeepAlive</TestStep35>
       </EpasSetup>
       <FinishUp>
-         <TestStep00>FinishUp</TestStep00>
+         <TestStep05>FinishUp</TestStep05>
       </FinishUp>
    </Objectives>
    <TestSteps>
@@ -105,7 +107,7 @@
       <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Read and Clear Faults and Enable the airbag module"/>
       <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read Traceablilty number from the module"/>
       <ProgramVIN Result="Not Tested" Timeout="5000" Description="Write VIN to the Module"/>
-      <LockSteeringTune Result="Not Tested" Timeout="5000" Description="Lock steering tune to the Module"/>
+      <LockSteeringTune Result="Not Tested" Timeout="30000" Description="Lock steering tune to the Module"/>
       <CheckVIN Result="Not Tested" Timeout="5000" Description="Validate module VIN"/>
       <CheckPartNumbers Result="Not Tested" Timeout="5000" Description="Check list of part numbers from the module"/>
       <StartModuleKeepAlive Result="" Timeout="1000" Description="Start sending tester present message to the module" ScanDelay="250"/>

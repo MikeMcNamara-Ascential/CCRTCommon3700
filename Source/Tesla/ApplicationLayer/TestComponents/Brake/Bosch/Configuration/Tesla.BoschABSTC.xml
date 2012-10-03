@@ -386,10 +386,17 @@
          <UsePlcResultButtons>true</UsePlcResultButtons>
          <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
          <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
+         <!-- Ignition Cycle Parameters -->
+         <AlwaysPerformKeyOffEngineOff>False</AlwaysPerformKeyOffEngineOff>
+         <EngineOffPromptForPark>False</EngineOffPromptForPark>
+         <EngineOffIgnitionOffWaitTime Units="ms">1000</EngineOffIgnitionOffWaitTime>
+         <IgnitionOnTimeout Units="ms">30000</IgnitionOnTimeout>
       </Parameters>
       <Prompts>
          <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
          <ApplyBrake PromptBox="2" Priority="0">ApplyBrake</ApplyBrake>
+         <EngineOffIgnitionOff PromptBox="1" Priority="0">KeyOff</EngineOffIgnitionOff>
+         <IgnitionOn PromptBox="1" Priority="0">StartVehicle</IgnitionOn>
          <ParkBrakeBurnish PromptBox="2" Priority="0">ParkBrakeBurnish</ParkBrakeBurnish>
          <ApplyParkBrakeClicks PromptBox="2" Priority="0">ApplyParkBrakeClicks</ApplyParkBrakeClicks>
          <BrakeBurnish PromptBox="1" Priority="0">BrakeBurnish</BrakeBurnish>
@@ -498,6 +505,7 @@
          <!--TestStep00>CheckParkBrakeSignal</TestStep00-->
          <TestStep00>ClearFaults</TestStep00>
          <TestStep01>ElectricParkBrake</TestStep01>
+         <TestStep10>CycleIgnition</TestStep10>
       </ParkBrakeTest>
       <CheckSensorTest>
          <TestStep00>EnterDiagnosticMode</TestStep00>
@@ -633,11 +641,13 @@
       <StaticBrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>
       <ElectricParkBrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the park brakes" ScanDelay="500"/>
       <LowSpeedSensorTest Result="" Timeout="15000" Description="Low Speed Wheel Sensor Test" ScanDelay="250"/>
-      <ElectricParkBrake Result="" Timeout="30000" Description="Verify park brake is properly adjusted" Prompt1="ApplyParkBrake" Prompt2="FootOffBrake" RollerDirection="Forward" TestTime="3000"/>
+      <ElectricParkBrake Result="" Timeout="30000" Description="Verify park brake is properly adjusted" Prompt1="ApplyParkBrake" Prompt2="FootOffBrake" 
+          RollerDirection="Forward" TestTime="3000"/>
       <DisableForceMeter Result="" Timeout="1000" Description="Disable the brake force meter"/>
       <DumpAndIsolateAllWheels Result="" Timeout="1000" Description="Dump brake pressure at all wheels"/>
       <RecoverAllWheels Result="" Timeout="1000" Description="Recover brake force at all wheels"/>
       <EnableElectricVacuumPump Result="" Timeout="1000" Description="Enable the Electric Vacuum Pump"/>
       <DisableElectricVacuumPump Result="" Timeout="1000" Description="Disable the Electric Vacuum Pump"/>
+      <CycleIgnition Result="" Timeout="30000" Description="Cycle ignition off and then on" ScanDelay="250"/>
    </TestSteps>
 </BoschAbs>

@@ -154,12 +154,17 @@ string PowerSteeringTC<ModuleInterface>::LockSteeringTune(void)
 	}
 	else
 	{
-
-
 		try
 		{	// Actually program the vin
 			status = m_vehicleModule.CommandModule("LockSteeringTune");
-			if(status == BEP_STATUS_SUCCESS) status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
+			do
+			{
+				status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
+				if(routineStatus.compare("TuneLearned")) BposSleep(GetParameterInt("VinRetryDelay"));
+
+			} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status) &&
+					 routineStatus.compare("TuneLearned"));
+
 			if((status == BEP_STATUS_SUCCESS) && (!routineStatus.compare("TuneLearned")))
 			{
 				testStatus = testPass;

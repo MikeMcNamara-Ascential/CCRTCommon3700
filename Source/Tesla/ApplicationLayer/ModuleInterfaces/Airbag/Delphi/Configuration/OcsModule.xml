@@ -1,4 +1,4 @@
-<EpasModule>
+<OcsModule>
    <Setup>
       <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
       <CheckSumLength>1</CheckSumLength>
@@ -11,19 +11,19 @@
          <BytesPerDTC>4</BytesPerDTC>
          <FirstDTCByteIndex>3</FirstDTCByteIndex>
          <NumberOfFaultRegisters>6</NumberOfFaultRegisters>
-         <NoFaultsPresentValue/>
+         <NoFaultsPresentValue></NoFaultsPresentValue>
       </DTCData>
       <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
       <KeepAlivePriority>10</KeepAlivePriority>
       <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
       <KeepAliveResponseTime>500</KeepAliveResponseTime>
-      <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
-      <ModuleRequestID>0x730</ModuleRequestID>
+      <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+      <ModuleRequestID>0x643</ModuleRequestID>
       <ModuleResponseDelay>500</ModuleResponseDelay>
       <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
       <NegativeResponseValue>0x7F</NegativeResponseValue>
       <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
-      <NumberOfRetries>50</NumberOfRetries>
+      <NumberOfRetries>3</NumberOfRetries>
       <ResponsePendingReads>3</ResponsePendingReads>
       <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
       <SwitchMonitorDelay>500</SwitchMonitorDelay>
@@ -44,13 +44,12 @@
          <Code_0x50>Upload Not Accepted</Code_0x50>
          <Code_0x71>Transfer Suspended</Code_0x71>
          <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
-         <Code_0x7F>Not in diagnostic mode</Code_0x7F>
          <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
          <Code_0x9A>Data Decompression Failed</Code_0x9A>
          <Code_0x9B>Dta Decryption Failed</Code_0x9B>
          <Code_0xA0>ECU Not Responding</Code_0xA0>
          <Code_0xA1>ECU Address Unknown</Code_0xA1>
-         <EnterDiagnosticMode>0x7F</EnterDiagnosticMode>
+         <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
          <ResponsePending>0x78</ResponsePending>
          <ModuleBusy>0x21</ModuleBusy>
       </NegativeResponseCodes>
@@ -64,8 +63,8 @@
       </Communication>
       <Logging>
          <Status>Enabled</Status>
-         <ProcessName>PowerSteeringModule</ProcessName>
-         <AdditionalLogFile>/Communication/PowerSteeringModule.log</AdditionalLogFile>
+         <ProcessName>OcsModule</ProcessName>
+         <AdditionalLogFile>/Communication/OcsModule.log</AdditionalLogFile>
          <Debug>Off</Debug>
          <LocalEcho>Disabled</LocalEcho>
          <Verbose>0x3F</Verbose>
@@ -79,6 +78,12 @@
             <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
             <ReplyInterpretation/>
          </EnterDiagnosticMode>
+         <CommandSecurityAccess>
+            <TransmitMessage>CommandSecurityAccess</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>CommandSecurityAccess</ReplyMessage>
+            <ReplyInterpretation>CommandSecurityAccess</ReplyInterpretation>
+         </CommandSecurityAccess>
          <ReadByID>
             <TransmitMessage>ReadByID</TransmitMessage>
             <TransmitInterpretation/>
@@ -103,6 +108,12 @@
             <ReplyMessage>ReadFaults</ReplyMessage>
             <ReplyInterpretation/>
          </ReadFaults>
+         <TransmitSecurityKey>
+           <TransmitMessage>TransmitSecurityKey</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>TransmitSecurityKey</ReplyMessage>
+            <ReplyInterpretation></ReplyInterpretation>
+         </TransmitSecurityKey>
          <ReadTraceData>
             <TransmitMessage>ReadTraceData</TransmitMessage>
             <TransmitInterpretation/>
@@ -115,57 +126,45 @@
             <ReplyMessage>ReadVIN</ReplyMessage>
             <ReplyInterpretation>ReadVIN</ReplyInterpretation>
          </ReadVIN>
-         <LearnVIN>
-            <TransmitMessage>LearnVIN</TransmitMessage>
+         <WriteVIN>
+            <TransmitMessage>WriteVIN</TransmitMessage>
             <TransmitInterpretation/>
-            <ReplyMessage>LearnVIN</ReplyMessage>
-            <ReplyInterpretation/>
-         </LearnVIN>
-         <LockSteeringTune>
-            <TransmitMessage>LockSteeringTune</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>LockSteeringTune</ReplyMessage>
-            <ReplyInterpretation/>
-         </LockSteeringTune>
-         <GetVinRoutineStatus>
-            <TransmitMessage>VINStatus</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>VINStatus</ReplyMessage>
-            <ReplyInterpretation>VINStatus</ReplyInterpretation>
-         </GetVinRoutineStatus>
-         <GetTuneRoutineStatus>
-            <TransmitMessage>TuneStatus</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>TuneStatus</ReplyMessage>
-            <ReplyInterpretation>TuneStatus</ReplyInterpretation>
-         </GetTuneRoutineStatus>
+            <ReplyMessage>WriteVIN</ReplyMessage>
+            <ReplyInterpretation></ReplyInterpretation>
+         </WriteVIN>
          <ReadPartNumber>
             <TransmitMessage>ReadPartNumber</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>ReadPartNumber</ReplyMessage>
             <ReplyInterpretation>ReadPartNumber</ReplyInterpretation>
          </ReadPartNumber>
-         <ModuleKeepAlive>
-            <TransmitMessage>TesterPresent</TransmitMessage>
+         <ReadOemPartNumber>
+            <TransmitMessage>ReadOemPartNumber</TransmitMessage>
             <TransmitInterpretation/>
-            <ReplyMessage>TesterPresent</ReplyMessage>
-            <ReplyInterpretation/>
-         </ModuleKeepAlive>
+            <ReplyMessage>ReadOemPartNumber</ReplyMessage>
+            <ReplyInterpretation>ReadOemPartNumber</ReplyInterpretation>
+         </ReadOemPartNumber>
+         <ReadFWChecksum>
+            <TransmitMessage>ReadFWChecksum</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadFWChecksum</ReplyMessage>
+            <ReplyInterpretation>ReadFWChecksum</ReplyInterpretation>
+         </ReadFWChecksum>
       </VehicleMessages>
       <TransmitMessages>
          <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
          <ReadFaults>0x19,0x02,0xFF</ReadFaults>
          <EnterDiagnosticMode>0x10,0x03</EnterDiagnosticMode>
+         <CommandSecurityAccess>0x27,0x01</CommandSecurityAccess>
          <ReadByID>0x22,0xFD,0x40</ReadByID>
          <WriteByID>0x2E,0xFD,0x40,0x00,0x00</WriteByID>
+         <TransmitSecurityKey>0x27,0x02,0x??,0x??</TransmitSecurityKey>
          <ReadTraceData>0x22,0xFD,0x02</ReadTraceData>
-         <LearnVIN>0x31,0x01,0x04,0x04</LearnVIN>
-         <LockSteeringTune>0x31,0x01,0x30,0x38</LockSteeringTune>
+         <WriteVIN>0x2E,0xF1,0x90,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</WriteVIN>
          <ReadVIN>0x22,0xF1,0x90</ReadVIN>
          <ReadPartNumber>0x22,0xF1,0x87</ReadPartNumber>
-         <VINStatus>0x31,0x03,0x04,0x04</VINStatus>
-         <TuneStatus>0x31,0x03,0x30,0x38</TuneStatus>
-         <TesterPresent>0x3E,0x00</TesterPresent>
+         <ReadOemPartNumber>0x22,0xFD,0x00</ReadOemPartNumber>
+         <ReadFWChecksum>0x22,0xFD,0x01</ReadFWChecksum>
       </TransmitMessages>
       <TransmitInterpretations/>
       <ReplyMessages>
@@ -174,71 +173,59 @@
             <Reply_02>0x7F,0x14,0x??</Reply_02>
          </ClearFaults>
          <EnterDiagnosticMode>
-            <Reply_01 lengthType="Variable">0x50,0x03,0x??</Reply_01>
-            <Reply_02>0x7F,0x10,0x??</Reply_02>
+           <Reply_01 lengthType="Variable">0x50,0x03,0x??</Reply_01>
+           <Reply_02>0x7F,0x10,0x??</Reply_02> 
          </EnterDiagnosticMode>
          <CommandSecurityAccess>
-            <Reply_01>0x67,0x01,0x??,0x??</Reply_01>
-            <Reply_02>0x7F,0x27,0x??</Reply_02>
+           <Reply_01>0x67,0x01,0x??,0x??</Reply_01>
+           <Reply_02>0x7F,0x27,0x??</Reply_02>
          </CommandSecurityAccess>
          <ReadByID>
-            <Reply_01 lengthType="Variable">0x62,0xFD,0x40,0x??</Reply_01>
-            <Reply_02>0x7F,0x22,0x??</Reply_02>
+           <Reply_01 lengthType="Variable">0x62,0xFD,0x40,0x??</Reply_01>
+           <Reply_02>0x7F,0x22,0x??</Reply_02>
          </ReadByID>
          <WriteByID>
-            <Reply_01>0x6E,0xFD,0x40</Reply_01>
-            <Reply_02>0x7F,0x2E,0x??</Reply_02>
+           <Reply_01>0x6E,0xFD,0x40</Reply_01>
+           <Reply_02>0x7F,0x2E,0x??</Reply_02>
          </WriteByID>
          <ReadFaults>
-            <Reply_01 lengthType="Variable">0x59,0x02,0x??</Reply_01>
-            <Reply_02>0x7F,0x19,0x??</Reply_02>
+           <Reply_01 lengthType="Variable">0x59,0x02,0x??</Reply_01>
+           <Reply_02>0x7F,0x19,0x??</Reply_02>
          </ReadFaults>
          <TransmitSecurityKey>
-            <Reply_01>0x67,0x02</Reply_01>
-            <Reply_02>0x7F,0x27,0x??</Reply_02>
+           <Reply_01>0x67,0x02</Reply_01>
+           <Reply_02>0x7F,0x27,0x??</Reply_02>
          </TransmitSecurityKey>
          <ReadTraceData>
             <Reply_01>0x62,0xFD,0x02,0x??,0x??,0x??,0x??</Reply_01>
             <Reply_02>0x7F,0x22,0x??</Reply_02>
          </ReadTraceData>
          <WriteVIN>
-            <Reply_01>0x6E,0xF1,0x90</Reply_01>
-            <Reply_02>0x7F,0x2E,0x??</Reply_02>
+             <Reply_01>0x6E,0xF1,0x90</Reply_01>
+             <Reply_02>0x7F,0x2E,0x??</Reply_02>
          </WriteVIN>
-         <LearnVIN>
-            <Reply_01 lengthType="Variable">0x71,0x01,0x04,0x04,0x??</Reply_01>
-            <Reply_02>0x7F,0x31,0x??</Reply_02>
-         </LearnVIN>
-         <LockSteeringTune>
-            <Reply_01 lengthType="Variable">0x71,0x01,0x30,0x38,0x??</Reply_01>
-            <Reply_02>0x7F,0x31,0x??</Reply_02>
-         </LockSteeringTune>
-         <VINStatus>
-            <Reply_01 lengthType="Variable">0x71,0x03,0x04,0x04,0x??</Reply_01>
-            <Reply_02>0x7F,0x31,0x??</Reply_02>
-         </VINStatus>
-         <TuneStatus>
-            <Reply_01 lengthType="Variable">0x71,0x03,0x30,0x38,0x??</Reply_01>
-            <Reply_02>0x7F,0x31,0x??</Reply_02>
-         </TuneStatus>
          <ReadVIN>
-            <Reply_01 lengthType="Variable">0x62,0xF1,0x90,0x??</Reply_01>
-            <Reply_02>0x7F,0x22,0x??</Reply_02>
+             <Reply_01 lengthType="Variable">0x62,0xF1,0x90,0x??</Reply_01>
+             <Reply_02>0x7F,0x22,0x??</Reply_02>
          </ReadVIN>
          <ReadPartNumber>
-            <Reply_01 lengthType="Variable">0x62,0xF1,0x87,0x??</Reply_01>
-            <Reply_02>0x7F,0x22,0x??</Reply_02>
+             <Reply_01 lengthType="Variable">0x62,0xF1,0x87,0x??</Reply_01>
+             <Reply_02>0x7F,0x22,0x??</Reply_02>
          </ReadPartNumber>
-         <TesterPresent>
-            <Reply_01 lengthType="Variable">0x7E,0x00</Reply_01>
-            <Reply_02>0x7F,0x3E,0x??</Reply_02>
-         </TesterPresent>
+         <ReadOemPartNumber>
+             <Reply_01 lengthType="Variable">0x62,0xFD,0x00,0x??</Reply_01>
+             <Reply_02>0x7F,0x22,0x??</Reply_02>
+         </ReadOemPartNumber>
+         <ReadFWChecksum>
+             <Reply_01 lengthType="Variable">0x62,0xFD,0x01,0x??</Reply_01>
+             <Reply_02>0x7F,0x22,0x??</Reply_02>
+         </ReadFWChecksum>
       </ReplyMessages>
       <ReplyInterpretations>
          <ReadByID>
-            <Boolean>
-               <Byte1 input_index="3" mask="0xFF" compare="0x00"/>
-            </Boolean>
+           <Boolean>
+                    <Byte1 input_index="3" mask="0xFF" compare="0x00"/>
+           </Boolean>
          </ReadByID>
          <ReadTraceData>
             <String>
@@ -254,6 +241,20 @@
                </Substring>
             </String>
          </ReadVIN>
+         <CommandSecurityAccess>
+                <Vector type="fixed">
+                    <Subvector00>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="2" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector00>
+                    <Subvector01>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector01>
+                </Vector>
+         </CommandSecurityAccess>
          <ReadPartNumber>
             <String>
                <Substring format="%12s">
@@ -261,31 +262,48 @@
                </Substring>
             </String>
          </ReadPartNumber>
-         <VINStatus>
+         <ReadOemPartNumber>
             <String>
-               <Substring>
-                  <Chars input_index="5" mask="0xFF" length="1">
-                     <StringSubstitute00 condition="equals" compare="0x00" replace="VINLearned"/>
-                     <StringSubstitute01 condition="equals" compare="0x01" replace="VINAlreadyLearned"/>
-                     <StringSubstitute02 condition="equals" compare="0x02" replace="VINMismatch"/>
-                     <StringSubstitute03 condition="equals" compare="0x03" replace="BadVINReceived"/>
-                     <StringSubstitute04 condition="equals" compare="0x04" replace="Timeout"/>
-                     <StringSubstitute05 condition="equals" compare="0x05" replace="WriteError"/>
-                     <StringSubstitute06 condition="equals" compare="0xFE" replace="UnknownError"/>
-                  </Chars>
-               </Substring>
+               <Substring01 format="%08X">
+                  <Integer type="unsigned" bits="32" scale="1" offset="0">
+                      <Byte1 input_index="3" mask="0xFF" output_index="3"/>
+                      <Byte2 input_index="4" mask="0xFF" output_index="2"/>
+                      <Byte3 input_index="5" mask="0xFF" output_index="1"/>
+                      <Byte4 input_index="6" mask="0xFF" output_index="0"/>
+                  </Integer>
+               </Substring01>
+               <!--
+               <Substring02 format="%1s">
+                  <Chars input_index="7" mask="0xFF" length="1"/>
+               </Substring02>
+               -->
             </String>
-         </VINStatus>
-         <TuneStatus>
+         </ReadOemPartNumber>
+         <ReadFWChecksum>
             <String>
-               <Substring>
-                  <Chars input_index="5" mask="0xFF" length="1">
-                     <StringSubstitute00 condition="equals" compare="0x00" replace="TuneLearned"/>
-                     <StringSubstitute01 condition="not equal" compare="0x00" replace="TuneNotLearned"/>
-                  </Chars>
-               </Substring>
+               <Substring01 format="%06X">
+                  <Integer type="unsigned" bits="24" scale="1" offset="0">
+                      <Byte1 input_index="3" mask="0xFF" output_index="2"/>
+                      <Byte2 input_index="4" mask="0xFF" output_index="1"/>
+                      <Byte3 input_index="5" mask="0xFF" output_index="0"/>
+                  </Integer>
+               </Substring01>
+               <Substring02 format="%06X">
+                  <Integer type="unsigned" bits="24" scale="1" offset="0">
+                      <Byte1 input_index="6" mask="0xFF" output_index="2"/>
+                      <Byte2 input_index="7" mask="0xFF" output_index="1"/>
+                      <Byte3 input_index="8" mask="0xFF" output_index="0"/>
+                  </Integer>
+               </Substring02>
+               <Substring03 format="%06X">
+                  <Integer type="unsigned" bits="24" scale="1" offset="0">
+                      <Byte1 input_index="9" mask="0xFF" output_index="2"/>
+                      <Byte2 input_index="10" mask="0xFF" output_index="1"/>
+                      <Byte3 input_index="11" mask="0xFF" output_index="0"/>
+                  </Integer>
+               </Substring03>
             </String>
-         </TuneStatus>
+         </ReadFWChecksum>
       </ReplyInterpretations>
    </SerialMessages>
-</EpasModule>
+</OcsModule>

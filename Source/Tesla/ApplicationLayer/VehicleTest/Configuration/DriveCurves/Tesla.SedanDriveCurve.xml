@@ -72,6 +72,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase100>
+
       <!-- ABS Static Testing -->
       <TestPhase110 Description="Initialize the test components" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -259,6 +260,14 @@
          </ForegroundObjectives>
       </TestPhase840>
       <!--Brake Finishup-->
+      <!-- ABS Clear Faults -->
+      <TestPhase849 Description="Clear ABS Faults" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+             <Objective0 Description="Clear ABS Faults" Result="" Timeout="" Component="Brake">
+                <ClearFaults/>
+             </Objective0>
+         </ForegroundObjectives>
+      </TestPhase849>
       <TestPhase850 Description="Finishup Brake Component" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Result="" Description="Perform Brake finish-up" Timeout="" Component="Brake">

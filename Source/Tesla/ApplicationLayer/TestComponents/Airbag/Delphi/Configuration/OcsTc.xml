@@ -1,0 +1,118 @@
+<OcsTC>
+    <Setup>
+        <Name>Ocs</Name>
+        <Debug>Off</Debug>
+        <TestDomain>Foreground</TestDomain>
+        <FaultList>/Configuration/Components/Airbag/AirbagFaultList.xml</FaultList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/OcsTc</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>OcsTc</ProcessName>
+            <AdditionalLogFile>/Components/OcsTc.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+        </Logging>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <VehiclePresent/>
+                <VIN/>
+            </SubscribeTags>
+        </TagList>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <FailButton>DriverPass</FailButton>
+            <PassButton>DriverFail</PassButton>
+            <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+            <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+            <ResistanceValuesMessage>ResistanceValues</ResistanceValuesMessage>
+            <VIN>VIN</VIN>
+            <VehicleVIN>VIN</VehicleVIN>
+            <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+        </DataTags>
+        <Parameters>
+            <ConfigFile>/Configuration/Components/Airbag/OcsModule.xml</ConfigFile>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>No</DeveloperTest>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+            <UsePlcResultButtons>True</UsePlcResultButtons>
+            <!-- Part Number Parameters -->
+            <AbortOnPartMismatch>Yes</AbortOnPartMismatch>
+            <BypassPartNumberValidation>False</BypassPartNumberValidation>
+            <ValidatePartNumberList>Yes</ValidatePartNumberList>
+            <ValidPartNumbers>
+                <PN28322746C>28322746C</PN28322746C>
+                <PN1005273-00-C>1005273-00-C</PN1005273-00-C>
+                <PN1005273-00-D>1005273-00-D</PN1005273-00-D>
+                <PN04E9D12D10D107E1D0>04E9D12D10D107E1D0</PN04E9D12D10D107E1D0>
+                <PN04E9D12D10D15AC3D0>04E9D12D10D15AC3D0</PN04E9D12D10D15AC3D0>
+                <PN28322746>28322746</PN28322746>
+            </ValidPartNumbers>
+            <PartNumbersToCheck>
+                <P3_ModulePartNumber>ReadPartNumber</P3_ModulePartNumber>
+                <P1_OEMPartNumber>ReadOemPartNumber</P1_OEMPartNumber>
+                <P2_FWChecksum>ReadFWChecksum</P2_FWChecksum>
+            </PartNumbersToCheck>
+            <!-- Fault Read Parameters -->
+            <AbortIfDTCPresent>No</AbortIfDTCPresent>
+            <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
+            <VINLength>17</VINLength>
+        </Parameters>
+        <Prompts>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+        </Prompts>
+    </Setup>
+    <Objectives>
+        <OcsSetup>
+            <TestStep00>Setup</TestStep00>
+            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep20>ClearFaults</TestStep20>
+        </OcsSetup>
+        <FinishUp>
+            <TestStep00>EnterDiagnosticMode</TestStep00>
+            <TestStep05>ReadFaults</TestStep05>
+            <TestStep99>FinishUp</TestStep99>
+        </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <Setup Result="Not Tested" Timeout="1000" Description="Setup component for testing"/>
+        <EnterDiagnosticMode Result="Not Tested" Timeout="5000" Description="Enter diag mode"/>
+        <CommandSecurityAccess Result="Not Tested" Timeout="500" Description="Verify the module part number"/>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
+        <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
+        <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
+        <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Read and Clear Faults and Enable the airbag module"/>
+        <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read Traceablilty number from the module"/>
+        <ProgramVIN Result="Not Tested" Timeout="5000" Description="Write VIN to the Module"/>
+        <CheckVIN Result="Not Tested" Timeout="5000" Description="Validate module VIN"/>
+        <CheckPartNumbers Result="Not Tested" Timeout="5000" Description="Check list of part numbers from the module"/>
+    </TestSteps>
+</OcsTC>

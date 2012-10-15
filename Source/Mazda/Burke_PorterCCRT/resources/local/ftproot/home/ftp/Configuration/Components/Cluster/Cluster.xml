@@ -1,0 +1,332 @@
+<ClusterComponent>
+   <Setup>
+      <Name>Cluster</Name>
+      <Debug>Off</Debug>
+      <ProcessPriority>11</ProcessPriority>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+         </Setup>
+      </NotificationList>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/Cluster</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <TagList>
+         <SubscribeTags>
+            <VIN>0</VIN>
+            <BodyStyle>0</BodyStyle>
+            <BrakeType>0</BrakeType>
+            <DaytimeRunningLamps>0</DaytimeRunningLamps>
+            <HighSpeedChime>0</HighSpeedChime>
+            <Airbag>0</Airbag>
+            <SpeedControl>0</SpeedControl>
+            <ZerospeedToPLC/>
+            <SentryKeyImmobilizer>0</SentryKeyImmobilizer>
+            <Abort/>
+            <ForegroundTestInProgress/>
+            <TestInProgress/>
+         </SubscribeTags>
+      </TagList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>Cluster</ProcessName>
+         <AdditionalLogFile Types="/Component/ClusterTestComponent or Disabled">/Component/Cluster</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <NamedDataBrokerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/NamedDataBroker</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </NamedDataBrokerComm>
+      <DataTags>
+         <OverallTest>ClusterOverallTest</OverallTest>
+         <VIN>VIN</VIN>
+         <Zerospeed>ZerospeedToPLC</Zerospeed>
+         <BodyStyle>BodyStyle</BodyStyle>
+         <LFSpeed>LFSpeed</LFSpeed>
+         <RFSpeed>RFSpeed</RFSpeed>
+         <LRSpeed>LRSpeed</LRSpeed>
+         <RRSpeed>RRSpeed</RRSpeed>
+         <BrakeType>BrakeType</BrakeType>
+         <TevesBrakeType>BrakeType</TevesBrakeType>
+         <DaytimeRunningLamps>DaytimeRunningLamps</DaytimeRunningLamps>
+         <HighSpeedChime>HighSpeedChime</HighSpeedChime>
+         <Airbag>Airbag</Airbag>
+         <SpeedControl>SpeedControl</SpeedControl>
+         <SentryKeyImmobilizer>SentryKeyImmobilizer</SentryKeyImmobilizer>
+         <SecuredAccessRequest>SecuredAccessRequest</SecuredAccessRequest>
+         <CommandModuleRest>ResetModule</CommandModuleRest>
+         <OdometerMessage>OdometerMessage</OdometerMessage>
+         <ClearFaults>ClearFaults</ClearFaults>
+         <IODFuseMessage>IODFuseMessage</IODFuseMessage>
+         <Abort>Abort</Abort>
+         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+         <TestInProgress>TestInProgress</TestInProgress>
+      </DataTags>
+      <Parameters>
+         <ForceEngineOn>1</ForceEngineOn>
+         <ForceZeroSpeed>1</ForceZeroSpeed>
+         <StopPromptBox>2</StopPromptBox>
+         <StopPrompt>BrakeToStop</StopPrompt>
+         <J2190ConfigFile>/Configuration/Components/Cluster/ClusterProtocol.xml</J2190ConfigFile>
+         <J2190EngineInfoConfigFile>/Configuration/Components/Utility/EngineInformationProtocol.xml</J2190EngineInfoConfigFile>
+         <J2190Port>AvtJ2190</J2190Port>
+      </Parameters>
+      <Faults>
+         <IODFuse Code="2602" Description="Cluster module fault. IOD fuse is in">Cluster module fault. IOD fuse is in</IODFuse>
+         <BitSet Code="2603" Description="Cluster bit set validation failed">Cluster bit set validation failed</BitSet>
+         <WriteBitSet Code="2604" Description="Unable to write bit set to module">Unable to write bit set to module</WriteBitSet>
+         <CommandModuleRest Code="2605" Description="Module reset error">Module reset error</CommandModuleRest>
+         <OdometerRead Code="2607" Description="Failure monitoring odometer message">Failure monitoring odometer message</OdometerRead>
+         <OdometerIncrement Code="2608" Description="Odometer failed to increment">Odometer failed to increment</OdometerIncrement>
+         <OdometerRange Code="2609" Description="Odometer reading is over range">Odometer reading is over range</OdometerRange>
+         <ClearModuleFaults Code="260A" Description="Failed to erase fault codes from Module">Could not erase faults</ClearModuleFaults>
+         <UnlockModule Code="260B" Description="Failed to unlock Module">Failed to unlock Module</UnlockModule>
+         <RecordTraceability Code="260C" Description="Error reading traceability code">Error reading traceability code</RecordTraceability>
+         <ReadFaults Code="8003" Description="Error reading faults">Error reading faults</ReadFaults>
+         <NoPCMMessage Code="26D0" Description="PID 2E03 bit 1, no SBEC messages">2E03 bit 1, no sbec messages</NoPCMMessage>
+         <NoABSMessage Code="26D1" Description="PID 2E03 bit 3, no ABS messages">PID 2E03 bit 3, no ABS messages</NoABSMessage>
+         <NoAECMMessage Code="26D2" Description="PID 2E03 bit 4, no AECM messages">PID 2E03 bit 4, no AECM messages</NoAECMMessage>
+         <AirbagOpenCircuit Code="26D3" Description="PID 2E04 bit 0, Airbag Open Circuit">PID 2E04 bit 0, Airbag Open Circuit</AirbagOpenCircuit>
+         <ABSOpenCircuit Code="26D4" Description="PID 2E04 bit 2, Airbag Short Circuit">PID 2E04 bit 2, Airbag Short Circuit</ABSOpenCircuit>
+         <FuelLevelSensorShort Code="26D5" Description="PID 2E05 bit 0, Fuel Level Sensor Short">Fuel Level Sensor Short</FuelLevelSensorShort>
+         <FuelLevelSensorOpen Code="26D6" Description="PID 2E05 bit 1, Fuel Level Sensor Open">Fuel Level Sensor Open</FuelLevelSensorOpen>
+         <PanelDimmerOpen Code="26D7" Description="PID 2E05 bit 2, Panel Dimmer Open">PID 2E05 bit 2, Panel Dimmer Open</PanelDimmerOpen>
+         <PanelDimmerShort Code="26D8" Description="PID 2E12 bit 2, Panel Dimmer Short">PID 2E12 bit 2, Panel Dimmer Short</PanelDimmerShort>
+         <EEPROMReadWriteFailed Code="26DF" Description="EEPROM read/write failure">EEPROM read/write failure</EEPROMReadWriteFailed>
+         <NotSupported Code="26F4" Description="Module does not support message">Module does not support message</NotSupported>
+         <ModuleBusy Code="26F3" Description="Module is busy">Module is busy</ModuleBusy>
+         <ConditionsNotCorrect Code="26F5" Description="Module conditions are not correct">Module conditions are not correct</ConditionsNotCorrect>
+         <ModuleNoResponse Code="26F6" Description="Module does not respond on retry">Module does not respond</ModuleNoResponse>
+         <J1850NoResponse Code="26F7" Description="J1850 bus does not respond">J1850 bus does not respond</J1850NoResponse>
+         <J1850NoInitialize Code="26F8" Description="J1850 bus or filters do not initialize">J1850 bus or filters do not initialize</J1850NoInitialize>
+      </Faults>
+      <FaultPIDInformation Note="Type in Bit definitions are: Reserved=Reserved for future use, Unused=Not reserved but currently not defined, NotUsed=Not used on current car line, Internal=Internal fult code, External=Not an internal fault code">
+         <ModuleTypes Description="This is the node whose children is saved in initialization">
+            <Type0 Description="Cluster module" Protocol="J2190 Version X.XX" Manufacturer="0x60" Type="0xFF">
+               <SummaryFaultLocations>
+                  <Location00 PID="0x2E02">
+                     <Responses>
+                        <Byte00>
+                           <Bit00 Mask="0x01" Fault="EEPROMReadWriteFailed" Type="Internal"/>
+                           <Bit01 Mask="0x02" Fault="" Type="NotUsed"/>
+                           <Bit02 Mask="0x04" Fault="" Type="NotUsed"/>
+                           <Bit03 Mask="0x08" Fault="" Type="NotUsed"/>
+                           <Bit04 Mask="0x10" Fault="" Type="NotUsed"/>
+                           <Bit05 Mask="0x20" Fault="" Type="NotUsed"/>
+                           <Bit06 Mask="0x40" Fault="" Type="NotUsed"/>
+                           <Bit07 Mask="0x80" Fault="" Type="NotUsed"/>
+                        </Byte00>
+                     </Responses>
+                  </Location00>
+                  <Location01 PID="0x2E03">
+                     <Responses>
+                        <Byte00>
+                           <Bit00 Mask="0x01" Fault="" Type="NotUsed"/>
+                           <Bit01 Mask="0x02" Fault="NoPCMMessage" Type="External"/>
+                           <Bit02 Mask="0x04" Fault="" Type="NotUsed"/>
+                           <Bit03 Mask="0x08" Fault="NoABSMessage" Type="External"/>
+                           <Bit04 Mask="0x10" Fault="NoAECMMessage" Type="External"/>
+                           <Bit05 Mask="0x20" Fault="" Type="Unused"/>
+                           <Bit06 Mask="0x40" Fault="" Type="NotUsed"/>
+                           <Bit07 Mask="0x80" Fault="" Type="NotUsed"/>
+                        </Byte00>
+                     </Responses>
+                  </Location01>
+                  <Location02 PID="0x2E04">
+                     <Responses>
+                        <Byte00>
+                           <Bit00 Mask="0x01" Fault="AirbagOpenCircuit" Type="External"/>
+                           <Bit01 Mask="0x02" Fault="" Type="NotUsed"/>
+                           <Bit02 Mask="0x04" Fault="ABSOpnCircuit" Type="External"/>
+                           <Bit03 Mask="0x08" Fault="" Type="Unused"/>
+                           <Bit04 Mask="0x10" Fault="" Type="NotUsed"/>
+                           <Bit05 Mask="0x20" Fault="" Type="NotUsed"/>
+                           <Bit06 Mask="0x40" Fault="" Type="NotUsed"/>
+                           <Bit07 Mask="0x80" Fault="" Type="NotUsed"/>
+                        </Byte00>
+                     </Responses>
+                  </Location02>
+                  <Location03 PID="0x2E05">
+                     <Responses>
+                        <Byte00>
+                           <Bit00 Mask="0x01" Fault="FuelLevelSensorShort" Type="External"/>
+                           <Bit01 Mask="0x02" Fault="FuelLevelSensorOpen" Type="External"/>
+                           <Bit02 Mask="0x04" Fault="PanelDimmerOpen" Type="External"/>
+                           <Bit03 Mask="0x08" Fault="" Type="Reserved"/>
+                           <Bit04 Mask="0x10" Fault="" Type="NotUsed"/>
+                           <Bit05 Mask="0x20" Fault="" Type="NotUsed"/>
+                           <Bit06 Mask="0x40" Fault="" Type="NotUsed"/>
+                           <Bit07 Mask="0x80" Fault="" Type="NotUsed"/>
+                        </Byte00>
+                     </Responses>
+                  </Location03>
+                  <Location04 PID="0x2E12">
+                     <Responses>
+                        <Byte00>
+                           <Bit00 Mask="0x01" Fault="FAIL: PID 2E12 Bit 0 Set" Type="External"/>
+                           <Bit01 Mask="0x02" Fault="FAIL: PID 2E12 Bit 1 Set" Type="External"/>
+                           <Bit02 Mask="0x04" Fault="FAIL: PID 2E12 Bit 2 Set" Type="External"/>
+                           <Bit03 Mask="0x08" Fault="FAIL: PID 2E12 Bit 3 Set" Type="External"/>
+                           <Bit04 Mask="0x10" Fault="FAIL: PID 2E12 Bit 4 Set" Type="External"/>
+                           <Bit05 Mask="0x20" Fault="FAIL: PID 2E12 Bit 5 Set" Type="External"/>
+                           <Bit06 Mask="0x40" Fault="FAIL: PID 2E12 Bit 6 Set" Type="External"/>
+                           <Bit07 Mask="0x80" Fault="FAIL: PID 2E12 Bit 7 Set" Type="External"/>
+                        </Byte00>
+                     </Responses>
+                  </Location04>
+               </SummaryFaultLocations>
+            </Type0>
+         </ModuleTypes>
+      </FaultPIDInformation>
+      <BitSetConfig>
+         <BrakeType Mask="0x0001" Description="Anti-lock brakes">
+            <NotEqual>
+               <Value0>Undefined</Value0>
+               <Value1>Base Brakes</Value1>
+            </NotEqual>
+         </BrakeType>
+         <DaytimeRunningLamps Mask="0x0002" Description="Daytime running lamps">
+            <Equal>
+               <Value0>Canadian</Value0>
+            </Equal>
+         </DaytimeRunningLamps>
+         <HighSpeedChime Mask="0x0004" Description="High speed chime">
+            <Equal>
+               <Value0>Equipped</Value0>
+            </Equal>
+         </HighSpeedChime>
+         <Airbag Mask="0x0008" Description="Airbag(s)">
+            <NotEqual>
+               <Value0>Undefined</Value0>
+               <Value1>NotEquipped</Value1>
+            </NotEqual>
+         </Airbag>
+         <SpeedControl Mask="0x0010" Description="Speed control">
+            <NotEqual>
+               <Value0>Undefined</Value0>
+               <Value1>NotEquipped</Value1>
+            </NotEqual>
+         </SpeedControl>
+         <SentryKeyImmobilizer Mask="0x0020" Description="SKIM">
+            <NotEqual>
+               <Value0>Undefined</Value0>
+               <Value1>NotEquipped</Value1>
+            </NotEqual>
+         </SentryKeyImmobilizer>
+         <TevesBrakeType Mask="0x010000" Description="Vehicle equipped with Tevis Mk 20 TC anti-lock brakes">
+            <Equal>
+               <Value0>Teves Mk20 TC J1850</Value0>
+            </Equal>
+         </TevesBrakeType>
+      </BitSetConfig>
+   </Setup>
+   <Objectives>
+      <TestMode>
+         <TestStep10>ReadInitialOdometer</TestStep10>
+      </TestMode>
+      <Cluster>
+         <TestStep01>EngineOn</TestStep01>
+         <TestStep10>ReadInitialOdometer</TestStep10>
+         <TestStep20>CheckIODFuse</TestStep20>
+         <TestStep30>ProgramVehicleConfiguration</TestStep30>
+         <TestStep40>RecordModuleFaultsWithClear</TestStep40>
+         <TestStep50>RecordTraceabilityCode</TestStep50>
+         <TestStep60>RecordModuleFaultsWithReport</TestStep60>
+         <TestStep80>ReadFinalOdometer</TestStep80>
+         <TestStep999>FinishUp</TestStep999>
+      </Cluster>
+      <ClusterNoEngineOn>
+         <TestStep01>ReadInitialOdometer</TestStep01>
+         <TestStep10>CheckIODFuse</TestStep10>
+         <TestStep20>ProgramVehicleConfiguration</TestStep20>
+         <TestStep30>RecordModuleFaultsWithClear</TestStep30>
+         <TestStep40>RecordTraceabilityCode</TestStep40>
+         <TestStep50>RecordModuleFaultsWithReport</TestStep50>
+         <TestStep60>ReadFinalOdometer</TestStep60>
+         <TestStep70>FinishUp</TestStep70>
+      </ClusterNoEngineOn>
+      <Initialize>
+         <TestStep10>ReadInitialOdometer</TestStep10>
+         <TestStep20>CheckIODFuse</TestStep20>
+         <TestStep30>ProgramVehicleConfiguration</TestStep30>
+         <TestStep40>RecordModuleFaultsWithClear</TestStep40>
+         <TestStep50>RecordTraceabilityCode</TestStep50>
+         <TestStep60>RecordModuleFaultsWithReport</TestStep60>
+      </Initialize>
+      <FinishUp>
+         <TestStep10>ReadFinalOdometer</TestStep10>
+         <TestStep20>FinishUp</TestStep20>
+      </FinishUp>
+      <ClusterNoEngineOn>
+         <TestStep10>ReadInitialOdometer</TestStep10>
+         <TestStep20>CheckIODFuse</TestStep20>
+         <TestStep30>ProgramVehicleConfiguration</TestStep30>
+         <TestStep40>RecordModuleFaultsWithClear</TestStep40>
+         <TestStep50>RecordTraceabilityCode</TestStep50>
+         <TestStep60>RecordModuleFaultsWithReport</TestStep60>
+         <TestStep80>ReadFinalOdometer</TestStep80>
+         <TestStep999>FinishUp</TestStep999>
+      </ClusterNoEngineOn>
+      <TestStepFinishUp>
+         <TestStep1>FinishUp</TestStep1>
+      </TestStepFinishUp>
+      <TestStepCheckIODFuse>
+         <TestStep1>CheckIODFuse</TestStep1>
+      </TestStepCheckIODFuse>
+      <TestStepRecordModuleFaultsWithClear>
+         <TestStep1>RecordModuleFaultsWithClear</TestStep1>
+      </TestStepRecordModuleFaultsWithClear>
+      <TestStepRecordModuleFaultsWithReport>
+         <TestStep1>RecordModuleFaultsWithReport</TestStep1>
+      </TestStepRecordModuleFaultsWithReport>
+      <TestStepRecordTraceabilityCode>
+         <TestStep1>RecordTraceabilityCode</TestStep1>
+      </TestStepRecordTraceabilityCode>
+      <TestStepProgramVehicleConfiguration>
+         <TestStep1>ProgramVehicleConfiguration</TestStep1>
+      </TestStepProgramVehicleConfiguration>
+      <TestStepReadInitialOdometer>
+         <TestStep1>ReadInitialOdometer</TestStep1>
+      </TestStepReadInitialOdometer>
+      <TestStepReadFinalOdometer>
+         <TestStep1>ReadFinalOdometer</TestStep1>
+      </TestStepReadFinalOdometer>
+      <TestStepEngineOn>
+         <TestStep1>EngineOn</TestStep1>
+      </TestStepEngineOn>
+   </Objectives>
+   <TestSteps>
+      <FinishUp Result="Not Tested" Timeout="40000" Description="Clean up and set status."/>
+      <CheckIODFuse Result="Not Tested" Timeout="40000" Description="Verify IOD Fuse in Place" Mask="0x40"/>
+      <RecordModuleFaultsWithClear Result="Not Tested" Timeout="40000" Description="Check and Clear Module Faults (if needed)" Manufacturer="0x60" ClearModuleFaults="1" CommandModuleRest="1" ReportFaults="0" ResetReplyDelay="2000" ResetResponseDelay="2000" DelayAfterReset="10000.0"/>
+      <RecordModuleFaultsWithReport Result="Not Tested" Timeout="40000" Description="Check and Report Module Faults (if any)" Manufacturer="0x60" ClearModuleFaults="0" CommandModuleRest="0" ReportFaults="1" ResetReplyDelay="2000" DelayAfterReset="10000.0"/>
+      <RecordTraceabilityCode Result="Not Tested" Timeout="40000" Description="Record Traceability Code" SerialNumberSize="20" TracePid0="0x2003" TracePid1="0x2004" TracePid2="0x2005" PIDCount="3"/>
+      <ProgramVehicleConfiguration Result="Not Tested" Timeout="40000" Description="Ensure Cluster Bit Set is the Same as Broadcast" ResetOnWrite="0" ResetResponseDelay="2000" Pid="0x2836" ResetDelay="500" DelayAfterReset="10000.0"/>
+      <ReadInitialOdometer Result="Not Tested" Timeout="40000" Description="Record Initial Odometer Reading" ScaleMiles="8000.0" ScaleKilometers="4972.0"/>
+      <ReadFinalOdometer Result="Not Tested" Timeout="40000" Description="Ensure Odometer Has Advanced, but Not Too Far" ScaleMiles="8000.0" ScaleKilometers="4972.0" MaxMiles="5000"/>
+      <EngineOn Result="Not Tested" Timeout="60000" Description="Ensure Engine is ON" Prompt2="StartVehicle" EngineONDelay="1" EngineMinRPM="250"/>
+   </TestSteps>
+</ClusterComponent>

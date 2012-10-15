@@ -1,0 +1,11 @@
+<SelectionTable Description="Mazda drive curve selection table">
+
+    <Camry DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
+        <BodyStyle>Camry</BodyStyle>
+    </Camry>
+
+    <Venza DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
+        <BodyStyle>Venza</BodyStyle>
+    </Venza>
+
+</SelectionTable>

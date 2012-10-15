@@ -1,0 +1,110 @@
+<BaseEmissionsComponent>
+   <Setup>
+      <Debug>Off</Debug>
+      <Name>BaseEmissions</Name>
+      <ProcessPriority>11</ProcessPriority>
+      <Communication>
+         <Debug>Off</Debug>
+         <Type>Server</Type>
+         <Comm>IPC</Comm>
+         <Name>component/BaseEmissions</Name>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <TagList>
+         <SubscribeTags>
+            <MarketType/>
+            <VIN/>
+            <PCMPartNo/>
+            <ZeroSpeedToPLC/>
+            <Abort/>
+         </SubscribeTags>
+      </TagList>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+         </Setup>
+      </NotificationList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>BaseEmissions</ProcessName>
+         <AdditionalLogFile Types="/Component/BaseEmissions or Disable">/Component/BaseEmissions</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <DataTags>
+         <ZeroSpeed>ZeroSpeedToPLC</ZeroSpeed>
+      </DataTags>
+      <Parameters>
+         <IdleRPMStatusByte>9E01</IdleRPMStatusByte>
+         <BrakeSwitchStatusByte>9E01</BrakeSwitchStatusByte>
+         <ParkNeutralStatusByte>9E01</ParkNeutralStatusByte>
+         <ClutchSwitchStatusByte>9E01</ClutchSwitchStatusByte>
+         <DeltaTPSStatusByte>9E01</DeltaTPSStatusByte>
+         <BoostPressureStatusByte>10</BoostPressureStatusByte>
+         <IP_EE_BRAKE_SW>2</IP_EE_BRAKE_SW>
+         <IP_EE_PRK_NTRL_SW>3</IP_EE_PRK_NTRL_SW>
+         <IP_EE_THR_POS_SENSR>6</IP_EE_THR_POS_SENSR>
+         <IP_EE_CLUTCH_SW>7</IP_EE_CLUTCH_SW>
+         <IP_EE_IDLE_RPM>8</IP_EE_IDLE_RPM>
+         <IP_EE_BOOST_SENSR>10</IP_EE_BOOST_SENSR>
+         <MinimumIdleRPM>600</MinimumIdleRPM>
+         <MaximumIdleRPM>1100</MaximumIdleRPM>
+         <MinimumBoostPressure>740</MinimumBoostPressure>
+         <MaximumBoostPressure>940</MaximumBoostPressure>
+         <ClosedThrottle>0.06</ClosedThrottle>
+         <DeltaTPSRequired>0.4</DeltaTPSRequired>
+         <ThrottleClosedPercent>10.0</ThrottleClosedPercent>
+         <IgnitionOffReadDelay>100</IgnitionOffReadDelay>
+         <IgnitionOffReadAttempts>3</IgnitionOffReadAttempts>
+         <IdleConditionWaitDelay>500</IdleConditionWaitDelay>
+         <IdleConditionAttempts>3</IdleConditionAttempts>
+      </Parameters>
+      <Faults>
+         <CommFailure Code="7020" Description="PCM Communication Failure"/>
+         <TestAborted Code="0111" Description="Testing aborted, conditions not correct"/>
+         <VINMismatch Code="700A" Description="VIN programmed in PCM does not match Broadcast"/>
+         <PartNumberMismatch Code="700B" Description="Part Number programmed in PCM does not match Broadcast"/>
+         <IdleRPMOutOfRange Code="704C" Description="Idle RPM is out of parameter range"/>
+         <IdleRPMConditionsNotCorrect Code="704D" Description="Conditions not correct to test Idle RPM"/>
+         <BoostPressureOutOfRange Code="8815" Description="Boost Pressure out of range at Idle"/>
+         <BoostPressureConditionsNotCorrect Code="8814" Description="Conditions not correct to test Boost Pressure"/>
+         <BrakeSwitchOnOffNotSeen Code="701C" Description="Failed to see Brake switch On and Off"/>
+         <BrakeSwitchOnNotSeen Code="7018" Description="Failed to see Brake switch On"/>
+         <BrakeSwitchOffNotSeen Code="7019" Description="Failed to see Brake switch Off"/>
+         <ParkNeutralSwitchOnOffNotSeen Code="7034" Description="Failed to see Park/Neutral switch On and Off"/>
+         <ParkNeutralSwitchOnNotSeen Code="7046" Description="Failed to see Park/Neutral switch On"/>
+         <ParkNeutralSwitchOffNotSeen Code="7047" Description="Failed to see Park/Neutral switch Off"/>
+         <ClutchSwitchOnOffNotSeen Code="7026" Description="Failed to see Clutch switch On and Off"/>
+         <ClutchSwitchOnNotSeen Code="7024" Description="Failed to see Clutch switch On"/>
+         <ClutchSwitchOffNotSeen Code="7025" Description="Failed to see Clutch switch Off"/>
+         <IdleTPSConditionsNotCorrect Code="7026" Description="Idle TPS conditions not correct"/>
+         <DeltaTPSNotAchieved Code="701D" Description="TPS failed to give required voltage change"/>
+      </Faults>
+   </Setup>
+   <Objectives/>
+   <TestSteps>
+      <ValidateVIN Result="Not Tested" Timeout="10000" Description="Verify Module VIN matches Broadcast"/>
+      <ValidatePartNumber Result="Not Tested" Timeout="10000" Description="Verify module part number matches Broadcast"/>
+      <RetrieveSerialNumber Result="Not Tested" Timeout="10000" Description="Retrieve Serial Number stored in PCM"/>
+      <RetrieveModuleConfiguration Result="Not Tested" Timeout="10000" Description="Retrieve vehicle configuration from the PCM"/>
+      <ValidateIdleRPM Result="Not Tested" Timeout="20000" Description="Verify Idle RPM falls within parameter range"/>
+      <ValidateBrakeSwitch TestResult="Not Tested" Timeout="30000" Description="Verify Brake Switch On and Off functionality"/>
+      <ValidateParkNeutralSwitch Result="Not Tested" Timeout="30000" Description="Verify Park/Neutral switch On and Off functionality"/>
+      <ValidateClutchSwitch Result="Not Tested" Timeout="30000" Description="Verify Clutch switch On and Off functionality"/>
+      <ValidateThrottlePositionSensor Result="Not Tested" Timeout="30000" Description="Verify throttle position sensor achieves delta" DeltaTPSDelay="250"/>
+   </TestSteps>
+</BaseEmissionsComponent>

@@ -1,0 +1,28 @@
+<Camry>
+   <VehicleBuild>
+      <!-- Vehicle Data -->
+      <BodyStyle>PM</BodyStyle>
+      <WheelbasePositionInchesX10 Units="mm">2775</WheelbasePositionInchesX10>
+      <DriveAxle>Front</DriveAxle>
+      <VIN/>
+      <!-- Speedometer Test Parameters -->
+      <SpeedometerSpeedTargetLow Units="mph">45</SpeedometerSpeedTargetLow>
+      <SpeedometerSpeedTargetHi Units="mph">48</SpeedometerSpeedTargetHi>
+      <!-- Brake Stopping Distance Parameters -->
+      <BrakeDistanceTestSpeed Units="mph">35</BrakeDistanceTestSpeed>
+      <FrontMaximumStoppingDistance Units="m">11.0</FrontMaximumStoppingDistance>
+      <FrontMinimumStoppingDistance Units="m">0.8</FrontMinimumStoppingDistance>
+      <RearMaximumStoppingDistance Units="m">11.0</RearMaximumStoppingDistance>
+      <RearMinimumStoppingDistance Units="m">0.8</RearMinimumStoppingDistance>
+      <!-- Max Brake Force Parameters -->
+      <RequiredBrakeForceFront Units="kgf">235.0</RequiredBrakeForceFront>
+      <RequiredBrakeForceRear Units="kgf">60.0</RequiredBrakeForceRear>
+      <MaxFrontDifference Units="kgf">45.0</MaxFrontDifference>
+      <MaxRearDifference Units="kgf">25.0</MaxRearDifference>
+      <!-- Park Brake Force Parameters -->
+      <RequiredParkBrakeForce Units="kgf">125.0</RequiredParkBrakeForce>
+      <MinimumTotalParkBrakeForce Units="kgf">250.0</MinimumTotalParkBrakeForce>
+      <!-- Traction Control Parameters -->
+      <TractionControlSpeed Units="kph">22</TractionControlSpeed>
+   </VehicleBuild>
+</Camry>

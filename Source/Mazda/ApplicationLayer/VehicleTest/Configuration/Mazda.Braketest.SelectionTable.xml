@@ -1,0 +1,15 @@
+<SelectionTable Description="Mazda drive curve selection table">
+
+    <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeTestDriveCurve.xml">
+        <!-- BodyStyle>Camry</BodyStyle -->
+    </BaseBrake>
+
+    <Maintenance DriveCurve="/Configuration/VehicleTest/DriveCurves/MaintenanceDriveCurve.xml">
+        <BodyStyle>PM</BodyStyle>
+    </Maintenance>
+
+    <PreShiftCheck DriveCurve="/Configuration/VehicleTest/DriveCurves/PreShiftCheckDriveCurve.xml">
+        <BodyStyle>PreShiftCheck</BodyStyle>
+    </PreShiftCheck>
+
+</SelectionTable>

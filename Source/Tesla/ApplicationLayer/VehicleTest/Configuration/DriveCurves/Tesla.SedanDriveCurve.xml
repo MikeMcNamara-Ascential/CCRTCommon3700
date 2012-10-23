@@ -21,6 +21,13 @@
          <ConfigPath>/Configuration/Components/Drivetrain/</ConfigPath>
          <Debug>Off</Debug>
       </DriveTrain>
+      <Gateway>
+          <ComponentName>GatewayTc.qxe</ComponentName>
+          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+          <ConfigFile>GatewayTc.xml</ConfigFile>
+          <ConfigPath>/Configuration/Components/Gateway/</ConfigPath>
+          <Debug>Off</Debug>
+      </Gateway>
       <Machine>
          <ComponentName>MachineTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -268,13 +275,20 @@
              </Objective0>
          </ForegroundObjectives>
       </TestPhase849>
-      <TestPhase850 Description="Finishup Brake Component" Result="" Timeout="">
+      <TestPhase850 Description="Cycle the ignition" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Result="" Description="Cycle the ignition" Timeout="" Component="Gateway">
+               <CycleIgnition/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase850>
+      <TestPhase855 Description="Finishup Brake Component" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Result="" Description="Perform Brake finish-up" Timeout="" Component="Brake">
                <FinishUp/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase850>
+      </TestPhase855>
       <!-- Finish up processing -->
       <TestPhase999 Description="Finishup" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

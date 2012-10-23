@@ -115,6 +115,15 @@
 					</Folder>
 					<F N="ApplicationLayer/ModuleInterfaces/Brake/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="Gateway">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/ModuleInterfaces/Gateway/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/ModuleInterfaces/Gateway/Configuration/KwpGatewayModule.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/ModuleInterfaces/Gateway/CMakeLists.txt"/>
+					<F N="ApplicationLayer/ModuleInterfaces/Gateway/GatewayModule.cpp"/>
+					<F N="ApplicationLayer/ModuleInterfaces/Gateway/GatewayModule.h"/>
+				</Folder>
 				<Folder Name="PowerSteering">
 					<Folder Name="Configuration">
 						<F N="ApplicationLayer/ModuleInterfaces/PowerSteering/Configuration/CMakeLists.txt"/>
@@ -195,6 +204,16 @@
 					<F N="ApplicationLayer/TestComponents/Drivetrain/TeslaDrivetrainTC.cpp"/>
 					<F N="ApplicationLayer/TestComponents/Drivetrain/TeslaDrivetrainTC.h"/>
 					<F N="ApplicationLayer/TestComponents/Drivetrain/TeslaDrivetrainTCMain.cpp"/>
+				</Folder>
+				<Folder Name="Gateway">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/Gateway/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Gateway/Configuration/GatewayTc.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/Gateway/CMakeLists.txt"/>
+					<F N="ApplicationLayer/TestComponents/Gateway/GatewayTc.cpp"/>
+					<F N="ApplicationLayer/TestComponents/Gateway/GatewayTc.h"/>
+					<F N="ApplicationLayer/TestComponents/Gateway/GatewayTcMain.cpp"/>
 				</Folder>
 				<Folder Name="LossCompensation">
 					<Folder Name="Configuration">

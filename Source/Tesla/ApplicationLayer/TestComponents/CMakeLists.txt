@@ -36,6 +36,7 @@ LINK_LIBRARIES(commoncomponent moduleinterfaces)
 ADD_SUBDIRECTORY(Airbag)
 ADD_SUBDIRECTORY(Brake)
 ADD_SUBDIRECTORY(Drivetrain)
+ADD_SUBDIRECTORY(Gateway)
 ADD_SUBDIRECTORY(Machine)
 ADD_SUBDIRECTORY(PowerSteering)
 

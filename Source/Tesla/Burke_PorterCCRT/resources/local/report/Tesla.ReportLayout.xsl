@@ -261,8 +261,9 @@
 			<td width="10"/>
 			<td width="10"/>
 			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//AirbagReadFaults/@Result"/>
+				<xsl:call-template name="showResultMultiple">
+					<xsl:with-param name="RESULT_1" select="//AirbagReadFaults/@Result"/>
+                    <xsl:with-param name="RESULT_2" select="//OcsReadFaults/@Result"/>
 				</xsl:call-template>
 			</td>
 		</tr>		
@@ -272,6 +273,12 @@
 				<td width="70" align="left">0x<xsl:value-of select=". "/> - <xsl:value-of select=".."/></td>
 			</tr>
 		</xsl:for-each>
+        <xsl:for-each select="//DTC/Ocs//@DTCCode">
+            <tr>
+                <td width="10"/>
+                <td width="70" align="left">0x<xsl:value-of select=". "/> - <xsl:value-of select=".."/></td>
+            </tr>
+        </xsl:for-each>
 		
 	</xsl:template>
 	
@@ -893,6 +900,36 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text/>
+                </xsl:otherwise>
+            </xsl:choose>
+        </i>
+    </xsl:template>
+
+    <!-- Callout to allow cutomization of test result flags -->
+    <xsl:template name="showResultMultiple">
+        <xsl:param name="RESULT_1"/>
+        <xsl:param name="RESULT_2"/>
+        <i>
+            <xsl:choose>
+                <xsl:when test="$RESULT_1 != '' && $RESULT_2 != ''">
+                    <xsl:choose>
+                        <xsl:when test="$RESULT_1 != 'Pass' || $RESULT_2 != 'Pass'">
+                            <xsl:text>Fail</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>Pass</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:choose>
+                        <xsl:when test="$RESULT_1 != ''">
+                            <xsl:value-of select="$RESULT_1"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:value-of select="$RESULT_2"/>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </i>

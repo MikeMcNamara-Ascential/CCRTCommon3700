@@ -10,3 +10,15 @@ C:\Users\lmorgan\Documents\Visual Studio 2010\Projects\MesReportGenerator\MesRep
 C:\Users\lmorgan\Documents\Visual Studio 2010\Projects\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.pdb
 C:\Users\lmorgan\Documents\Visual Studio 2010\Projects\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Users\lmorgan\Documents\Visual Studio 2010\Projects\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\bin\Debug\MesReportGenerator.exe.config
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.exe
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.pdb
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\bin\Debug\MesReportGenerator.exe
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\bin\Debug\MesReportGenerator.pdb
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.CcrtReportGenerator.resources
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.Properties.Resources.resources
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.write.1.tlog

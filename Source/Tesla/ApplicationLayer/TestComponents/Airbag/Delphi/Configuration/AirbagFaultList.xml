@@ -167,5 +167,25 @@
 	<ModuleFault_D02141 Code="D02141" Description="GTW Checksum Error"/>
 	<ModuleFault_D03141 Code="D03141" Description="ESPM Checksum Error"/>
 	<ModuleFault_D02241 Code="D02241" Description="Airbag Warning Indicator Mismatch"/>
-  
+
+    <!-- OCS Module Faults -->
+    <ModuleFault_F00041 Code="F00041" Description="OCS: Flash/Cal Checksum Error"/>
+    <ModuleFault_F00046 Code="F00046" Description="OCS: EOL Checksum Error or EEPROM Program/State"/>
+    <ModuleFault_F00054 Code="F00054" Description="OCS: Seat Not Calibrated"/>
+    <ModuleFault_F00044 Code="F00044" Description="OCS: RAM Error / Stack Overflow"/>
+    <ModuleFault_919300 Code="919300" Description="OCS: Crash Rec num Exceeded"/>
+    <ModuleFault_F00013 Code="F00013" Description="OCS: PS/Temp Sensor Lifted Pin"/>
+    <ModuleFault_80C016 Code="80C016" Description="OCS: PS Vref Supply Low"/>
+    <ModuleFault_806116 Code="806116" Description="OCS: BTS Vref Low"/>
+    <ModuleFault_806117 Code="806117" Description="OCS: BTS Vref High"/>
+    <ModuleFault_F00049 Code="F00049" Description="OCS: Ruptured PS"/>
+    <ModuleFault_F00018 Code="F00018" Description="OCS: PS Low"/>
+    <ModuleFault_F0007B Code="F0007B" Description="OCS: Bladder Fluid Low"/>
+    <ModuleFault_806119 Code="806119" Description="OCS: BTS High"/>
+    <ModuleFault_806118 Code="806118" Description="OCS: BTS Low"/>
+    <ModuleFault_806113 Code="806113" Description="OCS: BTS Open"/>
+    <ModuleFault_F00019 Code="F00019" Description="OCS: Temp Sensor High"/>
+    <ModuleFault_F00018 Code="F00018" Description="OCS: Temp Sensor Low"/>
+    <ModuleFault_C15100 Code="C15100" Description="OCS: CAN Communication"/>
+    <ModuleFault_C07300 Code="C07300" Description="OCS: CAN Bus Off"/>
 </AirbagFaults>

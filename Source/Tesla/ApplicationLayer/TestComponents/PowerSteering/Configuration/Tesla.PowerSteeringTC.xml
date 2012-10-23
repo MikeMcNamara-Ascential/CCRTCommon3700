@@ -76,7 +76,7 @@
          <VINLength>17</VINLength>
          <RequestVinRoutineStatusFromModule>True</RequestVinRoutineStatusFromModule>
          <DelayBeforeRoutineStatus>2000</DelayBeforeRoutineStatus>
-         <RoutineRequestRetries>30</RoutineRequestRetries>
+         <RoutineRequestRetries>3</RoutineRequestRetries>
          <VinRetryDelay>1000</VinRetryDelay>
       </Parameters>
       <Prompts>

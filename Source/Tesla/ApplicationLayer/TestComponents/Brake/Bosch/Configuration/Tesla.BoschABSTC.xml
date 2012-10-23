@@ -419,7 +419,8 @@
         <ClearFaults>
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>ClearFaults</TestStep15>
-            <TestStep20>CycleIgnition</TestStep20>
+            <TestStep20>ExitDiagnosticMode</TestStep20>
+            <TestStep25>StopModuleKeepAlive</TestStep25>
         </ClearFaults>
         <Setup>
             <TestStep00>Setup</TestStep00>
@@ -544,7 +545,7 @@
             <TestStep55>StartModuleKeepAlive</TestStep55>
         </ABSValveFiringTest>
         <FinishUp>
-            <TestStep00>StopModuleKeepAlive</TestStep00>
+            <TestStep00>EnterDiagnosticMode</TestStep00>
             <TestStep01>ReadFaults</TestStep01>
             <TestStep02>EnableSpeedLimit</TestStep02>
             <TestStep05>ExitDiagnosticMode</TestStep05>

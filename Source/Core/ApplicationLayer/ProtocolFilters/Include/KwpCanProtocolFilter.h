@@ -118,6 +118,17 @@ class KwpCanProtocolFilter : public ProtocolFilter
      */
 	virtual const BEP_STATUS_TYPE GetModuleData(std::string messageTag, SerialString_t &reply, SerialArgs_t *args = NULL);
 	virtual const BEP_STATUS_TYPE GetModuleDataUUDTResponse(std::string messageTag, SerialString_t &reply, SerialArgs_t *args = NULL);
+    /**
+     * Wait for a message broadcast on the vehicle bus.
+     *
+     * @param messageTag Message to look for on the vehicle bus.
+     * @param messageWaitTime
+     *                   Amount of time to wait for the broadcast message.
+     * @param busMssg    Location to store the broadcast response.
+     *
+     * @return Status of waiting for the broadcast message.
+     */
+    virtual const BEP_STATUS_TYPE GetBusBroadcastMessage(string messageTag, const long messageWaitTime, SerialString_t &busMssg);
 	/**
 	 * Extract the data from the response.
 	 *

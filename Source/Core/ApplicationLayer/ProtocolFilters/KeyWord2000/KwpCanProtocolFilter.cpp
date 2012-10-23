@@ -557,7 +557,55 @@ int KwpCanProtocolFilter::WaitForFullResponseUUDT( SerialString_t &response)
 	return( retVal);
 }
 
+//---------------------------------------------------------------------------------------------------------------------
+const BEP_STATUS_TYPE KwpCanProtocolFilter::GetBusBroadcastMessage(string messageTag, 
+																   const long messageWaitTime, 
+																   SerialString_t &busMssg)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+	INT32 replyBytes = 0;
+	NotifyEvent_t   mssgEvent;
+	struct timespec currentTime;
+	struct timespec startTime;
+	Log(LOG_FN_ENTRY, "Enter KwpCanProtocolFilter::GetBusBroadcastMsg(%s)", messageTag.c_str());
+	// Bogus event (because we are going to poll)
+	SIGEV_NONE_INIT( &mssgEvent);
+	// Subscribe for RX data that matches the pattern defined by the messageTag
+	//  message under the <ReplyMessages> node
+	ILogicalPort::FilterSubscribe(mssgEvent, messageTag);
+	// Get the start time
+	if(clock_gettime( CLOCK_REALTIME, &startTime) == -1)
+	{
+		throw BepException("Clock Gettime Error: %s", strerror(errno));
+	}
+	// Poll the comm proxy for the message
+	bool validMessage = false;
+	bool timeRemaining = true;
+	double elapsedTime = 0;
+	do
+	{   // Read the port for the message
+		replyBytes = ReadPort(messageTag, busMssg);
+		// Check the message
+		if(replyBytes > 0)
+		{
+			validMessage = IsResponseValid(messageTag, busMssg);
+		}
+		// Get the elapsed time
+		clock_gettime( CLOCK_REALTIME, &currentTime);
+		elapsedTime = (currentTime.tv_sec - startTime.tv_sec ) * 1000 + ( currentTime.tv_nsec - startTime.tv_nsec ) / 1000000;
+		timeRemaining = messageWaitTime > elapsedTime;
+		// Check if we should continue waiting for the message
+	} while(!validMessage && timeRemaining);
+	// Unsubscribe from the port
+	PortUnsubscribe();
+	// Determine the status to return
+	status = validMessage ? BEP_STATUS_SUCCESS : BEP_STATUS_TIMEOUT;
+	Log(LOG_FN_ENTRY, "Exiting KwpCanProtocolFilter::GetBusBroadcastMsg(%s) - status: %s", 
+		messageTag.c_str(), ConvertStatusToResponse(status).c_str());
+	return status;
+}
 
+//---------------------------------------------------------------------------------------------------------------------
 const SerialString_t KwpCanProtocolFilter::ExtractModuleData(SerialString_t &moduleResponse)
 {
 	string fullResponse;

@@ -1,0 +1,95 @@
+<GatewayTc>
+    <Setup>
+        <Name>Gateway</Name>
+        <Debug>Off</Debug>
+        <FaultList>/Configuration/Components/Brake/BoschBrakeFaultList.xml</FaultList>
+        <TestDomain>Foreground</TestDomain>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/Gateway</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <VIN/>
+            </SubscribeTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>Gateway</ProcessName>
+            <AdditionalLogFile Types="Disabled">/Components/Gateway.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+        </Logging>
+
+        <!-- System Data Tags -->
+        <DataTags>
+            <Abort>Abort</Abort>
+            <CableConnect>CableConnect</CableConnect>
+        </DataTags>
+
+        <!-- Test Component Parameters -->
+        <Parameters>
+            <ConfigFile>/Configuration/Components/Gateway/KwpGatewayModule.xml</ConfigFile>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>No</DeveloperTest>
+            <ICMName>mgr/ICM</ICMName>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+            <!-- Ignition Cycle Parameters -->
+            <AlwaysPerformKeyOffEngineOff>False</AlwaysPerformKeyOffEngineOff>
+            <EngineOffPromptForPark>False</EngineOffPromptForPark>
+            <EngineOffIgnitionOffWaitTime Units="ms">1000</EngineOffIgnitionOffWaitTime>
+            <IgnitionOnTimeout Units="ms">30000</IgnitionOnTimeout>
+        </Parameters>
+
+        <!-- Operator Prompts -->
+        <Prompts>
+            <EngineOffIgnitionOff PromptBox="1" Priority="0">KeyOff</EngineOffIgnitionOff>
+            <IgnitionOn PromptBox="1" Priority="0">StartVehicle</IgnitionOn>
+        </Prompts>
+    </Setup>
+
+
+    <!-- ============== Objectives ============== -->
+    <Objectives>
+        <CycleIgnition>
+            <TestStep00>Setup</TestStep00>
+            <TestStep20>CycleIgnition</TestStep20>
+            <TestStep25>FinishUp</TestStep25>
+        </CycleIgnition>
+    </Objectives>
+
+
+    <!-- ============== Test Steps ============== -->
+    <TestSteps>
+        <CycleIgnition Result="" Timeout="30000" Description="Cycle ignition off and then on" ScanDelay="250"/>
+        <FinishUp Result="" Timeout="3000" Description="Brake test finishup"/>
+        <Setup Result="" Timeout="500" Description="Set up component for testing"/>
+    </TestSteps>
+</GatewayTc>

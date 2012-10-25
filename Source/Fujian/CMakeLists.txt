@@ -74,7 +74,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/MapleKeypadManager.qxe
 	ServicesLayer/Bin/MultiComProxy.qxe
 	ServicesLayer/Bin/PendantManager.qxe
-	ServicesLayer/Bin/PlantHostInbound.qxe
 	ServicesLayer/Bin/PlantHostOutbound.qxe
 	ServicesLayer/Bin/SciCommProxy.qxe 
 	ServicesLayer/Bin/SciIsoMuxMgr.qxe

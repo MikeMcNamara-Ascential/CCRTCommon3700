@@ -255,7 +255,7 @@
                         </Setup>
                     </ScannerCommunication>
                     <DataDelay>3000</DataDelay>
-                    <VinLength>17</VinLength>
+                    <VinLength>21</VinLength>
                     <DriverNumberLength>7</DriverNumberLength>
                     <MaximumRetries>3</MaximumRetries>
                     <LookForCarriageReturn>No</LookForCarriageReturn>
@@ -321,7 +321,7 @@
                         </Setup>
                     </ScannerCommunication>
                     <DataDelay>3000</DataDelay>
-                    <VinLength>17</VinLength>
+                    <VinLength>21</VinLength>
                     <DriverNumberLength>7</DriverNumberLength>
                     <MaximumRetries>3</MaximumRetries>
                     <LookForCarriageReturn>No</LookForCarriageReturn>

@@ -99,6 +99,10 @@
 			</Folder>
 			<Folder Name="VehicleTest">
 				<Folder Name="Configuration">
+					<Folder Name="BuildRecords">
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/CMakeLists.txt"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/VehicleBuildTemplate.xml"/>
+					</Folder>
 					<Folder Name="DriveCurves">
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
@@ -564,6 +568,13 @@
 						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/Fujian.MachineDataBrokerConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="PlantHostInbound">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PlantHostInbound/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostInbound/Configuration/Fujian.PlantHostInbound.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/PlantHostInbound/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="SystemMonitor">
 					<Folder Name="Configuration">

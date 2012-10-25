@@ -11,4 +11,5 @@ INSTALL_FILES(${VEHICLETEST_CONFIG_DIR} FILES ${VEHICLE_TEST_CONFIG_FILES})
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
+ADD_SUBDIRECTORY(BuildRecords)
 ADD_SUBDIRECTORY(DriveCurves)

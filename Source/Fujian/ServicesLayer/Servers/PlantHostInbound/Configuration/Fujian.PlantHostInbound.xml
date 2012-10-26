@@ -121,6 +121,7 @@
             <PublishTags>
                 <VehicleBuildRecordStatus/>
                 <BuildRecord/>
+				<NextVehicleBuild/>
                 <StopCurrentTest>0</StopCurrentTest>
             </PublishTags>
         </TagList>

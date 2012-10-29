@@ -71,6 +71,7 @@
                 <DieselBGColor DataType="color">white</DieselBGColor>
                 <DiscBrakes DataType="bool">No</DiscBrakes>
                 <DiscBrakesBGColor DataType="color">white</DiscBrakesBGColor>
+                <DriverNumber DataType="string">T0000xx</DriverNumber>
                 <FourWD DataType="bool">No</FourWD>
                 <FourWDBGColor DataType="color">white</FourWDBGColor>
                 <FrontWD DataType="bool">No</FrontWD>

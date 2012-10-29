@@ -569,6 +569,13 @@
 					</Folder>
 					<F N="ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="NamedDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/NamedDataBroker/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/NamedDataBroker/Configuration/Fujian.NDBConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/NamedDataBroker/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="PlantHostInbound">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/PlantHostInbound/Configuration/CMakeLists.txt"/>

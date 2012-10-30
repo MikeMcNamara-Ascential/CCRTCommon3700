@@ -1385,7 +1385,7 @@
             <VehicleAtBarcodeScanner DataType="bool">PLC</VehicleAtBarcodeScanner>
             <VehicleAxleCount DataType="short">MachineDataBroker</VehicleAxleCount>
             <VehicleBuild DataType="string">VehicleDataBroker</VehicleBuild>
-            <VehicleBuildRecordStatus DataType="string">WorkCellController</VehicleBuildRecordStatus>
+            <VehicleBuildRecordStatus DataType="string">PlantHostInbound</VehicleBuildRecordStatus>
             <VehicleDynamicControl DataType="string">VehicleDataBroker</VehicleDynamicControl>
             <VehicleDynamicControlBGColor DataType="color">VehicleDataBroker</VehicleDynamicControlBGColor>
             <VehiclePresent DataType="bool">SystemMonitor</VehiclePresent>

@@ -24,13 +24,13 @@
 
             Enter "0" here to disable capping.
         -->
-        <StandardFileMaxSize>50</StandardFileMaxSize>
+        <StandardFileMaxSize>200</StandardFileMaxSize>
         <!-- 
           Max number of old standard core log files to keep around.
             (At any given time after reaching max, you'll have n+1 log files,
              including the current core log file.)
         -->
-      <StandardFileMaxFiles>250</StandardFileMaxFiles>
+      <StandardFileMaxFiles>25</StandardFileMaxFiles>
         <!-- 
                 Priproty of the thread which listens for 
                   incoming messages.

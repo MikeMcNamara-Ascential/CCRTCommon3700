@@ -32,7 +32,7 @@
                      <AdditionalLogFile>/Communication/GryphonCANLeft.log</AdditionalLogFile>
                      <Status>Enabled</Status>
                    <LocalEcho>Disabled</LocalEcho>
-                     <Verbose>0x01</Verbose>
+                     <Verbose>0x3F</Verbose>
                 </Logging>
                 <CommLog>
                    <ContentType>RAW</ContentType>
@@ -88,7 +88,7 @@
                      <AdditionalLogFile>/Communication/GryphonCANRight.log</AdditionalLogFile>
                      <Status>Enabled</Status>
                    <LocalEcho>Disabled</LocalEcho>
-                   <Verbose>0x01</Verbose>
+                   <Verbose>0x3F</Verbose>
                 </Logging>
                 <CommLog>
                    <ContentType>RAW</ContentType>

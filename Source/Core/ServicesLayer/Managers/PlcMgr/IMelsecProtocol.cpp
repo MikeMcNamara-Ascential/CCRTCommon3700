@@ -116,7 +116,8 @@ void IMelsecProtocol::Init( ILogger &logger)
  */
 int IMelsecProtocol::Read( uint32_t *buff, uint32_t count)
 {
-    uint8_t plcData[128];
+    // increased array size to allow for 64 words to be read from the PLC
+    uint8_t plcData[256];
     int tries=5,good=0;
 
     if(m_melsecLock.Acquire() == EOK)
@@ -207,7 +208,8 @@ int IMelsecProtocol::Write(const uint32_t *buff, uint32_t count)
 long IMelsecProtocol::BufferRead(uint8_t *buff,uint32_t count)
 {
     register uint8_t    *pp;
-    uint8_t             xmtBuff[32];
+    //uint8_t             xmtBuff[32];
+    uint8_t             xmtBuff[64];
     register uint32_t   nn=0,mm=0;
     unsigned short      chksum=0;
     int                 tries=0,status=0;
@@ -232,7 +234,7 @@ long IMelsecProtocol::BufferRead(uint8_t *buff,uint32_t count)
 
     pp[nn] = 0;                      // null terminate
 
-    LogPlcString(LOG_DEV_DATA,"",pp,nn);
+    LogPlcString(LOG_DEV_DATA,"Melsec BufferRead",pp,nn);
 
     // while tries left and response not received
     while((tries++ < 3) && (responseReceived == false))
@@ -265,12 +267,17 @@ long IMelsecProtocol::CheckBufferRead( uint8_t *buff, uint32_t *plcData)
 {
     short cnt=0,nn=0,error=0,ii=0;
     long  chksum=0,value=0;
-
+    m_logger.Log( LOG_FN_ENTRY, "Enter IMelsecProtocol::CheckBufferRead()\n");
     // find the end of the message
     while(buff[cnt] != ETXc)
     {
         cnt++;
-        if(cnt >= 128) return(1);    // if no ETX found, return error
+        // maximum size for hardcoded 64 words that can be read
+        if(cnt >= 256)
+        {
+            m_logger.Log(LOG_ERRORS,"Melsec - Error message is too long");
+            return(1);    // if no ETX found, return error
+        }
     }
 
     for(ii=1;ii<=cnt;ii++) chksum += buff[ii];
@@ -317,14 +324,24 @@ long IMelsecProtocol::CheckBufferRead( uint8_t *buff, uint32_t *plcData)
     nn += 2;
 
     ii = 0;
+    m_logger.Log(LOG_ERRORS, "Melsec - Error: %d", error);
     while(nn < cnt)
     {
+        m_logger.Log(LOG_ERRORS, "Melsec - CheckBufferRead nn: %d  cnt: %d", nn, cnt);
         value = HexToLong(&buff[nn],4);       // convert next 4 bytes
-        if(value < 0) error = 1;
-        else plcData[ii++] = value;    // store data
+        m_logger.Log(LOG_ERRORS, "Melsec - value: %lf", value);
+        if(value < 0)
+        { 
+            error = 1;
+            m_logger.Log(LOG_ERRORS,"Value < 0 value: %lf", value);
+        }
+        else
+        { 
+            plcData[ii++] = value;    // store data
+        }
         nn += 4;                       // next group
     }
-
+    m_logger.Log( LOG_FN_ENTRY, "Exit IMelsecProtocol::CheckBufferRead()\n");
     return(error);
 }
 
@@ -339,7 +356,7 @@ long IMelsecProtocol::CheckBufferRead( uint8_t *buff, uint32_t *plcData)
 long IMelsecProtocol::BufferWrite(short count, const uint32_t *plcOut)
 {
     register uint8_t    *pp;
-    uint8_t             rxBuff[128];
+    uint8_t             rxBuff[256];        // maximum size for the 64 words (hardcoded) that can be read.
     bool                responseReceived=false;
     short               ii=0,nn=0,status=0,tries=0,hold=0,mm=0;
     uint8_t             xmtBuff[256];    
@@ -347,14 +364,14 @@ long IMelsecProtocol::BufferWrite(short count, const uint32_t *plcOut)
 
     pp = xmtBuff;
 
-    pp[nn++] = ENQc;                   // Enquire
+    pp[nn++] = ENQc;                                             // Enquire
     sprintf((char *)&pp[nn],"%02X",m_stationNumber); nn += 2;    // Station Number
-    sprintf((char *)&pp[nn],"%02X",m_pcNumber); nn += 2;    // PC Number
-    sprintf((char *)&pp[nn],"WW"); nn += 2;    // Word Write
-    sprintf((char *)&pp[nn],"3"); nn += 1;     // extra 30ms wait
-    sprintf((char *)&pp[nn],m_melsecOutAddr.c_str()); nn += 5; // Start Addres for writing to PLC
-    hold = nn;                         // Mark position
-    sprintf((char*)&pp[nn],"  "); nn += 2;    //   reserve count
+    sprintf((char *)&pp[nn],"%02X",m_pcNumber); nn += 2;         // PC Number
+    sprintf((char *)&pp[nn],"WW"); nn += 2;                      // Word Write
+    sprintf((char *)&pp[nn],"3"); nn += 1;                       // extra 30ms wait
+    sprintf((char *)&pp[nn],m_melsecOutAddr.c_str()); nn += 5;   // Start Addres for writing to PLC
+    hold = nn;                                                   // Mark position
+    sprintf((char*)&pp[nn],"  "); nn += 2;                       // reserve count
 
     for(ii=0;ii<count;ii++)
     {
@@ -377,7 +394,7 @@ long IMelsecProtocol::BufferWrite(short count, const uint32_t *plcOut)
     pp[nn++] = LFc;                    // <LF>
     pp[nn] = 0;                        // null terminate
 
-    LogPlcString(LOG_DEV_DATA,"",pp,nn);
+    LogPlcString(LOG_DEV_DATA,"Melsec BufferWrite: ",pp,nn);
 
     // while tries left and response not received
     while((tries++ < 3) && (responseReceived == false))

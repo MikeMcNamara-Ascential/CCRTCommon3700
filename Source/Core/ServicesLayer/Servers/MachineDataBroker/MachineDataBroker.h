@@ -86,21 +86,22 @@
 #include "MaintenanceItem.h"
 #include <unistd.h>
 #include <time.h>
+#include <math.h>
 
 /**
  * Pulse code used for private MachineDataBroker pulses
  */
-#define MACHINE_DATA_BROKER_PULSE_CODE		SYSTEM_PULSE+5
+#define MACHINE_DATA_BROKER_PULSE_CODE      SYSTEM_PULSE+5
 
 /**
  * Pulse value used to indicate we need to update the cycle timer.
  */
-#define	CYCLE_TIMER_PULSE	10
+#define CYCLE_TIMER_PULSE   10
 
 /**
  * Pulse value used to indicate we need to update the power supplies.
  */
-#define	POWER_SUPPLY_PULSE	11
+#define POWER_SUPPLY_PULSE  11
 /**
  * Pulse code to use for updating encoder data to external systems.
  */
@@ -126,66 +127,66 @@ class MachineDataBroker : public BepServer
     friend class MachineDataBrokerTest;
 
 public:
-	/**
-	 * MachineDataBroker default constructor
-	 * @since Version 1.0
-	 */
-	MachineDataBroker(void);
-	/**
-	 * MachineDataBroker destructor
-	 * @since Version 1.0
-	 */
-	virtual ~MachineDataBroker(void);
-	/**
-	 * Method for initialization passing in the file name
-	 *
-	 * @param fileName Name of the XML configuration file to be used to initialize
-	 * @since Version 2.4
-	 */
-	virtual void Initialize(const std::string &fileName);
-	/**
-	 * Method for initialization.
-	 *
-	 * @param document Reference to a parsed configuration document.
-	 * @since Version 1.0
-	 */
-	virtual void Initialize(const XmlNode *document);
-	/**
-	 * Method that is called to command the component to perform any
-	 * system registration functions necessary.
-	 *
-	 * @return Status of the registration process.
-	 *         BEP_FAILURE_RESPONSE == Could not successfully perform registration
-	 *		   BEP_SUCCESS_RESPONSE == Registered
-	 * @since Version 1.2
-	 */
-	virtual const std::string Register(void);
-	/**
-	 * Method used to terminate the component.  This performs
-	 * any cleanup that the destructor would not and sets
-	 * the state of the component to terminate.
-	 * @since Version 1.0
-	 */
-	virtual void Terminate(void);
-	/**
-	 * Request to Perform an action
-	 *
-	 * @param node    Action to be performed
-	 * @return Status of operation
-	 *         Success, Fail, Invalid, Unavailable
-	 * @since Version 1.2
-	 */
-	virtual const std::string Command(const XmlNode *node);
-	/**
-	 * Handle the subscribed for data by the process.
-	 *
-	 * @param node    Tag and data that was subscribed for
-	 * @return Status of the updating of the published tag
-	 *         Success, Fail
-	 * @since Version 1.2
-	 */
-	virtual const std::string Publish(const XmlNode *node);
-	/**
+    /**
+     * MachineDataBroker default constructor
+     * @since Version 1.0
+     */
+    MachineDataBroker(void);
+    /**
+     * MachineDataBroker destructor
+     * @since Version 1.0
+     */
+    virtual ~MachineDataBroker(void);
+    /**
+     * Method for initialization passing in the file name
+     *
+     * @param fileName Name of the XML configuration file to be used to initialize
+     * @since Version 2.4
+     */
+    virtual void Initialize(const std::string &fileName);
+    /**
+     * Method for initialization.
+     *
+     * @param document Reference to a parsed configuration document.
+     * @since Version 1.0
+     */
+    virtual void Initialize(const XmlNode *document);
+    /**
+     * Method that is called to command the component to perform any
+     * system registration functions necessary.
+     *
+     * @return Status of the registration process.
+     *         BEP_FAILURE_RESPONSE == Could not successfully perform registration
+     *         BEP_SUCCESS_RESPONSE == Registered
+     * @since Version 1.2
+     */
+    virtual const std::string Register(void);
+    /**
+     * Method used to terminate the component.  This performs
+     * any cleanup that the destructor would not and sets
+     * the state of the component to terminate.
+     * @since Version 1.0
+     */
+    virtual void Terminate(void);
+    /**
+     * Request to Perform an action
+     *
+     * @param node    Action to be performed
+     * @return Status of operation
+     *         Success, Fail, Invalid, Unavailable
+     * @since Version 1.2
+     */
+    virtual const std::string Command(const XmlNode *node);
+    /**
+     * Handle the subscribed for data by the process.
+     *
+     * @param node    Tag and data that was subscribed for
+     * @return Status of the updating of the published tag
+     *         Success, Fail
+     * @since Version 1.2
+     */
+    virtual const std::string Publish(const XmlNode *node);
+    /**
      * <b>Description:</b>
      * Request to write a data tag.
      *
@@ -214,17 +215,17 @@ public:
      *         BEP_UNSUPPORTED_RESPONSE if the data tag could not be found.
      */
     virtual const string Write(const string &tag, const string &value);
-	/**
-	 * Process the reload configuration pulse.  If any other pulses
+    /**
+     * Process the reload configuration pulse.  If any other pulses
      * are received, send them on to BepComponent.
-	 *
-	 * @param code   Pulse code
-	 * @param value  Pulse value
-	 * @return If pulse is handled.
-	 *         Handled     == BEP_STATUS_SUCCESS
-	 *         Not Handled == BEP_STATUS_FAILURE (default if not overriden)
-	 */
-	virtual const INT32 HandlePulse(const INT32 code, const INT32 value);
+     *
+     * @param code   Pulse code
+     * @param value  Pulse value
+     * @return If pulse is handled.
+     *         Handled     == BEP_STATUS_SUCCESS
+     *         Not Handled == BEP_STATUS_FAILURE (default if not overriden)
+     */
+    virtual const INT32 HandlePulse(const INT32 code, const INT32 value);
     /**
      * Handler for the cycle time pulse.
      *
@@ -239,13 +240,13 @@ public:
      *               called.
      */
     void UpdateCycleTime(bool start = false);
-	/**
-	 * Return the number of tests since the last loss compensation cycle.
-	 *
-	 * @return Number of tests since last loss compensation cycle.
-	 * @since Version 1.1
-	 */
-	virtual const INT32 GetNumberOfTestsSinceLossCompensation(void);
+    /**
+     * Return the number of tests since the last loss compensation cycle.
+     *
+     * @return Number of tests since last loss compensation cycle.
+     * @since Version 1.1
+     */
+    virtual const INT32 GetNumberOfTestsSinceLossCompensation(void);
 
     /**
      * Handler for the power supply pulse.
@@ -268,8 +269,15 @@ public:
      */
     virtual INT32 IcmDataPulseHandler(void);
 
+    /**
+     * Get the current speed scaling factor in use.
+     * 
+     * @return Current speed scaling factor in use.
+     */
+    float GetCurrentSpeedScalingFactor(void);
+
 protected:
-	/**
+    /**
      * Load the additional configuration items needed by the machine data broker.
      * The "standard" items will be handled by the call to
      * BepServer::Initialize().
@@ -313,36 +321,36 @@ protected:
      * @param document Configuration data for setting up the encoder data supply.
      */
     void SetupEncoderDataSupply(const XmlNode *document);
-	/**
+    /**
      * Setup the timer for the Icm data supplier.
      * 
      * @param document Setup data for the ICM data supplier timer.
      */
     void SetupIcmDataTimer(const XmlNode *document);
-	/**
-	 * Get the current state of the machine.
-	 *
-	 * @param dataFile The data file to get the information from.
-	 * @since Version 1.1
-	 */
-	void GetMachineState(const std::string &dataFile);
-	/**
-	 * Store the current state of the machine.
-	 *
-	 * @param dataFile The data file to write the information to.
-	 * @since Version 1.1
-	 */
-	void StoreMachineState(const std::string &dataFile);
-	/**
-	 * Update the number of vehicle tests performed since the
-	 * last loss compensation cycle.
-	 *
-	 * @param numberOfTests
-	 *               Number of tests since the last loss compensation cycle.
-	 *               If no number is provided, the number of tests is incremented.
-	 * @since Version 1.1
-	 */
-	void UpdateNumberOfTestsSinceLossCompensation(const INT32 *numberOfTests = NULL);
+    /**
+     * Get the current state of the machine.
+     *
+     * @param dataFile The data file to get the information from.
+     * @since Version 1.1
+     */
+    void GetMachineState(const std::string &dataFile);
+    /**
+     * Store the current state of the machine.
+     *
+     * @param dataFile The data file to write the information to.
+     * @since Version 1.1
+     */
+    void StoreMachineState(const std::string &dataFile);
+    /**
+     * Update the number of vehicle tests performed since the
+     * last loss compensation cycle.
+     *
+     * @param numberOfTests
+     *               Number of tests since the last loss compensation cycle.
+     *               If no number is provided, the number of tests is incremented.
+     * @since Version 1.1
+     */
+    void UpdateNumberOfTestsSinceLossCompensation(const INT32 *numberOfTests = NULL);
     /**
      * Get/Set the flag indicating if the encoder data should be supplied to external systems.
      * 
@@ -359,13 +367,6 @@ protected:
     INT32 RollerCount(void);
     /** Icm data supplier object */
     IcmDataSupplier *m_icmData;
-
-    /**
-     * Get the current speed scaling factor in use.
-     * 
-     * @return Current speed scaling factor in use.
-     */
-    float GetCurrentSpeedScalingFactor(void);
 
 private:
     /**
@@ -643,7 +644,7 @@ private:
      * @return Encoder data string.
      */
     string BuildEncoderDataString(const XmlNode *encoderData);
-	/**
+    /**
      * Get/Set the flag indicating of the QNX Data Server should be connected to.
      * 
      * @param connectToServer
@@ -653,35 +654,35 @@ private:
      */
     const bool& ConnectToQnxDataServer(const bool *connectToServer = NULL);
 
-	/**
-	 * Load the maintenance data items to track as well as the elapsed times.
-	 * 
-	 * @param config Configuration data for the maintenance items to be tracked.
-	 */
-	void LoadMaintenanceItems(const XmlNode *config);
-
-	/**
-	 * Store the elapsed time for the specified maintenance data item.
-	 * 
-	 * @param itemName Maintenance item name.
-	 * @param elapsedTime
-	 *                 New elapsed time to store.
-	 */
-	void StoreMaintenanceItemElapsedTime(string itemName, double elapsedTime);
+    /**
+     * Load the maintenance data items to track as well as the elapsed times.
+     * 
+     * @param config Configuration data for the maintenance items to be tracked.
+     */
+    void LoadMaintenanceItems(const XmlNode *config);
 
     /**
-	 * The file to store the persistent data in.
-	 */
-	string m_dataFile;
-	/**
-	 * Number of vehicles tested since the last Loss Compensation cycle.
-	 */
-	INT32  m_numberOfTestsSinceLossCompensation;
+     * Store the elapsed time for the specified maintenance data item.
+     * 
+     * @param itemName Maintenance item name.
+     * @param elapsedTime
+     *                 New elapsed time to store.
+     */
+    void StoreMaintenanceItemElapsedTime(string itemName, double elapsedTime);
 
-	/**
-	 * Timer object used to update the cycle time during a test.
-	 */
-	BepTimer m_cycleTimeTimer;
+    /**
+     * The file to store the persistent data in.
+     */
+    string m_dataFile;
+    /**
+     * Number of vehicles tested since the last Loss Compensation cycle.
+     */
+    INT32  m_numberOfTestsSinceLossCompensation;
+
+    /**
+     * Timer object used to update the cycle time during a test.
+     */
+    BepTimer m_cycleTimeTimer;
 
     /**
      * The start time of the vehicle test.
@@ -694,9 +695,9 @@ private:
     bool m_cycleTimerStarted;
 
     /**
-	 * Timer object used to update the power supplies during a test.
-	 */
-	BepTimer m_PowerSupplyTimer;
+     * Timer object used to update the power supplies during a test.
+     */
+    BepTimer m_PowerSupplyTimer;
 
     /**
      * Encoder 5 volt power supply minimum parameter.
@@ -794,12 +795,12 @@ private:
     float m_speedScalingFactor;
     /** Current speed scaling factor in use */
     float m_currentSpeedScalingFactor;
-	// Vector of maintenance items to track
-	vector<MaintenanceItem*> m_maintenaceItems;
-	// Current elapsed times for each maintenance times
-	XmlNode *m_maintenanceItemTimes;
-	// Name of the file for storing the maintenance times
-	string m_maintenanceTimeFileName;
+    // Vector of maintenance items to track
+    vector<MaintenanceItem*> m_maintenaceItems;
+    // Current elapsed times for each maintenance times
+    XmlNode *m_maintenanceItemTimes;
+    // Name of the file for storing the maintenance times
+    string m_maintenanceTimeFileName;
 };
 #endif  //MACHINEDATABROKER_H
 

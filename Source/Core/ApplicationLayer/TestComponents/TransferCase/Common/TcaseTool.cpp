@@ -706,7 +706,7 @@ string TcaseTool::CheckAxleRatio ( void )
             if (testResult != testPass)
             {
                 //Timeout - waiting for zero speed - Report for entire test results and sub result since
-                    //		this is the only failure in current test step
+                    //      this is the only failure in current test step
                 m_component->Log(LOG_ERRORS, "%s: Timeout Waiting for Zero Speed\n", m_component->GetTestStepName().c_str());
                 testResult = testTimeout;
                 testDescription = m_component->GetFaultDescription("ZeroSpeed");
@@ -716,7 +716,7 @@ string TcaseTool::CheckAxleRatio ( void )
             else
             {
                 // Timeout - waiting for zero speed - reporting only for subtest results to prevent
-                    // 		overwriting other failure
+                    //      overwriting other failure
                 testResultCode = "0000";
                 testDescription = (m_component->GetTestStepName());
                 m_component->SendSubtestResult("AxleRatioZeroSpeed", testResult, testDescription, testResultCode);
@@ -833,6 +833,8 @@ string TcaseTool::CheckAxleBalance( void )
                 {
                 //Check front Side to Side delta is in range
                 frontAxleDelta = abs(rollerSpeeds.lfWheel - rollerSpeeds.rfWheel);
+                //frontAxleDelta = (rollerSpeeds.lfWheel > rollerSpeeds.rfWheel) ? (rollerSpeeds.lfWheel - rollerSpeeds.rfWheel) :
+                //                                                                 (rollerSpeeds.rfWheel > rollerSpeeds.lfWheel);
                 if (frontAxleDelta > maxLeftToRightDelta)
                 {   //Stop test - Delta out of range
                     testResult = testFail;
@@ -841,6 +843,8 @@ string TcaseTool::CheckAxleBalance( void )
                 }
                 //Check rear Side to Side delta is in range
                 rearAxleDelta =  abs(rollerSpeeds.lrWheel - rollerSpeeds.rrWheel);
+                //rearAxleDelta =  (rollerSpeeds.lrWheel > rollerSpeeds.rrWheel) ? (rollerSpeeds.lrWheel - rollerSpeeds.rrWheel) :
+                //                                                                 (rollerSpeeds.rrWheel > rollerSpeeds.lrWheel);
                 if (rearAxleDelta > maxLeftToRightDelta)
                 {   //Stop test - Delta out of range
 
@@ -857,6 +861,8 @@ string TcaseTool::CheckAxleBalance( void )
                     maxFrontToRearDelta = (maxFrontToRearDeltaPercent / 100) * rearSpeed;
                 }
                 frontToRearDelta = abs(frontSpeed - rearSpeed);
+                //frontToRearDelta = (frontSpeed > rearSpeed) ? (frontSpeed - rearSpeed) :
+                //                                              (rearSpeed - frontSpeed);
                 if (frontToRearDelta > maxFrontToRearDelta)
                 {   //Stop test - Delta out of range
                     testResult = testFail;
@@ -1052,6 +1058,8 @@ string TcaseTool::WaitForAxleBalance( void )
                     {
                         //Check front Side to Side delta is in range
                         frontAxleDelta = abs(rollerSpeeds.lfWheel - rollerSpeeds.rfWheel);
+                        //frontAxleDelta = (rollerSpeeds.lfWheel > rollerSpeeds.rfWheel) ? (rollerSpeeds.lfWheel - rollerSpeeds.rfWheel) :
+                        //                                                                 (rollerSpeeds.rfWheel - rollerSpeeds.lfWheel);
                         if(frontAxleDelta > maxLeftToRightDelta)
                         {   //Stop test - Delta out of range
                             testResult = testFail;
@@ -1060,6 +1068,8 @@ string TcaseTool::WaitForAxleBalance( void )
                         }
                         //Check rear Side to Side delta is in range
                         rearAxleDelta =  abs(rollerSpeeds.lrWheel - rollerSpeeds.rrWheel);
+                        //rearAxleDelta =  (rollerSpeeds.lrWheel > rollerSpeeds.rrWheel) ? (rollerSpeeds.lrWheel - rollerSpeeds.rrWheel) :
+                        //                                                                 (rollerSpeeds.rrWheel - rollerSpeeds.lrWheel);
                         if(rearAxleDelta > maxLeftToRightDelta)
                         {   //Stop test - Delta out of range
 
@@ -1076,6 +1086,8 @@ string TcaseTool::WaitForAxleBalance( void )
                         maxFrontToRearDelta = (maxFrontToRearDeltaPercent / 100) * rearSpeed;
                     }
                     frontToRearDelta = abs(frontSpeed - rearSpeed);
+                    //frontToRearDelta = (frontSpeed > rearSpeed) ? (frontSpeed - rearSpeed) :
+                    //                                              (rearSpeed - frontSpeed);
                     if(frontToRearDelta > maxFrontToRearDelta)
                     {   //Stop test - Delta out of range
                         testResult = testFail;
@@ -1196,10 +1208,10 @@ string TcaseTool::GetAxleRatio(float &ratio)
     // variables used to calculate ratio
     float front = 0.0;      //current Front axle speed
     float rear = 0.0;       //current Rear axle speed
-	float tandem = 0.0;		//current Rear axle speed
+    float tandem = 0.0;     //current Rear axle speed
     float frontAxle = 0.0;  //average of LF + RF rolls speed
     float rearAxle = 0.0;   //average of LR + RR rolls speed
-	float tandemAxle = 0.0;	//average of LT + RT rolls speed
+    float tandemAxle = 0.0; //average of LT + RT rolls speed
     float axleRatio = 0.0;  //average axle ratio over samples
     INT16 sampleCount = 0;  //number of samples
     INT32 sampleRate = 0;   //which raw data samples to use
@@ -1261,18 +1273,18 @@ string TcaseTool::GetAxleRatio(float &ratio)
         //sum up samples
         for (sampleCount=0; sampleCount < samples; sampleCount++ )
         {
-			if (6 == m_component->GetWheelCount())
-			{   //get average rolls speed for rear axle
-				tandem = ((m_wheelSpeedArray[LTWHEEL][arrayIndex] + m_wheelSpeedArray[RTWHEEL][arrayIndex]) /2);
-				//sum tandem roller speeds
-				tandemAxle += tandem;
-			}
-			else
-			{   //get average speed for front axle
+            if (6 == m_component->GetWheelCount())
+            {   //get average rolls speed for rear axle
+                tandem = ((m_wheelSpeedArray[LTWHEEL][arrayIndex] + m_wheelSpeedArray[RTWHEEL][arrayIndex]) /2);
+                //sum tandem roller speeds
+                tandemAxle += tandem;
+            }
+            else
+            {   //get average speed for front axle
             front = ((m_wheelSpeedArray[LFWHEEL][arrayIndex] + m_wheelSpeedArray[RFWHEEL][arrayIndex]) /2);
-				//sum front roller speeds
-				frontAxle += front;
-			}
+                //sum front roller speeds
+                frontAxle += front;
+            }
             //get average rolls speed for rear axle
             rear = ((m_wheelSpeedArray[LRWHEEL][arrayIndex] + m_wheelSpeedArray[RRWHEEL][arrayIndex]) /2);
             rearAxle += rear;
@@ -1294,9 +1306,9 @@ string TcaseTool::GetAxleRatio(float &ratio)
             m_component->m_driveAxle = (m_component->ReadSubscribeData(m_component->GetDataTag("DriveAxle")) ==
                                         m_component->GetDataTag("Rear")) ? m_component->RWD : m_component->FWD;
             //Average the driven to nonDriven axle ratio
-			if (6 == m_component->GetWheelCount())
-				axleRatio += (tandemAxle / rearAxle);  //driven axle = rear
-			else if (m_component->m_driveAxle == m_component->RWD)
+            if (6 == m_component->GetWheelCount())
+                axleRatio += (tandemAxle / rearAxle);  //driven axle = rear
+            else if (m_component->m_driveAxle == m_component->RWD)
                 axleRatio += (frontAxle / rearAxle);  //driven axle = rear
             else
                 axleRatio += (rearAxle / frontAxle);  //driven axle = front
@@ -1460,152 +1472,157 @@ bool TcaseTool::ShortCircuitTestStep(void)
 //-----------------------------------------------------------------------------
 string TcaseTool::GetTcasePassFail(void)
 {
-	string testResult = testFail;
-	// Log the function entry
+    string testResult = testFail;
+    // Log the function entry
     m_component->Log(LOG_FN_ENTRY, "%s::%s - Enter\n", m_component->GetComponentName().c_str(), m_component->GetTestStepName().c_str());
-	//determine if step needs to be ran
-	if (m_component->ShortCircuitTestStep())
-	{	//log skip step
-		m_component->Log(LOG_DEV_DATA, "%s Skip %s Test\n",  m_component->GetComponentName().c_str(), m_component->GetTestStepName().c_str());
-		testResult = testSkip;			//Return SKIP
-	}
-	else
-	{	// Test Name
-		string  testStepName = m_component->GetTestStepName().c_str();
-       	// Prompt and get operator input
-	   	testResult = m_component->OperatorPassFail(m_component->GetDataTag(testStepName + "Prompt"), m_component->GetTestStepInfoInt("Timeout"));
-		//Send Resutlts
-		m_component->SendTestResult(testStepName, testResult, m_component->GetTestStepInfo("Description"));
-	}
-	// Log the function exit
-	m_component->Log(LOG_FN_ENTRY, "%s::%s - Exit\n", m_component->GetComponentName().c_str(), m_component->GetTestStepName().c_str());
-	// Return the results
-	return(testResult);
+    //determine if step needs to be ran
+    if (m_component->ShortCircuitTestStep())
+    {   //log skip step
+        m_component->Log(LOG_DEV_DATA, "%s Skip %s Test\n",  m_component->GetComponentName().c_str(), m_component->GetTestStepName().c_str());
+        testResult = testSkip;          //Return SKIP
+    }
+    else
+    {   // Test Name
+        string  testStepName = m_component->GetTestStepName().c_str();
+        // Prompt and get operator input
+        testResult = m_component->OperatorPassFail(m_component->GetDataTag(testStepName + "Prompt"), m_component->GetTestStepInfoInt("Timeout"));
+        //Send Resutlts
+        m_component->SendTestResult(testStepName, testResult, m_component->GetTestStepInfo("Description"));
+    }
+    // Log the function exit
+    m_component->Log(LOG_FN_ENTRY, "%s::%s - Exit\n", m_component->GetComponentName().c_str(), m_component->GetTestStepName().c_str());
+    // Return the results
+    return(testResult);
 }
 
 //-----------------------------------------------------------------------------
-	/***********WARNING, untested, buggy code************/
+    /***********WARNING, untested, buggy code************/
 //-----------------------------------------------------------------------------
 string TcaseTool::CoastToStop(void)
 {
-	string testResult = testFail;
-    BEP_STATUS_TYPE machineStatus = BEP_STATUS_ERROR;	// Check for aborts
-	WHEELINFO rollerSpeeds;								// Define roller speed array.
-	INT16 arrayIndex = 0;								// Roller speed arry index
+    string testResult = testFail;
+    BEP_STATUS_TYPE machineStatus = BEP_STATUS_ERROR;   // Check for aborts
+    WHEELINFO rollerSpeeds;                             // Define roller speed array.
+    INT16 arrayIndex = 0;                               // Roller speed arry index
     
     m_component->Log(LOG_FN_ENTRY, "TcaseTool::CoastToStop() ENTER\n");
     if (m_component->ShortCircuitTestStep())
-	{	//log skip step
-		m_component->Log(LOG_FN_ENTRY, "Skip TcaseTool::CoastToStop()\n");
-        testResult = testSkip;			//Return SKIP
-	}
-	else
-	{   // set desired speed range. Green band low end
-		float minSpeedTarget = 0.0;
+    {   //log skip step
+        m_component->Log(LOG_FN_ENTRY, "Skip TcaseTool::CoastToStop()\n");
+        testResult = testSkip;          //Return SKIP
+    }
+    else
+    {   // set desired speed range. Green band low end
+        float minSpeedTarget = 0.0;
         // set speed to coast down too. Green band high end.
-		float maxSpeedTarget = m_component->GetParameterFloat("CoastToStopSpeed");
-		// Used for converting integers to a characters
-		char tempCharArray[20];
-		// define green band range message
-		// set up string for passing proper speed range
-		string speedRange = CreateMessage(tempCharArray,sizeof(tempCharArray),"%d %d", (int) minSpeedTarget, (int) maxSpeedTarget);
-		// number Of Rollers
-		UINT32 wheelCount = m_component->GetWheelCount();
-		// current roller value
-		UINT32 wheel = 0;
-		// track fastest roller speed
-		float maxRollerSpeed = 0.0;							
-		// display the speed target green band
-		m_component->SystemWrite(m_component->GetDataTag("SpeedTarget"), speedRange);
-		// display Prompt
-		m_component->DisplayPrompt(m_component->GetPromptBox("CoastToStop"),m_component->GetPrompt("CoastToStop"),m_component->GetPromptPriority("CoastToStop"));
-		//Parameter -delay between samples
-		INT32 sampleDelay = m_component->GetTestStepInfoInt("ScanDelay");
+        float maxSpeedTarget = m_component->GetParameterFloat("CoastToStopSpeed");
+        // Used for converting integers to a characters
+        char tempCharArray[20];
+        // define green band range message
+        // set up string for passing proper speed range
+        string speedRange = CreateMessage(tempCharArray,sizeof(tempCharArray),"%d %d", (int) minSpeedTarget, (int) maxSpeedTarget);
+        // number Of Rollers
+        UINT32 wheelCount = m_component->GetWheelCount();
+        // current roller value
+        UINT32 wheel = 0;
+        // track fastest roller speed
+        float maxRollerSpeed = 0.0;                         
+        // display the speed target green band
+        m_component->SystemWrite(m_component->GetDataTag("SpeedTarget"), speedRange);
+        // display Prompt
+        m_component->DisplayPrompt(m_component->GetPromptBox("CoastToStop"),m_component->GetPrompt("CoastToStop"),m_component->GetPromptPriority("CoastToStop"));
+        //Parameter -delay between samples
+        INT32 sampleDelay = m_component->GetTestStepInfoInt("ScanDelay");
         // Prompt and verify coast dwon to desired speed
-		do
-		{	// Get the current roller speeds
-			machineStatus = m_component->GetWheelSpeeds(rollerSpeeds);
-			// Check status
-			if (BEP_STATUS_SUCCESS == machineStatus)
-			{
-				for (wheel = 0;  wheel < wheelCount; wheel++)
-				{   // track the fastest wheel speed
-					if (m_wheelSpeedArray[wheel][arrayIndex] > maxRollerSpeed)
-						maxRollerSpeed = abs(m_wheelSpeedArray[wheel][arrayIndex]);
-				}
-				if (maxRollerSpeed > maxSpeedTarget)
-				{	// target speed has not been achieved
-					BposSleep(sampleDelay);
-				}
-			}
-			else
-			{	// Error reading wheel speeds
-				testResult = testFail;
-				m_component->Log(LOG_ERRORS, "%s: Error reading Roll Speed - status: %s\n",
-								 m_component->GetTestStepName().c_str(), ConvertStatusToResponse(machineStatus).c_str());
-			}
-			// Keep checking until target speed achieved, timeout or bad status
-		} while ((maxRollerSpeed > maxSpeedTarget) && m_component->TimeRemaining() && (m_component->StatusCheck() == BEP_STATUS_SUCCESS)
-			&& (BEP_STATUS_SUCCESS == machineStatus));
-	
-		// remove the speed target from the gauge
-		m_component->SystemWrite(m_component->GetDataTag("SpeedTarget"), string("0 0"));
-		// remove the prompts
-		m_component->RemovePrompt(m_component->GetPromptBox("CoastToStop"),m_component->GetPrompt("CoastToStop"),m_component->GetPromptPriority("CoastToStop"));
+        do
+        {   // Get the current roller speeds
+            machineStatus = m_component->GetWheelSpeeds(rollerSpeeds);
+            // Check status
+            if (BEP_STATUS_SUCCESS == machineStatus)
+            {
+                for (wheel = 0;  wheel < wheelCount; wheel++)
+                {   // track the fastest wheel speed
+                    if (m_wheelSpeedArray[wheel][arrayIndex] > maxRollerSpeed)
+                    {
+                        maxRollerSpeed = abs(m_wheelSpeedArray[wheel][arrayIndex]);
+                        //maxRollerSpeed = (m_wheelSpeedArray[wheel][arrayIndex] > 0) ? (m_wheelSpeedArray[wheel][arrayIndex]) :
+                        //                                                              (-1.0 * m_wheelSpeedArray[wheel][arrayIndex]);
+                    }
+
+                }
+                if (maxRollerSpeed > maxSpeedTarget)
+                {   // target speed has not been achieved
+                    BposSleep(sampleDelay);
+                }
+            }
+            else
+            {   // Error reading wheel speeds
+                testResult = testFail;
+                m_component->Log(LOG_ERRORS, "%s: Error reading Roll Speed - status: %s\n",
+                                 m_component->GetTestStepName().c_str(), ConvertStatusToResponse(machineStatus).c_str());
+            }
+            // Keep checking until target speed achieved, timeout or bad status
+        } while ((maxRollerSpeed > maxSpeedTarget) && m_component->TimeRemaining() && (m_component->StatusCheck() == BEP_STATUS_SUCCESS)
+            && (BEP_STATUS_SUCCESS == machineStatus));
+    
+        // remove the speed target from the gauge
+        m_component->SystemWrite(m_component->GetDataTag("SpeedTarget"), string("0 0"));
+        // remove the prompts
+        m_component->RemovePrompt(m_component->GetPromptBox("CoastToStop"),m_component->GetPrompt("CoastToStop"),m_component->GetPromptPriority("CoastToStop"));
         //Verify vehicle reached coast speed.
-		if (maxRollerSpeed < maxSpeedTarget)
-		{	//check to see if we need to use brake for full stop
-			if ((m_component->ReadSubscribeData(ZEROSPEED_TAG) != "1") && m_component->GetParameterBool("CoastToStopAllowBraking"))
-			{	//call zerospeed
-				if (m_component->CheckZeroSpeed() == true)
-				{	//vehicle at zero speed
-					m_component->Log(LOG_DEV_DATA, "%s: TcaseTool::CheckVehicleSpeed Vehicle at Zero Speed\n", m_component->GetTestStepName().c_str());
-					testResult = testPass;
-				}
-				else
-				{
-					//Fail vehicle at zero speed
-					m_component->Log(LOG_ERRORS, "%s: Fail TcaseTool::CheckVehicleSpeed Brake to Stop\n", m_component->GetTestStepName().c_str());
-					testResult = testFail;
-				}
-			}
-			else
-				testResult = testPass;
-		}
-		else
-			testResult = testFail;
-		//Send Resutlts
+        if (maxRollerSpeed < maxSpeedTarget)
+        {   //check to see if we need to use brake for full stop
+            if ((m_component->ReadSubscribeData(ZEROSPEED_TAG) != "1") && m_component->GetParameterBool("CoastToStopAllowBraking"))
+            {   //call zerospeed
+                if (m_component->CheckZeroSpeed() == true)
+                {   //vehicle at zero speed
+                    m_component->Log(LOG_DEV_DATA, "%s: TcaseTool::CheckVehicleSpeed Vehicle at Zero Speed\n", m_component->GetTestStepName().c_str());
+                    testResult = testPass;
+                }
+                else
+                {
+                    //Fail vehicle at zero speed
+                    m_component->Log(LOG_ERRORS, "%s: Fail TcaseTool::CheckVehicleSpeed Brake to Stop\n", m_component->GetTestStepName().c_str());
+                    testResult = testFail;
+                }
+            }
+            else
+                testResult = testPass;
+        }
+        else
+            testResult = testFail;
+        //Send Resutlts
         m_component->SendTestResult(m_component->GetTestStepName().c_str(), testResult, m_component->GetTestStepInfo("Description"));
-	}
-	// Log the function exit
-	m_component->Log(LOG_FN_ENTRY, "TcaseTool::CoastToStop() Exit\n");
+    }
+    // Log the function exit
+    m_component->Log(LOG_FN_ENTRY, "TcaseTool::CoastToStop() Exit\n");
     // Return the results
-	return(testResult);
+    return(testResult);
 }
 
 //-----------------------------------------------------------------------------
 string TcaseTool::TcaseAccelerateToSpeed(void)
 {
-	string testResult = testFail;
-	// Log the function entry
-	m_component->Log(LOG_FN_ENTRY, "TcaseTool::AccelerateToSpeed() ENTER\n");
-	if (m_component->ShortCircuitTestStep())
-	{	//log skip step
-		m_component->Log(LOG_FN_ENTRY, "Skip TcaseTool::AccelerateToSpeed()\n");
-        testResult = testSkip;			//Return SKIP
-	}
-	else
-	{   // Accelerate to speed
-		testResult = m_component->AccelerateToTestSpeed(m_component->GetParameterFloat(m_component->GetTestStepName()+"TargetSpeed"),
-										   m_component->GetParameter(m_component->GetTestStepName()+"TargetSpeedRange"),
-													   m_component->GetTestStepInfoInt("ScanDelay"),true);
-		//Send test result
-		m_component->SendTestResult(m_component->GetTestStepName().c_str(), testResult, m_component->GetTestStepInfo("Description"));
-	}
-	// Log the function exit
-	m_component->Log(LOG_FN_ENTRY, "TcaseTool::AccelerateToSpeed() Exit\n");
+    string testResult = testFail;
+    // Log the function entry
+    m_component->Log(LOG_FN_ENTRY, "TcaseTool::AccelerateToSpeed() ENTER\n");
+    if (m_component->ShortCircuitTestStep())
+    {   //log skip step
+        m_component->Log(LOG_FN_ENTRY, "Skip TcaseTool::AccelerateToSpeed()\n");
+        testResult = testSkip;          //Return SKIP
+    }
+    else
+    {   // Accelerate to speed
+        testResult = m_component->AccelerateToTestSpeed(m_component->GetParameterFloat(m_component->GetTestStepName()+"TargetSpeed"),
+                                           m_component->GetParameter(m_component->GetTestStepName()+"TargetSpeedRange"),
+                                                       m_component->GetTestStepInfoInt("ScanDelay"),true);
+        //Send test result
+        m_component->SendTestResult(m_component->GetTestStepName().c_str(), testResult, m_component->GetTestStepInfo("Description"));
+    }
+    // Log the function exit
+    m_component->Log(LOG_FN_ENTRY, "TcaseTool::AccelerateToSpeed() Exit\n");
     // Return the results
-	return(testResult);
+    return(testResult);
 }
 
 //*************************************************************************

@@ -227,7 +227,7 @@
 
 PlantHostInbound::PlantHostInbound() : BepServer(),
 m_broker(NULL), m_vehicleBuildFilePath("/VehicleData/BuildRecords/"),
-m_updateVINReadStatus(true), m_invalidateBuildRecordOnRead(true), m_vinIntermittentCharacterSelection(NULL)
+m_updateVINReadStatus(true), m_invalidateBuildRecordOnRead(true), m_alwaysPerformTest(false)
 {
 }
 
@@ -256,6 +256,7 @@ void PlantHostInbound::Initialize(const XmlNode *document)
 
     // Invalidate the build record status
     SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
+    Log(LOG_DEV_DATA, "Initialize - SetVehicleBuildRecordStatus: Invalid");
 }
 
 void PlantHostInbound::LoadAdditionalConfigurationItems(const XmlNode *document)
@@ -310,7 +311,9 @@ void PlantHostInbound::LoadAdditionalConfigurationItems(const XmlNode *document)
     {   // No values specified
         SetWheelBasePositions(NULL);
         SetWheelbasePositionTag("WheelbasePositionInchesX10");
-    }
+    }     
+
+    Log(LOG_DEV_DATA, "WheelbasePositiontag m_wheelbasePositionTag: %s", m_wheelbasePositionTag.c_str());
 
     // Check if the build record should be invalidated when read
     try
@@ -322,6 +325,17 @@ void PlantHostInbound::LoadAdditionalConfigurationItems(const XmlNode *document)
         StoreInvalidateBuildRecordOnReadFlag(true);
     }
 
+    // Check if the build record should be invalidated when read
+    try
+    {
+        StoreAlwaysPerformTest(setupNode->getChild("AlwaysPerformTest")->getValue() == "True");
+
+    }
+    catch (XmlException &XmlErr)
+    {  // Option not provided, default to true
+        StoreAlwaysPerformTest(false);
+    }
+    Log(LOG_DEV_DATA, "CheckVal: AlwaysPerformTest: %s", AlwaysPerformTest() ? "True" : "False");
     // Set the VIN starting index used to create the vehicle build file name
     try
     {
@@ -343,16 +357,6 @@ void PlantHostInbound::LoadAdditionalConfigurationItems(const XmlNode *document)
     catch(XmlException &XmlErr)
     {
         SetVehicleBuildFileVinLength(minVinLength);
-    }
-    try
-    {
-        m_vinIntermittentCharacterSelection = 
-            document->getChild("Setup/VINIntermittentCharacterSelection")->Copy();
-    }
-    catch(XmlException &excpt)
-    {
-        Log(LOG_ERRORS, "VIN Intermittent Character Selection not configured: %s", excpt.GetReason());
-        m_vinIntermittentCharacterSelection = NULL;
     }
 }
 
@@ -398,6 +402,7 @@ const std::string PlantHostInbound::Read(const XmlNode *dataNode, const INT32 ra
             if (InvalidateBuildRecordOnRead())
             {   // Invalidate the build record since it was just read and update traffic light
                 SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
+                Log(LOG_DEV_DATA, "Read - SetVehicleBuildRecordStatus: Invalid");
                 m_broker->Write(GetVinReadStatusTag(), NO_VIN, response, true);
             }
         }
@@ -416,7 +421,7 @@ const std::string PlantHostInbound::Write(const XmlNode *dataNode)
 {
     std::string result(BEP_ERROR_RESPONSE), response;
     result = BepServer::Write(dataNode);
-    if ( (dataNode->getName() == GetBuildRecordTag()) && (m_broker != NULL) )
+    if ((dataNode->getName() == GetBuildRecordTag()) && (m_broker != NULL))
     {
         const std::string vinTag = GetVinReadStatusTag();
         // Update the traffic light widget to let driver know vin is being processed
@@ -560,10 +565,10 @@ const std::string PlantHostInbound::ReadBuildRecordFromBroadcast(const std::stri
 
 void PlantHostInbound::UpdateInputServerState()
 {   // Use a semaphore to prevent race condition on InputServerState
-	m_SemInputServerState.CriticalSectionEnter();
-	Log(LOG_DEV_DATA,"Entered InputServerState Sem in UpdateInputServer()");
-	// Check conditions of data and the machine
-	bool retainersDown = (Read(GetRetainersDownTag()) == retainingRollsDown ? true : false);
+    m_SemInputServerState.CriticalSectionEnter();
+    Log(LOG_DEV_DATA,"Entered InputServerState Sem in UpdateInputServer()");
+    // Check conditions of data and the machine
+    bool retainersDown = (Read(GetRetainersDownTag()) == retainingRollsDown ? true : false);
     bool vehiclePresent = (Read(GetVehiclePresentTag()) == vehicleIsPresent ? true : false);
     bool validBuildRecord = (GetVehicleBuildRecordStatus() == validStatus ? true : false);
     std::string response;
@@ -590,8 +595,22 @@ void PlantHostInbound::UpdateInputServerState()
     // Determine if we need to display the VIN
     if (retainersDown && validBuildRecord)
     {   // Display the full VIN on the GUI
-        m_broker->Write(GetVinDisplayTag(), m_vehicleBuild.getNode(GetVinTag())->getValue(), response, true);
+        Log(LOG_DEV_DATA,"Displaying VIN on GUI");
+        try
+        {
+            Log( LOG_DEV_DATA, "PlantHostInbound: vinDisplayTag: %s\n",GetVinDisplayTag().c_str());
+            if (m_broker != NULL)
+            {
+                m_broker->Write(GetVinDisplayTag(), m_vehicleBuild.getNode(GetVinTag())->getValue(), response, true);
+            }
+        }
+        catch(...)
+        {
+
+            Log( LOG_DEV_DATA, "PlantHostInbound: Problems setting the vin display");           
+        }        
     }
+    Log(LOG_DEV_DATA,"Looking at exiting this m_SemInputServerState.CriticalSectionExit()");
     m_SemInputServerState.CriticalSectionExit();
     Log(LOG_DEV_DATA,"Exited InputServerState Sem in UpdateInputServer()");
 }
@@ -635,42 +654,87 @@ void PlantHostInbound::TranslateBuildRecord(const std::string &buildRecord, XmlN
                 if(BEP_STATUS_SUCCESS != TranslateBuildRecordHook(&fieldType, tag, value))
                 {
                     // node was not fully processed in the line above
-                    Log(LOG_DEV_DATA,"PlantHostInbound::TranslateBuildRecord - PostHook: %s\n", value.c_str());
+                    Log(LOG_DEV_DATA,"PlantHostInbound::TranslateBuildRecord - PostHook: <%s>\n", value.c_str());
                     if((fieldType == TYPE_CODE) || (fieldType == TYPE_LITERAL_CODE))
                     {   // Look up the type of component
                         if(tag == PERFORM_ABORT_TEST)
                         {
                             try
                             {
-                                value = iter->second->getChild(value)->getValue();
+                                // force value to always perform test
+                                if (AlwaysPerformTest()) 
+                                {
+                                    value = "Perform";
+                                    Log(LOG_DEV_DATA,"PlantHostInbound always performing test");
+                                }
+                                else
+                                {
+                                    value = iter->second->getChild(value)->getValue();
+                                    Log(LOG_DEV_DATA,"Reading value from xml node:  value: <%s>", value.c_str());
+                                }
                             }
-                            catch(...)
+                            catch (...)
                             {
                                 value = "Abort";
                             }
+
+                            Log(LOG_DEV_DATA,"Perform status: %s", value.c_str());
                         }
                         else
                         {
-                            nodeString = "Type" + value;
-                            Log(LOG_DEV_DATA,"PlantHostInbound::TranslateBuildRecord - nodeString: %s\n", nodeString.c_str());
-                            const XmlNodeMap *translationMap = &iter->second->getChildren();
-                            XmlNodeMapCItr valueIter = translationMap->find(nodeString);
-                            if(valueIter != translationMap->end())
+                            // if the value is empty/blank/space, tell it to grab the default value. if no default value, ignore. compare returns 0 on equal.
+                            Log(LOG_DEV_DATA,"Value index[0]: <0x%02X>\n", value[0]);
+                            
+                            if (!value.compare(" "))
                             {
-                                value = valueIter->second->getValue();
+                                nodeString = "Default";
+                                Log(LOG_DEV_DATA, "empty value. grabbing default value");
                             }
                             else
                             {
-                                Log(LOG_ERRORS, "Could not find translation for Tag: %s - Type: %s", tag.c_str(), value.c_str());
+                                Log(LOG_DEV_DATA,"compare returned: %d", value.compare(" "));
+                                nodeString = "Type" + value; 
+                            }
+
+                            Log(LOG_DEV_DATA,"PlantHostInbound::TranslateBuildRecord - nodeString: <%s>\n", nodeString.c_str());
+
+
+                            try
+                            {
+                                const XmlNodeMap *translationMap = &iter->second->getChildren();
+                                XmlNodeMapCItr valueIter = translationMap->find(nodeString);
+                                if(valueIter != translationMap->end())
+                                {
+                                    value = valueIter->second->getValue();
+                                }
+                                else
+                                {
+                                    Log(LOG_ERRORS, "Could not find translation for Tag: <%s> - Type: <%s>", tag.c_str(), value.c_str());
+                                    value = "Undefined";
+                                }
+                            }               
+                            catch (...)
+                            {
+                                Log(LOG_ERRORS, "PlantHostInbound::TranslateBuildRecord - there was an xml fault");
                                 value = "Undefined";
                             }
-                            Log(LOG_DEV_DATA,"PlantHostInbound::TranslateBuildRecord - nodeString Value: %s\n", value.c_str());
+
+                            Log(LOG_DEV_DATA,"PlantHostInbound::TranslateBuildRecord - nodeString Value: <%s>\n", value.c_str());
                         }
                     }
                 }
-                // Plug the info into the vehicle build node
-                Log(LOG_DEV_DATA,"Adding tag: %s, value: %s\n", tag.c_str(), value.c_str());
-                AddVehicleBuildItem(tag, value, buildData);
+
+                if ("Undefined" != value)
+                {   // Plug the info into the vehicle build node
+                    
+                    Log(LOG_DEV_DATA,"Adding tag: %s, value: %s\n", tag.c_str(), value.c_str());
+                    AddVehicleBuildItem(tag, value, buildData);
+                }
+                else
+                {
+                    Log(LOG_DEV_DATA,"Not updating item in vehicle build. tag: %s, value: %s\n", tag.c_str(), value.c_str());
+                }
+
             }
             else
             {   // Start index is invalid, do not do anything with this data item
@@ -693,8 +757,15 @@ const std::string PlantHostInbound::LoadVehicleBuildRecord(const std::string &vi
     Log(LOG_FN_ENTRY,"Enter PlantHostInbound::LoadVehicleBuildRecord(%s)\n",vin.c_str());
     std::string status(BEP_ERROR_RESPONSE), response, buildRecord;
     // Invalidate vehicle build since we are about to clear it and reload with a new one
-    if(updateStatus) SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
+    if(updateStatus)
+    { 
+       SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
+       Log(LOG_DEV_DATA, "LoadVehicleBuildRecord - SetVehicleBuildRecordStatus: Invalid");
+    }
+
     ClearVehicleBuild(buildData, updateStatus);
+    Log(LOG_DEV_DATA, "LoadVehicleBuildRecord - ClearVehicleBuild updateStatus: %s", updateStatus ? "True" : "False");
+
     std::string source = GetVehicleBuildSource();
     if (SOURCE_FILE == source)
     {   // Get the vehicle build record from file
@@ -703,28 +774,38 @@ const std::string PlantHostInbound::LoadVehicleBuildRecord(const std::string &vi
     else if (SOURCE_BROADCAST == source)
     {   // Request the vehicle build record from broadcast
         status = LoadVehicleBuildFromBroadcast(vin, buildData, updateStatus);
+        Log(LOG_FN_ENTRY,"PlantHostInbound::LoadVehicleBuildFromBroadcast - Status: %s\n", status.c_str());
     }
     // If the vehicle build was retrieved, store it.
     if (status == BEP_SUCCESS_RESPONSE)
     {   // Add information derived from the vehicle build information to the vehicle build record
+        Log(LOG_FN_ENTRY,"Calling AddDerivedBuildInfo\n");
         AddDerivedBuildInfo(buildData);
-        if(updateStatus)
+        if (updateStatus)
         {   // Set the vehicle build status to valid
+            Log(LOG_DEV_DATA, "Setting vehicle build status to valid");
             SetVehicleBuildRecordStatus(validStatus);
             m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
         }
-        Log("PlantHostInbound::LoadVehicleBuildRecord - Loaded vehicleBuild with:\n");
+        else
+        {
+              Log(LOG_DEV_DATA, "Not setting vehicle build status to valid");
+        }
+        Log(LOG_DEV_DATA, "PlantHostInbound::LoadVehicleBuildRecord - Loaded vehicleBuild with:\n");
         for(XmlNodeMapItr iter = buildData.begin(); iter != buildData.end(); iter++)
-            Log("\t%s\n", (*iter).second->ToString().c_str());
+            Log(LOG_DEV_DATA,"\t%s\n", (*iter).second->ToString().c_str());
+        Log(LOG_DEV_DATA, "PlantHostInbound::LoadVehicleBuildRecord - Display complete");
     }
     else
     {   // Log that an error occurred loading vehicle build data
+        Log(LOG_DEV_DATA, "PlantHostInbound::LoadVehicleBuildRecord - Error occurred loading vehicle build data");
         m_broker->Write(GetVinReadStatusTag(), NO_VIN, response, true);
         Log(LOG_ERRORS,"Error Loading VehicleBuild from: %s for data: %s\n", source.c_str(), vin.c_str());
     }
     // Update the Input Server State if needed
     if(updateStatus)
     {   // Update the DataInputServer state
+        Log(LOG_DEV_DATA, "Updating the input server state");
         UpdateInputServerState();
     }
     Log(LOG_FN_ENTRY,"PlantHostInbound::LoadVehicleBuildRecord() returning %s\n", status.c_str());
@@ -739,26 +820,13 @@ const std::string PlantHostInbound::LoadVehicleBuildFromFile(const std::string &
     std::string requestedVin = vin, status, testStatus;
     try
     {
-        if (m_vinIntermittentCharacterSelection != NULL)
-        {//base file name on selected VIN characters
-            requestedVin = "";
-            for(XmlNodeMapCItr iter = m_vinIntermittentCharacterSelection->getChildren().begin();
-                 iter != m_vinIntermittentCharacterSelection->getChildren().end(); iter++)
-            {
-                UINT8 index = BposReadInt(iter->second->getValue().c_str());
-                requestedVin += vin[(index < vin.length()) ? index : 0];
-            }
-        }
-        else
+        if (vin.length() > minVinLength)
         {
-            if (vin.length() > minVinLength)
-            {
-                Log(LOG_DEV_DATA,"VIN Start Index: %d, VIN length: %d",
-                    VehicleBuildFileVinStart(),VehicleBuildFileVinLength());
-    
-                requestedVin = vin.substr(VehicleBuildFileVinStart(),
-                                          VehicleBuildFileVinLength());
-            }
+            Log(LOG_DEV_DATA,"VIN Start Index: %d, VIN length: %d",
+                VehicleBuildFileVinStart(),VehicleBuildFileVinLength());
+
+            requestedVin = vin.substr(VehicleBuildFileVinStart(),
+                                      VehicleBuildFileVinLength());
         }
 
         std::string buildRecordFile = GetVehicleBuildFilePath() + "Vin" + requestedVin + ".xml";
@@ -798,18 +866,21 @@ const std::string PlantHostInbound::LoadVehicleBuildFromFile(const std::string &
         status = BEP_UNAVAILABLE_RESPONSE;
         Log(LOG_ERRORS, "XmlException: Error loading vehicle build data from file: %s", excpt.GetReason());
         ClearVehicleBuild(buildData, updateStatus);
+        Log(LOG_DEV_DATA, "LoadVehicleBuildFromFile1 - ClearVehicleBuild updateStatus: %s", updateStatus ? "True" : "False");
     }
     catch(BepException &excpt)
     {
         status = BEP_UNAVAILABLE_RESPONSE;
         Log(LOG_ERRORS, "BepException: Error loading vehicle build data from file: %s", excpt.GetReason());
         ClearVehicleBuild(buildData, updateStatus);
+        Log(LOG_DEV_DATA, "LoadVehicleBuildFromFile2 - ClearVehicleBuild updateStatus: %s", updateStatus ? "True" : "False");
     }
     catch (...)
     {       // There was an error getting the build record
         status = BEP_UNAVAILABLE_RESPONSE;
         Log("Error getting vehicle build from file\n");
         ClearVehicleBuild(buildData, updateStatus);
+        Log(LOG_DEV_DATA, "LoadVehicleBuildFromFile3 - ClearVehicleBuild updateStatus: %s", updateStatus ? "True" : "False");
     }
     if (IsDebugOn()) printf("PlantHostInbound::LoadVehicleBuildFromFile() complete, returning: %s\n", status.c_str());
     return(status);
@@ -832,7 +903,13 @@ const std::string PlantHostInbound::LoadVehicleBuildFromBroadcast(const std::str
         status = BEP_SUCCESS_RESPONSE;
     }
     // Make sure the build info is good
-    if(buildData.empty()) status = BEP_FAILURE_RESPONSE;
+    if(buildData.empty())
+    { 
+        Log(LOG_DEV_DATA,"vin.length(): %d   vinLength: %d\n", vin.length(), vinLength);
+        Log(LOG_DEV_DATA,"Some of the build data is empty. Failing build record\n");
+        status = BEP_FAILURE_RESPONSE;
+    }
+    Log(LOG_DEV_DATA,"LoadVehicleBuildFromBroadcast - Exit status: %s", status.c_str());
     return(status);
 }
 
@@ -890,9 +967,15 @@ void PlantHostInbound::TestStatusCheck(XmlNodeMap &buildData)
             }
             else
             {   // Ok to test, clear the color from the prompt box
+                Log("PlantHostInbound::TestStatusCheck - Conditions OK to test");
                 m_promptComm.SetBackgroundColor(2, "White", response);
                 m_broker->Write("PfsBlocked", "0", response, true);
             }
+        }
+        else
+        {
+            Log("PlantHostInbound::TestStatusCheck - The retainers are up");
+
         }
     }
     else
@@ -1171,9 +1254,19 @@ const bool& PlantHostInbound::InvalidateBuildRecordOnRead(void)
     return(m_invalidateBuildRecordOnRead);
 }
 
+const bool& PlantHostInbound::AlwaysPerformTest(void)
+{
+    return(m_alwaysPerformTest);
+}
+
 void PlantHostInbound::StoreInvalidateBuildRecordOnReadFlag(const bool &invalidateOnRead)
 {
     m_invalidateBuildRecordOnRead = invalidateOnRead;
+}
+
+void PlantHostInbound::StoreAlwaysPerformTest(const bool &alwaysPerformTest)
+{
+    m_alwaysPerformTest = alwaysPerformTest;
 }
 
 UINT16 PlantHostInbound::VehicleBuildFileVinStart(void)

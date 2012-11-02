@@ -518,6 +518,8 @@ public:
 	 * @return True - the vehicle build record will be invalidated when read.
 	 */
 	virtual const bool &InvalidateBuildRecordOnRead(void);
+
+	virtual const bool &AlwaysPerformTest(void);
 	/**
 	 * Get the vehicle build record for the specofied vin.
 	 *
@@ -568,7 +570,10 @@ public:
 	 *         False - Retaining rolls are up
 	 */
 	const bool AreRetainersDown(void);
-
+	/**
+	 * Communication object to talk to the NamedDataBroker.
+	 */
+	INamedDataBroker  *m_broker;   
 protected:
 	/**
 	 * Load the additional configuration items needed by plant host inbound.
@@ -947,10 +952,6 @@ protected:
 	 */
 	IBepCommunication  m_inputServerComm;
 	/**
-	 * Communication object to talk to the NamedDataBroker.
-	 */
-	INamedDataBroker  *m_broker;
-	/**
 	 * List of wheel base positions and body styles.
 	 */
 	XmlNodeMap   m_wheelBasePositions;
@@ -1026,6 +1027,7 @@ private:
 	 *                          invalidated when read from the server.
 	 */
 	virtual void StoreInvalidateBuildRecordOnReadFlag(const bool &invalidateOnRead);
+	virtual void StoreAlwaysPerformTest(const bool &alwaysPerformTest);
 	/**
 	 * Tag being used for the vehicle build status.
 	 */
@@ -1100,6 +1102,8 @@ private:
 	 * @since Version 1.5
 	 */
 	bool m_invalidateBuildRecordOnRead;
+
+	bool m_alwaysPerformTest;
 	/**
 	 * The starting index of the VIN used to create the vehicle build file
 	 * name.

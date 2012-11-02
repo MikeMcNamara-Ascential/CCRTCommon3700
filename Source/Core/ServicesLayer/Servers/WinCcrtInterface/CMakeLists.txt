@@ -73,7 +73,7 @@ INSTALL_TARGETS(${SERVICES_LAYER_INSTALL_DIR} ${EXE_NAME})
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
 #CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp)
-#TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME} -lds -lm)
+#TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME} m -lds -lm)
 #
 #------------------------------------------------------------------------------------------
 # Add a QNX use message to the executable

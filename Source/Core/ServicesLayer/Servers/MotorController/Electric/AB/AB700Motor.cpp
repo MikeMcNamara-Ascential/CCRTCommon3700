@@ -88,7 +88,14 @@ const INT32 AB700Motor::CommandRPM(const float rpm, const UINT32 delay)
     float relRpm = rpm / GetBaseSpeed();  // Convert to a percentage of base speed
     char buff[16];
     Log(LOG_DEV_DATA, "Relative RPM: %.2f", relRpm);
-    string rpmVal(CreateMessage(buff, sizeof(buff), "%d", (INT32)(relRpm + 0.5)));
+    INT32 txRpm = 0.0;
+
+    //do this to take care of problem when sending negative rpm to PLC
+    txRpm = (relRpm < 0) ? ((INT32)(relRpm + 0.5))<<16 : (INT32)(relRpm + 0.5);
+    Log(LOG_DEV_DATA, "Writing value to PLC: %d, %x", txRpm, txRpm);
+
+
+    string rpmVal(CreateMessage(buff, sizeof(buff), "%d", txRpm));
     INT32 status = WriteData(m_motorName + PlcSpeedRefTag, rpmVal);
     Log(LOG_DEV_DATA, "Commanded RPM - tag: %s, rpm: %s, status: %d",
         (m_motorName + PlcSpeedRefTag).c_str(), rpmVal.c_str(), status);
@@ -136,10 +143,10 @@ const INT32 AB700Motor::FollowMaster(const ABMotor *master, const float &masterR
     INT32   status = EINVAL;
     ABMotor *masterMotor = const_cast<ABMotor *>(master);
     Log( LOG_DEV_DATA, "Enter AB700Motor::FollowMaster(%d)", masterMotor->SpeedRefDriveIndex());
-	if((master != this) || (motorCount == 2))
-	{   // Set my speed to the master's speed
-		status = CommandSpeed(masterRollSpeed, 0);
-	}
+    if((master != this) || (motorCount == 2))
+    {   // Set my speed to the master's speed
+        status = CommandSpeed(masterRollSpeed, 0);
+    }
     Log(LOG_DEV_DATA, "Exit AB700Motor::FollowMaster( %d)", masterMotor->SpeedRefDriveIndex());
     return(status);
 }

@@ -19,8 +19,8 @@
  include files
  ******************/
 #include <errno.h>
-#include <sync.h>			// BARRIER_SERIAL_THREAD
-#include <sys/netmgr.h>		// ND_LOCAL_NODE
+#include <sync.h>           // BARRIER_SERIAL_THREAD
+#include <sys/netmgr.h>     // ND_LOCAL_NODE
 #include "PlcMelsec.h"
 #include "BepException.h"
 
@@ -82,6 +82,7 @@ bool PlcMelsec::Open(uint32_t inputCount, uint32_t outputCount, bool demoMode)
 
     Log( LOG_FN_ENTRY, "Enter PlcMelsec::Open()\n");
 
+    Log( LOG_DEV_DATA, "inputCount: %d  outputCount: %d",inputCount, outputCount);
     m_fromPlcCount = inputCount;
     m_toPlcCount = outputCount;
 
@@ -254,21 +255,21 @@ void PlcMelsec::LaunchCommThread( const std::string &portName) throw( BepExcepti
  */
 void PlcMelsec::ReadInputConfiguration( const XmlNodeMap &inputNodes)
 {
-	Log( LOG_FN_ENTRY, "Enter PlcMelsec::ReadInputConfiguration()\n");
-	
-	try
-	{
-		const XmlNode *addressNode = inputNodes.getNode( "Address");
-		m_inputAddress = XmlToAscii( addressNode->getValue());
-	}
-	catch( XmlException &err)
-	{
-		m_inputAddress = "D0050";
+    Log( LOG_FN_ENTRY, "Enter PlcMelsec::ReadInputConfiguration()\n");
+    
+    try
+    {
+        const XmlNode *addressNode = inputNodes.getNode( "Address");
+        m_inputAddress = XmlToAscii( addressNode->getValue());
+    }
+    catch( XmlException &err)
+    {
+        m_inputAddress = "D0050";
         Log( LOG_DEV_DATA, "Using default Input Address");
-	}
-	Log( LOG_DEV_DATA, "Input Address: %s\n", m_inputAddress.c_str());
-	
-	Log( LOG_FN_ENTRY, "Exit PlcMelsec::ReadInputConfiguration()\n");
+    }
+    Log( LOG_DEV_DATA, "Input Address: %s\n", m_inputAddress.c_str());
+    
+    Log( LOG_FN_ENTRY, "Exit PlcMelsec::ReadInputConfiguration()\n");
 }
 
 
@@ -280,22 +281,22 @@ void PlcMelsec::ReadInputConfiguration( const XmlNodeMap &inputNodes)
  */
 void PlcMelsec::ReadOutputConfiguration( const XmlNodeMap &outputNodes)
 {
-	Log( LOG_FN_ENTRY, "Enter PlcMelsec::ReadOutputConfiguration()\n");
-    	
-	// Check for output channel PLC address
-	try
-	{
-		const XmlNode *addressNode = outputNodes.getNode( "Address");
-		m_outputAddress = XmlToAscii( addressNode->getValue());
-	}
-	catch( XmlException &err)
-	{
-		m_outputAddress = "D0000";
+    Log( LOG_FN_ENTRY, "Enter PlcMelsec::ReadOutputConfiguration()\n");
+        
+    // Check for output channel PLC address
+    try
+    {
+        const XmlNode *addressNode = outputNodes.getNode( "Address");
+        m_outputAddress = XmlToAscii( addressNode->getValue());
+    }
+    catch( XmlException &err)
+    {
+        m_outputAddress = "D0000";
         Log( LOG_DEV_DATA, "Using default Output Address");
-	}
-	Log( LOG_DEV_DATA, "Output Address: %s\n", m_outputAddress.c_str());
-	
-	Log( LOG_FN_ENTRY, "Exit PlcMelsec::ReadOutputConfiguration()\n");
+    }
+    Log( LOG_DEV_DATA, "Output Address: %s\n", m_outputAddress.c_str());
+    
+    Log( LOG_FN_ENTRY, "Exit PlcMelsec::ReadOutputConfiguration()\n");
 }
 
 /**

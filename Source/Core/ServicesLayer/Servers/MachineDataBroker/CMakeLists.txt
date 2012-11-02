@@ -25,7 +25,7 @@ ADD_LIBRARY(${LIB_NAME} STATIC MachineDataBroker.cpp MaintenanceItem.cpp)
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
 CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp)
-TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME} -lds -lm)
+TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME} m)
 
 #------------------------------------------------------------------------------------------
 # Add a QNX use message to the executable

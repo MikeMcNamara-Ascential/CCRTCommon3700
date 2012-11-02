@@ -97,6 +97,16 @@ const string MazdaSystemMonitor::Publish(const XmlNode *node)
 void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
 {
     Log(LOG_FN_ENTRY, "MazdaSystemMonitor::CheckTesting() - Enter");
+
+    Log(LOG_DEV_DATA, "\tmachineFault: %d", ctrl->machineFault);
+    Log(LOG_DEV_DATA, "\ttestInProgress: %d", ctrl->testInProgress);
+    Log(LOG_DEV_DATA, "\toldTestInProgress: %d", m_oldCtrl->testInProgress);
+    Log(LOG_DEV_DATA, "\trollsDown: %d", ctrl->rollsDown);
+    Log(LOG_DEV_DATA, "\tvehiclePresent: %d", ctrl->vehiclePresent);
+    Log(LOG_DEV_DATA, "\tvehicleBuildDataLoaded: %d", VehicleBuildDataLoaded());
+    Log(LOG_DEV_DATA, "\tvehVinReadStatus: %s", ctrl->vehVinReadStatus.c_str());
+    Log(LOG_DEV_DATA, "\twheelbaseInPosition: %d", ctrl->wheelbaseInPosition);
+
     // Make sure there is not a machine fault that would prevent testing
     if(!ctrl->machineFault)
     {   // Check if a test is in progress
@@ -113,6 +123,7 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
         // If no test in progress and rolls are down and vehicle present and we have a valid vehicle type
         else if(!ctrl->testInProgress && ctrl->rollsDown && ctrl->vehiclePresent && VehicleBuildDataLoaded())
         {   
+            Log(LOG_DEV_DATA, "Will only start test with valid vehicle info");
             if(ctrl->vehVinReadStatus == VALID_VEHICLE_VIN)
             {   // Raise the retainers
                 Log(LOG_DEV_DATA, "Vehicle present, rolls down and valid vehicle type - raising rolls and starting test");

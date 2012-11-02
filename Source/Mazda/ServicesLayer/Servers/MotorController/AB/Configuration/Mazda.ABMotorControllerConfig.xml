@@ -194,10 +194,10 @@
 			<RightRearTorqueValue>RightRearTorqueValue</RightRearTorqueValue>
 			<LeftTandemTorqueValue>LeftTandemTorqueValue</LeftTandemTorqueValue>
 			<RightTandemTorqueValue>RightTandemTorqueValue</RightTandemTorqueValue>
-			<LeftFrontMotorMode>LeftMotorMode</LeftFrontMotorMode>
-			<RightFrontMotorMode>RightMotorMode</RightFrontMotorMode>
-			<LeftRearMotorMode>LeftMotorMode</LeftRearMotorMode>
-			<RightRearMotorMode>RightMotorMode</RightRearMotorMode>
+			<LeftFrontMotorMode>LeftFrontMotorMode</LeftFrontMotorMode>
+			<RightFrontMotorMode>RightFrontMotorMode</RightFrontMotorMode>
+			<LeftRearMotorMode>LeftRearMotorMode</LeftRearMotorMode>
+			<RightRearMotorMode>RightRearMotorMode</RightRearMotorMode>
 			<LeftTandemMotorMode>LeftTandemMotorMode</LeftTandemMotorMode>
 			<RightTandemMotorMode>RightTandemMotorMode</RightTandemMotorMode>
             <VehicleAxleCount>VehicleAxleCount</VehicleAxleCount>

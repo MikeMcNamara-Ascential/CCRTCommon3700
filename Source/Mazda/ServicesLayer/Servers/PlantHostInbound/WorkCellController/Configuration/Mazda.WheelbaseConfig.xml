@@ -1,0 +1,15 @@
+<WheelbaseConfig>
+   <PendantConfig>
+      <Button0 Wheelbase="93.7"/> <!-- 2380mm -->
+      <Button1 Wheelbase="90.5"/> <!-- 2300mm -->
+      <Button2 Wheelbase="99.4"/> <!-- 2525mm -->
+      <Button3 Wheelbase="106.2"/> <!-- 2700mm -->
+      <Button4 Wheelbase="110.0"/> <!-- 2795mm -->
+      <Button5 Wheelbase="106.2"/> <!-- 2700mm -->      
+      <Button6 Wheelbase="96.1"/> <!-- 2440mm -->      
+   </PendantConfig>
+   <VehicleConfig>
+      <Vehicle0 BodyStyle="EVF" Description="Sonata" ModelYear="????" Wheelbase="110.0" ButtonIndex="1"/>
+      <Vehicle1 BodyStyle="EWZ" Description="Santa Fe" ModelYear="????" Wheelbase="106.2" ButtonIndex="2"/>
+   </VehicleConfig>
+</WheelbaseConfig>

@@ -3,6 +3,7 @@
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(InputServer)
 ADD_SUBDIRECTORY(Launcher)
+ADD_SUBDIRECTORY(MazdaAlcInterface)
 ADD_SUBDIRECTORY(MachineDataBroker)
 ADD_SUBDIRECTORY(MotorController)
 ADD_SUBDIRECTORY(PlantHostInbound)

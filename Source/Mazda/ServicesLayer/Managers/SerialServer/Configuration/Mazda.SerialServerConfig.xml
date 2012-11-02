@@ -12,7 +12,7 @@
             <Verbose>0x01</Verbose>
         </Logging>
         <LogicalPorts>
-            <PlcDf1 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <PlcDf1 enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/ser1</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
@@ -49,6 +49,43 @@
                     </CommLog>
                 </Setup>
             </PlcDf1>
+            <PlcMelsec enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/ser1</SerialDevice>
+                    <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/PlcMelsec</ProcessName>
+                        <AdditionalLogFile>/Servers/PlcMelsec.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <AdditionalLogFile>/Communication/PlcMelsec_Comm.log</AdditionalLogFile>
+                                <ProcessName>Melsec_Comm</ProcessName>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x01</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </PlcMelsec>
         </LogicalPorts>
     </Setup>
 </SerialServerConfig>

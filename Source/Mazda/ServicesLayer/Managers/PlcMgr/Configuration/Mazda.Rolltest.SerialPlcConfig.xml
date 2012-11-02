@@ -13,7 +13,7 @@
         <Demo>0</Demo>
         <PlcBoards>
             <!--'active' attribute must be Yes or No (case sensitive)-->
-            <MainDf1Plc type="Df1" index="0" active="Yes">
+            <MainDf1Plc type="Df1" index="0" active="No">
                 <LogicalPort>PlcDf1</LogicalPort>
                 <Setup>
                     <Logging>
@@ -48,6 +48,26 @@
                     <ChannelCount>35</ChannelCount>
                 </Outputs>
             </MainV30BPlc>
+            <MainMelsecPlc type="Melsec" index="0" active="Yes">
+               <LogicalPort>PlcMelsec</LogicalPort>
+               <Setup>
+                  <Logging>
+                     <Status>Enabled</Status>
+                     <ProcessName>mgr/MelsecProtocol</ProcessName>
+                     <AdditionalLogFile Types="/Servers/PLC or Disabled">/Servers/MelsecPlc.log</AdditionalLogFile>
+                     <LocalEcho>Disabled</LocalEcho>
+                     <Debug>Off</Debug>
+                     <Verbose>0x01</Verbose>
+                  </Logging>
+               </Setup>
+               <ScanTime>200</ScanTime>
+               <Inputs>
+                  <Address>D0050</Address>
+               </Inputs>
+               <Outputs>
+                  <Address>D0000</Address>
+               </Outputs>
+            </MainMelsecPlc>            
         </PlcBoards>
         <ChannelTime>25</ChannelTime>
         <NotificationList>

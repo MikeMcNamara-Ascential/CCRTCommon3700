@@ -40,13 +40,21 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
             SystemWrite(GetDataTag("RRBrakeDistanceColorTag"), GetParameter("TestInProgressColor"));
             testResult = AccelerateVehicleToSpeed(atof(GetVehicleParameter("BrakeDistanceTestSpeed").c_str()), true, true);
         }
-        else if(!GetTestStepName().compare("BrakeStoppingDistanceTest")) testResult = BrakeDistanceTest();
-        else if(!GetTestStepName().compare("MaxBrakeForceMeasurement"))  testResult = MaxBrakeForceVerification();
-        else if(!GetTestStepName().compare("MaxBrakeForceCalibration"))  testResult = MaxBrakeForceCalibration();
-        else if(!GetTestStepName().compare("ParkBrakeForceMeasurement")) testResult = ParkBrakeForceVerification();
-        else if(!GetTestStepName().compare("ParkBrakeForceCalibration")) testResult = ParkBrakeForceCalibration();
-        else if(!GetTestStepName().compare("PreShiftCheckout"))          testResult = PreShiftCheck();
-        else if(!GetTestStepName().compare("TractionControlTest"))       testResult = TractionControlCheck();
+        else if(!GetTestStepName().compare("BrakeStoppingDistanceTest"))   testResult = BrakeDistanceTest();
+        else if(!GetTestStepName().compare("MaxBrakeForceMeasurement"))    testResult = MaxBrakeForceVerification();
+        else if(!GetTestStepName().compare("MaxBrakeForceCalibration"))    testResult = MaxBrakeForceCalibration();
+        else if(!GetTestStepName().compare("ParkBrakeForceMeasurement"))   testResult = ParkBrakeForceVerification();
+        else if(!GetTestStepName().compare("ParkBrakeForceCalibration"))   testResult = ParkBrakeForceCalibration();
+        else if(!GetTestStepName().compare("PreShiftCheckout"))            testResult = PreShiftCheck();
+        else if(!GetTestStepName().compare("TractionControlTest"))         testResult = TractionControlCheck();
+        else if(!GetTestStepName().compare("MazdaDragTest"))                testResult = MazdaDragTest();
+        else if(!GetTestStepName().compare("MazdaFrontBrakeForce"))        testResult = MazdaBrakeForceTest("Front");
+        else if(!GetTestStepName().compare("MazdaRearBrakeForce"))         testResult = MazdaBrakeForceTest("Rear");
+        else if(!GetTestStepName().compare("AnalyzeMazdaFrontBrakeForce")) testResult = MazdaAnalyzeBrakeForce("Front");
+        else if(!GetTestStepName().compare("AnalyzeMazdaRearBrakeForce"))  testResult = MazdaAnalyzeBrakeForce("Rear");
+        else if(!GetTestStepName().compare("MazdaParkBrakeForce"))         testResult = MazdaParkBrakeForce();
+        else if(!GetTestStepName().compare("AnalyzeMazdaParkBrakeForce"))  testResult = AnalyzeMazdaParkBrakeForce();
+        else if(!GetTestStepName().compare("SpeedSensorCheck"))            testResult = SpeedSensorCheck();
         else if(!GetTestStepName().compare("Initialize"))
         {   // Reset the system tags and then call the base class to finish the Initialize
             ResetSystemTags();
@@ -63,6 +71,270 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Exit", value.c_str());
     return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::MazdaParkBrakeForce()
+{   // Log the entry and determine if this should be checked
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Enter");
+    string result(BEP_FAILURE_RESPONSE);
+    string testResult(BEP_FAILURE_RESPONSE);
+
+    if(!ShortCircuitTestStep())
+    {
+    }
+    else
+    {   // Need to skip this step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping BaseDragTest test");
+    }
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Exit result: %s", result.c_str());
+
+    return(testResult);
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::AnalyzeMazdaParkBrakeForce()
+{   // Log the entry and determine if this should be checked
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Enter");
+    string result(BEP_FAILURE_RESPONSE);
+    string testResult(BEP_FAILURE_RESPONSE);
+
+
+    if(!ShortCircuitTestStep())
+    {
+
+    }
+    else
+    {   // Need to skip this step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping BaseDragTest test");
+    }
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Exit result: %s", result.c_str());
+
+    return(testResult);
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::MazdaAnalyzeBrakeForce(string axle)
+{   // Log the entry and determine if this should be checked
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaAnalyzeBrakeForce(%s) - Enter", axle.c_str());
+    string result(BEP_FAILURE_RESPONSE);
+    string testResult(BEP_FAILURE_RESPONSE);
+
+    if(!ShortCircuitTestStep())
+    {
+
+    }
+    else
+    {   // Need to skip this step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping MazdaAnalyzeBrakeForce test");
+    }
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaAnalyzeBrakeForce() - Exit result: %s", result.c_str());
+
+    return(testResult);
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
+{   // Log the entry and determine if this should be checked
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaBrakeForceTest(%s) - Enter", axle.c_str());
+    string result(BEP_FAILURE_RESPONSE);
+    string testResult(BEP_FAILURE_RESPONSE);
+
+    if(!ShortCircuitTestStep())
+    {
+        if(BEP_STATUS_SUCCESS == WaitForWheelSpeedsToBeReached(GetParameterFloat("FLSpeed"+axle+"Force"), 
+                                                                GetParameterFloat("FRSpeed"+axle+"Force"), 
+                                                                GetParameterFloat("RLSpeed"+axle+"Force"), 
+                                                                GetParameterFloat("RRSpeed"+axle+"Force"), GetParameterInt("Wheelspeed"+axle+"ForceTestAccelTimeout")))
+        {
+            if(UpdatePrompts() != BEP_STATUS_SUCCESS)
+                Log(LOG_ERRORS, "Unable to Update Prompts\n");
+
+            // begin measuring the forces here.
+            result = BEP_SUCCESS_RESPONSE;
+
+        }
+    }
+    else
+    {   // Need to skip this step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping MazdaBrakeForceTest test");
+    }
+
+    RemovePrompts();
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaBrakeForceTest() - Exit result: %s", result.c_str());
+
+    return(testResult);
+}
+
+void MazdaBrakeTC::ResetMotorModeAndSpeed(void)
+{
+
+    // Go to torque 0 first to clear any command history in the motor controller
+    m_MotorController.Write("LeftFrontTorqueValue", "0.00", false);
+    m_MotorController.Write("RightFrontTorqueValue", "0.00", false);
+    m_MotorController.Write("LeftRearTorqueValue", "0.00", false);
+    m_MotorController.Write("RightRearTorqueValue", "0.00", false);
+    m_MotorController.Write("LeftFrontSpeedValue", "0.00", false);
+    m_MotorController.Write("RightFrontSpeedValue", "0.00", false);
+    m_MotorController.Write("LeftRearSpeedValue", "0.00", false);
+    m_MotorController.Write("RightRearSpeedValue", "0.00", true);
+    BposSleep( 100);
+
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::MazdaDragTest(void)
+{   // Log the entry and determine if this should be checked
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Enter");
+
+    string testResult(BEP_TESTING_RESPONSE);
+    string result(BEP_FAILURE_RESPONSE);
+
+    if(!ShortCircuitTestStep())
+    { 
+
+        ResetMotorModeAndSpeed();
+
+        if(BEP_STATUS_SUCCESS == WaitForWheelSpeedsToBeReached(GetParameterFloat("FLSpeedBaseDrag"), 
+                                                                GetParameterFloat("FRSpeedBaseDrag"), 
+                                                                GetParameterFloat("RLSpeedBaseDrag"), 
+                                                                GetParameterFloat("RRSpeedBaseDrag"), GetParameterInt("WheelspeedDragTestAccelTimeout")))
+        {
+            Log(LOG_DEV_DATA, "Wheelspeeds are in range. Now calling base drag test.");
+            result = TestStepDrag();
+
+        }
+
+
+    }
+    else
+    {   // Need to skip this step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping MazdaDragTest test");
+    }
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Exit");
+    return testResult;
+}
+
+void MazdaBrakeTC::DisplayAccelPrompts(void)
+{
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::DisplayAccelPrompts() - Enter");
+
+    DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), 
+                  GetPromptPriority("RemoveFootFromBrake"));
+    DisplayTimedPrompt(GetPrompt("NeutralPrompt"), GetPromptBox("NeutralPrompt"), GetPromptPriority("NeutralPrompt"),
+                       GetPromptDuration("NeutralPrompt"));
+    RemovePrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), 
+                 GetPromptPriority("RemoveFootFromBrake"));
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::DisplayAccelPrompts() - Exit");
+}
+
+//-------------------------------------------------------------------------------------------------
+BEP_STATUS_TYPE MazdaBrakeTC::WaitForWheelSpeedsToBeReached(float FLTargetSpeed,
+                                                            float FRTargetSpeed,
+                                                            float RLTargetSpeed,
+                                                            float RRTargetSpeed, int timeout)
+{
+
+    BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
+
+    const int pollrate = 50;
+    bool lfSpeedReached = false;
+    bool rfSpeedReached = false;
+    bool lrSpeedReached = false;
+    bool rrSpeedReached = false;
+
+    char    temp[256];
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForWheelSpeedsToBeReached() - Enter");
+
+    // Display prompts for accelerating the wheels (will be cleared automatically)
+    DisplayAccelPrompts();
+
+    // set the motor mode
+    m_MotorController.Write("LeftFrontMotorMode", SPEED_MODE, false);
+    m_MotorController.Write("RightFrontMotorMode", SPEED_MODE, false);
+    m_MotorController.Write("LeftRearMotorMode", SPEED_MODE, false);
+    m_MotorController.Write("RightRearMotorMode", SPEED_MODE, false);
+
+    // set the motor speeds
+    m_MotorController.Write("LeftFrontSpeedValue", CreateMessage(temp, 256, "%.2f", FLTargetSpeed), false);
+    m_MotorController.Write("RightFrontSpeedValue", CreateMessage(temp, 256, "%.2f", FRTargetSpeed), false);
+    m_MotorController.Write("LeftRearSpeedValue", CreateMessage(temp, 256, "%.2f", RLTargetSpeed), false);
+    m_MotorController.Write("RightRearSpeedValue", CreateMessage(temp, 256, "%.2f", RRTargetSpeed), true);
+
+    // sleep a little for good measure
+    BposSleep( 100);
+
+    Log(LOG_DEV_DATA, "WaitForWheelSpeedsToBeReached: LF: %.2f  RF: %.2f  LR: %.2f  RR: %.2f", FLTargetSpeed, FRTargetSpeed, RLTargetSpeed, RRTargetSpeed);
+
+    while(timeout > 0)
+    {
+
+        // check if all of the wheel speeds are in range
+        lfSpeedReached = IsWheelInSpeedRange(GetDataTag("LFSpeed"), FLTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
+        rfSpeedReached = IsWheelInSpeedRange(GetDataTag("RFSpeed"), FRTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
+        lrSpeedReached = IsWheelInSpeedRange(GetDataTag("LRSpeed"), RLTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
+        rrSpeedReached = IsWheelInSpeedRange(GetDataTag("RRSpeed"), RRTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
+
+        Log(LOG_DEV_DATA, "Wheelspeeds reached: LF: %d  RF: %d  LR: %d  RR: %d", lfSpeedReached, rfSpeedReached, lrSpeedReached, rrSpeedReached);
+
+        if (lfSpeedReached && rfSpeedReached && lrSpeedReached && rrSpeedReached)
+        {
+            status = BEP_STATUS_SUCCESS;
+            break;
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "Not all wheels are in speed range");
+        }
+        
+        timeout -= pollrate;
+        Log(LOG_DEV_DATA, "Delaying for another %dms. %dms remaining", pollrate, timeout);
+        delay(pollrate);
+    }
+
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForWheelSpeedsToBeReached() - Exit    status: %s", ConvertStatusToResponse(status).c_str());
+    
+
+    return (status);
+}
+
+bool MazdaBrakeTC::IsWheelInSpeedRange(string wheelTag, const float targetSpeed, float tolerance)
+{
+    bool status = false;
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::IsWheelInSpeedRange() - Enter");
+
+    float currSpeed = SystemReadFloat(wheelTag);
+    float minSpeed = targetSpeed - (targetSpeed * (tolerance / 100.0));
+    float maxSpeed = targetSpeed + (targetSpeed * (tolerance / 100.0));
+
+    Log(LOG_DEV_DATA, "Verify %s is in acceptable range. minSpeed: %.2f  currSpeed: %.2f  maxSpeed: %.2f", wheelTag.c_str(), minSpeed, currSpeed, maxSpeed);
+
+    if (minSpeed < currSpeed && currSpeed < maxSpeed)
+    {
+        status = true;
+    }
+    else
+    {
+        Log(LOG_DEV_DATA, "%s is outside acceptable range.", wheelTag.c_str());
+    }
+    
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::IsWheelInSpeedRange() - Exit status: %d", status);
+
+    return (status);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -115,6 +387,113 @@ string MazdaBrakeTC::AccelerateVehicleToSpeed(const float targetSpeed,
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::AccelerateVehicleToSpeed() - Exit");
     return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::SpeedSensorCheck(void)
+{   // Log the entry and determine if this should be checked
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Enter");
+    string testResult(BEP_TESTING_RESPONSE);
+    string result = "";
+    if(!ShortCircuitTestStep())
+    {  
+        // check if ABS is equipped
+        if(EquippedABS())
+        {
+            SystemWrite("M076", true);
+
+            // wait for rollers to accelerate to within range and before the timeout occurs
+            if(BEP_STATUS_SUCCESS == WaitForWheelSpeedsToBeReached(GetParameterFloat("FLSpeedSensorCheck"), 
+                                                                    GetParameterFloat("FRSpeedSensorCheck"), 
+                                                                    GetParameterFloat("RLSpeedSensorCheck"), 
+                                                                    GetParameterFloat("RRSpeedSensorCheck"), GetParameterInt("WheelspeedSensorCheckAccelTimeout")))
+            {
+                // if rollers are within speed range and wait for the confirmation bit was set
+                if (BEP_SUCCESS_RESPONSE == SystemReadWaitForResult("M026", "1", 1000.0))
+                {
+                     result = StartSystemSpeedCheck();
+                }
+
+            }
+
+        }
+    }
+    else
+    {   // Need to skip this step
+        testResult = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping SpeedSensorCheck test");
+    }
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Exit");
+    return testResult;
+}
+
+string MazdaBrakeTC::StartSystemSpeedCheck(void)
+{
+
+    std::string result = BEP_ERROR_RESPONSE;
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Enter");
+
+    SystemWrite("M076", true);
+
+    // Wait for software confirmation signal to be set
+    if (SystemReadWaitForResult("M026", "1", 1000.0) == BEP_SUCCESS_RESPONSE)
+    {
+        Log(LOG_DEV_DATA, "M026 was set, spot 1");
+        SystemWrite("M068", true);
+        SystemWrite("M069", true);
+        SystemWrite("M072", true);
+        SystemWrite("M073", true);
+        SystemWrite("M076", false);
+
+        if (SystemReadWaitForResult("M026", "1", 1000.0) == BEP_SUCCESS_RESPONSE)
+        {
+            Log(LOG_DEV_DATA, "M026 was set, spot 2");
+            SystemWrite("M052", true);
+            SystemWrite("M068", false);
+            SystemWrite("M069", false);
+            SystemWrite("M072", false);
+            SystemWrite("M073", false);
+
+            if (SystemReadWaitForResult("M018", "0", 1000.0) == BEP_SUCCESS_RESPONSE &&
+                SystemReadWaitForResult("M019", "0", 1000.0) == BEP_SUCCESS_RESPONSE && 
+                SystemReadWaitForResult("M022", "0", 1000.0) == BEP_SUCCESS_RESPONSE &&
+                SystemReadWaitForResult("M023", "0", 1000.0) == BEP_SUCCESS_RESPONSE )
+            {
+                SystemWrite("M052", false);
+                Log(LOG_DEV_DATA, "Test was passed");
+                result = BEP_SUCCESS_RESPONSE;            
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Error reading wait for result. %s %s %s %s", SystemRead("M018").c_str(), SystemRead("M019").c_str(), SystemRead("M022").c_str(), SystemRead("M023").c_str());
+            }
+
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Error waiting for M026 (posB), bit was never set");
+        }   
+    }
+    else
+    {
+        Log(LOG_ERRORS, "Error waiting for M026 (posA), bit was never set");
+    }
+
+
+    return (result);
+}
+
+bool MazdaBrakeTC::EquippedABS(void)
+{
+    bool absEquipped = false;
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Enter");
+
+    absEquipped = true;
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Exit  Abs Equipped: %s", (absEquipped ? "True" : "False"));
+
+    return absEquipped;
 }
 
 //-------------------------------------------------------------------------------------------------

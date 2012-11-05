@@ -109,6 +109,87 @@ public:
      */
     virtual string AccelerateVehicleToSpeed(const float targetSpeed, const bool startAtZeroSpeed, const bool disengageAtSpeed);
 
+  
+    /**
+     * Check the brake forces on each axle
+     * 
+     * @param axle the axle that is being checked (either "Front" or "Rear")
+     * 
+     * @return Result of the force test
+     */
+    string MazdaBrakeForceTest(string axle);
+
+    /**
+     * Check the brake forces on each axle
+     * 
+     * @param axle the axle that is being checked (either "Front" or "Rear")
+     * 
+     * @return Result of the force test
+     */
+    string MazdaAnalyzeBrakeForce(string axle);
+
+    /**
+     * Check the forces on the parking brake. The rollers will be at a specific speed, 
+     * the operator will be prompted to apply the parking brake. The forces during the
+     * parking brake application will be measured.
+     * 
+     * @return Result of the drag test.
+     */
+    string MazdaParkBrakeForce(void);
+
+    /**
+     * Check the drag on the brakes.
+     * 
+     * @return Result of the drag test.
+     */
+    string AnalyzeMazdaParkBrakeForce(void);
+
+    /**
+     * Check the drag on the brakes.
+     * 
+     * @return Result of the drag test.
+     */
+    string MazdaDragTest(void);
+
+    /**
+     * Each wheel can be commanded a speed and the function will return a value once every wheelspeed is obtained or it timesout.
+     * 
+     * Car should be shifted to N before this step runs
+     * 
+     * @param FLSpeed - wheelspeed
+     * @param FRSpeed - wheelspeed
+     * @param RLSpeed - wheelspeed
+     * @param RRSpeed - wheelspeed
+     * @param timeout - the maximum time that the function will check for the wheelspeeds
+     * 
+     * @return bep status values (BEP_STATUS_SUCCESS for pass)
+     */
+    BEP_STATUS_TYPE WaitForWheelSpeedsToBeReached(float FLSpeed, float FRSpeed, float RLSpeed, float RRSpeed, int timeout);
+
+    /**
+     * Put up prompts to have the driver place the vehicle into N and remove foot from brake pedal.
+     * 
+     * This function can be used whenever an acceleration event is desired.
+     */
+    void DisplayAccelPrompts(void);
+
+    /**
+     * Reset the motor mode and speed values on the machine.
+     * 
+     */
+    void ResetMotorModeAndSpeed(void);
+
+    /**
+     * Check to see if wheel has reached a specified speed
+     * 
+     * @param wheelTag - the wheel to check
+     * @param targetSpeed - the speed that should be reached
+     * @param tolerance - the percent tolerance that the wheelspeed needs to reach to be in the correct speed band
+     * 
+     * @return BEP_STATUS_TYPE
+     */ 
+    bool IsWheelInSpeedRange(string wheelTag, const float targetSpeed, float tolerance);
+
     /**
      * Check the brake stopping distance.
      * 
@@ -122,6 +203,28 @@ public:
      * @return Result of measuring the maximum brake force.
      */
     string MaxBrakeForceVerification(void);
+
+    /**
+     * Check the wheelspeed sensors
+     * 
+     * @return Result of the wheel speed sensors
+     */
+    string SpeedSensorCheck(void);
+
+    /**
+     * Run the cutomer defined wheel speed check test
+     * 
+     * @return Result of the test
+     */
+    string StartSystemSpeedCheck(void);
+
+    /**
+     * Check if the vehicle is equipped with ABS
+     * 
+     * @return True - if ABS is present
+     *         False - if ABS is not present
+     */
+    bool EquippedABS(void);
 
     /**
      * Calibrate the max brake force readings.

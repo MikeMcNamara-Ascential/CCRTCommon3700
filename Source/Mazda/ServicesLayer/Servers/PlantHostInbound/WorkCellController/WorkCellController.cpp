@@ -989,6 +989,7 @@ const std::string WorkCellController::ReadBuildRecordFromBroadcast(const std::st
             {
                 Log(LOG_ERRORS, "Error writing vin string - plcDataTag: %s   vin bytes to plc: >%c%c<", plcDataTag.c_str(), vinChar[0], vinChar[1]);
                 failureToWriteVin = true;
+                break;                  //if there is a failure, there is no point to continue.
             }
         }
 
@@ -1325,10 +1326,14 @@ void WorkCellController::TranslateBuildRecord(const std::string &buildRecord,
                 
             Log(LOG_DEV_DATA, "ndb read - plcDataTag: %s   value: %s", plcDataTag.c_str(), value.c_str());
 
-            // check to see if the bit was high
-            if(value == "1")
+            // use value to write whatever bit we get
+            if (value == "1" || value == "0")
             {
-                AddVehicleBuildItem(vehicleBuildTag, "1", buildData);
+                AddVehicleBuildItem(vehicleBuildTag, value, buildData);
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "Not adding build data because non-expected value: %s", value.c_str());
             }
 
 

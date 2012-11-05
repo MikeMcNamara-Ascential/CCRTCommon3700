@@ -176,10 +176,42 @@
             <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
             <TestInProgressColor>yellow</TestInProgressColor>
 
+            <!-- SpeedSensorCheck Parameter -->
+            <FLSpeedSensorCheck Units ="mph" Notes="Equals 3kph">1.86</FLSpeedSensorCheck>
+            <FRSpeedSensorCheck Units ="mph" Notes="Equals 4kph">2.49</FRSpeedSensorCheck>
+            <RLSpeedSensorCheck Units ="mph" Notes="Equals 5kph">3.11</RLSpeedSensorCheck>
+            <RRSpeedSensorCheck Units ="mph" Notes="Equals 6kph">3.73</RRSpeedSensorCheck>
+            <WheelspeedSensorCheckAccelTimeout Units="ms">5000</WheelspeedSensorCheckAccelTimeout>
+             <WheelSpeedAccelerateRange Units="percent">5.0</WheelSpeedAccelerateRange>
+
+             <!--MazdaDragTest Parameters -->
+             <WheelspeedDragTestAccelTimeout Units="ms">15000</WheelspeedDragTestAccelTimeout>
+            <FLSpeedBaseDrag Units ="mph" Notes="Equals 2.5kph">1.55</FLSpeedBaseDrag>
+            <FRSpeedBaseDrag Units ="mph" Notes="Equals 2.5kph">1.55</FRSpeedBaseDrag>
+            <RLSpeedBaseDrag Units ="mph" Notes="Equals 2.5kph">1.55</RLSpeedBaseDrag>
+            <RRSpeedBaseDrag Units ="mph" Notes="Equals 2.5kph">1.55</RRSpeedBaseDrag>
+            <DisplayBrakeTargetSpeeds>0</DisplayBrakeTargetSpeeds>
+
+             <!--Mazda Front Force Parameters -->
+            <WheelspeedFrontForceTestAccelTimeout Units="ms">15000</WheelspeedFrontForceTestAccelTimeout>
+            <FLSpeedFrontForce Units ="mph" Notes="Equals 2.5kph">1.55</FLSpeedFrontForce>
+            <FRSpeedFrontForce Units ="mph" Notes="Equals 2.5kph">1.55</FRSpeedFrontForce>
+            <RLSpeedFrontForce Units ="mph" Notes="Equals 2.5kph">0.0</RLSpeedFrontForce>
+            <RRSpeedFrontForce Units ="mph" Notes="Equals 2.5kph">0.0</RRSpeedFrontForce>
+
+            <!--Mazda Rear Force Parameters -->
+            <WheelspeedRearForceTestAccelTimeout Units="ms">15000</WheelspeedRearForceTestAccelTimeout>
+            <FLSpeedRearForce Units ="mph" Notes="Equals 2.5kph">0.0</FLSpeedRearForce>
+            <FRSpeedRearForce Units ="mph" Notes="Equals 2.5kph">0.0</FRSpeedRearForce>
+            <RLSpeedRearForce Units ="mph" Notes="Equals 2.5kph">1.55</RLSpeedRearForce>
+            <RRSpeedRearForce Units ="mph" Notes="Equals 2.5kph">1.55</RRSpeedRearForce>
+            
             <!-- Machine Parameters -->
             <RollerDiameter Units="inches">7.283443</RollerDiameter>
             <PulsesPerRevolution>1250</PulsesPerRevolution>
             <LoadCellReadingDelay Units="ms">100</LoadCellReadingDelay>
+            <SetWheelspeedTolerance Units="percent">5.0</SetWheelspeedTolerance>
+
         </Parameters>
         <Prompts>
             <AccelerateToTargetSpeed PromptBox="2" Priority="0" Duration="5000">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
@@ -248,7 +280,28 @@
             <TestStep00>Initialize</TestStep00>
         </Setup>
 
-        <BrakeDistanceTest>
+        <SpeedCheck>
+            <TestStep00>SpeedSensorCheck</TestStep00>
+        </SpeedCheck>
+
+        <DragTest>
+            <TestStep00>MazdaDragTest</TestStep00>
+            <TestStep05>AnalyzeDragTest</TestStep05>
+        </DragTest>
+        <MazdaFrontBrakeForce>
+            <TestStep00>MazdaFrontBrakeForce</TestStep00>
+            <TestStep05>AnalyzeMazdaFrontBrakeForce</TestStep05>
+        </MazdaFrontBrakeForce>
+        
+        <MazdaRearBrakeForce>
+            <TestStep00>MazdaRearBrakeForce</TestStep00>
+            <TestStep05>AnalyzeMazdaRearBrakeForce</TestStep05>
+        </MazdaRearBrakeForce>        
+        <MazdaRearParkBrakeForce>
+            <TestStep00>MazdaParkBrakeForce</TestStep00>
+            <TestStep05>AnalyzeMazdaParkBrakeForce</TestStep05>
+        </MazdaRearParkBrakeForce>        
+        <!-- BrakeDistanceTest>
             <TestStep00>AccelerateRollers</TestStep00>
             <TestStep05>BrakeStoppingDistanceTest</TestStep05>
         </BrakeDistanceTest>
@@ -267,15 +320,22 @@
 
         <PreShiftMachineCheck>
             <TestStep00>PreShiftCheckout</TestStep00>
-        </PreShiftMachineCheck>
+        </PreShiftMachineCheck -->
     </Objectives>
 
     <!-- ============================================================================================== -->
     <TestSteps>
+        
         <AccelerateRollers Result="" Timeout="60000" Description="Accelerate rollers to stopping distance speed"/>
-
-        <AnalyzeStoppingDistance Result="" Timeout="1000" Description="Analyze the brake stopping distance"/>
-
+        <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="10.0" RearMaxDragForce="10.0">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
+        <AnalyzeMazdaFrontBrakeForce Result="" Timeout="1000" Description="Analyze the brake force for the front axle" Prompt1="" Prompt2=""/>
+        <AnalyzeMazdaRearBrakeForce Result="" Timeout="1000" Description="Analyze the brake force for the rear axle" Prompt1="" Prompt2=""/>
+        <AnalyzeMazdaParkBrakeForce Result="" Timeout="1000" Description="Analyze the park brake force for the rear axle" Prompt1="" Prompt2=""/>
+        <MazdaFrontBrakeForce Result="" Timeout="1000" Description="Analyze the brake force for the front axle" Prompt1="ApplyBrake" Prompt2=""/>
+        <MazdaRearBrakeForce Result="" Timeout="1000" Description="Analyze the brake force for the rear axle" Prompt1="ApplyBrake" Prompt2=""/>
+        <MazdaParkBrakeForce Result="" Timeout="1000" Description="Analyze the park brake force for the rear axle" Prompt1="ApplyParkBrake" Prompt2=""/>
+        
+        <AccelerateRollers Result="" Timeout="60000" Description="Accelerate rollers to stopping distance speed"/>
         <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test"
             StartBrakeSampleSpeed="55" EndBrakeSampleSpeed="10"
             BrakeDomain="0 500" BrakeTarget="250 350"
@@ -285,6 +345,8 @@
 
         <BrakeToStop Result="" Timeout="1200000" Description="Brake The Vehicle To A Stop"
             Prompt1="BrakeToStop"/>
+
+        <MazdaDragTest  Result="" Timeout="30000" Description="Check the drag on the rollers" ScanDelay="100" DragSpeed="4.0" DragDelay="1000" DragSamples="10" />
 
         <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test."
             Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
@@ -296,5 +358,6 @@
         <PreShiftCheckout Result="" Timeout="10000" Description="Verify rollers spin"/>
 
         <TractionControlTest Result="" Timeout="10000" Description="Check Traction Control System" ScanDelay="500"/>
+        <SpeedSensorCheck Result="" Timeout="10000" Description="Wheelspeed sensor test" ScanDelay="500"/> 
     </TestSteps>
 </BrakeTC>

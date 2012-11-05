@@ -51,6 +51,27 @@ protected:
      */
     virtual void CheckAbort( ControlData *ctrl);
 
+    /**
+     * Wait for a plc tag to go high
+     * 
+     * @param plcTag - the string name of the plc bit that is being waited for
+     * @param timeout - how long the bit can be waited for
+     * @param waitForHigh - wait for the plc bit to go high
+     * 
+     * @return returns BEP_STATUS
+     * 
+     */
+    virtual string WaitForPlcBit(string plcTag, int timeout, bool waitForHigh);
+
+    /** 
+     * Read a bit from the plc
+     * 
+     * @param tag - the tag to be read
+     * 
+     * @return the value read from the plc
+     **/
+    virtual string ReadPlcBit(string tag);
+
 private:
     /**
      * Get/Set the flag indicating the build data has been loaded.

@@ -137,6 +137,10 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
                     BposSleep(1000);
                 }
                 WriteNdbData(RAISE_ROLLS, true);
+
+                WaitForPlcBit("a",  1, true);
+
+
                 // Start the test sequence
                 CommandNdbData(START_VEHICLE_TEST_DATA_TAG, true);
                 // Invalidate the build record status so we do not restart this same test
@@ -162,6 +166,40 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
     }
     Log(LOG_FN_ENTRY, "MazdaSystemMonitor::CheckTesting() - Exit");
 }
+
+std::string MazdaSystemMonitor::WaitForPlcBit(std::string plcTag, int timeout, bool waitForHigh)
+{
+     std::string status(BEP_ERROR_RESPONSE);
+     string r;
+     r = ReadPlcBit(plcTag);
+
+
+     return status;
+}
+
+string MazdaSystemMonitor::ReadPlcBit(string tag)
+{
+    std::string value, response;
+    if(m_dataBroker != NULL)
+    {
+        INT32 status = m_dataBroker->Read(tag, response, true);
+        if(status == BEP_STATUS_SUCCESS)
+            status = m_dataBroker->GetByTag(tag, value, response);
+        // check for errors
+        if(status != BEP_STATUS_SUCCESS)
+        {
+            Log(LOG_ERRORS, "Error Reading: %s, %d\n", tag.c_str(), status);
+            value = "ERROR";
+        }
+    }
+    else
+    {
+        Log(LOG_ERRORS, "WorkCellController::ReadPlcBit() - m_dataBroker object is NULL!");
+        value = BEP_UNAVAILABLE_RESPONSE;
+    }
+    return(value);
+}
+
 
 //-------------------------------------------------------------------------------------------------
 void MazdaSystemMonitor::CheckAbort( ControlData *ctrl)

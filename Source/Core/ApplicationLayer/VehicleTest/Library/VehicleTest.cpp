@@ -516,6 +516,12 @@ void VehicleTest::Run(volatile bool *terminateFlag)
 
             Log(LOG_DEV_DATA, "Starting Test: %s, Status: %s, %d\n", test.c_str(), GetStatus().c_str(), BposGetPriority(0));
 
+            std::string vehicleBuildStr = "";
+            vehicleBuild = GetVehicleBuild();
+            vehicleBuild->writeNode(vehicleBuildStr);
+
+            Log(LOG_DEV_DATA, "Vehicle build: %s", vehicleBuildStr.c_str());
+
             if(test != TEST_TERMINATE)
             {   // determine which drive curve to use
                 if(test == TEST_START)          // if the beginning of a new test
@@ -894,6 +900,11 @@ std::string VehicleTest::CommandTest(const std::string testType)
 
     Log( LOG_FN_ENTRY, "Enter VehicleTest::CommandTest(%s)\n", testType.c_str());
 
+    Log(LOG_DEV_DATA, "VehicleTest::CommandTest - Checking the status of the machine:");
+    Log(LOG_DEV_DATA, "\tTestInProgress: %s", Read(GetDataTag("TestInProgress")).c_str());
+    Log(LOG_DEV_DATA, "\tm_testCommandInProgress: %d", m_testCommandInProgress);
+    Log(LOG_DEV_DATA, "\ttestType: %s", testType.c_str());
+    
     // check the test status so that only one test can be sequenced at a time
     if((Read(GetDataTag("TestInProgress")) != "1") && !m_testCommandInProgress)
     {

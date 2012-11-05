@@ -2992,6 +2992,19 @@ protected:
     void SetComponentName(const std::string componentName);
 
     /**
+     * Read data from the system and wait until a spcific result is achieved.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description:</b><br>
+     * The specified <i>tag</i> will be read from the system.
+     * <p>
+     * @param tag         The system data tag to read.
+     * @param result      The value that will be waited for
+     * @param timeout     The maximum amount of time that will be taken
+
+     * @return The value of the data.  If an error occurrs, the value ERROR will be returned.
+     */
+    const std::string SystemReadWaitForResult(const std::string &tag, const std::string &result, float timeout);
+    /**
      * Read data from the system.
      * <p><b>Category:</b> Utility
      * <p><b>Description:</b><br>

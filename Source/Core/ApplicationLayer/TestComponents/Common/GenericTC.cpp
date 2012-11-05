@@ -1615,6 +1615,38 @@ INT32 GenericTC::RemoveDTC(const std::string code) /* = CLEAR_ALL_DTC*/
     return(result);
 }
 
+const std::string GenericTC::SystemReadWaitForResult(const std::string &tag, const std::string &result, float timeout)
+{
+    std::string value = "";
+    Log(LOG_FN_ENTRY,"GenericTC::SystemReadWaitForResult - Enter   tag:%s  result:%s  timeout:%f", tag.c_str(), result.c_str(),  timeout);
+
+    float checkTime = 100;      // how often it will poll for data (in ms)
+
+    while (SystemRead(tag) != result && timeout > 0 )
+    {
+        Log(LOG_DEV_DATA,"waiting for: %s to equal: %s, %fms remaining",tag.c_str(), result.c_str(), timeout);
+        timeout -= checkTime;
+        delay(checkTime);
+    }
+
+
+    if (SystemRead(tag) == result)
+    {
+        value = BEP_STATUS_SUCCESS;
+    }
+    else if (timeout > 0)
+    {
+        value = BEP_STATUS_TIMEOUT;
+    }
+    else
+    {
+        value = BEP_STATUS_FAILURE;
+    }
+
+    Log(LOG_FN_ENTRY,"GenericTC::SystemReadWaitForResult - Exit   return: %s", value.c_str());
+
+    return (value);
+}
 //=============================================================================
 const std::string GenericTC::SystemRead(const std::string &tag)
 {
@@ -6171,10 +6203,10 @@ float GenericTC::ConvertToEnglishUnits ( std::string &units, float &value) throw
         {
             value *= (KGF_LBS); 
         }
-		else if(units == unitsKN)
-		{
-			value *= (KN_LBS);
-		}
+        else if(units == unitsKN)
+        {
+            value *= (KN_LBS);
+        }
     }
     return value;
 }

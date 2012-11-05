@@ -766,6 +766,7 @@ const std::string PlantHostInbound::LoadVehicleBuildRecord(const std::string &vi
     ClearVehicleBuild(buildData, updateStatus);
     Log(LOG_DEV_DATA, "LoadVehicleBuildRecord - ClearVehicleBuild updateStatus: %s", updateStatus ? "True" : "False");
 
+    std::string buildDataStr = "";
     std::string source = GetVehicleBuildSource();
     if (SOURCE_FILE == source)
     {   // Get the vehicle build record from file
@@ -774,6 +775,7 @@ const std::string PlantHostInbound::LoadVehicleBuildRecord(const std::string &vi
     else if (SOURCE_BROADCAST == source)
     {   // Request the vehicle build record from broadcast
         status = LoadVehicleBuildFromBroadcast(vin, buildData, updateStatus);
+
         Log(LOG_FN_ENTRY,"PlantHostInbound::LoadVehicleBuildFromBroadcast - Status: %s\n", status.c_str());
     }
     // If the vehicle build was retrieved, store it.
@@ -808,6 +810,8 @@ const std::string PlantHostInbound::LoadVehicleBuildRecord(const std::string &vi
         Log(LOG_DEV_DATA, "Updating the input server state");
         UpdateInputServerState();
     }
+
+
     Log(LOG_FN_ENTRY,"PlantHostInbound::LoadVehicleBuildRecord() returning %s\n", status.c_str());
     return(status);
 }

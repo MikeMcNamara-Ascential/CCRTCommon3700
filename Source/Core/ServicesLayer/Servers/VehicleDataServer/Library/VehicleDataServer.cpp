@@ -112,7 +112,7 @@ inline const char *b2s (bool value)
 
 //-----------------------------------------------------------------------------
 VehicleDataServer::VehicleDataServer():BepServer(), m_vehicleBuilds(NULL),
-    m_thisBuildData(NULL), m_dataBroker(NULL)
+m_thisBuildData(NULL), m_dataBroker(NULL)
 {
     m_useScalar = false;
     m_useDiscrete = false;
@@ -159,7 +159,7 @@ VehicleDataServer::LoadAdditionalConfigurationItems(const XmlNode *document)
     catch(BepException &e)
     {
         Log(LOG_ERRORS,"VehicleDataServer::Initialize exception %s\n",e.what());
-    }  
+    }
 // determine which method of wheelbase selection to use
     m_useScalar = false;
     try
@@ -281,12 +281,21 @@ const std::string VehicleDataServer::Publish(const XmlNode *node)
 
             if(ReadSubscribeData("TestInProgress") == "1")
             {
-                SetData(GetDataTag("LatestVIN"),m_storedVIN);
-                Log(LOG_DEV_DATA, "Updated LatestVIN with m_storedVIN: \"%s\"\n", m_storedVIN.c_str());
-                m_storedVIN.erase();
-                SetData(string("VINReadStatus"),string("Green"));
-                // Make sure the rest of the system is aware of the VIN read status
-                m_dataBroker->Write(VIN_READ_STATUS_TAG, string("Green"), response, true);
+                if(m_storedVIN != "")
+                {   //make sure we don't update stuff for an empty vin
+                    SetData(GetDataTag("LatestVIN"),m_storedVIN);
+                    Log(LOG_DEV_DATA, "Updated LatestVIN with m_storedVIN: \"%s\"\n", m_storedVIN.c_str());
+                    m_storedVIN.erase();
+                    SetData(string("VINReadStatus"),string("Green"));
+                    // Make sure the rest of the system is aware of the VIN read status
+                    m_dataBroker->Write(VIN_READ_STATUS_TAG, string("Green"), response, true);
+                }
+                else
+                {
+                    Log(LOG_DEV_DATA, "VIN was blank. Will not update");
+                }
+
+
             }
         }
         else
@@ -401,7 +410,7 @@ std::string VehicleDataServer::CreateBuild(std::string wheelbase, int vehicleSel
             result = "";
 
             XmlNodeMap  vehicleBuild = m_thisBuildData->getChildren();
-            for( XmlNodeMapItr itr=vehicleBuild.begin(); itr!=vehicleBuild.end(); itr++)
+            for(XmlNodeMapItr itr=vehicleBuild.begin(); itr!=vehicleBuild.end(); itr++)
             {
                 result += ProcessBuildItem( itr->second);
             }
@@ -421,7 +430,7 @@ std::string VehicleDataServer::CreateBuild(std::string wheelbase, int vehicleSel
     }
 
     Log(LOG_FN_ENTRY,"Exit VehicleDataServer::CreateBuild(), result = %s", result.c_str());
-    
+
     return(result);
 }
 
@@ -431,7 +440,7 @@ std::string VehicleDataServer::ProcessBuildItem(XmlNode *buildItem)
     std::string value(buildItem->getValue());
     std::string targetData;
 
-    if( GetDataTag("BrakeType") == tag)
+    if(GetDataTag("BrakeType") == tag)
     {
         string absSelected(ReadSubscribeData(GetDataTag("ABSTestSelectedFromPLC")));
         string cableConnect(ReadSubscribeData(GetDataTag("CableConnect")));

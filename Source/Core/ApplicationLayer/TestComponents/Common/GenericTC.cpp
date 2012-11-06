@@ -1505,6 +1505,9 @@ BEP_STATUS_TYPE GenericTC::Disengage(void)
         Log(LOG_ERRORS, "Disengage Unknown Exception\n");
         status = BEP_STATUS_FAILURE;
     }
+
+    Log(LOG_FN_ENTRY, "GenericTC::Disengage - Exit   status: %d\n", status);
+
     // Return the status
     return(status);
 }

@@ -679,7 +679,9 @@ void* PlcMelsec::MelsecCommThread( void *threadArg)
                     switch( timerPulse.code)
                     {
                     case SYSTEM_PULSE+1:
+                        logger->Log( LOG_DEV_DATA, "Melsec refresh plc pulse");
                         // Read our inputs from the PLC
+                        logger->Log( LOG_DEV_DATA, "Begin PLC Read");
                         if( arg->plc->Read(fromPlc, fromCount) > 0)
                         {
                             if( (lockStat=pthread_rwlock_wrlock( rwLock)) == EOK)
@@ -735,7 +737,8 @@ void* PlcMelsec::MelsecCommThread( void *threadArg)
                             // Set read fault
                             faultSet |= 0x01;
                         }
-
+                        logger->Log( LOG_DEV_DATA, "Finish PLC Read");
+                        logger->Log( LOG_DEV_DATA, "Begin PLC Write");
                         // Write our outputs to the PLC
                         if( (lockStat=pthread_rwlock_wrlock( rwLock)) == EOK)
                         {
@@ -792,6 +795,7 @@ void* PlcMelsec::MelsecCommThread( void *threadArg)
                             logger->Log( LOG_ERRORS, "\tMelsecCommThread Error locking rwlock for write: %s\n",
                                          strerror( lockStat));
                         }
+                        logger->Log( LOG_DEV_DATA, "End PLC Write");
                         break;
                     case SYSTEM_PULSE:
                         logger->Log( LOG_DEV_DATA, "Melsec Comm thread received SYSTEM_PULSE %d\n",

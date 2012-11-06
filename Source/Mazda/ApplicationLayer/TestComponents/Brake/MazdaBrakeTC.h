@@ -15,6 +15,7 @@
 #define MazdaBrakeTC_h
 //-------------------------------------------------------------------------------------------------
 #include "GenericBaseBrakeTC.h"
+#include <list>
 //-------------------------------------------------------------------------------------------------
 class MazdaBrakeTC : public GenericBaseBrakeTC
 {
@@ -128,6 +129,13 @@ public:
      */
     string MazdaAnalyzeBrakeForce(string axle);
 
+    /** 
+     * Analyze the drage forces from the drag test
+     * 
+     * return Result of the analysis
+     */
+    string AnalyzeMazdaDragTest(void);
+
     /**
      * Check the forces on the parking brake. The rollers will be at a specific speed, 
      * the operator will be prompted to apply the parking brake. The forces during the
@@ -136,6 +144,11 @@ public:
      * @return Result of the drag test.
      */
     string MazdaParkBrakeForce(void);
+    
+    /**
+     * Do the standard finish up things
+     */
+    string FinishUp(void);
 
     /**
      * Check the drag on the brakes.
@@ -177,7 +190,7 @@ public:
      * Reset the motor mode and speed values on the machine.
      * 
      */
-    void ResetMotorModeAndSpeed(void);
+    void ZeroMotorSpeedandTorque(void);
 
     /**
      * Check to see if wheel has reached a specified speed
@@ -306,6 +319,21 @@ protected:
      *                  Roller to start monitoring.
      */
     void ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 startingRoller);
+
+    std::list<float> m_flForceValue;
+    std::list<float> m_frForceValue;
+    std::list<float> m_rlForceValue;
+    std::list<float> m_rrForceValue;
+
+    /**
+     * Compute the average of a List that was passed in
+     * 
+     * @param arr - the List<> that will be averaged
+     * 
+     * @return the average of the list
+     */
+    float computeListAverage(list<float> arr);
+
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaBrakeTC_h

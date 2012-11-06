@@ -1,0 +1,221 @@
+<StaticTesterServer>
+   <Setup>
+      <TagList>
+         <SubscribeTags>
+            <StaticTesterVIN/>
+            <VIN/>
+            <Abort/>
+         </SubscribeTags>
+      </TagList>
+      <Debug>Off</Debug>
+      <Parameters>
+         <BuildFilePath>/StaticTester/BuildFiles/</BuildFilePath>
+         <TestResultPath>/StaticTester/TestResults/</TestResultPath>
+         <FileLifeTime Units="seconds">900</FileLifeTime>
+         <DataFileTimer Units="ms">10000</DataFileTimer>
+         <CommCheckTimer Units="ms">500</CommCheckTimer>
+         <CommCheckSignalTimeLength Units="ms">500</CommCheckSignalTimeLength>
+      </Parameters>
+      <DataTags>
+          <PlantHostServer>core/WorkCellController</PlantHostServer>
+          <VehicleBuild>VehicleBuild</VehicleBuild>
+          <AonNumber>AonNumber</AonNumber>
+          <VinRequest>STVinRequest</VinRequest>
+          <AonRequest>STAonRequest</AonRequest>
+          <NextAon>STNextAon</NextAon>
+          <BuildData>STBuild</BuildData>
+          <TestResult>STTestResult</TestResult>
+          <KeepAlive>STKeepAlive</KeepAlive>
+          <Heartbeat>STHeartbeat</Heartbeat>
+          <EmissionsCheckFaults>EmissionsInitialFaultCheck</EmissionsCheckFaults>
+          <EmissionsCheckVin>EmissionsCheckVIN</EmissionsCheckVin>
+      </DataTags>
+      <StaticTesterList>
+          <Tester1 enabled="1">
+              <ValidCommTimeSpan Units="seconds">10</ValidCommTimeSpan>
+              <CommPort>StaticTester1</CommPort>
+              <PortRegisterDelay Units="ms">500</PortRegisterDelay>
+              <PortReconnectDelay Units="ms">1000</PortReconnectDelay>
+              <StaticTesterResponseTime Units="ms">50</StaticTesterResponseTime>
+              <DisconnectedTesterCheckTime Units="seconds">60</DisconnectedTesterCheckTime>
+              <ReconnectAttempts>10</ReconnectAttempts>
+              <FieldDelimiter>;</FieldDelimiter>
+              <TagValueDelimiter>:</TagValueDelimiter>
+              <SendKeepAlive>No</SendKeepAlive>
+              <Setup>
+                  <Communication>
+                      <Name>/dev/LogicalPorts/StaticTester1</Name>
+                      <BufferSize>2000</BufferSize>
+                      <Timeout>50</Timeout>
+                      <Debug>Off</Debug>
+                  </Communication>
+                  <Logging>
+                      <ProcessName>StaticTest1Comms</ProcessName>
+                      <Status>Enabled</Status>
+                      <AdditionalLogFile Types="/Communication/StaticTest1Comms.log">/Communication/StaticTest1Comms.log</AdditionalLogFile>
+                      <Debug>Off</Debug>
+                      <LocalEcho>Disabled</LocalEcho>
+                      <Verbose>0x3F</Verbose>
+                  </Logging>
+                  <MaxAttempts>3</MaxAttempts>
+                  <MaxResponseTime>5000</MaxResponseTime>
+                  <MessageDelay>5000</MessageDelay>
+              </Setup>
+          </Tester1>
+          <Tester2 enabled="0">
+              <ValidCommTimeSpan Units="seconds">180</ValidCommTimeSpan>
+              <CommPort>StaticTester2</CommPort>
+              <PortRegisterDelay Units="ms">500</PortRegisterDelay>
+              <PortReconnectDelay Units="ms">1000</PortReconnectDelay>
+              <StaticTesterResponseTime Units="ms">50</StaticTesterResponseTime>
+              <ReconnectAttempts>120</ReconnectAttempts>
+              <FieldDelimiter>;</FieldDelimiter>
+              <TagValueDelimiter>:</TagValueDelimiter>
+              <SendKeepAlive>No</SendKeepAlive>
+              <Setup>
+                  <Communication>
+                      <Name>/dev/LogicalPorts/ST2</Name>
+                      <BufferSize>2000</BufferSize>
+                      <Timeout>2000</Timeout>
+                      <Debug>Off</Debug>
+                  </Communication>
+                  <Logging>
+                      <ProcessName>StaticTest2Comms</ProcessName>
+                      <Status>Disabled</Status>
+                      <AdditionalLogFile Types="/Communication/StaticTest2Comms.log">/Communication/StaticTest2Comms.log</AdditionalLogFile>
+                      <Debug>Off</Debug>
+                      <LocalEcho>Disabled</LocalEcho>
+                      <Verbose>0x01</Verbose>
+                  </Logging>
+                  <MaxAttempts>3</MaxAttempts>
+                  <MaxResponseTime>5000</MaxResponseTime>
+                  <MessageDelay>5000</MessageDelay>
+              </Setup>
+          </Tester2>
+          <Tester3 enabled="0">
+              <ValidCommTimeSpan Units="seconds">180</ValidCommTimeSpan>
+              <CommPort>StaticTester3</CommPort>
+              <PortRegisterDelay Units="ms">500</PortRegisterDelay>
+              <PortReconnectDelay Units="ms">1000</PortReconnectDelay>
+              <StaticTesterResponseTime Units="ms">50</StaticTesterResponseTime>
+              <ReconnectAttempts>120</ReconnectAttempts>
+              <FieldDelimiter>;</FieldDelimiter>
+              <TagValueDelimiter>:</TagValueDelimiter>
+              <SendKeepAlive>No</SendKeepAlive>
+              <Setup>
+                  <Communication>
+                      <Name>/dev/LogicalPorts/ST3</Name>
+                      <BufferSize>2000</BufferSize>
+                      <Timeout>2000</Timeout>
+                      <Debug>Off</Debug>
+                  </Communication>
+                  <Logging>
+                      <ProcessName>StaticTest3Comms</ProcessName>
+                      <Status>Disabled</Status>
+                      <AdditionalLogFile Types="/Communication/StaticTest3Comms.log">/Communication/StaticTest3Comms.log</AdditionalLogFile>
+                      <Debug>Off</Debug>
+                      <LocalEcho>Disabled</LocalEcho>
+                      <Verbose>0x01</Verbose>
+                  </Logging>
+                  <MaxAttempts>3</MaxAttempts>
+                  <MaxResponseTime>5000</MaxResponseTime>
+                  <MessageDelay>5000</MessageDelay>
+              </Setup>
+          </Tester3>
+          <Tester4 enabled="0">
+              <ValidCommTimeSpan Units="seconds">180</ValidCommTimeSpan>
+              <CommPort>StaticTester4</CommPort>
+              <PortRegisterDelay Units="ms">500</PortRegisterDelay>
+              <PortReconnectDelay Units="ms">1000</PortReconnectDelay>
+              <StaticTesterResponseTime Units="ms">50</StaticTesterResponseTime>
+              <ReconnectAttempts>120</ReconnectAttempts>
+              <FieldDelimiter>;</FieldDelimiter>
+              <TagValueDelimiter>:</TagValueDelimiter>
+              <SendKeepAlive>No</SendKeepAlive>
+              <Setup>
+                  <Communication>
+                      <Name>/dev/LogicalPorts/ST4</Name>
+                      <BufferSize>2000</BufferSize>
+                      <Timeout>2000</Timeout>
+                      <Debug>Off</Debug>
+                  </Communication>
+                  <Logging>
+                      <ProcessName>StaticTest4Comms</ProcessName>
+                      <Status>Disabled</Status>
+                      <AdditionalLogFile Types="/Communication/StaticTest4Comms.log">/Communication/StaticTest4Comms.log</AdditionalLogFile>
+                      <Debug>Off</Debug>
+                      <LocalEcho>Disabled</LocalEcho>
+                      <Verbose>0x01</Verbose>
+                  </Logging>
+                  <MaxAttempts>3</MaxAttempts>
+                  <MaxResponseTime>5000</MaxResponseTime>
+                  <MessageDelay>5000</MessageDelay>
+              </Setup>
+          </Tester4>
+          <Tester5 enabled="0">
+              <ValidCommTimeSpan Units="seconds">180</ValidCommTimeSpan>
+              <CommPort>StaticTester5</CommPort>
+              <PortRegisterDelay Units="ms">500</PortRegisterDelay>
+              <PortReconnectDelay Units="ms">1000</PortReconnectDelay>
+              <StaticTesterResponseTime Units="ms">50</StaticTesterResponseTime>
+              <ReconnectAttempts>120</ReconnectAttempts>
+              <FieldDelimiter>;</FieldDelimiter>
+              <TagValueDelimiter>:</TagValueDelimiter>
+              <SendKeepAlive>No</SendKeepAlive>
+              <Setup>
+                  <Communication>
+                      <Name>/dev/LogicalPorts/ST5</Name>
+                      <BufferSize>2000</BufferSize>
+                      <Timeout>2000</Timeout>
+                      <Debug>Off</Debug>
+                  </Communication>
+                  <Logging>
+                      <ProcessName>StaticTest5Comms</ProcessName>
+                      <Status>Disabled</Status>
+                      <AdditionalLogFile Types="/Communication/StaticTest5Comms.log">/Communication/StaticTest5Comms.log</AdditionalLogFile>
+                      <Debug>Off</Debug>
+                      <LocalEcho>Disabled</LocalEcho>
+                      <Verbose>0x01</Verbose>
+                  </Logging>
+                  <MaxAttempts>3</MaxAttempts>
+                  <MaxResponseTime>5000</MaxResponseTime>
+                  <MessageDelay>5000</MessageDelay>
+              </Setup>
+          </Tester5>
+      </StaticTesterList>
+      <Communication>
+         <Type>Server</Type>
+         <Debug>Off</Debug>
+         <Name>core/StaticTesterServer</Name>
+         <Comm>IPC</Comm>
+         <Timeout>1000</Timeout>
+         <BufferSize>2000</BufferSize>
+      </Communication>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/StaticTesterServer</ProcessName>
+         <AdditionalLogFile Types="/Servers/StaticTesterServer.log">/Servers/StaticTesterServer.log</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>7</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+   </Setup>
+</StaticTesterServer>

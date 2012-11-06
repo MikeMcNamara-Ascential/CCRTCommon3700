@@ -66,6 +66,7 @@
                 <Airbag DataType="string">Integrated Dab J1850</Airbag>
                 <AirbagBGColor DataType="color">white</AirbagBGColor>
                 <AirbagReadFaults DataType="string">AF</AirbagReadFaults>
+                <AonNumber DataType="string">000000000000</AonNumber>
                 <ClusterReadFaults DataType="string">CF</ClusterReadFaults>
                 <SKIMReadFaults DataType="string">SF</SKIMReadFaults>
                 <Axle DataType="string">Standard</Axle>

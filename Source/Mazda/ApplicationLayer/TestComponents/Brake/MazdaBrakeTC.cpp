@@ -360,7 +360,7 @@ string MazdaBrakeTC::MazdaDragTest(void)
 
             // turn off the motors to get an awesome coasting event
             //Disengage();
-            ZeroMotorSpeedandTorque();
+            //ZeroMotorSpeedandTorque();
 
             DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), 
                           GetPromptPriority("RemoveFootFromBrake"));
@@ -369,7 +369,7 @@ string MazdaBrakeTC::MazdaDragTest(void)
             float tempVar = 0.0;
 
             // maybe start this in another thread so you can do fancy stuff
-            while(samples > 0 || (ReadSubscribeData(ZEROSPEED_TAG) != "1"))
+            while(samples > 0)
             {
                 Log(LOG_DEV_DATA, "Continuing to sample forces. %d samples remaining", samples);
 

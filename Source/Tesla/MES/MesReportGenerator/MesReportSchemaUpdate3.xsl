@@ -66,6 +66,18 @@
             <xsl:call-template name="BrakeRearBalanceTest">
                 <xsl:with-param name="NAME">BrakeRearBalanceTest</xsl:with-param>
             </xsl:call-template>
+            <xsl:call-template name="BrakeCheckPartNumber">
+                <xsl:with-param name="NAME">BrakeCheckPartNumber</xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="BrakeProgramVIN">
+                <xsl:with-param name="NAME">BrakeProgramVIN</xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="BrakeCheckVIN">
+                <xsl:with-param name="NAME">BrakeCheckVIN</xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="BrakeReadFaults">
+                <xsl:with-param name="NAME">BrakeReadFaults</xsl:with-param>
+            </xsl:call-template>
         </xsl:element>
     </xsl:template>
 
@@ -74,7 +86,18 @@
             <xsl:call-template name="AirbagModuleInfo">
                 <xsl:with-param name="NAME">AirbagControlModule</xsl:with-param>
             </xsl:call-template>
-            <xsl:element name="ModuleTest"/>
+            <xsl:call-template name="AirbagProgramVIN">
+                <xsl:with-param name="NAME">AirbagProgramVIN</xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="AirbagCheckVIN">
+                <xsl:with-param name="NAME">AirbagCheckVIN</xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="ArmAirbag">
+                <xsl:with-param name="NAME">AirbagEnableAirBagModule</xsl:with-param>
+            </xsl:call-template>
+            <xsl:call-template name="AirbagDtcCheck">
+                <xsl:with-param name="NAME">AirbagReadFaults</xsl:with-param>
+            </xsl:call-template>
         </xsl:element>
     </xsl:template>
 
@@ -102,13 +125,169 @@
             <xsl:value-of select="$NAME"/>
         </xsl:element>
         <xsl:element name="ModulePartNumber">
-            <xsl:value-of select="//TestResult/AirbagCheckPartNumber/ModulePartNumber"/>
+            <xsl:value-of select="//TestResult/AirbagCheckP3_ModulePartNumber/ModulePartNumber"/>
         </xsl:element>
         <xsl:element name="SerialNumber">
             <xsl:value-of select="//TestResult/AirbagCollectTraceData/SerialNumber"/>
         </xsl:element>
+
+        <xsl:element name="OemPartNumber">
+            <xsl:value-of select="//TestResult/AirbagCheckP1_OEMPartNumber/ModulePartNumber"/>
+        </xsl:element>
+        <xsl:element name="SoftwareVersion">
+            <xsl:value-of select="//TestResult/AirbagCheckP2_FWChecksum/ModulePartNumber"/>
+        </xsl:element>
+
         <xsl:element name="Result">
             <xsl:value-of select="//TestResult/AirbagOverallTest/@Result"/>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="AirbagCheckVIN">
+        <xsl:param name="NAME"/>
+        <xsl:element name="ModuleTest">
+            <xsl:element name="TestName">
+                <xsl:value-of select="$NAME"/>
+            </xsl:element>
+            <xsl:element name="Process">
+                <xsl:value-of select="//TestResult/AirbagCheckVIN/@Process"/>
+            </xsl:element>
+            <xsl:element name="Result">
+                <xsl:value-of select="//TestResult/AirbagCheckVIN/@Result"/>
+            </xsl:element>
+            <xsl:element name="ResultDescription">
+                <xsl:value-of select="//TestResult/AirbagCheckVIN/@Description"/>
+            </xsl:element>
+            <xsl:element name="TestResultCode">
+                <xsl:value-of select="//TestResult/AirbagCheckVIN/@TestResultCode"/>
+            </xsl:element>
+            <xsl:element name="TestValue"/>
+            <xsl:element name="TestAttributes">
+                <xsl:for-each select="//TestResult/AirbagCheckVIN/child::*">
+                    <xsl:element name="Attribute">
+                        <xsl:element name="AttributeName">
+                            <xsl:value-of select="name()"/>
+                        </xsl:element>
+                        <xsl:element name="AttributeValue">
+                            <xsl:attribute name="Units">
+                                <xsl:value-of select="@Units"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="."/>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="AirbagProgramVIN">
+        <xsl:param name="NAME"/>
+        <xsl:element name="ModuleTest">
+            <xsl:element name="TestName">
+                <xsl:value-of select="$NAME"/>
+            </xsl:element>
+            <xsl:element name="Process">
+                <xsl:value-of select="//TestResult/AirbagProgramVIN/@Process"/>
+            </xsl:element>
+            <xsl:element name="Result">
+                <xsl:value-of select="//TestResult/AirbagProgramVIN/@Result"/>
+            </xsl:element>
+            <xsl:element name="ResultDescription">
+                <xsl:value-of select="//TestResult/AirbagProgramVIN/@Description"/>
+            </xsl:element>
+            <xsl:element name="TestResultCode">
+                <xsl:value-of select="//TestResult/AirbagProgramVIN/@TestResultCode"/>
+            </xsl:element>
+            <xsl:element name="TestValue"/>
+            <xsl:element name="TestAttributes">
+                <xsl:for-each select="//TestResult/AirbagProgramVIN/child::*">
+                    <xsl:element name="Attribute">
+                        <xsl:element name="AttributeName">
+                            <xsl:value-of select="name()"/>
+                        </xsl:element>
+                        <xsl:element name="AttributeValue">
+                            <xsl:attribute name="Units">
+                                <xsl:value-of select="@Units"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="."/>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="ArmAirbag">
+        <xsl:param name="NAME"/>
+        <xsl:element name="ModuleTest">
+            <xsl:element name="TestName">
+                <xsl:value-of select="$NAME"/>
+            </xsl:element>
+            <xsl:element name="Process">
+                <xsl:value-of select="//TestResult/AirbagEnableAirBagModule/@Process"/>
+            </xsl:element>
+            <xsl:element name="Result">
+                <xsl:value-of select="//TestResult/AirbagEnableAirBagModule/@Result"/>
+            </xsl:element>
+            <xsl:element name="ResultDescription">
+                <xsl:value-of select="//TestResult/AirbagEnableAirBagModule/@Description"/>
+            </xsl:element>
+            <xsl:element name="TestResultCode">
+                <xsl:value-of select="//TestResult/AirbagEnableAirBagModule/@TestResultCode"/>
+            </xsl:element>
+            <xsl:element name="TestValue"/>
+            <xsl:element name="TestAttributes">
+                <xsl:for-each select="//TestResult/AirbagEnableAirBagModule/child::*">
+                    <xsl:element name="Attribute">
+                        <xsl:element name="AttributeName">
+                            <xsl:value-of select="name()"/>
+                        </xsl:element>
+                        <xsl:element name="AttributeValue">
+                            <xsl:attribute name="Units">
+                                <xsl:value-of select="@Units"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="."/>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="AirbagDtcCheck">
+        <xsl:param name="NAME"/>
+        <xsl:element name="ModuleTest">
+            <xsl:element name="TestName">
+                <xsl:value-of select="$NAME"/>
+            </xsl:element>
+            <xsl:element name="Process">
+                <xsl:value-of select="//TestResult/AirbagReadFaults/@Process"/>
+            </xsl:element>
+            <xsl:element name="Result">
+                <xsl:value-of select="//TestResult/AirbagReadFaults/@Result"/>
+            </xsl:element>
+            <xsl:element name="ResultDescription">
+                <xsl:value-of select="//TestResult/AirbagReadFaults/@Description"/>
+            </xsl:element>
+            <xsl:element name="TestResultCode">
+                <xsl:value-of select="//TestResult/AirbagReadFaults/@TestResultCode"/>
+            </xsl:element>
+            <xsl:element name="TestValue"/>
+            <xsl:element name="TestAttributes">
+                <xsl:for-each select="//TestResult/AirbagReadFaults/child::*">
+                    <xsl:element name="Attribute">
+                        <xsl:element name="AttributeName">
+                            <xsl:value-of select="name()"/>
+                        </xsl:element>
+                        <xsl:element name="AttributeValue">
+                            <xsl:attribute name="Units">
+                                <xsl:value-of select="@Units"/>
+                            </xsl:attribute>
+                            <xsl:value-of select="."/>
+                        </xsl:element>
+                    </xsl:element>
+                </xsl:for-each>
+            </xsl:element>
         </xsl:element>
     </xsl:template>
 
@@ -671,6 +850,162 @@
             </xsl:element>
             <xsl:element name="TestAttributes">
                 <xsl:for-each select="//TestResult/BrakeRearBalanceTest/child::*">
+                    <xsl:if test="name()!='Value'">
+                        <xsl:element name="Attribute">
+                            <xsl:element name="AttributeName">
+                                <xsl:value-of select="name()"/>
+                            </xsl:element>
+                            <xsl:element name="AttributeValue">
+                                <xsl:attribute name="Units">
+                                    <xsl:value-of select="@Units"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="BrakeCheckPartNumber">
+        <xsl:param name="NAME"/>
+        <xsl:element name="ModuleTest">
+            <xsl:element name="TestName">
+                <xsl:value-of select="$NAME"/>
+            </xsl:element>
+            <xsl:element name="Process">
+                <xsl:value-of select="//TestResult/BrakeCheckPartNumber/@Process"/>
+            </xsl:element>
+            <xsl:element name="Result">
+                <xsl:value-of select="//TestResult/BrakeCheckPartNumber/@Result"/>
+            </xsl:element>
+            <xsl:element name="ResultDescription">
+                <xsl:value-of select="//TestResult/BrakeCheckPartNumber/@Description"/>
+            </xsl:element>
+            <xsl:element name="TestResultCode">
+                <xsl:value-of select="//TestResult/BrakeCheckPartNumber/@TestResultCode"/>
+            </xsl:element>
+            <xsl:element name="TestValue"/>
+            <xsl:element name="TestAttributes">
+                <xsl:for-each select="//TestResult/BrakeCheckPartNumber/child::*">
+                    <xsl:if test="name()!='Value'">
+                        <xsl:element name="Attribute">
+                            <xsl:element name="AttributeName">
+                                <xsl:value-of select="name()"/>
+                            </xsl:element>
+                            <xsl:element name="AttributeValue">
+                                <xsl:attribute name="Units">
+                                    <xsl:value-of select="@Units"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="BrakeProgramVIN">
+        <xsl:param name="NAME"/>
+        <xsl:element name="ModuleTest">
+            <xsl:element name="TestName">
+                <xsl:value-of select="$NAME"/>
+            </xsl:element>
+            <xsl:element name="Process">
+                <xsl:value-of select="//TestResult/BrakeProgramVIN/@Process"/>
+            </xsl:element>
+            <xsl:element name="Result">
+                <xsl:value-of select="//TestResult/BrakeProgramVIN/@Result"/>
+            </xsl:element>
+            <xsl:element name="ResultDescription">
+                <xsl:value-of select="//TestResult/BrakeProgramVIN/@Description"/>
+            </xsl:element>
+            <xsl:element name="TestResultCode">
+                <xsl:value-of select="//TestResult/BrakeProgramVIN/@TestResultCode"/>
+            </xsl:element>
+            <xsl:element name="TestValue"/>
+            <xsl:element name="TestAttributes">
+                <xsl:for-each select="//TestResult/BrakeProgramVIN/child::*">
+                    <xsl:if test="name()!='Value'">
+                        <xsl:element name="Attribute">
+                            <xsl:element name="AttributeName">
+                                <xsl:value-of select="name()"/>
+                            </xsl:element>
+                            <xsl:element name="AttributeValue">
+                                <xsl:attribute name="Units">
+                                    <xsl:value-of select="@Units"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="BrakeCheckVIN">
+        <xsl:param name="NAME"/>
+        <xsl:element name="ModuleTest">
+            <xsl:element name="TestName">
+                <xsl:value-of select="$NAME"/>
+            </xsl:element>
+            <xsl:element name="Process">
+                <xsl:value-of select="//TestResult/BrakeCheckVIN/@Process"/>
+            </xsl:element>
+            <xsl:element name="Result">
+                <xsl:value-of select="//TestResult/BrakeCheckVIN/@Result"/>
+            </xsl:element>
+            <xsl:element name="ResultDescription">
+                <xsl:value-of select="//TestResult/BrakeCheckVIN/@Description"/>
+            </xsl:element>
+            <xsl:element name="TestResultCode">
+                <xsl:value-of select="//TestResult/BrakeCheckVIN/@TestResultCode"/>
+            </xsl:element>
+            <xsl:element name="TestValue"/>
+            <xsl:element name="TestAttributes">
+                <xsl:for-each select="//TestResult/BrakeCheckVIN/child::*">
+                    <xsl:if test="name()!='Value'">
+                        <xsl:element name="Attribute">
+                            <xsl:element name="AttributeName">
+                                <xsl:value-of select="name()"/>
+                            </xsl:element>
+                            <xsl:element name="AttributeValue">
+                                <xsl:attribute name="Units">
+                                    <xsl:value-of select="@Units"/>
+                                </xsl:attribute>
+                                <xsl:value-of select="."/>
+                            </xsl:element>
+                        </xsl:element>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:element>
+        </xsl:element>
+    </xsl:template>
+
+    <xsl:template name="BrakeReadFaults">
+        <xsl:param name="NAME"/>
+        <xsl:element name="ModuleTest">
+            <xsl:element name="TestName">
+                <xsl:value-of select="$NAME"/>
+            </xsl:element>
+            <xsl:element name="Process">
+                <xsl:value-of select="//TestResult/BrakeReadFaults/@Process"/>
+            </xsl:element>
+            <xsl:element name="Result">
+                <xsl:value-of select="//TestResult/BrakeReadFaults/@Result"/>
+            </xsl:element>
+            <xsl:element name="ResultDescription">
+                <xsl:value-of select="//TestResult/BrakeReadFaults/@Description"/>
+            </xsl:element>
+            <xsl:element name="TestResultCode">
+                <xsl:value-of select="//TestResult/BrakeReadFaults/@TestResultCode"/>
+            </xsl:element>
+            <xsl:element name="TestValue"/>
+            <xsl:element name="TestAttributes">
+                <xsl:for-each select="//TestResult/BrakeReadFaults/child::*">
                     <xsl:if test="name()!='Value'">
                         <xsl:element name="Attribute">
                             <xsl:element name="AttributeName">

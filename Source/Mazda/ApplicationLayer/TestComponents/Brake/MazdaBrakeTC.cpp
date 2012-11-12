@@ -1315,3 +1315,83 @@ void MazdaBrakeTC::ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 sta
         brakeData[roller].currentForce = (atof(SystemRead(brakeData[roller].currentForceTag).c_str()));
     }
 }
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::FrontLeftABSTest(void)
+{   // Log the entry and determine if the test should be performed
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::FrontLeftABSTest() - Enter");
+    string testResult(BEP_TESTING_RESPONSE);
+    bool absEquipped = EquippedABS();
+    bool keepTesting = true;
+    MaxBrakeData beginBrakeForce[GetRollerCount()];
+    MaxBrakeData dumpBrakeForce[GetRollerCount()];
+    MaxBrakeData recoverBrakeForce[GetRollerCount()];
+    if(!ShortCircuitTestStep() && absEquipped)
+    {   
+        SystemWrite("M077",true);
+        do
+        {
+            SystemWrite("StartForceSampling",true);
+            BposSleep(GetParameterInt("ForceSampleTime"));
+            ReadCurrentLoadCellValues(&beginBrakeForce, LFWHEEL);
+            SystemWrite("StartForceSampling",false);
+            SystemWrite("M067",true);
+
+            SystemReadWaitForResult("M017","1",10000);
+            BposSleep(GetParameterInt("DelayBeforeSampling"));
+            SystemWrite("StartForceSampling",true);
+            BposSleep(GetParameterInt("ForceSampleTime"));
+            ReadCurrentLoadCellValues(&dumpBrakeForce, LFWHEEL);
+            SystemWrite("StartForceSampling",false);
+
+            // Inspect dump forces
+
+            if(// Forces good)
+            {
+            }
+            else
+            {
+                string response = OperatorYesNo();
+                if(response != "Yes")
+                {
+                    keepTesting = false;
+                    testResult = testAbort;
+                }
+            }
+        }while(keepTesting);
+        SystemWrite("M077",false);
+        // Report the test result
+        SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
+        if(!testResult.compare(testAbort))
+        {
+            SystemWrite(ABORT_DATA_TAG,"1");
+        }
+    }
+    else
+    {
+        Log(LOG_FN_ENTRY, "Skipping test step FrontLeftABSTest()");
+        testResult = testSkip;
+    }
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::FrontLeftABSTest() - Exit");
+    return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::MazdaAnalyzeABSDumpForces(MaxBrakeData *dumpForce, MaxBrakeData *startForce, UINT8 actuatedWheel)
+{   // Log the entry and determine if this should be checked
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaAnalyzeBrakeForce(%s) - Enter", axle.c_str());
+    string testResult(BEP_FAILURE_RESPONSE);
+
+    if(actuatedWheel >= LRWHEEL) // Analyze forces for rear wheels only
+    {
+    }
+    else                         // Analyze forces for front wheels only
+    {
+    }
+
+    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaAnalyzeBrakeForce() - Exit result: %s", testResult.c_str());
+
+    return(testResult);
+}
+
+

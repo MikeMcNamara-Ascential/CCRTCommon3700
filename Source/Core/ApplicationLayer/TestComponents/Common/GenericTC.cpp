@@ -1623,7 +1623,7 @@ const std::string GenericTC::SystemReadWaitForResult(const std::string &tag, con
     std::string value = "";
     Log(LOG_FN_ENTRY,"GenericTC::SystemReadWaitForResult - Enter   tag:%s  result:%s  timeout:%f", tag.c_str(), result.c_str(),  timeout);
 
-    float checkTime = 100;      // how often it will poll for data (in ms)
+    float checkTime = GetTestStepInfoInt("ScanDelay");      // how often it will poll for data (in ms)
 
     while (SystemRead(tag) != result && timeout > 0 )
     {

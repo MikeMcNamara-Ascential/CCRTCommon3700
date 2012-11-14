@@ -184,6 +184,8 @@
                 <PlcType DataType="string">SerialAb</PlcType>
 				<RearBalanceBGColor DataType="color">white</RearBalanceBGColor>
 				<RearBalanceValue DataType="string">0</RearBalanceValue>
+				<LRParkBrakeForce DataType="string">0</LRParkBrakeForce>
+                <LRParkBrakeBGColor DataType="color">white</LRParkBrakeBGColor>
 				<RFABSRecoveryBGColor DataType="string">white</RFABSRecoveryBGColor>
 				<RFABSRecoveryValue DataType="float">0</RFABSRecoveryValue>
 				<RFABSReductionBGColor DataType="string">white</RFABSReductionBGColor>

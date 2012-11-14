@@ -129,6 +129,8 @@
             <BrakeTractionControlTest>TestNotStarted</BrakeTractionControlTest>
         </ResetOverallResults>
         <ResetDataTags>
+            <LRParkBrakeForce>0</LRParkBrakeForce>
+            <LRParkBrakeBGColor>white</LRParkBrakeBGColor>
             <LFBrakeDistance>0</LFBrakeDistance>
             <RFBrakeDistance>0</RFBrakeDistance>
             <LRBrakeDistance>0</LRBrakeDistance>

@@ -4,18 +4,28 @@
       <InputServer>core/InputServer</InputServer>
       <InvalidateBuildRecordOnRead>False</InvalidateBuildRecordOnRead>
       <PrintOnPfsBlock Value="Yes or No">Yes</PrintOnPfsBlock>
+        <StartKeepAlive>No</StartKeepAlive>
+        <StartRequestHandler>Yes</StartRequestHandler>
       <Broadcast>
          <BuildRecordMap>/Configuration/Servers/VehicleBuildRecord.xml</BuildRecordMap>
          <Data>
-            <MessageDescriptionLength>9</MessageDescriptionLength>
-            <TestDataSectionLength>9</TestDataSectionLength>
-            <PartNumberSectionLength>9</PartNumberSectionLength>
-            <TestCodeSectionLength>9</TestCodeSectionLength>
-            <WccTimeIndex>41</WccTimeIndex>
-            <WccTimeLength>4</WccTimeLength>
-            <WccDateIndex>46</WccDateIndex>
-            <WccDateLength>6</WccDateLength>
-            <WccChecksumIndex>50</WccChecksumIndex>
+                <UseSectionData>Yes</UseSectionData>
+                <SectionDataLengths>
+                    <MessageDescriptionLength StartIndex="3" Length="3">50</MessageDescriptionLength>
+                    <TestDataSectionLength StartIndex="6" Length="3">17</TestDataSectionLength>
+                    <PartNumberSectionLength StartIndex="9" Length="3">60</PartNumberSectionLength>
+                    <TestCodeSectionLength StartIndex="12" Length="3">28</TestCodeSectionLength>
+                </SectionDataLengths>
+                <WccTimeIndex Section="WccInfoSection" Offset="1" Length="4">159</WccTimeIndex>
+                <WccDateIndex Section="WccInfoSection" Offset="6" Length="6">164</WccDateIndex>
+                <WccChecksumIndex Section="WccInfoSection" Offset="12" Length="1">170</WccChecksumIndex>
+                <SectionOrder>
+                    <Section1 SectionLength="50" SectionLengthTag="MessageDescriptionLength">MessageDescription</Section1>
+                    <Section2 SectionLength="17" SectionLengthTag="TestDataSectionLength">TestDataSection</Section2>
+                    <Section3 SectionLength="60" SectionLengthTag="PartNumberSectionLength">PartNumberSection</Section3>
+                    <Section4 SectionLength="30" SectionLengthTag="TestCodeSectionLength">TestCodeSection</Section4>
+                    <Section5 SectionLength="15" SectionLengthTag="">WccInfoSection</Section5>
+                </SectionOrder>
          </Data>
          <BroadcastCommunication>
             <Setup>
@@ -28,13 +38,13 @@
                <Logging>
                   <ProcessName>BroadcastCommunication</ProcessName>
                   <Status>Enabled</Status>
-                  <AdditionalLogFile Types="/Server/BroadCastCommunication or Disabled">/Servers/BroadCastCommunication.log</AdditionalLogFile>
+                        <AdditionalLogFile Types="/Servers/BroadCastCommunication or Disabled">/Servers/BroadCastCommunication.log</AdditionalLogFile>
                   <Debug>Off</Debug>
                   <LocalEcho>Disabled</LocalEcho>
-                  <Verbose>0x1F</Verbose>
+                        <Verbose>0x01</Verbose>
                </Logging>
                <MaxAttempts>3</MaxAttempts>
-               <MaxResponseTime>50000</MaxResponseTime>
+                    <MaxResponseTime>5000</MaxResponseTime>
                <MessageDelay>5000</MessageDelay>
             </Setup>
          </BroadcastCommunication>
@@ -49,10 +59,10 @@
                <Logging>
                   <Debug>Off</Debug>
                   <ProcessName>Blank</ProcessName>
-                  <Status>Enabled</Status>
-                  <AdditionalLogFile Types="/Server/RequestHandler or Disabled">/Servers/RequestHandler.log</AdditionalLogFile>
-                  <LocalEcho>Disabled</LocalEcho>
-                  <Verbose>0x01</Verbose>
+                        <Status>Disabled</Status>
+                        <AdditionalLogFile Types="/Servers/RequestHandler or Disabled">/Servers/RequestHandler.log</AdditionalLogFile>
+                        <LocalEcho>Disable</LocalEcho>
+                        <Verbose>0x00</Verbose>
                </Logging>
                <WccRequests>
                   <CommunicationCheck>0</CommunicationCheck>
@@ -65,6 +75,70 @@
                <MaxRequestLength>5</MaxRequestLength>
             </Setup>
          </RequestHandlerConfig>
+            <KeepAliveConfig>
+                <Setup>
+                    <KeepAliveTime Units="ms">120000</KeepAliveTime>
+                    <EquipmentType>R</EquipmentType>
+                    <MachineNumberFormat>%04d</MachineNumberFormat>
+                    <MaxResponseTime>5000</MaxResponseTime>
+                    <MinResponseLength>7</MinResponseLength>
+                    <ErrorCodeStartIndex>1</ErrorCodeStartIndex>
+                    <ErrorCodeLength>4</ErrorCodeLength>
+                    <MaxErrorBit>6</MaxErrorBit>
+                    <ErrorCodeDefinitions>
+                        <E0000
+                            Severity="None"
+                            FaultTag="NoError"
+                            FaultDescription="No WCC errors"/>
+                        <E0001
+                            Severity="Fatal"
+                            FaultTag="BroadcastHostDown"
+                            FaultDescription="Broadcast Host is Down"
+                            PromptTag="HostDown"/>
+                        <E0002
+                            Severity="Warning"
+                            FaultTag="UnsolicitedBroadcastHostDown"
+                            FaultDescription="Unsolicited Broadcast Connection is Down"
+                            PromptTag="UnsolicitedHostDown"/>
+                        <E0004
+                            Severity="Fatal"
+                            FaultTag="WccInternalError"
+                            FaultDescription="Database Error/Internal WCC Error"
+                            PromptTag="WccInternalError"/>
+                        <E0008
+                            Severity="Warning"
+                            FaultTag="WccOnUps"
+                            FaultDescription="WCC is Running on UPS Battery Power"
+                            PromptTag="WccOnUps"/>
+                        <E0010
+                            Severity="Fatal"
+                            FaultTag="UpsLow"
+                            FaultDescription="UPS Battery Power is Low"
+                            PromptTag="UpsLow"/>
+                        <E0020
+                            Severity="Warning"
+                            FaultTag="EquipmentCommFailure"
+                            FaultDescription="Test Equipment Communication Error"
+                            PromptTag="EquipmentCommFailure"/>
+                        <E0040
+                            Severity="Warning"
+                            FaultTag="WccCommError"
+                            FaultDescription="Inter WCC Communication Error"
+                            PromptTag="WccCommError"/>
+                    </ErrorCodeDefinitions>
+                    <SeverityLevelConversion>
+                        <Fatal>9</Fatal>
+                        <Warning>4</Warning>
+                        <None>0</None>
+                    </SeverityLevelConversion>
+                    <Communication>
+                        <Name>/dev/LogicalPorts/Wcc</Name>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                        <Debug>Off</Debug>
+                    </Communication>
+                </Setup>
+            </KeepAliveConfig>
       </Broadcast>
       <Communication>
          <Type>Server</Type>
@@ -74,6 +148,14 @@
          <Timeout>5000</Timeout>
          <BufferSize>2000</BufferSize>
       </Communication>
+        <PlcBuildData>
+           <PlcVehicleBuildBits>
+              <Element001 plcDataTag="MazdaAbsEquipped">ABSEquipped</Element001>
+              <Element002 plcDataTag="Mazda4wdEquipped">TCase4wdEquipped</Element002>
+              <Element003 plcDataTag="MazdaBsmEquipped">BSMEquipped</Element003>
+              <Element004 plcDataTag="MazdaRlsEquipped">RLSEquipped</Element004>
+           </PlcVehicleBuildBits>
+        </PlcBuildData>
       <DataTags>
          <VehicleBuild>NextVehicleBuild</VehicleBuild>
          <BuildRecord>BuildRecord</BuildRecord>
@@ -81,7 +163,6 @@
          <NextVIN>NextVIN</NextVIN>
          <VINDisplay>VINDisplay</VINDisplay>
          <VINReadStatus>VINReadStatus</VINReadStatus>
-         <InputVinLength>10</InputVinLength>
          <InputServerState>InputServerState</InputServerState>
          <VehiclePresent>VehiclePresent</VehiclePresent>
          <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
@@ -99,18 +180,33 @@
             <AWD>No</AWD>
          </FourWheelDriveEquipped>
          <BodyStyleDriveAxle>
-            <_Default>Front</_Default>
-            <NF>Front</NF>
-            <YF>Front</YF>
-            <CM>Rear</CM>
+                <_Default>Rear</_Default>
+                <Dxxxxx>Rear</Dxxxxx>
+                <Hxxxxx>Rear</Hxxxxx>
+                <Jxxxxx>Front</Jxxxxx>
+                <Lxxxxx>Front</Lxxxxx>
+                <Pxxxxx>Front</Pxxxxx>
+                <Kxxxxx>Rear</Kxxxxx>
+                <Wxxxxx>Rear</Wxxxxx>
+                <Txxxxx>Rear</Txxxxx>
+            <Mxxxxx>Front</Mxxxxx>
          </BodyStyleDriveAxle>
+            <VinBytes0and1>VinBytes0and1</VinBytes0and1>
+            <VinBytes2and3>VinBytes2and3</VinBytes2and3>
+            <VinBytes4and5>VinBytes4and5</VinBytes4and5>
+            <VinBytes6and7>VinBytes6and7</VinBytes6and7>
+            <VinBytes8and9>VinBytes8and9</VinBytes8and9>
+            <VinBytes10and11>VinBytes10and11</VinBytes10and11>
+            <VinBytes12and13>VinBytes12and13</VinBytes12and13>
+            <VinBytes14and15>VinBytes14and15</VinBytes14and15>
+            <VinBytes16>VinBytes16</VinBytes16>            
       </DataTags>
       <Logging>
          <Status>Enabled</Status>
          <ProcessName>core/WorkCellController</ProcessName>
          <AdditionalLogFile Type="/Servers/WorkCellController or Disabled">/Servers/WorkCellController.log</AdditionalLogFile>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x01</Verbose>
+            <Verbose>0x1F</Verbose>
          <Debug>Off</Debug>
       </Logging>
       <Prompts>

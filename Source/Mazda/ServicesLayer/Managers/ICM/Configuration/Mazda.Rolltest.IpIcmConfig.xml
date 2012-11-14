@@ -17,6 +17,9 @@
         <InterruptAccumulator>65000</InterruptAccumulator>
         <MachineLossDataFile>/Configuration/Servers/MachineLosses.xml</MachineLossDataFile>
         <MgrPool lowWater="10" hiWater="15" maximum="20" increment="1" priority="35"/>
+        <AccelLimit units="MPH/sec">25.0</AccelLimit>
+        <AccelAlarmOnWait comment="Number of ms to wait before turning the alarm on if the accel llimit is exceeded">200</AccelAlarmOnWait>
+        <AccelAlarmOffWait comment="Number of ms to wait before turning the alarm off after falling below the accel llimit">10000</AccelAlarmOffWait>
         <TagNames>
             <!--This section lists the system tag names for data items used by the ICM manager-->
             <LfChannelTag>LF</LfChannelTag>
@@ -46,28 +49,28 @@
             <Frequency status="Disabled" name="/TestResults/Machine/BrakeForceData/Frequency.log" link="/TestResults/Machine/BrakeForceData/Frequency.dat"/>
         </DataLogFiles>
         <LF boardIdx="0" channelIndex="0">
-            <RollFactor>285</RollFactor>
+            <RollFactor>212</RollFactor>
             <EncoderPulses>1250</EncoderPulses>
-            <RollDiameter>17.618</RollDiameter>
-            <MachineLoss>5</MachineLoss>
+            <RollDiameter>19.5275</RollDiameter>
+            <MachineLoss>2.812159</MachineLoss>
         </LF>
         <RF boardIdx="0" channelIndex="1">
-            <RollFactor>285</RollFactor>
+            <RollFactor>218</RollFactor>
             <EncoderPulses>1250</EncoderPulses>
-            <RollDiameter>18.216</RollDiameter>
-            <MachineLoss>5</MachineLoss>
+            <RollDiameter>19.5275</RollDiameter>
+            <MachineLoss>11.929525</MachineLoss>
         </RF>
         <LR boardIdx="0" channelIndex="2">
-            <RollFactor>567</RollFactor>
+            <RollFactor>214</RollFactor>
             <EncoderPulses>1250</EncoderPulses>
-            <RollDiameter>37.598</RollDiameter>
-            <MachineLoss>5</MachineLoss>
+            <RollDiameter>19.5275</RollDiameter>
+            <MachineLoss>3.707658</MachineLoss>
         </LR>
         <RR boardIdx="0" channelIndex="3">
-            <RollFactor>567</RollFactor>
+            <RollFactor>217</RollFactor>
             <EncoderPulses>1250</EncoderPulses>
-            <RollDiameter>37.598</RollDiameter>
-            <MachineLoss>5</MachineLoss>
+            <RollDiameter>19.5275</RollDiameter>
+            <MachineLoss>15.502554</MachineLoss>
         </RR>
         <ThreadPool>
             <Debug>Off</Debug>

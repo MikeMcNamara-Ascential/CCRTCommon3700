@@ -72,5 +72,39 @@
                 <StartOnCreate>No</StartOnCreate>
             </Setup>
         </NotificationList>
+        <PlcBitsToClearOnStartTest>
+            <Element002>M050</Element002>
+            <Element004>M051</Element004>
+            <Element006>M052</Element006>
+            <Element008>M053</Element008>
+            <Element010>M054</Element010>
+            <Element012>M055</Element012>
+            <Element014>M056</Element014>
+            <Element016>M057</Element016>
+            <Element018>M058</Element018>
+            <Element020>M059</Element020>
+            <Element022>M060</Element022>
+            <Element024>M061</Element024>
+            <Element026>M062</Element026>
+            <Element028>M063</Element028>
+            <Element030>M064</Element030>
+            <Element032>M065</Element032>
+            <Element034>M066</Element034>
+            <Element036>M067</Element036>
+            <Element038>M068</Element038>
+            <Element040>M069</Element040>
+            <Element042>M070</Element042>
+            <Element044>M071</Element044>
+            <Element046>M072</Element046>
+            <Element048>M073</Element048>
+            <Element050>M074</Element050>
+            <Element052>M075</Element052>
+            <Element054>M076</Element054>
+            <Element056>M077</Element056>
+            <Element058>M078</Element058>
+            <Element060>M079</Element060>
+            <Element062>M080</Element062>
+            <Element064>M081</Element064>
+        </PlcBitsToClearOnStartTest>
     </Setup>
 </SystemMonitorConfig>

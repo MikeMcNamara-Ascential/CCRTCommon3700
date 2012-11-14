@@ -38,7 +38,7 @@
             <ProcessName>MachineTC</ProcessName>
             <Status>Enabled</Status>
             <LocalEcho>Disabled</LocalEcho>
-            <Verbose>0x01</Verbose>
+            <Verbose>0x1F</Verbose>
             <AdditionalLogFile>/Components/MachineTC</AdditionalLogFile>
         </Logging>
         <TagList>
@@ -138,6 +138,7 @@
             <ParkBrakeMaxDistance>20</ParkBrakeMaxDistance>
             <ParkBrakeMinDistance>50</ParkBrakeMinDistance>
 
+            <StartTestTimeoutPrompt>10000</StartTestTimeoutPrompt>
         </Parameters>
         <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
         <Prompts>
@@ -153,6 +154,7 @@
             <RemoveFootFromBrake PromptBox="1" Priority="0">RemoveFootFromBrake</RemoveFootFromBrake>
             <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
             <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+            <StartTest PromptBox="1" Priority="0">PressButtonToStartTest</StartTest>
         </Prompts>
         <StatusCheckItems>
             <VehiclePresent>1</VehiclePresent>
@@ -172,10 +174,16 @@
             <TestStep1>BrakeToStop</TestStep1>
         </BrakeToStop>
 
+        <MachineStartup>
+            <TestStep01>CableConnect</TestStep01>
+            <!-- TestStep2>InitializeTestHead</TestStep2 -->
+            <TestStep10>StartTest</TestStep10>            
+        </MachineStartup>
+        
         <Initialize>
             <TestStep1>Initialize</TestStep1>
             <TestStep2>MachineReady</TestStep2>
-            <TestStep3>WaitForAcceleration</TestStep3>
+            <!-- TestStep3>WaitForAcceleration</TestStep3 -->
         </Initialize>
 
         <Speedometer>
@@ -282,7 +290,7 @@
         <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="300000" 
             Prompt1="BrakeToStop" Prompt1Priority="0"/>
 
-        <Initialize Result="" Description="Initialize the machine for testing" Timeout="0"/>
+        <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1Priority="0"/>
 
         <MachineReady Result="" Description="Wait until the machine is ready to perform a test" Timeout="15000" 
             Prompt1="" Prompt1Priority="" Prompt2="" Prompt2Priority=""/>
@@ -291,6 +299,9 @@
             Prompt1="AccelerateToTargetSpeed" Prompt1Priority="0"/>
 
         <Reverse Result="" Description="Reverse Test Step" Timeout="300000" ScanDelay="250"/>
+        <StartTest Result="" Description="Prompt the operator to press pass/fail button to start test" Timeout="30000" ScanDelay="250"/>
+        <CableConnect Result="" Description="Cable Connect Test Step" Timeout="300000" ScanDelay="250"/>
+        <InitializeTestHead Result="" Description="Follow Handshake Procedure To Setup ALC Interface" Timeout="300000" ScanDelay="250"/>
 
         <WaitForAcceleration Result="" Description="Wait for operator to start driving" Timeout="300000"/>
 

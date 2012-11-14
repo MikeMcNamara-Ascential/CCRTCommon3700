@@ -31,8 +31,10 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
     if(BEP_STATUS_SUCCESS == StatusCheck())
     {
         try
-        {
+        {                                    
             if(!GetTestStepName().compare("WaitForAcceleration"))  testResult = WaitToStart();
+            if(!GetTestStepName().compare("CableConnect"))  testResult = CableConnect();
+            if(!GetTestStepName().compare("StartTest"))  testResult = StartTest();
             else   testResult = MachineTC::CommandTestStep(value);
         }
         catch(BepException &excpt)
@@ -141,6 +143,27 @@ const string MazdaMachineTC::TestStepSpeedometer(const string &value)
     Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepSpeedometer() - Exit");
     return testResult;
 }
+
+const string MazdaMachineTC::StartTest(void)
+{
+
+    Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Enter");
+
+    string testResult(BEP_TESTING_RESPONSE);
+
+    testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterFloat("StartTestTimeoutPrompt")); 
+
+
+    Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Exit - %s", testResult.c_str());
+
+    return BEP_PASS_RESPONSE;
+}
+
+const string MazdaMachineTC::CableConnect(void)
+{
+    return testPass;
+}
+
 
 //-------------------------------------------------------------------------------------------------
 const string MazdaMachineTC::TestStepReverse(const string &value)

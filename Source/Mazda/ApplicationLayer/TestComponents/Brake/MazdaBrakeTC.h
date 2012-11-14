@@ -123,11 +123,25 @@ public:
     /**
      * Check the brake forces on each axle
      * 
-     * @param axle the axle that is being checked (either "Front" or "Rear")
+     * @param axle the axle that is being checked ("Front", "Rear", or "ParkBrake")
      * 
      * @return Result of the force test
      */
     string MazdaAnalyzeBrakeForce(string axle);
+
+    /**
+     * Check the brake forces and make sure they are in the specified ranges
+     * 
+     * @param axle
+     *          the axle that is being tested ("Front", "Rear", or "ParkBrake")
+     * @param rightWheelAvg
+     *          the average force of the right wheel
+     * @param leftWheelAvg
+     *          the average force of the left wheel
+     * 
+     * @return status of the operation
+     */ 
+    string AnalyzeBrakeTestResults(string axle, float rightWheelAvg, float leftWheelAvg);
 
     /** 
      * Analyze the drage forces from the drag test
@@ -137,25 +151,29 @@ public:
     string AnalyzeMazdaDragTest(void);
 
     /**
-     * Check the forces on the parking brake. The rollers will be at a specific speed, 
-     * the operator will be prompted to apply the parking brake. The forces during the
-     * parking brake application will be measured.
+     * Do the comparisons and the checking of parameters in this function rather than in the parent function
      * 
-     * @return Result of the drag test.
+     * @param string axle - The axle that is being measured, either "Front" or "Rear"
+     * @param float rightWheelAvg - the average value for the right wheel
+     * @param float leftWheelAvg - the average value for the left wheel
      */
-    string MazdaParkBrakeForce(void);
+    string AnalyzeDragTestResults(string axle, float rightWheelAvg, float leftWheelAvg);
     
+    /**
+     * Returns true if the machine is in full auto mode
+     * Returns false if the machine is in half-auto mode
+     */
+    bool FullAutoMode(void);
+
+    /**
+     * Do the startup stuff
+     */
+    string InitializeBrake(void);
+
     /**
      * Do the standard finish up things
      */
     string FinishUp(void);
-
-    /**
-     * Check the drag on the brakes.
-     * 
-     * @return Result of the drag test.
-     */
-    string AnalyzeMazdaParkBrakeForce(void);
 
     /**
      * Check the drag on the brakes.
@@ -202,6 +220,12 @@ public:
      * @return BEP_STATUS_TYPE
      */ 
     bool IsWheelInSpeedRange(string wheelTag, const float targetSpeed, float tolerance);
+
+    /**
+     * Run the vehicle for a specified distance
+     * 
+     */
+    string DistanceValidationTest(void);
 
     /**
      * Check the brake stopping distance.
@@ -278,7 +302,12 @@ public:
      */
     string TractionControlCheck(void);
 
-protected:
+    /**
+     * Check the Front left valve...
+     */
+    string FrontLeftABSTest(void);
+
+
     /** Structure for holding brake force data during max brake force testing and park brake testing */
     typedef struct _maxBrakeData
     {
@@ -288,6 +317,18 @@ protected:
         string displayTag;
         bool measurementComplete;
     } MaxBrakeData;
+
+
+    /**
+     * Read the current load cell values.
+     * 
+     * @param brakeData Structure to store the current load cell readings in.
+     * @param startingRoller
+     *                  Roller to start monitoring.
+     */
+    void ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 startingRoller);
+
+protected:
 
     /**
      * Monitor the maximum brake force data developed on each roller.
@@ -311,19 +352,12 @@ protected:
                             float minimumRequiredForceFront, float minimumRequiredForceRear,
                             MaxBrakeData *brakeData);
 
-    /**
-     * Read the current load cell values.
-     * 
-     * @param brakeData Structure to store the current load cell readings in.
-     * @param startingRoller
-     *                  Roller to start monitoring.
-     */
-    void ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 startingRoller);
 
-    std::list<float> m_flForceValue;
-    std::list<float> m_frForceValue;
-    std::list<float> m_rlForceValue;
-    std::list<float> m_rrForceValue;
+
+    std::list<signed int> m_flForceValue;
+    std::list<signed int> m_frForceValue;
+    std::list<signed int> m_rlForceValue;
+    std::list<signed int> m_rrForceValue;
 
     /**
      * Compute the average of a List that was passed in
@@ -332,8 +366,19 @@ protected:
      * 
      * @return the average of the list
      */
-    float computeListAverage(list<float> arr);
+    float computeListAverage(list<signed int> arr);
 
+    /**
+     * Analyze the dump forces
+     */
+    string MazdaAnalyzeABSDumpForces(MaxBrakeData *dumpForce, MaxBrakeData *startForce, UINT8 actuatedWheel);
+
+    bool m_continueBrakeTest;
+    float m_frontAxleMass;
+    float m_rearAxleMass;
+
+    float m_frontAxleAvgDrag;
+    float m_rearAxleAvgDrag;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaBrakeTC_h

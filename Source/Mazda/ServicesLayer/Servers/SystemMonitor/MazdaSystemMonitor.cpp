@@ -29,6 +29,46 @@ MazdaSystemMonitor::~MazdaSystemMonitor()
 {   // Nothing special to do here
 }
 
+//-----------------------------------------------------------------------------
+void MazdaSystemMonitor::Initialize(const XmlNode *document)
+{
+    Log( LOG_FN_ENTRY, "Enter MazdaSystemMonitor Initialize()\n");
+
+    // initialize the base SystemMonitor
+    SystemMonitor::Initialize(document);
+
+
+    // read the plc bits that should be reset on system restart
+    try
+    {
+        m_plcClearBits.DeepCopy(document->getChild("Setup/PlcBitsToClearOnStartTest")->getChildren());
+        Log(LOG_DEV_DATA,"deepcopy worked\n");
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Failure to find the PlcVehicleBuildBits children: %s\n", excpt.GetReason());
+    }
+
+
+    for(XmlNodeMapCItr iter = m_plcClearBits.begin();
+      (iter != m_plcClearBits.end());
+      iter++)
+    {
+        try
+        {
+
+            std::string clearBit = iter->second->getValue();
+            Log(LOG_DEV_DATA, "m_plcClearBits: %s", clearBit.c_str());
+        }
+        catch(XmlException &excpt)
+        {
+           Log(LOG_ERRORS, "Issue reading PLC map: %s\n", excpt.GetReason());
+        }
+    }
+
+
+    Log( LOG_FN_ENTRY, "Exit MazdaSystemMonitor Initialize()\n");
+}
 //-------------------------------------------------------------------------------------------------
 const string MazdaSystemMonitor::Publish(const XmlNode *node)
 {   // Call the base class to start the publication handling
@@ -130,6 +170,9 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
                 RemovePrompt(1, "EnterVehicleType");
                 RemovePrompt(2, "AdvanceOk");
                 WriteNdbData(string("PromptBox2BGColor"), string("white"));
+
+                ClearMazdaAlcBits();
+
                 // Make sure wheelbase is in position
                 if(!ctrl->wheelbaseInPosition)
                 {   //  Command the wheelbase to move
@@ -139,7 +182,6 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
                 WriteNdbData(RAISE_ROLLS, true);
 
                 WaitForPlcBit("a",  1, true);
-
 
                 // Start the test sequence
                 CommandNdbData(START_VEHICLE_TEST_DATA_TAG, true);
@@ -167,6 +209,35 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
     Log(LOG_FN_ENTRY, "MazdaSystemMonitor::CheckTesting() - Exit");
 }
 
+//-------------------------------------------------------------------------------------------------
+void MazdaSystemMonitor::ClearMazdaAlcBits(void)
+{
+    Log(LOG_FN_ENTRY, "MazdaSystemMonitor::ClearMazdaAlcBits() - Enter");
+
+
+    std::string clearBit = "";
+
+    for(XmlNodeMapCItr iter = m_plcClearBits.begin();
+      (iter != m_plcClearBits.end());
+      iter++)
+    {
+        try
+        {
+
+            clearBit = iter->second->getValue();
+            Log(LOG_DEV_DATA, "clearing plc bit: %s, writing 0 to it", clearBit.c_str());
+            WriteDataTag(clearBit,  "0");
+        }
+        catch(XmlException &excpt)
+        {
+           Log(LOG_ERRORS, "Issue reading PLC map: %s\n", excpt.GetReason());
+        }
+    }
+
+    Log(LOG_FN_ENTRY, "MazdaSystemMonitor::ClearMazdaAlcBits() - Exit");
+}
+
+//-------------------------------------------------------------------------------------------------
 std::string MazdaSystemMonitor::WaitForPlcBit(std::string plcTag, int timeout, bool waitForHigh)
 {
      std::string status(BEP_ERROR_RESPONSE);
@@ -177,6 +248,30 @@ std::string MazdaSystemMonitor::WaitForPlcBit(std::string plcTag, int timeout, b
      return status;
 }
 
+//-------------------------------------------------------------------------------------------------
+string MazdaSystemMonitor::WriteDataTag(string tag, string value)
+{
+    std::string response;
+    if(m_dataBroker != NULL)
+    {
+        INT32 status = m_dataBroker->Write(tag, value, response, true);
+
+        // check for errors
+        if(status != BEP_STATUS_SUCCESS)
+        {
+            Log(LOG_ERRORS, "WriteDataTag - Error Writing: %s, %d\n", tag.c_str(), status);
+            value = "ERROR";
+        }
+    }
+    else
+    {
+        Log(LOG_ERRORS, "MazdaSystemMonitor::WriteDataTag() - m_dataBroker object is NULL!");
+        value = BEP_UNAVAILABLE_RESPONSE;
+    }
+    return(value);
+}
+
+//-------------------------------------------------------------------------------------------------
 string MazdaSystemMonitor::ReadPlcBit(string tag)
 {
     std::string value, response;

@@ -29,6 +29,13 @@ public:
 
 protected:
     /**
+     * method for component initialization.
+     *
+     * @param document Reference to a parsed configuration document.
+     */
+    virtual void Initialize(const XmlNode *document);
+
+    /**
      * Overloaded BepServer Publish method which provides the ability
      * to handle the fault level messages that were requested.
      *
@@ -72,7 +79,22 @@ protected:
      **/
     virtual string ReadPlcBit(string tag);
 
+    /**
+     * Write a datatag to the NDB
+     * 
+     * @param string tag - the NDB tag name
+     * @param string value - the value that should be written
+     */
+    virtual string WriteDataTag(string tag, string value);
+
 private:
+
+    /**
+     * Will parse through an xml node and write a bunch of plc system tags which will
+     * clear the bits on the plc
+     */
+    void ClearMazdaAlcBits(void);
+
     /**
      * Get/Set the flag indicating the build data has been loaded.
      * 
@@ -84,6 +106,11 @@ private:
 
     /** Flag used to signal vehicle build data has been loaded */
     bool m_buildDataLoaded;
+
+    /**
+     * The list that will map PLC bits to the vehicle build info  
+     */
+    XmlNodeMap m_plcClearBits;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaSystemMonitor_h

@@ -139,6 +139,18 @@ protected:
      */
     virtual const string TestStepReverse(const string &value);
 
+    /** 
+     * Prompt the operator to start the test
+     * 
+     */
+    virtual const string StartTest(void);
+
+    /** 
+     * Do handshake procedure with plc to check if the diagnostic cable is connected
+     * 
+     */
+    virtual const string CableConnect(void);
+
     /**
      * Sit in a wait loop until the operator begins accelerating.  This step will never timeout since a test could be
      * started and it could be a long time until the operator comes to perform the test sequence.

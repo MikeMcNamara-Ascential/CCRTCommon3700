@@ -413,6 +413,7 @@ void WorkCellController::Initialize(const XmlNode *document)
             Log(LOG_DEV_DATA, "NISP is not suported, not loading NISP criteria.");
         }
 
+        // read the use the ndb tags names which reference the plc bits to determine if a vehicle build element should be updated
         try
         {
             m_plcVehicleBuildBits.DeepCopy(document->getChild("Setup/PlcBuildData/PlcVehicleBuildBits")->getChildren());

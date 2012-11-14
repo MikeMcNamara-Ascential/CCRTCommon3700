@@ -1199,7 +1199,7 @@ string MazdaBrakeTC::MaxBrakeForceVerification(void)
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MaxBrakeForceVerification() - Exit");
     return testResult;
 }
-/*
+
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::MaxBrakeForceCalibration(void)
 {
@@ -1320,7 +1320,7 @@ string MazdaBrakeTC::MaxBrakeForceCalibration(void)
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::MaxBrakeForceCalibration() - Enter");
     return testPass;
 }
-*/
+
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::ParkBrakeForceVerification(void)
 {   // Log the entry and make sure we need to perform this step
@@ -1406,7 +1406,7 @@ string MazdaBrakeTC::ParkBrakeForceVerification(void)
 }
 
 //-------------------------------------------------------------------------------------------------
-/**string MazdaBrakeTC::ParkBrakeForceCalibration(void)
+string MazdaBrakeTC::ParkBrakeForceCalibration(void)
 {   
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::ParkBrakeForceCalibration() - Enter");
     // Set up the parameters
@@ -1459,7 +1459,7 @@ string MazdaBrakeTC::ParkBrakeForceVerification(void)
     // Log the exit and return pass
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::ParkBrakeForceCalibration() - Exit");
     return testPass;
-}**/
+}
 
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::PreShiftCheck(void)

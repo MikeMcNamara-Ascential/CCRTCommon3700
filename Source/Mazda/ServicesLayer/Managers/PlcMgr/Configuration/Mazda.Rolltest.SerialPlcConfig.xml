@@ -313,7 +313,9 @@
         <!-- Drive axle control -->
         <DriveAxleToPlc channelIndex="45" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <ClearMotorDriveFaults channelIndex="45" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
-        
+        <ComputeWheelRunningForceAverage channelIndex="45" bitIndex="12" logic="1" portDir="OUT" boardIdx="0"/>
+        <FinishedWritingTestResults channelIndex="45" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
+      
         <!-- Left Motor Control -->
         <LeftRearMotorMode channelIndex="46" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <LeftRearSpeedRefRpm channelIndex="47" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
@@ -327,7 +329,15 @@
         <RightRearPosTorqueLimit channelIndex="54" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <RightRearNegTorqueLimit channelIndex="55" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 
+       <TestResultOverallTestPass channelIndex="65" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultBaseDrumTestPass channelIndex="65" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>        
 
+       <TestResultFrontAt40kphValue channelIndex="66" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultRearAt40kphValue channelIndex="67" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultFrontAtMaxValue channelIndex="68" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultRearAtMaxValue channelIndex="69" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultOdometer channelIndex="70" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultTestDuration channelIndex="71" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 
         <!-- Data from PLC -->
         <RearWheelDriveSignal channelIndex="0" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>

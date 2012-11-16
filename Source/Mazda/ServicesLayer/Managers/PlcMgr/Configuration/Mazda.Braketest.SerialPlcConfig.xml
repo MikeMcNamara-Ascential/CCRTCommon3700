@@ -323,6 +323,8 @@
       <BsmAimingTestOkConfirmToPlc channelIndex="45" bitIndex="9" logic="1" portDir="OUT" boardIdx="0"/>
       <BsmAimingTestNgConfirmToPlc channelIndex="45" bitIndex="10" logic="1" portDir="OUT" boardIdx="0"/>
       <TesterRunningStatusToPlc channelIndex="45" bitIndex="11" logic="1" portDir="OUT" boardIdx="0"/>
+      <ComputeWheelRunningForceAverage channelIndex="45" bitIndex="12" logic="1" portDir="OUT" boardIdx="0"/>
+      <FinishedWritingTestResults channelIndex="45" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
       
       
       <!-- Left Motor Control -->
@@ -351,8 +353,34 @@
        <TestResultOverallTestPass channelIndex="65" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
        <TestResultBaseBrakeTestPass channelIndex="65" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
        <TestResultTotalBrakeForcePass channelIndex="65" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
-       <TestResultDragFrontSum channelIndex="65" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>
-
+       <TestResultDragFrontSumPass channelIndex="65" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultDragFrontBalancePass channelIndex="65" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultDragRearSumPass channelIndex="65" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultDragRearBalancePass channelIndex="65" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceFrontSumPass channelIndex="65" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceFrontBalancePass channelIndex="65" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceRearSumPass channelIndex="65" bitIndex="9" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceRearBalancePass channelIndex="65" bitIndex="10" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceParkSumPass channelIndex="65" bitIndex="11" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceParkBalancePass channelIndex="65" bitIndex="12" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultAbsResultPass channelIndex="65" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
+       
+       
+       <TestResultTotalSumValue channelIndex="66" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultDragFrontSumValue channelIndex="67" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultDragFrontBalanceValue channelIndex="68" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultDragRearSumValue channelIndex="69" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultDragRearBalanceValue channelIndex="70" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>       
+       <TestResultForceFrontSumValue channelIndex="71" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceFrontBalanceValue channelIndex="72" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>       
+       <TestResultForceRearSumValue channelIndex="73" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceRearBalanceValue channelIndex="74" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>       
+       <TestResultForceParkSumValue channelIndex="75" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultForceParkBalanceValue channelIndex="76" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>       
+       
+       
+       
+       
         <!-- Data from PLC -->
         <RearWheelDriveSignal channelIndex="0" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <PowerSense channelIndex="0" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>

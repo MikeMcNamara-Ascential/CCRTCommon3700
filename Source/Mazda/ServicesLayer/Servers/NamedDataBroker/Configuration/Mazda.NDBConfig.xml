@@ -121,6 +121,7 @@
             <CommandTorque DataType="float" Units="FT-LBS">MotorController</CommandTorque>
             <CompleteLamp DataType="bool">PLC</CompleteLamp>
             <ComputerModeSelected DataType="bool">PLC</ComputerModeSelected>
+            <ComputeWheelRunningForceAverage DataType="bool">PLC</ComputeWheelRunningForceAverage>
             <ConnectRequest DataType="string">MachineDataBroker</ConnectRequest>
             <ContinueTest DataType="bool">SystemMonitor</ContinueTest>
             <ControlPowerCircuitBreakerOpen DataType="bool">PLC</ControlPowerCircuitBreakerOpen>
@@ -189,6 +190,7 @@
             <FatalFaultFlasher DataType="bool">PLC</FatalFaultFlasher>
             <FaultLamp DataType="bool">PLC</FaultLamp>
             <FifteenVoltDcPowerSupplyFault DataType="bool">PLC</FifteenVoltDcPowerSupplyFault>
+            <FinishedWritingTestResults DataType="bool">PLC</FinishedWritingTestResults>
             <FireAlarm DataType="bool">PLC</FireAlarm>
             <FlywheelClutch DataType="bool">PLC</FlywheelClutch>
             <FlywheelDeclutch DataType="bool">PLC</FlywheelDeclutch>
@@ -941,6 +943,39 @@
             <TestResultBox9BGColor DataType="color">MachineDataBroker</TestResultBox9BGColor>
             <TestResultToPrint DataType="string">MachineDataBroker</TestResultToPrint>
             <TestResultValue DataType="string">InputServer</TestResultValue>
+            <TestResultOverallTestPass DataType="bool">PLC</TestResultOverallTestPass>
+            <TestResultBaseBrakeTestPass DataType="bool">PLC</TestResultBaseBrakeTestPass>
+            <TestResultTotalBrakeForcePass DataType="bool">PLC</TestResultTotalBrakeForcePass>
+            <TestResultDragFrontSumPass DataType="bool">PLC</TestResultDragFrontSumPass>
+            <TestResultDragFrontBalancePass DataType="bool">PLC</TestResultDragFrontBalancePass>
+            <TestResultDragRearSumPass DataType="bool">PLC</TestResultDragRearSumPass>
+            <TestResultDragRearBalancePass DataType="bool">PLC</TestResultDragRearBalancePass>
+            <TestResultForceFrontSumPass DataType="bool">PLC</TestResultForceFrontSumPass>
+            <TestResultForceFrontBalancePass DataType="bool">PLC</TestResultForceFrontBalancePass>
+            <TestResultForceRearSumPass DataType="bool">PLC</TestResultForceRearSumPass>
+            <TestResultForceRearBalancePass DataType="bool">PLC</TestResultForceRearBalancePass>
+            <TestResultForceParkSumPass DataType="bool">PLC</TestResultForceParkSumPass>
+            <TestResultForceParkBalancePass DataType="bool">PLC</TestResultForceParkBalancePass>
+            <TestResultAbsResultPass DataType="bool">PLC</TestResultAbsResultPass>
+            <TestResultBaseDrumTestPass DataType="bool">PLC</TestResultBaseDrumTestPass>
+            <TestResultFrontAt40kphValue DataType="bool">PLC</TestResultFrontAt40kphValue>
+            <TestResultRearAt40kphValue DataType="bool">PLC</TestResultRearAt40kphValue>
+            <TestResultFrontAtMaxValue DataType="bool">PLC</TestResultFrontAtMaxValue>
+            <TestResultRearAtMaxValue DataType="bool">PLC</TestResultRearAtMaxValue>
+            <TestResultOdometer DataType="bool">PLC</TestResultOdometer>
+            <TestResultTestDuration DataType="bool">PLC</TestResultTestDuration>            
+            <TestResultTotalSumValue DataType="short">PLC</TestResultTotalSumValue>
+            <TestResultDragFrontSumValue DataType="short">PLC</TestResultDragFrontSumValue>
+            <TestResultDragFrontBalanceValue DataType="short">PLC</TestResultDragFrontBalanceValue>
+            <TestResultDragRearSumValue DataType="short">PLC</TestResultDragRearSumValue>
+            <TestResultDragRearBalanceValue DataType="short">PLC</TestResultDragRearBalanceValue>
+            <TestResultForceFrontSumValue DataType="short">PLC</TestResultForceFrontSumValue>
+            <TestResultForceFrontBalanceValue DataType="short">PLC</TestResultForceFrontBalanceValue>
+            <TestResultForceRearSumValue DataType="short">PLC</TestResultForceRearSumValue>
+            <TestResultForceRearBalanceValue DataType="short">PLC</TestResultForceRearBalanceValue>
+            <TestResultForceParkSumValue DataType="short">PLC</TestResultForceParkSumValue>
+            <TestResultForceParkBalanceValue DataType="short">PLC</TestResultForceParkBalanceValue>
+            
             <TestsSinceLossCompensation DataType="short">MachineDataBroker</TestsSinceLossCompensation>
             <TevesABSSelected DataType="bool">PLC</TevesABSSelected>
             <TiltSteeringWheelTest DataType="bool">PLC</TiltSteeringWheelTest>

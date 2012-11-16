@@ -348,7 +348,10 @@
       <VinBytes14and15 channelIndex="63" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
       <VinBytes16 channelIndex="64" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/ -->
 
-
+       <TestResultOverallTestPass channelIndex="65" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultBaseBrakeTestPass channelIndex="65" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultTotalBrakeForcePass channelIndex="65" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
+       <TestResultDragFrontSum channelIndex="65" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>
 
         <!-- Data from PLC -->
         <RearWheelDriveSignal channelIndex="0" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>

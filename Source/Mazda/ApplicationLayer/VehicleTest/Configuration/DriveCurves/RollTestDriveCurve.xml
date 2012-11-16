@@ -15,9 +15,20 @@
                 <Objective0 Description="Setup machine" Result="" Timeout="" Component="Machine">
                     <Initialize/>
                 </Objective0>
+                <Objective1 Description="Setup brake test component" Result="" Timeout="" Component="Brake">
+                    <Setup/>
+                </Objective1>                
             </ForegroundObjectives>
         </TestPhase000>
-
+        
+        <TestPhase005 Description="Setup the machine for testing: cable connect, start button etc" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Drag Test" Result="" Timeout="" Component="Machine">
+                    <MachineStartup/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase005>
+        
         <TestPhase010 Description="Prompt operator to accelerate to high speed" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Prompt operator to accelerate to speed" Result="" Timeout="" Component="Machine">

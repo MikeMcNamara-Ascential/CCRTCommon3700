@@ -366,7 +366,7 @@ protected:
      * 
      * @return the average of the list
      */
-    float computeListAverage(list<signed int> arr);
+    float computeListAverage(list<signed int> arr, float * max);
 
     /**
      * Analyze the dump forces

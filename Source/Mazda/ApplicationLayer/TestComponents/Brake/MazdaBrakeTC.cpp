@@ -183,15 +183,22 @@ string MazdaBrakeTC::AnalyzeMazdaDragTest()
     float rlAvg = -1.0;
     float rrAvg = -1.0;
 
+    float flMax = -1.0;
+    float frMax = -1.0;
+    float rlMax = -1.0;
+    float rrMax = -1.0;
+
     if(!ShortCircuitTestStep())
     {
         Log(LOG_DEV_DATA, "AnalyzeMazdaDragTest size of force arrays: LF size: %d  RF size: %d    LR size: %d   RR size: %d", 
                                         m_flForceValue.size(), m_frForceValue.size(), m_rlForceValue.size(), m_rrForceValue.size());
 
-        flAvg = computeListAverage(m_flForceValue);
-        frAvg = computeListAverage(m_frForceValue);
-        rlAvg = computeListAverage(m_rlForceValue);
-        rrAvg = computeListAverage(m_rrForceValue);
+        flAvg = computeListAverage(m_flForceValue, flMax);
+        frAvg = computeListAverage(m_frForceValue, frMax);
+        rlAvg = computeListAverage(m_rlForceValue, rlMax);
+        rrAvg = computeListAverage(m_rrForceValue, rrMax);
+
+
 
         Log(LOG_DEV_DATA, "AnalyzeMazdaDragTest average forces: LF: %.2f  RF: %.2f    LR: %.2f   RR: %.2f", flAvg, frAvg, rlAvg, rrAvg); 
 
@@ -229,10 +236,14 @@ string MazdaBrakeTC::AnalyzeMazdaDragTest()
     char buff[60];
 
     SendTestResultWithDetail(testResult, GetTestStepInfo("Description"), "0000",
-                             "LfAverageDragForce", CreateMessage(buff, sizeof(buff), "%.2f", flAvg), "lbf",
-                             "RfAverageDragForce", CreateMessage(buff, sizeof(buff), "%.2f", frAvg), "lbf",
-                             "LrAverageDragForce", CreateMessage(buff, sizeof(buff), "%.2f", rlAvg), "lbf",
-                             "RrAverageDragForce", CreateMessage(buff, sizeof(buff), "%.2f", rrAvg), "lbf");
+                             "LfAverageDragForce", CreateMessage(buff, sizeof(buff), "%.2f", flAvg), "N",
+                             "RfAverageDragForce", CreateMessage(buff, sizeof(buff), "%.2f", frAvg), "N",
+                             "LrAverageDragForce", CreateMessage(buff, sizeof(buff), "%.2f", rlAvg), "N",
+                             "LfAverageDragForce", CreateMessage(buff, sizeof(buff), "%.2f", flAvg), "N",
+                             "RfMaxDragForce", CreateMessage(buff, sizeof(buff), "%.2f", frAvg), "N",
+                             "LrMaxDragForce", CreateMessage(buff, sizeof(buff), "%.2f", rlAvg), "N",
+                             "RrMaxDragForce", CreateMessage(buff, sizeof(buff), "%.2f", rrAvg), "N",
+                             "RrMaxDragForce", CreateMessage(buff, sizeof(buff), "%.2f", rrAvg), "N");
 
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::AnalyzeMazdaDragTest() - Exit result: %s", testResult.c_str());
 
@@ -275,23 +286,27 @@ string MazdaBrakeTC::AnalyzeDragTestResults(string axle, float rightWheelAvg, fl
     return (testResult);
 }
 //-------------------------------------------------------------------------------------------------
-float MazdaBrakeTC::computeListAverage(list<signed int> arr)
+float MazdaBrakeTC::computeListAverage(list<signed int> arr, float *max)
 {   // Log the entry and determine if this should be checked
 
     
     std::list<signed int>::iterator it;
     float sum = 0.0;
     float average = -1.0;
+    float maxVal = -1.0;
     int s = arr.size();
     for(it=arr.begin() ; it != arr.end(); it++)
     {
+        if( *it > maxVal )
+            max = maxVal;
+
         sum += *it;
     }
 
     if(arr.size() > 0)
         average = sum/((float) arr.size());
 
-    Log(LOG_DEV_DATA, "computeListAverage - size: %d  sum: %.2f   average: %.2f", arr.size(), sum, average);
+    Log(LOG_DEV_DATA, "computeListAverage - size: %d  sum: %.2f   average: %.2f   max: %.2f", arr.size(), sum, average, max);
     return average;
 }
 
@@ -307,6 +322,11 @@ string MazdaBrakeTC::MazdaAnalyzeBrakeForce(string axle)
     float frAvg = -1.0;
     float rlAvg = -1.0;
     float rrAvg = -1.0;
+
+    float flMax = -1.0;
+    float frMax = -1.0;
+    float rlMax = -1.0;
+    float rrMax = -1.0;
 
 
     if(!ShortCircuitTestStep() && m_continueBrakeTest)

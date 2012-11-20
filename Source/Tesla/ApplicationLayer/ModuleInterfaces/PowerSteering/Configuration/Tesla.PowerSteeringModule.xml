@@ -115,30 +115,45 @@
             <ReplyMessage>ReadVIN</ReplyMessage>
             <ReplyInterpretation>ReadVIN</ReplyInterpretation>
          </ReadVIN>
+
          <LearnVIN>
-            <TransmitMessage>LearnVIN</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>LearnVIN</ReplyMessage>
+            <TransmitMessage>VinLearnRoutine</TransmitMessage>
+            <TransmitInterpretation>StartRoutine</TransmitInterpretation>
+            <ReplyMessage>VinLearnRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </LearnVIN>
-         <LockSteeringTune>
-            <TransmitMessage>LockSteeringTune</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>LockSteeringTune</ReplyMessage>
-            <ReplyInterpretation/>
-         </LockSteeringTune>
          <GetVinRoutineStatus>
-            <TransmitMessage>VINStatus</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>VINStatus</ReplyMessage>
+            <TransmitMessage>VinLearnRoutine</TransmitMessage>
+            <TransmitInterpretation>RoutineResults</TransmitInterpretation>
+            <ReplyMessage>VinLearnRoutine</ReplyMessage>
             <ReplyInterpretation>VINStatus</ReplyInterpretation>
          </GetVinRoutineStatus>
+         <StopVinRoutine>
+             <TransmitMessage>VinLearnRoutine</TransmitMessage>
+             <TransmitInterpretation>StopRoutine</TransmitInterpretation>
+             <ReplyMessage>VinLearnRoutine</ReplyMessage>
+             <ReplyInterpretation/>
+         </StopVinRoutine>
+
+         <LockSteeringTune>
+            <TransmitMessage>LockSteeringTuneRoutine</TransmitMessage>
+            <TransmitInterpretation>StartRoutine</TransmitInterpretation>
+            <ReplyMessage>LockSteeringTuneRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LockSteeringTune>
          <GetTuneRoutineStatus>
-            <TransmitMessage>TuneStatus</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>TuneStatus</ReplyMessage>
+            <TransmitMessage>LockSteeringTuneRoutine</TransmitMessage>
+            <TransmitInterpretation>RoutineResults</TransmitInterpretation>
+            <ReplyMessage>LockSteeringTuneRoutine</ReplyMessage>
             <ReplyInterpretation>TuneStatus</ReplyInterpretation>
          </GetTuneRoutineStatus>
+         <StopLockSteeringTune>
+            <TransmitMessage>LockSteeringTuneRoutine</TransmitMessage>
+            <TransmitInterpretation>StopRoutine</TransmitInterpretation>
+            <ReplyMessage>LockSteeringTuneRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </StopLockSteeringTune>
+
          <ReadPartNumber>
             <TransmitMessage>ReadPartNumber</TransmitMessage>
             <TransmitInterpretation/>
@@ -159,15 +174,17 @@
          <ReadByID>0x22,0xFD,0x40</ReadByID>
          <WriteByID>0x2E,0xFD,0x40,0x00,0x00</WriteByID>
          <ReadTraceData>0x22,0xFD,0x02</ReadTraceData>
-         <LearnVIN>0x31,0x01,0x04,0x04</LearnVIN>
-         <LockSteeringTune>0x31,0x01,0x30,0x38</LockSteeringTune>
+         <VinLearnRoutine>0x31,0x??,0x04,0x04</VinLearnRoutine>
+         <LockSteeringTuneRoutine>0x31,0x??,0x30,0x38</LockSteeringTuneRoutine>
          <ReadVIN>0x22,0xF1,0x90</ReadVIN>
          <ReadPartNumber>0x22,0xF1,0x87</ReadPartNumber>
-         <VINStatus>0x31,0x03,0x04,0x04</VINStatus>
-         <TuneStatus>0x31,0x03,0x30,0x38</TuneStatus>
          <TesterPresent>0x3E,0x00</TesterPresent>
       </TransmitMessages>
-      <TransmitInterpretations/>
+      <TransmitInterpretations>
+          <StartRoutine>0x01</StartRoutine>
+          <StopRoutine>0x02</StopRoutine>
+          <RoutineResults>0x03</RoutineResults>
+      </TransmitInterpretations>
       <ReplyMessages>
          <ClearFaults>
             <Reply_01 lengthType="Variable">0x54,0x??</Reply_01>
@@ -205,22 +222,14 @@
             <Reply_01>0x6E,0xF1,0x90</Reply_01>
             <Reply_02>0x7F,0x2E,0x??</Reply_02>
          </WriteVIN>
-         <LearnVIN>
-            <Reply_01 lengthType="Variable">0x71,0x01,0x04,0x04,0x??</Reply_01>
+         <VinLearnRoutine>
+            <Reply_01 lengthType="Variable">0x71,0x??,0x04,0x04,0x??</Reply_01>
             <Reply_02>0x7F,0x31,0x??</Reply_02>
-         </LearnVIN>
-         <LockSteeringTune>
-            <Reply_01 lengthType="Variable">0x71,0x01,0x30,0x38,0x??</Reply_01>
+         </VinLearnRoutine>
+         <LockSteeringTuneRoutine>
+            <Reply_01 lengthType="Variable">0x71,0x??,0x30,0x38,0x??</Reply_01>
             <Reply_02>0x7F,0x31,0x??</Reply_02>
-         </LockSteeringTune>
-         <VINStatus>
-            <Reply_01 lengthType="Variable">0x71,0x03,0x04,0x04,0x??</Reply_01>
-            <Reply_02>0x7F,0x31,0x??</Reply_02>
-         </VINStatus>
-         <TuneStatus>
-            <Reply_01 lengthType="Variable">0x71,0x03,0x30,0x38,0x??</Reply_01>
-            <Reply_02>0x7F,0x31,0x??</Reply_02>
-         </TuneStatus>
+         </LockSteeringTuneRoutine>
          <ReadVIN>
             <Reply_01 lengthType="Variable">0x62,0xF1,0x90,0x??</Reply_01>
             <Reply_02>0x7F,0x22,0x??</Reply_02>

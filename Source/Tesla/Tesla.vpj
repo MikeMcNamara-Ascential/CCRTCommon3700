@@ -691,6 +691,7 @@
 				</Folder>
 				<F N="MES/MesReportGenerator/MesReportSchema.xsl"/>
 				<F N="MES/MesReportGenerator/MesReportSchemaUpdate3.xsl"/>
+				<F N="MES/MesReportGenerator/MesReportSchemaUpdate4.xsl"/>
 				<F N="MES/MesReportGenerator/notes.txt"/>
 			</Folder>
 		</Folder>

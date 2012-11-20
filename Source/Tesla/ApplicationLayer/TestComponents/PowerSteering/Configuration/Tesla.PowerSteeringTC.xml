@@ -75,9 +75,10 @@
          <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
          <VINLength>17</VINLength>
          <RequestVinRoutineStatusFromModule>True</RequestVinRoutineStatusFromModule>
-         <DelayBeforeRoutineStatus>2000</DelayBeforeRoutineStatus>
-         <RoutineRequestRetries>3</RoutineRequestRetries>
+         <DelayBeforeRoutineStatus Units="ms">10000</DelayBeforeRoutineStatus>
+         <RoutineRequestRetries>1</RoutineRequestRetries>
          <VinRetryDelay>1000</VinRetryDelay>
+         <LockSteeringTuneTestTime Units="ms">10000</LockSteeringTuneTestTime>
       </Parameters>
       <Prompts>
          <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>

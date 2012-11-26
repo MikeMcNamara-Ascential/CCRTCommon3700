@@ -79,6 +79,7 @@ string PowerSteeringTC<ModuleType>::ProgramVIN(void)
 	{
 		try
 		{	// Actually program the vin
+#if 0
 			status = m_vehicleModule.ProgramVIN();
 			if(status == BEP_STATUS_SUCCESS)
 			{
@@ -130,6 +131,52 @@ string PowerSteeringTC<ModuleType>::ProgramVIN(void)
 										 GetFaultCode(faultTag), GetFaultName(faultTag),
 										 GetFaultDescription(faultTag));
 			}
+#else
+			INT32 tries = 0;
+			do
+			{   // Command the module to program the VIN
+				if(BEP_STATUS_SUCCESS == m_vehicleModule.ProgramVIN())
+				{   // Wait for the routine to complete
+					BposSleep(GetParameterInt("DelayBeforeRoutineStatus"));
+					// Command the routine to stop
+					if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopVinRoutine"))
+					{   // Get the routine status
+						if(BEP_STATUS_SUCCESS == m_vehicleModule.ReadModuleData("GetVinRoutineStatus",routineStatus))
+						{
+							routineComplete = (routineStatus.compare("BadVINReceived") &&
+											   routineStatus.compare("Timeout") &&
+											   routineStatus.compare("WriteError"));
+							Log(LOG_DEV_DATA, "Routine Complete: %s - routine status: %s", routineComplete ? "True" : "False",
+								routineStatus.c_str());
+						}
+						else
+						{
+							Log(LOG_ERRORS, "Failure reading routine status from the module");
+						}
+					}
+					else
+					{
+						Log(LOG_ERRORS, "Failure stopping VIN learn routine");
+					}
+				}
+				else
+				{
+					testStatus = testFail;
+					SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+											 GetFaultCode(faultTag), GetFaultName(faultTag),
+											 GetFaultDescription(faultTag));
+				}
+				tries++;
+			} while(!routineComplete && (tries < GetParameterInt("RoutineRequestRetries")) && 
+					(BEP_STATUS_SUCCESS == StatusCheck()));
+			// Determine the result of prgramming the VIN
+			testStatus = !routineStatus.compare("VINLearned") || !routineStatus.compare("VINAlreadyLearned");
+			Log(LOG_DEV_DATA, "Program VIN result: %s", testStatus.c_str());
+			SendTestResultWithDetail((testStatus == testPass) ? testPass : testFail, 
+									 (testStatus == testPass) ? GetTestStepInfo("Description") : GetFaultDescription("VINRoutineFailure"),
+									 (testStatus == testPass) ? "0000" : GetFaultCode("VINRoutineFailure"),
+									 "RoutineStatus",routineStatus);
+#endif 
 		}
 		catch(ModuleException& caughtModuleException)
 		{
@@ -163,35 +210,42 @@ string PowerSteeringTC<ModuleInterface>::LockSteeringTune(void)
 	{
 		try
 		{	// Actually program the vin
-			status = m_vehicleModule.CommandModule("LockSteeringTune");
-#if 0
+			INT32 tries = 0;
 			do
 			{
-				status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
-				if(routineStatus.compare("TuneLearned")) BposSleep(GetParameterInt("VinRetryDelay"));
-
-			} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status) &&
-					 routineStatus.compare("TuneLearned"));
-#else
-			if(BEP_STATUS_SUCCESS == status)
-			{   // Wait for the module to finish the routine internally
-				BposSleep(GetParameterInt("LockSteeringTuneTestTime"));
-				// Command the module to stop the routine
-				if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopLockSteeringTune"))
+				status = m_vehicleModule.CommandModule("LockSteeringTune");
+				tries++;
+#if 0
+				do
 				{
 					status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
-					Log(LOG_DEV_DATA, "Lock steering tune result: %s", routineStatus.c_str());
+					if(routineStatus.compare("TuneLearned")) BposSleep(GetParameterInt("VinRetryDelay"));
+					
+				} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status) &&
+						routineStatus.compare("TuneLearned"));
+#else	
+				if(BEP_STATUS_SUCCESS == status)
+				{	// Wait for the module to finish the routine internally
+					BposSleep(GetParameterInt("LockSteeringTuneTestTime"));
+					// Command the module to stop the routine
+					if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopLockSteeringTune"))
+					{
+						status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
+						Log(LOG_DEV_DATA, "Lock steering tune result: %s", routineStatus.c_str());
+					}
+					else
+					{
+						Log(LOG_ERRORS, "Failure commanding the module to stop the lock steering tune routine");
+					}
 				}
 				else
 				{
-					Log(LOG_ERRORS, "Failure commanding the module to stop the lock steering tune routine");
+					Log(LOG_ERRORS, "Failed to start lock steering tune routine: %s", ConvertStatusToResponse(status).c_str());
 				}
-			}
-			else
-			{
-				Log(LOG_ERRORS, "Failed to start lock steering tune routine: %s", ConvertStatusToResponse(status).c_str());
-			}
 #endif
+			} while((BEP_STATUS_SUCCESS == StatusCheck()) && routineStatus.compare("TuneLearned") && 
+					(tries < GetParameterInt("RoutineRequestRetries")));
+
 			if((status == BEP_STATUS_SUCCESS) && (!routineStatus.compare("TuneLearned")))
 			{
 				testStatus = testPass;

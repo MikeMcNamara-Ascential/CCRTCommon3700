@@ -1,7 +1,7 @@
 <MachineDataBrokerConfig>
     <Setup>
         <CustId>Tesla</CustId>
-        <CustBld Description="Customer release version yymmddrr">12112001</CustBld>
+        <CustBld Description="Customer release version yymmddrr">12112601</CustBld>
         <UseConfigMachineNumber>No</UseConfigMachineNumber>
         <Debug>Off</Debug>
         <DataFile Description="This is the file where persistent data is stored">/Configuration/Machine/LossCompensationTimeDate.dat</DataFile>

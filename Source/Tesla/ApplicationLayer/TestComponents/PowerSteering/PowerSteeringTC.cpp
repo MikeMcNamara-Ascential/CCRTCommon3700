@@ -170,7 +170,7 @@ string PowerSteeringTC<ModuleType>::ProgramVIN(void)
 			} while(!routineComplete && (tries < GetParameterInt("RoutineRequestRetries")) && 
 					(BEP_STATUS_SUCCESS == StatusCheck()));
 			// Determine the result of prgramming the VIN
-			testStatus = !routineStatus.compare("VINLearned") || !routineStatus.compare("VINAlreadyLearned");
+			testStatus = !routineStatus.compare("VINLearned") || !routineStatus.compare("VINAlreadyLearned") ? testPass : testFail;
 			Log(LOG_DEV_DATA, "Program VIN result: %s", testStatus.c_str());
 			SendTestResultWithDetail((testStatus == testPass) ? testPass : testFail, 
 									 (testStatus == testPass) ? GetTestStepInfo("Description") : GetFaultDescription("VINRoutineFailure"),

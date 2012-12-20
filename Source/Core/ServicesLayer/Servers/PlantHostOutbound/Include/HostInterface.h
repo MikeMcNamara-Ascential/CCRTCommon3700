@@ -599,6 +599,15 @@ protected:
     const bool& ResultReadyToProcess(const bool *resultReady = NULL);
     XmlNode* PopTestResult();
     void PushTestResult(XmlNode *result);
+
+	/**
+	 * Get/Set the flag indicating if the test result data files should be compressed and sent to Huntsville.
+	 * 
+	 * @param transfer Flag indicating if the test result data files should be compressed and sent to Huntsville.
+	 * 
+	 * @return Flag indicating if the test result data files should be compressed and sent to Huntsville.
+	 */
+	const bool& TestDataFileArchiveEnabled(const bool *archive = NULL);
     /**
      * Store the configuration for the keep alive thread.
      *
@@ -718,6 +727,17 @@ private:
     vector<UINT32>  m_allowedSpacePositions;
 	/** List of DTCs that have already been reported **/
 	vector<string>  m_reportedDtcs;
+
+
+    /** Mapping for creating the test data file name for archive */
+	XmlNodeMap m_testDataFileNamingMap;
+
+	/** List of file types to be archived */
+	XmlNodeMap m_filesToArchive;
+
+	/** Flag to indicate if files should be compressed and sent to Huntsville */
+	bool m_archiveResultFiles;
+
 };
 
 //-----------------------------------------------------------------------------

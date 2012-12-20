@@ -339,6 +339,34 @@ void HostInterface::LoadAdditionalConfigurationItems(const XmlNode *config)
 		Log(LOG_ERRORS, "WARNING: No keepalive comm not set");
 		SetKeepAliveConfig(NULL);
 	}
+
+	// Determine if any test files should be archived
+	bool archiveResults = false;
+	try
+	{
+		archiveResults = atob(config->getChild("Setup/ArchiveTestData")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Not achiving test results: %s", excpt.GetReason());
+	}
+	TestDataFileArchiveEnabled(&archiveResults);
+	if(archiveResults)
+	{   // Save the map for the test data file naming
+		try 
+		{
+            XmlParser nameParser;
+            const XmlNode *testDataFileNamingMap = nameParser.ReturnXMLDocument(getenv("USR_ROOT") + config->getChild("Setup/ArchiveFilenameMap")->getValue());
+            m_testDataFileNamingMap.DeepCopy(testDataFileNamingMap->getChildren());
+			m_filesToArchive.DeepCopy(config->getChild("Setup/FilesToArchive")->getChildren());
+		}
+		catch(XmlException &excpt)
+		{
+			Log(LOG_ERRORS, "No file naming map defined, not archiving: %s", excpt.GetReason());
+			archiveResults = false;
+			TestDataFileArchiveEnabled(&archiveResults);
+		}
+	}
 	// Store the current machine number Moved 04.24.2007 JPS store number before pfs header is set
 	StoreMachineNumber();
 }
@@ -466,6 +494,51 @@ void HostInterface::DoResultProcessing(const XmlNode *testResults)
 	else
 	{
 		Log(LOG_DEV_DATA, "HostInterface: Results not sent to the host system!");
+	}
+
+	if(TestDataFileArchiveEnabled())
+	{
+        // Build the file name
+		char buff[256];
+		INT32 junk = 0;
+		string dataFileName(BuildTestResultString(testResults, m_testDataFileNamingMap, ResultConversions(), junk));
+        Log(LOG_DEV_DATA, "HuntsvilleInterface::DoResultProcessing() The String as it is so far: %s", dataFileName.c_str());
+		// Build the string for backing up all desired test data files
+		string command("mkdir -m 777 TestResults/Archive; zip \"TestResults/Archive/" + dataFileName + "\" ");
+		for(XmlNodeMapCItr iter = m_filesToArchive.begin(); iter != m_filesToArchive.end(); iter++)
+		{   // Add the file names to the command
+			string fileName = iter->second->getAttribute("Path")->getValue();
+			XmlNodeMapCItr fileIter = iter->second->getAttributes().find("FileName");
+			if(fileIter != iter->second->getAttributes().end())
+			{
+				fileName += fileIter->second->getValue();
+			}
+			else
+			{
+				string dataItem = testResults->getChild(iter->second->getAttribute("DataItem")->getValue())->getValue();
+				INT32 startIndex = BposReadInt(iter->second->getAttribute("Offset")->getValue().c_str());
+				INT32 length = BposReadInt(iter->second->getAttribute("Length")->getValue().c_str());
+				fileName += CreateMessage(buff, sizeof(buff), 
+										  iter->second->getAttribute("Format")->getValue().c_str(), 
+										  ("\"" + dataItem.substr(startIndex, length) + "\"").c_str());
+			}
+			// Add the file to the command
+			command += (fileName + " ");
+		}
+		// Run the command to compress all the files into one archive
+		Log(LOG_DEV_DATA, "Running command to compress all test files: %s", command.c_str());
+		if(system(command.c_str()) != -1)
+		{  
+            Log(LOG_DEV_DATA, "Successfully generated zip archive: %s", dataFileName.c_str());
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Could not compress test data files, not archiving");
+		}
+	}
+	else
+	{
+		Log(LOG_DEV_DATA, "Not archiving test data files");
 	}
 }
 
@@ -1810,6 +1883,13 @@ const string HostInterface::GetMachineNumber(void)
 {
 	return m_machineNumber;
 }
+//-----------------------------------------------------------------------------
+const bool& HostInterface::TestDataFileArchiveEnabled(const bool *archive /*= NULL*/)
+{
+	if(archive != NULL)  m_archiveResultFiles = *archive;
+	return m_archiveResultFiles;
+}
+
 
 //-----------------------------------------------------------------------------
 void HostInterface::LogTestResultData(const XmlNode *data)

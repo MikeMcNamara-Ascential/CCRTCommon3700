@@ -1250,10 +1250,10 @@ void SystemMonitor::CheckAbort( ControlData *ctrl)
             (Read(ABORT_DATA_TAG) == "0"))
         {
             Log(LOG_ERRORS, "ERROR: Driver ABORTED The Test\n");
-			ITestResultServer testResult;
+			/*ITestResultServer testResult;
 			testResult.Initialize(TEST_RESULT_SERVER_NAME, "Client", IsDebugOn());
 			string response;
-			testResult.WriteTestResult("OperatorAbort", ABORT_DATA_TAG, GetProcessName(), "Operator pressed the Abort Button", response, true, "0000");
+			testResult.WriteTestResult("OperatorAbort", ABORT_DATA_TAG, GetProcessName(), "Operator pressed the Abort Button", response, true, "0000");*/
             BepServer::Write( ABORT_DATA_TAG, "1");
         }
         // else if the retainers are lowered during a test, abort
@@ -1262,6 +1262,7 @@ void SystemMonitor::CheckAbort( ControlData *ctrl)
             Log(LOG_ERRORS, "ERROR: Driver Lowered Retainers and ABORTED The Test\n");
 //          BepServer::Write( ABORT_DATA_TAG, "1");
         }
+        /* To do - this does not seem to clear on in cycle retest need to debug
         if (( ((ctrl->inputServerState == INPUT_SERVER_TEST_RESULT_STATE) && !(ctrl->keyPress.compare(PENDANT_START_TEST))) ||
               ((ctrl->inputServerState == INPUT_SERVER_NORMAL_STATE) &&  !(ctrl->keyPress.compare("Left")) || 
                ctrl->startTestPb) && Read(ABORT_DATA_TAG) == "1"))
@@ -1271,7 +1272,7 @@ void SystemMonitor::CheckAbort( ControlData *ctrl)
 			testResult.Initialize(TEST_RESULT_SERVER_NAME, "Client", IsDebugOn());
 			string response;
 			testResult.WriteTestResult("OperatorAbort", PENDANT_START_TEST, GetProcessName(), "", response, true, "0000");
-        }
+        }*/
     }
     // else if the rolls are lowered and not in a test, clear the abort
     else if (ctrl->rollsDown && (ReadSubscribeData(INVALID_LICENSE_FATAL_FAULT_TAG) != "1"))

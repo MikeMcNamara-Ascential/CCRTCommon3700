@@ -3662,7 +3662,7 @@ string GenericTC::MaintainSpeedForTime(const INT32 &requiredTime,
             testResultCode = GetFaultCode("SoftwareFailure");
         }
 
-        SendSubtestResult(testResult,testDescription,testResultCode);
+        SendSubtestResult(GetTestStepName() + "MaintainSpeedForTime",testResult,testDescription,testResultCode);
     }
     // Check if the prompt needs to be removed
     if(promptDisplayed)
@@ -3812,7 +3812,10 @@ string GenericTC::AccelerateInReverse(const float &speedMinimum, const float &sp
                                  "TestSpeed", CreateMessage( tempCharArray, sizeof(tempCharArray), "%.02f", speedMinimum), 
                                  unitsMPH,
                                  "ReverseSpeed", CreateMessage( tempCharArray, sizeof(tempCharArray), "%.02f", reverseSpeed), 
-                                 unitsMPH);
+                                 unitsMPH,
+                                "ReverseGear", inReverseGear ? testPass : testFail, 
+                                 "",
+                                 );
     }
     // Log the function exit
     Log(LOG_FN_ENTRY, "GenericTC::AccelerateInReverse() exit: %s\n", testResult.c_str());

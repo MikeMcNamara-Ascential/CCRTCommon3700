@@ -2056,7 +2056,8 @@ BEP_STATUS_TYPE GenericTransmissionTCTemplate<VehicleModuleType>::ReadReverseGea
         testDescription = GetFaultDescription("SoftwareFailure");
     }
     // Send the test Results to the test result server
-    SendSubtestResult(testResult,testDescription,testResultCode);
+    // Invalid format - reverse gear check ran in loop, handle in calling function
+    // SendSubtestResult(testResult,testDescription,testResultCode);
 
     return moduleStatus;
 }

@@ -76,7 +76,7 @@
 
             <xsl:call-template name="airbagResults"/>
 			
-			<xsl:call-template name="steeringResults"/>
+			<!--xsl:call-template name="steeringResults"/-->
 			
 			<xsl:call-template name="drivetrainResults"/>
 

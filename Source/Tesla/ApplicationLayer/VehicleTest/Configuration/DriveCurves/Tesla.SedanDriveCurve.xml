@@ -42,13 +42,13 @@
           <ConfigPath>/Configuration/Components/Airbag/</ConfigPath>
           <Debug>Off</Debug>
       </OCS>
-      <PowerSteering>
+      <!--PowerSteering>
           <ComponentName>TeslaPowerSteeringTC.qxe</ComponentName>
           <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
           <ConfigFile>Tesla.PowerSteeringTC.xml</ConfigFile>
           <ConfigPath>/Configuration/Components/PowerSteering/</ConfigPath>
           <Debug>Off</Debug>
-      </PowerSteering>
+      </PowerSteering-->
       <!--SpeedControl>
          <ComponentName>GenericSpeedControl.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -89,9 +89,9 @@
             <Objective1 Description="Initialize Airbag component" Result="" Timeout="" Component="Airbag">
                <AirbagSetup/>
             </Objective1>
-            <Objective2 Description="Initialize Power Steering component" Result="" Timeout="" Component="PowerSteering">
+            <!--Objective2 Description="Initialize Power Steering component" Result="" Timeout="" Component="PowerSteering">
                <EpasSetup/>
-            </Objective2>
+            </Objective2-->
             <Objective3 Description="Initialize Ocs component" Result="" Timeout="" Component="OCS">
                <OcsSetup/>
             </Objective3>
@@ -295,9 +295,9 @@
             <Objective1 Result="" Description="Perform module finish-up" Timeout="" Component="Machine">
                <FinishUp>PerformingFinishUp</FinishUp>
             </Objective1>
-            <Objective2 Description="Perform power steering finish-up" Result="" Timeout="" Component="PowerSteering">
+            <!--Objective2 Description="Perform power steering finish-up" Result="" Timeout="" Component="PowerSteering">
                <FinishUp/>
-            </Objective2>
+            </Objective2-->
             <Objective3 Result="" Description="Perform Airbag finish-up" Timeout="" Component="Airbag">
                <FinishUp/>
             </Objective3>

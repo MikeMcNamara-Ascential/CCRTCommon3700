@@ -68,8 +68,34 @@
 			Filters="">
 		</Folder>
 	</CustomFolders>
+	<CompatibleVersions>
+		<PrevVersion VersionNumber="9.0"/>
+	</CompatibleVersions>
 	<Files AutoFolders="DirectoryView">
 		<Folder Name="ApplicationLayer">
+			<Folder Name="ModuleInterfaces">
+				<Folder Name="Brake">
+					<Folder Name="Bosch8">
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch8/Bosch8Module.cpp"/>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Bosch8/KoreaAbsModuleTemplate.cpp"/>
+					</Folder>
+					<Folder Name="Include">
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Include/Bosch8Module.h"/>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Include/KoreaAbsModuleTemplate.h"/>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Include/MandoAbsModule.h"/>
+					</Folder>
+					<Folder Name="Mando">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/ModuleInterfaces/Brake/Mando/Configuration/CMakeLists.txt"/>
+							<F N="ApplicationLayer/ModuleInterfaces/Brake/Mando/Configuration/MandoAbsModule.xml"/>
+						</Folder>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Mando/CMakeLists.txt"/>
+						<F N="ApplicationLayer/ModuleInterfaces/Brake/Mando/MandoAbsModule.cpp"/>
+					</Folder>
+					<F N="ApplicationLayer/ModuleInterfaces/Brake/CMakeLists.txt"/>
+				</Folder>
+				<F N="ApplicationLayer/ModuleInterfaces/CMakeLists.txt"/>
+			</Folder>
 			<Folder Name="TestComponents">
 				<Folder Name="Brake">
 					<Folder Name="BaseBrake">
@@ -78,6 +104,43 @@
 							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/CMakeLists.txt"/>
 						</Folder>
 						<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/CMakeLists.txt"/>
+					</Folder>
+					<Folder Name="Bosch8">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Configuration/Bosch8ESPCM.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Configuration/Bosch8ESPCM4.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Configuration/CMakeLists.txt"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Configuration/CmEspProtocol.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Configuration/HMMA.Bosch8ESCProtocolCAN.xml"/>
+						</Folder>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Bosch8TC.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch8/Bosch8TCMain.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch8/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Bosch8/KoreaAbsTcTemplate.cpp"/>
+					</Folder>
+					<Folder Name="Common">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/Common/Configuration/BrakeFaultList.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Common/Configuration/CMakeLists.txt"/>
+						</Folder>
+						<F N="ApplicationLayer/TestComponents/Brake/Common/CMakeLists.txt"/>
+					</Folder>
+					<Folder Name="Include">
+						<F N="ApplicationLayer/TestComponents/Brake/Include/Bosch8TC.h"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Include/KoreaAbsTcTemplate.h"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Include/MandoAbsTc.h"/>
+					</Folder>
+					<Folder Name="Mando">
+						<Folder Name="Configuration">
+							<F N="ApplicationLayer/TestComponents/Brake/Mando/Configuration/BrakeFaultListMGH40.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Mando/Configuration/BrakeFaultListMGH60.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Mando/Configuration/CMakeLists.txt"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Mando/Configuration/MandoAbsTc.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Mando/Configuration/QfMandoAbsTc.xml"/>
+						</Folder>
+						<F N="ApplicationLayer/TestComponents/Brake/Mando/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Mando/MandoAbsTc.cpp"/>
+						<F N="ApplicationLayer/TestComponents/Brake/Mando/MandoAbsTcMain.cpp"/>
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Brake/CMakeLists.txt"/>
 				</Folder>
@@ -115,8 +178,10 @@
 					</Folder>
 					<Folder Name="DriveCurves">
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BoschAbsDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/LossCompensationDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/MandoAbsDriveCurve.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/VehicleTest/Configuration/Aymesa.SelectionTable.xml"/>
 					<F N="ApplicationLayer/VehicleTest/Configuration/Aymesa.VehicleTestConfig.xml"/>
@@ -245,6 +310,46 @@
 				</Folder>
 				<Folder Name="local">
 					<Folder Name="crt">
+						<Folder Name="aboutserver">
+							<F N="Burke_PorterCCRT/resources/local/crt/aboutserver/AboutServerWithLicenseBits.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/aboutserver/DefaultAboutServer.crt"/>
+						</Folder>
+						<Folder Name="drivermonitor">
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/AymesaDriverMonitor.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DefaultDriverMonitor.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DefaultDriverMonitorColor.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DemoGraphic.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorBigGraph.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorStandard.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorWithBackground.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorWithGraph.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/VolkswagenDriverMonitor.crt"/>
+						</Folder>
+						<Folder Name="frontpanel">
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/AymesaFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/DefaultFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/DefaultFrontPanelColor.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/DemoRadialGuage.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/DemoRadialGuageSizing.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/DemoUnitsConversion.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelForceEnglish.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelNumberBoxChangeTest.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelScreenSaver.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelStandard.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/VolkswagenFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/WithDriveCurve.crt"/>
+						</Folder>
+						<Folder Name="losscompensation">
+							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/AymesaLossCompensation.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/DefaultLossCompensation.crt"/>
+						</Folder>
+						<Folder Name="powerdisplay">
+							<F N="Burke_PorterCCRT/resources/local/crt/powerdisplay/DefaultPowerDisplay.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/powerdisplay/EncoderPowerDisplay.crt"/>
+						</Folder>
+						<Folder Name="vehiclepresence">
+							<F N="Burke_PorterCCRT/resources/local/crt/vehiclepresence/DefaultVehiclePresence.crt"/>
+						</Folder>
 						<F N="Burke_PorterCCRT/resources/local/crt/crtviewconfig.xml"/>
 					</Folder>
 					<Folder Name="diagnostics">
@@ -365,9 +470,14 @@
 						<F N="Burke_PorterCCRT/resources/local/playback/tracelog.dat"/>
 					</Folder>
 					<Folder Name="report">
+						<F N="Burke_PorterCCRT/resources/local/report/AymesaReportLayout.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/NewReportLayout.xml"/>
 						<F N="Burke_PorterCCRT/resources/local/report/reportlayout.xml"/>
+						<F N="Burke_PorterCCRT/resources/local/report/ReportLayout.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/reportlayoutExample.xml"/>
+						<F N="Burke_PorterCCRT/resources/local/report/resultxform.xsl"/>
+						<F N="Burke_PorterCCRT/resources/local/report/Tata.AshokLeyland.ReportLayout.Audit.FO.xsl"/>
+						<F N="Burke_PorterCCRT/resources/local/report/Tata.AshokLeyland.ReportLayout.Reg.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/ticketlayout.xml"/>
 						<F N="Burke_PorterCCRT/resources/local/report/ticketlayoutExample.xml"/>
 					</Folder>
@@ -466,6 +576,9 @@
 						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/Aymesa.VehicleDataBrokerConfig.xml"/>
 						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/CMakeLists.txt"/>
 					</Folder>
+					<F N="ServicesLayer/Servers/VehicleDataBroker/AymesaVehicleDataBroker.cpp"/>
+					<F N="ServicesLayer/Servers/VehicleDataBroker/AymesaVehicleDataBroker.h"/>
+					<F N="ServicesLayer/Servers/VehicleDataBroker/AymesaVehicleDataBrokerMain.cpp"/>
 					<F N="ServicesLayer/Servers/VehicleDataBroker/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="VehicleDataServer">
@@ -483,7 +596,4 @@
 		<F N="Instructions.txt"/>
 		<F N="UninstallCoreCfgFile.cmake"/>
 	</Files>
-	<CompatibleVersions>
-		<PrevVersion VersionNumber="9.0"/>
-	</CompatibleVersions>
 </Project>

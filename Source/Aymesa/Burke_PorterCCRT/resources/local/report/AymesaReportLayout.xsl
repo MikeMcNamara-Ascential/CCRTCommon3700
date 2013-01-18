@@ -327,6 +327,148 @@
             </tr>
 
             <!-- ======================================================================================= -->
+            <!-- ABS Test Results -->
+            <!-- ======================================================================================= -->
+            <xsl:call-template name="sectionSpacer"/>
+            <xsl:call-template name="headerRow"/>
+            <tr bgcolor="white">
+                <th align="left" width="20">Prueba de ABS</th>
+                <td align="right">LF Red.</td>
+                <td align="center">--</td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeLeftFrontABSReduction/LeftFrontABSReductionPercent"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeLeftFrontABSReduction/LeftFrontReductionMinParameter"/>
+                </td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeLeftFrontABSReduction/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr bgcolor="white">
+                <th align="left" width="20"/>
+                <td align="right">LF Rec.</td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeLeftFrontABSRecovery/LeftFrontRecoveryMinPercent"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeLeftFrontABSRecovery/LeftFrontABSRecoveryValue"/>
+                </td>
+                <td align="center">--</td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeLeftFrontABSRecovery/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr bgcolor="white">
+                <th align="left" width="20"/>
+                <td align="right">RF Red.</td>
+                <td align="center">--</td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRightFrontABSReduction/RightFrontABSReductionPercent"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRightFrontABSReduction/RightFrontReductionMinParameter"/>
+                </td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeRightFrontABSReduction/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr bgcolor="white">
+                <th align="left" width="20"/>
+                <td align="right">RF Rec.</td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRightFrontABSRecovery/RightFrontRecoveryMinPercent"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRightFrontABSRecovery/RightFrontABSRecoveryValue"/>
+                </td>
+                <td align="center">--</td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeRightFrontABSRecovery/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr bgcolor="white">
+                <th align="left" width="20"/>
+                <td align="right">LR Red.</td>
+                <td align="center">--</td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeLeftRearABSReduction/LeftRearABSReductionPercent"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeLeftRearABSReduction/LeftRearReductionMinParameter"/>
+                </td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeLeftRearABSReduction/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr bgcolor="white">
+                <th align="left" width="20"/>
+                <td align="right">LR Rec.</td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeLeftRearABSRecovery/LeftRearRecoveryMinPercent"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeLeftRearABSRecovery/LeftRearABSRecoveryValue"/>
+                </td>
+                <td align="center">--</td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeLeftRearABSRecovery/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr bgcolor="white">
+                <th align="left" width="20"/>
+                <td align="right">RR Red.</td>
+                <td align="center">--</td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRightRearABSReduction/RightRearABSReductionPercent"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRightRearABSReduction/RightRearReductionMinParameter"/>
+                </td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeRightRearABSReduction/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr bgcolor="white">
+                <th align="left" width="20"/>
+                <td align="right">RR Rec.</td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRightRearABSRecovery/RightRearRecoveryMinPercent"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRightRearABSRecovery/RightRearABSRecoveryValue"/>
+                </td>
+                <td align="center">--</td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeRightRearABSRecovery/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+
+            <!-- ======================================================================================= -->
             <!-- Park Brake Test Results -->
             <!-- ======================================================================================= -->
             <xsl:call-template name="sectionSpacer"/>

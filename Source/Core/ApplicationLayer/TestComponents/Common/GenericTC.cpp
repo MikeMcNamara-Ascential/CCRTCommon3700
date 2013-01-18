@@ -3814,7 +3814,7 @@ string GenericTC::AccelerateInReverse(const float &speedMinimum, const float &sp
                                  "ReverseSpeed", CreateMessage( tempCharArray, sizeof(tempCharArray), "%.02f", reverseSpeed), 
                                  unitsMPH,
                                 "ReverseGear", inReverseGear ? testPass : testFail, 
-                                 "",
+                                 ""
                                  );
     }
     // Log the function exit

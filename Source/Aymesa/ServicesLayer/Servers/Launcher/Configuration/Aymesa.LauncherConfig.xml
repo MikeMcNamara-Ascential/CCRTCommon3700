@@ -96,7 +96,7 @@
             OrderToLaunch="0103" RegisteredName="core/MachineDataBroker" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="">Machine Data Broker</MachineDataBroker>
 
-        <VehicleDataBroker Name="VehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
+        <VehicleDataBroker Name="AymesaVehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="VehicleDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0105" RegisteredName="core/VehicleDataBroker" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="">Vehicle Data Broker</VehicleDataBroker>

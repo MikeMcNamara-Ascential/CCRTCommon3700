@@ -50,6 +50,7 @@ void AymesaSystemMonitor::CheckTesting(ControlData *ctrl)
         {   // Prompt operator to open rollers to start test
             RemovePrompt(1, "EnterVIN");
             RemovePrompt(1, "MachineReady");
+			DisplayPrompt(1, "ConnectCableIfAbs");
             DisplayPrompt(2, "RaiseRetainers");
             WriteNdbData( DISPLAY_RACK_MONITOR_SCREEN, string("frontpanel"));
         }

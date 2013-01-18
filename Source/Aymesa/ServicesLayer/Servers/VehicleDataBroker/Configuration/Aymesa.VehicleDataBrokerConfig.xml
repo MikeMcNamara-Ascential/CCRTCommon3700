@@ -11,6 +11,7 @@
             <Type>Server</Type>
         </Communication>
         <DataTags>
+            <AbsString>Mando Abs</AbsString>
             <BaseBrakeString>Base Brake</BaseBrakeString>
             <CableConnect>CableConnect</CableConnect>
             <DefaultDriverNumber>T0000xx</DefaultDriverNumber>

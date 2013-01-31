@@ -62,7 +62,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/BepServer.qxe
 	ServicesLayer/Bin/ChinaSystemMonitor.qxe
 	ServicesLayer/Bin/CLV295ScannerMgr.qxe
-	ServicesLayer/Bin/DaqInterface.qxe
 	ServicesLayer/Bin/DsaServer.qxe
 	ServicesLayer/Bin/HydraulicMotorController.qxe
 	ServicesLayer/Bin/MapleKeypadManager.qxe

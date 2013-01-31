@@ -5,4 +5,6 @@
 
 INSTALL_FILES(${SERVERS_CONFIG_DIR} FILES
     Isuzu.PlantHostOutboundConfig.xml
+    Isuzu.DAQLossCompensationMap.xml
+    Isuzu.DAQTestResultMap.xml
 )

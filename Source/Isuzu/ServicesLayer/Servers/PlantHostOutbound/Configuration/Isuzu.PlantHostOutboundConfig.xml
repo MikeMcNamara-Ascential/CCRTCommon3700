@@ -140,6 +140,110 @@
                     </NotificationList>
                 </Setup>
             </ArchiveInterface>
+
+            <!-- ============================================================== -->
+            <!-- Data Collector Interface                                       -->
+            <!-- ============================================================== -->
+               <DaqInterface Enabled="1" Process="$(USR_ROOT)/ServicesLayer/Bin/DaqInterface.qxe">
+               <Setup>
+                  <SendResultsToHost>Yes</SendResultsToHost>
+                  <VinIndex>-1</VinIndex>
+                  <MachineNumberLength>4</MachineNumberLength>
+                  <MeasurementSystem ValidValues="(E)nglish or (M)etric">E</MeasurementSystem>
+                  <MaxResponseTime>3000</MaxResponseTime>
+                  <MaxAttempts>3</MaxAttempts>
+                  <ResultMap>/Configuration/Servers/DAQTestResultMap.xml</ResultMap>
+                  <LossCompensationResultMap>/Configuration/Servers/DAQLossCompensationMap.xml</LossCompensationResultMap>
+                  <MessageID>0x13</MessageID>
+                  <TestResultConversion>
+                     <Pass>P</Pass>
+                     <Fail>F</Fail>
+                     <Abort>A</Abort>
+                     <NotTested>Z</NotTested>
+                     <TestInProgress>A</TestInProgress>
+                     <Testing>Z</Testing>
+                     <Timeout>F</Timeout>
+                     <Yes>Y</Yes>
+                     <No>N</No>
+                  </TestResultConversion>
+                  <ComponentNameMapping/>
+                  <DataTags>
+                     <OverallTest>OverallTest</OverallTest>
+                     <MachineNumber>MachineNumber</MachineNumber>
+                  </DataTags>
+                  <HostCommunication>
+                     <Setup>
+                        <Communication>
+                           <Name>/dev/LogicalPorts/Daq</Name>
+                           <BufferSize>2048</BufferSize>
+                           <Timeout>20000</Timeout>
+                           <Debug>Off</Debug>
+                        </Communication>
+                        <Logging>
+                           <Debug>Off</Debug>
+                           <ProcessName>DaqInterface</ProcessName>
+                           <Status>Enabled</Status>
+                           <AdditionalLogFile Types="/Server/DaqInterface.log">/Communication/DAQCommunication.log</AdditionalLogFile>
+                           <LocalEcho>Disabled</LocalEcho>
+                           <Verbose>0x1F</Verbose>
+                        </Logging>
+                     </Setup>
+                  </HostCommunication>
+                  <Communication>
+                     <Debug>Off</Debug>
+                     <Name>core/DaqInterface</Name>
+                     <Type>Server</Type>
+                     <Comm>IPC</Comm>
+                     <BufferSize>2000</BufferSize>
+                     <Timeout>1000</Timeout>
+                  </Communication>
+                  <Logging>
+                     <Status>Enabled</Status>
+                     <ProcessName>core/DaqInterface</ProcessName>
+                     <AdditionalLogFile>/Servers/DaqInterface.log</AdditionalLogFile>
+                     <Debug>Off</Debug>
+                     <LocalEcho>Disabled</LocalEcho>
+                     <Verbose>0x1F</Verbose>
+                  </Logging>
+                  <ThreadPool>
+                     <Debug>Off</Debug>
+                     <MinBlockedLimit>1</MinBlockedLimit>
+                     <MaxBlockedLimit>3</MaxBlockedLimit>
+                     <Increment>1</Increment>
+                     <Maximum>5</Maximum>
+                  </ThreadPool>
+                  <NotificationList>
+                     <Setup>
+                        <Debug>Off</Debug>
+                        <HighWater>3</HighWater>
+                        <Increment>1</Increment>
+                        <LowWater>1</LowWater>
+                        <Maximum>5</Maximum>
+                        <StartOnCreate>No</StartOnCreate>
+                     </Setup>
+                  </NotificationList>
+                  <KeepAliveConfig>
+                     <Setup>
+                        <KeepAliveResponseID>0x06</KeepAliveResponseID>
+                        <KeepAliveRequestID>0xA3</KeepAliveRequestID>
+                        <KeepAliveTime Units="ms">120000</KeepAliveTime>
+                        <MaxResponseTime>20000</MaxResponseTime>
+                        <MinResponseLength>1</MinResponseLength>
+                        <SeverityLevelConversion>
+                           <Fatal>9</Fatal>
+                           <Warning>4</Warning>
+                           <None>0</None>
+                        </SeverityLevelConversion>
+                        <Communication>
+                           <Name>/dev/LogicalPorts/Daq</Name>
+                           <BufferSize>2000</BufferSize>
+                           <Timeout>1000</Timeout>
+                           <Debug>Off</Debug>
+                        </Communication>
+                     </Setup>
+                  </KeepAliveConfig>
+               </Setup>
+            </DaqInterface>
         </HostInterfaces>
     </Setup>
 </PlantHostOutboundConfig>

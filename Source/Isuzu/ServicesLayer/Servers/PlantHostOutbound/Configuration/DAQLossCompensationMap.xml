@@ -1,0 +1,44 @@
+<DAQLossCompensationMap>
+	<Field0010 Type="Separator">LossCompensation</Field0010>
+	<Field0020 Type="Separator">Blank</Field0020>
+	<Field0030 Type="Result">OverallTest</Field0030>
+	<Field0040 Type="Separator">Blank</Field0040>
+	<Field0050 Type="Result">LossCompensationOverallTest</Field0050>
+	<Field0060 Type="Separator">Blank</Field0060>
+	
+	<Field0070 Type="Result">LossCompensationLeftFrontMachineLossResult</Field0070>
+	<Field0080 Type="Separator">Blank</Field0080>
+	<Field0090 Type="Detail" DetailNode="ActualLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationLeftFrontMachineLossResult</Field0090>
+	<Field0100 Type="Separator">Blank</Field0100>
+	<Field0110 Type="Detail" DetailNode="MinLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationLeftFrontMachineLossResult</Field0110>
+	<Field0120 Type="Separator">Blank</Field0120>
+	<Field0130 Type="Detail" DetailNode="MaxLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationLeftFrontMachineLossResult</Field0130>
+	<Field0140 Type="Separator">Blank</Field0140>
+
+	<Field0150 Type="Result">LossCompensationRightFrontMachineLossResult</Field0150>
+	<Field0160 Type="Separator">Blank</Field0160>
+	<Field0170 Type="Detail" DetailNode="ActualLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationRightFrontMachineLossResult</Field0170>
+	<Field0180 Type="Separator">Blank</Field0180>
+	<Field0190 Type="Detail" DetailNode="MinLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationRightFrontMachineLossResult</Field0190>
+	<Field0200 Type="Separator">Blank</Field0200>
+	<Field0210 Type="Detail" DetailNode="MaxLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationRightFrontMachineLossResult</Field0210>
+	<Field0220 Type="Separator">Blank</Field0220>
+
+	<Field0230 Type="Result">LossCompensationLeftRearMachineLossResult</Field0230>
+	<Field0240 Type="Separator">Blank</Field0240>
+	<Field0250 Type="Detail" DetailNode="ActualLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationLeftRearMachineLossResult</Field0250>
+	<Field0260 Type="Separator">Blank</Field0260>
+	<Field0270 Type="Detail" DetailNode="MinLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationLeftRearMachineLossResult</Field0270>
+	<Field0280 Type="Separator">Blank</Field0280>
+	<Field0290 Type="Detail" DetailNode="MaxLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationLeftRearMachineLossResult</Field0290>
+	<Field0300 Type="Separator">Blank</Field0300>
+
+	<Field0310 Type="Result">LossCompensationRightRearMachineLossResult</Field0310>
+	<Field0320 Type="Separator">Blank</Field0320>
+	<Field0330 Type="Detail" DetailNode="ActualLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationRightRearMachineLossResult</Field0330>
+	<Field0340 Type="Separator">Blank</Field0340>
+	<Field0350 Type="Detail" DetailNode="MinLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationRightRearMachineLossResult</Field0350>
+	<Field0360 Type="Separator">Blank</Field0360>
+	<Field0370 Type="Detail" DetailNode="MaxLoss" Format="%05.2f" Length="5" DataType="Integer">LossCompensationRightRearMachineLossResult</Field0370>
+	<Field0380 Type="Separator">Blank</Field0380>
+</DAQLossCompensationMap>

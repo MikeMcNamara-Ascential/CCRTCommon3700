@@ -273,11 +273,11 @@
     <Field2550 Type="Separator">,</Field2550>
     <Field2560 Type="Result">EmissionsCheckEngineOilTemperature</Field2560>
     <Field2570 Type="Separator">,</Field2570>
-    <Field2580 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckFuelLevelPrimaryTankLevel</Field2580>
+    <Field2580 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckFuelLevelPrimaryTankLevel</Field2580>
     <Field2590 Type="Separator">,</Field2590>
     <Field2600 Type="Result">EmissionsCheckFuelLevelPrimaryTankLevel</Field2600>
     <Field2610 Type="Separator">,</Field2610>
-    <Field2620 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckFuelLevelSecondaryTankLevel</Field2620>
+    <Field2620 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckFuelLevelSecondaryTankLevel</Field2620>
     <Field2630 Type="Separator">,</Field2630>
     <Field2640 Type="Result">EmissionsCheckFuelLevelSecondaryTankLevel</Field2640>
     <Field2650 Type="Separator">,</Field2650>
@@ -285,19 +285,19 @@
     <Field2670 Type="Separator">,</Field2670>
     <Field2680 Type="Result">EmissionsCheckFuelRailPressure</Field2680>
     <Field2690 Type="Separator">,</Field2690>
-    <Field2700 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckIdleFuelTrim_LongTermFuelTrimBank1</Field2700>
+    <Field2700 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckIdleFuelTrim_LongTermFuelTrimBank1</Field2700>
     <Field2710 Type="Separator">,</Field2710>
     <Field2720 Type="Result">EmissionsCheckIdleFuelTrim_LongTermFuelTrimBank1</Field2720>
     <Field2730 Type="Separator">,</Field2730>
-    <Field2740 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckIdleFuelTrim_LongTermFuelTrimBank2</Field2740>
+    <Field2740 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckIdleFuelTrim_LongTermFuelTrimBank2</Field2740>
     <Field2750 Type="Separator">,</Field2750>
     <Field2760 Type="Result">EmissionsCheckIdleFuelTrim_LongTermFuelTrimBank2</Field2760>
     <Field2770 Type="Separator">,</Field2770>
-    <Field2780 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckIdleFuelTrim_ShortTermFuelTrimBank1</Field2780>
+    <Field2780 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckIdleFuelTrim_ShortTermFuelTrimBank1</Field2780>
     <Field2790 Type="Separator">,</Field2790>
     <Field2800 Type="Result">EmissionsCheckIdleFuelTrim_ShortTermFuelTrimBank1</Field2800>
     <Field2810 Type="Separator">,</Field2810>
-    <Field2820 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckIdleFuelTrim_ShortTermFuelTrimBank2</Field2820>
+    <Field2820 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckIdleFuelTrim_ShortTermFuelTrimBank2</Field2820>
     <Field2830 Type="Separator">,</Field2830>
     <Field2840 Type="Result">EmissionsCheckIdleFuelTrim_ShortTermFuelTrimBank2</Field2840>
     <Field2850 Type="Separator">,</Field2850>
@@ -321,23 +321,23 @@
     <Field3030 Type="Separator">,</Field3030>
     <Field3040 Type="Result">EmissionsCheckOxygenSensors_OxygenSensor2Bank2</Field3040>
     <Field3050 Type="Separator">,</Field3050>
-    <Field3060 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckSteadySpeedFuelTrim_LongTermFuelTrimBank1</Field3060>
+    <Field3060 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckSteadySpeedFuelTrim_LongTermFuelTrimBank1</Field3060>
     <Field3070 Type="Separator">,</Field3070>
     <Field3080 Type="Result">EmissionsCheckSteadySpeedFuelTrim_LongTermFuelTrimBank1</Field3080>
     <Field3090 Type="Separator">,</Field3090>
-    <Field3100 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckSteadySpeedFuelTrim_LongTermFuelTrimBank2</Field3100>
+    <Field3100 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckSteadySpeedFuelTrim_LongTermFuelTrimBank2</Field3100>
     <Field3110 Type="Separator">,</Field3110>
     <Field3120 Type="Result">EmissionsCheckSteadySpeedFuelTrim_LongTermFuelTrimBank2</Field3120>
     <Field3130 Type="Separator">,</Field3130>
-    <Field3140 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckSteadySpeedFuelTrim_ShortTermFuelTrimBank1</Field3140>
+    <Field3140 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckSteadySpeedFuelTrim_ShortTermFuelTrimBank1</Field3140>
     <Field3150 Type="Separator">,</Field3150>
     <Field3160 Type="Result">EmissionsCheckSteadySpeedFuelTrim_ShortTermFuelTrimBank1</Field3160>
     <Field3170 Type="Separator">,</Field3170>
-    <Field3180 Type="Detail" DetailNode="SensorReading" Format="%03.2f" DataType="Float">EmissionsCheckSteadySpeedFuelTrim_ShortTermFuelTrimBank2</Field3180>
+    <Field3180 Type="Detail" DetailNode="SensorReading" Format="%06.2f" DataType="Float">EmissionsCheckSteadySpeedFuelTrim_ShortTermFuelTrimBank2</Field3180>
     <Field3190 Type="Separator">,</Field3190>
     <Field3200 Type="Result">EmissionsCheckSteadySpeedFuelTrim_ShortTermFuelTrimBank2</Field3200>
     <Field3210 Type="Separator">,</Field3210>
-    <Field3220 Type="Detail" DetailNode="VehicleSpeedSensor" Format="%03.2f" DataType="Float">EmissionsCheckVehicleSpeedSensor</Field3220>
+    <Field3220 Type="Detail" DetailNode="VehicleSpeedSensor" Format="%06.2f" DataType="Float">EmissionsCheckVehicleSpeedSensor</Field3220>
     <Field3230 Type="Separator">,</Field3230>
     <Field3240 Type="Result">EmissionsCheckVehicleSpeedSensor</Field3240>
     <Field3250 Type="Separator">,</Field3250>

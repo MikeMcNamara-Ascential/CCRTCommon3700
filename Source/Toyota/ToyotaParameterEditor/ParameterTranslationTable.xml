@@ -15,10 +15,11 @@
 	<RequiredBrakeForceRear>Minimum Rear Brake Force</RequiredBrakeForceRear>
 	<MaxFrontDifference>Maximum Front Brake Difference</MaxFrontDifference>
 	<MaxRearDifference>Maximum Rear Brake Difference</MaxRearDifference>
+    <MaxBrakeSamples>Minimum Brake Samples Required</MaxBrakeSamples>
 	<RequiredParkBrakeForce>Minimum Park Brake Force</RequiredParkBrakeForce>
 	<MinimumTotalParkBrakeForce>Minimum Total Park Brake Force</MinimumTotalParkBrakeForce>
 
-	<!-- TRansmission Shift Point Parameters -->
+	<!-- Transmission Shift Point Parameters -->
 	<ShiftPoint1-2LowNormalAccel>1 - 2 Normal</ShiftPoint1-2LowNormalAccel>
 	<ShiftPoint2-3LowNormalAccel>2 - 3 Normal</ShiftPoint2-3LowNormalAccel>
 	<ShiftPoint1-2LowFullAccel>1 - 2 Full</ShiftPoint1-2LowFullAccel>

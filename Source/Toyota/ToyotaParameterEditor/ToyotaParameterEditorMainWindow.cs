@@ -111,10 +111,14 @@ namespace ToyotaParameterEditor
             String[] maxRearDiff = {m_vehicleParameters.GetParameterDisplayText("MaxRearDifference"), 
                                     m_vehicleParameters.GetVehicleParameter("MaxRearDifference"),
                                     m_vehicleParameters.GetParameterUnits("MaxRearDifference")};
+            String[] minSamples = {m_vehicleParameters.GetParameterDisplayText("MaxBrakeSamples"),
+                                      m_vehicleParameters.GetVehicleParameter("MaxBrakeSamples"),
+                                      m_vehicleParameters.GetParameterUnits("MaxBrakeSamples")};
             m_brakeDataGridView.Rows.Add(minFrontBrakeForce);
             m_brakeDataGridView.Rows.Add(minRearBrakeForce);
             m_brakeDataGridView.Rows.Add(maxFrontDiff);
             m_brakeDataGridView.Rows.Add(maxRearDiff);
+            m_brakeDataGridView.Rows.Add(minSamples);
             // Park brake parameters
             String[] minParkBrakeForce = {m_vehicleParameters.GetParameterDisplayText("RequiredParkBrakeForce"), 
                                           m_vehicleParameters.GetVehicleParameter("RequiredParkBrakeForce"),

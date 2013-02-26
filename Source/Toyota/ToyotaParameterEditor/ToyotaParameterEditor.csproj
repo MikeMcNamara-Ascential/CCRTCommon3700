@@ -10,8 +10,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ToyotaParameterEditor</RootNamespace>
     <AssemblyName>ToyotaParameterEditor</AssemblyName>
-    <SignManifests>false</SignManifests>
-    <ManifestCertificateThumbprint>96817595924324CEED730788E7EE5E82962C797A</ManifestCertificateThumbprint>
+    <SignManifests>true</SignManifests>
+    <ManifestCertificateThumbprint>FEB9BC2E54CC7DC1B4DFD703CBED766234B2AA64</ManifestCertificateThumbprint>
     <ManifestKeyFile>ToyotaParameterEditor_TemporaryKey.pfx</ManifestKeyFile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <GenerateManifests>true</GenerateManifests>
@@ -21,7 +21,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
     <UpgradeBackupLocation />
-    <PublishUrl>E:\CCRT\Tools\InstallPackages\ToyotaParameterEditor\</PublishUrl>
+    <PublishUrl>C:\Tools\InstallPackages\ToyotaParameterEditor\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -31,9 +31,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -52,6 +53,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -104,12 +108,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="ToyotaParameterEditor_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\bep best.png" />
     <Content Include="NewVehicleTemplate.xml" />
-    <Content Include="ParameterTranslationTable.xml" />
-    <BaseApplicationManifest Include="Properties\app.manifest" />
+    <Content Include="ParameterTranslationTable.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <BaseApplicationManifest Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </BaseApplicationManifest>
     <None Include="Resources\BEP.png" />
   </ItemGroup>
   <ItemGroup>

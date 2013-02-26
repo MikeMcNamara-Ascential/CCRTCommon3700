@@ -164,6 +164,7 @@
             <!-- Max Brake Force Parameters -->
             <ApplyBrakePedalWaitTime Units="ms">3000</ApplyBrakePedalWaitTime>
             <BrakeForceConversionFactor Description="Conversion factor for converting lbf to kgf">0.4535924</BrakeForceConversionFactor>
+            <SamplesAboveLimitToStartAverage>20</SamplesAboveLimitToStartAverage>
 
             <!-- Park Brake Force Parameters -->
             <ApplyParkBrakeWaitTime Units="ms">3000</ApplyParkBrakeWaitTime>

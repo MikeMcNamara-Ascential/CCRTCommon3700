@@ -1,7 +1,7 @@
 <MachineDataBrokerConfig>
 	<Setup>
 		<CustId>Toyota</CustId>
-		<CustBld Description="Customer release version yymmddrr">09112301</CustBld>
+		<CustBld Description="Customer release version yymmddrr">13022601</CustBld>
 		<UseConfigMachineNumber>No</UseConfigMachineNumber>
 		<Debug>Off</Debug>
 		<DataFile Description="This is the file where persistent data is stored">/Configuration/Machine/LossCompensationTimeDate.dat</DataFile>

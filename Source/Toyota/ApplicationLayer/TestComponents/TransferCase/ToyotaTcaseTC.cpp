@@ -37,7 +37,7 @@ string ToyotaTcaseTC::CheckAxleRatio(void)
             CheckZeroSpeed();
             SetStartTime();
             // Prompt the operator to accelerate to speed
-            float awdSpeed = GetVehicleParameter("AwdTestSpeed");
+            float awdSpeed = GetVehicleParameter("AwdTestSpeed", (float)0.0);
             char buff[32];
             string speedRange(CreateMessage(buff, sizeof(buff), "%.2f", awdSpeed));
             DisplayPrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"),
@@ -53,10 +53,10 @@ string ToyotaTcaseTC::CheckAxleRatio(void)
                     float rearSpeed  = (currentWheelSpeeds.lrWheel + currentWheelSpeeds.rrWheel) / 2.0;
                     axleDiff = abs(frontSpeed - rearSpeed);
                     BposSleep(GetTestStepInfoInt("ScanDelay"));
-                } while(TimeRemaining() && (axleDiff >= GetVehicleParameter("AwdMaxAxleDiff")) && 
+                } while(TimeRemaining() && (axleDiff >= GetVehicleParameter("AwdMaxAxleDiff", (float)0.0)) && 
                         (BEP_STATUS_SUCCESS == StatusCheck()));
                 // Update the background color
-                testResult = (axleDiff <= GetVehicleParameter("AwdMaxAxleDiff")) ? testPass : testFail;
+                testResult = (axleDiff <= GetVehicleParameter("AwdMaxAxleDiff", (float)0.0)) ? testPass : testFail;
             }
             else
             {   // Timeout waiting for speed

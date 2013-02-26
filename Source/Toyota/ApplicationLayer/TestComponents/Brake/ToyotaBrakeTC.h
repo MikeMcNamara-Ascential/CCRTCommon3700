@@ -162,38 +162,43 @@ public:
      */
     string TractionControlCheck(void);
 
+
+
 protected:
     /** Structure for holding brake force data during max brake force testing and park brake testing */
     typedef struct _maxBrakeData
     {
         float currentForce;
         float maxForce;
+		vector<float> forceSamples;
         string currentForceTag;
         string displayTag;
         bool measurementComplete;
     } MaxBrakeData;
 
-    /**
-     * Monitor the maximum brake force data developed on each roller.
-     * The maximum observed brake force will be stored for each wheel being monitored.  When the required brake force for
-     * each wheel has been detected, that wheel will be marked as completed.  After all wheels are complete or a timeout
-     * occurs, the monitoring routine will exit.
-     * 
-     * @param startingRoller
-     *                  Roller to start monitoring.
-     * @param stoppingRoller
-     *                  Roller to stop monitoring
-     * @param minimumRequiredForceFront
-     *                  Minimum required front brake force.
-     * @param minimumRequiredForceRear
-     *                  Minimum required rear brake force.
-     * @param brakeData Structure to hold data tags and results.
-     * 
-     * @return Flag indicating if the minimum force has been observed on each wheel being monitored.
-     */
+	/**
+	 * Monitor the maximum brake force data developed on each roller.
+	 * The maximum observed brake force will be stored for each wheel being monitored.  When the required brake force for
+	 * each wheel has been detected, that wheel will be marked as completed.  After all wheels are complete or a timeout
+	 * occurs, the monitoring routine will exit.
+	 * 
+	 * @param startingRoller
+	 *                  Roller to start monitoring.
+	 * @param stoppingRoller
+	 *                  Roller to stop monitoring
+	 * @param minimumRequiredForceFront
+	 *                  Minimum required front brake force.
+	 * @param minimumRequiredForceRear
+	 *                  Minimum required rear brake force.
+	 * @param brakeData Structure to hold data tags and results.
+	 * @param samplesToAverage
+	 *                  Number of force samples consistently above the limit to indicate the brakes are applied.
+	 * 
+	 * @return Flag indicating if the minimum force has been observed on each wheel being monitored.
+	 */
     bool MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRoller,
                             float minimumRequiredForceFront, float minimumRequiredForceRear,
-                            MaxBrakeData *brakeData);
+                            MaxBrakeData *brakeData, UINT16 samplesToAverage);
 
     /**
      * Read the current load cell values.
@@ -203,6 +208,25 @@ protected:
      *                  Roller to start monitoring.
      */
     void ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 startingRoller);
+
+
+
+private:
+
+	/**
+	 * Check if the force measurement is complete.
+	 * 
+	 * @param samples Samples to analyze to determine if the force measurement is complete.
+	 * @param requiredBrakeSamples
+	 *                Minimum required samples to use for analyzing if the measured force is acceptable.
+	 * @param minRequiredForce
+	 *                Minimum required force that must be met.
+	 * 
+	 * @return True if the measurement is complete.
+	 */
+	bool IsMeasurementComplete(vector<float> &samples, 
+							   const int& requiredBrakeSamples,
+							   const float &minRequiredForce);
 };
 //-------------------------------------------------------------------------------------------------
 #endif //ToyotaBrakeTC_h

@@ -62,8 +62,8 @@ const string ToyotaMachineTC::TestStepSpeedometer(const string &value)
     bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
     float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
     string speedoType(convertSpeed ? "KPH" : "MPH");
-    float minSpeed = GetVehicleParameter("SpeedTargets/"+speedoType+"/SpeedometerSpeedTargetLow") * speedScaling;
-    float maxSpeed = GetVehicleParameter("SpeedTargets/"+speedoType+"/SpeedometerSpeedTargetHi") * speedScaling;
+    float minSpeed = GetVehicleParameter("SpeedTargets/"+speedoType+"/SpeedometerSpeedTargetLow", (float)0.0) * speedScaling;
+    float maxSpeed = GetVehicleParameter("SpeedTargets/"+speedoType+"/SpeedometerSpeedTargetHi", (float)0.0) * speedScaling;
     char buff[32];
     string dispMaxSpeed(CreateMessage(buff, sizeof(buff), "%.0f", maxSpeed));
     string dispMinSpeed(CreateMessage(buff, sizeof(buff), "%.0f", minSpeed));
@@ -149,7 +149,7 @@ const string ToyotaMachineTC::TestStepReverse(const string &value)
     string testResult(BEP_TESTING_RESPONSE);
     bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
     float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
-    float reverseSpeed = GetVehicleParameter("ReverseTestSpeed") * speedScaling;
+    float reverseSpeed = GetVehicleParameter("ReverseTestSpeed", (float)0.0) * speedScaling;
     // Wait for the operator to reach zeroish speed
     while((GetRollSpeed() > (GetParameterFloat("PromptReverseTestSpeed") * speedScaling)) &&
           (BEP_STATUS_SUCCESS == StatusCheck()))

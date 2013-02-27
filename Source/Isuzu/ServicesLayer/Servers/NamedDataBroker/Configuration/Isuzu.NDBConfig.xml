@@ -337,6 +337,7 @@
                 <HydraulicOilLevelFault DataType="bool">PLC</HydraulicOilLevelFault>
                 <HydraulicOilTemperatureFault DataType="bool">PLC</HydraulicOilTemperatureFault>
                 <HydraulicSystemIdleTimeout DataType="bool">PLC</HydraulicSystemIdleTimeout>
+
                 <InputFromPlcWord00 DataType="short">PLC</InputFromPlcWord00>
                 <InputFromPlcWord01 DataType="short">PLC</InputFromPlcWord01>
                 <InputFromPlcWord02 DataType="short">PLC</InputFromPlcWord02>
@@ -362,8 +363,10 @@
                 <InputFromPlcWord22 DataType="short">PLC</InputFromPlcWord22>
                 <InputServerState DataType="string">InputServer</InputServerState>
                 <InstVehiclePresent DataType="bool">PLC</InstVehiclePresent>
+                <IntermediateOverallResult DataType="string">VehicleTest</IntermediateOverallResult>
                 <IntermediateRetainingRollsLoweredFault DataType="bool">PLC</IntermediateRetainingRollsLoweredFault>
                 <IntermediateRetainingRollsRaisedFault DataType="bool">PLC</IntermediateRetainingRollsRaisedFault>
+                <IntermediateTestResult DataType="string">TestResultServer</IntermediateTestResult>
                 <InterRollPressureHighShutdown DataType="bool">PLC</InterRollPressureHighShutdown>
                 <InterRollPressureHighWarning DataType="bool">PLC</InterRollPressureHighWarning>
                 <Inter-RollPressureOff DataType="bool">PLC</Inter-RollPressureOff>

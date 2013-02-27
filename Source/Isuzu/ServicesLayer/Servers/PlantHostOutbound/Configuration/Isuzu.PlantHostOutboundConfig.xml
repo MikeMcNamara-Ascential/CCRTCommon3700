@@ -25,6 +25,7 @@
                 <RollsDownElevUp/>
                 <TestResult/>
                 <VehiclePresent/>
+                <IntermediateTestResult/>
             </SubscribeTags>
         </TagList>
         <ThreadPool>
@@ -147,6 +148,8 @@
                <DaqInterface Enabled="1" Process="$(USR_ROOT)/ServicesLayer/Bin/DaqInterface.qxe">
                <Setup>
                   <SendResultsToHost>Yes</SendResultsToHost>
+                  <SkipPerformAbortCheck>Yes</SkipPerformAbortCheck>
+                  <ReportIntermediateResults>Yes</ReportIntermediateResults>
                   <VinIndex>-1</VinIndex>
                   <MachineNumberLength>4</MachineNumberLength>
                   <MeasurementSystem ValidValues="(E)nglish or (M)etric">E</MeasurementSystem>

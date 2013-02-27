@@ -42,6 +42,7 @@
                 <StartVehicleTest>0</StartVehicleTest>
 				<StartRetest>0</StartRetest>
                 <CurrentTestStatus>Testing</CurrentTestStatus>
+                <IntermediateOverallResult>Testing</IntermediateOverallResult>
             </PublishTags>
         </TagList>
         <Selector>

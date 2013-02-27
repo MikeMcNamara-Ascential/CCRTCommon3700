@@ -156,37 +156,53 @@
     <Field1390 Type="Separator">,</Field1390>
     <Field1400 Type="Result">BrakeRightRearSensorSpeedTest</Field1400>
     <Field1410 Type="Separator">,</Field1410>
-    <Field1420 Type="Detail" DetailNode="LeftFrontABSReductionPercent" Format="%07.2f" DataType="Float">BrakeLeftFrontABSReduction</Field1420>
+    <Field1412 Type="Detail" DetailNode="LeftFrontABSReductionPercent" Format="%07.2f" DataType="Float">BrakeLeftFrontABSReduction</Field1412>
+    <Field1414 Type="Separator">,</Field1414>
+    <Field1416 Type="Detail" DetailNode="LeftFrontReductionForceValue" Format="%07.2f" DataType="Float">BrakeLeftFrontABSReduction</Field1416>
+    <Field1418 Type="Separator">,</Field1418>
+    <Field1420 Type="Result">BrakeLeftFrontABSReduction</Field1420>
+    <Field1422 Type="Separator">,</Field1422>
+    <Field1424 Type="Detail" DetailNode="RightFrontABSReductionPercent" Format="%07.2f" DataType="Float">BrakeRightFrontABSReduction</Field1424>
+    <Field1426 Type="Separator">,</Field1426>
+    <Field1428 Type="Detail" DetailNode="RightFrontReductionForceValue" Format="%07.2f" DataType="Float">BrakeRightFrontABSReduction</Field1428>
     <Field1430 Type="Separator">,</Field1430>
-    <Field1440 Type="Result">BrakeLeftFrontABSReduction</Field1440>
+    <Field1432 Type="Result">BrakeRightFrontABSReduction</Field1432>
+    <Field1434 Type="Separator">,</Field1434>
+    <Field1436 Type="Detail" DetailNode="LeftRearABSReductionPercent" Format="%07.2f" DataType="Float">BrakeLeftRearABSReduction</Field1436>
+    <Field1438 Type="Separator">,</Field1438>
+    <Field1440 Type="Detail" DetailNode="LeftRearReductionForceValue" Format="%07.2f" DataType="Float">BrakeLeftRearABSReduction</Field1440>
+    <Field1442 Type="Separator">,</Field1442>
+    <Field1444 Type="Result">BrakeLeftRearABSReduction</Field1444>
+    <Field1446 Type="Separator">,</Field1446>
+    <Field1448 Type="Detail" DetailNode="RightRearABSReductionPercent" Format="%07.2f" DataType="Float">BrakeRightRearABSReduction</Field1448>
     <Field1450 Type="Separator">,</Field1450>
-    <Field1460 Type="Detail" DetailNode="RightFrontABSReductionPercent" Format="%07.2f" DataType="Float">BrakeRightFrontABSReduction</Field1460>
-    <Field1470 Type="Separator">,</Field1470>
-    <Field1480 Type="Result">BrakeRightFrontABSReduction</Field1480>
-    <Field1490 Type="Separator">,</Field1490>
-    <Field1500 Type="Detail" DetailNode="LeftRearABSReductionPercent" Format="%07.2f" DataType="Float">BrakeLeftRearABSReduction</Field1500>
-    <Field1510 Type="Separator">,</Field1510>
-    <Field1520 Type="Result">BrakeLeftRearABSReduction</Field1520>
-    <Field1530 Type="Separator">,</Field1530>
-    <Field1540 Type="Detail" DetailNode="RightRearABSReductionPercent" Format="%07.2f" DataType="Float">BrakeRightRearABSReduction</Field1540>
+    <Field1452 Type="Detail" DetailNode="RightRearReductionForceValue" Format="%07.2f" DataType="Float">BrakeRightRearABSReduction</Field1452>
     <Field1550 Type="Separator">,</Field1550>
     <Field1560 Type="Result">BrakeRightRearABSReduction</Field1560>
+    <Field1562 Type="Separator">,</Field1562>
+    <Field1564 Type="Detail" DetailNode="LeftFrontABSRecoveryValue" Format="%07.2f" DataType="Float">BrakeLeftFrontABSRecovery</Field1564>
+    <Field1566 Type="Separator">,</Field1566>
+    <Field1568 Type="Detail" DetailNode="LeftFrontRecoveryForceValue" Format="%07.2f" DataType="Float">BrakeLeftFrontABSRecovery</Field1568>
     <Field1570 Type="Separator">,</Field1570>
-    <Field1580 Type="Detail" DetailNode="LeftFrontABSRecoveryValue" Format="%07.2f" DataType="Float">BrakeLeftFrontABSRecovery</Field1580>
+    <Field1572 Type="Result">BrakeLeftFrontABSRecovery</Field1572>
+    <Field1574 Type="Separator">,</Field1574>
+    <Field1576 Type="Detail" DetailNode="RightFrontABSRecoveryValue" Format="%07.2f" DataType="Float">BrakeRightFrontABSRecovery</Field1576>
+    <Field1578 Type="Separator">,</Field1578>
+    <Field1580 Type="Detail" DetailNode="RightFrontRecoveryForceValue" Format="%07.2f" DataType="Float">BrakeRightFrontABSRecovery</Field1580>
+    <Field1582 Type="Separator">,</Field1582>
+    <Field1584 Type="Result">BrakeRightFrontABSRecovery</Field1584>
+    <Field1586 Type="Separator">,</Field1586>
+    <Field1588 Type="Detail" DetailNode="LeftRearABSRecoveryValue" Format="%07.2f" DataType="Float">BrakeLeftRearABSRecovery</Field1588>
     <Field1590 Type="Separator">,</Field1590>
-    <Field1600 Type="Result">BrakeLeftFrontABSRecovery</Field1600>
-    <Field1610 Type="Separator">,</Field1610>
-    <Field1620 Type="Detail" DetailNode="RightFrontABSRecoveryValue" Format="%07.2f" DataType="Float">BrakeRightFrontABSRecovery</Field1620>
-    <Field1630 Type="Separator">,</Field1630>
-    <Field1640 Type="Result">BrakeRightFrontABSRecovery</Field1640>
-    <Field1650 Type="Separator">,</Field1650>
-    <Field1660 Type="Detail" DetailNode="LeftRearABSRecoveryValue" Format="%07.2f" DataType="Float">BrakeLeftRearABSRecovery</Field1660>
-    <Field1670 Type="Separator">,</Field1670>
-    <Field1680 Type="Result">BrakeLeftRearABSRecovery</Field1680>
-    <Field1690 Type="Separator">,</Field1690>
-    <Field1700 Type="Detail" DetailNode="RightRearABSRecoveryValue" Format="%07.2f" DataType="Float">BrakeRightRearABSRecovery</Field1700>
-    <Field1710 Type="Separator">,</Field1710>
-    <Field1720 Type="Result">BrakeRightRearABSRecovery</Field1720>
+    <Field1592 Type="Detail" DetailNode="LeftRearRecoveryForceValue" Format="%07.2f" DataType="Float">BrakeLeftRearABSRecovery</Field1592>
+    <Field1594 Type="Separator">,</Field1594>
+    <Field1596 Type="Result">BrakeLeftRearABSRecovery</Field1596>
+    <Field1598 Type="Separator">,</Field1598>
+    <Field1600 Type="Detail" DetailNode="RightRearABSRecoveryValue" Format="%07.2f" DataType="Float">BrakeRightRearABSRecovery</Field1600>
+    <Field1602 Type="Separator">,</Field1602>
+    <Field1604 Type="Detail" DetailNode="RightRearRecoveryForceValue" Format="%07.2f" DataType="Float">BrakeRightRearABSRecovery</Field1604>
+    <Field1606 Type="Separator">,</Field1606>
+    <Field1608 Type="Result">BrakeRightRearABSRecovery</Field1608>
     <Field1730 Type="Separator">,</Field1730>
     <Field1740 Type="Detail" DetailNode="ParkBrakeForce" Format="%07.2f" DataType="Float">BrakeLeftFrontParkBrakeForceTest</Field1740>
     <Field1750 Type="Separator">,</Field1750>

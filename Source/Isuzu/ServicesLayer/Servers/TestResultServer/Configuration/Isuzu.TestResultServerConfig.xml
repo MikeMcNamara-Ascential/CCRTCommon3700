@@ -52,6 +52,7 @@
                 <StartVehicleTest/>
                 <VehicleBuild/>
                 <VIN/>
+                <IntermediateOverallResult/>
             </SubscribeTags>
         </TagList>
         <VehicleBuildItems>

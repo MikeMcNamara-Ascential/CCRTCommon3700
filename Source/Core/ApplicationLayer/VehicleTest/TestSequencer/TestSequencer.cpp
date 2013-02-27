@@ -1423,6 +1423,7 @@ void TestSequencer::DisplayOverallTestPrompt(const std::string testStatus)
 bool TestSequencer::TestComplete(const std::string &testStatus, const int retestNumber)
 {
 	bool complete = false;
+    std::string response;					// response buffer
 
 	if((m_retestPossible) &&				/* if a retest can be performed */
 	   (testStatus != "Pass") &&			/* and if the test failed */
@@ -1431,6 +1432,8 @@ bool TestSequencer::TestComplete(const std::string &testStatus, const int retest
 	   (CanRetest(testStatus)) &&				/* and can still continue the test */
 	   (PromptRetest() == "Yes"))			/* and if the operator selects retest */
 	{
+		Log(LOG_DEV_DATA, "Notifying subscribers vehicle test being resequenced\n");
+        m_ndb->Write(BEP_INTERMEDIATE_OVERALL_RESULT,testStatus,response,true);
 		Log(LOG_DEV_DATA, "ReSequencing Vehicle Test\n");
 		m_compManager.ResetAll();			// reset all of the components
 		m_currentPhaseNumber=0;				// reset the current phase number

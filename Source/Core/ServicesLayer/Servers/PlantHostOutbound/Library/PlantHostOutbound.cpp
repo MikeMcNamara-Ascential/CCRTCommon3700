@@ -712,7 +712,7 @@ const string PlantHostOutbound::Publish(const XmlNode *node)
     Log(LOG_DEV_DATA, "PlantHostOutbound::Publish(%s)", node->ToString().c_str());
     string result = BEP_SUCCESS_RESPONSE;
     (void)BepServer::Publish(node);
-    if(node->getName() == BEP_TEST_RESULT)
+    if(node->getName() == BEP_TEST_RESULT || node->getName() == BEP_INTERMEDIATE_TEST_RESULT)
     {   
         // Add the test result to the list of results to process
         if((errno = m_testResultMutex.Acquire()) == EOK)

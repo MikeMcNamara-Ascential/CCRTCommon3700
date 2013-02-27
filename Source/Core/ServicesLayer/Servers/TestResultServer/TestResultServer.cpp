@@ -322,7 +322,7 @@ TestResultServer::TestResultServer() : BepServer(), m_testResultFile(""),
 m_numberOfTests(0), m_sequenceNumber(0), m_semVehicleBuild(1), m_vehicleBuild(NULL),
     m_allFailures("temp",""), m_reportedDTC(DTC_TAG,""), m_testInProgress(false),
     m_forceArrayInResults( false), m_forceArrayFile(""), m_speedArrayInResults( false),
-    m_speedArrayFile(""), m_updatePlcLamps(false),m_clearResultsOnOverall(true)
+    m_speedArrayFile(""), m_updatePlcLamps(false),m_clearResultsOnOverall(true),m_inCycleTestNumber(0)
 {
 }
 
@@ -885,7 +885,9 @@ const std::string TestResultServer::Write(const XmlNode *node)
     }
     if (node->getName() == SET_DTC_TAG)           SetDTC(node); // Store the DTC
     else if (node->getName() == CLEAR_DTC_TAG)    ClearDTC(node);   // Clear a DTC
-    else if (node->getName() != BEP_TEST_RESULT)  CheckTestResult(node);
+    else if (node->getName() != BEP_TEST_RESULT &&
+             node->getName() != BEP_INTERMEDIATE_TEST_RESULT &&
+             node->getName() != "InCycleTestNumber")  CheckTestResult(node);
     // Return the result of the write operation
     Log(LOG_FN_ENTRY, "TestResultServer::Write() - Added Node: %s\n", node->ToString().c_str());
     return(result);
@@ -958,7 +960,13 @@ const std::string TestResultServer::Publish(const XmlNode* node)
         }
     }
     else if ((node->getName() == GetOverallTestTag()) && (node->getValue() != BEP_TESTING_RESPONSE))
-    {   // Update the PLC lamps if desired
+    {//write in cycle value to test result
+        m_inCycleTestNumber++;
+        char inCycleRetestVal[11];
+        sprintf(inCycleRetestVal,"%d",m_inCycleTestNumber);
+        BepServer::Write("InCycleTestNumber", inCycleRetestVal);
+
+        // Update the PLC lamps if desired
         if( m_updatePlcLamps)
         {
             if( node->getValue() == BEP_PASS_RESPONSE)
@@ -983,9 +991,12 @@ const std::string TestResultServer::Publish(const XmlNode* node)
         passFailNode.addChild("Process", m_comm->GetName(), ATTRIBUTE_NODE);
         passFailNode.addChild("Result", node->getValue(), ATTRIBUTE_NODE);
         if(m_data.Lock() == EOK)
-        {   // Add the overall result to the test results
+        {// Add the overall result to the test results
             m_data.addNode(passFailNode.Copy());
-            m_data.Unlock();
+            //delete intermediate node if exists
+            XmlNode intResultNode(BEP_INTERMEDIATE_OVERALL_RESULT, "");
+            m_data.delNode(intResultNode.getName());
+            m_data.Unlock();            
         }
         else
         {
@@ -993,6 +1004,38 @@ const std::string TestResultServer::Publish(const XmlNode* node)
         }
         // Signal to start processing result
         m_processTestResults.Signal(processTestResults);
+        m_inCycleTestNumber = 0;
+    }
+    else if (node->getName()== BEP_INTERMEDIATE_OVERALL_RESULT)
+    {//received in cycle retest overall result value
+        //write in cycle value to test result
+        m_inCycleTestNumber++;
+        char inCycleTestNumVal[11];
+        sprintf(inCycleTestNumVal,"%d",m_inCycleTestNumber);
+        BepServer::Write("InCycleTestNumber", inCycleTestNumVal);
+
+        XmlNode passFailNode(GetOverallTestTag(), "");
+        passFailNode.addChild("Description", "TestResult", ATTRIBUTE_NODE);
+        passFailNode.addChild("Process", m_comm->GetName(), ATTRIBUTE_NODE);
+        passFailNode.addChild("Result", node->getValue(), ATTRIBUTE_NODE);
+
+        XmlNode intResultNode(BEP_INTERMEDIATE_OVERALL_RESULT, "");
+        intResultNode.addChild("Description", "Flag indicating this is a result prior to rerun", ATTRIBUTE_NODE);
+        intResultNode.addChild("Process", m_comm->GetName(), ATTRIBUTE_NODE);
+        intResultNode.addChild("Result", node->getValue(), ATTRIBUTE_NODE);
+        if(m_data.Lock() == EOK)
+        {   // Add the overall result to the test results
+            //dataCopy.DeepCopy(m_data);
+            m_data.addNode(passFailNode.Copy());
+            m_data.addNode(intResultNode.Copy());
+            m_data.Unlock();
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not lock mutex in TestResultServer::Publish()\n");
+        }
+        //process results
+        ProcessIntermediateTestResults();
     }
     else if (node->getName() == GetVehicleBuildTag())
     {   // Save vehicle build so we can write it to test result file
@@ -1050,6 +1093,7 @@ const std::string TestResultServer::Publish(const XmlNode* node)
     {
         // Retest is starting, so clear all reported DTCs
         CheckClearAllDTCs(node->getValue());
+        Log(LOG_FN_ENTRY, "Received StartRetest: %s\n",node->getValue().c_str());
     }
 
     Log(LOG_FN_ENTRY, "TestResultServer::Publish() done\n");
@@ -1692,6 +1736,46 @@ string TestResultServer::ProcessTestResults(void)
     Log(LOG_FN_ENTRY, "Done Reporting Results");
     return BEP_SUCCESS_RESPONSE;
 }
+
+
+
+
+//-------------------------------------------------------------------------------------------------
+string TestResultServer::ProcessIntermediateTestResults(void)
+{
+    Log(LOG_DEV_DATA, "User is retesting, reporting previous cycle results");
+    if(m_data.Lock() == EOK)
+    {   
+        // Calculate the test stats and add the the results
+        XmlNode statsNode("TestStats", "");
+        Log(LOG_DEV_DATA, "Calculating test stats...");
+        CalculateTestStats(statsNode);
+        Log(LOG_DEV_DATA, "Stats calculated, adding to test result data...");
+        Log(LOG_DEV_DATA, "Test Stats: %s", statsNode.ToString().c_str());
+        statsNode.addChild("Description", "Test Result Statistics", ATTRIBUTE_NODE);
+        statsNode.addChild("Process", "Statistics", ATTRIBUTE_NODE);
+        m_data.addNode(statsNode.Copy());
+        Log(LOG_DEV_DATA, "Stats added to test result data");
+        // Add the all failures node to the data
+        m_data.addNode(m_allFailures.Copy());
+        m_data.Unlock();
+    }
+    else
+    {
+        Log(LOG_ERRORS, "Could not lock mutex in TestResultServer::Publish()\n");
+    }
+    // Publish the test results
+    Log(LOG_DEV_DATA, "Publishing test results...");
+    BepServer::Write(BEP_INTERMEDIATE_TEST_RESULT, ReportResults());
+
+    Log(LOG_FN_ENTRY, "Done Reporting Rerun Results");
+    return BEP_SUCCESS_RESPONSE;
+}
+
+
+
+
+
 
 //-----------------------------------------------------------------------------
 inline const bool& TestResultServer::ConnectToQnxDataServer(const bool *connect) /*= NULL*/

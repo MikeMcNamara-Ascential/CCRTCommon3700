@@ -888,6 +888,13 @@ private:
      */
     string ProcessTestResults(void);
 
+    /**
+     * Process intermediate test results once we have received Intermediate Overall Result.
+     * 
+     * @return Result of processing the test results.
+     */
+    string ProcessIntermediateTestResults(void);
+
 	/**
 	 * Get/Set the flag indicating if a pass confirmation file should be generated.
 	 * 
@@ -1099,6 +1106,7 @@ private:
     BepTimer m_testCompleteSignalTimer;
 	/** Flag to determine if a pass confirmation file should be generated */
 	bool m_createPassConfirmationFile;
+    int m_inCycleTestNumber;
 };
 #endif  //TestResultServer_h
 

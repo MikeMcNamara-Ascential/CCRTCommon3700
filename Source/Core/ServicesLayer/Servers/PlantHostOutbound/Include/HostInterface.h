@@ -43,7 +43,28 @@
 #include "HostInterfaceKeepAlive.h"
 
 class HostInterfaceKeepAlive;
-
+        /**
+ * Data type definition for a block for controlling data
+ * and access to it
+ * @since Version 1.0
+ */
+class ResultContainer
+{
+public:
+    ResultContainer(){}
+    ~ResultContainer()
+    {
+       delete testResult;
+    }
+    /**
+     * filename associated with the result 
+     */
+    string resultFileName;
+    /**
+     * actual result data to report
+     */
+    XmlNode* testResult;
+};
 /**
  * Base class for plant host system interfaces.
  * This class will receive and process a test result and generate a result 
@@ -598,7 +619,7 @@ protected:
      */
     const bool& ResultReadyToProcess(const bool *resultReady = NULL);
     XmlNode* PopTestResult();
-    void PushTestResult(XmlNode *result);
+    void PushTestResult(ResultContainer* result);
 
 	/**
 	 * Get/Set the flag indicating if the test result data files should be compressed and sent to Huntsville.
@@ -608,6 +629,22 @@ protected:
 	 * @return Flag indicating if the test result data files should be compressed and sent to Huntsville.
 	 */
 	const bool& TestDataFileArchiveEnabled(const bool *archive = NULL);
+	/**
+	 * Get/Set the flag indicating if the Perform abort check should be skipped when processing results.
+	 * 
+	 * @param skip Flag indicating if the Perform abort check should be skipped when processing results.
+	 * 
+	 * @return Flag indicating if Perform abort check should be skipped when processing results.
+	 */
+	const bool& SkipPerformAbortCheck(const bool *skip = NULL);
+	/**
+	 * Get/Set the flag indicating if intermediate results should be processed.
+	 * 
+	 * @param skip Flag indicating if intermediate results should be processed.
+	 * 
+	 * @return Flag indicating if intermediate results should be processed.
+	 */
+	const bool& ReportIntermediateResults(const bool *skip = NULL);
     /**
      * Store the configuration for the keep alive thread.
      *
@@ -694,7 +731,7 @@ private:
      *
      * @see StaticTesterServer
      */
-    vector<XmlNode *>  m_testResultsToProcess;
+    vector<ResultContainer*>  m_testResultsToProcess;
     /**
      * Map of the strings to convert test result to format acceptable by plant 
      * host system.
@@ -737,6 +774,12 @@ private:
 
 	/** Flag to indicate if files should be compressed and sent to Huntsville */
 	bool m_archiveResultFiles;
+
+    /** Flag to indicate if check for perform abort tag check should be skipped in result determination */
+	bool m_skipPerformAbortCheck;
+
+    /** Flag to indicate if in cycle test results should be processed */
+	bool m_reportIntermediateResults;
 
 };
 

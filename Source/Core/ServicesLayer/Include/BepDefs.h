@@ -621,6 +621,8 @@ typedef  int     Boolean;
 
 // Standard BEP Commands
 #define BEP_TEST_RESULT             "TestResult"         // Extension for Test Result server.
+#define BEP_INTERMEDIATE_TEST_RESULT             "IntermediateTestResult"         // Extension for Test Result server.
+#define BEP_INTERMEDIATE_OVERALL_RESULT             "IntermediateOverallResult"         // Extension for Test Result server.
 #define BEP_READ                    "Read"
 #define BEP_WRITE                   "Write"
 #define BEP_COMMAND                 "Command"

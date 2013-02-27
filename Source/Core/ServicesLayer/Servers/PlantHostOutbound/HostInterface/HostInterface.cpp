@@ -144,6 +144,7 @@ const string HostInterface::Write(const string &tag, const string &value)
 	return BepServer::Write(tag, value);
 }
 
+#if 0
 //-----------------------------------------------------------------------------
 const string HostInterface::Write(const XmlNode *node)
 {   
@@ -201,6 +202,81 @@ void HostInterface::PushTestResult(XmlNode *result)
 		Log(LOG_ERRORS, "HostInterface: Could not Aquire mutex errno: %s", strerror(errno));
 	}
 }
+#endif
+
+
+//-----------------------------------------------------------------------------
+const string HostInterface::Write(const XmlNode *node)
+{   
+	string result(BEP_ERROR_RESPONSE);
+	//static bool readyToProcess = true;
+	Log(LOG_FN_ENTRY, "HostInterface::Write(%s) - Enter", node->getName().c_str());
+	if(!node->getName().compare(TEST_RESULT_TAG))
+	{	// This is the modified test result from PlantHostOutbound, store it and signal to process it
+		XmlParser parser;
+        ResultContainer* resultObject = new ResultContainer();
+        resultObject->resultFileName =  getenv("USR_ROOT") + node->getValue();
+        resultObject->testResult = parser.ReturnXMLDocument(resultObject->resultFileName)->Copy();
+		//Add test result to list of test results to process
+		PushTestResult(resultObject);
+		//m_testResult = parser.ReturnXMLDocument(getenv("USR_ROOT") + node->getValue())->Copy();
+		//ResultReadyToProcess(&readyToProcess);
+		result = BEP_SUCCESS_RESPONSE;
+	}
+	else
+	{	// Let the base class handle this
+		result = BepServer::Write(node);
+	}
+	Log(LOG_FN_ENTRY, "HostInterface::Write(%s) - Exit: %s", node->getName().c_str(), result.c_str());
+	return result;
+}
+
+//-----------------------------------------------------------------------------
+void HostInterface::PushTestResult(ResultContainer *result)//(XmlNode *result)
+{//Push Result onto list
+	if((errno = m_testResultMutex.Acquire()) == EOK)
+	{  //Check if list is empty 
+		if(!m_testResultsToProcess.empty())
+		{//Search list to see if result is already there
+            for(vector<ResultContainer*>::iterator iter = m_testResultsToProcess.begin(); iter != m_testResultsToProcess.end(); iter++)
+            {
+                if(!(*iter)->resultFileName.compare(result->resultFileName))
+                {
+
+                    Log(LOG_DEV_DATA, "Result Already Exists");
+                    if(result != NULL) delete result;
+                    result = NULL;
+                    m_testResultMutex.Release();
+                    return;
+                }
+            }
+            m_testResultsToProcess.push_back(result);
+            Log(LOG_DEV_DATA, "Pushed testresult");
+			//if(iter != m_testResultsToProcess.end())
+			//{
+			//	Log(LOG_DEV_DATA, "Pushed testresult");
+			//	m_testResultsToProcess.push_back(result);
+			//}
+			//else
+			//{
+		//		Log(LOG_DEV_DATA, "Result Already Exists");
+		//		if(result != NULL) delete result;
+		//		result = NULL;
+		//	}
+
+		}
+		else
+		{
+			Log(LOG_DEV_DATA, "Pushed testresult");
+			m_testResultsToProcess.push_back(result);
+		}
+		m_testResultMutex.Release();
+	}
+	else
+	{
+		Log(LOG_ERRORS, "HostInterface: Could not Aquire mutex errno: %s", strerror(errno));
+	}
+}
 
 //-----------------------------------------------------------------------------
 XmlNode* HostInterface::PopTestResult()
@@ -212,16 +288,25 @@ XmlNode* HostInterface::PopTestResult()
 		if(!m_testResultsToProcess.empty())
 		{
 			Log(LOG_DEV_DATA, "Popping test result");
-			testResultNode = m_testResultsToProcess.back()->Copy();
-			if(testResultNode == NULL)
-			{
-				Log(LOG_DEV_DATA, "Value is null here");
-			}
-			else
-			{
-				delete m_testResultsToProcess.back();
-			}
-			m_testResultsToProcess.pop_back();
+            if (m_testResultsToProcess.back()->testResult != NULL)
+            {
+                Log(LOG_DEV_DATA, "Copying test result");
+                testResultNode = m_testResultsToProcess.back()->testResult->Copy();
+
+                if(testResultNode == NULL)
+                {
+                    Log(LOG_DEV_DATA, "Value is null here");
+                }
+                else
+                {
+                    delete m_testResultsToProcess.back();
+                }
+                m_testResultsToProcess.pop_back();
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "Stored Result is null");
+            }
 		}
 		m_testResultMutex.Release();
 	}
@@ -367,6 +452,33 @@ void HostInterface::LoadAdditionalConfigurationItems(const XmlNode *config)
 			TestDataFileArchiveEnabled(&archiveResults);
 		}
 	}
+
+
+	// Determine if perform abort check should be skipped
+	bool skipPerformAbortCheck = false;
+	try
+	{
+		skipPerformAbortCheck = atob(config->getChild("Setup/SkipPerformAbortCheck")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Not skipping perform abort check: %s", excpt.GetReason());
+	}
+	SkipPerformAbortCheck(&skipPerformAbortCheck);
+
+
+	// Determine if in cycle results should be reported
+	bool reportIntermediateResults = false;
+	try
+	{
+		reportIntermediateResults = atob(config->getChild("Setup/ReportIntermediateResults")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Not reporting intermediate results: %s", excpt.GetReason());
+	}
+	ReportIntermediateResults(&reportIntermediateResults);
+
 	// Store the current machine number Moved 04.24.2007 JPS store number before pfs header is set
 	StoreMachineNumber();
 }
@@ -1823,7 +1935,7 @@ bool HostInterface::ShouldProcessTestResults(const XmlNode *results)
 		{
 			processResults = false;
 		}
-		else
+        else if(!SkipPerformAbortCheck())
 		{	// Check if the perform/abort flag is set to perform
 			isPfsAbort = results->getChild(VEHICLE_BUILD_TAG)->getChild("PerformAbortTest")->getValue().compare("Perform");
 			Log(LOG_DEV_DATA, "HostInterface: Is Abort from PFS: %s", isPfsAbort ? "True" : "False");
@@ -1833,6 +1945,22 @@ bool HostInterface::ShouldProcessTestResults(const XmlNode *results)
 				processResults = false;
 			}
 		}
+        try
+        {//if intermediate results tag exists check for flag to report
+          bool isIntermediateResult = results->getChild(BEP_TEST_RESULT)->getChildren().find(BEP_INTERMEDIATE_OVERALL_RESULT) != 
+              results->getChild(BEP_TEST_RESULT)->getChildren().end();
+          if (!ReportIntermediateResults() && isIntermediateResult)
+          {
+              Log(LOG_DETAILED_DATA, "Skipping process results Parameter ReportIntermediateResults: %s, Intermediate Overall result node Present: %s",
+                      ReportIntermediateResults() ? "True" : "False",isIntermediateResult ?   "True" : "False");
+              processResults = false;
+          }
+        }
+        catch(XmlException &excpt)
+        {
+            Log(LOG_DEV_DATA, "HostInterface: IntermediateOverallResult tag not found, not checking if should report - %s",
+                excpt.GetReason());
+        }
 	}
 	catch(XmlException &excpt)
 	{
@@ -1890,6 +2018,19 @@ const bool& HostInterface::TestDataFileArchiveEnabled(const bool *archive /*= NU
 	return m_archiveResultFiles;
 }
 
+//-----------------------------------------------------------------------------
+const bool& HostInterface::SkipPerformAbortCheck(const bool *skip /*= NULL*/)
+{
+	if(skip != NULL)  m_skipPerformAbortCheck = *skip;
+	return m_skipPerformAbortCheck;
+}
+
+//-----------------------------------------------------------------------------
+const bool& HostInterface::ReportIntermediateResults(const bool *reportIntermediateResults /*= NULL*/)
+{
+	if(reportIntermediateResults != NULL)  m_reportIntermediateResults = *reportIntermediateResults;
+	return m_reportIntermediateResults;
+}
 
 //-----------------------------------------------------------------------------
 void HostInterface::LogTestResultData(const XmlNode *data)

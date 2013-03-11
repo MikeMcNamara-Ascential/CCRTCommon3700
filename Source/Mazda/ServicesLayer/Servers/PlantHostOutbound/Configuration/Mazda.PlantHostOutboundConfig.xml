@@ -2,7 +2,7 @@
     <!-- PlantHostOutbound config items -->
     <Setup>
         <Debug>Off</Debug>
-        <ReportAbortedTestResults>False</ReportAbortedTestResults>
+        <ReportAbortedTestResults>True</ReportAbortedTestResults>
         <Communication>
             <Type>Server</Type>
             <Debug>Off</Debug>
@@ -68,15 +68,15 @@
                     <VinIndex>0</VinIndex>
                     <MaxResponseTime>2000</MaxResponseTime>
                     <MaxAttempts>1</MaxAttempts>
-                    <ResultMap>/Configuration/Servers/PFSBaseMap.xml</ResultMap>
-                    <PFSDetailMap>/Configuration/Servers/PFSDetailMap.xml</PFSDetailMap>
+                    <ResultMap>/Configuration/Servers/ALCBaseMap.xml</ResultMap>
+                    <ALCDetailMap>/Configuration/Servers/ALCDetailMap.xml</ALCDetailMap>
                     <TestResultConversion>
-                        <Pass>P</Pass>
-                        <Fail>F</Fail>
-                        <Abort>A</Abort>
-                        <NotTested>Z</NotTested>
-                        <TestInProgress>A</TestInProgress>
-                        <Timeout>F</Timeout>
+                        <Pass>1</Pass>
+                        <Fail>0</Fail>
+                        <Abort>0</Abort>
+                        <NotTested>0</NotTested>
+                        <TestInProgress>0</TestInProgress>
+                        <Timeout>0</Timeout>
                         <Yes>Y</Yes>
                         <No>N</No>
                     </TestResultConversion>

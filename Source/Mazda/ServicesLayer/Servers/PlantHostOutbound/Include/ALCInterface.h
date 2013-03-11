@@ -38,6 +38,7 @@
 #ifndef ALC_INTERFACE_H_INCLUDED_
 #define ALC_INTERFACE_H_INCLUDED_
 
+const string plcDataTag("PlcDataTag");
 
 /**
  * This thread is spun up by HMMAPlantHostOutbound if the plant is equipped with ALC.
@@ -50,25 +51,25 @@
 class ALCInterface : public HostInterface
 {
 public:
-	/**
-	 * Class constructor.
-	 *
-	 * @param server Pointer to the server that created us.
-	 * @since Version 1.0
-	 */
-	ALCInterface();
-	/**
-	 * Class destructor.
-	 * @since Version 1.0
-	 */
-	virtual ~ALCInterface();
-	/**
-	 * Return the header information to be added to each PFS string.
-	 *
-	 * @return PFS Header information.
-	 * @since Version 1.0
-	 */
-	const std::string GetPFSHeader(void);
+    /**
+     * Class constructor.
+     *
+     * @param server Pointer to the server that created us.
+     * @since Version 1.0
+     */
+    ALCInterface();
+    /**
+     * Class destructor.
+     * @since Version 1.0
+     */
+    virtual ~ALCInterface();
+    /**
+     * Return the header information to be added to each PFS string.
+     *
+     * @return PFS Header information.
+     * @since Version 1.0
+     */
+    const std::string GetALCHeader(void);
 
 protected:
     /**
@@ -86,20 +87,20 @@ protected:
      * @return Result string to be transmitted to the host system.
      */
     virtual string GenerateHostResultString(const XmlNode *testResults);
-	/**
-	 * Update the test result string header if any information is dependant on test results.
-	 *
-	 * @param data   Data to update the header with.
-	 * @since Version 1.1
-	 */
-	virtual void UpdatePFSHeader(const INT32 &data);
-	/**
-	 * Set the information that will be constant for eac PFS record sent out.
-	 *
-	 * @param header Header information to use.
-	 * @since Version 1.0
-	 */
-	virtual void SetPFSHeader(const XmlNode *header);
+    /**
+     * Update the test result string header if any information is dependant on test results.
+     *
+     * @param data   Data to update the header with.
+     * @since Version 1.1
+     */
+    virtual void UpdateALCHeader(const INT32 &data);
+    /**
+     * Set the information that will be constant for eac PFS record sent out.
+     *
+     * @param header Header information to use.
+     * @since Version 1.0
+     */
+    virtual void SetALCHeader(const XmlNode *header);
     /**
      * Save/Retrieve the result detail map.
      * If the parameter is NULL, just the detail result string map will be returned.  Otherwise, 
@@ -116,6 +117,63 @@ protected:
      * @param result The result string to be sent.
      */
     virtual void SendResultToHost(const string &result);
+    /**
+     * Process the test result node, creating and sending the appropriate 
+     * messages to plant host.
+     * 
+     * @param testResults pointer to the test result node copied from the file.
+     */
+    virtual void DoResultProcessing(const XmlNode *testResults);
+    /**
+     * Translate the test result from Xml to a string to send to broadcast.
+     *
+     * @param testResult Test results read from the test result file.
+     * @param resultStringMap
+     *                   Map specifying how to build the result string.
+     * @param resultConversions
+     *                   Map specifying test result conversions.  For example: 
+     *                   Pass --> P.
+     * @param useVehicleBuild
+     *                   True - Use information from the vehicle build block of 
+     *                          the test result.
+     *                   False - Do not use information from the vehicle build 
+     *                           block, or the test results do not contain a 
+     *                           vehicle build block.
+     * @param allowSpaceInResult
+     *                   True - Allow spaces in the result fields.
+     *                   False - Spaces in each field will be translated to 
+     *                           underscores.
+     * @param totalSerialNumbers
+     *                   Count of serial numbers being reported in the test 
+     *                   result string.
+     * 
+     * @return Result string to send to external host.
+     */
+    void PrepareTestResultValues(const XmlNode *testResult,
+                                       const XmlNodeMap &resultStringMap,
+                                       const XmlNodeMap &resultConversions,
+                                       INT32 &totalSerialNumbers,
+                                       const bool &useVehicleBuild = true,
+                                       const bool &allowSpaceInResult = true);
+    /**
+     * Process the node from the map specifying how to build the result string.
+     *
+     * @param resultMapNode Result string field to build.
+     * @param testResults
+     *                The reported test results.
+     * @param vehicleData
+     *                The vehicle build information from the tested vehicle.
+     * @param resultConversions  The map specifying test result conversion. 
+     * @param totalSerialNumbers
+     *                The total number of Serial numbers reported in the test 
+     *                results.
+     * @return The data to place in the current result string field.
+     */
+    virtual const string ProcessMapNode(const XmlNode *resultMapNode,
+                                const XmlNodeMap &testResults,
+                                const XmlNodeMap &vehicleData,
+                                const XmlNodeMap &resultConversions,
+                                INT32 &totalSerialNumbers);
 
 private:
 
@@ -123,7 +181,7 @@ private:
      * The map for the detail section of the Test result string.  This map is specific to
      * each plant.
      */
-    XmlNodeMap   m_pfsDetailMap;
+    XmlNodeMap   m_alcDetailMap;
 };
 
 #endif // ALC_INTERFACE_H_INCLUDED_

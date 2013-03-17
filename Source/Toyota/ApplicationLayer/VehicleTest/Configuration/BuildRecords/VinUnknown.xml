@@ -1,11 +1,11 @@
 <Unknown>
    <VehicleBuild>
-      <BodyStyle>Blank</BodyStyle>
-      <Wheelbase Units="mm">0</Wheelbase>
-      <DriveAxle>Rear</DriveAxle>
-      <SpeedometerSpeedTargetLow Units="mph">0</SpeedometerSpeedTargetLow>
-      <SpeedometerSpeedTargetHi Units="mph">0</SpeedometerSpeedTargetHi>
-      <VIN/>
-      <MaxBrakeSamples Description="Number of samples to average to determine brake force" Units="count">30</MaxBrakeSamples>
+       <BodyStyle>Unknown</BodyStyle>
+       <Wheelbase Units="mm">0</Wheelbase>
+       <DriveAxle>Rear</DriveAxle>
+       <SpeedometerSpeedTargetLow Units="mph">0</SpeedometerSpeedTargetLow>
+       <SpeedometerSpeedTargetHi Units="mph">0</SpeedometerSpeedTargetHi>
+       <VIN/>
+       <MaxBrakeSamples Description="Number of samples to average to determine brake force" Units="count">30</MaxBrakeSamples>
    </VehicleBuild>
 </Unknown>

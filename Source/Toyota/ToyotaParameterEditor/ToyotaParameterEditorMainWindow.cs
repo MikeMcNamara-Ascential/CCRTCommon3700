@@ -114,11 +114,25 @@ namespace ToyotaParameterEditor
             String[] minSamples = {m_vehicleParameters.GetParameterDisplayText("MaxBrakeSamples"),
                                       m_vehicleParameters.GetVehicleParameter("MaxBrakeSamples"),
                                       m_vehicleParameters.GetParameterUnits("MaxBrakeSamples")};
+            String[] dragSamples = {m_vehicleParameters.GetParameterDisplayText("PreShiftDragSamples"),
+                                       m_vehicleParameters.GetVehicleParameter("PreShiftDragSamples"),
+                                       m_vehicleParameters.GetParameterUnits("PreShiftDragSamples")};
+            String[] maxDrag = {m_vehicleParameters.GetParameterDisplayText("MaxDragLimit"),
+                                   m_vehicleParameters.GetVehicleParameter("MaxDragLimit"),
+                                   m_vehicleParameters.GetParameterUnits("MaxDragLimit")};
             m_brakeDataGridView.Rows.Add(minFrontBrakeForce);
             m_brakeDataGridView.Rows.Add(minRearBrakeForce);
             m_brakeDataGridView.Rows.Add(maxFrontDiff);
             m_brakeDataGridView.Rows.Add(maxRearDiff);
             m_brakeDataGridView.Rows.Add(minSamples);
+            if (dragSamples[1] != " ")
+            {
+                m_brakeDataGridView.Rows.Add(dragSamples);
+            }
+            if (maxDrag[1] != " ")
+            {
+                m_brakeDataGridView.Rows.Add(maxDrag);
+            }
             // Park brake parameters
             String[] minParkBrakeForce = {m_vehicleParameters.GetParameterDisplayText("RequiredParkBrakeForce"), 
                                           m_vehicleParameters.GetVehicleParameter("RequiredParkBrakeForce"),

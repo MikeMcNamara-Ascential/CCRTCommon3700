@@ -127,14 +127,17 @@ string ToyotaBrakeTC::BrakeDistanceTest(void)
     if(!ShortCircuitTestStep())
     {   // Wait for vehicle speed to drop a bit
         DisplayPrompt(GetPromptBox("BrakeToStop"), GetPrompt("BrakeToStop"), GetPromptPriority("BrakeToStop"));
-        while((GetRollSpeed() > GetVehicleParameter("BrakeDistanceTestStartMeasureSpeed", (float)0.0)) &&
-              (BEP_STATUS_SUCCESS == StatusCheck()))
+		INT32 sampleInterval = GetParameterInt("BrakeDistanceSpeedSampleInterval");
+		float startSpeed = GetVehicleParameter("BrakeDistanceTestStartMeasureSpeed", (float)0.0);
+        while((SystemReadFloat("LFSpeed") > startSpeed) && (SystemReadFloat("RFSpeed") > startSpeed))
         {
-            BposSleep(100);
+            BposSleep(sampleInterval);
         }
         // Set the start distance
         WHEELINFO initialDistance;
         GetWheelDistances(initialDistance);
+		Log(LOG_DEV_DATA, "Distance measure started:  LF Speed: %.2f,  RF Speed: %.2f", 
+			SystemReadFloat("LFSpeed"), SystemReadFloat("RFSpeed"));
         // Wait for zero speed
         CheckZeroSpeed();
         RemovePrompt(GetPromptBox("ZeroSpeed"), GetPrompt("ZeroSpeed"), GetPromptPriority("ZeroSpeed"));
@@ -148,30 +151,34 @@ string ToyotaBrakeTC::BrakeDistanceTest(void)
         float circumference = 3.1415927 * GetParameterFloat("RollerDiameter");
 
         float revs = stoppingDistance.lfWheel / GetParameterFloat("PulsesPerRevolution");
-        float lfDist = (revs * circumference) / 39.36996;
+        float lfDist = (revs * circumference) / 39.36996;  // Convert the distance to meters - 39.36996 inches in a meter
         Log(LOG_DEV_DATA, "LF Stopping Distance: %.2f", lfDist);
-        bool lfPass = lfDist < GetVehicleParameter("FrontMaximumStoppingDistance", (float)0.0);
+        bool lfPass = ((lfDist < GetVehicleParameter("FrontMaximumStoppingDistance", (float)0.0)) &&
+					   (lfDist > GetVehicleParameter("FrontMinimumStoppingDistance", (float)0.0)));
         SystemWrite(GetDataTag("LFBrakeDistanceTag"), lfDist);
         SystemWrite(GetDataTag("LFBrakeDistanceColorTag"), lfPass ? string("green") : string("red"));
 
         revs = stoppingDistance.rfWheel / GetParameterFloat("PulsesPerRevolution");
-        float rfDist = (revs * circumference) / 39.36996;
+        float rfDist = (revs * circumference) / 39.36996;  // Convert the distance to meters - 39.36996 inches in a meter
         Log(LOG_DEV_DATA, "RF Stopping Distance: %.2f", rfDist);
-        bool rfPass = rfDist < GetVehicleParameter("FrontMaximumStoppingDistance", (float)0.0);
+        bool rfPass = ((rfDist < GetVehicleParameter("FrontMaximumStoppingDistance", (float)0.0)) &&
+					   (rfDist > GetVehicleParameter("FrontMinimumStoppingDistance", (float)0.0)));
         SystemWrite(GetDataTag("RFBrakeDistanceTag"), rfDist);
         SystemWrite(GetDataTag("RFBrakeDistanceColorTag"), rfPass ? string("green") : string("red"));
 
         revs = stoppingDistance.lrWheel / GetParameterFloat("PulsesPerRevolution");
-        float lrDist = (revs * circumference) / 39.36996;
+        float lrDist = (revs * circumference) / 39.36996;  // Convert the distance to meters - 39.36996 inches in a meter
         Log(LOG_DEV_DATA, "LR Stopping Distance: %.2f", lrDist);
-        bool lrPass = lrDist < GetVehicleParameter("RearMaximumStoppingDistance", (float)0.0);
+        bool lrPass = ((lrDist < GetVehicleParameter("RearMaximumStoppingDistance", (float)0.0)) &&
+					   (lrDist > GetVehicleParameter("RearMinimumStoppingDistance", (float)0.0)));
         SystemWrite(GetDataTag("LRBrakeDistanceTag"), lrDist);
         SystemWrite(GetDataTag("LRBrakeDistanceColorTag"), lrPass ? string("green") : string("red"));
 
         revs = stoppingDistance.rrWheel / GetParameterFloat("PulsesPerRevolution");
-        float rrDist = (revs * circumference) / 39.36996;
+        float rrDist = (revs * circumference) / 39.36996;  // Convert the distance to meters - 39.36996 inches in a meter
         Log(LOG_DEV_DATA, "RR Stopping Distance: %.2f", rrDist);
-        bool rrPass = rrDist < GetVehicleParameter("RearMaximumStoppingDistance", (float)0.0);
+        bool rrPass = ((rrDist < GetVehicleParameter("RearMaximumStoppingDistance", (float)0.0)) &&
+					   (rrDist > GetVehicleParameter("RearMinimumStoppingDistance", (float)0.0)));
         SystemWrite(GetDataTag("RRBrakeDistanceTag"), rrDist);
         SystemWrite(GetDataTag("RRBrakeDistanceColorTag"), rrPass ? string("green") : string("red"));
         // Determine the overall result
@@ -249,10 +256,28 @@ string ToyotaBrakeTC::MaxBrakeForceVerification(void)
                                                           GetVehicleParameter("RequiredBrakeForceRear", (float)0.0),
                                                           brakeData, GetVehicleParameter("MaxBrakeSamples", (int)0.0));
             // Set the result colors on the screen
-			lfMaxForce = accumulate(brakeData[LFWHEEL].forceSamples.begin(),
-									brakeData[LFWHEEL].forceSamples.end(), 0.0) / brakeData[LFWHEEL].forceSamples.size();
-			rfMaxForce = accumulate(brakeData[RFWHEEL].forceSamples.begin(),
-									brakeData[RFWHEEL].forceSamples.end(), 0.0) / brakeData[RFWHEEL].forceSamples.size();
+			if(brakeData[LFWHEEL].forceSamples.size() > 0)
+			{
+				lfMaxForce = accumulate(brakeData[LFWHEEL].forceSamples.begin(),
+										brakeData[LFWHEEL].forceSamples.end(), 0.0) / brakeData[LFWHEEL].forceSamples.size();
+				Log(LOG_DEV_DATA, "LF Max Force: %.2f, samples: %d", lfMaxForce, brakeData[LFWHEEL].forceSamples.size());
+			}
+			else
+			{
+				lfMaxForce = 0.0;
+				Log(LOG_ERRORS, "LF MAX Force not measured, no samples collected");
+			}
+			if(brakeData[RFWHEEL].forceSamples.size() > 0)
+			{
+				rfMaxForce = accumulate(brakeData[RFWHEEL].forceSamples.begin(),
+										brakeData[RFWHEEL].forceSamples.end(), 0.0) / brakeData[RFWHEEL].forceSamples.size();
+				Log(LOG_DEV_DATA, "RF Max Force: %.2f, samples: %d", rfMaxForce, brakeData[RFWHEEL].forceSamples.size());
+			}
+			else
+			{
+				rfMaxForce = 0.0;
+				Log(LOG_ERRORS, "RF MAX Force not measured, no samples collected");
+			}
             SystemWrite(brakeData[LFWHEEL].displayTag, lfMaxForce);
             SystemWrite(brakeData[RFWHEEL].displayTag, rfMaxForce);
             SystemWrite(GetDataTag("LFMaxBrakeForceColorTag"), 
@@ -303,10 +328,28 @@ string ToyotaBrakeTC::MaxBrakeForceVerification(void)
                                                          GetVehicleParameter("RequiredBrakeForceRear", (float)0.0),
                                                          brakeData, GetVehicleParameter("MaxBrakeSamples", (int)0));
             // Set the result colors on the screen
-			lrMaxForce = accumulate(brakeData[LRWHEEL].forceSamples.begin(),
-									brakeData[LRWHEEL].forceSamples.end(), 0.0) / brakeData[LRWHEEL].forceSamples.size();
-			rrMaxForce = accumulate(brakeData[RRWHEEL].forceSamples.begin(),
-									brakeData[RRWHEEL].forceSamples.end(), 0.0) / brakeData[RRWHEEL].forceSamples.size();
+			if(brakeData[LRWHEEL].forceSamples.size() > 0)
+			{
+				lrMaxForce = accumulate(brakeData[LRWHEEL].forceSamples.begin(),
+										brakeData[LRWHEEL].forceSamples.end(), 0.0) / brakeData[LRWHEEL].forceSamples.size();
+				Log(LOG_DEV_DATA, "LR Max Force: %.2f, samples: %d", lrMaxForce, brakeData[LRWHEEL].forceSamples.size());
+			}
+			else
+			{
+				lrMaxForce = 0.0;
+				Log(LOG_ERRORS, "LR MAX Force not measured, no samples collected");
+			}
+			if(brakeData[RRWHEEL].forceSamples.size() > 0)
+			{
+				rrMaxForce = accumulate(brakeData[RRWHEEL].forceSamples.begin(),
+										brakeData[RRWHEEL].forceSamples.end(), 0.0) / brakeData[RRWHEEL].forceSamples.size();
+				Log(LOG_DEV_DATA, "RR Max Force: %.2f, samples: %d", rrMaxForce, brakeData[RRWHEEL].forceSamples.size());
+			}
+			else
+			{
+				rrMaxForce = 0.0;
+				Log(LOG_ERRORS, "RR MAX Force not measured, no samples collected");
+			}
             SystemWrite(brakeData[LRWHEEL].displayTag, lrMaxForce);
             SystemWrite(brakeData[RRWHEEL].displayTag, rrMaxForce);
             SystemWrite(GetDataTag("LRMaxBrakeForceColorTag"), 
@@ -519,7 +562,7 @@ string ToyotaBrakeTC::MaxBrakeForceCalibration(void)
         // Wait between updates
         BposSleep(GetTestStepInfoInt("ScanDelay"));
         // Keep looping until complete
-    } while(TimeRemaining() && !calibrationComplete && (BEP_STATUS_SUCCESS == StatusCheck()));
+    } while(/*TimeRemaining() && */!calibrationComplete && (BEP_STATUS_SUCCESS == StatusCheck()));
     // Log the exit and return Pass
     Log(LOG_FN_ENTRY, "ToyotaBrakeTC::MaxBrakeForceCalibration() - Enter");
     return testPass;
@@ -562,10 +605,30 @@ string ToyotaBrakeTC::ParkBrakeForceVerification(void)
         RemovePrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
         RemovePrompt(GetPromptBox("ApplyParkBrake"), GetPrompt("ApplyParkBrake"), GetPromptPriority("ApplyParkBrake"));
         // Display the results on the screen
-		float lrMaxForce = accumulate(brakeData[LRWHEEL].forceSamples.begin(), 
-									  brakeData[LRWHEEL].forceSamples.end(), 0.0) / brakeData[LRWHEEL].forceSamples.size();
-		float rrMaxForce = accumulate(brakeData[RRWHEEL].forceSamples.begin(), 
-									  brakeData[RRWHEEL].forceSamples.end(), 0.0) / brakeData[RRWHEEL].forceSamples.size();
+		float lrMaxForce = 0.0;
+		float rrMaxForce = 0.0;
+		if(brakeData[LRWHEEL].forceSamples.size() > 0)
+		{
+			lrMaxForce = accumulate(brakeData[LRWHEEL].forceSamples.begin(), 
+									brakeData[LRWHEEL].forceSamples.end(), 0.0) / brakeData[LRWHEEL].forceSamples.size();
+			Log(LOG_DEV_DATA, "LR Park Brake Force: %.2f, samples: %d", lrMaxForce, brakeData[LRWHEEL].forceSamples.size());
+		}
+		else
+		{
+			lrMaxForce = 0.0;
+			Log(LOG_ERRORS, "LR Park Brake Force not measured, no samples collected");
+		}
+		if(brakeData[RRWHEEL].forceSamples.size() > 0)
+		{
+			rrMaxForce = accumulate(brakeData[RRWHEEL].forceSamples.begin(), 
+									brakeData[RRWHEEL].forceSamples.end(), 0.0) / brakeData[RRWHEEL].forceSamples.size();
+			Log(LOG_DEV_DATA, "RR Park Brake Force: %.2f, samples: %d", rrMaxForce, brakeData[RRWHEEL].forceSamples.size());
+		}
+		else
+		{
+			rrMaxForce = 0.0;
+			Log(LOG_ERRORS, "RR Park Brake Force not measured, no samples collected");
+		}
         SystemWrite(brakeData[LRWHEEL].displayTag, lrMaxForce);
         SystemWrite(brakeData[RRWHEEL].displayTag, rrMaxForce);
         SystemWrite(GetDataTag("LRParkBrakeForceColorTag"), 
@@ -692,7 +755,7 @@ string ToyotaBrakeTC::ParkBrakeForceCalibration(void)
                                (totalForce >= GetVehicleParameter("MinimumTotalParkBrakeForce", (float)0.0)));
         // Wait a bit before the next run
         BposSleep(GetTestStepInfoInt("ScanDelay"));
-    } while(TimeRemaining() && !calibrationComplete && (BEP_STATUS_SUCCESS == StatusCheck()));
+    } while(/*TimeRemaining() && */!calibrationComplete && (BEP_STATUS_SUCCESS == StatusCheck()));
     // Log the exit and return pass
     Log(LOG_FN_ENTRY, "ToyotaBrakeTC::ParkBrakeForceCalibration() - Exit");
     return testPass;
@@ -707,6 +770,19 @@ string ToyotaBrakeTC::PreShiftCheck(void)
     // Make sure both front and rear rollers spin
     bool checkoutComplete = false;
     WHEELINFO rollerSpeed;
+	MaxBrakeData brakeData[GetRollerCount()];
+	brakeData[LFWHEEL].currentForceTag = GetDataTag("LFCurrentForce");
+	brakeData[RFWHEEL].currentForceTag = GetDataTag("RFCurrentForce");
+	brakeData[LRWHEEL].currentForceTag = GetDataTag("LRCurrentForce");
+	brakeData[RRWHEEL].currentForceTag = GetDataTag("RRCurrentForce");
+	brakeData[LFWHEEL].displayTag = GetDataTag("LFMaxBrakeForceTag");
+	brakeData[RFWHEEL].displayTag = GetDataTag("RFMaxBrakeForceTag");
+	brakeData[LRWHEEL].displayTag = GetDataTag("LRMaxBrakeForceTag");
+	brakeData[RRWHEEL].displayTag = GetDataTag("RRMaxBrakeForceTag");
+	SystemWrite(GetDataTag("LFMaxBrakeForceColorTag"), GetParameter("TestInProgressColor"));
+	SystemWrite(GetDataTag("RFMaxBrakeForceColorTag"), GetParameter("TestInProgressColor"));
+	SystemWrite(GetDataTag("LRMaxBrakeForceColorTag"), GetParameter("TestInProgressColor"));
+	SystemWrite(GetDataTag("RRMaxBrakeForceColorTag"), GetParameter("TestInProgressColor"));
     do
     {   // Get the current roller speed
         GetWheelSpeeds(rollerSpeed);
@@ -714,13 +790,54 @@ string ToyotaBrakeTC::PreShiftCheck(void)
         BposSleep(250);
     } while(!checkoutComplete && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
     // Let the rollers run until we timeout
-    while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()))  BposSleep(500);
+	double startTime = (double)(GetTestStepInfoInt("Timeout") - (GetVehicleParameter("PreShiftDragSamples", 0) * GetParameterInt("LoadCellReadingDelay")));
+	Log(LOG_DEV_DATA, "Collecting %d samples for drag testing starting at %dms from end of cycle",
+		GetParameterInt("PreShiftDragSamples"), (int)startTime);
+    while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()))
+	{
+		if(GetElapsedTime() >= startTime)
+		{
+			ReadCurrentLoadCellValues(brakeData, LFWHEEL);
+			for(int wheel = LFWHEEL; wheel <= RRWHEEL; wheel++)
+			{
+				brakeData[wheel].forceSamples.push_back(brakeData[wheel].currentForce);
+			}
+		}
+		BposSleep(GetParameterInt("LoadCellReadingDelay"));
+	}
     // Turn off the high torque motors
     SystemWrite(GetDataTag("EngageHighTorqueMotor"), false);
     SystemWrite(GetDataTag("EngageParkBrakeMotors"), false);
+	// Display the averages
+	float lfDrag = accumulate(brakeData[LFWHEEL].forceSamples.begin(), brakeData[LFWHEEL].forceSamples.end(), 0.0) / brakeData[LFWHEEL].forceSamples.size();
+	float rfDrag = accumulate(brakeData[RFWHEEL].forceSamples.begin(), brakeData[RFWHEEL].forceSamples.end(), 0.0) / brakeData[RFWHEEL].forceSamples.size();
+	float lrDrag = accumulate(brakeData[LRWHEEL].forceSamples.begin(), brakeData[LRWHEEL].forceSamples.end(), 0.0) / brakeData[LRWHEEL].forceSamples.size();
+	float rrDrag = accumulate(brakeData[RRWHEEL].forceSamples.begin(), brakeData[RRWHEEL].forceSamples.end(), 0.0) / brakeData[RRWHEEL].forceSamples.size();
+	Log(LOG_DEV_DATA, "Collected %d samples - Drag Forces - LF: %.2f, RF: %.2f, LR: %.2f, RR: %.2f",
+		brakeData[LFWHEEL].forceSamples.size(), lfDrag, rfDrag, lrDrag, rrDrag);
+	SystemWrite(brakeData[LFWHEEL].displayTag, lfDrag);
+	SystemWrite(brakeData[RFWHEEL].displayTag, rfDrag);
+	SystemWrite(brakeData[LRWHEEL].displayTag, lrDrag);
+	SystemWrite(brakeData[RRWHEEL].displayTag, rrDrag);
+	SystemWrite(GetDataTag("LFMaxBrakeForceColorTag"), 
+				lfDrag <= GetVehicleParameter("MaxDragLimit", (float)0.0) ? string("green") : string("red"));
+	SystemWrite(GetDataTag("RFMaxBrakeForceColorTag"), 
+				rfDrag <= GetVehicleParameter("MaxDragLimit", (float)0.0) ? string("green") : string("red"));
+	SystemWrite(GetDataTag("LRMaxBrakeForceColorTag"), 
+				lrDrag <= GetVehicleParameter("MaxDragLimit", (float)0.0) ? string("green") : string("red"));
+	SystemWrite(GetDataTag("RRMaxBrakeForceColorTag"), 
+				rrDrag <= GetVehicleParameter("MaxDragLimit", (float)0.0) ? string("green") : string("red"));
+	TestResultDetails testData;
+	string testResult = checkoutComplete ? testPass : testFail;
+	char buff[80];
+	testData.AddDetail("LFDragForce", CreateMessage(buff, sizeof(buff), "%.2f", lfDrag), unitsKGF);
+	testData.AddDetail("RFDragForce", CreateMessage(buff, sizeof(buff), "%.2f", rfDrag), unitsKGF);
+	testData.AddDetail("LRDragForce", CreateMessage(buff, sizeof(buff), "%.2f", lrDrag), unitsKGF);
+	testData.AddDetail("RRDragForce", CreateMessage(buff, sizeof(buff), "%.2f", rrDrag), unitsKGF);
+	SendTestResultWithDetail(testResult, testData, GetTestStepInfo("Description"), "0000");
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "ToyotaBrakeTC::PreShiftCheck() - Enter");
-    return checkoutComplete ? testPass : testFail;
+    return testResult;
 }
 
 //-------------------------------------------------------------------------------------------------

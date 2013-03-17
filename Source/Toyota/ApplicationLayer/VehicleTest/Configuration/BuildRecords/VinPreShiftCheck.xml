@@ -23,6 +23,8 @@
       <MaxFrontDifference Units="kgf">45.0</MaxFrontDifference>
       <MaxRearDifference Units="kgf">25.0</MaxRearDifference>
       <MaxBrakeSamples Description="Number of samples to average to determine brake force" Units="count">30</MaxBrakeSamples>
+      <PreShiftDragSamples Units="count">30</PreShiftDragSamples>
+      <MaxDragLimit Units="kgf">50</MaxDragLimit>
       <!-- Park Brake Force Parameters -->
       <RequiredParkBrakeForce Units="kgf">125.0</RequiredParkBrakeForce>
       <MinimumTotalParkBrakeForce Units="kgf">250.0</MinimumTotalParkBrakeForce>

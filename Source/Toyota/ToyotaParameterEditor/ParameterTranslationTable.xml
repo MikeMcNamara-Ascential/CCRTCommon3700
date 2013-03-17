@@ -18,7 +18,9 @@
     <MaxBrakeSamples>Minimum Brake Samples Required</MaxBrakeSamples>
 	<RequiredParkBrakeForce>Minimum Park Brake Force</RequiredParkBrakeForce>
 	<MinimumTotalParkBrakeForce>Minimum Total Park Brake Force</MinimumTotalParkBrakeForce>
-
+    <PreShiftDragSamples>Number of Drag Samples</PreShiftDragSamples>
+    <MaxDragLimit>Maximum Drag Force Limit</MaxDragLimit>
+    
 	<!-- Transmission Shift Point Parameters -->
 	<ShiftPoint1-2LowNormalAccel>1 - 2 Normal</ShiftPoint1-2LowNormalAccel>
 	<ShiftPoint2-3LowNormalAccel>2 - 3 Normal</ShiftPoint2-3LowNormalAccel>

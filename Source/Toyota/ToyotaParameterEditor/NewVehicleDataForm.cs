@@ -129,10 +129,10 @@ namespace ToyotaParameterEditor
                 {
                     m_updatedFiles.Add(imageFileName);
                 }
+                // Get the pushbutton number and update the CCRT files
+                PushButtonNumber = m_vehicleButtonNumberComboBox.Items[m_vehicleButtonNumberComboBox.SelectedIndex].ToString();
+                UpdateCcrtFiles();
             }
-            // Get the pushbutton number and update the CCRT files
-            PushButtonNumber = m_vehicleButtonNumberComboBox.Items[m_vehicleButtonNumberComboBox.SelectedIndex].ToString();
-            UpdateCcrtFiles();
             // Hide the window
             Visible = false;
         }

@@ -277,11 +277,11 @@
 
         <MaxBrakeForceMeasurement Result="" Timeout="1200000" Description="Verify vehicle is producing required brake force" ScanDelay="100"/>
 
-        <MaxBrakeForceCalibration Result="" Timeout="1200000" Description="Calibrate brake force readings" ScanDelay="100"/>
+        <MaxBrakeForceCalibration Result="" Timeout="5000" Description="Calibrate brake force readings" ScanDelay="100"/>
 
         <ParkBrakeForceMeasurement Result="" Timeout="15000" Description="Verify park brake is adjusted properly" ScanDelay="100"/>
 
-        <ParkBrakeForceCalibration Result="" Timeout="1200000" Description="Calibrate park brake readings" ScanDelay="100"/>
+        <ParkBrakeForceCalibration Result="" Timeout="5000" Description="Calibrate park brake readings" ScanDelay="100"/>
 
         <TractionControlTest Result="" Timeout="10000" Description="Check Traction Control System" ScanDelay="500"/>
     </TestSteps>

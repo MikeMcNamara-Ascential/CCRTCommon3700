@@ -35,7 +35,7 @@
                 <Outputs>
                     <Address>$N16</Address>
                 </Outputs>
-                <ScanTime>200</ScanTime>
+                <ScanTime>100</ScanTime>
             </MainDf1Plc>
             <MainV30BPlc type="V30B" index="0" active="No">
                 <BaseAddress>AUTO</BaseAddress>

@@ -400,9 +400,41 @@ void ParseLine(std::string line, DataControlBlock &dcb, bool start, const std::s
         if (!start) dcb[dcbIndex++].second.data.push_back(tempPair.first);
         else dcb.push_back(tempPair);
     }
-    start = false;
     if (debug) printf("SimulationServer::ParseLine(%s) done\n", line.c_str());
 }
+
+void SplitString(string input, vector<string> &output, const string delimiter, bool endDelimiterPresent)// = true
+{
+    string temp;
+    std::string::size_type endIndex = 0;    // Data pointers
+    if (!endDelimiterPresent)
+    {//if last character is a delimiter ("" value after) add another
+        if (input[input.length() - 1] == delimiter[0])
+        {
+            input = input+delimiter;
+        }
+    }
+    input = endDelimiterPresent ? input : input + delimiter;
+    while (input.length() > 1)
+    {
+        endIndex = input.find(delimiter.c_str());    // Find next delimiter
+        if (endIndex != string::npos)
+        {
+            temp = input.substr(0, endIndex);
+            input = input.substr(endIndex+1, input.length() - temp.length());
+
+            output.push_back(temp);
+
+        }
+        else
+        {//no delimiter found
+            output.push_back(input);
+            break;
+        }
+    }
+
+}
+
 const UINT16 CalculateCheckSum(const std::string &data)
 {
     UINT16 checkSum = 0;

@@ -322,7 +322,8 @@ TestResultServer::TestResultServer() : BepServer(), m_testResultFile(""),
 m_numberOfTests(0), m_sequenceNumber(0), m_semVehicleBuild(1), m_vehicleBuild(NULL),
     m_allFailures("temp",""), m_reportedDTC(DTC_TAG,""), m_testInProgress(false),
     m_forceArrayInResults( false), m_forceArrayFile(""), m_speedArrayInResults( false),
-    m_speedArrayFile(""), m_updatePlcLamps(false),m_clearResultsOnOverall(true),m_inCycleTestNumber(0)
+    m_speedArrayFile(""), m_updatePlcLamps(false),m_clearResultsOnOverall(true),m_inCycleTestNumber(0),
+    m_interCcrtServerComm(NULL)
 {
 }
 
@@ -450,6 +451,22 @@ void TestResultServer::Initialize(const XmlNode *document)
 		}
 		PassConfirmationFilePath(&path);
 	}
+
+	// Determine if results should be imported from InterCcrtCommServer
+	bool importInterCcrtCommServerResults = false;
+	try
+	{
+		importInterCcrtCommServerResults = atob(document->getChild("Setup/ImportCcrtCommServerResults")->getValue().c_str());
+		Log(LOG_DEV_DATA, "Import Inter Ccrt Comm Server Results: %s", (importInterCcrtCommServerResults)?"yes":"no");
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Import Inter Ccrt Comm Server Results not configured: %s",
+			excpt.GetReason());
+		importInterCcrtCommServerResults = false;
+	}
+	ImportInterCcrtResults(&importInterCcrtCommServerResults);
+
 }
 
 //-----------------------------------------------------------------------------
@@ -461,6 +478,25 @@ const string TestResultServer::Register(void)
     {
         Log(LOG_DEV_DATA, "Connected to QNX Data Server: %s", 
             ConvertStatusToResponse(m_qnxDataServer.ConnectToQnxDataServer()).c_str());
+    }
+
+    if(ImportInterCcrtResults())
+    {
+        try
+        {
+            // Create a new comm object to the static tester server
+            Log(LOG_DEV_DATA, "Creating comm object for Inter Ccrt Comm Server");
+            if (m_interCcrtServerComm == NULL)
+            {
+                Log(LOG_DEV_DATA, "Creating comm object for core/InterCcrtCommServer...");
+                m_interCcrtServerComm = new IBepCommunication();
+                m_interCcrtServerComm->Initialize("core/InterCcrtCommServer", "Client", IsDebugOn(), 5000);
+            }
+        }
+        catch (BepException &e)
+        {
+            Log(LOG_ERRORS, "Error creating inter ccrt server comm object %s: %s\n", GetProcessName().c_str(), e.what());
+        }
     }
     return result;
 }
@@ -1284,9 +1320,15 @@ const std::string TestResultServer::ReportResults(void)
                     Log(LOG_ERRORS, "Error writing vehicle build info to test result file for VIN:%s, Reason:%s\n",
                         GetCurrentVin().c_str(), e.what());
                 }
+
             }
             // Write the results and close the file
             fprintf(outFile, "<%s>", BEP_TEST_RESULT);
+
+            if (ImportInterCcrtResults() && GetCurrentVin() != GetLossCompensationVin())
+            {//inter ccrt comm results should be imported request result by identifier
+               AddInterCcrtCommServerResults(outFile);
+            }
             if(m_data.Lock() == EOK)
             {
                 for (XmlNodeMapItr iter = m_data.begin(); iter != m_data.end(); iter++)
@@ -1437,6 +1479,50 @@ void TestResultServer::ClearAllReportedDTCs()
     else
     {
         Log(LOG_ERRORS, "TestResultServer::ClearAllReportedDTCs() was unable to clear reported DTCs!\n");
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+void TestResultServer::AddInterCcrtCommServerResults( FILE* &outFile)
+{
+    Log(LOG_FN_ENTRY, "Importing Inter Ccrt Comm Server Results");
+    XmlNode resultRequest(GetDataTag("TestResult"), GetCurrentVin());
+    string response;
+    XmlParser parser;
+    INT32 status = m_interCcrtServerComm->Read(&resultRequest, response, true);
+    Log(LOG_DEV_DATA, "Test result read status: %s", ConvertStatusToResponse(status).c_str());
+    if(BEP_STATUS_SUCCESS == status)
+    {//write to file
+
+        string resultFile, tag;
+        m_interCcrtServerComm->GetNext(tag, resultFile, response);
+        XmlNodeMap *testResults = NULL;
+        try
+        {
+            Log(LOG_DEV_DATA, "Loading test result file: %s", resultFile.c_str()); 
+            testResults = const_cast<XmlNodeMap *>(&parser.ReturnXMLDocument(resultFile)->getChildren());
+
+            for(XmlNodeMapItr iter = testResults->begin(); iter != testResults->end(); iter++)
+            {
+                Log(LOG_DETAILED_DATA, "Wrote node to file: %s\n",iter->second->ToString().c_str());
+                fprintf(outFile, "%s",iter->second->ToString().c_str());
+            }
+        }
+        catch(XmlException &excpt)
+        {
+            testResults = NULL;
+            Log(LOG_ERRORS, "Could not load ccrt comm test result file, not using ccrt comm results: %s", excpt.GetReason());
+        }
+        catch(BepException &excpt)
+        {
+            testResults = NULL;
+            Log(LOG_ERRORS, "Could not load ccrt comm test result file, not using ccrt comm results: %s", excpt.GetReason());
+        }
+
+    }
+    else
+    {
+        Log( LOG_ERRORS, "Unable to obtain InterCcrtCommServerResults for %s\n", GetCurrentVin().c_str());
     }
 }
 
@@ -1862,6 +1948,13 @@ const bool& TestResultServer::GeneratePassConfirmationFile(const bool *create/*=
 {
 	if(create != NULL)  m_createPassConfirmationFile = *create;
 	return m_createPassConfirmationFile;
+}
+
+//-----------------------------------------------------------------------------
+const bool& TestResultServer::ImportInterCcrtResults(const bool *import/*=NULL*/)
+{
+	if(import != NULL)  m_importInterCcrtCommServerResults = *import;
+	return m_importInterCcrtCommServerResults;
 }
 
 //-----------------------------------------------------------------------------

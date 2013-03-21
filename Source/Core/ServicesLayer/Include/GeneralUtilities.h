@@ -278,6 +278,18 @@ void LoadDataFile(const std::string &file, DataControlBlock &dcb, const std::str
  * @since Version 1.0
  */
 void ParseLine(std::string line, DataControlBlock &dcb, bool start, const std::string delimiter, const bool debug);
+
+
+/**
+ * Split string by specified delimiter (delimiter is removed)
+ *
+ * @param input     string of data to split
+ * @param output    output vector of strings
+ * @param delimiter Delimiter between strings in the line
+ * @since Version 1.0
+ */
+void SplitString(string input, vector<string> &output, const string delimiter, bool endDelimiterPresent = true);
+
 /**
  * Calculate the cheksum for the specified data by summing up all the bytes.
  *

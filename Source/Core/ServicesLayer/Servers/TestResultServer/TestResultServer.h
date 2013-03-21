@@ -879,6 +879,12 @@ private:
      * @param tag Tag to use for the error code node.
      */
     inline void SetErrorCodeTestTag(const string &tag);
+    /**
+     * Adds results from inter ccrt comm server
+     *      
+     * @param outFile  Handle to the vehicle test result file to write the speed data to
+     */
+    void AddInterCcrtCommServerResults( FILE* &outFile);
 
 private:
 	/**
@@ -903,6 +909,16 @@ private:
 	 * @return Flag indicating if a pass confirmation file should be generated.
 	 */
 	const bool& GeneratePassConfirmationFile(const bool *create=NULL);
+
+
+	/**
+	 * Get/Set the flag indicating if inter ccrt comm server results should be imported.
+	 * 
+	 * @param create Flag indicating inter ccrt comm server results should be imported.
+	 * 
+	 * @return Flag indicating inter ccrt comm server results should be imported.
+	 */
+	const bool& ImportInterCcrtResults(const bool *import=NULL);
 
 	/**
 	 * Get/Set the directory to use for storing pass confirmation files.
@@ -1107,6 +1123,15 @@ private:
 	/** Flag to determine if a pass confirmation file should be generated */
 	bool m_createPassConfirmationFile;
     int m_inCycleTestNumber;
+    /**
+     * Communication object to retrieve static test results from the inter ccrt communication server.
+     * 
+     * @see IBepCommunication
+     * @see InterCcrtCommServer
+     */
+    IBepCommunication *m_interCcrtServerComm;
+    bool m_importInterCcrtCommServerResults;
+         
 };
 #endif  //TestResultServer_h
 

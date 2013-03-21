@@ -234,6 +234,46 @@
                   </CommLog>
                </Setup>
             </RightMapleKeypad>
+            <SideSlipTester enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <IpAddress>172.16.7.116</IpAddress>
+                    <PortNo>3000</PortNo>
+                    <TcpType>Client</TcpType>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/SideSlipTester</ProcessName>
+                        <AdditionalLogFile>/Communication/SideSlipTesterComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x3F</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <AdditionalLogFile>/Communication/SideSlipTester_BusComm.log</AdditionalLogFile>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+                <Verbose>0x1F</Verbose>
+            </SideSlipTester>
         </LogicalPorts>
     </Setup>
 </SerialServerConfig>

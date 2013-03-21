@@ -4,6 +4,7 @@
         <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>
         <SpeedArrayPath>/TestResults/Machine/BrakeForceData/Speed1.log</SpeedArrayPath>
         <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce1.log</ForceArrayPath>
+        <ImportCcrtCommServerResults>Yes</ImportCcrtCommServerResults>
         <Debug>Off</Debug>
         <IncludeAbortInAllFailures Value="Yes or No">Yes</IncludeAbortInAllFailures>
         <VINLength>17</VINLength>

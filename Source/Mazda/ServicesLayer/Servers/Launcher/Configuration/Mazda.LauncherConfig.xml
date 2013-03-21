@@ -108,12 +108,14 @@
             ConfigFile="ABMotorControllerConfig.xml" ConfigPath="/Configuration/Machine/" 
             OrderToLaunch="0500" RegisteredName="core/MotorController" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Motor Controller</MotorController>
-
+        <InterCcrtCommServer Name="InterCcrtCommServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="InterCcrtCommServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0600" RegisteredName="core/InterCcrtCommServer" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Side slip tester comms</InterCcrtCommServer>
         <VehicleTest Name="VehicleTest.qxe" Path="/ApplicationLayer/Bin/" 
             ConfigFile="VehicleTestConfig.xml" ConfigPath="/Configuration/VehicleTest/" 
             OrderToLaunch="1000" RegisteredName="application/VehicleTest" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Test Server</VehicleTest>
-
     </TasksToLaunch>
     <DoNotLaunch>
         <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 

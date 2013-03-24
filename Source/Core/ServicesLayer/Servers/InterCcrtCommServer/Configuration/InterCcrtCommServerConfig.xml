@@ -28,6 +28,8 @@
               <PortReconnectDelay Units="ms">1000</PortReconnectDelay>
               <InterCcrtCommResponseTime Units="ms">500</InterCcrtCommResponseTime>
               <ReconnectAttempts>10</ReconnectAttempts>
+              <IsBomConnection>Yes</IsBomConnection>
+              <IsResultConnection>Yes</IsResultConnection>
               <SendKeepAlive>No</SendKeepAlive>
               <Setup>
                   <Communication>

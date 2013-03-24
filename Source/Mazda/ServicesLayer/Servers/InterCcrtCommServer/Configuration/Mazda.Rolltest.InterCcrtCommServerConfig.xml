@@ -1,0 +1,93 @@
+<InterCcrtCommServer>
+   <Setup>
+      <TagList>
+         <SubscribeTags>
+            <!-- StaticTesterVIN/>
+            <VIN/ -->
+            <Abort/>
+            <VehicleBuild/>
+         </SubscribeTags>
+      </TagList>
+      <Debug>Off</Debug>
+      <Parameters>
+         <BuildFilePath>/Configuration/VehicleTest/BuildRecords/Ccts</BuildFilePath>
+         <TestResultPath>/TestResults/Ccts</TestResultPath>
+         <FileLifeTime Units="seconds">900</FileLifeTime>
+         <DataFileTimer Units="ms">10000</DataFileTimer>
+      </Parameters>
+      <DataTags>
+          <PlantHostServer>core/WorkCellController</PlantHostServer>
+          <VehicleBuild>VehicleBuild</VehicleBuild>
+          <BuildPartId>VIN</BuildPartId>
+      </DataTags>
+      <InterCcrtCommList>
+          <Tester1 enabled="1">
+              <ValidCommTimeSpan Units="seconds">10</ValidCommTimeSpan>
+              <CommPort>SideSlipTester</CommPort>
+              <PortRegisterDelay Units="ms">500</PortRegisterDelay>
+              <PortReconnectDelay Units="ms">1000</PortReconnectDelay>
+              <InterCcrtCommResponseTime Units="ms">500</InterCcrtCommResponseTime>
+              <ReconnectAttempts>10</ReconnectAttempts>
+              <IsBomConnection>No</IsBomConnection>
+              <IsResultConnection>Yes</IsResultConnection>
+              <SendKeepAlive>No</SendKeepAlive>
+              <Setup>
+                  <Communication>
+                      <Name>/dev/LogicalPorts/SideSlipTester</Name>
+                      <BufferSize>2000</BufferSize>
+                      <Timeout>50</Timeout>
+                      <Debug>Off</Debug>
+                  </Communication>
+                  <Logging>
+                      <ProcessName>SideSlipTesterComms</ProcessName>
+                      <Status>Enabled</Status>
+                      <AdditionalLogFile Types="/Communication/SideSlipTesterComms.log">/Communication/SideSlipTesterComms.log</AdditionalLogFile>
+                      <Debug>Off</Debug>
+                      <LocalEcho>Disabled</LocalEcho>
+                      <Verbose>0x3F</Verbose>
+                  </Logging>
+                  <MaxAttempts>3</MaxAttempts>
+                  <MaxResponseTime>5000</MaxResponseTime>
+                  <MessageDelay>5000</MessageDelay>
+              </Setup>
+          </Tester1>
+      </InterCcrtCommList>
+      <Communication>
+         <Type>Server</Type>
+         <Debug>Off</Debug>
+         <Name>core/InterCcrtCommServer</Name>
+         <Comm>IPC</Comm>
+         <Timeout>1000</Timeout>
+         <BufferSize>2000</BufferSize>
+      </Communication>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/InterCcrtCommServer</ProcessName>
+         <AdditionalLogFile Types="/Servers/InterCcrtCommServer.log">/Servers/InterCcrtCommServer.log</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x3F</Verbose>
+      </Logging>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>7</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+      <SystemFaults>
+         <SideSlipTesterPortNotConnected Name="SideSlipTesterNotConnected" Severity="1" Description="Side Slip Tester Not Connected">Side Slip Tester Not Connected</SideSlipTesterPortNotConnected>
+      </SystemFaults>
+   </Setup>
+</InterCcrtCommServer>

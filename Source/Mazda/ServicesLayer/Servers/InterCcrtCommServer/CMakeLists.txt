@@ -1,7 +1,4 @@
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
-INSTALL_FILES(${CUSTOMER_SERVICES_CFG_DEPLOY_DIR} FILES
-	      Mazda.Braketest.SerialServerConfig.xml
-	      Mazda.Rolltest.SerialServerConfig.xml
-	      )
+ADD_SUBDIRECTORY(Configuration)

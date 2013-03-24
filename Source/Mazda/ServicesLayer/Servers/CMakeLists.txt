@@ -2,6 +2,7 @@
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(InputServer)
+ADD_SUBDIRECTORY(InterCcrtCommServer) 
 ADD_SUBDIRECTORY(Launcher)
 ADD_SUBDIRECTORY(MachineDataBroker)
 ADD_SUBDIRECTORY(MotorController)

@@ -25,251 +25,270 @@
 //-----------------------------------------------------------------------------
 template<class ModuleType>
 PowerSteeringTC<ModuleType>::PowerSteeringTC() : GenericTCTemplate<ModuleType>()
-{	// Nothing special to do here
+{   // Nothing special to do here
 }
 
 //-----------------------------------------------------------------------------
 template<class ModuleType>
 PowerSteeringTC<ModuleType>::~PowerSteeringTC()
-{	// Nothing special to do here
+{   // Nothing special to do here
 }
 
 //-----------------------------------------------------------------------------
 template<class ModuleType>
 const string PowerSteeringTC<ModuleType>::CommandTestStep(const string &value)
 {
-	string result(BEP_TESTING_STATUS);
-	Log(LOG_FN_ENTRY, "PowerSteeringTC::CommandTestStep(value: %s) - Step: %s - Enter", 
-		value.c_str(), GetTestStepName().c_str());
-	// Make sure system status will allow testing
-	if(BEP_STATUS_SUCCESS != StatusCheck())
-	{
-		UpdateResult(StatusCheck(), result);
-		Log(LOG_ERRORS, "PowerSteeringTC::CommandTestStep: StatusCheck() failed: %s", result.c_str());
-		SendTestResult(result, GetTestStepInfo("Description"));
-	}
-	// Link up with the module
-	else if(!GetTestStepName().compare("LockSteeringTune"))	  result = LockSteeringTune();
-	// Check the airbag lamp status
-	// Call the base class to perform the test step
-	else	 result	= GenericTCTemplate<ModuleType>::CommandTestStep(value);
-	// Log the exit and return the result
-	Log(LOG_FN_ENTRY, "PowerSteeringTC::CommandTestStep(value: %s) - Step: %s - Exit: %s", 
-		value.c_str(), GetTestStepName().c_str(), result.c_str());
-	return result;
+    string result(BEP_TESTING_STATUS);
+    Log(LOG_FN_ENTRY, "PowerSteeringTC::CommandTestStep(value: %s) - Step: %s - Enter", 
+        value.c_str(), GetTestStepName().c_str());
+    // Make sure system status will allow testing
+    if(BEP_STATUS_SUCCESS != StatusCheck())
+    {
+        UpdateResult(StatusCheck(), result);
+        Log(LOG_ERRORS, "PowerSteeringTC::CommandTestStep: StatusCheck() failed: %s", result.c_str());
+        SendTestResult(result, GetTestStepInfo("Description"));
+    }
+    // Link up with the module
+    else if(!GetTestStepName().compare("LockSteeringTune"))   result = LockSteeringTune();
+    // Program the steering cal constant
+    else if(!GetTestStepName().compare("WriteSteeringConstant"))   result = WriteSteeringConstant();
+    // Call the base class to perform the test step
+    else     result = GenericTCTemplate<ModuleType>::CommandTestStep(value);
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "PowerSteeringTC::CommandTestStep(value: %s) - Step: %s - Exit: %s", 
+        value.c_str(), GetTestStepName().c_str(), result.c_str());
+    return result;
 }
 
 //-----------------------------------------------------------------------------
 template <class ModuleType>
 string PowerSteeringTC<ModuleType>::ProgramVIN(void)
 {
-	string testStatus = testFail;
-	BEP_STATUS_TYPE status;
-	string faultTag("CommunicationFailure");
-	bool routineComplete = false;
-	string routineStatus("Unknown");
+    string testStatus = testFail;
+    BEP_STATUS_TYPE status;
+    string faultTag("CommunicationFailure");
+    bool routineComplete = false;
+    string routineStatus("Unknown");
 
-	Log(LOG_FN_ENTRY, "Enter PowerSteeringTC::ProgramVIN()\n");
-	if(ShortCircuitTestStep())
-	{
-		Log(LOG_FN_ENTRY, "Skipping test step PowerSteeringTC::ProgramVin()");
-		testStatus = testSkip;
-	}
-	else
-	{
-		try
-		{	// Actually program the vin
+    Log(LOG_FN_ENTRY, "Enter PowerSteeringTC::ProgramVIN()\n");
+    if(ShortCircuitTestStep())
+    {
+        Log(LOG_FN_ENTRY, "Skipping test step PowerSteeringTC::ProgramVin()");
+        testStatus = testSkip;
+    }
+    else
+    {
+        try
+        {   // Actually program the vin
 #if 0
-			status = m_vehicleModule.ProgramVIN();
-			if(status == BEP_STATUS_SUCCESS)
-			{
-				if(GetParameterBool("RequestVinRoutineStatusFromModule"))
-				{
-					BposSleep(GetParameterInt("DelayBeforeRoutineStatus"));
-					if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopVinRoutine"))
-					{
-						status = m_vehicleModule.ReadModuleData("GetVinRoutineStatus",routineStatus);
-						for(INT32 tries=0; (tries < GetParameterInt("RoutineRequestRetries")) && !routineComplete && (status == BEP_STATUS_SUCCESS); tries++)
-						{
-							if((!routineStatus.compare("BadVINReceived") || !routineStatus.compare("Timeout") || !routineStatus.compare("WriteError")) && (status == BEP_STATUS_SUCCESS))
-							{
-								status = m_vehicleModule.ProgramVIN();
-								if(status == BEP_STATUS_SUCCESS)
-								{
-									BposSleep(GetParameterInt("VinRetryDelay"));
-									status = m_vehicleModule.ReadModuleData("GetVinRoutineStatus",routineStatus);
-								}
-							}
-							else
-							{
-								routineComplete = true;
-							}
-						}
-					}
-					else
-					{
-						Log(LOG_ERRORS, "Failure stopping VIN learn routine");
-					}
-					if(!routineStatus.compare("VINLearned") || !routineStatus.compare("VINAlreadyLearned"))
-					{
-						testStatus = testPass;
-					}
-				}
-				else
-				{
-					testStatus = testPass;
-				}
-				SendTestResultWithDetail((testStatus == testPass) ? testPass : testFail, 
-										 (testStatus == testPass) ? GetTestStepInfo("Description") : GetFaultDescription("VINRoutineFailure"),
-										 (testStatus == testPass) ? "0000" : GetFaultCode("VINRoutineFailure"),
-										 "RoutineStatus",routineStatus);
-			}
-			else
-			{
-				testStatus = testFail;
-				SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
-										 GetFaultCode(faultTag), GetFaultName(faultTag),
-										 GetFaultDescription(faultTag));
-			}
+            status = m_vehicleModule.ProgramVIN();
+            if(status == BEP_STATUS_SUCCESS)
+            {
+                if(GetParameterBool("RequestVinRoutineStatusFromModule"))
+                {
+                    BposSleep(GetParameterInt("DelayBeforeRoutineStatus"));
+                    if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopVinRoutine"))
+                    {
+                        status = m_vehicleModule.ReadModuleData("GetVinRoutineStatus",routineStatus);
+                        for(INT32 tries=0; (tries < GetParameterInt("RoutineRequestRetries")) && !routineComplete && (status == BEP_STATUS_SUCCESS); tries++)
+                        {
+                            if((!routineStatus.compare("BadVINReceived") || !routineStatus.compare("Timeout") || !routineStatus.compare("WriteError")) && (status == BEP_STATUS_SUCCESS))
+                            {
+                                status = m_vehicleModule.ProgramVIN();
+                                if(status == BEP_STATUS_SUCCESS)
+                                {
+                                    BposSleep(GetParameterInt("VinRetryDelay"));
+                                    status = m_vehicleModule.ReadModuleData("GetVinRoutineStatus",routineStatus);
+                                }
+                            }
+                            else
+                            {
+                                routineComplete = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Log(LOG_ERRORS, "Failure stopping VIN learn routine");
+                    }
+                    if(!routineStatus.compare("VINLearned") || !routineStatus.compare("VINAlreadyLearned"))
+                    {
+                        testStatus = testPass;
+                    }
+                }
+                else
+                {
+                    testStatus = testPass;
+                }
+                SendTestResultWithDetail((testStatus == testPass) ? testPass : testFail, 
+                                         (testStatus == testPass) ? GetTestStepInfo("Description") : GetFaultDescription("VINRoutineFailure"),
+                                         (testStatus == testPass) ? "0000" : GetFaultCode("VINRoutineFailure"),
+                                         "RoutineStatus",routineStatus);
+            }
+            else
+            {
+                testStatus = testFail;
+                SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+                                         GetFaultCode(faultTag), GetFaultName(faultTag),
+                                         GetFaultDescription(faultTag));
+            }
 #else
-			INT32 tries = 0;
-			do
-			{   // Command the module to program the VIN
-				if(BEP_STATUS_SUCCESS == m_vehicleModule.ProgramVIN())
-				{   // Wait for the routine to complete
-					BposSleep(GetParameterInt("DelayBeforeRoutineStatus"));
-					// Command the routine to stop
-					if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopVinRoutine"))
-					{   // Get the routine status
-						if(BEP_STATUS_SUCCESS == m_vehicleModule.ReadModuleData("GetVinRoutineStatus",routineStatus))
-						{
-							routineComplete = (routineStatus.compare("BadVINReceived") &&
-											   routineStatus.compare("Timeout") &&
-											   routineStatus.compare("WriteError"));
-							Log(LOG_DEV_DATA, "Routine Complete: %s - routine status: %s", routineComplete ? "True" : "False",
-								routineStatus.c_str());
-						}
-						else
-						{
-							Log(LOG_ERRORS, "Failure reading routine status from the module");
-						}
-					}
-					else
-					{
-						Log(LOG_ERRORS, "Failure stopping VIN learn routine");
-					}
-				}
-				else
-				{
-					testStatus = testFail;
-					SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
-											 GetFaultCode(faultTag), GetFaultName(faultTag),
-											 GetFaultDescription(faultTag));
-				}
-				tries++;
-			} while(!routineComplete && (tries < GetParameterInt("RoutineRequestRetries")) && 
-					(BEP_STATUS_SUCCESS == StatusCheck()));
-			// Determine the result of prgramming the VIN
-			testStatus = !routineStatus.compare("VINLearned") || !routineStatus.compare("VINAlreadyLearned") ? testPass : testFail;
-			Log(LOG_DEV_DATA, "Program VIN result: %s", testStatus.c_str());
-			SendTestResultWithDetail((testStatus == testPass) ? testPass : testFail, 
-									 (testStatus == testPass) ? GetTestStepInfo("Description") : GetFaultDescription("VINRoutineFailure"),
-									 (testStatus == testPass) ? "0000" : GetFaultCode("VINRoutineFailure"),
-									 "RoutineStatus",routineStatus);
+            INT32 tries = 0;
+            do
+            {   // Command the module to program the VIN
+                if(BEP_STATUS_SUCCESS == m_vehicleModule.ProgramVIN())
+                {   // Wait for the routine to complete
+                    BposSleep(GetParameterInt("DelayBeforeRoutineStatus"));
+                    // Command the routine to stop
+                    if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopVinRoutine"))
+                    {   // Get the routine status
+                        if(BEP_STATUS_SUCCESS == m_vehicleModule.ReadModuleData("GetVinRoutineStatus",routineStatus))
+                        {
+                            routineComplete = (routineStatus.compare("BadVINReceived") &&
+                                               routineStatus.compare("Timeout") &&
+                                               routineStatus.compare("WriteError"));
+                            Log(LOG_DEV_DATA, "Routine Complete: %s - routine status: %s", routineComplete ? "True" : "False",
+                                routineStatus.c_str());
+                        }
+                        else
+                        {
+                            Log(LOG_ERRORS, "Failure reading routine status from the module");
+                        }
+                    }
+                    else
+                    {
+                        Log(LOG_ERRORS, "Failure stopping VIN learn routine");
+                    }
+                }
+                else
+                {
+                    testStatus = testFail;
+                    SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+                                             GetFaultCode(faultTag), GetFaultName(faultTag),
+                                             GetFaultDescription(faultTag));
+                }
+                tries++;
+            } while(!routineComplete && (tries < GetParameterInt("RoutineRequestRetries")) && 
+                    (BEP_STATUS_SUCCESS == StatusCheck()));
+            // Determine the result of prgramming the VIN
+            testStatus = !routineStatus.compare("VINLearned") || !routineStatus.compare("VINAlreadyLearned") ? testPass : testFail;
+            Log(LOG_DEV_DATA, "Program VIN result: %s", testStatus.c_str());
+            SendTestResultWithDetail((testStatus == testPass) ? testPass : testFail, 
+                                     (testStatus == testPass) ? GetTestStepInfo("Description") : GetFaultDescription("VINRoutineFailure"),
+                                     (testStatus == testPass) ? "0000" : GetFaultCode("VINRoutineFailure"),
+                                     "RoutineStatus",routineStatus);
 #endif 
-		}
-		catch(ModuleException& caughtModuleException)
-		{
-			Log(LOG_ERRORS, "%s.%s: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(),
-				caughtModuleException.message().c_str());
-			testStatus = testFail;
-		}
-	}
-	// Log the function exit
-	Log(LOG_FN_ENTRY, "Exit PowerSteeringTC::ProgramVIN(), status=%s\n", testStatus.c_str());
-	// Return the test result
-	return(testStatus);
+        }
+        catch(ModuleException& caughtModuleException)
+        {
+            Log(LOG_ERRORS, "%s.%s: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(),
+                caughtModuleException.message().c_str());
+            testStatus = testFail;
+        }
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "Exit PowerSteeringTC::ProgramVIN(), status=%s\n", testStatus.c_str());
+    // Return the test result
+    return(testStatus);
 } 
 
 //-----------------------------------------------------------------------------
 template <class ModuleInterface>
 string PowerSteeringTC<ModuleInterface>::LockSteeringTune(void)
 {
-	string testStatus = testFail;
-	BEP_STATUS_TYPE status;
-	string faultTag("TuneRoutineFailure");
-	string routineStatus("Unknown");
+    string testStatus = testFail;
+    BEP_STATUS_TYPE status;
+    string faultTag("TuneRoutineFailure");
+    string routineStatus("Unknown");
 
-	Log(LOG_FN_ENTRY, "Enter PowerSteeringTC::LockSteeringTune()\n");
-	if(ShortCircuitTestStep())
-	{
-		Log(LOG_FN_ENTRY, "Skipping test step PowerSteeringTC::LockSteeringTune()");
-		testStatus = testSkip;
-	}
-	else
-	{
-		try
-		{	// Actually program the vin
-			INT32 tries = 0;
-			do
-			{
-				status = m_vehicleModule.CommandModule("LockSteeringTune");
-				tries++;
+    Log(LOG_FN_ENTRY, "Enter PowerSteeringTC::LockSteeringTune()\n");
+    if(ShortCircuitTestStep())
+    {
+        Log(LOG_FN_ENTRY, "Skipping test step PowerSteeringTC::LockSteeringTune()");
+        testStatus = testSkip;
+    }
+    else
+    {
+        try
+        {   // Actually program the vin
+            INT32 tries = 0;
+            do
+            {
+                status = m_vehicleModule.CommandModule("LockSteeringTune");
+                tries++;
 #if 0
-				do
-				{
-					status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
-					if(routineStatus.compare("TuneLearned")) BposSleep(GetParameterInt("VinRetryDelay"));
-					
-				} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status) &&
-						routineStatus.compare("TuneLearned"));
-#else	
-				if(BEP_STATUS_SUCCESS == status)
-				{	// Wait for the module to finish the routine internally
-					BposSleep(GetParameterInt("LockSteeringTuneTestTime"));
-					// Command the module to stop the routine
-					if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopLockSteeringTune"))
-					{
-						status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
-						Log(LOG_DEV_DATA, "Lock steering tune result: %s", routineStatus.c_str());
-					}
-					else
-					{
-						Log(LOG_ERRORS, "Failure commanding the module to stop the lock steering tune routine");
-					}
-				}
-				else
-				{
-					Log(LOG_ERRORS, "Failed to start lock steering tune routine: %s", ConvertStatusToResponse(status).c_str());
-				}
+                do
+                {
+                    status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
+                    if(routineStatus.compare("TuneLearned")) BposSleep(GetParameterInt("VinRetryDelay"));
+                    
+                } while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status) &&
+                        routineStatus.compare("TuneLearned"));
+#else   
+                if(BEP_STATUS_SUCCESS == status)
+                {   // Wait for the module to finish the routine internally
+                    BposSleep(GetParameterInt("LockSteeringTuneTestTime"));
+                    // Command the module to stop the routine
+                    if(BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("StopLockSteeringTune"))
+                    {
+                        status = m_vehicleModule.ReadModuleData("GetTuneRoutineStatus",routineStatus);
+                        Log(LOG_DEV_DATA, "Lock steering tune result: %s", routineStatus.c_str());
+                    }
+                    else
+                    {
+                        Log(LOG_ERRORS, "Failure commanding the module to stop the lock steering tune routine");
+                    }
+                }
+                else
+                {
+                    Log(LOG_ERRORS, "Failed to start lock steering tune routine: %s", ConvertStatusToResponse(status).c_str());
+                }
 #endif
-			} while((BEP_STATUS_SUCCESS == StatusCheck()) && routineStatus.compare("TuneLearned") && 
-					(tries < GetParameterInt("RoutineRequestRetries")));
+            } while((BEP_STATUS_SUCCESS == StatusCheck()) && routineStatus.compare("TuneLearned") && 
+                    (tries < GetParameterInt("RoutineRequestRetries")));
 
-			if((status == BEP_STATUS_SUCCESS) && (!routineStatus.compare("TuneLearned")))
-			{
-				testStatus = testPass;
-				SendTestResult(testPass, GetTestStepInfo("Description"));
-			}
-			else
-			{
-				testStatus = testFail;
-				SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
-										 GetFaultCode(faultTag), GetFaultName(faultTag),
-										 GetFaultDescription(faultTag));
-			}
-		}
-		catch(ModuleException& caughtModuleException)
-		{
-			Log(LOG_ERRORS, "%s.%s: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(),
-				caughtModuleException.message().c_str());
-			testStatus = testFail;
-		}
-	}
-	// Log the function exit
-	Log(LOG_FN_ENTRY, "Exit PowerSteeringTC::LockSteeringTune(), status=%s\n", testStatus.c_str());
-	// Return the test result
-	return(testStatus);
+            if((status == BEP_STATUS_SUCCESS) && (!routineStatus.compare("TuneLearned")))
+            {
+                testStatus = testPass;
+                SendTestResult(testPass, GetTestStepInfo("Description"));
+            }
+            else
+            {
+                testStatus = testFail;
+                SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+                                         GetFaultCode(faultTag), GetFaultName(faultTag),
+                                         GetFaultDescription(faultTag));
+            }
+        }
+        catch(ModuleException& caughtModuleException)
+        {
+            Log(LOG_ERRORS, "%s.%s: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(),
+                caughtModuleException.message().c_str());
+            testStatus = testFail;
+        }
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "Exit PowerSteeringTC::LockSteeringTune(), status=%s\n", testStatus.c_str());
+    // Return the test result
+    return(testStatus);
 } 
+
+//-----------------------------------------------------------------------------
+template <class ModuleInterface>
+string PowerSteeringTC<ModuleInterface>::WriteSteeringConstant(void)
+{
+    string testStatus = testFail;
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    SerialArgs_t steeringConstantArg;
+    UINT16 steeringConstant = 0x0000;
+
+    steeringConstant = BposReadInt(GetParameter("SteeringConstant").c_str());
+    steeringConstantArgs.push_back((UINT8) (steeringConstant >> 8));
+    steeringConstantArgs.push_back((UINT8) (steeringConstant & 0x00FF));
+    moduleStatus = m_vehicleModule.CommandModule("WriteSteeringConstant", &steeringConstantArgs);
+    testStatus = (BEP_STATUS_SUCCESS == moduleStatus) ? testPass : testFail;
+
+    return(testStatus);
+}
 
 

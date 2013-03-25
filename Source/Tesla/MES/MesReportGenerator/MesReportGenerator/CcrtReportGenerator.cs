@@ -28,13 +28,14 @@ namespace MesReportGenerator
         public CcrtReportGenerator()
         {
             InitializeComponent();
-            m_resultDirectory.Text = MesReportGenerator.Properties.Settings.Default.ResultDirectory;
-            m_reportDirectory.Text = MesReportGenerator.Properties.Settings.Default.ReportDirectory;
+            m_resultDirectory.Text = MesReportGenerator.Properties.Settings.Default.SourceDirectory;
+            m_reportDirectory.Text = MesReportGenerator.Properties.Settings.Default.OutputDirectory;
+            m_archiveDirectory.Text = MesReportGenerator.Properties.Settings.Default.ArchiveDirectory;
             m_schema.Text = MesReportGenerator.Properties.Settings.Default.XsltFile;
-            if (MesReportGenerator.Properties.Settings.Default.usedResults != null)
-            {
-                m_usedTestResultFiles = MesReportGenerator.Properties.Settings.Default.usedResults;
-            }
+            //if (MesReportGenerator.Properties.Settings.Default.usedResults != null)
+            //{
+            //    m_usedTestResultFiles = MesReportGenerator.Properties.Settings.Default.usedResults;
+            //}
             String title;
             if (!System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
             {
@@ -86,26 +87,26 @@ namespace MesReportGenerator
                 if (result == "Pass")
                 {
                     newFileName = "P_" + Path.GetFileName(file);
-                    reportFileName = Path.Combine(MesReportGenerator.Properties.Settings.Default.ReportDirectory,
+                    reportFileName = Path.Combine(MesReportGenerator.Properties.Settings.Default.OutputDirectory,
                                                      newFileName);
                 }
                 else if (result == "Abort")
                 {
                     newFileName = "A_" + Path.GetFileName(file);
-                    reportFileName = Path.Combine(MesReportGenerator.Properties.Settings.Default.ReportDirectory,
+                    reportFileName = Path.Combine(MesReportGenerator.Properties.Settings.Default.OutputDirectory,
                                                      newFileName);
                 }
                 else
                 {
                     newFileName = "F_" + Path.GetFileName(file);
-                    reportFileName = Path.Combine(MesReportGenerator.Properties.Settings.Default.ReportDirectory,
+                    reportFileName = Path.Combine(MesReportGenerator.Properties.Settings.Default.OutputDirectory,
                                                      newFileName);
                 }
             }
             catch (NullReferenceException)
             {
                 DisplayStatusMessage("Attempt to process Test Result file: " + file + " not successful. Check file format.");
-                AddToUsedTestResults(Path.GetFileName(file));
+                //AddToUsedTestResults(Path.GetFileName(file));
                 return "NullExeption";
             }
             catch (Exception)
@@ -123,7 +124,7 @@ namespace MesReportGenerator
                 //Console.WriteLine(Beautify(xDoc));
 
 
-                DisplayStatusMessage("Prcessing result file " + file + " to " + reportFileName);
+                DisplayStatusMessage("Processing result file " + file + " to " + reportFileName);
 
                 // Remove the temp file and the result file
                 //File.Delete(file);
@@ -136,11 +137,31 @@ namespace MesReportGenerator
         /// <summary>
         /// Add file to usedTestResults
         /// </summary>
-        private void AddToUsedTestResults(String file)
+        //private void AddToUsedTestResults(String file)
+        //{
+        //    if (m_usedTestResultFiles != null)
+        //        if (!m_usedTestResultFiles.Contains(file))
+        //            m_usedTestResultFiles.Add(file);
+        //}
+
+        /// <summary>
+        /// Move source test result file to the archive directory
+        /// </summary>
+        /// <param name="filePath">Path of the file to archive</param>
+        private void ArchiveTestResult(String filePath)
         {
-            if (m_usedTestResultFiles != null)
-                if (!m_usedTestResultFiles.Contains(file))
-                    m_usedTestResultFiles.Add(file);
+            if((filePath != null) && File.Exists(filePath))
+            {
+                String fileName = Path.GetFileName(filePath);
+                String destinationPath = Path.Combine(MesReportGenerator.Properties.Settings.Default.ArchiveDirectory, fileName);
+                if(File.Exists(destinationPath))
+                {
+                    DisplayStatusMessage("Removing previously archived file with same name: " + fileName);
+                    File.Delete(destinationPath);
+                }
+                DisplayStatusMessage("Moving raw results file " + fileName + " to archive folder");
+                File.Move(filePath,destinationPath);
+            }
         }
 
         /// <summary>
@@ -155,43 +176,44 @@ namespace MesReportGenerator
                 //(without actually converting them)
 
                 //On subsequent checks, compare files in directory to previously converted files
-                if (m_usedTestResultFiles == null)
-                {
-                    m_usedTestResultFiles = new ArrayList();
-                    foreach (String file in Directory.GetFiles(MesReportGenerator.Properties.Settings.Default.ResultDirectory))
-                    {
-                        if (Regex.IsMatch(Path.GetFileName(file), @"[A-Za-z0-9]+\.[0-9]{4}"))
-                        {
-                            m_usedTestResultFiles.Add(Path.GetFileName(file));
-                        }
-                    }
-                    MesReportGenerator.Properties.Settings.Default.usedResults = m_usedTestResultFiles;
-                    MesReportGenerator.Properties.Settings.Default.Save();
-                }
-                else
-                {
+                //if (m_usedTestResultFiles == null)
+                //{
+                //    m_usedTestResultFiles = new ArrayList();
+                //    foreach (String file in Directory.GetFiles(MesReportGenerator.Properties.Settings.Default.SourceDirectory))
+                //    {
+                //        if (Regex.IsMatch(Path.GetFileName(file), @"[A-Za-z0-9]+\.[0-9]{4}"))
+                //        {
+                //            m_usedTestResultFiles.Add(Path.GetFileName(file));
+                //        }
+                //    }
+                //    MesReportGenerator.Properties.Settings.Default.usedResults = m_usedTestResultFiles;
+                //    MesReportGenerator.Properties.Settings.Default.Save();
+                //}
+                //else
+                //{
                     // Load the XSLT file
                     XslCompiledTransform xForm = new XslCompiledTransform();
                     xForm.Load(MesReportGenerator.Properties.Settings.Default.XsltFile);
                     // Get the list of result files to be processed
-                    foreach (String file in Directory.GetFiles(MesReportGenerator.Properties.Settings.Default.ResultDirectory))
+                    foreach (String file in Directory.GetFiles(MesReportGenerator.Properties.Settings.Default.SourceDirectory))
                     {
 
                         if (Regex.IsMatch(Path.GetFileName(file), @"[A-Za-z0-9]+\.[0-9]{4}"))
                         {
-                            if (!m_usedTestResultFiles.Contains(Path.GetFileName(file)))
-                            {
-                                String result = ConvertTestResultFile(file, xForm);
-                                    AddToUsedTestResults(result);
-                            }
-
+                            //if (!m_usedTestResultFiles.Contains(Path.GetFileName(file)))
+                            //{
+                            //    String result = ConvertTestResultFile(file, xForm);
+                            //        AddToUsedTestResults(result);
+                            //}
+                            String result = ConvertTestResultFile(file, xForm);
                         }
-
+                        // Move the test result file to the Archive folder once the conversion has taken place
+                        ArchiveTestResult(file);
                     }
                     
-                    MesReportGenerator.Properties.Settings.Default.usedResults = m_usedTestResultFiles;
-                    MesReportGenerator.Properties.Settings.Default.Save();
-                }
+                    //MesReportGenerator.Properties.Settings.Default.usedResults = m_usedTestResultFiles;
+                    //MesReportGenerator.Properties.Settings.Default.Save();
+                //}
             }
             else
             {
@@ -224,11 +246,11 @@ namespace MesReportGenerator
             }
             // Verify the Result folder exists
             attempts = 3;
-            while (!Directory.Exists(MesReportGenerator.Properties.Settings.Default.ResultDirectory) && (attempts-- > 0))
+            while (!Directory.Exists(MesReportGenerator.Properties.Settings.Default.SourceDirectory) && (attempts-- > 0))
             {
                 SelectResultFolder();
             }
-            if (Directory.Exists(MesReportGenerator.Properties.Settings.Default.ResultDirectory))
+            if (Directory.Exists(MesReportGenerator.Properties.Settings.Default.SourceDirectory))
             {
                 m_resultDirectory.ForeColor = Color.Green;
             }
@@ -239,11 +261,11 @@ namespace MesReportGenerator
             }
             // Verify the report folder exists
             attempts = 3;
-            while (!Directory.Exists(MesReportGenerator.Properties.Settings.Default.ReportDirectory) && (attempts-- > 0))
+            while (!Directory.Exists(MesReportGenerator.Properties.Settings.Default.OutputDirectory) && (attempts-- > 0))
             {
                 SelectReportFolder();
             }
-            if (Directory.Exists(MesReportGenerator.Properties.Settings.Default.ReportDirectory))
+            if (Directory.Exists(MesReportGenerator.Properties.Settings.Default.OutputDirectory))
             {
                 m_reportDirectory.ForeColor = Color.Green;
             }
@@ -252,17 +274,32 @@ namespace MesReportGenerator
                 m_reportDirectory.ForeColor = Color.Red;
                 setupComplete = false;
             }
+            // Verify the archive folder exists
+            attempts = 3;
+            while (!Directory.Exists(MesReportGenerator.Properties.Settings.Default.ArchiveDirectory) && (attempts-- > 0))
+            {
+                SelectArchiveFolder();
+            }
+            if (Directory.Exists(MesReportGenerator.Properties.Settings.Default.ArchiveDirectory))
+            {
+                m_archiveDirectory.ForeColor = Color.Green;
+            }
+            else
+            {
+                m_archiveDirectory.ForeColor = Color.Red;
+                setupComplete = false;
+            }
             return setupComplete;
         }
-        /// <summary>
-        /// Obsolete 
-        /// </summary>
-        private void ConvertXml()
-        {
-            XslTransform xForm = new XslTransform();
-            xForm.Load(@"C:\Users\lmorgan\Desktop\testreults\ReportSchem.xsl");
-            xForm.Transform(@"C:\Users\lmorgan\Desktop\testreults\SampleResult", @"C:\Users\lmorgan\Desktop\testreults\newEx.xml");
-        }
+        ///// <summary>
+        ///// Obsolete 
+        ///// </summary>
+        //private void ConvertXml()
+        //{
+        //    XslTransform xForm = new XslTransform();
+        //    xForm.Load(@"C:\Users\lmorgan\Desktop\testreults\ReportSchem.xsl");
+        //    xForm.Transform(@"C:\Users\lmorgan\Desktop\testreults\SampleResult", @"C:\Users\lmorgan\Desktop\testreults\newEx.xml");
+        //}
 
         /// <summary>
         /// Allow the user to select the folder to be used for storing the generated reports.
@@ -270,7 +307,7 @@ namespace MesReportGenerator
         private void SelectReportFolder()
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
-            dlg.Description = "Select Test Report Folder";
+            dlg.Description = "Select Test Report Output Folder";
             
             if (m_reportDirectory.Text != null && (Directory.Exists(m_reportDirectory.Text)))
             {
@@ -280,9 +317,31 @@ namespace MesReportGenerator
             dlg.ShowNewFolderButton = true;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                MesReportGenerator.Properties.Settings.Default.ReportDirectory = dlg.SelectedPath;
+                MesReportGenerator.Properties.Settings.Default.OutputDirectory = dlg.SelectedPath;
                 MesReportGenerator.Properties.Settings.Default.Save();
-                m_reportDirectory.Text = MesReportGenerator.Properties.Settings.Default.ReportDirectory;
+                m_reportDirectory.Text = MesReportGenerator.Properties.Settings.Default.OutputDirectory;
+            }
+        }
+
+        /// <summary>
+        /// Allow the user to select the folder to be used for storing the archived raw results.
+        /// </summary>
+        private void SelectArchiveFolder()
+        {
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.Description = "Select Test Result Archive Folder";
+            
+            if (m_archiveDirectory.Text != null && (Directory.Exists(m_archiveDirectory.Text)))
+            {
+                dlg.SelectedPath = m_archiveDirectory.Text;
+            }
+            dlg.RootFolder = Environment.SpecialFolder.MyComputer;
+            dlg.ShowNewFolderButton = true;
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                MesReportGenerator.Properties.Settings.Default.ArchiveDirectory = dlg.SelectedPath;
+                MesReportGenerator.Properties.Settings.Default.Save();
+                m_archiveDirectory.Text = MesReportGenerator.Properties.Settings.Default.ArchiveDirectory;
             }
         }
 
@@ -337,7 +396,7 @@ namespace MesReportGenerator
         private void SelectResultFolder()
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
-            dlg.Description = "Select Test Result Folder";
+            dlg.Description = "Select Test Result Source Folder";
             dlg.RootFolder = Environment.SpecialFolder.MyComputer;
             if (m_resultDirectory.Text != null && (Directory.Exists(m_resultDirectory.Text)))
             {
@@ -346,9 +405,9 @@ namespace MesReportGenerator
             dlg.ShowNewFolderButton = true;
             if (dlg.ShowDialog() == DialogResult.OK)
             {
-                MesReportGenerator.Properties.Settings.Default.ResultDirectory = dlg.SelectedPath;
+                MesReportGenerator.Properties.Settings.Default.SourceDirectory = dlg.SelectedPath;
                 MesReportGenerator.Properties.Settings.Default.Save();
-                m_resultDirectory.Text = MesReportGenerator.Properties.Settings.Default.ResultDirectory;
+                m_resultDirectory.Text = MesReportGenerator.Properties.Settings.Default.SourceDirectory;
             }
         }
 
@@ -390,7 +449,7 @@ namespace MesReportGenerator
             return shouldExit;
         }
 
-        private ArrayList m_usedTestResultFiles;
+        //private ArrayList m_usedTestResultFiles;
 
         //-----------------------------------------------------------------------------------------
         // Callbacks, Delegates and Events
@@ -401,8 +460,9 @@ namespace MesReportGenerator
         private void button1_Click(object sender, EventArgs e)
         {
             //ConvertXml();
-            MesReportGenerator.Properties.Settings.Default.ResultDirectory = m_resultDirectory.Text;
-            MesReportGenerator.Properties.Settings.Default.ReportDirectory = m_reportDirectory.Text;
+            MesReportGenerator.Properties.Settings.Default.SourceDirectory = m_resultDirectory.Text;
+            MesReportGenerator.Properties.Settings.Default.OutputDirectory = m_reportDirectory.Text;
+            MesReportGenerator.Properties.Settings.Default.ArchiveDirectory = m_archiveDirectory.Text;
             MesReportGenerator.Properties.Settings.Default.XsltFile = m_schema.Text;
             MesReportGenerator.Properties.Settings.Default.Save();
 
@@ -419,6 +479,11 @@ namespace MesReportGenerator
             if (!m_reportDirectory.Items.Contains(m_reportDirectory.Text))
             {
                 m_reportDirectory.Items.Add(m_reportDirectory.Text);
+            }
+
+            if (!m_archiveDirectory.Items.Contains(m_archiveDirectory.Text))
+            {
+                m_archiveDirectory.Items.Add(m_archiveDirectory.Text);
             }
 
             // Stop the timer so it does not fire while we are checking
@@ -453,7 +518,7 @@ namespace MesReportGenerator
 
         private void m_resultDirectory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MesReportGenerator.Properties.Settings.Default.ResultDirectory = m_resultDirectory.SelectedText;
+            MesReportGenerator.Properties.Settings.Default.SourceDirectory = m_resultDirectory.SelectedText;
             MesReportGenerator.Properties.Settings.Default.Save();
         }
 
@@ -465,7 +530,13 @@ namespace MesReportGenerator
 
         private void m_reportDirectory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MesReportGenerator.Properties.Settings.Default.ResultDirectory = m_reportDirectory.SelectedText;
+            MesReportGenerator.Properties.Settings.Default.OutputDirectory = m_reportDirectory.SelectedText;
+            MesReportGenerator.Properties.Settings.Default.Save();
+        }
+
+        private void m_archiveDirectory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MesReportGenerator.Properties.Settings.Default.ArchiveDirectory = m_archiveDirectory.SelectedText;
             MesReportGenerator.Properties.Settings.Default.Save();
         }
 
@@ -477,6 +548,11 @@ namespace MesReportGenerator
         private void m_browseReportDirectory_Click(object sender, EventArgs e)
         {
             SelectReportFolder();
+        }
+
+        private void m_browseArchiveDirectory_Click(object sender, EventArgs e)
+        {
+            SelectArchiveFolder();
         }
 
         private void m_browseSchemaDirectory_Click(object sender, EventArgs e)

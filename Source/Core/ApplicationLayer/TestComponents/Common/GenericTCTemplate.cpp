@@ -305,7 +305,7 @@ const string GenericTCTemplate<ModuleType>::CommandTestStep(const string &value)
         //Engine off key locked then prompts for key on 
         else if(step == "KeyOffEngineOffKeyOn")       status = KeyOffEngineOffKeyOn();
         // Perform a power-on reset of the module
-		else if (step == "ResetModule")			      status = ResetModule();
+        else if (step == "ResetModule")               status = ResetModule();
         // Cleanup at the end of the test cycle
         else if(step == "FinishUp")
         {
@@ -318,12 +318,12 @@ const string GenericTCTemplate<ModuleType>::CommandTestStep(const string &value)
             status = GenericTC::CommandTestStep(value);
         }
     }
-	catch (ModuleException &caughtModuleException)
-	{
-		Log(LOG_ERRORS, "%s.%s: %s", GetComponentName().c_str(),
-			GetTestStepName().c_str(), caughtModuleException.message().c_str());
-		status = BEP_SOFTWAREFAIL_RESPONSE;
-	}
+    catch (ModuleException &caughtModuleException)
+    {
+        Log(LOG_ERRORS, "%s.%s: %s", GetComponentName().c_str(),
+            GetTestStepName().c_str(), caughtModuleException.message().c_str());
+        status = BEP_SOFTWAREFAIL_RESPONSE;
+    }
     catch(BepException &e)
     {
         Log(LOG_DEV_DATA, "%s CommandTestStep %s Exception: %s\n",
@@ -353,8 +353,8 @@ bool GenericTCTemplate<ModuleType>::GetCommunicationFailure(void)
 template <class ModuleType>
 void GenericTCTemplate<ModuleType>::Reset(void)
 {
-	m_vehicleModule.StopVehicleComms(false);
-	GenericTC::Reset();
+    m_vehicleModule.StopVehicleComms(false);
+    GenericTC::Reset();
 }
 
 //-----------------------------------------------------------------------------
@@ -362,22 +362,22 @@ template <class ModuleType>
 const string GenericTCTemplate<ModuleType>::Publish(const XmlNode *node)
 {   // Check if testing was aborted
     if (node != NULL) 
-	{
-		try 
-		{
-			if ((node->getName() == ABORT_DATA_TAG) && (node->getValue() == "1") && !m_abortCalled)
-			{   //set flag indicating abort called
-				m_abortCalled = true;
-				// Need to stop any monitors that were started
-				StopBackgroundMonitors();
-				m_abortCalled = false;
-			}
-		} 
-		catch (XmlException &excpt) 
-		{
-			Log(LOG_ERRORS, "XmlException during GenericTCTemplate::Publish() - %s", excpt.GetReason());
-		}
-	}
+    {
+        try 
+        {
+            if ((node->getName() == ABORT_DATA_TAG) && (node->getValue() == "1") && !m_abortCalled)
+            {   //set flag indicating abort called
+                m_abortCalled = true;
+                // Need to stop any monitors that were started
+                StopBackgroundMonitors();
+                m_abortCalled = false;
+            }
+        } 
+        catch (XmlException &excpt) 
+        {
+            Log(LOG_ERRORS, "XmlException during GenericTCTemplate::Publish() - %s", excpt.GetReason());
+        }
+    }
     // Pass the publish to the base class for further handling
     return BepServer::Publish(node);
 }
@@ -894,34 +894,34 @@ string GenericTCTemplate<ModuleType>::CheckPartNumbers(void)
                                                                                    iter->second->getAttribute("comparison")->getValue())->getChildren());
                 }
 
-				//modify broadcast part number based on first character
-				if(GetParameterBool("ModifyBroadCastPN"))
-				{
-					if(broadcastPartNumber[0] == GetParameter("PNCheckFirstCharacterComparisonValue")[0])
-					{
-						try
-						{
-							broadcastPartNumber = broadcastPartNumber.substr(GetParameterInt("PNCheckCompareEqualStartIndex"),GetParameterInt("PNCheckCompareEqualLength"));
-						}
-						catch(...)
-						{
-							Log(LOG_ERRORS, "Broadcast PN (first char equal) modifcation Error broadcastPartNumber: %s\n",
-								broadcastPartNumber.c_str());
-						}
-					}
-					else
-					{
-						try
-						{
-							broadcastPartNumber = broadcastPartNumber.substr(GetParameterInt("PNCheckCompareNotEqualStartIndex"),GetParameterInt("PNCheckCompareNotEqualLength"));
-						}
-						catch(...)
-						{
-							Log(LOG_ERRORS, "Broadcast PN (first char not equal) modification Error broadcastPartNumber: %s\n",
-								broadcastPartNumber.c_str());
-						}
-					}
-				}
+                //modify broadcast part number based on first character
+                if(GetParameterBool("ModifyBroadCastPN"))
+                {
+                    if(broadcastPartNumber[0] == GetParameter("PNCheckFirstCharacterComparisonValue")[0])
+                    {
+                        try
+                        {
+                            broadcastPartNumber = broadcastPartNumber.substr(GetParameterInt("PNCheckCompareEqualStartIndex"),GetParameterInt("PNCheckCompareEqualLength"));
+                        }
+                        catch(...)
+                        {
+                            Log(LOG_ERRORS, "Broadcast PN (first char equal) modifcation Error broadcastPartNumber: %s\n",
+                                broadcastPartNumber.c_str());
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            broadcastPartNumber = broadcastPartNumber.substr(GetParameterInt("PNCheckCompareNotEqualStartIndex"),GetParameterInt("PNCheckCompareNotEqualLength"));
+                        }
+                        catch(...)
+                        {
+                            Log(LOG_ERRORS, "Broadcast PN (first char not equal) modification Error broadcastPartNumber: %s\n",
+                                broadcastPartNumber.c_str());
+                        }
+                    }
+                }
                 // Check the status of the data
                 if(BEP_STATUS_SUCCESS == moduleStatus)
                 {   // Good data, Check if the number should be validated
@@ -1489,7 +1489,7 @@ string GenericTCTemplate<ModuleType>::ClearFaults(void)
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     // Determine if this test step needs to be skipped
     Log(LOG_FN_ENTRY, "Enter GenericTCTemplate::ClearFaults()\n");
-    if(!ShortCircuitTestStep())
+    if(!ShortCircuitTestStep() || GetParameterBool("AlwaysClearFaults"))
     {   // Do not need to skip this step
         try
         {   // Tell the module to clear faults
@@ -1503,6 +1503,7 @@ string GenericTCTemplate<ModuleType>::ClearFaults(void)
             // Log the data
             Log(LOG_DEV_DATA, "Clear Faults: %s - status: %s\n",
                 testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+            BposSleep(GetParameterInt("ClearFaultsDelay"));
         }
         catch(ModuleException &moduleException)
         {
@@ -1537,7 +1538,7 @@ string GenericTCTemplate<ModuleType>::ReadFaults(void)
     string foundFaults;
     // Check if this step needs to be performed
     Log(LOG_FN_ENTRY, "Enter GenericTCTemplate::ReadFaults()\n");
-    if(!ShortCircuitTestStep())
+    if(!ShortCircuitTestStep() || GetParameterBool("AlwaysReadFaults"))
     {   // Do not need to skip this step
         try
         {   // Try to read the module faults
@@ -1581,6 +1582,10 @@ string GenericTCTemplate<ModuleType>::ReadFaults(void)
                             testResult = testFail;
                             Log(LOG_ERRORS, "Faults found in the module - continue to test!\n");
                         }
+                    }
+                    else if(!faultsRecorded && DTCsInModule()) // If we have DTCs stored from previous run but no DTCs in module now, clear our stored DTCs
+                    {
+                        RemoveDTC();
                     }
                     // Store the data indicating if faults are present in the module
                     DTCsInModule(faultsRecorded);
@@ -2131,44 +2136,44 @@ string GenericTCTemplate<ModuleType>::WaitForEngineOffKeyOn(void)
 template <class VehicleModuleType>
 string GenericTCTemplate<VehicleModuleType>::ResetModule(void)
 {
-	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
-	string testResult            = BEP_TESTING_STATUS;
-	string testResultCode        = "0000";
-	string testDescription       = GetTestStepInfo("Description");
-	// Log the entry
-	Log(LOG_FN_ENTRY, "%s::%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
-	// Determine if this step should be performed
-	if (!ShortCircuitTestStep() || GetParameterBool("AlwaysResetModule"))
-	{	// Attempt to command the module
-		try
-		{
-			moduleStatus = m_vehicleModule.PerformPowerOnReset();
-			// Check the status of the command
-			Log(LOG_DEV_DATA, "Power on reset: %s\n", ConvertStatusToResponse(moduleStatus).c_str());
-			testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
-			testResultCode = testPass == testResult ? testResultCode : GetFaultCode("CommunicationFailure");
-			testDescription = testPass == testResult ? testDescription : GetFaultDescription("CommunicationFailure");
-			// Wait for module reset to complete, defaults to 0
-			BposSleep(GetParameterInt("ModuleResetDelay"));
-		}
-		catch (ModuleException &excpt)
-		{	// Something bad happened
-			Log(LOG_ERRORS, "ModuleException during %s: %s\n", GetTestStepName().c_str(), excpt.GetReason());
-			testResult = testSoftwareFail;
-			testResultCode = GetFaultCode("SoftwareFailure");
-			testDescription = GetFaultDescription("SoftwareFailure");
-		}
-		// Send the test result
-		SendTestResult(testResult, testDescription, testResultCode);
-	}
-	else
-	{	// Skip the test
-		testResult = testSkip;
-		Log(LOG_FN_ENTRY, "Skipping test step - %s\n", GetTestStepName().c_str());
-	}
-	// Log the exit and return the result
-	Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
-	return testResult;
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    string testResult            = BEP_TESTING_STATUS;
+    string testResultCode        = "0000";
+    string testDescription       = GetTestStepInfo("Description");
+    // Log the entry
+    Log(LOG_FN_ENTRY, "%s::%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    // Determine if this step should be performed
+    if (!ShortCircuitTestStep() || GetParameterBool("AlwaysResetModule"))
+    {   // Attempt to command the module
+        try
+        {
+            moduleStatus = m_vehicleModule.PerformPowerOnReset();
+            // Check the status of the command
+            Log(LOG_DEV_DATA, "Power on reset: %s\n", ConvertStatusToResponse(moduleStatus).c_str());
+            testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+            testResultCode = testPass == testResult ? testResultCode : GetFaultCode("CommunicationFailure");
+            testDescription = testPass == testResult ? testDescription : GetFaultDescription("CommunicationFailure");
+            // Wait for module reset to complete, defaults to 0
+            BposSleep(GetParameterInt("ModuleResetDelay"));
+        }
+        catch (ModuleException &excpt)
+        {   // Something bad happened
+            Log(LOG_ERRORS, "ModuleException during %s: %s\n", GetTestStepName().c_str(), excpt.GetReason());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Send the test result
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Skip the test
+        testResult = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping test step - %s\n", GetTestStepName().c_str());
+    }
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    return testResult;
 }
 
 //-----------------------------------------------------------------------------

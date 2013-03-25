@@ -5,10 +5,10 @@
     <Setting Name="XsltFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\\Burke_PorterCCRT\\resources\\local\\report\\MesTestReportLayout..xsl</Value>
     </Setting>
-    <Setting Name="ResultDirectory" Type="System.String" Scope="User">
+    <Setting Name="SourceDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">G:\\Rewrite\\TestResults\\MES\\</Value>
     </Setting>
-    <Setting Name="ReportDirectory" Type="System.String" Scope="User">
+    <Setting Name="OutputDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\\Temp\\</Value>
     </Setting>
     <Setting Name="ResultDirCbo" Type="System.Windows.Forms.ComboBox" Scope="User">
@@ -16,6 +16,9 @@
     </Setting>
     <Setting Name="usedResults" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ArchiveDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">G:\\Rewrite\\TestResults\\MES Source Archive\\</Value>
     </Setting>
   </Settings>
 </SettingsFile>

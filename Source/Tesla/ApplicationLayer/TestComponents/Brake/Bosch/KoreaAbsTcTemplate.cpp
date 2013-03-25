@@ -1289,11 +1289,24 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateESP(void)
                                                                            m_ESPStartIndex,m_ESPEndIndex);
             if (dataStatus == BEP_STATUS_SUCCESS)
             {
+
+                    // Perform the valve cross check
+                    if(GetParameterBool("CheckESPValvesCrossed"))
+                        testResult = (AnalyzeESPValveCross() == BEP_STATUS_SUCCESS ? testPass : testFail);
+                    if(testFail == testResult)
+                    {
+                        Log( LOG_DEV_DATA, "ESP valve cross check failed\n");
+                        m_espValveCrossPassed = false;
+                    }
+                    else
+                    {
+                        m_espValveCrossPassed = true;
+                    }
                 // Evaluate the build and reduction values
 // 2005.2.28 ews changed per emergency HMMA request
 // changed to 2 to only evaluate the front wheels
-                for (wheelIndex = 0; wheelIndex < 2; wheelIndex++)
-                {
+                    for(wheelIndex = 0; wheelIndex < (UINT32)(GetParameterBool("FourChannelEspTest") ? 4 : 2); wheelIndex++)
+                    {
                     // Find the actual start and end build indices.  
                     // The stored indices are absolute, whereas the wheel force array is relative to start of test
                     INT32 buildStart = m_ESPIndex[wheelIndex].buildStart - m_ESPStartIndex;
@@ -1319,12 +1332,6 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateESP(void)
                     wheelReductionResults[wheelIndex] = BEP_STATUS_SUCCESS == reductionStatus ? testPass : testFail;
                 }
 
-                // Perform the valve cross check
-//               testResult = (AnalyzeESPValveCross() == BEP_STATUS_SUCCESS ? testPass : testFail);
-                if (testFail == testResult)
-                {
-                    Log( LOG_DEV_DATA, "ESP valve cross check failed\n");
-                }
 
                 // Evaluate the build and reduction pass/fail
                 for (wheelIndex = 0; wheelIndex < GetRollerCount(); wheelIndex++)
@@ -1442,7 +1449,7 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPBuildForces(INT
 
         else
         { // if we did the above, don't even check this
-            if (includeDrag == false)
+            if ((includeDrag == false) && (!GetParameterBool("DragAnalyzedBeforeESPTest")))
             {
                 buildValue -= m_baseBrakeTool->GetDragForceValue(roller);
             }
@@ -1478,6 +1485,8 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPBuildForces(INT
                                     rollerName[roller] + "ESPBuildValue", result, "LBF",
                                     rollerName[roller] + "ESPBuildMinForce", 
                                     CreateMessage(temp,sizeof(temp),"%7.2f",buildMinValue), "LBF");
+        //save build value in case evaluating decay as percentage
+        m_espBuildValue[roller] = buildValue;
         // Determine the status to return
         status = testResult == testPass ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
     }
@@ -1535,7 +1544,10 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPReductionForces
         }
         // get the parameter
         float reductionMaxValue = GetParameterFloat(rollerName[roller]+"MaxESPReductionForce");
-
+        if (GetParameterBool("UseMaxESPReductionPercentage"))
+        {
+            reductionValue = ( reductionValue / m_espBuildValue[roller]) * 100;
+        }
         if (reductionValue < reductionMaxValue)   // if value passed
         {
             testResult = testPass;
@@ -1560,10 +1572,20 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPReductionForces
         string testResultCode = (testResult == testPass ? "0000" : GetFaultCode(faultTag));
         string faultDesc = (testResult == testPass ? "ESP Reduction Test" : GetFaultDescription(faultTag));
         // send the test results to the TestResultServer
+        if (!GetParameterBool("UseMaxESPReductionPercentage"))
+        {
         SendSubtestResultWithDetail(rollerName[roller] + "ESPReduction", testResult, faultDesc, testResultCode,
                                     rollerName[roller] + "ESPReductionValue", result, "LBF",
                                     rollerName[roller] + "ESPReductionMaxForce", 
                                     CreateMessage(temp,sizeof(temp),"%7.2f",reductionMaxValue), "LBF");
+        }
+        else
+        {
+            SendSubtestResultWithDetail(rollerName[roller] + "ESPReduction", testResult, faultDesc, testResultCode,
+                                        rollerName[roller] + "ESPReductionValue", result, "%",
+                                        rollerName[roller] + "ESPReductionMaxForce", 
+                                        CreateMessage(temp,sizeof(temp),"%7.2f",reductionMaxValue), "%");
+        }
         // Determine the status to return
         status = testResult == testPass ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
     }
@@ -1800,7 +1822,9 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPValveCross(void
     string testResult = testFail;  // the test status for the check
     bool valveCrossPass=0;        // overall status of the check pass/fail
     int ValveStart = m_ESPIndex[LFWHEEL].buildStart - m_ESPStartIndex;  
-    int ValveEnd = m_ESPIndex[RFWHEEL].reductionEnd - m_ESPStartIndex;    
+    int ValveEnd = GetParameterBool("FourChannelEspTest") ? 
+                   m_ESPIndex[RRWHEEL].reductionEnd - m_ESPStartIndex: 
+                   m_ESPIndex[RFWHEEL].reductionEnd - m_ESPStartIndex;    
     float lfMax=0.0,rfMax=0.0,lrMax=0.0,rrMax=0.0;
     int   lfBuildPoint=0,rfBuildPoint=0,lrBuildPoint=0,rrBuildPoint=0;
     DATAARRAY lfForce,rfForce,lrForce,rrForce;
@@ -1852,9 +1876,18 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPValveCross(void
 
         Log(LOG_DEV_DATA,"Max points = %d %d %d %d\n",lfBuildPoint,
             rfBuildPoint,lrBuildPoint,rrBuildPoint);
-
+        if(GetParameterBool("FourChannelEspTest"))
+        {
+            if((lfBuildPoint < rfBuildPoint)
+               && (rfBuildPoint < lrBuildPoint) && 
+               (lrBuildPoint < rrBuildPoint)
+              )
+            {
+                valveCrossPass=1;
+            }
+        }
         // if the minimum points are in the order the valves were fired
-        if ((lfBuildPoint < rfBuildPoint)
+        else if((lfBuildPoint < rfBuildPoint)
 // 2005.2.28 ews changed per emergency HMMA request
 //                && (rfBuildPoint < lrBuildPoint) && 
 //             (lrBuildPoint < rrBuildPoint)

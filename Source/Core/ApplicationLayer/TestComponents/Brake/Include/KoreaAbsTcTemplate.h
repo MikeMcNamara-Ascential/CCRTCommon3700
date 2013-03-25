@@ -299,6 +299,10 @@ protected:
     */
    float m_newDrags[6];
 
+   bool m_espValveCrossPassed;
+
+   float m_espBuildValue[4];
+
    string& OriginalDriveAxle(const string *driveAxle = NULL);
 
    string m_originalDriveAxle;

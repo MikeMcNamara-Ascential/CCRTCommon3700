@@ -14,20 +14,13 @@
          <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
          <Debug>Off</Debug>
       </Brake>
-      <DriveTrain>
+      <!--DriveTrain>
          <ComponentName>TeslaDrivetrainTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
          <ConfigFile>DrivetrainTC.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Drivetrain/</ConfigPath>
          <Debug>Off</Debug>
-      </DriveTrain>
-      <!--Gateway>
-          <ComponentName>GatewayTc.qxe</ComponentName>
-          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-          <ConfigFile>GatewayTc.xml</ConfigFile>
-          <ConfigPath>/Configuration/Components/Gateway/</ConfigPath>
-          <Debug>Off</Debug>
-      </Gateway-->
+      </DriveTrain-->
       <Machine>
          <ComponentName>MachineTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -35,13 +28,13 @@
          <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
          <Debug>Off</Debug>
       </Machine>
-      <OCS>
+      <!--OCS>
           <ComponentName>DelphiAirbagTC.qxe</ComponentName>
           <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
           <ConfigFile>OcsTc.xml</ConfigFile>
           <ConfigPath>/Configuration/Components/Airbag/</ConfigPath>
           <Debug>Off</Debug>
-      </OCS>
+      </OCS-->
       <!--PowerSteering>
           <ComponentName>TeslaPowerSteeringTC.qxe</ComponentName>
           <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -92,9 +85,9 @@
             <!--Objective2 Description="Initialize Power Steering component" Result="" Timeout="" Component="PowerSteering">
                <EpasSetup/>
             </Objective2-->
-            <Objective3 Description="Initialize Ocs component" Result="" Timeout="" Component="OCS">
+            <!--Objective3 Description="Initialize Ocs component" Result="" Timeout="" Component="OCS">
                <OcsSetup/>
-            </Objective3>
+            </Objective3-->
          </ForegroundObjectives>
       </TestPhase110>
       <TestPhase120 Description="Brake to stop" Result="" Timeout="">
@@ -126,28 +119,39 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase210>
+      <!--Airbag Testing-->
+      <TestPhase215 Description="Airbag testing" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective1 Description="Airbag Test" Result="" Timeout="" Component="Airbag">
+               <AirbagTest/>
+            </Objective1>
+            <!--Objective2 Description="OCS Test" Result="" Timeout="" Component="OCS">
+               <FinishUp/>
+            </Objective2-->
+         </ForegroundObjectives>
+      </TestPhase215>
       <!-- Reverse Warning -->
-      <TestPhase310 Description="Shift to Reverse" Result="" Timeout="">
+      <!--TestPhase310 Description="Shift to Reverse" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Shift to Reverse to continue testing" Result="" Timeout="" Component="Machine">
                <PromptDriverAlways>ShiftToReverse</PromptDriverAlways>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase310>
-      <TestPhase320 Description="Perform reverse test" Result="" Timeout="">
+      </TestPhase310-->
+      <!--TestPhase320 Description="Perform reverse test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Perform reverse test" Result="" Timeout="" Component="DriveTrain">
                <Reverse/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase320>
-      <TestPhase330 Description="Brake to stop" Result="" Timeout="">
+      </TestPhase320-->
+      <!--TestPhase330 Description="Brake to stop" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Machine">
                <BrakeToStop/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase330>
+      </TestPhase330-->
       <!-- Drive Profile Test / Vehicle Checkout -->
       <TestPhase405 Description="Shift to Drive" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -156,20 +160,20 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase405>
-      <TestPhase410 Description="Perofrm acceleration cycles" Result="" Timeout="">
+      <!--TestPhase410 Description="Perofrm acceleration cycles" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Perform acceleration vehicle checkout" Result="" Timeout="" Component="DriveTrain">
                <VehicleCheckout/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase410>
-      <TestPhase420 Description="Brake to stop" Result="" Timeout="">
+      </TestPhase410-->
+      <!--TestPhase420 Description="Brake to stop" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Machine">
                <BrakeToStop/>
             </Objective0>
          </ForegroundObjectives>
-      </TestPhase420>
+      </TestPhase420-->
       <!-- Brake Burnish Test -->
       <TestPhase510 Description="Brake burnish cycle" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -218,7 +222,7 @@
       <TestPhase610 Description="Run The Brake Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Brake">
-               <BaseBrakeTest/>
+               <ESPBrakeTest/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase610>
@@ -226,7 +230,7 @@
       <TestPhase615 Description="Analyze The Brake Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Brake">
-               <AnalyzeBrakeTest/>
+               <AnalyzeESPBrakeTest/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase615>
@@ -244,6 +248,13 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase630>
+      <TestPhase700 Description="Shift to Drive" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Shift to Drive to continue testing" Result="" Timeout="" Component="Machine">
+               <PromptDriverAlways>ShiftToDrive</PromptDriverAlways>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase700>
       <!-- Park Brake Test -->
       <TestPhase710 Description="Perform Park Brake Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
@@ -252,56 +263,28 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase710>
-      <!--Airbag Testing-->
-      <TestPhase840 Description="Airbag testing" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Description="Perform final testing" Result="" Timeout="" Component="Machine">
-                <PromptDriverAlways>PerformingFinalTesting</PromptDriverAlways>
-            </Objective0>
-            <Objective1 Description="Airbag Test" Result="" Timeout="" Component="Airbag">
-               <AirbagTest/>
-            </Objective1>
-            <Objective2 Description="OCS Test" Result="" Timeout="" Component="OCS">
-               <FinishUp/>
-            </Objective2>
-         </ForegroundObjectives>
-      </TestPhase840>
       <!--Brake Finishup-->
       <!-- ABS Clear Faults -->
       <TestPhase849 Description="Clear ABS Faults" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
-             <Objective0 Description="Clear ABS Faults" Result="" Timeout="" Component="Brake">
+            <Objective0 Description="Perform final testing" Result="" Timeout="" Component="Machine">
+                <PromptDriverAlways>PerformingFinalTesting</PromptDriverAlways>
+            </Objective0>
+             <Objective1 Description="Clear ABS Faults" Result="" Timeout="" Component="Brake">
                 <ClearFaults/>
-             </Objective0>
+             </Objective1>
          </ForegroundObjectives>
       </TestPhase849>
-      <!--TestPhase850 Description="Cycle the ignition" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
-            <Objective0 Result="" Description="Cycle the ignition" Timeout="" Component="Gateway">
-               <CycleIgnition/>
-            </Objective0>
-         </ForegroundObjectives>
-      </TestPhase850-->
-      <TestPhase855 Description="Finishup Brake Component" Result="" Timeout="">
+      <!-- Finish up processing -->
+      <TestPhase850 Description="Finishup Brake Component" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Result="" Description="Perform Brake finish-up" Timeout="" Component="Brake">
                <FinishUp/>
             </Objective0>
-         </ForegroundObjectives>
-      </TestPhase855>
-      <!-- Finish up processing -->
-      <TestPhase999 Description="Finishup" Result="" Timeout="">
-         <ForegroundObjectives Result="" Timeout="">
             <Objective1 Result="" Description="Perform module finish-up" Timeout="" Component="Machine">
                <FinishUp>PerformingFinishUp</FinishUp>
             </Objective1>
-            <!--Objective2 Description="Perform power steering finish-up" Result="" Timeout="" Component="PowerSteering">
-               <FinishUp/>
-            </Objective2-->
-            <Objective3 Result="" Description="Perform Airbag finish-up" Timeout="" Component="Airbag">
-               <FinishUp/>
-            </Objective3>
          </ForegroundObjectives>
-      </TestPhase999>
+      </TestPhase850>
    </Test>
 </DriveCurve>

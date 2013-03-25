@@ -155,7 +155,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(step == "CheckYawRate")  status = CheckYawRate();
         else if(step == "CheckPressureSensor") status = CheckPressureSensor();
         else if(step == "CheckAYSensorStatus") status = CheckAYSensorStatus();
-		else if(step == "CycleIgnition") status = CycleIgnition();
+        else if(step == "CycleIgnition") status = CycleIgnition();
         else if(step == "SensorQualityTest") status = SensorQualityTest();
         else if(step == "ESPValveFiringTest") status = ESPValveFiringTest();
         else if(step == "ABSValveFiringTest") status = ABSValveFiringTest();
@@ -1526,29 +1526,29 @@ string BoschABSTC<ModuleType>::CheckAYSensorStatus(void)
 template <class ModuleType>
 string BoschABSTC<ModuleType>::CycleIgnition(void)
 {
-	string result(BEP_TESTING_STATUS);
-	Log(LOG_FN_ENTRY, "BoschABSTC::CycleIgnition() - Enter");
-	if(!ShortCircuitTestStep())
-	{   // Wait for the engine to be off
-		result = WaitForEngineOffIgnitionOff();
-		if(!result.compare(testPass))
-		{   // Ignition is off, wait for ignition on
-			result = CheckIgnitionOn() ? testPass : testFail;
-		}
-		else
-		{   // Timeout waiting for engine off
-			Log(LOG_ERRORS, "Timeout waiting for ignition off");
-		}
-		// Report the result
-		SendTestResult(result, GetTestStepInfo("Description"), "0000");
-	}
-	else
-	{ 
-		result = testSkip;
-		Log(LOG_FN_ENTRY, "Skipping Cycle Ignition");
-	}
-	Log(LOG_FN_ENTRY, "BoschABSTC::CycleIgnition() - Exit");
-	return result;
+    string result(BEP_TESTING_STATUS);
+    Log(LOG_FN_ENTRY, "BoschABSTC::CycleIgnition() - Enter");
+    if(!ShortCircuitTestStep())
+    {   // Wait for the engine to be off
+        result = WaitForEngineOffIgnitionOff();
+        if(!result.compare(testPass))
+        {   // Ignition is off, wait for ignition on
+            result = CheckIgnitionOn() ? testPass : testFail;
+        }
+        else
+        {   // Timeout waiting for engine off
+            Log(LOG_ERRORS, "Timeout waiting for ignition off");
+        }
+        // Report the result
+        SendTestResult(result, GetTestStepInfo("Description"), "0000");
+    }
+    else
+    { 
+        result = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping Cycle Ignition");
+    }
+    Log(LOG_FN_ENTRY, "BoschABSTC::CycleIgnition() - Exit");
+    return result;
 }
 
 //---------------------------------------------------------------------------------------------------------------------
@@ -2476,13 +2476,13 @@ string BoschABSTC<ModuleType>::LFESPTest(void)
         if(espCommand.empty() == false)
         {
 
-            moduleStatus = m_vehicleModule.GetInfo(espCommand);
-            if(espCommand == "LFESPEnd" && GetParameterBool("CheckResponseInProgress"))
+            moduleStatus = m_vehicleModule.CommandModule(espCommand);
+            if(espCommand == "LFESPEnd" && GetParameterBool("CheckResponseInProgress") && !GetParameterBool("AlwaysWaitForControlComplete"))
             {
                 m_vehicleModule.ReadModuleData("ReadControlComplete",isControlComplete);
             }
             if(GetParameterBool("CheckResponseInProgress") && 
-               moduleStatus == BEP_STATUS_SUCCESS && espCommand != "LFESPEnd")
+               moduleStatus == BEP_STATUS_SUCCESS && ((espCommand != "LFESPEnd") || GetParameterBool("AlwaysWaitForControlComplete")))
             {//New Bosch module does not send busy response
                 WaitForControlComplete();
                 /*if(espCommand  == "LFESPEnd")
@@ -2556,7 +2556,7 @@ string BoschABSTC<ModuleType>::RFESPTest(void)
             if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[RFWHEEL].reductionEnd = TagArray("RFESPReductionEnd");
             else m_ESPIndex[RFWHEEL].reductionStart = TagArray("RFESPReductionStart");
             // 2005.02.28 ews added at HMMA emergency request
-            espCommand = "LRESPFinalize";
+            espCommand = "RFESPFinalize";
             break;
         case ESP_DONE:
             if(GetParameterBool("CheckResponseInProgress")) m_ESPIndex[RFWHEEL].reductionEnd = TagArray("RFESPReductionEnd");
@@ -2568,13 +2568,13 @@ string BoschABSTC<ModuleType>::RFESPTest(void)
         // If we have a command to send
         if(espCommand.empty() == false)
         {
-            moduleStatus = m_vehicleModule.GetInfo(espCommand);
-            if(espCommand == "RFESPEnd" && GetParameterBool("CheckResponseInProgress"))
+            moduleStatus = m_vehicleModule.CommandModule(espCommand);
+            if(espCommand == "RFESPEnd" && GetParameterBool("CheckResponseInProgress") && !GetParameterBool("AlwaysWaitForControlComplete"))
             {
                 m_vehicleModule.ReadModuleData("ReadControlComplete",isControlComplete);
             }
             if(GetParameterBool("CheckResponseInProgress") && 
-               moduleStatus == BEP_STATUS_SUCCESS && espCommand != "RFESPEnd")
+               moduleStatus == BEP_STATUS_SUCCESS && ((espCommand != "RFESPEnd") || GetParameterBool("AlwaysWaitForControlComplete")))
             {//New Bosch module does not send busy response
                 WaitForControlComplete();
                 /*if(espCommand  == "RFESPEnd")
@@ -2631,25 +2631,28 @@ string BoschABSTC<ModuleType>::LRESPTest(void)
             // NOP
             break;
         case ESP_PRIMARY_ON:
-            espCommand = "ESPPrimaryValve2On";
+            espCommand = "ESPPrimaryValve2OnRear";
             break;
         case ESP_START:
             m_ESPIndex[LRWHEEL].buildStart = TagArray("LRESPBuildStart");
             espCommand = "LRESPStart";
             break;
         case ESP_PRIMARY_OFF:
-            m_ESPIndex[LRWHEEL].buildEnd = TagArray("LRESPBuildEnd");
+            if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[LRWHEEL].buildEnd = TagArray("LRESPBuildEnd");
             espCommand = "ESPPrimaryValve2Off";
             break;
         case ESP_END:
-            m_ESPIndex[LRWHEEL].reductionStart = TagArray("LRESPReductionStart");
+            if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[LRWHEEL].reductionStart = TagArray("LRESPReductionStart");
+            else m_ESPIndex[LRWHEEL].buildEnd = TagArray("LRESPBuildEnd");
             espCommand = "LRESPEnd";
             break;
         case ESP_FINALIZE:
-            m_ESPIndex[LRWHEEL].reductionEnd = TagArray("LRESPReductionEnd");
+            if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[LRWHEEL].reductionEnd = TagArray("LRESPReductionEnd");
+            else m_ESPIndex[LRWHEEL].reductionStart = TagArray("LRESPReductionStart");
             espCommand = "LRESPFinalize";
             break;
         case ESP_DONE:
+            if(GetParameterBool("CheckResponseInProgress")) m_ESPIndex[LRWHEEL].reductionEnd = TagArray("LRESPReductionEnd");
             done = true;
             break;
         default:
@@ -2658,13 +2661,13 @@ string BoschABSTC<ModuleType>::LRESPTest(void)
         // If we have a command to send
         if(espCommand.empty() == false)
         {
-            moduleStatus = m_vehicleModule.GetInfo(espCommand);
-            if(espCommand == "LRESPEnd" && GetParameterBool("CheckResponseInProgress"))
+            moduleStatus = m_vehicleModule.CommandModule(espCommand);
+            if(espCommand == "LRESPEnd" && GetParameterBool("CheckResponseInProgress") && !GetParameterBool("AlwaysWaitForControlComplete"))
             {
                 m_vehicleModule.ReadModuleData("ReadControlComplete",isControlComplete);
             }
             if(GetParameterBool("CheckResponseInProgress") && 
-               moduleStatus == BEP_STATUS_SUCCESS && espCommand != "LRESPEnd")
+               moduleStatus == BEP_STATUS_SUCCESS && ((espCommand != "LRESPEnd") || GetParameterBool("AlwaysWaitForControlComplete")))
             {//New Bosch module does not send busy response
                 WaitForControlComplete();
                 /*if(espCommand  == "LRESPEnd")
@@ -2729,15 +2732,17 @@ string BoschABSTC<ModuleType>::RRESPTest(void)
             espCommand = "RRESPStart";
             break;
         case ESP_PRIMARY_OFF:
-            m_ESPIndex[RRWHEEL].buildEnd = TagArray("RRESPBuildEnd");
+            if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[RRWHEEL].buildEnd = TagArray("RRESPBuildEnd");
             espCommand = "ESPPrimaryValve1Off";
             break;
         case ESP_END:
-            m_ESPIndex[RRWHEEL].reductionStart = TagArray("RRESPReductionStart");
+            if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[RRWHEEL].reductionStart = TagArray("RRESPReductionStart");
+            else m_ESPIndex[RRWHEEL].buildEnd = TagArray("RRESPBuildEnd");
             espCommand = "RRESPEnd";
             break;
         case ESP_FINALIZE:
-            m_ESPIndex[RRWHEEL].reductionEnd = TagArray("RRESPReductionEnd");
+            if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[RRWHEEL].reductionEnd = TagArray("RRESPReductionEnd");
+            else m_ESPIndex[RRWHEEL].reductionStart = TagArray("RRESPReductionStart");
             espCommand = "RRESPFinalize";
             break;
         case ESP_DONE:
@@ -2746,6 +2751,7 @@ string BoschABSTC<ModuleType>::RRESPTest(void)
              * Removed this and added a StopPumpMotor test step after the ESP test
              */
             //              espCommand = "ESPPumpOff";
+            if(GetParameterBool("CheckResponseInProgress")) m_ESPIndex[RRWHEEL].reductionEnd = TagArray("RRESPReductionEnd");
             done = true;
             break;
         default:
@@ -2754,13 +2760,13 @@ string BoschABSTC<ModuleType>::RRESPTest(void)
         // If we have a command to send
         if(espCommand.empty() == false)
         {
-            moduleStatus = m_vehicleModule.GetInfo(espCommand);
-            if(espCommand == "RRESPEnd" && GetParameterBool("CheckResponseInProgress"))
+            moduleStatus = m_vehicleModule.CommandModule(espCommand);
+            if(espCommand == "RRESPEnd" && GetParameterBool("CheckResponseInProgress") && !GetParameterBool("AlwaysWaitForControlComplete"))
             {
                 m_vehicleModule.ReadModuleData("ReadControlComplete",isControlComplete);
             }
             if(GetParameterBool("CheckResponseInProgress") && 
-               moduleStatus == BEP_STATUS_SUCCESS && espCommand != "RRESPEnd")
+               moduleStatus == BEP_STATUS_SUCCESS && ((espCommand != "RRESPEnd") || GetParameterBool("AlwaysWaitForControlComplete")))
             {//New Bosch module does not send busy response
                 WaitForControlComplete();
                 /*if(espCommand  == "RRESPEnd")
@@ -3910,7 +3916,7 @@ string BoschABSTC<ModuleInterface>::ElectricParkBrakeBurnishCycle(void)
     // Log the entry and determine if this test should be performed
     Log(LOG_FN_ENTRY, "BoschABSTC::ElectricParkBrakeBurnishCycle() - Enter");
     
-    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && !OperatorPassFail("PerformBrakeBurnish").compare(testPass))
+    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && GetTestStepResult().compare(testSkip) && !OperatorPassFail("PerformParkBrakeBurnish").compare(testPass))
     {
         result = PerformElectricParkBrakeBurnishCycle();
         // Report the result
@@ -3931,6 +3937,13 @@ string BoschABSTC<ModuleInterface>::PerformElectricParkBrakeBurnishCycle(void)
 {
     string result(testPass);
     Log(LOG_DEV_DATA, "Performing Electric Park Brake Burnish Cycle\n");
+
+    if(GetParameterBool("EPBBurnishSpeedMatchDisable"))
+    {
+        // Command rolls to zero torque
+        m_MotorController.Write(COMMAND_TORQUE, "0", true);
+        m_MotorController.Write(MOTOR_MODE, TORQUE_MODE, true);
+    }
 
     for(INT32 burnishCycles = 0; 
          (burnishCycles < GetParameterInt("EPBBurnishCycles")) && 
@@ -3957,14 +3970,14 @@ string BoschABSTC<ModuleInterface>::PerformElectricParkBrakeBurnishCycle(void)
                                              GetTestStepInfoInt("ScanDelay"), true, 
                                              GetParameter("EPBBrakeToTargetSpeedPrompt"));
                 // Hold speed while park brake is applied
+                //string burnishTime = ((burnishIterations == (GetParameterInt("EPBBurnishIterations")-1)) ? 
+                //                          "EPBBurnishFinalIterationHoldTime" : "EPBBurnishHoldTime");
+                //BposSleep(GetParameterInt(burnishTime));
+                RemovePrompt(GetPromptBox("PressAndHoldParkBrake"), GetPrompt("PressAndHoldParkBrake"),
+                              GetPromptPriority("PressAndHoldParkBrake"));
                 DisplayPrompt(GetPromptBox("MaintainSpeedInBand"), GetPrompt("MaintainSpeedInBand"),
                               GetPromptPriority("MaintainSpeedInBand"));
                 SystemWrite(GetDataTag("SpeedTarget"), GetParameter("EPBBurnishEndSpeedRange"));
-                string burnishTime = ((burnishIterations == (GetParameterInt("EPBBurnishIterations")-1)) ? 
-                                          "EPBBurnishFinalIterationHoldTime" : "EPBBurnishHoldTime");
-                BposSleep(GetParameterInt(burnishTime));
-                RemovePrompt(GetPromptBox("PressAndHoldParkBrake"), GetPrompt("PressAndHoldParkBrake"),
-                              GetPromptPriority("PressAndHoldParkBrake"));
                 // Hold speed while letting brakes cool down
                 string coolDownTime = ((burnishIterations == (GetParameterInt("EPBBurnishIterations")-1)) ? 
                                           "EPBBurnishFinalIterationCoolDownTime" : "EPBBurnishCoolDownTime");
@@ -3987,6 +4000,13 @@ string BoschABSTC<ModuleInterface>::PerformElectricParkBrakeBurnishCycle(void)
             }
         }
     }
+
+    if(GetParameterBool("EPBBurnishSpeedMatchDisable"))
+    {
+        // Set motor mode back to Boost
+        m_MotorController.Write(MOTOR_MODE, BOOST_MODE, true);
+    }
+
     Log(LOG_DEV_DATA, "Done Performing Electric Park Brake Burnish Cycle, status=%s\n", result.c_str());
     return result;
 }
@@ -4195,6 +4215,7 @@ INT32 BoschABSTC<ModuleInterface>::ElectricParkBrakeInit(void)
     OriginalDriveAxle(&driveAxle);
     // Switch the drive axle so the rear set of motors is enabled
     SystemWrite(DRIVE_AXLE_TAG, string(FRONT_WHEEL_DRIVE_VALUE));
+    BposSleep(1000);
     return result;
 }
 
@@ -4279,6 +4300,7 @@ const string BoschABSTC<ModuleInterface>::PerformPBTorqueTest(const string &dire
         Log(LOG_ERRORS, "Park brake test failed because operator applied brake pedal");
     }
     // Reset to the original drive axle
+    BposSleep(1000);
     SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
     RemovePrompts();
     DisplayTimedPrompt(GetPrompt("ReleaseParkBrake"), GetPromptBox("ReleaseParkBrake"), 

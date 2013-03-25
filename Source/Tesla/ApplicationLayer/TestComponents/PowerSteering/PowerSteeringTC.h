@@ -58,6 +58,7 @@ public:
 protected:
     virtual string ProgramVIN(void);
     virtual string LockSteeringTune(void);
+    virtual string WriteSteeringConstant(void);
 private:
 };
 //-----------------------------------------------------------------------------

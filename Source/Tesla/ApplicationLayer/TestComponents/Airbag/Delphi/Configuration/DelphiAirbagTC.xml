@@ -98,6 +98,7 @@
          <TestStep50>CheckVIN</TestStep50>
          <TestStep60>ReadFaults</TestStep60>
          <TestStep70>EnableAirBagModule</TestStep70>
+         <TestStep75>FinishUp</TestStep75>
       </AirbagTest>
       <AirbagSetup>
          <TestStep00>Setup</TestStep00>

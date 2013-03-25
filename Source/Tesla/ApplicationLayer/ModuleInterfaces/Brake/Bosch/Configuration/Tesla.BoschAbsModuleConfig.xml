@@ -456,11 +456,163 @@
              <ReplyMessage>WheelSpeedSensorResults</ReplyMessage>
              <ReplyInterpretation>WheelSpeedSensorResults</ReplyInterpretation>
          </SensorTestResults>
+         <PerformPowerOnReset>
+            <TransmitMessage>ResetModule</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ResetModule</ReplyMessage>
+            <ReplyInterpretation/>
+         </PerformPowerOnReset>
+         <!-- ESP Test -->
+         <!-- LF -->
+         <LFESPInit>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPInit1</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFESPInit>
+         <ESPPumpOn1>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPPumpOn1</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </ESPPumpOn1>
+         <LFESPStart>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>LFESPStart</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFESPStart>
+         <ESPPrimaryValve1Off>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPPrimaryValve1Off</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </ESPPrimaryValve1Off>
+         <LFESPEnd>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>LFESPEnd</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFESPEnd>
+         <LFESPFinalize>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>LFESPFinalize</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFESPFinalize>
+         <!-- End LF -->
+         <!-- RF -->
+         <RFESPInit>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPInit2</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFESPInit>
+         <ESPPrimaryValve2On>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPPrimaryValve2On</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </ESPPrimaryValve2On>
+         <RFESPStart>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>RFESPStart</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFESPStart>
+         <ESPPrimaryValve2Off>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPPrimaryValve2Off</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </ESPPrimaryValve2Off>
+         <RFESPEnd>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>RFESPEnd</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFESPEnd>
+         <RFESPFinalize>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>RFESPFinalize</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFESPFinalize>
+         <!-- END RF -->
+         <!-- LR -->
+         <ESPPrimaryValve2OnRear>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPPrimaryValve2OnRear</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </ESPPrimaryValve2OnRear>
+         <LRESPStart>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>LRESPStart</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LRESPStart>
+         <LRESPEnd>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>LRESPEnd</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LRESPEnd>
+         <LRESPFinalize>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>LRESPFinalize</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LRESPFinalize>
+         <!-- END LR -->
+         <!-- RR -->
+         <RRESPInit>
+            <!-- same as LF first message -->
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPInit1</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRESPInit>
+         <ESPPrimaryValve1On>
+            <!-- next in seq prim off fl rr on -->
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>ESPPrimaryValve1On</TransmitInterpretation>
+            <!-- Updated to have pump on -->
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </ESPPrimaryValve1On>
+         <RRESPStart>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>RRESPStart</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRESPStart>
+         <!-- ESPPrimaryValve1Off -->
+         <RRESPEnd>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>RRESPEnd</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRESPEnd>
+         <RRESPFinalize>
+            <TransmitMessage>ESPValveActuation</TransmitMessage>
+            <TransmitInterpretation>RRESPFinalize</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRESPFinalize>
+         <!-- END RR -->
+         <ReadControlComplete>
+            <TransmitMessage>RoutineResults</TransmitMessage>
+            <TransmitInterpretation>ActuatorActionComplete</TransmitInterpretation>
+            <ReplyMessage>RoutineResults</ReplyMessage>
+            <ReplyInterpretation>RoutineComplete</ReplyInterpretation>
+         </ReadControlComplete>
       </VehicleMessages>
       <TransmitMessages>
          <!--For actuating one valve or for single-corner reduction/recovery-->
          <ActuatorOperation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x00,0x00,0x00,0x00,0x1E,0x00,0x??,0x00,0x??,0x00,0x00,0x00,0x00</ActuatorOperation>
          <ActuatorOperationT2>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x00,0x00,0x00,0x00,0x1E,0x00,0x??,0x00,0x??,0x00,0x00,0x00,0x00</ActuatorOperationT2>
+         <ESPValveActuation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??</ESPValveActuation>
          <!--For turning all/multiple valves on/off-->
          <MultipleValveActuation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x01,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??</MultipleValveActuation>
          <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
@@ -519,6 +671,7 @@
          <EvacAndFill>0x00,0x0A,0x05</EvacAndFill>
          <EvacAndFillId>0x00</EvacAndFillId>
          <EvacAndFillResults>0xF0,0x00</EvacAndFillResults>
+         <ActuatorActionComplete>0xF0,0x0A</ActuatorActionComplete>
          <ExtendedSession>0x03</ExtendedSession>
          <HardwareVersion>0xF1,0x93</HardwareVersion>
          <IdentifySessionType>0xF1,0x86</IdentifySessionType>
@@ -539,6 +692,27 @@
          <WheelSpeedSensor6TestAccel>0x02,0x58,0x01</WheelSpeedSensor6TestAccel>
          <WheelSensorSpeedTestId>0x02</WheelSensorSpeedTestId>
          <WheelSpeeds>0xFD,0x00</WheelSpeeds>
+         <!-- Value1, Actuator1, Value2, Actuator2, Time, Value3, Actuator3, Value4, Actuator4 -->
+         <ESPInit1>0x64,0x30,0x64,0x38,0x14,0x28,0x50,0x00,0x00</ESPInit1><!-- 200ms -->
+         <ESPPumpOn1>0x64,0x22,0x32,0x54,0x01,0x00,0x00,0x00,0x00</ESPPumpOn1><!-- 10ms -->
+         <LFESPStart>0x00,0x30,0x00,0x00,0x0F,0x64,0x30,0x00,0x00</LFESPStart><!-- 150ms -->
+         <ESPPrimaryValve1Off>0x00,0x54,0x00,0x00,0x1E,0x00,0x00,0x00,0x00</ESPPrimaryValve1Off><!-- 300ms -->
+         <LFESPEnd>0x64,0x32,0x00,0x00,0x1E,0x00,0x32,0x00,0x00</LFESPEnd><!-- 300ms -->
+         <LFESPFinalize>0x00,0x50,0x00,0x00,0x0A,0x00,0x30,0x00,0x38</LFESPFinalize><!-- 100ms -->
+         <ESPInit2>0x64,0x34,0x64,0x3C,0x14,0x28,0x4E,0x00,0x00</ESPInit2><!-- 200ms -->
+         <ESPPrimaryValve2On>0x32,0x52,0x00,0x00,0x01,0x00,0x00,0x00,0x00</ESPPrimaryValve2On><!-- 10ms -->
+         <RFESPStart>0x00,0x34,0x00,0x00,0x0F,0x64,0x34,0x00,0x00</RFESPStart><!-- 150ms -->
+         <ESPPrimaryValve2Off>0x00,0x52,0x00,0x00,0x1E,0x00,0x00,0x00,0x00</ESPPrimaryValve2Off><!-- 300ms -->
+         <RFESPEnd>0x64,0x36,0x00,0x00,0x1E,0x00,0x36,0x00,0x00</RFESPEnd><!-- 300ms -->
+         <RFESPFinalize>0x00,0x00,0x00,0x00,0x0A,0x00,0x00,0x00,0x00</RFESPFinalize><!-- 100ms -->
+         <ESPPrimaryValve2OnRear>0x00,0x00,0x00,0x00,0x14,0x32,0x52,0x00,0x00</ESPPrimaryValve2OnRear><!-- 200ms -->
+         <LRESPStart>0x00,0x3C,0x00,0x00,0x0F,0x64,0x3C,0x00,0x00</LRESPStart><!-- 150ms -->
+         <LRESPEnd>0x64,0x3E,0x00,0x00,0x1E,0x00,0x3E,0x00,0x00</LRESPEnd><!-- 300ms -->
+         <LRESPFinalize>0x00,0x4E,0x00,0x00,0x14,0x00,0x34,0x00,0x3C</LRESPFinalize><!-- 200ms -->
+         <ESPPrimaryValve1On>0x32,0x54,0x00,0x00,0x01,0x00,0x00,0x00,0x00</ESPPrimaryValve1On><!-- 10ms -->
+         <RRESPStart>0x00,0x38,0x00,0x00,0x0F,0x64,0x38,0x00,0x00</RRESPStart><!-- 150ms -->
+         <RRESPEnd>0x64,0x3A,0x00,0x00,0x1E,0x00,0x3A,0x00,0x00</RRESPEnd><!-- 300ms -->
+         <RRESPFinalize>0x00,0x50,0x00,0x00,0x0A,0x00,0x30,0x00,0x38</RRESPFinalize><!-- 100ms -->
       </TransmitInterpretations>
       <ReplyMessages>
          <BrakePedalStatus>
@@ -627,9 +801,9 @@
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadWheelSpeeds>
          <ResetModule>
-            <Reply_00>0x51,0x03</Reply_00>
-            <Reply_01>0x7F,0x11</Reply_01>
-            <Reply_02>0x7F,0x11,0x??</Reply_02>
+            <Reply_00 lengthType="Variable">0x51,0x03</Reply_00>
+            <Reply_01 lengthType="Variable">0x7F,0x11</Reply_01>
+            <Reply_02 lengthType="Variable">0x7F,0x11,0x??</Reply_02>
          </ResetModule>
          <SessionType>
             <!--Default-->
@@ -656,7 +830,8 @@
          </StopRoutine>
          <RoutineResults>
             <Reply_00>0x71,0x03,0xF0,0x00,0x0?</Reply_00>
-            <Reply_01>0x7F,0x31,0x??</Reply_01>
+            <Reply_01>0x71,0x03,0xF0,0x0A,0x??</Reply_01>
+            <Reply_02>0x7F,0x31,0x??</Reply_02>
          </RoutineResults>
          <WheelSpeedSensorResults>
              <Reply_00 lengthType="Variable">0x71,0x03,0xF0,0x02,0x??</Reply_00>

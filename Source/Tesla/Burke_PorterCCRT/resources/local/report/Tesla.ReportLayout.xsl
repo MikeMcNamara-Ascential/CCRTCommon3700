@@ -69,820 +69,798 @@
     <xsl:template name="TestResults" match="/BepVehicleTestResult/TestResult">
 
         <br/>
+        <br/>
         <table border="1" rules="all" title="Test Results" cellpadding="1">
             <xsl:call-template name="headerRow"/>
 
             <xsl:call-template name="brakeResults"/>
 
             <xsl:call-template name="airbagResults"/>
-			
-			<!--xsl:call-template name="steeringResults"/-->
-			
-			<xsl:call-template name="drivetrainResults"/>
 
             <xsl:call-template name="overallResult"/>
 
         </table>
     </xsl:template>
-	
-	<xsl:template name="drivetrainResults">
-		<!-- Drivetrain Results -->
-		<tr bgcolor="white">
-			<th align="left" rowspan="1" colspan="7">DRIVETRAIN</th>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Reverse Test</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//DriveTrainReverseTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Load Test Cycle</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//DriveTrainVehicleCheckoutCycle/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-	</xsl:template>
-	
-	<xsl:template name="steeringResults">
-		<!-- Steering Results -->
-		<tr bgcolor="white">
-			<th align="left" rowspan="1" colspan="7">EPAS</th>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Learn VIN</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//PowerSteeringProgramVIN/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">CheckVIN</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//PowerSteeringCheckVIN/ModuleVIN"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//PowerSteeringCheckVIN/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-	</xsl:template>
-	
-	<xsl:template name="airbagResults">
-		<!-- Airbag Results -->
-		<tr bgcolor="white">
-			<th align="left" rowspan="1" colspan="7">AIRBAG</th>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Part #</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//AirbagCheckModulePartNumber/ModulePartNumber"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//AirbagCheckModulePartNumber/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Serial #</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//AirbagCollectTraceData/SerialNumber"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//AirbagCollectTraceData/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">OEM Part #</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//AirbagCheckOEMPartNumber/ModulePartNumber"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//AirbagCheckOEMPartNumber/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">SW Ver #</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//AirbagCheckFWChecksum/ModulePartNumber"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//AirbagCheckFWChecksum/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Program VIN</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//AirbagProgramVIN/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Check VIN</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//AirbagCheckVIN/ModuleVIN"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//AirbagCheckVIN/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Arm Airbag</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//AirbagEnableAirBagModule/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">DTC Check</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResultMultiple">
-					<xsl:with-param name="RESULT_1" select="//AirbagReadFaults/@Result"/>
-                    <xsl:with-param name="RESULT_2" select="//OcsReadFaults/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>		
-		<xsl:for-each select="//DTC/Airbag//@DTCCode">
-			<tr>
-				<td width="10"/>
-				<td width="70" align="left">0x<xsl:value-of select=". "/> - <xsl:value-of select=".."/></td>
-			</tr>
-		</xsl:for-each>
-        <xsl:for-each select="//DTC/Ocs//@DTCCode">
+    
+    <xsl:template name="drivetrainResults">
+        <!-- Drivetrain Results -->
+        <tr bgcolor="white">
+            <th align="left" rowspan="1" colspan="7">DRIVETRAIN</th>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Reverse Test</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//DriveTrainReverseTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Load Test Cycle</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//DriveTrainVehicleCheckoutCycle/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+    </xsl:template>
+    
+    <xsl:template name="steeringResults">
+        <!-- Steering Results -->
+        <tr bgcolor="white">
+            <th align="left" rowspan="1" colspan="7">EPAS</th>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="17">CheckVIN (0xF190)</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//PowerSteeringCheckVIN/ModuleVIN"/>
+            </td>
+            <td width="7"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//PowerSteeringCheckVIN/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+
+    </xsl:template>
+    
+    <xsl:template name="airbagResults">
+        <!-- Airbag Results -->
+        <tr bgcolor="white">
+            <th align="left" rowspan="1" colspan="7">AIRBAG</th>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Part #</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//AirbagCheckP3_ModulePartNumber/ModulePartNumber"/>
+            </td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//AirbagCheckP3_ModulePartNumber/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Serial #</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//AirbagCollectTraceData/SerialNumber"/>
+            </td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//AirbagCollectTraceData/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">OEM Part #</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//AirbagCheckP1_OEMPartNumber/ModulePartNumber"/>
+            </td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//AirbagCheckP1_OEMPartNumber/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">SW Ver #</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//AirbagCheckP2_FWChecksum/ModulePartNumber"/>
+            </td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//AirbagCheckP2_FWChecksum/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Program VIN</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//AirbagProgramVIN/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Check VIN</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//AirbagCheckVIN/ModuleVIN"/>
+            </td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//AirbagCheckVIN/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Arm Airbag</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//AirbagEnableAirBagModule/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">DTC Check</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//AirbagReadFaults/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>       
+        <xsl:for-each select="//DTC/Airbag//@DTCCode">
             <tr>
                 <td width="10"/>
                 <td width="70" align="left">0x<xsl:value-of select=". "/> - <xsl:value-of select=".."/></td>
             </tr>
         </xsl:for-each>
-		
-	</xsl:template>
-	
-	<xsl:template name="brakeResults">
-		<!-- ======================================================================================== -->
-		<!-- Drag Test Results -->
-		<!-- ======================================================================================== -->
-		<tr bgcolor="white">
-			<th align="left" rowspan="1" colspan="7">BRAKE</th>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LF Drag</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontDragTest/DragForce"/>
-			</td>
-			<td width="10" align="left"/>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontDragTest/MaxDragForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontDragTest/DragForce/@Units"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLeftFrontDragTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RF Drag</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontDragTest/DragForce"/>
-			</td>
-			<td width="10" align="left"/>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontDragTest/MaxDragForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontDragTest/DragForce/@Units"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRightFrontDragTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LR Drag</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearDragTest/DragForce"/>
-			</td>
-			<td width="10" align="left"/>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearDragTest/MaxDragForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearDragTest/DragForce/@Units"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLeftRearDragTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RR Drag</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearDragTest/DragForce"/>
-			</td>
-			<td width="10" align="left"/>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearDragTest/MaxDragForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearDragTest/DragForce/@Units"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRightRearDragTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
+        
+    </xsl:template>
+    
+    <xsl:template name="brakeResults">
+        <!-- ======================================================================================== -->
+        <!-- Drag Test Results -->
+        <!-- ======================================================================================== -->
+        <tr bgcolor="white">
+            <th align="left" rowspan="1" colspan="7">BRAKE</th>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LF Drag</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontDragTest/DragForce"/>
+            </td>
+            <td width="10" align="left"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontDragTest/MaxDragForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontDragTest/DragForce/@Units"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLeftFrontDragTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RF Drag</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontDragTest/DragForce"/>
+            </td>
+            <td width="10" align="left"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontDragTest/MaxDragForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontDragTest/DragForce/@Units"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRightFrontDragTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LR Drag</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearDragTest/DragForce"/>
+            </td>
+            <td width="10" align="left"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearDragTest/MaxDragForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearDragTest/DragForce/@Units"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLeftRearDragTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RR Drag</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearDragTest/DragForce"/>
+            </td>
+            <td width="10" align="left"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearDragTest/MaxDragForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearDragTest/DragForce/@Units"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRightRearDragTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
 
-		<!-- ======================================================================================== -->
-		<!-- Brake Test Results -->
-		<!-- ======================================================================================== -->
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LF Force</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontForceTest/BrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontForceTest/MinBrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontForceTest/MaxBrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontForceTest/BrakeForce/@Units"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLeftFrontForceTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RF Force</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontForceTest/BrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontForceTest/MinBrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontForceTest/MaxBrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontForceTest/BrakeForce/@Units"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRightFrontForceTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LR Force</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearForceTest/BrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearForceTest/MinBrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearForceTest/MaxBrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearForceTest/BrakeForce/@Units"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLeftRearForceTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RR Force</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearForceTest/BrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearForceTest/MinBrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearForceTest/MaxBrakeForce"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearForceTest/BrakeForce/@Units"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRightRearForceTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Front Bal</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeFrontBalanceTest/Value"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeFrontBalanceTest/MinPercentBalance"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeFrontBalanceTest/MaxPercentBalance"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeFrontBalanceTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Rear Bal</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRearBalanceTest/Value"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRearBalanceTest/MinPercentBalance"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRearBalanceTest/MaxPercentBalance"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRearBalanceTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Frt/Rr Bal</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeFrontToRearBalanceTest/Value"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeFrontToRearBalanceTest/MinPercentBalance"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeFrontToRearBalanceTest/MaxPercentBalance"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeFrontToRearBalanceTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
+        <!-- ======================================================================================== -->
+        <!-- Brake Test Results -->
+        <!-- ======================================================================================== -->
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LF Force</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontForceTest/BrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontForceTest/MinBrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontForceTest/MaxBrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontForceTest/BrakeForce/@Units"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLeftFrontForceTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RF Force</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontForceTest/BrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontForceTest/MinBrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontForceTest/MaxBrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontForceTest/BrakeForce/@Units"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRightFrontForceTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LR Force</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearForceTest/BrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearForceTest/MinBrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearForceTest/MaxBrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearForceTest/BrakeForce/@Units"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLeftRearForceTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RR Force</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearForceTest/BrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearForceTest/MinBrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearForceTest/MaxBrakeForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearForceTest/BrakeForce/@Units"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRightRearForceTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Front Bal</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeFrontBalanceTest/Value"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeFrontBalanceTest/MinPercentBalance"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeFrontBalanceTest/MaxPercentBalance"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:text>%</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeFrontBalanceTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Rear Bal</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRearBalanceTest/Value"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRearBalanceTest/MinPercentBalance"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRearBalanceTest/MaxPercentBalance"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:text>%</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRearBalanceTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Frt/Rr Bal</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeFrontToRearBalanceTest/Value"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeFrontToRearBalanceTest/MinPercentBalance"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeFrontToRearBalanceTest/MaxPercentBalance"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:text>%</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeFrontToRearBalanceTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
 
-		<!-- ABS Test Results -->
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LF Reduction</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontABSReduction/LeftFrontABSReductionPercent"/>
-			</td>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontABSReduction/LeftFrontReductionMinParameter"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLeftFrontABSReduction/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RF Reduction</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontABSReduction/RightFrontABSReductionPercent"/>
-			</td>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontABSReduction/RightFrontReductionMinParameter"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRightFrontABSReduction/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LR Reduction</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearABSReduction/LeftRearABSReductionPercent"/>
-			</td>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearABSReduction/LeftRearReductionMinParameter"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLeftRearABSReduction/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RR Reduction</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearABSReduction/RightRearABSReductionPercent"/>
-			</td>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearABSReduction/RightRearReductionMinParameter"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRightRearABSReduction/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LF Recovery</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontABSRecovery/LeftFrontABSRecoveryValue"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftFrontABSRecovery/LeftFrontRecoveryMinPercent"/>
-			</td>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLeftFrontABSRecovery/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RF Recovery</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontABSRecovery/RightFrontABSRecoveryValue"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightFrontABSRecovery/RightFrontRecoveryMinPercent"/>
-			</td>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRightFrontABSRecovery/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LR Recovery</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearABSRecovery/LeftRearABSRecoveryValue"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeLeftRearABSRecovery/LeftRearRecoveryMinPercent"/>
-			</td>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLeftRearABSRecovery/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RR Recovery</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearABSRecovery/RightRearABSRecoveryValue"/>
-			</td>
-			<td width="10" align="left">
-				<xsl:value-of select="//BrakeRightRearABSRecovery/RightRearRecoveryMinPercent"/>
-			</td>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:text>%</xsl:text>
-			</td>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRightRearABSRecovery/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LF Sensor</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLFSensorTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RF Sensor</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRFSensorTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">LR Sensor</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLRSensorTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">RR Sensor</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeRRSensorTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">WSS Quality</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeSensorQualityTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">ABS Valve Cross</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeABSValveCrossCheck/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Brake Switch Test</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeBrakeSwitchTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Motor Type</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//BrakeLearnPerformanceType/PerformanceType"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeLearnPerformanceType/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Brake Burnish Cycle</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeBrakeBurnishCycle/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Park Brake</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeElectricParkBrake/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Part #</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//BrakeCheckPartNumber/ModulePartNumber"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeCheckPartNumber/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Learn VIN</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeProgramVIN/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Check VIN</td>
-			<td width="20" align="left">
-				<xsl:value-of select="//BrakeCheckVIN/ModuleVIN"/>
-			</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeCheckVIN/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">DTC Check</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//BrakeReadFaults/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-		<xsl:for-each select="//DTC/Brake//@DTCCode">
-			<tr>
-				<td width="10"/>
-				<td width="70" align="left">0x<xsl:value-of select=". "/> - <xsl:value-of select=".."/></td>
-			</tr>
-		</xsl:for-each>
-	</xsl:template>
+        <!-- ABS Test Results -->
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LF Reduction</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontESPReduction/LeftFrontESPReductionValue"/>
+            </td>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontESPReduction/LeftFrontESPReductionMaxForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:text>%</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLeftFrontESPReduction/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RF Reduction</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontESPReduction/RightFrontESPReductionValue"/>
+            </td>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontESPReduction/RightFrontESPReductionMaxForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:text>%</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRightFrontESPReduction/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LR Reduction</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearESPReduction/LeftRearESPReductionValue"/>
+            </td>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearESPReduction/LeftRearESPReductionMaxForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:text>%</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLeftRearESPReduction/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RR Reduction</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearESPReduction/RightRearESPReductionValue"/>
+            </td>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearESPReduction/RightRearESPReductionMaxForce"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:text>%</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRightRearESPReduction/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LF Build</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontESPBuild/LeftFrontESPBuildValue"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontESPBuild/LeftFrontESPBuildMinForce"/>
+            </td>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:text>lbf</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLeftFrontESPBuild/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RF Build</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontESPBuild/RightFrontESPBuildValue"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontESPBuild/RightFrontESPBuildMinForce"/>
+            </td>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:text>lbf</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRightFrontESPBuild/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LR Build</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearESPBuild/LeftRearESPBuildValue"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearESPBuild/LeftRearESPBuildMinForce"/>
+            </td>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:text>lbf</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLeftRearESPBuild/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RR Build</td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearESPBuild/RightRearESPBuildValue"/>
+            </td>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearESPBuild/RightRearESPBuildMinForce"/>
+            </td>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:text>lbf</xsl:text>
+            </td>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRightRearESPBuild/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LF Sensor</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLFSensorTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RF Sensor</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRFSensorTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">LR Sensor</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLRSensorTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">RR Sensor</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeRRSensorTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">WSS Quality</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeSensorQualityTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="15">ESP Valve Cross</td>
+            <td width="9"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeESPValveCross/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="17">Brake Switch Test</td>
+            <td width="7"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeBrakeSwitchTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Motor Type</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//BrakeLearnPerformanceType/PerformanceType"/>
+            </td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeLearnPerformanceType/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Brake Burnish Cycle</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeBrakeBurnishCycle/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">EPB Burnish</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeElectricParkBrakeBurnishCycle/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Part #</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//BrakeCheckPartNumber/ModulePartNumber"/>
+            </td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeCheckPartNumber/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Learn VIN</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeProgramVIN/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Check VIN</td>
+            <td width="20" align="left">
+                <xsl:value-of select="//BrakeCheckVIN/ModuleVIN"/>
+            </td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeCheckVIN/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">DTC Check</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//BrakeReadFaults/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+        <xsl:for-each select="//DTC/Brake//@DTCCode">
+            <tr>
+                <td width="10"/>
+                <td width="70" align="left">0x<xsl:value-of select=". "/> - <xsl:value-of select=".."/></td>
+            </tr>
+        </xsl:for-each>
+    </xsl:template>
 
-	<xsl:template name="overallResult">
-		<!-- Overall Result -->
-		<tr bgcolor="white">
-			<th align="left" rowspan="1" colspan="7">OVERALL</th>
-		</tr>
-		<tr>
-			<td width="10"/>
-			<td align="left" width="14">Overall Result</td>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10"/>
-			<td width="10" align="left">
-				<xsl:call-template name="showResult">
-					<xsl:with-param name="RESULT" select="//OverallTest/@Result"/>
-				</xsl:call-template>
-			</td>
-		</tr>
-	</xsl:template>
-	
+    <xsl:template name="overallResult">
+        <!-- Overall Result -->
+        <tr bgcolor="white">
+            <th align="left" rowspan="1" colspan="7">OVERALL</th>
+        </tr>
+        <tr>
+            <td width="10"/>
+            <td align="left" width="14">Overall Result</td>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10"/>
+            <td width="10" align="left">
+                <xsl:call-template name="showResult">
+                    <xsl:with-param name="RESULT" select="//OverallTest/@Result"/>
+                </xsl:call-template>
+            </td>
+        </tr>
+    </xsl:template>
+    
     <!-- Inserts a spacer row between sections -->
     <xsl:template name="sectionSpacer">
         <tr bgcolor="white">
@@ -900,36 +878,6 @@
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </i>
-    </xsl:template>
-
-    <!-- Callout to allow cutomization of test result flags -->
-    <xsl:template name="showResultMultiple">
-        <xsl:param name="RESULT_1"/>
-        <xsl:param name="RESULT_2"/>
-        <i>
-            <xsl:choose>
-                <xsl:when test="$RESULT_1 != '' && $RESULT_2 != ''">
-                    <xsl:choose>
-                        <xsl:when test="$RESULT_1 != 'Pass' || $RESULT_2 != 'Pass'">
-                            <xsl:text>Fail</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>Pass</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:choose>
-                        <xsl:when test="$RESULT_1 != ''">
-                            <xsl:value-of select="$RESULT_1"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:value-of select="$RESULT_2"/>
-                        </xsl:otherwise>
-                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </i>

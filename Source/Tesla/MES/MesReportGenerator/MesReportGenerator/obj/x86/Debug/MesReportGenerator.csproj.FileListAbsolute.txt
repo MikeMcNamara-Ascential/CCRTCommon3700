@@ -22,3 +22,15 @@ C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGe
 C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
 C:\Ccrt\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\bin\Debug\MesReportGenerator.exe.config
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.exe
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.pdb
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\bin\Debug\MesReportGenerator.exe
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\bin\Debug\MesReportGenerator.pdb
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.CcrtReportGenerator.resources
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.Properties.Resources.resources
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource-ResGen.read.1.tlog
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
+C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.write.1.tlog

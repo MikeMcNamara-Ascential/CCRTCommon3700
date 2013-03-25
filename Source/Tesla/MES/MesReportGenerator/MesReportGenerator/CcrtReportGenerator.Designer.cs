@@ -45,6 +45,9 @@
             this.m_reportTimer = new System.Windows.Forms.Timer(this.components);
             this.m_selectResultFile = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.m_archiveDirectory = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.m_browseArchiveDirectory = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // m_checkForResultsButton
@@ -61,7 +64,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(69, 131);
+            this.label1.Location = new System.Drawing.Point(67, 116);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 13);
             this.label1.TabIndex = 30;
@@ -71,7 +74,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(67, 88);
+            this.label2.Location = new System.Drawing.Point(67, 61);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(147, 13);
             this.label2.TabIndex = 29;
@@ -81,7 +84,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(67, 47);
+            this.label3.Location = new System.Drawing.Point(67, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(160, 13);
             this.label3.TabIndex = 28;
@@ -89,7 +92,7 @@
             // 
             // m_browseSchemaDirectory
             // 
-            this.m_browseSchemaDirectory.Location = new System.Drawing.Point(666, 127);
+            this.m_browseSchemaDirectory.Location = new System.Drawing.Point(666, 112);
             this.m_browseSchemaDirectory.Name = "m_browseSchemaDirectory";
             this.m_browseSchemaDirectory.Size = new System.Drawing.Size(68, 21);
             this.m_browseSchemaDirectory.TabIndex = 27;
@@ -99,7 +102,7 @@
             // 
             // m_browseReportDirectory
             // 
-            this.m_browseReportDirectory.Location = new System.Drawing.Point(666, 84);
+            this.m_browseReportDirectory.Location = new System.Drawing.Point(666, 58);
             this.m_browseReportDirectory.Name = "m_browseReportDirectory";
             this.m_browseReportDirectory.Size = new System.Drawing.Size(68, 21);
             this.m_browseReportDirectory.TabIndex = 26;
@@ -109,7 +112,7 @@
             // 
             // m_browseResultDirectory
             // 
-            this.m_browseResultDirectory.Location = new System.Drawing.Point(666, 43);
+            this.m_browseResultDirectory.Location = new System.Drawing.Point(666, 31);
             this.m_browseResultDirectory.Name = "m_browseResultDirectory";
             this.m_browseResultDirectory.Size = new System.Drawing.Size(68, 21);
             this.m_browseResultDirectory.TabIndex = 25;
@@ -120,7 +123,7 @@
             // m_schema
             // 
             this.m_schema.FormattingEnabled = true;
-            this.m_schema.Location = new System.Drawing.Point(233, 127);
+            this.m_schema.Location = new System.Drawing.Point(233, 112);
             this.m_schema.Name = "m_schema";
             this.m_schema.Size = new System.Drawing.Size(390, 21);
             this.m_schema.TabIndex = 24;
@@ -130,7 +133,7 @@
             // m_reportDirectory
             // 
             this.m_reportDirectory.FormattingEnabled = true;
-            this.m_reportDirectory.Location = new System.Drawing.Point(233, 85);
+            this.m_reportDirectory.Location = new System.Drawing.Point(233, 58);
             this.m_reportDirectory.Name = "m_reportDirectory";
             this.m_reportDirectory.Size = new System.Drawing.Size(390, 21);
             this.m_reportDirectory.TabIndex = 23;
@@ -140,7 +143,7 @@
             // m_resultDirectory
             // 
             this.m_resultDirectory.FormattingEnabled = true;
-            this.m_resultDirectory.Location = new System.Drawing.Point(233, 44);
+            this.m_resultDirectory.Location = new System.Drawing.Point(233, 31);
             this.m_resultDirectory.Name = "m_resultDirectory";
             this.m_resultDirectory.Size = new System.Drawing.Size(390, 21);
             this.m_resultDirectory.TabIndex = 22;
@@ -149,8 +152,8 @@
             // 
             // m_msgTextBox
             // 
-            this.m_msgTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_msgTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_msgTextBox.Location = new System.Drawing.Point(59, 203);
             this.m_msgTextBox.Multiline = true;
             this.m_msgTextBox.Name = "m_msgTextBox";
@@ -161,8 +164,8 @@
             // 
             // m_msgLabel
             // 
-            this.m_msgLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_msgLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_msgLabel.AutoSize = true;
             this.m_msgLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_msgLabel.Location = new System.Drawing.Point(67, 187);
@@ -196,11 +199,43 @@
             this.label4.TabIndex = 32;
             this.label4.Text = "To select a single file for MES Report conversion: ";
             // 
+            // m_archiveDirectory
+            // 
+            this.m_archiveDirectory.FormattingEnabled = true;
+            this.m_archiveDirectory.Location = new System.Drawing.Point(233, 85);
+            this.m_archiveDirectory.Name = "m_archiveDirectory";
+            this.m_archiveDirectory.Size = new System.Drawing.Size(390, 21);
+            this.m_archiveDirectory.TabIndex = 33;
+            this.m_archiveDirectory.SelectedIndexChanged += new System.EventHandler(this.m_archiveDirectory_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(67, 89);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(123, 13);
+            this.label5.TabIndex = 34;
+            this.label5.Text = "Raw Result Archive:";
+            // 
+            // m_browseArchiveDirectory
+            // 
+            this.m_browseArchiveDirectory.Location = new System.Drawing.Point(666, 85);
+            this.m_browseArchiveDirectory.Name = "m_browseArchiveDirectory";
+            this.m_browseArchiveDirectory.Size = new System.Drawing.Size(68, 21);
+            this.m_browseArchiveDirectory.TabIndex = 35;
+            this.m_browseArchiveDirectory.Text = "Browse";
+            this.m_browseArchiveDirectory.UseVisualStyleBackColor = true;
+            this.m_browseArchiveDirectory.Click += new System.EventHandler(this.m_browseArchiveDirectory_Click);
+            // 
             // CcrtReportGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 346);
+            this.Controls.Add(this.m_browseArchiveDirectory);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.m_archiveDirectory);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.m_selectResultFile);
             this.Controls.Add(this.label1);
@@ -241,6 +276,9 @@
         private System.Windows.Forms.Timer m_reportTimer;
         private System.Windows.Forms.Button m_selectResultFile;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox m_archiveDirectory;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button m_browseArchiveDirectory;
     }
 }
 

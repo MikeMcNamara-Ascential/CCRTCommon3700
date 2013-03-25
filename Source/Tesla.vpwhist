@@ -6,13 +6,13 @@ Tesla\Tesla.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Core\Core.vpj=20111122174157429
-Tesla\Tesla.vpj=20120208122709247
+Core\Core.vpj=20121102094602821
+Tesla\Tesla.vpj=20121203083105500
 Tests\Tests.vpj=20110701100211327
 Tools\Tools.vpj=20110701100155451
 [TreeExpansion2]
 - Core\Core.vpj
-  - ApplicationLayer
+  + ApplicationLayer
     - ModuleInterfaces
       - Brake
         - Bosch8
@@ -29,6 +29,7 @@ Tools\Tools.vpj=20110701100155451
       + J2190
       + KeyWord2000
       + SCI
+      + Serial
     - TestComponents
       + Brake
         + BaseBrake
@@ -55,8 +56,8 @@ Tools\Tools.vpj=20110701100155451
         + LossCompensation
           + Configuration
         + PhotonLossCompensation
-      - Machine
-        - Common
+      + Machine
+        + Common
         + Include
         + Machine
           + Configuration
@@ -71,7 +72,7 @@ Tools\Tools.vpj=20110701100155451
         + GenericTransferCase
         + Include
       + Transmission
-        - Common
+        + Common
         + Include
         + Transmission
     + VehicleTest
@@ -85,7 +86,7 @@ Tools\Tools.vpj=20110701100155451
       + TestSequencer
       + VehicleTest
   + ClientConfigurations
-  + ServicesLayer
+  - ServicesLayer
     + Include
     + Library
       + Bepos
@@ -122,9 +123,9 @@ Tools\Tools.vpj=20110701100155451
           + SCI
         + TcpIp
         + Tests
-      + ICM
+      - ICM
         + Include
-        + IpIcm
+        - IpIcm
           + Configuration
       + Include
       + PlcMgr
@@ -137,7 +138,7 @@ Tools\Tools.vpj=20110701100155451
         + TaskMon
         + TaskMonOld
         + TaskMonTerm
-    + Servers
+    - Servers
       + DataServer
         + Configuration
       + DsaServer
@@ -176,7 +177,7 @@ Tools\Tools.vpj=20110701100155451
       + PlantHostInbound
         + Include
         + Library
-      + PlantHostOutbound
+      - PlantHostOutbound
         + Configuration
         + DAQ
         + GenericText
@@ -184,6 +185,7 @@ Tools\Tools.vpj=20110701100155451
         + Include
         + Library
         + NDB
+        - ResultFileCopy
       + PromptServer
         + Configuration
       + SystemMonitor
@@ -200,6 +202,8 @@ Tools\Tools.vpj=20110701100155451
         + Configuration
         + Include
         + Library
+      + WinCcrtInterface
+        + Configuration
 - Tesla\Tesla.vpj
   - ApplicationLayer
     - ModuleInterfaces
@@ -213,6 +217,10 @@ Tools\Tools.vpj=20110701100155451
           - Configuration
         - Teves
           + Configuration
+      + Gateway
+        + Configuration
+      - PowerSteering
+        - Configuration
     - TestComponents
       - Airbag
         - Delphi
@@ -228,9 +236,13 @@ Tools\Tools.vpj=20110701100155451
         + Configuration
       - Drivetrain
         - Configuration
+      + Gateway
+        + Configuration
       + LossCompensation
         + Configuration
       - Machine
+        - Configuration
+      - PowerSteering
         - Configuration
       + SpeedControl
         + Configuration
@@ -242,14 +254,24 @@ Tools\Tools.vpj=20110701100155451
       + bin
         + client
       + lib
-    + resources
+        + images
+          + cursors
+    - resources
       + com
-        + bepco
-          + rtc
+        - bepco
+          - rtc
             + oldproperties
-            + properties
-      + local
-        + crt
+            - properties
+      - local
+        - crt
+          + aboutserver
+          - drivermonitor
+          - frontpanel
+          + losscompensation
+          + powerdisplay
+          + vehiclepresence
+        + diagnostics
+          + schematics
         + ftproot
           + home
             + ftp
@@ -269,39 +291,48 @@ Tools\Tools.vpj=20110701100155451
                 + VehicleTest
                   + BuildRecords
                   + DriveCurves
-              + TestResults
+              - TestResults
+                + Machine
+                  + BrakeForceData
                 + Vehicle
         + httproot
           + conf
         + ndbconfig
-        + report
+        + playback
+        - report
         + sim
           + params
     + UninstallerData
+  + MES
+    + MesReportGenerator
+      + MesReportGenerator
+        + obj
+          + x86
+            + Debug
   - ServicesLayer
-    - Managers
-      + ICM
-        + IpIcm
-          + Configuration
+    + Managers
+      - ICM
+        - IpIcm
+          - Configuration
       + PlcMgr
         + Configuration
       - SerialServer
         - Configuration
-    + Servers
+    - Servers
       + InputServer
         + Configuration
       + Launcher
         + Configuration
-      + MachineDataBroker
-        + Configuration
+      - MachineDataBroker
+        - Configuration
       + MotorController
         + Electric
           + AB
             + Configuration
-      + NamedDataBroker
-        + Configuration
-      + PlantHostOutbound
-        + Configuration
+      - NamedDataBroker
+        - Configuration
+      - PlantHostOutbound
+        - Configuration
       + SystemMonitor
         + Configuration
       + TestResultServer
@@ -312,131 +343,107 @@ Tools\Tools.vpj=20110701100155451
         + Configuration
 + Tests\Tests.vpj
 + Tools\Tools.vpj
-scroll:0
+scroll:10
 [State]
-SCREEN: 1920 1080 120 0 960 728 0 0 M 0 0 0 0 1646 515
-CWD: Tesla
-BUFFER: BN="E:\Tesla Logs\TestLog.C1R00062.447.log"
-BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.5829692 CL=160 LE=1 CX=158 CY=7 WI=5 BI=32 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.68509 CL=1 LE=0 CX=0 CY=17 WI=5 BI=42 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\KoreaAbsModuleTemplate.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.2719 CL=64 LE=0 CX=63 CY=19 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\Bosch8Module.cpp"
-BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.31949 CL=1 LE=0 CX=0 CY=17 WI=5 BI=31 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\GenericABSModuleTemplate.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.10619 CL=60 LE=0 CX=59 CY=19 WI=5 BI=36 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Common\GenericModuleTemplate.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.69942 CL=107 LE=0 CX=106 CY=15 WI=5 BI=45 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Tesla\ApplicationLayer\ModuleInterfaces\Brake\Bosch\Configuration\Tesla.BoschAbsModuleConfig.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.14525 CL=68 LE=0 CX=67 CY=4 WI=5 BI=44 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="\Users\rsmith\Desktop\507560 Tesla Support\5YJSB1A25C1R00078.0661"
-BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.11443 CL=122 LE=0 CX=121 CY=19 WI=5 BI=34 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.17255 CL=89 LE=0 CX=88 CY=5 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Tesla\ApplicationLayer\VehicleTest\Configuration\DriveCurves\Tesla.SedanDriveCurve.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.6968 CL=54 LE=0 CX=53 CY=18 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Drivetrain\Configuration\Tesla.DrivetrainTC.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.5768 CL=52 LE=0 CX=51 CY=20 WI=5 BI=37 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.3011 CL=1 LE=0 CX=0 CY=25 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
+SCREEN: 1920 1080 608 106 960 728 0 0 M 0 0 0 0 1673 604
+CWD: Tesla\Burke_PorterCCRT\resources\local\report
 BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\BoschABSTC.cpp"
-BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.77053 CL=52 LE=0 CX=51 CY=28 WI=5 BI=38 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Include\GenericModuleTemplate.h"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.68954 CL=5 LE=0 CX=4 CY=17 WI=5 BI=43 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Include\GenericABSModuleTemplate.h"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.40903 CL=5 LE=0 CX=4 CY=17 WI=5 BI=39 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Include\KoreaAbsModuleTemplate.h"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.6578 CL=5 LE=0 CX=4 CY=17 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Include\Bosch8Module.h"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.9467 CL=5 LE=0 CX=4 CY=17 WI=5 BI=33 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\Configuration\Tesla.BoschABSTC.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.63226 CL=29 LE=0 CX=28 CY=16 WI=5 BI=33 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ServicesLayer\Servers\PlantHostOutbound\ResultFileCopy\ResultFileCopyHostInterface.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=256 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.3059 CL=45 LE=0 CX=44 CY=11 WI=5 BI=37 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ServicesLayer\Servers\PlantHostOutbound\Configuration\Tesla.PlantHostOutboundConfig.xml"
 BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.8443 CL=31 LE=0 CX=30 CY=7 WI=5 BI=30 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="\Users\rsmith\AppData\Local\Temp\Rar$DI11.538\TestLog458.log"
-BI: MA=1 74 1  TABS=1 9  WWS=1 IWT=1 ST=0 IN=1 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=Fundamental	HM=0 MF=272 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.23247741 CL=1 LE=0 CX=0 CY=12 WI=5 BI=41 HT=0 HN=0 HF=0 HC=4
-WINDOW: 75 75 1421 498 -1 -1 N  WF=0 WT=5 "Default Unicode Font,10,0,1"
-BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\Configuration\Tesla.BoschABSTC.xml"
-VIEW: LN=.8443 CL=31 LE=0 CX=41 CY=7 WI=98 BI=30 HT=0 HN=0 HF=0 HC=4
-WINDOW: 125 125 1496 365 -1 -1 N  WF=0 WT=12 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Include\Bosch8Module.h"
-VIEW: LN=.9467 CL=5 LE=0 CX=11 CY=17 WI=204 BI=33 HT=0 HN=0 HF=0 HC=4
-WINDOW: 150 150 1496 365 -1 -1 N  WF=0 WT=13 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Include\KoreaAbsModuleTemplate.h"
-VIEW: LN=.6578 CL=5 LE=0 CX=11 CY=17 WI=202 BI=27 HT=0 HN=0 HF=0 HC=4
-WINDOW: 0 0 1496 365 -1 -1 N  WF=0 WT=14 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Include\GenericABSModuleTemplate.h"
-VIEW: LN=.40903 CL=5 LE=0 CX=11 CY=17 WI=155 BI=39 HT=0 HN=0 HF=0 HC=4
-WINDOW: 25 25 1496 365 -1 -1 N  WF=0 WT=16 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Include\GenericModuleTemplate.h"
-VIEW: LN=.68954 CL=5 LE=0 CX=11 CY=17 WI=145 BI=43 HT=0 HN=0 HF=0 HC=4
-WINDOW: 100 100 1421 498 -1 -1 N  WF=0 WT=6 "SimHei,11,0,1"
-BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\BoschABSTC.cpp"
-VIEW: LN=.77053 CL=52 LE=0 CX=58 CY=28 WI=139 BI=38 HT=0 HN=0 HF=0 HC=4
-WINDOW: 50 50 1421 498 -1 -1 N  WF=0 WT=4 "SimHei,11,0,1"
-BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp"
-VIEW: LN=.3011 CL=1 LE=0 CX=7 CY=25 WI=205 BI=26 HT=0 HN=0 HF=0 HC=4
-WINDOW: 225 225 1421 498 -1 -1 N  WF=0 WT=9 "Default Unicode Font,10,0,1"
-BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Drivetrain\Configuration\Tesla.DrivetrainTC.xml"
-VIEW: LN=.5768 CL=52 LE=0 CX=67 CY=20 WI=171 BI=37 HT=0 HN=0 HF=0 HC=4
-WINDOW: 0 0 1421 498 -1 -1 N  WF=0 WT=10 "Default Unicode Font,10,0,1"
-BUFFER: BN="Tesla\ApplicationLayer\VehicleTest\Configuration\DriveCurves\Tesla.SedanDriveCurve.xml"
-VIEW: LN=.6968 CL=54 LE=0 CX=64 CY=18 WI=143 BI=28 HT=0 HN=0 HF=0 HC=4
-WINDOW: 25 25 1421 498 -1 -1 N  WF=0 WT=11 "SimHei,11,0,1"
+VIEW: LN=.30394 CL=101 LE=0 CX=100 CY=3 WI=5 BI=5 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="\Users\rsmith\AppData\Local\Temp\Rar$DR10.4706\PlantHostOutbound\Configuration\Agco.PlantHostOutboundConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.2256 CL=25 LE=0 CX=24 CY=6 WI=5 BI=35 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Common\BaseBrakeTool.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.118506 CL=127 LE=0 CX=126 CY=18 WI=5 BI=32 HT=0 HN=0 HF=0 HC=4
 BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp"
-VIEW: LN=.17255 CL=89 LE=0 CX=95 CY=5 WI=131 BI=25 HT=0 HN=0 HF=0 HC=4
-WINDOW: 50 50 1496 365 -1 -1 N  WF=0 WT=2 "SimHei,11,0,1"
-BUFFER: BN="\Users\rsmith\Desktop\507560 Tesla Support\5YJSB1A25C1R00078.0661"
-VIEW: LN=.11443 CL=122 LE=0 CX=128 CY=19 WI=136 BI=34 HT=0 HN=0 HF=0 HC=4
-WINDOW: 25 25 1421 498 -1 -1 N  WF=0 WT=3 "Default Unicode Font,10,0,1"
-BUFFER: BN="Tesla\ApplicationLayer\ModuleInterfaces\Brake\Bosch\Configuration\Tesla.BoschAbsModuleConfig.xml"
-VIEW: LN=.14525 CL=68 LE=0 CX=78 CY=4 WI=194 BI=44 HT=0 HN=0 HF=0 HC=4
-WINDOW: 100 100 1496 365 -1 -1 N  WF=0 WT=19 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Common\GenericModuleTemplate.cpp"
-VIEW: LN=.69942 CL=107 LE=0 CX=113 CY=15 WI=147 BI=45 HT=0 HN=0 HF=0 HC=4
-WINDOW: 125 125 1496 365 -1 -1 N  WF=0 WT=20 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\GenericABSModuleTemplate.cpp"
-VIEW: LN=.10619 CL=60 LE=0 CX=66 CY=19 WI=137 BI=36 HT=0 HN=0 HF=0 HC=4
-WINDOW: 25 25 1496 365 -1 -1 N  WF=0 WT=8 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\Bosch8Module.cpp"
-VIEW: LN=.31949 CL=1 LE=0 CX=7 CY=17 WI=134 BI=31 HT=0 HN=0 HF=0 HC=4
-WINDOW: 75 75 1496 365 -1 -1 N  WF=0 WT=18 "SimHei,11,0,1"
-BUFFER: BN="Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\KoreaAbsModuleTemplate.cpp"
-VIEW: LN=.2719 CL=64 LE=0 CX=70 CY=19 WI=135 BI=29 HT=0 HN=0 HF=0 HC=4
-WINDOW: 50 50 1496 365 -1 -1 N  WF=0 WT=17 "SimHei,11,0,1"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.18571 CL=88 LE=0 CX=87 CY=14 WI=5 BI=31 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\PowerSteering\PowerSteeringTC.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.13744 CL=24 LE=0 CX=23 CY=18 WI=5 BI=30 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\PowerSteering\PowerSteeringTC.h"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.2385 CL=48 LE=0 CX=47 CY=17 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
 BUFFER: BN="Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp"
-VIEW: LN=.68509 CL=1 LE=0 CX=7 CY=17 WI=144 BI=42 HT=0 HN=0 HF=0 HC=4
-WINDOW: 125 125 1496 365 -1 -1 N  WF=0 WT=1 "SimHei,11,0,1"
-BUFFER: BN="E:\Tesla Logs\TestLog.C1R00062.447.log"
-VIEW: LN=.5829692 CL=160 LE=1 CX=165 CY=7 WI=201 BI=32 HT=0 HN=0 HF=0 HC=4
-WINDOW: 0 0 1496 365 -1 -1 M  WF=0 WT=7 "SimHei,11,0,1"
-BUFFER: BN="\Users\rsmith\AppData\Local\Temp\Rar$DI11.538\TestLog458.log"
-VIEW: LN=.27229856 CL=89 LE=0 CX=97 CY=17 WI=196 BI=41 HT=0 HN=0 HF=0 HC=4
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.11130 CL=66 LE=0 CX=65 CY=18 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\ModuleInterfaces\Brake\Bosch\Configuration\Tesla.BoschAbsModuleConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.13791 CL=15 LE=78 CX=4 CY=16 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\VehicleTest\Configuration\DriveCurves\Tesla.SedanDriveCurve.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.12902 CL=21 LE=0 CX=20 CY=18 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\Configuration\Tesla.BoschABSTC.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.27922 CL=77 LE=0 CX=76 CY=18 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Bosch8\KoreaAbsTcTemplate.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.60238 CL=1 LE=0 CX=0 CY=11 WI=5 BI=24 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=4472 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.71639 CL=1 LE=0 CX=0 CY=11 WI=5 BI=34 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ServicesLayer\Servers\PlantHostOutbound\HostInterface\HostInterface.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=4472 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.8015 CL=32 LE=0 CX=31 CY=2 WI=5 BI=36 HT=0 HN=0 HF=0 HC=4
+WINDOW: 150 150 1473 404 -1 -1 N  WF=0 WT=13 "Consolas,11,0,1"
+BUFFER: BN="Tesla\ServicesLayer\Servers\PlantHostOutbound\Configuration\Tesla.PlantHostOutboundConfig.xml"
+VIEW: LN=.30394 CL=101 LE=0 CX=107 CY=3 WI=254 BI=5 HT=0 HN=0 HF=0 HC=4
+WINDOW: 200 200 1473 404 -1 -1 N  WF=0 WT=14 "Consolas,11,0,1"
+BUFFER: BN="\Users\rsmith\AppData\Local\Temp\Rar$DR10.4706\PlantHostOutbound\Configuration\Agco.PlantHostOutboundConfig.xml"
+VIEW: LN=.2256 CL=25 LE=0 CX=31 CY=6 WI=256 BI=35 HT=0 HN=0 HF=0 HC=4
+WINDOW: 100 100 1473 404 -1 -1 N  WF=0 WT=15 "Consolas,11,0,1"
+BUFFER: BN="Core\ServicesLayer\Servers\PlantHostOutbound\HostInterface\HostInterface.cpp"
+VIEW: LN=.8015 CL=32 LE=0 CX=38 CY=2 WI=155 BI=36 HT=0 HN=0 HF=0 HC=4
+WINDOW: 200 200 1234 404 -1 -1 N  WF=0 WT=5 "Consolas,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\KoreaAbsTcTemplate.cpp"
+VIEW: LN=.71639 CL=1 LE=0 CX=7 CY=11 WI=151 BI=34 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1234 404 -1 -1 N  WF=0 WT=7 "Consolas,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Bosch8\KoreaAbsTcTemplate.cpp"
+VIEW: LN=.60238 CL=1 LE=0 CX=7 CY=11 WI=150 BI=24 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 0 1234 404 -1 -1 N  WF=0 WT=2 "Consolas,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\Configuration\Tesla.BoschABSTC.xml"
+VIEW: LN=.27922 CL=77 LE=0 CX=83 CY=18 WI=149 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1473 404 -1 -1 N  WF=0 WT=6 "Consolas,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\VehicleTest\Configuration\DriveCurves\Tesla.SedanDriveCurve.xml"
+VIEW: LN=.12902 CL=21 LE=0 CX=27 CY=18 WI=148 BI=26 HT=0 HN=0 HF=0 HC=4
+WINDOW: 120 125 1234 404 -1 -1 N  WF=0 WT=11 "Consolas,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\ModuleInterfaces\Brake\Bosch\Configuration\Tesla.BoschAbsModuleConfig.xml"
+VIEW: LN=.13791 CL=15 LE=78 CX=12 CY=16 WI=147 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1473 404 -1 -1 N  WF=0 WT=10 "Consolas,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Common\GenericTCTemplate.cpp"
+VIEW: LN=.11130 CL=66 LE=0 CX=72 CY=18 WI=146 BI=28 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1473 404 -1 -1 N  WF=0 WT=12 "Consolas,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\PowerSteering\PowerSteeringTC.h"
+VIEW: LN=.2385 CL=48 LE=0 CX=54 CY=17 WI=145 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 0 0 1473 404 -1 -1 N  WF=0 WT=4 "Consolas,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\PowerSteering\PowerSteeringTC.cpp"
+VIEW: LN=.13744 CL=24 LE=0 CX=30 CY=18 WI=144 BI=30 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1234 404 -1 -1 N  WF=0 WT=8 "Consolas,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp"
+VIEW: LN=.18571 CL=88 LE=0 CX=94 CY=14 WI=143 BI=31 HT=0 HN=0 HF=0 HC=4
+WINDOW: 75 75 1473 404 -1 -1 N  WF=0 WT=9 "Consolas,11,0,1"
+BUFFER: BN="Core\ApplicationLayer\TestComponents\Brake\Common\BaseBrakeTool.cpp"
+VIEW: LN=.118506 CL=127 LE=0 CX=133 CY=18 WI=142 BI=32 HT=0 HN=0 HF=0 HC=4
+WINDOW: 50 50 1473 404 -1 -1 N  WF=0 WT=3 "Consolas,11,0,1"
+BUFFER: BN="Tesla\ApplicationLayer\TestComponents\Brake\Bosch\BoschABSTC.cpp"
+VIEW: LN=.63226 CL=29 LE=0 CX=35 CY=16 WI=141 BI=33 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1473 404 -1 -1 M  WF=0 WT=16 "Consolas,11,0,1"
+BUFFER: BN="Core\ServicesLayer\Servers\PlantHostOutbound\ResultFileCopy\ResultFileCopyHostInterface.cpp"
+VIEW: LN=.3059 CL=46 LE=0 CX=52 CY=11 WI=159 BI=37 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Z:\common3700\source\tesla\applicationlayer\TestComponents\Machine\Configuration\Tesla.MachineComponent.xml
-Core\ApplicationLayer\ModuleInterfaces\Brake\Bosch8\CMakeLists.txt
-Tesla\ApplicationLayer\ModuleInterfaces\Brake\CMakeLists.txt
-Tesla\ApplicationLayer\ModuleInterfaces\CMakeLists.txt
-Tesla\ApplicationLayer\TestComponents\Brake\Bosch\CMakeLists.txt
-Tesla\ApplicationLayer\TestComponents\Brake\CMakeLists.txt
-Z:\common3700\source\tesla\applicationlayer\TestComponents\Brake\CMakeLists.txt
-E:\Tesla Logs\TestLog.C1R00062.447.log
-\Users\rsmith\AppData\Local\Temp\Rar$DI11.538\TestLog458.log
+Core\ServicesLayer\Servers\PlantHostOutbound\HostInterface\HostInterface.cpp
+Tesla\ServicesLayer\Servers\PlantHostOutbound\Configuration\NdbHostInterfaceMap.xml
+\Users\rsmith\AppData\Local\Temp\Rar$DR10.4706\PlantHostOutbound\Configuration\Agco.PlantHostOutboundConfig.xml
+Tesla\ServicesLayer\Servers\PlantHostOutbound\Configuration\Tesla.PlantHostOutboundConfig.xml
+\\192.168.1.1\home\CCRT\Rewrite\Configuration\Servers\Tesla.PlantHostOutboundConfig.xml
+Core\ServicesLayer\Servers\PlantHostOutbound\ResultFileCopy\ResultFileCopyHostInterface.cpp
+Y:\common3700\source\core\serviceslayer\servers\planthostoutbound\ResultFileCopy\ResultFileCopyHostInterface.cpp
+Y:\common3700\source\tesla\serviceslayer\servers\planthostoutbound\Configuration\Tesla.PlantHostOutboundConfig.xml
+Z:\common3700\source\core\serviceslayer\servers\planthostoutbound\ResultFileCopy\ResultFileCopyHostInterface.cpp

@@ -8,6 +8,17 @@
     <ReduxRecovSequenceFail Code="3020" Description="Failure while performing reduction/recovery sequence"/>
     <RecoverAllValvesFail Code="3021" Description="Failure to recover all valves"/>
     <DumpAllValvesFail Code="3022" Description="Failure to dump all valves"/>
+    <WheelForceDataReadError Code="3023" Description="Error reading force array"/>
+    <NoESPData Code="3024" Description="No ESP force data tagged"/>
+    <ESPFaultValvesCrossed Code="3030" Description="ESP valves crossed"/>
+    <LeftFrontESPBuildFail Code="3031" Description="Left Front Brake Force Build not sufficient"/>
+    <RightFrontESPBuildFail Code="3032" Description="Right Front Brake Force Build not sufficient"/>
+    <LeftRearESPBuildFail Code="3033" Description="Left Rear Brake Force Build not sufficient"/>
+    <RightRearESPBuildFail Code="3034" Description="Right Rear Brake Force Build not sufficient"/>
+    <LeftFrontESPReductionFail Code="3035" Description="Left Front Brake Force Reduction not sufficient"/>
+    <RightFrontESPReductionFail Code="3036" Description="Right Front Brake Force Reduction not sufficient"/>
+    <LeftRearESPReductionFail Code="3037" Description="Left Rear Brake Force Reduction not sufficient"/>
+    <RightRearESPReductionFail Code="3038" Description="Right Rear Brake Force Reduction not sufficient"/>
     <LeftFrontSensorFail Code="3041" Description="Left Front wheel speed sensor failure"/>
     <RightFrontSensorFail Code="3042" Description="Right Front wheel speed sensor failure"/>
     <LeftRearSensorFail Code="3043" Description="Left Rear wheel speed sensor failure"/>

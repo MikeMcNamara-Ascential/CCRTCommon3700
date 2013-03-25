@@ -75,10 +75,10 @@
          <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
          <VINLength>17</VINLength>
          <RequestVinRoutineStatusFromModule>True</RequestVinRoutineStatusFromModule>
-         <DelayBeforeRoutineStatus Units="ms">30000</DelayBeforeRoutineStatus>
+         <DelayBeforeRoutineStatus Units="ms">20000</DelayBeforeRoutineStatus>
          <RoutineRequestRetries>1</RoutineRequestRetries>
          <VinRetryDelay>1000</VinRetryDelay>
-         <LockSteeringTuneTestTime Units="ms">30000</LockSteeringTuneTestTime>
+         <LockSteeringTuneTestTime Units="ms">20000</LockSteeringTuneTestTime>
       </Parameters>
       <Prompts>
          <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
@@ -89,9 +89,9 @@
          <TestStep00>Setup</TestStep00>
          <TestStep10>EnterDiagnosticMode</TestStep10>
          <TestStep15>StartModuleKeepAlive</TestStep15>
-         <TestStep20>ProgramVIN</TestStep20>
+         <!--TestStep20>ProgramVIN</TestStep20-->
          <TestStep25>CheckVIN</TestStep25>
-         <TestStep30>LockSteeringTune</TestStep30>
+         <!--TestStep30>LockSteeringTune</TestStep30-->
          <TestStep35>StopModuleKeepAlive</TestStep35>
       </EpasSetup>
       <FinishUp>

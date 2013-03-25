@@ -1,3 +1,3 @@
 heartbeat.pulsedelay = 5000
-heartbeat.maxfailures = 3
+heartbeat.maxfailures = 6
 

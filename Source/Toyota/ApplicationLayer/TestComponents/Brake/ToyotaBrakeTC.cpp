@@ -482,6 +482,10 @@ string ToyotaBrakeTC::MaxBrakeForceCalibration(void)
 			for(UINT8 index = LFWHEEL; index <= RRWHEEL; index++)
 			{
 				brakeData[index].forceSamples.push_back(brakeData[index].currentForce);
+				if(brakeData[index].forceSamples.size() > GetVehicleParameter("MaxBrakeSamples", (int)0))
+				{
+					brakeData[index].forceSamples.pop_front();
+				}
 			}
 		}
 		else
@@ -737,6 +741,10 @@ string ToyotaBrakeTC::ParkBrakeForceCalibration(void)
 			for(UINT8 index = LRWHEEL; index <= RRWHEEL; index++)
 			{
 				brakeData[index].forceSamples.push_back(brakeData[index].currentForce);
+				if(brakeData[index].forceSamples.size() > GetVehicleParameter("MaxBrakeSamples", (int)0))
+				{
+					brakeData[index].forceSamples.pop_front();
+				}
 			}
 		}
 		else
@@ -790,17 +798,16 @@ string ToyotaBrakeTC::PreShiftCheck(void)
         BposSleep(250);
     } while(!checkoutComplete && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
     // Let the rollers run until we timeout
-	double startTime = (double)(GetTestStepInfoInt("Timeout") - (GetVehicleParameter("PreShiftDragSamples", 0) * GetParameterInt("LoadCellReadingDelay")));
-	Log(LOG_DEV_DATA, "Collecting %d samples for drag testing starting at %dms from end of cycle",
-		GetParameterInt("PreShiftDragSamples"), (int)startTime);
+	Log(LOG_DEV_DATA, "Collecting %d samples for drag testing", GetParameterInt("PreShiftDragSamples"));
     while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()))
 	{
-		if(GetElapsedTime() >= startTime)
+		ReadCurrentLoadCellValues(brakeData, LFWHEEL);
+		for(int wheel = LFWHEEL; wheel <= RRWHEEL; wheel++)
 		{
-			ReadCurrentLoadCellValues(brakeData, LFWHEEL);
-			for(int wheel = LFWHEEL; wheel <= RRWHEEL; wheel++)
+			brakeData[wheel].forceSamples.push_back(brakeData[wheel].currentForce);
+			if(brakeData[wheel].forceSamples.size() > GetVehicleParameter("PreShiftDragSamples", 0))
 			{
-				brakeData[wheel].forceSamples.push_back(brakeData[wheel].currentForce);
+				brakeData[wheel].forceSamples.pop_front();
 			}
 		}
 		BposSleep(GetParameterInt("LoadCellReadingDelay"));
@@ -925,7 +932,8 @@ bool ToyotaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRolle
 						}
 						// Check if measurement is complete on this wheel
 						if(brakeData[roller].forceSamples.size() > samplesToAverage)
-						{
+						{   // Remove old samples to keep a moving sample window
+							brakeData[roller].forceSamples.pop_front();
 							brakeData[roller].measurementComplete = true;
 							Log(LOG_DEV_DATA, "Measurement complete for %s - reached min samples: %d",
 								rollerName[roller].c_str(), samplesToAverage);
@@ -963,7 +971,7 @@ void ToyotaBrakeTC::ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 st
 }
 
 //-------------------------------------------------------------------------------------------------
-bool ToyotaBrakeTC::IsMeasurementComplete(vector<float> &samples, 
+bool ToyotaBrakeTC::IsMeasurementComplete(list<float> &samples, 
 										  const int& requiredBrakeSamples,
 										  const float &minRequiredForce)
 {

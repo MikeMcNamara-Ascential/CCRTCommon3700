@@ -15,6 +15,7 @@
 #define ToyotaBrakeTC_h
 //-------------------------------------------------------------------------------------------------
 #include "GenericBaseBrakeTC.h"
+#include <list>
 //-------------------------------------------------------------------------------------------------
 class ToyotaBrakeTC : public GenericBaseBrakeTC
 {
@@ -170,7 +171,7 @@ protected:
     {
         float currentForce;
         float maxForce;
-		vector<float> forceSamples;
+		list<float> forceSamples;
         string currentForceTag;
         string displayTag;
         bool measurementComplete;
@@ -224,7 +225,7 @@ private:
 	 * 
 	 * @return True if the measurement is complete.
 	 */
-	bool IsMeasurementComplete(vector<float> &samples, 
+	bool IsMeasurementComplete(list<float> &samples, 
 							   const int& requiredBrakeSamples,
 							   const float &minRequiredForce);
 };

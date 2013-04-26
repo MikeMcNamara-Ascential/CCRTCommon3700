@@ -279,7 +279,7 @@ string PowerSteeringTC<ModuleInterface>::WriteSteeringConstant(void)
 {
     string testStatus = testFail;
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
-    SerialArgs_t steeringConstantArg;
+    SerialArgs_t steeringConstantArgs;
     UINT16 steeringConstant = 0x0000;
 
     steeringConstant = BposReadInt(GetParameter("SteeringConstant").c_str());

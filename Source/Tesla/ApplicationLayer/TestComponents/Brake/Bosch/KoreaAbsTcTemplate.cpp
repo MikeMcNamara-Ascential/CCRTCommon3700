@@ -1537,7 +1537,7 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPReductionForces
 
         else
         { // if we did the above, don't even check this
-            if (includeDrag == false)
+            if ((includeDrag == false) && (!GetParameterBool("DragAnalyzedBeforeESPTest")))
             {
                 reductionValue -= m_baseBrakeTool->GetDragForceValue(roller);
             }

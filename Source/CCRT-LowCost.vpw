@@ -10,6 +10,7 @@
 		<Project File="Fujian/Fujian.vpj"/>
 		<Project File="Isuzu/Isuzu.vpj"/>
 		<Project File="Mahindra/Mahindra.vpj"/>
+		<Project File="Mazda.vpj"/>
 		<Project File="Mercedes/Mercedes.vpj"/>
 		<Project File="Tesla/Tesla.vpj"/>
 		<Project File="Tests/Tests.vpj"/>

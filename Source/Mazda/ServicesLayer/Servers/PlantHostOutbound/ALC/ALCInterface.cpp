@@ -333,7 +333,7 @@ const string ALCInterface::ProcessMapNode(const XmlNode *resultMapNode,
     }
     else
     {
-        Log(LOG_DEV_DATA, "Result type %s not implemented. Couldn't write %s:%s", type.c_str(), plcTag.c_str(), result.c_str());
+        Log(LOG_DEV_DATA, "Result type %s not implemented. Couldn't write %s", type.c_str(), result.c_str());
     }
     return(result);
 }

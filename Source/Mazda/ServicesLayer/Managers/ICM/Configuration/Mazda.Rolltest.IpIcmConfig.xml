@@ -6,7 +6,7 @@
             <ProcessName>mgr/ICM</ProcessName>
             <AdditionalLogFile Types="/Servers/ICM or Disabled">/Servers/IcmMgr.log</AdditionalLogFile>
             <LocalEcho>Disabled</LocalEcho>
-            <Verbose>0x01</Verbose>
+            <Verbose>0x1F</Verbose>
             <Debug>Off</Debug>
         </Logging>
         <Demo>0</Demo>

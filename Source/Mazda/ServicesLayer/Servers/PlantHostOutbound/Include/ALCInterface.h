@@ -86,7 +86,7 @@ protected:
      * 
      * @return Result string to be transmitted to the host system.
      */
-    virtual string GenerateHostResultString(const XmlNode *testResults);
+//    virtual string GenerateHostResultString(const XmlNode *testResults);
     /**
      * Update the test result string header if any information is dependant on test results.
      *
@@ -116,7 +116,7 @@ protected:
      *
      * @param result The result string to be sent.
      */
-    virtual void SendResultToHost(const string &result);
+//    virtual void SendResultToHost(const string &result);
     /**
      * Process the test result node, creating and sending the appropriate 
      * messages to plant host.

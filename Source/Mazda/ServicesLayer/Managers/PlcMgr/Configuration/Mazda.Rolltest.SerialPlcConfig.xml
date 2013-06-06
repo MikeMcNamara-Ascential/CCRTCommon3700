@@ -3,36 +3,36 @@
         <Debug Options="On or Off">Off</Debug>
         <MgrPool lowWater="5" hiWater="10" maximum="12" increment="1" priority="30"/>
         <Logging>
-         <Status>Enabled</Status>
+            <Status>Enabled</Status>
             <ProcessName>mgr/PLC</ProcessName>
             <AdditionalLogFile Types="/Servers/PLC or Disabled">/Servers/PlcMgr.log</AdditionalLogFile>
             <LocalEcho>Disabled</LocalEcho>
             <Debug>Off</Debug>
-         <Verbose>0x01</Verbose>
+            <Verbose>0x01</Verbose>
         </Logging>
         <Demo>0</Demo>
         <PlcBoards>
             <!--'active' attribute must be Yes or No (case sensitive)-->
-         <MainMelsecPlc type="Melsec" index="0" active="Yes">
-            <LogicalPort>PlcMelsec</LogicalPort>
-            <Setup>
-               <Logging>
-                  <Status>Enabled</Status>
-                  <ProcessName>mgr/MelsecProtocol</ProcessName>
-                  <AdditionalLogFile Types="/Servers/PLC or Disabled">/Servers/MelsecPlc.log</AdditionalLogFile>
-                  <LocalEcho>Disabled</LocalEcho>
-                  <Debug>Off</Debug>
-                  <Verbose>0x01</Verbose>
-               </Logging>
-            </Setup>
-            <ScanTime>200</ScanTime>
-            <Inputs>
-               <Address>D0100</Address>
-            </Inputs>
-            <Outputs>
-               <Address>D0000</Address>
-            </Outputs>
-         </MainMelsecPlc>
+            <MainMelsecPlc type="Melsec" index="0" active="Yes">
+                <LogicalPort>PlcMelsec</LogicalPort>
+                <Setup>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>mgr/MelsecProtocol</ProcessName>
+                        <AdditionalLogFile Types="/Servers/PLC or Disabled">/Servers/MelsecPlc.log</AdditionalLogFile>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Debug>Off</Debug>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                </Setup>
+                <ScanTime>200</ScanTime>
+                <Inputs>
+                    <Address>D0100</Address>
+                </Inputs>
+                <Outputs>
+                    <Address>D0000</Address>
+                </Outputs>
+            </MainMelsecPlc>
             <MainDf1Plc type="Df1" index="0" active="No">
                 <LogicalPort>PlcDf1</LogicalPort>
                 <Setup>
@@ -329,15 +329,15 @@
         <RightRearPosTorqueLimit channelIndex="54" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <RightRearNegTorqueLimit channelIndex="55" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 
-       <TestResultOverallTestPass channelIndex="65" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
-       <TestResultBaseDrumTestPass channelIndex="65" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>        
+        <TestResultOverallTestPass channelIndex="65" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+        <TestResultBaseDrumTestPass channelIndex="65" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 
-       <TestResultFrontAt40kphValue channelIndex="66" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-       <TestResultRearAt40kphValue channelIndex="67" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-       <TestResultFrontAtMaxValue channelIndex="68" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-       <TestResultRearAtMaxValue channelIndex="69" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-       <TestResultOdometer channelIndex="70" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-       <TestResultTestDuration channelIndex="71" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+        <TestResultFrontAt40kphValue channelIndex="66" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+        <TestResultRearAt40kphValue channelIndex="67" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+        <TestResultFrontAtMaxValue channelIndex="68" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+        <TestResultRearAtMaxValue channelIndex="69" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+        <TestResultOdometer channelIndex="70" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+        <TestResultTestDuration channelIndex="71" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 
         <!-- Data from PLC -->
         <RearWheelDriveSignal channelIndex="0" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
@@ -637,6 +637,7 @@
         <Encoder5VPowerSupplyVoltage channelIndex="25" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <BoostPressureFeedBack channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         
+
         <OutputToPlcWord00 channelIndex="0" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <OutputToPlcWord01 channelIndex="1" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <OutputToPlcWord02 channelIndex="2" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
@@ -748,24 +749,24 @@
         <InterRollPressureHighWarning channelTag="InterRollPressureHighWarning" description="InterRollPressureHighWarning Diagnostic" value="1" level="Warning"/>
         <InterRollPressureHighShutdown channelTag="InterRollPressureHighShutdown" description="InterRollPressureHighShutdown Diagnostic" value="1" level="Warning"/>
         <Check24VoltPowerSupply channelTag="Check24VoltPowerSupply" description="Check24VoltPowerSupply Diagnostic" value="1" level="Warning"/>
-      <FrontRetainingRollsRaisedFault channelTag="FrontRetainingRollsRaisedFault" description="FrontRetainingRollsRaisedFault Diagnostic" value="1" level="Warning"/>
-      <RearRetainingRollsRaisedFault channelTag="RearRetainingRollsRaisedFault" description="RearRetainingRollsRaisedFault Diagnostic" value="1" level="Warning"/>
+        <FrontRetainingRollsRaisedFault channelTag="FrontRetainingRollsRaisedFault" description="FrontRetainingRollsRaisedFault Diagnostic" value="1" level="Warning"/>
+        <RearRetainingRollsRaisedFault channelTag="RearRetainingRollsRaisedFault" description="RearRetainingRollsRaisedFault Diagnostic" value="1" level="Warning"/>
         <LeftStopPostRaisedFault channelTag="LeftStopPostRaisedFault" description="LeftStopPostRaisedFault Diagnostic" value="1" level="Warning"/>
         <RightStopPostRaisedFault channelTag="RightStopPostRaisedFault" description="RightStopPostRaisedFault Diagnostic" value="1" level="Warning"/>
-      <FrontRetainingRollsLoweredFault channelTag="FrontRetainingRollsLoweredFault" description="FrontRetainingRollsLoweredFault Diagnostic" value="1" level="Warning"/>
-      <RearRetainingRollsLoweredFault channelTag="RearRetainingRollsLoweredFault" description="RearRetainingRollsLoweredFault Diagnostic" value="1" level="Warning"/>
+        <FrontRetainingRollsLoweredFault channelTag="FrontRetainingRollsLoweredFault" description="FrontRetainingRollsLoweredFault Diagnostic" value="1" level="Warning"/>
+        <RearRetainingRollsLoweredFault channelTag="RearRetainingRollsLoweredFault" description="RearRetainingRollsLoweredFault Diagnostic" value="1" level="Warning"/>
         <LeftStopPostLoweredFault channelTag="LeftStopPostLoweredFault" description="LeftStopPostLoweredFault Diagnostic" value="1" level="Warning"/>
         <RightStopPostLoweredFault channelTag="RightStopPostLoweredFault" description="RightStopPostLoweredFault Diagnostic" value="1" level="Warning"/>
-      <LubeSystemCycleSwitchFault channelTag="LubeSystemCycleSwitchFault" description="LubeSystemCycleSwitchFault Diagnostic" value="1" level="Warning"/>
-      <HydraulicOilLevelFault channelTag="HydraulicOilLevelFault" description="HydraulicOilLevelFault Diagnostic" value="1" level="Warning"/>
-      <HydraulicOilTemperatureFault channelTag="HydraulicOilTemperatureFault" description="HydraulicOilTemperatureFault Diagnostic" value="1" level="Warning"/>
-      <SixtyGpmHydOutputFilterBlocked channelTag="SixtyGpmHydOutputFilterBlocked" description="SixtyGpmHydOutputFilterBlocked Diagnostic" value="1" level="Warning"/>
-      <TwelveGpmHydOutputFilterBlocked channelTag="TwelveGpmHydOutputFilterBlocked" description="TwelveGpmHydOutputFilterBlocked Diagnostic" value="1" level="Warning"/>
-      <HydraulicIntakeFilterBlocked channelTag="HydraulicIntakeFilterBlocked" description="HydraulicIntakeFilterBlocked Diagnostic" value="1" level="Warning"/>
+        <LubeSystemCycleSwitchFault channelTag="LubeSystemCycleSwitchFault" description="LubeSystemCycleSwitchFault Diagnostic" value="1" level="Warning"/>
+        <HydraulicOilLevelFault channelTag="HydraulicOilLevelFault" description="HydraulicOilLevelFault Diagnostic" value="1" level="Warning"/>
+        <HydraulicOilTemperatureFault channelTag="HydraulicOilTemperatureFault" description="HydraulicOilTemperatureFault Diagnostic" value="1" level="Warning"/>
+        <SixtyGpmHydOutputFilterBlocked channelTag="SixtyGpmHydOutputFilterBlocked" description="SixtyGpmHydOutputFilterBlocked Diagnostic" value="1" level="Warning"/>
+        <TwelveGpmHydOutputFilterBlocked channelTag="TwelveGpmHydOutputFilterBlocked" description="TwelveGpmHydOutputFilterBlocked Diagnostic" value="1" level="Warning"/>
+        <HydraulicIntakeFilterBlocked channelTag="HydraulicIntakeFilterBlocked" description="HydraulicIntakeFilterBlocked Diagnostic" value="1" level="Warning"/>
         <WheelbaseMotorDisconnectOpen channelTag="WheelbaseMotorDisconnectOpen" description="WheelbaseMotorDisconnectOpen Diagnostic" value="1" level="Warning"/>
-      <HydraulicMotorDisconnectOpen channelTag="HydraulicMotorDisconnectOpen" description="HydraulicMotorDisconnectOpen Diagnostic" value="1" level="Warning"/>
-      <WheelbaseMotorDriveFault channelTag="WheelbaseMotorDriveFault" description="WheelbaseMotorDriveFault Diagnostic" value="1" level="Warning"/>
-      <HydraulicMotorOverloadOpen channelTag="HydraulicMotorOverloadOpen" description="HydraulicMotorOverloadOpen Diagnostic" value="1" level="Warning"/>
+        <HydraulicMotorDisconnectOpen channelTag="HydraulicMotorDisconnectOpen" description="HydraulicMotorDisconnectOpen Diagnostic" value="1" level="Warning"/>
+        <WheelbaseMotorDriveFault channelTag="WheelbaseMotorDriveFault" description="WheelbaseMotorDriveFault Diagnostic" value="1" level="Warning"/>
+        <HydraulicMotorOverloadOpen channelTag="HydraulicMotorOverloadOpen" description="HydraulicMotorOverloadOpen Diagnostic" value="1" level="Warning"/>
         <WheelbaseMotorOverloadOpen channelTag="WheelbaseMotorOverloadOpen" description="WheelbaseMotorOverloadOpen Diagnostic" value="1" level="Warning"/>
         <SolenoidCircuitBreakerOpenPanel channelTag="SolenoidCircuitBreakerOpenPanel" description="SolenoidCircuitBreakerOpenPanel Diagnostic" value="1" level="Warning"/>
         <LubeSystemLevelLowFault channelTag="LubeSystemLevelLowFault" description="LubeSystemLevelLowFault Diagnostic" value="1" level="Warning"/>
@@ -905,8 +906,8 @@
         <PLCAuxilliaryOutputTwoIsOn channelTag="PLCAuxilliaryOutputTwoIsOn" description="PLCAuxilliaryOutputTwoIsOn Diagnostic" value="1" level="Warning"/>
         <PLCSystemIsReady channelTag="PLCSystemIsReady" description="PLCSystemIsReady Diagnostic" value="0" level="Fatal"/>
         <PanelEStopPBDepressed channelTag="PanelEStopPBDepressed" description="PanelEStopPBDepressed Diagnostic" value="1" level="Warning"/>
-      <RightFrontMachineEStopPBDepressed channelTag="RightFrontMachineEStopPBDepressed" description="RightFrontMachineEStopPBDepressed Diagnostic" value="1" level="Warning"/>
-      <LeftRearMachineEStopPBDepressed channelTag="LeftRearMachineEStopPBDepressed" description="LeftRearMachineEStopPBDepressed Diagnostic" value="1" level="Warning"/>
+        <RightFrontMachineEStopPBDepressed channelTag="RightFrontMachineEStopPBDepressed" description="RightFrontMachineEStopPBDepressed Diagnostic" value="1" level="Warning"/>
+        <LeftRearMachineEStopPBDepressed channelTag="LeftRearMachineEStopPBDepressed" description="LeftRearMachineEStopPBDepressed Diagnostic" value="1" level="Warning"/>
         <RollMotorPowerSupplyFaulted channelTag="RollMotorPowerSupplyFaulted" description="RollMotorPowerSupplyFaulted Diagnostic" value="1" level="Warning"/>
         <RollMotorPowerSupplyAlarmOn channelTag="RollMotorPowerSupplyAlarmOn" description="RollMotorPowerSupplyAlarmOn Diagnostic" value="1" level="Warning"/>
         <MonitorLowerFault channelTag="MonitorLowerFault" description="MonitorLowerFault Diagnostic" value="1" level="Warning"/>
@@ -924,11 +925,11 @@
     <FordNonStandardNotReallyFaults>
         <FrontEbsDriverOverloadOpenFault channelTag="FrontEbsDriverOverloadOpenFault" description="FrontEbsDriverOverloadOpenFault Diagnostic" value="1" level="Warning"/>
         <RearEbsDriveOverloadOpenFault channelTag="RearEbsDriveOverloadOpenFault" description="RearEbsDriveOverloadOpenFault Diagnostic" value="1" level="Warning"/>
-      <FrontEbsDriveNotRaisedFault channelTag="FrontEbsDriveNotRaisedFault" description="FrontEbsDriveNotRaisedFault Diagnostic" value="1" level="Warning"/>
-      <RearEbsDriveNotRaisedFault channelTag="RearEbsDriveNotRaisedFault" description="RearEbsDriveNotRaisedFault Diagnostic" value="1" level="Warning"/>
+        <FrontEbsDriveNotRaisedFault channelTag="FrontEbsDriveNotRaisedFault" description="FrontEbsDriveNotRaisedFault Diagnostic" value="1" level="Warning"/>
+        <RearEbsDriveNotRaisedFault channelTag="RearEbsDriveNotRaisedFault" description="RearEbsDriveNotRaisedFault Diagnostic" value="1" level="Warning"/>
         <FrontEbsDriveNotLoweredFault channelTag="FrontEbsDriveNotLoweredFault" description="FrontEbsDriveNotLoweredFault Diagnostic" value="1" level="Warning"/>
         <RearEbsDriveNotLoweredFault channelTag="RearEbsDriveNotLoweredFault" description="RearEbsDriveNotLoweredFault Diagnostic" value="1" level="Warning"/>
-      <FrontEbsDriveDisconnectOpen channelTag="FrontEbsDriveDisconnectOpen" description="FrontEbsDriveDisconnectOpen Diagnostic" value="1" level="Warning"/>
-      <RearEbsDriveDisconnectOpen channelTag="RearEbsDriveDisconnectOpen" description="RearEbsDriveDisconnectOpen Diagnostic" value="1" level="Warning"/>
+        <FrontEbsDriveDisconnectOpen channelTag="FrontEbsDriveDisconnectOpen" description="FrontEbsDriveDisconnectOpen Diagnostic" value="1" level="Warning"/>
+        <RearEbsDriveDisconnectOpen channelTag="RearEbsDriveDisconnectOpen" description="RearEbsDriveDisconnectOpen Diagnostic" value="1" level="Warning"/>
     </FordNonStandardNotReallyFaults>
 </PlcConfig>

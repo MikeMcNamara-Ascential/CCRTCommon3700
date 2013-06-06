@@ -96,10 +96,10 @@
             ConfigFile="InputServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0106" RegisteredName="core/InputServer" Register="Yes" 
             DemoMode="" ConsoleMode="" AddressValue="" PortValue="" VerboseMode="">Input Server</InputServer>
-        <!-- PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
+        <PlantHostInbound Name="MazdaPlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="PlantHostInboundConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" 
-            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound -->
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
         <DataServer Name="DataServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="DataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0450" RegisteredName="core/DataServer" Register="Yes" 
@@ -121,7 +121,6 @@
             OrderToLaunch="1000" RegisteredName="application/VehicleTest" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Test Server</VehicleTest>
 
-       <WorkCellController Name="WorkCellController.qxe" Path="/ServicesLayer/Bin/" ConfigFile="WccConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0108" RegisteredName="core/WorkCellController" Register="Yes" DemoMode="" ConsoleMode="" AddressValue="" PortValue="" VerboseMode="">DC Work Cell Controller</WorkCellController>
     </TasksToLaunch>
     <DoNotLaunch>
 

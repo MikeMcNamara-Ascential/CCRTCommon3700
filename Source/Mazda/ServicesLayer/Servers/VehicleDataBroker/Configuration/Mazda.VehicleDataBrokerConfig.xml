@@ -1,7 +1,7 @@
 <VehicleDataBrokerConfig>
     <Setup>
         <Debug>Off</Debug>
-        <PlantHost>core/WorkCellController</PlantHost>
+        <PlantHost>core/PlantHostInbound</PlantHost>
         <Communication>
             <Comm>IPC</Comm>
             <Debug>Off</Debug>

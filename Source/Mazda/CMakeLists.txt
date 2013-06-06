@@ -68,7 +68,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/HydraulicMotorController.qxe
 	ServicesLayer/Bin/IsoCommProxy.qxe
 	ServicesLayer/Bin/MachineDataBroker.qxe
-	ServicesLayer/Bin/MapleKeypadManager.qxe
 	ServicesLayer/Bin/MultiComProxy.qxe
 	ServicesLayer/Bin/PendantManager.qxe
 	ServicesLayer/Bin/PlantHostOutbound.qxe

@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+
+<!-- 
+  First stab at writing a config file for the GUI panels.
+  Config for specific XMLWidgetPanels is under the
+  $Revision: 1.1 $
+-->
+
+<RtGuiConfig>
+    <Metadata author="Burke Porter, Inc" version="1.0"
+      description="Standard implementation of the Driver Monitor view."/>
+    <XmlWidgetPanel id="DriverMonitor">
+        <Layout>
+            <!-- Customer Logo -->
+            <VBox height="250" width="300" posX="3" posY="0" border="false">
+                <Widget height="125" width="300" id="platformlogo" class="com.bepco.gui.ImagePhaseBox">
+                    <DataSource tagname="PowerSense" messagetype="Subscribe"/>
+                </Widget>
+            </VBox>
+
+            <!-- START OF Driver Prompt Boxes ================================= -->
+            <Widget id="prompts" class="com.bepco.gui.PromptBox" posX="3" posY="160" width="1005" height="100" border="true">
+                <DataSource tagname="PromptBox1" messagetype="Subscribe"  />
+                <DataSource tagname="PromptBox1BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                <TextBoxConfig>
+                    <Font size="48" name="sans-serif" style="plain"/>
+                </TextBoxConfig>
+            </Widget>
+            <Widget id="prompts3" class="com.bepco.gui.PromptBox" posX="3" posY="265" width="1005" height="100" border="true">
+                <DataSource tagname="PromptBox2" messagetype="Subscribe"  />
+                <DataSource tagname="PromptBox2BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                <TextBoxConfig>
+                    <Font size="48" name="sans-serif" style="plain"/>
+                </TextBoxConfig>
+            </Widget>
+            <!-- END OF Driver Prompt Boxes ================================= -->
+
+            <!-- Wheel Speeds -->
+            <VBox width="400" height="200" posX="5" posY="370" border="false">
+                <HBox>
+                    <Label name="frontspeed">
+                        <Font size="35" name="sans-serif" style="bold"/>
+                    </Label>
+                    <Widget id="frontspeedvalue" class="com.bepco.gui.NumberBox" width="230">
+                        <DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
+                        <TextBoxConfig convertunits="false" format="{0,number,#.0}">
+                            <Font size="35" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                </HBox>
+                <HBox>
+                    <Label name="rearspeed">
+                        <Font size="35" name="sans-serif" style="bold"/>
+                    </Label>
+                    <Widget id="rearspeedvalue" class="com.bepco.gui.NumberBox" width="245">
+                        <DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
+                        <TextBoxConfig convertunits="false" format="{0,number,#.0}">
+                            <Font size="35" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                </HBox>
+                <HBox>
+                    <Label name="odo">
+                        <Font size="35" name="sans-serif" style="bold"/>
+                    </Label>
+                    <Widget id="odovalue" class="com.bepco.gui.NumberBox" width="245">
+                        <DataSource tagname="OdometerValue" messagetype="Read" datarate="10" />
+                        <TextBoxConfig convertunits="false" format="{0,number,#.0}">
+                            <Font size="35" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                </HBox>
+            </VBox>
+
+            <!-- VIN -->
+            <HBox  height="100" width="800" posX="5" posY="550" border="false">
+                <Label name="vin" border="false" height="68" width="100">
+                    <Font size="45" name="sans-serif" style="plain"/>
+                </Label>
+                <Widget id="_vin" height='68' width="550" class="com.bepco.gui.TextBox" screensaver="true">
+                    <DataSource tagname="VINDisplay" messagetype="Subscribe" />
+                    <DataSource tagname="VINDisplayBGColor" messagetype="Subscribe"
+                              tagrole="backgroundcolor" />
+                    <TextBoxConfig>
+                        <Font size="45" name="sans-serif" style="plain"/>
+                    </TextBoxConfig>
+                </Widget>
+            </HBox>
+
+        </Layout>
+    </XmlWidgetPanel>
+</RtGuiConfig>

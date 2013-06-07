@@ -15,7 +15,7 @@
             <LocalEcho>Disabled</LocalEcho>
             <ProcessName>NamedDataBroker</ProcessName>
             <Status>Enabled</Status>
-            <Verbose>0x1F</Verbose>
+            <Verbose>0x01</Verbose>
         </Logging>
         <NotificationList>
             <Setup>
@@ -62,6 +62,7 @@
                 <Abort DataType="bool">SystemMonitor</Abort>
                 <AbortSignalFromPLC DataType="bool">PLC</AbortSignalFromPLC>
                 <AbortTestPushButtonToPLC DataType="bool">PLC</AbortTestPushButtonToPLC>
+                <AbsTestResult DataType="bool">PLC</AbsTestResult>
                 <AccellerateLamp DataType="bool">PLC</AccellerateLamp>
                 <AcceptLamp DataType="bool">PLC</AcceptLamp>
                 <AirDoorNotLoweredFault DataType="bool">PLC</AirDoorNotLoweredFault>
@@ -108,6 +109,7 @@
                 <BrakeForceValue DataType="float" Units="LBF">MachineDataBroker</BrakeForceValue>
                 <BrakeLamp DataType="bool">PLC</BrakeLamp>
                 <BrakeOverallTest DataType="testcomponentstatus">TestResultServer</BrakeOverallTest>
+                <BrakeSwitchTestComplete DataType="bool">PLC</BrakeSwitchTestComplete>
                 <BrakeTCSValveFiringTest DataType="testcomponentstatus">TestResultServer</BrakeTCSValveFiringTest>
                 <BrakeTarget DataType="range" Units="LBF">VehicleDataBroker</BrakeTarget>
                 <BrakeTestLamp DataType="bool">PLC</BrakeTestLamp>
@@ -140,6 +142,8 @@
                 <CurrentRFMachineLoss DataType="float" Units="LBF">ICM</CurrentRFMachineLoss>
                 <CurrentRRMachineLoss DataType="float" Units="LBF">ICM</CurrentRRMachineLoss>
                 <CurrentRTMachineLoss DataType="float">ICM</CurrentRTMachineLoss>
+                <CurrentTestStepResultFromTestHead DataType="bool">PLC</CurrentTestStepResultFromTestHead>
+                <CurrentWheelAbsTestComplete DataType="bool">PLC</CurrentWheelAbsTestComplete>
                 <CurrentWheelbasePosition DataType="short" Units="Inch*10">PLC</CurrentWheelbasePosition>
                 <CycleLimitExceeded DataType="bool">PLC</CycleLimitExceeded>
                 <CycleLimitWarning DataType="bool">PLC</CycleLimitWarning>
@@ -155,6 +159,7 @@
                 <DeclutchFrontRollClutch DataType="bool">PLC</DeclutchFrontRollClutch>
                 <DeclutchRearRollClutch DataType="bool">PLC</DeclutchRearRollClutch>
                 <DeployVibrationSensor DataType="bool">PLC</DeployVibrationSensor>
+                <DiagclrTestComplete DataType="bool">PLC</DiagclrTestComplete>
                 <DifferentialLockTestPB DataType="bool">PLC</DifferentialLockTestPB>
                 <DisplayDriverMonitor DataType="string">SystemMonitor</DisplayDriverMonitor>
                 <DisplayRackMonitor DataType="string">SystemMonitor</DisplayRackMonitor>
@@ -195,6 +200,7 @@
                 <FactoryInfoSystemDataValid DataType="bool">PLC</FactoryInfoSystemDataValid>
                 <FatalFaultFlasher DataType="bool">PLC</FatalFaultFlasher>
                 <FaultLamp DataType="bool">PLC</FaultLamp>
+                <FcchkTestComplete DataType="bool">PLC</FcchkTestComplete>
                 <FifteenVoltDcPowerSupplyFault DataType="bool">PLC</FifteenVoltDcPowerSupplyFault>
                 <FinishedWritingTestResults DataType="bool">PLC</FinishedWritingTestResults>
                 <FireAlarm DataType="bool">PLC</FireAlarm>
@@ -251,6 +257,7 @@
                 <HydraulicOilLevelFault DataType="bool">PLC</HydraulicOilLevelFault>
                 <HydraulicOilTemperatureFault DataType="bool">PLC</HydraulicOilTemperatureFault>
                 <HydraulicSystemIdleTimeout DataType="bool">PLC</HydraulicSystemIdleTimeout>
+                <IgnitionOnFromTestHead DataType="bool">PLC</IgnitionOnFromTestHead>
                 <InputFromPlcWord00 DataType="short">PLC</InputFromPlcWord00>
                 <InputFromPlcWord01 DataType="short">PLC</InputFromPlcWord01>
                 <InputFromPlcWord02 DataType="short">PLC</InputFromPlcWord02>
@@ -512,6 +519,7 @@
                 <NextVehicleBuild DataType="string">VehicleDataServer</NextVehicleBuild>
                 <NissinboABSSelected DataType="bool">PLC</NissinboABSSelected>
                 <NoABSSelected DataType="bool">PLC</NoABSSelected>
+                <NormalBrakeTestResult DataType="bool">PLC</NormalBrakeTestResult>
                 <NoPB DataType="bool">PLC</NoPB>
                 <OldLTSpeed DataType="float" Units="MPH">ICM</OldLTSpeed>
                 <OpenN16_19_10 DataType="bool">PLC</OpenN16_19_10>
@@ -617,6 +625,7 @@
                 <OutputToPlcWord25 DataType="short">PLC</OutputToPlcWord25>
                 <OutputToPlcWord26 DataType="short">PLC</OutputToPlcWord26>
                 <OverallTest DataType="testcomponentstatus">VehicleTest</OverallTest>
+                <OverallTestResult DataType="bool">PLC</OverallTestResult>
                 <OverheadInPosition DataType="bool">PLC</OverheadInPosition>
                 <OverheadMotorDriveFault DataType="bool">PLC</OverheadMotorDriveFault>
                 <OverheadPositionFileFault DataType="bool">PLC</OverheadPositionFileFault>
@@ -864,7 +873,15 @@
                 <RollerCount DataType="short">ICM</RollerCount>
                 <RollsDownElevUp DataType="bool">PLC</RollsDownElevUp>
                 <RollsUpElevDown DataType="bool">PLC</RollsUpElevDown>
+                <RunBrakeSwitchTest DataType="bool">PLC</RunBrakeSwitchTest>
+                <RunDiagclrTest DataType="bool">PLC</RunDiagclrTest>
+                <RunFcchkTest DataType="bool">PLC</RunFcchkTest>
                 <RunflatTestSelected DataType="bool">PLC</RunflatTestSelected>
+                <RunLfAbsTest DataType="bool">PLC</RunLfAbsTest>
+                <RunLrAbsTest DataType="bool">PLC</RunLrAbsTest>
+                <RunRfAbsTest DataType="bool">PLC</RunRfAbsTest>
+                <RunRrAbsTest DataType="bool">PLC</RunRrAbsTest>
+                <RunWheelSpeedSensorTest DataType="bool">PLC</RunWheelSpeedSensorTest>
                 <SSSTesterCommFault DataType="bool">PLC</SSSTesterCommFault>
                 <ScannerCommFault DataType="bool">PLC</ScannerCommFault>
                 <SensorCrossAndTracLock DataType="bool">PLC</SensorCrossAndTracLock>
@@ -982,13 +999,13 @@
                 <TestResultForceRearBalanceValue DataType="short">PLC</TestResultForceRearBalanceValue>
                 <TestResultForceParkSumValue DataType="short">PLC</TestResultForceParkSumValue>
                 <TestResultForceParkBalanceValue DataType="short">PLC</TestResultForceParkBalanceValue>
-            
-
                 <TestsSinceLossCompensation DataType="short">MachineDataBroker</TestsSinceLossCompensation>
                 <TevesABSSelected DataType="bool">PLC</TevesABSSelected>
                 <TiltSteeringWheelTest DataType="bool">PLC</TiltSteeringWheelTest>
                 <TiltTestSelected DataType="bool">PLC</TiltTestSelected>
                 <TorqueOkFromTorqueController DataType="bool">PLC</TorqueOkFromTorqueController>
+                <TotalBrakeForceResult DataType="bool">PLC</TotalBrakeForceResult>
+                <TotalBrakeForceValue DataType="short">PLC</TotalBrakeForceValue>
                 <TractionControlLamp DataType="bool">PLC</TractionControlLamp>
                 <TractionControlSelected DataType="bool">PLC</TractionControlSelected>
                 <TractionControlTestOn DataType="bool">PLC</TractionControlTestOn>
@@ -1013,6 +1030,13 @@
                 <UpperPos5VoltPowerSupplyDomain DataType="range">MachineDataBroker</UpperPos5VoltPowerSupplyDomain>
                 <UpperPos5VoltPowerSupplyTarget DataType="range">MachineDataBroker</UpperPos5VoltPowerSupplyTarget>
                 <UpperPos5VoltPowerSupplyTolerance DataType="bool">PLC</UpperPos5VoltPowerSupplyTolerance>
+                <VariableDataBalanceResult DataType="bool">PLC</VariableDataBalanceResult>
+                <VariableDataBalanceValue DataType="short">PLC</VariableDataBalanceValue>
+                <VariableDataProcessingComplete DataType="bool">PLC</VariableDataProcessingComplete>
+                <VariableDataReady DataType="bool">PLC</VariableDataReady>
+                <VariableDataTestResult DataType="bool">PLC</VariableDataTestResult>
+                <VariableDataTestValue DataType="short">PLC</VariableDataTestValue>
+                <VariableDataType DataType="short">PLC</VariableDataType>
                 <VIN DataType="string">VehicleDataBroker</VIN>
                 <VINDisplay DataType="string">MachineDataBroker</VINDisplay>
                 <VINDisplayBGColor DataType="color">MachineDataBroker</VINDisplayBGColor>
@@ -1086,6 +1110,7 @@
                 <WheelbasePositionInchesX10 DataType="short" Units="Inch*10">PLC</WheelbasePositionInchesX10>
                 <WheelbasePositioningFault DataType="bool">PLC</WheelbasePositioningFault>
                 <WheelbaseStartCommand DataType="bool">PLC</WheelbaseStartCommand>
+                <WheelSpeedSensorTestComplete DataType="bool">PLC</WheelSpeedSensorTestComplete>
                 <YesPB DataType="bool">PLC</YesPB>
                 <Zerospeed DataType="bool">ICM</Zerospeed>
                 <ZerospeedToPLC DataType="bool">PLC</ZerospeedToPLC>

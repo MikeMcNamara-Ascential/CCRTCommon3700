@@ -84,7 +84,7 @@
             ConfigFile="MachineDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0103" RegisteredName="core/MachineDataBroker" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Machine Data Broker</MachineDataBroker>
-        <VehicleDataBroker Name="MazdaVehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
+        <VehicleDataBroker Name="VehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="VehicleDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0105" RegisteredName="core/VehicleDataBroker" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Data Broker</VehicleDataBroker>
@@ -108,10 +108,6 @@
             ConfigFile="ABMotorControllerConfig.xml" ConfigPath="/Configuration/Machine/" 
             OrderToLaunch="0500" RegisteredName="core/MotorController" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Motor Controller</MotorController>
-        <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 
-            ConfigFile="VehicleDataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
-            OrderToLaunch="0111" RegisteredName="core/VehicleDataServer" Register="Yes" 
-            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
         <InterCcrtCommServer Name="InterCcrtCommServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="InterCcrtCommServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0600" RegisteredName="core/InterCcrtCommServer" Register="Yes" 

@@ -67,7 +67,7 @@
                     <Logging>
                         <ProcessName>logport/PlcMelsec</ProcessName>
                         <AdditionalLogFile>/Servers/PlcMelsec.log</AdditionalLogFile>
-                        <Status>Enabled</Status>
+                        <Status>Disabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
                         <Verbose>0x01</Verbose>
                     </Logging>
@@ -77,7 +77,7 @@
                             <Logging>
                                 <AdditionalLogFile>/Communication/PlcMelsec_Comm.log</AdditionalLogFile>
                                 <ProcessName>Melsec_Comm</ProcessName>
-                                <Status>Enabled</Status>
+                                <Status>Disabled</Status>
                                 <LocalEcho>Disabled</LocalEcho>
                                 <Verbose>0x01</Verbose>
                                 <Debug>Off</Debug>
@@ -238,7 +238,7 @@
                 <Setup>
                     <SerialDevice>/dev/socket</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-                    <IpAddress>172.16.7.116</IpAddress>
+                    <IpAddress>192.168.2.1</IpAddress>
                     <PortNo>3000</PortNo>
                     <TcpType>Client</TcpType>
                     <Protocol>

@@ -252,7 +252,7 @@
 						<ProcessName>LeftFrontMotor</ProcessName>
 						<AdditionalLogFile Types="/Communication/LfMotor.log or Disabled">/Communication/LeftMotor.log</AdditionalLogFile>
 						<LocalEcho>Disabled</LocalEcho>
-						<Verbose>0x1F</Verbose>
+						<Verbose>0x01</Verbose>
 						<Debug>Off</Debug>
 					</Logging>
 					<DataTags>
@@ -284,7 +284,7 @@
 						<ProcessName>RightFrontMotor</ProcessName>
 						<AdditionalLogFile Types="/Communication/RfMotor.log or Disabled">/Communication/RightMotor.log</AdditionalLogFile>
 						<LocalEcho>Disabled</LocalEcho>
-						<Verbose>0x1F</Verbose>
+						<Verbose>0x01</Verbose>
 						<Debug>Off</Debug>
 					</Logging>
 					<DataTags>
@@ -316,7 +316,7 @@
 						<ProcessName>LeftRearMotor</ProcessName>
 						<AdditionalLogFile Types="/Communication/LrMotor.log or Disabled">/Communication/LrMotor.log</AdditionalLogFile>
 						<LocalEcho>Disabled</LocalEcho>
-						<Verbose>0x1F</Verbose>
+						<Verbose>0x01</Verbose>
 						<Debug>Off</Debug>
 					</Logging>
 					<DataTags>
@@ -348,7 +348,7 @@
 						<ProcessName>RightRearMotor</ProcessName>
 						<AdditionalLogFile Types="/Communication/RrMotor.log or Disabled">/Communication/RrMotor.log</AdditionalLogFile>
 						<LocalEcho>Disabled</LocalEcho>
-						<Verbose>0x1F</Verbose>
+						<Verbose>0x01</Verbose>
 						<Debug>Off</Debug>
 					</Logging>
 					<DataTags>

@@ -329,6 +329,7 @@
         <RightRearPosTorqueLimit channelIndex="54" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <RightRearNegTorqueLimit channelIndex="55" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 
+<!--
         <TestResultOverallTestPass channelIndex="65" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <TestResultBaseDrumTestPass channelIndex="65" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 
@@ -338,7 +339,7 @@
         <TestResultRearAtMaxValue channelIndex="69" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <TestResultOdometer channelIndex="70" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <TestResultTestDuration channelIndex="71" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-
+-->
         <!-- Data from PLC -->
         <RearWheelDriveSignal channelIndex="0" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <PowerSense channelIndex="0" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>

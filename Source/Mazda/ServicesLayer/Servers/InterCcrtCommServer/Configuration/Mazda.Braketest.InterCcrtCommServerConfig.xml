@@ -16,7 +16,7 @@
          <DataFileTimer Units="ms">10000</DataFileTimer>
       </Parameters>
       <DataTags>
-          <PlantHostServer>core/WorkCellController</PlantHostServer>
+          <PlantHostServer>core/PlantHostInbound</PlantHostServer>
           <VehicleBuild>VehicleBuild</VehicleBuild>
           <BuildPartId>VIN</BuildPartId>
       </DataTags>

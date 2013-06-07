@@ -25,34 +25,6 @@ MazdaVehicleDataBroker::~MazdaVehicleDataBroker()
 }
 
 //-------------------------------------------------------------------------------------------------
-const string MazdaVehicleDataBroker::Publish(const XmlNode *node)
-{   // Check if this is an engine type
-    if(!node->getName().compare(GetDataTag("SixCylinderEngineTag")))
-    {   // Set the selected engine size
-        SetEngineSize(GetDataTag("EngineType" + node->getValue()));
-        // Update the shift parameters on the screen
-        UpdateTransmissionShiftPoints();
-    }
-    else if(!node->getName().compare(GetDataTag("SpeedDisplayScalingTag")))
-    {   // Set the selected speedometer type
-        SetSpeedoType(GetDataTag("SpeedoType" + node->getValue()));
-        // Update the shift parameters on the screen
-        UpdateTransmissionShiftPoints();
-    }
-    // Call the base class to do the publishing
-    return VehicleDataBroker::Publish(node);
-}
-
-//-------------------------------------------------------------------------------------------------
-void MazdaVehicleDataBroker::LoadAdditionalConfigurationItems(const XmlNode *document)
-{   // Call the base class to start loading items
-    VehicleDataBroker::LoadAdditionalConfigurationItems(document);
-    // Set the default engine size and speedo type
-    SetEngineSize(GetDataTag("DefaultEngineType"));
-    SetSpeedoType(GetDataTag("DefaultSpeedoType"));
-}
-
-//-------------------------------------------------------------------------------------------------
 const string MazdaVehicleDataBroker::ReadLatestVehicleBuildRecord(bool publishAfterRead/*=true*/)
 {   // Call the base class to start the process and handle the bulk
     string result = VehicleDataBroker::ReadLatestVehicleBuildRecord(publishAfterRead);
@@ -77,49 +49,4 @@ const string MazdaVehicleDataBroker::ReadLatestVehicleBuildRecord(bool publishAf
     // Make sure the shift points are displayed
     UpdateTransmissionShiftPoints();
     return result;
-}
-
-//-------------------------------------------------------------------------------------------------
-void MazdaVehicleDataBroker::UpdateTransmissionShiftPoints(void)
-{   // Get an XmlNodeMap of the transmission shift points
-    string buildDataNode("TransmissionShiftPoints/" + GetEngineSize() + "/" + GetSpeedoType());
-    try
-    {
-        const XmlNodeMap &shiftPoints = m_data.getNode(GetVehicleBuildTag())->getChild(buildDataNode)->getChildren();
-        // Publish the new shift points
-        for(XmlNodeMapCItr iter = shiftPoints.begin(); iter != shiftPoints.end(); iter++)
-        {   // Write the data to all subscribers
-            Write(iter->second);
-        }
-    }
-    catch(XmlException &excpt)
-    {
-        Log(LOG_ERRORS, "No build data loaded, cannot display shift points");
-    }
-}
-
-//-------------------------------------------------------------------------------------------------
-inline const string& MazdaVehicleDataBroker::GetEngineSize(void)
-{
-    return m_engineSize;
-}
-
-//-------------------------------------------------------------------------------------------------
-inline const string& MazdaVehicleDataBroker::GetSpeedoType(void)
-{
-    return m_speedoType;
-}
-
-//-------------------------------------------------------------------------------------------------
-inline void MazdaVehicleDataBroker::SetEngineSize(const string &engineSize)
-{
-    m_engineSize = engineSize;
-    Write(GetDataTag("EngineTypeTag"), engineSize);
-}
-
-//-------------------------------------------------------------------------------------------------
-inline void MazdaVehicleDataBroker::SetSpeedoType(const string &speedoType)
-{
-    m_speedoType = speedoType;
-    Write(GetDataTag("SpeedoTypeTag"), speedoType);
 }

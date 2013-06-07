@@ -1183,6 +1183,10 @@ protected:
      */
     const float SpeedometerResultSpeed(const float *speed = NULL);
 
+    virtual const string RaiseRollsLowerElevators (void);
+    virtual const string LowerRollsRaiseElevators (void);
+
+
 private:
 	/**
 	 * Check the machine conditions to make sure the machine is in the correct state for testing.

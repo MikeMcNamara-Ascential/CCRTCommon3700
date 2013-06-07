@@ -246,6 +246,12 @@
 #define STOP_RERELAX_RETROLLS_PULSE    91
 
 /**
+ * Pulse value used to send toggle ret roll position to plc
+ */ 
+#define STOP_MOVE_RET_ROLL_POS_PULSE    92
+
+
+/**
  * Name to use when registering with OS
  * @since version 1.0
  */
@@ -1075,6 +1081,16 @@ protected:
      */ 
     void StopReRelaxRetRollsPulse(void);
 
+    /**
+     * Start sending move ret roll position bit to plc.
+     */ 
+    void StartRetRollPositionMove(const char *tag);
+
+    /**
+     * Stop sending move ret roll position bit to plc.
+     */ 
+    void StopRetRollPositionMove(void);
+
 
     
     /**
@@ -1232,11 +1248,21 @@ protected:
      * The number of mili-seconds to wait before killing the wheelbase move bit
      */
     double              m_wheelbasePulseTime;
+        /**
+     * The number of mili-seconds to wait before toggling the retainer raise / lower bits
+     */
+    double              m_retainerTogglePulseTime;
+
      /**
      * Timer object used to send the SystemMonitor a pulse after the
      * vehicle present filter time has elapsed.
      */
     BepTimer            m_wheelbasePulseTimer;
+         /**
+     * Timer object used to send the SystemMonitor a pulse to 
+     * toggle ret roll position
+     */
+    BepTimer            m_retainerTogglePulseTimer;
      /**
      * Flag used to denote that it is the SystemMonitor's
      * responsibility to send a signal to ReRelax the RetRolls on

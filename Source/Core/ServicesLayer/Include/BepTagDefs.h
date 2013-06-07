@@ -345,6 +345,12 @@
 #define RAISE_ROLLS                     "RaiseRolls-LowerElevators"
 
 /**
+ * Data tag for lowering the rollers/raising the elevators
+ * automatically.
+ */
+#define LOWER_ROLLS                     "LowerRolls-RaiseElevators"
+          
+/**
  * Data tag that indicates the status of the vehicle presence sensor
  */
 #define INST_VEH_PRESENT_DATA_TAG       "InstVehiclePresent"

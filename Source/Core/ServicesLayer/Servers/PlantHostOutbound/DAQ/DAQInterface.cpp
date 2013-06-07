@@ -143,6 +143,17 @@ void DAQInterface::LoadAdditionalConfigurationItems(const XmlNode *config)
     {
         Log(LOG_ERRORS, "Could not load loss compensation result map: %s", excpt.GetReason());
     }
+    // Store the header delimeter to use
+    string headerDelim(" ");
+    try
+    {
+        headerDelim = config->getChild("Setup/HeaderDelimiter")->getValue();
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Could not find header delimiter using [%s]: %s", headerDelim.c_str(), excpt.GetReason());
+    }
+    HeaderDelimeter(&headerDelim);
     // Setup the various headers
     SetResultStringHeaders();
     Log(LOG_FN_ENTRY, "DAQInterface::LoadAdditionalConfigurationItems() - Exit");
@@ -364,11 +375,11 @@ void DAQInterface::SetResultStringHeaders(void)
     char machNum[MachineNumberLength()+1];
     sprintf(machNum, "%04d", atoi(GetMachineNumber().c_str()));
     // Set the test result header
-    m_testResultHeader = (char)TEST_RESULT_STX + string(" ") + machNum + string(" ") + MeasurementSystem() + string(" ");
+    m_testResultHeader = (char)TEST_RESULT_STX + HeaderDelimeter() + machNum + HeaderDelimeter() + MeasurementSystem() + HeaderDelimeter();
     // Set the calibrate result header
-    m_lossCompensationHeader = (char)LOSS_COMPENSATION_STX + string(" ") + machNum + string(" ");
+    m_lossCompensationHeader = (char)LOSS_COMPENSATION_STX + HeaderDelimeter() + machNum + HeaderDelimeter();
     // Set the fault string header
-    m_machineFaultHeader = (char)MACHINE_FAULT_STX + string(" ") + machNum + string(" ");
+    m_machineFaultHeader = (char)MACHINE_FAULT_STX + HeaderDelimeter() + machNum + HeaderDelimeter();
 }
 
 //-----------------------------------------------------------------------------
@@ -376,6 +387,13 @@ const string& DAQInterface::MeasurementSystem(const string *measurementSystem /*
 {
     if(measurementSystem != NULL)  m_measurementSystem = *measurementSystem;
     return m_measurementSystem;
+}
+
+//-----------------------------------------------------------------------------
+const string& DAQInterface::HeaderDelimeter(const string *headerDelim /*= NULL*/)
+{
+    if(headerDelim != NULL)  m_headerDelimiter = *headerDelim;
+    return m_headerDelimiter;
 }
 
 //-----------------------------------------------------------------------------

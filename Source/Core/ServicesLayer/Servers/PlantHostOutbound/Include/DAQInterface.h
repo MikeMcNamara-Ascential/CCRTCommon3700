@@ -263,6 +263,10 @@ protected:
      */
     const string& MeasurementSystem(const string *measurementSystem = NULL);
     /**
+     * Get/Set the header delimiter     * 
+     */
+    const string& HeaderDelimeter(const string *measurementSystem = NULL);
+    /**
      * Store/retrieve the flag indicating if a fault is ready to be processed.
      * 
      * @param readyToProcess Flag indicating if a fault code is ready to be 
@@ -301,6 +305,10 @@ private:
      * The current selected measurement system.
      */
     string m_measurementSystem;
+    /**
+     * The current selected measurement system.
+     */
+    string m_headerDelimiter;
     /**
      * Map to build the loss compensation result string.
      */

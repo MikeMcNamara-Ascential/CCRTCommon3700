@@ -747,6 +747,38 @@ void SystemMonitor::Initialize(const XmlNode *document)
         }
     }
 
+    // retrieve the retaining roll toggle pulse timer time
+        try
+        {
+            if (document)
+            {
+                const XmlNode *node = document->getChild( XML_T("Setup"))->getChild( XML_T("ToggleRetainerPositionPulseWidth"));
+                m_retainerTogglePulseTime = atol( node->getValue().c_str());
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Warning! No ret toggle pulse time specified, Defaulting to 500ms\n");
+                m_retainerTogglePulseTime = 500;
+            }
+        }
+        catch (XmlException &err)
+        {
+            Log(LOG_ERRORS, "Warning! No ret toggle pulse time specified, Defaulting to 500ms\n");
+            m_retainerTogglePulseTime = 500;
+        }
+
+        // set the update time
+        Log( LOG_DEV_DATA, "Using ret toggle pulse time = %f\n", m_retainerTogglePulseTime);
+            m_retainerTogglePulseTimer.SetPulseCode( SYS_MON_PULSE_CODE);
+            m_retainerTogglePulseTimer.SetPulseValue( STOP_MOVE_RET_ROLL_POS_PULSE); 
+            m_retainerTogglePulseTimer.Initialize(GetProcessName().c_str(), 
+                                             NULL, (unsigned long)(mSEC_nSEC(m_retainerTogglePulseTime )));
+            m_retainerTogglePulseTimer.Stop();
+       
+
+
+
+
     Log( LOG_FN_ENTRY, "Exit Initialize()\n");
 }
 
@@ -850,6 +882,9 @@ const INT32 SystemMonitor::HandlePulse(const INT32 code, const INT32 value)
             break;
         case STOP_RERELAX_RETROLLS_PULSE:
             StopReRelaxRetRollsPulse();    // Make sure to disable the start ReRelaxRetRolls pulse
+            break;
+        case STOP_MOVE_RET_ROLL_POS_PULSE:
+            StopRetRollPositionMove();         // Make sure to disable ret roll move
             break;
         default:
             retVal = BEP_STATUS_FAILURE;
@@ -1992,7 +2027,19 @@ bool const SystemMonitor::GetSystemMonitorWheelbaseAdjust(void)
     return m_systemMonitorWheelbaseAdjust;
 }
 
+void SystemMonitor::StartRetRollPositionMove(const char *tag)
+{
+    WriteNdbData(tag, true);
+    m_retainerTogglePulseTimer.Start();
+    Log( LOG_DEV_DATA, "StartRetRollPositionMove %s set true\n", tag);
+}
 
+void SystemMonitor::StopRetRollPositionMove(void)
+{
+    WriteNdbData(RAISE_ROLLS, false);
+    WriteNdbData(LOWER_ROLLS, false);
+    Log( LOG_DEV_DATA, "Ret roll position bits set false\n");
+}
 
 void SystemMonitor::StartReRelaxRetRollsPulse(void)
 {

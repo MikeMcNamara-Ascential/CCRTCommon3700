@@ -334,6 +334,8 @@ const std::string MachineTC::CommandTestStep(const std::string &value)
             else if(!step.compare("VerifyMachineConditions"))
                 status = ValidateMachineConditions(value);
             else if(!step.compare("SetInputServerState"))  status = SetInputServerState(value);
+            else if(step == "RaiseRollsLowerElevators")          status = RaiseRollsLowerElevators();
+            else if(step == "LowerRollsRaiseElevators")          status = LowerRollsRaiseElevators();
             else                                        // else invalid test step
                 status = GenericTC::CommandTestStep(value);
 
@@ -1944,4 +1946,135 @@ string MachineTC::ValidateMachineConditions(const string value)
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "MachineTC::ValidateMachineConditions() - Enter");
     return result;
+}
+
+
+//=============================================================================
+const string MachineTC::RaiseRollsLowerElevators (void)
+{
+    Log(LOG_FN_ENTRY, "MachineTC::RaiseRollsLowerElevators()\n");
+    std::string status = BEP_NONE;  // set test step status to no response
+
+    try
+    {   // if the vehicle is not retained
+        bool isVehicleRetained = !(bool)(ReadSubscribeData(GetDataTag("RollsDownElevUp")) == "1");
+        Log(LOG_FN_ENTRY, "RaiseRollsLowerElevators isVehicleRetained: %d\n", isVehicleRetained);
+        if(!isVehicleRetained)
+        {   // if the machine is in the expected state
+            if(StatusCheck() == BEP_STATUS_SUCCESS)
+            {
+                //Command System mon to retain vehicle
+                SystemWrite(GetDataTag("CommandSysMonRaiseRolls"), true);
+
+                // prompt retainers are being raised /elevators lowered
+                if(UpdatePrompts() != BEP_STATUS_SUCCESS)
+                    Log(LOG_ERRORS, "Unable to Update Prompts\n");
+                bool done = false;
+                while((StatusCheck() == BEP_STATUS_SUCCESS) && TimeRemaining() && !done)
+                {
+                    if(ReadSubscribeData(GetDataTag("RollsUpElevDown")) != "1")    BposSleep(250);
+                    else
+                    {
+                        Log(LOG_FN_ENTRY, "Vehicle retained\n");
+                        done = true;
+                    }
+                }
+                // update the status of the test
+                if(StatusCheck() != BEP_STATUS_SUCCESS) UpdateResult(StatusCheck(), status);
+                else if((!TimeRemaining()) || (!done))  status = BEP_FATALFAIL_STATUS;
+                else                                    status = BEP_PASS_STATUS;
+            }
+            // else the conditions are not correct, indicate not started
+            else
+                status = BEP_TEST_NOT_STARTED;
+        }
+        else
+            status = BEP_PASS_STATUS;
+    }
+    catch(BepException &e)
+    {
+        Log(LOG_ERRORS, "MachineTC::RaiseRollsLowerElevators Exception: %s\n", e.what());
+        status = BEP_SOFTWAREFAIL_STATUS;
+    }
+
+    // if the result of this test step is not pass, ABORT
+    if(status != BEP_PASS_STATUS)   SystemWrite(ABORT_DATA_TAG, "1");
+
+    // update the test result
+    if(SendTestResult(status, GetTestStepInfo("Description")) != BEP_STATUS_SUCCESS)
+    {
+        Log(LOG_ERRORS, "MachineTC::RaiseRollsLowerElevators Could Not Send Test Result: %s, %s\n",
+            GetTestStepName().c_str(), status.c_str());
+    }
+
+    RemovePrompts();    // remove the prompts from the screen
+
+    Log(LOG_FN_ENTRY, "MachineTC::RaiseRollsLowerElevators(): %s\n", status.c_str());
+
+    return(status);
+}
+
+//=============================================================================
+const string MachineTC::LowerRollsRaiseElevators (void)
+{
+    Log(LOG_FN_ENTRY, "MachineTC::LowerRollsRaiseElevators()\n");
+    std::string status = BEP_NONE;  // set test step status to no response
+
+    try
+    {   // if the vehicle is not released
+        bool isVehicleReleased = !(bool)(ReadSubscribeData(GetDataTag("RollsUpElevDown")) == "1");
+        Log(LOG_FN_ENTRY, "LowerRollsRaiseElevators isVehicleReleased: %d\n", isVehicleReleased);
+        if(!isVehicleReleased)
+        {   // if the machine is in the expected state
+            if(StatusCheck() == BEP_STATUS_SUCCESS)
+            {
+                //Command System mon to retain vehicle
+                SystemWrite(GetDataTag("CommandSysMonLowerRolls"), true);
+
+                // prompt retainers are being lowered /elevators raised
+                if(UpdatePrompts() != BEP_STATUS_SUCCESS)
+                    Log(LOG_ERRORS, "Unable to Update Prompts\n");
+                bool done = false;
+                while((StatusCheck() == BEP_STATUS_SUCCESS) && TimeRemaining() && !done)
+                {
+                    if(ReadSubscribeData(GetDataTag("RollsDownElevUp")) != "1")    BposSleep(250);
+                    else
+                    {
+                        Log(LOG_FN_ENTRY, "Vehicle released\n");
+                        done = true;
+                    }
+                }
+                // update the status of the test
+                if(StatusCheck() != BEP_STATUS_SUCCESS) UpdateResult(StatusCheck(), status);
+                else if((!TimeRemaining()) || (!done))  status = BEP_FATALFAIL_STATUS;
+                else                                    status = BEP_PASS_STATUS;
+            }
+            // else the conditions are not correct, indicate not started
+            else
+                status = BEP_TEST_NOT_STARTED;
+        }
+        else
+            status = BEP_PASS_STATUS;
+    }
+    catch(BepException &e)
+    {
+        Log(LOG_ERRORS, "MachineTC::LowerRollsRaiseElevators Exception: %s\n", e.what());
+        status = BEP_SOFTWAREFAIL_STATUS;
+    }
+
+    // if the result of this test step is not pass, ABORT
+    if(status != BEP_PASS_STATUS)   SystemWrite(ABORT_DATA_TAG, "1");
+
+    // update the test result
+    if(SendTestResult(status, GetTestStepInfo("Description")) != BEP_STATUS_SUCCESS)
+    {
+        Log(LOG_ERRORS, "MachineTC::LowerRollsRaiseElevators Could Not Send Test Result: %s, %s\n",
+            GetTestStepName().c_str(), status.c_str());
+    }
+
+    RemovePrompts();    // remove the prompts from the screen
+
+    Log(LOG_FN_ENTRY, "MachineTC::LowerRollsRaiseElevators(): %s\n", status.c_str());
+
+    return(status);
 }

@@ -1,0 +1,6 @@
+<WheelbaseTable>
+    <VehicleConfig>
+        <WB_J36W BodyStyle="BM" ModelYear="?" Wheelbase="2635" Units="mm"/>
+        <WB_J53 BodyStyle="KE" ModelYear="?" Wheelbase="2735" Units="mm"/>
+    </VehicleConfig>
+</WheelbaseTable>

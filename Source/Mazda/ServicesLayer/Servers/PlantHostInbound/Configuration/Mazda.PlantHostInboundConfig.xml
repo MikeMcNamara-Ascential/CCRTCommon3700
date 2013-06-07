@@ -10,22 +10,32 @@
             <Timeout>1000</Timeout>
             <BufferSize>2000</BufferSize>
         </Communication>
+        <BuildDataTags>
+            <BuildItem00 BuildTag="VIN">NextVIN</BuildItem00>
+            <BuildItem01 BuildTag="AON">Aon</BuildItem01>
+            <BuildItem02 BuildTag="BodyStyle">VehicleTypeFromPLC</BuildItem02>
+        </BuildDataTags>
         <DataTags>
             <AonTag>Aon</AonTag>
-            <RetrieveBuildDataTag>RetrieveBuildData</RetrieveBuildDataTag>
-            <VehicleBuild>NextVehicleBuild</VehicleBuild>
+            <BuildDataError>BuildDataError</BuildDataError>
             <BuildRecord>BuildRecord</BuildRecord>
-            <Vin>VIN</Vin>
-            <NextVIN>NextVIN</NextVIN>
-            <VINDisplay>VINDisplay</VINDisplay>
-            <VINReadStatus>VINReadStatus</VINReadStatus>
             <InputServerState>InputServerState</InputServerState>
-            <VehiclePresent>VehiclePresent</VehiclePresent>
-            <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
-            <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
-            <WheelbasePositionTag>WheelbasePositionInchesX10</WheelbasePositionTag>
-            <VehicleType>VehicleType</VehicleType>
+            <NextVIN>NextVIN</NextVIN>
             <PlanthostOutboundName>core/PlantHostOutbound</PlanthostOutboundName>
+            <RetrieveBuildDataTag>RetrieveBuildData</RetrieveBuildDataTag>
+            <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+            <VehicleBuild>NextVehicleBuild</VehicleBuild>
+            <VehicleBuildError>VehicleBuildDataNg</VehicleBuildError>
+            <VehicleBuildOk>VehicleBuildDataOk</VehicleBuildOk>
+            <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
+            <VehiclePresent>VehiclePresent</VehiclePresent>
+            <VehicleType>VehicleType</VehicleType>
+            <Vin>VIN</Vin>
+            <VINDisplay>VINDisplay</VINDisplay>
+            <VinModelYearDigit>9</VinModelYearDigit>
+            <VINReadStatus>VINReadStatus</VINReadStatus>
+            <WheelbasePositionTag>WheelbasePositionInchesX10</WheelbasePositionTag>
+
             <AllWheelDriveEquipped>
                 <AWD>Yes</AWD>
             </AllWheelDriveEquipped>
@@ -35,6 +45,7 @@
                 <AWD>No</AWD>
             </FourWheelDriveEquipped>
         </DataTags>
+
         <Logging>
             <Status>Enabled</Status>
             <ProcessName>core/PlantHostInbound</ProcessName>
@@ -45,15 +56,16 @@
         </Logging>
         <TagList>
             <SubscribeTags>
-                <VehiclePresent/>
                 <RollsDownElevUp/>
-                <FrontAxleTestSelected/>
+                <VehicleBuildDataNg/>
+                <VehicleBuildDataOk/>
+                <VehiclePresent/>
             </SubscribeTags>
             <PublishTags>
-                <VehicleBuildRecordStatus/>
+                <Aon/>
                 <BuildRecord/>
                 <StopCurrentTest>0</StopCurrentTest>
-                <Aon/>
+                <VehicleBuildRecordStatus/>
             </PublishTags>
         </TagList>
         <ThreadPool>

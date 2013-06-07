@@ -44,6 +44,62 @@ public:
 	 *         Success, Fail, Invalid, Unavailable
 	 */
 	virtual const string Write(const XmlNode *dataNode);
+
+
+
+
+
+protected:
+
+	/**
+	 * Add any information that was derived from the vehicle build to the vehicle build record.
+	 *
+	 * @param buildData Build data map to add the information to.
+	 */
+	virtual void AddDerivedBuildInfo(XmlNodeMap &buildData);
+
+	/**
+	 * Create the vehicle build record with the ALC data.
+	 * 
+	 * @return Result of creating the build record.
+	 */
+	string CreateBuildRecord(void);
+
+	/**
+	 * Evaluates the criteria to determine which wheelbase position to select.
+	 *
+	 * @param selectData Data used to determine which wheelbase to select
+	 * @param modelYear  Model year character from the VIN
+	 * @return Wheelbase position for the specified selectData.
+	 */
+	virtual const string GetWheelBasePosition(const string &selectData, const string &modelYear);
+
+	/**
+	 * Load the additional configuration items needed by plant host inbound.
+	 * The "standard" items will be handled by the call to
+	 * BepServer::Initialize().
+	 *
+	 * @param document A pointer to a parsed configuration file.
+	 */
+	virtual void LoadAdditionalConfigurationItems(const XmlNode *document);
+
+	/**
+	 * Handle the subscribed for data by the process.
+	 *
+	 * @param node    Tag that was subscribed for
+	 * @return Status of the updating of the published tag
+	 *         Success, Fail
+	 */
+	virtual const string Publish(const XmlNode *node);
+
+
+
+
+private:
+
+	// System tags to read to get build data
+	XmlNodeMap m_buildDataTags;
+
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaPlantHostInbound_h

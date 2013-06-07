@@ -14,6 +14,8 @@
                 <VehiclePresent>0</VehiclePresent>
             </PublishTags>
             <SubscribeTags>
+                <CommandSysMonLowerRolls/>
+                <CommandSysMonRaiseRolls/>
                 <InstVehiclePresent/>
                 <JounceTestComplete/>
                 <NextVIN/>

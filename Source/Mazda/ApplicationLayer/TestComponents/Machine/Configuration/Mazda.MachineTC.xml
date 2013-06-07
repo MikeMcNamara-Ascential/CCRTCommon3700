@@ -52,6 +52,8 @@
                 <MachineType/>
                 <ParkingBrakeTestFailed/>
                 <ParkingBrakeTestPass/>
+                <RollsDownElevUp/>
+                <RollsUpElevDown/>
                 <SoftwareID/>
                 <Start40kphTest/>
                 <Zerospeed/>
@@ -155,10 +157,11 @@
             <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
             <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
             <StartTest PromptBox="1" Priority="0">PressButtonToStartTest</StartTest>
+            <RaiseRollsLowerElevatorsInProgress PromptBox="1" Priority="0">RaiseRollsLowerElevatorsInProgress</RaiseRollsLowerElevatorsInProgress>
+            <LowerRollsRaiseElevatorsInProgress PromptBox="1" Priority="0">LowerRollsRaiseElevatorsInProgress</LowerRollsRaiseElevatorsInProgress>
         </Prompts>
         <StatusCheckItems>
             <VehiclePresent>1</VehiclePresent>
-            <RollsUpElevDown>1</RollsUpElevDown>
         </StatusCheckItems>
         <TestDomain>Foreground</TestDomain>
         <TaskMon>
@@ -179,7 +182,15 @@
             <!-- TestStep2>InitializeTestHead</TestStep2 -->
             <TestStep10>StartTest</TestStep10>            
         </MachineStartup>
-        
+
+        <LowerElevators>
+            <TestStep01>RaiseRollsLowerElevators</TestStep01>            
+        </LowerElevators>
+
+        <RaiseElevators>
+            <TestStep01>LowerRollsRaiseElevators</TestStep01>            
+        </RaiseElevators>
+
         <Initialize>
             <TestStep1>Initialize</TestStep1>
             <TestStep2>MachineReady</TestStep2>
@@ -305,6 +316,8 @@
 
         <WaitForAcceleration Result="" Description="Wait for operator to start driving" Timeout="300000"/>
 
+        <RaiseRollsLowerElevators Result="" Description="Command Machine Raise Rolls / Lower Elevators" Timeout="300000" Prompt1="RaiseRollsLowerElevatorsInProgress" Prompt1Priority="0"  ScanDelay="250"/>
+        <LowerRollsRaiseElevators Result="" Description="Command Machine Lower Rolls / Raise Elevators" Timeout="300000" Prompt1="LowerRollsRaiseElevatorsInProgress" Prompt1Priority="0"  ScanDelay="250"/>
         <!--
         <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
             <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>

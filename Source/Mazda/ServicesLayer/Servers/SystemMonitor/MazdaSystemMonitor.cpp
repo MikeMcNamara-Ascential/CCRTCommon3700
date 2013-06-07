@@ -98,8 +98,8 @@ const string MazdaSystemMonitor::Publish(const XmlNode *node)
 		WriteNdbData(BODY_STYLE_TAG, GetDataTag("ClearBodyStyle"));
 		if(!node->getValue().compare(BEP_PASS_RESPONSE))
 		{
-			WriteNdbData(RAISE_ROLLS, false);
-		}
+            StartRetRollPositionMove(LOWER_ROLLS);
+        }
 		else
 		{	// Test did not pass, do not home the machine
 			Log(LOG_ERRORS, "Test failed, not commanding machine to home state");
@@ -126,13 +126,21 @@ const string MazdaSystemMonitor::Publish(const XmlNode *node)
 		{	// Test not in progress, raise the retainers
 			VehicleBuildDataLoaded(&buildDataNotLoaded);
 			WriteNdbData(BODY_STYLE_TAG, GetDataTag("ClearBodyStyle"));
-			WriteNdbData(RAISE_ROLLS, false);
-		}
-	}
+            StartRetRollPositionMove(LOWER_ROLLS);
+        }
+    }
 	else if(!node->getName().compare(GetDataTag("WbInPosition")) && atob(node->getValue().c_str()))
 	{
 		RemovePrompt(1, "WheelbaseIncorrect");
 		DisplayPrompt(2, "MoveToTestPosition");
+	}
+    else if(!node->getName().compare(GetDataTag("CommandSysMonLowerRolls")) && atob(node->getValue().c_str()))
+	{
+         StartRetRollPositionMove(LOWER_ROLLS);
+	}
+    else if(!node->getName().compare(GetDataTag("CommandSysMonRaiseRolls")) && atob(node->getValue().c_str()))
+	{
+         StartRetRollPositionMove(RAISE_ROLLS);
 	}
 	// Return the result
 	Log(LOG_FN_ENTRY, "MazdaSystemMonitor::Publish(tag: %s) - Exit", node->getName().c_str());
@@ -235,7 +243,6 @@ void MazdaSystemMonitor::ClearMazdaAlcBits(void)
 			Log(LOG_ERRORS, "Issue reading PLC map: %s\n", excpt.GetReason());
 		}
 	}
-
 	Log(LOG_FN_ENTRY, "MazdaSystemMonitor::ClearMazdaAlcBits() - Exit");
 }
 

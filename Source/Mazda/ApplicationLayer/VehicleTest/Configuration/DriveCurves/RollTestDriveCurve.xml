@@ -15,9 +15,6 @@
                 <Objective0 Description="Setup machine" Result="" Timeout="" Component="Machine">
                     <Initialize/>
                 </Objective0>
-                <Objective1 Description="Setup brake test component" Result="" Timeout="" Component="Brake">
-                    <Setup/>
-                </Objective1>                
             </ForegroundObjectives>
         </TestPhase000>
         

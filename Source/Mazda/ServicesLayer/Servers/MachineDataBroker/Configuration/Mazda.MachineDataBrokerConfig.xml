@@ -68,6 +68,8 @@
                 <AxleRatioBGColor DataType="color">white</AxleRatioBGColor>
 				<BrakeForceValue DataType="float" Units="LBF">0</BrakeForceValue>
                 <BrakePedalForce DataType="float" Units="KGF">0</BrakePedalForce>
+                <CommandSysMonLowerRolls DataType="bool">0</CommandSysMonLowerRolls>
+                <CommandSysMonRaiseRolls DataType="bool">0</CommandSysMonRaiseRolls>
 				<ConnectRequest DataType="string">Unknown</ConnectRequest>
                 <CycleTime DataType="int">0</CycleTime>
 				<DriverNumberDisplay DataType="" Units=""/>

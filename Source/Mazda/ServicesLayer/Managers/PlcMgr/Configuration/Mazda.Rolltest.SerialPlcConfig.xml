@@ -259,6 +259,8 @@
         <StackLightRed channelIndex="19" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
         <StackLightYellow channelIndex="19" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
         <StackLightGreen channelIndex="19" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
+        <RetrieveBuildData channelIndex="19" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
+        <LowerRolls-RaiseElevators channelIndex="19" bitIndex="9" logic="1" portDir="OUT" boardIdx="0"/>
         <InterRollPressureHighWarning channelIndex="20" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <InterRollPressureHighShutdown channelIndex="20" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <PfsBlocked channelIndex="20" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>

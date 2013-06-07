@@ -125,6 +125,8 @@
                 <Clutch DataType="bool">PLC</Clutch>
                 <CommandClutch DataType="bool">MotorController</CommandClutch>
                 <CommandSpeed DataType="float" Units="RPM">MotorController</CommandSpeed>
+            <CommandSysMonLowerRolls DataType="bool">MachineDataBroker</CommandSysMonLowerRolls>
+            <CommandSysMonRaiseRolls DataType="bool">MachineDataBroker</CommandSysMonRaiseRolls>
                 <CommandTest DataType="string">VehicleTest</CommandTest>
                 <CommandTorque DataType="float" Units="FT-LBS">MotorController</CommandTorque>
                 <CompleteLamp DataType="bool">PLC</CompleteLamp>
@@ -471,6 +473,7 @@
                 <LowerPos5VoltPowerSupplyDomain DataType="range">MachineDataBroker</LowerPos5VoltPowerSupplyDomain>
                 <LowerPos5VoltPowerSupplyTarget DataType="range">MachineDataBroker</LowerPos5VoltPowerSupplyTarget>
                 <LowerPos5VoltPowerSupplyTolerance DataType="bool">PLC</LowerPos5VoltPowerSupplyTolerance>
+			<LowerRolls-RaiseElevators DataType="bool">PLC</LowerRolls-RaiseElevators>
                 <LubeLevelLowShutdownFault DataType="bool">PLC</LubeLevelLowShutdownFault>
                 <LubePressureHighShutdownFault DataType="bool">PLC</LubePressureHighShutdownFault>
                 <LubeSystemCycleSwitchFault DataType="bool">PLC</LubeSystemCycleSwitchFault>

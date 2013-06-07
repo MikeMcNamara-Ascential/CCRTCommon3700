@@ -27,6 +27,8 @@ public:
     MazdaSystemMonitor(int argc, char *argv[]);
     virtual ~MazdaSystemMonitor();
 
+
+
 protected:
     /**
      * method for component initialization.
@@ -59,33 +61,15 @@ protected:
     virtual void CheckAbort( ControlData *ctrl);
 
     /**
-     * Wait for a plc tag to go high
-     * 
-     * @param plcTag - the string name of the plc bit that is being waited for
-     * @param timeout - how long the bit can be waited for
-     * @param waitForHigh - wait for the plc bit to go high
-     * 
-     * @return returns BEP_STATUS
-     * 
-     */
-    virtual string WaitForPlcBit(string plcTag, int timeout, bool waitForHigh);
-
-    /** 
-     * Read a bit from the plc
-     * 
-     * @param tag - the tag to be read
-     * 
-     * @return the value read from the plc
-     **/
-    virtual string ReadPlcBit(string tag);
-
-    /**
      * Write a datatag to the NDB
      * 
      * @param string tag - the NDB tag name
      * @param string value - the value that should be written
      */
     virtual string WriteDataTag(string tag, string value);
+
+
+
 
 private:
 

@@ -79,6 +79,7 @@ const string MazdaSystemMonitor::Publish(const XmlNode *node)
 	{	// New vehicle type has been entered, load the vehicle build data
 		Log(LOG_DEV_DATA, "New vehicle type entered, commanding VDB to load build data");
 		CommandNdbData(READ_LATEST_BUILD_DATA_TAG, "1");
+		DisplayPrompt(1, "WheelbaseIncorrect");
 		BposSleep(250);
 		VehicleBuildDataLoaded(&buildDataLoaded);
 	}
@@ -128,6 +129,11 @@ const string MazdaSystemMonitor::Publish(const XmlNode *node)
 			WriteNdbData(RAISE_ROLLS, false);
 		}
 	}
+	else if(!node->getName().compare(GetDataTag("WbInPosition")) && atob(node->getValue().c_str()))
+	{
+		RemovePrompt(1, "WheelbaseIncorrect");
+		DisplayPrompt(2, "MoveToTestPosition");
+	}
 	// Return the result
 	Log(LOG_FN_ENTRY, "MazdaSystemMonitor::Publish(tag: %s) - Exit", node->getName().c_str());
 	return SystemMonitor::Publish(node);
@@ -160,6 +166,16 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
 			Log(LOG_DEV_DATA, "Test just completed, lower rolls and clear vehicle type");
 			WriteNdbData(BODY_STYLE_TAG, GetDataTag("ClearBodyStyle"));
 		}
+		// If AON scanned and good build data available
+		else if(!ctrl->testInProgress && ctrl->rollsDown && !ctrl->vehiclePresent && VehicleBuildDataLoaded())
+		{
+			ClearMazdaAlcBits();
+			// Make sure wheelbase is in position
+			if(!ctrl->wheelbaseInPosition)
+			{	//  Command the wheelbase to move
+				StartWheelbaseAdjust();
+			}
+		}
 		// If no test in progress and rolls are down and vehicle present and we have a valid vehicle type
 		else if(!ctrl->testInProgress && ctrl->rollsDown && ctrl->vehiclePresent && VehicleBuildDataLoaded())
 		{
@@ -168,21 +184,8 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
 			{	// Raise the retainers
 				Log(LOG_DEV_DATA, "Vehicle present, rolls down and valid vehicle type - raising rolls and starting test");
 				RemovePrompt(1, "EnterVehicleType");
-				RemovePrompt(2, "AdvanceOk");
+				RemovePrompt(2, "MoveToTestPosition");
 				WriteNdbData(string("PromptBox2BGColor"), string("white"));
-
-				ClearMazdaAlcBits();
-
-				// Make sure wheelbase is in position
-				if(!ctrl->wheelbaseInPosition)
-				{	//  Command the wheelbase to move
-					StartWheelbaseAdjust();
-					BposSleep(1000);
-				}
-				WriteNdbData(RAISE_ROLLS, true);
-
-				WaitForPlcBit("a",  1, true);
-
 				// Start the test sequence
 				CommandNdbData(START_VEHICLE_TEST_DATA_TAG, true);
 				// Invalidate the build record status so we do not restart this same test
@@ -223,7 +226,6 @@ void MazdaSystemMonitor::ClearMazdaAlcBits(void)
 	{
 		try
 		{
-
 			clearBit = iter->second->getValue();
 			Log(LOG_DEV_DATA, "clearing plc bit: %s, writing 0 to it", clearBit.c_str());
 			WriteDataTag(clearBit,  "0");
@@ -235,17 +237,6 @@ void MazdaSystemMonitor::ClearMazdaAlcBits(void)
 	}
 
 	Log(LOG_FN_ENTRY, "MazdaSystemMonitor::ClearMazdaAlcBits() - Exit");
-}
-
-//-------------------------------------------------------------------------------------------------
-std::string MazdaSystemMonitor::WaitForPlcBit(std::string plcTag, int timeout, bool waitForHigh)
-{
-	std::string status(BEP_ERROR_RESPONSE);
-	string r;
-	r = ReadPlcBit(plcTag);
-
-
-	return status;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -270,31 +261,6 @@ string MazdaSystemMonitor::WriteDataTag(string tag, string value)
 	}
 	return(value);
 }
-
-//-------------------------------------------------------------------------------------------------
-string MazdaSystemMonitor::ReadPlcBit(string tag)
-{
-	std::string value, response;
-	if(m_dataBroker != NULL)
-	{
-		INT32 status = m_dataBroker->Read(tag, response, true);
-		if(status == BEP_STATUS_SUCCESS)
-			status = m_dataBroker->GetByTag(tag, value, response);
-		// check for errors
-		if(status != BEP_STATUS_SUCCESS)
-		{
-			Log(LOG_ERRORS, "Error Reading: %s, %d\n", tag.c_str(), status);
-			value = "ERROR";
-		}
-	}
-	else
-	{
-		Log(LOG_ERRORS, "WorkCellController::ReadPlcBit() - m_dataBroker object is NULL!");
-		value = BEP_UNAVAILABLE_RESPONSE;
-	}
-	return(value);
-}
-
 
 //-------------------------------------------------------------------------------------------------
 void MazdaSystemMonitor::CheckAbort( ControlData *ctrl)

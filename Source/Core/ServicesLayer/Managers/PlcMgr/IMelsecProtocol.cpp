@@ -327,9 +327,9 @@ long IMelsecProtocol::CheckBufferRead( uint8_t *buff, uint32_t *plcData)
     m_logger.Log(LOG_ERRORS, "Melsec - Error: %d", error);
     while(nn < cnt)
     {
-        m_logger.Log(LOG_ERRORS, "Melsec - CheckBufferRead nn: %d  cnt: %d", nn, cnt);
+        m_logger.Log(LOG_DEV_DATA, "Melsec - CheckBufferRead nn: %d  cnt: %d", nn, cnt);
         value = HexToLong(&buff[nn],4);       // convert next 4 bytes
-        m_logger.Log(LOG_ERRORS, "Melsec - value: %lf", value);
+        m_logger.Log(LOG_DEV_DATA, "Melsec - value: %lf", value);
         if(value < 0)
         { 
             error = 1;
@@ -355,12 +355,17 @@ long IMelsecProtocol::CheckBufferRead( uint8_t *buff, uint32_t *plcData)
  */
 long IMelsecProtocol::BufferWrite(short count, const uint32_t *plcOut)
 {
+	bool                responseReceived=false;
     register uint8_t    *pp;
     uint8_t             rxBuff[256];        // maximum size for the 64 words (hardcoded) that can be read.
-    bool                responseReceived=false;
-    short               ii=0,nn=0,status=0,tries=0,hold=0,mm=0;
     uint8_t             xmtBuff[256];    
     uint8_t             tempBuff[8];
+	short               ii=0;
+	short               nn=0;
+	short               status=0;
+	short               tries=0;
+	short               hold=0;
+	short               mm=0;
 
     pp = xmtBuff;
 
@@ -371,6 +376,7 @@ long IMelsecProtocol::BufferWrite(short count, const uint32_t *plcOut)
     sprintf((char *)&pp[nn],"3"); nn += 1;                       // extra 30ms wait
     sprintf((char *)&pp[nn],m_melsecOutAddr.c_str()); nn += 5;   // Start Addres for writing to PLC
     hold = nn;                                                   // Mark position
+	m_logger.Log(LOG_DEV_DATA, "Set hold: %d, nn: %d", hold, nn);
     sprintf((char*)&pp[nn],"  "); nn += 2;                       // reserve count
 
     for(ii=0;ii<count;ii++)
@@ -379,8 +385,10 @@ long IMelsecProtocol::BufferWrite(short count, const uint32_t *plcOut)
         nn += 4;
     }
 
+	m_logger.Log("Updating byte count - mm: %d, nn: %d, hold: %d", mm, nn, hold);
     mm = (nn - (hold + 2)) / 4;        // update count
     sprintf((char *)tempBuff,"%02X",mm);
+	m_logger.Log(LOG_DEV_DATA, "Updated count - mm: %d, tempBuff: %s, hold: %d", mm, tempBuff, hold);
     pp[hold++] = tempBuff[0];
     pp[hold++] = tempBuff[1];
 
@@ -395,6 +403,11 @@ long IMelsecProtocol::BufferWrite(short count, const uint32_t *plcOut)
     pp[nn] = 0;                        // null terminate
 
     LogPlcString(LOG_DEV_DATA,"Melsec BufferWrite: ",pp,nn);
+	m_logger.Log(LOG_DEV_DATA, "Writing PLC data:");
+	for(int index = 0; index < nn; index++)
+	{
+		m_logger.Log(LOG_DEV_DATA, "\tindex: %03d = %02X", index, pp[index]);
+	}
 
     // while tries left and response not received
     while((tries++ < 3) && (responseReceived == false))

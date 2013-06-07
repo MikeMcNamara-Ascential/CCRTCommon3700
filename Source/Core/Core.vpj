@@ -970,6 +970,18 @@
 					<F N="ServicesLayer/Servers/InputServer/InputServer.cpp"/>
 					<F N="ServicesLayer/Servers/InputServer/InputServerMain.cpp"/>
 				</Folder>
+				<Folder Name="InterCcrtCommServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/InterCcrtCommServer/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/InterCcrtCommServer/Configuration/InterCcrtCommServerConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/InterCcrtCommServer/CMakeLists.txt"/>
+					<F N="ServicesLayer/Servers/InterCcrtCommServer/InterCcrtCommInterface.cpp"/>
+					<F N="ServicesLayer/Servers/InterCcrtCommServer/InterCcrtCommInterface.h"/>
+					<F N="ServicesLayer/Servers/InterCcrtCommServer/InterCcrtCommServer.cpp"/>
+					<F N="ServicesLayer/Servers/InterCcrtCommServer/InterCcrtCommServer.h"/>
+					<F N="ServicesLayer/Servers/InterCcrtCommServer/InterCcrtCommServerMain.cpp"/>
+				</Folder>
 				<Folder Name="Launcher">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/Launcher/Configuration/CMakeLists.txt"/>

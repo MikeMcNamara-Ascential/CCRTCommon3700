@@ -587,7 +587,7 @@ inline const bool& InterCcrtCommInterface::UseKeepAlive(bool *useKeepAlive /*= N
 
 inline const bool& InterCcrtCommInterface::IsResultConnection(bool *isResultConnection /*= NULL*/)
 {
-    if (isResultConnection != NULL)  m_isBomConnection = *isResultConnection;
+    if (isResultConnection != NULL)  m_isResultConnection = *isResultConnection;
     return m_isResultConnection;
 }
 

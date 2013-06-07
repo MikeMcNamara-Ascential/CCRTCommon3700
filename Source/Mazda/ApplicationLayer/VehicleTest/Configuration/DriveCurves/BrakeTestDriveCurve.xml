@@ -1,0 +1,111 @@
+<DriveCurve Description="Mazda Brake Test drive curve">
+
+    <Components Debug="Off">
+        <Brake>
+            <ComponentName>MazdaBrakeTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>BrakeTC.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Brake</ConfigPath>
+        </Brake>
+        <Machine>
+            <ComponentName>MazdaMachineTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>MachineTC.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Machine</ConfigPath>
+        </Machine>
+    </Components>
+
+    <Test Result="Not Tested" Debug="Off">
+        <!-- Test Setup -->
+        <TestPhase000 Description="Setup the system for testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Setup machine" Result="" Timeout="" Component="Machine">
+                    <Initialize/>
+                </Objective0>
+                <Objective1 Description="Setup brake test component" Result="" Timeout="" Component="Brake">
+                    <Setup/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase000>
+
+
+
+
+
+
+
+
+        <TestPhase010 Description="Perform brake drag test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Drag Test" Result="" Timeout="" Component="Brake">
+                    <DragTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase010>
+
+        <TestPhase015 Description="Perform Front Brake Force Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Front brake force test" Result="" Timeout="" Component="Brake">
+                    <MazdaFrontBrakeForce/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase015>
+        
+        <TestPhase025 Description="Perform Front Brake Force Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Front brake force test" Result="" Timeout="" Component="Brake">
+                    <MazdaRearParkBrakeForce/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase025>    
+
+        <TestPhase030 Description="Perform Front Brake Force Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Front brake force test" Result="" Timeout="" Component="Brake">
+                    <MazdaRearBrakeForce/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase030>           
+        
+        <TestPhase035 Description="Perform Front Brake Force Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Front brake force test" Result="" Timeout="" Component="Brake">
+                    <FinishUp/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase035>           
+             
+        <!-- TestPhase010 Description="Perform brake stopping distance test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Brake Stop Distance Test" Result="" Timeout="" Component="Brake">
+                    <BrakeDistanceTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase010>
+
+        <TestPhase015 Description="Measure max brake force" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Max brake force Test" Result="" Timeout="" Component="Brake">
+                    <ForceMeasurments/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase015>
+
+        <TestPhase020 Description="Measure park brake force" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Park brake force Test" Result="" Timeout="" Component="Brake">
+                    <ParkBrakeVerification/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase020>
+
+        <TestPhase040 Description="Validate traction control system" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Validate traction control system" Result="" Timeout="" Component="Brake">
+                    <TractionControl/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase040 -->
+
+    </Test>
+</DriveCurve>

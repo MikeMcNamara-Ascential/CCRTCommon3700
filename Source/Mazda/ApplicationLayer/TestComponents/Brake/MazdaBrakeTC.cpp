@@ -33,7 +33,21 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
     m_baseBrakeTool->SetBrakeTestingStatus(BEP_TESTING_RESPONSE);
     if(BEP_STATUS_SUCCESS == StatusCheck())
     {
-        if(!GetTestStepName().compare("AccelerateRollers"))  
+		if(!GetTestStepName().compare("SpeedSensorCheck"))            testResult = SpeedSensorCheck();
+
+		else 
+			testResult = GenericBaseBrakeTC::CommandTestStep(value);
+
+
+
+
+
+
+
+
+
+#if 0
+		if(!GetTestStepName().compare("AccelerateRollers"))  
         {   // Set the brake ground colors to indicate testing
             SystemWrite(GetDataTag("LFBrakeDistanceColorTag"), GetParameter("TestInProgressColor"));
             SystemWrite(GetDataTag("RFBrakeDistanceColorTag"), GetParameter("TestInProgressColor"));
@@ -66,11 +80,8 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
         else if(!GetTestStepName().compare("AnalyzeMazdaParkBrakeForce"))  testResult = MazdaAnalyzeBrakeForce("ParkBrake");
         
         else if(!GetTestStepName().compare("DistanceValidationTest"))            testResult = DistanceValidationTest();
-        else if(!GetTestStepName().compare("SpeedSensorCheck"))            testResult = SpeedSensorCheck();
         else if(!GetTestStepName().compare("FinishUp"))                    testResult = FinishUp();
-        else if(!GetTestStepName().compare("Initialize"))                   testResult = InitializeBrake();
-        else 
-            testResult = GenericBaseBrakeTC::CommandTestStep(value);
+#endif 
     }
     else
     {   // System is not OK to perform brake test
@@ -80,48 +91,6 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Exit", value.c_str());
     return testResult;
-}
-
-//-------------------------------------------------------------------------------------------------
-string MazdaBrakeTC::InitializeBrake()
-{   // Log the entry and determine if this should be checked
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::Initialize() - Enter");
-    string result(BEP_TESTING_STATUS);
-    string testResult(BEP_TESTING_STATUS);
-
-    // setup variables
-    m_continueBrakeTest = true;
-
-
-    if(FullAutoMode())
-    {
-        Log(LOG_DEV_DATA, "Using full auto mode. Reading the weight from the PLC");
-        // get mass of axle
-        m_frontAxleMass = SystemReadFloat("FrontAxleMass");
-        m_rearAxleMass = SystemReadFloat("RearAxleMass");
-    }
-    else
-    {
-        // TODO: Implement half auto keypad. Pull axle mass from build info
-    }
-
-
-    Log(LOG_DEV_DATA, "Front Axle Mass: %.2f   Rear Axle Mass: %.2f", m_frontAxleMass, m_rearAxleMass);
-
-    // do the standard finish up stuff
-    ResetSystemTags();
-    testResult = TestStepInitialize();
-
-
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::Initialize() - Exit result: %s", testResult.c_str());
-
-    return(testResult);
-}
-
-bool MazdaBrakeTC::FullAutoMode()
-{
-    // TODO implment bit from PLC telling us if it is in full auto mode
-    return true;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -812,7 +781,31 @@ string MazdaBrakeTC::SpeedSensorCheck(void)
 {   // Log the entry and determine if this should be checked
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Enter");
     string testResult(BEP_TESTING_RESPONSE);
-    string result = "";
+	if(!ShortCircuitTestStep())
+	{   // Spin up the rollers
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping Speed sensor test");
+		testResult = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Exit");
+	return testResult;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	string result = "";
     if(!ShortCircuitTestStep() && m_continueBrakeTest)
     {  
         // check if ABS is equipped

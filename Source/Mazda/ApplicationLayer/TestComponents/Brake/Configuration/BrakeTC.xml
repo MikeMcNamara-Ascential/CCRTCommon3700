@@ -314,6 +314,7 @@
     </Setup>
     <!-- ============================================================================================== -->
     <Objectives>
+
         <Setup>
             <TestStep00>Initialize</TestStep00>
         </Setup>
@@ -321,25 +322,37 @@
         <SpeedCheck>
             <TestStep00>SpeedSensorCheck</TestStep00>
         </SpeedCheck>
+    
+
+
+
+
+
+
+
+
+
+
+
 
         <DragTest>
             <TestStep00>MazdaDragTest</TestStep00>
-            <!-- TestStep05>AnalyzeMazdaDragTest</TestStep05 -->
+            <TestStep05>AnalyzeMazdaDragTest</TestStep05>
         </DragTest>
         
         <MazdaFrontBrakeForce>
-            <TestStep00>MazdaFrontBrakeForce</TestStep00>
-            <!-- TestStep05>AnalyzeMazdaFrontBrakeForce</TestStep05 -->
+            <TestStep00 AltValue="Front">MazdaMaxBrakeForce</TestStep00>
+            <TestStep05 AltValue="Front">AnalyzeMazdaBrakeForce</TestStep05>
         </MazdaFrontBrakeForce>
         
         <MazdaRearBrakeForce>
-            <TestStep00>MazdaRearBrakeForce</TestStep00>
-            <!-- TestStep05>AnalyzeMazdaRearBrakeForce</TestStep05 -->
+            <TestStep00 AltValue="Rear">MazdaMaxBrakeForce</TestStep00>
+            <TestStep05 AltValue="Rear">AnalyzeMazdaBrakeForce</TestStep05>
         </MazdaRearBrakeForce>        
         
         <MazdaRearParkBrakeForce>
             <TestStep00>MazdaParkBrakeForce</TestStep00>
-            <!-- TestStep05>AnalyzeMazdaParkBrakeForce</TestStep05 -->
+            <TestStep05>AnalyzeMazdaParkBrakeForce</TestStep05>
         </MazdaRearParkBrakeForce>        
         
         <BrakeToStop>
@@ -352,31 +365,22 @@
             <TestStep00>FinishUp</TestStep00>
         </FinishUp>
         
-        <!-- BrakeDistanceTest>
-            <TestStep00>AccelerateRollers</TestStep00>
-            <TestStep05>BrakeStoppingDistanceTest</TestStep05>
-        </BrakeDistanceTest>
-
-        <ForceMeasurments>
-            <TestStep05>MaxBrakeForceMeasurement</TestStep05>
-        </ForceMeasurments>
-
-        <ParkBrakeVerification>
-            <TestStep05>ParkBrakeForceMeasurement</TestStep05>
-        </ParkBrakeVerification>
-
-        <TractionControl>
-            <TestStep00>TractionControlTest</TestStep00>
-        </TractionControl>
-
-        <PreShiftMachineCheck>
-            <TestStep00>PreShiftCheckout</TestStep00>
-        </PreShiftMachineCheck -->
     </Objectives>
 
     <!-- ============================================================================================== -->
     <TestSteps>
-        
+        <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test."
+            Prompt1="Initialize" ZerospeedPrompt="BrakeToStop" Prompt1Priority="0"/>
+
+
+
+
+
+
+
+
+
+
         <AccelerateRollers Result="" Timeout="60000" Description="Accelerate rollers to stopping distance speed"/>
         <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" FrontMaxDragForce="10.0" RearMaxDragForce="10.0" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
         <BrakeDistanceTest Result="" Timeout="65000" Description="Test the distance">Test the distance</BrakeDistanceTest>
@@ -403,8 +407,6 @@
 
         <MazdaDragTest  Result="" Timeout="30000" Description="Check the drag on the rollers" ScanDelay="100" DragSpeed="6.0" DragDelay="1000" DragSamples="100" />
 
-        <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test."
-            Prompt1="Initialize" ZerospeedPrompt="BrakeToStop" Prompt1Priority="0"/>
 
         <MaxBrakeForceMeasurement Result="" Timeout="30000" Description="Verify vehicle is producing required brake force" ScanDelay="100"/>
 

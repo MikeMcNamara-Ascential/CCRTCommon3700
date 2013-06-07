@@ -1,7 +1,7 @@
 <MachineDataBrokerConfig>
 	<Setup>
 		<CustId>Mazda</CustId>
-		<CustBld Description="Customer release version yymmddrr">09112301</CustBld>
+		<CustBld Description="Customer release version yymmddrr">13060601</CustBld>
 		<UseConfigMachineNumber>No</UseConfigMachineNumber>
 		<Debug>Off</Debug>
 		<DataFile Description="This is the file where persistent data is stored">/Configuration/Machine/LossCompensationTimeDate.dat</DataFile>
@@ -271,7 +271,7 @@
 			<ProcessName>core/MachineDataBroker</ProcessName>
 			<AdditionalLogFile Types="/Component/MachineDataBroker.log">/Servers/MachineDataBroker.log</AdditionalLogFile>
 			<LocalEcho>Disabled</LocalEcho>
-			<Verbose>0x1F</Verbose>
+			<Verbose>0x0F</Verbose>
 			<Debug>Off</Debug>
 		</Logging>
 		<NamedDataBrokerComm>

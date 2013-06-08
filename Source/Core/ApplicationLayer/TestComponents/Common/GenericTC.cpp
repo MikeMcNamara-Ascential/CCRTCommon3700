@@ -5905,26 +5905,14 @@ const float GenericTC::GetVehicleParameter(const string &parameterName, const fl
 {   // Get the vehicle build data
     XmlNode vehicleBuildRequest(VEHICLE_BUILD_TAG, "");
     XmlNode buildData("", "");
+    const XmlNode *parameterNode;
     std::string strVal;
     SystemRead(&vehicleBuildRequest, buildData);
     float value = defValue;
-    string units;
-    bool convertToEnglishUnits = false;
     try
     {
-        value = atof(buildData.getChild(parameterName)->getValue().c_str());
-        try
-        {
-            units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
-            convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-        }
-        catch(XmlException &e)
-        {//units do not exist
-            units = "";
-            convertToEnglishUnits = false;
-        }
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
-                value;
+        parameterNode = buildData.getChild(parameterName);
+        value = ConvertFloatUnitsIfNecessary(parameterNode);
     }
     catch(XmlException &excpt)
     {   // Parameter is not in the build data, try just the normal parameter list
@@ -5949,26 +5937,14 @@ const int GenericTC::GetVehicleParameter(const string &parameterName, const int 
 {   // Get the vehicle build data
     XmlNode vehicleBuildRequest(VEHICLE_BUILD_TAG, "");
     XmlNode buildData("", "");
+    const XmlNode *parameterNode;
     std::string strVal;
     SystemRead(&vehicleBuildRequest, buildData);
     int value = defValue;
-    string units;
-    bool convertToEnglishUnits = false;
     try
     {
-        value = BposReadInt(buildData.getChild(parameterName)->getValue().c_str());
-        try
-        {
-            units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
-            convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-        }
-        catch(XmlException &e)
-        {//units do not exist
-            units = "";
-            convertToEnglishUnits = false;
-        }
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
-                value;
+        parameterNode = buildData.getChild(parameterName);
+        value = ConvertIntUnitsIfNecessary(parameterNode);
     }
     catch(XmlException &excpt)
     {   // Parameter is not in the build data, try just the normal parameter list
@@ -5993,26 +5969,14 @@ const string GenericTC::GetVehicleParameter(const string &parameterName, const s
 {   // Get the vehicle build data
     XmlNode vehicleBuildRequest(VEHICLE_BUILD_TAG, "");
     XmlNode buildData("", "");
+    const XmlNode *parameterNode;
     std::string strVal;
     SystemRead(&vehicleBuildRequest, buildData);
     string value(defValue);
-    string units;
-    bool convertToEnglishUnits = false;
     try
     {
-        value = buildData.getChild(parameterName)->getValue();
-        try
-        {
-            units = buildData.getChild(parameterName)->getAttribute(BEP_UNITS)->getValue().c_str();
-            convertToEnglishUnits = atob(buildData.getChild(parameterName)->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
-        }
-        catch(XmlException &e)
-        {//units do not exist
-            units = "";
-            convertToEnglishUnits = false;
-        }
-        value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : 
-                value;
+        parameterNode = buildData.getChild(parameterName);
+        value = ConvertStringUnitsIfNecessary(parameterNode);
     }
     catch(XmlException &excpt)
     {   // Parameter is not in the build data, try just the normal parameter list
@@ -6031,6 +5995,66 @@ const string GenericTC::GetVehicleParameter(const string &parameterName, const s
     // Delete the build data node since we are returned a copy
     return value;
 }
+
+
+const int GenericTC::ConvertIntUnitsIfNecessary(const XmlNode *parameterNode)
+{
+    int value = BposReadInt(parameterNode->getValue().c_str());
+    string units;
+    bool convertToEnglishUnits = false;
+    try
+    {
+        units = parameterNode->getAttribute(BEP_UNITS)->getValue().c_str();
+        convertToEnglishUnits = atob(parameterNode->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+    }
+    catch(XmlException &e)
+    {//units do not exist
+        units = "";
+        convertToEnglishUnits = false;
+    }
+    value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : value; 
+    return value;
+}
+
+const float GenericTC::ConvertFloatUnitsIfNecessary(const XmlNode * parameterNode)
+{
+    float value = atof(parameterNode->getValue().c_str());
+    string units;
+    bool convertToEnglishUnits = false;
+    try
+    {
+        units = parameterNode->getAttribute(BEP_UNITS)->getValue().c_str();
+        convertToEnglishUnits = atob(parameterNode->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+    }
+    catch(XmlException &e)
+    {//units do not exist
+        units = "";
+        convertToEnglishUnits = false;
+    }
+    value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) :  value;
+    return value;
+}
+
+const string GenericTC::ConvertStringUnitsIfNecessary(const XmlNode * parameterNode)
+{
+    string value = parameterNode->getValue().c_str();
+    string units;
+    bool convertToEnglishUnits = false;
+    try
+    {
+        units = parameterNode->getAttribute(BEP_UNITS)->getValue().c_str();
+        convertToEnglishUnits = atob(parameterNode->getAttribute(BEP_CONVERT_TO_ENG_UNITS)->getValue().c_str());
+    }
+    catch(XmlException &e)
+    {//units do not exist
+        units = "";
+        convertToEnglishUnits = false;
+    }
+    value = convertToEnglishUnits ? ConvertToEnglishUnits(units, value) : value; 
+    return value;
+}
+
+
 
 //=============================================================================
 const std::string GenericTC::GetTestStepName(void)

@@ -880,11 +880,17 @@ public:
     const bool GetParameterBool(const std::string dataTag);
 
 
-    const float GenericTC::GetVehicleParameter(const string &parameterName, const float &defValue /*= 0.0*/);
+    const float GetVehicleParameter(const string &parameterName, const float &defValue /*= 0.0*/);
 
-    const int GenericTC::GetVehicleParameter(const string &parameterName, const int &defValue /*= 0*/);
+    const int GetVehicleParameter(const string &parameterName, const int &defValue /*= 0*/);
 
-    const string GenericTC::GetVehicleParameter(const string &parameterName, const string &defValue = "");
+    const string GetVehicleParameter(const string &parameterName, const string &defValue = "");
+
+    const int ConvertIntUnitsIfNecessary(const XmlNode * parameterNode);
+
+    const float ConvertFloatUnitsIfNecessary(const XmlNode * parameterNode);
+    
+    const string ConvertStringUnitsIfNecessary(const XmlNode * parameterNode);
 
     /**
      * Get the current test step name.

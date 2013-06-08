@@ -33,17 +33,26 @@ const string MazdaPlantHostInbound::LoadVehicleBuildRecord(const string &aon,
 	string response;
 	char buff[32];
 	UINT16 tempValue = 0x0000;
-	Log(LOG_DEV_DATA, "Sending AON: %s to PLC", aon.c_str());
-	for(UINT8 index = 0; index < aon.length(); index += 2)
-	{   // Build the new tag to write the data to the PLC
-		tag = CreateMessage(buff, sizeof(buff), tagtemplate.c_str(), index, index+1);
-		tempValue = ((aon[index] & 0x00FF) << 8);
-		tempValue |= (aon[index+1] & 0x00FF);
-		value = CreateMessage(buff, sizeof(buff), "%d", tempValue);
-		m_broker->Write(tag, value, response, true);
-		Log(LOG_DEV_DATA, "Wrote AON data - Tag: %s, Value: %s [%04X]", tag.c_str(), value.c_str(), tempValue);
+	Log(LOG_DEV_DATA, "MazdaPlantHostInbound::LoadVehicleBuildRecord - Getting vehicle build from %s", 
+		GetVehicleBuildSource().c_str());
+	if(!GetVehicleBuildSource().compare(SOURCE_BROADCAST))
+	{
+		Log(LOG_DEV_DATA, "Sending AON: %s to PLC", aon.c_str());
+		for(UINT8 index = 0; index < aon.length(); index += 2)
+		{   // Build the new tag to write the data to the PLC
+			tag = CreateMessage(buff, sizeof(buff), tagtemplate.c_str(), index, index+1);
+			tempValue = ((aon[index] & 0x00FF) << 8);
+			tempValue |= (aon[index+1] & 0x00FF);
+			value = CreateMessage(buff, sizeof(buff), "%d", tempValue);
+			m_broker->Write(tag, value, response, true);
+			Log(LOG_DEV_DATA, "Wrote AON data - Tag: %s, Value: %s [%04X]", tag.c_str(), value.c_str(), tempValue);
+		}
+		m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "1", response, true);
 	}
-	m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "1", response, true);
+	else
+	{
+		LoadVehicleBuildFromFile(aon, buildData, true);
+	}
 	return BEP_SUCCESS_RESPONSE;
 }
 
@@ -51,12 +60,18 @@ const string MazdaPlantHostInbound::LoadVehicleBuildRecord(const string &aon,
 const string MazdaPlantHostInbound::Write(const XmlNode *dataNode)
 {
 	string response;
+	Log(LOG_DEV_DATA, "MazdaPlantHostInbound::Write(Tag: %s, AON Tag: %s) - Enter",
+		dataNode->getName().c_str(), GetDataTag("AonTag").c_str());
 	string result = BepServer::Write(dataNode);
 	if(!dataNode->getName().compare(GetDataTag("AonTag")) && (m_broker != NULL))
 	{   // Update the traffic light widget to let driver know vin is being processed
 		m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
 		// Load the vehicle build record for the specified AON
 		result = LoadVehicleBuildRecord(dataNode->getValue(), m_vehicleBuild, true);
+	}
+	else if(m_broker == NULL)
+	{
+		Log(LOG_DEV_DATA, "INDB object is null!!");
 	}
 	return(result);
 }

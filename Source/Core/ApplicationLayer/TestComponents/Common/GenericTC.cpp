@@ -6237,6 +6237,10 @@ float GenericTC::ConvertToEnglishUnits ( std::string &units, float &value) throw
         {
             value *= (KN_LBS);
         }
+		else if(units == unitsN)
+		{
+			value *= (N_LBS);
+		}
     }
     return value;
 }

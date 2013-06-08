@@ -362,6 +362,7 @@ const static std::string unitsKPH("km/h");
 const static std::string unitsLBF("lbf");
 const static std::string unitsKGF("kgf");
 const static std::string unitsKN("kn");
+const static std::string unitsN("N");
 const static std::string unitsLB("lb");
 const static std::string unitsKG("kg");
 const static std::string unitsMPHPS("mph/s");

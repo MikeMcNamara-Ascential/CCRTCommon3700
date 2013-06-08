@@ -167,6 +167,7 @@
                 <DisplayRackMonitor DataType="string">SystemMonitor</DisplayRackMonitor>
                 <DripPanFullFault DataType="bool">PLC</DripPanFullFault>
                 <DriveAxle DataType="string">VehicleDataBroker</DriveAxle>
+                <DriveAxleToPlc DataType="bool">PLC</DriveAxleToPlc>
                 <DriveCurve DataType="string">VehicleTest</DriveCurve>
                 <DriverFail DataType="bool">PLC</DriverFail>
                 <DriverInterfaceExtendedFault DataType="bool">PLC</DriverInterfaceExtendedFault>
@@ -1143,6 +1144,17 @@
                 <RightRearPosTorqueLimit DataType="short">PLC</RightRearPosTorqueLimit>
                 <RightRearNegTorqueLimit DataType="short">PLC</RightRearNegTorqueLimit>
             
+                <LeftMotorMode DataType="short">PLC</LeftMotorMode>
+                <LeftSpeedRefRpm DataType="short">PLC</LeftSpeedRefRpm>
+                <LeftTorqueRefPercent DataType="short">PLC</LeftTorqueRefPercent>
+                <LeftPosTorqueLimit DataType="short">PLC</LeftPosTorqueLimit>
+                <LeftNegTorqueLimit DataType="short">PLC</LeftNegTorqueLimit>
+
+                <RightMotorMode DataType="short">PLC</RightMotorMode>
+                <RightSpeedRefRpm DataType="short">PLC</RightSpeedRefRpm>
+                <RightTorqueRefPercent DataType="short">PLC</RightTorqueRefPercent>
+                <RightPosTorqueLimit DataType="short">PLC</RightPosTorqueLimit>
+                <RightNegTorqueLimit DataType="short">PLC</RightNegTorqueLimit>
 
 
 

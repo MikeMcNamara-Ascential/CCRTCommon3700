@@ -238,3 +238,33 @@ const string MazdaMachineTC::TestStepAccelerateToSpeed(const string &value)
     RemovePrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"));
     return (GetRollSpeed() >= speedTarget) ? testPass : testFail;
 }
+
+const string MazdaMachineTC::TestStepRainLightSensorVerification(void)
+{
+
+    Log(LOG_FN_ENTRY, "MazdaMachineTC::StartRainLightSensorTest() - Enter");
+
+    string testResult(BEP_SKIP_RESPONSE);
+    INT32 status;
+
+    //To do: determine if rls is equipped from build data
+
+    testResult = GenericTC::OperatorPassFail(GetPrompt("StartRLSTest"), GetParameterFloat("StartRLSTestPromptTimeout")); 
+    if (testResult == BEP_PASS_RESPONSE)
+    {
+        //command plc to turn on light and spray devices
+
+        SystemWrite(GetDataTag("EnableLightAndSprayDevice"), true);
+        status = StatusSleep( GetParameterInt("LightAndSprayDeviceActuationTime"););
+
+        //Operater pass / fail 
+        testResult = status == BEP_STATUS_SUCCESS ? GenericTC::OperatorPassFail(GetPrompt("VerifyRLSOperation"), GetParameterFloat("VerifyRLSOperationPromptTimeout")) : 
+            testFail;
+        SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
+    }
+
+    Log(LOG_FN_ENTRY, "MazdaMachineTC::StartRainLightSensorTest() - Exit - %s", testResult.c_str());
+
+    return testResult;
+}
+

@@ -7,6 +7,13 @@
             <ConfigFile>MachineTC.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Machine</ConfigPath>
         </Machine>
+
+        <Transmission>
+            <ComponentName>MazdaTransTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>MazdaManualTransmissionConfig.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Transmission</ConfigPath>
+        </Transmission>
     </Components>
 
     <Test Result="Not Tested" Debug="Off">
@@ -20,36 +27,27 @@
         
         <TestPhase005 Description="Setup the machine for testing: cable connect, start button etc" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Drag Test" Result="" Timeout="" Component="Machine">
+                <Objective0 Description="Machine setup" Result="" Timeout="" Component="Machine">
                     <MachineStartup/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase005>
         
-        <TestPhase010 Description="Prompt operator to accelerate to high speed" Result="" Timeout="">
+        <TestPhase020 Description="Perform forward gear / speed prompting" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Prompt operator to accelerate to speed" Result="" Timeout="" Component="Machine">
-                    <AccelerateToSpeed>80</AccelerateToSpeed>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase010>
-
-        <TestPhase020 Description="Speedometer Validation" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Validate the speedometer is adjusted correctly" Result="" Timeout="" Component="Machine">
-                    <Speedometer/>
+                <Objective0 Description="Perform forward gear / speed prompting" Result="" Timeout="" Component="Transmission">
+                    <FollowDriveCurve/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase020>
 
-        <TestPhase030 Description="Brake to stop at the end of the cycle" Result="" Timeout="">
+        <TestPhase030 Description="Reverse Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Brake to stop" Result="" Timeout="" Component="Machine">
-                    <ReverseTest/>
+                <Objective0 Description="Reverse Test" Result="" Timeout="" Component="Transmission">
+                    <ReverseTesting/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase030>
-        
 
         <TestPhase040 Description="Brake to stop at the end of the cycle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
@@ -58,6 +56,19 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase040>
+
+
+        <TestPhase030 Description="Final checks and operator pass / fail" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="FinishUp" Result="" Timeout="" Component="Transmission">
+                    <FinishUp/>
+                </Objective0>
+                <Objective1 Description="Operator prompt and release vehicle" Result="" Timeout="" Component="Machine">
+                    <FinishUp/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase030>
+
     </Test>
 
 </DriveCurve>

@@ -181,6 +181,7 @@
             <TestStep01>CableConnect</TestStep01>
             <!-- TestStep2>InitializeTestHead</TestStep2 -->
             <TestStep10>StartTest</TestStep10>            
+            <TestStep20>RaiseRollsLowerElevators</TestStep20>            
         </MachineStartup>
 
         <LowerElevators>
@@ -206,6 +207,11 @@
             <TestStep05>BrakeToStop</TestStep05>
         </ReverseTest>
 
+        <FinishUp>
+            <TestStep00>PromptDriverAlways</TestStep00>
+            <TestStep10>FinishUp</TestStep10>
+            <TestStep20>LowerRollsRaiseElevators</TestStep20>            
+        </FinishUp>
         <!--
         <DriverQuestion>
             <TestStep1>DriverQuestion</TestStep1>

@@ -89,6 +89,14 @@ string MazdaPlantHostInbound::CreateBuildRecord(void)
 				if(BEP_STATUS_SUCCESS == m_broker->GetByTag(iter->second->getValue(), itemValue, response))
 				{   // Add the data to the build record
 					string buildTag(iter->second->getAttribute("BuildTag")->getValue());
+					if(!buildTag.compare(BODY_STYLE_TAG))
+					{   // Need to translate this first
+						int ibs = atoi(itemValue.c_str());
+						char bs1 = (ibs & 0xFF00) >> 8;
+						char bs2 = (ibs & 0x00FF);
+						itemValue = string(1, bs1);
+						itemValue += string(1, bs2);
+					}
 					AddVehicleBuildItem(buildTag, itemValue, m_vehicleBuild);
 					Log(LOG_DEV_DATA, "Added build item: %s = %s", buildTag.c_str(), itemValue.c_str());
 				}

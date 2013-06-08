@@ -274,9 +274,11 @@
         <InterRollPressureHighWarning channelIndex="20" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <InterRollPressureHighShutdown channelIndex="20" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <VariableDataReady channelIndex="20" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
-        <!-- OPEN 2 - 3 -->
+        <!-- OPEN 3 -->
         <PfsBlocked channelIndex="20" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
         <!-- OPEN 5 - 7 -->
+        <AbsDumpOk channelIndex="20" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
+        <AbsBuildOk channelIndex="20" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
         <RunLfAbsTest channelIndex="20" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
         <RunRfAbsTest channelIndex="20" bitIndex="9" logic="1" portDir="OUT" boardIdx="0"/>
         <RunLrAbsTest channelIndex="20" bitIndex="10" logic="1" portDir="OUT" boardIdx="0"/>
@@ -624,9 +626,9 @@
         <NissinboAbsSelected channelIndex="15" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <IgnitionOnFromTestHead channelIndex="15" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
         <CurrentTestStepResultFromTestHead channelIndex="15" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
-
+        <!-- OPEN 3 - 4 -->
         <FcchkTestComplete channelIndex="15" bitIndex="5" logic="1" portDir="IN" boardIdx="0"/>
-
+        <!-- OPEN 6 - 7 -->
         <VehicleBuildDataOk channelIndex="15" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
         <VehicleBuildDataNg channelIndex="15" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
         <VariableDataProcessingComplete channelIndex="15" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>

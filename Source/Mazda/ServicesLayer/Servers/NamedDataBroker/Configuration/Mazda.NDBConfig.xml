@@ -57,6 +57,8 @@
                 <ABSTestSelectedLamp DataType="bool">PLC</ABSTestSelectedLamp>
                 <ABSTestSelectedToPLC DataType="bool">PLC</ABSTestSelectedToPLC>
                 <ABSVINVerificationTest DataType="string">VehicleTest</ABSVINVerificationTest>
+                <AbsBuildOk DataType="bool">PLC</AbsBuildOk>
+                <AbsDumpOk DataType="bool">PLC</AbsDumpOk>
                 <ALDLTestEnabled DataType="bool">PLC</ALDLTestEnabled>
                 <ALDLTestRunning DataType="bool">PLC</ALDLTestRunning>
                 <Abort DataType="bool">SystemMonitor</Abort>

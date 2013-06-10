@@ -193,7 +193,7 @@ public:
      * 
      * @param config Configuration data to use for initializing the test component.
      */
-    void Initialize(const XmlNode *config);
+    virtual void Initialize(const XmlNode *config);
     /**
      * Reinitialize the test component.
      * <p><b>Category:</b> Utility

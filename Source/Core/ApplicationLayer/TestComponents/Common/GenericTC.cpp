@@ -6227,19 +6227,19 @@ float GenericTC::ConvertToEnglishUnits ( std::string &units, float &value) throw
     {
         if(units == unitsKPH)
         {
-            value *= (KPH_MPH); 
+            value /= (KPH_MPH); 
         }
         else if(units == unitsKGF)
         {
-            value *= (KGF_LBS); 
+            value /= (KGF_LBS); 
         }
         else if(units == unitsKN)
         {
-            value *= (KN_LBS);
+            value /= (KN_LBS);
         }
 		else if(units == unitsN)
 		{
-			value *= (N_LBS);
+			value /= (N_LBS);
 		}
     }
     return value;

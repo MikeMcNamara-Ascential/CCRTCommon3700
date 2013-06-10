@@ -707,7 +707,7 @@ inline void PromptServer::CleanPromptBox(const INT32 &promptBox)
 {
     int status;
 
-    if( promptBox < GetNumberOfPromptBoxes())
+    if( promptBox <= GetNumberOfPromptBoxes())
     {
         if((status = pthread_mutex_lock(&m_queueDataLock)) == EOK)
         {   // Clear the priority queues

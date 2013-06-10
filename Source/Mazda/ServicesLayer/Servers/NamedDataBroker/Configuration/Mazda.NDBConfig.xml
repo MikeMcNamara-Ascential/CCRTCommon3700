@@ -502,10 +502,6 @@
                 <MandoABSOverallTest DataType="testcomponentstatus">TestResultServer</MandoABSOverallTest>
                 <ManualTransmissionSelectedFromPLC DataType="bool">PLC</ManualTransmissionSelectedFromPLC>
                 <ManualTransmissionSelectedToPLC DataType="bool">PLC</ManualTransmissionSelectedToPLC>
-                <MazdaAbsEquipped DataType="bool">PLC</MazdaAbsEquipped>
-                <Mazda4wdEquipped DataType="bool">PLC</Mazda4wdEquipped>
-                <MazdaBsmEquipped DataType="bool">PLC</MazdaBsmEquipped>
-                <MazdaRlsEquipped DataType="bool">PLC</MazdaRlsEquipped>
                 <MinimumBoostPressure DataType="short" Units="PSI">PLC</MinimumBoostPressure>
                 <ModelYearSwitch DataType="bool">PLC</ModelYearSwitch>
                 <MonitorBoomNotExtendedFault DataType="bool">PLC</MonitorBoomNotExtendedFault>

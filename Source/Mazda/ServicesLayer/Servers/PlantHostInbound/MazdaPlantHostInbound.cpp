@@ -51,7 +51,11 @@ const string MazdaPlantHostInbound::LoadVehicleBuildRecord(const string &aon,
 	}
 	else
 	{
-		LoadVehicleBuildFromFile(aon, buildData, true);
+		if(BEP_SUCCESS_RESPONSE == LoadVehicleBuildFromFile(aon, buildData, true))
+		{
+			SetVehicleBuildRecordStatus(validStatus);
+			m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
+		}
 	}
 	return BEP_SUCCESS_RESPONSE;
 }

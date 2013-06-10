@@ -23,6 +23,44 @@ MazdaMachineTC::~MazdaMachineTC()
 {   // Nothing special to do here
 }
 
+//=============================================================================
+void MazdaMachineTC::Initialize(const XmlNode *config)
+{
+
+    // Initialize the base component
+    Log(LOG_FN_ENTRY, "Initializing The MazdaMachineTC Component\n");
+
+	try
+	{
+		const XmlNode *validRLSEquippedTypes = m_parameters.getNode("ValidRLSEquippedTypes");
+		m_rlsEquippedTypes.DeepCopy(validRLSEquippedTypes->getChildren());
+	}
+	catch(XmlException &err)
+	{
+        m_rlsEquippedTypes.clear();
+		Log(LOG_ERRORS, "XmlException loading ValidRLSEquippedTypes - %s\n", err.what());
+	}
+
+
+    Log(LOG_FN_ENTRY, "Done Initializing MazdaMachineTC\n");
+
+    // call the base class initialize
+    MachineTC::Initialize(config);
+}
+
+//-------------------------------------------------------------------------------------------------
+void MazdaMachineTC::CheckForValidRLSType()
+{
+	bool runRLSTest = false;	// Determine if is ETC test should run or Non-ETC reads (test) used
+	XmlNodeMapItr iter;			// Iterate through the possible valid ETC Speed Control types for this test
+
+	for(iter = m_rlsEquippedTypes.begin(); (iter != m_rlsEquippedTypes.end()) && !runRLSTest; iter++)
+	{	// Compare the broadcast Speed Control Type against the current config file valid Speed Control Types
+		runRLSTest = !iter->second->getValue().compare(SystemRead(GetDataTag("BroadcastRLSEquippedType")));
+	}
+	SetRLSEquipped(runRLSTest);
+}
+
 //-------------------------------------------------------------------------------------------------
 const string MazdaMachineTC::CommandTestStep(const string &value)
 {
@@ -33,8 +71,9 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
         try
         {                                    
             if(!GetTestStepName().compare("WaitForAcceleration"))  testResult = WaitToStart();
-            if(!GetTestStepName().compare("CableConnect"))  testResult = CableConnect();
-            if(!GetTestStepName().compare("StartTest"))  testResult = StartTest();
+            else if(!GetTestStepName().compare("CableConnect"))  testResult = CableConnect();
+            else if(!GetTestStepName().compare("StartTest"))  testResult = StartTest();
+            else if(!GetTestStepName().compare("RainLightSensorVerification"))  testResult = TestStepRainLightSensorVerification();
             else   testResult = MachineTC::CommandTestStep(value);
         }
         catch(BepException &excpt)
@@ -151,7 +190,7 @@ const string MazdaMachineTC::StartTest(void)
 
     string testResult(BEP_TESTING_RESPONSE);
 
-    testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterFloat("StartTestTimeoutPrompt")); 
+    testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
 
 
     Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Exit - %s", testResult.c_str());
@@ -239,6 +278,7 @@ const string MazdaMachineTC::TestStepAccelerateToSpeed(const string &value)
     return (GetRollSpeed() >= speedTarget) ? testPass : testFail;
 }
 
+
 const string MazdaMachineTC::TestStepRainLightSensorVerification(void)
 {
 
@@ -246,25 +286,46 @@ const string MazdaMachineTC::TestStepRainLightSensorVerification(void)
 
     string testResult(BEP_SKIP_RESPONSE);
     INT32 status;
-
-    //To do: determine if rls is equipped from build data
-
-    testResult = GenericTC::OperatorPassFail(GetPrompt("StartRLSTest"), GetParameterFloat("StartRLSTestPromptTimeout")); 
-    if (testResult == BEP_PASS_RESPONSE)
+    CheckForValidRLSType();
+    if (IsRLSEquipped())
     {
-        //command plc to turn on light and spray devices
+    testResult = GenericTC::OperatorPassFail(GetPrompt("StartRLSTest"), GetParameterInt("StartRLSTestPromptTimeout")); 
+        if (testResult == BEP_PASS_RESPONSE)
+        {
+            //command plc to turn on light and spray devices
+    
+            SystemWrite(GetDataTag("EnableLightAndSprayDevice"), true);
+            status = StatusSleep( GetParameterInt("LightAndSprayDeviceActuationTime"));
+            SystemWrite(GetDataTag("EnableLightAndSprayDevice"), false);
+    
+            //Operater pass / fail 
+        testResult = status == BEP_STATUS_SUCCESS ? GenericTC::OperatorPassFail(GetPrompt("VerifyRLSOperation"), 
+																				GetParameterInt("VerifyRLSOperationPromptTimeout")) : 
+                testFail;
+        }
+        else
+        {//test skipped by operator
 
-        SystemWrite(GetDataTag("EnableLightAndSprayDevice"), true);
-        status = StatusSleep( GetParameterInt("LightAndSprayDeviceActuationTime"););
-
-        //Operater pass / fail 
-        testResult = status == BEP_STATUS_SUCCESS ? GenericTC::OperatorPassFail(GetPrompt("VerifyRLSOperation"), GetParameterFloat("VerifyRLSOperationPromptTimeout")) : 
-            testFail;
+            string testResult = BEP_SKIP_RESPONSE;
+        }
         SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
     }
 
     Log(LOG_FN_ENTRY, "MazdaMachineTC::StartRainLightSensorTest() - Exit - %s", testResult.c_str());
 
     return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+inline const bool& MazdaMachineTC::IsRLSEquipped(void)
+{
+	return m_rlsEquipped;
+}
+
+//-------------------------------------------------------------------------------------------------
+inline void MazdaMachineTC::SetRLSEquipped(const bool &equipped)
+{
+	Log(LOG_DEV_DATA, "RLS Equipped: %s", equipped ? "True" : "False");
+	m_rlsEquipped = equipped;
 }
 

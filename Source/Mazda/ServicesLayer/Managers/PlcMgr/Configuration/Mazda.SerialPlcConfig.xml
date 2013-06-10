@@ -731,12 +731,6 @@
         <RRLoadCellValueRaw channelIndex="35" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         
         <!-- Mazda Brake Test -->
-        <MazdaAbsEquipped channelIndex="36" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
-        <Mazda4wdEquipped channelIndex="36" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
-        <MazdaBsmEquipped channelIndex="36" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
-        <MazdaRlsEquipped channelIndex="36" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
-        
-
         <FrontAxleMass channelIndex="37" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <RearAxleMass channelIndex="38" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
       

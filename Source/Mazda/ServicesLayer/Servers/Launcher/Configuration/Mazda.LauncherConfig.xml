@@ -84,7 +84,7 @@
             ConfigFile="MachineDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0103" RegisteredName="core/MachineDataBroker" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Machine Data Broker</MachineDataBroker>
-        <VehicleDataBroker Name="MazdaVehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
+        <VehicleDataBroker Name="VehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="VehicleDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0105" RegisteredName="core/VehicleDataBroker" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Data Broker</VehicleDataBroker>
@@ -96,7 +96,7 @@
             ConfigFile="InputServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0106" RegisteredName="core/InputServer" Register="Yes" 
             DemoMode="" ConsoleMode="" AddressValue="" PortValue="" VerboseMode="">Input Server</InputServer>
-        <PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
+        <PlantHostInbound Name="MazdaPlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="PlantHostInboundConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>

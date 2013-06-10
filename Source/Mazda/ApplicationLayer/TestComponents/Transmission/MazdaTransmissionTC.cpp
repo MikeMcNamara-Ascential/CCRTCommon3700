@@ -127,7 +127,7 @@ const string MazdaTransmissionTC::Publish(const XmlNode *node)
     const string   &value = node->getValue();
     string         result;
 
-    if ( (ZEROSPEED_TAG == tag) && ("0" == value))
+    if ( (ZEROSPEED_TAG_TO_PLC == tag) && ("0" == value))
     {
         m_accelTestStartTime = time( NULL);
         Log( LOG_DEV_DATA, "Accel Test start time set to %d\n", m_accelTestStartTime);
@@ -163,7 +163,7 @@ const string MazdaTransmissionTC::FollowDriveCurve(void)
 
     //Wait for loss of zero speed
 
-    while ( (TimeRemaining()) && (BEP_STATUS_SUCCESS == status) && (ReadSubscribeData(ZEROSPEED_TAG) == "0"))
+    while ( (TimeRemaining()) && (BEP_STATUS_SUCCESS == status) && GetRollSpeed() < 2)//(ReadSubscribeData(ZEROSPEED_TAG_TO_PLC) == "1"))
     {
         status = StatusSleep( scanDelay);
         Log( LOG_DETAILED_DATA, "Waiting for acceleration start\n");
@@ -171,7 +171,7 @@ const string MazdaTransmissionTC::FollowDriveCurve(void)
 
 
     //cycle through drive curve sections
-    for (UINT32 ii = 0; (ii < m_driveCurveParameters.size()) && (testStatus == testPass) && !(ReadSubscribeData(ZEROSPEED_TAG) == "0"); ii++)
+    for (UINT32 ii = 0; (ii < m_driveCurveParameters.size()) && (testStatus == testPass) && (ReadSubscribeData(ZEROSPEED_TAG_TO_PLC) == "0"); ii++)
     {
         testStatus = PromptDriveCurveSection(m_driveCurveParameters[ii],
                                 ii == 0 ? 0 : m_driveCurveParameters[ii-1].targetSpeed,
@@ -179,8 +179,8 @@ const string MazdaTransmissionTC::FollowDriveCurve(void)
 
     }
 
-
     RemovePrompts();
+
     SystemWrite( "SpeedTarget",  string("0 0"));
 
     if ( BEP_STATUS_SUCCESS == status)   testStatus = testPass;
@@ -244,9 +244,9 @@ const string MazdaTransmissionTC::PromptDriveCurveSection(DRIVECURVE_PARAMETERS 
     string testResult = testPass;
     int         status = StatusCheck();
     int scanDelay = GetTestStepInfoInt("ScanDelay");
-    bool promptSpeedInRangeDisplayed = true;
-    bool promptSpeedLowDisplayed = false;
-    bool promptSpeedHighDisplayed = false;
+    static bool promptSpeedInRangeDisplayed = true;
+    static bool promptSpeedLowDisplayed = false;
+    static bool promptSpeedHighDisplayed = false;
     float slope = 0;
     char        buff[ 256];
     std::string response;
@@ -255,46 +255,56 @@ const string MazdaTransmissionTC::PromptDriveCurveSection(DRIVECURVE_PARAMETERS 
     if ( scanDelay <= 0) scanDelay = 500;
 
     //display initial prompts and target speed
-           string speedRange = "";
-    DisplayPrompt(GetPromptBox(driveCurveParams.prompt1), GetPrompt(driveCurveParams.prompt1), GetPromptPriority(driveCurveParams.prompt1),"white");
-    DisplayPrompt(GetPromptBox(driveCurveParams.prompt2), GetPrompt(driveCurveParams.prompt2), GetPromptPriority(driveCurveParams.prompt2),"white");
-
-    if (driveCurveParams.targetSpeed != 0)
+    string speedRange = "";
+    if (driveCurveParams.prompt1 != "")
     {
-        sprintf( buff, "%.02f %.02f", driveCurveParams.targetSpeed - 
-                 (driveCurveParams.targetSpeed * driveCurveParams.speedTolerance / 100), 
-                                    driveCurveParams.targetSpeed - 
-                 (driveCurveParams.targetSpeed * driveCurveParams.speedTolerance / 100));
-        speedRange = buff;
-        SystemWrite( "SpeedTarget", speedRange);
+        DisplayPrompt(1, GetPrompt(driveCurveParams.prompt1), GetPromptPriority(driveCurveParams.prompt1),"white",
+                      driveCurveParams.prompt1Value1,driveCurveParams.prompt1Value2);
     }
     else
     {
-        SystemWrite( "SpeedTarget", string("0 1"));
+        m_prompt->ClearPromptBox(1, response);
     }
+
+
 
 
     // get the current time
     time_t  currentTime = time(NULL);
     //y - b / x  = m
+    Log(LOG_FN_ENTRY, "Calculating section slope target speed: %f, previousTargetSpeed: %f, endTime: %f, previous end time: %f\n", 
+        driveCurveParams.targetSpeed, previousTargetSpeed, driveCurveParams.endTime, previousEndTime);
     slope = (driveCurveParams.targetSpeed - previousTargetSpeed) / (driveCurveParams.endTime - previousEndTime);
-    Log(LOG_DEV_DATA, "EndTime = %f SpeedTarget = %s, speedRange = %s slope = %f\n", buff, speedRange.c_str(), slope);
-
-
+    Log(LOG_DEV_DATA, "SpeedTarget = %f, slope = %f\n", driveCurveParams.targetSpeed, slope);
+    float currentTestTime;
+    m_accelTestStartTime = time(NULL);
+   
     // while time remaining and good status and section time remaining and not at zero speed
-    while (TimeRemaining() && (BEP_STATUS_SUCCESS == status) && (difftime( currentTime, m_accelTestStartTime) < driveCurveParams.endTime) &&
-           !(ReadSubscribeData(ZEROSPEED_TAG) == "0"))
+    while (TimeRemaining() && (BEP_STATUS_SUCCESS == status) && 
+           ((currentTestTime = difftime( currentTime, m_accelTestStartTime)) <  (driveCurveParams.endTime- previousEndTime)) &&
+           (ReadSubscribeData(ZEROSPEED_TAG_TO_PLC) == "0"))
     {
         float currentSpeed = GetRollSpeed();
         //given current time, determine max and min speeds expected
-        float expectedSpeed = slope * currentTime + previousTargetSpeed;
+        float expectedSpeed = slope * currentTestTime + previousTargetSpeed;
         float minSpeed = expectedSpeed * ((100 - driveCurveParams.speedTolerance) / 100);
         float maxSpeed = expectedSpeed * ((100 + driveCurveParams.speedTolerance) / 100);
+        if (expectedSpeed != 0)
+        {
+            sprintf( buff, "%.02f %.02f", minSpeed, maxSpeed);
+            speedRange = buff;
+            SystemWrite( "SpeedTarget", speedRange);
+        }
+        else
+        {
+            SystemWrite( "SpeedTarget", string("0 4"));
+        }
 
-        Log(LOG_DEV_DATA, "Current Speed = %f Expected Speed = %f, Min Speed = %f Max Speed = %f\n", 
-            currentSpeed, expectedSpeed, minSpeed, maxSpeed);
+        Log(LOG_DEV_DATA, "CurrentTestTime: %f Current Speed = %f Expected Speed = %f, Min Speed = %f Max Speed = %f\n", 
+            currentTestTime, currentSpeed, expectedSpeed, minSpeed, maxSpeed);
         //determine if speed is in range
         //if not, display appropriate prompt if not already displayed
+        #if false
         if (currentSpeed < minSpeed)
         {
             if(!promptSpeedLowDisplayed)
@@ -302,7 +312,8 @@ const string MazdaTransmissionTC::PromptDriveCurveSection(DRIVECURVE_PARAMETERS 
                 //display speed low prompt
                 if (driveCurveParams.promptSpeedLow != "")
                 {
-                    DisplayPrompt(GetPromptBox(driveCurveParams.promptSpeedLow), GetPrompt(driveCurveParams.promptSpeedLow), GetPromptPriority(driveCurveParams.promptSpeedLow),"red");
+                    DisplayPrompt(2, GetPrompt(driveCurveParams.promptSpeedLow), GetPromptPriority(driveCurveParams.promptSpeedLow),"red",
+                      driveCurveParams.promptSpeedLowValue1,driveCurveParams.promptSpeedLowValue2);
                     Log(LOG_DEV_DATA, "Updating prompt to Speed low");
                     promptSpeedLowDisplayed = true;
                     promptSpeedHighDisplayed = false;
@@ -312,7 +323,7 @@ const string MazdaTransmissionTC::PromptDriveCurveSection(DRIVECURVE_PARAMETERS 
                 {//in case a high speed prompt exists and no low speed, just remove current prompt
                     if(promptSpeedHighDisplayed)
                     {
-                         m_prompt->ClearPromptBox(GetPromptBox(driveCurveParams.promptSpeedHigh), response);
+                         m_prompt->ClearPromptBox(2, response);
                          Log(LOG_DEV_DATA, "Removed speed high prompt");
                          promptSpeedLowDisplayed = true;
                          promptSpeedHighDisplayed = false;
@@ -330,7 +341,8 @@ const string MazdaTransmissionTC::PromptDriveCurveSection(DRIVECURVE_PARAMETERS 
 
                 if (driveCurveParams.promptSpeedHigh != "")
                 {
-                    DisplayPrompt(GetPromptBox(driveCurveParams.promptSpeedHigh), GetPrompt(driveCurveParams.promptSpeedHigh), GetPromptPriority(driveCurveParams.promptSpeedHigh),"red");
+                    DisplayPrompt(2, GetPrompt(driveCurveParams.promptSpeedHigh), GetPromptPriority(driveCurveParams.promptSpeedHigh),"red",
+                      driveCurveParams.promptSpeedHighValue1,driveCurveParams.promptSpeedHighValue2);
     
                     Log(LOG_DEV_DATA, "Updating prompt to Speed high");
                     promptSpeedLowDisplayed = false;
@@ -341,7 +353,7 @@ const string MazdaTransmissionTC::PromptDriveCurveSection(DRIVECURVE_PARAMETERS 
                 {
                     if(promptSpeedLowDisplayed)
                     {
-                        m_prompt->ClearPromptBox(GetPromptBox(driveCurveParams.promptSpeedLow), response);
+                        m_prompt->ClearPromptBox(2, response);
                          Log(LOG_DEV_DATA, "Removed speed low prompt");
                          promptSpeedLowDisplayed = false;
                          promptSpeedHighDisplayed = true;
@@ -360,40 +372,38 @@ const string MazdaTransmissionTC::PromptDriveCurveSection(DRIVECURVE_PARAMETERS 
                if (driveCurveParams.prompt2 != "")
                {
 
-                   DisplayPrompt(GetPromptBox(driveCurveParams.prompt2), GetPrompt(driveCurveParams.prompt2), GetPromptPriority(driveCurveParams.prompt2),"white");
+                   DisplayPrompt(2, GetPrompt(driveCurveParams.prompt2), GetPromptPriority(driveCurveParams.prompt2),"white",
+                      driveCurveParams.prompt2Value1,driveCurveParams.prompt2Value2);
     
                    Log(LOG_DEV_DATA, "Updating prompt to Speed in range");
-                   promptSpeedLowDisplayed = false;
-                   promptSpeedHighDisplayed = false;
-                   promptSpeedInRangeDisplayed = true;
                }
                else
                {
                     if(promptSpeedLowDisplayed)
                     {
-                        m_prompt->ClearPromptBox(GetPromptBox(driveCurveParams.promptSpeedLow), response);
+                        m_prompt->ClearPromptBox(2, response);
                          Log(LOG_DEV_DATA, "Removed speed low prompt");
-                         promptSpeedLowDisplayed = false;
-                         promptSpeedHighDisplayed = false;
-                         promptSpeedInRangeDisplayed = true;
                     }
                     else
                     {
-                        m_prompt->ClearPromptBox(GetPromptBox(driveCurveParams.promptSpeedHigh), response);
+                        m_prompt->ClearPromptBox(2, response);
                          Log(LOG_DEV_DATA, "Removed speed high prompt");
-                         promptSpeedLowDisplayed = false;
-                         promptSpeedHighDisplayed = false;
-                         promptSpeedInRangeDisplayed = true;
                     }
                }
+               promptSpeedLowDisplayed = false;
+               promptSpeedHighDisplayed = false;
+               promptSpeedInRangeDisplayed = true;
            }
         }
-
+        #endif
 
         status = StatusSleep( scanDelay);
         currentTime = time(NULL);
     }
     
+    m_prompt->ClearPromptBox(1, response);
+    m_prompt->ClearPromptBox(2, response);
+
     Log(LOG_FN_ENTRY, "Exit MazdaTransmissionTC::PromptDriveCurveSection\n");
     return testResult;
 }
@@ -468,3 +478,9 @@ const string MazdaTransmissionTC::TestStepBrakeToStop(const string &value)
 
     return(status);     // return the status
 }
+
+//-------------------------------------------------------------------------------------------------
+//inline float MazdaTransmissionTC::GetRollSpeed(void)
+//{
+//    return GetParameterBool("SingleEncoder") ? SystemReadFloat(GetDataTag("MaximumRollerSpeedTag")) : GenericTC::GetRollSpeed();
+//}

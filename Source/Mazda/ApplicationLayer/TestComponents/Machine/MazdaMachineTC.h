@@ -33,6 +33,28 @@ public:
      * @return The result of the test step.
      */
     virtual const string CommandTestStep(const string &value);
+    /**
+     * Initialize the test component.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description</b><br>
+     * Initialization method to set up the MachineTC component.  The base class will be called to begin the
+     * initialization.  The maximum boost pressure will then be saved off to a member variable.
+     * <p>
+     * <b>Test Component Parameters:</b>
+     *      <ul>
+     *      <li> MaxHydraulicBoostPressure - Maximum hydraulic boost pressure to allow. </li>
+     *      </ul>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> GenericTC::Initialize() </li>
+     *      <li> SetMaxHydraulicBoostPressure() </li>
+     *      <li> InitializationComplete() </li>
+     *      </ul>
+     * 
+     * @param config Configuration data to use for initializing the test component.
+     */
+    virtual void Initialize(const XmlNode *config);
 
 protected:
     /**
@@ -182,6 +204,53 @@ protected:
      * @return The result of waiting for the operator to accelerate to speed.
      */
     virtual const string TestStepAccelerateToSpeed(const string &value);
+
+    const string TestStepRainLightSensorVerification(void);
+    /**
+     * Check for valid RLS type.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description:</b><br>
+     * The vehicle build data will be analyzed to determine if the vehicle is equipped with a valid RLS type.
+     * A flag indicating if the vehicle is equipped with a valid RLS type will be stored in a member variable.
+     * <p>
+     * <b>Data Tags:</b>
+     *      <ul>
+     *      <li> BroadcastRLSEquippedType - System tag to read the ETC build option from the vehicle build data. </li>
+     *      </ul>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> SystemRead() </li>
+     *      <li> GetDataTag() </li>
+     *      <li> SetRLSEquipped() </li>
+     *      </ul>
+     */
+    void CheckForValidRLSType(void);
+    /**
+     * Check if the vehicle is equipped with rain light sensor.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description:</b><br>
+     * Get the flag indicating if the vehicle is equipped with RLS.
+     * <p>
+     * @return  Flag indicating if the vehicle is equipped with RLS.
+     */
+    virtual const bool &IsRLSEquipped(void);
+
+    /**
+     * Store the flag indicating if the vehicle is equipped with rain light sensor.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description:</b><br>
+     * Store the flag indicating if the vehicle is equipped with RLS.
+     * <p>
+     * @param equipped  Flag indicating if the vehicle is equipped with RLS.
+     */
+    virtual void SetRLSEquipped(const bool &equipped);
+
+    /** Store the the valid rls equipped Types for this test from configuration file. */
+    XmlNodeMap m_rlsEquippedTypes;
+
+    /** Flag to indicate if the vehicle is equipped with RLS. */
+    bool m_rlsEquipped;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaMachineTC_h

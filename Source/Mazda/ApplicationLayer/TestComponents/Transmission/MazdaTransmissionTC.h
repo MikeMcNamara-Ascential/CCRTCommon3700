@@ -137,6 +137,16 @@ protected:
      * @return The result of the test.
      */
     virtual const string TestStepBrakeToStop(const string &value);
+    /**
+     * Get the drive axle roller speed.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description:</b><br>
+     * This function returns the maximum roller speed. 
+     * <p>
+     * 
+     * @return The maximum roller speed.
+     */
+    //virtual float GetRollSpeed(void);
 
     /**
      * Time at which the accel test was started

@@ -439,7 +439,18 @@ void PlantHostInbound::ReloadConfiguration(void)
 }
 
 const std::string PlantHostInbound::GetVehicleBuildSource(void)
-{
+{   // Check the config file to determine if we need to update the build record source
+	XmlParser parser;
+	try
+	{
+		const XmlNode *config = parser.ReturnXMLDocument(m_configFile);
+		m_vehicleBuildRecordSource = config->getChild("Setup/VehicleBuildRecordSource")->getValue();
+		Log(LOG_DEV_DATA, "Set build record source to s", m_vehicleBuildRecordSource.c_str());
+	}
+	catch(...)
+	{
+		Log(LOG_DEV_DATA, "Error checking for updated build source");
+	}
     return(m_vehicleBuildRecordSource);
 }
 

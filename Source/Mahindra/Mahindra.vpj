@@ -118,6 +118,13 @@
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Machine/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="TransferCase">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/TransferCase/Configuration/CMakeLists.txt"/>
+						<F N="ApplicationLayer/TestComponents/TransferCase/Configuration/MahindraTcaseTc.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/TransferCase/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="Transmission">
 					<Folder Name="Manual">
 						<Folder Name="Configuration">
@@ -179,6 +186,7 @@
 						<F N="ApplicationLayer/VehicleTest/Configuration/BuildRecords/ZTSCodeXX2GRK.xml"/>
 					</Folder>
 					<Folder Name="DriveCurves">
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrake4wdDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/LossCompensationDriveCurve.xml"/>
@@ -559,6 +567,12 @@
 						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/Mahindra.MachineDataBrokerConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="MotorContorller">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/MotorContorller/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/MotorContorller/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="PlantHostInbound">
 					<Folder Name="Configuration">

@@ -1,8 +1,7 @@
 #------------------------------------------------------------------------------------------
-# Tell CMake what Config files to install
+# Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
-INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/DriveCurves FILES
-	LossCompensationDriveCurve.xml
-	BaseBrakeDriveCurve.xml
-	BaseBrake4wdDriveCurve.xml
+INSTALL_FILES(${COMPONENT_CONFIG_DIR}/TransferCase FILES
+	MahindraTcaseTc.xml
 	)
+	

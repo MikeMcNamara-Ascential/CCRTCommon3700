@@ -80,7 +80,6 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/TcpCommProxy.qxe
 
 	ApplicationLayer/Bin/GasAnalyzerTC.qxe
-	ApplicationLayer/Bin/GenericTcaseTest.qxe
 	ApplicationLayer/Bin/GenericSpeedControl.qxe
 	)
 

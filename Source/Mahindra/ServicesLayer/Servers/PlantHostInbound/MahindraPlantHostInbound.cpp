@@ -108,8 +108,9 @@ const string MahindraPlantHostInbound::LoadVehicleBuildFromFile(const string &vi
 				GetDataTag("SecondarySelectionData").c_str(), VehicleBuildFileVinStart(), VehicleBuildFileVinLength());
 			buildDataFile = secSelData.substr(VehicleBuildFileVinStart(),VehicleBuildFileVinLength());
 		}
-		else if(m_secondarySelectedData != NULL)
+		else if((m_secondarySelectedData != NULL) && (m_secondarySelectedData->getChildren().size() > 0))
 		{	// Pull specific characters from the data string
+			Log(LOG_DEV_DATA, "Pulling specific characters from the VIN string to get a ZTS code");
 			for(XmlNodeMapCItr iter = m_secondarySelectedData->getChildren().begin();
 			   iter != m_secondarySelectedData->getChildren().end(); iter++)
 			{
@@ -241,13 +242,8 @@ const string MahindraPlantHostInbound::Publish(const XmlNode *node)
 			}
 			UpdateInputServerState();
 		}
-		else if(node->getName() == GetNextVinTag())
-		{	// Update the traffic light widget to let driver know vin is being processed
-			SetVehicleBuildRecordStatus(validStatus);
-			UpdateInputServerState();
-			m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
-		}
-		else if(node->getName() == GetDataTag("SecondarySelectionDataTag"))
+		else if(!node->getName().compare(GetDataTag("SecondarySelectionDataTag")) ||
+				!node->getName().compare(GetNextVinTag()))
 		{	// Update the traffic light widget to let driver know vin is being processed
 			Log(LOG_FN_ENTRY,"SecondarySelectionDataMatch\n");
 			SetVehicleBuildRecordStatus(validStatus);

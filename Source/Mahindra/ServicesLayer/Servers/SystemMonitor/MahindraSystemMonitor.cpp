@@ -125,6 +125,7 @@ const string MahindraSystemMonitor::Publish(const XmlNode *node)
 	{
 		// Invalidate the build data
 		WriteNdbData(VIN_READ_STATUS_TAG, string(INVALID_VEHICLE_VIN));
+		WriteNdbData(VINDISPLAY_DATA_TAG, string(" "));
 	}
 	Log(LOG_FN_ENTRY, "MahindraSystemMonitor::Publish(%s, %s) - Exit", node->getName().c_str(), node->getValue().c_str());
 	// Finish the normal publish

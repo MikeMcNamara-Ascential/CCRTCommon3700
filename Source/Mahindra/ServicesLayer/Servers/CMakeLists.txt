@@ -4,6 +4,7 @@
 ADD_SUBDIRECTORY(InputServer)
 ADD_SUBDIRECTORY(Launcher)
 ADD_SUBDIRECTORY(MachineDataBroker)
+ADD_SUBDIRECTORY(MotorController)
 ADD_SUBDIRECTORY(PlantHostInbound)
 ADD_SUBDIRECTORY(PlantHostOutbound)
 ADD_SUBDIRECTORY(SystemMonitor)

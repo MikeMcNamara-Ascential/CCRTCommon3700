@@ -1,8 +1,7 @@
 #------------------------------------------------------------------------------------------
-# Tell CMake what Config files to install
+# Tell CMake where to install config files
 #------------------------------------------------------------------------------------------
-INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/DriveCurves FILES
-	LossCompensationDriveCurve.xml
-	BaseBrakeDriveCurve.xml
-	BaseBrake4wdDriveCurve.xml
+INSTALL_FILES(${MACHINE_CONFIG_DIR} FILES
+	Mahindra.AB700MotorControllerConfig.xml
 	)
+

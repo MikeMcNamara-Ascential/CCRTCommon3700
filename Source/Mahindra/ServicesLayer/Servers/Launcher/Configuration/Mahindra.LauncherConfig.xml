@@ -101,11 +101,6 @@
             OrderToLaunch="0105" RegisteredName="core/VehicleDataBroker" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="">Vehicle Data Broker</VehicleDataBroker>
 
-        <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 
-            ConfigFile="VehicleDataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
-            OrderToLaunch="0108" RegisteredName="core/VehicleDataServer" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
-            AddressValue="" PortValue="" VerboseMode=""/>
-
         <SystemMonitor Name="MahindraSystemMonitor.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="SystemMonitorConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0107" RegisteredName="core/SystemMonitor" Register="Yes" DemoMode="Off" ConsoleMode="Off" 

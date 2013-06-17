@@ -2,6 +2,12 @@
 
     <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
         <BrakeType>BaseBrake</BrakeType>
+        <TransferCase>2WD</TransferCase>
     </BaseBrake>
+
+    <BaseBrake4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrake4wdDriveCurve.xml">
+        <BrakeType>BaseBrake</BrakeType>
+        <TransferCase>4WD</TransferCase>
+    </BaseBrake4wd>
 
 </SelectionTable>

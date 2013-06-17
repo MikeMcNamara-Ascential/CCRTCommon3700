@@ -256,11 +256,11 @@
             <!-- ******************************************************* -->
             <!-- *                   Handheld Scanner                  * -->
             <!-- ******************************************************* -->
-            <Handheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+            <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
                 <Setup>
                     <Communication>
                         <Debug>Off</Debug>
-                        <Name>core/SymbolScanner</Name>
+                        <Name>core/LeftSymbolScanner</Name>
                         <Type>Server</Type>
                         <Comm>IPC</Comm>
                         <BufferSize>2000</BufferSize>
@@ -268,8 +268,8 @@
                     </Communication>
                     <Logging>
                         <Status>Enabled</Status>
-                        <ProcessName>core/SymbolScanner</ProcessName>
-                        <AdditionalLogFile>/Servers/SymbolScanner.log</AdditionalLogFile>
+                        <ProcessName>core/LeftSymbolScanner</ProcessName>
+                        <AdditionalLogFile>/Servers/LeftSymbolScanner.log</AdditionalLogFile>
                         <Debug>Off</Debug>
                         <LocalEcho>Disabled</LocalEcho>
                         <Verbose>0x1F</Verbose>
@@ -301,8 +301,8 @@
                             </Communication>
                             <Logging>
                                 <Status>Disabled</Status>
-                                <ProcessName>SymbolScanner</ProcessName>
-                                <AdditionalLogFile Types="/Servers/SymbolScanner.log or Disabled">/Servers/SymbolScanner.log</AdditionalLogFile>
+                                <ProcessName>LeftSymbolScanner</ProcessName>
+                                <AdditionalLogFile Types="/Servers/SymbolScanner.log or Disabled">/Servers/LeftSymbolScanner.log</AdditionalLogFile>
                                 <Debug>Off</Debug>
                                 <LocalEcho>Disabled</LocalEcho>
                                 <Verbose>0x1F</Verbose>
@@ -328,7 +328,80 @@
                         <Item03 StartIndex="28" Length="13" DisplayTag="">AlcMsgTRailer</Item03>
                     </TwoDimensionBarcodeItems>
                 </Setup>
-            </Handheld>
+            </LeftHandheld>
+            <RightHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+                <Setup>
+                    <Communication>
+                        <Debug>Off</Debug>
+                        <Name>core/RightSymbolScanner</Name>
+                        <Type>Server</Type>
+                        <Comm>IPC</Comm>
+                        <BufferSize>2000</BufferSize>
+                        <Timeout>1000</Timeout>
+                    </Communication>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>core/RightSymbolScanner</ProcessName>
+                        <AdditionalLogFile>/Servers/RightSymbolScanner.log</AdditionalLogFile>
+                        <Debug>Off</Debug>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <ThreadPool>
+                        <Debug>Off</Debug>
+                        <MinBlockedLimit>1</MinBlockedLimit>
+                        <MaxBlockedLimit>3</MaxBlockedLimit>
+                        <Increment>1</Increment>
+                        <Maximum>5</Maximum>
+                    </ThreadPool>
+                    <NotificationList>
+                        <Setup>
+                            <Debug>Off</Debug>
+                            <HighWater>3</HighWater>
+                            <Increment>1</Increment>
+                            <LowWater>1</LowWater>
+                            <Maximum>5</Maximum>
+                            <StartOnCreate>No</StartOnCreate>
+                        </Setup>
+                    </NotificationList>
+                    <ScannerCommunication>
+                        <Setup>
+                            <Communication>
+                                <Debug>Off</Debug>
+                                <Name>/dev/LogicalPorts/RScanner</Name>
+                                <BufferSize>128</BufferSize>
+                                <Timeout>10000</Timeout>
+                            </Communication>
+                            <Logging>
+                                <Status>Disabled</Status>
+                                <ProcessName>RightSymbolScanner</ProcessName>
+                                <AdditionalLogFile Types="/Servers/SymbolScanner.log or Disabled">/Servers/RightSymbolScanner.log</AdditionalLogFile>
+                                <Debug>Off</Debug>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                            </Logging>
+                        </Setup>
+                    </ScannerCommunication>
+                    <DataDelay>3000</DataDelay>
+                    <VinLength>17</VinLength>
+                    <DriverNumberLength>7</DriverNumberLength>
+                    <MaximumRetries>3</MaximumRetries>
+                    <LookForCarriageReturn>No</LookForCarriageReturn>
+                    <LookForDataTerminator>Yes</LookForDataTerminator>
+                    <DataTerminationCharacter>0x03</DataTerminationCharacter>
+                    <CorrectBadScannerData>No</CorrectBadScannerData>
+                    <BadDataIndex>0x01</BadDataIndex>
+                    <BadDataIndicator>0x00</BadDataIndicator>
+                    <BadDataReplacementValue>0x31</BadDataReplacementValue>
+                    <TwoDimensionBarcode>True</TwoDimensionBarcode>
+                    <TwoDimensionBarcodeItems>
+                        <Item00 StartIndex="0" Length="3" DisplayTag="">AlcMsgHeader</Item00>
+                        <Item01 StartIndex="3" Length="8" DisplayTag="">Aon</Item01>
+                        <Item02 StartIndex="11" Length="17" DisplayTag="VINDisplay">NextVIN</Item02>
+                        <Item03 StartIndex="28" Length="13" DisplayTag="">AlcMsgTRailer</Item03>
+                    </TwoDimensionBarcodeItems>
+                </Setup>
+            </RightHandheld>
             <!-- ******************************************************* -->
             <!-- *                   Overhead Scanner                  * -->
             <!-- ******************************************************* -->

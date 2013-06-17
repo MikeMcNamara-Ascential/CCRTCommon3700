@@ -10,6 +10,7 @@
         <TagList>
             <PublishTags>
                 <Abort>0</Abort>
+                <CableConnect>0</CableConnect>
                 <StartTest>0</StartTest>
                 <VehiclePresent>0</VehiclePresent>
             </PublishTags>
@@ -34,8 +35,10 @@
         <DataTags>
             <ClearBodyStyle>None</ClearBodyStyle>
             <DriveAxle>DriveAxle</DriveAxle>
+            <OverallResultToPlcTag>OverallTestResult</OverallResultToPlcTag>
             <OverallTestTag>OverallTest</OverallTestTag>
             <TestCompleteDataTag>JounceTestComplete</TestCompleteDataTag>
+            <WbInPosition>WheelbaseInPosition</WbInPosition>
         </DataTags>
         <SystemFaults>
             <PowerSense Name="PowerSenseLostToIORack" Severity="9" Description="System power has been lost">System Power Sense</PowerSense>

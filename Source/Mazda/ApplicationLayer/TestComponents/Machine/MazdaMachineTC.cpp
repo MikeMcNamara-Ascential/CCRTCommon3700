@@ -26,6 +26,8 @@ MazdaMachineTC::~MazdaMachineTC()
 //=============================================================================
 void MazdaMachineTC::Initialize(const XmlNode *config)
 {
+	// call the base class initialize
+	MachineTC::Initialize(config);
 
     // Initialize the base component
     Log(LOG_FN_ENTRY, "Initializing The MazdaMachineTC Component\n");
@@ -44,8 +46,6 @@ void MazdaMachineTC::Initialize(const XmlNode *config)
 
     Log(LOG_FN_ENTRY, "Done Initializing MazdaMachineTC\n");
 
-    // call the base class initialize
-    MachineTC::Initialize(config);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -53,10 +53,13 @@ void MazdaMachineTC::CheckForValidRLSType()
 {
 	bool runRLSTest = false;	// Determine if is ETC test should run or Non-ETC reads (test) used
 	XmlNodeMapItr iter;			// Iterate through the possible valid ETC Speed Control types for this test
-
+	string bodyStyle(SystemRead(GetDataTag("BroadcastRLSEquippedType")));
+	Log(LOG_DEV_DATA, "Checking if %s is a valid RLS configred vehicle", bodyStyle.c_str());
 	for(iter = m_rlsEquippedTypes.begin(); (iter != m_rlsEquippedTypes.end()) && !runRLSTest; iter++)
 	{	// Compare the broadcast Speed Control Type against the current config file valid Speed Control Types
-		runRLSTest = !iter->second->getValue().compare(SystemRead(GetDataTag("BroadcastRLSEquippedType")));
+		runRLSTest = !iter->second->getValue().compare(bodyStyle);
+		Log(LOG_DEV_DATA, "\t%s == %s ? %s", bodyStyle.c_str(), iter->second->getValue().c_str(),
+			runRLSTest ? "True" : "False");
 	}
 	SetRLSEquipped(runRLSTest);
 }
@@ -70,10 +73,17 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
     {
         try
         {                                    
-            if(!GetTestStepName().compare("WaitForAcceleration"))  testResult = WaitToStart();
-            else if(!GetTestStepName().compare("CableConnect"))  testResult = CableConnect();
-            else if(!GetTestStepName().compare("StartTest"))  testResult = StartTest();
+            if(!GetTestStepName().compare("WaitForAcceleration"))               testResult = WaitToStart();
             else if(!GetTestStepName().compare("RainLightSensorVerification"))  testResult = TestStepRainLightSensorVerification();
+			else if(!GetTestStepName().compare("StartOdometerTest"))
+			{   // Set the initial roller distances
+				GetWheelDistances(m_odoStartDistance);
+				testResult = testPass;
+			}
+			else if(!GetTestStepName().compare("StartTest"))                    testResult = StartTest();
+			else if(!GetTestStepName().compare("StopOdometerTest"))             testResult = StopOdometerTest();
+			else if(!GetTestStepName().compare("VehicleDisconnect"))            testResult = VehicleDisconnect();
+			else if(!GetTestStepName().compare("VehicleTestSetup"))             testResult = VehicleSetup();
             else   testResult = MachineTC::CommandTestStep(value);
         }
         catch(BepException &excpt)
@@ -90,6 +100,29 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "MazdaMachineTC::CommandTestStep(value: %s) - Exit", value.c_str());
     return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaMachineTC::StopOdometerTest(void)
+{
+	Log(LOG_DEV_DATA, "MazdaMachineTC::StopOdometerTest() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{   // Get the current roller distance
+		WHEELINFO finalDistance, totalDistance;
+		GetWheelDistances(finalDistance);
+		// Calculate the distance traveled
+		GetTotalDistances(totalDistance, m_odoStartDistance, finalDistance);
+		float driveWheelDist = !SystemRead(DRIVE_AXLE_TAG).compare(FRONT_WHEEL_DRIVE_VALUE) ? totalDistance.lfWheel : totalDistance.lrWheel; 
+		float odometer = ConvertPulsesToMiles(driveWheelDist) * 
+	}
+	else
+	{
+		result = testSkip;
+		Log(LOG_DEV_DATA, "Skipping odometer calculation");
+	}
+	Log(LOG_DEV_DATA, "MazdaMachineTC::StopOdometerTest() - Exit");
+	return result;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -189,18 +222,110 @@ const string MazdaMachineTC::StartTest(void)
     Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Enter");
 
     string testResult(BEP_TESTING_RESPONSE);
+	DisplayPrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
+    testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
+	RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 
     testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
-
 
     Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Exit - %s", testResult.c_str());
 
     return BEP_PASS_RESPONSE;
 }
 
-const string MazdaMachineTC::CableConnect(void)
+//-------------------------------------------------------------------------------------------------
+const string MazdaMachineTC::VehicleDisconnect(void)
 {
-    return testPass;
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::VehicleDisconnect() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{   // Prompt and wait for ignition off
+		DisplayPrompt(GetPromptBox("TurnOffIgnition"), GetPrompt("TurnOffIgnition"), GetPromptPriority("TurnOffIgnition"));
+		// Wait for the engine to be off
+		bool engineRunning = true;
+		do
+		{   // Wait before the next check
+			BposSleep(GetTestStepInfoInt("ScanDelay"));
+			engineRunning = SystemReadBool(GetDataTag("EngineRunningTag"));
+		} while(engineRunning && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
+		RemovePrompt(GetPromptBox("TurnOffIgnition"), GetPrompt("TurnOffIgnition"), GetPromptPriority("TurnOffIgnition"));
+		DisplayPrompt(GetPromptBox("DisconnectCable"), GetPrompt("DisconnectCable"), GetPromptPriority("DisconnectCable"));
+		// Check the exit condition
+		if(!engineRunning)
+		{   // Wait for cable disconnect
+			while(IsCableConnected() && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()))
+			{   // Wait before the next check
+				BposSleep(GetTestStepInfoInt("ScanDelay"));
+			}
+			result = !IsCableConnected() ? testPass : testFail;
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Timeout waiting for the engine to be off");
+			result = testFail;
+		}
+		RemovePrompt(GetPromptBox("DisconnectCable"), GetPrompt("DisconnectCable"), GetPromptPriority("DisconnectCable"));
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping vehicle disconnect sequence");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::VehicleDisconnect() - Exit");
+	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
+const string MazdaMachineTC::VehicleSetup(void)
+{
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::VehicleSetup() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{   // Prompt the operator to turn off the ignition and connect the diagnostic cable
+		DisplayPrompt(GetPromptBox("TurnOffIgnition"), GetPrompt("TurnOffIgnition"), GetPromptPriority("TurnOffIgnition"));
+		DisplayPrompt(GetPromptBox("ConnectCable"), GetPrompt("ConnectCable"), GetPromptPriority("ConnectCable"));
+		bool cableConnected = CheckCableConnect();
+		RemovePrompt(GetPromptBox("TurnOffIgnition"), GetPrompt("TurnOffIgnition"), GetPromptPriority("TurnOffIgnition"));
+		RemovePrompt(GetPromptBox("ConnectCable"), GetPrompt("ConnectCable"), GetPromptPriority("ConnectCable"));
+		// Wait for cable connect
+		if(cableConnected)
+		{   // Cable is connected, prompt for foot on brake and start the engine
+			DisplayPrompt(GetPromptBox("ApplyBrakePedal"), GetPrompt("ApplyBrakePedal"), GetPromptPriority("ApplyBrakePedal"));
+			DisplayPrompt(GetPromptBox("StartEngine"), GetPrompt("StartEngine"), GetPromptPriority("StartEngine"));
+			// Wait for the engine to be running
+			bool engineRunning = false;
+			do
+			{   // Wait before the next check
+				BposSleep(GetTestStepInfoInt("ScanDelay"));
+				engineRunning = SystemReadBool(GetDataTag("EngineRunningTag"));
+			} while(!engineRunning && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
+			// Check the state of the engine running
+			result = engineRunning ? testPass : testAbort;
+			if(!engineRunning)
+			{
+				Log(LOG_DEV_DATA, "Engine not running, abort the test sequence");
+				SystemWrite(ABORT_DATA_TAG, true);
+			}
+			RemovePrompt(GetPromptBox("ApplyBrakePedal"), GetPrompt("ApplyBrakePedal"), GetPromptPriority("ApplyBrakePedal"));
+			RemovePrompt(GetPromptBox("StartEngine"), GetPrompt("StartEngine"), GetPromptPriority("StartEngine"));
+		}
+		else
+		{
+			Log(LOG_DEV_DATA, "Cable not connected, abort the test sequence");
+			result = testAbort;
+			SystemWrite(ABORT_DATA_TAG, true);
+		}
+		// Report the result
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping Vehicle Setup");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::VehicleSetup() - Exit");
+	return result;
 }
 
 
@@ -290,18 +415,18 @@ const string MazdaMachineTC::TestStepRainLightSensorVerification(void)
     if (IsRLSEquipped())
     {
     testResult = GenericTC::OperatorPassFail(GetPrompt("StartRLSTest"), GetParameterInt("StartRLSTestPromptTimeout")); 
-        if (testResult == BEP_PASS_RESPONSE)
-        {
-            //command plc to turn on light and spray devices
-    
-            SystemWrite(GetDataTag("EnableLightAndSprayDevice"), true);
-            status = StatusSleep( GetParameterInt("LightAndSprayDeviceActuationTime"));
+    if (testResult == BEP_PASS_RESPONSE)
+    {
+        //command plc to turn on light and spray devices
+
+        SystemWrite(GetDataTag("EnableLightAndSprayDevice"), true);
+        status = StatusSleep( GetParameterInt("LightAndSprayDeviceActuationTime"));
             SystemWrite(GetDataTag("EnableLightAndSprayDevice"), false);
     
-            //Operater pass / fail 
+        //Operater pass / fail 
         testResult = status == BEP_STATUS_SUCCESS ? GenericTC::OperatorPassFail(GetPrompt("VerifyRLSOperation"), 
 																				GetParameterInt("VerifyRLSOperationPromptTimeout")) : 
-                testFail;
+            testFail;
         }
         else
         {//test skipped by operator

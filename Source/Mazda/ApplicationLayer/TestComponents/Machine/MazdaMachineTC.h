@@ -57,6 +57,16 @@ public:
     virtual void Initialize(const XmlNode *config);
 
 protected:
+
+	/**
+	 * Stop the odometer test.
+	 * The current distance will be colelcted and used to determine the overall distance the vehicle traveled.
+	 * The distance will be sent to the PLC in km.
+	 * 
+	 * @return Result of calculating the distance traveled.
+	 */
+	string StopOdometerTest(void);
+
     /**
      * Perform a speedometer verification.
      * <p><b>Category:</b> Test Step
@@ -167,11 +177,26 @@ protected:
      */
     virtual const string StartTest(void);
 
-    /** 
-     * Do handshake procedure with plc to check if the diagnostic cable is connected
-     * 
-     */
-    virtual const string CableConnect(void);
+	/**
+	 * Instruct the operator through the disconnect sequence.
+	 * 1.  Turn off ignition
+	 * 2.  Disconnect cable
+	 * 3.  Start engine
+	 * 
+	 * @return Result of performing the disconnect sequence.
+	 */
+	const string VehicleDisconnect();
+
+	/**
+	 * Prompt the operator throught the vehicle setup procedure.
+	 * 1.  Ignition off
+	 * 2.  Connect cable
+	 * 3.  Apply brake pedal
+	 * 4.  Start the engine
+	 * 
+	 * @return Result of setting up the vehicle for test.
+	 */
+    const string VehicleSetup(void);
 
     /**
      * Sit in a wait loop until the operator begins accelerating.  This step will never timeout since a test could be
@@ -251,6 +276,8 @@ protected:
 
     /** Flag to indicate if the vehicle is equipped with RLS. */
     bool m_rlsEquipped;
+
+	WHEELINFO m_odoStartDistance;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaMachineTC_h

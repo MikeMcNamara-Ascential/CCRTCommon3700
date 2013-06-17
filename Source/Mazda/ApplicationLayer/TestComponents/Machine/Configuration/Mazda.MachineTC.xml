@@ -46,6 +46,7 @@
             <PublishTags/>
             <SubscribeTags>
                 <Abort/>
+                <CableConnect/>
                 <DriveAxle/>
                 <ForegroundTestInProgress/>
                 <MachineNumber/>
@@ -61,7 +62,12 @@
             </SubscribeTags>
         </TagList>
         <DataTags>
+            <!-- To do -->
+            <BroadcastRLSEquippedType>BodyStyle</BroadcastRLSEquippedType>
+
             <DriveAxle>DriveAxle</DriveAxle>
+            <EnableLightAndSprayDevice>TurnOnAuxillaryOutputOne</EnableLightAndSprayDevice>
+            <EngineRunningTag>IgnitionOnFromTestHead</EngineRunningTag>
             <Fail>red</Fail>
             <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
             <FourWDSelected>FourWDSelected</FourWDSelected>
@@ -72,6 +78,7 @@
             <MachineNumber>MachineNumber</MachineNumber>
             <MachineType>MachineType</MachineType>
             <MachineType3600>3600</MachineType3600>
+            <MaximumRollerSpeedTag>MaxRollerSpeed</MaximumRollerSpeedTag>
             <NoValue>Fail</NoValue>
             <ParkingBrakeTest>ParkingBrakeTest</ParkingBrakeTest>
             <ParkingBrakeTestFail>ParkingBrakeTestFailed</ParkingBrakeTestFail>
@@ -105,11 +112,14 @@
             <!-- Reverse test parameters -->
             <ReverseTestSpeed>10</ReverseTestSpeed>
             <ReverseSpeedTarget>10 15</ReverseSpeedTarget>
+            <PromptReverseTestSpeed>2.0</PromptReverseTestSpeed>
 
             <!-- Component behavior flags -->
             <KeepTestStatusOnExit>0</KeepTestStatusOnExit>
             <LogTaskStatInfo>Yes</LogTaskStatInfo>
             <SpeedConversionFactor>1.609344</SpeedConversionFactor>
+            <SingleEncoder>True</SingleEncoder>
+            <VehicleSpeedNeededForStart Units="mph">5</VehicleSpeedNeededForStart>
 
             <!-- Maintain speed parameters -->
             <MaintainSpeedTime>1000</MaintainSpeedTime>
@@ -141,24 +151,39 @@
             <ParkBrakeMinDistance>50</ParkBrakeMinDistance>
 
             <StartTestTimeoutPrompt>10000</StartTestTimeoutPrompt>
+
+            <ValidRLSEquippedTypes>
+                <Type00>Equipped</Type00>
+            </ValidRLSEquippedTypes>
+            <StartRLSTestPromptTimeout Units="ms">10000</StartRLSTestPromptTimeout>
+            <VerifyRLSOperationPromptTimeout Units="ms">10000</VerifyRLSOperationPromptTimeout>
+            <LightAndSprayDeviceActuationTime Units="ms">1500</LightAndSprayDeviceActuationTime>
         </Parameters>
         <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
         <Prompts>
             <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
             <AccelAboveSpeed PromptBox="2" Priority="0">AccelerateToMph</AccelAboveSpeed>
+            <ApplyBrakePedal PromptBox="1" Priority="0">ApplyBrake</ApplyBrakePedal>
+            <ConnectCable PromptBox="2" Priority="0">ConnectCable</ConnectCable>
+            <CableConnect PromptBox="2" Priority="0">ConnectCable</CableConnect>
+            <DisconnectCable PromptBox="1" Priority="0">DisconnectCable</DisconnectCable>
             <EnterYesOrNo PromptBox="1" Priority="0">EnterYesOrNo</EnterYesOrNo>
             <FlashHighbeams1 PromptBox="1" Priority="0">FlashHighbeams1</FlashHighbeams1>
             <FlashHighbeams2 PromptBox="2" Priority="0">FlashHighbeams2</FlashHighbeams2>
             <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
             <NeutralPrompt PromptBox="1" Priority="0">ShiftToNeutral</NeutralPrompt>
             <PassOrFail PromptBox="1" Priority="0">OverallPassOrFail</PassOrFail>
+            <StartRLSTest  PromptBox="1" Priority="0">StartRLSTest</StartRLSTest>
             <ShiftToReverse PromptBox="1" Priority="0">ApplyBrakeShiftToReverse</ShiftToReverse>
             <RemoveFootFromBrake PromptBox="1" Priority="0">RemoveFootFromBrake</RemoveFootFromBrake>
             <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+            <TurnOffIgnition PromptBox="1" Priority="0">KeyOff</TurnOffIgnition>
+            <StartEngine PromptBox="2" Priority="0">StartVehicle</StartEngine>
             <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
-            <StartTest PromptBox="1" Priority="0">PressButtonToStartTest</StartTest>
+            <StartTest PromptBox="2" Priority="0">PressButtonToStartTest</StartTest>
             <RaiseRollsLowerElevatorsInProgress PromptBox="1" Priority="0">RaiseRollsLowerElevatorsInProgress</RaiseRollsLowerElevatorsInProgress>
             <LowerRollsRaiseElevatorsInProgress PromptBox="1" Priority="0">LowerRollsRaiseElevatorsInProgress</LowerRollsRaiseElevatorsInProgress>
+            <VerifyRLSOperation PromptBox="1" Priority="0">VerifyRLSOperation</VerifyRLSOperation>
         </Prompts>
         <StatusCheckItems>
             <VehiclePresent>1</VehiclePresent>
@@ -178,7 +203,7 @@
         </BrakeToStop>
 
         <MachineStartup>
-            <TestStep01>CableConnect</TestStep01>
+            <TestStep01>VehicleTestSetup</TestStep01>
             <!-- TestStep2>InitializeTestHead</TestStep2 -->
             <TestStep10>StartTest</TestStep10>            
             <TestStep20>RaiseRollsLowerElevators</TestStep20>            
@@ -187,6 +212,10 @@
         <LowerElevators>
             <TestStep01>RaiseRollsLowerElevators</TestStep01>            
         </LowerElevators>
+
+        <RainLightSensorVerification>
+            <TestStep01>RainLightSensorVerification</TestStep01>            
+        </RainLightSensorVerification>
 
         <RaiseElevators>
             <TestStep01>LowerRollsRaiseElevators</TestStep01>            
@@ -208,7 +237,7 @@
         </ReverseTest>
 
         <FinishUp>
-            <TestStep00>PromptDriverAlways</TestStep00>
+            <TestStep00>VehicleDisconnect</TestStep00>
             <TestStep10>FinishUp</TestStep10>
             <TestStep20>LowerRollsRaiseElevators</TestStep20>            
         </FinishUp>
@@ -317,13 +346,16 @@
 
         <Reverse Result="" Description="Reverse Test Step" Timeout="300000" ScanDelay="250"/>
         <StartTest Result="" Description="Prompt the operator to press pass/fail button to start test" Timeout="30000" ScanDelay="250"/>
-        <CableConnect Result="" Description="Cable Connect Test Step" Timeout="300000" ScanDelay="250"/>
+        <VehicleDisconnect Result="" Timeout="60000" Description="Disconnect vehicle from the machine" ScanDelay="2000"/>
+        <VehicleTestSetup Result="" Timeout="60000" Description="Vehicle testing setup" ScanDelay="200"/>
         <InitializeTestHead Result="" Description="Follow Handshake Procedure To Setup ALC Interface" Timeout="300000" ScanDelay="250"/>
 
         <WaitForAcceleration Result="" Description="Wait for operator to start driving" Timeout="300000"/>
 
-        <RaiseRollsLowerElevators Result="" Description="Command Machine Raise Rolls / Lower Elevators" Timeout="300000" Prompt1="RaiseRollsLowerElevatorsInProgress" Prompt1Priority="0"  ScanDelay="250"/>
-        <LowerRollsRaiseElevators Result="" Description="Command Machine Lower Rolls / Raise Elevators" Timeout="300000" Prompt1="LowerRollsRaiseElevatorsInProgress" Prompt1Priority="0"  ScanDelay="250"/>
+
+        <RaiseRollsLowerElevators Result="" Description="Command Machine Raise Rolls / Lower Elevators" Timeout="10000" Prompt1="RaiseRollsLowerElevatorsInProgress" Prompt1Priority="0"  ScanDelay="250"/>
+        <LowerRollsRaiseElevators Result="" Description="Command Machine Lower Rolls / Raise Elevators" Timeout="10000" Prompt1="LowerRollsRaiseElevatorsInProgress" Prompt1Priority="0"  ScanDelay="250"/>
+        <RainLightSensorVerification Result="" Description="RLS operator verification" Timeout="30000" ScanDelay="250"/>
         <!--
         <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
             <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>

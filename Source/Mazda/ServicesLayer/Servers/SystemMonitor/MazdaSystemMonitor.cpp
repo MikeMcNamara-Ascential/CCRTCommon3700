@@ -79,13 +79,16 @@ const string MazdaSystemMonitor::Publish(const XmlNode *node)
 	{	// New vehicle type has been entered, load the vehicle build data
 		Log(LOG_DEV_DATA, "New vehicle type entered, commanding VDB to load build data");
 		CommandNdbData(READ_LATEST_BUILD_DATA_TAG, "1");
-		DisplayPrompt(1, "WheelbaseIncorrect");
-		BposSleep(250);
 		VehicleBuildDataLoaded(&buildDataLoaded);
+		DisplayPrompt(2, "MoveToTestPosition");
 	}
 	else if(m_dataBroker == NULL)
 	{	// Registration is not complete, cannot command NDB data
 		Log(LOG_ERRORS, "INamedDataBroker not created yet!");
+	}
+	else if (!node->getName().compare(WHEELBASE_INCHESX10))
+	{
+		DisplayPrompt(1, "WheelbaseIncorrect");
 	}
 	else if(!node->getName().compare(VIN_READ_STATUS_TAG) && node->getValue().compare(VALID_VEHICLE_VIN))
 	{
@@ -96,6 +99,7 @@ const string MazdaSystemMonitor::Publish(const XmlNode *node)
 		Log(LOG_DEV_DATA, "Test just completed, clear vehicle type");
 		VehicleBuildDataLoaded(&buildDataNotLoaded);
 		WriteNdbData(BODY_STYLE_TAG, GetDataTag("ClearBodyStyle"));
+		WriteNdbData(GetDataTag("OverallResultToPlcTag"), !node->getValue().compare(BEP_PASS_RESPONSE));
 		if(!node->getValue().compare(BEP_PASS_RESPONSE))
 		{
             StartRetRollPositionMove(LOWER_ROLLS);

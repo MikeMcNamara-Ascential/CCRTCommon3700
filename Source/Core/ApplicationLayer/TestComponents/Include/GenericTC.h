@@ -307,8 +307,9 @@ using namespace std;
 #define     DEG_GRAD                0.9                 // [deg] per [grad]
 #define     DEG_RAD                 57.2957795131       // [deg] per [rad]
 #define     CM_INCH                 2.54                // [cm/inch]
-#define     INCH_FEET               12
-#define     FEET_MILE               5280
+#define     INCH_FEET               12                  // inches in a foot
+#define     FEET_MILE               5280                // feet in a mile
+#define     KM_MILES                1.609344            // Km in a mile
 
 // the roller names, in order of the way they are provided by the ICM
 const static string rollerName[] = {"LeftFront", "RightFront",

@@ -181,10 +181,10 @@
         </ShiftTest>
         <SpeedBasedShiftTest>
             <TestStep00 AltValue="1">BlingGearSpeedTest</TestStep00>
-            <TestStep10>SpeedBasedGearTest_2</TestStep10>
-            <TestStep20>SpeedBasedGearTest_3</TestStep20>
+            <TestStep10 AltValue="2">BlingGearSpeedTest</TestStep10>
+            <TestStep20 AltValue="3">BlingGearSpeedTest</TestStep20>
             <TestStep30 AltValue="4">BlingGearSpeedTest</TestStep30>
-            <TestStep40>SpeedBasedGearTest_5</TestStep40>
+            <TestStep40 AltValue="5">BlingGearSpeedTest</TestStep40>
         </SpeedBasedShiftTest>
         <SpeedBasedShiftTestLow>
             <TestStep10>SpeedBasedGearTest_1</TestStep10>

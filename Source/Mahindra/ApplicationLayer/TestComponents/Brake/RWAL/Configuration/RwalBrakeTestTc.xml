@@ -132,6 +132,8 @@
             <RightRearParkBrakeForceValue>RightRearParkBrakeForceValue</RightRearParkBrakeForceValue>
             <RightRearParkBrakeForceBGCOlor>RightRearParkBrakeForceBGCOlor</RightRearParkBrakeForceBGCOlor>
             <RRSpeed>RRSpeed</RRSpeed>
+            <RwalEquippedBuildItemTag>ABSType</RwalEquippedBuildItemTag>
+            <RwalEQuippedValue>RWAL</RwalEQuippedValue>
             <SpeedTarget>SpeedTarget</SpeedTarget>
             <Zerospeed>Zerospeed</Zerospeed>
         </DataTags>

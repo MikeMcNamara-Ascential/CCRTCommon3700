@@ -1,6 +1,8 @@
 <VehicleBuildRecord>
     <VehicleBuild>
+        <ABSType>None</ABSType>
         <BrakeType>BaseBrake</BrakeType>
+        <DriveAxle>Rear</DriveAxle>
         <TransferCase>2WD</TransferCase>
         <Wheelbase Units="mm">3014</Wheelbase>
         <UseLargeTireOpening>Yes</UseLargeTireOpening>

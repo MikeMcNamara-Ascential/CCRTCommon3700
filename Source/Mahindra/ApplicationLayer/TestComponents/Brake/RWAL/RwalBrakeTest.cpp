@@ -63,7 +63,7 @@ string RwalBrakeTest<ModuleType>::ValidateRwalSensor(void)
 {   // Log the entry and check if this step should be performed
 	Log(LOG_FN_ENTRY, "RwalBrakeTest::ValidateRwalSensor() - Enter");
 	string result(BEP_TESTING_RESPONSE);
-	if(!ShortCircuitTestStep())
+	if(!ShortCircuitTestStep() && IsRwalEquipped())
 	{
 	    INT32 sampleCount = 0;
 		float currentSample = 0.0;
@@ -145,4 +145,16 @@ string RwalBrakeTest<ModuleType>::ValidateRwalSensor(void)
 	// Log the exit and return the result
 	Log(LOG_FN_ENTRY, "RwalBrakeTest::ValidateRwalSensor() - Exit");
 	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+bool RwalBrakeTest<ModuleType>::IsRwalEquipped(void)
+{
+	string rwalValue(SystemRead(GetDataTag("RwalEquippedBuildItemTag")));
+	string rwalCompare(GetDataTag("RwalEQuippedValue"));
+	bool rwalEquipped = !rwalValue.compare(rwalCompare);
+	Log(LOG_DEV_DATA, "Vehicle equipped with RWAL: %s - ABS Type: %s,  RWAL Type: %s",
+		rwalEquipped ? "True" : "False", rwalValue.c_str(), rwalCompare.c_str());
+	return rwalEquipped;
 }

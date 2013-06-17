@@ -49,6 +49,17 @@ protected:
 	 * @return Result of validating the RWAL sensor reading.
 	 */
 	string ValidateRwalSensor(void);
+
+
+
+private:
+
+	/**
+	 * Check the build data to determine if the vehicle is equipped with RWAL.
+	 * 
+	 * @return Flag indicating if the vehicle is equipped with RWAL.
+	 */
+	bool IsRwalEquipped(void);
 };
 
 //-------------------------------------------------------------------------------------------------

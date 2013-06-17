@@ -1,6 +1,8 @@
 <VehicleBuildRecord>
     <VehicleBuild>
+        <ABSType>RWAL</ABSType>
         <BrakeType>BaseBrake</BrakeType>
+        <DriveAxle>Rear</DriveAxle>
         <TransferCase>2WD</TransferCase>
         <Wheelbase Units="mm">2680</Wheelbase>
         <UseLargeTireOpening>Yes</UseLargeTireOpening>

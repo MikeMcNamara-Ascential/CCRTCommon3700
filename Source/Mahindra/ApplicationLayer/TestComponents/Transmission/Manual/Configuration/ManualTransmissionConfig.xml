@@ -38,8 +38,8 @@
             <MaxSpeedDelay_Gear9 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear9>
             <NumberOfFwdGears>6</NumberOfFwdGears>
             <!-- Parameters for Checking Reverse Gear Operation -->
-            <ReverseSpeedMinimum>2.0</ReverseSpeedMinimum>
-            <ReverseSpeedMaximum>7.0</ReverseSpeedMaximum>
+            <ReverseSpeedMinimum>5.0</ReverseSpeedMinimum>
+            <ReverseSpeedMaximum>10.0</ReverseSpeedMaximum>
             <!-- Parameters for acceleration Test -->
             <AccelerationTestEndSpeed>43.4959835</AccelerationTestEndSpeed>
             <AccelerationTestMaxTime>30.0</AccelerationTestMaxTime>
@@ -181,10 +181,10 @@
         </ShiftTest>
         <SpeedBasedShiftTest>
             <TestStep00 AltValue="1">BlingGearSpeedTest</TestStep00>
-            <TestStep10 AltValue="2">BlingGearSpeedTest</TestStep10>
-            <TestStep20 AltValue="3">BlingGearSpeedTest</TestStep20>
+            <TestStep10>SpeedBasedGearTest_2</TestStep10>
+            <TestStep20>SpeedBasedGearTest_3</TestStep20>
             <TestStep30 AltValue="4">BlingGearSpeedTest</TestStep30>
-            <TestStep40 AltValue="5">BlingGearSpeedTest</TestStep40>
+            <TestStep40>SpeedBasedGearTest_5</TestStep40>
         </SpeedBasedShiftTest>
         <SpeedBasedShiftTestLow>
             <TestStep10>SpeedBasedGearTest_1</TestStep10>

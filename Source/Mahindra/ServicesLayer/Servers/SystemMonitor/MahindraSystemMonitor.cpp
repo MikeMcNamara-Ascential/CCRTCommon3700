@@ -97,8 +97,8 @@ void MahindraSystemMonitor::CheckTesting(ControlData *ctrl)
 				(ctrl->vehVinReadStatus == VALID_VEHICLE_VIN) && !testSelected)
 		{	// Remove prompts and command test to start
 			RemovePrompt(2, "RaiseRetainers");
-			// Start the test sequence 
-			CommandNdbData(string(COMMAND_TEST), string(TEST_BASE_BRAKE));
+			// Start the test sequence
+			CommandNdbData(START_VEHICLE_TEST_DATA_TAG, true);
 			// Invalidate the build data
 			WriteNdbData(VIN_READ_STATUS_TAG, string(INVALID_VEHICLE_VIN));
 			testSelected = true;

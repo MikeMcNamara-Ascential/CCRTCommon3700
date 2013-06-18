@@ -408,7 +408,7 @@ const string BaseBrakeTool::TestStepAccelerate (void)
 
                     if(testStatus == BEP_STATUS_SUCCESS)
                     {   // wait till arm speed is achieved or we timeout
-                        armSpeed = m_component->GetTestStepInfoFloat("ArmSpeed");
+                        armSpeed = fabs(m_component->GetTestStepInfoFloat("ArmSpeed"));
                         // Display Prompts
                         if(m_component->UpdatePrompts() != BEP_STATUS_SUCCESS)
                             m_component->Log(LOG_ERRORS, "Unable to Update Prompts\n");
@@ -419,8 +419,8 @@ const string BaseBrakeTool::TestStepAccelerate (void)
                         int intermediateSpeedPoint = 0;
                         string speedPtTargetParam = "SpeedPoint";
                         float prevSpeedTarget;
-                        float speedPtTarget = m_component->GetParameterFloat(speedPtTargetParam +
-                                                                             CreateMessage( buff, sizeof(buff), "%02d", intermediateSpeedPoint));
+                        float speedPtTarget = fabs(m_component->GetParameterFloat(speedPtTargetParam +
+                                                                             CreateMessage( buff, sizeof(buff), "%02d", intermediateSpeedPoint)));
                         int numAccelPts = m_component->GetParameterInt("NumberOfAccelerationPoints");
                         bool recordAccelPtsDone = false;
 
@@ -453,7 +453,7 @@ const string BaseBrakeTool::TestStepAccelerate (void)
                         }
                         do
                         {   // read the current speed and update the display
-                            speed = GetSpeed();
+                            speed = fabs(GetSpeed());
                             if(speed < armSpeed)   // if not at speed yet
                             {
                                 // check the machine status and wait if ok
@@ -1042,8 +1042,8 @@ INT32 BaseBrakeTool::DynamicParkBrake(INT32 &brakeStart, INT32 &brakeEnd, const 
     m_component->Log( LOG_FN_ENTRY, "Enter BaseBrakeTool::DynamicParkBrake()\n");
     try
     {   // update the the brake force until the speed is below the min sample speed
-        float startSampleSpeed = m_component->GetParameterFloat("ParkBrakeStartSampleSpeed");
-        float endSampleSpeed = m_component->GetParameterFloat("ParkBrakeEndSampleSpeed");
+        float startSampleSpeed = fabs(m_component->GetParameterFloat("ParkBrakeStartSampleSpeed"));
+        float endSampleSpeed = fabs(m_component->GetParameterFloat("ParkBrakeEndSampleSpeed"));
         bool  startSamplingAtMinForce = m_component->GetParameterBool("ParkBrakeStartSamplingAtMinimumForce");
         float minimumStartForce = m_component->GetParameterFloat("ParkBrakeMinimumStartForce");
         int   forceSampleCount = m_component->GetParameterInt("ParkBrakeForceSampleCount");
@@ -1057,7 +1057,7 @@ INT32 BaseBrakeTool::DynamicParkBrake(INT32 &brakeStart, INT32 &brakeEnd, const 
         safeBrakeStart = m_component->TagArray( tagPrefix+"Start");
         do
         {
-            speed = GetSpeed();
+            speed = fabs(GetSpeed());
 
             // If we want base brake sampling to start/stop based on force/sample count
             if((0 < forceSampleCount) && (true == startSamplingAtMinForce))

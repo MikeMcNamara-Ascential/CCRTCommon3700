@@ -1,4 +1,0 @@
-#vehiclebuildrecord.definition.path=/Configuration/Servers/VehicleBuildRecordDefinition.xml
-vehiclebuildrecord.definition.path=/Configuration/Servers/VehicleBuildRecord.xml
-vehiclebuildrecord.vin.prefix=Vin
-vehiclebuildrecord.vin.vinlength=8

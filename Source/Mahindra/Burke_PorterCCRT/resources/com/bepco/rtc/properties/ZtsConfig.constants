@@ -1,5 +1,0 @@
-#ztsconfig.constants
-ztseditor.fields=10
-ztseditor.filename=Configuration/Servers/VehicleBuildTable.xml
-ztseditor.optionfilename=Configuration/Servers/ZtsOptions.xml
-

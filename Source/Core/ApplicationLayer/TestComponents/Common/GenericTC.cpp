@@ -5916,6 +5916,7 @@ const float GenericTC::GetVehicleParameter(const string &parameterName, const fl
     }
     catch(XmlException &excpt)
     {   // Parameter is not in the build data, try just the normal parameter list
+		Log(LOG_ERRORS, "%s not found in build data, getting from config file - %s", parameterName.c_str(), excpt.GetReason());
         int startIndex = parameterName.find_last_of("/") + 1;
         try
         {
@@ -5925,6 +5926,8 @@ const float GenericTC::GetVehicleParameter(const string &parameterName, const fl
         }
         catch(XmlException &excpt)
         {   // Parameter is not in the normal parameter list, try test step info
+			Log(LOG_ERRORS, "%s not found in parameters, getting from test step info - %s", 
+				parameterName.c_str(), excpt.GetReason());
             value = GetTestStepInfoFloat(parameterName.substr(startIndex != (int)(parameterName.npos) ? startIndex : 0));
         }
     }

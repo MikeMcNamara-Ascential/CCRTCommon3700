@@ -59,6 +59,8 @@
             <FrontBalanceValue>0</FrontBalanceValue>
             <FrontToRearBalanceBGColor>white</FrontToRearBalanceBGColor>
             <FrontToRearBalanceValue>0</FrontToRearBalanceValue>
+            <LeftRearParkBrakeForceValue>0.0</LeftRearParkBrakeForceValue>
+            <LeftRearParkBrakeForceBGColor>white</LeftRearParkBrakeForceBGColor>
             <LFDragBGColor>white</LFDragBGColor>
             <LFDragValue>0</LFDragValue>
             <LFForceBGColor>white</LFForceBGColor>
@@ -79,6 +81,8 @@
             <RFForceDomain>0 500</RFForceDomain>
             <RFForceTarget>200 400</RFForceTarget>
             <RFForceValue>0</RFForceValue>
+            <RightRearParkBrakeForceValue>0.0</RightRearParkBrakeForceValue>
+            <RightRearParkBrakeForceBGColor>white</RightRearParkBrakeForceBGColor>
             <RRDragBGColor>white</RRDragBGColor>
             <RRDragValue>0</RRDragValue>
             <RRForceBGColor>white</RRForceBGColor>
@@ -181,13 +185,13 @@
             <DisplayBrakeTargetSpeeds>False</DisplayBrakeTargetSpeeds>
 
             <!-- Park Brake Parameters -->
-            <ParkBrakeArmSpeed Units="mph">-5.0</ParkBrakeArmSpeed>
+            <ParkBrakeArmSpeed Units="mph">-10.0</ParkBrakeArmSpeed>
             <ParkBrakeEndSampleSpeed Units="mph">-0.5</ParkBrakeEndSampleSpeed>
             <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount>
             <ParkBrakeMaxForce Units="lbf">300</ParkBrakeMaxForce>
             <ParkBrakeMinForce Units="lbf">100</ParkBrakeMinForce>
             <ParkBrakeMinimumStartForce Units="lbf">100</ParkBrakeMinimumStartForce>
-            <ParkBrakeStartSampleSpeed Units="mph">-5.0</ParkBrakeStartSampleSpeed>
+            <ParkBrakeStartSampleSpeed Units="mph">-10.0</ParkBrakeStartSampleSpeed>
             <ParkBrakeStartSamplingAtMinimumForce>False</ParkBrakeStartSamplingAtMinimumForce>
 
             <!-- RWAL Test Parameters -->
@@ -256,8 +260,8 @@
             SpeedTarget="5 10" ArmSpeed="55" 
             Prompt1="AccelerateToTargetSpeed"/>
         <AnalyzeBalance Result="Not Tested" Timeout="100" Description="Analyze brake force balance" 
-            FrontSideToSideBalance="10" RearSideToSideBalance="10" 
-            BalanceFrontToRearMin="50" BalanceFrontToRearMax="80"/>
+            FrontSideToSideBalance="20" RearSideToSideBalance="20" 
+            BalanceFrontToRearMin="30" BalanceFrontToRearMax="80"/>
         <AnalyzeBrakeTest Result="Not Tested" Timeout="500" Description="Analyze brake forces" 
             FrontMaxBrakeForce="400" FrontMinBrakeForce="150" 
             RearMaxBrakeForce="400" RearMinBrakeForce="75"/>
@@ -267,13 +271,14 @@
         <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" 
             Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" 
             StartBrakeSampleSpeed="30" EndBrakeSampleSpeed="15" 
-            BrakeDomain="0 500" BrakeTarget="150 400"/>
+            BrakeDomain="0 500" BrakeTarget="275 475"/>
         <DisableForceMeter Result="Not Tested" Timeout="1000" Description="Disable the brake force meter"/>
-        <DragTest Result="Not Tested" Timeout="30000" Description="Measure vehicle drag forces" 
+        <DragTest Result="Not Tested" Timeout="300000" Description="Measure vehicle drag forces" 
             Prompt1="ShiftToNeutral" Prompt2="RemoveFootFromAccelerator" 
             DragSpeed="35" DragDelay="1000" DragSamples="50"/>
         <DynamicParkBrakeTest Result="" Timeout="30000" Description="Perform the park brake test"
-            BrakeDomain="0 500" BrakeTarget="100 300"/>
+            BrakeDomain="0 500" BrakeTarget="100 300"
+            Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake"/>
 
         <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
         <Initialize Result="Not Tested" Timeout="100" Description="Initialize the force thread and data arrays" 

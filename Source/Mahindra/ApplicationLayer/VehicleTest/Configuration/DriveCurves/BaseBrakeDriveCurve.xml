@@ -70,6 +70,13 @@
                 </Objective0>
             </BackgroundObjectives>
         </TestPhase205>
+        <TestPhase210 Description="Engage the machine" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Engage the machine" Result="" Timeout="" Component="Machine">
+                    <EngageMachine/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase210>
 
         <!-- Final Low Speed Testing -->
         <TestPhase300 Description="Reverse gear testing" Result="" Timeout="">

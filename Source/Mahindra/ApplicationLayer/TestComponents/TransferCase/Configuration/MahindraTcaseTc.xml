@@ -128,13 +128,13 @@
             <AxleRatioMinimum Units="percent">97.0</AxleRatioMinimum>
             <AxleRatioMaximum Units="percent">103.0</AxleRatioMaximum>
             <AxleRatioSkipPreconditions>False</AxleRatioSkipPreconditions>
-            <CheckShift4LOEngineRunning>Skip</CheckShift4LOEngineRunning>
-            <CheckShift4LOKeyPosition>Skip</CheckShift4LOKeyPosition>
-            <CheckShift4LOMinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</CheckShift4LOMinimumShiftSpeed>
-            <CheckShift4LOThrottlePosition>Skip</CheckShift4LOThrottlePosition>
-            <CheckShift4LOTransmissionGear>Skip</CheckShift4LOTransmissionGear>
-            <CheckShift4LOVerifyMethod>Prompt</CheckShift4LOVerifyMethod>
-            <MaximumAxleRatioAttempts>3</MaximumAxleRatioAttempts>
+            <CheckShift4LOWEngineRunning>Skip</CheckShift4LOWEngineRunning>
+            <CheckShift4LOWKeyPosition>Skip</CheckShift4LOWKeyPosition>
+            <CheckShift4LOWMinimumShiftSpeed Units="km/h" ConvertToEnglishUnits="True">0.0</CheckShift4LOWMinimumShiftSpeed>
+            <CheckShift4LOWThrottlePosition>Skip</CheckShift4LOWThrottlePosition>
+            <CheckShift4LOWTransmissionGear>Skip</CheckShift4LOWTransmissionGear>
+            <CheckShift4LOWVerifyMethod>Prompt</CheckShift4LOWVerifyMethod>
+            <MaximumAxleRatioAttempts>1</MaximumAxleRatioAttempts>
 
         </Parameters>
 
@@ -143,7 +143,7 @@
             <ApplyClutch PromptBox="1" Priority="0">ApplyClutch</ApplyClutch>
             <CheckShift2WDShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift2WDShiftTcase>
             <CheckShift4HIShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4HIShiftTcase>
-            <CheckShift4LOShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4LOShiftTcase>
+            <CheckShift4LOWShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4LOWShiftTcase>
             <ShiftToDrive PromptBox="1" Priority="0">ShiftToFirst</ShiftToDrive>
             <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
             <TcaseTesting PromptBox="1" Priority="0">TransferCaseTest</TcaseTesting>
@@ -174,7 +174,7 @@
 
     <TestSteps>
 
-        <Check4HIAxleBalance Result="" Timeout="10000" Description="Check axle balance in 4-HI" ScanDelay="500"
+        <Check4HIAxleBalance Result="" Timeout="60000" Description="Check axle balance in 4-HI" ScanDelay="500"
             AbortOnFail="False"/>
 
         <CheckAxleRatio Result="Not Tested" Timeout="30000" Description="Verify Axle Ratio" ScanDelay="500" 
@@ -187,13 +187,13 @@
             CommandMessageDelay="5000" 
             TcaseGear="2WD" TargetSpeed="30" MinimumSpeed="0" MaximumSpeed="5"/>
 
-        <CheckShift4HI Result="Not Tested" Timeout="5000" Description="Test Tcase 4HI" ScanDelay="500" 
+        <CheckShift4HI Result="Not Tested" Timeout="10000" Description="Test Tcase 4HI" ScanDelay="500" 
             SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" 
             ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" 
             CommandMessageDelay="5000" 
             TcaseGear="4-HI" TargetSpeed="10" MinimumSpeed="0" MaximumSpeed="5"/>
 
-        <CheckShift4LOW Result="Not Tested" Timeout="5000" Description="Test Tcase 4LO" ScanDelay="500" 
+        <CheckShift4LOW Result="Not Tested" Timeout="10000" Description="Test Tcase 4LO" ScanDelay="500" 
             SpeedSampleDelay="500" TcaseMessageDelay="10000" TransmissionMessageDelay="5000" 
             ThrottleMessageDelay="5000" EngineOnOffMessageDelay="5000" KeyOnOffMessageDelay="5000" 
             CommandMessageDelay="5000" 

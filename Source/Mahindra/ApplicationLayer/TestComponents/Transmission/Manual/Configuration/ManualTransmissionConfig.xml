@@ -8,6 +8,7 @@
             <ICMName>mgr/ICM</ICMName>
             <DeveloperTest>False</DeveloperTest>
             <UsePlcResultButtons>True</UsePlcResultButtons>
+            <DisplayTargetForBlindCheck>True</DisplayTargetForBlindCheck>
             <!-- Parameters for shift tests -->
             <MaxSpeedTarget_Gear1 Description="Max speed target for 1st gear" Units="MPH">7</MaxSpeedTarget_Gear1>
             <MaxSpeedTolerance_Gear1 Description="Max speed tolerance (+ or -) for 1st gear" Units="MPH">3</MaxSpeedTolerance_Gear1>
@@ -38,8 +39,8 @@
             <MaxSpeedDelay_Gear9 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear9>
             <NumberOfFwdGears>6</NumberOfFwdGears>
             <!-- Parameters for Checking Reverse Gear Operation -->
-            <ReverseSpeedMinimum>5.0</ReverseSpeedMinimum>
-            <ReverseSpeedMaximum>10.0</ReverseSpeedMaximum>
+            <ReverseSpeedMinimum>10.0</ReverseSpeedMinimum>
+            <ReverseSpeedMaximum>20.0</ReverseSpeedMaximum>
             <!-- Parameters for acceleration Test -->
             <AccelerationTestEndSpeed>43.4959835</AccelerationTestEndSpeed>
             <AccelerationTestMaxTime>30.0</AccelerationTestMaxTime>
@@ -169,7 +170,6 @@
     <Objectives>
         <ReverseTesting>
             <TestStep00>AccelerateInReverse</TestStep00>
-            <TestStep10>BrakeToStop</TestStep10>
         </ReverseTesting>
         <ShiftTest>
             <TestStep10>GearTest_1</TestStep10>
@@ -179,11 +179,14 @@
             <TestStep50>GearTest_5</TestStep50>
             <TestStep60>GearTest_6</TestStep60>
         </ShiftTest>
+        <DebugTest>
+            <TestStep10>SpeedBasedGearTest_2</TestStep10>
+        </DebugTest>
         <SpeedBasedShiftTest>
-            <TestStep00 AltValue="1">BlingGearSpeedTest</TestStep00>
+            <TestStep00>SpeedBasedGearTest_1</TestStep00>
             <TestStep10>SpeedBasedGearTest_2</TestStep10>
             <TestStep20>SpeedBasedGearTest_3</TestStep20>
-            <TestStep30 AltValue="4">BlingGearSpeedTest</TestStep30>
+            <TestStep30>SpeedBasedGearTest_4</TestStep30>
             <TestStep40>SpeedBasedGearTest_5</TestStep40>
         </SpeedBasedShiftTest>
         <SpeedBasedShiftTestLow>

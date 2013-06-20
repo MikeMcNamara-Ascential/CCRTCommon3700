@@ -130,10 +130,23 @@ const string ManualTransmissionTC::BlindGearSpeedCheck(const string &gear)
 {
 	string result(BEP_TESTING_RESPONSE);
 	Log(LOG_FN_ENTRY, "ManualTransmissionTC::BlindGearSpeedCheck(Gear: %s) - Enter", gear.c_str());
+	string targetSpeedParamName(GetComponentName() + string("/") + "SpeedBasedShiftTestParameters" + string("/") + 
+								string("SpeedBasedGearTest_") + gear + string("/") + "MaxSpeedTarget");
+	string toleranceParamName(GetComponentName() + string("/") + "SpeedBasedShiftTestParameters" + string("/") + 
+								string("SpeedBasedGearTest_") + gear + string("/") + "MaxSpeedTolerance");
+	float targetSpeed = GetVehicleParameter(targetSpeedParamName, (float)(0.0));
+	float speedTolerance = GetVehicleParameter(toleranceParamName, (float)(0.0));
+	char buff[32];
+	string speedRange(CreateMessage(buff, sizeof(buff), "%.2f %.2f", 
+									(targetSpeed - speedTolerance), (targetSpeed + speedTolerance)));
 	if(!ShortCircuitTestStep())
 	{   // Disable the speedometer
 		SystemWrite(GetDataTag("SpeedActive"), false);
 		// Prompt the operator to shift to gear and accelerate to maximum gear speed
+		if(GetParameterBool("DisplayTargetForBlindCheck"))
+		{
+			SystemWrite("SpeedTarget", speedRange);
+		}
 		DisplayPrompt(GetPromptBox("ShiftToGearAndAccelerate"), GetPrompt("ShiftToGearAndAccelerate"),
 					  GetPromptPriority("ShiftToGearAndAccelerate"), "white", gear);
 		// Wait for the operator to complete
@@ -142,8 +155,11 @@ const string ManualTransmissionTC::BlindGearSpeedCheck(const string &gear)
 		float testSpeed = GetRollSpeed();
 		// Re-enable the speedometer
 		SystemWrite(GetDataTag("SpeedActive"), true);
+		if(GetParameterBool("DisplayTargetForBlindCheck"))
+		{
+			SystemWrite( "SpeedTarget", string("0 0"));
+		}
 		// Report the result
-		char buff[32];
 		SendSubtestResultWithDetail(GetTestStepName() + "_" + gear, testPass, GetTestStepInfo("Description"), "0000",
 									"MaxSpeed", CreateMessage(buff, sizeof(buff), "%.4f", testSpeed), unitsMPH,
 									"RealResult", result, "");
@@ -399,6 +415,7 @@ const string ManualTransmissionTC::TestStepSpeedBasedShiftTest(const string &val
         }
 
         RemovePrompts();
+		SystemWrite( "SpeedTarget", string("0 0"));
 
         string testResultName(GetTestStepName());
         if(!SystemReadBool("FrontAxleTestSelected") && SystemReadBool("LiftAxleTestSelected"))

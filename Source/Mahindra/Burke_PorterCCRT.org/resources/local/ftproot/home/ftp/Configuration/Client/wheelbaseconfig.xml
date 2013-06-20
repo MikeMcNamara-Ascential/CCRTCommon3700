@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<WheelbaseConfig>
+  <PendantConfig>
+    <Button0 Wheelbase="125.0"/>
+    <Button1 Wheelbase="128.5"/>
+    <Button2 Wheelbase="125.0"/>
+    <Button3 Wheelbase="135.0"/>
+    <Button4 Wheelbase="150.5"/>
+    <Button5 Wheelbase="150.0"/>
+  </PendantConfig>
+  <VehicleConfig>
+    <Vehicle0 BodyStyle="DN*" Description="Dakota Series Pickup" 
+	            ModelYear="????" Wheelbase="150.0" ButtonIndex="4" />
+    <Vehicle1 BodyStyle="CMV?2??" Description="Caravan SE" 
+	            ModelYear="20??" Wheelbase="135.0" ButtonIndex="3" />
+    <Vehicle2 BodyStyle="CMV?3??" Description="Voyager SE" 
+	            ModelYear="20??" Wheelbase="135.0" ButtonIndex="3" />
+    <Vehicle3 BodyStyle="PT*" Description="PT Cruiser" 
+	            ModelYear="200?" Wheelbase="125.0" ButtonIndex="0" />
+  </VehicleConfig>
+</WheelbaseConfig>

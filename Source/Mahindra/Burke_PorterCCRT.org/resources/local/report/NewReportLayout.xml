@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtReportConfig SYSTEM "resource:///com/bepco/rtc/report/rtreportconfig.dtd">
+
+      <RtReportConfig>
+       <ReportLayout>
+           <Title>DCX Jefferson North Vehicle Test Report</Title>
+           <TestIdBlock>
+               <Column width="65">
+                   <ServerTag tagname="VIN" label="VIN"/>
+                   <StaticText label="Machine Number 1"/>
+                   <Timestamp/>
+                   <TestResultDetail tagname="MachineDriverNumber" childtagname="DriverNumber" label="Driver"/>
+									 <FetchedServerTag tagname="ServerID" label="Software ID"/>
+									 <FetchedServerTag tagname="MachineNumber" label="Machine ID"/>
+               </Column>
+           </TestIdBlock>
+   
+           <HorizontalBar/>
+   
+           <BuildDataBlock label="Build Data">
+               <Column width="30">
+                   <ServerTag tagname="Transmission" label="Transmission"/>
+                   <ServerTag tagname="BrakeType" label="Brake"/>
+                   <ServerTag tagname="SpeedControl" label="Cruise"/>
+                   <ServerTag tagname="TransferCase" label="T-case"/>
+                   <ServerTag tagname="Axle" label="Axle"/>
+               </Column>
+               <Column width="30">
+                   <ServerTag tagname="TirePressureMonitor" label="TPM"/>
+                   <ServerTag tagname="MarketType" label="Market"/>
+                   <ServerTag tagname="Suspension" label="Radio"/>
+                   <ServerTag tagname="PCMPartNo" label="PCM Part Number"/>
+                   <ServerTag tagname="ABSPartNo" label="ABS Part Number"/>
+               </Column>
+               <Column width="30">
+                   <ServerTag tagname="BuildDate" label="Date"/>
+                   <ServerTag tagname="BuildTime" label="Time"/>
+                   <ServerTag tagname="PerformAbortTest" label="PFS Status"/>
+               </Column>
+            </BuildDataBlock>
+   
+            <HorizontalBar/>
+            <BrakeResultsBlock>
+                  <Column width="34">
+                     <StaticText label="SERVICE BRAKE RESULTS"/>
+                     <BrakeResult tagname="BrakeLeftFrontDragTest" label="LEFT FRONT DRAG FORCE"/>
+                     <BrakeResult tagname="BrakeRightFrontDragTest" label="RIGHT FRONT DRAG FORCE"/>
+                     <BrakeResult tagname="BrakeLeftRearDragTest" label="LEFT REAR DRAG FORCE"/>
+                     <BrakeResult tagname="BrakeLeftRearDragTest" label="RIGHT REAR DRAG FORCE"/>
+                     <p/>
+                     <BrakeResult tagname="BrakeLeftFrontForceTest" label="LEFT FRONT BRAKE FORCE"/>
+                     <BrakeResult tagname="BrakeRightFrontForceTest" label="RIGHT FRONT BRAKE FORCE"/>
+                     <BrakeResult tagname="BrakeLeftRearForceTest" label="LEFT REAR BRAKE FORCE"/>
+                     <BrakeResult tagname="BrakeRightRearForceTest" label="RIGHT REAR BRAKE FORCE"/>
+                     <p/>
+                     <BrakeResult tagname="BrakeFrontBalanceTest" label="FRONT BRAKE BALANCE"/>
+                     <BrakeResult tagname="BrakeRearBalanceTest" label="REAR BRAKE BALANCE"/>
+                     <BrakeResult tagname="BrakeFrontToRearBalanceTest" label="FRONT/REAR BRAKE BALANCE"/>
+                  </Column>
+                  <Column width="15">
+                    <StaticText label="LOW"/>
+                    <StaticText label="---"/>
+                    <StaticText label="---"/>
+                    <StaticText label="---"/>
+                    <StaticText label="---"/>
+                    <p/>
+                     <BrakeResult tagname="BrakeLeftFrontForceTest" childtagname="MinBrakeForce" />
+                     <BrakeResult tagname="BrakeRightFrontForceTest" childtagname="MinBrakeForce" />
+                     <BrakeResult tagname="BrakeLeftRearForceTest" childtagname="MinBrakeForce" />
+                     <BrakeResult tagname="BrakeRightRearForceTest" childtagname="MinBrakeForce" />
+                     <p/>
+                     <BrakeResult tagname="BrakeFrontBalanceTest" childtagname="MinPercentBalance"/>
+                     <BrakeResult tagname="BrakeRearBalanceTest" childtagname="MinPercentBalance"/>
+                     <BrakeResult tagname="BrakeFrontToRearBalanceTest" childtagname="MinPercentBalance"/>
+                  </Column>
+                  <Column width="15" >
+                     <StaticText label="HIGH"/>
+                     <BrakeResult tagname="BrakeLeftFrontDragTest" childtagname="MaxDragForce" />
+                     <BrakeResult tagname="BrakeRightFrontDragTest" childtagname="MaxDragForce" />
+                     <BrakeResult tagname="BrakeLeftRearDragTest" childtagname="MaxDragForce" />
+                     <BrakeResult tagname="BrakeRightRearDragTest" childtagname="MaxDragForce" />
+                     <p/>
+                     <BrakeResult tagname="BrakeLeftFrontForceTest" childtagname="MaxBrakeForce" />
+                     <BrakeResult tagname="BrakeRightFrontForceTest" childtagname="MaxBrakeForce" />
+                     <BrakeResult tagname="BrakeLeftRearForceTest" childtagname="MaxBrakeForce" />
+                     <BrakeResult tagname="BrakeRightRearForceTest" childtagname="MaxBrakeForce" />
+                     <p/>
+                     <BrakeResult tagname="BrakeFrontBalanceTest" childtagname="MaxPercentBalance"/>
+                     <BrakeResult tagname="BrakeRearBalanceTest" childtagname="MaxPercentBalance"/>
+                     <BrakeResult tagname="BrakeFrontToRearBalanceTest" childtagname="MaxPercentBalance"/>
+
+
+                  </Column>
+                  <Column width="15">
+                     <StaticText label="RESULT"/>
+                     <BrakeResult tagname="BrakeLeftFrontDragTest" childtagname="DragForce" />
+                     <BrakeResult tagname="BrakeRightFrontDragTest" childtagname="DragForce" />
+                     <BrakeResult tagname="BrakeLeftRearDragTest" childtagname="DragForce" />
+                     <BrakeResult tagname="BrakeRightRearDragTest" childtagname="DragForce" />
+                     <p/>
+                     <BrakeResult tagname="BrakeLeftFrontForceTest" childtagname="BrakeForce" />
+                     <BrakeResult tagname="BrakeRightFrontForceTest" childtagname="BrakeForce" />
+                     <BrakeResult tagname="BrakeLeftRearForceTest" childtagname="BrakeForce" />
+                     <BrakeResult tagname="BrakeRightRearForceTest" childtagname="BrakeForce" />
+                     <p/>
+                     <BrakeResult tagname="BrakeFrontBalanceTest" childtagname="Value"/>
+                     <BrakeResult tagname="BrakeRearBalanceTest" childtagname="Value"/>
+                     <BrakeResult tagname="BrakeFrontToRearBalanceTest" childtagname="Value"/>
+                  </Column>
+            </BrakeResultsBlock>
+            
+            <HorizontalBar/>
+   
+            <TestResultsBlock>
+               <Column >
+                   <TestProcess showdetail="failures" tagname="OverallTest" label="Overall Test Result"/>
+                   <TestProcess showdetail="failures" tagname="BrakeOverallTest" label="Brake"/>
+                   <TestProcess showdetail="failures" tagname="EmissionsOverallTest" label="Emissions"/>
+                   <TestProcess showdetail="failures" tagname="TransmissionOverallTest" label="Transmission"/>
+                   <TestProcess showdetail="failures" tagname="SpeedControlOverallTest" label="Speed Control"/>
+                   <TestProcess showdetail="failures" tagname="ETCOverallTest" label="Electronic Throttle Control"/>
+                   <TestProcess showdetail="failures" tagname="TransferCaseOverallTest" label="T-case"/>
+                   <TestProcess showdetail="failures" tagname="TPMOverallTest" label="TPM"/>
+                   <TestProcess showdetail="failures" tagname="AxleOverallTest" label="ELSD"/>
+                   <TestProcess showdetail="failures" tagname="SuspensionOverallTest" label="Dynamic Handling System"/>
+                   <TestProcess showdetail="failures" tagname="ParkAssistOverallTest" label="Parktronics"/>
+                   <TestProcess showdetail="failures" tagname="RadioOverallTest" label="Satellite Radio"/>
+                   <TestProcess showdetail="failures" tagname="SmartbeamOverallTest" label="Smartbeam"/>
+                   <TestProcess tagname="DTC" label="DTC"/>
+               </Column>
+           </TestResultsBlock>
+   
+       </ReportLayout>
+    </RtReportConfig>

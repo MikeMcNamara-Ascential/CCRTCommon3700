@@ -1198,6 +1198,7 @@ INT32 BaseBrakeTool::AnalyzeParkBrakeForces(INT32 brakeStart, INT32 brakeEnd)
                     force += *itr;
                 }
                 force /= forceArray.size();
+				force = fabs(force);
                 m_component->Log(LOG_DEV_DATA, "BaseBrakeTool::AnalyzeParkBrakeForces() - step1: Force - %.2f", force);
                 wheelStatus = ValidateParkBrakeForce(roller, force);
             }

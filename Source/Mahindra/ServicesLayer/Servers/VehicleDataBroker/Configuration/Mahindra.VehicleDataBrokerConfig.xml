@@ -78,6 +78,8 @@
                 <FourWDBGColor DataType="color">white</FourWDBGColor>
                 <FrontWD DataType="bool">No</FrontWD>
                 <FrontWDBGColor DataType="color">white</FrontWDBGColor>
+                <LeftRearParkBrakeForceBGColor DataType="color">white</LeftRearParkBrakeForceBGColor>
+                <LeftRearParkBrakeForceValue DataType="float">0.0</LeftRearParkBrakeForceValue>
                 <Manual4x4 DataType="bool">No</Manual4x4>
                 <Manual4x4BGColor DataType="color">white</Manual4x4BGColor>
                 <MetricSelect DataType="bool">No</MetricSelect>
@@ -87,6 +89,8 @@
                 <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
                 <RetRollHiPosition DataTyp="bool">No</RetRollHiPosition>
                 <RetRollLoPosition DataTyp="bool">Yes</RetRollLoPosition>
+                <RightRearParkBrakeForceBGColor DataType="color">white</RightRearParkBrakeForceBGColor>
+                <RightRearParkBrakeForceValue DataType="float">0.0</RightRearParkBrakeForceValue>
                 <RunFlat DataType="bool">No</RunFlat>
                 <RunFlatBGColor DataType="color">white</RunFlatBGColor>
                 <SpeedActive DataType="bool">1</SpeedActive>

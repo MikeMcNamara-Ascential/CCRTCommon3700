@@ -242,8 +242,7 @@ const string MahindraPlantHostInbound::Publish(const XmlNode *node)
 			}
 			UpdateInputServerState();
 		}
-		else if(!node->getName().compare(GetDataTag("SecondarySelectionDataTag")) ||
-				!node->getName().compare(GetNextVinTag()))
+		else if(!node->getName().compare(GetNextVinTag()))
 		{	// Update the traffic light widget to let driver know vin is being processed
 			Log(LOG_FN_ENTRY,"SecondarySelectionDataMatch\n");
 			SetVehicleBuildRecordStatus(validStatus);

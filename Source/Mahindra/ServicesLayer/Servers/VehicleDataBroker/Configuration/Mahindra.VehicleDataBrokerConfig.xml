@@ -57,6 +57,8 @@
                 <ABSTypeBGColor DataType="color">white</ABSTypeBGColor>
                 <AllWD DataType="bool">No</AllWD>
                 <AllWDBGColor DataType="color">white</AllWDBGColor>
+                <AxleRatioValue DataType="float">0.0</AxleRatioValue>
+                <AxleRatioValueBGColor DataType="color">white</AxleRatioValueBGColor>
                 <AutoTrans DataType="bool">Yes</AutoTrans>
                 <AutoTransBGColor DataType="color">white</AutoTransBGColor>
                 <BrakeActive DataType="bool">0</BrakeActive>
@@ -99,6 +101,7 @@
                 <TODInstalled DataType="bool">No</TODInstalled>
                 <TODInstalledBGColor DataType="color">white</TODInstalledBGColor>
                 <TestingTOD DataType="bool">No</TestingTOD>
+                <TransferCase DataType="string">2WD</PublishTags>
                 <TPSActive DataType="bool">0</TPSActive>
                 <TPSTarget DataType="range">0 0</TPSTarget>
                 <TPSValue DataType="float">0</TPSValue>

@@ -230,39 +230,30 @@
 							<Folder Name="properties">
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/Backuper.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/BackupRestore.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/BackupRestore_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/BroadcastConfig.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/BroadcastConfig_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/build.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/bundleReport.txt"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/BusCommMenu.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/BusCommViewer.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/BusCommViewer_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ClientLogEmail.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ClientLogEmail.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ClientLogEmail_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/Colors.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CommonConfig.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CommonConfig.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CommonConfig_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ControllerBuild.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ControllerBuild_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ControlLinesConfig.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ControlLinesConfig_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CrtDesigner.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CrtDesigner.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CrtDesigner_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CrtPanelConfig.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CrtPanelConfig_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPreviewerApp.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPreviewerApp.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/DiagnosticView.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/DiagnosticView.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/DriveCurveView.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/DriveCurveView.properties"/>
+								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/EnterVinDialog.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/GuiLoggerConfig.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/GuiLogViewerApp.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/GuiLogViewerApp.properties"/>
@@ -292,7 +283,6 @@
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts_es_MX.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts_ko_KR.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/RemoteFileBrowser.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ReportConfig.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/ReportManager.properties"/>
@@ -311,7 +301,6 @@
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/SystemPrinters.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/TestFailureStrings.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/TestFailureStrings.properties"/>
-								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/TestFailureStrings_pt_BR.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/TestStatusColors.constants"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/UsersConfig.properties"/>
 								<F N="Burke_PorterCCRT/resources/com/bepco/rtc/properties/VehicleBuildRecordConfig.constants"/>
@@ -333,6 +322,7 @@
 							<F N="Burke_PorterCCRT/resources/local/crt/aboutserver/DefaultAboutServer.crt"/>
 						</Folder>
 						<Folder Name="drivermonitor">
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/AymesaDriverMonitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DefaultDriverMonitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DefaultDriverMonitorColor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DemoGraphic.crt"/>
@@ -340,10 +330,16 @@
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorStandard.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorWithBackground.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorWithGraph.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/JeepFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/JeepTestDriverMonitor - Copy.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/JeepTestDriverMonitor.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/JnapDriverMonitor - Copy.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/JnapDriverMonitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/MahindraDriverMonitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/VolkswagenDriverMonitor.crt"/>
 						</Folder>
 						<Folder Name="frontpanel">
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/AymesaFrontPanel.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/DefaultFrontPanel.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/DefaultFrontPanelColor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/DemoRadialGuage.crt"/>
@@ -353,16 +349,23 @@
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelNumberBoxChangeTest.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelScreenSaver.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelStandard.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/JeepFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/JnapFrontPanel.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/MahindraFrontPanel.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/VolkswagenFrontPanel.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/WithDriveCurve.crt"/>
 						</Folder>
 						<Folder Name="losscompensation">
+							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/3700LossCompensation.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/DefaultLossCompensation.crt"/>
 						</Folder>
 						<Folder Name="powerdisplay">
 							<F N="Burke_PorterCCRT/resources/local/crt/powerdisplay/DefaultPowerDisplay.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/powerdisplay/EncoderPowerDisplay.crt"/>
+						</Folder>
+						<Folder Name="speedtime">
+							<F N="Burke_PorterCCRT/resources/local/crt/speedtime/DriverMonitorBigGraph.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/speedtime/DriverMonitorWithGraph.crt"/>
 						</Folder>
 						<Folder Name="vehiclepresence">
 							<F N="Burke_PorterCCRT/resources/local/crt/vehiclepresence/DefaultVehiclePresence.crt"/>
@@ -487,6 +490,8 @@
 						<F N="Burke_PorterCCRT/resources/local/playback/tracelog.dat"/>
 					</Folder>
 					<Folder Name="report">
+						<F N="Burke_PorterCCRT/resources/local/report/AymesaReportLayout.xsl"/>
+						<F N="Burke_PorterCCRT/resources/local/report/Dcx.ReportLayout.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/MahindraReportLayout.FO.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/MahindraReportLayout.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/NewReportLayout.xml"/>
@@ -498,7 +503,6 @@
 						<F N="Burke_PorterCCRT/resources/local/report/Tata.AshokLeyland.ReportLayout.Reg.xsl"/>
 						<F N="Burke_PorterCCRT/resources/local/report/ticketlayout.xml"/>
 						<F N="Burke_PorterCCRT/resources/local/report/ticketlayoutExample.xml"/>
-						<F N="Burke_PorterCCRT/resources/local/report/VolkswagenReportLayout.xsl"/>
 					</Folder>
 					<Folder Name="sim">
 						<Folder Name="params">
@@ -524,6 +528,333 @@
 				<F N="Burke_PorterCCRT/UninstallerData/installvariables.properties"/>
 			</Folder>
 			<F N="Burke_PorterCCRT/Burke_Porter_CCRT_InstallLog.xml"/>
+			<F N="Burke_PorterCCRT/TextPrinterOut.txt"/>
+		</Folder>
+		<Folder Name="Burke_PorterCCRT.org">
+			<Folder Name="jre">
+				<Folder Name="bin">
+					<Folder Name="client">
+						<F N="Burke_PorterCCRT.org/jre/bin/client/Xusage.txt"/>
+					</Folder>
+				</Folder>
+				<Folder Name="lib">
+					<Folder Name="images">
+						<Folder Name="cursors">
+							<F N="Burke_PorterCCRT.org/jre/lib/images/cursors/cursors.properties"/>
+						</Folder>
+					</Folder>
+					<F N="Burke_PorterCCRT.org/jre/lib/content-types.properties"/>
+					<F N="Burke_PorterCCRT.org/jre/lib/flavormap.properties"/>
+					<F N="Burke_PorterCCRT.org/jre/lib/font.properties"/>
+					<F N="Burke_PorterCCRT.org/jre/lib/jvm.hprof.txt"/>
+					<F N="Burke_PorterCCRT.org/jre/lib/jvm.jcov.txt"/>
+					<F N="Burke_PorterCCRT.org/jre/lib/logging.properties"/>
+					<F N="Burke_PorterCCRT.org/jre/lib/psfontj2d.properties"/>
+				</Folder>
+				<F N="Burke_PorterCCRT.org/jre/README.txt"/>
+				<F N="Burke_PorterCCRT.org/jre/THIRDPARTYLICENSEREADME.txt"/>
+			</Folder>
+			<Folder Name="resources">
+				<Folder Name="com">
+					<Folder Name="bepco">
+						<Folder Name="rtc">
+							<Folder Name="properties">
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Backuper.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/BackupRestore.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/BackupRestore_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/BroadcastConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/BroadcastConfig_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/build.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/bundleReport.txt"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/BusCommMenu.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/BusCommViewer.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/BusCommViewer_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ClientLogEmail.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ClientLogEmail.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ClientLogEmail_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Colors.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CommonConfig.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CommonConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CommonConfig_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ControllerBuild.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ControllerBuild_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ControlLinesConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ControlLinesConfig_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CrtDesigner.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CrtDesigner.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CrtDesigner_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CrtPanelConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CrtPanelConfig_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CRTPanelLabels.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CRTPanelLabels.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CRTPanelLabels_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CRTPreviewerApp.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/CRTPreviewerApp.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/DiagnosticView.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/DiagnosticView.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/DriveCurveView.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/DriveCurveView.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/GuiLoggerConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/GuiLogViewerApp.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/GuiLogViewerApp.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/GuiStartupShutdown.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/GuiStartupShutdown.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/GuiTestResultViewerApp.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/GuiTestResultViewerApp.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/HeartBeat.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/HelpSystem.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/LicenseBackup.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/LicensePanelDialog.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/locales.xml"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/LocalizationConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/LongTestFailureStrings.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/MachineFaultStrings.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/MachineFaultStrings.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Menu.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Menu.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/NDBUpdate.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/NDBUpdate.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/NetworkConfig.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/NetworkConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ParameterReportIgnoredAttributes.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ParameterReportPrinter.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/PLCDisplay.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Prompts.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Prompts.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Prompts_es_MX.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Prompts_ko_KR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/Prompts_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/RemoteFileBrowser.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ReportConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ReportManager.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ReportParser.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ResultsPanel.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ServerConfigurationDirectories.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ServerLogChooser.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ServerLogChooser.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ServerLogMenu.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ServerLogMenu.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ServerLogWindows.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ServerParameters.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ServerProxy.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ShortTestFailureStrings.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/SystemPrinters.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/SystemPrinters.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/TestFailureStrings.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/TestFailureStrings.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/TestFailureStrings_pt_BR.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/TestStatusColors.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/UsersConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/VehicleBuildRecordConfig.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/VehicleBuildRecordConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/WheelbaseConfig.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/WheelbaseConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/WindowTitles.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ZtsConfig.constants"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ZtsConfig.properties"/>
+								<F N="Burke_PorterCCRT.org/resources/com/bepco/rtc/properties/ztsrecords.xml"/>
+							</Folder>
+						</Folder>
+					</Folder>
+				</Folder>
+				<Folder Name="local">
+					<Folder Name="crt">
+						<Folder Name="aboutserver">
+							<F N="Burke_PorterCCRT.org/resources/local/crt/aboutserver/AboutServerWithLicenseBits.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/aboutserver/DefaultAboutServer.crt"/>
+						</Folder>
+						<Folder Name="drivermonitor">
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/DefaultDriverMonitor.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/DefaultDriverMonitorColor.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/DemoGraphic.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/DriverMonitorBigGraph.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/DriverMonitorStandard.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/DriverMonitorWithBackground.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/DriverMonitorWithGraph.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/MahindraDriverMonitor.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/drivermonitor/VolkswagenDriverMonitor.crt"/>
+						</Folder>
+						<Folder Name="frontpanel">
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/DefaultFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/DefaultFrontPanelColor.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/DemoRadialGuage.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/DemoRadialGuageSizing.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/DemoUnitsConversion.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/FrontPanelForceEnglish.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/FrontPanelNumberBoxChangeTest.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/FrontPanelScreenSaver.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/FrontPanelStandard.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/MahindraFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/VolkswagenFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/frontpanel/WithDriveCurve.crt"/>
+						</Folder>
+						<Folder Name="losscompensation">
+							<F N="Burke_PorterCCRT.org/resources/local/crt/losscompensation/DefaultLossCompensation.crt"/>
+						</Folder>
+						<Folder Name="powerdisplay">
+							<F N="Burke_PorterCCRT.org/resources/local/crt/powerdisplay/DefaultPowerDisplay.crt"/>
+							<F N="Burke_PorterCCRT.org/resources/local/crt/powerdisplay/EncoderPowerDisplay.crt"/>
+						</Folder>
+						<Folder Name="vehiclepresence">
+							<F N="Burke_PorterCCRT.org/resources/local/crt/vehiclepresence/DefaultVehiclePresence.crt"/>
+						</Folder>
+						<F N="Burke_PorterCCRT.org/resources/local/crt/crtviewconfig.xml"/>
+					</Folder>
+					<Folder Name="diagnostics">
+						<Folder Name="schematics">
+							<F N="Burke_PorterCCRT.org/resources/local/diagnostics/schematics/FaultSchematicMap.properties"/>
+						</Folder>
+						<F N="Burke_PorterCCRT.org/resources/local/diagnostics/diagnosticview.properties"/>
+						<F N="Burke_PorterCCRT.org/resources/local/diagnostics/faultdescriptions.properties"/>
+						<F N="Burke_PorterCCRT.org/resources/local/diagnostics/PLCmap.properties"/>
+					</Folder>
+					<Folder Name="ftproot">
+						<Folder Name="home">
+							<Folder Name="ftp">
+								<Folder Name="Configuration">
+									<Folder Name="Client">
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Client/PLCDisplayConfig.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Client/wheelbaseconfig.xml"/>
+									</Folder>
+									<Folder Name="Components">
+										<Folder Name="Airbag">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Airbag/Airbag.xml"/>
+										</Folder>
+										<Folder Name="Brake">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Brake/BaseBrake.xml"/>
+										</Folder>
+										<Folder Name="Cluster">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Cluster/Cluster.xml"/>
+										</Folder>
+										<Folder Name="Emissions">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/BaseEmissions.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/Diesel_KWP_ISO.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/Diesel_KWP_ISODetroit.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/Diesel_KWP_ISOToluca.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/Emissions.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/EmissionsFaults.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/EmissionsNew.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/EmissionsProtocol.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/SCIEmissions2003.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Emissions/SCIEmissionsProtocol2003.xml"/>
+										</Folder>
+										<Folder Name="Machine">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Machine/MachineComponent.xml"/>
+										</Folder>
+										<Folder Name="SKIM">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/SKIM/SKIM.xml"/>
+										</Folder>
+										<Folder Name="SpeedControl">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/SpeedControl/SpeedControl.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/SpeedControl/SpeedControlNew.xml"/>
+										</Folder>
+										<Folder Name="Transmission">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Components/Transmission/TransmissionComponent.xml"/>
+										</Folder>
+									</Folder>
+									<Folder Name="Machine">
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Machine/Baldor18hConfig.xml"/>
+									</Folder>
+									<Folder Name="Servers">
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Servers/MotorControllerConfig.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Servers/VehicleBuildRecord.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Servers/VehicleBuildRecordDefinition.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Servers/VehicleBuildTable.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/Servers/ZtsOptions.xml"/>
+									</Folder>
+									<Folder Name="VehicleTest">
+										<Folder Name="BuildRecords">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/VehicleTest/BuildRecords/testOne.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/VehicleTest/BuildRecords/testTwo.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/VehicleTest/BuildRecords/Vin0934Q33A.xml"/>
+										</Folder>
+										<Folder Name="DriveCurves">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Configuration/VehicleTest/DriveCurves/Emissions.xml"/>
+										</Folder>
+									</Folder>
+								</Folder>
+								<Folder Name="Logs">
+									<Folder Name="Communication">
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/Logs/Communication/broadcast.txt"/>
+									</Folder>
+								</Folder>
+								<Folder Name="TestResults">
+									<Folder Name="Machine">
+										<Folder Name="BrakeForceData">
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/TestResults/Machine/BrakeForceData/bogusBrakeForceTrace.dat"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/TestResults/Machine/BrakeForceData/BrakeForceTrace.dat"/>
+											<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/TestResults/Machine/BrakeForceData/kevinBrakeForce.dat"/>
+										</Folder>
+									</Folder>
+									<Folder Name="Vehicle">
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/TestResults/Vehicle/emptytestresult.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/TestResults/Vehicle/realresults.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/TestResults/Vehicle/testresult1.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/TestResults/Vehicle/testresult2.xml"/>
+										<F N="Burke_PorterCCRT.org/resources/local/ftproot/home/ftp/TestResults/Vehicle/testresult3.xml"/>
+									</Folder>
+								</Folder>
+							</Folder>
+						</Folder>
+					</Folder>
+					<Folder Name="httproot">
+						<Folder Name="conf">
+							<F N="Burke_PorterCCRT.org/resources/local/httproot/conf/ipaq.xml"/>
+						</Folder>
+					</Folder>
+					<Folder Name="ndbconfig">
+						<F N="Burke_PorterCCRT.org/resources/local/ndbconfig/NDBConfig.xml"/>
+					</Folder>
+					<Folder Name="playback">
+						<F N="Burke_PorterCCRT.org/resources/local/playback/commands.properties"/>
+						<F N="Burke_PorterCCRT.org/resources/local/playback/defaultValues.properties"/>
+						<F N="Burke_PorterCCRT.org/resources/local/playback/filelist.properties"/>
+						<F N="Burke_PorterCCRT.org/resources/local/playback/powersupply.dat"/>
+						<F N="Burke_PorterCCRT.org/resources/local/playback/prompts.dat"/>
+						<F N="Burke_PorterCCRT.org/resources/local/playback/synthtracelog.dat"/>
+						<F N="Burke_PorterCCRT.org/resources/local/playback/testsequence.dat"/>
+						<F N="Burke_PorterCCRT.org/resources/local/playback/tpsvalues.dat"/>
+						<F N="Burke_PorterCCRT.org/resources/local/playback/tracelog.dat"/>
+					</Folder>
+					<Folder Name="report">
+						<F N="Burke_PorterCCRT.org/resources/local/report/MahindraReportLayout.FO.xsl"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/MahindraReportLayout.xsl"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/NewReportLayout.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/reportlayout.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/ReportLayout.xsl"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/reportlayoutExample.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/resultxform.xsl"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/Tata.AshokLeyland.ReportLayout.Audit.FO.xsl"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/Tata.AshokLeyland.ReportLayout.Reg.xsl"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/ticketlayout.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/ticketlayoutExample.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/report/VolkswagenReportLayout.xsl"/>
+					</Folder>
+					<Folder Name="sim">
+						<Folder Name="params">
+							<F N="Burke_PorterCCRT.org/resources/local/sim/params/MotorControllerConfig.xml"/>
+							<F N="Burke_PorterCCRT.org/resources/local/sim/params/SerialMotorControllerConfig.xml"/>
+						</Folder>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/bepLog.txt"/>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/BrakeForceTrace.dat"/>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/bus_communication.txt"/>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/emptytestresult.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/RandLongBrake.dat"/>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/testresult1.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/testresult2.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/testresult3.xml"/>
+						<F N="Burke_PorterCCRT.org/resources/local/sim/wheelbaseconfig.xml"/>
+					</Folder>
+					<F N="Burke_PorterCCRT.org/resources/local/password.properties"/>
+					<F N="Burke_PorterCCRT.org/resources/local/rtc.properties"/>
+				</Folder>
+			</Folder>
+			<Folder Name="UninstallerData">
+				<F N="Burke_PorterCCRT.org/UninstallerData/.com.zerog.registry.xml"/>
+				<F N="Burke_PorterCCRT.org/UninstallerData/installvariables.properties"/>
+			</Folder>
+			<F N="Burke_PorterCCRT.org/Burke_Porter_CCRT_InstallLog.xml"/>
 		</Folder>
 		<Folder Name="ServicesLayer">
 			<Folder Name="Managers">
@@ -568,11 +899,12 @@
 					</Folder>
 					<F N="ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
 				</Folder>
-				<Folder Name="MotorContorller">
+				<Folder Name="MotorController">
 					<Folder Name="Configuration">
-						<F N="ServicesLayer/Servers/MotorContorller/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/MotorController/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/MotorController/Configuration/Mahindra.AB700MotorControllerConfig.xml"/>
 					</Folder>
-					<F N="ServicesLayer/Servers/MotorContorller/CMakeLists.txt"/>
+					<F N="ServicesLayer/Servers/MotorController/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="PlantHostInbound">
 					<Folder Name="Configuration">

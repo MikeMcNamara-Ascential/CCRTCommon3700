@@ -1,0 +1,3270 @@
+€09/29/02 15:23:36.158 core/Log             FILE OPENED€
+€09/29/02 15:23:36.158 core/SystemMonitor  Exit GetCurrentControlData()
+€
+€09/29/02 15:23:36.158 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.158 core/VehicleDataBro BepServer::SetData(<VIN>3C8FY78G83T500085</VIN>) done, returning Success€
+€09/29/02 15:23:36.158 VehicleTest         Loading Drive Curve /home/bereza/Rewrite/Configuration/VehicleTest/DriveCurves/SkimDriveCurve.xml
+€
+€09/29/02 15:23:36.158 core/InputServer    SendDriverNumber() - Rolls Down: False, DriverNumber Status: Sent, Default DriverNumber: T0000xx, Current DriverNumber: T3085TS, InputServer State: TestResult
+€
+€09/29/02 15:23:36.158 core/SystemMonitor  Enter CheckVehiclePresent() 1
+€
+€09/29/02 15:23:36.159 core/VehicleDataBro Updating Data: WheelbasePositionInchesX10, 0
+€
+€09/29/02 15:23:36.160 core/InputServer    BepServer::Publish(RollsDownElevUp)€
+€09/29/02 15:23:36.160 core/SystemMonitor  Exit CheckVehiclePresent()
+€
+€09/29/02 15:23:36.160 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.162 core/VehicleDataBro VehicleDataBroker::Write(      <WheelbasePositionInchesX10>0</WheelbasePositionInchesX10>)
+€
+€09/29/02 15:23:36.162 core/InputServer    BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>)€
+€09/29/02 15:23:36.162 core/SystemMonitor  Enter CheckCableConnect()
+€
+€09/29/02 15:23:36.163 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.163 core/VehicleDataBro VehicleDataBroker::PublishVehicleBuildRecord() done, returning Unsupported
+€
+€09/29/02 15:23:36.164 core/InputServer    BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>) done, returning Success€
+€09/29/02 15:23:36.164 core/SystemMonitor  Exit CheckCableConnect(): 1
+€
+€09/29/02 15:23:36.165 core/VehicleDataBro HEY! We Need A Vehicle Build!
+€
+€09/29/02 15:23:36.166 core/SystemMonitor  Enter CheckAbort()
+€
+€09/29/02 15:23:36.166 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.168 core/SystemMonitor  Exit CheckAbort()
+€
+€09/29/02 15:23:36.170 core/VehicleDataBro VehicleDataBroker::Publish(node: <OverallTest>Testing</OverallTest>)
+€
+€09/29/02 15:23:36.170 core/SystemMonitor  Enter CheckTesting()
+€
+€09/29/02 15:23:36.171 TestSequencer       Loading The Drive Curve: /home/bereza/Rewrite/Configuration/VehicleTest/DriveCurves/SkimDriveCurve.xml
+€
+€09/29/02 15:23:36.171 mgr/AIN             13 Initialize handler object
+€
+€09/29/02 15:23:36.173 core/VehicleDataBro BepServer::Publish(OverallTest)€
+€09/29/02 15:23:36.173 core/SystemMonitor  	startTestPb 0
+€
+€09/29/02 15:23:36.174 core/VehicleDataBro BepServer::SetData(<OverallTest>Testing</OverallTest>)€
+€09/29/02 15:23:36.174 core/SystemMonitor  	keyPress Blank
+€
+€09/29/02 15:23:36.175 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:23:36.175 core/VehicleDataBro BepServer::SetData(<OverallTest>Testing</OverallTest>) done, returning Success€
+€09/29/02 15:23:36.175 core/SystemMonitor  	vehiclePresent 1
+€
+€09/29/02 15:23:36.176 core/SystemMonitor  	vin Red
+€
+€09/29/02 15:23:36.179 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:23:36.180 core/SystemMonitor  	testInProgress 1, 1
+€
+€09/29/02 15:23:36.181 core/SystemMonitor  	calSwitch 0
+€
+€09/29/02 15:23:36.182 mgr/AIN             Thread 11 received data
+€
+€09/29/02 15:23:36.182 core/SystemMonitor  	simSwitch 0
+€
+€09/29/02 15:23:36.183 core/SystemMonitor  	powerSense 1
+€
+€09/29/02 15:23:36.183 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.184 core/SystemMonitor  	rackFault 0
+€
+€09/29/02 15:23:36.184 core/SystemMonitor  Exit CheckTesting()
+€
+€09/29/02 15:23:36.184 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.184 core/SystemMonitor  Enter CheckLossCompensation()
+€
+€09/29/02 15:23:36.184 core/SystemMonitor  	testInProgress: 1
+€
+€09/29/02 15:23:36.185 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.185 core/SystemMonitor  	 calInProgress: 0
+€
+€09/29/02 15:23:36.185 core/SystemMonitor  	     calSwitch: 0
+€
+€09/29/02 15:23:36.185 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.187 core/SystemMonitor  	calSwitchToPLC: 0
+€
+€09/29/02 15:23:36.187 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.187 core/SystemMonitor  	 simInProgress: 0
+€
+€09/29/02 15:23:36.187 core/SystemMonitor  	  cableConnect: 1
+€
+€09/29/02 15:23:36.188 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.188 core/SystemMonitor  	vehiclePresent: 1
+€
+€09/29/02 15:23:36.189 core/SystemMonitor  Exit CheckLossCompensation()
+€
+€09/29/02 15:23:36.189 mgr/AIN             13 handler object initialized 8
+€
+€09/29/02 15:23:36.199 core/SystemMonitor  Enter UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.204 core/SystemMonitor  Exit UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.205 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:23:36.205 core/SystemMonitor  Exit UpdateControl()
+€
+€09/29/02 15:23:36.207 core/SystemMonitor  WaitForChange()
+€
+€09/29/02 15:23:36.207 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.208 core/SystemMonitor  Enter Publish()
+€
+€09/29/02 15:23:36.208 mgr/AIN             11 Initialize handler object
+€
+€09/29/02 15:23:36.208 core/SystemMonitor  BepServer::Publish(RollsDownElevUp)€
+€09/29/02 15:23:36.209 core/SystemMonitor  BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>)€
+€09/29/02 15:23:36.209 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.209 core/SystemMonitor  BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>) done, returning Success€
+€09/29/02 15:23:36.210 core/SystemMonitor  NotifyDataChanged()
+€
+€09/29/02 15:23:36.210 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.210 core/SystemMonitor  Exit Publish() Success
+€
+€09/29/02 15:23:36.211 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.211 core/SystemMonitor  Enter UpdateControl()
+€
+€09/29/02 15:23:36.214 core/SystemMonitor  Enter GetCurrentControlData()
+€
+€09/29/02 15:23:36.214 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.217 core/SystemMonitor  BepServer::SetData(<KeyPress>Blank</KeyPress>)€
+€09/29/02 15:23:36.217 core/VehicleDataBro VehicleDataBroker::Publish(node: <RollsDownElevUp>0</RollsDownElevUp>)
+€
+€09/29/02 15:23:36.218 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.218 core/SystemMonitor  BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success€
+€09/29/02 15:23:36.218 core/VehicleDataBro BepServer::Publish(RollsDownElevUp)€
+€09/29/02 15:23:36.218 core/SystemMonitor  Exit GetCurrentControlData()
+€
+€09/29/02 15:23:36.219 core/VehicleDataBro BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>)€
+€09/29/02 15:23:36.219 mgr/AIN             11 handler object initialized 8
+€
+€09/29/02 15:23:36.219 core/SystemMonitor  Enter CheckVehiclePresent() 1
+€
+€09/29/02 15:23:36.219 core/VehicleDataBro BepServer::SetData(<RollsDownElevUp>0</RollsDownElevUp>) done, returning Success€
+€09/29/02 15:23:36.220 core/SystemMonitor  Exit CheckVehiclePresent()
+€
+€09/29/02 15:23:36.221 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.224 core/SystemMonitor  Enter CheckCableConnect()
+€
+€09/29/02 15:23:36.224 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.224 core/SystemMonitor  Exit CheckCableConnect(): 1
+€
+€09/29/02 15:23:36.227 core/SystemMonitor  Enter CheckAbort()
+€
+€09/29/02 15:23:36.229 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.229 core/SystemMonitor  Exit CheckAbort()
+€
+€09/29/02 15:23:36.230 core/SystemMonitor  Enter CheckTesting()
+€
+€09/29/02 15:23:36.230 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.231 core/SystemMonitor  	startTestPb 0
+€
+€09/29/02 15:23:36.231 mgr/PLC             ResMgr Pulse _PULSE_CODE_THREADDEATH
+€
+€09/29/02 15:23:36.232 core/SystemMonitor  	keyPress Blank
+€
+€09/29/02 15:23:36.233 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.233 core/SystemMonitor  	vehiclePresent 1
+€
+€09/29/02 15:23:36.233 core/SystemMonitor  	vin Red
+€
+€09/29/02 15:23:36.234 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.234 core/SystemMonitor  	testInProgress 1, 1
+€
+€09/29/02 15:23:36.234 core/SystemMonitor  	calSwitch 0
+€
+€09/29/02 15:23:36.234 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.235 core/SystemMonitor  	simSwitch 0
+€
+€09/29/02 15:23:36.235 core/SystemMonitor  	powerSense 1
+€
+€09/29/02 15:23:36.235 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.235 core/SystemMonitor  	rackFault 0
+€
+€09/29/02 15:23:36.235 core/SystemMonitor  Exit CheckTesting()
+€
+€09/29/02 15:23:36.236 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.236 core/SystemMonitor  Enter CheckLossCompensation()
+€
+€09/29/02 15:23:36.236 core/SystemMonitor  	testInProgress: 1
+€
+€09/29/02 15:23:36.236 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.236 core/SystemMonitor  	 calInProgress: 0
+€
+€09/29/02 15:23:36.237 core/SystemMonitor  	     calSwitch: 0
+€
+€09/29/02 15:23:36.238 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.238 core/SystemMonitor  	calSwitchToPLC: 0
+€
+€09/29/02 15:23:36.239 core/SystemMonitor  	 simInProgress: 0
+€
+€09/29/02 15:23:36.239 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.239 core/SystemMonitor  	  cableConnect: 1
+€
+€09/29/02 15:23:36.240 core/SystemMonitor  	vehiclePresent: 1
+€
+€09/29/02 15:23:36.240 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.240 core/SystemMonitor  Exit CheckLossCompensation()
+€
+€09/29/02 15:23:36.241 core/SystemMonitor  Enter UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.241 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.241 core/SystemMonitor  Exit UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.242 core/SystemMonitor  Exit UpdateControl()
+€
+€09/29/02 15:23:36.243 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.243 core/SystemMonitor  WaitForChange()
+€
+€09/29/02 15:23:36.244 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.244 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.244 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.246 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.246 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.247 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.247 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.247 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.248 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.248 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.249 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.250 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.251 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.254 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.255 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.255 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.256 PromptServer        PromptServer: Received valid prompt - <PromptBox1 DataType="Prompt" Process="" Prompt="LoadingTestParameters"/>
+
+€
+€09/29/02 15:23:36.257 PromptServer        BepServer::SetData(<PromptBox1 DataType="Prompt" Process="" Prompt="LoadingTestParameters"/>)€
+€09/29/02 15:23:36.258 PromptServer        BepServer::SetData(<PromptBox1 DataType="Prompt" Process="" Prompt="LoadingTestParameters"/>) done, returning Success€
+€09/29/02 15:23:36.266 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.267 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.268 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.270 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.272 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.273 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.274 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.275 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.275 MotorController     MotorController::ControlLoop()
+€
+€09/29/02 15:23:36.276 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.276 MotorController     HydraulicMotorController::UpdateMachineStatus()
+€
+€09/29/02 15:23:36.276 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.277 MotorController     MotorController::UpdateMachineStatus
+€
+€09/29/02 15:23:36.277 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.280 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.283 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.285 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.289 MotorController     MotorController Read Speeds
+€
+€09/29/02 15:23:36.290 MotorController     Read: LFSpeed,   0.000; 3 tags left to read
+€
+€09/29/02 15:23:36.291 MotorController     Read: LRSpeed,   0.000; 2 tags left to read
+€
+€09/29/02 15:23:36.291 MotorController     Read: RFSpeed,   0.000; 1 tags left to read
+€
+€09/29/02 15:23:36.292 MotorController     Read: RRSpeed,   0.000; 0 tags left to read
+€
+€09/29/02 15:23:36.293 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>)€
+€09/29/02 15:23:36.294 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>) done, returning Success€
+€09/29/02 15:23:36.294 MotorController     Invalid NotificationList in MotorController or no subscribers
+€
+€09/29/02 15:23:36.294 MotorController     The Speed Value 0.000000, 0.000000
+€
+€09/29/02 15:23:36.294 MotorController     MotorController::UpdateMachineStatus() done 0.000000, 0.000000, 0.000000, 0.000000
+€
+€09/29/02 15:23:36.295 MotorController     HydraulicMotorController::UpdateMachineStatus() done
+€
+€09/29/02 15:23:36.295 MotorController     MotorController::ControlLoop() done
+€
+€09/29/02 15:23:36.295 MotorController     Checking MotorController Status
+€
+€09/29/02 15:23:36.296 MotorController     Setting Fault: HydraulicSystemIdleTimeout, System Detected a HydraulicSystemIdleTimeout Fault, 1
+€
+€09/29/02 15:23:36.298 FaultServer         BepServer::SetData(<HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout>)€
+€09/29/02 15:23:36.298 FaultServer         BepServer::SetData(<HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout>) done, returning Success€
+€09/29/02 15:23:36.300 FaultServer         BepServer::SetData(<AllFaults><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></AllFaults>)€
+€09/29/02 15:23:36.301 FaultServer         BepServer::SetData(<AllFaults><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></AllFaults>) done, returning Success€
+€09/29/02 15:23:36.301 FaultServer         FaultServer received fault:HydraulicSystemIdleTimeout, value:1 from process:MotorController with description:System Detected a HydraulicSystemIdleTimeout Fault and severity:0
+€
+€09/29/02 15:23:36.303 MotorController     Checking MotorController Status done
+€
+€09/29/02 15:23:36.306 core/SystemMonitor  Enter Publish()
+€
+€09/29/02 15:23:36.307 core/SystemMonitor  BepServer::Publish(_0)€
+€09/29/02 15:23:36.317 core/SystemMonitor  BepServer::SetData(<_0><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></_0>)€
+€09/29/02 15:23:36.322 core/SystemMonitor  BepServer::SetData(<_0><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></_0>) done, returning Success€
+€09/29/02 15:23:36.323 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.323 core/SystemMonitor  NotifyDataChanged()
+€
+€09/29/02 15:23:36.324 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.324 core/SystemMonitor  Exit Publish() Success
+€
+€09/29/02 15:23:36.327 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.331 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.331 core/SystemMonitor  Enter UpdateControl()
+€
+€09/29/02 15:23:36.333 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.334 core/SystemMonitor  Enter GetCurrentControlData()
+€
+€09/29/02 15:23:36.336 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.337 core/SystemMonitor  BepServer::SetData(<KeyPress>Blank</KeyPress>)€
+€09/29/02 15:23:36.339 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.339 core/SystemMonitor  BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success€
+€09/29/02 15:23:36.340 core/SystemMonitor  Exit GetCurrentControlData()
+€
+€09/29/02 15:23:36.341 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.341 core/SystemMonitor  Enter CheckVehiclePresent() 1
+€
+€09/29/02 15:23:36.343 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.343 core/SystemMonitor  Exit CheckVehiclePresent()
+€
+€09/29/02 15:23:36.343 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.343 core/SystemMonitor  Enter CheckCableConnect()
+€
+€09/29/02 15:23:36.344 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.344 core/SystemMonitor  Exit CheckCableConnect(): 1
+€
+€09/29/02 15:23:36.344 core/SystemMonitor  Enter CheckAbort()
+€
+€09/29/02 15:23:36.344 mgr/AIN             Thread 13 received data
+€
+€09/29/02 15:23:36.345 core/SystemMonitor  Exit CheckAbort()
+€
+€09/29/02 15:23:36.345 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.345 core/SystemMonitor  Enter CheckTesting()
+€
+€09/29/02 15:23:36.345 core/SystemMonitor  	startTestPb 0
+€
+€09/29/02 15:23:36.345 mgr/AIN             13 Initialize handler object
+€
+€09/29/02 15:23:36.346 core/SystemMonitor  	keyPress Blank
+€
+€09/29/02 15:23:36.346 core/SystemMonitor  	vehiclePresent 1
+€
+€09/29/02 15:23:36.346 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.346 core/SystemMonitor  	vin Red
+€
+€09/29/02 15:23:36.346 core/SystemMonitor  	testInProgress 1, 1
+€
+€09/29/02 15:23:36.346 mgr/AIN             13 handler object initialized 8
+€
+€09/29/02 15:23:36.346 core/SystemMonitor  	calSwitch 0
+€
+€09/29/02 15:23:36.347 core/SystemMonitor  	simSwitch 0
+€
+€09/29/02 15:23:36.347 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.347 core/SystemMonitor  	powerSense 1
+€
+€09/29/02 15:23:36.347 core/SystemMonitor  	rackFault 0
+€
+€09/29/02 15:23:36.348 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.348 core/SystemMonitor  Exit CheckTesting()
+€
+€09/29/02 15:23:36.348 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.348 core/SystemMonitor  Enter CheckLossCompensation()
+€
+€09/29/02 15:23:36.348 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.348 core/SystemMonitor  	testInProgress: 1
+€
+€09/29/02 15:23:36.348 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.348 core/SystemMonitor  	 calInProgress: 0
+€
+€09/29/02 15:23:36.349 core/SystemMonitor  	     calSwitch: 0
+€
+€09/29/02 15:23:36.349 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.349 core/SystemMonitor  	calSwitchToPLC: 0
+€
+€09/29/02 15:23:36.349 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.349 core/SystemMonitor  	 simInProgress: 0
+€
+€09/29/02 15:23:36.349 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.350 core/SystemMonitor  	  cableConnect: 1
+€
+€09/29/02 15:23:36.350 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.350 core/SystemMonitor  	vehiclePresent: 1
+€
+€09/29/02 15:23:36.350 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.350 core/SystemMonitor  Exit CheckLossCompensation()
+€
+€09/29/02 15:23:36.351 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.351 core/SystemMonitor  Enter UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.351 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.351 core/SystemMonitor  Exit UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.351 core/SystemMonitor  Exit UpdateControl()
+€
+€09/29/02 15:23:36.351 mgr/AIN             Thread 13 received data
+€
+€09/29/02 15:23:36.352 core/SystemMonitor  WaitForChange()
+€
+€09/29/02 15:23:36.352 mgr/AIN             13 Initialize handler object
+€
+€09/29/02 15:23:36.353 mgr/AIN             13 handler object initialized 8
+€
+€09/29/02 15:23:36.354 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.354 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.354 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.354 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.354 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.355 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.355 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.355 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.355 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.355 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.355 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.356 mgr/AIN             Thread 13 received data
+€
+€09/29/02 15:23:36.356 mgr/AIN             13 Initialize handler object
+€
+€09/29/02 15:23:36.356 mgr/AIN             13 handler object initialized 8
+€
+€09/29/02 15:23:36.357 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.357 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.357 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.357 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.357 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.358 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.358 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.358 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.359 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.359 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.359 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.359 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.359 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.360 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.360 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.360 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.361 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.362 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.365 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.367 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.368 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.370 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.370 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.370 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.370 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.371 TestSequencer       Initializing The Component Manager
+€
+€09/29/02 15:23:36.373 TestSequencer       Launching Components
+€
+€09/29/02 15:23:36.374 TestSequencer       RemoveComponents()
+€
+€09/29/02 15:23:36.374 TestSequencer       Entering Component Manager TerminateAll()
+€
+€09/29/02 15:23:36.378 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.379 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.379 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.380 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.380 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.381 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.381 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.393 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.393 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.393 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.394 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.394 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.394 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.394 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.445 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.445 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.445 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.446 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.446 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.446 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.446 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.450 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.450 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.450 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.451 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.454 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.454 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.456 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.456 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.457 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.457 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.457 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.458 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.458 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.458 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.458 mgr/AIN             Thread 13 received data
+€
+€09/29/02 15:23:36.458 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.459 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.459 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.460 mgr/AIN             13 Initialize handler object
+€
+€09/29/02 15:23:36.460 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.460 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.460 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.460 mgr/AIN             13 handler object initialized 8
+€
+€09/29/02 15:23:36.461 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.462 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.462 mgr/AIN             Thread 11 received data
+€
+€09/29/02 15:23:36.462 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.463 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.463 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.463 mgr/AIN             11 Initialize handler object
+€
+€09/29/02 15:23:36.463 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.463 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.463 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.464 mgr/AIN             11 handler object initialized 8
+€
+€09/29/02 15:23:36.464 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.465 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.465 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.465 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.465 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.465 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.466 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.466 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.466 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.466 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.466 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.467 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.467 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.467 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.467 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.469 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.469 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.469 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.469 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.470 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.470 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.470 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.474 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.474 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.474 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.475 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.475 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.475 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.475 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.484 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.484 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.485 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.485 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.485 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.485 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.486 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.497 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.497 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.497 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.498 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.498 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.498 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.498 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.555 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.558 MotorController     MotorController::ControlLoop()
+€
+€09/29/02 15:23:36.559 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.559 MotorController     HydraulicMotorController::UpdateMachineStatus()
+€
+€09/29/02 15:23:36.559 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.560 MotorController     MotorController::UpdateMachineStatus
+€
+€09/29/02 15:23:36.560 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.564 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.571 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:23:36.575 MotorController     MotorController Read Speeds
+€
+€09/29/02 15:23:36.575 mgr/AIN             Thread 13 received data
+€
+€09/29/02 15:23:36.576 MotorController     Read: LFSpeed,   0.000; 3 tags left to read
+€
+€09/29/02 15:23:36.576 MotorController     Read: LRSpeed,   0.000; 2 tags left to read
+€
+€09/29/02 15:23:36.576 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.576 MotorController     Read: RFSpeed,   0.000; 1 tags left to read
+€
+€09/29/02 15:23:36.576 MotorController     Read: RRSpeed,   0.000; 0 tags left to read
+€
+€09/29/02 15:23:36.577 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:23:36.577 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>)€
+€09/29/02 15:23:36.577 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>) done, returning Success€
+€09/29/02 15:23:36.578 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:23:36.578 MotorController     Invalid NotificationList in MotorController or no subscribers
+€
+€09/29/02 15:23:36.578 MotorController     The Speed Value 0.000000, 0.000000
+€
+€09/29/02 15:23:36.578 mgr/AIN             Thread 11 received data
+€
+€09/29/02 15:23:36.578 MotorController     MotorController::UpdateMachineStatus() done 0.000000, 0.000000, 0.000000, 0.000000
+€
+€09/29/02 15:23:36.581 MotorController     HydraulicMotorController::UpdateMachineStatus() done
+€
+€09/29/02 15:23:36.581 mgr/AIN             13 Initialize handler object
+€
+€09/29/02 15:23:36.581 MotorController     MotorController::ControlLoop() done
+€
+€09/29/02 15:23:36.582 MotorController     Checking MotorController Status
+€
+€09/29/02 15:23:36.582 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.583 MotorController     Setting Fault: HydraulicSystemIdleTimeout, System Detected a HydraulicSystemIdleTimeout Fault, 1
+€
+€09/29/02 15:23:36.583 mgr/AIN             Thread 6 received data
+€
+€09/29/02 15:23:36.586 FaultServer         BepServer::SetData(<HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout>)€
+€09/29/02 15:23:36.586 FaultServer         BepServer::SetData(<HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout>) done, returning Success€
+€09/29/02 15:23:36.587 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:23:36.588 FaultServer         BepServer::SetData(<AllFaults><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></AllFaults>)€
+€09/29/02 15:23:36.589 FaultServer         BepServer::SetData(<AllFaults><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></AllFaults>) done, returning Success€
+€09/29/02 15:23:36.589 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:23:36.592 FaultServer         FaultServer received fault:HydraulicSystemIdleTimeout, value:1 from process:MotorController with description:System Detected a HydraulicSystemIdleTimeout Fault and severity:0
+€
+€09/29/02 15:23:36.594 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:23:36.595 MotorController     Checking MotorController Status done
+€
+€09/29/02 15:23:36.596 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:23:36.596 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:23:36.597 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.597 mgr/AIN             11 Initialize handler object
+€
+€09/29/02 15:23:36.597 mgr/AIN             13 handler object initialized 8
+€
+€09/29/02 15:23:36.598 mgr/AIN             6 Initialize handler object
+€
+€09/29/02 15:23:36.599 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:23:36.600 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.600 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.603 core/SystemMonitor  Enter Publish()
+€
+€09/29/02 15:23:36.605 core/SystemMonitor  BepServer::Publish(_0)€
+€09/29/02 15:23:36.605 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:23:36.606 core/SystemMonitor  BepServer::SetData(<_0><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></_0>)€
+€09/29/02 15:23:36.607 core/SystemMonitor  BepServer::SetData(<_0><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></_0>) done, returning Success€
+€09/29/02 15:23:36.610 mgr/AIN             6 handler object initialized 8
+€
+€09/29/02 15:23:36.610 core/SystemMonitor  NotifyDataChanged()
+€
+€09/29/02 15:23:36.611 core/SystemMonitor  Exit Publish() Success
+€
+€09/29/02 15:23:36.614 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.617 core/SystemMonitor  Enter UpdateControl()
+€
+€09/29/02 15:23:36.618 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.618 core/SystemMonitor  Enter GetCurrentControlData()
+€
+€09/29/02 15:23:36.621 core/SystemMonitor  BepServer::SetData(<KeyPress>Blank</KeyPress>)€
+€09/29/02 15:23:36.622 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.622 core/SystemMonitor  BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success€
+€09/29/02 15:23:36.623 core/SystemMonitor  Exit GetCurrentControlData()
+€
+€09/29/02 15:23:36.623 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.623 core/SystemMonitor  Enter CheckVehiclePresent() 1
+€
+€09/29/02 15:23:36.624 core/SystemMonitor  Exit CheckVehiclePresent()
+€
+€09/29/02 15:23:36.624 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:23:36.624 core/SystemMonitor  Enter CheckCableConnect()
+€
+€09/29/02 15:23:36.624 core/SystemMonitor  Exit CheckCableConnect(): 1
+€
+€09/29/02 15:23:36.625 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.625 core/SystemMonitor  Enter CheckAbort()
+€
+€09/29/02 15:23:36.625 core/SystemMonitor  Exit CheckAbort()
+€
+€09/29/02 15:23:36.625 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.625 core/SystemMonitor  Enter CheckTesting()
+€
+€09/29/02 15:23:36.625 core/SystemMonitor  	startTestPb 0
+€
+€09/29/02 15:23:36.625 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.625 core/SystemMonitor  	keyPress Blank
+€
+€09/29/02 15:23:36.626 core/SystemMonitor  	vehiclePresent 1
+€
+€09/29/02 15:23:36.626 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.626 core/SystemMonitor  	vin Red
+€
+€09/29/02 15:23:36.626 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.626 core/SystemMonitor  	testInProgress 1, 1
+€
+€09/29/02 15:23:36.626 core/SystemMonitor  	calSwitch 0
+€
+€09/29/02 15:23:36.626 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.627 core/SystemMonitor  	simSwitch 0
+€
+€09/29/02 15:23:36.627 core/SystemMonitor  	powerSense 1
+€
+€09/29/02 15:23:36.627 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.627 core/SystemMonitor  	rackFault 0
+€
+€09/29/02 15:23:36.627 core/SystemMonitor  Exit CheckTesting()
+€
+€09/29/02 15:23:36.627 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.627 core/SystemMonitor  Enter CheckLossCompensation()
+€
+€09/29/02 15:23:36.627 core/SystemMonitor  	testInProgress: 1
+€
+€09/29/02 15:23:36.627 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.627 core/SystemMonitor  	 calInProgress: 0
+€
+€09/29/02 15:23:36.627 core/SystemMonitor  	     calSwitch: 0
+€
+€09/29/02 15:23:36.628 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.628 core/SystemMonitor  	calSwitchToPLC: 0
+€
+€09/29/02 15:23:36.628 core/SystemMonitor  	 simInProgress: 0
+€
+€09/29/02 15:23:36.628 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.629 core/SystemMonitor  	  cableConnect: 1
+€
+€09/29/02 15:23:36.629 core/SystemMonitor  	vehiclePresent: 1
+€
+€09/29/02 15:23:36.629 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.629 core/SystemMonitor  Exit CheckLossCompensation()
+€
+€09/29/02 15:23:36.629 core/SystemMonitor  Enter UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.629 mgr/AIN             11 handler object initialized 8
+€
+€09/29/02 15:23:36.629 core/SystemMonitor  Exit UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.630 core/SystemMonitor  Exit UpdateControl()
+€
+€09/29/02 15:23:36.630 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:23:36.630 core/SystemMonitor  WaitForChange()
+€
+€09/29/02 15:23:36.631 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:23:36.631 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:23:36.631 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.631 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.631 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.631 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.632 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:23:36.633 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:23:36.633 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.633 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.634 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.634 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.634 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.635 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.635 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.636 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.636 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.636 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.637 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.637 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.637 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.637 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.637 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.637 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.637 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.637 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.638 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.638 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.638 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.639 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.639 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.639 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:23:36.639 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:23:36.640 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.640 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.640 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.640 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.688 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:23:36.688 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:23:36.689 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:23:36.689 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.689 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.690 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.690 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.731 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:23:36.731 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:23:36.731 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:23:36.732 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.732 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.732 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.732 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.734 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:23:36.734 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:23:36.734 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:23:36.734 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.735 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.735 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.735 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.736 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:23:36.736 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:23:36.736 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:23:36.736 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.736 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.736 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.737 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.737 mgr/AIN             Thread 11 received data
+€
+€09/29/02 15:23:36.737 mgr/AIN             11 Initialize handler object
+€
+€09/29/02 15:23:36.737 mgr/AIN             11 handler object initialized 8
+€
+€09/29/02 15:23:36.738 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.738 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:23:36.738 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.738 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:23:36.739 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.739 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:23:36.739 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.739 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.740 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.740 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.740 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:23:36.740 mgr/AIN             Thread 11 received data
+€
+€09/29/02 15:23:36.740 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.741 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.741 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:23:36.741 mgr/AIN             11 Initialize handler object
+€
+€09/29/02 15:23:36.741 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.742 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.742 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:23:36.742 mgr/AIN             11 handler object initialized 8
+€
+€09/29/02 15:23:36.743 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.743 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:23:36.743 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.744 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:23:36.744 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.744 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:23:36.745 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.745 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.745 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.745 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:23:36.746 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.746 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:23:36.746 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.746 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.746 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.746 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.746 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.747 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:23:36.747 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.747 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.747 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.748 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.748 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.748 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.749 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.749 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.749 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.749 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.749 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.750 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.750 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.750 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.750 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.795 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.796 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.796 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.797 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.797 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.797 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.797 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.835 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.835 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.835 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.835 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.836 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.836 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.836 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.837 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.837 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.837 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.837 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.837 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.837 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.838 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.839 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.839 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.839 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.839 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.840 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.840 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.840 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.842 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.842 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.842 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.842 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.842 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.842 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.843 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.844 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.844 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.844 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.844 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.844 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.845 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.845 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.848 MotorController     MotorController::ControlLoop()
+€
+€09/29/02 15:23:36.848 MotorController     HydraulicMotorController::UpdateMachineStatus()
+€
+€09/29/02 15:23:36.848 MotorController     MotorController::UpdateMachineStatus
+€
+€09/29/02 15:23:36.850 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:23:36.853 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:23:36.857 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:23:36.858 MotorController     MotorController Read Speeds
+€
+€09/29/02 15:23:36.859 MotorController     Read: LFSpeed,   0.000; 3 tags left to read
+€
+€09/29/02 15:23:36.859 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:23:36.860 MotorController     Read: LRSpeed,   0.000; 2 tags left to read
+€
+€09/29/02 15:23:36.860 mgr/AIN             Thread 11 received data
+€
+€09/29/02 15:23:36.860 MotorController     Read: RFSpeed,   0.000; 1 tags left to read
+€
+€09/29/02 15:23:36.860 MotorController     Read: RRSpeed,   0.000; 0 tags left to read
+€
+€09/29/02 15:23:36.860 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:23:36.861 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>)€
+€09/29/02 15:23:36.861 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>) done, returning Success€
+€09/29/02 15:23:36.861 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:23:36.861 MotorController     Invalid NotificationList in MotorController or no subscribers
+€
+€09/29/02 15:23:36.861 MotorController     The Speed Value 0.000000, 0.000000
+€
+€09/29/02 15:23:36.861 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:23:36.861 MotorController     MotorController::UpdateMachineStatus() done 0.000000, 0.000000, 0.000000, 0.000000
+€
+€09/29/02 15:23:36.862 MotorController     HydraulicMotorController::UpdateMachineStatus() done
+€
+€09/29/02 15:23:36.862 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:23:36.862 MotorController     MotorController::ControlLoop() done
+€
+€09/29/02 15:23:36.863 MotorController     Checking MotorController Status
+€
+€09/29/02 15:23:36.863 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:23:36.863 MotorController     Setting Fault: HydraulicSystemIdleTimeout, System Detected a HydraulicSystemIdleTimeout Fault, 1
+€
+€09/29/02 15:23:36.866 FaultServer         BepServer::SetData(<HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout>)€
+€09/29/02 15:23:36.867 mgr/AIN             11 Initialize handler object
+€
+€09/29/02 15:23:36.867 FaultServer         BepServer::SetData(<HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout>) done, returning Success€
+€09/29/02 15:23:36.868 FaultServer         BepServer::SetData(<AllFaults><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></AllFaults>)€
+€09/29/02 15:23:36.869 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:23:36.869 FaultServer         BepServer::SetData(<AllFaults><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></AllFaults>) done, returning Success€
+€09/29/02 15:23:36.869 FaultServer         FaultServer received fault:HydraulicSystemIdleTimeout, value:1 from process:MotorController with description:System Detected a HydraulicSystemIdleTimeout Fault and severity:0
+€
+€09/29/02 15:23:36.870 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:23:36.872 MotorController     Checking MotorController Status done
+€
+€09/29/02 15:23:36.872 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.873 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:23:36.874 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:23:36.874 mgr/AIN             11 handler object initialized 8
+€
+€09/29/02 15:23:36.875 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:23:36.876 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:23:36.879 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.880 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.881 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.883 core/SystemMonitor  Enter Publish()
+€
+€09/29/02 15:23:36.883 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.883 core/SystemMonitor  BepServer::Publish(_0)€
+€09/29/02 15:23:36.884 core/SystemMonitor  BepServer::SetData(<_0><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></_0>)€
+€09/29/02 15:23:36.884 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.885 core/SystemMonitor  BepServer::SetData(<_0><HydraulicSystemIdleTimeout Description="System Detected a HydraulicSystemIdleTimeout Fault" Process="MotorController" Severity="0">1</HydraulicSystemIdleTimeout></_0>) done, returning Success€
+€09/29/02 15:23:36.885 core/SystemMonitor  NotifyDataChanged()
+€
+€09/29/02 15:23:36.885 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.885 core/SystemMonitor  Exit Publish() Success
+€
+€09/29/02 15:23:36.888 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.889 core/SystemMonitor  Enter UpdateControl()
+€
+€09/29/02 15:23:36.891 core/SystemMonitor  Enter GetCurrentControlData()
+€
+€09/29/02 15:23:36.894 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.894 core/SystemMonitor  BepServer::SetData(<KeyPress>Blank</KeyPress>)€
+€09/29/02 15:23:36.896 core/SystemMonitor  BepServer::SetData(<KeyPress>Blank</KeyPress>) done, returning Success€
+€09/29/02 15:23:36.896 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.896 core/SystemMonitor  Exit GetCurrentControlData()
+€
+€09/29/02 15:23:36.897 core/SystemMonitor  Enter CheckVehiclePresent() 1
+€
+€09/29/02 15:23:36.898 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.898 core/SystemMonitor  Exit CheckVehiclePresent()
+€
+€09/29/02 15:23:36.910 core/SystemMonitor  Enter CheckCableConnect()
+€
+€09/29/02 15:23:36.913 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.914 core/SystemMonitor  Exit CheckCableConnect(): 1
+€
+€09/29/02 15:23:36.914 core/SystemMonitor  Enter CheckAbort()
+€
+€09/29/02 15:23:36.915 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.915 core/SystemMonitor  Exit CheckAbort()
+€
+€09/29/02 15:23:36.915 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.915 core/SystemMonitor  Enter CheckTesting()
+€
+€09/29/02 15:23:36.915 core/SystemMonitor  	startTestPb 0
+€
+€09/29/02 15:23:36.915 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.915 core/SystemMonitor  	keyPress Blank
+€
+€09/29/02 15:23:36.916 core/SystemMonitor  	vehiclePresent 1
+€
+€09/29/02 15:23:36.916 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.916 core/SystemMonitor  	vin Red
+€
+€09/29/02 15:23:36.916 core/SystemMonitor  	testInProgress 1, 1
+€
+€09/29/02 15:23:36.916 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.916 core/SystemMonitor  	calSwitch 0
+€
+€09/29/02 15:23:36.916 core/SystemMonitor  	simSwitch 0
+€
+€09/29/02 15:23:36.916 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.917 core/SystemMonitor  	powerSense 1
+€
+€09/29/02 15:23:36.917 core/SystemMonitor  	rackFault 0
+€
+€09/29/02 15:23:36.917 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:23:36.917 core/SystemMonitor  Exit CheckTesting()
+€
+€09/29/02 15:23:36.918 core/SystemMonitor  Enter CheckLossCompensation()
+€
+€09/29/02 15:23:36.918 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:23:36.918 core/SystemMonitor  	testInProgress: 1
+€
+€09/29/02 15:23:36.918 core/SystemMonitor  	 calInProgress: 0
+€
+€09/29/02 15:23:36.918 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:23:36.918 core/SystemMonitor  	     calSwitch: 0
+€
+€09/29/02 15:23:36.919 core/SystemMonitor  	calSwitchToPLC: 0
+€
+€09/29/02 15:23:36.919 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:23:36.919 core/SystemMonitor  	 simInProgress: 0
+€
+€09/29/02 15:23:36.919 core/SystemMonitor  	  cableConnect: 1
+€
+€09/29/02 15:23:36.919 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:23:36.919 core/SystemMonitor  	vehiclePresent: 1
+€
+€09/29/02 15:23:36.920 core/SystemMonitor  Exit CheckLossCompensation()
+€
+€09/29/02 15:23:36.920 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:23:36.920 core/SystemMonitor  Enter UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.920 core/SystemMonitor  Exit UpdateDriverMonitor()
+€
+€09/29/02 15:23:36.920 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:23:36.920 core/SystemMonitor  Exit UpdateControl()
+€
+€09/29/02 15:23:36.921 core/SystemMonitor  WaitForChange()
+€
+€09/29/02 15:23:36.921 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:24:01.033 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>)€
+€09/29/02 15:24:01.033 mgr/AIN             11 Initialize handler object
+€
+€09/29/02 15:24:01.033 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>) done, returning Success€
+€09/29/02 15:24:01.034 MotorController     The Speed Value 0.000000, 0.000000
+€
+€09/29/02 15:24:01.034 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.034 MotorController     MotorController::UpdateMachineStatus() done 0.000000, 0.000000, 0.000000, 0.000000
+€
+€09/29/02 15:24:01.035 mgr/AIN             13 Initialize handler object
+€
+€09/29/02 15:24:01.035 MotorController     HydraulicMotorController::UpdateMachineStatus() done
+€
+€09/29/02 15:24:01.035 MotorController     MotorController::ControlLoop() done
+€
+€09/29/02 15:24:01.035 mgr/AIN             Thread 6 received data
+€
+€09/29/02 15:24:01.035 MotorController     Checking MotorController Status
+€
+€09/29/02 15:24:01.036 MotorController     Checking MotorController Status done
+€
+€09/29/02 15:24:01.036 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:24:01.036 MotorController     GetMotorMode( Boost )
+€
+€09/29/02 15:24:01.036 MotorController     MotorMode: Boost
+€
+€09/29/02 15:24:01.037 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.037 MotorController     Motor Controller Boosting()
+€
+€09/29/02 15:24:01.037 MotorController     m_rfMPH: 0.000000, m_rrMph: 0.000000
+m_minimumSpeedForBoost: 2.000000
+DriveAxle: Front
+Zerospeed: 1
+Clutch: 0
+RollsUpElevatorDown: 0
+LossCompensationSwitchStatus: 0
+VehiclePresent: 0
+€
+€09/29/02 15:24:01.038 mgr/AIN             Thread 4 received data
+€
+€09/29/02 15:24:01.038 MotorController     Boost Disabled
+€
+€09/29/02 15:24:01.038 MotorController     Setting Boost Pressure: 0.000000
+€
+€09/29/02 15:24:01.038 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:24:01.038 MotorController     Set Boost Status Not Changing Off
+€
+€09/29/02 15:24:01.038 mgr/AIN             11 handler object initialized 8
+€
+€09/29/02 15:24:01.039 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.039 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.039 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.039 mgr/AIN             13 handler object initialized 8
+€
+€09/29/02 15:24:01.040 mgr/AIN             6 Initialize handler object
+€
+€09/29/02 15:24:01.040 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.040 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:24:01.041 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.041 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.041 mgr/AIN             4 Initialize handler object
+€
+€09/29/02 15:24:01.041 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:24:01.042 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.042 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.042 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.042 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.042 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.043 mgr/AIN             6 handler object initialized 8
+€
+€09/29/02 15:24:01.043 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.043 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:24:01.044 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.044 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.045 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.045 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.045 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.045 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.046 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.046 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.046 mgr/AIN             4 handler object initialized 8
+€
+€09/29/02 15:24:01.046 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.047 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.047 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.047 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.047 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.048 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.048 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.048 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.048 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.048 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.048 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.048 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.048 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.048 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.049 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.049 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.049 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.049 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.049 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.050 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.050 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.050 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.051 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.051 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.051 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.051 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.052 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.052 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.052 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.052 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.052 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.053 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.053 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.054 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.054 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.054 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.054 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.055 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.055 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.056 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.056 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.056 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.056 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.057 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.152 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:24:01.153 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:24:01.153 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:24:01.153 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.154 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.154 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.154 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.154 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.154 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.155 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.155 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.155 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.156 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.156 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:24:01.156 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.156 mgr/AIN             Thread 4 received data
+€
+€09/29/02 15:24:01.156 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.157 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:24:01.157 mgr/AIN             4 Initialize handler object
+€
+€09/29/02 15:24:01.157 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.158 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.158 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:24:01.158 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:24:01.159 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.159 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.159 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.160 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:24:01.160 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.160 mgr/AIN             4 handler object initialized 8
+€
+€09/29/02 15:24:01.161 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.161 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.161 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.161 mgr/AIN             Thread 6 received data
+€
+€09/29/02 15:24:01.161 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.161 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.162 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.162 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:24:01.162 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.162 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.163 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.163 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.163 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.163 mgr/AIN             6 Initialize handler object
+€
+€09/29/02 15:24:01.164 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.164 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.164 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.164 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.164 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.165 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.165 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.165 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.165 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.166 mgr/AIN             6 handler object initialized 8
+€
+€09/29/02 15:24:01.166 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.167 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.167 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.167 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.167 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.168 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.168 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.168 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.168 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.168 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.168 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.169 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.169 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.169 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.169 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.169 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.169 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.170 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.170 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.170 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.170 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.170 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.170 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.171 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.171 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.171 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.172 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.173 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.173 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.173 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.173 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.257 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.257 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.257 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.258 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.258 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.258 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.258 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.259 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.259 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.259 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.260 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.260 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.260 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.260 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.269 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.269 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.269 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.269 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.269 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.269 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.270 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.270 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.270 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.271 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.271 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.271 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.271 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.271 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.272 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.272 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.273 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.273 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.273 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.273 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.274 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.274 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.274 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.274 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.275 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.275 mgr/AIN             Thread 4 received data
+€
+€09/29/02 15:24:01.275 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.275 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.275 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.276 mgr/AIN             4 Initialize handler object
+€
+€09/29/02 15:24:01.276 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.276 mgr/AIN             Thread 6 received data
+€
+€09/29/02 15:24:01.277 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.277 mgr/AIN             4 handler object initialized 8
+€
+€09/29/02 15:24:01.277 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.278 mgr/AIN             6 Initialize handler object
+€
+€09/29/02 15:24:01.278 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.278 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.278 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.279 mgr/AIN             6 handler object initialized 8
+€
+€09/29/02 15:24:01.279 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.279 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.279 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.280 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.280 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.280 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.280 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.280 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.280 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.280 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.281 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.281 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.281 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.282 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.282 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.282 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.282 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.282 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.283 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.283 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.283 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.283 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.284 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.284 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.284 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.284 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.285 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.285 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.285 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.285 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.290 MotorController     MotorController::ControlLoop()
+€
+€09/29/02 15:24:01.290 MotorController     HydraulicMotorController::UpdateMachineStatus()
+€
+€09/29/02 15:24:01.290 MotorController     MotorController::UpdateMachineStatus
+€
+€09/29/02 15:24:01.298 MotorController     MotorController Read Speeds
+€
+€09/29/02 15:24:01.298 MotorController     Read: LFSpeed,   0.000; 3 tags left to read
+€
+€09/29/02 15:24:01.299 MotorController     Read: LRSpeed,   0.000; 2 tags left to read
+€
+€09/29/02 15:24:01.299 MotorController     Read: RFSpeed,   0.000; 1 tags left to read
+€
+€09/29/02 15:24:01.299 MotorController     Read: RRSpeed,   0.000; 0 tags left to read
+€
+€09/29/02 15:24:01.299 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>)€
+€09/29/02 15:24:01.299 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>) done, returning Success€
+€09/29/02 15:24:01.299 MotorController     The Speed Value 0.000000, 0.000000
+€
+€09/29/02 15:24:01.299 MotorController     MotorController::UpdateMachineStatus() done 0.000000, 0.000000, 0.000000, 0.000000
+€
+€09/29/02 15:24:01.300 MotorController     HydraulicMotorController::UpdateMachineStatus() done
+€
+€09/29/02 15:24:01.300 MotorController     MotorController::ControlLoop() done
+€
+€09/29/02 15:24:01.300 MotorController     Checking MotorController Status
+€
+€09/29/02 15:24:01.300 MotorController     Checking MotorController Status done
+€
+€09/29/02 15:24:01.301 MotorController     GetMotorMode( Boost )
+€
+€09/29/02 15:24:01.301 MotorController     MotorMode: Boost
+€
+€09/29/02 15:24:01.301 MotorController     Motor Controller Boosting()
+€
+€09/29/02 15:24:01.301 MotorController     m_rfMPH: 0.000000, m_rrMph: 0.000000
+m_minimumSpeedForBoost: 2.000000
+DriveAxle: Front
+Zerospeed: 1
+Clutch: 0
+RollsUpElevatorDown: 0
+LossCompensationSwitchStatus: 0
+VehiclePresent: 0
+€
+€09/29/02 15:24:01.301 MotorController     Boost Disabled
+€
+€09/29/02 15:24:01.301 MotorController     Setting Boost Pressure: 0.000000
+€
+€09/29/02 15:24:01.301 MotorController     Set Boost Status Not Changing Off
+€
+€09/29/02 15:24:01.369 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.370 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.371 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.372 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.373 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.373 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.373 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.374 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.374 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.375 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.375 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.375 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.376 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.376 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.376 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.377 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.377 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.377 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.377 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.377 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.377 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.378 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.378 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.379 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.379 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.379 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.379 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.379 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.380 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.380 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.380 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.381 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.381 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.381 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.381 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.383 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.383 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.383 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.383 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.384 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.384 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.384 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.384 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.384 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.385 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.385 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.386 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.386 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.386 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.386 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.386 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.386 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.387 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.387 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.387 mgr/AIN             Thread 6 received data
+€
+€09/29/02 15:24:01.387 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.388 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.388 mgr/AIN             6 Initialize handler object
+€
+€09/29/02 15:24:01.388 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.389 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.389 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.389 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.389 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.389 mgr/AIN             6 handler object initialized 8
+€
+€09/29/02 15:24:01.389 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.390 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.390 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.390 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.390 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.391 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.391 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.391 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.391 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.391 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.392 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.392 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.392 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.392 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.393 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.393 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.394 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.394 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.394 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.394 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.484 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.485 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.486 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.486 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.486 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.486 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.486 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.487 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.487 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.488 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.488 mgr/AIN             Thread 6 received data
+€
+€09/29/02 15:24:01.488 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.489 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.489 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.489 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.489 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.489 mgr/AIN             6 Initialize handler object
+€
+€09/29/02 15:24:01.489 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.489 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.490 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.490 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.490 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.490 mgr/AIN             6 handler object initialized 8
+€
+€09/29/02 15:24:01.490 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.491 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.491 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.491 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.491 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.492 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.493 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.493 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.493 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.493 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.494 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.494 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.494 mgr/AIN             Thread 4 received data
+€
+€09/29/02 15:24:01.495 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.495 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.495 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.495 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.496 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.496 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.496 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.497 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.498 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.498 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.499 mgr/AIN             4 Initialize handler object
+€
+€09/29/02 15:24:01.500 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:24:01.500 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.501 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.501 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.501 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.502 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.502 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.502 mgr/AIN             4 handler object initialized 8
+€
+€09/29/02 15:24:01.503 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:24:01.505 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.505 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.505 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.506 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.506 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:24:01.506 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.507 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.507 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.507 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.507 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.507 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.507 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.507 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.508 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.508 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.508 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.509 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.509 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.509 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.509 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.509 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.509 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.510 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.510 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.510 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.511 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.511 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.511 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.555 MotorController     MotorController::ControlLoop()
+€
+€09/29/02 15:24:01.556 MotorController     HydraulicMotorController::UpdateMachineStatus()
+€
+€09/29/02 15:24:01.556 MotorController     MotorController::UpdateMachineStatus
+€
+€09/29/02 15:24:01.564 MotorController     MotorController Read Speeds
+€
+€09/29/02 15:24:01.564 MotorController     Read: LFSpeed,   0.000; 3 tags left to read
+€
+€09/29/02 15:24:01.564 MotorController     Read: LRSpeed,   0.000; 2 tags left to read
+€
+€09/29/02 15:24:01.565 MotorController     Read: RFSpeed,   0.000; 1 tags left to read
+€
+€09/29/02 15:24:01.565 MotorController     Read: RRSpeed,   0.000; 0 tags left to read
+€
+€09/29/02 15:24:01.565 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>)€
+€09/29/02 15:24:01.566 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>) done, returning Success€
+€09/29/02 15:24:01.566 MotorController     The Speed Value 0.000000, 0.000000
+€
+€09/29/02 15:24:01.566 MotorController     MotorController::UpdateMachineStatus() done 0.000000, 0.000000, 0.000000, 0.000000
+€
+€09/29/02 15:24:01.566 MotorController     HydraulicMotorController::UpdateMachineStatus() done
+€
+€09/29/02 15:24:01.566 MotorController     MotorController::ControlLoop() done
+€
+€09/29/02 15:24:01.567 MotorController     Checking MotorController Status
+€
+€09/29/02 15:24:01.567 MotorController     Checking MotorController Status done
+€
+€09/29/02 15:24:01.568 MotorController     GetMotorMode( Boost )
+€
+€09/29/02 15:24:01.568 MotorController     MotorMode: Boost
+€
+€09/29/02 15:24:01.568 MotorController     Motor Controller Boosting()
+€
+€09/29/02 15:24:01.569 MotorController     m_rfMPH: 0.000000, m_rrMph: 0.000000
+m_minimumSpeedForBoost: 2.000000
+DriveAxle: Front
+Zerospeed: 1
+Clutch: 0
+RollsUpElevatorDown: 0
+LossCompensationSwitchStatus: 0
+VehiclePresent: 0
+€
+€09/29/02 15:24:01.569 MotorController     Boost Disabled
+€
+€09/29/02 15:24:01.570 MotorController     Setting Boost Pressure: 0.000000
+€
+€09/29/02 15:24:01.570 MotorController     Set Boost Status Not Changing Off
+€
+€09/29/02 15:24:01.599 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.600 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.600 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.600 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.600 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.601 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.602 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.602 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.602 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.603 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.603 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.603 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.603 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.603 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.603 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.603 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.604 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.604 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.604 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.605 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.605 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.606 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.606 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.606 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.606 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.606 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.606 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.607 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.608 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.609 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.609 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.609 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.609 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.610 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.610 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.610 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.611 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.611 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.611 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.611 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.611 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.611 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.612 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.614 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.615 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:24:01.617 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.618 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.619 mgr/AIN             Thread 4 received data
+€
+€09/29/02 15:24:01.619 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.621 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:24:01.621 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.622 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.623 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.624 mgr/AIN             4 Initialize handler object
+€
+€09/29/02 15:24:01.624 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.625 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:24:01.626 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.626 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.626 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.627 mgr/AIN             4 handler object initialized 8
+€
+€09/29/02 15:24:01.628 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.628 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.628 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.629 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.629 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.629 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.629 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.629 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.629 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.629 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.629 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.629 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.629 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.630 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.630 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.630 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.630 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.631 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.631 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.631 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.631 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.632 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.632 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.633 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.713 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.716 mgr/AIN             Thread 4 received data
+€
+€09/29/02 15:24:01.717 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:24:01.717 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.718 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.718 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.718 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.718 mgr/AIN             4 Initialize handler object
+€
+€09/29/02 15:24:01.718 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:24:01.718 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.719 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.719 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.719 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.719 mgr/AIN             4 handler object initialized 8
+€
+€09/29/02 15:24:01.720 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:24:01.722 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.723 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.723 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.723 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.724 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.725 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.725 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.725 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.725 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.725 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.725 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.725 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.725 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.726 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.726 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.726 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.727 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.727 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.728 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.733 mgr/AIN             Thread 4 received data
+€
+€09/29/02 15:24:01.733 mgr/AIN             4 Initialize handler object
+€
+€09/29/02 15:24:01.733 mgr/AIN             4 handler object initialized 8
+€
+€09/29/02 15:24:01.734 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.734 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.734 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.734 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.734 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.735 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.735 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.735 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.736 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.736 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.736 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.737 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.737 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.737 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.737 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.738 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.738 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.738 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.738 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.738 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.739 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:24:01.739 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.739 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.739 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.739 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:24:01.740 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.740 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.740 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.740 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:24:01.741 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.741 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.741 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.741 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.742 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.742 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.742 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.742 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.743 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.743 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.830 MotorController     MotorController::ControlLoop()
+€
+€09/29/02 15:24:01.831 mgr/AIN             Thread 12 received data
+€
+€09/29/02 15:24:01.833 MotorController     HydraulicMotorController::UpdateMachineStatus()
+€
+€09/29/02 15:24:01.834 MotorController     MotorController::UpdateMachineStatus
+€
+€09/29/02 15:24:01.834 mgr/AIN             Thread 7 received data
+€
+€09/29/02 15:24:01.838 mgr/AIN             Thread 15 received data
+€
+€09/29/02 15:24:01.842 mgr/AIN             Thread 4 received data
+€
+€09/29/02 15:24:01.843 MotorController     MotorController Read Speeds
+€
+€09/29/02 15:24:01.844 MotorController     Read: LFSpeed,   0.000; 3 tags left to read
+€
+€09/29/02 15:24:01.844 mgr/AIN             Thread 17 received data
+€
+€09/29/02 15:24:01.844 MotorController     Read: LRSpeed,   0.000; 2 tags left to read
+€
+€09/29/02 15:24:01.845 MotorController     Read: RFSpeed,   0.000; 1 tags left to read
+€
+€09/29/02 15:24:01.845 mgr/AIN             15 Initialize handler object
+€
+€09/29/02 15:24:01.846 MotorController     Read: RRSpeed,   0.000; 0 tags left to read
+€
+€09/29/02 15:24:01.846 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>)€
+€09/29/02 15:24:01.846 mgr/AIN             4 Initialize handler object
+€
+€09/29/02 15:24:01.846 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>) done, returning Success€
+€09/29/02 15:24:01.847 MotorController     The Speed Value 0.000000, 0.000000
+€
+€09/29/02 15:24:01.847 mgr/AIN             Thread 9 received data
+€
+€09/29/02 15:24:01.847 MotorController     MotorController::UpdateMachineStatus() done 0.000000, 0.000000, 0.000000, 0.000000
+€
+€09/29/02 15:24:01.847 MotorController     HydraulicMotorController::UpdateMachineStatus() done
+€
+€09/29/02 15:24:01.848 mgr/AIN             7 Initialize handler object
+€
+€09/29/02 15:24:01.848 MotorController     MotorController::ControlLoop() done
+€
+€09/29/02 15:24:01.848 MotorController     Checking MotorController Status
+€
+€09/29/02 15:24:01.848 mgr/AIN             Thread 10 received data
+€
+€09/29/02 15:24:01.849 MotorController     Checking MotorController Status done
+€
+€09/29/02 15:24:01.849 MotorController     GetMotorMode( Boost )
+€
+€09/29/02 15:24:01.849 mgr/AIN             Thread 13 received data
+€
+€09/29/02 15:24:01.849 MotorController     MotorMode: Boost
+€
+€09/29/02 15:24:01.850 MotorController     Motor Controller Boosting()
+€
+€09/29/02 15:24:01.850 mgr/AIN             Thread 14 received data
+€
+€09/29/02 15:24:01.850 MotorController     m_rfMPH: 0.000000, m_rrMph: 0.000000
+m_minimumSpeedForBoost: 2.000000
+DriveAxle: Front
+Zerospeed: 1
+Clutch: 0
+RollsUpElevatorDown: 0
+LossCompensationSwitchStatus: 0
+VehiclePresent: 0
+€
+€09/29/02 15:24:01.851 MotorController     Boost Disabled
+€
+€09/29/02 15:24:01.851 mgr/AIN             Thread 6 received data
+€
+€09/29/02 15:24:01.851 MotorController     Setting Boost Pressure: 0.000000
+€
+€09/29/02 15:24:01.852 MotorController     Set Boost Status Not Changing Off
+€
+€09/29/02 15:24:01.852 mgr/AIN             Thread 11 received data
+€
+€09/29/02 15:24:01.853 mgr/AIN             Thread 8 received data
+€
+€09/29/02 15:24:01.853 mgr/AIN             17 Initialize handler object
+€
+€09/29/02 15:24:01.853 mgr/AIN             12 Initialize handler object
+€
+€09/29/02 15:24:01.854 mgr/AIN             15 handler object initialized 8
+€
+€09/29/02 15:24:01.854 mgr/AIN             4 handler object initialized 8
+€
+€09/29/02 15:24:01.856 mgr/AIN             9 Initialize handler object
+€
+€09/29/02 15:24:01.858 mgr/AIN             7 handler object initialized 8
+€
+€09/29/02 15:24:01.859 mgr/AIN             10 Initialize handler object
+€
+€09/29/02 15:24:01.860 mgr/AIN             13 Initialize handler object
+€
+€09/29/02 15:24:01.860 mgr/AIN             14 Initialize handler object
+€
+€09/29/02 15:24:01.860 mgr/AIN             6 Initialize handler object
+€
+€09/29/02 15:24:01.860 mgr/AIN             11 Initialize handler object
+€
+€09/29/02 15:24:01.861 mgr/AIN             8 Initialize handler object
+€
+€09/29/02 15:24:01.861 mgr/AIN             17 handler object initialized 8
+€
+€09/29/02 15:24:01.862 mgr/AIN             12 handler object initialized 8
+€
+€09/29/02 15:24:01.863 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.863 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.864 mgr/AIN             9 handler object initialized 8
+€
+€09/29/02 15:24:01.864 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.864 mgr/AIN             10 handler object initialized 8
+€
+€09/29/02 15:24:01.865 mgr/AIN             13 handler object initialized 8
+€
+€09/29/02 15:24:01.866 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.866 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.866 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.867 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.867 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.867 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.868 mgr/AIN             14 handler object initialized 8
+€
+€09/29/02 15:24:01.869 mgr/AIN             6 handler object initialized 8
+€
+€09/29/02 15:24:01.870 mgr/AIN             11 handler object initialized 8
+€
+€09/29/02 15:24:01.870 mgr/AIN             8 handler object initialized 8
+€
+€09/29/02 15:24:01.871 mgr/AIN             Enter ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.872 mgr/AIN             Enter ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.872 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.873 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.873 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.874 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.874 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.874 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.874 mgr/AIN             Enter ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.874 mgr/AIN             Enter ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.875 mgr/AIN             Enter ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.875 mgr/AIN             Enter ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.875 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.875 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.876 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.876 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.877 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.878 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.878 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.880 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.881 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.882 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.882 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.883 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.884 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.884 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.884 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.884 mgr/AIN             Enter ReadDataItem()
+€
+€09/29/02 15:24:01.885 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.885 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.886 mgr/AIN             Exit ResManager::Read( LowerNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.886 mgr/AIN             Exit ResManager::Read( UpperPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.887 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.888 mgr/AIN             Exit ResManager::Read( UpperPos5VoltPowerSupply)
+€
+€09/29/02 15:24:01.888 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.888 mgr/AIN             Exit ResManager::Read( LowerPos12VoltPowerSupply)
+€
+€09/29/02 15:24:01.888 mgr/AIN             Exit ResManager::Read( UpperNeg12VoltPowerSupply)
+€
+€09/29/02 15:24:01.889 mgr/AIN             Exit ReadDataItem()
+€
+€09/29/02 15:24:01.889 mgr/AIN             Exit ResManager::Read( LowerPos5VoltPowerSupply)
+€
+€09/29/02 15:24:02.005 MotorController     BepServer::HandlePulse(-35, 1073741831)
+€
+€09/29/02 15:24:02.005 MotorController     BepComponent::HandlePulse(-35, 1073741831)
+€
+€09/29/02 15:24:02.104 MotorController     MotorController::ControlLoop()
+€
+€09/29/02 15:24:02.104 MotorController     HydraulicMotorController::UpdateMachineStatus()
+€
+€09/29/02 15:24:02.105 MotorController     MotorController::UpdateMachineStatus
+€
+€09/29/02 15:24:02.112 MotorController     MotorController Read Speeds
+€
+€09/29/02 15:24:02.113 MotorController     Read: LFSpeed,   0.000; 3 tags left to read
+€
+€09/29/02 15:24:02.113 MotorController     Read: LRSpeed,   0.000; 2 tags left to read
+€
+€09/29/02 15:24:02.114 MotorController     Read: RFSpeed,   0.000; 1 tags left to read
+€
+€09/29/02 15:24:02.114 MotorController     Read: RRSpeed,   0.000; 0 tags left to read
+€
+€09/29/02 15:24:02.114 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>)€
+€09/29/02 15:24:02.114 MotorController     BepServer::SetData(<SpeedValue>0.000000</SpeedValue>) done, returning Success€
+€09/29/02 15:24:02.114 MotorController     The Speed Value 0.000000, 0.000000
+€
+€09/29/02 15:24:02.115 MotorController     MotorController::UpdateMachineStatus() done 0.000000, 0.000000, 0.000000, 0.000000
+€
+€09/29/02 15:24:02.115 MotorController     HydraulicMotorController::UpdateMachineStatus() done
+€
+€09/29/02 15:24:02.115 MotorController     MotorController::ControlLoop() done
+€
+€09/29/02 15:24:02.115 MotorController     Checking MotorController Status
+€
+€09/29/02 15:24:02.116 MotorController     Checking MotorController Status done
+€
+€09/29/02 15:24:02.116 MotorController     GetMotorMode( Boost )
+€
+€09/29/02 15:24:02.116 MotorController     MotorMode: Boost
+€
+€09/29/02 15:24:02.117 MotorController     Motor Controller Boosting()
+€
+€09/29/02 15:24:02.118 MotorController     m_rfMPH: 0.000000, m_rrMph: 0.000000
+m_minimumSpeedForBoost: 2.000000
+DriveAxle: Front
+Zerospeed: 1
+Clutch: 0
+RollsUpElevatorDown: 0
+LossCompensationSwitchStatus: 0
+VehiclePresent: 0
+€
+€09/29/02 15:24:02.118 MotorController     Boost Disabled
+€
+€09/29/02 15:24:02.118 MotorController     Setting Boost Pressure: 0.000000
+€
+€09/29/02 15:24:02.118 MotorController     Set Boost Status Not Changing Off
+€
+€09/29/02 15:24:02.217 core/SystemMonitor  Enter HandlePulse(-35, 1073741835)
+€
+€09/29/02 15:24:02.217 core/SystemMonitor  BepServer::HandlePulse(-35, 1073741835)
+€
+€09/29/02 15:24:02.218 core/SystemMonitor  BepComponent::HandlePulse(-35, 1073741835)
+€
+€09/29/02 15:24:02.218 core/SystemMonitor  Exit HandlePulse(-35, 1073741835)
+€
+€09/29/02 15:24:02.246 MotorController     BepServer::HandlePulse(-35, 1073741828)
+€
+€09/29/02 15:24:02.246 core/SystemMonitor  Enter HandlePulse(-35, 1073741834)
+€
+€09/29/02 15:24:02.247 MotorController     BepComponent::HandlePulse(-35, 1073741828)
+€
+€09/29/02 15:24:02.247 core/SystemMonitor  BepServer::HandlePulse(-35, 1073741834)
+€
+€09/29/02 15:24:02.247 core/SystemMonitor  BepComponent::HandlePulse(-35, 1073741834)
+€
+€09/29/02 15:24:02.252 core/SystemMonitor  Exit HandlePulse(-35, 1073741834)
+€
+€09/29/02 15:24:02.258 EmissionsTestCompon BepServer::HandlePulse(-35, 1073741833)
+€
+€09/29/02 15:24:02.260 EmissionsTestCompon BepComponent::HandlePulse(-35, 1073741833)
+€
+€09/29/02 15:24:02.373 logport/Pendant     Exit PoolBlockFunc
+€
+€09/29/02 15:24:02.374 logport/Pendant     Enter PoolHandlerFunc
+€
+€09/29/02 15:24:02.375 logport/Pendant     Exit PoolHandlerFunc
+€
+€09/29/02 15:24:02.376 logport/Pendant     Enter PoolBlockFunc
+€
+€09/29/02 15:24:02.376 logport/Pendant     Exit PoolBlockFunc
+€
+€09/29/02 15:24:02.377 logport/Pendant     Enter PoolHandlerFunc
+€
+€09/29/02 15:24:02.377 logport/Pendant     Enter LogPortDrv::OcbFree()
+€
+€09/29/02 15:24:02.379 logport/Pendant     Enter LogPortDrv::OcbFree()
+€
+€09/29/02 15:24:02.380 logport/Pendant     Exit PoolHandlerFunc
+€
+€09/29/02 15:24:02.380 logport/Scanner     Exit PoolBlockFunc
+€
+€09/29/02 15:24:02.381 logport/Pendant     Enter PoolBlockFunc
+€
+€09/29/02 15:24:02.381 logport/Scanner     Enter PoolHandlerFunc
+€
+€09/29/02 15:24:02.382 logport/Scanner     Exit PoolHandlerFunc
+€
+€09/29/02 15:24:02.382 logport/Pendant     Exit PoolBlockFunc
+€
+€09/29/02 15:24:02.383 logport/Scanner     Enter PoolBlockFunc
+€
+€09/29/02 15:24:02.383 logport/Pendant     Enter PoolHandlerFunc
+€
+€09/29/02 15:24:02.384 logport/Pendant     Exit PoolHandlerFunc
+€
+€09/29/02 15:24:02.384 logport/Scanner     Exit PoolBlockFunc
+€
+€09/29/02 15:24:02.385 logport/Pendant     Enter PoolBlockFunc
+€
+€09/29/02 15:24:02.385 logport/Scanner     Enter PoolHandlerFunc
+€
+€09/29/02 15:24:02.386 logport/Scanner     Enter LogPortDrv::OcbFree()
+€
+€09/29/02 15:24:02.387 logport/Scanner     Enter LogPortDrv::OcbFree()
+€
+€09/29/02 15:24:02.387 logport/Scanner     Exit PoolHandlerFunc
+€
+€09/29/02 15:24:02.391 logport/Scanner     Enter PoolBlockFunc
+€
+€09/29/02 15:24:02.391 logport/Scanner     Exit PoolBlockFunc
+€
+€09/29/02 15:24:02.392 logport/Scanner     Enter PoolHandlerFunc
+€
+€09/29/02 15:24:02.393 logport/Scanner     Exit PoolHandlerFunc
+€
+€09/29/02 15:24:02.393 logport/Scanner     Enter PoolBlockFunc
+€
+€09/29/02 15:24:02.447 mgr/SerialServer    	dispatch_block error: Interrupted function call
+€
+€09/29/02 15:24:02.447 mgr/SerialServer    Exit ResManagerXml::IoMssgLoop
+€
+€09/29/02 15:24:02.447 mgr/SerialServer    Enter CleanupManager()
+€
+€09/29/02 15:24:02.447 mgr/SerialServer    Enter ResManagerXml::CleanupManager
+€
+€09/29/02 15:24:02.447 mgr/SerialServer    Detach I/O channel pulse
+€
+€09/29/02 15:24:02.447 mgr/SerialServer    I/O channel pulse detached
+€
+€09/29/02 15:24:02.448 mgr/SerialServer    Enter ResManagerMt::CleanupManager
+€
+€09/29/02 15:24:02.448 mgr/SerialServer    Enter ResManagerXml::KillPoolThreads( 2), threadId=1
+€
+€09/29/02 15:24:02.448 mgr/SerialServer    Cancelling thread 2
+€
+€09/29/02 15:24:02.448 mgr/SerialServer    Cancelling thread 3
+€
+€09/29/02 15:24:02.448 mgr/SerialServer    Joining thread 2
+€
+€09/29/02 15:24:02.448 mgr/SerialServer    Joining thread 3
+€
+€09/29/02 15:24:02.449 mgr/SerialServer    Destroying thread pool
+€
+€09/29/02 15:24:02.449 mgr/SerialServer    Enter ResManagerXml::PoolContextAlloc
+€
+€09/29/02 15:24:02.449 mgr/SerialServer    Initialize commObj object: 2, mgr/SerialServer, 0
+€
+€09/29/02 15:24:02.449 mgr/SerialServer    CommObj object initialized
+€
+€09/29/02 15:24:02.449 mgr/SerialServer    Exit ResManagerXml::PoolContextAlloc
+€
+€09/29/02 15:24:02.450 mgr/SerialServer    Enter PoolUnBlockFunc
+€
+€09/29/02 15:24:02.450 mgr/SerialServer    Exit PoolUnBlockFunc
+€
+€09/29/02 15:24:02.450 mgr/SerialServer    Enter PoolUnBlockFunc
+€
+€09/29/02 15:24:02.450 mgr/SerialServer    Exit PoolUnBlockFunc
+€
+€09/29/02 15:24:02.450 mgr/SerialServer    Freeing context
+€
+€09/29/02 15:24:02.450 mgr/SerialServer    Thread Context freed
+€
+€09/29/02 15:24:02.452 mgr/SerialServer    Freeing context
+€
+€09/29/02 15:24:02.452 mgr/SerialServer    Thread Context freed
+€
+€09/29/02 15:24:02.453 mgr/SerialServer    Freeing context
+€
+€09/29/02 15:24:02.453 mgr/SerialServer    Thread Context freed
+€
+€09/29/02 15:24:02.453 mgr/SerialServer    Thread pool destroyed
+€
+€09/29/02 15:24:02.453 mgr/SerialServer    Exit ResManagerXml::KillPoolThreads( 0)
+€
+€09/29/02 15:24:02.453 mgr/SerialServer    Enter ResManagerBase::CleanupManager
+€
+€09/29/02 15:24:02.453 mgr/SerialServer    Detach pulse connection
+€
+€09/29/02 15:24:02.454 mgr/SerialServer    Exit ResManagerBase::CleanupManager
+€
+€09/29/02 15:24:02.454 mgr/SerialServer    Exit ResManagerMt::CleanupManager
+€
+€09/29/02 15:24:02.454 mgr/SerialServer    Unregister task name
+€
+€09/29/02 15:24:02.454 mgr/SerialServer    Exit ResManagerXml::CleanupManager
+€
+€09/29/02 15:24:02.455 mgr/SerialServer    Enter ResManagerBase::PathDetach( 1)
+€
+€09/29/02 15:24:02.455 mgr/SerialServer    Exit ResManagerBase::PathDetach( 1)
+€
+€09/29/02 15:24:02.455 mgr/SerialServer    Unable to locate port driver logport/AvtJ2190
+€
+€09/29/02 15:24:02.455 mgr/SerialServer    Terminating logport/Pendant
+€
+€09/29/02 15:24:02.455 mgr/SerialServer    Waiting for logport/Pendant to terminate
+€
+€09/29/02 15:24:02.459 EmissionsTestCompon BepServer::HandlePulse(-35, 3)
+€
+€09/29/02 15:24:02.461 EmissionsTestCompon BepServer::HandlePulse(-35, 4)
+€
+€09/29/02 15:24:02.464 EmissionsTestCompon BepComponent::HandlePulse(-35, 3)
+€
+€09/29/02 15:24:02.466 EmissionsTestCompon BepServer::HandlePulse(-35, 5)
+€
+€09/29/02 15:24:02.467 EmissionsTestCompon BepComponent::HandlePulse(-35, 4)
+€
+€09/29/02 15:24:02.469 EmissionsTestCompon BepComponent::HandlePulse(-35, 5)
+€
+€09/29/02 15:24:02.470 EmissionsTestCompon BepServer::Han

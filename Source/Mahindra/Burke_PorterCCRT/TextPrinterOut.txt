@@ -1,0 +1,78 @@
+---------- Printer Font Info ---------- 
+Font Name: Actual=monospaced, Given=Courier
+Font Size: 10
+Line Height Multiplier: 0.7
+Extra Characters for Word Wrap: 10
+Max Characters Per Line: 100
+
+---------- Text Printed ---------- 
+Vehicle Test Report
+
+Overall Result           Abort                    Test Date                2013-01-22               
+Machine                  1                        Test Time                09:51:30                 
+
+
+Vehicle Build Data                                                                                  
+_____________________________________________________________________                               
+VIN                      1C4RJFCGXDC648434        Driver #                 T0000xx                  
+Body Style               WKJS74                   Engine Size                                       
+Transmission             A580                     Brake Type               TRW UDS                  
+T-Case                   NV245                    Axle Type                Standard                 
+Speed Control            ETC                      SKREEM                   NotEquipped              
+Airbag                   DabPabSab                TPM Type                 TPM UDS                  
+Market Type              NGC4 CAN                 Radio                    Satellite Radio          
+
+
+Test Results                                                                                        
+_____________________________________________________________________                               
+_____________________________________________________________________                               
+                Broadcast                       Vehicle                         Result          
+PCM #                                                                           --              
+ABS #                                                                           --              
+TCM #                                                                           --              
+_____________________________________________________________________                               
+Overall             Abort                                   TPM                 Abort               
+Brake               Abort                                   SKIM                --                  
+Emissions           Abort                                   Parktronics         Abort               
+Transmission        Abort                                   T-case              Abort               
+Cruise              Abort                                   Axle                --                  
+ETC                 Abort                                   DTRL                --                  
+Airbag              Abort                                   SAS                 Abort               
+SDARS               Test Not Required                       Gateway             --                  
+
+
+Module Faults                                                                                       
+_____________________________________________________________________                               
+MSMD                                              Description                                       
+A10D21                                            Battery Voltage Low - Signal Amplitude            
+PLGM                                              Description                                       
+A19916                                            Battery Voltage-Circuit Voltage Below Threshold   
+A1DD16                                            System Voltage-Circuit Voltage Below Threshold    
+Tipm                                              Description                                       
+A10D                                              Battery Voltage Low                               
+
+
+Test Failures                                                                                       
+_____________________________________________________________________                               
+Test                                              Reason                                            
+AirbagOverallTest                                 Airbag Overall Test Result                        
+BrakeOverallTest                                  Brake Overall Test Result                         
+ClusterOverallTest                                Cluster Overall Test Result                       
+DaytimeRunningLampsOverallTest                    DaytimeRunningLamps Overall Test Result           
+ETCOverallTest                                    ETC Overall Test Result                           
+EmissionsOverallTest                              Emissions Overall Test Result                     
+MachineOverallTest                                Machine Overall Test Result                       
+ModuleFaultReaderMSMDFaultsFinal                  MSMD Pre Roll Faults Present                      
+ModuleFaultReaderMSMDPreRollFaults1               MSMD Pre Roll Faults Present                      
+ModuleFaultReaderOverallTest                      ModuleFaultReader Overall Test Result             
+ModuleFaultReaderPLGMFaultsFinal                  PLGM Pre Roll Faults Present                      
+ModuleFaultReaderPLGMPreRollFaults1               PLGM Pre Roll Faults Present                      
+OperatorAbort                                     Operator pressed the Abort Button                 
+ParkAssistOverallTest                             ParkAssist Overall Test Result                    
+SASOverallTest                                    SAS Overall Test Result                           
+SpeedControlOverallTest                           SpeedControl Overall Test Result                  
+TPMOverallTest                                    TPM Overall Test Result                           
+TipmOverallTest                                   Tipm Overall Test Result                          
+TipmReadFaults                                    Gateway/TIPM Faults Detected                      
+TransferCaseOverallTest                           TransferCase Overall Test Result                  
+TransmissionOverallTest                           Transmission Overall Test Result                  

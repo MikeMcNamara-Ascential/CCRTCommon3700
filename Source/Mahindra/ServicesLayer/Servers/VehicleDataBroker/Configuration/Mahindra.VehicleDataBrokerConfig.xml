@@ -101,7 +101,7 @@
                 <TODInstalled DataType="bool">No</TODInstalled>
                 <TODInstalledBGColor DataType="color">white</TODInstalledBGColor>
                 <TestingTOD DataType="bool">No</TestingTOD>
-                <TransferCase DataType="string">2WD</PublishTags>
+                <TransferCase DataType="string">2WD</TransferCase>
                 <TPSActive DataType="bool">0</TPSActive>
                 <TPSTarget DataType="range">0 0</TPSTarget>
                 <TPSValue DataType="float">0</TPSValue>

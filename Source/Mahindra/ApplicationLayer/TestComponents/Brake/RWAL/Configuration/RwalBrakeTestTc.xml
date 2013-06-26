@@ -154,7 +154,7 @@
             <ICMName>mgr/ICM</ICMName>
             <IgnoreMachineConditions>No</IgnoreMachineConditions>
             <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
-            <DisplayBrakeMeterUntilZeroSpeed>True</DisplayBrakeMeterUntilZeroSpeed>
+            <DisplayBrakeMeterUntilZeroSpeed>False</DisplayBrakeMeterUntilZeroSpeed>
 
             <!-- Acceleration Parameters -->
             <CheckAccelerationElapseTime>False</CheckAccelerationElapseTime>

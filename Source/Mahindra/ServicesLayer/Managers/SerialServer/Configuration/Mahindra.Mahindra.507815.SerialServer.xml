@@ -203,7 +203,7 @@
                 </Setup>
             </ISOK>
 
-            <RWAL enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <RWAL enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser6</SerialDevice>
                     <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>

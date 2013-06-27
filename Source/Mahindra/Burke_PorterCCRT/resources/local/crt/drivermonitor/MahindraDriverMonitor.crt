@@ -22,7 +22,7 @@
                     <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
                     <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
                     <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" 
-                        domainhigh="150" targetlow="40" targethigh="60" scale="true" >
+                        domainhigh="149.5" targetlow="40" targethigh="60" scale="true" >
                         <Font size="18" name="sans-serif" style="plain"/>
                     </RadialGaugeConfig>
                 </Widget>
@@ -32,7 +32,7 @@
                     <DataSource tagname="BrakeTarget" tagrole="targetrange" messagetype="Subscribe"/>
                     <DataSource tagname="BrakeActive" messagetype="Subscribe" tagrole="enabled"/>
                     <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" 
-                        domainhigh="675" targetlow="0" targethigh="0" scale="true">
+                        domainhigh="899.49" targetlow="0" targethigh="0" scale="true">
                         <Font size="18" name="sans-serif" style="plain"/>
                     </RadialGaugeConfig>
                 </Widget>
@@ -43,11 +43,12 @@
                             <Font size="24" name="sans-serif" style="plain"/>
                         </Label>
                     </HBox>
-                    <Widget id="_pedalForce" width="200" height="50" class="com.bepco.gui.HorizontalBarGraph">
+                    <Widget id="_pedalForce" width="200" height="50" class="com.bepco.gui.HorizontalBarGraph">                    
                         <DataSource tagname="LeftBrakeForceTransducer" messagetype="Subscribe"/>
-                        <TextBoxConfig>
+                        <BarGraphConfig domainhigh="100" domainlow="0" targethigh="20" targetlow="15" />
+                        <!-- TextBoxConfig>
                             <Font size="24" name="sans-serif" style="plain"/>
-                        </TextBoxConfig>
+                        </TextBoxConfig -->
                     </Widget>
                     <Widget id="_numericPedalForce" class="com.bepco.gui.NumberBox" width="200">
                         <DataSource tagname="LeftBrakeForceTransducer" messagetype="Read" datarate="10" />

@@ -445,7 +445,7 @@ const std::string PlantHostInbound::GetVehicleBuildSource(void)
 	{
 		const XmlNode *config = parser.ReturnXMLDocument(m_configFile);
 		m_vehicleBuildRecordSource = config->getChild("Setup/VehicleBuildRecordSource")->getValue();
-		Log(LOG_DEV_DATA, "Set build record source to s", m_vehicleBuildRecordSource.c_str());
+		Log(LOG_DEV_DATA, "Set build record source to %s", m_vehicleBuildRecordSource.c_str());
 	}
 	catch(...)
 	{
@@ -1123,6 +1123,8 @@ void PlantHostInbound::SetVehicleBuildRecordStatus(const std::string &status)
 {
     m_vehicleBuildStatus = status;
     // Update the value so we can publish to everyone
+	Log(LOG_DEV_DATA, "SetVehicleBuildRecordStatus - setting %s to %s",
+		GetVehicleBuildRecordStatusTag().c_str(), m_vehicleBuildStatus.c_str());
     Write(GetVehicleBuildRecordStatusTag(), m_vehicleBuildStatus);
 }
 

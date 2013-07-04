@@ -16,6 +16,10 @@
 //-------------------------------------------------------------------------------------------------
 #include "MachineTC.h"
 //-------------------------------------------------------------------------------------------------
+#define MAZDA_MACHINE_TC_PULSE_CODE			SYSTEM_PULSE+18
+#define MAX_SPEED_CHECK_PULSE				11
+
+//-------------------------------------------------------------------------------------------------
 class MazdaMachineTC : public MachineTC
 {
 public:
@@ -33,7 +37,20 @@ public:
      * @return The result of the test step.
      */
     virtual const string CommandTestStep(const string &value);
+
     /**
+     * <b>Description:</b>
+     * Handle the specified pulse.  
+     *
+     * @param code  The pulse code to process.
+     * @param value The pulse value to process.
+     * 
+     * @return BEP_STATUS_SUCCESS if the pulse was successfully handled.
+     *         BEP_STATUS_FAILURE if the pulse was not handled.
+     */
+    virtual const INT32 HandlePulse(const INT32 code, const INT32 value);
+
+	/**
      * Initialize the test component.
      * <p><b>Category:</b> Utility
      * <p><b>Description</b><br>
@@ -56,7 +73,26 @@ public:
      */
     virtual void Initialize(const XmlNode *config);
 
+
+
+
+
 protected:
+
+	/**
+	 * Read in the side slip results if they exist for this vehicle.
+	 * The results will then be written to the PLC.
+	 * 
+	 * @return Result of reporting the side slip results.
+	 */
+	string ReportSideSlipResults(void);
+
+	/**
+	 * Stop the timer for checking for maximum axle speed.
+	 * 
+	 * @return Result of stopping the max speed observation.
+	 */
+	string StopMaxAxleSpeedObservation(void);
 
 	/**
 	 * Stop the odometer test.
@@ -231,7 +267,22 @@ protected:
     virtual const string TestStepAccelerateToSpeed(const string &value);
 
     const string TestStepRainLightSensorVerification(void);
-    /**
+
+
+
+
+
+private:
+
+	/**
+	 * Check the wheel speeds to see if a new max has been observed on either the 
+	 * front or the rear axle.
+	 * 
+	 * @return Status of updating the maximum speed.
+	 */
+	INT32 CheckForMaxSpeed(void);
+
+	/**
      * Check for valid RLS type.
      * <p><b>Category:</b> Utility
      * <p><b>Description:</b><br>
@@ -251,7 +302,8 @@ protected:
      *      </ul>
      */
     void CheckForValidRLSType(void);
-    /**
+
+	/**
      * Check if the vehicle is equipped with rain light sensor.
      * <p><b>Category:</b> Utility
      * <p><b>Description:</b><br>
@@ -271,13 +323,36 @@ protected:
      */
     virtual void SetRLSEquipped(const bool &equipped);
 
+	/**
+	 * Setup the specified timer using the setup data provided.
+	 * 
+	 * @param timerSetupNode
+	 *               Timer configuration data.
+	 * @param timer  Timer to be setup.
+	 */
+	void SetupTimer(const XmlNode *timerSetupNode, BepTimer &timer);
+	void SetupTimer(UINT64 updateRate, BepTimer &timer);
+
     /** Store the the valid rls equipped Types for this test from configuration file. */
     XmlNodeMap m_rlsEquippedTypes;
+
+	/** Map containing the information required for retrieving the side slip results from the result file */
+	XmlNodeMap m_sideSlipResultData;
 
     /** Flag to indicate if the vehicle is equipped with RLS. */
     bool m_rlsEquipped;
 
+	/** Encoder distance at the beginning of the test sequence */
 	WHEELINFO m_odoStartDistance;
+
+	// Maximum front speed observed during the test cycle
+	float m_maxFrontSpeedObserved;
+
+	// Maximum rear speed observed during the test cycle
+	float m_maxRearSpeedObserved;
+
+	// Timer to use for checking the max axle speed observed.
+	BepTimer m_maxSpeedTimer;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaMachineTC_h

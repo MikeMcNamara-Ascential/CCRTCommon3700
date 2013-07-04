@@ -3,7 +3,7 @@
         <Debug>0ff</Debug>
         <DebugLevel>0</DebugLevel>
         <ProcessPriority>11</ProcessPriority>
-        <UseVinAsTestLogSuffix>No</UseVinAsTestLogSuffix>
+        <UseVinAsTestLogSuffix>Yes</UseVinAsTestLogSuffix>
         <SuffixExtension>log</SuffixExtension>
         <MaxLogFileIndex>10000</MaxLogFileIndex>
         <LogIndexFile>/TestResults/Machine/NextTestLogIndex.dat</LogIndexFile>
@@ -17,7 +17,7 @@
             <DriveCurve>DriveCurve</DriveCurve>
             <RetainersDown>RollsDownElevUp</RetainersDown>
             <StartVehicleTest>StartVehicleTest</StartVehicleTest>
-            <Vin>VIN</Vin>
+            <Vin>Aon</Vin>
         </DataTags>
         <TagList>
             <SubscribeTags>
@@ -64,6 +64,8 @@
             <OverallTestResultPromptBox>1</OverallTestResultPromptBox>
             <LoadingParametersPromptBox>1</LoadingParametersPromptBox>
             <UsePlcResultButtons>True</UsePlcResultButtons>
+            <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
+            <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
             <ReuseComponents>True</ReuseComponents>
             <Setup>
                 <Debug>Off</Debug>

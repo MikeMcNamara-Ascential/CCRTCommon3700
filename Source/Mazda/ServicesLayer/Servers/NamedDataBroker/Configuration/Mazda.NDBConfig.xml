@@ -57,12 +57,14 @@
                 <ABSTestSelectedLamp DataType="bool">PLC</ABSTestSelectedLamp>
                 <ABSTestSelectedToPLC DataType="bool">PLC</ABSTestSelectedToPLC>
                 <ABSVINVerificationTest DataType="string">VehicleTest</ABSVINVerificationTest>
+                <AbsBuildNok DataType="bool">PLC</AbsBuildNok>
                 <AbsBuildOk DataType="bool">PLC</AbsBuildOk>
+                <AbsDumpNok DataType="bool">PLC</AbsDumpNok>
                 <AbsDumpOk DataType="bool">PLC</AbsDumpOk>
                 <ALDLTestEnabled DataType="bool">PLC</ALDLTestEnabled>
                 <ALDLTestRunning DataType="bool">PLC</ALDLTestRunning>
                 <Abort DataType="bool">SystemMonitor</Abort>
-                <AbortSignalFromPLC DataType="bool">PLC</AbortSignalFromPLC>
+                <AbortSignal DataType="bool">PLC</AbortSignal>
                 <AbortTestPushButtonToPLC DataType="bool">PLC</AbortTestPushButtonToPLC>
                 <AbsTestResult DataType="bool">PLC</AbsTestResult>
                 <AccellerateLamp DataType="bool">PLC</AccellerateLamp>
@@ -127,8 +129,8 @@
                 <Clutch DataType="bool">PLC</Clutch>
                 <CommandClutch DataType="bool">MotorController</CommandClutch>
                 <CommandSpeed DataType="float" Units="RPM">MotorController</CommandSpeed>
-            <CommandSysMonLowerRolls DataType="bool">MachineDataBroker</CommandSysMonLowerRolls>
-            <CommandSysMonRaiseRolls DataType="bool">MachineDataBroker</CommandSysMonRaiseRolls>
+                <CommandSysMonLowerRolls DataType="bool">MachineDataBroker</CommandSysMonLowerRolls>
+                <CommandSysMonRaiseRolls DataType="bool">MachineDataBroker</CommandSysMonRaiseRolls>
                 <CommandTest DataType="string">VehicleTest</CommandTest>
                 <CommandTorque DataType="float" Units="FT-LBS">MotorController</CommandTorque>
                 <CompleteLamp DataType="bool">PLC</CompleteLamp>
@@ -220,6 +222,10 @@
                 <FrontBalanceBGColor DataType="color">MachineDataBroker</FrontBalanceBGColor>
                 <FrontBalanceRejectLamp DataType="bool">PLC</FrontBalanceRejectLamp>
                 <FrontBalanceValue DataType="float">MachineDataBroker</FrontBalanceValue>
+                <FrontDragBalanceBgcolor DataType="color">MachineDataBroker</FrontDragBalanceBgcolor>
+                <FrontDragBalanceValue DataType="short">MachineDataBroker</FrontDragBalanceValue>
+                <FrontDragSumBgColor DataType="color">MachineDataBroker</FrontDragSumBgColor>
+                <FrontDragSumValue DataType="short">MachineDataBroker</FrontDragSumValue>
                 <FrontEBSDriveDisconnectOpen DataType="bool">PLC</FrontEBSDriveDisconnectOpen>
                 <FrontEBSDriveNotLoweredFault DataType="bool">PLC</FrontEBSDriveNotLoweredFault>
                 <FrontEBSDriveNotRaisedFault DataType="bool">PLC</FrontEBSDriveNotRaisedFault>
@@ -234,16 +240,22 @@
                 <FrontHydraulicClutchEngagedFault DataType="bool">PLC</FrontHydraulicClutchEngagedFault>
                 <FrontInterRollClutchDisengageFault DataType="bool">PLC</FrontInterRollClutchDisengageFault>
                 <FrontInterRollClutchEngageFault DataType="bool">PLC</FrontInterRollClutchEngageFault>
+                <FrontMaxSpeedObserved DataType="short">PLC</FrontMaxSpeedObserved>
                 <FrontRetainingRollsLoweredFault DataType="bool">PLC</FrontRetainingRollsLoweredFault>
                 <FrontRetainingRollsRaisedFault DataType="bool">PLC</FrontRetainingRollsRaisedFault>
                 <FrontRollsHydraulicAssist4WD DataType="bool">PLC</FrontRollsHydraulicAssist4WD>
+                <FrontSideSlipResult DataType="bool">PLC</FrontSideSlipResult>
+                <FrontSideSlipValue DataType="short">PLC</FrontSideSlipValue>
                 <FrontToRearBalanceBGColor DataType="color">MachineDataBroker</FrontToRearBalanceBGColor>
                 <FrontToRearBalanceRejectLamp DataType="bool">PLC</FrontToRearBalanceRejectLamp>
                 <FrontToRearBalanceValue DataType="float">MachineDataBroker</FrontToRearBalanceValue>
+                <FrontTotalBrakeForceBgColor DataType="color">MachineDataBroker</FrontTotalBrakeForceBgColor>
+                <FrontTotalBrakeForceValue DataType="short">MachineDataBroker</FrontTotalBrakeForceValue>
                 <FrontWheelDriveSelectedToPLC DataType="bool">PLC</FrontWheelDriveSelectedToPLC>
                 <FrontWheelDriveSelectedToPLCSpecial DataType="bool">PLC</FrontWheelDriveSelectedToPLCSpecial>
                 <GetBuildDataFromSystem DataType="bool">PLC</GetBuildDataFromSystem>
                 <GUIKeepAlive DataType="bool">MachineDataBroker</GUIKeepAlive>
+                <HalfAutoMode DataType="bool">PLC</HalfAutoMode>
                 <HolddownPlatformLockDisengagedFault DataType="bool">PLC</HolddownPlatformLockDisengagedFault>
                 <HolddownPlatformLockEngagedFault DataType="bool">PLC</HolddownPlatformLockEngagedFault>
                 <HolddownPlatformLoweredFault DataType="bool">PLC</HolddownPlatformLoweredFault>
@@ -476,7 +488,7 @@
                 <LowerPos5VoltPowerSupplyDomain DataType="range">MachineDataBroker</LowerPos5VoltPowerSupplyDomain>
                 <LowerPos5VoltPowerSupplyTarget DataType="range">MachineDataBroker</LowerPos5VoltPowerSupplyTarget>
                 <LowerPos5VoltPowerSupplyTolerance DataType="bool">PLC</LowerPos5VoltPowerSupplyTolerance>
-			<LowerRolls-RaiseElevators DataType="bool">PLC</LowerRolls-RaiseElevators>
+                <LowerRolls-RaiseElevators DataType="bool">PLC</LowerRolls-RaiseElevators>
                 <LubeLevelLowShutdownFault DataType="bool">PLC</LubeLevelLowShutdownFault>
                 <LubePressureHighShutdownFault DataType="bool">PLC</LubePressureHighShutdownFault>
                 <LubeSystemCycleSwitchFault DataType="bool">PLC</LubeSystemCycleSwitchFault>
@@ -518,7 +530,7 @@
                 <NeutralLamp DataType="bool">PLC</NeutralLamp>
                 <NextVIN DataType="string">InputServer</NextVIN>
                 <NextVINRequest DataType="bool">PLC</NextVINRequest>
-                <NextVehicleBuild DataType="string">VehicleDataServer</NextVehicleBuild>
+                <NextVehicleBuild DataType="string">PlantHostInbound</NextVehicleBuild>
                 <NissinboABSSelected DataType="bool">PLC</NissinboABSSelected>
                 <NoABSSelected DataType="bool">PLC</NoABSSelected>
                 <NormalBrakeTestResult DataType="bool">PLC</NormalBrakeTestResult>
@@ -635,6 +647,10 @@
                 <OverheadPositioningFault DataType="bool">PLC</OverheadPositioningFault>
                 <OverheadStartCommand DataType="bool">PLC</OverheadStartCommand>
                 <Overspeed DataType="bool">PLC</Overspeed>
+                <ParkBrakeForce DataType="float" Units="LBF">MachineDataBroker</ParkBrakeForce>
+                <ParkBrakeForceBGColor DataType="color">MachineDataBroker</ParkBrakeForceBGColor>
+                <ParkBrakeBalanceValue DataType="short">MachineDataBroker</ParkBrakeBalanceValue>
+                <ParkBrakeBalanceBGColor DataType="color">MachineDataBroker</ParkBrakeBalanceBGColor>
                 <PlcCountdown DataType="short">PLC</PlcCountdown>
                 <PLC5Rack0Fault DataType="bool">PLC</PLC5Rack0Fault>
                 <PLC5Rack1Fault DataType="bool">PLC</PLC5Rack1Fault>
@@ -687,6 +703,14 @@
                 <PromptBox1BGColor DataType="color">PromptServer</PromptBox1BGColor>
                 <PromptBox2 DataType="prompt">PromptServer</PromptBox2>
                 <PromptBox2BGColor DataType="color">PromptServer</PromptBox2BGColor>
+                <RearDragBalanceBgcolor DataType="color">MachineDataBroker</RearDragBalanceBgcolor>
+                <RearDragBalanceValue DataType="short">MachineDataBroker</RearDragBalanceValue>
+                <RearDragSumBgColor DataType="color">MachineDataBroker</RearDragSumBgColor>
+                <RearDragSumValue DataType="short">MachineDataBroker</RearDragSumValue>
+                <RearSideSlipResult DataType="bool">PLC</RearSideSlipResult>
+                <RearSideSlipValue DataType="short">PLC</RearSideSlipValue>
+                <RearTotalBrakeForceBgColor DataType="color">MachineDataBroker</RearTotalBrakeForceBgColor>
+                <RearTotalBrakeForceValue DataType="short">MachineDataBroker</RearTotalBrakeForceValue>
                 <RetrieveBuildData DataType="bool">PLC</RetrieveBuildData>
                 <RFABSRecoveryBGColor DataType="color">MachineDataBroker</RFABSRecoveryBGColor>
                 <RFABSRecoveryValue DataType="float" Units="Percent">MachineDataBroker</RFABSRecoveryValue>
@@ -764,6 +788,8 @@
                 <RRMachineLossPrevious DataType="float" Units="LBF">MachineDataBroker</RRMachineLossPrevious>
                 <RRMachineLossPreviousBGColor DataType="color">MachineDataBroker</RRMachineLossPreviousBGColor>
                 <RRParkBrakeCylinderNotRetracted DataType="bool">PLC</RRParkBrakeCylinderNotRetracted>
+                <RRParkBrakeBGColor DataType="color">MachineDataBroker</RRParkBrakeBGColor>
+                <RRParkBrakeForce DataType="float" Units="LBF">MachineDataBroker</RRParkBrakeForce>
                 <RRReserved DataType="float">ICM</RRReserved>
                 <RRRollMotorDriveCommFault DataType="bool">PLC</RRRollMotorDriveCommFault>
                 <RRRollMotorOperationalFault DataType="bool">PLC</RRRollMotorOperationalFault>
@@ -818,6 +844,7 @@
                 <RearHydraulicClutchEngagedFault DataType="bool">PLC</RearHydraulicClutchEngagedFault>
                 <RearInterRollClutchDisengageFault DataType="bool">PLC</RearInterRollClutchDisengageFault>
                 <RearInterRollClutchEngageFault DataType="bool">PLC</RearInterRollClutchEngageFault>
+                <RearMaxSpeedObserved DataType="short">PLC</RearMaxSpeedObserved>
                 <RearRetainingRollsLoweredFault DataType="bool">PLC</RearRetainingRollsLoweredFault>
                 <RearRetainingRollsRaisedFault DataType="bool">PLC</RearRetainingRollsRaisedFault>
                 <RearStopPostLoweredFault DataType="bool">PLC</RearStopPostLoweredFault>
@@ -876,6 +903,7 @@
                 <RollsDownElevUp DataType="bool">PLC</RollsDownElevUp>
                 <RollsUpElevDown DataType="bool">PLC</RollsUpElevDown>
                 <RunBrakeSwitchTest DataType="bool">PLC</RunBrakeSwitchTest>
+                <RunBrakeTest Datatype="bool">PLC</RunBrakeTest>
                 <RunDiagclrTest DataType="bool">PLC</RunDiagclrTest>
                 <RunFcchkTest DataType="bool">PLC</RunFcchkTest>
                 <RunflatTestSelected DataType="bool">PLC</RunflatTestSelected>
@@ -945,6 +973,8 @@
                 <TandemToRearBalanceBGColor DataType="color">MachineDataBroker</TandemToRearBalanceBGColor>
                 <TandemToRearBalanceValue DataType="float">MachineDataBroker</TandemToRearBalanceValue>
                 <Test90PercentComplete DataType="bool">PLC</Test90PercentComplete>
+                <TestCycleTime DataType="short">PLC</TestCycleTime>
+                <TestDistanceTraveled DataType="short">PLC</TestDistanceTraveled>
                 <TestInProgress DataType="bool">VehicleTest</TestInProgress>
                 <TestResult DataType="string">TestResultServer</TestResult>
                 <TestResultBox1 DataType="string">MachineDataBroker</TestResultBox1>
@@ -1015,6 +1045,7 @@
                 <TransferCase DataType="string">VehicleDataBroker</TransferCase>
                 <TransferCaseBGColor DataType="color">VehicleDataBroker</TransferCaseBGColor>
                 <TransferCaseOverallTest DataType="testcomponentstatus">TestResultServer</TransferCaseOverallTest>
+                <TransmissionResult DataType="bool">PLC</TransmissionResult>
                 <TurnOnAuxillaryOutputOne DataType="bool">PLC</TurnOnAuxillaryOutputOne>
                 <TurnOnAuxillaryOutputTwo DataType="bool">PLC</TurnOnAuxillaryOutputTwo>
                 <TwelveGpmHydOutputFilterBlocked DataType="bool">PLC</TwelveGpmHydOutputFilterBlocked>
@@ -1050,6 +1081,8 @@
                 <VehicleBuildDataNg DataType="bool">PLC</VehicleBuildDataNg>
                 <VehicleBuildDataOk DataType="bool">PLC</VehicleBuildDataOk>
                 <VehicleBuildRecordStatus DataType="string">WorkCellController</VehicleBuildRecordStatus>
+                <VehicleFrontAxleWeight DataType="short">PLC</VehicleFrontAxleWeight>
+                <VehicleRearAxleWeight DataType="short">PLC</VehicleRearAxleWeight>
                 <VehiclePresent DataType="bool">SystemMonitor</VehiclePresent>
                 <VehiclePresentAtBarcodeDelayTime DataType="short">PLC</VehiclePresentAtBarcodeDelayTime>
                 <VehiclePushersExtendedFault DataType="bool">PLC</VehiclePushersExtendedFault>
@@ -1142,6 +1175,7 @@
                 <RightRearPosTorqueLimit DataType="short">PLC</RightRearPosTorqueLimit>
                 <RightRearNegTorqueLimit DataType="short">PLC</RightRearNegTorqueLimit>
             
+
                 <LeftMotorMode DataType="short">PLC</LeftMotorMode>
                 <LeftSpeedRefRpm DataType="short">PLC</LeftSpeedRefRpm>
                 <LeftTorqueRefPercent DataType="short">PLC</LeftTorqueRefPercent>

@@ -271,12 +271,12 @@
         <AbsTestResult channelIndex="19" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
 
         <!-- N16:20 -->
-        <InterRollPressureHighWarning channelIndex="20" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
-        <InterRollPressureHighShutdown channelIndex="20" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
+        <AbsDumpNok channelIndex="20" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+        <AbsBuildNok channelIndex="20" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <VariableDataReady channelIndex="20" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
         <!-- OPEN 3 -->
         <PfsBlocked channelIndex="20" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
-        <!-- OPEN 5 - 7 -->
+        <RunBrakeTest channelIndex="20" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
         <AbsDumpOk channelIndex="20" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
         <AbsBuildOk channelIndex="20" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
         <RunLfAbsTest channelIndex="20" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
@@ -314,6 +314,8 @@
         <VehiclePresentAtBarcodeDelayTime channelIndex="25" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <BarcodeVerifyDelayTime channelIndex="26" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <ParkBrakePressure channelIndex="27" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+
         <!-- Left Motor Control -->
         <LeftFrontMotorMode channelIndex="35" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <LeftFrontSpeedRefRpm channelIndex="36" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
@@ -626,7 +628,8 @@
         <NissinboAbsSelected channelIndex="15" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <IgnitionOnFromTestHead channelIndex="15" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
         <CurrentTestStepResultFromTestHead channelIndex="15" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
-        <!-- OPEN 3 - 4 -->
+        <HalfAutoMode channelIndex="15" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
+        <!-- OPEN 4 -->
         <FcchkTestComplete channelIndex="15" bitIndex="5" logic="1" portDir="IN" boardIdx="0"/>
         <!-- OPEN 6 - 7 -->
         <VehicleBuildDataOk channelIndex="15" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
@@ -710,6 +713,11 @@
         <Encoder5VPowerSupplyVoltage channelIndex="25" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <BoostPressureFeedBack channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
       
+        <!-- N17:28 -->
+        <VehicleFrontAxleWeight channelIndex="28" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+        <!-- N17:29 -->
+        <VehicleRearAxleWeight channelIndex="29" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
 
         <FrontAxleTestSelected channelIndex="30" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <FrBrakeForceTestReqConfirm channelIndex="30" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>

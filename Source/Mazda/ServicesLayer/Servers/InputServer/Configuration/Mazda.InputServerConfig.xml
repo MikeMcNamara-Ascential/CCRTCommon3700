@@ -567,13 +567,15 @@
             <!-- ******************************************************* -->
             <!-- *                  Left Maple Keypad                  * -->
             <!-- ******************************************************* -->
-            <LeftMapleKeypad  enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+            <LeftMapleKeypad  enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MazdaMapleKeypadMgr.qxe">
                 <Setup>
                     <TagList>
                         <SubscribeTags>
-                            <VehicleBuildRecordStatus/>
-                            <VehicleAtBarcodeScanner/>
+                            <HalfAutoMode/>
+                            <InputServerState/>
                             <RollsDownElevUp/>
+                            <VehicleAtBarcodeScanner/>
+                            <VehicleBuildRecordStatus/>
                         </SubscribeTags>
                     </TagList>
                     <Communication>
@@ -613,7 +615,7 @@
                         <Setup>
                             <Communication>
                                 <Debug>Off</Debug>
-                                <Name>/dev/LogicalPorts/Pendant</Name>
+                                <Name>/dev/LogicalPorts/LeftMapleKeypad</Name>
                                 <BufferSize>128</BufferSize>
                                 <Timeout>10000</Timeout>
                             </Communication>
@@ -636,22 +638,38 @@
                         <BlockModeFieldEnd>27</BlockModeFieldEnd>
                         <BlockModeFillCharacter/>
                         <DisableKeyboard>1</DisableKeyboard>
-                        <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER VIN #</EnterVIN>
+                        <HalfAutoModeTag>HalfAutoMode</HalfAutoModeTag>
+                        <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER AON #</EnterVIN>
                         <ReadyToTest RowIndex="1" ColumnIndex="18">READY!</ReadyToTest>
                         <NotReady RowIndex="1" ColumnIndex="11">NOT READY TO TEST</NotReady>
                         <PleaseWait RowIndex="2" ColumnIndex="12">PLEASE WAIT</PleaseWait>
                     </DataTags>
+                    <HalfAutoInputs>
+                        <BodyStyle RowIndex="1" ColumnIndex="1" Prompt="Select Body Style: ">
+                            <BodyStyle00>BM</BodyStyle00>
+                            <BodyStyle01>XX</BodyStyle01>
+                        </BodyStyle>
+                        <Transmission RowIndex="1" ColumnIndex="1" Prompt="Trans Type: ">
+                            <Trans00>Manual</Trans00>
+                            <Trans01>Automatic</Trans01>
+                        </Transmission>
+                    </HalfAutoInputs>
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
+                    <SecondaryDataTag>Aon</SecondaryDataTag>
+                    <SecondaryDataLength>8</SecondaryDataLength>
+                    <WriteSecondaryDataToNdb>True</WriteSecondaryDataToNdb>
                 </Setup>
             </LeftMapleKeypad>
             <!-- ******************************************************* -->
             <!-- *                 Right Maple Keypad                  * -->
             <!-- ******************************************************* -->
-            <RightMapleKeypad enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+            <RightMapleKeypad enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MazdaMapleKeypadMgr.qxe">
                 <Setup>
                     <TagList>
                         <SubscribeTags>
+                            <HalfAutoMode/>
+                            <InputServerState/>
                             <NextVIN/>
                             <VehicleBuildRecordStatus/>
                         </SubscribeTags>
@@ -693,7 +711,7 @@
                         <Setup>
                             <Communication>
                                 <Debug>Off</Debug>
-                                <Name>/dev/LogicalPorts/Pendant</Name>
+                                <Name>/dev/LogicalPorts/RightMapleKeypad</Name>
                                 <BufferSize>128</BufferSize>
                                 <Timeout>10000</Timeout>
                             </Communication>
@@ -716,13 +734,27 @@
                         <BlockModeFieldEnd>27</BlockModeFieldEnd>
                         <BlockModeFillCharacter/>
                         <DisableKeyboard>1</DisableKeyboard>
-                        <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER VIN #</EnterVIN>
+                        <HalfAutoModeTag>HalfAutoMode</HalfAutoModeTag>
+                        <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER AON #</EnterVIN>
                         <ReadyToTest RowIndex="1" ColumnIndex="18">READY!</ReadyToTest>
                         <NotReady RowIndex="1" ColumnIndex="11">NOT READY TO TEST</NotReady>
                         <PleaseWait RowIndex="2" ColumnIndex="12">PLEASE WAIT</PleaseWait>
                     </DataTags>
+                    <HalfAutoInputs>
+                        <BodyStyle RowIndex="1" ColumnIndex="1" Prompt="Select Body Style: ">
+                            <BodyStyle00>BM</BodyStyle00>
+                            <BodyStyle01>XX</BodyStyle01>
+                        </BodyStyle>
+                        <Transmission RowIndex="1" ColumnIndex="1" Prompt="Trans Type: ">
+                            <Trans00>Manual</Trans00>
+                            <Trans01>Automatic</Trans01>
+                        </Transmission>
+                    </HalfAutoInputs>
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
+                    <SecondaryDataTag>Aon</SecondaryDataTag>
+                    <SecondaryDataLength>8</SecondaryDataLength>
+                    <WriteSecondaryDataToNdb>True</WriteSecondaryDataToNdb>
                 </Setup>
             </RightMapleKeypad>
         </InputDevices>

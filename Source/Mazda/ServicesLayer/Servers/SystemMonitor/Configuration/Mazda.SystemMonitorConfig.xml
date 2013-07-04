@@ -7,6 +7,7 @@
         <VehiclePresentTime Description="The amount of time to wait in miliseconds to declare a vehicle as being present">1000</VehiclePresentTime>
         <SystemMonitorWheelbaseAdjust>Yes</SystemMonitorWheelbaseAdjust>
         <MoveWheelbasePulseWidth Units="ms">1000</MoveWheelbasePulseWidth>
+        <AbortOnAbortPb>1</AbortOnAbortPb>
         <TagList>
             <PublishTags>
                 <Abort>0</Abort>
@@ -15,12 +16,14 @@
                 <VehiclePresent>0</VehiclePresent>
             </PublishTags>
             <SubscribeTags>
+                <AbortSignal/>
                 <CommandSysMonLowerRolls/>
                 <CommandSysMonRaiseRolls/>
                 <InstVehiclePresent/>
                 <JounceTestComplete/>
                 <NextVIN/>
                 <OverallTest/>
+                <PLCCableConnect/>
                 <PLCRackFault/>
                 <PowerSense/>
                 <RollsDownElevUp/>
@@ -33,6 +36,7 @@
             </SubscribeTags>
         </TagList>
         <DataTags>
+            <AbortTestFromPLC>AbortSignal</AbortTestFromPLC>
             <ClearBodyStyle>None</ClearBodyStyle>
             <DriveAxle>DriveAxle</DriveAxle>
             <OverallResultToPlcTag>OverallTestResult</OverallResultToPlcTag>

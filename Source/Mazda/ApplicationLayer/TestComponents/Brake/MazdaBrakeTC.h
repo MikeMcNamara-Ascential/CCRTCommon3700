@@ -24,6 +24,23 @@ public:
 	MazdaBrakeTC();
 	virtual ~MazdaBrakeTC();
 
+    /**
+     * Abort test processing.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description:</b><br>
+     * Abort the current test processing.  If testing is in process for this component, the overall result will be set
+     * to Abort as well as the component status.  If the overall result is set to Pass, it will not be updated to Abort.
+     * <p>
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> GetStatus() </li>
+     *      <li> GetPreviousOverallResult() </li>
+     *      <li> SendOverallResult() </li>
+     *      <li> SetStatus() </li>
+     *      </ul>
+     */
+    virtual void Abort(void);
+
 	/**
 	 * Sequence a test step.
 	 * <br><p>
@@ -183,12 +200,27 @@ private:
 	 * @param comparison Type of comparison to perform on against the sum limit.
 	 * @param details    Result details to be reported to the test result server.
 	 * @param axle       Which axle is being analyzed - Front or Rear.
+	 * @param leftDisplayTag
+	 *                   Display tag to use for displaying the result for the left wheel.
+	 * @param rightDisplayTag
+	 *                   Display tag to use for displaying the result for the right wheel.
+	 * @param sumDisplayTag
+	 *                   Tag to use to display the axle sum value.
+	 * @param diffDisplayTag
+	 *                   Tag to use for displaying the axle diff value.
+	 * @param sumBgColorTag
+	 *                   Tag to use for setting the result color for the sum.
+	 * @param diffBgColorTag
+	 *                   Tag to use for setting the background result color for the diff.
 	 * 
 	 * @return Result of the data analysis.
 	 */
 	string AnalyzeForceResults(MaxBrakeData *forceData, const INT16 &leftWheel, const INT16 &rightWheel, 
 							   const ResultType_t &resultType, const float &sumLimit, const float &diffLimit, 
-							   Comparison_t comparison, TestResultDetails &details, string &axle);
+							   Comparison_t comparison, TestResultDetails &details, string &axle,
+							   string leftDisplayTag, string rightDisplayTag, 
+							   string sumDisplayTag, string diffDisplayTag,
+							   string sumBgColorTag, string diffBgColorTag);
 
 	/**
 	 * Get/Set the average brake force for the specfied wheel.
@@ -208,6 +240,15 @@ private:
 	 * @return Status of disabling the motors.
 	 */
 	BEP_STATUS_TYPE DisableRollMotors(const string motorMode);
+
+	/**
+	 * Get the axle weight for the specified axle.
+	 * 
+	 * @param axle   Axle to get the weight of.
+	 * 
+	 * @return Weight of the specified axle.
+	 */
+	float GetAxleWeight(string axle);
 
 	/**
 	 * Check to see if wheel has reached a specified speed

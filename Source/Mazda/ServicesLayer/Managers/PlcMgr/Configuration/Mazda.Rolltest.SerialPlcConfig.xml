@@ -259,8 +259,8 @@
         <WCCFatalFault channelIndex="19" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>
         <StackLightBlue channelIndex="19" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
         <StackLightRed channelIndex="19" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
-        <StackLightYellow channelIndex="19" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
-        <StackLightGreen channelIndex="19" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
+        <FrontSideSlipResult channelIndex="19" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
+        <RearSideSlipResult channelIndex="19" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
         <RetrieveBuildData channelIndex="19" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
         <LowerRolls-RaiseElevators channelIndex="19" bitIndex="9" logic="1" portDir="OUT" boardIdx="0"/>
         <VariableDataTestResult channelIndex="19" bitIndex="10" logic="1" portDir="OUT" boardIdx="0"/>
@@ -273,7 +273,10 @@
         <!-- N16:20 -->
         <InterRollPressureHighWarning channelIndex="20" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <InterRollPressureHighShutdown channelIndex="20" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
+        <TransmissionResult channelIndex="20" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>
         <PfsBlocked channelIndex="20" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:21 -->
         <StartCyclePB channelIndex="21" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <AbortTestPB channelIndex="21" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <ABSTestSelectedIRToPLC channelIndex="21" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -282,8 +285,14 @@
         <ElevatorsRaisedLight channelIndex="21" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
         <LowerElevatorsPB channelIndex="21" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
         <RaiseElevatorsPB channelIndex="21" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:22 -->
         <WheelbasePositionInchesX10 channelIndex="22" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:23 -->
         <OverheadPositionInchesX10 channelIndex="23" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:24 -->
         <WheelbaseStartCommand channelIndex="24" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <OverheadStartCommand channelIndex="24" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <MoveDriverInterfacePanelIn channelIndex="24" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -296,15 +305,35 @@
         <RetRollHiPosition channelIndex="24" bitIndex="12" logic="1" portDir="OUT" boardIdx="0"/>
         <RetRollLoPosition channelIndex="24" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <ReRelaxRetRolls channelIndex="24" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:25 -->
         <VehiclePresentAtBarcodeDelayTime channelIndex="25" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:26 -->
         <BarcodeVerifyDelayTime channelIndex="26" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:27 -->
         <FrontReductionPressure channelIndex="27" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:29 -->
+        <TestDistanceTraveled channelIndex="29" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:30 -->
+        <FrontMaxSpeedObserved channelIndex="30" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:31 -->
+        <RearMaxSpeedObserved channelIndex="31" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:32 -->
+        <TestCycleTime channelIndex="32" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:33 -->
+        <FrontSideSlipValue channelIndex="33" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:34 -->
+        <RearSideSlipValue channelIndex="34" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
         <!-- Left Motor Control -->
-        <!-- LeftFrontMotorMode channelIndex="35" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <LeftFrontSpeedRefRpm channelIndex="36" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <LeftFrontTorqueRefPercent channelIndex="37" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <LeftFrontPosTorqueLimit channelIndex="38" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <LeftFrontNegTorqueLimit channelIndex="39" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/ -->
         <LeftMotorMode channelIndex="35" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <LeftSpeedRefRpm channelIndex="36" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <LeftTorqueRefPercent channelIndex="37" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
@@ -312,11 +341,6 @@
         <LeftNegTorqueLimit channelIndex="39" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         
         <!-- Right Motor Control -->
-        <!-- RightFrontMotorMode channelIndex="40" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <RightFrontSpeedRefRpm channelIndex="41" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <RightFrontTorqueRefPercent channelIndex="42" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <RightFrontPosTorqueLimit channelIndex="43" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <RightFrontNegTorqueLimit channelIndex="44" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/ -->
         <RightMotorMode channelIndex="40" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <RightSpeedRefRpm channelIndex="41" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <RightTorqueRefPercent channelIndex="42" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
@@ -346,17 +370,6 @@
         <AonBytes4and5 channelIndex="58" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <AonBytes6and7 channelIndex="59" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 
-<!--
-        <TestResultOverallTestPass channelIndex="65" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
-        <TestResultBaseDrumTestPass channelIndex="65" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
-
-        <TestResultFrontAt40kphValue channelIndex="66" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <TestResultRearAt40kphValue channelIndex="67" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <TestResultFrontAtMaxValue channelIndex="68" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <TestResultRearAtMaxValue channelIndex="69" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <TestResultOdometer channelIndex="70" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-        <TestResultTestDuration channelIndex="71" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
--->
         <!-- Data from PLC -->
         <RearWheelDriveSignal channelIndex="0" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <PowerSense channelIndex="0" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
@@ -583,6 +596,7 @@
         <LeftRearRollMotorOvercurrent channelIndex="14" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
         <RightRearRollMotorOvercurrent channelIndex="14" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
         <IgnitionOnFromTestHead channelIndex="15" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
+        <HalfAutoMode channelIndex="15" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
         <VehicleBuildDataOk channelIndex="15" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
         <VehicleBuildDataNg channelIndex="15" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
         <NissinboAbsSelected channelIndex="15" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>

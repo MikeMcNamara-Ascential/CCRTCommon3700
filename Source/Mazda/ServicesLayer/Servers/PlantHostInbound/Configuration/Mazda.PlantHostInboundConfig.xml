@@ -87,10 +87,10 @@
         </NotificationList>
         <InvalidateBuildRecordOnRead>False</InvalidateBuildRecordOnRead>
         <VehicleBuildFilePath>/Configuration/VehicleTest/BuildRecords/</VehicleBuildFilePath>
-        <VehicleBuildRecordSource Type="File, Broadcast, None">File</VehicleBuildRecordSource>
+        <VehicleBuildRecordSource Type="File, Broadcast, None">Broadcast</VehicleBuildRecordSource>
         <VehicleBuildFileVinStart>0</VehicleBuildFileVinStart>
         <VehicleBuildFileVinLength>-1</VehicleBuildFileVinLength>
-        <WheelbaseConfigFile>/Configuration/Client/WheelbaseConfig.xml</WheelbaseConfigFile>
+        <WheelbaseConfigFile>/Configuration/Servers/WheelbaseConfig.xml</WheelbaseConfigFile>
     </Setup>
     <VehicleConvert/>
 </PlantHostInbound>

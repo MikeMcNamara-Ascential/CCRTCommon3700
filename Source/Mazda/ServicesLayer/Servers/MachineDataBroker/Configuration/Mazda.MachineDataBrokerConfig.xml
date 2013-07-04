@@ -1,7 +1,7 @@
 <MachineDataBrokerConfig>
 	<Setup>
 		<CustId>Mazda</CustId>
-		<CustBld Description="Customer release version yymmddrr">13060601</CustBld>
+		<CustBld Description="Customer release version yymmddrr">13070101</CustBld>
 		<UseConfigMachineNumber>No</UseConfigMachineNumber>
 		<Debug>Off</Debug>
 		<DataFile Description="This is the file where persistent data is stored">/Configuration/Machine/LossCompensationTimeDate.dat</DataFile>
@@ -10,11 +10,11 @@
         <LoadCellData>
             <LoadCellUpdateDelay Units="ms" Description="Time between updates of the load cell data">100</LoadCellUpdateDelay>
             <Conversions>
-                <LeftFront RawData="LFLoadCellValueRaw" SystemTag="LFLoadCellValue">0.0502202643172</LeftFront>
-                <RightFront RawData="RFLoadCellValueRaw" SystemTag="RFLoadCellValue">0.0502202643172</RightFront>
-                <LeftRear RawData="LRLoadCellValueRaw" SystemTag="LRLoadCellValue">0.0502202643172</LeftRear>
-                <RightRear RawData="RRLoadCellValueRaw" SystemTag="RRLoadCellValue">0.0502202643172</RightRear>
-                <FootBrake RawData="BrakePedalForceRaw" SystemTag="BrakePedalForce">0.390625</FootBrake>
+                <LeftFront RawData="LFLoadCellValueRaw" SystemTag="LFLoadCellValue">1.0</LeftFront>
+                <RightFront RawData="RFLoadCellValueRaw" SystemTag="RFLoadCellValue">1.0</RightFront>
+                <LeftRear RawData="LRLoadCellValueRaw" SystemTag="LRLoadCellValue">1.0</LeftRear>
+                <RightRear RawData="RRLoadCellValueRaw" SystemTag="RRLoadCellValue">1.0</RightRear>
+                <FootBrake RawData="BrakePedalForceRaw" SystemTag="BrakePedalForce">1.0</FootBrake>
             </Conversions>
         </LoadCellData>
         <RollerDistanceParameters>
@@ -76,6 +76,12 @@
 				<DriverNumberDisplayBGColor DataType="" Units="">white</DriverNumberDisplayBGColor>
 				<FrontBalanceBGColor DataType="color">white</FrontBalanceBGColor>
 				<FrontBalanceValue DataType="string">0</FrontBalanceValue>
+                <FrontDragBalanceBgcolor DataType="color">white</FrontDragBalanceBgcolor>
+                <FrontDragBalanceValue DataType="short">0</FrontDragBalanceValue>
+                <FrontDragSumBgColor DataType="color">white</FrontDragSumBgColor>
+                <FrontDragSumValue DataType="short">0</FrontDragSumValue>
+                <FrontTotalBrakeForceBgColor DataType="color">white</FrontTotalBrakeForceBgColor>
+                <FrontTotalBrakeForceValue DataType="short">0</FrontTotalBrakeForceValue>
 				<FrontToRearBalanceBGColor DataType="color">white</FrontToRearBalanceBGColor>
 				<FrontToRearBalanceValue DataType="string">0</FrontToRearBalanceValue>
 				<GUIKeepAlive DataType="bool">0</GUIKeepAlive>
@@ -183,9 +189,17 @@
                 <MaxRollerSpeed DataType="float" Units="MPH">0</MaxRollerSpeed>
                 <ParkBrakeForce DataType="float" Units="LBF">0.0</ParkBrakeForce>
                 <ParkBrakeForceBGColor DataType="color">white</ParkBrakeForceBGColor>
+                <ParkBrakeBalanceValue DataType="short">0</ParkBrakeBalanceValue>
+                <ParkBrakeBalanceBGColor DataType="color">white</ParkBrakeBalanceBGColor>
                 <PlcType DataType="string">SerialAb</PlcType>
 				<RearBalanceBGColor DataType="color">white</RearBalanceBGColor>
 				<RearBalanceValue DataType="string">0</RearBalanceValue>
+                <RearTotalBrakeForceBgColor DataType="color">white</RearTotalBrakeForceBgColor>
+                <RearTotalBrakeForceValue DataType="short">0</RearTotalBrakeForceValue>
+                <RearDragBalanceBgcolor DataType="color">white</RearDragBalanceBgcolor>
+                <RearDragBalanceValue DataType="short">0</RearDragBalanceValue>
+                <RearDragSumBgColor DataType="color">white</RearDragSumBgColor>
+                <RearDragSumValue DataType="short">0</RearDragSumValue>
 				<LRParkBrakeForce DataType="string">0</LRParkBrakeForce>
                 <LRParkBrakeBGColor DataType="color">white</LRParkBrakeBGColor>
 				<RFABSRecoveryBGColor DataType="string">white</RFABSRecoveryBGColor>

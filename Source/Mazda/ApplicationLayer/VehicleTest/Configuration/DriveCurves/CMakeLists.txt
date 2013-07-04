@@ -4,7 +4,7 @@
 INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/DriveCurves FILES
         RollTestAutoDriveCurve.xml
         RollTestManualDriveCurve.xml
-        BaseBrakeTestDriveCurve.xml
+        BrakeTestDriveCurve.xml
         MaintenanceDriveCurve.xml
         PreShiftCheckDriveCurve.xml
 )

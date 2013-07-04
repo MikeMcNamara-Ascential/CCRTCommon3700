@@ -7,7 +7,7 @@
         <ImportCcrtCommServerResults>Yes</ImportCcrtCommServerResults>
         <Debug>Off</Debug>
         <IncludeAbortInAllFailures Value="Yes or No">Yes</IncludeAbortInAllFailures>
-        <VINLength>17</VINLength>
+        <VINLength>8</VINLength>
         <UpdateTestLampStatus Value="Yes or No">No</UpdateTestLampStatus>
         <FaultAlarm>
             <EnableFaultAlarm>Yes</EnableFaultAlarm>
@@ -36,7 +36,7 @@
             <StartTest>StartVehicleTest</StartTest>
             <TestCompleteSignalTag>CompleteLamp</TestCompleteSignalTag>
             <VehicleBuild>VehicleBuild</VehicleBuild>
-            <Vin>VIN</Vin>
+            <Vin>AON</Vin>
         </DataTags>
         <Logging>
             <Debug>Off</Debug>
@@ -54,6 +54,7 @@
                 <VehicleBuild/>
                 <DriverNumber/>
                 <VIN/>
+                <Aon/>
                 <DriveCurve/>
                 <KeyPress/>
                 <CycleTime/>

@@ -305,7 +305,7 @@
     <Objectives>
         <FollowDriveCurve>
             <TestStep00>FollowDriveCurve</TestStep00>
-            <TestStep10>BrakeToStop</TestStep10>
+            <!--TestStep10>BrakeToStop</TestStep10-->
         </FollowDriveCurve>
         <ReverseTesting>
             <TestStep00>AccelerateInReverse</TestStep00>

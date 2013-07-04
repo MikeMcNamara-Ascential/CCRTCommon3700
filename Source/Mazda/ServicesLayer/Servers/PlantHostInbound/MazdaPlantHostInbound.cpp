@@ -61,6 +61,15 @@ const string MazdaPlantHostInbound::LoadVehicleBuildRecord(const string &aon,
 }
 
 //-------------------------------------------------------------------------------------------------
+const string MazdaPlantHostInbound::Register(void)
+{   // Call the base class to register the server
+	string result = PlantHostInbound::Register();
+	// Make sure the input server is in VIN mode
+	UpdateInputServerState();
+	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
 const string MazdaPlantHostInbound::Write(const XmlNode *dataNode)
 {
 	string response;
@@ -72,6 +81,16 @@ const string MazdaPlantHostInbound::Write(const XmlNode *dataNode)
 		m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
 		// Load the vehicle build record for the specified AON
 		result = LoadVehicleBuildRecord(dataNode->getValue(), m_vehicleBuild, true);
+	}
+	else if(!dataNode->getName().compare(NEXT_VEHICLE_BUILD_TAG))
+	{
+		m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
+		m_vehicleBuild.clear(true);
+		m_vehicleBuild.DeepCopy(dataNode->getChildren());
+		// Now add the derived data
+		AddDerivedBuildInfo(m_vehicleBuild);
+		m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
+		SetVehicleBuildRecordStatus(validStatus);
 	}
 	else if(m_broker == NULL)
 	{
@@ -116,6 +135,10 @@ string MazdaPlantHostInbound::CreateBuildRecord(void)
 						itemValue = string(1, bs1);
 						itemValue += string(1, bs2);
 					}
+					else if(!buildTag.compare(VIN_DATA_TAG))
+					{
+						m_broker->Write(VINDISPLAY_DATA_TAG, itemValue, response, true);
+					}
 					AddVehicleBuildItem(buildTag, itemValue, m_vehicleBuild);
 					Log(LOG_DEV_DATA, "Added build item: %s = %s", buildTag.c_str(), itemValue.c_str());
 				}
@@ -136,6 +159,8 @@ string MazdaPlantHostInbound::CreateBuildRecord(void)
 const string MazdaPlantHostInbound::GetWheelBasePosition(const string &selectData, const string &modelYear)
 {
 	Log(LOG_FN_ENTRY, "MazdaPlantHostInbound::GetWheelBasePosition()");
+	// Reload the wheelbase table in case of edits
+	LoadWheelbasePositionTable();
 	string bodyStyleMask, selectWheelBase, response, wheelbaseTag;
 	string modelYearMask;
 	UINT32 ii = 0, weight = 0, selectWeight = 0;
@@ -197,6 +222,18 @@ void MazdaPlantHostInbound::LoadAdditionalConfigurationItems(const XmlNode *docu
 		Log(LOG_ERRORS, "Could not store system tags to use for creating build records: %s", excpt.GetReason());
 		m_buildDataTags.clear(true);
 	}
+	// Store the name of the wheelbase file
+	string wbName = "";
+	try
+	{
+		wbName = getenv("USR_ROOT") + document->getChild("Setup/WheelbaseConfigFile")->getValue();
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Error getting wheelbase table file name - %s", excpt.GetReason());
+		wbName = "";
+	}
+	WheelbaseFileName(&wbName);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -215,6 +252,7 @@ const string MazdaPlantHostInbound::Publish(const XmlNode *node)
 		// Set build read status OK and clear the bit for retrieve AON
 		string buildStatus = !result.compare(BEP_SUCCESS_RESPONSE) ? READY_TO_TEST: NO_VIN;
 		m_broker->Write(GetVinReadStatusTag(), buildStatus, response, true);
+		SetVehicleBuildRecordStatus(!buildStatus.compare(READY_TO_TEST) ? validStatus : BEP_INVALID_RESPONSE);
 	}
 	else if(!node->getName().compare(GetDataTag("VehicleBuildError")) && atob(node->getValue().c_str()))
 	{   // Set build read status error and clear the bit for retrieve AON
@@ -222,8 +260,51 @@ const string MazdaPlantHostInbound::Publish(const XmlNode *node)
 		m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "0", response, true);
 		// Display vin read error
 		m_promptComm.DisplayPrompt(2, GetDataTag("BuildDataError"), response);
+		SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
 	}
 	Log(LOG_FN_ENTRY, "MazdaPlantHostInbound::Publish(tag: %s, value: %s) - Exit", 
 		node->getName().c_str(), node->getValue().c_str());
 	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
+void MazdaPlantHostInbound::UpdateInputServerState(void)
+{   // Always want the input server in VIN state
+	string response;
+	if(m_inputServerComm.Read(GetInputServerStateTag(), response, true) == BEP_STATUS_SUCCESS)
+	{
+		string currentState("Unknown");
+		m_inputServerComm.GetByTag(GetInputServerStateTag(), currentState, response);
+		if(currentState.compare(INPUT_SERVER_VIN_STATE))
+		{   // Input server is not in VIN state, send it there
+			m_inputServerComm.Write(GetInputServerStateTag(), INPUT_SERVER_VIN_STATE, response, true);
+			Log(LOG_DEV_DATA,"Set InputServer state to %s\n", INPUT_SERVER_VIN_STATE);
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+void MazdaPlantHostInbound::LoadWheelbasePositionTable(void)
+{
+	XmlParser parser;
+	try
+	{
+		const XmlNode *wheelbaseConfig = parser.ReturnXMLDocument(WheelbaseFileName());
+		SetWheelBasePositions(wheelbaseConfig->getChild("VehicleConfig"));
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Error loading wheelbase position table - %s", excpt.GetReason());
+	}
+	catch(BepException &excpt)
+	{
+		Log(LOG_ERRORS, "BepException loading wheelbase position table from file - %s", excpt.GetReason());
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaPlantHostInbound::WheelbaseFileName(const string *fileName /*= NULL*/)
+{
+	if(fileName != NULL)   m_wheelbaseFileName = *fileName;
+	return m_wheelbaseFileName;
 }

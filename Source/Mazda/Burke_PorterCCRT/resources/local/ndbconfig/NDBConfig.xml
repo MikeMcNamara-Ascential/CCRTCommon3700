@@ -110,6 +110,7 @@
                 <AllWheelDrive DataType="bool">PLC</AllWheelDrive>
                 <AllWheelDriveSelected DataType="bool">PLC</AllWheelDriveSelected>
                 <AntiLockRejectLamp DataType="bool">PLC</AntiLockRejectLamp>
+                <Aon DataType="string">PlantHostInbound</Aon>
                 <ApplyRollBrakes DataType="bool">PLC</ApplyRollBrakes>
                 <ArmLamp DataType="bool">PLC</ArmLamp>
                 <ArmSpeed DataType="float" Units="MPH">MachineDataBroker</ArmSpeed>
@@ -303,8 +304,12 @@
                 <FrontBalanceBGColor DataType="color">MachineDataBroker</FrontBalanceBGColor>
                 <FrontBalancePercentageTest DataType="string">VehicleTest</FrontBalancePercentageTest>
                 <FrontBalanceRejectLamp DataType="bool">PLC</FrontBalanceRejectLamp>
-                <FrontBalanceValue DataType="float">MachineDataBroker</FrontBalanceValue>
+                <FrontBalanceValue DataType="float" Units="N">MachineDataBroker</FrontBalanceValue>
                 <FrontBCDSpeedOutput DataType="char">DIO</FrontBCDSpeedOutput>
+                <FrontDragBalanceBgcolor DataType="color">MachineDataBroker</FrontDragBalanceBgcolor>
+                <FrontDragBalanceValue DataType="short" Units="N">MachineDataBroker</FrontDragBalanceValue>
+                <FrontDragSumBgColor DataType="color">MachineDataBroker</FrontDragSumBgColor>
+                <FrontDragSumValue DataType="short" Units="N">MachineDataBroker</FrontDragSumValue>
                 <FrontEBSDriveDisconnectOpen DataType="bool">PLC</FrontEBSDriveDisconnectOpen>
                 <FrontEBSDriveNotLoweredFault DataType="bool">PLC</FrontEBSDriveNotLoweredFault>
                 <FrontEBSDriveNotRaisedFault DataType="bool">PLC</FrontEBSDriveNotRaisedFault>
@@ -325,7 +330,9 @@
                 <FrontRollsHydraulicAssist4WD DataType="bool">PLC</FrontRollsHydraulicAssist4WD>
                 <FrontToRearBalanceBGColor DataType="color">MachineDataBroker</FrontToRearBalanceBGColor>
                 <FrontToRearBalanceRejectLamp DataType="bool">PLC</FrontToRearBalanceRejectLamp>
-                <FrontToRearBalanceValue DataType="float">MachineDataBroker</FrontToRearBalanceValue>
+                <FrontToRearBalanceValue DataType="float" Units="N">MachineDataBroker</FrontToRearBalanceValue>
+                <FrontTotalBrakeForceBgColor DataType="color">MachineDataBroker</FrontTotalBrakeForceBgColor>
+                <FrontTotalBrakeForceValue DataType="short" Units="N">MachineDataBroker</FrontTotalBrakeForceValue>
                 <FrontWheelDriveSelectedToPLC DataType="bool">PLC</FrontWheelDriveSelectedToPLC>
                 <FrontWheelDriveSelectedToPLCSpecial DataType="bool">PLC</FrontWheelDriveSelectedToPLCSpecial>
                 <GatewayOverallTest DataType="testcomponentstatus">TestResultServer</GatewayOverallTest>
@@ -456,19 +463,19 @@
                 <LFDragBGColor DataType="color">MachineDataBroker</LFDragBGColor>
                 <LFDragForceTest DataType="string">VehicleTest</LFDragForceTest>
                 <LFDragRejectLamp DataType="bool">PLC</LFDragRejectLamp>
-                <LFDragValue DataType="float" Units="LBF">MachineDataBroker</LFDragValue>
+                <LFDragValue DataType="float" Units="N">MachineDataBroker</LFDragValue>
                 <LFEncoderRunoutError DataType="bool">PLC</LFEncoderRunoutError>
                 <LFForce DataType="float" Units="LBF">ICM</LFForce>
                 <LFForceBGColor DataType="color">MachineDataBroker</LFForceBGColor>
                 <LFForceDomain DataType="range" Units="LBF">MachineDataBroker</LFForceDomain>
                 <LFForceTarget DataType="range" Units="LBF">MachineDataBroker</LFForceTarget>
-                <LFForceValue DataType="float" Units="LBF">MachineDataBroker</LFForceValue>
+                <LFForceValue DataType="float" Units="N">MachineDataBroker</LFForceValue>
                 <LFFrequency DataType="float">ICM</LFFrequency>
                 <LFKAccel DataType="float">ICM</LFKAccel>
                 <LFKForce DataType="float">ICM</LFKForce>
                 <LFKspeed DataType="float">ICM</LFKspeed>
-                <LFLoadCellValue DataType="short" Units="lbf">MachineDataBroker</LFLoadCellValue>
-                <LFLoadCellValueRaw DataType="short" Units="lbf">PLC</LFLoadCellValueRaw>
+                <LFLoadCellValue DataType="short" Units="N">MachineDataBroker</LFLoadCellValue>
+                <LFLoadCellValueRaw DataType="short" Units="N">PLC</LFLoadCellValueRaw>
                 <LFLoss DataType="float" Units="LBF">ICM</LFLoss>
                 <LFMachineLossCurrent DataType="float" Units="LBF">MachineDataBroker</LFMachineLossCurrent>
                 <LFMachineLossCurrentBGColor DataType="color">MachineDataBroker</LFMachineLossCurrentBGColor>
@@ -541,19 +548,19 @@
                 <LRDragBGColor DataType="color">MachineDataBroker</LRDragBGColor>
                 <LRDragForceTest DataType="string">VehicleTest</LRDragForceTest>
                 <LRDragRejectLamp DataType="bool">PLC</LRDragRejectLamp>
-                <LRDragValue DataType="float" Units="LBF">MachineDataBroker</LRDragValue>
+                <LRDragValue DataType="float" Units="N">MachineDataBroker</LRDragValue>
                 <LREncoderRunoutError DataType="bool">PLC</LREncoderRunoutError>
                 <LRForce DataType="float" Units="LBF">ICM</LRForce>
                 <LRForceBGColor DataType="color">MachineDataBroker</LRForceBGColor>
                 <LRForceDomain DataType="range" Units="LBF">MachineDataBroker</LRForceDomain>
                 <LRForceTarget DataType="range" Units="LBF">MachineDataBroker</LRForceTarget>
-                <LRForceValue DataType="float" Units="LBF">MachineDataBroker</LRForceValue>
+                <LRForceValue DataType="float" Units="N">MachineDataBroker</LRForceValue>
                 <LRFrequency DataType="float">ICM</LRFrequency>
                 <LRKAccel DataType="float">ICM</LRKAccel>
                 <LRKForce DataType="float">ICM</LRKForce>
                 <LRKspeed DataType="float">ICM</LRKspeed>
-                <LRLoadCellValue DataType="short" Units="lbf">MachineDataBroker</LRLoadCellValue>
-                <LRLoadCellValueRaw DataType="short" Units="lbf">PLC</LRLoadCellValueRaw>
+                <LRLoadCellValue DataType="short" Units="N">MachineDataBroker</LRLoadCellValue>
+                <LRLoadCellValueRaw DataType="short" Units="N">PLC</LRLoadCellValueRaw>
                 <LRLoss DataType="float" Units="LBF">ICM</LRLoss>
                 <LRMachineLossCurrent DataType="float" Units="LBF">MachineDataBroker</LRMachineLossCurrent>
                 <LRMachineLossCurrentBGColor DataType="color">MachineDataBroker</LRMachineLossCurrentBGColor>
@@ -563,7 +570,7 @@
                 <LRMachLossOutOfLimits DataType="bool">PLC</LRMachLossOutOfLimits>
                 <LRParkBrakeCylinderNotRetracted DataType="bool">PLC</LRParkBrakeCylinderNotRetracted>
                 <LRParkBrakeBGColor DataType="color">MachineDataBroker</LRParkBrakeBGColor>
-                <LRParkBrakeForce DataType="float" Units="LBF">MachineDataBroker</LRParkBrakeForce>
+                <LRParkBrakeForce DataType="float" Units="N">MachineDataBroker</LRParkBrakeForce>
                 <LRRecoveryTest DataType="string">VehicleTest</LRRecoveryTest>
                 <LRReductionTest DataType="string">VehicleTest</LRReductionTest>
                 <LRReserved DataType="float">ICM</LRReserved>
@@ -704,8 +711,10 @@
                 <PanelEStopPushbuttonDepressed DataType="bool">PLC</PanelEStopPushbuttonDepressed>
                 <PanelTemperatureHighWarning DataType="bool">PLC</PanelTemperatureHighWarning>
                 <ParkAssistOverallTest DataType="testcomponentstatus">TestResultServer</ParkAssistOverallTest>
-                <ParkBrakeForce DataType="float" Units="LBF">MachineDataBroker</ParkBrakeForce>
+                <ParkBrakeForce DataType="float" Units="N">MachineDataBroker</ParkBrakeForce>
                 <ParkBrakeForceBGColor DataType="color">MachineDataBroker</ParkBrakeForceBGColor>
+                <ParkBrakeBalanceValue DataType="short" Units="N">MachineDataBroker</ParkBrakeBalanceValue>
+                <ParkBrakeBalanceBGColor DataType="color">MachineDataBroker</ParkBrakeBalanceBGColor>
                 <ParkingBrakeRejectLamp DataType="bool">PLC</ParkingBrakeRejectLamp>
                 <ParkingBrakeTest DataType="bool">PLC</ParkingBrakeTest>
                 <ParkingBrakeTestFailed DataType="bool">PLC</ParkingBrakeTestFailed>
@@ -773,6 +782,10 @@
                 <RearBalancePercentageTest DataType="string">VehicleTest</RearBalancePercentageTest>
                 <RearBalanceRejectLamp DataType="bool">PLC</RearBalanceRejectLamp>
                 <RearBalanceValue DataType="float">MachineDataBroker</RearBalanceValue>
+                <RearDragBalanceBgcolor DataType="color">MachineDataBroker</RearDragBalanceBgcolor>
+                <RearDragBalanceValue DataType="short" Units="N">MachineDataBroker</RearDragBalanceValue>
+                <RearDragSumBgColor DataType="color">MachineDataBroker</RearDragSumBgColor>
+                <RearDragSumValue DataType="short" Units="N">MachineDataBroker</RearDragSumValue>
                 <RearEBSDriveDisconnectOpen DataType="bool">PLC</RearEBSDriveDisconnectOpen>
                 <RearEBSDriveNotLoweredFault DataType="bool">PLC</RearEBSDriveNotLoweredFault>
                 <RearEBSDriveNotRaisedFault DataType="bool">PLC</RearEBSDriveNotRaisedFault>
@@ -791,6 +804,8 @@
                 <RearRetainingRollsRaisedFault DataType="bool">PLC</RearRetainingRollsRaisedFault>
                 <RearStopPostLoweredFault DataType="bool">PLC</RearStopPostLoweredFault>
                 <RearStopPostRaisedFault DataType="bool">PLC</RearStopPostRaisedFault>
+                <RearTotalBrakeForceBgColor DataType="color">MachineDataBroker</RearTotalBrakeForceBgColor>
+                <RearTotalBrakeForceValue DataType="short" Units="N">MachineDataBroker</RearTotalBrakeForceValue>
                 <RearWheelDriveFromPLC DataType="bool">PLC</RearWheelDriveFromPLC>
                 <RearWheelDriveToPLC DataType="bool">PLC</RearWheelDriveToPLC>
                 <RemovingTestComponents DataType="bool">VehicleTest</RemovingTestComponents>
@@ -828,19 +843,19 @@
                 <RFDragBGColor DataType="color">MachineDataBroker</RFDragBGColor>
                 <RFDragForceTest DataType="string">VehicleTest</RFDragForceTest>
                 <RFDragRejectLamp DataType="bool">PLC</RFDragRejectLamp>
-                <RFDragValue DataType="float" Units="LBF">MachineDataBroker</RFDragValue>
+                <RFDragValue DataType="float" Units="N">MachineDataBroker</RFDragValue>
                 <RFEncoderRunoutError DataType="bool">PLC</RFEncoderRunoutError>
                 <RFForce DataType="float" Units="LBF">ICM</RFForce>
                 <RFForceBGColor DataType="color">MachineDataBroker</RFForceBGColor>
                 <RFForceDomain DataType="range" Units="LBF">MachineDataBroker</RFForceDomain>
                 <RFForceTarget DataType="range" Units="LBF">MachineDataBroker</RFForceTarget>
-                <RFForceValue DataType="float" Units="LBF">MachineDataBroker</RFForceValue>
+                <RFForceValue DataType="float" Units="N">MachineDataBroker</RFForceValue>
                 <RFFrequency DataType="float">ICM</RFFrequency>
                 <RFKAccel DataType="float">ICM</RFKAccel>
                 <RFKForce DataType="float">ICM</RFKForce>
                 <RFKspeed DataType="float">ICM</RFKspeed>
-                <RFLoadCellValue DataType="short" Units="lbf">MachineDataBroker</RFLoadCellValue>
-                <RFLoadCellValueRaw DataType="short" Units="lbf">PLC</RFLoadCellValueRaw>
+                <RFLoadCellValue DataType="short" Units="N">MachineDataBroker</RFLoadCellValue>
+                <RFLoadCellValueRaw DataType="short" Units="N">PLC</RFLoadCellValueRaw>
                 <RFLoss DataType="float" Units="LBF">ICM</RFLoss>
                 <RFMachineLossCurrent DataType="float" Units="LBF">MachineDataBroker</RFMachineLossCurrent>
                 <RFMachineLossCurrentBGColor DataType="color">MachineDataBroker</RFMachineLossCurrentBGColor>
@@ -920,19 +935,19 @@
                 <RRDragBGColor DataType="color">MachineDataBroker</RRDragBGColor>
                 <RRDragForceTest DataType="string">VehicleTest</RRDragForceTest>
                 <RRDragRejectLamp DataType="bool">PLC</RRDragRejectLamp>
-                <RRDragValue DataType="float" Units="LBF">MachineDataBroker</RRDragValue>
+                <RRDragValue DataType="float" Units="N">MachineDataBroker</RRDragValue>
                 <RREncoderRunoutError DataType="bool">PLC</RREncoderRunoutError>
                 <RRForce DataType="float" Units="LBF">ICM</RRForce>
                 <RRForceBGColor DataType="color">MachineDataBroker</RRForceBGColor>
                 <RRForceDomain DataType="range" Units="LBF">MachineDataBroker</RRForceDomain>
                 <RRForceTarget DataType="range" Units="LBF">MachineDataBroker</RRForceTarget>
-                <RRForceValue DataType="float" Units="LBF">MachineDataBroker</RRForceValue>
+                <RRForceValue DataType="float" Units="N">MachineDataBroker</RRForceValue>
                 <RRFrequency DataType="float">ICM</RRFrequency>
                 <RRKAccel DataType="float">ICM</RRKAccel>
                 <RRKForce DataType="float">ICM</RRKForce>
                 <RRKspeed DataType="float">ICM</RRKspeed>
-                <RRLoadCellValue DataType="short" Units="lbf">MachineDataBroker</RRLoadCellValue>
-                <RRLoadCellValueRaw DataType="short" Units="lbf">PLC</RRLoadCellValueRaw>
+                <RRLoadCellValue DataType="short" Units="N">MachineDataBroker</RRLoadCellValue>
+                <RRLoadCellValueRaw DataType="short" Units="N">PLC</RRLoadCellValueRaw>
                 <RRLoss DataType="float" Units="LBF">ICM</RRLoss>
                 <RRMachineLossCurrent DataType="float" Units="LBF">MachineDataBroker</RRMachineLossCurrent>
                 <RRMachineLossCurrentBGColor DataType="color">MachineDataBroker</RRMachineLossCurrentBGColor>
@@ -942,7 +957,7 @@
                 <RRMachLossOutOfLimits DataType="bool">PLC</RRMachLossOutOfLimits>
                 <RRParkBrakeBGColor DataType="color">MachineDataBroker</RRParkBrakeBGColor>
                 <RRParkBrakeCylinderNotRetracted DataType="bool">PLC</RRParkBrakeCylinderNotRetracted>
-                <RRParkBrakeForce DataType="float" Units="LBF">MachineDataBroker</RRParkBrakeForce>
+                <RRParkBrakeForce DataType="float" Units="N">MachineDataBroker</RRParkBrakeForce>
                 <RRRecoveryTest DataType="string">VehicleTest</RRRecoveryTest>
                 <RRReductionTest DataType="string">VehicleTest</RRReductionTest>
                 <RRReserved DataType="float">ICM</RRReserved>

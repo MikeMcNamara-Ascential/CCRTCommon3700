@@ -20,77 +20,124 @@
             </VBox>
 
             <!-- START OF Driver Prompt Boxes ================================= -->
-            <Widget id="prompts" class="com.bepco.gui.PromptBox" posX="3" posY="160" width="1005" height="100" border="true">
+            <Widget id="prompts" class="com.bepco.gui.PromptBox" posX="3" posY="420" width="1005" height="100" border="true">
                 <DataSource tagname="PromptBox1" messagetype="Subscribe"  />
                 <DataSource tagname="PromptBox1BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                 <TextBoxConfig>
-                    <Font size="48" name="sans-serif" style="plain"/>
+                    <Font size="60" name="sans-serif" style="plain"/>
                 </TextBoxConfig>
             </Widget>
-            <Widget id="prompts3" class="com.bepco.gui.PromptBox" posX="3" posY="265" width="1005" height="100" border="true">
+            <Widget id="prompts3" class="com.bepco.gui.PromptBox" posX="3" posY="525" width="1005" height="100" border="true">
                 <DataSource tagname="PromptBox2" messagetype="Subscribe"  />
                 <DataSource tagname="PromptBox2BGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                 <TextBoxConfig>
-                    <Font size="48" name="sans-serif" style="plain"/>
+                    <Font size="60" name="sans-serif" style="plain"/>
                 </TextBoxConfig>
             </Widget>
             <!-- END OF Driver Prompt Boxes ================================= -->
 
             <!-- Wheel Speeds -->
-            <VBox width="400" height="200" posX="5" posY="370" border="false">
+            <VBox width="500" height="200" posX="5" posY="250" border="false">
                 <HBox>
                     <Label name="frontspeed">
-                        <Font size="35" name="sans-serif" style="bold"/>
+                        <Font size="48" name="sans-serif" style="bold"/>
                     </Label>
-                    <Widget id="frontspeedvalue" class="com.bepco.gui.NumberBox" width="230">
+                    <Widget id="frontspeedvalue" class="com.bepco.gui.NumberBox" width="290">
                         <DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
                         <TextBoxConfig convertunits="false" format="{0,number,#.0}">
-                            <Font size="35" name="sans-serif" style="plain"/>
+                            <Font size="48" name="sans-serif" style="plain"/>
                         </TextBoxConfig>
                     </Widget>
                 </HBox>
                 <HBox>
                     <Label name="rearspeed">
-                        <Font size="35" name="sans-serif" style="bold"/>
+                        <Font size="48" name="sans-serif" style="bold"/>
                     </Label>
-                    <Widget id="rearspeedvalue" class="com.bepco.gui.NumberBox" width="245">
+                    <Widget id="rearspeedvalue" class="com.bepco.gui.NumberBox" width="300">
                         <DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
                         <TextBoxConfig convertunits="false" format="{0,number,#.0}">
-                            <Font size="35" name="sans-serif" style="plain"/>
+                            <Font size="48" name="sans-serif" style="plain"/>
                         </TextBoxConfig>
                     </Widget>
                 </HBox>
             </VBox>
 
 
-<!-- START OF speedometer radial gauge ================================= -->
-	  <HBox posX="510" posY="380" width="400" height="270">
-		<!-- space -->
-<!-- Speedometer gauge -->
-		<Widget id="speed" height="300" width="300" class="com.bepco.gui.RadialGauge">
-		  <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
-		  <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
-		  <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" >
-			<Font size="30" name="sans-serif" style="plain"/>
-		  </RadialGaugeConfig>
-		</Widget>
-	  </HBox>
-<!-- END OF radial gauge =================================== -->
-
-            <!-- VIN -->
-            <HBox  height="100" width="800" posX="5" posY="550" border="false">
-                <Label name="vin" border="false" height="68" width="100">
-                    <Font size="45" name="sans-serif" style="plain"/>
-                </Label>
-                <Widget id="_vin" height='68' width="550" class="com.bepco.gui.TextBox" screensaver="true">
-                    <DataSource tagname="VINDisplay" messagetype="Subscribe" />
-                    <DataSource tagname="VINDisplayBGColor" messagetype="Subscribe"
-                              tagrole="backgroundcolor" />
-                    <TextBoxConfig>
-                        <Font size="45" name="sans-serif" style="plain"/>
-                    </TextBoxConfig>
+            <!-- START OF speedometer radial gauge ================================= -->
+            <HBox posX="600" posY="5" width="400" height="400">
+                <!-- space -->
+                <!-- Speedometer gauge -->
+                <Widget id="speed" height="350" width="350" class="com.bepco.gui.RadialGauge">
+                    <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
+                    <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
+                    <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" >
+                        <Font size="30" name="sans-serif" style="plain"/>
+                    </RadialGaugeConfig>
                 </Widget>
             </HBox>
+            <!-- END OF radial gauge =================================== -->
+
+            <!-- Vehicle Build Data -->
+            <VBox height="120" width="1005" posX="3" posY="635" border="true" borderstyle="title" bordertitle="vehiclebuild">
+                <HBox height="100">
+                    <VBox>
+                        <Label name="vin" height="35">
+                            <Font size="30" name="sans-serif" style="bold"/>
+                        </Label>
+                        <Label name="aon" height="35">
+                            <Font size="30" name="sans-serif" style="bold"/>
+                        </Label>
+                    </VBox>
+
+                    <VBox width="40"/>
+
+                    <VBox>
+                        <Widget id="_vin" height='35' width="500" class="com.bepco.gui.TextBox" screensaver="true">
+                            <DataSource tagname="VINDisplay" messagetype="Subscribe" />
+                            <DataSource tagname="VINDisplayBGColor" messagetype="Subscribe"
+                                      tagrole="backgroundcolor" />
+                            <TextBoxConfig>
+                                <Font size="30" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <Widget id="_aon" height='35' width="500" class="com.bepco.gui.TextBox" screensaver="true">
+                            <DataSource tagname="Aon" messagetype="Subscribe" />
+                            <TextBoxConfig>
+                                <Font size="30" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+
+                    <VBox width="20"/>
+
+                    <VBox>
+                        <Label name="bodystyle" height="35">
+                            <Font size="30" name="sans-serif" style="bold"/>
+                        </Label>
+                        <Label name="wheelbase" height="35">
+                            <Font size="30" name="sans-serif" style="bold"/>
+                        </Label>
+                    </VBox>
+
+                    <VBox width="40"/>
+
+                    <VBox>
+                        <Widget id="_bodystyle" height='35' width="200" class="com.bepco.gui.TextBox" screensaver="true">
+                            <DataSource tagname="BodyStyle" messagetype="Subscribe" />
+                            <TextBoxConfig>
+                                <Font size="30" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <Widget id="_wb" height='35' width="200" class="com.bepco.gui.TextBox" screensaver="true">
+                            <DataSource tagname="WheelbasePositionInchesX10" messagetype="Subscribe" />
+                            <TextBoxConfig>
+                                <Font size="30" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+
+                </HBox>
+            </VBox>
 
         </Layout>
     </XmlWidgetPanel>

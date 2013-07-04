@@ -23,6 +23,34 @@ MazdaMachineTC::~MazdaMachineTC()
 {   // Nothing special to do here
 }
 
+//-------------------------------------------------------------------------------------------------
+const INT32 MazdaMachineTC::HandlePulse(const INT32 code, const INT32 value)
+{
+	INT32 retVal = BEP_STATUS_FAILURE;
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::HandlePulse(code: %d, value: %d) - Enter", code, value);
+	switch(code)
+	{
+	case MAZDA_MACHINE_TC_PULSE_CODE:
+		switch(value)
+		{
+		case MAX_SPEED_CHECK_PULSE:
+			retVal = CheckForMaxSpeed();
+			break;
+
+		default:
+			Log(LOG_ERRORS, "Pulse value %d is not supported", value);
+			break;
+		}
+		break;
+
+	default:
+		retVal = BepServer::HandlePulse(code, value);
+		break;
+	}
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::HandlePulse(code: %d, value: %d) - Exit", code, value);
+	return retVal;
+}
+
 //=============================================================================
 void MazdaMachineTC::Initialize(const XmlNode *config)
 {
@@ -43,9 +71,59 @@ void MazdaMachineTC::Initialize(const XmlNode *config)
 		Log(LOG_ERRORS, "XmlException loading ValidRLSEquippedTypes - %s\n", err.what());
 	}
 
+	try
+	{
+		SetupTimer(config->getChild("Setup/Parameters/MaxSpeedUpdateTimer"), m_maxSpeedTimer);
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Error getting max speed update rate, using 500ms: %s", excpt.GetReason());
+		SetupTimer(500, m_maxSpeedTimer);
+	}
+	// Set the maximum front and rear axle speeds observed
+	m_maxFrontSpeedObserved = 0.0;
+	m_maxRearSpeedObserved = 0.0;
+
+	try
+	{
+		m_sideSlipResultData.DeepCopy(m_parameters.getNode("SideSlipData")->getChildren());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Side slip result data not defined: %s", excpt.GetReason());
+		m_sideSlipResultData.clear(true);
+	}
 
     Log(LOG_FN_ENTRY, "Done Initializing MazdaMachineTC\n");
 
+}
+
+//-------------------------------------------------------------------------------------------------
+INT32 MazdaMachineTC::CheckForMaxSpeed(void)
+{
+	WHEELINFO rollerSpeeds;
+	BEP_STATUS_TYPE status = GetWheelSpeeds(rollerSpeeds);
+	if(BEP_STATUS_SUCCESS == status)
+	{   // Take the average axle speed
+		float frontAvg = (rollerSpeeds.lfWheel + rollerSpeeds.rfWheel) / 2.0;
+		float rearAvg = (rollerSpeeds.lrWheel + rollerSpeeds.rrWheel) / 2.0;
+		// Determine if we have a new maximum
+		if(frontAvg > m_maxFrontSpeedObserved)
+		{
+			m_maxFrontSpeedObserved = frontAvg;
+			Log(LOG_DEV_DATA, "Set new max front axle speed: %.2f", m_maxFrontSpeedObserved);
+		}
+		if(rearAvg > m_maxRearSpeedObserved)
+		{
+			m_maxRearSpeedObserved = rearAvg;
+			Log(LOG_DEV_DATA, "Set new max rear axle speed: %.2f", m_maxRearSpeedObserved);
+		}
+	}
+	else
+	{
+		Log(LOG_ERRORS, "Could not read roller speeds");
+	}
+	return status;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -75,12 +153,21 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
         {                                    
             if(!GetTestStepName().compare("WaitForAcceleration"))               testResult = WaitToStart();
             else if(!GetTestStepName().compare("RainLightSensorVerification"))  testResult = TestStepRainLightSensorVerification();
+			else if(!GetTestStepName().compare("ReportSideSlipResults"))        testResult = ReportSideSlipResults();
+			else if(!GetTestStepName().compare("StartMaxSpeedObservation"))
+			{
+				m_maxFrontSpeedObserved = 0.0;
+				m_maxRearSpeedObserved = 0.0;
+				m_maxSpeedTimer.Start();
+				testResult = testPass;
+			}
 			else if(!GetTestStepName().compare("StartOdometerTest"))
 			{   // Set the initial roller distances
 				GetWheelDistances(m_odoStartDistance);
 				testResult = testPass;
 			}
 			else if(!GetTestStepName().compare("StartTest"))                    testResult = StartTest();
+			else if(!GetTestStepName().compare("StopMaxSpeedObservation"))      testResult = StopMaxAxleSpeedObservation();
 			else if(!GetTestStepName().compare("StopOdometerTest"))             testResult = StopOdometerTest();
 			else if(!GetTestStepName().compare("VehicleDisconnect"))            testResult = VehicleDisconnect();
 			else if(!GetTestStepName().compare("VehicleTestSetup"))             testResult = VehicleSetup();
@@ -103,6 +190,99 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
 }
 
 //-------------------------------------------------------------------------------------------------
+string MazdaMachineTC::ReportSideSlipResults(void)
+{
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::ReportSideSlipResults() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{   // Get the AON for locating the side slip results
+		string path = getenv("USR_ROOT") + GetParameter("SideSlipResultPath");
+		XmlParser parser;
+		TestResultDetails details;
+		try
+		{
+			const XmlNode *ssResults = parser.ReturnXMLDocument(path + "/" + SystemRead("Aon"));
+			for(XmlNodeMapCItr iter = m_sideSlipResultData.begin(); iter != m_sideSlipResultData.end(); iter++)
+			{   // Report each node
+				string nodeName(iter->second->getAttribute("Node")->getValue());
+				string resultAttrib(iter->second->getAttribute("ResultAttribute")->getValue());
+				string reportTag(iter->second->getAttribute("ReportTag")->getValue());
+				string unitsAttrib(iter->second->getAttribute("UnitsAttribute")->getValue());
+				string resultValue;
+				string reportResultValue;
+				string units;
+				if(!resultAttrib.compare(BEP_RESULT))
+				{
+					resultValue = ssResults->getChild(nodeName)->getAttribute(resultAttrib)->getValue();
+					reportResultValue = resultValue;
+					resultValue = !resultValue.compare(testPass) ? "1" : "0";
+					units = "";
+				}
+				else
+				{
+					resultValue = ssResults->getChild(nodeName)->getValue();
+					reportResultValue = resultValue;
+					units = ssResults->getChild(nodeName)->getAttribute(unitsAttrib)->getValue();
+				}
+				SystemWrite(reportTag, resultValue);
+				Log(LOG_DEV_DATA, "Reported %s = %s", reportTag.c_str(), resultValue.c_str());
+				details.AddDetail(reportTag, reportResultValue, units);
+			}
+		}
+		catch(XmlException &xmlExcpt)
+		{
+			Log(LOG_ERRORS, "XmlException processing side slip results - %s", xmlExcpt.GetReason());
+		}
+		catch(BepException &bepExcpt)
+		{
+			Log(LOG_ERRORS, "BepException processing side slip results - %s", bepExcpt.GetReason());
+		}
+		// Report the results
+		SendTestResultWithDetail(testPass, details, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Not reporting side slip results");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::ReportSideSlipResults() - Exit");
+	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaMachineTC::StopMaxAxleSpeedObservation(void)
+{
+	Log(LOG_DEV_DATA, "MazdaMachineTC::StopMaxAxleSpeedObservation() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{   // Stop the timer
+		m_maxSpeedTimer.Stop();
+		// Report the maximum axle speeds
+		Log(LOG_DEV_DATA, "Max front axle speed: %.2f \t Max rear axle speed: %.2f", 
+			m_maxFrontSpeedObserved, m_maxRearSpeedObserved);
+		char buff[32];
+		SendTestResultWithDetail(testPass, GetTestStepInfo("Description"), "0000",
+								 "MaxFrontAxleSpeed", CreateMessage(buff, sizeof(buff), "%.2f", m_maxFrontSpeedObserved), unitsMPH,
+								 "MaxRearAxleSpeed", CreateMessage(buff, sizeof(buff), "%.2f", m_maxRearSpeedObserved), unitsMPH);
+		// Write the data to the PLC in km/h * 10
+		UINT16 frontSpeed = (UINT16)((m_maxFrontSpeedObserved * KPH_MPH * 10.0) + 0.5);
+		UINT16 rearSpeed = (UINT16)((m_maxRearSpeedObserved * KPH_MPH * 10.0) + 0.5);
+		Log(LOG_DEV_DATA, "Writing speed to PLC - Front %d [0x%02X],  Rear: %d [0x%02X]",
+			frontSpeed, frontSpeed, rearSpeed, rearSpeed);
+		SystemWrite(GetDataTag("FrontMaxSpeed"), frontSpeed);
+		SystemWrite(GetDataTag("RearMaxSpeed"), rearSpeed);
+		result = testPass;
+	}
+	else
+	{   // Do not need to perform this test
+		Log(LOG_FN_ENTRY, "Skipping %s", GetTestStepName().c_str());
+		result = testSkip;
+	}
+	Log(LOG_DEV_DATA, "MazdaMachineTC::StopMaxAxleSpeedObservation() - Exit");
+	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
 string MazdaMachineTC::StopOdometerTest(void)
 {
 	Log(LOG_DEV_DATA, "MazdaMachineTC::StopOdometerTest() - Enter");
@@ -114,7 +294,14 @@ string MazdaMachineTC::StopOdometerTest(void)
 		// Calculate the distance traveled
 		GetTotalDistances(totalDistance, m_odoStartDistance, finalDistance);
 		float driveWheelDist = !SystemRead(DRIVE_AXLE_TAG).compare(FRONT_WHEEL_DRIVE_VALUE) ? totalDistance.lfWheel : totalDistance.lrWheel; 
-		float odometer = ConvertPulsesToMiles(driveWheelDist) * 
+		float odometer = ConvertPulsesToMiles(driveWheelDist) * KM_MILES;
+		Log(LOG_DEV_DATA, "Total km driven: %.2f", odometer);
+		INT16 distanceTraveled = (INT16)((odometer * 10.0) + 0.5);
+		SystemWrite("TestDistanceTraveled", distanceTraveled);
+		result = testPass;
+		char buff[16];
+		SendTestResultWithDetail(result, GetTestStepInfo("Description"), "0000", 
+								 "DistanceTraveled", CreateMessage(buff, sizeof(buff), "%.2f", odometer), unitsKM);
 	}
 	else
 	{
@@ -452,5 +639,21 @@ inline void MazdaMachineTC::SetRLSEquipped(const bool &equipped)
 {
 	Log(LOG_DEV_DATA, "RLS Equipped: %s", equipped ? "True" : "False");
 	m_rlsEquipped = equipped;
+}
+
+//-------------------------------------------------------------------------------------------------
+void MazdaMachineTC::SetupTimer(const XmlNode *timerSetupNode, BepTimer &timer)
+{
+	SetupTimer(atol(timerSetupNode->getValue().c_str()), timer);
+}
+
+//-------------------------------------------------------------------------------------------------
+void MazdaMachineTC::SetupTimer(UINT64 updateRate, BepTimer &timer)
+{
+	Log(LOG_DEV_DATA, "Setting up timer with update rate of %dms", updateRate);
+	timer.SetPulseCode(MAZDA_MACHINE_TC_PULSE_CODE);
+	timer.SetPulseValue(MAX_SPEED_CHECK_PULSE);
+	timer.Initialize(GetProcessName(), mSEC_nSEC(updateRate), mSEC_nSEC(updateRate));
+	timer.Stop();
 }
 

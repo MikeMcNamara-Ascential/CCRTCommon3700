@@ -180,7 +180,8 @@ const INT32 MazdaMachineDataBroker::ProcessLoadCellReadings(void)
         {
             if(BEP_STATUS_SUCCESS == m_ndb->GetByTag(iter->rawSystemTag, value, response))
             {   // Convert the data item
-                float data = atof(value.c_str()) * iter->conversionFactor;
+				short tempData = atoi(value.c_str());
+                float data = tempData * iter->conversionFactor;
                 // Write the data so others can read it
                 SetData(iter->systemTag, CreateMessage(buff, sizeof(buff), "%.2f", data));
                 Log(LOG_DEV_DATA, "Load Cell Update: %s == %.2f [%s]", iter->systemTag.c_str(), data, value.c_str());

@@ -169,6 +169,9 @@ const string MazdaTransmissionTC::FollowDriveCurve(void)
         Log( LOG_DETAILED_DATA, "Waiting for acceleration start\n");
     }
 
+	// Set the running timer
+	UINT16 startTime = BposReadInt(SystemRead("CycleTime").c_str());
+	Log(LOG_DEV_DATA, "Driving started at %d seconds", startTime);
 
     //cycle through drive curve sections
     for (UINT32 ii = 0; (ii < m_driveCurveParameters.size()) && (testStatus == testPass) && (ReadSubscribeData(ZEROSPEED_TAG_TO_PLC) == "0"); ii++)
@@ -183,10 +186,18 @@ const string MazdaTransmissionTC::FollowDriveCurve(void)
 
     SystemWrite( "SpeedTarget",  string("0 0"));
 
+	CheckZeroSpeed();
+	UINT16 totalDrivingTime = BposReadInt(SystemRead("CycleTime").c_str()) - startTime;
+	Log(LOG_DEV_DATA, "Reporting total drive time: %d seconds", totalDrivingTime);
+	SystemWrite("TestCycleTime", totalDrivingTime);
+	SystemWrite("TransmissionResult", !testStatus.compare(testPass));
+
     if ( BEP_STATUS_SUCCESS == status)   testStatus = testPass;
     else                                testStatus = testFail;
 
-    SendTestResult( testStatus, GetTestStepInfo( "Description"), "0000");
+	char buff[8];
+    SendTestResultWithDetail( testStatus, GetTestStepInfo( "Description"), "0000",
+							  "DrivingTime", CreateMessage(buff, sizeof(buff), "%d", totalDrivingTime), "s");
 
     Log(LOG_FN_ENTRY, "Exit MazdaTransmissionTC::FollowDriveCurve(), status=%s\n", testStatus.c_str());
 

@@ -35,7 +35,7 @@
             <MessageTimeout>100</MessageTimeout>
             <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
             <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
-            <ProcessName>MachineTC</ProcessName>
+            <ProcessName>component/MachineTC</ProcessName>
             <Status>Enabled</Status>
             <LocalEcho>Disabled</LocalEcho>
             <Verbose>0x1F</Verbose>
@@ -204,8 +204,7 @@
 
         <MachineStartup>
             <TestStep01>VehicleTestSetup</TestStep01>
-            <!-- TestStep2>InitializeTestHead</TestStep2 -->
-            <TestStep10>StartTest</TestStep10>            
+            <!--TestStep10>StartTest</TestStep10-->
             <TestStep20>RaiseRollsLowerElevators</TestStep20>            
         </MachineStartup>
 

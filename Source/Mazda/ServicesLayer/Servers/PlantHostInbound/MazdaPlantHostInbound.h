@@ -37,6 +37,16 @@ public:
 	virtual const string LoadVehicleBuildRecord(const string &aon, XmlNodeMap &buildData, const bool updateStatus);
 
 	/**
+	 * Method that is called to command the component to perform any
+	 * system registration functions necessary.
+	 *
+	 * @return Status of the registration process.
+	 *         BEP_FAILURE_RESPONSE == Could not successfully perform registration
+	 *         BEP_SUCCESS_RESPONSE == Registered
+	 */
+	virtual const string Register(void);
+
+	/**
 	 * Request to write a data tag
 	 *
 	 * @param dataNode  Data to be written
@@ -92,10 +102,32 @@ protected:
 	 */
 	virtual const string Publish(const XmlNode *node);
 
+	/**
+	 * Update the state of the InputServer if it needs to be changed.
+	 */
+	virtual void UpdateInputServerState(void);
+
 
 
 
 private:
+
+	/**
+	 * Load the wheelbase configuration table.
+	 */
+	void LoadWheelbasePositionTable(void);
+
+	/**
+	 * Get/set the name of the file containing the wheelbase table.
+	 * 
+	 * @param fileName Name of the file containing the wheelbase table.
+	 * 
+	 * @return Name of the file containing the wheelbase table.
+	 */
+	string WheelbaseFileName(const string *fileName = NULL);
+
+	// File name that contains the wheelbase positions
+	string m_wheelbaseFileName;
 
 	// System tags to read to get build data
 	XmlNodeMap m_buildDataTags;

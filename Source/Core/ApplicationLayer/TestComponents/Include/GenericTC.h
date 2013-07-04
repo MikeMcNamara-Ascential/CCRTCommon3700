@@ -310,6 +310,7 @@ using namespace std;
 #define     INCH_FEET               12                  // inches in a foot
 #define     FEET_MILE               5280                // feet in a mile
 #define     KM_MILES                1.609344            // Km in a mile
+#define     KG_LBS                  0.45359237          // KG in a pound
 
 // the roller names, in order of the way they are provided by the ICM
 const static string rollerName[] = {"LeftFront", "RightFront",

@@ -1629,7 +1629,7 @@ const std::string GenericTC::SystemReadWaitForResult(const std::string &tag, con
     {
         Log(LOG_DEV_DATA,"waiting for: %s to equal: %s, %fms remaining",tag.c_str(), result.c_str(), timeout);
         timeout -= checkTime;
-        delay(checkTime);
+        delay((INT32)checkTime);
     }
 
 
@@ -6243,6 +6243,10 @@ float GenericTC::ConvertToEnglishUnits ( std::string &units, float &value) throw
 		else if(units == unitsN)
 		{
 			value /= (N_LBS);
+		}
+		else if(units == unitsKG)
+		{
+			value /= KG_LBS;
 		}
     }
     return value;

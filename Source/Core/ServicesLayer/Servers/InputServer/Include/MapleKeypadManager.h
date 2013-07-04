@@ -159,7 +159,7 @@ public:
      * @return Size of the buffer in bytes.
      * @since Version 1.0
      */
-    inline INT32 &GetBufferSize(void);
+    INT32 &GetBufferSize(void);
     /**
      * Get the current mode of the Maple Keypad.
      *
@@ -173,14 +173,14 @@ public:
      * @return Maximum number of attempts to retrieve data.
      * @since Version 1.0
      */
-    inline const INT32 &GetMaximumRetries(void);
+    const INT32 &GetMaximumRetries(void);
     /**
      * Return the amount of time to wait between attempts to retrieve data.
      *
      * @return Maximum time delay in ms.
      * @since Version 1.0
      */
-    inline const INT32 &GetDataDelay(void);
+    const INT32 &GetDataDelay(void);
 
 protected:
     /**
@@ -336,7 +336,6 @@ protected:
 	 */
 	inline UINT16 GetMaxVehicleNumberLength(void);
 
-private:
     /**
      * Get/Set the flag indicating a secondary data item has been configured.
      * 
@@ -363,6 +362,17 @@ private:
      * @return Length of the secondary data item.
      */
     const INT32& SecondaryDataLength(const INT32 *dataLength = NULL);
+
+	/**
+	 * Communication object to talk with the Maple Keypad.
+	 */
+	SerialChannel m_keypadComm;
+
+
+
+
+private:
+
     /**
      * Get/Set the length of the VIN.
      * 
@@ -371,19 +381,25 @@ private:
      * @return Length of the VIN.
      */
     const INT32& VinLength(const INT32 *length = NULL);
-    /**
-     * Communication object to talk with the Maple Keypad.
-     * @since Version 1.0
-     */
-    SerialChannel m_keypadComm;
+
+	/**
+	 * Get/Set the flag to detemrine if secondary data items should be 
+	 * written to the NDB.
+	 * 
+	 * @param writeToNdb Flag to detemrine if secondary data items should be
+	 *                   written to the NDB.
+	 * 
+	 * @return Flag to detemrine if secondary data items should be 
+	 *         written to the NDB.
+	 */
+	const bool& WriteSecondaryDataToNdb(const bool *writeToNdb = NULL);
+
     /**
      * Current input mode.
-     * @since Version 1.0
      */
     std::string m_currentMode;
     /**
      * Size of the buffer for the Maple Keypad.
-     * @since Version 1.0
      */
     INT32 m_bufferSize;
     /**
@@ -425,6 +441,10 @@ private:
      * Flag indicating if a secondary data type is supported.
      */
     bool m_secondaryDataSupported;
+
+	// Flag to determine if secondary data should be written to the NDB
+	bool m_writeSecondaryDataToNdb;
+
     /**
      * Dat tag/type to usefr publishng the secondary data type.
      */

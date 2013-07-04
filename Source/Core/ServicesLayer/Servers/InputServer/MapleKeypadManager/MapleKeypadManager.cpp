@@ -83,6 +83,7 @@
 // $NoKeywords: $
 //=========================================================================
 
+#include "INamedDataBroker.h"
 #include "MapleKeypadManager.h"
 
 MapleKeypadManager::MapleKeypadManager() : InputDeviceBase(), m_nextState(INPUT_SERVER_NORMAL_STATE),
@@ -181,6 +182,17 @@ MapleKeypadManager::LoadAdditionalConfigurationItems(const XmlNode *configNode)
             Log(LOG_ERRORS, "Secondary data item length not defined, not configuring secondary data: %s", excpt.GetReason());
             useSecondaryDataItem = false;
         }
+		bool writeToNdb = false;
+		try
+		{
+			writeToNdb = atob(document->getChild("WriteSecondaryDataToNdb")->getValue().c_str());
+		}
+		catch(XmlException &excpt)
+		{
+			Log(LOG_ERRORS, "Not writing secondary data items to the NDB - %s", excpt.GetReason());
+			writeToNdb = false;
+		}
+		WriteSecondaryDataToNdb(&writeToNdb);
     }
     // Store the secondary data items
     SecondaryDataSupported(&useSecondaryDataItem);
@@ -480,9 +492,14 @@ void MapleKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteCoun
                 if(!dataType.compare(SecondaryDataType()))
                 {   // reset the display on the keypad
                     ClearKeypadDisplay();
-                    DisplayMessage("EnterVin");
+                    DisplayMessage("EnterVIN");
                     PositionCursor(GetDataTag("VINEntryRow"), GetDataTag("VINEntryColumn"));
                     EnableBlockMode();
+					if(WriteSecondaryDataToNdb())
+					{
+						INamedDataBroker broker;
+						broker.Write(dataType, dataValue, response, true);
+					}
                 }
                 // If this data is a VIN, display it
                 if(!dataType.compare(NEXT_VIN_DATA_TAG))
@@ -550,7 +567,7 @@ inline void MapleKeypadManager::PrintSendBuffer(const std::string &buffer)
         Log(LOG_DEV_DATA,"Byte: %03d -- %c <%02X>\n", ii, (isprint(buffer[ii]) ? buffer[ii] : '?'), buffer[ii]);
 }
 
-inline INT32 &MapleKeypadManager::GetBufferSize(void)
+INT32 &MapleKeypadManager::GetBufferSize(void)
 {
     return m_bufferSize;
 }
@@ -560,12 +577,12 @@ inline std::string &MapleKeypadManager::GetCurrentMode(void)
     return m_currentMode;
 }
 
-inline const INT32 &MapleKeypadManager::GetMaximumRetries(void)
+const INT32 &MapleKeypadManager::GetMaximumRetries(void)
 {
     return m_maxRetries;
 }
 
-inline const INT32 &MapleKeypadManager::GetDataDelay(void)
+const INT32 &MapleKeypadManager::GetDataDelay(void)
 {
     return m_dataDelay;
 }
@@ -636,4 +653,11 @@ inline const INT32& MapleKeypadManager::VinLength(const INT32 *length /*= NULL*/
 {
     if(length != NULL)  m_vinLength = *length;
     return m_vinLength;
+}
+
+//-----------------------------------------------------------------------------
+const bool& MapleKeypadManager::WriteSecondaryDataToNdb(const bool *writeToNdb)
+{
+	if(writeToNdb != NULL)  m_writeSecondaryDataToNdb = *writeToNdb;
+	return m_writeSecondaryDataToNdb;
 }

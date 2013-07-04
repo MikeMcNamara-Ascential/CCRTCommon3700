@@ -358,7 +358,7 @@ string GenericTcaseTC::GetAxleRatio ( float &ratio )
 }
 
 //-----------------------------------------------------------------------------
-inline string GenericTcaseTC::FinishUp(void)
+string GenericTcaseTC::FinishUp(void)
 {
 	return(testPass);
 }

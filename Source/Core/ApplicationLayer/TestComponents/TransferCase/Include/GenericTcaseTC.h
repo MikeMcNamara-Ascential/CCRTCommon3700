@@ -445,7 +445,7 @@ protected:
 	 * <p>
 	 * @return Pass
 	 */
-	virtual inline string FinishUp(void);
+	virtual string FinishUp(void);
 
     /**
 	 * Accelerate to test speed.

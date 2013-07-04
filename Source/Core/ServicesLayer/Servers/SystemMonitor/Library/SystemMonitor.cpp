@@ -2019,6 +2019,7 @@ void SystemMonitor::StartWheelbaseAdjust(void)
 void SystemMonitor::StopWheelbaseAdjust(void)
 {
     WriteNdbData(WHEELBASE_MOVE_TAG, false);
+	RemovePrompt(1, "WheelbaseIncorrect");
     Log( LOG_DEV_DATA, "Wheelbase Adjust bit set false\n");
 }
 

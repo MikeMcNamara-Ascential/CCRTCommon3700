@@ -31,6 +31,8 @@
                     <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10"/>
                     <DataSource tagname="BrakeTarget" tagrole="targetrange" messagetype="Subscribe"/>
                     <DataSource tagname="BrakeActive" messagetype="Subscribe" tagrole="enabled"/>
+                    <!--RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" 
+                        domainhigh="675" targetlow="0" targethigh="0" scale="true"-->
                     <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" 
                         domainhigh="899.49" targetlow="0" targethigh="0" scale="true">
                         <Font size="18" name="sans-serif" style="plain"/>

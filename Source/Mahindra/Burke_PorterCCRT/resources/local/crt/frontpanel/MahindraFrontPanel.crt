@@ -89,7 +89,7 @@ $Revision: 1.3 $
             <Widget id="speed" height="150" width="150" posX="320" posY="75" class="com.bepco.gui.RadialGauge">
                 <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
                 <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
-                <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="150" targetlow="40" targethigh="60" scale="true" >
+                <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="149.5" targetlow="40" targethigh="60" scale="true" >
                     <Font size="14" name="sans-serif" style="plain"/>
                 </RadialGaugeConfig>
             </Widget>
@@ -98,7 +98,7 @@ $Revision: 1.3 $
                 <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10"/>
                 <DataSource tagname="BrakeTarget" tagrole="targetrange" messagetype="Subscribe"/>
                 <DataSource tagname="BrakeActive" messagetype="Subscribe" tagrole="enabled"/>
-                <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="675" targetlow="0" targethigh="0" scale="true">
+                <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="899.49" targetlow="0" targethigh="0" scale="true">
                     <Font size="8" name="sans-serif" style="plain"/>
                 </RadialGaugeConfig>
             </Widget>

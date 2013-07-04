@@ -437,7 +437,7 @@
                 <LeftRearMachineEStopPBDepressed DataType="bool">PLC</LeftRearMachineEStopPBDepressed>
                 <LeftRearParkBrakeCylinderFailedToExtend DataType="bool">PLC</LeftRearParkBrakeCylinderFailedToExtend>
                 <LeftRearParkBrakeForceBGColor DataType="color">VehicleDataBroker</LeftRearParkBrakeForceBGColor>
-                <LeftRearParkBrakeForceValue DataType="float">VehicleDataBroker</LeftRearParkBrakeForceValue>
+                <LeftRearParkBrakeForceValue DataType="float" Units="LBF">VehicleDataBroker</LeftRearParkBrakeForceValue>
                 <LeftRearRollMotorContactorFault DataType="bool">PLC</LeftRearRollMotorContactorFault>
                 <LeftRearRollMotorDisconnectOpen DataType="bool">PLC</LeftRearRollMotorDisconnectOpen>
                 <LeftRearRollMotorDriveFault DataType="bool">PLC</LeftRearRollMotorDriveFault>
@@ -875,7 +875,7 @@
                 <RightJounceStabEngagedFault DataType="bool">PLC</RightJounceStabEngagedFault>
                 <RightRearParkBrakeCylinderFailedToExtend DataType="bool">PLC</RightRearParkBrakeCylinderFailedToExtend>
                 <RightRearParkBrakeForceBGColor DataType="color">VehicleDataBroker</RightRearParkBrakeForceBGColor>
-                <RightRearParkBrakeForceValue DataType="float">VehicleDataBroker</RightRearParkBrakeForceValue>
+                <RightRearParkBrakeForceValue DataType="float" Units="LBF">VehicleDataBroker</RightRearParkBrakeForceValue>
                 <RightRearRollerDirection DataType="bool">ICM</RightRearRollerDirection>
                 <RightRearRollMotorContactorFault DataType="bool">PLC</RightRearRollMotorContactorFault>
                 <RightRearRollMotorDisconnectOpen DataType="bool">PLC</RightRearRollMotorDisconnectOpen>

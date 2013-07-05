@@ -71,6 +71,8 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
     {   // System is not OK to perform brake test
         testResult = testSkip;
         Log(LOG_ERRORS, "System status is preventing test: %s", ConvertStatusToResponse(StatusCheck()).c_str());
+		// Make sure rolls are disabled
+		DisableRollMotors(SPEED_MODE);
     }
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Exit", value.c_str());
@@ -156,10 +158,17 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
 		// Wait for the ABS dump to complete
 		string dumpResult = WaitForAbsDump(testingWheel, oppositeWheel);
 		Log(LOG_DEV_DATA, "ABS Dump complete: %s", dumpResult.c_str());
-		// Wait for the ABS Build to complete
-		BposSleep(GetParameterInt("AbsBuildDelay"));
-		string buildResult = WaitForAbsBuild(testingWheel, oppositeWheel);
-		Log(LOG_DEV_DATA, "ABS Build complete: %s", buildResult.c_str());
+		string buildResult(testFail);
+		if(!dumpResult.compare(testPass))
+		{   // Wait for the ABS Build to complete
+			BposSleep(GetParameterInt("AbsBuildDelay"));
+			buildResult = WaitForAbsBuild(testingWheel, oppositeWheel);
+			Log(LOG_DEV_DATA, "ABS Build complete: %s", buildResult.c_str());
+		}
+		else
+		{
+			SystemWrite(GetDataTag("RunBrakeTestTag"), false);
+		}
 		// Determine the overall result
 		result = (!dumpResult.compare(testPass) && !buildResult.compare(testPass)) ? testPass : testFail;
 		// Report the results
@@ -350,7 +359,7 @@ string MazdaBrakeTC::MazdaDragTest(void)
 			bool measurementComplete = false;
 			do
 			{   // Get the drag force samples
-				measurementComplete = MonitorBrakeForces(LFWHEEL, RRWHEEL, 0, 0, dragData, 
+				measurementComplete = MonitorBrakeForces(LFWHEEL, RRWHEEL, 0.0, 0.0, dragData, 
 														 GetParameterInt("NumberOfDragSamples"));
 			} while(!measurementComplete && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
 			// Analyze the exit status
@@ -760,7 +769,12 @@ string MazdaBrakeTC::WaitForAbsBuild(const INT16 &testingWheel, const INT16 &opp
 	string displayTags[] = {GetDataTag("LfBrakeDisplayTag"), GetDataTag("RfBrakeDisplayTag"), 
 							GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag")};
 	SetupLoadCellDataStructure(forceData, loadCellTags, displayTags);
+
+	while(SystemReadBool(GetDataTag("AbsWheelStart")) && (BEP_STATUS_SUCCESS == StatusCheck()))  
+		BposSleep(GetTestStepInfoInt("ScanDelay"));
+
 	SetSecondaryStartTime();
+
 	if(AverageBrakeForce(testingWheel) > 0.0)
 	{
 		do
@@ -819,6 +833,11 @@ string MazdaBrakeTC::WaitForAbsDump(const INT16 &testingWheel, const INT16 &oppo
 	string displayTags[] = {GetDataTag("LfBrakeDisplayTag"), GetDataTag("RfBrakeDisplayTag"), 
 							GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag")};
 	SetupLoadCellDataStructure(forceData, loadCellTags, displayTags);
+
+	while(!SystemReadBool(GetDataTag("AbsWheelStart")) && !SystemReadBool("CurrentWheelAbsTestComplete") &&
+		  (BEP_STATUS_SUCCESS == StatusCheck()))  
+		BposSleep(GetTestStepInfoInt("ScanDelay"));
+
 	SetSecondaryStartTime();
 	do
 	{   // Wait a short time before looking again

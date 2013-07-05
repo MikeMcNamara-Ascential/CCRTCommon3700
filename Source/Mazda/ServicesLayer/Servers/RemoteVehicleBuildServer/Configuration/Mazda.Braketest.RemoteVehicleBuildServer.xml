@@ -1,0 +1,61 @@
+<RemoteVehicleBuildServerConfig>
+    <Setup>
+        <Demo>0</Demo>
+        <Debug>Off</Debug>
+        <ProcessPriority>12</ProcessPriority>
+        <TagList>
+            <PublishTags/>
+            <SubscribeTags>
+                <VehicleBuild/>
+            </SubscribeTags>
+        </TagList>
+
+        <DataTags>
+            <FileNamePrefix>Vin</FileNamePrefix>
+            <FileNameRootItem>AON</FileNameRootItem>
+            <FileNameSuffix>.xml</FileNameSuffix>
+        </DataTags>
+
+        <Parameters>
+            <BuildFilePath>/net/Mazda_RollTest_507768/home/CCRT/Rewrite/Configuration/VehicleTest/BuildRecords/Ccts/</BuildFilePath>
+            <ServerType ValidTypes="Producer or Consumer">Producer</ServerType>
+        </Parameters>
+
+        <Communication>
+            <Type>Server</Type>
+            <Debug>Off</Debug>
+            <Name>core/RemoteVehicleBuild</Name>
+            <Comm>IPC</Comm>
+            <Timeout>2000</Timeout>
+            <BufferSize>2000</BufferSize>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>core/RemoteVehicleBuild</ProcessName>
+            <AdditionalLogFile Types="/Server/RemoteVehicleBuild.log or Disabled">/Servers/RemoteVehicleBuild.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Debug>Off</Debug>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+            </Setup>
+        </NotificationList>
+
+    </Setup>
+</RemoteVehicleBuildServerConfig>

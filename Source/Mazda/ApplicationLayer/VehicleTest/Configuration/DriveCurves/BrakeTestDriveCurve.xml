@@ -37,7 +37,7 @@
                 </Objective1>
             </ForegroundObjectives>
         </TestPhase005>
-        
+
 
         <!-- ABS Test Sequence -->
         <TestPhase100 Description="Wheel speed sensor test" Result="" Timeout="">
@@ -50,17 +50,48 @@
         <TestPhase105 Description="Wheel speed sensor test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
-                    <BrakeTesting/>
+                    <BaseBrakeTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase105>
-        <TestPhase110 Description="Fault Check" Result="" Timeout="">
+        <TestPhase107 Description="Abs Wheel Specific Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
+                    <AbsLfTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase107>
+        <TestPhase110 Description="Abs Wheel Specific Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
+                    <AbsRfTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase110>
+        <TestPhase115 Description="Abs Wheel Specific Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
+                    <AbsLrTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase115>
+        <TestPhase120 Description="Abs Wheel Specific Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
+                    <AbsRrTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase120>
+
+
+        <!-- Finishup Testing -->
+        <TestPhase400 Description="Fault Check" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Fault Check" Result="" Timeout="" Component="Brake">
                     <FaultCheckRoutine/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase110>
+        </TestPhase400>
 
     </Test>
 </DriveCurve>

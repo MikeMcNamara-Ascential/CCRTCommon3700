@@ -61,6 +61,7 @@
                 <AbsBuildOk DataType="bool">PLC</AbsBuildOk>
                 <AbsDumpNok DataType="bool">PLC</AbsDumpNok>
                 <AbsDumpOk DataType="bool">PLC</AbsDumpOk>
+                <AbsValveCycled DataType="bool">PLC</AbsValveCycled>
                 <ALDLTestEnabled DataType="bool">PLC</ALDLTestEnabled>
                 <ALDLTestRunning DataType="bool">PLC</ALDLTestRunning>
                 <Abort DataType="bool">SystemMonitor</Abort>

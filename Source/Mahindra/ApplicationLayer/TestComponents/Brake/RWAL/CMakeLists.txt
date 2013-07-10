@@ -20,6 +20,11 @@ CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp)
 INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${EXE_NAME})
 
 #------------------------------------------------------------------------------------------
+# Make sure that the services layer lib is built first
+#------------------------------------------------------------------------------------------
+INCLUDE(${CCRT_ROOT}/LibServices.cmake)
+
+#------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Configuration)

@@ -200,6 +200,7 @@
             <RwalSensorCheckInterval Units="ms">200</RwalSensorCheckInterval>
             <TotalRwalSamples>15</TotalRwalSamples>
             <RwalSensorTolerance Units="percent">5</RwalSensorTolerance>
+            <ProtocolFile>$(FTP_ROOT)/Configuration/Components/Brake/SerialRwalModule.xml</ProtocolFile>
         </Parameters>
 
         <Prompts>

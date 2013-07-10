@@ -25,6 +25,47 @@ RwalBrakeTest<ModuleType>::~RwalBrakeTest()
 {
 }
 
+template<class ModuleType>
+void RwalBrakeTest<ModuleType>::InitializeHook(const XmlNode *config)
+{
+	Log(LOG_FN_ENTRY, "Enter RwalBrakeTest::InitializeHook()\n");
+	try
+	{
+
+		XmlParser	protocolParser;
+		std::string protocolFile = GetParameter( "ProtocolFile");
+
+		FixUpPathString( protocolFile);
+		const XmlNode *portConfig = protocolParser.ReturnXMLDocument( protocolFile);
+		const std::string portName = portConfig->getChild("Setup/Communication/Name")->getValue();
+
+		m_rwalCommPort.Initialize( portConfig);
+		if( true != m_rwalCommPort.OpenPort( portName))
+		{
+		  //  throw( BepException( "Unable to open port %s", portName.c_str()) );
+		}
+	}
+	catch( BepException &err)
+	{
+		Log(LOG_ERRORS, "Exception during initialization: %s\n", err.GetReason());
+		//throw;
+	}
+      catch(XmlException &ex)
+      {
+          Log(LOG_ERRORS, "xml Exception during initialization: %s\n", ex.GetReason());
+      
+      }
+      catch(...)
+      {
+
+          Log(LOG_ERRORS, "unknown Exception during initialization\n");
+      }
+
+    GenericABSTCTemplate<ModuleType>::InitializeHook(config);
+
+	Log(LOG_FN_ENTRY, "Exit RwalBrakeTest::InitializeHook()\n");
+}
+
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
 const string RwalBrakeTest<ModuleType>::CommandTestStep(const string &value)
@@ -57,6 +98,44 @@ const string RwalBrakeTest<ModuleType>::CommandTestStep(const string &value)
 	return result;
 }
 
+
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+float RwalBrakeTest<ModuleType>::GetAverageRWALSpeed(void)
+{
+    
+	SerialString_t	response;
+	int				bytesRead;
+	float			temp=0.0;
+    float           total=0.0;
+    float           average;
+    UINT8 MESSAGE_LENGTH = 8;
+    UINT8 DATA_LENGTH = 6;
+    bytesRead = m_rwalCommPort.ReadPort( response, 100, 0);
+    int fullSamples = (int)(bytesRead / MESSAGE_LENGTH);
+    if (fullSamples > 0)
+    {
+        for(int x = 0; x <fullSamples; x++)
+        {
+
+            const SerialString_t::size_type dataStartIdx = x * MESSAGE_LENGTH+2;    
+            const SerialString_t::size_type dataRespSz = DATA_LENGTH;
+            SerialString_t currentSample = response.substr(dataStartIdx,dataRespSz);
+            temp = atof( (const char*)currentSample.c_str()) / KPH_MPH;
+            total += temp;
+            Log( LOG_DEV_DATA, "RWAL sample: %.2f\n", temp);
+        }
+         average = total / fullSamples;
+        Log( LOG_DEV_DATA, "Number of samples: %d, Total: %.2f Average: %.2f\n", fullSamples, total, average);
+        return average;
+
+    }
+    else
+    {
+            return -1;
+    }
+}
+
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
 string RwalBrakeTest<ModuleType>::ValidateRwalSensor(void)
@@ -66,63 +145,74 @@ string RwalBrakeTest<ModuleType>::ValidateRwalSensor(void)
 	if(!ShortCircuitTestStep() && IsRwalEquipped())
 	{
 	    INT32 sampleCount = 0;
-		float currentSample = 0.0;
 		float currentRollerSpeed = 0.0;
-		float runningTotal = 0.0;
 		float runningRollerSpeed = 0.0;
-		BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 		TestResultDetails details;
+        uint8_t tempBuff[ 4096];
+        int				bytesRead;
 		result = AccelerateToTestSpeed(GetParameterFloat("RwalTestSpeed"), GetParameter("RwalTestSpeedRange"),
-									   GetTestStepInfoInt("ScanDelay"), false);
+									   GetTestStepInfoInt("ScanDelay"), false,"RWALAccelerateToTargetSpeed");
 		if(!result.compare(testPass))
 		{   // Keep the green band displayed during the test
 			DisplayPrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), 
 						  GetPromptPriority("MaintainSpeed"));
 			SystemWrite(GetDataTag("SpeedTarget"), GetParameter("RwalTestSpeedRange"));
+
+    		m_rwalCommPort.WritePort( "StartRWALSpeedBroadcast");
+            //read only 3 byte response to start command
+            bytesRead=m_rwalCommPort.ReadPort( tempBuff, 1, 100, 10);
+            if (bytesRead == 1)
+            {
 			do
 			{	// Read the current sample from the module
 				currentRollerSpeed = GetRollSpeed();
-				status = m_vehicleModule.ReadModuleData(GetDataTag("ReadRwalMessageTag"), currentSample);
-				if(BEP_STATUS_SUCCESS == status)
-				{	// Log the current sample and add to the running total
-					runningTotal += currentSample;
 					runningRollerSpeed += currentRollerSpeed;
-					Log(LOG_DEV_DATA, "RWAL Sensor Sample %03d:  %.2f,  total: %.2f,  roller Speed: %.2f", 
-						sampleCount, currentSample, runningTotal, currentRollerSpeed);
+					Log(LOG_DEV_DATA, "RWAL Sensor Sample %03d:  total: %.2f,  roller Speed: %.2f", 
+						sampleCount, runningRollerSpeed, currentRollerSpeed);
 					sampleCount++;
 					BposSleep(GetParameterInt("RwalSensorCheckInterval"));
-				}
-				else
-				{
-					Log(LOG_ERRORS, "Error reading RWAL sensor from the module: %s", 
-						ConvertStatusToResponse(status).c_str());
-					result = testFail;
-				}
 			} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) &&
-					(BEP_STATUS_SUCCESS == status) &&
 					(sampleCount < GetParameterInt("TotalRwalSamples")));
 			// Determine the result of the sensor test
 			if(sampleCount)
 			{	// Get the average RWAL speed
-				float averageSensorSpeed = runningTotal / (float)sampleCount;
-				float averageRollerSpeed = runningRollerSpeed / (float)sampleCount;
-				float lowLimit = averageRollerSpeed * ((100 - GetParameterFloat("RwalSensorTolerance")) / 100.0);
-				float hiLimit = averageRollerSpeed * ((100 + GetParameterFloat("RwalSensorTolerance")) / 100.0);
-				result = ((lowLimit <= averageSensorSpeed) && (averageSensorSpeed <= hiLimit)) ? testPass : testFail;
-				Log(LOG_DEV_DATA, "RWAL Sensor:  %.2f  [%.2f  %.2f] - %s,  Average Roller Speed: %.2f",
-					averageSensorSpeed, lowLimit, hiLimit, result.c_str(), averageRollerSpeed);
-				char buff[64];
-				details.AddDetail("RwalSensorSpeed", CreateMessage(buff, sizeof(buff), "%.2f", averageSensorSpeed), unitsMPH);
-				details.AddDetail("RollerSpeed", CreateMessage(buff, sizeof(buff), "%.2f", averageRollerSpeed), unitsMPH);
-				details.AddDetail("LowLimit", CreateMessage(buff, sizeof(buff), "%.2f", lowLimit), unitsMPH);
-				details.AddDetail("HighLimit", CreateMessage(buff, sizeof(buff), "%.2f", hiLimit), unitsMPH);
-				details.AddDetail("SampleCount", CreateMessage(buff, sizeof(buff), "%d", sampleCount), "");
+
+				float averageSensorSpeed = GetAverageRWALSpeed();
+
+                if(averageSensorSpeed > 0)
+                {
+    				float averageRollerSpeed = runningRollerSpeed / (float)sampleCount;
+    				float lowLimit = averageRollerSpeed * ((100 - GetParameterFloat("RwalSensorTolerance")) / 100.0);
+    				float hiLimit = averageRollerSpeed * ((100 + GetParameterFloat("RwalSensorTolerance")) / 100.0);
+    				result = ((lowLimit <= averageSensorSpeed) && (averageSensorSpeed <= hiLimit)) ? testPass : testFail;
+    				Log(LOG_DEV_DATA, "RWAL Sensor:  %.2f  [%.2f  %.2f] - %s,  Average Roller Speed: %.2f",
+    					averageSensorSpeed, lowLimit, hiLimit, result.c_str(), averageRollerSpeed);
+    				char buff[64];
+    				details.AddDetail("RwalSensorSpeed", CreateMessage(buff, sizeof(buff), "%.2f", averageSensorSpeed), unitsMPH);
+    				details.AddDetail("RollerSpeed", CreateMessage(buff, sizeof(buff), "%.2f", averageRollerSpeed), unitsMPH);
+    				details.AddDetail("LowLimit", CreateMessage(buff, sizeof(buff), "%.2f", lowLimit), unitsMPH);
+    				details.AddDetail("HighLimit", CreateMessage(buff, sizeof(buff), "%.2f", hiLimit), unitsMPH);
+    				details.AddDetail("SampleCount", CreateMessage(buff, sizeof(buff), "%d", sampleCount), "");
+                }
+                else 
+                {
+                        // No samples collected, cannot analyze anything
+				result = testFail;
+				Log(LOG_DEV_DATA, "No rwal speed samples collected");                
+                }
 			}
 			else
 			{	// No samples collected, cannot analyze anything
 				result = testFail;
-				Log(LOG_DEV_DATA, "No RWAL samples collected");
+				Log(LOG_DEV_DATA, "No roll speed samples collected");
 			}
+            }
+            else
+			{	// error starting rwal comms
+				result = testFail;
+				Log(LOG_DEV_DATA, "Error starting comms with rwal serial device");
+
+            }
 			RemovePrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), 
 						 GetPromptPriority("MaintainSpeed"));
 			SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));

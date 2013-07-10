@@ -55,12 +55,14 @@ $Revision: 1.3 $
                     <VBox width="40">
                         <HBox height="2"/>
                         <Label name="abs"/>
-                        <HBox height="2"/>
-                        <Label name="brake"/>
+                        <!-- HBox height="2"/>
+                        <Label name="brake"/ -->
                         <HBox height="2"/>
                         <Label name="transfercase"/>
                         <HBox height="2"/>
                         <Label name="driveaxle"/>
+                        <HBox height="2"/>
+                        <Label name="wheelbase"/>
                     </VBox>
                     <!-- spacer -->
                     <VBox width="10"/>
@@ -69,10 +71,10 @@ $Revision: 1.3 $
                         <Widget id="_abs" width="130" class="com.bepco.gui.TextBox">
                             <DataSource tagname="ABSType" messagetype="Subscribe"/>
                         </Widget>
-                        <HBox height="2"/>
+                        <!-- HBox height="2"/>
                         <Widget id="_brake" width="130" class="com.bepco.gui.TextBox">
                             <DataSource tagname="BrakeType" messagetype="Subscribe"/>
-                        </Widget>
+                        </Widget -->
                         <HBox height="2"/>
                         <Widget id="_tcase" width="130" class="com.bepco.gui.TextBox">
                             <DataSource tagname="TransferCase" messagetype="Subscribe"/>
@@ -81,6 +83,12 @@ $Revision: 1.3 $
                         <Widget id="_driveaxle" width="130" class="com.bepco.gui.TextBox">
                             <DataSource tagname="DriveAxle" messagetype="Subscribe"/>
                         </Widget>
+                        <Widget id="_wb" class="com.bepco.gui.NumberBox" width="130">
+                            <DataSource tagname="WheelbasePositionInchesX10" messagetype="Read" datarate="10" />
+                            <TextBoxConfig scale="1" offset="0">
+                            </TextBoxConfig>
+                        </Widget>
+
                     </VBox>
                 </HBox>
             </HBox>

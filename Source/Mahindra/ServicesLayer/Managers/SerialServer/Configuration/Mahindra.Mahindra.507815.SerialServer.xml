@@ -209,7 +209,7 @@
                     <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
                     <DefaultReplyTimeout units="milliseconds">5000</DefaultReplyTimeout>
                     <Protocol>
-                        <Baud>9600</Baud>
+                        <Baud>19200</Baud>
                         <Parity>None</Parity>
                         <DataBits>8</DataBits>
                         <StopBits>1</StopBits>

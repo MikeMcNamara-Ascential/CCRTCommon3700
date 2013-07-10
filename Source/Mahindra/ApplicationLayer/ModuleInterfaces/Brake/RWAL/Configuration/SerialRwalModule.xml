@@ -13,8 +13,8 @@
         <ValidResponseOffset>0</ValidResponseOffset>
 
         <!-- Message timings -->
-        <ModuleResponseDelay>500</ModuleResponseDelay>
-        <ModuleResponseEndDelay>50</ModuleResponseEndDelay>
+        <ModuleResponseDelay>10</ModuleResponseDelay>
+        <ModuleResponseEndDelay>1</ModuleResponseEndDelay>
 
         <NegativeResponseCodes>
             <Code_0x10>General Reject</Code_0x10>
@@ -69,6 +69,12 @@
                 <ReplyMessage>RwalSensor</ReplyMessage>
                 <ReplyInterpretation>RwalSensor</ReplyInterpretation>
             </ReadRwalSensor>
+            <StartRWALSpeedBroadcast>
+                <TransmitMessage>ReadRwalSensor</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>RwalSensor</ReplyMessage>
+                <ReplyInterpretation>RwalSensor</ReplyInterpretation>
+            </StartRWALSpeedBroadcast>
         </VehicleMessages>
 
         <TransmitMessages>
@@ -79,17 +85,18 @@
 
         <ReplyMessages>
             <RwalSensor>
-                <Reply_00 lengthType="Variable" ReplyTimeout="100" endGapTime="50">0x??</Reply_00>
+                <Reply_00>0x0D,0x0A,0x??,0x??,0x??,0x2E,0x??,0x??</Reply_00>
             </RwalSensor>
         </ReplyMessages>
 
         <ReplyInterpretations>
             <RwalSensor>
-                <Float scale="0.6213712" offset="0">
-                    <Integer type="unsigned" bits="16" scale="1" offset="0">
-                        <Byte1 input_index="0" mask="0xFF" output_index="1"/>
-                        <Byte2 input_index="1" mask="0xFF" output_index="0"/>
-                    </Integer>
+                <Float scale="1" offset="0">
+                    <String>
+                        <Substring format="%6s">
+                            <Chars input_index="3" mask="0xFF" length="6"/>
+                        </Substring>
+                    </String>
                 </Float>
             </RwalSensor>
         </ReplyInterpretations>

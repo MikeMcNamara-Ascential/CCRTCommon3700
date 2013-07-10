@@ -15,6 +15,7 @@
 #define RwalBrakeTest_h
 //-------------------------------------------------------------------------------------------------
 #include "GenericABSTCTemplate.cpp"
+#include "ILogicalPort.h"
 //-------------------------------------------------------------------------------------------------
 
 template<class ModuleType>
@@ -38,8 +39,17 @@ public:
 	 */
 	virtual const string CommandTestStep(const string &value);
 
+	/**
+	 * Initialization method to set up the MachineTC
+	 * component.
+	 *
+	 * @param configFile Configuration file to use for initialization.
+     * @since Version 1.0
+	 */
+    virtual void InitializeHook(const XmlNode *config);
 
 
+    float GetAverageRWALSpeed(void);
 
 protected:
 
@@ -60,6 +70,10 @@ private:
 	 * @return Flag indicating if the vehicle is equipped with RWAL.
 	 */
 	bool IsRwalEquipped(void);
+	/**
+	 * Logical Port interface used to read data from the sound level meter
+	 */
+	ILogicalPort	m_rwalCommPort;
 };
 
 //-------------------------------------------------------------------------------------------------

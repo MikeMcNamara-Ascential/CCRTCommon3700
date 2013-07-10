@@ -1269,6 +1269,10 @@ bool ABMotorController::ConditionsOkForBoost( std::string &reason)
     {
         reason = GetDataTag("DriveWheel") + " wheels not above minimum speed";
     }
+    else if(m_speeds[m_masterMotor] < 0 && !m_reverseBoost)
+    {
+        reason = "Reverse boost disabled by parameter";
+    }
     else
     {
         enable  = true;

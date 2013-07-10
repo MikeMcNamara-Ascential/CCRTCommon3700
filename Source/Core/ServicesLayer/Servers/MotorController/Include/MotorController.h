@@ -732,6 +732,10 @@ protected:
      */
     INT32  m_accelFile;
 
+    /**
+     * Flag indicating if boost should be applied to rolls when in reverse
+     */
+    bool m_reverseBoost;
 private:
     /**
      * Faults that the controller should monitor to
@@ -748,10 +752,6 @@ private:
      * acceleration information.
      */
     std::string m_accelerationArray;
-    /**
-     * Flag indicating if boost should be applied to rolls when in reverse
-     */
-    bool m_reverseBoost;
     /**
      * Flag to determine if rollers should be clutched
      * when zero speed is achieved.

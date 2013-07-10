@@ -1966,8 +1966,16 @@ throw(XmlException)
     offset = getOffsetVal(xmlnode);
     scaleFactor = getScaleVal(xmlnode);
 
+    //handle ascii encoded float value
+    if (compareNodeToName(intNodes.getNode(0), string("STRING"), 6))
+    {
+       float processedFloat = atof(strProcessGrammar (intNodes.getNode(0),byteArray).c_str());
+    
+       return((((double)processedFloat) * scaleFactor) + offset);
+    }
+
     // --> handle an unsigned child Integer
-    if(isIntegerUnsigned(intNodes.getNode(0)))
+    else if(isIntegerUnsigned(intNodes.getNode(0)))
     {
         UINT32 processedInt =
         (UINT32)intEvaluate(xmlnode->getChildren().getNode(0),byteArray);

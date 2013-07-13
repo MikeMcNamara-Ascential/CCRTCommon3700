@@ -498,7 +498,7 @@
             <!-- ******************************************************* -->
             <!-- *                  Left Maple Keypad                  * -->
             <!-- ******************************************************* -->
-            <LeftMapleKeypad enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+            <LeftMapleKeypad enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
                 <Setup>
                     <TagList>
                         <SubscribeTags>

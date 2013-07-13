@@ -101,9 +101,9 @@
             OrderToLaunch="0105" RegisteredName="core/VehicleDataBroker" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode="">Vehicle Data Broker</VehicleDataBroker>
 
-        <PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
-            ConfigFile="PlantHostInbound.xml" ConfigPath="/Configuration/Servers/" 
-            OrderToLaunch="0108" RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
+        <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="VehicleDataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0108" RegisteredName="core/VehicleDataServer" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode=""/>
 
         <SystemMonitor Name="Base3700SystemMonitor.qxe" Path="/ServicesLayer/Bin/" 
@@ -137,9 +137,9 @@
             OrderToLaunch="132" RegisteredName="component/LossCompensation" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode=""/>
 
-        <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 
-            ConfigFile="VehicleDataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
-            OrderToLaunch="0108" RegisteredName="core/VehicleDataServer" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
+        <PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="PlantHostInbound.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0108" RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
             AddressValue="" PortValue="" VerboseMode=""/>
     </DoNotLaunch>
 </LauncherConfig>

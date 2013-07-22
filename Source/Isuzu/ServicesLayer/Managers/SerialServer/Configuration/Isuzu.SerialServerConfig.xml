@@ -274,7 +274,7 @@
                <Setup>
                   <SerialDevice>/dev/socket</SerialDevice>
                   <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-                  <IpAddress>192.168.1.10</IpAddress>
+                  <IpAddress>10.50.2.3</IpAddress>
                   <PortNo>9997</PortNo>
                   <TcpType>Client</TcpType>
                   <Protocol>
@@ -310,6 +310,6 @@
                </Setup>
                <Verbose>0x1F</Verbose>
             </Daq>
-        </LogicalPorts>
+         </LogicalPorts>
     </Setup>
 </SerialServerConfig>

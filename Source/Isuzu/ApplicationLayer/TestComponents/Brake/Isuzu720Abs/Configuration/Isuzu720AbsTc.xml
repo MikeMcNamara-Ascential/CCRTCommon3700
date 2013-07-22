@@ -241,7 +241,7 @@
          <HoldReduction>No</HoldReduction>
          <InterWheelGapDelay Units="ms">50</InterWheelGapDelay>
          <PerformReductionBeforeRecovery>No</PerformReductionBeforeRecovery>
-            <DumpDelay Units="ms">50</DumpDelay>
+         <DumpDelay Units="ms">200</DumpDelay>
          <SkipHoldAllValves>Yes</SkipHoldAllValves>
             <DumpAndHoldDelay Units="ms">250</DumpAndHoldDelay>
          <SendKeepAliveDurringValveFire>True</SendKeepAliveDurringValveFire>
@@ -255,7 +255,7 @@
          <RightFrontMinRecoveryPercent>60.0</RightFrontMinRecoveryPercent>
          <RightRearMinRecoveryPercent>50.0</RightRearMinRecoveryPercent>
          <!-- ABS Reduction Parameters -->
-         <LeftFrontReductionPulseLength Units="ms">800</LeftFrontReductionPulseLength>
+         <LeftFrontReductionPulseLength Units="ms">1000</LeftFrontReductionPulseLength>
          <LeftRearReductionPulseLength Units="ms">700</LeftRearReductionPulseLength>
          <RightFrontReductionPulseLength Units="ms">800</RightFrontReductionPulseLength>
          <RightRearReductionPulseLength Units="ms">700</RightRearReductionPulseLength>

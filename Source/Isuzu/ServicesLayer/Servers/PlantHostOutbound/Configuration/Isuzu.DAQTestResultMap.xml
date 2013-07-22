@@ -59,6 +59,8 @@
     <Field0500 Type="Separator">,</Field0500>
     <Field0510 Type="VehicleBuild" Format="%10s" Length="10" DataType="String">TCMSoftwareModule04PartNo</Field0510>
     <Field0520 Type="Separator">,</Field0520>
+    <Field0522 Type="Detail" DetailNode="FileSerialNumber"  Format="%15s" Length="15" DataType="String">EmissionsCheckSerialNumber</Field0522>
+    <Field0524 Type="Separator">,</Field0524>           
     <!--****************************************************************************************************************************************** -->
     <!--****************************************************************************************************************************************** -->
     <!--                                                            Test Results                                                                                               -->

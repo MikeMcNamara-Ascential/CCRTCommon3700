@@ -153,6 +153,7 @@
                   <VinIndex>-1</VinIndex>
                   <MachineNumberLength>4</MachineNumberLength>
                   <MeasurementSystem ValidValues="(E)nglish or (M)etric">E</MeasurementSystem>
+                  <HeaderDelimiter>,</HeaderDelimiter>
                   <MaxResponseTime>3000</MaxResponseTime>
                   <MaxAttempts>3</MaxAttempts>
                   <ResultMap>/Configuration/Servers/DAQTestResultMap.xml</ResultMap>

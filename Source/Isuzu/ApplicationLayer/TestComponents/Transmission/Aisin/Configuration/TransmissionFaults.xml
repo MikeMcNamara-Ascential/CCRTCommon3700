@@ -81,7 +81,7 @@
     <ModuleFault_2719	Code="P2719"	Description="VBS PC Solenoid D Control Circuit Rationality Test (C4 / CB26 / CLCH C)"	FailureStatusMask="0x16"/>
     <ModuleFault_2720	Code="P2720"	Description="VBS PC Solenoid D Control Circuit Low Voltage (C4 / CB26 / CLCH C)"	FailureStatusMask="0x16"/>
     <ModuleFault_2721	Code="P2721"	Description="VBS PC Solenoid D Control Circuit High Voltage (C4 / CB26 / CLCH C)"	FailureStatusMask="0x16"/>
-    <ModuleFault_2723	Code="P2723"	Description="RVT C1234 Stuck OFF (PC Solenoid E)"	FailureStatusMask="0x16"/>
+    <ModuleFault_2723	Code="P2723"	Description="RVT C1234 Stuck OFF (PC Solenoid E)"	FailureStatusMask="0x12"/>
     <ModuleFault_2724	Code="P2724"	Description="RVT C1234 Stuck ON (PC Solenoid E)"	FailureStatusMask="0x16"/>
     <ModuleFault_2728	Code="P2728"	Description="VBS PC Solenoid E Control Circuit Rationality Test (C1 / C1234 / CLCH D)"	FailureStatusMask="0x16"/>
     <ModuleFault_2729	Code="P2729"	Description="VBS PC Solenoid E Control Circuit Low Voltage (C1 / C1234 / CLCH D)"	FailureStatusMask="0x16"/>

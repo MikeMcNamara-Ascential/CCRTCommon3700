@@ -2,7 +2,7 @@
 	<Setup>
 		<CustId>Isuzu</CustId>
 		<CustBld Description="Customer release version yymmddrr">10072901</CustBld>
-		<UseConfigMachineNumber>No</UseConfigMachineNumber>
+		<UseConfigMachineNumber>Yes</UseConfigMachineNumber>
 		<Debug>Off</Debug>
 		<DataFile Description="This is the file where persistent data is stored">/Configuration/Machine/LossCompensationTimeDate.dat</DataFile>
         <ConnectToQnxDataServer>No</ConnectToQnxDataServer>

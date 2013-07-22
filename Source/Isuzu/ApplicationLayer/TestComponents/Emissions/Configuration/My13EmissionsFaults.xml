@@ -187,12 +187,12 @@
    <ModuleFault_1380 Code="P1380" Description="Misfire Detected - Rough Road Data Not Available" FailureStatusMask="0x16"/>
    <ModuleFault_150C Code="P150C" Description="Transmission Control Module (TCM) Engine Speed Request Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_1516 Code="P1516" Description="Throttle Actuator Control (TAC) Module Throttle Actuator Position Performance" FailureStatusMask="0x16"/>
-   <ModuleFault_1630 Code="P1630" Description="Theft Deterrent Learn Mode Active" FailureStatusMask="0x16"/>
+   <ModuleFault_1630 Code="P1630" Description="Theft Deterrent Learn Mode Active" FailureStatusMask="0x00"/>
    <ModuleFault_1682 Code="P1682" Description="Ignition 1 Switch Circuit 2" FailureStatusMask="0x16"/>
-   <ModuleFault_2096 Code="P2096" Description="Post Catalyst Fuel Trim System Low Limit Bank 1" FailureStatusMask="0x12"/>
-   <ModuleFault_2097 Code="P2097" Description="Post Catalyst Fuel Trim System High Limit Bank 1" FailureStatusMask="0x12"/>
-   <ModuleFault_2098 Code="P2098" Description="Post Catalyst Fuel Trim System Low Limit Bank 2" FailureStatusMask="0x12"/>
-   <ModuleFault_2099 Code="P2099" Description="Post Catalyst Fuel Trim System High Limit Bank 2" FailureStatusMask="0x12"/>
+   <ModuleFault_2096 Code="P2096" Description="Post Catalyst Fuel Trim System Low Limit Bank 1" FailureStatusMask="0x00"/>
+   <ModuleFault_2097 Code="P2097" Description="Post Catalyst Fuel Trim System High Limit Bank 1" FailureStatusMask="0x00"/>
+   <ModuleFault_2098 Code="P2098" Description="Post Catalyst Fuel Trim System Low Limit Bank 2" FailureStatusMask="0x00"/>
+   <ModuleFault_2099 Code="P2099" Description="Post Catalyst Fuel Trim System High Limit Bank 2" FailureStatusMask="0x00"/>
    <ModuleFault_2101 Code="P2101" Description="Control Module Throttle Actuator Position Performance" FailureStatusMask="0x16"/>
    <ModuleFault_2119 Code="P2119" Description="Throttle Closed Position Performance" FailureStatusMask="0x16"/>
    <ModuleFault_2120 Code="P2120" Description="Accelerator Pedal Position (APP) Sensor 1 Circuit" FailureStatusMask="0x16"/>

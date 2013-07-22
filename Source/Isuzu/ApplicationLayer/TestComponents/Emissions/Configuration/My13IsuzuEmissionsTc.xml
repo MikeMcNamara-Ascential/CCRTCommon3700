@@ -327,7 +327,7 @@
             <!-- Keyoffengineoffkeyon parameters -->
             <AlwaysPerformKeyOffEngineOff TestSteps="KeyOffEngineOffKeyOn" Comment="flag indicating if test should be performed on passed retests">True</AlwaysPerformKeyOffEngineOff>
             <!-- CheckSerialNumber parameters -->
-            <SerialNumberDirectory TestSteps="CheckSerialNumber" Comment="Directory containing Scanned Serial numbers sent by Spartan">/TestResults/ESN/</SerialNumberDirectory>
+         <SerialNumberDirectory TestSteps="CheckSerialNumber" Comment="Directory containing Scanned Serial numbers sent by Spartan">/home/CCRT/Rewrite/TestResults/ESN/</SerialNumberDirectory>
             <AbortOnSerialMismatch  TestSteps="CheckSerialNumber" Comment="Flag which determines if test should be aborted on serial number mismatch">True</AbortOnSerialMismatch>
             <ESNLength>15</ESNLength>
         </Parameters>

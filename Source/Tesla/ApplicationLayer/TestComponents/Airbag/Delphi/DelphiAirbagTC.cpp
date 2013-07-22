@@ -246,3 +246,46 @@ string DelphiAirbagTC<ModuleType>::EnableAirBagModule(void)
     return(testResult);
 }
 
+//------------------------------------------------------------------------------
+template<class ModuleType>
+string DelphiAirbagTC<ModuleType>::FinishUp(void)
+{
+	Log(LOG_FN_ENTRY, "DelphiAirbagTC::FinishUp() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{   // Set the overall result
+		string systemTag = !GetOverallResult().compare(testPass) ? GetDataTag("AirbagTestPassTag") : GetDataTag("AirbagTestFailTag");
+		SystemWrite(systemTag, true);
+		Log(LOG_DEV_DATA, "Set %s to true", systemTag.c_str());
+		// Let the system know airbag testing is complete
+		SystemWrite(GetDataTag("AirbagTestInProgressTag"), false);
+		result = GenericTCTemplate<ModuleType>::FinishUp();
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping FinishUp test step");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "DelphiAirbagTC::FinishUp() - Exit");
+	return result;
+}
+
+//------------------------------------------------------------------------------
+template<class ModuleType>
+string DelphiAirbagTC<ModuleType>::Setup(void)
+{
+	Log(LOG_FN_ENTRY, "DelphiAirbagTC::Setup() - Enter");
+	string result(BEP_TESTING_RESPONSE);
+	if(!ShortCircuitTestStep())
+	{   // Let the system know airbag testing is in progress
+		SystemWrite(GetDataTag("AirbagTestInProgressTag"), true);
+		result = GenericTCTemplate<ModuleType>::Setup();
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping Setup test step");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "DelphiAirbagTC::Setup() - Exit");
+	return result;
+}

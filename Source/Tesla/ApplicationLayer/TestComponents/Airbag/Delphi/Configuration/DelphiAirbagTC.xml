@@ -49,6 +49,9 @@
       </TagList>
       <DataTags>
          <Abort>Abort</Abort>
+         <AirbagTestInProgressTag>AirBagTestInProgress</AirbagTestInProgressTag>
+         <AirbagTestFailTag>AirbagTestFailed</AirbagTestFailTag>
+         <AirbagTestPassTag>AirbagTestPassed</AirbagTestPassTag>
          <FailButton>DriverPass</FailButton>
          <PassButton>DriverFail</PassButton>
          <ReadModuleFaults>ReadFaults</ReadModuleFaults>
@@ -88,6 +91,11 @@
       <Prompts>
          <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
       </Prompts>
+      <SystemTagsToReset>
+          <AirbagTestPassed>0</AirbagTestPassed>
+          <AirbagTestInProgress>0</AirbagTestInProgress>
+          <AirbagTestFailed>0</AirbagTestFailed>
+      </SystemTagsToReset>
    </Setup>
    <Objectives>
       <AirbagTest>

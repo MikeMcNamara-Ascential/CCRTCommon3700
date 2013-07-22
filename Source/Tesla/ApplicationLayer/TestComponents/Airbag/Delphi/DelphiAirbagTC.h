@@ -55,9 +55,41 @@ public:
      */
     virtual const string CommandTestStep(const string &value);
 
+
+
+
+
 protected:
     string CommandSecurityAccess(void);
     string EnableAirBagModule(void);
+
+	/**
+	 * Finish up test processing.
+	 * <p><b>Category:</b> Test Step
+	 * <p><b>Description:</b><br>
+	 * Perform any finish up processing neccessary to complete the test.  There is no generic finish up processing to
+	 * be done.
+	 * <p>
+	 * @return  Pass
+	 */
+	virtual string FinishUp(void);
+
+	/**
+	 * Perform test setup.
+	 * <p><b>Category:</b> Test Step
+	 * <p><b>Description:</b><br>
+	 * If module initialization has ben delayed, it will be performed now; otherwise, there is no specifc setup to be
+	 * performed in this class.
+	 * <p>
+	 * 
+	 * @return Result of setting up the test.
+	 */
+	virtual string Setup(void);
+
+
+
+
+
 private:
 };
 //-----------------------------------------------------------------------------

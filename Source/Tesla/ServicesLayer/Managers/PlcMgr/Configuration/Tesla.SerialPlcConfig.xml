@@ -211,9 +211,9 @@
         <DCLControl channelIndex="9" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
         <MotorControllerTaskHeartbeat channelIndex="9" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>
         <WattTransducerControl channelIndex="9" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
-        <AirBagTestFailed channelIndex="9" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
-        <AirBagTestInProgress channelIndex="9" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
-        <AirBagTestPassed channelIndex="9" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
+        <AirbagTestFailed channelIndex="9" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
+        <AirbagTestInProgress channelIndex="9" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
+        <AirbagTestPassed channelIndex="9" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
         <SpeedProTest channelIndex="9" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
         <CheckWheelbasePositionAgain channelIndex="9" bitIndex="9" logic="1" portDir="OUT" boardIdx="0"/>
         <DeployVibrationSensor channelIndex="9" bitIndex="10" logic="1" portDir="OUT" boardIdx="0"/>

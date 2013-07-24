@@ -631,7 +631,8 @@
         <HalfAutoMode channelIndex="15" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
         <AbsValveCycled channelIndex="15" bitIndex="4" logic="1" portDir="IN" boardIdx="0"/>
         <FcchkTestComplete channelIndex="15" bitIndex="5" logic="1" portDir="IN" boardIdx="0"/>
-        <!-- OPEN 6 - 7 -->
+        <!-- OPEN 6 -->
+        <RlsEquipped channelIndex="15" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
         <VehicleBuildDataOk channelIndex="15" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
         <VehicleBuildDataNg channelIndex="15" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
         <VariableDataProcessingComplete channelIndex="15" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>
@@ -657,6 +658,8 @@
         <DriverInterfaceExtendedFault channelIndex="16" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
         <DriverInterfaceRetractedFault channelIndex="16" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
         <ExhaustCarriageDriveFault channelIndex="16" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+        <!-- N17:17 -->
         <PLCAuxilliaryOutputOneIsOn channelIndex="17" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <PLCAuxilliaryOutputTwoIsOn channelIndex="17" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
         <PLCSystemIsReady channelIndex="17" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -673,8 +676,14 @@
         <TorqueOkFromTorqueController channelIndex="17" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
         <LeftSideGuideContacted channelIndex="17" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
         <RightSideGuideContacted channelIndex="17" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+        <!-- N17:18 -->
         <CurrentWheelbasePosition channelIndex="18" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+        <!-- N17:19 -->
         <CurrentOverheadBoomPosition channelIndex="19" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+        <!-- N17:20 -->
         <PanelEStopPBDepressed channelIndex="20" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <RightFrontMachineEStopPBDepressed channelIndex="20" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
         <LeftRearMachineEStopPBDepressed channelIndex="20" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -688,8 +697,11 @@
         <ExhaustStopPinProx2Activated channelIndex="20" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>
         <RollMotorPowerSupplyFaulted channelIndex="20" bitIndex="11" logic="1" portDir="IN" boardIdx="0"/>
         <RollMotorPowerSupplyAlarmOn channelIndex="20" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
-        <MonitorLowerFault channelIndex="20" bitIndex="9" logic="13" portDir="IN" boardIdx="0"/>
-        <MonitorRaiseFault channelIndex="20" bitIndex="10" logic="14" portDir="IN" boardIdx="0"/>
+        <MonitorLowerFault channelIndex="20" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
+        <MonitorRaiseFault channelIndex="20" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
+        <!-- OPEN 15 -->
+
+        <!-- N17:21 -->
         <LeftFrontRollMotorContactorFault channelIndex="21" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <RightFrontRollMotorContactorFault channelIndex="21" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
         <LeftRearRollMotorContactorFault channelIndex="21" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -698,27 +710,41 @@
         <VentilationExhaustFlowFault channelIndex="21" bitIndex="5" logic="1" portDir="IN" boardIdx="0"/>
         <VentilationSupplyMotorDisconnectFault channelIndex="21" bitIndex="6" logic="1" portDir="IN" boardIdx="0"/>
         <VentilationExhaustMotorDisconnectFault channelIndex="21" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
+        <!-- OPEN 8 - 13 -->
         <DynamicBrakeResistorOverTempFault channelIndex="21" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
+        <!-- OPEN 15 -->
+
+        <!-- N17:22 -->
         <AirbagTestOnly channelIndex="22" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <AirbagInLockBox channelIndex="22" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
         <LockBoxDoorClose channelIndex="22" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
         <SteeringWheelToolInPlace channelIndex="22" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
         <AllRollDrivesEnabled channelIndex="22" bitIndex="4" logic="1" portDir="IN" boardIdx="0"/>
+        <!-- OPEN 5 - 6 -->
         <LossCompensationSwitchStatusFromPLC channelIndex="22" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
         <LossCompensationSwitchCycleStatusFromPLC channelIndex="22" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
         <MachineType3600 channelIndex="22" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
         <MachineType2400 channelIndex="22" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>
         <PLCCableConnect channelIndex="22" bitIndex="11" logic="1" portDir="IN" boardIdx="0"/>
+        <!-- OPEN 12 -->
         <PLCReadyToTest channelIndex="22" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
+        <!-- OPEN 14 - 15 -->
+
+        <!-- N17:25 -->
         <Encoder5VPowerSupplyVoltage channelIndex="25" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+        <!-- N17:26 -->
         <BoostPressureFeedBack channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
-      
+
+        <!-- N17:27 - OPEN -->
+
         <!-- N17:28 -->
         <VehicleFrontAxleWeight channelIndex="28" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
 
         <!-- N17:29 -->
         <VehicleRearAxleWeight channelIndex="29" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
 
+        <!-- N17:30 -->
         <FrontAxleTestSelected channelIndex="30" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
         <FrBrakeForceTestReqConfirm channelIndex="30" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
         <FlBrakeForceTestReqConfirm channelIndex="30" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -734,7 +760,12 @@
         <BsmAimingTestReqConfirm channelIndex="30" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
         <BsmAimingOk channelIndex="30" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
         <BsmAimingNg channelIndex="30" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
+        <!-- OPEN 15 -->
+
+        <!-- N17:31 -->
         <CurrentVehiclePosition channelIndex="31" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+        <!-- N17:32 -->
         <LFLoadCellValueRaw channelIndex="32" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <RFLoadCellValueRaw channelIndex="33" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <LRLoadCellValueRaw channelIndex="34" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>

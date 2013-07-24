@@ -73,6 +73,7 @@
             <FourWheelDriveEquipped>FourWDSelected</FourWheelDriveEquipped>
             <FrontMaxSpeed>FrontMaxSpeedObserved</FrontMaxSpeed>
             <HornSignal>HornSignal</HornSignal>
+            <RlsEquippedTag>PerformRlsTest</RlsEquippedTag>
             <LFSpeed>LFSpeed</LFSpeed>
             <LRSpeed>LRSpeed</LRSpeed>
             <MachineNumber>MachineNumber</MachineNumber>
@@ -168,9 +169,6 @@
 
             <StartTestTimeoutPrompt>10000</StartTestTimeoutPrompt>
 
-            <ValidRLSEquippedTypes>
-                <Type00>Equipped</Type00>
-            </ValidRLSEquippedTypes>
             <StartRLSTestPromptTimeout Units="ms">10000</StartRLSTestPromptTimeout>
             <VerifyRLSOperationPromptTimeout Units="ms">10000</VerifyRLSOperationPromptTimeout>
             <LightAndSprayDeviceActuationTime Units="ms">1500</LightAndSprayDeviceActuationTime>

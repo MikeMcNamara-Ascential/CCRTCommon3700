@@ -333,9 +333,6 @@ private:
 	void SetupTimer(const XmlNode *timerSetupNode, BepTimer &timer);
 	void SetupTimer(UINT64 updateRate, BepTimer &timer);
 
-    /** Store the the valid rls equipped Types for this test from configuration file. */
-    XmlNodeMap m_rlsEquippedTypes;
-
 	/** Map containing the information required for retrieving the side slip results from the result file */
 	XmlNodeMap m_sideSlipResultData;
 

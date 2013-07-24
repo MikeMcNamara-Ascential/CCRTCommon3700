@@ -14,6 +14,7 @@
             <BuildItem00 BuildTag="VIN">NextVIN</BuildItem00>
             <BuildItem01 BuildTag="AON">Aon</BuildItem01>
             <BuildItem02 BuildTag="BodyStyle">VehicleTypeFromPLC</BuildItem02>
+            <BuildItem03 BuildTag="PerformRlsTest">RlsEquipped</BuildItem03>
         </BuildDataTags>
         <DataTags>
             <AonTag>Aon</AonTag>

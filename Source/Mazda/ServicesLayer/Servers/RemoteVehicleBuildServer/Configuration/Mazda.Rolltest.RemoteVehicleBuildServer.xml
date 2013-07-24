@@ -19,7 +19,8 @@
 
         <Parameters>
             <BuildFileCheckDelay Units="ms">2000</BuildFileCheckDelay>
-            <BuildFilePath>/home/CCRT/Rewrite/Configuration/VehicleTest/BuildRecords/Ccts/</BuildFilePath>
+            <LocalBuildFilePath>/home/CCRT/Rewrite/Configuration/VehicleTest/BuildRecords/Ccts/</LocalBuildFilePath>
+            <RemoteBuildFilePath>/net/Mazda_RollTest_507768/home/CCRT/Rewrite/Configuration/VehicleTest/BuildRecords/Ccts/</RemoteBuildFilePath>
             <ServerType ValidTypes="Producer or Consumer">Consumer</ServerType>
         </Parameters>
 

@@ -105,6 +105,7 @@
                 <PCMPartNo DataType="string">05033288AA</PCMPartNo>
                 <PerformAbortTest DataType="string">P</PerformAbortTest>
                 <PerformAbortTestBGColor DataType="color">white</PerformAbortTestBGColor>
+                <PerformRlsTest DataType="bool">False</PerformRlsTest>
                 <PinionFactor DataType="string">11863</PinionFactor>
                 <PowerSteering DataType="string">Standard</PowerSteering>
                 <PowerSteeringBGColor DataType="color">white</PowerSteeringBGColor>

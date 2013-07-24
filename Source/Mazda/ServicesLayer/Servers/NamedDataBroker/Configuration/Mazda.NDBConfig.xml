@@ -684,6 +684,7 @@
                 <ParkingPawlCylFailToRetract DataType="bool">PLC</ParkingPawlCylFailToRetract>
                 <ParkingPawlTestFailed DataType="bool">PLC</ParkingPawlTestFailed>
                 <ParkingPawlTestPassed DataType="bool">PLC</ParkingPawlTestPassed>
+                <PerformRlsTest DataType="bool">VehicleDataBroker</PerformRlsTest>
                 <PitVentilationInterlockFault DataType="bool">PLC</PitVentilationInterlockFault>
                 <PositractionRejectLamp DataType="bool">PLC</PositractionRejectLamp>
                 <PositractionTest DataType="bool">PLC</PositractionTest>
@@ -743,6 +744,7 @@
                 <RFRollTorque DataType="short" Units="WhoKnows">PLC</RFRollTorque>
                 <RFLoadCellValue DataType="short" Units="lbf">MachineDataBroker</RFLoadCellValue>
                 <RFLoadCellValueRaw DataType="short" Units="lbf">PLC</RFLoadCellValueRaw>
+                <RlsEquipped DataType="bool">PLC</RlsEquipped>
                 <RRRollTorque DataType="short" Units="WhoKnows">PLC</RRRollTorque>
                 <RRLoadCellValue DataType="short" Units="lbf">MachineDataBroker</RRLoadCellValue>
                 <RRLoadCellValueRaw DataType="short" Units="lbf">PLC</RRLoadCellValueRaw>

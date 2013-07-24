@@ -15,12 +15,12 @@
 
 //-------------------------------------------------------------------------------------------------
 MazdaMachineTC::MazdaMachineTC() : MachineTC()
-{   // Nothing special to do here
+{	// Nothing special to do here
 }
 
 //-------------------------------------------------------------------------------------------------
 MazdaMachineTC::~MazdaMachineTC()
-{   // Nothing special to do here
+{	// Nothing special to do here
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -57,19 +57,8 @@ void MazdaMachineTC::Initialize(const XmlNode *config)
 	// call the base class initialize
 	MachineTC::Initialize(config);
 
-    // Initialize the base component
-    Log(LOG_FN_ENTRY, "Initializing The MazdaMachineTC Component\n");
-
-	try
-	{
-		const XmlNode *validRLSEquippedTypes = m_parameters.getNode("ValidRLSEquippedTypes");
-		m_rlsEquippedTypes.DeepCopy(validRLSEquippedTypes->getChildren());
-	}
-	catch(XmlException &err)
-	{
-        m_rlsEquippedTypes.clear();
-		Log(LOG_ERRORS, "XmlException loading ValidRLSEquippedTypes - %s\n", err.what());
-	}
+	// Initialize the base component
+	Log(LOG_FN_ENTRY, "Initializing The MazdaMachineTC Component\n");
 
 	try
 	{
@@ -94,7 +83,7 @@ void MazdaMachineTC::Initialize(const XmlNode *config)
 		m_sideSlipResultData.clear(true);
 	}
 
-    Log(LOG_FN_ENTRY, "Done Initializing MazdaMachineTC\n");
+	Log(LOG_FN_ENTRY, "Done Initializing MazdaMachineTC\n");
 
 }
 
@@ -104,7 +93,7 @@ INT32 MazdaMachineTC::CheckForMaxSpeed(void)
 	WHEELINFO rollerSpeeds;
 	BEP_STATUS_TYPE status = GetWheelSpeeds(rollerSpeeds);
 	if(BEP_STATUS_SUCCESS == status)
-	{   // Take the average axle speed
+	{	// Take the average axle speed
 		float frontAvg = (rollerSpeeds.lfWheel + rollerSpeeds.rfWheel) / 2.0;
 		float rearAvg = (rollerSpeeds.lrWheel + rollerSpeeds.rrWheel) / 2.0;
 		// Determine if we have a new maximum
@@ -129,31 +118,23 @@ INT32 MazdaMachineTC::CheckForMaxSpeed(void)
 //-------------------------------------------------------------------------------------------------
 void MazdaMachineTC::CheckForValidRLSType()
 {
-	bool runRLSTest = false;	// Determine if is ETC test should run or Non-ETC reads (test) used
-	XmlNodeMapItr iter;			// Iterate through the possible valid ETC Speed Control types for this test
-	string bodyStyle(SystemRead(GetDataTag("BroadcastRLSEquippedType")));
-	Log(LOG_DEV_DATA, "Checking if %s is a valid RLS configred vehicle", bodyStyle.c_str());
-	for(iter = m_rlsEquippedTypes.begin(); (iter != m_rlsEquippedTypes.end()) && !runRLSTest; iter++)
-	{	// Compare the broadcast Speed Control Type against the current config file valid Speed Control Types
-		runRLSTest = !iter->second->getValue().compare(bodyStyle);
-		Log(LOG_DEV_DATA, "\t%s == %s ? %s", bodyStyle.c_str(), iter->second->getValue().c_str(),
-			runRLSTest ? "True" : "False");
-	}
-	SetRLSEquipped(runRLSTest);
+	bool runRlsTest = atob(SystemRead(GetDataTag("RlsEquippedTag")).c_str());
+	Log(LOG_DEV_DATA, "Vehicle equipped with RLS: %s", runRlsTest ? "True" : "False");
+	SetRLSEquipped(runRlsTest);
 }
 
 //-------------------------------------------------------------------------------------------------
 const string MazdaMachineTC::CommandTestStep(const string &value)
 {
-    string testResult(BEP_TESTING_RESPONSE);
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::CommandTestStep(value: %s) - Enter", value.c_str());
-    if(BEP_STATUS_SUCCESS == StatusCheck())
-    {
-        try
-        {                                    
-            if(!GetTestStepName().compare("WaitForAcceleration"))               testResult = WaitToStart();
-            else if(!GetTestStepName().compare("RainLightSensorVerification"))  testResult = TestStepRainLightSensorVerification();
-			else if(!GetTestStepName().compare("ReportSideSlipResults"))        testResult = ReportSideSlipResults();
+	string testResult(BEP_TESTING_RESPONSE);
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::CommandTestStep(value: %s) - Enter", value.c_str());
+	if(BEP_STATUS_SUCCESS == StatusCheck())
+	{
+		try
+		{
+			if(!GetTestStepName().compare("WaitForAcceleration"))				testResult = WaitToStart();
+			else if(!GetTestStepName().compare("RainLightSensorVerification"))	testResult = TestStepRainLightSensorVerification();
+			else if(!GetTestStepName().compare("ReportSideSlipResults"))		testResult = ReportSideSlipResults();
 			else if(!GetTestStepName().compare("StartMaxSpeedObservation"))
 			{
 				m_maxFrontSpeedObserved = 0.0;
@@ -162,31 +143,31 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
 				testResult = testPass;
 			}
 			else if(!GetTestStepName().compare("StartOdometerTest"))
-			{   // Set the initial roller distances
+			{	// Set the initial roller distances
 				GetWheelDistances(m_odoStartDistance);
 				testResult = testPass;
 			}
-			else if(!GetTestStepName().compare("StartTest"))                    testResult = StartTest();
-			else if(!GetTestStepName().compare("StopMaxSpeedObservation"))      testResult = StopMaxAxleSpeedObservation();
-			else if(!GetTestStepName().compare("StopOdometerTest"))             testResult = StopOdometerTest();
-			else if(!GetTestStepName().compare("VehicleDisconnect"))            testResult = VehicleDisconnect();
-			else if(!GetTestStepName().compare("VehicleTestSetup"))             testResult = VehicleSetup();
-            else   testResult = MachineTC::CommandTestStep(value);
-        }
-        catch(BepException &excpt)
-        {
-            Log(LOG_ERRORS, "BepException sequencing test step %s - %s", GetTestStepName().c_str(), excpt.GetReason());
-            testResult = testFail;
-        }
-    }
-    else
-    {
-        Log(LOG_ERRORS, "Bad system status, not starting test step %s", GetTestStepName().c_str());
-        testResult = testSkip;
-    }
-    // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::CommandTestStep(value: %s) - Exit", value.c_str());
-    return testResult;
+			else if(!GetTestStepName().compare("StartTest"))					testResult = StartTest();
+			else if(!GetTestStepName().compare("StopMaxSpeedObservation"))		testResult = StopMaxAxleSpeedObservation();
+			else if(!GetTestStepName().compare("StopOdometerTest"))				testResult = StopOdometerTest();
+			else if(!GetTestStepName().compare("VehicleDisconnect"))			testResult = VehicleDisconnect();
+			else if(!GetTestStepName().compare("VehicleTestSetup"))				testResult = VehicleSetup();
+			else   testResult = MachineTC::CommandTestStep(value);
+		}
+		catch(BepException &excpt)
+		{
+			Log(LOG_ERRORS, "BepException sequencing test step %s - %s", GetTestStepName().c_str(), excpt.GetReason());
+			testResult = testFail;
+		}
+	}
+	else
+	{
+		Log(LOG_ERRORS, "Bad system status, not starting test step %s", GetTestStepName().c_str());
+		testResult = testSkip;
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::CommandTestStep(value: %s) - Exit", value.c_str());
+	return testResult;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -195,7 +176,7 @@ string MazdaMachineTC::ReportSideSlipResults(void)
 	Log(LOG_FN_ENTRY, "MazdaMachineTC::ReportSideSlipResults() - Enter");
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
-	{   // Get the AON for locating the side slip results
+	{	// Get the AON for locating the side slip results
 		string path = getenv("USR_ROOT") + GetParameter("SideSlipResultPath");
 		XmlParser parser;
 		TestResultDetails details;
@@ -203,7 +184,7 @@ string MazdaMachineTC::ReportSideSlipResults(void)
 		{
 			const XmlNode *ssResults = parser.ReturnXMLDocument(path + "/" + SystemRead("Aon"));
 			for(XmlNodeMapCItr iter = m_sideSlipResultData.begin(); iter != m_sideSlipResultData.end(); iter++)
-			{   // Report each node
+			{	// Report each node
 				string nodeName(iter->second->getAttribute("Node")->getValue());
 				string resultAttrib(iter->second->getAttribute("ResultAttribute")->getValue());
 				string reportTag(iter->second->getAttribute("ReportTag")->getValue());
@@ -255,7 +236,7 @@ string MazdaMachineTC::StopMaxAxleSpeedObservation(void)
 	Log(LOG_DEV_DATA, "MazdaMachineTC::StopMaxAxleSpeedObservation() - Enter");
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
-	{   // Stop the timer
+	{	// Stop the timer
 		m_maxSpeedTimer.Stop();
 		// Report the maximum axle speeds
 		Log(LOG_DEV_DATA, "Max front axle speed: %.2f \t Max rear axle speed: %.2f", 
@@ -274,7 +255,7 @@ string MazdaMachineTC::StopMaxAxleSpeedObservation(void)
 		result = testPass;
 	}
 	else
-	{   // Do not need to perform this test
+	{	// Do not need to perform this test
 		Log(LOG_FN_ENTRY, "Skipping %s", GetTestStepName().c_str());
 		result = testSkip;
 	}
@@ -288,7 +269,7 @@ string MazdaMachineTC::StopOdometerTest(void)
 	Log(LOG_DEV_DATA, "MazdaMachineTC::StopOdometerTest() - Enter");
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
-	{   // Get the current roller distance
+	{	// Get the current roller distance
 		WHEELINFO finalDistance, totalDistance;
 		GetWheelDistances(finalDistance);
 		// Calculate the distance traveled
@@ -315,109 +296,109 @@ string MazdaMachineTC::StopOdometerTest(void)
 //-------------------------------------------------------------------------------------------------
 const string MazdaMachineTC::TestStepSpeedometer(const string &value)
 {
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepSpeedometer() - Enter");
-    string testDescription(GetTestStepInfo("Description"));
-    // Set the result box color to let operator know testing has started
-    SystemWrite(GetDataTag("SpeedometerTestSpeedBGColor"), colorYellow);
-    // Get the vehicle build data
-    bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
-    float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
-    string speedoType(convertSpeed ? "KPH" : "MPH");
-    float minSpeed = GetVehicleParameter("SpeedTargets/"+speedoType+"/SpeedometerSpeedTargetLow", float(0.0)) * speedScaling;
-    float maxSpeed = GetVehicleParameter("SpeedTargets/"+speedoType+"/SpeedometerSpeedTargetHi", float(0.0)) * speedScaling;
-    char buff[32];
-    string dispMaxSpeed(CreateMessage(buff, sizeof(buff), "%.0f", maxSpeed));
-    string dispMinSpeed(CreateMessage(buff, sizeof(buff), "%.0f", minSpeed));
-    string speedRange(dispMinSpeed + " " + dispMaxSpeed);
-    // Wait for the operator to get to the correct speed range - divide by speed scale since the base class functions in mph.
-    DisplayPrompt(GetPromptBox("FlashHighbeams1"), GetPrompt("FlashHighbeams1"), GetPromptPriority("FlashHighbeams1"));
-    DisplayPrompt(GetPromptBox("FlashHighbeams2"), GetPrompt("FlashHighbeams2"), GetPromptPriority("FlashHighbeams2"),
-                  colorWhite, string(dispMinSpeed + " - " + dispMaxSpeed));
-    string testResult = (WaitForTargetSpeed(maxSpeed + 10.0, DOWN, GetTestStepInfoInt("ScanDelay")) ==
-                         BEP_STATUS_SUCCESS) ? testPass : testFail;
-    SystemWrite(GetDataTag("SpeedTarget"), speedRange);
-    // Get the wheel speeds
-    float currentSpeed = GetRollSpeed();
-    // Make sure operator is in the correct speed range
-    if(!testResult.compare(testPass))
-    {   // Vehicle is in speed range, prompt operator to flash headlamps
-        SetStartTime();
-        bool done = false;
-        // Wait for the operator to flash high beams
-        while(!done && TimeRemaining() && (StatusCheck() == BEP_STATUS_SUCCESS))
-        {   // Get the current wheel speeds
-            currentSpeed = GetRollSpeed();
-            // Check if the highbeams have been flashed yet
-            if(!ReadSubscribeData(GetDataTag("StartSpeedoTest")).compare("1"))
-            {   // Highbeams flashed, update the value on the screen
-                SystemWrite(GetDataTag("SpeedometerTestResultSpeed"), currentSpeed);
-                // Determine if the test passed or failed
-                string resultColor;
-                if((minSpeed <= currentSpeed) && (currentSpeed <= maxSpeed))
-                {   // Test has passed
-                    resultColor = colorGreen;
-                    testResult = testPass;
-                    done = true;
-                }
-                else
-                {   // Test failed
-                    resultColor = colorRed;
-                    testResult = testFail;
-                    testDescription = "Speedometer out of range";
-                    BposSleep(GetTestStepInfoInt("ScanDelay"));
-                }
-                // Update screen colors
-                SystemWrite(GetDataTag("SpeedometerTestResultBox"), resultColor);
-                SystemWrite(GetDataTag("SpeedometerTestResultSpeedBgColor"), resultColor);
-            }
-            else
-            {   // Need to wait a bit
-                BposSleep(GetTestStepInfoInt("ScanDelay"));
-            }
-        }
-        // Check if there was an abnormal exit condition
-        if(!done)
-        {   // Set test to fail
-            SystemWrite(GetDataTag("SpeedometerTestResultBox"), colorRed);
-            SystemWrite(GetDataTag("SpeedometerTestResultSpeedBgColor"), colorRed);
-            testResult = testFail;
-            testDescription = "Speedometer test timeout";
-            Log(LOG_ERRORS, "Speedometer test incomplete - TimeRemaining: %s, StatusCheck: %s", 
-                TimeRemaining() ? "True" : "False", ConvertStatusToResponse(StatusCheck()).c_str());
-        }
-        // Remove prompts
-        RemovePrompt(GetPromptBox("FlashHighbeams1"), GetPrompt("FlashHighbeams1"), GetPromptPriority("FlashHighbeams1"));
-        RemovePrompt(GetPromptBox("FlashHighbeams2"), GetPrompt("FlashHighbeams2"), GetPromptPriority("FlashHighbeams2"));
-    }
-    else
-    {   // Error accelerating to speed
-        Log(LOG_ERRORS, "Could not achieve speed range, not performing speedometer test");
-    }
-    // Remove the speed target
-    SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
-    // Report the result, log the exit and return
-    SendTestResultWithDetail(testResult, testDescription, "0000",
-                             "RollerSpeed", CreateMessage(buff, sizeof(buff), "%.2f", GetRollSpeed()),
-                             (speedScaling != 1.0) ? unitsKPH : unitsMPH);
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepSpeedometer() - Exit");
-    return testResult;
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepSpeedometer() - Enter");
+	string testDescription(GetTestStepInfo("Description"));
+	// Set the result box color to let operator know testing has started
+	SystemWrite(GetDataTag("SpeedometerTestSpeedBGColor"), colorYellow);
+	// Get the vehicle build data
+	bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
+	float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
+	string speedoType(convertSpeed ? "KPH" : "MPH");
+	float minSpeed = GetVehicleParameter("SpeedTargets/"+speedoType+"/SpeedometerSpeedTargetLow", float(0.0)) * speedScaling;
+	float maxSpeed = GetVehicleParameter("SpeedTargets/"+speedoType+"/SpeedometerSpeedTargetHi", float(0.0)) * speedScaling;
+	char buff[32];
+	string dispMaxSpeed(CreateMessage(buff, sizeof(buff), "%.0f", maxSpeed));
+	string dispMinSpeed(CreateMessage(buff, sizeof(buff), "%.0f", minSpeed));
+	string speedRange(dispMinSpeed + " " + dispMaxSpeed);
+	// Wait for the operator to get to the correct speed range - divide by speed scale since the base class functions in mph.
+	DisplayPrompt(GetPromptBox("FlashHighbeams1"), GetPrompt("FlashHighbeams1"), GetPromptPriority("FlashHighbeams1"));
+	DisplayPrompt(GetPromptBox("FlashHighbeams2"), GetPrompt("FlashHighbeams2"), GetPromptPriority("FlashHighbeams2"),
+				  colorWhite, string(dispMinSpeed + " - " + dispMaxSpeed));
+	string testResult = (WaitForTargetSpeed(maxSpeed + 10.0, DOWN, GetTestStepInfoInt("ScanDelay")) ==
+						 BEP_STATUS_SUCCESS) ? testPass : testFail;
+	SystemWrite(GetDataTag("SpeedTarget"), speedRange);
+	// Get the wheel speeds
+	float currentSpeed = GetRollSpeed();
+	// Make sure operator is in the correct speed range
+	if(!testResult.compare(testPass))
+	{	// Vehicle is in speed range, prompt operator to flash headlamps
+		SetStartTime();
+		bool done = false;
+		// Wait for the operator to flash high beams
+		while(!done && TimeRemaining() && (StatusCheck() == BEP_STATUS_SUCCESS))
+		{	// Get the current wheel speeds
+			currentSpeed = GetRollSpeed();
+			// Check if the highbeams have been flashed yet
+			if(!ReadSubscribeData(GetDataTag("StartSpeedoTest")).compare("1"))
+			{	// Highbeams flashed, update the value on the screen
+				SystemWrite(GetDataTag("SpeedometerTestResultSpeed"), currentSpeed);
+				// Determine if the test passed or failed
+				string resultColor;
+				if((minSpeed <= currentSpeed) && (currentSpeed <= maxSpeed))
+				{	// Test has passed
+					resultColor = colorGreen;
+					testResult = testPass;
+					done = true;
+				}
+				else
+				{	// Test failed
+					resultColor = colorRed;
+					testResult = testFail;
+					testDescription = "Speedometer out of range";
+					BposSleep(GetTestStepInfoInt("ScanDelay"));
+				}
+				// Update screen colors
+				SystemWrite(GetDataTag("SpeedometerTestResultBox"), resultColor);
+				SystemWrite(GetDataTag("SpeedometerTestResultSpeedBgColor"), resultColor);
+			}
+			else
+			{	// Need to wait a bit
+				BposSleep(GetTestStepInfoInt("ScanDelay"));
+			}
+		}
+		// Check if there was an abnormal exit condition
+		if(!done)
+		{	// Set test to fail
+			SystemWrite(GetDataTag("SpeedometerTestResultBox"), colorRed);
+			SystemWrite(GetDataTag("SpeedometerTestResultSpeedBgColor"), colorRed);
+			testResult = testFail;
+			testDescription = "Speedometer test timeout";
+			Log(LOG_ERRORS, "Speedometer test incomplete - TimeRemaining: %s, StatusCheck: %s", 
+				TimeRemaining() ? "True" : "False", ConvertStatusToResponse(StatusCheck()).c_str());
+		}
+		// Remove prompts
+		RemovePrompt(GetPromptBox("FlashHighbeams1"), GetPrompt("FlashHighbeams1"), GetPromptPriority("FlashHighbeams1"));
+		RemovePrompt(GetPromptBox("FlashHighbeams2"), GetPrompt("FlashHighbeams2"), GetPromptPriority("FlashHighbeams2"));
+	}
+	else
+	{	// Error accelerating to speed
+		Log(LOG_ERRORS, "Could not achieve speed range, not performing speedometer test");
+	}
+	// Remove the speed target
+	SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+	// Report the result, log the exit and return
+	SendTestResultWithDetail(testResult, testDescription, "0000",
+							 "RollerSpeed", CreateMessage(buff, sizeof(buff), "%.2f", GetRollSpeed()),
+							 (speedScaling != 1.0) ? unitsKPH : unitsMPH);
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepSpeedometer() - Exit");
+	return testResult;
 }
 
 const string MazdaMachineTC::StartTest(void)
 {
 
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Enter");
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Enter");
 
-    string testResult(BEP_TESTING_RESPONSE);
+	string testResult(BEP_TESTING_RESPONSE);
 	DisplayPrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
-    testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
+	testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
 	RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 
-    testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
+	testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
 
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Exit - %s", testResult.c_str());
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Exit - %s", testResult.c_str());
 
-    return BEP_PASS_RESPONSE;
+	return BEP_PASS_RESPONSE;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -426,12 +407,12 @@ const string MazdaMachineTC::VehicleDisconnect(void)
 	Log(LOG_FN_ENTRY, "MazdaMachineTC::VehicleDisconnect() - Enter");
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
-	{   // Prompt and wait for ignition off
+	{	// Prompt and wait for ignition off
 		DisplayPrompt(GetPromptBox("TurnOffIgnition"), GetPrompt("TurnOffIgnition"), GetPromptPriority("TurnOffIgnition"));
 		// Wait for the engine to be off
 		bool engineRunning = true;
 		do
-		{   // Wait before the next check
+		{	// Wait before the next check
 			BposSleep(GetTestStepInfoInt("ScanDelay"));
 			engineRunning = SystemReadBool(GetDataTag("EngineRunningTag"));
 		} while(engineRunning && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
@@ -439,9 +420,9 @@ const string MazdaMachineTC::VehicleDisconnect(void)
 		DisplayPrompt(GetPromptBox("DisconnectCable"), GetPrompt("DisconnectCable"), GetPromptPriority("DisconnectCable"));
 		// Check the exit condition
 		if(!engineRunning)
-		{   // Wait for cable disconnect
+		{	// Wait for cable disconnect
 			while(IsCableConnected() && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()))
-			{   // Wait before the next check
+			{	// Wait before the next check
 				BposSleep(GetTestStepInfoInt("ScanDelay"));
 			}
 			result = !IsCableConnected() ? testPass : testFail;
@@ -469,7 +450,7 @@ const string MazdaMachineTC::VehicleSetup(void)
 	Log(LOG_FN_ENTRY, "MazdaMachineTC::VehicleSetup() - Enter");
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
-	{   // Prompt the operator to turn off the ignition and connect the diagnostic cable
+	{	// Prompt the operator to turn off the ignition and connect the diagnostic cable
 		DisplayPrompt(GetPromptBox("TurnOffIgnition"), GetPrompt("TurnOffIgnition"), GetPromptPriority("TurnOffIgnition"));
 		DisplayPrompt(GetPromptBox("ConnectCable"), GetPrompt("ConnectCable"), GetPromptPriority("ConnectCable"));
 		bool cableConnected = CheckCableConnect();
@@ -477,13 +458,13 @@ const string MazdaMachineTC::VehicleSetup(void)
 		RemovePrompt(GetPromptBox("ConnectCable"), GetPrompt("ConnectCable"), GetPromptPriority("ConnectCable"));
 		// Wait for cable connect
 		if(cableConnected)
-		{   // Cable is connected, prompt for foot on brake and start the engine
+		{	// Cable is connected, prompt for foot on brake and start the engine
 			DisplayPrompt(GetPromptBox("ApplyBrakePedal"), GetPrompt("ApplyBrakePedal"), GetPromptPriority("ApplyBrakePedal"));
 			DisplayPrompt(GetPromptBox("StartEngine"), GetPrompt("StartEngine"), GetPromptPriority("StartEngine"));
 			// Wait for the engine to be running
 			bool engineRunning = false;
 			do
-			{   // Wait before the next check
+			{	// Wait before the next check
 				BposSleep(GetTestStepInfoInt("ScanDelay"));
 				engineRunning = SystemReadBool(GetDataTag("EngineRunningTag"));
 			} while(!engineRunning && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
@@ -518,114 +499,114 @@ const string MazdaMachineTC::VehicleSetup(void)
 
 //-------------------------------------------------------------------------------------------------
 const string MazdaMachineTC::TestStepReverse(const string &value)
-{   // Log the entry and prompt the operator to accelerate in reverse
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepReverse(value: %s) - Enter", value.c_str());
-    string testResult(BEP_TESTING_RESPONSE);
-    bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
-    float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
-    float reverseSpeed = GetVehicleParameter("ReverseTestSpeed", float(0.0)) * speedScaling;
-    // Wait for the operator to reach zeroish speed
-    while((GetRollSpeed() > (GetParameterFloat("PromptReverseTestSpeed") * speedScaling)) &&
-          (BEP_STATUS_SUCCESS == StatusCheck()))
-    {   // Wait just a bit so we do not hog the CPU - also reset the start time since there is no way to tell
-        // when the operator will stop
-        BposSleep(1000);
-        SetStartTime();
-    }
-    // Display the target for the operator
-    char buff[32];
-    string reverseTarget(CreateMessage(buff, sizeof(buff), "%.2f", reverseSpeed));
-    // Prompt the operator to accelerate to the target
-    DisplayPrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
-    DisplayPrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"),
-                  string("white"), reverseTarget);
-    // Wait for the target speed to be reached
-    while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (GetRollSpeed() > reverseSpeed)) BposSleep(250);
-    testResult = (GetRollSpeed() < reverseSpeed) ? testPass : testFail;
-    SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
-    // Remove the prompts
-    RemovePrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
-    RemovePrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"));
-    // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepReverse(value: %s) - Exit", value.c_str());
-    return testResult;
+{	// Log the entry and prompt the operator to accelerate in reverse
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepReverse(value: %s) - Enter", value.c_str());
+	string testResult(BEP_TESTING_RESPONSE);
+	bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
+	float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
+	float reverseSpeed = GetVehicleParameter("ReverseTestSpeed", float(0.0)) * speedScaling;
+	// Wait for the operator to reach zeroish speed
+	while((GetRollSpeed() > (GetParameterFloat("PromptReverseTestSpeed") * speedScaling)) &&
+		  (BEP_STATUS_SUCCESS == StatusCheck()))
+	{	// Wait just a bit so we do not hog the CPU - also reset the start time since there is no way to tell
+		// when the operator will stop
+		BposSleep(1000);
+		SetStartTime();
+	}
+	// Display the target for the operator
+	char buff[32];
+	string reverseTarget(CreateMessage(buff, sizeof(buff), "%.2f", reverseSpeed));
+	// Prompt the operator to accelerate to the target
+	DisplayPrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
+	DisplayPrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"),
+				  string("white"), reverseTarget);
+	// Wait for the target speed to be reached
+	while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (GetRollSpeed() > reverseSpeed)) BposSleep(250);
+	testResult = (GetRollSpeed() < reverseSpeed) ? testPass : testFail;
+	SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
+	// Remove the prompts
+	RemovePrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
+	RemovePrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"));
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepReverse(value: %s) - Exit", value.c_str());
+	return testResult;
 }
 
 //-------------------------------------------------------------------------------------------------
 string MazdaMachineTC::WaitToStart(void)
-{   // Log the entry and wait for the loss of zero speed
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::WaitToStart() - Enter");
-    while((GetRollSpeed() < GetParameterFloat("VehicleSpeedNeededForStart")) && (BEP_STATUS_SUCCESS == StatusCheck()))
-    {   // Wait for a bit
-        BposSleep(1000);
-        SetStartTime();
-    }
-    // Log the exit and return pass
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::WaitToStart() - Exit");
-    return testPass;
+{	// Log the entry and wait for the loss of zero speed
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::WaitToStart() - Enter");
+	while((GetRollSpeed() < GetParameterFloat("VehicleSpeedNeededForStart")) && (BEP_STATUS_SUCCESS == StatusCheck()))
+	{	// Wait for a bit
+		BposSleep(1000);
+		SetStartTime();
+	}
+	// Log the exit and return pass
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::WaitToStart() - Exit");
+	return testPass;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline float MazdaMachineTC::GetRollSpeed(void)
 {
-    return GetParameterBool("SingleEncoder") ? SystemReadFloat(GetDataTag("MaximumRollerSpeedTag")) : GenericTC::GetRollSpeed();
+	return GetParameterBool("SingleEncoder") ? SystemReadFloat(GetDataTag("MaximumRollerSpeedTag")) : GenericTC::GetRollSpeed();
 }
 
 //-------------------------------------------------------------------------------------------------
 const string MazdaMachineTC::TestStepAccelerateToSpeed(const string &value)
-{   // Log the entry and prompt the operator
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepAccelerateToSpeed(speed: %s) - Enter", value.c_str());
-    bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
-    float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
-    char buff[32];
-    string dispSpeed(CreateMessage(buff, sizeof(buff), "%.0f", atof(value.c_str()) * speedScaling));
-    DisplayPrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"), 
-                  string("white"), dispSpeed);
-    // Wait for the operator to achieve speed
-    float speedTarget = atof(value.c_str()) * speedScaling;
-    while((BEP_STATUS_SUCCESS == StatusCheck()) && TimeRemaining() && (GetRollSpeed() < speedTarget))  BposSleep(250);
-    // Make sure speed was schieved and return the result
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepAccelerateToSpeed(speed: %s) - Exit", value.c_str());
-    RemovePrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"));
-    return (GetRollSpeed() >= speedTarget) ? testPass : testFail;
+{	// Log the entry and prompt the operator
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepAccelerateToSpeed(speed: %s) - Enter", value.c_str());
+	bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
+	float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
+	char buff[32];
+	string dispSpeed(CreateMessage(buff, sizeof(buff), "%.0f", atof(value.c_str()) * speedScaling));
+	DisplayPrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"), 
+				  string("white"), dispSpeed);
+	// Wait for the operator to achieve speed
+	float speedTarget = atof(value.c_str()) * speedScaling;
+	while((BEP_STATUS_SUCCESS == StatusCheck()) && TimeRemaining() && (GetRollSpeed() < speedTarget))  BposSleep(250);
+	// Make sure speed was schieved and return the result
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepAccelerateToSpeed(speed: %s) - Exit", value.c_str());
+	RemovePrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"));
+	return(GetRollSpeed() >= speedTarget) ? testPass : testFail;
 }
 
 
 const string MazdaMachineTC::TestStepRainLightSensorVerification(void)
 {
 
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::StartRainLightSensorTest() - Enter");
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::StartRainLightSensorTest() - Enter");
 
-    string testResult(BEP_SKIP_RESPONSE);
-    INT32 status;
-    CheckForValidRLSType();
-    if (IsRLSEquipped())
-    {
-    testResult = GenericTC::OperatorPassFail(GetPrompt("StartRLSTest"), GetParameterInt("StartRLSTestPromptTimeout")); 
-    if (testResult == BEP_PASS_RESPONSE)
-    {
-        //command plc to turn on light and spray devices
+	string testResult(BEP_SKIP_RESPONSE);
+	INT32 status;
+	CheckForValidRLSType();
+	if(IsRLSEquipped())
+	{
+		testResult = GenericTC::OperatorPassFail(GetPrompt("StartRLSTest"), GetParameterInt("StartRLSTestPromptTimeout")); 
+		if(testResult == BEP_PASS_RESPONSE)
+		{
+			//command plc to turn on light and spray devices
 
-        SystemWrite(GetDataTag("EnableLightAndSprayDevice"), true);
-        status = StatusSleep( GetParameterInt("LightAndSprayDeviceActuationTime"));
-            SystemWrite(GetDataTag("EnableLightAndSprayDevice"), false);
-    
-        //Operater pass / fail 
-        testResult = status == BEP_STATUS_SUCCESS ? GenericTC::OperatorPassFail(GetPrompt("VerifyRLSOperation"), 
-																				GetParameterInt("VerifyRLSOperationPromptTimeout")) : 
-            testFail;
-        }
-        else
-        {//test skipped by operator
+			SystemWrite(GetDataTag("EnableLightAndSprayDevice"), true);
+			status = StatusSleep( GetParameterInt("LightAndSprayDeviceActuationTime"));
+			SystemWrite(GetDataTag("EnableLightAndSprayDevice"), false);
 
-            string testResult = BEP_SKIP_RESPONSE;
-        }
-        SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
-    }
+			//Operater pass / fail 
+			testResult = status == BEP_STATUS_SUCCESS ? GenericTC::OperatorPassFail(GetPrompt("VerifyRLSOperation"), 
+																					GetParameterInt("VerifyRLSOperationPromptTimeout")) : 
+						 testFail;
+		}
+		else
+		{//test skipped by operator
 
-    Log(LOG_FN_ENTRY, "MazdaMachineTC::StartRainLightSensorTest() - Exit - %s", testResult.c_str());
+			string testResult = BEP_SKIP_RESPONSE;
+		}
+		SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
+	}
 
-    return testResult;
+	Log(LOG_FN_ENTRY, "MazdaMachineTC::StartRainLightSensorTest() - Exit - %s", testResult.c_str());
+
+	return testResult;
 }
 
 //-------------------------------------------------------------------------------------------------

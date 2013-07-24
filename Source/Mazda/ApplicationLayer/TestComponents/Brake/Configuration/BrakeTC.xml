@@ -341,9 +341,11 @@
         <AbsLfTest>
             <TestStep10>BrakeTestStart</TestStep10>
             <TestStep15>AbsLfTest</TestStep15>
+            <TestStep25>BrakeTestStop</TestStep25>
         </AbsLfTest>
 
         <AbsRfTest>
+            <TestStep10>BrakeTestStart</TestStep10>
             <TestStep20>AbsRfTest</TestStep20>
             <TestStep25>BrakeTestStop</TestStep25>
         </AbsRfTest>
@@ -353,9 +355,11 @@
             <TestStep35>MazdaRearBrakeForce</TestStep35>
             <TestStep40>BrakeTestStart</TestStep40>
             <TestStep45>AbsLrTest</TestStep45>
+            <TestStep55>BrakeTestStop</TestStep55>
         </AbsLrTest>
 
         <AbsRrTest>
+            <TestStep10>BrakeTestStart</TestStep10>
             <TestStep50>AbsRrTest</TestStep50>
             <TestStep55>BrakeTestStop</TestStep55>
             <TestStep99>BrakeTestComplete</TestStep99>

@@ -649,6 +649,10 @@
                             <BodyStyle00>BM</BodyStyle00>
                             <BodyStyle01>XX</BodyStyle01>
                         </BodyStyle>
+                        <PerformRlsTest RowIndex="1" ColumnIndex="1" Prompt="RLS Equipped: ">
+                            <Rls00>False</Rls00>
+                            <Rls01>True</Rls01>
+                        </PerformRlsTest>
                         <Transmission RowIndex="1" ColumnIndex="1" Prompt="Trans Type: ">
                             <Trans00>Manual</Trans00>
                             <Trans01>Automatic</Trans01>
@@ -745,6 +749,10 @@
                             <BodyStyle00>BM</BodyStyle00>
                             <BodyStyle01>XX</BodyStyle01>
                         </BodyStyle>
+                        <PerformRlsTest RowIndex="1" ColumnIndex="1" Prompt="RLS Equipped: ">
+                            <Rls00>False</Rls00>
+                            <Rls01>True</Rls01>
+                        </PerformRlsTest>
                         <Transmission RowIndex="1" ColumnIndex="1" Prompt="Trans Type: ">
                             <Trans00>Manual</Trans00>
                             <Trans01>Automatic</Trans01>

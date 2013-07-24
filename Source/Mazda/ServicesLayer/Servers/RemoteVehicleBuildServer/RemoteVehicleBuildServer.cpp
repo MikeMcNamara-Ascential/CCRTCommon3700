@@ -17,13 +17,13 @@
 #include <sys/dir.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <unistd>
+#include <unistd.h>
 #include <algorithm>
 #include "INamedDataBroker.h"
 #include "RemoteVehicleBuildServer.h"
 
 //-------------------------------------------------------------------------------------------------
-RemoteVehicleBuildServer::RemoteVehicleBuildServer()
+RemoteVehicleBuildServer::RemoteVehicleBuildServer() : BepServer()
 {   // Nothing special to do here
 }
 
@@ -43,6 +43,10 @@ const INT32 RemoteVehicleBuildServer::HandlePulse(const INT32 code, const INT32 
 		{
 		case BUILD_FILE_CHECK_PULSE:
 			LoadVehicleBuildRecords();
+			if(IsInProducerMode())
+			{
+				TransferLocalBuildRecords();
+			}
 			status = BEP_STATUS_SUCCESS;
 			break; 
 
@@ -85,32 +89,48 @@ void RemoteVehicleBuildServer::Initialize(const XmlNode *document)
 	IsInProducerMode(&producerMode);
 	Log(LOG_DEV_DATA, "Set server to %s mode", IsInProducerMode() ? "Producer" : "Consumer");
 
-	// Store the vehicle build file path
-	string path(getenv("USR_ROOT") + string("/Configuration/VehicleTest/Buildrecords/"));;
+	// Store the remote vehicle build file path
+	string remotePath(getenv("USR_ROOT") + string("/Configuration/VehicleTest/Buildrecords/"));;
 	try
 	{
-		path = document->getChild("Setup/Parameters/BuildFilePath")->getValue();
+		remotePath = document->getChild("Setup/Parameters/RemoteBuildFilePath")->getValue();
 	}
 	catch(XmlException &excpt)
 	{
-		Log(LOG_ERRORS, "Build file path not defined, defaulting to %s - %s", path.c_str(), excpt.GetReason());
+		Log(LOG_ERRORS, "Remote build file path not defined, defaulting to %s - %s", 
+			remotePath.c_str(), excpt.GetReason());
 	}
-	VehicleBuildFilePath(&path);
-	Log(LOG_DEV_DATA, "Vehicle build file path: %s", VehicleBuildFilePath().c_str());
+	RemoteVehicleBuildFilePath(&remotePath);
+	Log(LOG_DEV_DATA, "Remote vehicle build file path: %s", RemoteVehicleBuildFilePath().c_str());
+
+	// Store the local vehicle build file path
+	string localPath(getenv("USR_ROOT") + string("/Configuration/VehicleTest/Buildrecords/"));;
+	try
+	{
+		localPath = document->getChild("Setup/Parameters/LocalBuildFilePath")->getValue();
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Local build file path not defined, defaulting to %s - %s", 
+			localPath.c_str(), excpt.GetReason());
+	}
+	LocalVehicleBuildFilePath(&localPath);
+	Log(LOG_DEV_DATA, "Local vehicle build file path: %s", LocalVehicleBuildFilePath().c_str());
+
+	// Setup the file check timer
+	UINT64 timerDelay = 2000;
+	try
+	{
+		timerDelay = BposReadInt(document->getChild("Setup/Parameters/BuildFileCheckDelay")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Build file check delay time not set, using %d - %s", timerDelay, excpt.GetReason());
+	}
+	SetupTimer(m_buildFileTimer, timerDelay, BUILD_FILE_CHECK_PULSE);
 
 	if(!IsInProducerMode())
-	{   // Setup the file check timer
-		UINT64 timerDelay = 2000;
-		try
-		{
-			timerDelay = BposReadInt(document->getChild("Setup/Parameters/BuildFileCheckDelay")->getValue().c_str());
-		}
-		catch(XmlException &excpt)
-		{
-			Log(LOG_ERRORS, "Build file check delay time not set, using %d - %s", timerDelay, excpt.GetReason());
-		}
-		SetupTimer(m_buildFileTimer, timerDelay, BUILD_FILE_CHECK_PULSE);
-		// Load the existing build records
+	{   // Load the existing build records
 		LoadVehicleBuildRecords();
 	}
 	Log(LOG_FN_ENTRY, "RemoteVehicleBuildServer::Initialize() - Exit");
@@ -121,11 +141,8 @@ const string RemoteVehicleBuildServer::Register(void)
 {
 	Log(LOG_FN_ENTRY, "RemoteVehicleBuildServer::Register() - Enter");
 	string result = BepServer::Register();
-	// Start the file check timer if we are not a producer
-	if(!IsInProducerMode())
-	{
-		m_buildFileTimer.Start();
-	}
+	// Start the file check timer
+	m_buildFileTimer.Start();
 	return result;
 }
 
@@ -136,8 +153,8 @@ void RemoteVehicleBuildServer::LoadNextVehicleBuildRecord(void)
 	{
 		if(m_buildFileListMutex.Acquire())
 		{
-			FileDataListItr iter = m_vehicleBuildFiles.begin();
-			string aonFile = iter->first;
+			BuildFileDataListItr iter = m_vehicleBuildFiles.begin();
+			string aonFile = (*iter)->fileName;
 			m_buildFileListMutex.Release();
 			int startIndex = GetDataTag("FileNamePrefix").length();
 			int numChars = aonFile.find_first_of(GetDataTag("FileNameSuffix")) - startIndex;
@@ -156,7 +173,7 @@ void RemoteVehicleBuildServer::LoadVehicleBuildRecords(void)
 	DIR *buildDir = NULL;
 	struct dirent *entry = NULL;
 	// Open the build file directory
-	if((buildDir = opendir(VehicleBuildFilePath().c_str())) != NULL)
+	if((buildDir = opendir(LocalVehicleBuildFilePath().c_str())) != NULL)
 	{
 		bool sortRequired = false;
 		while((entry = readdir(buildDir)) != NULL)
@@ -164,7 +181,7 @@ void RemoteVehicleBuildServer::LoadVehicleBuildRecords(void)
 			BuildFileData *buildFile = new BuildFileData;
 			buildFile->fileName = entry->d_name;
 			struct stat fileStat;
-			if(stat(string(VehicleBuildFilePath() + buildFile->fileName).c_str(), &fileStat) != -1)
+			if(stat(string(LocalVehicleBuildFilePath() + buildFile->fileName).c_str(), &fileStat) != -1)
 			{
 				buildFile->creationTime = fileStat.st_atime;
 			}
@@ -177,12 +194,14 @@ void RemoteVehicleBuildServer::LoadVehicleBuildRecords(void)
 			{   // Make sure the file is not already stored
 				if(m_buildFileListMutex.Acquire())
 				{
-					FileDataListItr iter = m_vehicleBuildFiles.find(buildFile.fileName);
+					BuildFileDataListItr iter = find_if(m_vehicleBuildFiles.begin(), 
+														m_vehicleBuildFiles.end(), 
+														Is_Matching_File_Entry(buildFile->fileName));
 					if(iter != m_vehicleBuildFiles.end())
 					{
 						Log(LOG_DEV_DATA, "Storing %s created at %s", 
 							buildFile->fileName.c_str(), ctime(&buildFile->creationTime));
-						m_vehicleBuildFiles.insert(FileDataListVal(buildFile->fileName, buildFile));
+						m_vehicleBuildFiles.push_back(buildFile);
 						sortRequired = true;
 					}
 					else
@@ -207,7 +226,7 @@ void RemoteVehicleBuildServer::LoadVehicleBuildRecords(void)
 		{
 			if(m_buildFileListMutex.Acquire())
 			{
-				sort(m_vehicleBuildFiles.begin(),m_vehicleBuildFiles.end(),Is_File_Older());
+				sort(m_vehicleBuildFiles.begin(), m_vehicleBuildFiles.end(), Is_File_Older());
 				m_buildFileListMutex.Release();
 			}
 		}
@@ -227,7 +246,7 @@ const string RemoteVehicleBuildServer::Publish(const XmlNode *node)
 	{   // Save the build data to file
 		StoreVehicleBuildRecord(node);
 	}
-	else if(!node->getName().compare("VehiclePresent") && !atob(node->getValue().c_str() && !IsInProducerMode())
+	else if(!node->getName().compare("VehiclePresent") && !atob(node->getValue().c_str()) && !IsInProducerMode())
 	{   // Remove build file
 		RemoveVehicleBuildFile();
 		// Command the system to load the next build data
@@ -240,21 +259,35 @@ const string RemoteVehicleBuildServer::Publish(const XmlNode *node)
 //-------------------------------------------------------------------------------------------------
 void RemoteVehicleBuildServer::RemoveVehicleBuildFile()
 {   // Get the current vehicle identifier from the system
-	string vid = SystemRead(GetDataTag("VehicleIdTag"));
-	if(vid.length() > 1)
-	{   // Make sure the vehicle ID is still in the list of files
-		string idName = GetDataTag("FileNamePrefix") + vid + GetDataTag("FileNameSuffix");
-		if(m_buildFileListMutex.Acquire())
+	INamedDataBroker broker;
+	string response;
+	if(broker.Read(GetDataTag("VehicleIdTag"), response, true) == BEP_STATUS_SUCCESS)
+	{
+		string vid;
+		if(broker.GetByTag(GetDataTag("VehicleIdTag"), vid, response) == BEP_STATUS_SUCCESS)
 		{
-			FileDataListItr iter = m_vehicleBuildFiles.find(idName);
-			if(idName != m_vehicleBuildFiles.end())
-			{   // Need to remove the file from the system and then from the list
-				unlink(string(VehicleBuildFilePath() + idName).c_str());
-				delete iter->second;   // Delete the file entry so we do not get a memory leak
-				m_vehicleBuildFiles.erase(iter);   // Remove the entry from the list
+			if(vid.length() > 1)
+			{   // Make sure the vehicle ID is still in the list of files
+				string idName = GetDataTag("FileNamePrefix") + vid + GetDataTag("FileNameSuffix");
+				if(m_buildFileListMutex.Acquire())
+				{
+					BuildFileDataListItr iter = find_if(m_vehicleBuildFiles.begin(), 
+														m_vehicleBuildFiles.end(), 
+														Is_Matching_File_Entry(idName));
+					if(iter != m_vehicleBuildFiles.end())
+					{   // Need to remove the file from the system and then from the list
+						unlink(string(LocalVehicleBuildFilePath() + idName).c_str());
+						delete *iter;   // Delete the file entry so we do not get a memory leak
+						m_vehicleBuildFiles.erase(iter);   // Remove the entry from the list
+					}
+					m_buildFileListMutex.Release();
+				}
 			}
-			m_buildFileListMutex.Release();
 		}
+	}
+	else
+	{
+		Log(LOG_ERRORS, "Could not read %s from system", GetDataTag("VehicleIdTag").c_str());
 	}
 }
 
@@ -262,7 +295,15 @@ void RemoteVehicleBuildServer::RemoveVehicleBuildFile()
 void RemoteVehicleBuildServer::StoreVehicleBuildRecord(const XmlNode *buildData)
 {   // Create a file name based on the specified build item
 	string fileNameRoot = buildData->getChild(GetDataTag("FileNameRootItem"))->getValue();
-	string fileName = VehicleBuildFilePath() + GetDataTag("FileNamePrefix") + fileNameRoot + GetDataTag("FileNameSuffix");
+	string fileName = GetDataTag("FileNamePrefix") + fileNameRoot + GetDataTag("FileNameSuffix");
+	if(!access(RemoteVehicleBuildFilePath().c_str(), F_OK))
+	{
+		fileName = RemoteVehicleBuildFilePath() + fileName;
+	}
+	else
+	{
+		fileName = LocalVehicleBuildFilePath() + fileName;
+	}
 	Log(LOG_DEV_DATA, "Storing vehicle build in %s", fileName.c_str());
 	// Open the file for writing
 	FILE *buildFile = NULL;
@@ -273,13 +314,34 @@ void RemoteVehicleBuildServer::StoreVehicleBuildRecord(const XmlNode *buildData)
 		Log(LOG_DEV_DATA, "Wrote build data to file");
 	}
 	else
-	{
-		Log(LOG_ERRORS, "Could not open %s - %s", fileName.c_str(), strerror(errno));
+	{   // Could not save remotely, store build data locally
+		Log(LOG_ERRORS, "Could not open %s - %s, saving build data locally", fileName.c_str(), strerror(errno));
 	}
 }
 
 //-------------------------------------------------------------------------------------------------
-void RemoteVehicleBuildServer::SetupTimer(BepTimer &timer, UINT64 &timerDelay, UINT8 &timerPulseCode)
+void RemoteVehicleBuildServer::TransferLocalBuildRecords(void)
+{   // Make sure the remote PC is available
+	if(!access(RemoteVehicleBuildFilePath().c_str(), F_OK))
+	{   // Remote PC is up, transfer all the files
+		while(m_vehicleBuildFiles.size() > 0)
+		{   // Get the next file to transfer
+			BuildFileData *buildFile = m_vehicleBuildFiles.front();
+			m_vehicleBuildFiles.erase(m_vehicleBuildFiles.begin());
+			// Get the name of the file without the path
+			string fileName = buildFile->fileName.substr(buildFile->fileName.find_last_of("/") + 1);
+			fileName = RemoteVehicleBuildFilePath() + fileName;
+			bool fileTransfered = !rename(buildFile->fileName.c_str(), fileName.c_str());
+			Log(LOG_DEV_DATA, "Moved %s to %s - status: %s", buildFile->fileName.c_str(), fileName.c_str(),
+				fileTransfered ? "Success" : strerror(errno));
+			delete buildFile;
+			// NOTE:  Files will be reloaded on the next pulse, so it is ok to empty the list here.
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
+void RemoteVehicleBuildServer::SetupTimer(BepTimer &timer, UINT64 &timerDelay, int timerPulseCode)
 {
 	timer.SetPulseCode(BUILD_SERVER_PUSLE_CODE);
 	timer.SetPulseValue(timerPulseCode);
@@ -295,8 +357,15 @@ const bool& RemoteVehicleBuildServer::IsInProducerMode(const bool *inProducerMod
 }
 
 //-------------------------------------------------------------------------------------------------
-const string& RemoteVehicleBuildServer::VehicleBuildFilePath(const string *path /*= NULL*/)
+const string& RemoteVehicleBuildServer::RemoteVehicleBuildFilePath(const string *path /*= NULL*/)
 {
-	if(path != NULL)  m_buildFilePath = *path;
-	return m_buildFilePath;
+	if(path != NULL)  m_remoteBuildFilePath = *path;
+	return m_remoteBuildFilePath;
+}
+
+//-------------------------------------------------------------------------------------------------
+const string& RemoteVehicleBuildServer::LocalVehicleBuildFilePath(const string *path /*= NULL*/)
+{
+	if(path != NULL)  m_localBuildFilePath = *path;
+	return m_localBuildFilePath;
 }

@@ -15,7 +15,10 @@
 #define RemoteVehicleBuildServer_h
 //-------------------------------------------------------------------------------------------------
 #include <time.h>
+#include <map>
 #include "BepServer.h"
+#include "BepSync.h"
+#include "BepTimer.h"
 //-------------------------------------------------------------------------------------------------
 class RemoteVehicleBuildServer : public BepServer
 {
@@ -113,6 +116,11 @@ protected:
 	 */
 	void StoreVehicleBuildRecord(const XmlNode *buildData);
 
+	/**
+	 * Transfer any locally stored vehicle build files to the remote system.
+	 */
+	void TransferLocalBuildRecords(void);
+
 
 
 
@@ -137,19 +145,31 @@ private:
 	 * @param timerPulseCode
 	 *                   Pulse code to be sent when the timer expires.
 	 */
-	void SetupTimer(BepTimer &timer, UINT64 &timerDelay, UINT8 &timerPulseCode);
+	void SetupTimer(BepTimer &timer, UINT64 &timerDelay, int timerPulseCode);
 
 	/**
-	 * Get/Set the path to the vehicle build files.
+	 * Get/Set the path to the remote vehicle build files.
 	 * 
-	 * @param path   Path to the vehicle build files.
+	 * @param path   Path to the remote vehicle build files.
 	 * 
-	 * @return Path to the vehicle build files.
+	 * @return Path to the remote vehicle build files.
 	 */
-	const string& VehicleBuildFilePath(const string *path = NULL);
+	const string& RemoteVehicleBuildFilePath(const string *path = NULL);
+
+	/**
+	 * Get/Set the path to the local vehicle build records.
+	 * 
+	 * @param path   Path to the local vehicle build records.
+	 * 
+	 * @return Path to the local vehicle build records.
+	 */
+	const string& LocalVehicleBuildFilePath(const string *path = NULL);
 
 	// Directory for the vehicle build files
-	string m_buildFilePath;
+	string m_remoteBuildFilePath;
+
+	// Directory for the local vehicle build files
+	string m_localBuildFilePath;
 
 	// Flag to indicate if the server is running in producer mode.
 	bool m_isProducerMode;
@@ -166,21 +186,34 @@ private:
 		time_t creationTime;   // Time the file was created.
 	} BuildFileData;
 
-	typedef map<string, *FileData>    FileDataList;
-	typedef FileDataList::iterator    FileDataListItr;
-	typedef FileDataList::value_type  FileDataListVal;
+	typedef vector<BuildFileData* >        BuildFileDataList;
+	typedef BuildFileDataList::iterator    BuildFileDataListItr;
 
 	// Sorting criteria
 	struct Is_File_Older
 	{
 		inline bool operator() (const BuildFileData *file1, const BuildFileData *file2)
 		{
-			return (difftime(file1->creationTime,file2->creationTime) < 0);
+			return (difftime(file1->creationTime, file2->creationTime) < 0);
 		}
 	};
 
+	// Search/Find criteria
+	struct Is_Matching_File_Entry
+	{
+		explicit Is_Matching_File_Entry(string fileName)
+		{
+			m_name = fileName;
+		};
+		inline bool operator() (const BuildFileData *fileData)
+		{
+			return !fileData->fileName.compare(m_name);
+		};
+		string m_name;
+	};
+
 	// List of the existing vehicle build files.
-	FileDataList m_vehicleBuildFiles;
+	BuildFileDataList m_vehicleBuildFiles;
 };
 
 //-------------------------------------------------------------------------------------------------

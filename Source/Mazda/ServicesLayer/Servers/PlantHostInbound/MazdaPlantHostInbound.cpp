@@ -27,34 +27,24 @@ MazdaPlantHostInbound::~MazdaPlantHostInbound()
 const string MazdaPlantHostInbound::LoadVehicleBuildRecord(const string &aon, 
 														   XmlNodeMap &buildData, 
 														   const bool updateStatus)
-{   // Break down the AON to be sent to the PLC
-	string tagtemplate("AonBytes%dand%d");
-	string tag, value;
-	string response;
-	char buff[32];
-	UINT16 tempValue = 0x0000;
+{   
 	Log(LOG_DEV_DATA, "MazdaPlantHostInbound::LoadVehicleBuildRecord - Getting vehicle build from %s", 
 		GetVehicleBuildSource().c_str());
 	if(!GetVehicleBuildSource().compare(SOURCE_BROADCAST))
 	{
-		Log(LOG_DEV_DATA, "Sending AON: %s to PLC", aon.c_str());
-		for(UINT8 index = 0; index < aon.length(); index += 2)
-		{   // Build the new tag to write the data to the PLC
-			tag = CreateMessage(buff, sizeof(buff), tagtemplate.c_str(), index, index+1);
-			tempValue = ((aon[index] & 0x00FF) << 8);
-			tempValue |= (aon[index+1] & 0x00FF);
-			value = CreateMessage(buff, sizeof(buff), "%d", tempValue);
-			m_broker->Write(tag, value, response, true);
-			Log(LOG_DEV_DATA, "Wrote AON data - Tag: %s, Value: %s [%04X]", tag.c_str(), value.c_str(), tempValue);
-		}
-		m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "1", response, true);
+		LoadVehicleBuildFromAlc(aon);
 	}
 	else
 	{
+		string response;
 		if(BEP_SUCCESS_RESPONSE == LoadVehicleBuildFromFile(aon, buildData, true))
 		{
 			SetVehicleBuildRecordStatus(validStatus);
 			m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
+		}
+		else
+		{   // No file exists, try to get it from ALC
+			LoadVehicleBuildFromAlc(aon);
 		}
 	}
 	return BEP_SUCCESS_RESPONSE;
@@ -281,6 +271,28 @@ void MazdaPlantHostInbound::UpdateInputServerState(void)
 			Log(LOG_DEV_DATA,"Set InputServer state to %s\n", INPUT_SERVER_VIN_STATE);
 		}
 	}
+}
+
+//-------------------------------------------------------------------------------------------------
+void MazdaPlantHostInbound::LoadVehicleBuildFromAlc(const string &aon)
+{
+	string tagtemplate("AonBytes%dand%d");
+	string tag, value;
+	string response;
+	char buff[32];
+	UINT16 tempValue = 0x0000;
+	Log(LOG_DEV_DATA, "Sending AON: %s to PLC", aon.c_str());
+	// Break down the AON to be sent to the PLC
+	for(UINT8 index = 0; index < aon.length(); index += 2)
+	{   // Build the new tag to write the data to the PLC
+		tag = CreateMessage(buff, sizeof(buff), tagtemplate.c_str(), index, index+1);
+		tempValue = ((aon[index] & 0x00FF) << 8);
+		tempValue |= (aon[index+1] & 0x00FF);
+		value = CreateMessage(buff, sizeof(buff), "%d", tempValue);
+		m_broker->Write(tag, value, response, true);
+		Log(LOG_DEV_DATA, "Wrote AON data - Tag: %s, Value: %s [%04X]", tag.c_str(), value.c_str(), tempValue);
+	}
+	m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "1", response, true);
 }
 
 //-------------------------------------------------------------------------------------------------

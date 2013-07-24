@@ -113,6 +113,14 @@ protected:
 private:
 
 	/**
+	 * Send the provided AON to the PLc to retrieve the build data
+	 * from the Mazda ALC system.
+	 * 
+	 * @param aon    AON to use for identifying the vehicle.
+	 */
+	void LoadVehicleBuildFromAlc(const string &aon);
+
+	/**
 	 * Load the wheelbase configuration table.
 	 */
 	void LoadWheelbasePositionTable(void);

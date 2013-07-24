@@ -1,134 +1,137 @@
 <DelphiAirbagTC>
-   <Setup>
-      <Name>Airbag</Name>
-      <Debug>Off</Debug>
-      <TestDomain>Foreground</TestDomain>
-      <FaultList>/Configuration/Components/Airbag/AirbagFaultList.xml</FaultList>
-      <ThreadPool>
-         <Debug>Off</Debug>
-         <MinBlockedLimit>2</MinBlockedLimit>
-         <MaxBlockedLimit>4</MaxBlockedLimit>
-         <Increment>2</Increment>
-         <Maximum>50</Maximum>
-      </ThreadPool>
-      <Communication>
-         <Comm>IPC</Comm>
-         <Type>Server</Type>
-         <Name>component/DelphiAirbagTc</Name>
-         <Debug>Off</Debug>
-         <BufferSize>1024</BufferSize>
-         <Timeout>0</Timeout>
-      </Communication>
-      <Logging>
-         <Status>Enabled</Status>
-         <ProcessName>DelphiAirbagTc</ProcessName>
-         <AdditionalLogFile>/Components/DelphiAirbagTc.log</AdditionalLogFile>
-         <Debug>Off</Debug>
-         <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x1F</Verbose>
-         <MessageTimeout>100</MessageTimeout>
-      </Logging>
-      <NotificationList>
-         <Setup>
+    <Setup>
+        <Name>Airbag</Name>
+        <Debug>Off</Debug>
+        <TestDomain>Foreground</TestDomain>
+        <FaultList>/Configuration/Components/Airbag/AirbagFaultList.xml</FaultList>
+        <ThreadPool>
             <Debug>Off</Debug>
-            <StartOnCreate>Off</StartOnCreate>
-            <LowWater>1</LowWater>
-            <HighWater>3</HighWater>
-            <Maximum>5</Maximum>
-            <Increment>1</Increment>
-            <ResponseTimeout>2000</ResponseTimeout>
-         </Setup>
-      </NotificationList>
-      <TagList>
-         <SubscribeTags>
-            <Abort/>
-            <CableConnect/>
-            <VehiclePresent/>
-            <VIN/>
-         </SubscribeTags>
-      </TagList>
-      <DataTags>
-         <Abort>Abort</Abort>
-         <AirbagTestInProgressTag>AirBagTestInProgress</AirbagTestInProgressTag>
-         <AirbagTestFailTag>AirbagTestFailed</AirbagTestFailTag>
-         <AirbagTestPassTag>AirbagTestPassed</AirbagTestPassTag>
-         <FailButton>DriverPass</FailButton>
-         <PassButton>DriverFail</PassButton>
-         <ReadModuleFaults>ReadFaults</ReadModuleFaults>
-         <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
-         <ResistanceValuesMessage>ResistanceValues</ResistanceValuesMessage>
-         <VIN>VIN</VIN>
-         <VehicleVIN>VIN</VehicleVIN>
-         <ReadModuleVIN>ReadVIN</ReadModuleVIN>
-      </DataTags>
-      <Parameters>
-         <ConfigFile>/Configuration/Components/Airbag/DelphiAirbagModule.xml</ConfigFile>
-         <DelayModuleInitialization>No</DelayModuleInitialization>
-         <DeveloperTest>No</DeveloperTest>
-         <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
-         <UsePlcResultButtons>True</UsePlcResultButtons>
-         <!-- Part Number Parameters -->
-         <AbortOnPartMismatch>Yes</AbortOnPartMismatch>
-         <BypassPartNumberValidation>False</BypassPartNumberValidation>
-         <ValidatePartNumberList>Yes</ValidatePartNumberList>
-         <ValidPartNumbers>
-            <PN1005273-00-E>1005273-00-E</PN1005273-00-E>
-            <PN1005273-00-F>1005273-00-F</PN1005273-00-F>
-            <PNBE1ED119EAD15AC3D0>BE1ED119EAD15AC3D0</PNBE1ED119EAD15AC3D0>
-            <PN28371781>28371781</PN28371781>
-            <PN28383469>28383469</PN28383469>
-         </ValidPartNumbers>
-         <PartNumbersToCheck>
-            <P3_ModulePartNumber>ReadPartNumber</P3_ModulePartNumber>
-            <P1_OEMPartNumber>ReadOemPartNumber</P1_OEMPartNumber>
-            <P2_FWChecksum>ReadFWChecksum</P2_FWChecksum>
-         </PartNumbersToCheck>
-         <!-- Fault Read Parameters -->
-         <AbortIfDTCPresent>No</AbortIfDTCPresent>
-         <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
-         <VINLength>17</VINLength>
-      </Parameters>
-      <Prompts>
-         <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
-      </Prompts>
-      <SystemTagsToReset>
-          <AirbagTestPassed>0</AirbagTestPassed>
-          <AirbagTestInProgress>0</AirbagTestInProgress>
-          <AirbagTestFailed>0</AirbagTestFailed>
-      </SystemTagsToReset>
-   </Setup>
-   <Objectives>
-      <AirbagTest>
-         <TestStep10>EnterDiagnosticMode</TestStep10>
-         <TestStep20>CollectTraceData</TestStep20>
-         <TestStep30>CommandSecurityAccess</TestStep30>
-         <TestStep40>ProgramVIN</TestStep40>
-         <TestStep50>CheckVIN</TestStep50>
-         <TestStep60>ReadFaults</TestStep60>
-         <TestStep70>EnableAirBagModule</TestStep70>
-         <TestStep75>FinishUp</TestStep75>
-      </AirbagTest>
-      <AirbagSetup>
-         <TestStep00>Setup</TestStep00>
-         <TestStep10>EnterDiagnosticMode</TestStep10>
-         <TestStep15>CheckPartNumbers</TestStep15>
-         <TestStep20>ClearFaults</TestStep20>
-      </AirbagSetup>
-      <FinishUp>
-         <TestStep00>FinishUp</TestStep00>
-      </FinishUp>
-   </Objectives>
-   <TestSteps>
-      <Setup Result="Not Tested" Timeout="1000" Description="Setup component for testing"/>
-      <EnterDiagnosticMode Result="Not Tested" Timeout="5000" Description="Enter diag mode"/>
-      <CommandSecurityAccess Result="Not Tested" Timeout="500" Description="Verify the module part number"/>
-      <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
-      <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
-      <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
-      <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Read and Clear Faults and Enable the airbag module"/>
-      <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read Traceablilty number from the module"/>
-      <ProgramVIN Result="Not Tested" Timeout="5000" Description="Write VIN to the Module"/>
-      <CheckVIN Result="Not Tested" Timeout="5000" Description="Validate module VIN"/>
-      <CheckPartNumbers Result="Not Tested" Timeout="5000" Description="Check list of part numbers from the module"/>
-   </TestSteps>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/DelphiAirbagTc</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>DelphiAirbagTc</ProcessName>
+            <AdditionalLogFile>/Components/DelphiAirbagTc.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+        </Logging>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <VehiclePresent/>
+                <VIN/>
+            </SubscribeTags>
+        </TagList>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <AirbagTestInProgressTag>AirBagTestInProgress</AirbagTestInProgressTag>
+            <AirbagTestFailTag>AirbagTestFailed</AirbagTestFailTag>
+            <AirbagTestPassTag>AirbagTestPassed</AirbagTestPassTag>
+            <FailButton>DriverPass</FailButton>
+            <PassButton>DriverFail</PassButton>
+            <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+            <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+            <ResistanceValuesMessage>ResistanceValues</ResistanceValuesMessage>
+            <VIN>VIN</VIN>
+            <VehicleVIN>VIN</VehicleVIN>
+            <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+        </DataTags>
+        <Parameters>
+            <ConfigFile>/Configuration/Components/Airbag/DelphiAirbagModule.xml</ConfigFile>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>No</DeveloperTest>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+            <UsePlcResultButtons>True</UsePlcResultButtons>
+            <!-- Part Number Parameters -->
+            <AbortOnPartMismatch>Yes</AbortOnPartMismatch>
+            <BypassPartNumberValidation>False</BypassPartNumberValidation>
+            <ValidatePartNumberList>Yes</ValidatePartNumberList>
+            <ValidPartNumbers>
+                <PN1005273-00-E>1005273-00-E</PN1005273-00-E>
+                <PN1005273-00-F>1005273-00-F</PN1005273-00-F>
+                <PN1018781-00-A>1018781-00-A</PN1018781-00-A>
+                <PN28371781>28371781</PN28371781>
+                <PN28382910>28382910</PN28382910>
+                <PN28383469>28383469</PN28383469>
+                <PN6ABED25504D25AC3D0>6ABED25504D25AC3D0</PN6ABED25504D25AC3D0>
+                <PNBE1ED119EAD15AC3D0>BE1ED119EAD15AC3D0</PNBE1ED119EAD15AC3D0>
+            </ValidPartNumbers>
+            <PartNumbersToCheck>
+                <P3_ModulePartNumber>ReadPartNumber</P3_ModulePartNumber>
+                <P1_OEMPartNumber>ReadOemPartNumber</P1_OEMPartNumber>
+                <P2_FWChecksum>ReadFWChecksum</P2_FWChecksum>
+            </PartNumbersToCheck>
+            <!-- Fault Read Parameters -->
+            <AbortIfDTCPresent>No</AbortIfDTCPresent>
+            <DelayBeforeReadFaults>1</DelayBeforeReadFaults>
+            <VINLength>17</VINLength>
+        </Parameters>
+        <Prompts>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+        </Prompts>
+        <SystemTagsToReset>
+            <AirbagTestPassed>0</AirbagTestPassed>
+            <AirbagTestInProgress>0</AirbagTestInProgress>
+            <AirbagTestFailed>0</AirbagTestFailed>
+        </SystemTagsToReset>
+    </Setup>
+    <Objectives>
+        <AirbagTest>
+            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep20>CollectTraceData</TestStep20>
+            <TestStep30>CommandSecurityAccess</TestStep30>
+            <TestStep40>ProgramVIN</TestStep40>
+            <TestStep50>CheckVIN</TestStep50>
+            <TestStep60>ReadFaults</TestStep60>
+            <TestStep70>EnableAirBagModule</TestStep70>
+            <TestStep75>FinishUp</TestStep75>
+        </AirbagTest>
+        <AirbagSetup>
+            <TestStep00>Setup</TestStep00>
+            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep15>CheckPartNumbers</TestStep15>
+            <TestStep20>ClearFaults</TestStep20>
+        </AirbagSetup>
+        <FinishUp>
+            <TestStep00>FinishUp</TestStep00>
+        </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <Setup Result="Not Tested" Timeout="1000" Description="Setup component for testing"/>
+        <EnterDiagnosticMode Result="Not Tested" Timeout="5000" Description="Enter diag mode"/>
+        <CommandSecurityAccess Result="Not Tested" Timeout="500" Description="Verify the module part number"/>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module"/>
+        <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing"/>
+        <ReadFaults Result="Not Tested" Timeout="1000" Description="Read fault codes from the module"/>
+        <EnableAirBagModule Result="Not Tested" Timeout="1000" Description="Read and Clear Faults and Enable the airbag module"/>
+        <CollectTraceData Result="Not Tested" Timeout="1000" Description="Read Traceablilty number from the module"/>
+        <ProgramVIN Result="Not Tested" Timeout="5000" Description="Write VIN to the Module"/>
+        <CheckVIN Result="Not Tested" Timeout="5000" Description="Validate module VIN"/>
+        <CheckPartNumbers Result="Not Tested" Timeout="5000" Description="Check list of part numbers from the module"/>
+    </TestSteps>
 </DelphiAirbagTC>

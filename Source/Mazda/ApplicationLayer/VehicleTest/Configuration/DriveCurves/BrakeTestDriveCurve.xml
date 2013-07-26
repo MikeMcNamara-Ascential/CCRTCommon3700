@@ -47,13 +47,20 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase100>
-        <TestPhase105 Description="Wheel speed sensor test" Result="" Timeout="">
+        <TestPhase105 Description="Drag test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
-                    <BaseBrakeTest/>
+                <Objective0 Description="Drag testing" Result="" Timeout="" Component="Brake">
+                    <DragTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase105>
+        <TestPhase106 Description="Brake test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Front Base Brake testing" Result="" Timeout="" Component="Brake">
+                    <BaseBrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase106>
         <TestPhase107 Description="Abs Wheel Specific Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">

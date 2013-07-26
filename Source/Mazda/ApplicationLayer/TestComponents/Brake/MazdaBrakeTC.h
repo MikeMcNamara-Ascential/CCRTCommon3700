@@ -162,6 +162,17 @@ protected:
 	 */
 	string SpeedSensorCheck(void);
 
+	/**
+	 * Wait for the Mazda tester to be ready for the next test sequence.
+	 * 
+	 * @param waitTime Amount of time to wait.
+	 * 
+	 * @return Result of waiting for the tester.
+	 */
+	string WaitForMazdaTester(const INT32 &waitTime);
+
+
+
 
 
 private:

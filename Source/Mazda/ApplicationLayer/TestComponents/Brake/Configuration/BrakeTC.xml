@@ -333,8 +333,11 @@
             <TestStep05>StartBrakeSwitchTest</TestStep05>
         </AbsTests>
 
-        <BaseBrakeTest>
+        <DragTest>
             <TestStep00>MazdaDragTest</TestStep00>
+        </DragTest>
+
+        <BaseBrakeTest>
             <TestStep05>MazdaFrontBrakeForce</TestStep05>
         </BaseBrakeTest>
 
@@ -342,12 +345,14 @@
             <TestStep10>BrakeTestStart</TestStep10>
             <TestStep15>AbsLfTest</TestStep15>
             <TestStep25>BrakeTestStop</TestStep25>
+            <TestStep30 AltValue="3000">TestHeadWait</TestStep30>
         </AbsLfTest>
 
         <AbsRfTest>
             <TestStep10>BrakeTestStart</TestStep10>
             <TestStep20>AbsRfTest</TestStep20>
             <TestStep25>BrakeTestStop</TestStep25>
+            <TestStep30 AltValue="3000">TestHeadWait</TestStep30>
         </AbsRfTest>
 
         <AbsLrTest>
@@ -356,12 +361,14 @@
             <TestStep40>BrakeTestStart</TestStep40>
             <TestStep45>AbsLrTest</TestStep45>
             <TestStep55>BrakeTestStop</TestStep55>
+            <TestStep60 AltValue="3000">TestHeadWait</TestStep60>
         </AbsLrTest>
 
         <AbsRrTest>
             <TestStep10>BrakeTestStart</TestStep10>
             <TestStep50>AbsRrTest</TestStep50>
             <TestStep55>BrakeTestStop</TestStep55>
+            <TestStep60 AltValue="3000">TestHeadWait</TestStep60>
             <TestStep99>BrakeTestComplete</TestStep99>
         </AbsRrTest>
 
@@ -407,5 +414,6 @@
             TestHeadTestName="BrakeSwitchTest"/>
         <StopBrakeSwitchTest Result="" Timeout="100000000" Description="Brake switch test" 
             TestHeadTestName="BrakeSwitchTest"/>
+        <TestHeadWait Result="" Timeout="500" Description="Wait for the Mazda TEster to be ready"/>
     </TestSteps>
 </BrakeTC>

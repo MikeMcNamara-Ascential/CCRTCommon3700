@@ -64,6 +64,7 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
 		else if(!GetTestStepName().compare("SpeedSensorCheck"))       testResult = SpeedSensorCheck();
 		else if(!GetTestStepName().compare("StartBrakeSwitchTest"))   testResult = MazdaBrakeSwitchTest("Start");
 		else if(!GetTestStepName().compare("StopBrakeSwitchTest"))    testResult = MazdaBrakeSwitchTest("Stop");
+		else if(!GetTestStepName().compare("TestHeadWait"))           testResult = WaitForMazdaTester(BposReadInt(value.c_str()));
 		else 
 			testResult = GenericBaseBrakeTC::CommandTestStep(value);
     }
@@ -493,6 +494,24 @@ string MazdaBrakeTC::SpeedSensorCheck(void)
 	}
 	Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Exit");
 	return testResult;
+}
+
+//-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::WaitForMazdaTester(const INT32 &waitTime)
+{
+	string result(BEP_TESTING_RESPONSE);
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForMazdaTester(wait time: %d) - Enter");
+	if(!ShortCircuitTestStep())
+	{
+		result = (BEP_STATUS_SUCCESS == StatusSleep(waitTime)) ? testPass : testFail;
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping Mazda tester wait period");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForMazdaTester(wait time: %d) - Exit");
+	return result;
 }
 
 //-------------------------------------------------------------------------------------------------

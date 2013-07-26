@@ -135,7 +135,7 @@
             <OperatorReactionTime Units="ms">3000</OperatorReactionTime>
             <SamplesAboveLimitToStartAverage>10</SamplesAboveLimitToStartAverage>
             <TestCompleteCheckDelay Units="ms">250</TestCompleteCheckDelay>
-            <TestHeadStatusBitDelay Units="ms">500</TestHeadStatusBitDelay>
+            <TestHeadStatusBitDelay Units="ms">2500</TestHeadStatusBitDelay>
             <TestInProgressColor>yellow</TestInProgressColor>
             <VariableDataprocessingDelay Units="ms">500</VariableDataprocessingDelay>
 

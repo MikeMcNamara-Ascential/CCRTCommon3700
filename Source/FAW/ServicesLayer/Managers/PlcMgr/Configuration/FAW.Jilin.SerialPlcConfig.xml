@@ -609,10 +609,10 @@
         <RightTandemRollMotorDriveFault channelIndex="21" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
         <DeviceNetNodeMissing channelIndex="21" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
         <DynamicBrakeResistorOverTempFault channelIndex="21" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
-        <AirbagTestOnly channelIndex="22" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
-        <AirbagInLockBox channelIndex="22" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
-        <LockBoxDoorClose channelIndex="22" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
-        <SteeringWheelToolInPlace channelIndex="22" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
+        <WheelbaseAtShortEndOfTravelSwitch channelIndex="22" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
+        <WheelbaseAtShortSoftEndOfTravel channelIndex="22" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
+        <WheelbaseAtLongSoftEndOfTravel channelIndex="22" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
+        <WheelbaseAtLongEndOfTravelSwitch channelIndex="22" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
         <AllRollDrivesEnabled channelIndex="22" bitIndex="4" logic="1" portDir="IN" boardIdx="0"/>
         <LossCompensationSwitchStatusFromPLC channelIndex="22" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
         <LossCompensationSwitchCycleStatusFromPLC channelIndex="22" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>

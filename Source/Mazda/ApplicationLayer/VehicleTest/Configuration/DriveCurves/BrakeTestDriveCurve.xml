@@ -63,28 +63,46 @@
         </TestPhase106>
         <TestPhase107 Description="Abs Wheel Specific Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
+                <Objective0 Description="LF ABS testing" Result="" Timeout="" Component="Brake">
                     <AbsLfTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase107>
         <TestPhase110 Description="Abs Wheel Specific Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
+                <Objective0 Description="RF ABS testing" Result="" Timeout="" Component="Brake">
                     <AbsRfTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase110>
-        <TestPhase115 Description="Abs Wheel Specific Test" Result="" Timeout="">
+
+        <TestPhase112 Description="Park brake testing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
+                <Objective0 Description="Park brake force measurement" Result="" Timeout="" Component="Brake">
+                    <ParkBrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase112>
+
+        <TestPhase113 Description="Rear base brake test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Rear base brake force measurement" Result="" Timeout="" Component="Brake">
+                    <RearBaseBrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase113>
+
+        <TestPhase115 Description="Left rear ABS test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="LR ABS Testing" Result="" Timeout="" Component="Brake">
                     <AbsLrTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase115>
+
         <TestPhase120 Description="Abs Wheel Specific Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Speed sensor testing" Result="" Timeout="" Component="Brake">
+                <Objective0 Description="RR ABS Testing" Result="" Timeout="" Component="Brake">
                     <AbsRrTest/>
                 </Objective0>
             </ForegroundObjectives>

@@ -355,9 +355,15 @@
             <TestStep30 AltValue="3000">TestHeadWait</TestStep30>
         </AbsRfTest>
 
-        <AbsLrTest>
+        <ParkBrakeTest>
             <TestStep30>MazdaParkBrakeForce</TestStep30>
+        </ParkBrakeTest>
+
+        <RearBaseBrakeTest>
             <TestStep35>MazdaRearBrakeForce</TestStep35>
+        </RearBaseBrakeTest>
+
+        <AbsLrTest>
             <TestStep40>BrakeTestStart</TestStep40>
             <TestStep45>AbsLrTest</TestStep45>
             <TestStep55>BrakeTestStop</TestStep55>

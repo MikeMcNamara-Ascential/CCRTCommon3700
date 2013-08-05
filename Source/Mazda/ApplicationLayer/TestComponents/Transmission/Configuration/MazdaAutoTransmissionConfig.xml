@@ -14,179 +14,199 @@
             <ReverseSpeedMaximum ConvertToEnglishUnits="True" Units="km/h">10.0</ReverseSpeedMaximum>
 
             <DriveCurveParameters>
-                <Segment012>
+                <Segment000>
                     <Prompt1 Value1="Drive" Value2=" ">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">25</TargetSpeed>
-                    <EndTime Units="Seconds">7.2</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">15</TargetSpeed>
+                    <EndTime Units="Seconds">3.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment012>
+                </Segment000>
 
-                <Segment014>
+                <Segment005>
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">26</TargetSpeed>
-                    <EndTime Units="Seconds">8.4</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">16</TargetSpeed>
+                    <EndTime Units="Seconds">5.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment014>
+                </Segment005>
 
-                <Segment021>
+                <Segment010>
+                    <Prompt1 Value1="M2" Value2="">ShiftToGearAndAccelerate</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">17</TargetSpeed>
+                    <EndTime Units="Seconds">6.0</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment010>
+
+                <Segment015>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">20</TargetSpeed>
+                    <EndTime Units="Seconds">8.0</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment015>
+
+                <Segment020>
+                    <Prompt1 Value1="M3" Value2="">ShiftToGearAndAccelerate</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">22</TargetSpeed>
+                    <EndTime Units="Seconds">9.0</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment020>
+
+                <Segment025>
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">40</TargetSpeed>
-                    <EndTime Units="Seconds">12.6</EndTime>
+                    <EndTime Units="Seconds">11</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment021>
+                </Segment025>
 
-                <Segment023>
-                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                <Segment030>
+                    <Prompt1 Value1="M4" Value2="">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">46</TargetSpeed>
-                    <EndTime Units="Seconds">13.8</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">41</TargetSpeed>
+                    <EndTime Units="Seconds">13</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment023>
-
-                <Segment032>
-                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
-                    <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">65</TargetSpeed>
-                    <EndTime Units="Seconds">19.2</EndTime>
-                    <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment032>
+                </Segment030>
 
                 <Segment035>
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">66</TargetSpeed>
-                    <EndTime Units="Seconds">21</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">50</TargetSpeed>
+                    <EndTime Units="Seconds">15</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment035>
 
-                <Segment037>
+                <Segment040>
+                    <Prompt1 Value1="M5" Value2="">ShiftToGearAndAccelerate</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">52</TargetSpeed>
+                    <EndTime Units="Seconds">17.0</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment040>
+
+                <Segment045>
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">70</TargetSpeed>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">60</TargetSpeed>
+                    <EndTime Units="Seconds">20.0</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment045>
+
+                <Segment050>
+                    <Prompt1 Value1="M4" Value2="Gear">ShiftToGearAndReleaseThrottle</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
+                    <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">20</TargetSpeed>
                     <EndTime Units="Seconds">22.2</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment037>
-
-                <Segment039>
-                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
-                    <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">72</TargetSpeed>
-                    <EndTime Units="Seconds">23.4</EndTime>
-                    <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment039>
-
-                <Segment042>
-                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
-                    <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">75</TargetSpeed>
-                    <EndTime Units="Seconds">25.2</EndTime>
-                    <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment042>
-
-                <Segment044>
-                    <Prompt1 Value1="" Value2="">AccelerateAtWOT</Prompt1>
-                    <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">77</TargetSpeed>
-                    <EndTime Units="Seconds">26.4</EndTime>
-                    <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment044>
-
-                <Segment051>
-                    <Prompt1 Value1="" Value2="">AccelerateAtWOT</Prompt1>
-                    <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">105</TargetSpeed>
-                    <EndTime Units="Seconds">30.6</EndTime>
-                    <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment051>
-
-                <Segment053>
-                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
-                    <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">107</TargetSpeed>
-                    <EndTime Units="Seconds">31.8</EndTime>
-                    <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment053>
+                </Segment050>
 
                 <Segment055>
-                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt1 Value1="" Value2="">AccelerateAtWOT</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">120</TargetSpeed>
-                    <EndTime Units="Seconds">33</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">80</TargetSpeed>
+                    <EndTime Units="Seconds">31.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment055>
 
                 <Segment060>
-                    <Prompt1 Value1="" Value2="">MaintainSpeed</Prompt1>
+                    <Prompt1 Value1="Drive" Value2="">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">120</TargetSpeed>
-                    <EndTime Units="Seconds">36</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">82</TargetSpeed>
+                    <EndTime Units="Seconds">35.2</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment060>
 
                 <Segment065>
-                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">100</TargetSpeed>
-                    <EndTime Units="Seconds">39</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">120</TargetSpeed>
+                    <EndTime Units="Seconds">40.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment065>
 
-                <Segment067>
-                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                <Segment070>
+                    <Prompt1 Value1="" Value2="">MaintainSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">97</TargetSpeed>
-                    <EndTime Units="Seconds">40.2</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">120</TargetSpeed>
+                    <EndTime Units="Seconds">45.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment067>
+                </Segment070>
 
-                <Segment074>
-                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                <Segment075>
+                    <Prompt1 Value1="M5" Value2="Gear">ShiftToGearAndReleaseThrottle</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">80</TargetSpeed>
-                    <EndTime Units="Seconds">44.4</EndTime>
+                    <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
+                    <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">115</TargetSpeed>
+                    <EndTime Units="Seconds">50.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment074>
+                </Segment075>
+
+                <Segment080>
+                    <Prompt1 Value1="M4" Value2="Gear">ShiftToGearAndReleaseThrottle</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
+                    <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">110</TargetSpeed>
+                    <EndTime Units="Seconds">51.2</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment080>
 
                 <Segment085>
-                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt1 Value1="M3" Value2="Gear">ShiftToGearAndReleaseThrottle</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">55</TargetSpeed>
-                    <EndTime Units="Seconds">51</EndTime>
+                    <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
+                    <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">90</TargetSpeed>
+                    <EndTime Units="Seconds">55.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment085>
 
-                <Segment092>
-                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                <Segment090>
+                    <Prompt1 Value1="Drive" Value2="Gear">ShiftToGearAndReleaseThrottle</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">40</TargetSpeed>
-                    <EndTime Units="Seconds">55.2</EndTime>
+                    <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
+                    <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">80</TargetSpeed>
+                    <EndTime Units="Seconds">60.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment092>
+                </Segment090>
 
-                <Segment095>
-                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                <Segment100>
+                    <Prompt1 Value1="" Value2="">MaintainSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
-                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">40</TargetSpeed>
-                    <EndTime Units="Seconds">57</EndTime>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">80</TargetSpeed>
+                    <EndTime Units="Seconds">65.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment095>
+                </Segment100>
 
-                <Segment102>
+                <Segment105>
                     <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed>40</TargetSpeed>
+                    <EndTime Units="Seconds">72.0</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment105>
+
+                <Segment110>
+                    <Prompt1 Value1="M2" Value2="Gear">ShiftToGearAndReleaseThrottle</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
+                    <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">20</TargetSpeed>
-                    <EndTime Units="Seconds">61.2</EndTime>
+                    <EndTime Units="Seconds">75.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
-                </Segment102>
+                </Segment037>
 
                 <Segment111>
                     <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed>0</TargetSpeed>
-                    <EndTime Units="Seconds">66.6</EndTime>
+                    <EndTime Units="Seconds">82.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment111>
 

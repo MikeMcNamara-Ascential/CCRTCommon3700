@@ -238,7 +238,7 @@
                 <Setup>
                     <SerialDevice>/dev/socket</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-                    <IpAddress>192.168.2.1</IpAddress>
+                    <IpAddress>10.236.87.71</IpAddress>
                     <PortNo>3001</PortNo>
                     <TcpType>Client</TcpType>
                     <Protocol>

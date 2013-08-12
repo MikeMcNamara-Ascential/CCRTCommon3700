@@ -129,6 +129,11 @@ string MazdaPlantHostInbound::CreateBuildRecord(void)
 					{
 						m_broker->Write(VINDISPLAY_DATA_TAG, itemValue, response, true);
 					}
+					else if(!buildTag.compare("Transmission"))
+					{
+						itemValue = atob(itemValue.c_str()) ? "Automatic" : "Manual";
+						Log(LOG_DEV_DATA, "Set transmission type to %s", itemValue.c_str());
+					}
 					AddVehicleBuildItem(buildTag, itemValue, m_vehicleBuild);
 					Log(LOG_DEV_DATA, "Added build item: %s = %s", buildTag.c_str(), itemValue.c_str());
 				}

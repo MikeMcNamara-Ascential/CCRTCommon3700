@@ -150,7 +150,7 @@
                 <TireSize DataType="string">00000</TireSize>
                 <TransferCase DataType="string">NotEquipped</TransferCase>
                 <TransferCaseBGColor DataType="color">white</TransferCaseBGColor>
-                <Transmission DataType="string">41TE J1850 AutoStick</Transmission>
+                <Transmission DataType="string">Manual</Transmission>
                 <TransmissionBGColor DataType="color">white</TransmissionBGColor>
                 <VIN DataType="string">1C3AY75S65A100030</VIN>
                 <VINBGColor DataType="color">white</VINBGColor>

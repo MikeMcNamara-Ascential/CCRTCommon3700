@@ -150,7 +150,7 @@
             <ParkBrakeMaxDistance>20</ParkBrakeMaxDistance>
             <ParkBrakeMinDistance>50</ParkBrakeMinDistance>
 
-            <StartTestTimeoutPrompt>10000</StartTestTimeoutPrompt>
+            <StartTestTimeoutPrompt>100000</StartTestTimeoutPrompt>
 
             <ValidRLSEquippedTypes>
                 <Type00>Equipped</Type00>
@@ -204,8 +204,8 @@
 
         <MachineStartup>
             <TestStep01>VehicleTestSetup</TestStep01>
-            <!--TestStep10>StartTest</TestStep10-->
-            <TestStep20>RaiseRollsLowerElevators</TestStep20>            
+            <TestStep10>StartTest</TestStep10>
+            <TestStep20>RaiseRollsLowerElevators</TestStep20>
         </MachineStartup>
 
         <LowerElevators>

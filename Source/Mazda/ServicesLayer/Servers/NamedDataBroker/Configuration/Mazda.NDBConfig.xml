@@ -95,6 +95,7 @@
                 <ArmLamp DataType="bool">PLC</ArmLamp>
                 <ArmSpeed DataType="float" Units="MPH">MachineDataBroker</ArmSpeed>
                 <ArmSpeedBGColor DataType="color">MachineDataBroker</ArmSpeedBGColor>
+                <AutomaticTransmission DataType="bool">PLC</AutomaticTransmission>
                 <AutomaticTransmissionFromPLC DataType="bool">PLC</AutomaticTransmissionFromPLC>
                 <AutomaticTransmissionToPLC DataType="bool">PLC</AutomaticTransmissionToPLC>
                 <AxleOverallTest DataType="testcomponentstatus">TestResultServer</AxleOverallTest>
@@ -1048,6 +1049,7 @@
                 <TransferCase DataType="string">VehicleDataBroker</TransferCase>
                 <TransferCaseBGColor DataType="color">VehicleDataBroker</TransferCaseBGColor>
                 <TransferCaseOverallTest DataType="testcomponentstatus">TestResultServer</TransferCaseOverallTest>
+                <Transmission DataType="string">VehicleDataBroker</Transmission>
                 <TransmissionResult DataType="bool">PLC</TransmissionResult>
                 <TurnOnAuxillaryOutputOne DataType="bool">PLC</TurnOnAuxillaryOutputOne>
                 <TurnOnAuxillaryOutputTwo DataType="bool">PLC</TurnOnAuxillaryOutputTwo>

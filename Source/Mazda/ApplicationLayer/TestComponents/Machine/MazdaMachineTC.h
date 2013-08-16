@@ -18,6 +18,7 @@
 //-------------------------------------------------------------------------------------------------
 #define MAZDA_MACHINE_TC_PULSE_CODE			SYSTEM_PULSE+18
 #define MAX_SPEED_CHECK_PULSE				11
+#define ODOMETER_UPDATE_PULSE				12
 
 //-------------------------------------------------------------------------------------------------
 class MazdaMachineTC : public MachineTC
@@ -333,6 +334,14 @@ private:
 	void SetupTimer(const XmlNode *timerSetupNode, BepTimer &timer);
 	void SetupTimer(UINT64 updateRate, BepTimer &timer);
 
+	/**
+	 * Calculate the current distance traveled.
+	 * The distance traveled will be written to the system for display purposes.
+	 * 
+	 * @return Status of calculating the distance traveled.
+	 */
+	BEP_STATUS_TYPE UpdateDistanceTraveled(void);
+
 	/** Map containing the information required for retrieving the side slip results from the result file */
 	XmlNodeMap m_sideSlipResultData;
 
@@ -350,6 +359,9 @@ private:
 
 	// Timer to use for checking the max axle speed observed.
 	BepTimer m_maxSpeedTimer;
+
+	// Timer to use for updating the current distance traveled.
+	BepTimer m_currentDistTimer;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaMachineTC_h

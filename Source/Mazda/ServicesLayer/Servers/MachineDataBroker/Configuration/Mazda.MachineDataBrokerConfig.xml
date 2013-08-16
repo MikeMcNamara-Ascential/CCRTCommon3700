@@ -1,12 +1,16 @@
 <MachineDataBrokerConfig>
 	<Setup>
 		<CustId>Mazda</CustId>
-		<CustBld Description="Customer release version yymmddrr">13071601</CustBld>
+		<CustBld Description="Customer release version yymmddrr">13081601</CustBld>
 		<UseConfigMachineNumber>No</UseConfigMachineNumber>
 		<Debug>Off</Debug>
 		<DataFile Description="This is the file where persistent data is stored">/Configuration/Machine/LossCompensationTimeDate.dat</DataFile>
         <ConnectToQnxDataServer>No</ConnectToQnxDataServer>
         <CycleTimeUpdateRate Units="ms">500</CycleTimeUpdateRate>
+        <VehicleCenteringPositionLeftLimit Description="Value indicating left vehicle centering pos limit (min 0 max 4096) value set to 20%">819</VehicleCenteringPositionLeftLimit>
+        <VehicleCenteringPositionRightLimit Description="Value indicating right vehicle centering pos limit (min 0 max 4096) value set to 20%">3276</VehicleCenteringPositionRightLimit>
+        <VehicleCenteringPositionMultiplier Description="multiplier">1.24</VehicleCenteringPositionMultiplier>
+        <VehicleCenteringPositionOffset Description="Offset (note 2s comp. taken)">2800</VehicleCenteringPositionOffset>
         <LoadCellData>
             <LoadCellUpdateDelay Units="ms" Description="Time between updates of the load cell data">100</LoadCellUpdateDelay>
             <Conversions>
@@ -44,6 +48,7 @@
 			<MachineNumberTag>MachineNumber</MachineNumberTag>
 			<MachineNumberFormat>Mach%d</MachineNumberFormat>
             <RollerCount>4</RollerCount>
+            <VehicleCenteringPosition>VehicleCenteringPosition</VehicleCenteringPosition>
 		</DataTags>
 		<TagList>
 			<SubscribeTags>
@@ -59,6 +64,7 @@
                 <RollsUpElevDown/>
                 <RollsDownElevUp/>
                 <SpeedDisplayScaling />
+                <VehicleCenteringPosition/>
                 <Zerospeed/>
 			</SubscribeTags>
 			<PublishTags>
@@ -71,6 +77,7 @@
                 <CommandSysMonLowerRolls DataType="bool">0</CommandSysMonLowerRolls>
                 <CommandSysMonRaiseRolls DataType="bool">0</CommandSysMonRaiseRolls>
 				<ConnectRequest DataType="string">Unknown</ConnectRequest>
+                <CurrentOdometer DataType="float" Units="MPH">0.0</CurrentOdometer>
                 <CycleTime DataType="int">0</CycleTime>
 				<DriverNumberDisplay DataType="" Units=""/>
 				<DriverNumberDisplayBGColor DataType="" Units="">white</DriverNumberDisplayBGColor>
@@ -277,6 +284,7 @@
 				<UpperPos5VoltPowerSupplyDomain DataType="range">0 0</UpperPos5VoltPowerSupplyDomain>
 				<UpperPos5VoltPowerSupplyTarget DataType="range">0 0</UpperPos5VoltPowerSupplyTarget>
                 <VehicleAxleCount DataType="short">2</VehicleAxleCount>
+                <VehicleCenteringpositionDisplay DataType="string">center</VehicleCenteringpositionDisplay>
 				<VINDisplay DataType="string"/>
 				<VINDisplayBGColor DataType="color">white</VINDisplayBGColor>
 				<VINReadStatus DataType="string">Red</VINReadStatus>

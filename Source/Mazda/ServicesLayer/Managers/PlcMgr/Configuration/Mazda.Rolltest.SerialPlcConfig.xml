@@ -725,7 +725,10 @@
         <PLCReadyToTest channelIndex="22" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
         <!-- OPEN 14 - 15 -->
 
-        <!-- N17:23 - N17:24 OPEN -->
+        <!-- N17:23 -->
+        <VehicleCenteringPosition channelIndex="23" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+        <!-- N17:24 OPEN -->
 
         <!-- N17:25 -->
         <Encoder5VPowerSupplyVoltage channelIndex="25" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>

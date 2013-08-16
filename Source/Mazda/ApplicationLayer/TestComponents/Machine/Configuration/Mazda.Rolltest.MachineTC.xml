@@ -119,7 +119,8 @@
             <PromptReverseTestSpeed>2.0</PromptReverseTestSpeed>
 
             <!-- Component behavior flags -->
-            <KeepTestStatusOnExit>0</KeepTestStatusOnExit>
+            <CurrentDistanceTraveledUpdateTimer Units="ms">1000</CurrentDistanceTraveledUpdateTimer>
+            <KeepTestStatusOnExit>False</KeepTestStatusOnExit>
             <LogTaskStatInfo>Yes</LogTaskStatInfo>
             <MaxSpeedUpdateTimer Units="ms">100</MaxSpeedUpdateTimer>
             <PulsesPerRevolution>1250</PulsesPerRevolution>
@@ -207,6 +208,7 @@
             <Name>MachineTc</Name>
         </TaskMon>
         <SystemTagsToReset>
+            <CurrentOdometer>0.0</CurrentOdometer>
             <FrontMaxSpeedObserved>0</FrontMaxSpeedObserved>
             <FrontSideSlipResult>0</FrontSideSlipResult>
             <FrontSideSlipValue>0</FrontSideSlipValue>

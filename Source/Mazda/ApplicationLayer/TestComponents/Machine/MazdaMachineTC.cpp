@@ -37,6 +37,10 @@ const INT32 MazdaMachineTC::HandlePulse(const INT32 code, const INT32 value)
 			retVal = CheckForMaxSpeed();
 			break;
 
+		case ODOMETER_UPDATE_PULSE:
+			retVal = UpdateDistanceTraveled();
+			break;
+
 		default:
 			Log(LOG_ERRORS, "Pulse value %d is not supported", value);
 			break;
@@ -72,6 +76,16 @@ void MazdaMachineTC::Initialize(const XmlNode *config)
 	// Set the maximum front and rear axle speeds observed
 	m_maxFrontSpeedObserved = 0.0;
 	m_maxRearSpeedObserved = 0.0;
+
+	try 
+	{
+		SetupTimer(config->getChild("Setup/Parameters/CurrentDistanceTraveledUpdateTimer"), m_currentDistTimer);
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Error getting timer update rate for distance traveled, using 1000ms - %s", excpt.GetReason());
+		SetupTimer(1000, m_currentDistTimer);
+	}
 
 	try
 	{
@@ -145,6 +159,7 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
 			else if(!GetTestStepName().compare("StartOdometerTest"))
 			{	// Set the initial roller distances
 				GetWheelDistances(m_odoStartDistance);
+				m_currentDistTimer.Start();
 				testResult = testPass;
 			}
 			else if(!GetTestStepName().compare("StartTest"))					testResult = StartTest();
@@ -268,6 +283,7 @@ string MazdaMachineTC::StopOdometerTest(void)
 {
 	Log(LOG_DEV_DATA, "MazdaMachineTC::StopOdometerTest() - Enter");
 	string result(BEP_TESTING_RESPONSE);
+	m_currentDistTimer.Stop();
 	if(!ShortCircuitTestStep())
 	{	// Get the current roller distance
 		WHEELINFO finalDistance, totalDistance;
@@ -638,3 +654,22 @@ void MazdaMachineTC::SetupTimer(UINT64 updateRate, BepTimer &timer)
 	timer.Stop();
 }
 
+//-------------------------------------------------------------------------------------------------
+BEP_STATUS_TYPE MazdaMachineTC::UpdateDistanceTraveled(void)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+	WHEELINFO currentPulseCounts, currentDistance;
+	status = ConvertIntToBepStatus(GetWheelDistances(currentPulseCounts));
+	if(BEP_STATUS_SUCCESS == status)
+	{   // Calculate the current distance traveled
+		GetTotalDistances(currentDistance, m_odoStartDistance, currentPulseCounts);
+		float driveWheelDist = !SystemRead(DRIVE_AXLE_TAG).compare(FRONT_WHEEL_DRIVE_VALUE) ? currentDistance.lfWheel : currentDistance.lrWheel;
+		float odometer = ConvertPulsesToMiles(driveWheelDist);
+		SystemWrite("CurrentOdometer", odometer);
+	}
+	else
+	{
+		Log(LOG_ERRORS, "Error getting current pulse counts");
+	}
+	return status;
+}

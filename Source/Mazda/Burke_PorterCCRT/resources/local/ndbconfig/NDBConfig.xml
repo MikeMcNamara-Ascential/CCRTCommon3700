@@ -189,6 +189,7 @@
                 <CurrentLFMachineLoss DataType="float">ICM</CurrentLFMachineLoss>
                 <CurrentLRMachineLoss DataType="float" Units="LBF">ICM</CurrentLRMachineLoss>
                 <CurrentLTMachineLoss DataType="float" Units="LBF">ICM</CurrentLTMachineLoss>
+                <CurrentOdometer DataType="float" Units="MPH">MachineDataBroker</CurrentOdometer>
                 <CurrentOverheadBoomPosition DataType="short" Units="Inch*10">PLC</CurrentOverheadBoomPosition>
                 <CurrentRFMachineLoss DataType="float" Units="LBF">ICM</CurrentRFMachineLoss>
                 <CurrentRRMachineLoss DataType="float" Units="LBF">ICM</CurrentRRMachineLoss>
@@ -1174,6 +1175,7 @@
                 <VehicleAtBarcodeScanner DataType="bool">PLC</VehicleAtBarcodeScanner>
                 <VehicleBuild DataType="string">VehicleDataBroker</VehicleBuild>
                 <VehicleBuildRecordStatus DataType="string">WorkCellController</VehicleBuildRecordStatus>
+                <VehicleCenteringPosition DataType="int">PLC</VehicleCenteringPosition>
                 <VehiclePresent DataType="bool">SystemMonitor</VehiclePresent>
                 <VehiclePresentAtBarcodeDelayTime DataType="short">PLC</VehiclePresentAtBarcodeDelayTime>
                 <VehiclePushersExtendedFault DataType="bool">PLC</VehiclePushersExtendedFault>

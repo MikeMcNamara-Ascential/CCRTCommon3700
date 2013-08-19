@@ -160,6 +160,7 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
 			{	// Set the initial roller distances
 				GetWheelDistances(m_odoStartDistance);
 				m_currentDistTimer.Start();
+				Log(LOG_DEV_DATA, "Started odometer update timer");
 				testResult = testPass;
 			}
 			else if(!GetTestStepName().compare("StartTest"))					testResult = StartTest();
@@ -666,6 +667,7 @@ BEP_STATUS_TYPE MazdaMachineTC::UpdateDistanceTraveled(void)
 		float driveWheelDist = !SystemRead(DRIVE_AXLE_TAG).compare(FRONT_WHEEL_DRIVE_VALUE) ? currentDistance.lfWheel : currentDistance.lrWheel;
 		float odometer = ConvertPulsesToMiles(driveWheelDist);
 		SystemWrite("CurrentOdometer", odometer);
+		Log(LOG_DEV_DATA, "Setting current odometer value to: %.4f miles", odometer);
 	}
 	else
 	{

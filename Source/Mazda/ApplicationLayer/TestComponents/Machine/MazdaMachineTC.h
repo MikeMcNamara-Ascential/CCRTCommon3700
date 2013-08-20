@@ -328,11 +328,12 @@ private:
 	 * Setup the specified timer using the setup data provided.
 	 * 
 	 * @param timerSetupNode
-	 *               Timer configuration data.
-	 * @param timer  Timer to be setup.
+	 *                   Timer configuration data.
+	 * @param timer      Timer to be setup.
+	 * @param pulseValue Pulse value to use on timer expiration.
 	 */
-	void SetupTimer(const XmlNode *timerSetupNode, BepTimer &timer);
-	void SetupTimer(UINT64 updateRate, BepTimer &timer);
+	void SetupTimer(const XmlNode *timerSetupNode, BepTimer &timer, INT32 pulseValue);
+	void SetupTimer(UINT64 updateRate, BepTimer &timer, INT32 pulseValue);
 
 	/**
 	 * Calculate the current distance traveled.

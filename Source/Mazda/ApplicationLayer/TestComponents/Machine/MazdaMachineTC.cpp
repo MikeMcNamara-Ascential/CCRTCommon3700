@@ -66,12 +66,13 @@ void MazdaMachineTC::Initialize(const XmlNode *config)
 
 	try
 	{
-		SetupTimer(config->getChild("Setup/Parameters/MaxSpeedUpdateTimer"), m_maxSpeedTimer);
+		SetupTimer(config->getChild("Setup/Parameters/MaxSpeedUpdateTimer"), 
+				   m_maxSpeedTimer, MAX_SPEED_CHECK_PULSE);
 	}
 	catch(XmlException &excpt)
 	{
 		Log(LOG_ERRORS, "Error getting max speed update rate, using 500ms: %s", excpt.GetReason());
-		SetupTimer(500, m_maxSpeedTimer);
+		SetupTimer(500, m_maxSpeedTimer, MAX_SPEED_CHECK_PULSE);
 	}
 	// Set the maximum front and rear axle speeds observed
 	m_maxFrontSpeedObserved = 0.0;
@@ -79,12 +80,13 @@ void MazdaMachineTC::Initialize(const XmlNode *config)
 
 	try 
 	{
-		SetupTimer(config->getChild("Setup/Parameters/CurrentDistanceTraveledUpdateTimer"), m_currentDistTimer);
+		SetupTimer(config->getChild("Setup/Parameters/CurrentDistanceTraveledUpdateTimer"), 
+				   m_currentDistTimer, ODOMETER_UPDATE_PULSE);
 	}
 	catch(XmlException &excpt)
 	{
 		Log(LOG_ERRORS, "Error getting timer update rate for distance traveled, using 1000ms - %s", excpt.GetReason());
-		SetupTimer(1000, m_currentDistTimer);
+		SetupTimer(1000, m_currentDistTimer, ODOMETER_UPDATE_PULSE);
 	}
 
 	try
@@ -640,17 +642,17 @@ inline void MazdaMachineTC::SetRLSEquipped(const bool &equipped)
 }
 
 //-------------------------------------------------------------------------------------------------
-void MazdaMachineTC::SetupTimer(const XmlNode *timerSetupNode, BepTimer &timer)
+void MazdaMachineTC::SetupTimer(const XmlNode *timerSetupNode, BepTimer &timer, INT32 pulseValue)
 {
-	SetupTimer(atol(timerSetupNode->getValue().c_str()), timer);
+	SetupTimer(atol(timerSetupNode->getValue().c_str()), timer, pulseValue);
 }
 
 //-------------------------------------------------------------------------------------------------
-void MazdaMachineTC::SetupTimer(UINT64 updateRate, BepTimer &timer)
+void MazdaMachineTC::SetupTimer(UINT64 updateRate, BepTimer &timer, INT32 pulseValue)
 {
 	Log(LOG_DEV_DATA, "Setting up timer with update rate of %dms", updateRate);
 	timer.SetPulseCode(MAZDA_MACHINE_TC_PULSE_CODE);
-	timer.SetPulseValue(MAX_SPEED_CHECK_PULSE);
+	timer.SetPulseValue(pulseValue);
 	timer.Initialize(GetProcessName(), mSEC_nSEC(updateRate), mSEC_nSEC(updateRate));
 	timer.Stop();
 }

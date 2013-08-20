@@ -106,7 +106,7 @@
                      <AdditionalLogFile>/Servers/ScannerComm.log</AdditionalLogFile>
                      <Status>Enabled</Status>
                      <LocalEcho>Disabled</LocalEcho>
-                     <Verbose>0x1F</Verbose>
+                     <Verbose>0x01</Verbose>
                   </Logging>
                   <CommLog>
                      <ContentType>RAW</ContentType>
@@ -143,7 +143,7 @@
                      <AdditionalLogFile>/Servers/RScannerComm.log</AdditionalLogFile>
                      <Status>Enabled</Status>
                      <LocalEcho>Disabled</LocalEcho>
-                     <Verbose>0x1F</Verbose>
+                     <Verbose>0x01</Verbose>
                   </Logging>
                   <CommLog>
                      <ContentType>RAW</ContentType>

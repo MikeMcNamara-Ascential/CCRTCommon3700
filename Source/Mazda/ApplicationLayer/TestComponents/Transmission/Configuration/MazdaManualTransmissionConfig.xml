@@ -286,10 +286,12 @@
             <Abort>Abort</Abort>
             <BoostMode>Boost</BoostMode>
             <DriveAxle>DriveAxle</DriveAxle>
+            <ElectricMachineType>3700</ElectricMachineType>
             <FailButton>NoPB</FailButton>
             <FourWheelDriveEquipped>FourWheelDrive</FourWheelDriveEquipped>
             <LFSpeed>LFSpeed</LFSpeed>
             <LRSpeed>LRSpeed</LRSpeed>
+            <MachineType>MachineType</MachineType>
             <MotorMode>MotorMode</MotorMode>
             <OverallTest>TransmissionOverallTest</OverallTest>
             <PassButton>YesPB</PassButton>

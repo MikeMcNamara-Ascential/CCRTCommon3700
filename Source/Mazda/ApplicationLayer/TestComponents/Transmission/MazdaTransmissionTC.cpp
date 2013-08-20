@@ -289,6 +289,17 @@ const string MazdaTransmissionTC::PromptDriveCurveSection(DRIVECURVE_PARAMETERS 
     Log(LOG_DEV_DATA, "SpeedTarget = %f, slope = %f\n", driveCurveParams.targetSpeed, slope);
     float currentTestTime;
     m_accelTestStartTime = time(NULL);
+	// Determine if boosting should be enabled or disabled
+	if(GetRollSpeed() < driveCurveParams.targetSpeed)
+	{   // Vehicle needs to accelerate, enable boosting
+		Log(LOG_DEV_DATA, "Acceleration required, enabling motor boost");
+		EnableElectricMotorBoost();
+	}
+	else
+	{
+		Log(LOG_DEV_DATA, "Deceleration required, disabling motor boost");
+		DisableElectricMotorBoost();
+	}
    
     // while time remaining and good status and section time remaining and not at zero speed
     while (TimeRemaining() && (BEP_STATUS_SUCCESS == status) && 
@@ -430,6 +441,7 @@ const string MazdaTransmissionTC::TestStepBrakeToStop(const string &value)
     {   // if the conditions are correct to perform the task
         if (StatusCheck() == BEP_STATUS_SUCCESS)
         {
+			DisableElectricMotorBoost();
             // check if at zerospeed
             if (ReadSubscribeData(GetDataTag("Zerospeed")) != "1")
             {
@@ -462,6 +474,7 @@ const string MazdaTransmissionTC::TestStepBrakeToStop(const string &value)
 				Log(LOG_DEV_DATA, "Setting motor mode to %s", string(BOOST_MODE).c_str());
                 SystemWrite(MOTOR_MODE, string(BOOST_MODE));
             }
+			EnableElectricMotorBoost();
         }
         // else the conditions are not correct, indicate not started
         else

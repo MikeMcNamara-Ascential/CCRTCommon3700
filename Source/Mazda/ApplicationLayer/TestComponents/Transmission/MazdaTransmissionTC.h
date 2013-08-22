@@ -50,6 +50,7 @@ typedef struct
     string promptSpeedLow;
     string promptSpeedLowValue1;
     string promptSpeedLowValue2;
+	string speedMatch;
     float targetSpeed;
     float speedTolerance;
     float endTime;

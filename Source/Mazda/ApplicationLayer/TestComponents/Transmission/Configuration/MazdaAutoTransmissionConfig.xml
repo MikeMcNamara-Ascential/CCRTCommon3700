@@ -18,6 +18,7 @@
                     <Prompt1 Value1="Drive" Value2=" ">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">15</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">3.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment000>
@@ -26,6 +27,7 @@
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">16</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">5.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment005>
@@ -34,6 +36,7 @@
                     <Prompt1 Value1="M2" Value2="">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">17</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">6.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment010>
@@ -42,6 +45,7 @@
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">20</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">8.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment015>
@@ -50,6 +54,7 @@
                     <Prompt1 Value1="M3" Value2="">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">22</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">9.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment020>
@@ -58,6 +63,7 @@
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">40</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">11</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment025>
@@ -66,6 +72,7 @@
                     <Prompt1 Value1="M4" Value2="">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">41</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">13</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment030>
@@ -74,6 +81,7 @@
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">50</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">15</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment035>
@@ -82,6 +90,7 @@
                     <Prompt1 Value1="M5" Value2="">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">52</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">17.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment040>
@@ -90,6 +99,7 @@
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">60</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">20.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment045>
@@ -100,6 +110,7 @@
                     <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
                     <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">20</TargetSpeed>
+                    <SpeedMatch>Disable</SpeedMatch>
                     <EndTime Units="Seconds">22.2</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment050>
@@ -108,6 +119,7 @@
                     <Prompt1 Value1="" Value2="">AccelerateAtWOT</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">80</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">31.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment055>
@@ -116,6 +128,7 @@
                     <Prompt1 Value1="Drive" Value2="">ShiftToGearAndAccelerate</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">82</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">35.2</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment060>
@@ -124,6 +137,7 @@
                     <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">120</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">40.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment065>
@@ -132,6 +146,7 @@
                     <Prompt1 Value1="" Value2="">MaintainSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">120</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">45.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment070>
@@ -142,6 +157,7 @@
                     <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
                     <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">115</TargetSpeed>
+                    <SpeedMatch>Disable</SpeedMatch>
                     <EndTime Units="Seconds">50.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment075>
@@ -152,6 +168,7 @@
                     <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
                     <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">110</TargetSpeed>
+                    <SpeedMatch>Disable</SpeedMatch>
                     <EndTime Units="Seconds">51.2</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment080>
@@ -162,6 +179,7 @@
                     <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
                     <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">90</TargetSpeed>
+                    <SpeedMatch>Disable</SpeedMatch>
                     <EndTime Units="Seconds">55.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment085>
@@ -172,6 +190,7 @@
                     <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
                     <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">80</TargetSpeed>
+                    <SpeedMatch>Disable</SpeedMatch>
                     <EndTime Units="Seconds">60.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment090>
@@ -180,6 +199,7 @@
                     <Prompt1 Value1="" Value2="">MaintainSpeed</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">80</TargetSpeed>
+                    <SpeedMatch>Enable</SpeedMatch>
                     <EndTime Units="Seconds">65.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment100>
@@ -188,6 +208,7 @@
                     <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed>40</TargetSpeed>
+                    <SpeedMatch>Disable</SpeedMatch>
                     <EndTime Units="Seconds">72.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment105>
@@ -198,6 +219,7 @@
                     <PromptSpeedHigh Value1="" Value2="">SpeedHigh</PromptSpeedHigh>
                     <PromptSpeedLow Value1="" Value2="">SpeedLow</PromptSpeedLow>
                     <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">20</TargetSpeed>
+                    <SpeedMatch>Disable</SpeedMatch>
                     <EndTime Units="Seconds">75.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment037>
@@ -206,6 +228,7 @@
                     <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
                     <Prompt2 Value1="" Value2=""></Prompt2>
                     <TargetSpeed>0</TargetSpeed>
+                    <SpeedMatch>Disable</SpeedMatch>
                     <EndTime Units="Seconds">82.0</EndTime>
                     <SpeedTolerance Units="%">10</SpeedTolerance>
                 </Segment111>

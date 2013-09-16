@@ -94,10 +94,10 @@
 		<MotorParameters>
 			<BrakeDetectLimit Description="Accelleration value indicating that a roll is under excessive force (brakes probably applied)" Units="MPH/sec.">-30.0</BrakeDetectLimit>
 			<BrakeClearLimit Description="Accelleration value indicating that a roll has stopped braking" Units="MPH/sec.">.01</BrakeClearLimit>
-			<SpeedDeltaForBoost Description="Speed difference required to cause non-driven roll(s) to be commanded to follow master" Units="MPH">1.0</SpeedDeltaForBoost>
+			<SpeedDeltaForBoost Description="Speed difference required to cause non-driven roll(s) to be commanded to follow master" Units="MPH">0.5</SpeedDeltaForBoost>
 			<ReverseBoost Description="Whether or not to boost while in reverse 1=Boost in reverse, else do not boost in reverse">1</ReverseBoost>
 			<UpdateInterval Description="Amount of time between commands (Main loop delay time)" Units="ms">250</UpdateInterval>
-			<MinimumSpeedForBoost Description="Minimum speed master roll must acheive before boost is applied to non-driven rolls" Units="MPH">2.1</MinimumSpeedForBoost>
+			<MinimumSpeedForBoost Description="Minimum speed master roll must acheive before boost is applied to non-driven rolls" Units="MPH">0.2</MinimumSpeedForBoost>
 			<CurrentSpeeds Description="Name of file of read for roll speeds">/dev/Icm/Block/Speed</CurrentSpeeds>
 			<CurrentAccelerations Description="Name of file of read for roll accelerations">/dev/Icm/Block/Acceleration</CurrentAccelerations>
 			<AccelerationLoading Description="Force used to load vehicle while accellerating" Units="Pounds">0.0</AccelerationLoading>

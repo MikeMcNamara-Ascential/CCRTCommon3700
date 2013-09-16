@@ -151,7 +151,7 @@ void RemoteVehicleBuildServer::LoadNextVehicleBuildRecord(void)
 {
 	if(m_vehicleBuildFiles.size() > 0)
 	{
-		if(m_buildFileListMutex.Acquire())
+		if(m_buildFileListMutex.Acquire() == EOK)
 		{
 			BuildFileDataListItr iter = m_vehicleBuildFiles.begin();
 			string aonFile = (*iter)->fileName;
@@ -181,6 +181,7 @@ void RemoteVehicleBuildServer::LoadVehicleBuildRecords(void)
 			BuildFileData *buildFile = new BuildFileData;
 			buildFile->fileName = entry->d_name;
 			struct stat fileStat;
+			Log(LOG_DEV_DATA, "Processing build file: %s", buildFile->fileName.c_str());
 			if(stat(string(LocalVehicleBuildFilePath() + buildFile->fileName).c_str(), &fileStat) != -1)
 			{
 				buildFile->creationTime = fileStat.st_atime;
@@ -192,12 +193,14 @@ void RemoteVehicleBuildServer::LoadVehicleBuildRecords(void)
 			}
 			if(!S_ISDIR(fileStat.st_mode))
 			{   // Make sure the file is not already stored
-				if(m_buildFileListMutex.Acquire())
+				Log(LOG_DEV_DATA, "Waiting for access to m_vehicleBuildFiles...");
+				if(m_buildFileListMutex.Acquire() == EOK)
 				{
+					Log(LOG_DEV_DATA, "Gained access to m_vehicleBuildFiles");
 					BuildFileDataListItr iter = find_if(m_vehicleBuildFiles.begin(), 
 														m_vehicleBuildFiles.end(), 
 														Is_Matching_File_Entry(buildFile->fileName));
-					if(iter != m_vehicleBuildFiles.end())
+					if(iter == m_vehicleBuildFiles.end())
 					{
 						Log(LOG_DEV_DATA, "Storing %s created at %s", 
 							buildFile->fileName.c_str(), ctime(&buildFile->creationTime));
@@ -208,6 +211,7 @@ void RemoteVehicleBuildServer::LoadVehicleBuildRecords(void)
 					{
 						delete buildFile;
 					}
+					Log(LOG_DEV_DATA, "Released access to m_vehicleBuildFiles");
 					m_buildFileListMutex.Release();
 				}
 				else
@@ -224,10 +228,16 @@ void RemoteVehicleBuildServer::LoadVehicleBuildRecords(void)
 		// Sort the list if anything was added
 		if(sortRequired)
 		{
-			if(m_buildFileListMutex.Acquire())
+			Log(LOG_DEV_DATA, "Preparing to sort build file list...");
+			if(m_buildFileListMutex.Acquire() == EOK)
 			{
 				sort(m_vehicleBuildFiles.begin(), m_vehicleBuildFiles.end(), Is_File_Older());
 				m_buildFileListMutex.Release();
+				Log(LOG_DEV_DATA, "Sorted build file list");
+			}
+			else
+			{
+				Log(LOG_DEV_DATA, "Could not sort build file list.");
 			}
 		}
 	}
@@ -269,7 +279,7 @@ void RemoteVehicleBuildServer::RemoveVehicleBuildFile()
 			if(vid.length() > 1)
 			{   // Make sure the vehicle ID is still in the list of files
 				string idName = GetDataTag("FileNamePrefix") + vid + GetDataTag("FileNameSuffix");
-				if(m_buildFileListMutex.Acquire())
+				if(m_buildFileListMutex.Acquire() == EOK)
 				{
 					BuildFileDataListItr iter = find_if(m_vehicleBuildFiles.begin(), 
 														m_vehicleBuildFiles.end(), 

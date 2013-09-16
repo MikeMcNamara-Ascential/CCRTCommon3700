@@ -811,7 +811,7 @@ string MazdaBrakeTC::WaitForAbsBuild(const INT16 &testingWheel, const INT16 &opp
 		{
 			if(forceData[oppositeWheel].currentForce > 0.0)
 			{
-				float buildComparePercent = forceData[testingWheel].currentForce / forceData[oppositeWheel].currentForce;
+				float buildComparePercent = forceData[oppositeWheel].currentForce / AverageBrakeForce(oppositeWheel);
 				Log(LOG_DEV_DATA, "Calculated compare percent: %.2f", buildComparePercent);
 				result = ((GetParameterFloat("MinAbsBuildComparePercent") < buildComparePercent) &&
 						  (buildComparePercent < GetParameterFloat("MaxAbsBuildComparePercent"))) ? testPass : testFail;
@@ -871,7 +871,7 @@ string MazdaBrakeTC::WaitForAbsDump(const INT16 &testingWheel, const INT16 &oppo
 	// if the dump completed, need to check dump percent with opposite wheel
 	if(dumpComplete)
 	{
-		float dumpPercent = forceData[testingWheel].currentForce / forceData[oppositeWheel].currentForce;
+		float dumpPercent = forceData[oppositeWheel].currentForce / AverageBrakeForce(oppositeWheel);
 		result = ((GetParameterFloat("MinAbsDumpPercent") < dumpPercent) &&
 				  (dumpPercent < GetParameterFloat("MaxAbsDumpPercent"))) ? testPass : testFail;
 		Log(LOG_DEV_DATA, "ABS Dump result - %.2f  [%s %s]  -  %s", dumpPercent,

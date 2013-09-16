@@ -191,6 +191,7 @@
         <Initialize>
             <TestStep1>Initialize</TestStep1>
             <TestStep2>MachineReady</TestStep2>
+            <TestStep3>EngageMachine</TestStep3>
         </Initialize>
         <DriverQuestion>
             <TestStep1>DriverQuestion</TestStep1>

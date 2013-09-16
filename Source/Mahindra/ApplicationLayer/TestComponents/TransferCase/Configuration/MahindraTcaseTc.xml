@@ -136,6 +136,10 @@
             <CheckShift4LOWVerifyMethod>Prompt</CheckShift4LOWVerifyMethod>
             <MaximumAxleRatioAttempts>1</MaximumAxleRatioAttempts>
 
+            <!-- Maintain Speed Parameters -->
+            <MaintainSpeedTime Units="ms">3000</MaintainSpeedTime>
+            <MaintainSpeedMinSpeed Units="km/h" ConvertToEnglishUnits="True">20</MaintainSpeedMinSpeed>
+            <MaintainSpeedMaxSpeed Units="km/h" ConvertToEnglishUnits="True">40</MaintainSpeedMaxSpeed>
         </Parameters>
 
         <Prompts>
@@ -144,6 +148,7 @@
             <CheckShift2WDShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift2WDShiftTcase>
             <CheckShift4HIShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4HIShiftTcase>
             <CheckShift4LOWShiftTcase PromptBox="1" Priority="0">ShiftTransferCase</CheckShift4LOWShiftTcase>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
             <ShiftToDrive PromptBox="1" Priority="0">ShiftToFirst</ShiftToDrive>
             <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
             <TcaseTesting PromptBox="1" Priority="0">TransferCaseTest</TcaseTesting>
@@ -159,6 +164,7 @@
             <TestStep00>DisengageMachine</TestStep00>
             <TestStep05>CheckShift4HI</TestStep05>
             <TestStep10>Check4HIAxleBalance</TestStep10>
+            <TestStep15>MaintainSpeedForTime</TestStep15>
         </Tcase4HiTest>
 
         <Tcase4LoTest>
@@ -178,8 +184,8 @@
             AbortOnFail="False"/>
 
         <CheckAxleRatio Result="Not Tested" Timeout="30000" Description="Verify Axle Ratio" ScanDelay="500" 
-            SpeedSampleDelay="500" TargetSpeed="5" MinimumSpeed="5" MaximumSpeed="10" 
-            RatioSamples="10" SampleTime="500"/>
+            SpeedSampleDelay="500" TargetSpeed="9" MinimumSpeed="9" MaximumSpeed="19" 
+            RatioSamples="20" SampleTime="3000"/>
 
         <CheckShift2WD Result="Not Tested" Timeout="30000" Description="Test Tcase 2WD" ScanDelay="500" 
             SpeedSampleDelay="500" TcaseMessageDelay="5000" TransmissionMessageDelay="5000" 
@@ -202,6 +208,8 @@
         <DisengageMachine Result="" Timeout="3000" Description="Disengage machine for t-case testing"/>
 
         <FinishUp Result="Not Tested" Timeout="500" Description="Finish Tcase testing"/>
+
+        <MaintainSpeedForTime Result="Not Tested" Timeout="3000" Description="Maintain current speed for allotted time"/>
 
     </TestSteps>
 </MahindraTcaseTc>

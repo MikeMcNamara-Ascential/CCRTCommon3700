@@ -8,12 +8,12 @@
             <ConfigPath>/Configuration/Components/Machine</ConfigPath>
         </Machine>
 
-        <Transmission>
+        <!--Transmission>
             <ComponentName>MazdaTransTc.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
             <ConfigFile>MazdaAutoTransmissionConfig.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Transmission</ConfigPath>
-        </Transmission>
+        </Transmission-->
     </Components>
 
     <Test Result="Not Tested" Debug="Off">
@@ -32,7 +32,16 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase010>
-        
+
+        <TestPhase015 Description="Rain / Light sensor operator verification" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Rain / Light sensor operator verification" Result="" Timeout="" Component="Machine">
+                    <RainLightSensorVerification/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase015>
+
+<!--
         <TestPhase020 Description="Perform forward gear / speed prompting" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Perform forward gear / speed prompting" Result="" Timeout="" Component="Transmission">
@@ -48,6 +57,14 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase030>
+-->
+        <TestPhase035 Description="Non Prompted Sequence" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Instruct Operator to perform driving sequence" Result="" Timeout="" Component="Machine">
+                    <DriverQuestion>PerformDriveSequence</DriverQuestion>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase035>
 
         <TestPhase040 Description="Brake to stop at the end of the cycle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
@@ -57,19 +74,13 @@
             </ForegroundObjectives>
         </TestPhase040>
 
-        <TestPhase050 Description="Rain / Light sensor operator verification" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Rain / Light sensor operator verification" Result="" Timeout="" Component="Machine">
-                    <RainLightSensorVerification/>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase050>
-
         <TestPhase060 Description="Final checks and operator pass / fail" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
+<!--
                 <Objective0 Description="FinishUp" Result="" Timeout="" Component="Transmission">
                     <FinishUp/>
                 </Objective0>
+-->                
                 <Objective1 Description="Operator prompt and release vehicle" Result="" Timeout="" Component="Machine">
                     <FinishUp/>
                 </Objective1>

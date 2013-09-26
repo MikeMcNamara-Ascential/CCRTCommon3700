@@ -164,8 +164,8 @@
          <MinAbsDumpPercent Units="percent">0.80</MinAbsDumpPercent>
 
          <!-- Brake Test Parameters -->
-         <DefaultFrontAxleWeight Units="kg" ConvertToEnglishUnits="True">900</DefaultFrontAxleWeight>
-         <DefaultRearAxleWeight Units="kg" ConvertToEnglishUnits="True">450</DefaultRearAxleWeight>
+         <DefaultFrontAxleWeight Units="N" ConvertToEnglishUnits="False">8820</DefaultFrontAxleWeight>
+         <DefaultRearAxleWeight Units="N" ConvertToEnglishUnits="False">4413</DefaultRearAxleWeight>
          <NumberOfBrakeSamples>20</NumberOfBrakeSamples>
          <FrontAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedLf>
          <FrontAxleBrakeForceSpeedRf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedRf>

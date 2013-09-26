@@ -320,8 +320,12 @@ const string MazdaMachineTC::TestStepSpeedometer(const string &value)
 	// Set the result box color to let operator know testing has started
 	SystemWrite(GetDataTag("SpeedometerTestSpeedBGColor"), colorYellow);
 	// Get the vehicle build data
-	float minSpeed = GetParameter("SpeedometerSpeedTargetLow");
-	float maxSpeed = GetParameter("SpeedometerSpeedTargetHi");
+	/*bool convertSpeed = SystemReadBool(GetDataTag("SpeedDisplayScaling"));
+	float speedScaling = convertSpeed ? GetParameterFloat("SpeedConversionFactor") : 1.0;
+	string speedoType(convertSpeed ? "KPH" : "MPH");
+	*/
+    float minSpeed = GetVehicleParameter("SpeedTargets/MPH/SpeedometerSpeedTargetLow", float(0.0));
+	float maxSpeed = GetVehicleParameter("SpeedTargets/MPH/SpeedometerSpeedTargetHi", float(0.0));
 	char buff[32];
 	string dispMaxSpeed(CreateMessage(buff, sizeof(buff), "%.0f", maxSpeed));
 	string dispMinSpeed(CreateMessage(buff, sizeof(buff), "%.0f", minSpeed));
@@ -395,7 +399,7 @@ const string MazdaMachineTC::TestStepSpeedometer(const string &value)
 	// Report the result, log the exit and return
 	SendTestResultWithDetail(testResult, testDescription, "0000",
 							 "RollerSpeed", CreateMessage(buff, sizeof(buff), "%.2f", GetRollSpeed()),
-							 (speedScaling != 1.0) ? unitsKPH : unitsMPH);
+							  unitsMPH);
 	Log(LOG_FN_ENTRY, "MazdaMachineTC::TestStepSpeedometer() - Exit");
 	return testResult;
 }

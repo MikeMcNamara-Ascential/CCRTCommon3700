@@ -346,7 +346,7 @@
         <Reverse Result="" Description="Reverse Test Step" Timeout="300000" ScanDelay="250"/>
         <StartTest Result="" Description="Prompt the operator to press pass/fail button to start test" Timeout="30000" ScanDelay="250"/>
         <VehicleDisconnect Result="" Timeout="60000" Description="Disconnect vehicle from the machine" ScanDelay="2000"/>
-        <VehicleTestSetup Result="" Timeout="60000" Description="Vehicle testing setup" ScanDelay="200"/>
+        <VehicleTestSetup Result="" Timeout="600000" Description="Vehicle testing setup" ScanDelay="200"/>
         <InitializeTestHead Result="" Description="Follow Handshake Procedure To Setup ALC Interface" Timeout="300000" ScanDelay="250"/>
 
         <WaitForAcceleration Result="" Description="Wait for operator to start driving" Timeout="300000"/>

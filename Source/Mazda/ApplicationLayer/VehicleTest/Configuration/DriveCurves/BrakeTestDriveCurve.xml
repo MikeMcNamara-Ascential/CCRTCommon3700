@@ -29,14 +29,18 @@
         </TestPhase000>
         <TestPhase005 Description="Place machine in testing state" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Clear Diagnostics Test" Result="" Timeout="" Component="Brake">
-                    <DiagnosticClearRoutine/>
-                </Objective0>
                 <Objective1 Description="Move to test state" Result="" Timeout="" Component="Machine">
                     <MachineStartup/>
                 </Objective1>
             </ForegroundObjectives>
         </TestPhase005>
+        <TestPhase010 Description="Place vehicle in testing state" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Clear Diagnostics Test" Result="" Timeout="" Component="Brake">
+                    <DiagnosticClearRoutine/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase010>
 
 
         <!-- ABS Test Sequence -->

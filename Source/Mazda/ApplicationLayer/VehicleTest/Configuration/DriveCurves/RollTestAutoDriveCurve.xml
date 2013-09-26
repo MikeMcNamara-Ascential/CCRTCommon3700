@@ -49,7 +49,15 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase020>
-
+-->
+        <TestPhase025 Description="40KPH Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="40KPH Test" Result="" Timeout="" Component="Machine">
+                    <Speedometer/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase025>
+<!--
         <TestPhase030 Description="Reverse Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Reverse Test" Result="" Timeout="" Component="Transmission">
@@ -58,6 +66,9 @@
             </ForegroundObjectives>
         </TestPhase030>
 -->
+
+
+
         <TestPhase035 Description="Non Prompted Sequence" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Instruct Operator to perform driving sequence" Result="" Timeout="" Component="Machine">

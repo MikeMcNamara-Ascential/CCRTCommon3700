@@ -403,7 +403,11 @@ const std::string TestSequencer::SequenceTest(const std::string type)
 				}
 
 				if(m_currentPhase)	// if there is a phase to sequence
-				{
+				{   // Reset the in-cycle retest counter
+					if(!m_retestType.compare("Incycle") && !incycleRetest)
+					{
+						retestNumber = 0;
+					}
 					Log(LOG_DEV_DATA, "Sequencing: %s\n", m_currentPhase->ToString().c_str());
 					// if there are any tests to run
 					if(ResetPhase(incycleRetest))				// reset the phase in the drive curve

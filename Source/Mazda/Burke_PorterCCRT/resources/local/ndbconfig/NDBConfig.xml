@@ -1176,6 +1176,8 @@
                 <VehicleBuild DataType="string">VehicleDataBroker</VehicleBuild>
                 <VehicleBuildRecordStatus DataType="string">WorkCellController</VehicleBuildRecordStatus>
                 <VehicleCenteringPosition DataType="int">PLC</VehicleCenteringPosition>
+                <VehicleFrontAxleWeight DataType="short">PLC</VehicleFrontAxleWeight>
+                <VehicleRearAxleWeight DataType="short">PLC</VehicleRearAxleWeight>
                 <VehiclePresent DataType="bool">SystemMonitor</VehiclePresent>
                 <VehiclePresentAtBarcodeDelayTime DataType="short">PLC</VehiclePresentAtBarcodeDelayTime>
                 <VehiclePushersExtendedFault DataType="bool">PLC</VehiclePushersExtendedFault>

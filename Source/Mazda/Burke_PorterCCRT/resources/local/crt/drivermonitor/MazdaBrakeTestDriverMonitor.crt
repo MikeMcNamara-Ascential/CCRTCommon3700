@@ -205,6 +205,41 @@
                 </Widget>
             </VBox>
 
+            <!-- Vehicle Data -->
+            <HBox posX="620" posY="470" height="130" width="390" border="false">
+                <VBox>
+                    <Label name="aon">
+                        <Font size="28" name="sans-serif" style="bold"/>
+                    </Label>
+                    <Label name="frontaxleweight">
+                        <Font size="28" name="sans-serif" style="bold"/>
+                    </Label>
+                    <Label name="rearaxleweight">
+                        <Font size="28" name="sans-serif" style="bold"/>
+                    </Label>
+                </VBox>
+                <VBox width="10"/>
+                <VBox>
+                    <Widget id="_aon" class="com.bepco.gui.TextBox" screensaver="true">
+                        <DataSource tagname="Aon" messagetype="Subscribe" />
+                        <TextBoxConfig>
+                            <Font size="28" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget id="_frontweight" class="com.bepco.gui.NumberBox" width="140">
+                        <DataSource tagname="VehicleFrontAxleWeight" messagetype="Subscribe"/>
+                        <TextBoxConfig format="{0,number,0}">
+                            <Font size="28" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget id="rearweight" class="com.bepco.gui.NumberBox" width="140">
+                        <DataSource tagname="VehicleRearAxleWeight" messagetype="Subscribe"/>
+                        <TextBoxConfig format="{0,number,0}">
+                            <Font size="28" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                </VBox>
+            </HBox>
 
         </Layout>
     </XmlWidgetPanel>

@@ -31,10 +31,10 @@
             <!-- END OF Driver Prompt Boxes ================================= -->
 
             <!-- Roller Data -->
-            <HBox height="270" width="1005" posX="3" posY="0" border="true" borderstyle="title" bordertitle="speed">
+            <HBox height="270" width="1005" posX="3" posY="0" border="false" borderstyle="title" bordertitle="speed">
 
                 <!-- Wheel Speeds -->
-                <VBox height="200" width="360" posX="270" posY="70" border="false">
+                <VBox height="200" width="300" posX="0" posY="70" border="false">
                     <!-- Wheel Speeds -->
                     <HBox width="200" border="false">
                         <VBox width="60">
@@ -113,7 +113,44 @@
                     </HBox>
                 </VBox>
 
-                <VBox width="250"/>
+                <VBox width="20"/>
+
+                <!-- Brake Apply Transducers -->
+                <VBox height="200" width="260" posX="310" posY="70">
+                    <HBox>
+                        <Label name="brakepedalforce">
+                            <Font size="20" name="sans-serif" style="bold"/>
+                        </Label>
+                        <Widget id="_pedalforce" class="com.bepco.gui.NumberBox" width="80">
+                            <DataSource tagname="BrakePedalForceTransducer" messagetype="Read" datarate="10" />
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="20" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </HBox>
+                    <Widget id="brakePedal" class="com.bepco.gui.HorizontalBarGraph" height="30" width="250">
+                        <DataSource tagname="BrakePedalForceTransducer" messagetype="Read" datarate="10" />
+                        <BarGraphConfig domainhigh="1112" domainlow="0" targethigh="147" targetlow="177" />
+                    </Widget>
+                    <HBox height="40"/>
+                    <HBox>
+                        <Label name="pbHandleForce" width="145">
+                            <Font size="20" name="sans-serif" style="bold"/>
+                        </Label>
+                        <Widget id="_handleforce" class="com.bepco.gui.NumberBox" width="80">
+                            <DataSource tagname="PbHandleForceTransducer" messagetype="Read" datarate="10" />
+                            <TextBoxConfig convertunits="false" format="{0,number,#}">
+                                <Font size="20" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </HBox>
+                    <Widget id="parkBrakeHandle" class="com.bepco.gui.HorizontalBarGraph" height="30" width="250">
+                        <DataSource tagname="PbHandleForceTransducer" messagetype="Read" datarate="10" />
+                        <BarGraphConfig domainhigh="667" domainlow="0" targethigh="147" targetlow="177" />
+                    </Widget>
+                </VBox>
+
+                <VBox width="20"/>
 
                 <!-- Load Cell Reading -->
                 <VBox height="200" width="360" posX="455" posY="535" border="false" borderstyle="title" bordertitle="loadcellvalues">

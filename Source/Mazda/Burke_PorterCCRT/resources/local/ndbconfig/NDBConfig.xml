@@ -142,6 +142,7 @@
                 <BrakeLamp DataType="bool">PLC</BrakeLamp>
                 <BrakeOverallTest DataType="testcomponentstatus">TestResultServer</BrakeOverallTest>
                 <BrakePedalForce DataType="float" Units="KGF">MachineDataBroker</BrakePedalForce>
+                <BrakePedalForceTransducer DataType="short">PLC</BrakePedalForceTransducer>
                 <BrakeSimulation DataType="bool">DIO</BrakeSimulation>
                 <BrakeTarget DataType="range" Units="LBF">VehicleDataBroker</BrakeTarget>
                 <BrakeTestLamp DataType="bool">PLC</BrakeTestLamp>
@@ -726,6 +727,7 @@
                 <ParkingPawlTestFailed DataType="bool">PLC</ParkingPawlTestFailed>
                 <ParkingPawlTestPassed DataType="bool">PLC</ParkingPawlTestPassed>
                 <ParkNeutralSwitchTest DataType="string">VehicleTest</ParkNeutralSwitchTest>
+                <PbHandleForceTransducer DataType="short">PLC</PbHandleForceTransducer>
                 <PerformAbortTest DataType="string">VehicleDataBroker</PerformAbortTest>
                 <PerformAbortTestBGColor DataType="color">VehicleDataBroker</PerformAbortTestBGColor>
                 <PinionFactor DataType="string">VehicleDataBroker</PinionFactor>

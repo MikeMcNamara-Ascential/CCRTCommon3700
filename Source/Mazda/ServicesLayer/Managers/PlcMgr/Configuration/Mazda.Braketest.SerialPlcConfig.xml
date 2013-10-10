@@ -734,9 +734,10 @@
         <Encoder5VPowerSupplyVoltage channelIndex="25" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
 
         <!-- N17:26 -->
-        <BoostPressureFeedBack channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+        <BrakePedalForceTransducer channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
 
-        <!-- N17:27 - OPEN -->
+        <!-- N17:27 -->
+        <PbHandleForceTransducer channelIndex="27" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
 
         <!-- N17:28 -->
         <VehicleFrontAxleWeight channelIndex="28" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
@@ -765,12 +766,13 @@
         <!-- N17:31 -->
         <CurrentVehiclePosition channelIndex="31" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
 
-        <!-- N17:32 -->
+        <!-- N17:32 - N17:35 -->
         <LFLoadCellValueRaw channelIndex="32" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <RFLoadCellValueRaw channelIndex="33" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <LRLoadCellValueRaw channelIndex="34" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <RRLoadCellValueRaw channelIndex="35" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
-      
+
+
 
         <OutputToPlcWord00 channelIndex="0" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <OutputToPlcWord01 channelIndex="1" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>

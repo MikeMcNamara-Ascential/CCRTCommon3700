@@ -115,6 +115,7 @@
                 <BrakeForceValue DataType="float" Units="LBF">MachineDataBroker</BrakeForceValue>
                 <BrakeLamp DataType="bool">PLC</BrakeLamp>
                 <BrakeOverallTest DataType="testcomponentstatus">TestResultServer</BrakeOverallTest>
+                <BrakePedalForceTransducer DataType="short">PLC</BrakePedalForceTransducer>
                 <BrakeSwitchTestComplete DataType="bool">PLC</BrakeSwitchTestComplete>
                 <BrakeTCSValveFiringTest DataType="testcomponentstatus">TestResultServer</BrakeTCSValveFiringTest>
                 <BrakeTarget DataType="range" Units="LBF">VehicleDataBroker</BrakeTarget>
@@ -654,6 +655,7 @@
                 <ParkBrakeForceBGColor DataType="color">MachineDataBroker</ParkBrakeForceBGColor>
                 <ParkBrakeBalanceValue DataType="short">MachineDataBroker</ParkBrakeBalanceValue>
                 <ParkBrakeBalanceBGColor DataType="color">MachineDataBroker</ParkBrakeBalanceBGColor>
+                <PbHandleForceTransducer DataType="short">PLC</PbHandleForceTransducer>
                 <PlcCountdown DataType="short">PLC</PlcCountdown>
                 <PLC5Rack0Fault DataType="bool">PLC</PLC5Rack0Fault>
                 <PLC5Rack1Fault DataType="bool">PLC</PLC5Rack1Fault>

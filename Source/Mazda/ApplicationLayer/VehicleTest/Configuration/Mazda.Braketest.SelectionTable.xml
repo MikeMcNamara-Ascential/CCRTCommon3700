@@ -1,7 +1,11 @@
 <SelectionTable Description="Mazda drive curve selection table">
 
+    <AbsBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/AbsBrakeTestDriveCurve.xml">
+        <BrakeType>ABS</BrakeType>
+    </AbsBrake>
+
     <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BrakeTestDriveCurve.xml">
-        <!-- BodyStyle>Camry</BodyStyle -->
+        <BrakeType>Non-ABS</BrakeType>
     </BaseBrake>
 
-    </SelectionTable>
+</SelectionTable>

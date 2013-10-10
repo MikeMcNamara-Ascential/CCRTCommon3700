@@ -16,6 +16,7 @@
             <BuildItem02 BuildTag="BodyStyle">VehicleTypeFromPLC</BuildItem02>
             <BuildItem03 BuildTag="PerformRlsTest">RlsEquipped</BuildItem03>
             <BuildItem04 BuildTag="Transmission">AutomaticTransmission</BuildItem04>
+            <BuildItem05 BuildTag="BrakeType">ABSTestSelectedFromPLC</BuildItem05>
         </BuildDataTags>
         <DataTags>
             <AonTag>Aon</AonTag>

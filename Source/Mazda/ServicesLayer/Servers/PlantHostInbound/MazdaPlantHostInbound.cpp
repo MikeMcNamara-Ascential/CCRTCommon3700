@@ -134,6 +134,11 @@ string MazdaPlantHostInbound::CreateBuildRecord(void)
 						itemValue = atob(itemValue.c_str()) ? "Automatic" : "Manual";
 						Log(LOG_DEV_DATA, "Set transmission type to %s", itemValue.c_str());
 					}
+					else if(!buildTag.compare("BrakeType"))
+					{
+						itemValue = atob(itemValue.c_str()) ? "ABS" : "Non-ABS";
+						Log(LOG_DEV_DATA, "Set brake type to %s", itemValue.c_str());
+					}
 					AddVehicleBuildItem(buildTag, itemValue, m_vehicleBuild);
 					Log(LOG_DEV_DATA, "Added build item: %s = %s", buildTag.c_str(), itemValue.c_str());
 				}

@@ -414,7 +414,17 @@ const string MazdaMachineTC::StartTest(void)
 	testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
 	RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 
+#if 0
+	DisplayPrompt(GetPromptBox("StartTest"), GetPrompt("StartTest"), GetPromptPriority("StartTest"));
+	while(TimeRemaining() && (BEP_STATUS_SUCCESS && StatusCheck()) && !SystemReadBool(string(ROLLS_UP_DATA_TAG)))
+	{
+		BposSleep(1000);
+	}
+
+
+
 	testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
+#endif
 
 	Log(LOG_FN_ENTRY, "MazdaMachineTC::StartTest() - Exit - %s", testResult.c_str());
 

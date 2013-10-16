@@ -85,6 +85,10 @@
             <ParkingBrakeTestFailed>ParkingBrakeTestFailed</ParkingBrakeTestFailed>
             <ParkingBrakeTestPass>ParkingBrakeTestPass</ParkingBrakeTestPass>
             <Pass>green</Pass>
+            <PassButton>DriverPass</PassButton>
+            <FailButton>DriverFail</FailButton>
+            <YesButton>DriverPass</YesButton>
+            <NoButton>DriverFail</NoButton>
             <Rear>Rear</Rear>
             <RFSpeed>RFSpeed</RFSpeed>
             <RRSpeed>RRSpeed</RRSpeed>
@@ -119,6 +123,7 @@
             <LogTaskStatInfo>Yes</LogTaskStatInfo>
             <SpeedConversionFactor>1.609344</SpeedConversionFactor>
             <SingleEncoder>True</SingleEncoder>
+            <UsePlcResultButtons>True</UsePlcResultButtons>
             <VehicleSpeedNeededForStart Units="mph">5</VehicleSpeedNeededForStart>
 
             <!-- Maintain speed parameters -->

@@ -165,7 +165,7 @@
             <MinAbsDumpPercent Units="percent">0.80</MinAbsDumpPercent>
 
             <!-- Brake Test Parameters -->
-            <DefaultFrontAxleWeight Units="N" ConvertToEnglishUnits="False">8820</DefaultFrontAxleWeight>
+            <DefaultFrontAxleWeight Units="N" ConvertToEnglishUnits="False">7350</DefaultFrontAxleWeight>
             <DefaultRearAxleWeight Units="N" ConvertToEnglishUnits="False">4413</DefaultRearAxleWeight>
             <NumberOfBrakeSamples>20</NumberOfBrakeSamples>
             <FrontAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedLf>
@@ -190,7 +190,7 @@
             <RfDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</RfDragTestSpeed>
             <LrDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</LrDragTestSpeed>
             <RrDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</RrDragTestSpeed>
-            <NumberOfDragSamples>50</NumberOfDragSamples>
+            <NumberOfDragSamples>25</NumberOfDragSamples>
 
             <!-- Park Brake Test Parameters -->
             <ParkBrakeAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">0.0</ParkBrakeAxleBrakeForceSpeedLf>
@@ -206,7 +206,7 @@
             <LrSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">5.5</LrSpeedSensorCheckSpeed>
             <RrSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">6.5</RrSpeedSensorCheckSpeed>
             <SetWheelspeedTolerance Units="percent">5.0</SetWheelspeedTolerance>
-            <SpeedSensorTestTime Units="ms">10000</SpeedSensorTestTime>
+            <SpeedSensorTestTime Units="ms">1000</SpeedSensorTestTime>
 
             <!-- Mazda Test Head Test Steps -->
             <MazdaTestHeadTestSteps>
@@ -328,8 +328,8 @@
     <Objectives>
 
         <AbsTests>
-            <TestStep00>StartBrakeSwitchTest</TestStep00>
-            <TestStep05>SpeedSensorCheck</TestStep05>
+            <TestStep00>SpeedSensorCheck</TestStep00>
+            <TestStep05>StartBrakeSwitchTest</TestStep05>
         </AbsTests>
 
         <DragTest>

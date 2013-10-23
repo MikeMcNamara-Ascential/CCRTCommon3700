@@ -322,7 +322,7 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
 			RemovePrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
 		}
 		// Disable the rollers
-		DisableRollMotors(SPEED_MODE);
+//		DisableRollMotors(SPEED_MODE);
 	}
 	else
 	{   // Do not need to run this test

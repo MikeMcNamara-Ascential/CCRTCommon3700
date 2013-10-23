@@ -411,7 +411,7 @@ const string MazdaMachineTC::StartTest(void)
 
 	string testResult(BEP_TESTING_RESPONSE);
 	DisplayPrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
-	testResult = GenericTC::OperatorPassFail(GetPrompt("StartTest"), GetParameterInt("StartTestTimeoutPrompt")); 
+	testResult = GenericTC::OperatorPassFail("StartTest", GetParameterInt("StartTestTimeoutPrompt")); 
 	RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 
 #if 0

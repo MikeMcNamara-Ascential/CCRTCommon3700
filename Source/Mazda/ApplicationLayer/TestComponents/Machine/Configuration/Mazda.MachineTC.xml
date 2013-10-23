@@ -64,7 +64,7 @@
         <DataTags>
             <!-- To do -->
             <BroadcastRLSEquippedType>BodyStyle</BroadcastRLSEquippedType>
-
+            <CommandSysMonRaiseRolls>CommandSysMonRaiseRolls</CommandSysMonRaiseRolls>
             <DriveAxle>DriveAxle</DriveAxle>
             <EnableLightAndSprayDevice>TurnOnAuxillaryOutputOne</EnableLightAndSprayDevice>
             <EngineRunningTag>IgnitionOnFromTestHead</EngineRunningTag>

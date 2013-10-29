@@ -120,7 +120,7 @@
             // 
             // EsnLeadingChars
             // 
-            this.EsnLeadingChars.HeaderText = "ESN Leading Characters";
+            this.EsnLeadingChars.HeaderText = "ESN Engine Code";
             this.EsnLeadingChars.Name = "EsnLeadingChars";
             // 
             // ModelCodeSpecificSettings
@@ -133,7 +133,7 @@
             this.Controls.Add(this.m_closeButton);
             this.Controls.Add(this.m_saveButton);
             this.Controls.Add(this.m_modelOptionsDGV);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ModelCodeSpecificSettings";
             this.Text = "ModelCodeSpecificSettings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModelCodeSpecificSettings_FormClosing);

@@ -88,7 +88,7 @@
             // 
             this.m_writeESNCheckBox.AutoSize = true;
             this.m_writeESNCheckBox.Location = new System.Drawing.Point(142, 37);
-            this.m_writeESNCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.m_writeESNCheckBox.Margin = new System.Windows.Forms.Padding(2);
             this.m_writeESNCheckBox.Name = "m_writeESNCheckBox";
             this.m_writeESNCheckBox.Size = new System.Drawing.Size(15, 14);
             this.m_writeESNCheckBox.TabIndex = 16;
@@ -106,9 +106,9 @@
             this.m_esnLeadingCharsLabel.AutoSize = true;
             this.m_esnLeadingCharsLabel.Location = new System.Drawing.Point(9, 62);
             this.m_esnLeadingCharsLabel.Name = "m_esnLeadingCharsLabel";
-            this.m_esnLeadingCharsLabel.Size = new System.Drawing.Size(127, 13);
+            this.m_esnLeadingCharsLabel.Size = new System.Drawing.Size(96, 13);
             this.m_esnLeadingCharsLabel.TabIndex = 17;
-            this.m_esnLeadingCharsLabel.Text = "ESN Leading Characters:";
+            this.m_esnLeadingCharsLabel.Text = "ESN Engine Code:";
             // 
             // AddModelSpecificOptionsForm
             // 
@@ -123,7 +123,7 @@
             this.Controls.Add(this.m_upcLabel);
             this.Controls.Add(this.m_modelCodeTextBox);
             this.Controls.Add(this.m_itemNameLabel);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "AddModelSpecificOptionsForm";
             this.Text = "AddModelSpecificOptionsForm";
             this.ResumeLayout(false);

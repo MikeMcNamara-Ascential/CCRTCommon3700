@@ -2403,11 +2403,23 @@ string IsuzuEmissionsTc<ModuleType>::CheckSerialNumber(void)
             {
                 // Read the part number from the module
                 fileSerialNumber = GetSerialNumberFromFile();
-                // Remove space from serial number
-                fileSerialNumber = fileSerialNumber.substr(0,5) + fileSerialNumber.substr(6,10);
+				INT32 engineCodeStartLocation = 0;
+				// Determine if the serial number needs to have a space removed
+				if(fileSerialNumber[0] == '1')
+				{   // Remove space from serial number
+					fileSerialNumber = fileSerialNumber.substr(0,5) + fileSerialNumber.substr(6,10);
+					engineCodeStartLocation = GetParameterInt("EngineCodeStartLocation_1D");
+				}
+				else
+				{
+					engineCodeStartLocation = GetParameterInt("EngineCodeStartLocation_2D");
+				}
+				Log(LOG_DEV_DATA, "Checking for engine code %s starting at index %d",
+					leadingCharacters.c_str(), engineCodeStartLocation);
+
                 if (fileSerialNumber.length() == GetParameterInt("ESNLength"))                
                 {
-                    if (!fileSerialNumber.compare(0,leadingCharacters.length(),leadingCharacters))
+                    if (!fileSerialNumber.compare(engineCodeStartLocation,leadingCharacters.length(),leadingCharacters))
                     {
                         moduleStatus = m_vehicleModule.ReadModuleData("ReadSerialNumber", moduleSerialNumber);
                         // Check the status of the data

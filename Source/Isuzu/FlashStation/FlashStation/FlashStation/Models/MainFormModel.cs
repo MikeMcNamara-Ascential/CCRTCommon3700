@@ -269,14 +269,26 @@ namespace Common.Lib.Models
                 if (m_buildData[0].ESNWriteRequired)
                 {
                     Prompt prompt = new Prompt();
-                    string esn = GetESN(m_buildData[0].VIN, m_esnDirectory).Remove(5,1);
+                    string tempEsn = GetESN(m_buildData[0].VIN, m_esnDirectory);
+                    string esn = "";
+                    Int32 engineCodeStartIndex = 0;
+                    if (tempEsn[0] == '1')
+                    {
+                        esn = tempEsn.Remove(5,1);
+                        engineCodeStartIndex = 2;
+                    }
+                    else
+                    {
+                        esn = tempEsn;
+                        engineCodeStartIndex = 8;
+                    }
                     m_buildData[0].EngineSerialNumber = esn;
                     string esnLeadingChars = m_buildData[0].ESNLeadingCharacters;
                     if (m_buildData[0].EngineSerialNumber.Length == 15)
                     {
                         if (esnLeadingChars.Length <= m_buildData[0].EngineSerialNumber.Length)
                         {//validate leading characters match
-                            if (m_buildData[0].EngineSerialNumber.Substring(0, esnLeadingChars.Length) != esnLeadingChars)
+                            if (m_buildData[0].EngineSerialNumber.Substring(engineCodeStartIndex, esnLeadingChars.Length) != esnLeadingChars)
                             {//fail
                                 buildDataValid = false;
                                 m_logger.Log("ERROR:  ESN Leading Character mismatch ESN: " + m_buildData[0].EngineSerialNumber + "Leading Characters to match: " + esnLeadingChars);

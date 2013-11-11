@@ -14,6 +14,7 @@ using UtilityFileInterpreter;
 using FileChangeMonitor;
 using J2534ChannelLibrary;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Common.Lib.Models
 {
@@ -1878,18 +1879,18 @@ namespace Common.Lib.Models
 
 
         //To do Make Configurable
-        private string m_flashFileDirectory = "C:\\FlashStation\\CalFiles\\";
-        private string m_buildFileDirectory = "C:\\FlashStation\\BuildFiles\\";
-        private string m_esnDirectory = "C:\\FlashStation\\ESN\\";
-        private string m_tempBuildFileDirectory = "C:\\FlashStation\\TempBuildFiles\\";
-        private string m_tempESNDirectory = "C:\\FlashStation\\TempESNFiles\\";
-        private string m_resultsDirectory = "C:\\FlashStation\\Results\\";
-        private string m_logsDirectory = "C:\\FlashStation\\Logs\\";
+        private string m_flashFileDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\CalFiles\";
+        private string m_buildFileDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\BuildFiles\";
+        private string m_esnDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\ESN\";
+        private string m_tempBuildFileDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\TempBuildFiles\";
+        private string m_tempESNDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\TempESNFiles\";
+        private string m_resultsDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\Results\";
+        private string m_logsDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\Logs\"; 
+        private string m_passIndicationLocalDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\TransferFiles\";
+
         private string m_remoteBuildFileDirectory = "G:\\Rewrite\\Configuration\\VehicleTest\\BuildRecords\\";
         private string m_remoteESNDirectory = "G:\\Rewrite\\TestResults\\ESN\\";
-        //private string m_remoteESNDirectory = "C:\\FlashStation\\ESNFrom\\";
         private string m_passIndicationSharedDirectory = "G:\\Rewrite\\TestResults\\PassConfirmation\\";
-        private string m_passIndicationLocalDirectory = "C:\\FlashStation\\TransferFiles\\";
 
         /// <summary>
         /// Constant value - max result files to store

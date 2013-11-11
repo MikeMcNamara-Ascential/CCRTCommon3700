@@ -248,9 +248,14 @@ private:
 	 * The individual motor command values will be set to 0.
 	 * The motor mode will also be switched back to BOOST mode.
 	 * 
+	 * @param motorMode Mode the motor was in after enabling the motor.
+	 * @param waitForZeroSpeed
+	 *                  Flag to indicate if the software should wait for the roller speeds to reach zero
+	 *                  before continuing on.
+	 * 
 	 * @return Status of disabling the motors.
 	 */
-	BEP_STATUS_TYPE DisableRollMotors(const string motorMode);
+	BEP_STATUS_TYPE DisableRollMotors(const string motorMode, bool waitForZeroSpeed = true);
 
 	/**
 	 * Get the axle weight for the specified axle.

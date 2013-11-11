@@ -30,7 +30,7 @@
         <TestPhase005 Description="Place machine in testing state" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective1 Description="Move to test state" Result="" Timeout="" Component="Machine">
-                    <MachineStartup/>
+                    <MachineStartupBaseBrake/>
                 </Objective1>
             </ForegroundObjectives>
         </TestPhase005>
@@ -67,6 +67,24 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase113>
+
+
+        <!-- Finish up the test sequence -->
+        <TestPhase998 Description="Stop the rollers" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Stop the rollers" Result="" Timeout="" Component="Brake">
+                    <StopRollers/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase998>
+
+        <TestPhase999 Description="Test finish up" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Test sequence finish up" Result="" Timeout="" Component="Machine">
+                    <FinishUp/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase999>
 
     </Test>
 </DriveCurve>

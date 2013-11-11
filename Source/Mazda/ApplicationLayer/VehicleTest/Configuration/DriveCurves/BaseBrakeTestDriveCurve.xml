@@ -34,13 +34,13 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase003 -->
-        <!-- TestPhase005 Description="Setup the machine for testing: cable connect, start button etc" Result="" Timeout="">
+        <TestPhase005 Description="Setup the machine for testing: start button etc" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Drag Test" Result="" Timeout="" Component="Machine">
-                    <MachineStartup/>
+                    <MachineStartupBaseBrake/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase005 -->
+        </TestPhase005>
         
         <TestPhase010 Description="Perform brake drag test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">

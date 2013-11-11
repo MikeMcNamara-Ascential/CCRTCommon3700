@@ -213,6 +213,11 @@
             <TestStep20>RaiseRollsLowerElevators</TestStep20>
         </MachineStartup>
 
+        <MachineStartupBaseBrake>
+            <TestStep10>StartTest</TestStep10>
+            <TestStep20>RaiseRollsLowerElevators</TestStep20>
+        </MachineStartupBaseBrake>
+
         <LowerElevators>
             <TestStep01>RaiseRollsLowerElevators</TestStep01>            
         </LowerElevators>
@@ -340,6 +345,9 @@
         <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="300000" 
             Prompt1="BrakeToStop" Prompt1Priority="0"/>
 
+        <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" 
+            Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+
         <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1Priority="0"/>
 
         <MachineReady Result="" Description="Wait until the machine is ready to perform a test" Timeout="15000" 
@@ -378,7 +386,6 @@
         <ConnectCable Result="" Description="Prompt the driver to connect the vehicle cable" Timeout="20000" Prompt1="ConnectCable" Prompt1Priority="0"/>
         <DisableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" PumpStatusChangeDelay="500" Timeout="1000"/>
         <EnableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" PumpStatusChangeDelay="1000" Timeout="1000"/>
-        <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
         <AxleRatio Result="" Description="Four wheel drive Axle Ratio Test Step" Timeout="120000" SpeedTarget="20 30" TargetSpeed="25" AxleRatioMin="90.0" AxleRatioMax="105.0"/>
         <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" Timeout="0" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>
         <MultiDriverQuestion Description="Prompt the driver with a set of questions and get a response of Pass/Fail or Yes/No">

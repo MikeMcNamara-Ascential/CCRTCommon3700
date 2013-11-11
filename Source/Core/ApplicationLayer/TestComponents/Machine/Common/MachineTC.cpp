@@ -1972,7 +1972,7 @@ const string MachineTC::RaiseRollsLowerElevators (void)
                 bool done = false;
                 while((StatusCheck() == BEP_STATUS_SUCCESS) && TimeRemaining() && !done)
                 {
-                    if(ReadSubscribeData(GetDataTag("RollsUpElevDown")) != "1")    BposSleep(250);
+                    if(ReadSubscribeData(ROLLS_UP_DATA_TAG) != "1")    BposSleep(250);
                     else
                     {
                         Log(LOG_FN_ENTRY, "Vehicle retained\n");

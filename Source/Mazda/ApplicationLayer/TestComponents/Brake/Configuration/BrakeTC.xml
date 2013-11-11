@@ -134,7 +134,7 @@
             <IgnoreMachineConditions>True</IgnoreMachineConditions>
             <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
             <OperatorReactionTime Units="ms">3000</OperatorReactionTime>
-            <SamplesAboveLimitToStartAverage>10</SamplesAboveLimitToStartAverage>
+            <SamplesAboveLimitToStartAverage>5</SamplesAboveLimitToStartAverage>
             <TestCompleteCheckDelay Units="ms">250</TestCompleteCheckDelay>
             <TestHeadStatusBitDelay Units="ms">2500</TestHeadStatusBitDelay>
             <TestInProgressColor>yellow</TestInProgressColor>
@@ -152,22 +152,23 @@
             <MotorReactionTime Units="ms">1000</MotorReactionTime>
             <PulsesPerRevolution>1250</PulsesPerRevolution>
             <RollerDiameter Units="inches">19.5275</RollerDiameter>
+            <WaitForOperator>False</WaitForOperator>
 
             <!-- ABS Test Parameters -->
             <AbsBuildDelay Units="ms">500</AbsBuildDelay>
-            <AbsBuildMaxPercent Units="percent">1.50</AbsBuildMaxPercent>
-            <AbsBuildMinPercent Units="percent">0.60</AbsBuildMinPercent>
-            <MaxAbsBuildComparePercent Units="percent">1.50</MaxAbsBuildComparePercent>
-            <MinAbsBuildComparePercent Units="percent">0.80</MinAbsBuildComparePercent>
-            <AbsDumpMaxLimit Units="N" ConvertToEnglishUnits="False">294</AbsDumpMaxLimit>
+            <AbsBuildMaxPercent Units="percent">2.50</AbsBuildMaxPercent>
+            <AbsBuildMinPercent Units="percent">0.0</AbsBuildMinPercent>
+            <MaxAbsBuildComparePercent Units="percent">2.50</MaxAbsBuildComparePercent>
+            <MinAbsBuildComparePercent Units="percent">0.0</MinAbsBuildComparePercent>
+            <AbsDumpMaxLimit Units="N" ConvertToEnglishUnits="False">600</AbsDumpMaxLimit>
             <AbsMonitorDelay Units="ms">100</AbsMonitorDelay>
-            <MaxAbsDumpPercent Units="percent">1.50</MaxAbsDumpPercent>
-            <MinAbsDumpPercent Units="percent">0.80</MinAbsDumpPercent>
+            <MaxAbsDumpPercent Units="percent">2.50</MaxAbsDumpPercent>
+            <MinAbsDumpPercent Units="percent">0.0</MinAbsDumpPercent>
 
             <!-- Brake Test Parameters -->
-            <DefaultFrontAxleWeight Units="N" ConvertToEnglishUnits="False">7350</DefaultFrontAxleWeight>
-            <DefaultRearAxleWeight Units="N" ConvertToEnglishUnits="False">4413</DefaultRearAxleWeight>
-            <NumberOfBrakeSamples>20</NumberOfBrakeSamples>
+            <DefaultFrontAxleWeight Units="N" ConvertToEnglishUnits="False">735</DefaultFrontAxleWeight>
+            <DefaultRearAxleWeight Units="N" ConvertToEnglishUnits="False">441</DefaultRearAxleWeight>
+            <NumberOfBrakeSamples>10</NumberOfBrakeSamples>
             <FrontAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedLf>
             <FrontAxleBrakeForceSpeedRf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedRf>
             <FrontAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">0.0</FrontAxleBrakeForceSpeedLr>
@@ -177,20 +178,21 @@
             <RearAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedLr>
             <RearAxleBrakeForceSpeedRr Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedRr>
             <FrontBrakeLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.45</FrontBrakeLimit>
-            <FrontBrakeDiffLimit Units="% of front axle brake force" ConvertToEnglishUnits="False">0.08</FrontBrakeDiffLimit>
+            <FrontBrakeDiffLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.08</FrontBrakeDiffLimit>
             <RearBrakeLimit Units="% of rear axle weight" ConvertToEnglishUnits="False">0.10</RearBrakeLimit>
-            <RearBrakeDiffLimit Units="% of rear axle brake force" ConvertToEnglishUnits="False">0.08</RearBrakeDiffLimit>
+            <RearBrakeDiffLimit Units="% of rear axle weight" ConvertToEnglishUnits="False">0.08</RearBrakeDiffLimit>
     
             <!-- Drag Test Parameters -->
+            <DisableMotorsAfterDragTest>False</DisableMotorsAfterDragTest>
             <FrontDragDiffLimit Units="N" ConvertToEnglishUnits="False">10.0</FrontDragDiffLimit>
             <RearDragDiffLimit Units="N" ConvertToEnglishUnits="False">10.0</RearDragDiffLimit>
-            <FrontDragLimit Units="N" ConvertToEnglishUnits="False">50.0</FrontDragLimit>
-            <RearDragLimit Units="N" ConvertToEnglishUnits="False">50.0</RearDragLimit>
+            <FrontDragLimit Units="N" ConvertToEnglishUnits="False">90.0</FrontDragLimit>
+            <RearDragLimit Units="N" ConvertToEnglishUnits="False">90.0</RearDragLimit>
             <LfDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</LfDragTestSpeed>
             <RfDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</RfDragTestSpeed>
             <LrDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</LrDragTestSpeed>
             <RrDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</RrDragTestSpeed>
-            <NumberOfDragSamples>25</NumberOfDragSamples>
+            <NumberOfDragSamples>10</NumberOfDragSamples>
 
             <!-- Park Brake Test Parameters -->
             <ParkBrakeAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">0.0</ParkBrakeAxleBrakeForceSpeedLf>
@@ -198,7 +200,7 @@
             <ParkBrakeAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedLr>
             <ParkBrakeAxleBrakeForceSpeedRr Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedRr>
             <ParkBrakeBrakeLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.08</ParkBrakeBrakeLimit>
-            <ParkBrakeBrakeDiffLimit Units="% of total axle brake force" ConvertToEnglishUnits="False">0.08</ParkBrakeBrakeDiffLimit>
+            <ParkBrakeBrakeDiffLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.08</ParkBrakeBrakeDiffLimit>
 
             <!-- Wheel Speed Sensor Test Paramerters -->
             <LfSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</LfSpeedSensorCheckSpeed>
@@ -222,11 +224,16 @@
 
         </Parameters>
         <Prompts>
+            <AbsValveFiring PromptBox="1" Priority="0">AbsValveFiring</AbsValveFiring>
             <ApplyBrake PromptBox="1" Priority="0" Duration="3000">ApplyBrake</ApplyBrake>
-            <ApplyParkBrake PromptBox="2" Priority="0" Duration="3000">ApplyParkBrake</ApplyParkBrake>
+            <ApplyParkBrake PromptBox="1" Priority="0" Duration="3000">ApplyParkBrake</ApplyParkBrake>
+            <BrakeForceTesting PromptBox="2" Priority="0">BrakeForceTesting</BrakeForceTesting>
+            <ClearDiagnostics PromptBox="1" Priority="0">ClearDiagnostics</ClearDiagnostics>
+            <DragForceTest PromptBox="1" Priority="0">DragForceTesting</DragForceTest>
             <NeutralPrompt PromptBox="1" Priority="0" Duration="3000">ShiftToNeutral</NeutralPrompt>
             <ReleaseParkBrake PromptBox="2" Priority="0" Duration="3000">ReleaseParkBrake</ReleaseParkBrake>
             <RemoveFootFromBrake PromptBox="2" Priority="0" Duration="3000">RemoveFootFromBrake</RemoveFootFromBrake>
+            <SpeedSensorCheck PromptBox="1" Priority="0">SpeedSensorCheck</SpeedSensorCheck>
             <VehicleFaultCheck PromptBox="1" Priority="0">CheckingVehicle</VehicleFaultCheck>
         </Prompts>
         <!-- ============================================================================================== -->
@@ -344,14 +351,14 @@
             <TestStep10>BrakeTestStart</TestStep10>
             <TestStep15>AbsLfTest</TestStep15>
             <TestStep25>BrakeTestStop</TestStep25>
-            <TestStep30 AltValue="3000">TestHeadWait</TestStep30>
+            <TestStep30 AltValue="500">TestHeadWait</TestStep30>
         </AbsLfTest>
 
         <AbsRfTest>
             <TestStep10>BrakeTestStart</TestStep10>
             <TestStep20>AbsRfTest</TestStep20>
             <TestStep25>BrakeTestStop</TestStep25>
-            <TestStep30 AltValue="3000">TestHeadWait</TestStep30>
+            <TestStep30 AltValue="500">TestHeadWait</TestStep30>
         </AbsRfTest>
 
         <ParkBrakeTest>
@@ -366,14 +373,14 @@
             <TestStep40>BrakeTestStart</TestStep40>
             <TestStep45>AbsLrTest</TestStep45>
             <TestStep55>BrakeTestStop</TestStep55>
-            <TestStep60 AltValue="3000">TestHeadWait</TestStep60>
+            <TestStep60 AltValue="500">TestHeadWait</TestStep60>
         </AbsLrTest>
 
         <AbsRrTest>
             <TestStep10>BrakeTestStart</TestStep10>
             <TestStep50>AbsRrTest</TestStep50>
             <TestStep55>BrakeTestStop</TestStep55>
-            <TestStep60 AltValue="3000">TestHeadWait</TestStep60>
+            <TestStep60 AltValue="500">TestHeadWait</TestStep60>
             <TestStep99>BrakeTestComplete</TestStep99>
         </AbsRrTest>
 
@@ -383,11 +390,17 @@
 
         <FaultCheckRoutine>
             <TestStep00>FaultCheckRoutine</TestStep00>
+            <TestStep99>StopRollers</TestStep99>
         </FaultCheckRoutine>
 
         <Setup>
             <TestStep00>Initialize</TestStep00>
         </Setup>
+
+        <StopRollers>
+            <TestStep99>StopRollers</TestStep99>
+        </StopRollers>
+
     </Objectives>
 
     <!-- ============================================================================================== -->
@@ -419,6 +432,7 @@
             TestHeadTestName="BrakeSwitchTest"/>
         <StopBrakeSwitchTest Result="" Timeout="100000000" Description="Brake switch test"
             TestHeadTestName="BrakeSwitchTest"/>
+        <StopRollers Result="" Timeout="100000000" Description="Stop the rollers"/>
         <TestHeadWait Result="" Timeout="500" Description="Wait for the Mazda TEster to be ready"/>
     </TestSteps>
 </BrakeTC>

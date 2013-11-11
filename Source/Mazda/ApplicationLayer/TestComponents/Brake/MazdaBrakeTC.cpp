@@ -48,6 +48,7 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
 		else if(!GetTestStepName().compare("BrakeTestComplete"))      testResult = BrakeTestingComplete();
 		else if(!GetTestStepName().compare("BrakeTestStart"))
 		{
+			DisplayPrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
 			testResult = SystemWrite(GetDataTag("RunBrakeTestTag"), true) == BEP_STATUS_SUCCESS ? testPass : testFail;
 		}
 		else if(!GetTestStepName().compare("BrakeTestStop"))
@@ -64,6 +65,10 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
 		else if(!GetTestStepName().compare("SpeedSensorCheck"))       testResult = SpeedSensorCheck();
 		else if(!GetTestStepName().compare("StartBrakeSwitchTest"))   testResult = MazdaBrakeSwitchTest("Start");
 		else if(!GetTestStepName().compare("StopBrakeSwitchTest"))    testResult = MazdaBrakeSwitchTest("Stop");
+		else if(!GetTestStepName().compare("StopRollers"))            
+		{
+			testResult = (BEP_STATUS_SUCCESS == WaitForWheelSpeedsToBeReached(0.0, 0.0, 0.0, 0.0)) ? testPass : testFail;
+		}
 		else if(!GetTestStepName().compare("TestHeadWait"))           testResult = WaitForMazdaTester(BposReadInt(value.c_str()));
 		else 
 			testResult = GenericBaseBrakeTC::CommandTestStep(value);
@@ -98,9 +103,9 @@ void MazdaBrakeTC::Initialize(const XmlNode *config)
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::BrakeTestingComplete(void)
 {
-	DisableRollMotors(SPEED_MODE);
-	DisplayTimedPrompt(GetPrompt("RemoveFootFromBrake"), GetPromptBox("RemoveFootFromBrake"), 
-					   GetPromptPriority("RemoveFootFromBrake"), GetPromptDuration("RemoveFootFromBrake"));
+	DisableRollMotors(SPEED_MODE, false);
+	DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), 
+				  GetPromptPriority("RemoveFootFromBrake"));
 	return testPass;
 }
 
@@ -111,9 +116,11 @@ string MazdaBrakeTC::ClearDiagnostics(void)
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
 	{
+		DisplayPrompt(GetPromptBox("ClearDiagnostics"), GetPrompt("ClearDiagnostics"), GetPromptPriority("ClearDiagnostics"));
 		result = PerformTestHeadTest(GetTestStepInfo("TestHeadTestName"), true);
 		Log(LOG_DEV_DATA, "Diagnostic clear routine completed, result: %s", result.c_str());
 		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+		RemovePrompt(GetPromptBox("ClearDiagnostics"), GetPrompt("ClearDiagnostics"), GetPromptPriority("ClearDiagnostics"));
 	}
 	else
 	{
@@ -153,6 +160,8 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
 	{   // Kick off the test head test step
+		DisplayPrompt(GetPromptBox("AbsValveFiring"), GetPrompt("AbsValveFiring"), GetPromptPriority("AbsValveFiring"),
+					  "white", rollerName[testingWheel]);
 		SystemWrite(GetDataTag("AbsDumpOk"), false);
 		result = StartTestHeadTest(wheelTestStep);
 		Log(LOG_DEV_DATA, "Commanded Mazda to run %s", wheelTestStep.c_str());
@@ -183,6 +192,7 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
 		SystemWrite(GetDataTag("AbsBuildOk"), false);
 		SystemWrite(GetDataTag("AbsDumpNok"), false);
 		SystemWrite(GetDataTag("AbsBuildNok"), false);
+		RemovePrompt(GetPromptBox("AbsValveFiring"), GetPrompt("AbsValveFiring"), GetPromptPriority("AbsValveFiring"));
 	}
 	else
 	{
@@ -238,6 +248,12 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 		{   // Tell the operator to apply the brake pedal
 			DisplayPrompt(GetPromptBox(applyBrakePrompt), GetPrompt(applyBrakePrompt), GetPromptPriority(applyBrakePrompt));
 			BposSleep(GetParameterInt("OperatorReactionTime"));
+			if(!axle.compare("ParkBrake"))
+			{   // Remove the prompts
+				RemovePrompt(1, GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
+			}
+			DisplayPrompt(GetPromptBox("BrakeForceTesting"), GetPrompt("BrakeForceTesting"), GetPromptPriority("BrakeForceTesting"),
+						  "white", axle);
 			// Setup the brake data structure
 			SetupLoadCellDataStructure(brakeData, loadCellTags, displayTags);
 			bool measurementComplete = false;
@@ -264,8 +280,9 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 			else
 			{
 				result = testFail;
-				Log(LOG_ERRORS, "Drag testing failed because measurements were not completed");
+				Log(LOG_ERRORS, "Brake testing failed because measurements were not completed");
 			}
+			RemovePrompt(GetPromptBox("BrakeForceTesting"), GetPrompt("BrakeForceTesting"), GetPromptPriority("BrakeForceTesting"));
 		}
 		else
 		{   // Timeout waiting for rollers to accelerate to speed
@@ -302,12 +319,16 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
 		if(!action.compare("Start"))
 		{
 			DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
+			DisplayPrompt(GetPromptBox("SpeedSensorCheck"), GetPrompt("SpeedSensorCheck"), GetPromptPriority("SpeedSensorCheck"));
 		}
 		else
 		{
 			DisplayPrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
 		}
-		BposSleep(GetParameterInt("OperatorReactionTime"));
+		if(GetParameterBool("WaitForOperator"))
+		{
+			BposSleep(GetParameterInt("OperatorReactionTime"));
+		}
 		// Run the test head test
 		result = PerformTestHeadTest(GetTestStepInfo("TestHeadTestName"), !action.compare("Start"));
 		Log(LOG_DEV_DATA, "Test Head Brake switch test % completed, result: %s", action.c_str(), result.c_str());
@@ -316,6 +337,7 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
 		if(!action.compare("Start"))
 		{
 			RemovePrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
+			RemovePrompt(GetPromptBox("SpeedSensorCheck"), GetPrompt("SpeedSensorCheck"), GetPromptPriority("SpeedSensorCheck"));
 		}
 		else
 		{
@@ -346,7 +368,10 @@ string MazdaBrakeTC::MazdaDragTest(void)
     {   // Make sure the operator keeps foot off brake
 		DisplayPrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 		DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
-		BposSleep(GetParameterInt("OperatorReactionTime"));
+		if(GetParameterBool("WaitForOperator"))
+		{
+			BposSleep(GetParameterInt("OperatorReactionTime"));
+		}
 		TestResultDetails testDetails;
 		// Command the rollers to the test speed
 		if(BEP_STATUS_SUCCESS == WaitForWheelSpeedsToBeReached(GetParameterFloat("LfDragTestSpeed"), 
@@ -354,6 +379,8 @@ string MazdaBrakeTC::MazdaDragTest(void)
 															   GetParameterFloat("LrDragTestSpeed"), 
 															   GetParameterFloat("RrDragTestSpeed")))
 		{   // Roller speeds are good, take drag force readings
+			RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
+			DisplayPrompt(GetPromptBox("DragForceTest"), GetPrompt("DragForceTest"), GetPromptPriority("DragForceTest"));
 			MaxBrakeData dragData[GetRollerCount()];
 			// Setup the drag data structure
 			SetupLoadCellDataStructure(dragData, loadCellTags, displayTags);
@@ -390,14 +417,18 @@ string MazdaBrakeTC::MazdaDragTest(void)
 				result = testFail;
 				Log(LOG_ERRORS, "Drag testing failed because measurements were not completed");
 			}
+			RemovePrompt(GetPromptBox("DragForceTest"), GetPrompt("DragForceTest"), GetPromptPriority("DragForceTest"));
 		}
 		else
 		{   // Timeout waiting for rollers to accelerate to speed
+			RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 			Log(LOG_ERRORS, "Timeout waiting for rollers to be at speed");
 			result = testFail;
 		}
-		DisableRollMotors(SPEED_MODE);
-		RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
+		if(GetParameterBool("DisableMotorsAfterDragTest"))
+		{
+			DisableRollMotors(SPEED_MODE);
+		}
 		RemovePrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
 		// Report the results
 		SendTestResultWithDetail(result, testDetails, GetTestStepInfo("Description"), "0000");
@@ -583,7 +614,7 @@ const float MazdaBrakeTC::AverageBrakeForce(const INT16 &wheel, const float *avg
 }
 
 //-------------------------------------------------------------------------------------------------
-BEP_STATUS_TYPE MazdaBrakeTC::DisableRollMotors(const string motorMode)
+BEP_STATUS_TYPE MazdaBrakeTC::DisableRollMotors(const string motorMode, bool waitForZeroSpeed /*= true*/)
 {
 	Log(LOG_FN_ENTRY, "MazdaBrakeTC::DisableRollMotors(motorMode: %s) - Enter", motorMode.c_str());
 	string lfValue;
@@ -609,7 +640,10 @@ BEP_STATUS_TYPE MazdaBrakeTC::DisableRollMotors(const string motorMode)
 	m_MotorController.Write(rfValue, string("0.0"), true);
 	m_MotorController.Write(lrValue, string("0.0"), true);
 	m_MotorController.Write(rrValue, string("0.0"), true);
-	WaitForWheelSpeedsToBeReached(0.0, 0.0, 0.0, 0.0);
+	if(waitForZeroSpeed)
+	{
+		WaitForWheelSpeedsToBeReached(0.0, 0.0, 0.0, 0.0);
+	}
 	// set the motor mode
 	m_MotorController.Write("LeftFrontMotorMode", BOOST_MODE, true);
 	m_MotorController.Write("RightFrontMotorMode", BOOST_MODE, true);

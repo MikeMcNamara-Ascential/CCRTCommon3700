@@ -273,6 +273,8 @@ namespace Common.Lib.Models
                     string tempEsn = GetESN(m_buildData[0].VIN, m_esnDirectory);
                     string esn = "";
                     Int32 engineCodeStartIndex = 0;
+                    if (tempEsn.Length == 16)
+                    {
                     if (tempEsn[0] == '1')
                     {
                         esn = tempEsn.Remove(5,1);
@@ -285,8 +287,7 @@ namespace Common.Lib.Models
                     }
                     m_buildData[0].EngineSerialNumber = esn;
                     string esnLeadingChars = m_buildData[0].ESNLeadingCharacters;
-                    if (m_buildData[0].EngineSerialNumber.Length == 15)
-                    {
+
                         if (esnLeadingChars.Length <= m_buildData[0].EngineSerialNumber.Length)
                         {//validate leading characters match
                             if (m_buildData[0].EngineSerialNumber.Substring(engineCodeStartIndex, esnLeadingChars.Length) != esnLeadingChars)
@@ -318,7 +319,7 @@ namespace Common.Lib.Models
                     else
                     {//failure
                         buildDataValid = false;
-                        m_logger.Log("ERROR:  ESN Incorrect length: " + m_buildData[0].EngineSerialNumber.Length + " Required: 15");
+                        m_logger.Log("ERROR:  ESN Incorrect length: " + m_buildData[0].EngineSerialNumber.Length + " Required: 16");
                         SetPrompt1BGColor(Color.Yellow);
                         SetPrompt2BGColor(Color.Yellow);
                         SetPrompt1(prompt.ABORT_INVALID_ESN_LENGTH);

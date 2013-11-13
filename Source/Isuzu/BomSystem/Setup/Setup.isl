@@ -3742,6 +3742,7 @@
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.bepco.com</td><td>0</td><td/><td>1570878697</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>1570845929</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Bom Processor</td><td>0</td><td/><td>1570839849</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>Bom Processor</td><td>0</td><td/><td>1839321162</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>1570843881</td></row>
 	</table>
 
@@ -3851,6 +3852,7 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
 		<row><td>_Built1_2D09640E32F948DEB01C5AA4428E1283.exe</td><td/><td>&lt;WindowsFolder&gt;\/beplogo.ico</td><td>0</td></row>
+		<row><td>_Built2_1BC2FF17E00B474D874E8A511A87FADD.exe</td><td/><td>&lt;WindowsFolder&gt;\/beplogo.ico</td><td>0</td></row>
 		<row><td>_Built_719447C78A0E4B2FBAB3D7CDA516ED23.exe</td><td/><td>&lt;WindowsFolder&gt;\/beplogo.ico</td><td>0</td></row>
 	</table>
 
@@ -3984,7 +3986,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{53DAD312-6D76-4710-BF3F-85E498E0BFEF}</td></row>
 		<row><td>ISUSSignature</td><td>{FB7DA02D-52E7-42AA-8BE8-5936284F76C6}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewShortcuts</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4521,8 +4523,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>bompro_1_bom_processor</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>BomFileProcessor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_719447C78A0E4B2FBAB3D7CDA516ED23.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>BomFileProcessor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_2D09640E32F948DEB01C5AA4428E1283.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>bompro_1_bom_processor</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>BomFileProcessor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_719447C78A0E4B2FBAB3D7CDA516ED23.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>BomFileProcessor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_2D09640E32F948DEB01C5AA4428E1283.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built2</td><td>StartupFolder</td><td>##ID_STRING4##</td><td>BomFileProcessor.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built2_1BC2FF17E00B474D874E8A511A87FADD.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

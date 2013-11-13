@@ -3,34 +3,34 @@
   <Profiles />
   <Settings>
     <Setting Name="BomDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\</Value>
+      <Value Profile="(Default)">C:\BOM\BOM</Value>
     </Setting>
     <Setting Name="BomArchive" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\Archive\</Value>
+      <Value Profile="(Default)">C:\BOM\Archive</Value>
     </Setting>
     <Setting Name="BomResultDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\Result\</Value>
+      <Value Profile="(Default)">C:\BOM\Results</Value>
     </Setting>
     <Setting Name="VehicleBuildDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\</Value>
+      <Value Profile="(Default)">G:\Rewrite\Configuration\VehicleTest\BuildRecords</Value>
     </Setting>
     <Setting Name="BomUpcIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">28</Value>
     </Setting>
     <Setting Name="BomUpcLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="BomFnaIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">35</Value>
     </Setting>
     <Setting Name="BomFnaLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="BomPartNumberIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">13</Value>
     </Setting>
     <Setting Name="BomPartNumberLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="BomPartNameIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -39,61 +39,61 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="BomCountIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">19</Value>
     </Setting>
     <Setting Name="BomCountLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">9</Value>
     </Setting>
     <Setting Name="BomRecordCountIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">20</Value>
     </Setting>
     <Setting Name="BomRecordCountLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="BomModelCodeIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="BomModelCodeLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">5</Value>
     </Setting>
     <Setting Name="BomModelYearIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">7</Value>
     </Setting>
     <Setting Name="BomModelYearLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="BomLotNumberIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">10</Value>
     </Setting>
     <Setting Name="BomLotNumberLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="BomBookCodeIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">52</Value>
     </Setting>
     <Setting Name="BomBookCodeLength" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+      <Value Profile="(Default)">2</Value>
     </Setting>
     <Setting Name="SpartanFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\</Value>
+      <Value Profile="(Default)">C:\BOM\DVT</Value>
     </Setting>
     <Setting Name="CcrtFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\</Value>
+      <Value Profile="(Default)">G:\Rewrite\TestResults\PassConfirmation</Value>
     </Setting>
     <Setting Name="CheckForPassConfirmationFiles" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PassConfirmationCheckDelay" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">500</Value>
+      <Value Profile="(Default)">5000</Value>
     </Setting>
     <Setting Name="SpartanFlashFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\</Value>
+      <Value Profile="(Default)">C:\BOM\ECM</Value>
     </Setting>
     <Setting Name="WindowsPCESNFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\ESN\</Value>
+      <Value Profile="(Default)">C:\BOM\ESN</Value>
     </Setting>
     <Setting Name="RealTimePCESNFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Temp\ESN\</Value>
+      <Value Profile="(Default)">G:\Rewrite\TestResults\ESN</Value>
     </Setting>
   </Settings>
 </SettingsFile>

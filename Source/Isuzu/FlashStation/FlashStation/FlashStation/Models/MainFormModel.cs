@@ -818,8 +818,12 @@ namespace Common.Lib.Models
                         m_logger.Log("INFO:  Sending Write ESN Message");
                         txMessage.Add(0x3B);
                         txMessage.Add(0x17);
-                        txMessage.Add(0x00);
-                        txMessage.Add(0x00);
+                        //ESN length message must be 17 characters with fill bytes preceded being 0x00
+                        if (esn.Length < 17)
+                        {
+                            for (int x = esn.Length; x < 17; x++)
+                            txMessage.Add(0x00);
+                        }
                         txMessage.AddRange(
                         m_ecmInterpreter.m_opCodeHandler.stringToASCIIByteArray(esn).ToList());
                         //retries to allow time for ESN message to respond
@@ -1880,19 +1884,22 @@ namespace Common.Lib.Models
 
 
         //To do Make Configurable
-        private string m_flashFileDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\CalFiles\";
-        private string m_buildFileDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\BuildFiles\";
-        private string m_esnDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\ESN\";
-        private string m_tempBuildFileDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\TempBuildFiles\";
-        private string m_tempESNDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\TempESNFiles\";
-        private string m_resultsDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\Results\";
-        private string m_logsDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\Logs\"; 
-        private string m_passIndicationLocalDirectory = Path.GetDirectoryName(Application.ExecutablePath) + @"\TransferFiles\";
+        private string m_flashFileDirectory = @"C:\FlashStation\CalFiles\";
+        private string m_buildFileDirectory = @"C:\FlashStation\BuildFiles\";
+        private string m_esnDirectory = @"C:\FlashStation\ESN\";
+        private string m_tempBuildFileDirectory = @"C:\FlashStation\TempBuildFiles\";
+        private string m_tempESNDirectory = @"C:\FlashStation\TempESNFiles\";
+        private string m_resultsDirectory = @"C:\FlashStation\Results\";
+        private string m_logsDirectory = @"C:\FlashStation\Logs\";
+        private string m_passIndicationLocalDirectory = @"C:\FlashStation\TransferFiles\";
 
-        private string m_remoteBuildFileDirectory = "G:\\Rewrite\\Configuration\\VehicleTest\\BuildRecords\\";
-        private string m_remoteESNDirectory = "G:\\Rewrite\\TestResults\\ESN\\";
-        private string m_passIndicationSharedDirectory = "G:\\Rewrite\\TestResults\\PassConfirmation\\";
+        private string m_remoteBuildFileDirectory = @"G:\Rewrite\Configuration\VehicleTest\BuildRecords\";
+        private string m_remoteESNDirectory = @"G:\Rewrite\TestResults\ESN\";
+        private string m_passIndicationSharedDirectory = @"G:\Rewrite\TestResults\PassConfirmation\";
 
+        //private string m_remoteBuildFileDirectory = @"C:\FlashStation\Rewrite\Configuration\VehicleTest\BuildRecords\";
+        //private string m_remoteESNDirectory = @"C:\FlashStation\Rewrite\TestResults\ESN\";
+        //private string m_passIndicationSharedDirectory = @"C:\FlashStation\Rewrite\TestResults\PassConfirmation\";
         /// <summary>
         /// Constant value - max result files to store
         /// </summary>

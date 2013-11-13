@@ -339,15 +339,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>FlashStationMainForm.Content_Files</td><td>{A4C8155E-29A4-495D-B635-EBC5D188D726}</td><td>INSTALLDIR</td><td>2</td><td/><td>flashstationmainform.content</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>FlashStationMainForm.Primary_output</td><td>{2EC7C25F-D7A4-41D0-AD36-103B750F643B}</td><td>INSTALLDIR</td><td>2</td><td/><td>flashstationmainform.primary</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT</td><td>{38CD42E8-1E91-4B95-9181-B5C047A90883}</td><td>CALFILES</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{CCD088D9-EC88-45BF-BFEA-8D015CFD5061}</td><td>BUILDFILES</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT2</td><td>{8DE144BA-D6D8-44A5-AF19-8ED12A78A8B9}</td><td>TEMPBUILDFILES</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT3</td><td>{3BB1D733-C82C-41A5-83DB-508B3C4BCDDE}</td><td>TEMPESNFILES</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{F3F4C3D7-1E4F-4003-A29A-D45C22343212}</td><td>RESULTS</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT5</td><td>{F2E72563-A478-4C01-92F3-668CAF4222CA}</td><td>LOGS</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT6</td><td>{F19F80CF-B8C0-47D5-9EC9-4105D8F5ECB7}</td><td>TRANSFERFILES</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1056,13 +1048,6 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>BUILDFILES</td><td>ISX_DEFAULTCOMPONENT1</td></row>
-		<row><td>CALFILES</td><td>ISX_DEFAULTCOMPONENT</td></row>
-		<row><td>LOGS</td><td>ISX_DEFAULTCOMPONENT5</td></row>
-		<row><td>RESULTS</td><td>ISX_DEFAULTCOMPONENT4</td></row>
-		<row><td>TEMPBUILDFILES</td><td>ISX_DEFAULTCOMPONENT2</td></row>
-		<row><td>TEMPESNFILES</td><td>ISX_DEFAULTCOMPONENT3</td></row>
-		<row><td>TRANSFERFILES</td><td>ISX_DEFAULTCOMPONENT6</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1144,9 +1129,7 @@
 		<row><td>ALLUSERSPROFILE</td><td>TARGETDIR</td><td>.:ALLUSE~1|All Users</td><td/><td>0</td><td/></row>
 		<row><td>AdminToolsFolder</td><td>TARGETDIR</td><td>.:Admint~1|AdminTools</td><td/><td>0</td><td/></row>
 		<row><td>AppDataFolder</td><td>TARGETDIR</td><td>.:APPLIC~1|Application Data</td><td/><td>0</td><td/></row>
-		<row><td>BUILDFILES</td><td>INSTALLDIR</td><td>BUILDF~1|BuildFiles</td><td/><td>0</td><td/></row>
 		<row><td>BURKE_PORTER_MACHINERY</td><td>ProgramFilesFolder</td><td>BURKEP~1|Burke Porter Machinery</td><td/><td>0</td><td/></row>
-		<row><td>CALFILES</td><td>INSTALLDIR</td><td>CalFiles</td><td/><td>0</td><td/></row>
 		<row><td>CommonAppDataFolder</td><td>TARGETDIR</td><td>.:Common~1|CommonAppData</td><td/><td>0</td><td/></row>
 		<row><td>CommonFiles64Folder</td><td>TARGETDIR</td><td>.:Common64</td><td/><td>0</td><td/></row>
 		<row><td>CommonFilesFolder</td><td>TARGETDIR</td><td>.:Common</td><td/><td>0</td><td/></row>
@@ -1161,7 +1144,6 @@
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>ISYourDataBaseDir</td><td>INSTALLDIR</td><td>Database</td><td/><td>0</td><td/></row>
-		<row><td>LOGS</td><td>INSTALLDIR</td><td>Logs</td><td/><td>0</td><td/></row>
 		<row><td>LocalAppDataFolder</td><td>TARGETDIR</td><td>.:LocalA~1|LocalAppData</td><td/><td>0</td><td/></row>
 		<row><td>MY_PRODUCT_NAME</td><td>BURKE_PORTER_MACHINERY</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
 		<row><td>MyPicturesFolder</td><td>TARGETDIR</td><td>.:MyPict~1|MyPictures</td><td/><td>0</td><td/></row>
@@ -1172,7 +1154,6 @@
 		<row><td>ProgramFiles64Folder</td><td>TARGETDIR</td><td>.:Prog64~1|Program Files 64</td><td/><td>0</td><td/></row>
 		<row><td>ProgramFilesFolder</td><td>TARGETDIR</td><td>.:PROGRA~1|program files</td><td/><td>0</td><td/></row>
 		<row><td>ProgramMenuFolder</td><td>TARGETDIR</td><td>.:Programs</td><td/><td>3</td><td/></row>
-		<row><td>RESULTS</td><td>INSTALLDIR</td><td>Results</td><td/><td>0</td><td/></row>
 		<row><td>RecentFolder</td><td>TARGETDIR</td><td>.:Recent</td><td/><td>0</td><td/></row>
 		<row><td>SendToFolder</td><td>TARGETDIR</td><td>.:SendTo</td><td/><td>3</td><td/></row>
 		<row><td>StartMenuFolder</td><td>TARGETDIR</td><td>.:STARTM~1|Start Menu</td><td/><td>3</td><td/></row>
@@ -1181,9 +1162,6 @@
 		<row><td>System64Folder</td><td>TARGETDIR</td><td>.:System64</td><td/><td>0</td><td/></row>
 		<row><td>SystemFolder</td><td>TARGETDIR</td><td>.:System32</td><td/><td>0</td><td/></row>
 		<row><td>TARGETDIR</td><td/><td>SourceDir</td><td/><td>0</td><td/></row>
-		<row><td>TEMPBUILDFILES</td><td>INSTALLDIR</td><td>TEMPBU~1|TempBuildFiles</td><td/><td>0</td><td/></row>
-		<row><td>TEMPESNFILES</td><td>INSTALLDIR</td><td>TEMPES~1|TempESNFiles</td><td/><td>0</td><td/></row>
-		<row><td>TRANSFERFILES</td><td>INSTALLDIR</td><td>TRANSF~1|TransferFiles</td><td/><td>0</td><td/></row>
 		<row><td>TempFolder</td><td>TARGETDIR</td><td>.:Temp</td><td/><td>0</td><td/></row>
 		<row><td>TemplateFolder</td><td>TARGETDIR</td><td>.:ShellNew</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
@@ -1882,15 +1860,7 @@
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>AlwaysInstall</td><td>FlashStationMainForm.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>FlashStationMainForm.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT2</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT3</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT4</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT5</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT6</td></row>
 	</table>
 
 	<table name="File">
@@ -1905,7 +1875,6 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>flashstationmainform.content</td><td>FlashStationMainForm.Content_Files</td><td>FlashStationMainForm.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;FlashStationMainForm&gt;|ContentFiles</td><td>3</td><td/></row>
 		<row><td>flashstationmainform.primary</td><td>FlashStationMainForm.Primary_output</td><td>FlashStationMainForm.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;FlashStationMainForm&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
@@ -2051,15 +2020,7 @@
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>FlashStationMainForm.Content_Files</td><td/><td/><td>_ADF46808_106D_496E_B80F_62E646D76023_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>FlashStationMainForm.Primary_output</td><td/><td/><td>_4EBC1D48_1441_49BE_AC33_3EAB9727C6ED_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT</td><td/><td/><td>_335A8506_883C_49B0_B312_6DF840F43A53_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_1F0CBCD5_4AA3_4F6D_BA0F_21998B812366_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT2</td><td/><td/><td>_977C976C_C3CC_4361_B256_6C8045135293_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT3</td><td/><td/><td>_18556C02_3513_4242_B6B0_310E372C48A9_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_95EDBA1D_0B09_4202_B7FF_302285D1DD63_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT5</td><td/><td/><td>_E4F98EBA_B527_438A_B1BC_76B0EB145CB9_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT6</td><td/><td/><td>_D1B03D13_462E_4B31_A930_6F619183C2C7_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2678,7 +2639,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>1570848296</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>1705080111</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1570842152</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
@@ -3780,11 +3741,12 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.bepco.com</td><td>0</td><td/><td>1570889320</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>1570848296</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.BurkePorterMachinery.com</td><td>0</td><td/><td>1705080111</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>1705080111</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Flash Station</td><td>0</td><td/><td>1570838376</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Flash Station</td><td>0</td><td/><td>1570854760</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Flash Station</td><td>0</td><td/><td>1570863337</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>Flash Station</td><td>0</td><td/><td>1705084271</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>1570842152</td></row>
 	</table>
 
@@ -3895,6 +3857,7 @@
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
 		<row><td>_Built1_5E33023284584DF7AE0BBC45C7184DEA.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
 		<row><td>_Built1_7DD1047BAF544CF889883B35B47A10F5.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
+		<row><td>_Built2_CD1CC6BED1524789ABE7E68A54560356.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
 		<row><td>_Built_0472497FC63D491AB36BF8A776E64CC0.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
 		<row><td>_Built_1281A923A2D14AAFB40723352840FA3D.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
 	</table>
@@ -4029,7 +3992,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{1EABFDCA-B0E5-4A93-85A4-E5D7209EE4D5}</td></row>
 		<row><td>ISUSSignature</td><td>{3D964845-1048-48EA-AAF8-61A8A2D09629}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewShortcuts,viewProject,viewUpgradePaths,viewFeatureFiles,viewUI,viewRelease</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4564,8 +4527,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>flashs_1_flash_station</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_0472497FC63D491AB36BF8A776E64CC0.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_5E33023284584DF7AE0BBC45C7184DEA.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>flashs_1_flash_station</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_0472497FC63D491AB36BF8A776E64CC0.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_5E33023284584DF7AE0BBC45C7184DEA.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built2</td><td>StartupFolder</td><td>##ID_STRING6##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built2_CD1CC6BED1524789ABE7E68A54560356.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

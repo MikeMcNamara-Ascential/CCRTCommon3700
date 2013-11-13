@@ -45,7 +45,7 @@ namespace FlashStationMainForm
         {
             InitializeComponent();
             //determine if comm device is set up
-            m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", Path.GetDirectoryName(Application.ExecutablePath) + @"\Logs\");
+            m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", @"C:\FlashStation\Logs\");
             m_presenter = new MainFormDataPresenter(this,m_logger);
             string deviceName = Properties.Settings.Default.Device;
             string channelName = Properties.Settings.Default.CommChannel;

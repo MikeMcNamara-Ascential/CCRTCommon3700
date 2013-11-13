@@ -6,9 +6,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashStationMainForm", "FlashStationMainForm\FlashStationMainForm.csproj", "{1D5EF65E-C99F-4BB9-9E73-8FE78075FE1C}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Setup", "Setup\Setup.isproj", "{E24E1DC9-ADDA-451D-88D1-A740C46EC864}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1D5EF65E-C99F-4BB9-9E73-8FE78075FE1C} = {1D5EF65E-C99F-4BB9-9E73-8FE78075FE1C}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

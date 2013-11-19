@@ -1129,7 +1129,10 @@ throw(XmlException)
         {
             throw XmlException("unrecognized Chars child: " + subNodes.getNode(ii)->getName());
         }
-
+           if (replace == "0x??")
+           {
+               replace = temp[jj];
+           }
         // get other terms necessary for Substituteion
         compare = getCompareVal(subNodes.getNode(ii));
 
@@ -1283,7 +1286,10 @@ throw(XmlException)
         {
             throw XmlException("unrecognized CharsArray child: " + subNodes.getNode(ii)->getName());
         }
-
+                    if (replace == "0x??")
+           {
+               replace = temp[jj];
+           }
         // get compare value children
         const XmlNodeMap &compareNodes = subNodes.getNode(ii)->getChildren();
 

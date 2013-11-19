@@ -2404,59 +2404,71 @@ string IsuzuEmissionsTc<ModuleType>::CheckSerialNumber(void)
                 // Read the part number from the module
                 fileSerialNumber = GetSerialNumberFromFile();
                 INT32 engineCodeStartLocation = 0;
-
-                if (fileSerialNumber.length() == GetParameterInt("ESNLength"))
+                bool esnLengthCorrect;
+                if (fileSerialNumber.length() > 0)
                 {
                     // Determine if the serial number needs to have a space removed
                     if (fileSerialNumber[0] == '1')
                     {   // Remove space from serial number
-                        fileSerialNumber = fileSerialNumber.substr(0,5) + fileSerialNumber.substr(6,10);
+                        esnLengthCorrect = fileSerialNumber.length() == GetParameterInt("ESNLength1D");
+                                           fileSerialNumber = fileSerialNumber.substr(0,5) + fileSerialNumber.substr(6,10);
                         engineCodeStartLocation = GetParameterInt("EngineCodeStartLocation_1D");
                     }
                     else
                     {
-                        engineCodeStartLocation = GetParameterInt("EngineCodeStartLocation_2D");
+                        esnLengthCorrect = fileSerialNumber.length() == GetParameterInt("ESNLength2D");
+                                           engineCodeStartLocation = GetParameterInt("EngineCodeStartLocation_2D");
                     }
-                    Log(LOG_DEV_DATA, "Checking for engine code %s starting at index %d",
-                        leadingCharacters.c_str(), engineCodeStartLocation);
-
-                    if (!fileSerialNumber.compare(engineCodeStartLocation,leadingCharacters.length(),leadingCharacters))
+                    if (esnLengthCorrect)
                     {
-                        moduleStatus = m_vehicleModule.ReadModuleData("ReadSerialNumber", moduleSerialNumber);
-                        // Check the status of the data
-                        if (BEP_STATUS_SUCCESS == moduleStatus)
-                        {   // Good data, Check serial number
-                            if (moduleSerialNumber == fileSerialNumber)
-                            {   // Part numbers match, test passes
-                                testResult = testPass;
+                        Log(LOG_DEV_DATA, "Checking for engine code %s starting at index %d",
+                            leadingCharacters.c_str(), engineCodeStartLocation);
+
+                        if (!fileSerialNumber.compare(engineCodeStartLocation,leadingCharacters.length(),leadingCharacters))
+                        {
+                            moduleStatus = m_vehicleModule.ReadModuleData("ReadSerialNumber", moduleSerialNumber);
+                            // Check the status of the data
+                            if (BEP_STATUS_SUCCESS == moduleStatus)
+                            {   // Good data, Check serial number
+                                if (moduleSerialNumber == fileSerialNumber)
+                                {   // Part numbers match, test passes
+                                    testResult = testPass;
+                                }
+                                else
+                                {   // Part number do not match, test fails
+                                    testResult = testFail;
+                                }
+                                // Log the data
+                                Log(LOG_DEV_DATA, "Serial Number Verification: %s - file: %s, Module: %s\n",
+                                    testResult.c_str(), fileSerialNumber.c_str(), moduleSerialNumber.c_str());
+                                testResultCode = (testResult == testPass ? "0000" : GetFaultCode("SerialNumberMismatch"));
+                                testDescription = 
+                                (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("SerialNumberMismatch"));
                             }
                             else
-                            {   // Part number do not match, test fails
+                            {   // Error getting data from the module
                                 testResult = testFail;
+                                testResultCode = GetFaultCode("CommunicationFailure");
+                                testDescription = GetFaultDescription("CommunicationFailure");
+                                SetCommunicationFailure(true);
+                                Log(LOG_ERRORS, "Error reading module serial number - status: %s\n",
+                                    ConvertStatusToResponse(moduleStatus).c_str());
                             }
-                            // Log the data
-                            Log(LOG_DEV_DATA, "Serial Number Verification: %s - file: %s, Module: %s\n",
-                                testResult.c_str(), fileSerialNumber.c_str(), moduleSerialNumber.c_str());
-                            testResultCode = (testResult == testPass ? "0000" : GetFaultCode("SerialNumberMismatch"));
-                            testDescription = 
-                            (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("SerialNumberMismatch"));
                         }
                         else
-                        {   // Error getting data from the module
+                        {//ESN leading characters do not match -fail
                             testResult = testFail;
-                            testResultCode = GetFaultCode("CommunicationFailure");
-                            testDescription = GetFaultDescription("CommunicationFailure");
-                            SetCommunicationFailure(true);
-                            Log(LOG_ERRORS, "Error reading module serial number - status: %s\n",
-                                ConvertStatusToResponse(moduleStatus).c_str());
+                            testResultCode = GetFaultCode("ESNLeadingCharacterMismatch");
+                            testDescription = GetFaultDescription("ESNLeadingCharacterMismatch");
+                            Log(LOG_ERRORS, "ESN Leading Characters not correct\n");
                         }
                     }
                     else
-                    {//ESN leading characters do not match -fail
+                    {//ESN Length not correct
                         testResult = testFail;
-                        testResultCode = GetFaultCode("ESNLeadingCharacterMismatch");
-                        testDescription = GetFaultDescription("ESNLeadingCharacterMismatch");
-                        Log(LOG_ERRORS, "ESN Leading Characters not correct\n");
+                        testResultCode = GetFaultCode("ESNLengthNotCorrect");
+                        testDescription = GetFaultDescription("ESNLengthNotCorrect");
+                        Log(LOG_ERRORS, "ESN Length not correct\n");
                     }
                 }
                 else

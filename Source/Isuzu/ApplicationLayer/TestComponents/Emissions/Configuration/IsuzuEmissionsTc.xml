@@ -330,7 +330,8 @@
             <AbortOnSerialMismatch  TestSteps="CheckSerialNumber" Comment="Flag which determines if test should be aborted on serial number mismatch">False</AbortOnSerialMismatch>
             <EngineCodeStartLocation_1D TestSteps="CheckSerialNumber" Comment="Location in the 1-D serial number to find the engine code">2</EngineCodeStartLocation_1D>
             <EngineCodeStartLocation_2D TestSteps="CheckSerialNumber" Comment="Location in the 2-D serial number to find the engine code">8</EngineCodeStartLocation_2D>
-            <ESNLength>16</ESNLength>
+            <ESNLength1D>16</ESNLength1D>
+            <ESNLength2D>16</ESNLength2D>
             <SerialNumberDirectory TestSteps="CheckSerialNumber" Comment="Directory containing Scanned Serial numbers sent by Spartan">/TestResults/ESN/</SerialNumberDirectory>
         </Parameters>
         <Prompts>

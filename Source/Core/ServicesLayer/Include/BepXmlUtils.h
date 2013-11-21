@@ -158,11 +158,12 @@ public:
     }
     const char* GetReason() const
     {
-        string asciiErr = XmlToAscii( m_errString);
-        return(asciiErr.c_str());
+        m_asciiErr = XmlToAscii( m_errString);
+        return(m_asciiErr.c_str());
     }
 private:
     XmlString m_errString;
+    string m_asciiErr;
 };
 //==============================================================================
 class XmlNodeMap : public XmlNodeMapType

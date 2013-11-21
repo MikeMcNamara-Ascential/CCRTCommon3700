@@ -1437,7 +1437,7 @@ BEP_STATUS_TYPE GenericEmissionsModuleTemplate<ProtocolFilterType>::ReadCurrentC
         else
         {
             status = BEP_STATUS_SOFTWARE;
-            Log(LOG_ERRORS, "Error in %s::ReadCurrentClutchSwitchSates reason - Automatic Transmission\n");
+            Log(LOG_ERRORS, "Error in %s::ReadCurrentClutchSwitchSates reason - Automatic Transmission\n", ModuleName().c_str());
         }
     }
     else

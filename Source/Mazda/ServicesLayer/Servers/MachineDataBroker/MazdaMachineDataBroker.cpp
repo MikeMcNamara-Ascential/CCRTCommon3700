@@ -182,9 +182,12 @@ const INT32 MazdaMachineDataBroker::ProcessLoadCellReadings(void)
             {   // Convert the data item
 				short tempData = atoi(value.c_str());
                 float data = tempData * iter->conversionFactor;
+				float dispData = tempData * iter->displayConversion;
                 // Write the data so others can read it
                 SetData(iter->systemTag, CreateMessage(buff, sizeof(buff), "%.2f", data));
+				SetData(iter->displayTag, CreateMessage(buff, sizeof(buff), "%.2f", dispData));
                 Log(LOG_DEV_DATA, "Load Cell Update: %s == %.2f [%s]", iter->systemTag.c_str(), data, value.c_str());
+				Log(LOG_DEV_DATA, "Load Cell Display Update: %s == %.2f [%s]", iter->displayTag.c_str(), dispData, value.c_str());
             }
             else
             {
@@ -233,6 +236,8 @@ void MazdaMachineDataBroker::StoreLoadCellConversionFactors(const XmlNode *facto
         m_loadCellConversionFactors[roller].conversionFactor = atof(iter->second->getValue().c_str());
         m_loadCellConversionFactors[roller].rawSystemTag = iter->second->getAttribute("RawData")->getValue();
         m_loadCellConversionFactors[roller].systemTag = iter->second->getAttribute("SystemTag")->getValue();
+		m_loadCellConversionFactors[roller].displayTag = iter->second->getAttribute("DisplayTag")->getValue();
+		m_loadCellConversionFactors[roller].displayConversion = atof(iter->second->getAttribute("DisplayConversion")->getValue().c_str());
         roller++;
     }
 }

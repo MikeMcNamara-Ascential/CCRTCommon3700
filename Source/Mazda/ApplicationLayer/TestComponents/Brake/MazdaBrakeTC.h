@@ -17,6 +17,10 @@
 #include "DataAnalysis.h"
 #include "GenericBaseBrakeTC.h"
 #include <list>
+
+const int FRONT_AXLE = 0;
+const int REAR_AXLE = 1;
+
 //-------------------------------------------------------------------------------------------------
 class MazdaBrakeTC : public GenericBaseBrakeTC
 {
@@ -156,6 +160,16 @@ protected:
 	string PerformTestHeadTest(const string &testStep, bool waitForTestComplete=true);
 
 	/**
+	 * Report the overall brake results:
+	 * 		- Overall test result
+	 * 		- Total brake force
+	 * 		- Total brake force result
+	 * 
+	 * @return  Result of reporting the overall results.
+	 */
+	string ReportOverallBrakeResults(void);
+
+	/**
 	 * Check the wheelspeed sensors
 	 * 
 	 * @return Result of the wheel speed sensors
@@ -197,6 +211,12 @@ private:
 		BRAKE_RESULTS_REAR,
 		PARK_BRAKE_RESULTS
 	} ResultType_t;
+
+	typedef struct _axleBrakeResults
+	{
+		float  axleSum;
+		string axleResult;
+	} AxleBrakeResults;
 
 	/**
 	 * Analyze the forces from the test that was performed.
@@ -380,8 +400,9 @@ private:
 	XmlNodeMap m_testHeadTestSteps;
 
 	// Array to hold the average brake force values
-	float m_avgBrakeForces[4];
+	float m_avgBrakeForces[4]; 
 
+	AxleBrakeResults m_axleBrakeResults[2];
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaBrakeTC_h

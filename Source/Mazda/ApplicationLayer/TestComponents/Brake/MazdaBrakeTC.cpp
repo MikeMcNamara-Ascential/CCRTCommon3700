@@ -41,11 +41,11 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
     m_baseBrakeTool->SetBrakeTestingStatus(BEP_TESTING_RESPONSE);
     if(BEP_STATUS_SUCCESS == StatusCheck())
     {
-		if(!GetTestStepName().compare("AbsLfTest"))                   testResult = MazdaAbsValveTest("LfAbsTest", LFWHEEL, RFWHEEL);
-		else if(!GetTestStepName().compare("AbsLrTest"))              testResult = MazdaAbsValveTest("LrAbsTest", LRWHEEL, RRWHEEL);
-		else if(!GetTestStepName().compare("AbsRfTest"))              testResult = MazdaAbsValveTest("RfAbsTest", RFWHEEL, LFWHEEL);
-		else if(!GetTestStepName().compare("AbsRrTest"))              testResult = MazdaAbsValveTest("RrAbsTest", RRWHEEL, LRWHEEL);
-		else if(!GetTestStepName().compare("BrakeTestComplete"))      testResult = BrakeTestingComplete();
+		if(!GetTestStepName().compare("AbsLfTest"))                       testResult = MazdaAbsValveTest("LfAbsTest", LFWHEEL, RFWHEEL);
+		else if(!GetTestStepName().compare("AbsLrTest"))                  testResult = MazdaAbsValveTest("LrAbsTest", LRWHEEL, RRWHEEL);
+		else if(!GetTestStepName().compare("AbsRfTest"))                  testResult = MazdaAbsValveTest("RfAbsTest", RFWHEEL, LFWHEEL);
+		else if(!GetTestStepName().compare("AbsRrTest"))                  testResult = MazdaAbsValveTest("RrAbsTest", RRWHEEL, LRWHEEL);
+		else if(!GetTestStepName().compare("BrakeTestComplete"))          testResult = BrakeTestingComplete();
 		else if(!GetTestStepName().compare("BrakeTestStart"))
 		{
 			DisplayPrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
@@ -56,20 +56,21 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
 			RemovePrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
 			testResult = SystemWrite(GetDataTag("RunBrakeTestTag"), false) == BEP_STATUS_SUCCESS ? testPass : testFail;
 		}
-		else if(!GetTestStepName().compare("ClearDiagnosticRoutine")) testResult = ClearDiagnostics();
-		else if(!GetTestStepName().compare("FaultCheckRoutine"))      testResult = FaultCheck();
-		else if(!GetTestStepName().compare("MazdaFrontBrakeForce"))   testResult = MazdaBrakeForceTest("Front");
-		else if(!GetTestStepName().compare("MazdaRearBrakeForce"))    testResult = MazdaBrakeForceTest("Rear");
-		else if(!GetTestStepName().compare("MazdaDragTest"))          testResult = MazdaDragTest();
-		else if(!GetTestStepName().compare("MazdaParkBrakeForce"))    testResult = MazdaBrakeForceTest("ParkBrake");
-		else if(!GetTestStepName().compare("SpeedSensorCheck"))       testResult = SpeedSensorCheck();
-		else if(!GetTestStepName().compare("StartBrakeSwitchTest"))   testResult = MazdaBrakeSwitchTest("Start");
-		else if(!GetTestStepName().compare("StopBrakeSwitchTest"))    testResult = MazdaBrakeSwitchTest("Stop");
+		else if(!GetTestStepName().compare("ClearDiagnosticRoutine"))     testResult = ClearDiagnostics();
+		else if(!GetTestStepName().compare("FaultCheckRoutine"))          testResult = FaultCheck();
+		else if(!GetTestStepName().compare("MazdaFrontBrakeForce"))       testResult = MazdaBrakeForceTest("Front");
+		else if(!GetTestStepName().compare("MazdaRearBrakeForce"))        testResult = MazdaBrakeForceTest("Rear");
+		else if(!GetTestStepName().compare("MazdaDragTest"))              testResult = MazdaDragTest();
+		else if(!GetTestStepName().compare("MazdaParkBrakeForce"))        testResult = MazdaBrakeForceTest("ParkBrake");
+		else if(!GetTestStepName().compare("ReportOverallBrakeResults"))  testResult = ReportOverallBrakeResults();
+		else if(!GetTestStepName().compare("SpeedSensorCheck"))           testResult = SpeedSensorCheck();
+		else if(!GetTestStepName().compare("StartBrakeSwitchTest"))       testResult = MazdaBrakeSwitchTest("Start");
+		else if(!GetTestStepName().compare("StopBrakeSwitchTest"))        testResult = MazdaBrakeSwitchTest("Stop");
 		else if(!GetTestStepName().compare("StopRollers"))            
 		{
 			testResult = (BEP_STATUS_SUCCESS == WaitForWheelSpeedsToBeReached(0.0, 0.0, 0.0, 0.0)) ? testPass : testFail;
 		}
-		else if(!GetTestStepName().compare("TestHeadWait"))           testResult = WaitForMazdaTester(BposReadInt(value.c_str()));
+		else if(!GetTestStepName().compare("TestHeadWait"))               testResult = WaitForMazdaTester(BposReadInt(value.c_str()));
 		else 
 			testResult = GenericBaseBrakeTC::CommandTestStep(value);
     }
@@ -490,6 +491,21 @@ string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTes
 }
 
 //-------------------------------------------------------------------------------------------------
+string MazdaBrakeTC::ReportOverallBrakeResults(void)
+{   // Report the brake sum
+	float totalBrakeForce = m_axleBrakeResults[FRONT_AXLE].axleSum + m_axleBrakeResults[REAR_AXLE].axleSum;
+	string totalBrakeResult = (!m_axleBrakeResults[FRONT_AXLE].axleResult.compare(testPass) &&
+							   !m_axleBrakeResults[REAR_AXLE].axleResult.compare(testPass)) ? testPass : testFail;
+	// Report these value to the PLC
+	SystemWrite(GetDataTag("TotalBrakeForceResultTag"), !totalBrakeResult.compare(testPass));
+	SystemWrite(GetDataTag("TotalBrakeForceTag"), totalBrakeForce);
+	// Determine the overall test result
+	SystemWrite(GetDataTag("OverallTestResultTag"), !GetOverallResult().compare(testPass) || !GetOverallResult().compare(BEP_TESTING_RESPONSE));
+	Log(LOG_DEV_DATA, "Reporting Total Force: %.2f - Result: %s", totalBrakeForce, totalBrakeResult.c_str());
+	return testPass;
+}
+
+//-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::SpeedSensorCheck(void)
 {   // Log the entry and determine if this should be checked
     Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Enter");
@@ -602,6 +618,14 @@ string MazdaBrakeTC::AnalyzeForceResults(MaxBrakeData *forceData, const INT16 &l
 	SystemWrite(diffBgColorTag, diffGood ? string("Green") : string("Red"));
 	SystemWrite(sumBgColorTag, sumGood ? string("Green") : string("Red"));
 	result = (sumGood && diffGood) ? testPass : testFail;
+	INT8 axleNumber = -1;
+	if(!axle.compare("Front"))      axleNumber = FRONT_AXLE;
+	else if(!axle.compare("Rear"))  axleNumber = REAR_AXLE;
+	if(axleNumber != -1)
+	{
+		m_axleBrakeResults[axleNumber].axleResult = result;
+		m_axleBrakeResults[axleNumber].axleSum = sum;
+	}
 	Log(LOG_DEV_DATA, "Force analysis complete - result: %s", result.c_str());
 	return result;
 }

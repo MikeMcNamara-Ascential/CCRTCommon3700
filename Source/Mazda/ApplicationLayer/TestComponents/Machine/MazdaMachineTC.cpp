@@ -170,6 +170,11 @@ const string MazdaMachineTC::CommandTestStep(const string &value)
 			else if(!GetTestStepName().compare("StopOdometerTest"))				testResult = StopOdometerTest();
 			else if(!GetTestStepName().compare("VehicleDisconnect"))			testResult = VehicleDisconnect();
 			else if(!GetTestStepName().compare("VehicleTestSetup"))				testResult = VehicleSetup();
+			else if(!GetTestStepName().compare("FinishUp"))
+			{
+				testResult = TestStepFinishUp(value);
+				SystemWrite(GetDataTag("OverallResultTag"), !testResult.compare(testPass));
+			}
 			else   testResult = MachineTC::CommandTestStep(value);
 		}
 		catch(BepException &excpt)

@@ -1,7 +1,7 @@
 <MachineDataBrokerConfig>
 	<Setup>
 		<CustId>Mazda</CustId>
-		<CustBld Description="Customer release version yymmddrr">13101801</CustBld>
+		<CustBld Description="Customer release version yymmddrr">13112601</CustBld>
 		<UseConfigMachineNumber>No</UseConfigMachineNumber>
 		<Debug>Off</Debug>
 		<DataFile Description="This is the file where persistent data is stored">/Configuration/Machine/LossCompensationTimeDate.dat</DataFile>
@@ -14,11 +14,11 @@
         <LoadCellData>
             <LoadCellUpdateDelay Units="ms" Description="Time between updates of the load cell data">100</LoadCellUpdateDelay>
             <Conversions>
-                <LeftFront RawData="LFLoadCellValueRaw" SystemTag="LFLoadCellValue">1.0</LeftFront>
-                <RightFront RawData="RFLoadCellValueRaw" SystemTag="RFLoadCellValue">1.0</RightFront>
-                <LeftRear RawData="LRLoadCellValueRaw" SystemTag="LRLoadCellValue">1.0</LeftRear>
-                <RightRear RawData="RRLoadCellValueRaw" SystemTag="RRLoadCellValue">1.0</RightRear>
-                <FootBrake RawData="BrakePedalForceRaw" SystemTag="BrakePedalForce">1.0</FootBrake>
+                <LeftFront RawData="LFLoadCellValueRaw" SystemTag="LFLoadCellValue" DisplayTag="LFLoadCellValueDisplay" DisplayConversion="0.1">1.0</LeftFront>
+                <RightFront RawData="RFLoadCellValueRaw" SystemTag="RFLoadCellValue" DisplayTag="RFLoadCellValueDisplay" DisplayConversion="0.1">1.0</RightFront>
+                <LeftRear RawData="LRLoadCellValueRaw" SystemTag="LRLoadCellValue" DisplayTag="LRLoadCellValueDisplay" DisplayConversion="0.1">1.0</LeftRear>
+                <RightRear RawData="RRLoadCellValueRaw" SystemTag="RRLoadCellValue" DisplayTag="RRLoadCellValueDisplay" DisplayConversion="0.1">1.0</RightRear>
+                <FootBrake RawData="BrakePedalForceRaw" SystemTag="BrakePedalForce" DisplayTag="BrakePedalForce" DisplayConversion="1.0">1.0</FootBrake>
             </Conversions>
         </LoadCellData>
         <RollerDistanceParameters>
@@ -126,7 +126,8 @@
 				<LFForceDomain DataType="range" Units="LBF">0 500</LFForceDomain>
 				<LFForceTarget DataType="range" Units="LBF">200 400</LFForceTarget>
 				<LFForceValue DataType="float" Units="LBF">0</LFForceValue>
-                <LFLoadCellValue DataType="float" Units="KGF">0</LFLoadCellValue>
+                <LFLoadCellValue DataType="float" Units="N">0</LFLoadCellValue>
+                <LFLoadCellValueDisplay DataType="float" Units="x10N">0</LFLoadCellValueDisplay>
 				<LFMachineLossCurrent DataType="float" Units="LBF">0</LFMachineLossCurrent>
 				<LFMachineLossCurrentBGColor DataType="color">white</LFMachineLossCurrentBGColor>
 				<LFMachineLossPrevious DataType="float" Units="LBF">0</LFMachineLossPrevious>
@@ -158,7 +159,8 @@
 				<LRForceDomain DataType="range" Units="LBF">0 500</LRForceDomain>
 				<LRForceTarget DataType="range" Units="LBF">200 400</LRForceTarget>
 				<LRForceValue DataType="float" Units="LBF">0</LRForceValue>
-                <LRLoadCellValue DataType="float" Units="KGF">0</LRLoadCellValue>
+                <LRLoadCellValue DataType="float" Units="N">0</LRLoadCellValue>
+                <LRLoadCellValueDisplay DataType="float" Units="x10N">0</LRLoadCellValueDisplay>
 				<LRMachineLossCurrent DataType="float" Units="LBF">0</LRMachineLossCurrent>
 				<LRMachineLossCurrentBGColor DataType="color">white</LRMachineLossCurrentBGColor>
 				<LRMachineLossPrevious DataType="float" Units="LBF">0</LRMachineLossPrevious>
@@ -223,7 +225,8 @@
 				<RFForceDomain DataType="range" Units="LBF">0 500</RFForceDomain>
 				<RFForceTarget DataType="range" Units="LBF">200 400</RFForceTarget>
 				<RFForceValue DataType="float" Units="LBF">0</RFForceValue>
-                <RFLoadCellValue DataType="float" Units="KGF">0</RFLoadCellValue>
+                <RFLoadCellValue DataType="float" Units="N">0</RFLoadCellValue>
+                <RFLoadCellValueDisplay DataType="float" Units="x10N">0</RFLoadCellValueDisplay>
 				<RFMachineLossCurrent DataType="float" Units="LBF">0</RFMachineLossCurrent>
 				<RFMachineLossCurrentBGColor DataType="color">white</RFMachineLossCurrentBGColor>
 				<RFMachineLossPrevious DataType="float" Units="LBF">0</RFMachineLossPrevious>
@@ -249,7 +252,8 @@
 				<RRForceDomain DataType="range" Units="LBF">0 500</RRForceDomain>
 				<RRForceTarget DataType="range" Units="LBF">200 400</RRForceTarget>
 				<RRForceValue DataType="float" Units="LBF">0</RRForceValue>
-                <RRLoadCellValue DataType="float" Units="KGF">0</RRLoadCellValue>
+                <RRLoadCellValue DataType="float" Units="N">0</RRLoadCellValue>
+                <RRLoadCellValueDisplay DataType="float" Units="x10N">0</RRLoadCellValueDisplay>
 				<RRMachineLossCurrent DataType="float" Units="LBF">0</RRMachineLossCurrent>
 				<RRMachineLossCurrentBGColor DataType="color">white</RRMachineLossCurrentBGColor>
 				<RRMachineLossPrevious DataType="float" Units="LBF">0</RRMachineLossPrevious>

@@ -477,6 +477,7 @@
                 <LFKForce DataType="float">ICM</LFKForce>
                 <LFKspeed DataType="float">ICM</LFKspeed>
                 <LFLoadCellValue DataType="short" Units="N">MachineDataBroker</LFLoadCellValue>
+                <LFLoadCellValueDisplay DataType="float" Units="N">MachineDataBroker</LFLoadCellValueDisplay>
                 <LFLoadCellValueRaw DataType="short" Units="N">PLC</LFLoadCellValueRaw>
                 <LFLoss DataType="float" Units="LBF">ICM</LFLoss>
                 <LFMachineLossCurrent DataType="float" Units="LBF">MachineDataBroker</LFMachineLossCurrent>
@@ -562,6 +563,7 @@
                 <LRKForce DataType="float">ICM</LRKForce>
                 <LRKspeed DataType="float">ICM</LRKspeed>
                 <LRLoadCellValue DataType="short" Units="N">MachineDataBroker</LRLoadCellValue>
+                <LRLoadCellValueDisplay DataType="float" Units="N">MachineDataBroker</LRLoadCellValueDisplay>
                 <LRLoadCellValueRaw DataType="short" Units="N">PLC</LRLoadCellValueRaw>
                 <LRLoss DataType="float" Units="LBF">ICM</LRLoss>
                 <LRMachineLossCurrent DataType="float" Units="LBF">MachineDataBroker</LRMachineLossCurrent>
@@ -858,6 +860,7 @@
                 <RFKForce DataType="float">ICM</RFKForce>
                 <RFKspeed DataType="float">ICM</RFKspeed>
                 <RFLoadCellValue DataType="short" Units="N">MachineDataBroker</RFLoadCellValue>
+                <RFLoadCellValueDisplay DataType="float" Units="N">MachineDataBroker</RFLoadCellValueDisplay>
                 <RFLoadCellValueRaw DataType="short" Units="N">PLC</RFLoadCellValueRaw>
                 <RFLoss DataType="float" Units="LBF">ICM</RFLoss>
                 <RFMachineLossCurrent DataType="float" Units="LBF">MachineDataBroker</RFMachineLossCurrent>
@@ -950,6 +953,7 @@
                 <RRKForce DataType="float">ICM</RRKForce>
                 <RRKspeed DataType="float">ICM</RRKspeed>
                 <RRLoadCellValue DataType="short" Units="N">MachineDataBroker</RRLoadCellValue>
+                <RRLoadCellValueDisplay DataType="float" Units="N">MachineDataBroker</RRLoadCellValueDisplay>
                 <RRLoadCellValueRaw DataType="short" Units="N">PLC</RRLoadCellValueRaw>
                 <RRLoss DataType="float" Units="LBF">ICM</RRLoss>
                 <RRMachineLossCurrent DataType="float" Units="LBF">MachineDataBroker</RRMachineLossCurrent>

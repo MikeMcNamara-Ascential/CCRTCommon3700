@@ -166,7 +166,7 @@
                                 </Label>
                             </HBox>
                             <Widget id="_lfforce" class="com.bepco.gui.NumberBox" width="140">
-                                <DataSource tagname="LFLoadCellValue" messagetype="Read" datarate="10" />
+                                <DataSource tagname="LFLoadCellValueDisplay" messagetype="Read" datarate="10" />
                                 <TextBoxConfig convertunits="false" format="{0,number,#}">
                                     <Font size="52" name="sans-serif" style="plain"/>
                                 </TextBoxConfig>
@@ -184,7 +184,7 @@
                                 </Label>
                             </HBox>
                             <Widget id="_rfforce" class="com.bepco.gui.NumberBox" width="140">
-                                <DataSource tagname="RFLoadCellValue" messagetype="Read" datarate="10" />
+                                <DataSource tagname="RFLoadCellValueDisplay" messagetype="Read" datarate="10" />
                                 <TextBoxConfig format="{0,number,0}">
                                     <Font size="52" name="sans-serif" style="plain"/>
                                 </TextBoxConfig>
@@ -204,7 +204,7 @@
                                 </Label>
                             </HBox>
                             <Widget id="_lrforce" class="com.bepco.gui.NumberBox" width="140">
-                                <DataSource tagname="LRLoadCellValue" messagetype="Read" datarate="10" />
+                                <DataSource tagname="LRLoadCellValueDisplay" messagetype="Read" datarate="10" />
                                 <TextBoxConfig convertunits="false" format="{0,number,0}">
                                     <Font size="52" name="sans-serif" style="plain"/>
                                 </TextBoxConfig>
@@ -222,7 +222,7 @@
                                 </Label>
                             </HBox>
                             <Widget id="_rrforce" class="com.bepco.gui.NumberBox" width="140">
-                                <DataSource tagname="RRLoadCellValue" messagetype="Read" datarate="10" />
+                                <DataSource tagname="RRLoadCellValueDisplay" messagetype="Read" datarate="10" />
                                 <TextBoxConfig format="{0,number,0}">
                                     <Font size="52" name="sans-serif" style="plain"/>
                                 </TextBoxConfig>

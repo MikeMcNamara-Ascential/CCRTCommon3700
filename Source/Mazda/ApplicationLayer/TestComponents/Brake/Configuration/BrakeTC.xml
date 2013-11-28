@@ -89,6 +89,9 @@
             <RearAxleWeightTag>VehicleRearAxleWeight</RearAxleWeightTag>
             <RearAxleWeightDefaultParameter>DefaultRearAxleWeight</RearAxleWeightDefaultParameter>
 
+            <OverallTestResultTag>OverallTestResult</OverallTestResultTag>
+            <TotalBrakeForceResultTag>TotalBrakeForceResult</TotalBrakeForceResultTag>
+            <TotalBrakeForceTag>TotalBrakeForceValue</TotalBrakeForceTag>
 
             <AbsBuildOk>AbsBuildOk</AbsBuildOk>
             <AbsDumpOk>AbsDumpOk</AbsDumpOk>
@@ -390,6 +393,7 @@
 
         <FaultCheckRoutine>
             <TestStep00>FaultCheckRoutine</TestStep00>
+            <TestStep05>ReportOverallBrakeResults</TestStep05>
             <TestStep99>StopRollers</TestStep99>
         </FaultCheckRoutine>
 
@@ -426,6 +430,7 @@
         <MazdaFrontBrakeForce Result="" Timeout="10000" Description="Analyze the brake force for the front axle"/>
         <MazdaParkBrakeForce Result="" Timeout="10000" Description="Analyze the park brake force for the rear axle"/>
         <MazdaRearBrakeForce Result="" Timeout="10000" Description="Analyze the brake force for the rear axle"/>
+        <ReportOverallBrakeResults Result="" Timeout="1000" Description="Report overall brake test results"/>
         <SpeedSensorCheck Result="" Timeout="100000000" Description="Wheel speed sensor test" ScanDelay="500"
             TestHeadTestName="WheelSpeedSensorTest"/>
         <StartBrakeSwitchTest Result="" Timeout="100000000" Description="Brake switch test"

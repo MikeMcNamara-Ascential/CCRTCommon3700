@@ -81,6 +81,7 @@
             <MachineType3600>3600</MachineType3600>
             <MaximumRollerSpeedTag>MaxRollerSpeed</MaximumRollerSpeedTag>
             <NoValue>Fail</NoValue>
+            <OverallResultTag>OverallTestResult</OverallResultTag>
             <ParkingBrakeTest>ParkingBrakeTest</ParkingBrakeTest>
             <ParkingBrakeTestFail>ParkingBrakeTestFailed</ParkingBrakeTestFail>
             <ParkingBrakeTestFailed>ParkingBrakeTestFailed</ParkingBrakeTestFailed>

@@ -83,6 +83,9 @@
         </NotificationList>
     </Setup>
     <DataMap>
+        <!-- N16 Words - From CCRT to PLC -->
+
+        <!-- N16:0 -->
         <Clutch channelIndex="0" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <Declutch channelIndex="0" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <ZerospeedToPLC channelIndex="0" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -99,6 +102,8 @@
         <DriversFaultSignal channelIndex="0" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <Start4WDTestSignalToPLC channelIndex="0" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <RetestSignal channelIndex="0" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:1 -->
         <LFDragRejectLamp channelIndex="1" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <RFDragRejectLamp channelIndex="1" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <LRDragRejectLamp channelIndex="1" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -115,6 +120,8 @@
         <AxleRatioRejectLamp channelIndex="1" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <ParkingBrakeRejectLamp channelIndex="1" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <EnableDifferentialLockTestBrake channelIndex="1" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:2 -->
         <WheelbasePosition01 channelIndex="2" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <WheelbasePosition02 channelIndex="2" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <WheelbasePosition03 channelIndex="2" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -131,6 +138,8 @@
         <WheelbasePosition12 channelIndex="2" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <FrontWheelDriveSelectedToPLC channelIndex="2" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <WheelbasePosition06 channelIndex="2" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:3 -->
         <StartLamp channelIndex="3" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <RollTestLamp channelIndex="3" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <BrakeTestLamp channelIndex="3" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -147,6 +156,8 @@
         <ABSCableConnected channelIndex="3" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <StartJounceTest channelIndex="3" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <FactoryInfoSystemDataValid channelIndex="3" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:4 -->
         <FrontWheelDriveSelected channelIndex="4" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <AllWheelDriveSelected channelIndex="4" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <ABSTestSelectedToPLC channelIndex="4" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -163,6 +174,8 @@
         <DeclutchFrontRollClutch channelIndex="4" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <DeclutchRearRollClutch channelIndex="4" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <VMESystemReady channelIndex="4" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:5 -->
         <Upper-12VPowerSupplyTolerance channelIndex="5" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <Upper12VPowerSupplyTolerance channelIndex="5" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <Upper5VPowerSupplyTolerance channelIndex="5" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -179,6 +192,8 @@
         <PLCDidNotInitialize channelIndex="5" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <WattTransducerFault channelIndex="5" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <SystemControllerTaskFault channelIndex="5" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:6 -->
         <FRollSpeedsNotEqualWhenClutched channelIndex="6" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <RRollSpeedsNotEqualWhenClutched channelIndex="6" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <LFMachLossChangeOver5LBS channelIndex="6" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -195,6 +210,8 @@
         <RREncoderRunoutError channelIndex="6" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <CycleLimitExceeded channelIndex="6" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <CycleLimitWarning channelIndex="6" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:7 -->
         <StartRearEBSDrives channelIndex="7" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <KeyboardTripSwitchControl channelIndex="7" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <FrontRollsHydraulicAssist4WD channelIndex="7" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -211,6 +228,8 @@
         <StartDCLTest channelIndex="7" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <RaiseRolls-LowerElevators channelIndex="7" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <ValidBarcodeScan channelIndex="7" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:8 -->
         <CCDTranslatorNotResponding channelIndex="8" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <CCDTranslatorNotAcceptingCommands channelIndex="8" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <BadMessageFromCCDTranslator channelIndex="8" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -218,6 +237,7 @@
         <PLCSerialWriteFault channelIndex="8" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
         <LHPendantFault channelIndex="8" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
         <RHPendantFault channelIndex="8" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
+        <!-- Open N16:8.7 -->
         <LFRollMotorOperationalFault channelIndex="8" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
         <RFRollMotorOperationalFault channelIndex="8" bitIndex="9" logic="1" portDir="OUT" boardIdx="0"/>
         <LRRollMotorOperationalFault channelIndex="8" bitIndex="10" logic="1" portDir="OUT" boardIdx="0"/>
@@ -226,6 +246,8 @@
         <RFRollMotorDriveCommFault channelIndex="8" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <LRRollMotorDriveCommFault channelIndex="8" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <RRRollMotorDriveCommFault channelIndex="8" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:9 -->
         <ProgramWheelbasePosition channelIndex="9" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <EnableAllRollDrives channelIndex="9" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <DCLControl channelIndex="9" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -242,14 +264,32 @@
         <TurnOnAuxillaryOutputTwo channelIndex="9" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <ResetPLC channelIndex="9" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
         <UniDirectionalPark-PawlTest channelIndex="9" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:10 -->
         <LFWheelSpeed channelIndex="10" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:11 -->
         <RFWheelSpeed channelIndex="11" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:12 -->
         <LossCompensationPressure channelIndex="12" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:13 -->
         <BoostPressureOut channelIndex="13" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:14 -->
         <MinimumBoostPressure channelIndex="14" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:15 -->
         <JounceCycles channelIndex="15" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:16 -->
         <JounceFrequency channelIndex="16" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:17 -->
         <LRWheelSpeed channelIndex="17" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+        <!-- N16:18 -->
         <RRWheelSpeed channelIndex="18" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 
         <!-- N16:19 -->
@@ -311,8 +351,8 @@
         <RetRollLoPosition channelIndex="24" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
         <ReRelaxRetRolls channelIndex="24" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 
-        <VehiclePresentAtBarcodeDelayTime channelIndex="25" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
-        <BarcodeVerifyDelayTime channelIndex="26" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+        <VehiclePresentAtBarcodeDelayTime channelIndex="25" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+        <BarcodeVerifyDelayTime channelIndex="26" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <ParkBrakePressure channelIndex="27" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 
 

@@ -129,7 +129,10 @@ private:
         float  conversionFactor;    // Conversion factor to apply to the raw load cell reading
         string rawSystemTag;        // Tag for reading the raw load cell value from the system
         string systemTag;           // Tag to use for supplying the converted load cell data to the system
+		string displayTag;          // Tag to use for displaying the data on the screen
+		float  displayConversion;   // Conversion factor for the displayed data
     }LoadCellConversionFactors;
+
     vector<LoadCellConversionFactors> m_loadCellConversionFactors;
     /** Timer to handle load cell readings */
     BepTimer m_loadCellTimer;

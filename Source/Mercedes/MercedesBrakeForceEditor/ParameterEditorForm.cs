@@ -182,15 +182,15 @@ namespace MercedesBrakeForceEditor
             switch (rowIndex)
             {
                 case 0:
-                    paramName = "Front";
+                    paramName = "Axle1";
                     break;
 
                 case 1:
-                    paramName = "Rear";
+                    paramName = "Axle2";
                     break;
 
                 case 2:
-                    paramName = "Tandem";
+                    paramName = "Axle3";
                     break;
 
                 default:
@@ -231,20 +231,20 @@ namespace MercedesBrakeForceEditor
         {   // Populate the form with the baumuster
             m_truckFamilyTextBox.Text = baumuster;
             // Set the min/max brake force parameters
-            m_brakeForceParamDataGridView.Rows[0].Cells["MinBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("FrontMinBrakeForce"))));
-            m_brakeForceParamDataGridView.Rows[0].Cells["MaxBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("FrontMaxBrakeForce"))));
-            m_brakeForceParamDataGridView.Rows[1].Cells["MinBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("RearMinBrakeForce"))));
-            m_brakeForceParamDataGridView.Rows[1].Cells["MaxBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("RearMaxBrakeForce"))));
-            m_brakeForceParamDataGridView.Rows[2].Cells["MinBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("TandemMinBrakeForce"))));
-            m_brakeForceParamDataGridView.Rows[2].Cells["MaxBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("TandemMaxBrakeForce"))));
+            m_brakeForceParamDataGridView.Rows[0].Cells["MinBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("Axle1MinBrakeForce"))));
+            m_brakeForceParamDataGridView.Rows[0].Cells["MaxBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("Axle1MaxBrakeForce"))));
+            m_brakeForceParamDataGridView.Rows[1].Cells["MinBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("Axle2MinBrakeForce"))));
+            m_brakeForceParamDataGridView.Rows[1].Cells["MaxBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("Axle2MaxBrakeForce"))));
+            m_brakeForceParamDataGridView.Rows[2].Cells["MinBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("Axle3MinBrakeForce"))));
+            m_brakeForceParamDataGridView.Rows[2].Cells["MaxBrakeForce"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.LbfKgf, Convert.ToDouble(GetParameterValue("Axle3MaxBrakeForce"))));
             // Set the brake stop distance
-            m_brakeForceParamDataGridView.Rows[0].Cells["MaxStopDist"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.FeetMeter, Convert.ToDouble(GetParameterValue("FrontMaximumStoppingDistance"))));
-            m_brakeForceParamDataGridView.Rows[1].Cells["MaxStopDist"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.FeetMeter, Convert.ToDouble(GetParameterValue("RearMaximumStoppingDistance"))));
-            m_brakeForceParamDataGridView.Rows[2].Cells["MaxStopDist"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.FeetMeter, Convert.ToDouble(GetParameterValue("TandemMaximumStoppingDistance"))));
+            m_brakeForceParamDataGridView.Rows[0].Cells["MaxStopDist"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.FeetMeter, Convert.ToDouble(GetParameterValue("Axle1MaximumStoppingDistance"))));
+            m_brakeForceParamDataGridView.Rows[1].Cells["MaxStopDist"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.FeetMeter, Convert.ToDouble(GetParameterValue("Axle2MaximumStoppingDistance"))));
+            m_brakeForceParamDataGridView.Rows[2].Cells["MaxStopDist"].Value = String.Format("{0:F0}", ConvertParameterValue(ConversionTypes.FeetMeter, Convert.ToDouble(GetParameterValue("Axle3MaximumStoppingDistance"))));
             // Set the brake force difference
-            m_brakeForceParamDataGridView.Rows[0].Cells["MaxDiffForce"].Value = String.Format("{0:F0}", ConvertBalancePercentToForceDiff(Convert.ToDouble(GetParameterValue("FrontSideToSideBalance")), "Front"));
-            m_brakeForceParamDataGridView.Rows[1].Cells["MaxDiffForce"].Value = String.Format("{0:F0}", ConvertBalancePercentToForceDiff(Convert.ToDouble(GetParameterValue("RearSideToSideBalance")), "Rear"));
-            m_brakeForceParamDataGridView.Rows[2].Cells["MaxDiffForce"].Value = String.Format("{0:F0}", ConvertBalancePercentToForceDiff(Convert.ToDouble(GetParameterValue("TandemSideToSideBalance")), "Tandem"));
+            m_brakeForceParamDataGridView.Rows[0].Cells["MaxDiffForce"].Value = String.Format("{0:F0}", Convert.ToDouble(GetParameterValue("Axle1SideToSideBalance")));
+            m_brakeForceParamDataGridView.Rows[1].Cells["MaxDiffForce"].Value = String.Format("{0:F0}", Convert.ToDouble(GetParameterValue("Axle2SideToSideBalance")));
+            m_brakeForceParamDataGridView.Rows[2].Cells["MaxDiffForce"].Value = String.Format("{0:F0}", Convert.ToDouble(GetParameterValue("Axle3SideToSideBalance")));
             // Display the stop distance start speed
             Double convertedSpeed = ConvertParameterValue(ConversionTypes.MphKmh,
                                                           Convert.ToDouble(GetParameterValue("BrakeStopdistanceStartSpeed")));
@@ -388,18 +388,18 @@ namespace MercedesBrakeForceEditor
                     switch(e.RowIndex)
                     {
                         case 0:
-                            axle = "Front";
+                            axle = "Axle1";
                             break;
 
                         case 1:
-                            axle = "Rear";
+                            axle = "Axle2";
                             break;
 
                         case 2:
-                            axle = "Tandem";
+                            axle = "Axle3";
                             break;
                     }
-                    value = ConvertForceDiffToPercent(Convert.ToDouble(m_brakeForceParamDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value), axle);
+                    value = Convert.ToDouble(m_brakeForceParamDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
                 }
                 SetParameterValue(MakeParameterName(e.RowIndex, e.ColumnIndex), value.ToString());
             }

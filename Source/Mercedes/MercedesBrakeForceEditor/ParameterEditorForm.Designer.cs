@@ -42,13 +42,13 @@ namespace MercedesBrakeForceEditor
             this.m_brkStopDistSpeedTextBox = new System.Windows.Forms.TextBox();
             this.m_brakeForceParamsLabel = new System.Windows.Forms.Label();
             this.m_brakeForceParamDataGridView = new System.Windows.Forms.DataGridView();
+            this.m_parkBrakeForceLabel = new System.Windows.Forms.Label();
+            this.m_parkBrakeForceTextBox = new System.Windows.Forms.TextBox();
             this.Axle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MinBrakeForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaxBrakeForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaxDiffForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaxStopDist = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.m_parkBrakeForceLabel = new System.Windows.Forms.Label();
-            this.m_parkBrakeForceTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_brakeForceParamDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -185,6 +185,24 @@ namespace MercedesBrakeForceEditor
             this.m_brakeForceParamDataGridView.TabIndex = 6;
             this.m_brakeForceParamDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_brakeForceParamDataGridView_CellValueChanged);
             // 
+            // m_parkBrakeForceLabel
+            // 
+            this.m_parkBrakeForceLabel.AutoSize = true;
+            this.m_parkBrakeForceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_parkBrakeForceLabel.Location = new System.Drawing.Point(338, 94);
+            this.m_parkBrakeForceLabel.Name = "m_parkBrakeForceLabel";
+            this.m_parkBrakeForceLabel.Size = new System.Drawing.Size(136, 13);
+            this.m_parkBrakeForceLabel.TabIndex = 7;
+            this.m_parkBrakeForceLabel.Text = "Park Brake Force (kgf)";
+            // 
+            // m_parkBrakeForceTextBox
+            // 
+            this.m_parkBrakeForceTextBox.Location = new System.Drawing.Point(381, 110);
+            this.m_parkBrakeForceTextBox.Name = "m_parkBrakeForceTextBox";
+            this.m_parkBrakeForceTextBox.Size = new System.Drawing.Size(57, 20);
+            this.m_parkBrakeForceTextBox.TabIndex = 8;
+            this.m_parkBrakeForceTextBox.TextChanged += new System.EventHandler(this.m_parkBrakeForceTextBox_TextChanged);
+            // 
             // Axle
             // 
             this.Axle.HeaderText = "Axle";
@@ -203,31 +221,13 @@ namespace MercedesBrakeForceEditor
             // 
             // MaxDiffForce
             // 
-            this.MaxDiffForce.HeaderText = "Maximum Side to Side Force Difference (kgf)";
+            this.MaxDiffForce.HeaderText = "Maximum Side to Side Balance (%)";
             this.MaxDiffForce.Name = "MaxDiffForce";
             // 
             // MaxStopDist
             // 
             this.MaxStopDist.HeaderText = "Maximum Stopping Distance (m)";
             this.MaxStopDist.Name = "MaxStopDist";
-            // 
-            // m_parkBrakeForceLabel
-            // 
-            this.m_parkBrakeForceLabel.AutoSize = true;
-            this.m_parkBrakeForceLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_parkBrakeForceLabel.Location = new System.Drawing.Point(338, 94);
-            this.m_parkBrakeForceLabel.Name = "m_parkBrakeForceLabel";
-            this.m_parkBrakeForceLabel.Size = new System.Drawing.Size(136, 13);
-            this.m_parkBrakeForceLabel.TabIndex = 7;
-            this.m_parkBrakeForceLabel.Text = "Park Brake Force (kgf)";
-            // 
-            // m_parkBrakeForceTextBox
-            // 
-            this.m_parkBrakeForceTextBox.Location = new System.Drawing.Point(381, 110);
-            this.m_parkBrakeForceTextBox.Name = "m_parkBrakeForceTextBox";
-            this.m_parkBrakeForceTextBox.Size = new System.Drawing.Size(57, 20);
-            this.m_parkBrakeForceTextBox.TabIndex = 8;
-            this.m_parkBrakeForceTextBox.TextChanged += new System.EventHandler(this.m_parkBrakeForceTextBox_TextChanged);
             // 
             // ParameterEditorForm
             // 
@@ -272,13 +272,13 @@ namespace MercedesBrakeForceEditor
         private System.Windows.Forms.TextBox m_brkStopDistSpeedTextBox;
         private System.Windows.Forms.Label m_brakeForceParamsLabel;
         private System.Windows.Forms.DataGridView m_brakeForceParamDataGridView;
+        private System.Windows.Forms.Label m_parkBrakeForceLabel;
+        private System.Windows.Forms.TextBox m_parkBrakeForceTextBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn Axle;
         private System.Windows.Forms.DataGridViewTextBoxColumn MinBrakeForce;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxBrakeForce;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxDiffForce;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaxStopDist;
-        private System.Windows.Forms.Label m_parkBrakeForceLabel;
-        private System.Windows.Forms.TextBox m_parkBrakeForceTextBox;
     }
 }
 

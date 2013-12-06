@@ -184,6 +184,8 @@
             <FrontBrakeDiffLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.08</FrontBrakeDiffLimit>
             <RearBrakeLimit Units="% of rear axle weight" ConvertToEnglishUnits="False">0.10</RearBrakeLimit>
             <RearBrakeDiffLimit Units="% of rear axle weight" ConvertToEnglishUnits="False">0.08</RearBrakeDiffLimit>
+            <TotalBrakeLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.25</TotalBrakeLimit>
+            <UseAxleWeightsForTotalBrakeForceResult>True</UseAxleWeightsForTotalBrakeForceResult>
     
             <!-- Drag Test Parameters -->
             <DisableMotorsAfterDragTest>False</DisableMotorsAfterDragTest>

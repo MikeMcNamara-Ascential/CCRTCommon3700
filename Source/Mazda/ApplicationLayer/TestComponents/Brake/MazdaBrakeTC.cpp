@@ -494,8 +494,17 @@ string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTes
 string MazdaBrakeTC::ReportOverallBrakeResults(void)
 {   // Report the brake sum
 	float totalBrakeForce = m_axleBrakeResults[FRONT_AXLE].axleSum + m_axleBrakeResults[REAR_AXLE].axleSum;
-	string totalBrakeResult = (!m_axleBrakeResults[FRONT_AXLE].axleResult.compare(testPass) &&
-							   !m_axleBrakeResults[REAR_AXLE].axleResult.compare(testPass)) ? testPass : testFail;
+	float totalAXleWeight = GetAxleWeight("Front") + GetAxleWeight("Rear");
+	string totalBrakeResult(BEP_TESTING_RESPONSE);
+	if(GetParameterBool("UseAxleWeightsForTotalBrakeForceResult"))
+	{
+		totalBrakeResult = (totalBrakeForce > (totalAXleWeight * GetParameterFloat("TotalBrakeLimit"))) ? testPass : testFail;
+	}
+	else
+	{
+		totalBrakeResult = (!m_axleBrakeResults[FRONT_AXLE].axleResult.compare(testPass) &&
+							!m_axleBrakeResults[REAR_AXLE].axleResult.compare(testPass)) ? testPass : testFail;
+	}
 	// Report these value to the PLC
 	SystemWrite(GetDataTag("TotalBrakeForceResultTag"), !totalBrakeResult.compare(testPass));
 	SystemWrite(GetDataTag("TotalBrakeForceTag"), totalBrakeForce);

@@ -156,7 +156,7 @@ public:
         // if m_errString changes from a string this needs to change
         return(m_errString);
     }
-    const char* GetReason() const
+    const char* GetReason()
     {
         m_asciiErr = XmlToAscii( m_errString);
         return(m_asciiErr.c_str());

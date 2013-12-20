@@ -37,6 +37,7 @@
             <FourWDSelected DataType="bool">No</FourWDSelected>
             <RetRollHiPosition DataType="integer">0</RetRollHiPosition>
             <RetRollLoPosition DataType="integer">1</RetRollLoPosition>
+            <OpenExhaustFlap DataType="bool">No</OpenExhaustFlap>
         </DataToPLC>
         <Logging>
             <Status>Enabled</Status>
@@ -88,6 +89,7 @@
                 <MetricSelectBGColor DataType="color">white</MetricSelectBGColor>
                 <ModelYear DataType="string">Unknown</ModelYear>
                 <ModelYearBGColor DataType="color">white</ModelYearBGColor>
+                <OpenExhaustFlap DataType="bool">No</OpenExhaustFlap>
                 <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
                 <RetRollHiPosition DataTyp="bool">No</RetRollHiPosition>
                 <RetRollLoPosition DataTyp="bool">Yes</RetRollLoPosition>

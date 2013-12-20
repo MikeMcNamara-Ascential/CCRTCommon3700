@@ -6,6 +6,7 @@
         <TransferCase>4WD</TransferCase>
         <Wheelbase Units="mm">3014</Wheelbase>
         <UseLargeTireOpening>Yes</UseLargeTireOpening>
+        <OpenExhaustFlap>No</OpenExhaustFlap>
 
         <BrakeForces>
              <!-- front axle brake forces -->

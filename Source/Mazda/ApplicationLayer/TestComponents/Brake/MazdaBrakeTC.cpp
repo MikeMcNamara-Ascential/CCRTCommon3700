@@ -707,6 +707,8 @@ float MazdaBrakeTC::GetAxleWeight(string axle)
 			axleWeight = GetParameterFloat(GetDataTag("FrontAxleWeightDefaultParameter")) + GetParameterFloat(GetDataTag("RearAxleWeightDefaultParameter"));
 		}
 	}
+    //convert kg to newtons
+    axleWeight = axleWeight * 9.81;
 	Log(LOG_DEV_DATA, "Using %.2f for %s axle weight", axleWeight, axle.c_str());
 	return axleWeight;
 }

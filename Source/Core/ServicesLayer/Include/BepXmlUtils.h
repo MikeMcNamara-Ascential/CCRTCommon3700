@@ -218,6 +218,26 @@ public:
     const XmlNode* getNode( int Index) const;
 
     /**
+     * Searches for a node in the node list using the node's tag list. Throws an
+     * XmlException if tag cannot be found.
+     *
+     * @param tag    Tag of node to be checked
+     *
+     * @return Boolean indicating if the node was found in the node list
+     */
+    const bool hasNode( const XML_Char *tag) const;
+
+    /**
+     * Searches for a node in the node list using the node's tag list. Throws an
+     * XmlException if tag cannot be found.
+     *
+     * @param tag    Tag of node to be checked
+     *
+     * @return Boolean indicating if the node was found in the node list
+     */
+    bool hasNode( const XmlString &tag) const;
+
+    /**
      * Overloaded clear method to clear all nodes in the XmlNodeMap
      * and optionally free memory used by the contained node pointers
      *

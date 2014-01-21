@@ -16,13 +16,13 @@
 
 //-------------------------------------------------------------------------------------------------
 MazdaBrakeTC::MazdaBrakeTC() : GenericBaseBrakeTC()
-{   // Nothing special to do here
-    
+{	// Nothing special to do here
+
 }
 
 //-------------------------------------------------------------------------------------------------
 MazdaBrakeTC::~MazdaBrakeTC()
-{   // Nothing special to do here
+{	// Nothing special to do here
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -35,17 +35,17 @@ void MazdaBrakeTC::Abort(void)
 //-------------------------------------------------------------------------------------------------
 const string MazdaBrakeTC::CommandTestStep(const string &value)
 {
-    string testResult(BEP_TESTING_STATUS);
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Enter", value.c_str());
-    // Make sure it is OK to perform the test step
-    m_baseBrakeTool->SetBrakeTestingStatus(BEP_TESTING_RESPONSE);
-    if(BEP_STATUS_SUCCESS == StatusCheck())
-    {
-		if(!GetTestStepName().compare("AbsLfTest"))                       testResult = MazdaAbsValveTest("LfAbsTest", LFWHEEL, RFWHEEL);
-		else if(!GetTestStepName().compare("AbsLrTest"))                  testResult = MazdaAbsValveTest("LrAbsTest", LRWHEEL, RRWHEEL);
-		else if(!GetTestStepName().compare("AbsRfTest"))                  testResult = MazdaAbsValveTest("RfAbsTest", RFWHEEL, LFWHEEL);
-		else if(!GetTestStepName().compare("AbsRrTest"))                  testResult = MazdaAbsValveTest("RrAbsTest", RRWHEEL, LRWHEEL);
-		else if(!GetTestStepName().compare("BrakeTestComplete"))          testResult = BrakeTestingComplete();
+	string testResult(BEP_TESTING_STATUS);
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Enter", value.c_str());
+	// Make sure it is OK to perform the test step
+	m_baseBrakeTool->SetBrakeTestingStatus(BEP_TESTING_RESPONSE);
+	if(BEP_STATUS_SUCCESS == StatusCheck())
+	{
+		if(!GetTestStepName().compare("AbsLfTest"))						  testResult = MazdaAbsValveTest("LfAbsTest", LFWHEEL, RFWHEEL);
+		else if(!GetTestStepName().compare("AbsLrTest"))				  testResult = MazdaAbsValveTest("LrAbsTest", LRWHEEL, RRWHEEL);
+		else if(!GetTestStepName().compare("AbsRfTest"))				  testResult = MazdaAbsValveTest("RfAbsTest", RFWHEEL, LFWHEEL);
+		else if(!GetTestStepName().compare("AbsRrTest"))				  testResult = MazdaAbsValveTest("RrAbsTest", RRWHEEL, LRWHEEL);
+		else if(!GetTestStepName().compare("BrakeTestComplete"))		  testResult = BrakeTestingComplete();
 		else if(!GetTestStepName().compare("BrakeTestStart"))
 		{
 			DisplayPrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
@@ -56,39 +56,39 @@ const string MazdaBrakeTC::CommandTestStep(const string &value)
 			RemovePrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
 			testResult = SystemWrite(GetDataTag("RunBrakeTestTag"), false) == BEP_STATUS_SUCCESS ? testPass : testFail;
 		}
-		else if(!GetTestStepName().compare("ClearDiagnosticRoutine"))     testResult = ClearDiagnostics();
-		else if(!GetTestStepName().compare("FaultCheckRoutine"))          testResult = FaultCheck();
-		else if(!GetTestStepName().compare("MazdaFrontBrakeForce"))       testResult = MazdaBrakeForceTest("Front");
-		else if(!GetTestStepName().compare("MazdaRearBrakeForce"))        testResult = MazdaBrakeForceTest("Rear");
-		else if(!GetTestStepName().compare("MazdaDragTest"))              testResult = MazdaDragTest();
-		else if(!GetTestStepName().compare("MazdaParkBrakeForce"))        testResult = MazdaBrakeForceTest("ParkBrake");
+		else if(!GetTestStepName().compare("ClearDiagnosticRoutine"))	  testResult = ClearDiagnostics();
+		else if(!GetTestStepName().compare("FaultCheckRoutine"))		  testResult = FaultCheck();
+		else if(!GetTestStepName().compare("MazdaFrontBrakeForce"))		  testResult = MazdaBrakeForceTest("Front");
+		else if(!GetTestStepName().compare("MazdaRearBrakeForce"))		  testResult = MazdaBrakeForceTest("Rear");
+		else if(!GetTestStepName().compare("MazdaDragTest"))			  testResult = MazdaDragTest();
+		else if(!GetTestStepName().compare("MazdaParkBrakeForce"))		  testResult = MazdaBrakeForceTest("ParkBrake");
 		else if(!GetTestStepName().compare("ReportOverallBrakeResults"))  testResult = ReportOverallBrakeResults();
-		else if(!GetTestStepName().compare("SpeedSensorCheck"))           testResult = SpeedSensorCheck();
-		else if(!GetTestStepName().compare("StartBrakeSwitchTest"))       testResult = MazdaBrakeSwitchTest("Start");
-		else if(!GetTestStepName().compare("StopBrakeSwitchTest"))        testResult = MazdaBrakeSwitchTest("Stop");
-		else if(!GetTestStepName().compare("StopRollers"))            
+		else if(!GetTestStepName().compare("SpeedSensorCheck"))			  testResult = SpeedSensorCheck();
+		else if(!GetTestStepName().compare("StartBrakeSwitchTest"))		  testResult = MazdaBrakeSwitchTest("Start");
+		else if(!GetTestStepName().compare("StopBrakeSwitchTest"))		  testResult = MazdaBrakeSwitchTest("Stop");
+		else if(!GetTestStepName().compare("StopRollers"))
 		{
 			testResult = (BEP_STATUS_SUCCESS == WaitForWheelSpeedsToBeReached(0.0, 0.0, 0.0, 0.0)) ? testPass : testFail;
 		}
-		else if(!GetTestStepName().compare("TestHeadWait"))               testResult = WaitForMazdaTester(BposReadInt(value.c_str()));
-		else 
+		else if(!GetTestStepName().compare("TestHeadWait"))				  testResult = WaitForMazdaTester(BposReadInt(value.c_str()));
+		else
 			testResult = GenericBaseBrakeTC::CommandTestStep(value);
-    }
-    else
-    {   // System is not OK to perform brake test
-        testResult = testSkip;
-        Log(LOG_ERRORS, "System status is preventing test: %s", ConvertStatusToResponse(StatusCheck()).c_str());
+	}
+	else
+	{	// System is not OK to perform brake test
+		testResult = testSkip;
+		Log(LOG_ERRORS, "System status is preventing test: %s", ConvertStatusToResponse(StatusCheck()).c_str());
 		// Make sure rolls are disabled
 		DisableRollMotors(SPEED_MODE);
-    }
-    // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Exit", value.c_str());
-    return testResult;
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::CommandTestStep(%s) - Exit", value.c_str());
+	return testResult;
 }
 
 //-------------------------------------------------------------------------------------------------
 void MazdaBrakeTC::Initialize(const XmlNode *config)
-{   // Call the base class to begin the initialization
+{	// Call the base class to begin the initialization
 	GenericBaseBrakeTC::Initialize(config);
 	// Load the Mazda test head test steps
 	try
@@ -156,11 +156,11 @@ string MazdaBrakeTC::FaultCheck(void)
 
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel, INT16 oppositeWheel)
-{   // Log the entry and determine if this test should be performed
+{	// Log the entry and determine if this test should be performed
 	Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaAbsValveTest(wheelTestStep: %s) - Enter", wheelTestStep.c_str());
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
-	{   // Kick off the test head test step
+	{	// Kick off the test head test step
 		DisplayPrompt(GetPromptBox("AbsValveFiring"), GetPrompt("AbsValveFiring"), GetPromptPriority("AbsValveFiring"),
 					  "white", rollerName[testingWheel]);
 		SystemWrite(GetDataTag("AbsDumpOk"), false);
@@ -171,7 +171,7 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
 		Log(LOG_DEV_DATA, "ABS Dump complete: %s", dumpResult.c_str());
 		string buildResult(testFail);
 		if(!dumpResult.compare(testPass))
-		{   // Wait for the ABS Build to complete
+		{	// Wait for the ABS Build to complete
 			BposSleep(GetParameterInt("AbsBuildDelay"));
 			buildResult = WaitForAbsBuild(testingWheel, oppositeWheel);
 			Log(LOG_DEV_DATA, "ABS Build complete: %s", buildResult.c_str());
@@ -207,8 +207,8 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
 
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
-{   // Log the entry and determine if this should be checked
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaBrakeForceTest(%s) - Enter", axle.c_str());
+{	// Log the entry and determine if this should be checked
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaBrakeForceTest(%s) - Enter", axle.c_str());
 	INT16 leftWheel = LFWHEEL;
 	INT16 rightWheel = RFWHEEL;
 	ResultType_t resultType = BRAKE_RESULTS_FRONT;
@@ -233,24 +233,24 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 		applyBrakePrompt = "ApplyParkBrake";
 		DisplayPrompt(1, GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
 	}
-    string result(BEP_TESTING_STATUS);
+	string result(BEP_TESTING_STATUS);
 	string loadCellTags[] = {GetDataTag("LfCurrentForce"), GetDataTag("RfCurrentForce"), 
-							 GetDataTag("LrCurrentForce"), GetDataTag("RrCurrentForce")};
+		GetDataTag("LrCurrentForce"), GetDataTag("RrCurrentForce")};
 	string displayTags[] = {GetDataTag("LfBrakeDisplayTag"), GetDataTag("RfBrakeDisplayTag"), 
-							GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag")};
+		GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag")};
 	MaxBrakeData brakeData[GetRollerCount()];
 	TestResultDetails testDetails;
-    if(!ShortCircuitTestStep())
-    {   // Setup the roller speeds
+	if(!ShortCircuitTestStep())
+	{	// Setup the roller speeds
 		if(BEP_STATUS_SUCCESS == WaitForWheelSpeedsToBeReached(GetParameterFloat(axle+"AxleBrakeForceSpeedLf"),
 															   GetParameterFloat(axle+"AxleBrakeForceSpeedRf"),
 															   GetParameterFloat(axle+"AxleBrakeForceSpeedLr"),
 															   GetParameterFloat(axle+"AxleBrakeForceSpeedRr")))
-		{   // Tell the operator to apply the brake pedal
+		{	// Tell the operator to apply the brake pedal
 			DisplayPrompt(GetPromptBox(applyBrakePrompt), GetPrompt(applyBrakePrompt), GetPromptPriority(applyBrakePrompt));
 			BposSleep(GetParameterInt("OperatorReactionTime"));
 			if(!axle.compare("ParkBrake"))
-			{   // Remove the prompts
+			{	// Remove the prompts
 				RemovePrompt(1, GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
 			}
 			DisplayPrompt(GetPromptBox("BrakeForceTesting"), GetPrompt("BrakeForceTesting"), GetPromptPriority("BrakeForceTesting"),
@@ -259,13 +259,13 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 			SetupLoadCellDataStructure(brakeData, loadCellTags, displayTags);
 			bool measurementComplete = false;
 			do
-			{   // Get the drag force samples
+			{	// Get the drag force samples
 				measurementComplete = MonitorBrakeForces(leftWheel, rightWheel, 0, 0, brakeData, 
 														 GetParameterInt("NumberOfBrakeSamples"));
 			} while(!measurementComplete && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
 			// Analyze the exit status
 			if(measurementComplete)
-			{   // Calculate the limits
+			{	// Calculate the limits
 				float sumLimit = GetAxleWeight(axle) * GetParameterFloat(axle+"BrakeLimit");
 
 				// Measurement complete, analyze the brake
@@ -286,7 +286,7 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 			RemovePrompt(GetPromptBox("BrakeForceTesting"), GetPrompt("BrakeForceTesting"), GetPromptPriority("BrakeForceTesting"));
 		}
 		else
-		{   // Timeout waiting for rollers to accelerate to speed
+		{	// Timeout waiting for rollers to accelerate to speed
 			Log(LOG_ERRORS, "Timeout waiting for rollers to be at speed");
 			result = testFail;
 		}
@@ -294,7 +294,7 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 		// Report the results
 		SendTestResultWithDetail(result, testDetails, GetTestStepInfo("Description"), "0000");
 		if(!axle.compare("ParkBrake"))
-		{   // Remove the prompts
+		{	// Remove the prompts
 			RemovePrompt(1, GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
 			RemovePrompt(GetPromptBox(applyBrakePrompt), GetPrompt(applyBrakePrompt), GetPromptPriority(applyBrakePrompt));
 			DisplayTimedPrompt(GetPrompt("ReleaseParkBrake"), GetPromptBox("ReleaseParkBrake"), 
@@ -302,7 +302,7 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 		}
 	}
 	else
-	{   // Need to skip this step
+	{	// Need to skip this step
 		result = testSkip;
 		Log(LOG_DEV_DATA, "Skipping %s Mazda Brake Force Test test", axle.c_str());
 	}
@@ -316,7 +316,7 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
 	Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaBrakeSwitchTest(action: %s) - Enter", action.c_str());
 	string result(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
-	{   // Prompt the operator to remove foot from brake pedal
+	{	// Prompt the operator to remove foot from brake pedal
 		if(!action.compare("Start"))
 		{
 			DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
@@ -348,7 +348,7 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
 //		DisableRollMotors(SPEED_MODE);
 	}
 	else
-	{   // Do not need to run this test
+	{	// Do not need to run this test
 		result = testSkip;
 		Log(LOG_FN_ENTRY, "Skipping brake switch test");
 	}
@@ -358,15 +358,15 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
 
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::MazdaDragTest(void)
-{   // Log the entry and determine if this should be checked
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Enter");
-    string result(BEP_TESTING_STATUS);
+{	// Log the entry and determine if this should be checked
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Enter");
+	string result(BEP_TESTING_STATUS);
 	string loadCellTags[] = {GetDataTag("LfCurrentForce"), GetDataTag("RfCurrentForce"), 
-		                     GetDataTag("LrCurrentForce"), GetDataTag("RrCurrentForce")};
+		GetDataTag("LrCurrentForce"), GetDataTag("RrCurrentForce")};
 	string displayTags[] = {GetDataTag("LfDragDisplayTag"), GetDataTag("RfDragDisplayTag"), 
-		                    GetDataTag("LrDragDisplayTag"), GetDataTag("RrDragDisplayTag")};
-    if(!ShortCircuitTestStep())
-    {   // Make sure the operator keeps foot off brake
+		GetDataTag("LrDragDisplayTag"), GetDataTag("RrDragDisplayTag")};
+	if(!ShortCircuitTestStep())
+	{	// Make sure the operator keeps foot off brake
 		DisplayPrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 		DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
 		if(GetParameterBool("WaitForOperator"))
@@ -379,7 +379,7 @@ string MazdaBrakeTC::MazdaDragTest(void)
 															   GetParameterFloat("RfDragTestSpeed"), 
 															   GetParameterFloat("LrDragTestSpeed"), 
 															   GetParameterFloat("RrDragTestSpeed")))
-		{   // Roller speeds are good, take drag force readings
+		{	// Roller speeds are good, take drag force readings
 			RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 			DisplayPrompt(GetPromptBox("DragForceTest"), GetPrompt("DragForceTest"), GetPromptPriority("DragForceTest"));
 			MaxBrakeData dragData[GetRollerCount()];
@@ -387,13 +387,13 @@ string MazdaBrakeTC::MazdaDragTest(void)
 			SetupLoadCellDataStructure(dragData, loadCellTags, displayTags);
 			bool measurementComplete = false;
 			do
-			{   // Get the drag force samples
+			{	// Get the drag force samples
 				measurementComplete = MonitorBrakeForces(LFWHEEL, RRWHEEL, 0.0, 0.0, dragData, 
 														 GetParameterInt("NumberOfDragSamples"));
 			} while(!measurementComplete && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
 			// Analyze the exit status
 			if(measurementComplete)
-			{   // Measurement complete, analyze the data
+			{	// Measurement complete, analyze the data
 				string axle = "Front";
 				string frontResult = AnalyzeForceResults(dragData, LFWHEEL, RFWHEEL, DRAG_RESULTS_FRONT,
 														 GetParameterFloat("FrontDragLimit"),
@@ -421,7 +421,7 @@ string MazdaBrakeTC::MazdaDragTest(void)
 			RemovePrompt(GetPromptBox("DragForceTest"), GetPrompt("DragForceTest"), GetPromptPriority("DragForceTest"));
 		}
 		else
-		{   // Timeout waiting for rollers to accelerate to speed
+		{	// Timeout waiting for rollers to accelerate to speed
 			RemovePrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 			Log(LOG_ERRORS, "Timeout waiting for rollers to be at speed");
 			result = testFail;
@@ -433,15 +433,15 @@ string MazdaBrakeTC::MazdaDragTest(void)
 		RemovePrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
 		// Report the results
 		SendTestResultWithDetail(result, testDetails, GetTestStepInfo("Description"), "0000");
-    }
-    else
-    {   // Need to skip this step
-        result = testSkip;
-        Log(LOG_DEV_DATA, "Skipping MazdaDragTest test");
-    }
-    // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Exit");
-    return result;
+	}
+	else
+	{	// Need to skip this step
+		result = testSkip;
+		Log(LOG_DEV_DATA, "Skipping MazdaDragTest test");
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::MazdaDragTest() - Exit");
+	return result;
 }
 
 
@@ -454,23 +454,23 @@ string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTes
 	// Reset the test start time
 	SetStartTime();
 	if(StartTestHeadTest(testStep))
-	{   
+	{
 		if(waitForTestComplete)
-		{   // Wait for the test step to complete
+		{	// Wait for the test step to complete
 			const XmlNodeMapItr testData = m_testHeadTestSteps.find(testStep);
 			while(!testComplete && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()))
-			{   // Wait for a bit for the test step to complete
+			{	// Wait for a bit for the test step to complete
 				BposSleep(GetParameterInt("TestCompleteCheckDelay"));
 				// Check if the test has completed yet
 				testComplete = SystemReadBool(testData->second->getAttribute("TestCompleteTag")->getValue());
 			}
 			if(testComplete)
-			{   // Test step completed, set the result
+			{	// Test step completed, set the result
 				result = SystemReadBool(testData->second->getAttribute("TestResultTag")->getValue()) ? testPass : testFail;
 				Log(LOG_DEV_DATA, "Test step %s completed, result: %s", testStep.c_str(), result.c_str());
 			}
 			else
-			{   // Timeout waiting for the test to complete
+			{	// Timeout waiting for the test to complete
 				result = testTimeout;
 				Log(LOG_ERRORS, "Timeout waiting for %s to complete", testStep.c_str());
 			}
@@ -478,12 +478,12 @@ string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTes
 			StopTestHeadTest(testStep);
 		}
 		else
-		{   // Not waiting for test complete
+		{	// Not waiting for test complete
 			result = testPass;
 		}
 	}
 	else
-	{   // Test step has not been defined
+	{	// Test step has not been defined
 		Log(LOG_ERRORS, "Test step %s has not been defined for the test head", testStep.c_str());
 		result = testSoftwareFail;
 	}
@@ -492,7 +492,7 @@ string MazdaBrakeTC::PerformTestHeadTest(const string &testStep, bool waitForTes
 
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::ReportOverallBrakeResults(void)
-{   // Report the brake sum
+{	// Report the brake sum
 	float totalBrakeForce = m_axleBrakeResults[FRONT_AXLE].axleSum + m_axleBrakeResults[REAR_AXLE].axleSum;
 	float totalAXleWeight = GetAxleWeight("Front") + GetAxleWeight("Rear");
 	string totalBrakeResult(BEP_TESTING_RESPONSE);
@@ -516,11 +516,11 @@ string MazdaBrakeTC::ReportOverallBrakeResults(void)
 
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::SpeedSensorCheck(void)
-{   // Log the entry and determine if this should be checked
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Enter");
-    string testResult(BEP_TESTING_RESPONSE);
+{	// Log the entry and determine if this should be checked
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::SpeedSensorCheck() - Enter");
+	string testResult(BEP_TESTING_RESPONSE);
 	if(!ShortCircuitTestStep())
-	{   // Instruct operator to remove foot from brake pedal
+	{	// Instruct operator to remove foot from brake pedal
 		DisplayPrompt(GetPromptBox("NeutralPrompt"), GetPrompt("NeutralPrompt"), GetPromptPriority("NeutralPrompt"));
 		DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), GetPromptPriority("RemoveFootFromBrake"));
 		BposSleep(GetParameterInt("OperatorReactionTime"));
@@ -529,12 +529,12 @@ string MazdaBrakeTC::SpeedSensorCheck(void)
 															   GetParameterFloat("RfSpeedSensorCheckSpeed"), 
 															   GetParameterFloat("LrSpeedSensorCheckSpeed"), 
 															   GetParameterFloat("RrSpeedSensorCheckSpeed")))
-		{   
+		{
 			testResult = testPass;
 			StatusSleep(GetParameterInt("SpeedSensorTestTime"));
 		}
 		else
-		{   // Timeout waiting for rollers to accelerate to speed
+		{	// Timeout waiting for rollers to accelerate to speed
 			Log(LOG_ERRORS, "Timeout waiting for rollers to be at speed");
 			testResult = testFail;
 		}
@@ -628,8 +628,8 @@ string MazdaBrakeTC::AnalyzeForceResults(MaxBrakeData *forceData, const INT16 &l
 	SystemWrite(sumBgColorTag, sumGood ? string("Green") : string("Red"));
 	result = (sumGood && diffGood) ? testPass : testFail;
 	INT8 axleNumber = -1;
-	if(!axle.compare("Front"))      axleNumber = FRONT_AXLE;
-	else if(!axle.compare("Rear"))  axleNumber = REAR_AXLE;
+	if(!axle.compare("Front"))		axleNumber = FRONT_AXLE;
+	else if(!axle.compare("Rear"))	axleNumber = REAR_AXLE;
 	if(axleNumber != -1)
 	{
 		m_axleBrakeResults[axleNumber].axleResult = result;
@@ -695,7 +695,7 @@ float MazdaBrakeTC::GetAxleWeight(string axle)
 	{
 		axleWeight = SystemReadFloat(GetDataTag(axle+"AxleWeightTag"));
 		if(axleWeight == 0.0)
-		{   // No axle weight provided, use the default
+		{	// No axle weight provided, use the default
 			axleWeight = GetParameterFloat(GetDataTag(axle+"AxleWeightDefaultParameter"));
 		}
 	}
@@ -703,12 +703,12 @@ float MazdaBrakeTC::GetAxleWeight(string axle)
 	{
 		axleWeight = SystemReadFloat(GetDataTag("FrontAxleWeightTag")) + SystemReadFloat(GetDataTag("RearAxleWeightTag"));
 		if(axleWeight == 0.0)
-		{   // No axle weight provided, use the default
+		{	// No axle weight provided, use the default
 			axleWeight = GetParameterFloat(GetDataTag("FrontAxleWeightDefaultParameter")) + GetParameterFloat(GetDataTag("RearAxleWeightDefaultParameter"));
 		}
 	}
-    //convert kg to newtons
-    axleWeight = axleWeight * 9.81;
+	//convert kg to newtons
+	axleWeight = axleWeight * 9.81;
 	Log(LOG_DEV_DATA, "Using %.2f for %s axle weight", axleWeight, axle.c_str());
 	return axleWeight;
 }
@@ -716,17 +716,17 @@ float MazdaBrakeTC::GetAxleWeight(string axle)
 //-------------------------------------------------------------------------------------------------
 bool MazdaBrakeTC::IsWheelInSpeedRange(const string &wheelTag, const float &targetSpeed, const float &tolerance)
 {
-    bool status = false;
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::IsWheelInSpeedRange() - Enter");
+	bool status = false;
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::IsWheelInSpeedRange() - Enter");
 
-    float currSpeed = SystemReadFloat(wheelTag);
+	float currSpeed = SystemReadFloat(wheelTag);
 	float range = targetSpeed * (tolerance / 100.0);
-    float minSpeed = targetSpeed - range;
-    float maxSpeed = targetSpeed + range;
-    Log(LOG_DEV_DATA, "Verify %s is in acceptable range. minSpeed: %.2f  currSpeed: %.2f  maxSpeed: %.2f", wheelTag.c_str(), minSpeed, currSpeed, maxSpeed);
+	float minSpeed = targetSpeed - range;
+	float maxSpeed = targetSpeed + range;
+	Log(LOG_DEV_DATA, "Verify %s is in acceptable range. minSpeed: %.2f  currSpeed: %.2f  maxSpeed: %.2f", wheelTag.c_str(), minSpeed, currSpeed, maxSpeed);
 	status = (minSpeed <= currSpeed) && (currSpeed <= maxSpeed);
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::IsWheelInSpeedRange() - Exit status: %d", status);
-    return (status);
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::IsWheelInSpeedRange() - Exit status: %d", status);
+	return(status);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -734,12 +734,12 @@ bool MazdaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRoller
 									  float minimumRequiredForceFront, float minimumRequiredForceRear,
 									  MaxBrakeData *brakeData, UINT16 samplesToAverage)
 {
-    bool measurementComplete = false;
+	bool measurementComplete = false;
 	UINT16 samplesAboveLimit = GetParameterInt("SamplesAboveLimitToStartAverage");
 	UINT16 currentSamplesAboveLimit = 0;
 	float requiredForce = (stoppingRoller < LRWHEEL) ? minimumRequiredForceFront : minimumRequiredForceRear;
-    do
-    {   // Get the current force for each wheel
+	do
+	{	// Get the current force for each wheel
 		ReadCurrentLoadCellValues(brakeData, startingRoller);
 		// Check if all monitored rollers are above the limit
 		bool allForcesAboveLimit = true;
@@ -750,24 +750,24 @@ bool MazdaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRoller
 		// update the number of samples above the limit
 		currentSamplesAboveLimit = allForcesAboveLimit ? currentSamplesAboveLimit + 1 : 0;
 		// Analyze the data
-        for(int roller = startingRoller; roller <= stoppingRoller; roller++)
-        {   // Display the current force
-            SystemWrite(brakeData[roller].displayTag, brakeData[roller].currentForce);
+		for(int roller = startingRoller; roller <= stoppingRoller; roller++)
+		{	// Display the current force
+			SystemWrite(brakeData[roller].displayTag, brakeData[roller].currentForce);
 			if(allForcesAboveLimit)
-			{   // Check if this is a max value
+			{	// Check if this is a max value
 				if(brakeData[roller].currentForce > requiredForce)
 				{
 					if(currentSamplesAboveLimit >= samplesAboveLimit)
-					{   // We have enough samples over the threshold, start averaging
+					{	// We have enough samples over the threshold, start averaging
 						brakeData[roller].forceSamples.push_back(brakeData[roller].currentForce);
-						if(brakeData[roller].currentForce > brakeData[roller].maxForce)  
+						if(brakeData[roller].currentForce > brakeData[roller].maxForce)
 						{
 							brakeData[roller].maxForce = brakeData[roller].currentForce;
 							Log(LOG_DEV_DATA, "New max force for %s: %.2f", rollerName[roller].c_str(), brakeData[roller].maxForce);
 						}
 						// Check if measurement is complete on this wheel
 						if(brakeData[roller].forceSamples.size() > samplesToAverage)
-						{   // Remove old samples to keep a moving sample window
+						{	// Remove old samples to keep a moving sample window
 							brakeData[roller].forceSamples.pop_front();
 							brakeData[roller].measurementComplete = true;
 							Log(LOG_DEV_DATA, "Measurement complete for %s - reached min samples: %d",
@@ -777,37 +777,37 @@ bool MazdaBrakeTC::MonitorBrakeForces(INT16 startingRoller, INT16 stoppingRoller
 				}
 			}
 			else
-			{   // Have not reached the threshold yet, do not start collecting samples
+			{	// Have not reached the threshold yet, do not start collecting samples
 				brakeData[roller].forceSamples.clear();
 			}
-        }
-        // Check if all wheels have been completed
-        measurementComplete = true;
-        for(int roller = startingRoller; (roller <= stoppingRoller) && measurementComplete; roller++)
-        {
-            measurementComplete = brakeData[roller].measurementComplete;
-        }
-        Log(LOG_DEV_DATA, "All measurements complete: %s", measurementComplete ? "True" : "False");
-        // Wait a bit before the next measurement
-        if(!measurementComplete)  BposSleep(GetParameterInt("LoadCellReadingDelay"));
-        // Keep checking until all min required forces are satisfied
-    } while((BEP_STATUS_SUCCESS == StatusCheck()) && TimeRemaining() && !measurementComplete);
-    // Return the completion flag
-    return measurementComplete;
+		}
+		// Check if all wheels have been completed
+		measurementComplete = true;
+		for(int roller = startingRoller; (roller <= stoppingRoller) && measurementComplete; roller++)
+		{
+			measurementComplete = brakeData[roller].measurementComplete;
+		}
+		Log(LOG_DEV_DATA, "All measurements complete: %s", measurementComplete ? "True" : "False");
+		// Wait a bit before the next measurement
+		if(!measurementComplete)  BposSleep(GetParameterInt("LoadCellReadingDelay"));
+		// Keep checking until all min required forces are satisfied
+	} while((BEP_STATUS_SUCCESS == StatusCheck()) && TimeRemaining() && !measurementComplete);
+	// Return the completion flag
+	return measurementComplete;
 }
 
 //-------------------------------------------------------------------------------------------------
 void MazdaBrakeTC::ReadCurrentLoadCellValues(MaxBrakeData *brakeData, UINT16 startingRoller)
 {
-    for(UINT8 roller = startingRoller; roller <= RRWHEEL; roller++)
-    {
-        brakeData[roller].currentForce = (atof(SystemRead(brakeData[roller].currentForceTag).c_str()));
-    }
+	for(UINT8 roller = startingRoller; roller <= RRWHEEL; roller++)
+	{
+		brakeData[roller].currentForce = (atof(SystemRead(brakeData[roller].currentForceTag).c_str()));
+	}
 }
 
 //-------------------------------------------------------------------------------------------------
 void MazdaBrakeTC::SetupLoadCellDataStructure(MaxBrakeData dataStruct[], string loadCellTags[], string displayTags[])
-{   // Make sure data fields are initialized
+{	// Make sure data fields are initialized
 	for(INT16 roller = LFWHEEL; roller <= RRWHEEL; roller++)
 	{
 		dataStruct[roller].currentForce = 0.0;
@@ -825,7 +825,7 @@ bool MazdaBrakeTC::StartTestHeadTest(const string &testStep)
 	// Get the test information
 	const XmlNodeMapItr testData = m_testHeadTestSteps.find(testStep);
 	if(testData != m_testHeadTestSteps.end())
-	{   // Command the test step to start
+	{	// Command the test step to start
 		SystemWrite(testData->second->getAttribute("StartTag")->getValue(), true);
 		testStarted = true;
 	}
@@ -838,7 +838,7 @@ void MazdaBrakeTC::StopTestHeadTest(const string &testStep)
 	// Get the test information
 	const XmlNodeMapItr testData = m_testHeadTestSteps.find(testStep);
 	if(testData != m_testHeadTestSteps.end())
-	{   // Command the test step to start
+	{	// Command the test step to start
 		SystemWrite(testData->second->getAttribute("StartTag")->getValue(), false);
 	}
 }
@@ -853,54 +853,39 @@ string MazdaBrakeTC::WaitForAbsBuild(const INT16 &testingWheel, const INT16 &opp
 	float buildMaxLimit = GetParameterFloat("AbsBuildMaxPercent");
 	MaxBrakeData forceData[GetRollerCount()];
 	string loadCellTags[] = {GetDataTag("LfCurrentForce"), GetDataTag("RfCurrentForce"), 
-							 GetDataTag("LrCurrentForce"), GetDataTag("RrCurrentForce")};
+		GetDataTag("LrCurrentForce"), GetDataTag("RrCurrentForce")};
 	string displayTags[] = {GetDataTag("LfBrakeDisplayTag"), GetDataTag("RfBrakeDisplayTag"), 
-							GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag")};
+		GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag")};
 	SetupLoadCellDataStructure(forceData, loadCellTags, displayTags);
 
-	while(SystemReadBool(GetDataTag("AbsWheelStart")) && (BEP_STATUS_SUCCESS == StatusCheck()))  
+	while(SystemReadBool(GetDataTag("AbsWheelStart")) && (BEP_STATUS_SUCCESS == StatusCheck()))
+	{
 		BposSleep(GetTestStepInfoInt("ScanDelay"));
-
-	SetSecondaryStartTime();
+	}
 
 	if(AverageBrakeForce(testingWheel) > 0.0)
 	{
-		do
-		{	// Wait a short bit before looking again
-			BposSleep(GetParameterInt("AbsMonitorDelay"));
-			// Read the current forces
-			ReadCurrentLoadCellValues(forceData, LFWHEEL);
-			// Check if the build force is in limits
-			buildPercent = forceData[testingWheel].currentForce / AverageBrakeForce(testingWheel);
-			buildComplete = (buildMinLimit < buildPercent) && (buildPercent < buildMaxLimit);
-		} while(!buildComplete && SecondaryTimeRemaining());
-		// If the build completed, make sure the force is in limits with the other wheel
-		Log(LOG_DEV_DATA, "Done waiting for build to complete - buildComplete: %s", buildComplete ? "True" : "False");
-		if(buildComplete)
+		BposSleep(GetParameterInt("AbsBuildTime"));
+		// Read the current forces
+		ReadCurrentLoadCellValues(forceData, LFWHEEL);
+		if(forceData[oppositeWheel].currentForce > 0.0)
 		{
-			if(forceData[oppositeWheel].currentForce > 0.0)
-			{
-				float buildComparePercent = forceData[oppositeWheel].currentForce / AverageBrakeForce(oppositeWheel);
-				Log(LOG_DEV_DATA, "Calculated compare percent: %.2f", buildComparePercent);
-				result = ((GetParameterFloat("MinAbsBuildComparePercent") < buildComparePercent) &&
-						  (buildComparePercent < GetParameterFloat("MaxAbsBuildComparePercent"))) ? testPass : testFail;
-				Log(LOG_DEV_DATA, "ABS Build result - %.2f  [%.2f %.2f]", buildPercent, buildMinLimit, buildMaxLimit);
-				Log(LOG_DEV_DATA, "ABS Build Compare result - %.2f  [%s %s]  -  %s", buildComparePercent,
-					GetParameter("MinAbsBuildComparePercent").c_str(), GetParameter("MaxAbsBuildComparePercent").c_str(), 
-					result.c_str());
-			}
-			else
-			{
-				Log(LOG_ERRORS, "Opposite wheel had zero force, can not analyze results");
-				result = testFail;
-			}
+			float buildComparePercent = forceData[oppositeWheel].currentForce / AverageBrakeForce(oppositeWheel);
+			Log(LOG_DEV_DATA, "Calculated compare percent: %.2f", buildComparePercent);
+			result = ((GetParameterFloat("MinAbsBuildComparePercent") < buildComparePercent) &&
+					  (buildComparePercent < GetParameterFloat("MaxAbsBuildComparePercent"))) ? testPass : testFail;
+			Log(LOG_DEV_DATA, "ABS Build result - %.2f  [%.2f %.2f]", buildPercent, buildMinLimit, buildMaxLimit);
+			Log(LOG_DEV_DATA, "ABS Build Compare result - %.2f  [%s %s]  -  %s", buildComparePercent,
+				GetParameter("MinAbsBuildComparePercent").c_str(), GetParameter("MaxAbsBuildComparePercent").c_str(), 
+				result.c_str());
 		}
 		else
 		{
-			Log(LOG_ERRORS, "ABS build did not complete - last force reading: %.2f", forceData[testingWheel].currentForce);
+			Log(LOG_ERRORS, "Opposite wheel had zero force, can not analyze results");
 			result = testFail;
 		}
 	}
+
 	else
 	{
 		Log(LOG_ERRORS, "Average brake force is %.2f, cannot analyze ABS build", AverageBrakeForce(testingWheel));
@@ -917,40 +902,25 @@ string MazdaBrakeTC::WaitForAbsDump(const INT16 &testingWheel, const INT16 &oppo
 	bool dumpComplete = false;
 	MaxBrakeData forceData[GetRollerCount()];
 	string loadCellTags[] = {GetDataTag("LfCurrentForce"), GetDataTag("RfCurrentForce"), 
-							 GetDataTag("LrCurrentForce"), GetDataTag("RrCurrentForce")};
+		GetDataTag("LrCurrentForce"), GetDataTag("RrCurrentForce")};
 	string displayTags[] = {GetDataTag("LfBrakeDisplayTag"), GetDataTag("RfBrakeDisplayTag"), 
-							GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag")};
+		GetDataTag("LrBrakeDisplayTag"), GetDataTag("RrBrakeDisplayTag")};
 	SetupLoadCellDataStructure(forceData, loadCellTags, displayTags);
 
 	while(!SystemReadBool(GetDataTag("AbsWheelStart")) && !SystemReadBool("CurrentWheelAbsTestComplete") &&
-		  (BEP_STATUS_SUCCESS == StatusCheck()))  
+		  (BEP_STATUS_SUCCESS == StatusCheck()))
+	{
 		BposSleep(GetTestStepInfoInt("ScanDelay"));
-
-	SetSecondaryStartTime();
-	do
-	{   // Wait a short time before looking again
-		BposSleep(GetParameterInt("AbsMonitorDelay"));
-		// Read the current forces
-		ReadCurrentLoadCellValues(forceData, LFWHEEL);
-		// Check if the dump force is in limits
-		dumpComplete = forceData[testingWheel].currentForce < GetParameterFloat("AbsDumpMaxLimit");
-		Log(LOG_DEV_DATA, "ABS Dump Complete: %s - Current Force: %.2f, Limit: %.2f",
-			dumpComplete ? "True" : "False", forceData[testingWheel].currentForce, GetParameterFloat("AbsDumpMaxLimit"));
-	} while(!dumpComplete && SecondaryTimeRemaining());
-	// if the dump completed, need to check dump percent with opposite wheel
-	if(dumpComplete)
-	{
-		float dumpPercent = forceData[oppositeWheel].currentForce / AverageBrakeForce(oppositeWheel);
-		result = ((GetParameterFloat("MinAbsDumpPercent") < dumpPercent) &&
-				  (dumpPercent < GetParameterFloat("MaxAbsDumpPercent"))) ? testPass : testFail;
-		Log(LOG_DEV_DATA, "ABS Dump result - %.2f  [%s %s]  -  %s", dumpPercent,
-			GetParameter("MinAbsDumpPercent").c_str(), GetParameter("MaxAbsDumpPercent").c_str(), result.c_str());
 	}
-	else
-	{
-		Log(LOG_ERRORS, "ABS dump did not complete - last force reading: %.2f", forceData[testingWheel].currentForce);
-		result = testFail;
-	}
+	// Wait a bit for the dump to complete
+	BposSleep(GetParameterInt("AbsDumpTime"));
+	// Read the current forces
+	ReadCurrentLoadCellValues(forceData, LFWHEEL);
+	float dumpPercent = forceData[oppositeWheel].currentForce / AverageBrakeForce(oppositeWheel);
+	result = ((GetParameterFloat("MinAbsDumpPercent") < dumpPercent) &&
+			  (dumpPercent < GetParameterFloat("MaxAbsDumpPercent"))) ? testPass : testFail;
+	Log(LOG_DEV_DATA, "ABS Dump result - %.2f  [%s %s]  -  %s", dumpPercent,
+		GetParameter("MinAbsDumpPercent").c_str(), GetParameter("MaxAbsDumpPercent").c_str(), result.c_str());
 	string absDumpTag = !result.compare(testPass) ? GetDataTag("AbsDumpOk") : GetDataTag("AbsDumpNok");
 	SystemWrite(absDumpTag, true);
 	return result;
@@ -958,44 +928,44 @@ string MazdaBrakeTC::WaitForAbsDump(const INT16 &testingWheel, const INT16 &oppo
 
 //-------------------------------------------------------------------------------------------------
 BEP_STATUS_TYPE MazdaBrakeTC::WaitForWheelSpeedsToBeReached(float lfTargetSpeed, float rfTargetSpeed,
-                                                            float lrTargetSpeed, float rrTargetSpeed)
+															float lrTargetSpeed, float rrTargetSpeed)
 {
-    BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
-    bool lfSpeedReached = false;
-    bool rfSpeedReached = false;
-    bool lrSpeedReached = false;
-    bool rrSpeedReached = false;
+	BEP_STATUS_TYPE status = BEP_STATUS_FAILURE;
+	bool lfSpeedReached = false;
+	bool rfSpeedReached = false;
+	bool lrSpeedReached = false;
+	bool rrSpeedReached = false;
 	bool allSpeedsReached = false;
-    char    temp[256];
+	char    temp[256];
 
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForWheelSpeedsToBeReached() - Enter");
-    // set the motor mode
-    m_MotorController.Write("LeftFrontMotorMode", SPEED_MODE, true);
-    m_MotorController.Write("RightFrontMotorMode", SPEED_MODE, true);
-    m_MotorController.Write("LeftRearMotorMode", SPEED_MODE, true);
-    m_MotorController.Write("RightRearMotorMode", SPEED_MODE, true);
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForWheelSpeedsToBeReached() - Enter");
+	// set the motor mode
+	m_MotorController.Write("LeftFrontMotorMode", SPEED_MODE, true);
+	m_MotorController.Write("RightFrontMotorMode", SPEED_MODE, true);
+	m_MotorController.Write("LeftRearMotorMode", SPEED_MODE, true);
+	m_MotorController.Write("RightRearMotorMode", SPEED_MODE, true);
 
-    // set the motor speeds
-    m_MotorController.Write("LeftFrontSpeedValue", CreateMessage(temp, sizeof(temp), "%.2f", lfTargetSpeed), true);
-    m_MotorController.Write("RightFrontSpeedValue", CreateMessage(temp, sizeof(temp), "%.2f", rfTargetSpeed), true);
-    m_MotorController.Write("LeftRearSpeedValue", CreateMessage(temp, sizeof(temp), "%.2f", lrTargetSpeed), true);
-    m_MotorController.Write("RightRearSpeedValue", CreateMessage(temp, sizeof(temp), "%.2f", rrTargetSpeed), true);
+	// set the motor speeds
+	m_MotorController.Write("LeftFrontSpeedValue", CreateMessage(temp, sizeof(temp), "%.2f", lfTargetSpeed), true);
+	m_MotorController.Write("RightFrontSpeedValue", CreateMessage(temp, sizeof(temp), "%.2f", rfTargetSpeed), true);
+	m_MotorController.Write("LeftRearSpeedValue", CreateMessage(temp, sizeof(temp), "%.2f", lrTargetSpeed), true);
+	m_MotorController.Write("RightRearSpeedValue", CreateMessage(temp, sizeof(temp), "%.2f", rrTargetSpeed), true);
 
-    // Wait for motors to react
-    BposSleep(GetParameterInt("MotorReactionTime"));
-    Log(LOG_DEV_DATA, "WaitForWheelSpeedsToBeReached: LF: %.2f  RF: %.2f  LR: %.2f  RR: %.2f", 
+	// Wait for motors to react
+	BposSleep(GetParameterInt("MotorReactionTime"));
+	Log(LOG_DEV_DATA, "WaitForWheelSpeedsToBeReached: LF: %.2f  RF: %.2f  LR: %.2f  RR: %.2f", 
 		lfTargetSpeed, rfTargetSpeed, lrTargetSpeed, rrTargetSpeed);
-    while(TimeRemaining() && !allSpeedsReached)
-    {   // check if all of the wheel speeds are in range
-        lfSpeedReached = IsWheelInSpeedRange(GetDataTag("LFSpeed"), lfTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
-        rfSpeedReached = IsWheelInSpeedRange(GetDataTag("RFSpeed"), rfTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
-        lrSpeedReached = IsWheelInSpeedRange(GetDataTag("LRSpeed"), lrTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
-        rrSpeedReached = IsWheelInSpeedRange(GetDataTag("RRSpeed"), rrTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
-        Log(LOG_DEV_DATA, "Wheelspeeds reached: LF: %d  RF: %d  LR: %d  RR: %d", lfSpeedReached, rfSpeedReached, lrSpeedReached, rrSpeedReached);
+	while(TimeRemaining() && !allSpeedsReached)
+	{	// check if all of the wheel speeds are in range
+		lfSpeedReached = IsWheelInSpeedRange(GetDataTag("LFSpeed"), lfTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
+		rfSpeedReached = IsWheelInSpeedRange(GetDataTag("RFSpeed"), rfTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
+		lrSpeedReached = IsWheelInSpeedRange(GetDataTag("LRSpeed"), lrTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
+		rrSpeedReached = IsWheelInSpeedRange(GetDataTag("RRSpeed"), rrTargetSpeed, GetParameterFloat("SetWheelspeedTolerance"));
+		Log(LOG_DEV_DATA, "Wheelspeeds reached: LF: %d  RF: %d  LR: %d  RR: %d", lfSpeedReached, rfSpeedReached, lrSpeedReached, rrSpeedReached);
 		allSpeedsReached = lfSpeedReached && rfSpeedReached && lrSpeedReached && rrSpeedReached;
 		BposSleep(GetParameterInt("MotorReactionTime"));
-    }
+	}
 	status = allSpeedsReached ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
-    Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForWheelSpeedsToBeReached() - Exit    status: %s", ConvertStatusToResponse(status).c_str());
-    return (status);
+	Log(LOG_FN_ENTRY, "MazdaBrakeTC::WaitForWheelSpeedsToBeReached() - Exit    status: %s", ConvertStatusToResponse(status).c_str());
+	return(status);
 }

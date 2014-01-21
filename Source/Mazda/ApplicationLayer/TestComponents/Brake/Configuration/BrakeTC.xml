@@ -159,10 +159,12 @@
 
             <!-- ABS Test Parameters -->
             <AbsBuildDelay Units="ms">500</AbsBuildDelay>
+            <AbsBuildTime Units="ms">1500</AbsBuildTime>
             <AbsBuildMaxPercent Units="percent">2.50</AbsBuildMaxPercent>
             <AbsBuildMinPercent Units="percent">0.0</AbsBuildMinPercent>
             <MaxAbsBuildComparePercent Units="percent">2.50</MaxAbsBuildComparePercent>
             <MinAbsBuildComparePercent Units="percent">0.0</MinAbsBuildComparePercent>
+            <AbsDumpTime Units="ms">1000</AbsDumpTime>
             <AbsDumpMaxLimit Units="N" ConvertToEnglishUnits="False">600</AbsDumpMaxLimit>
             <AbsMonitorDelay Units="ms">100</AbsMonitorDelay>
             <MaxAbsDumpPercent Units="percent">2.50</MaxAbsDumpPercent>

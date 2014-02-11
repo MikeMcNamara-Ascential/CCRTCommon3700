@@ -381,7 +381,7 @@
             <BrakeBurnishEndSpeed Units="mph">27</BrakeBurnishEndSpeed>
             <BrakeBurnishEndSpeedRange Units="mph">25 30</BrakeBurnishEndSpeedRange>
             <BrakeBurnishFinalIterationTarget Units="lbf">410 450</BrakeBurnishFinalIterationTarget>
-            <BrakeBurnishMinNonDrivenAxelSpeed Units="mph">40.0</BrakeBurnishMinNonDrivenAxelSpeed>
+            <BrakeBurnishMinNonDrivenAxleSpeed Units="mph">40.0</BrakeBurnishMinNonDrivenAxleSpeed>
             <BrakeBurnishStartSpeed Units="mph">60.0</BrakeBurnishStartSpeed>
             <BrakeBurnishStartSpeedRange Units="mph">60 65</BrakeBurnishStartSpeedRange>
             <BrakeToTargetSpeedPrompt>BrakeToTargetSpeed</BrakeToTargetSpeedPrompt>

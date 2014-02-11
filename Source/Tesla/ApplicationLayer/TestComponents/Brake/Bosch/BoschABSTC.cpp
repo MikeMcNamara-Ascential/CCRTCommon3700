@@ -3860,14 +3860,14 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
             {   // Prompt the operator to achieve the desired speed range
                 result = AccelerateToTestSpeed(GetParameterFloat("BrakeBurnishStartSpeed"), GetParameter("BrakeBurnishStartSpeedRange"), 
                                                GetTestStepInfoInt("ScanDelay"), false, GetPrompt("AccelerateToTargetSpeed"), false);
+                //ADDED statement
+                while(GetBoostedRollSpeed() < GetParameterFloat("BrakeBurnishMinNonDrivenAxleSpeed")) 
+                {
+                    Log(LOG_DEV_DATA, "Brake Burnish Cycle waiting for boosted axle speed to reach BrakeBurnishMinNonDriveAxleSpeed\n");
+                    BposSleep(500);
+                }
                 if(!result.compare(testPass))
                 {
-                    //ADDED statement
-                    while(GetBoostedRollSpeed() < GetParameterFloat("BrakeBurnishMinNonDrivenAxelSpeed")) 
-                    {
-                        BposSleep(500);
-                    }
-
                     // Disable motor boost so the rollers are in free roll mode
                     if(GetParameterBool("BrakeBurnishDisableBoostOnDecel"))  DisableElectricMotorBoost();
 

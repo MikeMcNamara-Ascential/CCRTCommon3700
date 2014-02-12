@@ -151,6 +151,7 @@
             <ICMName>mgr/ICM</ICMName>
 
             <!-- Machine Parameters -->
+            <DisableMotorsWaitForZeroSpeed>True</DisableMotorsWaitForZeroSpeed>
             <LoadCellReadingDelay Units="ms">50</LoadCellReadingDelay>
             <MotorReactionTime Units="ms">500</MotorReactionTime>
             <PulsesPerRevolution>1250</PulsesPerRevolution>

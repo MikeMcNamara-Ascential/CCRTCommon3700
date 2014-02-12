@@ -104,7 +104,7 @@ void MazdaBrakeTC::Initialize(const XmlNode *config)
 //-------------------------------------------------------------------------------------------------
 string MazdaBrakeTC::BrakeTestingComplete(void)
 {
-	DisableRollMotors(SPEED_MODE, false);
+	DisableRollMotors(SPEED_MODE, GetParameterBool("DisableMotorsWaitForZeroSpeed"));
 	DisplayPrompt(GetPromptBox("RemoveFootFromBrake"), GetPrompt("RemoveFootFromBrake"), 
 				  GetPromptPriority("RemoveFootFromBrake"));
 	return testPass;

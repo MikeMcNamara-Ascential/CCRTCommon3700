@@ -37,7 +37,7 @@
             <!-- END OF Driver Prompt Boxes ================================= -->
 
             <!-- Wheel Speeds -->
-            <VBox width="500" height="300" posX="5" posY="150" border="false">
+            <VBox width="500" height="300" posX="5" posY="115" border="false">
                 <HBox>
                     <Label name="frontspeed">
                         <Font size="48" name="sans-serif" style="bold"/>
@@ -71,9 +71,20 @@
                         </TextBoxConfig>
                     </Widget>
                 </HBox>
+                <HBox>
+                    <Label name="cycletime">
+                        <Font size="48" name="sans-serif" style="bold"/>
+                    </Label>
+                    <Widget id="cycletimevalue" class="com.bepco.gui.NumberBox" width="345">
+                        <DataSource tagname="CycleTime" messagetype="Read" datarate="2" />
+                        <TextBoxConfig convertunits="false" format="{0,number,#.0}">
+                            <Font size="48" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                </HBox>
             </VBox>
 
-            <Widget id="centering" class="com.bepco.gui.HorizontalBarGraph" height="30" width="500" posX="3" posY="350">
+            <Widget id="centering" class="com.bepco.gui.HorizontalBarGraph" height="30" width="500" posX="3" posY="375">
                 <DataSource tagname="VehicleCenteringPosition" messagetype="Read" datarate="10" />
                 <BarGraphConfig domainhigh="4096" domainlow="0" targethigh="3276" targetlow="819" />
             </Widget>

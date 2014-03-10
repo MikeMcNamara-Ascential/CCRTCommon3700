@@ -267,12 +267,11 @@ string MazdaBrakeTC::MazdaBrakeForceTest(string axle)
 			if(measurementComplete)
 			{	// Calculate the limits
 				float sumLimit = GetAxleWeight(axle) * GetParameterFloat(axle+"BrakeLimit");
+				float diffLimit = GetAxleWeight(axle) * GetParameterFloat(axle+"BrakeDiffLimit");
 
 				// Measurement complete, analyze the brake
 				result = AnalyzeForceResults(brakeData, leftWheel, rightWheel, resultType, 
-											 sumLimit,
-											 GetParameterFloat(axle+"BrakeDiffLimit"), LESS, 
-											 testDetails, axle,
+											 sumLimit, diffLimit, LESS, testDetails, axle,
 											 GetDataTag(axle+"LeftForceValue"), GetDataTag(axle+"RightForceValue"),
 											 GetDataTag(axle+"ForceSumValue"), GetDataTag(axle+"ForceDiffValue"),
 											 GetDataTag(axle+"ForceSumBgColor"), GetDataTag(axle+"ForceDiffBgColor"));
@@ -600,7 +599,7 @@ string MazdaBrakeTC::AnalyzeForceResults(MaxBrakeData *forceData, const INT16 &l
 	float sum = leftAvg + rightAvg;
 	float diff = rightAvg - leftAvg;   // result: positive = bias to right, negative = bias to left
 	bool sumGood = analyze.CompareData(sumLimit, sum, comparison);
-	bool diffGood = analyze.CompareData(sum*diffLimit, fabs(diff), GREATER);
+	bool diffGood = analyze.CompareData(diffLimit, fabs(diff), GREATER);
 	Log(LOG_DEV_DATA, "Calculated results -  Sum: %.2f (%s)     Diff: %.2f (%s)", 
 		sum, sumGood ? testPass.c_str() : testFail.c_str(), diff, diffGood ? testPass.c_str() : testFail.c_str());
 	// Store the details
@@ -708,7 +707,7 @@ float MazdaBrakeTC::GetAxleWeight(string axle)
 		}
 	}
 	//convert kg to newtons
-	axleWeight = axleWeight * 9.81;
+	axleWeight = axleWeight * 9.80665002864;
 	Log(LOG_DEV_DATA, "Using %.2f for %s axle weight", axleWeight, axle.c_str());
 	return axleWeight;
 }

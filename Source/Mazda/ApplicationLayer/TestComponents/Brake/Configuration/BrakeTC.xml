@@ -136,10 +136,10 @@
             <DisplayBrakeMeterUntilZeroSpeed>True</DisplayBrakeMeterUntilZeroSpeed>
             <IgnoreMachineConditions>True</IgnoreMachineConditions>
             <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
-            <OperatorReactionTime Units="ms">1250</OperatorReactionTime>
+            <OperatorReactionTime Units="ms">1200</OperatorReactionTime>
             <SamplesAboveLimitToStartAverage>5</SamplesAboveLimitToStartAverage>
             <TestCompleteCheckDelay Units="ms">250</TestCompleteCheckDelay>
-            <TestHeadStatusBitDelay Units="ms">1600</TestHeadStatusBitDelay>
+            <TestHeadStatusBitDelay Units="ms">1200</TestHeadStatusBitDelay>
             <TestInProgressColor>yellow</TestInProgressColor>
             <VariableDataprocessingDelay Units="ms">500</VariableDataprocessingDelay>
 
@@ -153,23 +153,23 @@
             <!-- Machine Parameters -->
             <DisableMotorsWaitForZeroSpeed>True</DisableMotorsWaitForZeroSpeed>
             <LoadCellReadingDelay Units="ms">50</LoadCellReadingDelay>
-            <MotorReactionTime Units="ms">500</MotorReactionTime>
+            <MotorReactionTime Units="ms">750</MotorReactionTime>
             <PulsesPerRevolution>1250</PulsesPerRevolution>
             <RollerDiameter Units="inches">19.5275</RollerDiameter>
             <WaitForOperator>False</WaitForOperator>
 
             <!-- ABS Test Parameters -->
-            <AbsBuildDelay Units="ms">300</AbsBuildDelay>
-            <AbsBuildTime Units="ms">1500</AbsBuildTime>
-            <AbsBuildMaxPercent Units="percent">1.8</AbsBuildMaxPercent>
-            <AbsBuildMinPercent Units="percent">0.4</AbsBuildMinPercent>
-            <MaxAbsBuildComparePercent Units="percent">1.8</MaxAbsBuildComparePercent>
-            <MinAbsBuildComparePercent Units="percent">0.4</MinAbsBuildComparePercent>
+            <AbsBuildDelay Units="ms">1500</AbsBuildDelay>
+            <AbsBuildTime Units="ms">300</AbsBuildTime>
+            <AbsBuildMaxPercent Units="percent">2.5</AbsBuildMaxPercent>
+            <AbsBuildMinPercent Units="percent">0.3</AbsBuildMinPercent>
+            <MaxAbsBuildComparePercent Units="percent">2.5</MaxAbsBuildComparePercent>
+            <MinAbsBuildComparePercent Units="percent">0.3</MinAbsBuildComparePercent>
             <AbsDumpTime Units="ms">1000</AbsDumpTime>
-            <AbsDumpMaxLimit Units="N" ConvertToEnglishUnits="False">1000</AbsDumpMaxLimit>
+            <AbsDumpMaxLimit Units="N" ConvertToEnglishUnits="False">1200</AbsDumpMaxLimit>
             <AbsMonitorDelay Units="ms">100</AbsMonitorDelay>
-            <MaxAbsDumpPercent Units="percent">1.8</MaxAbsDumpPercent>
-            <MinAbsDumpPercent Units="percent">0.4</MinAbsDumpPercent>
+            <MaxAbsDumpPercent Units="percent">2.5</MaxAbsDumpPercent>
+            <MinAbsDumpPercent Units="percent">0.3</MinAbsDumpPercent>
 
             <!-- Brake Test Parameters -->
             <DefaultFrontAxleWeight Units="N" ConvertToEnglishUnits="False">8143</DefaultFrontAxleWeight>
@@ -215,8 +215,8 @@
             <RfSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">5.5</RfSpeedSensorCheckSpeed>
             <LrSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</LrSpeedSensorCheckSpeed>
             <RrSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</RrSpeedSensorCheckSpeed>
-            <SetWheelspeedTolerance Units="percent">15.0</SetWheelspeedTolerance>
-            <SpeedSensorTestTime Units="ms">200</SpeedSensorTestTime>
+            <SetWheelspeedTolerance Units="percent">5</SetWheelspeedTolerance>
+            <SpeedSensorTestTime Units="ms">100</SpeedSensorTestTime>
 
             <!-- Mazda Test Head Test Steps -->
             <MazdaTestHeadTestSteps>
@@ -233,14 +233,14 @@
         </Parameters>
         <Prompts>
             <AbsValveFiring PromptBox="1" Priority="0">AbsValveFiring</AbsValveFiring>
-            <ApplyBrake PromptBox="1" Priority="0" Duration="2000">ApplyBrake</ApplyBrake>
-            <ApplyParkBrake PromptBox="1" Priority="0" Duration="1500">ApplyParkBrake</ApplyParkBrake>
+            <ApplyBrake PromptBox="1" Priority="0" Duration="1800">ApplyBrake</ApplyBrake>
+            <ApplyParkBrake PromptBox="1" Priority="0" Duration="1400">ApplyParkBrake</ApplyParkBrake>
             <BrakeForceTesting PromptBox="2" Priority="0">BrakeForceTesting</BrakeForceTesting>
             <ClearDiagnostics PromptBox="1" Priority="0">ClearDiagnostics</ClearDiagnostics>
             <DragForceTest PromptBox="1" Priority="0">DragForceTesting</DragForceTest>
             <NeutralPrompt PromptBox="1" Priority="0" Duration="50">ShiftToNeutral</NeutralPrompt>
-            <ReleaseParkBrake PromptBox="2" Priority="0" Duration="1000">ReleaseParkBrake</ReleaseParkBrake>
-            <RemoveFootFromBrake PromptBox="2" Priority="0" Duration="1000">RemoveFootFromBrake</RemoveFootFromBrake>
+            <ReleaseParkBrake PromptBox="2" Priority="0" Duration="900">ReleaseParkBrake</ReleaseParkBrake>
+            <RemoveFootFromBrake PromptBox="2" Priority="0" Duration="700">RemoveFootFromBrake</RemoveFootFromBrake>
             <SpeedSensorCheck PromptBox="1" Priority="0">SpeedSensorCheck</SpeedSensorCheck>
             <VehicleFaultCheck PromptBox="1" Priority="0">CheckingVehicle</VehicleFaultCheck>
         </Prompts>
@@ -415,13 +415,13 @@
     <!-- ============================================================================================== -->
     <TestSteps>
         <AbsLfTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="LF ABS Valve Test"
-            TestHeadTestName="LfAbsTest" ScanDelay="100"/>
+            TestHeadTestName="LfAbsTest" ScanDelay="50"/>
         <AbsLrTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="LR ABS Valve Test"
-            TestHeadTestName="LrAbsTest" ScanDelay="100"/>
+            TestHeadTestName="LrAbsTest" ScanDelay="50"/>
         <AbsRfTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="RF ABS Valve Test"
-            TestHeadTestName="RfAbsTest" ScanDelay="100"/>
+            TestHeadTestName="RfAbsTest" ScanDelay="50"/>
         <AbsRrTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="RR ABS Valve Test"
-            TestHeadTestName="RrAbsTest" ScanDelay="100"/>
+            TestHeadTestName="RrAbsTest" ScanDelay="50"/>
         <BrakeTestComplete Result="" Timeout="100000000" Description="Run the process for completing the brake test"/>
         <BrakeTestStart Result="" Timeout="100000000" Description="Signal to Mazda brake testing is starting"/>
         <BrakeTestStop Result="" Timeout="100000000" Description="Signal to Mazda brake testing is ending"/>
@@ -431,7 +431,7 @@
             TestHeadTestName="FcChk"/>
         <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test."
             Prompt1="Initialize" ZerospeedPrompt="BrakeToStop" Prompt1Priority="0"/>
-        <MazdaDragTest Result="" Timeout="30000" Description="Check the drag on the rollers" ScanDelay="100"/>
+        <MazdaDragTest Result="" Timeout="30000" Description="Check the drag on the rollers" ScanDelay="50"/>
         <MazdaFrontBrakeForce Result="" Timeout="10000" Description="Analyze the brake force for the front axle"/>
         <MazdaParkBrakeForce Result="" Timeout="10000" Description="Analyze the park brake force for the rear axle"/>
         <MazdaRearBrakeForce Result="" Timeout="10000" Description="Analyze the brake force for the rear axle"/>

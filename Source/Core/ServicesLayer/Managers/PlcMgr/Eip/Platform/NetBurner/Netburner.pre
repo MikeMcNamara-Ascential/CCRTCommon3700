@@ -1,0 +1,3 @@
+#define PLATFORM_HEADER "Platform\Netburner\platform.h"
+#define MBUS_PLATFORM_HEADER "Platform\Netburner\mbspltfm.h"
+#define ET_IP_MODBUS

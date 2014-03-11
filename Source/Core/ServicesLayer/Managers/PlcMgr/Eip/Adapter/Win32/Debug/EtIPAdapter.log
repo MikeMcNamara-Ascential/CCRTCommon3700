@@ -1,0 +1,15 @@
+﻿Build started 3/28/2013 10:56:35 AM.
+     1>Project "C:\Ccrt\Ccrt\branches\Ford\Ecats\QNX632\Source\Core\ServicesLayer\Managers\PlcMgr\Eip\Adapter\EtIPAdapter.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Win32\Debug\EtIPAdapter.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         c:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _DEBUG /D TRACE_FILE_OUTPUT /D TRACE_OUTPUT /D TRACE_SOCKET_OUTPUT /D WIN32 /D _WINDOWS /D _USRDLL /D "PLATFORM_HEADER=\"Platform\\Windows\platform.h\"" /D "ETIPADAPTER_PLATFORM_HEADER=\"..\\Platform\\Windows\platform.h\"" /D "MBUS_PLATFORM_HEADER=\"..\\Platform\\Windows\mbspltfm.h\"" /D CONNECTION_STATS /D ET_IP_MODBUS /D EIP_QOS /D TARGET_RECEIVE_MULTICAST /D _CRT_SECURE_NO_WARNINGS /D _VC80_UPGRADE=0x0600 /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Win32\Debug/" /Fd"Win32\Debug/vc100.pdb" /Gd /TP /analyze- /errorReport:prompt EtIPAdapter.cpp StdAfx.cpp
+         StdAfx.cpp
+     1>c:\ccrt\ccrt\branches\ford\ecats\qnx632\source\core\serviceslayer\managers\plcmgr\eip\platform.h(36): fatal error C1083: Cannot open include file: 'semaphore.h': No such file or directory
+         EtIPAdapter.cpp
+         Generating Code...
+     1>Done Building Project "C:\Ccrt\Ccrt\branches\Ford\Ecats\QNX632\Source\Core\ServicesLayer\Managers\PlcMgr\Eip\Adapter\EtIPAdapter.vcxproj" (build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:07.47

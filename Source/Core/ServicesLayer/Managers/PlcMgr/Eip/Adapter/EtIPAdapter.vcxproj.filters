@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4c2774f5-36e0-4505-b978-268f09858370}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files\EADK Source Files">
+      <UniqueIdentifier>{7f219887-4a76-4792-8702-e90c15fb4c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CIP-Modbus Source Files">
+      <UniqueIdentifier>{e2ed9793-c182-4f0b-8588-5060cf8f87b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0e482912-f0d5-47e0-b81d-298ef0ca679d}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Header Files\EADK Header Files">
+      <UniqueIdentifier>{20b6097b-d15c-48e8-b0d8-a93cc3fad0da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CIP-Modbus Header Files">
+      <UniqueIdentifier>{f79f2965-ab1d-4324-bbbb-7253739cfdd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{37f4ade3-ad20-4b7f-8c0e-800822c0e0b9}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="EtIPAdapter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipasm.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipclien.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipcnct.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipcnlst.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipcnmgr.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipdbg.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipetlnk.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipid.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipio.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipnotfy.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eippccc.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eippdu.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipport.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipqos.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eiproutr.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eiprqgrp.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eiprqst.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipsckt.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipsessn.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eiptcpip.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eiptrace.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eipucmm.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\eiputil.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Platform\Windows\platform.c">
+      <Filter>Source Files\EADK Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\eipmbscm.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\eipmbus.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\mbsclien.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\mbsnotfy.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Platform\Windows\mbspltfm.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\mbsrqst.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\mbssessn.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\mbstcp.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\mbstrace.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Modbus\mbsutil.c">
+      <Filter>Source Files\CIP-Modbus Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="EtIPAdapter.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="EtIPAdapter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipasm.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipclien.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipcnct.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipcnlst.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipcnmgr.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipdbg.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipetlnk.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipid.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipinc.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipio.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipnotfy.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipoutpt.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eippccc.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eippdu.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipport.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipqos.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eiproutr.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eiprqgrp.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eiprqst.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipsckt.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipsessn.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eiptcpip.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eiptrace.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eipucmm.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eiputil.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EtIpApi.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Platform\Windows\platform.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Platform\Windows\windatatypes.h">
+      <Filter>Header Files\EADK Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\eipmbscm.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\eipmbus.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbsapi.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbsclien.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbsinc.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbsnotfy.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Platform\Windows\mbspltfm.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbsrqst.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbssessn.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbstcp.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbstrace.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Modbus\mbsutil.h">
+      <Filter>Header Files\CIP-Modbus Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

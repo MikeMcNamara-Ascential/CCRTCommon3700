@@ -130,7 +130,7 @@
                 </NodePairSetup>
              </Setup>
           </GryphonCCanRight>
-         <ISOK enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
+         <!--ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
             <Setup>
                <SerialDevice>/dev/sl7804/ser2</SerialDevice>
                <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
@@ -167,7 +167,7 @@
                   </Setup>
                </CommLog>
             </Setup>
-         </ISOK>
+         </ISOK-->
          <LeftScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
             <Setup>
                <SerialDevice>/dev/sl7804/ser3</SerialDevice>

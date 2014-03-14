@@ -76,7 +76,7 @@
     <ModuleFault_013D   Code="P013D"    Description="O2S Slow Response Lean to Rich Bank 2 Sensor 2"    FailureStatusMask="0x12"/>
     <ModuleFault_013E   Code="P013E"    Description="O2S Delayed Response Rich to Lean Bank 1 Sensor 2" FailureStatusMask="0x12"/>
     <ModuleFault_013F   Code="P013F"    Description="O2S Delayed Response Lean to Rich Bank 1 Sensor 2" FailureStatusMask="0x12"/>
-    <ModuleFault_0140   Code="P0140"    Description="O2S Circuit Insufficient Activity Bank 1 Sensor 2" FailureStatusMask="0x12"/>
+    <ModuleFault_0140   Code="P0140"    Description="O2S Circuit Insufficient Activity Bank 1 Sensor 2" FailureStatusMask="0x16"/>
     <ModuleFault_0141   Code="P0141"    Description="O2S Heater Performance Bank 1 Sensor 2"    FailureStatusMask="0x12"/>
     <ModuleFault_014A   Code="P014A"    Description="O2S Delayed Response Rich to Lean Bank 2 Sensor 2" FailureStatusMask="0x12"/>
    <ModuleFault_014B Code="P014B" Description="O2S Delayed Response Lean to Rich Bank 2 Sensor 2" FailureStatusMask="0x12"/>
@@ -109,7 +109,15 @@
    <ModuleFault_0222 Code="P0222" Description="Throttle Position (TP) Sensor 2 Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0223 Code="P0223" Description="Throttle Position (TP) Sensor 2 Circuit High Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0230 Code="P0230" Description="Fuel Pump Primary Circuit" FailureStatusMask="0x16"/>
-    <ModuleFault_0300   Code="P0300"    Description="Engine Misfire Detected"   FailureStatusMask="0x12"/>
+   <ModuleFault_0300   Code="P0300"    Description="Engine Misfire Detected"   FailureStatusMask="0x16"/>
+<ModuleFault_0301   Code="P0301"    Description="Cylinder 1 Misfire Detected"   FailureStatusMask="0x16"/>
+<ModuleFault_0302   Code="P0302"    Description="Cylinder 2 Misfire Detected"   FailureStatusMask="0x16"/>
+<ModuleFault_0303   Code="P0303"    Description="Cylinder 3 Misfire Detected"   FailureStatusMask="0x16"/>
+<ModuleFault_0304   Code="P0304"    Description="Cylinder 4 Misfire Detected"   FailureStatusMask="0x16"/>
+<ModuleFault_0305   Code="P0305"    Description="Cylinder 5 Misfire Detected"   FailureStatusMask="0x16"/>
+<ModuleFault_0306   Code="P0306"    Description="Cylinder 6 Misfire Detected"   FailureStatusMask="0x16"/>
+<ModuleFault_0307   Code="P0307"    Description="Cylinder 7 Misfire Detected"   FailureStatusMask="0x16"/>
+<ModuleFault_0308   Code="P0308"    Description="Cylinder 8 Misfire Detected"   FailureStatusMask="0x16"/>
    <ModuleFault_0315 Code="P0315" Description="Crankshaft Position System Variation Not Learned" FailureStatusMask="0x16"/>
    <ModuleFault_0324 Code="P0324" Description="Knock Sensor (KS) System Performance" FailureStatusMask="0x16"/>
    <ModuleFault_0325 Code="P0325" Description="Knock Sensor (KS) Circuit Bank 1" FailureStatusMask="0x16"/>
@@ -134,9 +142,9 @@
     <ModuleFault_0420   Code="P0420"    Description="Catalyst System Low Efficiency Bank 1" FailureStatusMask="0x12"/>
     <ModuleFault_0430   Code="P0430"    Description="Catalyst System Low Efficiency Bank 2" FailureStatusMask="0x12"/>
     <ModuleFault_0442   Code="P0442"    Description="Evaporative Emission (EVAP) System Small Leak Detected"    FailureStatusMask="0x12"/>
-   <ModuleFault_0443 Code="P0443" Description="Evaporative Emission System Purge Control Valve A Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0443 Code="P0443" Description="Evaporative Emission System Purge Control Valve A Circuit" FailureStatusMask="0x12"/>
     <ModuleFault_0446   Code="P0446"    Description="Evaporative Emission (EVAP) Vent System Performance"   FailureStatusMask="0x12"/>
-   <ModuleFault_0449 Code="P0449" Description="Evaporative Emission (EVAP) Vent Solenoid Control Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0449 Code="P0449" Description="Evaporative Emission (EVAP) Vent Solenoid Control Circuit" FailureStatusMask="0x12"/>
     <ModuleFault_0451   Code="P0451"    Description="Fuel Tank Pressure (FTP) Sensor Circuit Performance"   FailureStatusMask="0x12"/>
    <ModuleFault_0452 Code="P0452" Description="Fuel Tank Pressure (FTP) Sensor Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0453 Code="P0453" Description="Fuel Tank Pressure (FTP) Sensor Circuit High Voltage" FailureStatusMask="0x16"/>
@@ -159,8 +167,8 @@
    <ModuleFault_0564 Code="P0564" Description="Cruise Control Multi-Function Switch Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0567 Code="P0567" Description="Cruise Control Resume Switch Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0568 Code="P0568" Description="Cruise Control Set Switch Circuit" FailureStatusMask="0x16"/>
-    <ModuleFault_0572   Code="P0572"    Description="Cruise Control Brake Switch Circuit 1 Low Voltage" FailureStatusMask="0x12"/>
-    <ModuleFault_0573   Code="P0573"    Description="Cruise Control Brake Switch Circuit 1 High Voltage"    FailureStatusMask="0x12"/>
+   <ModuleFault_0572 Code="P0572" Description="Cruise Control Brake Switch Circuit 1 Low Voltage" FailureStatusMask="0x00"/>
+   <ModuleFault_0573 Code="P0573" Description="Cruise Control Brake Switch Circuit 1 High Voltage"    FailureStatusMask="0x00"/>
    <ModuleFault_0575 Code="P0575" Description="Cruise Control Input Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0601 Code="P0601" Description="Control Module Read Only Memory (ROM)" FailureStatusMask="0x16"/>
    <ModuleFault_0602 Code="P0602" Description="Control Module Not Programmed" FailureStatusMask="0x16"/>
@@ -180,13 +188,16 @@
    <ModuleFault_0685 Code="P0685" Description="Control Module Power Relay Control Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0690 Code="P0690" Description="Control Module Power Relay Feedback Circuit High Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0700 Code="P0700" Description="Transmission Control Module (TCM) Requested MIL Illumination" FailureStatusMask="0x16"/>
-   <ModuleFault_0703 Code="P0703" Description="Torque Converter/Brake Switch B Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0703 Code="P0703" Description="Torque Converter/Brake Switch B Circuit" FailureStatusMask="0x00"/>
+   <ModuleFault_0719 Code="P0719" Description="Torque Converter/Brake Switch B Circuit Low" FailureStatusMask="0x12"/>
+   <ModuleFault_0724 Code="P0724" Description="Torque Converter/Brake Switch B Circuit High"    FailureStatusMask="0x12"/>
    <ModuleFault_0851 Code="P0851" Description="Park/Neutral Position (PNP) Switch Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_1101 Code="P1101" Description="Intake Air Flow System Performance" FailureStatusMask="0x16"/>
    <ModuleFault_1258 Code="P1258" Description="Engine Coolant Overtemperature - Protection Mode Active" FailureStatusMask="0x16"/>
    <ModuleFault_1380 Code="P1380" Description="Misfire Detected - Rough Road Data Not Available" FailureStatusMask="0x16"/>
    <ModuleFault_150C Code="P150C" Description="Transmission Control Module (TCM) Engine Speed Request Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_1516 Code="P1516" Description="Throttle Actuator Control (TAC) Module Throttle Actuator Position Performance" FailureStatusMask="0x16"/>
+   <ModuleFault_1574 Code="P1574" Description="Stoplamp Switch Circuit" FailureStatusMask="0x12"/>
    <ModuleFault_1630 Code="P1630" Description="Theft Deterrent Learn Mode Active" FailureStatusMask="0x00"/>
    <ModuleFault_1682 Code="P1682" Description="Ignition 1 Switch Circuit 2" FailureStatusMask="0x16"/>
    <ModuleFault_2096 Code="P2096" Description="Post Catalyst Fuel Trim System Low Limit Bank 1" FailureStatusMask="0x12"/>
@@ -213,6 +224,7 @@
     <ModuleFault_2273   Code="P2273"    Description="O2S Signal Stuck Rich Bank 2 Sensor 2" FailureStatusMask="0x12"/>
    <ModuleFault_2544 Code="P2544" Description="Torque Management Request Input Signal A" FailureStatusMask="0x16"/>
    <ModuleFault_2610 Code="P2610" Description="ECM/PCM Internal Engine Off Timer Performance" FailureStatusMask="0x16"/>
+<ModuleFault_264F Code="P264F" Description="Engine Serial Number Not Programmed or Incompatible" FailureStatusMask="0x16"/>
    <ModuleFault_C073 Code="U0073" Description="Control Module Communication Bus A Off" FailureStatusMask="0x16"/>
    <ModuleFault_C101 Code="U0101" Description="Lost Communication with TCM" FailureStatusMask="0x16"/>
    <ModuleFault_C140 Code="U0140" Description="Lost Communication With Body Control Module" FailureStatusMask="0x16"/>

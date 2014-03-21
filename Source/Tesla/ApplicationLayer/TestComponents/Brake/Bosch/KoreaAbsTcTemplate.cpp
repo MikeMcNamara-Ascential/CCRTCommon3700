@@ -134,6 +134,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::CheckPartNumber(void)
     string testResultCode("0000");
     string testDescription = GetTestStepInfo("Description");
     string modulePartNumber;
+    string partNumberParameter = GetParameter("ModulePartNumber");
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     // Check if this step needs to be performed
     Log(LOG_FN_ENTRY, "Enter KoreaAbsTcTemplate::CheckPartNumber()\n");
@@ -145,7 +146,46 @@ string KoreaAbsTcTemplate<VehicleModuleType>::CheckPartNumber(void)
             // Check the status of the data
             if (BEP_STATUS_SUCCESS == moduleStatus)
             {
-                if (modulePartNumber == GetParameter("ModulePartNumber"))
+                if(GetParameterBool("BypassPartNumberValidation"))
+                {   // Skip Part number verification
+                    Log(LOG_DEV_DATA, "Part number verification bypassed by parameter\n");
+                    testResult = testPass;
+                }
+                else if (GetParameterBool("ValidatePartNumberList"))
+                {   // Verify the module part number against a list of valid part numbers
+                    XmlNodeMapItr iter = m_validPartNumbers.find("PN"+modulePartNumber);
+                    testResult = iter != m_validPartNumbers.end() ? testPass : testFail;
+                    partNumberParameter = iter != m_validPartNumbers.end() ? iter->second->getValue() : "Not Listed";
+                }
+                else if(GetParameterBool("PartNumberCompareByPosition"))
+                {//check positions individually
+                    testResult = testPass;
+                    Log(LOG_DEV_DATA, "Iterate through positions to check\n");
+                    for(XmlNodeMapItr iter = m_partNumberPositionComparison.begin();
+                       (iter != m_partNumberPositionComparison.end());
+                       iter++)
+                    {   // Send individual details
+                        try
+                        {
+                            char broadcastPNChar = partNumberParameter[atoi(iter->second->getAttribute("BroadcastPNCharPos")->getValue().c_str())];
+                            char modulePNChar = modulePartNumber[atoi(iter->second->getAttribute("ModulePNCharPos")->getValue().c_str())];
+                            Log(LOG_DEV_DATA, "broadcastChar = [%c] moduleChar = [%c]\n",broadcastPNChar,modulePNChar);
+                            if(broadcastPNChar != modulePNChar)
+                            {
+                                testResult = testFail;
+                                break;
+                            }
+                        }
+                        catch(XmlException &ex)
+                        {
+                            Log(LOG_ERRORS, "XML Error getting part number characters %s: %s\n", GetProcessName().c_str(), ex.what());
+                        }
+                        Log(LOG_DEV_DATA, "Reporting Module data: %s - Value: %s\n",
+                            iter->second->getName().c_str(), iter->second->getValue().c_str());
+                    }
+
+                }
+                else if (modulePartNumber == partNumberParameter)
                 {              // Part numbers match, test passes
                     testResult = testPass;
                 }
@@ -155,7 +195,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::CheckPartNumber(void)
                 }
                 // Log the data
                 Log(LOG_DEV_DATA, "Part Number Verification: %s - Parameter: %s, Module: %s\n",
-                    testResult.c_str(), GetParameter("ModulePartNumber").c_str(), modulePartNumber.c_str());
+                    testResult.c_str(), partNumberParameter.c_str(), modulePartNumber.c_str());
                 testResultCode = (testResult == testPass ? "0000" : GetFaultCode("PartNumberMismatch"));
                 testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("PartNumberMismatch"));
             }
@@ -180,7 +220,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::CheckPartNumber(void)
         // Send the test result
         SendTestResultWithDetail(testResult, testDescription, testResultCode,
                                  "ModulePartNumber", modulePartNumber, "",
-                                 "PartNumberParameter", GetParameter("ModulePartNumber"), "");
+                                 "PartNumberParameter", partNumberParameter, "");
     }
     else
     {                       // Need to skip this test step

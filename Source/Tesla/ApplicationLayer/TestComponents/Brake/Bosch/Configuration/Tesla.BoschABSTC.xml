@@ -273,6 +273,10 @@
             <AbortOnPartMismatch>No</AbortOnPartMismatch>
             <BypassPartNumberValidation>No</BypassPartNumberValidation>
             <ValidatePartNumberList>Yes</ValidatePartNumberList>
+            <ValidPartNumbers>
+               <PN600636300C>600636300C</PN600636300C>
+               <PN600636300D>600636300D</PN600636300D>
+            </ValidPartNumbers>
             <ModulePartNumber>600636300C</ModulePartNumber>
             <VINLength>17</VINLength>
             <!--Sensor Testing Parameters-->

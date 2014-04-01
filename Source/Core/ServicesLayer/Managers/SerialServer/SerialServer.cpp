@@ -649,7 +649,7 @@ bool SerialServer::ReadLogicalPortMap( const XmlNode *docNode)
 
             // Add this port to our list of port drivers
             m_portDrvMap.AddDriver( logPortName, regName, portDrv, shouldReset, relaunch);
-            Log( LOG_DEV_DATA, "Adding logical port %s (%S) -> %s\n",
+            Log( LOG_DEV_DATA, "Adding logical port %s (%s) -> %s\n",
                  logPortName.c_str(), regName.c_str(), portDrv.c_str());
         }
         else
@@ -805,7 +805,7 @@ bool SerialServer::LaunchPortDriver(LogPortDrv_t    *portDrv)
             uint64_t startTime, curTime;
             struct timespec timerSpec;
 
-            Log( LOG_DEV_DATA, "Wait for %s (%s)\n", portDrv->drvName.c_str(), portDrv->regName.c_str());
+            Log( LOG_DEV_DATA, "Wait for %s (%s), pid %d\n", portDrv->drvName.c_str(), portDrv->regName.c_str(), portDrv->drvPid);
 
             // Get the time at which we launched the driver
             clock_gettime( CLOCK_REALTIME, &timerSpec);
@@ -835,8 +835,8 @@ bool SerialServer::LaunchPortDriver(LogPortDrv_t    *portDrv)
                 // Check if he is up and running
                 else if( (drvrCoid=name_open( portDrv->regName.c_str(), 0)) != -1)
                 {
-                    Log( LOG_DEV_DATA, "Port driver %s registered name '%s' in time\n",
-                         portDrv->drvName.c_str(), portDrv->regName.c_str());
+                    Log( LOG_DEV_DATA, "Port driver %s registered name '%s' in time (drvrCoid = %d)\n",
+                         portDrv->drvName.c_str(), portDrv->regName.c_str(), drvrCoid);
                     name_close( drvrCoid);
                     break;
                 }
@@ -897,7 +897,7 @@ bool SerialServer::RegisterPortDriver( const LogPortDrv_t *portDrv)
         if( (drvrCoid=name_open( portDrv->regName.c_str(), 0)) != -1)
         {
             MsgSendPulse( drvrCoid, SIGEV_PULSE_PRIO_INHERIT, REGISTER_PULSE, 0);
-        Log(LOG_DEV_DATA, "Sent REGISTER pulse to %s\n", portDrv->drvName.c_str());
+        Log(LOG_DEV_DATA, "Sent REGISTER pulse to %s (drvrCoid = %d)\n", portDrv->drvName.c_str(), drvrCoid);
             name_close( drvrCoid);
         retVal = true;
     }

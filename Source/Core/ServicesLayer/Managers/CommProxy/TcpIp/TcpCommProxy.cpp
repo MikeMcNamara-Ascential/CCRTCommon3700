@@ -177,7 +177,7 @@ void TcpCommProxy::ReadPortConfig( const XmlNode *portNode)
         m_ipPort = atoi( portNum->getValue().c_str());
 
         const XmlNode *typeNode = portNode->getChild( "Setup/TcpType");
-        m_amClient = (stricmp( "Server", typeNode->getValue().c_str()) == 1);
+        m_amClient = (stricmp( "Server", typeNode->getValue().c_str()) != 0);
 
         Log( LOG_DEV_DATA, "\tConnect to %s:%d as %s\n", m_ipAddress.c_str(), m_ipPort, m_amClient ? "Client" : "Server");
 

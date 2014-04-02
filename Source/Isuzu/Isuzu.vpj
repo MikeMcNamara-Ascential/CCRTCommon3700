@@ -68,6 +68,9 @@
 			Filters="">
 		</Folder>
 	</CustomFolders>
+	<CompatibleVersions>
+		<PrevVersion VersionNumber="9.0"/>
+	</CompatibleVersions>
 	<Files AutoFolders="DirectoryView">
 		<Folder Name="ApplicationLayer">
 			<Folder Name="ModuleInterfaces">
@@ -144,6 +147,10 @@
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/CMakeLists.txt"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/EmissionsFaults.xml"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/IsuzuEmissionsTc.xml"/>
+						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My13EmissionsFaults.xml"/>
+						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My13IsuzuEmissionsTc.xml"/>
+						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My14EmissionsFaults.xml"/>
+						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My14IsuzuEmissionsTc.xml"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/PIMTc.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Emissions/BackgroundRangeCheckMonitor.cpp"/>
@@ -207,6 +214,8 @@
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Isuzu.DriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Isuzu.LossCompensationDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Isuzu.StaticBrakeDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/My13Isuzu.DriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/My14Isuzu.DriveCurve.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/VehicleTest/Configuration/CMakeLists.txt"/>
 					<F N="ApplicationLayer/VehicleTest/Configuration/Isuzu.SelectionTable.xml"/>
@@ -218,7 +227,44 @@
 		</Folder>
 		<Folder Name="BomSystem">
 			<Folder Name="BomFileProcessor">
+				<Folder Name="bin">
+					<Folder Name="Debug">
+						<Folder Name="app.publish">
+							<Folder Name="Application Files">
+								<Folder Name="BomFileProcessor_1_0_0_21">
+									<F N="BomSystem/BomFileProcessor/bin/Debug/app.publish/Application Files/BomFileProcessor_1_0_0_21/VehicleBuildFileTemplate.xml"/>
+								</Folder>
+							</Folder>
+						</Folder>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/Axle.xml"/>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/BomFileProcessor2012627.txt"/>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/BomFileProcessor2012628.txt"/>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/BomFileProcessor20131015.txt"/>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/BomFileProcessor20131024.txt"/>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/BrakeForces.xml"/>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/BuildItemList.xml"/>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/FrontReductionPressure.xml"/>
+						<F N="BomSystem/BomFileProcessor/bin/Debug/WheelbasePosition.xml"/>
+					</Folder>
+				</Folder>
+				<Folder Name="obj">
+					<Folder Name="x86">
+						<Folder Name="Debug">
+							<F N="BomSystem/BomFileProcessor/obj/x86/Debug/BomFileProcessor.csproj.FileListAbsolute.txt"/>
+						</Folder>
+					</Folder>
+				</Folder>
 				<F N="BomSystem/BomFileProcessor/VehicleBuildFileTemplate.xml"/>
+			</Folder>
+			<Folder Name="Deploy">
+				<Folder Name="Application Files">
+					<Folder Name="BomFileProcessor_1_0_0_20">
+						<F N="BomSystem/Deploy/Application Files/BomFileProcessor_1_0_0_20/VehicleBuildFileTemplate.xml"/>
+					</Folder>
+					<Folder Name="BomFileProcessor_1_0_0_21">
+						<F N="BomSystem/Deploy/Application Files/BomFileProcessor_1_0_0_21/VehicleBuildFileTemplate.xml"/>
+					</Folder>
+				</Folder>
 			</Folder>
 			<Folder Name="Documentation">
 				<F N="BomSystem/Documentation/A8_120_FUS.txt"/>
@@ -781,6 +827,11 @@
 				<Folder Name="VehicleCommServer">
 					<Folder Name="VehicleCommServer">
 						<Folder Name="VehicleCommServer">
+							<Folder Name="bin">
+								<Folder Name="Debug">
+									<F N="FlashStation/Ccrt2/VehicleCommServer/VehicleCommServer/VehicleCommServer/bin/Debug/VehicleCommDeviceSettings.xml"/>
+								</Folder>
+							</Folder>
 							<Folder Name="obj">
 								<Folder Name="x86">
 									<Folder Name="Debug">
@@ -926,6 +977,15 @@
 					<F N="ServicesLayer/Servers/PlantHostInbound/IsuzuPlantHostInbound.h"/>
 					<F N="ServicesLayer/Servers/PlantHostInbound/IsuzuPlantHostInboundMain.cpp"/>
 				</Folder>
+				<Folder Name="PlantHostOutbound">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Isuzu.DAQLossCompensationMap.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Isuzu.DAQTestResultMap.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Isuzu.PlantHostOutboundConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="SystemMonitor">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/CMakeLists.txt"/>
@@ -957,7 +1017,4 @@
 		<F N="CMakeLists.txt"/>
 		<F N="UninstallCoreCfgFile.cmake"/>
 	</Files>
-	<CompatibleVersions>
-		<PrevVersion VersionNumber="9.0"/>
-	</CompatibleVersions>
 </Project>

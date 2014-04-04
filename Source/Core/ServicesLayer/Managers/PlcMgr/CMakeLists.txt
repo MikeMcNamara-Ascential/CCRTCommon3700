@@ -4,6 +4,8 @@
 SET(PLC_PROXY_SOURCES PlcMgr.cpp PlcDf1.cpp IDf1Protocol.cpp PlcRk512.cpp IRk512Protocol.cpp 
     PlcMelsec.cpp IMelsecProtocol.cpp PlcEip.cpp EipProtocol.cpp EipWrapper.cpp)
 
+FILE(GLOB EIP_SOURCES Eip/*.c)
+
 #------------------------------------------------------------------------------------------
 # Define the basename of our executable (for us only...not required by CMake)
 #------------------------------------------------------------------------------------------

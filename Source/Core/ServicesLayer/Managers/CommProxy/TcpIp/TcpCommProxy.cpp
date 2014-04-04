@@ -332,34 +332,42 @@ int TcpCommProxy::Connect()
         memcpy(&server.sin_addr, hostEnt->h_addr, hostEnt->h_length);
         server.sin_port = htons(m_ipPort);
         server.sin_family = hostEnt->h_addrtype;
+        retVal = -1;
+        while (retVal == -1)
+        {//wait for connection to be established
 
-        // return from this call is our system "port" number
-        if( (sock=socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) != -1)
-        {
-            int on = 1;
-            m_comPortFd = sock;
-            if( (retVal=setsockopt( m_comPortFd, IPPROTO_TCP, TCP_NODELAY, &on, sizeof( on))) != -1)
+            // return from this call is our system "port" number
+            if( (sock=socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) != -1)
             {
-                // this will crash if socket above returns as NULL
-                if( (retVal = connect(m_comPortFd, (struct sockaddr*)&server, sizeof(server))) == -1)
+                int on = 1;
+                m_comPortFd = sock;
+                if( (retVal=setsockopt( m_comPortFd, IPPROTO_TCP, TCP_NODELAY, &on, sizeof( on))) != -1)
+                {
+                    // this will crash if socket above returns as NULL
+                    if( (retVal = connect(m_comPortFd, (struct sockaddr*)&server, sizeof(server))) == -1)
+                    {
+                        Log( LOG_ERRORS, "Error connecting to <%s>:%d : %s\n", m_ipAddress.c_str(), m_ipPort, strerror( errno));
+                        close( m_comPortFd);
+                    }
+                    else
+                    {
+                        retVal = m_comPortFd;
+                    }
+                }
+                else
                 {
                     Log( LOG_ERRORS, "Error connecting to <%s>:%d : %s\n", m_ipAddress.c_str(), m_ipPort, strerror( errno));
                     close( m_comPortFd);
                 }
-                else
-                {
-                    retVal = m_comPortFd;
-                }
             }
             else
             {
-                Log( LOG_ERRORS, "Error connecting to <%s>:%d : %s\n", m_ipAddress.c_str(), m_ipPort, strerror( errno));
-                close( m_comPortFd);
+                Log( LOG_ERRORS, "Error creating socket: %s\n", strerror( errno));
             }
-        }
-        else
-        {
-            Log( LOG_ERRORS, "Error creating socket: %s\n", strerror( errno));
+            if (retVal == -1 || sock == -1)
+            {
+                delay( 1000);
+            }
         }
     }
     else

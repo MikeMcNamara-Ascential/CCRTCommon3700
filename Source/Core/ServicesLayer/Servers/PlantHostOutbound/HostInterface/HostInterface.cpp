@@ -371,6 +371,10 @@ void HostInterface::LoadAdditionalConfigurationItems(const XmlNode *config)
 	{
 		Log(LOG_ERRORS, "HostInterface: Could not load result base map: %s", excpt.GetReason());
 	}
+	catch(BepException &excpt)
+	{
+		Log(LOG_ERRORS, "HostInterface: Could not find result base map: %s", excpt.GetReason());
+	}
 	// Load the Parent DTC node format
 	try
 	{
@@ -446,6 +450,12 @@ void HostInterface::LoadAdditionalConfigurationItems(const XmlNode *config)
 			m_filesToArchive.DeepCopy(config->getChild("Setup/FilesToArchive")->getChildren());
 		}
 		catch(XmlException &excpt)
+		{
+			Log(LOG_ERRORS, "No file naming map defined, not archiving: %s", excpt.GetReason());
+			archiveResults = false;
+			TestDataFileArchiveEnabled(&archiveResults);
+		}
+		catch(BepException &excpt)
 		{
 			Log(LOG_ERRORS, "No file naming map defined, not archiving: %s", excpt.GetReason());
 			archiveResults = false;

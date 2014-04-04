@@ -247,6 +247,8 @@ private:
 	 * @see IFaultServer
 	 */
 	IFaultServer  m_faultServer;
+
+    bool m_initialConnectionEstablished;
 };
 //=========================================================================
 #endif //WccKeepAlive_h

@@ -22,7 +22,7 @@
 //-----------------------------------------------------------------------------
 
 HostInterfaceKeepAlive::HostInterfaceKeepAlive(HostInterface *hostInterface) :
-AtomicThread(), m_sequenceNumber(0x00), m_hostInterface(NULL)
+AtomicThread(), m_sequenceNumber(0x00), m_hostInterface(NULL),m_initialConnectionEstablished(false)
 {   // Save the pointer to the host object
     m_hostInterface = hostInterface;
 }
@@ -177,10 +177,14 @@ BEP_STATUS_TYPE HostInterfaceKeepAlive::SendKeepAliveMessage(void)
             {
                 messageStatus = GetKeepAliveResponse();
                 // If host has been shutdown, wait for 1 second before attempting to talk to it again
-                if(BEP_STATUS_TIMEOUT == messageStatus)
+                if(BEP_STATUS_TIMEOUT == messageStatus && m_initialConnectionEstablished)
                 {
                     m_hostComm.ReconnectDriver();
                     BposSleep(GetReconnectDelay());  // Wait for port driver to reconnect
+                }
+                else if(messageStatus == BEP_STATUS_SUCCESS && !m_initialConnectionEstablished)
+                {
+                     m_initialConnectionEstablished = true;
                 }
             }
             else

@@ -1,0 +1,474 @@
+<SerialServerConfig>
+    <Verbose>0x1F</Verbose>
+    <Setup>
+        <Demo>0</Demo>
+        <MgrPool lowWater="2" hiWater="5" maximum="10" increment="1"/>
+        <Logging>
+            <ProcessName>mgr/SerialServer</ProcessName>
+            <AdditionalLogFile>/Servers/SerialServer.log</AdditionalLogFile>
+            <Status>Enabled</Status>
+            <LocalEcho>Disabled</LocalEcho>
+            <Debug>Off</Debug>
+            <Verbose>0x01</Verbose>
+        </Logging>
+        
+
+
+
+        <LogicalPorts>
+
+            <!-- ============ Serial Devices  ============ -->
+
+            <Scanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser1</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/Scanner</ProcessName>
+                        <AdditionalLogFile>ScannerComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>Scanner_Comm</ProcessName>
+                                <AdditionalLogFile>Scanner_BusComm.log</AdditionalLogFile>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x09</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </Scanner>
+
+
+
+            <!-- ============ Network Devices ============ -->
+
+            <CcrtPendant enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <IpAddress>172.16.250.3</IpAddress>
+                    <PortNo>10011</PortNo>
+                    <TcpType>Client</TcpType>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/CcrtPendant</ProcessName>
+                        <AdditionalLogFile>/Communication/CcrtPendant.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>CcrtPendant</ProcessName>
+                                <AdditionalLogFile>/Communication/CcrtPendantComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x01</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </CcrtPendant>
+
+            <GryphonCCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>5120</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/GryphonCCANLeft</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonCCANLeft.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>CCANLeft</ProcessName>
+                                <AdditionalLogFile>/Communication/GryphonCCANCommLeft.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    <Login>
+                        <IPAddress>172.16.250.20</IPAddress>
+                        <Port>7000</Port>
+                        <UserID>gryphon</UserID>
+                        <Password>gryphon</Password>
+                    </Login>
+                    <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
+                    <NodePairs>
+                        <ABS Outgoing="0x784" Incoming="0x785"/>
+                        <ABSPwrNet Outgoing="0x747" Incoming="0x4C7"/>
+                        <ACC Outgoing="0x753" Incoming="0x4D3"/>
+                        <AHBM Outgoing="0x710" Incoming="0x522"/>
+                        <Airbag Outgoing="0x6E0" Incoming="0x51C"/>
+                        <AirbagPwrNet Outgoing="0x744" Incoming="0x4C4"/>
+                        <Amp Outgoing="0x7F0" Incoming="0x53E"/>
+                        <ASBS Outgoing="0x7B9" Incoming="0x7B8"/>
+                        <ASCM Outgoing="0x78C" Incoming="0x78D"/>
+                        <Cluster Outgoing="0x6A0" Incoming="0x0514"/>
+                        <Corax Outgoing="0x7DA" Incoming="0x7DB"/>
+                        <CoraxPwrNet Outgoing="0x743" Incoming="0x4C3"/>
+                        <DDM Outgoing="0x640" Incoming="0x508"/>
+                        <DISP Outgoing="0x718" Incoming="0x523"/>
+                        <DTCM Outgoing="0x7B4" Incoming="0x7B5"/>
+                        <DTCMPwrNet Outgoing="0x74B" Incoming="0x4CB"/>
+                        <DVD Outgoing="0x7A0" Incoming="0x534"/>
+                        <EBG Outgoing="0x760" Incoming="0x52C"/>
+                        <ELSD Outgoing="0x6C2" Incoming="0x6C3"/>
+                        <ELSDPwrNet Outgoing="0x770" Incoming="0x4F0"/>
+                        <EngineController1 Outgoing="0x7E0" Incoming="0x7E8"/>
+                        <EngineController2 Outgoing="0x7E3" Incoming="0x7EB"/>
+                        <EOM Outgoing="0x6F0" Incoming="0x51E"/>
+                        <EPS Outgoing="0x7C2" Incoming="0x7C3"/>
+                        <FCM Outgoing="0x620" Incoming="0x504"/>
+                        <FDCM Outgoing="0x7B6" Incoming="0x7B7"/>
+                        <FSM Outgoing="0x770" Incoming="0x52E"/>
+                        <GEN1 Outgoing="0x6CA" Incoming="0x499"/>
+                        <GEN2 Outgoing="0x6D2" Incoming="0x49A"/>
+                        <HCM Outgoing="0x6E2" Incoming="0x49C"/>
+                        <HFM Outgoing="0x7F8" Incoming="0x53F"/>
+                        <HIDT Outgoing="0x7C8" Incoming="0x539"/>
+                        <HSM Outgoing="0x6D8" Incoming="0x51B"/>
+                        <HSTW Outgoing="0x678" Incoming="0x50F"/>
+                        <HVAC Outgoing="0x688" Incoming="0x511"/>
+                        <ISG Outgoing="0x6DA" Incoming="0x49B"/>
+                        <ITM Outgoing="0x670" Incoming="0x50E"/>
+                        <LCM Outgoing="0x7AA" Incoming="0x7AB"/>
+                        <LRDM Outgoing="0x648" Incoming="0x509"/>
+                        <LRSM Outgoing="0x708" Incoming="0x521"/>
+                        <MSMD Outgoing="0x660" Incoming="0x50C"/>
+                        <OCS Outgoing="0x6E8" Incoming="0x51D"/>
+                        <ParkTronics Outgoing="0x698" Incoming="0x513"/>
+                        <PDM Outgoing="0x650" Incoming="0x50A"/>
+                        <PLGM Outgoing="0x728" Incoming="0x525"/>
+                        <PSDML Outgoing="0x678" Incoming="0x50F"/>
+                        <PSDMR Outgoing="0x680" Incoming="0x510"/>
+                        <PTCM Outgoing="0x730" Incoming="0x526"/>
+                        <PTIM Outgoing="0x7B0" Incoming="0x536"/>
+                        <RADIO Outgoing="0x6B0" Incoming="0x516"/>
+                        <RFHub Outgoing="0x740" Incoming="0x4C0"/>
+                        <RRDM Outgoing="0x658" Incoming="0x50B"/>
+                        <SCM Outgoing="0x622" Incoming="0x484"/>
+                        <SDARS Outgoing="0x7D8" Incoming="0x53B"/>
+                        <SDARV Outgoing="0x738" Incoming="0x527"/>
+                        <ShifterModule Outgoing="0x788" Incoming="0x789"/>
+                        <ShifterModulePwrNet Outgoing="0x749" Incoming="0x4C9"/>
+                        <SKREEM Outgoing="0x600" Incoming="0x500"/>
+                        <Smartbeam Outgoing="0x710" Incoming="0x522"/>
+                        <SUNR Outgoing="0x638" Incoming="0x507"/>
+                        <TM Outgoing="0x778" Incoming="0x52F"/>
+                        <TPM Outgoing="0x7DA" Incoming="0x7DB"/>
+                        <Transmission Outgoing="0x7E1" Incoming="0x7E9"/>
+                        <UdsEps Outgoing="0x7BC" Incoming="0x7BD"/>
+                        <VES Outgoing="0x7D0" Incoming="0x53A"/>
+                        <VES3 Outgoing="0x780" Incoming="0x530"/>
+                        <AFLS Outgoing="0x768" Incoming="0x4E8"/>
+                        <PwrNetParkTronics Outgoing="0x762" Incoming="0x4E2"/>
+                        <UdsCluster Outgoing="0x742" Incoming="0x4C2"/>
+                        <UdsPwrNetASCM Outgoing="0x766" Incoming="0x4E6"/>
+                        <ADCM Outgoing="0x757" Incoming="0x4D7"/>
+                        <EPPM Outgoing="0x75F" Incoming="0x4DF"/>
+                        <EPSPwrNet Outgoing="0x75A" Incoming="0x4DA"/>
+                        <HALF Outgoing="0x764" Incoming="0x4E4"/>
+                        <ITBM Outgoing="0x754" Incoming="0x4D4"/>
+                        <OCM Outgoing="0x75E" Incoming="0x4DE"/>
+                        <PASS_PN Outgoing="0x775" Incoming="0x4F5"/>
+                        <SCCM Outgoing="0x763" Incoming="0x4E3"/>
+                    </NodePairs>
+                    <NodePairSetup>
+                        <Range00 FirstRequestID="0x6C2" FirstResponseID="0x6C3" Offset="0x001" NumberOfPairs="285"/>
+                        <Range01 FirstRequestID="0x7E0" FirstResponseID="0x7E8" Offset="0x008" NumberOfPairs="4"/>
+                        <Range02 FirstRequestID="0x600" FirstResponseID="0x500" Offset="0x100" NumberOfPairs="1"/>
+                        <Range03 FirstRequestID="0x620" FirstResponseID="0x504" Offset="0x11C" NumberOfPairs="1"/>
+                        <Range04 FirstRequestID="0x638" FirstResponseID="0x507" Offset="0x131" NumberOfPairs="1"/>
+                        <Range05 FirstRequestID="0x640" FirstResponseID="0x508" Offset="0x138" NumberOfPairs="1"/>
+                        <Range06 FirstRequestID="0x648" FirstResponseID="0x509" Offset="0x13F" NumberOfPairs="1"/>
+                        <Range07 FirstRequestID="0x650" FirstResponseID="0x50A" Offset="0x146" NumberOfPairs="1"/>
+                        <Range08 FirstRequestID="0x658" FirstResponseID="0x50B" Offset="0x14D" NumberOfPairs="1"/>
+                        <Range09 FirstRequestID="0x660" FirstResponseID="0x50C" Offset="0x154" NumberOfPairs="1"/>
+                        <Range10 FirstRequestID="0x670" FirstResponseID="0x50E" Offset="0x162" NumberOfPairs="1"/>
+                        <Range11 FirstRequestID="0x678" FirstResponseID="0x50F" Offset="0x169" NumberOfPairs="1"/>
+                        <Range12 FirstRequestID="0x680" FirstResponseID="0x510" Offset="0x170" NumberOfPairs="1"/>
+                        <Range13 FirstRequestID="0x688" FirstResponseID="0x511" Offset="0x177" NumberOfPairs="1"/>
+                        <Range14 FirstRequestID="0x698" FirstResponseID="0x513" Offset="0x185" NumberOfPairs="1"/>
+                        <Range15 FirstRequestID="0x6A0" FirstResponseID="0x514" Offset="0x18C" NumberOfPairs="1"/>
+                        <Range16 FirstRequestID="0x6B0" FirstResponseID="0x516" Offset="0x19A" NumberOfPairs="1"/>
+                        <Range17 FirstRequestID="0x622" FirstResponseID="0x484" Offset="0x19E" NumberOfPairs="1"/>
+                        <Range18 FirstRequestID="0x6D8" FirstResponseID="0x51B" Offset="0x1BD" NumberOfPairs="1"/>
+                        <Range19 FirstRequestID="0x6E0" FirstResponseID="0x51C" Offset="0x1C4" NumberOfPairs="1"/>
+                        <Range20 FirstRequestID="0x6E8" FirstResponseID="0x51D" Offset="0x1CB" NumberOfPairs="1"/>
+                        <Range21 FirstRequestID="0x6F0" FirstResponseID="0x51E" Offset="0x1D2" NumberOfPairs="1"/>
+                        <Range22 FirstRequestID="0x708" FirstResponseID="0x521" Offset="0x1E7" NumberOfPairs="1"/>
+                        <Range23 FirstRequestID="0x710" FirstResponseID="0x522" Offset="0x1EE" NumberOfPairs="1"/>
+                        <Range24 FirstRequestID="0x718" FirstResponseID="0x523" Offset="0x1F5" NumberOfPairs="1"/>
+                        <Range25 FirstRequestID="0x728" FirstResponseID="0x525" Offset="0x203" NumberOfPairs="1"/>
+                        <Range26 FirstRequestID="0x730" FirstResponseID="0x526" Offset="0x20A" NumberOfPairs="1"/>
+                        <Range27 FirstRequestID="0x738" FirstResponseID="0x527" Offset="0x211" NumberOfPairs="1"/>
+                        <Range28 FirstRequestID="0x6CA" FirstResponseID="0x499" Offset="0x231" NumberOfPairs="1"/>
+                        <Range29 FirstRequestID="0x760" FirstResponseID="0x52C" Offset="0x234" NumberOfPairs="1"/>
+                        <Range30 FirstRequestID="0x6D2" FirstResponseID="0x49A" Offset="0x238" NumberOfPairs="1"/>
+                        <Range31 FirstRequestID="0x6DA" FirstResponseID="0x49B" Offset="0x23F" NumberOfPairs="1"/>
+                        <Range32 FirstRequestID="0x770" FirstResponseID="0x52E" Offset="0x242" NumberOfPairs="1"/>
+                        <Range33 FirstRequestID="0x6E2" FirstResponseID="0x49C" Offset="0x246" NumberOfPairs="1"/>
+                        <Range34 FirstRequestID="0x778" FirstResponseID="0x52F" Offset="0x249" NumberOfPairs="1"/>
+                        <Range35 FirstRequestID="0x780" FirstResponseID="0x530" Offset="0x250" NumberOfPairs="1"/>
+                        <Range36 FirstRequestID="0x7A0" FirstResponseID="0x534" Offset="0x26C" NumberOfPairs="1"/>
+                        <Range37 FirstRequestID="0x7B0" FirstResponseID="0x536" Offset="0x27A" NumberOfPairs="1"/>
+                        <Range38 FirstRequestID="0x740" FirstResponseID="0x4C0" Offset="0x280" NumberOfPairs="54"/>
+                        <Range39 FirstRequestID="0x7C8" FirstResponseID="0x539" Offset="0x28F" NumberOfPairs="1"/>
+                        <Range40 FirstRequestID="0x7D0" FirstResponseID="0x53A" Offset="0x296" NumberOfPairs="1"/>
+                        <Range41 FirstRequestID="0x7D8" FirstResponseID="0x53B" Offset="0x29D" NumberOfPairs="1"/>
+                        <Range42 FirstRequestID="0x7F0" FirstResponseID="0x53E" Offset="0x2B2" NumberOfPairs="1"/>
+                        <Range43 FirstRequestID="0x7F8" FirstResponseID="0x53F" Offset="0x2B9" NumberOfPairs="1"/>
+                    </NodePairSetup>
+                </Setup>
+            </GryphonCCan>
+
+            <GryphonICan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <Channel>2</Channel>
+                    <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>5120</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/GryphonICAN</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonICAN.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>ICAN</ProcessName>
+                                <AdditionalLogFile>/Communication/GryphonICANComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    <Login>
+                        <IPAddress>172.16.250.20</IPAddress>
+                        <Port>7000</Port>
+                        <UserID>gryphon</UserID>
+                        <Password>gryphon</Password>
+                    </Login>
+                    <Alias>/home/CCRT/Rewrite/GryphonICan</Alias>
+                    <NodePairs>
+                        <DDM Outgoing="0x784" Incoming="0x504"/>
+                        <PDM Outgoing="0x785" Incoming="0x505"/>
+                        <BSM Outgoing="0x791" Incoming="0x511"/>
+                        <AMP Outgoing="0x7BE" Incoming="0x53E"/>
+                        <DVD Outgoing="0x7A0" Incoming="0x534"/>
+                        <FSM Outgoing="0x770" Incoming="0x52E"/>
+                        <HFM Outgoing="0x7B9" Incoming="0x539"/>
+                        <HVAC Outgoing="0x783" Incoming="0x503"/>
+                        <HVACR Outgoing="0x798" Incoming="0x518"/>
+                        <ICS Outgoing="0x7BC" Incoming="0x53C"/>
+                        <ITM Outgoing="0x78F" Incoming="0x50F"/>
+                        <MSM Outgoing="0x78A" Incoming="0x50A"/>
+                        <PLGM Outgoing="0x78C" Incoming="0x50C"/>
+                        <TGW Outgoing="0x7BF" Incoming="0x53F"/>
+                        <VES2 Outgoing="0x7B7" Incoming="0x537"/>
+                        <VES3 Outgoing="0x7BB" Incoming="0x53B"/>
+                        <VSIM Outgoing="0x78E" Incoming="0x50E"/>
+                    </NodePairs>
+                    <NodePairSetup>
+                        <Range00 FirstRequestID="0x770" FirstResponseID="0x52E" Offset="0x242" NumberOfPairs="1"/>
+                        <Range01 FirstRequestID="0x7A0" FirstResponseID="0x534" Offset="0x26C" NumberOfPairs="1"/>
+                        <Range02 FirstRequestID="0x784" FirstResponseID="0x504" Offset="0x280" NumberOfPairs="60"/>
+                    </NodePairSetup>
+                </Setup>
+            </GryphonICan>
+
+            <GryphonFiatCCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+                    <Channel>3</Channel>
+                    <ModuleIDByteLength>4</ModuleIDByteLength>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/GryphonFiatCCan</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonFiatCCan.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x3F</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>FiatCCAN</ProcessName>
+                                <AdditionalLogFile>/Communication/GryphonFiatCCanComm.log</AdditionalLogFile>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    <Login>
+                        <IPAddress>172.16.250.20</IPAddress>
+                        <Port>7000</Port>
+                        <UserID>gryphon</UserID>
+                        <Password>gryphon</Password>
+                    </Login>
+                    <Alias>/home/CCRT/Rewrite/GryphonFiatCCan</Alias>
+                    <NodePairs>
+                        <ABS Outgoing="0x18DA28F1" Incoming="0x18DAF128"/>
+                        <PCM Outgoing="0x18DA10F1" Incoming="0x18DAF110"/>
+                        <RBC Outgoing="0x18DA48F1" Incoming="0x18DAF148"/>
+                        <TCM Outgoing="0x18DA18F1" Incoming="0x18DAF118"/>
+                        <GSM Outgoing="0x18DA1FF1" Incoming="0x18DAF11F"/>
+                        <PIM Outgoing="0x18DA43F1" Incoming="0x18DAF143"/>
+                        <EVCU Outgoing="0x18DA42F1" Incoming="0x18DAF142"/>
+                        <BPCM Outgoing="0x18DA44F1" Incoming="0x18DAF144"/>
+                        <EPS Outgoing="0x18DA30F1" Incoming="0x18DAF130"/>
+                    </NodePairs>
+                    <NodePairSetup>
+                        <Range2 FirstRequestID="0x18DA28F1" FirstResponseID="0x18DAF128" Offset="0x00" NumberOfPairs="1"/>
+                        <Range3 FirstRequestID="0x18DA10F1" FirstResponseID="0x18DAF110" Offset="0x00" NumberOfPairs="1"/>
+                        <Range4 FirstRequestID="0x18DA18F1" FirstResponseID="0x18DAF118" Offset="0x00" NumberOfPairs="1"/>
+                        <Range5 FirstRequestID="0x18DA48F1" FirstResponseID="0x18DAF148" Offset="0x00" NumberOfPairs="1"/>
+                        <Range6 FirstRequestID="0x18DA1FF1" FirstResponseID="0x18DAF11F" Offset="0x00" NumberOfPairs="1"/>
+                        <Range7 FirstRequestID="0x18DA43F1" FirstResponseID="0x18DAF143" Offset="0x00" NumberOfPairs="1"/>
+                        <Range8 FirstRequestID="0x18DA42F1" FirstResponseID="0x18DAF142" Offset="0x00" NumberOfPairs="1"/>
+                        <Range9 FirstRequestID="0x18DA44F1" FirstResponseID="0x18DAF144" Offset="0x00" NumberOfPairs="1"/>
+                        <Range10 FirstRequestID="0x18DA30F1" FirstResponseID="0x18DAF130" Offset="0x00" NumberOfPairs="1"/>
+                    </NodePairSetup>
+                </Setup>
+            </GryphonFiatCCan>
+
+            <GryphonFiatBCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+                    <Channel>4</Channel>
+                    <ModuleIDByteLength>4</ModuleIDByteLength>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/GryphonFiatBCan</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonFiatBCan.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>FiatBCAN</ProcessName>
+                                <AdditionalLogFile>/Communication/GryphonFiatBCanComm.log</AdditionalLogFile>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x01</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    <Login>
+                        <IPAddress>172.16.250.20</IPAddress>
+                        <Port>7000</Port>
+                        <UserID>gryphon</UserID>
+                        <Password>gryphon</Password>
+                    </Login>
+                    <Alias>/home/CCRT/Rewrite/GryphonFiatBCan</Alias>
+                    <NodePairs>
+                        <ORC Outgoing="0x18DAC0F1" Incoming="0x18DAF1C0"/>
+                        <TPM Outgoing="0x18DAA1F1" Incoming="0x18DAF1A1"/>
+                        <Radio Outgoing="0x18DA82F1" Incoming="0x18DAF182"/>
+                    </NodePairs>
+                    <NodePairSetup>
+                        <Range1 FirstRequestID="0x18DAC0F1" FirstResponseID="0x18DAF1C0" Offset="0x00" NumberOfPairs="1"/>
+                        <Range2 FirstRequestID="0x18DAA1F1" FirstResponseID="0x18DAF1A1" Offset="0x00" NumberOfPairs="1"/>
+                        <Range3 FirstRequestID="0x18DA82F1" FirstResponseID="0x18DAF182" Offset="0x00" NumberOfPairs="1"/>
+                    </NodePairSetup>
+                </Setup>
+            </GryphonFiatBCan>
+
+        </LogicalPorts>
+    </Setup>
+</SerialServerConfig>

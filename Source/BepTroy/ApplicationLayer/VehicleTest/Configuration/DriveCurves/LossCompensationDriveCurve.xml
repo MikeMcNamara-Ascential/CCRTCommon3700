@@ -1,0 +1,19 @@
+<LossCompensationDriveCurve Description="Drive Curve For The Loss Compensation Test" TestType="CommandSequence">
+    <Components Debug="Off">
+        <LossCompensation>
+            <ComponentName>LossCompensationTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>LossCompensation.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/LossCompensation/</ConfigPath>
+        </LossCompensation>
+    </Components>
+    <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="Off">
+        <TestPhase20 Description="Perform the LossCompensation test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="" Result="" Timeout="" Component="LossCompensation">
+                    <LossCompensation/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase20>
+    </Test>
+</LossCompensationDriveCurve>

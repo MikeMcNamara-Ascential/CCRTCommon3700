@@ -1,0 +1,5 @@
+<SelectionTable Description="BEP drive curve selection table">
+    <Vehicle_0 DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+       <BrakeType>Base Brake</BrakeType>
+    </Vehicle_0>
+</SelectionTable>

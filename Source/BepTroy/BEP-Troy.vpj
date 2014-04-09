@@ -1,0 +1,162 @@
+<!DOCTYPE Project SYSTEM "http://www.slickedit.com/dtd/vse/9.1/vpj.dtd">
+<Project
+	Version="9.1"
+	VendorName="SlickEdit"
+	WorkingDir=".">
+	<Config
+		Name="Release"
+		OutputFile=""
+		CompilerConfigName="Latest Version">
+		<Menu>
+			<Target
+				Name="Compile"
+				MenuCaption="&amp;Compile"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveCurrent"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Build"
+				MenuCaption="&amp;Build"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Rebuild"
+				MenuCaption="&amp;Rebuild"
+				CaptureOutputWith="ProcessBuffer"
+				SaveOption="SaveWorkspaceFiles"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Debug"
+				MenuCaption="&amp;Debug"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec/>
+			</Target>
+			<Target
+				Name="Execute"
+				MenuCaption="E&amp;xecute"
+				SaveOption="SaveNone"
+				RunFromDir="%rw">
+				<Exec CmdLine='"BEP-Troy.exe"'/>
+			</Target>
+		</Menu>
+	</Config>
+	<CustomFolders>
+		<Folder
+			Name="Source Files"
+			Filters="*.c;*.C;*.cc;*.cpp;*.cp;*.cxx;*.prg;*.pas;*.dpr;*.asm;*.s;*.bas;*.java;*.cs;*.sc;*.e;*.cob;*.html;*.rc;*.tcl;*.py;*.pl"/>
+		<Folder
+			Name="Header Files"
+			Filters="*.h;*.H;*.hh;*.hpp;*.hxx;*.inc;*.sh;*.cpy;*.if"/>
+		<Folder
+			Name="Resource Files"
+			Filters="*.ico;*.cur;*.dlg"/>
+		<Folder
+			Name="Bitmaps"
+			Filters="*.bmp"/>
+		<Folder
+			Name="Other Files"
+			Filters=""/>
+	</CustomFolders>
+	<Files AutoFolders="DirectoryView">
+		<Folder Name="ApplicationLayer">
+			<Folder Name="TestComponents">
+				<Folder Name="LossCompensation">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/BEP.LossCompensation.xml"/>
+						<F N="ApplicationLayer/TestComponents/LossCompensation/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/LossCompensation/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="MachineComponent">
+					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/MachineComponent/Configuration/BEP.MachineComponent.xml"/>
+						<F N="ApplicationLayer/TestComponents/MachineComponent/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ApplicationLayer/TestComponents/MachineComponent/CMakeLists.txt"/>
+				</Folder>
+				<F N="ApplicationLayer/TestComponents/CMakeLists.txt"/>
+			</Folder>
+			<Folder Name="VehicleTest">
+				<Folder Name="Configuration">
+					<Folder Name="DriveCurves">
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/LossCompensationDriveCurve.xml"/>
+					</Folder>
+					<F N="ApplicationLayer/VehicleTest/Configuration/BEP.SelectionTable.xml"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/BEP.VehicleTestConfig.xml"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/CMakeLists.txt"/>
+				</Folder>
+				<F N="ApplicationLayer/VehicleTest/CMakeLists.txt"/>
+			</Folder>
+			<F N="ApplicationLayer/CMakeLists.txt"/>
+		</Folder>
+		<Folder Name="ServicesLayer">
+			<Folder Name="Managers">
+				<Folder Name="ICM">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/ICM/Configuration/BEP.Troy.508155.IpIcmConfig.xml"/>
+						<F N="ServicesLayer/Managers/ICM/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Managers/ICM/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="PlcMgr">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/EipPlcConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Managers/PlcMgr/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="SerialServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/BEP.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Managers/SerialServer/CMakeLists.txt"/>
+				</Folder>
+				<F N="ServicesLayer/Managers/CMakeLists.txt"/>
+			</Folder>
+			<Folder Name="Servers">
+				<Folder Name="InputServer">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/InputServer/Configuration/BEP.InputServerConfig.xml"/>
+						<F N="ServicesLayer/Servers/InputServer/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/InputServer/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="Launcher">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/Launcher/Configuration/BEP.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/Launcher/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="MachineDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/BEP.MachineDataBrokerConfig.xml"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="MotorController">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/MotorController/Configuration/BEP.Ab700MotorControllerConfig.xml"/>
+						<F N="ServicesLayer/Servers/MotorController/Configuration/CMakeLists.txt"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/MotorController/CMakeLists.txt"/>
+				</Folder>
+				<F N="ServicesLayer/Servers/CMakeLists.txt"/>
+			</Folder>
+			<F N="ServicesLayer/CMakeLists.txt"/>
+		</Folder>
+		<F N="CMakeLists.txt"/>
+	</Files>
+</Project>

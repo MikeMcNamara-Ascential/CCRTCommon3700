@@ -247,10 +247,10 @@
          <TestStep1>AccelerateToBrakeSpeed</TestStep1>
          <TestStep2>Coast</TestStep2>
          <TestStep3>DragTest</TestStep3>
-         <TestStep4>BrakeTest</TestStep4>
+         <TestStep4>AnalyzeDragTest</TestStep4>
+         <TestStep5>BrakeTest</TestStep5>
       </BrakeTestWithCoast>
       <AnalyzeBrakeTest>
-         <TestStep1>AnalyzeDragTest</TestStep1>
          <TestStep2>AnalyzeBrakeTest</TestStep2>
          <TestStep3>AnalyzeBalance</TestStep3>
       </AnalyzeBrakeTest>

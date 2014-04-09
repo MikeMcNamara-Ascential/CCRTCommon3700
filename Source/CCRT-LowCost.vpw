@@ -3,6 +3,7 @@
 	<Projects>
 		<Project File="Aymesa/Aymesa.vpj"/>
 		<Project File="Base_3700/Base_3700.vpj"/>
+		<Project File="BepTroy/BEP-Troy.vpj"/>
 		<Project File="Changan/Changan.vpj"/>
 		<Project File="Core/Core.vpj"/>
 		<Project File="FAW/FAW.vpj"/>

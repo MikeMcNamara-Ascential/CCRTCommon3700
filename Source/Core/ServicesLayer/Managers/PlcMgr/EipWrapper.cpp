@@ -117,7 +117,13 @@ bool EipWrapper::SendPlcData(const uint8_t *plcData, short byteCnt, const string
     {
         BposSleep(30);
         EtIPObjectResponse response;
-        if((retStat = clientGetUnconnectedResponse(readId, &response)) == 0)
+		short attempts = 20;
+		short msgDelay = 10;
+		while(((retStat = clientGetUnconnectedResponse(readId, &response)) != 0) && attempts--)
+		{
+			BposSleep(msgDelay);
+		}
+        if(retStat == 0)
         {
             if(response.bGeneralStatus > 0)
             {
@@ -175,7 +181,13 @@ INT32 EipWrapper::ReceivePlcData(uint8_t *plcData, const short &byteCnt, INT32 &
     {   // Successfully sent the request, wait for the response
         BposSleep(15);
         EtIPObjectResponse response;
-        if((retStat = clientGetUnconnectedResponse(readId, &response)) == 0)
+		short attempts = 20;
+		short msgDelay = 10;
+		while(((retStat = clientGetUnconnectedResponse(readId, &response)) != 0) && attempts--)
+		{
+			BposSleep(msgDelay);
+		}
+        if(retStat == 0)
         {
             if(response.bGeneralStatus > 0)
             {

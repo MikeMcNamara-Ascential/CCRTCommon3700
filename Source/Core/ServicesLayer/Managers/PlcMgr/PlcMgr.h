@@ -194,6 +194,7 @@ class PlcMgr;
 #include "PlcDf1.h"         // Allen Bradley DF1 serial PLC board object
 #include "PlcRk512.h"       // Siemens Rk512 serial PLC board object
 #include "PlcMelsec.h"      // Mitsubishi Melsec serial PLC object
+#include "PlcEip.h"         // Allen Bradley Df1 EIP PLC board object
 #include "PlcDiag.h"        // PLC Diagnostic Data Types
 #include "PlcDefs.h"        // PLC definitions
 #include "XmlParser.h"      // XML Parser definition

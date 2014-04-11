@@ -61,7 +61,7 @@
 
             <!-- ============ Network Devices ============ -->
 
-            <CcrtPendant enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
+            <WinCcrt enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/socket</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
@@ -80,8 +80,8 @@
                         <FifoSize>1024</FifoSize>
                     </Protocol>
                     <Logging>
-                        <ProcessName>logport/CcrtPendant</ProcessName>
-                        <AdditionalLogFile>/Communication/CcrtPendant.log</AdditionalLogFile>
+                        <ProcessName>logport/WinCcrt</ProcessName>
+                        <AdditionalLogFile>/Communication/WinCcrtComm.log</AdditionalLogFile>
                         <Status>Enabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
                         <Verbose>0x01</Verbose>
@@ -91,7 +91,7 @@
                         <Setup>
                             <Logging>
                                 <ProcessName>CcrtPendant</ProcessName>
-                                <AdditionalLogFile>/Communication/CcrtPendantComm.log</AdditionalLogFile>
+                                <AdditionalLogFile>/Communication/WinCcrtComm.log</AdditionalLogFile>
                                 <Status>Enabled</Status>
                                 <LocalEcho>Disabled</LocalEcho>
                                 <Verbose>0x01</Verbose>
@@ -100,7 +100,7 @@
                         </Setup>
                     </CommLog>
                 </Setup>
-            </CcrtPendant>
+            </WinCcrt>
 
             <GryphonCCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
                 <Setup>

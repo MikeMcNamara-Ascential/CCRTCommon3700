@@ -535,14 +535,17 @@ const std::string ABMotorController::Command(const XmlNode *node)
     else if(name == "CommandClearFaults")
     {
         ClearOperationalFaults();   // Clear operational faults
+		status = BEP_SUCCESS_RESPONSE;
     }
     else if(!name.compare("LeftFrontSpeedValue"))
     {
         SetCommandedSpeed( LeftFront, atof(value.c_str()));            // Set command value
+		status = BEP_SUCCESS_RESPONSE;
     }
     else if(!name.compare("RightFrontSpeedValue"))
     {
         SetCommandedSpeed( RightFront, atof(value.c_str()));            // Set command value
+		status = BEP_SUCCESS_RESPONSE;
     }
     else if(!name.compare("LeftRearSpeedValue"))
     {
@@ -554,6 +557,7 @@ const std::string ABMotorController::Command(const XmlNode *node)
         {
             SetCommandedSpeed( LeftRear, atof(value.c_str()));            // Set command value
         }
+		status = BEP_SUCCESS_RESPONSE;
     }
     else if(!name.compare("RightRearSpeedValue"))
     {
@@ -565,14 +569,17 @@ const std::string ABMotorController::Command(const XmlNode *node)
         {
             SetCommandedSpeed( RightRear, atof(value.c_str()));            // Set command value
         }
+		status = BEP_SUCCESS_RESPONSE;
     }
     else if(!name.compare("LeftFrontMotorMode"))
     {
         SetMotorMode(value, LeftFront);
+		status = BEP_SUCCESS_RESPONSE;
     }
     else if(!name.compare("RightFrontMotorMode"))
     {
         SetMotorMode(value, RightFront);
+		status = BEP_SUCCESS_RESPONSE;
     }
     else if(!name.compare("LeftRearMotorMode"))
     {
@@ -584,6 +591,7 @@ const std::string ABMotorController::Command(const XmlNode *node)
         {
             SetMotorMode(value, LeftRear);
         }
+		status = BEP_SUCCESS_RESPONSE;
     }
     else if(!name.compare("RightRearMotorMode"))
     {
@@ -595,6 +603,7 @@ const std::string ABMotorController::Command(const XmlNode *node)
         {
             SetMotorMode(value, RightRear);
         }
+		status = BEP_SUCCESS_RESPONSE;
     }
     else
     {

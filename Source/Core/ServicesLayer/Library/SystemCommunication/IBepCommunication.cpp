@@ -1397,21 +1397,31 @@ const INT32 IBepCommunication::GetByTag(const std::string tag, std::string &valu
             if(IsDebugOn())
             {
                 message.erase();
-                doc->writeNode(message);
+				printf("GetByTag - doc node: %s\n", doc->writeNode(message).c_str());
             }
             if(doc->getChildren().size() > 0)
             {
                 // If there are children
+				if(IsDebugOn()) printf("GetByTag - doc has %d child nodes\n", doc->getChildren().size());
                 value = doc->getChildren().getNode(tag)->getValue();
                 stat = BEP_STATUS_SUCCESS;
                 if(IsDebugOn()) printf("GetByTag(%s, %s)\n", tag.c_str(), value.c_str());
             }
             else stat = BEP_STATUS_FAILURE;
         }
+		catch(XmlException &excpt)
+		{
+			if(IsDebugOn()) printf("GetByTag - XmlException getting %s - %s", tag.c_str(), excpt.GetReason());
+		}
         catch(BepException &BepErr)
         {
             // Don't do anything
+			if(IsDebugOn()) printf("GetByTag - BepException getting %s - %s", tag.c_str(), BepErr.GetReason());
         }
+		catch(...)
+		{
+			if(IsDebugOn()) printf("GetByTag - Exception getting %s", tag.c_str());
+		}
 
         pthread_mutex_unlock( &m_lock);
     }

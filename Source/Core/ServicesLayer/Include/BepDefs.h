@@ -625,6 +625,7 @@ typedef  int     Boolean;
 #define BEP_INTERMEDIATE_OVERALL_RESULT             "IntermediateOverallResult"         // Extension for Test Result server.
 #define BEP_READ                    "Read"
 #define BEP_WRITE                   "Write"
+#define BEP_SERVER_WRITE			"ServerWrite"
 #define BEP_COMMAND                 "Command"
 #define BEP_SUBSCRIBE               "Subscribe"
 #define BEP_UNSUBSCRIBE             "Unsubscribe"

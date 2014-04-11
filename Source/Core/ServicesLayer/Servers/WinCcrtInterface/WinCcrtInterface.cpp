@@ -266,7 +266,9 @@ BEP_STATUS_TYPE WinCcrtInterface::CheckForWinCcrtMessage()
 	if(byteCount > 0)
 	{
 		Log(LOG_DEV_DATA, "Received %d bytes from Windows CCRT system", byteCount);
-		string tempMsg = string((char *)&message[0], message.length());
+		int startIndex = (message[0] == 0x00) ? 1 : 0;
+		int length = (startIndex == 1) ? message.length() - 1 : message.length();
+		string tempMsg = string((char *)&message[startIndex], length);
 		status = ProcessWinCcrtMessage(tempMsg);
 	}
 	else
@@ -303,12 +305,10 @@ INT32& WinCcrtInterface::MessageWaitTimeEnd(const INT32 *waitTime /*= NULL*/)
 BEP_STATUS_TYPE WinCcrtInterface::ProcessWinCcrtMessage(const string &fullMessage)
 {	// Determine what type of fullMessage we are dealing with
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-	bool stillProcessing = true;
     Log(LOG_FN_ENTRY, "Processing Win CCRT Message: %s", fullMessage.c_str());
     int msgStartPos = 0;
     //look for second occurrence of ":" to signal the end of the message
     int msgEndPos = fullMessage.find_first_of(";");
-    int fullMsgLength = fullMessage.size();
     
     // maximum number of messages that can come in and before it brakes out a quits
     int brakeOutCount = 9;
@@ -351,7 +351,6 @@ BEP_STATUS_TYPE WinCcrtInterface::ProcessWinCcrtMessage(const string &fullMessag
         else if(msgType == BEP_WRITE)
         {
             Log(LOG_DEV_DATA, "ProcessWinCcrtMessage - Write");
-
             string value(message.substr(message.find_first_of(",")+1));
             if(tag.find("BeltTension") != tag.npos)
             {
@@ -373,6 +372,24 @@ BEP_STATUS_TYPE WinCcrtInterface::ProcessWinCcrtMessage(const string &fullMessag
                 status = SystemWrite(tag, value);
             }
         }
+		else if(msgType == BEP_SERVER_WRITE)
+		{
+			Log(LOG_DEV_DATA, "ProcessWinCcrtMessage - ServerWrite");
+			// Get the server name to write to
+			int serverStart = tagStart;
+			unsigned int serverTagSepIndex = message.find_first_of(",");
+			int serverLength = (serverTagSepIndex != string::npos) ? (serverTagSepIndex - serverStart) : string::npos;
+			string serverName = message.substr(serverStart, serverLength);
+			// Get the tag to write to
+			tagStart = serverTagSepIndex + 1;
+			tagValSepIndex = message.find_first_of(",", tagStart);
+			tagLength = (tagValSepIndex != string::npos) ? (tagValSepIndex - tagStart) : string::npos;
+			tag = message.substr(tagStart, tagLength);
+			// Get the value to write
+			string value(message.substr(message.find_first_of(",", tagValSepIndex+1)+1));
+			string cmd("SendCmd -n" + serverName + " -t Write -x" + tag + "," + value);
+			system(cmd.c_str());
+		}
         else
         {
             Log(LOG_ERRORS, "Unknown message type: %s", msgType.c_str());
@@ -396,6 +413,7 @@ string WinCcrtInterface::SystemRead(const string &tag)
 		INT32 status = m_ndb->Read(tag, response, true);
 		if(status == BEP_STATUS_SUCCESS)
         {
+			Log(LOG_DEV_DATA, "WinCcrtInterface::SystemRead - %s", response.c_str());
             status = m_ndb->GetByTag(tag, value, response);
             Log(LOG_DEV_DATA, "WinCcrtInterface::SystemRead - Read %s,%s - result: %s", tag.c_str(), value.c_str(), ConvertStatusToResponse(status).c_str());
         }

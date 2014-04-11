@@ -629,6 +629,7 @@ protected:
 
     string ProgramVIN(void);
     string LearnPerformanceType(void);
+    string TestStepDelay(void);
 
 private:
     /**

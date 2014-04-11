@@ -73,6 +73,7 @@
       <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
       <SwitchMonitorDelay>500</SwitchMonitorDelay>
       <ValidResponseOffset>0x40</ValidResponseOffset>
+      <IgnoreCalibarateGSensorResult>No</IgnoreCalibarateGSensorResult>
    </Setup>
    <SerialMessages>
       <VehicleMessages>
@@ -607,6 +608,18 @@
             <ReplyMessage>RoutineResults</ReplyMessage>
             <ReplyInterpretation>RoutineComplete</ReplyInterpretation>
          </ReadControlComplete>
+         <CalibrateGSensor>
+            <TransmitMessage>CalibrateGSensor</TransmitMessage>
+            <TransmitInterpretation></TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </CalibrateGSensor>
+         <RecordCalibrateResults>
+            <TransmitMessage>RoutineResults</TransmitMessage>
+            <TransmitInterpretation>CalibrateGSensor</TransmitInterpretation>
+            <ReplyMessage>GSensorResults</ReplyMessage>
+            <ReplyInterpretation>RoutineComplete</ReplyInterpretation>
+         </RecordCalibrateResults>
       </VehicleMessages>
       <TransmitMessages>
          <!--For actuating one valve or for single-corner reduction/recovery-->
@@ -615,6 +628,7 @@
          <ESPValveActuation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??</ESPValveActuation>
          <!--For turning all/multiple valves on/off-->
          <MultipleValveActuation>0x31,0x01,0xF0,0x0A,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x01,0x00,0x??,0x00,0x??,0x00,0x??,0x00,0x??</MultipleValveActuation>
+         <CalibrateGSensor>0x31,0x01,0xF1,0x00,0x02</CalibrateGSensor>
          <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
          <CommunicationControl>0x28,0x??,0x01</CommunicationControl>
          <ControlDTCSetting>0x85,0x??</ControlDTCSetting>
@@ -655,6 +669,7 @@
          <AllOutletValvesOff>0x00,0x32,0x00,0x36,0x00,0x3A,0x00,0x3E</AllOutletValvesOff>
          <AllOutletValvesOn>0x64,0x32,0x64,0x36,0x64,0x3A,0x64,0x3E</AllOutletValvesOn>
          <BrakePedalStatus>0xFD,0x01</BrakePedalStatus>
+         <CalibrateGSensor>0xF1,0x00</CalibrateGSensor>
          <DeactivateControlValveUSV1>0x00,0x4E,0x00,0x00</DeactivateControlValveUSV1>
          <DeactivateControlValveUSV2>0x00,0x50,0x00,0x00</DeactivateControlValveUSV2>
          <DeactivateHighPressureControlValveHSV1>0x00,0x52,0x00,0x00</DeactivateHighPressureControlValveHSV1>
@@ -833,6 +848,10 @@
             <Reply_01>0x71,0x03,0xF0,0x0A,0x??</Reply_01>
             <Reply_02>0x7F,0x31,0x??</Reply_02>
          </RoutineResults>
+         <GSensorResults>
+            <Reply_00>0x71,0x03,0xF1,0x00,0x??</Reply_00>
+            <Reply_02>0x7F,0x31,0x??</Reply_02>
+         </GSensorResults>
          <WheelSpeedSensorResults>
              <Reply_00 lengthType="Variable">0x71,0x03,0xF0,0x02,0x??</Reply_00>
              <Reply_01>0x7F,0x31,0x??</Reply_01>

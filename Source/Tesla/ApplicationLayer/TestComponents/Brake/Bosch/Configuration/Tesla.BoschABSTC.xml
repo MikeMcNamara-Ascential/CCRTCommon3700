@@ -252,6 +252,7 @@
         </DataTags>
         <Parameters>
             <AbortIfDTCPresent>No</AbortIfDTCPresent>
+            <AlwaysCalibrateGSensor>Yes</AlwaysCalibrateGSensor>
             <AlwaysEnterDiagnosticMode>Yes</AlwaysEnterDiagnosticMode>
             <AlwaysStartGUIForceThread>Yes</AlwaysStartGUIForceThread>
             <AlwaysStartKeepAlive>Yes</AlwaysStartKeepAlive>
@@ -385,7 +386,7 @@
             <BrakeBurnishEndSpeed Units="mph">27</BrakeBurnishEndSpeed>
             <BrakeBurnishEndSpeedRange Units="mph">25 30</BrakeBurnishEndSpeedRange>
             <BrakeBurnishFinalIterationTarget Units="lbf">410 450</BrakeBurnishFinalIterationTarget>
-            <BrakeBurnishMinNonDrivenAxleSpeed Units="mph">40.0</BrakeBurnishMinNonDrivenAxleSpeed>
+            <BrakeBurnishMinNonDrivenAxleSpeed Units="mph">60.0</BrakeBurnishMinNonDrivenAxleSpeed>
             <BrakeBurnishStartSpeed Units="mph">60.0</BrakeBurnishStartSpeed>
             <BrakeBurnishStartSpeedRange Units="mph">60 65</BrakeBurnishStartSpeedRange>
             <BrakeToTargetSpeedPrompt>BrakeToTargetSpeed</BrakeToTargetSpeedPrompt>
@@ -395,8 +396,8 @@
             <EPBBurnishIterations Description="Number of times to accel and decel for one cycle">3</EPBBurnishIterations>
             <EPBBurnishEndSpeed Units="mph">22</EPBBurnishEndSpeed>
             <EPBBurnishEndSpeedRange Units="mph">18 22</EPBBurnishEndSpeedRange>
-            <EPBBurnishStartSpeed Units="mph">50.0</EPBBurnishStartSpeed>
-            <EPBBurnishStartSpeedRange Units="mph">50 55</EPBBurnishStartSpeedRange>
+            <EPBBurnishStartSpeed Units="mph">40.0</EPBBurnishStartSpeed>
+            <EPBBurnishStartSpeedRange Units="mph">40 45</EPBBurnishStartSpeedRange>
             <EPBBrakeToTargetSpeedPrompt>ParkBrakeBurnish</EPBBrakeToTargetSpeedPrompt>
             <!--EPBBurnishHoldTime Units="ms">5000</EPBBurnishHoldTime-->
             <EPBBurnishCoolDownTime Units="ms">5000</EPBBurnishCoolDownTime>
@@ -472,8 +473,11 @@
             <TestStep50>LearnPerformanceType</TestStep50>
             <TestStep62>ProgramVIN</TestStep62>
             <TestStep64>CheckVIN</TestStep64>
+            <TestStep68>EnterDiagnosticMode</TestStep68>
             <TestStep70>StartModuleKeepAlive</TestStep70>
             <TestStep80>DisableSpeedLimit</TestStep80>
+            <TestStep85>Delay</TestStep85>
+            <TestStep90>CalibrateGSensor</TestStep90>
         </Setup>
         <EnterDiagnosticMode>
             <TestStep00>EnterDiagnosticMode</TestStep00>
@@ -681,6 +685,7 @@
         <DriverLiftFootCheck Result="" Timeout="10000" Description="Driver Lift Foot Check"/>
         <TireChunkingTest Result="" Timeout="10000" Description="Tire Chunking Test" ABSUpperForceLimit="2"/>
         <AnalyzeRecoveryForces Result="" Timeout="10000" Description="Analyze Recovery Forces"/>
+        <CalibrateGSensor Result="" Timeout="5000" Description="Run the GSensor Calibration routine"/>
         <!--From BoschABSTestComponent-->
         <StartAbsTest Result="" Timeout="" Description=""/>
         <SensorQualityTest Result="" Timeout="30000" Description="Test Sensor Quality" ScanDelay="250"/>
@@ -716,5 +721,6 @@
         <DisableElectricVacuumPump Result="" Timeout="1000" Description="Disable the Electric Vacuum Pump"/>
         <CycleIgnition Result="" Timeout="30000" Description="Cycle ignition off and then on" ScanDelay="250"/>
         <ResetModule Result="" Timeout="30000" Description="Perform module reset" ScanDelay="250"/>
+        <Delay Result="" Timeout="10000" Description="Wait for the specified amount of time" DelayTime="3000"/>
     </TestSteps>
 </BoschAbs>

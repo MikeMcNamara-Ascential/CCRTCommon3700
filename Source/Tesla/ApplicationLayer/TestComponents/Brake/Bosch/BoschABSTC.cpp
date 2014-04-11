@@ -202,6 +202,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(!GetTestStepName().compare("EnableElectricVacuumPump"))   status = EnableElectricVacuumPump();
         else if(!GetTestStepName().compare("DisableElectricVacuumPump"))   status = DisableElectricVacuumPump();
         else if(!GetTestStepName().compare("LearnPerformanceType"))      status = LearnPerformanceType();
+        else if(!GetTestStepName().compare("Delay"))                     status = TestStepDelay();
         // Call the base class to handle the test step
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
@@ -4447,4 +4448,26 @@ string BoschABSTC<ModuleInterface>::LearnPerformanceType(void)
     // Return the test result
     return(testStatus);
 }
+
+//-----------------------------------------------------------------------------
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::TestStepDelay(void)
+{
+    string testStatus = testPass;
+
+    Log(LOG_FN_ENTRY, "Enter BoschABSTC::Delay()\n");
+    if(ShortCircuitTestStep())
+    {
+        Log(LOG_FN_ENTRY, "Skipping test step BoschABSTC::Delay()");
+        testStatus = testSkip;
+    }
+    else
+    {
+        BposSleep(GetTestStepInfoInt("DelayTime"));
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "Exit BoschABSTC::Delay(), status=%s\n", testStatus.c_str());
+    // Return the test result
+    return(testStatus);
+} 
 

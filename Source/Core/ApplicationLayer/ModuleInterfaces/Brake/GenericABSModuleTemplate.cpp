@@ -450,21 +450,26 @@ BEP_STATUS_TYPE GenericABSModuleTemplate<ProtocolFilterType>::CalibrateGSensor(v
     // Command the module to calibrate the G-Sensor
     status = CommandModule("CalibrateGSensor");
     // Check the status of the operation
-    bool ignoreResults = true;
+    bool ignoreResults = false;
     try
     {
         ignoreResults = !m_configNode->getChild("Setup/IgnoreCalibarateGSensorResult")->getValue().compare("Yes");
     }
     catch (XmlException &excpt)
     {
-        ignoreResults = true;
+        ignoreResults = false;
     }
-    if ((BEP_STATUS_SUCCESS == status) || ignoreResults)
+    if ((BEP_STATUS_SUCCESS == status) && !ignoreResults)
     {   // Record the results in the module
         status = CommandModule("RecordCalibrateResults");
         status = ignoreResults ? BEP_STATUS_SUCCESS : status;
         Log(LOG_ERRORS, "Record G-Sensor calibration results in the module status: %s\n",
             ConvertStatusToResponse(status).c_str());
+    }
+    else if(ignoreResults)
+    {
+        Log(LOG_DEV_DATA, "Status: %s - Ignore Calibration Results: %s\n", 
+            ConvertStatusToResponse(status).c_str(), ignoreResults ? "Yes" : "No");
     }
     else
     {   // Failed to calibrate the sensor

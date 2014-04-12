@@ -476,7 +476,7 @@
             <TestStep68>EnterDiagnosticMode</TestStep68>
             <TestStep70>StartModuleKeepAlive</TestStep70>
             <TestStep80>DisableSpeedLimit</TestStep80>
-            <TestStep85>Delay</TestStep85>
+            <!-- TestStep85>Delay</TestStep85 -->
             <TestStep90>CalibrateGSensor</TestStep90>
         </Setup>
         <EnterDiagnosticMode>

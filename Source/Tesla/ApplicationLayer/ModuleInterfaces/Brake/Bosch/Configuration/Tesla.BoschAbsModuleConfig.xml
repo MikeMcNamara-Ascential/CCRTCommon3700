@@ -73,7 +73,8 @@
       <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
       <SwitchMonitorDelay>500</SwitchMonitorDelay>
       <ValidResponseOffset>0x40</ValidResponseOffset>
-      <IgnoreCalibarateGSensorResult>Yes</IgnoreCalibarateGSensorResult>
+      <IgnoreCalibarateGSensorResult>No</IgnoreCalibarateGSensorResult>
+      <SkipRequestGSensorResult>Yes</SkipRequestGSensorResult>
    </Setup>
    <SerialMessages>
       <VehicleMessages>

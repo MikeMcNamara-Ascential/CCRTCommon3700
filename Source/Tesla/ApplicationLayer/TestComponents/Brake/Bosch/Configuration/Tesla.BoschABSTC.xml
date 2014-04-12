@@ -476,8 +476,9 @@
             <TestStep68>EnterDiagnosticMode</TestStep68>
             <TestStep70>StartModuleKeepAlive</TestStep70>
             <TestStep80>DisableSpeedLimit</TestStep80>
-            <!-- TestStep85>Delay</TestStep85 -->
+            <TestStep85>Delay</TestStep85>
             <TestStep90>CalibrateGSensor</TestStep90>
+            <TestStep95>Delay</TestStep95>
         </Setup>
         <EnterDiagnosticMode>
             <TestStep00>EnterDiagnosticMode</TestStep00>
@@ -721,6 +722,6 @@
         <DisableElectricVacuumPump Result="" Timeout="1000" Description="Disable the Electric Vacuum Pump"/>
         <CycleIgnition Result="" Timeout="30000" Description="Cycle ignition off and then on" ScanDelay="250"/>
         <ResetModule Result="" Timeout="30000" Description="Perform module reset" ScanDelay="250"/>
-        <Delay Result="" Timeout="10000" Description="Wait for the specified amount of time" DelayTime="3000"/>
+        <Delay Result="" Timeout="10000" Description="Wait for the specified amount of time" DelayTime="1000"/>
     </TestSteps>
 </BoschAbs>

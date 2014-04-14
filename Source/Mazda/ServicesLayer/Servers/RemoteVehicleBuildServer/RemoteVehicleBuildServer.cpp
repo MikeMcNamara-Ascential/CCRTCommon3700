@@ -341,7 +341,8 @@ void RemoteVehicleBuildServer::TransferLocalBuildRecords(void)
 			// Get the name of the file without the path
 			string fileName = buildFile->fileName.substr(buildFile->fileName.find_last_of("/") + 1);
 			fileName = RemoteVehicleBuildFilePath() + fileName;
-			bool fileTransfered = !rename(buildFile->fileName.c_str(), fileName.c_str());
+			string mvCmd = string("mv -f ") + buildFile->fileName + string(" ") + fileName;
+			bool fileTransfered = !system(mvCmd.c_str());
 			Log(LOG_DEV_DATA, "Moved %s to %s - status: %s", buildFile->fileName.c_str(), fileName.c_str(),
 				fileTransfered ? "Success" : strerror(errno));
 			delete buildFile;

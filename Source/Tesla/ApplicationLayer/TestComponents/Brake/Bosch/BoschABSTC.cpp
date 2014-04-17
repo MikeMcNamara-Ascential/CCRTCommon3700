@@ -3862,7 +3862,7 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
                 result = AccelerateToTestSpeed(GetParameterFloat("BrakeBurnishStartSpeed"), GetParameter("BrakeBurnishStartSpeedRange"), 
                                                GetTestStepInfoInt("ScanDelay"), false, GetPrompt("AccelerateToTargetSpeed"), false);
                 //ADDED statement
-                while(GetBoostedRollSpeed() < GetParameterFloat("BrakeBurnishMinNonDrivenAxleSpeed")) 
+                while((GetBoostedRollSpeed() < GetParameterFloat("BrakeBurnishMinNonDrivenAxleSpeed")) && (BEP_STATUS_SUCCESS == StatusCheck()))
                 {
                     Log(LOG_DEV_DATA, "Brake Burnish Cycle waiting for boosted axle speed to reach BrakeBurnishMinNonDriveAxleSpeed\n");
                     BposSleep(500);

@@ -462,7 +462,7 @@
         <ClearFaults>
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>ClearFaults</TestStep15>
-         <TestStep20>CycleIgnition</TestStep20>
+            <TestStep20>CycleIgnition</TestStep20>
         </ClearFaults>
         <Setup>
             <TestStep00>Setup</TestStep00>
@@ -662,7 +662,7 @@
         <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank">Perform Vehicle Coast</Coast>
         <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" StartBrakeSampleSpeed="25" EndBrakeSampleSpeed="5" BrakeDomain="0 500" BrakeTarget="250 400" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test</BrakeTest>
         <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="250" RearMinBrakeForce="100" FrontMaxBrakeForce="600" RearMaxBrakeForce="400" Prompt1="" Prompt2="">Perform Vehicle BaseBrake Test Analysis</AnalyzeBrakeTest>
-        <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="5" RearSideToSideBalance="5" TandemSideToSideBalance="20" BalanceFrontToRearMin="65" BalanceFrontToRearMax="75" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
+      <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="5" RearSideToSideBalance="5" TandemSideToSideBalance="20" BalanceFrontToRearMin="63" BalanceFrontToRearMax="73" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
         <BrakeToStop Result="" Timeout="120000" Description="Prompt the driver to brake to stop" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
         <!--From GenericABSTestComponent-->
         <ConnectToModule Result="" Timeout="" Description=""/>

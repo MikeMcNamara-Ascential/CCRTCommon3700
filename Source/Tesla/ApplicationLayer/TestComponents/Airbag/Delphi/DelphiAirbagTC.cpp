@@ -279,6 +279,8 @@ string DelphiAirbagTC<ModuleType>::Setup(void)
 	if(!ShortCircuitTestStep())
 	{   // Let the system know airbag testing is in progress
 		SystemWrite(GetDataTag("AirbagTestInProgressTag"), true);
+		SystemWrite(GetDataTag("AirbagTestFailTag"), false);
+		SystemWrite(GetDataTag("AirbagTestPassTag"), false);
 		result = GenericTCTemplate<ModuleType>::Setup();
 	}
 	else

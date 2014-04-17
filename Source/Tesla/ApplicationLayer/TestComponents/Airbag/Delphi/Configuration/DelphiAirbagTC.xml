@@ -72,14 +72,12 @@
             <BypassPartNumberValidation>False</BypassPartNumberValidation>
             <ValidatePartNumberList>Yes</ValidatePartNumberList>
             <ValidPartNumbers>
-                <PN1005273-00-E>1005273-00-E</PN1005273-00-E>
                 <PN1005273-00-F>1005273-00-F</PN1005273-00-F>
-                <PN1018781-00-A>1018781-00-A</PN1018781-00-A>
-                <PN28371781>28371781</PN28371781>
-                <PN28382910>28382910</PN28382910>
+                <PN1018781-00-B>1018781-00-B</PN1018781-00-B>
                 <PN28383469>28383469</PN28383469>
-                <PN6ABED25504D25AC3D0>6ABED25504D25AC3D0</PN6ABED25504D25AC3D0>
+                <PN28428227>28428227</PN28428227>
                 <PNBE1ED119EAD15AC3D0>BE1ED119EAD15AC3D0</PNBE1ED119EAD15AC3D0>
+                <PN6ABED234D5D25AC3D0>6ABED234D5D25AC3D0</PN6ABED234D5D25AC3D0>
             </ValidPartNumbers>
             <PartNumbersToCheck>
                 <P3_ModulePartNumber>ReadPartNumber</P3_ModulePartNumber>

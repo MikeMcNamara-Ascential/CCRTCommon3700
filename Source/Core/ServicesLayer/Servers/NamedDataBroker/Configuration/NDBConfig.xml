@@ -260,6 +260,8 @@
                 <DriverOverallTest DataType="testcomponentstatus">TestResultServer</DriverOverallTest>
                 <DriverPass DataType="bool">PLC</DriverPass>
                 <DriversFaultSignal DataType="bool">PLC</DriversFaultSignal>
+                <DriveSideToPlc DataType="bool">PLC</DriveSideToPlc>
+                <DriveSetupToPlc DataType="bool">PLC</DriveSetupToPlc>
                 <DriveTrainOverallTest DataType="testcomponentstatus">TestResultServer</DriveTrainOverallTest>
                 <DriveType DataType="string">VehicleDataBroker</DriveType>
                 <DriveTypeBGColor DataType="color">VehicleDataBroker</DriveTypeBGColor>
@@ -356,9 +358,7 @@
                 <HolddownPlatformLoweredFault DataType="bool">PLC</HolddownPlatformLoweredFault>
                 <HolddownPlatformRaisedFault DataType="bool">PLC</HolddownPlatformRaisedFault>
                 <HornSignal DataType="bool">PLC</HornSignal>
-                <HP DataType="int">
-VehicleDataBroker
-                </HP>
+                <HP DataType="int">VehicleDataBroker</HP>
                 <HydraulicCirculationMotorOvercurrent DataType="bool">PLC</HydraulicCirculationMotorOvercurrent>
                 <HydraulicIntakeFilterBlocked DataType="bool">PLC</HydraulicIntakeFilterBlocked>
                 <HydraulicMotorDisconnectOpen DataType="bool">PLC</HydraulicMotorDisconnectOpen>

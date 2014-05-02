@@ -230,10 +230,10 @@
 			<LeftFrontMotor>
 				<Setup>
 					<Parameters>
-						<MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">1032.80577301</MphToRpm>
+						<MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">27.6053029032</MphToRpm>
 						<TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
 						<MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
-						<MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">4.5</MotorBaseSpeed>
+						<MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1.0</MotorBaseSpeed>
 						<MotorHorsePower Description="Motor max horsepower output" Units="HP">15.0</MotorHorsePower>
 						<FootPoundsPerHP Description="Foot punds of torque per HP drive rating" Units="none">4.5</FootPoundsPerHP>
 						<MaxPositiveTorqueLimit Description="% (x1000) of max torque to use when accelerating" Units="%">150000</MaxPositiveTorqueLimit>
@@ -262,10 +262,10 @@
 			<RightFrontMotor>
 				<Setup>
 					<Parameters>
-						<MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">1032.80577301</MphToRpm>
+						<MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">27.6053029032</MphToRpm>
 						<TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
 						<MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
-						<MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">4.5</MotorBaseSpeed>
+						<MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1.0</MotorBaseSpeed>
 						<MotorHorsePower Description="Motor max horsepower output" Units="HP">15.0</MotorHorsePower>
 						<FootPoundsPerHP Description="Foot punds of torque per HP drive rating" Units="none">4.5</FootPoundsPerHP>
                         <MaxPositiveTorqueLimit Description="% (x1000) of max torque to use when accelerating" Units="%">150000</MaxPositiveTorqueLimit>

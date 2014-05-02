@@ -692,6 +692,7 @@
 				<F N="MES/MesReportGenerator/MesReportSchema.xsl"/>
 				<F N="MES/MesReportGenerator/MesReportSchemaUpdate3.xsl"/>
 				<F N="MES/MesReportGenerator/MesReportSchemaUpdate4.xsl"/>
+				<F N="MES/MesReportGenerator/MesReportSchemaUpdate5.xsl"/>
 				<F N="MES/MesReportGenerator/notes.txt"/>
 			</Folder>
 		</Folder>
@@ -702,6 +703,8 @@
 						<Folder Name="Configuration">
 							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/CMakeLists.txt"/>
 							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/Tesla.Freemont.507560.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/Tesla.Freemont.508180.IpIcmConfig.xml"/>
+							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/Tesla.Freemont.508202.IpIcmConfig.xml"/>
 							<F N="ServicesLayer/Managers/ICM/IpIcm/Configuration/Tesla.MenloPark.507211.IpIcmConfig.xml"/>
 						</Folder>
 						<F N="ServicesLayer/Managers/ICM/IpIcm/CMakeLists.txt"/>
@@ -711,6 +714,7 @@
 				<Folder Name="PlcMgr">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Managers/PlcMgr/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/Tesla.EipPlcConfig.xml"/>
 						<F N="ServicesLayer/Managers/PlcMgr/Configuration/Tesla.SerialPlcConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Managers/PlcMgr/CMakeLists.txt"/>
@@ -719,6 +723,8 @@
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/CMakeLists.txt"/>
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/Tesla.Freemont.507560.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/Tesla.Freemont.508180.SerialServerConfig.xml"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/Tesla.Freemont.508202.SerialServerConfig.xml"/>
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/Tesla.MenloPark.507211.SerialServerConfig.xml"/>
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/Tesla.SerialServerConfig.xml"/>
 					</Folder>
@@ -737,6 +743,8 @@
 				<Folder Name="Launcher">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/Launcher/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/Tesla.Freemont.508180.LauncherConfig.xml"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/Tesla.Freemont.508202.LauncherConfig.xml"/>
 						<F N="ServicesLayer/Servers/Launcher/Configuration/Tesla.LauncherConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/Launcher/CMakeLists.txt"/>

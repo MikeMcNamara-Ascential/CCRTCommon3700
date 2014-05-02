@@ -391,7 +391,8 @@
         <!-- Drive axle control -->
         <DriveAxleToPlc channelIndex="45" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
         <ClearMotorDriveFaults channelIndex="45" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
-
+        <DriveSideToPlc channelIndex="45" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
+        <DriveSetupToPlc channelIndex="45" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>
 
 
         <!-- Data from PLC -->

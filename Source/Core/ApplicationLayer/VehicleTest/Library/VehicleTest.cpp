@@ -516,11 +516,10 @@ void VehicleTest::Run(volatile bool *terminateFlag)
 
             Log(LOG_DEV_DATA, "Starting Test: %s, Status: %s, %d\n", test.c_str(), GetStatus().c_str(), BposGetPriority(0));
 
-            std::string vehicleBuildStr = "";
-            vehicleBuild = GetVehicleBuild();
-            vehicleBuild->writeNode(vehicleBuildStr);
-
-            Log(LOG_DEV_DATA, "Vehicle build: %s", vehicleBuildStr.c_str());
+//             std::string vehicleBuildStr = "";
+//             vehicleBuild = GetVehicleBuild();
+//             vehicleBuild->writeNode(vehicleBuildStr);
+//             Log(LOG_DEV_DATA, "Vehicle build: %s", vehicleBuildStr.c_str());
 
             if(test != TEST_TERMINATE)
             {   // determine which drive curve to use

@@ -298,7 +298,7 @@
                 <VBox width="200" height="150" posX="210" posY="0" border="true" borderstyle="title" bordertitle="machinefunctions">
                     <HBox height="30"/>
                     <CommandButton width="250" height="70" posX="25" posY="40" id="losscompsequence" 
-                        commandtag="LossCompensation" commandvalue="" bgcolor="white"/>
+                        commandtag="CommandTest" commandvalue="LossCompensation" bgcolor="white"/>
                 </VBox>
                 <!-- Wheelbase Commands -->
                 <HBox width="200" height="100" posX="0" posY="0" border="true" borderstyle="title" bordertitle="wheelbasecommands">

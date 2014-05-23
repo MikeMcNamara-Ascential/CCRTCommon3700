@@ -48,7 +48,7 @@
                    </Setup>
                 </CommLog>
                 <Login>
-                   <IPAddress>192.168.3.20</IPAddress>
+                   <IPAddress>172.16.250.220</IPAddress>
                    <Port>7000</Port>
                    <UserID>gryphon</UserID>
                    <Password>gryphon</Password>
@@ -68,7 +68,7 @@
                 </NodePairSetup>
              </Setup>
           </GryphonCCanLeft>
-          <GryphonCCanRight enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+          <GryphonCCanRight enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
              <Setup>
                 <SerialDevice>/dev/socket</SerialDevice>
                 <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
@@ -104,7 +104,7 @@
                    </Setup>
                 </CommLog>
                 <Login>
-                   <IPAddress>192.168.3.21</IPAddress>
+                   <IPAddress>172.16.250.221</IPAddress>
                    <Port>7000</Port>
                    <UserID>gryphon</UserID>
                    <Password>gryphon</Password>
@@ -242,7 +242,7 @@
                </CommLog>
             </Setup>
          </RightScanner>
-         <PlcDf1 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+         <PlcDf1 enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
             <Setup>
                <!--
                     <SerialDevice>/dev/socket</SerialDevice>

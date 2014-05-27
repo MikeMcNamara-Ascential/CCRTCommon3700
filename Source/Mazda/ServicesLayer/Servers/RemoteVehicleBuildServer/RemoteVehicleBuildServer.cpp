@@ -153,16 +153,27 @@ void RemoteVehicleBuildServer::LoadNextVehicleBuildRecord(void)
 	{
 		if(m_buildFileListMutex.Acquire() == EOK)
 		{
+			Log(LOG_DEV_DATA, "Vehicle build record queue:");
+			for(short index = 0; index < m_vehicleBuildFiles.size(); index++)
+			{
+				Log(LOG_DEV_DATA, "\t%02d - %s", index, m_vehicleBuildFiles[index]->fileName.c_str());
+			}
 			BuildFileDataListItr iter = m_vehicleBuildFiles.begin();
 			string aonFile = (*iter)->fileName;
 			m_buildFileListMutex.Release();
 			int startIndex = GetDataTag("FileNamePrefix").length();
 			int numChars = aonFile.find_first_of(GetDataTag("FileNameSuffix")) - startIndex;
 			string aon = aonFile.substr(startIndex, numChars);
+			Log(LOG_DEV_DATA, "Loading next vehicle build record - AON File Name: %s, Start Index: %d, Num Chars to Extract: %d, AON: %s",
+				aonFile.c_str(), startIndex, numChars, aon.c_str());
 			INamedDataBroker broker;
 			string response;
 			broker.Write(GetDataTag("VehicleIdTag"), aon, response, true);
 		}
+	}
+	else
+	{
+		Log(LOG_DEV_DATA, "No next vehicle build to load");
 	}
 }
 

@@ -17,7 +17,7 @@
             <LogicalPort>172.16.250.11</LogicalPort>
                 <Setup>
                     <Logging>
-                        <Status>Enabled</Status>
+                        <Status>Disabled</Status>
                         <ProcessName>mgr/EipPlc</ProcessName>
                         <AdditionalLogFile Types="/Servers/PLC or Disabled">/Servers/EipPlc.log</AdditionalLogFile>
                         <LocalEcho>Disabled</LocalEcho>

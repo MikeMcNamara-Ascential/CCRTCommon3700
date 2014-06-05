@@ -221,7 +221,7 @@
             <ProcessName>core/MachineDataBroker</ProcessName>
             <AdditionalLogFile Types="/Component/MachineDataBroker.log">/Servers/MachineDataBroker.log</AdditionalLogFile>
             <LocalEcho>Disabled</LocalEcho>
-            <Verbose>0x1F</Verbose>
+            <Verbose>0x0F</Verbose>
             <Debug>Off</Debug>
         </Logging>
         <NamedDataBrokerComm>

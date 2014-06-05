@@ -3912,7 +3912,7 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
         Log(LOG_FN_ENTRY, "Skipping Brake burnish cycle");
     }
     // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "BoschABSTC::BrakeBurnishCycle() - Enter");
+    Log(LOG_FN_ENTRY, "BoschABSTC::BrakeBurnishCycle() - Exit");
     return result;
 }
 

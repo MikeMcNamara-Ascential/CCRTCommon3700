@@ -282,7 +282,6 @@
             <VINLength>17</VINLength>
             <!--Sensor Testing Parameters-->
             <DisplayOperatorInstructions>No</DisplayOperatorInstructions>
-            <UsePlcResultButtons>True</UsePlcResultButtons>
             <LowSpeedSensorTestMaxSteadyWheelSpeed>10</LowSpeedSensorTestMaxSteadyWheelSpeed>
             <LowSpeedSensorTestMinSteadyWheelSpeed>2</LowSpeedSensorTestMinSteadyWheelSpeed>
             <LowSpeedSensorTestSteadySpeedSamples>5</LowSpeedSensorTestSteadySpeedSamples>

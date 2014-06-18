@@ -718,7 +718,7 @@ const string GenericSpeedControlTC<VehicleModuleType>::CheckBrakeCutOut(void)
 			if(GetParameterInt("DelayBeforeBrakeTap") != 0)
 			{
 				MaintainSpeedForTime(GetParameterInt("DelayBeforeBrakeTap"), GetParameterInt("SpeedControlMinSpeed"),
-									 GetParameterInt("SpeedControlMaxSpeed"), "DelayBeforeTapPrompt");
+									 GetParameterInt("SpeedControlMaxSpeed"), "DelayBeforeTapPrompt", true, false);
 			}
 			// Instruct operator to tap the brake pedal
 			DisplayPrompt(GetPromptBox("TapBrakePrompt"), GetPrompt("TapBrakePrompt"), GetPromptPriority("TapBrakePrompt"));

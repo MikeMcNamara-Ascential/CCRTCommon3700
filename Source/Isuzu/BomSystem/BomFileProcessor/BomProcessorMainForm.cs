@@ -688,12 +688,18 @@ namespace BomFileProcessor
                         {
                             if (file.Substring(file.LastIndexOf('.')) == ".DVT")
                             {
+
+
+
                                 if (System.IO.File.Exists(dest))
                                 {
                                     File.Delete(dest);
                                 }
-                                File.Move(file, dest);
-                                m_logger.Log("INFO: Moved " + file + " to " + dest);
+                                File.Copy(file, dest);
+                                if (System.IO.File.Exists(dest))
+                                {//file successfully copied, delete local
+                                    File.Delete(file);
+                                } m_logger.Log("INFO: Moved " + file + " to " + dest);
                             }
                             else
                             {
@@ -701,7 +707,11 @@ namespace BomFileProcessor
                                 {
                                     File.Delete(flashDest);
                                 }
-                                File.Move(file, flashDest);
+                                File.Copy(file, flashDest);
+                                if (System.IO.File.Exists(flashDest))
+                                {//file successfully copied, delete local
+                                    File.Delete(file);
+                                } 
                                 m_logger.Log("INFO: Moved " + file + " to " + flashDest);
                             }
                             
@@ -748,7 +758,11 @@ namespace BomFileProcessor
                                 {
                                     File.Delete(dest);
                                 }
-                                File.Move(file, dest);
+                                File.Copy(file, dest);
+                                if (System.IO.File.Exists(dest))
+                                {//file successfully copied, delete local
+                                    File.Delete(file);
+                                }
                                 m_logger.Log("INFO: Moved " + file + " to " + dest);                            
                         }
                         catch (NotSupportedException excpt)
@@ -760,6 +774,7 @@ namespace BomFileProcessor
                         if (destDI.GetFiles().Count() > 1000)
                         {
                             var oldestFile2 = destDI.GetFiles().OrderBy(f => f.CreationTime).First();
+                            m_logger.Log("Deleting oldest esn file - " + destDI.FullName + "\\" + oldestFile2);
                             File.Delete(destDI.FullName + "\\" + oldestFile2);
                         }
                     }

@@ -38,56 +38,63 @@ namespace FileChangeMonitor
         {
             while (!m_terminate)
             {
-                if (Directory.Exists(m_sourceDirectory) && Directory.Exists(m_targetDirectory) && Directory.Exists(m_tempDirectory))
-                {//both directories exist check num files
-                    DirectoryInfo remoteInfo = new DirectoryInfo(m_sourceDirectory);
-                    DirectoryInfo localInfo = new DirectoryInfo(m_targetDirectory);
-                    List<FileInfo> remoteFilesInfo = new List<FileInfo>(remoteInfo.GetFiles().ToList());
-                    List<FileInfo> localFilesInfo = new List<FileInfo>(localInfo.GetFiles().ToList());
-                    if (remoteFilesInfo.Count() != localFilesInfo.Count())
-                    {
-                        m_logger.Log("INFO:    FCM::File Count Changed updating " + m_targetDirectory);
-                        updateLocalBuildDirectory(remoteInfo, localInfo);
-                    }
-                    else
-                    {//check file modification times if different update
-                        //remoteFilesInfo.ToList().Sort(new CompareFileInfoEntries());
-                        //localFilesInfo.ToList().Sort(new CompareFileInfoEntries());
+                try
+                {
+                    if (Directory.Exists(m_sourceDirectory) && Directory.Exists(m_targetDirectory) && Directory.Exists(m_tempDirectory))
+                    {//both directories exist check num files
+                        DirectoryInfo remoteInfo = new DirectoryInfo(m_sourceDirectory);
+                        DirectoryInfo localInfo = new DirectoryInfo(m_targetDirectory);
+                        List<FileInfo> remoteFilesInfo = new List<FileInfo>(remoteInfo.GetFiles().ToList());
+                        List<FileInfo> localFilesInfo = new List<FileInfo>(localInfo.GetFiles().ToList());
+                        if (remoteFilesInfo.Count() != localFilesInfo.Count())
+                        {
+                            m_logger.Log("INFO:    FCM::File Count Changed updating " + m_targetDirectory);
+                            updateLocalBuildDirectory(remoteInfo, localInfo);
+                        }
+                        else
+                        {//check file modification times if different update
+                            //remoteFilesInfo.ToList().Sort(new CompareFileInfoEntries());
+                            //localFilesInfo.ToList().Sort(new CompareFileInfoEntries());
 
-                        for (int x = 0; x < remoteFilesInfo.Count(); x++)
-                        {//check name and modification date
-                            int index = 0;
-                            for (index = 0; index < remoteFilesInfo.Count(); index++)
-                            {//find corresponding index of name
-                                if (remoteFilesInfo[x].Name == localFilesInfo[index].Name)
+                            for (int x = 0; x < remoteFilesInfo.Count(); x++)
+                            {//check name and modification date
+                                int index = 0;
+                                for (index = 0; index < remoteFilesInfo.Count(); index++)
+                                {//find corresponding index of name
+                                    if (remoteFilesInfo[x].Name == localFilesInfo[index].Name)
+                                    {
+                                        //found
+                                        break;
+                                    }
+                                }
+                                if (index == remoteFilesInfo.Count())
+                                {//not found
+                                    m_logger.Log("INFO:    FCM::Name Difference updating " + m_targetDirectory);
+                                    updateLocalBuildDirectory(remoteInfo, localInfo);
+                                    //skip checking rest all will be updated
+                                    break;
+                                }
+                                else if (remoteFilesInfo[x].LastWriteTime != localFilesInfo[index].LastWriteTime)
                                 {
-                                    //found
+                                    m_logger.Log("INFO:    FCM::File Mod Time Changed " + m_targetDirectory);
+                                    updateLocalBuildDirectory(remoteInfo, localInfo);
+                                    //skip checking rest all will be updated
                                     break;
                                 }
                             }
-                            if (index == remoteFilesInfo.Count())
-                            {//not found
-                                m_logger.Log("INFO:    FCM::Name Difference updating " + m_targetDirectory);
-                                updateLocalBuildDirectory(remoteInfo, localInfo);
-                                //skip checking rest all will be updated
-                                break;
-                            }
-                            else if (remoteFilesInfo[x].LastWriteTime != localFilesInfo[index].LastWriteTime)
-                            {
-                                m_logger.Log("INFO:    FCM::File Mod Time Changed " + m_targetDirectory);
-                                updateLocalBuildDirectory(remoteInfo, localInfo);
-                                //skip checking rest all will be updated
-                                break;
-                            }
                         }
-                    }
 
+                    }
+                    else
+                    {
+                        m_logger.Log("ERROR:    FCM::Source or Target directory does not exist source: " +
+                            m_sourceDirectory + " Target: " + m_targetDirectory);
+                        //m_terminate = true;
+                    }
                 }
-                else
-                {
-                    m_logger.Log("ERROR:    FCM::Source or Target directory does not exist source: " +
-                        m_sourceDirectory + " Target: " + m_targetDirectory);
-                    //m_terminate = true;
+                catch (Exception e)
+                {//Error remote dir gone before transfer complete
+                    m_logger.Log("ERROR:    FCM::Error durring File update Process " + e.ToString());
                 }
                 Thread.Sleep(m_updateTime);
             }
@@ -130,9 +137,9 @@ namespace FileChangeMonitor
                     m_logger.Log("ERROR:    FCM::Error durring File update Process, check remote pc active");
                 }
             }
-            catch
+            catch (Exception e)
             {//Error remote dir gone before transfer complete
-                m_logger.Log("ERROR:    FCM::Error durring File update Process, check remote pc active");
+                m_logger.Log("ERROR:    FCM::Error durring File update Process, check remote pc active " + e.ToString());
             }
         }
     }

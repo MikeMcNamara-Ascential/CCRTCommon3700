@@ -273,42 +273,55 @@ namespace Common.Lib.Models
                     string tempEsn = GetESN(m_buildData[0].VIN, m_esnDirectory);
                     string esn = "";
                     Int32 engineCodeStartIndex = 0;
-                    if (tempEsn.Length == 16)
+                    if (tempEsn != "")
                     {
-                    if (tempEsn[0] == '1')
-                    {
-                        esn = tempEsn.Remove(5,1);
-                        engineCodeStartIndex = 2;
-                    }
-                    else
-                    {
-                        esn = tempEsn;
-                        engineCodeStartIndex = 8;
-                    }
-                    m_buildData[0].EngineSerialNumber = esn;
-                    string esnLeadingChars = m_buildData[0].ESNLeadingCharacters;
-
-                        if (esnLeadingChars.Length <= m_buildData[0].EngineSerialNumber.Length)
-                        {//validate leading characters match
-                            if (m_buildData[0].EngineSerialNumber.Substring(engineCodeStartIndex, esnLeadingChars.Length) != esnLeadingChars)
-                            {//fail
-                                buildDataValid = false;
-                                m_logger.Log("ERROR:  ESN Leading Character mismatch ESN: " + m_buildData[0].EngineSerialNumber + "Leading Characters to match: " + esnLeadingChars);
-                                SetPrompt1BGColor(Color.Yellow);
-                                SetPrompt2BGColor(Color.Yellow);
-                                SetPrompt1(prompt.ABORT_INVALID_ESN_VALUE);
-                                SetPrompt2(prompt.ABORT_INVALID_BUILD_DATA2);
-                                SetStatus(Status.ABORT);
+                        if (tempEsn.Length == 16)
+                        {
+                            if (tempEsn[0] == '1')
+                            {
+                                esn = tempEsn.Remove(5, 1);
+                                engineCodeStartIndex = 2;
                             }
                             else
                             {
-                                SetStatus(Status.SUCCESS);
+                                esn = tempEsn;
+                                engineCodeStartIndex = 8;
+                            }
+                            m_buildData[0].EngineSerialNumber = esn;
+                            string esnLeadingChars = m_buildData[0].ESNLeadingCharacters;
+
+                            if (esnLeadingChars.Length <= m_buildData[0].EngineSerialNumber.Length)
+                            {//validate leading characters match
+                                if (m_buildData[0].EngineSerialNumber.Substring(engineCodeStartIndex, esnLeadingChars.Length) != esnLeadingChars)
+                                {//fail
+                                    buildDataValid = false;
+                                    m_logger.Log("ERROR:  ESN Leading Character mismatch ESN: " + m_buildData[0].EngineSerialNumber + "Leading Characters to match: " + esnLeadingChars);
+                                    SetPrompt1BGColor(Color.Yellow);
+                                    SetPrompt2BGColor(Color.Yellow);
+                                    SetPrompt1(prompt.ABORT_INVALID_ESN_VALUE);
+                                    SetPrompt2(prompt.ABORT_INVALID_BUILD_DATA2);
+                                    SetStatus(Status.ABORT);
+                                }
+                                else
+                                {
+                                    SetStatus(Status.SUCCESS);
+                                }
+                            }
+                            else
+                            {//failure
+                                buildDataValid = false;
+                                m_logger.Log("ERROR:  ESN Check length greater than esn");
+                                SetPrompt1BGColor(Color.Yellow);
+                                SetPrompt2BGColor(Color.Yellow);
+                                SetPrompt1(prompt.ABORT_INVALID_ESN_LENGTH);
+                                SetPrompt2(prompt.ABORT_INVALID_BUILD_DATA2);
+                                SetStatus(Status.ABORT);
                             }
                         }
                         else
                         {//failure
                             buildDataValid = false;
-                            m_logger.Log("ERROR:  ESN Check length greater than esn");
+                            m_logger.Log("ERROR:  ESN Incorrect length: " + tempEsn.Length + " Required: 16");
                             SetPrompt1BGColor(Color.Yellow);
                             SetPrompt2BGColor(Color.Yellow);
                             SetPrompt1(prompt.ABORT_INVALID_ESN_LENGTH);
@@ -317,12 +330,12 @@ namespace Common.Lib.Models
                         }
                     }
                     else
-                    {//failure
+                    {
                         buildDataValid = false;
-                        m_logger.Log("ERROR:  ESN Incorrect length: " + m_buildData[0].EngineSerialNumber.Length + " Required: 16");
+                        m_logger.Log("ERROR:  No ESN found for VIN: " + m_buildData[0].VIN);
                         SetPrompt1BGColor(Color.Yellow);
                         SetPrompt2BGColor(Color.Yellow);
-                        SetPrompt1(prompt.ABORT_INVALID_ESN_LENGTH);
+                        SetPrompt1(prompt.ABORT_ESN_NOT_PRESENT);
                         SetPrompt2(prompt.ABORT_INVALID_BUILD_DATA2);
                         SetStatus(Status.ABORT);
                     }
@@ -333,7 +346,6 @@ namespace Common.Lib.Models
                     m_logger.Log("INFO: ESN Write not required");
                     SetStatus(Status.SUCCESS);
                 }
-
             }
             m_buildDataValid = buildDataValid;
         }
@@ -1397,44 +1409,51 @@ namespace Common.Lib.Models
             }
 
         }
+        public object m_passFileDirectoryLock = new object();
         //Write pass indication to a local folder first
         public void WritePassIndicationFile()
         { 
             string filename = m_buildData[0].VIN + ".ECM";
-            using (StreamWriter outfile = new StreamWriter(m_passIndicationLocalDirectory + filename))
+            lock (m_passFileDirectoryLock)
             {
-                outfile.Write(DateTime.Today.ToString("yyyyMMdd"));
+                using (StreamWriter outfile = new StreamWriter(m_passIndicationLocalDirectory + filename))
+                {
+                    outfile.Write(DateTime.Today.ToString("yyyyMMdd"));
+                }
             }
         }
         public void PassFileIndicationTransferThread()
         {
             while (!m_terminateThreads)
             {
-                //Check if specified transfer folder exists
-                if (System.IO.Directory.Exists(m_passIndicationSharedDirectory))
-                {//copy files over
-                    string[] files = System.IO.Directory.GetFiles(m_passIndicationLocalDirectory);
-                    try
-                    {
-                        foreach (string fileName in files)
-                        {
-                            string destFile = m_passIndicationSharedDirectory + fileName.Substring(fileName.LastIndexOf("\\")+1);
-                            System.IO.File.Copy(fileName, destFile, true);
-                        }
-                        //delete files from local directory
-                        foreach (string fileName in files)
-                        {
-                            System.IO.File.Delete(fileName);
-                        }
-                    }
-                    catch
-                    {
-                        m_logger.Log("ERROR:  Pass Result File Transfer Error");
-                    }
-                }
-                else
+                lock (m_passFileDirectoryLock)
                 {
-                    m_logger.Log("Warning:  Unable To Access Shared Directory, results will be saved locally until connection restored");
+                    //Check if specified transfer folder exists
+                    if (System.IO.Directory.Exists(m_passIndicationSharedDirectory))
+                    {//copy files over
+                        string[] files = System.IO.Directory.GetFiles(m_passIndicationLocalDirectory);
+                        try
+                        {
+                            foreach (string fileName in files)
+                            {
+                                string destFile = m_passIndicationSharedDirectory + fileName.Substring(fileName.LastIndexOf("\\") + 1);
+                                System.IO.File.Copy(fileName, destFile, true);
+                            }
+                            //delete files from local directory
+                            foreach (string fileName in files)
+                            {
+                                System.IO.File.Delete(fileName);
+                            }
+                        }
+                        catch
+                        {
+                            m_logger.Log("ERROR:  Pass Result File Transfer Error");
+                        }
+                    }
+                    else
+                    {
+                        m_logger.Log("Warning:  Unable To Access Shared Directory, results will be saved locally until connection restored");
+                    }
                 }
                 Thread.Sleep(10000);
             }

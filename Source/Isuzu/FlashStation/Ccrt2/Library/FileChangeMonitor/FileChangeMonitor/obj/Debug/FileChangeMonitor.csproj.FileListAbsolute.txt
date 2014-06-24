@@ -3,3 +3,8 @@ E:\Projects\Ccrt2\Library\FileChangeMonitor\FileChangeMonitor\obj\Debug\FileChan
 E:\Projects\Ccrt2\Library\FileChangeMonitor\FileChangeMonitor\obj\Debug\FileChangeMonitor.pdb
 E:\Projects\Ccrt2\Library\FileChangeMonitor.dll
 E:\Projects\Ccrt2\Library\FileChangeMonitor.pdb
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\FileChangeMonitor\obj\Debug\FileChangeMonitor.csprojResolveAssemblyReference.cache
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\FileChangeMonitor\obj\Debug\FileChangeMonitor.dll
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\FileChangeMonitor\obj\Debug\FileChangeMonitor.pdb
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor.dll
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor.pdb

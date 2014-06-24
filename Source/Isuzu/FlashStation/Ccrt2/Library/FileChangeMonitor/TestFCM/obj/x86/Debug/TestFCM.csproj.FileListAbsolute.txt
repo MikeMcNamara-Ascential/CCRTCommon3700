@@ -11,3 +11,15 @@ E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\FileChangeMonitor.
 E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\LoggingInterface.pdb
 E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.exe
 E:\Projects\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.pdb
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\TestFCM.exe
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\TestFCM.pdb
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\FileChangeMonitor.dll
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\LoggingInterface.dll
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\FileChangeMonitor.pdb
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\bin\Debug\LoggingInterface.pdb
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.csprojResolveAssemblyReference.cache
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.FCMTestMainForm.resources
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.Properties.Resources.resources
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.csproj.GenerateResource.Cache
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.exe
+C:\Ccrt\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\FileChangeMonitor\TestFCM\obj\x86\Debug\TestFCM.pdb

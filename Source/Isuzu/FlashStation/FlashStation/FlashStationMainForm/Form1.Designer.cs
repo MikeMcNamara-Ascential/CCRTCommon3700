@@ -83,10 +83,10 @@
             // 
             this.m_promptBox1.BackColor = System.Drawing.SystemColors.Window;
             this.m_promptBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_promptBox1.Location = new System.Drawing.Point(13, 174);
+            this.m_promptBox1.Location = new System.Drawing.Point(13, 282);
             this.m_promptBox1.Name = "m_promptBox1";
             this.m_promptBox1.ReadOnly = true;
-            this.m_promptBox1.Size = new System.Drawing.Size(1408, 80);
+            this.m_promptBox1.Size = new System.Drawing.Size(1239, 80);
             this.m_promptBox1.TabIndex = 0;
             this.m_promptBox1.TabStop = false;
             this.m_promptBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -96,7 +96,7 @@
             this.m_overallProgressBar.Enabled = false;
             this.m_overallProgressBar.Location = new System.Drawing.Point(6, 30);
             this.m_overallProgressBar.Name = "m_overallProgressBar";
-            this.m_overallProgressBar.Size = new System.Drawing.Size(1405, 39);
+            this.m_overallProgressBar.Size = new System.Drawing.Size(1233, 39);
             this.m_overallProgressBar.TabIndex = 6;
             // 
             // menuStrip1
@@ -107,7 +107,7 @@
             this.configurationToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1432, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -244,9 +244,9 @@
             this.m_buildInfoGroupBox.Controls.Add(this.m_buildInfoTextBox);
             this.m_buildInfoGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_buildInfoGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.m_buildInfoGroupBox.Location = new System.Drawing.Point(724, 357);
+            this.m_buildInfoGroupBox.Location = new System.Drawing.Point(724, 476);
             this.m_buildInfoGroupBox.Name = "m_buildInfoGroupBox";
-            this.m_buildInfoGroupBox.Size = new System.Drawing.Size(700, 285);
+            this.m_buildInfoGroupBox.Size = new System.Drawing.Size(528, 285);
             this.m_buildInfoGroupBox.TabIndex = 16;
             this.m_buildInfoGroupBox.TabStop = false;
             this.m_buildInfoGroupBox.Text = "Build Information";
@@ -258,7 +258,7 @@
             this.m_buildInfoTextBox.Location = new System.Drawing.Point(7, 30);
             this.m_buildInfoTextBox.Name = "m_buildInfoTextBox";
             this.m_buildInfoTextBox.ReadOnly = true;
-            this.m_buildInfoTextBox.Size = new System.Drawing.Size(687, 249);
+            this.m_buildInfoTextBox.Size = new System.Drawing.Size(515, 249);
             this.m_buildInfoTextBox.TabIndex = 5;
             this.m_buildInfoTextBox.Text = "";
             // 
@@ -267,7 +267,7 @@
             this.groupBox1.Controls.Add(this.m_logMessageTextBox);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(7, 357);
+            this.groupBox1.Location = new System.Drawing.Point(7, 476);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(700, 411);
             this.groupBox1.TabIndex = 17;
@@ -289,7 +289,7 @@
             // 
             this.m_cableConnectLabel.AutoSize = true;
             this.m_cableConnectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_cableConnectLabel.Location = new System.Drawing.Point(1282, 104);
+            this.m_cableConnectLabel.Location = new System.Drawing.Point(1117, 97);
             this.m_cableConnectLabel.Name = "m_cableConnectLabel";
             this.m_cableConnectLabel.Size = new System.Drawing.Size(135, 24);
             this.m_cableConnectLabel.TabIndex = 18;
@@ -299,7 +299,7 @@
             // 
             this.m_buildDataLabel.AutoSize = true;
             this.m_buildDataLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_buildDataLabel.Location = new System.Drawing.Point(1282, 143);
+            this.m_buildDataLabel.Location = new System.Drawing.Point(1117, 136);
             this.m_buildDataLabel.Name = "m_buildDataLabel";
             this.m_buildDataLabel.Size = new System.Drawing.Size(94, 24);
             this.m_buildDataLabel.TabIndex = 19;
@@ -310,9 +310,9 @@
             this.groupBox2.Controls.Add(this.m_overallProgressBar);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox2.Location = new System.Drawing.Point(7, 774);
+            this.groupBox2.Location = new System.Drawing.Point(7, 893);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1417, 80);
+            this.groupBox2.Size = new System.Drawing.Size(1245, 80);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Flash Progress";
@@ -321,10 +321,10 @@
             // 
             this.m_promptBox2.BackColor = System.Drawing.SystemColors.Window;
             this.m_promptBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_promptBox2.Location = new System.Drawing.Point(12, 271);
+            this.m_promptBox2.Location = new System.Drawing.Point(12, 379);
             this.m_promptBox2.Name = "m_promptBox2";
             this.m_promptBox2.ReadOnly = true;
-            this.m_promptBox2.Size = new System.Drawing.Size(1408, 80);
+            this.m_promptBox2.Size = new System.Drawing.Size(1240, 80);
             this.m_promptBox2.TabIndex = 23;
             this.m_promptBox2.TabStop = false;
             this.m_promptBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -333,7 +333,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(627, 104);
+            this.label1.Location = new System.Drawing.Point(14, 196);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(152, 29);
             this.label1.TabIndex = 24;
@@ -343,7 +343,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(639, 139);
+            this.label2.Location = new System.Drawing.Point(26, 231);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 29);
             this.label2.TabIndex = 25;
@@ -353,7 +353,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(957, 104);
+            this.label3.Location = new System.Drawing.Point(344, 196);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(144, 29);
             this.label3.TabIndex = 26;
@@ -363,7 +363,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(1030, 139);
+            this.label4.Location = new System.Drawing.Point(417, 231);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(71, 29);
             this.label4.TabIndex = 27;
@@ -373,7 +373,7 @@
             // 
             this.m_modelCodeLabel.AutoSize = true;
             this.m_modelCodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_modelCodeLabel.Location = new System.Drawing.Point(785, 104);
+            this.m_modelCodeLabel.Location = new System.Drawing.Point(172, 196);
             this.m_modelCodeLabel.Name = "m_modelCodeLabel";
             this.m_modelCodeLabel.Size = new System.Drawing.Size(0, 29);
             this.m_modelCodeLabel.TabIndex = 28;
@@ -382,7 +382,7 @@
             // 
             this.m_bookCodeLabel.AutoSize = true;
             this.m_bookCodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_bookCodeLabel.Location = new System.Drawing.Point(785, 139);
+            this.m_bookCodeLabel.Location = new System.Drawing.Point(172, 231);
             this.m_bookCodeLabel.Name = "m_bookCodeLabel";
             this.m_bookCodeLabel.Size = new System.Drawing.Size(0, 29);
             this.m_bookCodeLabel.TabIndex = 29;
@@ -391,7 +391,7 @@
             // 
             this.m_modelYearLabel.AutoSize = true;
             this.m_modelYearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_modelYearLabel.Location = new System.Drawing.Point(1107, 104);
+            this.m_modelYearLabel.Location = new System.Drawing.Point(494, 196);
             this.m_modelYearLabel.Name = "m_modelYearLabel";
             this.m_modelYearLabel.Size = new System.Drawing.Size(0, 29);
             this.m_modelYearLabel.TabIndex = 30;
@@ -400,7 +400,7 @@
             // 
             this.m_lotNumberLabel.AutoSize = true;
             this.m_lotNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_lotNumberLabel.Location = new System.Drawing.Point(1107, 139);
+            this.m_lotNumberLabel.Location = new System.Drawing.Point(494, 231);
             this.m_lotNumberLabel.Name = "m_lotNumberLabel";
             this.m_lotNumberLabel.Size = new System.Drawing.Size(0, 29);
             this.m_lotNumberLabel.TabIndex = 31;
@@ -411,9 +411,9 @@
             this.groupBox3.Controls.Add(this.m_ecmResultBox);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox3.Location = new System.Drawing.Point(724, 648);
+            this.groupBox3.Location = new System.Drawing.Point(724, 767);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(700, 120);
+            this.groupBox3.Size = new System.Drawing.Size(528, 120);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Flash Results";
@@ -423,7 +423,7 @@
             this.m_tcmResultBox.AutoSize = true;
             this.m_tcmResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.m_tcmResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_tcmResultBox.Location = new System.Drawing.Point(397, 57);
+            this.m_tcmResultBox.Location = new System.Drawing.Point(293, 57);
             this.m_tcmResultBox.Name = "m_tcmResultBox";
             this.m_tcmResultBox.Size = new System.Drawing.Size(229, 39);
             this.m_tcmResultBox.TabIndex = 11;
@@ -434,7 +434,7 @@
             this.m_ecmResultBox.AutoSize = true;
             this.m_ecmResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.m_ecmResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_ecmResultBox.Location = new System.Drawing.Point(76, 57);
+            this.m_ecmResultBox.Location = new System.Drawing.Point(7, 57);
             this.m_ecmResultBox.Name = "m_ecmResultBox";
             this.m_ecmResultBox.Size = new System.Drawing.Size(226, 39);
             this.m_ecmResultBox.TabIndex = 10;
@@ -445,7 +445,7 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 24);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1432, 70);
+            this.pictureBox1.Size = new System.Drawing.Size(1252, 70);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -453,7 +453,7 @@
             // m_cableConnectPB
             // 
             this.m_cableConnectPB.Image = ((System.Drawing.Image)(resources.GetObject("m_cableConnectPB.Image")));
-            this.m_cableConnectPB.Location = new System.Drawing.Point(1250, 104);
+            this.m_cableConnectPB.Location = new System.Drawing.Point(1085, 97);
             this.m_cableConnectPB.Name = "m_cableConnectPB";
             this.m_cableConnectPB.Size = new System.Drawing.Size(26, 24);
             this.m_cableConnectPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -463,7 +463,7 @@
             // m_buildDataPB
             // 
             this.m_buildDataPB.Image = ((System.Drawing.Image)(resources.GetObject("m_buildDataPB.Image")));
-            this.m_buildDataPB.Location = new System.Drawing.Point(1250, 141);
+            this.m_buildDataPB.Location = new System.Drawing.Point(1085, 134);
             this.m_buildDataPB.Name = "m_buildDataPB";
             this.m_buildDataPB.Size = new System.Drawing.Size(26, 27);
             this.m_buildDataPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -475,7 +475,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1432, 856);
+            this.ClientSize = new System.Drawing.Size(1264, 986);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.m_lotNumberLabel);
             this.Controls.Add(this.m_modelYearLabel);

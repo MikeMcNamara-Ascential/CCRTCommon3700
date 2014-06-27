@@ -1296,6 +1296,7 @@ namespace Common.Lib.Models
             Prompt prompt = new Prompt();
             if (m_currentBuild != null)
             {//add result and description to file
+                XmlNode timeNode = m_currentBuild.CreateNode(XmlNodeType.Element, "Timestamp", null);
                 XmlNode fsResultNode = m_currentBuild.CreateNode(XmlNodeType.Element,"FlashStationTestResult",null);
                 XmlNode resultNode = m_currentBuild.CreateNode(XmlNodeType.Element,"Result",null);
                 XmlNode descriptionNode = m_currentBuild.CreateNode(XmlNodeType.Element, "Description", null);
@@ -1376,6 +1377,20 @@ namespace Common.Lib.Models
                     }
                     descriptionNode.InnerText = m_resultText;
                 }
+
+                //Put the date, time, and test result in the result file
+                string timeStamp;
+                if (passed)
+                {
+                    timeStamp = DateTime.Now + "PASS\n";
+                }
+                else
+                {
+                    timeStamp = DateTime.Now + "FAIL\n";
+                }
+                timeNode.InnerText = timeStamp;
+                
+                fsResultNode.AppendChild(timeNode);
                 fsResultNode.AppendChild(resultNode);
                 fsResultNode.AppendChild(descriptionNode);
                 m_currentBuild.DocumentElement.AppendChild(fsResultNode);

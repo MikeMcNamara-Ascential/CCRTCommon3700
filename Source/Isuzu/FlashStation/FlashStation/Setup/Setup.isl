@@ -340,6 +340,8 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>FlashStationMainForm.Primary_output</td><td>{2EC7C25F-D7A4-41D0-AD36-103B750F643B}</td><td>INSTALLDIR</td><td>2</td><td/><td>flashstationmainform.primary</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISO19770_LocalTag</td><td>{B6C32DFE-FDA9-4E29-9BB2-4D16CD00E2F3}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISO19770_SystemTag</td><td>{0DF47D90-0BAD-4BEB-BEFE-247CE225B75C}</td><td>CommonAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1048,6 +1050,8 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>CommonAppDataFolder</td><td>ISO19770_SystemTag</td></row>
+		<row><td>INSTALLDIR</td><td>ISO19770_LocalTag</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -2021,6 +2025,8 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>FlashStationMainForm.Primary_output</td><td/><td/><td>_4EBC1D48_1441_49BE_AC33_3EAB9727C6ED_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISO19770_LocalTag</td><td/><td/><td>_B7DC0E0A_1951_4A99_A72F_94A26D469C62_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISO19770_SystemTag</td><td/><td/><td>_50B2591D_1FFF_4E1B_A89F_CD35D008DEBC_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2639,7 +2645,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>1705080111</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>312645422</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>1570842152</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
@@ -3741,8 +3747,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>1570842152</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.BurkePorterMachinery.com</td><td>0</td><td/><td>1705080111</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>1705080111</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.BurkePorterMachinery.com</td><td>0</td><td/><td>312645422</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Burke Porter Machinery</td><td>0</td><td/><td>312645422</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Flash Station</td><td>0</td><td/><td>1570838376</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Flash Station</td><td>0</td><td/><td>1570854760</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Flash Station</td><td>0</td><td/><td>1570863337</td></row>
@@ -3753,6 +3759,7 @@
 	<table name="ISSwidtagProperty">
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
+		<row><td>TagCreatorRegid</td><td>regid.2014-05.com.bepco</td></row>
 		<row><td>UniqueId</td><td>D2A5007B-6F1D-443E-AFD2-B1EBF0AE045B</td></row>
 	</table>
 
@@ -4005,6 +4012,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SccEnabled</td><td>0</td></row>
 		<row><td>SccPath</td><td/></row>
 		<row><td>SchemaVersion</td><td>774</td></row>
+		<row><td>SwidtagLocalComponent</td><td>ISO19770_LocalTag</td></row>
+		<row><td>SwidtagSystemComponent</td><td>ISO19770_SystemTag</td></row>
 		<row><td>Type</td><td>MSIE</td></row>
 	</table>
 

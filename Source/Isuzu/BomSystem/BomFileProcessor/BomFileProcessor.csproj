@@ -251,7 +251,9 @@
     <EmbeddedResource Include="VehicleOptionForm.resx">
       <DependentUpon>VehicleOptionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="BomFileProcessor_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

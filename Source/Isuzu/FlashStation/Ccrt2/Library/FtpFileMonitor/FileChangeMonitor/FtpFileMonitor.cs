@@ -8,12 +8,12 @@ using LoggingInterface;
 using System.Net;
 using System.Globalization;
 
-namespace FileMonitorNamespace
+namespace FtpFileMonitorNamespace
 {
     public class FtpFileMonitor
     {
-        protected string m_sourceLocation;
-        protected string m_targetLocation;
+        protected string m_remoteLocation;
+        protected string m_localLocation;
         protected string m_tempLocation;
         protected int m_fileCheckInterval;
         protected Logger m_logger;
@@ -31,8 +31,8 @@ namespace FileMonitorNamespace
         public FtpFileMonitor(string source, string target, string temp, int fileCheckInterval,string userLogin, string password, string ftpServerIp, Logger logger = null)
         {
             DirectoryLock = new object();
-            m_sourceLocation = source;
-            m_targetLocation = target;
+            m_remoteLocation = source;
+            m_localLocation = target;
             m_tempLocation = temp;
             m_fileCheckInterval = fileCheckInterval;
             m_logger = logger;
@@ -41,14 +41,17 @@ namespace FileMonitorNamespace
             m_ftpServerIp = ftpServerIp;
             m_terminate = false;
             m_terminateLock = new object();
+
+        }
+        public void StartFileMonitorThread()
+        {
             ThreadStart taskDelegate = null;
             taskDelegate = new ThreadStart(FileChangeMonitorFtpLocation);
             m_fileMonitorThread = new Thread(taskDelegate);
 
             m_fileMonitorThread.Start();
         }
-
-        public void StopFCMThread()
+        public void StopFileMonitorThread()
         {
             lock (m_terminateLock)
             {
@@ -73,7 +76,7 @@ namespace FileMonitorNamespace
         /// </summary>
         public void FileChangeMonitorFtpLocation()
         {
-            string uri = "ftp://" + m_ftpServerIp + m_sourceLocation;
+            string uri = "ftp://" + m_ftpServerIp + m_remoteLocation;
             string escapedUri = uri.Replace("../", "%2E%2E/");
 
 
@@ -81,7 +84,7 @@ namespace FileMonitorNamespace
             {
                 try
                 {
-                    if (Directory.Exists(m_targetLocation) && Directory.Exists(m_tempLocation))
+                    if (Directory.Exists(m_localLocation) && Directory.Exists(m_tempLocation))
                     {//both directories exist check num files
                         FtpWebRequest reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri));
                         reqFTP.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
@@ -106,18 +109,18 @@ namespace FileMonitorNamespace
                         }
 
 
-                        DirectoryInfo localInfo = new DirectoryInfo(m_targetLocation);
+                        DirectoryInfo localInfo = new DirectoryInfo(m_localLocation);
                         List<FileInfo> localFilesInfo = new List<FileInfo>(localInfo.GetFiles().ToList());
                         if (ftpFileInfos.Count() > 0)
                         {
-                            Log("INFO:    Files to transfer found, updating " + m_targetLocation);
+                            Log("INFO:    Files to transfer found, updating " + m_localLocation);
                             UpdateLocalDirectoryRemoteFtpLocation(ftpFileInfos, localInfo);
                         }
                     }
                     else
                     {
                         Log("ERROR:    FileMonitor::Temp or Target directory does not exist temp: " +
-                            m_tempLocation + " Target: " + m_targetLocation);
+                            m_tempLocation + " Target: " + m_localLocation);
                         //m_terminate = true;
                     }
                 }
@@ -174,7 +177,7 @@ namespace FileMonitorNamespace
         {
             try
             {
-                string uri = "ftp://" + m_ftpServerIp + m_sourceLocation;
+                string uri = "ftp://" + m_ftpServerIp + m_remoteLocation;
                 string escapedUri = uri.Replace("../", "%2E%2E/");
                 FtpWebRequest remFileReq = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri + fileName));
                 remFileReq.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
@@ -200,7 +203,7 @@ namespace FileMonitorNamespace
 
             FileStream fs = null;
             FileInfo fileInf = new FileInfo(Path.Combine(m_tempLocation, fileName));
-            string uri = "ftp://" + m_ftpServerIp + m_sourceLocation;
+            string uri = "ftp://" + m_ftpServerIp + m_remoteLocation;
             string escapedUri = uri.Replace("../", "%2E%2E/");
 
             FtpWebRequest fileReq = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri + fileName));
@@ -334,7 +337,7 @@ namespace FileMonitorNamespace
                         Log("INFO:  File Integrity Checked, beginning ftp process");
 
                         //Send file to server via FTP
-                        string uri = "ftp://" + m_ftpServerIp + m_sourceLocation + "/" + fileInf.Name;
+                        string uri = "ftp://" + m_ftpServerIp + m_remoteLocation + "/" + fileInf.Name;
                         string escapedUri = uri.Replace("../", "%2E%2E/");
                         FtpWebRequest reqFTP;
                         // Create FtpWebRequest object from the Uri provided

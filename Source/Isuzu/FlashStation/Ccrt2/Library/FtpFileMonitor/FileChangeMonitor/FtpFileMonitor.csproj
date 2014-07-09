@@ -8,8 +8,8 @@
     <ProjectGuid>{79576AC7-577B-4DD2-9E5B-3B98C0E04BF2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FileMonitorNamespace</RootNamespace>
-    <AssemblyName>FileChangeMonitor</AssemblyName>
+    <RootNamespace>FtpFileMonitorNamespace</RootNamespace>
+    <AssemblyName>FtpFileChangeMonitor</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

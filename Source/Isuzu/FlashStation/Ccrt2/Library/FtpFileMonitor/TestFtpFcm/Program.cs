@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FileMonitorNamespace;
+using FtpFileMonitorNamespace;
 using System.IO;
 using System.Windows.Forms;
 using System.Net;
@@ -71,6 +71,7 @@ namespace TestFtpFcm
                 Directory.CreateDirectory(m_targetPath);
             }
             m_fileChangeMonitor = new ConsoleFileMonitor(m_sourcePath, m_targetPath, m_tempPath, m_fileCheckInterval,m_userLogin,m_password,m_ftpServerIp);
+            m_fileChangeMonitor.StartFileMonitorThread();
         }
 
         bool NormalFileTransfer()
@@ -113,7 +114,7 @@ namespace TestFtpFcm
         void ExitSequence(bool isPass)
         {
             Console.WriteLine();
-            m_fileChangeMonitor.StopFCMThread();
+            m_fileChangeMonitor.StopFileMonitorThread();
             if (isPass) Console.WriteLine("PASS");
             else Console.WriteLine("FAIL");
             Console.WriteLine();

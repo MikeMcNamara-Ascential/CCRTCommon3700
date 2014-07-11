@@ -1313,7 +1313,7 @@ const std::string TestResultServer::ReportResults(void)
             time_t systemTime = time(NULL);
             struct tm *currentTime = localtime(&systemTime);
             // Convert the current time to a string
-            strftime(timeBuffer, sizeof(timeBuffer), "%m/%d/%Y%H:%M:%S", currentTime);
+            strftime(timeBuffer, sizeof(timeBuffer), "%Y%m%d%H%M%S", currentTime);
             timeBuffer[14] = '\0';
             //Write the timestamp and the test result to the test result file
             fprintf(outFile,"%s%s", timeBuffer, BEP_TEST_RESULT);

@@ -213,7 +213,7 @@
 			<InterMotorLossCompensationDelay Description="Amount of time between motor commands during loss compensation (Stagger-start delay time)" Units="ms">2000</InterMotorLossCompensationDelay>
 			<BrakingFactor Description="Percent of previous speed to command next speed when braking (0 &amp;lt; BF &amp;lt; 1)">0.7</BrakingFactor>
 			<EnableStatusChecking Description="Enable thread lock up checking 1=on, else off">0</EnableStatusChecking>
-			<EnableQuickBrake Description="Enable quick brake avter loss compensation 1=on, else off">1</EnableQuickBrake>
+			<EnableQuickBrake Description="Enable quick brake avter loss compensation 1=on, else off">0</EnableQuickBrake>
 			<TorqueModeSpeedLimit Description="Speed above which in torque " Units="MPH">5.0</TorqueModeSpeedLimit>
 			<ProtocolFile Description="File containing protocol for communicating with motor drives">/Configuration/Machine/Baldor25mProtocol.xml</ProtocolFile>
             <AxleSpeedMatch>1</AxleSpeedMatch>

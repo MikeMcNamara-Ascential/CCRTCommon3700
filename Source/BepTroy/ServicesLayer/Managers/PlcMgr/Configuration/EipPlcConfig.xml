@@ -282,6 +282,9 @@
 
 		<!-- N16:15-16 Open -->
 
+      <FrontCradleOpening channelIndex="15" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <!-- N16:16 -->
+      <RearCradleOpening channelIndex="16" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <!-- N16:17 -->
         <LRWheelSpeed channelIndex="17" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 

@@ -1382,11 +1382,11 @@ namespace Common.Lib.Models
                 string timeStamp;
                 if (passed)
                 {
-                    timeStamp = DateTime.Now + "PASS\n";
+                    timeStamp = (DateTime.Now.ToString("yyyyMMddHHmmss")) + "PASS\n";
                 }
                 else
                 {
-                    timeStamp = DateTime.Now + "FAIL\n";
+                    timeStamp = (DateTime.Now.ToString("yyyyMMddHHmmss")) + "FAIL\n";
                 }
                 timeNode.InnerText = timeStamp;
                 

@@ -257,11 +257,11 @@
                     <SecondaryDataLength>15</SecondaryDataLength>
                     <TwoDimensionBarcode>True</TwoDimensionBarcode>
                     <TwoDimensionBarcodeItems>
-                        <Item00 Length="17" DisplayTag="VINDisplay">NextVIN</Item00>
-                        <Item01 Length="5" DisplayTag="">VehicleType</Item01>
-                        <Item02 Length="2" DisplayTag="">BookCode</Item02>
-                        <Item03 Length="3" DisplayTag="">ModelYear</Item03>
-                        <Item04 Length="3" DisplayTag="">LotNumber</Item04>
+                        <Item01 StartIndex="17" Length="5" DisplayTag="">VehicleType</Item01>
+                        <Item02 StartIndex="22" Length="2" DisplayTag="">BookCode</Item02>
+                        <Item03 StartIndex="24" Length="3" DisplayTag="">ModelYear</Item03>
+                        <Item04 StartIndex="27" Length="3" DisplayTag="">LotNumber</Item04>
+                        <Item05 StartIndex="0" Length="17" DisplayTag="VINDisplay">NextVIN</Item05>
                     </TwoDimensionBarcodeItems>
                 </Setup>
             </LeftHandheld>

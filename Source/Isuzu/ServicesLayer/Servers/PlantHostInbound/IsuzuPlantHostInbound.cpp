@@ -42,6 +42,7 @@ const string IsuzuPlantHostInbound::LoadVehicleBuildFromFile(const string &vin,
     string response;
     string status = BEP_ERROR_RESPONSE;
     bool allIdData = false;
+    //TODO: remove this think is no longer necessary
     BposSleep(1000);   // Wait for the scan to be received
     // Get the Model Code, Book Code, Model year and lot number from the system
     if(m_broker->Read(GetDataTag("ModelCode"), response, true) == BEP_STATUS_SUCCESS)

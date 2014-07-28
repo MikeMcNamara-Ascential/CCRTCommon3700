@@ -99,7 +99,7 @@
             ConfigFile="PromptServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0100" RegisteredName="core/PromptServer" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Prompt Server</PromptServer>
-        <TestResultServer Name="IsuzuTestResultServer.qxe" Path="/ServicesLayer/Bin/" 
+        <TestResultServer Name="TestResultServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="TestResultServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0102" RegisteredName="core/TestResultServer" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Test Result Server</TestResultServer>

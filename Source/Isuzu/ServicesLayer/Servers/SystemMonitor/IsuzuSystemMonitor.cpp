@@ -73,6 +73,8 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
         else if((ctrl->vehVinReadStatus == VALID_VEHICLE_VIN) && (m_oldCtrl->vehVinReadStatus != VALID_VEHICLE_VIN))
         {   // Prompt good data received
             RemovePrompt(1, "EnterVIN", "white");
+
+            if (!ctrl->cableConnect) DisplayPrompt(1, "ConnectCable", "white");
             DisplayPrompt(2, "GoodScan", "white");
             // Load the build data
             CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1"));
@@ -88,23 +90,23 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
         // - Vehicle Present
         // - Good vehicle build data waiting
         // - Rolls down
-        else if(ctrl->vehiclePresent && (ctrl->vehVinReadStatus == VALID_VEHICLE_VIN) && !ctrl->cableConnect &&
-                ctrl->rollsDown && m_oldCtrl->rollsDown)
-        {   // Command the vehicle data broker to get the vehicle build
-            RemovePrompt(1, "EnterVIN");
-            RemovePrompt(2, "PressButtonToStartTest");
-            DisplayPrompt(1, "ConnectCable", "white");
-            CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1"));
-            BposSleep(1000);   // Wait for the build data to be processed
-            AdjustWheelbase();
-        }
+        //else if(ctrl->vehiclePresent && (ctrl->vehVinReadStatus == VALID_VEHICLE_VIN) && !ctrl->cableConnect &&
+        //        ctrl->rollsDown && m_oldCtrl->rollsDown)
+        //{   // Command the vehicle data broker to get the vehicle build
+        //    RemovePrompt(1, "EnterVIN");
+        //    RemovePrompt(2, "PressButtonToStartTest");
+        //    DisplayPrompt(1, "ConnectCable", "white");
+        //    CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1"));
+        //    BposSleep(1000);   // Wait for the build data to be processed
+        //    AdjustWheelbase();
+        //}
         // Cable connected, auto raise the retainers
         else if(!m_oldCtrl->cableConnect && ctrl->cableConnect)
         {
             RemovePrompt(1, "ConnectCable", "white");
             //removed per request - prompt operator to raise retainers
-            WriteNdbData(RAISE_ROLLS, string("1"));
-            DisplayPrompt(1, "RaiseRetainers", "white");
+        //    WriteNdbData(RAISE_ROLLS, string("1"));
+            if (ctrl->rollsDown) DisplayPrompt(1, "RaiseRetainers", "white");
         }         
         // Start the test sequence
         // - Vehicle present
@@ -115,11 +117,12 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
                 !ctrl->testInProgress && !m_oldCtrl->testInProgress)
         {
             RemovePrompt(1, "RaiseRetainers");
+            RemovePrompt(1, "EnterVIN");
             RemovePrompt(2, "PressButtonToStartTest");
             // Read the build data in case the operator did not lower the rollers
             CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1"));
             BposSleep(1000);   // Wait for the build data to be processed
-			AdjustWheelbase();
+			//AdjustWheelbase();
             // Start the vehicle test
             CommandNdbData(string(START_VEHICLE_TEST_DATA_TAG), string("1"));
             RemovePrompt(2, "GoodScan", "white");
@@ -127,10 +130,13 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
         // Prompt to Disconnect cable
         // - Cable Connected
         // - Test just ended
-        else if(ctrl->cableConnect && !ctrl->testInProgress && m_oldCtrl->testInProgress)
+        else if(!ctrl->testInProgress && m_oldCtrl->testInProgress)
         {   // Clear the VIN Read status
             WriteNdbData(string(VIN_READ_STATUS_TAG), string(INVALID_VEHICLE_VIN));
-            DisplayPrompt(2, "DisconnectCable", "white");
+            if (ctrl->cableConnect)
+            {
+                DisplayPrompt(2, "DisconnectCable", "white");
+            }
         }
         // Clear the disconnect cable prompt
         // - Cable just disconnected
@@ -182,6 +188,8 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
             {
                 WriteNdbData(string(INPUT_SERVER_STATE), string(INPUT_SERVER_NORMAL_STATE));
             }
+
+            WriteNdbData(string(VIN_READ_STATUS_TAG), string(INVALID_VEHICLE_VIN));
         }
     }
     else

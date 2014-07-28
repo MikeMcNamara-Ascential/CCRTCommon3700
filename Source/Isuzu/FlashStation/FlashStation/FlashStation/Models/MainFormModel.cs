@@ -11,7 +11,7 @@ using System.IO;
 using System.Xml;
 using LoggingInterface;
 using UtilityFileInterpreter;
-using FileChangeMonitor;
+using FtpFileMonitorNamespace;
 using J2534ChannelLibrary;
 using System.Drawing;
 using System.Windows.Forms;
@@ -119,8 +119,18 @@ namespace Common.Lib.Models
         public void SetLogger(Logger logger)
         {
             m_logger = logger;
-            m_fcm = new FCM(m_remoteBuildFileDirectory, m_buildFileDirectory, m_tempBuildFileDirectory, 10000, m_logger);
-            m_esnFcm = new FCM(m_remoteESNDirectory, m_esnDirectory, m_tempESNDirectory, 10000, m_logger);
+            m_buildDataFcm = new FtpFileMonitor(m_remoteBuildFileLocation, m_buildFileDirectory, m_tempBuildFileDirectory, 10000,
+                m_userLogin,m_password,m_ftpServerIp,"*", m_logger);
+            m_esnFileChangeMonitor = new FtpFileMonitor(m_remoteESNLocation, m_esnDirectory, m_tempESNDirectory, 10000, 
+                m_userLogin, m_password, m_ftpServerIp, "*", m_logger);
+
+            m_passFileFtp = new FtpFileMonitor(m_passIndicationLocation, m_passIndicationLocalDirectory, "", 10000,
+                m_userLogin, m_password, m_ftpServerIp,"*", m_logger);
+
+            m_buildDataFcm.StartFileMonitorThread();
+
+            m_esnFileChangeMonitor.StartFileMonitorThread();
+
             ThreadStart taskDelegate = null;
             taskDelegate = new ThreadStart(PassFileIndicationTransferThread);
             Thread transferPassedTestResults = new Thread(taskDelegate);
@@ -367,8 +377,11 @@ namespace Common.Lib.Models
                 }
                 if (File.Exists(fileName + lotNo + ".xml"))
                 {   // Read the options from the file
-                    m_currentBuild = new XmlDocument();
-                    m_currentBuild.Load(fileName + lotNo + ".xml");
+                    lock (m_buildDataFcm.DirectoryLock)
+                    {
+                        m_currentBuild = new XmlDocument();
+                        m_currentBuild.Load(fileName + lotNo + ".xml");
+                    }
                     //for each ecu...
                     foreach (string ecuName in m_ecuNames)
                     {
@@ -916,10 +929,13 @@ namespace Common.Lib.Models
                 {//check if VIN matches
                     if (fi.Name.Substring(0,17) == vin)
                     {//get serial number from file
-                        // Read the file as one string.
-                        System.IO.StreamReader myFile =
-                        new System.IO.StreamReader(fi.FullName);
-                        esn = myFile.ReadLine();
+                        lock (m_esnFileChangeMonitor.DirectoryLock)
+                        {
+                            // Read the file as one string.
+                            System.IO.StreamReader myFile =
+                            new System.IO.StreamReader(fi.FullName);
+                            esn = myFile.ReadLine();
+                        }
                         if (esn.Length == 16)
                         {
                             m_logger.Log("INFO:  ESN Obtained: " + esn);
@@ -1424,12 +1440,11 @@ namespace Common.Lib.Models
             }
 
         }
-        public object m_passFileDirectoryLock = new object();
         //Write pass indication to a local folder first
         public void WritePassIndicationFile()
         { 
             string filename = m_buildData[0].VIN + ".ECM";
-            lock (m_passFileDirectoryLock)
+            lock (m_passFileFtp.DirectoryLock)
             {
                 using (StreamWriter outfile = new StreamWriter(m_passIndicationLocalDirectory + filename))
                 {
@@ -1441,33 +1456,26 @@ namespace Common.Lib.Models
         {
             while (!m_terminateThreads)
             {
-                lock (m_passFileDirectoryLock)
-                {
-                    //Check if specified transfer folder exists
-                    if (System.IO.Directory.Exists(m_passIndicationSharedDirectory))
-                    {//copy files over
-                        string[] files = System.IO.Directory.GetFiles(m_passIndicationLocalDirectory);
-                        try
+                lock (m_passFileFtp.DirectoryLock)
+                {//copy files over
+                    string[] files = System.IO.Directory.GetFiles(m_passIndicationLocalDirectory);
+                    try
+                    {
+                        if (files.Count() > 0)
                         {
-                            foreach (string fileName in files)
+                            if (m_passFileFtp.UploadToSource(files.ToList()))
                             {
-                                string destFile = m_passIndicationSharedDirectory + fileName.Substring(fileName.LastIndexOf("\\") + 1);
-                                System.IO.File.Copy(fileName, destFile, true);
+                                m_logger.Log("INFO:  Pass file Transmit Successful");
                             }
-                            //delete files from local directory
-                            foreach (string fileName in files)
+                            else
                             {
-                                System.IO.File.Delete(fileName);
+                                m_logger.Log("INFO:  Pass file Transmit Error, Retransmitting...");
                             }
-                        }
-                        catch
-                        {
-                            m_logger.Log("ERROR:  Pass Result File Transfer Error");
                         }
                     }
-                    else
+                    catch
                     {
-                        m_logger.Log("Warning:  Unable To Access Shared Directory, results will be saved locally until connection restored");
+                        m_logger.Log("ERROR:  Pass Result File Transfer Error");
                     }
                 }
                 Thread.Sleep(10000);
@@ -1566,8 +1574,8 @@ namespace Common.Lib.Models
         }
         public void Terminate()
         {//stop all active threads            
-            m_fcm.StopFCMThread();
-            m_esnFcm.StopFCMThread();
+            m_buildDataFcm.StopFileMonitorThread();
+            m_esnFileChangeMonitor.StopFileMonitorThread();
             SetStatus(Status.TERMINATE);
             m_terminateThreads = true;
         }
@@ -1878,13 +1886,18 @@ namespace Common.Lib.Models
         /// <summary>
         /// File Change monitor for Build data on DVT
         /// </summary>
-        private FCM m_fcm;
+        private FtpFileMonitor m_buildDataFcm;
         
         /// <summary>
         /// File Change monitor for ESN File on DVT
         /// </summary>
-        private FCM m_esnFcm;
-        
+        private FtpFileMonitor m_esnFileChangeMonitor;
+
+        /// <summary>
+        /// ftp object used to upload pass files
+        /// </summary>
+        private FtpFileMonitor m_passFileFtp;
+
         /// <summary>
         /// Interpreter for ECM utility file
         /// </summary>
@@ -1927,9 +1940,13 @@ namespace Common.Lib.Models
         private string m_logsDirectory = @"C:\FlashStation\Logs\";
         private string m_passIndicationLocalDirectory = @"C:\FlashStation\TransferFiles\";
 
-        private string m_remoteBuildFileDirectory = @"G:\Rewrite\Configuration\VehicleTest\BuildRecords\";
-        private string m_remoteESNDirectory = @"G:\Rewrite\TestResults\ESN\";
-        private string m_passIndicationSharedDirectory = @"G:\Rewrite\TestResults\PassConfirmation\";
+        private string m_userLogin = "burke";
+        private string m_password = "porter";
+        private string m_ftpServerIp = "192.168.1.3:2121"; 
+
+        private string m_remoteBuildFileLocation = "//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/";
+        private string m_remoteESNLocation = "//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/";
+        private string m_passIndicationLocation = "//home/CCRT/Rewrite/TestResults/PassConfirmation/";
 
         //private string m_remoteBuildFileDirectory = @"C:\FlashStation\Rewrite\Configuration\VehicleTest\BuildRecords\";
         //private string m_remoteESNDirectory = @"C:\FlashStation\Rewrite\TestResults\ESN\";

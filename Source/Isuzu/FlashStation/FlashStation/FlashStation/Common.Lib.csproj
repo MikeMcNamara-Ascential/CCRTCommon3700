@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FileChangeMonitor">
-      <HintPath>..\..\Ccrt2\Library\FileChangeMonitor.dll</HintPath>
+    <Reference Include="FtpFileChangeMonitor">
+      <HintPath>..\..\Ccrt2\Library\FtpFileChangeMonitor.dll</HintPath>
     </Reference>
     <Reference Include="InputServer">
       <HintPath>..\..\Ccrt2\Library\InputServer.dll</HintPath>

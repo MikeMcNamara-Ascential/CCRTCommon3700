@@ -619,11 +619,20 @@ void SymbolScannerMgr::ProcessTwoDimensionalBarcode(const SerialString_t &barcod
     INT32 startIndex = 0;
     string response;
     for(XmlNodeMapCItr iter = m_twoDimensionBarcodeItems.begin(); 
-         (iter != m_twoDimensionBarcodeItems.end()) && (startIndex < byteCount); 
+         (iter != m_twoDimensionBarcodeItems.end()); 
          iter++)
     {   // Get the current item and publish to the system
         INT32 length = BposReadInt(iter->second->getAttribute("Length")->getValue().c_str());
-        string data = string((char *)&barcodeData[startIndex], length);
+        INT32 startIndexOverride;
+        try
+        {//If specified use explicit start index
+            startIndexOverride = BposReadInt(iter->second->getAttribute("StartIndex")->getValue().c_str());
+        }
+        catch  (XmlException &excpt)
+        {
+            startIndexOverride = startIndex;
+        }
+        string data = string((char *)&barcodeData[startIndexOverride], length);
         // Write the data to the system
         m_dataBroker->Write(iter->second->getValue(), data, response, true);
         Log(LOG_DEV_DATA, "Processed %s:%s - %s", 

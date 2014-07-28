@@ -1312,7 +1312,6 @@ namespace Common.Lib.Models
             Prompt prompt = new Prompt();
             if (m_currentBuild != null)
             {//add result and description to file
-                XmlNode timeNode = m_currentBuild.CreateNode(XmlNodeType.Element, "Timestamp", null);
                 XmlNode fsResultNode = m_currentBuild.CreateNode(XmlNodeType.Element,"FlashStationTestResult",null);
                 XmlNode resultNode = m_currentBuild.CreateNode(XmlNodeType.Element,"Result",null);
                 XmlNode descriptionNode = m_currentBuild.CreateNode(XmlNodeType.Element, "Description", null);
@@ -1367,6 +1366,7 @@ namespace Common.Lib.Models
                         passed = false;
                         m_logger.Log("INFO:  Reporting Fail");
                         resultNode.InnerText = "Fail";
+                        WritePassIndicationFile("FAIL");
                     }
                     else
                     {
@@ -1377,7 +1377,7 @@ namespace Common.Lib.Models
                         m_logger.Log("INFO:  Reporting Pass");
                         resultNode.InnerText = "Pass";
                         //write file to shared folder
-                        WritePassIndicationFile();
+                        WritePassIndicationFile("PASS");
                     }
                 }
                 if (GetStatus() == Status.ABORT)
@@ -1394,19 +1394,6 @@ namespace Common.Lib.Models
                     descriptionNode.InnerText = m_resultText;
                 }
 
-                //Put the date, time, and test result in the result file
-                string timeStamp;
-                if (passed)
-                {
-                    timeStamp = (DateTime.Now.ToString("yyyyMMddHHmmss")) + "PASS\n";
-                }
-                else
-                {
-                    timeStamp = (DateTime.Now.ToString("yyyyMMddHHmmss")) + "FAIL\n";
-                }
-                timeNode.InnerText = timeStamp;
-                
-                fsResultNode.AppendChild(timeNode);
                 fsResultNode.AppendChild(resultNode);
                 fsResultNode.AppendChild(descriptionNode);
                 m_currentBuild.DocumentElement.AppendChild(fsResultNode);
@@ -1441,14 +1428,15 @@ namespace Common.Lib.Models
 
         }
         //Write pass indication to a local folder first
-        public void WritePassIndicationFile()
+        public void WritePassIndicationFile(string result)
         { 
             string filename = m_buildData[0].VIN + ".ECM";
             lock (m_passFileFtp.DirectoryLock)
             {
                 using (StreamWriter outfile = new StreamWriter(m_passIndicationLocalDirectory + filename))
                 {
-                    outfile.Write(DateTime.Today.ToString("yyyyMMdd"));
+                    string timeStamp = (DateTime.Now.ToString("yyyyMMddHHmmss"));
+                    outfile.Write(timeStamp+result);
                 }
             }
         }

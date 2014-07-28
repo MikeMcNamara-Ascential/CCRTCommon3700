@@ -292,14 +292,14 @@
     </Objectives>
     <TestSteps>
         <Initialize Result="" Description="Initialize the machine for testing" Timeout="0"/>
-        <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
+        <DriverQuestion Result=""  Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
             <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
         </DriverQuestion>
-        <PromptDriver Description="Display A Prompt To The Driver But Do Not Require Driver Input">
+        <PromptDriver Result="" Description="Display A Prompt To The Driver But Do Not Require Driver Input">
             <PerformingFinishUp Description="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
             <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
         </PromptDriver>
-        <PromptDriverAlways Description="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input">
+        <PromptDriverAlways Result=""  Description="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input">
             <PerformingFinishUp Description="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
             <PerformingFinalTesting Description="" Timeout="" Result="" Prompt1="PerformingFinalTesting" Prompt1Priority="0"/>
             <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
@@ -317,7 +317,7 @@
         <Speedometer Result="" Description="Speedometer Test Step" Timeout="30000" Prompt1="AccelerateToTargetSpeed" Prompt1Priority="0"/>
         <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" Timeout="0" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>
         <Reverse Result="" Description="Reverse Test Step" Timeout="30000"/>
-        <MultiDriverQuestion Description="Prompt the driver with a set of questions and get a response of Pass/Fail or Yes/No">
+        <MultiDriverQuestion Result="" Description="Prompt the driver with a set of questions and get a response of Pass/Fail or Yes/No">
             <MPBOStartControlMan TestResultName="MPBOStartControl">
                 <Step01KeyOffShiftToNApplyParkBrake Result="" Timeout="60000" Prompt1="KeyOff" Prompt1Priority="0" Prompt2="ShiftToNeutralApplyParkBrake" Prompt2Priority="0" TestResultName="MPBOStartControl" Description="Driver Verifies can shift to park and apply park brake">Prompt the driver shift to park and apply parking brake</Step01KeyOffShiftToNApplyParkBrake>
                 <Step02VerifyClutchStart Result="" Timeout="60000" Prompt1="ShiftTo1st" Prompt1Priority="0" Prompt2="VerifyClutchStart" Prompt2Priority="0" TestResultName="MPBOStartControl" Description="Driver verifies can not start until clutch engaged">Prompt the driver to verify can not start until clutch engaged</Step02VerifyClutchStart>

@@ -2523,6 +2523,8 @@ template <class ModuleType>
 string IsuzuEmissionsTc<ModuleType>::KeyOffEngineOffKeyOn(void)
 {
     string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
 
     if (!IsRetest())
     {
@@ -2531,6 +2533,7 @@ string IsuzuEmissionsTc<ModuleType>::KeyOffEngineOffKeyOn(void)
     else
     {
         testResult = BEP_SKIP_RESPONSE;
+        SendTestResult(testResult, testDescription, testResultCode);    
     }
 
     return testResult;

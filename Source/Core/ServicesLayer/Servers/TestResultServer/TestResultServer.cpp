@@ -311,6 +311,7 @@
 #include <fstream.h>
 #include <fcntl.h>      // O_RDONLY
 #include <dirent.h>
+#include <time.h>
 #include <algorithm>
 #include "INamedDataBroker.h"
 #include "TestResultServer.h"
@@ -1772,16 +1773,25 @@ string TestResultServer::ProcessTestResults(void)
 		XmlNodeMapItr iter = m_data.find(GetOverallTestTag());
 		string result = (iter != m_data.end()) ? iter->second->getAttribute(BEP_RESULT)->getValue() : BEP_UNAVAILABLE_RESPONSE;
 		Log(LOG_DEV_DATA, "Generate Pass Confirmation file - Overall Test Result: %s", result.c_str());
-		if(GetCurrentVin().compare(GetLossCompensationVin()) && !result.compare(BEP_PASS_RESPONSE))
+		if(GetCurrentVin().compare(GetLossCompensationVin()))
 		{  
 			FILE *passFile = NULL;
 			string fileName = PassConfirmationFilePath() + GetCurrentVin() + ".DVT";
 			Log(LOG_DEV_DATA, "Creating pass confirmation file: %s", fileName.c_str());
 			if((passFile = fopen(fileName.c_str(), "w")) != NULL)
 			{   // Get the current date to write into the file
-				string currentDate(GetTimeAndDate(GetDataTag("DateFormat")));
-				Log(LOG_DEV_DATA, "Writing date %s to pass confirmation file", currentDate.c_str());
-				fprintf(passFile, "%s", currentDate.c_str());
+                            // Get the current time
+            time_t systemTime = time(NULL);
+            struct tm *currentTime = localtime(&systemTime);
+            char timeBuffer[32];
+            // Convert the current time to a string
+            strftime(timeBuffer, sizeof(timeBuffer), "%Y%m%d%H%M%S", currentTime);
+            timeBuffer[14] = '\0';
+            string result = !result.compare(BEP_PASS_RESPONSE) ? "PASS" : "FAIL";
+
+                Log(LOG_DEV_DATA, "Writing date %s%s to pass confirmation file", timeBuffer, result.c_str());
+                //Write the timestamp and the test result to the test result file
+                fprintf(passFile,"%s%s", timeBuffer, result.c_str());
 				fclose(passFile);
 			}
 			else

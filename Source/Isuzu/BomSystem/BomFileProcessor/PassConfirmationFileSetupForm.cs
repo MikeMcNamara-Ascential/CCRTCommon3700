@@ -69,14 +69,14 @@ namespace BomFileProcessor
         /// <param name="e"></param>
         private void m_ccrtSelectButton_Click(object sender, EventArgs e)
         {
-            String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.CcrtFileLocation, "CCRT", "Pass Confirmation");
-            if (directory.Length > 0)
-            {
-                BomFileProcessor.Properties.Settings.Default.CcrtFileLocation = directory;
+            //String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.CcrtFileLocation, "CCRT", "Pass Confirmation");
+            //if (directory.Length > 0)
+            //{
+                BomFileProcessor.Properties.Settings.Default.CcrtFileLocation = m_ccrtPassConfirmFileLocationTextBox.Text;
                 BomFileProcessor.Properties.Settings.Default.Save();
                 m_ccrtPassConfirmFileLocationTextBox.Clear();
-                m_ccrtPassConfirmFileLocationTextBox.Text = directory;
-            }
+                m_ccrtPassConfirmFileLocationTextBox.Text = m_ccrtPassConfirmFileLocationTextBox.Text;
+            //}
         }
 
         /// <summary>
@@ -140,14 +140,14 @@ namespace BomFileProcessor
         /// <param name="e"></param>
         private void m_realTimeESNSelectButton_Click(object sender, EventArgs e)
         {
-            String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation, "CCRT", "ESN File");
-            if (directory.Length > 0)
-            {
-                BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation = directory;
+            //String directory = SelectFileLocation(BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation, "CCRT", "ESN File");
+            //if (directory.Length > 0)
+            //{
+                BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation = m_realTimeESNFileLocationTextBox.Text;
                 BomFileProcessor.Properties.Settings.Default.Save();
                 m_realTimeESNFileLocationTextBox.Clear();
-                m_realTimeESNFileLocationTextBox.Text = directory;
-            }
+                m_realTimeESNFileLocationTextBox.Text = m_realTimeESNFileLocationTextBox.Text;
+            //}
         }
         /// <summary>
         /// Store all the data the user has entered.

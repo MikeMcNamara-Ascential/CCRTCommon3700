@@ -39,7 +39,6 @@
             this.selectBOMFolderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.selectBOMArchiveFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectBOMResultFolderToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.vehicleBuildFileFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uPCFNASetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bOMFileSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.axleTypesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +46,7 @@
             this.brakeForcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.passConfirmationFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modeCodeSpcificSttingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.retainingRollerPressureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewCurrentLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewPreviousLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,7 +56,6 @@
             this.m_logMessageTextBox = new System.Windows.Forms.RichTextBox();
             this.m_passFileCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.m_esnFileCheckTimer = new System.Windows.Forms.Timer(this.components);
-            this.retainingRollerPressureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,7 +83,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -124,8 +123,7 @@
             this.fileLocationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectBOMFolderToolStripMenuItem1,
             this.selectBOMArchiveFolderToolStripMenuItem,
-            this.selectBOMResultFolderToolStripMenuItem1,
-            this.vehicleBuildFileFolderToolStripMenuItem});
+            this.selectBOMResultFolderToolStripMenuItem1});
             this.fileLocationsToolStripMenuItem.Name = "fileLocationsToolStripMenuItem";
             this.fileLocationsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.fileLocationsToolStripMenuItem.Text = "File Locations";
@@ -150,13 +148,6 @@
             this.selectBOMResultFolderToolStripMenuItem1.Size = new System.Drawing.Size(214, 22);
             this.selectBOMResultFolderToolStripMenuItem1.Text = "Select BOM Result Folder";
             this.selectBOMResultFolderToolStripMenuItem1.Click += new System.EventHandler(this.selectBOMResultFolderToolStripMenuItem_Click);
-            // 
-            // vehicleBuildFileFolderToolStripMenuItem
-            // 
-            this.vehicleBuildFileFolderToolStripMenuItem.Name = "vehicleBuildFileFolderToolStripMenuItem";
-            this.vehicleBuildFileFolderToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.vehicleBuildFileFolderToolStripMenuItem.Text = "Vehicle Build File Folder";
-            this.vehicleBuildFileFolderToolStripMenuItem.Click += new System.EventHandler(this.vehcleBuildFileFolderToolStripMenuItem_Click);
             // 
             // uPCFNASetupToolStripMenuItem
             // 
@@ -206,6 +197,13 @@
             this.modeCodeSpcificSttingsToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
             this.modeCodeSpcificSttingsToolStripMenuItem.Text = "ESN Settings";
             this.modeCodeSpcificSttingsToolStripMenuItem.Click += new System.EventHandler(this.modeCodeSpcificSttingsToolStripMenuItem_Click);
+            // 
+            // retainingRollerPressureToolStripMenuItem
+            // 
+            this.retainingRollerPressureToolStripMenuItem.Name = "retainingRollerPressureToolStripMenuItem";
+            this.retainingRollerPressureToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.retainingRollerPressureToolStripMenuItem.Text = "Retaining Roller Pressure";
+            this.retainingRollerPressureToolStripMenuItem.Click += new System.EventHandler(this.retainingRollerPressureToolStripMenuItem_Click);
             // 
             // logsToolStripMenuItem
             // 
@@ -271,13 +269,6 @@
             // 
             this.m_esnFileCheckTimer.Tick += new System.EventHandler(this.m_esnFileCheckTimer_Tick);
             // 
-            // retainingRollerPressureToolStripMenuItem
-            // 
-            this.retainingRollerPressureToolStripMenuItem.Name = "retainingRollerPressureToolStripMenuItem";
-            this.retainingRollerPressureToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
-            this.retainingRollerPressureToolStripMenuItem.Text = "Retaining Roller Pressure";
-            this.retainingRollerPressureToolStripMenuItem.Click += new System.EventHandler(this.retainingRollerPressureToolStripMenuItem_Click);
-            // 
             // BomProcessorMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,6 +280,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "BomProcessorMainForm";
             this.Text = "BOM Processor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BomProcessorMainForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -314,7 +306,6 @@
         private System.Windows.Forms.ToolStripMenuItem selectBOMFolderToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem selectBOMArchiveFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectBOMResultFolderToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem vehicleBuildFileFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bOMFileSetupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem axleTypesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wheelbaseToolStripMenuItem;

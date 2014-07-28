@@ -28,12 +28,15 @@ namespace BomFileProcessor
         /// <param name="message">Message to write to the log file.</param>
         public void Log(String message)
         {   // Write the log message to the log file
-            using (StreamWriter writer = new StreamWriter(CurrentLogFileName, true))
+            lock (this)
             {
-                writer.WriteLine(DateTime.Now + "\t" + message);
+                using (StreamWriter writer = new StreamWriter(CurrentLogFileName, true))
+                {
+                    writer.WriteLine(DateTime.Now + "\t" + message);
+                }
+                // Display the message on the screen
+                LogMessage(DateTime.Now + "\t" + message + Environment.NewLine);
             }
-            // Display the message on the screen
-            LogMessage(DateTime.Now + "\t" + message + Environment.NewLine);
         }
 
         /// <summary>

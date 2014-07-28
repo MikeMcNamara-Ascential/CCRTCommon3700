@@ -12,7 +12,7 @@
       <Value Profile="(Default)">C:\BOM\Results</Value>
     </Setting>
     <Setting Name="VehicleBuildDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">G:\Rewrite\Configuration\VehicleTest\BuildRecords</Value>
+      <Value Profile="(Default)">//home/CCRT/Rewrite/Configuration/VehicleTest/BuildRecords/</Value>
     </Setting>
     <Setting Name="BomUpcIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">28</Value>
@@ -78,7 +78,7 @@
       <Value Profile="(Default)">C:\BOM\DVT</Value>
     </Setting>
     <Setting Name="CcrtFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">G:\Rewrite\TestResults\PassConfirmation</Value>
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/PassConfirmation/</Value>
     </Setting>
     <Setting Name="CheckForPassConfirmationFiles" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -93,7 +93,22 @@
       <Value Profile="(Default)">C:\BOM\ESN</Value>
     </Setting>
     <Setting Name="RealTimePCESNFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">G:\Rewrite\TestResults\ESN</Value>
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ESN/</Value>
+    </Setting>
+    <Setting Name="RealTimePCESNFlashTransferLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/</Value>
+    </Setting>
+    <Setting Name="VehicleBuildFlashTransferLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/</Value>
+    </Setting>
+    <Setting Name="SpartanFileTempLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\BOM\Temp\DVT</Value>
+    </Setting>
+    <Setting Name="SpartanFlashFileTempLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\BOM\Temp\ECM</Value>
+    </Setting>
+    <Setting Name="VehicleBuildTempDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\BOM\Temp\VehicleBuild</Value>
     </Setting>
   </Settings>
 </SettingsFile>

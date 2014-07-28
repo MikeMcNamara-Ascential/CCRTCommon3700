@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using FtpFileMonitorNamespace;
 
 namespace BomFileProcessor
 {
@@ -23,10 +24,7 @@ namespace BomFileProcessor
             // Setup initial BOM file locations
             SetupBomFileLocations();
             VehicleBuildDirectory = BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory;
-            if (VehicleBuildDirectory == BomFileProcessor.Properties.Resources.DefaultVehicleBuildFolder)
-            {
-                SetVehicleBuildDirectory();
-            }
+
             // Load the build item collection
             m_buildItems = new BuildItemCollection(m_logger);
             m_buildItems.Load();
@@ -43,14 +41,61 @@ namespace BomFileProcessor
             m_brakeForces = new BrakeForceCollection(m_logger);
             // Start the timer to look for new BOM files
             m_fileCheckTimer.Start();
-            // Check if we should start the pass confirmation file check timer
-            if (BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles)
-            {   // Set the timer tick interval
-                m_passFileCheckTimer.Interval = BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay;
-                m_passFileCheckTimer.Start();
-            }
+
+            List<string> remotePaths = new List<string>();
+            remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation);
+            remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFlashTransferLocation);
+
+            List<string> users = new List<string>();
+            users.Add("burke");
+            users.Add("burke");
+
+            List<string> passwords = new List<string>();
+            passwords.Add("porter");
+            passwords.Add("porter");
+
+            List<string> ipaddresses = new List<string>();
+            ipaddresses.Add("192.168.1.3:2121");
+            ipaddresses.Add("192.168.1.3:2121");
+            //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
+            m_engineSerialNumberFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation,
+                users, passwords, ipaddresses,m_logger);
+
+
+            remotePaths.Clear();
+            remotePaths.Add(BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory);
+            remotePaths.Add(BomFileProcessor.Properties.Settings.Default.VehicleBuildFlashTransferLocation);
+            //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
+            m_buildRecordFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.VehicleBuildTempDirectory,
+                users, passwords, ipaddresses,m_logger);
+
             m_esnFileCheckTimer.Interval = BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay;
             m_esnFileCheckTimer.Start();
+
+            // Check if we should start monitoring for pass confirmation files
+            if (BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles)
+            {
+                m_dvtPassConfirmationMonitor = new BomFtpFileMonitor(
+                    BomFileProcessor.Properties.Settings.Default.CcrtFileLocation,
+                    BomFileProcessor.Properties.Settings.Default.SpartanFileLocation,
+                    BomFileProcessor.Properties.Settings.Default.SpartanFileTempLocation,
+                     BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
+                     "burke",
+                     "porter",
+                     "192.168.1.3:2121", m_logger, "*.DVT");
+                m_dvtPassConfirmationMonitor.StartFileMonitorThread();
+
+                m_ecmPassConfirmationMonitor = new BomFtpFileMonitor(
+                BomFileProcessor.Properties.Settings.Default.CcrtFileLocation,
+                BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation,
+                BomFileProcessor.Properties.Settings.Default.SpartanFlashFileTempLocation,
+                 BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
+                 "burke",
+                 "porter",
+                 "192.168.1.3:2121", m_logger, "*.ECM");
+                m_ecmPassConfirmationMonitor.StartFileMonitorThread();
+            }
+
         }
         
 
@@ -198,119 +243,126 @@ namespace BomFileProcessor
             if (reader != null)
             {// Read the header line
                     String line = reader.ReadLine();
-                    // Make sure this is the header line
-                    if (line.Substring(0, 2) == "FH")
-                    {   // Get the number of BOM records in this file
-                        Int32 numberOfBoms = Convert.ToInt32(line.Substring(BomFileProcessor.Properties.Settings.Default.BomCountIndex,
-                                                                            BomFileProcessor.Properties.Settings.Default.BomCountLength));
-                        m_logger.Log("INFO:  Preparing to extract " + numberOfBoms.ToString() + " BOM Records");
-                        // Process each BOM entry
-                        for (Int32 bomIndex = 0; bomIndex < numberOfBoms; bomIndex++)
-                        {   // Read the number of detail records in the current BOM
-                            line = reader.ReadLine();
-                            if (line == null)
-                            {
-                                m_logger.Log("ERROR:  Improperly formatted BOM file - missing BOM header record line (BH)");
-                                processingResult = "x";
-                                //break out of processing loop
-                                break;
-                            }
-                            if (line.Substring(0, 2) == "BH")
-                            {   // Get the number of detail records for this BOM
-                                Int32 recordCount = Convert.ToInt32(line.Substring(BomFileProcessor.Properties.Settings.Default.BomRecordCountIndex,
-                                                                                   BomFileProcessor.Properties.Settings.Default.BomRecordCountLength));
-                                m_logger.Log("INFO:  Processing " + recordCount.ToString() + " records for BOM " + bomIndex.ToString());
-                                // Load the Vehicle Build File Template
-                                XmlDocument buildData = new XmlDocument();
-                                buildData.Load("VehicleBuildFileTemplate.xml");
-                                String bomFileName = BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory + "\\";
-                                // Process each line of the BOM
-                                for (Int32 recordIndex = 0; (recordIndex < recordCount) && (line != null); recordIndex++)
-                                {   // Read the next line from the file
-                                    line = reader.ReadLine();
-                                    if (line == null)
-                                    {
-                                        m_logger.Log("ERROR:  Improperly formatted BOM file - missing expected bom data line");
-                                        processingResult = "x";
-                                        //break out of processing loop
-                                        break;
-                                    }
-                                    // If this is the first record of the BOM, extract identifying data
-                                    if (recordIndex == 0)
-                                    {
-                                        String modelCode = line.Substring(BomFileProcessor.Properties.Settings.Default.BomModelCodeIndex,
-                                                                          BomFileProcessor.Properties.Settings.Default.BomModelCodeLength);
-                                        String modelYear = line.Substring(BomFileProcessor.Properties.Settings.Default.BomModelYearIndex,
-                                                                          BomFileProcessor.Properties.Settings.Default.BomModelYearLength);
-                                        String lotNumber = line.Substring(BomFileProcessor.Properties.Settings.Default.BomLotNumberIndex,
-                                                                          BomFileProcessor.Properties.Settings.Default.BomLotNumberLength);
-                                        String bookCode = line.Substring(BomFileProcessor.Properties.Settings.Default.BomBookCodeIndex,
-                                                                         BomFileProcessor.Properties.Settings.Default.BomBookCodeLength);
-                                        bomFileName = bomFileName + "Ps" + modelCode + "_" + bookCode + "_" + modelYear + "_" + lotNumber + ".xml";
-                                        m_logger.Log("INFO:  Build data will be written to " + bomFileName);
-                                        // Set the wheelbase and axle type
-                                        VehicleOption wheelbaseOption = m_wheelbase.Find(modelCode);
-                                        if (wheelbaseOption != null)
-                                        {
-                                            Int32 wheelbase = Convert.ToInt32(Convert.ToDouble(wheelbaseOption.OptionValue) * 25.4);
-                                            AddVehicleBuildParameter(buildData, "VehicleBuild", "WheelbasePositionInchesX10", wheelbase.ToString());
-                                        }
-                                        VehicleOption retRollRelaxPressureOption = m_retRollPressures.Find(modelCode);
-                                        if (retRollRelaxPressureOption != null)
-                                        {
-                                            Int32 retRollRelaxPressure = Convert.ToInt32(retRollRelaxPressureOption.OptionValue);
-                                            AddVehicleBuildParameter(buildData, "VehicleBuild", "FrontReductionPressure", retRollRelaxPressure.ToString());
-                                        }
-                                        VehicleOption axleType = m_axleTypes.Find(modelCode);
-                                        if (axleType != null)
-                                        {
-                                            AddVehicleBuildParameter(buildData, "VehicleBuild", "Axle", axleType.OptionValue);
-                                        }
-                                        ModelCodeOptions modelOptions = m_modelCodeOptions.Find(modelCode);
-                                        if (modelOptions != null)
-                                        {
-                                            AddVehicleBuildParameter(buildData, "VehicleBuild", "WriteESN", modelOptions.WriteESN);
-                                            AddVehicleBuildParameter(buildData, "VehicleBuild", "ESNLeadingCharacters", modelOptions.ESNLeadingCharacters);
-                                        }
-                                        // Add the brake force parameters
-                                        BrakeForce brakeForces = m_brakeForces.Find(modelCode);
-                                        if (brakeForces != null)
-                                        {
-                                            AddBrakeForceParameters(buildData, brakeForces);
-                                        }
-                                    }
-                                    // Process the line
-                                    if (!ParseBomDataLine(line, buildData))
-                                    {//indicate failure
-                                        m_logger.Log("ERROR:  Improperly formatted BOM file - missing BOM information");
-                                        processingResult = "x";
-                                        break;
-                                    }
+                    if (line != null)
+                    {
+                        // Make sure this is the header line
+                        if (line.Substring(0, 2) == "FH")
+                        {   // Get the number of BOM records in this file
+                            Int32 numberOfBoms = Convert.ToInt32(line.Substring(BomFileProcessor.Properties.Settings.Default.BomCountIndex,
+                                                                                BomFileProcessor.Properties.Settings.Default.BomCountLength));
+                            m_logger.Log("INFO:  Preparing to extract " + numberOfBoms.ToString() + " BOM Records");
+                            // Process each BOM entry
+                            for (Int32 bomIndex = 0; bomIndex < numberOfBoms; bomIndex++)
+                            {   // Read the number of detail records in the current BOM
+                                line = reader.ReadLine();
+                                if (line == null)
+                                {
+                                    m_logger.Log("ERROR:  Improperly formatted BOM file - missing BOM header record line (BH)");
+                                    processingResult = "x";
+                                    //break out of processing loop
+                                    break;
                                 }
+                                if (line.Substring(0, 2) == "BH")
+                                {   // Get the number of detail records for this BOM
+                                    Int32 recordCount = Convert.ToInt32(line.Substring(BomFileProcessor.Properties.Settings.Default.BomRecordCountIndex,
+                                                                                       BomFileProcessor.Properties.Settings.Default.BomRecordCountLength));
+                                    m_logger.Log("INFO:  Processing " + recordCount.ToString() + " records for BOM " + bomIndex.ToString());
+                                    // Load the Vehicle Build File Template
+                                    XmlDocument buildData = new XmlDocument();
+                                    buildData.Load("VehicleBuildFileTemplate.xml");
+                                    String buildRecordFileName = BomFileProcessor.Properties.Settings.Default.VehicleBuildTempDirectory + "\\";
+                                    // Process each line of the BOM
+                                    for (Int32 recordIndex = 0; (recordIndex < recordCount) && (line != null); recordIndex++)
+                                    {   // Read the next line from the file
+                                        line = reader.ReadLine();
+                                        if (line == null)
+                                        {
+                                            m_logger.Log("ERROR:  Improperly formatted BOM file - missing expected bom data line");
+                                            processingResult = "x";
+                                            //break out of processing loop
+                                            break;
+                                        }
+                                        // If this is the first record of the BOM, extract identifying data
+                                        if (recordIndex == 0)
+                                        {
+                                            String modelCode = line.Substring(BomFileProcessor.Properties.Settings.Default.BomModelCodeIndex,
+                                                                              BomFileProcessor.Properties.Settings.Default.BomModelCodeLength);
+                                            String modelYear = line.Substring(BomFileProcessor.Properties.Settings.Default.BomModelYearIndex,
+                                                                              BomFileProcessor.Properties.Settings.Default.BomModelYearLength);
+                                            String lotNumber = line.Substring(BomFileProcessor.Properties.Settings.Default.BomLotNumberIndex,
+                                                                              BomFileProcessor.Properties.Settings.Default.BomLotNumberLength);
+                                            String bookCode = line.Substring(BomFileProcessor.Properties.Settings.Default.BomBookCodeIndex,
+                                                                             BomFileProcessor.Properties.Settings.Default.BomBookCodeLength);
+                                            buildRecordFileName = buildRecordFileName + "Ps" + modelCode + "_" + bookCode + "_" + modelYear + "_" + lotNumber + ".xml";
+                                            m_logger.Log("INFO:  Build data will be written to " + buildRecordFileName);
+                                            // Set the wheelbase and axle type
+                                            VehicleOption wheelbaseOption = m_wheelbase.Find(modelCode);
+                                            if (wheelbaseOption != null)
+                                            {
+                                                Int32 wheelbase = Convert.ToInt32(Convert.ToDouble(wheelbaseOption.OptionValue) * 25.4);
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "WheelbasePositionInchesX10", wheelbase.ToString());
+                                            }
+                                            VehicleOption retRollRelaxPressureOption = m_retRollPressures.Find(modelCode);
+                                            if (retRollRelaxPressureOption != null)
+                                            {
+                                                Int32 retRollRelaxPressure = Convert.ToInt32(retRollRelaxPressureOption.OptionValue);
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "FrontReductionPressure", retRollRelaxPressure.ToString());
+                                            }
+                                            VehicleOption axleType = m_axleTypes.Find(modelCode);
+                                            if (axleType != null)
+                                            {
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "Axle", axleType.OptionValue);
+                                            }
+                                            ModelCodeOptions modelOptions = m_modelCodeOptions.Find(modelCode);
+                                            if (modelOptions != null)
+                                            {
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "WriteESN", modelOptions.WriteESN);
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "ESNLeadingCharacters", modelOptions.ESNLeadingCharacters);
+                                            }
+                                            // Add the brake force parameters
+                                            BrakeForce brakeForces = m_brakeForces.Find(modelCode);
+                                            if (brakeForces != null)
+                                            {
+                                                AddBrakeForceParameters(buildData, brakeForces);
+                                            }
+                                        }
+                                        // Process the line
+                                        if (!ParseBomDataLine(line, buildData))
+                                        {//indicate failure
+                                            m_logger.Log("ERROR:  Improperly formatted BOM file - missing BOM information");
+                                            processingResult = "x";
+                                            break;
+                                        }
+                                    }
 
-                                // The current BOM is complete, save the build data
-                                try
-                                {
-                                    buildData.Save(bomFileName);
-                                    m_logger.Log("INFO:  Wrote build data to " + bomFileName);
+                                    // The current BOM is complete, save the build data
+                                    try
+                                    {
+                                        buildData.Save(buildRecordFileName);
+                                        m_logger.Log("INFO:  Wrote build data to " + buildRecordFileName);
+                                    }
+                                    // The directory where build data was to be saved was not found or unavailable
+                                    catch (System.IO.DirectoryNotFoundException e)
+                                    {
+                                        m_logger.Log("ERROR:  Location " + buildRecordFileName + " is unavailable. Build data has not been saved!");
+                                    }
                                 }
-                                // The directory where build data was to be saved was not found or unavailable
-                                catch (System.IO.DirectoryNotFoundException e)
-                                {
-                                    m_logger.Log("ERROR:  Location " + bomFileName + " is unavailable. Build data has not been saved!");
+                                else
+                                {   // Improperly formatted BOM file
+                                    m_logger.Log("ERROR:  Improperly formatted BOM file - missing BOM header record line (BH)");
+                                    processingResult = "x";
                                 }
                             }
-                            else
-                            {   // Improperly formatted BOM file
-                                m_logger.Log("ERROR:  Improperly formatted BOM file - missing BOM header record line (BH)");
-                                processingResult = "x";
-                            }
+                        }
+                        else
+                        {   // Improperly formatted BOM file
+                            m_logger.Log("ERROR:  Improperly formatted BOM file - missing file record header line (FH)");
+                            processingResult = "x";
                         }
                     }
                     else
-                    {   // Improperly formatted BOM file
-                        m_logger.Log("ERROR:  Improperly formatted BOM file - missing file record header line (FH)");
-                        processingResult = "x";
+                    {
+                        m_logger.Log("ERROR:  Unable to read from File: " + file);
                     }
                 reader.Close();
             }
@@ -506,24 +558,6 @@ namespace BomFileProcessor
             }
         }
 
-        /// <summary>
-        /// Display a folder browser dialog to allow the user to select the vehicle build 
-        /// file folder.
-        /// </summary>
-        private void SetVehicleBuildDirectory()
-        {
-            FolderBrowserDialog dlg = new FolderBrowserDialog();
-            dlg.Description = "Select build file location";
-            dlg.ShowNewFolderButton = true;
-            dlg.SelectedPath = BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory;
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {   // Store the new location
-                BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory = dlg.SelectedPath;
-                BomFileProcessor.Properties.Settings.Default.Save();
-                VehicleBuildDirectory = dlg.SelectedPath;
-            }
-        }
-
         // ----------------------------------------------------------------------------------------
         // Callback Functions
         // ----------------------------------------------------------------------------------------
@@ -631,18 +665,6 @@ namespace BomFileProcessor
             {
                 m_logger.Log("INFO:  Found " + Convert.ToString(newFiles.Count()) + " new BOM file(s)");
                 System.Threading.Thread.Sleep(30000);
-                //DirectoryInfo di = new DirectoryInfo(BomDirectory);
-                //DateTime dt = di.LastWriteTime;
-                //System.Threading.Thread.Sleep(250);
-                //di = new DirectoryInfo(BomDirectory);
-                //ensure file transfer is complete
-                //while (di.LastWriteTime != dt)
-               // {
-               //     m_logger.Log("INFO:  Waiting for complete file transfer");
-               //     di = new DirectoryInfo(BomDirectory);
-               //     dt = di.LastWriteTime;
-               //     System.Threading.Thread.Sleep(250);                    
-               // }
                 foreach (String file in newFiles)
                 {   // Process the new files
                     //confirm file transfer is complete by attempting to open file
@@ -658,6 +680,28 @@ namespace BomFileProcessor
                     }
                 }
                 m_logger.Log("INFO:  Done processing BOM files");
+
+                try
+                {
+                    String[] transferFiles = Directory.GetFiles(BomFileProcessor.Properties.Settings.Default.VehicleBuildTempDirectory);
+                    if (transferFiles.Count() > 0)
+                    {   // Process the CCRT generated pass confirmation files
+                        m_logger.Log("INFO: Transfering " + Convert.ToString(transferFiles.Count()) + " Build File(s)");
+                        // Process each file
+                        if (m_buildRecordFileMonitor.UploadToSources(transferFiles.ToList()))
+                        {
+                            m_logger.Log("INFO:  Build file Transmit Successful");
+                        }
+                        else
+                        {
+                            m_logger.Log("INFO:  Build file Transmit Error, Retransmitting...");
+                        }
+                    }
+                }
+                catch (System.IO.IOException ex)
+                {
+                    m_logger.Log("ERROR: IOException accessing file or folder - " + ex.Message);
+                }
             }
             // Start the timer again
             m_fileCheckTimer.Start();
@@ -748,35 +792,16 @@ namespace BomFileProcessor
                     m_logger.Log("INFO: Found " + Convert.ToString(newFiles.Count()) + " new ESN File(s)");
                     System.Threading.Thread.Sleep(3000);   // Make sure any current files are closed
                     // Process each esn file
-                    foreach (String file in newFiles)
+                    if (m_engineSerialNumberFileMonitor.UploadToSources(newFiles.ToList()))
                     {
-                        String dest = BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
-                        try
-                        {
+                        m_logger.Log("INFO:  ESN Transmit Successful");
 
-                                if (System.IO.File.Exists(dest))
-                                {
-                                    File.Delete(dest);
-                                }
-                                File.Copy(file, dest);
-                                if (System.IO.File.Exists(dest))
-                                {//file successfully copied, delete local
-                                    File.Delete(file);
-                                }
-                                m_logger.Log("INFO: Moved " + file + " to " + dest);                            
-                        }
-                        catch (NotSupportedException excpt)
-                        {
-                            m_logger.Log("ERROR: NotSupportedException attempting to move esn file - " + excpt.Message);
-                        }
-                        //delete oldest file in directory
-                        DirectoryInfo destDI = new DirectoryInfo(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation);
-                        if (destDI.GetFiles().Count() > 1000)
-                        {
-                            var oldestFile2 = destDI.GetFiles().OrderBy(f => f.CreationTime).First();
-                            m_logger.Log("Deleting oldest esn file - " + destDI.FullName + "\\" + oldestFile2);
-                            File.Delete(destDI.FullName + "\\" + oldestFile2);
-                        }
+                        //delete oldest files if max exceeded
+                        m_engineSerialNumberFileMonitor.ManageRemoteLocationFileCount(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation, 1000);
+                    }
+                    else
+                    {
+                        m_logger.Log("INFO:  ESN Transmit Error, Retransmitting...");
                     }
                 }
             }
@@ -797,14 +822,14 @@ namespace BomFileProcessor
         {
             PassConfirmationFileSetupForm frm = new PassConfirmationFileSetupForm();
             frm.ShowDialog();
-            if (BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles)
-            {
-                m_passFileCheckTimer.Start();
-            }
-            else
-            {
-                m_passFileCheckTimer.Stop();
-            }
+            //if (BomFileProcessor.Properties.Settings.Default.CheckForPassConfirmationFiles)
+            //{
+            //    m_passFileCheckTimer.Start();
+            //}
+            //else
+            //{
+            //    m_passFileCheckTimer.Stop();
+            //}
         }
 
         /// <summary>
@@ -848,15 +873,7 @@ namespace BomFileProcessor
             upc.ShowDialog();
         }
 
-        /// <summary>
-        /// Allow the user to select a new location for the vehicle build files.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void vehcleBuildFileFolderToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetVehicleBuildDirectory();
-        }
+
 
         /// <summary>
         /// Display the current log file in the log viewer form.
@@ -1020,6 +1037,11 @@ namespace BomFileProcessor
         /// </summary>
         private VehicleOptionCollection m_retRollPressures;
 
+        private BomFtpFileMonitor m_dvtPassConfirmationMonitor;
+        private BomFtpFileMonitor m_ecmPassConfirmationMonitor;
+        private BomFtpFileMonitor m_engineSerialNumberFileMonitor;
+        private BomFtpFileMonitor m_buildRecordFileMonitor;
+
         /// <summary>
         /// ESN Settings.
         /// </summary>
@@ -1032,5 +1054,39 @@ namespace BomFileProcessor
 
         }
 
+        private void BomProcessorMainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            m_dvtPassConfirmationMonitor.StopFileMonitorThread();
+            m_ecmPassConfirmationMonitor.StopFileMonitorThread();
+            m_engineSerialNumberFileMonitor.StopFileMonitorThread();
+            m_buildRecordFileMonitor.StopFileMonitorThread();
+        }
+
+    }
+    public class BomFtpFileMonitor : FtpFileMonitor
+    {
+                public BomFtpFileMonitor(string source, string target, string temp, int fileCheckInterval,
+            string userLogin, string password, string ftpServerIp,Logger logger, string fileMask = "*")
+            : base(source, target, temp, fileCheckInterval,
+                userLogin, password, ftpServerIp,fileMask)
+        {
+            m_logFunction = logger;
+        }
+                public BomFtpFileMonitor(List<string> remoteLocations, string localLocation, List<string> userLogins,
+            List<string> passwords, List<string> ftpServerIps, Logger logger, string fileMask = "*")
+            : base(remoteLocations, localLocation, userLogins, passwords, ftpServerIps,fileMask)
+        {
+            m_logFunction = logger;
+        }
+
+        public override void Log(string message)
+        {
+            if (message.Contains("INFO:"))
+            {
+                m_logFunction.Log(message);
+            }
+        }
+
+        Logger m_logFunction;
     }
 }

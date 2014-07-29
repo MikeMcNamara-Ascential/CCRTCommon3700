@@ -153,11 +153,20 @@ namespace BomFileProcessor
             List<FileInfo> fileList = LogFileListing();
             if (fileList.Count > 10)
             {   // more than 10 log files, get rid of the older log files
-                for (int index = 10; index <= fileList.Count; index++)
+                try
                 {
-                    File.Delete(fileList.ToArray()[index].Name);
-                    Log("Removed old log file: " + fileList.ToArray()[index].Name);
-                    fileList.Remove(fileList.ToArray()[index]);
+                    for (int index = 10; index < fileList.Count; index++)
+                    {
+                        File.Delete(fileList.ToArray()[index].Name);
+                        Log("Removed old log file: " + fileList.ToArray()[index].Name);
+                        // No need to remove from the list since the list is temprary.
+                        // Plus removing from the list changes the size of the list and leads to exceptions
+                        // and other bad things.
+                        //                    fileList.Remove(fileList.ToArray()[index]);
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {   // Nothing special to do
                 }
             }
         }

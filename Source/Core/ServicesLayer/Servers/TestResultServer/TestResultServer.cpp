@@ -1787,7 +1787,7 @@ string TestResultServer::ProcessTestResults(void)
             // Convert the current time to a string
             strftime(timeBuffer, sizeof(timeBuffer), "%Y%m%d%H%M%S", currentTime);
             timeBuffer[14] = '\0';
-            string result = !result.compare(BEP_PASS_RESPONSE) ? "PASS" : "FAIL";
+            result = !result.compare("Pass") ? "PASS" : "FAIL";
 
                 Log(LOG_DEV_DATA, "Writing date %s%s to pass confirmation file", timeBuffer, result.c_str());
                 //Write the timestamp and the test result to the test result file

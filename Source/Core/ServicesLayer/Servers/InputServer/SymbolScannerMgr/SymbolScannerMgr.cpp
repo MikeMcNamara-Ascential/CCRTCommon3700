@@ -632,19 +632,31 @@ void SymbolScannerMgr::ProcessTwoDimensionalBarcode(const SerialString_t &barcod
         {
             startIndexOverride = startIndex;
         }
-        string data = string((char *)&barcodeData[startIndexOverride], length);
-        // Write the data to the system
-        m_dataBroker->Write(iter->second->getValue(), data, response, true);
-        Log(LOG_DEV_DATA, "Processed %s:%s - %s", 
-            iter->second->getName().c_str(), iter->second->getValue().c_str(), data.c_str());
-        if(!iter->second->getAttribute("DisplayTag")->getValue().empty())
+        if (startIndexOverride + length <= byteCount)
         {
-            m_dataBroker->Write(iter->second->getAttribute("DisplayTag")->getValue(), data, response, true);
-            Log(LOG_DEV_DATA, "Updated display tag: %s - %s", 
-                iter->second->getAttribute("DisplayTag")->getValue().c_str(), data.c_str());
+
+            string data = string((char *)&barcodeData[startIndexOverride], length);
+            // Write the data to the system
+            m_dataBroker->Write(iter->second->getValue(), data, response, true);
+            Log(LOG_DEV_DATA, "Processed %s:%s - %s", 
+                iter->second->getName().c_str(), iter->second->getValue().c_str(), data.c_str());
+            if(!iter->second->getAttribute("DisplayTag")->getValue().empty())
+            {
+                m_dataBroker->Write(iter->second->getAttribute("DisplayTag")->getValue(), data, response, true);
+                Log(LOG_DEV_DATA, "Updated display tag: %s - %s", 
+                    iter->second->getAttribute("DisplayTag")->getValue().c_str(), data.c_str());
+            }
+            // Update the start index to the next data item
+            startIndex += length;
+
         }
-        // Update the start index to the next data item
-        startIndex += length;
+        else
+        {
+            Log(LOG_ERRORS, "ERROR Received Incomplete scan -- Byte count: %d, start index: %d length: %d\n", 
+                byteCount,startIndexOverride,length);
+            break;
+        }
+
     }
 }
 

@@ -803,40 +803,41 @@ namespace Common.Lib.Models
             List<byte> txMessage = new List<byte>();
             int retries = 25;
             Status status = Status.ERROR;
-
-            //Write VIN
-            txMessage.Add(0x3B);
-            txMessage.Add(0x90);
-            txMessage.AddRange(
-            m_ecmInterpreter.m_opCodeHandler.stringToASCIIByteArray(m_ecmInterpreter.m_opCodeHandler.GetVIT2Data(0x41)).ToList());
-            foreach (ECUBuildData build in m_buildData)
+            if (m_performECMFlash || m_performTCMFlash)
             {
-                if (build.ProgrammingSuccess)
-                {//only send message if ecu was successfully flashed
-                    status = Status.ERROR;
-                    m_logger.Log("INFO:  Sending Write VIN Message");
-                    //retries to allow time for VIN message to respond
-                    for (int x = 0; x < retries && status != Status.SUCCESS; x++)
-                    {
-                        status = SendMessage(build, txMessage, true);
-                        Thread.Sleep(250);
+                //Write VIN
+                txMessage.Add(0x3B);
+                txMessage.Add(0x90);
+                txMessage.AddRange(
+                m_ecmInterpreter.m_opCodeHandler.stringToASCIIByteArray(m_ecmInterpreter.m_opCodeHandler.GetVIT2Data(0x41)).ToList());
+                foreach (ECUBuildData build in m_buildData)
+                {
+                    if (build.ProgrammingSuccess)
+                    {//only send message if ecu was successfully flashed
+                        status = Status.ERROR;
+                        m_logger.Log("INFO:  Sending Write VIN Message");
+                        //retries to allow time for VIN message to respond
+                        for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                        {
+                            status = SendMessage(build, txMessage, true);
+                            Thread.Sleep(250);
+                        }
+                        if (status == Status.SUCCESS)
+                        {
+                            m_logger.Log("INFO:  Write VIN Message Successful");
+                        }
+                        else
+                        {
+                            m_logger.Log("INFO:  Write VIN Message Failure");
+                            build.VinWriteSuccess = false;
+                        }
                     }
-                    if (status == Status.SUCCESS)
-                    {
-                        m_logger.Log("INFO:  Write VIN Message Successful");
-                    }
-                    else
-                    {
-                        m_logger.Log("INFO:  Write VIN Message Failure");
-                        build.VinWriteSuccess = false;
-                    }
-                }                
-            }
-            if (m_buildData[0].ESNWriteRequired)
-            {
-                if (m_buildData[0].ProgrammingSuccess && m_performECMFlash)
-                {// ECM flash successful and model requires ESN write
-                    string esn = m_buildData[0].EngineSerialNumber;
+                }
+                if (m_buildData[0].ESNWriteRequired)
+                {
+                    if (m_buildData[0].ProgrammingSuccess && m_performECMFlash)
+                    {// ECM flash successful and model requires ESN write
+                        string esn = m_buildData[0].EngineSerialNumber;
                         //write ESN
                         txMessage.Clear();
                         status = Status.ERROR;
@@ -847,7 +848,7 @@ namespace Common.Lib.Models
                         if (esn.Length < 17)
                         {
                             for (int x = esn.Length; x < 17; x++)
-                            txMessage.Add(0x00);
+                                txMessage.Add(0x00);
                         }
                         txMessage.AddRange(
                         m_ecmInterpreter.m_opCodeHandler.stringToASCIIByteArray(esn).ToList());
@@ -872,50 +873,51 @@ namespace Common.Lib.Models
                             m_logger.Log("INFO:  Write ESN Message Failure");
                             m_buildData[0].SerialNumberWriteSuccess = false;
                         }
+                    }
+                    else
+                    {
+                        m_logger.Log("INFO:  ECM Not Flashed Do not write ESN");
+                    }
                 }
                 else
                 {
-                    m_logger.Log("INFO:  ECM Not Flashed Do not write ESN");
+                    m_logger.Log("INFO:  No ESN Write Required");
                 }
-            }
-            else
-            {
-                m_logger.Log("INFO:  No ESN Write Required");
-            }
 
-            m_logger.Log("INFO:  Sending Message Return to normal mode");
-            txMessage.Clear();
-            txMessage.Add(0x20);
-            status = Status.ERROR;
-            for (int x = 0; x < retries && status != Status.SUCCESS; x++)
-            {
-                status = SendMessage(txMessage, true);
-                Thread.Sleep(250);
-            }
-          
-            txMessage.Clear();
+                m_logger.Log("INFO:  Sending Message Return to normal mode");
+                txMessage.Clear();
+                txMessage.Add(0x20);
+                status = Status.ERROR;
+                for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                {
+                    status = SendMessage(txMessage, true);
+                    Thread.Sleep(250);
+                }
 
-            //all nodes disable DTCs
-            m_logger.Log("INFO:  Sending Message Return to normal mode");
-            txMessage.Clear();
-            txMessage.Add(0x20);
-            status = Status.ERROR;
-            for (int x = 0; x < retries && status != Status.SUCCESS; x++)
-            {
-                status = SendMessage(txMessage, true);
-                Thread.Sleep(250);
+                txMessage.Clear();
+
+                //all nodes disable DTCs
+                m_logger.Log("INFO:  Sending Message Return to normal mode");
+                txMessage.Clear();
+                txMessage.Add(0x20);
+                status = Status.ERROR;
+                for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                {
+                    status = SendMessage(txMessage, true);
+                    Thread.Sleep(250);
+                }
+                //all nodes clear faults
+                m_logger.Log("INFO:  Sending Message Clear faults");
+                txMessage.Clear();
+                txMessage.Add(0xFD);
+                txMessage.Add(0x04);
+                CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+                message = CreateAllNodesMessage(txMessage);
+                message.m_responseExpected = false;
+                message.m_rxTimeout = 100;
+                List<List<byte>> datalist = new List<List<byte>>();
+                m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref datalist, true);
             }
-            //all nodes clear faults
-            m_logger.Log("INFO:  Sending Message Clear faults");
-            txMessage.Clear();
-            txMessage.Add(0xFD);
-            txMessage.Add(0x04);
-            CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
-            message = CreateAllNodesMessage(txMessage);
-            message.m_responseExpected = false;
-            message.m_rxTimeout = 100;
-            List<List<byte>> datalist = new List<List<byte>>();
-            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref datalist, true);
         }
         public string GetESN(string vin, string esnDirectory)
         {
@@ -1358,8 +1360,8 @@ namespace Common.Lib.Models
                         {
                             pass = true;
                         }
-                    }
-                    if (!pass)
+                    }//if no flash performed, fail
+                    if (!pass || (!m_performTCMFlash && !m_performECMFlash))
                     {
                         //programming failed
                         SetPrompt1BGColor(Color.Red);

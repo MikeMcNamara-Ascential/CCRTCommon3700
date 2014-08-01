@@ -47,11 +47,11 @@ namespace BomFileProcessor
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFlashTransferLocation);
 
             List<string> users = new List<string>();
-            users.Add("burke");
+            users.Add("ccrtfp");
             users.Add("burke");
 
             List<string> passwords = new List<string>();
-            passwords.Add("porter");
+            passwords.Add("ccrtfp");
             passwords.Add("porter");
 
             List<string> ipaddresses = new List<string>();

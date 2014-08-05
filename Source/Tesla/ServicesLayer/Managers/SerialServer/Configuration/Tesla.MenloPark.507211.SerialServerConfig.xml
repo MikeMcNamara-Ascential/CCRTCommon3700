@@ -40,7 +40,7 @@
                      <Logging>
                         <ProcessName>CANLeft</ProcessName>
                         <AdditionalLogFile>/Communication/GryphonCANCommLeft.log</AdditionalLogFile>
-                        <Status>Enabled</Status>
+                        <Status>Disabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
                         <Verbose>0x1F</Verbose>
                         <Debug>Off</Debug>

@@ -30,7 +30,7 @@
                 <Logging>
                      <ProcessName>logport/GryphonCANLeft</ProcessName>
                      <AdditionalLogFile>/Communication/GryphonCANLeft.log</AdditionalLogFile>
-                     <Status>Enabled</Status>
+                     <Status>Disabled</Status>
                    <LocalEcho>Disabled</LocalEcho>
                      <Verbose>0x3F</Verbose>
                 </Logging>

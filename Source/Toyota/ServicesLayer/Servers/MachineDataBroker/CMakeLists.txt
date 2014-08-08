@@ -22,6 +22,8 @@ FILE(GLOB TOYOTA_MDB_SOURCES *.cpp)
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
 ADD_EXECUTABLE(${EXE_NAME} ${TOYOTA_MDB_SOURCES})
+CREATE_QXE(${EXE_NAME} ${TOYOTA_MDB_SOURCES})
+TARGET_LINK_LIBRARIES(${EXE_NAME} m -lds -lm)
 
 #------------------------------------------------------------------------------------------
 # Link against the core lib

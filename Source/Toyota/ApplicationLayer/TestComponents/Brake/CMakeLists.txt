@@ -26,6 +26,7 @@ SET(USE_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/${EXE_NAME}Main.cpp)
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
 CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp ToyotaBrakeTC.cpp)
+TARGET_LINK_LIBRARIES(${EXE_NAME} m -lds -lm)
 
 #------------------------------------------------------------------------------------------
 # Tell CMake where to install the executable

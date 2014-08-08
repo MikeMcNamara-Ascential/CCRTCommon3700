@@ -57,6 +57,17 @@ protected:
 private:
 
 	/**
+	 * Get/Set the length of the barcode that indicates if the vehicle is equipped
+	 * with RWAL.
+	 * 
+	 * @param barcodeLength
+	 *               RWAL equipped barcode length.
+	 * 
+	 * @return RWAL equipped barcode length.
+	 */
+	const INT8& RwalEquippedBarcodeLength(const INT8 *barcodeLength = NULL);
+
+	/**
 	 * Get/Set the position of the vehicle type character in the scanned data string.
 	 * 
 	 * @param position Position of the vehicle type character in the scanned data string.
@@ -69,6 +80,9 @@ private:
 	UINT8 m_vehicleTypePosition;
 	// Map of the code to vehicle type data so the VIN can be picked out correctly
 	XmlNodeMap m_vehicleTypeCodes;
+
+	// Barcode length for RWAL equipped vehicles
+	INT8 m_rwalEquippedBarcodeLength;
 
 };
 //-------------------------------------------------------------------------------------------------

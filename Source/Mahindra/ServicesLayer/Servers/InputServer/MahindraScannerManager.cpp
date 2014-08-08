@@ -36,6 +36,18 @@ void MahindraScannerManager::Initialize(const XmlNode *document)
 {   // Call the base class to begin the initialization
 	SymbolScannerMgr::Initialize(document);
 	Log(LOG_FN_ENTRY, "MahindraScannerManager::Initialize() - Enter");
+	// Store the rwal equipped data length
+	INT8 bcodeLength = 0;
+	try
+	{ 
+		bcodeLength = BposReadInt(document->getChild("Setup/Parameters/RWalEquippedBarcodeLength")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_DEV_DATA, "RWAL Barcode length not specified, no RWAL vehicles will be identified - %s", excpt.GetReason());
+		bcodeLength = -1;
+	}
+	RwalEquippedBarcodeLength(&bcodeLength);
 	// Store the vehicle type character position
 	UINT8 position = 0;
 	try
@@ -64,7 +76,12 @@ void MahindraScannerManager::Initialize(const XmlNode *document)
 //-------------------------------------------------------------------------------------------------
 void MahindraScannerManager::ProcessTwoDimensionalBarcode(const SerialString_t &barcodeData, 
 														  const INT32 &byteCount)
-{   // First determine which vehicle type this is
+{   // Determine if the vehicle is equipped with RWAL
+	string response;
+	bool isRwalEquipped = (barcodeData.length() >= RwalEquippedBarcodeLength());
+	m_dataBroker->Write(GetDataTag("RwalEquippedTag"), isRwalEquipped ? "1" : "0", response, true);
+	Log(LOG_DEV_DATA, "RWAL Equipped: %s", isRwalEquipped ? "True" : "False");
+	// Next determine which vehicle type this is
 	string code((char *)&barcodeData[VehicleTypePosition()], 1);
 	XmlNodeMapItr iter = m_vehicleTypeCodes.find(code);
 	string vehicleType;
@@ -91,7 +108,6 @@ void MahindraScannerManager::ProcessTwoDimensionalBarcode(const SerialString_t &
 		}
 		vin = string((char *)&barcodeData[startIndex], length);
 		// Write the VIN
-		string response;
 		Log(LOG_DEV_DATA, "Writing VIN %s for vehicle type %s", vin.c_str(), vehicleType.c_str());
 		m_dataBroker->Write(NEXT_VIN_DATA_TAG, vin, response, true);
 		m_dataBroker->Write(VINDISPLAY_DATA_TAG, vin, response, true);
@@ -101,6 +117,13 @@ void MahindraScannerManager::ProcessTwoDimensionalBarcode(const SerialString_t &
 	{
 		Log(LOG_ERRORS, "VIN location data not defined for %s", vehicleType.c_str());
 	}
+}
+
+//-------------------------------------------------------------------------------------------------
+const INT8& MahindraScannerManager::RwalEquippedBarcodeLength(const INT8 *barcodeLength /*= NULL*/)
+{
+	if(barcodeLength != NULL)   m_rwalEquippedBarcodeLength = *barcodeLength;
+	return m_rwalEquippedBarcodeLength;
 }
 
 //-------------------------------------------------------------------------------------------------

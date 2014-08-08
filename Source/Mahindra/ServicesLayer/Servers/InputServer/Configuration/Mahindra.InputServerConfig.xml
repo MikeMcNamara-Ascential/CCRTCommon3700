@@ -205,6 +205,7 @@
                 <Setup>
                     <DataTags>
                         <ZtsCodeTag>ZTSCode</ZtsCodeTag>
+                        <RwalEquippedTag>ABSTestSelectedToPLC</RwalEquippedTag>
                     </DataTags>
                     <Communication>
                         <Debug>Off</Debug>
@@ -258,6 +259,7 @@
                         </Setup>
                     </ScannerCommunication>
                     <Parameters>
+                        <RWalEquippedBarcodeLength>33</RWalEquippedBarcodeLength>
                         <VehicleTypePosition>17</VehicleTypePosition>
                         <VehicleCodes>
                             <U>Xylo</U>

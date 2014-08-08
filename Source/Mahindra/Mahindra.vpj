@@ -865,6 +865,13 @@
 					</Folder>
 					<F N="ServicesLayer/Managers/ICM/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="PlcMgr">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/Mahindra.SerialPlcConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Managers/PlcMgr/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="SerialServer">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/CMakeLists.txt"/>
@@ -905,6 +912,13 @@
 						<F N="ServicesLayer/Servers/MotorController/Configuration/Mahindra.AB700MotorControllerConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/MotorController/CMakeLists.txt"/>
+				</Folder>
+				<Folder Name="NameDataBroker">
+					<Folder Name="Configuration">
+						<F N="ServicesLayer/Servers/NameDataBroker/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/NameDataBroker/Configuration/Mahindra.NDBConfig.xml"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/NameDataBroker/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="PlantHostInbound">
 					<Folder Name="Configuration">

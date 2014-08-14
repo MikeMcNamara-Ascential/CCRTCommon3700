@@ -160,7 +160,6 @@
          <TestStep30>EngageMachine</TestStep30>
          <TestStep40>ConnectCable</TestStep40>
          <TestStep50>SelectDriverSide</TestStep50>
-         <TestStep50>PromptDriverAlways</TestStep50>
       </Initialize>
       <InitializeNoCableConnect>
          <TestStep10>Initialize</TestStep10>

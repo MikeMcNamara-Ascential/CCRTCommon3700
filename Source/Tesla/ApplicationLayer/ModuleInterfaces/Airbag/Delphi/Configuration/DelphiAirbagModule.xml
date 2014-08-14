@@ -19,7 +19,7 @@
       <KeepAliveResponseTime>500</KeepAliveResponseTime>
       <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
       <ModuleRequestID>0x641</ModuleRequestID>
-      <ModuleResponseDelay>500</ModuleResponseDelay>
+      <ModuleResponseDelay>750</ModuleResponseDelay>
       <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
       <NegativeResponseValue>0x7F</NegativeResponseValue>
       <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>

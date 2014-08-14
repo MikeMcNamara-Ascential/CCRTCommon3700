@@ -68,7 +68,7 @@
       <TestPhase100 Description="Initialize the machine" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Machine">
-               <InitializeNoCableConnect/>
+               <Initialize/>
             </Objective0>
          </ForegroundObjectives>
       </TestPhase100>

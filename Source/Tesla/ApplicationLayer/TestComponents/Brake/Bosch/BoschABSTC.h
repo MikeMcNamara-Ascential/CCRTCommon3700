@@ -628,8 +628,17 @@ protected:
     string PerformElectricParkBrakeBurnishCycle(void);
 
     string ProgramVIN(void);
+    string ResetVIN(void);
     string LearnPerformanceType(void);
     string TestStepDelay(void);
+
+   /**
+    * Check part number for validity
+    *
+    * @return status string
+    * @note see GenericTC for status tags
+    */
+   virtual string CheckPartNumber(void);
 
 private:
     /**

@@ -176,6 +176,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(step == "StartAbsTest")  status = StartAbsTest();
         else if(step == "CheckModuleType") status = CheckModuleType();
         else if(step == "ProgramVIN") status = ProgramVIN();
+        else if(step == "ResetVIN") status = ResetVIN();
         else if(step == "RunPumpMotor")
         {
             status = RunPumpMotor();
@@ -4369,6 +4370,53 @@ string BoschABSTC<ModuleInterface>::ProgramVIN(void)
 
 //-----------------------------------------------------------------------------
 template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::ResetVIN(void)
+{
+    string testStatus = testFail;
+    BEP_STATUS_TYPE status;
+    string faultTag("CommunicationFailure");
+
+    Log(LOG_FN_ENTRY, "Enter BoschABSTC::ResetVIN()\n");
+    if(ShortCircuitTestStep())
+    {
+        Log(LOG_FN_ENTRY, "Skipping test step BoschABSTC::ResetVin()");
+        testStatus = testSkip;
+    }
+    else
+    {
+        
+
+                try
+                {   // Actually program the vin
+                    status = m_vehicleModule.CommandModule("ResetVIN");
+                    if(status == BEP_STATUS_SUCCESS)
+                    {
+                        testStatus = testPass;
+                        SendTestResult(testPass, GetTestStepInfo("Description"));
+                    }
+                    else
+                    {
+                        testStatus = testFail;
+                        SendTestResultWithDetail(testStatus, GetTestStepInfo("Description"),
+                                                 GetFaultCode(faultTag), GetFaultName(faultTag),
+                                                 GetFaultDescription(faultTag));
+                    }
+                }
+                catch(ModuleException& caughtModuleException)
+                {
+                    Log(LOG_ERRORS, "%s.%s: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(),
+                        caughtModuleException.message().c_str());
+                    testStatus = testFail;
+                }
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "Exit BoschABSTC::ResetVIN(), status=%s\n", testStatus.c_str());
+    // Return the test result
+    return(testStatus);
+} 
+
+//-----------------------------------------------------------------------------
+template <class ModuleInterface>
 string BoschABSTC<ModuleInterface>::LearnPerformanceType(void)
 {
     string testStatus = testFail;
@@ -4470,4 +4518,115 @@ string BoschABSTC<ModuleInterface>::TestStepDelay(void)
     // Return the test result
     return(testStatus);
 } 
+
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::CheckPartNumber(void)
+{
+    string testResult = BEP_TESTING_STATUS;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    string modulePartNumber;
+    string partNumberParameter = GetParameter("ModulePartNumber");
+    vector<UINT8> partNumberChars;
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    // Check if this step needs to be performed
+    Log(LOG_FN_ENTRY, "Enter BoschABSTC::CheckPartNumber()\n");
+    if (!ShortCircuitTestStep())
+    {                       // Do not need to skip
+        try
+        {                    // Read the part number from the module
+            moduleStatus = m_vehicleModule.ReadModuleData(GetDataTag("ReadModulePartNumber"), partNumberChars);
+            for(int ii = 0; ii < partNumberChars.size(); ii++)
+            {
+                modulePartNumber.push_back(partNumberChars[ii]);
+            }
+            // Check the status of the data
+            if (BEP_STATUS_SUCCESS == moduleStatus)
+            {
+                if(GetParameterBool("BypassPartNumberValidation"))
+                {   // Skip Part number verification
+                    Log(LOG_DEV_DATA, "Part number verification bypassed by parameter\n");
+                    testResult = testPass;
+                }
+                else if (GetParameterBool("ValidatePartNumberList"))
+                {   // Verify the module part number against a list of valid part numbers
+                    XmlNodeMapItr iter = m_validPartNumbers.find("PN"+modulePartNumber);
+                    testResult = iter != m_validPartNumbers.end() ? testPass : testFail;
+                    partNumberParameter = iter != m_validPartNumbers.end() ? iter->second->getValue() : "Not Listed";
+                }
+                else if(GetParameterBool("PartNumberCompareByPosition"))
+                {//check positions individually
+                    testResult = testPass;
+                    Log(LOG_DEV_DATA, "Iterate through positions to check\n");
+                    for(XmlNodeMapItr iter = m_partNumberPositionComparison.begin();
+                       (iter != m_partNumberPositionComparison.end());
+                       iter++)
+                    {   // Send individual details
+                        try
+                        {
+                            char broadcastPNChar = partNumberParameter[atoi(iter->second->getAttribute("BroadcastPNCharPos")->getValue().c_str())];
+                            char modulePNChar = modulePartNumber[atoi(iter->second->getAttribute("ModulePNCharPos")->getValue().c_str())];
+                            Log(LOG_DEV_DATA, "broadcastChar = [%c] moduleChar = [%c]\n",broadcastPNChar,modulePNChar);
+                            if(broadcastPNChar != modulePNChar)
+                            {
+                                testResult = testFail;
+                                break;
+                            }
+                        }
+                        catch(XmlException &ex)
+                        {
+                            Log(LOG_ERRORS, "XML Error getting part number characters %s: %s\n", GetProcessName().c_str(), ex.what());
+                        }
+                        Log(LOG_DEV_DATA, "Reporting Module data: %s - Value: %s\n",
+                            iter->second->getName().c_str(), iter->second->getValue().c_str());
+                    }
+
+                }
+                else if (modulePartNumber == partNumberParameter)
+                {              // Part numbers match, test passes
+                    testResult = testPass;
+                }
+                else
+                {              // Part number do not match, test fails
+                    testResult = testFail;
+                }
+                // Log the data
+                Log(LOG_DEV_DATA, "Part Number Verification: %s - Parameter: %s, Module: %s\n",
+                    testResult.c_str(), partNumberParameter.c_str(), modulePartNumber.c_str());
+                testResultCode = (testResult == testPass ? "0000" : GetFaultCode("PartNumberMismatch"));
+                testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("PartNumberMismatch"));
+            }
+            else
+            {                 // Error getting data from the module
+                SetCommunicationFailure(true);
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                Log(LOG_ERRORS, "Error reading module part number - status: %s\n", 
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+        }
+        catch (ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Send the test result
+        SendTestResultWithDetail(testResult, testDescription, testResultCode,
+                                 "ModulePartNumber", modulePartNumber, "",
+                                 "PartNumberParameter", partNumberParameter, "");
+    }
+    else
+    {                       // Need to skip this test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "Exit BoschABSTC::CheckPartNumber()\n");
+    // Return the status
+    return(testResult);
+}
 

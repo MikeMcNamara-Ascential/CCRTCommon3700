@@ -472,13 +472,13 @@
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>CalibrateGSensor</TestStep15>
             <TestStep20>ClearFaults</TestStep20>
+            <TestStep22>ResetVIN</TestStep22>
             <TestStep25>ResetModule</TestStep25>
             <!--TestStep25>CycleIgnition</TestStep25-->
             <TestStep30>EnterDiagnosticMode</TestStep30>
             <TestStep35>EnableElectricVacuumPump</TestStep35>
             <TestStep40>CheckPartNumber</TestStep40>
             <TestStep50>LearnPerformanceType</TestStep50>
-            <TestStep60>ResetVIN</TestStep60>
             <TestStep62>ProgramVIN</TestStep62>
             <TestStep64>CheckVIN</TestStep64>
             <TestStep68>EnterDiagnosticMode</TestStep68>

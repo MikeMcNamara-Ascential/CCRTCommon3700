@@ -4536,9 +4536,18 @@ string BoschABSTC<ModuleInterface>::CheckPartNumber(void)
         try
         {                    // Read the part number from the module
             moduleStatus = m_vehicleModule.ReadModuleData(GetDataTag("ReadModulePartNumber"), partNumberChars);
-            for(int ii = 0; ii < partNumberChars.size(); ii++)
+            try
             {
-                modulePartNumber.push_back(partNumberChars[ii]);
+                Log(LOG_DEV_DATA, "Got back part number with %d characters", partNumberChars.size());
+                for(int ii = 0; ii < partNumberChars.size(); ii++)
+                {
+                    Log(LOG_DEV_DATA, "Adding char %c to part number string", partNumberChars.at(ii));
+                    modulePartNumber.push_back((char)partNumberChars.at(ii));
+                }
+            }
+            catch(...)
+            {
+                Log(LOG_ERRORS, "Error adding characters to module part number string. Current string: %s", modulePartNumber.c_str());
             }
             // Check the status of the data
             if (BEP_STATUS_SUCCESS == moduleStatus)

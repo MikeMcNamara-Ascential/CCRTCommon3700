@@ -2299,7 +2299,7 @@ throw(XmlException)
             if (byteArray.length() > currentPosition)
             {
                 currentByteArray = byteArray.substr(currentPosition);
-                vectorStorage.push_back(intEvaluate(childNodes.getNode(0),byteArray));
+                vectorStorage.push_back(intEvaluate(childNodes.getNode(0),currentByteArray));
                 currentPosition = currentPosition + offset;
             }
             else

@@ -472,6 +472,7 @@
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>CalibrateGSensor</TestStep15>
             <TestStep20>ClearFaults</TestStep20>
+            <TestStep21>EnterDiagnosticMode</TestStep21>
             <TestStep22>ResetVIN</TestStep22>
             <TestStep25>ResetModule</TestStep25>
             <!--TestStep25>CycleIgnition</TestStep25-->

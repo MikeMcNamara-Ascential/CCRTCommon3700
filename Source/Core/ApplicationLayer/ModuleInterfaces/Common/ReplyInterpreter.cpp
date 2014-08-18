@@ -2196,7 +2196,7 @@ throw(XmlException)
             if (byteArray.length() > currentPosition)
             {
                 currentByteArray = byteArray.substr(currentPosition);
-                vectorStorage.push_back(strEvaluate(childNodes.getNode(0),byteArray));
+                vectorStorage.push_back(strEvaluate(childNodes.getNode(0),currentByteArray));
                 currentPosition = currentPosition + offset;
             }
             else
@@ -2402,7 +2402,7 @@ throw(XmlException)
             if (byteArray.length() > currentPosition)
             {
                 currentByteArray = byteArray.substr(currentPosition);
-                vectorStorage.push_back(intEvaluate(childNodes.getNode(0),byteArray));
+                vectorStorage.push_back(intEvaluate(childNodes.getNode(0),currentByteArray));
                 currentPosition = currentPosition + offset;
             }
             else
@@ -2505,7 +2505,7 @@ throw(XmlException)
             if (byteArray.length() > currentPosition)
             {
                 currentByteArray = byteArray.substr(currentPosition);
-                vectorStorage.push_back(intEvaluate(childNodes.getNode(0),byteArray));
+                vectorStorage.push_back(intEvaluate(childNodes.getNode(0),currentByteArray));
                 currentPosition = currentPosition + offset;
             }
             else
@@ -2609,7 +2609,7 @@ throw(XmlException)
             if (byteArray.length() > currentPosition)
             {
                 currentByteArray = byteArray.substr(currentPosition);
-        vectorStorage.push_back((INT32) intEvaluate(childNodes.getNode(0),byteArray));
+        vectorStorage.push_back((INT32) intEvaluate(childNodes.getNode(0),currentByteArray));
                 currentPosition = currentPosition + offset;
             }
             else
@@ -2712,7 +2712,7 @@ throw(XmlException)
             if (byteArray.length() > currentPosition)
             {
                 currentByteArray = byteArray.substr(currentPosition);
-        vectorStorage.push_back(fltEvaluate(childNodes.getNode(0),byteArray));
+        vectorStorage.push_back(fltEvaluate(childNodes.getNode(0),currentByteArray));
                 currentPosition = currentPosition + offset;
             }
             else
@@ -2815,7 +2815,7 @@ throw(XmlException)
             if (byteArray.length() > currentPosition)
             {
                 currentByteArray = byteArray.substr(currentPosition);
-                vectorStorage.push_back(fltEvaluate(childNodes.getNode(0),byteArray));
+                vectorStorage.push_back(fltEvaluate(childNodes.getNode(0),currentByteArray));
                 currentPosition = currentPosition + offset;
             }
             else

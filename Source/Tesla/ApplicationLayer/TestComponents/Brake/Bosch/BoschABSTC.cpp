@@ -112,6 +112,10 @@ BoschABSTC<ModuleType>::BoschABSTC() : KoreaAbsTcTemplate<ModuleType>()
 {
     m_ESPIndex = new BuildReductionIndex[RRWHEEL+1];
     m_isFourChannelSystem = true;
+    m_lfWssPass = false;
+    m_rfWssPass = false;
+    m_lrWssPass = false;
+    m_rrWssPass = false;
 }
 
 template <class ModuleType>
@@ -4636,6 +4640,595 @@ string BoschABSTC<ModuleInterface>::CheckPartNumber(void)
     // Log the function exit
     Log(LOG_FN_ENTRY, "Exit BoschABSTC::CheckPartNumber()\n");
     // Return the status
+    return(testResult);
+}
+
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::LFSensorTest(void)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    string testResult      = BEP_TESTING_STATUS;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    float rollSpeeds[4];
+    WheelSpeeds_t moduleSpeeds;
+
+    // delay time before starting the roll
+    UINT32 startDelay = GetParameterInt("SensorTestStartDelay");
+    // sensor test speed
+    std::string sensorTestSpeed = GetParameter("SensorTestSpeed");
+    float sensorTestSpeedVal = GetParameterFloat("SensorTestSpeed");
+
+    Log(LOG_DEV_DATA, "BoschABSTC::LFSensorTest - Enter\n");
+
+    if(ShortCircuitTestStep())
+    {
+        testResult = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping LFSensorTest()");
+    }
+    else if(GetParameterBool("SkipPassedSensorRetest") && IsRetest() && ((GetTestStepResult() == testPass) || (GetTestStepResult() == testSkip)))
+    {
+        Log(LOG_FN_ENTRY, "SkipPassedSensorRetest=%d, skipping LFSensorTest() using previous status, %s\n", GetParameterBool("SkipPassedSensorRetest"),GetTestStepResult().c_str());
+        testResult = GetTestStepResult();
+    }
+    else
+    {
+        try
+        {
+            UpdatePrompts();        // "Shift to neutral and release brake"
+            BposSleep(startDelay);     // give driver time to shift
+    
+            if(!SystemRead(MACHINE_TYPE).compare("3700"))
+            {
+                // Store the oringinal drive axle
+                string driveAxle(SystemRead(DRIVE_AXLE_TAG));
+                OriginalDriveAxle(&driveAxle);
+                // Switch the drive axle, but make sure we believe in the real drive axle
+                SystemWrite(DRIVE_AXLE_TAG, string(REAR_WHEEL_DRIVE_VALUE));
+                BposSleep(1000);
+                SetData(DRIVE_AXLE_TAG, OriginalDriveAxle());
+                // Command all rolls to speed mode
+                m_MotorController.Write(std::string("LeftFrontMotorMode"),std::string("Speed"), false);
+                m_MotorController.Write(std::string("RightFrontMotorMode"),std::string("Speed"), false);
+                // Command the left front roll to the sensor test speed
+                m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightFrontSpeedValue"),std::string("0"), true);
+            }
+            else
+            {   // Command all rolls to speed mode
+                m_MotorController.Write(std::string("LeftFrontMotorMode"),std::string("Speed"), false);
+                m_MotorController.Write(std::string("RightFrontMotorMode"),std::string("Speed"), false);
+                m_MotorController.Write(std::string("LeftRearMotorMode"),std::string("Speed"), false);
+                m_MotorController.Write(std::string("RightRearMotorMode"),std::string("Speed"), false);
+                // Command the left front roll to the sensor test speed
+                m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightFrontSpeedValue"),std::string("0"), false);
+                m_MotorController.Write(std::string("LeftRearSpeedValue"),std::string("0"), false);
+                m_MotorController.Write(std::string("RightRearSpeedValue"),std::string("0"), true);
+            }
+    
+            std::string tag, value;
+            while (m_MotorController.GetNext(tag, value) > 0)
+            {
+                Log("Tag: %s, value: %s\n", tag.c_str(), value.c_str());
+            }
+    
+            // wait for the left front roll to reach the sensor test speed
+            rollSpeeds[ 0] = 0;
+            while (rollSpeeds[0] < (sensorTestSpeedVal - 2))
+            {
+                BposSleep(100);
+                m_baseBrakeTool->GetISpeeds(rollSpeeds);
+                if (!TimeRemaining() || StatusCheck() != BEP_STATUS_SUCCESS) break;
+            }
+    
+            // Ask the module for sensor speeds
+            status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+    
+            if (status == BEP_STATUS_SUCCESS) // if sensors read successfully
+            {
+                // check front sensor cross side to side
+                if ((moduleSpeeds[LFWHEEL] <= moduleSpeeds[RFWHEEL]) && !GetParameterBool("WSSToleranceOnly"))
+                {
+                    testResult = testFail;
+                }
+                else if(GetParameterBool("CombinedWSSTests") || GetParameterBool("WSSToleranceOnly"))
+                {
+                    float upperLimit = rollSpeeds[LFWHEEL] + ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[LFWHEEL]);
+                    float lowerLimit = rollSpeeds[LFWHEEL] - ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[LFWHEEL]);
+                    testResult = ((moduleSpeeds[LFWHEEL] < upperLimit) &&
+                                  (moduleSpeeds[LFWHEEL] > lowerLimit) ?
+                                  testPass : testFail);
+                    m_lfWssPass = true;
+                    Log(LOG_DEV_DATA, "Sensor test: %s - sensor speed: %.2f, upper limit: %.2f, lower limit: %.2f - Result: %s",
+                        rollerName[LFWHEEL].c_str(), moduleSpeeds[LFWHEEL], upperLimit, lowerLimit,
+                        testResult.c_str());
+
+                    string description = "";
+                    if(!m_lfWssPass) description = "Left Front WSS speed out of tolerance";
+
+                    char buff[16];
+                    SendSubtestResultWithDetail("LFSensorToleranceTest", testResult, description, "", 
+                                                "RollSpeed", CreateMessage(buff, sizeof(buff), "%.2f", rollSpeeds[LFWHEEL]), "", 
+                                                "SensorSpeed", CreateMessage(buff, sizeof(buff), "%.2f", moduleSpeeds[LFWHEEL]), "", 
+                                                "UpperLimit", CreateMessage(buff, sizeof(buff), "%.2f", upperLimit), "", 
+                                                "LowerLimit",CreateMessage(buff, sizeof(buff), "%.2f", lowerLimit), "");
+                }
+                else testResult   = testPass;
+            }
+            else                 // error reading the sensors
+            {
+                SetCommunicationFailure(true);     // set comm fault flag
+                testResult = testFail;
+                testDescription = GetFaultDescription("CommunicationFailure");
+            }
+        }
+        catch (ModuleException &excpt)
+        {
+            Log(LOG_ERRORS, "ModuleException during %s: %s\n", GetTestStepName().c_str(), excpt.GetReason());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+    
+        if (testResult == testPass)    // if the test step passed
+        {
+            SendTestResult(testPass,testDescription);
+        }
+        else                    // test step failed
+        {
+            if (GetCommunicationFailure() == false)   // if no comm error
+            {
+                SendTestResultWithDetail(testResult,testDescription,
+                                         GetFaultCode(testDescription),
+                                         "LeftFrontSensorFail",
+                                         GetFaultDescription(testDescription));
+            }
+        }
+    }
+
+    Log(LOG_DEV_DATA, "BoschABSTC::LFSensorTest - Exit %s\n",testResult.c_str());
+
+    return(testResult);
+}
+
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::RFSensorTest(void)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    string testResult      = BEP_TESTING_STATUS;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    float rollSpeeds[4];
+    WheelSpeeds_t moduleSpeeds;
+
+    // sensor test speed
+    std::string sensorTestSpeed = GetParameter("SensorTestSpeed");
+    float sensorTestSpeedVal = GetParameterFloat("SensorTestSpeed");
+
+    Log(LOG_DEV_DATA, "BoschABSTC::RFSensorTest - Enter\n");
+
+    if(ShortCircuitTestStep())
+    {
+        testResult = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping RFSensorTest()");
+    }
+    else if(GetParameterBool("SkipPassedSensorRetest") && IsRetest() && ((GetTestStepResult() == testPass) || (GetTestStepResult() == testSkip)))
+    {
+        Log(LOG_FN_ENTRY, "SkipPassedSensorRetest=%d, skipping RFSensorTest() using previous status, %s\n", GetParameterBool("SkipPassedSensorRetest"),GetTestStepResult().c_str());
+        testResult = GetTestStepResult();
+    }
+    else
+    {
+        try
+        {
+            UpdatePrompts();        // "Shift to neutral and release brake"
+    
+            if(!SystemRead(MACHINE_TYPE).compare("3700"))
+            {
+                // Command the right front roll to the sensor test speed
+                m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, true);
+            }
+            else
+            {
+                // Command the right front roll to the sensor test speed
+                m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("LeftRearSpeedValue"),std::string("0"), false);
+                m_MotorController.Write(std::string("RightRearSpeedValue"),std::string("0"), true);
+            }
+    
+            std::string tag, value;
+            while (m_MotorController.GetNext(tag, value) > 0)
+            {
+                Log("Tag: %s, value: %s\n", tag.c_str(), value.c_str());
+            }
+    
+            // wait for the right front roll to reach the sensor test speed
+            rollSpeeds[ 1] = 0;
+            while (rollSpeeds[1] < (sensorTestSpeedVal - 2))
+            {
+                BposSleep(100);
+                m_baseBrakeTool->GetISpeeds(rollSpeeds);
+                if (!TimeRemaining() || StatusCheck() != BEP_STATUS_SUCCESS) break;
+            }
+    
+            // Ask the module for sensor speeds
+            status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+    
+            if (status == BEP_STATUS_SUCCESS) // if sensors read successfully
+            {
+                // check front to rear sensor cross
+                if (((moduleSpeeds[RFWHEEL] <= moduleSpeeds[RRWHEEL]) ||
+                    (moduleSpeeds[RFWHEEL] <= moduleSpeeds[LRWHEEL])) && !GetParameterBool("WSSToleranceOnly"))
+                {
+                    testResult = testFail;
+                }
+                else if(GetParameterBool("CombinedWSSTests") || GetParameterBool("WSSToleranceOnly"))
+                {
+                    float upperLimit = rollSpeeds[RFWHEEL] + ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[RFWHEEL]);
+                    float lowerLimit = rollSpeeds[RFWHEEL] - ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[RFWHEEL]);
+                    testResult = ((moduleSpeeds[RFWHEEL] < upperLimit) &&
+                                  (moduleSpeeds[RFWHEEL] > lowerLimit) ?
+                                  testPass : testFail);
+                    m_rfWssPass = true;
+                    Log(LOG_DEV_DATA, "Sensor test: %s - sensor speed: %.2f, upper limit: %.2f, lower limit: %.2f - Result: %s",
+                        rollerName[RFWHEEL].c_str(), moduleSpeeds[RFWHEEL], upperLimit, lowerLimit,
+                        testResult.c_str());
+
+                    string description = "";
+                    if(!m_rfWssPass) description = "Right Front WSS speed out of tolerance";
+
+                    char buff[16];
+                    SendSubtestResultWithDetail("RFSensorToleranceTest", testResult, description, "", 
+                                                "RollSpeed", CreateMessage(buff, sizeof(buff), "%.2f", rollSpeeds[RFWHEEL]), "", 
+                                                "SensorSpeed", CreateMessage(buff, sizeof(buff), "%.2f", moduleSpeeds[RFWHEEL]), "", 
+                                                "UpperLimit", CreateMessage(buff, sizeof(buff), "%.2f", upperLimit), "", 
+                                                "LowerLimit",CreateMessage(buff, sizeof(buff), "%.2f", lowerLimit), "");
+                }
+                else testResult   = testPass;
+            }
+            else                 // error reading the sensors
+            {
+                SetCommunicationFailure(true);     // set comm fault flag
+                testResult = testFail;
+                testDescription = GetFaultDescription("CommunicationFailure");
+            }
+        }
+        catch (ModuleException &excpt)
+        {
+            Log(LOG_ERRORS, "ModuleException during %s: %s\n", GetTestStepName().c_str(), excpt.GetReason());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+    
+        if (testResult == testPass)    // if the test step passed
+        {
+            SendTestResult(testPass,testDescription);
+        }
+        else                    // test step failed
+        {
+            if (GetCommunicationFailure() == false)   // if no comm error
+            {
+                SendTestResultWithDetail(testResult,testDescription,
+                                         GetFaultCode(testDescription),
+                                         "RightFrontSensorFail",
+                                         GetFaultDescription(testDescription));
+            }
+        }
+    }
+    Log(LOG_DEV_DATA, "BoschABSTC::RFSensorTest - Exit %s\n",testResult.c_str());
+
+    return(testResult);
+}
+
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::LRSensorTest(void)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    string testResult      = BEP_TESTING_STATUS;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    float rollSpeeds[4];
+    WheelSpeeds_t moduleSpeeds;
+
+    // sensor test speed
+    std::string sensorTestSpeed = GetParameter("SensorTestSpeed");
+    float sensorTestSpeedVal = GetParameterFloat("SensorTestSpeed");
+
+    Log(LOG_DEV_DATA, "BoschABSTC::LRSensorTest - Enter\n");
+
+    if(ShortCircuitTestStep())
+    {
+        testResult = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping LRSensorTest()");
+    }
+    else if(GetParameterBool("SkipPassedSensorRetest") && IsRetest() && ((GetTestStepResult() == testPass) || (GetTestStepResult() == testSkip)))
+    {
+        Log(LOG_FN_ENTRY, "SkipPassedSensorRetest=%d, skipping LRSensorTest() using previous status, %s\n", GetParameterBool("SkipPassedSensorRetest"),GetTestStepResult().c_str());
+        testResult = GetTestStepResult();
+    }
+    else
+    {
+        try
+        {
+            UpdatePrompts();        // "Shift to neutral and release brake"
+        
+            if(!SystemRead(MACHINE_TYPE).compare("3700"))
+            {
+                // Switch the drive axle - set to zero speed first so we do not trip the drives
+                m_MotorController.Write("LeftFrontSpeedValue", "0", false);
+                m_MotorController.Write("RightFrontSpeedValue", "0", true);
+                BposSleep(2000);
+                SystemWrite(DRIVE_AXLE_TAG, string(FRONT_WHEEL_DRIVE_VALUE));
+                BposSleep(1000);   //Wait for the relay to switch
+                SetData(DRIVE_AXLE_TAG, OriginalDriveAxle());
+                // Command all rolls to speed mode
+                m_MotorController.Write(std::string("LeftFrontMotorMode"),std::string("Speed"), false);
+                m_MotorController.Write(std::string("RightFrontMotorMode"),std::string("Speed"), false);
+                // Command the left front roll to the sensor test speed
+                m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightFrontSpeedValue"),std::string("0"), true);
+            }
+            else
+            {
+                // Command the left rear roll to the sensor test speed
+                m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("LeftRearSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightRearSpeedValue"),std::string("0"), true);
+            }
+        
+            std::string tag, value;
+            while (m_MotorController.GetNext(tag, value) > 0)
+            {
+                Log("Tag: %s, value: %s\n", tag.c_str(), value.c_str());
+            }
+        
+            // wait for the left rear roll to reach the sensor test speed
+            rollSpeeds[ 2] = 0;
+            while (rollSpeeds[2] < (sensorTestSpeedVal - 2))
+            {
+                BposSleep(100);
+                m_baseBrakeTool->GetISpeeds(rollSpeeds);
+                if (!TimeRemaining() || StatusCheck() != BEP_STATUS_SUCCESS) break;
+            }
+        
+            // Ask the module for sensor speeds
+            status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+        
+            if (status == BEP_STATUS_SUCCESS) // if sensors read successfully
+            {
+                // check rear sensor cross side to side
+                if ((moduleSpeeds[LRWHEEL] <= moduleSpeeds[RRWHEEL]) && !GetParameterBool("WSSToleranceOnly"))
+                {
+                    testResult = testFail;
+                }
+                else if(GetParameterBool("CombinedWSSTests") || GetParameterBool("WSSToleranceOnly"))
+                {
+                    float upperLimit = rollSpeeds[LRWHEEL] + ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[LRWHEEL]);
+                    float lowerLimit = rollSpeeds[LRWHEEL] - ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[LRWHEEL]);
+                    testResult = ((moduleSpeeds[LRWHEEL] < upperLimit) &&
+                                  (moduleSpeeds[LRWHEEL] > lowerLimit) ?
+                                  testPass : testFail);
+                    m_lrWssPass = true;
+                    Log(LOG_DEV_DATA, "Sensor test: %s - sensor speed: %.2f, upper limit: %.2f, lower limit: %.2f - Result: %s",
+                        rollerName[LRWHEEL].c_str(), moduleSpeeds[LRWHEEL], upperLimit, lowerLimit,
+                        testResult.c_str());
+
+                    string description = "";
+                    if(!m_lrWssPass) description = "Left Rear WSS speed out of tolerance";
+
+                    char buff[16];
+                    SendSubtestResultWithDetail("LRSensorToleranceTest", testResult, description, "", 
+                                                "RollSpeed", CreateMessage(buff, sizeof(buff), "%.2f", rollSpeeds[LRWHEEL]), "", 
+                                                "SensorSpeed", CreateMessage(buff, sizeof(buff), "%.2f", moduleSpeeds[LRWHEEL]), "", 
+                                                "UpperLimit", CreateMessage(buff, sizeof(buff), "%.2f", upperLimit), "", 
+                                                "LowerLimit",CreateMessage(buff, sizeof(buff), "%.2f", lowerLimit), "");
+                }
+                else testResult   = testPass;
+            }
+            else                 // error reading the sensors
+            {
+                SetCommunicationFailure(true);     // set comm fault flag
+                testResult = testFail;
+                testDescription = GetFaultDescription("CommunicationFailure");
+            }
+        }
+        catch (ModuleException &excpt)
+        {
+            Log(LOG_ERRORS, "ModuleException during %s: %s\n", GetTestStepName().c_str(), excpt.GetReason());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        
+        if (testResult == testPass)    // if the test step passed
+        {
+            SendTestResult(testPass,testDescription);
+        }
+        else                    // test step failed
+        {
+            if (GetCommunicationFailure() == false)   // if no comm error
+            {
+                SendTestResultWithDetail(testResult,testDescription,
+                                         GetFaultCode(testDescription),
+                                         "LeftRearSensorFail",
+                                         GetFaultDescription(testDescription));
+            }
+        }
+    }
+
+    Log(LOG_DEV_DATA, "BoschABSTC::LRSensorTest - Exit %s\n",testResult.c_str());
+
+    return(testResult);
+}
+
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::RRSensorTest(void)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    string testResult      = BEP_TESTING_STATUS;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    float rollSpeeds[4];
+    WheelSpeeds_t moduleSpeeds;
+
+    // sensor test speed
+    std::string sensorTestSpeed = GetParameter("SensorTestSpeed");
+    float sensorTestSpeedVal = GetParameterFloat("SensorTestSpeed");
+
+    Log(LOG_DEV_DATA, "BoschABSTC::RRSensorTest - Enter\n");
+
+    if(ShortCircuitTestStep())
+    {
+        testResult = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping RRSensorTest()");
+    }
+    else if(GetParameterBool("SkipPassedSensorRetest") && IsRetest() && ((GetTestStepResult() == testPass) || (GetTestStepResult() == testSkip)))
+    {
+        Log(LOG_FN_ENTRY, "SkipPassedSensorRetest=%d, skipping RRSensorTest() using previous status, %s\n", GetParameterBool("SkipPassedSensorRetest"),GetTestStepResult().c_str());
+        testResult = GetTestStepResult();
+    }
+    else
+    {
+        try
+        {
+            UpdatePrompts();        // "Shift to neutral and release brake"
+    
+            if(!SystemRead(MACHINE_TYPE).compare("3700"))
+            {
+                // Command the right front roll to the sensor test speed
+                m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, true);
+            }
+            else
+            {
+                // Command the right rear roll to the sensor test speed
+                m_MotorController.Write(std::string("LeftFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightFrontSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("LeftRearSpeedValue"),sensorTestSpeed, false);
+                m_MotorController.Write(std::string("RightRearSpeedValue"),sensorTestSpeed, true);
+            }
+    
+            std::string tag, value;
+            while (m_MotorController.GetNext(tag, value) > 0)
+            {
+                Log("Tag: %s, value: %s\n", tag.c_str(), value.c_str());
+            }
+    
+            // wait for the right rear roll to reach the sensor test speed
+            rollSpeeds[ 3] = 0;
+            while (rollSpeeds[3] < (sensorTestSpeedVal - 2))
+            {
+                BposSleep(100);
+                m_baseBrakeTool->GetISpeeds(rollSpeeds);
+                if (!TimeRemaining() || StatusCheck() != BEP_STATUS_SUCCESS)
+                {
+                    testResult = testFail;
+                    break;
+                }
+            }
+    
+            // if the test result was not set to failed, now set to pass
+            if (testResult == BEP_TESTING_STATUS) testResult = testPass;
+    
+            // Ask the module for sensor speeds
+            if(GetParameterBool("CombinedWSSTests") || GetParameterBool("WSSToleranceOnly")) 
+            {
+                status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+                if(status == BEP_STATUS_SUCCESS)
+                {
+                    float upperLimit = rollSpeeds[RRWHEEL] + ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[RRWHEEL]);
+                    float lowerLimit = rollSpeeds[RRWHEEL] - ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[RRWHEEL]);
+                    testResult = ((moduleSpeeds[RRWHEEL] < upperLimit) &&
+                                  (moduleSpeeds[RRWHEEL] > lowerLimit) ?
+                                  testPass : testFail);
+                    m_rrWssPass = true;
+                    Log(LOG_DEV_DATA, "Sensor test: %s - sensor speed: %.2f, upper limit: %.2f, lower limit: %.2f - Result: %s",
+                        rollerName[RRWHEEL].c_str(), moduleSpeeds[RRWHEEL], upperLimit, lowerLimit,
+                        testResult.c_str());
+    
+                    string description = "";
+                    if(!m_rrWssPass) description = "Right Rear WSS speed out of tolerance";
+    
+                    char buff[16];
+                    SendSubtestResultWithDetail("RRSensorToleranceTest", testResult, description, "", 
+                                                "RollSpeed", CreateMessage(buff, sizeof(buff), "%.2f", rollSpeeds[RRWHEEL]), "", 
+                                                "SensorSpeed", CreateMessage(buff, sizeof(buff), "%.2f", moduleSpeeds[RRWHEEL]), "", 
+                                                "UpperLimit", CreateMessage(buff, sizeof(buff), "%.2f", upperLimit), "", 
+                                                "LowerLimit",CreateMessage(buff, sizeof(buff), "%.2f", lowerLimit), "");
+    
+                    string wssqResult = (m_lfWssPass && m_rfWssPass && m_lrWssPass && m_rrWssPass) ? testPass : testFail;
+                    SendSubtestResultWithDetail("SensorQualityTest", wssqResult, "Test Sensor Quality", "",
+                                                "LfSensorResult", m_lfWssPass ? testPass : testFail, "",
+                                                "RfSensorResult", m_rfWssPass ? testPass : testFail, "",
+                                                "LrSensorResult", m_lrWssPass ? testPass : testFail, "",
+                                                "RrSensorResult", m_rrWssPass ? testPass : testFail, "");
+                }
+                else                 // error reading the sensors
+                {
+                    SetCommunicationFailure(true);     // set comm fault flag
+                    testResult = testFail;
+                    testDescription = GetFaultDescription("CommunicationFailure");
+                }
+            }
+            
+        }
+        catch (ModuleException &excpt)
+        {
+            Log(LOG_ERRORS, "ModuleException during %s: %s\n", GetTestStepName().c_str(), excpt.GetReason());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+    
+        if (testResult == testPass)    // if the test step passed
+        {
+            SendTestResult(testPass,testDescription);
+        }
+        else                    // test step failed
+        {
+            SendTestResultWithDetail(testResult,testDescription,
+                                     GetFaultCode(testDescription),
+                                     "RightRearSensorFail",
+                                     GetFaultDescription(testDescription));
+        }
+    
+        if(GetParameterBool("ResetAxleAfterIndividualSensorTest"))
+        {
+            // command the drives to zero torque    
+            Log(LOG_DEV_DATA, "commanding torque to zero\n");
+            SystemCommand(COMMAND_TORQUE, 0);    
+        
+            // command the drives to zero speed 
+            Log(LOG_DEV_DATA, "commanding speed to zero\n");
+            SystemCommand(COMMAND_SPEED, 0);
+        
+            if(!SystemRead(MACHINE_TYPE).compare("3700"))
+            {
+                Log(LOG_DEV_DATA, "Returning DriveAxle to %s\n",OriginalDriveAxle().c_str());
+                SystemWrite(DRIVE_AXLE_TAG, OriginalDriveAxle());
+                BposSleep(500);
+            }
+            // Set motors back to zero speed
+            m_MotorController.Write("LeftFrontMotorMode", BOOST_MODE, false);
+            m_MotorController.Write("RightFrontMotorMode", BOOST_MODE, false);
+            m_MotorController.Write("LeftRearMotorMode", BOOST_MODE, false);
+            m_MotorController.Write("RightRearMotorMode", BOOST_MODE, false);
+            m_MotorController.Write("LeftFrontSpeedValue", "0", false);
+            m_MotorController.Write("RightFrontSpeedValue", "0", false);
+            m_MotorController.Write("LeftRearSpeedValue", "0", false);
+            m_MotorController.Write("RightRearSpeedValue", "0", true);
+    
+            RemovePrompts();
+        }
+    }
+
+    Log(LOG_DEV_DATA, "BoschABSTC::RRSensorTest - Exit %s\n",testResult.c_str());
+
     return(testResult);
 }
 

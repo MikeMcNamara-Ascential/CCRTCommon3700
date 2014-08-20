@@ -365,6 +365,7 @@
             <PBTestAfterCheckPBSignal>True</PBTestAfterCheckPBSignal>
             <!--Low Speed Sensor Test Parameters-->
             <CombinedWSSTests>True</CombinedWSSTests>
+            <WSSToleranceOnly>True</WSSToleranceOnly>
             <SkipPassedSensorRetest>True</SkipPassedSensorRetest>
             <SensorTestLfSpeed Units="mph" ConvertToEnglishUnits="true">10</SensorTestLfSpeed>
             <SensorTestRfSpeed Units="mph" ConvertToEnglishUnits="true">10</SensorTestRfSpeed>
@@ -596,13 +597,21 @@
             <TestStep25>FinishUp</TestStep25>
         </CheckSensorTest>
         <SensorTest>
-            <TestStep05>ExitDiagnosticMode</TestStep05>
-            <TestStep10>LFSensorTest</TestStep10>
-            <TestStep20>RFSensorTest</TestStep20>
-            <TestStep30>LRSensorTest</TestStep30>
-            <TestStep40>RRSensorTest</TestStep40>
-            <TestStep45>EnterDiagnosticMode</TestStep45>
-            <TestStep50>BrakeToStop</TestStep50>
+            <TestStep010>LFSensorTest</TestStep010>
+            <TestStep020>RFSensorTest</TestStep020>
+            <TestStep030>BrakeToStop</TestStep030>
+            <TestStep040>ExitDiagnosticMode</TestStep040>
+            <TestStep050>Delay</TestStep050>
+            <TestStep051>Delay</TestStep051>
+            <TestStep052>Delay</TestStep052>
+            <TestStep053>Delay</TestStep053>
+            <TestStep054>Delay</TestStep054>
+            <TestStep060>LRSensorTest</TestStep060>
+            <TestStep070>RRSensorTest</TestStep070>
+            <TestStep080>BrakeToStop</TestStep080>
+            <TestStep090>EnterDiagnosticMode</TestStep090>
+            <TestStep100>DisableSpeedLimit</TestStep100>
+            <TestStep110>EnableElectricVacuumPump</TestStep110>
             <!--TestStep49>EnableCenteringArrows</TestStep49-->
             <!--TestStep50>SensorQualityTest</TestStep50-->
             <!--TestStep51>DisableCenteringArrows</TestStep51-->

@@ -640,6 +640,45 @@ protected:
     */
    virtual string CheckPartNumber(void);
 
+   /**
+    * This test step will send a command to the motor to bring the left
+    * front roll to the sensor test speed.  Once this speed is reached, it
+    * will check for a front sensor cross side to side.
+    * 
+    * @return The status of the test step.
+    * @since 16 December 2003
+    */
+   virtual string LFSensorTest(void);
+
+   /**
+    * This test step will send a command to the motor to bring the right
+    * front roll to the sensor test speed.  Once this speed is reached, it
+    * will check for a front to rear sensor cross.
+    * 
+    * @return The status of the test step.
+    * @since 16 December 2003
+    */
+   virtual string RFSensorTest(void);
+
+   /**
+    * This test step will send a command to the motor to bring the left
+    * rear roll to the sensor test speed.  Once this speed is reached, it
+    * will check for a rear sensor cross side to side.
+    * 
+    * @return The status of the test step.
+    * @since 16 December 2003
+    */
+   virtual string LRSensorTest(void);
+
+   /**
+    * This test step will send a command to the motor to bring the right
+    * rear roll to the sensor test speed.
+    * 
+    * @return The status of the test step.
+    * @since 16 December 2003
+    */
+   virtual string RRSensorTest(void);
+
 private:
     /**
      * Store the original drive axle prior to switching so it can be restored.
@@ -767,6 +806,11 @@ private:
      * commands
      */
     WheelSpeeds_t       m_absSpeedDeltas[ RRWHEEL+1][ REC_DELTA_IDX+1];
+
+    bool m_lfWssPass;
+    bool m_rfWssPass;
+    bool m_lrWssPass;
+    bool m_rrWssPass;
 };
 
 //-----------------------------------------------------------------------------

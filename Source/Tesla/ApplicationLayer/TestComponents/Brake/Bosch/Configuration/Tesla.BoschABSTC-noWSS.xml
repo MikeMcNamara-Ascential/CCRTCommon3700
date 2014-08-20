@@ -596,12 +596,12 @@
             <TestStep25>FinishUp</TestStep25>
         </CheckSensorTest>
         <SensorTest>
-            <TestStep05>ExitDiagnosticMode</TestStep05>
+            <!--TestStep05>ExitDiagnosticMode</TestStep05>
             <TestStep10>LFSensorTest</TestStep10>
             <TestStep20>RFSensorTest</TestStep20>
             <TestStep30>LRSensorTest</TestStep30>
             <TestStep40>RRSensorTest</TestStep40>
-            <TestStep45>EnterDiagnosticMode</TestStep45>
+            <TestStep45>EnterDiagnosticMode</TestStep45-->
             <TestStep50>BrakeToStop</TestStep50>
             <!--TestStep49>EnableCenteringArrows</TestStep49-->
             <!--TestStep50>SensorQualityTest</TestStep50-->

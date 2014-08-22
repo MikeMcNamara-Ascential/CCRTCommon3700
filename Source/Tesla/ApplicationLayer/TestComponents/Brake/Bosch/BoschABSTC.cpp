@@ -4715,12 +4715,15 @@ string BoschABSTC<ModuleInterface>::LFSensorTest(void)
     
             // wait for the left front roll to reach the sensor test speed
             rollSpeeds[ 0] = 0;
-            while (rollSpeeds[0] < (sensorTestSpeedVal - 2))
+            while (rollSpeeds[0] < (sensorTestSpeedVal))
             {
                 BposSleep(100);
                 m_baseBrakeTool->GetISpeeds(rollSpeeds);
                 if (!TimeRemaining() || StatusCheck() != BEP_STATUS_SUCCESS) break;
             }
+
+            BposSleep(500);
+            m_baseBrakeTool->GetISpeeds(rollSpeeds);
     
             // Ask the module for sensor speeds
             status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
@@ -4847,12 +4850,15 @@ string BoschABSTC<ModuleInterface>::RFSensorTest(void)
     
             // wait for the right front roll to reach the sensor test speed
             rollSpeeds[ 1] = 0;
-            while (rollSpeeds[1] < (sensorTestSpeedVal - 2))
+            while (rollSpeeds[1] < (sensorTestSpeedVal))
             {
                 BposSleep(100);
                 m_baseBrakeTool->GetISpeeds(rollSpeeds);
                 if (!TimeRemaining() || StatusCheck() != BEP_STATUS_SUCCESS) break;
             }
+
+            BposSleep(500);
+            m_baseBrakeTool->GetISpeeds(rollSpeeds);
     
             // Ask the module for sensor speeds
             status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
@@ -4989,12 +4995,15 @@ string BoschABSTC<ModuleInterface>::LRSensorTest(void)
         
             // wait for the left rear roll to reach the sensor test speed
             rollSpeeds[ 2] = 0;
-            while (rollSpeeds[2] < (sensorTestSpeedVal - 2))
+            while (rollSpeeds[2] < (sensorTestSpeedVal))
             {
                 BposSleep(100);
                 m_baseBrakeTool->GetISpeeds(rollSpeeds);
                 if (!TimeRemaining() || StatusCheck() != BEP_STATUS_SUCCESS) break;
             }
+
+            BposSleep(500);
+            m_baseBrakeTool->GetISpeeds(rollSpeeds);
         
             // Ask the module for sensor speeds
             status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
@@ -5121,7 +5130,7 @@ string BoschABSTC<ModuleInterface>::RRSensorTest(void)
     
             // wait for the right rear roll to reach the sensor test speed
             rollSpeeds[ 3] = 0;
-            while (rollSpeeds[3] < (sensorTestSpeedVal - 2))
+            while (rollSpeeds[3] < (sensorTestSpeedVal))
             {
                 BposSleep(100);
                 m_baseBrakeTool->GetISpeeds(rollSpeeds);
@@ -5131,6 +5140,9 @@ string BoschABSTC<ModuleInterface>::RRSensorTest(void)
                     break;
                 }
             }
+
+            BposSleep(500);
+            m_baseBrakeTool->GetISpeeds(rollSpeeds);
     
             // if the test result was not set to failed, now set to pass
             if (testResult == BEP_TESTING_STATUS) testResult = testPass;

@@ -63,7 +63,7 @@
         </DataTags>
         <Parameters>
             <ConfigFile>/Configuration/Components/Airbag/DelphiAirbagModule.xml</ConfigFile>
-            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DelayModuleInitialization>Yes</DelayModuleInitialization>
             <DeveloperTest>No</DeveloperTest>
             <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
             <UsePlcResultButtons>True</UsePlcResultButtons>

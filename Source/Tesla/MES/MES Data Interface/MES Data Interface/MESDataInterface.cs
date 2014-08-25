@@ -70,6 +70,7 @@ namespace MES_Data_Interface
             m_settings = Settings.ReadSettings();
             Log("Reloading settings... done.");
             Log("Settings\n\tQNX IP Address: " + m_settings.QnxIpAddress + "\n\tMES Hostname: " + m_settings.MesHostName);
+            m_resultHandler.RestartListener();
         }
 
         void CloseApplication()

@@ -13,6 +13,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Net.WebSockets;
 using System.Runtime.Serialization.Json;
+using System.Diagnostics;
 
 namespace MES_Data_Interface
 {
@@ -27,6 +28,7 @@ namespace MES_Data_Interface
         String qnxListenerTcpPort;
         String mesHostname;
         Boolean requestCloseListener;
+        Boolean requestRestartListener;
         LogMessageDelegate LogMessage;
         public Boolean ListenerActive { get; private set; }
         public event ListenerClosedEventHandler ListenerClosed;
@@ -35,6 +37,12 @@ namespace MES_Data_Interface
         {
             LogMessage = new LogMessageDelegate(function);
             RestartListener(settings);
+            ListenerClosed += ResultHandler_ListenerClosed;
+        }
+
+        void ResultHandler_ListenerClosed(object sender, EventArgs e)
+        {
+            if (requestRestartListener) RestartListener();
         }
 
         public void RestartListener(Settings newSettings)
@@ -44,7 +52,8 @@ namespace MES_Data_Interface
             qnxListenerTcpPort = newSettings.QnxListenerTcpPort;
             mesHostname = newSettings.MesHostName;
 
-            RestartListener();
+            if (!ListenerActive) RestartListener();
+            else RestartListenerHelper();
         }
 
         public void RestartListener()
@@ -56,6 +65,12 @@ namespace MES_Data_Interface
             listenerThread.Start();
         }
 
+        void RestartListenerHelper()
+        {
+            requestRestartListener = true;
+            CloseListener();
+        }
+
         public void CloseListener()
         {
             requestCloseListener = true;
@@ -64,6 +79,7 @@ namespace MES_Data_Interface
         void SetListenerActive(Boolean active)
         {
             requestCloseListener = false;
+            requestRestartListener = false;
             ListenerActive = active;
         }
 
@@ -99,6 +115,9 @@ namespace MES_Data_Interface
 
                 Byte[] bytes = new Byte[4096];
                 String data = String.Empty;
+                Stopwatch watchdog = new Stopwatch();
+
+                LogMessage("Listening for incoming client connections...");
 
                 while (!requestCloseListener)
                 {
@@ -106,9 +125,11 @@ namespace MES_Data_Interface
                     {
                         LogMessage("Accepting client connection...");
                         TcpClient client = listener.AcceptTcpClient();
+                        keepConnection = true;
 
                         using (NetworkStream stream = client.GetStream())
                         {
+                            stream.ReadTimeout = 500;
                             while (keepConnection && !requestCloseListener)
                             {
                                 try
@@ -116,7 +137,10 @@ namespace MES_Data_Interface
                                     // Read available data into buffer
                                     Int32 i = 0;
 
+                                    watchdog.Reset();
+                                    watchdog.Start();
                                     i = stream.Read(bytes, 0, bytes.Length);
+                                    watchdog.Stop();
 
                                     if (i != 0)
                                     {
@@ -125,14 +149,34 @@ namespace MES_Data_Interface
                                     else
                                     {
                                         Thread.Sleep(500);
-                                        keepConnection = client.Connected;
+                                        keepConnection = (client.Connected && (watchdog.ElapsedMilliseconds > (long)50));
+                                        if (!keepConnection) LogMessage("Connection was closed by remote client.");
                                         data = String.Empty;
                                     }
                                     // Process complete messages from buffer
                                     ProcessMessageBuffer(ref data);
                                 }
-                                catch
+                                catch (IOException err)
                                 {
+                                    if (err.InnerException != null)
+                                    {
+                                        if (typeof(SocketException).Equals(err.InnerException.GetType()))
+                                        {
+                                            if ((err.InnerException as SocketException).SocketErrorCode == SocketError.TimedOut)
+                                            {
+                                                keepConnection = true;
+                                            }
+                                            else
+                                            {
+                                                LogMessage(String.Format("Socket Exception occured while listening for incoming results: ({0}) - ", (err.InnerException as SocketException).SocketErrorCode, (err.InnerException as SocketException).Message));
+                                                keepConnection = false;
+                                            }
+                                        }
+                                    }
+                                }
+                                catch(Exception err)
+                                {
+                                    LogMessage(String.Format("Exception occured while listening for incoming results: {0}", err.Message));
                                     keepConnection = false;
                                 }
                             }
@@ -144,8 +188,7 @@ namespace MES_Data_Interface
                     }
                     else
                     {
-                        LogMessage("No incoming client connections waiting...");
-                        Thread.Sleep(2000);
+                        Thread.Sleep(1000);
                     }
                 }
                 listener.Stop();
@@ -184,12 +227,14 @@ namespace MES_Data_Interface
                             String message = data.Substring(messageStart, ((messageEnd - messageStart) + 1));
                             ProcessIndividualMessage(message);
                             // remove processed message from buffer
-                            data.Remove(0, messageEnd + 1);
+                            // data.Remove(0, messageEnd + 1);
+                            data = data.Substring(messageEnd + 1);
                         }
                         else if (messageEnd < messageStart)
                         {
                             // trash fragment
-                            data.Remove(0, messageEnd + 1);
+                            // data.Remove(0, messageEnd + 1);
+                            data = data.Substring(messageEnd + 1);
                         }
                     }
                     else
@@ -197,7 +242,8 @@ namespace MES_Data_Interface
                         if (messageEnd != -1)
                         {
                             // trash fragment
-                            data.Remove(0, messageEnd + 1);
+                            // data.Remove(0, messageEnd + 1);
+                            data = data.Substring(messageEnd + 1);
                         }
                         else
                         {
@@ -217,8 +263,8 @@ namespace MES_Data_Interface
         void ProcessIndividualMessage(String message)
         {
             // Remove Start Byte and End Byte
-            String resultMessageString = message.Substring(1, message.Length - 1);
-            List<String> fields = new List<String>(resultMessageString.Split(new Char[] { ',' }));
+            String resultMessageString = message.Substring(1, message.Length - 2);
+            List<String> fields = new List<String>(resultMessageString.Split(new Char[] { '|' }));
             if (fields.Count == 4)
             {
                 String vehicleVin = fields[0];
@@ -235,6 +281,7 @@ namespace MES_Data_Interface
                 {
                     if (pitch.PitchName == pitchName)
                     {
+                        LogMessage(String.Format("Updating disposition for existing pitch with PitchName: {0}", pitchName));
                         pitch.CheckItems = UpdateCheckItems(checkItemString);
                         dispositionUpdated = true;
                         break;
@@ -244,6 +291,7 @@ namespace MES_Data_Interface
                 if (!dispositionUpdated)
                 {
                     DispositionLine newPitchItem = new DispositionLine();
+                    LogMessage(String.Format("Updating disposition with new pitch with PitchName: {0}", pitchName));
                     newPitchItem.PitchName = pitchName;
                     newPitchItem.CheckItems = UpdateCheckItems(checkItemString);
                     dispositionMessage.PitchList.Add(newPitchItem);
@@ -266,8 +314,66 @@ namespace MES_Data_Interface
 
         List<DispositionTest> UpdateCheckItems(String checkItemString)
         {
-            List<String> item = new List<String>(checkItemString.Split(new Char[] { '@' }));
-            throw new NotImplementedException();
+            List<String> items = new List<String>(checkItemString.Split(new Char[] { '@' }, StringSplitOptions.RemoveEmptyEntries));
+            List<DispositionTest> checkItemList = new List<DispositionTest>();
+
+            LogMessage(String.Format("CheckItems: ({0} items)", items.Count));
+            LogMessage(String.Format("\t["));
+
+            foreach (String item in items)
+            {
+                DispositionTest dispositionTestItem = new DispositionTest();
+                List<String> itemFields = new List<String>(item.Split(new Char[] { '!' }, StringSplitOptions.RemoveEmptyEntries));
+                foreach (String field in itemFields)
+                {
+                    String[] fieldToValue = field.Split(new Char[] { ',' });
+                    LogMessage(String.Format("\t\t{0} : {1}", fieldToValue[0], fieldToValue[1]));
+                    switch (fieldToValue[0])
+                    {
+                        case "\"Code\"":
+                            dispositionTestItem.Code = fieldToValue[1];
+                            break;
+                        case "\"Message\"":
+                            dispositionTestItem.Message = fieldToValue[1];
+                            break;
+                        case "\"Status\"":
+                            dispositionTestItem.Status = Decimal.Parse(fieldToValue[1]);
+                            break;
+                        case "\"Value\"":
+                            dispositionTestItem.Value = Decimal.Parse(fieldToValue[1]);
+                            break;
+                        case "\"Attribute\"":
+                            dispositionTestItem.Attribute = fieldToValue[1];
+                            break;
+                        case "\"UOM\"":
+                            dispositionTestItem.UOM = fieldToValue[1];
+                            break;
+                        case "\"MaxValue\"":
+                            dispositionTestItem.MaxValue = Decimal.Parse(fieldToValue[1]);
+                            break;
+                        case "\"MinValue\"":
+                            dispositionTestItem.MinValue = Decimal.Parse(fieldToValue[1]);
+                            break;
+                        case "\"StartTime\"":
+                            dispositionTestItem.StartTime = DateTime.Parse(fieldToValue[1]);
+                            break;
+                        case "\"EndTime\"":
+                            dispositionTestItem.EndTime = DateTime.Parse(fieldToValue[1]);
+                            break;
+                        case "\"TargetValue\"":
+                            dispositionTestItem.TargetValue = Decimal.Parse(fieldToValue[1]);
+                            break;
+                        case "\"AttributeTarget\"":
+                            dispositionTestItem.AttributeTarget = fieldToValue[1];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                LogMessage("\t]\n");
+                checkItemList.Add(dispositionTestItem);
+            }
+            return checkItemList;
         }
 
         DispositionMessage GetDispositionByVin(String vin)

@@ -4651,6 +4651,8 @@ string BoschABSTC<ModuleInterface>::LFSensorTest(void)
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
     float rollSpeeds[4];
+    float firstRollSpeeds[4];
+    float secondRollSpeeds[4];
     WheelSpeeds_t moduleSpeeds;
 
     // delay time before starting the roll
@@ -4723,11 +4725,19 @@ string BoschABSTC<ModuleInterface>::LFSensorTest(void)
             }
 
             BposSleep(500);
-            m_baseBrakeTool->GetISpeeds(rollSpeeds);
+            m_baseBrakeTool->GetISpeeds(firstRollSpeeds);
     
             // Ask the module for sensor speeds
             status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
     
+            m_baseBrakeTool->GetISpeeds(secondRollSpeeds);
+
+            // Average first and second roll speed readings
+            for (int i = 0; i < 4; i++)
+            {
+                rollSpeeds[i] = (firstRollSpeeds[i] + secondRollSpeeds[i]) / 2.0;
+            }
+
             if (status == BEP_STATUS_SUCCESS) // if sensors read successfully
             {
                 // check front sensor cross side to side
@@ -4803,6 +4813,8 @@ string BoschABSTC<ModuleInterface>::RFSensorTest(void)
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
     float rollSpeeds[4];
+    float firstRollSpeeds[4];
+    float secondRollSpeeds[4];
     WheelSpeeds_t moduleSpeeds;
 
     // sensor test speed
@@ -4858,7 +4870,30 @@ string BoschABSTC<ModuleInterface>::RFSensorTest(void)
             }
 
             BposSleep(500);
-            m_baseBrakeTool->GetISpeeds(rollSpeeds);
+            m_baseBrakeTool->GetISpeeds(firstRollSpeeds);
+    
+            // Ask the module for sensor speeds
+            status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+    
+            m_baseBrakeTool->GetISpeeds(secondRollSpeeds);
+
+            // Average first and second roll speed readings
+            for (int i = 0; i < 4; i++)
+            {
+                rollSpeeds[i] = (firstRollSpeeds[i] + secondRollSpeeds[i]) / 2.0;
+            }
+            m_baseBrakeTool->GetISpeeds(firstRollSpeeds);
+    
+            // Ask the module for sensor speeds
+            status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+    
+            m_baseBrakeTool->GetISpeeds(secondRollSpeeds);
+
+            // Average first and second roll speed readings
+            for (int i = 0; i < 4; i++)
+            {
+                rollSpeeds[i] = (firstRollSpeeds[i] + secondRollSpeeds[i]) / 2.0;
+            }
     
             // Ask the module for sensor speeds
             status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
@@ -4938,6 +4973,8 @@ string BoschABSTC<ModuleInterface>::LRSensorTest(void)
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
     float rollSpeeds[4];
+    float firstRollSpeeds[4];
+    float secondRollSpeeds[4];
     WheelSpeeds_t moduleSpeeds;
 
     // sensor test speed
@@ -5003,7 +5040,18 @@ string BoschABSTC<ModuleInterface>::LRSensorTest(void)
             }
 
             BposSleep(500);
-            m_baseBrakeTool->GetISpeeds(rollSpeeds);
+            m_baseBrakeTool->GetISpeeds(firstRollSpeeds);
+    
+            // Ask the module for sensor speeds
+            status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+    
+            m_baseBrakeTool->GetISpeeds(secondRollSpeeds);
+
+            // Average first and second roll speed readings
+            for (int i = 0; i < 4; i++)
+            {
+                rollSpeeds[i] = (firstRollSpeeds[i] + secondRollSpeeds[i]) / 2.0;
+            }
         
             // Ask the module for sensor speeds
             status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
@@ -5083,6 +5131,8 @@ string BoschABSTC<ModuleInterface>::RRSensorTest(void)
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
     float rollSpeeds[4];
+    float firstRollSpeeds[4];
+    float secondRollSpeeds[4];
     WheelSpeeds_t moduleSpeeds;
 
     // sensor test speed
@@ -5150,7 +5200,19 @@ string BoschABSTC<ModuleInterface>::RRSensorTest(void)
             // Ask the module for sensor speeds
             if(GetParameterBool("CombinedWSSTests") || GetParameterBool("WSSToleranceOnly")) 
             {
+                m_baseBrakeTool->GetISpeeds(firstRollSpeeds);
+        
+                // Ask the module for sensor speeds
                 status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+        
+                m_baseBrakeTool->GetISpeeds(secondRollSpeeds);
+    
+                // Average first and second roll speed readings
+                for (int i = 0; i < 4; i++)
+                {
+                    rollSpeeds[i] = (firstRollSpeeds[i] + secondRollSpeeds[i]) / 2.0;
+                }
+
                 if(status == BEP_STATUS_SUCCESS)
                 {
                     float upperLimit = rollSpeeds[RRWHEEL] + ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollSpeeds[RRWHEEL]);

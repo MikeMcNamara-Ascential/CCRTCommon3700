@@ -438,6 +438,44 @@ namespace MES_Data_Interface
                     requestMemoryStream.Position = 0;
                     writer.Write(requestMemoryStream.ToArray());
                 }
+
+                using (HttpWebResponse webResponse = webRequest.GetResponse() as HttpWebResponse)
+                {
+                    if (webResponse.StatusCode != HttpStatusCode.OK)
+                    {
+                        LogMessage(String.Format("MES Data Interface: Server error (HTTP {0}: {1}).",
+                            webResponse.StatusCode, webResponse.StatusDescription));
+                        success = false;
+                    }
+
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(DispositionMessage));
+                    MemoryStream responseMemoryStream = new MemoryStream();
+                    webResponse.GetResponseStream().CopyTo(responseMemoryStream);
+
+                    responseMemoryStream.Position = 0;
+                    StreamReader reader = new StreamReader(responseMemoryStream);
+                    LogMessage(String.Format("MES Data Interface: Response received from host for last sent result - {0}", reader.ReadToEnd()));
+
+                    responseMemoryStream.Position = 0;
+                    Object responseObj = serializer.ReadObject(responseMemoryStream);
+                    DispositionMessage dispositionResponse = responseObj as DispositionMessage;
+
+                    if (dispositionResponse.Success == null || dispositionResponse.Success.Length == 0)
+                    {
+                        LogMessage(String.Format("Invalid response from host for last sent result for VIN {0} - Success field is null or empty!", disposition.Vin));
+                        success = false;
+                    }
+                    else if (dispositionResponse.Success.Equals("True", StringComparison.OrdinalIgnoreCase))
+                    {
+                        LogMessage(String.Format("Successfully send result to host for VIN {0}", disposition.Vin));
+                        success = true;
+                    }
+                    else
+                    {
+                        LogMessage(String.Format("Error received from host for last sent result for VIN {0} - {1}", disposition.Vin, dispositionResponse.Error));
+                        success = false;
+                    }
+                }
             }
             catch (Exception err)
             {

@@ -185,13 +185,13 @@
             <DisplayBrakeTargetSpeeds>False</DisplayBrakeTargetSpeeds>
 
             <!-- Park Brake Parameters -->
-            <ParkBrakeArmSpeed Units="mph">-10.0</ParkBrakeArmSpeed>
-            <ParkBrakeEndSampleSpeed Units="mph">-0.5</ParkBrakeEndSampleSpeed>
+            <ParkBrakeArmSpeed Units="mph">20.0</ParkBrakeArmSpeed>
+            <ParkBrakeEndSampleSpeed Units="mph">0.5</ParkBrakeEndSampleSpeed>
             <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount>
             <ParkBrakeMaxForce Units="lbf">300</ParkBrakeMaxForce>
             <ParkBrakeMinForce Units="lbf">100</ParkBrakeMinForce>
             <ParkBrakeMinimumStartForce Units="lbf">100</ParkBrakeMinimumStartForce>
-            <ParkBrakeStartSampleSpeed Units="mph">-10.0</ParkBrakeStartSampleSpeed>
+            <ParkBrakeStartSampleSpeed Units="mph">15.0</ParkBrakeStartSampleSpeed>
             <ParkBrakeStartSamplingAtMinimumForce>False</ParkBrakeStartSamplingAtMinimumForce>
 
             <!-- RWAL Test Parameters -->

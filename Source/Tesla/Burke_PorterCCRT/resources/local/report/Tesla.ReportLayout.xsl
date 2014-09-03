@@ -991,28 +991,24 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-
-    <!-- Converts machine number to lane number -->
+	
+	<!-- Converts machine number to lane number -->
     <xsl:template name="convertMachineNumber">
         <xsl:param name="VALUE"/>
         <xsl:choose>
             <!-- The measured value must be a valid number -->
             <xsl:when test="string(number($VALUE)) = '508180'">
-                <xsl:text>1</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-				<xsl:when test="string(number($VALUE)) = '508202'">
-					<xsl:text>2</xsl:text>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:when test="string(number($VALUE)) = '507560'">
-						<xsl:text>3</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:text>---</xsl:text>
-					</xsl:otherwise>
-				</xsl:otherwise>
-            </xsl:otherwise>
+				<xsl:text>1</xsl:text>
+            </xsl:when> 
+		    <xsl:when test="string(number($VALUE)) = '508202'">
+				<xsl:text>2</xsl:text>
+			</xsl:when>	
+			<xsl:when test="string(number($VALUE)) = '507560'">
+         		<xsl:text>3</xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:text>---</xsl:text>
+			</xsl:otherwise>
         </xsl:choose>
     </xsl:template>
 

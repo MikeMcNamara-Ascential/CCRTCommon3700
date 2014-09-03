@@ -39,8 +39,8 @@
             <MaxSpeedDelay_Gear9 Description="Time to delay at max speed before moving to next gear" Units="ms">3000</MaxSpeedDelay_Gear9>
             <NumberOfFwdGears>6</NumberOfFwdGears>
             <!-- Parameters for Checking Reverse Gear Operation -->
-            <ReverseSpeedMinimum>10.0</ReverseSpeedMinimum>
-            <ReverseSpeedMaximum>20.0</ReverseSpeedMaximum>
+            <ReverseSpeedMinimum>3.0</ReverseSpeedMinimum>
+            <ReverseSpeedMaximum>10.0</ReverseSpeedMaximum>
             <!-- Parameters for acceleration Test -->
             <AccelerationTestEndSpeed>43.4959835</AccelerationTestEndSpeed>
             <AccelerationTestMaxTime>30.0</AccelerationTestMaxTime>
@@ -170,6 +170,7 @@
     <Objectives>
         <ReverseTesting>
             <TestStep00>AccelerateInReverse</TestStep00>
+            <TestStep05>BrakeToStop</TestStep05>
         </ReverseTesting>
         <ShiftTest>
             <TestStep10>GearTest_1</TestStep10>

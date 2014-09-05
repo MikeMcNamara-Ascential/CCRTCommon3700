@@ -18,7 +18,7 @@ namespace MES_Data_Interface
         Settings m_settings;
         SettingsForm m_settingsForm;
         Logger m_logger;
-        ResultHandler m_resultHandler;
+        RequestHandler m_resultHandler;
         Boolean m_closeWhenListenerDone;
         delegate void CloseApplicationEventHandler();
 
@@ -36,7 +36,7 @@ namespace MES_Data_Interface
                 "\n\tMES Hostname: " + m_settings.MesHostName);
 
             m_closeWhenListenerDone = false;
-            m_resultHandler = new ResultHandler(m_settings, Log);
+            m_resultHandler = new RequestHandler(m_settings, Log);
             m_resultHandler.ListenerClosed += m_resultHandler_ListenerClosed;
         }
 

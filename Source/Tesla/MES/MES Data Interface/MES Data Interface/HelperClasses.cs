@@ -21,6 +21,8 @@ namespace MES_Data_Interface
     public class OptionCodesMessage
     {
         public string Vin { get; set; }
+        public string Success { get; set; }
+        public string Error { get; set; }
         public List<OptionCodeRow> OptionCodes { get; set; }
     }
 

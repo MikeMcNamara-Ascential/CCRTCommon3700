@@ -4959,6 +4959,13 @@ string BoschABSTC<ModuleInterface>::RFSensorTest(void)
                                          GetFaultDescription(testDescription));
             }
         }
+
+        if(!SystemRead(MACHINE_TYPE).compare("3700"))
+        {
+            // set to zero speed 
+            m_MotorController.Write("LeftFrontSpeedValue", "0", false);
+            m_MotorController.Write("RightFrontSpeedValue", "0", true);
+        }
     }
     Log(LOG_DEV_DATA, "BoschABSTC::RFSensorTest - Exit %s\n",testResult.c_str());
 

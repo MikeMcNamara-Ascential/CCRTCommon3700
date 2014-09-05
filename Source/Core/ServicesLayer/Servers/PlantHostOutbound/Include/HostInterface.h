@@ -665,6 +665,12 @@ protected:
      */
     INamedDataBroker *m_ndb;
 	BepMutex m_testResultMutex;
+	/** List of DTCs that have already been reported **/
+	vector<string>  m_reportedDtcs;
+    /** 
+     * list of position of spaces allowed in result string.
+     */
+    vector<UINT32>  m_allowedSpacePositions;
 
 
 
@@ -758,12 +764,6 @@ private:
      * Configuration data for the keep alive thread.
      */
     XmlNode *m_keepAliveConfig;
-    /** 
-     * list of position of spaces allowed in result string.
-     */
-    vector<UINT32>  m_allowedSpacePositions;
-	/** List of DTCs that have already been reported **/
-	vector<string>  m_reportedDtcs;
 
 
     /** Mapping for creating the test data file name for archive */

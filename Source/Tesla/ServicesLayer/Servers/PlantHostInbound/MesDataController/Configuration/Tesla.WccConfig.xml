@@ -1,0 +1,141 @@
+<BepXMLMssg>
+   <Setup>
+      <Debug>Off</Debug>
+      <InputServer>core/InputServer</InputServer>
+      <InvalidateBuildRecordOnRead>False</InvalidateBuildRecordOnRead>
+      <PrintOnPfsBlock Value="Yes or No">Yes</PrintOnPfsBlock>
+      <Broadcast>
+         <BuildRecordMap>/Configuration/Servers/VehicleBuildRecord.xml</BuildRecordMap>
+         <Data>
+            <UseSectionData>Yes</UseSectionData>
+            <SectionOrder>
+               <Section1 SectionLength="50" SectionLengthTag="MessageDescriptionLength">MessageDescription</Section1>
+               <Section2 SectionLength="60" SectionLengthTag="PartNumberSectionLength">PartNumberSection</Section2>
+               <Section3 SectionLength="30" SectionLengthTag="TestCodeSectionLength">TestCodeSection</Section3>
+               <Section4 SectionLength="15" SectionLengthTag="">WccInfoSection</Section4>
+            </SectionOrder>
+            <SectionDataLengths>
+               <MessageDescriptionLength StartIndex="1" Length="4">50</MessageDescriptionLength>
+               <PartNumberSectionLength StartIndex="5" Length="4">60</PartNumberSectionLength>
+               <TestCodeSectionLength StartIndex="9" Length="4">28</TestCodeSectionLength>
+            </SectionDataLengths>
+            <ValidWccResponseLength>46</ValidWccResponseLength>
+            <WccTimeIndex Section="WccInfoSection">41</WccTimeIndex>
+            <WccTimeLength>4</WccTimeLength>
+            <WccDateIndex Section="WccInfoSection">46</WccDateIndex>
+            <WccDateLength>6</WccDateLength>
+            <WccChecksumIndex Section="WccInfoSection">53</WccChecksumIndex>
+         </Data>
+         <BroadcastCommunication>
+            <Setup>
+               <Communication>
+                  <Name>/dev/LogicalPorts/Wcc</Name>
+                  <BufferSize>2000</BufferSize>
+                  <Timeout>2000</Timeout>
+                  <Debug>Off</Debug>
+               </Communication>
+               <Logging>
+                  <ProcessName>BroadcastCommunication</ProcessName>
+                  <Status>Disabled</Status>
+                  <AdditionalLogFile Types="/Server/BroadCastCommunication or Disabled">/Servers/BroadCastCommunication.log</AdditionalLogFile>
+                  <Debug>Off</Debug>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <MaxAttempts>3</MaxAttempts>
+               <MaxResponseTime>50000</MaxResponseTime>
+               <MessageDelay>5000</MessageDelay>
+            </Setup>
+         </BroadcastCommunication>
+      </Broadcast>
+      <Communication>
+         <Type>Server</Type>
+         <Debug>Off</Debug>
+         <Name>core/MesDataController</Name>
+         <Comm>IPC</Comm>
+         <Timeout>5000</Timeout>
+         <BufferSize>2000</BufferSize>
+      </Communication>
+      <DataTags>
+         <VehicleBuild>NextVehicleBuild</VehicleBuild>
+         <BuildRecord>BuildRecord</BuildRecord>
+         <Vin>VIN</Vin>
+         <NextVIN>NextVIN</NextVIN>
+         <VINDisplay>VINDisplay</VINDisplay>
+         <VINReadStatus>VINReadStatus</VINReadStatus>
+         <InputVinLength>10</InputVinLength>
+         <InputServerState>InputServerState</InputServerState>
+         <VehiclePresent>VehiclePresent</VehiclePresent>
+         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+         <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
+         <FrontWheelDriveSelectedToPLC>FrontWheelDriveSelectedToPLC</FrontWheelDriveSelectedToPLC>
+         <RearWheelDriveToPLC>RearWheelDriveToPLC</RearWheelDriveToPLC>
+         <FourWDSelected>FourWDSelected</FourWDSelected>
+         <WheelbasePositionTag>WheelbasePositionInchesX10</WheelbasePositionTag>
+         <AllWheelDriveEquipped>
+            <AWD>Yes</AWD>
+         </AllWheelDriveEquipped>
+         <FourWheelDriveEquipped>
+            <Undefined>No</Undefined>
+            <NotEquipped>No</NotEquipped>
+            <AWD>No</AWD>
+         </FourWheelDriveEquipped>
+         <BodyStyleDriveAxle>
+            <_Default>Front</_Default>
+            <NF>Front</NF>
+            <YF>Front</YF>
+            <CM>Rear</CM>
+            <LF>Front</LF>
+         </BodyStyleDriveAxle>
+      </DataTags>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/MesDataController</ProcessName>
+         <AdditionalLogFile Type="/Servers/MesDataController or Disabled">/Servers/MesDataController.log</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x01</Verbose>
+         <Debug>Off</Debug>
+      </Logging>
+      <Prompts>
+         <PfsAbortStatus>PfsAbortStatus</PfsAbortStatus>
+         <PfsBlock>PfsBlock</PfsBlock>
+         <PfsShipStatus>PfsShipStatus</PfsShipStatus>
+         <PfsAbortColor>Red</PfsAbortColor>
+         <PfsShipColor>Red</PfsShipColor>
+         <WccBadCheckSum>WccBadCheckSum</WccBadCheckSum>
+         <WccNoInfo>WccNoInfo</WccNoInfo>
+         <WccSentNAK>WccSentNAK</WccSentNAK>
+         <WccUnknownMessage>WccUnknownMessage</WccUnknownMessage>
+         <WccNoResponse>WccNoResponse</WccNoResponse>
+      </Prompts>
+      <TagList>
+         <SubscribeTags>
+            <VehiclePresent/>
+            <RollsDownElevUp/>
+            <NextVIN/>
+            <StartVehicleTest/>
+         </SubscribeTags>
+      </TagList>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>7</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+      <VehicleBuildFilePath>/Configuration/VehicleTest/BuildRecords/</VehicleBuildFilePath>
+      <VehicleBuildRecordSource Type="File, Broadcast">Broadcast</VehicleBuildRecordSource>
+      <WheelbaseConfigFile>/Configuration/Servers/WheelbaseConfig.xml</WheelbaseConfigFile>
+   </Setup>
+</BepXMLMssg>

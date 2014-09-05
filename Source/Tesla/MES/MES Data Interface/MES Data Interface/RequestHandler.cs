@@ -21,7 +21,7 @@ namespace MES_Data_Interface
 
     public delegate void ListenerClosedEventHandler(Object sender, EventArgs e);
 
-    class ResultHandler
+    class RequestHandler
     {
         String qnxIpAddress;
         String qnxListenerIpAddress;
@@ -32,8 +32,9 @@ namespace MES_Data_Interface
         LogMessageDelegate LogMessage;
         public Boolean ListenerActive { get; private set; }
         public event ListenerClosedEventHandler ListenerClosed;
+        NetworkStream qnxStream;
 
-        public ResultHandler(Settings settings, LogMessageDelegate function)
+        public RequestHandler(Settings settings, LogMessageDelegate function)
         {
             LogMessage = new LogMessageDelegate(function);
             RestartListener(settings);
@@ -129,6 +130,7 @@ namespace MES_Data_Interface
 
                         using (NetworkStream stream = client.GetStream())
                         {
+                            qnxStream = stream;
                             stream.ReadTimeout = 500;
                             while (keepConnection && !requestCloseListener)
                             {
@@ -180,6 +182,7 @@ namespace MES_Data_Interface
                                     keepConnection = false;
                                 }
                             }
+                            qnxStream = null;
                         }
                         LogMessage("Closing client connection...");
                         client.Close();
@@ -263,53 +266,138 @@ namespace MES_Data_Interface
         void ProcessIndividualMessage(String message)
         {
             // Remove Start Byte and End Byte
-            String resultMessageString = message.Substring(1, message.Length - 2);
-            List<String> fields = new List<String>(resultMessageString.Split(new Char[] { '|' }));
-            if (fields.Count == 4)
+            String messageString = message.Substring(1, message.Length - 2);
+            // Validate checksum
+            UInt16 incomingChecksum = Convert.ToUInt16(messageString[messageString.Length - 1]);
+            String checkedMessage = messageString.Substring(0, messageString.Length - 1);
+            UInt16 ourChecksum = Convert.ToUInt16(Utils.CalculateChecksum(checkedMessage) & 0xFF);
+            if (ourChecksum == incomingChecksum)
             {
-                String vehicleVin = fields[0];
-                String successStatus = fields[1];
-                String pitchName = fields[2];
-                String checkItemString = fields[3];
-                LogMessage("Processing result for VIN " + vehicleVin);
 
-                // Get DispositionMessage to update
-                DispositionMessage dispositionMessage = GetDispositionByVin(vehicleVin);
-                Boolean dispositionUpdated = false;
-
-                foreach (DispositionLine pitch in dispositionMessage.PitchList)
+                List<String> fields = new List<String>(checkedMessage.Split(new Char[] { '|' }, StringSplitOptions.RemoveEmptyEntries));
+                if (fields.Count > 0)
                 {
-                    if (pitch.PitchName == pitchName)
+                    if (fields[0] == "UpdateDisposition")
                     {
-                        LogMessage(String.Format("Updating disposition for existing pitch with PitchName: {0}", pitchName));
-                        pitch.CheckItems = UpdateCheckItems(checkItemString);
-                        dispositionUpdated = true;
-                        break;
+                        if (fields.Count == 5)
+                        {
+                            String vehicleVin = fields[1];
+                            String successStatus = fields[2];
+                            String pitchName = fields[3];
+                            String checkItemString = fields[4];
+                            LogMessage("Processing result for VIN " + vehicleVin);
+
+                            // Get DispositionMessage to update
+                            DispositionMessage dispositionMessage = GetDispositionByVin(vehicleVin);
+                            if (dispositionMessage.Success.Equals("True", StringComparison.OrdinalIgnoreCase))
+                            {
+                                Boolean dispositionUpdated = false;
+
+                                foreach (DispositionLine pitch in dispositionMessage.PitchList)
+                                {
+                                    if (pitch.PitchName == pitchName)
+                                    {
+                                        LogMessage(String.Format("Updating disposition for existing pitch with PitchName: {0}", pitchName));
+                                        pitch.CheckItems = UpdateCheckItems(checkItemString);
+                                        dispositionUpdated = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!dispositionUpdated)
+                                {
+                                    DispositionLine newPitchItem = new DispositionLine();
+                                    LogMessage(String.Format("Updating disposition with new pitch with PitchName: {0}", pitchName));
+                                    newPitchItem.PitchName = pitchName;
+                                    newPitchItem.CheckItems = UpdateCheckItems(checkItemString);
+                                    dispositionMessage.PitchList.Add(newPitchItem);
+                                }
+
+                                if (!UpdateDisposition(dispositionMessage))
+                                {
+                                    LogMessage(String.Format("Could not update disposition for VIN {0}", vehicleVin));
+                                }
+                                else
+                                {
+                                    LogMessage(String.Format("Updated disposition for VIN {0}", vehicleVin));
+                                }
+                            }
+                            else
+                            {
+                                LogMessage(String.Format("Error getting disposition to update for VIN {0}: {1}", vehicleVin, dispositionMessage.Error));
+                            }
+                        }
+                        else
+                        {
+                            LogMessage("Invalid result message");
+                        }
                     }
-                }
-
-                if (!dispositionUpdated)
-                {
-                    DispositionLine newPitchItem = new DispositionLine();
-                    LogMessage(String.Format("Updating disposition with new pitch with PitchName: {0}", pitchName));
-                    newPitchItem.PitchName = pitchName;
-                    newPitchItem.CheckItems = UpdateCheckItems(checkItemString);
-                    dispositionMessage.PitchList.Add(newPitchItem);
-                }
-
-                if (!UpdateDisposition(dispositionMessage))
-                {
-                    LogMessage(String.Format("Could not update disposition for VIN {0}", vehicleVin));
-                }
-                else
-                {
-                    LogMessage(String.Format("Updated disposition for VIN {0}", vehicleVin));
+                    else if (fields[0] == "GetOptionCodesByVin")
+                    {
+                        if (fields.Count == 2)
+                        {
+                            String vehicleVin = fields[1];
+                            String optionString = String.Empty;
+                            OptionCodesMessage optionCodesMessage = GetOptionCodesByVin(vehicleVin);
+                            if (optionCodesMessage.Success.Equals("False", StringComparison.OrdinalIgnoreCase))
+                            {
+                                optionString = BuildNoInfoString();
+                            }
+                            else
+                            {
+                                optionString = BuildOptionString(optionCodesMessage);
+                            }
+                            SendVehicleBuildResponse(optionString);
+                        }
+                        else
+                        {
+                            LogMessage("Invalid build request");
+                            SendNak();
+                        }
+                    }
+                    else
+                    {
+                        LogMessage("Invalid request");
+                    }
                 }
             }
             else
             {
-                LogMessage("Invalid result message");
+                LogMessage(String.Format("Not processing message: Invalid checksum (calculated: {0}, received: {1})", ourChecksum, incomingChecksum));
             }
+        }
+
+        private void SendNak()
+        {
+            String nakMessage = String.Format("{0}", Convert.ToChar(0x15));
+            SendVehicleBuildResponse(nakMessage);
+        }
+
+        private void SendVehicleBuildResponse(string optionString)
+        {
+            if (qnxStream == null)
+            {
+                LogMessage("Cannot send vehicle build response: null stream reference");
+            }
+            else
+            {
+                using (NetworkStream stream = qnxStream)
+                {
+                    stream.Write(ASCIIEncoding.ASCII.GetBytes(optionString), 0, optionString.Length);
+                }
+            }
+        }
+
+        private string BuildNoInfoString()
+        {
+            return String.Format("{0}", Convert.ToChar(0x11));
+        }
+
+        private string BuildOptionString(OptionCodesMessage optionCodesMessage)
+        {
+            String ackMessage = String.Format("{0}", Convert.ToChar(0x15));
+            String optionString = String.Empty;
+            throw new NotImplementedException();
         }
 
         List<DispositionTest> UpdateCheckItems(String checkItemString)
@@ -419,6 +507,49 @@ namespace MES_Data_Interface
             return disposition;
         }
 
+        OptionCodesMessage GetOptionCodesByVin(String vin)
+        {
+            String url = String.Format("http://{0}/Quality/Provider/GetOptionCodesByVin?vin={1}", mesHostname, vin);
+            HttpWebRequest webRequest = WebRequest.Create(url) as HttpWebRequest;
+            webRequest.Method = "GET";
+
+            OptionCodesMessage optionCodes;
+
+            try
+            {
+                using (HttpWebResponse webResponse = webRequest.GetResponse() as HttpWebResponse)
+                {
+                    if (webResponse.StatusCode != HttpStatusCode.OK)
+                    {
+                        throw new Exception(String.Format("MES Data Interface: Error connecting to MES Host (HTTP {0}: {1})",
+                            webResponse.StatusCode, webResponse.StatusDescription));
+                    }
+
+                    DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(OptionCodesMessage));
+                    MemoryStream responseMemoryStream = new MemoryStream();
+                    webResponse.GetResponseStream().CopyTo(responseMemoryStream);
+
+                    responseMemoryStream.Position = 0;
+                    Object responseObj = serializer.ReadObject(responseMemoryStream);
+                    optionCodes = responseObj as OptionCodesMessage;
+
+                    responseMemoryStream.Position = 0;
+                    using (StreamReader reader = new StreamReader(responseMemoryStream))
+                    {
+                        LogMessage(String.Format("MES Data Interface: Response received from host - {0}", reader.ReadToEnd()));
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                LogMessage(String.Format("MES Data Interface: Exception in GetOptionCodesByVin for URL ({0}), VIN ({1}): {2}",
+                    url, vin, err.Message));
+                optionCodes = new OptionCodesMessage();
+            }
+
+            return optionCodes;
+        }
+
         bool UpdateDisposition(DispositionMessage disposition)
         {
             String url = String.Format("http://{0}/Quality/Provider/UpdateDisposition", mesHostname);
@@ -485,6 +616,19 @@ namespace MES_Data_Interface
             }
 
             return success;
+        }
+    }
+
+    public class Utils
+    {
+        public static UInt16 CalculateChecksum(String data)
+        {
+            UInt16 checksum = 0;
+            for (UInt16 ii = 0; ii < data.Length; ii++)
+            {
+                checksum += (UInt16)data[ii];
+            }
+            return Convert.ToUInt16(checksum & 0xFFFF);
         }
     }
 }

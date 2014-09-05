@@ -890,6 +890,14 @@ protected:
 	 */
 	virtual INT32 GetStartIndex(const XmlNode *node);
 	/**
+     * Get the field length for the requested field.
+     *
+     * @param node   Field to get the field length for.
+     *
+     * @return field length for the field requested.
+     */
+    virtual INT32 GetFieldLength(const XmlNode *node);
+    /**
 	 * Check the data location to ensure it is completely in the data string being parsed.
 	 *
 	 * @param field  Build data information used to extract data from the message.

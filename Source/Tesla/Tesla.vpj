@@ -167,6 +167,8 @@
 						<Folder Name="Configuration">
 							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/BoschBrakeFaultList.xml"/>
 							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/CMakeLists.txt"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/Tesla.BoschABSTC-noWSS.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/Tesla.BoschABSTC-tryThis.xml"/>
 							<F N="ApplicationLayer/TestComponents/Brake/Bosch/Configuration/Tesla.BoschABSTC.xml"/>
 						</Folder>
 						<F N="ApplicationLayer/TestComponents/Brake/Bosch/BoschABSTC.cpp"/>
@@ -270,7 +272,6 @@
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ParkingBrake.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Roadster.ReverseWarning.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.RoadsterDriveCurve.xml"/>
-						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.SedanDriveCurve.truncated.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.SedanDriveCurve.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/VehicleTest/Configuration/CMakeLists.txt"/>
@@ -679,6 +680,20 @@
 			<F N="Burke_PorterCCRT/Burke_Porter_CCRT_InstallLog.xml"/>
 		</Folder>
 		<Folder Name="MES">
+			<Folder Name="MES Data Interface">
+				<Folder Name="MES Data Interface">
+					<Folder Name="bin">
+						<Folder Name="Debug">
+							<F N="MES/MES Data Interface/MES Data Interface/bin/Debug/Settings.xml"/>
+						</Folder>
+					</Folder>
+					<Folder Name="obj">
+						<Folder Name="Debug">
+							<F N="MES/MES Data Interface/MES Data Interface/obj/Debug/MES Data Interface.csproj.FileListAbsolute.txt"/>
+						</Folder>
+					</Folder>
+				</Folder>
+			</Folder>
 			<Folder Name="MesReportGenerator">
 				<Folder Name="MesReportGenerator">
 					<Folder Name="obj">
@@ -776,11 +791,38 @@
 					</Folder>
 					<F N="ServicesLayer/Servers/NamedDataBroker/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="PlantHostInbound">
+					<Folder Name="MesDataController">
+						<Folder Name="Configuration">
+							<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/Configuration/CMakeLists.txt"/>
+							<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/Configuration/Tesla.BepTroy.508155.WccConfig.xml"/>
+							<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/Configuration/Tesla.VehicleBuildRecord.xml"/>
+							<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/Configuration/Tesla.WccConfig.xml"/>
+							<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/Configuration/Tesla.WheelbaseConfig.xml"/>
+							<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/Configuration/VehicleBuildTable.xml"/>
+							<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/Configuration/WccProtocol.xml"/>
+						</Folder>
+						<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/MesDataController.cpp"/>
+						<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/MesDataController.h"/>
+						<F N="ServicesLayer/Servers/PlantHostInbound/MesDataController/MesDataControllerMain.cpp"/>
+					</Folder>
+					<F N="ServicesLayer/Servers/PlantHostInbound/CMakeLists.txt"/>
+				</Folder>
 				<Folder Name="PlantHostOutbound">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/CMakeLists.txt"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/NdbHostInterfaceMap.xml"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Tesla.PlantHostOutboundConfig.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Tesla.ResultReportingBaseMap.xml"/>
+					</Folder>
+					<Folder Name="Include">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/TeslaReportInterface.h"/>
+					</Folder>
+					<Folder Name="TeslaReportInterface">
+						<F N="ServicesLayer/Servers/PlantHostOutbound/TeslaReportInterface/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/TeslaReportInterface/TeslaReportInterface.cpp"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/TeslaReportInterface/TeslaReportInterfaceMain.cpp"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
 				</Folder>

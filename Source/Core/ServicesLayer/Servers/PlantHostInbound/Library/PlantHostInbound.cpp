@@ -1259,6 +1259,22 @@ INT32 PlantHostInbound::GetStartIndex(const XmlNode *node)
     return(startIndex);
 }
 
+INT32 PlantHostInbound::GetFieldLength(const XmlNode *node)
+{
+    INT32 fieldLength = 0;
+    try
+    {
+        fieldLength = atoi(node->getAttribute(FIELD_LENGTH)->getValue().c_str());
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Could not get field length for %s - %s", node->getName().c_str(), excpt.GetReason());
+        fieldLength = 0;
+    }
+    return(fieldLength);
+    
+}
+
 bool PlantHostInbound::IsStartIndexValid(const XmlNode *field, const INT32 &messageLength)
 {   // Determine if the end index is within the message string
     INT32 startIndex = GetStartIndex(field);

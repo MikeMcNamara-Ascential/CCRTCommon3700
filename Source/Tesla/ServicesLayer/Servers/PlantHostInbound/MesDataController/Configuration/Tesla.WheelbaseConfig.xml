@@ -1,0 +1,12 @@
+<WheelbaseConfig>
+   <PendantConfig>
+      <Button0 Wheelbase="124.5"/>
+      <Button1 Wheelbase="100.0"/>
+      <Button2 Wheelbase="137.5"/>
+      <Button3 Wheelbase="140.5"/>
+   </PendantConfig>
+   <VehicleConfig>
+      <Vehicle0 BodyStyle="NF????" Description="Sonata" ModelYear="????" Wheelbase="105.9" ButtonIndex="1"/>
+      <Vehicle1 BodyStyle="CM????" Description="Santa Fe" ModelYear="????" Wheelbase="109.5" ButtonIndex="2"/>
+   </VehicleConfig>
+</WheelbaseConfig>

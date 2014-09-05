@@ -1,4 +1,6 @@
 <BasePFSRecord>
+   <Field000000 Type="Separator" Desc="UpdateDisposition">UpdateDisposition</Field000000>
+   <Field000005 Type="Separator" Desc="Separator">|</Field000005>
    <Field000010 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" Desc="Full VIN">VIN</Field000010>
    <Field000020 Type="Separator" Desc="Separator">|</Field000020>
    <Field000030 Type="Result" Format="%-1.2s" Length="1" DataType="String" Desc="Overall Result">OverallTest</Field000030>
@@ -416,28 +418,13 @@
    <Field004005 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeLeftFrontESPBuild</Field004005>
    <Field004013 Type="Separator" Desc="FieldIdentifier">!</Field004013>
    <Field004014 Type="Separator" Desc="FieldName">Value,</Field004014>
-   <Field004015 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004015>
+   <Field004015 Type="Detail" DetailNode="LeftFrontESPBuildValue" Format="%s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004015>
    <Field004023 Type="Separator" Desc="FieldIdentifier">!</Field004023>
    <Field004024 Type="Separator" Desc="FieldName">MinValue,</Field004024>
-   <Field004025 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004025>
-   <Field004033 Type="Separator" Desc="FieldIdentifier">!</Field004033>
-   <Field004034 Type="Separator" Desc="FieldName">MaxValue,</Field004034>
-   <Field004035 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004035>
-   <Field004043 Type="Separator" Desc="FieldIdentifier">!</Field004043>
-   <Field004044 Type="Separator" Desc="FieldName">TargetValue,</Field004044>
-   <Field004045 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004045>
-   <Field004053 Type="Separator" Desc="FieldIdentifier">!</Field004053>
-   <Field004054 Type="Separator" Desc="FieldName">Attribute,</Field004054>
-   <Field004055 Type="Separator" Desc="Attribute">BrakeLeftFrontESPBuild</Field004055>
-   <Field004063 Type="Separator" Desc="FieldIdentifier">!</Field004063>
-   <Field004064 Type="Separator" Desc="FieldName">AttributeTarget,</Field004064>
-   <Field004065 Type="Separator" Desc="Test Status">BrakeLeftFrontESPBuild</Field004065>
-   <Field004073 Type="Separator" Desc="FieldIdentifier">!</Field004073>
-   <Field004074 Type="Separator" Desc="FieldName">Message,</Field004074>
-   <Field004075 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004075>
+   <Field004025 Type="Detail" DetailNode="LeftFrontESPBuildMinForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004025>
    <Field004083 Type="Separator" Desc="FieldIdentifier">!</Field004083>
    <Field004084 Type="Separator" Desc="FieldName">UOM,</Field004084>
-   <Field004085 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004085>
+   <Field004085 Type="DetailAttribute" DetailNode="LeftFrontESPBuildValue" AttributeNode="Units">BrakeLeftFrontESPBuild</Field004085>
    <Field004100 Type="Separator" Desc="CheckItemIdentifier">@</Field004100>
    <Field004101 Type="Separator" Desc="TestCodeLabel">Code,</Field004101>
    <Field004102 Type="Separator" Desc="TestCode">TestCodeValue</Field004102>
@@ -446,28 +433,13 @@
    <Field004105 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeRightFrontESPBuild</Field004105>
    <Field004113 Type="Separator" Desc="FieldIdentifier">!</Field004113>
    <Field004114 Type="Separator" Desc="FieldName">Value,</Field004114>
-   <Field004115 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004115>
+   <Field004115 Type="Detail" DetailNode="RightFrontESPBuildValue" Format="%s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004115>
    <Field004123 Type="Separator" Desc="FieldIdentifier">!</Field004123>
    <Field004124 Type="Separator" Desc="FieldName">MinValue,</Field004124>
-   <Field004125 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004125>
-   <Field004133 Type="Separator" Desc="FieldIdentifier">!</Field004133>
-   <Field004134 Type="Separator" Desc="FieldName">MaxValue,</Field004134>
-   <Field004135 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004135>
-   <Field004143 Type="Separator" Desc="FieldIdentifier">!</Field004143>
-   <Field004144 Type="Separator" Desc="FieldName">TargetValue,</Field004144>
-   <Field004145 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004145>
-   <Field004153 Type="Separator" Desc="FieldIdentifier">!</Field004153>
-   <Field004154 Type="Separator" Desc="FieldName">Attribute,</Field004154>
-   <Field004155 Type="Separator" Desc="Attribute">BrakeRightFrontESPBuild</Field004155>
-   <Field004163 Type="Separator" Desc="FieldIdentifier">!</Field004163>
-   <Field004164 Type="Separator" Desc="FieldName">AttributeTarget,</Field004164>
-   <Field004165 Type="Separator" Desc="Test Status">BrakeRightFrontESPBuild</Field004165>
-   <Field004173 Type="Separator" Desc="FieldIdentifier">!</Field004173>
-   <Field004174 Type="Separator" Desc="FieldName">Message,</Field004174>
-   <Field004175 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004175>
+   <Field004125 Type="Detail" DetailNode="RightFrontESPBuildMinForce" Format="%s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004125>
    <Field004183 Type="Separator" Desc="FieldIdentifier">!</Field004183>
    <Field004184 Type="Separator" Desc="FieldName">UOM,</Field004184>
-   <Field004185 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004185>
+   <Field004185 Type="DetailAttribute" DetailNode="RightFrontESPBuildValue" AttributeNode="Units">BrakeRightFrontESPBuild</Field004185>
    <Field004200 Type="Separator" Desc="CheckItemIdentifier">@</Field004200>
    <Field004201 Type="Separator" Desc="TestCodeLabel">Code,</Field004201>
    <Field004202 Type="Separator" Desc="TestCode">TestCodeValue</Field004202>
@@ -476,28 +448,13 @@
    <Field004205 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeLeftRearESPBuild</Field004205>
    <Field004213 Type="Separator" Desc="FieldIdentifier">!</Field004213>
    <Field004214 Type="Separator" Desc="FieldName">Value,</Field004214>
-   <Field004215 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004215>
+   <Field004215 Type="Detail" DetailNode="LeftRearESPBuildValue" Format="%s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004215>
    <Field004223 Type="Separator" Desc="FieldIdentifier">!</Field004223>
    <Field004224 Type="Separator" Desc="FieldName">MinValue,</Field004224>
-   <Field004225 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004225>
-   <Field004233 Type="Separator" Desc="FieldIdentifier">!</Field004233>
-   <Field004234 Type="Separator" Desc="FieldName">MaxValue,</Field004234>
-   <Field004235 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004235>
-   <Field004243 Type="Separator" Desc="FieldIdentifier">!</Field004243>
-   <Field004244 Type="Separator" Desc="FieldName">TargetValue,</Field004244>
-   <Field004245 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004245>
-   <Field004253 Type="Separator" Desc="FieldIdentifier">!</Field004253>
-   <Field004254 Type="Separator" Desc="FieldName">Attribute,</Field004254>
-   <Field004255 Type="Separator" Desc="Attribute">BrakeLeftRearESPBuild</Field004255>
-   <Field004263 Type="Separator" Desc="FieldIdentifier">!</Field004263>
-   <Field004264 Type="Separator" Desc="FieldName">AttributeTarget,</Field004264>
-   <Field004265 Type="Separator" Desc="Test Status">BrakeLeftRearESPBuild</Field004265>
-   <Field004273 Type="Separator" Desc="FieldIdentifier">!</Field004273>
-   <Field004274 Type="Separator" Desc="FieldName">Message,</Field004274>
-   <Field004275 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004275>
+   <Field004225 Type="Detail" DetailNode="LeftRearESPBuildMinForce" Format="%s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004225>
    <Field004283 Type="Separator" Desc="FieldIdentifier">!</Field004283>
    <Field004284 Type="Separator" Desc="FieldName">UOM,</Field004284>
-   <Field004285 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004285>
+   <Field004285 Type="DetailAttribute" DetailNode="LeftRearESPBuildValue" AttributeNode="Units">BrakeLeftRearESPBuild</Field004285>
    <Field004300 Type="Separator" Desc="CheckItemIdentifier">@</Field004300>
    <Field004301 Type="Separator" Desc="TestCodeLabel">Code,</Field004301>
    <Field004302 Type="Separator" Desc="TestCode">TestCodeValue</Field004302>
@@ -506,28 +463,13 @@
    <Field004305 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeRightRearESPBuild</Field004305>
    <Field004313 Type="Separator" Desc="FieldIdentifier">!</Field004313>
    <Field004314 Type="Separator" Desc="FieldName">Value,</Field004314>
-   <Field004315 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004315>
+   <Field004315 Type="Detail" DetailNode="RightRearESPBuildValue" Format="%s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004315>
    <Field004323 Type="Separator" Desc="FieldIdentifier">!</Field004323>
    <Field004324 Type="Separator" Desc="FieldName">MinValue,</Field004324>
-   <Field004325 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004325>
-   <Field004333 Type="Separator" Desc="FieldIdentifier">!</Field004333>
-   <Field004334 Type="Separator" Desc="FieldName">MaxValue,</Field004334>
-   <Field004335 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004335>
-   <Field004343 Type="Separator" Desc="FieldIdentifier">!</Field004343>
-   <Field004344 Type="Separator" Desc="FieldName">TargetValue,</Field004344>
-   <Field004345 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004345>
-   <Field004353 Type="Separator" Desc="FieldIdentifier">!</Field004353>
-   <Field004354 Type="Separator" Desc="FieldName">Attribute,</Field004354>
-   <Field004355 Type="Separator" Desc="Attribute">BrakeRightRearESPBuild</Field004355>
-   <Field004363 Type="Separator" Desc="FieldIdentifier">!</Field004363>
-   <Field004364 Type="Separator" Desc="FieldName">AttributeTarget,</Field004364>
-   <Field004365 Type="Separator" Desc="Test Status">BrakeRightRearESPBuild</Field004365>
-   <Field004373 Type="Separator" Desc="FieldIdentifier">!</Field004373>
-   <Field004374 Type="Separator" Desc="FieldName">Message,</Field004374>
-   <Field004375 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004375>
+   <Field004325 Type="Detail" DetailNode="RightRearESPBuildMinForce" Format="%s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004325>
    <Field004383 Type="Separator" Desc="FieldIdentifier">!</Field004383>
    <Field004384 Type="Separator" Desc="FieldName">UOM,</Field004384>
-   <Field004385 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004385>
+   <Field004385 Type="DetailAttribute" DetailNode="RightRearESPBuildValue" AttributeNode="Units">BrakeRightRearESPBuild</Field004385>
    <Field004400 Type="Separator" Desc="CheckItemIdentifier">@</Field004400>
    <Field004401 Type="Separator" Desc="TestCodeLabel">Code,</Field004401>
    <Field004402 Type="Separator" Desc="TestCode">TestCodeValue</Field004402>
@@ -536,28 +478,13 @@
    <Field004405 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeLeftFrontESPReduction</Field004405>
    <Field004413 Type="Separator" Desc="FieldIdentifier">!</Field004413>
    <Field004414 Type="Separator" Desc="FieldName">Value,</Field004414>
-   <Field004415 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004415>
-   <Field004423 Type="Separator" Desc="FieldIdentifier">!</Field004423>
-   <Field004424 Type="Separator" Desc="FieldName">MinValue,</Field004424>
-   <Field004425 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004425>
+   <Field004415 Type="Detail" DetailNode="LeftFrontESPReductionValue" Format="%s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004415>
    <Field004433 Type="Separator" Desc="FieldIdentifier">!</Field004433>
    <Field004434 Type="Separator" Desc="FieldName">MaxValue,</Field004434>
-   <Field004435 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004435>
-   <Field004443 Type="Separator" Desc="FieldIdentifier">!</Field004443>
-   <Field004444 Type="Separator" Desc="FieldName">TargetValue,</Field004444>
-   <Field004445 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004445>
-   <Field004453 Type="Separator" Desc="FieldIdentifier">!</Field004453>
-   <Field004454 Type="Separator" Desc="FieldName">Attribute,</Field004454>
-   <Field004455 Type="Separator" Desc="Attribute">BrakeLeftFrontESPReduction</Field004455>
-   <Field004463 Type="Separator" Desc="FieldIdentifier">!</Field004463>
-   <Field004464 Type="Separator" Desc="FieldName">AttributeTarget,</Field004464>
-   <Field004465 Type="Separator" Desc="Test Status">BrakeLeftFrontESPReduction</Field004465>
-   <Field004473 Type="Separator" Desc="FieldIdentifier">!</Field004473>
-   <Field004474 Type="Separator" Desc="FieldName">Message,</Field004474>
-   <Field004475 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004475>
+   <Field004435 Type="Detail" DetailNode="LeftFrontESPReductionMaxForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004435>
    <Field004483 Type="Separator" Desc="FieldIdentifier">!</Field004483>
    <Field004484 Type="Separator" Desc="FieldName">UOM,</Field004484>
-   <Field004485 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004485>
+   <Field004485 Type="DetailAttribute" DetailNode="LeftFrontESPReductionValue" AttributeNode="Units">BrakeLeftFrontESPReduction</Field004485>
    <Field004500 Type="Separator" Desc="CheckItemIdentifier">@</Field004500>
    <Field004501 Type="Separator" Desc="TestCodeLabel">Code,</Field004501>
    <Field004502 Type="Separator" Desc="TestCode">TestCodeValue</Field004502>
@@ -566,28 +493,13 @@
    <Field004505 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeRightFrontESPReduction</Field004505>
    <Field004513 Type="Separator" Desc="FieldIdentifier">!</Field004513>
    <Field004514 Type="Separator" Desc="FieldName">Value,</Field004514>
-   <Field004515 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004515>
-   <Field004523 Type="Separator" Desc="FieldIdentifier">!</Field004523>
-   <Field004524 Type="Separator" Desc="FieldName">MinValue,</Field004524>
-   <Field004525 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004525>
+   <Field004515 Type="Detail" DetailNode="RightFrontESPReductionValue" Format="%s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004515>
    <Field004533 Type="Separator" Desc="FieldIdentifier">!</Field004533>
    <Field004534 Type="Separator" Desc="FieldName">MaxValue,</Field004534>
-   <Field004535 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004535>
-   <Field004543 Type="Separator" Desc="FieldIdentifier">!</Field004543>
-   <Field004544 Type="Separator" Desc="FieldName">TargetValue,</Field004544>
-   <Field004545 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004545>
-   <Field004553 Type="Separator" Desc="FieldIdentifier">!</Field004553>
-   <Field004554 Type="Separator" Desc="FieldName">Attribute,</Field004554>
-   <Field004555 Type="Separator" Desc="Attribute">BrakeRightFrontESPReduction</Field004555>
-   <Field004563 Type="Separator" Desc="FieldIdentifier">!</Field004563>
-   <Field004564 Type="Separator" Desc="FieldName">AttributeTarget,</Field004564>
-   <Field004565 Type="Separator" Desc="Test Status">BrakeRightFrontESPReduction</Field004565>
-   <Field004573 Type="Separator" Desc="FieldIdentifier">!</Field004573>
-   <Field004574 Type="Separator" Desc="FieldName">Message,</Field004574>
-   <Field004575 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004575>
+   <Field004535 Type="Detail" DetailNode="RightFrontESPReductionMaxForce" Format="%s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004535>
    <Field004583 Type="Separator" Desc="FieldIdentifier">!</Field004583>
    <Field004584 Type="Separator" Desc="FieldName">UOM,</Field004584>
-   <Field004585 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004585>
+   <Field004585 Type="DetailAttribute" DetailNode="RightFrontESPReductionValue" AttributeNode="Units">BrakeRightFrontESPReduction</Field004585>
    <Field004600 Type="Separator" Desc="CheckItemIdentifier">@</Field004600>
    <Field004601 Type="Separator" Desc="TestCodeLabel">Code,</Field004601>
    <Field004602 Type="Separator" Desc="TestCode">TestCodeValue</Field004602>
@@ -596,28 +508,13 @@
    <Field004605 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeLeftRearESPReduction</Field004605>
    <Field004613 Type="Separator" Desc="FieldIdentifier">!</Field004613>
    <Field004614 Type="Separator" Desc="FieldName">Value,</Field004614>
-   <Field004615 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004615>
-   <Field004623 Type="Separator" Desc="FieldIdentifier">!</Field004623>
-   <Field004624 Type="Separator" Desc="FieldName">MinValue,</Field004624>
-   <Field004625 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004625>
+   <Field004615 Type="Detail" DetailNode="LeftRearESPReductionValue" Format="%s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004615>
    <Field004633 Type="Separator" Desc="FieldIdentifier">!</Field004633>
    <Field004634 Type="Separator" Desc="FieldName">MaxValue,</Field004634>
-   <Field004635 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004635>
-   <Field004643 Type="Separator" Desc="FieldIdentifier">!</Field004643>
-   <Field004644 Type="Separator" Desc="FieldName">TargetValue,</Field004644>
-   <Field004645 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004645>
-   <Field004653 Type="Separator" Desc="FieldIdentifier">!</Field004653>
-   <Field004654 Type="Separator" Desc="FieldName">Attribute,</Field004654>
-   <Field004655 Type="Separator" Desc="Attribute">BrakeLeftRearESPReduction</Field004655>
-   <Field004663 Type="Separator" Desc="FieldIdentifier">!</Field004663>
-   <Field004664 Type="Separator" Desc="FieldName">AttributeTarget,</Field004664>
-   <Field004665 Type="Separator" Desc="Test Status">BrakeLeftRearESPReduction</Field004665>
-   <Field004673 Type="Separator" Desc="FieldIdentifier">!</Field004673>
-   <Field004674 Type="Separator" Desc="FieldName">Message,</Field004674>
-   <Field004675 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004675>
+   <Field004635 Type="Detail" DetailNode="LeftRearESPReductionMaxForce" Format="%s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004635>
    <Field004683 Type="Separator" Desc="FieldIdentifier">!</Field004683>
    <Field004684 Type="Separator" Desc="FieldName">UOM,</Field004684>
-   <Field004685 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004685>
+   <Field004685 Type="DetailAttribute" DetailNode="LeftRearESPReductionValue" AttributeNode="Units">BrakeLeftRearESPReduction</Field004685>
    <Field004700 Type="Separator" Desc="CheckItemIdentifier">@</Field004700>
    <Field004701 Type="Separator" Desc="TestCodeLabel">Code,</Field004701>
    <Field004702 Type="Separator" Desc="TestCode">TestCodeValue</Field004702>
@@ -626,58 +523,19 @@
    <Field004705 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeRightRearESPReduction</Field004705>
    <Field004713 Type="Separator" Desc="FieldIdentifier">!</Field004713>
    <Field004714 Type="Separator" Desc="FieldName">Value,</Field004714>
-   <Field004715 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004715>
-   <Field004723 Type="Separator" Desc="FieldIdentifier">!</Field004723>
-   <Field004724 Type="Separator" Desc="FieldName">MinValue,</Field004724>
-   <Field004725 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004725>
+   <Field004715 Type="Detail" DetailNode="RightRearESPReductionValue" Format="%s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004715>
    <Field004733 Type="Separator" Desc="FieldIdentifier">!</Field004733>
    <Field004734 Type="Separator" Desc="FieldName">MaxValue,</Field004734>
-   <Field004735 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004735>
-   <Field004743 Type="Separator" Desc="FieldIdentifier">!</Field004743>
-   <Field004744 Type="Separator" Desc="FieldName">TargetValue,</Field004744>
-   <Field004745 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004745>
-   <Field004753 Type="Separator" Desc="FieldIdentifier">!</Field004753>
-   <Field004754 Type="Separator" Desc="FieldName">Attribute,</Field004754>
-   <Field004755 Type="Separator" Desc="Attribute">BrakeRightRearESPReduction</Field004755>
-   <Field004763 Type="Separator" Desc="FieldIdentifier">!</Field004763>
-   <Field004764 Type="Separator" Desc="FieldName">AttributeTarget,</Field004764>
-   <Field004765 Type="Separator" Desc="Test Status">BrakeRightRearESPReduction</Field004765>
-   <Field004773 Type="Separator" Desc="FieldIdentifier">!</Field004773>
-   <Field004774 Type="Separator" Desc="FieldName">Message,</Field004774>
-   <Field004775 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004775>
+   <Field004735 Type="Detail" DetailNode="RightRearESPReductionMaxForce" Format="%s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004735>
    <Field004783 Type="Separator" Desc="FieldIdentifier">!</Field004783>
    <Field004784 Type="Separator" Desc="FieldName">UOM,</Field004784>
-   <Field004785 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004785>
+   <Field004785 Type="DetailAttribute" DetailNode="RightRearESPReductionValue" AttributeNode="Units">BrakeRightRearESPReduction</Field004785>
    <Field004800 Type="Separator" Desc="CheckItemIdentifier">@</Field004800>
    <Field004801 Type="Separator" Desc="TestCodeLabel">Code,</Field004801>
    <Field004802 Type="Separator" Desc="TestCode">TestCodeValue</Field004802>
    <Field004803 Type="Separator" Desc="FieldIdentifier">!</Field004803>
    <Field004804 Type="Separator" Desc="FieldName">Status,</Field004804>
    <Field004805 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeProgramVIN</Field004805>
-   <Field004813 Type="Separator" Desc="FieldIdentifier">!</Field004813>
-   <Field004814 Type="Separator" Desc="FieldName">Value,</Field004814>
-   <Field004815 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeProgramVIN</Field004815>
-   <Field004823 Type="Separator" Desc="FieldIdentifier">!</Field004823>
-   <Field004824 Type="Separator" Desc="FieldName">MinValue,</Field004824>
-   <Field004825 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeProgramVIN</Field004825>
-   <Field004833 Type="Separator" Desc="FieldIdentifier">!</Field004833>
-   <Field004834 Type="Separator" Desc="FieldName">MaxValue,</Field004834>
-   <Field004835 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeProgramVIN</Field004835>
-   <Field004843 Type="Separator" Desc="FieldIdentifier">!</Field004843>
-   <Field004844 Type="Separator" Desc="FieldName">TargetValue,</Field004844>
-   <Field004845 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeProgramVIN</Field004845>
-   <Field004853 Type="Separator" Desc="FieldIdentifier">!</Field004853>
-   <Field004854 Type="Separator" Desc="FieldName">Attribute,</Field004854>
-   <Field004855 Type="Separator" Desc="Attribute">BrakeProgramVIN</Field004855>
-   <Field004863 Type="Separator" Desc="FieldIdentifier">!</Field004863>
-   <Field004864 Type="Separator" Desc="FieldName">AttributeTarget,</Field004864>
-   <Field004865 Type="Separator" Desc="Test Status">BrakeProgramVIN</Field004865>
-   <Field004873 Type="Separator" Desc="FieldIdentifier">!</Field004873>
-   <Field004874 Type="Separator" Desc="FieldName">Message,</Field004874>
-   <Field004875 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeProgramVIN</Field004875>
-   <Field004883 Type="Separator" Desc="FieldIdentifier">!</Field004883>
-   <Field004884 Type="Separator" Desc="FieldName">UOM,</Field004884>
-   <Field004885 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeProgramVIN</Field004885>
    <Field004900 Type="Separator" Desc="CheckItemIdentifier">@</Field004900>
    <Field004901 Type="Separator" Desc="TestCodeLabel">Code,</Field004901>
    <Field004902 Type="Separator" Desc="TestCode">TestCodeValue</Field004902>
@@ -700,30 +558,6 @@
    <Field005003 Type="Separator" Desc="FieldIdentifier">!</Field005003>
    <Field005004 Type="Separator" Desc="FieldName">Status,</Field005004>
    <Field005005 Type="Result" Format="%-1.1s" Desc="Test Status">BrakeResetModule</Field005005>
-   <Field005013 Type="Separator" Desc="FieldIdentifier">!</Field005013>
-   <Field005014 Type="Separator" Desc="FieldName">Value,</Field005014>
-   <Field005015 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005015>
-   <Field005023 Type="Separator" Desc="FieldIdentifier">!</Field005023>
-   <Field005024 Type="Separator" Desc="FieldName">MinValue,</Field005024>
-   <Field005025 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005025>
-   <Field005033 Type="Separator" Desc="FieldIdentifier">!</Field005033>
-   <Field005034 Type="Separator" Desc="FieldName">MaxValue,</Field005034>
-   <Field005035 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005035>
-   <Field005043 Type="Separator" Desc="FieldIdentifier">!</Field005043>
-   <Field005044 Type="Separator" Desc="FieldName">TargetValue,</Field005044>
-   <Field005045 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005045>
-   <Field005053 Type="Separator" Desc="FieldIdentifier">!</Field005053>
-   <Field005054 Type="Separator" Desc="FieldName">Attribute,</Field005054>
-   <Field005055 Type="Separator" Desc="Attribute">BrakeResetModule</Field005055>
-   <Field005063 Type="Separator" Desc="FieldIdentifier">!</Field005063>
-   <Field005064 Type="Separator" Desc="FieldName">AttributeTarget,</Field005064>
-   <Field005065 Type="Separator" Desc="Test Status">BrakeResetModule</Field005065>
-   <Field005073 Type="Separator" Desc="FieldIdentifier">!</Field005073>
-   <Field005074 Type="Separator" Desc="FieldName">Message,</Field005074>
-   <Field005075 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005075>
-   <Field005083 Type="Separator" Desc="FieldIdentifier">!</Field005083>
-   <Field005084 Type="Separator" Desc="FieldName">UOM,</Field005084>
-   <Field005085 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005085>
    <Field005100 Type="Separator" Desc="CheckItemIdentifier">@</Field005100>
    <Field005101 Type="Separator" Desc="TestCodeLabel">Code,</Field005101>
    <Field005102 Type="Separator" Desc="TestCode">TestCodeValue</Field005102>

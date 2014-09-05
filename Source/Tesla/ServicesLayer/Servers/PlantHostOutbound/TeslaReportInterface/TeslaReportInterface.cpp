@@ -80,7 +80,8 @@ void TeslaReportInterface::SendResultToHost(const string &result)
     Log(LOG_DEV_DATA, "Adding STX and ETX to message\n");
     string stx = "\x002";
     string etx = "\x003";
-    string resultToHost = stx + result + etx;
+    UINT16 checksum = CalculateCheckSum(result) & 0xFF;
+    string resultToHost = stx + result + (char)checksum + etx;
     // Transmit the result string to the host system
     BEP_STATUS_TYPE status = SendTestResultString(resultToHost, *(HostComm()), MaxMsgSendAttempts());
     Log(LOG_ERRORS, "Sent result to host system: %", ConvertStatusToResponse(status).c_str());

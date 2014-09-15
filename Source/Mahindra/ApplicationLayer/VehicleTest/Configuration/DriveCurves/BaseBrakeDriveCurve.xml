@@ -79,13 +79,6 @@
         </TestPhase210>
 
         <!-- Final Low Speed Testing -->
-        <TestPhase300 Description="Reverse gear testing" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Perform the reverse gear test" Result="" Timeout="" Component="Transmission">
-                    <ReverseTesting/>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase300>
         <TestPhase310 Description="Finishup the transmission testing and run the park brake test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Set the transmission result" Result="" Timeout="" Component="Transmission">

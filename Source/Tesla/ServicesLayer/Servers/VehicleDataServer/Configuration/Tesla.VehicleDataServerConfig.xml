@@ -62,6 +62,7 @@
             <BrakeType>Bosch Abs</BrakeType>
             <DriveAxle>Rear</DriveAxle>
             <VehicleType>Sedan</VehicleType>
+            <PerformAbortTest>Perform</PerformAbortTest>
             <VIN/>
          </Build01>
          <Build02 Definition="This is the case for the Roadster">

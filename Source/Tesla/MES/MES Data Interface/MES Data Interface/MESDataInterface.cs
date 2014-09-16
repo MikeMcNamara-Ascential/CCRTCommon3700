@@ -70,7 +70,7 @@ namespace MES_Data_Interface
             m_settings = Settings.ReadSettings();
             Log("Reloading settings... done.");
             Log("Settings\n\tQNX IP Address: " + m_settings.QnxIpAddress + "\n\tMES Hostname: " + m_settings.MesHostName);
-            m_resultHandler.RestartListener();
+            m_resultHandler.RestartListener(m_settings);
         }
 
         void CloseApplication()
@@ -99,6 +99,12 @@ namespace MES_Data_Interface
                 m_closeWhenListenerDone = true;
                 e.Cancel = true;
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox1 aboutBox = new AboutBox1();
+            aboutBox.Show();
         }
     }
 }

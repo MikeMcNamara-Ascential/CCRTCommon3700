@@ -157,6 +157,11 @@ void MesDataController::Initialize(const std::string &fileName)
 
 void MesDataController::Initialize(const XmlNode *document)
 {
+    Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Initialize() enter\n");
+
+    // Call the base class initialize
+    PlantHostInbound::Initialize(document);
+
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Initialize() begin\n");
     try
     {                          // Get the drive axle for the various body styles
@@ -231,11 +236,9 @@ void MesDataController::Initialize(const XmlNode *document)
     Log(LOG_ERRORS, "Use section data: %d\n", (int) useSectionData);
 
     (void) UseSectionLengthData(&useSectionData);
-
-    // Load any data that was specified in the config file
-    LoadData(document->getChild("Setup/Broadcast/Data"));
     // Set the valid message length
     XmlNode *data = const_cast<XmlNode *>(document->getChild("Setup/Broadcast/Data"));
+    m_wccDataNodeMap.DeepCopy(data->getChildren());
     INT32 validWccResponseLength;
     try
     {
@@ -246,9 +249,9 @@ void MesDataController::Initialize(const XmlNode *document)
         validWccResponseLength = 46;
     }
     SetValidMessageLength((UINT32)validWccResponseLength);
+    SetValidWccResponseLength((UINT32)validWccResponseLength);
     if (!UseSectionLengthData())
     {   // Set the valid message length
-        XmlNode *data = const_cast<XmlNode *>(document->getChild("Setup/Broadcast/Data"));
         INT32 messageDescriptionSectionLength, partNumberSectionLength, testCodeSectionLength;
         try
         {
@@ -266,9 +269,15 @@ void MesDataController::Initialize(const XmlNode *document)
         UINT32 validMessageLength = messageDescriptionSectionLength + partNumberSectionLength + testCodeSectionLength;
         SetValidMessageLength(validMessageLength);
     }
+    else
+    {
+        m_wccSectionMap.DeepCopy(document->getChild("Setup/Broadcast/Data/SectionOrder")->getChildren());
+        m_wccSectionLengthMap.DeepCopy(document->getChild("Setup/Broadcast/Data/SectionDataLengths")->getChildren());
+    }
 
-    // Call the base class initialize
-    PlantHostInbound::Initialize(document);
+    // Load any data that was specified in the config file
+    LoadData(data);
+
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Initialize() complete\n");
 }
 
@@ -508,6 +517,7 @@ const std::string MesDataController::ReadBuildRecordFromBroadcast(const std::str
         request.length(), checkSum, checkSum, logMessage.c_str());
     do
     {  // Block the channel so the PFS results do not interfere with us getting data
+        Log(LOG_DEV_DATA, "Attempt number %d of %d", (GetMaxAttempts()-attempts) + 1, GetMaxAttempts());
         if (!portLocked) portLocked = m_wccComm.LockPort();
         Log(LOG_DEV_DATA, "Port locked : %s\n", (portLocked ? "TRUE" : "FALSE"));
         // Clear the incoming buffer
@@ -534,7 +544,7 @@ const std::string MesDataController::ReadBuildRecordFromBroadcast(const std::str
             result = ConvertStatusToResponse(EvaluateResponse(buildRecord, vin));
         }
         else  result = BEP_UNAVAILABLE_RESPONSE;
-    } while ((result != BEP_SUCCESS_RESPONSE) && attempts--); 
+    } while ((result != BEP_SUCCESS_RESPONSE) && --attempts); 
     // Return the status
     Log(LOG_DEV_DATA, "(Tesla) MesDataController::ReadBuildRecordFromBroadcast() done - buildInfo:%s\n", buildRecord.c_str());
     return(result);
@@ -565,7 +575,7 @@ void MesDataController::GetBroadcastResponse(std::string &response, const std::s
                 wccResponse[1] = 0x01;        // Arbitrary so we do not get misinterpretted end of string
             }
             // Log the data we received from the workcell controller
-            char buf[1024];
+            char buf[32768];
             string logMessage("Complete response from Broadcast:\n");
             for (UINT16 index = 0; index < wccResponse.length(); index++)
             {   // Create the log message
@@ -614,13 +624,13 @@ const BEP_STATUS_TYPE MesDataController::EvaluateResponse(std::string &response,
 // line changed, since code does not work
 //   static bool clockSet = false;   / / Only need to update the clock the first time through
     static bool clockSet = true;
-    Log(LOG_DEV_DATA, "Message length: %d, validMessageLength: %d\n", response.length(), GetValidMessageLength());
+    Log(LOG_DEV_DATA, "Message length: %d, validWccResponseLength: %d, validMessageLength: %d\n", response.length(), GetValidWccResponseLength(), GetValidMessageLength());
     if (response.length() >= GetValidWccResponseLength())
     {
         string protocolId = response.substr(1,5);
         if (!protocolId.compare("Build"))
         {
-            bool goodMessage;
+            bool goodMessage = false;
             // Check if the section lengths need to be retrieved from the message
             if (UseSectionLengthData())
             {
@@ -628,7 +638,7 @@ const BEP_STATUS_TYPE MesDataController::EvaluateResponse(std::string &response,
             }
             //Must store section lengths before GetValidMessageLengths()
             UINT32 valMsgLen = GetValidMessageLength();
-            goodMessage = goodMessage ? (response.length() >= valMsgLen) : false;
+            goodMessage = (response.length() >= valMsgLen);
             Log(LOG_DEV_DATA, "Message length: %d, validMessageLength: %d goodMessage: %d\n",
                 response.length(), GetValidMessageLength(), goodMessage);
 
@@ -639,6 +649,7 @@ const BEP_STATUS_TYPE MesDataController::EvaluateResponse(std::string &response,
                 // Get the check sum from the message and remove the trailer
                 UINT16 wccCheckSum = (unsigned char)response[GetChecksumIndex()];
                 response = response.substr(0,GetChecksumIndex());
+                Log(LOG_DEV_DATA, "Checksum at index %d: %d[$%02X]", GetChecksumIndex(), wccCheckSum, wccCheckSum);
                 string logMessage;
                 char buf[1024];
                 for (UINT16 ii = 0; ii < response.length(); ii++)
@@ -648,8 +659,7 @@ const BEP_STATUS_TYPE MesDataController::EvaluateResponse(std::string &response,
                 }
                 Log(LOG_DEV_DATA, "Truncated response to: %s\n%s\n", response.c_str(), logMessage.c_str());
                 // Make sure the checksum of the response is valid
-                std::string checkSumString = response.substr(1,response.length());
-                UINT16 checkSum = CalculateCheckSum(checkSumString) & 0xFF;
+                UINT16 checkSum = CalculateCheckSum(response) & 0xFF;
                 if (checkSum != wccCheckSum)
                 {  // We got a bad checksum, message is not valid
                     Log("Bad checksum from broadcast -- calculated:%d[$%02X], broadcast:%d[$%02X]\n", checkSum, checkSum, wccCheckSum, wccCheckSum);
@@ -843,8 +853,8 @@ void MesDataController::LoadData(const XmlNode *wccDataNode)
 {
     try
     {  // Get the field indices and lengths
-        SetTimeIndex(CalculateSectionStartIndex("WccInfoSection") + BposReadInt(wccDataNode->getChild("WccTimeIndex")->getValue().c_str()));
-        SetDateIndex(CalculateSectionStartIndex("WccInfoSection") + BposReadInt(wccDataNode->getChild("WccDateIndex")->getValue().c_str()));
+        SetTimeIndex(BposReadInt(wccDataNode->getChild("WccTimeIndex")->getValue().c_str()));
+        SetDateIndex(BposReadInt(wccDataNode->getChild("WccDateIndex")->getValue().c_str()));
         SetTimeLength(wccDataNode->getChild("WccTimeLength")->getValue());
         SetDateLength(wccDataNode->getChild("WccDateLength")->getValue());
         SetChecksumIndex(CalculateSectionStartIndex("WccInfoSection") + BposReadInt(wccDataNode->getChild("WccChecksumIndex")->getValue().c_str()));
@@ -1203,7 +1213,26 @@ const std::string MesDataController::GetNoResponsePrompt(void)
 
 const INT32 MesDataController::GetTimeIndex(void)
 {
-    return(m_wccTimeIndex);
+    INT32 timeIndex = 0;
+    if(UseSectionLengthData())
+    {
+        try
+        {
+            timeIndex = (CalculateSectionStartIndex(m_wccDataNodeMap.getNode("WccTimeIndex")->getAttribute("Section")->getValue()) + 
+                         BposReadInt(m_wccDataNodeMap.getNode("WccTimeIndex")->getAttribute("Offset")->getValue().c_str()));
+        }
+        catch(XmlException &e)
+        {
+            Log(LOG_ERRORS, "XmlException calculating TimeIndex, %s", e.what());
+            timeIndex = m_wccTimeIndex;
+        }
+    }
+    else
+    {
+        timeIndex = m_wccTimeIndex;
+    }
+
+    return(timeIndex);
 }
 
 const INT32 MesDataController::GetTimeLength(void)
@@ -1213,7 +1242,26 @@ const INT32 MesDataController::GetTimeLength(void)
 
 const INT32 MesDataController::GetDateIndex(void)
 {
-    return(m_wccDateIndex);
+    INT32 dateIndex = 0;
+    if(UseSectionLengthData())
+    {
+        try
+        {
+            dateIndex = (CalculateSectionStartIndex(m_wccDataNodeMap.getNode("WccDateIndex")->getAttribute("Section")->getValue()) + 
+                         BposReadInt(m_wccDataNodeMap.getNode("WccDateIndex")->getAttribute("Offset")->getValue().c_str()));
+        }
+        catch(XmlException &e)
+        {
+            Log(LOG_ERRORS, "XmlException calculating DateIndex, %s", e.what());
+            dateIndex = m_wccDateIndex;
+        }
+    }
+    else
+    {
+        dateIndex = m_wccDateIndex;
+    }
+
+    return(dateIndex);
 }
 
 const INT32 MesDataController::GetDateLength(void)
@@ -1223,7 +1271,26 @@ const INT32 MesDataController::GetDateLength(void)
 
 const INT16 MesDataController::GetChecksumIndex(void)
 {
-    return(m_wccChecksumIndex);
+    INT16 checksumIndex = 0;
+    if(UseSectionLengthData())
+    {
+        try
+        {
+            checksumIndex = (CalculateSectionStartIndex(m_wccDataNodeMap.getNode("WccChecksumIndex")->getAttribute("Section")->getValue()) + 
+                         BposReadInt(m_wccDataNodeMap.getNode("WccChecksumIndex")->getAttribute("Offset")->getValue().c_str()));
+        }
+        catch(XmlException &e)
+        {
+            Log(LOG_ERRORS, "XmlException calculating ChecksumIndex, %s", e.what());
+            checksumIndex = m_wccChecksumIndex;
+        }
+    }
+    else
+    {
+        checksumIndex = m_wccChecksumIndex;
+    }
+
+    return(checksumIndex);
 }
 
 const INT32 MesDataController::GetMaxAttempts(void)

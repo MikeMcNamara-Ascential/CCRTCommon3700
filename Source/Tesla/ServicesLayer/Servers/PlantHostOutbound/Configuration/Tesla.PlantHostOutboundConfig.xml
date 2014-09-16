@@ -642,6 +642,86 @@
                     </NotificationList>
                 </Setup>
             </FileCopyHostInterface>
+         <!-- ============================================================== -->
+         <!-- Result Reporting Interface                                                  -->
+         <!-- ============================================================== -->
+         <ResultReportingInterface Enabled="1" Process="$(USR_ROOT)/ServicesLayer/Bin/TeslaReportInterface.qxe">
+             <Setup>
+                 <HIReportAbortedTestResults>1</HIReportAbortedTestResults>
+                 <SendResultsToHost>Yes</SendResultsToHost>
+                 <VinIndex>-1</VinIndex>
+                 <SerialNumberIndex>5</SerialNumberIndex>
+                 <SerialNumberLength>3</SerialNumberLength>
+                 <MaxResponseTime>3000</MaxResponseTime>
+                 <MaxAttempts>3</MaxAttempts>
+                 <ResultMap>/Configuration/Servers/ResultReportingBaseMap.xml</ResultMap>
+                 <MessageID>0x13</MessageID>
+                 <TestResultConversion>
+                     <Pass>3</Pass>
+                     <Fail>4</Fail>
+                     <Abort>9</Abort>
+                     <NotTested>10</NotTested>
+                     <TestInProgress>3</TestInProgress>
+                     <Timeout>4</Timeout>
+                 </TestResultConversion>
+                 <ComponentNameMapping/>
+                 <DataTags>
+                     <OverallTest>OverallTest</OverallTest>
+                     <MachineNumber>MachineNumber</MachineNumber>
+                 </DataTags>
+                 <HostCommunication>
+                     <Setup>
+                         <Communication>
+                             <Name>/dev/LogicalPorts/MesHost</Name>
+                             <BufferSize>2048</BufferSize>
+                             <Timeout>3000</Timeout>
+                             <Debug>Off</Debug>
+                         </Communication>
+                         <Logging>
+                             <Debug>Off</Debug>
+                             <ProcessName>ResultReportingInterface</ProcessName>
+                             <Status>Enabled</Status>
+                             <AdditionalLogFile Types="/Server/ResultReportingCommunication.log">/Communication/ResultReportingCommunication.log</AdditionalLogFile>
+                             <LocalEcho>Disabled</LocalEcho>
+                             <Verbose>0x1F</Verbose>
+                         </Logging>
+                     </Setup>
+                 </HostCommunication>
+                 <Communication>
+                     <Debug>Off</Debug>
+                     <Name>core/ResultReportingInterface</Name>
+                     <Type>Server</Type>
+                     <Comm>IPC</Comm>
+                     <BufferSize>2000</BufferSize>
+                     <Timeout>1000</Timeout>
+                 </Communication>
+                 <Logging>
+                     <Status>Enabled</Status>
+                     <ProcessName>core/ResultReportingInterface</ProcessName>
+                     <AdditionalLogFile>/Servers/ResultReportingInterface.log</AdditionalLogFile>
+                     <Debug>Off</Debug>
+                     <LocalEcho>Disabled</LocalEcho>
+                     <Verbose>0x1F</Verbose>
+                 </Logging>
+                 <ThreadPool>
+                     <Debug>Off</Debug>
+                     <MinBlockedLimit>1</MinBlockedLimit>
+                     <MaxBlockedLimit>3</MaxBlockedLimit>
+                     <Increment>1</Increment>
+                     <Maximum>5</Maximum>
+                 </ThreadPool>
+                 <NotificationList>
+                     <Setup>
+                         <Debug>Off</Debug>
+                         <HighWater>3</HighWater>
+                         <Increment>1</Increment>
+                         <LowWater>1</LowWater>
+                         <Maximum>5</Maximum>
+                         <StartOnCreate>No</StartOnCreate>
+                     </Setup>
+                 </NotificationList>
+             </Setup>
+         </ResultReportingInterface>
         </HostInterfaces>
     </Setup>
 </PlantHostOutboundConfig>

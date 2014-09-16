@@ -1426,6 +1426,7 @@ string HostInterface::ApplyDataFormatting(string dataType,
 		if(dataType == typeString)	  // process string values
 		{
 			retVal = CreateMessage(tempBuffer,sizeof(tempBuffer),formatString.c_str(),dataValue.c_str());
+            padChar = " ";
 		}
 		else if(dataType == typeASCIIInt)
 		{

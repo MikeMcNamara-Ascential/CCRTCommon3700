@@ -43,7 +43,7 @@
             <TestResultServer Status="Available">core/TestResultServer</TestResultServer>
             <VehicleDataBroker Status="Available">core/VehicleDataBroker</VehicleDataBroker>
             <VehicleTest Status="Available">application/VehicleTest</VehicleTest>
-            <WorkCellController Status="Available">core/WorkCellController</WorkCellController>
+            <MesDataController Status="Available">core/MesDataController</MesDataController>
         </Servers>
         <TagList>
             <PublishTags>
@@ -745,7 +745,7 @@
                 <MoveDriverInterfacePanelIn DataType="bool">PLC</MoveDriverInterfacePanelIn>
                 <MoveDriverInterfacePanelOut DataType="bool">PLC</MoveDriverInterfacePanelOut>
                 <NeutralLamp DataType="bool">PLC</NeutralLamp>
-                <NextVehicleBuild DataType="string">VehicleBuildServer</NextVehicleBuild>
+                <NextVehicleBuild DataType="string">MesDataController</NextVehicleBuild>
                 <NextVIN DataType="string">InputServer</NextVIN>
                 <NextVINRequest DataType="bool">PLC</NextVINRequest>
                 <NissinboABSSelected DataType="bool">PLC</NissinboABSSelected>

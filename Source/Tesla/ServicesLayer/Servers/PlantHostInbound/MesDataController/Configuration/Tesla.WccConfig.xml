@@ -12,24 +12,24 @@
                <Section1 SectionLength="50" SectionLengthTag="MessageDescriptionLength">MessageDescription</Section1>
                <Section2 SectionLength="60" SectionLengthTag="PartNumberSectionLength">PartNumberSection</Section2>
                <Section3 SectionLength="30" SectionLengthTag="TestCodeSectionLength">TestCodeSection</Section3>
-               <Section4 SectionLength="15" SectionLengthTag="">WccInfoSection</Section4>
+               <Section4 SectionLength="11" SectionLengthTag="">WccInfoSection</Section4>
             </SectionOrder>
             <SectionDataLengths>
-               <MessageDescriptionLength StartIndex="1" Length="4">50</MessageDescriptionLength>
-               <PartNumberSectionLength StartIndex="5" Length="4">60</PartNumberSectionLength>
-               <TestCodeSectionLength StartIndex="9" Length="4">28</TestCodeSectionLength>
+               <MessageDescriptionLength StartIndex="6" Length="4">50</MessageDescriptionLength>
+               <PartNumberSectionLength StartIndex="10" Length="4">0</PartNumberSectionLength>
+               <TestCodeSectionLength StartIndex="14" Length="4">28</TestCodeSectionLength>
             </SectionDataLengths>
             <ValidWccResponseLength>46</ValidWccResponseLength>
-            <WccTimeIndex Section="WccInfoSection">41</WccTimeIndex>
+            <WccTimeIndex Section="WccInfoSection" Offset="6">6</WccTimeIndex>
             <WccTimeLength>4</WccTimeLength>
-            <WccDateIndex Section="WccInfoSection">46</WccDateIndex>
+            <WccDateIndex Section="WccInfoSection" Offset="0">0</WccDateIndex>
             <WccDateLength>6</WccDateLength>
-            <WccChecksumIndex Section="WccInfoSection">53</WccChecksumIndex>
+            <WccChecksumIndex Section="WccInfoSection" Offset="10">10</WccChecksumIndex>
          </Data>
          <BroadcastCommunication>
             <Setup>
                <Communication>
-                  <Name>/dev/LogicalPorts/Wcc</Name>
+                  <Name>/dev/LogicalPorts/MesHost</Name>
                   <BufferSize>2000</BufferSize>
                   <Timeout>2000</Timeout>
                   <Debug>Off</Debug>
@@ -44,7 +44,7 @@
                </Logging>
                <MaxAttempts>3</MaxAttempts>
                <MaxResponseTime>50000</MaxResponseTime>
-               <MessageDelay>5000</MessageDelay>
+               <MessageDelay>10000</MessageDelay>
             </Setup>
          </BroadcastCommunication>
       </Broadcast>
@@ -81,11 +81,8 @@
             <AWD>No</AWD>
          </FourWheelDriveEquipped>
          <BodyStyleDriveAxle>
-            <_Default>Front</_Default>
-            <NF>Front</NF>
-            <YF>Front</YF>
-            <CM>Rear</CM>
-            <LF>Front</LF>
+            <_Default>Rear</_Default>
+            <MS>Rear</MS>
          </BodyStyleDriveAxle>
       </DataTags>
       <Logging>
@@ -93,7 +90,7 @@
          <ProcessName>core/MesDataController</ProcessName>
          <AdditionalLogFile Type="/Servers/MesDataController or Disabled">/Servers/MesDataController.log</AdditionalLogFile>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x01</Verbose>
+         <Verbose>0x1F</Verbose>
          <Debug>Off</Debug>
       </Logging>
       <Prompts>

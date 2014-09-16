@@ -813,8 +813,10 @@
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/CMakeLists.txt"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/NdbHostInterfaceMap.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Tesla.Freemont.507560.ResultReportingBaseMap.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Tesla.Freemont.508180.ResultReportingBaseMap.xml"/>
+						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Tesla.Freemont.508202.ResultReportingBaseMap.xml"/>
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Tesla.PlantHostOutboundConfig.xml"/>
-						<F N="ServicesLayer/Servers/PlantHostOutbound/Configuration/Tesla.ResultReportingBaseMap.xml"/>
 					</Folder>
 					<Folder Name="Include">
 						<F N="ServicesLayer/Servers/PlantHostOutbound/Include/TeslaReportInterface.h"/>

@@ -81,6 +81,7 @@ void TeslaReportInterface::SendResultToHost(const string &result)
     string stx = "\x002";
     string etx = "\x003";
     UINT16 checksum = CalculateCheckSum(result) & 0xFF;
+    Log(LOG_DEV_DATA, "Calculated checksum is 0x%02X (%d)", checksum, checksum);
     string resultToHost = stx + result + (char)checksum + etx;
     // Transmit the result string to the host system
     BEP_STATUS_TYPE status = SendTestResultString(resultToHost, *(HostComm()), MaxMsgSendAttempts());
@@ -442,11 +443,24 @@ string TeslaReportInterface::GetDetailAttributeValue(const XmlNodeMap &testResul
     try
     {
         // store the data value to format
-        result = testResultIter->second->getChild(detailNodeName)->getAttribute(attributeNodeName)->getValue();
+        if(testResultIter != testResultMap.end())
+        {
+            result = testResultIter->second->getChild(detailNodeName)->getAttribute(attributeNodeName)->getValue();
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Test result not reported: %s", testResultStringField->getValue().c_str());
+            result.clear();
+        }
     }
     catch(XmlException &e)
     {
-        Log(LOG_ERRORS, "Test result detail not reported: %s", e.what());
+        Log(LOG_ERRORS, "Test result detail attribute not reported: %s", e.what());
+        result.clear();
+    }
+    catch(...)
+    {
+        Log(LOG_ERRORS, "Unknown exception getting test result detail attribute");
         result.clear();
     }
 

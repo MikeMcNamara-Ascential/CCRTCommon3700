@@ -16,6 +16,7 @@ namespace MES_Data_Interface
         public String QnxListenerIpAddress { get; set; }
         public String QnxListenerTcpPort { get; set; }
         public String MesHostName { get; set; }
+        public Boolean GetDispositionBeforeUpdate { get; set; }
 
         private static string m_settingsFile = Path.Combine(Application.StartupPath, "Settings.xml");
 
@@ -58,6 +59,79 @@ namespace MES_Data_Interface
             QnxListenerIpAddress = String.Empty;
             QnxListenerTcpPort = String.Empty;
             MesHostName = String.Empty;
+            GetDispositionBeforeUpdate = false;
+        }
+    }
+
+    public class BuildStringOptions
+    {
+        public String PerformAbortTag;
+        public String BuildDateTag;
+        public String BuildTimeTag;
+        public List<PNGroupCodePair> PartNumberList;
+        public List<GroupCodePair> TestCodeList;
+
+        public BuildStringOptions()
+        {
+            PerformAbortTag = "GroupCode";
+            BuildDateTag = "GroupCode";
+            BuildTimeTag = "GroupCode";
+            PartNumberList = new List<PNGroupCodePair>();
+            TestCodeList = new List<GroupCodePair>();
+        }
+
+        public BuildStringOptions(bool addInitialListValue)
+        {
+            PerformAbortTag = "GroupCode";
+            BuildDateTag = "GroupCode";
+            BuildTimeTag = "GroupCode";
+            PartNumberList = new List<PNGroupCodePair>();
+            TestCodeList = new List<GroupCodePair>();
+
+            if (addInitialListValue)
+            {
+                PartNumberList.Add(new PNGroupCodePair("PartNumberName", "GroupCode", 10));
+                TestCodeList.Add(new GroupCodePair("TestCodeName", "GroupCode"));
+            }
+        }
+    }
+
+    public class GroupCodePair
+    {
+        public String ItemName;
+        public String ItemGroupCode;
+
+        public GroupCodePair()
+        {
+            ItemName = String.Empty;
+            ItemGroupCode = String.Empty;
+        }
+
+        public GroupCodePair(String itemName, String itemGroupCode)
+        {
+            ItemName = itemName;
+            ItemGroupCode = itemGroupCode;
+        }
+    }
+
+    public class PNGroupCodePair
+    {
+        public String ItemName;
+        public String ItemGroupCode;
+        public Int32 PartNumberLength;
+
+        public PNGroupCodePair()
+        {
+            ItemName = String.Empty;
+            ItemGroupCode = String.Empty;
+            PartNumberLength = 10;
+        }
+
+        public PNGroupCodePair(String itemName, String itemGroupCode, Int32 partNumberLength)
+        {
+            ItemName = itemName;
+            ItemGroupCode = itemGroupCode;
+            PartNumberLength = partNumberLength;
         }
     }
 }

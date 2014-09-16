@@ -863,6 +863,8 @@ private:
      * Map containing the build record section length data.
      */
     XmlNodeMap m_wccSectionLengthMap;
+
+    XmlNodeMap m_wccDataNodeMap;
 };
 
 #endif  // MesDataController_h

@@ -31,6 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
+            this.m_qnxListenerIpAddress = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.m_qnxListenerTcpPort = new System.Windows.Forms.TextBox();
             this.m_qnxIpAddress = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -38,10 +42,8 @@
             this.m_mesHostname = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.m_qnxListenerTcpPort = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.m_qnxListenerIpAddress = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.m_getBeforeUpdateCheckBox = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -74,6 +76,38 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "QNX Connection";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 35);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Local IP Address";
+            // 
+            // m_qnxListenerIpAddress
+            // 
+            this.m_qnxListenerIpAddress.Location = new System.Drawing.Point(101, 32);
+            this.m_qnxListenerIpAddress.Name = "m_qnxListenerIpAddress";
+            this.m_qnxListenerIpAddress.Size = new System.Drawing.Size(169, 20);
+            this.m_qnxListenerIpAddress.TabIndex = 4;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(8, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(79, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Local TCP Port";
+            // 
+            // m_qnxListenerTcpPort
+            // 
+            this.m_qnxListenerTcpPort.Location = new System.Drawing.Point(101, 58);
+            this.m_qnxListenerTcpPort.Name = "m_qnxListenerTcpPort";
+            this.m_qnxListenerTcpPort.Size = new System.Drawing.Size(169, 20);
+            this.m_qnxListenerTcpPort.TabIndex = 2;
+            // 
             // m_qnxIpAddress
             // 
             this.m_qnxIpAddress.Location = new System.Drawing.Point(101, 6);
@@ -93,12 +127,14 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.m_getBeforeUpdateCheckBox);
+            this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.m_mesHostname);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(276, 64);
+            this.tabPage2.Size = new System.Drawing.Size(276, 85);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MES Connection";
             // 
@@ -143,37 +179,23 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // m_qnxListenerTcpPort
+            // label5
             // 
-            this.m_qnxListenerTcpPort.Location = new System.Drawing.Point(101, 58);
-            this.m_qnxListenerTcpPort.Name = "m_qnxListenerTcpPort";
-            this.m_qnxListenerTcpPort.Size = new System.Drawing.Size(169, 20);
-            this.m_qnxListenerTcpPort.TabIndex = 2;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(8, 34);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(198, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "GetDisposition Before UpdateDisposition";
             // 
-            // label3
+            // m_getBeforeUpdateCheckBox
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(79, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Local TCP Port";
-            // 
-            // m_qnxListenerIpAddress
-            // 
-            this.m_qnxListenerIpAddress.Location = new System.Drawing.Point(101, 32);
-            this.m_qnxListenerIpAddress.Name = "m_qnxListenerIpAddress";
-            this.m_qnxListenerIpAddress.Size = new System.Drawing.Size(169, 20);
-            this.m_qnxListenerIpAddress.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 35);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(87, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Local IP Address";
+            this.m_getBeforeUpdateCheckBox.AutoSize = true;
+            this.m_getBeforeUpdateCheckBox.Location = new System.Drawing.Point(212, 33);
+            this.m_getBeforeUpdateCheckBox.Name = "m_getBeforeUpdateCheckBox";
+            this.m_getBeforeUpdateCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.m_getBeforeUpdateCheckBox.TabIndex = 3;
+            this.m_getBeforeUpdateCheckBox.UseVisualStyleBackColor = true;
             // 
             // SettingsForm
             // 
@@ -210,5 +232,7 @@
         private System.Windows.Forms.TextBox m_qnxListenerTcpPort;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox m_qnxListenerIpAddress;
+        private System.Windows.Forms.CheckBox m_getBeforeUpdateCheckBox;
+        private System.Windows.Forms.Label label5;
     }
 }

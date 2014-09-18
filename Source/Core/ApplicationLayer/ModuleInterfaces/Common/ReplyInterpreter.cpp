@@ -1248,7 +1248,7 @@ throw(XmlException)
 
     // ceate a buffer to hold extracted data
     UINT8 temp[len + 1];
-    string originalString[len];     // Used as comparison for stringSubstitute, allows blank to be returned if no match found
+	UINT8 originalString[len + 1];		// Used as comparison for stringSubstitute, allows blank to be returned if no match found
     bool boolSubstituteString = true;
     bool conditionsMet = false;
 
@@ -1411,7 +1411,12 @@ throw(XmlException)
         {//sizes do not match
             throw XmlException("Length value and number of compare nodes do not match");
         }
-    }
+        // reset temp array with original values
+        for(int xx = 0; xx < len; xx++)
+        {
+            temp[xx] = originalString[xx];
+        }
+	}
 
     // create basic string out of extracted ASCII bytes or Strings
     return(strVal);
@@ -1465,6 +1470,13 @@ throw(XmlException)
     case INT_TYPE_TWOS_COMP_SIGNED:
         {
             return(intProcessGrammarTwosCompSigned(xmlnode,byteArray));
+
+            //break;
+        }
+        // --> Sign and Magnitude signed (all MSBs are sign bit - after first zero magnitude)
+    case INT_TYPE_SIGN_AND_MAGNITUDE:
+        {
+            return(intProcessGrammarSignAndMagnitude(xmlnode,byteArray));
 
             //break;
         }
@@ -1664,6 +1676,137 @@ throw(XmlException)
         negativeFlag = true;
     }
 
+    // mask out only the number of data bits being processed
+    outputUnion.value &= createBitMask(bits,BITMASK_LOWER_BITS_EXCLUSIVE);
+
+    // handle negative value
+    if(negativeFlag)
+    {
+        retVal = -(outputUnion.value);
+
+        // multiply final val by scale factor, add offset, and round
+        retVal = (INT32)((((double)retVal) * scaleFactor) + offset - 0.5f);
+    }
+
+    // handle positive value
+    else
+    {
+        retVal = outputUnion.value;
+
+        // multiply final val by scale factor, add offset, and round
+        retVal = (INT32)((((double)retVal) * scaleFactor) + offset + 0.5f);
+    }
+
+    return(retVal);
+}
+
+INT32 ReplyInterpreter::intProcessGrammarSignAndMagnitude (const XmlNode * xmlnode,SerialString_t &byteArray)
+throw(XmlException)
+{
+    // handle null node
+    if(xmlnode == NULL)
+    {
+        throw XmlException("null XmlNode");
+    }
+
+    if(getIntegerTypeFromAttribute(xmlnode) != INT_TYPE_SIGN_AND_MAGNITUDE)
+    {
+        throw XmlException("element not simple signed Integer type as expected");
+    }
+
+    unsigned int ii;
+
+    INT32  retVal = 0;
+    UINT32 outputIndexVal;
+    UINT8  dataByte;
+    UINT8  maskByte;
+    UINT16 bits;
+    bool   negativeFlag = false;
+
+    double  offset;
+    double  scaleFactor;
+
+    /**
+     * union to hold extracted bytes for
+     * interpretation as an Integer
+     */
+    union
+    {
+        INT32 value;
+        UINT8 array[sizeof(INT32)];
+    } outputUnion;
+
+    // clear the union
+    for(ii = 0; ii < sizeof(INT32); ii++)
+    {
+        outputUnion.array[ii] = 0x00;
+    }
+
+    // get all the integer children
+    const XmlNodeMap &intNodes = xmlnode->getChildren();
+
+    // sanity check
+    if(intNodes.size() == (unsigned int)0)
+    {
+        throw XmlException("no Integer children to process");
+    }
+
+    // extract offset and scale factors from Integer attributes
+    offset = getOffsetVal(xmlnode);
+    scaleFactor = getScaleVal(xmlnode);
+
+    // loop through the int children
+    for(ii=0; ii<intNodes.size(); ii++)
+    {
+        // sanity check - looking for 'Byte' children nodes
+        if(!isNodeByte(intNodes.getNode(ii)))
+        {
+            throw XmlException("unrecognized node: " + intNodes.getNode(ii)->getName());
+        }
+
+        // get output index (index position in outputUnion.array)
+        outputIndexVal = getOutputIndexVal(intNodes.getNode(ii));
+
+        // outputUnion.array bounds check
+        if(outputIndexVal > (sizeof(outputUnion.array)-1))
+        {
+            throw XmlException("integer union array index out of bounds");
+        }
+
+        // get data byte from byteArray
+        dataByte = getInputArrayVal(byteArray,getInputIndexVal(intNodes.getNode(ii)));
+
+        // get mask from current Byte node
+        maskByte = getMaskVal(intNodes.getNode(ii));
+
+        // store result in outputUnion's array
+        outputUnion.array[outputIndexVal] = dataByte & maskByte;
+    }
+
+    // get bit length of integer being assembled
+    bits = getBitSize(xmlnode);
+
+    // if most signigicant bit is 1, integer is negative
+    if((outputUnion.value & createBitMask(bits,BITMASK_SINGLE_BIT)) > 0)
+    {
+        negativeFlag = true;
+        //adjust bit num to last sign bit
+        for(int i = bits - 1; i > 0; i--)
+        {
+            if((outputUnion.value & createBitMask(i,BITMASK_SINGLE_BIT)) > 0)
+            {
+                bits--;
+            }
+            else
+            {
+                break;
+            }
+        }
+        if(bits == 0)
+        {
+            return 0;
+        }
+    }
     // mask out only the number of data bits being processed
     outputUnion.value &= createBitMask(bits,BITMASK_LOWER_BITS_EXCLUSIVE);
 
@@ -3109,7 +3252,8 @@ throw(XmlException)
 
     return((intType == INT_TYPE_SIMPLE_SIGNED) ||
            (intType == INT_TYPE_OFFSET_SIGNED) ||
-           (intType == INT_TYPE_TWOS_COMP_SIGNED));
+           (intType == INT_TYPE_TWOS_COMP_SIGNED) ||
+           (intType == INT_TYPE_SIGN_AND_MAGNITUDE));
 }
 
 bool ReplyInterpreter::isIntegerUnsigned (const XmlNode * xmlnode)
@@ -3139,6 +3283,10 @@ INT16 ReplyInterpreter::getIntegerTypeFromAttribute (const XmlNode * element)thr
     else if(compareAttributeValueToString(element,string("type"),string("two's complement signed")))
     {
         return(INT_TYPE_TWOS_COMP_SIGNED);
+    }
+    else if(compareAttributeValueToString(element,string("type"),string("sign and magnitude")))
+    {
+        return(INT_TYPE_SIGN_AND_MAGNITUDE);
     }
 
     return(INT_TYPE_NONE);

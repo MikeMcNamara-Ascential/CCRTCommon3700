@@ -132,6 +132,7 @@ public:
     static const INT16 INT_TYPE_UNSIGNED         =  1;
     static const INT16 INT_TYPE_OFFSET_SIGNED    =  2;
     static const INT16 INT_TYPE_TWOS_COMP_SIGNED =  3;
+    static const INT16 INT_TYPE_SIGN_AND_MAGNITUDE =  4;
 
     static const UINT16 VECTOR_TYPE_NONE        = 0;
     static const UINT16 VECTOR_TYPE_FIXED       = 1;
@@ -756,6 +757,18 @@ protected:
      * @since 15 Feb 2003
      */
     virtual INT32 intProcessGrammarTwosCompSigned (const XmlNode * xmlnode,SerialString_t &byteArray)
+        throw(XmlException);
+
+    /**
+     * Integer grammar Helper for sign and magnitude Signed int extraction
+     *
+     * @param xmlnode
+     * @param byteArray
+     * @throws XmlException if the XML used to interpret the
+     * string is incorrectly formed
+     * @since 27 May 2010
+     */
+    virtual INT32 intProcessGrammarSignAndMagnitude (const XmlNode * xmlnode,SerialString_t &byteArray)
         throw(XmlException);
 
     /**

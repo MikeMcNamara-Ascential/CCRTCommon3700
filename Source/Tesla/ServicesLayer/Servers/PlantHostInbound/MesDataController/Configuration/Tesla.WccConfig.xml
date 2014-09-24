@@ -47,6 +47,7 @@
                <MessageDelay>10000</MessageDelay>
             </Setup>
          </BroadcastCommunication>
+         <ReconnectDelay>1000</ReconnectDelay>
       </Broadcast>
       <Communication>
          <Type>Server</Type>

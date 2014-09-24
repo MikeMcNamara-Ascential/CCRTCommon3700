@@ -716,6 +716,9 @@ protected:
 	 */
 	inline void SetVINToLoad(const std::string &vin);
     const bool& UseSectionLengthData(const bool *useSectionData = NULL);
+    void WaitForMesHost(void);
+    void SetReconnectDelay(const INT32 &delay);
+    const INT32& GetReconnectDelay(void);
 	/**
 	 * Semaphore to signal us to go get the build record from broadcast.
 	 * @since Version 1.2
@@ -865,6 +868,8 @@ private:
     XmlNodeMap m_wccSectionLengthMap;
 
     XmlNodeMap m_wccDataNodeMap;
+
+    INT32 m_reconnectDelay;
 };
 
 #endif  // MesDataController_h

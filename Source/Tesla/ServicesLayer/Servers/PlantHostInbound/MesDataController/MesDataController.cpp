@@ -133,6 +133,7 @@
 
 #include <time.h>
 #include "MesDataController.h"
+#include "ITaskMon.h"
 
 
 MesDataController::MesDataController() : PlantHostInbound(), m_wccCommSetup(NULL)
@@ -178,6 +179,16 @@ void MesDataController::Initialize(const XmlNode *document)
     catch (...)
     {
         SetBroadcastCommSetup(NULL);
+    }
+    // Get the reconnect time delay
+    try
+    {
+        SetReconnectDelay(BposReadInt(document->getChild("Setup/Broadcast/ReconnectDelay")->getValue().c_str()));
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "ReconnectDelay not specified, using 1s: %s", excpt.GetReason());
+        SetReconnectDelay(1000);
     }
     try
     {                          // Set the number of times we should try communications with broadcast
@@ -285,11 +296,11 @@ const std::string MesDataController::Register(void)
 {  // Initialize the PromptServer interface object
     m_promptComm.Initialize(PROMPT_SERVER_NAME, DEFAULT_BUFFER_SIZE, DEFAULT_TIMEOUT,false); 
     Log(LOG_DEV_DATA, "Initialized prompt server communications\n");
-    if (GetVehicleBuildSource() == SOURCE_BROADCAST)
-    {  // Initialize the serial channel comm object only iif we are set to talk to broadcast
-        m_wccComm.Initialize(GetBroadcastCommSetup());
-        Log(LOG_DEV_DATA, "Initialized broadcast communications\n");
-    }
+    // Broadcast comm object should always be started.  This server allows dynamically changing of the
+    // build record source.  If the server comes up with File as the source, you should still be able to
+    // dynamically change to broadcast.
+    m_wccComm.Initialize(GetBroadcastCommSetup());
+    Log(LOG_DEV_DATA, "Initialized broadcast communications\n");
     return(PlantHostInbound::Register());
 }
 
@@ -330,6 +341,9 @@ const std::string MesDataController::Publish(const XmlNode *node)
 void MesDataController::Run(volatile bool *terminateFlag) /*=NULL*/
 {
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Run() - begin\n");
+    Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Run() - waiting for data connection\n");
+    WaitForMesHost();
+    Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Run() - data connection found. Starting Run loop\n");
     while (GetStatus() != BEP_TERMINATE)
     {   // Acquire the semaphore
         m_getBuildRecord.Acquire();
@@ -1413,5 +1427,44 @@ const bool& MesDataController::UseSectionLengthData(const bool *useSectionData) 
         m_useSectionData = *useSectionData;
     }
     return(m_useSectionData);
+}
+
+void MesDataController::WaitForMesHost(void)
+{
+    TaskMonTask_t wccTask;
+    do
+    {   // Get the state of the WCC port
+        if (ITaskMon::ReadTaskInfo(wccTask, "MesHost", TASKMON_CLASS_SERIAL) != -1)
+        {
+            // If the state is not run, register the port driver
+            if (wccTask.m_taskState != TASKSTATE_RUN)
+            {   // Delay before attempting to reconnect/register since the other PC may not be completely up.
+                BposSleep(GetReconnectDelay());
+                // Register the port driver
+                m_wccComm.RegisterPortDriver();
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Error Task already in run state\n");
+            }
+            // Delay after registering to allow the port driver to finish registering.
+            BposSleep(GetReconnectDelay());
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Unable to read task info - Install latest TaskMon / TaskMonTerm to /usr/local/bin dir\n");
+        }
+        // Keep looking until state is run and we are not terminated
+    } while ((wccTask.m_taskState != TASKSTATE_RUN) && GetStatus().compare(BEP_TERMINATE));
+}
+
+void MesDataController::SetReconnectDelay(const INT32 &delay)
+{
+    m_reconnectDelay = delay;
+}
+
+const INT32& MesDataController::GetReconnectDelay(void)
+{
+    return m_reconnectDelay;
 }
 

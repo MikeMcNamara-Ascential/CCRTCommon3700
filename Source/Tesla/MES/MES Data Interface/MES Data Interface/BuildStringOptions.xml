@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<BuildStringOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<PerformAbortTag/>
+	<BuildDateTag/>
+	<BuildTimeTag/>
+	<PartNumberList/>
+	<TestCodeList>
+		<GroupCodePair>
+			<ItemName>Adapter</ItemName>
+			<ItemGroupCode>ADAPTER</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>AirFilter</ItemName>
+			<ItemGroupCode>AIR FILTER</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>AlumPedals</ItemName>
+			<ItemGroupCode>ALUM PEDALS</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Audio</ItemName>
+			<ItemGroupCode>AUDIO</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Badge</ItemName>
+			<ItemGroupCode>BADGE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Battery</ItemName>
+			<ItemGroupCode>BATTERY</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>BlindSpot</ItemName>
+			<ItemGroupCode>BLIND SPOT</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Calipers</ItemName>
+			<ItemGroupCode>CALIPERS</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Camera</ItemName>
+			<ItemGroupCode>CAMERA</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Cargo</ItemName>
+			<ItemGroupCode>CARGO</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Chademo</ItemName>
+			<ItemGroupCode>CHADEMO</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Charger</ItemName>
+			<ItemGroupCode>CHARGER</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>ColdWeather</ItemName>
+			<ItemGroupCode>Cold Weather</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Connector</ItemName>
+			<ItemGroupCode>CONNECTOR</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Country</ItemName>
+			<ItemGroupCode>COUNTRY</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Cover</ItemName>
+			<ItemGroupCode>COVER</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Decor</ItemName>
+			<ItemGroupCode>DECOR</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>DoorHandle</ItemName>
+			<ItemGroupCode>DOOR HANDLE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Drive</ItemName>
+			<ItemGroupCode>DRIVE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>DriveMode</ItemName>
+			<ItemGroupCode>DRIVE MODE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>DriverAssist</ItemName>
+			<ItemGroupCode>DRIVERS ASSISTANCE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>ExtLights</ItemName>
+			<ItemGroupCode>EXT LIGHTS</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Exterior</ItemName>
+			<ItemGroupCode>EXTERIOR</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>FrontConsole</ItemName>
+			<ItemGroupCode>FRONT CONSOLE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>HomeLink</ItemName>
+			<ItemGroupCode>HOMELINK</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Interior</ItemName>
+			<ItemGroupCode>INTERIOR</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Language</ItemName>
+			<ItemGroupCode>LANGUAGE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Liftgate</ItemName>
+			<ItemGroupCode>LIFTGATE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Lighting</ItemName>
+			<ItemGroupCode>LIGHTING</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>LightingPkg</ItemName>
+			<ItemGroupCode>LIGHTING_PACKAGE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>LowerTrim</ItemName>
+			<ItemGroupCode>LOWER TRIM</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>MapPocket</ItemName>
+			<ItemGroupCode>MAP POCKET</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Mirrors</ItemName>
+			<ItemGroupCode>MIRRORS</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Nav</ItemName>
+			<ItemGroupCode>NAV</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Paint</ItemName>
+			<ItemGroupCode>PAINT</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>ParkAssist</ItemName>
+			<ItemGroupCode>PARK ASSIST</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>PassiveEntry</ItemName>
+			<ItemGroupCode>PASSIVE ENTRY</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Powertrain</ItemName>
+			<ItemGroupCode>PWRTRN</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Region</ItemName>
+			<ItemGroupCode>REGION</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>RegionalSafety</ItemName>
+			<ItemGroupCode>REGIONAL SAFETY KITS</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Roof</ItemName>
+			<ItemGroupCode>ROOF</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Satellite</ItemName>
+			<ItemGroupCode>SATELLITE</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>ScuffPlates</ItemName>
+			<ItemGroupCode>SCUFF PLATES</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>SeatMemory</ItemName>
+			<ItemGroupCode>SEAT MEMORY</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>SecondRow</ItemName>
+			<ItemGroupCode>SECOND ROW SEAT</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Security</ItemName>
+			<ItemGroupCode>SECURITY</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Series</ItemName>
+			<ItemGroupCode>SERIES</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Shelf</ItemName>
+			<ItemGroupCode>SHELF</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Sport</ItemName>
+			<ItemGroupCode>SPORT</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>StarShield</ItemName>
+			<ItemGroupCode>STAR SHIELD</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Supercharger</ItemName>
+			<ItemGroupCode>SUPERCHARGER</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Suspension</ItemName>
+			<ItemGroupCode>SUSPENSION</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Tech</ItemName>
+			<ItemGroupCode>TECH</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>ThirdRow</ItemName>
+			<ItemGroupCode>3RD ROW</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Tires</ItemName>
+			<ItemGroupCode>TIRES</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>TopPad</ItemName>
+			<ItemGroupCode>TOP PAD</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Trim</ItemName>
+			<ItemGroupCode>TRIM</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>UpperTrim</ItemName>
+			<ItemGroupCode>UPPER TRIM</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>Wheels</ItemName>
+			<ItemGroupCode>WHEELS</ItemGroupCode>
+		</GroupCodePair>
+		<GroupCodePair>
+			<ItemName>YachtFloor</ItemName>
+			<ItemGroupCode>YACHT FLOOR</ItemGroupCode>
+		</GroupCodePair>
+	</TestCodeList>
+</BuildStringOptions>

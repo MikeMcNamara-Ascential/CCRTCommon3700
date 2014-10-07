@@ -464,7 +464,7 @@
     </Setup>
     <Objectives>
         <ClearFaults>
-            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep10>ExitDiagnosticMode</TestStep10>
             <TestStep15>ClearFaults</TestStep15>
             <TestStep20>CycleIgnition</TestStep20>
         </ClearFaults>
@@ -636,7 +636,7 @@
          <TestStep00>StopModuleKeepAlive</TestStep00>
             <TestStep01>ReadFaults</TestStep01>
          <!--TestStep02>EnableSpeedLimit</TestStep02-->
-            <TestStep05>ExitDiagnosticMode</TestStep05>
+            <!--TestStep05>ExitDiagnosticMode</TestStep05-->
             <TestStep10>FinishUp</TestStep10>
         </FinishUp>
         <SimpleSetup>

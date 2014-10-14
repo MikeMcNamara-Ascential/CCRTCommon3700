@@ -465,6 +465,7 @@
     <Objectives>
         <ClearFaults>
             <TestStep10>ExitDiagnosticMode</TestStep10>
+            <TestStep12>Delay</TestStep12>
             <TestStep15>ClearFaults</TestStep15>
             <TestStep20>CycleIgnition</TestStep20>
         </ClearFaults>

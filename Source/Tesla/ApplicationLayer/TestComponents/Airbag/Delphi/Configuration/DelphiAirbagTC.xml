@@ -103,19 +103,23 @@
     <Objectives>
         <AirbagTest>
             <TestStep10>EnterDiagnosticMode</TestStep10>
+<!--
             <TestStep20>CollectTraceData</TestStep20>
             <TestStep30>CommandSecurityAccess</TestStep30>
             <TestStep40>ProgramVIN</TestStep40>
             <TestStep50>CheckVIN</TestStep50>
+-->            
             <TestStep60>ReadFaults</TestStep60>
-            <TestStep70>EnableAirBagModule</TestStep70>
+            <!--TestStep70>EnableAirBagModule</TestStep70-->
             <TestStep75>FinishUp</TestStep75>
         </AirbagTest>
         <AirbagSetup>
             <TestStep00>Setup</TestStep00>
+<!--
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>CheckPartNumbers</TestStep15>
             <TestStep20>ClearFaults</TestStep20>
+-->            
         </AirbagSetup>
         <FinishUp>
             <TestStep00>FinishUp</TestStep00>

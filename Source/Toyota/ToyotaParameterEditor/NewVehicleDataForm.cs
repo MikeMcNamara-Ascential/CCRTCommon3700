@@ -46,7 +46,13 @@ namespace ToyotaParameterEditor
             }
             // Save the image file to the CCRT Client path
             String clientLogFileName = ToyotaParameterEditor.Properties.Resources.CcrtClientLogoFileLocation + "toyota-" + VehicleName.ToLower() + ".jpg";
-            m_vehicleLogoPictureBox.Image.Save(clientLogFileName);
+            try
+            {
+                m_vehicleLogoPictureBox.Image.Save(clientLogFileName);
+            }
+            catch (Exception)
+            {   // Nothing special to do here
+            }
             if (!UpdatedFiles.Contains(clientLogFileName))
             {
                 m_updatedFiles.Add(clientLogFileName);
@@ -124,7 +130,7 @@ namespace ToyotaParameterEditor
                     imagesDir.Create();
                 }
                 String imageFileName = ToyotaParameterEditor.Properties.Resources.VehicleLogoFileLocation + "\\toyota-" + VehicleName.ToLower() + ".jpg";
-                imageFile.CopyTo(imageFileName);
+                imageFile.CopyTo(imageFileName, true);
                 if (!UpdatedFiles.Contains(imageFileName))
                 {
                     m_updatedFiles.Add(imageFileName);

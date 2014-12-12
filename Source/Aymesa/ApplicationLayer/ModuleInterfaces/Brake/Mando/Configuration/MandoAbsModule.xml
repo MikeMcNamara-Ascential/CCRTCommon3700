@@ -94,6 +94,12 @@
                 <ReplyMessage>ClearFaults</ReplyMessage>
                 <ReplyInterpretation/>
             </ClearFaults>
+            <ReadSupportedRecordValue>
+                <TransmitMessage>ReadLid</TransmitMessage>
+                <TransmitInterpretation>SupportedRecordValue</TransmitInterpretation>
+                <ReplyMessage>ReadLid</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadSupportedRecordValue>
             <ReadBrakeSwitch>
                 <TransmitMessage>ReadLid</TransmitMessage>
                 <TransmitInterpretation>ServiceData</TransmitInterpretation>
@@ -148,6 +154,12 @@
                 <ReplyMessage>UnlockModuleSecurity</ReplyMessage>
                 <ReplyInterpretation/>
             </UnlockModuleSecurity>
+            <ReadIoControlSupported>
+                <TransmitMessage>IoControlSupported</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>IoControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadIoControlSupported>
             <ActuateLeftFrontReduction>
                 <TransmitMessage>IoControlMultiple</TransmitMessage>
                 <TransmitInterpretation>LfReduction</TransmitInterpretation>
@@ -277,16 +289,17 @@
             </BrakeLightOff>
         </VehicleMessages>
         <TransmitMessages>
-            <EnterDiagnosticMode>0x10,0x90</EnterDiagnosticMode>
+            <EnterDiagnosticMode>0x10,0x84</EnterDiagnosticMode>
             <ExitDiagnosticMode>0x20</ExitDiagnosticMode>
-            <KeepAlive>0x3E,0x00</KeepAlive>
-            <ReadFaults>0x18,0x00,0x40,0x00</ReadFaults>
-            <ClearFaults>0x14,0xFF,0x00</ClearFaults>
+            <KeepAlive>0x3E</KeepAlive>
+            <ReadFaults>0x13,0x40,0x00</ReadFaults>
+            <ClearFaults>0x14,0x40,0x00</ClearFaults>
             <ReadLid>0x21,0x??</ReadLid>
             <ReadSecuritySeed>0x27,0x01</ReadSecuritySeed>
             <UnlockModuleSecurity>0x27,0x02,0x??,0x??</UnlockModuleSecurity>
             <ResetModule>0x11,0x01</ResetModule>
             <IoControl>0x30,0x??,0x??</IoControl>
+            <IoControlSupported>0x30,0x00</IoControlSupported>
             <IoControlMultiple>0x30,0xF0,0x??,0x??,0x??,0x??</IoControlMultiple>
             <StartRoutineByLid>0x31,0x??,0x00,0x??</StartRoutineByLid>
             <WriteLid>0x3B,0x??</WriteLid>
@@ -316,7 +329,7 @@
             <DiagSpeedLimitEnable>0x1E,0x11</DiagSpeedLimitEnable>
             <DisableValveRelayShutdown>0x1F,0x20</DisableValveRelayShutdown>
             <EnableValveRelayShutdown>0x1F,0x11</EnableValveRelayShutdown>
-            <ServiceData>0x01</ServiceData>
+            <ServiceData >0x01</ServiceData>
             <VariantCoding>0x04</VariantCoding>
             <SasCalibration>0x01,0xFF</SasCalibration>
             <SasDecalibration>0x01,0x00</SasDecalibration>
@@ -337,10 +350,11 @@
             <EspReduction>0x11,0x00,0x01,0xFF</EspReduction>
             <LfRrRecovery>0x00,0x00,0x13,0xFF</LfRrRecovery>
             <RfLrRecovery>0x00,0x00,0x0D,0xFF</RfLrRecovery>
+            <SupportedRecordValue>0x00,0x01</SupportedRecordValue>
         </TransmitInterpretations>
         <ReplyMessages>
             <EnterDiagnosticMode>
-                <Reply_00>0x50,0x90</Reply_00>
+                <Reply_00>0x50,0x84</Reply_00>
                 <Reply_01>0x7F,0x10,0x??</Reply_01>
             </EnterDiagnosticMode>
             <ExitDiagnosticMode>
@@ -348,7 +362,7 @@
                 <Reply_01>0x7F,0x20,0x??</Reply_01>
             </ExitDiagnosticMode>
             <KeepAlive>
-                <Reply_00>0x7E,0x00</Reply_00>
+                <Reply_00>0x7E</Reply_00>
                 <Reply_01>0x7F,0x3E,0x??</Reply_01>
             </KeepAlive>
             <ResetModule>
@@ -357,12 +371,12 @@
                 <Reply_02>0x7F,0x11,0x??</Reply_02>
             </ResetModule>
             <ReadEcuId>
-                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x5A,0x80,0x??</Reply_00>
+                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x5A,0x??</Reply_00>
                 <Reply_01>0x7F,0x1A,0x??</Reply_01>
             </ReadEcuId>
             <ReadFaults>
-                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x58,0x??</Reply_00>
-                <Reply_01>0x7F,0x18,0x??</Reply_01>
+                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x53,0x??</Reply_00>
+                <Reply_01>0x7F,0x13,0x??</Reply_01>
             </ReadFaults>
             <ClearFaults>
                 <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x54,0x??,0x??</Reply_00>
@@ -378,7 +392,7 @@
             </WriteLid>
             <IoControl>
                 <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x70,0x??</Reply_00>
-                <Reply_01>0x7F,0x30,0x??</Reply_01>
+                <Reply_01>0x7F,0x30,0x??</Reply_01> 
             </IoControl>
             <StartRoutineByLid>
                 <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x71,0x??</Reply_00>
@@ -417,7 +431,7 @@
             <BrakeSwitch>
                 <Boolean>
                     <NOT>
-                        <Byte1 input_index="21" mask="0x30" compare="0x10"/>
+                        <Byte1 input_index="18" mask="0x30" compare="0x10"/>
                     </NOT>
                 </Boolean>
             </BrakeSwitch>

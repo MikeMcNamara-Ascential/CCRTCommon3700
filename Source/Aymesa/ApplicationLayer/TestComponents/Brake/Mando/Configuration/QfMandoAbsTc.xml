@@ -159,6 +159,8 @@
          <CommandTorque>CommandTorque</CommandTorque>
          <TransferCaseTestCode>TransferCase</TransferCaseTestCode>
          <NoTransferCaseTestCode>NotEquipped</NoTransferCaseTestCode>
+         <MachineType>MachineType</MachineType>
+         <ElectricMachineType>3700</ElectricMachineType>
       </DataTags>
       <Parameters>
          <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
@@ -205,8 +207,8 @@
          <HighSpeedSensorTestSteadySpeedTimeout>5000</HighSpeedSensorTestSteadySpeedTimeout>
          <HighSpeedSensorTestMinSteadyWheelSpeed>50</HighSpeedSensorTestMinSteadyWheelSpeed>
          <HighSpeedSensorTestMaxSteadyWheelSpeed>65</HighSpeedSensorTestMaxSteadyWheelSpeed>
-         <ExcessiveBrakeForceLimit>0.0</ExcessiveBrakeForceLimit>
-         <NumberOfSamplesAboveLimit>5</NumberOfSamplesAboveLimit>
+            <ExcessiveBrakeForceLimit>375</ExcessiveBrakeForceLimit>
+            <NumberOfSamplesAboveLimit>20</NumberOfSamplesAboveLimit>
          <!--ABS Testing-->
          <ABS4ChannelFiringSequence>
             <Wheel_1>LeftFront</Wheel_1>
@@ -244,14 +246,14 @@
          <EspExtendCalculation>10</EspExtendCalculation>
          <EspRecoveryPulseLength>400</EspRecoveryPulseLength>
          <EspReductionPulseLength>600</EspReductionPulseLength>
-         <LeftFrontMinESPBuildForce>30</LeftFrontMinESPBuildForce>
-         <RightFrontMinESPBuildForce>30</RightFrontMinESPBuildForce>
-         <LeftRearMinESPBuildForce>30</LeftRearMinESPBuildForce>
-         <RightRearMinESPBuildForce>30</RightRearMinESPBuildForce>
-         <LeftFrontMaxESPReductionForce>80</LeftFrontMaxESPReductionForce>
-         <RightFrontMaxESPReductionForce>80</RightFrontMaxESPReductionForce>
-         <LeftRearMaxESPReductionForce>40</LeftRearMaxESPReductionForce>
-         <RightRearMaxESPReductionForce>40</RightRearMaxESPReductionForce>
+         <LeftFrontMinESPBuildForce>20</LeftFrontMinESPBuildForce>
+         <RightFrontMinESPBuildForce>20</RightFrontMinESPBuildForce>
+         <LeftRearMinESPBuildForce>20</LeftRearMinESPBuildForce>
+         <RightRearMinESPBuildForce>20</RightRearMinESPBuildForce>
+         <LeftFrontMaxESPReductionForce>200</LeftFrontMaxESPReductionForce>
+         <RightFrontMaxESPReductionForce>200</RightFrontMaxESPReductionForce>
+         <LeftRearMaxESPReductionForce>100</LeftRearMaxESPReductionForce>
+         <RightRearMaxESPReductionForce>100</RightRearMaxESPReductionForce>
          <!--SAS calibration-->
          <SASAngleRangeMin>-5</SASAngleRangeMin>
          <SASAngleRangeMax>5</SASAngleRangeMax>
@@ -372,6 +374,7 @@
          <TestStep45>StopModuleKeepAlive</TestStep45>
          <TestStep55>ValveFiringTest</TestStep55>
          <TestStep60>StartModuleKeepAlive</TestStep60>
+         <TestStep70>EnableElectricMotorBoost</TestStep70>
       </BrakeTest>
       <AnalyzeBrakeTest>
          <TestStep05>AnalyzeBrakeTest</TestStep05>
@@ -381,6 +384,8 @@
          <TestStep20>DisableForceMeter</TestStep20>
       </AnalyzeBrakeTest>
       <FinishUp>
+            <!-- Force check here to evaluate all braking -->
+            <TestStep70>ExcessiveBrakeForceCheck</TestStep70>
          <TestStep75>StopModuleKeepAlive</TestStep75>
          <TestStep80>EnterDiagnosticMode</TestStep80>
          <TestStep85>ReadFaults</TestStep85>
@@ -469,9 +474,12 @@
       <EvaluateESP Result="" Timeout="5000" Description="Evaluate ESP pulses to ensure minimum requirements are met"/>
       <DisableForceMeter Result="Not Tested" Timeout="500" Description="Disable the brake force meter"/>
       <HdcLightTest Result="" Timeout="30000" Description="Verify the brake light blinks"/>
+        <ExcessiveBrakeForceCheck Result="" Timeout="10000" Description="Check for excessive brake force during brake test"/>
       <StopModuleKeepAlive Result="" Timeout="1000" Description="Stop sending tester present message to the module" ScanDelay="250"/>
       <ClearFaults Result="" Timeout="5000" Description="Clear faults from the module" ScanDelay="250"/>
       <ExitDiagnosticMode Result="" Timeout="5000" Description="Exit diagnostic mode" ScanDelay="250"/>
       <FinishUp Result="" Timeout="3000" Description="Brake test finishup"/>
+      <QuickStop Result="" Description="Command the rollers to stop and verify that Zerospeed is achieved" Timeout="30000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
+      <EnableElectricMotorBoost Result="" Description="Enable boosting while at speed" Timeout="1000"/>
    </TestSteps>
 </MandoAbsTc>

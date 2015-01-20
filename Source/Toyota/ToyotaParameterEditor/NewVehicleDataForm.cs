@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Security.AccessControl;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
@@ -36,22 +37,41 @@ namespace ToyotaParameterEditor
         /// </summary>
         private void UpdateCcrtClientFiles()
         {   // Add the new vehicle to the display
-            using (StreamWriter writer = new StreamWriter(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile, true))
-            {   // Write the new selection criteria to the file
-                writer.Write("widget.platformlogo.image." + VehicleName + "=images/toyota-" + VehicleName.ToLower() + ".jpg" + writer.NewLine);
-            }
+            bool clientFileWritten = true;
+            Int32 attempts = 2;
+            do
+            {
+                try
+                {
+                    using (StreamWriter writer = new StreamWriter(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile, true))
+                    {   // Write the new selection criteria to the file
+                        writer.Write("widget.platformlogo.image." + VehicleName + "=images/toyota-" + VehicleName.ToLower() + ".jpg" + writer.NewLine);
+                    }
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    clientFileWritten = false;
+                    FileSecurity fSec = File.GetAccessControl(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile);
+                    fSec.AddAccessRule(new FileSystemAccessRule(@"DomainName\AccountName", FileSystemRights.Write, AccessControlType.Allow));
+                    File.SetAccessControl(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile, fSec);
+                }
+            } while ((0 <= attempts--) && !clientFileWritten);
+
             if (!UpdatedFiles.Contains(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile))
             {
                 m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile);
             }
             // Save the image file to the CCRT Client path
             String clientLogFileName = ToyotaParameterEditor.Properties.Resources.CcrtClientLogoFileLocation + "toyota-" + VehicleName.ToLower() + ".jpg";
-            try
+            if (!File.Exists(clientLogFileName))
             {
-                m_vehicleLogoPictureBox.Image.Save(clientLogFileName);
-            }
-            catch (Exception)
-            {   // Nothing special to do here
+                try
+                {
+                    m_vehicleLogoPictureBox.Image.Save(clientLogFileName);
+                }
+                catch (Exception)
+                {   // Nothing special to do here
+                }
             }
             if (!UpdatedFiles.Contains(clientLogFileName))
             {
@@ -64,41 +84,47 @@ namespace ToyotaParameterEditor
         /// </summary>
         private void UpdateCcrtServerFiles()
         {   // Update the roll test selection file
-            XmlDocument rollTestSelectionTable = new XmlDocument();
-            rollTestSelectionTable.Load(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable);
-            XmlElement rollSelection = rollTestSelectionTable.CreateElement(VehicleName);
-            rollSelection.SetAttribute("DriveCurve", ToyotaParameterEditor.Properties.Resources.RollTestDriveCurve);
-            XmlElement rollTestBodyStyleNode = rollTestSelectionTable.CreateElement("BodyStyle");
-            rollTestBodyStyleNode.InnerText = VehicleName;
-            rollSelection.AppendChild(rollTestBodyStyleNode);
-            rollTestSelectionTable.DocumentElement.AppendChild(rollSelection);
-            rollTestSelectionTable.Save(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable);
-            if (!UpdatedFiles.Contains(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable))
+            if (File.Exists(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable))
             {
-                m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable);
+                XmlDocument rollTestSelectionTable = new XmlDocument();
+                rollTestSelectionTable.Load(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable);
+                XmlElement rollSelection = rollTestSelectionTable.CreateElement(VehicleName);
+                rollSelection.SetAttribute("DriveCurve", ToyotaParameterEditor.Properties.Resources.RollTestDriveCurve);
+                XmlElement rollTestBodyStyleNode = rollTestSelectionTable.CreateElement("BodyStyle");
+                rollTestBodyStyleNode.InnerText = VehicleName;
+                rollSelection.AppendChild(rollTestBodyStyleNode);
+                rollTestSelectionTable.DocumentElement.AppendChild(rollSelection);
+                rollTestSelectionTable.Save(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable);
+                if (!UpdatedFiles.Contains(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable))
+                {
+                    m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable);
+                }
             }
             // Update the brake test selection file
-            XmlDocument brakeTestSelectionTable = new XmlDocument();
-            brakeTestSelectionTable.Load(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable);
-            XmlElement brakeSelection = brakeTestSelectionTable.CreateElement(VehicleName);
-            String driveCurve = " ";
-            if (m_2wdRadioButton.Checked)
+            if (File.Exists(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable))
             {
-                driveCurve = ToyotaParameterEditor.Properties.Resources.TwoWheelDriveTestSequence;
-            }
-            else if (m_4wdRadioButton.Checked)
-            {
-                driveCurve = ToyotaParameterEditor.Properties.Resources.FourWheelDriveTestSequence;
-            }
-            brakeSelection.SetAttribute("DriveCurve", driveCurve);
-            XmlElement brakeTestBodyStyleNode = brakeTestSelectionTable.CreateElement("BodyStyle");
-            brakeTestBodyStyleNode.InnerText = VehicleName;
-            brakeSelection.AppendChild(brakeTestBodyStyleNode);
-            brakeTestSelectionTable.DocumentElement.AppendChild(brakeSelection);
-            brakeTestSelectionTable.Save(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable);
-            if (!UpdatedFiles.Contains(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable))
-            {
-                m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable);
+                XmlDocument brakeTestSelectionTable = new XmlDocument();
+                brakeTestSelectionTable.Load(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable);
+                XmlElement brakeSelection = brakeTestSelectionTable.CreateElement(VehicleName);
+                String driveCurve = " ";
+                if (m_2wdRadioButton.Checked)
+                {
+                    driveCurve = ToyotaParameterEditor.Properties.Resources.TwoWheelDriveTestSequence;
+                }
+                else if (m_4wdRadioButton.Checked)
+                {
+                    driveCurve = ToyotaParameterEditor.Properties.Resources.FourWheelDriveTestSequence;
+                }
+                brakeSelection.SetAttribute("DriveCurve", driveCurve);
+                XmlElement brakeTestBodyStyleNode = brakeTestSelectionTable.CreateElement("BodyStyle");
+                brakeTestBodyStyleNode.InnerText = VehicleName;
+                brakeSelection.AppendChild(brakeTestBodyStyleNode);
+                brakeTestSelectionTable.DocumentElement.AppendChild(brakeSelection);
+                brakeTestSelectionTable.Save(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable);
+                if (!UpdatedFiles.Contains(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable))
+                {
+                    m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable);
+                }
             }
             // Update the InputServer Config
             XmlDocument inputServer = new XmlDocument();
@@ -130,7 +156,10 @@ namespace ToyotaParameterEditor
                     imagesDir.Create();
                 }
                 String imageFileName = ToyotaParameterEditor.Properties.Resources.VehicleLogoFileLocation + "\\toyota-" + VehicleName.ToLower() + ".jpg";
-                imageFile.CopyTo(imageFileName, true);
+                if (!File.Exists(imageFileName))
+                {
+                    imageFile.CopyTo(imageFileName, true);
+                }
                 if (!UpdatedFiles.Contains(imageFileName))
                 {
                     m_updatedFiles.Add(imageFileName);

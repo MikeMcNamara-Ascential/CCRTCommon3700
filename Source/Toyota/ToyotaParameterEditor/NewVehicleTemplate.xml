@@ -30,6 +30,7 @@
 		<RequiredBrakeForceRear Units="kgf"></RequiredBrakeForceRear>
 		<MaxFrontDifference Units="kgf"></MaxFrontDifference>
 		<MaxRearDifference Units="kgf"></MaxRearDifference>
+        <MaxBrakeSamples Units="count"></MaxBrakeSamples>
 		<!-- Park Brake Force Parameters -->
 		<RequiredParkBrakeForce Units="kgf"></RequiredParkBrakeForce>
 		<MinimumTotalParkBrakeForce Units="kgf"></MinimumTotalParkBrakeForce>

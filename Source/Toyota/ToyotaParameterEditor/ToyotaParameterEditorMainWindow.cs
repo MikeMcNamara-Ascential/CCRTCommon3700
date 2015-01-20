@@ -255,8 +255,11 @@ namespace ToyotaParameterEditor
             m_vehicleParameters.UpdateVehicleParameter(paramName, paramValues[0].Trim());
             String paramNameHi1 = paramName.Substring(0, paramName.IndexOf("Low"));
             String paramNameHi2 = paramName.Substring(paramName.IndexOf("Low") + 3);
-            paramNameHi = paramNameHi1 + paramNameHi + paramNameHi2;
-            m_vehicleParameters.UpdateVehicleParameter(paramNameHi, paramValues[1].Trim());
+            if (paramValues.Length > 1)
+            {
+                paramNameHi = paramNameHi1 + paramNameHi + paramNameHi2;
+                m_vehicleParameters.UpdateVehicleParameter(paramNameHi, paramValues[1].Trim());
+            }
         }
 
         /// <summary>

@@ -471,6 +471,8 @@ string ToyotaBrakeTC::MaxBrakeForceCalibration(void)
 			}
         }
 		samplesAboveLimit = allForcesAboveLimit ? samplesAboveLimit + 1 : 0;
+		Log(LOG_DEV_DATA, "Determining if analysis can start - samples above limit: %d, need %d",
+			samplesAboveLimit, GetParameterInt("SamplesAboveLimitToStartAverage"));
         // Display the side to side diff
         float fBal = abs(brakeData[LFWHEEL].currentForce - brakeData[RFWHEEL].currentForce);
         float rBal = abs(brakeData[LRWHEEL].currentForce - brakeData[RRWHEEL].currentForce);
@@ -527,23 +529,23 @@ string ToyotaBrakeTC::MaxBrakeForceCalibration(void)
         {
             fBalGoodComplete = (brakeData[LFWHEEL].measurementComplete && brakeData[RFWHEEL].measurementComplete &&
                                 fBal <= GetVehicleParameter("MaxFrontDifference", (float)0.0));
-            Log(LOG_DEV_DATA, "Front diff good complete");
+            Log(LOG_DEV_DATA, "Front diff good complete - %s", fBalGoodComplete ? "True" : "False");
         }
         if(!fBalBadComplete)
         {
             fBalBadComplete = (fBalGoodComplete && (fBal >= GetVehicleParameter("MaxFrontDifference", (float)0.0)));
-            Log(LOG_DEV_DATA, "Front diff bad complete");
+            Log(LOG_DEV_DATA, "Front diff bad complete", fBalBadComplete ? "True" : "False");
         }
         if(!rBalGoodComplete)
         {
             rBalGoodComplete = (brakeData[LRWHEEL].measurementComplete && brakeData[RRWHEEL].measurementComplete &&
                                 rBal <= GetVehicleParameter("MaxRearDifference", (float)0.0));
-            Log(LOG_DEV_DATA, "Rear diff good complete");
+            Log(LOG_DEV_DATA, "Rear diff good complete - %s", rBalGoodComplete ? "True" : "False");
         }
         if(!rBalBadComplete)
         {
             rBalBadComplete = (rBalGoodComplete && (rBal >= GetVehicleParameter("MaxRearDifference", (float)0.0)));
-            Log(LOG_DEV_DATA, "Rear diff bad complete");
+            Log(LOG_DEV_DATA, "Rear diff bad complete - %s", rBalBadComplete ? "True" : "False");
         }
         calibrationComplete = fBalBadComplete && rBalBadComplete;
         // Set the background colors
@@ -976,11 +978,14 @@ bool ToyotaBrakeTC::IsMeasurementComplete(list<float> &samples,
 										  const float &minRequiredForce)
 {
 	bool complete = false;
+	float average = 0.0;
 	if(samples.size() >= requiredBrakeSamples)
 	{
-		float average = accumulate(samples.begin(), samples.end(), 0.0) / samples.size();
+		average = accumulate(samples.begin(), samples.end(), 0.0) / samples.size();
 		complete = average >= minRequiredForce;
 	}
+	Log(LOG_DEV_DATA, "IsMeasurementComplete() - %s - average: %.4f, min force: %.4f, sample count: %d, req samples: %d",
+		complete ? "true" : "false", average, minRequiredForce, samples.size(), requiredBrakeSamples);
 	return complete;
 }
 

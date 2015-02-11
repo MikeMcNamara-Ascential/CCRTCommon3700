@@ -400,6 +400,7 @@ private:
     virtual string KeyOffEngineOffKeyOn(void);
     string GetSerialNumberFromFile(void);
     string CheckSerialNumber(void);
+	string ExtractEsnSerialNumberFromFile(string &fileName);
 
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;

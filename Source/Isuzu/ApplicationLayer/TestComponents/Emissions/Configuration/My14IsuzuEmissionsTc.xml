@@ -333,6 +333,7 @@
             <EngineCodeStartLocation_2D TestSteps="CheckSerialNumber" Comment="Location in the 2-D serial number to find the engine code">8</EngineCodeStartLocation_2D>
             <ESNLength1D>16</ESNLength1D>
             <ESNLength2D>16</ESNLength2D>
+            <EsnFileNameExtension>.ESN</EsnFileNameExtension>
         </Parameters>
         <Prompts>
             <AbortEngineTemp PromptBox="1" Priority="0" Duration="5000" TestSteps="WaitForEngineTemperature">AbortEngineTempTooHigh</AbortEngineTemp>

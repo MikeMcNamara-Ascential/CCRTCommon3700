@@ -2316,6 +2316,37 @@ string IsuzuEmissionsTc<ModuleType>::ClearFaults(void)
     return testResult;
 
 }
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::ExtractEsnSerialNumberFromFile(string &fileName)
+{
+	string serialNumber;
+	char buff[20];
+	FILE *snFile;
+	Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ExtractEsnSerialNumberFromFile(fileName: %s) - Enter", fileName.c_str());
+	if ((snFile = fopen(fileName.c_str(), "r")) != NULL)
+	{   // Add the header to the file
+		if ( fgets (buff , 17 , snFile) != NULL )
+		{
+			serialNumber = buff;
+			Log(LOG_DEV_DATA, "SerialNumberExtracted: %s", serialNumber.c_str());
+			fclose(snFile);
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Failed to get sn from file\n");
+		}
+	}
+	else
+	{
+		Log(LOG_ERRORS, "Failed to open sn file: %s - %s", fileName.c_str(), strerror(errno));
+	}
+	Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ExtractEsnSerialNumberFromFile(fileName: %s) - Exit - SerialNumber: {%s}", 
+		fileName.c_str(), serialNumber.c_str());
+	return serialNumber;
+}
+
 //-----------------------------------------------------------------------------
 template <class ModuleType>
 string IsuzuEmissionsTc<ModuleType>::GetSerialNumberFromFile(void)
@@ -2343,7 +2374,10 @@ string IsuzuEmissionsTc<ModuleType>::GetSerialNumberFromFile(void)
                 if (!name.compare(0,17,vin))
                 {//match
                     name = serialNumberDirectory + name;
-                    Log(LOG_DEV_DATA, "Opening file: %s", name.c_str());
+#if 1
+					serialNumber = ExtractEsnSerialNumberFromFile(name);
+#else
+					Log(LOG_DEV_DATA, "Opening file: %s", name.c_str());
                     if ((snFile = fopen(name.c_str(), "r")) != NULL)
                     {   // Add the header to the file
                         //serialNumber = name.substr(17,16);
@@ -2363,12 +2397,18 @@ string IsuzuEmissionsTc<ModuleType>::GetSerialNumberFromFile(void)
                     {
                         Log(LOG_ERRORS, "Failed to open sn file: %s\n", name.c_str());
                     }
+#endif
                 }
             }
+			closedir(snDir);
         }
         else
         {   // Error opening the directory
-            Log(LOG_ERRORS, "Failed to open directory: %s\n", serialNumberDirectory.c_str());
+            Log(LOG_ERRORS, "Failed to open directory: %s - %s", 
+				serialNumberDirectory.c_str(), strerror(errno));
+			// Try getting the number from the file directly
+			string fileName = serialNumberDirectory + vin + GetParameter("EsnFileNameExtension");
+			serialNumber = ExtractEsnSerialNumberFromFile(fileName);
         }
     }
     catch (...)

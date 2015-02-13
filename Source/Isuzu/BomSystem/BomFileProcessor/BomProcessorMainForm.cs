@@ -239,7 +239,7 @@ namespace BomFileProcessor
             m_logger.Log("INFO:  Processing file " + file);
             String processingResult = "c";
             // Read the BOM file and parse the data
-            StreamReader reader = TryOpen(file,20,50);
+            StreamReader reader = TryOpen(file,10,500);
             if (reader != null)
             {// Read the header line
                     String line = reader.ReadLine();
@@ -405,43 +405,60 @@ namespace BomFileProcessor
         public StreamReader TryOpen(string filePath, int maximumAttempts, int attemptWaitMS)
         {
             StreamReader fs = null;
-            int attempts = 0;
-
-            // Loop allow multiple attempts
-            while (true)
+            if (IsTransferComplete(filePath, maximumAttempts, attemptWaitMS))
             {
                 try
                 {
                     fs = new StreamReader(filePath);
-                    //If we get here, the File.Open succeeded, so break out of the loop and return the FileStream
-                    break;
                 }
-                catch (IOException ioEx)
+                catch (Exception e)
                 {
-                    // IOException is thrown if the file is in use by another process.
-                    m_logger.Log("INFO:  Waiting for file Transfer completion # " + attempts.ToString());
-                    // Check the numbere of attempts to ensure no infinite loop
-                    attempts++;
-                    if (attempts > maximumAttempts)
-                    {
-                        // Too many attempts,cannot Open File, break and return null 
-                        fs = null;
-                        break;
-                    }
-                    else
-                    {
-                        // Sleep before making another attempt
-                        System.Threading.Thread.Sleep(attemptWaitMS);
-
-                    }
-
+                    m_logger.Log("Exception opening file: " + e.ToString());
                 }
-
             }
             // Return the stream, may be valid or null
             return fs;
         }
+        public bool IsTransferComplete(string filePath, int maximumAttempts, int attemptWaitMS)
+        {
+            int attempts = 0;
+            FileInfo file = new FileInfo(filePath);
+            while (IsFileLocked(file))
+            {
+                if (attempts > maximumAttempts)
+                {
+                    m_logger.Log("Error waiting for file transfer complete");
+                    return false;
+                }
+                System.Threading.Thread.Sleep(attemptWaitMS);
+                attempts++;
+            }
+            return true;
+        }
+        /// <summary>
+        /// Code by ChrisW -> http://stackoverflow.com/questions/876473/is-there-a-way-to-check-if-a-file-is-in-use
+        /// </summary>
+        protected virtual bool IsFileLocked(FileInfo file)
+        {
+            FileStream stream = null;
 
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+            finally
+            {
+                if (stream != null)
+                    stream.Close();
+            }
+
+            //file is not locked
+            return false;
+        }
 
         /// <summary>
         /// Bring up a folder browser dialog so the user can choose a new BOM file location.
@@ -667,17 +684,7 @@ namespace BomFileProcessor
                 System.Threading.Thread.Sleep(30000);
                 foreach (String file in newFiles)
                 {   // Process the new files
-                    //confirm file transfer is complete by attempting to open file
-                    StreamReader sr = TryOpen(file,100,250);
-                    if (sr != null)
-                    {
-                        sr.Close();
                         ProcessBomFile(file);
-                    }
-                    else
-                    {
-                        m_logger.Log("Error:  Timeout waiting for file:" + file + " Transfer");
-                    }
                 }
                 m_logger.Log("INFO:  Done processing BOM files");
 
@@ -726,43 +733,46 @@ namespace BomFileProcessor
                     // Process each pass confirmation file
                     foreach (String file in newFiles)
                     {
-                        String dest = BomFileProcessor.Properties.Settings.Default.SpartanFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
-                        String flashDest = BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
-                        try
+                        if (IsTransferComplete(file, 10, 500))
                         {
-                            if (file.Substring(file.LastIndexOf('.')) == ".DVT")
+                            String dest = BomFileProcessor.Properties.Settings.Default.SpartanFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
+                            String flashDest = BomFileProcessor.Properties.Settings.Default.SpartanFlashFileLocation + "\\" + file.Substring(file.LastIndexOf('\\'));
+                            try
                             {
-
-
-
-                                if (System.IO.File.Exists(dest))
+                                if (file.Substring(file.LastIndexOf('.')) == ".DVT")
                                 {
-                                    File.Delete(dest);
+
+
+
+                                    if (System.IO.File.Exists(dest))
+                                    {
+                                        File.Delete(dest);
+                                    }
+                                    File.Copy(file, dest);
+                                    if (System.IO.File.Exists(dest))
+                                    {//file successfully copied, delete local
+                                        File.Delete(file);
+                                    } m_logger.Log("INFO: Moved " + file + " to " + dest);
                                 }
-                                File.Copy(file, dest);
-                                if (System.IO.File.Exists(dest))
-                                {//file successfully copied, delete local
-                                    File.Delete(file);
-                                } m_logger.Log("INFO: Moved " + file + " to " + dest);
+                                else
+                                {
+                                    if (System.IO.File.Exists(flashDest))
+                                    {
+                                        File.Delete(flashDest);
+                                    }
+                                    File.Copy(file, flashDest);
+                                    if (System.IO.File.Exists(flashDest))
+                                    {//file successfully copied, delete local
+                                        File.Delete(file);
+                                    }
+                                    m_logger.Log("INFO: Moved " + file + " to " + flashDest);
+                                }
+
                             }
-                            else
+                            catch (NotSupportedException excpt)
                             {
-                                if (System.IO.File.Exists(flashDest))
-                                {
-                                    File.Delete(flashDest);
-                                }
-                                File.Copy(file, flashDest);
-                                if (System.IO.File.Exists(flashDest))
-                                {//file successfully copied, delete local
-                                    File.Delete(file);
-                                } 
-                                m_logger.Log("INFO: Moved " + file + " to " + flashDest);
+                                m_logger.Log("ERROR: NotSupportedException attempting to move pass confirmation file - " + excpt.Message);
                             }
-                            
-                        }
-                        catch (NotSupportedException excpt)
-                        {
-                            m_logger.Log("ERROR: NotSupportedException attempting to move pass confirmation file - " + excpt.Message);
                         }
                     }
                 }

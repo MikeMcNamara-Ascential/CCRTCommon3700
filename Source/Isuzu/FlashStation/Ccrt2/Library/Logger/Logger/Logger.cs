@@ -17,7 +17,7 @@ namespace LoggingInterface
         {   // Open a new log file with the current date
             m_logMessageWindow = messageBox;
             m_logFileBaseName = logBaseName;
-            m_logFileDir = Environment.CurrentDirectory;
+            m_logFileDir = Environment.CurrentDirectory+"\\";
             CurrentLogFileName = m_logFileBaseName + DateTime.Today.Year + DateTime.Today.Month +
                                  DateTime.Today.Day + ".log";
             // Maintain the log files
@@ -203,6 +203,7 @@ namespace LoggingInterface
             {   // more than 10 log files, get rid of the older log files
                 for (int index = 10; index < fileList.Count; index++)
                 {
+                    Log("Removing file: " + fileList.ToArray()[index].Name);
                     File.Delete(fileList.ToArray()[index].Name);
                     Log("Removed old log file: " + fileList.ToArray()[index].Name);
                     fileList.Remove(fileList.ToArray()[index]);

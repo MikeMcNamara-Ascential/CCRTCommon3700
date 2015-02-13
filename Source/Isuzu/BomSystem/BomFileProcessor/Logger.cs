@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Runtime.InteropServices;
 
 namespace BomFileProcessor
 {
@@ -40,6 +41,24 @@ namespace BomFileProcessor
         }
 
         /// <summary>
+        /// Scrolls the textbox to the end
+        /// </summary>
+        /// <param name="tb"></param>
+        private void ScrollTextBoxEnd(System.Windows.Forms.RichTextBox tb)
+        {
+            const int WM_VSCROLL = 277;
+            const int SB_BOTTOM = 7;
+
+            IntPtr ptrWparam = new IntPtr(SB_BOTTOM);
+            IntPtr ptrLparam = new IntPtr(0);
+            SendMessage(tb.Handle, WM_VSCROLL, ptrWparam, ptrLparam);
+        }
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto, EntryPoint = "SendMessage")]
+        static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam,
+        IntPtr lParam);
+
+        /// <summary>
         /// Display a log message on the screen.
         /// </summary>
         /// <param name="message">Message to display on the screen.</param>
@@ -55,6 +74,8 @@ namespace BomFileProcessor
             {   // Just add the message to the text box.
 //                int insertLocation = m_logMessageWindow.Rtf.Length;
                 m_logMessageWindow.AppendText(message);
+                //scroll to bottom of window
+                ScrollTextBoxEnd(m_logMessageWindow);
 /*
                 String rtf = m_logMessageWindow.Rtf;
                 m_logMessageWindow.Clear();

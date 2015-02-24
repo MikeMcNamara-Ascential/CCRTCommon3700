@@ -277,8 +277,10 @@
             <ValidPartNumbers>
                <PN600636300D>600636300D</PN600636300D>
                <PN600636300E>600636300E</PN600636300E>
+            <PN103779700C>103779700C</PN103779700C>
                <PN1037797-00-A>1037797-00-A</PN1037797-00-A>
                <PN1037797-00-B>1037797-00-B</PN1037797-00-B>
+            <PN1037797-00-C>1037797-00-C</PN1037797-00-C>
             </ValidPartNumbers>
          <ModulePartNumber/>
             <VINLength>17</VINLength>
@@ -461,6 +463,10 @@
             <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
             <ZeroSpeed PromptBox="1" Priority="0">ZeroSpeed</ZeroSpeed>
         </Prompts>
+      <IgnoreFaults>
+         <ModuleFault_C41186/>
+         <ModuleFault_406228/>
+      </IgnoreFaults>
     </Setup>
     <Objectives>
         <ClearFaults>
@@ -480,7 +486,7 @@
             <TestStep25>ResetModule</TestStep25>
             <!--TestStep25>CycleIgnition</TestStep25-->
             <TestStep30>EnterDiagnosticMode</TestStep30>
-            <TestStep35>EnableElectricVacuumPump</TestStep35>
+            <!--TestStep35>EnableElectricVacuumPump</TestStep35-->
             <TestStep40>CheckPartNumber</TestStep40>
             <TestStep50>LearnPerformanceType</TestStep50>
             <TestStep62>ProgramVIN</TestStep62>
@@ -612,7 +618,7 @@
             <TestStep080>BrakeToStop</TestStep080>
             <TestStep090>EnterDiagnosticMode</TestStep090>
             <TestStep100>DisableSpeedLimit</TestStep100>
-            <TestStep110>EnableElectricVacuumPump</TestStep110>
+            <!--TestStep110>EnableElectricVacuumPump</TestStep110-->
             <!--TestStep49>EnableCenteringArrows</TestStep49-->
             <!--TestStep50>SensorQualityTest</TestStep50-->
             <!--TestStep51>DisableCenteringArrows</TestStep51-->

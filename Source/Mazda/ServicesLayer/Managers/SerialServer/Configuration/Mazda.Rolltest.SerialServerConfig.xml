@@ -116,7 +116,7 @@
                            <ProcessName>Scanner</ProcessName>
                            <Status>Enabled</Status>
                            <LocalEcho>Disabled</LocalEcho>
-                           <Verbose>0x01</Verbose>
+                           <Verbose>0x1F</Verbose>
                            <Debug>Off</Debug>
                         </Logging>
                      </Setup>
@@ -153,7 +153,7 @@
                            <ProcessName>RScanner</ProcessName>
                            <Status>Enabled</Status>
                            <LocalEcho>Disabled</LocalEcho>
-                           <Verbose>0x01</Verbose>
+                           <Verbose>0x1F</Verbose>
                            <Debug>Off</Debug>
                         </Logging>
                      </Setup>
@@ -190,7 +190,7 @@
                            <ProcessName>LeftMapleKeypad</ProcessName>
                            <Status>Enabled</Status>
                            <LocalEcho>Disabled</LocalEcho>
-                           <Verbose>0x01</Verbose>
+                           <Verbose>0x1F</Verbose>
                            <Debug>Off</Debug>
                         </Logging>
                      </Setup>
@@ -227,7 +227,7 @@
                            <ProcessName>RightMapleKeypad</ProcessName>
                            <Status>Enabled</Status>
                            <LocalEcho>Disabled</LocalEcho>
-                           <Verbose>0x01</Verbose>
+                           <Verbose>0x1F</Verbose>
                            <Debug>Off</Debug>
                         </Logging>
                      </Setup>
@@ -257,14 +257,14 @@
                         <AdditionalLogFile>/Communication/SideSlipTesterComm.log</AdditionalLogFile>
                         <Status>Enabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x3F</Verbose>
+                        <Verbose>0x01</Verbose>
                     </Logging>
                     <CommLog>
                         <ContentType>RAW</ContentType>
                         <Setup>
                             <Logging>
                                 <AdditionalLogFile>/Communication/SideSlipTester_BusComm.log</AdditionalLogFile>
-                                <Status>Disabled</Status>
+                                <Status>Enabled</Status>
                                 <LocalEcho>Disabled</LocalEcho>
                                 <Verbose>0x1F</Verbose>
                                 <Debug>Off</Debug>

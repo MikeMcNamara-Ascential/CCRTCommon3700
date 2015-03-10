@@ -6,12 +6,12 @@ Isuzu\Isuzu.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Core\Core.vpj=20140404150028161
-Isuzu\Isuzu.vpj=20140404085730077
-Tests\Tests.vpj=20130913200010244
-Tools\Tools.vpj=20130913200608284
+Core\Core.vpj=20141017142917165
+Isuzu\Isuzu.vpj=20141017142220872
+Tests\Tests.vpj=20141017142918912
+Tools\Tools.vpj=20141017142918632
 [TreeExpansion2]
-- Core\Core.vpj
++ Core\Core.vpj
   + ApplicationLayer
     + ModuleInterfaces
       + Brake
@@ -86,7 +86,7 @@ Tools\Tools.vpj=20130913200608284
       + TestSequencer
       + VehicleTest
   + ClientConfigurations
-  - ServicesLayer
+  + ServicesLayer
     + Include
     + Library
       + Bepos
@@ -128,7 +128,7 @@ Tools\Tools.vpj=20130913200608284
         + IpIcm
           + Configuration
       + Include
-      - PlcMgr
+      + PlcMgr
         + Configuration
         - Eip
           + Adapter
@@ -218,17 +218,17 @@ Tools\Tools.vpj=20130913200608284
       + WinCcrtInterface
         + Configuration
 - Isuzu\Isuzu.vpj
-  + ApplicationLayer
-    + ModuleInterfaces
+  - ApplicationLayer
+    - ModuleInterfaces
       + Brake
         + Isuzu720ABS
           + Configuration
-      + EngineController
-        + Configuration
+      - EngineController
+        - Configuration
       + Transmission
         + Aisin
           + Configuration
-    + TestComponents
+    - TestComponents
       + Axle
         + Configuration
       + Brake
@@ -236,8 +236,8 @@ Tools\Tools.vpj=20130913200608284
           + Configuration
         + Isuzu720Abs
           + Configuration
-      + Emissions
-        + Configuration
+      - Emissions
+        - Configuration
       + LossCompensation
         + Configuration
       + Machine
@@ -414,7 +414,7 @@ Tools\Tools.vpj=20130913200608284
         + obj
           + x86
             + Debug
-  - ServicesLayer
+  + ServicesLayer
     + Managers
       + CommProxy
         + Gryphon
@@ -449,18 +449,11 @@ Tools\Tools.vpj=20130913200608284
         + Configuration
 + Tests\Tests.vpj
 + Tools\Tools.vpj
-scroll:24
+scroll:0
 [State]
-SCREEN: 1920 1080 2400 100 1440 790 0 0 M 0 0 0 0 1531 691
-CWD: Tools
-BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Eip\platform.h"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=96 TL=0 MLL=0 ASE=0 LNL=6 LCF=2 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=24 HT=0 HN=0 HF=0 HC=4
-WINDOW: 25 25 1306 466 -1 -1 N  WF=0 WT=2 "Consolas,11,0,1"
-BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Eip\platform.h"
-VIEW: LN=.1589 CL=22 LE=0 CX=28 CY=10 WI=267 BI=24 HT=0 HN=0 HF=0 HC=4
+SCREEN: 1920 1080 -2 0 1520 1080 0 0 N 0 0 0 0 1500 750
+CWD: Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\Configuration
 FILEHIST: 9
-Core\ServicesLayer\Library\GeneralUtilities.cpp
 Core\ServicesLayer\Servers\PlantHostOutbound\HostInterface\HostInterface.cpp
 Z:\common3700\source\core\serviceslayer\servers\planthostoutbound\HostInterface\HostInterface.cpp
 Core\ServicesLayer\Managers\PlcMgr\Eip\eipnotfy.h
@@ -469,3 +462,4 @@ Core\ServicesLayer\Managers\PlcMgr\Eip\eipasm.c
 Core\ServicesLayer\Managers\PlcMgr\CMakeLists.txt
 Core\ServicesLayer\Managers\PlcMgr\Eip\eipasm.h
 Core\ServicesLayer\Managers\PlcMgr\Eip\platform.h
+Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\Configuration\IsuzuPIM.xml

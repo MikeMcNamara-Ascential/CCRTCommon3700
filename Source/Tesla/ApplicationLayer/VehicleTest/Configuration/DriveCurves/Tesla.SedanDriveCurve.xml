@@ -248,6 +248,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase630>
+<!--
       <TestPhase700 Description="Shift to Drive" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Shift to Drive to continue testing" Result="" Timeout="" Component="Machine">
@@ -255,7 +256,9 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase700>
+-->      
       <!-- Park Brake Test -->
+<!--
       <TestPhase710 Description="Perform Park Brake Test" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Perform park brake test" Result="" Timeout="" Component="Brake">
@@ -263,6 +266,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase710>
+-->      
       <!--Brake Finishup-->
       <!-- ABS Clear Faults -->
       <TestPhase849 Description="Clear ABS Faults" Result="" Timeout="">

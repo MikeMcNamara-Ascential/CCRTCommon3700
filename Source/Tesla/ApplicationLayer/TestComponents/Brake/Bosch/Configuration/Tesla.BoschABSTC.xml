@@ -680,8 +680,8 @@
         <DisableCenteringArrows Result="" Timeout="500" Description="Disable the lane centering arrows"/>
         <!--From BaseBrake-->
         <Initialize Result="" Timeout="1000" Description="Initialize the BaseBrake portion of the test" Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
-        <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="60" SpeedTarget="60 65" Prompt1="AccelerateToTargetSpeed">Accelerate to Brake Test Arm Speed</AccelerateToBrakeSpeed>
-        <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" DragDelay="1000" DragSpeed="60" DragSamples="50">Perform Vehicle Drag Test</DragTest>
+        <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="80" SpeedTarget="80 90" Prompt1="AccelerateToTargetSpeed">Accelerate to Brake Test Arm Speed</AccelerateToBrakeSpeed>
+        <DragTest Result="" Timeout="300000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" DragDelay="1000" DragSpeed="60" DragSamples="50">Perform Vehicle Drag Test</DragTest>
         <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="80" RearMaxDragForce="55">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
         <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank">Perform Vehicle Coast</Coast>
         <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" StartBrakeSampleSpeed="25" EndBrakeSampleSpeed="5" BrakeDomain="0 500" BrakeTarget="250 400" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test</BrakeTest>

@@ -74,6 +74,14 @@
 			<F N="bincat/bincat.h"/>
 			<F N="bincat/CMakeLists.txt"/>
 		</Folder>
+		<Folder Name="DataCollectorResultSender">
+			<F
+				N="DataCollectorResultSender/CMakeLists.txt"
+				Type="Makefile"/>
+			<F N="DataCollectorResultSender/DataCollectorResultSender.cpp"/>
+			<F N="DataCollectorResultSender/DataCollectorResultSender.h"/>
+			<F N="DataCollectorResultSender/ReportDcResults.cpp"/>
+		</Folder>
 		<Folder Name="DataServerInterface">
 			<F N="DataServerInterface/CMakeLists.txt"/>
 			<F N="DataServerInterface/DataServerInterface.cpp"/>
@@ -124,6 +132,7 @@
 		<Folder Name="TestDataExtractor">
 			<F N="TestDataExtractor/CMakeLists.txt"/>
 			<F N="TestDataExtractor/ExtractTestData.cpp"/>
+			<F N="TestDataExtractor/ExtractTestDataConfig.xml"/>
 			<F N="TestDataExtractor/TestDataExtractor.cpp"/>
 			<F N="TestDataExtractor/TestDataExtractor.h"/>
 		</Folder>

@@ -1,6 +1,7 @@
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
+ADD_SUBDIRECTORY(DataCollectorResultSender)
 ADD_SUBDIRECTORY(DataServerInterface)
 ADD_SUBDIRECTORY(IcmTerm)
 ADD_SUBDIRECTORY(IoPulse)

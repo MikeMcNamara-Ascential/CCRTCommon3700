@@ -9,216 +9,11 @@ Tools\Tools.vpj=Release
 Core\Core.vpj=20141017142917165
 Isuzu\Isuzu.vpj=20141017142220872
 Tests\Tests.vpj=20141017142918912
-Tools\Tools.vpj=20141017142918632
+Tools\Tools.vpj=20150408073700242
 [TreeExpansion2]
 + Core\Core.vpj
++ Isuzu\Isuzu.vpj
   + ApplicationLayer
-    + ModuleInterfaces
-      + Brake
-        + Bosch8
-        + Include
-      + Common
-      + EngineController
-      + Include
-      + Transmission
-    + ProtocolFilters
-      + Common
-      + GMClassII
-      + Include
-      + ISO
-      + J2190
-      + KeyWord2000
-      + SCI
-      + Serial
-    + TestComponents
-      + Brake
-        + BaseBrake
-          + Configuration
-        + Bosch8
-        + Common
-          + Configuration
-        + Include
-      + Common
-        + Configuration
-      + Emissions
-        + Common
-          + Configuration
-        + Include
-      + GasAnalyzer
-        + Common
-        + GasAnalyzer
-          + Configuration
-        + Include
-      + Include
-      + LossCompensation
-        + Common
-        + Include
-        + LossCompensation
-          + Configuration
-        + PhotonLossCompensation
-      + Machine
-        + Common
-        + Include
-        + Machine
-          + Configuration
-      + SpeedControl
-        + Common
-          + Configuration
-        + GenericSpeedControl
-        + Include
-      + TransferCase
-        + Common
-          + Configuration
-        + GenericTransferCase
-        + Include
-      + Transmission
-        + Common
-        + Include
-        + Transmission
-    + VehicleTest
-      + Common
-      + ComponentManager
-      + ComponentProxy
-      + Include
-      + Library
-      + PhaseCommander
-      + TestSelector
-      + TestSequencer
-      + VehicleTest
-  + ClientConfigurations
-  + ServicesLayer
-    + Include
-    + Library
-      + Bepos
-      + License
-        + Include
-      + License6.2.1
-        + Include
-      + SoftwareId
-      + SystemCommunication
-      + XmlProcessor
-        + gennmtab
-        + xmlparse
-        + xmltok
-        + xmlwf
-    - Managers
-      + Common
-      + CommProxy
-        + AVT
-          + CAN
-          + Common
-          + Include
-          + J2190
-        + BBKWireless
-        + Common
-        + Gryphon
-          + CAN
-          + Common
-          + Include
-            + hw
-        + Include
-        + MultiCom
-        + Raw
-          + ISO
-          + SCI
-        - TcpIp
-        + Tests
-      + ICM
-        + Include
-        + IpIcm
-          + Configuration
-      + Include
-      + PlcMgr
-        + Configuration
-        - Eip
-          + Adapter
-          + Modbus
-          + Platform
-            + fido
-            + Linux
-            + NetBurner
-            + Templates
-            + VxWorks
-            + WinCE
-            + Windows
-      + SciIsoMuxMgr
-      + SerialServer
-      + TaskMon
-        + Common
-        + Configuration
-        + TaskMon
-        + TaskMonOld
-        + TaskMonTerm
-    - Servers
-      + DataServer
-        + Configuration
-      + DsaServer
-        + Configuration
-      + FaultServer
-        + Configuration
-      + GenericServer
-      + InputServer
-        + CLV295ScannerMgr
-        + Common
-        + Configuration
-        + Include
-        + MapleKeypadManager
-        + PendantManager
-        + SymbolScannerMgr
-      + InterCcrtCommServer
-        + Configuration
-      + Launcher
-        + Configuration
-      + LogDaemon
-        + Configuration
-      + MachineDataBroker
-        + Configuration
-      + MotorController
-        + Common
-        + Electric
-          + AB
-            + Configuration
-          + Baldor
-            + Configuration
-          + Motor
-            + Configuration
-        + Hydraulic
-          + Configuration
-        + Include
-      + NamedDataBroker
-        + Configuration
-      + PlantHostInbound
-        + Include
-        + Library
-      - PlantHostOutbound
-        + Configuration
-        - DAQ
-        + GenericText
-        - HostInterface
-        - Include
-        - Library
-        + NDB
-        + ResultFileCopy
-      + PromptServer
-        + Configuration
-      + SystemMonitor
-        + Configuration
-        + Include
-        + Library
-      + SystemScreenSaver
-        + Configuration
-      + TestResultServer
-        + Configuration
-      + VehicleDataBroker
-        + Configuration
-      + VehicleDataServer
-        + Configuration
-        + Include
-        + Library
-      + WinCcrtInterface
-        + Configuration
-- Isuzu\Isuzu.vpj
-  - ApplicationLayer
     - ModuleInterfaces
       + Brake
         + Isuzu720ABS
@@ -228,7 +23,7 @@ Tools\Tools.vpj=20141017142918632
       + Transmission
         + Aisin
           + Configuration
-    - TestComponents
+    + TestComponents
       + Axle
         + Configuration
       + Brake
@@ -247,10 +42,10 @@ Tools\Tools.vpj=20141017142918632
       + Transmission
         + Aisin
           + Configuration
-    + VehicleTest
-      + Configuration
+    - VehicleTest
+      - Configuration
         + BuildRecords
-        + DriveCurves
+        - DriveCurves
   + BomSystem
     + BomFileProcessor
       + bin
@@ -414,7 +209,7 @@ Tools\Tools.vpj=20141017142918632
         + obj
           + x86
             + Debug
-  + ServicesLayer
+  - ServicesLayer
     + Managers
       + CommProxy
         + Gryphon
@@ -448,18 +243,51 @@ Tools\Tools.vpj=20141017142918632
       + VehicleDataBroker
         + Configuration
 + Tests\Tests.vpj
-+ Tools\Tools.vpj
+- Tools\Tools.vpj
+  + bincat
+  - DataCollectorResultSender
+  + DataServerInterface
+  + IcmTerm
+  + IoPulse
+  + IpIcmTester
+  + ModuleDataReader
+  + ModuleMessageTester
+  + PlcTerm
+  + PromptTester
+  + SendCommand
+  + SendPrompt
+  + TestDataExtractor
+  + TestReportGenerator
+  + TestResultAnalyzer
 scroll:0
 [State]
-SCREEN: 1920 1080 -2 0 1520 1080 0 0 N 0 0 0 0 1500 750
-CWD: Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\Configuration
+SCREEN: 1920 1080 -2 0 1520 1080 0 0 M 0 0 0 0 1506 766
+CWD: Isuzu\ApplicationLayer\TestComponents\Emissions\Configuration
+BUFFER: BN="Isuzu\ApplicationLayer\VehicleTest\Configuration\DriveCurves\My14Isuzu.DriveCurve.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.16218 CL=56 LE=0 CX=55 CY=25 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Tools\DataCollectorResultSender\DataCollectorResultSender.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=1 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.1167 CL=59 LE=0 CX=58 CY=23 WI=5 BI=6 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Isuzu\ApplicationLayer\TestComponents\Emissions\Configuration\My14IsuzuEmissionsTc.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.37259 CL=30 LE=0 CX=29 CY=29 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1256 516 -1 -1 N  WF=0 WT=3 "Lucida Console,10,0,1"
+BUFFER: BN="Isuzu\ApplicationLayer\VehicleTest\Configuration\DriveCurves\My14Isuzu.DriveCurve.xml"
+VIEW: LN=.3401 CL=1 LE=0 CX=0 CY=1 WI=186 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 250 250 1256 516 -1 -1 N  WF=0 WT=5 "Lucida Console,10,0,1"
+BUFFER: BN="Tools\DataCollectorResultSender\DataCollectorResultSender.cpp"
+VIEW: LN=.1167 CL=59 LE=0 CX=58 CY=23 WI=293 BI=6 HT=0 HN=0 HF=0 HC=4
+WINDOW: 234 282 1256 516 -1 -1 N  WF=0 WT=4 "Lucida Console,10,0,1"
+BUFFER: BN="Isuzu\ApplicationLayer\TestComponents\Emissions\Configuration\My14IsuzuEmissionsTc.xml"
+VIEW: LN=.34654 CL=30 LE=0 CX=29 CY=29 WI=258 BI=29 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Core\ServicesLayer\Servers\PlantHostOutbound\HostInterface\HostInterface.cpp
-Z:\common3700\source\core\serviceslayer\servers\planthostoutbound\HostInterface\HostInterface.cpp
-Core\ServicesLayer\Managers\PlcMgr\Eip\eipnotfy.h
-..\..\Ford\Ecats\QNX632\Source\Core\ServicesLayer\Managers\PlcMgr\Eip\eipnotfy.h
-Core\ServicesLayer\Managers\PlcMgr\Eip\eipasm.c
-Core\ServicesLayer\Managers\PlcMgr\CMakeLists.txt
-Core\ServicesLayer\Managers\PlcMgr\Eip\eipasm.h
-Core\ServicesLayer\Managers\PlcMgr\Eip\platform.h
 Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\Configuration\IsuzuPIM.xml
+Isuzu\ApplicationLayer\VehicleTest\Configuration\Isuzu.SelectionTable.xml
+Isuzu\ApplicationLayer\VehicleTest\Configuration\DriveCurves\My14Isuzu.DriveCurve.xml
+Isuzu\ApplicationLayer\TestComponents\Emissions\Configuration\My14IsuzuEmissionsTc.xml
+Isuzu\ServicesLayer\Servers\PlantHostOutbound\Configuration\Isuzu.PlantHostOutboundConfig.xml
+..\..\AGCO\Source\Agco\ServicesLayer\Servers\PlantHostOutbound\Configuration\Agco.PlantHostOutboundConfig.xml
+Tools\DataCollectorResultSender\DataCollectorResultSender.cpp
+Tools\CMakeLists.txt
+w:\Isuzu\source\tools\CMakeLists.txt

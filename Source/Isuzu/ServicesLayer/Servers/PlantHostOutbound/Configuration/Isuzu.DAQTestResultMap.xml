@@ -7,6 +7,10 @@
     <!-- Identifying info -->
     <Field0020 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" ExcludeIfNotTested="No">VIN</Field0020>
     <Field0030 Type="Separator">,</Field0030>
+
+    <Field0032 Type="Detail" DetailNode="Date" Format="%-10.10s" Length="10" DataType="String" ExcludeIfNotTested="No">MachineInitialize</Field0032>
+    <Field0033 Type="Separator">,</Field0033>
+
     <Field0040 Type="VehicleBuild" Format="%5s" Length="5" DataType="String">VehicleType</Field0040>
     <Field0050 Type="Separator">,</Field0050>
     <Field0060 Type="VehicleBuild" Format="%2s" Length="2" DataType="String">BookCode</Field0060>

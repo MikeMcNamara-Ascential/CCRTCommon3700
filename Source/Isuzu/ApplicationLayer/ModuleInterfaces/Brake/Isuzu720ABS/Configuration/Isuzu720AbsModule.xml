@@ -1,6 +1,6 @@
 <Isuzu720AbsModule>
     <Setup>
-        <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+        <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
         <KeepAliveResponseRequired>No</KeepAliveResponseRequired>
         <SwitchMonitorDelay>500</SwitchMonitorDelay>
         <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>

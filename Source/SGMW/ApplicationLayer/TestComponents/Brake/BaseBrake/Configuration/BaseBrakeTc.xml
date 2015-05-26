@@ -1,0 +1,361 @@
+<BaseBrake>
+    <Setup>
+        <Name>Brake</Name>
+        <Debug>Off</Debug>
+        <DebugLevel>0</DebugLevel>
+        <ProcessPriority>11</ProcessPriority>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/BaseBrake</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Debug>Off</Debug>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+            <Status>Enable</Status>
+            <ProcessName>BaseBrake</ProcessName>
+            <AdditionalLogFile>/Components/BaseBrake.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <TagList>
+            <!-- There are no publish tags for the base brake test component -->
+            <PublishTags/>
+            <SubscribeTags>
+                <Abort/>
+                <Clutch/>
+                <Declutch/>
+                <DriveAxle/>
+                <ForegroundTestInProgress/>
+                <MachineType/>
+                <MotorMode/>
+                <RollsUpElevDown/>
+                <VehiclePresent/>
+                <ZerospeedToPLC/>
+                <Zerospeed/>
+            </SubscribeTags>
+        </TagList>
+        <DataTags>
+            <BrakeActive>BrakeActive</BrakeActive>
+            <BrakeDomain>BrakeDomain</BrakeDomain>
+            <BrakeTarget>BrakeTarget</BrakeTarget>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+            <FourWheelDriveEquipped>FourWDSelected</FourWheelDriveEquipped>
+            <FrontBalanceBGColor>FrontBalanceBGColor</FrontBalanceBGColor>
+            <FrontBalanceTest>FrontBalanceTest</FrontBalanceTest>
+            <FrontBalanceValue>FrontBalanceValue</FrontBalanceValue>
+            <FrontToRearBalanceBGColor>FrontToRearBalanceBGColor</FrontToRearBalanceBGColor>
+            <FrontToRearBalanceTest>FrontToRearBalanceTest</FrontToRearBalanceTest>
+            <FrontToRearBalanceValue>FrontToRearBalanceValue</FrontToRearBalanceValue>
+            <LeftFrontDragBGColor>LFDragBGColor</LeftFrontDragBGColor>
+            <LeftFrontDragValue>LFDragValue</LeftFrontDragValue>
+            <LeftFrontForce>LFForce</LeftFrontForce>
+            <LeftFrontForceBGColor>LFForceBGColor</LeftFrontForceBGColor>
+            <LeftFrontForceValue>LFForceValue</LeftFrontForceValue>
+            <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+            <LeftRearDragBGColor>LRDragBGColor</LeftRearDragBGColor>
+            <LeftRearDragValue>LRDragValue</LeftRearDragValue>
+            <LeftRearForce>LRForce</LeftRearForce>
+            <LeftRearForceBGColor>LRForceBGColor</LeftRearForceBGColor>
+            <LeftRearForceValue>LRForceValue</LeftRearForceValue>
+            <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+            <LeftTandemDragBGColor>LTDragBGColor</LeftTandemDragBGColor>
+            <LeftTandemDragValue>LTDragValue</LeftTandemDragValue>
+            <LeftTandemForce>LTForce</LeftTandemForce>
+            <LeftTandemForceBGColor>LTForceBGColor</LeftTandemForceBGColor>
+            <LeftTandemForceValue>LTForceValue</LeftTandemForceValue>
+            <LeftTandemSpeed>LTSpeed</LeftTandemSpeed>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <MachineType>MachineType</MachineType>
+            <MachineType3600>3600</MachineType3600>
+            <NeutralLamp>NeutralLamp</NeutralLamp>
+            <Rear>Rear</Rear>
+            <RearBalanceBGColor>RearBalanceBGColor</RearBalanceBGColor>
+            <RearBalanceTest>RearBalanceTest</RearBalanceTest>
+            <RearBalanceValue>RearBalanceValue</RearBalanceValue>
+            <RetainersUp>RollsUpElevDown</RetainersUp>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RightFrontDragBGColor>RFDragBGColor</RightFrontDragBGColor>
+            <RightFrontDragValue>RFDragValue</RightFrontDragValue>
+            <RightFrontForce>RFForce</RightFrontForce>
+            <RightFrontForceBGColor>RFForceBGColor</RightFrontForceBGColor>
+            <RightFrontForceValue>RFForceValue</RightFrontForceValue>
+            <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+            <RightRearDragBGColor>RRDragBGColor</RightRearDragBGColor>
+            <RightRearDragValue>RRDragValue</RightRearDragValue>
+            <RightRearForce>RRForce</RightRearForce>
+            <RightRearForceBGColor>RRForceBGColor</RightRearForceBGColor>
+            <RightRearForceValue>RRForceValue</RightRearForceValue>
+            <RightRearSpeed>RRSpeed</RightRearSpeed>
+            <RightTandemDragBGColor>RTDragBGColor</RightTandemDragBGColor>
+            <RightTandemDragValue>RTDragValue</RightTandemDragValue>
+            <RightTandemForce>RTForce</RightTandemForce>
+            <RightTandemForceBGColor>RTForceBGColor</RightTandemForceBGColor>
+            <RightTandemForceValue>RTForceValue</RightTandemForceValue>
+            <RightTandemSpeed>RTSpeed</RightTandemSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <TagIndex>TagIndex</TagIndex>
+            <TandemBalanceBGColor>TandemBalanceBGColor</TandemBalanceBGColor>
+            <TandemBalanceTest>TandemBalanceTest</TandemBalanceTest>
+            <TandemBalanceValue>TandemBalanceValue</TandemBalanceValue>
+            <TandemToRearBalanceBGColor>TandemToRearBalanceBGColor</TandemToRearBalanceBGColor>
+            <TandemToRearBalanceTest>TandemToRearBalanceTest</TandemToRearBalanceTest>
+            <TandemToRearBalanceValue>TandemToRearBalanceValue</TandemToRearBalanceValue>
+            <TestResultBox1>TestResultBox1BGColor</TestResultBox1>
+            <TestResultBox2>TestResultBox2BGColor</TestResultBox2>
+            <TestResultBox3>TestResultBox3BGColor</TestResultBox3>
+            <VehiclePresent>VehiclePresent</VehiclePresent>
+            <Zerospeed>ZerospeedToPLC</Zerospeed>
+        </DataTags>
+        <Parameters>
+            <BaseBrakeSampleCount>0</BaseBrakeSampleCount>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <DisplayBrakeMeterUntilZeroSpeed>1</DisplayBrakeMeterUntilZeroSpeed>
+            <ExcessiveBrakeForceLimit>500.0</ExcessiveBrakeForceLimit>
+            <FailForExcessiveBrakeForce>1</FailForExcessiveBrakeForce>
+            <ForcedAccelerateSpeedStep>10</ForcedAccelerateSpeedStep>
+            <ForcedAccelerateSpeedStepDelay>500</ForcedAccelerateSpeedStepDelay>
+            <FrontToRearBalanceUseFront>1</FrontToRearBalanceUseFront>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <ICMName>mgr/ICM</ICMName>
+            <IgnoreMachineConditions>0</IgnoreMachineConditions>
+            <IncludeDragInBrakeForce>0</IncludeDragInBrakeForce>
+            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+            <LogTaskStatInfo>Yes</LogTaskStatInfo>
+            <MaintainSpeedMaxSpeed>35</MaintainSpeedMaxSpeed>
+            <MaintainSpeedMinSpeed>25</MaintainSpeedMinSpeed>
+            <MaintainSpeedTime>1000</MaintainSpeedTime>
+            <MinimumStartForce>150.0</MinimumStartForce>
+            <MotorLoadingAccelConst>0.0</MotorLoadingAccelConst>
+            <MotorLoadingSpeedConst>0.0</MotorLoadingSpeedConst>
+            <NumberOfSamplesAboveLimit>10</NumberOfSamplesAboveLimit>
+            <PreForcedAccelerateWait>3000</PreForcedAccelerateWait>
+            <ScanDelayParameter>500</ScanDelayParameter>
+            <SpeedRangeParameter>30 35</SpeedRangeParameter>
+            <StartSamplingAtMinimumForce>1</StartSamplingAtMinimumForce>
+            <TargetSpeedParameter>30</TargetSpeedParameter>
+
+            <!-- Park Brake Parameters -->
+            <ParkBrakeArmSpeed Units="mph">9</ParkBrakeArmSpeed>
+            <ParkBrakeMaxForce Units="lbf">400</ParkBrakeMaxForce>
+            <ParkBrakeMinForce Units="lbf">18</ParkBrakeMinForce>
+            <ParkBrakeStartSampleSpeed Units="mph">8</ParkBrakeStartSampleSpeed>
+            <ParkBrakeEndSampleSpeed Units="mph">0</ParkBrakeEndSampleSpeed>
+            <ParkBrakeStartSamplingAtMinimumForce>True</ParkBrakeStartSamplingAtMinimumForce>
+            <ParkBrakeMinimumStartForce Units="lbf">15</ParkBrakeMinimumStartForce>
+            <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount>
+            <DisplaySpeedTimeGraph>True</DisplaySpeedTimeGraph>
+            <SpeedGraphLowerSeries UnitsX="s" UnitsY="km/h">0 -5,20 15,30 15,50 40,60 40,80 60,90 60,120 90</SpeedGraphLowerSeries>
+            <SpeedGraphUpperSeries UnitsX="s" UnitsY="km/h">0 10,20 30,30 30,50 70,60 70,80 100,90 100,120 120</SpeedGraphUpperSeries>
+        </Parameters>
+        <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
+        <Prompts>
+            <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+            <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <NeutralPrompt PromptBox="1" Priority="0">ShiftToNeutral</NeutralPrompt>
+            <RemoveFootFromBrake PromptBox="1" Priority="0">RemoveFootFromBrake</RemoveFootFromBrake>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+            <EnterYesOrNo PromptBox="1" Priority="0">EnterYesOrNo</EnterYesOrNo>
+            <PassOrFail PromptBox="1" Priority="0">OverallPassOrFail</PassOrFail>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+            <ShiftToReverse PromptBox="1" Priority="0">ApplyBrakeShiftToReverse</ShiftToReverse>
+        </Prompts>
+        <StatusCheckItems>
+            <VehiclePresent>1</VehiclePresent>
+            <RollsUpElevDown>1</RollsUpElevDown>
+        </StatusCheckItems>
+        <TestDomain>Foreground</TestDomain>
+        <SystemTagsToReset>
+            <BrakeActive>0</BrakeActive>
+            <FrontBalanceBGColor>white</FrontBalanceBGColor>
+            <FrontBalanceValue>0</FrontBalanceValue>
+            <FrontToRearBalanceBGColor>white</FrontToRearBalanceBGColor>
+            <FrontToRearBalanceValue>0</FrontToRearBalanceValue>
+            <LeftRearParkBrakeForceBGColor>white</LeftRearParkBrakeForceBGColor>
+            <LeftRearParkBrakeForceValue>0</LeftRearParkBrakeForceValue>
+            <LFDragBGColor>white</LFDragBGColor>
+            <LFDragValue>0</LFDragValue>
+            <LFForceBGColor>white</LFForceBGColor>
+            <LFForceDomain>0 500</LFForceDomain>
+            <LFForceTarget>200 400</LFForceTarget>
+            <LFForceValue>0</LFForceValue>
+            <LRDragBGColor>white</LRDragBGColor>
+            <LRDragValue>0</LRDragValue>
+            <LRForceBGColor>white</LRForceBGColor>
+            <LRForceDomain>0 500</LRForceDomain>
+            <LRForceTarget>200 400</LRForceTarget>
+            <LRForceValue>0</LRForceValue>
+            <LTDragBGColor>white</LTDragBGColor>
+            <LTDragValue>0</LTDragValue>
+            <LTForceBGColor>white</LTForceBGColor>
+            <LTForceDomain>0 500</LTForceDomain>
+            <LTForceTarget>200 400</LTForceTarget>
+            <LTForceValue>0</LTForceValue>
+            <RearBalanceBGColor>white</RearBalanceBGColor>
+            <RearBalanceValue>0</RearBalanceValue>
+            <RightRearParkBrakeForceBGColor>white</RightRearParkBrakeForceBGColor>
+            <RightRearParkBrakeForceValue>0</RightRearParkBrakeForceValue>
+            <RFDragBGColor>white</RFDragBGColor>
+            <RFDragValue>0</RFDragValue>
+            <RFForceBGColor>white</RFForceBGColor>
+            <RFForceDomain>0 500</RFForceDomain>
+            <RFForceTarget>200 400</RFForceTarget>
+            <RFForceValue>0</RFForceValue>
+            <RRDragBGColor>white</RRDragBGColor>
+            <RRDragValue>0</RRDragValue>
+            <RRForceBGColor>white</RRForceBGColor>
+            <RRForceDomain>0 500</RRForceDomain>
+            <RRForceTarget>200 400</RRForceTarget>
+            <RRForceValue>0</RRForceValue>
+            <RTDragBGColor>white</RTDragBGColor>
+            <RTDragValue>0</RTDragValue>
+            <RTForceBGColor>white</RTForceBGColor>
+            <RTForceDomain>0 500</RTForceDomain>
+            <RTForceTarget>200 400</RTForceTarget>
+            <RTForceValue>0</RTForceValue>
+            <TandemBalanceBGColor>white</TandemBalanceBGColor>
+            <TandemBalanceValue>0</TandemBalanceValue>
+            <TandemToRearBalanceBGColor>white</TandemToRearBalanceBGColor>
+            <TandemToRearBalanceValue>0</TandemToRearBalanceValue>
+            <TestResultBox1BGColor>white</TestResultBox1BGColor>
+            <TestResultBox2BGColor>white</TestResultBox2BGColor>
+            <TestResultBox3BGColor>white</TestResultBox3BGColor>
+        </SystemTagsToReset>
+        <TaskMon>
+            <Name>BaseBrakeTc</Name>
+        </TaskMon>
+    </Setup>
+
+
+
+    <Objectives>
+        <AnalyzeBrakeTest>
+            <TestStep2>AnalyzeBrakeTest</TestStep2>
+            <TestStep3>AnalyzeBalance</TestStep3>
+        </AnalyzeBrakeTest>
+
+        <AccelerateToSpeed>
+            <TestStep00>DisplaySpeedTimeGraph</TestStep00>
+            <TestStep05>AccelerateToBrakeSpeed</TestStep05>
+        </AccelerateToSpeed>
+
+        <BrakeTest>
+            <TestStep03>AccelerateToBrakeSpeed</TestStep03>
+            <TestStep05>DragTest</TestStep05>
+            <TestStep10>AnalyzeDragTest</TestStep10>
+            <TestStep15>BrakeTest</TestStep15>
+        </BrakeTest>
+
+        <BrakeToStop>
+            <TestStep1>BrakeToStop</TestStep1>
+        </BrakeToStop>
+
+        <FinishUp>
+            <TestStep0>DisableForceMeter</TestStep0>
+            <TestStep1>FinishUp</TestStep1>
+        </FinishUp>
+
+        <Initialize>
+            <TestStep1>Initialize</TestStep1>
+        </Initialize>
+
+        <ParkBrakeTest>
+            <TestStep00>EngageMachine</TestStep00>
+            <TestStep05>AccelerateToParkBrakeSpeed</TestStep05>
+            <TestStep10>DynamicParkBrakeTest</TestStep10>
+            <TestStep15>AnalyzeDynamicParkBrake</TestStep15>
+            <TestStep20>BrakeToStop</TestStep20>
+            <TestStep25>DisableForceMeter</TestStep25>
+        </ParkBrakeTest>
+
+    </Objectives>
+    <TestSteps>
+
+        <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed"
+            SpeedTarget="48 55" ArmSpeed="40" Prompt1="AccelerateToTargetSpeed"/>
+
+        <AccelerateToParkBrakeSpeed Result="" Timeout="120000" Description="Accelerate to Park Brake Speed"
+            Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed"
+            SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0" SpeedTarget="9 13"/>
+
+        <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test"
+            FrontSideToSideBalance="8" RearSideToSideBalance="8" TandemSideToSideBalance="20"
+            BalanceFrontToRearMin="60" BalanceFrontToRearMax="90"
+            BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2=""/>
+
+        <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis"
+            FrontMinBrakeForce="150" FrontMaxBrakeForce="600"
+            RearMinBrakeForce="40" RearMaxBrakeForce="400"
+            Prompt1="" Prompt2=""/>
+
+        <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis"
+            Prompt1="" Prompt2="" FrontMaxDragForce="55" RearMaxDragForce="55"/>
+
+        <AnalyzeDynamicParkBrake Result="" Timeout="1000" Description="Validate park brake forces"/>
+
+        <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test"
+            StartBrakeSampleSpeed="45" EndBrakeSampleSpeed="10"
+            BrakeDomain="0 500" BrakeTarget="150 250"
+            Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand"/>
+
+        <BrakeToStop Result="" Timeout="1200000" Description="Brake The Vehicle To A Stop" Prompt1="BrakeToStop"/>
+
+        <DisableForceMeter Result="" Timeout="30000" Description="Disable The Brake Force Meter"/>
+
+        <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test"
+            Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank"
+            DragDelay="1000" DragSpeed="48" DragSamples="50"/>
+
+        <DynamicParkBrakeTest Result="" Timeout="60000" Description="Perform park brake test"
+            Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake"/>
+
+        <EngageMachine Result="" Description="Engage the machine, clutches, boost, etc." Timeout="30000"/>
+
+        <FinishUp Result="" Timeout="30000" Description="Brake test finishup" Prompt1="" Prompt2=""/>
+
+        <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test."
+            Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
+
+        <DisplaySpeedTimeGraph Result="" Timeout="5000" Description="Display Speed Time Graph" ScanDelay="250"/>
+
+        <RemoveSpeedTimeGraph Result="" Timeout="5000" Description="Remove Speed Time Graph" ScanDelay="250"/>
+
+        <!--  Unused Test Steps
+                <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank" SpeedTarget="23 33" CoastEndSpeed="33">Perform Vehicle Coast</Coast>
+                <CoastToStop Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank" SpeedTarget="23 33" CoastEndSpeed="33">Perform Vehicle Coast</CoastToStop>
+                <TireChunkingTest Result="" Timeout="30000" Description="Check for excessive brake force">Check for excessive brake force</TireChunkingTest>
+                <ExcessiveBrakeForceCheck Result="" Timeout="30000" Description="Check for excessive brake force">Check for excessive brake force</ExcessiveBrakeForceCheck>
+                <AccelerateToTestSpeed Result="" Timeout="10000" Description="Accelerate to test speed" TargetSpeedParameter="TargetSpeedParameter" SpeedRangeParameter="SpeedRangeParameter" ScanDelayParameter="ScanDelayParameter" Prompt1Value1="32"/>
+                <EnableMotorLoading Description="Apply a load to the drive axle of the vehicle" Result="" Timeout="2000"/>
+                <DisableMotorLoading Description="Disable the loading of the drive axle of the vehicle" Result="" Timeout="2000"/>
+                <MaintainSpeedForTime Result = "" Description="Prompt the operator to accelerate to and maintain speed" Timeout="30000"/>
+                <ReadMemoryStatistics Result = "" Description="Read the current memory statistics" Timeout="10000"/>
+        -->
+    </TestSteps>
+</BaseBrake>

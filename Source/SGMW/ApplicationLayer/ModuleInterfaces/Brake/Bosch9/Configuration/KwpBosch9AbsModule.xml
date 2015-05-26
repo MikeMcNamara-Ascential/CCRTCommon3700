@@ -1,0 +1,963 @@
+<BoschModuleInterface>
+    <Setup>
+        <AutomaticallyEnterDiagnosticMode>No</AutomaticallyEnterDiagnosticMode>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>ISOK</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <CheckSumLength>0</CheckSumLength>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <DataByteCountIndex>0</DataByteCountIndex>
+        <DataHeaderLength>0</DataHeaderLength>
+        <DataStartIndex>0</DataStartIndex>
+        <DTCData>
+            <DTCCountIndex>1</DTCCountIndex>
+            <BytesPerDTC>3</BytesPerDTC>
+            <FirstDTCByteIndex>2</FirstDTCByteIndex>
+        </DTCData>
+        <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+        <KeepAlivePriority>10</KeepAlivePriority>
+        <KeepAliveResponseRequired>No</KeepAliveResponseRequired>
+        <KeepAliveResponseTime>3000</KeepAliveResponseTime>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>KwpBoschAbsModule</ProcessName>
+            <AdditionalLogFile>/Communication/KwpBoschAbsModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+        <ModuleKeepAliveTime>250</ModuleKeepAliveTime>
+        <ModuleRequestID>0x7DF</ModuleRequestID>
+        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseEndDelay>50</ModuleResponseEndDelay>
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>Sub-Function Not Supported</Code_0x12>
+            <Code_0x13>Incorrect Message Length</Code_0x13>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions not correct - EEPROM error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x24>Request Sequence Error</Code_0x24>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received - Response Pending</Code_0x78>
+            <Code_0x7F>Service Not Supported In Active Session</Code_0x7F>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Data Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>5</NegativeResponseCodeIndex>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <SwitchMonitorDelay>500</SwitchMonitorDelay>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+        <!-- Init sequence parameters -->
+        <SignalLowTime>25</SignalLowTime>
+        <SignalHighTime>25</SignalHighTime>
+        <WakeUpResponseDelay>100</WakeUpResponseDelay>
+        <WakeUpAttempts>3</WakeUpAttempts>
+    </Setup>
+
+
+    <SerialMessages>
+
+        <VehicleMessages>
+
+            <ActuateLeftFrontRecovery>
+                <TransmitMeassage>ActuatorOperation</TransmitMeassage>
+                <TransmitInterpretation>LfRecovery</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftFrontRecovery>
+
+            <ActuateRightFrontRecovery>
+                <TransmitMeassage>ActuatorOperation</TransmitMeassage>
+                <TransmitInterpretation>RfRecovery</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightFrontRecovery>
+
+            <ActuateLeftRearRecovery>
+                <TransmitMeassage>ActuatorOperation</TransmitMeassage>
+                <TransmitInterpretation>LrRecovery</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateLeftRearRecovery>
+
+            <ActuateRightRearRecovery>
+                <TransmitMeassage>ActuatorOperation</TransmitMeassage>
+                <TransmitInterpretation>RrRecovery</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateRightRearRecovery>
+
+            <AllInletValvesOff>
+                <TransmitMeassage>ActuatorOperation</TransmitMeassage>
+                <TransmitInterpretation>AllInletValvesOff</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </AllInletValvesOff>
+
+            <AllInletValvesOn>
+                <TransmitMeassage>ActuatorOperation</TransmitMeassage>
+                <TransmitInterpretation>AllInletValvesOn</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </AllInletValvesOn>
+
+            <AllOutletValvesOff>
+                <TransmitMeassage>ActuatorOperation</TransmitMeassage>
+                <TransmitInterpretation>AllOutletValvesOff</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </AllOutletValvesOff>
+
+            <ClearFaults>
+                <TransmitMessage>ClearFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ClearFaults</ReplyMessage>
+                <ReplyInterpretation>FaultsCleared</ReplyInterpretation>
+            </ClearFaults>
+
+            <DisableValveRelayShutdown>
+                <TransmitMessage>StartTempRoutine</TransmitMessage>
+                <TransmitInterpretation>ValveRelayShutdown</TransmitInterpretation>
+                <ReplyMessage>StartTempRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </DisableValveRelayShutdown>
+
+            <DumpAllValves>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>AllOutletValvesOn</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </DumpAllValves>
+
+            <EnableValveRelayShutdown>
+                <TransmitMessage>StartTempRoutine</TransmitMessage>
+                <TransmitInterpretation>ValveRelayShutdownEnable</TransmitInterpretation>
+                <ReplyMessage>StartTempRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnableValveRelayShutdown>
+
+            <EnterDiagnosticMode>
+                <TransmitMessage>ModuleWakeUp</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ModuleWakeUp</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnterDiagnosticMode>
+
+            <ExitDiagnosticMode>
+                <TransmitMessage>ExitDiagMode</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ExitDiagMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </ExitDiagnosticMode>
+
+            <IsEvacAndFillComplete>
+                <TransmitMessage>ReadEcuPId</TransmitMessage>
+                <TransmitInterpretation>EvacAndFillResults</TransmitInterpretation>
+                <ReplyMessage>EcuIdResponse</ReplyMessage>
+                <ReplyInterpretation>EvacAndFillComplete</ReplyInterpretation>
+            </IsEvacAndFillComplete>
+
+            <ModuleKeepAlive>
+                <TransmitMessage>TesterPresent</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>TesterPresent</ReplyMessage>
+                <ReplyInterpretation/>
+            </ModuleKeepAlive>
+
+            <ReadBrakeSwitch>
+                <TransmitMessage>ReadEcuPId</TransmitMessage>
+                <TransmitInterpretation>BrakePedalStatus</TransmitInterpretation>
+                <ReplyMessage>EcuIdResponse</ReplyMessage>
+                <ReplyInterpretation>IsBrakeSwitchOn</ReplyInterpretation>
+            </ReadBrakeSwitch>
+
+            <ReadFaults>
+                <TransmitMessage>ReadFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadFaults</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadFaults>
+
+            <ReadPartNumber>
+                <TransmitMessage>ReadEcuId</TransmitMessage>
+                <TransmitInterpretation>PartNumber</TransmitInterpretation>
+                <ReplyMessage>ReadPartNumber</ReplyMessage>
+                <ReplyInterpretation>PartNumber</ReplyInterpretation>
+            </ReadPartNumber>
+
+            <ReadSensorSpeeds>
+                <TransmitMessage>ReadEcuPId</TransmitMessage>
+                <TransmitInterpretation>WheelSpeeds</TransmitInterpretation>
+                <ReplyMessage>ReadWheelSpeeds</ReplyMessage>
+                <ReplyInterpretation>SensorSpeeds</ReplyInterpretation>
+            </ReadSensorSpeeds>
+
+            <RunPumpMotor>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivatePumpMotor</TransmitInterpretation>
+                <ReplyMessage>StartRoutineRepsonse</ReplyMessage>
+                <ReplyInterpretation/>
+            </RunPumpMotor>
+
+            <SecuritySeed>
+                <TransmitMessage>SecuritySeed</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>SeedResponse</ReplyMessage>
+                <ReplyInterpretation>SecSeed</ReplyInterpretation>
+            </SecuritySeed>
+
+            <StartDiagnosticSession>
+                <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+                <TransmitInterpretation>ExtendedSession</TransmitInterpretation>
+                <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </StartDiagnosticSession>
+
+            <StopPumpMotor>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>DeactivatePumpMotor</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </StopPumpMotor>
+
+            <WriteEolStatus>
+                <TransmitMessage>WriteDid</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>WriteDidResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </WriteEolStatus>
+
+            <WriteSecurityKey>
+                <TransmitMessage>WriteSecKey</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>WriteSecKeyResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </WriteSecurityKey>
+
+            <!-- Unused Messages 
+            <ActuateControlValve1>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateControlValveUSV1</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateControlValve1>
+            <ActuateControlValve2>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateControlValveUSV2</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateControlValve2>
+            <ActuateHighPressureControlValve1>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateHighPressureControlValveHSV1</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateHighPressureControlValve1>
+            <ActuateHighPressureControlValve2>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateHighPressureControlValveHSV2</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateHighPressureControlValve2>
+            <LFABSRecovery>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateLFInletValve</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </LFABSRecovery>
+            <LFABSReduction>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateLFOutletValve</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </LFABSReduction>
+            <LRABSRecovery>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateLRInletValve</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </LRABSRecovery>
+            <LRABSReduction>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateLROutletValve</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </LRABSReduction>
+            <RFABSRecovery>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateRFInletValve</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </RFABSRecovery>
+            <RFABSReduction>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateRFOutletValve</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </RFABSReduction>
+            <RRABSRecovery>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateRRInletValve</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </RRABSRecovery>
+            <RRABSReduction>
+                <TransmitMessage>ActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>ActivateRROutletValve</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </RRABSReduction>
+            <ActuateVacuumPump>
+                <TransmitMessage>IOControl</TransmitMessage>
+                <TransmitInterpretation>ElectricalVacuumPump</TransmitInterpretation>
+                <ReplyMessage>IOControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </ActuateVacuumPump>
+            <ClearFaults>
+                <TransmitMessage>ClearFaults</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ClearFaults</ReplyMessage>
+                <ReplyInterpretation/>
+            </ClearFaults>
+            <DefaultDiagnosticMode>
+                <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+                <TransmitInterpretation>DefaultSession</TransmitInterpretation>
+                <ReplyMessage>EnterDiagnosticSession</ReplyMessage>
+                <ReplyInterpretation/>
+            </DefaultDiagnosticMode>
+            <EnableECUTransmission>
+                <TransmitMessage>CommunicationControl</TransmitMessage>
+                <TransmitInterpretation>EnableRxAndEnableTx</TransmitInterpretation>
+                <ReplyMessage>CommunicationControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnableECUTransmission>
+            <DisableECUTransmission>
+                <TransmitMessage>CommunicationControl</TransmitMessage>
+                <TransmitInterpretation>EnableRxAndDisableTx</TransmitInterpretation>
+                <ReplyMessage>CommunicationControl</ReplyMessage>
+                <ReplyInterpretation/>
+            </DisableECUTransmission>
+            <EvacAndFill>
+                <TransmitMessage>StartRoutine</TransmitMessage>
+                <TransmitInterpretation>EvacAndFill</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </EvacAndFill>
+            <IdentifySessionType>
+                <TransmitMessage>ReadECUId</TransmitMessage>
+                <TransmitInterpretation>IdentifySessionType</TransmitInterpretation>
+                <ReplyMessage>SessionType</ReplyMessage>
+                <ReplyInterpretation/>
+            </IdentifySessionType>
+            <ReadNumberOfFaults>
+                <TransmitMessage>ReadFaults</TransmitMessage>
+                <TransmitInterpretation>ReadNumberOfFaults</TransmitInterpretation>
+                <ReplyMessage>ReadNumberOfFaults</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadNumberOfFaults>
+            <ReadHardwareVersion>
+                <TransmitMessage>ReadECUId</TransmitMessage>
+                <TransmitInterpretation>HardwareVersion</TransmitInterpretation>
+                <ReplyMessage>ReadHardwareVersion</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadHardwareVersion>
+            <ReadSensorData>
+                <TransmitMessage>ReadECUId</TransmitMessage>
+                <TransmitInterpretation>SensorData</TransmitInterpretation>
+                <ReplyMessage>ReadSensorData</ReplyMessage>
+                <ReplyInterpretationMasterCylinder>MasterCylinderPressure</ReplyInterpretationMasterCylinder>
+                <ReplyInterpretationSteeringAngle>SteeringAngle</ReplyInterpretationSteeringAngle>
+                <ReplyInterpretationYawRate>YawRate</ReplyInterpretationYawRate>
+                <ReplyInterpretationLatAccel>LateralAcceleration</ReplyInterpretationLatAccel>
+                <ReplyInterpretationLongAccel>LongitudinalAcceleration</ReplyInterpretationLongAccel>
+                <ReplyInterpretationVacuum>PressureVaccumSensor</ReplyInterpretationVacuum>
+            </ReadSensorData>
+            <ReadSoftwareNumber>
+                <TransmitMessage>ReadECUId</TransmitMessage>
+                <TransmitInterpretation>SoftwareId</TransmitInterpretation>
+                <ReplyMessage>ReadSoftwareNumber</ReplyMessage>
+                <ReplyInterpretation>SoftwareNumber</ReplyInterpretation>
+            </ReadSoftwareNumber>
+            <ReadSoftwareVersion>
+                <TransmitMessage>ReadECUId</TransmitMessage>
+                <TransmitInterpretation>SoftwareVersion</TransmitInterpretation>
+                <ReplyMessage>ReadSoftwareVersion</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadSoftwareVersion>
+            <ReadVINNumber>
+                <TransmitMessage>ReadECUId</TransmitMessage>
+                <TransmitInterpretation>VINNumber</TransmitInterpretation>
+                <ReplyMessage>ReadVINNumber</ReplyMessage>
+                <ReplyInterpretation>VINNumber</ReplyInterpretation>
+            </ReadVINNumber>
+            <ResetModule>
+                <TransmitMessage>ResetModule</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ResetModule</ReplyMessage>
+                <ReplyInterpretation/>
+            </ResetModule>
+            <ResumeSettingDTC>
+                <TransmitMessage>ControlDTCSetting</TransmitMessage>
+                <TransmitInterpretation>ResumeSettingDTC</TransmitInterpretation>
+                <ReplyMessage>ControlDTCSetting</ReplyMessage>
+                <ReplyInterpretation/>
+            </ResumeSettingDTC>
+            <StaticTest>
+                <TransmitMessage>StaticTest</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </StaticTest>
+            <StopActuatorTest>
+                <TransmitMessage>StopRoutine</TransmitMessage>
+                <TransmitInterpretation>ActuatorTestId</TransmitInterpretation>
+                <ReplyMessage>StopRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </StopActuatorTest>
+            <StopEvacAndFill>
+                <TransmitMessage>StopRoutine</TransmitMessage>
+                <TransmitInterpretation>EvacAndFillId</TransmitInterpretation>
+                <ReplyMessage>StopRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </StopEvacAndFill>
+            <StopWheelSensorTest>
+                <TransmitMessage>StopRoutine</TransmitMessage>
+                <TransmitInterpretation>WheelSensorSpeedTestId</TransmitInterpretation>
+                <ReplyMessage>StopRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </StopWheelSensorTest>
+            <StopStaticTest>
+                <TransmitMessage>StopRoutine</TransmitMessage>
+                <TransmitInterpretation>StaticTestId</TransmitInterpretation>
+                <ReplyMessage>StopRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </StopStaticTest>
+            <WheelSensorAccel2KPH>
+                <TransmitMessage>WheelSpeedSensorTest</TransmitMessage>
+                <TransmitInterpretation>WheelSpeedSensor2TestAccel</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </WheelSensorAccel2KPH>
+            <WheelSensorAccel6KPH>
+                <TransmitMessage>WheelSpeedSensorTest</TransmitMessage>
+                <TransmitInterpretation>WheelSpeedSensor6TestAccel</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </WheelSensorAccel6KPH>
+            <WheelSensorDecel0KPH>
+                <TransmitMessage>WheelSpeedSensorTest</TransmitMessage>
+                <TransmitInterpretation>WheelSpeedSensor0TestDecel</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </WheelSensorDecel0KPH>
+            <WheelSensorDecel2KPH>
+                <TransmitMessage>WheelSpeedSensorTest</TransmitMessage>
+                <TransmitInterpretation>WheelSpeedSensor2TestDecel</TransmitInterpretation>
+                <ReplyMessage>StartRoutine</ReplyMessage>
+                <ReplyInterpretation/>
+            </WheelSensorDecel2KPH>
+            -->
+        </VehicleMessages>
+
+
+        <TransmitMessages>
+            <!--For actuating one valve or for single-corner reduction/recovery-->
+            <ActuatorOperation>0x97,0x28,0xF1,0x31,0x05,0x01,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</ActuatorOperation>
+            <ClearFaults>0x84,0x28,0xF1,0x14,0xFF,0xFF,0xFF</ClearFaults>
+            <EnterDiagnosticMode>0x82,0x28,0xF1,0x10,0x??</EnterDiagnosticMode>
+            <ExitDiagMode>0x81,0x28,0xF1,0x82</ExitDiagMode>
+            <ModuleWakeUp>0x81,0x28,0xF1,0x81</ModuleWakeUp>
+            <ReadEcuId>0x82,0x28,0xF1,0x1A,0x??</ReadEcuId>
+            <ReadEcuPId>0x82,0x28,0xF1,0x21,0x??</ReadEcuPId>
+            <ReadFaults>0x82,0x28,0xF1,0x58,0x00</ReadFaults>
+            <SecuritySeed>0x82,0x28,0xF1,0x27,0x01</SecuritySeed>
+            <StartTempRoutine>0x83,0x28,0xF1,0x30,0x??,0x??</StartTempRoutine>
+            <TesterPresent>0x82,0x28,0xF1,0x3E,0x01</TesterPresent>
+            <WriteDid>0x83,0x28,0xF1,0x3B,0x03,0x??</WriteDid>
+            <WriteSecKey>0x86,0x28,0xF1,0x27,0x02,0x??,0x??,0x??,0x??</WriteSecKey>
+
+            <!-- Unused Transmit Messages --> 
+            <!--For turning all/multiple valves on/off-->
+            <!--
+            <MultipleValveActuation>0x31,0x01,0xF0,0x04,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</MultipleValveActuation>
+            <CommunicationControl>0x28,0x??,0x01</CommunicationControl>
+            <ControlDTCSetting>0x85,0x??</ControlDTCSetting>
+            <IOControl>0x2F,0x??,0x??,0x00</IOControl>
+            <ResetModule>0x11,0x03</ResetModule>
+            <RoutineResults>0x31,0x03,0x??,0x??</RoutineResults>
+            <RoutineControl>0x31,0x01,0x??,0x??</RoutineControl>
+            <StaticTest>0x31,0x01,0xF0,0x03</StaticTest>
+            <StopRoutine>0x31, 0x02,0xF0,0x??</StopRoutine>
+            <WheelSpeedSensorTest>0x31,0x01,0xF0,0x02,0x??,0x??,0x??</WheelSpeedSensorTest>
+            -->
+        </TransmitMessages>
+
+
+        <TransmitInterpretations>
+            <BrakePedalStatus>0x10</BrakePedalStatus>
+            <EvacAndFillResults>0x02</EvacAndFillResults>
+            <ExtendedSession>0x83</ExtendedSession>
+            <PartNumber>0x80</PartNumber>
+            <SpeedLimitDisable>0x04,0x03,0x00</SpeedLimitDisable>
+            <SpeedLimitEnable>0x04,0x03,0xFF</SpeedLimitEnable>
+            <ValveRelayShutdown>0x1F,0x03</ValveRelayShutdown>
+            <ValveRelayShutdownEnable>0x1F,0x02</ValveRelayShutdownEnable>
+            <WheelSpeeds>0x04</WheelSpeeds>
+            <!-- ABS Valve Commands -->
+            <ActivatePumpMotor>0xFF,0xFF,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivatePumpMotor>
+            <DeactivatePumpMotor>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xC8,0x00,0x00,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00</DeactivatePumpMotor>
+            <AllInletValvesOff>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x3C,0x00,0x00</AllInletValvesOff>
+            <AllInletValvesOn>0xFF,0xFF,0x00,0x30,0xFF,0xFF,0x00,0x34,0x00,0x00,0xFF,0xFF,0x00,0x38,0xFF,0xFF,0x00,0x3C,0x00,0x00</AllInletValvesOn>
+            <AllOutletValvesOff>0x00,0x00,0x00,0x32,0x00,0x00,0x00,0x36,0x00,0x00,0x00,0x00,0x00,0x3E,0x00,0x00,0x00,0x3A,0x00,0x00</AllOutletValvesOff>
+            <AllOutletValvesOn>0xFF,0xFF,0x00,0x32,0xFF,0xFF,0x00,0x36,0x00,0x00,0xFF,0xFF,0x00,0x3E,0xFF,0xFF,0x00,0x3A,0x00,0x00</AllOutletValvesOn>
+            <LfRecovery>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x30,0x00,0x1E,0xFF,0xFF,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x00</LfRecovery>
+            <RfRecovery>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x34,0x00,0x1E,0xFF,0xFF,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00</RfRecovery>
+            <LrRecovery>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3C,0x00,0x1E,0xFF,0xFF,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00</LrRecovery>
+            <RrRecovery>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x38,0x00,0x1E,0xFF,0xFF,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x00</RrRecovery>
+            <LfReduction>0x00,0x00,0x00,0x00,0xFF,0xFF,0x00,0x32,0x00,0x1E,0x00,0x00,0x00,0x32,0x00,0x00,0x00,0x00,0x00,0x00</LfReduction>
+            <RfReduction>0x00,0x00,0x00,0x00,0xFF,0xFF,0x00,0x36,0x00,0x1E,0x00,0x00,0x00,0x36,0x00,0x00,0x00,0x00,0x00,0x00</RfReduction>
+            <LrReduction>0x00,0x00,0x00,0x00,0xFF,0xFF,0x00,0x3E,0x00,0x1E,0x00,0x00,0x00,0x3E,0x00,0x00,0x00,0x00,0x00,0x00</LrReduction>
+            <RrReduction>0x00,0x00,0x00,0x00,0xFF,0xFF,0x00,0x3A,0x00,0x1E,0x00,0x00,0x00,0x3A,0x00,0x00,0x00,0x00,0x00,0x00</RrReduction>
+
+            <!-- Unused interpretations
+            <ActivateControlValveUSV1>0xFF,0xFF,0x00,0x4E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateControlValveUSV1>
+            <ActivateControlValveUSV2>0xFF,0xFF,0x00,0x50,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateControlValveUSV2>
+            <ActivateHighPressureControlValveHSV1>0xFF,0xFF,0x00,0x52,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateHighPressureControlValveHSV1>
+            <ActivateHighPressureControlValveHSV2>0xFF,0xFF,0x00,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateHighPressureControlValveHSV2>
+            <ActuatorTestId>0x04</ActuatorTestId>
+            <DeactivateControlValveUSV1>0x00,0x00,0x00,0x4E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivateControlValveUSV1>
+            <DeactivateControlValveUSV2>0x00,0x00,0x00,0x50,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivateControlValveUSV2>
+            <DeactivateHighPressureControlValveHSV1>0x00,0x00,0x00,0x52,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivateHighPressureControlValveHSV1>
+            <DeactivateHighPressureControlValveHSV2>0x00,0x00,0x00,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivateHighPressureControlValveHSV2>
+            <DefaultSession>0x01</DefaultSession>
+            <ElectricalVacuumPump>0xD0,0x0D</ElectricalVacuumPump>
+            <EnableRxAndDisableTx>0x01</EnableRxAndDisableTx>
+            <EnableRxAndEnableTx>0x00</EnableRxAndEnableTx>
+            <EvacAndFill>0x00,0x0A,0x05</EvacAndFill>
+            <EvacAndFillId>0x00</EvacAndFillId>
+            <HardwareVersion>0xF1,0x93</HardwareVersion>
+            <IdentifySessionType>0xF1,0x86</IdentifySessionType>
+            <ReadNumberOfFaults>0x01,0xFF</ReadNumberOfFaults>
+            <ReprogrammingSession>0x02</ReprogrammingSession>
+            <ResumeSettingDTC>0x01</ResumeSettingDTC>
+            <SensorData>0xFD,0x05</SensorData>
+            <SoftwareId>0xF1,0x95</SoftwareId>
+            <SoftwareVersion>0xF1,0x95</SoftwareVersion>
+            <StaticTestId>0x03</StaticTestId>
+            <StopSettingDTC>0x02</StopSettingDTC>
+            <VINNumber>0xF1,0x90</VINNumber>
+            <WheelSpeedSensor0TestDecel>0x00,0x00,0x00</WheelSpeedSensor0TestDecel>
+            <WheelSpeedSensor2TestDecel>0x00,0xC8,0x00</WheelSpeedSensor2TestDecel>
+            <WheelSpeedSensor2TestAccel>0x00,0xC8,0x01</WheelSpeedSensor2TestAccel>
+            <WheelSpeedSensor6TestAccel>0x02,0x58,0x01</WheelSpeedSensor6TestAccel>
+            <WheelSensorSpeedTestId>0x02</WheelSensorSpeedTestId>
+            -->
+        </TransmitInterpretations>
+
+
+        <ReplyMessages>
+            <ClearFaults>
+                <Reply_00>0x81,0xF1,0x28,0x54</Reply_00>
+                <Reply_02>0x83,0xF1,0x28,0x7F,0x14,0x??</Reply_02>
+            </ClearFaults>
+
+            <EnterDiagnosticMode>
+                <Reply_01>0x??,0xF1,0x28,0x50,0x83,0x??</Reply_01>
+                <Reply_03>0x??,0xF1,0x28,0x50,0x83</Reply_03>
+                <Reply_04>0x??,0xF1,0x28,0x7F,0x10,0x??</Reply_04>
+            </EnterDiagnosticMode>
+
+            <EcuIdResponse>
+                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x??,0xF1,0x28,0x61,0x??</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x21,0x??</Reply_01>
+            </EcuIdResponse>
+
+            <ExitDiagMode>
+                <Reply_00>0x81,0xF1,0x28,0xC2</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x82,0x??</Reply_01>
+            </ExitDiagMode>
+
+            <ModuleWakeUp>
+               <Reply_00>0x83,0xF1,0x28,0xC1,0x6B,0x8F,0x??</Reply_00>
+            </ModuleWakeUp>
+
+            <ReadFaults>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x??,0xF1,0x28,0x58,0x??</Reply_00>
+                <Reply_02>0x83,0xF1,0x28,0x7F,0x18,0x??</Reply_02>
+            </ReadFaults>
+
+            <ReadPartNumber>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x??,0xF1,0x28,0x5A,0x80,0x??,0x??</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x1A,0x??</Reply_01>
+            </ReadPartNumber>
+
+            <ReadWheelSpeeds>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x??,0xF1,0x28,0x61,0x04,0x??,0x??</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x21,0x??</Reply_01>
+            </ReadWheelSpeeds>
+
+            <SeedResponse>
+                <Reply_00>0x86,0xF1,0x28,0x67,0x01,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x27,0x??</Reply_01>
+            </SeedResponse>
+
+            <StartRoutineResponse>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x??,0xF1,0x28,0x71,0x??</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x31,0x??</Reply_01>
+            </StartRoutineResponse>
+
+            <StartTempRoutineResponse>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x83,0xF1,0x28,0x70,0x??,0x??</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x30,0x??</Reply_01>
+            </StartTempRoutineResponse>
+
+            <TesterPresent>
+                <Reply_00>0x82,0xF1,0x28,0x7E,0x01</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x3E,0x??</Reply_01>
+            </TesterPresent>
+
+            <WriteDidResponse>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="50">0x??,0xF1,0x28,0x7B,0x??</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x2E,0x??</Reply_01>
+            </WriteDidResponse>
+
+            <WriteSecKeyResponse>
+                <Reply_00>0x83,0xF1,0x28,0x67,0x02,0x34</Reply_00>
+                <Reply_01>0x83,0xF1,0x28,0x7F,0x27,0x??</Reply_01>
+            </WriteSecKeyResponse>
+
+            <!-- Unused reply filters 
+            <BrakePedalStatus>
+                <Reply_00>0x62,0xFD,0x01,0x??,0x00</Reply_00>
+                <Reply_01>0x62,0xFD,0x01,0x??,0x01</Reply_01>
+                <Reply_02>0x7F,0x22,0x??</Reply_02>
+            </BrakePedalStatus>
+            <CommunicationControl>
+                <Reply_00>0x68.0x??</Reply_00>
+                <Reply_01>0x7F,0x28,0x??</Reply_01>
+            </CommunicationControl>
+            <ControlDTCSetting>
+                <Reply_00>0xC5,0x01</Reply_00>
+                <Reply_01>0xC5,0x02</Reply_01>
+                <Reply_02>0x7F,0x85,0x??</Reply_02>
+            </ControlDTCSetting>
+            <IOControl>
+                <Reply_00>0x6F,0xD0,0x0D,0x00</Reply_00>
+                <Reply_01>0x7F,0x2F,0x??</Reply_01>
+            </IOControl>
+            <ReadNumberOfFaults>
+                <Reply_00>0x59,0x01,0xFB,0x00,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x19</Reply_01>
+                <Reply_02>0x7F,0x19,0x??</Reply_02>
+            </ReadNumberOfFaults>
+            <ReadHardwareVersion>
+                <Reply_00>0x62,0xF1,0x93,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+            </ReadHardwareVersion>
+            <ReadSensorData>
+                <Reply_00>0x62,0xFD,0x05,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+            </ReadSensorData>
+            <ReadSoftwareNumber>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0xF1,0x95,0x01,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+            </ReadSoftwareNumber>
+            <ReadSoftwareVersion>
+                <Reply_00>0x62,0xF1,0x95,0x01,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+            </ReadSoftwareVersion>
+            <ReadVINNumber>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0xF1,0x90,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+            </ReadVINNumber>
+            <ResetModule>
+                <Reply_00>0x51,0x03</Reply_00>
+                <Reply_01>0x7F,0x11</Reply_01>
+                <Reply_02>0x7F,0x11,0x??</Reply_02>
+            </ResetModule>
+            <SessionType>
+                <Reply_00>0x62,0xF1,0x86,0x01</Reply_00>
+                <Reply_01>0x62,0xF1,0x86,0x02</Reply_01>
+                <Reply_02>0x62,0xF1,0x86,0x03</Reply_02>
+                <Reply_03>0x7F,0x22,0x??</Reply_03>
+            </SessionType>
+            <StartRoutine>
+                <Reply_00>0x71,0x01,0x??,0x??,0x01</Reply_00>
+                <Reply_01>0x71,0x01,0x??,0x??,0x02</Reply_01>
+                <Reply_02>0x71,0x01,0x??,0x??,0x03</Reply_02>
+                <Reply_03>0x71,0x01,0x??,0x??,0x04</Reply_03>
+                <Reply_04>0x71,0x01,0x??,0x??,0x05</Reply_04>
+                <Reply_05>0x7F,0x31,0x??</Reply_05>
+            </StartRoutine>
+            <StopRoutine>
+                <Reply_00>0x71,0x02,0x??,0x??,0x01</Reply_00>
+                <Reply_01>0x71,0x02,0x??,0x??,0x02</Reply_01>
+                <Reply_02>0x71,0x02,0x??,0x??,0x03</Reply_02>
+                <Reply_03>0x7F,0x31,0x??</Reply_03>
+            </StopRoutine>
+            <RoutineResults>
+                <Reply_00>0x71,0x03,0xF0,0x00,0x0?</Reply_00>
+                <Reply_01>0x7F,0x31,0x??</Reply_01>
+            </RoutineResults>
+            -->
+        </ReplyMessages>
+
+
+        <ReplyInterpretations>
+
+            <EvacAndFillComplete>
+                <Boolean>
+                    <Byte1 input_index="2" mask="0xFF" compare="0xAA"/>
+                </Boolean>
+            </EvacAndFillComplete>
+
+            <FaultsCleared>
+                <Boolean>
+                    <Byte1 input_index="0" mask="0xFF" compare="0x54"/>
+                </Boolean>
+            </FaultsCleared>
+
+            <IsBrakeSwitchOn>
+                <Boolean>
+                    <Byte1 input_index="2" mask="0xFF" compare="0xFF"/>
+                </Boolean>
+            </IsBrakeSwitchOn>
+
+            <PartNumber>
+                <String>
+                    <Substring format="%3s">
+                        <Chars input_index="7" mask="0xFF" length="3"/>
+                    </Substring>
+                </String>
+            </PartNumber>
+
+            <SecSeed>
+                <Integer type="unsigned" bits="32" scale="1" offset="0">
+                    <Byte1 input_index="2" mask="0xFF" output_index="3"/>
+                    <Byte2 input_index="3" mask="0xFF" output_index="2"/>
+                    <Byte1 input_index="4" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="5" mask="0xFF" output_index="0"/>
+                </Integer>
+            </SecSeed>
+
+            <SensorSpeeds>
+                <Vector type="fixed">
+                    <Subvector00 Description="Front Left Speed">
+                        <Float scale="0.03495213" offset="0">
+                            <!--km/h-->
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="2" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector00>
+                    <Subvector01 Description="Front Right Speed">
+                        <Float scale="0.03495213" offset="0">
+                            <!--km/h-->
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector01>
+                    <Subvector02 Description="Rear Left Speed">
+                        <Float scale="0.03495213" offset="0">
+                            <!--km/h-->
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector02>
+                    <Subvector03 Description="Rear Right Speed">
+                        <Float scale="0.03495213" offset="0">
+                            <!--km/h-->
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="9" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="8" mask="0xFF" output_index="12"/>
+                            </Integer>
+                        </Float>
+                    </Subvector03>
+                </Vector>
+            </SensorSpeeds>
+
+
+            <!-- Unused interpretations -->
+            <BatteryVoltage>
+                <Float scale="0.08" offset="0">
+                    <!--In Volts-->
+                    <Integer type="unsigned" bits="8" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </BatteryVoltage>
+            <LFWheelSpeed>
+                <Float scale="0.0078125" offset="0">
+                    <!--km/h-->
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LFWheelSpeed>
+            <LateralAcceleration>
+                <Float scale="0.02713" offset="0">
+                    <!--In m/s^2-->
+                    <Integer type="signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="9" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="10" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LateralAcceleration>
+            <LongitudinalAcceleration>
+                <Float scale="0.02713" offset="0">
+                    <!--In m/s^2-->
+                    <Integer type="signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="11" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="12" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LongitudinalAcceleration>
+            <LRWheelSpeed>
+                <Float scale="0.0078125" offset="0">
+                    <!--km/h-->
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="8" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LRWheelSpeed>
+            <MasterCylinderPressure>
+                <Float scale="0.01530" offset="0">
+                    <!--In bars-->
+                    <Integer type="signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </MasterCylinderPressure>
+            <PressureVacuumSensor>
+                <Float scale="0.001" offset="0">
+                    <!--In bars-->
+                    <Integer type="signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="18" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="19" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </PressureVacuumSensor>
+            <RFWheelSpeed>
+                <Float scale="0.0078125" offset="0">
+                    <!--km/h-->
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </RFWheelSpeed>
+            <RRWheelSpeed>
+                <Float scale="0.0078125" offset="0">
+                    <!--km/h-->
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="9" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="10" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </RRWheelSpeed>
+            <SoftwareNumber>
+                <String>
+                    <Substring format="%10s">
+                        <Chars input_index="3" mask="0xFF" length="10"/>
+                    </Substring>
+                </String>
+            </SoftwareNumber>
+            <SteeringAngle>
+                <Float scale="0.1" offset="0">
+                    <!--In degrees-->
+                    <Integer type="signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </SteeringAngle>
+            <WheelSpeeds>
+                <Vector type="fixed">
+                    <Subvector00 Description="Front Left Wheel Speed">
+                        <Float scale="0.0078125" offset="0">
+                            <!--km/h-->
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector00>
+                    <Subvector01 Description="Front Right Wheel Speed">
+                        <Float scale="0.0078125" offset="0">
+                            <!--km/h-->
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector01>
+                    <Subvector02 Description="Rear Left Wheel Speed">
+                        <Float scale="0.0078125" offset="0">
+                            <!--km/h-->
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="8" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector02>
+                    <Subvector03 Description="Rear Right Wheel Speed ">
+                        <Float scale="0.0078125" offset="0">
+                            <!--km/h-->
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="9" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="10" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector03>
+                </Vector>
+            </WheelSpeeds>
+            <VINNumber>
+                <String>
+                    <Substring format="%17s">
+                        <Chars input_index="3" mask="0xFF" length="17"/>
+                    </Substring>
+                </String>
+            </VINNumber>
+            <YawRate>
+                <Float scale="0.12219" offset="0">
+                    <!--In degrees per second-->
+                    <Integer type="signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="8" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </YawRate>
+        </ReplyInterpretations>
+    </SerialMessages>
+</BoschModuleInterface>

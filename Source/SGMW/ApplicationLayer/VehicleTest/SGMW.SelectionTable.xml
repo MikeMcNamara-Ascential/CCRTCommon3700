@@ -1,0 +1,16 @@
+<SelectionTable Description="Drive curve selection table">
+
+   <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+      <BrakeType>Base Brake</BrakeType>
+   </BaseBrake>
+
+   <!-- Bosch 9 Test Sequences -->
+   <Bosch9CanAbs DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9CanAbsDriveCurve.xml">
+      <BrakeType>Bosch 9 CAN</BrakeType>
+   </Bosch9CanAbs>
+
+   <Bosch9KlineAbs DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9IsoAbsDriveCurve.xml">
+      <BrakeType>Bosch 9 K-Line</BrakeType>
+   </Bosch9KlineAbs>
+
+</SelectionTable>

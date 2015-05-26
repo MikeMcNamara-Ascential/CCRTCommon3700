@@ -6,26 +6,59 @@ Foton\Foton.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Core\Core.vpj=20110629125435594
-Foton\Foton.vpj=20110629124930547
-Tests\Tests.vpj=20110629125520843
-Tools\Tools.vpj=20110629125438656
+Core\Core.vpj=20141017142917165
+Foton\Foton.vpj=20141017142519554
+Tests\Tests.vpj=20141017142918912
+Tools\Tools.vpj=20150408073700242
 [TreeExpansion2]
 + Core\Core.vpj
-+ Foton\Foton.vpj
+- Foton\Foton.vpj
+  + ApplicationLayer
+    - TestComponents
+      - Brake
+        - BaseBrake
+          - Configuration
+      + LossCompensation
+        + Configuration
+      + Machine
+        + Configuration
+    + VehicleTest
+      + Configuration
+        + DriveCurves
+  - ServicesLayer
+    - Servers
+      - SystemMonitor
 + Tests\Tests.vpj
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1680 1050 23 24 1344 722 0 0 M 0 0 0 0 1227 713
-CWD: Tools
+SCREEN: 1920 1080 23 24 1344 722 0 0 M 0 0 0 0 1629 766
+CWD: Core\ServicesLayer\Servers\NamedDataBroker\Configuration
+BUFFER: BN="Foton\ServicesLayer\Servers\SystemMonitor\FotonSystemMonitor.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=1 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.18015 CL=10 LE=0 CX=9 CY=46 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Core\ServicesLayer\Servers\NamedDataBroker\Configuration\NDBConfig.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=864 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.22761 CL=18 LE=0 CX=17 CY=33 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 160 20 1214 695 -1 -1 N  WF=0 WT=3 "Lucida Console,10,0,1"
+BUFFER: BN="Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml"
+VIEW: LN=.18015 CL=10 LE=0 CX=9 CY=46 WI=159 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 25 25 1214 516 -1 -1 N  WF=0 WT=2 "Lucida Console,10,0,1"
+BUFFER: BN="Foton\ServicesLayer\Servers\SystemMonitor\FotonSystemMonitor.cpp"
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=158 BI=26 HT=0 HN=0 HF=0 HC=4
+WINDOW: 75 75 1214 516 -1 -1 N  WF=0 WT=4 "Lucida Console,10,0,1"
+BUFFER: BN="Core\ServicesLayer\Servers\NamedDataBroker\Configuration\NDBConfig.xml"
+VIEW: LN=.68549 CL=33 LE=0 CX=32 CY=33 WI=160 BI=27 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\ISO\IsoCommProxyMain.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxy.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxyMain.cpp
-X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Common\RawCommProxy.cpp
 X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Include\RawCommProxy.h
 X:\jwynia\GM\Source\Core\ServicesLayer\Managers\CommProxy\Raw\BBKWireless\BBKWirelessProxy.h
 ..\..\GM\Source\GM\507208 - GM AM General.txt
 ..\..\GM\Source\GM\ApplicationLayer\TestComponents\Brake\GM\GMBrakeTC.cpp
 ..\..\GM\Source\Core\ApplicationLayer\TestComponents\Brake\Common\GenericABSTCTemplate.cpp
+Foton\ServicesLayer\Servers\SystemMonitor\FotonSystemMonitor.cpp
+Core\ServicesLayer\Managers\PlcMgr\Configuration\SerialPlcConfig.xml
+Core\ServicesLayer\Servers\NamedDataBroker\Configuration\NDBConfig.xml
+\Users\derickso\AppData\Local\Temp\7zOC2B7.tmp\TestLog.064321.8227.log

@@ -325,6 +325,8 @@ const string GenericABSTCTemplate<VehicleModuleType>::CommandTestStep(const stri
         else if(step == "AllInletValvesOn")              status = AllInletValvesOn();
         // Close all ABS inlet valves
         else if(step == "AllInletValvesOff")             status = AllInletValvesOff();
+		else if(step == "AllOutletValvesOff")            
+			status = BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("AllOutletValvesOff") ? testPass : testFail;
         // Check for excessive brake force
         else if(step == "TireChunkingTest")              status = m_baseBrakeTool->ExcessiveBrakeForceCheck();
         else if(step == "ExcessiveBrakeForceCheck")      status = m_baseBrakeTool->ExcessiveBrakeForceCheck();

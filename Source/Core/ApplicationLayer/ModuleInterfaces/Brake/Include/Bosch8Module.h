@@ -271,6 +271,10 @@ public:
 
     virtual BEP_STATUS_TYPE ProgramVIN(string moduleVin = "");
 
+	BEP_STATUS_TYPE UnlockModuleSecurity();
+
+
+
 protected:
 
     /**

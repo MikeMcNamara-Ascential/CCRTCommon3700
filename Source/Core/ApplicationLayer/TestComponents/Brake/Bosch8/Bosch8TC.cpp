@@ -169,6 +169,10 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
         else if(step == "EvaluateSensorCross") status = EvaluateSensorCross();
         else if(step == "ReadSpeedDeltas") status = ReadSpeedDeltas();
         else if(step == "StopESPPumpMotor") status = StopPumpMotor();
+		else if(step == "TwoMotorWssTest")  status = TwoMotorWheelSpeedSensorTest(value);
+		else if(step == "InitializeEolStatus")     status = SetEolStatus(BEP_TESTING_RESPONSE);
+		else if(step == "WriteFinalEolStatus")     status = SetEolStatus(GetOverallResult());
+		else if(step == "UnlockModuleSecurity")    status = UnlockModuleSecurity();
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
     catch(BepException &err)
@@ -2102,6 +2106,164 @@ string Bosch8TC<ModuleType>::ReadSensorSpeeds(void)
     return(testResult);
 }
 
+//---------------------------------------------------------------------------------------
+template <class ModuleType>
+string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
+{
+	Log(LOG_FN_ENTRY, "Bosch8TC::TwoMotorWheelSpeedSensorTest(axle: %s) - Enter", axle.c_str());
+	string result = BEP_TESTING_STATUS;
+	TestResultDetails details;
+	if(!ShortCircuitTestStep())
+	{   // Place the motor into speed mode with a commanded speed of zero for starters
+		m_MotorController.Write(COMMAND_SPEED, string("0"), true);
+		m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
+		INT32 startRollerIndex = (axle == FRONT_WHEEL_DRIVE_VALUE) ? LFWHEEL : LRWHEEL;
+		// Store the original drive axle so it can be restored after we are done
+		string orgDriveAxle = SystemRead(DRIVE_AXLE_TAG);
+		string leftTag = rollerName[startRollerIndex] + "SpeedValue";
+		float leftSpeed = GetParameterFloat(rollerName[startRollerIndex] + "SensorSpeedTarget");
+		float leftMin = GetParameterFloat(rollerName[startRollerIndex] + "SensorSpeedMin");
+		float leftMax = GetParameterFloat(rollerName[startRollerIndex] + "SensorSpeedMax");
+		string rightTag = rollerName[startRollerIndex+1] + "SpeedValue";
+		float rightSpeed = GetParameterFloat(rollerName[startRollerIndex+1] + "SensorSpeedTarget");
+		float rightMin = GetParameterFloat(rollerName[startRollerIndex+1] + "SensorSpeedMin");
+		float rightMax = GetParameterFloat(rollerName[startRollerIndex+1] + "SensorSpeedMax");
+		// Set the correct motors spinning
+		SystemWrite(DRIVE_AXLE_TAG, axle);
+		m_MotorController.Write(leftTag, GetParameter(rollerName[startRollerIndex] + "SensorSpeedTarget"), true);
+		m_MotorController.Write(rightTag, GetParameter(rollerName[startRollerIndex+1] + "SensorSpeedTarget"), true);
+		// Wait a bit until motor speeds are correct
+		float rollerSpeeds[GetRollerCount()];
+		bool rollersAtSpeed = false;
+		do
+		{
+			if(BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
+			{
+				rollersAtSpeed = ((rollerSpeeds[startRollerIndex] >= (leftSpeed - 1.0)) &&
+								  (rollerSpeeds[startRollerIndex] >= (rightSpeed - 1.0)));
+				Log(LOG_DEV_DATA, "Rollers at speed: %s", rollersAtSpeed ? "True" : "False");
+			}
+			BposSleep(GetTestStepInfoInt("ScanDelay"));
+		} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && !rollersAtSpeed);
+		if(rollersAtSpeed)
+		{   // Verify the sensor readings are within tolerance
+			BposSleep(2000);   // Wait for motors to reach final speed
+			vector<float> sensorSpeeds;
+			if(BEP_STATUS_SUCCESS == m_vehicleModule.ReadModuleData("ReadSensorSpeeds", sensorSpeeds))
+			{
+				if(BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
+				{
+					char buff[32];
+					string leftResult = ((leftMin <= sensorSpeeds[startRollerIndex]) && 
+										 (sensorSpeeds[startRollerIndex] <= leftMax)) ? testPass : testFail;
+					string rightResult = ((rightMin <= sensorSpeeds[startRollerIndex+1]) && 
+										  (sensorSpeeds[startRollerIndex+1] <= rightMax)) ? testPass : testFail;
+					string result = ((leftResult == testPass) && (rightResult == testPass)) ? testPass : testFail;
+					Log(LOG_DEV_DATA, "Left %s: %s - %.2f [%.2f  %.2f]", 
+						axle.c_str(), leftResult.c_str(), sensorSpeeds[startRollerIndex], leftMin, leftMax);
+					Log(LOG_DEV_DATA, "Right %s: %s - %.2f [%.2f  %.2f]", 
+						axle.c_str(), rightResult.c_str(), sensorSpeeds[startRollerIndex+1], rightMin, rightMax);
+					SendSubtestResultWithDetail(rollerName[startRollerIndex] + "WssTest", leftResult, 
+												GetTestStepInfo("Description"), "0000",
+												"Min", CreateMessage(buff, sizeof(buff), "%.2f", leftMin), unitsMPH,
+												"Max", CreateMessage(buff, sizeof(buff), "%.2f", leftMax), unitsMPH,
+												"Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex]), unitsMPH);
+					SendSubtestResultWithDetail(rollerName[startRollerIndex+1] + "WssTest", rightResult, 
+												GetTestStepInfo("Description"), "0000",
+												"Min", CreateMessage(buff, sizeof(buff), "%.2f", rightMin), unitsMPH,
+												"Max", CreateMessage(buff, sizeof(buff), "%.2f", rightMax), unitsMPH,
+												"Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex+1]), unitsMPH);
+				}
+				else
+				{
+					result = testFail;
+					Log(LOG_DEV_DATA, "Failed to read roller speeds from the system");
+				}
+			}
+			else
+			{
+				result = testFail;
+				Log(LOG_DEV_DATA, "Failure reading wheel speed sensors from the module");
+			}
+		}
+		else
+		{
+			result = testTimeout;
+			Log(LOG_DEV_DATA, "Timeout waiting for motors to reach target speeds");
+		}
+		m_MotorController.Write(leftTag, string("0"), true);
+		m_MotorController.Write(rightTag, string("0"), true);
+		CheckZeroSpeed();
+		EngageMachine();
+		SystemWrite(DRIVE_AXLE_TAG, orgDriveAxle);
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping Wheel speed sensor test.");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "Bosch8TC::TwoMotorWheelSpeedSensorTest(axle: %s) - Exit", axle.c_str());
+	return result;
+}
+
+//---------------------------------------------------------------------------------------
+template <class ModuleType>
+string Bosch8TC<ModuleType>::SetEolStatus(string overallResult)
+{
+	UINT8 status = atoh(GetParameter("EOlStatusNotComplete").c_str());
+	string result(BEP_TESTING_RESPONSE);
+	Log(LOG_FN_ENTRY, "Bosch8TC::SetEolStatus(result: %s) - Enter", overallResult.c_str());
+	if(!ShortCircuitTestStep())
+	{
+		if(overallResult == BEP_TESTING_RESPONSE)
+		{
+			status = atoh(GetParameter("EOlStatusNotComplete").c_str());
+		}
+		else if(overallResult == testPass)
+		{
+			status = atoh(GetParameter("EolStatusPass").c_str());
+		}
+		else
+		{
+			status = atoh(GetParameter("EolStatusFail").c_str());
+		}
+		Log(LOG_DEV_DATA, "Setting EOL status to %02X", status);
+		SerialArgs_t args;
+		args.push_back(status);
+		result = (BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("WriteEolStatus", &args)) ? testPass : testFail;
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		result = testSkip;
+		Log(LOG_DEV_DATA, "Not setting EOL status oi nthe module");
+	}
+	Log(LOG_FN_ENTRY, "Bosch8TC::SetEolStatus(result: %s) - Exit", overallResult.c_str());
+	return result;
+}
+
+//---------------------------------------------------------------------------------------
+template <class ModuleType>
+string Bosch8TC<ModuleType>::UnlockModuleSecurity()
+{
+	string result = BEP_TESTING_RESPONSE;
+	Log(LOG_DEV_DATA, "Bosch8TC::UnlockModuleSecurity() - Enter");
+	if(!ShortCircuitTestStep())
+	{
+		result = (BEP_STATUS_SUCCESS == m_vehicleModule.UnlockModuleSecurity());
+		SendTestResult(result, GetTestStepInfo("Descritpion"), "0000");
+	}
+	else
+	{
+		result = testSkip;
+		Log(LOG_DEV_DATA, "Skipping security unlock");
+	}
+	Log(LOG_DEV_DATA, "Bosch8TC::UnlockModuleSecurity() - Exit");
+	return result;
+}
+
+//---------------------------------------------------------------------------------------
 template <class ModuleType>
 string Bosch8TC<ModuleType>::LFESPTest(void)
 {
@@ -2875,6 +3037,7 @@ string Bosch8TC<ModuleType>::StopPumpMotor(void)
             UpdatePrompts();
         }
 
+		BposSleep(GetParameterInt("PumpOffDelay"));
         testResult = KoreaAbsTcTemplate<ModuleType>::StopPumpMotor();
 
         if(havePrompts)

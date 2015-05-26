@@ -40,21 +40,35 @@
 #include "CmdLineProcessor.h"
 #include "../../../ModuleInterfaces/Brake/Bosch8/Bosch8Module.cpp"
 #include "KeywordProtocolFilter.cpp"
+#include "KwpCanProtocolFilter.cpp"
 
 int main(int argc, char* argv[])
 {
     CmdLineProcessor clp;
+	XmlParser parser;
+	GenericTC *bosch8Test = NULL;
 
     try
     {
         clp.ParseArguments(argc,argv); // parse the command line
         if(clp.IsDebugOn()) printf("Creating the Bosch8 Test Component\n");
         // create a Bosch8 component object
-        Bosch8TC<Bosch8Module<KeywordProtocolFilter> >bosch8Test;
+		// Get the config file
+		const XmlNode *config = parser.ReturnXMLDocument(clp.GetConfigFile());
+		// Determine what type of test component to instantiate
+		string commBus = config->getChild("Setup/CommunicationBus")->getValue();
+		if(commBus == "CAN")
+		{
+			bosch8Test = new Bosch8TC<Bosch8Module<KwpCanProtocolFilter> >;
+		}
+		else
+		{
+			bosch8Test = new Bosch8TC<Bosch8Module<KeywordProtocolFilter> >;
+		}
         if(clp.IsDebugOn()) printf("Initializing the Bosch8 component\n");
-        bosch8Test.Initialize(clp.GetConfigFile());
+        bosch8Test->Initialize(clp.GetConfigFile());
         if(clp.IsDebugOn()) printf("Bosch8 component running\n");
-        bosch8Test.Run();              // process until terminated
+        bosch8Test->Run();              // process until terminated
     }
     catch(XmlException &XmlError)
     {
@@ -75,5 +89,6 @@ int main(int argc, char* argv[])
         printf("Bosch8TC (%d, %s): Terminating\n",BposGetMyTaskId(),
                clp.GetConfigFile().c_str());
     }
+	if(bosch8Test != NULL)  delete bosch8Test;
 }
 

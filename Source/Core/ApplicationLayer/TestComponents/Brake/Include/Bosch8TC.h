@@ -423,6 +423,13 @@ protected:
      */
     virtual string ReadSensorSpeeds(void);
 
+	string TwoMotorWheelSpeedSensorTest(string axle);
+
+	string SetEolStatus(string overallResult);
+
+	string UnlockModuleSecurity();
+
+
 private:
 
     /**

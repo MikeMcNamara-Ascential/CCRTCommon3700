@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using FtpFileMonitorNamespace;
@@ -21,6 +22,7 @@ namespace BomFileProcessor
             // Open the log file
             SetupMessageWindowColorTable();
             m_logger = new Logger(m_logMessageTextBox);
+
             // Setup initial BOM file locations
             SetupBomFileLocations();
             VehicleBuildDirectory = BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory;
@@ -40,7 +42,7 @@ namespace BomFileProcessor
             // Create and load the brake force parameter sets
             m_brakeForces = new BrakeForceCollection(m_logger);
             // Start the timer to look for new BOM files
-            m_fileCheckTimer.Start();
+            StartFileProcessorThread();
 
             List<string> remotePaths = new List<string>();
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation);
@@ -48,15 +50,12 @@ namespace BomFileProcessor
 
             List<string> users = new List<string>();
             users.Add("ccrtfp");
-            users.Add("burke");
 
             List<string> passwords = new List<string>();
             passwords.Add("ccrtfp");
-            passwords.Add("porter");
 
             List<string> ipaddresses = new List<string>();
-            ipaddresses.Add("192.168.1.3:2121");
-            ipaddresses.Add("192.168.1.3:2121");
+            ipaddresses.Add("10.20.145.2:2121");
             //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
             m_engineSerialNumberFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation,
                 users, passwords, ipaddresses,m_logger);
@@ -575,6 +574,92 @@ namespace BomFileProcessor
             }
         }
 
+        //Create a separate thread for processing BOM files
+        public void StartFileProcessorThread()
+        {
+            ThreadStart taskDelegate = null;
+            taskDelegate = new ThreadStart(ProcessAllFiles);
+            m_fileProcessorThread = new Thread(taskDelegate);
+            m_processFiles = true;
+
+            m_fileProcessorThread.Start();
+        }
+
+        //Function for processing BOM files
+        public void ProcessAllFiles()
+        {
+            while (m_processFiles)
+            {// Check if there are any new files to process
+                String[] newFiles = Directory.GetFiles(BomDirectory);
+                // Make sure we are not processing directories
+                if (newFiles.Count() > 0)
+                {
+                    m_logger.Log("INFO:  Found " + Convert.ToString(newFiles.Count()) + " new BOM file(s)");
+                    System.Threading.Thread.Sleep(3000);
+                    foreach (String file in newFiles)
+                    {   // Process the new files
+                        ProcessBomFile(file);
+                    }
+                    m_logger.Log("INFO:  Done processing BOM files");
+
+                    try
+                    {
+                        String[] transferFiles = Directory.GetFiles(BomFileProcessor.Properties.Settings.Default.VehicleBuildTempDirectory);
+                        if (transferFiles.Count() > 0)
+                        {   // Process the CCRT generated pass confirmation files
+                            m_logger.Log("INFO: Transfering " + Convert.ToString(transferFiles.Count()) + " Build File(s)");
+                            // Process each file
+                            if (m_buildRecordFileMonitor.UploadToSources(transferFiles.ToList()))
+                            {
+                                m_logger.Log("INFO:  Build file Transmit Successful");
+                            }
+                            else
+                            {
+                                m_logger.Log("INFO:  Build file Transmit Error, Retransmitting...");
+                            }
+                        }
+                    }
+                    catch (System.IO.IOException ex)
+                    {
+                        m_logger.Log("ERROR: IOException accessing file or folder - " + ex.Message);
+                    }
+                }
+                else
+                    System.Threading.Thread.Sleep(3000);
+            }
+        }
+
+        //Function for viewing current log files using the LogViewerForm
+        private void ViewCurrentLogFile()
+        {
+            LogViewerForm viewer = new LogViewerForm(m_logger, m_logger.CurrentLogFileName);
+            viewer.ShowDialog();
+        }
+
+        //Function for viewing multiple log files using the LogViewerForm
+        private void ViewMultipleLogFiles(string logFileName)
+        {
+            LogViewerForm viewer = new LogViewerForm(m_logger, logFileName);
+            viewer.ShowDialog();       
+        }
+
+        //Function for viewing previous log files using the LogViewerForm
+        private void ViewPreviousLogFiles()
+        {
+            // Display the dialog to allow the user to select a log file
+            LogFileChooserDialog dialog = new LogFileChooserDialog(m_logger.LogFileListing());
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {   // Get the list of log files
+                List<String> logFiles = dialog.SelectedLogFiles;
+                // Open each log file
+                foreach (String log in logFiles)
+                {   //Create a thread for each log window
+                    Thread thread = new Thread(() => ViewMultipleLogFiles(log));
+                    thread.Start();
+                }
+            }
+        }
+
         // ----------------------------------------------------------------------------------------
         // Callback Functions
         // ----------------------------------------------------------------------------------------
@@ -668,53 +753,6 @@ namespace BomFileProcessor
         }
 
         /// <summary>
-        /// Check for new files when the timer ticks.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void m_fileCheckTimer_Tick(object sender, EventArgs e)
-        {   // Stop the timer while we are processing the information
-            m_fileCheckTimer.Stop();
-            // Check if there are any new files to process
-            String[] newFiles = Directory.GetFiles(BomDirectory);
-            // Make sure we are not processing directories
-            if (newFiles.Count() > 0)
-            {
-                m_logger.Log("INFO:  Found " + Convert.ToString(newFiles.Count()) + " new BOM file(s)");
-                System.Threading.Thread.Sleep(30000);
-                foreach (String file in newFiles)
-                {   // Process the new files
-                        ProcessBomFile(file);
-                }
-                m_logger.Log("INFO:  Done processing BOM files");
-
-                try
-                {
-                    String[] transferFiles = Directory.GetFiles(BomFileProcessor.Properties.Settings.Default.VehicleBuildTempDirectory);
-                    if (transferFiles.Count() > 0)
-                    {   // Process the CCRT generated pass confirmation files
-                        m_logger.Log("INFO: Transfering " + Convert.ToString(transferFiles.Count()) + " Build File(s)");
-                        // Process each file
-                        if (m_buildRecordFileMonitor.UploadToSources(transferFiles.ToList()))
-                        {
-                            m_logger.Log("INFO:  Build file Transmit Successful");
-                        }
-                        else
-                        {
-                            m_logger.Log("INFO:  Build file Transmit Error, Retransmitting...");
-                        }
-                    }
-                }
-                catch (System.IO.IOException ex)
-                {
-                    m_logger.Log("ERROR: IOException accessing file or folder - " + ex.Message);
-                }
-            }
-            // Start the timer again
-            m_fileCheckTimer.Start();
-        }
-
-        /// <summary>
         /// check for new Pass Confirmation files to move from the CCRT directory to the Spartan directory.
         /// </summary>
         /// <param name="sender"></param>
@@ -741,9 +779,6 @@ namespace BomFileProcessor
                             {
                                 if (file.Substring(file.LastIndexOf('.')) == ".DVT")
                                 {
-
-
-
                                     if (System.IO.File.Exists(dest))
                                     {
                                         File.Delete(dest);
@@ -886,14 +921,16 @@ namespace BomFileProcessor
 
 
         /// <summary>
-        /// Display the current log file in the log viewer form.
+        /// Creates a thread to display the current log file in the log viewer form.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void viewCurrentLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LogViewerForm viewer = new LogViewerForm(m_logger.CurrentLogFileName);
-            viewer.Show();
+            ThreadStart taskDelegate = null;
+            taskDelegate = new ThreadStart(ViewCurrentLogFile);
+            m_logViewerThread = new Thread(taskDelegate);
+            m_logViewerThread.Start();
         }
 
         /// <summary>
@@ -903,20 +940,8 @@ namespace BomFileProcessor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void viewPreviousLogToolStripMenuItem_Click(object sender, EventArgs e)
-        {   // Display the dialog to allow the user to select a log file
-            LogFileChooserDialog dialog = new LogFileChooserDialog(m_logger.LogFileListing());
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {   // Get the list of log files
-                List<String> logFiles = dialog.SelectedLogFiles;
-                // Open each log file
-                List<LogViewerForm> logViewers = new List<LogViewerForm>();
-                foreach (String log in logFiles)
-                {
-                    LogViewerForm viewer = new LogViewerForm(log);
-                    viewer.Show();
-                    logViewers.Add(new LogViewerForm(log));
-                }
-            }
+        {
+            ViewPreviousLogFiles();
         }
 
         /// <summary>
@@ -941,7 +966,12 @@ namespace BomFileProcessor
             pressureForm.ShowDialog();
         }
 
-
+        private void BomProcessorMainForm_Closed(object sender, System.EventArgs e)
+        {
+            m_processFiles = false;
+            //Make sure all windows are closed
+            Environment.Exit(0);
+        }
 
         // ----------------------------------------------------------------------------------------
         // Member Variables and Properties
@@ -1004,6 +1034,7 @@ namespace BomFileProcessor
         /// Directory location for storing vehicle build files.
         /// </summary>
         private String m_vehicleBuildDirectory;
+
         /// <summary>
         /// Get/Set the location of the vehicle build files.
         /// </summary>
@@ -1056,6 +1087,21 @@ namespace BomFileProcessor
         /// ESN Settings.
         /// </summary>
         private ModelCodeOptionsCollection m_modelCodeOptions;
+
+        /// <summary>
+        /// Thread for processing the BOM Files.
+        /// </summary>
+        Thread m_fileProcessorThread;
+
+        /// <summary>
+        /// Thread for viewing Log Files.
+        /// </summary>
+        Thread m_logViewerThread;
+
+        /// <summary>
+        /// Flag for processing the BOM Files.
+        /// </summary>
+        bool m_processFiles;
 
         private void modeCodeSpcificSttingsToolStripMenuItem_Click(object sender, EventArgs e)
         {

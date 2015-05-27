@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FtpFileChangeMonitor">
-      <HintPath>..\..\FlashStation\Ccrt2\Library\FtpFileChangeMonitor.dll</HintPath>
+      <HintPath>.\FtpFileChangeMonitor.dll</HintPath>
     </Reference>
     <Reference Include="LoggingInterface">
       <HintPath>..\..\FlashStation\Ccrt2\Library\LoggingInterface.dll</HintPath>

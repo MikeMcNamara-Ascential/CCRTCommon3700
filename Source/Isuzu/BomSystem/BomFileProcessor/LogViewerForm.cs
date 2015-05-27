@@ -5,20 +5,25 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace BomFileProcessor
 {
     public partial class LogViewerForm : Form
     {
-        public LogViewerForm(String logFilename)
+        delegate void ClearLogDisplayCallback();
+        delegate void DisplayLineCallback(string s);
+
+        public LogViewerForm(Logger log, string filename)
         {
             InitializeComponent();
+            m_logger = log;
+            m_fileName = filename;
             // Place the file name in the title bar
-            this.Text = this.Text + " - " + logFilename;
+            this.Text = this.Text + " - " + m_fileName;
             // Set the icon
             this.Icon = Icon.FromHandle(BomFileProcessor.Properties.Resources.bep_best.GetHicon());
-            LogFileName = logFilename;
             DisplayLogFile();
         }
 
@@ -27,17 +32,62 @@ namespace BomFileProcessor
         /// </summary>
         private void DisplayLogFile()
         {   // Clear the text box
-            m_logFileTextBox.Clear();
-            // Load the log file into memory
-            using (StreamReader reader = new StreamReader(LogFileName))
+            this.ClearLogDisplay();
+            // Load the log file into memory, use a lock to prevent IOExceptions
+            lock (m_logger)
             {
-                while (reader.Peek() >= 0)
+                m_logger.Log("INFO: Rendering Log " + m_fileName + ". This process can take several minutes");
+                using (StreamReader reader = new StreamReader(LogFileName))
                 {
-                    m_logFileTextBox.AppendText(reader.ReadLine() + Environment.NewLine);
+                    while (reader.Peek() >= 0)
+                    {
+                        this.DisplayLine(reader.ReadLine() + Environment.NewLine);
+                    }
                 }
             }
+
             // Reset search index
             CurrentSearchIndex = 0;
+        }
+
+        private void ClearLogDisplay()
+        {
+            try
+            {   //Thread-safe clearing
+                if (this.m_logFileTextBox.InvokeRequired)
+                {
+                    ClearLogDisplayCallback d = new ClearLogDisplayCallback(ClearLogDisplay);
+                    this.Invoke(d);
+                }
+                else
+                {
+                    this.m_logFileTextBox.Clear();
+                }
+            }
+            catch (ObjectDisposedException)
+            {   //Happens when the application closes
+            }
+
+            
+        }
+        private void DisplayLine(string s)
+        {
+            try
+            {   //Thread-safe writing
+                if (this.m_logFileTextBox.InvokeRequired)
+                {
+                    DisplayLineCallback d = new DisplayLineCallback(DisplayLine);
+                    this.Invoke(d, new object[] { s });
+                }
+                else
+                {
+                    this.m_logFileTextBox.AppendText(s);
+                }
+            }
+            catch (ObjectDisposedException)
+            {   //Happens when the application closes
+            }
+            
         }
 
         /// <summary>
@@ -115,6 +165,7 @@ namespace BomFileProcessor
 
         private String m_fileName;
         private int m_currentSearchIndex;
+        private Logger m_logger;
 
         /// <summary>
         /// Check the keypress.  If the key pressed is the Enter key, the log text will be searched

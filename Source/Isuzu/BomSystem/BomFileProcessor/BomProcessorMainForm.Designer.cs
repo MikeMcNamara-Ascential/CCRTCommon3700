@@ -51,7 +51,6 @@
             this.viewCurrentLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewPreviousLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportLogFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.m_fileCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.m_logMessageLabel = new System.Windows.Forms.Label();
             this.m_logMessageTextBox = new System.Windows.Forms.RichTextBox();
             this.m_passFileCheckTimer = new System.Windows.Forms.Timer(this.components);
@@ -236,11 +235,6 @@
             this.exportLogFilesToolStripMenuItem.Text = "Export Log Files";
             this.exportLogFilesToolStripMenuItem.Click += new System.EventHandler(this.exportLogFilesToolStripMenuItem_Click);
             // 
-            // m_fileCheckTimer
-            // 
-            this.m_fileCheckTimer.Interval = 1000;
-            this.m_fileCheckTimer.Tick += new System.EventHandler(this.m_fileCheckTimer_Tick);
-            // 
             // m_logMessageLabel
             // 
             this.m_logMessageLabel.AutoSize = true;
@@ -280,6 +274,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "BomProcessorMainForm";
             this.Text = "BOM Processor";
+            this.Closed += new System.EventHandler(this.BomProcessorMainForm_Closed);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BomProcessorMainForm_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -294,7 +289,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.Timer m_fileCheckTimer;
         private System.Windows.Forms.Label m_logMessageLabel;
         private System.Windows.Forms.ToolStripMenuItem logsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewCurrentLogToolStripMenuItem;

@@ -71,7 +71,7 @@
             <Retries>3</Retries>
         </Communication>
         <Logging>
-            <Status>Enabled</Status>
+            <Status>Disabled</Status>
             <ProcessName>IsuzuCanEmissions</ProcessName>
             <AdditionalLogFile>/Communication/IsuzuCanEmissions.log</AdditionalLogFile>
             <Debug>Off</Debug>

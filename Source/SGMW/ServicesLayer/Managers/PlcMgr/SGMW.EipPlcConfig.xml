@@ -14,7 +14,7 @@
         <PlcBoards>
             <!--'active' attribute must be Yes or No (case sensitive)-->
             <MainEipPlc type="Eip" index="0" active="Yes">
-            <LogicalPort>172.16.253.10</LogicalPort>
+            <LogicalPort>192.168.1.10</LogicalPort>
                 <Setup>
                     <Logging>
                         <Status>Enabled</Status>

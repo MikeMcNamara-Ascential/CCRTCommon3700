@@ -17,13 +17,13 @@
             <Debug>Off</Debug>
         </Machine>
 
-        <SoundLevel>
+        <!--SoundLevel>
             <ComponentName></ComponentName>
             <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
             <ConfigFile>SoundLevelComponent.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/SoundLevel</ConfigPath>
             <Debug>Off</Debug>
-        </SoundLevel>
+        </SoundLevel-->
 
     </Components>
 
@@ -64,22 +64,22 @@
         <!--Perform Idle Horn Test-->
         <TestPhase105 Description="Start monitoring sound level" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
+                <!--Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
                     <StartSoundTest/>
-                </Objective0>
+                </Objective0-->
                 <Objective1 Description="Engage the machine" Result="" Timeout="" Component="Machine">
                     <EngageMachine/>
                 </Objective1>
             </ForegroundObjectives>
         </TestPhase105>
 
-        <TestPhase110 Description="Read idle sound level" Result="" Timeout="">
+        <!--TestPhase110 Description="Read idle sound level" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Read idle sound level" Result="" Timeout="" Component="SoundLevel">
                     <IdleHornTest/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase110>
+        </TestPhase110-->
 
 
 
@@ -103,13 +103,13 @@
         </TestPhase205>
 
         <!--Perform Running Horn Test-->
-        <TestPhase210 Description="Read running sound level" Result="" Timeout="">
+        <!--TestPhase210 Description="Read running sound level" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Read running sound level" Result="" Timeout="" Component="SoundLevel">
                     <RunningHornTest/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase210>
+        </TestPhase210-->
 
 
 
@@ -139,13 +139,13 @@
 
 
 
-        <TestPhase400 Description="Stop the sound monitor thread" Result="" Timeout="">
+        <!--TestPhase400 Description="Stop the sound monitor thread" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Stop the sound monitor thread" Result="" Timeout="" Component="SoundLevel">
                     <StopSoundTest/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase400>
+        </TestPhase400-->
 
 
 
@@ -156,9 +156,9 @@
                 <Objective0 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
                     <FinishUp/>
                 </Objective0>
-                <Objective3 Description="Perform finish-up" Result="" Timeout="" Component="SoundLevel">
+                <!--Objective3 Description="Perform finish-up" Result="" Timeout="" Component="SoundLevel">
                     <FinishUp>PerformingFinishUp</FinishUp>
-                </Objective3>
+                </Objective3-->
             </ForegroundObjectives>
         </TestPhase900>
     </Test>

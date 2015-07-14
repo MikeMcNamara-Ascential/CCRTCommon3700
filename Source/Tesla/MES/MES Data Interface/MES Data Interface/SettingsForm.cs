@@ -23,6 +23,7 @@ namespace MES_Data_Interface
             InitializeComponent();
             m_settings = Settings.ReadSettings();
             m_qnxIpAddress.Text = m_settings.QnxIpAddress;
+            m_qnxListenerIpAddress.Text = m_settings.QnxListenerIpAddress;
             m_qnxListenerTcpPort.Text = m_settings.QnxListenerTcpPort;
             m_mesHostname.Text = m_settings.MesHostName;
             m_getBeforeUpdateCheckBox.Checked = m_settings.GetDispositionBeforeUpdate;
@@ -31,6 +32,7 @@ namespace MES_Data_Interface
         private void button1_Click(object sender, EventArgs e)
         {
             m_settings.QnxIpAddress = m_qnxIpAddress.Text;
+            m_settings.QnxListenerIpAddress = m_qnxListenerIpAddress.Text;
             m_settings.QnxListenerTcpPort = m_qnxListenerTcpPort.Text;
             m_settings.MesHostName = m_mesHostname.Text;
             m_settings.GetDispositionBeforeUpdate = m_getBeforeUpdateCheckBox.Checked;

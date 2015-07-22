@@ -858,6 +858,8 @@ private:
      * Flag to indicate if section length data should be used from the message.
      */
     bool m_useSectionData;
+
+    bool m_requestBuildInfo;
     /**
      * Map containing the build record section data.
      */

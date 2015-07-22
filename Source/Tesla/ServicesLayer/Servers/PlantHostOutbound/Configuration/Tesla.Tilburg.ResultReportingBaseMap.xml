@@ -1,0 +1,621 @@
+<BasePFSRecord>
+   <Field000000 Type="Separator" Desc="UpdateDisposition">UpdateDisposition</Field000000>
+   <Field000005 Type="Separator" Desc="Separator">|</Field000005>
+   <Field000010 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" Desc="Full VIN">VIN</Field000010>
+   <Field000020 Type="Separator" Desc="Separator">|</Field000020>
+   <Field000030 Type="Result" Format="%s" Desc="Overall Result">OverallTest</Field000030>
+   <Field000040 Type="Separator" Desc="Separator">|</Field000040>
+   <Field000050 Type="Separator" Desc="Pitch Name">RT-010-1</Field000050>
+   <Field000060 Type="Separator" Desc="Separator">|</Field000060>
+   <Field000070 Type="Separator" Desc="CheckItemIdentifier">@</Field000070>
+   <Field000071 Type="Separator" Desc="TestCodeLabel">Code,</Field000071>
+   <Field000072 Type="Separator" Desc="TestCode">Overall Result</Field000072>
+   <Field000073 Type="Separator" Desc="FieldIdentifier">!</Field000073>
+   <Field000074 Type="Separator" Desc="FieldName">Status,</Field000074>
+   <Field000075 Type="Result" Format="%s" Desc="Test Status">OverallTest</Field000075>
+   <!--
+   <Field000100 Type="Separator" Desc="CheckItemIdentifier">@</Field000100>
+   <Field000101 Type="Separator" Desc="TestCodeLabel">Code,</Field000101>
+   <Field000102 Type="Separator" Desc="TestCode">AirbagOverallTest</Field000102>
+   <Field000103 Type="Separator" Desc="FieldIdentifier">!</Field000103>
+   <Field000104 Type="Separator" Desc="FieldName">Status,</Field000104>
+   <Field000105 Type="Result" Format="%s" Desc="Test Status">AirbagOverallTest</Field000105>
+   <Field000200 Type="Separator" Desc="CheckItemIdentifier">@</Field000200>
+   <Field000201 Type="Separator" Desc="TestCodeLabel">Code,</Field000201>
+   <Field000202 Type="Separator" Desc="TestCode">AirbagCheckOEMPartNumber</Field000202>
+   <Field000203 Type="Separator" Desc="FieldIdentifier">!</Field000203>
+   <Field000204 Type="Separator" Desc="FieldName">Status,</Field000204>
+   <Field000205 Type="Result" Format="%s" Desc="Test Status">AirbagCheckP1_OEMPartNumber</Field000205>
+   <Field000213 Type="Separator" Desc="FieldIdentifier">!</Field000213>
+   <Field000214 Type="Separator" Desc="FieldName">Attribute,</Field000214>
+   <Field000215 Type="Detail" DetailNode="ModulePartNumber" Format="%-8.8s" Length="8" DataType="String">AirbagCheckP1_OEMPartNumber</Field000215>
+   <Field000243 Type="Separator" Desc="FieldIdentifier">!</Field000243>
+   <Field000244 Type="Separator" Desc="FieldName">AttributeTarget,</Field000244>
+   <Field000245 Type="Detail" DetailNode="BroadcastPartNumber" Format="%-8.8s" Length="8" DataType="String">AirbagCheckP1_OEMPartNumber</Field000245>
+   <Field000300 Type="Separator" Desc="CheckItemIdentifier">@</Field000300>
+   <Field000301 Type="Separator" Desc="TestCodeLabel">Code,</Field000301>
+   <Field000302 Type="Separator" Desc="TestCode">AirbagCheckFWChecksum</Field000302>
+   <Field000303 Type="Separator" Desc="FieldIdentifier">!</Field000303>
+   <Field000304 Type="Separator" Desc="FieldName">Status,</Field000304>
+   <Field000305 Type="Result" Format="%s" Desc="Test Status">AirbagCheckP2_FWChecksum</Field000305>
+   <Field000313 Type="Separator" Desc="FieldIdentifier">!</Field000313>
+   <Field000314 Type="Separator" Desc="FieldName">Attribute,</Field000314>
+   <Field000315 Type="Detail" DetailNode="ModulePartNumber" Format="%-18.18s" Length="18" DataType="String">AirbagCheckP2_FWChecksum</Field000315>
+   <Field000343 Type="Separator" Desc="FieldIdentifier">!</Field000343>
+   <Field000344 Type="Separator" Desc="FieldName">AttributeTarget,</Field000344>
+   <Field000345 Type="Detail" DetailNode="BroadcastPartNumber" Format="%-18.18s" Length="18" DataType="String">AirbagCheckP2_FWChecksum</Field000345>
+   <Field000400 Type="Separator" Desc="CheckItemIdentifier">@</Field000400>
+   <Field000401 Type="Separator" Desc="TestCodeLabel">Code,</Field000401>
+   <Field000402 Type="Separator" Desc="TestCode">AirbagCheckModulePartNumber</Field000402>
+   <Field000403 Type="Separator" Desc="FieldIdentifier">!</Field000403>
+   <Field000404 Type="Separator" Desc="FieldName">Status,</Field000404>
+   <Field000405 Type="Result" Format="%s" Desc="Test Status">AirbagCheckP3_ModulePartNumber</Field000405>
+   <Field000413 Type="Separator" Desc="FieldIdentifier">!</Field000413>
+   <Field000414 Type="Separator" Desc="FieldName">Attribute,</Field000414>
+   <Field000415 Type="Detail" DetailNode="ModulePartNumber" Format="%-12.12s" Length="12" DataType="String">AirbagCheckP3_ModulePartNumber</Field000415>
+   <Field000443 Type="Separator" Desc="FieldIdentifier">!</Field000443>
+   <Field000444 Type="Separator" Desc="FieldName">AttributeTarget,</Field000444>
+   <Field000445 Type="Detail" DetailNode="BroadcastPartNumber" Format="%-12.12s" Length="12" DataType="String">AirbagCheckP3_ModulePartNumber</Field000445>
+   <Field000500 Type="Separator" Desc="CheckItemIdentifier">@</Field000500>
+   <Field000501 Type="Separator" Desc="TestCodeLabel">Code,</Field000501>
+   <Field000502 Type="Separator" Desc="TestCode">AirbagCheckVIN</Field000502>
+   <Field000503 Type="Separator" Desc="FieldIdentifier">!</Field000503>
+   <Field000504 Type="Separator" Desc="FieldName">Status,</Field000504>
+   <Field000505 Type="Result" Format="%s" Desc="Test Status">AirbagCheckVIN</Field000505>
+   <Field000513 Type="Separator" Desc="FieldIdentifier">!</Field000513>
+   <Field000514 Type="Separator" Desc="FieldName">Attribute,</Field000514>
+   <Field000515 Type="Detail" DetailNode="ModuleVIN" Format="%-17.17s" Length="17" DataType="String">AirbagCheckVIN</Field000515>
+   <Field000543 Type="Separator" Desc="FieldIdentifier">!</Field000543>
+   <Field000544 Type="Separator" Desc="FieldName">AttributeTarget,</Field000544>
+   <Field000545 Type="Detail" DetailNode="BroadcastVIN" Format="%-17.17s" Length="17" DataType="String">AirbagCheckVIN</Field000545>
+   <Field000600 Type="Separator" Desc="CheckItemIdentifier">@</Field000600>
+   <Field000601 Type="Separator" Desc="TestCodeLabel">Code,</Field000601>
+   <Field000602 Type="Separator" Desc="TestCode">AirbagClearFaults</Field000602>
+   <Field000603 Type="Separator" Desc="FieldIdentifier">!</Field000603>
+   <Field000604 Type="Separator" Desc="FieldName">Status,</Field000604>
+   <Field000605 Type="Result" Format="%s" Desc="Test Status">AirbagClearFaults</Field000605>
+   <Field000700 Type="Separator" Desc="CheckItemIdentifier">@</Field000700>
+   <Field000701 Type="Separator" Desc="TestCodeLabel">Code,</Field000701>
+   <Field000702 Type="Separator" Desc="TestCode">AirbagCollectTraceData</Field000702>
+   <Field000703 Type="Separator" Desc="FieldIdentifier">!</Field000703>
+   <Field000704 Type="Separator" Desc="FieldName">Status,</Field000704>
+   <Field000705 Type="Result" Format="%s" Desc="Test Status">AirbagCollectTraceData</Field000705>
+   <Field000713 Type="Separator" Desc="FieldIdentifier">!</Field000713>
+   <Field000714 Type="Separator" Desc="FieldName">Attribute,</Field000714>
+   <Field000715 Type="Detail" DetailNode="SerialNumber" Format="%-4.4s" Length="4" DataType="String">AirbagCollectTraceData</Field000715>
+   <Field000800 Type="Separator" Desc="CheckItemIdentifier">@</Field000800>
+   <Field000801 Type="Separator" Desc="TestCodeLabel">Code,</Field000801>
+   <Field000802 Type="Separator" Desc="TestCode">AirbagEnableAirbagModule</Field000802>
+   <Field000803 Type="Separator" Desc="FieldIdentifier">!</Field000803>
+   <Field000804 Type="Separator" Desc="FieldName">Status,</Field000804>
+   <Field000805 Type="Result" Format="%s" Desc="Test Status">AirbagEnableAirBagModule</Field000805>
+   <Field000900 Type="Separator" Desc="CheckItemIdentifier">@</Field000900>
+   <Field000901 Type="Separator" Desc="TestCodeLabel">Code,</Field000901>
+   <Field000902 Type="Separator" Desc="TestCode">AirbagProgramVIN</Field000902>
+   <Field000903 Type="Separator" Desc="FieldIdentifier">!</Field000903>
+   <Field000904 Type="Separator" Desc="FieldName">Status,</Field000904>
+   <Field000905 Type="Result" Format="%s" Desc="Test Status">AirbagProgramVIN</Field000905>
+   <Field001000 Type="Separator" Desc="CheckItemIdentifier">@</Field001000>
+   <Field001001 Type="Separator" Desc="TestCodeLabel">Code,</Field001001>
+   <Field001002 Type="Separator" Desc="TestCode">AirbagReadFaults</Field001002>
+   <Field001003 Type="Separator" Desc="FieldIdentifier">!</Field001003>
+   <Field001004 Type="Separator" Desc="FieldName">Status,</Field001004>
+   <Field001005 Type="Result" Format="%s" Desc="Test Status">AirbagReadFaults</Field001005>
+   <Field001006 Type="ConditionalBlock" Test="AirbagReadFaults" Result="TestNotStarted" Condition="NotEqual" Format="%s">
+      <Field01000 Type="ConditionalBlock" Test="AirbagReadFaults" Result="TestPass" Condition="NotEqual" Format="%s">
+         <Field1010 Type="Separator" Desc="FieldIdentifier">!</Field1010>
+         <Field1011 Type="Separator" Desc="FieldName">Attribute,</Field1011>
+         <Field1012 Type="DTC" Component="Airbag" MapComponentNames="True" MaximumDtcsToReport="-1" ReportDtcParentNode="Yes">
+            <Field000 Type="DtcAttribute" Format="0x%s" Length="8" DataType="String">Code</Field000>
+            <Field001 Type="Separator" Desc="Space">Blank</Field001>
+         </Field1012>
+      </Field01000>
+   </Field001006>
+   -->
+   <Field001100 Type="Separator" Desc="CheckItemIdentifier">@</Field001100>
+   <Field001101 Type="Separator" Desc="TestCodeLabel">Code,</Field001101>
+   <Field001102 Type="Separator" Desc="TestCode">BrakeOverallTest</Field001102>
+   <Field001103 Type="Separator" Desc="FieldIdentifier">!</Field001103>
+   <Field001104 Type="Separator" Desc="FieldName">Status,</Field001104>
+   <Field001105 Type="Result" Format="%s" Desc="Test Status">BrakeOverallTest</Field001105>
+   <Field001200 Type="Separator" Desc="CheckItemIdentifier">@</Field001200>
+   <Field001201 Type="Separator" Desc="TestCodeLabel">Code,</Field001201>
+   <Field001202 Type="Separator" Desc="TestCode">BrakeAnalyzeBalance</Field001202>
+   <Field001203 Type="Separator" Desc="FieldIdentifier">!</Field001203>
+   <Field001204 Type="Separator" Desc="FieldName">Status,</Field001204>
+   <Field001205 Type="Result" Format="%s" Desc="Test Status">BrakeAnalyzeBalance</Field001205>
+   <Field001300 Type="Separator" Desc="CheckItemIdentifier">@</Field001300>
+   <Field001301 Type="Separator" Desc="TestCodeLabel">Code,</Field001301>
+   <Field001302 Type="Separator" Desc="TestCode">BrakeAnalyzeBrakeTest</Field001302>
+   <Field001303 Type="Separator" Desc="FieldIdentifier">!</Field001303>
+   <Field001304 Type="Separator" Desc="FieldName">Status,</Field001304>
+   <Field001305 Type="Result" Format="%s" Desc="Test Status">BrakeAnalyzeBrakeTest</Field001305>
+   <Field001400 Type="Separator" Desc="CheckItemIdentifier">@</Field001400>
+   <Field001401 Type="Separator" Desc="TestCodeLabel">Code,</Field001401>
+   <Field001402 Type="Separator" Desc="TestCode">BrakeAnalyzeDragTest</Field001402>
+   <Field001403 Type="Separator" Desc="FieldIdentifier">!</Field001403>
+   <Field001404 Type="Separator" Desc="FieldName">Status,</Field001404>
+   <Field001405 Type="Result" Format="%s" Desc="Test Status">BrakeAnalyzeDragTest</Field001405>
+   <Field001500 Type="Separator" Desc="CheckItemIdentifier">@</Field001500>
+   <Field001501 Type="Separator" Desc="TestCodeLabel">Code,</Field001501>
+   <Field001502 Type="Separator" Desc="TestCode">BrakeSwitchTest</Field001502>
+   <Field001503 Type="Separator" Desc="FieldIdentifier">!</Field001503>
+   <Field001504 Type="Separator" Desc="FieldName">Status,</Field001504>
+   <Field001505 Type="Result" Format="%s" Desc="Test Status">BrakeBrakeSwitchTest</Field001505>
+   <Field001600 Type="Separator" Desc="CheckItemIdentifier">@</Field001600>
+   <Field001601 Type="Separator" Desc="TestCodeLabel">Code,</Field001601>
+   <Field001602 Type="Separator" Desc="TestCode">BrakeCalibrateGSensor</Field001602>
+   <Field001603 Type="Separator" Desc="FieldIdentifier">!</Field001603>
+   <Field001604 Type="Separator" Desc="FieldName">Status,</Field001604>
+   <Field001605 Type="Result" Format="%s" Desc="Test Status">BrakeCalibrateGSensor</Field001605>
+   <Field001700 Type="Separator" Desc="CheckItemIdentifier">@</Field001700>
+   <Field001701 Type="Separator" Desc="TestCodeLabel">Code,</Field001701>
+   <Field001702 Type="Separator" Desc="TestCode">BrakeCheckPartNumber</Field001702>
+   <Field001703 Type="Separator" Desc="FieldIdentifier">!</Field001703>
+   <Field001704 Type="Separator" Desc="FieldName">Status,</Field001704>
+   <Field001705 Type="Result" Format="%s" Desc="Test Status">BrakeCheckPartNumber</Field001705>
+   <Field001713 Type="Separator" Desc="FieldIdentifier">!</Field001713>
+   <Field001714 Type="Separator" Desc="FieldName">Attribute,</Field001714>
+   <Field001715 Type="Detail" DetailNode="ModulePartNumber" Format="%-10.12s" Length="12" DataType="String">BrakeCheckPartNumber</Field001715>
+   <Field001743 Type="Separator" Desc="FieldIdentifier">!</Field001743>
+   <Field001744 Type="Separator" Desc="FieldName">AttributeTarget,</Field001744>
+   <Field001745 Type="Detail" DetailNode="PartNumberParameter" Format="%-10.12s" Length="12" DataType="String">BrakeCheckPartNumber</Field001745>
+   <!--Field001800 Type="Separator" Desc="CheckItemIdentifier">@</Field001800>
+   <Field001801 Type="Separator" Desc="TestCodeLabel">Code,</Field001801>
+   <Field001802 Type="Separator" Desc="TestCode">TestCodeValue</Field001802>
+   <Field001803 Type="Separator" Desc="FieldIdentifier">!</Field001803>
+   <Field001804 Type="Separator" Desc="FieldName">Status,</Field001804>
+   <Field001805 Type="Result" Format="%s" Desc="Test Status">BrakeCheckVIN</Field001805>
+   <Field001813 Type="Separator" Desc="FieldIdentifier">!</Field001813>
+   <Field001814 Type="Separator" Desc="FieldName">Value,</Field001814>
+   <Field001815 Type="Detail" DetailNode="ModuleVIN" Format="%-1.1s" Length="10" DataType="String">BrakeCheckVIN</Field001815>
+   <Field001843 Type="Separator" Desc="FieldIdentifier">!</Field001843>
+   <Field001844 Type="Separator" Desc="FieldName">TargetValue,</Field001844>
+   <Field001845 Type="Detail" DetailNode="BroadcastVIN" Format="%-1.1s" Length="10" DataType="String">BrakeCheckVIN</Field001845-->
+   <Field001900 Type="Separator" Desc="CheckItemIdentifier">@</Field001900>
+   <Field001901 Type="Separator" Desc="TestCodeLabel">Code,</Field001901>
+   <Field001902 Type="Separator" Desc="TestCode">BrakeClearFaults</Field001902>
+   <Field001903 Type="Separator" Desc="FieldIdentifier">!</Field001903>
+   <Field001904 Type="Separator" Desc="FieldName">Status,</Field001904>
+   <Field001905 Type="Result" Format="%s" Desc="Test Status">BrakeClearFaults</Field001905>
+   <Field002000 Type="Separator" Desc="CheckItemIdentifier">@</Field002000>
+   <Field002001 Type="Separator" Desc="TestCodeLabel">Code,</Field002001>
+   <Field002002 Type="Separator" Desc="TestCode">BrakeCycleIgnition</Field002002>
+   <Field002003 Type="Separator" Desc="FieldIdentifier">!</Field002003>
+   <Field002004 Type="Separator" Desc="FieldName">Status,</Field002004>
+   <Field002005 Type="Result" Format="%s" Desc="Test Status">BrakeCycleIgnition</Field002005>
+   <Field002100 Type="Separator" Desc="CheckItemIdentifier">@</Field002100>
+   <Field002101 Type="Separator" Desc="TestCodeLabel">Code,</Field002101>
+   <Field002102 Type="Separator" Desc="TestCode">BrakeDisableSpeedLimit</Field002102>
+   <Field002103 Type="Separator" Desc="FieldIdentifier">!</Field002103>
+   <Field002104 Type="Separator" Desc="FieldName">Status,</Field002104>
+   <Field002105 Type="Result" Format="%s" Desc="Test Status">BrakeDisableSpeedLimit</Field002105>
+   <Field002200 Type="Separator" Desc="CheckItemIdentifier">@</Field002200>
+   <Field002201 Type="Separator" Desc="TestCodeLabel">Code,</Field002201>
+   <Field002202 Type="Separator" Desc="TestCode">BrakeESPValveCrossCheck</Field002202>
+   <Field002203 Type="Separator" Desc="FieldIdentifier">!</Field002203>
+   <Field002204 Type="Separator" Desc="FieldName">Status,</Field002204>
+   <Field002205 Type="Result" Format="%s" Desc="Test Status">BrakeESPValveCross</Field002205>
+   <Field002300 Type="Separator" Desc="CheckItemIdentifier">@</Field002300>
+   <Field002301 Type="Separator" Desc="TestCodeLabel">Code,</Field002301>
+   <Field002302 Type="Separator" Desc="TestCode">BrakeEnableElectricVacuumPump</Field002302>
+   <Field002303 Type="Separator" Desc="FieldIdentifier">!</Field002303>
+   <Field002304 Type="Separator" Desc="FieldName">Status,</Field002304>
+   <Field002305 Type="Result" Format="%s" Desc="Test Status">BrakeEnableElectricVacuumPump</Field002305>
+   <Field002400 Type="Separator" Desc="CheckItemIdentifier">@</Field002400>
+   <Field002401 Type="Separator" Desc="TestCodeLabel">Code,</Field002401>
+   <Field002402 Type="Separator" Desc="TestCode">BrakeFrontBalanceTest</Field002402>
+   <Field002403 Type="Separator" Desc="FieldIdentifier">!</Field002403>
+   <Field002404 Type="Separator" Desc="FieldName">Status,</Field002404>
+   <Field002405 Type="Result" Format="%s" Desc="Test Status">BrakeFrontBalanceTest</Field002405>
+   <Field002413 Type="Separator" Desc="FieldIdentifier">!</Field002413>
+   <Field002414 Type="Separator" Desc="FieldName">Value,</Field002414>
+   <Field002415 Type="Detail" DetailNode="Value" Format="%s" Length="10" DataType="String">BrakeFrontBalanceTest</Field002415>
+   <Field002423 Type="Separator" Desc="FieldIdentifier">!</Field002423>
+   <Field002424 Type="Separator" Desc="FieldName">MinValue,</Field002424>
+   <Field002425 Type="Detail" DetailNode="MinPercentBalance" Format="%s" Length="10" DataType="String">BrakeFrontBalanceTest</Field002425>
+   <Field002433 Type="Separator" Desc="FieldIdentifier">!</Field002433>
+   <Field002434 Type="Separator" Desc="FieldName">MaxValue,</Field002434>
+   <Field002435 Type="Detail" DetailNode="MaxPercentBalance" Format="%s" Length="10" DataType="String">BrakeFrontBalanceTest</Field002435>
+   <Field002483 Type="Separator" Desc="FieldIdentifier">!</Field002483>
+   <Field002484 Type="Separator" Desc="FieldName">UOM,</Field002484>
+   <Field002485 Type="DetailAttribute" DetailNode="Value" AttributeNode="Units">BrakeFrontBalanceTest</Field002485>
+   <Field002500 Type="Separator" Desc="CheckItemIdentifier">@</Field002500>
+   <Field002501 Type="Separator" Desc="TestCodeLabel">Code,</Field002501>
+   <Field002502 Type="Separator" Desc="TestCode">BrakeFrontToRearBalanceTest</Field002502>
+   <Field002503 Type="Separator" Desc="FieldIdentifier">!</Field002503>
+   <Field002504 Type="Separator" Desc="FieldName">Status,</Field002504>
+   <Field002505 Type="Result" Format="%s" Desc="Test Status">BrakeFrontToRearBalanceTest</Field002505>
+   <Field002513 Type="Separator" Desc="FieldIdentifier">!</Field002513>
+   <Field002514 Type="Separator" Desc="FieldName">Value,</Field002514>
+   <Field002515 Type="Detail" DetailNode="Value" Format="%s" Length="10" DataType="String">BrakeFrontToRearBalanceTest</Field002515>
+   <Field002523 Type="Separator" Desc="FieldIdentifier">!</Field002523>
+   <Field002524 Type="Separator" Desc="FieldName">MinValue,</Field002524>
+   <Field002525 Type="Detail" DetailNode="MinPercentBalance" Format="%s" Length="10" DataType="String">BrakeFrontToRearBalanceTest</Field002525>
+   <Field002533 Type="Separator" Desc="FieldIdentifier">!</Field002533>
+   <Field002534 Type="Separator" Desc="FieldName">MaxValue,</Field002534>
+   <Field002535 Type="Detail" DetailNode="MaxPercentBalance" Format="%s" Length="10" DataType="String">BrakeFrontToRearBalanceTest</Field002535>
+   <Field002583 Type="Separator" Desc="FieldIdentifier">!</Field002583>
+   <Field002584 Type="Separator" Desc="FieldName">UOM,</Field002584>
+   <Field002585 Type="DetailAttribute" DetailNode="Value" AttributeNode="Units">BrakeFrontToRearBalanceTest</Field002585>
+   <Field002600 Type="Separator" Desc="CheckItemIdentifier">@</Field002600>
+   <Field002601 Type="Separator" Desc="TestCodeLabel">Code,</Field002601>
+   <Field002602 Type="Separator" Desc="TestCode">BrakeRearBalanceTest</Field002602>
+   <Field002603 Type="Separator" Desc="FieldIdentifier">!</Field002603>
+   <Field002604 Type="Separator" Desc="FieldName">Status,</Field002604>
+   <Field002605 Type="Result" Format="%s" Desc="Test Status">BrakeRearBalanceTest</Field002605>
+   <Field002613 Type="Separator" Desc="FieldIdentifier">!</Field002613>
+   <Field002614 Type="Separator" Desc="FieldName">Value,</Field002614>
+   <Field002615 Type="Detail" DetailNode="Value" Format="%s" Length="10" DataType="String">BrakeRearBalanceTest</Field002615>
+   <Field002623 Type="Separator" Desc="FieldIdentifier">!</Field002623>
+   <Field002624 Type="Separator" Desc="FieldName">MinValue,</Field002624>
+   <Field002625 Type="Detail" DetailNode="MinPercentBalance" Format="%s" Length="10" DataType="String">BrakeRearBalanceTest</Field002625>
+   <Field002633 Type="Separator" Desc="FieldIdentifier">!</Field002633>
+   <Field002634 Type="Separator" Desc="FieldName">MaxValue,</Field002634>
+   <Field002635 Type="Detail" DetailNode="MaxPercentBalance" Format="%s" Length="10" DataType="String">BrakeRearBalanceTest</Field002635>
+   <Field002683 Type="Separator" Desc="FieldIdentifier">!</Field002683>
+   <Field002684 Type="Separator" Desc="FieldName">UOM,</Field002684>
+   <Field002685 Type="DetailAttribute" DetailNode="Value" AttributeNode="Units">BrakeRearBalanceTest</Field002685>
+   <Field002700 Type="Separator" Desc="CheckItemIdentifier">@</Field002700>
+   <Field002701 Type="Separator" Desc="TestCodeLabel">Code,</Field002701>
+   <Field002702 Type="Separator" Desc="TestCode">BrakeLFSensorTest</Field002702>
+   <Field002703 Type="Separator" Desc="FieldIdentifier">!</Field002703>
+   <Field002704 Type="Separator" Desc="FieldName">Status,</Field002704>
+   <Field002705 Type="Result" Format="%s" Desc="Test Status">BrakeLFSensorTest</Field002705>
+   <Field002800 Type="Separator" Desc="CheckItemIdentifier">@</Field002800>
+   <Field002801 Type="Separator" Desc="TestCodeLabel">Code,</Field002801>
+   <Field002802 Type="Separator" Desc="TestCode">BrakeRFSensorTest</Field002802>
+   <Field002803 Type="Separator" Desc="FieldIdentifier">!</Field002803>
+   <Field002804 Type="Separator" Desc="FieldName">Status,</Field002804>
+   <Field002805 Type="Result" Format="%s" Desc="Test Status">BrakeRFSensorTest</Field002805>
+   <Field002900 Type="Separator" Desc="CheckItemIdentifier">@</Field002900>
+   <Field002901 Type="Separator" Desc="TestCodeLabel">Code,</Field002901>
+   <Field002902 Type="Separator" Desc="TestCode">BrakeLRSensorTest</Field002902>
+   <Field002903 Type="Separator" Desc="FieldIdentifier">!</Field002903>
+   <Field002904 Type="Separator" Desc="FieldName">Status,</Field002904>
+   <Field002905 Type="Result" Format="%s" Desc="Test Status">BrakeLRSensorTest</Field002905>
+   <Field003000 Type="Separator" Desc="CheckItemIdentifier">@</Field003000>
+   <Field003001 Type="Separator" Desc="TestCodeLabel">Code,</Field003001>
+   <Field003002 Type="Separator" Desc="TestCode">BrakeRRSensorTest</Field003002>
+   <Field003003 Type="Separator" Desc="FieldIdentifier">!</Field003003>
+   <Field003004 Type="Separator" Desc="FieldName">Status,</Field003004>
+   <Field003005 Type="Result" Format="%s" Desc="Test Status">BrakeRRSensorTest</Field003005>
+   <Field003100 Type="Separator" Desc="CheckItemIdentifier">@</Field003100>
+   <Field003101 Type="Separator" Desc="TestCodeLabel">Code,</Field003101>
+   <Field003102 Type="Separator" Desc="TestCode">BrakeLearnPerformanceType</Field003102>
+   <Field003103 Type="Separator" Desc="FieldIdentifier">!</Field003103>
+   <Field003104 Type="Separator" Desc="FieldName">Status,</Field003104>
+   <Field003105 Type="Result" Format="%s" Desc="Test Status">BrakeLearnPerformanceType</Field003105>
+   <Field003200 Type="Separator" Desc="CheckItemIdentifier">@</Field003200>
+   <Field003201 Type="Separator" Desc="TestCodeLabel">Code,</Field003201>
+   <Field003202 Type="Separator" Desc="TestCode">BrakeLFDragTest</Field003202>
+   <Field003203 Type="Separator" Desc="FieldIdentifier">!</Field003203>
+   <Field003204 Type="Separator" Desc="FieldName">Status,</Field003204>
+   <Field003205 Type="Result" Format="%s" Desc="Test Status">BrakeLeftFrontDragTest</Field003205>
+   <Field003213 Type="Separator" Desc="FieldIdentifier">!</Field003213>
+   <Field003214 Type="Separator" Desc="FieldName">Value,</Field003214>
+   <Field003215 Type="Detail" DetailNode="DragForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontDragTest</Field003215>
+   <Field003233 Type="Separator" Desc="FieldIdentifier">!</Field003233>
+   <Field003234 Type="Separator" Desc="FieldName">MaxValue,</Field003234>
+   <Field003235 Type="Detail" DetailNode="MaxDragForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontDragTest</Field003235>
+   <Field003283 Type="Separator" Desc="FieldIdentifier">!</Field003283>
+   <Field003284 Type="Separator" Desc="FieldName">UOM,</Field003284>
+   <Field003285 Type="DetailAttribute" DetailNode="DragForce" AttributeNode="Units">BrakeLeftFrontDragTest</Field003285>
+   <Field003300 Type="Separator" Desc="CheckItemIdentifier">@</Field003300>
+   <Field003301 Type="Separator" Desc="TestCodeLabel">Code,</Field003301>
+   <Field003302 Type="Separator" Desc="TestCode">BrakeRFDragTest</Field003302>
+   <Field003303 Type="Separator" Desc="FieldIdentifier">!</Field003303>
+   <Field003304 Type="Separator" Desc="FieldName">Status,</Field003304>
+   <Field003305 Type="Result" Format="%s" Desc="Test Status">BrakeRightFrontDragTest</Field003305>
+   <Field003313 Type="Separator" Desc="FieldIdentifier">!</Field003313>
+   <Field003314 Type="Separator" Desc="FieldName">Value,</Field003314>
+   <Field003315 Type="Detail" DetailNode="DragForce" Format="%s" Length="10" DataType="String">BrakeRightFrontDragTest</Field003315>
+   <Field003333 Type="Separator" Desc="FieldIdentifier">!</Field003333>
+   <Field003334 Type="Separator" Desc="FieldName">MaxValue,</Field003334>
+   <Field003335 Type="Detail" DetailNode="MaxDragForce" Format="%s" Length="10" DataType="String">BrakeRightFrontDragTest</Field003335>
+   <Field003383 Type="Separator" Desc="FieldIdentifier">!</Field003383>
+   <Field003384 Type="Separator" Desc="FieldName">UOM,</Field003384>
+   <Field003385 Type="DetailAttribute" DetailNode="DragForce" AttributeNode="Units">BrakeRightFrontDragTest</Field003385>
+   <Field003400 Type="Separator" Desc="CheckItemIdentifier">@</Field003400>
+   <Field003401 Type="Separator" Desc="TestCodeLabel">Code,</Field003401>
+   <Field003402 Type="Separator" Desc="TestCode">BrakeLRDragTest</Field003402>
+   <Field003403 Type="Separator" Desc="FieldIdentifier">!</Field003403>
+   <Field003404 Type="Separator" Desc="FieldName">Status,</Field003404>
+   <Field003405 Type="Result" Format="%s" Desc="Test Status">BrakeLeftRearDragTest</Field003405>
+   <Field003413 Type="Separator" Desc="FieldIdentifier">!</Field003413>
+   <Field003414 Type="Separator" Desc="FieldName">Value,</Field003414>
+   <Field003415 Type="Detail" DetailNode="DragForce" Format="%s" Length="10" DataType="String">BrakeLeftRearDragTest</Field003415>
+   <Field003433 Type="Separator" Desc="FieldIdentifier">!</Field003433>
+   <Field003434 Type="Separator" Desc="FieldName">MaxValue,</Field003434>
+   <Field003435 Type="Detail" DetailNode="MaxDragForce" Format="%s" Length="10" DataType="String">BrakeLeftRearDragTest</Field003435>
+   <Field003483 Type="Separator" Desc="FieldIdentifier">!</Field003483>
+   <Field003484 Type="Separator" Desc="FieldName">UOM,</Field003484>
+   <Field003485 Type="DetailAttribute" DetailNode="DragForce" AttributeNode="Units">BrakeLeftRearDragTest</Field003485>
+   <Field003500 Type="Separator" Desc="CheckItemIdentifier">@</Field003500>
+   <Field003501 Type="Separator" Desc="TestCodeLabel">Code,</Field003501>
+   <Field003502 Type="Separator" Desc="TestCode">BrakeRRDragTest</Field003502>
+   <Field003503 Type="Separator" Desc="FieldIdentifier">!</Field003503>
+   <Field003504 Type="Separator" Desc="FieldName">Status,</Field003504>
+   <Field003505 Type="Result" Format="%s" Desc="Test Status">BrakeRightRearDragTest</Field003505>
+   <Field003513 Type="Separator" Desc="FieldIdentifier">!</Field003513>
+   <Field003514 Type="Separator" Desc="FieldName">Value,</Field003514>
+   <Field003515 Type="Detail" DetailNode="DragForce" Format="%s" Length="10" DataType="String">BrakeRightRearDragTest</Field003515>
+   <Field003533 Type="Separator" Desc="FieldIdentifier">!</Field003533>
+   <Field003534 Type="Separator" Desc="FieldName">MaxValue,</Field003534>
+   <Field003535 Type="Detail" DetailNode="MaxDragForce" Format="%s" Length="10" DataType="String">BrakeRightRearDragTest</Field003535>
+   <Field003583 Type="Separator" Desc="FieldIdentifier">!</Field003583>
+   <Field003584 Type="Separator" Desc="FieldName">UOM,</Field003584>
+   <Field003585 Type="DetailAttribute" DetailNode="DragForce" AttributeNode="Units">BrakeRightRearDragTest</Field003585>
+   <Field003600 Type="Separator" Desc="CheckItemIdentifier">@</Field003600>
+   <Field003601 Type="Separator" Desc="TestCodeLabel">Code,</Field003601>
+   <Field003602 Type="Separator" Desc="TestCode">BrakeLFForceTest</Field003602>
+   <Field003603 Type="Separator" Desc="FieldIdentifier">!</Field003603>
+   <Field003604 Type="Separator" Desc="FieldName">Status,</Field003604>
+   <Field003605 Type="Result" Format="%s" Desc="Test Status">BrakeLeftFrontForceTest</Field003605>
+   <Field003613 Type="Separator" Desc="FieldIdentifier">!</Field003613>
+   <Field003614 Type="Separator" Desc="FieldName">Value,</Field003614>
+   <Field003615 Type="Detail" DetailNode="BrakeForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontForceTest</Field003615>
+   <Field003623 Type="Separator" Desc="FieldIdentifier">!</Field003623>
+   <Field003624 Type="Separator" Desc="FieldName">MinValue,</Field003624>
+   <Field003625 Type="Detail" DetailNode="MinBrakeForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontForceTest</Field003625>
+   <Field003633 Type="Separator" Desc="FieldIdentifier">!</Field003633>
+   <Field003634 Type="Separator" Desc="FieldName">MaxValue,</Field003634>
+   <Field003635 Type="Detail" DetailNode="MaxBrakeForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontForceTest</Field003635>
+   <Field003683 Type="Separator" Desc="FieldIdentifier">!</Field003683>
+   <Field003684 Type="Separator" Desc="FieldName">UOM,</Field003684>
+   <Field003685 Type="DetailAttribute" DetailNode="BrakeForce" AttributeNode="Units">BrakeLeftFrontForceTest</Field003685>
+   <Field003700 Type="Separator" Desc="CheckItemIdentifier">@</Field003700>
+   <Field003701 Type="Separator" Desc="TestCodeLabel">Code,</Field003701>
+   <Field003702 Type="Separator" Desc="TestCode">BrakeRFForceTest</Field003702>
+   <Field003703 Type="Separator" Desc="FieldIdentifier">!</Field003703>
+   <Field003704 Type="Separator" Desc="FieldName">Status,</Field003704>
+   <Field003705 Type="Result" Format="%s" Desc="Test Status">BrakeRightFrontForceTest</Field003705>
+   <Field003713 Type="Separator" Desc="FieldIdentifier">!</Field003713>
+   <Field003714 Type="Separator" Desc="FieldName">Value,</Field003714>
+   <Field003715 Type="Detail" DetailNode="BrakeForce" Format="%s" Length="10" DataType="String">BrakeRightFrontForceTest</Field003715>
+   <Field003723 Type="Separator" Desc="FieldIdentifier">!</Field003723>
+   <Field003724 Type="Separator" Desc="FieldName">MinValue,</Field003724>
+   <Field003725 Type="Detail" DetailNode="MinBrakeForce" Format="%s" Length="10" DataType="String">BrakeRightFrontForceTest</Field003725>
+   <Field003733 Type="Separator" Desc="FieldIdentifier">!</Field003733>
+   <Field003734 Type="Separator" Desc="FieldName">MaxValue,</Field003734>
+   <Field003735 Type="Detail" DetailNode="MaxBrakeForce" Format="%s" Length="10" DataType="String">BrakeRightFrontForceTest</Field003735>
+   <Field003783 Type="Separator" Desc="FieldIdentifier">!</Field003783>
+   <Field003784 Type="Separator" Desc="FieldName">UOM,</Field003784>
+   <Field003785 Type="DetailAttribute" DetailNode="BrakeForce" AttributeNode="Units">BrakeRightFrontForceTest</Field003785>
+   <Field003800 Type="Separator" Desc="CheckItemIdentifier">@</Field003800>
+   <Field003801 Type="Separator" Desc="TestCodeLabel">Code,</Field003801>
+   <Field003802 Type="Separator" Desc="TestCode">BrakeLRForceTest</Field003802>
+   <Field003803 Type="Separator" Desc="FieldIdentifier">!</Field003803>
+   <Field003804 Type="Separator" Desc="FieldName">Status,</Field003804>
+   <Field003805 Type="Result" Format="%s" Desc="Test Status">BrakeLeftRearForceTest</Field003805>
+   <Field003813 Type="Separator" Desc="FieldIdentifier">!</Field003813>
+   <Field003814 Type="Separator" Desc="FieldName">Value,</Field003814>
+   <Field003815 Type="Detail" DetailNode="BrakeForce" Format="%s" Length="10" DataType="String">BrakeLeftRearForceTest</Field003815>
+   <Field003823 Type="Separator" Desc="FieldIdentifier">!</Field003823>
+   <Field003824 Type="Separator" Desc="FieldName">MinValue,</Field003824>
+   <Field003825 Type="Detail" DetailNode="MinBrakeForce" Format="%s" Length="10" DataType="String">BrakeLeftRearForceTest</Field003825>
+   <Field003833 Type="Separator" Desc="FieldIdentifier">!</Field003833>
+   <Field003834 Type="Separator" Desc="FieldName">MaxValue,</Field003834>
+   <Field003835 Type="Detail" DetailNode="MaxBrakeForce" Format="%s" Length="10" DataType="String">BrakeLeftRearForceTest</Field003835>
+   <Field003883 Type="Separator" Desc="FieldIdentifier">!</Field003883>
+   <Field003884 Type="Separator" Desc="FieldName">UOM,</Field003884>
+   <Field003885 Type="DetailAttribute" DetailNode="BrakeForce" AttributeNode="Units">BrakeLeftRearForceTest</Field003885>
+   <Field003900 Type="Separator" Desc="CheckItemIdentifier">@</Field003900>
+   <Field003901 Type="Separator" Desc="TestCodeLabel">Code,</Field003901>
+   <Field003902 Type="Separator" Desc="TestCode">BrakeRRForceTest</Field003902>
+   <Field003903 Type="Separator" Desc="FieldIdentifier">!</Field003903>
+   <Field003904 Type="Separator" Desc="FieldName">Status,</Field003904>
+   <Field003905 Type="Result" Format="%s" Desc="Test Status">BrakeRightRearForceTest</Field003905>
+   <Field003913 Type="Separator" Desc="FieldIdentifier">!</Field003913>
+   <Field003914 Type="Separator" Desc="FieldName">Value,</Field003914>
+   <Field003915 Type="Detail" DetailNode="BrakeForce" Format="%s" Length="10" DataType="String">BrakeRightRearForceTest</Field003915>
+   <Field003923 Type="Separator" Desc="FieldIdentifier">!</Field003923>
+   <Field003924 Type="Separator" Desc="FieldName">MinValue,</Field003924>
+   <Field003925 Type="Detail" DetailNode="MinBrakeForce" Format="%s" Length="10" DataType="String">BrakeRightRearForceTest</Field003925>
+   <Field003933 Type="Separator" Desc="FieldIdentifier">!</Field003933>
+   <Field003934 Type="Separator" Desc="FieldName">MaxValue,</Field003934>
+   <Field003935 Type="Detail" DetailNode="MaxBrakeForce" Format="%s" Length="10" DataType="String">BrakeRightRearForceTest</Field003935>
+   <Field003983 Type="Separator" Desc="FieldIdentifier">!</Field003983>
+   <Field003984 Type="Separator" Desc="FieldName">UOM,</Field003984>
+   <Field003985 Type="DetailAttribute" DetailNode="BrakeForce" AttributeNode="Units">BrakeRightRearForceTest</Field003985>
+   <Field004000 Type="Separator" Desc="CheckItemIdentifier">@</Field004000>
+   <Field004001 Type="Separator" Desc="TestCodeLabel">Code,</Field004001>
+   <Field004002 Type="Separator" Desc="TestCode">BrakeLFESPBuildTest</Field004002>
+   <Field004003 Type="Separator" Desc="FieldIdentifier">!</Field004003>
+   <Field004004 Type="Separator" Desc="FieldName">Status,</Field004004>
+   <Field004005 Type="Result" Format="%s" Desc="Test Status">BrakeLeftFrontESPBuild</Field004005>
+   <Field004013 Type="Separator" Desc="FieldIdentifier">!</Field004013>
+   <Field004014 Type="Separator" Desc="FieldName">Value,</Field004014>
+   <Field004015 Type="Detail" DetailNode="LeftFrontESPBuildValue" Format="%s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004015>
+   <Field004023 Type="Separator" Desc="FieldIdentifier">!</Field004023>
+   <Field004024 Type="Separator" Desc="FieldName">MinValue,</Field004024>
+   <Field004025 Type="Detail" DetailNode="LeftFrontESPBuildMinForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontESPBuild</Field004025>
+   <Field004083 Type="Separator" Desc="FieldIdentifier">!</Field004083>
+   <Field004084 Type="Separator" Desc="FieldName">UOM,</Field004084>
+   <Field004085 Type="DetailAttribute" DetailNode="LeftFrontESPBuildValue" AttributeNode="Units">BrakeLeftFrontESPBuild</Field004085>
+   <Field004100 Type="Separator" Desc="CheckItemIdentifier">@</Field004100>
+   <Field004101 Type="Separator" Desc="TestCodeLabel">Code,</Field004101>
+   <Field004102 Type="Separator" Desc="TestCode">BrakeRFESPBuildTest</Field004102>
+   <Field004103 Type="Separator" Desc="FieldIdentifier">!</Field004103>
+   <Field004104 Type="Separator" Desc="FieldName">Status,</Field004104>
+   <Field004105 Type="Result" Format="%s" Desc="Test Status">BrakeRightFrontESPBuild</Field004105>
+   <Field004113 Type="Separator" Desc="FieldIdentifier">!</Field004113>
+   <Field004114 Type="Separator" Desc="FieldName">Value,</Field004114>
+   <Field004115 Type="Detail" DetailNode="RightFrontESPBuildValue" Format="%s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004115>
+   <Field004123 Type="Separator" Desc="FieldIdentifier">!</Field004123>
+   <Field004124 Type="Separator" Desc="FieldName">MinValue,</Field004124>
+   <Field004125 Type="Detail" DetailNode="RightFrontESPBuildMinForce" Format="%s" Length="10" DataType="String">BrakeRightFrontESPBuild</Field004125>
+   <Field004183 Type="Separator" Desc="FieldIdentifier">!</Field004183>
+   <Field004184 Type="Separator" Desc="FieldName">UOM,</Field004184>
+   <Field004185 Type="DetailAttribute" DetailNode="RightFrontESPBuildValue" AttributeNode="Units">BrakeRightFrontESPBuild</Field004185>
+   <Field004200 Type="Separator" Desc="CheckItemIdentifier">@</Field004200>
+   <Field004201 Type="Separator" Desc="TestCodeLabel">Code,</Field004201>
+   <Field004202 Type="Separator" Desc="TestCode">BrakeLRESPBuildTest</Field004202>
+   <Field004203 Type="Separator" Desc="FieldIdentifier">!</Field004203>
+   <Field004204 Type="Separator" Desc="FieldName">Status,</Field004204>
+   <Field004205 Type="Result" Format="%s" Desc="Test Status">BrakeLeftRearESPBuild</Field004205>
+   <Field004213 Type="Separator" Desc="FieldIdentifier">!</Field004213>
+   <Field004214 Type="Separator" Desc="FieldName">Value,</Field004214>
+   <Field004215 Type="Detail" DetailNode="LeftRearESPBuildValue" Format="%s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004215>
+   <Field004223 Type="Separator" Desc="FieldIdentifier">!</Field004223>
+   <Field004224 Type="Separator" Desc="FieldName">MinValue,</Field004224>
+   <Field004225 Type="Detail" DetailNode="LeftRearESPBuildMinForce" Format="%s" Length="10" DataType="String">BrakeLeftRearESPBuild</Field004225>
+   <Field004283 Type="Separator" Desc="FieldIdentifier">!</Field004283>
+   <Field004284 Type="Separator" Desc="FieldName">UOM,</Field004284>
+   <Field004285 Type="DetailAttribute" DetailNode="LeftRearESPBuildValue" AttributeNode="Units">BrakeLeftRearESPBuild</Field004285>
+   <Field004300 Type="Separator" Desc="CheckItemIdentifier">@</Field004300>
+   <Field004301 Type="Separator" Desc="TestCodeLabel">Code,</Field004301>
+   <Field004302 Type="Separator" Desc="TestCode">BrakeRRESPBuildTest</Field004302>
+   <Field004303 Type="Separator" Desc="FieldIdentifier">!</Field004303>
+   <Field004304 Type="Separator" Desc="FieldName">Status,</Field004304>
+   <Field004305 Type="Result" Format="%s" Desc="Test Status">BrakeRightRearESPBuild</Field004305>
+   <Field004313 Type="Separator" Desc="FieldIdentifier">!</Field004313>
+   <Field004314 Type="Separator" Desc="FieldName">Value,</Field004314>
+   <Field004315 Type="Detail" DetailNode="RightRearESPBuildValue" Format="%s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004315>
+   <Field004323 Type="Separator" Desc="FieldIdentifier">!</Field004323>
+   <Field004324 Type="Separator" Desc="FieldName">MinValue,</Field004324>
+   <Field004325 Type="Detail" DetailNode="RightRearESPBuildMinForce" Format="%s" Length="10" DataType="String">BrakeRightRearESPBuild</Field004325>
+   <Field004383 Type="Separator" Desc="FieldIdentifier">!</Field004383>
+   <Field004384 Type="Separator" Desc="FieldName">UOM,</Field004384>
+   <Field004385 Type="DetailAttribute" DetailNode="RightRearESPBuildValue" AttributeNode="Units">BrakeRightRearESPBuild</Field004385>
+   <Field004400 Type="Separator" Desc="CheckItemIdentifier">@</Field004400>
+   <Field004401 Type="Separator" Desc="TestCodeLabel">Code,</Field004401>
+   <Field004402 Type="Separator" Desc="TestCode">BrakeLFESPReductionTest</Field004402>
+   <Field004403 Type="Separator" Desc="FieldIdentifier">!</Field004403>
+   <Field004404 Type="Separator" Desc="FieldName">Status,</Field004404>
+   <Field004405 Type="Result" Format="%s" Desc="Test Status">BrakeLeftFrontESPReduction</Field004405>
+   <Field004413 Type="Separator" Desc="FieldIdentifier">!</Field004413>
+   <Field004414 Type="Separator" Desc="FieldName">Value,</Field004414>
+   <Field004415 Type="Detail" DetailNode="LeftFrontESPReductionValue" Format="%s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004415>
+   <Field004433 Type="Separator" Desc="FieldIdentifier">!</Field004433>
+   <Field004434 Type="Separator" Desc="FieldName">MaxValue,</Field004434>
+   <Field004435 Type="Detail" DetailNode="LeftFrontESPReductionMaxForce" Format="%s" Length="10" DataType="String">BrakeLeftFrontESPReduction</Field004435>
+   <Field004483 Type="Separator" Desc="FieldIdentifier">!</Field004483>
+   <Field004484 Type="Separator" Desc="FieldName">UOM,</Field004484>
+   <Field004485 Type="DetailAttribute" DetailNode="LeftFrontESPReductionValue" AttributeNode="Units">BrakeLeftFrontESPReduction</Field004485>
+   <Field004500 Type="Separator" Desc="CheckItemIdentifier">@</Field004500>
+   <Field004501 Type="Separator" Desc="TestCodeLabel">Code,</Field004501>
+   <Field004502 Type="Separator" Desc="TestCode">BrakeRFESPReductionTest</Field004502>
+   <Field004503 Type="Separator" Desc="FieldIdentifier">!</Field004503>
+   <Field004504 Type="Separator" Desc="FieldName">Status,</Field004504>
+   <Field004505 Type="Result" Format="%s" Desc="Test Status">BrakeRightFrontESPReduction</Field004505>
+   <Field004513 Type="Separator" Desc="FieldIdentifier">!</Field004513>
+   <Field004514 Type="Separator" Desc="FieldName">Value,</Field004514>
+   <Field004515 Type="Detail" DetailNode="RightFrontESPReductionValue" Format="%s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004515>
+   <Field004533 Type="Separator" Desc="FieldIdentifier">!</Field004533>
+   <Field004534 Type="Separator" Desc="FieldName">MaxValue,</Field004534>
+   <Field004535 Type="Detail" DetailNode="RightFrontESPReductionMaxForce" Format="%s" Length="10" DataType="String">BrakeRightFrontESPReduction</Field004535>
+   <Field004583 Type="Separator" Desc="FieldIdentifier">!</Field004583>
+   <Field004584 Type="Separator" Desc="FieldName">UOM,</Field004584>
+   <Field004585 Type="DetailAttribute" DetailNode="RightFrontESPReductionValue" AttributeNode="Units">BrakeRightFrontESPReduction</Field004585>
+   <Field004600 Type="Separator" Desc="CheckItemIdentifier">@</Field004600>
+   <Field004601 Type="Separator" Desc="TestCodeLabel">Code,</Field004601>
+   <Field004602 Type="Separator" Desc="TestCode">BrakeLRESPReductionTest</Field004602>
+   <Field004603 Type="Separator" Desc="FieldIdentifier">!</Field004603>
+   <Field004604 Type="Separator" Desc="FieldName">Status,</Field004604>
+   <Field004605 Type="Result" Format="%s" Desc="Test Status">BrakeLeftRearESPReduction</Field004605>
+   <Field004613 Type="Separator" Desc="FieldIdentifier">!</Field004613>
+   <Field004614 Type="Separator" Desc="FieldName">Value,</Field004614>
+   <Field004615 Type="Detail" DetailNode="LeftRearESPReductionValue" Format="%s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004615>
+   <Field004633 Type="Separator" Desc="FieldIdentifier">!</Field004633>
+   <Field004634 Type="Separator" Desc="FieldName">MaxValue,</Field004634>
+   <Field004635 Type="Detail" DetailNode="LeftRearESPReductionMaxForce" Format="%s" Length="10" DataType="String">BrakeLeftRearESPReduction</Field004635>
+   <Field004683 Type="Separator" Desc="FieldIdentifier">!</Field004683>
+   <Field004684 Type="Separator" Desc="FieldName">UOM,</Field004684>
+   <Field004685 Type="DetailAttribute" DetailNode="LeftRearESPReductionValue" AttributeNode="Units">BrakeLeftRearESPReduction</Field004685>
+   <Field004700 Type="Separator" Desc="CheckItemIdentifier">@</Field004700>
+   <Field004701 Type="Separator" Desc="TestCodeLabel">Code,</Field004701>
+   <Field004702 Type="Separator" Desc="TestCode">BrakeRRESPReductionTest</Field004702>
+   <Field004703 Type="Separator" Desc="FieldIdentifier">!</Field004703>
+   <Field004704 Type="Separator" Desc="FieldName">Status,</Field004704>
+   <Field004705 Type="Result" Format="%s" Desc="Test Status">BrakeRightRearESPReduction</Field004705>
+   <Field004713 Type="Separator" Desc="FieldIdentifier">!</Field004713>
+   <Field004714 Type="Separator" Desc="FieldName">Value,</Field004714>
+   <Field004715 Type="Detail" DetailNode="RightRearESPReductionValue" Format="%s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004715>
+   <Field004733 Type="Separator" Desc="FieldIdentifier">!</Field004733>
+   <Field004734 Type="Separator" Desc="FieldName">MaxValue,</Field004734>
+   <Field004735 Type="Detail" DetailNode="RightRearESPReductionMaxForce" Format="%s" Length="10" DataType="String">BrakeRightRearESPReduction</Field004735>
+   <Field004783 Type="Separator" Desc="FieldIdentifier">!</Field004783>
+   <Field004784 Type="Separator" Desc="FieldName">UOM,</Field004784>
+   <Field004785 Type="DetailAttribute" DetailNode="RightRearESPReductionValue" AttributeNode="Units">BrakeRightRearESPReduction</Field004785>
+   <Field004800 Type="Separator" Desc="CheckItemIdentifier">@</Field004800>
+   <Field004801 Type="Separator" Desc="TestCodeLabel">Code,</Field004801>
+   <Field004802 Type="Separator" Desc="TestCode">BrakeProgramVIN</Field004802>
+   <Field004803 Type="Separator" Desc="FieldIdentifier">!</Field004803>
+   <Field004804 Type="Separator" Desc="FieldName">Status,</Field004804>
+   <Field004805 Type="Result" Format="%s" Desc="Test Status">BrakeProgramVIN</Field004805>
+   <Field004900 Type="Separator" Desc="CheckItemIdentifier">@</Field004900>
+   <Field004901 Type="Separator" Desc="TestCodeLabel">Code,</Field004901>
+   <Field004902 Type="Separator" Desc="TestCode">BrakeReadFaults</Field004902>
+   <Field004903 Type="Separator" Desc="FieldIdentifier">!</Field004903>
+   <Field004904 Type="Separator" Desc="FieldName">Status,</Field004904>
+   <Field004905 Type="Result" Format="%s" Desc="Test Status">BrakeReadFaults</Field004905>
+   <Field004906 Type="ConditionalBlock" Test="BrakeReadFaults" Result="TestNotStarted" Condition="NotEqual" Format="%s">
+      <Field01000 Type="ConditionalBlock" Test="BrakeReadFaults" Result="TestPass" Condition="NotEqual" Format="%s">
+         <Field1010 Type="Separator" Desc="FieldIdentifier">!</Field1010>
+         <Field1011 Type="Separator" Desc="FieldName">Attribute,</Field1011>
+         <Field1012 Type="DTC" Component="Brake" MapComponentNames="True" MaximumDtcsToReport="-1" ReportDtcParentNode="Yes">
+            <Field000 Type="DtcAttribute" Format="0x%s" Length="8" DataType="String">Code</Field000>
+            <Field001 Type="Separator" Desc="Space">Blank</Field001>
+         </Field1012>
+      </Field01000>
+   </Field004906>
+   <Field005000 Type="Separator" Desc="CheckItemIdentifier">@</Field005000>
+   <Field005001 Type="Separator" Desc="TestCodeLabel">Code,</Field005001>
+   <Field005002 Type="Separator" Desc="TestCode">BrakeResetModule</Field005002>
+   <Field005003 Type="Separator" Desc="FieldIdentifier">!</Field005003>
+   <Field005004 Type="Separator" Desc="FieldName">Status,</Field005004>
+   <Field005005 Type="Result" Format="%s" Desc="Test Status">BrakeResetModule</Field005005>
+   <Field005100 Type="Separator" Desc="CheckItemIdentifier">@</Field005100>
+   <Field005101 Type="Separator" Desc="TestCodeLabel">Code,</Field005101>
+   <Field005102 Type="Separator" Desc="TestCode">CycleTime</Field005102>
+   <Field005103 Type="Separator" Desc="FieldIdentifier">!</Field005103>
+   <Field005104 Type="Separator" Desc="FieldName">Status,</Field005104>
+   <Field005105 Type="Separator" Desc="CycleTime">3</Field005105>
+   <Field005113 Type="Separator" Desc="FieldIdentifier">!</Field005113>
+   <Field005114 Type="Separator" Desc="FieldName">Value,</Field005114>
+   <Field005115 Type="VehicleBuild" Format="%-1.4s" Length="4" DataType="String" Desc="Cycle Time">CycleTime</Field005115>
+   <Field005200 Type="Separator" Desc="CheckItemIdentifier">@</Field005200>
+   <Field005201 Type="Separator" Desc="TestCodeLabel">Code,</Field005201>
+   <Field005202 Type="Separator" Desc="TestCode">TestDate</Field005202>
+   <Field005253 Type="Separator" Desc="FieldIdentifier">!</Field005253>
+   <Field005254 Type="Separator" Desc="FieldName">Attribute,</Field005254>
+   <Field005255 Type="Detail"  DetailNode="Date" Format="%s" Length="10" DataType="String">MachineInitialize</Field005255>
+   <Field005300 Type="Separator" Desc="CheckItemIdentifier">@</Field005300>
+   <Field005301 Type="Separator" Desc="TestCodeLabel">Code,</Field005301>
+   <Field005302 Type="Separator" Desc="TestCode">TestTime</Field005302>
+   <Field005353 Type="Separator" Desc="FieldIdentifier">!</Field005353>
+   <Field005354 Type="Separator" Desc="FieldName">Attribute,</Field005354>
+   <Field005355 Type="Detail"  DetailNode="Time" Format="%s" Length="10" DataType="String">MachineInitialize</Field005355>
+   <Field010000 Type="Separator" Desc="Separator">@@</Field010000>
+   <!--Field005000 Type="Separator" Desc="CheckItemIdentifier">@</Field005000>
+   <Field005001 Type="Separator" Desc="TestCodeLabel">Code,</Field005001>
+   <Field005002 Type="Separator" Desc="TestCode">TestCodeValue</Field005002>
+   <Field005003 Type="Separator" Desc="FieldIdentifier">!</Field005003>
+   <Field005004 Type="Separator" Desc="FieldName">Status,</Field005004>
+   <Field005005 Type="Result" Format="%s" Desc="Test Status">BrakeResetModule</Field005005>
+   <Field005013 Type="Separator" Desc="FieldIdentifier">!</Field005013>
+   <Field005014 Type="Separator" Desc="FieldName">Value,</Field005014>
+   <Field005015 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005015>
+   <Field005023 Type="Separator" Desc="FieldIdentifier">!</Field005023>
+   <Field005024 Type="Separator" Desc="FieldName">MinValue,</Field005024>
+   <Field005025 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005025>
+   <Field005033 Type="Separator" Desc="FieldIdentifier">!</Field005033>
+   <Field005034 Type="Separator" Desc="FieldName">MaxValue,</Field005034>
+   <Field005035 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005035>
+   <Field005043 Type="Separator" Desc="FieldIdentifier">!</Field005043>
+   <Field005044 Type="Separator" Desc="FieldName">TargetValue,</Field005044>
+   <Field005045 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005045>
+   <Field005053 Type="Separator" Desc="FieldIdentifier">!</Field005053>
+   <Field005054 Type="Separator" Desc="FieldName">Attribute,</Field005054>
+   <Field005055 Type="Separator" Desc="Attribute">BrakeResetModule</Field005055>
+   <Field005063 Type="Separator" Desc="FieldIdentifier">!</Field005063>
+   <Field005064 Type="Separator" Desc="FieldName">AttributeTarget,</Field005064>
+   <Field005065 Type="Separator" Desc="Test Status">BrakeResetModule</Field005065>
+   <Field005073 Type="Separator" Desc="FieldIdentifier">!</Field005073>
+   <Field005074 Type="Separator" Desc="FieldName">Message,</Field005074>
+   <Field005075 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005075>
+   <Field005083 Type="Separator" Desc="FieldIdentifier">!</Field005083>
+   <Field005084 Type="Separator" Desc="FieldName">UOM,</Field005084>
+   <Field005085 Type="Detail" DetailNode="ModulePartNumber" Format="%-1.1s" Length="10" DataType="String">BrakeResetModule</Field005085-->
+</BasePFSRecord>

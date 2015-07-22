@@ -286,6 +286,17 @@ void MesDataController::Initialize(const XmlNode *document)
         m_wccSectionLengthMap.DeepCopy(document->getChild("Setup/Broadcast/Data/SectionDataLengths")->getChildren());
     }
 
+    try
+    {   // only set to false if the parameter exists and = false
+        m_requestBuildInfo = (!strnicmp(document->getChild("Setup/RequestBuildInfo")->getValue().c_str(),
+                                       "False",5)) ? false : true;
+    }
+    catch (...)
+    {
+        Log(LOG_ERRORS, "Exception loading value for DoNotRequestBuildInfo, setting to true\n");
+        m_requestBuildInfo = true;
+    }
+
     // Load any data that was specified in the config file
     LoadData(data);
 
@@ -316,18 +327,25 @@ const std::string MesDataController::Publish(const XmlNode *node)
         {  // Update the DataInputServer state 
             UpdateInputServerState();
         }
-// the next section is triggered by a VIN scan.
+        // the next section is triggered by a VIN scan.
         else if (node->getName() == GetNextVinTag())
         {   // Store the vin to be retrieved
-            Log(LOG_DEV_DATA, "Storing VIN to load - %s\n", node->getValue().c_str());
-            SetVINToLoad(node->getValue());
-            // Signal to get data from broadcast
-            Log(LOG_DETAILED_DATA, "Signaling to retrieve broadcast data\n");
-            m_getBuildRecord.Broadcast(getBuildRecord);
-            BposSleep(100);   // Make sure signal is received
-            // Clear the signal for the next scan
-            m_getBuildRecord.Broadcast(doNotGetBuildRecord);
-            Log(LOG_DETAILED_DATA, "Clearing signal to retrieve broadcast data\n");
+            if (m_requestBuildInfo)
+            {
+                Log(LOG_DEV_DATA, "Storing VIN to load - %s\n", node->getValue().c_str());
+                SetVINToLoad(node->getValue());
+                // Signal to get data from broadcast
+                Log(LOG_DETAILED_DATA, "Signaling to retrieve broadcast data\n");
+                m_getBuildRecord.Broadcast(getBuildRecord);
+                BposSleep(100);   // Make sure signal is received
+                // Clear the signal for the next scan
+                m_getBuildRecord.Broadcast(doNotGetBuildRecord);
+                Log(LOG_DETAILED_DATA, "Clearing signal to retrieve broadcast data\n");
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "Not Storing VIN to load  - %s (requestBuildInfo param = false)\n", node->getValue().c_str());
+            }
         }
         else if ((node->getName() == START_VEHICLE_TEST_DATA_TAG) && (node->getValue() == "1"))
         {   // Invalidate the vehicle build record and update traffic light

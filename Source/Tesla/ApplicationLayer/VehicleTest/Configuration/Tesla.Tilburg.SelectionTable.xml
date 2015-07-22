@@ -5,4 +5,16 @@
    <Sedan DriveCurve="/Configuration/VehicleTest/DriveCurves/SedanNoAirbagDriveCurve.xml">
       <BrakeType>Bosch Abs</BrakeType>
    </Sedan>
+   <SedanDm DriveCurve="/Configuration/VehicleTest/DriveCurves/SedanNoAirbagDualMotorDriveCurve.xml">
+      <BrakeType>Bosch Abs</BrakeType>
+      <VIN>???????2?????????</VIN>
+   </SedanDm>
+   <SedanDm2 DriveCurve="/Configuration/VehicleTest/DriveCurves/SedanNoAirbagDualMotorDriveCurve.xml">
+      <BrakeType>Bosch Abs</BrakeType>
+      <VIN>???????4?????????</VIN>
+   </SedanDm2>
+   <SedanDm3 DriveCurve="/Configuration/VehicleTest/DriveCurves/SedanNoAirbagDualMotorDriveCurve.xml">
+      <BrakeType>Bosch Abs</BrakeType>
+      <VIN>???????5?????????</VIN>
+   </SedanDm3>
 </SelectionTable>

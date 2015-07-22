@@ -203,7 +203,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(!GetTestStepName().compare("BrakeBurnishCycle"))         status = BrakeBurnishCycle();
         else if(!GetTestStepName().compare("StaticBrakeBurnishCycle"))   status = StaticBrakeBurnishCycle();
         else if(!GetTestStepName().compare("ElectricParkBrakeBurnishCycle"))   status = ElectricParkBrakeBurnishCycle();
-        else if(!GetTestStepName().compare("AccelerateToBrakeSpeed"))    status = AccelerateToBrakeSpeed();
+        //else if(!GetTestStepName().compare("AccelerateToBrakeSpeed"))    status = AccelerateToBrakeSpeed();
         else if(!GetTestStepName().compare("EnableElectricVacuumPump"))   status = EnableElectricVacuumPump();
         else if(!GetTestStepName().compare("DisableElectricVacuumPump"))   status = DisableElectricVacuumPump();
         else if(!GetTestStepName().compare("LearnPerformanceType"))      status = LearnPerformanceType();
@@ -4195,7 +4195,9 @@ string BoschABSTC<ModuleInterface>::StaticBrakeBurnishCycle(void)
 //}
 
 
-
+// Removed because Model S dual motor vehilces cannot be boosted at Tilburg
+// Boost mode should be managed by Enable/DisableElectricMotorBoost test step calls
+/* 
 //----------------------------------------------------------------------------
 template<class ModuleInterface>
 string BoschABSTC<ModuleInterface>::AccelerateToBrakeSpeed(void)
@@ -4217,6 +4219,7 @@ string BoschABSTC<ModuleInterface>::AccelerateToBrakeSpeed(void)
     Log(LOG_FN_ENTRY, "BoschABSTC::AccelerateToBrakeSpeed() - Exit");
     return result;
 }
+*/
 
 //----------------------------------------------------------------------------
 template<class ModuleInterface>

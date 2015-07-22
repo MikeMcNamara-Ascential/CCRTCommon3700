@@ -594,12 +594,15 @@ protected:
      * @return Result of disabling the brake force meter.
      */
     string DisableForceMeter(void);
-        /**
+
+    // Removing because In-Cycle retests are no longer used, and Dual Motor vehicles cant be boosted at Tilburg
+    /**
      * Put Motors Into Speed Mode for Incycle Retesting.
      * 
      * @return Result of the test.
      */
-    string AccelerateToBrakeSpeed(void);
+    //string AccelerateToBrakeSpeed(void);
+
     /**
      * Perform the wheel speed sensor test and burnish the brakes.
      * 

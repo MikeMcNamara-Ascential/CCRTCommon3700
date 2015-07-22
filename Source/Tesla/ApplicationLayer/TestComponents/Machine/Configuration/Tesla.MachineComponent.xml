@@ -82,8 +82,8 @@
          <YesButton>DriverPass</YesButton>
          <NoButton>DriverFail</NoButton>
          <MachineNumber>MachineNumber</MachineNumber>
-         <MachineType>3700</MachineType>
          <MachineType3600>0</MachineType3600>
+         <ElectricMachineType>3700</ElectricMachineType>
          <MotorMode>MotorMode</MotorMode>
          <NormalMode>Normal</NormalMode>
          <NoValue>Fail</NoValue>
@@ -139,6 +139,7 @@
       </VehicleTestStatusUpdates>
       <Parameters>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+         <IgnoreMachineConditions>True</IgnoreMachineConditions>
          <ReleaseParkBrakePrompt>ReleaseParkBrake</ReleaseParkBrakePrompt>
          <ResetCommHardware Values="Yes or No">Yes</ResetCommHardware>
          <ParkBrakePrepTime Description="Number of ms to wait for the PLC to be setup for park brake test" units="ms">5000</ParkBrakePrepTime>
@@ -212,9 +213,17 @@
       <EngageMachine>
          <TestStep1>EngageMachine</TestStep1>
       </EngageMachine>
+      <DisableElectricMotorBoost>
+          <TestStep1>DisableElectricMotorBoost</TestStep1>
+      </DisableElectricMotorBoost>
+      <EnableElectricMotorBoost>
+          <TestStep1>EnableElectricMotorBoost</TestStep1>
+      </EnableElectricMotorBoost>
    </Objectives>
    <TestSteps>
       <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1="Launching" Prompt1Priority="0"/>
+      <DisableElectricMotorBoost Result="" Description="Disable axle speed matching" Timeout="0"/>
+      <EnableElectricMotorBoost Result="" Description="Enable axle speed matching" Timeout="0"/>
       <DriverQuestion Result="" Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
          <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
          <SteeringWheelCentered Result="" Timeout="10000" Description="Check if steering wheel is cenetered" Prompt2="SteeringWheelCentered" Prompt2Priority="0" TestResultName="SteeringWheelCentered"/>

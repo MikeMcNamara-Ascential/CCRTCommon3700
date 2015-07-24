@@ -387,7 +387,7 @@
         <AnalyzeDynamicParkBrake Result="Not Tested" Timeout="500" Description="Analyze park brake results" AbortIfFailed="False"/>
         <BrakeSwitchOffTest Result="Not Tested" Timeout="3000" Description="Verify the brake switch is in the off position" ScanDelay="100" AbortIfFailed="False"/>
         <BrakeSwitchOnTest Result="Not Tested" Timeout="3000" Description="Verify the brake switch is in the on position" ScanDelay="100" AbortIfFailed="False"/>
-        <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" AbortIfFailed="True" StartBrakeSampleSpeed="67" EndBrakeSampleSpeed="50" BrakeDomain="0 1000" BrakeTarget="350 800"/>
+      <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" AbortIfFailed="True" StartBrakeSampleSpeed="67" EndBrakeSampleSpeed="10" BrakeDomain="0 1000" BrakeTarget="350 800"/>
         <CheckPartNumber Result="Not Tested" Timeout="500" Description="Verify the module part number" AbortIfFailed="False"/>
         <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
         <CommTest Result="Not Tested" Timeout="100" Description="Eric Testing" AbortIfFailed="False"/>
@@ -415,6 +415,6 @@
         <ValveFiringTest Result="Not Tested" Timeout="10000" Description="Fire each ABS valve" Prompt1="MaintainBrake" AbortIfFailed="False"/>
         <Coast Result="" Timeout="45000" Description="Coast down to speed" SpeedTarget="62 67" Prompt1="RemoveFootFromAccelerator" Prompt2="ShiftToNeutral" AbortIfFailed="False" CoastEndSpeed="65" ScanDelay="500"/>
         <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
-        <BrakeToThreshhold Result="Not Tested" Timeout="10000" Description="Pre ABS start braking to min threshhold" Prompt1="BrakeModeratelyInGreenBand" AbortIfFailed="True" BrakeDomain="0 1000" BrakeTarget="350 800" MinimumThreshholdForce="200"/>
+      <BrakeToThreshhold Result="Not Tested" Timeout="10000" Description="Pre ABS start braking to min threshhold" Prompt1="BrakeModeratelyInGreenBand" AbortIfFailed="True" BrakeDomain="0 1000" BrakeTarget="200 800" MinimumThreshholdForce="200"/>
     </TestSteps>
 </Isuzu720AbsTc>

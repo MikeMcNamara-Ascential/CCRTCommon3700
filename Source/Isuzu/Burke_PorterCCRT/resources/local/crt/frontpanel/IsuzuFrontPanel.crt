@@ -205,16 +205,8 @@
 
 
             <!-- Vehicle Build Info ========================================================== -->
-            <HBox posX="1000" posY="0" width="200" height="250" border="true" borderstyle="title" bordertitle="vehiclebuild">
+            <HBox posX="1000" posY="0" width="200" height="200" border="true" borderstyle="title" bordertitle="vehiclebuild">
                 <VBox>
-                    <Label name="vehicletype"/>
-                    <HBox height="5"/>
-                    <Label name="bookcode"/>
-                    <HBox height="5"/>
-                    <Label name="modelyear"/>
-                    <HBox height="5"/>
-                    <Label name="lotnumber"/>
-                    <HBox height="5"/>
                     <Label name="cruise"/>
                     <HBox height="5"/>
                     <Label name="brake"/>
@@ -229,22 +221,6 @@
                 </VBox>
                 <VBox width="30"/>
                 <VBox>
-                    <Widget id="_vehicleType" width="75" class="com.bepco.gui.TextBox">
-                        <DataSource tagname="VehicleType" messagetype="Subscribe"/>
-                    </Widget>
-                    <HBox height="5"/>
-                    <Widget id="_bookCode" width="75" class="com.bepco.gui.TextBox">
-                        <DataSource tagname="BookCode" messagetype="Subscribe"/>
-                    </Widget>
-                    <HBox height="5"/>
-                    <Widget id="_modelYear" width="75" class="com.bepco.gui.TextBox">
-                        <DataSource tagname="ModelYear" messagetype="Subscribe"/>
-                    </Widget>
-                    <HBox height="5"/>
-                    <Widget id="_lotNumber" width="75" class="com.bepco.gui.TextBox">
-                        <DataSource tagname="LotNumber" messagetype="Subscribe"/>
-                    </Widget>
-                    <HBox height="5"/>
                     <Widget id="_cruiseType" width="75" class="com.bepco.gui.TextBox">
                         <DataSource tagname="SpeedControl" messagetype="Subscribe"/>
                         <DataSource tagname="SpeedControlBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
@@ -276,9 +252,9 @@
                 </VBox>
             </HBox>
 
-            <VBox posX="1010" posY="260" width="260" height="450">
+            <VBox posX="1010" posY="210" width="260" height="500">
                 <!-- Speedometer gauge -->
-                <Widget id="speed" height="230" width="250" class="com.bepco.gui.RadialGauge">
+                <Widget id="speed" height="250" width="250" class="com.bepco.gui.RadialGauge">
                     <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
                     <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
                     <DataSource tagname="SpeedActive" messagetype="Subscribe" tagrole="enabled"/>
@@ -287,13 +263,20 @@
                     </RadialGaugeConfig>
                 </Widget>
                 <!-- Brake force gauge -->
-                <Widget id="brakeforce" height="230" width="250" class="com.bepco.gui.RadialGauge">
+                <Widget id="brakeforce" height="210" width="210" class="com.bepco.gui.RadialGauge">
                     <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10"/>
                     <DataSource tagname="BrakeTarget" tagrole="targetrange" messagetype="Subscribe"/>
                     <DataSource tagname="BrakeActive" messagetype="Subscribe" tagrole="enabled"/>
                     <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="1500" targetlow="0" targethigh="0" >
                         <Font size="30" name="sans-serif" style="plain"/>
                     </RadialGaugeConfig>
+                </Widget>
+                <Widget id="_brakeForce" class="com.bepco.gui.NumberBox">
+                    <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10" />
+                    <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                    <TextBoxConfig>
+                        <Font size="28" name="sans-serif" style="plain"/>
+                    </TextBoxConfig>
                 </Widget>
             </VBox>
 

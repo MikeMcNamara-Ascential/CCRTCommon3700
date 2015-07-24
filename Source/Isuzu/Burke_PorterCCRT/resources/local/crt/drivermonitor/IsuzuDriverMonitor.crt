@@ -14,7 +14,7 @@
         <Layout bgcolor="white">
             <!-- END OF Trafficlight ========================================== -->
             <!-- START OF radial gauges ================================= -->
-            <HBox posX="10" posY="0" width="1000" height="270">
+            <HBox posX="10" posY="0" width="700" height="270">
                 <!-- Speedometer gauge -->
                 <Widget id="speed" height="300" width="300" class="com.bepco.gui.RadialGauge">
                     <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
@@ -25,100 +25,114 @@
                     </RadialGaugeConfig>
                 </Widget>
                 <!-- Brake force gauge -->
-                <Widget id="brakeforce" height="300" width="300" class="com.bepco.gui.RadialGauge">
-                    <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10"/>
-                    <DataSource tagname="BrakeTarget" tagrole="targetrange" messagetype="Subscribe"/>
-                    <DataSource tagname="BrakeActive" messagetype="Subscribe" tagrole="enabled"/>
-                    <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="1500" targetlow="0" targethigh="0" >
-                        <Font size="30" name="sans-serif" style="plain"/>
-                    </RadialGaugeConfig>
-                </Widget>
-                <!-- space -->
-                <VBox width="15"/>
-                <!-- END OF Three radial gauges =================================== -->
-
-                <!-- Wheel Speeds ======================================================================== -->
                 <VBox>
-                    <HBox width="200" border="false">
-                        <VBox width="55">
-                            <Widget id="_rf" class="com.bepco.gui.NumberBox" width='80'>
-                                <DataSource tagname="RFSpeed" messagetype="Read" datarate="10" />
-                                <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
-                                <TextBoxConfig>
-                                    <Font size="38" name="sans-serif" style="plain"/>
-                                </TextBoxConfig>
-                            </Widget>
-                            <HBox height="100"/>
-                            <Widget id="_lf" class="com.bepco.gui.NumberBox" width="80">
-                                <DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
-                                <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
-                                <TextBoxConfig>
-                                    <Font size="38" name="sans-serif" style="plain"/>
-                                </TextBoxConfig>
-                            </Widget>
-                        </VBox>
-                        <Widget id="axleimage" class="com.bepco.gui.ImagePhaseBox" border="false" width='200'>
-                            <DataSource tagname="VehicleTypeImg" messagetype="Subscribe"/>
-                        </Widget>
+                    <Widget id="brakeforce" height="240" width="240" class="com.bepco.gui.RadialGauge">
+                        <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10"/>
+                        <DataSource tagname="BrakeTarget" tagrole="targetrange" messagetype="Subscribe"/>
+                        <DataSource tagname="BrakeActive" messagetype="Subscribe" tagrole="enabled"/>
+                        <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="1500" targetlow="0" targethigh="0" >
+                            <Font size="30" name="sans-serif" style="plain"/>
+                        </RadialGaugeConfig>
+                    </Widget>
+                    <Widget id="_brakeForce" class="com.bepco.gui.NumberBox">
+                        <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10" />
+                        <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                        <TextBoxConfig>
+                            <Font size="28" name="sans-serif" style="plain"/>
+                        </TextBoxConfig>
+                    </Widget>
+                </VBox>
+                <!-- END OF Three radial gauges =================================== -->
+            </HBox>
+            <!--
+            <Widget id="_brakeForce" class="com.bepco.gui.NumberBox" height="40" width='80' posX="600" posY="230">
+                <DataSource tagname="BrakeForceValue" messagetype="Read" datarate="10" />
+                <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                <TextBoxConfig>
+                    <Font size="28" name="sans-serif" style="plain"/>
+                </TextBoxConfig>
+            </Widget>
+            -->
 
-                        <VBox width="55">
-                            <Widget id="_lr" class="com.bepco.gui.NumberBox" width="80">
-                                <DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
-                                <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
-                                <TextBoxConfig>
-                                    <Font size="38" name="sans-serif" style="plain"/>
-                                </TextBoxConfig>
-                            </Widget>
-                            <HBox height="100"/>
-                            <Widget id="_rr" class="com.bepco.gui.NumberBox" width='80'>
-                                <DataSource tagname="RRSpeed" messagetype="Read" datarate="10" />
-                                <DataSource tagname="RRSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
-                                <TextBoxConfig>
-                                    <Font size="38" name="sans-serif" style="plain"/>
-                                </TextBoxConfig>
-                            </Widget>
-                        </VBox>
-                    </HBox>
-                    <HBox>
-                        <HBox height="80" width="360">
-                            <!-- subsystem test pass/fail widgets 
-                                TestStates:
-                                    TestInProgress 	- Blue
-                                    Timeout		- Orange
-                                    Pass		- Green
-                                    Fail		- Red
-                                    Abort		- Yellow
-                            -->
-                            <VBox>
-                                <Widget width='180' height='30' posY="0" id="brake" class="com.bepco.gui.OverallTestPhaseBox" >
-                                    <DataSource tagname="BrakeOverallTest" messagetype="Subscribe"/>
-                                    <TextBoxConfig>
-                                        <Font size="22" name="serif" style="plain"></Font>
-                                    </TextBoxConfig>
-                                </Widget>
-                                <Widget width='180' height='30' posY="0" id="trans" class="com.bepco.gui.OverallTestPhaseBox" >
-                                    <DataSource tagname="TransmissionOverallTest" messagetype="Subscribe"/>
-                                    <TextBoxConfig>
-                                        <Font size="22" name="serif" style="plain"></Font>
-                                    </TextBoxConfig>
-                                </Widget>
-                            </VBox>
-                            <VBox>
-                                <Widget width='180' height='30' id="engine" class="com.bepco.gui.OverallTestPhaseBox" >
-                                    <DataSource tagname="EmissionsOverallTest" messagetype="Subscribe"/>
-                                    <TextBoxConfig>
-                                        <Font size="22" name="serif" style="plain"></Font>
-                                    </TextBoxConfig>
-                                </Widget>
-                                <Widget width='180' height='30' id="cruise" class="com.bepco.gui.OverallTestPhaseBox" >
-                                    <DataSource tagname="SpeedControlOverallTest" messagetype="Subscribe"/>
-                                    <TextBoxConfig>
-                                        <Font size="22" name="serif" style="plain"></Font>
-                                    </TextBoxConfig>
-                                </Widget>
-                            </VBox>
-                        </HBox>
-                    </HBox>
+            <!-- Wheel Speeds ======================================================================== -->
+            <VBox posX="640" posY="0" width="350" height="400">
+                <HBox width="200" border="false">
+                    <VBox width="55">
+                        <Widget id="_rf" class="com.bepco.gui.NumberBox" width='80'>
+                            <DataSource tagname="RFSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig>
+                                <Font size="38" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <HBox height="100"/>
+                        <Widget id="_lf" class="com.bepco.gui.NumberBox" width="80">
+                            <DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig>
+                                <Font size="38" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+                    <Widget id="axleimage" class="com.bepco.gui.ImagePhaseBox" border="false" width='200'>
+                        <DataSource tagname="VehicleTypeImg" messagetype="Subscribe"/>
+                    </Widget>
+
+                    <VBox width="55">
+                        <Widget id="_lr" class="com.bepco.gui.NumberBox" width="80">
+                            <DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig>
+                                <Font size="38" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                        <HBox height="100"/>
+                        <Widget id="_rr" class="com.bepco.gui.NumberBox" width='80'>
+                            <DataSource tagname="RRSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="RRSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig>
+                                <Font size="38" name="sans-serif" style="plain"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+                </HBox>
+            </VBox>
+            <HBox posX="680" posY="205" height="80" width="360">
+                <!-- subsystem test pass/fail widgets 
+                    TestStates:
+                        TestInProgress 	- Blue
+                        Timeout		- Orange
+                        Pass		- Green
+                        Fail		- Red
+                        Abort		- Yellow
+                -->
+                <VBox>
+                    <Widget width='165' height='30' posY="0" id="brake" class="com.bepco.gui.OverallTestPhaseBox" >
+                        <DataSource tagname="BrakeOverallTest" messagetype="Subscribe"/>
+                        <TextBoxConfig>
+                            <Font size="22" name="serif" style="plain"></Font>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget width='165' height='30' posY="0" id="trans" class="com.bepco.gui.OverallTestPhaseBox" >
+                        <DataSource tagname="TransmissionOverallTest" messagetype="Subscribe"/>
+                        <TextBoxConfig>
+                            <Font size="22" name="serif" style="plain"></Font>
+                        </TextBoxConfig>
+                    </Widget>
+                </VBox>
+                <VBox>
+                    <Widget width='165' height='30' id="engine" class="com.bepco.gui.OverallTestPhaseBox" >
+                        <DataSource tagname="EmissionsOverallTest" messagetype="Subscribe"/>
+                        <TextBoxConfig>
+                            <Font size="22" name="serif" style="plain"></Font>
+                        </TextBoxConfig>
+                    </Widget>
+                    <Widget width='165' height='30' id="cruise" class="com.bepco.gui.OverallTestPhaseBox" >
+                        <DataSource tagname="SpeedControlOverallTest" messagetype="Subscribe"/>
+                        <TextBoxConfig>
+                            <Font size="22" name="serif" style="plain"></Font>
+                        </TextBoxConfig>
+                    </Widget>
                 </VBox>
             </HBox>
             <!-- END of Wheel Speeds ================================================================ -->

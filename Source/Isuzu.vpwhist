@@ -11,7 +11,7 @@ Isuzu\Isuzu.vpj=20141017142220872
 Tests\Tests.vpj=20141017142918912
 Tools\Tools.vpj=20150408073700242
 [TreeExpansion2]
-- Core\Core.vpj
++ Core\Core.vpj
   + ApplicationLayer
     + ModuleInterfaces
       + Brake
@@ -30,12 +30,12 @@ Tools\Tools.vpj=20150408073700242
       + KeyWord2000
       + SCI
       + Serial
-    + TestComponents
-      + Brake
+    - TestComponents
+      - Brake
         + BaseBrake
           + Configuration
         + Bosch8
-        + Common
+        - Common
           + Configuration
         + Include
       + Common
@@ -86,7 +86,7 @@ Tools\Tools.vpj=20150408073700242
       + TestSequencer
       + VehicleTest
   + ClientConfigurations
-  - ServicesLayer
+  + ServicesLayer
     + Include
     + Library
       + Bepos
@@ -218,8 +218,8 @@ Tools\Tools.vpj=20150408073700242
       + WinCcrtInterface
         + Configuration
 - Isuzu\Isuzu.vpj
-  - ApplicationLayer
-    - ModuleInterfaces
+  + ApplicationLayer
+    + ModuleInterfaces
       - Brake
         - Isuzu720ABS
           - Configuration
@@ -228,7 +228,7 @@ Tools\Tools.vpj=20150408073700242
       + Transmission
         + Aisin
           + Configuration
-    + TestComponents
+    - TestComponents
       + Axle
         + Configuration
       - Brake
@@ -237,20 +237,20 @@ Tools\Tools.vpj=20150408073700242
         - Isuzu720Abs
           - Configuration
       + Emissions
-        + Configuration
+        - Configuration
       + LossCompensation
         + Configuration
       + Machine
         + Configuration
       + SpeedControl
-        + Configuration
-      + Transmission
-        + Aisin
-          + Configuration
-    + VehicleTest
-      + Configuration
+        - Configuration
+      - Transmission
+        - Aisin
+          - Configuration
+    - VehicleTest
+      - Configuration
         + BuildRecords
-        + DriveCurves
+        - DriveCurves
   + BomSystem
     + BomFileProcessor
       + bin
@@ -266,24 +266,24 @@ Tools\Tools.vpj=20150408073700242
         + BomFileProcessor_1_0_0_20
         + BomFileProcessor_1_0_0_21
     + Documentation
-  + Burke_PorterCCRT
+  - Burke_PorterCCRT
     + jre
       + bin
         + client
       + lib
         + images
           + cursors
-    + resources
+    - resources
       + com
         + bepco
           + rtc
             + oldproperties
             + properties
-      + local
-        + crt
+      - local
+        - crt
           + aboutserver
-          + drivermonitor
-          + frontpanel
+          - drivermonitor
+          - frontpanel
           + losscompensation
           + powerdisplay
           + vehiclepresence
@@ -414,7 +414,7 @@ Tools\Tools.vpj=20150408073700242
         + obj
           + x86
             + Debug
-  - ServicesLayer
+  + ServicesLayer
     + Managers
       + CommProxy
         + Gryphon
@@ -451,27 +451,27 @@ Tools\Tools.vpj=20150408073700242
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1920 1080 2103 0 1520 1080 0 0 M 0 0 0 0 1510 766
-CWD: Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\Configuration
-BUFFER: BN="Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\IsuzuEngineControlModule.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=1 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=0 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.8044 CL=1 LE=0 CX=0 CY=17 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\Configuration\IsuzuEngineControllerModule.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=864 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
-WINDOW: 250 250 1260 516 -1 -1 N  WF=0 WT=2 "Lucida Console,10,0,1"
-BUFFER: BN="Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\IsuzuEngineControlModule.cpp"
-VIEW: LN=.8044 CL=1 LE=0 CX=0 CY=17 WI=157 BI=25 HT=0 HN=0 HF=0 HC=4
-WINDOW: 0 0 1260 516 -1 -1 N  WF=0 WT=3 "Lucida Console,10,0,1"
-BUFFER: BN="Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\Configuration\IsuzuEngineControllerModule.xml"
-VIEW: LN=.3669 CL=24 LE=0 CX=23 CY=18 WI=158 BI=26 HT=0 HN=0 HF=0 HC=4
+SCREEN: 1920 1080 2103 0 1520 1080 0 0 M 0 0 0 0 1541 766
+CWD: Isuzu\Burke_PorterCCRT\resources\local\crt\frontpanel
+BUFFER: BN="Isuzu\Burke_PorterCCRT\resources\local\crt\drivermonitor\IsuzuDriverMonitor.crt"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.1510 CL=67 LE=0 CX=66 CY=29 WI=5 BI=26 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Isuzu\Burke_PorterCCRT\resources\local\crt\frontpanel\IsuzuFrontPanel.crt"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=256 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 125 125 1291 516 -1 -1 N  WF=0 WT=3 "Lucida Console,10,0,1"
+BUFFER: BN="Isuzu\Burke_PorterCCRT\resources\local\crt\drivermonitor\IsuzuDriverMonitor.crt"
+VIEW: LN=.2723 CL=1 LE=0 CX=0 CY=26 WI=256 BI=26 HT=0 HN=0 HF=0 HC=4
+WINDOW: 5 12 1050 745 -1 -1 N  WF=0 WT=2 "Lucida Console,10,0,1"
+BUFFER: BN="Isuzu\Burke_PorterCCRT\resources\local\crt\frontpanel\IsuzuFrontPanel.crt"
+VIEW: LN=.13964 CL=1 LE=0 CX=0 CY=42 WI=255 BI=29 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Isuzu\ApplicationLayer\ModuleInterfaces\Brake\Isuzu720ABS\Configuration\Isuzu720AbsModule.xml
+Isuzu\ApplicationLayer\TestComponents\Transmission\Aisin\Configuration\KwpAisinTransmissionTC.xml
 Isuzu\ApplicationLayer\TestComponents\Brake\Isuzu720Abs\Configuration\Isuzu720AbsTc.xml
-Isuzu\ServicesLayer\Servers\PlantHostOutbound\Configuration\Isuzu.PlantHostOutboundConfig.xml
-Core\ServicesLayer\Servers\PlantHostOutbound\Include\HostInterface.h
-Core\ServicesLayer\Servers\PlantHostOutbound\HostInterface\HostInterface.cpp
-Z:\Rewrite\TestResults\ESN\54DC4W1B1FS806149.ESN
-Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\IsuzuEngineControlModule.h
-Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\IsuzuEngineControlModule.cpp
-Isuzu\ApplicationLayer\ModuleInterfaces\EngineController\Configuration\IsuzuEngineControllerModule.xml
+Z:\Rewrite\Logs\TestLog.54DC4W1B2FS807388.9204.log
+Z:\Rewrite\Logs\TestLog.54DC4W1B4FS807389.9205.log
+Core\ApplicationLayer\TestComponents\Brake\Common\BaseBrakeTool.cpp
+z:\rewrite\IsuzuDriverMonitor.crt
+Isuzu\Burke_PorterCCRT\resources\local\crt\drivermonitor\IsuzuDriverMonitor.crt
+Isuzu\Burke_PorterCCRT\resources\local\crt\frontpanel\IsuzuFrontPanel.crt
+z:\rewrite\IsuzuFrontPanel.crt

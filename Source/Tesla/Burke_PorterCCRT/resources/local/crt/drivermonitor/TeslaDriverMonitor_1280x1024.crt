@@ -100,24 +100,24 @@
                 Abort           - Yellow
 -->
                 <VBox width='185'>
-                  <Widget width='175' height='31' id="airbag" class="com.bepco.gui.OverallTestPhaseBox" >
+		  <!--Widget width='175' height='31' id="airbag" class="com.bepco.gui.OverallTestPhaseBox" >
                         <DataSource tagname="AirbagOverallTest" messagetype="Subscribe"/>
                         <TextBoxConfig>
                                 <Font size="22" name="serif" style="bold"></Font>
                         </TextBoxConfig>
-                  </Widget>
+		  </Widget-->
                   <Widget width='175' height='31'  id="brake" class="com.bepco.gui.OverallTestPhaseBox" >
                         <DataSource tagname="BrakeOverallTest" messagetype="Subscribe"/>
                         <TextBoxConfig>
                                 <Font size="22" name="serif" style="bold"></Font>
                         </TextBoxConfig>
                   </Widget>                     
-                  <Widget width='175' height='31'  id="drivetrain" class="com.bepco.gui.OverallTestPhaseBox" >
+		  <!--Widget width='175' height='31'  id="drivetrain" class="com.bepco.gui.OverallTestPhaseBox" >
                         <DataSource tagname="DriveTrainOverallTest" messagetype="Subscribe"/>
                         <TextBoxConfig>
                                 <Font size="22" name="serif" style="bold"></Font>
                         </TextBoxConfig>
-                  </Widget>
+		  </Widget-->
                   <!--Widget width='175' height='31'  id="steering" class="com.bepco.gui.OverallTestPhaseBox" >
                         <DataSource tagname="PowerSteeringOverallTest" messagetype="Subscribe"/>
                         <TextBoxConfig>

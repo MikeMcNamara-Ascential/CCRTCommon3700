@@ -1,295 +1,308 @@
 <GMMachineComponent>
-   <Setup>
-      <Name>Machine</Name>
-      <Debug>Off</Debug>
-      <DebugLevel>0</DebugLevel>
-      <ProcessPriority>11</ProcessPriority>
-      <ThreadPool>
-         <Debug>Off</Debug>
-         <MinBlockedLimit>2</MinBlockedLimit>
-         <MaxBlockedLimit>4</MaxBlockedLimit>
-         <Increment>2</Increment>
-         <Maximum>50</Maximum>
-      </ThreadPool>
-      <NotificationList>
-         <Debug>Off</Debug>
-         <StartOnCreate>Off</StartOnCreate>
-         <LowWater>1</LowWater>
-         <HighWater>3</HighWater>
-         <Maximum>5</Maximum>
-         <Increment>1</Increment>
-      </NotificationList>
-      <Communication>
-         <Comm>IPC</Comm>
-         <Type>Server</Type>
-         <Name>component/MachineComponent</Name>
-         <Debug>Off</Debug>
-         <BufferSize>1024</BufferSize>
-         <Timeout>0</Timeout>
-      </Communication>
-      <TagList>
-         <SubscribeTags>
-            <Abort/>
-            <Boost/>
-            <CableConnect/>
-            <DriveAxle/>
-            <DriverFail/>
-            <DriverNumber/>
-            <DriverPass/>
-            <ForegroundTestInProgress/>
-            <KeyPress/>
-            <MachineNumber/>
-            <MachineType2400/>
-            <MachineType3600/>
-            <MotorMode/>
-            <NoPB/>
-            <ParkingBrakeTestFailed/>
-            <ParkingBrakeTestPass/>
-            <ParkingPawlTestFailed/>
-            <ParkingPawlTestPassed/>
-            <PLCRHSCableConnect/>
-            <RollsUpElevDown/>
-            <SoftwareID/>
-            <TestInProgress/>
-            <VehiclePresent/>
-            <WheelbaseInPosition/>
-            <YesPB/>
-            <ZerospeedToPLC/>
-            <Zerospeed/>
-         </SubscribeTags>
-      </TagList>
-      <Logging>
-         <Status>Enabled</Status>
-         <ProcessName>MachineComponent</ProcessName>
-         <AdditionalLogFile Types="/Component/MachineComponent or Disabled">/Components/MachineComponent.log</AdditionalLogFile>
-         <Debug>Off</Debug>
-         <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x1F</Verbose>
-      </Logging>
-      <DataTags>
-         <Abort>Abort</Abort>
-         <BoostMode>Boost</BoostMode>
-         <CableConnect>CableConnect</CableConnect>
-         <DriveAxle>DriveAxle</DriveAxle>
-         <DriverNumber>DriverNumber</DriverNumber>
-         <DriverNumberBGColor>DriverNumberDisplayBGColor</DriverNumberBGColor>
-         <DriverNumberMode>DriverNumber</DriverNumberMode>
-         <Fail>red</Fail>
-         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
-         <InputServerState>InputServerState</InputServerState>
-         <InputServerState>InputServerState</InputServerState>
-         <KeyPress>KeyPress</KeyPress>
-         <YesButton>DriverPass</YesButton>
-         <NoButton>DriverFail</NoButton>
-         <MachineNumber>MachineNumber</MachineNumber>
-         <MachineType3600>0</MachineType3600>
-         <ElectricMachineType>3700</ElectricMachineType>
-         <MotorMode>MotorMode</MotorMode>
-         <NormalMode>Normal</NormalMode>
-         <NoValue>Fail</NoValue>
-         <OverallTest>MachineOverallTest</OverallTest>
-         <ParkingBrakeTest>ParkingBrakeTest</ParkingBrakeTest>
-         <RearBoostForce>RearBoostForce</RearBoostForce>
-         <ParkingBrakeTestPass>ParkingBrakeTestPass</ParkingBrakeTestPass>
-         <ParkingBrakeTestFail>ParkingBrakeTestFailed</ParkingBrakeTestFail>
-         <ParkPawlTest>StartParkingPawlTest</ParkPawlTest>
-         <FrontBoostForce>FrontBoostForce</FrontBoostForce>
-         <ParkPawlTestPass>ParkingPawlTestPassed</ParkPawlTestPass>
-         <ParkPawlTestFail>ParkingPawlTestFailed</ParkPawlTestFail>
-         <RetainersUp>RollsUpElevDown</RetainersUp>
-         <RighthandDriveSelected>PLCRHSCableConnect</RighthandDriveSelected>
-         <ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
-         <ServerStateNormal>Normal</ServerStateNormal>
-         <SoftwareVersion>SoftwareID</SoftwareVersion>
-         <SpeedTarget>SpeedTarget</SpeedTarget>
-         <StackLightBlue>StackLightBlue</StackLightBlue>
-         <StackLightGreen>StackLightGreen</StackLightGreen>
-         <StackLightRed>StackLightRed</StackLightRed>
-         <StackLightYellow>StackLightYellow</StackLightYellow>
-         <TestInProgress>TestInProgress</TestInProgress>
-         <TestResultMode>TestResult</TestResultMode>
-         <VehiclePresent>VehiclePresent</VehiclePresent>
-         <YesValue>Pass</YesValue>
-         <Zerospeed>ZerospeedToPLC</Zerospeed>
-         <Pass>green</Pass>
-         <QuickBrakeMode>QuickBrake</QuickBrakeMode>
-         <WheelbaseInPosition>WheelbaseInPosition</WheelbaseInPosition>
-         <IncorrectWBPrompt>WheelbaseIncorrect</IncorrectWBPrompt>
-         <WBPosition01>WheelbasePosition01Selected</WBPosition01>
-         <WBPosition02>WheelbasePosition02Selected</WBPosition02>
-         <WBPosition03>WheelbasePosition03Selected</WBPosition03>
-         <WBPosition04>WheelbasePosition04Selected</WBPosition04>
-         <WBPosition05>WheelbasePosition05Selected</WBPosition05>
-         <WBPosition06>WheelbasePosition06Selected</WBPosition06>
-         <WBPosition07>WheelbasePosition07Selected</WBPosition07>
-         <WBPosition08>WheelbasePosition08Selected</WBPosition08>
-         <WBPosition09>WheelbasePosition09Selected</WBPosition09>
-         <WBPosition10>WheelbasePosition10Selected</WBPosition10>
-         <WBPosition11>WheelbasePosition11Selected</WBPosition11>
-         <WBPosition12>WheelbasePosition12Selected</WBPosition12>
-      </DataTags>
-      <SystemTagsToReset>
-         <VINDisplayBGColor>white</VINDisplayBGColor>
-         <PromptBox1BGColor>white</PromptBox1BGColor>
-         <PromptBox2BGColor>white</PromptBox2BGColor>
-         <EnableCenteringArrows>0</EnableCenteringArrows>
-      </SystemTagsToReset>
-      <VehicleTestStatusUpdates>
-         <BrakeOverallTest>TestNotStarted</BrakeOverallTest>
-      </VehicleTestStatusUpdates>
-      <Parameters>
-         <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
-         <IgnoreMachineConditions>True</IgnoreMachineConditions>
-         <ReleaseParkBrakePrompt>ReleaseParkBrake</ReleaseParkBrakePrompt>
-         <ResetCommHardware Values="Yes or No">Yes</ResetCommHardware>
-         <ParkBrakePrepTime Description="Number of ms to wait for the PLC to be setup for park brake test" units="ms">5000</ParkBrakePrepTime>
-         <ParkPawlPrepTime Description="Number of ms to wait for the PLC to be setup for park pawl test" units="ms">5000</ParkPawlPrepTime>
-         <ParkBrakeApplyForce Description="Amount of force to apply to the rollers for the park brake test" units="lbs">250</ParkBrakeApplyForce>
-         <ParkPawlApplyForce Description="Amount of force to apply to the rollers for the park pawl test" units="lbs">250</ParkPawlApplyForce>
-         <MotorLoadingAccelConst Description="Percentage of motor torque to apply to the drive axle proportional to acceleration" Units="%">0.0</MotorLoadingAccelConst>
-         <MotorLoadingSpeedConst Description="Percentage of motor torque to apply to the drive axle proportional to the square of the speed" Units="%">0.0</MotorLoadingSpeedConst>
-         <UsePlcYesNoButtons>Yes</UsePlcYesNoButtons>
-         <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
-         <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
-      </Parameters>
-      <FaultList>/Configuration/Components/Common/FaultList.xml</FaultList>
-   </Setup>
-   <Objectives>
-      <Initialize>
-         <TestStep10>Initialize</TestStep10>
-         <TestStep20>MachineReady</TestStep20>
-         <TestStep30>EngageMachine</TestStep30>
-         <TestStep40>ConnectCable</TestStep40>
-         <TestStep50>SelectDriverSide</TestStep50>
-      </Initialize>
-      <InitializeNoCableConnect>
-         <TestStep10>Initialize</TestStep10>
-         <TestStep20>MachineReady</TestStep20>
-         <TestStep30>EngageMachine</TestStep30>
-      </InitializeNoCableConnect>
-      <DriverQuestion>
-         <TestStep1>DriverQuestion</TestStep1>
-      </DriverQuestion>
-      <PromptDriver>
-         <TestStep1>PromptDriver</TestStep1>
-      </PromptDriver>
-      <PromptDriverAlways>
-         <TestStep1>PromptDriverAlways</TestStep1>
-      </PromptDriverAlways>
-      <DriverNumber>
-         <TestStep1>DriverNumber</TestStep1>
-      </DriverNumber>
-      <StackLight>
-         <TestStep1>StackLight</TestStep1>
-      </StackLight>
-      <AccelerateToSpeed>
-         <TestStep1>AccelerateToSpeed</TestStep1>
-      </AccelerateToSpeed>
-      <BrakeToStop>
-         <TestStep1>BrakeToStop</TestStep1>
-      </BrakeToStop>
-      <ConnectCable>
-         <TestStep1>ConnectCable</TestStep1>
-      </ConnectCable>
-      <ParkBrakeTest>
-         <TestStep10>ParkBrake</TestStep10>
-      </ParkBrakeTest>
-      <ParkPawlTest>
-         <TestStep10>ParkPawl</TestStep10>
-      </ParkPawlTest>
-      <ParkBrakePawlTest>
-         <TestStep10>ParkBrakePawl</TestStep10>
-      </ParkBrakePawlTest>
-      <EnableMotorLoading>
-         <EnableMotorLoading/>
-      </EnableMotorLoading>
-      <DisableMotorLoading>
-         <DisableMotorLoading/>
-      </DisableMotorLoading>
-      <FinishUp>
-         <TestStep1>PromptDriverAlways</TestStep1>
-         <TestStep2>FinishUp</TestStep2>
-      </FinishUp>
-      <EngageMachine>
-         <TestStep1>EngageMachine</TestStep1>
-      </EngageMachine>
-      <DisableElectricMotorBoost>
-          <TestStep1>DisableElectricMotorBoost</TestStep1>
-      </DisableElectricMotorBoost>
-      <EnableElectricMotorBoost>
-          <TestStep1>EnableElectricMotorBoost</TestStep1>
-      </EnableElectricMotorBoost>
-   </Objectives>
-   <TestSteps>
-      <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1="Launching" Prompt1Priority="0"/>
-      <DisableElectricMotorBoost Result="" Description="Disable axle speed matching" Timeout="0"/>
-      <EnableElectricMotorBoost Result="" Description="Enable axle speed matching" Timeout="0"/>
-      <DriverQuestion Result="" Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
-         <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
-         <SteeringWheelCentered Result="" Timeout="10000" Description="Check if steering wheel is cenetered" Prompt2="SteeringWheelCentered" Prompt2Priority="0" TestResultName="SteeringWheelCentered"/>
-      </DriverQuestion>
-      <PromptDriver Result="" Description="Display A Prompt To The Driver But Do Not Require Driver Input">
-         <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
-         <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
-         <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
-         <PerformingFinishUp Description="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
-         <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
-         <PreInitialize Description="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
-      </PromptDriver>
-      <PromptDriverAlways Result="" Description="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input">
-         <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
-         <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
-         <ShiftToReverse Result="" Timeout="3000" Description="Prompt Driver to Shift To Reverse" Prompt2="ShiftToReverse" Prompt2Priority="0" TestResultName="ShiftToReverse"/>
-         <ShiftToNeutral Result="" Timeout="3000" Description="Prompt Driver to Shift To Neutral" Prompt2="ShiftToNeutral" Prompt2Priority="0" TestResultName="ShiftToNeutral"/>
-         <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
-         <PerformingFinishUp Description="" Timeout="3000" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
-         <PerformingFinalTesting Description="" Timeout="" Result="" Prompt1="PerformingFinalTesting" Prompt1Priority="0"/>
-         <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
-         <EmissionsInitialization Description="Display prompt to indicate currently initializing emissions" Timeout="" Result="" Prompt1="EmissionsInitialization" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0"/>
-         <PreInitialize Description="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
-         <DisableTractionControl Description="Instruct the operator to disable the traction control" Result="" Timeout="5000" Prompt1="DisableTractionControl" Prompt1Priority="0"/>
-         <AbsLowSpeedSensorTestPhase Description="Inform operator ABS low speed sensor testing is about to start" Timeout="5000" Result="" Prompt1="AbsSensorTest" Prompt1Priority="0"/>
-         <AbsLowSpeedSensorTestPhaseComplete Description="Inform operator ABS low speed sensor testing is complete" Timeout="5000" Result="" Prompt1="AbsSensorTestComplete" Prompt1Priority="0"/>
-         <AbsStaticTestPhase Description="Inform operator ABS initialization is about to start" Timeout="5000" Result="" Prompt1="AbsStaticTests" Prompt1Priority="0"/>
-         <AbsStaticTestPhaseComplete Description="Inform operator ABS initialization is complete" Timeout="5000" Result="" Prompt1="AbsStaticTestsComplete" Prompt1Priority="0"/>
-         <DriveProfileTestPhase Description="Inform operator drive profile testing is starting" Timeout="5000" Result="" Prompt1="DriveProfileTests" Prompt1Priority="0"/>
-         <DriveProfileTestPhaseComplete Description="Inform operator drive profile testing is starting" Timeout="5000" Result="" Prompt1="DriveProfileTestsComplete" Prompt1Priority="0"/>
-         <AbsTestPhase Description="Inform operator ABS testing is starting" Timeout="5000" Result="" Prompt1="ABSTest" Prompt1Priority="0"/>
-         <AbsTestPhaseComplete Description="Inform operator ABS testing is complete" Timeout="5000" Result="" Prompt1="ABSTestComplete" Prompt1Priority="0"/>
-         <ReverseWarningTestPhase Description="Inform operator Reverse Warning testing is starting" Timeout="5000" Result="" Prompt1="ReverseWarningTest" Prompt1Priority="0"/>
-         <ReverseWarningTestPhaseComplete Description="Inform operator Reverse Warning testing is complete" Timeout="5000" Result="" Prompt1="ReverseWarningTestComplete" Prompt1Priority="0"/>
-         <ReverseTestPhase Description="Inform operator Reverse testing is starting" Timeout="5000" Result="" Prompt1="ReverseTest" Prompt1Priority="0"/>
-         <ReverseTestPhaseComplete Description="Inform operator Reverse testing is complete" Timeout="5000" Result="" Prompt1="ReverseTestComplete" Prompt1Priority="0"/>
-         <ParkBrakeTestPhase Description="Inform operator park brake testing is starting" Timeout="5000" Result="" Prompt1="ParkBrakeTest" Prompt1Priority="0"/>
-         <ParkBrakeTestPhaseComplete Description="Inform operator park brake testing is complete" Timeout="5000" Result="" Prompt1="ParkBrakeTestComplete" Prompt1Priority="0"/>
-         <BrakeBurnishTestPhase Description="Inform operator brake burnish test is starting" Timeout="5000" Result="" Prompt1="BrakeBurnishTest" Prompt1Priority="0"/>
-         <BrakeBurnishTestPhaseComplete Description="Inform operator brake burnish test is starting" Timeout="5000" Result="" Prompt1="BrakeBurnishTestComplete" Prompt1Priority="0"/>
-         <SpeedControlTestPhase Description="Inform operator cruise test is starting" Timeout="5000" Result="" Prompt1="SpeedControlTest" Prompt1Priority="0"/>
-         <SpeedControlTestPhaseComplete Description="Inform operator cruise test is complete" Timeout="5000" Result="" Prompt1="SpeedControlTestComplete" Prompt1Priority="0"/>
-         <AirbagTestPhase Description="Inform operator Airbag testing is starting" Timeout="0" Result="" Prompt1="AirbagTest" Prompt1Priority="0"/>
-         <AirbagTestPhaseComplete Description="Inform operator Airbag testing is complete" Timeout="5000" Result="" Prompt1="AirbagTestComplete" Prompt1Priority="0"/>
-      </PromptDriverAlways>
-      <DriverNumber Result="" Description="Prompt the driver to input their ID and validate" Timeout="0" Prompt1="InputDriverID" Prompt1Priority="0" Validate="Skip" DriverNumberFile="/Configuration/Components/Machine/DriverNumberList.xml" DefaultDriverNumber="T0000xx"/>
-      <StackLight Result="" Description="enable/disable a stack light light" Timeout="10000"/>
-      <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="120000" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
-      <AccelerateToSpeed Result="" Description="Prompt the driver to accelerate to the commanded speed" Timeout="120000" Prompt2="AccelerateToTargetSpeed" Prompt1Priority="0" SpeedTarget=""/>
-      <QuickStop Result="" Description="Command the rollers to stop and verify that Zerospeed is achieved" Timeout="30000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
-      <ConnectCable Result="" Description="Prompt the driver to connect the vehicle cable" Timeout="20000" Prompt1="ConnectCable" Prompt1Priority="0"/>
-      <MachineReady Result="" Description="Wait until the machine is ready to perform a test" Timeout="15000" Prompt1="" Prompt1Priority="" Prompt2="" Prompt2Priority=""/>
-      <ParkBrake Result="" Timeout="10000" Description="Park Brake Test" Prompt1="ShiftToNeutralApplyParkBrake" DriverDelay="3000"/>
-      <ParkPawl Result="" Timeout="10000" Description="Park Pawl Test" Prompt1="ShiftPFootOffBrk" DriverDelay="3000"/>
-      <ParkBrakePawl Result="" Timeout="10000" Description="Combination Park Brake/Park Pawl Test" Prompt1="ShiftToParkApplyParkBrake" DriverDelay="3000"/>
-      <HydraulicParkBrake Result="" Timeout="10000" Description="Hydraulic Park Brake Test" Prompt1="ShiftToNeutralApplyParkBrake" DriverDelay="3000"/>
-      <HydraulicParkPawl Result="" Timeout="10000" Description="Hydraulic Park Pawl Test" Prompt1="ShiftPFootOffBrk" DriverDelay="3000"/>
-      <HydraulicParkBrakePawl Result="" Timeout="10000" Description="Combination Park Brake/Park Pawl Test" Prompt1="ShiftToParkApplyParkBrake" DriverDelay="3000"/>
-      <ElectricParkBrake Result="" Timeout="10000" Description="Electric Park Brake Test" Prompt1="ShiftToNeutralApplyParkBrake" DriverDelay="3000"/>
-      <ElectricParkPawl Result="" Timeout="10000" Description="Electric  Park Pawl Test" Prompt1="ShiftPFootOffBrk" DriverDelay="3000"/>
-      <ElectricParkBrakePawl Result="" Timeout="10000" Description="Combination Park Brake/Park Pawl Test" Prompt1="ShiftToParkApplyParkBrake" DriverDelay="3000"/>
-      <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
-      <WaitForWheelbase Result="" Description="Wait for WheelbaseInPosition" Timeout="2000" Prompt2="WheelbaseIncorrect" Prompt2Priority="0"/>
-      <EnableMotorLoading Result="" Description="Apply a load to the drive axle of the vehicle" Timeout="2000"/>
-      <DisableMotorLoading Result="" Description="Disable the loading of the drive axle of the vehicle" Timeout="2000"/>
-      <EngageMachine Result="" Description="Engage the machine" Timeout="2000"/>
-      <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" Timeout="100" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>
-   </TestSteps>
+    <Setup>
+        <Name>Machine</Name>
+        <Debug>Off</Debug>
+        <DebugLevel>0</DebugLevel>
+        <ProcessPriority>11</ProcessPriority>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+        </NotificationList>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/MachineComponent</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <Boost/>
+                <CableConnect/>
+                <DriveAxle/>
+                <DriverFail/>
+                <DriverNumber/>
+                <DriverPass/>
+                <ForegroundTestInProgress/>
+                <KeyPress/>
+                <MachineNumber/>
+                <MachineType2400/>
+                <MachineType3600/>
+                <MotorMode/>
+                <NoPB/>
+                <ParkingBrakeTestFailed/>
+                <ParkingBrakeTestPass/>
+                <ParkingPawlTestFailed/>
+                <ParkingPawlTestPassed/>
+                <PLCRHSCableConnect/>
+                <RollsUpElevDown/>
+                <SoftwareID/>
+                <TestInProgress/>
+                <VehiclePresent/>
+                <WheelbaseInPosition/>
+                <YesPB/>
+                <ZerospeedToPLC/>
+                <Zerospeed/>
+            </SubscribeTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>MachineComponent</ProcessName>
+            <AdditionalLogFile Types="/Component/MachineComponent or Disabled">/Components/MachineComponent.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <BoostMode>Boost</BoostMode>
+            <CableConnect>CableConnect</CableConnect>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <DriverNumber>DriverNumber</DriverNumber>
+            <DriverNumberBGColor>DriverNumberDisplayBGColor</DriverNumberBGColor>
+            <DriverNumberMode>DriverNumber</DriverNumberMode>
+            <Fail>red</Fail>
+            <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+            <InputServerState>InputServerState</InputServerState>
+            <InputServerState>InputServerState</InputServerState>
+            <KeyPress>KeyPress</KeyPress>
+            <YesButton>DriverPass</YesButton>
+            <NoButton>DriverFail</NoButton>
+            <MachineNumber>MachineNumber</MachineNumber>
+            <MachineType3600>0</MachineType3600>
+            <ElectricMachineType>3700</ElectricMachineType>
+            <MotorMode>MotorMode</MotorMode>
+            <NormalMode>Normal</NormalMode>
+            <NoValue>Fail</NoValue>
+            <OverallTest>MachineOverallTest</OverallTest>
+            <ParkingBrakeTest>ParkingBrakeTest</ParkingBrakeTest>
+            <RearBoostForce>RearBoostForce</RearBoostForce>
+            <ParkingBrakeTestPass>ParkingBrakeTestPass</ParkingBrakeTestPass>
+            <ParkingBrakeTestFail>ParkingBrakeTestFailed</ParkingBrakeTestFail>
+            <ParkPawlTest>StartParkingPawlTest</ParkPawlTest>
+            <FrontBoostForce>FrontBoostForce</FrontBoostForce>
+            <ParkPawlTestPass>ParkingPawlTestPassed</ParkPawlTestPass>
+            <ParkPawlTestFail>ParkingPawlTestFailed</ParkPawlTestFail>
+            <RetainersUp>RollsUpElevDown</RetainersUp>
+            <RighthandDriveSelected>PLCRHSCableConnect</RighthandDriveSelected>
+            <ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
+            <ServerStateNormal>Normal</ServerStateNormal>
+            <SoftwareVersion>SoftwareID</SoftwareVersion>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <StackLightBlue>StackLightBlue</StackLightBlue>
+            <StackLightGreen>StackLightGreen</StackLightGreen>
+            <StackLightRed>StackLightRed</StackLightRed>
+            <StackLightYellow>StackLightYellow</StackLightYellow>
+            <TestInProgress>TestInProgress</TestInProgress>
+            <TestResultMode>TestResult</TestResultMode>
+            <VehiclePresent>VehiclePresent</VehiclePresent>
+            <YesValue>Pass</YesValue>
+            <Zerospeed>ZerospeedToPLC</Zerospeed>
+            <Pass>green</Pass>
+            <QuickBrakeMode>QuickBrake</QuickBrakeMode>
+            <WheelbaseInPosition>WheelbaseInPosition</WheelbaseInPosition>
+            <IncorrectWBPrompt>WheelbaseIncorrect</IncorrectWBPrompt>
+            <WBPosition01>WheelbasePosition01Selected</WBPosition01>
+            <WBPosition02>WheelbasePosition02Selected</WBPosition02>
+            <WBPosition03>WheelbasePosition03Selected</WBPosition03>
+            <WBPosition04>WheelbasePosition04Selected</WBPosition04>
+            <WBPosition05>WheelbasePosition05Selected</WBPosition05>
+            <WBPosition06>WheelbasePosition06Selected</WBPosition06>
+            <WBPosition07>WheelbasePosition07Selected</WBPosition07>
+            <WBPosition08>WheelbasePosition08Selected</WBPosition08>
+            <WBPosition09>WheelbasePosition09Selected</WBPosition09>
+            <WBPosition10>WheelbasePosition10Selected</WBPosition10>
+            <WBPosition11>WheelbasePosition11Selected</WBPosition11>
+            <WBPosition12>WheelbasePosition12Selected</WBPosition12>
+        </DataTags>
+        <SystemTagsToReset>
+            <VINDisplayBGColor>white</VINDisplayBGColor>
+            <PromptBox1BGColor>white</PromptBox1BGColor>
+            <PromptBox2BGColor>white</PromptBox2BGColor>
+            <EnableCenteringArrows>0</EnableCenteringArrows>
+        </SystemTagsToReset>
+        <VehicleTestStatusUpdates>
+            <BrakeOverallTest>TestNotStarted</BrakeOverallTest>
+        </VehicleTestStatusUpdates>
+        <Parameters>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <IgnoreMachineConditions>True</IgnoreMachineConditions>
+            <ReleaseParkBrakePrompt>ReleaseParkBrake</ReleaseParkBrakePrompt>
+            <ResetCommHardware Values="Yes or No">Yes</ResetCommHardware>
+            <ParkBrakePrepTime Description="Number of ms to wait for the PLC to be setup for park brake test" units="ms">5000</ParkBrakePrepTime>
+            <ParkPawlPrepTime Description="Number of ms to wait for the PLC to be setup for park pawl test" units="ms">5000</ParkPawlPrepTime>
+            <ParkBrakeApplyForce Description="Amount of force to apply to the rollers for the park brake test" units="lbs">250</ParkBrakeApplyForce>
+            <ParkPawlApplyForce Description="Amount of force to apply to the rollers for the park pawl test" units="lbs">250</ParkPawlApplyForce>
+            <MotorLoadingAccelConst Description="Percentage of motor torque to apply to the drive axle proportional to acceleration" Units="%">0.0</MotorLoadingAccelConst>
+            <MotorLoadingSpeedConst Description="Percentage of motor torque to apply to the drive axle proportional to the square of the speed" Units="%">0.0</MotorLoadingSpeedConst>
+            <UsePlcYesNoButtons>Yes</UsePlcYesNoButtons>
+            <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
+            <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
+            <!-- NVH Parameters -->
+            <NvhTargetSpeed Units="MPH">70</NvhTargetSpeed>
+        </Parameters>
+        <Prompts>
+            <SelectCarPower PromptBox="1" Priority="0" Duration="3000">SelectCarPower</SelectCarPower>
+        </Prompts>
+        <FaultList>/Configuration/Components/Common/FaultList.xml</FaultList>
+    </Setup>
+    <Objectives>
+        <Initialize>
+            <TestStep10>Initialize</TestStep10>
+            <TestStep20>MachineReady</TestStep20>
+            <TestStep30>EngageMachine</TestStep30>
+            <TestStep40>ConnectCable</TestStep40>
+            <TestStep50>SelectDriverSide</TestStep50>
+        </Initialize>
+        <InitializeNoCableConnect>
+            <TestStep10>Initialize</TestStep10>
+            <TestStep20>MachineReady</TestStep20>
+            <TestStep30>EngageMachine</TestStep30>
+        </InitializeNoCableConnect>
+        <DriverQuestion>
+            <TestStep1>DriverQuestion</TestStep1>
+        </DriverQuestion>
+        <PromptDriver>
+            <TestStep1>PromptDriver</TestStep1>
+        </PromptDriver>
+        <PromptDriverAlways>
+            <TestStep1>PromptDriverAlways</TestStep1>
+        </PromptDriverAlways>
+        <DriverNumber>
+            <TestStep1>DriverNumber</TestStep1>
+        </DriverNumber>
+        <StackLight>
+            <TestStep1>StackLight</TestStep1>
+        </StackLight>
+        <AccelerateToSpeed>
+            <TestStep1>AccelerateToSpeed</TestStep1>
+        </AccelerateToSpeed>
+        <BrakeToStop>
+            <TestStep1>BrakeToStop</TestStep1>
+        </BrakeToStop>
+        <ConnectCable>
+            <TestStep1>ConnectCable</TestStep1>
+        </ConnectCable>
+        <ParkBrakeTest>
+            <TestStep10>ParkBrake</TestStep10>
+        </ParkBrakeTest>
+        <ParkPawlTest>
+            <TestStep10>ParkPawl</TestStep10>
+        </ParkPawlTest>
+        <ParkBrakePawlTest>
+            <TestStep10>ParkBrakePawl</TestStep10>
+        </ParkBrakePawlTest>
+        <EnableMotorLoading>
+            <EnableMotorLoading/>
+        </EnableMotorLoading>
+        <DisableMotorLoading>
+            <DisableMotorLoading/>
+        </DisableMotorLoading>
+        <FinishUp>
+            <TestStep1>PromptDriverAlways</TestStep1>
+            <TestStep2>FinishUp</TestStep2>
+        </FinishUp>
+        <EngageMachine>
+            <TestStep1>EngageMachine</TestStep1>
+        </EngageMachine>
+        <DisableElectricMotorBoost>
+            <TestStep1>DisableElectricMotorBoost</TestStep1>
+        </DisableElectricMotorBoost>
+        <EnableElectricMotorBoost>
+            <TestStep1>EnableElectricMotorBoost</TestStep1>
+        </EnableElectricMotorBoost>
+
+        <NvhCycle>
+            <TestStep00 AltValue="40kW">PerformNvhCycle</TestStep00>
+            <TestStep05 AltValue="90kW">PerformNvhCycle</TestStep05>
+        </NvhCycle>
+    </Objectives>
+
+
+    <TestSteps>
+        <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1="Launching" Prompt1Priority="0"/>
+        <DisableElectricMotorBoost Result="" Description="Disable axle speed matching" Timeout="0"/>
+        <EnableElectricMotorBoost Result="" Description="Enable axle speed matching" Timeout="0"/>
+        <DriverQuestion Result="" Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
+            <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
+            <SteeringWheelCentered Result="" Timeout="10000" Description="Check if steering wheel is cenetered" Prompt2="SteeringWheelCentered" Prompt2Priority="0" TestResultName="SteeringWheelCentered"/>
+        </DriverQuestion>
+        <PromptDriver Result="" Description="Display A Prompt To The Driver But Do Not Require Driver Input">
+            <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
+            <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
+            <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
+            <PerformingFinishUp Description="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+            <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
+            <PreInitialize Description="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
+        </PromptDriver>
+        <PromptDriverAlways Result="" Description="Display A Prompt To The Driver, Even On Retests, But Do Not Require Driver Input">
+            <SpeedometerWorks Result="" Timeout="5000" Description="Test to determine if the speedometer was functional during the test." Prompt2="CheckSpeedometer" Prompt2Priority="0" TestResultName="SpeedoTest"/>
+            <ShiftToDrive Result="" Timeout="3000" Description="Prompt Driver to Shift To Drive" Prompt2="ShiftToDrive" Prompt2Priority="0" TestResultName="ShiftToDrive"/>
+            <ShiftToReverse Result="" Timeout="3000" Description="Prompt Driver to Shift To Reverse" Prompt2="ShiftToReverse" Prompt2Priority="0" TestResultName="ShiftToReverse"/>
+            <ShiftToNeutral Result="" Timeout="3000" Description="Prompt Driver to Shift To Neutral" Prompt2="ShiftToNeutral" Prompt2Priority="0" TestResultName="ShiftToNeutral"/>
+            <DTRLCheck Description="Prompt the driver to check the Daytime Running Lamps" Timeout="2000" Result="Pass" Prompt2="CheckDaytimeRunningLights" Prompt2Priority="0"/>
+            <PerformingFinishUp Description="" Timeout="3000" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+            <PerformingFinalTesting Description="" Timeout="" Result="" Prompt1="PerformingFinalTesting" Prompt1Priority="0"/>
+            <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>
+            <EmissionsInitialization Description="Display prompt to indicate currently initializing emissions" Timeout="" Result="" Prompt1="EmissionsInitialization" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0"/>
+            <PreInitialize Description="Display the pre-initialize prompt" Timeout="" Result="" Prompt1="PreInitialize" Prompt1Priority="0"/>
+            <DisableTractionControl Description="Instruct the operator to disable the traction control" Result="" Timeout="5000" Prompt1="DisableTractionControl" Prompt1Priority="0"/>
+            <AbsLowSpeedSensorTestPhase Description="Inform operator ABS low speed sensor testing is about to start" Timeout="5000" Result="" Prompt1="AbsSensorTest" Prompt1Priority="0"/>
+            <AbsLowSpeedSensorTestPhaseComplete Description="Inform operator ABS low speed sensor testing is complete" Timeout="5000" Result="" Prompt1="AbsSensorTestComplete" Prompt1Priority="0"/>
+            <AbsStaticTestPhase Description="Inform operator ABS initialization is about to start" Timeout="5000" Result="" Prompt1="AbsStaticTests" Prompt1Priority="0"/>
+            <AbsStaticTestPhaseComplete Description="Inform operator ABS initialization is complete" Timeout="5000" Result="" Prompt1="AbsStaticTestsComplete" Prompt1Priority="0"/>
+            <DriveProfileTestPhase Description="Inform operator drive profile testing is starting" Timeout="5000" Result="" Prompt1="DriveProfileTests" Prompt1Priority="0"/>
+            <DriveProfileTestPhaseComplete Description="Inform operator drive profile testing is starting" Timeout="5000" Result="" Prompt1="DriveProfileTestsComplete" Prompt1Priority="0"/>
+            <AbsTestPhase Description="Inform operator ABS testing is starting" Timeout="5000" Result="" Prompt1="ABSTest" Prompt1Priority="0"/>
+            <AbsTestPhaseComplete Description="Inform operator ABS testing is complete" Timeout="5000" Result="" Prompt1="ABSTestComplete" Prompt1Priority="0"/>
+            <ReverseWarningTestPhase Description="Inform operator Reverse Warning testing is starting" Timeout="5000" Result="" Prompt1="ReverseWarningTest" Prompt1Priority="0"/>
+            <ReverseWarningTestPhaseComplete Description="Inform operator Reverse Warning testing is complete" Timeout="5000" Result="" Prompt1="ReverseWarningTestComplete" Prompt1Priority="0"/>
+            <ReverseTestPhase Description="Inform operator Reverse testing is starting" Timeout="5000" Result="" Prompt1="ReverseTest" Prompt1Priority="0"/>
+            <ReverseTestPhaseComplete Description="Inform operator Reverse testing is complete" Timeout="5000" Result="" Prompt1="ReverseTestComplete" Prompt1Priority="0"/>
+            <ParkBrakeTestPhase Description="Inform operator park brake testing is starting" Timeout="5000" Result="" Prompt1="ParkBrakeTest" Prompt1Priority="0"/>
+            <ParkBrakeTestPhaseComplete Description="Inform operator park brake testing is complete" Timeout="5000" Result="" Prompt1="ParkBrakeTestComplete" Prompt1Priority="0"/>
+            <BrakeBurnishTestPhase Description="Inform operator brake burnish test is starting" Timeout="5000" Result="" Prompt1="BrakeBurnishTest" Prompt1Priority="0"/>
+            <BrakeBurnishTestPhaseComplete Description="Inform operator brake burnish test is starting" Timeout="5000" Result="" Prompt1="BrakeBurnishTestComplete" Prompt1Priority="0"/>
+            <SpeedControlTestPhase Description="Inform operator cruise test is starting" Timeout="5000" Result="" Prompt1="SpeedControlTest" Prompt1Priority="0"/>
+            <SpeedControlTestPhaseComplete Description="Inform operator cruise test is complete" Timeout="5000" Result="" Prompt1="SpeedControlTestComplete" Prompt1Priority="0"/>
+            <AirbagTestPhase Description="Inform operator Airbag testing is starting" Timeout="0" Result="" Prompt1="AirbagTest" Prompt1Priority="0"/>
+            <AirbagTestPhaseComplete Description="Inform operator Airbag testing is complete" Timeout="5000" Result="" Prompt1="AirbagTestComplete" Prompt1Priority="0"/>
+        </PromptDriverAlways>
+        <DriverNumber Result="" Description="Prompt the driver to input their ID and validate" Timeout="0" Prompt1="InputDriverID" Prompt1Priority="0" Validate="Skip" DriverNumberFile="/Configuration/Components/Machine/DriverNumberList.xml" DefaultDriverNumber="T0000xx"/>
+        <StackLight Result="" Description="enable/disable a stack light light" Timeout="10000"/>
+        <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="120000" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
+        <AccelerateToSpeed Result="" Description="Prompt the driver to accelerate to the commanded speed" Timeout="120000" Prompt2="AccelerateToTargetSpeed" Prompt1Priority="0" SpeedTarget=""/>
+        <QuickStop Result="" Description="Command the rollers to stop and verify that Zerospeed is achieved" Timeout="30000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
+        <ConnectCable Result="" Description="Prompt the driver to connect the vehicle cable" Timeout="20000" Prompt1="ConnectCable" Prompt1Priority="0"/>
+        <MachineReady Result="" Description="Wait until the machine is ready to perform a test" Timeout="15000" Prompt1="" Prompt1Priority="" Prompt2="" Prompt2Priority=""/>
+        <ParkBrake Result="" Timeout="10000" Description="Park Brake Test" Prompt1="ShiftToNeutralApplyParkBrake" DriverDelay="3000"/>
+        <ParkPawl Result="" Timeout="10000" Description="Park Pawl Test" Prompt1="ShiftPFootOffBrk" DriverDelay="3000"/>
+        <ParkBrakePawl Result="" Timeout="10000" Description="Combination Park Brake/Park Pawl Test" Prompt1="ShiftToParkApplyParkBrake" DriverDelay="3000"/>
+        <HydraulicParkBrake Result="" Timeout="10000" Description="Hydraulic Park Brake Test" Prompt1="ShiftToNeutralApplyParkBrake" DriverDelay="3000"/>
+        <HydraulicParkPawl Result="" Timeout="10000" Description="Hydraulic Park Pawl Test" Prompt1="ShiftPFootOffBrk" DriverDelay="3000"/>
+        <HydraulicParkBrakePawl Result="" Timeout="10000" Description="Combination Park Brake/Park Pawl Test" Prompt1="ShiftToParkApplyParkBrake" DriverDelay="3000"/>
+        <ElectricParkBrake Result="" Timeout="10000" Description="Electric Park Brake Test" Prompt1="ShiftToNeutralApplyParkBrake" DriverDelay="3000"/>
+        <ElectricParkPawl Result="" Timeout="10000" Description="Electric  Park Pawl Test" Prompt1="ShiftPFootOffBrk" DriverDelay="3000"/>
+        <ElectricParkBrakePawl Result="" Timeout="10000" Description="Combination Park Brake/Park Pawl Test" Prompt1="ShiftToParkApplyParkBrake" DriverDelay="3000"/>
+        <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+        <WaitForWheelbase Result="" Description="Wait for WheelbaseInPosition" Timeout="2000" Prompt2="WheelbaseIncorrect" Prompt2Priority="0"/>
+        <EnableMotorLoading Result="" Description="Apply a load to the drive axle of the vehicle" Timeout="2000"/>
+        <DisableMotorLoading Result="" Description="Disable the loading of the drive axle of the vehicle" Timeout="2000"/>
+        <EngageMachine Result="" Description="Engage the machine" Timeout="2000"/>
+        <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" Timeout="100" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>
+        <PerformNvhCycle Result="" Description="Run NVH Cycle" Timeout="300000" ScanDelay="250"/>
+    </TestSteps>
 </GMMachineComponent>

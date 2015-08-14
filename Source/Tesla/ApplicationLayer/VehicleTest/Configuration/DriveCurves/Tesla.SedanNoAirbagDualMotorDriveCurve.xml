@@ -249,6 +249,16 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase710>
+
+      <!-- NVH Test Cycle -->
+      <TestPhase750 Description="NVH Test Cycle" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Perform NVH Cycle" Result="" Timeout="" Component="Machine">
+                <NvhCycle/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase750>
+
       <!--Brake Finishup-->
       <!-- ABS Clear Faults -->
       <TestPhase849 Description="Clear ABS Faults" Result="" Timeout="">

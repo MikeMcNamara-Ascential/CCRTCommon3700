@@ -2149,7 +2149,28 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		{   // Verify the sensor readings are within tolerance
 			BposSleep(2000);   // Wait for motors to reach final speed
 			vector<float> sensorSpeeds;
-			if(BEP_STATUS_SUCCESS == m_vehicleModule.ReadModuleData("ReadSensorSpeeds", sensorSpeeds))
+			BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+			if(GetParameterBool("ReadWheelSensorsIndividually"))
+			{
+				for(char wheel = LFWHEEL; (wheel <= RRWHEEL) && (BEP_STATUS_SUCCESS == moduleStatus); wheel++)
+				{
+					float wssReading = 0.0;
+					moduleStatus = m_vehicleModule.ReadModuleData("Read"+rollerName[wheel]+"SensorSpeed", wssReading);
+					if(BEP_STATUS_SUCCESS == moduleStatus)
+					{
+						sensorSpeeds.push_back(wssReading);
+					}
+					else
+					{
+						Log(LOG_ERRORS, "Failed to read %s wheel speed sensor ffrom module", rollerName[wheel].c_str());
+					}
+				}
+			}
+			else
+			{
+				moduleStatus = m_vehicleModule.ReadModuleData("ReadSensorSpeeds", sensorSpeeds);
+			}
+			if(BEP_STATUS_SUCCESS == moduleStatus)
 			{
 				if(BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
 				{
@@ -2237,7 +2258,7 @@ string Bosch8TC<ModuleType>::SetEolStatus(string overallResult)
 	else
 	{
 		result = testSkip;
-		Log(LOG_DEV_DATA, "Not setting EOL status oi nthe module");
+		Log(LOG_DEV_DATA, "Not setting EOL status in the module");
 	}
 	Log(LOG_FN_ENTRY, "Bosch8TC::SetEolStatus(result: %s) - Exit", overallResult.c_str());
 	return result;

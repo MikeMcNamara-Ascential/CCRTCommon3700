@@ -1186,6 +1186,10 @@ protected:
     virtual const string RaiseRollsLowerElevators (void);
     virtual const string LowerRollsRaiseElevators (void);
 
+	const string PerformNvhCycle(const string &powerLevel);
+
+
+
 
 private:
 	/**

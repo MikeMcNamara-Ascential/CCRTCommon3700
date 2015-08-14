@@ -334,8 +334,9 @@ const std::string MachineTC::CommandTestStep(const std::string &value)
             else if(!step.compare("VerifyMachineConditions"))
                 status = ValidateMachineConditions(value);
             else if(!step.compare("SetInputServerState"))  status = SetInputServerState(value);
-            else if(step == "RaiseRollsLowerElevators")          status = RaiseRollsLowerElevators();
-            else if(step == "LowerRollsRaiseElevators")          status = LowerRollsRaiseElevators();
+            else if(step == "RaiseRollsLowerElevators")    status = RaiseRollsLowerElevators();
+            else if(step == "LowerRollsRaiseElevators")    status = LowerRollsRaiseElevators();
+			else if(step == "PerformNvhCycle")             status = PerformNvhCycle(value);
             else                                        // else invalid test step
                 status = GenericTC::CommandTestStep(value);
 
@@ -2077,4 +2078,39 @@ const string MachineTC::LowerRollsRaiseElevators (void)
     Log(LOG_FN_ENTRY, "MachineTC::LowerRollsRaiseElevators(): %s\n", status.c_str());
 
     return(status);
+}
+
+//=============================================================================
+const string MachineTC::PerformNvhCycle(const string &powerLevel)
+{
+	string result = BEP_TESTING_STATUS;
+	Log(LOG_FN_ENTRY, "MachineTC::PerformNvhCycle(power level: %s) - Enter", powerLevel.c_str());
+	if(!ShortCircuitTestStep())
+	{
+		if(CheckZeroSpeed())
+		{   // Instruct the operator to select vehicle power level
+			DisplayTimedPrompt(GetPrompt("SelectCarPower"), GetPromptBox("SelectCarPower"), 
+							   GetPromptPriority("SelectCarPower"), GetPromptDuration("SelectCarPower"), powerLevel);
+			// Accelerate to the test speed
+			char buff[32];
+			float targetSpeed = GetParameterFloat("NvhTargetSpeed");
+			string speedRange = CreateMessage(buff, sizeof(buff), "%.2f %.2f", targetSpeed, targetSpeed+5.0);
+			result = AccelerateToTestSpeed(targetSpeed, speedRange, 250, false);
+			// Return to zero speed
+			CheckZeroSpeed();
+		}
+		else
+		{
+			result = testTimeout;
+			Log(LOG_FN_ENTRY, "Timeout waiting for zero speed");
+		}
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping NVH Cycle");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "MachineTC::PerformNvhCycle(power level: %s) - Exit", powerLevel.c_str());
+	return result;
 }

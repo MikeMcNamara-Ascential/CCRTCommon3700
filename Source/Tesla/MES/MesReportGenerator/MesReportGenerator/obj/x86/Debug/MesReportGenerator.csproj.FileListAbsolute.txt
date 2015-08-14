@@ -34,3 +34,6 @@ C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerat
 C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.read.1.tlog
 C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource-ResGen.write.1.tlog
 C:\Ccrt\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\GenerateResource.write.1.tlog
+E:\CCRT\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\bin\Debug\MesReportGenerator.exe.config
+E:\CCRT\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.exe
+E:\CCRT\branches\Common3700\Source\Tesla\MES\MesReportGenerator\MesReportGenerator\obj\x86\Debug\MesReportGenerator.pdb

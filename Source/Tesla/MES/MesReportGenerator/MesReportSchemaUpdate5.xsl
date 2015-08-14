@@ -1753,6 +1753,7 @@
 		</xsl:element>
 	</xsl:template>
 
+    <!--
 	<xsl:template name="BrakeEPBBurnish">
 		<xsl:param name="NAME"/>
 		<xsl:element name="ModuleTest">
@@ -1797,6 +1798,7 @@
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
+    -->
 
 	<xsl:template name="BrakeSwitchTest">
 		<xsl:param name="NAME"/>

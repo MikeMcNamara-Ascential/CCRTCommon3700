@@ -797,6 +797,8 @@ private:
      */
     string WarningLight(void);
 
+	string ControlDynoMode(bool enableDynoMode);
+
     /**
      * Speed delta values that we read from the ABS 
      * module during the base brake test

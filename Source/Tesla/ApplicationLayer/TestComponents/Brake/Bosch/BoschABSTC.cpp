@@ -208,6 +208,8 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(!GetTestStepName().compare("DisableElectricVacuumPump"))   status = DisableElectricVacuumPump();
         else if(!GetTestStepName().compare("LearnPerformanceType"))      status = LearnPerformanceType();
         else if(!GetTestStepName().compare("Delay"))                     status = TestStepDelay();
+		else if(!GetTestStepName().compare("EnableDynoMode"))            status = ControlDynoMode(true);
+		else if(!GetTestStepName().compare("DisableDynoMode"))           status = ControlDynoMode(false);
         // Call the base class to handle the test step
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
@@ -5316,3 +5318,23 @@ string BoschABSTC<ModuleInterface>::RRSensorTest(void)
     return(testResult);
 }
 
+//-------------------------------------------------------------------------------------------------
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::ControlDynoMode(bool enableDynoMode)
+{
+	Log(LOG_FN_ENTRY, "BoschABSTC::ControlDynoMode(enableDynoMode: %s) - Enter", enableDynoMode ? "True" : "False");
+	string result = BEP_TESTING_RESPONSE;
+	if(!ShortCircuitTestStep())
+	{
+		string messageTag = enableDynoMode ? "EnableDynoMode" : "DisableDynoMode";
+		result = (BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule(messageTag)) ? testPass : testFail;
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping control dyno mode");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "BoschABSTC::ControlDynoMode(enableDynoMode: %s) - Exit", enableDynoMode ? "True" : "False");
+	return result;
+}

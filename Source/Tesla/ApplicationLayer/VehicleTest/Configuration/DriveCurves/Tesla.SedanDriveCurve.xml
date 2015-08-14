@@ -1,12 +1,12 @@
 <DriveCurve Description="Drive Curve For The Roadster Test">
    <Components Debug="Off">
-      <Airbag>
+      <!--Airbag>
          <ComponentName>DelphiAirbagTC.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
          <ConfigFile>DelphiAirbagTC.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Airbag</ConfigPath>
          <Debug>Off</Debug>
-      </Airbag>
+      </Airbag-->
       <Brake>
          <ComponentName>BoschAbsTc.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -79,9 +79,9 @@
             <Objective0 Description="Init Brake Component" Result="" Timeout="" Component="Brake">
                <Setup/>
             </Objective0>
-            <Objective1 Description="Initialize Airbag component" Result="" Timeout="" Component="Airbag">
+            <!--Objective1 Description="Initialize Airbag component" Result="" Timeout="" Component="Airbag">
                <AirbagSetup/>
-            </Objective1>
+            </Objective1-->
             <!--Objective2 Description="Initialize Power Steering component" Result="" Timeout="" Component="PowerSteering">
                <EpasSetup/>
             </Objective2-->
@@ -120,16 +120,16 @@
          </ForegroundObjectives>
       </TestPhase210>
       <!--Airbag Testing-->
-      <TestPhase215 Description="Airbag testing" Result="" Timeout="">
+      <!--TestPhase215 Description="Airbag testing" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective1 Description="Airbag Test" Result="" Timeout="" Component="Airbag">
                <AirbagTest/>
             </Objective1>
-            <!--Objective2 Description="OCS Test" Result="" Timeout="" Component="OCS">
+            <Objective2 Description="OCS Test" Result="" Timeout="" Component="OCS">
                <FinishUp/>
-            </Objective2-->
+            </Objective2>
          </ForegroundObjectives>
-      </TestPhase215>
+      </TestPhase215-->
       <!-- Reverse Warning -->
       <!--TestPhase310 Description="Shift to Reverse" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

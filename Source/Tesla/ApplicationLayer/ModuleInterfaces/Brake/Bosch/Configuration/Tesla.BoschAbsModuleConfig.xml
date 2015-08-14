@@ -627,6 +627,20 @@
             <ReplyMessage>GSensorResults</ReplyMessage>
             <ReplyInterpretation>RoutineComplete</ReplyInterpretation>
          </RecordCalibrateResults>
+
+         <EnableDynoMode>
+             <TransmitMessage>RoutineControl</TransmitMessage>
+             <TransmitInterpretation>DynoModeStatus</TransmitInterpretation>
+             <ReplyMessage>StartRoutine</ReplyMessage>
+             <ReplyInterpretation/>
+         </EnableDynoMode>
+         <DisableDynoMode>
+             <TransmitMessage>RoutineControlStop</TransmitMessage>
+             <TransmitInterpretation>DynoModeStatus</TransmitInterpretation>
+             <ReplyMessage>StopRoutine</ReplyMessage>
+             <ReplyInterpretation/>
+         </DisableDynoMode>
+
       </VehicleMessages>
       <TransmitMessages>
          <!--For actuating one valve or for single-corner reduction/recovery-->
@@ -650,6 +664,7 @@
          <ResetModule>0x11,0x03</ResetModule>
          <RoutineResults>0x31,0x03,0x??,0x??</RoutineResults>
          <RoutineControl>0x31,0x01,0x??,0x??</RoutineControl>
+         <RoutineControlStop>0x31,0x02,0x??,0x??</RoutineControlStop>
          <StartRoutine>0x31,0x01,0xF0,0x??,0x??,0x??</StartRoutine>
          <StaticTest>0x31,0x01,0xF0,0x03</StaticTest>
          <StopRoutine>0x31,0x02,0xF0,0x??</StopRoutine>
@@ -686,6 +701,7 @@
          <DefaultSession>0x01</DefaultSession>
          <DisableDiagnosticSpeedLimit>0x00,0x68,0x00,0x00</DisableDiagnosticSpeedLimit>
          <DisableEVP>0x00</DisableEVP>
+         <DynoModeStatus>0xF1,0x50</DynoModeStatus>
          <EnableEVP>0x01</EnableEVP>
          <ElectricalVacuumPump>0xD0,0x0D</ElectricalVacuumPump>
          <EnableDiagnosticSpeedLimit>0x01,0x68,0x00,0x00</EnableDiagnosticSpeedLimit>

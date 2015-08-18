@@ -125,6 +125,11 @@
             RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off"
             AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
 
+        <PlantHostOutbound Name="PlantHostOutbound.qxe" Path="/ServicesLayer/Bin/"
+            ConfigFile="PlantHostOutboundConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0116"
+            RegisteredName="core/PlantHostOutbound" Register="Yes" DemoMode="Off" ConsoleMode="Off"
+            AddressValue="" PortValue="" VerboseMode="">Plant Host Outbound Server</PlantHostOutbound>
+
 
 
 
@@ -155,10 +160,6 @@
 
 
     <DoNotLaunch>
-        <PlantHostOutbound Name="PlantHostOutbound.qxe" Path="/ServicesLayer/Bin/"
-            ConfigFile="PlantHostOutboundConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0116"
-            RegisteredName="core/PlantHostOutbound" Register="Yes" DemoMode="Off" ConsoleMode="Off"
-            AddressValue="" PortValue="" VerboseMode="">Plant Host Outbound Server</PlantHostOutbound>
         <WinCcrtInterface Name="WinCcrtInterface.qxe" Path="/ServicesLayer/Bin/" ConfigFile="WinCcrtInterfaceConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0109" RegisteredName="core/WinCcrtInterface" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
         <TcaseComponent Name="GenericTcaseTest.qxe" Path="/ApplicationLayer/Bin/" ConfigFile="GM.TcaseTC.xml" ConfigPath="/Configuration/Components/TransferCase/" OrderToLaunch="131" RegisteredName="component/GMTcase" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
         <Gen3Interface Name="Gen3Interface.qxe" Path="/ServicesLayer/Bin/" ConfigFile="Gen3InterfaceConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0114" RegisteredName="core/Gen3Interface" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>

@@ -1,0 +1,28 @@
+<DSP80Protocol>
+    <Setup>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>SoundMeter</Name>
+            <BufferSize>10</BufferSize>
+            <CommSize>0</CommSize>
+            <Timeout>500000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>TES1352H</ProcessName>
+            <AdditionalLogFile>/Communication/TES1352H.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <NegativeResponseCodes/>
+    </Setup>
+    <SerialMessages>
+        <VehicleMessages/>
+        <TransmitMessages/>
+        <TransmitInterpretations/>
+        <ReplyMessages/>
+        <ReplyInterpretations/>
+    </SerialMessages>
+</DSP80Protocol>

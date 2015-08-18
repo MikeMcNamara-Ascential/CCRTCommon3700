@@ -1,0 +1,220 @@
+<DSP80Protocol>
+	<Setup>
+		<Communication>
+			<Debug>Off</Debug>
+			<Name>SoundMeter</Name>
+			<BufferSize>10</BufferSize>
+			<CommSize>0</CommSize>
+			<Timeout>500000</Timeout>
+			<Retries>3</Retries>
+		</Communication>
+		<Logging>
+			<Status>Enabled</Status>
+			<ProcessName>DSP80</ProcessName>
+			<AdditionalLogFile>/Communication/DSP80.log</AdditionalLogFile>
+			<Debug>Off</Debug>
+			<LocalEcho>Disabled</LocalEcho>
+			<Verbose>0x1F</Verbose>
+		</Logging>
+		<NegativeResponseCodes>
+			<Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+			<Code_0x21>Busy / Repeat Request</Code_0x21>
+			<Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+		</NegativeResponseCodes>
+		<DataStartIndex>0</DataStartIndex>
+		<DataHeaderLength>35</DataHeaderLength>
+		<CheckSumLength>0</CheckSumLength>
+		<NumberOfRetries>3</NumberOfRetries>
+		<ValidResponseOffset>0x00</ValidResponseOffset>
+		<SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+		<NegativeResponseValue>0x00</NegativeResponseValue>
+		<NegativeResponseCodeIndex>0</NegativeResponseCodeIndex>
+		<ModuleResponseDelay>150</ModuleResponseDelay>
+		<ModuleResponseEndDelay>50</ModuleResponseEndDelay>
+		<ModuleKeepAliveTime>3000</ModuleKeepAliveTime>
+		<KeepAliveResponseRequired>No</KeepAliveResponseRequired>
+		<SwitchMonitorDelay>100</SwitchMonitorDelay>
+	</Setup>
+	<SerialMessages>
+		<VehicleMessages>
+			<ScreenDump>
+				<TransmitMessage>Query</TransmitMessage>
+				<TransmitInterpretation>ScreenDump</TransmitInterpretation>
+				<ReplyMessage>Query</ReplyMessage>
+				<ReplyInterpretation/>
+			</ScreenDump>
+			<ReadBatteryVoltage>
+				<TransmitMessage>Query</TransmitMessage>
+				<TransmitInterpretation>ReadBatteryVoltage</TransmitInterpretation>
+				<ReplyMessage>Query</ReplyMessage>
+            <ReplyInterpretation/>
+			</ReadBatteryVoltage>
+			<ReadInternalTemp>
+				<TransmitMessage>Query</TransmitMessage>
+				<TransmitInterpretation>ReadInternalTemp</TransmitInterpretation>
+				<ReplyMessage>Query</ReplyMessage>
+            <ReplyInterpretation/>
+			</ReadInternalTemp>
+			<Stop>
+				<TransmitMessage>State</TransmitMessage>
+				<TransmitInterpretation>Stop</TransmitInterpretation>
+				<ReplyMessage>State</ReplyMessage>
+				<ReplyInterpretation/>
+			</Stop>
+			<Run>
+				<TransmitMessage>State</TransmitMessage>
+				<TransmitInterpretation>Run</TransmitInterpretation>
+				<ReplyMessage>State</ReplyMessage>
+				<ReplyInterpretation/>
+			</Run>
+			<Reset>
+				<TransmitMessage>State</TransmitMessage>
+				<TransmitInterpretation>Reset</TransmitInterpretation>
+				<ReplyMessage>State</ReplyMessage>
+				<ReplyInterpretation/>
+			</Reset>
+			<A-WeightReset>
+				<TransmitMessage>Weight</TransmitMessage>
+				<TransmitInterpretation>A-WeightReset</TransmitInterpretation>
+				<ReplyMessage>Weight</ReplyMessage>
+				<ReplyInterpretation/>
+			</A-WeightReset>
+			<B-WeightReset>
+				<TransmitMessage>Weight</TransmitMessage>
+				<TransmitInterpretation>B-WeightReset</TransmitInterpretation>
+				<ReplyMessage>Weight</ReplyMessage>
+				<ReplyInterpretation/>
+			</B-WeightReset>
+			<C-WeightReset>
+				<TransmitMessage>Weight</TransmitMessage>
+				<TransmitInterpretation>C-WeightReset</TransmitInterpretation>
+				<ReplyMessage>Weight</ReplyMessage>
+				<ReplyInterpretation/>
+			</C-WeightReset>
+			<FastMode>
+				<TransmitMessage>Detector</TransmitMessage>
+				<TransmitInterpretation>FastMode</TransmitInterpretation>
+				<ReplyMessage>Detector</ReplyMessage>
+				<ReplyInterpretation/>
+			</FastMode>
+			<SlowMode>
+				<TransmitMessage>Detector</TransmitMessage>
+				<TransmitInterpretation>SlowMode</TransmitInterpretation>
+				<ReplyMessage>Detector</ReplyMessage>
+				<ReplyInterpretation/>
+			</SlowMode>
+			<Leq>
+				<TransmitMessage>Detector</TransmitMessage>
+				<TransmitInterpretation>Leq</TransmitInterpretation>
+				<ReplyMessage>Detector</ReplyMessage>
+				<ReplyInterpretation/>
+			</Leq>
+			<Filter31Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter31Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter31Hz>
+			<Filter63Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter63Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter63Hz>
+			<Filter125Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter125Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter125Hz>
+			<Filter250Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter250Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter250Hz>
+			<Filter500Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter500Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter500Hz>
+			<Filter1000Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter1000Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter1000Hz>
+			<Filter2000Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter2000Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter2000Hz>
+			<Filter4000Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter4000Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter4000Hz>
+			<Filter8000Hz>
+				<TransmitMessage>Filter</TransmitMessage>
+				<TransmitInterpretation>Filter8000Hz</TransmitInterpretation>
+				<ReplyMessage>Filter</ReplyMessage>
+				<ReplyInterpretation/>
+			</Filter8000Hz>
+		</VehicleMessages>
+		<TransmitMessages>
+			<Query Command="Q?">0x51,0x??,0x0D,0x0A</Query>
+			<State Command="S?">0x53,0x??,0x0D,0x0A</State>
+			<Weight Command="W?">0x57,0x??,0x0D,0x0A</Weight>
+			<Detector Command="D?">0x44,0x??,0x0D,0x0A</Detector>
+			<Filter Command="F?">0x46,0x??,0x0D,0x0A</Filter>
+		</TransmitMessages>
+		<TransmitInterpretations>
+			<ScreenDump Command="Q0">0x30</ScreenDump>
+			<ReadBatteryVoltage Command="Q1">0x31</ReadBatteryVoltage>
+			<ReadInternalTemp Command="Q2">0x32</ReadInternalTemp>
+			<Stop Command="S0">0x30</Stop>
+			<Run Command="S1">0x31</Run>
+			<Reset Command="S2">0x32</Reset>
+			<A-WeightReset Command="W0">0x30</A-WeightReset>
+			<B-WeightReset Command="W1">0x31</B-WeightReset>
+			<C-WeightReset Command="W2">0x32</C-WeightReset>
+			<FastMode Command="D0">0x30</FastMode>
+			<SlowMode Command="D1">0x31</SlowMode>
+			<Leq Command="D2">0x32</Leq>
+			<Filter31Hz Command="F0">0x30</Filter31Hz>
+			<Filter63Hz Command="F1">0x31</Filter63Hz>
+			<Filter125Hz Command="F2">0x32</Filter125Hz>
+			<Filter250Hz Command="F3">0x33</Filter250Hz>
+			<Filter500Hz Command="F4">0x34</Filter500Hz>
+			<Filter1000Hz Command="F5">0x35</Filter1000Hz>
+			<Filter2000Hz Command="F6">0x36</Filter2000Hz>
+			<Filter4000Hz Command="F7">0x37</Filter4000Hz>
+			<Filter8000Hz Command="F8">0x38</Filter8000Hz>
+		</TransmitInterpretations>
+		<ReplyMessages>
+			<Query Command="Q?">
+				<Reply_00>0x51,0x??,0x0D,0x0A</Reply_00>
+			</Query>
+			<State Command="S?">
+            <Reply_00 Comment="OK">0x4F,0x4B,0x0D,0x0A</Reply_00>
+            <Reply_01 Comment="NA">0x4E,0x41,0x0D,0x0A</Reply_01>
+			</State>
+			<Weight Command="W?">
+            <Reply_00 Comment="OK">0x4F,0x4B,0x0D,0x0A</Reply_00>
+            <Reply_01 Comment="NA">0x4E,0x41,0x0D,0x0A</Reply_01>
+			</Weight>
+			<Detector Command="D?">
+            <Reply_00 Comment="OK">0x4F,0x4B,0x0D,0x0A</Reply_00>
+            <Reply_01 Comment="NA">0x4E,0x41,0x0D,0x0A</Reply_01>
+			</Detector>
+			<Filter Command="F?">
+            <Reply_00 Comment="OK">0x4F,0x4B,0x0D,0x0A</Reply_00>
+            <Reply_01 Comment="NA">0x4E,0x41,0x0D,0x0A</Reply_01>
+			</Filter>
+		</ReplyMessages>
+		<ReplyInterpretations/>
+	</SerialMessages>
+</DSP80Protocol>

@@ -1,0 +1,16 @@
+<SoundLevelFaults>
+   <!-- System Status -->
+   <NoFault Code="0000" Description="No fault detected"/>
+   <SystemStatus Code="0001" Description="System status not correct to perform test"/>
+   <StatusCheckFailure Code="0002" Description="System status not correct to perform test"/>
+   <!-- Communication Failures -->
+   <SystemCommunication Code="0040" Description="Communication failure reading system data"/>
+   <CommunicationFailure Code="0041" Description="Module communication failure"/>
+   <!-- Test Failures -->
+   <SoftwareFailure Code="0081" Description="Software failure detected - Please notify BEP!"/>
+   <TimeoutFailure Code="0090" Description="Test step timeout"/>
+   <TestTimeout Code="0090" Description="Test step timeout"/>
+   <SoundPressureLevelFault  Code="0100" Description="Excessive sound pressure level"/>
+   <InvalidFilterFrequency Code="0101" Description="Invalid octave filter frequency parameter"/>
+   <InvalidFrequencyWeighting Code="0102" Description="Invalid octave filter weighting parameter"/>
+</SoundLevelFaults>

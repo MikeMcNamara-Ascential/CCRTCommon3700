@@ -1,0 +1,141 @@
+<SoundLevelComponent>
+  <Setup>
+    <Name>SoundLevel</Name>
+    <Debug>Off</Debug>
+    <DebugLevel>0</DebugLevel>
+    <ProcessPriority>11</ProcessPriority>
+    <Parameters>
+      <RealSoundPressureLevelMax Description="Maximum allowable sound pressure level" Units="dB">78.0</RealSoundPressureLevelMax>
+      <SoundPressureLevelMax Description="Maximum allowable sound pressure level" Units="dB">200.0</SoundPressureLevelMax>
+      <SoundPressureLevelDuration Description="Total amount of time to sample the sound level" Units="ms">5000</SoundPressureLevelDuration>
+      <SoundPressureLevelSampleInterval Description="Time between consecutive sound meter samples" Units="ms">250</SoundPressureLevelSampleInterval>
+      <ProtocolFile Description="File to read sound level meter protocol from" units="ms">$(FTP_ROOT)/Configuration/Components/SoundLevel/DSP80Protocol.xml</ProtocolFile>
+            <SerialTimeoutTime>1</SerialTimeoutTime>
+    </Parameters>
+    <Prompts>
+      <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+      <CableConnect PromptBox="1" Priority="0">CableDisconnected</CableConnect>
+      <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+    </Prompts>
+    <FaultList>/Configuration/Components/SoundLevel/SoundLevelFaultList.xml</FaultList>
+    <DataTags>
+      <Abort>Abort</Abort>
+      <BoostMode>Boost</BoostMode>
+      <CableConnect>CableConnect</CableConnect>
+      <CustomerRelease>ServerID</CustomerRelease>
+      <DriveAxle>DriveAxle</DriveAxle>
+      <Fail>red</Fail>
+      <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+      <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+      <FrontBoostForce>FrontBoostForce</FrontBoostForce>
+      <IncorrectWBPrompt>WheelbaseIncorrect</IncorrectWBPrompt>
+      <InputServerState>InputServerState</InputServerState>
+      <KeyPress>KeyPress</KeyPress>
+      <LFSpeed>LFSpeed</LFSpeed>
+      <LRSpeed>LRSpeed</LRSpeed>
+      <MachineType>MachineType3600</MachineType>
+      <MachineType3600>1</MachineType3600>
+      <MotorMode>MotorMode</MotorMode>
+      <NormalMode>Normal</NormalMode>
+      <NoValue>Fail</NoValue>
+      <OverallTest>SoundLevelOverallTest</OverallTest>
+      <Pass>green</Pass>
+      <QuickBrakeMode>QuickBrake</QuickBrakeMode>
+      <Rear>Rear</Rear>
+      <RearBoostForce>RearBoostForce</RearBoostForce>
+      <RetainersUp>RollsUpElevDown</RetainersUp>
+      <RFSpeed>RFSpeed</RFSpeed>
+      <RRSpeed>RRSpeed</RRSpeed>
+      <ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
+      <ServerStateNormal>Normal</ServerStateNormal>
+      <SpeedTarget>SpeedTarget</SpeedTarget>
+      <TestInProgress>TestInProgress</TestInProgress>
+      <TestResultMode>TestResult</TestResultMode>
+      <VehiclePresent>VehiclePresent</VehiclePresent>
+      <VIN>VIN</VIN>
+      <WheelbaseInPosition>WheelbaseInPosition</WheelbaseInPosition>
+      <YesValue>Pass</YesValue>
+      <Zerospeed>ZerospeedToPLC</Zerospeed>
+    </DataTags>
+    <SystemTagsToReset/>
+    <ThreadPool>
+      <Debug>Off</Debug>
+      <MinBlockedLimit>2</MinBlockedLimit>
+      <MaxBlockedLimit>4</MaxBlockedLimit>
+      <Increment>2</Increment>
+      <Maximum>50</Maximum>
+    </ThreadPool>
+    <NotificationList>
+      <Debug>Off</Debug>
+      <StartOnCreate>Off</StartOnCreate>
+      <LowWater>1</LowWater>
+      <HighWater>3</HighWater>
+      <Maximum>5</Maximum>
+      <Increment>1</Increment>
+    </NotificationList>
+    <Communication>
+      <Comm>IPC</Comm>
+      <Type>Server</Type>
+      <Name>component/SoundLevel</Name>
+      <Debug>Off</Debug>
+      <BufferSize>1024</BufferSize>
+      <Timeout>0</Timeout>
+    </Communication>
+    <TagList>
+      <SubscribeTags>
+        <Abort/>
+        <Boost/>
+        <CableConnect/>
+        <DriveAxle/>
+        <DriverNumber/>
+        <ForegroundTestInProgress/>
+        <KeyPress/>
+        <MachineType2400/>
+        <MachineType3600/>
+        <MotorMode/>
+        <RollsUpElevDown/>
+        <ServerID/>
+        <TestInProgress/>
+        <VehiclePresent/>
+        <VIN/>
+        <WheelbaseInPosition/>
+        <ZerospeedToPLC/>
+      </SubscribeTags>
+    </TagList>
+    <Logging>
+      <Status>Enabled</Status>
+      <ProcessName>SoundLevel</ProcessName>
+      <AdditionalLogFile Types="/Component/SoundLevelTC or Disabled">/Components/SoundLevelTC.log</AdditionalLogFile>
+      <Debug>Off</Debug>
+      <LocalEcho>Disabled</LocalEcho>
+      <Verbose>0x1F</Verbose>
+    </Logging>
+  </Setup>
+  <Objectives>
+    <Initialize>
+      <TestStep10>Initialize</TestStep10>
+    </Initialize>
+    <StartSoundTest>
+      <TestStep70>StartSoundTest</TestStep70>
+    </StartSoundTest>
+    <StopSoundTest>
+      <TestStep10>StopSoundTest</TestStep10>
+    </StopSoundTest>
+    <SoundPressureLevelTest>
+      <TestStep10>StartSoundTest</TestStep10>
+      <TestStep20>SoundPressureLevelTest</TestStep20>
+      <TestStep30>StopSoundTest</TestStep30>
+    </SoundPressureLevelTest>
+    <FinishUp>
+      <TestStep10>FinishUp</TestStep10>
+    </FinishUp>
+  </Objectives>
+  <TestSteps>
+    <Initialize Description="Initialize the machine for testing" Result="" Timeout="0" Prompt1="" Prompt1Priority="0"/>
+    <FinishUp Description="Machine Component FinishUp Test Step" Result="" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+    <!-- Sound Pressure Level Test steps -->
+    <StartSoundTest Description="Start monitoring the sound pressure" Result="" Timeout="" Prompt1="SoundLevelEvalInProgress"/>
+    <StopSoundTest Description="Stop monitoring the sound pressure and report results" Result="" Timeout="" Prompt1="SoundLevelEvalInProgress"/>
+    <SoundPressureLevelTest Description="Check the result of the sound level measurement" Result="" Timeout="" Prompt1= "ActivateHorn" Prompt2="SoundLevelEvalInProgress"/>
+  </TestSteps>
+</SoundLevelComponent>

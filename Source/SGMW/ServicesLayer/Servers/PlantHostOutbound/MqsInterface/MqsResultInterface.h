@@ -34,6 +34,18 @@ public:
 
 
 protected:
+
+	/**
+	 * Generate the result string to be sent to the host system.
+	 * 
+	 * @param testResults
+	 *               Test result data to be used for generating the result 
+	 *               string for the host system.
+	 * 
+	 * @return Result string to be transmitted to the host system.
+	 */
+	virtual string GenerateHostResultString(const XmlNode *testResults);
+
 	/**
 	 * Store additional items from the config file to complete the
 	 * initialization of the host interface.
@@ -84,6 +96,7 @@ private:
 	const string& FailedTxFileName(const string *fileName = NULL);
 
 	string m_failedTxFileName;
+	XmlNodeMap m_resultMaps;
 };
 
 //-------------------------------------------------------------------------------------------------

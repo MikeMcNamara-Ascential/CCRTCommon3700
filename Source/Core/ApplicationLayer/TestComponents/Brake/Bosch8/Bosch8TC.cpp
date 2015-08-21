@@ -2117,17 +2117,14 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 	{   // Place the motor into speed mode with a commanded speed of zero for starters
 		m_MotorController.Write(COMMAND_SPEED, string("0"), true);
 		m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
-		INT32 startRollerIndex = (axle == FRONT_WHEEL_DRIVE_VALUE) ? LFWHEEL : LRWHEEL;
+		// Note: on a two motor machine, setting axle to front controls the rear axle of the machine
+		INT32 startRollerIndex = (axle == FRONT_WHEEL_DRIVE_VALUE) ? LRWHEEL : LFWHEEL;
 		// Store the original drive axle so it can be restored after we are done
 		string orgDriveAxle = SystemRead(DRIVE_AXLE_TAG);
 		string leftTag = rollerName[startRollerIndex] + "SpeedValue";
 		float leftSpeed = GetParameterFloat(rollerName[startRollerIndex] + "SensorSpeedTarget");
-		float leftMin = GetParameterFloat(rollerName[startRollerIndex] + "SensorSpeedMin");
-		float leftMax = GetParameterFloat(rollerName[startRollerIndex] + "SensorSpeedMax");
 		string rightTag = rollerName[startRollerIndex+1] + "SpeedValue";
 		float rightSpeed = GetParameterFloat(rollerName[startRollerIndex+1] + "SensorSpeedTarget");
-		float rightMin = GetParameterFloat(rollerName[startRollerIndex+1] + "SensorSpeedMin");
-		float rightMax = GetParameterFloat(rollerName[startRollerIndex+1] + "SensorSpeedMax");
 		// Set the correct motors spinning
 		SystemWrite(DRIVE_AXLE_TAG, axle);
 		m_MotorController.Write(leftTag, GetParameter(rollerName[startRollerIndex] + "SensorSpeedTarget"), true);
@@ -2140,7 +2137,7 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 			if(BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
 			{
 				rollersAtSpeed = ((rollerSpeeds[startRollerIndex] >= (leftSpeed - 1.0)) &&
-								  (rollerSpeeds[startRollerIndex] >= (rightSpeed - 1.0)));
+								  (rollerSpeeds[startRollerIndex+1] >= (rightSpeed - 1.0)));
 				Log(LOG_DEV_DATA, "Rollers at speed: %s", rollersAtSpeed ? "True" : "False");
 			}
 			BposSleep(GetTestStepInfoInt("ScanDelay"));
@@ -2174,12 +2171,17 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 			{
 				if(BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
 				{
+					float tolerance = GetParameterFloat("SensorSpeedTolerance");
+					float leftMin = rollerSpeeds[startRollerIndex] * (1.0 - (tolerance / 100.0));
+					float leftMax = rollerSpeeds[startRollerIndex] * (1.0 + (tolerance / 100.0));
+					float rightMin = rollerSpeeds[startRollerIndex+1] * (1.0 - (tolerance / 100.0));
+					float rightMax = rollerSpeeds[startRollerIndex+1] * (1.0 + (tolerance / 100.0));
 					char buff[32];
 					string leftResult = ((leftMin <= sensorSpeeds[startRollerIndex]) && 
 										 (sensorSpeeds[startRollerIndex] <= leftMax)) ? testPass : testFail;
 					string rightResult = ((rightMin <= sensorSpeeds[startRollerIndex+1]) && 
 										  (sensorSpeeds[startRollerIndex+1] <= rightMax)) ? testPass : testFail;
-					string result = ((leftResult == testPass) && (rightResult == testPass)) ? testPass : testFail;
+					result = ((leftResult == testPass) && (rightResult == testPass)) ? testPass : testFail;
 					Log(LOG_DEV_DATA, "Left %s: %s - %.2f [%.2f  %.2f]", 
 						axle.c_str(), leftResult.c_str(), sensorSpeeds[startRollerIndex], leftMin, leftMax);
 					Log(LOG_DEV_DATA, "Right %s: %s - %.2f [%.2f  %.2f]", 

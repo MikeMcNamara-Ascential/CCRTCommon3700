@@ -120,7 +120,7 @@
 
 
 
-        <PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/"
+        <PlantHostInbound Name="SgmwPlantHostInbound.qxe" Path="/ServicesLayer/Bin/"
             ConfigFile="PlantHostInbound.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0115"
             RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off"
             AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>

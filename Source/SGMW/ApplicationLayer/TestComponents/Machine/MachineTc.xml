@@ -119,11 +119,12 @@
 
         <Parameters>
             <AccelerateToTargetSpeedPrompt>AccelerateToTargetSpeed</AccelerateToTargetSpeedPrompt>
+            <BlindSpeedoTest>True</BlindSpeedoTest>
             <BrakeToStopPrompt>BrakeToStop</BrakeToStopPrompt>
             <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
             <DateFormat>%F</DateFormat>
-            <DcxStyleSpeedoTest>1</DcxStyleSpeedoTest>
+            <DcxStyleSpeedoTest>True</DcxStyleSpeedoTest>
             <ForcedAccelerateSpeedStep>10</ForcedAccelerateSpeedStep>
             <ForcedAccelerateSpeedStepDelay>500</ForcedAccelerateSpeedStepDelay>
             <ICMName>mgr/ICM</ICMName>

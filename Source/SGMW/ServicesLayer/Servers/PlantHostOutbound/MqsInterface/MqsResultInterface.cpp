@@ -25,13 +25,48 @@
 #include "MqsResultInterface.h"
 
 //-----------------------------------------------------------------------------
-MqsResultInterface::MqsResultInterface()
+MqsResultInterface::MqsResultInterface() : HostInterface()
 {   // Nothing special to do
 }
 
 //-----------------------------------------------------------------------------
 MqsResultInterface::~MqsResultInterface()
 {   // Nothing special to do
+}
+
+//-----------------------------------------------------------------------------
+string MqsResultInterface::GenerateHostResultString(const XmlNode *testResults)
+{
+	string resultString("");
+	Log(LOG_FN_ENTRY, "MqsResultInterface::GenerateHostResultString() - Enter");
+	for(XmlNodeMapCItr iter = m_resultMaps.begin(); iter != m_resultMaps.end(); iter++)
+	{   // Check if this is a conditional result string
+		XmlNodeMapCItr optionIter = iter->second->getAttributes().find("VehicleOption");
+		bool processResult = false;
+		if(optionIter != iter->second->getAttributes().end())
+		{
+			string vehicleOption = "VehicleBuild/" + optionIter->second->getValue();
+			string optionValue = testResults->getChild(vehicleOption)->getValue();
+			Log(LOG_DEV_DATA, "Vehicle Option: %s, Value: %s", 
+				optionIter->second->getValue().c_str(), optionValue.c_str());
+			XmlNodeMapCItr validValsIter = iter->second->getAttributes().find("ValidOptions");
+			if(validValsIter != iter->second->getAttributes().end())
+			{
+				processResult = strstr(validValsIter->second->getValue().c_str(),optionValue.c_str()) != NULL;
+			}
+		}
+		Log(LOG_DEV_DATA, "Processing result string: %s - %s", 
+			iter->second->getName().c_str(), processResult ? "True" : "False");
+		if(processResult)
+		{   // Load the result map
+			XmlParser parser;
+			const XmlNode *resultMap = parser.ReturnXMLDocument(getenv("USR_ROOT") + iter->second->getValue());
+			INT32 total = 0;
+			resultString += BuildTestResultString(testResults, resultMap->getChildren(), ResultConversions(), total);
+		}
+	}
+	Log(LOG_FN_ENTRY, "MqsResultInterface::GenerateHostResultString() - Exit");
+	return resultString;
 }
 
 //-----------------------------------------------------------------------------
@@ -50,6 +85,16 @@ void MqsResultInterface::LoadAdditionalConfigurationItems(const XmlNode *config)
 	}
 	failedFileName = getenv("USR_ROOT") + failedFileName;
 	FailedTxFileName(&failedFileName);
+	// Get the list of result maps to process
+	try
+	{
+		m_resultMaps.DeepCopy(config->getChild("Setup/ResultTypes")->getChildren());
+	}
+	catch(XmlException &excpt)
+	{
+		m_resultMaps.clear(true);
+		Log(LOG_ERRORS, "Missing result mappings, no results will be transferred to MQS - %s", excpt.GetReason());
+	}
 }
 
 //-----------------------------------------------------------------------------

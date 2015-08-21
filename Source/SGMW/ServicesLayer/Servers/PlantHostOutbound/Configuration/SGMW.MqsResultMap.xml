@@ -6,9 +6,10 @@
     <Field00007 Type="XmlTag">/messagetype</Field00007>
 
     <Field00010 Type="XmlTag">tranid</Field00010>
-    <Field00011 Type="DateTime" Format="%y%m%d" Desc="Start Date">Date</Field00011>
-    <Field00012 Type="DateTime" Format="%H%M%S" Desc="End Time">Time</Field00012>
-    <Field00013 Type="XmlTag">/tranid</Field00013>
+    <Field00011 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" Desc="Full VIN">VIN</Field00011>
+    <Field00012 Type="DateTime" Format="%Y%m%d" Desc="Start Date">Date</Field00012>
+    <Field00013 Type="DateTime" Format="%H%M%S" Desc="End Time">Time</Field00013>
+    <Field00014 Type="XmlTag">/tranid</Field00014>
 
     <Field00015 Type="XmlTag">vin</Field00015>
     <Field00016 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" Desc="Full VIN">VIN</Field00016>
@@ -23,27 +24,31 @@
     <Field00027 Type="XmlTag">/result</Field00027>
 
     <Field00030 Type="XmlTag">checker</Field00030>
-    <Field00031 Type="Detail" DetailNode="DriverNumber" Format="%7.7s" Length="10" DataType="String">MachineDriverNumber</Field00031>
+    <Field00031 Type="Seperator">Y999</Field00031>
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-    <Field00036 Type="Detail" DetailNode="MachineNumber" Format="%s" Length="20" DataType="String">MachineInitialize</Field00036>
+    <Field00036 Type="Seperator">JCX_3</Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-    <Field00041 Type="Seperator">Roll Test</Field00041>
+    <Field00041 Type="Seperator">88_3</Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>
-    <Field00046 Type="Seperator">RBT</Field00046>
+    <Field00046 Type="Seperator">brake</Field00046>
     <Field00047 Type="XmlTag">/trantype</Field00047>
 
     <Field00050 Type="XmlTag">checkendtime</Field00050>
-    <Field00051 Type="DateTime" Format="%H%M%S" Desc="End Time">Time</Field00051>
+    <Field00051 Type="DateTime" Format="%Y/%m/%d %H:%M:%S" Desc="End Time">Time</Field00051>
     <Field00052 Type="XmlTag">/checkendtime</Field00052>
 
 
     <!-- =============  Test Results ============= -->
+
+
+
+    <!-- =============  Base Brake Test Results ============= -->
 
     <!-- Left Front Drag Results -->
     <Field00100 Type="XmlTag">lfdragforce</Field00100>
@@ -202,6 +207,10 @@
     <Field00290 Type="Result" Format="%s">BrakeFrontToRearBalanceTest</Field00290>
     <Field00291 Type="XmlTag">/frontrearbrakebalanceresult</Field00291>
 
+
+
+
+    <!-- =============  ABS Test Results ============= -->
 
     <!-- Left Front ABS Results -->
     <Field00300 Type="ConditionalBlock" Test="BrakeLeftFrontABSRecovery" Result="NotTested" Condition="NotEqual" Format="%s">
@@ -400,6 +409,32 @@
         <Field00137 Type="XmlTag">/rrsensorresult</Field00137>
     </Field00330>
 
+
+    
+    <!-- =============  Speedometer Test Results ============= -->
+
+    <Field00400 Type="XmlTag">spespeedratio</Field00400>
+    <Field00131 Type="Detail" DetailNode="SpeedometerRatio" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearWssTest</Field00131>
+
+
+
+
+    <!-- =============  Soundmeter Test Results ============= -->
+
+
+
+
+    <!-- =============  TPM Test Results ============= -->
+
+
+
+
+    <!-- =============  Cruise Test Results ============= -->
+
+
+
+
+    <!-- =============  DCU Test Results ============= -->
 
 
     <Field99999 Type="XmlTag">/xmldata</Field99999>

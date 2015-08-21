@@ -82,6 +82,7 @@ SET(CORE_FILES_RM_LIST
 	ServicesLayer/Bin/MultiComProxy.qxe
 	ServicesLayer/Bin/NdbInterface.qxe
 	ServicesLayer/Bin/PendantManager.qxe
+	ServicesLayer/Bin/PlantHostInbound.qxe
 	ServicesLayer/Bin/ResultFileCopyHostInterface.qxe
 	ServicesLayer/Bin/SciCommProxy.qxe 
 	ServicesLayer/Bin/SciIsoMuxMgr.qxe

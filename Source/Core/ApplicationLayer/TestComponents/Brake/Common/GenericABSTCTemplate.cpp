@@ -1940,12 +1940,13 @@ string GenericABSTCTemplate<VehicleModuleType>::EvaluateABS(void)
                 }
                 // Perform the valve cross check
                 BEP_STATUS_TYPE valveCrossStatus;
-                if(okayToRunAnalyzeValveCross)
+                if(okayToRunAnalyzeValveCross && !GetParameterBool("SkipValveCross"))
                 {
                     valveCrossStatus = AnalyzeValveCross();
                 }
                 else
                 {
+					Log(LOG_DEV_DATA, "Skipping valve cross analysis");
                     valveCrossStatus = BEP_STATUS_SKIP;
                 }
                 // Translate the status to a result

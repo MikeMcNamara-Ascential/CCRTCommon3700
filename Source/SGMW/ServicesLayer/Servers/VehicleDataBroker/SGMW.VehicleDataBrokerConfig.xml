@@ -100,6 +100,7 @@
                 <VIN DataType="string">1C3AY75S65A100030</VIN>
                 <VINBGColor DataType="color">white</VINBGColor>
                 <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
+                <ZTSCode DataType="string">VS Number</ZTSCode>
             </PublishTags>
         </TagList>
         <ActiveVehicleData>

@@ -64,6 +64,7 @@
                     <ResultMap>/Configuration/Servers/MqsResultMap.xml</ResultMap>
                     <FailedResultTransmitFile>/TestResults/FailedTransmits.txt</FailedResultTransmitFile>
                     <MessageID>0x13</MessageID>
+                    <SkipPerformAbortCheck>True</SkipPerformAbortCheck>
                     <TestResultConversion>
                         <Pass>Pass</Pass>
                         <Fail>Fail</Fail>
@@ -72,6 +73,17 @@
                         <TestInProgress>Abrt</TestInProgress>
                         <Timeout>Fail</Timeout>
                     </TestResultConversion>
+
+                    <ResultTypes>
+                        <AbsResults VehicleOption="Brake" ValidOptions="Bosch 9 CAN,Bosch 9 K-Line">/Configuration/Servers/MqsAbsResultMap.xml</AbsResults>
+                        <SoundLevelResults>/Configuration/Servers/MqsSoundLevelResultMap.xml</SoundLevelResults>
+                        <SpeedometerResults>/Configuration/Servers/MqsSpeedometerResultMap.xml</SpeedometerResults>
+                        <!--
+                        <CruiseResults VehicleOption="SpeedControl" ValidOptions="Equipped">/Configuration/Servers/MqsCruiseResultMap.xml</CruiseResults>
+                        <TpmResults VehicleOption="TPM" ValidOptions="Equipped">/Configuration/Servers/MqsTpmResultMap.xml</TpmResults>
+                        -->
+                    </ResultTypes>
+
                     <ComponentNameMapping/>
                     <DataTags>
                         <OverallTest>OverallTest</OverallTest>

@@ -1170,7 +1170,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateABS(void)
 						wheelReduxResults[wheelIndex].c_str(), wheelRecovResults[wheelIndex].c_str());
 				}
 				// Perform the valve cross check
-				if(!overallRedux.compare(testPass) && !overallRecov.compare(testPass))
+				if(!overallRedux.compare(testPass) && !overallRecov.compare(testPass) && !GetParameterBool("SkipValveCross"))
 				{
 					valveCrossStatus = AnalyzeValveCross();
 				}

@@ -210,7 +210,7 @@ string AisinTransmissionTC<VehicleModuleType>::ShiftLeverTest(void)
             SetStartTime();
             string prndlPos(iter->second->getAttribute("Value")->getValue());
             string posResult;
-            if(iter->second->getValue().compare(testPass))
+            if(iter->second->getValue().compare(testPass) || GetParameterBool("AlwaysPerformShiftLeverTest"))
             {
                 posResult = RequestLeverShift(prndlPos, "ShiftTo"+prndlPos) ? testPass : testFail;
             }

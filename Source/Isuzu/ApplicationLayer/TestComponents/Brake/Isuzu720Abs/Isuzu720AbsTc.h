@@ -139,6 +139,12 @@ protected:
      */
     virtual INT32 ValidateParkBrakeForce(INT32 roller, float average);
 
+	string PreRollBrakePedalPrime(void);
+
+	string AbsPrime(void);
+
+
+
 private:
     /**
      * Store the original drive axle prior to switching so it can be restored.

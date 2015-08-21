@@ -196,6 +196,9 @@
             <ICMName>mgr/ICM</ICMName>
             <IgnoreMachineConditions>No</IgnoreMachineConditions>
             <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+            <AbsPrimeCycles>3</AbsPrimeCycles>
+            <!-- Pre Roll Brake Press Parameters -->
+            <PreRollBrakePresses>5</PreRollBrakePresses>
             <!-- Part Number Parameters -->
             <AbortOnPartMismatch>No</AbortOnPartMismatch>
             <BypassPartNumberValidation>No</BypassPartNumberValidation>
@@ -302,8 +305,10 @@
         <FaultList>/Configuration/Components/Brake/BrakeFaultList.xml</FaultList>
         <IgnoreFaults/>
         <Prompts>
+            <AbsPrime PromptBox="1" Priority="0">AbsPrime</AbsPrime>
             <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
             <ApplyBrake PromptBox="2" Priority="0">ApplyBrake</ApplyBrake>
+            <ApplyBrake1 PromptBox="1" Priority="0">ApplyBrake</ApplyBrake1>
             <ParkBrakeBurnish PromptBox="2" Priority="0">ParkBrakeBurnish</ParkBrakeBurnish>
             <ApplyParkBrakeClicks PromptBox="2" Priority="0">ApplyParkBrakeClicks</ApplyParkBrakeClicks>
             <BrakeBurnish PromptBox="1" Priority="0">BrakeBurnish</BrakeBurnish>
@@ -314,6 +319,7 @@
             <FootOffBrake PromptBox="2" Priority="0">FootOffBrake</FootOffBrake>
             <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
             <ReleaseParkBrake PromptBox="2" Priority="0" Duration="5000">ReleaseParkBrake</ReleaseParkBrake>
+            <ReleaseParkBrake1 PromptBox="1" Priority="0" Duration="5000">FootOffBrake</ReleaseParkBrake1>
             <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
             <ZeroSpeed PromptBox="1" Priority="0">ZeroSpeed</ZeroSpeed>
         </Prompts>
@@ -375,8 +381,17 @@
             <TestStep30>EnterDiagnosticMode</TestStep30>
             <TestStep35>CheckPartNumber</TestStep35>
             <TestStep40>DisableDiagnosticSpeedLimit</TestStep40>
-            <TestStep90>StartModuleKeepAlive</TestStep90>
+            <TestStep45>StartModuleKeepAlive</TestStep45>
+            <TestStep50>PreRollBrakePedalPrime</TestStep50>
         </StaticChecks>
+        <PrimeAbs>
+            <TestStep00>EnterDiagnosticMode</TestStep00>
+            <TestStep05>DisableDiagnosticSpeedLimit</TestStep05>
+            <TestStep10>StartModuleKeepAlive</TestStep10>
+            <TestStep15>PrimeAbs</TestStep15>
+            <TestStep20>EnterNormalMode</TestStep20>
+            <TestStep25>StopModuleKeepAlive</TestStep25>
+        </PrimeAbs>
     </Objectives>
     <TestSteps>
         <AccelerateToBrakeSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
@@ -387,7 +402,7 @@
         <AnalyzeDynamicParkBrake Result="Not Tested" Timeout="500" Description="Analyze park brake results" AbortIfFailed="False"/>
         <BrakeSwitchOffTest Result="Not Tested" Timeout="3000" Description="Verify the brake switch is in the off position" ScanDelay="100" AbortIfFailed="False"/>
         <BrakeSwitchOnTest Result="Not Tested" Timeout="3000" Description="Verify the brake switch is in the on position" ScanDelay="100" AbortIfFailed="False"/>
-      <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" AbortIfFailed="True" StartBrakeSampleSpeed="67" EndBrakeSampleSpeed="10" BrakeDomain="0 1000" BrakeTarget="350 800"/>
+        <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" AbortIfFailed="True" StartBrakeSampleSpeed="67" EndBrakeSampleSpeed="10" BrakeDomain="0 1000" BrakeTarget="350 800"/>
         <CheckPartNumber Result="Not Tested" Timeout="500" Description="Verify the module part number" AbortIfFailed="False"/>
         <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
         <CommTest Result="Not Tested" Timeout="100" Description="Eric Testing" AbortIfFailed="False"/>
@@ -415,6 +430,8 @@
         <ValveFiringTest Result="Not Tested" Timeout="10000" Description="Fire each ABS valve" Prompt1="MaintainBrake" AbortIfFailed="False"/>
         <Coast Result="" Timeout="45000" Description="Coast down to speed" SpeedTarget="62 67" Prompt1="RemoveFootFromAccelerator" Prompt2="ShiftToNeutral" AbortIfFailed="False" CoastEndSpeed="65" ScanDelay="500"/>
         <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
-      <BrakeToThreshhold Result="Not Tested" Timeout="10000" Description="Pre ABS start braking to min threshhold" Prompt1="BrakeModeratelyInGreenBand" AbortIfFailed="True" BrakeDomain="0 1000" BrakeTarget="200 800" MinimumThreshholdForce="200"/>
+        <BrakeToThreshhold Result="Not Tested" Timeout="10000" Description="Pre ABS start braking to min threshhold" Prompt1="BrakeModeratelyInGreenBand" AbortIfFailed="True" BrakeDomain="0 1000" BrakeTarget="200 800" MinimumThreshholdForce="200"/>
+        <PreRollBrakePedalPrime Result="" Timeout="60000" Description="Pre-roll brake pedal readiness" ScanDelay="250"/>
+        <PrimeAbs Result="" Timeout="30000" Description="Prime ABS system" ScanDelay="250"/>
     </TestSteps>
 </Isuzu720AbsTc>

@@ -165,6 +165,7 @@
                 Comment="Utility File Part Number From Static test station">24242068</UtilityFileConstantPartNumber>
 
             <!-- PRNDL Parameters -->
+            <AlwaysPerformShiftLeverTest>True</AlwaysPerformShiftLeverTest>
             <PrndlPositions>
                 <Position0 Value="P"/>
                 <Position1 Value="R"/>
@@ -175,7 +176,7 @@
                 <Position6 Value="1"/>
             </PrndlPositions>
             <SuccessiveLeverReadMinimum TestSteps="ShiftLeverTest"
-                Comment="Number of times shift lever must be seen in the current position">4</SuccessiveLeverReadMinimum>
+                Comment="Number of times shift lever must be seen in the current position">2</SuccessiveLeverReadMinimum>
             <SuccessiveLeverReadDelay Units="ms" TestSteps="ShiftLeverTest"
                 Comment="Amount of time to wait between consecutive shift lever reads">500</SuccessiveLeverReadDelay>
 
@@ -264,6 +265,8 @@
         <StaticChecks>
             <TestStep05>CheckVIN</TestStep05>
             <TestStep10>CheckPartNumbers</TestStep10>
+            <TestStep15>ShiftLeverTest</TestStep15>
+            <TestStep20>ShiftLeverTest</TestStep20>
             <!-- TestStep15>ReadFaults</TestStep15 -->
         </StaticChecks>
 
@@ -303,7 +306,7 @@
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read faults from the TCM" AlwaysPerform="True"
             AbortIfFailed="False"/>
         <Setup Result="Not Tested" Timeout="500" Description="Setup the test" AlwaysPerform="True" AbortIfFailed="False"/>
-        <ShiftLeverTest Result="Not Tested" Timeout="10000" Description="Check shift lever" AlwaysPerform="False"
+        <ShiftLeverTest Result="Not Tested" Timeout="10000" Description="Check shift lever" AlwaysPerform="True"
             AbortIfFailed="True"/>
         <StartFaultLimpInMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="True"
             Description="Start the Fault monitor and Limp-In monitor"/>

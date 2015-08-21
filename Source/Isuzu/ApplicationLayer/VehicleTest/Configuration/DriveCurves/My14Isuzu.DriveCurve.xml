@@ -61,13 +61,22 @@
         </TestPhase000>
 
         <!-- Perform module and test component setup -->
-        <TestPhase005 Description="Wait for engine running" Result="" Timeout="">
+        <TestPhase001 Description="Wait for engine running" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective00 Description="Wait for engine running" Result="" Timeout="" Component="Emissions">
                     <EngineRunning/>
                 </Objective00>
             </ForegroundObjectives>
-        </TestPhase005>
+        </TestPhase001>
+
+        <TestPhase002 Description="ABS Pump Prime" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="ABS Prime" Result="" Timeout="" Component="Brakes">
+                    <PrimeAbs/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase002>
+
         <TestPhase006 Description="Prompt operator that modules are initializing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective00 Description="Prompt operator stuff is happening" Result="" Timeout="" Component="Machine">
@@ -88,16 +97,15 @@
                 </Objective00>
             </ForegroundObjectives>
         </TestPhase008>
-        <TestPhase010 Description="Perform module initialization" Result="" Timeout="">
+
+        <TestPhase009 Description="Key Cycle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective05 Description="Wait for engine temperature" Result="" Timeout="" Component="Emissions">
-                    <EngineWarmUp/>
-                </Objective05>
                 <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
                     <StaticChecks/>
                 </Objective15>
             </ForegroundObjectives>
-        </TestPhase010>
+        </TestPhase009>
+
         <TestPhase015 Description="Turn on Speed Control" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective00 Description="Initialize the transmission test" Result="" Timeout="" Component="Transmission">
@@ -108,13 +116,20 @@
                 </Objective10>
             </ForegroundObjectives>
         </TestPhase015>
-        <TestPhase020 Description="Transmission shift lever test" Result="" Timeout="">
+        <TestPhase016 Description="Perform module initialization" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="Wait for engine temperature" Result="" Timeout="" Component="Emissions">
+                    <EngineWarmUp/>
+                </Objective05>
+            </ForegroundObjectives>
+        </TestPhase016>
+        <!--TestPhase020 Description="Transmission shift lever test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective10 Description="PRNDL check" Result="" Timeout="" Component="Transmission">
                     <ShiftLeverTest/>
                 </Objective10>
             </ForegroundObjectives>
-        </TestPhase020>
+        </TestPhase020-->
 
         <!-- Perform reverse and low speed driving tests -->
         <TestPhase100 Description="Reverse test" Result="" Timeout="">

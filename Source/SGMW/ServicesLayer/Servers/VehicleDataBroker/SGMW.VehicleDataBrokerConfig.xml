@@ -59,6 +59,7 @@
                 <BrakeTarget DataType="range" Units="LBF">0 0</BrakeTarget>
                 <BrakeType DataType="string">Unspecified</BrakeType>
                 <BrakeTypeBGColor DataType="color">white</BrakeTypeBGColor>
+                <Cruise DataType="string">No</Cruise>
                 <CruiseInstalled DataType="bool">No</CruiseInstalled>
                 <CruiseInstalledBGColor DataType="color">white</CruiseInstalledBGColor>
                 <Diesel DataType="bool">No</Diesel>
@@ -66,6 +67,7 @@
                 <DiscBrakes DataType="bool">No</DiscBrakes>
                 <DiscBrakesBGColor DataType="color">white</DiscBrakesBGColor>
                 <DriveAxle DataType="string">Front</DriveAxle>
+                <EngineType DataType="string">1.5L</EngineType>
                 <FourWD DataType="bool">No</FourWD>
                 <FourWDBGColor DataType="color">white</FourWDBGColor>
                 <FrontWD DataType="bool">No</FrontWD>
@@ -97,6 +99,7 @@
                 <VehicleTypeBGColor DataType="color">white</VehicleTypeBGColor>
                 <VehicleTypeImg DataType="string">FWD</VehicleTypeImg>
                 <VehicleTypeNumeric DataType="int">0</VehicleTypeNumeric>
+                <VCNumber DataType="string">??</VCNumber>
                 <VIN DataType="string">1C3AY75S65A100030</VIN>
                 <VINBGColor DataType="color">white</VINBGColor>
                 <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>

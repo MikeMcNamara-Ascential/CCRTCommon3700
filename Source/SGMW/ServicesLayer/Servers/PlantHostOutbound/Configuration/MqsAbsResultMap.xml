@@ -1,0 +1,431 @@
+<MqsAbsResultMap>
+    <Field00000 Type="XmlTag">xmldata</Field00000>
+
+    <!-- =============  Header Data ============= -->
+
+
+    <Field00005 Type="XmlTag">messagetype</Field00005>
+    <Field00006 Type="Separator">checkUpload</Field00006>
+    <Field00007 Type="XmlTag">/messagetype</Field00007>
+
+    <Field00010 Type="XmlTag">tranid</Field00010>
+    <Field00011 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" Desc="Full VIN">VIN</Field00011>
+    <Field00012 Type="DateTime" Format="%Y%m%d" Desc="Start Date">Date</Field00012>
+    <Field00013 Type="DateTime" Format="%H%M%S" Desc="End Time">Time</Field00013>
+    <Field00014 Type="XmlTag">/tranid</Field00014>
+
+    <Field00015 Type="XmlTag">vin</Field00015>
+    <Field00016 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" Desc="Full VIN">VIN</Field00016>
+    <Field00017 Type="XmlTag">/vin</Field00017>
+
+    <Field00020 Type="XmlTag">standarversion</Field00020>
+    <Field00021 Type="Detail" DetailNode="Version" Format="%s" Length="27" DataType="String">MachineInitialize</Field00021>
+    <Field00022 Type="XmlTag">/standarversion</Field00022>
+
+    <Field00025 Type="XmlTag">result</Field00025>
+    <Field00026 Type="Result" Format="%-1.1s" Length="1" DataType="String" Desc="Overall Result">OverallTest</Field00026>
+    <Field00027 Type="XmlTag">/result</Field00027>
+
+    <Field00030 Type="XmlTag">checker</Field00030>
+    <Field00031 Type="Separator">Y999</Field00031>
+    <Field00032 Type="XmlTag">/checker</Field00032>
+
+    <Field00035 Type="XmlTag">lineid</Field00035>
+    <Field00036 Type="Separator">JCX_D</Field00036>
+    <Field00037 Type="XmlTag">/lineid</Field00037>
+
+    <Field00040 Type="XmlTag">stationname</Field00040>
+    <Field00041 Type="Separator">85.2_D</Field00041>
+    <Field00042 Type="XmlTag">/stationname</Field00042>
+
+    <Field00045 Type="XmlTag">trantype</Field00045>
+    <Field00046 Type="Separator">ABS</Field00046>
+    <Field00047 Type="XmlTag">/trantype</Field00047>
+
+    <Field00050 Type="XmlTag">checkendtime</Field00050>
+    <Field00051 Type="DateTime" Format="%Y/%m/%d %H:%M:%S" Desc="End Time">Time</Field00051>
+    <Field00052 Type="XmlTag">/checkendtime</Field00052>
+
+
+
+
+    <!-- =============  ABS Test Results ============= -->
+
+    <!-- General Checks -->
+
+    <Field00100 Type="XmlTag">ecuid</Field00100>
+    <Field00101 Type="Separator">NA</Field00101>
+    <Field00102 Type="XmlTag">/ecuid</Field00102>
+
+    <Field00105 Type="XmlTag">absdtc</Field00105>
+    <Field00106 Type="ConditionalBlock" Test="BrakeReadFaults" Result="Pass" Condition="Equal" Format="%s">
+        <Field00101 Type="Separator">NA</Field00101>
+    </Field00106>
+    <Field00107 Type="ConditionalBlock" Test="BrakeReadFaults" Result="Pass" Condition="NotEqual" Format="%s">
+        <Field00106 Type="DTC" MaximumDtcsToReport="1" MapComponentNames="No" Component="Brake" ReportParentNodeDtc="No">
+            <Field015 Type="DtcAttribute" Format="%-10.10s" Length="10" DataType="String">DTCCode</Field015>
+        </Field00106>
+    </Field00107>
+    <Field00108 Type="XmlTag">/absdtc</Field00108>
+
+    <Field00110 Type="XmlTag">absdtccheck</Field00110>
+        <Field00111 Type="Result" Format="%4s" Length="4" DataType="String">BrakeReadFaults</Field00111>
+    <Field00112 Type="XmlTag">/absdtccheck</Field00112>
+
+    <Field00115 Type="XmlTag">pedal</Field00115>
+    <Field00116 Type="Separator">on</Field00116>
+    <Field00117 Type="XmlTag">/pedal</Field00117>
+
+    <Field00120 Type="XmlTag">pedalresult</Field00120>
+    <Field00121 Type="Separator">NA</Field00121>
+    <Field00122 Type="XmlTag">/pedalresult</Field00122>
+
+    <Field00125 Type="XmlTag">batteryvoltage</Field00125>
+    <Field00126 Type="Separator">NA</Field00126>
+    <Field00127 Type="XmlTag">/batteryvoltage</Field00127>
+
+    <Field00130 Type="XmlTag">batteryvoltageresult</Field00130>
+    <Field00131 Type="Separator">NA</Field00131>
+    <Field00132 Type="XmlTag">/batteryvoltageresult</Field00132>
+
+
+
+    <!-- Wheel Speed Sensor Results -->
+    <Field00200 Type="XmlTag">flspeed</Field00200>
+    <Field00201 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontWssTest</Field00201>
+    <Field00202 Type="XmlTag">/flspeed</Field00202>
+
+    <Field00205 Type="XmlTag">flspeedresult</Field00205>
+    <Field00206 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftFrontWssTest</Field00206>
+    <Field00207 Type="XmlTag">/flspeedresult</Field00207>
+
+    <Field00210 Type="XmlTag">frspeed</Field00210>
+    <Field00211 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontWssTest</Field00211>
+    <Field00212 Type="XmlTag">/frspeed</Field00212>
+
+    <Field00215 Type="XmlTag">frspeedresult</Field00215>
+    <Field00216 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightFrontWssTest</Field00216>
+    <Field00217 Type="XmlTag">/frspeedresult</Field00217>
+
+    <Field00220 Type="XmlTag">rlspeed</Field00220>
+    <Field00221 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearWssTest</Field00221>
+    <Field00222 Type="XmlTag">/rlspeed</Field00222>
+
+    <Field00225 Type="XmlTag">rlspeedresult</Field00225>
+    <Field00226 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftRearWssTest</Field00226>
+    <Field00227 Type="XmlTag">/rlspeedresult</Field00227>
+
+    <Field00230 Type="XmlTag">rrspeed</Field00230>
+    <Field00231 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearWssTest</Field00231>
+    <Field00232 Type="XmlTag">/rrspeed</Field00232>
+
+    <Field00235 Type="XmlTag">rrspeedresult</Field00235>
+    <Field00236 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightRearWssTest</Field00236>
+    <Field00237 Type="XmlTag">/rrspeedresult</Field00237>
+
+
+    <!-- ABS Results -->
+    <Field00300 Type="ConditionalBlock" Test="BrakeLeftFrontABSRecovery" Result="NotTested" Condition="NotEqual" Format="%s">
+        <!-- LF ABS Reduction/Recovery Results -->
+        <Field00300 Type="XmlTag">flvalvedecreasemax</Field00300>
+        <Field00301 Type="Detail" DetailNode="LeftFrontReductionMinParameter" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontABSReduction</Field00301>
+        <Field00302 Type="XmlTag">/flvalvedecreasemax</Field00302>
+
+        <Field00305 Type="XmlTag">flvalvedecreasemin</Field00305>
+        <Field00306 Type="Separator">0.0</Field00306>
+        <Field00307 Type="XmlTag">/flvalvedecreasemin</Field00307>
+
+        <Field00310 Type="XmlTag">flvalvedecreaseratio</Field00310>
+        <Field00311 Type="Detail" DetailNode="LeftFrontABSReductionPercent" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontABSReduction</Field00311>
+        <Field00312 Type="XmlTag">/flvalvedecreaseratio</Field00312>
+
+        <Field00315 Type="XmlTag">flvalvedecreaseresult</Field00315>
+        <Field00316 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftFrontABSReduction</Field00316>
+        <Field00317 Type="XmlTag">/flvalvedecreaseresult</Field00317>
+
+        <Field00320 Type="XmlTag">flvalveincreasemax</Field00320>
+        <Field00321 Type="Separator">100.0</Field00321>
+        <Field00322 Type="XmlTag">/flvalveincreasemax</Field00322>
+
+        <Field00325 Type="XmlTag">flvalveincreasemin</Field00325>
+        <Field00326 Type="Detail" DetailNode="LeftFrontRecoveryMinPercent" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontABSRecovery</Field00326>
+        <Field00327 Type="XmlTag">/flvalveincreasemin</Field00327>
+
+        <Field00330 Type="XmlTag">flvalveincreaseratio</Field00330>
+        <Field00331 Type="Detail" DetailNode="LeftFrontABSRecoveryValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontABSRecovery</Field00331>
+        <Field00332 Type="XmlTag">/flvalveincreaseratio</Field00332>
+
+        <Field00335 Type="XmlTag">flvalveincreaseresult</Field00335>
+        <Field00336 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftFrontABSRecovery</Field00336>
+        <Field00337 Type="XmlTag">/flvalveincreaseresult</Field00337>
+
+        <!-- RF ABS Reduction/Recovery Results -->
+        <Field00400 Type="XmlTag">frvalvedecreasemax</Field00400>
+        <Field00401 Type="Detail" DetailNode="RightFrontReductionMinParameter" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontABSReduction</Field00401>
+        <Field00402 Type="XmlTag">/frvalvedecreasemax</Field00402>
+
+        <Field00405 Type="XmlTag">frvalvedecreasemin</Field00405>
+        <Field00406 Type="Separator">0.0</Field00406>
+        <Field00407 Type="XmlTag">/frvalvedecreasemin</Field00407>
+
+        <Field00410 Type="XmlTag">frvalvedecreaseratio</Field00410>
+        <Field00411 Type="Detail" DetailNode="RightFrontABSReductionPercent" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontABSReduction</Field00411>
+        <Field00412 Type="XmlTag">/frvalvedecreaseratio</Field00412>
+
+        <Field00415 Type="XmlTag">frvalvedecreaseresult</Field00415>
+        <Field00416 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightFrontABSReduction</Field00416>
+        <Field00417 Type="XmlTag">/frvalvedecreaseresult</Field00417>
+
+        <Field00420 Type="XmlTag">frvalveincreasemax</Field00420>
+        <Field00421 Type="Separator">100.0</Field00421>
+        <Field00422 Type="XmlTag">/frvalveincreasemax</Field00422>
+
+        <Field00425 Type="XmlTag">frvalveincreasemin</Field00425>
+        <Field00426 Type="Detail" DetailNode="RightFrontRecoveryMinPercent" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontABSRecovery</Field00426>
+        <Field00427 Type="XmlTag">/frvalveincreasemin</Field00427>
+
+        <Field00430 Type="XmlTag">frvalveincreaseratio</Field00430>
+        <Field00431 Type="Detail" DetailNode="RightFrontABSRecoveryValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontABSRecovery</Field00431>
+        <Field00432 Type="XmlTag">/frvalveincreaseratio</Field00432>
+
+        <Field00435 Type="XmlTag">frvalveincreaseresult</Field00435>
+        <Field00436 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightFrontABSRecovery</Field00436>
+        <Field00437 Type="XmlTag">/frvalveincreaseresult</Field00437>
+
+
+        <!-- LR ABS Reduction/Recovery Results -->
+        <Field00500 Type="XmlTag">rlvalvedecreasemax</Field00500>
+        <Field00501 Type="Detail" DetailNode="LeftRearReductionMinParameter" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearABSReduction</Field00501>
+        <Field00502 Type="XmlTag">/rlvalvedecreasemax</Field00502>
+
+        <Field00505 Type="XmlTag">rlvalvedecreasemin</Field00505>
+        <Field00506 Type="Separator">0.0</Field00506>
+        <Field00507 Type="XmlTag">/rlvalvedecreasemin</Field00507>
+
+        <Field00510 Type="XmlTag">rlvalvedecreaseratio</Field00510>
+        <Field00511 Type="Detail" DetailNode="LeftRearABSReductionPercent" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearABSReduction</Field00511>
+        <Field00512 Type="XmlTag">/rlvalvedecreaseratio</Field00512>
+
+        <Field00515 Type="XmlTag">rlvalvedecreaseresult</Field00515>
+        <Field00516 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftRearABSReduction</Field00516>
+        <Field00517 Type="XmlTag">/rlvalvedecreaseresult</Field00517>
+
+        <Field00520 Type="XmlTag">rlvalveincreasemax</Field00520>
+        <Field00521 Type="Separator">100.0</Field00521>
+        <Field00522 Type="XmlTag">/rlvalveincreasemax</Field00522>
+
+        <Field00525 Type="XmlTag">rlvalveincreasemin</Field00525>
+        <Field00526 Type="Detail" DetailNode="LeftRearRecoveryMinPercent" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearABSRecovery</Field00526>
+        <Field00527 Type="XmlTag">/rlvalveincreasemin</Field00527>
+
+        <Field00530 Type="XmlTag">rlvalveincreaseratio</Field00530>
+        <Field00531 Type="Detail" DetailNode="LeftRearABSRecoveryValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearABSRecovery</Field00531>
+        <Field00532 Type="XmlTag">/rlvalveincreaseratio</Field00532>
+
+        <Field00535 Type="XmlTag">rlvalveincreaseresult</Field00535>
+        <Field00536 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftRearABSRecovery</Field00536>
+        <Field00537 Type="XmlTag">/rlvalveincreaseresult</Field00537>
+
+
+        <!-- RR ABS Reduction/Recovery Results -->
+        <Field00600 Type="XmlTag">rrvalvedecreasemax</Field00600>
+        <Field00601 Type="Detail" DetailNode="RightRearReductionMinParameter" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearABSReduction</Field00601>
+        <Field00602 Type="XmlTag">/rrvalvedecreasemax</Field00602>
+
+        <Field00605 Type="XmlTag">rrvalvedecreasemin</Field00605>
+        <Field00606 Type="Separator">0.0</Field00606>
+        <Field00607 Type="XmlTag">/rrvalvedecreasemin</Field00607>
+
+        <Field00610 Type="XmlTag">rrvalvedecreaseratio</Field00610>
+        <Field00611 Type="Detail" DetailNode="RightRearABSReductionPercent" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearABSReduction</Field00611>
+        <Field00612 Type="XmlTag">/rrvalvedecreaseratio</Field00612>
+
+        <Field00615 Type="XmlTag">rrvalvedecreaseresult</Field00615>
+        <Field00616 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightRearABSReduction</Field00616>
+        <Field00617 Type="XmlTag">/rrvalvedecreaseresult</Field00617>
+
+        <Field00620 Type="XmlTag">rrvalveincreasemax</Field00620>
+        <Field00621 Type="Separator">100.0</Field00621>
+        <Field00622 Type="XmlTag">/rrvalveincreasemax</Field00622>
+
+        <Field00625 Type="XmlTag">rrvalveincreasemin</Field00625>
+        <Field00626 Type="Detail" DetailNode="RightRearRecoveryMinPercent" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearABSRecovery</Field00626>
+        <Field00627 Type="XmlTag">/rrvalveincreasemin</Field00627>
+
+        <Field00630 Type="XmlTag">rrvalveincreaseratio</Field00630>
+        <Field00631 Type="Detail" DetailNode="RightRearABSRecoveryValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearABSRecovery</Field00631>
+        <Field00632 Type="XmlTag">/rrvalveincreaseratio</Field00632>
+
+        <Field00635 Type="XmlTag">rrvalveincreaseresult</Field00635>
+        <Field00636 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightRearABSRecovery</Field00636>
+        <Field00637 Type="XmlTag">/rrvalveincreaseresult</Field00637>
+    </Field00300>
+
+    <!-- ESP Results -->
+    <Field00305 Type="ConditionalBlock" Test="BrakeLeftFrontESPBuild" Result="NotTested" Condition="NotEqual" Format="%4s">
+        <!-- LF ABS Reduction/Recovery Results -->
+        <Field00300 Type="XmlTag">flvalvedecreasemax</Field00300>
+        <Field00301 Type="Detail" DetailNode="LeftFrontESPReductionMaxForce" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontESPReduction</Field00301>
+        <Field00302 Type="XmlTag">/flvalvedecreasemax</Field00302>
+
+        <Field00305 Type="XmlTag">flvalvedecreasemin</Field00305>
+        <Field00306 Type="Separator">0.0</Field00306>
+        <Field00307 Type="XmlTag">/flvalvedecreasemin</Field00307>
+
+        <Field00310 Type="XmlTag">flvalvedecreaseratio</Field00310>
+        <Field00311 Type="Detail" DetailNode="LeftFrontESPReductionValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontESPReduction</Field00311>
+        <Field00312 Type="XmlTag">/flvalvedecreaseratio</Field00312>
+
+        <Field00315 Type="XmlTag">flvalvedecreaseresult</Field00315>
+        <Field00316 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftFrontESPReduction</Field00316>
+        <Field00317 Type="XmlTag">/flvalvedecreaseresult</Field00317>
+
+        <Field00320 Type="XmlTag">flvalveincreasemax</Field00320>
+        <Field00321 Type="Separator">200.0</Field00321>
+        <Field00322 Type="XmlTag">/flvalveincreasemax</Field00322>
+
+        <Field00325 Type="XmlTag">flvalveincreasemin</Field00325>
+        <Field00326 Type="Detail" DetailNode="LeftFrontESPBuildMinForce" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontESPBuild</Field00326>
+        <Field00327 Type="XmlTag">/flvalveincreasemin</Field00327>
+
+        <Field00330 Type="XmlTag">flvalveincreaseratio</Field00330>
+        <Field00331 Type="Detail" DetailNode="LeftFrontESPBuildValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontESPBuild</Field00331>
+        <Field00332 Type="XmlTag">/flvalveincreaseratio</Field00332>
+
+        <Field00335 Type="XmlTag">flvalveincreaseresult</Field00335>
+        <Field00336 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftFrontESPBuild</Field00336>
+        <Field00337 Type="XmlTag">/flvalveincreaseresult</Field00337>
+
+        <Field00340 Type="XmlTag">flvalveresult</Field00340>
+        <Field00341 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftFrontEspValveResult</Field00341>
+        <Field00342 Type="XmlTag">/flvalveresult</Field00342>
+
+
+        <!-- RF ABS Reduction/Recovery Results -->
+        <Field00400 Type="XmlTag">frvalvedecreasemax</Field00400>
+        <Field00401 Type="Detail" DetailNode="RightFrontESPReductionMaxForce" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontESPReduction</Field00401>
+        <Field00402 Type="XmlTag">/frvalvedecreasemax</Field00402>
+
+        <Field00405 Type="XmlTag">frvalvedecreasemin</Field00405>
+        <Field00406 Type="Separator">0.0</Field00406>
+        <Field00407 Type="XmlTag">/frvalvedecreasemin</Field00407>
+
+        <Field00410 Type="XmlTag">frvalvedecreaseratio</Field00410>
+        <Field00411 Type="Detail" DetailNode="RightFrontESPReductionValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontESPReduction</Field00411>
+        <Field00412 Type="XmlTag">/frvalvedecreaseratio</Field00412>
+
+        <Field00415 Type="XmlTag">frvalvedecreaseresult</Field00415>
+        <Field00416 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightFrontESPReduction</Field00416>
+        <Field00417 Type="XmlTag">/frvalvedecreaseresult</Field00417>
+
+        <Field00420 Type="XmlTag">frvalveincreasemax</Field00420>
+        <Field00421 Type="Separator">200.0</Field00421>
+        <Field00422 Type="XmlTag">/frvalveincreasemax</Field00422>
+
+        <Field00425 Type="XmlTag">frvalveincreasemin</Field00425>
+        <Field00426 Type="Detail" DetailNode="RightFrontESPBuildMinForce" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontESPBuild</Field00426>
+        <Field00427 Type="XmlTag">/frvalveincreasemin</Field00427>
+
+        <Field00430 Type="XmlTag">frvalveincreaseratio</Field00430>
+        <Field00431 Type="Detail" DetailNode="RightFrontESPBuildValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontESPBuild</Field00431>
+        <Field00432 Type="XmlTag">/frvalveincreaseratio</Field00432>
+
+        <Field00435 Type="XmlTag">frvalveincreaseresult</Field00435>
+        <Field00436 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightFrontESPBuild</Field00436>
+        <Field00437 Type="XmlTag">/frvalveincreaseresult</Field00437>
+
+        <Field00440 Type="XmlTag">frvalveresult</Field00440>
+        <Field00441 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightFrontEspValveResult</Field00441>
+        <Field00442 Type="XmlTag">/frvalveresult</Field00442>
+
+
+
+        <!-- LR ABS Reduction/Recovery Results -->
+        <Field00500 Type="XmlTag">rlvalvedecreasemax</Field00500>
+        <Field00501 Type="Detail" DetailNode="LeftFrontESPReductionMaxForce" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearESPReduction</Field00501>
+        <Field00502 Type="XmlTag">/rlvalvedecreasemax</Field00502>
+
+        <Field00505 Type="XmlTag">rlvalvedecreasemin</Field00505>
+        <Field00506 Type="Separator">0.0</Field00506>
+        <Field00507 Type="XmlTag">/rlvalvedecreasemin</Field00507>
+
+        <Field00510 Type="XmlTag">rlvalvedecreaseratio</Field00510>
+        <Field00511 Type="Detail" DetailNode="LeftFrontESPReductionValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearESPReduction</Field00511>
+        <Field00512 Type="XmlTag">/rlvalvedecreaseratio</Field00512>
+
+        <Field00515 Type="XmlTag">rlvalvedecreaseresult</Field00515>
+        <Field00516 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftRearESPReduction</Field00516>
+        <Field00517 Type="XmlTag">/rlvalvedecreaseresult</Field00517>
+
+        <Field00520 Type="XmlTag">rlvalveincreasemax</Field00520>
+        <Field00521 Type="Separator">200.0</Field00521>
+        <Field00522 Type="XmlTag">/rlvalveincreasemax</Field00522>
+
+        <Field00525 Type="XmlTag">rlvalveincreasemin</Field00525>
+        <Field00526 Type="Detail" DetailNode="LeftRearESPBuildMinForce" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearESPBuild</Field00526>
+        <Field00527 Type="XmlTag">/rlvalveincreasemin</Field00527>
+
+        <Field00530 Type="XmlTag">rlvalveincreaseratio</Field00530>
+        <Field00531 Type="Detail" DetailNode="LeftRearESPBuildValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearESPBuild</Field00531>
+        <Field00532 Type="XmlTag">/rlvalveincreaseratio</Field00532>
+
+        <Field00535 Type="XmlTag">rlvalveincreaseresult</Field00535>
+        <Field00536 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftRearESPBuild</Field00536>
+        <Field00537 Type="XmlTag">/rlvalveincreaseresult</Field00537>
+
+        <Field00540 Type="XmlTag">rlvalveresult</Field00540>
+        <Field00541 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftRearEspValveResult</Field00541>
+        <Field00542 Type="XmlTag">/rlvalveresult</Field00542>
+
+
+        <!-- RR ABS Reduction/Recovery Results -->
+        <Field00600 Type="XmlTag">rrvalvedecreasemax</Field00600>
+        <Field00601 Type="Detail" DetailNode="RightRearESPReductionMaxForce" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearESPReduction</Field00601>
+        <Field00602 Type="XmlTag">/rrvalvedecreasemax</Field00602>
+
+        <Field00605 Type="XmlTag">rrvalvedecreasemin</Field00605>
+        <Field00606 Type="Separator">0.0</Field00606>
+        <Field00607 Type="XmlTag">/rrvalvedecreasemin</Field00607>
+
+        <Field00610 Type="XmlTag">rrvalvedecreaseratio</Field00610>
+        <Field00611 Type="Detail" DetailNode="RightRearESPReductionValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearESPReduction</Field00611>
+        <Field00612 Type="XmlTag">/rrvalvedecreaseratio</Field00612>
+
+        <Field00615 Type="XmlTag">rrvalvedecreaseresult</Field00615>
+        <Field00616 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightRearESPReduction</Field00616>
+        <Field00617 Type="XmlTag">/rrvalvedecreaseresult</Field00617>
+
+        <Field00620 Type="XmlTag">rrvalveincreasemax</Field00620>
+        <Field00621 Type="Separator">200.0</Field00621>
+        <Field00622 Type="XmlTag">/rrvalveincreasemax</Field00622>
+
+        <Field00625 Type="XmlTag">rrvalveincreasemin</Field00625>
+        <Field00626 Type="Detail" DetailNode="RightRearESPBuildMinForce" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearESPBuild</Field00626>
+        <Field00627 Type="XmlTag">/rrvalveincreasemin</Field00627>
+
+        <Field00630 Type="XmlTag">rrvalveincreaseratio</Field00630>
+        <Field00631 Type="Detail" DetailNode="RightRearESPBuildValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearESPBuild</Field00631>
+        <Field00632 Type="XmlTag">/rrvalveincreaseratio</Field00632>
+
+        <Field00635 Type="XmlTag">rrvalveincreaseresult</Field00635>
+        <Field00636 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightRearESPBuild</Field00636>
+        <Field00637 Type="XmlTag">/rrvalveincreaseresult</Field00637>
+
+        <Field00640 Type="XmlTag">rrvalveresult</Field00640>
+        <Field00641 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightRearEspValveResult</Field00641>
+        <Field00642 Type="XmlTag">/rrvalveresult</Field00642>
+
+    </Field00305>
+
+    <Field00700 Type="XmlTag">absresult</Field00700>
+    <Field00701 Type="Result" Format="%s" Length="4" DataType="String">BrakeOverallTest</Field00701>
+    <Field00702 Type="XmlTag">/absresult</Field00702>
+
+    <Field00705 Type="XmlTag">abscom</Field00705>
+    <Field00706 Type="Result" Format="%s" Length="4" DataType="String">BrakeEnterDiagnosticMode</Field00706>
+    <Field00707 Type="XmlTag">/abscom</Field00707>
+
+
+    <Field99999 Type="XmlTag">/xmldata</Field99999>
+
+</MqsAbsResultMap>

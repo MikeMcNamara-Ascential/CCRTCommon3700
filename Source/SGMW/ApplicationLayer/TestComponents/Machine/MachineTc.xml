@@ -155,10 +155,10 @@
             <ReverseTestSpeed>5</ReverseTestSpeed>
             <ScanDelayParameter>500</ScanDelayParameter>
             <SetOperatorConsoleTo4WDPrompt>SetOperatorConsoleTo4WD</SetOperatorConsoleTo4WDPrompt>
-            <SpeedometerSpeedTarget>22 28</SpeedometerSpeedTarget>
-            <SpeedometerStableTime>6000</SpeedometerStableTime>
-            <SpeedometerTestHighLimit>28</SpeedometerTestHighLimit>
-            <SpeedometerTestLowLimit>22</SpeedometerTestLowLimit>
+            <SpeedometerSpeedTarget>20 24.85</SpeedometerSpeedTarget>
+            <SpeedometerStableTime>3000</SpeedometerStableTime>
+            <SpeedometerTestHighLimit>24.85</SpeedometerTestHighLimit>
+            <SpeedometerTestLowLimit>20</SpeedometerTestLowLimit>
             <SpeedRangeParameter>33 35</SpeedRangeParameter>
             <TargetSpeed40kph>24.85</TargetSpeed40kph>
             <TargetSpeedParameter>30</TargetSpeedParameter>
@@ -338,39 +338,39 @@
 
     <TestSteps>
 
-        <AccelerateToSpeed Result="" Timeout="120000" 
-            Description="Prompt the driver to accelerate to the commanded speed" 
+        <AccelerateToSpeed Result="" Timeout="120000"
+            Description="Prompt the driver to accelerate to the commanded speed"
             Prompt1="AccelerateToTargetSpeed" Prompt1Priority="0"/>
 
-        <BrakeToStop Result="" Timeout="120000" 
-            Description="Prompt the driver to brake to stop" 
+        <BrakeToStop Result="" Timeout="120000"
+            Description="Prompt the driver to brake to stop"
             Prompt1="BrakeToStop" Prompt1Priority="0"/>
 
-        <ConnectCable Result="" Timeout="30000" 
-            Description="Prompt the driver to connect the vehicle cable" 
+        <ConnectCable Result="" Timeout="30000"
+            Description="Prompt the driver to connect the vehicle cable"
             Prompt1="ConnectCable" Prompt1Priority="0"/>
 
         <EngageMachine Result="" Description="Engage the machine, clutches, boost, etc." Timeout="30000"/>
 
         <Initialize Result="" Description="Initialize the machine for testing" Timeout="0"/>
 
-        <MachineReady Result="" Timeout="15000" 
-            Description="Wait until the machine is ready to perform a test" 
+        <MachineReady Result="" Timeout="15000"
+            Description="Wait until the machine is ready to perform a test"
             Prompt1="" Prompt1Priority="" Prompt2="" Prompt2Priority=""/>
 
         <MultiDriverQuestion Description="Prompt the driver with a set of questions and get a response of Pass/Fail or Yes/No">
             <LampCheck TestResultName="OperatorLampCheck">
-                <Step00_BrakeLamp Result="" Timeout="30000" Description="Verify brake lamps function" 
+                <Step00_BrakeLamp Result="" Timeout="30000" Description="Verify brake lamps function"
                     Prompt1="CheckBrakeLamps" Prompt1Priority="0" TestResultName="BrakeLampCheck"/>
-                <Step05_LeftTurnSignal Result="" Timeout="30000" Description="Verify left turn signal lamp function" 
+                <Step05_LeftTurnSignal Result="" Timeout="30000" Description="Verify left turn signal lamp function"
                     Prompt1="CheckLeftTurnSignal" Prompt1Priority="0" TestResultName="LeftTurnSignalLampCheck"/>
-                <Step10_RightTurnSignal Result="" Timeout="30000" Description="Verify right turn signal lamp function" 
+                <Step10_RightTurnSignal Result="" Timeout="30000" Description="Verify right turn signal lamp function"
                     Prompt1="CheckRightTurnSignal" Prompt1Priority="0" TestResultName="RightTurnSignalLampCheck"/>
             </LampCheck>
         </MultiDriverQuestion>
 
-        <Speedometer Result="" Timeout="30000" Description="Speedometer Test Step" 
-            Prompt1="AccelerateToTargetSpeed" Prompt1Priority="0"/>
+        <Speedometer Result="" Timeout="30000" Description="Speedometer Test Step"
+            Prompt1="40KM/HTest" Prompt1Priority="0"/>
 
         <!-- Unused Test Steps
         <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">

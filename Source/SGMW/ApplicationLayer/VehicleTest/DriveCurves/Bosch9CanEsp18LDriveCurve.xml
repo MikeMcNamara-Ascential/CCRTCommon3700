@@ -26,6 +26,14 @@
             <Debug>Off</Debug>
         </SoundLevel>
 
+        <SpeedControl>
+            <ComponentName>SgmwCruiseTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>SpeedControl18LTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/SpeedControl</ConfigPath>
+            <Debug>Off</Debug>
+        </SpeedControl>
+
     </Components>
 
 
@@ -46,6 +54,9 @@
                 <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">
                     <Setup/>
                 </Objective0>
+                <Objective1 Description="Cruise Test Setup" Result="" Timeout="" Component="SpeedControl">
+                    <Setup/>
+                </Objective1>
             </ForegroundObjectives>
         </TestPhase005>
 
@@ -83,14 +94,30 @@
             </ForegroundObjectives>
         </TestPhase200>
 
-        <!-- Perform the AccelerateToSpeed test -->
-        <TestPhase205 Description="Acceleration Test" Result="" Timeout="">
+        <!-- Perform the Speed Control test -->
+        <TestPhase205 Description="Speed Control Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Acceleration Test" Result="" Timeout="" Component="Machine">
-                    <AccelerateToSpeed>33</AccelerateToSpeed>
+                <Objective0 Description="Cruise Test" Result="" Timeout="" Component="SpeedControl">
+                    <SpeedControlTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase205>
+
+        <TestPhase210 Description="Acceleration Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Acceleration Test" Result="" Timeout="" Component="Machine">
+                    <AccelerateToSpeed>50</AccelerateToSpeed>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase210>
+
+        <TestPhase215 Description="Speed Control Off Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Cruise Test" Result="" Timeout="" Component="SpeedControl">
+                    <SpeedControlOffCheck/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase215>
 
 
 
@@ -99,7 +126,7 @@
         <TestPhase300 Description="Perform the brake test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="run the base brake test" Result="" Timeout="" Component="Brake">
-                    <AbsBrakeTest/>
+                    <EspBrakeTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase300>
@@ -112,7 +139,7 @@
             </ForegroundObjectives>
             <BackgroundObjectives Result="" Timeout="">
                 <Objective0 Description="Analyze brake test data" Result="" Timeout="" Component="Brake">
-                    <AnalyzeAbsBrakeTest/>
+                    <AnalyzeEspBrakeTest/>
                 </Objective0>
             </BackgroundObjectives>
         </TestPhase305>
@@ -129,14 +156,6 @@
            </ForegroundObjectives>
         </TestPhase400>
 
-        <!-- Perform operator buyoff checks -->
-        <TestPhase405 Description="Check vehicle Lamps" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Check lamps on the vehicle" Result="" Timeout="" Component="Machine">
-                    <MultiDriverQuestion>LampCheck</MultiDriverQuestion>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase405>
 
 
 

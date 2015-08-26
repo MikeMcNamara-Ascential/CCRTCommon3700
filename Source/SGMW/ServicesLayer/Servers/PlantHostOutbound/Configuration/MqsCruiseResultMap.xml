@@ -1,0 +1,113 @@
+<MqsCruiseResultMap>
+
+
+    <Field00000 Type="XmlTag">xmldata</Field00000>
+
+    <!-- =============  Header Data ============= -->
+
+
+    <Field00005 Type="XmlTag">messagetype</Field00005>
+    <Field00006 Type="Separator">checkUpload</Field00006>
+    <Field00007 Type="XmlTag">/messagetype</Field00007>
+
+    <Field00010 Type="XmlTag">tranid</Field00010>
+    <Field00011 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" Desc="Full VIN">VIN</Field00011>
+    <Field00012 Type="DateTime" Format="%Y%m%d" Desc="Start Date">Date</Field00012>
+    <Field00013 Type="DateTime" Format="%H%M%S" Desc="End Time">Time</Field00013>
+    <Field00014 Type="XmlTag">/tranid</Field00014>
+
+    <Field00015 Type="XmlTag">vin</Field00015>
+    <Field00016 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String" Desc="Full VIN">VIN</Field00016>
+    <Field00017 Type="XmlTag">/vin</Field00017>
+
+    <Field00020 Type="XmlTag">standarversion</Field00020>
+    <Field00021 Type="Detail" DetailNode="Version" Format="%s" Length="27" DataType="String">MachineInitialize</Field00021>
+    <Field00022 Type="XmlTag">/standarversion</Field00022>
+
+    <Field00025 Type="XmlTag">result</Field00025>
+    <Field00026 Type="Result" Format="%-1.1s" Length="1" DataType="String" Desc="Overall Result">OverallTest</Field00026>
+    <Field00027 Type="XmlTag">/result</Field00027>
+
+    <Field00030 Type="XmlTag">checker</Field00030>
+    <Field00031 Type="Separator">Y999</Field00031>
+    <Field00032 Type="XmlTag">/checker</Field00032>
+
+    <Field00035 Type="XmlTag">lineid</Field00035>
+    <Field00036 Type="Separator">JCX_D</Field00036>
+    <Field00037 Type="XmlTag">/lineid</Field00037>
+
+    <Field00040 Type="XmlTag">stationname</Field00040>
+    <Field00041 Type="Separator">85.5_D</Field00041>
+    <Field00042 Type="XmlTag">/stationname</Field00042>
+
+    <Field00045 Type="XmlTag">trantype</Field00045>
+    <Field00046 Type="Separator">CRUISE</Field00046>
+    <Field00047 Type="XmlTag">/trantype</Field00047>
+
+    <Field00050 Type="XmlTag">checkendtime</Field00050>
+    <Field00051 Type="DateTime" Format="%Y/%m/%d %H:%M:%S" Desc="End Time">Time</Field00051>
+    <Field00052 Type="XmlTag">/checkendtime</Field00052>
+
+
+
+
+    <!-- =============  Cruise Test Results ============= -->
+
+    <Field00100 Type="XmlTag">cruisestatus</Field00100>
+    <Field00101 Type="Result" Format="%s" Length="4" DataType="String">SpeedControlCheckSetEngagement</Field00101>
+    <Field00102 Type="XmlTag">/cruisestatus</Field00102>
+
+    <Field00105 Type="XmlTag">cruiseset</Field00105>
+    <Field00106 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckSetEngagementMachineSpeedometer</Field00106>
+    <Field00107 Type="XmlTag">/cruiseset</Field00107>
+
+    <Field00110 Type="XmlTag">cruiseactual</Field00110>
+    <Field00111 Type="Detail" DetailNode="ActualSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckSetEngagementMachineSpeedometer</Field00111>
+    <Field00112 Type="XmlTag">/cruiseactual</Field00112>
+
+    <Field00115 Type="XmlTag">cruisedecceltarget</Field00115>
+    <Field00116 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckTapDownDecel</Field00116>
+    <Field00117 Type="XmlTag">/cruisedecceltarget</Field00117>
+
+    <Field00120 Type="XmlTag">cruisedeccelset</Field00120>
+    <Field00121 Type="Detail" DetailNode="FinalSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckTapDownDecel</Field00121>
+    <Field00122 Type="XmlTag">/cruisedeccelset</Field00122>
+
+    <Field00125 Type="XmlTag">cruiseacceltarget</Field00125>
+    <Field00126 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckTapUpAccel</Field00126>
+    <Field00127 Type="XmlTag">/cruiseacceltarget</Field00127>
+
+    <Field00130 Type="XmlTag">cruiseaccelset</Field00130>
+    <Field00131 Type="Detail" DetailNode="FinalSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckTapDownDecel</Field00131>
+    <Field00132 Type="XmlTag">/cruiseaccelset</Field00132>
+
+    <Field00135 Type="XmlTag">cruisequit</Field00135>
+    <Field00136 Type="Result" Format="%s" Length="4" DataType="String">SpeedControlCheckOffDisable</Field00136>
+    <Field00137 Type="XmlTag">/cruisequit</Field00137>
+
+    <Field00140 Type="XmlTag">cruiseresult</Field00140>
+    <Field00141 Type="Result" Format="%s" Length="4" DataType="String">SpeedControlOverallTest</Field00141>
+    <Field00142 Type="XmlTag">/cruiseresult</Field00142>
+
+	<Field00143 Type="XmlTag">cruisedtccheck</Field00143>
+    <Field00144 Type="Result" Format="%4s" Length="4" DataType="String">SpeedControlCheckFaultCount</Field00144>
+    <Field00145 Type="XmlTag">/cruisedtccheck</Field00145>
+	
+	<Field00146 Type="XmlTag">cruisecomcheck</Field00146>
+    <Field00147 Type="Result" Format="%4s" Length="4" DataType="String">SpeedControlEnterDiagnosticMode</Field00147>
+    <Field00148 Type="XmlTag">/cruisecomcheck</Field00148>
+	
+	<Field00200 Type="XmlTag">reserver1</Field00200>
+    <Field00201 Type="Separator">NA</Field00201>
+    <Field00202 Type="XmlTag">/reserver1</Field00202>
+	
+	<Field00203 Type="XmlTag">reserver2</Field00203>
+    <Field00204 Type="Separator">NA</Field00204>
+    <Field00205 Type="XmlTag">/reserver2</Field00205>
+	
+	<Field00206 Type="XmlTag">reserver3</Field00206>
+    <Field00207 Type="Separator">NA</Field00207>
+    <Field00208 Type="XmlTag">/reserver3</Field00208>
+
+	<Field99999 Type="XmlTag">/xmldata</Field99999>
+</MqsCruiseResultMap>

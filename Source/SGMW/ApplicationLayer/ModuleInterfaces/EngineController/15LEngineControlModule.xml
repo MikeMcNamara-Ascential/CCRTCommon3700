@@ -1,0 +1,216 @@
+<EngineControlModule_15L>
+
+    <Setup>
+        <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <CheckSumLength>1</CheckSumLength>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <DataByteCountIndex>3</DataByteCountIndex>
+        <DataHeaderLength>2</DataHeaderLength>
+        <DataStartIndex>6</DataStartIndex>
+        <DTCData>
+            <DTCCountIndex>-1</DTCCountIndex>
+            <BytesPerDTC>4</BytesPerDTC>
+            <FirstDTCByteIndex>3</FirstDTCByteIndex>
+        </DTCData>
+        <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+        <KeepAlivePriority>10</KeepAlivePriority>
+        <KeepAliveResponseRequired>No</KeepAliveResponseRequired>
+        <KeepAliveResponseTime>500</KeepAliveResponseTime>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>Uds15LEngineModule</ProcessName>
+            <AdditionalLogFile>/Communication/Uds15LEngineModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+        <ModuleKeepAliveTime>250</ModuleKeepAliveTime>
+        <ModuleRequestID>0x7E0</ModuleRequestID>
+        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
+
+        <IgnoreCalibarateGSensorResult>False</IgnoreCalibarateGSensorResult>
+        <SkipRequestGSensorResult>False</SkipRequestGSensorResult>
+
+        <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
+            <Code_0x11>Service Not Supported</Code_0x11>
+            <Code_0x12>Sub-Function Not Supported</Code_0x12>
+            <Code_0x13>Incorrect Message Length</Code_0x13>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
+            <Code_0x22>Conditions not correct - EEPROM error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
+            <Code_0x24>Request Sequence Error</Code_0x24>
+            <Code_0x31>Request Out Of Range</Code_0x31>
+            <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+            <Code_0x35>Invalid Key</Code_0x35>
+            <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+            <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
+            <Code_0x78>Request Correctly Received - Response Pending</Code_0x78>
+            <Code_0x7F>Service Not Supported In Active Session</Code_0x7F>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Data Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
+            <ResponsePending>0x78</ResponsePending>
+            <ModuleBusy>0x21</ModuleBusy>
+        </NegativeResponseCodes>
+        <NegativeResponseValue>0x7F</NegativeResponseValue>
+        <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ResponsePendingReads>3</ResponsePendingReads>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <SwitchMonitorDelay>500</SwitchMonitorDelay>
+        <ValidResponseOffset>0x40</ValidResponseOffset>
+    </Setup>
+
+
+
+
+    <SerialMessages>
+
+        <VehicleMessages>
+
+            <EnterDiagnosticMode>
+                <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+                <TransmitInterpretation>ExtendedSession</TransmitInterpretation>
+                <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnterDiagnosticMode>
+            
+            <ModuleKeepAlive>
+                <TransmitMessage>TesterPresent</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>TesterPresent</ReplyMessage>
+                <ReplyInterpretation/>
+            </ModuleKeepAlive>
+
+            <ReadCruiseMode>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CruiseStatus</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseStatus</ReplyInterpretation>
+            </ReadCruiseMode>
+
+            <ReadCruiseTargetSpeed>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CruiseSetSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseSetSpeed</ReplyInterpretation>
+            </ReadCruiseTargetSpeed>
+
+            <ReadDtcCount>
+                <TransmitMessage>ReadFaults</TransmitMessage>
+                <TransmitInterpretation>DtcCount</TransmitInterpretation>
+                <ReplyMessage>ReadFaults</ReplyMessage>
+                <ReplyInterpretation>DtcCount</ReplyInterpretation>
+            </ReadDtcCount>
+
+            <ReadVehicleSpeed>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>VehicleSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
+            </ReadVehicleSpeed>
+
+        </VehicleMessages>
+
+
+
+
+        <TransmitMessages>
+            <EnterDiagnosticMode>0x10,0x??</EnterDiagnosticMode>
+            <ReadDid>0x22,0x??,0x??</ReadDid>
+            <ReadFaults>0x19,0x??,0x??</ReadFaults>
+            <TesterPresent>0x3E,0x00</TesterPresent>
+        </TransmitMessages>
+
+
+
+        <TransmitInterpretations>
+            <CruiseSetSpeed>0x05,0x01</CruiseSetSpeed>
+            <CruiseStatus>0x05,0x00</CruiseStatus>
+            <DtcCount>0x01,0xFF</DtcCount>
+            <ExtendedSession>0x03</ExtendedSession>
+            <VehicleSpeed>0x02,0x08</VehicleSpeed>
+        </TransmitInterpretations>
+
+
+
+        <ReplyMessages>
+            <EnterDiagnosticMode>
+                <Reply_03>0x50,0x03,0x00,0x32,0x01,0xF4</Reply_03>
+                <Reply_04>0x7F,0x10,0x??</Reply_04>
+            </EnterDiagnosticMode>
+
+            <ReadDidResponse>
+                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x62,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+            </ReadDidResponse>
+
+            <ReadFaults>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x59,0x??,0x??</Reply_00>
+                <Reply_02>0x7F,0x19,0x??</Reply_02>
+            </ReadFaults>
+
+            <TesterPresent>
+                <Reply_00>0x7E,0x00</Reply_00>
+                <Reply_01>0x7F,0x3E,0x??</Reply_01>
+            </TesterPresent>
+        </ReplyMessages>
+
+
+
+        <ReplyInterpretations>
+
+            <CruiseSetSpeed>
+                <Float scale="0.0062137" offset="0">
+                    <!--km/h-->
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </CruiseSetSpeed>
+
+            <CruiseStatus>
+                <Integer type="unsigned" bits="8" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </CruiseStatus>
+
+            <DtcCount>
+                <Integer type="unsigned" bits="16" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                </Integer>
+            </DtcCount>
+
+            <VehicleSpeed>
+                <Float scale="0.62137" offset="0">
+                    <!--km/h-->
+                    <Integer type="unsigned" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </VehicleSpeed>
+
+        </ReplyInterpretations>
+
+    </SerialMessages>
+
+</EngineControlModule_15L>

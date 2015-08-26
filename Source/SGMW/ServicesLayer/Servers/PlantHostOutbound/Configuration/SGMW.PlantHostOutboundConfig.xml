@@ -75,11 +75,11 @@
                     </TestResultConversion>
 
                     <ResultTypes>
-                        <AbsResults VehicleOption="Brake" ValidOptions="Bosch 9 CAN,Bosch 9 K-Line">/Configuration/Servers/MqsAbsResultMap.xml</AbsResults>
+                        <AbsResults VehicleOption="BrakeType" ValidOptions="Bosch 9 CAN,Bosch 9 K-Line,Bosch 9 ESP">/Configuration/Servers/MqsAbsResultMap.xml</AbsResults>
+                        <CruiseResults VehicleOption="Cruise" ValidOptions="Yes">/Configuration/Servers/MqsCruiseResultMap.xml</CruiseResults>
                         <SoundLevelResults>/Configuration/Servers/MqsSoundLevelResultMap.xml</SoundLevelResults>
                         <SpeedometerResults>/Configuration/Servers/MqsSpeedometerResultMap.xml</SpeedometerResults>
                         <!--
-                        <CruiseResults VehicleOption="SpeedControl" ValidOptions="Equipped">/Configuration/Servers/MqsCruiseResultMap.xml</CruiseResults>
                         <TpmResults VehicleOption="TPM" ValidOptions="Equipped">/Configuration/Servers/MqsTpmResultMap.xml</TpmResults>
                         -->
                     </ResultTypes>

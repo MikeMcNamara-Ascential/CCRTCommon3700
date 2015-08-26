@@ -46,6 +46,7 @@
             <AxleRatio DatType="float">0</AxleRatio>
             <BrakeForceValue DataType="float" Units="LBF">0</BrakeForceValue>
             <ConnectRequest DataType="string">Unknown</ConnectRequest>
+            <CruiseTargetSpeed DataType="float" Units="MPH">0</CruiseTargetSpeed>
             <DisplayDriverMonitor>drivermonitor</DisplayDriverMonitor>
             <DisplayRackMonitor>frontpanel</DisplayRackMonitor>
             <DriverNumberDisplay DataType="" Units=""/>
@@ -75,6 +76,18 @@
             <LCWarmupTimeBGColor DataType="color">white</LCWarmupTimeBGColor>
             <LCWarmupTimeRemaining DataType="float">0</LCWarmupTimeRemaining>
             <LCWarmupTimeRemainingBGColor DataType="color">white</LCWarmupTimeRemainingBGColor>
+            <LeftFrontESPBuildBGColor DataType="color">white</LeftFrontESPBuildBGColor>
+            <LeftFrontESPBuildValue DataType="float" Units="N">0</LeftFrontESPBuildValue>
+            <LeftFrontESPReductionBGColor DataType="color">white</LeftFrontESPReductionBGColor>
+            <LeftFrontESPReductionValue DataType="float" Units="N">0</LeftFrontESPReductionValue>
+            <LeftFrontWssValue DataType="float">0</LeftFrontWssValue>
+            <LeftFrontWssValueBgColor DataType="color">white</LeftFrontWssValueBgColor>
+            <LeftRearESPBuildBGColor DataType="color">white</LeftRearESPBuildBGColor>
+            <LeftRearESPBuildValue DataType="float" Units="N">0</LeftRearESPBuildValue>
+            <LeftRearESPReductionBGColor DataType="color">white</LeftRearESPReductionBGColor>
+            <LeftRearESPReductionValue DataType="float" Units="N">0</LeftRearESPReductionValue>
+            <LeftRearWssValue DataType="float">0</LeftRearWssValue>
+            <LeftRearWssValueBgColor DataType="color">white</LeftRearWssValueBgColor>
             <LFABSRecoveryBGColor DataType="string">white</LFABSRecoveryBGColor>
             <LFABSRecoveryValue DataType="float">0</LFABSRecoveryValue>
             <LFABSReductionBGColor DataType="string">white</LFABSReductionBGColor>
@@ -172,6 +185,18 @@
             <RFTractionControlReductionValue DataType="float" Units="LBF">0</RFTractionControlReductionValue>
             <RFWheelDomain DataType="range" Units="MPH">0 80</RFWheelDomain>
             <RFWheelTarget DataType="range" Units="MPH">45 55</RFWheelTarget>
+            <RightFrontESPBuildBGColor DataType="color">white</RightFrontESPBuildBGColor>
+            <RightFrontESPBuildValue DataType="float" Units="N">0</RightFrontESPBuildValue>
+            <RightFrontESPReductionBGColor DataType="color">white</RightFrontESPReductionBGColor>
+            <RightFrontESPReductionValue DataType="float" Units="N">0</RightFrontESPReductionValue>
+            <RightFrontWssValue DataType="float">0</RightFrontWssValue>
+            <RightFrontWssValueBgColor DataType="color">white</RightFrontWssValueBgColor>
+            <RightRearESPBuildBGColor DataType="color">white</RightRearESPBuildBGColor>
+            <RightRearESPBuildValue DataType="float" Units="N">0</RightRearESPBuildValue>
+            <RightRearESPReductionBGColor DataType="color">white</RightRearESPReductionBGColor>
+            <RightRearESPReductionValue DataType="float" Units="N">0</RightRearESPReductionValue>
+            <RightRearWssValue DataType="float">0</RightRearWssValue>
+            <RightRearWssValueBgColor DataType="color">white</RightRearWssValueBgColor>
             <RRABSRecoveryBGColor DataType="string">white</RRABSRecoveryBGColor>
             <RRABSRecoveryValue DataType="float">0</RRABSRecoveryValue>
             <RRABSReductionBGColor DataType="string">white</RRABSReductionBGColor>
@@ -201,7 +226,10 @@
             <RTWheelDomain DataType="range" Units="MPH">0 0</RTWheelDomain>
             <RTWheelTarget DataType="range" Units="MPH">0 0</RTWheelTarget>
             <SoftwareID DataType="string">R07103101-GM-00000000</SoftwareID>
+            <SoundLevelValue DataType="float">0</SoundLevelValue>
+            <SoundLevelBGColor DataType="color">white</SoundLevelBGColor>
             <SpeedoTestBGColor DataType="color">white</SpeedoTestBGColor>
+            <SpeedoTestValue DataType="float" Units="KPH">0</SpeedoTestValue>
             <TandemBalanceBGColor DataType="color">white</TandemBalanceBGColor>
             <TandemBalanceValue DataType="string">0</TandemBalanceValue>
             <TandemToRearBalanceBGColor DataType="color">white</TandemToRearBalanceBGColor>

@@ -41,11 +41,13 @@ string MqsResultInterface::GenerateHostResultString(const XmlNode *testResults)
 	Log(LOG_FN_ENTRY, "MqsResultInterface::GenerateHostResultString() - Enter");
 	for(XmlNodeMapCItr iter = m_resultMaps.begin(); iter != m_resultMaps.end(); iter++)
 	{   // Check if this is a conditional result string
+		Log(LOG_DEV_DATA, "Processing result map: %s", iter->second->getValue().c_str());
 		XmlNodeMapCItr optionIter = iter->second->getAttributes().find("VehicleOption");
 		bool processResult = false;
 		if(optionIter != iter->second->getAttributes().end())
 		{
 			string vehicleOption = "VehicleBuild/" + optionIter->second->getValue();
+			Log(LOG_DEV_DATA, "Looking for %s in the build data", optionIter->second->getValue().c_str());
 			string optionValue = testResults->getChild(vehicleOption)->getValue();
 			Log(LOG_DEV_DATA, "Vehicle Option: %s, Value: %s", 
 				optionIter->second->getValue().c_str(), optionValue.c_str());
@@ -54,6 +56,11 @@ string MqsResultInterface::GenerateHostResultString(const XmlNode *testResults)
 			{
 				processResult = strstr(validValsIter->second->getValue().c_str(),optionValue.c_str()) != NULL;
 			}
+		}
+		else
+		{
+			Log(LOG_DEV_DATA, "No restrictions, process result string");
+			processResult = true;
 		}
 		Log(LOG_DEV_DATA, "Processing result string: %s - %s", 
 			iter->second->getName().c_str(), processResult ? "True" : "False");
@@ -64,6 +71,7 @@ string MqsResultInterface::GenerateHostResultString(const XmlNode *testResults)
 			INT32 total = 0;
 			resultString += BuildTestResultString(testResults, resultMap->getChildren(), ResultConversions(), total);
 		}
+		Log(LOG_DEV_DATA, "Done processing result map: %s", iter->second->getValue().c_str());
 	}
 	Log(LOG_FN_ENTRY, "MqsResultInterface::GenerateHostResultString() - Exit");
 	return resultString;
@@ -177,8 +185,25 @@ const BEP_STATUS_TYPE MqsResultInterface::SendTestResultString(string &resultStr
 			status = portComm.Send(message);
 			// Log the status
 			Log(LOG_ERRORS, "Sent message to host: %s", ConvertStatusToResponse(status).c_str());
+			// Look for the response
+			SerialString_t mqsResponse, mqsResponse2;
+			int bytesRead = portComm.ReadPort(mqsResponse, 1000, 0);
+			int secondaryBytesRead = portComm.ReadPort(mqsResponse2, 1000, 0);
 			// Unlock the port for this attempt
 			portLocked = portComm.UnlockPort();
+			if(bytesRead > 0)
+			{
+				Log(LOG_DEV_DATA, "Received from MQS: %s", string((char *)(&mqsResponse[0])).c_str());
+			}
+			if(secondaryBytesRead > 0)
+			{
+				Log(LOG_DEV_DATA, "Received from MQS: %s", string((char *)(&mqsResponse2[0])).c_str());
+			}
+			if(bytesRead <= 0)
+			{   // No response from the host
+				status = BEP_STATUS_FAILURE;
+				Log(LOG_ERRORS, "No response from MQS.");
+			}
 		}
 		else
 		{   // Log the error

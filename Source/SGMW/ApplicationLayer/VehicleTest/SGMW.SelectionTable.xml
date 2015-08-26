@@ -5,9 +5,25 @@
    </BaseBrake>
 
    <!-- Bosch 9 Test Sequences -->
-   <Bosch9CanAbs DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9CanAbsDriveCurve.xml">
+   <Bosch9CanAbs15L DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9CanAbs15LDriveCurve.xml">
       <BrakeType>Bosch 9 CAN</BrakeType>
-   </Bosch9CanAbs>
+      <EngineType>1.5L</EngineType>
+   </Bosch9CanAbs15L>
+
+   <Bosch9CanAbs18L DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9CanAbs18LDriveCurve.xml">
+      <BrakeType>Bosch 9 CAN</BrakeType>
+      <EngineType>1.8L</EngineType>
+   </Bosch9CanAbs18L>
+
+   <Bosch9CanEsp15L DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9CanEsp15LDriveCurve.xml">
+      <BrakeType>Bosch 9 ESP</BrakeType>
+      <EngineType>1.5L</EngineType>
+   </Bosch9CanEsp15L>
+
+   <Bosch9CanEsp18L DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9CanEsp18LDriveCurve.xml">
+      <BrakeType>Bosch 9 ESP</BrakeType>
+      <EngineType>1.8L</EngineType>
+   </Bosch9CanEsp18L>
 
    <Bosch9KlineAbs DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9IsoAbsDriveCurve.xml">
       <BrakeType>Bosch 9 K-Line</BrakeType>

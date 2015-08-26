@@ -1386,6 +1386,10 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateESP(void)
 						Log( LOG_DEV_DATA, "%s ESP reduction failed\n", rollerName[wheelIndex].c_str());
 						testResult = testFail;
 					}
+					SendSubtestResult(rollerName[wheelIndex] + "EspValveResult", 
+									  (!wheelBuildResults[wheelIndex].compare(testPass) && 
+									   !wheelReductionResults[wheelIndex].compare(testPass)) ? testPass : testFail,
+									  rollerName[wheelIndex] + " ESP Valve Result", "0000");
 				}
 			}
 			else
@@ -1581,6 +1585,11 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPReductionForces
 			{
 				reductionValue -= m_baseBrakeTool->GetDragForceValue(roller);
 			}
+		}
+		// Normalize reduction to 0 if less than 0
+		if(reductionValue < 0.0)
+		{
+			reductionValue = 0.0;
 		}
 		// get the parameter
 		float reductionMaxValue = GetParameterFloat(rollerName[roller]+"MaxESPReductionForce");

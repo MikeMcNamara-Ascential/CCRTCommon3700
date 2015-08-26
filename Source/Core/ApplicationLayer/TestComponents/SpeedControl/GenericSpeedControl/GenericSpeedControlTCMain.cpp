@@ -29,6 +29,7 @@
 #include "GenericSpeedControlTC.cpp"
 #include "GenericEmissionsModuleTemplate.cpp"
 #include "KeywordProtocolFilter.h"
+#include "KwpCanProtocolFilter.cpp"
 #include "CmdLineProcessor.h"
 
 int main(int argc, char *argv[])
@@ -43,7 +44,18 @@ int main(int argc, char *argv[])
 		// Set the pointer to NULL
 		speedControlTest = NULL;
 		// Create a test component
-		speedControlTest = new GenericSpeedControlTC<GenericEmissionsModuleTemplate<KeywordProtocolFilter> >;
+		// Get the config file
+		const XmlNode *config = parser.ReturnXMLDocument(clp.GetConfigFile());
+		// Determine what type of test component to instantiate
+		string commBus = config->getChild("Setup/CommunicationBus")->getValue();
+		if(commBus == "CAN")
+		{
+			speedControlTest = new GenericSpeedControlTC<GenericEmissionsModuleTemplate<KwpCanProtocolFilter> >;
+		}
+		else
+		{
+			speedControlTest = new GenericSpeedControlTC<GenericEmissionsModuleTemplate<KeywordProtocolFilter> >;
+		}
 		// Check if we should perform the test
 		if (speedControlTest != NULL)
 		{	// Initialize the new test component

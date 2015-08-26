@@ -161,13 +161,15 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
         else if(step == "DisableSpeedLimit") status = DisableSpeedLimit();
         else if(step == "DisableValveRelayShutdown") status = DisableValveRelayShutdown();
         else if(step == "EnableSpeedLimit") status = EnableSpeedLimit();
-        else if(step == "EnableValveRelayShutdown")  status = EnableValveRelayShutdown();
+        else if(step == "EnableValveRelayShutdown")   status = EnableValveRelayShutdown();
+		else if(step == "FlexibleEspValveFiringTest") status = FlexibleEspValveFiringTest();
         else if(step == "CheckUplineProcessByte") status = CheckUplineProcessByte();
         else if(step == "ReadSensorSpeeds") status = ReadSensorSpeeds();
         else if(step == "IgnitionOff") status = IgnitionOff();
         else if(step == "IgnitionOn") status = IgnitionOn();
         else if(step == "EvaluateSensorCross") status = EvaluateSensorCross();
         else if(step == "ReadSpeedDeltas") status = ReadSpeedDeltas();
+		else if(step == "RunEspPumpMotor")  status = RunEspPumpMotor();
         else if(step == "StopESPPumpMotor") status = StopPumpMotor();
 		else if(step == "TwoMotorWssTest")  status = TwoMotorWheelSpeedSensorTest(value);
 		else if(step == "InitializeEolStatus")     status = SetEolStatus(BEP_TESTING_RESPONSE);
@@ -187,6 +189,23 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
     return(status);
 }
 
+//-------------------------------------------------------------------------------------------------
+template <class ModuleType>
+void Bosch8TC<ModuleType>::InitializeHook(const XmlNode *config)
+{
+	GenericABSTCTemplate<ModuleType>::InitializeHook(config);
+	try
+	{
+		m_espValveFiringcommands.DeepCopy(config->getChild("Setup/Parameters/EspValveCommands")->getChildren());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "No ESP Valve firing commands specified: %s", excpt.GetReason());
+		m_espValveFiringcommands.clear(true);
+	}
+}
+
+//-------------------------------------------------------------------------------------------------
 template <class ModuleType>
 string Bosch8TC<ModuleType>::EnterDiagnosticMode(void)
 {  // Set up some variables
@@ -1268,7 +1287,14 @@ string Bosch8TC<ModuleType>::CheckYawRate(void)
             Log(LOG_DEV_DATA,"Yaw Rate: %.2f\n",yawRate);
 
             // if lateral acceleration is between -4 and 4
-            if((yawRate >= -4) && (yawRate <= 4))
+			float yawRateMin = GetParameterFloat("YawRateMin");
+			float yawRateMax = GetParameterFloat("YawRateMax");
+			if((yawRateMin == 0.0) || (yawRateMax == 0.0))
+			{
+				yawRateMin = -4.0;
+				yawRateMax = 4.0;
+			}
+            if((yawRate >= yawRateMin) && (yawRate <= yawRateMax))
             {
                 Log(LOG_DEV_DATA,"Yaw rate pass\n");
                 testResult = testPass;
@@ -2114,11 +2140,26 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 	string result = BEP_TESTING_STATUS;
 	TestResultDetails details;
 	if(!ShortCircuitTestStep())
-	{   // Place the motor into speed mode with a commanded speed of zero for starters
+	{   // Make sur the operator gets the vheicle into the correct state
+		DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+		DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+		BposSleep(3000);
+		// Place the motor into speed mode with a commanded speed of zero for starters
 		m_MotorController.Write(COMMAND_SPEED, string("0"), true);
 		m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
 		// Note: on a two motor machine, setting axle to front controls the rear axle of the machine
-		INT32 startRollerIndex = (axle == FRONT_WHEEL_DRIVE_VALUE) ? LRWHEEL : LFWHEEL;
+		INT32 startRollerIndex;
+		string reportAxle;
+		if(axle == FRONT_WHEEL_DRIVE_VALUE)
+		{
+			startRollerIndex = LRWHEEL;
+			reportAxle = "Rear";
+		}
+		else
+		{
+			startRollerIndex = LFWHEEL;
+			reportAxle = "Front";
+		}
 		// Store the original drive axle so it can be restored after we are done
 		string orgDriveAxle = SystemRead(DRIVE_AXLE_TAG);
 		string leftTag = rollerName[startRollerIndex] + "SpeedValue";
@@ -2144,7 +2185,7 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && !rollersAtSpeed);
 		if(rollersAtSpeed)
 		{   // Verify the sensor readings are within tolerance
-			BposSleep(2000);   // Wait for motors to reach final speed
+			BposSleep(3500);   // Wait for motors to reach final speed
 			vector<float> sensorSpeeds;
 			BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 			if(GetParameterBool("ReadWheelSensorsIndividually"))
@@ -2183,9 +2224,9 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 										  (sensorSpeeds[startRollerIndex+1] <= rightMax)) ? testPass : testFail;
 					result = ((leftResult == testPass) && (rightResult == testPass)) ? testPass : testFail;
 					Log(LOG_DEV_DATA, "Left %s: %s - %.2f [%.2f  %.2f]", 
-						axle.c_str(), leftResult.c_str(), sensorSpeeds[startRollerIndex], leftMin, leftMax);
+						reportAxle.c_str(), leftResult.c_str(), sensorSpeeds[startRollerIndex], leftMin, leftMax);
 					Log(LOG_DEV_DATA, "Right %s: %s - %.2f [%.2f  %.2f]", 
-						axle.c_str(), rightResult.c_str(), sensorSpeeds[startRollerIndex+1], rightMin, rightMax);
+						reportAxle.c_str(), rightResult.c_str(), sensorSpeeds[startRollerIndex+1], rightMin, rightMax);
 					SendSubtestResultWithDetail(rollerName[startRollerIndex] + "WssTest", leftResult, 
 												GetTestStepInfo("Description"), "0000",
 												"Min", CreateMessage(buff, sizeof(buff), "%.2f", leftMin), unitsMPH,
@@ -2196,6 +2237,12 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 												"Min", CreateMessage(buff, sizeof(buff), "%.2f", rightMin), unitsMPH,
 												"Max", CreateMessage(buff, sizeof(buff), "%.2f", rightMax), unitsMPH,
 												"Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex+1]), unitsMPH);
+					SystemWrite(rollerName[startRollerIndex] + "WssValue", sensorSpeeds[startRollerIndex]);
+					SystemWrite(rollerName[startRollerIndex+1] + "WssValue", sensorSpeeds[startRollerIndex+1]);
+					SystemWrite(rollerName[startRollerIndex] + "WssValueBgColor", 
+								!leftResult.compare(testPass) ? "green" : "red");
+					SystemWrite(rollerName[startRollerIndex+1] + "WssValueBgColor", 
+								!rightResult.compare(testPass) ? "green" : "red");
 				}
 				else
 				{
@@ -2216,6 +2263,8 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		}
 		m_MotorController.Write(leftTag, string("0"), true);
 		m_MotorController.Write(rightTag, string("0"), true);
+		RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+		RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
 		CheckZeroSpeed();
 		EngageMachine();
 		SystemWrite(DRIVE_AXLE_TAG, orgDriveAxle);
@@ -3080,6 +3129,7 @@ string Bosch8TC<ModuleType>::StopPumpMotor(void)
     return(testResult);
 }
 
+//-----------------------------------------------------------------------------
 template <class ModuleType>
 string Bosch8TC<ModuleType>::BrakeSwitchTest(const string& position)
 {
@@ -3119,5 +3169,92 @@ string Bosch8TC<ModuleType>::BrakeSwitchTest(const string& position)
     return(testResult);
 }
 
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string Bosch8TC<ModuleType>::RunEspPumpMotor(void)
+{
+	string result(BEP_TESTING_STATUS);
+	Log(LOG_DEV_DATA, "Bosch8TC::RunEspPumpMotor() - Enter");
+	if(!ShortCircuitTestStep())
+	{
+		result = (BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("RunEspPumpMotor")) ? testPass : testFail;
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		Log(LOG_DEV_DATA, "Skipping ESP pump motor run");
+		result = testSkip;
+	}
+	Log(LOG_DEV_DATA, "Bosch8TC::RunEspPumpMotor() - Exit");
+	return result;
+}
 
-
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string Bosch8TC<ModuleType>::FlexibleEspValveFiringTest(void)
+{
+	string result(testPass);
+	Log(LOG_FN_ENTRY, "Bosch8TC::FlexibleEspValveFiringTest() - Enter");
+	if(!ShortCircuitTestStep())
+	{
+		Log(LOG_DEV_DATA, "Beginning ESP Cycle");
+		BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+		m_ESPStartIndex = TagArray("ESPStart");
+		for(XmlNodeMapCItr iter = m_espValveFiringcommands.begin();
+			 (iter != m_espValveFiringcommands.end()) && (BEP_STATUS_SUCCESS == moduleStatus);
+			 iter++)
+		{   // Determine if we need to tag the array
+			Log(LOG_DEV_DATA, "Sending ESP Command: %s", iter->second->getValue().c_str());
+			XmlNodeMapCItr tagIter = iter->second->getAttributes().find("ArrayTag");
+			if(tagIter != iter->second->getAttributes().end())
+			{
+				INT32 rollerIndex = BposReadInt(iter->second->getAttribute("RollerIndex")->getValue().c_str());
+				string type = iter->second->getAttribute("TagType")->getValue();
+				string tag = tagIter->second->getValue();
+				if(type == "BuildStart")
+				{
+					m_ESPIndex[rollerIndex].buildStart = TagArray(tag);
+				}
+				else if(type == "BuildEnd")
+				{
+					m_ESPIndex[rollerIndex].buildEnd = TagArray(tag);
+				}
+				else if(type == "ReductionStart")
+				{
+					m_ESPIndex[rollerIndex].reductionStart = TagArray(tag);
+				}
+				else if(type == "ReductionEnd")
+				{
+					m_ESPIndex[rollerIndex].reductionEnd = TagArray(tag);
+				}
+			}
+			// Send the command to the module
+			moduleStatus = m_vehicleModule.CommandModule(iter->second->getValue());
+			if(BEP_STATUS_SUCCESS != moduleStatus)
+			{
+				SetCommunicationFailure(true);
+				Log( LOG_ERRORS, "Error sending %s - status: %s\n", iter->second->getValue().c_str(), 
+					  ConvertStatusToResponse(moduleStatus).c_str());
+				result = testFail;
+			}
+			else
+			{   // Check if there is a delay on this command
+				XmlNodeMapCItr delayIter = iter->second->getAttributes().find("Delay");
+				if(delayIter != iter->second->getAttributes().end())
+				{
+					delay(BposReadInt(delayIter->second->getValue().c_str()));
+				}
+			}
+		}
+		m_ESPEndIndex = TagArray("ESPEnd");
+		Log(LOG_DEV_DATA, "ESP Cycle Complete");
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+	}
+	else
+	{
+		Log(LOG_DEV_DATA, "Skipping FlexibleEspValveFiringTest");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "Bosch8TC::FlexibleEspValveFiringTest() - Exit");
+	return result;
+}

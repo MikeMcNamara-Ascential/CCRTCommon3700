@@ -1720,7 +1720,7 @@ const BEP_STATUS_TYPE GenericSpeedControlTC<VehicleModuleType>::ReadVehicleSpeed
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	// Determine how to get the speed, roller speeds or module
-	if(GetParameterBool("UseModuleSpeed"))
+	if(GetParameterBool("UseModuleSpeed") && !GetParameterBool("SkipModuleSpeedForCurrentVehicleSpeed"))
 	{	// Read the vehicle speed from the module
 		status = m_vehicleModule.GetInfo("ReadVehicleSpeed", vehicleSpeed);
 	}

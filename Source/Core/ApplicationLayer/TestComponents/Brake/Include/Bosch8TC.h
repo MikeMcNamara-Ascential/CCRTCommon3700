@@ -182,7 +182,13 @@ public:
      */
     virtual const string CommandTestStep(const string &value);
 
+
+
+
+
 protected:
+
+	virtual void InitializeHook(const XmlNode *config);
 
     /**
      * Enter diagnostic mode.
@@ -524,6 +530,9 @@ private:
      */
     virtual string BrakeSwitchTest(const string& position);
 
+	string RunEspPumpMotor(void);
+	string FlexibleEspValveFiringTest(void);
+
     /**
      * Speed delta values that we read from the ABS 
      * module during the base brake test
@@ -536,6 +545,8 @@ private:
      * commands
      */
     WheelSpeeds_t       m_absSpeedDeltas[ RRWHEEL+1][ REC_DELTA_IDX+1];
+
+	XmlNodeMap m_espValveFiringcommands;
 };
 
 #endif

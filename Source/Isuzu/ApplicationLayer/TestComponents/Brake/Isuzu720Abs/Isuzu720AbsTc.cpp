@@ -645,7 +645,7 @@ string Isuzu720AbsTc<ModuleInterface>::PreRollBrakePedalPrime(void)
 {
 	string result(BEP_TESTING_RESPONSE);
 	Log(LOG_FN_ENTRY, "Isuzu720AbsTc::PreRollBrakePedalPrime() - Enter");
-	if(!ShortCircuitTestStep() && (GetTestStepResult() != testPass))
+	if(!ShortCircuitTestStep() && (GetTestStepResult() != testPass) && !IsRetest())
 	{
 		for(int index = 0; 
 		   (index < GetParameterInt("PreRollBrakePresses")) && (BEP_STATUS_SUCCESS == StatusCheck());
@@ -674,7 +674,7 @@ string Isuzu720AbsTc<ModuleInterface>::AbsPrime(void)
 {
 	string result(BEP_TESTING_STATUS);
 	Log(LOG_FN_ENTRY, "Isuzu720AbsTc::AbsPrime() - Enter");
-	if(!ShortCircuitTestStep())
+	if(!ShortCircuitTestStep() && !IsRetest())
 	{	// Wait for zero speed
 		if(CheckZeroSpeed())
 		{

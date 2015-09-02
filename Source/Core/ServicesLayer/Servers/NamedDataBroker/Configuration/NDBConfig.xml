@@ -484,9 +484,9 @@
                 <LeftFrontAbsMinReductionIndex DataType="short">MachineDataBroker</LeftFrontAbsMinReductionIndex>
                 <LeftFrontAbsMinReductionValue DataType="float" Units="LBF">MachineDataBroker</LeftFrontAbsMinReductionValue>
                 <LeftFrontESPBuildBGColor DataType="color">MachineDataBroker</LeftFrontESPBuildBGColor>
-                <LeftFrontESPBuildValue DataType="float" Units="N">MachineDataBroker</LeftFrontESPBuildValue>
+                <LeftFrontESPBuildValue DataType="float" Units="LBF">MachineDataBroker</LeftFrontESPBuildValue>
                 <LeftFrontESPReductionBGColor DataType="color">MachineDataBroker</LeftFrontESPReductionBGColor>
-                <LeftFrontESPReductionValue DataType="float" Units="N">MachineDataBroker</LeftFrontESPReductionValue>
+                <LeftFrontESPReductionValue DataType="float" Units="LBF">MachineDataBroker</LeftFrontESPReductionValue>
                 <LeftFrontBrakeAverageValue DataType="float">MachineDataBroker</LeftFrontBrakeAverageValue>
                 <LeftFrontBrakeMaxValue DataType="float">MachineDataBroker</LeftFrontBrakeMaxValue>
                 <LeftFrontBrakeMaxValueIndex DataType="short">MachineDataBroker</LeftFrontBrakeMaxValueIndex>
@@ -505,12 +505,14 @@
                 <LeftFrontRollMotorOverloadOpen DataType="bool">PLC</LeftFrontRollMotorOverloadOpen>
                 <LeftFrontSpeedValue DataType="float" Units="MPH">MotorController</LeftFrontSpeedValue>
                 <LeftFrontTorqueValue DataType="float">MotorController</LeftFrontTorqueValue>
+                <LeftFrontTpmsCount DataType="short">VehicleDataBroker</LeftFrontTpmsCount>
+                <LeftFrontTpmsCountBgColor DataType="color">VehicleDataBroker</LeftFrontTpmsCountBgColor>
                 <LeftFrontTractionAverageValue DataType="float" Units="LBF">MachineDataBroker</LeftFrontTractionAverageValue>
                 <LeftFrontTractionMaxRecoveryIndex DataType="short">MachineDataBroker</LeftFrontTractionMaxRecoveryIndex>
                 <LeftFrontTractionMaxRecoveryValue DataType="float" Units="LBF">MachineDataBroker</LeftFrontTractionMaxRecoveryValue>
                 <LeftFrontTractionMinReductionIndex DataType="short">MachineDataBroker</LeftFrontTractionMinReductionIndex>
                 <LeftFrontTractionMinReductionValue DataType="float" Units="LBF">MachineDataBroker</LeftFrontTractionMinReductionValue>
-                <LeftFrontWssValue DataType="float">MachineDataBroker</LeftFrontWssValue>
+                <LeftFrontWssValue DataType="float" Units="MPH">MachineDataBroker</LeftFrontWssValue>
                 <LeftFrontWssValueBgColor DataType="color">MachineDataBroker</LeftFrontWssValueBgColor>
                 <LeftJounceStabDisengagedFault DataType="bool">PLC</LeftJounceStabDisengagedFault>
                 <LeftJounceStabEngagedFault DataType="bool">PLC</LeftJounceStabEngagedFault>
@@ -533,9 +535,9 @@
                 <LeftRearDragMinValue DataType="float" Units="LBF">MachineDataBroker</LeftRearDragMinValue>
                 <LeftRearDragMinValueIndex DataType="short">MachineDataBroker</LeftRearDragMinValueIndex>
                 <LeftRearESPBuildBGColor DataType="color">MachineDataBroker</LeftRearESPBuildBGColor>
-                <LeftRearESPBuildValue DataType="float" Units="N">MachineDataBroker</LeftRearESPBuildValue>
+                <LeftRearESPBuildValue DataType="float" Units="LBF">MachineDataBroker</LeftRearESPBuildValue>
                 <LeftRearESPReductionBGColor DataType="color">MachineDataBroker</LeftRearESPReductionBGColor>
-                <LeftRearESPReductionValue DataType="float" Units="N">MachineDataBroker</LeftRearESPReductionValue>
+                <LeftRearESPReductionValue DataType="float" Units="LBF">MachineDataBroker</LeftRearESPReductionValue>
                 <LeftRearMachineEStopPBDepressed DataType="bool">PLC</LeftRearMachineEStopPBDepressed>
                 <LeftRearParkBrakeCylinderFailedToExtend DataType="bool">PLC</LeftRearParkBrakeCylinderFailedToExtend>
                 <LeftRearParkBrakeForceBGColor DataType="color">VehicleDataBroker</LeftRearParkBrakeForceBGColor>
@@ -548,12 +550,14 @@
                 <LeftRearRollMotorOverloadOpen DataType="bool">PLC</LeftRearRollMotorOverloadOpen>
                 <LeftRearSpeedValue DataType="float" Units="MPH">MotorController</LeftRearSpeedValue>
                 <LeftRearTorqueValue DataType="float">MotorController</LeftRearTorqueValue>
+                <LeftRearTpmsCount DataType="short">VehicleDataBroker</LeftRearTpmsCount>
+                <LeftRearTpmsCountBgColor DataType="color">VehicleDataBroker</LeftRearTpmsCountBgColor>
                 <LeftRearTractionAverageValue DataType="float" Units="LBF">MachineDataBroker</LeftRearTractionAverageValue>
                 <LeftRearTractionMaxRecoveryIndex DataType="short">MachineDataBroker</LeftRearTractionMaxRecoveryIndex>
                 <LeftRearTractionMaxRecoveryValue DataType="float" Units="LBF">MachineDataBroker</LeftRearTractionMaxRecoveryValue>
                 <LeftRearTractionMinReductionIndex DataType="short">MachineDataBroker</LeftRearTractionMinReductionIndex>
                 <LeftRearTractionMinReductionValue DataType="float" Units="LBF">MachineDataBroker</LeftRearTractionMinReductionValue>
-                <LeftRearWssValue DataType="float">MachineDataBroker</LeftRearWssValue>
+                <LeftRearWssValue DataType="float" Units="MPH">MachineDataBroker</LeftRearWssValue>
                 <LeftRearWssValueBgColor DataType="color">MachineDataBroker</LeftRearWssValueBgColor>
                 <LeftSideGuideContacted DataType="bool">PLC</LeftSideGuideContacted>
                 <LeftSpeedRefRpm DataType="short">PLC</LeftSpeedRefRpm>
@@ -1131,9 +1135,9 @@
                 <RightFrontDragMinValue DataType="float" Units="LBF">MachineDataBroker</RightFrontDragMinValue>
                 <RightFrontDragMinValueIndex DataType="short">MachineDataBroker</RightFrontDragMinValueIndex>
                 <RightFrontESPBuildBGColor DataType="color">MachineDataBroker</RightFrontESPBuildBGColor>
-                <RightFrontESPBuildValue DataType="float" Units="N">MachineDataBroker</RightFrontESPBuildValue>
+                <RightFrontESPBuildValue DataType="float" Units="LBF">MachineDataBroker</RightFrontESPBuildValue>
                 <RightFrontESPReductionBGColor DataType="color">MachineDataBroker</RightFrontESPReductionBGColor>
-                <RightFrontESPReductionValue DataType="float" Units="N">MachineDataBroker</RightFrontESPReductionValue>
+                <RightFrontESPReductionValue DataType="float" Units="LBF">MachineDataBroker</RightFrontESPReductionValue>
                 <RightFrontMachineEStopPBDepressed DataType="bool">PLC</RightFrontMachineEStopPBDepressed>
                 <RightFrontRollerDirection DataType="bool">ICM</RightFrontRollerDirection>
                 <RightFrontRollMotorContactorFault DataType="bool">PLC</RightFrontRollMotorContactorFault>
@@ -1143,12 +1147,14 @@
                 <RightFrontRollMotorOverloadOpen DataType="bool">PLC</RightFrontRollMotorOverloadOpen>
                 <RightFrontSpeedValue DataType="float" Units="MPH">MotorController</RightFrontSpeedValue>
                 <RightFrontTorqueValue DataType="float">MotorController</RightFrontTorqueValue>
+                <RightFrontTpmsCount DataType="short">VehicleDataBroker</RightFrontTpmsCount>
+                <RightFrontTpmsCountBgColor DataType="color">VehicleDataBroker</RightFrontTpmsCountBgColor>
                 <RightFrontTractionAverageValue DataType="float" Units="LBF">MachineDataBroker</RightFrontTractionAverageValue>
                 <RightFrontTractionMaxRecoveryIndex DataType="short">MachineDataBroker</RightFrontTractionMaxRecoveryIndex>
                 <RightFrontTractionMaxRecoveryValue DataType="float" Units="LBF">MachineDataBroker</RightFrontTractionMaxRecoveryValue>
                 <RightFrontTractionMinReductionIndex DataType="short">MachineDataBroker</RightFrontTractionMinReductionIndex>
                 <RightFrontTractionMinReductionValue DataType="float" Units="LBF">MachineDataBroker</RightFrontTractionMinReductionValue>
-                <RightFrontWssValue DataType="float">MachineDataBroker</RightFrontWssValue>
+                <RightFrontWssValue DataType="float" Units="MPH">MachineDataBroker</RightFrontWssValue>
                 <RightFrontWssValueBgColor DataType="color">MachineDataBroker</RightFrontWssValueBgColor>
                 <RighthandDriveSelected DataType="bool">PLC</RighthandDriveSelected>
                 <RighthandDriveSelectedFromPLC DataType="bool">PLC</RighthandDriveSelectedFromPLC>
@@ -1174,9 +1180,9 @@
                 <RightRearDragMinValue DataType="float" Units="LBF">MachineDataBroker</RightRearDragMinValue>
                 <RightRearDragMinValueIndex DataType="short">MachineDataBroker</RightRearDragMinValueIndex>
                 <RightRearESPBuildBGColor DataType="color">MachineDataBroker</RightRearESPBuildBGColor>
-                <RightRearESPBuildValue DataType="float" Units="N">MachineDataBroker</RightRearESPBuildValue>
+                <RightRearESPBuildValue DataType="float" Units="LBF">MachineDataBroker</RightRearESPBuildValue>
                 <RightRearESPReductionBGColor DataType="color">MachineDataBroker</RightRearESPReductionBGColor>
-                <RightRearESPReductionValue DataType="float" Units="N">MachineDataBroker</RightRearESPReductionValue>
+                <RightRearESPReductionValue DataType="float" Units="LBF">MachineDataBroker</RightRearESPReductionValue>
                 <RightRearParkBrakeCylinderFailedToExtend DataType="bool">PLC</RightRearParkBrakeCylinderFailedToExtend>
                 <RightRearParkBrakeForceBGColor DataType="color">VehicleDataBroker</RightRearParkBrakeForceBGColor>
                 <RightRearParkBrakeForceValue DataType="float">VehicleDataBroker</RightRearParkBrakeForceValue>
@@ -1188,12 +1194,14 @@
                 <RightRearRollMotorOverloadOpen DataType="bool">PLC</RightRearRollMotorOverloadOpen>
                 <RightRearSpeedValue DataType="float" Units="MPH">MotorController</RightRearSpeedValue>
                 <RightRearTorqueValue DataType="float">MotorController</RightRearTorqueValue>
+                <RightRearTpmsCount DataType="short">VehicleDataBroker</RightRearTpmsCount>
+                <RightRearTpmsCountBgColor DataType="color">VehicleDataBroker</RightRearTpmsCountBgColor>
                 <RightRearTractionAverageValue DataType="float" Units="LBF">MachineDataBroker</RightRearTractionAverageValue>
                 <RightRearTractionMaxRecoveryIndex DataType="short">MachineDataBroker</RightRearTractionMaxRecoveryIndex>
                 <RightRearTractionMaxRecoveryValue DataType="float" Units="LBF">MachineDataBroker</RightRearTractionMaxRecoveryValue>
                 <RightRearTractionMinReductionIndex DataType="short">MachineDataBroker</RightRearTractionMinReductionIndex>
                 <RightRearTractionMinReductionValue DataType="float" Units="LBF">MachineDataBroker</RightRearTractionMinReductionValue>
-                <RightRearWssValue DataType="float">MachineDataBroker</RightRearWssValue>
+                <RightRearWssValue DataType="float" Units="MPH">MachineDataBroker</RightRearWssValue>
                 <RightRearWssValueBgColor DataType="color">MachineDataBroker</RightRearWssValueBgColor>
                 <RightSideGuideContacted DataType="bool">PLC</RightSideGuideContacted>
                 <RightSpeedRefRpm DataType="short">PLC</RightSpeedRefRpm>
@@ -1367,7 +1375,7 @@
                 <SpeedometerTestSpeed DataType="short">VehicleDataBroker</SpeedometerTestSpeed>
                 <SpeedometerTestSpeedBGColor DataType="color">VehicleDataBroker</SpeedometerTestSpeedBGColor>
                 <SpeedoTestBGColor DataType="color">MachineDataBroker</SpeedoTestBGColor>
-                <SpeedoTestValue DataType="float" Units="KPH">MachineDataBroker</SpeedoTestValue>
+                <SpeedoTestValue DataType="float" Units="MPH">MachineDataBroker</SpeedoTestValue>
                 <StartSpeedGraph DataType="bool">VehicleTest</StartSpeedGraph>
                 <SpeedoType DataType="string">VehicleDataBroker</SpeedoType>
                 <SpeedProTest DataType="bool">PLC</SpeedProTest>
@@ -1456,6 +1464,8 @@
                 <TorqueConstant DataType="float">VehicleDataBroker</TorqueConstant>
                 <TorqueConstantEnable DataType="bool">VehicleDataBroker</TorqueConstantEnable>
                 <TorqueOkFromTorqueController DataType="bool">PLC</TorqueOkFromTorqueController>
+                <TPMS DataType="string">VehicleDataBroker</TPMS>
+                <TpmsOverallTest DataType="testcomponentstatus">TestResultServer</TpmsOverallTest>
                 <TPSActive DataType="bool">VehicleDataBroker</TPSActive>
                 <TPSTarget DataType="range">VehicleDataBroker</TPSTarget>
                 <TPSValue DataType="float">VehicleDataBroker</TPSValue>

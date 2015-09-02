@@ -162,6 +162,7 @@ void SoundLevelTc::Initialize(const XmlNode *config)
 
     // signal that initialization is complete
     InitializationComplete();
+	ResetSystemTags();
 
     Log(LOG_FN_ENTRY, "Exit SoundLevelTc::Initialize()\n");
 }

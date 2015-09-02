@@ -72,8 +72,12 @@
                 <FourWDBGColor DataType="color">white</FourWDBGColor>
                 <FrontWD DataType="bool">No</FrontWD>
                 <FrontWDBGColor DataType="color">white</FrontWDBGColor>
+                <LeftFrontTpmsCount DataType="short">0</LeftFrontTpmsCount>
+                <LeftFrontTpmsCountBgColor DataType="color">white</LeftFrontTpmsCountBgColor>
                 <LeftRearParkBrakeForceBGColor DataType="color">white</LeftRearParkBrakeForceBGColor>
                 <LeftRearParkBrakeForceValue DataType="float">0</LeftRearParkBrakeForceValue>
+                <LeftRearTpmsCount DataType="short">0</LeftRearTpmsCount>
+                <LeftRearTpmsCountBgColor DataType="color">white</LeftRearTpmsCountBgColor>
                 <Manual4x4 DataType="bool">No</Manual4x4>
                 <Manual4x4BGColor DataType="color">white</Manual4x4BGColor>
                 <MetricSelect DataType="bool">No</MetricSelect>
@@ -81,8 +85,12 @@
                 <ModelYear DataType="string">Unknown</ModelYear>
                 <ModelYearBGColor DataType="color">white</ModelYearBGColor>
                 <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
+                <RightFrontTpmsCount DataType="short">0</RightFrontTpmsCount>
+                <RightFrontTpmsCountBgColor DataType="color">white</RightFrontTpmsCountBgColor>
                 <RightRearParkBrakeForceBGColor DataType="color">white</RightRearParkBrakeForceBGColor>
                 <RightRearParkBrakeForceValue DataType="float">0</RightRearParkBrakeForceValue>
+                <RightRearTpmsCount DataType="short">0</RightRearTpmsCount>
+                <RightRearTpmsCountBgColor DataType="color">white</RightRearTpmsCountBgColor>
                 <RunFlat DataType="bool">No</RunFlat>
                 <RunFlatBGColor DataType="color">white</RunFlatBGColor>
                 <SpeedActive DataType="bool">1</SpeedActive>
@@ -91,6 +99,7 @@
                 <TestingTOD DataType="bool">No</TestingTOD>
                 <TODInstalled DataType="bool">No</TODInstalled>
                 <TODInstalledBGColor DataType="color">white</TODInstalledBGColor>
+                <TPMS DataType="string">No</TPMS>
                 <TPSActive DataType="bool">0</TPSActive>
                 <TPSTarget DataType="range">0 0</TPSTarget>
                 <TPSValue DataType="float">0</TPSValue>

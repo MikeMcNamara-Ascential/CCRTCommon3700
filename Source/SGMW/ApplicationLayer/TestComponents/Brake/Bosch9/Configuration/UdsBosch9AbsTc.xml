@@ -104,6 +104,30 @@
             <RRForceDomain>0 500</RRForceDomain>
             <RRForceTarget>200 400</RRForceTarget>
             <RRForceValue>0</RRForceValue>
+            <LeftFrontESPReductionValue>0</LeftFrontESPReductionValue>
+            <RightFrontESPReductionValue>0</RightFrontESPReductionValue>
+            <LeftRearESPReductionValue>0</LeftRearESPReductionValue>
+            <RightRearESPReductionValue>0</RightRearESPReductionValue>
+            <LeftFrontESPReductionBGColor>white</LeftFrontESPReductionBGColor>
+            <RightFrontESPReductionBGColor>white</RightFrontESPReductionBGColor>
+            <LeftRearESPReductionBGColor>white</LeftRearESPReductionBGColor>
+            <RightRearESPReductionBGColor>white</RightRearESPReductionBGColor>
+            <LeftFrontESPBuildValue>0</LeftFrontESPBuildValue>
+            <RightFrontESPBuildValue>0</RightFrontESPBuildValue>
+            <LeftRearESPBuildValue>0</LeftRearESPBuildValue>
+            <RightRearESPBuildValue>0</RightRearESPBuildValue>
+            <LeftFrontESPBuildBGColor>white</LeftFrontESPBuildBGColor>
+            <RightFrontESPBuildBGColor>white</RightFrontESPBuildBGColor>
+            <LeftRearESPBuildBGColor>white</LeftRearESPBuildBGColor>
+            <RightRearESPBuildBGColor>white</RightRearESPBuildBGColor>
+            <LeftFrontWssValue>0</LeftFrontWssValue>
+            <RightFrontWssValue>0</RightFrontWssValue>
+            <LeftRearWssValue>0</LeftRearWssValue>
+            <RightRearWssValue>0</RightRearWssValue>
+            <LeftFrontWssValueBgColor>white</LeftFrontWssValueBgColor>
+            <RightFrontWssValueBgColor>white</RightFrontWssValueBgColor>
+            <LeftRearWssValueBgColor>white</LeftRearWssValueBgColor>
+            <RightRearWssValueBgColor>white</RightRearWssValueBgColor>
         </SystemTagsToReset>
         <DataTags>
             <Abort>Abort</Abort>
@@ -340,17 +364,17 @@
             <EspValveCommands>
                 <Command0010>EspPumpMotorOn</Command0010>
                 <Command0020>Usv2Hsv2RrLfEvOn</Command0020>
-                <Command0030 ArrayTag="LFESPBuildStart" Delay="300" RollerIndex="0" TagType="BuildStart">LfEspBuild</Command0030>
+                <Command0030 ArrayTag="LFESPBuildStart" Delay="350" RollerIndex="0" TagType="BuildStart">LfEspBuild</Command0030>
                 <Command0050 ArrayTag="LFESPBuildEnd" RollerIndex="0" TagType="BuildEnd">Usv2Hsv2Off</Command0050>
                 <Command0060 ArrayTag="LFESPReductionStart" Delay="200" RollerIndex="0" TagType="ReductionStart">LfEspDecay</Command0060>
                 <Command0070 ArrayTag="LFESPReductionEnd" RollerIndex="0" TagType="ReductionEnd">RrLfEvOff</Command0070>
                 <Command0080>Usv1Hsv1LrRfEvOn</Command0080>
-                <Command0090 ArrayTag="RFESPBuildStart" Delay="300" RollerIndex="1" TagType="BuildStart">RfEspBuild</Command0090>
+                <Command0090 ArrayTag="RFESPBuildStart" Delay="350" RollerIndex="1" TagType="BuildStart">RfEspBuild</Command0090>
                 <Command0110 ArrayTag="RFESPBuildEnd" RollerIndex="1" TagType="BuildEnd">Usv1Hsv1Off</Command0110>
-                <Command0120 ArrayTag="RFESPReductionStart" Delay="200" RollerIndex="1" TagType="ReductionStart">RfEspDecay</Command0120>
+                <Command0120 ArrayTag="RFESPReductionStart" Delay="350" RollerIndex="1" TagType="ReductionStart">RfEspDecay</Command0120>
                 <Command0130 ArrayTag="RFESPReductionEnd" RollerIndex="1" TagType="ReductionEnd">LrRfEvOff</Command0130>
                 <Command0140>Usv1Hsv1LrRfEvOn</Command0140>
-                <Command0150 ArrayTag="LRESPBuildStart" Delay="300" RollerIndex="2" TagType="BuildStart">LrEspBuild</Command0150>
+                <Command0150 ArrayTag="LRESPBuildStart" Delay="350" RollerIndex="2" TagType="BuildStart">LrEspBuild</Command0150>
                 <Command0170 ArrayTag="LRESPBuildEnd" RollerIndex="2" TagType="BuildEnd">Usv1Hsv1Off</Command0170>
                 <Command0180 ArrayTag="LRESPReductionStart" Delay="200" RollerIndex="2" TagType="ReductionStart">LrEspDecay</Command0180>
                 <Command0190 ArrayTag="LRESPReductionEnd" RollerIndex="2" TagType="ReductionEnd">LrRfEvOff</Command0190>
@@ -368,14 +392,14 @@
             <FourChannelEspTest>True</FourChannelEspTest>
             <RecalculateDragBeforeESP>False</RecalculateDragBeforeESP>
             <DragAnalyzedBeforeESPTest>True</DragAnalyzedBeforeESPTest>
-            <LeftFrontMinESPBuildForce Units="lbf">80</LeftFrontMinESPBuildForce>
-            <RightFrontMinESPBuildForce Units="lbf">80</RightFrontMinESPBuildForce>
-            <LeftRearMinESPBuildForce Units="lbf">80</LeftRearMinESPBuildForce>
-            <RightRearMinESPBuildForce Units="lbf">80</RightRearMinESPBuildForce>
-            <LeftFrontMaxESPReductionForce Units="lbf">20</LeftFrontMaxESPReductionForce>
-            <RightFrontMaxESPReductionForce Units="lbf">20</RightFrontMaxESPReductionForce>
-            <LeftRearMaxESPReductionForce Units="lbf">20</LeftRearMaxESPReductionForce>
-            <RightRearMaxESPReductionForce Units="lbf">20</RightRearMaxESPReductionForce>
+            <LeftFrontMinESPBuildForce Units="lbf">225</LeftFrontMinESPBuildForce>
+            <RightFrontMinESPBuildForce Units="lbf">225</RightFrontMinESPBuildForce>
+            <LeftRearMinESPBuildForce Units="lbf">225</LeftRearMinESPBuildForce>
+            <RightRearMinESPBuildForce Units="lbf">225</RightRearMinESPBuildForce>
+            <LeftFrontMaxESPReductionForce Units="lbf">40</LeftFrontMaxESPReductionForce>
+            <RightFrontMaxESPReductionForce Units="lbf">40</RightFrontMaxESPReductionForce>
+            <LeftRearMaxESPReductionForce Units="lbf">40</LeftRearMaxESPReductionForce>
+            <RightRearMaxESPReductionForce Units="lbf">40</RightRearMaxESPReductionForce>
             <UseMaxESPReductionPercentage>False</UseMaxESPReductionPercentage>
             <!--Park Brake Parameters-->
             <ParkBrakeApplyForce Units="lbf">2000</ParkBrakeApplyForce>
@@ -496,7 +520,6 @@
             <TestStep00>Setup</TestStep00>
             <TestStep05>Initialize</TestStep05>
             <TestStep10>EnterDiagnosticMode</TestStep10>
-            <TestStep25>ReadFaults</TestStep25>
             <TestStep30>ClearFaults</TestStep30>
             <TestStep35>DisableSpeedLimit</TestStep35>
             <TestStep40>DisableValveRelayShutdown</TestStep40>
@@ -586,7 +609,7 @@
           -->
     </Objectives>
     <TestSteps>
-        <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed" 
+        <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed"
             ArmSpeed="50" SpeedTarget="50 60" Prompt1="AccelerateToTargetSpeed"/>
         <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" Prompt1="AccelerateToTargetSpeed" SpeedTarget="18 25" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
         <AllInletValvesOff Result="" Timeout="1000" Description="Turn all inlet valves off"/>
@@ -597,9 +620,9 @@
         <AnalyzeDynamicParkBrake Result="" Timeout="10000" Description="Analyze Dynamic Park Brake forces"/>
         <BrakeSwitchOffTest Result="" Timeout="500" ScanDelay="100" Description="Verify brake switch indicates off when foot off pedal" PostDelayTime="0"/>
         <BrakeSwitchOnTest Result="" Timeout="500" ScanDelay="100" Description="Verify brake switch indicates on when foot on pedal" PostDelayTime="0"/>
-        <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" 
-            StartBrakeSampleSpeed="45" EndBrakeSampleSpeed="25" 
-            BrakeDomain="0 500" BrakeTarget="250 350" 
+        <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test"
+            StartBrakeSampleSpeed="45" EndBrakeSampleSpeed="25"
+            BrakeDomain="0 500" BrakeTarget="250 350"
             Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand"/>
         <BrakeToStop Result="" Timeout="120000" Description="Prompt the driver to brake to stop" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
         <CalibrateGSensor Result="" Timeout="5000" Description="Calibrate yaw rate sensor"/>

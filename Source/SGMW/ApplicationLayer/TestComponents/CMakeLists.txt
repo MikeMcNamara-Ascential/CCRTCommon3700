@@ -26,3 +26,5 @@ ADD_SUBDIRECTORY(LossCompensation)
 ADD_SUBDIRECTORY(Machine)
 ADD_SUBDIRECTORY(SoundLevel)
 ADD_SUBDIRECTORY(SpeedControl)
+ADD_SUBDIRECTORY(TirePressureMonitor)
+

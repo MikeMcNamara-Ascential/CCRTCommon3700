@@ -3,3 +3,4 @@
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Brake)
 ADD_SUBDIRECTORY(EngineController)
+ADD_SUBDIRECTORY(TirePressureMonitor)

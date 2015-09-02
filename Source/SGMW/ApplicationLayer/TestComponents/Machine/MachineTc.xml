@@ -124,7 +124,7 @@
             <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
             <DateFormat>%F</DateFormat>
-            <DcxStyleSpeedoTest>True</DcxStyleSpeedoTest>
+            <DcxStyleSpeedoTest>False</DcxStyleSpeedoTest>
             <ForcedAccelerateSpeedStep>10</ForcedAccelerateSpeedStep>
             <ForcedAccelerateSpeedStepDelay>500</ForcedAccelerateSpeedStepDelay>
             <ICMName>mgr/ICM</ICMName>
@@ -192,6 +192,7 @@
         <SystemTagsToReset>
             <VINDisplayBGColor>white</VINDisplayBGColor>
             <SpeedoTestBGColor>white</SpeedoTestBGColor>
+            <SpeedoTestValue>0</SpeedoTestValue>
         </SystemTagsToReset>
         <TaskMon>
             <Name>MachineTc</Name>

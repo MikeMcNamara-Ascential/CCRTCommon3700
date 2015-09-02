@@ -48,13 +48,21 @@ string MqsResultInterface::GenerateHostResultString(const XmlNode *testResults)
 		{
 			string vehicleOption = "VehicleBuild/" + optionIter->second->getValue();
 			Log(LOG_DEV_DATA, "Looking for %s in the build data", optionIter->second->getValue().c_str());
-			string optionValue = testResults->getChild(vehicleOption)->getValue();
-			Log(LOG_DEV_DATA, "Vehicle Option: %s, Value: %s", 
-				optionIter->second->getValue().c_str(), optionValue.c_str());
-			XmlNodeMapCItr validValsIter = iter->second->getAttributes().find("ValidOptions");
-			if(validValsIter != iter->second->getAttributes().end())
+			try
 			{
-				processResult = strstr(validValsIter->second->getValue().c_str(),optionValue.c_str()) != NULL;
+				string optionValue = testResults->getChild(vehicleOption)->getValue();
+				Log(LOG_DEV_DATA, "Vehicle Option: %s, Value: %s", 
+					optionIter->second->getValue().c_str(), optionValue.c_str());
+				XmlNodeMapCItr validValsIter = iter->second->getAttributes().find("ValidOptions");
+				if(validValsIter != iter->second->getAttributes().end())
+				{
+					processResult = strstr(validValsIter->second->getValue().c_str(),optionValue.c_str()) != NULL;
+				}
+			}
+			catch(XmlException &excpt)
+			{
+				Log(LOG_ERRORS, "Error getting %s from the build data, not processing %s - %s", 
+					optionIter->second->getValue().c_str(), iter->second->getValue().c_str(), excpt.GetReason());
 			}
 		}
 		else

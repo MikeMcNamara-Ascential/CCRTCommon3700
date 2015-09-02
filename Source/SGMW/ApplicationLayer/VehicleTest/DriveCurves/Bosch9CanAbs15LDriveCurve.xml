@@ -34,6 +34,14 @@
             <Debug>Off</Debug>
         </SpeedControl>
 
+        <Tpms>
+            <ComponentName>TpmsTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>UdsTpmsTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/TPMS</ConfigPath>
+            <Debug>Off</Debug>
+        </Tpms>
+
     </Components>
 
 
@@ -57,6 +65,9 @@
                 <Objective1 Description="Cruise Test Setup" Result="" Timeout="" Component="SpeedControl">
                     <Setup/>
                 </Objective1>
+                <Objective2 Description="TPMS Test Setup" Result="" Timeout="" Component="Tpms">
+                    <Setup/>
+                </Objective2>
             </ForegroundObjectives>
         </TestPhase005>
 
@@ -119,6 +130,14 @@
             </ForegroundObjectives>
         </TestPhase215>
 
+        <TestPhase220 Description="TPMS Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="TPMS Test" Result="" Timeout="" Component="Tpms">
+                    <WaitForTimeAboveSpeed/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase220>
+
 
 
 
@@ -141,6 +160,9 @@
                 <Objective0 Description="Analyze brake test data" Result="" Timeout="" Component="Brake">
                     <AnalyzeAbsBrakeTest/>
                 </Objective0>
+                <Objective1 Description="Analyze TPMS test data" Result="" Timeout="" Component="Tpms">
+                    <FinishUp/>
+                </Objective0>
             </BackgroundObjectives>
         </TestPhase305>
 
@@ -155,15 +177,6 @@
               </Objective0>
            </ForegroundObjectives>
         </TestPhase400>
-
-        <!-- Perform operator buyoff checks -->
-        <TestPhase405 Description="Check vehicle Lamps" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Check lamps on the vehicle" Result="" Timeout="" Component="Machine">
-                    <MultiDriverQuestion>LampCheck</MultiDriverQuestion>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase405>
 
 
 

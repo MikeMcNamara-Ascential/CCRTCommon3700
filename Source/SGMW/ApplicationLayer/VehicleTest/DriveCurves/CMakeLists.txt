@@ -9,4 +9,5 @@ INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/DriveCurves FILES
 	Bosch9CanEsp15LDriveCurve.xml
 	Bosch9CanEsp18LDriveCurve.xml
 	Bosch9IsoAbsDriveCurve.xml
+	DcuAbs18LDriveCurve.xml
 	)

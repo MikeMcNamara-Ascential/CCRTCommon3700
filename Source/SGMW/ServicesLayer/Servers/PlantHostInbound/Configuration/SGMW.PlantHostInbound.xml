@@ -93,7 +93,7 @@
                 <NotEquipped>No</NotEquipped>
                 <AWD>No</AWD>
             </FourWheelDriveEquipped>
-            <SecondarySelectionDataTag>ZTSCode</SecondarySelectionDataTag>
+            <SecondarySelectionDataTag>VCNumber</SecondarySelectionDataTag>
             <SecondarySelectionData SelectedCharacterType="range">
                 <ZTSCodeIndex01>0</ZTSCodeIndex01>
                 <ZTSCodeIndex06>5</ZTSCodeIndex06>
@@ -116,7 +116,7 @@
                 <RollsDownElevUp/>
                 <NextVIN/>
                 <FrontAxleTestSelected/>
-                <ZTSCode/>
+                <VCNumber/>
             </SubscribeTags>
             <PublishTags>
                 <VehicleBuildRecordStatus/>

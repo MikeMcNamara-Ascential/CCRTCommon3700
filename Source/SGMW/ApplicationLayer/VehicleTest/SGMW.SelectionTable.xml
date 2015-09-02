@@ -29,4 +29,9 @@
       <BrakeType>Bosch 9 K-Line</BrakeType>
    </Bosch9KlineAbs>
 
+   <!-- DCU Test Sequences -->
+   <DcuAbs18L DriveCurve="/Configuration/VehicleTest/DriveCurves/DcuAbs18LDriveCurve.xml">
+       <BrakeType>DCU</BrakeType>
+   </DcuAbs18L>
+   
 </SelectionTable>

@@ -68,7 +68,7 @@
                     <BadDataIndex>0x01</BadDataIndex>
                     <BadDataIndicator>0x00</BadDataIndicator>
                     <BadDataReplacementValue>0x31</BadDataReplacementValue>
-                    <SecondaryDataTag>ZTSCode</SecondaryDataTag>
+                    <SecondaryDataTag>VCNumber</SecondaryDataTag>
                     <SecondaryDataLength>10</SecondaryDataLength>
                 </Setup>
             </LeftHandheld>

@@ -96,6 +96,7 @@ void SgmwSystemMonitor::CheckTesting(ControlData *ctrl)
                 (m_oldCtrl->vehVinReadStatus != VALID_VEHICLE_VIN))
         {
             CommandNdbData(READ_LATEST_BUILD_DATA_TAG, true);
+			WriteNdbData("StartLamp", true);
             DisplayPrompt(1, "MachineReady");
         }
     }
@@ -115,6 +116,12 @@ const string SgmwSystemMonitor::Publish(const XmlNode *node)
     {   
         CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1")); 
     }
+	else if(!node->getName().compare(ROLLS_DOWN_DATA_TAG) && atob(node->getValue().c_str()))
+	{   // Rolls just closed, clear the VIN and VC from the display
+		WriteNdbData("VCNumber", string("??"));
+		WriteNdbData(VINDISPLAY_DATA_TAG, string("??"));
+		WriteNdbData("StartLamp", false);
+	}
     Log(LOG_FN_ENTRY, "SgmwSystemMonitor::Publish(%s, %s) - Exit", node->getName().c_str(), node->getValue().c_str());
     // Finish the normal publish
     return SystemMonitor::Publish(node);

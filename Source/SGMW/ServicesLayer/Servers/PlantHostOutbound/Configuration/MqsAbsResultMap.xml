@@ -69,7 +69,7 @@
     <Field00108 Type="XmlTag">/absdtc</Field00108>
 
     <Field00110 Type="XmlTag">absdtccheck</Field00110>
-        <Field00111 Type="Result" Format="%4s" Length="4" DataType="String">BrakeReadFaults</Field00111>
+    <Field00111 Type="Result" Format="%4s" Length="4" DataType="String">BrakeReadFaults</Field00111>
     <Field00112 Type="XmlTag">/absdtccheck</Field00112>
 
     <Field00115 Type="XmlTag">pedal</Field00115>

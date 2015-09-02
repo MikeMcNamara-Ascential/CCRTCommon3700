@@ -146,8 +146,8 @@
         -->
 
         <!-- N16:3 -->
-        <!--
         <StartLamp channelIndex="3" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+        <!--
         <RollTestLamp channelIndex="3" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
         <BrakeTestLamp channelIndex="3" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
         <CompleteLamp channelIndex="3" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>

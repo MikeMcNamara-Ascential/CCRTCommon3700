@@ -5,6 +5,7 @@
         <DebugLevel>0</DebugLevel>
         <ProcessPriority>11</ProcessPriority>
         <Parameters>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
             <SoundPressureLevelMax Description="Maximum allowable sound pressure level" Units="dB">115</SoundPressureLevelMax>
             <SoundPressureLevelMin Description="Minimum allowable sound pressure level" Units="dB">90.0</SoundPressureLevelMin>
             <SoundPressureLevelDuration Description="Total amount of time to sample the sound level" Units="ms">10000</SoundPressureLevelDuration>
@@ -75,7 +76,10 @@
             <TES1352H>TES1352H</TES1352H>
             <BK2236>BK2236</BK2236>
         </DataTags>
-        <SystemTagsToReset/>
+        <SystemTagsToReset>
+            <SoundLevelValue>0</SoundLevelValue>
+            <SoundLevelBGColor>white</SoundLevelBGColor>
+        </SystemTagsToReset>
         <ThreadPool>
             <Debug>Off</Debug>
             <MinBlockedLimit>2</MinBlockedLimit>

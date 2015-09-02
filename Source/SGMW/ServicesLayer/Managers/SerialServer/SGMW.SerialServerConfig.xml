@@ -99,9 +99,11 @@
                     <NodePairs>
                         <ABS Outgoing="0x720" Incoming="0x728"/>
                         <Cruise Outgoing="0x7E0" Incoming="0x7E8"/>
+                        <DCU Outgoing="0x731" Incoming="0x739"/>
+                        <Tpms Outgoing="0x721" Incoming="0x729"/>
                     </NodePairs>
                     <NodePairSetup>
-                        <Range1 FirstRequestID="0x720" FirstResponseID="0x728" NumberOfPairs="1"/>
+                        <Range1 FirstRequestID="0x720" FirstResponseID="0x728" NumberOfPairs="20"/>
                         <Range2 FirstRequestID="0x7E0" FirstResponseID="0x7E8" NumberOfPairs="1"/>
                     </NodePairSetup>
                 </Setup>

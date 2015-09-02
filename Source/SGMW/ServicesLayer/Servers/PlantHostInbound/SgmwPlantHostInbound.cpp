@@ -245,26 +245,44 @@ const string SgmwPlantHostInbound::Publish(const XmlNode *node)
 		}
 		else if(!node->getName().compare(GetNextVinTag()))
 		{	// Update the traffic light widget to let driver know vin is being processed
-			Log(LOG_FN_ENTRY,"SecondarySelectionDataMatch\n");
-			SetVehicleBuildRecordStatus(validStatus);
-			UpdateInputServerState();
-			Log(LOG_FN_ENTRY,"Return from update state\n");
-			m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
-			// Load the vehicle build record for the specified vin
-			Log(LOG_FN_ENTRY,"Before Load\n");
-			loadResult = LoadVehicleBuildRecord(node->getValue(), m_vehicleBuild, true);
-			Log(LOG_FN_ENTRY,"After Load\n");
-			if(loadResult == BEP_SUCCESS_RESPONSE)
-			{	// Publish the vehicle build to any subscribers
-				XmlNode nextVehicleBuild(GetVehicleBuildTag(), "");
-				for(XmlNodeMapItr iter = m_vehicleBuild.begin(); iter != m_vehicleBuild.end(); iter++)
-				{	// Add the build item to the node
-					nextVehicleBuild.addChild(iter->second->Copy());
+			if(m_broker != NULL)
+			{
+				string vcNumber, response;
+				string vcTag = GetDataTag("SecondarySelectionDataTag");
+				if(m_broker->Read(vcTag, response, true) == BEP_STATUS_SUCCESS)
+				{
+					m_broker->GetNext(vcTag, vcNumber, response);
+					Log(LOG_DEV_DATA, "Processing VIN, checking value of VSN: %s", vcNumber.c_str());
+					if(vcNumber != "??")
+					{
+						Log(LOG_FN_ENTRY,"SecondarySelectionDataMatch\n");
+						SetVehicleBuildRecordStatus(validStatus);
+						UpdateInputServerState();
+						Log(LOG_FN_ENTRY,"Return from update state\n");
+						m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
+						// Load the vehicle build record for the specified vin
+						Log(LOG_FN_ENTRY,"Before Load\n");
+						loadResult = LoadVehicleBuildRecord(node->getValue(), m_vehicleBuild, true);
+						Log(LOG_FN_ENTRY,"After Load\n");
+						if(loadResult == BEP_SUCCESS_RESPONSE)
+						{	// Publish the vehicle build to any subscribers
+							XmlNode nextVehicleBuild(GetVehicleBuildTag(), "");
+							for(XmlNodeMapItr iter = m_vehicleBuild.begin(); iter != m_vehicleBuild.end(); iter++)
+							{	// Add the build item to the node
+								nextVehicleBuild.addChild(iter->second->Copy());
+							}
+							// Write the next build data
+							Write(&nextVehicleBuild);
+							// Get rid of the node
+							nextVehicleBuild.clear();
+						}
+					}
+					else
+					{
+						Log(LOG_ERRORS, "VIN scanned before VSN, not loading data.");
+						m_broker->Write(VINDISPLAY_DATA_TAG, string("??"), response, true);
+					}
 				}
-				// Write the next build data
-				Write(&nextVehicleBuild);
-				// Get rid of the node
-				nextVehicleBuild.clear();
 			}
 		}
 	}

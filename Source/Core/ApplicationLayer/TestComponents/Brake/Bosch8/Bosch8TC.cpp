@@ -2240,9 +2240,9 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 					SystemWrite(rollerName[startRollerIndex] + "WssValue", sensorSpeeds[startRollerIndex]);
 					SystemWrite(rollerName[startRollerIndex+1] + "WssValue", sensorSpeeds[startRollerIndex+1]);
 					SystemWrite(rollerName[startRollerIndex] + "WssValueBgColor", 
-								!leftResult.compare(testPass) ? "green" : "red");
+								string(!leftResult.compare(testPass) ? "green" : "red"));
 					SystemWrite(rollerName[startRollerIndex+1] + "WssValueBgColor", 
-								!rightResult.compare(testPass) ? "green" : "red");
+								string(!rightResult.compare(testPass) ? "green" : "red"));
 				}
 				else
 				{
@@ -3206,30 +3206,35 @@ string Bosch8TC<ModuleType>::FlexibleEspValveFiringTest(void)
 		{   // Determine if we need to tag the array
 			Log(LOG_DEV_DATA, "Sending ESP Command: %s", iter->second->getValue().c_str());
 			XmlNodeMapCItr tagIter = iter->second->getAttributes().find("ArrayTag");
+			string type = "";
+			string tag = "";
+			bool tagArray = false;
+			INT32 rollerIndex = 0;
 			if(tagIter != iter->second->getAttributes().end())
 			{
-				INT32 rollerIndex = BposReadInt(iter->second->getAttribute("RollerIndex")->getValue().c_str());
-				string type = iter->second->getAttribute("TagType")->getValue();
-				string tag = tagIter->second->getValue();
+				tagArray = true;
+				rollerIndex = BposReadInt(iter->second->getAttribute("RollerIndex")->getValue().c_str());
+				type = iter->second->getAttribute("TagType")->getValue();
+				tag = tagIter->second->getValue();
 				if(type == "BuildStart")
 				{
 					m_ESPIndex[rollerIndex].buildStart = TagArray(tag);
-				}
-				else if(type == "BuildEnd")
-				{
-					m_ESPIndex[rollerIndex].buildEnd = TagArray(tag);
 				}
 				else if(type == "ReductionStart")
 				{
 					m_ESPIndex[rollerIndex].reductionStart = TagArray(tag);
 				}
-				else if(type == "ReductionEnd")
-				{
-					m_ESPIndex[rollerIndex].reductionEnd = TagArray(tag);
-				}
 			}
 			// Send the command to the module
-			moduleStatus = m_vehicleModule.CommandModule(iter->second->getValue());
+			if(!iter->second->getValue().empty())
+			{
+				moduleStatus = m_vehicleModule.CommandModule(iter->second->getValue());
+			}
+			else
+			{
+				Log(LOG_DEV_DATA, "No module command, continue processing item");
+				moduleStatus = BEP_STATUS_SUCCESS;
+			}
 			if(BEP_STATUS_SUCCESS != moduleStatus)
 			{
 				SetCommunicationFailure(true);
@@ -3243,6 +3248,17 @@ string Bosch8TC<ModuleType>::FlexibleEspValveFiringTest(void)
 				if(delayIter != iter->second->getAttributes().end())
 				{
 					delay(BposReadInt(delayIter->second->getValue().c_str()));
+				}
+			}
+			if(tagArray)
+			{
+				if(type == "BuildEnd")
+				{
+					m_ESPIndex[rollerIndex].buildEnd = TagArray(tag);
+				}
+				else if(type == "ReductionEnd")
+				{
+					m_ESPIndex[rollerIndex].reductionEnd = TagArray(tag);
 				}
 			}
 		}

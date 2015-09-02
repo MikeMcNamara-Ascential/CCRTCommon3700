@@ -1,0 +1,9 @@
+# File E:\CCRT\branches\Common3700\Source\SGMW\Burke_PorterCCRT/resources/com/bepco/rtc/properties/CRTPanelLabels.properties
+# Properties changed between new file and old file (new property listed)
+label.axleratio.text=AxleRatio
+
+# File E:\CCRT\branches\Common3700\Source\SGMW\Burke_PorterCCRT/resources/com/bepco/rtc/properties/Prompts.properties
+# Properties changed between new file and old file (new property listed)
+PerformingFinishUp = Performing FinishUp
+
+

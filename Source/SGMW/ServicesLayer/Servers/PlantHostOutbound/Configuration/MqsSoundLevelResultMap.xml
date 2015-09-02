@@ -32,11 +32,11 @@
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-    <Field00036 Type="Separator">JCX_3</Field00036>
+    <Field00036 Type="Separator">JCX_E</Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-    <Field00041 Type="Separator">88_3</Field00041>
+    <Field00041 Type="Separator">85.7_E</Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>
@@ -56,6 +56,15 @@
     <Field00101 Type="Detail" DetailNode="SoundPressureLevel" Format="%4.1f" Length="4" DataType="Float">SoundLevelSoundPressureLevelTest</Field00101>
     <Field00102 Type="XmlTag">/soundlevel</Field00102>
 
+
+
+    <Field00103 Type="XmlTag">isupdate</Field00103>
+    <Field00104 Type="Separator">SOUNDLEVEL</Field00104>
+    <Field00105 Type="XmlTag">/isupdate</Field00105>
+
+    <Field00106 Type="XmlTag">alljudge</Field00106>
+    <Field00107 Type="Separator">SOUNDLEVEL</Field00107>
+    <Field00108 Type="XmlTag">/alljudge</Field00108>
 
 
     <Field99999 Type="XmlTag">/xmldata</Field99999>

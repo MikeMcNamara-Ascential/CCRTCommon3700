@@ -136,7 +136,7 @@
 #define GenericModuleTemplate_cpp
 
 #include "GenericModuleTemplate.h"
-
+#include "GenericCANModule.h"
 
 template <class ProtocolFilterType>
 GenericModuleTemplate<ProtocolFilterType>::GenericModuleTemplate(void) : IGenericModule(), ILogger(),
@@ -705,6 +705,12 @@ throw(ModuleException)
     {   // Read the module faults
         retVal = ReadFaults(value);
     }
+	else if(methodName == "UDSReadFaults")
+	{
+		GenericCANModule faultReader(m_protocolFilter);
+		faultReader.Initialize(m_configNode);
+		retVal = faultReader.ReadFaults(value);
+	}
     else
     {   // no generic method available
         Log(LOG_DEV_DATA, "%s: GetInfo: No method named: %s", ModuleName().c_str(), methodName.c_str());

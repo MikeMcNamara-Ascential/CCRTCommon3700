@@ -1345,12 +1345,15 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateESP(void)
 				// Evaluate the build and reduction values
 // 2005.2.28 ews changed per emergency HMMA request
 // changed to 2 to only evaluate the front wheels
+				bool useEspEndIndex = GetParameterBool("EvalEspUseEspEndIndex");
+				Log(LOG_DEV_DATA, "Using ESP End index instead of individual wheel end indices: %s ", 
+					useEspEndIndex ? "True" : "False");
 				for(wheelIndex = 0; wheelIndex < (UINT32)(GetParameterBool("FourChannelEspTest") ? 4 : 2); wheelIndex++)
 				{
 					// Find the actual start and end build indices.  
 					// The stored indices are absolute, whereas the wheel force array is relative to start of test
 					INT32 buildStart = m_ESPIndex[wheelIndex].buildStart - m_ESPStartIndex;
-					INT32 buildEnd   = m_ESPIndex[wheelIndex].buildEnd   - m_ESPStartIndex;
+					INT32 buildEnd   = (useEspEndIndex ? m_ESPEndIndex : m_ESPIndex[wheelIndex].buildEnd) - m_ESPStartIndex;
 					Log(LOG_DEV_DATA, "%s Build -- Start: %d, End: %d\n", rollerName[wheelIndex].c_str(),
 						buildStart, buildEnd);
 
@@ -1365,7 +1368,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateESP(void)
 					// Find the actual start and end reduction indices.  
 					// The stored indices are absolute, whereas the wheel force array is relative to start of test
 					INT32 reductionStart = m_ESPIndex[wheelIndex].reductionStart - m_ESPStartIndex;
-					INT32 reductionEnd   = m_ESPIndex[wheelIndex].reductionEnd   - m_ESPStartIndex;
+					INT32 reductionEnd   = (useEspEndIndex ? m_ESPEndIndex : m_ESPIndex[wheelIndex].reductionEnd) - m_ESPStartIndex;
 					Log(LOG_DEV_DATA, "%s Reduction -- Start: %d, End: %d\n", rollerName[wheelIndex].c_str(), 
 						reductionStart, reductionEnd);
 					reductionStatus = AnalyzeESPReductionForces(wheelIndex,reductionStart,reductionEnd);

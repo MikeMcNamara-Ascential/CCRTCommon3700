@@ -175,6 +175,7 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
 		else if(step == "InitializeEolStatus")     status = SetEolStatus(BEP_TESTING_RESPONSE);
 		else if(step == "WriteFinalEolStatus")     status = SetEolStatus(GetOverallResult());
 		else if(step == "UnlockModuleSecurity")    status = UnlockModuleSecurity();
+		else if(step == "EnterDiagModeAtSpeed")    status = GenericTCTemplate<ModuleType>::EnterDiagnosticMode();
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
     catch(BepException &err)

@@ -150,10 +150,11 @@ void MqsResultInterface::SendResultToHost(const string &result)
 		// Transmit the result string to the host system
 		Log(LOG_DEV_DATA, "MqsResultInterface: Message to send to host system - %s", txResult.c_str());
 		status = SendTestResultString(txResult, *(HostComm()), MaxMsgSendAttempts(), 0);
-		Log(LOG_ERRORS, "Sent result to host system: %", ConvertStatusToResponse(status).c_str());
+		Log(LOG_ERRORS, "Sent result to host system: %s", ConvertStatusToResponse(status).c_str());
 		if(BEP_STATUS_SUCCESS != status)
 		{
 			failedTx.push_back(txResult);
+			Log(LOG_ERRORS, "Result not sent to the host, adding to failed list");
 		}
 	} while(!resultStrings.empty() && (BEP_STATUS_SUCCESS == status));
 	// Store any failed transmit strings
@@ -190,9 +191,10 @@ const BEP_STATUS_TYPE MqsResultInterface::SendTestResultString(string &resultStr
 		if(portLocked)
 		{   // Transmit the message
 			portComm.ResetConnection();
-			status = portComm.Send(message);
+			INT32 bytesSent = portComm.Send(message);
+			status = (bytesSent == 0) ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
 			// Log the status
-			Log(LOG_ERRORS, "Sent message to host: %s", ConvertStatusToResponse(status).c_str());
+			Log(LOG_ERRORS, "Sent message to host: %s (%d bytes)", ConvertStatusToResponse(status).c_str(), bytesSent);
 			// Look for the response
 			SerialString_t mqsResponse, mqsResponse2;
 			int bytesRead = portComm.ReadPort(mqsResponse, 1000, 0);
@@ -222,6 +224,7 @@ const BEP_STATUS_TYPE MqsResultInterface::SendTestResultString(string &resultStr
 	// Keep trying while attempts remaining and failed transmit
 	} while((BEP_STATUS_SUCCESS != status) && (currentAttempt++ <= maxAttempts));
 	// Return the status
+	Log(LOG_FN_ENTRY, "MqsResultInterface::SendTestResultString() - Exit - status: %d", status);
 	return status;
 }
 

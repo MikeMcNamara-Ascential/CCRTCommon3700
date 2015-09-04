@@ -371,27 +371,32 @@
             <RightRearMinReductionPercent>40.0</RightRearMinReductionPercent>
             <SkipValveCross>True</SkipValveCross>
             <EspValveCommands>
-                <Command0030 ArrayTag="LFESPBuildStart" Delay="220" RollerIndex="0" TagType="BuildStart">LfEspBuild</Command0030>
-                <Command0050 ArrayTag="LFESPBuildEnd" RollerIndex="0" TagType="BuildEnd"/>
-                <Command0060 ArrayTag="LFESPReductionStart" Delay="150" RollerIndex="0" TagType="ReductionStart">LfEspDecay</Command0060>
-                <Command0070 ArrayTag="LFESPReductionEnd" RollerIndex="0" TagType="ReductionEnd"/>
-                <Command0090 ArrayTag="RFESPBuildStart" Delay="220" RollerIndex="1" TagType="BuildStart">RfEspBuild</Command0090>
-                <Command0110 ArrayTag="RFESPBuildEnd" RollerIndex="1" TagType="BuildEnd"/>
-                <Command0120 ArrayTag="RFESPReductionStart" Delay="150" RollerIndex="1" TagType="ReductionStart">RfEspDecay</Command0120>
-                <Command0130 ArrayTag="RFESPReductionEnd" RollerIndex="1" TagType="ReductionEnd"/>
-                <Command0150 ArrayTag="LRESPBuildStart" Delay="220" RollerIndex="2" TagType="BuildStart">LrEspBuild</Command0150>
-                <Command0170 ArrayTag="LRESPBuildEnd" RollerIndex="2" TagType="BuildEnd"/>
-                <Command0180 ArrayTag="LRESPReductionStart" Delay="150" RollerIndex="2" TagType="ReductionStart">LrEspDecay</Command0180>
-                <Command0190 ArrayTag="LRESPReductionEnd" RollerIndex="2" TagType="ReductionEnd"/>
-                <Command0210 ArrayTag="RRESPBuildStart" Delay="220" RollerIndex="3" TagType="BuildStart">RrEspBuild</Command0210>
-                <Command0230 ArrayTag="RRESPBuildEnd" RollerIndex="3" TagType="BuildEnd"/>
-                <Command0240 ArrayTag="RRESPReductionStart" Delay="150" RollerIndex="3" TagType="ReductionStart">RrEspDecay</Command0240>
-                <Command0250 ArrayTag="RRESPReductionEnd" RollerIndex="3" TagType="ReductionEnd"/>
-                <Command0260 Delay="2000">EspPumpMotorOn</Command0010>
+                <Command0030 ArrayTag="LFESPBuildStart" Delay="120" RollerIndex="0" TagType="BuildStart">LfEspBuild</Command0030>
+                <Command0050 ArrayTag="LFESPBuildEnd" Delay="250" RollerIndex="0" TagType="BuildEnd"/>
+                <Command0060 ArrayTag="LFESPReductionStart" Delay="300" RollerIndex="0" TagType="ReductionStart">LfEspDecay</Command0060>
+                <Command0070 ArrayTag="LFESPReductionEnd" Delay="200" RollerIndex="0" TagType="ReductionEnd"/>
+
+                <Command0090 ArrayTag="RFESPBuildStart" Delay="120" RollerIndex="1" TagType="BuildStart">RfEspBuild</Command0090>
+                <Command0110 ArrayTag="RFESPBuildEnd" Delay="250" RollerIndex="1" TagType="BuildEnd"/>
+                <Command0120 ArrayTag="RFESPReductionStart" Delay="300" RollerIndex="1" TagType="ReductionStart">RfEspDecay</Command0120>
+                <Command0130 ArrayTag="RFESPReductionEnd" Delay="300" RollerIndex="1" TagType="ReductionEnd"/>
+
+                <Command0150 ArrayTag="LRESPBuildStart" Delay="120" RollerIndex="2" TagType="BuildStart">LrEspBuild</Command0150>
+                <Command0170 ArrayTag="LRESPBuildEnd" Delay="250" RollerIndex="2" TagType="BuildEnd"/>
+                <Command0180 ArrayTag="LRESPReductionStart" Delay="300" RollerIndex="2" TagType="ReductionStart">LrEspDecay</Command0180>
+                <Command0190 ArrayTag="LRESPReductionEnd" Delay="200" RollerIndex="2" TagType="ReductionEnd"/>
+
+                <Command0210 ArrayTag="RRESPBuildStart" Delay="120" RollerIndex="3" TagType="BuildStart">RrEspBuild</Command0210>
+                <Command0230 ArrayTag="RRESPBuildEnd" Delay="250" RollerIndex="3" TagType="BuildEnd"/>
+                <Command0240 ArrayTag="RRESPReductionStart" Delay="300" RollerIndex="3" TagType="ReductionStart">RrEspDecay</Command0240>
+                <Command0250 ArrayTag="RRESPReductionEnd" Delay="200" RollerIndex="3" TagType="ReductionEnd"/>
+
+                <Command0260 Delay="2000">EspPumpMotorOn</Command0260>
                 <Command0270>AllOff</Command0270>
                 <Command0280 Delay="2000">OpenPrimeValves</Command0280>
                 <Command0290>AllOff</Command0290>
             </EspValveCommands>
+            <EvalEspUseEspEndIndex>True</EvalEspUseEspEndIndex>
             <CheckESPValvesCrossed>False</CheckESPValvesCrossed>
             <FourChannelEspTest>True</FourChannelEspTest>
             <RecalculateDragBeforeESP>False</RecalculateDragBeforeESP>
@@ -488,13 +493,13 @@
         </AnalyzeEspBrakeTest>
 
         <EspBrakeTest>
-            <TestStep05>AccelerateToBrakeSpeed</TestStep05>
-            <TestStep15>DragTest</TestStep15>
-            <TestStep20>AnalyzeDragTest</TestStep20>
-            <TestStep24>StopModuleKeepAlive</TestStep24>
-            <TestStep30>FlexibleEspValveFiringTest</TestStep30>
-            <TestStep36>StartModuleKeepAlive</TestStep36>
-            <TestStep40>BrakeTest</TestStep40>
+            <TestStep00>AccelerateToBrakeSpeed</TestStep00>
+            <TestStep05>DragTest</TestStep05>
+            <TestStep10>AnalyzeDragTest</TestStep10>
+            <TestStep15>StopModuleKeepAlive</TestStep15>
+            <TestStep25>FlexibleEspValveFiringTest</TestStep25>
+            <TestStep30>StartModuleKeepAlive</TestStep30>
+            <TestStep35>BrakeTest</TestStep35>
         </EspBrakeTest>
 
         <FinishUp>
@@ -508,6 +513,7 @@
             <TestStep00>Setup</TestStep00>
             <TestStep05>Initialize</TestStep05>
             <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep15>DisableSpeedLimit</TestStep15>
             <TestStep90>StartModuleKeepAlive</TestStep90>
         </Setup>
 
@@ -541,7 +547,7 @@
             Prompt1="" Prompt2="" FrontMaxDragForce="55" RearMaxDragForce="55"/>
 
         <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test"
-            StartBrakeSampleSpeed="45" EndBrakeSampleSpeed="25"
+            StartBrakeSampleSpeed="45" EndBrakeSampleSpeed="5"
             BrakeDomain="0 500" BrakeTarget="250 350"
             Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand"/>
 
@@ -550,11 +556,15 @@
 
         <DisableForceMeter Result="" Timeout="1000" Description="Disable the brake force meter"/>
 
+        <DisableSpeedLimit Result="" Timeout="10000" Description="Disable Speed Limit"/>
+
         <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" 
             Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" 
             DragDelay="1000" DragSpeed="48" DragSamples="50"/>
 
         <EnterDiagnosticMode Result="" Timeout="5000" Description="Enter diagnostic mode" ScanDelay="250"/>
+
+        <EnterDiagModeAtSpeed Result="" Timeout="5000" Description="Enter diagnostic mode at speed" ScanDelay="250"/>
 
         <EvaluateESP Result="" Timeout="5000" 
             Description="Evaluate ABS pulses to ensure minimum requirements are met"/>

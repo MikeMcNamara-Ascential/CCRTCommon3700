@@ -90,6 +90,13 @@
                 <ReplyInterpretation/>
             </AllOff>
 
+            <DisableSpeedLimit>
+                <TransmitMessage>StartRoutine</TransmitMessage>
+                <TransmitInterpretation>SpeedLimitDisable</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </DisableSpeedLimit>
+
             <EnterDiagnosticMode>
                 <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
                 <TransmitInterpretation>ExtendedSession</TransmitInterpretation>
@@ -196,6 +203,7 @@
             <EspActuatorOperation>0x2F,0x31,0x07,0x??,0x??,0x??,0x??</EspActuatorOperation>
             <ReadEcuId>0x22,0x??,0x??</ReadEcuId>
             <ReadFaults>0x19,0x??,0x??</ReadFaults>
+            <StartRoutine>0x31,0x01,0x04,0x??,0x??</StartRoutine>
             <TesterPresent>0x3E,0x00</TesterPresent>
         </TransmitMessages>
 
@@ -213,6 +221,7 @@
             <RfEspBuild>0x03,0x10,0xA3,0x00</RfEspBuild>
             <RfEspDecay>0x03,0x1C,0xA3,0x00</RfEspDecay>
             <RrEspBuild>0x03,0x01,0x53,0x00</RrEspBuild>
+            <SpeedLimitDisable>0x03,0x00</SpeedLimitDisable>
             <RrEspDecay>0x03,0xC1,0x53,0x00</RrEspDecay>
             <WheelSpeeds>0x2D,0x00</WheelSpeeds>
         </TransmitInterpretations>
@@ -234,6 +243,11 @@
                 <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x62,0x2D,0x00,0x??,0x??</Reply_00>
                 <Reply_01>0x7F,0x22,0x??</Reply_01>
             </ReadWheelSpeeds>
+
+            <StartRoutineResponse>
+                <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x71,0x01,0x04,0x??</Reply_00>
+                <Reply_01>0x7F,0x31,0x??</Reply_01>
+            </StartRoutineResponse>
 
             <StartRoutineResponseEsp>
                 <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x6F,0x31,0x07,0x??,0x??</Reply_00>

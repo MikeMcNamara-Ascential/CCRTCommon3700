@@ -389,6 +389,7 @@
                 <Command0290>EspPumpMotorOff</Command0290>
             </EspValveCommands>
             <CheckESPValvesCrossed>False</CheckESPValvesCrossed>
+            <EvalEspUseEspEndIndex>False</EvalEspUseEspEndIndex>
             <FourChannelEspTest>True</FourChannelEspTest>
             <RecalculateDragBeforeESP>False</RecalculateDragBeforeESP>
             <DragAnalyzedBeforeESPTest>True</DragAnalyzedBeforeESPTest>

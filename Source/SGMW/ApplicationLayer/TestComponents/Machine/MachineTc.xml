@@ -193,6 +193,14 @@
             <VINDisplayBGColor>white</VINDisplayBGColor>
             <SpeedoTestBGColor>white</SpeedoTestBGColor>
             <SpeedoTestValue>0</SpeedoTestValue>
+            <LeftFrontTpmsCount>0</LeftFrontTpmsCount>
+            <LeftFrontTpmsCountBgColor>white</LeftFrontTpmsCountBgColor>
+            <LeftRearTpmsCount>0</LeftRearTpmsCount>
+            <LeftRearTpmsCountBgColor>white</LeftRearTpmsCountBgColor>
+            <RightFrontTpmsCount>0</RightFrontTpmsCount>
+            <RightFrontTpmsCountBgColor>white</RightFrontTpmsCountBgColor>
+            <RightRearTpmsCount>0</RightRearTpmsCount>
+            <RightRearTpmsCountBgColor>white</RightRearTpmsCountBgColor>
         </SystemTagsToReset>
         <TaskMon>
             <Name>MachineTc</Name>

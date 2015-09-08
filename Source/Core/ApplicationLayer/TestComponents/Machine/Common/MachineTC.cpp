@@ -1294,7 +1294,11 @@ const std::string MachineTC::TestStepSpeedometer(const std::string &value)
 
                 // update the status of the test
                 if(StatusCheck() != BEP_STATUS_SUCCESS) UpdateResult(StatusCheck(), status);
-                else if(!TimeRemaining())               status = BEP_TIMEOUT_STATUS;
+                else if(!TimeRemaining())
+				{
+					status = BEP_TIMEOUT_STATUS;
+					SystemWrite(GetDataTag("TestResultBox3"),GetDataTag("Fail"));
+				}
                 else if(!done)                          status = BEP_FATALFAIL_STATUS;
                 else
                 {

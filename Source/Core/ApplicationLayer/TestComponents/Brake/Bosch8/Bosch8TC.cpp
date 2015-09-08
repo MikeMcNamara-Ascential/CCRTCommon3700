@@ -154,6 +154,11 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
         else if(step == "CheckYawRate")  status = CheckYawRate();
         else if(step == "CheckPressureSensor") status = CheckPressureSensor();
         else if(step == "CheckAYSensorStatus") status = CheckAYSensorStatus();
+		else if(step == "Delay")
+		{
+			BposSleep(GetTestStepInfoInt("Timeout"));
+			status = testPass;
+		}
         else if(step == "SensorQualityTest") status = SensorQualityTest();
         else if(step == "ESPValveFiringTest") status = ESPValveFiringTest();
         else if(step == "ABSValveFiringTest") status = ABSValveFiringTest();

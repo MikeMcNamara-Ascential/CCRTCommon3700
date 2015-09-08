@@ -393,8 +393,10 @@
 
                 <Command0260 Delay="2000">EspPumpMotorOn</Command0260>
                 <Command0270>AllOff</Command0270>
+<!--
                 <Command0280 Delay="2000">OpenPrimeValves</Command0280>
                 <Command0290>AllOff</Command0290>
+-->                
             </EspValveCommands>
             <EvalEspUseEspEndIndex>True</EvalEspUseEspEndIndex>
             <CheckESPValvesCrossed>False</CheckESPValvesCrossed>
@@ -505,7 +507,11 @@
         <FinishUp>
             <TestStep00>DisableForceMeter</TestStep00>
             <TestStep05>StopModuleKeepAlive</TestStep05>
-            <TestStep10>ReadFaults</TestStep10>
+            <TestStep10>AllInletValvesOn</TestStep10>
+            <TestStep15>Delay</TestStep15>
+            <TestStep20>Delay</TestStep20>
+            <TestStep25>AllInletValvesOff</TestStep25>
+            <TestStep90>ReadFaults</TestStep90>
             <TestStep99>FinishUp</TestStep99>
         </FinishUp>
 
@@ -534,6 +540,10 @@
         <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed"
             ArmSpeed="50" SpeedTarget="50 60" Prompt1="AccelerateToTargetSpeed"/>
 
+        <AllInletValvesOff Result="" Timeout="1000" Description="All Off" />
+
+        <AllInletValvesOn Result="" Timeout="1000" Description="Open all prime valves" />
+
         <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" 
             FrontSideToSideBalance="8" RearSideToSideBalance="8" 
             BalanceFrontToRearMin="20" BalanceFrontToRearMax="70" 
@@ -553,6 +563,8 @@
 
         <BrakeToStop Result="" Timeout="120000" Description="Prompt the driver to brake to stop" 
             Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
+
+        <Delay Result="" Timeout="1000" Description="Delay"/>
 
         <DisableForceMeter Result="" Timeout="1000" Description="Disable the brake force meter"/>
 

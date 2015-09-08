@@ -83,8 +83,22 @@
 
         <VehicleMessages>
 
-            <AllOff>
+            <AllInletValvesOff>
+                <TransmitMessage>ShortEspActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>AllActuatorsOff</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponseEsp</ReplyMessage>
+                <ReplyInterpretation/>
+            </AllInletValvesOff>
+
+            <AllInletValvesOn>
                 <TransmitMessage>EspActuatorOperation</TransmitMessage>
+                <TransmitInterpretation>OpenPrimeValves</TransmitInterpretation>
+                <ReplyMessage>StartRoutineResponseEsp</ReplyMessage>
+                <ReplyInterpretation/>
+            </AllInletValvesOn>
+
+            <AllOff>
+                <TransmitMessage>ShortEspActuatorOperation</TransmitMessage>
                 <TransmitInterpretation>AllActuatorsOff</TransmitInterpretation>
                 <ReplyMessage>StartRoutineResponseEsp</ReplyMessage>
                 <ReplyInterpretation/>
@@ -201,6 +215,7 @@
         <TransmitMessages>
             <EnterDiagnosticMode>0x10,0x??</EnterDiagnosticMode>
             <EspActuatorOperation>0x2F,0x31,0x07,0x??,0x??,0x??,0x??</EspActuatorOperation>
+            <ShortEspActuatorOperation>0x2F,0x31,0x07,0x??</ShortEspActuatorOperation>
             <ReadEcuId>0x22,0x??,0x??</ReadEcuId>
             <ReadFaults>0x19,0x??,0x??</ReadFaults>
             <StartRoutine>0x31,0x01,0x04,0x??,0x??</StartRoutine>
@@ -209,7 +224,7 @@
 
 
         <TransmitInterpretations>
-            <AllActuatorsOff>0x00,0x00,0x00,0x00</AllActuatorsOff>
+            <AllActuatorsOff>0x00</AllActuatorsOff>
             <ExtendedSession>0x03</ExtendedSession>
             <LfEspBuild>0x03,0x40,0x53,0x00</LfEspBuild>
             <LfEspDecay>0x03,0x43,0x53,0x00</LfEspDecay>

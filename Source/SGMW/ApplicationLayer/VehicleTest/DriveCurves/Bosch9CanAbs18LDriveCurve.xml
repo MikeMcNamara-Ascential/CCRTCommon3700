@@ -162,7 +162,7 @@
                 </Objective0>
                 <Objective1 Description="Analyze TPMS test data" Result="" Timeout="" Component="Tpms">
                     <FinishUp/>
-                </Objective0>
+                </Objective1>
             </BackgroundObjectives>
         </TestPhase305>
 

@@ -58,27 +58,27 @@
     <Field00102 Type="XmlTag">/cruisestatus</Field00102>
 
     <Field00105 Type="XmlTag">cruiseset</Field00105>
-    <Field00106 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckSetEngagementMachineSpeedometer</Field00106>
+    <Field00106 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckSetEngagementMachineSpeedometer</Field00106>
     <Field00107 Type="XmlTag">/cruiseset</Field00107>
 
     <Field00110 Type="XmlTag">cruiseactual</Field00110>
-    <Field00111 Type="Detail" DetailNode="ActualSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckSetEngagementMachineSpeedometer</Field00111>
+    <Field00111 Type="Detail" DetailNode="ActualSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckSetEngagementMachineSpeedometer</Field00111>
     <Field00112 Type="XmlTag">/cruiseactual</Field00112>
 
     <Field00115 Type="XmlTag">cruisedecceltarget</Field00115>
-    <Field00116 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckTapDownDecel</Field00116>
+    <Field00116 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckTapDownDecel</Field00116>
     <Field00117 Type="XmlTag">/cruisedecceltarget</Field00117>
 
     <Field00120 Type="XmlTag">cruisedeccelset</Field00120>
-    <Field00121 Type="Detail" DetailNode="FinalSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckTapDownDecel</Field00121>
+    <Field00121 Type="Detail" DetailNode="FinalSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckTapDownDecel</Field00121>
     <Field00122 Type="XmlTag">/cruisedeccelset</Field00122>
 
     <Field00125 Type="XmlTag">cruiseacceltarget</Field00125>
-    <Field00126 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckTapUpAccel</Field00126>
+    <Field00126 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckTapUpAccel</Field00126>
     <Field00127 Type="XmlTag">/cruiseacceltarget</Field00127>
 
     <Field00130 Type="XmlTag">cruiseaccelset</Field00130>
-    <Field00131 Type="Detail" DetailNode="FinalSpeed" Format="%4.1f" Length="4" DataType="Float">SpeedControlCheckTapDownDecel</Field00131>
+    <Field00131 Type="Detail" DetailNode="FinalSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckTapDownDecel</Field00131>
     <Field00132 Type="XmlTag">/cruiseaccelset</Field00132>
 
     <Field00135 Type="XmlTag">cruisequit</Field00135>

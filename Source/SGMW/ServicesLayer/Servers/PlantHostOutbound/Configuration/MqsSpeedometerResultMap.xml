@@ -53,11 +53,11 @@
     <!-- =============  Speedometer Test Results ============= -->
 
     <Field00100 Type="XmlTag">spespeedratio</Field00100>
-    <Field00101 Type="Detail" DetailNode="SpeedometerDiff" Format="%4.1f" Length="4" DataType="Float">MachineSpeedometer</Field00101>
+    <Field00101 Type="Detail" DetailNode="SpeedometerDiff" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">MachineSpeedometer</Field00101>
     <Field00102 Type="XmlTag">/spespeedratio</Field00102>
 
     <Field00105 Type="XmlTag">spespeed</Field00105>
-    <Field00106 Type="Detail" DetailNode="SpeedometerSpeed" Format="%4.1f" Length="4" DataType="Float">MachineSpeedometer</Field00106>
+    <Field00106 Type="Detail" DetailNode="SpeedometerSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">MachineSpeedometer</Field00106>
     <Field00107 Type="XmlTag">/spespeed</Field00107>
 
     <Field00110 Type="XmlTag">spebok</Field00110>

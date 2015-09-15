@@ -31,11 +31,11 @@
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-    <Field00036 Type="Separator">JCX_D</Field00036>
+    <Field00036 Type="Separator">JCX_E</Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-    <Field00041 Type="Separator">85.2_D</Field00041>
+    <Field00041 Type="Separator">85.3_E</Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>
@@ -68,7 +68,7 @@
 
     <!-- Wheel Speed Sensor Results -->
     <Field00200 Type="XmlTag">dcuflspeed</Field00200>
-    <Field00201 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontWssTest</Field00201>
+    <Field00201 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float" Scale="1.60934">BrakeLeftFrontWssTest</Field00201>
     <Field00202 Type="XmlTag">/dcuflspeed</Field00202>
 
     <Field00205 Type="XmlTag">dcuflspeedresult</Field00205>
@@ -76,7 +76,7 @@
     <Field00207 Type="XmlTag">/dcuflspeedresult</Field00207>
 
     <Field00210 Type="XmlTag">dcufrspeed</Field00210>
-    <Field00211 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontWssTest</Field00211>
+    <Field00211 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float" Scale="1.60934">BrakeRightFrontWssTest</Field00211>
     <Field00212 Type="XmlTag">/dcufrspeed</Field00212>
 
     <Field00215 Type="XmlTag">dcufrspeedresult</Field00215>
@@ -84,7 +84,7 @@
     <Field00217 Type="XmlTag">/dcufrspeedresult</Field00217>
 
     <Field00220 Type="XmlTag">dcurlspeed</Field00220>
-    <Field00221 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearWssTest</Field00221>
+    <Field00221 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float" Scale="1.60934">BrakeLeftRearWssTest</Field00221>
     <Field00222 Type="XmlTag">/dcurlspeed</Field00222>
 
     <Field00225 Type="XmlTag">dcurlspeedresult</Field00225>
@@ -92,7 +92,7 @@
     <Field00227 Type="XmlTag">/dcurlspeedresult</Field00227>
 
     <Field00230 Type="XmlTag">dcurrspeed</Field00230>
-    <Field00231 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearWssTest</Field00231>
+    <Field00231 Type="Detail" DetailNode="Sensor" Format="%06.2f" Length="6" DataType="Float" Scale="1.60934">BrakeRightRearWssTest</Field00231>
     <Field00232 Type="XmlTag">/dcurrspeed</Field00232>
 
     <Field00235 Type="XmlTag">dcurrspeedresult</Field00235>
@@ -101,7 +101,7 @@
 
     <!-- LF ABS Reduction/Recovery Results -->
     <Field00300 Type="XmlTag">dcuflvalvedecreasemin</Field00300>
-    <Field00301 Type="Detail" DetailNode="LeftFrontESPReductionValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontESPReduction</Field00301>
+    <Field00301 Type="Detail" DetailNode="LeftFrontESPReductionValue" Format="%06.2f" Length="6" DataType="Float" Scale="4.44822">BrakeLeftFrontESPReduction</Field00301>
     <Field00302 Type="XmlTag">/dcuflvalvedecreasemin</Field00302>
 
     <Field00305 Type="XmlTag">dcuflvalvedecreaseresult</Field00305>
@@ -109,7 +109,7 @@
     <Field00307 Type="XmlTag">/dcuflvalvedecreaseresult</Field00307>
 
     <Field00310 Type="XmlTag">dcuflvalveincreasemax</Field00310>
-    <Field00311 Type="Detail" DetailNode="LeftFrontESPBuildValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftFrontESPBuild</Field00311>
+    <Field00311 Type="Detail" DetailNode="LeftFrontESPBuildValue" Format="%06.2f" Length="6" DataType="Float" Scale="4.44822">BrakeLeftFrontESPBuild</Field00311>
     <Field00312 Type="XmlTag">/dcuflvalveincreasemax</Field00312>
 
     <Field00315 Type="XmlTag">dcuflvalveincreaseresult</Field00315>
@@ -122,7 +122,7 @@
 
     <!-- RF ABS Reduction/Recovery Results -->
     <Field00400 Type="XmlTag">dcufrvalvedecreasemin</Field00400>
-    <Field00401 Type="Detail" DetailNode="RightFrontESPReductionValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontESPReduction</Field00401>
+    <Field00401 Type="Detail" DetailNode="RightFrontESPReductionValue" Format="%06.2f" Length="6" DataType="Float" Scale="4.44822">BrakeRightFrontESPReduction</Field00401>
     <Field00402 Type="XmlTag">/dcufrvalvedecreasemin</Field00402>
 
     <Field00405 Type="XmlTag">dcufrvalvedecreaseresult</Field00405>
@@ -130,7 +130,7 @@
     <Field00407 Type="XmlTag">/dcufrvalvedecreaseresult</Field00407>
 
     <Field00410 Type="XmlTag">dcufrvalveincreasemax</Field00410>
-    <Field00411 Type="Detail" DetailNode="RightFrontESPBuildValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontESPBuild</Field00411>
+    <Field00411 Type="Detail" DetailNode="RightFrontESPBuildValue" Format="%06.2f" Length="6" DataType="Float" Scale="4.44822">BrakeRightFrontESPBuild</Field00411>
     <Field00412 Type="XmlTag">/dcufrvalveincreasemax</Field00412>
 
     <Field00415 Type="XmlTag">dcufrvalveincreaseresult</Field00415>
@@ -143,7 +143,7 @@
 
     <!-- LR ABS Reduction/Recovery Results -->
     <Field00500 Type="XmlTag">dcurlvalvedecreasemin</Field00500>
-    <Field00501 Type="Detail" DetailNode="LeftRearESPReductionValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearESPReduction</Field00501>
+    <Field00501 Type="Detail" DetailNode="LeftRearESPReductionValue" Format="%06.2f" Length="6" DataType="Float" Scale="4.44822">BrakeLeftRearESPReduction</Field00501>
     <Field00502 Type="XmlTag">/dcurlvalvedecreasemin</Field00502>
 
     <Field00505 Type="XmlTag">dcurlvalvedecreaseresult</Field00505>
@@ -151,7 +151,7 @@
     <Field00507 Type="XmlTag">/dcurlvalvedecreaseresult</Field00507>
 
     <Field00510 Type="XmlTag">dcurlvalveincreasemax</Field00510>
-    <Field00511 Type="Detail" DetailNode="LeftRearESPBuildValue" Format="%06.2f" Length="6" DataType="Float">BrakeLeftRearESPBuild</Field00511>
+    <Field00511 Type="Detail" DetailNode="LeftRearESPBuildValue" Format="%06.2f" Length="6" DataType="Float" Scale="4.44822">BrakeLeftRearESPBuild</Field00511>
     <Field00512 Type="XmlTag">/dcurlvalveincreasemax</Field00512>
 
     <Field00515 Type="XmlTag">dcurlvalveincreaseresult</Field00515>
@@ -164,7 +164,7 @@
 
     <!-- RR ABS Reduction/Recovery Results -->
     <Field00600 Type="XmlTag">dcurrvalvedecreasemin</Field00600>
-    <Field00601 Type="Detail" DetailNode="RightRearESPReductionValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearESPReduction</Field00601>
+    <Field00601 Type="Detail" DetailNode="RightRearESPReductionValue" Format="%06.2f" Length="6" DataType="Float" Scale="4.44822">BrakeRightRearESPReduction</Field00601>
     <Field00602 Type="XmlTag">/dcurrvalvedecreasemin</Field00602>
 
     <Field00605 Type="XmlTag">dcurrvalvedecreaseresult</Field00605>
@@ -172,7 +172,7 @@
     <Field00607 Type="XmlTag">/dcurrvalvedecreaseresult</Field00607>
 
     <Field00610 Type="XmlTag">dcurrvalveincreasemax</Field00610>
-    <Field00611 Type="Detail" DetailNode="RightRearESPBuildValue" Format="%06.2f" Length="6" DataType="Float">BrakeRightRearESPBuild</Field00611>
+    <Field00611 Type="Detail" DetailNode="RightRearESPBuildValue" Format="%06.2f" Length="6" DataType="Float" Scale="4.44822">BrakeRightRearESPBuild</Field00611>
     <Field00612 Type="XmlTag">/dcurrvalveincreasemax</Field00612>
 
     <Field00615 Type="XmlTag">dcurrvalveincreaseresult</Field00615>

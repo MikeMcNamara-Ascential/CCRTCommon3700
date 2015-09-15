@@ -117,8 +117,8 @@ void MqsResultInterface::LoadAdditionalConfigurationItems(const XmlNode *config)
 void MqsResultInterface::SendResultToHost(const string &result)
 {
 	Log(LOG_FN_ENTRY, "MqsResultInterface::SendResultToHost() - Enter");
-	list<string> resultStrings;
-	list<string> failedTx;
+	vector<string> resultStrings;
+	vector<string> failedTx;
 	resultStrings.push_back(result);
 	// Get the list of failed transmits
 	if(!access(FailedTxFileName().c_str(), F_OK))
@@ -142,30 +142,30 @@ void MqsResultInterface::SendResultToHost(const string &result)
 			Log(LOG_ERRORS, "Error opening %s to get failed transmit results", FailedTxFileName().c_str());
 		}
 	}
-	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-	do
-	{
-		string txResult = resultStrings.front();
-		resultStrings.pop_front();
-		// Transmit the result string to the host system
-		Log(LOG_DEV_DATA, "MqsResultInterface: Message to send to host system - %s", txResult.c_str());
-		status = SendTestResultString(txResult, *(HostComm()), MaxMsgSendAttempts(), 0);
+	BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
+	Log(LOG_DEV_DATA, "%d results to transmit to the host system", resultStrings.size());
+	for(UINT8 index = 0; (index < resultStrings.size()) && (BEP_STATUS_SUCCESS == status); index++)
+	{   // Transmit the result string to the host system
+		Log(LOG_DEV_DATA, "MqsResultInterface: Message to send to host system - %s", resultStrings[index].c_str());
+		status = SendTestResultString(resultStrings[index], *(HostComm()), MaxMsgSendAttempts(), 0);
 		Log(LOG_ERRORS, "Sent result to host system: %s", ConvertStatusToResponse(status).c_str());
 		if(BEP_STATUS_SUCCESS != status)
 		{
-			failedTx.push_back(txResult);
+			failedTx.push_back(resultStrings[index]);
 			Log(LOG_ERRORS, "Result not sent to the host, adding to failed list");
 		}
-	} while(!resultStrings.empty() && (BEP_STATUS_SUCCESS == status));
+	}
+
 	// Store any failed transmit strings
 	if(!failedTx.empty())
 	{
+		Log(LOG_DEV_DATA, "Adding %d messages to the fail retry file", failedTx.size());
 		FILE *rsltFile = NULL;
 		if((rsltFile = fopen(FailedTxFileName().c_str(), "w")) != NULL)
 		{
-			for(list<string>::iterator iter = failedTx.begin(); iter != failedTx.end(); iter++)
+			for(UINT8 fIndex = 0; fIndex < failedTx.size(); fIndex++)
 			{
-				fprintf(rsltFile, "%s\n", (*iter).c_str());
+				fprintf(rsltFile, "%s\n", failedTx[fIndex].c_str());
 			}
 			fclose(rsltFile);
 		}

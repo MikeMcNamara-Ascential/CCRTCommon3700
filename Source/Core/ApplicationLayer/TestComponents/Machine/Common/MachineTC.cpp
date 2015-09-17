@@ -1230,7 +1230,7 @@ const std::string MachineTC::TestStepSpeedometer(const std::string &value)
                         if(ReadSubscribeData(GetDataTag("Start40kphTest")) == "1")
                         {
                             speedometerTestResult = currentSpeed;
-                            speedometerDiff = 0.0;
+							speedometerDiff = fabs(GetParameterFloat("TargetSpeed40kph") - currentSpeed);
                             done = true;
                             SpeedometerResultSpeed(&currentSpeed);
                         }

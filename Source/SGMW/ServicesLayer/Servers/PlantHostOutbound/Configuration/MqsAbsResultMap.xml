@@ -31,11 +31,11 @@
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-   <Field00036 Type="Separator">JCX_E</Field00036>
+    <Field00036 Type="Separator">JCX_E</Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-   <Field00041 Type="Separator">85.2_E</Field00041>
+    <Field00041 Type="Separator">85.2_E</Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>
@@ -159,6 +159,10 @@
         <Field00336 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftFrontABSRecovery</Field00336>
         <Field00337 Type="XmlTag">/flvalveincreaseresult</Field00337>
 
+        <Field00340 Type="XmlTag">flvalveresult</Field00340>
+        <Field00341 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftFrontAbsValveResult</Field00341>
+        <Field00342 Type="XmlTag">/flvalveresult</Field00342>
+
         <!-- RF ABS Reduction/Recovery Results -->
         <Field00400 Type="XmlTag">frvalvedecreasemax</Field00400>
         <Field00401 Type="Detail" DetailNode="RightFrontReductionMinParameter" Format="%06.2f" Length="6" DataType="Float">BrakeRightFrontABSReduction</Field00401>
@@ -191,6 +195,10 @@
         <Field00435 Type="XmlTag">frvalveincreaseresult</Field00435>
         <Field00436 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightFrontABSRecovery</Field00436>
         <Field00437 Type="XmlTag">/frvalveincreaseresult</Field00437>
+
+        <Field00440 Type="XmlTag">frvalveresult</Field00440>
+        <Field00441 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightFrontAbsValveResult</Field00441>
+        <Field00442 Type="XmlTag">/frvalveresult</Field00442>
 
 
         <!-- LR ABS Reduction/Recovery Results -->
@@ -226,6 +234,10 @@
         <Field00536 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftRearABSRecovery</Field00536>
         <Field00537 Type="XmlTag">/rlvalveincreaseresult</Field00537>
 
+        <Field00540 Type="XmlTag">rlvalveresult</Field00540>
+        <Field00541 Type="Result" Format="%s" Length="4" DataType="String">BrakeLeftRearAbsValveResult</Field00541>
+        <Field00542 Type="XmlTag">/rlvalveresult</Field00542>
+
 
         <!-- RR ABS Reduction/Recovery Results -->
         <Field00600 Type="XmlTag">rrvalvedecreasemax</Field00600>
@@ -259,6 +271,12 @@
         <Field00635 Type="XmlTag">rrvalveincreaseresult</Field00635>
         <Field00636 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightRearABSRecovery</Field00636>
         <Field00637 Type="XmlTag">/rrvalveincreaseresult</Field00637>
+	
+
+        <Field00640 Type="XmlTag">rrvalveresult</Field00640>
+        <Field00641 Type="Result" Format="%s" Length="4" DataType="String">BrakeRightRearAbsValveResult</Field00641>
+        <Field00642 Type="XmlTag">/rrvalveresult</Field00642>
+
     </Field00300>
 
     <!-- ESP Results -->

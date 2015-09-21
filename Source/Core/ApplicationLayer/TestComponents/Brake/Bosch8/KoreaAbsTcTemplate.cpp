@@ -1168,6 +1168,10 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateABS(void)
 									((testPass == overallRecov) || (BEP_TESTING_STATUS == overallRecov))) ? overallRecov : testFail;
 					Log(LOG_DEV_DATA, "%s Reducion: %s, Recovery: %s\n", rollerName[wheelIndex].c_str(),
 						wheelReduxResults[wheelIndex].c_str(), wheelRecovResults[wheelIndex].c_str());
+					SendSubtestResult(rollerName[wheelIndex] + "AbsValveResult", 
+									  ((wheelReduxResults[wheelIndex] == testPass) && 
+									   (wheelRecovResults[wheelIndex] == testPass)) ? testPass : testFail,
+									  rollerName[wheelIndex] + " ABS Valve result", "0000");
 				}
 				// Perform the valve cross check
 				if(!overallRedux.compare(testPass) && !overallRecov.compare(testPass) && !GetParameterBool("SkipValveCross"))

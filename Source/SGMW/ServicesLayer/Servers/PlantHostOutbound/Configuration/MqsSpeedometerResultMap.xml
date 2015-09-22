@@ -24,7 +24,7 @@
     <Field00022 Type="XmlTag">/standarversion</Field00022>
 
     <Field00025 Type="XmlTag">result</Field00025>
-    <Field00026 Type="Result" Format="%-1.1s" Length="1" DataType="String" Desc="Overall Result">OverallTest</Field00026>
+    <Field00026 Type="Result" Format="%s" Length="4" DataType="String">MachineSpeedometer</Field00026>
     <Field00027 Type="XmlTag">/result</Field00027>
 
     <Field00030 Type="XmlTag">checker</Field00030>
@@ -32,11 +32,11 @@
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-   <Field00036 Type="Separator">JCX_E</Field00036>
+    <Field00036 Type="Separator">JCX_D</Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-   <Field00041 Type="Separator">85.1_E</Field00041>
+    <Field00041 Type="Separator">85.1_D</Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>
@@ -65,6 +65,7 @@
     <Field00112 Type="XmlTag">/spebok</Field00112>
 
     
+
 
     <Field99999 Type="XmlTag">/xmldata</Field99999>
 

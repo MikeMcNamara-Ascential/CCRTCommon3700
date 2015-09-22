@@ -25,7 +25,7 @@
     <Field00022 Type="XmlTag">/standarversion</Field00022>
 
     <Field00025 Type="XmlTag">result</Field00025>
-    <Field00026 Type="Result" Format="%-1.1s" Length="1" DataType="String" Desc="Overall Result">OverallTest</Field00026>
+    <Field00026 Type="Result" Format="%s" Length="4" DataType="String">SpeedControlOverallTest</Field00026>
     <Field00027 Type="XmlTag">/result</Field00027>
 
     <Field00030 Type="XmlTag">checker</Field00030>
@@ -33,11 +33,11 @@
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-   <Field00036 Type="Separator">JCX_E</Field00036>
+   <Field00036 Type="Separator">JCX_D</Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-   <Field00041 Type="Separator">85.5_E</Field00041>
+   <Field00041 Type="Separator">85.5_D</Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>
@@ -58,11 +58,11 @@
     <Field00102 Type="XmlTag">/cruisestatus</Field00102>
 
     <Field00105 Type="XmlTag">cruiseset</Field00105>
-    <Field00106 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckSetEngagementMachineSpeedometer</Field00106>
+    <Field00106 Type="Detail" DetailNode="TargetSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckSetEngagement</Field00106>
     <Field00107 Type="XmlTag">/cruiseset</Field00107>
 
     <Field00110 Type="XmlTag">cruiseactual</Field00110>
-    <Field00111 Type="Detail" DetailNode="ActualSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckSetEngagementMachineSpeedometer</Field00111>
+    <Field00111 Type="Detail" DetailNode="ActualSpeed" Format="%4.1f" Length="4" DataType="Float" Scale="1.60934">SpeedControlCheckSetEngagement</Field00111>
     <Field00112 Type="XmlTag">/cruiseactual</Field00112>
 
     <Field00115 Type="XmlTag">cruisedecceltarget</Field00115>

@@ -155,10 +155,10 @@
             <ReverseTestSpeed>5</ReverseTestSpeed>
             <ScanDelayParameter>500</ScanDelayParameter>
             <SetOperatorConsoleTo4WDPrompt>SetOperatorConsoleTo4WD</SetOperatorConsoleTo4WDPrompt>
-            <SpeedometerSpeedTarget>20 24.85</SpeedometerSpeedTarget>
+         <SpeedometerSpeedTarget>21.25 24.37</SpeedometerSpeedTarget>
             <SpeedometerStableTime>3000</SpeedometerStableTime>
-            <SpeedometerTestHighLimit>24.85</SpeedometerTestHighLimit>
-            <SpeedometerTestLowLimit>20</SpeedometerTestLowLimit>
+         <SpeedometerTestHighLimit>24.37</SpeedometerTestHighLimit>
+         <SpeedometerTestLowLimit>21.25</SpeedometerTestLowLimit>
             <SpeedRangeParameter>33 35</SpeedRangeParameter>
             <TargetSpeed40kph>24.85</TargetSpeed40kph>
             <TargetSpeedParameter>30</TargetSpeedParameter>

@@ -21,7 +21,9 @@
 				<xsl:value-of select="//TestResult/MachineInitialize/Version"/>
 			</xsl:element>
 			<xsl:call-template name="BrakeModule"/>
+<!--
 			<xsl:call-template name="AirbagModule"/>
+-->            
 			<xsl:call-template name="OverallResult"/>
 			<xsl:element name="BrakeForceData">
 				<xsl:value-of select="//TestResult/BrakeForceData"/>
@@ -134,9 +136,11 @@
 			<xsl:call-template name="BrakeBurnish">
 				<xsl:with-param name="NAME">BrakeBurnishCycle</xsl:with-param>
 			</xsl:call-template>
+<!--
 			<xsl:call-template name="BrakeEPBBurnish">
 				<xsl:with-param name="NAME">BrakeEPBBurnishCycle</xsl:with-param>
 			</xsl:call-template>
+-->            
 			<xsl:call-template name="BrakeCheckPartNumber">
 				<xsl:with-param name="NAME">BrakeCheckPartNumber</xsl:with-param>
 			</xsl:call-template>

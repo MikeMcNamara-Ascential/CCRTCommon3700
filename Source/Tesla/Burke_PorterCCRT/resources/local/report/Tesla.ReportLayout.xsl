@@ -76,9 +76,9 @@
             <xsl:call-template name="headerRow"/>
 
             <xsl:call-template name="brakeResults"/>
-
+<!--
             <xsl:call-template name="airbagResults"/>
-
+-->
             <xsl:call-template name="overallResult"/>
 
         </table>

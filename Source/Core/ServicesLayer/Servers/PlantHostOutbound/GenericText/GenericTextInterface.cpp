@@ -50,6 +50,8 @@ BEP_STATUS_TYPE GenericTextInterface::SendTestResultString(const string &resultS
         if(portLocked)
         {   // Transmit the message
             portComm.ResetConnection();
+			// Make sure the port is connected
+			portComm.ReconnectDriver();
             status = portComm.Send(message);
             // Log the status
             Log(LOG_ERRORS, "Sent message to host: %s", ConvertStatusToResponse(status).c_str());

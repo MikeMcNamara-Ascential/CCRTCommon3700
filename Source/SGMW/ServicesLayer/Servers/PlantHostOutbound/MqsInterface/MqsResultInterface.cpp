@@ -136,6 +136,11 @@ void MqsResultInterface::SendResultToHost(const string &result)
 				}
 			}
 			failedFile.close();
+			// Remove the failed transmit file
+			if(0 != unlink(FailedTxFileName().c_str()))
+			{
+				Log(LOG_ERRORS, "Failed to remove %s - %s", FailedTxFileName().c_str(), strerror(errno));
+			}
 		}
 		else
 		{

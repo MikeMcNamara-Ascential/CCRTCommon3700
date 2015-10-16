@@ -95,6 +95,15 @@ private:
 	 */
 	const string& FailedTxFileName(const string *fileName = NULL);
 
+	/**
+	 * Get/set the maximum time to wait for a response from the host server.
+	 * @param responseTime  Maximum time to wait for a response from the host server
+	 * @return  Maximum time to wait for a response from the host server
+	 */
+	const INT32& MaxHostResponseTime(const INT32 *responseTime = NULL);
+
+
+	INT32 m_maxHostResponseTime;
 	string m_failedTxFileName;
 	XmlNodeMap m_resultMaps;
 };

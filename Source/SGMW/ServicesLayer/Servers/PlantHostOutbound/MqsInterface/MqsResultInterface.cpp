@@ -111,6 +111,16 @@ void MqsResultInterface::LoadAdditionalConfigurationItems(const XmlNode *config)
 		m_resultMaps.clear(true);
 		Log(LOG_ERRORS, "Missing result mappings, no results will be transferred to MQS - %s", excpt.GetReason());
 	}
+	INT32 responseTime = 2000;
+	try
+	{
+		responseTime = BposReadInt(config->getChild("Setup/MaxHostResponseTime")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Max host response time not defined, using %d", responseTime);
+	}
+	MaxHostResponseTime(&responseTime);
 }
 
 //-----------------------------------------------------------------------------
@@ -199,22 +209,17 @@ const BEP_STATUS_TYPE MqsResultInterface::SendTestResultString(string &resultStr
 			INT32 bytesSent = portComm.Send(message);
 			status = (bytesSent == 0) ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
 			// Log the status
-			Log(LOG_ERRORS, "Sent message to host: %s (%d bytes)", ConvertStatusToResponse(status).c_str(), bytesSent);
+			Log(LOG_ERRORS, "Sent message to host: %s", ConvertStatusToResponse(status).c_str());
 			// Look for the response
 			SerialString_t mqsResponse, mqsResponse2;
-			int bytesRead = portComm.ReadPort(mqsResponse, 1000, 0);
-			int secondaryBytesRead = portComm.ReadPort(mqsResponse2, 1000, 0);
+			int bytesRead = portComm.ReadPort(mqsResponse, MaxHostResponseTime(), 0);
 			// Unlock the port for this attempt
 			portLocked = portComm.UnlockPort();
 			if(bytesRead > 0)
 			{
 				Log(LOG_DEV_DATA, "Received from MQS: %s", string((char *)(&mqsResponse[0])).c_str());
 			}
-			if(secondaryBytesRead > 0)
-			{
-				Log(LOG_DEV_DATA, "Received from MQS: %s", string((char *)(&mqsResponse2[0])).c_str());
-			}
-			if(bytesRead <= 0)
+			else
 			{   // No response from the host
 				status = BEP_STATUS_FAILURE;
 				Log(LOG_ERRORS, "No response from MQS.");
@@ -238,4 +243,11 @@ const string& MqsResultInterface::FailedTxFileName(const string *fileName /*= NU
 {
 	if(fileName != NULL)   m_failedTxFileName = *fileName;
 	return m_failedTxFileName;
+}
+
+//-----------------------------------------------------------------------------
+const INT32& MqsResultInterface::MaxHostResponseTime(const INT32 *responseTime /*= NULL*/)
+{
+	if(responseTime != NULL)  m_maxHostResponseTime = *responseTime;
+	return m_maxHostResponseTime;
 }

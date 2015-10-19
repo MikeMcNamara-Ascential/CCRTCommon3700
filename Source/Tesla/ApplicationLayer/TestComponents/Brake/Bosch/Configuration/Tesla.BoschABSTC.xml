@@ -466,6 +466,7 @@
         <IgnoreFaults>
             <ModuleFault_C41186/>
             <ModuleFault_406228/>
+         <ModulaFault_C41886/>
         </IgnoreFaults>
     </Setup>
     <Objectives>

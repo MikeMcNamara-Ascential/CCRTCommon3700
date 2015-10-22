@@ -64,6 +64,7 @@
             <TextInterface Enabled="1" Process="$(USR_ROOT)/ServicesLayer/Bin/GenericTextInterface.qxe">
                 <Setup>
                     <SendResultsToHost>Yes</SendResultsToHost>
+                    <SkipPerformAbortCheck>True</SkipPerformAbortCheck>
                     <VinIndex>-1</VinIndex>
                     <MaxResponseTime>20001</MaxResponseTime>
                     <MaxAttempts>3</MaxAttempts>

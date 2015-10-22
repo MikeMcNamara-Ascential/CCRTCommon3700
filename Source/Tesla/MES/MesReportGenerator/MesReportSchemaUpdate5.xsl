@@ -2144,16 +2144,18 @@
                 </xsl:element>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:when test="$VALUE = '508202'">
-                    <xsl:element name="Machine">
-                        <xsl:text>Lane 2</xsl:text>
-                    </xsl:element>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:element name="Machine">
-                        <xsl:text>Lane 3</xsl:text>
-                    </xsl:element>
-                </xsl:otherwise>
+                <xsl:choose>
+                    <xsl:when test="$VALUE = '508202'">
+                        <xsl:element name="Machine">
+                            <xsl:text>Lane 2</xsl:text>
+                        </xsl:element>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:element name="Machine">
+                            <xsl:text>Lane 3</xsl:text>
+                        </xsl:element>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

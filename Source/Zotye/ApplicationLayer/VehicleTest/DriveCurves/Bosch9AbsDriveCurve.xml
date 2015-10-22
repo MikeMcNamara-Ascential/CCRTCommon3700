@@ -40,6 +40,7 @@
 
 
         <!-- Idle Brake Test-->
+        <!--
         <TestPhase100 Description="Perform the park brake test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Run the park brake test" Result="" Timeout="" Component="Brake">
@@ -47,6 +48,7 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase100>
+        -->
 
         <TestPhase105 Description="Perform Wheeel speed sensor test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">

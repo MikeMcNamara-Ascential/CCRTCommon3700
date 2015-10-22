@@ -40,6 +40,7 @@
 
 
         <!--Perform Park Brake Test-->
+        <!--
         <TestPhase100 Description="Perform the park brake test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Run the park brake test" Result="" Timeout="" Component="Brake">
@@ -47,6 +48,7 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase100>
+        -->
 
         <!--Perform Idle Horn Test-->
         <TestPhase105 Description="Start monitoring sound level" Result="" Timeout="">
@@ -97,6 +99,7 @@
 
 
         <!-- 4x4 Testing -->
+        <!--
         <TestPhase400 Description="Perfrom axle ratio test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="4x4 Test" Result="" Timeout="" Component="Machine">
@@ -104,7 +107,7 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase400>
-
+        -->
 
 
         <!-- Finishup and set results -->

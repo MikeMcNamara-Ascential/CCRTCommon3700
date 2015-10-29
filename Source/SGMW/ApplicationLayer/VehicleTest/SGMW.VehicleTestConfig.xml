@@ -94,7 +94,7 @@
         </Selector>
         <Sequencer>
             <Debug>Off</Debug>
-            <RetestType Type="ReRun, Incycle, None">None</RetestType>
+            <RetestType Type="ReRun, Incycle, None">ReRun</RetestType>
             <MaxRetests Value="0,1,2,...">4</MaxRetests>
             <RetestQuestionTimeout Value="The ammount of time in miliseconds to wait for the drive to respond to the retest question.">60000</RetestQuestionTimeout>
             <RetestYesOrNoPromptBox>2</RetestYesOrNoPromptBox>

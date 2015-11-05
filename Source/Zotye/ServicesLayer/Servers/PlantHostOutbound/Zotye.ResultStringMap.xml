@@ -98,9 +98,9 @@
     <Field6011 Type="Separator">,</Field6011>
 
     <!-- Speedomemter Results -->
-    <Field6030 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1" Length="5">SpeedometerSpeedometer</Field6030>
+    <Field6030 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1" Length="5">MachineSpeedometer</Field6030>
     <Field6031 Type="Separator">,</Field6031>
-    <Field6040 Type="Result">SpeedometerSpeedometer</Field6040>
+    <Field6040 Type="Result">MachineSpeedometer</Field6040>
     <Field6050 Type="Separator">,</Field6050>
 
 </DCAC_Result>

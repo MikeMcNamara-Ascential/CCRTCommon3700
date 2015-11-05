@@ -137,11 +137,12 @@
             <SetOperatorConsoleTo4WDPrompt>SetOperatorConsoleTo4WD</SetOperatorConsoleTo4WDPrompt>
 
             <!-- Speedometer Parameters -->
-            <DcxStyleSpeedoTest>1</DcxStyleSpeedoTest>
-            <SpeedometerSpeedTarget>22 28</SpeedometerSpeedTarget>
-            <SpeedometerStableTime>6000</SpeedometerStableTime>
-            <SpeedometerTestHighLimit>28</SpeedometerTestHighLimit>
-            <SpeedometerTestLowLimit>22</SpeedometerTestLowLimit>
+            <BlindSpeedoTest>True</BlindSpeedoTest>
+            <DcxStyleSpeedoTest>0</DcxStyleSpeedoTest>
+            <SpeedometerSpeedTarget>20.38 24.85</SpeedometerSpeedTarget>
+            <SpeedometerStableTime>2000</SpeedometerStableTime>
+            <SpeedometerTestHighLimit>24.85</SpeedometerTestHighLimit>
+            <SpeedometerTestLowLimit>20.38</SpeedometerTestLowLimit>
             <SpeedRangeParameter>33 35</SpeedRangeParameter>
             <TargetSpeed40kph>24.85</TargetSpeed40kph>
             <TargetSpeedParameter>30</TargetSpeedParameter>

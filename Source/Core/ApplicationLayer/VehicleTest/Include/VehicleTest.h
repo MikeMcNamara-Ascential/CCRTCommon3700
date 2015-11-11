@@ -126,7 +126,10 @@
 #include "BepSemaphore.h"
 #include "IFaultServer.h"
 #include "IBepCommunication.h"
+#include <queue>
 
+#define REMOVE_COMPONENTS 	"RemoveComponents"
+#define LOAD_COMPONENTS 	"LoadComponents"
 
 /**
  * VehicleTest class.  Responsible for managing a vehicle
@@ -373,6 +376,12 @@ protected:
      */
     virtual void PreTestInit(const std::string &test, const std::string &driveCurve);
 
+	/**
+	 * Method to load the drive curve components before the test is actually started.
+	 */
+	virtual string LoadComponents(string testType);
+	virtual string LoadDriveCurve(string &driveCurveRootDir);
+
     /**
      * The test sequencer that is used to sequence drive
      * curves.
@@ -498,6 +507,13 @@ private:
      * Flag to protect commanded test from being sent twice.
      */
     bool m_testCommandInProgress;
+
+	/**
+	 * Queue used to keep a list of commands
+	 * for controlling and sequencing the loading,
+	 * removing and running of test components.
+	 */
+	std::queue< string > m_commandQueue;
 };
 #endif //VEHICLETEST_H
 

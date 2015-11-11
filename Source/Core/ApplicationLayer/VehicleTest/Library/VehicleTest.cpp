@@ -507,7 +507,18 @@ void VehicleTest::Run(volatile bool *terminateFlag)
                 m_testSequencer.RemoveTestComponents();
             }
             testStatus = "";                    // reset the test variables
-            test = GetCommandedTest();          // wait for a test to be commanded
+			do
+			{
+				test = GetCommandedTest();          // wait for a test to be commanded
+				if(LOAD_COMPONENTS == test)
+				{
+					driveCurve = LoadComponents(test);
+				}
+				else if(REMOVE_COMPONENTS == test)
+				{
+					m_testSequencer.RemoveTestComponents();
+				}
+			} while((test == LOAD_COMPONENTS) || (test == REMOVE_COMPONENTS) || (test == BEP_NO_DATA));
 
             testStatus = BEP_TESTING_RESPONSE;  // update the status to testing
             Log(LOG_DEV_DATA, "VehicleTest New Test Priority: %d\n", BposGetPriority(0));
@@ -638,9 +649,11 @@ void VehicleTest::Run(volatile bool *terminateFlag)
     Log(LOG_FN_ENTRY, "VehicleTestRunner Terminated\n");
 }
 
+//-------------------------------------------------------------------------------------------------
 const std::string VehicleTest::Command(const XmlNode *node)
 {    // currently only support Start, Retest, and Continue
     std::string status;
+	UINT16 cmdCnt = 0;
 
     Log(LOG_FN_ENTRY, "VehicleTest::Command(%s)\n", node->ToString().c_str());
 
@@ -672,6 +685,69 @@ const std::string VehicleTest::Command(const XmlNode *node)
             Log(LOG_ERRORS, "Error, StartTest is being commanded during a test\n");
         }
     }
+	else if (node->getName() == LOAD_VEHICLE_TEST_DATA_TAG)
+	{
+		if (Read(GetDataTag("TestInProgress")) != "1")
+		{
+			Log(LOG_DEV_DATA, "VehicleTest::Command() - Processing Load Vehicle Data, No Test In Progress");
+			Log(LOG_DEV_DATA, "VehicleTest::Command() - Queue Size = %d", m_commandQueue.size());
+			// if another load is in the queue remove and place at end
+			for (cmdCnt = 0; cmdCnt < m_commandQueue.size(); cmdCnt++)
+			{
+				Log(LOG_DEV_DATA, "VehicleTest::Command(), Top of Queue = %s\n",
+					m_commandQueue.front().c_str());
+				if (LOAD_COMPONENTS == m_commandQueue.front())
+				{
+					m_commandQueue.pop();
+				}
+				else
+				{	// Put front into back and check the next
+					m_commandQueue.push(m_commandQueue.front());
+					m_commandQueue.pop();
+				}
+			}
+
+			m_commandQueue.push(LOAD_COMPONENTS);
+			// Load the components
+			m_semCommandTest.CriticalSectionExit();     
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Error, Load Vehicle Components is being commanded during a test");
+		}
+	}
+	else if (node->getName() == REMOVE_VEHICLE_TEST_DATA_TAG)
+	{
+		if (Read(GetDataTag("TestInProgress")) != "1")
+		{
+			Log(LOG_DEV_DATA, "VehicleTest::Command() - Processing Remove Vehicle Data, No Test In Progress");
+			Log(LOG_DEV_DATA, "VehicleTest::Command() - Queue Size = %d", m_commandQueue.size());
+			// if another remove is in the queue, then remove and add to the end
+			// otherwise just add to the end of the queue
+			// if another load is in the queue remove and place at end
+			for (cmdCnt = 0; cmdCnt < m_commandQueue.size(); cmdCnt++)
+			{
+				Log(LOG_DEV_DATA, "DaimlerChryslerVehicleTest::Command(), Top of Queue = %s\n",
+					m_commandQueue.front().c_str());
+				if (REMOVE_COMPONENTS == m_commandQueue.front())
+				{	// Remove from queue
+					m_commandQueue.pop();
+				}
+				else
+				{	// Put front into back and check the next
+					m_commandQueue.push(m_commandQueue.front());
+					m_commandQueue.pop();
+				}
+			}
+			m_commandQueue.push(REMOVE_COMPONENTS);
+			// Remove the components
+			m_semCommandTest.CriticalSectionExit();     
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Error, Unload Components is being commanded during a test");
+		}
+	}
     // else it is an unsupported command
     else
         Log(LOG_ERRORS, "VehicleTest Unsupported Command %s, %s\n",
@@ -890,11 +966,43 @@ void VehicleTest::SetVehicleBuild(const XmlNode *vehicleBuild)
 
 std::string VehicleTest::GetCommandedTest(void)
 {
+#if 1
+	string type = BEP_NO_DATA;
+
+	if (m_commandQueue.empty())
+	{
+		do
+		{
+			Log(LOG_DEV_DATA, "VehicleTest::GetCommandedTest() - No more commands in queue, ensuring "
+				"m_semCommandTest is set to 0 to wait for next command");
+		} while (BEP_STATUS_FAILURE != m_semCommandTest.CriticalSectionTryEnter());
+
+		Log(LOG_DEV_DATA, "VehicleTest::GetCommandedTest() - Waiting for Command");
+		// Wait for Command
+		m_semCommandTest.CriticalSectionEnter();
+	}
+
+	// Ensure that the stack is populated once the critical section was entered
+	if (m_commandQueue.empty())
+	{
+		Log(LOG_ERRORS, "ERROR VehicleTest::GetCommandedTest() m_commandQueue empty");
+		type = BEP_NO_DATA;
+	}
+	else
+	{
+		// Pop the next command off the stack
+		type = m_commandQueue.front();	// get the command type
+		m_commandQueue.pop();		// remove from stack	
+	}
+	Log(LOG_DEV_DATA, "GetTestCommanded: %s\n", type.c_str());
+	return(type);
+#else
     m_semCommandTest.CriticalSectionEnter();    // wait till test commanded
     std::string type = m_testType;              // get the test type
     m_testType = "";                            // reset the test type
     Log(LOG_DEV_DATA, "GetTestCommanded: %s\n", type.c_str());
     return(type);
+#endif 
 };
 
 std::string VehicleTest::CommandTest(const std::string testType)
@@ -1052,3 +1160,48 @@ void VehicleTest::PreTestInit(const std::string &test, const std::string &driveC
     }
 }
 
+//-------------------------------------------------------------------------------------------------
+string VehicleTest::LoadComponents(string testType)
+{
+	string response;
+	string description("Clear Overall Result");
+	string name("DCXComponent");
+	string driveCurve = "";		// the current drive curve
+	string localizedDriveCurve;	// the localized drive curve
+	XmlNodeMapItr iter;
+    string driveCurveRootDir;
+
+	Log(LOG_DEV_DATA, "VehicleTest::LoadComponents() - Enter");
+	// Check if we need to load a regular or commanded drive curve
+	driveCurve = (LOAD_COMPONENTS != testType) ? m_testSelector.SelectDriveCurve(testType) : LoadDriveCurve(driveCurveRootDir);
+	// prepend the FTP_ROOT to the drive curve for loading
+	localizedDriveCurve = (driveCurveRootDir != "") ? driveCurveRootDir + driveCurve : getenv("FTP_ROOT") + driveCurve;
+	Log(LOG_FN_ENTRY, "Loading The Drive Curve: %s", localizedDriveCurve.c_str());
+	// load the drive curve
+	const XmlNode *driveCurveDoc = m_driveCurveParser.ReturnXMLDocument(localizedDriveCurve);
+	// sequence the test
+	Log(LOG_DEV_DATA, "Loading Drive Curve %s root directory %s", driveCurve.c_str(), driveCurveRootDir.c_str());
+	m_testSequencer.LoadDriveCurve(driveCurveDoc, driveCurveRootDir);
+	return(driveCurve);
+}
+
+//-------------------------------------------------------------------------------------------------
+string VehicleTest::LoadDriveCurve(string &driveCurveRootDir)
+{
+	string driveCurve = "";		// the current drive curve
+	string localizedDriveCurve;	// the localized drive curve
+    string response;
+
+	Log(LOG_DEV_DATA, "VehicleTest::LoadDriveCurve() - Enter");
+	// load the vehicle build and determine which drive curve to load
+	ReadNewVehicleBuild();
+
+	if (GetVehicleBuild() != NULL)
+    {   
+		driveCurve = m_testSelector.SelectDriveCurve(GetVehicleBuild(), driveCurveRootDir);
+		Write(GetDataTag("DriveCurveRootDir"), driveCurveRootDir);
+    }
+	// Return the drive curve name
+	Log(LOG_DEV_DATA, "VehicleTest::LoadDriveCurve() - Exit");
+	return(driveCurve);
+}

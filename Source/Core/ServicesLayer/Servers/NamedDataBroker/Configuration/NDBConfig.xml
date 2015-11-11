@@ -628,6 +628,7 @@
                 <LFWheelSpeed DataType="short" Units="MPH">PLC</LFWheelSpeed>
                 <LFWheelTarget DataType="range" Units="MPH">MachineDataBroker</LFWheelTarget>
                 <LHPendantFault DataType="bool">PLC</LHPendantFault>
+                <LoadVehicleTestData DataType="bool">VehicleTest</LoadVehicleTestData>
                 <LockBoxDoorClosed DataType="bool">PLC</LockBoxDoorClosed>
                 <LossCompensation DataType="string">LossCompensation</LossCompensation>
                 <LossCompensationBitToPlc DataType="bool">PLC</LossCompensationBitToPlc>

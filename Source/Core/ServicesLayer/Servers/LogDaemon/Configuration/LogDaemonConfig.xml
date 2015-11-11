@@ -30,7 +30,7 @@
             (At any given time after reaching max, you'll have n+1 log files,
              including the current core log file.)
         -->
-      <StandardFileMaxFiles>25</StandardFileMaxFiles>
+      <StandardFileMaxFiles>50</StandardFileMaxFiles>
         <!-- 
                 Priproty of the thread which listens for 
                   incoming messages.

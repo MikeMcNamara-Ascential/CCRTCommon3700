@@ -33,6 +33,9 @@ protected:
      * @param ctrl Current value of control data needed for system control events
      */
     virtual void CheckTesting( ControlData *ctrl);
+
+	void LoadTestData();
+
     /**
      * Overloaded BepServer Publish method which provides the ability
      * to handle the fault level messages that were requested.

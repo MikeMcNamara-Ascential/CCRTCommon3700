@@ -109,6 +109,15 @@ void SgmwSystemMonitor::CheckTesting(ControlData *ctrl)
 }
 
 //-------------------------------------------------------------------------------------------------
+void SgmwSystemMonitor::LoadTestData()
+{
+	// Command the Vehicle Data Broker to read the build data
+	CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1")); 
+	// Command the Vehicle Test Server to load the test
+	CommandNdbData(LOAD_VEHICLE_TEST_DATA_TAG, "1");
+}
+
+//-------------------------------------------------------------------------------------------------
 const string SgmwSystemMonitor::Publish(const XmlNode *node)
 {   // If this is the vehicle type, load the build data
     Log(LOG_FN_ENTRY, "SgmwSystemMonitor::Publish(%s, %s) - Enter", node->getName().c_str(), node->getValue().c_str());
@@ -121,6 +130,11 @@ const string SgmwSystemMonitor::Publish(const XmlNode *node)
 		WriteNdbData("VCNumber", string("??"));
 		WriteNdbData(VINDISPLAY_DATA_TAG, string("??"));
 		WriteNdbData("StartLamp", false);
+	}
+	else if(!node->getName().compare(VIN_READ_STATUS_TAG) && 
+			!node->getValue().compare(VALID_VEHICLE_VIN))
+	{
+		LoadTestData();
 	}
     Log(LOG_FN_ENTRY, "SgmwSystemMonitor::Publish(%s, %s) - Exit", node->getName().c_str(), node->getValue().c_str());
     // Finish the normal publish

@@ -31,11 +31,19 @@
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-    <Field00036 Type="Separator">JCX_E</Field00036>
+    <Field00036 Type="MachineSpecificSeparator">
+        <SN_508496>JCX_D</SN_508496>
+        <SN_50859701>JCX_E</SN_50859701>
+        <SN_50849702>JCX_F</SN_50849702>
+    </Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-    <Field00041 Type="Separator">85.3_E</Field00041>
+    <Field00041 Type="MachineSpecificSeparator">
+        <SN_508496>85.3_D</SN_508496>
+        <SN_50859701>85.3_E</SN_50859701>
+        <SN_50859702>85.3_F</SN_50859702>
+    </Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>
@@ -191,6 +199,20 @@
     <Field00705 Type="XmlTag">dcucomcheck</Field00705>
     <Field00706 Type="Result" Format="%s" Length="4" DataType="String">BrakeEnterDiagnosticMode</Field00706>
     <Field00707 Type="XmlTag">/dcucomcheck</Field00707>
+
+    <!-- Reserved fields that must be in the string -->
+    <Field00800 Type="XmlTag">reserver1</Field00800>
+    <Field00801 Type="Separator">NA</Field00801>
+    <Field00802 Type="XmlTag">/reserver1</Field00802>
+
+    <Field00805 Type="XmlTag">reserver2</Field00805>
+    <Field00806 Type="Separator">NA</Field00806>
+    <Field00807 Type="XmlTag">/reserver2</Field00807>
+
+    <Field00810 Type="XmlTag">reserver3</Field00810>
+    <Field00811 Type="Separator">NA</Field00811>
+    <Field00812 Type="XmlTag">/reserver3</Field00812>
+
 
 
 

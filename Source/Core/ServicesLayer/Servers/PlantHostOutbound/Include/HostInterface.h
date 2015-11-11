@@ -43,7 +43,7 @@
 #include "HostInterfaceKeepAlive.h"
 
 class HostInterfaceKeepAlive;
-        /**
+/**
  * Data type definition for a block for controlling data
  * and access to it
  * @since Version 1.0

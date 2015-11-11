@@ -33,11 +33,19 @@
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-   <Field00036 Type="Separator">JCX_D</Field00036>
+    <Field00036 Type="MachineSpecificSeparator">
+        <SN_508496>JCX_D</SN_508496>
+        <SN_50849701>JCX_E</SN_50849701>
+        <SN_50849702>JCX_F</SN_50849702>
+    </Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-   <Field00041 Type="Separator">85.5_D</Field00041>
+    <Field00041 Type="MachineSpecificSeparator">
+        <SN_508496>85.5_D</SN_508496>
+        <SN_50849701>85.5_E</SN_50849701>
+        <SN_50849702>85.5_F</SN_50849702>
+    </Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>

@@ -73,6 +73,7 @@ const string detailNode("DetailNode");
 const string dateTimeNode("DateTime");
 const string typeConditionalBlock("ConditionalBlock");
 const string typeXmlTag("XmlTag");
+const string typeMachineSpecificSeperator("MachineSpecificSeparator");
 /**
  * Valid data types for map file.
  */

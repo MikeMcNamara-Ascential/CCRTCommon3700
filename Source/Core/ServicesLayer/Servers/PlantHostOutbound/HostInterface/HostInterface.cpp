@@ -837,6 +837,24 @@ const string HostInterface::ProcessMapNode(const XmlNode *resultMapNode,
 		}
 		else result	= resultMapNode->getValue();
 	}
+	else if(type == typeMachineSpecificSeperator)
+	{   // Get the machine serial number
+		string snEntry = string("SN_") + string(getenv("MACHINE"));
+		Log(LOG_DETAILED_DATA, "Looking for %s child node under %s", snEntry.c_str(), resultMapNode->ToString().c_str());
+		XmlNodeMapCItr iter = resultMapNode->getChildren().find(snEntry);
+		Log(LOG_DETAILED_DATA, "Check result of find");
+		if(iter != resultMapNode->getChildren().end())
+		{
+			Log(LOG_DETAILED_DATA, "Getting machine specific sperator");
+			result = iter->second->getValue();
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Machine specific entry for %s", snEntry.c_str());
+			result = "?";
+		}
+		Log(LOG_DETAILED_DATA, "Machine specific seperator: %s", result.c_str());
+	}
 	else if(type == dateTimeNode)
 	{	// See if there is a specific format defined
 		try

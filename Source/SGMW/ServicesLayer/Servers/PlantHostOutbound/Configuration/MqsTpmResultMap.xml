@@ -32,11 +32,19 @@
     <Field00032 Type="XmlTag">/checker</Field00032>
 
     <Field00035 Type="XmlTag">lineid</Field00035>
-    <Field00036 Type="Separator">JCX_D</Field00036>
+    <Field00036 Type="MachineSpecificSeparator">
+        <SN_508496>JCX_D</SN_508496>
+        <SN_50859701>JCX_E</SN_50859701>
+        <SN_50849702>JCX_F</SN_50849702>
+    </Field00036>
     <Field00037 Type="XmlTag">/lineid</Field00037>
 
     <Field00040 Type="XmlTag">stationname</Field00040>
-    <Field00041 Type="Separator">85.6_D</Field00041>
+    <Field00041 Type="MachineSpecificSeparator">
+        <SN_508496>85.6_D</SN_508496>
+        <SN_50859701>85.6_E</SN_50859701>
+        <SN_50859702>85.6_F</SN_50859702>
+    </Field00041>
     <Field00042 Type="XmlTag">/stationname</Field00042>
 
     <Field00045 Type="XmlTag">trantype</Field00045>
@@ -66,7 +74,7 @@
     <Field00122 Type="XmlTag">/tpmcounterlr</Field00122>
 
     <Field00130 Type="XmlTag">tpmcounterrr</Field00130>
-    <Field00131 Type="Detail" DetailNode="RightRearFrameCountDiff" Format="%06df" Length="6" DataType="Integer">TpmsCheckTpmsResults</Field00131>
+    <Field00131 Type="Detail" DetailNode="RightRearFrameCountDiff" Format="%06d" Length="6" DataType="Integer">TpmsCheckTpmsResults</Field00131>
     <Field00132 Type="XmlTag">/tpmcounterrr</Field00132>
 
     <!-- Field Mode -->
@@ -89,19 +97,19 @@
     <!-- Corner Results -->
     <Field00300 Type="XmlTag">tpmctresultlf</Field00300>
     <Field00301 Type="Detail" DetailNode="LeftFrontResult" Format="%s" Length="4" DataType="String">TpmsCheckTpmsResults</Field00301>
-    <Field00302 Type="XmlTag">/tpmfmodelf</Field00302>
+    <Field00302 Type="XmlTag">/tpmctresultlf</Field00302>
 
     <Field00310 Type="XmlTag">tpmctresultrf</Field00310>
     <Field00311 Type="Detail" DetailNode="RightFrontResult" Format="%s" Length="4" DataType="String">TpmsCheckTpmsResults</Field00311>
-    <Field00312 Type="XmlTag">/tpmfmoderf</Field00312>
+    <Field00312 Type="XmlTag">/tpmctresultrf</Field00312>
 
     <Field00320 Type="XmlTag">tpmctresultlr</Field00320>
     <Field00321 Type="Detail" DetailNode="LeftRearResult" Format="%s" Length="4" DataType="String">TpmsCheckTpmsResults</Field00321>
-    <Field00322 Type="XmlTag">/tpmfmodelf</Field00322>
+    <Field00322 Type="XmlTag">/tpmctresultlr</Field00322>
 
     <Field00330 Type="XmlTag">tpmctresultrr</Field00330>
     <Field00331 Type="Detail" DetailNode="RightRearResult" Format="%s" Length="4" DataType="String">TpmsCheckTpmsResults</Field00331>
-    <Field00332 Type="XmlTag">/tpmfmoderr</Field00332>
+    <Field00332 Type="XmlTag">/tpmctresultrr</Field00332>
 
     <Field00400 Type="XmlTag">tpmcomcheck</Field00400>
     <Field00401 Type="Result" Format="%4.4s" Length="4" DataType="String">TpmsEnterDiagnosticMode</Field00401>

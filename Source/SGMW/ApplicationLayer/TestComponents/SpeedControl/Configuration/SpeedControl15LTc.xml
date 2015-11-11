@@ -111,8 +111,8 @@
             <CombinedSetAndFootoffThrottlePrompts>False</CombinedSetAndFootoffThrottlePrompts>
             <MarkSpeedDuringStableCheck>True</MarkSpeedDuringStableCheck>
             <SkipOnTestResult>True</SkipOnTestResult>
-            <SpeedControlMaxSpeed Units="mph">37</SpeedControlMaxSpeed>
-            <SpeedControlMinSpeed Units="mph">31</SpeedControlMinSpeed>
+            <SpeedControlMaxSpeed Units="mph">40</SpeedControlMaxSpeed>
+            <SpeedControlMinSpeed Units="mph">34</SpeedControlMinSpeed>
             <SpeedControlSetMask>0x0001</SpeedControlSetMask>
             <SpeedRangeCheckDelay Units="ms">500</SpeedRangeCheckDelay>
 
@@ -238,10 +238,10 @@
 
         <CheckFaultCount Result="" Timeout="5000" Description="Read faults from the module" ScanDelay="250"/>
 
-        <StartModuleKeepAlive Result="" Timeout="1000" ScanDelay="250" 
+        <StartModuleKeepAlive Result="" Timeout="1000" ScanDelay="250"
             Description="Start sending tester present message to the module"/>
 
-        <StopModuleKeepAlive Result="" Timeout="1000" ScanDelay="" 
+        <StopModuleKeepAlive Result="" Timeout="1000" ScanDelay=""
             Description="Stop sending tester present message to the module"/>
 
     </TestSteps>

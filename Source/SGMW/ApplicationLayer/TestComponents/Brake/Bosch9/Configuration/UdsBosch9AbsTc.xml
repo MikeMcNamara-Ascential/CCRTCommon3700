@@ -366,7 +366,7 @@
                 <Command0020>Usv2Hsv2RrLfEvOn</Command0020>
                 <Command0030 ArrayTag="LFESPBuildStart" Delay="350" RollerIndex="0" TagType="BuildStart">LfEspBuild</Command0030>
                 <Command0050 ArrayTag="LFESPBuildEnd" RollerIndex="0" TagType="BuildEnd">Usv2Hsv2Off</Command0050>
-                <Command0060 ArrayTag="LFESPReductionStart" Delay="200" RollerIndex="0" TagType="ReductionStart">LfEspDecay</Command0060>
+                <Command0060 ArrayTag="LFESPReductionStart" Delay="350" RollerIndex="0" TagType="ReductionStart">LfEspDecay</Command0060>
                 <Command0070 ArrayTag="LFESPReductionEnd" RollerIndex="0" TagType="ReductionEnd">RrLfEvOff</Command0070>
                 <Command0080>Usv1Hsv1LrRfEvOn</Command0080>
                 <Command0090 ArrayTag="RFESPBuildStart" Delay="350" RollerIndex="1" TagType="BuildStart">RfEspBuild</Command0090>
@@ -381,7 +381,7 @@
                 <Command0200>Usv2Hsv2RrLfEvOn</Command0200>
                 <Command0210 ArrayTag="RRESPBuildStart" Delay="300" RollerIndex="3" TagType="BuildStart">RrEspBuild</Command0210>
                 <Command0230 ArrayTag="RRESPBuildEnd" RollerIndex="3" TagType="BuildEnd">Usv2Hsv2Off</Command0230>
-                <Command0240 ArrayTag="RRESPReductionStart" Delay="600" RollerIndex="3" TagType="ReductionStart">RrEspDecay</Command0240>
+                <Command0240 ArrayTag="RRESPReductionStart" Delay="200" RollerIndex="3" TagType="ReductionStart">RrEspDecay</Command0240>
                 <Command0250 ArrayTag="RRESPReductionEnd" RollerIndex="3" TagType="ReductionEnd">RrLfEvOff</Command0250>
                 <Command0260>AllUsvHsvOff</Command0260>
                 <Command0270>AllEvOff</Command0270>
@@ -393,14 +393,14 @@
             <FourChannelEspTest>True</FourChannelEspTest>
             <RecalculateDragBeforeESP>False</RecalculateDragBeforeESP>
             <DragAnalyzedBeforeESPTest>True</DragAnalyzedBeforeESPTest>
-            <LeftFrontMinESPBuildForce Units="lbf">225</LeftFrontMinESPBuildForce>
-            <RightFrontMinESPBuildForce Units="lbf">225</RightFrontMinESPBuildForce>
-            <LeftRearMinESPBuildForce Units="lbf">225</LeftRearMinESPBuildForce>
-            <RightRearMinESPBuildForce Units="lbf">225</RightRearMinESPBuildForce>
-            <LeftFrontMaxESPReductionForce Units="lbf">40</LeftFrontMaxESPReductionForce>
-            <RightFrontMaxESPReductionForce Units="lbf">40</RightFrontMaxESPReductionForce>
-            <LeftRearMaxESPReductionForce Units="lbf">40</LeftRearMaxESPReductionForce>
-            <RightRearMaxESPReductionForce Units="lbf">40</RightRearMaxESPReductionForce>
+            <LeftFrontMinESPBuildForce Units="lbf">224</LeftFrontMinESPBuildForce>
+            <RightFrontMinESPBuildForce Units="lbf">224</RightFrontMinESPBuildForce>
+            <LeftRearMinESPBuildForce Units="lbf">224</LeftRearMinESPBuildForce>
+            <RightRearMinESPBuildForce Units="lbf">224</RightRearMinESPBuildForce>
+            <LeftFrontMaxESPReductionForce Units="lbf">56</LeftFrontMaxESPReductionForce>
+            <RightFrontMaxESPReductionForce Units="lbf">56</RightFrontMaxESPReductionForce>
+            <LeftRearMaxESPReductionForce Units="lbf">56</LeftRearMaxESPReductionForce>
+            <RightRearMaxESPReductionForce Units="lbf">56</RightRearMaxESPReductionForce>
             <UseMaxESPReductionPercentage>False</UseMaxESPReductionPercentage>
             <!--Park Brake Parameters-->
             <ParkBrakeApplyForce Units="lbf">2000</ParkBrakeApplyForce>
@@ -615,7 +615,7 @@
         <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" Prompt1="AccelerateToTargetSpeed" SpeedTarget="18 25" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
         <AllInletValvesOff Result="" Timeout="1000" Description="Turn all inlet valves off"/>
         <AllInletValvesOn Result="" Timeout="1000" Description="Turn all inlet valves on"/>
-        <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="8" RearSideToSideBalance="8" BalanceFrontToRearMin="20" BalanceFrontToRearMax="70" Prompt1="" Prompt2=""/>
+        <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="8" RearSideToSideBalance="8" BalanceFrontToRearMin="20" BalanceFrontToRearMax="100" Prompt1="" Prompt2=""/>
         <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="222" FrontMaxBrakeForce="600" RearMinBrakeForce="99" RearMaxBrakeForce="400" Prompt1="" Prompt2=""/>
         <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="55" RearMaxDragForce="55"/>
         <AnalyzeDynamicParkBrake Result="" Timeout="10000" Description="Analyze Dynamic Park Brake forces"/>

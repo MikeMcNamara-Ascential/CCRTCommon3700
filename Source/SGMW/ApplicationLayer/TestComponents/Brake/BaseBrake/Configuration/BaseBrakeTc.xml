@@ -163,7 +163,7 @@
 
             <!-- Park Brake Parameters -->
             <ParkBrakeArmSpeed Units="mph">9</ParkBrakeArmSpeed>
-            <ParkBrakeMaxForce Units="lbf">400</ParkBrakeMaxForce>
+         <ParkBrakeMaxForce Units="lbf">300</ParkBrakeMaxForce>
             <ParkBrakeMinForce Units="lbf">18</ParkBrakeMinForce>
             <ParkBrakeStartSampleSpeed Units="mph">8</ParkBrakeStartSampleSpeed>
             <ParkBrakeEndSampleSpeed Units="mph">0</ParkBrakeEndSampleSpeed>
@@ -298,7 +298,7 @@
     <TestSteps>
 
         <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed"
-            SpeedTarget="48 55" ArmSpeed="40" Prompt1="AccelerateToTargetSpeed"/>
+            SpeedTarget="48 55" ArmSpeed="50" Prompt1="AccelerateToTargetSpeed"/>
 
         <AccelerateToParkBrakeSpeed Result="" Timeout="120000" Description="Accelerate to Park Brake Speed"
             Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed"
@@ -330,7 +330,7 @@
 
         <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test"
             Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank"
-            DragDelay="1000" DragSpeed="48" DragSamples="50"/>
+            DragDelay="1000" DragSpeed="45" DragSamples="50"/>
 
         <DynamicParkBrakeTest Result="" Timeout="60000" Description="Perform park brake test"
             Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake"/>

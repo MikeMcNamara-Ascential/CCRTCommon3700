@@ -151,6 +151,8 @@
          <UsePlcYesNoButtons>Yes</UsePlcYesNoButtons>
          <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
          <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
+         <!-- NVH Parameters -->
+         <NvhTargetSpeed Units="MPH">70</NvhTargetSpeed>
       </Parameters>
       <FaultList>/Configuration/Components/Common/FaultList.xml</FaultList>
    </Setup>
@@ -219,6 +221,10 @@
       <EnableElectricMotorBoost>
          <TestStep1>EnableElectricMotorBoost</TestStep1>
       </EnableElectricMotorBoost>
+      <NvhCycle>
+            <TestStep00 AltValue="40kW">PerformNvhCycle</TestStep00>
+            <TestStep05 AltValue="90kW">PerformNvhCycle</TestStep05>
+        </NvhCycle>
    </Objectives>
    <TestSteps>
       <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1="Launching" Prompt1Priority="0"/>
@@ -291,5 +297,6 @@
       <DisableMotorLoading Result="" Description="Disable the loading of the drive axle of the vehicle" Timeout="2000"/>
       <EngageMachine Result="" Description="Engage the machine" Timeout="2000"/>
       <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" Timeout="100" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>
+      <PerformNvhCycle Result="" Description="Run NVH Cycle" Timeout="300000" ScanDelay="250"/>
    </TestSteps>
 </GMMachineComponent>

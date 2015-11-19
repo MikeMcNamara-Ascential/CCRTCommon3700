@@ -2092,16 +2092,25 @@ const string MachineTC::PerformNvhCycle(const string &powerLevel)
 	if(!ShortCircuitTestStep())
 	{
 		if(CheckZeroSpeed())
-		{   // Instruct the operator to select vehicle power level
-			DisplayTimedPrompt(GetPrompt("SelectCarPower"), GetPromptBox("SelectCarPower"), 
-							   GetPromptPriority("SelectCarPower"), GetPromptDuration("SelectCarPower"), powerLevel);
-			// Accelerate to the test speed
-			char buff[32];
-			float targetSpeed = GetParameterFloat("NvhTargetSpeed");
-			string speedRange = CreateMessage(buff, sizeof(buff), "%.2f %.2f", targetSpeed, targetSpeed+5.0);
-			result = AccelerateToTestSpeed(targetSpeed, speedRange, 250, false);
-			// Return to zero speed
-			CheckZeroSpeed();
+		{   // Verify the operator wants to perform the NVH test
+			if(testPass == OperatorPassFail("PerformNvhTest"))
+			{
+				// Instruct the operator to select vehicle power level
+				DisplayTimedPrompt(GetPrompt("SelectCarPower"), GetPromptBox("SelectCarPower"), 
+								   GetPromptPriority("SelectCarPower"), GetPromptDuration("SelectCarPower"), powerLevel);
+				// Accelerate to the test speed
+				char buff[32];
+				float targetSpeed = GetParameterFloat("NvhTargetSpeed");
+				string speedRange = CreateMessage(buff, sizeof(buff), "%.2f %.2f", targetSpeed, targetSpeed+5.0);
+				result = AccelerateToTestSpeed(targetSpeed, speedRange, 250, false);
+				// Return to zero speed
+				CheckZeroSpeed();
+			}
+			else
+			{
+				Log(LOG_DEV_DATA, "Operator chose to skip NVH cycle");
+				result = testSkip;
+			}
 		}
 		else
 		{

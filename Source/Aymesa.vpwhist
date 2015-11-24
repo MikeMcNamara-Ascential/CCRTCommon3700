@@ -12,19 +12,19 @@ Tests\Tests.vpj=20141017132918912
 Tools\Tools.vpj=20150408063700242
 [TreeExpansion2]
 - Aymesa\Aymesa.vpj
-  - ApplicationLayer
-    - ModuleInterfaces
-      - Brake
+  + ApplicationLayer
+    + ModuleInterfaces
+      + Brake
         + Bosch8
         + Include
-        - Mando
+        + Mando
           - Configuration
     - TestComponents
       - Brake
-        - BaseBrake
+        + BaseBrake
           - Configuration
         + Bosch8
-          + Configuration
+          - Configuration
         + Common
           + Configuration
         + Include
@@ -32,14 +32,14 @@ Tools\Tools.vpj=20150408063700242
           - Configuration
       + LossCompensation
         + Configuration
-      - Machine
+      + Machine
         - Configuration
       + TransferCase
-        + Configuration
+        - Configuration
     - VehicleTest
       - Configuration
         - BuildRecords
-        + DriveCurves
+        - DriveCurves
   + Burke_PorterCCRT
     + jre
       + bin
@@ -100,243 +100,56 @@ Tools\Tools.vpj=20150408063700242
       + ICM
         + Configuration
       + SerialServer
-        + Configuration
-    - Servers
-      - InputServer
         - Configuration
-      + Launcher
+    - Servers
+      + InputServer
+        - Configuration
+      - Launcher
         - Configuration
       + MachineDataBroker
         + Configuration
       + MotorController
         + Configuration
-      - PlantHostInbound
+      + PlantHostInbound
         - Configuration
       - SystemMonitor
-        + Configuration
-      + VehicleDataBroker
-        + Configuration
+        - Configuration
+      - VehicleDataBroker
+        - Configuration
       + VehicleDataServer
         + Configuration
-- Core\Core.vpj
-  - ApplicationLayer
-    + ModuleInterfaces
-      + Brake
-        + Bosch8
-        + Include
-      + Common
-      + EngineController
-      + Include
-      + Transmission
-    + ProtocolFilters
-      + Common
-      + GMClassII
-      + Include
-      + ISO
-      + J2190
-      + KeyWord2000
-      + SCI
-      + Serial
-    + TestComponents
-      - Brake
-        - BaseBrake
-          - Configuration
-        + Bosch8
-        - Common
-          + Configuration
-        - Include
-      + Common
-        + Configuration
-      + Emissions
-        + Common
-          + Configuration
-        + Include
-      + GasAnalyzer
-        + Common
-        + GasAnalyzer
-          + Configuration
-        + Include
-      + Include
-      + LossCompensation
-        + Common
-        + Include
-        + LossCompensation
-          + Configuration
-        + PhotonLossCompensation
-      + Machine
-        + Common
-        + Include
-        + Machine
-          + Configuration
-      + SpeedControl
-        + Common
-          + Configuration
-        + GenericSpeedControl
-        + Include
-      + TransferCase
-        + Common
-          + Configuration
-        + GenericTransferCase
-        + Include
-      + Transmission
-        + Common
-        + Include
-        + Transmission
-    - VehicleTest
-      + Common
-      + ComponentManager
-      + ComponentProxy
-      + Include
-      - Library
-      + PhaseCommander
-      + TestSelector
-      + TestSequencer
-      + VehicleTest
-  + ClientConfigurations
-  - ServicesLayer
-    + Include
-    + Library
-      + Bepos
-      + License
-        + Include
-      + License6.2.1
-        + Include
-      + SoftwareId
-      + SystemCommunication
-      + XmlProcessor
-        + gennmtab
-        + xmlparse
-        + xmltok
-        + xmlwf
-    + Managers
-      + Common
-      + CommProxy
-        + AVT
-          + CAN
-          + Common
-          + Include
-          + J2190
-        + BBKWireless
-        + Common
-        + Gryphon
-          + CAN
-          + Common
-          + Include
-            + hw
-        + Include
-        + MultiCom
-        + Raw
-          + ISO
-          + SCI
-        + TcpIp
-        + Tests
-      + ICM
-        + Include
-        + IpIcm
-          + Configuration
-      + Include
-      + PlcMgr
-        + Configuration
-        + Eip
-          + Adapter
-          + Modbus
-          + Platform
-            + fido
-            + Linux
-            + NetBurner
-            + Templates
-            + VxWorks
-            + WinCE
-            + Windows
-      + SciIsoMuxMgr
-      + SerialServer
-      + TaskMon
-        + Common
-        + Configuration
-        + TaskMon
-        + TaskMonOld
-        + TaskMonTerm
-    - Servers
-      + DataServer
-        + Configuration
-      + DsaServer
-        + Configuration
-      + FaultServer
-        + Configuration
-      + GenericServer
-      - InputServer
-        + CLV295ScannerMgr
-        + Common
-        + Configuration
-        + Include
-        + MapleKeypadManager
-        + PendantManager
-        + SymbolScannerMgr
-      + InterCcrtCommServer
-        + Configuration
-      + Launcher
-        + Configuration
-      + LogDaemon
-        + Configuration
-      + MachineDataBroker
-        + Configuration
-      + MotorController
-        + Common
-        + Electric
-          + AB
-            + Configuration
-          + Baldor
-            + Configuration
-          + Motor
-            + Configuration
-        + Hydraulic
-          + Configuration
-        + Include
-      + NamedDataBroker
-        + Configuration
-      - PlantHostInbound
-        + Include
-        - Library
-      + PlantHostOutbound
-        + Configuration
-        + DAQ
-        + GenericText
-        + HostInterface
-        + Include
-        + Library
-        + NDB
-        + ResultFileCopy
-      + PromptServer
-        + Configuration
-      + SystemMonitor
-        + Configuration
-        + Include
-        + Library
-      + SystemScreenSaver
-        + Configuration
-      + TestResultServer
-        + Configuration
-      + VehicleDataBroker
-        + Configuration
-      + VehicleDataServer
-        + Configuration
-        + Include
-        + Library
-      + WinCcrtInterface
-        + Configuration
++ Core\Core.vpj
 + Tests\Tests.vpj
 + Tools\Tools.vpj
-scroll:44
+scroll:0
 [State]
-SCREEN: 1920 1080 403 190 896 685 0 0 M 0 0 0 0 1539 791
-CWD: Aymesa\ApplicationLayer\VehicleTest\Configuration
+SCREEN: 1920 1080 2208 262 896 685 0 0 M 0 0 0 0 1497 791
+CWD: Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves
+BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves\MandoAbsDriveCurve.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.1973 CL=24 LE=0 CX=23 CY=24 WI=5 BI=6 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves\BaseBrakeDriveCurve.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 1 0 832 318 -1 -1 N  WF=0 WT=4 "Lucida Console,10,0,1"
+BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml"
+VIEW: LN=.62 CL=5 LE=0 CX=4 CY=3 WI=261 BI=27 HT=0 HN=0 HF=0 HC=4
+WINDOW: 46 121 1247 541 -1 -1 N  WF=0 WT=1 "Lucida Console,10,0,1"
+BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves\MandoAbsDriveCurve.xml"
+VIEW: LN=.1973 CL=24 LE=0 CX=23 CY=24 WI=274 BI=6 HT=0 HN=0 HF=0 HC=4
+WINDOW: 160 242 1247 541 -1 -1 N  WF=0 WT=3 "Lucida Console,10,0,1"
+BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves\BaseBrakeDriveCurve.xml"
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=272 BI=28 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Z:\common3700\source\aymesa\applicationlayer\TestComponents\Machine\Configuration\MachineTc.xml
-Z:\common3700\source\aymesa\applicationlayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml
-Z:\common3700\source\aymesa\applicationlayer\VehicleTest\Configuration\DriveCurves\CMakeLists.txt
-Z:\common3700\source\aymesa\applicationlayer\VehicleTest\Configuration\DriveCurves\MandoAbsDriveCurve.xml
-\Aymesa Logs\TestLog.8LZZZ123456789098.377.log
-Aymesa\ApplicationLayer\ModuleInterfaces\Brake\Mando\Configuration\MandoAbsModule.xml
+Aymesa\ApplicationLayer\VehicleTest\Configuration\BuildRecords\Vin8L0TS.xml
+Aymesa\ApplicationLayer\VehicleTest\Configuration\BuildRecords\Vin8LCDC.xml
+Aymesa\ApplicationLayer\VehicleTest\Configuration\BuildRecords\Vin8LDBS.xml
+Aymesa\ApplicationLayer\VehicleTest\Configuration\BuildRecords\Vin8LGJE.xml
 Aymesa\ApplicationLayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml
-Aymesa\ServicesLayer\Servers\InputServer\Configuration\Aymesa.InputServerConfig.xml
-Aymesa\ServicesLayer\Servers\PlantHostInbound\Configuration\Aymesa.PlantHostInbound.xml
+Aymesa\ServicesLayer\Servers\SystemMonitor\AymesaSystemMonitor.cpp
+Aymesa\ServicesLayer\Servers\VehicleDataBroker\AymesaVehicleDataBroker.cpp
+Aymesa\ServicesLayer\Servers\VehicleDataBroker\Configuration\Aymesa.VehicleDataBrokerConfig.xml
+Aymesa\ServicesLayer\Servers\Launcher\Configuration\Aymesa.LauncherConfig.xml

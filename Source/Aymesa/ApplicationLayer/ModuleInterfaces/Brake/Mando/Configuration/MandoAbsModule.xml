@@ -289,10 +289,10 @@
             </BrakeLightOff>
         </VehicleMessages>
         <TransmitMessages>
-            <EnterDiagnosticMode>0x10,0x84</EnterDiagnosticMode>
+            <EnterDiagnosticMode>0x10,0x90</EnterDiagnosticMode>
             <ExitDiagnosticMode>0x20</ExitDiagnosticMode>
-            <KeepAlive>0x3E</KeepAlive>
-            <ReadFaults>0x13,0x40,0x00</ReadFaults>
+            <KeepAlive>0x3E,0x00</KeepAlive>
+            <ReadFaults>0x18,0x00,0x40,0x00</ReadFaults>
             <ClearFaults>0x14,0x40,0x00</ClearFaults>
             <ReadLid>0x21,0x??</ReadLid>
             <ReadSecuritySeed>0x27,0x01</ReadSecuritySeed>
@@ -329,7 +329,7 @@
             <DiagSpeedLimitEnable>0x1E,0x11</DiagSpeedLimitEnable>
             <DisableValveRelayShutdown>0x1F,0x20</DisableValveRelayShutdown>
             <EnableValveRelayShutdown>0x1F,0x11</EnableValveRelayShutdown>
-            <ServiceData >0x01</ServiceData>
+            <ServiceData>0x01</ServiceData>
             <VariantCoding>0x04</VariantCoding>
             <SasCalibration>0x01,0xFF</SasCalibration>
             <SasDecalibration>0x01,0x00</SasDecalibration>
@@ -354,7 +354,7 @@
         </TransmitInterpretations>
         <ReplyMessages>
             <EnterDiagnosticMode>
-                <Reply_00>0x50,0x84</Reply_00>
+                <Reply_00>0x50,0x90</Reply_00>
                 <Reply_01>0x7F,0x10,0x??</Reply_01>
             </EnterDiagnosticMode>
             <ExitDiagnosticMode>
@@ -362,7 +362,7 @@
                 <Reply_01>0x7F,0x20,0x??</Reply_01>
             </ExitDiagnosticMode>
             <KeepAlive>
-                <Reply_00>0x7E</Reply_00>
+                <Reply_00>0x7E,0x00</Reply_00>
                 <Reply_01>0x7F,0x3E,0x??</Reply_01>
             </KeepAlive>
             <ResetModule>
@@ -371,12 +371,12 @@
                 <Reply_02>0x7F,0x11,0x??</Reply_02>
             </ResetModule>
             <ReadEcuId>
-                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x5A,0x??</Reply_00>
+                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x5A,0x80,0x??</Reply_00>
                 <Reply_01>0x7F,0x1A,0x??</Reply_01>
             </ReadEcuId>
             <ReadFaults>
-                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x53,0x??</Reply_00>
-                <Reply_01>0x7F,0x13,0x??</Reply_01>
+                <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x58,0x??</Reply_00>
+                <Reply_01>0x7F,0x18,0x??</Reply_01>
             </ReadFaults>
             <ClearFaults>
                 <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x54,0x??,0x??</Reply_00>
@@ -425,14 +425,12 @@
             </ReadPartNumber>
             <ReadEspEquipped>
                 <Boolean>
-                    <Byte1 input_index="21" mask="0xFF" compare="0x47"/>
+                    <Byte1 input_index="5" mask="0xFF" compare="0x45"/>
                 </Boolean>
             </ReadEspEquipped>
             <BrakeSwitch>
                 <Boolean>
-                    <NOT>
-                        <Byte1 input_index="18" mask="0x30" compare="0x10"/>
-                    </NOT>
+                    <Byte1 input_index="21" mask="0x0C" compare="0x04"/>
                 </Boolean>
             </BrakeSwitch>
             <ReadSecuritySeed>

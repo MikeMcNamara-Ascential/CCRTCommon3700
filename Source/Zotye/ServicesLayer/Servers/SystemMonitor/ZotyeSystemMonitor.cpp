@@ -108,6 +108,14 @@ void ZotyeSystemMonitor::CheckTesting(ControlData *ctrl)
 }
 
 //-------------------------------------------------------------------------------------------------
+void ZotyeSystemMonitor::LoadTestData()
+{   // Command the Vehicle Data Broker to read the build data
+	CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1")); 
+	// Command the Vehicle Test Server to load the test
+	CommandNdbData(LOAD_VEHICLE_TEST_DATA_TAG, "1");
+}
+
+//-------------------------------------------------------------------------------------------------
 const string ZotyeSystemMonitor::Publish(const XmlNode *node)
 {   // If this is the vehicle type, load the build data
     Log(LOG_FN_ENTRY, "ZotyeSystemMonitor::Publish(%s, %s) - Enter", node->getName().c_str(), node->getValue().c_str());
@@ -115,7 +123,12 @@ const string ZotyeSystemMonitor::Publish(const XmlNode *node)
     {   
         CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1")); 
     }
-    Log(LOG_FN_ENTRY, "ZotyeSystemMonitor::Publish(%s, %s) - Exit", node->getName().c_str(), node->getValue().c_str());
+	else if(!node->getName().compare(VIN_READ_STATUS_TAG) && 
+			!node->getValue().compare(VALID_VEHICLE_VIN))
+	{
+		LoadTestData();
+	}
+	Log(LOG_FN_ENTRY, "ZotyeSystemMonitor::Publish(%s, %s) - Exit", node->getName().c_str(), node->getValue().c_str());
     // Finish the normal publish
     return SystemMonitor::Publish(node);
 }

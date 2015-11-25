@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<locales>
+   <locale language="en" country="US"/>
+   <locale language="es" country="MX"/>
+   <locale language="ko" country="KR"/>
+</locales>

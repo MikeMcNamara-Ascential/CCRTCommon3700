@@ -1,0 +1,13 @@
+# Configuration for server log directory scanning.
+
+#
+# Each of these entries, eg, logdir.path.main, MUST HAVE A CORRESPONDING
+# ENTRY in ServerLogChooserPanel.properties!!! (with the logdir.name.main key)
+#
+
+
+logdir.path.main = /Logs
+logdir.path.vtests = /Logs/VehicleTest
+logdir.path.servers = /Logs/Servers
+logdir.path.comp = /Logs/Components
+logdir.path.comm = /Logs/Communication

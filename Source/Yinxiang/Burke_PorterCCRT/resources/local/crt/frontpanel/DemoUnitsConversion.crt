@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+<!-- 
+  $Revision$
+-->
+
+<RtGuiConfig> 
+  <Metadata author="Burke Porter, Inc" version="1.0"
+	description="Standard implementation of the Front Panel view."/>
+
+  <XmlWidgetPanel id="FrontPanel">
+	<Layout>
+
+
+	
+        <!-- Wheel speeds -->
+        <VBox height="200" width="300" posX="110" posY="0" border="false">
+		<HBox height="10"/>
+		<HBox height="20">
+			<Label name="force">
+				<Font size="16" name="sans-serif" style="bold"/>
+			</Label>
+		</HBox>
+		<!-- Wheel Speeds -->
+		<HBox width="300" border="false">
+			<VBox width="110">
+				<HBox>
+					<Label name="lf">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+				<Widget id="_lf" class="com.bepco.gui.NumberBox" width="90">
+			  		<DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
+			  		<TextBoxConfig bgcolor="lfcolor">
+						<Font size="24" name="sans-serif" style="plain"/>
+			  		</TextBoxConfig>
+				</Widget>
+				<HBox>
+					<Label name="speed">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+			</VBox>
+			<Widget id="_lfg" class="com.bepco.gui.VerticalBarGraph" height="75" width="30">
+			  <DataSource tagname="LFForce" messagetype="Read" datarate="10" />
+			  <DataSource tagname="LFForceTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			  <BarGraphConfig domainhigh="600" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+
+			<VBox width="20"/>
+
+			<Widget id="_rfg" class="com.bepco.gui.VerticalBarGraph" width="30" height="75" >
+			  <DataSource tagname="RFForce" messagetype="Read" datarate="10" />
+              <DataSource tagname="RFForceTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			  <BarGraphConfig domainhigh="600" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="110">
+				<HBox>
+					<Label name="rf">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+				<Widget id="_rf" class="com.bepco.gui.NumberBox" width="90">
+			  		<DataSource tagname="RFSpeed" messagetype="Read" datarate="10" />
+			  		<TextBoxConfig bgcolor="rfcolor">
+						<Font size="24" name="sans-serif" style="plain"/>
+			  		</TextBoxConfig>  
+				</Widget>
+				<HBox>
+					<Label name="speed">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+			</VBox>
+
+		</HBox>
+		<HBox height="10"/>
+		<HBox width="300">
+			<VBox width="110">
+				<HBox>
+					<Label name="lrmetric">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+				<Widget id="_lr" class="com.bepco.gui.NumberBox" width="90">
+			  		<DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
+			  		<TextBoxConfig bgcolor="lrcolor" convertmetric="never">
+						<Font size="24" name="sans-serif" style="plain"/>
+			  		</TextBoxConfig>  
+				</Widget>
+				<HBox>
+					<Label name="speed">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+			</VBox>
+
+			<Widget id="_lrg" class="com.bepco.gui.VerticalBarGraph" height="75" width="30" >
+			  <DataSource tagname="LRForce" messagetype="Read" datarate="10" />
+              <DataSource tagname="LRForceTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			  <BarGraphConfig domainhigh="600" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+			<VBox width="20"/>
+
+			<Widget id="_rrg" class="com.bepco.gui.VerticalBarGraph" width="30" height="75" >
+			  <DataSource tagname="RRForce" messagetype="Read" datarate="10" />
+              <DataSource tagname="RRForceTarget" tagrole="targetrange" messagetype="Subscribe"/>
+			  <BarGraphConfig domainhigh="600" domainlow="0" targethigh="66" targetlow="66" />
+			</Widget>
+
+			<VBox width="110">
+				<HBox>
+					<Label name="rrmetric">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+				<Widget id="_rr" class="com.bepco.gui.NumberBox" width="90">
+			  		<DataSource tagname="RRSpeed" messagetype="Read" datarate="10" />
+			  		<TextBoxConfig bgcolor="rrcolor" convertmetric="always">
+						<Font size="24" name="sans-serif" style="plain"/>
+			  		</TextBoxConfig>  
+				</Widget>
+				<HBox>
+					<Label name="speed">
+						<Font size="14" name="sans-serif" style="bold"/>
+					</Label>
+				</HBox> 
+			</VBox>
+		</HBox>
+			
+        </VBox>
+		
+				
+			
+
+      <!-- Row 3 of 4 -->
+		<!-- drag, brake -->
+        
+        
+
+
+    </Layout>
+  </XmlWidgetPanel>
+</RtGuiConfig>
+

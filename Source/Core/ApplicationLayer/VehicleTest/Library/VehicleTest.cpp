@@ -1026,7 +1026,10 @@ std::string VehicleTest::CommandTest(const std::string testType)
         {
             // Get the latest vehicle build data
             if(ReadNewVehicleBuild() == BEP_STATUS_SUCCESS)
-                m_testType = testType;
+			{
+				m_testType = testType;
+				m_commandQueue.push(m_testType);
+			}
             else    // if unable to get it do not start a test
                 status = BEP_INVALID_RESPONSE;
         }

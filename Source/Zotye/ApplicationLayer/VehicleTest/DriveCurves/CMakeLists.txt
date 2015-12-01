@@ -3,6 +3,7 @@
 #------------------------------------------------------------------------------------------
 INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/DriveCurves FILES
 	LossCompensationDriveCurve.xml
+	BaseBrake60kphDriveCurve.xml
 	BaseBrakeDriveCurve.xml
 	Bosch9AbsDriveCurve.xml
 	Bosch9EspDriveCurve.xml

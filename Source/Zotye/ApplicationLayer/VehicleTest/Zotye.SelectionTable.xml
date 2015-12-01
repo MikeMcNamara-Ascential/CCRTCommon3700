@@ -1,25 +1,19 @@
 <SelectionTable Description="Drive curve selection table">
-
    <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
       <BrakeType>Base Brake</BrakeType>
    </BaseBrake>
-
-
-
-    <!-- Bosch Test Sequences -->
+   <BaseBrake60kph DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrake60kphDriveCurve.xml">
+      <BrakeType>Base Brake 60kph</BrakeType>
+   </BaseBrake60kph>
+   <!-- Bosch Test Sequences -->
    <Bosch9Abs DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9AbsDriveCurve.xml">
       <BrakeType>Bosch 9 ABS</BrakeType>
    </Bosch9Abs>
-
    <Bosch9Esp DriveCurve="/Configuration/VehicleTest/DriveCurves/Bosch9EspDriveCurve.xml">
       <BrakeType>Bosch 9 ESP</BrakeType>
    </Bosch9Esp>
-
-
-
    <!-- BWI Delphi Test Sequences -->
    <BwiDbcAbs DriveCurve="/Configuration/VehicleTest/DriveCurves/BwiDbcAbsDriveCurve.xml">
       <BrakeType>BWI DBC ABS</BrakeType>
    </BwiDbcAbs>
-
 </SelectionTable>

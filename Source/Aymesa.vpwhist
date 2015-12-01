@@ -13,13 +13,13 @@ Tools\Tools.vpj=20150408063700242
 [TreeExpansion2]
 - Aymesa\Aymesa.vpj
   + ApplicationLayer
-    + ModuleInterfaces
-      + Brake
+    - ModuleInterfaces
+      - Brake
         + Bosch8
         + Include
-        + Mando
+        - Mando
           - Configuration
-    - TestComponents
+    + TestComponents
       - Brake
         + BaseBrake
           - Configuration
@@ -96,10 +96,10 @@ Tools\Tools.vpj=20150408063700242
           + params
     + UninstallerData
   - ServicesLayer
-    + Managers
+    - Managers
       + ICM
         + Configuration
-      + SerialServer
+      - SerialServer
         - Configuration
     - Servers
       + InputServer
@@ -124,32 +124,32 @@ Tools\Tools.vpj=20150408063700242
 scroll:0
 [State]
 SCREEN: 1920 1080 2208 262 896 685 0 0 M 0 0 0 0 1497 791
-CWD: Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves
-BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves\MandoAbsDriveCurve.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=8 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.1973 CL=24 LE=0 CX=23 CY=24 WI=5 BI=6 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves\BaseBrakeDriveCurve.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=28 HT=0 HN=0 HF=0 HC=4
+CWD: Aymesa\ApplicationLayer\TestComponents\Brake\Mando\Configuration
 BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=360 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=5 BI=27 HT=0 HN=0 HF=0 HC=4
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.62 CL=5 LE=0 CX=4 CY=3 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Aymesa\ApplicationLayer\TestComponents\Brake\Mando\Configuration\MandoAbsTc.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.7508 CL=1 LE=0 CX=0 CY=1 WI=5 BI=32 HT=0 HN=0 HF=0 HC=4
+BUFFER: BN="Aymesa\ApplicationLayer\ModuleInterfaces\Brake\Mando\Configuration\MandoAbsModule.xml"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
+VIEW: LN=.14503 CL=45 LE=0 CX=44 CY=18 WI=5 BI=6 HT=0 HN=0 HF=0 HC=4
+WINDOW: 250 250 1247 541 -1 -1 N  WF=0 WT=7 "Lucida Console,10,0,1"
+BUFFER: BN="Aymesa\ApplicationLayer\ModuleInterfaces\Brake\Mando\Configuration\MandoAbsModule.xml"
+VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=207 BI=6 HT=0 HN=0 HF=0 HC=4
 WINDOW: 1 0 832 318 -1 -1 N  WF=0 WT=4 "Lucida Console,10,0,1"
 BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml"
-VIEW: LN=.62 CL=5 LE=0 CX=4 CY=3 WI=261 BI=27 HT=0 HN=0 HF=0 HC=4
-WINDOW: 46 121 1247 541 -1 -1 N  WF=0 WT=1 "Lucida Console,10,0,1"
-BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves\MandoAbsDriveCurve.xml"
-VIEW: LN=.1973 CL=24 LE=0 CX=23 CY=24 WI=274 BI=6 HT=0 HN=0 HF=0 HC=4
-WINDOW: 160 242 1247 541 -1 -1 N  WF=0 WT=3 "Lucida Console,10,0,1"
-BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\DriveCurves\BaseBrakeDriveCurve.xml"
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=272 BI=28 HT=0 HN=0 HF=0 HC=4
+VIEW: LN=.62 CL=5 LE=0 CX=4 CY=3 WI=155 BI=29 HT=0 HN=0 HF=0 HC=4
+WINDOW: 225 225 1247 541 -1 -1 N  WF=0 WT=6 "Lucida Console,10,0,1"
+BUFFER: BN="Aymesa\ApplicationLayer\TestComponents\Brake\Mando\Configuration\MandoAbsTc.xml"
+VIEW: LN=.7508 CL=1 LE=0 CX=0 CY=1 WI=205 BI=32 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Aymesa\ApplicationLayer\VehicleTest\Configuration\BuildRecords\Vin8L0TS.xml
-Aymesa\ApplicationLayer\VehicleTest\Configuration\BuildRecords\Vin8LCDC.xml
-Aymesa\ApplicationLayer\VehicleTest\Configuration\BuildRecords\Vin8LDBS.xml
-Aymesa\ApplicationLayer\VehicleTest\Configuration\BuildRecords\Vin8LGJE.xml
-Aymesa\ApplicationLayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml
-Aymesa\ServicesLayer\Servers\SystemMonitor\AymesaSystemMonitor.cpp
-Aymesa\ServicesLayer\Servers\VehicleDataBroker\AymesaVehicleDataBroker.cpp
-Aymesa\ServicesLayer\Servers\VehicleDataBroker\Configuration\Aymesa.VehicleDataBrokerConfig.xml
 Aymesa\ServicesLayer\Servers\Launcher\Configuration\Aymesa.LauncherConfig.xml
+\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\StartLog
+\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\StartLog (2)
+\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\MandoAbsModule.log
+\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\GryphonCANComm-L.log
+Aymesa\ApplicationLayer\TestComponents\Brake\Mando\Configuration\MandoAbsTc.xml
+Aymesa\ApplicationLayer\ModuleInterfaces\Brake\Mando\Configuration\MandoAbsModule.xml
+Aymesa\ServicesLayer\Managers\SerialServer\Configuration\Aymesa.Ecuador.507424.SerialServer.xml
+\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\MesDataInterfaceLog20151117.log

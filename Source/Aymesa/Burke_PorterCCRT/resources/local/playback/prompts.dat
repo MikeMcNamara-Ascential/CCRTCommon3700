@@ -1,0 +1,64 @@
+## Initialize prompts
+00:00 PromptBox1BGColor white
+00:00 PromptBox2BGColor white
+00:00 PromptBox1 Blank
+00:00 PromptBox2 Blank
+
+00:05 PromptBox1  SettingUpCommBus
+00:07 PromptBox1  StartVehicle
+00:10 PromptBox1  SettingUpEngineController
+00:10 PromptBox2  AirbagBeingTested
+
+00:20 PromptBox1  SettingUpABSModule
+
+00:23 PromptBox2 CheckDaytimeRunningLights
+00:25 PromptBox1  AbsLampTest
+
+00:28 PromptBox2  Blank
+
+00:27 PromptBox1  ReverseTest
+00:28 PromptBox1  ShiftToGear {Reverse}
+00:30 PromptBox1  AccelerateAboveMph {-10} {mph}
+00:36 PromptBox1  BrakeToStop
+
+00:43 PromptBox1  ShiftToGear {Drive}
+
+00:57 PromptBox1  LiftFootShiftTo1st
+
+00:67 PromptBox1	ShiftToGear {Drive}
+00:67 PromptBox2    AccelerateAtWOT
+
+00:72 PromptBox1 	AccelerateAboveMph {50} {mph}
+00:72 PromptBox2 Blank
+
+00:75 PromptBox1	SpeedControlOn 		
+00:76 PromptBox1 	SpeedControlSet
+00:78 PromptBox1 	Blank
+00:78 PromptBox2	TorqueConverterLockupTest
+00:82 PromptBox1    Blank
+00:84 PromptBox1	SpeedControlTapBrakes
+00:84 PromptBox2	Blank
+00:86 PromptBox1	Blank
+00:88 PromptBox1	SpeedControlResume
+00:90 PromptBox1	Blank
+00:96 PromptBox1	SpeedControlCancel
+00:98 PromptBox1	SpeedControlOff
+00:99 PromptBox1	MaintainSpeed
+00:99 PromptBox2	HighSpeedSensorTest
+
+00:104 PromptBox1	AccelerateAboveBrakeArmSpeed
+00:104 PromptBox2   Blank
+
+00:110 PromptBox1	ShiftToGear {Neutral}
+
+00:112 PromptBox2	ABSTest
+00:118 PromptBox2	Blank
+
+00:120 PromptBox1	ShiftTo4HiLock
+00:123 PromptBox1 	Blank
+
+00:123	PromptBox1	BrakeToStop
+
+00:134 PromptBox1 		TestCompleted
+00:134 PromptBox2 		TestPassed
+00:134 PromptBox2BGColor 	green

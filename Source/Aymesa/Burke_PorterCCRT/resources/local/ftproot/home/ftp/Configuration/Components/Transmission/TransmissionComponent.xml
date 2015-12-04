@@ -1,0 +1,83 @@
+<TransmissionComponent>
+   <Setup>
+      <Name>Transmission</Name>
+      <Debug>Off</Debug>
+      <DebugLevel>0</DebugLevel>
+      <ProcessPriority>11</ProcessPriority>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Debug>Off</Debug>
+         <StartOnCreate>Off</StartOnCreate>
+         <LowWater>1</LowWater>
+         <HighWater>3</HighWater>
+         <Maximum>5</Maximum>
+         <Increment>1</Increment>
+      </NotificationList>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/TransmissionComponent</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <TagList>
+         <SubscribeTags>
+            <DriveAxle/>
+            <VehiclePresent/>
+            <RollsUpElevDown/>
+            <Abort/>
+            <ForegroundTestInProgress/>
+            <TestInProgress/>
+         </SubscribeTags>
+      </TagList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>TransmissionComponent</ProcessName>
+         <AdditionalLogFile Types="/Component/TransmissionComponent or Disabled">/Component/TransmissionComponent</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <DataTags>
+         <DriveAxle>DriveAxle</DriveAxle>
+         <OverallTest>OverallTest</OverallTest>
+         <VehiclePresent>VehiclePresent</VehiclePresent>
+         <RetainersUp>RollsUpElevDown</RetainersUp>
+         <Abort>Abort</Abort>
+         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+         <TestInProgress>TestInProgress</TestInProgress>
+         <LeftFrontSpeed>LFSpeed</LeftFrontSpeed>
+         <RightFrontSpeed>RFSpeed</RightFrontSpeed>
+         <LeftRearSpeed>LRSpeed</LeftRearSpeed>
+         <RightRearSpeed>RRSpeed</RightRearSpeed>
+         <SpeedTarget>SpeedTarget</SpeedTarget>
+      </DataTags>
+   </Setup>
+   <Objectives>
+      <Initialize>
+         <TestStep1>Initialize</TestStep1>
+      </Initialize>
+      <Reverse>
+         <TestStep1>ReverseTest</TestStep1>
+      </Reverse>
+      <CheckEnd>
+         <TestStep1>CheckEnd</TestStep1>
+      </CheckEnd>
+      <FinishUp>
+         <TestStep1>FinishUp</TestStep1>
+      </FinishUp>
+   </Objectives>
+   <TestSteps>
+      <Initialize Result="" Description="Perform initialization" Timeout=""/>
+      <ReverseTest Result="" Description="Test the vehicles reverse functionality" Timeout="30000" Prompt1="ReverseTest" Prompt1Priority="0" Prompt2="AccelerateToTargetSpeed" Prompt2Priority="0" TestSpeed="5.0" SpeedTarget="5 10" RollerDirection="Disabled"/>
+      <CheckEnd Result="" Description="Perform final test steps" Timeout=""/>
+      <FinishUp Result="" Description="Update the system with the overall result." Timeout="2000"/>
+   </TestSteps>
+</TransmissionComponent>

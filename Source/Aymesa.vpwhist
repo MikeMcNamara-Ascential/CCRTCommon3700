@@ -47,11 +47,11 @@ Tools\Tools.vpj=20150408063700242
       + lib
         + images
           + cursors
-    + resources
-      + com
-        + bepco
-          + rtc
-            + properties
+    - resources
+      - com
+        - bepco
+          - rtc
+            - properties
       + local
         + crt
           + aboutserver
@@ -97,59 +97,252 @@ Tools\Tools.vpj=20150408063700242
     + UninstallerData
   - ServicesLayer
     - Managers
-      + ICM
-        + Configuration
+      - ICM
+        - Configuration
       - SerialServer
         - Configuration
     - Servers
       + InputServer
         - Configuration
-      - Launcher
+      + Launcher
         - Configuration
       + MachineDataBroker
         + Configuration
-      + MotorController
-        + Configuration
+      - MotorController
+        - Configuration
       + PlantHostInbound
         - Configuration
-      - SystemMonitor
+      + SystemMonitor
         - Configuration
-      - VehicleDataBroker
+      + VehicleDataBroker
         - Configuration
       + VehicleDataServer
         + Configuration
-+ Core\Core.vpj
+- Core\Core.vpj
+  + ApplicationLayer
+    + ModuleInterfaces
+      + Brake
+        + Bosch8
+        + Include
+      + Common
+      + EngineController
+      + Include
+      + Transmission
+    + ProtocolFilters
+      + Common
+      + GMClassII
+      + Include
+      + ISO
+      + J2190
+      + KeyWord2000
+      + SCI
+      + Serial
+    + TestComponents
+      + Brake
+        + BaseBrake
+          + Configuration
+        + Bosch8
+        + Common
+          + Configuration
+        + Include
+      + Common
+        + Configuration
+      + Emissions
+        + Common
+          + Configuration
+        + Include
+      + GasAnalyzer
+        + Common
+        + GasAnalyzer
+          + Configuration
+        + Include
+      + Include
+      + LossCompensation
+        + Common
+        + Include
+        + LossCompensation
+          + Configuration
+        + PhotonLossCompensation
+      + Machine
+        + Common
+        + Include
+        + Machine
+          + Configuration
+      + SpeedControl
+        + Common
+          + Configuration
+        + GenericSpeedControl
+        + Include
+      + TransferCase
+        + Common
+          + Configuration
+        + GenericTransferCase
+        + Include
+      + Transmission
+        + Common
+        + Include
+        + Transmission
+    + VehicleTest
+      + Common
+      + ComponentManager
+      + ComponentProxy
+      + Include
+      + Library
+      + PhaseCommander
+      + TestSelector
+      + TestSequencer
+      + VehicleTest
+  + ClientConfigurations
+  - ServicesLayer
+    + Include
+    + Library
+      + Bepos
+      + License
+        + Include
+      + License6.2.1
+        + Include
+      + SoftwareId
+      + SystemCommunication
+      + XmlProcessor
+        + gennmtab
+        + xmlparse
+        + xmltok
+        + xmlwf
+    + Managers
+      + Common
+      + CommProxy
+        + AVT
+          + CAN
+          + Common
+          + Include
+          + J2190
+        + BBKWireless
+        + Common
+        + Gryphon
+          + CAN
+          + Common
+          + Include
+            + hw
+        + Include
+        + MultiCom
+        + Raw
+          + ISO
+          + SCI
+        + TcpIp
+        + Tests
+      + ICM
+        + Include
+        + IpIcm
+          + Configuration
+      + Include
+      + PlcMgr
+        + Configuration
+        + Eip
+          + Adapter
+          + Modbus
+          + Platform
+            + fido
+            + Linux
+            + NetBurner
+            + Templates
+            + VxWorks
+            + WinCE
+            + Windows
+      + SciIsoMuxMgr
+      + SerialServer
+      + TaskMon
+        + Common
+        + Configuration
+        + TaskMon
+        + TaskMonOld
+        + TaskMonTerm
+    - Servers
+      + DataServer
+        + Configuration
+      + DsaServer
+        + Configuration
+      + FaultServer
+        + Configuration
+      + GenericServer
+      + InputServer
+        + CLV295ScannerMgr
+        + Common
+        + Configuration
+        + Include
+        + MapleKeypadManager
+        + PendantManager
+        + SymbolScannerMgr
+      + InterCcrtCommServer
+        + Configuration
+      + Launcher
+        + Configuration
+      + LogDaemon
+        + Configuration
+      + MachineDataBroker
+        + Configuration
+      + MotorController
+        + Common
+        + Electric
+          + AB
+            + Configuration
+          + Baldor
+            + Configuration
+          + Motor
+            + Configuration
+        + Hydraulic
+          + Configuration
+        + Include
+      + NamedDataBroker
+        + Configuration
+      + PlantHostInbound
+        + Include
+        + Library
+      + PlantHostOutbound
+        + Configuration
+        + DAQ
+        + GenericText
+        + HostInterface
+        + Include
+        + Library
+        + NDB
+        + ResultFileCopy
+      + PromptServer
+        + Configuration
+      + SystemMonitor
+        + Configuration
+        + Include
+        + Library
+      + SystemScreenSaver
+        + Configuration
+      - TestResultServer
+        + Configuration
+      + VehicleDataBroker
+        + Configuration
+      + VehicleDataServer
+        + Configuration
+        + Include
+        + Library
+      + WinCcrtInterface
+        + Configuration
 + Tests\Tests.vpj
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1920 1080 2208 262 896 685 0 0 M 0 0 0 0 1497 791
-CWD: Aymesa\ApplicationLayer\TestComponents\Brake\Mando\Configuration
-BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.62 CL=5 LE=0 CX=4 CY=3 WI=5 BI=29 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Aymesa\ApplicationLayer\TestComponents\Brake\Mando\Configuration\MandoAbsTc.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.7508 CL=1 LE=0 CX=0 CY=1 WI=5 BI=32 HT=0 HN=0 HF=0 HC=4
-BUFFER: BN="Aymesa\ApplicationLayer\ModuleInterfaces\Brake\Mando\Configuration\MandoAbsModule.xml"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=0 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=XML	HM=0 MF=352 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=70 ESBU2=-1
-VIEW: LN=.14503 CL=45 LE=0 CX=44 CY=18 WI=5 BI=6 HT=0 HN=0 HF=0 HC=4
-WINDOW: 250 250 1247 541 -1 -1 N  WF=0 WT=7 "Lucida Console,10,0,1"
-BUFFER: BN="Aymesa\ApplicationLayer\ModuleInterfaces\Brake\Mando\Configuration\MandoAbsModule.xml"
-VIEW: LN=.0 CL=1 LE=0 CX=0 CY=1 WI=207 BI=6 HT=0 HN=0 HF=0 HC=4
-WINDOW: 1 0 832 318 -1 -1 N  WF=0 WT=4 "Lucida Console,10,0,1"
-BUFFER: BN="Aymesa\ApplicationLayer\VehicleTest\Configuration\Aymesa.SelectionTable.xml"
-VIEW: LN=.62 CL=5 LE=0 CX=4 CY=3 WI=155 BI=29 HT=0 HN=0 HF=0 HC=4
-WINDOW: 225 225 1247 541 -1 -1 N  WF=0 WT=6 "Lucida Console,10,0,1"
-BUFFER: BN="Aymesa\ApplicationLayer\TestComponents\Brake\Mando\Configuration\MandoAbsTc.xml"
-VIEW: LN=.7508 CL=1 LE=0 CX=0 CY=1 WI=205 BI=32 HT=0 HN=0 HF=0 HC=4
+SCREEN: 1920 1080 383 117 896 685 0 0 M 0 0 0 0 1552 791
+CWD: Core\ServicesLayer\Servers\TestResultServer
+BUFFER: BN="Core\ServicesLayer\Servers\TestResultServer\TestResultServer.cpp"
+BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=1 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=4472 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
+VIEW: LN=.70367 CL=1 LE=0 CX=0 CY=19 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
+WINDOW: 225 225 1302 541 -1 -1 N  WF=0 WT=3 "Lucida Console,10,0,1"
+BUFFER: BN="Core\ServicesLayer\Servers\TestResultServer\TestResultServer.cpp"
+VIEW: LN=.70367 CL=1 LE=0 CX=0 CY=19 WI=208 BI=25 HT=0 HN=0 HF=0 HC=4
 FILEHIST: 9
-Aymesa\ServicesLayer\Servers\Launcher\Configuration\Aymesa.LauncherConfig.xml
-\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\StartLog
-\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\StartLog (2)
-\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\MandoAbsModule.log
-\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\GryphonCANComm-L.log
-Aymesa\ApplicationLayer\TestComponents\Brake\Mando\Configuration\MandoAbsTc.xml
-Aymesa\ApplicationLayer\ModuleInterfaces\Brake\Mando\Configuration\MandoAbsModule.xml
-Aymesa\ServicesLayer\Managers\SerialServer\Configuration\Aymesa.Ecuador.507424.SerialServer.xml
-\Users\derickso\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.Outlook\O8K1N02T\MesDataInterfaceLog20151117.log
+Aymesa\Burke_PorterCCRT\resources\local\report\AymesaReportLayout.xsl
+Aymesa\Burke_PorterCCRT\resources\com\bepco\rtc\properties\Prompts.properties
+Aymesa\Burke_PorterCCRT\resources\com\bepco\rtc\properties\Prompts_es_MX.properties
+Aymesa\Burke_PorterCCRT\resources\local\crt\frontpanel\AymesaFrontPanel.crt
+Aymesa\Burke_PorterCCRT\resources\local\ndbconfig\NDBConfig.xml
+\Temp\Aymesa\TestResultServer.log
+Core\ServicesLayer\Servers\TestResultServer\TestResultServer.cpp
+Aymesa\ServicesLayer\Managers\ICM\Configuration\Aymesa.Ecuador.507424.IpIcmConfig.xml
+Aymesa\ServicesLayer\Servers\MotorController\Configuration\Aymesa.ABMotorControllerConfig.xml

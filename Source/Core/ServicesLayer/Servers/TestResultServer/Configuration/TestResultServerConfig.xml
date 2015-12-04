@@ -1,7 +1,7 @@
 <TestResultServerConfig>
     <Setup>
-        <AddForceArray Value="Yes or No">Yes</AddForceArray>
-        <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>
+        <AddForceArray Value="Yes or No">No</AddForceArray>
+        <AddSpeedArray Value="Yes or No">No</AddSpeedArray>
         <SpeedArrayPath>/TestResults/Machine/BrakeForceData/Speed.log</SpeedArrayPath>
         <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce.log</ForceArrayPath>
         <Debug>Off</Debug>

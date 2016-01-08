@@ -18,9 +18,9 @@
             <PermitTransmitByte>0xB8</PermitTransmitByte>
             <ResetByte>0xBC</ResetByte>
             <AckResponseByte>0x06</AckResponseByte>
-            <DataEndByte>0xFF</DataEndByte>
+            <DataEndByte>0x00</DataEndByte>
             <DataStartByte>0x01</DataStartByte>
-            <UseChecksum>1</UseChecksum>
+            <UseChecksum>False</UseChecksum>
             <SerialTimeoutTime>1500</SerialTimeoutTime>
             <SerialDelayMSec>10</SerialDelayMSec>
             <SoundMeterTestTime>12000</SoundMeterTestTime>

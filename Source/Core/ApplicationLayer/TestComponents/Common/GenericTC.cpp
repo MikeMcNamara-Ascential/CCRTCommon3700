@@ -3513,6 +3513,16 @@ string GenericTC::GetOperatorInput(const string &inputServerState, const string 
                 }
                 // Remove the prompt
                 RemovePrompt(GetPromptBox(operatorPrompt), GetPrompt(operatorPrompt), GetPromptPriority(operatorPrompt));
+				// Check if we need to wait for the button press to clear
+				if(GetParameterBool("UsePlcResultButtons"))
+				{
+					Log(LOG_DEV_DATA, "Waiting for button presses to clear...");
+					while(SystemReadBool(GetDataTag("PassButton")) || SystemReadBool(GetDataTag("FailButton")))
+					{
+						BposSleep(100);
+					}
+					Log(LOG_DEV_DATA, "Button presses cleared.");
+				}
             }
             else
             {   // Errors clearing the pendant key press

@@ -929,7 +929,38 @@ private:
 	 */
 	const string& PassConfirmationFilePath(const string *path=NULL);
 
-    /** File name to store test results in. */
+    /**
+     * Get/Set the flag indicating if the overall result should be included in the file name.
+     * 
+     * @param addResult Flag indicating if the overall result should be included in the file name.
+     * 
+     * @return Flag indicating if the overall result should be included in the file name.
+     */
+    const bool& AddOverallResultToFileName(const bool *addResult = NULL);
+    /**
+     * Get/Set the number of characters from the overall result string to be added to the file name.
+     * 
+     * @param length Number of characters from the overall result string to be added to the file name.
+     * 
+     * @return Number of characters from the overall result string to be added to the file name.
+     */
+    const INT32& ResultIndicatorLength(const INT32 *length = NULL);
+    /**
+     * Build the result file name.
+     * 
+     * @param result Overall test result to use for building the test result file name.
+     */
+    void BuildResultFileName(const string &result);
+    /**
+     * Get/Set the current test result file name.
+     * 
+     * @param fileName The current test result file name.
+     * 
+     * @return The current test result file name.
+     */
+    const string& CurrentTestResultFileName(const string *fileName = NULL);
+
+	/** File name to store test results in. */
     string m_testResultFile;
     /** Path to store test results. */
     string m_testResultPath;
@@ -1131,6 +1162,13 @@ private:
      */
     IBepCommunication *m_interCcrtServerComm;
     bool m_importInterCcrtCommServerResults;
+
+	/** Flag to determine if the overall result should be indicated in the file name */
+	bool m_addOverallResultToFileName;
+	/** Number of characters from the result string to add to the filename */
+	INT32 m_resultIndicatorLength;
+	/** File name to use for storing the current test results */
+	string m_currentResultFileName;
          
 };
 #endif  //TestResultServer_h

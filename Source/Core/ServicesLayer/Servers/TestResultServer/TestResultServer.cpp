@@ -337,7 +337,7 @@ TestResultServer::~TestResultServer()
 }
 
 //-------------------------------------------------------------------------------------------------
-void TestResultServer::Initialize(const std::string &fileName)
+void TestResultServer::Initialize(const string &fileName)
 {
     BepServer::Initialize(fileName);
 }
@@ -380,6 +380,32 @@ void TestResultServer::Initialize(const XmlNode *document)
     {
         Log(LOG_ERRORS, "TestResultServer Exception (std) %s.\n", e.what());
     }
+
+	// Determine if the overall result should be indicated in the file name
+	bool addResultFlag = false;
+	try
+	{
+		addResultFlag = atob(document->getChild("Setup/AddOverallResultToFileName")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Add result to file name not specified, defaulting to not add flag: %s", excpt.GetReason());
+		addResultFlag = false;
+	}
+	AddOverallResultToFileName(&addResultFlag);
+	INT32 length = 1;
+	try
+	{
+		length = BposReadInt(document->getChild("Setup/ResultIndicatorLength")->getValue().c_str());
+	}
+	catch(XmlException &excpt)
+	{
+		Log(LOG_ERRORS, "Result indicator length not specified, using 1 character: %s", excpt.GetReason());
+		length = 1;
+	}
+	ResultIndicatorLength(&length);
+	Log(LOG_DEV_DATA, "Add result to filename: %s - indicator length: %d", 
+		AddOverallResultToFileName() ? "True" : "False", ResultIndicatorLength());
 
     if(m_data.Lock() == EOK)
     {
@@ -561,7 +587,7 @@ const bool TestResultServer::OpenAndReadInResultsFile()
 void TestResultServer::LoadAdditionalConfigurationItems(const XmlNode *document)
 {
     // Make sure the communication channel is set correctly
-    std::string srvr(TEST_RESULT_SERVER_NAME);
+	string srvr(TEST_RESULT_SERVER_NAME);
     XmlNode *name = const_cast<XmlNode *>(document->getChild("Setup/Communication/Name"));
     if (name->getValue() != srvr)
     {   // Set the name properly
@@ -680,7 +706,7 @@ void TestResultServer::LoadAdditionalConfigurationItems(const XmlNode *document)
             }
             catch( BepException &err)
             {
-                m_forceArrayFile = getenv("FTP_ROOT") + std::string("/TestResults/Machine/BrakeForceData/BrakeForce.log");
+				m_forceArrayFile = getenv("FTP_ROOT") + string("/TestResults/Machine/BrakeForceData/BrakeForce.log");
             }
         }
     }
@@ -818,10 +844,7 @@ const bool TestResultServer::AddTestResult(std::string vin, const bool readFromF
         }
         else
         {
-            if (++m_sequenceNumber > maxSequenceNumber) m_sequenceNumber = 0;
-            std::string fmt = std::string("%s.%0") + itoa(sequenceLength, tempVin, 10) + "d";
-            sprintf(tempVin, fmt.c_str(), vin.c_str(), m_sequenceNumber);
-            vin = tempVin;
+			vin = CurrentTestResultFileName();
             Log(LOG_DEV_DATA, "Built Vin file name: %s\n", vin.c_str());
         }
         // Make sure this is a valid result
@@ -831,7 +854,7 @@ const bool TestResultServer::AddTestResult(std::string vin, const bool readFromF
         Log(LOG_DEV_DATA, "Added: %s to back of list: -->%s<--\n",
               vin.c_str(), m_vehicleTestResults.back().c_str());
         // Remove the test result file and the vin record for the oldest test if we have too many results
-        std::string filename;
+			string filename;
         int retval;
         Log(LOG_DEV_DATA, "Checking number of saved files: have %d;  max %d\n",
               m_vehicleTestResults.size(),GetNumberTests());
@@ -872,7 +895,7 @@ void TestResultServer::UpdateTestResultFile(void)
         FILE *outFile;
         if ((outFile = fopen((GetTestResultPath() + GetTestResultFile()).c_str(), "w")) != NULL)
         {   // Write all the results out to the file
-            for (list<std::string>::iterator iter = m_vehicleTestResults.begin(); iter != m_vehicleTestResults.end(); iter++)
+			for(list<string>::iterator iter = m_vehicleTestResults.begin(); iter != m_vehicleTestResults.end(); iter++)
             {
                 fprintf(outFile, "%s\n", (*iter).c_str());
             }
@@ -884,10 +907,10 @@ void TestResultServer::UpdateTestResultFile(void)
     }
 }
 
-const std::string TestResultServer::Read(const XmlNode *node, const INT32 rate) /*= 0*/
+const string TestResultServer::Read(const XmlNode *node, const INT32 rate) /*= 0*/
 {
     // Check if this is a read of all failures
-    std::string result;
+	string result;
     if (GetAllFailuresTag() == node->getName())
     {   // Build the result
         result.erase();
@@ -908,9 +931,9 @@ const std::string TestResultServer::Read(const XmlNode *node, const INT32 rate) 
     return(result);
 }
 
-const std::string TestResultServer::Write(const XmlNode *node)
+const string TestResultServer::Write(const XmlNode *node)
 {   
-    std::string result;
+	string result;
     if(m_data.Lock() == EOK)
     {
         result = BepServer::Write(node);      // Add the node to the test result list and notify subscribers
@@ -1027,6 +1050,8 @@ const std::string TestResultServer::Publish(const XmlNode* node)
         passFailNode.addChild("Description", "TestResult", ATTRIBUTE_NODE);
         passFailNode.addChild("Process", m_comm->GetName(), ATTRIBUTE_NODE);
         passFailNode.addChild("Result", node->getValue(), ATTRIBUTE_NODE);
+		// Build the test result file name
+		BuildResultFileName(node->getValue());
         if(m_data.Lock() == EOK)
         {// Add the overall result to the test results
             m_data.addNode(passFailNode.Copy());
@@ -1188,9 +1213,9 @@ void TestResultServer::CalculateTestStats(XmlNode &statsNode)
     Log(LOG_DEV_DATA, "Added stats to node");
 }
 
-const std::string TestResultServer::GetSpecialInfo(const std::string &tag, const std::string info)
+const string TestResultServer::GetSpecialInfo(const string &tag, const string info)
 {
-    std::string data;
+	string data;
 
     if(m_data.Lock() == EOK)
     {
@@ -1295,10 +1320,10 @@ void TestResultServer::CheckTestResult(const XmlNode *node)
     Log(LOG_FN_ENTRY, "TestResultServer::CheckTestResult() complete\n");
 }
 
-const std::string TestResultServer::ReportResults(void)
+const string TestResultServer::ReportResults(void)
 {   // Place all the tags into the message structure
-    std::string filename("");               // the name of the test result file
-    std::string reportedFilename("");       // the name of the test result file to report to the system
+	string filename("");			   // the name of the test result file
+	string reportedFilename("");	   // the name of the test result file to report to the system
     Log(LOG_FN_ENTRY, "TestResultServer::ReportResults()\n");
     // Write the results to a file and add to list
     if (AddTestResult(GetCurrentVin(), false))
@@ -1388,7 +1413,7 @@ void TestResultServer::SetDTC(const XmlNode *dtcNode)
 {
     XmlNode *moduleNode;
     // Get the name of the vehicle module
-    std::string vehicleModule = dtcNode->getAttribute(BEP_PROCESS)->getValue();
+	string vehicleModule = dtcNode->getAttribute(BEP_PROCESS)->getValue();
     // Get a pointer to the vehicle module node
     try
     {
@@ -1528,7 +1553,7 @@ void TestResultServer::AddInterCcrtCommServerResults( FILE* &outFile)
 }
 
 //-------------------------------------------------------------------------------------------------
-void TestResultServer::AddIcmDataToResults( FILE* &outFile, const std::string &nodeTag, const std::string &fileName)
+void TestResultServer::AddIcmDataToResults( FILE* &outFile, const string &nodeTag, const string &fileName)
 {
     char            *data;
     int             fd;
@@ -1972,4 +1997,54 @@ const string& TestResultServer::PassConfirmationFilePath(const string *path/*=NU
 {
 	if(path != NULL)  m_passConfirmationPath = *path;
 	return m_passConfirmationPath;
+}
+
+//-----------------------------------------------------------------------------
+inline const bool& TestResultServer::AddOverallResultToFileName(const bool *addResult /*= NULL*/)
+{
+	if(addResult != NULL)  m_addOverallResultToFileName = *addResult;
+	return m_addOverallResultToFileName;
+}
+
+//-----------------------------------------------------------------------------
+inline const INT32& TestResultServer::ResultIndicatorLength(const INT32 *length	/*= NULL*/)
+{
+	if(length != NULL)	m_resultIndicatorLength = *length;
+	return m_resultIndicatorLength;
+}
+
+//-----------------------------------------------------------------------------
+void TestResultServer::BuildResultFileName(const string &result)
+{
+	m_currentResultFileName.erase();
+	char tempVin[defaultVINLength+sequenceLength+1];
+	// Build the base file name with sequence number
+	if(++m_sequenceNumber > maxSequenceNumber) m_sequenceNumber = 0;
+	string fmt = string("%s.%0") + itoa(sequenceLength, tempVin, 10) + "d";
+	sprintf(tempVin, fmt.c_str(), GetCurrentVin().c_str(), m_sequenceNumber);
+	string fileName(tempVin);
+	// Determine if we need to add a result indicator to the filename
+	if(AddOverallResultToFileName())
+	{	// Get the overall test result
+		string indicator;
+		// Now get the correct number of characters to use
+		if(!result.empty())
+		{	// Normalize the result to only pass or fail
+			string normalizedResult(!result.compare(BEP_PASS_RESPONSE) ? result : BEP_FAIL_RESPONSE);
+			indicator = normalizedResult.substr(0, ResultIndicatorLength());
+			Log(LOG_DEV_DATA, "Adding indicator to file name - result: %s, indicator: %s", 
+				result.c_str(), indicator.c_str());
+		}
+		// Update the file name with the overall result indicator
+		fileName = indicator + string("_") + fileName;
+	}
+	// Store the file name
+	CurrentTestResultFileName(&fileName);
+}
+
+//-----------------------------------------------------------------------------
+inline const string& TestResultServer::CurrentTestResultFileName(const string *fileName	/*= NULL*/)
+{
+	if(fileName != NULL)  m_currentResultFileName = *fileName;
+	return m_currentResultFileName;
 }

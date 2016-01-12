@@ -8,6 +8,8 @@
         <IncludeAbortInAllFailures Value="Yes or No">Yes</IncludeAbortInAllFailures>
         <VINLength>17</VINLength>
         <UpdateTestLampStatus Value="Yes or No">No</UpdateTestLampStatus>
+        <AddOverallResultToFileName>No</AddOverallResultToFileName>
+        <ResultIndicatorLength>1</ResultIndicatorLength>
         <Communication>
             <Comm>IPC</Comm>
             <Debug>Off</Debug>

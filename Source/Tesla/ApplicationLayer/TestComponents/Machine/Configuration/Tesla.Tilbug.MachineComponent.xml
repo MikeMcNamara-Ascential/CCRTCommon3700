@@ -112,6 +112,8 @@
          <YesValue>Pass</YesValue>
          <Zerospeed>ZerospeedToPLC</Zerospeed>
          <Pass>green</Pass>
+         <PassButton>DriverPass</PassButton>
+         <FailButton>DriverFail</FailButton>
          <QuickBrakeMode>QuickBrake</QuickBrakeMode>
          <WheelbaseInPosition>WheelbaseInPosition</WheelbaseInPosition>
          <IncorrectWBPrompt>WheelbaseIncorrect</IncorrectWBPrompt>
@@ -148,7 +150,7 @@
          <ParkPawlApplyForce Description="Amount of force to apply to the rollers for the park pawl test" units="lbs">250</ParkPawlApplyForce>
          <MotorLoadingAccelConst Description="Percentage of motor torque to apply to the drive axle proportional to acceleration" Units="%">0.0</MotorLoadingAccelConst>
          <MotorLoadingSpeedConst Description="Percentage of motor torque to apply to the drive axle proportional to the square of the speed" Units="%">0.0</MotorLoadingSpeedConst>
-         <UsePlcYesNoButtons>Yes</UsePlcYesNoButtons>
+         <UsePlcResultButtons>Yes</UsePlcResultButtons>
          <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
          <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
          <!-- NVH Parameters -->

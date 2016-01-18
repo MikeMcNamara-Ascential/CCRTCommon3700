@@ -301,6 +301,7 @@
 							Type="Makefile"/>
 						<F N="ApplicationLayer/TestComponents/Machine/Configuration/LCMachineComponent.xml"/>
 						<F N="ApplicationLayer/TestComponents/Machine/Configuration/Tesla.MachineComponent.xml"/>
+						<F N="ApplicationLayer/TestComponents/Machine/Configuration/Tesla.Tilbug.MachineComponent.xml"/>
 					</Folder>
 					<F
 						N="ApplicationLayer/TestComponents/Machine/CMakeLists.txt"
@@ -358,6 +359,8 @@
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.SedanDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.SedanNoAirbagDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.SedanNoAirbagDualMotorDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Tilburg.SedanNoAirbagDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Tesla.Tilburg.SedanNoAirbagDualMotorDriveCurve.xml"/>
 					</Folder>
 					<F
 						N="ApplicationLayer/VehicleTest/Configuration/CMakeLists.txt"
@@ -603,6 +606,7 @@
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorStandard.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorWithBackground.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/DriverMonitorWithGraph.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/Tesla.Tilburg.DriverMonitor_1280x1024.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/TeslaDriverMonitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/TeslaDriverMonitor_1280x1024.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/drivermonitor/TeslaDriverMonitor_1440x900.crt"/>
@@ -617,7 +621,9 @@
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelNumberBoxChangeTest.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelScreenSaver.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/FrontPanelStandard.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/Tesla.Tilburg.FrontPanel_1280x1024Monitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/TeslaFrontPanel.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/TeslaFrontPanel_1280x1020Monitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/TeslaFrontPanel_1280x1024Monitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/TeslaFrontPanel_1440x900Monitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/frontpanel/WithDriveCurve.crt"/>
@@ -625,8 +631,10 @@
 						<Folder Name="losscompensation">
 							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/DefaultLossCompensation.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/M3700.LossCompensation.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/M3700.LossCompensation_1280x1020Monitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/M3700.LossCompensation_1280x1024Monitor.crt"/>
 							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/M3700.LossCompensation_1440x900Monitor.crt"/>
+							<F N="Burke_PorterCCRT/resources/local/crt/losscompensation/M3700.Tesla.Tilburg.LossCompensation_1280x1020Monitor.crt"/>
 						</Folder>
 						<Folder Name="powerdisplay">
 							<F N="Burke_PorterCCRT/resources/local/crt/powerdisplay/DefaultPowerDisplay.crt"/>
@@ -908,6 +916,7 @@
 									N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/CMakeLists.txt"
 									Type="Makefile"/>
 								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/Tesla.ABMotorControllerConfig.xml"/>
+								<F N="ServicesLayer/Servers/MotorController/Electric/AB/Configuration/Tesla.Tilburg.ABMotorControllerConfig.xml"/>
 							</Folder>
 							<F
 								N="ServicesLayer/Servers/MotorController/Electric/AB/CMakeLists.txt"

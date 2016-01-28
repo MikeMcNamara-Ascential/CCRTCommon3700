@@ -22,6 +22,8 @@ namespace Common.Lib.Interfaces
         void SetPrompt2BGColor(Color color);
         Color GetECMResultBGColor();
         Color GetTCMResultBGColor();
+        Color GetDCUResultBGColor();
+        Color GetMimamoriResultBGColor();
         int GetProgressBarValue();
         int GetProgressBarRangeMin();
         int GetProgressBarRangeMax();
@@ -51,6 +53,8 @@ namespace Common.Lib.Interfaces
         void ToggleUsingForcedCableConnect();
         void SetPerformTCMFlash(bool perform);
         void SetPerformECMFlash(bool perform);
+        void SetPerformDCUFlash(bool perform);
+        void SetPerformMimamoriFlash(bool perform);
         void SetDisplayDisconnectBatteryBox(bool display);
         bool GetDisplayDisconnectBatteryBox();
     }

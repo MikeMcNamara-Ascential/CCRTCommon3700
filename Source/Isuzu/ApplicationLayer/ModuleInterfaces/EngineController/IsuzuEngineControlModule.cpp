@@ -74,6 +74,93 @@ bool IsuzuEngineControlModule<ProtocolFilterType>::InitializeHook(const XmlNode 
 }
 
 //-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, string &value) throw(ModuleException)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    if(methodName == "ReadVIN") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadSystemSupplierID") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadRepairShopCode") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadProgrammingDate") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadDiagnosticDataIdentifier") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadECUAddress") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadManufacturingDate") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadTraceData") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadSoftwareUsageDesc") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadSoftwareModuleID") status = ReadModuleData(methodName, value);
+    else if(methodName == "ReadPartNumber") status = ReadModuleData(methodName, value);
+    else if(methodName == "WriteVIN") status = CommandModule(methodName);
+    // Nothing special to do, just pass to base class for evaluation
+    else status = GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+    // Return the status
+    return status;
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, UINT16 &value) throw(ModuleException)
+{   // Nothing special to do, just pass to base class for evaluation
+    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, vector<UINT16>&value) throw(ModuleException)
+{   // Nothing special to do, just pass to base class for evaluation
+    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, vector<UINT8>&value) throw(ModuleException)
+{   // Nothing special to do, just pass to base class for evaluation
+    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, int &value) throw(ModuleException)
+{   // Nothing special to do, just pass to base class for evaluation
+    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, UINT8 &value) throw(ModuleException)
+{   // Nothing special to do, just pass to base class for evaluation
+    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, bool &value) throw(ModuleException)
+{   // Nothing special to do, just pass to base class for evaluation
+    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, FaultVector_t &value) throw(ModuleException)
+{   // Nothing special to do, just pass to base class for evaluation
+    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, float &value) throw(ModuleException)
+{   // Nothing special to do, just pass to base class for evaluation
+    return(GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value));
+}
+
+//-------------------------------------------------------------------------------------------------
 template <class ProtocolFilterType> 
 BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::ReadPartNumber(string &partNumber)
 {   // Read the part number from the module
@@ -100,7 +187,7 @@ BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::ReadFaults(FaultSt
     BEP_STATUS_TYPE status;
     UINT16 dtcCount;
 
-    Log(LOG_FN_ENTRY, "IuzuEngineControlModule::ReadFaults() - Enter");
+    Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::ReadFaults() - Enter");
 
     // Check to see that all our objects are in place
     CheckObjectsStatus();
@@ -197,3 +284,68 @@ inline const UINT8& IsuzuEngineControlModule<ProtocolFilterType>::BytesPerDtc(co
     if(byte != NULL)  m_bytesPerDtc = *byte;
     return m_bytesPerDtc;
 }
+
+//-----------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::EnterNormalMode(void)
+{
+    Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::EnterNormalMode\n");
+    // Check to see that all our objects are in place
+    CheckObjectsStatus();
+    Log(LOG_DEV_DATA, "Objects are OK\n");
+    // Return the status of Commanding the module to enter diagnostic mode.
+    return(CommandModule("EnterNormalMode"));
+}
+
+//-----------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::DisableNormalComms(void)
+{
+    Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::DisableNormalComms\n");
+    // Check to see that all our objects are in place
+    CheckObjectsStatus();
+    Log(LOG_DEV_DATA, "Objects are OK\n");
+    // Return the status of Commanding the module to enter diagnostic mode.
+    return(CommandModule("DisableNormalComms"));
+}
+
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType> 
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::ReadMemoryLocation(vector<UINT8> &memoryContents)
+{
+    SerialString_t moduleResponse(255, 0);
+    BEP_STATUS_TYPE status;
+    UINT16 byteCount;
+
+    Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::ReadMemoryLocation() - Enter");
+
+    // Check to see that all our objects are in place
+    CheckObjectsStatus();
+    // Read th faults from the module
+    status = m_protocolFilter->ReadModuleData("ReadMemoryLocation", moduleResponse);
+    // Check the status of the read
+    if(status == BEP_STATUS_SUCCESS)
+    {
+        string fullResponse;
+        char temp[256];
+        for(UINT16 ii = 0; ii < moduleResponse.length(); ii++)
+            fullResponse += CreateMessage(temp, 256, "$%02X ", moduleResponse[ii]);
+        Log(LOG_DEV_DATA, "Module response: %s\n", fullResponse.c_str());
+
+        char buffer[8];
+        INT16 currentByte = 5;
+        for(; currentByte < (moduleResponse.length() - 1); currentByte++)
+        {
+            // Stuff the value into the memory contents vector
+            memoryContents.push_back(moduleResponse[currentByte]);
+        }
+    }
+    else
+    {   // Error reading faults from the module
+        Log(LOG_ERRORS, "Error read memory contents from %s\n", ModuleName().c_str());
+    }
+    // Return the status
+    Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::ReadMemoryLocation() - Exit:%d", status);
+    return(status);
+}
+

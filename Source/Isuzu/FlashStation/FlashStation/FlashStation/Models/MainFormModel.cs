@@ -43,13 +43,21 @@ namespace Common.Lib.Models
 //TO DO     make ecu names configurable
             m_ecuNames.Add("ECM");
             m_ecuNames.Add("TCM");
+            m_ecuNames.Add("DCU");
+            m_ecuNames.Add("Mimamori");
             m_terminateThreads = false;
             System.Windows.Forms.RichTextBox rtb = new System.Windows.Forms.RichTextBox();
             m_ecmLogger = new Logger(rtb, "ECMLog", m_logsDirectory);
             System.Windows.Forms.RichTextBox tcmRTB = new System.Windows.Forms.RichTextBox();
             m_tcmLogger = new Logger(tcmRTB, "TCMLog", m_logsDirectory);
+            System.Windows.Forms.RichTextBox dcuRTB = new System.Windows.Forms.RichTextBox();
+            m_ecmLogger = new Logger(dcuRTB, "DCULog", m_logsDirectory);
+            System.Windows.Forms.RichTextBox mimaRTB = new System.Windows.Forms.RichTextBox();
+            m_tcmLogger = new Logger(mimaRTB, "MimamoriLog", m_logsDirectory);
             m_performTCMFlash = true;
             m_performECMFlash = true;
+            m_performDCUFlash = true;
+            m_performMimamoriFlash = true;
 
         }
 
@@ -77,6 +85,8 @@ namespace Common.Lib.Models
                         SetPrompt2BGColor(Color.White);
                         m_tcmResultColor = Color.White;
                         m_ecmResultColor = Color.White;
+                        m_dcuResultColor = Color.White;
+                        m_mimaResultColor = Color.White;
                         taskDelegate = new ThreadStart(WaitForUserInput);
                         break;
                     case StateName.OBTAIN_BUILD_DATA:
@@ -119,15 +129,15 @@ namespace Common.Lib.Models
         public void SetLogger(Logger logger)
         {
             m_logger = logger;
-            m_buildDataFcm = new FtpFileMonitor(m_remoteBuildFileLocation, m_buildFileDirectory, m_tempBuildFileDirectory, 10000,
-                m_userLogin,m_password,m_ftpServerIp,"*", m_logger);
+            //m_buildDataFcm = new FtpFileMonitor(m_remoteBuildFileLocation, m_buildFileDirectory, m_tempBuildFileDirectory, 10000,
+            //    m_userLogin,m_password,m_ftpServerIp,"*", m_logger);
             m_esnFileChangeMonitor = new FtpFileMonitor(m_remoteESNLocation, m_esnDirectory, m_tempESNDirectory, 10000, 
                 m_userLogin, m_password, m_ftpServerIp, "*", m_logger);
 
             m_passFileFtp = new FtpFileMonitor(m_passIndicationLocation, m_passIndicationLocalDirectory, "", 10000,
                 m_userLogin, m_password, m_ftpServerIp,"*", m_logger);
 
-            m_buildDataFcm.StartFileMonitorThread();
+            //m_buildDataFcm.StartFileMonitorThread();
 
             m_esnFileChangeMonitor.StartFileMonitorThread();
 
@@ -417,6 +427,32 @@ namespace Common.Lib.Models
                             ecuBuild.ResponseID.Add(0xeA);
                             ecuBuild.PerformFlash = m_performTCMFlash;
                         }
+                        if (ecuName == "DCU")
+                        {
+                            /*searchNode = buildFileECUName + "DCU" + "PartNo";
+                            ecuBuild.RequestID.Add(0x00);
+                            ecuBuild.RequestID.Add(0x00);
+                            ecuBuild.RequestID.Add(0x07);
+                            ecuBuild.RequestID.Add(0xe2);
+                            ecuBuild.ResponseID.Add(0x00);
+                            ecuBuild.ResponseID.Add(0x00);
+                            ecuBuild.ResponseID.Add(0x07);
+                            ecuBuild.ResponseID.Add(0xeA);*/
+                            ecuBuild.PerformFlash = m_performDCUFlash;
+                        }
+                        if (ecuName == "Mimamori")
+                        {
+                            /*searchNode = buildFileECUName + "MM" + "PartNo";
+                            ecuBuild.RequestID.Add(0x00);
+                            ecuBuild.RequestID.Add(0x00);
+                            ecuBuild.RequestID.Add(0x07);
+                            ecuBuild.RequestID.Add(0xe2);
+                            ecuBuild.ResponseID.Add(0x00);
+                            ecuBuild.ResponseID.Add(0x00);
+                            ecuBuild.ResponseID.Add(0x07);
+                            ecuBuild.ResponseID.Add(0xeA);*/
+                            ecuBuild.PerformFlash = m_performMimamoriFlash;
+                        }
                         else
                         {
                             searchNode = buildFileECUName + "PartNo";
@@ -520,9 +556,13 @@ namespace Common.Lib.Models
                 preFileProcessStatus = PreUtilityFileProcess();
                 OpenTCMInterpreter();
                 OpenECMInterpreter();
+                OpenDCUInterpreter();
+                OpenMimaInterpreter();
                 m_resultText = "";
                 m_ecmThreadComplete = false;
                 m_tcmThreadComplete = false;
+                m_dcuThreadComplete = false;
+                m_mimaThreadComplete = false;
                 //start progress update thread
                 m_stopProgressBarThread = false;
                 ThreadStart taskDelegatePB = null;
@@ -578,6 +618,52 @@ namespace Common.Lib.Models
                             m_tcmResultColor = Color.Red;
                         }
                     }
+                    m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
+                    if (m_performDCUFlash)
+                    {
+                        //for each dcu start a utility file interpreter thread
+                        ThreadStart taskDelegate2 = null;
+                        taskDelegate2 = new ThreadStart(SequenceDCUInterpreter);
+                        Thread taskThread = new Thread(taskDelegate2);
+                        taskThread.Start();
+
+
+                        //while not complete....
+                        while (!m_dcuThreadComplete && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
+                        {
+                            Thread.Sleep(1000);
+                        }
+
+                        if (m_buildData[2].ProgrammingSuccess)
+                        {
+                            m_dcuResultColor = Color.Green;
+                        }
+                        else
+                        {
+                            m_dcuResultColor = Color.Red;
+                        }
+                    }
+                    m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
+                    if (m_performMimamoriFlash)
+                    {
+                        ThreadStart taskDelegate3 = null;
+                        taskDelegate3 = new ThreadStart(SequenceMimaInterpreter);
+                        Thread taskThread1 = new Thread(taskDelegate3);
+                        taskThread1.Start();
+                        //while not complete....
+                        while (!m_tcmThreadComplete && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
+                        {
+                            Thread.Sleep(1000);
+                        }
+                        if (m_buildData[1].ProgrammingSuccess)
+                        {
+                            m_mimaResultColor = Color.Green;
+                        }
+                        else
+                        {
+                            m_mimaResultColor = Color.Red;
+                        }
+                    }
 
                 }
                 //stop tester present
@@ -587,7 +673,9 @@ namespace Common.Lib.Models
                 PostUtilityFileProcess();
                 m_tcmInterpreter = null;
                 m_ecmInterpreter = null;
-                if (m_buildData[0].ProgrammingSuccess && m_buildData[1].ProgrammingSuccess)
+                m_dcuInterpreter = null;
+                m_mimaInterpreter = null;
+                if (m_buildData[0].ProgrammingSuccess && m_buildData[1].ProgrammingSuccess && m_buildData[2].ProgrammingSuccess && m_buildData[3].ProgrammingSuccess)
                 {//break out of retry for loop
                     break;
                 }
@@ -1275,6 +1363,166 @@ namespace Common.Lib.Models
             }
             m_tcmThreadComplete = true;
         }
+        public void OpenDCUInterpreter()
+        {
+            List<string> calFileNames = new List<string>();
+            List<string> vit2Data = new List<string>();
+
+            //populate list of cal filenames
+            foreach (string pn in m_buildData[2].SoftwareModulePartNumbers)
+            {
+                if (pn.Substring(0, 1) == "8")
+                {
+                    calFileNames.Add(m_flashFileDirectory + pn.Substring(FILE_NAME_PN_START_INDEX, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT) + ".pti");
+                    vit2Data.Add(pn.Substring(FILE_NAME_PN_START_INDEX, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT));
+                }
+                else
+                {
+                    calFileNames.Add(m_flashFileDirectory + pn.Substring(0, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE) + ".pti");
+                    //ends with "z0"
+                    vit2Data.Add(pn.Substring(0, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE - 2));
+                }
+            }
+            //end order change
+            vit2Data.Add(m_buildData[2].VIN);
+            m_dcuInterpreter = new Interpreter(m_vehicleCommInterface, ref calFileNames, m_buildData[2].ECUName, vit2Data, m_dcuLogger, m_deviceName, m_channelName);
+            m_dcuInterpreter.SetRequestResponseIDPair(0x024B, 0x064B);
+            //parse utilityFile's Name
+            m_dcuInterpreter.m_headerOffset = 0x64;
+            m_dcuInterpreter.openUtilityFile(m_flashFileDirectory + m_buildData[0].UtilityFilePartNumber.Substring(FILE_NAME_PN_START_INDEX, UTILITY_FILE_NAME_LENGTH) + ".pti");
+            m_dcuInterpreter.m_opCodeHandler.m_header = m_ecmInterpreter.m_header;
+            m_dcuDataSizeAdjusted = m_ecmInterpreter.GetDataSize();
+            //subtract out data that will not be typically downloaded
+            m_dcuDataSizeAdjusted -= m_ecmInterpreter.m_calibrationModules[0].Count();
+            m_dcuDataSizeAdjusted -= m_ecmInterpreter.m_calibrationModules[6].Count();
+            m_dcuDataSizeAdjusted -= m_ecmInterpreter.m_calibrationModules[7].Count();
+            if (m_performDCUFlash) m_progressBarRangeMax += m_dcuDataSizeAdjusted;
+        }
+        public void SequenceDCUInterpreter()
+        {
+            byte gotoByte = 0x01;
+
+            m_logger.Log("INFO:  Starting " + m_buildData[2].ECUName + " Flash Process");
+            m_buildData[2].ProgrammingSuccess = true;
+            //while not terminated and not failure goto sequence interpreter
+            while ((GetStatus() == Status.IN_PROGRESS) && (gotoByte != 0xFF) && !m_terminateThreads && m_buildData[2].ProgrammingSuccess)
+            {
+                m_logger.Log("INFO:  Processing " + m_buildData[2].ECUName + " Interpreter Instruction: 0x" + Convert.ToString(gotoByte, 16));
+                if (gotoByte <= m_dcuInterpreter.m_interpreterInstructions.Count && gotoByte > 0)
+                {
+                    if (gotoByte == 0x02)
+                    {//begining of sequence reset bytes transmitted
+                        m_dcuInterpreter.m_opCodeHandler.m_bytesTransmitted = 0;
+                    }
+                    if (m_dcuInterpreter.m_interpreterInstructions[gotoByte - 1].opCode == (byte)OpCodeHandler.GMLANOpCodes.BLOCK_TRANSFER_TO_RAM ||
+                        m_dcuInterpreter.m_interpreterInstructions[gotoByte - 1].opCode == (byte)OpCodeHandler.GMLANOpCodes.REQUEST_DOWNLOAD)
+                    {
+                        if (m_debugMode)
+                        {
+                            System.Windows.Forms.MessageBox.Show("Waiting For Continue Confirmation", "Debug Mode Enabled",
+                            System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Hand);
+                        }
+                    }
+                    gotoByte = m_dcuInterpreter.m_opCodeHandler.ProcessGMLANOpCode(m_dcuInterpreter.m_interpreterInstructions[gotoByte - 1]);
+                    if (!m_dcuInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_result)
+                    {
+                        m_resultText = m_dcuInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_prompt;
+                        SetPrompt1(m_resultText);
+                        //SetStatus(Status.FAILURE);
+                        m_buildData[2].ProgrammingSuccess = false;
+                        m_logger.Log("Failure:  " + m_resultText);
+                    }
+                    m_buildData[2].ProgrammingSuccess = m_dcuInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_result;
+                }
+                else
+                {
+                    m_resultText = "Failure: GOTO Byte Specified Out of range";
+                    SetPrompt1(m_resultText);
+                    //SetStatus(Status.FAILURE);
+                    m_logger.Log("Failure:  " + m_resultText);
+                }
+
+            }
+            m_dcuThreadComplete = true;
+        }
+        public void OpenMimaInterpreter()
+        {
+            List<string> calFileNames = new List<string>();
+            List<string> vit2Data = new List<string>();
+
+            //populate list of cal filenames
+            foreach (string pn in m_buildData[3].SoftwareModulePartNumbers)
+            {
+                if (pn.Substring(0, 1) == "8")
+                {
+                    calFileNames.Add(m_flashFileDirectory + pn.Substring(FILE_NAME_PN_START_INDEX, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT) + ".pti");
+                    vit2Data.Add(pn.Substring(FILE_NAME_PN_START_INDEX, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT));
+                }
+                else
+                {
+                    calFileNames.Add(m_flashFileDirectory + pn.Substring(0, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE) + ".pti");
+                    //ends with "z0"
+                    vit2Data.Add(pn.Substring(0, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE - 2));
+                }
+            }
+            //end order change
+            vit2Data.Add(m_buildData[3].VIN);
+            m_mimaInterpreter = new Interpreter(m_vehicleCommInterface, ref calFileNames, m_buildData[3].ECUName, vit2Data, m_mimaLogger, m_deviceName, m_channelName);
+            m_mimaInterpreter.SetRequestResponseIDPair(0x07E2, 0x07EA);
+            //parse utilityFile's Name
+            m_mimaInterpreter.m_headerOffset = 0x64;
+            m_mimaInterpreter.openUtilityFile(m_flashFileDirectory + m_buildData[3].UtilityFilePartNumber.Substring(FILE_NAME_PN_START_INDEX, UTILITY_FILE_NAME_LENGTH) + ".pti");
+            m_mimaInterpreter.m_opCodeHandler.m_header = m_mimaInterpreter.m_header;
+            m_mimaDataSizeAdjusted = m_mimaInterpreter.GetDataSize();
+            //subtract out data that will not be typically downloaded
+            m_mimaDataSizeAdjusted -= m_mimaInterpreter.m_calibrationModules[3].Count();
+            if (m_performMimamoriFlash) m_progressBarRangeMax += m_mimaDataSizeAdjusted;
+        }
+        public void SequenceMimaInterpreter()
+        {
+            byte gotoByte = 0x01;
+            m_logger.Log("INFO:  Starting " + m_buildData[3].ECUName + " Flash Process");
+            m_buildData[3].ProgrammingSuccess = true;
+            //while not terminated and not failure goto sequence interpreter
+            while ((GetStatus() == Status.IN_PROGRESS) && (gotoByte != 0xFF) && !m_terminateThreads && m_buildData[3].ProgrammingSuccess)
+            {
+                m_logger.Log("INFO:  Processing " + m_buildData[3].ECUName + " Interpreter Instruction: 0x" + Convert.ToString(gotoByte, 16));
+                if (gotoByte <= m_mimaInterpreter.m_interpreterInstructions.Count && gotoByte > 0)
+                {
+                    if (gotoByte == 0x02)
+                    {//begining of sequence reset bytes transmitted
+                        m_mimaInterpreter.m_opCodeHandler.m_bytesTransmitted = 0;
+                    }
+                    if (m_mimaInterpreter.m_interpreterInstructions[gotoByte - 1].opCode == (byte)OpCodeHandler.GMLANOpCodes.BLOCK_TRANSFER_TO_RAM ||
+                        m_mimaInterpreter.m_interpreterInstructions[gotoByte - 1].opCode == (byte)OpCodeHandler.GMLANOpCodes.REQUEST_DOWNLOAD)
+                    {
+                        if (m_debugMode)
+                        {
+                            System.Windows.Forms.MessageBox.Show("Waiting For Continue Confirmation", "Debug Mode Enabled",
+                            System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Hand);
+                        }
+                    }
+                    gotoByte = m_mimaInterpreter.m_opCodeHandler.ProcessGMLANOpCode(m_mimaInterpreter.m_interpreterInstructions[gotoByte - 1]);
+                    if (!m_mimaInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_result)
+                    {
+                        m_resultText = m_mimaInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_prompt;
+                        SetPrompt1(m_resultText);
+                        //SetStatus(Status.FAILURE);
+                        m_logger.Log("Failure:  " + m_resultText);
+                    }
+                    m_buildData[3].ProgrammingSuccess = m_mimaInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_result;
+                }
+                else
+                {
+                    m_resultText = "Failure: GOTO Byte Specified Out of range";
+                    SetPrompt1(m_resultText);
+                    //SetStatus(Status.FAILURE);
+                    m_buildData[3].ProgrammingSuccess = false;
+                    m_logger.Log("Failure:  " + m_resultText);
+                }
+            }
+            m_mimaThreadComplete = true;
+        }
         public void ProgressUpdateThread()
         {
             while ((GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && !m_stopProgressBarThread)
@@ -1292,6 +1540,52 @@ namespace Common.Lib.Models
                     else
                     {
                         m_progressBarValue = m_tcmInterpreter.m_opCodeHandler.m_bytesTransmitted;
+                    }
+                }
+                else if (!m_dcuThreadComplete && m_performDCUFlash)
+                {//ecm completed start from estimated size of ecm and add dcu progress
+                    if (m_performECMFlash)
+                    {
+                        m_progressBarValue = m_ecmDataSizeAdjusted + m_dcuInterpreter.m_opCodeHandler.m_bytesTransmitted;
+                        if (m_performTCMFlash)
+                        {//tcm completed add estimated size of tcm
+                            m_progressBarValue += m_tcmDataSizeAdjusted;
+                        }
+                    }
+                    else
+                    {
+                        m_progressBarValue = m_dcuInterpreter.m_opCodeHandler.m_bytesTransmitted;
+                        if (m_performTCMFlash)
+                        {//tcm completed add estimated size of tcm
+                            m_progressBarValue += m_tcmDataSizeAdjusted;
+                        }
+                    }
+                }
+                else if (!m_tcmThreadComplete && m_performTCMFlash)
+                {//ecm completed start from estimated size of ecm and add mimamori progress
+                    if (m_performECMFlash)
+                    {
+                        m_progressBarValue = m_ecmDataSizeAdjusted + m_mimaInterpreter.m_opCodeHandler.m_bytesTransmitted;
+                        if (m_performTCMFlash)
+                        {//tcm completed add estimated size of tcm
+                            m_progressBarValue += m_tcmDataSizeAdjusted;
+                        }
+                        if (m_performDCUFlash)
+                        {//dcu completed add estimated size of dcu
+                            m_progressBarValue += m_dcuDataSizeAdjusted;
+                        }
+                    }
+                    else
+                    {
+                        m_progressBarValue = m_dcuInterpreter.m_opCodeHandler.m_bytesTransmitted;
+                        if (m_performTCMFlash)
+                        {//tcm completed add estimated size of tcm
+                            m_progressBarValue += m_tcmDataSizeAdjusted;
+                        }
+                        if (m_performDCUFlash)
+                        {//dcu completed add estimated size of dcu
+                            m_progressBarValue += m_dcuDataSizeAdjusted;
+                        }
                     }
                 }
                 else
@@ -1361,7 +1655,7 @@ namespace Common.Lib.Models
                             pass = true;
                         }
                     }//if no flash performed, fail
-                    if (!pass || (!m_performTCMFlash && !m_performECMFlash))
+                    if (!pass || (!m_performTCMFlash && !m_performECMFlash && !m_performDCUFlash && !m_performMimamoriFlash))
                     {
                         //programming failed
                         SetPrompt1BGColor(Color.Red);
@@ -1613,10 +1907,19 @@ namespace Common.Lib.Models
         {
             return m_tcmResultColor;
         }
+        public Color GetDCUResultBGColor()
+        {
+            return m_dcuResultColor;
+        }
+        public Color GetMimamoriResultBGColor()
+        {
+            return m_mimaResultColor;
+        }
         public void SetPerformECMFlash(bool perform)
         {
             m_performECMFlash = perform;
-            if (m_buildData.Count == 2)
+            //if (m_buildData.Count == 2)
+            if (m_buildData.Count == 4)
             {//build data loaded - modify
                 m_buildData[0].PerformFlash = perform;
             }
@@ -1624,9 +1927,26 @@ namespace Common.Lib.Models
         public void SetPerformTCMFlash(bool perform)
         {
             m_performTCMFlash = perform;
-            if (m_buildData.Count == 2)
+            //if (m_buildData.Count == 2)
+            if (m_buildData.Count == 4)
             {//build data loaded - modify
                 m_buildData[1].PerformFlash = perform;
+            }
+        }
+        public void SetPerformDCUFlash(bool perform)
+        {
+            m_performDCUFlash = perform;
+            if (m_buildData.Count == 4)
+            {//build data loaded - modify
+                m_buildData[2].PerformFlash = perform;
+            }
+        }
+        public void SetPerformMimamoriFlash(bool perform)
+        {
+            m_performMimamoriFlash = perform;
+            if (m_buildData.Count == 4)
+            {//build data loaded - modify
+                m_buildData[3].PerformFlash = perform;
             }
         }
         public void SetDisplayDisconnectBatteryBox(bool display)
@@ -1677,6 +1997,16 @@ namespace Common.Lib.Models
         /// Color to set tcm result box
         /// </summary>
         private Color m_tcmResultColor;
+
+        /// <summary>
+        /// Color to set ecm result box
+        /// </summary>
+        private Color m_dcuResultColor;
+
+        /// <summary>
+        /// Color to set tcm result box
+        /// </summary>
+        private Color m_mimaResultColor;
 
         /// <summary>
         /// Current scanned barcode
@@ -1814,6 +2144,16 @@ namespace Common.Lib.Models
         private volatile bool m_tcmThreadComplete;
 
         /// <summary>
+        /// Flag indicating ECM flash thread complete
+        /// </summary>
+        private volatile bool m_dcuThreadComplete;
+
+        /// <summary>
+        /// Flag indicating TCM flash thread complete
+        /// </summary>
+        private volatile bool m_mimaThreadComplete;
+
+        /// <summary>
         /// Flag used to command view to display instructional battery disconnect message
         /// </summary>
         private volatile bool m_displayDisconnectBatteryBox;
@@ -1844,6 +2184,16 @@ namespace Common.Lib.Models
         private volatile int m_tcmDataSizeAdjusted;
 
         /// <summary>
+        /// Estimated Data size to be transfered to DCU
+        /// </summary>
+        private volatile int m_dcuDataSizeAdjusted;
+
+        /// <summary>
+        /// Estimated Data size to be transfered to Mimamori
+        /// </summary>
+        private volatile int m_mimaDataSizeAdjusted;
+
+        /// <summary>
         /// Flag which enables step through debugging of utility file instructions
         /// </summary>
         private volatile bool m_debugMode = false;
@@ -1857,6 +2207,16 @@ namespace Common.Lib.Models
         /// Seperate log for TCM flash process details
         /// </summary>
         private Logger m_tcmLogger;
+
+        /// <summary>
+        /// Seperate log for ECM flash process details
+        /// </summary>
+        private Logger m_dcuLogger;
+
+        /// <summary>
+        /// Seperate log for TCM flash process details
+        /// </summary>
+        private Logger m_mimaLogger;
 
         /// <summary>
         /// Keep alive message to be sent throughout flash process
@@ -1897,6 +2257,16 @@ namespace Common.Lib.Models
         /// Interpreter for TCM utility file
         /// </summary>
         private Interpreter m_tcmInterpreter;
+
+        /// <summary>
+        /// Interpreter for DCU utility file
+        /// </summary>
+        private Interpreter m_dcuInterpreter;
+
+        /// <summary>
+        /// Interpreter for Mimamori utility file
+        /// </summary>
+        private Interpreter m_mimaInterpreter;
         
         /// <summary>
         /// Serial port used for barcode read.
@@ -1912,6 +2282,16 @@ namespace Common.Lib.Models
         /// boolean option to perform ECM Flash Process.
         /// </summary>
         private bool m_performECMFlash;
+
+        /// <summary>
+        /// boolean option to perform DCU Flash Process.
+        /// </summary>
+        private bool m_performDCUFlash;
+
+        /// <summary>
+        /// boolean option to perform Mimamori Flash Process.
+        /// </summary>
+        private bool m_performMimamoriFlash;
         
         
         /// <summary>
@@ -1921,26 +2301,26 @@ namespace Common.Lib.Models
 
 
         //To do Make Configurable
-        private string m_flashFileDirectory = @"C:\FlashStation\CalFiles\";
-        private string m_buildFileDirectory = @"C:\FlashStation\BuildFiles\";
-        private string m_esnDirectory = @"C:\FlashStation\ESN\";
-        private string m_tempBuildFileDirectory = @"C:\FlashStation\TempBuildFiles\";
-        private string m_tempESNDirectory = @"C:\FlashStation\TempESNFiles\";
-        private string m_resultsDirectory = @"C:\FlashStation\Results\";
-        private string m_logsDirectory = @"C:\FlashStation\Logs\";
-        private string m_passIndicationLocalDirectory = @"C:\FlashStation\TransferFiles\";
+        private string m_flashFileDirectory = @"E:\FlashStation\CalFiles\";
+        private string m_buildFileDirectory = @"E:\FlashStation\BuildFiles\";
+        private string m_esnDirectory = @"E:\FlashStation\ESN\";
+        private string m_tempBuildFileDirectory = @"E:\FlashStation\TempBuildFiles\";
+        private string m_tempESNDirectory = @"E:\FlashStation\TempESNFiles\";
+        private string m_resultsDirectory = @"E:\FlashStation\Results\";
+        private string m_logsDirectory = @"E:\FlashStation\Logs\";
+        private string m_passIndicationLocalDirectory = @"E:\FlashStation\TransferFiles\";
 
-        private string m_userLogin = "burke";
-        private string m_password = "porter";
-        private string m_ftpServerIp = "192.168.1.3:2121"; 
+        private string m_userLogin = "ccrtfp";
+        private string m_password = "ccrtfp";
+        private string m_ftpServerIp = "172.16.253.1:2121"; 
 
-        private string m_remoteBuildFileLocation = "//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/";
-        private string m_remoteESNLocation = "//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/";
-        private string m_passIndicationLocation = "//home/CCRT/Rewrite/TestResults/PassConfirmation/";
+        private string m_remoteBuildFileLocation = "/TestResults/ftpOutbox/BuildRecords/";
+        private string m_remoteESNLocation = "/TestResults/ftpOutbox/ESN/";
+        private string m_passIndicationLocation = "/TestResults/ftpOutbox/PassConfirmation/";
 
-        //private string m_remoteBuildFileDirectory = @"C:\FlashStation\Rewrite\Configuration\VehicleTest\BuildRecords\";
-        //private string m_remoteESNDirectory = @"C:\FlashStation\Rewrite\TestResults\ESN\";
-        //private string m_passIndicationSharedDirectory = @"C:\FlashStation\Rewrite\TestResults\PassConfirmation\";
+        //private string m_remoteBuildFileDirectory = @"E:\FlashStation\Rewrite\Configuration\VehicleTest\BuildRecords\";
+        //private string m_remoteESNDirectory = @"E:\FlashStation\Rewrite\TestResults\ESN\";
+        //private string m_passIndicationSharedDirectory = @"E:\FlashStation\Rewrite\TestResults\PassConfirmation\";
         /// <summary>
         /// Constant value - max result files to store
         /// </summary>

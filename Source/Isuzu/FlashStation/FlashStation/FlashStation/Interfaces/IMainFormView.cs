@@ -13,6 +13,8 @@ namespace Common.Lib.Interfaces
         void SetPrompt2BGColor(System.Drawing.Color color);
         void SetECMResultBoxBGColor(System.Drawing.Color color);
         void SetTCMResultBoxBGColor(System.Drawing.Color color);
+        void SetDCUResultBoxBGColor(System.Drawing.Color color);
+        void SetMimamoriResultBoxBGColor(System.Drawing.Color color);
         void CableConnected(bool connected);
         void BuildDataValid(bool valid);
         void SetBarcodeText(string text);

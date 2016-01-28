@@ -402,6 +402,11 @@ private:
     string CheckSerialNumber(void);
 	string ExtractEsnSerialNumberFromFile(string &fileName);
 
+    string EnterNormalMode(void);
+    string DisableNormalComms(void);
+    string ReadMemoryLocation(void);
+
+
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;
     typedef vector<BackgroundRangeCheckMonitor *>                 BackgroundRangeCheckMonitorVector;

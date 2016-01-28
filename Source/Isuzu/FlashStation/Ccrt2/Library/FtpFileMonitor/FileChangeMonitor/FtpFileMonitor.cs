@@ -168,7 +168,7 @@ namespace FtpFileMonitorNamespace
                 }
                 catch (Exception e)
                 {//Error remote dir gone before transfer complete
-                    Log("ERROR:    FileMonitor::Error durring File update Process " + e.ToString());
+                    Log("ERROR:    FileMonitor::Error during File update Process " + e.ToString());
                 }
                 Thread.Sleep(m_fileCheckInterval);
             }
@@ -190,7 +190,7 @@ namespace FtpFileMonitorNamespace
                     }
                     //get all files
                     foreach (FtpFileInfo fi in remoteInfo)
-                    {//copy to temp folder first in case remote directory goes down durring transfer
+                    {//copy to temp folder first in case remote directory goes down during transfer
                         if (!TransferFileFromFtpLocation(fi.Name))
                         {
                             break;
@@ -206,16 +206,23 @@ namespace FtpFileMonitorNamespace
                     lock (DirectoryLock)
                     {
                         foreach (FileInfo fi in matchingFiles)
-                            {
-                                fi.CopyTo(Path.Combine(localInfo.ToString(), fi.Name), true);
-                                DeleteFileFromFtpLocation(m_remoteLocation, fi.Name, currentFile == fileCount);
-                                currentFile++;
-                            }
+                        {
+                            Log("FTP File Info:");
+                            Log("    Name: " + fi.Name.ToString());
+                            Log("    Size: " + fi.Length.ToString());
+                            fi.CopyTo(Path.Combine(localInfo.ToString(), fi.Name), true);
+                            FileInfo transferFI = new FileInfo(Path.Combine(m_remoteLocation, fi.Name));
+                            Log("Transfered File Info:");
+                            Log("    Name: " + transferFI.Name.ToString());
+                            Log("    Size: " + transferFI.Length.ToString());
+                            DeleteFileFromFtpLocation(m_remoteLocation, fi.Name, currentFile == fileCount);
+                            currentFile++;
+                        }
                     }
                 }
                 catch (Exception e)
                 {//Error remote dir gone before transfer complete
-                    Log("ERROR:    FileMonitor::Error durring File update Process, check remote pc active " + e.ToString());
+                    Log("ERROR:    FileMonitor::Error during File update Process, check remote pc active " + e.ToString());
                 }
             
             return filesTransfered;
@@ -277,13 +284,18 @@ namespace FtpFileMonitorNamespace
 
 
                     contentLen = fileReader.Read(buff, 0, buffLength);
-
+                    Log("FTP File Info:");
+                    Log("    Name: " + fileInf.Name.ToString());
+                    Log("    Size: " + fileInf.Length.ToString());
                     while (contentLen != 0)
                     {
                         fs.Write(buff, 0, contentLen);
                         contentLen = fileReader.Read(buff, 0, buffLength);
                     }
                     //Log("INFO:  Retrieved file " + fileName);
+                    Log("Transfered File Info:");
+                    Log("    Name: " + fs.Name.ToString());
+                    Log("    Size: " + fs.Length.ToString());
 
                     fileReader.Close();
                     strm.Close();
@@ -425,10 +437,7 @@ namespace FtpFileMonitorNamespace
                             {
                                 reqFTP.KeepAlive = false;
                             }
-                            // The buffer size is set to 2kb
-                            int buffLength = 2048;
-                            byte[] buff = new byte[buffLength];
-                            int contentLen;
+                            
                             Stream strm = null;
                             try
                             {
@@ -436,10 +445,16 @@ namespace FtpFileMonitorNamespace
                                 //Log("INFO:  Preparing to transfer file ");
                                 //Log("INFO:  Opening FTP Connection");
                                 strm = reqFTP.GetRequestStream();
+                                Log("FTP File Info:");
+                                Log("    Name: " + fileInf.Name.ToString());
+                                Log("    Size: " + fileInf.Length.ToString());
+                                fs.CopyTo(strm);
 
                                 //Log("INFO:  Reading content from file");
                                 // Read from the file stream 2kb at a time
-                                contentLen = fs.Read(buff, 0, buffLength);
+                                /*contentLen = fs.Read(buff, 0, buffLength);
+
+                                
 
                                 // Till Stream content ends
                                 //Log("INFO:  File Transfer Started");
@@ -449,7 +464,19 @@ namespace FtpFileMonitorNamespace
                                     // FTP Upload Stream
                                     strm.Write(buff, 0, contentLen);
                                     contentLen = fs.Read(buff, 0, buffLength);
-                                }
+                                    
+                                }*/
+                                strm.Flush();
+                                Thread.Sleep(100);
+                                FtpWebRequest request = (FtpWebRequest)WebRequest.Create(uri);
+                                request.Method = WebRequestMethods.Ftp.GetFileSize;
+                                request.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
+                                request.UseBinary = true;
+                                WebResponse response = request.GetResponse();
+                                Log("Transfered File Info:");
+                                Log("    Name: " + fileInf.Name.ToString());
+                                Log("    Size: " + response.ContentLength.ToString());
+                                
                                 //Log("INFO:  File Transfer Complete");
                                 //Log("INFO:  File transfered successfully");
 

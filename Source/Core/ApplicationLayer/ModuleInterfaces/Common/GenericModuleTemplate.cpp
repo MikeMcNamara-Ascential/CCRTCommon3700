@@ -159,7 +159,10 @@ GenericModuleTemplate<ProtocolFilterType>::GenericModuleTemplate(void) : IGeneri
     m_lockModule           = "LockModule";
     m_clearFaults          = "ClearFaults";
     m_enterDiagnosticMode  = "EnterDiagnosticMode";
+    m_enterNormalMode      = "EnterNormalMode";
     m_exitDiagnosticMode   = "ExitDiagnosticMode";
+    m_disableNormalMode    = "DisableNormalMode";
+    m_enterDiagnosticMode  = "EnterDiagnosticMode";
     m_driveCurveRewriteDir = "";
 
     m_lastTxTime.SetValue(0LL);

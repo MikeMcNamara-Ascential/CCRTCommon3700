@@ -100,6 +100,9 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("KeyOffEngineOffKeyOn"))                testResult = KeyOffEngineOffKeyOn();
             else if (!GetTestStepName().compare("ClearFaultsFinal"))                    testResult = ClearFaults();
             else if (!GetTestStepName().compare("CheckSerialNumber"))                   testResult = CheckSerialNumber();
+            else if (!GetTestStepName().compare("EnterNormalMode"))                     testResult = EnterNormalMode();
+            else if (!GetTestStepName().compare("ReadMemoryLocation"))                  testResult = ReadMemoryLocation();
+            else if (!GetTestStepName().compare("DisableNormalComms"))                  testResult = DisableNormalComms();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -2577,4 +2580,180 @@ string IsuzuEmissionsTc<ModuleType>::KeyOffEngineOffKeyOn(void)
     }
 
     return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::EnterNormalMode(void)
+{	// Set up some variables
+	string testResult = BEP_TESTING_STATUS;
+	string testResultCode("0000");
+	string testDescription = GetTestStepInfo("Description");
+	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+	// Check if this step should be skipped
+	Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::EnterNormalMode()\n");
+	if(!ShortCircuitTestStep())
+	{	// Need to perform this test step
+		if(CheckCableConnect())
+		{
+			try
+			{	// Try to enter diagnostic mode
+				moduleStatus = m_vehicleModule.EnterNormalMode();
+				// Determine the test result
+				if(moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
+				testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+				testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+				testDescription = 
+				(testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+				// Log the data
+				Log(LOG_DEV_DATA, "Enter Normal Mode: %s - status: %s\n",
+					testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+			}
+			catch(ModuleException &moduleException)
+			{
+				Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+					GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+				testResult = testSoftwareFail;
+				testResultCode = GetFaultCode("SoftwareFailure");
+				testDescription = GetFaultDescription("SoftwareFailure");
+			}
+		}
+		else
+		{
+			Log(LOG_ERRORS, "IsuzuEmissionsTc::EnterNormalMode() - Timeout waiting for Cable Connect");
+			testResult = testTimeout;
+			testResultCode = GetFaultCode("TimeoutFailure");
+			testDescription = GetFaultDescription("TimeoutFailure");
+		}
+		// Send the test result
+		SendTestResult(testResult, testDescription, testResultCode);
+	}
+	else
+	{	// Need to skip this test step
+		testResult = testSkip;
+		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+	}
+	// Return the test result
+	Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::EnterNormalMode()\n");
+	return(testResult);
+}
+
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::DisableNormalComms(void)
+{	// Set up some variables
+	string testResult = BEP_TESTING_STATUS;
+	string testResultCode("0000");
+	string testDescription = GetTestStepInfo("Description");
+	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+	// Check if this step should be skipped
+	Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::DisableNormalComms()\n");
+	if(!ShortCircuitTestStep())
+	{	// Need to perform this test step
+		if(CheckCableConnect())
+		{
+			try
+			{	// Try to enter diagnostic mode
+				moduleStatus = m_vehicleModule.DisableNormalComms();
+				// Determine the test result
+				if(moduleStatus != BEP_STATUS_SUCCESS) SetCommunicationFailure(true);
+				testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+				testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+				testDescription = 
+				(testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+				// Log the data
+				Log(LOG_DEV_DATA, "Disable Normal Comms: %s - status: %s\n",
+					testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+			}
+			catch(ModuleException &moduleException)
+			{
+				Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+					GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+				testResult = testSoftwareFail;
+				testResultCode = GetFaultCode("SoftwareFailure");
+				testDescription = GetFaultDescription("SoftwareFailure");
+			}
+		}
+		else
+		{
+			Log(LOG_ERRORS, "IsuzuEmissionsTc::DisableNormalComms() - Timeout waiting for Cable Connect");
+			testResult = testTimeout;
+			testResultCode = GetFaultCode("TimeoutFailure");
+			testDescription = GetFaultDescription("TimeoutFailure");
+		}
+		// Send the test result
+		SendTestResult(testResult, testDescription, testResultCode);
+	}
+	else
+	{	// Need to skip this test step
+		testResult = testSkip;
+		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+	}
+	// Return the test result
+	Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::DisableNormalComms()\n");
+	return(testResult);
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::ReadMemoryLocation(void)
+{
+	string testResult = BEP_TESTING_STATUS;
+	string testResultCode("0000");
+	string testDescription = GetTestStepInfo("Description");
+	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+	vector<UINT8> memoryContents;
+
+    // Check if this step needs to be performed
+	Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::ReadMemoryLocation()\n");
+	if(!ShortCircuitTestStep())
+	{	// Do not need to skip this step
+		try
+		{	// Try to read the memory
+            moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadMemoryLocation"), memoryContents);
+			// Check the status of the operation
+			if(BEP_STATUS_SUCCESS == moduleStatus)
+			{	// Good read, evaluate the data
+                for(UINT32 memoryIndex = 0; memoryIndex < memoryContents.size(); memoryIndex++)
+                {
+                    // Log the memory value read from the module
+				    Log(LOG_DEV_DATA, "Memory Location %d - $%02X\n", memoryIndex+1,
+						memoryContents[memoryIndex]);
+                }
+
+               // Set the test status
+				testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+				testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+				testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+				Log(LOG_DEV_DATA, "Read Memory Location: %s\n", testResult.c_str());
+			}
+			else
+			{	// Error reading faults from the module
+				Log(LOG_ERRORS, "Error reading module memory - status: %s\n", ConvertStatusToResponse(moduleStatus).c_str());
+				testResult = testFail;
+				testResultCode = GetFaultCode("CommunicationFailure");
+				testDescription = GetFaultDescription("CommunicationFailure");
+				SetCommunicationFailure(true);
+			}
+		}
+		catch(ModuleException &moduleException)
+		{
+			Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+				GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+			testResult = testSoftwareFail;
+			testResultCode = GetFaultCode("SoftwareFailure");
+			testDescription = GetFaultDescription("SoftwareFailure");
+		}
+		// Report the results
+		SendTestResult(testResult, testDescription, testResultCode);
+	}
+	else
+	{	// Need to skip this test step
+		testResult = testSkip;
+		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+	}
+	// Return the test result
+	Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::ReadMemoryLocation()\n");
+	return testResult;
 }

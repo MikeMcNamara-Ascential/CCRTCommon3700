@@ -23,6 +23,8 @@ namespace FlashStationMainForm
         delegate void SetPrompt2BGColorCallback(Color color);
         delegate void SetECMResultBoxBGColorCallback(Color color);
         delegate void SetTCMResultBoxBGColorCallback(Color color);
+        delegate void SetDCUResultBoxBGColorCallback(Color color);
+        delegate void SetMimamoriResultBoxBGColorCallback(Color color);
         delegate void SetVINTextCallback(string vin);
         delegate void SetModelCodeTextCallback(string modelCode);
         delegate void SetBookCodeTextCallback(string bookCode);
@@ -45,7 +47,7 @@ namespace FlashStationMainForm
         {
             InitializeComponent();
             //determine if comm device is set up
-            m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", @"C:\FlashStation\Logs\");
+            m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", @"E:\FlashStation\Logs\");
             m_presenter = new MainFormDataPresenter(this,m_logger);
             string deviceName = Properties.Settings.Default.Device;
             string channelName = Properties.Settings.Default.CommChannel;
@@ -136,6 +138,25 @@ namespace FlashStationMainForm
                 this.Invoke(d, new object[] { color });
             }
             else m_tcmResultBox.BackColor = color;
+        }
+
+        public void SetDCUResultBoxBGColor(Color color)
+        {
+            if (this.m_dcuResultBox.InvokeRequired)
+            {
+                SetDCUResultBoxBGColorCallback d = new SetDCUResultBoxBGColorCallback(SetDCUResultBoxBGColor);
+                this.Invoke(d, new object[] { color });
+            }
+            else m_dcuResultBox.BackColor = color;
+        }
+        public void SetMimamoriResultBoxBGColor(Color color)
+        {
+            if (this.m_mimaResultBox.InvokeRequired)
+            {
+                SetMimamoriResultBoxBGColorCallback d = new SetMimamoriResultBoxBGColorCallback(SetTCMResultBoxBGColor);
+                this.Invoke(d, new object[] { color });
+            }
+            else m_mimaResultBox.BackColor = color;
         }
 
         public void SetBarcodeText(string barcode)
@@ -457,6 +478,18 @@ namespace FlashStationMainForm
         {
             m_presenter.SetPerformTCMFlash(flashTCMToolStripMenuItem.Checked);
             m_tcmResultBox.Enabled = flashTCMToolStripMenuItem.Checked;
+        }
+
+        private void flashDCUToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            m_presenter.SetPerformDCUFlash(flashDCUToolStripMenuItem.Checked);
+            m_dcuResultBox.Enabled = flashDCUToolStripMenuItem.Checked;
+        }
+
+        private void flashMimamoriToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            m_presenter.SetPerformMimamoriFlash(flashMimamoriToolStripMenuItem.Checked);
+            m_mimaResultBox.Enabled = flashMimamoriToolStripMenuItem.Checked;
         }
     }
 }

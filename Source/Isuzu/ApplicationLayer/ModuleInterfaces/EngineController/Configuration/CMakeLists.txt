@@ -4,6 +4,7 @@
 #------------------------------------------------------------------------------------------
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Emissions FILES
+        BoschDCUModuleConfig.xml
 	IsuzuEngineControllerModule.xml
 	IsuzuPIM.xml
 )

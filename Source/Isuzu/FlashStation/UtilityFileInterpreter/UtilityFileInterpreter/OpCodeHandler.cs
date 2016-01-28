@@ -271,6 +271,53 @@ namespace UtilityFileInterpreter
             READ_DATA_BY_PARAMETER_IDENTIFIER = 0x22,
             SECURITY_CODE = 0x25 //development only - not implemented
         }
+
+        public enum DCUModuleOpCodes
+        {
+            
+
+
+        }
+
+        public enum MimamoriOpCodes
+        {
+            //Common op codes
+            COMPARE_BYTES = 0x50,
+            COMPARE_CHECKSUM = 0x51,
+            COMPARE_DATA = 0x53,
+            CHANGE_DATA = 0x54,
+            END_WITH_ERROR = 0xEE,
+            SET_GLOBAL_MEMORY_ADDRESS = 0xF1,
+            SET_GLOBAL_MEMORY_LENGTH = 0xF2,
+            SET_GLOBAL_HEADER_LENGTH = 0xF3,
+            IGNORE_RESPONSES_FOR_MILLISECONDS = 0xF4,
+            OVERRIDE_THE_UTILITY_FILE_MESSAGE_LENGTH_FIELD = 0xF5,
+            NO_OPERATION_OP_CODE = 0xF7,
+            GOTO_FIELD_CONTINUATION = 0xF8,
+            SET_AND_DECREMENT_COUNTER = 0xFB,
+            DELAY_FOR_XX_SECONDS = 0xFC,
+            RESET_COUNTER = 0xFD,
+            END_WITH_SUCCESS = 0xFF,
+
+            //Mimamori Specific Op Codes
+            ECM = 0x20,
+            SCR = 0x22,
+            TURBO_CONTROLLER = 0x23,
+            TCM = 0x24,
+            ABS = 0x29,
+            VAT = 0x2A,
+            AIRSUS = 0x2B,
+            IDLING_STOP_START = 0x2C,
+            HYBRID_SYSTEM = 0x30,
+            TPMS = 0x32,
+            ECU = 0x34,
+            HSA = 0x35,
+            BLS = 0x36,
+            SRS = 0x37,
+            SAS = 0x38,
+            DOOR_ECU = 0x39,
+            GVW = 0xA2,
+        }
         public string OpCodeToString(byte opCode)
         {
             switch (opCode)

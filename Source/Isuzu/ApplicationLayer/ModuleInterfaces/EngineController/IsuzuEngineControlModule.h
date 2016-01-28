@@ -35,6 +35,252 @@ public:
     virtual bool InitializeHook(const XmlNode *configNode);
 
     /**
+     * GetInfo for string types
+     * <p><b>Description:</b><br>
+     * String type data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b><br>
+     *      <ul>
+     *      <li> ReadModuleData() </li>
+     *      <li> GenericModuleTemplate::GetInfo() </li>
+     *      </ul>
+     * 
+     * <b>Data Items Supported:</b>
+     *      <ul>
+     *      <li> ReadVIN </li>
+     *      <li> ReadSystemSupplierID </li>
+     *      <li> ReadRepairShopCode </li>
+     *      <li> ReadProgrammingDate </li>
+     *      <li> ReadDiagnosticDataIdentifier </li>
+     *      <li> ReadECUAddress </li>
+     *      <li> ReadECUSystems </li>
+     *      <li> ReadManufacturingDate </li>
+     *      <li> ReadTraceData </li>
+     *      <li> ReadSoftwareUsageDesc </li>
+     *      <li> ReadSoftwareModuleID </li>
+     *      <li> ReadPartNumber </li>
+     *      <li> WriteVIN </li>
+     *      </ul>
+     * 
+     * @param methodName The data to read from the module.
+     * @param value      The value read from the module.
+     * 
+     * @return Status of reading the data from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Data was successfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read data item from the module. </li>
+     *         </ul>
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, string &value) throw(ModuleException);
+    /**
+     * GetInfo for unsigned short types
+     * <p><b>Description:</b><br>
+     * Unsigned short data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> ReadModuleData() </li>
+     *      <li> GenericEmissionsModuleTemplate::GetInfo() </li>
+     *      </ul>
+     * 
+     * @param methodName The data to be read from the module.
+     * @param value      The value read from the module.
+     * 
+     * @return Status of reading the data from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Data was succesfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read data from the module. </li>
+     *         </ul>
+     * @exception ModuleException
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, UINT16 &value) throw(ModuleException);
+
+    /**
+     * GetInfo for a vector of unsigned short types
+     * <p><b>Description:</b><br>
+     * A vector of unsigned short data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> GenericEmissionsModuleTemplate::GetInfo() </li>
+     *      </ul>
+     * 
+     * <b>Data Items Supported:</b> None <br>
+     * 
+     * @throw ModuleException if the method cannot be found
+     * @param methodName The data to be read from the module.
+     * @param value      The values read from the module.
+     * 
+     * @return Status of reading the data from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Data was succesfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read data from the module. </li>
+     *         </ul>
+     * @exception ModuleException
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, vector<UINT16>&value) throw(ModuleException);
+
+    /**
+     * GetInfo for a vector of unsigned char types
+     * <p><b>Description:</b><br>
+     * A vector of unsigned character data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> GenericEmissionsModuleTemplate::GetInfo() </li>
+     *      </ul>
+     * 
+     * <b>Data Items Supported:</b> None <br>
+     * 
+     * @throw ModuleException if the method cannot be found
+     * @param methodName The data to be read from the module.
+     * @param value      The vector data read from the module.
+     * 
+     * @return Status of reading the data from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Data was succesfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read data from the module. </li>
+     *         </ul>
+     * @exception ModuleException
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, vector<UINT8> & value) throw(ModuleException);
+
+    /**
+     * GetInfo for integer types
+     * <p><b>Description:</b><br>
+     * Integer data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> ReadModuleData() </li>
+     *      <li> GenericEmissionsModuleTemplate::GetInfo() </li>
+     *      </ul>
+     * 
+     * <b>Data Items Supported:</b>
+     *      <ul>
+     *      <li> ReadEngineIdleRPM </li>
+     *      </ul>
+     * 
+     * @throw ModuleException if the method cannot be found
+     * @param methodName The data to be read from the module.
+     * @param value      The vector data read from the module.
+     * 
+     * @return Status of reading the data from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Data was succesfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read data from the module. </li>
+     *         </ul>
+     * @exception ModuleException
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, int &value) throw(ModuleException);
+
+    /**
+     * GetInfo for unsigned char types
+     * <p><b>Description:</b><br>
+     * Unsigned character data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> ReadModuleData() </li>
+     *      <li> GenericEmissionsModuleTemplate::GetInfo() </li>
+     *      </ul>
+     * 
+     * <b>Data Items Supported:</b>
+     *      <ul>
+     *      <li> ReadNeutralState </li>
+     * 	    </ul>
+     * 
+     * @throw ModuleException if the method cannot be found
+     * @param methodName The data to be read from the module.
+     * @param value      The value read from the module.
+     * 
+     * @return Status of reading the data from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Data was succesfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read data from the module. </li>
+     *         </ul>
+     * @exception ModuleException
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, UINT8 &value) throw(ModuleException);
+
+    /**
+     * GetInfo for bool types
+     * <p><b>Description:</b><br>
+     * Boolean type data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b>
+     *      <li> GenericEmissionsModuleTemplate::GetInfo() </li>
+     *      </ul>
+     * 
+     * 
+     * @param methodName The data to be read from the module.
+     * @param value      The value read from the module.
+     * 
+     * @return Status of reading the data from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Data was succesfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read data from the module. </li>
+     *         </ul>
+     * @exception ModuleException
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, bool &value) throw(ModuleException);
+
+    /**
+     * GetInfo for FaultVector_t  types
+     * <p><b>Description:</b><br>
+     * Fault data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> GenericEmissionsModuleTemplate::GetInfo() </li>
+     *      </ul>
+     * 
+     * 
+     * @param methodName The data to be read from the module.
+     * @param value      The faults read from the module.
+     * 
+     * @return Status of reading the faults from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Faults were succesfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read faults from the module. </li>
+     *         </ul>
+     * @exception ModuleException
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, FaultVector_t &value) throw(ModuleException);
+
+    /**
+     * GetInfo for float types
+     * <p><b>Description:</b><br>
+     * Float type data will be read from the module and returned to the calling function.
+     * <p>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> ReadModuleData() </li>
+     *      <li> GenericEmissionsModuleTemplate::GetInfo() </li>
+     *      </ul>
+     *       
+     * @param methodName The data to be read from the module.
+     * @param value      The value read from the module.
+     * 
+     * @return Status of reading the data from the module.
+     *         <ul>
+     *         <li> BEP_STATUS_SUCCESS - Data was succesfully read from the module. </li>
+     *         <li> BEP_STATUS_FAILURE - Could not read data from the module. </li>
+     *         </ul>
+     * @exception ModuleException
+     */
+    virtual BEP_STATUS_TYPE GetInfo(string methodName, float &value) throw(ModuleException);
+
+    /**
      * Read the part number.
      * <p><b>Description:</b><br>
      * Read the part number from the module.
@@ -64,6 +310,11 @@ public:
      * @return BEP_STATUS_SOFTWARE
      */
     virtual BEP_STATUS_TYPE ReadFaults(FaultStatusVector_t &faultCodes);
+
+    BEP_STATUS_TYPE EnterNormalMode(void);
+    BEP_STATUS_TYPE DisableNormalComms(void);
+    BEP_STATUS_TYPE ReadMemoryLocation(vector<UINT8> &memoryContents);
+    
 
 private:
     /**

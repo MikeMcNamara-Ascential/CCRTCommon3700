@@ -1,0 +1,286 @@
+<IsuzuEmissionsTc>
+    <Setup>
+        <Debug>Off</Debug>
+        <Name>Emissions</Name>
+        <TestDomain>Foreground</TestDomain>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <Communication>
+            <Debug>Off</Debug>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <Name>component/IsuzuEmissions</Name>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <PCMPartNo/>
+                <VIN/>
+                <Zerospeed/>
+                <PCMUtilityFilePartNo/>
+                <OverallTest/>
+                <CurrentTestStatus/>
+                <ESNLeadingCharacters/>
+                <WriteESN/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>component/IsuzuEmissions</ProcessName>
+            <AdditionalLogFile Types="/Components/BoschDCUTc or Disable">/Components/BoschDCUTc.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <DataTags>
+            <!-- Message Tags -->
+            <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+            <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+            <!-- System Tags -->
+            <ModulePartNumber>PCMPartNo</ModulePartNumber>
+            <UseBypassPartNumberList TestSteps="CheckPartNumbers">UseBypassPartNumberList</UseBypassPartNumberList>
+            <VehicleVIN>VIN</VehicleVIN>
+            <!-- Static Tester Data Items -->
+            <StaticTestResult>STTestResult</StaticTestResult>
+            <StaticTesterName>core/StaticTesterServer</StaticTesterName>
+            <StaticTesterServerName>StaticTesterServer</StaticTesterServerName>
+            <!-- Oxygen Sensor Tags -->
+            <OxygenSensor1Name>OxygenSensor1Bank1</OxygenSensor1Name>
+            <OxygenSensor2Name>OxygenSensor2Bank1</OxygenSensor2Name>
+            <OxygenSensor3Name>OxygenSensor1Bank2</OxygenSensor3Name>
+            <OxygenSensor4Name>OxygenSensor2Bank2</OxygenSensor4Name>
+        </DataTags>
+        <Parameters>
+            <!-- Test Component Behavior Parameters -->
+            <AbortOnTestStepFailure>True</AbortOnTestStepFailure>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <DelayBeforeDtcRead>20000</DelayBeforeDtcRead>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>0</DeveloperTest>
+            <ICMName>mgr/ICM</ICMName>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
+            <LoadStaticTestResults>False</LoadStaticTestResults>
+            <!-- Module Parameters -->
+            <ConfigFile>/Configuration/Components/Emissions/BoschDCUModuleConfig.xml</ConfigFile>
+            <!-- Diagnostic Mode Parameters -->
+            <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">False</AlwaysEnterDiagnosticMode>
+            <!-- DTC Parameters -->
+            <AbortIfDTCPresent TestSteps="ReadFaultCount" Comment="Flag to determine if the test sequence will be aborted it DTCs are detected">False</AbortIfDTCPresent>
+            <DtcStatusActiveBit>1</DtcStatusActiveBit>
+            <DtcStatusHistoryBit>4</DtcStatusHistoryBit>
+            <DtcStatusNotPassBit>2</DtcStatusNotPassBit>
+            <ReportIgnoredFaults>False</ReportIgnoredFaults>
+            <!-- Ignition Status Parameters -->
+            <AbortIgnitionNotOn TestSteps="Setup" Comment="Abort the test sequence if the ignition is not in the ON position">True</AbortIgnitionNotOn>
+            <IgnitionOnTimeout Units="ms" TestSteps="Setup" Comment="Amount of time to wait for ignition in the ON position">10000</IgnitionOnTimeout>
+            <!-- Tester Present Parameters -->
+            <AlwaysStartKeepAlive TestSteps="StartModuleKeepAlive" Comment="Send tester present message to module if module does not need to be tested">False</AlwaysStartKeepAlive>
+            <!-- Engine RPM Parameters -->
+            <EngineRunningTimeout Units="seconds" TestSteps="WaitForEngineRunning" Comment="mount of time to wait for the engine to be running">20000</EngineRunningTimeout>
+            <EngineSpeedUnits>RPM</EngineSpeedUnits>
+            <IdleBeforeRunningWaitTime Units="ms" TestSteps="WaitForEngineRunning" Comment="Amount of time to wait between Idle RPM checks">100</IdleBeforeRunningWaitTime>
+            <MaximumEngineSpeed Units="RPM" TestSteps="CheckIdleRPM,CheckIdleFuelTrim,CheckMassAirFlowAtIdle,CheckManifoldAbsolutePressureAtIdle" Comment="Maximum idle rpm">625</MaximumEngineSpeed>
+            <MaximumIdleBeforeRunningChecks TestSteps="WaitForEngineRunning" Comment="Number of times the engine RPM must be in range to begin testing">30</MaximumIdleBeforeRunningChecks>
+            <MaximumIdleRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Maximum idle RPM">1500</MaximumIdleRPM>
+            <MinimumIdleRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Maximum idle RPM">500</MinimumIdleRPM>
+            <MinimumEngineRunningRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Minimum engine running RPM">500</MinimumEngineRunningRPM>
+            <MinimumEngineSpeed Units="RPM" TestSteps="CheckIdleRPM" Comment="Minimum idle rpm">475</MinimumEngineSpeed>
+            <!-- Oxygen Sensor Parameters -->
+            <OxygenSensorSamples>1000</OxygenSensorSamples>
+            <OxygenSensorPeriodTime Units="ms">20</OxygenSensorPeriodTime>
+            <OxygenSensor1Bank1Units>V</OxygenSensor1Bank1Units>
+            <OxygenSensor1Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor1Bank1LBandLimit>
+            <OxygenSensor1Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank1OBandLowLimit>
+            <OxygenSensor1Bank1OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank1OBandHighLimit>
+            <OxygenSensor1Bank1HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank1HBandLimit>
+            <OxygenSensor1Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor1Bank1MaxPercentLow>
+            <OxygenSensor1Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank1MaxPercentOpen>
+            <OxygenSensor1Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor1Bank1MaxPercentHigh>
+            <OxygenSensor1Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor1Bank1MinBandSwitches>
+            <OxygenSensor1Bank2Units>V</OxygenSensor1Bank2Units>
+            <OxygenSensor1Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor1Bank2LBandLimit>
+            <OxygenSensor1Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank2OBandLowLimit>
+            <OxygenSensor1Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank2OBandHighLimit>
+            <OxygenSensor1Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank2HBandLimit>
+            <OxygenSensor1Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor1Bank2MaxPercentLow>
+            <OxygenSensor1Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank2MaxPercentOpen>
+            <OxygenSensor1Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor1Bank2MaxPercentHigh>
+            <OxygenSensor1Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor1Bank2MinBandSwitches>
+            <OxygenSensor2Bank1Units>V</OxygenSensor2Bank1Units>
+            <OxygenSensor2Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank1LBandLimit>
+            <OxygenSensor2Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank1OBandLowLimit>
+            <OxygenSensor2Bank1OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank1OBandHighLimit>
+            <OxygenSensor2Bank1HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank1HBandLimit>
+            <OxygenSensor2Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">90</OxygenSensor2Bank1MaxPercentLow>
+            <OxygenSensor2Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank1MaxPercentOpen>
+            <OxygenSensor2Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor2Bank1MaxPercentHigh>
+            <OxygenSensor2Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank1MinBandSwitches>
+            <OxygenSensor2Bank1TestDelta>False</OxygenSensor2Bank1TestDelta>
+            <OxygenSensor2Bank1MinDeltaPercent>-50</OxygenSensor2Bank1MinDeltaPercent>
+            <OxygenSensor2Bank1MaxDeltaPercent>-2</OxygenSensor2Bank1MaxDeltaPercent>
+            <OxygenSensor2Bank2Units>V</OxygenSensor2Bank2Units>
+            <OxygenSensor2Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank2LBandLimit>
+            <OxygenSensor2Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank2OBandLowLimit>
+            <OxygenSensor2Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank2OBandHighLimit>
+            <OxygenSensor2Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank2HBandLimit>
+            <OxygenSensor2Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor2Bank2MaxPercentLow>
+            <OxygenSensor2Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank2MaxPercentOpen>
+            <OxygenSensor2Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor2Bank2MaxPercentHigh>
+            <OxygenSensor2Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank2MinBandSwitches>
+            <OxygenSensor2Bank2TestDelta>False</OxygenSensor2Bank2TestDelta>
+            <OxygenSensor2Bank2MinDeltaPercent>-50</OxygenSensor2Bank2MinDeltaPercent>
+            <OxygenSensor2Bank2MaxDeltaPercent>-2</OxygenSensor2Bank2MaxDeltaPercent>
+            <!-- Part Number Parameters -->
+            <AbortOnPartMismatch TestSteps="CheckPartNumbers" Comment="Falg to determine if testing should abort if the part number is wrong">False</AbortOnPartMismatch>
+            <BypassPartNumberValidation TestSteps="CheckPartNumbers" Comment="Flag to determine if part number varification should be skipped">False</BypassPartNumberValidation>
+            <SkipPartNumberResultUpdate TestSteps="CheckPartNumbers" Comment="Flag to determine if a result bit should not be updated in the module">True</SkipPartNumberResultUpdate>
+            <ValidatePartNumberList TestSteps="CheckPartNumbers" Comment="Flag to determine if the part number should be looked up in a list">False</ValidatePartNumberList>
+            <ModifyBroadCastPN TestSteps="CheckPartNumbers" Comment="Flag to determine if broadcast to module part number should be modified">True</ModifyBroadCastPN>
+            <PNCheckFirstCharacterComparisonValue TestSteps="CheckPartNumbers" Comment="Comparison character to check to determine how to modify bcast pn">8</PNCheckFirstCharacterComparisonValue>
+            <PNCheckCompareEqualStartIndex TestSteps="CheckPartNumbers" Comment="pn start index if char value comparison is equal">1</PNCheckCompareEqualStartIndex>
+            <PNCheckCompareEqualLength TestSteps="CheckPartNumbers" Comment="pn length if char value comparison is equal">8</PNCheckCompareEqualLength>
+            <PNCheckCompareNotEqualStartIndex TestSteps="CheckPartNumbers" Comment="pn start index if char value comparison is not equal">0</PNCheckCompareNotEqualStartIndex>
+            <PNCheckCompareNotEqualLength TestSteps="CheckPartNumbers" Comment="pn length if char value comparison is not equal">10</PNCheckCompareNotEqualLength>
+            <PartNumbersToCheck TestSteps="CheckPartNumbers" Comment="Partnumbers to be verified">
+                <PCMPartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">ReadPartNumber</PCMPartNo>
+            </PartNumbersToCheck>
+            <UtilityFileConstantPartNumber TestSteps="CheckPartNumbers" Comment="Utility File Part Number From Static test station">12631684</UtilityFileConstantPartNumber>
+            <!-- VIN Parameters -->
+            <AbortIfVinMismatch TestSteps="CheckVIN" Comment="Flag to determine if the test sequence should be aborted if the VIN is not valid">True</AbortIfVinMismatch>
+            <BypassVINValidation TestSteps="CheckVIN" Comment="Flag used to determine if VIN validation should be skipped">False</BypassVINValidation>
+            <PromptDriverVinMismatch TestSteps="CheckVIN" Comment="Flag used to determine if the operator should be prompted that the module VIN does not match the scanned VIN">True</PromptDriverVinMismatch>
+            <!-- Steady speed parameters -->
+            <SteadyStateSpeed Units="mph" TestSteps="AccelerateToTestSpeed" Comment="Speed for steady speed sensor checks">65</SteadyStateSpeed>
+            <SteadyStateSpeedCheckDelay Units="ms" TestSteps="AccelerateToTestSpeed" Comment="Amount of time to wait between checks for vehicle speed">500</SteadyStateSpeedCheckDelay>
+            <SteadyStateSpeedRange Units="mph range" TestSteps="AccelerateToTestSpeed" Comment="Speed Target range for the operator to accelerate to">65 75</SteadyStateSpeedRange>
+            <MinimumNeutralOverspeedLimitRpm>5000</MinimumNeutralOverspeedLimitRpm>
+            <!-- Background test data items -->
+            <BackgroundTestData>
+                <OxygenSensors Criteria="MinMax">ReadOxygenSensors</OxygenSensors>
+                <SensorStatus Criteria="">ReadSensorStatus</SensorStatus>
+                <FaultCodes Criteria="">ReadDtc</FaultCodes>
+                <SensorExcursion Criteria="">ReadSensorExcursion</SensorExcursion>
+            </BackgroundTestData>
+            <BackgroundPidValueRangesMonitoring>
+                <SensorUpdateRate Units="ms">1000</SensorUpdateRate>
+            </BackgroundPidValueRangesMonitoring>
+            <!-- Keyoffengineoffkeyon parameters -->
+            <AlwaysPerformKeyOffEngineOff TestSteps="KeyOffEngineOffKeyOn" Comment="flag indicating if test should be performed on passed retests">True</AlwaysPerformKeyOffEngineOff>
+            <!-- CheckSerialNumber parameters -->
+            <AbortOnSerialMismatch  TestSteps="CheckSerialNumber" Comment="Flag which determines if test should be aborted on serial number mismatch">False</AbortOnSerialMismatch>
+            <EngineCodeStartLocation_1D TestSteps="CheckSerialNumber" Comment="Location in the 1-D serial number to find the engine code">2</EngineCodeStartLocation_1D>
+            <EngineCodeStartLocation_2D TestSteps="CheckSerialNumber" Comment="Location in the 2-D serial number to find the engine code">8</EngineCodeStartLocation_2D>
+            <ESNLength1D>16</ESNLength1D>
+            <ESNLength2D>16</ESNLength2D>
+            <SerialNumberDirectory TestSteps="CheckSerialNumber" Comment="Directory containing Scanned Serial numbers sent by Spartan">/TestResults/ESN/</SerialNumberDirectory>
+            <EsnFileNameExtension>.ESN</EsnFileNameExtension>
+        </Parameters>
+        <Prompts>
+            <CableConnect PromptBox="1" Priority="0" TestSteps="EnterDiagnosticMode,Setup,StartModuleKeepAlive">ConnectCable</CableConnect>
+            <CheckingO2Sensors PromptBox="1" Priority="0" TestSteps="CheckOxygenSensors">CheckingO2Sensors</CheckingO2Sensors>
+            <DelayBeforeDtcRead PromptBox="1" Priority="0" TestSteps="DelayBeforeDtcRead">DelayBeforeDtcRead</DelayBeforeDtcRead>
+            <EngineRunning PromptBox="1" Priority="0" TestSteps="WaitForEngineRunning">StartVehicle</EngineRunning>
+            <EngineMustIdle PromptBox="2" Priority="0" TestSteps="CheckOxygenSensors">EngineMustIdle</EngineMustIdle>
+            <IgnitionOn PromptBox="1" Priority="0" TestSteps="Setup">KeyOn</IgnitionOn>
+            <PCMCommFailure PromptBox="1" Priority="0" TestSteps="Setup">AbortPcmCommFailure</PCMCommFailure>
+            <TurnEngineOffKeyOn PromptBox="2" Priority="0" TestSteps="Setup">TurnEngineOffAndKeyOn</TurnEngineOffKeyOn>
+            <WaitForEngineTemp PromptBox="2" Priority="0" TestSteps="WaitForEngineTemperature">WaitForEngineTemp</WaitForEngineTemp>
+            <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
+        </Prompts>
+        <IgnoreFaults/>
+        <FaultList>/Configuration/Components/Emissions/EmissionsFaults.xml</FaultList>
+    </Setup>
+    <Objectives>
+        <Setup>
+            <TestStep00>Setup</TestStep00>
+            <TestStep05>EnterDiagnosticMode</TestStep05>
+            <TestStep15>CheckPartNumbers</TestStep15>
+            <TestStep30>ReadFaults</TestStep30>
+            <TestStep40>CommandSecurityUnlock</TestStep40>
+            <TestStep50>DisableNormalComms</TestStep50>
+            <TestStep60>StartModuleKeepAlive</TestStep60>
+        </Setup>
+        <EngineRunning>
+            <TestStep00>Setup</TestStep00>
+            <TestStep05>WaitForEngineRunning</TestStep05>
+            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep15>ClearFaults</TestStep15>
+        </EngineRunning>
+        <KeyOffEngineOffKeyOn>
+            <TestStep00>KeyOffEngineOffKeyOn</TestStep00>
+            <TestStep05>WaitForEngineRunning</TestStep05>
+            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep15>StartModuleKeepAlive</TestStep15>
+        </KeyOffEngineOffKeyOn>
+        <EngineWarmUp>
+            <TestStep10>CheckVIN</TestStep10>
+            <TestStep15>CheckPartNumbers</TestStep15>
+            <TestStep20>CheckSerialNumber</TestStep20>
+            <TestStep25>WaitForEngineTemperature</TestStep25>
+        </EngineWarmUp>
+        <PreFinishUp>
+            <TestStep05>StopModuleKeepAlive</TestStep05>
+            <TestStep05>WaitForEngineRunning</TestStep05>
+        </PreFinishUp>
+        <ClearFaultsFinal>
+            <TestStep98>ClearFaultsFinal</TestStep98>
+        </ClearFaultsFinal>
+        <FinishUp>
+            <TestStep05>StopModuleKeepAlive</TestStep05>
+            <TestStep97>LockModule</TestStep97>
+            <TestStep98>EnterNormalMode</TestStep98>
+            <TestStep99>FinishUp</TestStep99>
+        </FinishUp>
+        <DelayBeforeDtcRead>
+            <TestStep005>DelayBeforeDtcRead</TestStep005>
+        </DelayBeforeDtcRead>
+        <CheckOxygenSensors>
+            <TestStep05 AltValue="OxygenSensors">CheckOxygenSensors</TestStep05>
+        </CheckOxygenSensors>
+      </Objectives>
+    <TestSteps>
+        <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
+        <CheckOxygenSensors Result="" Timeout="120000" AlwaysPerform="False" AbortIfFailed="False" Description="Test the oxygen sensors for correct values"/>
+        <CheckPartNumbers Result="" Timeout="500" Description="Verify the module part number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckSerialNumber Result="" Timeout="500" Description="Verify the module serial number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckVIN Result="" Timeout="500" Description="Verify the module VIN matches the scanned VIN" AlwaysPerform="False" AbortIfFailed="False"/>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
+        <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
+        <CommandSecurityUnlock Result="Not Tested" Timeout="30000" Description="Unlock security to the module" Retries="2" KeyOffDelay="3000" EngineOnDelay="3000"/>
+        <DelayBeforeDtcRead Result="" Timeout="65000" Description="Delay before reading DTCs"/>
+        <DisableNormalComms Result="" Timeout="500" Description="Disable normal communications in the module" Messages="DisableNormalComms" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
+        <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
+        <EnterNormalMode Result="" Timeout="500" Description="Take the module out of diagnostic mode" Messages="EnterNormalMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
+        <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
+        <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>
+        <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
+        <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
+        <ReadMemoryLocation Result="Not Tested" Timeout="500" Description="Read memory contents from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
+        <Setup Result="" Timeout="500" Description="Setup conditions for testing" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
+        <StartModuleKeepAlive Result="" Timeout="5000" Messages="ModuleKeepAlive" AlwaysPerform="True" AbortIfFailed="False" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
+        <StopModuleKeepAlive Result="" Timeout="5000" Messages="ModuleKeepAlive" AlwaysPerform="True" AbortIfFailed="False" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
+        <WaitForEngineRunning Result="" Timeout="20000" Description="Wait for the engine to be running" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="True"/>
+    </TestSteps>
+</IsuzuEmissionsTc>

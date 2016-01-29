@@ -228,6 +228,154 @@
                 <ReplyInterpretation>PartNumber</ReplyInterpretation>
             </ReadPartNumber>
 
+            <!-- VL03 PIM Spec values -->
+            <ReadPowerMode>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>PowerMode</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>PowerMode</ReplyInterpretation>
+            </ReadPowerMode>
+
+            <ReadEngineActive>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>EngineSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineActive</ReplyInterpretation>
+            </ReadEngineActive>
+
+            <ReadTransmissionNotEngaged>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>EngineSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>TransmissionNotEngaged</ReplyInterpretation>
+            </ReadTransmissionNotEngaged>
+
+            <ReadCruiseOn>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CruiseSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseOn</ReplyInterpretation>
+            </ReadCruiseOn>
+
+            <ReadCruiseResume>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CruiseSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseResume</ReplyInterpretation>
+            </ReadCruiseResume>
+
+            <ReadCruiseSet>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CruiseSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseSet</ReplyInterpretation>
+            </ReadCruiseSet>
+
+            <ReadCruiseIncrease>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CruiseSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseIncrease</ReplyInterpretation>
+            </ReadCruiseIncrease>
+
+            <ReadCruiseDecrease>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CruiseSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseDecrease</ReplyInterpretation>
+            </ReadCruiseDecrease>
+
+            <ReadPressureSwitch>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>PressureSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>PressureSwitch</ReplyInterpretation>
+            </ReadPressureSwitch>
+
+            <ReadParkBrakeSwitch>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>ParkBrake</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>ParkBrakeSwitch</ReplyInterpretation>
+            </ReadParkBrakeSwitch>
+
+            <ReadBrakePedalPosition>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>BrakeSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>BrakePedalPosition</ReplyInterpretation>
+            </ReadBrakePedalPosition>
+
+            <ReadABSActive>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>ABS</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>ABSActive</ReplyInterpretation>
+            </ReadABSActive>
+
+            <ReadABSFailed>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>ABS</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>ABSFailed</ReplyInterpretation>
+            </ReadABSFailed>
+
+            <ReadCoolantTemp>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CoolantTemp</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CoolantTemp</ReplyInterpretation>
+            </ReadCoolantTemp>
+
+            <ReadFuelLevel>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>FuelLevel</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelLevel</ReplyInterpretation>
+            </ReadFuelLevel>
+
+            <ReadVehicleSpeed>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>VehicleSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
+            </ReadVehicleSpeed>
+
+            <ReadCruiseActive>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>CruiseActive</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseActive</ReplyInterpretation>
+            </ReadCruiseActive>
+
+            <ReadLimpInActive>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>LimpInActive</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>LimpInActive</ReplyInterpretation>
+            </ReadLimpInActive>
+
+            <ReadGeneratorFailed>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>Generator</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>GeneratorFailed</ReplyInterpretation>
+            </ReadGeneratorFailed>
+
+            <ReadBrakePedalRollingCount>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>BrakePedalRolling</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>BrakePedalRollingCount</ReplyInterpretation>
+            </ReadBrakePedalRollingCount>
+
+            <ReadTransmissionRollingCount>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>TransmissionRolling</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>TransmissionRollingCount</ReplyInterpretation>
+            </ReadTransmissionRollingCount>
+
         </VehicleMessages>
 
         <!-- ============ Message Formats ============ -->
@@ -265,6 +413,22 @@
             <GMSUD>0xB7</GMSUD>
             <SWMI>0xC1</SWMI>
             <PartNumber>0xCB</PartNumber>
+            <!-- VL03 PIM Spec values -->
+            <PowerMode>0x01,0xF1</PowerMode>
+            <EngineSpeed>0x00,0xC9</EngineSpeed>
+            <CruiseSwitch>0x01,0xE1</CruiseSwitch>
+            <PressureSwitch>0x01,0xF1</PressureSwitch>
+            <ParkBrake>0x01,0xF1</ParkBrake>
+            <BrakeSwitch>0x00,0xBE</BrakeSwitch>
+            <ABS>0x01,0xE9</ABS>
+            <CoolantTemp>0x04,0xC1</CoolantTemp>
+            <FuelLevel>0x04,0xD1</FuelLevel>
+            <VehicleSpeed>0x03,0xE9</VehicleSpeed>
+            <CruiseActive>0x00,0xC9</CruiseActive>
+            <LimpInActive>0x04,0xD1</LimpInActive>
+            <Generator>0x03,0xF9</Generator>
+            <BrakePedalRolling>0x00,0xF1</BrakePedalRolling>
+            <TransmissionRolling>0x01,0xF3</TransmissionRolling>
             <DiagnosticLevel_3>0x03</DiagnosticLevel_3>
         </TransmitInterpretations>
 
@@ -460,6 +624,148 @@
                     </SUBSTRING>
                 </STRING>
             </PartNumber>
+
+            <!-- VL03 PIM Spec values -->
+            <PowerMode>
+                <STRING>
+                    <SUBSTRING format="%1s">
+                        <CHARS input_index="0" mask="0x02" length="1"/>
+                    </SUBSTRING>
+                </STRING>
+            </PowerMode>
+
+            <EngineActive>
+                <Boolean>
+                    <Byte01 input_index="0" mask="0x10" compare="0x10"/>
+                </Boolean>
+            </EngineActive>
+
+            <TransmissionNotEngaged>
+                <STRING>
+                    <SUBSTRING format="%1s">
+                        <CHARS input_index="6" mask="0x60" length="1"/>
+                    </SUBSTRING>
+                </STRING>
+            </TransmissionNotEngaged>
+
+            <CruiseOn>
+                <Boolean>
+                    <Byte01 input_index="0" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </CruiseOn>
+
+            <CruiseResume>
+                <Boolean>
+                    <Byte01 input_index="0" mask="0x04" compare="0x04"/>
+                </Boolean>
+            </CruiseResume>
+
+            <CruiseSet>
+                <Boolean>
+                    <Byte01 input_index="0" mask="0x08" compare="0x08"/>
+                </Boolean>
+            </CruiseSet>
+
+            <CruiseIncrease>
+                <Boolean>
+                    <Byte01 input_index="0" mask="0x10" compare="0x10"/>
+                </Boolean>
+            </CruiseIncrease>
+
+            <CruiseDecrease>
+                <Boolean>
+                    <Byte01 input_index="0" mask="0x20" compare="0x20"/>
+                </Boolean>
+            </CruiseDecrease>
+
+            <PressureSwitch>
+                <STRING>
+                    <SUBSTRING format="%1s">
+                        <CHARS input_index="1" mask="0x0C" length="1"/>
+                    </SUBSTRING>
+                </STRING>
+            </PressureSwitch>
+
+            <ParkBrakeSwitch>
+                <Boolean>
+                    <Byte01 input_index="4" mask="0x08" compare="0x08"/>
+                </Boolean>
+            </ParkBrakeSwitch>
+
+            <BrakePedalPosition>
+                <Float scale="0.3921" offset="0">
+                    <Integer type="unsigned" bits="8" scale="1" offset="0">
+                        <Byte1 input_index="1" mask="0x0F" output_index="0"/>
+                    </Integer>
+                </Float>
+            </BrakePedalPosition>
+
+            <ABSActive>
+                <Boolean>
+                    <Byte01 input_index="3" mask="0x04" compare="0x04"/>
+                </Boolean>
+            </ABSActive>
+
+            <ABSFailed>
+                <Boolean>
+                    <Byte01 input_index="3" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </ABSFailed>
+
+            <CoolantTemp>
+                <Float scale="1" offset="-40">
+                    <Integer type="unsigned" bits="8" scale="1" offset="0">
+                        <Byte1 input_index="2" mask="0x0F" output_index="0"/>
+                    </Integer>
+                </Float>
+            </CoolantTemp>
+
+            <FuelLevel>
+                <Float scale="0.3921" offset="0">
+                    <Integer type="unsigned" bits="8" scale="1" offset="0">
+                        <Byte1 input_index="5" mask="0x0F" output_index="0"/>
+                    </Integer>
+                </Float>
+            </FuelLevel>
+
+            <VehicleSpeed>
+                <Float scale="0.015625" offset="0">
+                    <Integer type="unsigned" bits="15" scale="1" offset="0">
+                        <Byte1 input_index="0" mask="0x0F" output_index="1"/>
+                        <Byte2 input_index="1" mask="0xF0" output_index="0"/>
+                    </Integer>
+                </Float>
+            </VehicleSpeed>
+
+            <CruiseActive>
+                <Boolean>
+                    <Byte01 input_index="3" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </CruiseActive>
+
+            <LimpInActive>
+                <Boolean>
+                    <Byte01 input_index="3" mask="0x01" compare="0x01"/>
+                </Boolean>                                                                     
+            </LimpInActive>
+
+            <GeneratorFailed>
+                <Boolean>
+                    <Byte01 input_index="0" mask="0x04" compare="0x04"/>
+                </Boolean>                                                                     
+            </GeneratorFailed>
+
+            <BrakePedalRollingCount>
+                <Integer type="unsigned" bits="2" scale="1" offset="0">
+                    <Byte1 input_index="0" mask="0x06" output_index="1"/>
+                </Integer>
+            </BrakePedalRollingCount>
+
+            <TransmissionRollingCount>
+                <Integer type="unsigned" bits="2" scale="1" offset="0">
+                    <Byte1 input_index="0" mask="0x18" output_index="1"/>
+                </Integer>
+            </TransmissionRollingCount>
 
         </ReplyInterpretations>
 

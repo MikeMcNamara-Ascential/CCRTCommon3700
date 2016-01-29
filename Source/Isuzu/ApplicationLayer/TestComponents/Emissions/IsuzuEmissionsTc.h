@@ -405,6 +405,7 @@ private:
     string EnterNormalMode(void);
     string DisableNormalComms(void);
     string ReadMemoryLocation(void);
+    string LockModuleIfPass(void);
 
 
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;

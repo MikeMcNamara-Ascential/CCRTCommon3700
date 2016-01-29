@@ -103,6 +103,7 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("EnterNormalMode"))                     testResult = EnterNormalMode();
             else if (!GetTestStepName().compare("ReadMemoryLocation"))                  testResult = ReadMemoryLocation();
             else if (!GetTestStepName().compare("DisableNormalComms"))                  testResult = DisableNormalComms();
+            else if (!GetTestStepName().compare("LockModuleIfPass"))                    testResult = LockModuleIfPass();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -2756,4 +2757,39 @@ string IsuzuEmissionsTc<ModuleType>::ReadMemoryLocation(void)
 	// Return the test result
 	Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::ReadMemoryLocation()\n");
 	return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::LockModuleIfPass(void)
+{
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::LockModuleIfPass() - Enter");
+    string result(BEP_TESTING_RESPONSE);
+    string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+
+    bool isLocked = true;
+    // Attempt to read the locked status from the module
+    try
+    {   // Read the locked status from the module
+        m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
+    }
+    catch (ModuleException &exception)
+    {   // Exception reading data
+        Log(LOG_ERRORS, "Module exception in LockModuleIfPass() while reading IsModuleLocked - %s\n", exception.message().c_str());
+        isLocked = true;
+    }
+
+    if(!isLocked && !GetOverallResult().compare(testPass))
+        moduleStatus = m_vehicleModule.LockModule();
+
+    // Set the test status
+	testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+	testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
+	testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("CommunicationFailure"));
+	Log(LOG_DEV_DATA, "Lock Module: %s\n", testResult.c_str());
+
+    return(testResult);
 }

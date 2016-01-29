@@ -1,14 +1,14 @@
-<IsuzuEmissionsTc>
+<BoschDCUTc>
     <Setup>
         <Debug>Off</Debug>
-        <Name>Emissions</Name>
+        <Name>DCU</Name>
         <TestDomain>Foreground</TestDomain>
         <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
         <Communication>
             <Debug>Off</Debug>
             <Type>Server</Type>
             <Comm>IPC</Comm>
-            <Name>component/IsuzuEmissions</Name>
+            <Name>component/BoschDCU</Name>
             <BufferSize>1024</BufferSize>
             <Timeout>2000</Timeout>
         </Communication>
@@ -46,7 +46,7 @@
         </NotificationList>
         <Logging>
             <Status>Enabled</Status>
-            <ProcessName>component/IsuzuEmissions</ProcessName>
+            <ProcessName>component/BoschDCU</ProcessName>
             <AdditionalLogFile Types="/Components/BoschDCUTc or Disable">/Components/BoschDCUTc.log</AdditionalLogFile>
             <Debug>Off</Debug>
             <LocalEcho>Disabled</LocalEcho>
@@ -224,7 +224,7 @@
         </Setup>
         <EngineRunning>
             <TestStep00>Setup</TestStep00>
-            <TestStep05>WaitForEngineRunning</TestStep05>
+            <!--TestStep05>WaitForEngineRunning</TestStep05-->
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>ClearFaults</TestStep15>
         </EngineRunning>
@@ -249,7 +249,7 @@
         </ClearFaultsFinal>
         <FinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
-            <TestStep97>LockModule</TestStep97>
+            <TestStep97>LockModuleIfPass</TestStep97>
             <TestStep98>EnterNormalMode</TestStep98>
             <TestStep99>FinishUp</TestStep99>
         </FinishUp>
@@ -275,7 +275,7 @@
         <EnterNormalMode Result="" Timeout="500" Description="Take the module out of diagnostic mode" Messages="EnterNormalMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
         <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>
-        <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
+        <LockModuleIfPass Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadMemoryLocation Result="Not Tested" Timeout="500" Description="Read memory contents from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <Setup Result="" Timeout="500" Description="Setup conditions for testing" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
@@ -283,4 +283,4 @@
         <StopModuleKeepAlive Result="" Timeout="5000" Messages="ModuleKeepAlive" AlwaysPerform="True" AbortIfFailed="False" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
         <WaitForEngineRunning Result="" Timeout="20000" Description="Wait for the engine to be running" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="True"/>
     </TestSteps>
-</IsuzuEmissionsTc>
+</BoschDCUTc>

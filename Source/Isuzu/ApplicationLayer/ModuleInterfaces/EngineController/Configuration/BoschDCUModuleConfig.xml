@@ -55,7 +55,7 @@
         <Logging>
             <Status>Disabled</Status>
             <ProcessName>BoschDCU</ProcessName>
-            <AdditionalLogFile>/Communication/BoschDCU.log</AdditionalLogFile>
+            <AdditionalLogFile>/Communication/BoschDCUModule.log</AdditionalLogFile>
             <Debug>Off</Debug>
             <LocalEcho>Disabled</LocalEcho>
             <Verbose>0x3F</Verbose>

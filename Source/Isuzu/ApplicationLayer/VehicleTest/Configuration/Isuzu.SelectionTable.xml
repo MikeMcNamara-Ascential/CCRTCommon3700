@@ -17,4 +17,8 @@
        <BrakeType>720 ABS</BrakeType>
        <ModelYear>150</ModelYear>
    </My15AbsDriveCurve>
+   <My17AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My17Isuzu.DriveCurve.xml">
+       <BrakeType>720 ABS</BrakeType>
+       <ModelYear>170</ModelYear>
+   </My17AbsDriveCurve>
 </SelectionTable>

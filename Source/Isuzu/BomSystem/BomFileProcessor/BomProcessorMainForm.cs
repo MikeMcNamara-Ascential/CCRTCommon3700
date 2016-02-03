@@ -95,6 +95,16 @@ namespace BomFileProcessor
                 m_ecmPassConfirmationMonitor.StartFileMonitorThread();
             }
 
+            m_vinStampingFileMonitor = new BomFtpFileMonitor(
+            BomFileProcessor.Properties.Settings.Default.CcrtVINStamperFileLocation,
+            BomFileProcessor.Properties.Settings.Default.VINStamperFileLocation,
+            BomFileProcessor.Properties.Settings.Default.VINStamperFileTempLocation,
+            BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
+            "burke",
+            "porter",
+            "192.168.1.3:2121", m_logger, "*.STP");
+            m_vinStampingFileMonitor.StartFileMonitorThread();
+
         }
         
 
@@ -812,6 +822,7 @@ namespace BomFileProcessor
                     }
                 }
             }
+            
             catch(System.IO.IOException ex)
             {
                 m_logger.Log("ERROR: IOException accessing file or folder - " + ex.Message);
@@ -856,6 +867,33 @@ namespace BomFileProcessor
             }
             // Restart the timer to look for more pass confirmation files
             m_esnFileCheckTimer.Start();
+        }
+
+        /// <summary>
+        /// Check for new STP files to move from the CCRT directory to the Windows directory.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_stpFileCheckTimer_Tick(object sender, EventArgs e)
+        {
+            m_stpFileCheckTimer.Stop();
+            try
+            {
+                string[] files = Directory.GetFiles("\\\\172.16.253.1\\" + BomFileProcessor.Properties.Settings.Default.CcrtVINStamperFileLocation);
+
+                if (files.Count() > 0)
+                {
+                    foreach (string s in files)
+                    {
+                        m_vinStampingFileMonitor.TransferFileFromFtpLocation(s.Substring(s.LastIndexOf('\\') + 1));
+                    }
+                }
+            }
+            catch
+            {
+                ;
+            }
+            m_stpFileCheckTimer.Start();
         }
 
         /// <summary>
@@ -1082,6 +1120,7 @@ namespace BomFileProcessor
         private BomFtpFileMonitor m_ecmPassConfirmationMonitor;
         private BomFtpFileMonitor m_engineSerialNumberFileMonitor;
         private BomFtpFileMonitor m_buildRecordFileMonitor;
+        private BomFtpFileMonitor m_vinStampingFileMonitor;
 
         /// <summary>
         /// ESN Settings.
@@ -1116,6 +1155,7 @@ namespace BomFileProcessor
             m_ecmPassConfirmationMonitor.StopFileMonitorThread();
             m_engineSerialNumberFileMonitor.StopFileMonitorThread();
             m_buildRecordFileMonitor.StopFileMonitorThread();
+            m_vinStampingFileMonitor.StopFileMonitorThread();
         }
 
     }

@@ -110,5 +110,17 @@
     <Setting Name="VehicleBuildTempDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\BOM\Temp\VehicleBuild</Value>
     </Setting>
+    <Setting Name="VINStamperFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\BOM\STP</Value>
+    </Setting>
+    <Setting Name="CcrtVINStamperFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/STP/</Value>
+    </Setting>
+    <Setting Name="VINStamperFileTempLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\BOM\Temp\STP</Value>
+    </Setting>
+    <Setting Name="CcrtVINStamperFlashTransferLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/STP/</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

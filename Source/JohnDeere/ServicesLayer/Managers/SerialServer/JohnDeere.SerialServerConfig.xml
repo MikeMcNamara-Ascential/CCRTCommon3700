@@ -1,0 +1,96 @@
+<SerialServerConfig>
+    <Verbose>0x1F</Verbose>
+    <Setup>
+        <Demo>0</Demo>
+        <MgrPool lowWater="2" hiWater="5" maximum="10" increment="1"/>
+        <Logging>
+            <ProcessName>mgr/SerialServer</ProcessName>
+            <AdditionalLogFile>/Servers/SerialServer.log</AdditionalLogFile>
+            <Status>Enabled</Status>
+            <LocalEcho>Disabled</LocalEcho>
+            <Debug>Off</Debug>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+        <LogicalPorts>
+
+            <LeftScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser3</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/LeftScanner</ProcessName>
+                        <AdditionalLogFile>LeftScannerComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>LeftScanner_Comm</ProcessName>
+                                <AdditionalLogFile>LeftScanner_BusComm.log</AdditionalLogFile>
+                                <Status>Disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x09</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </LeftScanner>
+
+
+            <SoundMeter enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser5</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <Protocol>
+                        <Baud>300</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/SoundMeter</ProcessName>
+                        <AdditionalLogFile>/Servers/SoundMeterComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>SoundMeter_Comm</ProcessName>
+                                <AdditionalLogFile>/Communication/SoundMeter_BusComm.log</AdditionalLogFile>
+                                <Status>disabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x09</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </SoundMeter>
+
+
+        </LogicalPorts>
+    </Setup>
+</SerialServerConfig>

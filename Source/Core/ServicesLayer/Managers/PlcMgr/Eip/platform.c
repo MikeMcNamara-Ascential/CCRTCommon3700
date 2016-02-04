@@ -176,6 +176,23 @@ BOOL platformGetTcpIpCfgData( TCPIP_CONFIG_DATA *psCfg)
 	struct ifreq ifr;
 	struct ifaddrs *ifaddr, *ifa;
 	char iface[24];
+	char *fName = "/tmp/enetcnt.txt";
+	char buff[256];
+	FILE *enetFile = NULL;
+	int  portCount = 0;
+
+	sprintf(buff, "ifconfig > %s", fName);
+	system(buff);
+	if((enetFile = fopen(fName, "r")) != NULL)
+	{
+		while(fgets(buff, sizeof(buff), enetFile) != NULL)
+		{
+			if((buff[0] == 'e') && (buff[1] == 'n'))
+			{
+				portCount++;
+			}
+		}
+	}
 
 	/* First see if the IP address is already claimed.  If it's claimed, consider the 
 	   TCP/IP config data to be initialized and just return the current data */
@@ -207,7 +224,7 @@ BOOL platformGetTcpIpCfgData( TCPIP_CONFIG_DATA *psCfg)
 		return FALSE;
 
 	memset(iface, 0, sizeof(iface));
-	sprintf(iface, "en0");
+	sprintf(iface, (portCount > 2) ? "en1" : "en0");
 	//Type of address to retrieve - IPv4 IP address
 	ifr.ifr_addr.sa_family = AF_INET;
 	//Copy the interface name in the ifreq structure
@@ -778,10 +795,27 @@ void platformSocketInitTargetData( void )
 	struct ifaddrs *ifaddr, *ifa;
 	char mac[NI_MAXHOST];
 	char iface[24];
+	char *fName = "/tmp/enetcnt.txt";
+	char buff[256];
+	FILE *enetFile = NULL;
+	int  portCount = 0;
+
+	sprintf(buff, "ifconfig > %s", fName);
+	system(buff);
+	if((enetFile = fopen(fName, "r")) != NULL)
+	{
+		while(fgets(buff, sizeof(buff), enetFile) != NULL)
+		{
+			if((buff[0] == 'e') && (buff[1] == 'n'))
+			{
+				portCount++;
+			}
+		}
+	}
 
 	DumpStr0(TRACE_LEVEL_ERROR, TRACE_TYPE_MSG, 0, 0, "platformSocketInitTargetData() - Enter");
 	memset(iface, 0, sizeof(iface));
-	sprintf(iface, "en0");
+	sprintf(iface, (portCount > 2) ? "en1" : "en0");
 	gnHostIPAddrCount = 0;
 	// we need a socket to call ioctl() on
 	sockfd = socket(AF_INET,SOCK_DGRAM,0);
@@ -1078,3 +1112,4 @@ void platformCopySockAddrInFromBuffer( struct sockaddr_in* pSockAddr, UINT8* pBu
 	memcpy(pSockAddr, pBuffer, sizeof(struct sockaddr_in));
 	pSockAddr->sin_family = AF_INET;
 }
+

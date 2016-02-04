@@ -145,6 +145,7 @@ extern void platformSetSockaddrIn(struct sockaddr_in* pSockaddr, UINT16 iPort, U
 extern void platformCopySockAddrInToBuffer( UINT8* pBuffer, struct sockaddr_in* pSockAddr );
 extern void platformCopySockAddrInFromBuffer( struct sockaddr_in* pSockAddr, UINT8* pBuffer );
 
+
 /*
 ** Macro definitions
 */

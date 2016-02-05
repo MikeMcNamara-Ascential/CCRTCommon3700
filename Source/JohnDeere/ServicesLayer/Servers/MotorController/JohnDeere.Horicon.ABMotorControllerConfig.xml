@@ -236,7 +236,7 @@
             <LeftFrontMotor>
                 <Setup>
                     <Parameters>
-                        <MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">22.84</MphToRpm>
+                        <MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">18.58</MphToRpm>
                         <TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
                         <MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
                         <MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1.0</MotorBaseSpeed>
@@ -268,7 +268,7 @@
             <RightFrontMotor>
                 <Setup>
                     <Parameters>
-                        <MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">22.84</MphToRpm>
+                        <MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH"><!--22.84-->18.58</MphToRpm>
                         <TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
                         <MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
                         <MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1</MotorBaseSpeed>
@@ -300,7 +300,7 @@
             <LeftRearMotor>
                 <Setup>
                     <Parameters>
-                        <MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">22.84</MphToRpm>
+                        <MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">18.58</MphToRpm>
                         <TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
                         <MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
                         <MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1</MotorBaseSpeed>
@@ -332,7 +332,7 @@
             <RightRearMotor>
                 <Setup>
                     <Parameters>
-                        <MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">22.84</MphToRpm>
+                        <MphToRpm Description="Conversion factor to change miles per hour to revolutions per minute" Units="RPM/MPH">18.58</MphToRpm>
                         <TorqueBitsPerPound Description="Conversion factor that converts pounds into command value for drive" Units="bits/Pound">0.0</TorqueBitsPerPound>
                         <MaxRpm Description="Maximum speed drive should be commanded" Units="RPM">2800</MaxRpm>
                         <MotorBaseSpeed Description="Base speed used for speed command calculations" Units="RPM">1</MotorBaseSpeed>

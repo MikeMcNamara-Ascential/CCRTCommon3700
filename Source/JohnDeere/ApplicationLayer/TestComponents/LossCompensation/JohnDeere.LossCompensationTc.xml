@@ -253,8 +253,8 @@
         <StaggeredAccelerate Result="Not Tested" Timeout="60000" 
             Description="Accelerate above LCArmSpeed and Warm The Machine Up" 
             LCArmSpeed="45" WarmUpTime="10000" 
-            Prompt2="Loss Compensation Accel To Warmup" Prompt2Priority="0" 
-            WarmupPrompt="Loss Compensation Warmup" WarmupPromptBox="2"/>
+            Prompt2="LossCompensationAccelToWarmup" Prompt2Priority="0" 
+			WarmupPrompt="LossCompensationWarmup" WarmupPromptBox="2"/>
 
         <Stop Result="Not Tested" Timeout="1200000" 
             Description="Wait for zerospeed" 

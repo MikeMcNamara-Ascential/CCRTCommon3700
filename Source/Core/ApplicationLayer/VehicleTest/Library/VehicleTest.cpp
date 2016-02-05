@@ -1018,7 +1018,7 @@ std::string VehicleTest::CommandTest(const std::string testType)
     Log(LOG_DEV_DATA, "\ttestType: %s", testType.c_str());
     
     // check the test status so that only one test can be sequenced at a time
-    if((Read(GetDataTag("TestInProgress")) != "1") && !m_testCommandInProgress)
+    if((Read(GetDataTag("TestInProgress")) != "1")/* && !m_testCommandInProgress*/)
     {
         Log(LOG_DEV_DATA, "Commanding Test %s\n", testType.c_str());
 
@@ -1039,6 +1039,7 @@ std::string VehicleTest::CommandTest(const std::string testType)
                  (testType == TEST_TERMINATE))              // if terminate command
         {
             m_testType = testType;
+            m_commandQueue.push(m_testType);
         }
         else                                            // else set status to invalid
         {

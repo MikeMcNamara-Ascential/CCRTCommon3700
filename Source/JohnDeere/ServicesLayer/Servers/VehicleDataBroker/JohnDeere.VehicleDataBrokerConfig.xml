@@ -66,7 +66,7 @@
                 <DieselBGColor DataType="color">white</DieselBGColor>
                 <DiscBrakes DataType="bool">No</DiscBrakes>
                 <DiscBrakesBGColor DataType="color">white</DiscBrakesBGColor>
-                <DriveAxle DataType="string">Rear</DriveAxle>
+                <DriveAxle DataType="string">Front</DriveAxle>
                 <EngineType DataType="string">1.5L</EngineType>
                 <FourWD DataType="bool">No</FourWD>
                 <FourWDBGColor DataType="color">white</FourWDBGColor>

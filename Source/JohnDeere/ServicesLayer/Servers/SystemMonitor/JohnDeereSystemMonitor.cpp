@@ -37,7 +37,7 @@ void JohnDeereSystemMonitor::CheckTesting(ControlData *ctrl)
     static bool testSelected = false;
     Log(LOG_FN_ENTRY, "JohnDeereSystemMonitor::CheckTesting() - Enter");
     // Make sure there are no machine faults that would prevent testing
-    if(!ctrl->machineFault && !ctrl->calSwitch)
+    if(!ctrl->machineFault /*&& !ctrl->calSwitch*/)
     {   //  If a test is in progress, there is nothing to do
         if(ctrl->testInProgress)
         {   // Test in progress, nothing to do
@@ -71,14 +71,14 @@ void JohnDeereSystemMonitor::CheckTesting(ControlData *ctrl)
             
             testSelected = true;
         }
-        // No test in progress, rolls open and no vehicle, start loss compensation sequence
-        else if(!ctrl->testInProgress && ctrl->rollsUp && !ctrl->vehiclePresent && !testSelected)
+        /* No test in progress, rolls open and no vehicle, start loss compensation sequence
+        else if(!ctrl->testInProgress && ctrl->rollsUp && !ctrl->vehiclePresent && !testSelected && ctrl->calSwitch && !m_oldCtrl->calSwitch)
         {   // Only start the test if the operator is pressing the button
             WriteNdbData( DISPLAY_RACK_MONITOR_SCREEN, string("losscompensation"));
             CommandNdbData(string(COMMAND_TEST), string(TEST_LOSS_COMPENSATION));
             RemovePrompt(2, "RaiseRetainers");
             testSelected = true;
-        }
+        }*/
         // No test in progress, rolls closed and no vehicle, prompt to enter VIN
         else if(!ctrl->testInProgress && ctrl->rollsDown && !ctrl->vehiclePresent && 
                 (ctrl->vehVinReadStatus != VALID_VEHICLE_VIN))

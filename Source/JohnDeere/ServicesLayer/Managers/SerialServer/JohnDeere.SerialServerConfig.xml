@@ -13,7 +13,46 @@
         </Logging>
         <LogicalPorts>
 
-            <LeftScanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <MexaISOK enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser1</SerialDevice>
+                    <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
+                    <DefaultReplyTimeout units="milliseconds">500</DefaultReplyTimeout>
+                    <Protocol>
+                        <Baud>9600</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>5</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>logport/MexaISOK</ProcessName>
+                        <AdditionalLogFile>/Servers/MexaISOKComm.log</AdditionalLogFile>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>MexaISOK_Comm</ProcessName>
+                                <AdditionalLogFile>/Communication/MexaISO_BusComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </MexaISOK>
+
+            <LeftScanner enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser3</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
@@ -52,7 +91,7 @@
             </LeftScanner>
 
 
-            <SoundMeter enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <SoundMeter enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser5</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>

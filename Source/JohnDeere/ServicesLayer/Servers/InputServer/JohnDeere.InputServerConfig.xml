@@ -6,7 +6,7 @@
             <!-- ******************************************************* -->
             <!-- *                   Handheld Scanner                  * -->
             <!-- ******************************************************* -->
-            <LeftHandheld enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
+         <LeftHandheld enabled="0" process="$(USR_ROOT)/ServicesLayer/Bin/SymbolScannerMgr.qxe">
                 <Setup>
                     <Communication>
                         <Debug>Off</Debug>

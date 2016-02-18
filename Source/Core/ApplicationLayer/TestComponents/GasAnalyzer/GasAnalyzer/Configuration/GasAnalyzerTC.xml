@@ -61,10 +61,11 @@
             <ConfigFile>/Configuration/Components/GasAnalyzer/MexaAnalyzer.xml</ConfigFile>
             <DelayModuleInitialization>False</DelayModuleInitialization>
             <GasAnalyzerData>
-                <HCppm>3</HCppm>
-                <COpercent>2</COpercent>
-                <CO2>1</CO2>
+                <HCppm>2</HCppm>
+                <COpercent>1</COpercent>
+                <CO2>0</CO2>
             </GasAnalyzerData>
+            <ArmSpeed>10</ArmSpeed>
         </Parameters>
     </Setup>
     <Objectives>
@@ -79,7 +80,7 @@
     <TestSteps>
         <Setup Result="Not Tested" Timeout="500" Description="Setup the gas analyzer"/>
         <EnableMeasurementMode Result="Not tested" Timeout="500" Description="Put the analyzer into measurement mode"/>
-        <GatherAnalyzerData Result="Not Tested" Timeout="500" Description="Read the analyzer data"/>
+        <GatherAnalyzerData Result="Not Tested" Timeout="30000" Description="Read the analyzer data" />
         <EnableStandbyMode Result="Not Tested" Timeout="500" Description="Place the analyzer into standby mode"/>
         <FinishUp Result="Pass" Timeout="1200000" Description="Set machine signals back to known state" Prompt1="LossCompensationComplete" Prompt1Priority="0">Update the results</FinishUp>
     </TestSteps>

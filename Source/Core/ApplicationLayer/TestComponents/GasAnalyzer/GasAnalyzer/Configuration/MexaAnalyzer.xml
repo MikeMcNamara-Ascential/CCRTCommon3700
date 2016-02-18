@@ -1,4 +1,113 @@
 <MexaAnalyzer>
     <Setup>
+        <DataStartIndex Comment="0 based byte index where the header stops and the command ID is located">2</DataStartIndex>
+        <DataHeaderLength Comment="Number of bytes in the header (typically 3 or 4)">2</DataHeaderLength>
+        <SentMessageIdentifierIndex Comment="0 based byte index where the command ID is located">2</SentMessageIdentifierIndex>
+        <!-- Actually there is a wacky one byte checksum which I don't have time to implement right now.... -->
+        <CheckSumLength>0</CheckSumLength>
+        <NumberOfRetries>3</NumberOfRetries>
+        <ValidResponseOffset>0x00</ValidResponseOffset>
+        <NegativeResponseValue>0x15</NegativeResponseValue>
+        <NegativeResponseCodeIndex>0</NegativeResponseCodeIndex>
+        <ModuleResponseDelay>250</ModuleResponseDelay>
+        <ModuleResponseEndDelay>250</ModuleResponseEndDelay>
+        <KeepAliveResponseRequired>No</KeepAliveResponseRequired>
+        <SwitchMonitorDelay>50</SwitchMonitorDelay>
+        <Communication>
+            <Debug>Off</Debug>
+            <Name>MexaISOK</Name>
+            <BufferSize>10</BufferSize>
+            <CommSize>0</CommSize>
+            <Timeout>500000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>MexaGasAnalyzerComm</ProcessName>
+            <AdditionalLogFile>/Communication/MexaGasAnalyzerComm.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
     </Setup>
+    <SerialMessages>
+        <VehicleMessages>
+            <EnableMeasurementMode>
+                <TransmitMessage>Command</TransmitMessage>
+                <TransmitInterpretation>MeasurementMode</TransmitInterpretation>
+                <ReplyMessage>EnableMeasurementMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnableMeasurementMode>
+            <EnableStandbyMode>
+                <TransmitMessage>Command</TransmitMessage>
+                <TransmitInterpretation>StandbyMode</TransmitInterpretation>
+                <ReplyMessage>EnableStandbyMode</ReplyMessage>
+                <ReplyInterpretation/>
+            </EnableStandbyMode>
+            <AnalyzerData>
+                <TransmitMessage>Command</TransmitMessage>
+                <TransmitInterpretation>DataTxRequest</TransmitInterpretation>
+                <ReplyMessage>DataTxRequest</ReplyMessage>
+                <ReplyInterpretation>AnalyzerData</ReplyInterpretation>
+            </AnalyzerData>
+        </VehicleMessages>
+        <TransmitMessages>
+            <Command>0x02,0x01,0x??,0x??</Command>
+        </TransmitMessages>
+        <TransmitInterpretations>
+            <MeasurementMode>0xA6,0x57</MeasurementMode>
+            <StandbyMode>0xA7,0x56</StandbyMode>
+            <DataTxRequest>0x40,0xBD</DataTxRequest>
+        </TransmitInterpretations>
+        <ReplyMessages>
+            <EnableMeasurementMode>
+                <Reply_00>0x06,0xA6,0x00,0x54</Reply_00>
+                <Reply_01>0x15,0xA6,0x01,0x??,0x??</Reply_01>
+            </EnableMeasurementMode>
+            <EnableStandbyMode>
+                <Reply_00>0x06,0xA7,0x00,0x53</Reply_00>
+                <Reply_01>0x15,0xA7,0x01,0x??,0x??</Reply_01>
+            </EnableStandbyMode>
+            <DataTxRequest>
+                <Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="100">0x06,0x40,0x18,0x??</Reply_00>
+                <Reply_01>0x15,0x40,0x01,0x??,0x??</Reply_01>
+            </DataTxRequest>
+        </ReplyMessages>
+        <ReplyInterpretations>
+            <AnalyzerData>
+                <Vector type="fixed">
+                    <!--Subvector00 Desc="DSM"> 
+                         <Integer type="unsigned" bits="16" scale="1" offset="0">
+                              <Byte1 input_index="1" mask="0xFF" output_index="1"/>
+                              <Byte2 input_index="2" mask="0xFF" output_index="0"/>
+                         </Integer>
+                    </Subvector00-->
+                    <Subvector01 Desc="CO2 %vol">
+                        <Float scale="0.01" offset="0">
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector01>
+                    <Subvector02 Desc="CO %vol">
+                        <Float scale="0.01" offset="0">
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="5" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="6" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector02>
+                    <Subvector03 Desc="HC ppm">
+                        <Float scale="1" offset="0">
+                            <Integer type="unsigned" bits="16" scale="1" offset="0">
+                                <Byte1 input_index="7" mask="0xFF" output_index="1"/>
+                                <Byte2 input_index="8" mask="0xFF" output_index="0"/>
+                            </Integer>
+                        </Float>
+                    </Subvector03>
+                </Vector>
+            </AnalyzerData>
+        </ReplyInterpretations>
+    </SerialMessages>
 </MexaAnalyzer>

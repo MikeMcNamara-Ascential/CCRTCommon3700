@@ -181,6 +181,14 @@ namespace Common.Lib.Presenters
                             MainFormView.DisplayTimedDialogBox("Flash Retest Conducted", "Perform Battery Disconnect Procedure", "Ok", 10000);
                             MainFormModel.SetDisplayDisconnectBatteryBox(false);
                         }
+                        if (MainFormModel.GetBASLearnWaitStart())
+                        {
+                            MainFormView.StartBASTimer();
+                        }
+                        else
+                        {
+                            MainFormView.StopBASTimer();
+                        }
                     }
                     catch (ObjectDisposedException ex)
                     {//ignore form closing
@@ -220,6 +228,10 @@ namespace Common.Lib.Presenters
             return MainFormModel.GetChannelName();
         }
         public string GetCurrentBarcodeInputDevice()
+        {
+            return MainFormModel.GetBarcodeInputDeviceName();
+        }
+        public string GetBASLearnWaitStart()
         {
             return MainFormModel.GetBarcodeInputDeviceName();
         }
@@ -328,5 +340,22 @@ namespace Common.Lib.Presenters
         {
             MainFormModel.SetPerformMimamoriFlash(perform);
         }
+        public void IncrementBASTimerCount()
+        {
+            MainFormModel.IncrementBASTimerCount();
+        }
+        public void ResetBASTimerCount()
+        {
+            MainFormModel.ResetBASTimerCount();
+        }
+        public int GetBASTimerCount()
+        {
+            return MainFormModel.GetBASTimerCount();
+        }
+        public bool GetBrakePedalReleased()
+        {
+            return MainFormModel.GetBrakePedalReleased();
+        }
+
     }
 }

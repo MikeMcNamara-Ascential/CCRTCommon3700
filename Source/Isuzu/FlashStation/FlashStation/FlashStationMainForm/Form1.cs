@@ -362,6 +362,15 @@ namespace FlashStationMainForm
                 m_overallProgressBar.Style = ProgressBarStyle.Blocks;
             }
         }
+        public void StartBASTimer()
+        {
+            if(!m_basLearnPromptTimer.Enabled);
+                m_basLearnPromptTimer.Start();
+        }
+        public void StopBASTimer()
+        {
+            m_basLearnPromptTimer.Stop();
+        }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -490,6 +499,17 @@ namespace FlashStationMainForm
         {
             m_presenter.SetPerformMimamoriFlash(flashMimamoriToolStripMenuItem.Checked);
             m_mimaResultBox.Enabled = flashMimamoriToolStripMenuItem.Checked;
+        }
+
+        private void m_basLearnPromptTimer_Tick(object sender, EventArgs e)
+        {
+            if (m_presenter.GetBASTimerCount() <= 120 && m_presenter.GetBrakePedalReleased())
+                m_presenter.IncrementBASTimerCount();
+            else
+            {
+                m_presenter.ResetBASTimerCount();
+                m_basLearnPromptTimer.Stop();
+            }
         }
     }
 }

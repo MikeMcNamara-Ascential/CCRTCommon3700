@@ -28,6 +28,8 @@ namespace Common.Lib
             FLASH_ECUS,
             REPORT_DATA,
             //WAIT_FOR_KEY_OFF,
+            CHECK_FOR_BAS_LEARN,
+            BAS_LEARN,
             WAIT_FOR_CABLEDISCONNECT
         }
         public class Prompt
@@ -52,6 +54,10 @@ namespace Common.Lib
             PASS = "Flash Sequence Complete",
             WAIT_FOR_CABLEDISCONNECT = "Key Off, Disconnect Cable",
             KEY_ON = "Key On",
-            KEY_OFF = "Key Off";
+            KEY_OFF = "Key Off",
+            BAS_RELEARN = "Brake Apply Sensor Home Relearn in progress",
+            FOOT_OFF_BRAKE = "Keep foot off Brake Pedal",
+            APPLY_BRAKE = "Apply brake pedal fully",
+            RELEASE_BRAKE = "Remove foot from brake pedal";
         }
 }

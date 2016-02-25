@@ -9,7 +9,7 @@ namespace Common.Lib.Presenters
 {
     public class MainFormPresenter<T> where T : IBaseInterface
     {
-        protected static IMainFormModel MainFormModel { get; private set; }
+        protected static MainFormModel MainFormModel { get; private set; }
         protected T MainFormView { get; private set; }
 
         //protected static IMainFormModel MainFormModelTests { get; private set; }

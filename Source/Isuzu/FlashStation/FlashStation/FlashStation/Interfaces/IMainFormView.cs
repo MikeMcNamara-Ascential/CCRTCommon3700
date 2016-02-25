@@ -21,6 +21,8 @@ namespace Common.Lib.Interfaces
         void ClearBuildData();
         void ClearLogDisplay();
         void DisplayBuildData(string barcode);
+        void StartBASTimer();
+        void StopBASTimer();
         void StartProgressBar();
         void StopProgressBar();
         void SetProgressBarValue(int value);

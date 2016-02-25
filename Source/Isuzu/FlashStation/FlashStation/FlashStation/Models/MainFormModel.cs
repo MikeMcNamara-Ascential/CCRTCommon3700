@@ -58,6 +58,7 @@ namespace Common.Lib.Models
             m_performECMFlash = true;
             m_performDCUFlash = true;
             m_performMimamoriFlash = true;
+            m_keyOffEngineOffWaitStart = false;
 
         }
 
@@ -111,6 +112,16 @@ namespace Common.Lib.Models
                         //Start vehicle flash thread
                         SetPrompt2(prompt.REPORT_DATA2);
                         taskDelegate = new ThreadStart(ReportDataState);
+                        break;
+                    case StateName.CHECK_FOR_BAS_LEARN:
+                        taskDelegate = new ThreadStart(CheckBASHomePositionLearned);
+                        break;
+                    case StateName.BAS_LEARN:
+                        if (!m_basHomePositionLearned)
+                        {
+                            SetPrompt1(prompt.BAS_RELEARN);
+                            taskDelegate = new ThreadStart(BASHomePositionRelearn);
+                        }
                         break;
                     case StateName.WAIT_FOR_CABLEDISCONNECT:
                         //Start Wait for cable connect thread
@@ -197,6 +208,26 @@ namespace Common.Lib.Models
             {//only allow barcode input if in user input state
                 m_barcode = barcode;
             }
+        }
+        public int GetBASTimerCount()
+        {
+            return m_brakeReleasedCounter;
+        }
+        public void IncrementBASTimerCount()
+        {
+            m_brakeReleasedCounter++;
+        }
+        public void ResetBASTimerCount()
+        {
+            m_brakeReleasedCounter = 0;
+        }
+        public bool GetBrakePedalReleased()
+        {
+            return m_brakeReleased;
+        }
+        public bool GetBASLearnWaitStart()
+        {
+            return m_keyOffEngineOffWaitStart;
         }
 
         public void WaitForUserInput()
@@ -531,6 +562,277 @@ namespace Common.Lib.Models
         }
 
         string m_resultText;
+
+        public void WaitForKeyOn()
+        {
+            while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            {
+                Thread.Sleep(500);
+            }
+            if (GetStatus() != Status.TERMINATE &&
+                GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS);
+        }
+        public void WaitForKeyOff()
+        {
+            while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            {
+                Thread.Sleep(500);
+            }
+            if (GetStatus() != Status.TERMINATE &&
+                GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS);
+        }
+        public void WaitForBrakeApplied()
+        {
+            while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            {
+                Thread.Sleep(500);
+            }
+            if (GetStatus() != Status.TERMINATE &&
+                GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS);
+        }
+        public void WaitForBrakeReleased()
+        {
+            while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            {
+                Thread.Sleep(500);
+            }
+            if (GetStatus() != Status.TERMINATE &&
+                GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS);
+        }
+        public void CreateKeyOnMessage()
+        {
+            List<byte> txMessage = new List<byte>();
+            txMessage.Clear();
+            txMessage.Add(0x22);
+            txMessage.Add(0x20);
+            txMessage.Add(0xD0);
+            List<byte> requestID = new List<byte>();
+            List<byte> responseID = new List<byte>();
+            requestID.Add(0x00);
+            requestID.Add(0x00);
+            requestID.Add(0x07);
+            requestID.Add(0xe0);
+            responseID.Add(0x00);
+            responseID.Add(0x00);
+            responseID.Add(0x07);
+            responseID.Add(0xe8);
+            m_keyOnMessage = CreateECUMessage(txMessage, requestID, responseID);
+            m_keyOnMessage.m_txTimeout = 200;
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+            m_keyOnMessage.m_messageFilter);
+        }
+        public CcrtJ2534Defs.ECUMessage CreateBASLearnMessage()
+        {
+            CcrtJ2534Defs.ECUMessage message;
+            List<byte> txMessage = new List<byte>();
+            txMessage.Clear();
+            txMessage.Add(0x22);
+            txMessage.Add(0x11);
+            txMessage.Add(0x24);
+            List<byte> requestID = new List<byte>();
+            List<byte> responseID = new List<byte>();
+            requestID.Add(0x00);
+            requestID.Add(0x00);
+            requestID.Add(0x07);
+            requestID.Add(0xe0);
+            responseID.Add(0x00);
+            responseID.Add(0x00);
+            responseID.Add(0x07);
+            responseID.Add(0xe8);
+            message = CreateECUMessage(txMessage, requestID, responseID);
+            message.m_txTimeout = 200;
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+            message.m_messageFilter);
+            return message;
+        }
+        public CcrtJ2534Defs.ECUMessage CreateBASRelearnMessage()
+        {
+            CcrtJ2534Defs.ECUMessage message;
+            List<byte> txMessage = new List<byte>();
+            txMessage.Clear();
+            txMessage.Add(0xAE);
+            txMessage.Add(0x20);
+            txMessage.Add(0x00);
+            txMessage.Add(0x00);
+            txMessage.Add(0x00);
+            txMessage.Add(0x00);
+            txMessage.Add(0x02);
+            List<byte> requestID = new List<byte>();
+            List<byte> responseID = new List<byte>();
+            requestID.Add(0x00);
+            requestID.Add(0x00);
+            requestID.Add(0x07);
+            requestID.Add(0xe0);
+            responseID.Add(0x00);
+            responseID.Add(0x00);
+            responseID.Add(0x07);
+            responseID.Add(0xe8);
+            message = CreateECUMessage(txMessage, requestID, responseID);
+            message.m_txTimeout = 200;
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+            message.m_messageFilter);
+            return message;
+        }
+        public CcrtJ2534Defs.ECUMessage CreateBrakePedalPositionMessage()
+        {
+            CcrtJ2534Defs.ECUMessage message;
+            List<byte> txMessage = new List<byte>();
+            txMessage.Clear();
+            txMessage.Add(0x22);
+            txMessage.Add(0x20);
+            txMessage.Add(0xD4);
+            List<byte> requestID = new List<byte>();
+            List<byte> responseID = new List<byte>();
+            requestID.Add(0x00);
+            requestID.Add(0x00);
+            requestID.Add(0x07);
+            requestID.Add(0xe0);
+            responseID.Add(0x00);
+            responseID.Add(0x00);
+            responseID.Add(0x07);
+            responseID.Add(0xe8);
+            message = CreateECUMessage(txMessage, requestID, responseID);
+            message.m_txTimeout = 200;
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+            message.m_messageFilter);
+            return message;
+        }
+        public bool IsKeyOn()
+        {
+            if (m_keyOnMessage == null)
+            {
+                CreateKeyOnMessage();
+            }
+            List<byte> data = new List<byte>();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, /*m_cableConnectMessage*/m_keyOnMessage, ref data);
+            m_logger.Log("INFO:  IsKeyOn() Received: " + BitConverter.ToString(data.ToArray()));
+            if ((data[0] & 0xC0)== 0x80)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool IsBASHomePositionLearned()
+        {
+            CcrtJ2534Defs.ECUMessage message = CreateBASLearnMessage();
+            List<byte> data = new List<byte>();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
+            m_logger.Log("INFO:  IsBASHomePositionLearned() Received: " + BitConverter.ToString(data.ToArray()));
+            if ((data[0] & 0x01) == 0x00)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool IsBrakePedalApplied()
+        {
+            CcrtJ2534Defs.ECUMessage message = CreateBrakePedalPositionMessage();
+            List<byte> data = new List<byte>();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
+            m_logger.Log("INFO:  IsBrakePedalApplied() Received: " + BitConverter.ToString(data.ToArray()));
+            if ((data[0]) == 0x00)
+            {
+                return false ;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public bool IsBASLearnRequestSuccessful()
+        {
+            CcrtJ2534Defs.ECUMessage message = CreateBASRelearnMessage();
+            List<byte> data = new List<byte>();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
+            m_logger.Log("INFO:  IsBASLearnRequestSucessful() Received: " + BitConverter.ToString(data.ToArray()));
+            if ((data[0]) == 0x7F)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public void CheckBASHomePositionLearned()
+        {
+            m_basHomePositionLearned = IsBASHomePositionLearned();
+        }
+        public void BASHomePositionRelearn()
+        {
+            Prompt prompt = new Prompt();
+            m_logger.Log("Sending CPID Request for BAS relearn\n");
+            //Send CPID
+            if (IsBASLearnRequestSuccessful())
+            {
+                m_logger.Log("BAS relearn request successful, starting relearn process\n");
+                //IGN off for 2 minutes
+                SetPrompt2(prompt.KEY_OFF);
+                WaitForKeyOff();
+                SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                m_keyOffEngineOffWaitStart = true;
+                m_logger.Log("Ignition off, starting 2 minute wait\n");
+                while (m_brakeReleasedCounter <= 120)
+                {
+                    m_brakeReleased = !IsBrakePedalApplied();
+                    if (!m_brakeReleased)
+                        m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
+                    Thread.Sleep(100);
+                }
+                m_keyOffEngineOffWaitStart = false;
+                m_logger.Log("Finished 2 minute wait\n");
+                //IGN on
+                SetPrompt2(prompt.KEY_ON);
+                WaitForKeyOn();
+                m_logger.Log("Ignition on, starting brake pedal sequence\n");
+                //Depress brake
+                SetPrompt2(prompt.APPLY_BRAKE);
+                WaitForBrakeApplied();
+                SetPrompt2(prompt.RELEASE_BRAKE);
+                WaitForBrakeReleased();
+                SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                //Wait 10 seconds
+                m_logger.Log("Starting 10 second wait\n");
+                Thread.Sleep(10000); //Change the prompts for this so the driver will know what is happening
+                m_logger.Log("End 10 second wait\n");
+                //Depress brake
+                SetPrompt2(prompt.APPLY_BRAKE);
+                WaitForBrakeApplied();
+                SetPrompt2(prompt.RELEASE_BRAKE);
+                WaitForBrakeReleased();
+                m_logger.Log("End brake pedal sequence\n");
+                //IGN off for 2 minutes
+                SetPrompt2(prompt.KEY_OFF);
+                WaitForKeyOff();
+                SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                m_keyOffEngineOffWaitStart = true;
+                m_logger.Log("Ignition off, starting 2 minute wait\n");
+                while (m_brakeReleasedCounter <= 120)
+                {
+                    m_brakeReleased = !IsBrakePedalApplied();
+                    if (!m_brakeReleased)
+                        m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
+                    Thread.Sleep(100);
+                }
+                m_keyOffEngineOffWaitStart = false;
+                m_logger.Log("Finished 2 minute wait\n");
+            }
+            else
+            {
+                m_logger.Log("CPID request for BAS Relearn not successful\n");
+            }
+            m_logger.Log("Exit BAS Relearn Function\n");
+        }
         public void FlashECUs()
         {
             //Repeatability Test
@@ -725,13 +1027,13 @@ namespace Common.Lib.Models
 
             // using all nodes message: no response will be received
             
-                CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
-                message = CreateAllNodesMessage(txMessage);
-                message.m_responseExpected = false;
-                message.m_rxTimeout = 10;
-                m_testerPresentMessages.Add(message);
-                m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
-                        message.m_messageFilter);
+            CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+            message = CreateAllNodesMessage(txMessage);
+            message.m_responseExpected = false;
+            message.m_rxTimeout = 10;
+            m_testerPresentMessages.Add(message);
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+                    message.m_messageFilter);
             
 //Skip - Wake up all modules - dont think this is necessary
 //Skip - Gateways Wake up all subnets - dont think this is necessary
@@ -2063,10 +2365,27 @@ namespace Common.Lib.Models
         /// </summary>
         private List<String> m_ecuNames;
 
+        private CcrtJ2534Defs.ECUMessage m_keyOnMessage;
+
         /// <summary>
         /// Main Flash station Logger
         /// </summary>
         public Logger m_logger;
+
+        /// <summary>
+        /// Count of the number of seconds the brake pedal is not applied
+        /// </summary>
+        public int m_brakeReleasedCounter;
+
+        /// <summary>
+        /// Boolean if the brake is still released
+        /// </summary>
+        public bool m_brakeReleased;
+
+        /// <summary>
+        /// Boolean if the two minute BAS relearn wait has started
+        /// </summary>
+        public bool m_keyOffEngineOffWaitStart;
 
         /// <summary>
         /// Constant value - Index of pn where file name begins
@@ -2299,6 +2618,10 @@ namespace Common.Lib.Models
         /// </summary>
         private string m_modelCode;
 
+        /// <summary>
+        /// boolean option if the Brake Apply Sensor Home Position has been learned.
+        /// </summary>
+        private bool m_basHomePositionLearned;
 
         //To do Make Configurable
         private string m_flashFileDirectory = @"E:\FlashStation\CalFiles\";

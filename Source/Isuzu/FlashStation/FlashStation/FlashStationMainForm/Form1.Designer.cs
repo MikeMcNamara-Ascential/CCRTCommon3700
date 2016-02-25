@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.m_promptBox1 = new System.Windows.Forms.TextBox();
             this.m_overallProgressBar = new System.Windows.Forms.ProgressBar();
@@ -66,13 +67,14 @@
             this.m_modelYearLabel = new System.Windows.Forms.Label();
             this.m_lotNumberLabel = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.m_mimaResultBox = new System.Windows.Forms.Label();
+            this.m_dcuResultBox = new System.Windows.Forms.Label();
             this.m_tcmResultBox = new System.Windows.Forms.Label();
             this.m_ecmResultBox = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.m_cableConnectPB = new System.Windows.Forms.PictureBox();
             this.m_buildDataPB = new System.Windows.Forms.PictureBox();
-            this.m_dcuResultBox = new System.Windows.Forms.Label();
-            this.m_mimaResultBox = new System.Windows.Forms.Label();
+            this.m_basLearnPromptTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.m_buildInfoGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -473,6 +475,33 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Flash Results";
             // 
+            // m_mimaResultBox
+            // 
+            this.m_mimaResultBox.AutoSize = true;
+            this.m_mimaResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_mimaResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_mimaResultBox.Location = new System.Drawing.Point(207, 12);
+            this.m_mimaResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_mimaResultBox.Name = "m_mimaResultBox";
+            this.m_mimaResultBox.Size = new System.Drawing.Size(197, 48);
+            this.m_mimaResultBox.TabIndex = 13;
+            this.m_mimaResultBox.Text = "Mimamori";
+            this.m_mimaResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.m_mimaResultBox.Visible = false;
+            // 
+            // m_dcuResultBox
+            // 
+            this.m_dcuResultBox.AutoSize = true;
+            this.m_dcuResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_dcuResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_dcuResultBox.Location = new System.Drawing.Point(583, 70);
+            this.m_dcuResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_dcuResultBox.Name = "m_dcuResultBox";
+            this.m_dcuResultBox.Size = new System.Drawing.Size(109, 48);
+            this.m_dcuResultBox.TabIndex = 12;
+            this.m_dcuResultBox.Text = "DCU";
+            this.m_dcuResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // m_tcmResultBox
             // 
             this.m_tcmResultBox.AutoSize = true;
@@ -530,32 +559,10 @@
             this.m_buildDataPB.TabIndex = 21;
             this.m_buildDataPB.TabStop = false;
             // 
-            // m_dcuResultBox
+            // m_basLearnPromptTimer
             // 
-            this.m_dcuResultBox.AutoSize = true;
-            this.m_dcuResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.m_dcuResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_dcuResultBox.Location = new System.Drawing.Point(583, 70);
-            this.m_dcuResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.m_dcuResultBox.Name = "m_dcuResultBox";
-            this.m_dcuResultBox.Size = new System.Drawing.Size(109, 48);
-            this.m_dcuResultBox.TabIndex = 12;
-            this.m_dcuResultBox.Text = "DCU";
-            this.m_dcuResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // m_mimaResultBox
-            // 
-            this.m_mimaResultBox.AutoSize = true;
-            this.m_mimaResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.m_mimaResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_mimaResultBox.Location = new System.Drawing.Point(207, 12);
-            this.m_mimaResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.m_mimaResultBox.Name = "m_mimaResultBox";
-            this.m_mimaResultBox.Size = new System.Drawing.Size(197, 48);
-            this.m_mimaResultBox.TabIndex = 13;
-            this.m_mimaResultBox.Text = "Mimamori";
-            this.m_mimaResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.m_mimaResultBox.Visible = false;
+            this.m_basLearnPromptTimer.Interval = 1000;
+            this.m_basLearnPromptTimer.Tick += new System.EventHandler(this.m_basLearnPromptTimer_Tick);
             // 
             // Form1
             // 
@@ -653,6 +660,7 @@
         private System.Windows.Forms.ToolStripMenuItem flashMimamoriToolStripMenuItem;
         private System.Windows.Forms.Label m_mimaResultBox;
         private System.Windows.Forms.Label m_dcuResultBox;
+        private System.Windows.Forms.Timer m_basLearnPromptTimer;
     }
 }
 

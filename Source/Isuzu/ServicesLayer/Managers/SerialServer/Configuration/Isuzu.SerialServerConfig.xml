@@ -312,7 +312,7 @@
             </Daq>
             <VinStamper enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
-                    <SerialDevice>/dev/sl7804/ser5</SerialDevice>
+                    <SerialDevice>/dev/sl7804/ser3</SerialDevice>
                     <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
                     <Protocol>
                         <Baud>9600</Baud>

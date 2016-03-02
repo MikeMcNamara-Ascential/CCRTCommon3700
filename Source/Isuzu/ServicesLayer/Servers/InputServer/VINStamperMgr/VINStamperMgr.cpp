@@ -82,22 +82,13 @@ void VINStamperMgr::Run(volatile bool *terminateFlag) /* =NULL */
     while (GetStatus() != BEP_TERMINATE)
     {   // Wait for data
         Log(LOG_DEV_DATA,"Waiting for Data\n");
-        byteCount = m_stamperComm.Get(data, 128);
+        memset(data, 0, sizeof(data));
+        byteCount = m_stamperComm.ReadPort(data, 128, 500, 1000);
         if (byteCount > 0)
         {   // Process the data
             Log(LOG_DEV_DATA, "Found %d bytes\n", byteCount);
             ConvertDataToFile((char *)data, byteCount);
         }
-
-        //sleep for a while so more data can come in
-        if(GetStatus() != BEP_TERMINATE)
-            sleep(1);
-        if(GetStatus() != BEP_TERMINATE)
-            sleep(1);
-        if(GetStatus() != BEP_TERMINATE)
-            sleep(1);
-        if(GetStatus() != BEP_TERMINATE)
-            sleep(1);
     }
     Log(LOG_DEV_DATA, "VINStamperMgr::Execute() end\n");
 }
@@ -112,16 +103,19 @@ void VINStamperMgr::ConvertDataToFile(char * data, int byteCount)
     FILE *stampFile = NULL;
     int writeStatus = -99;
     int i;
+    int vinEnd = m_vinStartPosition-1+m_vinLength;
 
     //Check if the data is long enough to have the VIN in it
     if(byteCount >= m_vinStartPosition+m_vinLength)
     {
         // Extract the VIN number from the data
         strncpy(buffer,data+(m_vinStartPosition-1),m_vinLength);
+        Log("Extracted vin from file: %s\n", buffer);
     }
     else
     {
         strncpy(buffer,"00000000000000000",m_vinLength);
+        Log("Using default VIN\n");
     }
     buffer[m_vinLength] = '\0';
     //Name the file based on the extracted VIN number
@@ -131,9 +125,11 @@ void VINStamperMgr::ConvertDataToFile(char * data, int byteCount)
     //Write the data to the new .STP file
     if(NULL != stampFile)  
     {
+        Log("Opened vin stamp file %s\n", fileName);
         if(m_shortenData)
         {   //Shorten the data to the data length
-            for(i = 0; i < GetInputDataLength(); i++)
+            Log("Shortening Vin Stamper Data\n");
+            for(i = vinEnd; i < (GetInputDataLength() + vinEnd); i++)
             {
                 shortData[i] = *data;
                 data++;
@@ -142,9 +138,17 @@ void VINStamperMgr::ConvertDataToFile(char * data, int byteCount)
                 writeStatus = fprintf(stampFile, "%s", shortData);
         }
         else
-            writeStatus = fprintf(stampFile, "%s", data);
+        {
+            Log(LOG_DEV_DATA, "Data: %s, Vin End Index %d, ByteCount: %d", data, vinEnd, byteCount);
+            char tempVin[10];
+            memset(tempVin,0,sizeof(tempVin));
+            Log("Copying the rest of the data\n");
+            strncpy(tempVin,data+(vinEnd),byteCount-vinEnd-1);
+            Log("Writing the data to the file\n");
+            writeStatus = fprintf(stampFile, "%s", tempVin);
+        }
     }
-    Log(LOG_DEV_DATA, "Data: %s, Status: %d", data);
+    Log("Closing the file\n");
     fclose(stampFile);
     //Move the finished STP file to the STP directory
     sprintf(command, "mv %s /home/CCRT/Rewrite/TestResults/STP/",fileName);

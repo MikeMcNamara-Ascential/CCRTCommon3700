@@ -25,7 +25,39 @@ namespace Logger
         /// <param name="logFileCount">Maximum number of log files to keep.</param>
         /// <param name="maxLoggerWinSize">The maximum number of bytes that the Log Textbox will contain (50000 is good place to start if unknown)</param>
         public CcrtLogger(String logFilePath, String processName, TextBox logBox, Int32 logFileCount, Int32 maxLoggerWinSize)
+        {
+            InitializeLogger(logFilePath, processName, logBox, logFileCount, maxLoggerWinSize);
+        }
+
+        /// <summary>
+        /// Create a new logger item.
+        /// A new log file will be opened with the current date in the file name.
+        /// </summary>
+        /// <param name="logFilePath">Directory path for the log file.</param>
+        /// <param name="processName">Name of the process that created this logger.</param>
+        /// <param name="logBox">Text box to use for displaying logging information.</param>
+        /// <param name="logFileCount">Maximum number of log files to keep.</param>
+        public CcrtLogger(String logFilePath, String processName, TextBox logBox, Int32 logFileCount)
+        {
+            InitializeLogger(logFilePath, processName, logBox, logFileCount, 50000);
+        }
+        /// <summary>
+        /// Create a new logger item.
+        /// A new log file will be opened with the current date in the file name.
+        /// </summary>
+        /// <param name="logFilePath">Directory path for the log file.</param>
+        /// <param name="processName">Name of the process that created this logger.</param>
+        /// <param name="logBox">Text box to use for displaying logging information.</param>
+        public CcrtLogger(String logFilePath, String processName, TextBox logBox)
         {   // Create a mutex to protect access to the log file
+
+            InitializeLogger(logFilePath, processName, logBox, 10, 50000);
+
+        }
+
+        private void InitializeLogger(String logFilePath, String processName, TextBox logBox, Int32 logFileCount, Int32 maxLoggerWinSize)
+        {
+            // Create a mutex to protect access to the log file
             LogMutex = new Mutex();
             LogMessageQueue = new Queue<String>();
             // Save the log text box and logging ID info
@@ -44,41 +76,14 @@ namespace Logger
             LogFileCount = logFileCount;
             // Create or open the logging file
             LogFileName = CreateLogFileName();
-            
+
             MessageLogger = new Thread(WriteLogMessagesToFile);
             MessageLogger.Start();
             // Indicate the start of the logging session
             Log("------------------------------------------------------------------------------------------");
             Log(ProcessName + " application started");
-            // Maintain the log files so we do not overload the system with old log files
-//            MaintainLogFiles();
         }
 
-        /// <summary>
-        /// Create a new logger item.
-        /// A new log file will be opened with the current date in the file name.
-        /// </summary>
-        /// <param name="logFilePath">Directory path for the log file.</param>
-        /// <param name="processName">Name of the process that created this logger.</param>
-        /// <param name="logBox">Text box to use for displaying logging information.</param>
-        /// <param name="logFileCount">Maximum number of log files to keep.</param>
-        public CcrtLogger(String logFilePath, String processName, TextBox logBox, Int32 logFileCount)
-        {
-            CcrtLogger logger = new CcrtLogger(logFilePath, processName, logBox, logFileCount, 50000);
-        }
-        /// <summary>
-        /// Create a new logger item.
-        /// A new log file will be opened with the current date in the file name.
-        /// </summary>
-        /// <param name="logFilePath">Directory path for the log file.</param>
-        /// <param name="processName">Name of the process that created this logger.</param>
-        /// <param name="logBox">Text box to use for displaying logging information.</param>
-        public CcrtLogger(String logFilePath, String processName, TextBox logBox)
-        {   // Create a mutex to protect access to the log file
-
-            CcrtLogger logger = new CcrtLogger(logFilePath, processName, logBox, 10, 50000);
-
-        }
         /// <summary>
         /// Close out the log file.
         /// </summary>
@@ -138,27 +143,43 @@ namespace Logger
         /// <param name="message">Message to be logged.</param>
         public void Log(String message, String processName = null)
         {   // Make sure we are the only thread accessing the log queue
-            try
+            if ((LogMutex != null) && (LogMessageQueue != null))
             {
-                LogMutex.WaitOne();
-                String msg = "";
-
-                // Wrap the log message
-                if (message.Length > 0)
+                try
                 {
-                    msg = DateTime.Now.ToString("MMM dd, yyyy HH:mm:ss.fff") + "\t" +
-                                 (processName != null ? processName : ProcessName) + "\t" + message;
-                }
+                    LogMutex.WaitOne();
+                    String msg = "";
 
-                LogMessageQueue.Enqueue(msg);
+                    // Wrap the log message
+                    if (message.Length > 0)
+                    {
+                        msg = DateTime.Now.ToString("MMM dd, yyyy HH:mm:ss.fff") + "\t" +
+                                     (processName != null ? processName : ProcessName) + "\t" + message;
+                    }
+
+                    LogMessageQueue.Enqueue(msg);
+                }
+                catch (AbandonedMutexException excpt)
+                {
+                    DisplayLogMessage("Oops! - " + excpt, false);
+                }
+                catch (NullReferenceException nullExcpt)
+                {
+                    MessageBox.Show("Message: " + nullExcpt.Message + Environment.NewLine +
+                                    "Source:  " + nullExcpt.Source + Environment.NewLine +
+                                    "Stack:   " + nullExcpt.StackTrace, "Logger ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    LogMutex.ReleaseMutex();
+                }
             }
-            catch (AbandonedMutexException excpt)
+            else
             {
-                DisplayLogMessage("Oops! - " + excpt, false);
-            }
-            finally
-            {
-                LogMutex.ReleaseMutex();
+                if (LogMutex == null)
+                    MessageBox.Show("LogMutex is null", "Null Reference Detected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (LogMessageQueue == null)
+                    MessageBox.Show("LogMessageQueue is null", "Null Reference Detected", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

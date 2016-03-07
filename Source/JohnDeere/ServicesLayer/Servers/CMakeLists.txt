@@ -9,4 +9,5 @@ ADD_SUBDIRECTORY(PlantHostInbound)
 #ADD_SUBDIRECTORY(PlantHostOutbound)
 ADD_SUBDIRECTORY(SystemMonitor)
 ADD_SUBDIRECTORY(VehicleDataBroker)
+ADD_SUBDIRECTORY(WinCcrtInterface)
 

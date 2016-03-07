@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutMenuItem" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="ConfigureMenu" xml:space="preserve">
+    <value>Configuração</value>
+  </data>
+  <data name="ConnectDatabase" xml:space="preserve">
+    <value>Conectar ao banco de dados</value>
+  </data>
+  <data name="ConnectToQnx" xml:space="preserve">
+    <value>Conectando-se a QNX CCRT sistema</value>
+  </data>
+  <data name="CouldNotFindDatabase" xml:space="preserve">
+    <value>Contagem não encontrar Banco de Dados CCRT</value>
+  </data>
+  <data name="CurrentLogMenuItem" xml:space="preserve">
+    <value>Arquivo de log atual</value>
+  </data>
+  <data name="DatabaseMenuItem" xml:space="preserve">
+    <value>Banco de Dados</value>
+  </data>
+  <data name="DataItemColumn" xml:space="preserve">
+    <value>Item de Dados</value>
+  </data>
+  <data name="DataItemsMenuItem" xml:space="preserve">
+    <value>Itens de Dados</value>
+  </data>
+  <data name="DbLocationMenuItem" xml:space="preserve">
+    <value>Localidade Banco de Dados</value>
+  </data>
+  <data name="DeviceNameColumn" xml:space="preserve">
+    <value>Nome do Dispositivo</value>
+  </data>
+  <data name="DeviceTypeColumn" xml:space="preserve">
+    <value>Tipo de Dispositivo</value>
+  </data>
+  <data name="DisplayLanguageMenuItem" xml:space="preserve">
+    <value>Idioma de Exibição</value>
+  </data>
+  <data name="ExitInputServer" xml:space="preserve">
+    <value>Saindo do Servidor de Entrada</value>
+  </data>
+  <data name="ExitMenuItem" xml:space="preserve">
+    <value>Saída</value>
+  </data>
+  <data name="FileMenu" xml:space="preserve">
+    <value>Arquivo</value>
+  </data>
+  <data name="HelpMenu" xml:space="preserve">
+    <value>Ajuda</value>
+  </data>
+  <data name="InputDataColumn" xml:space="preserve">
+    <value>Dados de Entrada</value>
+  </data>
+  <data name="InputDevicesLabel" xml:space="preserve">
+    <value>Dispositivos de Entrada:</value>
+  </data>
+  <data name="InputServerWindowTitle" xml:space="preserve">
+    <value>Servidor de Entrada</value>
+  </data>
+  <data name="LogDirMenuItem" xml:space="preserve">
+    <value>Diretório do Arquivo de Log</value>
+  </data>
+  <data name="LogMessagesLabel" xml:space="preserve">
+    <value>Mensagens:</value>
+  </data>
+  <data name="MaxLogFilesMenuItem" xml:space="preserve">
+    <value>Máximo de Arquivos de Log</value>
+  </data>
+  <data name="NoDatabaseFile" xml:space="preserve">
+    <value>Sem arquivo de banco de dados localizado!</value>
+  </data>
+  <data name="OpenInputDevices" xml:space="preserve">
+    <value>Abertura dispositivos de entrada</value>
+  </data>
+  <data name="OpenLogFile" xml:space="preserve">
+    <value>Abertura do arquivo de log</value>
+  </data>
+  <data name="PortSettingsMenuItem" xml:space="preserve">
+    <value>Configurações da Porta</value>
+  </data>
+  <data name="PreviousLogMenuItem" xml:space="preserve">
+    <value>Anterior arquivos de log</value>
+  </data>
+  <data name="QnxIpAddressLabel" xml:space="preserve">
+    <value>QNX CCRT Endereço IP:</value>
+  </data>
+  <data name="QnxIpAddressMenuItem" xml:space="preserve">
+    <value>CCRT Endereços IP</value>
+  </data>
+  <data name="SendToQnxColumn" xml:space="preserve">
+    <value>Enviar para QNX</value>
+  </data>
+  <data name="ViewMenu" xml:space="preserve">
+    <value>Vista</value>
+  </data>
+  <data name="CloseLabel" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="EnglishOption" xml:space="preserve">
+    <value>Inglês</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="PortugueseOption" xml:space="preserve">
+    <value>Português</value>
+  </data>
+  <data name="SaveLabel" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="LocalizationTitle" xml:space="preserve">
+    <value>Localização</value>
+  </data>
+  <data name="DataItemTitle" xml:space="preserve">
+    <value>Dados formulário do item</value>
+  </data>
+  <data name="DataSettingsLabel" xml:space="preserve">
+    <value>Configurações de dados:</value>
+  </data>
+  <data name="MaxLengthLabel" xml:space="preserve">
+    <value>Comprimento máximo:</value>
+  </data>
+  <data name="MinLengthLabel" xml:space="preserve">
+    <value>Comprimento mínimo:</value>
+  </data>
+  <data name="RemoveItemLabel" xml:space="preserve">
+    <value>Remover Item</value>
+  </data>
+  <data name="SaveSettingsLabel" xml:space="preserve">
+    <value>Salvar configurações</value>
+  </data>
+  <data name="BaudRateLabel" xml:space="preserve">
+    <value>Taxa de Ttransmissão:</value>
+  </data>
+  <data name="DataBitsLabel" xml:space="preserve">
+    <value>Bits de Dados:</value>
+  </data>
+  <data name="DeviceConfigTitle" xml:space="preserve">
+    <value>Configuração do dispositivo de entrada</value>
+  </data>
+  <data name="HeaderDataLabel" xml:space="preserve">
+    <value>Dados do Cabeçalho:</value>
+  </data>
+  <data name="HeaderLengthLabel" xml:space="preserve">
+    <value>Tamanho do Cabeçalho:</value>
+  </data>
+  <data name="MonitorDataLabel" xml:space="preserve">
+    <value>Prestar Atenção para os Dados</value>
+  </data>
+  <data name="ParityLabel" xml:space="preserve">
+    <value>Paridade:</value>
+  </data>
+  <data name="PortLabel" xml:space="preserve">
+    <value>Porto:</value>
+  </data>
+  <data name="ReadTimeoutLabel" xml:space="preserve">
+    <value>Leitura de Tempo Limite (ms):</value>
+  </data>
+  <data name="RemoveDeviceLabel" xml:space="preserve">
+    <value>Remover Dispositivo</value>
+  </data>
+  <data name="StartingInputServer" xml:space="preserve">
+    <value>Iniciando o Windows CCRT Servidor de entrada ...</value>
+  </data>
+  <data name="StopBitsLabel" xml:space="preserve">
+    <value>bits de Parar:</value>
+  </data>
+  <data name="TrailerDataLabel" xml:space="preserve">
+    <value>Seguintes Dados</value>
+  </data>
+  <data name="TrailerLengthLabel" xml:space="preserve">
+    <value>Tamanho do Seguinte</value>
+  </data>
+  <data name="WriteTimeoutLabel" xml:space="preserve">
+    <value>Escreva Tempo Limite (ms):</value>
+  </data>
+  <data name="InvalidIpFormat" xml:space="preserve">
+    <value>Inválido Formato de endereço IP!</value>
+  </data>
+  <data name="MaxLogFileCountTitle" xml:space="preserve">
+    <value>Contar Máximo de Arquivo Log</value>
+  </data>
+  <data name="MaxNumberOfFiles" xml:space="preserve">
+    <value>Número Máximo de Arquivos de Log:</value>
+  </data>
+  <data name="WinIpAddressLabel" xml:space="preserve">
+    <value>Windows CCRT Endereço IP:</value>
+  </data>
+</root>

@@ -1,0 +1,306 @@
+<SerialMessages>
+    <VehicleMessages>
+      <ExampleOne>
+        <TransmitMessage>SampleSolidTransmitMesssage</TransmitMessage>
+        <TransmitInterpretation/>
+        <ReplyMessage>SampleSolidReplyMessage</ReplyMessage>
+        <ReplyInterpretation/>
+      </ExampleOne>
+      <ExampleTwo>
+        <TransmitMessage>SampleSolidTransmitMesssage</TransmitMessage>
+        <TransmitInterpretation/>
+        <ReplyMessage>SampleReplyWithVariableInterpretation</ReplyMessage>
+        <ReplyInterpretation>ClearFaults</ReplyInterpretation>
+      </ExampleTwo>
+      <ExampleThree>
+        <TransmitMessage>SampleVariableTransmitMessage</TransmitMessage>
+        <TransmitInterpretation>TransmitInterpOne</TransmitInterpretation>
+        <ReplyMessage>SampleReplyWithVariableInterpretation</ReplyMessage>
+        <ReplyInterpretation>IsEssEquipped</ReplyInterpretation>
+      </ExampleThree>
+      <ExampleFour>
+        <TransmitMessage>SampleVariableTransmitMessage</TransmitMessage>
+        <TransmitInterpretation>TransmitInterTwo</TransmitInterpretation>
+        <ReplyMessage>SampleSolidReplyMessage</ReplyMessage>
+        <ReplyInterpretation></ReplyInterpretation>
+      </ExampleFour>    
+    </VehicleMessages>
+    <TransmitMessages>      
+      <SampleSolidMesssage>0x30,0x2E,0x00</SampleSolidMesssage>
+      <SampleVariableTransmitMessage>0x31,0x??,0x??</SampleVariableTransmitMessage>
+    </TransmitMessages>
+    <TransmitInterpretations>
+      <TransmitInterpOne>0x80,0x05</TransmitInterpOne>
+      <TransmitInterTwo>0x01,0x9E</TransmitInterTwo>
+    </TransmitInterpretations>
+    <ReplyMessages>
+      <SampleReplyWithVariableInterpretation>
+        <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x62,0x0B,0x68,0x??,0x??</Reply_00>
+        <Reply_01>0x7F,0x22,0x??</Reply_01>
+      </SampleReplyWithVariableInterpretation>
+	  <SampleSolidReplyMessage>
+        <Reply_00>0x62,0x9E,0x8E,0x12,0xEF</Reply_00>
+        <Reply_04>0x7F,0x22,0x??</Reply_04>
+      </SampleSolidReplyMessage>	  
+      <SampleMultipleReplyWithVariableInterpretation>
+        <Reply_00>0x62,0x9E,0x8E,0x??,0x??</Reply_00>
+        <Reply_01>0x62,0x9E,0x8F,0x??,0x??</Reply_01>
+        <Reply_02>0x62,0x9E,0x90,0x??,0x??</Reply_02>
+        <Reply_03>0x62,0x9E,0x91,0x??,0x??</Reply_03>
+        <Reply_04>0x7F,0x22,0x??</Reply_04>
+      </SampleMultipleReplyWithVariableInterpretation>
+    </ReplyMessages>
+    <ReplyInterpretations>
+      <SampleStringInterpretation>
+        <STRING>
+          <SUBSTRING format="%10s">
+            <CHARS input_index="12" mask="0xFF" length="10"/>
+          </SUBSTRING>
+        </STRING>
+      </SampleStringInterpretation>
+      <SampleVectorInterpretation>
+        <STRING>
+          <Substring00 format="%1s">
+            <Chars input_index="2" mask="0xFF" length="1"/>
+          </Substring00>
+          <Substring01>
+            <Chars input_index="3" mask="0xFF" length="1">
+              <StringSubstitute00 condition="equals" compare="0xFF" replace="x"/>
+              <StringSubstitute01 condition="not equal" compare="0xFF" replace="x"/>
+            </Chars>
+          </Substring01>
+          <Substring02>
+            <Chars input_index="4" mask="0xFF" length="1">
+              <StringSubstitute00 condition="equals" compare="0xFF" replace="x"/>
+              <StringSubstitute01 condition="not equal" compare="0xFF" replace="x"/>
+            </Chars>
+          </Substring02>
+          <Substring03 format="%11s">
+            <Chars input_index="5" mask="0xFF" length="11"/>
+          </Substring03>
+        </STRING>
+      </SampleVectorInterpretation>
+      <SampleCompareEqualsString>
+        <String>
+          <Substring>
+            <Chars input_index="10" mask="0xFF" length="1">
+              <StringSubstitute00 condition="equals" compare="0x0001" replace="Canada Emissions"/>
+              <StringSubstitute01 condition="equals" compare="0x0002" replace="ECE Emissions"/>
+              <StringSubstitute02 condition="equals" compare="0x0004" replace="Fifty State Emissions"/>
+              <StringSubstitute03 condition="equals" compare="0x0008" replace="BUX Emissions"/>
+              <StringSubstitute04 condition="equals" compare="0x0010" replace="Mexico Emissions"/>
+              <StringSubstitute05 condition="equals" compare="0x0020" replace="California Emissions"/>
+              <StringSubstitute06 condition="equals" compare="0x0040" replace="Federal Emissions"/>
+              <StringSubstitute07 condition="equals" compare="0x0080" replace="PZEV Emissions"/>
+            </Chars>
+          </Substring>
+        </String>
+      </SampleCompareEqualsString>
+      <SampleBool>
+        <Boolean>
+          <Byte1 input_index="13" mask="0x40" compare="0x40"/>
+        </Boolean>
+      </SampleBool>
+       <SampleInteger>
+         <Integer type="unsigned" bits="16" scale="1" offset="0">
+          <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+          <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+        </Integer>
+       </SampleInteger>
+      <SampleAndBool>
+        <Boolean>
+          <AND>
+            <Byte1 input_index="12" mask="0x01" compare="0x01"/>
+            <Byte2 input_index="13" mask="0x40" compare="0x00"/>
+          </AND>
+        </Boolean>
+      </SampleAndBool> 
+      <SampleNotBool>
+        <Boolean>
+          <NOT>
+            <Byte input_index="4" mask="0x20" compare="0x20"/>
+          </NOT>
+        </Boolean>
+      </SampleNotBool>
+      <SampleFloat>
+        <Float scale="0.2" offset="0">
+          <Integer type="unsigned" scale="1" offset="0">
+            <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+            <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+          </Integer>
+        </Float>
+      </SampleFloat> 
+      <SampleIntVector>    
+        <Vector type="fixed">
+          <Subvector00>
+            <Integer type="unsigned" bits="8" scale="1" offset="0">
+              <Byte1 input_index="2" mask="0xFF" output_index="0"/>
+            </Integer>
+          </Subvector00>
+          <Subvector01>
+            <Integer type="unsigned" bits="8" scale="1" offset="0">
+              <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+            </Integer>
+          </Subvector01>
+          <Subvector02>
+            <Integer type="unsigned" bits="8" scale="1" offset="0">
+              <Byte1 input_index="4" mask="0xFF" output_index="0"/>
+            </Integer>
+          </Subvector02>
+          <Subvector03>
+            <Integer type="unsigned" bits="8" scale="1" offset="0">
+              <Byte1 input_index="5" mask="0xFF" output_index="0"/>
+            </Integer>
+          </Subvector03>
+        </Vector>
+      </SampleIntVector>   
+      <SampleFloatVector>
+        <Vector type="fixed">
+          <Subvector00>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="104" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="105" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector00>
+          <Subvector01>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="106" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="107" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector01>
+          <Subvector02>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="108" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="109" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector02>
+          <Subvector03>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="110" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="111" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector03>
+          <Subvector04>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="112" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="113" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector04>
+          <Subvector05>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="114" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="115" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector05>
+          <Subvector06>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="116" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="117" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector06>
+          <Subvector07>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="118" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="119" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector07>
+          <Subvector08>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="120" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="121" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector08>
+          <Subvector09>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="122" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="123" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector09>
+          <Subvector10>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="124" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="125" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector10>
+          <Subvector11>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="126" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="127" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector11>
+          <Subvector12>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="128" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="129" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector12>
+          <Subvector13>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="130" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="131" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector13>
+          <Subvector14>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="132" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="133" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector14>
+          <Subvector15>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="134" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="135" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector15>
+          <Subvector16>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="136" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="137" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector16>
+          <Subvector17>
+            <Float scale="0.000030517578125" offset="0">
+              <Integer type="unsigned" bits="16" scale="1" offset="0">
+                <Byte1 input_index="138" mask="0xFF" output_index="1"/>
+                <Byte2 input_index="139" mask="0xFF" output_index="0"/>
+              </Integer>
+            </Float>
+          </Subvector17>
+        </Vector>
+      </SampleFloatVector>
+    </ReplyInterpretations>
+  </SerialMessages>

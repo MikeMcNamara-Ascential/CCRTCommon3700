@@ -844,7 +844,13 @@
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/fido/platform.h"/>
 							</Folder>
 							<Folder Name="Linux">
+								<F
+									N="ServicesLayer/Managers/PlcMgr/Eip/Platform/Linux/Eadk.mk"
+									Type="Makefile"/>
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/Linux/EadkDemo.c"/>
+								<F
+									N="ServicesLayer/Managers/PlcMgr/Eip/Platform/Linux/EadkDemo.mk"
+									Type="Makefile"/>
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/Linux/mbspltfm.c"/>
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/Linux/mbspltfm.h"/>
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/Linux/platform.c"/>
@@ -852,6 +858,9 @@
 							</Folder>
 							<Folder Name="NetBurner">
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/NetBurner/EADK.c"/>
+								<F
+									N="ServicesLayer/Managers/PlcMgr/Eip/Platform/NetBurner/EADKDemo.mk"
+									Type="Makefile"/>
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/NetBurner/eipnbsoc.c"/>
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/NetBurner/eipnbsoc.h"/>
 								<F N="ServicesLayer/Managers/PlcMgr/Eip/Platform/NetBurner/mbspltfm.c"/>
@@ -1400,6 +1409,9 @@
 					<F N="ServicesLayer/Servers/WinCcrtInterface/WinCcrtInterface.cpp"/>
 					<F N="ServicesLayer/Servers/WinCcrtInterface/WinCcrtInterface.h"/>
 					<F N="ServicesLayer/Servers/WinCcrtInterface/WinCcrtInterfaceMain.cpp"/>
+					<F N="ServicesLayer/Servers/WinCcrtInterface/WinPendantInterface.cpp"/>
+					<F N="ServicesLayer/Servers/WinCcrtInterface/WinPendantInterface.h"/>
+					<F N="ServicesLayer/Servers/WinCcrtInterface/WinPendantInterfaceMain.cpp"/>
 				</Folder>
 				<F N="ServicesLayer/Servers/CMakeLists.txt"/>
 			</Folder>

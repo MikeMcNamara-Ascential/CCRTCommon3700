@@ -269,7 +269,6 @@
             // 
             // m_stpFileCheckTimer
             // 
-            this.m_stpFileCheckTimer.Enabled = true;
             this.m_stpFileCheckTimer.Interval = 1000;
             this.m_stpFileCheckTimer.Tick += new System.EventHandler(this.m_stpFileCheckTimer_Tick);
             // 

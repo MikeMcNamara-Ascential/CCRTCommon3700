@@ -119,7 +119,7 @@ void VINStamperMgr::ConvertDataToFile(char * data, int byteCount)
     }
     buffer[m_vinLength] = '\0';
     //Name the file based on the extracted VIN number
-    sprintf(fileName, "/tmp/%s.STP", buffer);
+    sprintf(fileName, "/home/CCRT/Rewrite/TestResults/STP/%s.STP", buffer);
     stampFile = fopen(fileName, "w");
 
     //Write the data to the new .STP file
@@ -148,12 +148,11 @@ void VINStamperMgr::ConvertDataToFile(char * data, int byteCount)
             writeStatus = fprintf(stampFile, "%s", tempVin);
         }
     }
+    delay(100);
     Log("Closing the file\n");
     fclose(stampFile);
-    //Move the finished STP file to the STP directory
-    sprintf(command, "mv %s /home/CCRT/Rewrite/TestResults/STP/",fileName);
-    system(command);
     Log(LOG_DEV_DATA,"VINStamperMgr::ConvertDataToFile() - Exit\n");
+    return;
 }
 
 inline const INT32& VINStamperMgr::GetInputDataLength(void)

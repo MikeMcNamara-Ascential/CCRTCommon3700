@@ -46,16 +46,21 @@ namespace BomFileProcessor
 
             List<string> remotePaths = new List<string>();
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation);
+            m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.RealTimePCESNFileLocation + " to the remote paths");
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.RealTimePCESNFlashTransferLocation);
+            m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.RealTimePCESNFlashTransferLocation + " to the remote paths");
 
             List<string> users = new List<string>();
-            users.Add("ccrtfp");
+            users.Add("burke");
+            users.Add("burke");
 
             List<string> passwords = new List<string>();
-            passwords.Add("ccrtfp");
+            passwords.Add("porter");
+            passwords.Add("porter");
 
             List<string> ipaddresses = new List<string>();
-            ipaddresses.Add("10.20.145.2:2121");
+            ipaddresses.Add("192.168.1.3:2121");
+            ipaddresses.Add("192.168.1.3:2121");
             //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
             m_engineSerialNumberFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation,
                 users, passwords, ipaddresses,m_logger);
@@ -879,14 +884,18 @@ namespace BomFileProcessor
             m_stpFileCheckTimer.Stop();
             try
             {
-                string[] files = Directory.GetFiles("\\\\172.16.253.1\\" + BomFileProcessor.Properties.Settings.Default.CcrtVINStamperFileLocation);
+                m_logger.Log("Attempting to get VIN Stamper files\n");
+                string[] files = Directory.GetFiles("\\\\192.168.1.3\\" + BomFileProcessor.Properties.Settings.Default.CcrtVINStamperFileLocation);
 
                 if (files.Count() > 0)
                 {
+                    
                     foreach (string s in files)
                     {
+                       m_logger.Log("Retrieving VIN Stamper files from: " + s.Substring(s.LastIndexOf('\\') + 1) + "\n");
                         m_vinStampingFileMonitor.TransferFileFromFtpLocation(s.Substring(s.LastIndexOf('\\') + 1));
                     }
+                    m_logger.Log("Retrieved VIN Stamper files\n");
                 }
             }
             catch
@@ -1164,13 +1173,15 @@ namespace BomFileProcessor
                 public BomFtpFileMonitor(string source, string target, string temp, int fileCheckInterval,
             string userLogin, string password, string ftpServerIp,Logger logger, string fileMask = "*")
             : base(source, target, temp, fileCheckInterval,
-                userLogin, password, ftpServerIp,fileMask)
+                    userLogin, password, ftpServerIp, fileMask, logger)/*base(source, target, temp, fileCheckInterval,
+                userLogin, password, ftpServerIp,fileMask)*/
         {
             m_logFunction = logger;
         }
+                
                 public BomFtpFileMonitor(List<string> remoteLocations, string localLocation, List<string> userLogins,
             List<string> passwords, List<string> ftpServerIps, Logger logger, string fileMask = "*")
-            : base(remoteLocations, localLocation, userLogins, passwords, ftpServerIps,fileMask)
+            : base(remoteLocations, localLocation, userLogins, passwords, ftpServerIps,fileMask, logger)
         {
             m_logFunction = logger;
         }

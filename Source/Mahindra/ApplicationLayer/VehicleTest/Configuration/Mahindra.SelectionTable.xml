@@ -10,4 +10,9 @@
         <TransferCase>4WD</TransferCase>
     </BaseBrake4wd>
 
+    <BaseBrakeSPDL DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurveSPDL.xml">
+       <BrakeType>SpeedLimitter</BrakeType>
+       <TransferCase>2WD</TransferCase>
+    </BaseBrakeSPDL>
+
 </SelectionTable>

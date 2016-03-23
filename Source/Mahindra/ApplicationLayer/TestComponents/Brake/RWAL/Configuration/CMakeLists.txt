@@ -3,5 +3,6 @@
 #------------------------------------------------------------------------------------------
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
 	RwalBrakeTestTc.xml
+	RwalBrakeTestTcSPDL.xml
 	)
 	

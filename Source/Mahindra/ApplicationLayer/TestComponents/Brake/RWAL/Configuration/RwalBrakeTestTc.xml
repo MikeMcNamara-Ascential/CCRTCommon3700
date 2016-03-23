@@ -178,13 +178,13 @@
             <!-- Drag Test Parameters -->
             <DisplayBrakeTargetSpeeds>False</DisplayBrakeTargetSpeeds>
             <!-- Park Brake Parameters -->
-            <ParkBrakeArmSpeed Units="mph">18.6</ParkBrakeArmSpeed>
-            <ParkBrakeEndSampleSpeed Units="mph">0.5</ParkBrakeEndSampleSpeed>
+         <ParkBrakeArmSpeed Units="mph">6</ParkBrakeArmSpeed>
+         <ParkBrakeEndSampleSpeed Units="mph">1</ParkBrakeEndSampleSpeed>
             <ParkBrakeForceSampleCount>0</ParkBrakeForceSampleCount>
             <ParkBrakeMaxForce Units="lbf">300</ParkBrakeMaxForce>
             <ParkBrakeMinForce Units="lbf">100</ParkBrakeMinForce>
             <ParkBrakeMinimumStartForce Units="lbf">100</ParkBrakeMinimumStartForce>
-            <ParkBrakeStartSampleSpeed Units="mph">15.0</ParkBrakeStartSampleSpeed>
+         <ParkBrakeStartSampleSpeed Units="mph">5</ParkBrakeStartSampleSpeed>
             <ParkBrakeStartSamplingAtMinimumForce>False</ParkBrakeStartSamplingAtMinimumForce>
             <!-- RWAL Test Parameters -->
             <RwalTestSpeed Units="mph">12.0</RwalTestSpeed>
@@ -234,7 +234,7 @@
     </Objectives>
     <TestSteps>
         <AccelerateToBrakeSpeed Result="Not Tested" Timeout="300000" Description="Accelerate to the brake test speed" SpeedTarget="35 45" ArmSpeed="35" Prompt1="AccelerateToTargetSpeed"/>
-        <AccelerateToParkBrakeSpeed Result="" Timeout="120000" Description="Accel to Park Brake Speed" SpeedTarget="19 25" ArmSpeed="30" Prompt1="AccelerateToTargetSpeed"/>
+      <AccelerateToParkBrakeSpeed Result="" Timeout="120000" Description="Accel to Park Brake Speed" SpeedTarget="5 15" ArmSpeed="55" Prompt1="AccelerateToTargetSpeed"/>
         <AnalyzeBalance Result="Not Tested" Timeout="100" Description="Analyze brake force balance" FrontSideToSideBalance="20" RearSideToSideBalance="20" BalanceFrontToRearMin="20" BalanceFrontToRearMax="80"/>
         <AnalyzeBrakeTest Result="Not Tested" Timeout="500" Description="Analyze brake forces" FrontMaxBrakeForce="400" FrontMinBrakeForce="150" RearMaxBrakeForce="400" RearMinBrakeForce="75"/>
         <AnalyzeDragTest Result="Not Tested" Timeout="500" Description="Analyze drag force data" FrontMaxDragForce="90" RearMaxDragForce="90"/>

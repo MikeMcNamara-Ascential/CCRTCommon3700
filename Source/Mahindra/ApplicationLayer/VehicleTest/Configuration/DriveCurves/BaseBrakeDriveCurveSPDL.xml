@@ -1,0 +1,117 @@
+<DriveCurve Description="Base brake drive curve">
+   <Components Debug="Off">
+      <Brake>
+         <ComponentName>RwalBrakeTest.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>RwalBrakeTestTcSPDL.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+         <Debug>Off</Debug>
+      </Brake>
+      <Machine>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MachineTcSPDL.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <Debug>Off</Debug>
+      </Machine>
+      <Transmission>
+         <ComponentName>ManualTransTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>ManualTransmissionConfigSPDL.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
+         <Debug>Off</Debug>
+      </Transmission>
+   </Components>
+   <Test Result="" Debug="Off">
+      <!-- Initialize the system -->
+      <TestPhase000 Description="Initialize the machine" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Init machine Component" Result="" Timeout="" Component="Machine">
+               <Initialize/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase000>
+      <TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">
+               <Setup/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase005>
+      <!-- Perform the transmission testing -->
+      <TestPhase100 Description="Perform the transmission gear test" Result="" Timeout="" ConditionalTest="False" ConditionalTag="SpeedLimitTestSelected" ConditionalValue="False">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Run the transmission gear test" Result="" Timeout="" Component="Transmission">
+               <SpeedBasedShiftTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase100>
+      <TestPhase110 Description="Perform the transmission gear test" Result="" Timeout="" ConditionalTest="True" ConditionalTag="SpeedLimitTestSelected" ConditionalValue="True">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Run the transmission gear test" Result="" Timeout="" Component="Transmission">
+               <ShiftTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase110>
+      <!-- Perform the brake test -->
+      <TestPhase200 Description="Perform the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="run the base brake test" Result="" Timeout="" Component="Brake">
+               <BrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase200>
+      <TestPhase205 Description="Brake to stop and analyze results" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Brake to stop" Result="" Timeout="" Component="Machine">
+               <BrakeToStop/>
+            </Objective0>
+         </ForegroundObjectives>
+         <BackgroundObjectives Result="" Timeout="">
+            <Objective0 Description="Analyze brake test data" Result="" Timeout="" Component="Brake">
+               <AnalyzeBrakeTest/>
+            </Objective0>
+         </BackgroundObjectives>
+      </TestPhase205>
+      <TestPhase210 Description="Engage the machine" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Engage the machine" Result="" Timeout="" Component="Machine">
+               <EngageMachine/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase210>
+      <!-- Final Low Speed Testing -->
+      <!--TestPhase300 Description="Disengage to prevent front boost during park brake test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Set the transmission result" Result="" Timeout="" Component="Machine">
+                    <DisengageMachine/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase300-->
+      <TestPhase310 Description="Finishup the transmission testing and run the park brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Set the transmission result" Result="" Timeout="" Component="Transmission">
+               <FinishUp/>
+            </Objective0>
+            <Objective1 Description="Perform the park brake test" Result="" Timeout="" Component="Brake">
+               <ParkBrakeTest/>
+            </Objective1>
+         </ForegroundObjectives>
+      </TestPhase310>
+      <TestPhase315 Description="RWAL Sensor Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Perform the RWAL sensor test" Result="" Timeout="" Component="Brake">
+               <RwalTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase315>
+      <!-- Finishup and set results -->
+      <TestPhase400 Description="Set the result for the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
+               <FinishUp/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase400>
+   </Test>
+</DriveCurve>

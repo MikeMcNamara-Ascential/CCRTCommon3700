@@ -605,7 +605,7 @@
         <BoostPressureFeedBack channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <SmokeMeterValue channelIndex="29" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <FrontAxleTestSelected channelIndex="30" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
-        <LiftAxleTestSelected channelIndex="30" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
+        <SpeedLimitTestSelected channelIndex="30" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
         <LeftBrakeForceTransducer channelIndex="31" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <LFLoadCellValue channelIndex="32" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         <RFLoadCellValue channelIndex="33" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>

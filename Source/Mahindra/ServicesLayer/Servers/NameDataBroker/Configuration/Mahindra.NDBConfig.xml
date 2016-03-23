@@ -739,6 +739,7 @@
             <OkToRoll DataType="bool">SystemMonitor</OkToRoll>
             <OldLTSpeed DataType="float" Units="MPH">ICM</OldLTSpeed>
             <OpenExhaustFlap DataType="bool">PLC</OpenExhaustFlap>
+			<SpeedLimitTestSelected DataType="bool">PLC</SpeedLimitTestSelected>
             <Open_N16_20_10 DataType="bool">PLC</Open_N16_20_10>
             <Open_N16_20_11 DataType="bool">PLC</Open_N16_20_11>
             <Open_N16_20_12 DataType="bool">PLC</Open_N16_20_12>

@@ -18,7 +18,7 @@
         <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
         <NegativeResponseValue>0x7F</NegativeResponseValue>
         <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
-        <ModuleResponseDelay>7000</ModuleResponseDelay>
+        <ModuleResponseDelay>500</ModuleResponseDelay>
         <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
         <DiagnosticRequestCode>0x0C</DiagnosticRequestCode>
         <DiagnosticResponseCode>0x0C</DiagnosticResponseCode>

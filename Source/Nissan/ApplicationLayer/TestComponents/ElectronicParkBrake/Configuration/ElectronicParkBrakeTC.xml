@@ -1,0 +1,96 @@
+<SatelliteRadioTestComponent>
+   <Setup>
+      <Debug>Off</Debug>
+      <Name>ElectronicParkBrake</Name>
+      <TestDomain>Foreground</TestDomain>
+      <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+      <SystemTagsToReset/>
+      <Communication>
+         <Debug>Off</Debug>
+         <Type>Server</Type>
+         <Comm>IPC</Comm>
+         <Name>component/ElectronicParkBrake</Name>
+         <BufferSize>1024</BufferSize>
+         <Timeout>2000</Timeout>
+      </Communication>
+      <TagList>
+         <SubscribeTags>
+            <VIN/>
+            <CableConnect/>
+            <Zerospeed/>
+            <Abort/>
+         </SubscribeTags>
+      </TagList>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>ElectronicParkBrake</ProcessName>
+         <AdditionalLogFile Types="/Components/SatelliteRadio or Disable">/Components/ElectronicParkBrake.log</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x3F</Verbose>
+         <MessageTimeout>100</MessageTimeout>
+         <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+         <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+      </Logging>
+      <NamedDataBrokerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/NamedDataBroker</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </NamedDataBrokerComm>
+      <DataTags>
+         <OnState>Applied</OnState>
+         <OffState>Released</OffState>
+         <ReadBrakeState>ReadBrakeState</ReadBrakeState>
+      </DataTags>
+      <Parameters>
+         <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+         <DelayModuleInitialization>Yes</DelayModuleInitialization>
+         <ConfigFile>/Configuration/Components/ElectronicParkBrake/ElectronicParkBrakeModule.xml</ConfigFile>
+         <ICMName>mgr/ICM</ICMName>
+         <DeveloperTest>False</DeveloperTest>
+         <OffStateReadTime>10000</OffStateReadTime>
+         <OnStateReadTime>10000</OnStateReadTime>
+      </Parameters>
+      <Prompts>
+          <MaintainBrake PromptBox="1" Priority="0">MaintainBrake</MaintainBrake>
+          <Applied PromptBox="2" Priority="0">ApplyParkBrake</Applied>
+          <Released PromptBox="2" Priority="0">ReleaseParkBrake</Released>
+      </Prompts>
+      <FaultList>/Configuration/Components/ElectronicParkBrake/ElectronicParkBrakeFaultList.xml</FaultList>
+   </Setup>
+   <Objectives>
+      <ParkBrakeTest>
+         <TestStep00>Setup</TestStep00>
+         <TestStep01>EnterDiagnosticMode</TestStep01>
+         <TestStep05>ParkBrakeTest</TestStep05>
+         <TestStep10>FinishUp</TestStep10>
+      </ParkBrakeTest>
+   </Objectives>
+   <TestSteps>
+      <Setup Result="" Timeout="500" Description="Set up component for testing"/>
+      <EnterDiagnosticMode Result="Not Tested" Timeout="500" Description="Place the Park Brake Module in diagnostic mode" ScanDelay="500"/>
+      <ParkBrakeTest Result="Not Tested" Timeout="20000" Description="Perform Electronic Park Brake testing" ScanDelay="500"/>
+      <FinishUp Result="Not Tested" Timeout="500" Description="Finish Park Brake  testing" ScanDelay="500"/>
+   </TestSteps>
+</SatelliteRadioTestComponent>

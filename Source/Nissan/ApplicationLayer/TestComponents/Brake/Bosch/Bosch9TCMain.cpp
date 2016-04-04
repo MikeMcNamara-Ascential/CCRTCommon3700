@@ -1,0 +1,67 @@
+//******************************************************************************
+// FILE:
+//
+// FILE DESCRIPTION:
+// This file contains the functions necessary to calibrate the rolls
+// tester.
+//
+//==============================================================================
+// Copyright (c) 1999 Burke E. Porter Machinery
+// All Rights Reserved
+//
+// This file contains confidential information of Burke E. Porter Machinery
+// and is not to be used in any way detrimental to the interests thereof.
+// Unauthorized use, distribution, copying, or transmittal of this file in
+// any way is strictly prohibited.
+//==============================================================================
+//
+// LOG:
+//
+// 1    10/24/11    dmazur
+// copied the Bosch 8 Test component and modified it to call the Bosch 9 Module
+// 
+//******************************************************************************
+// $NoKeywords: $
+//==============================================================================
+
+#include "Bosch9TC.h"
+#include "Bosch9TC.cpp"
+#include "CmdLineProcessor.h"
+#include "Bosch9Module.cpp"
+#include "KwpCanProtocolFilter.h"
+
+int main(int argc, char *argv[])
+{
+	CmdLineProcessor 	clp;		// command line processor
+    GenericTC *object = NULL;	// object
+	
+	try
+	{
+		clp.ParseArguments(argc, argv);     // parse the command line
+        object = new Bosch9TC<Bosch9Module<KwpCanProtocolFilter> >();
+		if(clp.IsDebugOn())	printf("Creating the Changan Bosch Brake Component\n");
+
+		if(clp.IsDebugOn())	printf("Initializing the Changan Bosch Brake Component\n");
+		object->Initialize(clp.GetConfigFile());
+
+		if(clp.IsDebugOn())	printf("Running the Changan Bosch Brake Component\n");
+		object->Run();							// process until terminated
+	}
+	catch(XmlException &XmlErr)
+	{
+		printf("Changan Bosch Brake -%s: XmlException: %s", clp.GetConfigFile().c_str(), XmlErr.what());
+	}
+	catch(BepException &BepErr)
+	{
+		printf("Changan Bosch Brake -%s: BepException: %s", clp.GetConfigFile().c_str(), BepErr.what());
+	}
+	catch(...)
+	{
+		printf("Changan Bosch Brake -%s: Unknown Exception\n", clp.GetConfigFile().c_str());
+	}
+
+	if(clp.IsDebugOn())
+		printf("Changan Bosch Brake (%d, %s): Terminating\n", BposGetMyTaskId(), clp.GetConfigFile().c_str());
+};
+
+

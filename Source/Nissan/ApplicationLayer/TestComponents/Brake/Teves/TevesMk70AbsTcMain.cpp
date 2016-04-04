@@ -1,0 +1,53 @@
+//*************************************************************************
+// FILE DESCRIPTION:
+//  Test Component for the TEVES MK70 ABS.
+//
+//===========================================================================
+// Copyright (c) 2010- Burke E. Porter Machinery
+// All Rights Reserved
+//
+// This file contains confidential information of Burke E. Porter Machinery
+// and is not to be used in any way detrimental to the interests thereof.
+// Unauthorized use, distribution, copying, or transmittal of this file in
+// any way is strictly prohibited.
+//===========================================================================
+// 
+//*************************************************************************
+#include "TevesMk70Module.cpp"
+#include "TevesMk70AbsTc.cpp"
+#include "CmdLineProcessor.h"
+#include "KwpWinCcrtProtocolFilter.h"
+
+int main(int argc, char *argv[])
+{
+	CmdLineProcessor 	clp;		// command line processor
+    GenericTC *object = NULL;	// object
+	
+	try
+	{
+		clp.ParseArguments(argc, argv);     // parse the command line
+        if(clp.IsDebugOn())	printf("Creating the Teves MK70 Brake Component\n");
+        object = new TevesMk70AbsTc<TevesMk70Module<KwpWinCcrtProtocolFilter> >();
+
+		if(clp.IsDebugOn())	printf("Initializing the Teves MK70 Brake Component\n");
+		object->Initialize(clp.GetConfigFile());
+
+		if(clp.IsDebugOn())	printf("Running the Teves MK70 Brake Component\n");
+		object->Run();							// process until terminated
+	}
+	catch(XmlException &XmlErr)
+	{
+		printf("Teves MK70 Brake -%s: XmlExcpetion: %s", clp.GetConfigFile().c_str(), XmlErr.what());
+	}
+	catch(BepException &BepErr)
+	{
+		printf("Teves MK70 Brake -%s: BepExcpetion: %s", clp.GetConfigFile().c_str(), BepErr.what());
+	}
+	catch(...)
+	{
+		printf("Teves MK70 Brake -%s: Unknown Exception\n", clp.GetConfigFile().c_str());
+	}
+
+	if(clp.IsDebugOn())
+		printf("Teves MK70 Brake (%d, %s): Terminating\n", BposGetMyTaskId(), clp.GetConfigFile().c_str());
+};

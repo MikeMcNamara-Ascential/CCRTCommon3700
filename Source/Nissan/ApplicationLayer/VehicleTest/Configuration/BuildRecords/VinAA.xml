@@ -1,0 +1,25 @@
+<Pregio>
+   <VehicleBuild>
+      <BrakeType>Base Brake</BrakeType>
+      <DriveAxle ValidTypes="Front,Rear">Front</DriveAxle>
+      <Transmission ValidTypes="Manual,Automatic">Automatic</Transmission>
+      <PerformAbortTest>Perform</PerformAbortTest>
+      <VehicleType ValidTypes="Rio,Pregio,Sportage,Vitara,...">Pregio</VehicleType>
+      <FourWD ValidTypes="True,False">False</FourWD>
+      <VIN/>
+      <WheelbasePositionInchesX10 Units="mm">2630</WheelbasePositionInchesX10>
+      <BrakeForces>
+         <!-- Drag Forces -->
+         <FrontMaxDragForce Units="LBF">70</FrontMaxDragForce>
+         <RearMaxDragForce Units="LBF">55</RearMaxDragForce>
+         <!-- Brake Forces -->
+         <FrontMinBrakeForce Units="LBF">150</FrontMinBrakeForce>
+         <FrontMaxBrakeForce Units="LBF">600</FrontMaxBrakeForce>
+         <RearMinBrakeForce Units="LBF">70</RearMinBrakeForce>
+         <RearMaxBrakeForce Units="LBF">600</RearMaxBrakeForce>
+         <!-- Park brake forces -->
+         <ParkBrakeMinForce Units="LBF">100</ParkBrakeMinForce>
+         <ParkBrakeMaxForce Units="LBF">400</ParkBrakeMaxForce>
+      </BrakeForces>
+   </VehicleBuild>
+</Pregio>

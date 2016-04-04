@@ -1,0 +1,106 @@
+<DCAC_Result>
+    <!-- Header Data -->
+    <Field0005 Type="VehicleBuild" Format="%-17.17s" Length="17" DataType="String">VIN</Field0005>
+    <Field0006 Type="Separator">,</Field0006>
+    <!-- 
+         NOTE:  All test result names are 10 characters long.  Do not change this length or the host system may not
+                not be able to interpret the results correctly.
+     -->
+
+    <!-- Drag Results -->
+    <Field1005 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeLeftFrontDragTest</Field1005>
+    <Field1006 Type="Separator">,</Field1006>
+    <Field1010 Type="Result">BrakeLeftFrontDragTest</Field1010>
+    <Field1011 Type="Separator">,</Field1011>
+
+    <Field1020 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeRightFrontDragTest</Field1020>
+    <Field1021 Type="Separator">,</Field1021>
+    <Field1025 Type="Result">BrakeRightFrontDragTest</Field1025>
+    <Field1026 Type="Separator">,</Field1026>
+
+    <Field1035 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeLeftRearDragTest</Field1035>
+    <Field1036 Type="Separator">,</Field1036>
+    <Field1040 Type="Result">BrakeLeftRearDragTest</Field1040>
+    <Field1041 Type="Separator">,</Field1041>
+
+    <Field1050 Type="Detail" DetailNode="DragForce" Format="%03d" DataType="Integer">BrakeRightRearDragTest</Field1050>
+    <Field1051 Type="Separator">,</Field1051>
+    <Field1055 Type="Result">BrakeRightRearDragTest</Field1055>
+    <Field1056 Type="Separator">,</Field1056>
+
+    <!-- Brake Test Results -->
+    <Field2005 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeLeftFrontForceTest</Field2005>
+    <Field2006 Type="Separator">,</Field2006>
+    <Field2010 Type="Result">BrakeLeftFrontDragTest</Field2010>
+    <Field2011 Type="Separator">,</Field2011>
+
+    <Field2020 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeRightFrontForceTest</Field2020>
+    <Field2021 Type="Separator">,</Field2021>
+    <Field2025 Type="Result">BrakeRightFrontDragTest</Field2025>
+    <Field2026 Type="Separator">,</Field2026>
+
+    <Field2035 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeLeftRearForceTest</Field2035>
+    <Field2036 Type="Separator">,</Field2036>
+    <Field2040 Type="Result">BrakeLeftRearDragTest</Field2040>
+    <Field2041 Type="Separator">,</Field2041>
+
+    <Field2050 Type="Detail" DetailNode="BrakeForce" Format="%03d" DataType="Integer">BrakeRightRearForceTest</Field2050>
+    <Field2051 Type="Separator">,</Field2051>
+    <Field2055 Type="Result">BrakeRightRearDragTest</Field2055>
+    <Field2056 Type="Separator">,</Field2056>
+
+    <!-- ABS Dump Results -->
+    <Field3005 Type="Detail" DetailNode="LeftFrontABSReductionPercent" Format="%03d" DataType="Integer">BrakeLeftFrontABSReduction</Field3005>
+    <Field3006 Type="Separator">,</Field3006>
+    <Field3010 Type="Result">BrakeLeftFrontABSReduction</Field3010>
+    <Field3011 Type="Separator">,</Field3011>
+
+    <Field3020 Type="Detail" DetailNode="RightFrontABSReductionPercent" Format="%03d" DataType="Integer">BrakeRightFrontABSReduction</Field3020>
+    <Field3021 Type="Separator">,</Field3021>
+    <Field3025 Type="Result">BrakeRightFrontABSReduction</Field3025>
+    <Field3026 Type="Separator">,</Field3026>
+
+    <Field3035 Type="Detail" DetailNode="LeftRearABSReductionPercent" Format="%03d" DataType="Integer">BrakeLeftRearABSReduction</Field3035>
+    <Field3036 Type="Separator">,</Field3036>
+    <Field3040 Type="Result">BrakeLeftRearABSReduction</Field3040>
+    <Field3041 Type="Separator">,</Field3041>
+
+    <Field3050 Type="Detail" DetailNode="RightRearABSReductionPercent" Format="%03d" DataType="Integer">BrakeRightRearABSReduction</Field3050>
+    <Field3051 Type="Separator">,</Field3051>
+    <Field3055 Type="Result">BrakeRightRearABSReduction</Field3055>
+    <Field3056 Type="Separator">,</Field3056>
+
+    <!-- ABS Build Results -->
+    <Field4005 Type="Detail" DetailNode="LeftFrontABSRecoveryValue" Format="%03d" DataType="Integer">BrakeLeftFrontABSRecovery</Field4005>
+    <Field4006 Type="Separator">,</Field4006>
+    <Field4010 Type="Result">BrakeLeftFrontABSRecovery</Field4010>
+    <Field4011 Type="Separator">,</Field4011>
+
+    <Field4020 Type="Detail" DetailNode="RightFrontABSRecoveryValue" Format="%03d" DataType="Integer">BrakeRightFrontABSRecovery</Field4020>
+    <Field4021 Type="Separator">,</Field4021>
+    <Field4025 Type="Result">BrakeRightFrontABSRecovery</Field4025>
+    <Field4026 Type="Separator">,</Field4026>
+
+    <Field4035 Type="Detail" DetailNode="LeftRearABSRecoveryValue" Format="%03d" DataType="Integer">BrakeLeftRearABSRecovery</Field4035>
+    <Field4036 Type="Separator">,</Field4036>
+    <Field4040 Type="Result">BrakeLeftRearABSRecovery</Field4040>
+    <Field4041 Type="Separator">,</Field4041>
+
+    <Field4050 Type="Detail" DetailNode="RightRearABSRecoveryValue" Format="%03d" DataType="Integer">BrakeRightRearABSRecovery</Field4050>
+    <Field4051 Type="Separator">,</Field4051>
+    <Field4055 Type="Result">BrakeRightRearABSRecovery</Field4055>
+    <Field4056 Type="Separator">,</Field4056>
+
+    <!-- Sound Level Meter Results -->
+    <Field6005 Type="Detail" DetailNode="SoundPressureLevel" Format="%03d" DataType="Integer">SoundLevelSoundPressureLevelTest</Field6005>
+    <Field6006 Type="Separator">,</Field6006>
+    <Field6010 Type="Result">SoundLevelSoundPressureLevelTest</Field6010>
+    <Field6011 Type="Separator">,</Field6011>
+
+    <!-- Speedomemter Results -->
+    <Field6030 Type="Detail" DetailNode="SpeedometerSpeed" Format="%05.1f" DataType="Float" Scale="1" Length="5">SpeedometerSpeedometer</Field6030>
+    <Field6031 Type="Separator">,</Field6031>
+    <Field6040 Type="Result">SpeedometerSpeedometer</Field6040>
+    <Field6050 Type="Separator">,</Field6050>
+
+</DCAC_Result>

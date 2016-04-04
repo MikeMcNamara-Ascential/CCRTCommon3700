@@ -1,0 +1,103 @@
+<SystemMonitorConfig>
+   <Setup>
+      <AbortOnAbortPb>1</AbortOnAbortPb>
+      <Demo>0</Demo>
+      <Debug>Off</Debug>
+      <ValidVINNeededForStart>0</ValidVINNeededForStart>
+      <ProcessPriority>12</ProcessPriority>
+      <DisconnectAbort Description="Flag that indicates if the system monitor should abort if a cable diconnect is detected">0</DisconnectAbort>
+      <VehiclePresentTime Description="The amount of time to wait in miliseconds to declare a vehicle as being present">1000</VehiclePresentTime>
+      <LossCompensationSwitchTime Description="The amount of time to wait in miliseconds to debounce the LC switch">1000</LossCompensationSwitchTime>
+      <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">0</CableConnectTime>
+      <LossCompensationCycleLimit Description="Maximum number of test cycles between consecutive loss compensation cycles">0</LossCompensationCycleLimit>
+      <SystemMonitorWheelbaseAdjust>True</SystemMonitorWheelbaseAdjust>
+      <MoveWheelbasePulseWidth Units="ms">2000</MoveWheelbasePulseWidth>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/SystemMonitor</ProcessName>
+         <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Debug>Off</Debug>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+         </Setup>
+      </NotificationList>
+      <TagList>
+         <PublishTags>
+            <Abort>0</Abort>
+            <CableConnect>0</CableConnect>
+            <ContinueTest>0</ContinueTest>
+            <GMPhase/>
+            <OkToRoll>0</OkToRoll>
+            <Retest>0</Retest>
+            <StartLossCompensation>0</StartLossCompensation>
+            <StartSim>0</StartSim>
+            <StartTest>0</StartTest>
+            <VehiclePresent>0</VehiclePresent>
+         </PublishTags>
+         <SubscribeTags>
+            <AbortSignal/>
+            <CycleLimitExceeded/>
+            <DriverNumber/>
+            <InputServerState/>
+            <InstVehiclePresent/>
+            <KeyPress/>
+            <LossCompensationSwitchCycleStatus/>
+            <LossCompensationSwitchCycleStatusFromPLC/>
+            <LossCompensationSwitchStatusFromPLC/>
+            <LossCompensationSwitchStatusToPLC/>
+            <OverallTest/>
+            <PLCCableConnect/>
+            <PLCRackFault/>
+            <PowerSense/>
+            <RollsDownElevUp/>
+            <RollsUpElevDown/>
+            <SimulatorSwitchCycleStatus/>
+            <SimulatorSwitchStatus/>
+            <StartLossCompensation/>
+            <StartTestFromPLC/>
+            <TestInProgress/>
+            <TestsSinceLossCompensation/>
+            <VINReadStatus/>
+            <WheelbaseInPosition/>
+            <WheelbasePositionInchesX10/>
+            <WirelessCableConnected/>
+            <Zerospeed/>
+         </SubscribeTags>
+      </TagList>
+      <DataTags>
+         <AbortTestFromPLC>AbortSignal</AbortTestFromPLC>
+         <AllWheelDrive>AllWheelDrive</AllWheelDrive>
+         <CycleLimitExceeded>CycleLimitExceeded</CycleLimitExceeded>
+         <DriveAxle>DriveAxle</DriveAxle>
+         <WirelessCableConnected>WirelessCableConnected</WirelessCableConnected>
+      </DataTags>
+      <Communication>
+         <Type>Server</Type>
+         <Debug>Off</Debug>
+         <Name>core/SystemMonitor</Name>
+         <Comm>IPC</Comm>
+         <Timeout>2000</Timeout>
+         <BufferSize>2000</BufferSize>
+      </Communication>
+      <SystemFaults>
+         <PowerSense Name="PowerSenseLostToIORack" Severity="9" Description="System power has been lost">System Power Sense</PowerSense>
+         <RackFault Name="PLCRackFault" Severity="9" Description="PLC rack fault detected">PLC Rack Fault</RackFault>
+      </SystemFaults>
+   </Setup>
+</SystemMonitorConfig>

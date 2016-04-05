@@ -252,6 +252,20 @@
          <AbortOnPartMismatch>No</AbortOnPartMismatch>
          <BypassPartNumberValidation>No</BypassPartNumberValidation>
          <ValidatePartNumberList>Yes</ValidatePartNumberList>
+         <ValidVariantCodes>
+            <PN1>1</PN1>
+            <PN01>1</PN01>
+            <PN2>2</PN2>
+            <PN02>2</PN02>
+            <PN3>3</PN3>
+            <PN03>3</PN03>
+            <PN4>4</PN4>
+            <PN04>4</PN04>
+            <PN5>5</PN5>
+            <PN05>5</PN05>
+            <PN6>6</PN6>
+            <PN06>6</PN06>
+         </ValidVariantCodes>
          <!--Sensor Testing Parameters-->
          <DisplayOperatorInstructions>No</DisplayOperatorInstructions>
          <UsePlcResultButtons>True</UsePlcResultButtons>
@@ -370,8 +384,51 @@
          <TestStep10>EnterDiagnosticMode</TestStep10>
          <TestStep20>ReadFaults</TestStep20>
          <TestStep25>ClearFaults</TestStep25>
+         <!-- New Test Steps-->
+         <TestStep30>CheckPartNumber</TestStep30>
+         <TestStep35>UnlockModuleSecurity</TestStep35>
+         <TestStep40>DisableSpeedLimit</TestStep40>
+         <TestStep45>DisableValveRelayShutdown</TestStep45>
+         <TestStep50>WriteVariantCode</TestStep50>
+         <TestStep55>ProgramVIN</TestStep55>
+         <TestStep60>CheckVIN</TestStep60>
          <TestStep90>StartModuleKeepAlive</TestStep90>
       </Setup>
+      <WheelSpeedSensorTest>
+         <TestStep00>BrakeToStop</TestStep00>
+         <TestStep05 AltValue="Rear">TwoMotorWssTest</TestStep05>
+         <TestStep10 AltValue="Front">TwoMotorWssTest</TestStep10>
+         <TestStep15>BrakeToStop</TestStep15>
+      </WheelSpeedSensorTest>
+      <BrakeTest>
+		 <TestStep00>DisplaySpeedTimeGraph</TestStep00>
+         <TestStep05>AccelerateToBrakeSpeed</TestStep05>
+		 <TestStep06>RemoveSpeedTimeGraph</TestStep06>
+         <TestStep10>Coast</TestStep10>
+         <TestStep15>DragTest</TestStep15>
+         <TestStep20>AnalyzeDragTest</TestStep20>
+         <TestStep25>BrakeSwitchOffTest</TestStep25>
+         <TestStep30>ESPValveFiringTest</TestStep30>
+         <TestStep35>StopESPPumpMotor</TestStep35>
+         <TestStep40>BrakeTest</TestStep40>
+         <TestStep45>BrakeSwitchOnTest</TestStep45>
+      </BrakeTest>
+      <AnalyzeESPBrakeTest>
+         <TestStep00>AnalyzeBrakeTest</TestStep00>
+         <TestStep05>AnalyzeBalance</TestStep05>
+         <TestStep10>EvaluateESP</TestStep10>
+      </AnalyzeESPBrakeTest>
+      <FinishUp>
+         <TestStep00>DisableForceMeter</TestStep00>
+         <TestStep05>StopModuleKeepAlive</TestStep05>
+         <TestStep10>ReadFaults</TestStep10>
+         <!-- New Test Steps -->
+         <TestStep15>ClearFaults</TestStep15>
+         <TestStep20>EnableSpeedLimit</TestStep20>
+         <TestStep25>EnableValveRelayShutdown</TestStep25>
+         <TestStep30>ExitDiagnosticMode</TestStep30>
+         <TestStep35>FinishUp</TestStep35>
+      </FinishUp>
       <EnterDiagnosticMode>
          <TestStep00>EnterDiagnosticMode</TestStep00>
       </EnterDiagnosticMode>
@@ -411,29 +468,11 @@
       <BrakeSwitchTest>
          <TestStep00>BrakeSwitchTest</TestStep00>
       </BrakeSwitchTest>
-      <BrakeTest>
-		 <TestStep00>DisplaySpeedTimeGraph</TestStep00>
-         <TestStep05>AccelerateToBrakeSpeed</TestStep05>
-		 <TestStep06>RemoveSpeedTimeGraph</TestStep06>
-         <TestStep10>Coast</TestStep10>
-         <TestStep15>DragTest</TestStep15>
-         <TestStep20>AnalyzeDragTest</TestStep20>
-         <TestStep25>BrakeSwitchOffTest</TestStep25>
-         <TestStep30>ESPValveFiringTest</TestStep30>
-         <TestStep35>StopESPPumpMotor</TestStep35>
-         <TestStep40>BrakeTest</TestStep40>
-         <TestStep45>BrakeSwitchOnTest</TestStep45>
-      </BrakeTest>
       <AnalyzeBrakeTest>
          <TestStep00>AnalyzeBrakeTest</TestStep00>
          <TestStep05>AnalyzeBalance</TestStep05>
          <TestStep10>EvaluateABS</TestStep10>
-      </AnalyzeBrakeTest>
-      <AnalyzeESPBrakeTest>
-         <TestStep00>AnalyzeBrakeTest</TestStep00>
-         <TestStep05>AnalyzeBalance</TestStep05>
-         <TestStep10>EvaluateESP</TestStep10>
-      </AnalyzeESPBrakeTest>
+      </AnalyzeBrakeTest>   
       <BurnishCycle>
          <TestStep00>StaticBrakeBurnishCycle</TestStep00>
       </BurnishCycle>
@@ -443,6 +482,12 @@
       <IgnitionOff>
          <TestStep00>IgnitionOff</TestStep00>
       </IgnitionOff>
+      <WriteVariantCode>
+         <TestStep00>WriteVariantCode</TestStep00>
+      </WriteVariantCode>
+      <CheckVariantCode>
+         <TestStep00>CheckVariantCode</TestStep00>
+      </CheckVariantCode>
       <DisableForceMeter>
          <TestStep00>DisableForceMeter</TestStep00>
       </DisableForceMeter>
@@ -485,13 +530,6 @@
          <TestStep50>StopPumpMotor</TestStep50>
          <TestStep55>StartModuleKeepAlive</TestStep55>
       </ABSValveFiringTest>
-      <FinishUp>
-         <TestStep00>DisableForceMeter</TestStep00>
-         <TestStep05>StopModuleKeepAlive</TestStep05>
-         <TestStep10>ReadFaults</TestStep10>
-         <TestStep15>ExitDiagnosticMode</TestStep15>
-         <TestStep20>FinishUp</TestStep20>
-      </FinishUp>
    </Objectives>
    <TestSteps>
       <!--From GenericTestComponent-->
@@ -557,6 +595,7 @@
       <CheckParkBrakeSignal Result="" Timeout="10000" Description="Park Brake Signal Test"/>
       <CheckRelayState Result="" Timeout="10000" Description="Check Relay State"/>
       <CheckUplineProcessByte Result="" Timeout="10000" Description="Check the status of the evac/fill procedure"/>
+      <CheckVariantCode Result="" Timeout="10000" Description="Read variant code from module"/>
       <DisableDiagnosticSpeedLimit Result="" Timeout="1000" Description="Disable Diagnostic Speed Limit" ScanDelay="250"/>
       <DisableSpeedLimiit Result="" Timeout="10000" Description="Disable Speed Limit"/>
       <DisableValveRelayShutdown Result="" Timeout="10000" Description="Disable Valve Relay Shutdown"/>
@@ -571,6 +610,8 @@
       <SensorQualityTest Result="" Timeout="30000" Description="Test Sensor Quality" Prompt1="SensorQualityTest" Prompt2="FootOffBrake" ScanDelay="250"/>
       <StartAbsTest Result="" Timeout="" Description=""/>
       <StopESPPumpMotor Result="" Timeout="1000" Description="Stop running the pump motor"/>
+      <TwoMotorWssTest Result="" Timeout="30000" ScanDelay="250" Prompt1="ShiftToNeutral" Prompt2="FootOffBrake" Description="Perform wheel speed sensor test on one vehicle axle"/>
+      <WriteVariantCode Result="" Timeout="10000" Description="Write variant code to module"/>
       <!--Origin Unspecified-->
       <BrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>
       <CheckModuleType Result="" Timeout="20000" Description="Check Module Type"/>

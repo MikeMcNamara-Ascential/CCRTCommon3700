@@ -234,6 +234,7 @@ BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::GetInfo(string methodName) thr
     else if(methodName == "DisableValveRelayShutdown") status = CommandModule(methodName);
     else if(methodName == "EnableSpeedLimit") status = CommandModule(methodName);
     else if(methodName == "EnableValveRelayShutdown") status = CommandModule(methodName);
+    else if(methodName == "WriteVariantCode") status = CommandModule(methodName);
     else if(methodName == "LFESPInit") status = CommandModule(methodName);
     else if(methodName == "LFESPStart") status = CommandModule(methodName);
     else if(methodName == "LFESPEnd") status = CommandModule(methodName);

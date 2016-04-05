@@ -27,7 +27,7 @@ LINK_LIBRARIES(basebrake m)
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(BaseBrake)
-ADD_SUBDIRECTORY(Common)
+#ADD_SUBDIRECTORY(Common)
 ADD_SUBDIRECTORY(Teves)
 ADD_SUBDIRECTORY(TRW)
 ADD_SUBDIRECTORY(Bosch)

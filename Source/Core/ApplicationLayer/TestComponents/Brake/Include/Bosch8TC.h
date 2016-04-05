@@ -314,6 +314,15 @@ protected:
     virtual string CheckLateralAcceleration(void);
 
     /**
+     * This test step checks the variant code in the module
+     *  
+     * @return The status of the operation.
+     * @since 15 December 2015
+     */
+    virtual string CheckVariantCode(void);
+
+
+    /**
      * This test step checks the yaw rate.  The vehicle should be at rest and
      * the yaw rate should be between -4 degrees and 4 degrees.
      * 
@@ -435,6 +444,8 @@ protected:
 
 	string UnlockModuleSecurity();
 
+    virtual string WriteVariantCode(void);
+
 
 private:
 
@@ -547,6 +558,7 @@ private:
     WheelSpeeds_t       m_absSpeedDeltas[ RRWHEEL+1][ REC_DELTA_IDX+1];
 
 	XmlNodeMap m_espValveFiringcommands;
+    XmlNodeMap m_validVariantCodes;
 };
 
 #endif

@@ -2226,7 +2226,9 @@ protected:
     string m_lockModule;
     string m_clearFaults;
     string m_enterDiagnosticMode;
+    string m_enterNormalMode;
     string m_exitDiagnosticMode;
+    string m_disableNormalMode;
     /**
      * Last transmit time to determine if it is time to send a keep alive message to the module.
      */

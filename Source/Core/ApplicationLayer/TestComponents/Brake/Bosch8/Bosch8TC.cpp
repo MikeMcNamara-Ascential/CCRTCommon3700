@@ -181,6 +181,8 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
 		else if(step == "WriteFinalEolStatus")     status = SetEolStatus(GetOverallResult());
 		else if(step == "UnlockModuleSecurity")    status = UnlockModuleSecurity();
 		else if(step == "EnterDiagModeAtSpeed")    status = GenericTCTemplate<ModuleType>::EnterDiagnosticMode();
+        else if(step == "CheckVariantCode") status = CheckVariantCode();
+        else if(step == "WriteVariantCode") status = WriteVariantCode();
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
     catch(BepException &err)
@@ -3279,4 +3281,98 @@ string Bosch8TC<ModuleType>::FlexibleEspValveFiringTest(void)
 	}
 	Log(LOG_FN_ENTRY, "Bosch8TC::FlexibleEspValveFiringTest() - Exit");
 	return result;
+}
+
+template <class ModuleType>
+string Bosch8TC<ModuleType>::CheckVariantCode(void)
+{
+    string testResult = BEP_TESTING_STATUS;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    string broadcastPartNumber;
+    string variantName;
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    UINT8 variantCode;
+    char temp[16];
+
+    Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckVariantCode()\n");
+    try
+    {
+        // Try to read the system data
+        moduleStatus = m_vehicleModule.GetInfo("ReadVariantCode",variantCode);
+        sprintf(temp, "PN%02X",variantCode);
+        variantName = temp;
+        XmlNodeMapItr iter = m_validVariantCodes.find(variantName);
+        Log(LOG_DEV_DATA, "Looking for variant code %02X from Broadcast under %s\n",variantCode, variantName.c_str());
+        testResult = iter != m_validVariantCodes.end() ? testPass : testFail;
+        broadcastPartNumber = iter != m_validVariantCodes.end() ? iter->second->getValue() : "Not Listed";
+        Log(LOG_DEV_DATA, "CheckVariantCode: %s - Broadcast: %s, Module: %02X\n",
+            testResult.c_str(), broadcastPartNumber.c_str(), variantCode);
+    }                                                                                                 
+    catch(ModuleException &moduleException)
+    {
+        Log(LOG_ERRORS, "Module Exception in Bosch8TC::CheckVariantCode() - %s\n", 
+            moduleException.message().c_str());
+        testResult = testSoftwareFail;
+        testResultCode = GetFaultCode("SoftwareFailure");
+        testDescription = GetFaultDescription("SoftwareFailure");
+    }
+
+    // Send the test result
+    SendSubtestResultWithDetail(GetTestStepName(), testResult, 
+                                            testResult == testPass ? testDescription : GetFaultDescription(GetTestStepName()),
+                                            testResult == testPass ? testResultCode : GetFaultCode(GetTestStepName()),
+                                            "ModuleVariantCode", CreateMessage(temp, sizeof(temp), "%02X", variantCode),"",
+                                            "BroadcastVariantCode",broadcastPartNumber.c_str(), "");
+    //SendTestResult(testResult, testDescription, testResultCode);
+    // Return the test result
+    Log(LOG_FN_ENTRY, "Exit Bosch8TC::CheckVariantCode()\n");
+    return(testResult);
+}
+
+template <class ModuleType>
+string Bosch8TC<ModuleType>::WriteVariantCode(void)
+{
+    string testResult = BEP_TESTING_STATUS;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+
+    Log(LOG_FN_ENTRY, "Enter Bosch8TC::WriteVariantCode()\n");
+    try
+    {
+        // Try to write the variant code
+        moduleStatus = m_vehicleModule.GetInfo("WriteVariantCode");
+
+        // Determine the test result
+        testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
+        if(testResult == testPass)
+        {
+            testResultCode = (testResult == testPass ? "0000" : GetFaultCode("WriteVariantCode"));
+            testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("WriteVariantCode"));
+        }
+        else
+        {
+            testResult = testFail;
+            testResultCode = GetFaultCode("CommunicationFailure");
+            testDescription = GetFaultDescription("CommunicationFailure");
+            SetCommunicationFailure(true);
+            Log(LOG_ERRORS, "Error writing variant code - status: %s\n", 
+                ConvertStatusToResponse(moduleStatus).c_str());
+        }
+    }                                                                                                 
+    catch(ModuleException &moduleException)
+    {
+        Log(LOG_ERRORS, "Module Exception in Bosch8TC::WriteVariantCode() - %s\n", 
+            moduleException.message().c_str());
+        testResult = testSoftwareFail;
+        testResultCode = GetFaultCode("SoftwareFailure");
+        testDescription = GetFaultDescription("SoftwareFailure");
+    }
+
+    // Send the test result
+    SendTestResult(testResult, testDescription, testResultCode);
+    // Return the test result
+    Log(LOG_FN_ENTRY, "Exit Bosch8TC::WriteVariantCode()\n");
+    return(testResult);
 }

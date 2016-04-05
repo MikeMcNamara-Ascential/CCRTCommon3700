@@ -9,7 +9,7 @@ INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/BuildRecords FILES
 	      Vin8LGJE.xml
               Vin11.xml
               VinAA.xml
-              VinAAAA.xml
+              VinAAAAA.xml
 	      VinLCDER.xml
 	      VinLJNME.xml
               VinLLLL.xml

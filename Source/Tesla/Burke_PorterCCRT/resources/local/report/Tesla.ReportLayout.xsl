@@ -741,6 +741,7 @@
                 </xsl:call-template>
             </td>
         </tr>
+<!--
         <tr>
             <td width="10"/>
             <td align="left" width="14">Motor Type</td>
@@ -755,6 +756,7 @@
                 </xsl:call-template>
             </td>
         </tr>
+-->        
         <tr>
             <td width="10"/>
             <td align="left" width="14">Brake Burnish Cycle</td>

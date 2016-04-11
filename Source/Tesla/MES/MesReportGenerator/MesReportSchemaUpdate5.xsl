@@ -1847,6 +1847,7 @@
         </xsl:element>
     </xsl:template>
 
+<!--
     <xsl:template name="BrakeLearnMotorType">
         <xsl:param name="NAME"/>
         <xsl:element name="ModuleTest">
@@ -1889,6 +1890,7 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
+-->
 
     <xsl:template name="BrakeLeftFrontSensor">
         <xsl:param name="NAME"/>
@@ -2151,18 +2153,9 @@
                         </xsl:element>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:choose>
-                            <xsl:when test="$VALUE = '507560'">
                                 <xsl:element name="Machine">
                                     <xsl:text>LANE3</xsl:text>
                                 </xsl:element>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                <xsl:element name="Machine">
-                                    <xsl:text>UNKNOWN</xsl:text>
-                                </xsl:element>
-                            </xsl:otherwise>
-                        </xsl:choose>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:otherwise>

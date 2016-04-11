@@ -345,8 +345,8 @@
          <RightRearMinRecoveryPercent>70.0</RightRearMinRecoveryPercent>
          <!-- ESP Test Parameters -->
          <CheckResponseInProgress>True</CheckResponseInProgress>
-         <LeftFrontMinESPBuildForce Units="lbf">100</LeftFrontMinESPBuildForce>
-         <RightFrontMinESPBuildForce Units="lbf">100</RightFrontMinESPBuildForce>
+         <LeftFrontMinESPBuildForce Units="lbf">75</LeftFrontMinESPBuildForce>
+         <RightFrontMinESPBuildForce Units="lbf">75</RightFrontMinESPBuildForce>
          <LeftRearMinESPBuildForce Units="lbf">75</LeftRearMinESPBuildForce>
          <RightRearMinESPBuildForce Units="lbf">75</RightRearMinESPBuildForce>
          <LeftFrontMaxESPReductionForce Units="%">30.0</LeftFrontMaxESPReductionForce>
@@ -490,7 +490,9 @@
          <TestStep30>EnterDiagnosticMode</TestStep30>
          <!--TestStep35>EnableElectricVacuumPump</TestStep35-->
          <TestStep40>CheckPartNumber</TestStep40>
+         <!--
          <TestStep50>LearnPerformanceType</TestStep50>
+         -->
          <TestStep62>ProgramVIN</TestStep62>
          <!--TestStep64>CheckVIN</TestStep64-->
          <TestStep68>EnterDiagnosticMode</TestStep68>

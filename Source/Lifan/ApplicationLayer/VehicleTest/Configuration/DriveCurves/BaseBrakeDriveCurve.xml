@@ -1,0 +1,181 @@
+<DriveCurve Description="Base brake drive curve">
+   <Components Debug="Off">
+      <Brake>
+         <ComponentName>GenericBaseBrakeTest.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>BaseBrakeTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+         <Debug>Off</Debug>
+      </Brake>
+      <Machine>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MachineTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <Debug>Off</Debug>
+      </Machine>
+      <!-- SoundLevel>
+         <ComponentName>ChanganSoundLevelTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+         <ConfigFile>SoundLevelComponent.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/SoundLevel</ConfigPath>
+         <Debug>Off</Debug>
+      </SoundLevel -->
+      <SpeedControl>
+         <ComponentName>GenericSpeedControl.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+         <ConfigFile>SpeedControlTc.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/SpeedControl</ConfigPath>
+         <Debug>Off</Debug>
+      </SpeedControl>
+      <Speedometer>
+         <ComponentName>MachineTC.qxe</ComponentName>
+         <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+         <ConfigFile>MachineTc_Speedometer.xml</ConfigFile>
+         <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+         <Debug>Off</Debug>
+      </Speedometer>
+   </Components>
+   <Test Result="" Debug="Off">
+      <!-- Initialize the system -->
+      <TestPhase000 Description="Initialize the machine" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Init machine Component" Result="" Timeout="" Component="Machine">
+               <Initialize/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase000>
+      <TestPhase005 Description="Initialize the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Init brake Component" Result="" Timeout="" Component="Brake">
+               <Initialize/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase005>
+      <!--Perform Park Brake Test-->
+      <TestPhase060 Description="Perform the park brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Run the park brake test" Result="" Timeout="" Component="Brake">
+               <ParkBrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase060>
+      <!-- Perform axle ratio testing -->
+        <TestPhase067 Description="Perform axle ratio test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Check t-case axle ratio" Result="" Timeout="" Component="Tcase">
+                    <AXleRatio/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase067>
+      <!--Perform Idle Horn Test-->
+      <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <!--Objective0 Description="Start monitoring sound level" Result="" Timeout="" Component="SoundLevel">
+               <StartSoundTest/>
+            </Objective0-->
+            <Objective1 Description="Engage the machine" Result="" Timeout="" Component="Machine">
+               <EngageMachine/>
+            </Objective1>
+         </ForegroundObjectives>
+      </TestPhase065>
+      <!--TestPhase066 Description="Read idle sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Read idle sound level" Result="" Timeout="" Component="SoundLevel">
+               <IdleHornTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase066-->
+      <!-- Perform the 40kph Speedo test -->
+      <TestPhase070 Description="40kph Speedo Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="40kph Speedo Test" Result="" Timeout="" Component="Speedometer">
+               <Speedometer/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase070>
+      <!-- Perform the AccelerateToSpeed test -->
+      <TestPhase080 Description="Acceleration Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Acceleration Test" Result="" Timeout="" Component="Machine">
+               <AccelerateToSpeed/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase080>
+      <!--Perform Running Horn Test-->
+      <!--TestPhase085 Description="Read running sound level" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Read running sound level" Result="" Timeout="" Component="SoundLevel">
+               <RunningHornTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase085-->
+      <!-- Speed Control Testing -->
+      <TestPhase090 Description="Speed Control Test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Speed Control Test" Result="" Timeout="" Component="SpeedControl">
+               <SpeedControlTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase090>
+      <!-- Perform the brake test -->
+      <TestPhase100 Description="Perform the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="run the base brake test" Result="" Timeout="" Component="Brake">
+               <BrakeTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase100>
+      <TestPhase105 Description="Brake to stop and analyze results" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Brake to stop" Result="" Timeout="" Component="Machine">
+               <BrakeToStop/>
+            </Objective0>
+         </ForegroundObjectives>
+         <BackgroundObjectives Result="" Timeout="">
+            <Objective0 Description="Analyze brake test data" Result="" Timeout="" Component="Brake">
+               <AnalyzeBrakeTest/>
+            </Objective0>
+         </BackgroundObjectives>
+      </TestPhase105>
+	  <!-- Perform Reverse testing -->
+      <TestPhase135 Description="Perform reverse driving test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Check reverse driving gear on the vehicle" Result="" Timeout="" Component="Machine">
+               <Reverse/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase135>
+      <!--TestPhase140 Description="Stop the sound monitor thread" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Stop the sound monitor thread" Result="" Timeout="" Component="SoundLevel">
+               <StopSoundTest/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase140>
+      <TestPhase145 Description="" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective3 Description="Perform finish-up" Result="" Timeout="" Component="SoundLevel">
+               <FinishUp>PerformingFinishUp</FinishUp>
+            </Objective3>
+         </ForegroundObjectives>
+      </TestPhase145-->
+      <!-- Finishup and set results -->
+      <TestPhase200 Description="Set the result for the brake test" Result="" Timeout="">
+         <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="Set the brake test result" Result="" Timeout="" Component="Brake">
+               <FinishUp/>
+            </Objective0>
+            <Objective1 Description="Set the brake test result" Result="" Timeout="" Component="Machine">
+               <FinishUp/>
+            </Objective1>
+            <Objective2 Description="Set the brake test result" Result="" Timeout="" Component="SpeedControl">
+               <FinishUp/>
+            </Objective2>
+            <Objective3 Description="Set the brake test result" Result="" Timeout="" Component="Speedometer">
+               <FinishUp/>
+            </Objective3>
+         </ForegroundObjectives>
+      </TestPhase200>
+   </Test>
+</DriveCurve>

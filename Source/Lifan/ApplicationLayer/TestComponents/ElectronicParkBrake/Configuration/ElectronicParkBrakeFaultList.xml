@@ -1,0 +1,13 @@
+<SoundLevelFaults>
+   <!-- System Status -->
+   <NoFault Code="0000" Description="No fault detected"/>
+   <SystemStatus Code="0001" Description="System status not correct to perform test"/>
+   <StatusCheckFailure Code="0002" Description="System status not correct to perform test"/>
+   <!-- Communication Failures -->
+   <SystemCommunication Code="0040" Description="Communication failure reading system data"/>
+   <CommunicationFailure Code="0041" Description="Module communication failure"/>
+   <!-- Test Failures -->
+   <SoftwareFailure Code="0081" Description="Software failure detected - Please notify BEP!"/>
+   <TimeoutFailure Code="0090" Description="Timeout waiting for left and right park brake"/>
+   <TestTimeout Code="0090" Description="Timeout waiting for left and right park brake"/>
+</SoundLevelFaults>

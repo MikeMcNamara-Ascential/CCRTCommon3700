@@ -2,6 +2,8 @@
 # Create a list of all the cpp files in this directory needed to create the executable
 #------------------------------------------------------------------------------------------
 SET(MAPLEKEYPADMANAGER_SOURCES MapleKeypadManager.cpp)
+SET(MAPLE_KEYPAD_LIB_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH
+	"Path to the maple keypad lib" FORCE)
 
 #------------------------------------------------------------------------------------------
 # Define the basename of our executable (for us only...not required by CMake)

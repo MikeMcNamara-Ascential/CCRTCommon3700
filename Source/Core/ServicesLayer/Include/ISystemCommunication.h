@@ -328,6 +328,8 @@ public:
      */
     void SetTimeout(const UINT32 timeout);
 
+	const string& CommType(const string *commType = NULL);
+
 protected:
     /**
      * Set the communication id for the object
@@ -385,6 +387,7 @@ private:
      * @since Version 1.0
      */
     std::string m_type;
+	string m_commType;
     /**
      * Identifier of the device to communicate with
      * @since Version 1.0

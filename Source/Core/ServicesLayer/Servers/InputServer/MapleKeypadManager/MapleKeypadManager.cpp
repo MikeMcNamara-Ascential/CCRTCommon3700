@@ -484,10 +484,10 @@ void MapleKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteCoun
             }
             // Determine if the data needs to be processed
             if (processData)
-        {   // Extract the data from the buffer
-            // ews - 1/28/2005 changed to use index, rather than byteCount-2
-            dataValue = std::string((char *)&data[0], index);
-            Log(LOG_DEV_DATA, "Maple Keypad: %s %s\n", displayType.c_str(), dataValue.c_str());
+            {   // Extract the data from the buffer
+                // ews - 1/28/2005 changed to use index, rather than byteCount-2
+                dataValue = std::string((char *)&data[0], index);
+                Log(LOG_DEV_DATA, "Maple Keypad: %s %s\n", displayType.c_str(), dataValue.c_str());
                 // If this is secondary data, setup for VIn entry
                 if(!dataType.compare(SecondaryDataType()))
                 {   // reset the display on the keypad
@@ -507,21 +507,21 @@ void MapleKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteCoun
                     XmlElement displayNode(displayType, dataValue);
                     m_inputServerComm->Write(&displayNode,response,true);
                 }
-            // Make a couple of nodes to send data around
-            XmlElement displayNode(displayType, dataValue);
-            Log(LOG_DEV_DATA, "Maple Keypad: %s %s\n", dataType.c_str(), dataValue.c_str());
-            XmlElement dataNode(dataType, dataValue);
-            // Write the data to the InputServer
-            m_inputServerComm->Write(&displayNode,response,true);
-            m_inputServerComm->Write(&dataNode,response,true);
-        }
-        else
-        {   // No end sequence found, bad data
-            Log(LOG_ERRORS, "No end sequence found in buffer (CR LF), ignoring data:\n");
-            Log(LOG_ERRORS, "%s\n",dataString.c_str());
+                // Make a couple of nodes to send data around
+                XmlElement displayNode(displayType, dataValue);
+                Log(LOG_DEV_DATA, "Maple Keypad: %s %s\n", dataType.c_str(), dataValue.c_str());
+                XmlElement dataNode(dataType, dataValue);
+                // Write the data to the InputServer
+                m_inputServerComm->Write(&displayNode,response,true);
+                m_inputServerComm->Write(&dataNode,response,true);
+            }
+            else
+            {   // No end sequence found, bad data
+                Log(LOG_ERRORS, "No end sequence found in buffer (CR LF), ignoring data:\n");
+                Log(LOG_ERRORS, "%s\n",dataString.c_str());
+            }
         }
     }
-}
 }
 
 void MapleKeypadManager::WaitForKeypad(void)
@@ -572,7 +572,7 @@ INT32 &MapleKeypadManager::GetBufferSize(void)
     return m_bufferSize;
 }
 
-inline std::string &MapleKeypadManager::GetCurrentMode(void)
+std::string& MapleKeypadManager::GetCurrentMode(void)
 {
     return m_currentMode;
 }

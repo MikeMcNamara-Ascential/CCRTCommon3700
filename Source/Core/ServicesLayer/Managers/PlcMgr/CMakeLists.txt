@@ -2,7 +2,8 @@
 # Create a list of all the cpp files in this directory needed to create the executable
 #------------------------------------------------------------------------------------------
 SET(PLC_PROXY_SOURCES PlcMgr.cpp PlcDf1.cpp IDf1Protocol.cpp PlcRk512.cpp IRk512Protocol.cpp 
-    PlcMelsec.cpp IMelsecProtocol.cpp PlcEip.cpp EipProtocol.cpp EipWrapper.cpp)
+    PlcTcp.cpp ITcpProtocol.cpp PlcMelsec.cpp IMelsecProtocol.cpp PlcEip.cpp EipProtocol.cpp 
+    EipWrapper.cpp PlcS7.cpp S7Protocol.cpp ./S7/release/Wrappers/c-cpp/snap7.cpp)
 
 FILE(GLOB EIP_SOURCES Eip/*.c)
 
@@ -14,6 +15,7 @@ SET(EXE_NAME PlcMgr)
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
+Add_SUBDIRECTORY(S7)
 ADD_SUBDIRECTORY(Configuration)
 
 #------------------------------------------------------------------------------------------
@@ -28,7 +30,7 @@ ADD_LIBRARY(${LIB_NAME} STATIC ${PLC_PROXY_SOURCES} ${EIP_SOURCES})
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
 CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp ${EIP_SOURCES} ${PLC_PROXY_SOURCES})
-#TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME})
+TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME} libsnap7.so)
 
 #------------------------------------------------------------------------------------------
 # Add a QNX use message to the executable

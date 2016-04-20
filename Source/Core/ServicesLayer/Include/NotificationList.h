@@ -851,7 +851,8 @@ protected:
         {
             // was
             // IBepCommunication* iBep = dynamic_cast<IBepCommunication*>(IPCCommObj);
-            CommType* iBep = dynamic_cast<CommType*>(IPCCommObj);
+//            CommType* iBep = dynamic_cast<CommType*>(IPCCommObj);
+			CommType* iBep = (CommType*)IPCCommObj;
             if(iBep != NULL)    // if the communication object exists, delete it
             {
                 Log(LOG_DETAILED_DATA, "Delete commObj %s, id = %d\n", iBep->GetName().c_str(), iBep->GetId());

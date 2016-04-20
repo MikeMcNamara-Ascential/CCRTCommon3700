@@ -499,20 +499,34 @@ void IBepCommunication::Initialize(const INT32 id, const std::string name,
     if(IsDebugOn()) printf("IBepCommunication::Initialize(%d, %s, %d, %d, %d, %d) from thread %d\n",
                            id, name.c_str(), debug, rid, size, timeout, pthread_self());
     IInterProcessCommunication* ipc = NULL;
-    if((ipc = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) == NULL)
-    {
-        if(m_ISystemCommunication)
-        {
+	bool createIpc = false;
+	if(m_ISystemCommunication != NULL)
+	{
+		if(m_ISystemCommunication->CommType() == "IPC")
+		{
+			ipc = (IInterProcessCommunication *)m_ISystemCommunication;
+			ipc->Initialize(id, name, debug, rid, size, timeout);
+		}
+		else
+		{
             if(IsDebugOn()) printf("Deleting IPC object\n");
             delete m_ISystemCommunication;
             m_ISystemCommunication = NULL;
-        }
-        if(IsDebugOn()) printf("Creatng IPC object\n");
-        m_ISystemCommunication = new IInterProcessCommunication(id, name, debug, rid, size, timeout);    // Initialize object
-        SetRxBufferSize(size);  // update the size of the buffer
-        SetTimeout(timeout);    // update the timeout time
-    }
-    else ipc->Initialize(id, name, debug, rid, size, timeout);    // Initialize object
+			createIpc = true;
+		}
+	}
+	else
+	{
+		createIpc = true;
+	}
+
+	if(createIpc)
+	{
+		if(IsDebugOn())	printf("Creatng IPC object\n");
+		m_ISystemCommunication = new IInterProcessCommunication(id, name, debug, rid, size, timeout);	 // Initialize object
+		SetRxBufferSize(size);	// update the size of the buffer
+		SetTimeout(timeout);	// update the timeout time
+	}
 }
 void IBepCommunication::Initialize(const INT32 id, const INT16 port /* = 0 */,
                                    const std::string address    /*= localhost */,
@@ -561,34 +575,43 @@ void IBepCommunication::Initialize(const XmlNode *config, const INT32 id /* = -1
             {
                 // Create an IPC object
                 if(IsDebugOn()) printf("n IPC %s object\n", type.c_str());
-                if(dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication) == NULL)
-                {
-                    if(m_ISystemCommunication)
+				if(m_ISystemCommunication != NULL)
+				{
+					if(m_ISystemCommunication->CommType() != "IPC")
                     {
                         if(IsDebugOn()) printf("Deleting IPC object\n");
                         delete m_ISystemCommunication;
                         m_ISystemCommunication = NULL;
-                    }
+					}
+					else
+					{
+						if(IsDebugOn()) printf(" is ok\n");
+					}
+				}
+				if(m_ISystemCommunication == NULL)
+				{
                     if(IsDebugOn()) printf("Creatng %s object\n", type.c_str());
                     m_ISystemCommunication = new IInterProcessCommunication();
                     SetRxBufferSize(atoi(nodes.getNode("BufferSize")->getValue().c_str())); // update the size of the buffer
                     SetTimeout(atoi(nodes.getNode("Timeout")->getValue().c_str()));         // update the timeout time
-                }
-                else if(IsDebugOn()) printf(" is ok\n");
-            }
+				}
+			}
             else if(commType == "TCP/IP")
             {
                 // Create a TCP/IP object
                 if(IsDebugOn()) printf(" TCP/IP %s object\n", type.c_str());
-                if(dynamic_cast<ITcpIp *>(m_ISystemCommunication) == NULL)
-                {
-                    if(m_ISystemCommunication)
-                    {
-                        if(IsDebugOn()) printf("Deleting TCP/IP object\n");
-                        delete m_ISystemCommunication;
-                        m_ISystemCommunication = NULL;
-                    }
-                    if(IsDebugOn()) printf("Creatng TCP/IP %s object\n", type.c_str());
+				if(m_ISystemCommunication != NULL)
+				{
+					if(m_ISystemCommunication->CommType() != "TCP")
+					{
+						if(IsDebugOn())	printf("Deleting TCP/IP object\n");
+						delete m_ISystemCommunication;
+						m_ISystemCommunication = NULL;
+					}
+				}
+				if(m_ISystemCommunication == NULL)
+				{
+					if(IsDebugOn())	printf("Creatng TCP/IP %s object\n", type.c_str());
                     m_ISystemCommunication = new ITcpIp();
                 }
             }
@@ -629,12 +652,14 @@ void IBepCommunication::Initialize(IBepCommunication &creator, INT32 id)
         IInterProcessCommunication *ipc;    // same as above
         IOpenChannelIpc *ioc;               // same same
         XmlString type;                     // What type of communication object do we have
-        if((ipc = dynamic_cast<IInterProcessCommunication *>(creator.m_ISystemCommunication)) != NULL)
-        {
-            // InterPorcessCommunication is used in the creator
-            INT32 length = ipc->GetRxLength(), code = ipc->GetPulseCode(), value = ipc->GetPulseValue();
-            if((ioc = dynamic_cast<IOpenChannelIpc *>(m_ISystemCommunication)) == NULL)
-            {
+		string commType = creator.m_ISystemCommunication->CommType();
+		if((commType == "IPC") || (commType == "IOC"))
+		{
+			ipc = (IInterProcessCommunication *)(creator.m_ISystemCommunication);
+			// InterPorcessCommunication is used in the creator
+			INT32 length = ipc->GetRxLength(), code = ipc->GetPulseCode(), value = ipc->GetPulseValue();
+			if(commType != "IOC")
+			{
                 // InterPorcessCommunication is used in the creator
                 if(m_ISystemCommunication)
                 {
@@ -643,56 +668,106 @@ void IBepCommunication::Initialize(IBepCommunication &creator, INT32 id)
                     m_ISystemCommunication = NULL;
                 }
                 ioc = new IOpenChannelIpc();
-            }
+			}
+			else
+			{
+				ioc = (IOpenChannelIpc *)(creator.m_ISystemCommunication);
+			}
             ioc->Initialize(ipc->GetId(), ipc->GetName(), creator.IsDebugOn(), ipc->GetReplyId(), code, value, length, ipc->GetTimeout());
-            m_ISystemCommunication = static_cast<ISystemCommunication *>(ioc);
-        }
-        else if((tcp = dynamic_cast<ITcpIp *>(creator.m_ISystemCommunication)) != NULL)
-        {
-            // TCP/IP was used in the creator
-            if((newTcp = dynamic_cast<ITcpIp *>(m_ISystemCommunication)) == NULL)
-            {
-                if(m_ISystemCommunication)
-                {
-                    if(IsDebugOn()) printf("Deleting non-TcpIp object\n");
-                    delete m_ISystemCommunication;
-                    m_ISystemCommunication = NULL;
-                }
-                newTcp = new ITcpIp();
-            }
+			m_ISystemCommunication = (ISystemCommunication *)ioc;
+		}
+		else if(commType == "TCP")
+		{
+			tcp = (ITcpIp *)(creator.m_ISystemCommunication);
+			if(m_ISystemCommunication != NULL)
+			{
+				if(m_ISystemCommunication->CommType() != "TCP")
+				{
+					if(IsDebugOn())	printf("Deleting non-TcpIp object\n");
+					delete m_ISystemCommunication;
+					m_ISystemCommunication = NULL;
+					newTcp = new ITcpIp();
+				}
+				else
+				{
+					newTcp = (ITcpIp *)(m_ISystemCommunication);
+				}
+			}
+			else
+			{
+				newTcp = (ITcpIp *)(m_ISystemCommunication);
+			}
             newTcp->Initialize("Worker", tcp->GetPort(), tcp->GetIPAddress(), id, creator.IsDebugOn(),
                                tcp->GetFrameStart(), tcp->GetFrameEnd(), tcp->GetBacklog());
-            m_ISystemCommunication = static_cast<ISystemCommunication *>(newTcp);
-        }
-        else throw BepException("Type of object (%s) cannot be created\n", typeid(creator.m_ISystemCommunication).name());
-    }
-    else throw BepException("Tried to initialize with itself, initialize with a server component");
+			m_ISystemCommunication = (ISystemCommunication *)(newTcp);
+		}
+		else
+		{
+			if(IsDebugOn())  printf("Type of object (%s) cannot be created\n", typeid(creator.m_ISystemCommunication).name());
+			throw BepException("Type of object (%s) cannot be created\n", typeid(creator.m_ISystemCommunication).name());
+		}
+	}
+	else 
+	{
+		if(IsDebugOn())  printf("Tried to initialize with itself, initialize with a server component");
+		throw BepException("Tried to initialize with itself, initialize with a server component");
+	}
 }
 void IBepCommunication::Initialize(const std::string &name, const std::string &type,
                                    const bool debug /* = false */,
                                    const INT32 size /* = DEFAULT_BUFFER_SIZE */,
                                    const INT32 timeout /* = DEFAULT_TIMEOUT */)
 {
-    SetDebug(debug);    // Set debug status
-    SetCommunicationType(std::string("IPC"));
-    if(IsDebugOn()) printf("Create an IPC client: %s, debug: %d, from thread %d\n", name.c_str(), debug, pthread_self());
-    IInterProcessCommunication *ipc = NULL;
-    if((ipc = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) == NULL)
-    {
-        if(m_ISystemCommunication != NULL)
-        {   // Delete old communication object
-            delete m_ISystemCommunication;
-            m_ISystemCommunication = NULL;
-        }   // Create new IPC client object
-        m_ISystemCommunication = new IInterProcessCommunication();
-        SetRxBufferSize(size);  // update the size of the buffer
-        SetTimeout(timeout);    // update the timeout time
-    }
-    if((ipc = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != NULL)
-    {
-        ipc->Initialize(name, type, debug, size, timeout);  // Initialize object
-    }
-    else throw BepException("Error in IBepCommunication::Initialize(string, int, int, bool)\n");
+	SetDebug(debug);	// Set debug status
+	SetCommunicationType(std::string("IPC"));
+	if(IsDebugOn())	printf("Create an IPC client: %s, debug: %d, from thread %d\n", name.c_str(), debug, pthread_self());
+	IInterProcessCommunication *ipc = NULL;
+	if(m_ISystemCommunication != NULL)
+	{
+		if(m_ISystemCommunication->CommType() != "IPC")
+		{
+			if(m_ISystemCommunication != NULL)
+			{	// Delete old communication object
+				delete m_ISystemCommunication;
+				m_ISystemCommunication = NULL;
+			}	// Create new IPC client object
+			if(IsDebugOn())	 printf("Creating new ipc comm for m_ISystemCommunication object\n");
+			m_ISystemCommunication = new IInterProcessCommunication();
+			if(IsDebugOn())	 printf("Setting RX buffer size to %d\n", size);
+			SetRxBufferSize(size);	// update the size of the buffer
+			if(IsDebugOn())	 printf("Setting timeout to %dms\n", timeout);
+			SetTimeout(timeout);	// update the timeout time
+			if(IsDebugOn())	 printf("Done creating new ipc comm for m_ISystemCommunication object\n");
+		}
+	}
+	else
+	{
+		m_ISystemCommunication = new IInterProcessCommunication();
+		SetRxBufferSize(size);	// update the size of the buffer
+		SetTimeout(timeout);	// update the timeout time
+	}
+	if(m_ISystemCommunication != NULL)
+	{
+		if(IsDebugOn())	 printf("Initializing IPC comm object\n");
+		ipc = (IInterProcessCommunication *)m_ISystemCommunication;
+		if(IsDebugOn())	 printf("Casted sys comm obj to IPC\n");
+		if(ipc != NULL)
+		{
+			if(IsDebugOn())	 printf("Initializing ipc comm object\n");
+			ipc->Initialize(name, type, debug, size, timeout);	// Initialize object
+			if(IsDebugOn())	 printf("Done initializing ipc comm object\n");
+		}
+		else
+		{
+			if(IsDebugOn())	 printf("m_ISystemCommunication is not an IPC comm object - DANGER Will Robinson! DANGER!!\n");
+			throw BepException("Error in IBepCommunication::Initialize(string, int, int, bool)\n");
+		}
+	}
+	else
+	{
+		if(IsDebugOn())	 printf("ERROR, cannot initialize NULL comm object\n");
+	}
+	if(IsDebugOn())	printf("Done Creating an IPC client: %s, debug: %d, from thread %d\n", name.c_str(), debug, pthread_self());
 }
 INT32 IBepCommunication::Clear()
 {
@@ -710,19 +785,19 @@ INT32 IBepCommunication::Clear()
     m_sendData.Unlock();
 
 
-    if((comm = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
-    {
-        printf("ClearPublicBuffer - cleared\n");
-        comm->ClearPublicBuffer();
-        //comm->Write("");
-        //m_ISystemCommunication->Write("");
-    }
-    else
-    {
-        printf("ClearPublicBuffer - Did not clear\n");
-    }
-
-    
+	if(m_ISystemCommunication != NULL)
+	{
+		if(m_ISystemCommunication->CommType() == "IPC")
+		{
+			comm = (IInterProcessCommunication *)m_ISystemCommunication;
+			printf("ClearPublicBuffer - cleared\n");
+			comm->ClearPublicBuffer();
+		}
+		else
+		{
+			printf("ClearPublicBuffer - Did not clear\n");
+		}
+	}
     printf("More powerful clearing option\n");
 
     if( (errno=pthread_mutex_lock( &m_lock)) == EOK)
@@ -853,10 +928,11 @@ INT32 IBepCommunication::Terminate(std::string &response)
     {
         try
         {
-            if((comm = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
-            {
-                // If an IPC object, send a pulse else send message via TCP/IP
-                stat = comm->SendPulse(SYSTEM_PULSE, TERMINATE_PULSE);
+			if(m_ISystemCommunication->CommType() == "IPC")
+			{
+				comm = (IInterProcessCommunication *)m_ISystemCommunication;
+				// If an IPC object, send a pulse else send message via TCP/IP
+				stat = comm->SendPulse(SYSTEM_PULSE, TERMINATE_PULSE);
                 if(stat == BEP_STATUS_SUCCESS)  response = "Pulse sent";
                 else                            response = "Pulse send failed";
             }
@@ -885,8 +961,9 @@ INT32 IBepCommunication::Reset(std::string &response)
     {
         try
         {
-            if((comm = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
-            {
+			if(m_ISystemCommunication->CommType() == "IPC")
+			{
+				comm = (IInterProcessCommunication *)m_ISystemCommunication;
                 // If an IPC object, send a pulse else send message via TCP/IP
                 stat = comm->SendPulse(SYSTEM_PULSE, RESET_PULSE);
                 if(stat == BEP_STATUS_SUCCESS)  response = "Pulse sent";
@@ -918,8 +995,9 @@ INT32 IBepCommunication::Abort(std::string &response)
     {
         try
         {
-            if((comm = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
-            {
+			if(m_ISystemCommunication->CommType() == "IPC")
+			{
+				comm = (IInterProcessCommunication *)m_ISystemCommunication;
                 // If an IPC object, send a pulse else send message via TCP/IP
                 stat = comm->SendPulse(SYSTEM_PULSE, ABORT_PULSE);
                 if(stat == BEP_STATUS_SUCCESS)  response = "Pulse sent";
@@ -951,8 +1029,9 @@ INT32 IBepCommunication::Activate(std::string &response)
     {
         try
         {
-            if((comm = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
-            {
+			if(m_ISystemCommunication->CommType() == "IPC")
+			{
+				comm = (IInterProcessCommunication *)m_ISystemCommunication;
                 // If an IPC object, send a pulse else send message via TCP/IP
                 stat = comm->SendPulse(SYSTEM_PULSE, ACTIVATE_PULSE);
                 if(stat == BEP_STATUS_SUCCESS)  response = "Pulse sent";
@@ -984,9 +1063,10 @@ INT32 IBepCommunication::Deactivate(std::string &response)
     {
         try
         {
-            if((comm = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
-            {
-                // If an IPC object, send a pulse else send message via TCP/IP
+			if(m_ISystemCommunication->CommType() == "IPC")
+			{
+				comm = (IInterProcessCommunication *)m_ISystemCommunication;
+				// If an IPC object, send a pulse else send message via TCP/IP
                 stat = comm->SendPulse(SYSTEM_PULSE, DEACTIVATE_PULSE);
                 if(stat == BEP_STATUS_SUCCESS)  response = "Pulse sent";
                 else                            response = "Pulse send failed";
@@ -1016,8 +1096,9 @@ INT32 IBepCommunication::ReloadConfiguration(std::string &response)
     {
         try
         {
-            if((comm = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
-            {
+			if(m_ISystemCommunication->CommType() == "IPC")
+			{
+				comm = (IInterProcessCommunication *)m_ISystemCommunication;
                 // If an IPC object, send a pulse else send message via TCP/IP
                 stat = comm->SendPulse(SYSTEM_PULSE, RELOAD_PULSE);
                 if(stat == BEP_STATUS_SUCCESS)  response = "Pulse sent";
@@ -1114,7 +1195,7 @@ const INT32 IBepCommunication::HandleRequest(std::string &message, BepComponent 
     {
         try
         {
-            ipc = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication);
+			ipc = (IInterProcessCommunication *)m_ISystemCommunication;
             if(!messagePopulated) GetRequest(message); // Get request from client
         }
         catch( ...)
@@ -1139,168 +1220,168 @@ const INT32 IBepCommunication::HandleRequest(std::string &message, BepComponent 
                         /*
                             Who's the jack ass that did this? Whoever it is should be fired...oh wait a minute...they were
 
-                                            if(ipc->GetPulseCode() == TERMINATE_PULSE) // if a terminate pulse was received
-                        */
-                        // if a terminate pulse was received
-                        if( (ipc->GetPulseCode() == SYSTEM_PULSE) && (ipc->GetPulseValue() == TERMINATE_PULSE))
-                        {
-                            SetTerminate(true);                     // set the terminate status
-                            server->SetStatus(BEP_TERMINATE_STATUS);
-                        }
-                    }
-                    else if(ipc->GetPulseCode() == _PULSE_CODE_DISCONNECT)
-                    {
-                        ipc->SetDisconnected(ipc->GetPulseCode() == _PULSE_CODE_DISCONNECT);
-                    }
-                    else stat = BEP_STATUS_ERROR;
-                }
-                catch( ...)
-                {
-                    pthread_mutex_unlock( &m_lock);
-                    throw;
-                }
-            }
-            else if(ipc->GetPulseCode() == _PULSE_CODE_DISCONNECT)
-            {
-                ipc->SetDisconnected(ipc->GetPulseCode() == _PULSE_CODE_DISCONNECT);
-            }
-            else stat = BEP_STATUS_ERROR;
-        }
-        else
-        {
-            if(IsDebugOn()) printf("HandleRequest(%s, %p)\n", message.c_str(), server);
-            m_parser.Parse(message.c_str(), message.length(), true, "");    // parse request
-            XmlNode* currentNode, *doc = const_cast<XmlNode *>(m_parser.getDocElement());   // Get document
-            if(ValidateMessage(doc))
-            {
-                const std::string type = GetRequestType(doc);   // What do you want?
-                const XmlNodeMap    &nodes = doc->getChildren();
-                XmlNodeMapCItr      xmlItr;
-                if( (errno=nodes.Lock()) == EOK)
-                {
-                    for(xmlItr=nodes.begin(); xmlItr!=nodes.end(); xmlItr++)
-                    {
-                        // Get request
-                        currentNode = const_cast<XmlNode *>(xmlItr->second);
-                        if(IsDebugOn()) printf("processing: %s, type %s, server %p\n",
-                                               currentNode->ToString().c_str(), type.c_str(), server);
-                        if(server)
-                        {
-                            // If there is a server to process request call the appropriate handler in the server
-                            try
-                            {
-                                SpecialProcessing(currentNode, type, server);
-                                if(type == BEP_READ)
-                                {
-                                    currentNode->setValue(server->Read(currentNode, GetDataRate()));    // Set the value in the message
-                                }
-                                else if(type == BEP_WRITE)
-                                {
-                                    currentNode->setValue(server->Write(currentNode));    // Set the value in the message
-                                }
-                                else if(type == BEP_COMMAND)
-                                {
-                                    if(IsTerminateMessage(currentNode))
-                                    {
-                                        if(IsDebugOn()) printf("We got a terminate\n");
-                                        SetTerminate(true);
-                                        server->Terminate();
-                                        currentNode->setValue(BEP_SUCCESS_RESPONSE);    // Set the value in the message
-                                    }
-                                    else if(IsAbortMessage(currentNode))
-                                    {
-                                        server->Abort();
-                                        currentNode->setValue(BEP_SUCCESS_RESPONSE);    // Set the value in the message
-                                    }
-                                    else if(IsResetMessage(currentNode))
-                                    {
-                                        server->Reset();
-                                        currentNode->setValue(BEP_SUCCESS_RESPONSE);    // Set the value in the message
-                                    }
-                                    else
-                                    {
-                                        currentNode->setValue(server->Command(currentNode));     // Set the value in the message
-                                    }
-                                }
-                                else if(type == BEP_SUBSCRIBE)
-                                {
-                                    currentNode->setValue(server->Subscribe(currentNode));    // Set the value in the message
-                                }
-                                else if(type == BEP_UNSUBSCRIBE)
-                                {
-                                    currentNode->setValue(server->Unsubscribe(currentNode));    // Set the value in the message
-                                }
-                                else if(type == BEP_PUBLISH)
-                                {
-                                    currentNode->setValue(server->Publish(currentNode));    // Set the value in the message
-                                }
-                                else if(type == BEP_REGISTER)
-                                {
-                                    currentNode->setValue(server->Register());    // Set the value in the message
-                                }
-                                else
-                                {
-                                    if(IsDebugOn()) printf("Unknown request type: %s\n", type.c_str());
-                                    currentNode->setValue(BEP_ERROR_RESPONSE);    // Set the value in the message
-                                    break;
-                                }
-                            }
-                            catch(BepException& Err)
-                            {
-                                if(IsDebugOn()) printf("Error: %s\n", Err.what());
-                                currentNode->setValue(XML_T(BEP_SOFTWAREFAIL_RESPONSE));
-                                stat = BEP_STATUS_ERROR;
-                            }
-                            catch(...)
-                            {
-                                if(IsDebugOn()) printf("Unknown error\n");
-                                currentNode->setValue(XML_T(BEP_SOFTWAREFAIL_RESPONSE));
-                                stat = BEP_STATUS_ERROR;
-                            }
-                        }
-                        else
-                        {
-                            // No server was provided
-                            if(IsDebugOn()) printf("No server\n");
-                            currentNode->setValue(XML_T(BEP_UNAVAILABLE_RESPONSE));
-                            stat = BEP_STATUS_ERROR;
-                        }
-                        if(IsDebugOn()) printf("Node: %s\n", currentNode->ToString().c_str());
-                    }
-                    nodes.Unlock();
-                }
-                else
-                {
-                    printf( "\tError locking node map in IBepCommunication::HandleRequest(): %s\n", strerror( errno));
-                    stat = BEP_STATUS_ERROR;
-                }
+											if(ipc->GetPulseCode() == TERMINATE_PULSE) // if a terminate pulse was received
+						*/
+						// if a terminate pulse was received
+						if( (ipc->GetPulseCode() == SYSTEM_PULSE) && (ipc->GetPulseValue() == TERMINATE_PULSE))
+						{
+							SetTerminate(true);						// set the terminate status
+							server->SetStatus(BEP_TERMINATE_STATUS);
+						}
+					}
+					else if(ipc->GetPulseCode() == _PULSE_CODE_DISCONNECT)
+					{
+						ipc->SetDisconnected(ipc->GetPulseCode() == _PULSE_CODE_DISCONNECT);
+					}
+					else stat = BEP_STATUS_ERROR;
+				}
+				catch( ...)
+				{
+					pthread_mutex_unlock( &m_lock);
+					throw;
+				}
+			}
+			else if(ipc->GetPulseCode() == _PULSE_CODE_DISCONNECT)
+			{
+				ipc->SetDisconnected(ipc->GetPulseCode() == _PULSE_CODE_DISCONNECT);
+			}
+			else stat = BEP_STATUS_ERROR;
+		}
+		else
+		{
+			if(IsDebugOn())	printf("HandleRequest(%s, %p)\n", message.c_str(), server);
+			m_parser.Parse(message.c_str(), message.length(), true, "");	// parse request
+			XmlNode* currentNode, *doc = const_cast<XmlNode *>(m_parser.getDocElement());	// Get document
+			if(ValidateMessage(doc))
+			{
+				const std::string type = GetRequestType(doc);	// What do you want?
+				const XmlNodeMap    &nodes = doc->getChildren();
+				XmlNodeMapCItr      xmlItr;
+				if( (errno=nodes.Lock()) == EOK)
+				{
+					for(xmlItr=nodes.begin(); xmlItr!=nodes.end(); xmlItr++)
+					{
+						// Get request
+						currentNode = const_cast<XmlNode *>(xmlItr->second);
+						if(IsDebugOn())	printf("processing: %s, type %s, server %p\n",
+											   currentNode->ToString().c_str(), type.c_str(), server);
+						if(server)
+						{
+							// If there is a server to process request call the appropriate handler in the server
+							try
+							{
+								SpecialProcessing(currentNode, type, server);
+								if(type == BEP_READ)
+								{
+									currentNode->setValue(server->Read(currentNode, GetDataRate()));	// Set the value in the message
+								}
+								else if(type == BEP_WRITE)
+								{
+									currentNode->setValue(server->Write(currentNode));	  // Set the value in the message
+								}
+								else if(type == BEP_COMMAND)
+								{
+									if(IsTerminateMessage(currentNode))
+									{
+										if(IsDebugOn())	printf("We got a terminate\n");
+										SetTerminate(true);
+										server->Terminate();
+										currentNode->setValue(BEP_SUCCESS_RESPONSE);	// Set the value in the message
+									}
+									else if(IsAbortMessage(currentNode))
+									{
+										server->Abort();
+										currentNode->setValue(BEP_SUCCESS_RESPONSE);	// Set the value in the message
+									}
+									else if(IsResetMessage(currentNode))
+									{
+										server->Reset();
+										currentNode->setValue(BEP_SUCCESS_RESPONSE);	// Set the value in the message
+									}
+									else
+									{
+										currentNode->setValue(server->Command(currentNode));	 // Set the value in the message
+									}
+								}
+								else if(type == BEP_SUBSCRIBE)
+								{
+									currentNode->setValue(server->Subscribe(currentNode));	  // Set the value in the message
+								}
+								else if(type == BEP_UNSUBSCRIBE)
+								{
+									currentNode->setValue(server->Unsubscribe(currentNode));	// Set the value in the message
+								}
+								else if(type == BEP_PUBLISH)
+								{
+									currentNode->setValue(server->Publish(currentNode));	// Set the value in the message
+								}
+								else if(type == BEP_REGISTER)
+								{
+									currentNode->setValue(server->Register());	  // Set the value in the message
+								}
+								else
+								{
+									if(IsDebugOn())	printf("Unknown request type: %s\n", type.c_str());
+									currentNode->setValue(BEP_ERROR_RESPONSE);	  // Set the value in the message
+									break;
+								}
+							}
+							catch(BepException& Err)
+							{
+								if(IsDebugOn())	printf("Error: %s\n", Err.what());
+								currentNode->setValue(XML_T(BEP_SOFTWAREFAIL_RESPONSE));
+								stat = BEP_STATUS_ERROR;
+							}
+							catch(...)
+							{
+								if(IsDebugOn())	printf("Unknown error\n");
+								currentNode->setValue(XML_T(BEP_SOFTWAREFAIL_RESPONSE));
+								stat = BEP_STATUS_ERROR;
+							}
+						}
+						else
+						{
+							// No server was provided
+							if(IsDebugOn())	printf("No server\n");
+							currentNode->setValue(XML_T(BEP_UNAVAILABLE_RESPONSE));
+							stat = BEP_STATUS_ERROR;
+						}
+						if(IsDebugOn())	printf("Node: %s\n", currentNode->ToString().c_str());
+					}
+					nodes.Unlock();
+				}
+				else
+				{
+					printf( "\tError locking node map in IBepCommunication::HandleRequest(): %s\n", strerror( errno));
+					stat = BEP_STATUS_ERROR;
+				}
 
-                message.erase();            // Clear message  (do not condition with debug some servers depend on this)
-                doc->writeNode(message);    // Return message (do not condition with debug some servers depend on this)
-                if(IsDebugOn()) printf("HandleRequest() will send: %s\n", message.c_str());
-            }
-            else
-            {
-                // Bad Data
-                if(IsDebugOn()) printf("Message is not valid:\n%s\n", message.c_str());
-                stat = BEP_STATUS_ERROR;
-                BuildMessage(BEP_ERROR_RESPONSE, message);
-            }
-            SendResponse(doc, server);  // Send response to client
-            if(IsDebugOn()) printf("Sent:\n%s\n", message.c_str());
-        }
+				message.erase();			// Clear message  (do not condition with debug some servers depend on this)
+				doc->writeNode(message);	// Return message (do not condition with debug some servers depend on this)
+				if(IsDebugOn())	printf("HandleRequest() will send: %s\n", message.c_str());
+			}
+			else
+			{
+				// Bad Data
+				if(IsDebugOn())	printf("Message is not valid:\n%s\n", message.c_str());
+				stat = BEP_STATUS_ERROR;
+				BuildMessage(BEP_ERROR_RESPONSE, message);
+			}
+			SendResponse(doc, server);	// Send response to client
+			if(IsDebugOn())	printf("Sent:\n%s\n", message.c_str());
+		}
 
-        pthread_mutex_unlock( &m_lock);
+		pthread_mutex_unlock( &m_lock);
 
-    }
-    else
-    {
-        if(IsDebugOn()) perror("Error locking mutex in HandleRequest");
-        stat = BEP_STATUS_ERROR;
-    }
+	}
+	else
+	{
+		if(IsDebugOn())	perror("Error locking mutex in HandleRequest");
+		stat = BEP_STATUS_ERROR;
+	}
 
-    if(IsDebugOn()) printf("HandleRequest() done\n");
-    return(stat);
+	if(IsDebugOn())	printf("HandleRequest() done\n");
+	return(stat);
 }
 const INT32 IBepCommunication::GetNext(std::string &tag, std::string &value, std::string &message)
 {
@@ -1447,26 +1528,29 @@ const std::string IBepCommunication::GetName(void)
     std::string name;   // Name to return
     ITcpIp *tcp;
     IInterProcessCommunication *ipc;
-    if((ipc = dynamic_cast<IInterProcessCommunication *>(m_ISystemCommunication)) != 0)
-    {
-        // If we have an ipc object inside
-        name = ipc->GetName();
-    }
-    else if((tcp = dynamic_cast<ITcpIp *>(m_ISystemCommunication)) != 0)
-    {
-        char buffer[128];       // buffer to create messages with
-        name = CreateMessage(buffer, sizeof(buffer), "%d", tcp->GetSock());
-    }
+	if(m_ISystemCommunication->CommType() == "IPC")
+	{
+		ipc = (IInterProcessCommunication *)m_ISystemCommunication;
+		// If we have an ipc object inside
+		name = ipc->GetName();
+	}
+	else if(m_ISystemCommunication->CommType() == "TCP")
+	{
+		tcp = (ITcpIp *)m_ISystemCommunication;
+		char buffer[128];		// buffer to create messages with
+		name = CreateMessage(buffer, sizeof(buffer), "%d", tcp->GetSock());
+	}
     return(name);
 }
 const INT16 IBepCommunication::GetPort(void)
 {
     INT16 port = 0;
     ITcpIp *tcp;
-    if((tcp = dynamic_cast<ITcpIp *>(m_ISystemCommunication)) != 0)
-    {
-        // If we have an ipc object inside
-        port = tcp->GetPort();
+	if(m_ISystemCommunication->CommType() == "TCP")
+	{
+		tcp = (ITcpIp *)m_ISystemCommunication;
+		// If we have an ipc object inside
+		port = tcp->GetPort();
     }
     return(port);
 }
@@ -1474,21 +1558,23 @@ const std::string IBepCommunication::GetIPAddress(void)
 {
     std::string address;
     ITcpIp *tcp;
-    if((tcp = dynamic_cast<ITcpIp *>(m_ISystemCommunication)) != 0)
-    {
-        // If we have an ipc object inside
-        address = tcp->GetIPAddress();
-    }
+	if(m_ISystemCommunication->CommType() == "TCP")
+	{
+		tcp = (ITcpIp *)m_ISystemCommunication;
+		// If we have an ipc object inside
+		address = tcp->GetIPAddress();
+	}
     return(address);
 }
 const std::string IBepCommunication::GetFrameStart(void)
 {
     std::string frameStart;
     ITcpIp *tcp;
-    if((tcp = dynamic_cast<ITcpIp *>(m_ISystemCommunication)) != 0)
-    {
-        // If we have an ipc object inside
-        frameStart = tcp->GetFrameStart();
+	if(m_ISystemCommunication->CommType() == "TCP")
+	{
+		tcp = (ITcpIp *)m_ISystemCommunication;
+		// If we have an ipc object inside
+		frameStart = tcp->GetFrameStart();
     }
     return(frameStart);
 }
@@ -1496,8 +1582,9 @@ const std::string IBepCommunication::GetFrameEnd(void)
 {
     std::string frameEnd;
     ITcpIp *tcp;
-    if((tcp = dynamic_cast<ITcpIp *>(m_ISystemCommunication)) != 0)
-    {
+	if(m_ISystemCommunication->CommType() == "TCP")
+	{
+		tcp = (ITcpIp *)m_ISystemCommunication;
         // If we have an ipc object inside
         frameEnd = tcp->GetFrameEnd();
     }
@@ -1533,7 +1620,9 @@ const UINT32 IBepCommunication::GetTimeout(void)
 
 void IBepCommunication::SetTimeout(const UINT32 timeout)
 {
-    m_ISystemCommunication->SetTimeout(timeout);
+	if(IsDebugOn())	 printf("IBepCommunication::SetTimeout(timeout: %d) - Enter\n", timeout);
+	m_ISystemCommunication->SetTimeout(timeout);
+	if(IsDebugOn())	 printf("IBepCommunication::SetTimeout(timeout: %d) - Exit\n", timeout);
 }
 
 const INT32 IBepCommunication::GetId(void) const
@@ -1698,12 +1787,13 @@ const INT32 IBepCommunication::GetRequest(std::string &message)
 {
     INT32   stat;
 
-    if(m_ISystemCommunication)
-    {
-        if(((dynamic_cast<IOpenChannelIpc *>(m_ISystemCommunication)) == 0) &&
-           ((dynamic_cast<ITcpIp *>(m_ISystemCommunication)) == 0))
-            throw BepException("Failure! Request Must Be Handled By Workers, Not Servers!");
-    }
+	if(m_ISystemCommunication)
+	{
+		if((m_ISystemCommunication->CommType() != "IOC") && (m_ISystemCommunication->CommType() != "TCP"))
+		{
+			throw BepException("Failure! Request Must Be Handled By Workers, Not Servers!");
+		}
+	}
     else throw BepException("The communication channel has not been properly set up in GetRequest()");
     message.erase();
 

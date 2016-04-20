@@ -146,6 +146,8 @@ void IOpenChannelIpc::Initialize(const INT32 id, const std::string name,
 	IInterProcessCommunication::Initialize(id, name, debug, rid, size, timeout);
 	SetPulseCode(code);
 	SetPulseValue(value);
+	string type = "IOC";
+	CommType(&type);
 }
 void IOpenChannelIpc::Initialize(const XmlNode *config, const INT32 id /* =-1 */, const INT32 rid /* =-1 */)
 {
@@ -174,6 +176,8 @@ void IOpenChannelIpc::Initialize(const XmlNode *config, const INT32 id /* =-1 */
 	{	// If node does not exist, leave set DEFAULT_BUFFER_SIZE
 	}
 	IInterProcessCommunication::Initialize(id, nodes.getNode("Name")->getValue(), debug, rid, size, timeout);
+	string type = "IOC";
+	CommType(&type);
 }
 INT32 IOpenChannelIpc::Read(std::string &message, INT32 id /*=-1*/)
 {	// Receive message

@@ -166,7 +166,7 @@ public:
      * @return Return the current mode of the keypad.
      * @since Version 1.0
      */
-    inline std::string &GetCurrentMode(void);
+    std::string &GetCurrentMode(void);
     /**
      * Get the maximum number of attempts to make.
      *
@@ -362,17 +362,6 @@ protected:
      * @return Length of the secondary data item.
      */
     const INT32& SecondaryDataLength(const INT32 *dataLength = NULL);
-
-	/**
-	 * Communication object to talk with the Maple Keypad.
-	 */
-	SerialChannel m_keypadComm;
-
-
-
-
-private:
-
     /**
      * Get/Set the length of the VIN.
      * 
@@ -381,7 +370,6 @@ private:
      * @return Length of the VIN.
      */
     const INT32& VinLength(const INT32 *length = NULL);
-
 	/**
 	 * Get/Set the flag to detemrine if secondary data items should be 
 	 * written to the NDB.
@@ -394,6 +382,15 @@ private:
 	 */
 	const bool& WriteSecondaryDataToNdb(const bool *writeToNdb = NULL);
 
+	/**
+	 * Communication object to talk with the Maple Keypad.
+	 */
+	SerialChannel m_keypadComm;
+
+
+
+
+private:
     /**
      * Current input mode.
      */

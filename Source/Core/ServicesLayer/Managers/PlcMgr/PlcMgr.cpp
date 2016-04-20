@@ -767,6 +767,7 @@ void PlcMgr::Initialize(const XmlNode *document)
 
 void PlcMgr::LoadAdditionalConfigurationItems(const XmlNode *document)
 {
+    Log( LOG_FN_ENTRY, "Enter PlcMgr::LoadAdditionalConfigurationItems\n");
     // Read Diag definitions
     ReadDiagMap( document->getChild( XML_T("DiagnosticMap")));
 
@@ -783,6 +784,7 @@ void PlcMgr::LoadAdditionalConfigurationItems(const XmlNode *document)
         Log( LOG_ERRORS, "\tError initializing PLC board objects: %s\n",err.GetReason());
         throw;
     }
+    Log( LOG_FN_ENTRY, "Exit PlcMgr::LoadAdditionalConfigurationItems\n");
 }
 
 /**
@@ -1844,6 +1846,7 @@ void PlcMgr::ClearBoardList()
  */
 IPlc* PlcMgr::CreatePlcObject( const std::string &boardTag) throw( BepException)
 {
+    Log( LOG_FN_ENTRY, "Enter CreatePlcObject\n");
     IPlc    *plcBoard = NULL;
 
     if( boardTag == "Df1")
@@ -1854,21 +1857,29 @@ IPlc* PlcMgr::CreatePlcObject( const std::string &boardTag) throw( BepException)
     {
         plcBoard = new PlcRk512;
     }
-    else if(boardTag == "Melsec")
+    else if(boardTag == "Tcp")
     {
-        plcBoard = new PlcMelsec;
+        plcBoard = new PlcTcp;
     }
-    else if(boardTag == "Eip")
-    {
-        plcBoard = new PlcEip;
-    }
-
+	else if(boardTag == "Melsec")
+	{
+		plcBoard = new PlcMelsec;
+	}
+	else if(boardTag == "Eip")
+	{
+		plcBoard = new PlcEip;
+	}
+	else if(boardTag == "S7")
+	{
+		plcBoard = new PlcS7;
+	}
     if( plcBoard == NULL)
     {
         std::string errStr( "Unrecognized PLC board type identifier: ");
         errStr += boardTag;
         throw( BepException( errStr));
     }
+    Log( LOG_FN_ENTRY, "Exit CreatePlcObject\n");
     return( plcBoard);
 }
 

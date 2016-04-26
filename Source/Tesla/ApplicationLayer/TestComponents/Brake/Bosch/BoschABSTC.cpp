@@ -1894,6 +1894,8 @@ string BoschABSTC<ModuleType>::SensorQualityTest(void)
         BEP_STATUS_TYPE status = m_vehicleModule.GetInfo("ReadSensorSpeeds", sensorSpeeds);
         if(status == BEP_STATUS_SUCCESS)
         {   // Check each wheel against the allowable tolerance
+			string resultNames[] = {"LFSensorToleranceTest", "RFSensorToleranceTest",
+								    "LRSensorToleranceTest", "RRSensorToleranceTest"};
             for(UINT8 index = LFWHEEL; index <= RRWHEEL; index++)
             {
                 float upperLimit = rollerSpeeds[index] + ((GetParameterFloat("SensorSpeedTolerance")/100.0) * rollerSpeeds[index]);
@@ -1903,6 +1905,17 @@ string BoschABSTC<ModuleType>::SensorQualityTest(void)
                 Log(LOG_DEV_DATA, "Sensor test: %s - sensor speed: %.2f, upper limit: %.2f, lower limit: %.2f - Result: %s",
                     rollerName[index].c_str(), sensorSpeeds[index], upperLimit, lowerLimit,
                     results[index].c_str());
+				char buff[16];
+				string description = "";
+				if(results[index] != testPass)
+				{
+					description = rollerName[index] + " WSS speed out of tolerance";
+				}
+				SendSubtestResultWithDetail(resultNames[index], results[index], description, "", 
+											"RollSpeed", CreateMessage(buff, sizeof(buff), "%.2f", rollerSpeeds[index]), "", 
+											"SensorSpeed", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[index]), "", 
+											"UpperLimit", CreateMessage(buff, sizeof(buff), "%.2f", upperLimit), "", 
+											"LowerLimit",CreateMessage(buff, sizeof(buff), "%.2f", lowerLimit), "");
             }
             // Determine the result
             testResult = testPass;
@@ -1958,13 +1971,36 @@ string BoschABSTC<ModuleType>::ESPValveFiringTest(void)
         m_ESPStartIndex = TagArray("ESPStart");
 
         // run the individual wheel ESP tests
+		WheelSpeeds_t sensorSpeeds[5];
+		m_vehicleModule.GetInfo("ReadSensorSpeeds", sensorSpeeds[0]);
         testResult = LFESPTest();
-        if(testResult == testPass) RFESPTest();
-        if(testResult == testPass) LRESPTest();
-        if(testResult == testPass) RRESPTest();
+		m_vehicleModule.GetInfo("ReadSensorSpeeds", sensorSpeeds[1]);
+        if(testResult == testPass) 
+		{
+			RFESPTest();
+			m_vehicleModule.GetInfo("ReadSensorSpeeds", sensorSpeeds[2]);
+		}
+        if(testResult == testPass) 
+		{
+			LRESPTest();
+			m_vehicleModule.GetInfo("ReadSensorSpeeds", sensorSpeeds[3]);
+		}
+        if(testResult == testPass) 
+		{
+			RRESPTest();
+			m_vehicleModule.GetInfo("ReadSensorSpeeds", sensorSpeeds[4]);
+		}
 
         m_ESPEndIndex = TagArray("ESPEnd");
 
+		// Perform the sensor cross check
+		if(testResult == testPass)
+		{
+			for(int index = LFWHEEL; (index <= RRWHEEL) && (testResult == testPass); index++)
+			{
+				testResult = CheckSpeedDeltaSensorCross(sensorSpeeds[index], sensorSpeeds[index+1], index);
+			}
+		}
         // Determine the description and code to report
         if(GetCommunicationFailure() == true)
         {
@@ -5336,5 +5372,39 @@ string BoschABSTC<ModuleInterface>::ControlDynoMode(bool enableDynoMode)
 		result = testSkip;
 	}
 	Log(LOG_FN_ENTRY, "BoschABSTC::ControlDynoMode(enableDynoMode: %s) - Exit", enableDynoMode ? "True" : "False");
+	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::CheckSpeedDeltaSensorCross(WheelSpeeds_t &initialSpeeds, 
+															   WheelSpeeds_t &finalSpeeds, 
+															   int rollerIndex)
+{
+	Log(LOG_FN_ENTRY, "Checking speed deltas for sensor cross for %s wheel", rollerName[rollerIndex].c_str());
+	string result = testFail;
+	// Find the speed deltas
+	WheelSpeeds_t delta;
+	for(int index = LFWHEEL; index <= RRWHEEL; index++)
+	{
+		delta[index] = initialSpeeds[index] - finalSpeeds[index];
+		Log(LOG_DEV_DATA, "Speed delta %s = %.2f (init: %.2f, final %.2f)", 
+			rollerName[index].c_str(), delta[index], initialSpeeds[index], finalSpeeds[index]);
+	}
+	// Find the biggest speed delta
+	int largestDeltaIndex = -1;
+	float largestDelta = -1.0;
+	for(int index = LFWHEEL; index <= RRWHEEL; index++)
+	{
+		if(delta[index] > largestDelta)
+		{
+			largestDelta = delta[index];
+			largestDeltaIndex = index;
+		}
+	}
+	Log(LOG_DEV_DATA, "Biggest speed delta found - wheel: %s, delta: %.2f", 
+		rollerName[largestDeltaIndex].c_str(), largestDelta);
+	result = (largestDeltaIndex == rollerIndex) ? testPass : testFail;
+	Log(LOG_DEV_DATA, "Sensor cross check complete for %s = %s", rollerName[rollerIndex].c_str(), result.c_str());
 	return result;
 }

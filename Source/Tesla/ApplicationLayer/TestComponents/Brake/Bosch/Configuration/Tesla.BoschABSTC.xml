@@ -560,7 +560,7 @@
       <ESPBrakeTest>
          <TestStep00>EnableCenteringArrows</TestStep00>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
-         <!--TestStep10>SensorQualityTest</TestStep10-->
+         <TestStep10>SensorQualityTest</TestStep10>
          <TestStep15>DragTest</TestStep15>
          <TestStep20>AnalyzeDragTest</TestStep20>
          <TestStep25>BrakeSwitchOffTest</TestStep25>

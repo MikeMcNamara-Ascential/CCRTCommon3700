@@ -94,6 +94,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase120>
+      <!--
       <TestPhase125 Description="Test brake switch" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="" Result="" Timeout="" Component="Brake">
@@ -101,7 +102,9 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase125>
+      -->
       <!-- ABS Low Speed Sensor Test -->
+      <!--
       <TestPhase200 Description="Shift to Neutral" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">
             <Objective0 Description="Shift to Neutral to continue testing" Result="" Timeout="" Component="Machine">
@@ -116,6 +119,7 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase210>
+      -->
       <!-- Reverse Warning -->
       <!--TestPhase310 Description="Shift to Reverse" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

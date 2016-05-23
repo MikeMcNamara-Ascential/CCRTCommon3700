@@ -5,10 +5,15 @@
  
 --><!DOCTYPE CrtViewConfig SYSTEM "resource:///com/bepco/rtc/crt/crtviewconfig.dtd">
 <CrtViewConfig>
-    <View id="drivermonitor" crt="DefaultDriverMonitor.crt" label="Driver Monitor" tabLabel="Driver"/>
-    <!--View id="vehiclepresence" crt="DefaultVehiclePresence.crt" label="Vehicle Presence" tabLabel="Vehicle"/-->
-    <View id="frontpanel" crt="TeslaFrontPanel.crt" label="Front Panel" tabLabel="Front"/>
-    <View id="losscompensation" crt="M3700.LossCompensation.crt" label="Loss Compensation" tabLabel="LossComp"/>
-    <!--View id="powerdisplay" crt="DefaultPowerDisplay.crt" label="Power Display" tabLabel="Power"/-->
-    <!--View id="aboutserver" crt="AboutServer.crt" label="About the Server" tabLabel="About"/-->
+
+  <View id="drivermonitor" crt="TeslaDriverMonitor_1440x900.crt" label="Driver Monitor" tabLabel="Driver"/> 
+
+  <View id="vehiclepresence" crt="__DEFAULT" label="Vehicle Presence" tabLabel="Vehicle"/> 
+
+  <View id="frontpanel" crt="TeslaFrontPanel_1440x900Monitor.crt" label="Front Panel" tabLabel="Front"/> 
+
+  <View id="losscompensation" crt="M3700.LossCompensation_1440x900Monitor.crt" label="Loss Compensation" tabLabel="LossComp"/> 
+
+  <View id="powerdisplay" crt="__DEFAULT" label="Power Display" tabLabel="Power"/> 
+
 </CrtViewConfig>

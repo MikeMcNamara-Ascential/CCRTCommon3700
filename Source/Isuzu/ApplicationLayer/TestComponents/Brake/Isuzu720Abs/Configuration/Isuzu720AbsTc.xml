@@ -359,7 +359,7 @@
             <TestStep20>FinishUp</TestStep20>
         </FinishUp>
         <ParkBrakeTest>
-            <TestStep00>EnterDiagnosticMode</TestStep00>
+            <!--TestStep00>EnterDiagnosticMode</TestStep00-->
             <TestStep04>DisableDiagnosticSpeedLimit</TestStep04>
             <TestStep05>StartModuleKeepAlive</TestStep05>
             <TestStep10>AccelerateToParkBrakeSpeed</TestStep10>
@@ -371,21 +371,21 @@
         </SensorTest>
         <Setup>
             <TestStep00>Setup</TestStep00>
-            <TestStep20>EnterDiagnosticMode</TestStep20>
+            <!--TestStep20>EnterDiagnosticMode</TestStep20-->
             <TestStep25>ClearFaults</TestStep25>
         </Setup>
         <StaticChecks>
             <TestStep05>DetermineSystemConfiguration</TestStep05>
             <TestStep10>Initialize</TestStep10>
             <TestStep15>EnterNormalMode</TestStep15>
-            <TestStep30>EnterDiagnosticMode</TestStep30>
+            <!--TestStep30>EnterDiagnosticMode</TestStep30-->
             <TestStep35>CheckPartNumber</TestStep35>
             <TestStep40>DisableDiagnosticSpeedLimit</TestStep40>
             <TestStep45>StartModuleKeepAlive</TestStep45>
             <TestStep50>PreRollBrakePedalPrime</TestStep50>
         </StaticChecks>
         <PrimeAbs>
-            <TestStep00>EnterDiagnosticMode</TestStep00>
+            <!--TestStep00>EnterDiagnosticMode</TestStep00-->
             <TestStep05>DisableDiagnosticSpeedLimit</TestStep05>
             <TestStep10>StartModuleKeepAlive</TestStep10>
             <TestStep15>PrimeAbs</TestStep15>

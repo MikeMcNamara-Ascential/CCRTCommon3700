@@ -1996,10 +1996,13 @@ string BoschABSTC<ModuleType>::ESPValveFiringTest(void)
 		// Perform the sensor cross check
 		if(testResult == testPass)
 		{
-			for(int index = LFWHEEL; (index <= RRWHEEL) && (testResult == testPass); index++)
+			string sensorResult = testPass;
+			for(int index = LFWHEEL; (index <= RRWHEEL); index++)
 			{
-				testResult = CheckSpeedDeltaSensorCross(sensorSpeeds[index], sensorSpeeds[index+1], index);
+				string wssCornerResult = CheckSpeedDeltaSensorCross(sensorSpeeds[index], sensorSpeeds[index+1], index);
+				UpdateResult(wssCornerResult, sensorResult);
 			}
+			testResult = (sensorResult == testPass) ? testResult : sensorResult;
 		}
         // Determine the description and code to report
         if(GetCommunicationFailure() == true)
@@ -3884,70 +3887,84 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
     // Log the entry and determine if this test should be performed
     Log(LOG_FN_ENTRY, "BoschABSTC::BrakeBurnishCycle() - Enter");
     
-    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && GetTestStepResult().compare(testSkip) && !OperatorPassFail("PerformBrakeBurnish").compare(testPass))
+    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && GetTestStepResult().compare(testSkip))
     {
-        // Automatically run Electric Park Brake Burnish cycle
-        if(GetParameterBool("BurnishEPBBeforeBrake")) result = PerformElectricParkBrakeBurnishCycle();
-        Log(LOG_DEV_DATA, "Performing Brake Burnish Cycle\n");
+		bool opBurnishSelected = true;
+		if(!GetParameterBool("SkipPromptoperatorForBurnish"))
+		{
+			opBurnishSelected = !OperatorPassFail("PerformBrakeBurnish").compare(testPass);
+		}
+  
+		if(opBurnishSelected)
+		{
+			// Automatically run Electric Park Brake Burnish cycle
+			if(GetParameterBool("BurnishEPBBeforeBrake")) result = PerformElectricParkBrakeBurnishCycle();
+			Log(LOG_DEV_DATA, "Performing Brake Burnish Cycle\n");
 
-        for(INT32 burnishCycles = 0; 
-             (burnishCycles < GetParameterInt("BrakeBurnishCycles")) && 
-             (BEP_STATUS_SUCCESS == StatusCheck()) && 
-             !result.compare(testPass); 
-             burnishCycles++)
-        {
-            for(INT32 burnishIterations = 0;
-                 (burnishIterations < GetParameterInt("BurnishIterations")) && 
-                 (BEP_STATUS_SUCCESS == StatusCheck()) && 
-                 !result.compare(testPass);
-                 burnishIterations++)
-            {   // Prompt the operator to achieve the desired speed range
-                result = AccelerateToTestSpeed(GetParameterFloat("BrakeBurnishStartSpeed"), GetParameter("BrakeBurnishStartSpeedRange"), 
-                                               GetTestStepInfoInt("ScanDelay"), false, GetPrompt("AccelerateToTargetSpeed"), false);
-                //ADDED statement
-                while((GetBoostedRollSpeed() < GetParameterFloat("BrakeBurnishMinNonDrivenAxleSpeed")) && (BEP_STATUS_SUCCESS == StatusCheck()))
-                {
-                    Log(LOG_DEV_DATA, "Brake Burnish Cycle waiting for boosted axle speed to reach BrakeBurnishMinNonDriveAxleSpeed\n");
-                    BposSleep(500);
-                }
-                if(!result.compare(testPass))
-                {
-                    // Disable motor boost so the rollers are in free roll mode
-                    if(GetParameterBool("BrakeBurnishDisableBoostOnDecel"))  DisableElectricMotorBoost();
+			for(INT32 burnishCycles = 0; 
+			   (burnishCycles < GetParameterInt("BrakeBurnishCycles")) && 
+			   (BEP_STATUS_SUCCESS == StatusCheck()) && 
+			   !result.compare(testPass); 
+			   burnishCycles++)
+			{
+				for(INT32 burnishIterations = 0;
+				   (burnishIterations < GetParameterInt("BurnishIterations")) && 
+				   (BEP_STATUS_SUCCESS == StatusCheck()) && 
+				   !result.compare(testPass);
+				   burnishIterations++)
+				{	// Prompt the operator to achieve the desired speed range
+					result = AccelerateToTestSpeed(GetParameterFloat("BrakeBurnishStartSpeed"), GetParameter("BrakeBurnishStartSpeedRange"), 
+												   GetTestStepInfoInt("ScanDelay"), false, GetPrompt("AccelerateToTargetSpeed"), false);
+					//ADDED statement
+					while((GetBoostedRollSpeed() < GetParameterFloat("BrakeBurnishMinNonDrivenAxleSpeed")) && (BEP_STATUS_SUCCESS == StatusCheck()))
+					{
+						Log(LOG_DEV_DATA, "Brake Burnish Cycle waiting for boosted axle speed to reach BrakeBurnishMinNonDriveAxleSpeed\n");
+						BposSleep(500);
+					}
+					if(!result.compare(testPass))
+					{
+						// Disable motor boost so the rollers are in free roll mode
+						if(GetParameterBool("BrakeBurnishDisableBoostOnDecel"))	 DisableElectricMotorBoost();
 
-                                      // Display the brake force target for the operator
-                    string forceTarget = ((burnishIterations == (GetParameterInt("BurnishIterations")-1)) ? 
-                                          "BrakeBurnishFinalIterationTarget" : "BrakeBurnishBrakeForceTarget");
-                    m_baseBrakeTool->EnableForceUpdates();
-                    SystemWrite(GetDataTag("BrakeTarget"), GetParameter(forceTarget));
-                    SystemWrite(GetDataTag("BrakeActive"), true);
-                    // If the target speed has been reached, brake to the target speed
-                    DisplayPrompt(GetPromptBox("BrakeModeratelyInGreenBand"), GetPrompt("BrakeModeratelyInGreenBand"),
-                                  GetPromptPriority("BrakeModeratelyInGreenBand"));
-                    result = SlowDownToTestSpeed(GetParameterFloat("BrakeBurnishEndSpeed"), 
-                                                 GetParameter("BrakeBurnishEndSpeedRange"),
-                                                 GetTestStepInfoInt("ScanDelay"), true, 
-                                                 GetParameter("BrakeToTargetSpeedPrompt"));
-                    // Disable the brake force meter
-                    RemovePrompt(GetPromptBox("BrakeModeratelyInGreenBand"), GetPrompt("BrakeModeratelyInGreenBand"),
-                                 GetPromptPriority("BrakeModeratelyInGreenBand"));
-                    SystemWrite(GetDataTag("BrakeActive"), false);
-                    SystemWrite(GetDataTag("BrakeTarget"), "0 0");
-                    m_baseBrakeTool->DisableForceUpdates();
-                    // Reneable boosting
-                    if(GetParameterBool("BrakeBurnishDisableBoostOnDecel"))  EnableElectricMotorBoost();
-                }
-                else
-                {
-                    Log(LOG_ERRORS, "Timeout waiting for brake burnish start speed");
-                    result = testTimeout;
-                }
-            }
-        }
-        // Automatically run Electric Park Brake Burnish cycle if everything else passed and not run at the beginning
-        if(GetParameterBool("BurnishEPBAfterBrake") && !GetParameterBool("BurnishEPBBeforeBrake") && !result.compare(testPass)) result = PerformElectricParkBrakeBurnishCycle();
-        // Report the result
-        SendTestResult(result, GetTestStepInfo("Description"));
+						// Display the brake force target for the operator
+						string forceTarget = ((burnishIterations == (GetParameterInt("BurnishIterations")-1)) ? 
+											  "BrakeBurnishFinalIterationTarget" : "BrakeBurnishBrakeForceTarget");
+						m_baseBrakeTool->EnableForceUpdates();
+						SystemWrite(GetDataTag("BrakeTarget"), GetParameter(forceTarget));
+						SystemWrite(GetDataTag("BrakeActive"), true);
+						// If the target speed has been reached, brake to the target speed
+						DisplayPrompt(GetPromptBox("BrakeModeratelyInGreenBand"), GetPrompt("BrakeModeratelyInGreenBand"),
+									  GetPromptPriority("BrakeModeratelyInGreenBand"));
+						result = SlowDownToTestSpeed(GetParameterFloat("BrakeBurnishEndSpeed"), 
+													 GetParameter("BrakeBurnishEndSpeedRange"),
+													 GetTestStepInfoInt("ScanDelay"), true, 
+													 GetParameter("BrakeToTargetSpeedPrompt"));
+						// Disable the brake force meter
+						RemovePrompt(GetPromptBox("BrakeModeratelyInGreenBand"), GetPrompt("BrakeModeratelyInGreenBand"),
+									 GetPromptPriority("BrakeModeratelyInGreenBand"));
+						SystemWrite(GetDataTag("BrakeActive"), false);
+						SystemWrite(GetDataTag("BrakeTarget"), "0 0");
+						m_baseBrakeTool->DisableForceUpdates();
+						// Reneable boosting
+						if(GetParameterBool("BrakeBurnishDisableBoostOnDecel"))	 EnableElectricMotorBoost();
+					}
+					else
+					{
+						Log(LOG_ERRORS, "Timeout waiting for brake burnish start speed");
+						result = testTimeout;
+					}
+				}
+			}
+			// Automatically run Electric Park Brake Burnish cycle if everything else passed and not run at the beginning
+			if(GetParameterBool("BurnishEPBAfterBrake") && !GetParameterBool("BurnishEPBBeforeBrake") && !result.compare(testPass))	result = PerformElectricParkBrakeBurnishCycle();
+			// Report the result
+			SendTestResult(result, GetTestStepInfo("Description"));
+		}
+		else
+		{
+			result = testSkip;
+			Log(LOG_FN_ENTRY, "Operator chose to skip the burnish cycle");
+		}
     }
     else
     {   // Need to skip this test
@@ -5383,6 +5400,7 @@ string BoschABSTC<ModuleInterface>::CheckSpeedDeltaSensorCross(WheelSpeeds_t &in
 {
 	Log(LOG_FN_ENTRY, "Checking speed deltas for sensor cross for %s wheel", rollerName[rollerIndex].c_str());
 	string result = testFail;
+	string sensorName[] = {"LF", "RF", "LR", "RR"};
 	// Find the speed deltas
 	WheelSpeeds_t delta;
 	for(int index = LFWHEEL; index <= RRWHEEL; index++)
@@ -5405,6 +5423,8 @@ string BoschABSTC<ModuleInterface>::CheckSpeedDeltaSensorCross(WheelSpeeds_t &in
 	Log(LOG_DEV_DATA, "Biggest speed delta found - wheel: %s, delta: %.2f", 
 		rollerName[largestDeltaIndex].c_str(), largestDelta);
 	result = (largestDeltaIndex == rollerIndex) ? testPass : testFail;
+	// Report the result
+	SendSubtestResult(sensorName[rollerIndex] + "SensorTest", result, "Sensor Cross Check", "0000");
 	Log(LOG_DEV_DATA, "Sensor cross check complete for %s = %s", rollerName[rollerIndex].c_str(), result.c_str());
 	return result;
 }

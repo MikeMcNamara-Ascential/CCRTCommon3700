@@ -130,9 +130,11 @@
             <xsl:call-template name="BrakeSwitchTest">
                 <xsl:with-param name="NAME">BrakeSwitchTest</xsl:with-param>
             </xsl:call-template>
+<!--
             <xsl:call-template name="BrakeLearnMotorType">
                 <xsl:with-param name="NAME">BrakeLearnMotorType</xsl:with-param>
             </xsl:call-template>
+-->            
             <xsl:call-template name="BrakeBurnish">
                 <xsl:with-param name="NAME">BrakeBurnishCycle</xsl:with-param>
             </xsl:call-template>
@@ -147,9 +149,11 @@
             <xsl:call-template name="BrakeProgramVIN">
                 <xsl:with-param name="NAME">BrakeProgramVIN</xsl:with-param>
             </xsl:call-template>
+<!--
             <xsl:call-template name="BrakeCheckVIN">
                 <xsl:with-param name="NAME">BrakeCheckVIN</xsl:with-param>
             </xsl:call-template>
+-->            
             <xsl:call-template name="BrakeReadFaults">
                 <xsl:with-param name="NAME">BrakeReadFaults</xsl:with-param>
             </xsl:call-template>
@@ -1811,24 +1815,60 @@
                 <xsl:value-of select="$NAME"/>
             </xsl:element>
             <xsl:element name="Process">
-                <xsl:value-of select="//TestResult/BrakeBrakeSwitchTest/@Process"/>
+                <xsl:value-of select="//TestResult/BrakeBrakeSwitchOnTest/@Process"/>
             </xsl:element>
             <xsl:element name="Result">
+                <xsl:call-template name="showBrakeSwitchResult">
+                    <xsl:with-param name="ON_RESULT" select="//BrakeBrakeSwitchOnTest/@Result"/>
+                    <xsl:with-param name="OFF_RESULT" select="//BrakeBrakeSwitchOffTest/@Result"/>
+                </xsl:call-template>
+<!--
                 <xsl:value-of select="//TestResult/BrakeBrakeSwitchTest/@Result"/>
+-->                
             </xsl:element>
             <xsl:element name="ResultDescription">
                 <xsl:value-of select="//TestResult/BrakeBrakeSwitchTest/@Description"/>
             </xsl:element>
             <xsl:element name="TestResultCode">
-                <xsl:value-of select="//TestResult/BrakeBrakeSwitchTest/@TestResultCode"/>
+                <xsl:value-of select="//TestResult/BrakeBrakeSwitchOnTest/@TestResultCode"/>
             </xsl:element>
             <xsl:element name="TestValue">
                 <xsl:attribute name="Units"/>
                 <xsl:attribute name="Max"/>
                 <xsl:attribute name="Min"/>
             </xsl:element>
+
             <xsl:element name="TestAttributes">
-                <xsl:for-each select="//TestResult/BrakeBrakeSwitchTest/child::*">
+                <xsl:element name="Attribute">
+                    <xsl:element name="AttributeName">
+                        <xsl:text>BrakeSwitchOn</xsl:text>
+                    </xsl:element>
+                    <xsl:element name="AttributeValue">
+                        <xsl:attribute name="Units">
+                            <xsl:call-template name="ShowUnits">
+                                <xsl:with-param name="UNITS" select="//BrakeBrakeSwitchOnTest/@Units"/>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <xsl:value-of select="//BrakeBrakeSwitchOnTest/@Result"/>
+                    </xsl:element>
+                </xsl:element>
+                <xsl:element name="Attribute">
+                    <xsl:element name="AttributeName">
+                        <xsl:text>BrakeSwitchOff</xsl:text>
+                    </xsl:element>
+                    <xsl:element name="AttributeValue">
+                        <xsl:attribute name="Units">
+                            <xsl:call-template name="ShowUnits">
+                                <xsl:with-param name="UNITS" select="//BrakeBrakeSwitchOffTest/@Units"/>
+                            </xsl:call-template>
+                        </xsl:attribute>
+                        <xsl:value-of select="//BrakeBrakeSwitchOffTest/@Result"/>
+                    </xsl:element>
+                </xsl:element>
+            </xsl:element>
+
+<!--
+                <xsl:for-each select="//TestResult/BrakeBrakeSwitchOnTest/child::*">
                     <xsl:element name="Attribute">
                         <xsl:element name="AttributeName">
                             <xsl:value-of select="name()"/>
@@ -1844,10 +1884,10 @@
                     </xsl:element>
                 </xsl:for-each>
             </xsl:element>
+-->            
         </xsl:element>
     </xsl:template>
 
-<!--
     <xsl:template name="BrakeLearnMotorType">
         <xsl:param name="NAME"/>
         <xsl:element name="ModuleTest">
@@ -1890,7 +1930,6 @@
             </xsl:element>
         </xsl:element>
     </xsl:template>
--->
 
     <xsl:template name="BrakeLeftFrontSensor">
         <xsl:param name="NAME"/>
@@ -2189,5 +2228,24 @@
         </xsl:choose>
     </xsl:template>
 
+    <xsl:template name="showBrakeSwitchResult">
+        <xsl:param name="ON_RESULT"/>
+        <xsl:param name="OFF_RESULT"/>
+        <xsl:choose>
+            <xsl:when test="$ON_RESULT = 'Pass'">
+                <xsl:choose>
+                    <xsl:when test="$OFF_RESULT = 'Pass'">
+                        <xsl:text>Pass</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Fail</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Fail</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
 
 </xsl:stylesheet>

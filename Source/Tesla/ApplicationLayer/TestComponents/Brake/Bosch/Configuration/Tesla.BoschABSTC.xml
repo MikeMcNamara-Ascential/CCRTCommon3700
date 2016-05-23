@@ -397,6 +397,7 @@
          <BrakeBurnishStartSpeedRange Units="mph">60 65</BrakeBurnishStartSpeedRange>
          <BrakeToTargetSpeedPrompt>BrakeToTargetSpeed</BrakeToTargetSpeedPrompt>
          <BurnishIterations Description="Number of times to accel and decel for one cycle">5</BurnishIterations>
+         <SkipPromptoperatorForBurnish>True</SkipPromptoperatorForBurnish>
          <!-- Electric Park Brake Burnish Parameters -->
          <EPBBurnishCycles Description="Number of times to perform the brake burnish cycle">1</EPBBurnishCycles>
          <EPBBurnishIterations Description="Number of times to accel and decel for one cycle">1</EPBBurnishIterations>

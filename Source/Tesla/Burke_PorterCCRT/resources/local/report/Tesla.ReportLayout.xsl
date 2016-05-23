@@ -736,8 +736,9 @@
             <td width="10"/>
             <td width="10"/>
             <td width="10" align="left">
-                <xsl:call-template name="showResult">
-                    <xsl:with-param name="RESULT" select="//BrakeBrakeSwitchTest/@Result"/>
+                <xsl:call-template name="showBrakeSwitchResult">
+                    <xsl:with-param name="ON_RESULT" select="//BrakeBrakeSwitchOnTest/@Result"/>
+                    <xsl:with-param name="OFF_RESULT" select="//BrakeBrakeSwitchOffTest/@Result"/>
                 </xsl:call-template>
             </td>
         </tr>
@@ -887,6 +888,26 @@
                 </xsl:otherwise>
             </xsl:choose>
         </i>
+    </xsl:template>
+
+    <xsl:template name="showBrakeSwitchResult">
+        <xsl:param name="ON_RESULT"/>
+        <xsl:param name="OFF_RESULT"/>
+        <xsl:choose>
+            <xsl:when test="$ON_RESULT = 'Pass'">
+                <xsl:choose>
+                    <xsl:when test="$OFF_RESULT = 'Pass'">
+                        <xsl:text>Pass</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>Fail</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:text>Fail</xsl:text>
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
 
     <!-- Converts argument 1 from LBF to KGF -->

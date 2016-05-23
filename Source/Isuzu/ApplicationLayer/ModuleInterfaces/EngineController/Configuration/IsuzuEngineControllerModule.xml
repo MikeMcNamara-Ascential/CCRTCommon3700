@@ -571,7 +571,7 @@
             <ReadVehicleSpeed>
                 <TransmitMessage>ReadPid</TransmitMessage>
                 <TransmitInterpretation>VehicleSpeed</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyMessage>VehicleSpeed</ReplyMessage>
                 <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
             </ReadVehicleSpeed>
 

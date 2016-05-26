@@ -11,5 +11,9 @@
    <MandoMgh60Abs DriveCurve="/Configuration/VehicleTest/DriveCurves/MandoAbsDriveCurve.xml">
       <BrakeType>Mando MGH60 Abs</BrakeType>
    </MandoMgh60Abs>
+   
+   <MandoMgh80Abs DriveCurve="/Configuration/VehicleTest/DriveCurves/MandoAbsDriveCurve.xml">
+      <BrakeType>Mando MGH80 Abs</BrakeType>
+   </MandoMgh80Abs>
 
 </SelectionTable>

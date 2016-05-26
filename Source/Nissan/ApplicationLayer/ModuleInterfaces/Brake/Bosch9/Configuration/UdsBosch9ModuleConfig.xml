@@ -9,8 +9,14 @@
          <Timeout>10000000</Timeout>
          <Retries>3</Retries>
       </Communication>
-      <CheckSumLength>0</CheckSumLength>
-      <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+      <CheckSumLength>1</CheckSumLength>
+      <CommunicationProtocol>CANKeywordProtocol2000</CommunicationProtocol>
+      <CommInitData>
+          <SignalHighTime>25</SignalHighTime>
+          <SignalLowTime>25</SignalLowTime>
+          <WakeUpResponseDelay>100</WakeUpResponseDelay>
+          <WakeUpAttempts>3</WakeUpAttempts>
+      </CommInitData>
       <DataByteCountIndex>3</DataByteCountIndex>
       <DataHeaderLength>2</DataHeaderLength>
       <DataStartIndex>6</DataStartIndex>
@@ -32,9 +38,9 @@
          <Verbose>0x3F</Verbose>
       </Logging>
       <ModuleKeepAliveTime>250</ModuleKeepAliveTime>
-      <ModuleRequestID>0x07C2</ModuleRequestID>
+      <ModuleRequestID>0x7C2</ModuleRequestID>
       <ModuleResponseDelay>500</ModuleResponseDelay>
-      <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
+      <ModuleResponseEndDelay>30</ModuleResponseEndDelay>
       <NegativeResponseCodes>
          <Code_0x10>General Reject</Code_0x10>
          <Code_0x11>Service Not Supported</Code_0x11>
@@ -73,7 +79,127 @@
    </Setup>
    <SerialMessages>
       <VehicleMessages>
-         <ActuateControlValve1>
+        <EnterDiagnosticMode>
+           <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+           <TransmitInterpretation/>
+           <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+           <ReplyInterpretation/>
+        </EnterDiagnosticMode>
+        <ReadFaults>
+           <TransmitMessage>ReadFaults</TransmitMessage>
+           <TransmitInterpretation>ReadFaults</TransmitInterpretation>
+           <ReplyMessage>ReadFaults</ReplyMessage>
+           <ReplyInterpretation/>
+        </ReadFaults>
+        <ClearFaults>
+           <TransmitMessage>ClearFaults</TransmitMessage>
+           <TransmitInterpretation/>
+           <ReplyMessage>ClearFaults</ReplyMessage>
+           <ReplyInterpretation/>
+        </ClearFaults>
+        <ReadSensorSpeeds>
+           <TransmitMessage>ReadECUId</TransmitMessage>
+           <TransmitInterpretation>WheelSpeeds</TransmitInterpretation>
+           <ReplyMessage>ReadWheelSpeeds</ReplyMessage>
+           <ReplyInterpretation>SensorSpeeds</ReplyInterpretation>
+        </ReadSensorSpeeds>
+        <ReadNumberOfFaults>
+           <TransmitMessage>ReadFaults</TransmitMessage>
+           <TransmitInterpretation>ReadNumberOfFaults</TransmitInterpretation>
+           <ReplyMessage>ReadNumberOfFaults</ReplyMessage>
+           <ReplyInterpretation/>
+        </ReadNumberOfFaults>
+        <ModuleKeepAlive>
+            <TransmitMessage>TesterPresent</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>TesterPresent</ReplyMessage>
+            <ReplyInterpretation/>
+         </ModuleKeepAlive>
+        <DisableSpeedLimit>
+           <TransmitMessage>DisableSpeedLimit</TransmitMessage>
+           <TransmitInterpretation/>
+           <ReplyMessage>SpeedLimit</ReplyMessage>
+           <ReplyInterpretation/>
+        </DisableSpeedLimit>
+        <ReadSecuritySeed>
+            <TransmitMessage>ReadSecuritySeed</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadSecuritySeed</ReplyMessage>
+            <ReplyInterpretation>ReadSecuritySeed</ReplyInterpretation>
+        </ReadSecuritySeed>
+        <UnlockModuleSecurity>
+             <TransmitMessage>UnlockModuleSecurity</TransmitMessage>
+             <TransmitInterpretation/>
+             <ReplyMessage>UnlockModuleSecurity</ReplyMessage>
+             <ReplyInterpretation/>
+         </UnlockModuleSecurity>
+        <LFESPInit>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ESPInit1</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFESPInit>
+         <LFESPStart>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateLFInletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFESPStart>
+         <LFESPEnd>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateLFOutletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFESPEnd>
+         <LFESPFinalize>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ESPEnd1</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFESPFinalize>
+         <RFESPInit>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ESPInit2</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFESPInit>
+         <RFESPStart>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateRFInletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFESPStart>
+         <RFESPEnd>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateRFOutletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFESPEnd>
+         <RFESPFinalize>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ESPEnd2</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFESPFinalize>
+         <RunPumpMotor>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivatePumpMotor</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RunPumpMotor>
+         <StopPumpMotor>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>DeactivatePumpMotor</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </StopPumpMotor>
+         <EnableSpeedLimit>
+            <TransmitMessage>EnableSpeedLimit</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>SpeedLimit</ReplyMessage>
+            <ReplyInterpretation/>
+         </EnableSpeedLimit>
+                <!--ActuateControlValve1>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
             <TransmitInterpretation>ActivateControlValveUSV1</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
@@ -85,6 +211,7 @@
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateControlValve2>
+         
          <ActuateHighPressureControlValve1>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
             <TransmitInterpretation>ActivateHighPressureControlValveHSV1</TransmitInterpretation>
@@ -96,7 +223,7 @@
             <TransmitInterpretation>ActivateHighPressureControlValveHSV2</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
-         </ActuateHighPressureControlValve2>
+         </ActuateHighPressureControlValve2-->
          <ESPPrimaryValve1On>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
             <TransmitInterpretation>ESPPrimaryValve1On</TransmitInterpretation>
@@ -127,54 +254,12 @@
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </ESPPumpOn1>
-         <LFABSRecovery>
+         <LRESPInit>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateLFInletValve</TransmitInterpretation>
+            <TransmitInterpretation>ESPInit2</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
-         </LFABSRecovery>
-         <LFABSReduction>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateLFOutletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </LFABSReduction>
-         <LFESPInit>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ESPInit1</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </LFESPInit>
-         <LFESPStart>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateLFInletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </LFESPStart>
-         <LFESPEnd>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateLFOutletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </LFESPEnd>
-         <LFESPFinalize>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ESPEnd1</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </LFESPFinalize>
-         <LRABSRecovery>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateLRInletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </LRABSRecovery>
-         <LRABSReduction>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateLROutletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </LRABSReduction>
+         </LRESPInit>
          <LRESPStart>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
             <TransmitInterpretation>ActivateLRInletValve</TransmitInterpretation>
@@ -193,48 +278,12 @@
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </LRESPFinalize>
-         <RFABSRecovery>
+         <RRESPInit>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateRFInletValve</TransmitInterpretation>
+            <TransmitInterpretation>ESPInit1</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
-         </RFABSRecovery>
-         <RFABSReduction>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateRFOutletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </RFABSReduction>
-         <RFESPInit>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ESPInit2</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </RFESPInit>
-         <RFESPStart>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateRFInletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </RFESPStart>
-         <RFESPEnd>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateRFOutletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </RFESPEnd>
-         <RRABSRecovery>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateRRInletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </RRABSRecovery>
-         <RRABSReduction>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivateRROutletValve</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </RRABSReduction>
+         </RRESPInit>
          <RRESPStart>
             <TransmitMessage>ActuatorOperation</TransmitMessage>
             <TransmitInterpretation>ActivateRRInletValve</TransmitInterpretation>
@@ -253,25 +302,86 @@
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </RRESPFinalize>
+         <DeactivateControlValves>
+           <TransmitMessage>ActuatorOperation</TransmitMessage>
+           <TransmitInterpretation>DeactivateControlValves</TransmitInterpretation>
+           <ReplyMessage>StartRoutine</ReplyMessage>
+           <ReplyInterpretation/>
+         </DeactivateControlValves>
+         <AllInletValvesOff>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>AllInletValvesOff</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </AllInletValvesOff>
+         <AllOutletValvesOff>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>AllOutletValvesOff</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </AllOutletValvesOff>
+
+         <!--LFABSRecovery>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateLFInletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFABSRecovery>
+         <LFABSReduction>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateLFOutletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFABSReduction>
+         <LRABSRecovery>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateLRInletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LRABSRecovery>
+         <LRABSReduction>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateLROutletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </LRABSReduction>
+         <RFABSRecovery>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateRFInletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFABSRecovery>
+         <RFABSReduction>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateRFOutletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFABSReduction>
+         <RRABSRecovery>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateRRInletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRABSRecovery>
+         <RRABSReduction>
+            <TransmitMessage>ActuatorOperation</TransmitMessage>
+            <TransmitInterpretation>ActivateRROutletValve</TransmitInterpretation>
+            <ReplyMessage>StartRoutine</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRABSReduction>
          <ActuateVacuumPump>
             <TransmitMessage>IOControl</TransmitMessage>
             <TransmitInterpretation>ElectricalVacuumPump</TransmitInterpretation>
             <ReplyMessage>IOControl</ReplyMessage>
             <ReplyInterpretation/>
          </ActuateVacuumPump>
-         <AllInletValvesOff>
-            <TransmitMeassage>MultipleValveActuation</TransmitMeassage>
-            <TransmitInterpretation>AllInletValvesOff</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </AllInletValvesOff>
          <AllInletValvesOn>
-            <TransmitMeassage>MultipleValveActuation</TransmitMeassage>
+            <TransmitMessage>MultipleValveActuation</TransmitMessage>
             <TransmitInterpretation>AllInletValvesOn</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
             <ReplyInterpretation/>
-         </AllInletValvesOn>
-         <CalibSASensor>
+         </AllInletValvesOn-->
+         <!--CalibSASensor>
             <TransmitMessage>SteeringAngleSensorCalib</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>SteeringAngleSensor</ReplyMessage>
@@ -283,16 +393,10 @@
             <ReplyMessage>YawRateSensor</ReplyMessage>
             <ReplyInterpretation>CalibYawRateSensorResult</ReplyInterpretation>
          </CalibYawRateSensor>
-         <ClearFaults>
-            <TransmitMessage>ClearFaults</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>ClearFaults</ReplyMessage>
-            <ReplyInterpretation/>
-         </ClearFaults>
-         <DefaultDiagnosticMode>
+                  <DefaultDiagnosticMode>
             <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
             <TransmitInterpretation>DefaultSession</TransmitInterpretation>
-            <ReplyMessage>EnterDiagnosticSession</ReplyMessage>
+            <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
             <ReplyInterpretation/>
          </DefaultDiagnosticMode>
          <DisableECUTransmission>
@@ -301,13 +405,7 @@
             <ReplyMessage>CommunicationControl</ReplyMessage>
             <ReplyInterpretation/>
          </DisableECUTransmission>
-         <DisableSpeedLimit>
-            <TransmitMessage>DisableSpeedLimit</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>SpeedLimit</ReplyMessage>
-            <ReplyInterpretation/>
-         </DisableSpeedLimit>
-         <DisableValveRelayShutdown>
+        <DisableValveRelayShutdown>
             <TransmitMessage>DisableValveRelayShutdown</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>ValveRelayShutdown</ReplyMessage>
@@ -325,31 +423,20 @@
             <ReplyMessage>CommunicationControl</ReplyMessage>
             <ReplyInterpretation/>
          </EnableECUTransmission>
-         <EnableSpeedLimit>
-            <TransmitMessage>EnableSpeedLimit</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>SpeedLimit</ReplyMessage>
-            <ReplyInterpretation/>
-         </EnableSpeedLimit>
          <EnableValveRelayShutdown>
             <TransmitMessage>EnableValveRelayShutdown</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>ValveRelayShutdown</ReplyMessage>
             <ReplyInterpretation/>
-         </EnableValveRelayShutdown>
-         <EnterDiagnosticMode>
-            <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
-            <TransmitInterpretation>ExtendedSession</TransmitInterpretation>
-            <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
-            <ReplyInterpretation/>
-         </EnterDiagnosticMode>
+         </EnableValveRelayShutdown-->
+         
          <ExitDiagnosticMode>
             <TransmitMessage>ExitDiagMode</TransmitMessage>
             <TransmitInterpretation/>
             <ReplyMessage>ExitDiagMode</ReplyMessage>
             <ReplyInterpretation/>
          </ExitDiagnosticMode>
-         <EvacAndFill>
+         <!--EvacAndFill>
             <TransmitMessage>StartRoutine</TransmitMessage>
             <TransmitInterpretation>EvacAndFill</TransmitInterpretation>
             <ReplyMessage>StartRoutine</ReplyMessage>
@@ -367,31 +454,13 @@
             <ReplyMessage>RoutineResults</ReplyMessage>
             <ReplyInterpretation/>
          </IsEvacAndFillComplete>
-         <ModuleKeepAlive>
-            <TransmitMessage>TesterPresent</TransmitMessage>
-            <TransmitInterpretation/>
-            <ReplyMessage>TesterPresent</ReplyMessage>
-            <ReplyInterpretation/>
-         </ModuleKeepAlive>
          <ReadBrakeSwitch>
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>BrakePedalStatus</TransmitInterpretation>
             <ReplyMessage>BrakePedalStatus</ReplyMessage>
             <ReplyInterpretation>BatteryVoltage</ReplyInterpretation>
          </ReadBrakeSwitch>
-         <ReadNumberOfFaults>
-            <TransmitMessage>ReadFaults</TransmitMessage>
-            <TransmitInterpretation>ReadNumberOfFaults</TransmitInterpretation>
-            <ReplyMessage>ReadNumberOfFaults</ReplyMessage>
-            <ReplyInterpretation/>
-         </ReadNumberOfFaults>
-         <ReadFaults>
-            <TransmitMessage>ReadFaults</TransmitMessage>
-            <TransmitInterpretation>ReadFaults</TransmitInterpretation>
-            <ReplyMessage>ReadFaults</ReplyMessage>
-            <ReplyInterpretation/>
-         </ReadFaults>
-         <ReadHardwareVersion>
+                  <ReadHardwareVersion>
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>HardwareVersion</TransmitInterpretation>
             <ReplyMessage>ReadHardwareVersion</ReplyMessage>
@@ -403,13 +472,7 @@
             <ReplyMessage>ReadPartNumber</ReplyMessage>
             <ReplyInterpretation>PartNumber</ReplyInterpretation>
          </ReadPartNumber>
-         <ReadSecuritySeed>
-             <TransmitMessage>ReadSecuritySeed</TransmitMessage>
-             <TransmitInterpretation/>
-             <ReplyMessage>ReadSecuritySeed</ReplyMessage>
-             <ReplyInterpretation>ReadSecuritySeed</ReplyInterpretation>
-         </ReadSecuritySeed>
-         <ReadSensorData>
+                  <ReadSensorData>
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>SensorData</TransmitInterpretation>
             <ReplyMessage>ReadSensorData</ReplyMessage>
@@ -420,12 +483,6 @@
             <ReplyInterpretationLongAccel>LongitudinalAcceleration</ReplyInterpretationLongAccel>
             <ReplyInterpretationVacuum>PressureVaccumSensor</ReplyInterpretationVacuum>
          </ReadSensorData>
-         <ReadSensorSpeeds>
-            <TransmitMessage>ReadECUId</TransmitMessage>
-            <TransmitInterpretation>WheelSpeeds</TransmitInterpretation>
-            <ReplyMessage>ReadWheelSpeeds</ReplyMessage>
-            <ReplyInterpretation>SensorSpeeds</ReplyInterpretation>
-         </ReadSensorSpeeds>
          <ReadSoftwareNumber>
             <TransmitMessage>ReadECUId</TransmitMessage>
             <TransmitInterpretation>SoftwareId</TransmitInterpretation>
@@ -456,12 +513,6 @@
             <ReplyMessage>ControlDTCSetting</ReplyMessage>
             <ReplyInterpretation/>
          </ResumeSettingDTC>
-         <RunPumpMotor>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>ActivatePumpMotor</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </RunPumpMotor>
          <StaticTest>
             <TransmitMessage>StaticTest</TransmitMessage>
             <TransmitInterpretation/>
@@ -480,12 +531,6 @@
             <ReplyMessage>StopRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </StopEvacAndFill>
-         <StopPumpMotor>
-            <TransmitMessage>ActuatorOperation</TransmitMessage>
-            <TransmitInterpretation>DeactivatePumpMotor</TransmitInterpretation>
-            <ReplyMessage>StartRoutine</ReplyMessage>
-            <ReplyInterpretation/>
-         </StopPumpMotor>
          <StopWheelSensorTest>
             <TransmitMessage>StopRoutine</TransmitMessage>
             <TransmitInterpretation>WheelSensorSpeedTestId</TransmitInterpretation>
@@ -498,12 +543,7 @@
             <ReplyMessage>StopRoutine</ReplyMessage>
             <ReplyInterpretation/>
          </StopStaticTest>
-         <UnlockModuleSecurity>
-             <TransmitMessage>UnlockModuleSecurity</TransmitMessage>
-             <TransmitInterpretation/>
-             <ReplyMessage>UnlockModuleSecurity</ReplyMessage>
-             <ReplyInterpretation/>
-         </UnlockModuleSecurity>
+         
          <WheelSensorAccel2KPH>
             <TransmitMessage>WheelSpeedSensorTest</TransmitMessage>
             <TransmitInterpretation>WheelSpeedSensor2TestAccel</TransmitInterpretation>
@@ -557,17 +597,17 @@
             <TransmitInterpretation>PlantVariantCode</TransmitInterpretation>
             <ReplyMessage>WriteDataByIdentifier</ReplyMessage>
             <ReplyInterpretation/>
-         </WriteEOLStatus>
+         </WriteVariantCode>
          <WriteVIN>
             <TransmitMessage>ProgramVIN</TransmitMessage>
             <TransmitInterpretation></TransmitInterpretation>
             <ReplyMessage>WriteDataByIdentifier</ReplyMessage>
             <ReplyInterpretation/>
-         </WriteVIN>
+         </WriteVIN-->
       </VehicleMessages>
       <TransmitMessages>
          <!--For actuating one valve or for single-corner reduction/recovery-->
-         <ActuatorOperation>0x31,0x01,0xF0,0x04,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</ActuatorOperation>
+         <ActuatorOperation>0x31,0x01,0xF0,0x03,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</ActuatorOperation>
          <!--For turning all/multiple valves on/off-->
          <MultipleValveActuation>0x31,0x01,0xF0,0x04,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</MultipleValveActuation>
          <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
@@ -577,7 +617,7 @@
          <DisableValveRelayShutdown>0x31,0x01,0xF1,0x04,0x00</DisableValveRelayShutdown>
          <EnableSpeedLimit>0x31,0x01,0xF1,0x03,0x01</EnableSpeedLimit>
          <EnableValveRelayShutdown>0x31,0x01,0xF1,0x04,0x01</EnableValveRelayShutdown>
-         <EnterDiagnosticMode>0x10,0x??</EnterDiagnosticMode>
+         <EnterDiagnosticMode>0x10,0x03</EnterDiagnosticMode>
          <ExitDiagMode>0x20</ExitDiagMode>
          <IOControl>0x2F,0x??,0x??,0x00</IOControl>
          <ProgramVIN>0x2E,0xF1,0x90,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</ProgramVIN>
@@ -604,40 +644,41 @@
          <ActivateControlValveUSV2>0xFF,0xFF,0x00,0x50,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateControlValveUSV2>
          <ActivateHighPressureControlValveHSV1>0xFF,0xFF,0x00,0x52,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateHighPressureControlValveHSV1>
          <ActivateHighPressureControlValveHSV2>0xFF,0xFF,0x00,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateHighPressureControlValveHSV2>
-         <ActivateLFInletValve>0xFF,0xFF,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateLFInletValve>
-         <ActivateLFOutletValve>0xFF,0xFF,0x00,0x32,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateLFOutletValve>
-         <ActivateLRInletValve>0xFF,0xFF,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateLRInletValve>
-         <ActivateLROutletValve>0xFF,0xFF,0x00,0x3E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateLROutletValve>
+         <ActivateLFInletValve>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x18,0xFF,0xFF,0x00,0x30,0x00,0x00,0x00,0x00</ActivateLFInletValve>
+         <ActivateLFOutletValve>0xFF,0xFF,0x00,0x32,0x00,0x00,0x00,0x00,0x00,0x15,0x00,0x00,0x00,0x32,0x00,0x00,0x00,0x00</ActivateLFOutletValve>
+         <ActivateLRInletValve>0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x1B,0xFF,0xFF,0x00,0x3C,0x00,0x00,0x00,0x00</ActivateLRInletValve>
+         <ActivateLROutletValve>0xFF,0xFF,0x00,0x3E,0x00,0x00,0x00,0x00,0x00,0x17,0x00,0x00,0x00,0x3E,0x00,0x00,0x00,0x00</ActivateLROutletValve>
          <ActivatePumpMotor>0xFF,0xFF,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivatePumpMotor>
-         <ActivateRFInletValve>0xFF,0xFF,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateRFInletValve>
-         <ActivateRFOutletValve>0xFF,0xFF,0x00,0x36,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateRFOutletValve>
-         <ActivateRRInletValve>0xFF,0xFF,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateRRInletValve>
-         <ActivateRROutletValve>0xFF,0xFF,0x00,0x3A,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ActivateRROutletValve>
+         <ActivateRFInletValve>0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x14,0xFF,0xFF,0x00,0x34,0x00,0x00,0x00,0x00</ActivateRFInletValve>
+         <ActivateRFOutletValve>0xFF,0xFF,0x00,0x36,0x00,0x00,0x00,0x00,0x00,0x15,0x00,0x00,0x00,0x36,0x00,0x00,0x00,0x00</ActivateRFOutletValve>
+         <ActivateRRInletValve>0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x1D,0xFF,0xFF,0x00,0x38,0x00,0x00,0x00,0x00</ActivateRRInletValve>
+         <ActivateRROutletValve>0xFF,0xFF,0x00,0x3A,0x00,0x00,0x00,0x00,0x00,0x16,0x00,0x00,0x00,0x3A,0x00,0x00,0x00,0x00</ActivateRROutletValve>
          <ActuatorTestId>0x04</ActuatorTestId>
          <ActuationState>0xFD,0x02</ActuationState>
-         <AllInletValvesOff>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x38,0x00,0x00</AllInletValvesOff>
-         <AllIntletValvesOn>0xFF,0xFF,0x00,0x30,0xFF,0xFF,0x00,0x34,0x00,0x00,0xFF,0xFF,0x00,0x3C,0xFF,0xFF,0x00,0x38,0x00,0x00</AllIntletValvesOn>
-         <AllOutletValvesOff>0x00,0x00,0x00,0x32,0x00,0x00,0x00,0x36,0x00,0x00,0x00,0x00,0x00,0x3E,0x00,0x00,0x00,0x3A,0x00,0x00</AllOutletValvesOff>
-         <AllOutletValvesOn>0xFF,0xFF,0x00,0x32,0xFF,0xFF,0x00,0x36,0x00,0x00,0xFF,0xFF,0x00,0x3E,0xFF,0xFF,0x00,0x3A,0x00,0x00</AllOutletValvesOn>
+         <AllInletValvesOff>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x3C</AllInletValvesOff>
+         <AllIntletValvesOn>0xFF,0xFF,0x00,0x30,0xFF,0xFF,0x00,0x34,0x00,0x00,0xFF,0xFF,0x00,0x3C,0xFF,0xFF,0x00,0x38</AllIntletValvesOn>
+         <AllOutletValvesOff>0x00,0x00,0x00,0x32,0x00,0x00,0x00,0x36,0x00,0x00,0x00,0x00,0x00,0x3A,0x00,0x00,0x00,0x3E</AllOutletValvesOff>
+         <AllOutletValvesOn>0xFF,0xFF,0x00,0x32,0xFF,0xFF,0x00,0x36,0x00,0x00,0xFF,0xFF,0x00,0x3E,0xFF,0xFF,0x00,0x3A</AllOutletValvesOn>
          <BrakePedalStatus>0xFD,0x01</BrakePedalStatus>
+         <DeactivateControlValves>0x00,0x00,0x00,0x4E,0x00,0x00,0x00,0x50,0x00,0x00,0x00,0x00,0x00,0x52,0x00,0x00,0x00,0x54</DeactivateControlValves>
          <DeactivateControlValveUSV1>0x00,0x00,0x00,0x4E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivateControlValveUSV1>
          <DeactivateControlValveUSV2>0x00,0x00,0x00,0x50,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivateControlValveUSV2>
          <DeactivateHighPressureControlValveHSV1>0x00,0x00,0x00,0x52,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivateHighPressureControlValveHSV1>
          <DeactivateHighPressureControlValveHSV2>0x00,0x00,0x00,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivateHighPressureControlValveHSV2>
-         <DeactivatePumpMotor>0x00,0x00,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</DeactivatePumpMotor>
+         <DeactivatePumpMotor>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x22,0x00,0x00,0x00,0x00</DeactivatePumpMotor>
          <DefaultSession>0x01</DefaultSession>
          <DisableRxAndDisableTx>0x03</DisableRxAndDisableTx>
          <ElectricalVacuumPump>0xD0,0x0D</ElectricalVacuumPump>
          <EOLStatusByte>0xFD,0x04</EOLStatusByte>
          <EnableRxAndEnableTx>0x00</EnableRxAndEnableTx>
-         <ESPInit1>0xFF,0xFF,0x00,0x30,0xFF,0xFF,0x00,0x38,0x00,0x28,0x00,0x2D,0x00,0x4E,0x00,0x00,0x00,0x00,0x00,0x00</ESPInit1>
-         <ESPInit2>0xFF,0xFF,0x00,0x34,0xFF,0xFF,0x00,0x3C,0x00,0x28,0x00,0x2D,0x00,0x50,0x00,0x00,0x00,0x00,0x00,0x00</ESPInit2>
-         <ESPEnd1>0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x00,0x00,0x4E,0x00,0x00,0x00,0x00,0x00,0x00</ESPEnd1>
-         <ESPEnd2>0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x50,0x00,0x00,0x00,0x00,0x00,0x00</ESPEnd2>
+         <ESPInit1>0x00,0x28,0x00,0x50,0xFF,0xFF,0x00,0x54,0x00,0x00,0xFF,0xFF,0x00,0x38,0xFF,0xFF,0x00,0x30</ESPInit1>
+         <ESPInit2>0x00,0x28,0x00,0x4E,0xFF,0xFF,0x00,0x52,0x00,0x00,0xFF,0xFF,0x00,0x3C,0xFF,0xFF,0x00,0x34</ESPInit2>
+         <ESPEnd1>0x00,0x00,0x00,0x38,0x00,0x00,0x00,0x30,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ESPEnd1>
+         <ESPEnd2>0x00,0x00,0x00,0x3C,0x00,0x00,0x00,0x34,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ESPEnd2>
          <ESPPrimaryValve1On>0xFF,0xFF,0x00,0x52,0xFF,0xFF,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ESPPrimaryValve1On>
-         <ESPPrimaryValve1Off>0x00,0x00,0x00,0x52,0x00,0x00,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ESPPrimaryValve1Off>
+         <ESPPrimaryValve1Off>0x00,0x00,0x00,0x50,0x00,0x00,0x00,0x54,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ESPPrimaryValve1Off>
          <ESPPrimaryValve2On>0x00,0xFF,0x00,0x54,0x00,0xFF,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ESPPrimaryValve2On>
-         <ESPPrimaryValve2Off>0x00,0x00,0x00,0x54,0x00,0x00,0x00,0x22,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ESPPrimaryValve2Off>
+         <ESPPrimaryValve2Off>0x00,0x00,0x00,0x4E,0x00,0x00,0x00,0x52,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ESPPrimaryValve2Off>
          <EvacAndFill>0x01,0x0A,0x05</EvacAndFill>
          <EvacAndFillId>0x01</EvacAndFillId>
          <EvacAndFillResults>0xF1,0x00</EvacAndFillResults>
@@ -690,11 +731,11 @@
             <Reply_01>0xC5,0x02</Reply_01>
             <Reply_02>0x7F,0x85,0x??</Reply_02>
          </ControlDTCSetting>
-         <EnterDiagnosticMode>
+         <EnterDiagnosticMode>   
             <Reply_00>0x50,0x01,0x00,0x32,0x0F,0xA0</Reply_00>
             <Reply_01>0x50,0x01,0x??,0x??,0x??,0x??</Reply_01>
             <Reply_02>0x50,0x02,0x00,0x32,0x0F,0xA0</Reply_02>
-            <Reply_03>0x50,0x03,0x00,0x32,0x0F,0xA0</Reply_03>
+            <Reply_03>0x50,0x03,0x00,0x32,0x??,0x??</Reply_03>
             <Reply_04>0x7F,0x10,0x??</Reply_04>
          </EnterDiagnosticMode>
          <ExitDiagMode>
@@ -710,7 +751,7 @@
             <Reply_01>0x7F,0x22,0x??</Reply_01>
          </ReadActuationState>
          <ReadNumberOfFaults>
-            <Reply_00>0x59,0x01,0xFB,0x00,0x??,0x??</Reply_00>
+            <Reply_00>0x59,0x01,0x??,0x??,0x??,0x??</Reply_00>
             <Reply_01>0x7F,0x19</Reply_01>
             <Reply_02>0x7F,0x19,0x??</Reply_02>
          </ReadNumberOfFaults>
@@ -801,6 +842,13 @@
              <Reply_00>0x67,0x02</Reply_00>
              <Reply_01>0x7F,0x27,0x??</Reply_01>
          </UnlockModuleSecurity>
+         <ValveRelayShutdown>
+            <Reply_00>0x71,0x01,0xF1,0x04,0x??</Reply_00>
+            <Reply_01>0x7F,0x31,0x??</Reply_01>
+         </ValveRelayShutdown>
+         <WriteDataByIdentifier>
+              <Reply_00 lengthType="Variable" ReplyTimeout="500" endGapTime="0">0x6E,0x??</Reply_00>
+         </WriteDataByIdentifier>
          <YawRateSensor>
             <Reply_00>0x71,0x??,0xF1,0x06,0x??</Reply_00>
             <Reply_01>0x7F,0x31,0x??</Reply_01>
@@ -931,7 +979,7 @@
                <Byte input_index="4" mask="0xFF" compare="0x01"/>
             </Boolean> 
          </PumpMotorStatus>
-         <ReadSecuritySeed>
+         <!--ReadSecuritySeed>
             <Vector type="fixed">
                <Subvector00>
                   <Integer type="unsigned" bits="8" scale="1" offset="0">
@@ -954,6 +1002,14 @@
                   </Integer>
                </Subvector03>
             </Vector>
+         </ReadSecuritySeed-->
+         <ReadSecuritySeed>
+             <Integer type="unsigned" bits="32" scale="1" offset="0">
+                 <Byte1 input_index="2" mask="0xFF" output_index="3"/>
+                 <Byte2 input_index="3" mask="0xFF" output_index="2"/>
+                 <Byte3 input_index="4" mask="0xFF" output_index="1"/>
+                 <Byte4 input_index="5" mask="0xFF" output_index="0"/>
+             </Integer>
          </ReadSecuritySeed>
          <ReadVariantCode>
             <Integer type="unsigned" scale="1.0" offset="0.0">
@@ -988,7 +1044,7 @@
          <SensorSpeeds>
             <Vector type="fixed">
                <Subvector00 Description="Front Left Speed">
-                  <Float scale="0.0078125" offset="0">
+                  <Float scale="0.0349521" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
                         <Byte1 input_index="5" mask="0xFF" output_index="1"/>
@@ -997,7 +1053,7 @@
                   </Float>
                </Subvector00>
                <Subvector01 Description="Front Right Speed">
-                  <Float scale="0.0078125" offset="0">
+                  <Float scale="0.0349521" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
                         <Byte1 input_index="7" mask="0xFF" output_index="1"/>
@@ -1006,7 +1062,7 @@
                   </Float>
                </Subvector01>
                <Subvector02 Description="Rear Left Speed">
-                  <Float scale="0.0078125" offset="0">
+                  <Float scale="0.0349521" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
                         <Byte1 input_index="9" mask="0xFF" output_index="1"/>
@@ -1015,11 +1071,11 @@
                   </Float>
                </Subvector02>
                <Subvector03 Description="Rear Right Speed">
-                  <Float scale="0.0078125" offset="0">
+                  <Float scale="0.0349521" offset="0">
                      <!--km/h-->
                      <Integer type="unsigned" bits="16" scale="1" offset="0">
                         <Byte1 input_index="11" mask="0xFF" output_index="1"/>
-                        <Byte2 input_index="10" mask="0xFF" output_index="12"/>
+                        <Byte2 input_index="12" mask="0xFF" output_index="0"/>
                      </Integer>
                   </Float>
                </Subvector03>
@@ -1099,10 +1155,6 @@
                <Byte input_index="6" mask="0xFF" compare="0x08"/>
             </Boolean> 
          </ValveHSV2Active>
-         <ValveRelayShutdown>
-            <Reply_00>0x71,0x01,0xF1,0x04,0x??</Reply_00>
-            <Reply_01>0x7F,0x31,0x??</Reply_01>
-         </ValveRelayShutdown>
          <ValveRelayStatus>
             <Boolean>
                <Byte input_index="3" mask="0xFF" compare="0x01"/>

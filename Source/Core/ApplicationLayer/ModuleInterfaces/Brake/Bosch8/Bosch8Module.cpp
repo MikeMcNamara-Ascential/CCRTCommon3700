@@ -243,7 +243,9 @@ BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::GetInfo(string methodName) thr
     else if(methodName == "RFESPInit") status = CommandModule(methodName);
     else if(methodName == "RFESPStart") status = CommandModule(methodName);
     else if(methodName == "RFESPEnd") status = CommandModule(methodName);
+    else if(methodName == "RFESPFinalize") status = CommandModule(methodName);
 
+    else if(methodName == "LRESPInit") status = CommandModule(methodName);
     else if(methodName == "LRESPStart") status = CommandModule(methodName);
     else if(methodName == "LRESPEnd") status = CommandModule(methodName);
     else if(methodName == "LRESPFinalize") status = CommandModule(methodName);
@@ -312,67 +314,76 @@ BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::EnterDiagnosticMode() throw(Mo
     string asciiMessage;
     SerialString_t xmtMessage;
     bool initSequenceSuccess = false;
+    string commProtocol;
+    try
+    {   // Get the communications protocol
+        commProtocol = m_configNode->getChild("Setup/CommunicationProtocol")->getValue();
+    }
+    catch(XmlException &ex)
+    {   // CommunicationProtocol Tag not found, set to default
+        Log(LOG_DEV_DATA, "Communications Protocol tag not found, setting to KeywordProtocol2000");
+        commProtocol = "ISOK";
+    }
+    if(commProtocol == "CANKeywordProtocol2000")
+    {
+        status = GenericModuleTemplate<ProtocolFilterType>::EnterDiagnosticMode();
+    }
+    else
+    {
+        Log( LOG_FN_ENTRY, "Enter Bosch8Module::EnterDiagnosticMode()\n");
 
-    Log( LOG_FN_ENTRY, "Enter Bosch8Module::EnterDiagnosticMode()\n");
+        // Check to see that all our objects are in place
+        CheckObjectsStatus();
 
-	if(GetDTCCountIndex() >= 0)
-	{
-		// Check to see that all our objects are in place
-		CheckObjectsStatus();
+        BposSleep(1000);               // Make sure the module has completed its self test
 
-		BposSleep(1000);			   // Make sure the module has completed its self test
+        status = m_protocolFilter->GetMessage("EnterDiagnosticMode",asciiMessage);
 
-		status = m_protocolFilter->GetMessage("EnterDiagnosticMode",asciiMessage);
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            // Convert the message to binary
+            m_protocolFilter->GetBinaryMssg(asciiMessage, xmtMessage);
+            // Add the checksum to the message
+            m_protocolFilter->AddChecksumToMessage(xmtMessage);
 
-		if(status == BEP_STATUS_SUCCESS)
-		{
-			// Convert the message to binary
-			m_protocolFilter->GetBinaryMssg(asciiMessage, xmtMessage);
-			// Add the checksum to the message
-			m_protocolFilter->AddChecksumToMessage(xmtMessage);
+            INT32 attempt = 0;
+            do
+            {                      // Look for the response
+                // Assert a break so the line will be driven low for the required amount of time
+                if(m_protocolFilter->EstablishComms(25,25,xmtMessage.c_str(),xmtMessage.length()) == EOK)
+                {
+                    printf("EnterDiagnosticMode message sent to module\n");
 
-			INT32 attempt = 0;
-			do
-			{					   // Look for the response
-				// Assert a break so the line will be driven low for the required amount of time
-				if(m_protocolFilter->EstablishComms(25,25,xmtMessage.c_str(),xmtMessage.length()) == EOK)
-				{
-					printf("EnterDiagnosticMode message sent to module\n");
+                    SerialString_t moduleResponse;
+                    errno = EOK;
+                    if(BEP_STATUS_SUCCESS == m_protocolFilter->GetResponse("EnterDiagnosticMode",moduleResponse))
+                    {
+                        initSequenceSuccess = true;
+                    }
+                    else
+                    {
+                        printf("Waiting for module response: attempt: %d\n", attempt);
+                        BposSleep(250);
+                    }
+                }
+                else status = BEP_STATUS_FAILURE;
+            } while(!initSequenceSuccess && (attempt++ < 100));
 
-					SerialString_t moduleResponse;
-					errno = EOK;
-					if(BEP_STATUS_SUCCESS == m_protocolFilter->GetResponse("EnterDiagnosticMode",moduleResponse))
-					{
-						initSequenceSuccess = true;
-					}
-					else
-					{
-						printf("Waiting for module response: attempt: %d\n", attempt);
-						BposSleep(250);
-					}
-				}
-				else status	= BEP_STATUS_FAILURE;
-			} while(!initSequenceSuccess && (attempt++ < 100));
+            if(initSequenceSuccess)
+            {
+                status = m_protocolFilter->GetModuleData( "StartDiagnosticSession", xmtMessage);
+                if( status != BEP_STATUS_SUCCESS)
+                {
+                    Log( LOG_ERRORS, "Error starting diagnostic session\n");
+                }
+            }
+            else status = BEP_STATUS_FAILURE;
+        }
+        else status = BEP_STATUS_FAILURE;
 
-			if(initSequenceSuccess)
-			{
-				status = m_protocolFilter->GetModuleData( "StartDiagnosticSession", xmtMessage);
-				if( status != BEP_STATUS_SUCCESS)
-				{
-					Log( LOG_ERRORS, "Error starting diagnostic session\n");
-				}
-			}
-			else status	= BEP_STATUS_SOFTWARE;
-		}
-		else status	= BEP_STATUS_SOFTWARE;
-	}
-	else
-	{
-		status = GenericModuleTemplate<ProtocolFilterType>::EnterDiagnosticMode();
-	}
+        Log( LOG_FN_ENTRY, "Exit Bosch8Module::EnterDiagnosticMode(), status=%d\n", status);
 
-    Log( LOG_FN_ENTRY, "Exit Bosch8Module::EnterDiagnosticMode(), status=%d\n", status);
-
+    }
     return status;
 }
 
@@ -952,10 +963,10 @@ BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::UnlockModuleSecurity()
 	Log(LOG_FN_ENTRY, "Bosch8Module::UnlockModuleSecurity() - Enter");
 	// Read the key from the module
 	UINT32 seed = 0x00000000;
-	BEP_STATUS_TYPE status = ReadModuleData("SecuritySeed", seed);
+	BEP_STATUS_TYPE status = ReadModuleData("ReadSecuritySeed", seed);
 	if(status == BEP_STATUS_SUCCESS)
 	{   // Calculate the security key
-		UINT32 key = ((((seed >> 1) ^ seed) << 3) ^ seed);
+		UINT32 key = ((((seed >> 6) ^ seed) << 2) ^ seed);
 		Log(LOG_DEV_DATA, "Calculated key %08X from seed %08X", key, seed);
 		// Write the key back to the module
 		SerialArgs_t keyArgs;
@@ -963,7 +974,7 @@ BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::UnlockModuleSecurity()
 		keyArgs.push_back((key & 0x00FF0000) >> 16);
 		keyArgs.push_back((key & 0x0000FF00) >> 8);
 		keyArgs.push_back(key & 0x000000FF);
-		status = CommandModule("WriteSecurityKey", &keyArgs);
+		status = CommandModule("UnlockModuleSecurity", &keyArgs);
 		Log(LOG_ERRORS, "Security unlock status: %s", ConvertStatusToResponse(status).c_str());
 	}
 	else

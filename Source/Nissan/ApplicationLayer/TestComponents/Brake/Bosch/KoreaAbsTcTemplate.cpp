@@ -1125,7 +1125,7 @@ string KoreaAbsTcTemplate<VehicleModuleType>::EvaluateESP(void)
                 // Evaluate the build and reduction values
 // 2005.2.28 ews changed per emergency HMMA request
 // changed to 2 to only evaluate the front wheels
-                for (wheelIndex = 0; wheelIndex < 2; wheelIndex++)
+                for(wheelIndex = 0; wheelIndex < (UINT32)(GetParameterBool("FourChannelEspTest") ? 4 : 2); wheelIndex++)
                 {
                     // Find the actual start and end build indices.  
                     // The stored indices are absolute, whereas the wheel force array is relative to start of test
@@ -1371,6 +1371,8 @@ BEP_STATUS_TYPE KoreaAbsTcTemplate<VehicleModuleType>::AnalyzeESPReductionForces
 
         if (reductionValue < reductionMaxValue)   // if value passed
         {
+            if(reductionValue < 0)
+                reductionValue = 0;
             testResult = testPass;
             resultBG = colorGreen;
         }

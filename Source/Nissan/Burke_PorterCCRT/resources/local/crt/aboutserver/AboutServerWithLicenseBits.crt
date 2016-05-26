@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+<!-- 
+  $Revision$
+-->
+
+<RtGuiConfig> 
+  <Metadata author="Burke Porter, Inc" version="1.0"
+	description="Standard implementation of the Front Panel view."/>
+
+  <XmlWidgetPanel id="AboutServer">
+	<Layout>
+			<VBox height="500" width='650' posX="0" posY="0" border="true">
+		  <HBox height="100" posY="100">
+				<Label name="serverid" width="250">
+						<Font size="24" name="sans-serif" style="bold"/>
+				</Label>	
+				 <Widget id="serveridtag" class="com.bepco.gui.TextBox" width="400">
+					<DataSource tagname="SoftwareID" messagetype="Subscribe" />
+					<TextBoxConfig>
+						<Font size="24" name="sans-serif" style="plain"/>
+					</TextBoxConfig>
+				 </Widget>
+               </HBox>
+               <HBox height="100" posY="200">
+				<Label name="licensewarning" width="250">
+						<Font size="24" name="sans-serif" style="bold"/>
+				</Label>	
+				 <Widget id="licensewarningtag" class="com.bepco.gui.TextBox" width="400">
+					<DataSource tagname="InvalidLicenseNotification" messagetype="Subscribe" />
+					<TextBoxConfig>
+						<Font size="24" name="sans-serif" style="plain"/>
+					</TextBoxConfig>
+				 </Widget>
+               </HBox>
+               <HBox height="100" posY="300">
+				<Label name="licensefault" width="250">
+						<Font size="24" name="sans-serif" style="bold"/>
+				</Label>	
+				 <Widget id="licensefaulttag" class="com.bepco.gui.TextBox" width="400">
+					<DataSource tagname="InvalidLicenseFatalFault" messagetype="Subscribe" />
+					<TextBoxConfig>
+						<Font size="24" name="sans-serif" style="plain"/>
+					</TextBoxConfig>
+				 </Widget>
+
+                 </HBox>
+			</VBox>
+
+    </Layout>
+  </XmlWidgetPanel>
+</RtGuiConfig>
+

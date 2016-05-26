@@ -2470,6 +2470,7 @@ string BoschABSTC<ModuleType>::LFESPTest(void)
             espCommand = "LFESPStart";
             break;
         case ESP_PRIMARY_OFF:
+			delay(GetParameterInt("LFRecoveryESPPulse"));
             if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[LFWHEEL].buildEnd = TagArray("LFESPBuildEnd");
             espCommand = "ESPPrimaryValve1Off";
             break;
@@ -2484,6 +2485,7 @@ string BoschABSTC<ModuleType>::LFESPTest(void)
             espCommand = "LFESPFinalize";
             break;
         case ESP_DONE:
+            delay(GetParameterInt("LFReductionESPPulse"));
             if(GetParameterBool("CheckResponseInProgress")) m_ESPIndex[LFWHEEL].reductionEnd = TagArray("LFESPReductionEnd");
             done = true;
             break;
@@ -2562,6 +2564,7 @@ string BoschABSTC<ModuleType>::RFESPTest(void)
             espCommand = "RFESPStart";
             break;
         case ESP_PRIMARY_OFF:
+			delay(GetParameterInt("RFRecoveryESPPulse"));   // Give a bit more build time
             if(!GetParameterBool("CheckResponseInProgress")) m_ESPIndex[RFWHEEL].buildEnd = TagArray("RFESPBuildEnd");
             espCommand = "ESPPrimaryValve2Off";
             break;
@@ -2577,6 +2580,7 @@ string BoschABSTC<ModuleType>::RFESPTest(void)
             espCommand = "LRESPFinalize";
             break;
         case ESP_DONE:
+            delay(GetParameterInt("RFReductionESPPulse"));
             if(GetParameterBool("CheckResponseInProgress")) m_ESPIndex[RFWHEEL].reductionEnd = TagArray("RFESPReductionEnd");
             done = true;
             break;

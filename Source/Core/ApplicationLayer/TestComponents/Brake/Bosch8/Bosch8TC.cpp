@@ -2151,7 +2151,9 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 	{   // Make sur the operator gets the vheicle into the correct state
 		DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
 		DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
-		BposSleep(3000);
+		// delay time before starting the roll
+        UINT32 startDelay = GetParameterInt("SensorTestStartDelay");
+        BposSleep(startDelay);
 		// Place the motor into speed mode with a commanded speed of zero for starters
 		m_MotorController.Write(COMMAND_SPEED, string("0"), true);
 		m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
@@ -2374,6 +2376,7 @@ string Bosch8TC<ModuleType>::LFESPTest(void)
             espCommand = "LFESPStart";
             break;
         case ESP_PRIMARY_OFF:
+			delay(GetParameterInt("LFRecoveryESPPulse"));
             m_ESPIndex[LFWHEEL].buildEnd = TagArray("LFESPBuildEnd");
             espCommand = "ESPPrimaryValve1Off";
             break;
@@ -2382,10 +2385,12 @@ string Bosch8TC<ModuleType>::LFESPTest(void)
             espCommand = "LFESPEnd";
             break;
         case ESP_FINALIZE:
-            m_ESPIndex[LFWHEEL].reductionEnd = TagArray("LFESPReductionEnd");
+            //m_ESPIndex[LFWHEEL].reductionEnd = TagArray("LFESPReductionEnd");
             espCommand = "LFESPFinalize";
             break;
         case ESP_DONE:
+            delay(GetParameterInt("LFReductionESPPulse"));
+            m_ESPIndex[LFWHEEL].reductionEnd = TagArray("LFESPReductionEnd");
             done = true;
             break;
         default:
@@ -2440,13 +2445,14 @@ string Bosch8TC<ModuleType>::RFESPTest(void)
             // NOP
             break;
         case ESP_PRIMARY_ON:
-            espCommand = "ESPPrimaryValve2On";
+            //espCommand = "ESPPrimaryValve2On";
             break;
         case ESP_START:
             m_ESPIndex[RFWHEEL].buildStart = TagArray("RFESPBuildStart");
             espCommand = "RFESPStart";
             break;
         case ESP_PRIMARY_OFF:
+			delay(GetParameterInt("RFRecoveryESPPulse"));   // Give a bit more build time
             m_ESPIndex[RFWHEEL].buildEnd = TagArray("RFESPBuildEnd");
             espCommand = "ESPPrimaryValve2Off";
             break;
@@ -2455,11 +2461,13 @@ string Bosch8TC<ModuleType>::RFESPTest(void)
             espCommand = "RFESPEnd";
             break;
         case ESP_FINALIZE:
-            m_ESPIndex[RFWHEEL].reductionEnd = TagArray("RFESPReductionEnd");
+            //m_ESPIndex[RFWHEEL].reductionEnd = TagArray("RFESPReductionEnd");
             // 2005.02.28 ews added at HMMA emergency request
-            // espCommand = "LRESPFinalize";                // Taken out because RF uses the same primary valves as LR
+            espCommand = "RFESPFinalize";
             break;
         case ESP_DONE:
+            delay(GetParameterInt("RFReductionESPPulse"));
+            m_ESPIndex[RFWHEEL].reductionEnd = TagArray("RFESPReductionEnd");
             done = true;
             break;
         default:
@@ -2508,19 +2516,20 @@ string Bosch8TC<ModuleType>::LRESPTest(void)
         switch(step)
         {
         case ESP_INIT:
-            // NOP
+            espCommand = "LRESPInit";
             break;
         case ESP_PUMP_ON:
             // NOP
             break;
         case ESP_PRIMARY_ON:
-            espCommand = "ESPPrimaryValve2On";
+            //espCommand = "ESPPrimaryValve2On";
             break;
         case ESP_START:
             m_ESPIndex[LRWHEEL].buildStart = TagArray("LRESPBuildStart");
             espCommand = "LRESPStart";
             break;
         case ESP_PRIMARY_OFF:
+            delay(GetParameterInt("LRRecoveryESPPulse"));
             m_ESPIndex[LRWHEEL].buildEnd = TagArray("LRESPBuildEnd");
             espCommand = "ESPPrimaryValve2Off";
             break;
@@ -2529,10 +2538,12 @@ string Bosch8TC<ModuleType>::LRESPTest(void)
             espCommand = "LRESPEnd";
             break;
         case ESP_FINALIZE:
-            m_ESPIndex[LRWHEEL].reductionEnd = TagArray("LRESPReductionEnd");
+            
             espCommand = "LRESPFinalize";
             break;
         case ESP_DONE:
+            delay(GetParameterInt("LRReductionESPPulse"));
+            m_ESPIndex[LRWHEEL].reductionEnd = TagArray("LRESPReductionEnd");
             done = true;
             break;
         default:
@@ -2588,13 +2599,14 @@ string Bosch8TC<ModuleType>::RRESPTest(void)
             // NOP
             break;
         case ESP_PRIMARY_ON:
-            espCommand = "ESPPrimaryValve1On";
+            //espCommand = "ESPPrimaryValve1On";
             break;
         case ESP_START:
             m_ESPIndex[RRWHEEL].buildStart = TagArray("RRESPBuildStart");
             espCommand = "RRESPStart";
             break;
         case ESP_PRIMARY_OFF:
+            delay(GetParameterInt("RRRecoveryESPPulse"));
             m_ESPIndex[RRWHEEL].buildEnd = TagArray("RRESPBuildEnd");
             espCommand = "ESPPrimaryValve1Off";
             break;
@@ -2602,8 +2614,7 @@ string Bosch8TC<ModuleType>::RRESPTest(void)
             m_ESPIndex[RRWHEEL].reductionStart = TagArray("RRESPReductionStart");
             espCommand = "RRESPEnd";
             break;
-        case ESP_FINALIZE:
-            m_ESPIndex[RRWHEEL].reductionEnd = TagArray("RRESPReductionEnd");
+        case ESP_FINALIZE: 
             espCommand = "RRESPFinalize";
             break;
         case ESP_DONE:
@@ -2612,6 +2623,8 @@ string Bosch8TC<ModuleType>::RRESPTest(void)
              * Removed this and added a StopPumpMotor test step after the ESP test
              */
             //				espCommand = "ESPPumpOff";
+            delay(GetParameterInt("RRReductionESPPulse"));
+            m_ESPIndex[RRWHEEL].reductionEnd = TagArray("RRESPReductionEnd");
             done = true;
             break;
         default:
@@ -3117,9 +3130,9 @@ string Bosch8TC<ModuleType>::StopPumpMotor(void)
             UpdatePrompts();
         }
 
-		BposSleep(GetParameterInt("PumpOffDelay"));
+		
         testResult = KoreaAbsTcTemplate<ModuleType>::StopPumpMotor();
-
+        BposSleep(GetParameterInt("PumpOffDelay"));
         if(havePrompts)
         {
             RemovePrompts();

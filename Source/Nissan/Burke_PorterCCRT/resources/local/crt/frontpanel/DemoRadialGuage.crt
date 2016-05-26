@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE RtGuiConfig SYSTEM "resource:///com/bepco/rtc/crt/rtguiconfig.dtd">
+
+<!-- 
+  First stab at writing a config file for the GUI panels.
+  Config for specific XMLWidgetPanels is under the
+  $Revision: 9522 $
+-->
+
+<RtGuiConfig> 
+  <Metadata author="Burke Porter, Inc" version="1.0"
+	description="Standard implementation of the Driver Monitor view."/>
+  <XmlWidgetPanel id="DriverMonitor">
+  <Layout bgcolor="white">
+
+
+<!-- START OF Three radial gauges ================================= -->
+	  <HBox posX="10" posY="0" width="950" height="670">
+		<!-- space -->
+		<VBox width="10"/>
+<!-- gauge 1 -->
+		<Widget id="speed" height="300" width="300" class="com.bepco.gui.RadialGauge">
+		  <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
+		  <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
+		  <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" targetcolor="white" targetborders="true" targetbordercolor="red">
+			<Font size="30" name="sans-serif" style="plain"/>
+		  </RadialGaugeConfig>
+		</Widget>
+                
+		<VBox width="10"/>
+<!-- gauge 2 -->
+		<Widget id="speed2" height="300" width="300" class="com.bepco.gui.RadialGauge">
+		  <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
+		  <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
+		  <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" targetcolor="green" targetborders="false">
+			<Font size="30" name="sans-serif" style="plain"/>
+		  </RadialGaugeConfig>
+		</Widget>
+                 <VBox width="10"/>
+
+<!-- gauge 3 -->
+		<Widget id="speed3" height="300" width="300" class="com.bepco.gui.RadialGauge">
+		  <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
+		  <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
+		  <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" targetcolor="yellow" targetborders="true" targetbordercolor="black">
+			<Font size="30" name="sans-serif" style="plain"/>
+		  </RadialGaugeConfig>
+		</Widget>
+
+	  </HBox>
+	</Layout>
+  </XmlWidgetPanel>
+</RtGuiConfig>
+

@@ -281,9 +281,11 @@
                <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
                <NodePairs>
                   <ABS Outgoing="0x780" Incoming="0x788"/>
+                  <BoschABS Outgoing="0x7C2" Incoming="0x7CA"/>
                </NodePairs>
                <NodePairSetup>
                   <Range1 FirstRequestID="0x780" FirstResponseID="0x788" NumberOfPairs="1"/>
+                  <Range2 FirstRequestID="0x7C2" FirstResponseID="0x7CA" NumberOfPairs="1"/>
                </NodePairSetup>
             </Setup>
          </GryphonCCan>

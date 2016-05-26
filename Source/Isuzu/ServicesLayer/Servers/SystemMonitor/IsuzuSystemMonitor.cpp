@@ -122,7 +122,7 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
             // Read the build data in case the operator did not lower the rollers
             CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1"));
             BposSleep(1000);   // Wait for the build data to be processed
-			//AdjustWheelbase();
+			AdjustWheelbase();
             // Start the vehicle test
             CommandNdbData(string(START_VEHICLE_TEST_DATA_TAG), string("1"));
             RemovePrompt(2, "GoodScan", "white");
@@ -330,7 +330,7 @@ bool IsuzuSystemMonitor::AdjustWheelbase()
         BposSleep(2000);
         WriteNdbData(WHEELBASE_MOVE_TAG, false);
         // Wait for the wheelbase to be in position
-        INT16 wheelbaseDelay = 100;   // Wait up to 10 seconds for wheelbase in position
+        INT16 wheelbaseDelay = 200;   // Wait up to 20 seconds for wheelbase in position
         do
         {   // Check if the wheelbase is in position
             BposSleep(100);

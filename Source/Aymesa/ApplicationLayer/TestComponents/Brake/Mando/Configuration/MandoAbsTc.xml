@@ -365,13 +365,13 @@
       <BrakeTest>
          <TestStep00>AccelerateToBrakeSpeed</TestStep00>
          <TestStep05>DragTest</TestStep05>
-         <TestStep07>BrakeSwitchOffTest</TestStep07>
+         <!--TestStep07>BrakeSwitchOffTest</TestStep07-->
          <TestStep10>AnalyzeDragTest</TestStep10>
          <TestStep15>StopModuleKeepAlive</TestStep15>
          <TestStep30>EspValveFiringTest</TestStep30>
          <TestStep35>StartModuleKeepAlive</TestStep35>
          <TestStep40>BrakeTest</TestStep40>
-         <TestStep42>BrakeSwitchOnTest</TestStep42>
+         <!--TestStep42>BrakeSwitchOnTest</TestStep42-->
          <TestStep45>StopModuleKeepAlive</TestStep45>
          <TestStep55>ValveFiringTest</TestStep55>
          <TestStep60>StartModuleKeepAlive</TestStep60>

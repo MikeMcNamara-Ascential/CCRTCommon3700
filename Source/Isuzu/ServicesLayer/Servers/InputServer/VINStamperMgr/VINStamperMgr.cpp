@@ -97,7 +97,6 @@ void VINStamperMgr::ConvertDataToFile(char * data, int byteCount)
 {
     Log(LOG_DEV_DATA,"VINStamperMgr::ConvertDataToFile() - Enter\n");
     char fileName[64];
-    char command[150];
     char buffer[m_vinLength + 1];
     char shortData[GetInputDataLength()];
     FILE *stampFile = NULL;
@@ -140,12 +139,19 @@ void VINStamperMgr::ConvertDataToFile(char * data, int byteCount)
         else
         {
             Log(LOG_DEV_DATA, "Data: %s, Vin End Index %d, ByteCount: %d", data, vinEnd, byteCount);
-            char tempVin[10];
-            memset(tempVin,0,sizeof(tempVin));
-            Log("Copying the rest of the data\n");
-            strncpy(tempVin,data+(vinEnd),byteCount-vinEnd-1);
-            Log("Writing the data to the file\n");
-            writeStatus = fprintf(stampFile, "%s", tempVin);
+            if(byteCount > vinEnd)
+            {
+                char tempVin[10];
+                memset(tempVin,0,sizeof(tempVin));
+                Log("Copying the rest of the data\n");
+                strncpy(tempVin,data+(vinEnd),byteCount-vinEnd-1);
+                Log("Writing the data to the file\n");
+                writeStatus = fprintf(stampFile, "%s", tempVin);
+            }
+            else
+            {
+                Log(LOG_ERRORS, "No remaining data in the file after VIN removal, not copying to file\n");
+            }
         }
     }
     delay(100);

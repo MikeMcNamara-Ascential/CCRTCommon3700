@@ -345,8 +345,8 @@
          <RightRearMinRecoveryPercent>70.0</RightRearMinRecoveryPercent>
          <!-- ESP Test Parameters -->
          <CheckResponseInProgress>True</CheckResponseInProgress>
-         <LeftFrontMinESPBuildForce Units="lbf">100</LeftFrontMinESPBuildForce>
-         <RightFrontMinESPBuildForce Units="lbf">100</RightFrontMinESPBuildForce>
+         <LeftFrontMinESPBuildForce Units="lbf">75</LeftFrontMinESPBuildForce>
+         <RightFrontMinESPBuildForce Units="lbf">75</RightFrontMinESPBuildForce>
          <LeftRearMinESPBuildForce Units="lbf">75</LeftRearMinESPBuildForce>
          <RightRearMinESPBuildForce Units="lbf">75</RightRearMinESPBuildForce>
          <LeftFrontMaxESPReductionForce Units="%">30.0</LeftFrontMaxESPReductionForce>
@@ -397,6 +397,7 @@
          <BrakeBurnishStartSpeedRange Units="mph">60 65</BrakeBurnishStartSpeedRange>
          <BrakeToTargetSpeedPrompt>BrakeToTargetSpeed</BrakeToTargetSpeedPrompt>
          <BurnishIterations Description="Number of times to accel and decel for one cycle">5</BurnishIterations>
+         <SkipPromptoperatorForBurnish>True</SkipPromptoperatorForBurnish>
          <!-- Electric Park Brake Burnish Parameters -->
          <EPBBurnishCycles Description="Number of times to perform the brake burnish cycle">1</EPBBurnishCycles>
          <EPBBurnishIterations Description="Number of times to accel and decel for one cycle">1</EPBBurnishIterations>
@@ -466,21 +467,22 @@
       <IgnoreFaults>
          <ModuleFault_C41186/>
          <ModuleFault_406228/>
+         <ModuleFault_C41886/>
       </IgnoreFaults>
    </Setup>
    <Objectives>
       <ClearFaults>
+         <TestStep00>DisableDynoMode</TestStep00>
          <TestStep10>ResetModule</TestStep10>
          <TestStep12>Delay</TestStep12>
          <TestStep15>ClearFaults</TestStep15>
-         <TestStep17>StopModuleKeepAlive</TestStep17>
-         <TestStep20>CycleIgnition</TestStep20>
+         <!--TestStep20>CycleIgnition</TestStep20-->
       </ClearFaults>
       <Setup>
          <TestStep00>Setup</TestStep00>
          <TestStep05>Initialize</TestStep05>
          <TestStep10>EnterDiagnosticMode</TestStep10>
-         <TestStep15>CalibrateGSensor</TestStep15>
+         <!--TestStep15>CalibrateGSensor</TestStep15-->
          <TestStep20>ClearFaults</TestStep20>
          <TestStep21>EnterDiagnosticMode</TestStep21>
          <TestStep22>ResetVIN</TestStep22>
@@ -489,7 +491,9 @@
          <TestStep30>EnterDiagnosticMode</TestStep30>
          <!--TestStep35>EnableElectricVacuumPump</TestStep35-->
          <TestStep40>CheckPartNumber</TestStep40>
+         <!--
          <TestStep50>LearnPerformanceType</TestStep50>
+         -->
          <TestStep62>ProgramVIN</TestStep62>
          <!--TestStep64>CheckVIN</TestStep64-->
          <TestStep68>EnterDiagnosticMode</TestStep68>
@@ -498,6 +502,7 @@
          <TestStep85>Delay</TestStep85>
          <!--TestStep90>CalibrateGSensor</TestStep90-->
          <TestStep95>Delay</TestStep95>
+         <TestStep99>EnableDynoMode</TestStep99>
       </Setup>
       <EnterDiagnosticMode>
          <TestStep00>EnterDiagnosticMode</TestStep00>
@@ -687,7 +692,7 @@
       <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank">Perform Vehicle Coast</Coast>
       <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" StartBrakeSampleSpeed="25" EndBrakeSampleSpeed="5" BrakeDomain="0 500" BrakeTarget="250 400" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test</BrakeTest>
       <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="250" RearMinBrakeForce="100" FrontMaxBrakeForce="600" RearMaxBrakeForce="400" Prompt1="" Prompt2="">Perform Vehicle BaseBrake Test Analysis</AnalyzeBrakeTest>
-      <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="5" RearSideToSideBalance="5" TandemSideToSideBalance="20" BalanceFrontToRearMin="63" BalanceFrontToRearMax="73" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
+      <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="5" RearSideToSideBalance="5" TandemSideToSideBalance="20" BalanceFrontToRearMin="59" BalanceFrontToRearMax="73" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
       <BrakeToStop Result="" Timeout="120000" Description="Prompt the driver to brake to stop" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
       <!--From GenericABSTestComponent-->
       <ConnectToModule Result="" Timeout="" Description=""/>
@@ -738,6 +743,8 @@
       <EvaluateSensorCross Result="" Timeout="10000" Description="Check for ABS wheel speed sensor cross"/>
       <ReadSpeedDeltas Result="" Timeout="10000" Description="Read the deceleration rates from the ABS module"/>
       <CheckEolByte Result="" Timeout="20000" Description="Check EOL byte status" ScanDelay="500"/>
+      <EnableDynoMode Result="" Timeout="500" Description="Start DYNOMODE routine"/>
+      <DisableDynoMode Result="" Timeout="500" Description="Stop DYNOMODE routine"/>
       <!--Origin Unspecified-->
       <CheckModuleType Result="" Timeout="20000" Description="Check Module Type"/>
       <BrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>

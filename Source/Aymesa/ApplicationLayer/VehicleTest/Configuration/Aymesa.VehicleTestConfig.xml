@@ -87,6 +87,8 @@
             <CommandableDriveCurves>
                 <BaseBrake>/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml</BaseBrake>
                 <LossCompensation>/Configuration/VehicleTest/DriveCurves/LossCompensationDriveCurve.xml</LossCompensation>
+				<Mando60Kwp>/Configuration/VehicleTest/DriveCurves/BoschAbsDriveCurve.xml</Mando60Kwp>
+				<Mando80>/Configuration/VehicleTest/DriveCurves/MandoMgh80AbsDriveCurve.xml</Mando80>				
             </CommandableDriveCurves>
         </Selector>
         <Sequencer>

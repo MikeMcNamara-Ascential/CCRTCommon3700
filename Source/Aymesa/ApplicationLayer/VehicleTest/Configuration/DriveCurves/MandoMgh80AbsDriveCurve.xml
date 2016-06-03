@@ -1,9 +1,9 @@
 <DriveCurve Description="Base brake drive curve">
    <Components Debug="Off">
       <Brake>
-         <ComponentName>Bosch8TC.qxe</ComponentName>
+         <ComponentName>MandoAbsTc.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-         <ConfigFile>Bosch8ESPCM.xml</ConfigFile>
+         <ConfigFile>MandoMgh80AbsTc.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
          <Debug>Off</Debug>
       </Brake>

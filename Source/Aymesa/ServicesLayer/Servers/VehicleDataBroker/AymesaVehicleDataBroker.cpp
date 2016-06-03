@@ -36,21 +36,25 @@ const string AymesaVehicleDataBroker::Read(const XmlNode *node, const INT32 rate
 		string response, value;
 		// Get the vehicle build info
 		XmlNodeMap buildRecord = m_data.getNode(GetVehicleBuildTag())->getChildren();
-		if(BEP_STATUS_SUCCESS == ndb.Read(CBL_CONNECT_DATA_TAG, response, true))
-		{ 
-			if(BEP_STATUS_SUCCESS == ndb.GetByTag(CBL_CONNECT_DATA_TAG, value, response))
-			{
-				if(atob(value.c_str()))
-				{   // Cable connected, set brake type to ABS
-					Log(LOG_DEV_DATA, "Cable connected, setting brake type to %s", GetDataTag("AbsString").c_str());
-					XmlNodeMapItr iter = buildRecord.find("BrakeType");
-					if(iter != buildRecord.end())
-					{
-						iter->second->setValue(GetDataTag("AbsString"));
-					}
-				}
-			}
-		}
+
+/*         if(BEP_STATUS_SUCCESS == ndb.Read(CBL_CONNECT_DATA_TAG, response, true))                                      */
+/*          {                                                                                                            */
+/*              if(BEP_STATUS_SUCCESS == ndb.GetByTag(CBL_CONNECT_DATA_TAG, value, response))                            */
+/*              {                                                                                                        */
+/*                  if(atob(value.c_str()))                                                                              */
+/*                  {   // Cable connected, set brake type to ABS                                                        */
+/*                      Log(LOG_DEV_DATA, "Cable connected, setting brake type to %s", GetDataTag("AbsString").c_str()); */
+/*                      XmlNodeMapItr iter = buildRecord.find("BrakeType");                                              */
+/*                      if(iter != buildRecord.end())                                                                    */
+/*                      {                                                                                                */
+/*                          iter->second->setValue(GetDataTag("AbsString"));                                             */
+/*                      }                                                                                                */
+/*                  }                                                                                                    */
+/*              }                                                                                                        */
+/*          }                                                                                                            */
+
+
+
 		// Put the vehicle build into a string
 		for(XmlNodeMapItr iter = buildRecord.begin(); iter != buildRecord.end(); iter++)
 			result += iter->second->ToString();
@@ -62,3 +66,19 @@ const string AymesaVehicleDataBroker::Read(const XmlNode *node, const INT32 rate
 	Log(LOG_DEV_DATA, "AymesaVehicleDataBroker::Read(%s) returning: %s", node->getName().c_str(), result.c_str());
 	return result;
 }
+
+/*         if(BEP_STATUS_SUCCESS == ndb.Read(CBL_CONNECT_DATA_TAG, response, true))                                     */
+/*         {                                                                                                            */
+/*             if(BEP_STATUS_SUCCESS == ndb.GetByTag(CBL_CONNECT_DATA_TAG, value, response))                            */
+/*             {                                                                                                        */
+/*                 if(atob(value.c_str()))                                                                              */
+/*                 {   // Cable connected, set brake type to ABS                                                        */
+/*                     Log(LOG_DEV_DATA, "Cable connected, setting brake type to %s", GetDataTag("AbsString").c_str()); */
+/*                     XmlNodeMapItr iter = buildRecord.find("BrakeType");                                              */
+/*                     if(iter != buildRecord.end())                                                                    */
+/*                     {                                                                                                */
+/*                         iter->second->setValue(GetDataTag("AbsString"));                                             */
+/*                     }                                                                                                */
+/*                 }                                                                                                    */
+/*             }                                                                                                        */
+/*         }                                                                                                            */

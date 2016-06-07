@@ -261,6 +261,7 @@
                     <Parameters>
                         <RWalEquippedBarcodeLength>33</RWalEquippedBarcodeLength>
                         <VehicleTypePosition>17</VehicleTypePosition>
+                        <VehicleTypeLength>20</VehicleTypeLength>
                         <VehicleCodes>
                             <U>Xylo</U>
                             <R>Scorpio</R>
@@ -271,7 +272,7 @@
                     <VinLength>17</VinLength>
                     <DriverNumberLength>7</DriverNumberLength>
                     <MaximumRetries>3</MaximumRetries>
-                    <LookForCarriageReturn>No</LookForCarriageReturn>
+                    <LookForCarriageReturn>Yes</LookForCarriageReturn>
                     <CorrectBadScannerData>No</CorrectBadScannerData>
                     <BadDataIndex>0x01</BadDataIndex>
                     <BadDataIndicator>0x00</BadDataIndicator>
@@ -344,6 +345,7 @@
                     </ScannerCommunication>
                     <Parameters>
                         <VehicleTypePosition>17</VehicleTypePosition>
+                        <VehicleTypeLength>20</VehicleTypeLength>
                         <VehicleCodes>
                             <U>Xylo</U>
                             <R>Scorpio</R>
@@ -354,7 +356,7 @@
                     <VinLength>17</VinLength>
                     <DriverNumberLength>7</DriverNumberLength>
                     <MaximumRetries>3</MaximumRetries>
-                    <LookForCarriageReturn>No</LookForCarriageReturn>
+                    <LookForCarriageReturn>Yes</LookForCarriageReturn>
                     <CorrectBadScannerData>No</CorrectBadScannerData>
                     <BadDataIndex>0x01</BadDataIndex>
                     <BadDataIndicator>0x00</BadDataIndicator>
@@ -534,11 +536,12 @@
             <!-- ******************************************************* -->
             <!-- *                  Left Maple Keypad                  * -->
             <!-- ******************************************************* -->
-            <LeftMapleKeypad enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+            <LeftMapleKeypad enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MahindraKeypadManager.qxe">
                 <Setup>
                     <TagList>
                         <SubscribeTags>
                             <InputServerState/>
+                            <ModelCode/>
                             <NextVIN/>
                             <VehicleBuildRecordStatus/>
                             <VehicleAtBarcodeScanner/>
@@ -613,18 +616,19 @@
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
                     <VinLength>17</VinLength>
-                    <SecondaryDataTag>ZTSCode</SecondaryDataTag>
+                    <SecondaryDataTag>ModelCode</SecondaryDataTag>
                     <SecondaryDataLength>6</SecondaryDataLength>
                 </Setup>
             </LeftMapleKeypad>
             <!-- ******************************************************* -->
             <!-- *                 Right Maple Keypad                  * -->
             <!-- ******************************************************* -->
-            <RightMapleKeypad enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MapleKeypadManager.qxe">
+            <RightMapleKeypad enabled="1" process="$(USR_ROOT)/ServicesLayer/Bin/MahindraKeypadManager.qxe">
                 <Setup>
                     <TagList>
                         <SubscribeTags>
                             <InputServerState/>
+                            <ModelCode/>
                             <NextVIN/>
                             <RollsDownElevUp/>
                             <VehicleAtBarcodeScanner/>
@@ -699,7 +703,7 @@
                     <DataDelay>100</DataDelay>
                     <MaximumRetries>3</MaximumRetries>
                     <VinLength>17</VinLength>
-                    <SecondaryDataTag>ZTSCode</SecondaryDataTag>
+                    <SecondaryDataTag>ModelCode</SecondaryDataTag>
                     <SecondaryDataLength>6</SecondaryDataLength>
                 </Setup>
             </RightMapleKeypad>

@@ -93,8 +93,9 @@
                 <NotEquipped>No</NotEquipped>
                 <AWD>No</AWD>
             </FourWheelDriveEquipped>
-            <SecondarySelectionDataTag>ZTSCode</SecondarySelectionDataTag>
-            <SecondarySelectionData SelectedCharacterType = "none"/>
+            <SecondarySelectionDataTag>ModelCode</SecondarySelectionDataTag>
+            <ManualSecondaryData>ModelCode</ManualSecondaryData>
+            <SecondarySelectionData SelectedCharacterType = "range"/>
         </DataTags>
         <Logging>
             <Status>Enabled</Status>
@@ -110,7 +111,9 @@
                 <RollsDownElevUp/>
                 <NextVIN/>
                 <FrontAxleTestSelected/>
+                <ModelCode/>
                 <ZTSCode/>
+                <VehicleTypeFromPLC/>
             </SubscribeTags>
             <PublishTags>
                 <VehicleBuildRecordStatus/>
@@ -138,8 +141,8 @@
         <InvalidateBuildRecordOnRead>False</InvalidateBuildRecordOnRead>
         <VehicleBuildFilePath>/Configuration/VehicleTest/BuildRecords/</VehicleBuildFilePath>
         <VehicleBuildRecordSource Type="File, Broadcast, None">File</VehicleBuildRecordSource>
-        <VehicleBuildFileVinStart>3</VehicleBuildFileVinStart>
-        <VehicleBuildFileVinLength>6</VehicleBuildFileVinLength>
+        <VehicleBuildFileVinStart>0</VehicleBuildFileVinStart>
+        <VehicleBuildFileVinLength>20</VehicleBuildFileVinLength>
         <WheelbaseConfigFile>/Configuration/Client/WheelbaseConfig.xml</WheelbaseConfigFile>
     </Setup>
     <VehicleConvert/>

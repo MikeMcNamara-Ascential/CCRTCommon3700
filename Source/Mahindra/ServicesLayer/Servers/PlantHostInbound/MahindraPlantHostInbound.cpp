@@ -151,11 +151,11 @@ const string MahindraPlantHostInbound::LoadVehicleBuildFromFile(const string &vi
 
 		status = BEP_SUCCESS_RESPONSE;
 	}
-	catch(...)
+	catch(exception &excpt)
 	{
 		// There was an error getting the build record
 		status = BEP_UNAVAILABLE_RESPONSE;
-		Log(LOG_ERRORS,"Error getting vehicle build from file");
+		Log(LOG_ERRORS,"Error getting vehicle build from file: %s", excpt.what());
 		ClearVehicleBuild(buildData, updateStatus);
 	}
 
@@ -169,7 +169,7 @@ const string MahindraPlantHostInbound::LoadVehicleBuildRecord(const string &vin,
 															  XmlNodeMap &buildData, 
 															  const bool updateStatus)
 {	// Clear the vehicle build record before reloading it
-	Log(LOG_FN_ENTRY,"Enter CheryPlantHostInbound::LoadVehicleBuildRecord(%s)\n",vin.c_str());
+	Log(LOG_FN_ENTRY,"Enter MahindraPlantHostInbound::LoadVehicleBuildRecord(%s)\n",vin.c_str());
 	string status(BEP_ERROR_RESPONSE), response, buildRecord;
 	// Invalidate vehicle build since we are about to clear it and reload with a new one
 	if(updateStatus) SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
@@ -192,7 +192,7 @@ const string MahindraPlantHostInbound::LoadVehicleBuildRecord(const string &vin,
 			SetVehicleBuildRecordStatus(validStatus);
 			m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
 		}
-		Log("PlantHostInbound::CheryPlantHostInbound - Loaded vehicleBuild with:\n");
+		Log("PlantHostInbound::MahindraPlantHostInbound - Loaded vehicleBuild with:\n");
 		for(XmlNodeMapItr iter = buildData.begin(); iter != buildData.end(); iter++)
 			Log("\t%s\n", (*iter).second->ToString().c_str());
 	}
@@ -219,7 +219,7 @@ const string MahindraPlantHostInbound::LoadVehicleBuildRecord(const string &vin,
 		// Get rid of the node
 		nextVehicleBuild.clear();
 	}
-	Log(LOG_FN_ENTRY,"CheryPlantHostInbound::LoadVehicleBuildRecord() returning %s\n", status.c_str());
+	Log(LOG_FN_ENTRY,"MahindraPlantHostInbound::LoadVehicleBuildRecord() returning %s\n", status.c_str());
 	return(status);
 }
 

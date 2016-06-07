@@ -47,5 +47,5 @@ INCLUDE(${CCRT_ROOT}/ExeQxe.cmake)
 #------------------------------------------------------------------------------------------
 # Tell CMake where to install the executable
 #------------------------------------------------------------------------------------------
-INSTALL_TARGETS(${CUSTOMER_SERVICES_BIN_DEPLOY_DIR} ${EXE_NAME}.qxe)
+INSTALL_TARGETS(${CUSTOMER_SERVICES_BIN_DEPLOY_DIR} ${EXE_NAME})
 

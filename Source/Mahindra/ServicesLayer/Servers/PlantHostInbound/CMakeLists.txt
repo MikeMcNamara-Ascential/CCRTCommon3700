@@ -30,7 +30,7 @@ TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME} PlantHostIn)
 #------------------------------------------------------------------------------
 # Add a QNX use message to the executable
 #------------------------------------------------------------------------------
-ADD_USE_MSSG(${EXE_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/${EXE_NAME}Main.cpp)
+#ADD_USE_MSSG(${EXE_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/${EXE_NAME}Main.cpp)
 
 ADD_SUBDIRECTORY(Configuration)
 

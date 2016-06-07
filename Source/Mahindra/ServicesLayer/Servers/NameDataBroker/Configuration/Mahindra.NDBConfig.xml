@@ -713,6 +713,7 @@
             <MetricSelect DataType="string">VehicleDataBroker</MetricSelect>
             <MetricSelectBGColor DataType="color">VehicleDataBroker</MetricSelectBGColor>
             <MinimumBoostPressure DataType="short" Units="PSI">PLC</MinimumBoostPressure>
+            <ModelCode DataType="string">VehicleDataBroker</ModelCode>
             <ModelYear DataType="string">VehicleDataBroker</ModelYear>
             <ModelYearBGColor DataType="color">VehicleDataBroker</ModelYearBGColor>
             <ModelYearSwitch DataType="bool">PLC</ModelYearSwitch>

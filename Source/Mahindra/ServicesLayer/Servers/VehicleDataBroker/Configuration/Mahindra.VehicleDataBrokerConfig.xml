@@ -87,6 +87,7 @@
                 <Manual4x4BGColor DataType="color">white</Manual4x4BGColor>
                 <MetricSelect DataType="bool">No</MetricSelect>
                 <MetricSelectBGColor DataType="color">white</MetricSelectBGColor>
+                <ModelCode DataType="string">Unknown</ModelCode>
                 <ModelYear DataType="string">Unknown</ModelYear>
                 <ModelYearBGColor DataType="color">white</ModelYearBGColor>
                 <OpenExhaustFlap DataType="bool">No</OpenExhaustFlap>

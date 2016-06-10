@@ -136,9 +136,3 @@ void ISystemCommunication::FindAndReplaceSpecialCharacter(std::string &data, cha
 	}
 	while(!done);
 }
-
-const string& ISystemCommunication::CommType(const string *type /*= NULL*/)
-{
-	if(type != NULL)  m_commType = *type;
-	return m_commType;
-}

@@ -541,9 +541,28 @@
 #define WHEELBASE_IN_POSITION_STATUS_TAG    "WheelbaseInPositionStatus"
 
 /**
+ * Data tag for wheelbase in position
+ */
+#define FRONT_CRADLE_IN_POSITION_TAG           "FrontCradleInPosition"
+
+/**
+ * Data tag for wheelbase in position
+ */
+#define REAR_CRADLE_IN_POSITION_TAG           "RearCradleInPosition"
+
+
+/**
  * Data tag to use to command the PLC to start/stop moving the wheelbase
  */
 #define WHEELBASE_MOVE_TAG                  "WheelbaseStartCommand"
+/**
+ * Data tag to use to command the PLC to start/stop moving the wheelbase
+ */
+#define FRONT_CRADLE_MOVE_TAG                  "AdjustFrontCradlePosition"
+/**
+ * Data tag to use to command the PLC to start/stop moving the wheelbase
+ */
+#define REAR_CRADLE_MOVE_TAG                  "AdjustRearCradlePosition"
 /**
  * Data tag to use to command the PLC to start/stop moving the wheelbase
  */

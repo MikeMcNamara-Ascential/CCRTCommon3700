@@ -489,6 +489,42 @@
 	  <Bit14 Description="BarCodeVerifyDelayTime Bit 14"/>
 	  <Bit15 Description="BarCodeVerifyDelayTime Bit 15"/>
 	</Word26>
+    <Word29>
+      <Bit00 Description="FrontCradleOpening Bit 00"/>
+	  <Bit01 Description="FrontCradleOpening Bit 01"/>
+	  <Bit02 Description="FrontCradleOpening Bit 02"/>
+	  <Bit03 Description="FrontCradleOpening Bit 03"/>
+	  <Bit04 Description="FrontCradleOpening Bit 04"/>
+	  <Bit05 Description="FrontCradleOpening Bit 05"/>
+	  <Bit06 Description="FrontCradleOpening Bit 06"/>
+	  <Bit07 Description="FrontCradleOpening Bit 07"/>
+	  <Bit08 Description="FrontCradleOpening Bit 08"/>
+	  <Bit09 Description="FrontCradleOpening Bit 09"/>
+	  <Bit10 Description="FrontCradleOpening Bit 10"/>
+	  <Bit11 Description="FrontCradleOpening Bit 11"/>
+	  <Bit12 Description="FrontCradleOpening Bit 12"/>
+	  <Bit13 Description="FrontCradleOpening Bit 13"/>
+	  <Bit14 Description="FrontCradleOpening Bit 14"/>
+	  <Bit15 Description="FrontCradleOpening Bit 15"/>
+    </Word29>
+    <Word30>
+      <Bit00 Description="RearCradleOpening Bit 00"/>
+	  <Bit01 Description="RearCradleOpening Bit 01"/>
+	  <Bit02 Description="RearCradleOpening Bit 02"/>
+	  <Bit03 Description="RearCradleOpening Bit 03"/>
+	  <Bit04 Description="RearCradleOpening Bit 04"/>
+	  <Bit05 Description="RearCradleOpening Bit 05"/>
+	  <Bit06 Description="RearCradleOpening Bit 06"/>
+	  <Bit07 Description="RearCradleOpening Bit 07"/>
+	  <Bit08 Description="RearCradleOpening Bit 08"/>
+	  <Bit09 Description="RearCradleOpening Bit 09"/>
+	  <Bit10 Description="RearCradleOpening Bit 10"/>
+	  <Bit11 Description="RearCradleOpening Bit 11"/>
+	  <Bit12 Description="RearCradleOpening Bit 12"/>
+	  <Bit13 Description="RearCradleOpening Bit 13"/>
+	  <Bit14 Description="RearCradleOpening Bit 14"/>
+	  <Bit15 Description="RearCradleOpening Bit 15"/>
+    </Word30>
  <Word32>
 	  <Bit00 Description="LTWheelSpeed Bit 00"/>
 	  <Bit01 Description="LTWheelSpeed Bit 01"/>
@@ -941,5 +977,41 @@
       <Bit14 Description="OpenN17_22_14 - Open "/>
       <Bit15 Description="OpenN17_22_15 - Open "/>
 	</Word22>
+    <Word23>
+      <Bit00 Description="CurrentFrontCradleOpening Bit 00"/>
+	  <Bit01 Description="CurrentFrontCradleOpening Bit 01"/>
+	  <Bit02 Description="CurrentFrontCradleOpening Bit 02"/>
+	  <Bit03 Description="CurrentFrontCradleOpening Bit 03"/>
+	  <Bit04 Description="CurrentFrontCradleOpening Bit 04"/>
+	  <Bit05 Description="CurrentFrontCradleOpening Bit 05"/>
+	  <Bit06 Description="CurrentFrontCradleOpening Bit 06"/>
+	  <Bit07 Description="CurrentFrontCradleOpening Bit 07"/>
+	  <Bit08 Description="CurrentFrontCradleOpening Bit 08"/>
+	  <Bit09 Description="CurrentFrontCradleOpening Bit 09"/>
+	  <Bit10 Description="CurrentFrontCradleOpening Bit 10"/>
+	  <Bit11 Description="CurrentFrontCradleOpening Bit 11"/>
+	  <Bit12 Description="CurrentFrontCradleOpening Bit 12"/>
+	  <Bit13 Description="CurrentFrontCradleOpening Bit 13"/>
+	  <Bit14 Description="CurrentFrontCradleOpening Bit 14"/>
+	  <Bit15 Description="CurrentFrontCradleOpening Bit 15"/>
+    </Word23>
+    <Word24>
+      <Bit00 Description="CurrentRearCradleOpening Bit 00"/>
+	  <Bit01 Description="CurrentRearCradleOpening Bit 01"/>
+	  <Bit02 Description="CurrentRearCradleOpening Bit 02"/>
+	  <Bit03 Description="CurrentRearCradleOpening Bit 03"/>
+	  <Bit04 Description="CurrentRearCradleOpening Bit 04"/>
+	  <Bit05 Description="CurrentRearCradleOpening Bit 05"/>
+	  <Bit06 Description="CurrentRearCradleOpening Bit 06"/>
+	  <Bit07 Description="CurrentRearCradleOpening Bit 07"/>
+	  <Bit08 Description="CurrentRearCradleOpening Bit 08"/>
+	  <Bit09 Description="CurrentRearCradleOpening Bit 09"/>
+	  <Bit10 Description="CurrentRearCradleOpening Bit 10"/>
+	  <Bit11 Description="CurrentRearCradleOpening Bit 11"/>
+	  <Bit12 Description="CurrentRearCradleOpening Bit 12"/>
+	  <Bit13 Description="CurrentRearCradleOpening Bit 13"/>
+	  <Bit14 Description="CurrentRearCradleOpening Bit 14"/>
+	  <Bit15 Description="CurrentRearCradleOpening Bit 15"/>
+    </Word24>
   </Inputs>
 </PLCDisplayConfig>

@@ -408,7 +408,7 @@ void MapleKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteCoun
     bool processData = false;   // Process the data received
 
     std::string dataString = "";
-
+    Log(LOG_FN_ENTRY, "Enter MapleKeypadManager::EvaluateData()\n");
     for (INT32 ii = 0; ii < byteCount; ii++)
     {
         char localData[10];
@@ -458,22 +458,22 @@ void MapleKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteCoun
         {   // Determine the type of data
             if (GetCurrentMode() == INPUT_SERVER_VIN_STATE)
             {   // Determine if we have a VIN or secondary data
-                if(index == SecondaryDataLength())
-                {
-                    Log(LOG_DEV_DATA, "Received %s data -- Byte count: %d", SecondaryDataType().c_str(), index);
-                    dataType = SecondaryDataType();
-                    processData = true;
-                }
-                else if(index >= VinLength())
+                if(index >= VinLength())
                 {
                     Log(LOG_DEV_DATA, "Received VIN data -- Byte count: %d", index);
                     dataType = NEXT_VIN_DATA_TAG;
                     displayType = VINDISPLAY_DATA_TAG;
                     processData = true;
                 }
+                else if(index >= SecondaryDataLength())
+                {
+                    Log(LOG_DEV_DATA, "Received %s data -- Byte count: %d", SecondaryDataType().c_str(), index);
+                    dataType = SecondaryDataType();
+                    processData = true;
+                } 
                 else
                 {
-                    Log(LOG_ERRORS, "Received unknown data -- Byte count: %d", index);
+                    Log(LOG_ERRORS, "Received unknown data -- Byte count: %d Secondary Data Length: %d", index, SecondaryDataLength());
                     processData = false;
                 }
             }
@@ -572,7 +572,7 @@ INT32 &MapleKeypadManager::GetBufferSize(void)
     return m_bufferSize;
 }
 
-std::string& MapleKeypadManager::GetCurrentMode(void)
+inline std::string &MapleKeypadManager::GetCurrentMode(void)
 {
     return m_currentMode;
 }

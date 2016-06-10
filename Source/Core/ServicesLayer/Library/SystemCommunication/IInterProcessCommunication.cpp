@@ -338,8 +338,6 @@ void IInterProcessCommunication::Initialize(const std::string &name, const std::
 	if(name != "") SetName(name);	// Set process name
 	SetTimeout(timeout);			// Set write timeout
 	SetRxLength(size);				// Set size of buffer
-	string commType = "IPC";
-	CommType(&commType);
 }
 void IInterProcessCommunication::Initialize(const XmlNode *config, const INT32 id /* =-1 */, const INT32 rid /* =-1 */)
 {
@@ -373,8 +371,6 @@ void IInterProcessCommunication::Initialize(const XmlNode *config, const INT32 i
 				   IsDebugOn(), size, timeout);
 	}
 	else Initialize(id, config->getChildren().getNode("Name")->getValue(), IsDebugOn(), rid, size, timeout);
-	string commType = "IPC";
-	CommType(&commType);
 }
 void IInterProcessCommunication::Initialize(const INT32 id, const std::string name, const bool debug /* = false */,
 											const INT32 rid	/* =-1 */, const INT32 size	/* = DEFAULT_BUFFER_SIZE */,
@@ -387,8 +383,6 @@ void IInterProcessCommunication::Initialize(const INT32 id, const std::string na
 	SetName(name, false);
 	SetTimeout(timeout);			// Set write timeout
 	SetRxLength(size);				// Set size of receive buffer
-	string commType = "IPC";
-	CommType(&commType);
 }
 INT32 IInterProcessCommunication::Read(std::string &message, INT32 id /*=-1*/)
 {	// Receive message

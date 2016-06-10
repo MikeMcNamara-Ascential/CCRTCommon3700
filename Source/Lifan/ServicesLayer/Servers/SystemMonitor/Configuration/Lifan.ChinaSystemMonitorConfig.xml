@@ -1,0 +1,117 @@
+<SysMonConfig>
+   <Setup>
+      <Demo>0</Demo>
+      <Debug>Off</Debug>
+      <ValidVINNeededForStart>0</ValidVINNeededForStart>
+      <ProcessPriority>12</ProcessPriority>
+      <VehiclePresentTime Description="The amount of time to wait in miliseconds to declare a vehicle as being present">1000</VehiclePresentTime>
+      <LossCompensationSwitchTime Description="The amount of time to wait in miliseconds to debounce the LC switch">1000</LossCompensationSwitchTime>
+      <UpdateTestConditionsTime Description="The amount of time to wait to check the system conditions for start test and drive axle">1000</UpdateTestConditionsTime>
+      <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">1000</CableConnectTime>
+      <SystemMonitorWheelbaseAdjust>True</SystemMonitorWheelbaseAdjust>
+      <MoveWheelbasePulseWidth Units="ms">2000</MoveWheelbasePulseWidth>
+      <MoveCradlePulseWidth Description="The amount of time to wait to turn off the cradle adjust bit">1000</MoveCradlePulseWidth>
+      <ICMWheelSpeeds>/dev/Icm/Block/Speed</ICMWheelSpeeds>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/SystemMonitor</ProcessName>
+         <AdditionalLogFile Types="/Servers/SystemMonitor or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Debug>Off</Debug>
+         <Verbose>0x3F</Verbose>
+      </Logging>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+            <ResponseTimeout>2000</ResponseTimeout>
+         </Setup>
+      </NotificationList>
+      <TagList>
+         <PublishTags>
+            <Abort>0</Abort>
+            <CableConnect>0</CableConnect>
+            <ContinueTest>0</ContinueTest>
+            <DisplayDriverMonitor>drivermonitor</DisplayDriverMonitor>
+            <DisplayRackMonitor>frontpanel</DisplayRackMonitor>
+            <GMPhase/>
+            <OkToRoll>0</OkToRoll>
+            <Retest>0</Retest>
+            <StartLossCompensation>0</StartLossCompensation>
+            <StartSim>0</StartSim>
+            <StartTest>0</StartTest>
+            <VehiclePresent>0</VehiclePresent>
+         </PublishTags>
+         <SubscribeTags>
+             <AllWheelDrive/>
+            <AbortSignal/>
+             <DriverNumber/>
+             <EnableAllRollDrives/>
+             <InputServerState/>
+             <InstVehiclePresent/>
+             <InvalidLicenseFatalFault/>
+             <KeyPress/>
+             <LossCompensationSwitchCycleStatus/>
+             <LossCompensationSwitchCycleStatusFromPLC/>
+             <LossCompensationSwitchStatusFromPLC/>
+             <LossCompensationSwitchStatusToPLC/>
+             <PLCCableConnect/>
+             <PLCRackFault/>
+             <PowerSense/>
+             <Retest/>
+             <RollsDownElevUp/>
+             <RollsUpElevDown/>
+             <SimulatorSwitchCycleStatus/>
+             <SimulatorSwitchStatus/>
+             <StartLossCompensation/>
+             <StartSequencePushbutton/>
+             <StartTestFromPLC/>
+             <StartVehicleTest/>
+             <TestInProgress/>
+             <VINReadStatus/>
+             <WheelbaseInPosition/>
+             <WheelbasePositionInchesX10/>
+             <ZerospeedToPLC/>
+             <Zerospeed/>
+             <FrontCradleInPosition/>
+             <FrontCradleOpening/>
+             <RearCradleInPosition/>
+             <RearCradleOpening/>
+         </SubscribeTags>
+      </TagList>
+      <DataTags>
+        <AllWheelDrive>AllWheelDrive</AllWheelDrive>
+         <DriveAxle>DriveAxle</DriveAxle>
+        <CycleTime>CycleTime</CycleTime>
+        <TestResultBox1>TestResultBox1BGColor</TestResultBox1>
+        <TestResultBox2>TestResultBox2BGColor</TestResultBox2>
+        <TestResultBox3>TestResultBox3BGColor</TestResultBox3>
+        <TestResultBox4>TestResultBox4BGColor</TestResultBox4>
+        <TestResultBox5>TestResultBox5BGColor</TestResultBox5>
+        <TestResultBox6>TestResultBox6BGColor</TestResultBox6>       
+      </DataTags>
+      <Communication>
+         <Type>Server</Type>
+         <Debug>Off</Debug>
+         <Name>core/SystemMonitor</Name>
+         <Comm>IPC</Comm>
+         <Timeout>2000</Timeout>
+         <BufferSize>2000</BufferSize>
+      </Communication>
+      <SystemFaults>
+         <PowerSense Name="PowerSenseLostToIORack" Severity="9" Description="System power has been lost">System Power Sense</PowerSense>
+         <RackFault Name="PLCRackFault" Severity="9" Description="PLC rack fault detected">PLC Rack Fault</RackFault>
+      </SystemFaults>
+   </Setup>
+</SysMonConfig>

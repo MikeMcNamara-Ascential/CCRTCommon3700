@@ -247,9 +247,21 @@
 
 /**
  * Pulse value used to send toggle ret roll position to plc
- */ 
+ */
+  
 #define STOP_MOVE_RET_ROLL_POS_PULSE    92
 
+/**
+ * Pulse value used to indicate that it is time to turn off the front cradle
+ * adjustment pulse.
+ */ 
+ 
+#define STOP_FRONT_CRADLE_ADJUST_PULSE    93
+/**
+ * Pulse value used to indicate that it is time to turn off the rear cradle
+ * adjustment pulse.
+ */ 
+#define STOP_REAR_CRADLE_ADJUST_PULSE    94
 
 /**
  * Name to use when registering with OS
@@ -341,6 +353,8 @@ public:
     bool    rackFault;
     bool    machineFault;
     bool    wheelbaseInPosition;
+    bool    frontCradleInPosition;
+    bool    rearCradleInPosition;
     bool    vmeSystemReady;
     bool    zerospeed;
 
@@ -1065,6 +1079,14 @@ protected:
      * Start sending the wheelbase adjustment pulse to the PLC.
      */ 
     void StartWheelbaseAdjust(void);
+    /**
+     * Start sending the front cradle adjustment pulse to the PLC.
+     */ 
+    void StartFrontCradleAdjust(void);
+    /**
+     * Start sending the rear cradle adjustment pulse to the PLC.
+     */ 
+    void StartRearCradleAdjust(void);
 
     /**
      * Start sending the Re Relax Ret Rolls pulse to the PLC.
@@ -1075,6 +1097,14 @@ protected:
      * Stop sending the wheelbase adjustment pulse to the PLC.
      */ 
     void StopWheelbaseAdjust(void);
+    /**
+     * Stop sending the front cradle adjustment pulse to the PLC.
+     */ 
+    void StopFrontCradleAdjust(void);
+    /**
+     * Stop sending the rear cradle adjustment pulse to the PLC.
+     */ 
+    void StopRearCradleAdjust(void);
 
     /**
      * Stop sending the Re Relax Ret Rolls pulse to the PLC.
@@ -1248,22 +1278,39 @@ protected:
      * The number of mili-seconds to wait before killing the wheelbase move bit
      */
     double              m_wheelbasePulseTime;
-        /**
+    /**
      * The number of mili-seconds to wait before toggling the retainer raise / lower bits
      */
     double              m_retainerTogglePulseTime;
-
-     /**
+    /**
+     * The number of mili-seconds to wait before clearing the Front Cradle Adjust bit
+     */
+    double              m_frontCradlePulseTime;
+    /**
+     * The number of mili-seconds to wait before toggling the Rear Cradle Adjust bit
+     */
+    double              m_rearCradlePulseTime;
+   /**
      * Timer object used to send the SystemMonitor a pulse after the
      * vehicle present filter time has elapsed.
      */
     BepTimer            m_wheelbasePulseTimer;
-         /**
+    /**
      * Timer object used to send the SystemMonitor a pulse to 
      * toggle ret roll position
      */
     BepTimer            m_retainerTogglePulseTimer;
-     /**
+    /**
+     * Timer object used to send the SystemMonitor a pulse to 
+     * adjust the front cradle position
+     */
+    BepTimer            m_frontCradlePulseTimer;
+    /**
+     * Timer object used to send the SystemMonitor a pulse to 
+     * adjust the front cradle position
+     */
+    BepTimer            m_rearCradlePulseTimer;
+    /**
      * Flag used to denote that it is the SystemMonitor's
      * responsibility to send a signal to ReRelax the RetRolls on
      * publish of WheelbasePositionInchesX10.

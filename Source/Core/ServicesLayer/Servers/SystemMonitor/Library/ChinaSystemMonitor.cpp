@@ -258,7 +258,9 @@ void ChinaSystemMonitor::GetCurrentControlData( ControlData *ctrl)
     ctrl->inputServerState = ReadSubscribeData( INPUT_SERVER_STATE);
     ctrl->powerSense = (bool)(ReadSubscribeData( PLC_POWER_SENSE) == "1");
     ctrl->rackFault = (bool)(ReadSubscribeData( PLC_RACK_FAULT) == "1");
-    ctrl->wheelbaseInPosition = (bool) (ReadSubscribeData( WHEELBASE_IN_POSITION_TAG) == "1");
+    ctrl->wheelbaseInPosition = (bool)(ReadSubscribeData( WHEELBASE_IN_POSITION_TAG) == "1");
+    ctrl->frontCradleInPosition = (bool)(ReadSubscribeData( FRONT_CRADLE_IN_POSITION_TAG) == "1");
+    ctrl->rearCradleInPosition = (bool)(ReadSubscribeData( REAR_CRADLE_IN_POSITION_TAG) == "1");
     ctrl->zerospeed = (bool) (ReadSubscribeData(ZEROSPEED_TAG_TO_PLC) == "1");
     jianglingCtrl->rollDrivesEnabled = (bool) (ReadSubscribeData( ENABLE_ALL_ROLL_DRIVES) == "1");
 

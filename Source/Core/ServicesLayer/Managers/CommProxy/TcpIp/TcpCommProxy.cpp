@@ -362,7 +362,7 @@ int TcpCommProxy::Connect()
             }
             else
             {
-                Log( LOG_ERRORS, "Error connecting to <%s>:%d : %s\n", m_ipAddress.c_str(), m_ipPort, strerror( errno));
+                Log( LOG_ERRORS, "Error creating socket: %s\n", strerror( errno));
             }
             if (retVal == -1 || sock == -1)
             {

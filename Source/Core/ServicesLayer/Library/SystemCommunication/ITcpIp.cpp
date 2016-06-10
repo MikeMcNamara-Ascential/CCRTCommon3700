@@ -106,8 +106,6 @@ void ITcpIp::Initialize(void)
 		if(IsDebugOn())	printf("Connection Made\n");
 	}
 	else throw BepException("ITcpIp: Invalid ITcpIp Configuration: " + GetType());
-	string commType = "TCP";
-	CommType(&commType);
 }
 void ITcpIp::Initialize(const XmlNode *config, const INT32 id /* =-1 */, const INT32 rid /* =-1 */)
 {
@@ -183,8 +181,6 @@ void ITcpIp::Initialize(const XmlNode *config, const INT32 id /* =-1 */, const I
 		SetBufferSize(DEFAULT_BUFFER_SIZE);
 	}
 	Initialize();
-	string commType = "TCP";
-	CommType(&commType);
 }
 void ITcpIp::Initialize(const std::string &type, const INT16 port, const std::string address, const bool debug)
 {
@@ -210,14 +206,10 @@ void ITcpIp::Initialize(const std::string &type, const INT16 port, const std::st
 		printf("Error: Initialize Unknown Exception\n");
 	}
 	Initialize();
-	string commType = "TCP";
-	CommType(&commType);
 }
 void ITcpIp::Initialize(const char *type, const INT16 port, const char *address, const bool debug)
 {
 	Initialize(std::string(type), port, std::string(address), debug);
-	string commType = "TCP";
-	CommType(&commType);
 }
 void ITcpIp::Initialize(const std::string type, const INT16 port, const std::string address, const INT32 id,
 						const bool debug /* = false */, const std::string frameStart /* = BEP_XML_ROOT */,
@@ -233,8 +225,6 @@ void ITcpIp::Initialize(const std::string type, const INT16 port, const std::str
 	SetFrameEnd(frameEnd);
 	SetBackLog(backlog);
 	Initialize(type, port, address, debug);
-	string commType = "TCP";
-	CommType(&commType);
 }
 INT32 ITcpIp::ProcessRequest(void)
 {

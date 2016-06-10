@@ -4,6 +4,7 @@
         <Debug>Off</Debug>
         <DebugLevel>0</DebugLevel>
         <ProcessPriority>11</ProcessPriority>
+        <CommunicationBus>ISOK</CommunicationBus>
         <Communication>
             <Comm>IPC</Comm>
             <Type>Server</Type>

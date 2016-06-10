@@ -276,6 +276,8 @@ ControlData::ControlData()
     machineFault = false;
     reprintRequest = false;
     wheelbaseInPosition=false;
+    frontCradleInPosition=false;
+    rearCradleInPosition=false;
     vmeSystemReady=false;
     zerospeed=false;
     abortPb = false;
@@ -330,6 +332,8 @@ ControlData& ControlData::Assign( const ControlData& rhs)
     machineFault = rhs.machineFault;
     reprintRequest = rhs.reprintRequest;
     wheelbaseInPosition = rhs.wheelbaseInPosition;
+    frontCradleInPosition = rhs.frontCradleInPosition;
+    rearCradleInPosition = rhs.rearCradleInPosition;
     vmeSystemReady = rhs.vmeSystemReady;
     zerospeed = rhs.zerospeed;
     abortPb = rhs.abortPb;
@@ -747,33 +751,72 @@ void SystemMonitor::Initialize(const XmlNode *document)
         }
     }
 
-    // retrieve the retaining roll toggle pulse timer time
-        try
+    // retrieve the cradle pulse timer time
+    try
+    {
+        if (document)
         {
-            if (document)
-            {
-                const XmlNode *node = document->getChild( XML_T("Setup"))->getChild( XML_T("ToggleRetainerPositionPulseWidth"));
-                m_retainerTogglePulseTime = atol( node->getValue().c_str());
-            }
-            else
-            {
-                Log(LOG_ERRORS, "Warning! No ret toggle pulse time specified, Defaulting to 500ms\n");
-                m_retainerTogglePulseTime = 500;
-            }
+            const XmlNode *node = document->getChild( XML_T("Setup"))->getChild( XML_T("MoveCradlePulseWidth"));
+            m_frontCradlePulseTime = atol( node->getValue().c_str());
+            m_rearCradlePulseTime = atol( node->getValue().c_str());
         }
-        catch (XmlException &err)
+        else
+        {
+            Log(LOG_ERRORS, "Warning! No Cradle pulse time specified, Defaulting to 1sec\n");
+            m_frontCradlePulseTime = 1000;
+            m_rearCradlePulseTime = 1000;
+        }
+    }
+    catch (XmlException &err)
+    {
+        Log(LOG_ERRORS, "Warning! Exception reading Cradle pulse time, Defaulting to 1sec\n");
+        m_frontCradlePulseTime = 1000;
+        m_rearCradlePulseTime = 1000;
+    }
+
+    // set the update time
+    Log( LOG_DEV_DATA, "Using Cradle pulse time = %f\n", m_frontCradlePulseTime);
+    if (m_frontCradlePulseTime)
+    {   // convert the time to seconds
+        m_frontCradlePulseTimer.SetPulseCode( SYS_MON_PULSE_CODE);
+        m_frontCradlePulseTimer.SetPulseValue( STOP_FRONT_CRADLE_ADJUST_PULSE); 
+        m_frontCradlePulseTimer.Initialize(GetProcessName().c_str(), 
+                                         NULL, (unsigned long)(mSEC_nSEC(m_frontCradlePulseTime )));
+        m_frontCradlePulseTimer.Stop();
+        m_rearCradlePulseTimer.SetPulseCode( SYS_MON_PULSE_CODE);
+        m_rearCradlePulseTimer.SetPulseValue( STOP_REAR_CRADLE_ADJUST_PULSE); 
+        m_rearCradlePulseTimer.Initialize(GetProcessName().c_str(), 
+                                         NULL, (unsigned long)(mSEC_nSEC(m_rearCradlePulseTime )));
+        m_rearCradlePulseTimer.Stop();
+    }
+
+    // retrieve the retaining roll toggle pulse timer time
+    try
+    {
+        if (document)
+        {
+            const XmlNode *node = document->getChild( XML_T("Setup"))->getChild( XML_T("ToggleRetainerPositionPulseWidth"));
+            m_retainerTogglePulseTime = atol( node->getValue().c_str());
+        }
+        else
         {
             Log(LOG_ERRORS, "Warning! No ret toggle pulse time specified, Defaulting to 500ms\n");
             m_retainerTogglePulseTime = 500;
         }
+    }
+    catch (XmlException &err)
+    {
+        Log(LOG_ERRORS, "Warning! No ret toggle pulse time specified, Defaulting to 500ms\n");
+        m_retainerTogglePulseTime = 500;
+    }
 
-        // set the update time
-        Log( LOG_DEV_DATA, "Using ret toggle pulse time = %f\n", m_retainerTogglePulseTime);
-            m_retainerTogglePulseTimer.SetPulseCode( SYS_MON_PULSE_CODE);
-            m_retainerTogglePulseTimer.SetPulseValue( STOP_MOVE_RET_ROLL_POS_PULSE); 
-            m_retainerTogglePulseTimer.Initialize(GetProcessName().c_str(), 
-                                             NULL, (unsigned long)(mSEC_nSEC(m_retainerTogglePulseTime )));
-            m_retainerTogglePulseTimer.Stop();
+    // set the update time
+    Log( LOG_DEV_DATA, "Using ret toggle pulse time = %f\n", m_retainerTogglePulseTime);
+    m_retainerTogglePulseTimer.SetPulseCode( SYS_MON_PULSE_CODE);
+    m_retainerTogglePulseTimer.SetPulseValue( STOP_MOVE_RET_ROLL_POS_PULSE); 
+    m_retainerTogglePulseTimer.Initialize(GetProcessName().c_str(), 
+                                         NULL, (unsigned long)(mSEC_nSEC(m_retainerTogglePulseTime )));
+    m_retainerTogglePulseTimer.Stop();
        
 
 
@@ -816,6 +859,16 @@ const std::string SystemMonitor::Publish(const XmlNode *node)
             {
                 Log(LOG_DEV_DATA, "SystemMonitor not responsible for adjusting wheelbase, ignoring WheelbasePositionInchesX10 publish!\n");
             }
+        }
+        else if (node->getName() == "FrontCradleOpening")
+        {
+            Log(LOG_DEV_DATA,"Front Cradle Opening received telling PLC to adjust");
+            StartFrontCradleAdjust();
+        }
+        else if (node->getName() == "RearCradleOpening")
+        {
+            Log(LOG_DEV_DATA,"Rear Cradle Opening received telling PLC to adjust");
+            StartRearCradleAdjust();
         }
     }
 
@@ -2016,11 +2069,39 @@ void SystemMonitor::StartWheelbaseAdjust(void)
     Log( LOG_DEV_DATA, "Wheelbase Adjust bit set true\n");
 }
 
+void SystemMonitor::StartFrontCradleAdjust(void)
+{
+    WriteNdbData(FRONT_CRADLE_MOVE_TAG, true);
+    m_frontCradlePulseTimer.Start();
+    Log( LOG_DEV_DATA, "Front Cradle Adjust bit set true\n");
+}
+
+void SystemMonitor::StartRearCradleAdjust(void)
+{
+    WriteNdbData(REAR_CRADLE_MOVE_TAG, true);
+    m_rearCradlePulseTimer.Start();
+    Log( LOG_DEV_DATA, "Rear Cradle Adjust bit set true\n");
+}
+
 void SystemMonitor::StopWheelbaseAdjust(void)
 {
     WriteNdbData(WHEELBASE_MOVE_TAG, false);
 	RemovePrompt(1, "WheelbaseIncorrect");
     Log( LOG_DEV_DATA, "Wheelbase Adjust bit set false\n");
+}
+
+void SystemMonitor::StopFrontCradleAdjust(void)
+{
+    WriteNdbData(FRONT_CRADLE_MOVE_TAG, false);
+	//RemovePrompt(1, "WheelbaseIncorrect");
+    Log( LOG_DEV_DATA, "Front Cradle Adjust bit set false\n");
+}
+
+void SystemMonitor::StopRearCradleAdjust(void)
+{
+    WriteNdbData(REAR_CRADLE_MOVE_TAG, false);
+	//RemovePrompt(1, "WheelbaseIncorrect");
+    Log( LOG_DEV_DATA, "Rear Cradle Adjust bit set false\n");
 }
 
 bool const SystemMonitor::GetSystemMonitorWheelbaseAdjust(void)

@@ -29,11 +29,13 @@
       <DataToPLC>
          <FrontWheelDriveSelectedToPLC DataType="bool">No</FrontWheelDriveSelectedToPLC>
          <RearWheelDriveToPLC DataType="bool">Yes</RearWheelDriveToPLC>
-         <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
+         <WheelbasePositionInchesX10 DataType="integer">3000</WheelbasePositionInchesX10>
          <ParkBrakePressure DataType="integer">200</ParkBrakePressure>
          <PfsBlocked DataType="bool">No</PfsBlocked>
-         <BodyStyleType DataTYpe="integer">0000</BodyStyleType>
+         <BodyStyleType DataType="integer">0000</BodyStyleType>
          <FourWDSelected DataType="bool">No</FourWDSelected>
+         <FrontCradleOpening DataType="integer">475</FrontCradleOpening>
+         <RearCradleOpening DataType="integer">475</RearCradleOpening>
       </DataToPLC>
       <Logging>
          <Status>Enabled</Status>
@@ -71,7 +73,7 @@
             <BuildTime DataType="string">13:30</BuildTime>
             <Cluster DataType="string">Cluster J1850</Cluster>
             <ClusterBGColor DataType="color">white</ClusterBGColor>
-			<CommonModuleFault DataType="Fault"/>
+            <CommonModuleFault DataType="Fault"/>
             <DaytimeRunningLamps DataType="string">NotEquipped</DaytimeRunningLamps>
             <DaytimeRunningLampsBGColor DataType="color">white</DaytimeRunningLampsBGColor>
             <DriveAxle DataType="string">Front</DriveAxle>
@@ -133,8 +135,10 @@
             <VINBGColor DataType="color">white</VINBGColor>
             <VehicleBuild DataType="string">Blank</VehicleBuild>
             <VehicleTypeImg DataType="string">FWD</VehicleTypeImg>
-            <WheelbasePositionInchesX10 DataType="int">1095</WheelbasePositionInchesX10>
+            <WheelbasePositionInchesX10 DataType="int">3000</WheelbasePositionInchesX10>
             <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
+            <FrontCradleOpening DataType="int">475</FrontCradleOpening>
+            <RearCradleOpening DataType="int">475</RearCradleOpening>
          </PublishTags>
       </TagList>
       <ActiveVehicleData>
@@ -273,15 +277,15 @@
             <ResponseTimeout>2000</ResponseTimeout>
          </Setup>
       </NotificationList>
-	  <CommonModuleFaultList>
-	      <FaultFile>/Configuration/Components/CommonModuleFaults.dat</FaultFile>
-		  <DataLine Desc="Characters the data lines begins with">0x</DataLine>
-		  <MaxLineLength>80</MaxLineLength>
-		  <LineFormat Field1="Code" Field2="Description" Field3="ItemCode"/>
-		  <FieldSeparator>\"</FieldSeparator>
-		  <DefaultFaultNode>
-		      <ModuleFault_xxxx Code="" ItemCode="EFLTxx">Undefined fault</ModuleFault_xxxx>
-		  </DefaultFaultNode>
-	  </CommonModuleFaultList>
+      <CommonModuleFaultList>
+         <FaultFile>/Configuration/Components/CommonModuleFaults.dat</FaultFile>
+         <DataLine Desc="Characters the data lines begins with">0x</DataLine>
+         <MaxLineLength>80</MaxLineLength>
+         <LineFormat Field1="Code" Field2="Description" Field3="ItemCode"/>
+         <FieldSeparator>\"</FieldSeparator>
+         <DefaultFaultNode>
+            <ModuleFault_xxxx Code="" ItemCode="EFLTxx">Undefined fault</ModuleFault_xxxx>
+         </DefaultFaultNode>
+      </CommonModuleFaultList>
    </Setup>
 </VehicleDataBrokerConfig>

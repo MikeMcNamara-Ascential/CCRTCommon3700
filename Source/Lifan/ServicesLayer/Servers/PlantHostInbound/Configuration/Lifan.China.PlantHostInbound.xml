@@ -83,6 +83,8 @@
             <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
             <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
             <WheelbasePositionTag>WheelbasePositionInchesX10</WheelbasePositionTag>
+            <FrontCradlePositionTag>FrontCradleOpening</FrontCradlePositionTag>
+            <RearCradlePositionTag>RearCradleOpening</RearCradlePositionTag>
             <VehicleType>VehicleType</VehicleType>
             <PlanthostOutboundName>core/PlantHostOutbound</PlanthostOutboundName>
             <AllWheelDriveEquipped>
@@ -107,7 +109,7 @@
             <ProcessName>core/PlantHostInbound</ProcessName>
             <AdditionalLogFile Type="/Servers/PlantHostInbound.log or Disabled">/Servers/PlantHostInbound.log</AdditionalLogFile>
             <LocalEcho>Disabled</LocalEcho>
-            <Verbose>0x1F</Verbose>
+            <Verbose>0x3F</Verbose>
             <Debug>Off</Debug>
         </Logging>
         <TagList>

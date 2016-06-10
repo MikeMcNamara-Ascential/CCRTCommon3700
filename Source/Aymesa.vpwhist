@@ -6,10 +6,10 @@ Aymesa\Aymesa.vpj=Release
 Tests\Tests.vpj=Release
 Tools\Tools.vpj=Release
 [ProjectDates]
-Aymesa\Aymesa.vpj=20141017132254350
-Core\Core.vpj=20141017132917165
-Tests\Tests.vpj=20141017132918912
-Tools\Tools.vpj=20150408063700242
+Aymesa\Aymesa.vpj=20160524082802123
+Core\Core.vpj=20160524081726087
+Tests\Tests.vpj=20160524082948437
+Tools\Tools.vpj=20160524082814915
 [TreeExpansion2]
 - Aymesa\Aymesa.vpj
   + ApplicationLayer
@@ -328,21 +328,15 @@ Tools\Tools.vpj=20150408063700242
 + Tools\Tools.vpj
 scroll:0
 [State]
-SCREEN: 1920 1080 383 117 896 685 0 0 M 0 0 0 0 1552 791
-CWD: Core\ServicesLayer\Servers\TestResultServer
-BUFFER: BN="Core\ServicesLayer\Servers\TestResultServer\TestResultServer.cpp"
-BI: MA=1 74 1  TABS=1 5  WWS=1 IWT=1 ST=0 IN=2 BW=0 US=32000 RO=0 SE=1 SN=0 BIN=0 MN=C	HM=0 MF=4472 TL=0 MLL=0 ASE=0 LNL=6 LCF=0 CAPS=0 E=0 ESBU2=-1
-VIEW: LN=.70367 CL=1 LE=0 CX=0 CY=19 WI=5 BI=25 HT=0 HN=0 HF=0 HC=4
-WINDOW: 225 225 1302 541 -1 -1 N  WF=0 WT=3 "Lucida Console,10,0,1"
-BUFFER: BN="Core\ServicesLayer\Servers\TestResultServer\TestResultServer.cpp"
-VIEW: LN=.70367 CL=1 LE=0 CX=0 CY=19 WI=208 BI=25 HT=0 HN=0 HF=0 HC=4
+SCREEN: 1920 1080 383 117 896 685 0 0 M 0 0 0 0 1555 761
+CWD: \Temp\Aymesa\Logs
 FILEHIST: 9
-Aymesa\Burke_PorterCCRT\resources\local\report\AymesaReportLayout.xsl
-Aymesa\Burke_PorterCCRT\resources\com\bepco\rtc\properties\Prompts.properties
-Aymesa\Burke_PorterCCRT\resources\com\bepco\rtc\properties\Prompts_es_MX.properties
-Aymesa\Burke_PorterCCRT\resources\local\crt\frontpanel\AymesaFrontPanel.crt
 Aymesa\Burke_PorterCCRT\resources\local\ndbconfig\NDBConfig.xml
 \Temp\Aymesa\TestResultServer.log
 Core\ServicesLayer\Servers\TestResultServer\TestResultServer.cpp
 Aymesa\ServicesLayer\Managers\ICM\Configuration\Aymesa.Ecuador.507424.IpIcmConfig.xml
 Aymesa\ServicesLayer\Servers\MotorController\Configuration\Aymesa.ABMotorControllerConfig.xml
+\Temp\Aymesa\Logs\TestLog.8LGPB81A1HE000001.382.log
+\Temp\Aymesa\Logs\TestLog.8LGPB81A1HE000001.379.log
+\Temp\Aymesa\Logs\TestLog.8LGPB81A1HE000001.378.log
+\Temp\Aymesa\Logs\TestLog.8LGPB81A1HE000001.374.log

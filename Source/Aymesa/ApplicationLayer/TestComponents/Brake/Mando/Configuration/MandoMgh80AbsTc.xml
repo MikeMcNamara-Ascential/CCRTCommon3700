@@ -495,7 +495,7 @@
       <CheckEvacAndFill Result="" Timeout="10000" Description="Verify Evac and Fill Successful"/>
       <LowSpeedSensorTest Result="" Timeout="15000" Description="Low Speed Wheel Sensor Test" ScanDelay="250"/>
       <AccelerateToBrakeSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" Prompt1="AccelerateToTargetSpeed" ArmSpeed="60" SpeedTarget="68 74">Accelerate to brake test speed</AccelerateToBrakeSpeed>
-      <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand" BrakeDomain="0 500" BrakeTarget="200 300" StartBrakeSampleSpeed="65" EndBrakeSampleSpeed="55">Perform Vehicle BaseBrake Test</BrakeTest>
+      <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand" BrakeDomain="0 500" BrakeTarget="200 300" StartBrakeSampleSpeed="65" EndBrakeSampleSpeed="35">Perform Vehicle BaseBrake Test</BrakeTest>
       <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" DragSpeed="68" DragDelay="1000" DragSamples="50">Perform Vehicle Drag Test</DragTest>
       <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="67.0" RearMaxDragForce="56.0">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
       <BrakeSwitchOffTest Result="" Timeout="1000" Description="Verify the brake switch is in the OFF position" ScanDelay="100"/>

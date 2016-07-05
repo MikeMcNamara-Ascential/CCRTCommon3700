@@ -82,6 +82,188 @@ BEP_STATUS_TYPE MandoAbsModule<ProtocolType>::ReadFaults(FaultVector_t &faultCod
     return(status);
 }
 
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE MandoAbsModule<ProtocolFilterType>::EnterDiagnosticMode() throw(ModuleException)
+{
+    BEP_STATUS_TYPE status;
+    string asciiMessage;
+    SerialString_t xmtMessage;
+    bool initSequenceSuccess = false;
+    string commProtocol;
+    try
+    {   // Get the communications protocol
+        commProtocol = m_configNode->getChild("Setup/CommunicationProtocol")->getValue();
+        Log(LOG_DEV_DATA, "GOT COMMUNICATION PROTOCOL\n");
+    }
+    catch(XmlException &ex)
+    {   // CommunicationProtocol Tag not found, set to default
+        Log(LOG_DEV_DATA, "Communications Protocol tag not found, setting to KeywordProtocol2000");
+        commProtocol = "ISOK";
+    }
+    if(commProtocol == "CANKeywordProtocol2000")
+    {
+        status = GenericModuleTemplate<ProtocolFilterType>::EnterDiagnosticMode();
+    }
+    else
+    {
+        Log( LOG_FN_ENTRY, "Enter Bosch8Module::EnterDiagnosticMode()\n");
+
+        // Check to see that all our objects are in place
+        CheckObjectsStatus();
+
+        BposSleep(1000);               // Make sure the module has completed its self test
+
+        status = m_protocolFilter->GetMessage("EnterDiagnosticMode",asciiMessage);
+
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            // Convert the message to binary
+            m_protocolFilter->GetBinaryMssg(asciiMessage, xmtMessage);
+            // Add the checksum to the message
+            m_protocolFilter->AddChecksumToMessage(xmtMessage);
+
+            INT32 attempt = 0;
+            do
+            {                      // Look for the response
+                // Assert a break so the line will be driven low for the required amount of time
+                if(m_protocolFilter->EstablishComms(25,25,xmtMessage.c_str(),xmtMessage.length()) == EOK)
+                {
+                    printf("EnterDiagnosticMode message sent to module\n");
+
+                    SerialString_t moduleResponse;
+                    errno = EOK;
+                    if(BEP_STATUS_SUCCESS == m_protocolFilter->GetResponse("EnterDiagnosticMode",moduleResponse))
+                    {
+                        initSequenceSuccess = true;
+                    }
+                    else
+                    {
+                        printf("Waiting for module response: attempt: %d\n", attempt);
+                        BposSleep(250);
+                    }
+                }
+                else status = BEP_STATUS_FAILURE;
+            } while(!initSequenceSuccess && (attempt++ < 100));
+
+            if(initSequenceSuccess)
+            {
+                status = m_protocolFilter->GetModuleData( "StartDiagnosticSession", xmtMessage);
+                if( status != BEP_STATUS_SUCCESS)
+                {
+                    Log( LOG_ERRORS, "Error starting diagnostic session\n");
+                }
+            }
+            else status = BEP_STATUS_FAILURE;
+        }
+        else status = BEP_STATUS_FAILURE;
+
+        Log( LOG_FN_ENTRY, "Exit Bosch8Module::EnterDiagnosticMode(), status=%d\n", status);
+
+    }
+    return status;
+}
+
+
+template<class ProtocolFilter>
+BEP_STATUS_TYPE MandoAbsModule<ProtocolFilter>::PerformFastInitWakeup(void)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    Log(LOG_FN_ENTRY, "MandoAbsModule::PerformFastInitWakeup() - Enter");
+    // Lock the port
+    bool portLocked = true;/*m_protocolFilter->Lockport(0);*/
+    if(portLocked)
+    {
+        string messageTag = "ModuleWakeUp";
+        string asciiMessage;
+        SerialString_t xmtMessage;
+        bool initSequenceSuccess = false;
+        Log(LOG_DEV_DATA, "Locked The Port");
+        try
+        {   // send the message
+            Log(LOG_DEV_DATA, "Sending %s message", messageTag.c_str());
+            if(m_protocolFilter->GetMessage(messageTag,asciiMessage) == BEP_STATUS_SUCCESS)
+            {   // Convert the message to binary
+                Log(LOG_DEV_DATA, "Converting %s message to binary", asciiMessage.c_str());
+                m_protocolFilter->GetBinaryMssg(asciiMessage, xmtMessage);
+                // Add the checksum to the message
+                m_protocolFilter->AddChecksumToMessage(xmtMessage);
+
+                INT32 attempt = 0;
+                do
+                {   // Look for the response
+                    // Assert a break so the line will be driven low for the required amount of time
+                    Log(LOG_DEV_DATA, "Asserting break lowtime:%ims hightime:%ims", 
+                        SignalLowTime(), SignalHighTime());
+                    int iCommError = m_protocolFilter->EstablishComms(SignalLowTime(), 
+                                                                      SignalHighTime(), 
+                                                                      xmtMessage.c_str(), 
+                                                                      xmtMessage.length());
+                    if(iCommError == EOK)
+                    {   // Get the module response -- could take up to 500ms
+                        Log(LOG_DEV_DATA, "Wake up delay %ims", WakeUpResponseDelay());
+                        BposSleep(WakeUpResponseDelay());
+                        SerialString_t moduleResponse;
+                        errno = EOK;
+                        Log(LOG_DEV_DATA, "Getting %s message response", messageTag.c_str());
+                        if(BEP_STATUS_SUCCESS == m_protocolFilter->GetResponse(messageTag, moduleResponse))
+                        {
+                            initSequenceSuccess = true;
+                            status = BEP_STATUS_SUCCESS;
+                        }
+                        else
+                        {
+                            Log(LOG_DEV_DATA, "Waiting for module response: attempt: %d sleeping:%dms", 
+                                attempt, WakeUpResponseDelay());
+                            BposSleep(WakeUpResponseDelay());
+                        }
+                    }
+                    else
+                    {
+                        Log(LOG_ERRORS, "Error asserting break: %s", strerror(iCommError));
+                    }
+                } while(!initSequenceSuccess && (attempt++ < WakeUpAttempts()));
+                if(initSequenceSuccess)
+                {
+                    Log(LOG_DEV_DATA, "SENDING START DIAGNOSTIC SESSION");
+                    status = m_protocolFilter->GetModuleData( "StartDiagnosticSession", xmtMessage);
+                    if( status != BEP_STATUS_SUCCESS)
+                    {
+                    Log( LOG_ERRORS, "Error starting diagnostic session\n");
+                    }
+                }
+            else status = BEP_STATUS_FAILURE;
+            }
+            else
+            {   // No message provided for this tag
+                Log(LOG_ERRORS, "No message provided for tag: %s", messageTag.c_str());
+            }
+        }
+        catch(BepException &e)
+        {   // ensure the port is unlocked
+            if(portLocked)
+            {
+                if(m_protocolFilter->UnlockPort() == false)
+                    Log(LOG_ERRORS, "\tUnable to unlock the port");
+                else
+                    Log(LOG_DEV_DATA, "\tPort Successfully Unlocked");
+            }
+            throw;
+        }
+
+        // unlock the port
+        if(portLocked)
+        {
+            if(m_protocolFilter->UnlockPort() == false)
+                Log(LOG_ERRORS, "\tUnable to unlock the port");
+            else
+                Log(LOG_DEV_DATA, "\tPort Successfully Unlocked");
+        }
+    }
+    // Return the result of the slow baud init
+    Log(LOG_FN_ENTRY, "Exit PerformFastInitWakeup");
+    return status;
+}
+
 //-----------------------------------------------------------------------------
 template <class ProtocolType>
 BEP_STATUS_TYPE MandoAbsModule<ProtocolType>::CheckEspEquipped(bool &response) throw(ModuleException)
@@ -211,9 +393,124 @@ bool MandoAbsModule<ProtocolType>::InitializeHook(const XmlNode *configNode)
     }
     // Load the DTC data
     LoadDtcData(configNode->getChild("Setup/DtcData"));
+
+    INT32 byteCount = -1;
+    try
+    {
+        byteCount = BposReadInt(configNode->getChild("Setup/MessageData/InitializeMessageByteCount")->getValue().c_str());
+    }
+    catch (XmlException &excp)
+    {
+        Log(LOG_ERRORS, "No byte count defined! %s", excp.GetReason());
+        byteCount = 0;
+    }
+    InitMessageByteCount(&byteCount);
+
+    UINT8 echo = 0x00;
+    try
+    {
+        echo = BposReadInt(configNode->getChild("Setup/MessageData/InitializeMessageEcho")->getValue().c_str());
+    }
+    catch (XmlException &excp)
+    {
+        Log(LOG_ERRORS, "No echo defined! %s", excp.GetReason());
+        echo = 0;
+    }
+    InitMessageEcho(&echo);
+
+    UINT32 lowTime = 0;
+    try
+    {
+        lowTime = BposReadInt(configNode->getChild("Setup/CommInitData/SignalLowTime")->getValue().c_str());
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Low Time not defined, using 24 - %s", excpt.GetReason());
+        lowTime = 24;
+    }
+    SignalLowTime(&lowTime);
+    UINT32 highTime = 0;
+    try
+    {
+        highTime = BposReadInt(configNode->getChild("Setup/CommInitData/SignalHighTime")->getValue().c_str());
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "High Time not defined, using 24 - %s", excpt.GetReason());
+        highTime = 24;
+    }
+    SignalHighTime(&highTime);
+
+
+
+
+
+    UINT32 wakeupDelay = 0;
+    try
+    {
+        wakeupDelay = BposReadInt(configNode->getChild("Setup/CommInitData/WakeUpResponseDelay")->getValue().c_str());
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Wake up response delay not found, using 100ms - %s", excpt.GetReason());
+        wakeupDelay = 100;
+    }
+    WakeUpResponseDelay(&wakeupDelay);
+    // Get the number of wake up attempts
+    INT32 attempts = 0;
+    try
+    {
+        attempts = BposReadInt(configNode->getChild("Setup/CommInitData/WakeUpAttempts")->getValue().c_str());
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Wake up attempts not defined, using 3 - %s", excpt.GetReason());
+        attempts = 3;
+    }
+    WakeUpAttempts(&attempts);
+   
+
     // Call the base class to complete the initialization
     return GenericABSModuleTemplate<ProtocolType>::InitializeHook(configNode);
 }
+
+//-----------------------------------------------------------------------------
+template<class ProtocolFilter>
+BEP_STATUS_TYPE MandoAbsModule<ProtocolFilter>::PerformModuleLinkup()
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    INT32 connectStat = -1;
+    Log(LOG_FN_ENTRY, "MandoAbsModule::PerformModuleLinkup() - Enter");
+    // Send the low baud init command
+    if((connectStat = m_protocolFilter->ResetConnection()) == EOK)
+    {
+            status = (m_protocolFilter->LowSpeedInit() == EOK) ? BEP_STATUS_SUCCESS : BEP_STATUS_FAILURE;
+            // Clear the serial port
+            m_protocolFilter->ResetConnection();
+            Log(LOG_FN_ENTRY, "Apg3550Module::LowSpeedInit status %s", ConvertStatusToResponse(status).c_str());
+        if(BEP_STATUS_SUCCESS == status)
+        {   // Get the command data from the module and echo back alll bytes
+            SerialString_t initMessage;
+            status = m_protocolFilter->GetInitialMessage(InitMessageByteCount(), InitMessageEcho(), initMessage);
+            // If the initial message was properly recieved, get the module type data
+            if(BEP_STATUS_SUCCESS == status)
+            {
+                string typeData;
+                status = ReadPartNumber(typeData);
+                Log(LOG_ERRORS, "Module type data - status: %s, data: %s", 
+                    ConvertStatusToResponse(status).c_str(), typeData.c_str());
+            }
+        }
+    }
+    else
+    {   // Could not reset the connection
+        Log(LOG_ERRORS, "Failed to reset the connection: %d - %s", connectStat, strerror(connectStat));
+        status = BEP_STATUS_HARDWARE;
+    }
+    Log(LOG_FN_ENTRY, "Apg3550Module::PerformModuleLinkup() - Exit: %s", ConvertStatusToResponse(status).c_str());
+    return status;
+}
+
 
 //-----------------------------------------------------------------------------
 template <class ProtocolType>
@@ -279,4 +576,56 @@ const UINT8& MandoAbsModule<ProtocolType>::DtcStartIndex(const UINT8 *index /*= 
 {
     if(index != NULL)  m_dtcStartIndex = *index;
     return m_dtcStartIndex;
+}
+
+//-----------------------------------------------------------------------------
+template<class ProtocolFilter>
+inline const UINT32& MandoAbsModule<ProtocolFilter>::SignalLowTime(const UINT32 *lowTime /*= NULL*/)
+{
+    if(lowTime != NULL)  m_signalLowTime = *lowTime;
+    return m_signalLowTime;
+}
+
+//-----------------------------------------------------------------------------
+template<class ProtocolFilter>
+inline const UINT32& MandoAbsModule<ProtocolFilter>::SignalHighTime(const UINT32 *highTime /*= NULL*/)
+{
+    if(highTime != NULL)  m_signalHighTime = *highTime;
+    return m_signalHighTime;
+}
+
+//-----------------------------------------------------------------------------
+template<class ProtocolFilter>
+inline const UINT32& MandoAbsModule<ProtocolFilter>::WakeUpResponseDelay(const UINT32 *wakeupDelay /*= NULL*/)
+{
+    if(wakeupDelay != NULL)  m_wakeupResponseDelay = *wakeupDelay;
+    return m_wakeupResponseDelay;
+}
+//-----------------------------------------------------------------------------
+template<class ProtocolFilter>
+inline const INT32& MandoAbsModule<ProtocolFilter>::WakeUpAttempts(const INT32 *attempts /*= NULL/*/)
+{
+    if(attempts != NULL)  m_wakeupAttempts = *attempts;
+    return m_wakeupAttempts;
+}
+//-----------------------------------------------------------------------------
+template<class ProtocolFilter>
+const INT32& MandoAbsModule<ProtocolFilter>::InitMessageByteCount(INT32 *byteCount /* = NULL /*/)
+{
+    if(byteCount != NULL)
+    {
+        m_initMessageByteCount = *byteCount;
+    }
+    return m_initMessageByteCount;
+}
+
+//-----------------------------------------------------------------------------
+template<class ProtocolFilter>
+const UINT8& MandoAbsModule<ProtocolFilter>::InitMessageEcho(UINT8 *echo /* = NULL */)
+{
+    if(echo != NULL)
+    {
+        m_initMessageEcho = *echo;
+    }
+    return m_initMessageEcho;
 }

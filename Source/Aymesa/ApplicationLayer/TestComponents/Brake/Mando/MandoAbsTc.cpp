@@ -45,25 +45,7 @@ const string MandoAbsTc<ModuleType>::CommandTestStep(const string &value)
 		if(StatusCheck() == BEP_STATUS_SUCCESS)
 		{	// Determine which test step to perform
 			// Establish Module Comms
-            if(!testStep.compare("CheckPerformAbs"))
-            {
-                result = CheckPerformAbs();
-            }
-            else if(!m_performAbsTests && (!testStep.compare("Setup") || !testStep.compare("BrakeTest") || !testStep.compare("DragTest") || !testStep.compare("AnalyzeBrakeTest") || !testStep.compare("AnalyzeBalance") 
-                                          || !testStep.compare("AccelerateToBrakeSpeed") || !testStep.compare("AnalyzeDragTest") || !testStep.compare("BrakeToStop") 
-                                          || !testStep.compare("DisableForceMeter") || !testStep.compare("FinishUp") || !testStep.compare("Initialize") 
-                                          || !testStep.compare("EngageMachine") || !testStep.compare("AnalyzeDynamicParkBrake") || !testStep.compare("DynamicParkBrakeTest") || !testStep.compare("AccelerateToParkBrakeSpeed") 
-                                          || !testStep.compare("ParkBraketest")))
-            {
-                Log(LOG_DEV_DATA,"non abs test step");
-                
-                result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
-            }
-            else if(!m_performAbsTests)
-            {
-                result = testSkip;
-            }
-			else if(!testStep.compare("CheckEspEquipped"))
+			if(!testStep.compare("CheckEspEquipped"))
 			{
 				result = CheckEspEquipped();
 			}
@@ -71,7 +53,7 @@ const string MandoAbsTc<ModuleType>::CommandTestStep(const string &value)
 			{
 				result = CheckEolTestByte();
 			}
-            else if(!testStep.compare("WriteEolTestByte"))
+			else if(!testStep.compare("WriteEolTestByte"))
 			{
 				result = WriteEolTestByte();
 			}
@@ -135,10 +117,20 @@ const string MandoAbsTc<ModuleType>::CommandTestStep(const string &value)
 			{
 				result = WarningLight();
 			}
+            /*
+            else if(!testStep.compare("EnterDiagnosticMode"))
+            {
+                result = EnterDiagnosticMode();
+            }
+            */
+            else if(!testStep.compare("InitializeCommunication"))
+            {
+                result = PerformModuleLinkup();
+            }
 			// Try the base class
-            else
-			{   
-                result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
+			else
+			{
+				result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
 			}
 		}
 		else
@@ -155,6 +147,124 @@ const string MandoAbsTc<ModuleType>::CommandTestStep(const string &value)
 	Log(LOG_FN_ENTRY, "MandoAbsTc::CommandTestStep returning: %s", result.c_str());
 	return result;
 }
+
+/*
+template <class ModuleType>
+string MandoAbsTc<ModuleType>::EnterDiagnosticMode(void)
+{  // Set up some variables
+    string testResult = BEP_TESTING_STATUS;
+
+    // Check if this step should be skipped
+    Log(LOG_FN_ENTRY, "Enter MandoAbsTc::EnterDiagnosticMode()\n");
+
+    if(CheckZeroSpeed())
+    {
+        UpdatePrompts();
+
+        // Lety the driver react to the prompts
+        BposSleep(2000);
+        Log(LOG_DEV_DATA, "COMMANDING ENTER DIAG\n");
+        testResult = m_vehicleModule.EnterDiagnosticMode();
+        
+        RemovePrompts();
+    }
+    else
+    {
+        Log( LOG_ERRORS, "Failed to enter zerospeed in Bosch8TC::EnterDiagnosticMode()\n");
+        testResult = BEP_FAIL_STATUS;
+    }
+
+    Log(LOG_FN_ENTRY, "Exit EnterDiagnosticMode::EnterDiagnosticMode()\n");
+
+    return(testResult);
+}
+*/
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string MandoAbsTc<ModuleType>::PerformModuleLinkup(void)
+{
+    string testResult(BEP_TESTING_STATUS);
+    string resultCode("0000");
+    string description(GetTestStepInfo("Description"));
+    INT32 newPriority = 0;
+    INT32 oldPriority = 0;
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    // Log the entry and determine if the test should be performed
+    Log(LOG_FN_ENTRY, "MandoAbsTc::PerformModuleLinkup() - Enter");
+    if(!ShortCircuitTestStep())
+    {   // Ensure the cable is connected
+#if CHECK_CABLE_CONNECT
+        if(CheckCableConnect())
+#else
+            m_baseBrakeTool->DisableForceUpdates();
+#endif
+        {   // Reset the system priority so we can accurately perform the slow baud init
+            Log(LOG_DEV_DATA, "Setting process priority to %s", GetTestStepInfo("TestStepPriority").c_str());
+            // If the priority was set, change the priority
+            if(newPriority != 0)    oldPriority = BposSetPriority(0, newPriority);
+            try
+            {
+                int retry = 3;
+                while (retry-- && status != BEP_STATUS_SUCCESS)
+                {
+                    Log(LOG_DEV_DATA, "Module init method: %s", GetParameterBool("UseFastInitLinkup") ? "Fast Init" : "Low baud");
+                    if(GetParameterBool("UseFastInitLinkup"))
+                    {
+                        status = m_vehicleModule.PerformFastInitWakeup();
+                    }
+                    else
+                    {
+                        status = m_vehicleModule.PerformModuleLinkup();
+                    }
+
+    
+                    if (status != BEP_STATUS_SUCCESS)
+                    {
+                        //prompt driver to restart
+
+                        DisplayTimedPrompt("KeyOff", "1", 0, 10000);
+                        DisplayTimedPrompt("StartVehicle", "1", 0, 6000);
+                        status = m_vehicleModule.PerformModuleLinkup();
+                    }
+                }
+                Log(LOG_ERRORS, "Module linkup status: %s", ConvertStatusToResponse(status).c_str());
+                testResult = (BEP_STATUS_SUCCESS == status) ? testPass : testFail;
+                resultCode = !testResult.compare(testPass) ? resultCode : GetFaultCode("ModuleLinkupFailure");
+                description = !testResult.compare(testPass) ? description : GetFaultDescription("ModuleLinkupFailure");
+            }
+            catch(ModuleException &excpt)
+            {  
+                Log(LOG_ERRORS, "ModuleException in Apg3550::PerformModuleLinkup() - %s", excpt.GetReason());
+                testResult = testSoftwareFail;
+                resultCode = GetFaultCode("SoftwareFailure");
+                description = GetFaultDescription("SoftwareFailure");
+            }
+            // Reset the priority if needed
+            if((newPriority != 0) && (oldPriority != -1))  BposSetPriority(0, oldPriority);
+        }
+#if CHECK_CABLE_CONNECT
+        else
+        {   // Timeout waiting for the cable to be connected
+            Log(LOG_ERRORS, "Timeout waiting for the operator to connect the cable");
+            testResult = testTimeout;
+            resultCode = GetFaultCode("CableConnectTimeout");
+            description = GetFaultDescription("CableConnectTimeout");
+        }
+#endif
+        // Report the test result
+        SendTestResult(testResult, description, resultCode);
+    }
+    else
+    {   // Need to skip this test step
+        testResult = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping test step %s", GetTestStepName().c_str());
+    }
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "Apg3550::PerformModuleLinkup() - Exit");
+    return testResult;
+}
+
 
 //-----------------------------------------------------------------------------
 template <class ModuleType>
@@ -1437,23 +1547,4 @@ void MandoAbsTc<ModuleType>::InitializeHook(const XmlNode *config)
 	// Create a new array of reduction/recovery indices
 	m_espReduxRecovIndex.reserve(MAXWHEELS);
 	m_espReduxRecovIndex.resize(MAXWHEELS);
-    m_performAbsTests = true;
-}
-
-template <class ModuleType>
-string MandoAbsTc<ModuleType>::CheckPerformAbs(void)
-{
-    string testResult = testFail;
-    Log(LOG_FN_ENTRY, "Entering MandoAbsTc::CheckPerformAbs()\n");
-    if(!OperatorPassFail("PerformAbsTest",GetTestStepInfoInt("Timeout")).compare(testPass))
-    {
-        Log(LOG_DEV_DATA, "Perform ABS Tests\n");
-        m_performAbsTests = true;
-        return testPass;
-    }
-    Log(LOG_DEV_DATA, "Do not perform ABS Tests\n");
-    m_performAbsTests = false;
-    testResult = testPass;
-    return testResult;
-        
 }

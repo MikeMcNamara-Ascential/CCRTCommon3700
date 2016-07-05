@@ -1,0 +1,132 @@
+<VehicleDataBrokerConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <PlantHost>core/PlantHostInbound</PlantHost>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Debug>Off</Debug>
+            <Name>core/VehicleDataBroker</Name>
+            <BufferSize>4000</BufferSize>
+            <Timeout>2000</Timeout>
+            <Type>Server</Type>
+        </Communication>
+        <DataTags>
+            <AbsString>Mando Abs</AbsString>
+            <BaseBrakeString>Base Brake</BaseBrakeString>
+            <CableConnect>CableConnect</CableConnect>
+            <DefaultDriverNumber>T0000xx</DefaultDriverNumber>
+            <DriverNumber>DriverNumber</DriverNumber>
+            <DriverNumberBGColor>DriverNumberDisplayBGColor</DriverNumberBGColor>
+            <DriverNumberDisplay>DriverNumberDisplay</DriverNumberDisplay>
+            <DriverNumberDisplayBGColorDefault>white</DriverNumberDisplayBGColorDefault>
+            <NextVehicleBuild>NextVehicleBuild</NextVehicleBuild>
+            <OverallTest>OverallTest</OverallTest>
+            <ReadLatestBuildData>ReadLatestBuildData</ReadLatestBuildData>
+            <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+            <StartTest>StartTest</StartTest>
+            <VIN>VIN</VIN>
+            <VINDisplay>VINDisplay</VINDisplay>
+            <VehicleBuild>VehicleBuild</VehicleBuild>
+        </DataTags>
+        <DataToPLC>
+            <FrontWheelDriveSelectedToPLC DataType="bool">No</FrontWheelDriveSelectedToPLC>
+            <RearWheelDriveToPLC DataType="bool">Yes</RearWheelDriveToPLC>
+            <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
+            <ParkBrakePressure DataType="integer">200</ParkBrakePressure>
+            <PfsBlocked DataType="bool">No</PfsBlocked>
+            <BodyStyleType DataTYpe="integer">0000</BodyStyleType>
+            <FourWDSelected DataType="bool">No</FourWDSelected>
+        </DataToPLC>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>core/VehicleDataBroker</ProcessName>
+            <AdditionalLogFile Type="/Servers/VehicleDataBroker.log or Disabled">/Servers/VehicleDataBroker.log</AdditionalLogFile>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <Debug>Off</Debug>
+        </Logging>
+        <TagList>
+            <SubscribeTags>
+                <OverallTest>Testing</OverallTest>
+                <RollsDownElevUp>1</RollsDownElevUp>
+                <StartTest>0</StartTest>
+            </SubscribeTags>
+            <PublishTags>
+                <ABSType DataType="string">None</ABSType>
+                <ABSTypeBGColor DataType="color">white</ABSTypeBGColor>
+                <AllWD DataType="bool">No</AllWD>
+                <AllWDBGColor DataType="color">white</AllWDBGColor>
+                <AutoTrans DataType="bool">Yes</AutoTrans>
+                <AutoTransBGColor DataType="color">white</AutoTransBGColor>
+                <AxleRatioValue DataType="float">0</AxleRatioValue>
+                <AxleRatioValueBGColor DataType="color">white</AxleRatioValueBGColor>
+                <BrakeActive DataType="bool">0</BrakeActive>
+                <BrakeDomain DataType="range" Units="LBF">0 500</BrakeDomain>
+                <BrakeTarget DataType="range" Units="LBF">0 0</BrakeTarget>
+                <BrakeType DataType="string">Unspecified</BrakeType>
+                <BrakeTypeBGColor DataType="color">white</BrakeTypeBGColor>
+                <CruiseInstalled DataType="bool">No</CruiseInstalled>
+                <CruiseInstalledBGColor DataType="color">white</CruiseInstalledBGColor>
+                <Diesel DataType="bool">No</Diesel>
+                <DieselBGColor DataType="color">white</DieselBGColor>
+                <DiscBrakes DataType="bool">No</DiscBrakes>
+                <DiscBrakesBGColor DataType="color">white</DiscBrakesBGColor>
+                <DriveAxle DataType="string">Front</DriveAxle>
+                <FourWD DataType="bool">No</FourWD>
+                <FourWDBGColor DataType="color">white</FourWDBGColor>
+                <FrontWD DataType="bool">No</FrontWD>
+                <FrontWDBGColor DataType="color">white</FrontWDBGColor>
+                <LeftRearParkBrakeForceBGColor DataType="color">white</LeftRearParkBrakeForceBGColor>
+                <LeftRearParkBrakeForceValue DataType="float">0</LeftRearParkBrakeForceValue>
+                <Manual4x4 DataType="bool">No</Manual4x4>
+                <Manual4x4BGColor DataType="color">white</Manual4x4BGColor>
+                <MetricSelect DataType="bool">No</MetricSelect>
+                <MetricSelectBGColor DataType="color">white</MetricSelectBGColor>
+                <ModelYear DataType="string">Unknown</ModelYear>
+                <ModelYearBGColor DataType="color">white</ModelYearBGColor>
+                <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
+                <RightRearParkBrakeForceBGColor DataType="color">white</RightRearParkBrakeForceBGColor>
+                <RightRearParkBrakeForceValue DataType="float">0</RightRearParkBrakeForceValue>
+                <RunFlat DataType="bool">No</RunFlat>
+                <RunFlatBGColor DataType="color">white</RunFlatBGColor>
+                <SpeedActive DataType="bool">1</SpeedActive>
+                <SpeedDomain DataType="range" Units="MPH">0 100</SpeedDomain>
+                <SpeedTarget DataType="range" Units="MPH">0 0</SpeedTarget>
+                <TestingTOD DataType="bool">No</TestingTOD>
+                <TODInstalled DataType="bool">No</TODInstalled>
+                <TODInstalledBGColor DataType="color">white</TODInstalledBGColor>
+                <TPSActive DataType="bool">0</TPSActive>
+                <TPSTarget DataType="range">0 0</TPSTarget>
+                <TPSValue DataType="float">0</TPSValue>
+                <VehicleBuild DataType="string">Blank</VehicleBuild>
+                <VehicleType DataType="string">Unknown</VehicleType>
+                <VehicleTypeBGColor DataType="color">white</VehicleTypeBGColor>
+                <VehicleTypeImg DataType="string">FWD</VehicleTypeImg>
+                <VehicleTypeNumeric DataType="int">0</VehicleTypeNumeric>
+                <VIN DataType="string">1C3AY75S65A100030</VIN>
+                <VINBGColor DataType="color">white</VINBGColor>
+                <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
+            </PublishTags>
+        </TagList>
+        <ActiveVehicleData>
+        </ActiveVehicleData>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <Increment>2</Increment>
+            <MaxBlockedLimit>7</MaxBlockedLimit>
+            <Maximum>10</Maximum>
+            <MinBlockedLimit>2</MinBlockedLimit>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+    </Setup>
+</VehicleDataBrokerConfig>

@@ -1,0 +1,2 @@
+ndbupdate.filename=Configuration/Servers/NDBConfig.xml
+ndbupdate.localpath=/home/john/

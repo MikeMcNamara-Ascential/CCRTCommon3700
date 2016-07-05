@@ -1,0 +1,17 @@
+#prompts.constants
+# This prompt is for unsupported prompt keys returned by the server.
+prompt.unsupported = [{0}]: unsupported prompt key.
+string.unsupported = [{0}]: unsupported string. 
+
+# This prompt is for testing
+prompt.test = PEDAL FORCE LOW FAULT
+
+# This prompt is for testing
+prompt.params = CAMBIO DEBIDO A TRASMISION, A {0,choice,0#Neutral|1#1st|2#2nd|3#3rd|4#{0,number,integer}th} {1} O POR ENCIMA DE {2,number,##} {3}
+
+# This is a special prompt used by the RTC server to blank the prompt
+Blank=
+
+# This is not a mistake. It maps an empty string to an empty string.
+# It is used for the initial value from the prompt server.
+=

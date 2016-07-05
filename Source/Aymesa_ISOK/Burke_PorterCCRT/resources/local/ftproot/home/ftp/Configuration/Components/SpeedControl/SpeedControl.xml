@@ -1,0 +1,246 @@
+<SpeedControl>
+   <Setup>
+      <Name>SpeedControl</Name>
+      <Debug>Off</Debug>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/SpeedControl</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+         </Setup>
+      </NotificationList>
+      <TagList>
+         <SubscribeTags>
+            <SpeedControl/>
+            <MarketType/>
+            <DriveAxle/>
+            <BodyStyle/>
+            <Transmission/>
+            <ZerospeedToPLC/>
+            <Abort/>
+            <ForegroundTestInProgress/>
+         </SubscribeTags>
+      </TagList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>SpeedControl</ProcessName>
+         <AdditionalLogFile Types="/Component/SpeedControl or Disabled">/Component/SpeedControl</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <NamedDataBrokerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/NamedDataBroker</Name>
+         <Debug>Off</Debug>
+         <Timeout>0</Timeout>
+         <BufferSize>1024</BufferSize>
+      </NamedDataBrokerComm>
+      <DataTags>
+         <OverallTest>SpeedControlOverallTest</OverallTest>
+         <Zerospeed>ZerospeedToPLC</Zerospeed>
+         <MPH>MPH</MPH>
+         <SpeedControl>SpeedControl</SpeedControl>
+         <NGC_SpeedControl>NGC Cruise</NGC_SpeedControl>
+         <MarketType>MarketType</MarketType>
+         <ETC_SpeedControl>ETC Cruise</ETC_SpeedControl>
+         <Undefined>Undefined</Undefined>
+         <Not_Equipped>Not Equipped</Not_Equipped>
+         <SpeedTarget>SpeedTarget</SpeedTarget>
+         <FourWheelDriveEquipped>FourWheelDrive</FourWheelDriveEquipped>
+         <DriveAxle>DriveAxle</DriveAxle>
+         <Rear>Rear</Rear>
+         <LRSpeed>LRSpeed</LRSpeed>
+         <RRSpeed>RRSpeed</RRSpeed>
+         <LFSpeed>LFSpeed</LFSpeed>
+         <RFSpeed>RFSpeed</RFSpeed>
+         <ETCZeroSpeed>ETCZeroSpeed</ETCZeroSpeed>
+         <ETCZeroMinimumSpeed>ETCZeroMinimumSpeed</ETCZeroMinimumSpeed>
+         <ETCZeroMaximumSpeed>ETCZeroMaximumSpeed</ETCZeroMaximumSpeed>
+         <ETCLowSpeedMinimum>ETCLowSpeedMinimum</ETCLowSpeedMinimum>
+         <ETCLowSpeedMaximum>ETCLowSpeedMaximum</ETCLowSpeedMaximum>
+         <ETCLowSpeedValue>ETCLowSpeedValue</ETCLowSpeedValue>
+         <SpeedValue>SpeedValue</SpeedValue>
+         <ETCHighSpeedMinimum>ETCHighSpeedMinimum</ETCHighSpeedMinimum>
+         <ETCHighSpeedMaximum>ETCHighSpeedMaximum</ETCHighSpeedMaximum>
+         <ETCHighSpeedValue>ETCHighSpeedValue</ETCHighSpeedValue>
+         <BodyStyle>BodyStyle</BodyStyle>
+         <Transmission>Transmission</Transmission>
+         <TransGetrag_J1850>Getrag J1850</TransGetrag_J1850>
+         <TransManual>Manual</TransManual>
+         <Abort>Abort</Abort>
+         <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
+         <Blank>Blank</Blank>
+         <PleaseWait>PleaseWait</PleaseWait>
+      </DataTags>
+      <Parameters>
+         <NGC2190Delay customer="me">12</NGC2190Delay>
+         <ForceZeroSpeed>0</ForceZeroSpeed>
+         <J2190ConfigFile customer="you" vehicle_type="mustang">/Configuration/Components/SpeedControl/SpeedControlProtocol.xml</J2190ConfigFile>
+         <J2190Port>AvtJ2190</J2190Port>
+         <TargetSpeed>55 65</TargetSpeed>
+         <SpeedUpperLimit>65</SpeedUpperLimit>
+         <SpeedLowerLimit>55</SpeedLowerLimit>
+         <EngageTime>10</EngageTime>
+         <SpeedVariation>5</SpeedVariation>
+         <DisengageSpeedDrop>10</DisengageSpeedDrop>
+         <DisengageTime>10</DisengageTime>
+         <ThrottleOpen>15</ThrottleOpen>
+         <EngineONPrompt customer="him" vehicle_type="mustang">KeyOn</EngineONPrompt>
+         <EngineONPromptBox>1</EngineONPromptBox>
+         <StopPromptBox>1</StopPromptBox>
+         <StopPrompt>BrakeToStop</StopPrompt>
+      </Parameters>
+      <Faults>
+         <Fault0x80 Code="80" Description="VEHICLE SPEED OUT OF RANGE">VEHICLE SPEED OUT OF RANGE</Fault0x80>
+         <Fault0x800 Code="800" Description="VEHICLE SPEED SIGNAL INOPERATIVE">VEHICLE SPEED SIGNAL INOPERATIVE</Fault0x800>
+         <Fault0x8000 Code="8000" Description="FAILED SETUP DURING TEST RESET">FAILED SETUP DURING TEST RESET</Fault0x8000>
+         <Fault0x8001 Code="8001" Description="FAILED STATUS DURING TEST RESET">FAILED STATUS DURING TEST RESET</Fault0x8001>
+         <Fault0x8002 Code="8002" Description="FAILED THROTTLE DURING TEST RESET">FAILED THROTTLE DURING TEST RESET</Fault0x8002>
+         <Fault0x8003 Code="8003" Description="FAILED AT SPEED DURING TEST RESET">FAILED AT SPEED DURING TEST RESET</Fault0x8003>
+         <Fault0x8010 Code="8010" Description="FAILED SETUP DURING TEST START">FAILED SETUP DURING TEST START</Fault0x8010>
+         <Fault0x8011 Code="8011" Description="FAILED STATUS DURING TEST START">FAILED STATUS DURING TEST START</Fault0x8011>
+         <Fault0x8012 Code="8012" Description="FAILED THROTTLE DURING TEST START">FAILED THROTTLE DURING TEST START</Fault0x8012>
+         <Fault0x8013 Code="8013" Description="FAILED AT SPEED DURING TEST START">FAILED AT SPEED DURING TEST START</Fault0x8013>
+         <Fault0x8020 Code="8020" Description="FAILED SETUP DURING ON SWITCH">FAILED SETUP DURING ON SWITCH</Fault0x8020>
+         <Fault0x8021 Code="8021" Description="FAILED STATUS DURING ON SWITCH">FAILED STATUS DURING ON SWITCH</Fault0x8021>
+         <Fault0x8022 Code="8022" Description="FAILED THROTTLE DURING ON SWITCH">FAILED THROTTLE DURING ON SWITCH</Fault0x8022>
+         <SpeedControlFaultAtSpeedOn Code="8023" Description="FAILED AT SPEED DURING ON SWITCH">FAILED AT SPEED DURING ON SWITCH</SpeedControlFaultAtSpeedOn>
+         <Fault0x8024 Code="8024" Description="FAILED ON SWITCH NOT SEEN">FAILED ON SWITCH NOT SEEN</Fault0x8024>
+         <SpeedControlFaultOnModeNotSeen Code="8025" Description="FAILED ON MODE NOT SEEN">FAILED ON MODE NOT SEEN</SpeedControlFaultOnModeNotSeen>
+         <Fault0x8030 Code="8030" Description="FAILED SETUP DURING ACCEL SPEED">FAILED SETUP DURING ACCEL SPEED</Fault0x8030>
+         <Fault0x8031 Code="8031" Description="FAILED STATUS DURING ACCEL SPEED">FAILED STATUS DURING ACCEL SPEED</Fault0x8031>
+         <Fault0x8032 Code="8032" Description="FAILED THROTTLE DURING ACCEL SPEED">FAILED THROTTLE DURING ACCEL SPEED</Fault0x8032>
+         <Fault0x8033 Code="8033" Description="FAILED AT SPEED DURING ACCEL SPEED">FAILED AT SPEED DURING ACCEL SPEED</Fault0x8033>
+         <Fault0x8040 Code="8040" Description="FAILED SETUP DURING SET SPEED">FAILED SETUP DURING SET SPEED</Fault0x8040>
+         <Fault0x8041 Code="8041" Description="FAILED STATUS DURING SET SPEED">FAILED STATUS DURING SET SPEED</Fault0x8041>
+         <SpeedControlFaultThrottleSet Code="8042" Description="FAILED THROTTLE DURING SET SPEED">FAILED THROTTLE DURING SET SPEED</SpeedControlFaultThrottleSet>
+         <SpeedControlFaultSpeedSet Code="8043" Description="FAILED AT SPEED DURING SET SPEED">FAILED AT SPEED DURING SET SPEED</SpeedControlFaultSpeedSet>
+         <Fault0x8044 Code="8044" Description="FAILED SET SWITCH NOT SEEN">FAILED SET SWITCH NOT SEEN</Fault0x8044>
+         <SpeedControlFaultSetNotSeen Code="8045" Description="FAILED SET MODE NOT SEEN">FAILED SET MODE NOT SEEN</SpeedControlFaultSetNotSeen>
+         <Fault0x8050 Code="8050" Description="FAILED SETUP DURING TAP BRAKES">FAILED SETUP DURING TAP BRAKES</Fault0x8050>
+         <SpeedControlFaultTapStatus Code="8051" Description="FAILED STATUS DURING TAP BRAKES">FAILED STATUS DURING TAP BRAKES</SpeedControlFaultTapStatus>
+         <SpeedControlFaultTapThrottle Code="8052" Description="FAILED THROTTLE DURING TAP BRAKES">FAILED THROTTLE DURING TAP BRAKES</SpeedControlFaultTapThrottle>
+         <SpeedControlFaultTapSpeed Code="8053" Description="FAILED AT SPEED DURING TAP BRAKES">FAILED AT SPEED DURING TAP BRAKES</SpeedControlFaultTapSpeed>
+         <SpeedControlFaultBrakeSwitch Code="8054" Description="FAILED BRAKE SWITCH NOT SEEN">FAILED BRAKE SWITCH NOT SEEN</SpeedControlFaultBrakeSwitch>
+         <SpeedControlFaultBrakeMode Code="8055" Description="FAILED BRAKE MODE NOT SEEN">FAILED BRAKE MODE NOT SEEN</SpeedControlFaultBrakeMode>
+         <Fault0x8060 Code="8060" Description="FAILED SETUP DURING RESUME SPEED">FAILED SETUP DURING RESUME SPEED</Fault0x8060>
+         <Fault0x8061 Code="8061" Description="FAILED STATUS DURING RESUME SPEED">FAILED STATUS DURING RESUME SPEED</Fault0x8061>
+         <SpeedControlFaultResumeThrottle Code="8062" Description="FAILED THROTTLE DURING RESUME SPEED">FAILED THROTTLE DURING RESUME SPEED</SpeedControlFaultResumeThrottle>
+         <SpeedControlResumeSpeed Code="8063" Description="FAILED AT SPEED DURING RESUME SPEED">FAILED AT SPEED DURING RESUME SPEED</SpeedControlResumeSpeed>
+         <Fault0x8064 Code="8064" Description="FAILED RESUME SWITCH NOT SEEN">FAILED RESUME SWITCH NOT SEEN</Fault0x8064>
+         <SpeedControlFaultResumeNotSeen Code="8065" Description="FAILED RESUME MODE NOT SEEN">FAILED RESUME MODE NOT SEEN</SpeedControlFaultResumeNotSeen>
+         <Fault0x8070 Code="8070" Description="FAILED SETUP DURING DEPRESS CLUTCH">FAILED SETUP DURING DEPRESS CLUTCH</Fault0x8070>
+         <Fault0x8071 Code="8071" Description="FAILED STATUS DURING DEPRESS CLUTCH">FAILED STATUS DURING DEPRESS CLUTCH</Fault0x8071>
+         <Fault0x8072 Code="8072" Description="FAILED THROTTLE DURING DEPRESS CLUTCH">FAILED THROTTLE DURING DEPRESS CLUTCH</Fault0x8072>
+         <Fault0x8073 Code="8073" Description="FAILED AT SPEED DURING DEPRESS CLUTCH">FAILED AT SPEED DURING DEPRESS CLUTCH</Fault0x8073>
+         <Fault0x8080 Code="8080" Description="FAILED SETUP DURING CANCEL SWITCH">FAILED SETUP DURING CANCEL SWITCH</Fault0x8080>
+         <SpeedControlFaultCancelStatus Code="8081" Description="FAILED STATUS DURING CANCEL SWITCH">FAILED STATUS DURING CANCEL SWITCH</SpeedControlFaultCancelStatus>
+         <SpeedControlFaultCancelThrottle Code="8082" Description="FAILED THROTTLE DURING CANCEL SWITCH">FAILED THROTTLE DURING CANCEL SWITCH</SpeedControlFaultCancelThrottle>
+         <SpeedControlFaultCancelSpeed Code="8083" Description="FAILED AT SPEED DURING CANCEL SWITCH">FAILED AT SPEED DURING CANCEL SWITCH</SpeedControlFaultCancelSpeed>
+         <SpeedControlFaultCancelSwitch Code="8084" Description="FAILED CANCEL SWITCH NOT SEEN">FAILED CANCEL SWITCH NOT SEEN</SpeedControlFaultCancelSwitch>
+         <SpeedControlFaultCancelMode Code="8085" Description="FAILED CANCEL MODE NOT SEEN">FAILED CANCEL MODE NOT SEEN</SpeedControlFaultCancelMode>
+         <Fault0x8090 Code="8090" Description="FAILED SETUP DURING OFF SWITCH">FAILED SETUP DURING OFF SWITCH</Fault0x8090>
+         <Fault0x8091 Code="8091" Description="FAILED STATUS DURING OFF SWITCH">FAILED STATUS DURING OFF SWITCH</Fault0x8091>
+         <Fault0x8092 Code="8092" Description="FAILED THROTTLE DURING OFF SWITCH">FAILED THROTTLE DURING OFF SWITCH</Fault0x8092>
+         <Fault0x8093 Code="8093" Description="FAILED AT SPEED DURING OFF SWITCH">FAILED AT SPEED DURING OFF SWITCH</Fault0x8093>
+         <Fault0x8094 Code="8094" Description="FAILED OFF SWITCH NOT SEEN">FAILED OFF SWITCH NOT SEEN</Fault0x8094>
+         <SpeedControlFaultOffMode Code="8095" Description="FAILED OFF MODE NOT SEEN">FAILED OFF MODE NOT SEEN</SpeedControlFaultOffMode>
+         <Fault0x8110 Code="8110" Description="FAILED SET SWITCH NOT SEEN">FAILED SET SWITCH NOT SEEN</Fault0x8110>
+         <Fault0x8111 Code="8111" Description="FAILED CRUISE MODE NOT SEEN">FAILED CRUISE MODE NOT SEEN</Fault0x8111>
+         <Fault0x8120 Code="8120" Description="FAILED  SWITCH NOT SEEN">FAILED  SWITCH NOT SEEN</Fault0x8120>
+         <Fault0x8121 Code="8121" Description="FAILED CRUISE MODE NOT SEEN">FAILED CRUISE MODE NOT SEEN</Fault0x8121>
+         <Fault0x80A0 Code="80A0" Description="FAILED SETUP DURING TEST DONE">FAILED SETUP DURING TEST DONE</Fault0x80A0>
+         <Fault0x80A1 Code="80A1" Description="FAILED STATUS DURING TEST DONE">FAILED STATUS DURING TEST DONE</Fault0x80A1>
+         <Fault0x80A2 Code="80A2" Description="FAILED THROTTLE DURING TEST DONE">FAILED THROTTLE DURING TEST DONE</Fault0x80A2>
+         <Fault0x80A3 Code="80A3" Description="FAILED AT SPEED DURING TEST DONE">FAILED AT SPEED DURING TEST DONE</Fault0x80A3>
+         <Fault0x80C0 Code="80C0" Description="TIMEOUT">TIMEOUT</Fault0x80C0>
+         <Fault0x80D0 Code="80D0" Description="DISABLED BY DTC">DISABLED BY DTC</Fault0x80D0>
+         <Fault0x80D1 Code="80D1" Description="DTC SPEED OUT OF RANGE">DTC SPEED OUT OF RANGE</Fault0x80D1>
+         <Fault0x80D2 Code="80D2" Description="DTC RPM OUT OF RANGE">DTC RPM OUT OF RANGE</Fault0x80D2>
+         <Fault0x80D4 Code="80D4" Description="DTC P/N CIRCUIT">DTC P/N CIRCUIT</Fault0x80D4>
+         <Fault0x80D5 Code="80D5" Description="DTC N/V OUT OF RANGE">DTC N/V OUT OF RANGE</Fault0x80D5>
+         <Fault0x80D7 Code="80D7" Description="DTC VACUUM/VENT DIAG">DTC VACUUM/VENT DIAG</Fault0x80D7>
+         <Fault0x80D9 Code="80D9" Description="DTC AUTOSTICK">DTC AUTOSTICK</Fault0x80D9>
+         <Fault0x80DC Code="80DC" Description="DTC ON/OFF SWITCH SHORT">DTC ON/OFF SWITCH SHORT</Fault0x80DC>
+         <Fault0x80DE Code="80DE" Description="DTC THROTTLE LIMP-IN">DTC THROTTLE LIMP-IN</Fault0x80DE>
+         <Fault0x80DF Code="80DF" Description="DTC POWER RELAY DIAG">DTC POWER RELAY DIAG</Fault0x80DF>
+         <Fault0x80F0 Code="80F0" Description="DRIVER PRESSED FAIL BUTTON">DRIVER PRESSED FAIL BUTTON</Fault0x80F0>
+         <Fault0x80F1 Code="80F1" Description="UNDEFINED">UNDEFINED</Fault0x80F1>
+         <Fault0x80F2 Code="80F2" Description="UNDEFINED">UNDEFINED</Fault0x80F2>
+         <Fault0x80F3 Code="80F3" Description="MODULE GAVE BUSY RESPONSE">MODULE GAVE BUSY RESPONSE</Fault0x80F3>
+         <Fault0x80F4 Code="80F4" Description="UNDEFINED">UNDEFINED</Fault0x80F4>
+         <Fault0x80F5 Code="80F5" Description="CONDITIONS NOT CORRECT FOR COMMAND">CONDITIONS NOT CORRECT FOR COMMAND</Fault0x80F5>
+         <Fault0x80F6 Code="80F6" Description="MODULE UNPLUGGED OR NOT COMMUNICATING">MODULE UNPLUGGED OR NOT COMMUNICATING</Fault0x80F6>
+         <Fault0x80F7 Code="80F7" Description="J1850 BUS OR J2190 MODULE NOT RESPONDING">J1850 BUS OR J2190 MODULE NOT RESPONDING</Fault0x80F7>
+         <Fault0x80F8 Code="80F8" Description="CANNOT INITIALIZE J1850 MODULE">CANNOT INITIALIZE J1850 MODULE</Fault0x80F8>
+         <SpeedControlFaultSpeedComm Code="8100" Description="COMMUNICATIONS FAILED READING VEHICLE SPEED">COMMUNICATIONS FAILED READING VEHICLE SPEED</SpeedControlFaultSpeedComm>
+         <SpeedControlFaultZeroSpeedRange Code="8101" Description="ZERO SPEED MEASUREMENT OUT OF RANGE">ZERO SPEED MEASUREMENT OUT OF RANGE</SpeedControlFaultZeroSpeedRange>
+         <SpeedControlFaultLowSpeedRange Code="8102" Description="LOW  SPEED MEASUREMENT OUT OF RANGE">LOW  SPEED MEASUREMENT OUT OF RANGE</SpeedControlFaultLowSpeedRange>
+         <SpeedControlFaultHighSpeedRange Code="8103" Description="HIGH SPEED MEASUREMENT OUT OF RANGE">HIGH SPEED MEASUREMENT OUT OF RANGE</SpeedControlFaultHighSpeedRange>
+      </Faults>
+      <DebugLevel>5</DebugLevel>
+   </Setup>
+   <Objectives>
+      <Initialize>
+         <TestStep1>Setup</TestStep1>
+      </Initialize>
+      <SpeedControlTest>
+         <TestStep2>OnTest</TestStep2>
+         <TestStep3>SetTest</TestStep3>
+         <TestStep4>BrakeTest</TestStep4>
+         <TestStep5>ResumeTest</TestStep5>
+         <TestStep6>CancelTest</TestStep6>
+         <TestStep7>OffTest</TestStep7>
+      </SpeedControlTest>
+      <FinishUp>
+         <TestStep999>FinishUp</TestStep999>
+      </FinishUp>
+      <SpeedControl>
+         <TestStep1>Setup</TestStep1>
+         <TestStep2>OnTest</TestStep2>
+         <TestStep3>SetTest</TestStep3>
+         <TestStep4>BrakeTest</TestStep4>
+         <TestStep5>ResumeTest</TestStep5>
+         <TestStep6>CancelTest</TestStep6>
+         <TestStep7>OffTest</TestStep7>
+         <TestStep999>FinishUp</TestStep999>
+      </SpeedControl>
+   </Objectives>
+   <TestSteps>
+      <Setup Result="Not Tested" Timeout="10000" Description="Initialize defaults for speedControl tests."/>
+      <FinishUp Result="Not Tested" Timeout="10000" Description="Clean up and set status."/>
+      <OnTest Result="Pass" Timeout="30000" Description="speedControl on test" Prompt1="SpeedControlOn"/>
+      <SetTest Result="Pass" Timeout="60000" Description="speedControl set test" SetSpeedControlPromptBox="1" SetSpeedControlPrompt="SpeedControlSet" RemoveFootPromptBox="1" RemoveFootPrompt="RemoveFootFromAccelerator" AccelPromptBox="1" AccelPrompt="AccelerateToTargetSpeed"/>
+      <BrakeTest Result="Pass" Timeout="30000" Description="brake disengage speedControl test" TapBrakePromptBox="1" TapBrakePrompt="SpeedControlTapBrakes"/>
+      <ResumeTest Result="Pass" Timeout="30000" Description="speedControl resume test" ResumePromptBox="1" ResumePrompt="SpeedControlResume"/>
+      <CancelTest Result="Pass" Timeout="30000" Description="speedControl cancel test" CancelPromptBox="1" CancelPrompt="SpeedControlCancel"/>
+      <OffTest Result="Pass" Timeout="30000" Description="speedControl off test" OffPromptBox="1" OffPrompt="SpeedControlOff"/>
+      <ETCZeroSpeedCheck Result="Pass" Timeout="10000" Description="etc zero speed test"/>
+      <ETCLowSpeedCheck Result="Pass" Timeout="10000" Description="etc low speed test" TestSpeed="30" AccelPromptBox="1" AccelPrompt="AccelerateToTargetSpeed"/>
+      <ETCLowNeutralCheck Result="Pass" Timeout="10000" Description="etc low speed neutral test" ReleaseThrottlePromptBox="1" ReleaseThrottlePrompt="RemoveFootFromAccelerator" ShiftToNeutralPromptBox="1" ShiftToNeutralPrompt="ShiftToNeutral"/>
+      <ETCLowValidation Result="Pass" Timeout="10000" Description="etc low speed validation test" TestSpeed="30" CoastDownPromptBox="1" CoastDownPrompt="CoastDownToTargetSpeed"/>
+      <ETCHighSpeedCheck Result="Pass" Timeout="10000" Description="ETC high speed test" TestSpeed="60" AccelPromptBox="1" AccelPrompt="AccelerateToSpeed"/>
+      <ETCHighNeutralCheck Result="Pass" Timeout="10000" Description="high speed neutral check" ReleaseThrottlePromptBox="1" ReleaseThrottlePrompt="ReleaseThrottle" ShiftToNeutralPromptBox="1" ShiftToNeutralPrompt="ShiftToNeutral"/>
+      <ETCHighValidation Result="Pass" Timeout="10000" Description="high speed validation" TestSpeed="60" CoastDownPromptBox="1" CoastDownPrompt="CoastDownToSpeed"/>
+   </TestSteps>
+</SpeedControl>

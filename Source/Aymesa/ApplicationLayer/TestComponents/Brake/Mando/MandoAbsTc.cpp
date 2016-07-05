@@ -45,7 +45,25 @@ const string MandoAbsTc<ModuleType>::CommandTestStep(const string &value)
 		if(StatusCheck() == BEP_STATUS_SUCCESS)
 		{	// Determine which test step to perform
 			// Establish Module Comms
-			if(!testStep.compare("CheckEspEquipped"))
+            if(!testStep.compare("CheckPerformAbs"))
+            {
+                result = CheckPerformAbs();
+            }
+            else if(!m_performAbsTests && (!testStep.compare("Setup") || !testStep.compare("BrakeTest") || !testStep.compare("DragTest") || !testStep.compare("AnalyzeBrakeTest") || !testStep.compare("AnalyzeBalance") 
+                                          || !testStep.compare("AccelerateToBrakeSpeed") || !testStep.compare("AnalyzeDragTest") || !testStep.compare("BrakeToStop") 
+                                          || !testStep.compare("DisableForceMeter") || !testStep.compare("FinishUp") || !testStep.compare("Initialize") 
+                                          || !testStep.compare("EngageMachine") || !testStep.compare("AnalyzeDynamicParkBrake") || !testStep.compare("DynamicParkBrakeTest") || !testStep.compare("AccelerateToParkBrakeSpeed") 
+                                          || !testStep.compare("ParkBraketest")))
+            {
+                Log(LOG_DEV_DATA,"non abs test step");
+                
+                result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
+            }
+            else if(!m_performAbsTests)
+            {
+                result = testSkip;
+            }
+			else if(!testStep.compare("CheckEspEquipped"))
 			{
 				result = CheckEspEquipped();
 			}
@@ -53,7 +71,7 @@ const string MandoAbsTc<ModuleType>::CommandTestStep(const string &value)
 			{
 				result = CheckEolTestByte();
 			}
-			else if(!testStep.compare("WriteEolTestByte"))
+            else if(!testStep.compare("WriteEolTestByte"))
 			{
 				result = WriteEolTestByte();
 			}
@@ -118,9 +136,9 @@ const string MandoAbsTc<ModuleType>::CommandTestStep(const string &value)
 				result = WarningLight();
 			}
 			// Try the base class
-			else
-			{
-				result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
+            else
+			{   
+                result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
 			}
 		}
 		else
@@ -1419,4 +1437,23 @@ void MandoAbsTc<ModuleType>::InitializeHook(const XmlNode *config)
 	// Create a new array of reduction/recovery indices
 	m_espReduxRecovIndex.reserve(MAXWHEELS);
 	m_espReduxRecovIndex.resize(MAXWHEELS);
+    m_performAbsTests = true;
+}
+
+template <class ModuleType>
+string MandoAbsTc<ModuleType>::CheckPerformAbs(void)
+{
+    string testResult = testFail;
+    Log(LOG_FN_ENTRY, "Entering MandoAbsTc::CheckPerformAbs()\n");
+    if(!OperatorPassFail("PerformAbsTest",GetTestStepInfoInt("Timeout")).compare(testPass))
+    {
+        Log(LOG_DEV_DATA, "Perform ABS Tests\n");
+        m_performAbsTests = true;
+        return testPass;
+    }
+    Log(LOG_DEV_DATA, "Do not perform ABS Tests\n");
+    m_performAbsTests = false;
+    testResult = testPass;
+    return testResult;
+        
 }

@@ -191,6 +191,10 @@ protected:
     string WarningLight(void);
 
     void InitializeHook(const XmlNode *config);
+    virtual string CheckPerformAbs(void);
+
+    bool m_performAbsTests;
+    bool m_performEscTests;
 };
 
 //-----------------------------------------------------------------------------

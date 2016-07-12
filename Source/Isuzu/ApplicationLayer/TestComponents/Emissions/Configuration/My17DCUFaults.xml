@@ -1,0 +1,134 @@
+<EmissionsFaults>
+    <!-- System Status -->
+    <SoftwareFailure Code="7001" Description="Software failure using module interface"/>
+    <SystemStatus Code="7002" Description="Test failure, system status not correct"/>
+    <!-- Test Condition Failures -->
+    <PreconditionTimeout Code="7100" Description="Timeout waiting for preconditions"/>
+    <TimeoutFailure Code="" Description="Timeout waiting for test comditions"/>
+    <VehicleNotConnected Code="7108" Description="Vehicle not connected to tester"/>
+    <!-- Communication Failures -->
+    <CommunicationFailure Code="7200" Description="PCM Communication Failure"/>
+    <!-- Sensor Range Check Test Failures -->
+    <BarometricPressureOutOfRangeHigh Code="" Description="Barometric pressure out of range - high"/>
+    <BarometricPressureOutOfRangeLow  Code="" Description="Barometric pressure out of range - low"/>
+    <EngineCoolantTemperatureOutOfRangeHigh Code="" Description="Engine coolant temperature too high - Abort"/>
+    <EngineCoolantTemperatureOutOfRangeLow  Code="" Description="Engine coolant temperature too low - Abort"/>
+    <EngineOilTemperatureOutOfRangeHigh Code="" Description="Engine oil temperature out of range - high"/>
+    <EngineOilTemperatureOutOfRangeLow  Code="" Description="Engine oil temperature out of range - low"/>
+    <EngineOilLevelLowOutOfRange Code="" Description="Engine oil level low"/>
+    <EngineOilPressureLowOutOfRange Code="" Description="Engine oil pressure low"/>
+    <KnockSensor1OutOfRange Code="" Description="Knock Sensor 1 Fault"/>
+    <KnockSensor2OutOfRange Code="" Description="Knock Sensor 2 Fault"/>
+    <MisfireCatalystFailureOutOfRange Code="" Description="Misfire Catalyst Failure"/>
+    <MisfireEmissionsFailureOutOfRange Code="" Description="Misfire Failure"/>
+    <OxygenSensor1Bank1OutOfRangeLow Code="" Description="O2 Sensor 1 Bank 1 reading out of limits - low"/>
+    <OxygenSensorsFailedAnalysis Code="" Description="O2 Sensors failed data analysis"/>
+    <PedalPositionSensorsAgreeOutOfRange Code="" Description="Pedal Position Sensors Disagree"/>
+    <ThrottlePositionSensorsAgreeOutOfRange Code="" Description="Throttle Position Sensors Disagree"/>
+    <VINMismatch Code="" Description="ECM VIN does not match scanned VIN"/>
+    <ModuleFaults Code="" Description="ECM Module Faults Present"/>
+    <SerialNumberMismatch Code="" Description="Serial Number does not match file"/>
+    <!-- Miscellaneous Test Failures -->
+    <StartModuleKeepAliveFail Code="7400" Description="Failed to start keep alive thread"/>
+
+    <!-- Module Faults From 'Isuzu_16MY_17MY_DTCs.xlsx' and 'VF76 -DTCS - R2'-->
+    <ModuleFault_0000 Code="P0000" Description="Unregistered Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_0001 Code="P0001" Description="Unregistered Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_0607 Code="P0607" Description="ECM Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_060B Code="P060B" Description="ADC test error" FailureStatusMask="0x16"/> 
+    <ModuleFault_062F Code="P062F" Description="EEPROM Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_0641 Code="P0641" Description="5 Volt Reference 1 Circuit Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_0658 Code="P0658" Description="Power Failure" FailureStatusMask="0x16"/>
+    <ModuleFault_0659 Code="P0659" Description="Actuator relay 1 short to battery" FailureStatusMask="0x16"/>
+    <ModuleFault_1034 Code="P1034" Description="Upstream N0x feedback fault" FailureStatusMask="0x16"/>
+    <ModuleFault_1036 Code="P1036" Description="Downstream N0x feedback fault" FailureStatusMask="0x16"/>
+    <ModuleFault_103D Code="P103D" Description="N0x sensor power relay sticking closed fault" FailureStatusMask="0x16"/>
+    <ModuleFault_103E Code="P103E" Description="N0x sensor power relay sticking open fault" FailureStatusMask="0x16"/>
+    <ModuleFault_103F Code="P103F" Description="N0x sensor power relay short to GND" FailureStatusMask="0x16"/>
+    <ModuleFault_1041 Code="P1041" Description="N0x sensor power relay short to battery" FailureStatusMask="0x16"/>
+    <ModuleFault_1462 Code="P1426" Description="Timeout error for Urea Quality Sensor frame" FailureStatusMask="0x16"/>
+    <ModuleFault_1464 Code="P1464" Description="Default Fault Check for main relay early opening error" FailureStatusMask="0x16"/>
+    <ModuleFault_1465 Code="P1465" Description="Visibility of Software Resets in DSM" FailureStatusMask="0x16"/>
+    <ModuleFault_1466 Code="P1466" Description="Urea tank Quality message J1939 Error" FailureStatusMask="0x16"/>
+    <ModuleFault_1467 Code="P1467" Description="J1939 Error" FailureStatusMask="0x16"/>
+    <ModuleFault_1468 Code="P1468" Description="DCU over temperature error" FailureStatusMask="0x16"/>
+    <ModuleFault_1491 Code="P1491" Description="Report SPI and COM-Errors of a Cj945 fault" FailureStatusMask="0x16"/>
+    <ModuleFault_1493 Code="P1493" Description="Diagnostic error check for overtemperature fault" FailureStatusMask="0x16"/>
+    <ModuleFault_1494 Code="P1494" Description="TTCL Tank Temperature Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_1495 Code="P1495" Description="TTCL S/M Temperature Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_1496 Code="P1496" Description="Low Pressure Fi Time Range Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_1497 Code="P1497" Description="High Pressure Fi Time Range Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_1498 Code="P1498" Description="SCR catalyst upstream temperature sensor TTCL Error" FailureStatusMask="0x16"/>
+    <ModuleFault_149A Code="P149A" Description="Dosing system time to close loop fault" FailureStatusMask="0x16"/>
+    <ModuleFault_149B Code="P149B" Description="Longterm adaption factor below threshold" FailureStatusMask="0x16"/>
+    <ModuleFault_149C Code="P149C" Description="Reductant delivery system urea pressure reduction error" FailureStatusMask="0x16"/>
+    <ModuleFault_149D Code="P149D" Description="Urea tank is Overheated" FailureStatusMask="0x16"/>
+    <ModuleFault_149E Code="P149E" Description="Reductant system battery voltage too high" FailureStatusMask="0x16"/>
+    <ModuleFault_149F Code="P149F" Description="Reductant system battery voltage too low" FailureStatusMask="0x16"/>
+    <ModuleFault_156A Code="P156A" Description="Battery voltage sensor SRC Low" FailureStatusMask="0x16"/>
+    <ModuleFault_156B Code="P156B" Description="Battery voltage sensor SRC High" FailureStatusMask="0x16"/>
+    <ModuleFault_203B Code="P203B" Description="Urea level sensor in tank stuck fault" FailureStatusMask="0x16"/>
+    <ModuleFault_203C Code="P203C" Description="Urea tank level sensor SRC Low" FailureStatusMask="0x16"/>
+    <ModuleFault_203D Code="P203D" Description="Urea tank level sensor SRC High" FailureStatusMask="0x16"/>
+    <ModuleFault_2048 Code="P2048" Description="Urea dosing valve circuit short to GND" FailureStatusMask="0x16"/>
+    <ModuleFault_2049 Code="P2049" Description="Urea dosing valve circuit short to battery" FailureStatusMask="0x16"/>
+    <ModuleFault_204B Code="P204B" Description="Supply module urea pressure sensor rationality" FailureStatusMask="0x16"/>
+    <ModuleFault_204C Code="P204C" Description="Urea Pump Module Pressure Sensor SRC Low" FailureStatusMask="0x16"/>
+    <ModuleFault_204D Code="P204D" Description="Urea Pump Module Pressure Sensor SRC High" FailureStatusMask="0x16"/>
+    <ModuleFault_205B Code="P205B" Description="Urea temperature sensor in tank rationality" FailureStatusMask="0x16"/>
+    <ModuleFault_205C Code="P205C" Description="Urea Tank temperature sensor SRC Low" FailureStatusMask="0x16"/>
+    <ModuleFault_205D Code="P205D" Description="Urea Tank temperature sensor SRC High" FailureStatusMask="0x16"/>
+    <ModuleFault_206A Code="P206A" Description="Urea quality sensor status error(temperature/conductivity/concentration/tank level)" FailureStatusMask="0x16"/>
+    <ModuleFault_206B Code="P206B" Description="Urea Sensor Communication fault" FailureStatusMask="0x16"/>
+    <ModuleFault_206C Code="P206C" Description="Urea concetration sensor short" FailureStatusMask="0x16"/>
+    <ModuleFault_206D Code="P206D" Description="Urea concentration sensor disconnected" FailureStatusMask="0x16"/>
+    <ModuleFault_207F Code="P207F" Description="Improper reductant detected/Urea quality fault" FailureStatusMask="0x16"/>
+    <ModuleFault_208A Code="P208A" Description="OL error on the PWN output powerstage for the actuator" FailureStatusMask="'0x16"/>
+    <ModuleFault_208B Code="P208B" Description="Pump motor speed deviation" FailureStatusMask="0x16"/>
+    <ModuleFault_208C Code="P208C" Description="Supply module pump motor circuit short to GND" FailureStatusMask="0x16"/>
+    <ModuleFault_208D Code="P208D" Description="Supply module pump motor circuit short to battery" FailureStatusMask="0x16"/>
+    <ModuleFault_208E Code="P208E" Description="Urea dosing valve performance" FailureStatusMask="0x16"/>
+    <ModuleFault_20A0 Code="P20A0" Description="Urea reverting valve actuator powerstage open load error" FailureStatusMask="0x16"/>
+    <ModuleFault_20A2 Code="P20A2" Description="Urea reverting valve actuator powerstage short to GND" FailureStatusMask="0x16"/>
+    <ModuleFault_20A3 Code="P20A3" Description="Urea reverting valve actuator powerstage short to battery" FailureStatusMask="0x16"/>
+    <ModuleFault_20AC Code="P20AC" Description="Supply Module Temperature Sensor Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_20AD Code="P20AD" Description="Supply Module Temperature Sensor Plausibility Test Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_20B1 Code="P20B1" Description="Urea tank heater valve circuit open" FailureStatusMask="0x16"/>
+    <ModuleFault_20B2 Code="P20B2" Description="Urea tank heater valve rationality" FailureStatusMask="0x16"/>
+    <ModuleFault_20B3 Code="P20B3" Description="Urea tank heater valve circuit short to GND" FailureStatusMask="0x16"/>
+    <ModuleFault_20B4 Code="P20B4" Description="Urea tank heater valve circuit short to battery" FailureStatusMask="0x16"/>
+    <ModuleFault_20E8 Code="P20E8" Description="Underpressure error" FailureStatusMask="0x16"/>
+    <ModuleFault_20E9 Code="P20E9" Description="Overpressure error regardless of the state" FailureStatusMask="0x16"/>
+    <ModuleFault_20EE Code="P20EE" Description="N0x conversion catalyst efficiency error" FailureStatusMask="0x16"/>
+    <ModuleFault_20FE Code="P20FE" Description="Build Up Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_2201 Code="P2201" Description="Front N0x sensor rationality" FailureStatusMask="0x16"/>
+    <ModuleFault_2202 Code="P2202" Description="Front N0x sensor signal circuit short to battery" FailureStatusMask="0x16"/>
+    <ModuleFault_2203 Code="P2203" Description="Front N0x sensor signal circuit open" FailureStatusMask="0x16"/>
+    <ModuleFault_2206 Code="P2206" Description="Front N0x sensor heater status signal circuit short to battery" FailureStatusMask="0x16"/>
+    <ModuleFault_2207 Code="P2207" Description="Front N0x sensor heater status signal circuit open" FailureStatusMask="0x16"/>
+    <ModuleFault_2209 Code="P2209" Description="Front N0x sensor heater status signal plausibility error" FailureStatusMask="0x16"/>
+    <ModuleFault_2222 Code="P2222" Description="Downstream N0x sensor heater signal plausibility error" FailureStatusMask="0x16"/>
+    <ModuleFault_225C Code="P225C" Description="Upstream N0x sensor offset diagnostic max fault" FailureStatusMask="0x16"/>
+    <ModuleFault_225D Code="P225D" Description="Upstream N0x sensor offset diagnostic min fault" FailureStatusMask="0x16"/>
+    <ModuleFault_225E Code="P225E" Description="Downstream N0x sensor offset diagnostic max fault" FailureStatusMask="0x16"/>
+    <ModuleFault_225F Code="P225F" Description="Downstream N0x sensor offset diagnostic min fault" FailureStatusMask="0x16"/>
+    <ModuleFault_229F Code="P229F" Description="Peak diagnosis of downstream N0x sensor fault" FailureStatusMask="0x16"/>
+    <ModuleFault_22A0 Code="P22A0" Description="Downstream N0x sensor OOR diagnosis min fault" FailureStatusMask="0x16"/>
+    <ModuleFault_22A1 Code="P22A1" Description="Downstream N0x sensor OOR diagnosis max fault" FailureStatusMask="0x16"/>
+    <ModuleFault_22A4 Code="P22A4" Description="Downstream N0x sensor SRC open fault" FailureStatusMask="0x16"/>
+    <ModuleFault_22A5 Code="P22A5" Description="Downstream N0x sensor SRC short fault" FailureStatusMask="0x16"/>
+    <ModuleFault_22FB Code="P22FB" Description="Downstream N0x sensor O2 response 0-30% fault" FailureStatusMask="0x16"/>
+    <ModuleFault_22FE Code="P22FE" Description="Downstream N0x sensor O2 response 30-60% fault" FailureStatusMask="0x16"/>
+    <ModuleFault_242B Code="P252B" Description="Exhaust gas temperature sensor rationality" FailureStatusMask="0x16"/>
+    <ModuleFault_242C Code="P252C" Description="Exhaust gas temperature sensor circuit low voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_242D Code="P252D" Description="Exhaust gas temperature sensor circuit high voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_262B Code="P262B" Description="Engine off timer fault" FailureStatusMask="0x16"/>
+    <ModuleFault_2BA7 Code="P2BA7" Description="Urea tank empty detected" FailureStatusMask="0x16"/>
+    <ModuleFault_2BA9 Code="P2BA9" Description="Improper reductant detected" FailureStatusMask="0x16"/>
+    <ModuleFault_C002 Code="PC002" Description="CAN Bus Off Error" FailureStatusMask="0x16"/>
+    <ModuleFault_C073 Code="PC073" Description="N0x Sensor Communication Fault" FailureStatusMask="0x16"/>
+    <ModuleFault_C100 Code="PC100" Description="CAN B Bus Off Error" FailureStatusMask="0x16"/>
+    <ModuleFault_C2A2 Code="PC2A2" Description="Urea quality sensor commuincation fault" FailureStatusMask="0x16"/>
+    <ModuleFault_C29D Code="PC29D" Description="CAN Communication Monitoring Error" FailureStatusMask="0x16"/>
+    <ModuleFault_C29E Code="PC29E" Description="CAN Communication Monitoring Error 2" FailureStatusMask="0x16"/>
+</EmissionsFaults>

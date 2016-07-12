@@ -210,16 +210,16 @@
             <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <IgnoreFaults/>
-        <FaultList>/Configuration/Components/Emissions/EmissionsFaults.xml</FaultList>
+        <FaultList>/Configuration/Components/Emissions/My17DCUFaults.xml</FaultList>
     </Setup>
     <Objectives>
         <Setup>
             <TestStep00>Setup</TestStep00>
             <TestStep05>EnterDiagnosticMode</TestStep05>
-            <TestStep15>CheckPartNumbers</TestStep15>
+            <!--TestStep15>CheckPartNumbers</TestStep15>
             <TestStep30>ReadFaults</TestStep30>
             <TestStep40>CommandSecurityUnlock</TestStep40>
-            <TestStep50>DisableNormalComms</TestStep50>
+            <TestStep50>DisableNormalComms</TestStep50-->
             <TestStep60>StartModuleKeepAlive</TestStep60>
         </Setup>
         <EngineRunning>

@@ -4,5 +4,6 @@
 #------------------------------------------------------------------------------------------
 
 INSTALL_FILES(${SERVERS_CONFIG_DIR} FILES
-	Isuzu.SerialPlcConfig.xml
+	Isuzu.Charlotte.508702.SerialPlcConfig.xml
+        Isuzu.SerialPlcConfig.xml
 )

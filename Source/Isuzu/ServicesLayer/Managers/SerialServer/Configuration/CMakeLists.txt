@@ -4,5 +4,6 @@
 #------------------------------------------------------------------------------------------
 
 INSTALL_FILES(${SERVERS_CONFIG_DIR} FILES
-	Isuzu.SerialServerConfig.xml
+	Isuzu.Charlotte.508702.SerialServerConfig.xml
+        Isuzu.SerialServerConfig.xml
 )

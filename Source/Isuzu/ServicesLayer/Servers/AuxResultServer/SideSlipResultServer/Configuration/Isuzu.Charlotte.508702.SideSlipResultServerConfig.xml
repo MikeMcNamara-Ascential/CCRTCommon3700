@@ -1,0 +1,64 @@
+<TataSideSlipResultServer>
+	<Setup>
+		<Demo>0</Demo>
+		<Debug>Off</Debug>
+		<ValidVINNeededForStart>1</ValidVINNeededForStart>
+		<ProcessPriority>12</ProcessPriority>
+		<LogicalPortName>/dev/LogicalPorts/SideSlip</LogicalPortName>
+		<MaxResultCount Description="Maximum number of test results to maintain">100</MaxResultCount>
+		<ResultFile Description="File to save the results into">/TestResults/SideSlip/SideSlipResults.xml</ResultFile>
+		<ResultTag>SideSlipResult</ResultTag>
+		<ResultFields>
+			<FrontSideSlipValue Index="0"/>
+			<RearSideSlipValue Index="1"/>
+			<FrontSpeedValue Index="2"/>
+			<RearSpeedValue Index="3"/>
+			<SideSlipJudgement Index="4"/>
+			<TestDate Index="5"/>
+			<TestTime Index="6"/>
+			<VIN Index="7" Scope="private"/>
+		</ResultFields>
+		<Logging>
+			<Status>Enabled</Status>
+			<ProcessName>core/SideSlipResults</ProcessName>
+			<AdditionalLogFile Types="/Servers/SideSlipResultServer.log or Disabled">/Servers/SideSlipResultServer.log</AdditionalLogFile>
+			<LocalEcho>Disabled</LocalEcho>
+			<Debug>Off</Debug>
+			<Verbose>0x1F</Verbose>
+		</Logging>
+		<ThreadPool>
+			<Debug>Off</Debug>
+			<MinBlockedLimit>2</MinBlockedLimit>
+			<MaxBlockedLimit>4</MaxBlockedLimit>
+			<Increment>2</Increment>
+			<Maximum>10</Maximum>
+		</ThreadPool>
+		<NotificationList>
+			<Setup>
+				<Debug>Off</Debug>
+				<HighWater>3</HighWater>
+				<Increment>1</Increment>
+				<LowWater>1</LowWater>
+				<Maximum>5</Maximum>
+				<StartOnCreate>No</StartOnCreate>
+			</Setup>
+		</NotificationList>
+		<TagList>
+			<PublishTags>
+				<SideSlipResult/>
+			</PublishTags>
+			<SubscribeTags>
+			</SubscribeTags>
+		</TagList>
+		<DataTags>
+		</DataTags>
+		<Communication>
+			<Type>Server</Type>
+			<Debug>Off</Debug>
+			<Name>core/SideSlipResults</Name>
+			<Comm>IPC</Comm>
+			<Timeout>2000</Timeout>
+			<BufferSize>2000</BufferSize>
+		</Communication>
+	</Setup>
+</TataSideSlipResultServer>

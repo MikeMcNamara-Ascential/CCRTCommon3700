@@ -1,0 +1,370 @@
+<Isuzu720AbsTc>
+    <Setup>
+        <Name>Brake</Name>
+        <Debug>Off</Debug>
+        <TestDomain>Foreground</TestDomain>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <Communication>
+            <Comm>IPC</Comm>
+            <Type>Server</Type>
+            <Name>component/Isuzu720Abs</Name>
+            <Debug>Off</Debug>
+            <BufferSize>1024</BufferSize>
+            <Timeout>0</Timeout>
+        </Communication>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <ABSPartNo/>
+                <CableConnect/>
+                <Clutch/>
+                <Declutch/>
+                <DriveAxle/>
+                <FrontAxleTestSelected/>
+                <MotorMode/>
+                <RollsUpElevDown/>
+                <TransferCase/>
+                <VehiclePresent/>
+                <VIN/>
+                <Zerospeed/>
+            </SubscribeTags>
+        </TagList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>Isuzu720Abs</ProcessName>
+            <AdditionalLogFile Types="/Component/Isuzu720Abs.log or Disabled">/Components/Isuzu720Abs.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+        </Logging>
+        <SystemTagsToReset>
+            <BrakeActive>0</BrakeActive>
+            <FrontBalanceBGColor>white</FrontBalanceBGColor>
+            <FrontBalanceValue>0</FrontBalanceValue>
+            <FrontToRearBalanceBGColor>white</FrontToRearBalanceBGColor>
+            <FrontToRearBalanceValue>0</FrontToRearBalanceValue>
+            <LFABSRecoveryBGColor>white</LFABSRecoveryBGColor>
+            <LFABSRecoveryValue>0</LFABSRecoveryValue>
+            <LFABSReductionBGColor>white</LFABSReductionBGColor>
+            <LFABSReductionValue>0</LFABSReductionValue>
+            <LFDragBGColor>white</LFDragBGColor>
+            <LFDragValue>0</LFDragValue>
+            <LFForceBGColor>white</LFForceBGColor>
+            <LFForceDomain>0 500</LFForceDomain>
+            <LFForceTarget>200 400</LFForceTarget>
+            <LFForceValue>0</LFForceValue>
+            <LRABSRecoveryBGColor>white</LRABSRecoveryBGColor>
+            <LRABSRecoveryValue>0</LRABSRecoveryValue>
+            <LRABSReductionBGColor>white</LRABSReductionBGColor>
+            <LRABSReductionValue>0</LRABSReductionValue>
+            <LRDragBGColor>white</LRDragBGColor>
+            <LRDragValue>0</LRDragValue>
+            <LRForceBGColor>white</LRForceBGColor>
+            <LRForceDomain>0 500</LRForceDomain>
+            <LRForceTarget>200 400</LRForceTarget>
+            <LRForceValue>0</LRForceValue>
+            <RearBalanceBGColor>white</RearBalanceBGColor>
+            <RearBalanceValue>0</RearBalanceValue>
+            <RFABSRecoveryBGColor>white</RFABSRecoveryBGColor>
+            <RFABSRecoveryValue>0</RFABSRecoveryValue>
+            <RFABSReductionBGColor>white</RFABSReductionBGColor>
+            <RFABSReductionValue>0</RFABSReductionValue>
+            <RFDragBGColor>white</RFDragBGColor>
+            <RFDragValue>0</RFDragValue>
+            <RFForceBGColor>white</RFForceBGColor>
+            <RFForceDomain>0 500</RFForceDomain>
+            <RFForceTarget>200 400</RFForceTarget>
+            <RFForceValue>0</RFForceValue>
+            <RRABSRecoveryBGColor>white</RRABSRecoveryBGColor>
+            <RRABSRecoveryValue>0</RRABSRecoveryValue>
+            <RRABSReductionBGColor>white</RRABSReductionBGColor>
+            <RRABSReductionValue>0</RRABSReductionValue>
+            <RRDragBGColor>white</RRDragBGColor>
+            <RRDragValue>0</RRDragValue>
+            <RRForceBGColor>white</RRForceBGColor>
+            <RRForceDomain>0 500</RRForceDomain>
+            <RRForceTarget>200 400</RRForceTarget>
+            <RRForceValue>0</RRForceValue>
+            <LeftFrontParkBrakeForceValue>0</LeftFrontParkBrakeForceValue>
+            <LeftFrontParkBrakeForceBGColor>white</LeftFrontParkBrakeForceBGColor>
+            <RightFrontParkBrakeForceValue>0</RightFrontParkBrakeForceValue>
+            <RightFrontParkBrakeForceBGColor>white</RightFrontParkBrakeForceBGColor>
+            <LeftRearParkBrakeForceValue>0</LeftRearParkBrakeForceValue>
+            <LeftRearParkBrakeForceBGColor>white</LeftRearParkBrakeForceBGColor>
+            <RightRearParkBrakeForceValue>0</RightRearParkBrakeForceValue>
+            <RightRearParkBrakeForceBGColor>white</RightRearParkBrakeForceBGColor>
+        </SystemTagsToReset>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <BrakeActive>BrakeActive</BrakeActive>
+            <BrakeDomain>BrakeDomain</BrakeDomain>
+            <BrakeTarget>BrakeTarget</BrakeTarget>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <ElectricMachineType>3600</ElectricMachineType>
+            <FailButton>NoPB</FailButton>
+            <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+            <FrontBalanceBGColor>FrontBalanceBGColor</FrontBalanceBGColor>
+            <FrontBalanceTest>FrontBalanceTest</FrontBalanceTest>
+            <FrontBalanceValue>FrontBalanceValue</FrontBalanceValue>
+            <LeftFrontABSRecoveryBGColor>LFABSRecoveryBGColor</LeftFrontABSRecoveryBGColor>
+            <LeftFrontABSRecoveryValue>LFABSRecoveryValue</LeftFrontABSRecoveryValue>
+            <LeftFrontABSReductionBGColor>LFABSReductionBGColor</LeftFrontABSReductionBGColor>
+            <LeftFrontABSReductionValue>LFABSReductionValue</LeftFrontABSReductionValue>
+            <LeftFrontDragBGColor>LFDragBGColor</LeftFrontDragBGColor>
+            <LeftFrontDragValue>LFDragValue</LeftFrontDragValue>
+            <LeftFrontForceBGColor>LFForceBGColor</LeftFrontForceBGColor>
+            <LeftFrontForceValue>LFForceValue</LeftFrontForceValue>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <MachineType>MachineType</MachineType>
+            <ModulePartNumber>ABSPartNo</ModulePartNumber>
+            <PassButton>YesPB</PassButton>
+            <ReadBrakeSwitch>ReadBrakeSwitch</ReadBrakeSwitch>
+            <ReadModulePartNumber>ReadModulePartNumber</ReadModulePartNumber>
+            <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+            <RetainersUp>RollsUpElevDown</RetainersUp>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RightFrontABSRecoveryBGColor>RFABSRecoveryBGColor</RightFrontABSRecoveryBGColor>
+            <RightFrontABSRecoveryValue>RFABSRecoveryValue</RightFrontABSRecoveryValue>
+            <RightFrontABSReductionBGColor>RFABSReductionBGColor</RightFrontABSReductionBGColor>
+            <RightFrontABSReductionValue>RFABSReductionValue</RightFrontABSReductionValue>
+            <RightFrontDragBGColor>RFDragBGColor</RightFrontDragBGColor>
+            <RightFrontDragValue>RFDragValue</RightFrontDragValue>
+            <RightFrontForceBGColor>RFForceBGColor</RightFrontForceBGColor>
+            <RightFrontForceValue>RFForceValue</RightFrontForceValue>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <SwitchOff>Off</SwitchOff>
+            <SwitchOn>On</SwitchOn>
+            <Zerospeed>Zerospeed</Zerospeed>
+        </DataTags>
+        <Parameters>
+            <AbortIfDTCPresent>No</AbortIfDTCPresent>
+            <AbortOnTestStepFailure>True</AbortOnTestStepFailure>
+            <AlwaysEnterDiagnosticMode>Yes</AlwaysEnterDiagnosticMode>
+            <AlwaysStartGUIForceThread>Yes</AlwaysStartGUIForceThread>
+            <AlwaysStartKeepAlive>Yes</AlwaysStartKeepAlive>
+            <BrakeTargetSpeedRange>61 66</BrakeTargetSpeedRange>
+            <ConfigFile>/Configuration/Components/Brake/Isuzu720AbsModule.xml</ConfigFile>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>False</DeveloperTest>
+            <DisplayBrakeTargetSpeeds>True</DisplayBrakeTargetSpeeds>
+            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+            <ICMName>mgr/ICM</ICMName>
+            <IgnoreMachineConditions>No</IgnoreMachineConditions>
+            <KeepTestStatusOnExit>Yes</KeepTestStatusOnExit>
+            <AbsPrimeCycles>3</AbsPrimeCycles>
+            <!-- Pre Roll Brake Press Parameters -->
+            <PreRollBrakePresses>5</PreRollBrakePresses>
+            <!-- Part Number Parameters -->
+            <AbortOnPartMismatch>No</AbortOnPartMismatch>
+            <BypassPartNumberValidation>No</BypassPartNumberValidation>
+            <!-- Sensor Testing Parameters -->
+            <DiplayOperatorInstructions>No</DiplayOperatorInstructions>
+            <UsePlcResultButtons>True</UsePlcResultButtons>
+            <LowSpeedSensorTestMaxSteadyWheelSpeed>15</LowSpeedSensorTestMaxSteadyWheelSpeed>
+            <LowSpeedSensorTestMinSteadyWheelSpeed>2</LowSpeedSensorTestMinSteadyWheelSpeed>
+            <LowSpeedSensorTestSteadySpeedSamples>5</LowSpeedSensorTestSteadySpeedSamples>
+            <LowSpeedSensorTestSteadySpeedTimeout Units="ms">3000</LowSpeedSensorTestSteadySpeedTimeout>
+            <LowSpeedSensorTestTargetSpeed Units="mph">4</LowSpeedSensorTestTargetSpeed>
+            <LowSpeedSensorTestTargetSpeedRange>4 8</LowSpeedSensorTestTargetSpeedRange>
+            <LowSpeedSensorTestTargetSpeedScanDelay Units="ms">500</LowSpeedSensorTestTargetSpeedScanDelay>
+            <LowSpeedSensorTestTolerance>10.0</LowSpeedSensorTestTolerance>
+            <LowSpeedSensorTestWaitForStableSensors>No</LowSpeedSensorTestWaitForStableSensors>
+            <!-- Brake testing parameters -->
+            <BaseBrakeSampleCount Desc="Number of brake samples.  If 0, all samples to min speed">0</BaseBrakeSampleCount>
+            <BrakeForceMultiplier>1.0</BrakeForceMultiplier>
+            <DisplayBrakeMeterUntilZeroSpeed>Yes</DisplayBrakeMeterUntilZeroSpeed>
+            <FrontToRearBalanceUseFront>Yes</FrontToRearBalanceUseFront>
+            <MinimumStartForce Units="lbf">350</MinimumStartForce>
+            <StartSamplingAtMinimumForce>Yes</StartSamplingAtMinimumForce>
+            <FrontMinBrakeForce Units="lbf">350</FrontMinBrakeForce>
+            <FrontMaxBrakeForce Units="lbf">800</FrontMaxBrakeForce>
+            <FrontSideToSideBalance Units="%">10</FrontSideToSideBalance>
+            <!-- ABS Testing Parameters -->
+            <ABS4ChannelFiringSequence>
+                <Wheel_1>LeftFront</Wheel_1>
+                <Wheel_2>RightFront</Wheel_2>
+            </ABS4ChannelFiringSequence>
+            <AbsFourChannelSystem>True</AbsFourChannelSystem>
+            <BrakeForceStabilizeTime Units="ms">500</BrakeForceStabilizeTime>
+            <CollectSensorSpeedData>No</CollectSensorSpeedData>
+            <DisableMeterForValveFiring>Yes</DisableMeterForValveFiring>
+            <HoldRecovery>No</HoldRecovery>
+            <HoldReduction>No</HoldReduction>
+            <InterWheelGapDelay Units="ms">50</InterWheelGapDelay>
+            <PerformReductionBeforeRecovery>No</PerformReductionBeforeRecovery>
+            <DumpDelay Units="ms">200</DumpDelay>
+            <SkipHoldAllValves>Yes</SkipHoldAllValves>
+            <DumpAndHoldDelay Units="ms">250</DumpAndHoldDelay>
+            <SendKeepAliveDurringValveFire>True</SendKeepAliveDurringValveFire>
+            <!-- ABS Recovery Parmaeters -->
+            <LeftFrontRecoveryPulseLength Units="ms">350</LeftFrontRecoveryPulseLength>
+            <RightFrontRecoveryPulseLength Units="ms">350</RightFrontRecoveryPulseLength>
+            <LeftFrontMinRecoveryPercent>60.0</LeftFrontMinRecoveryPercent>
+            <RightFrontMinRecoveryPercent>60.0</RightFrontMinRecoveryPercent>
+            <!-- ABS Reduction Parameters -->
+            <LeftFrontReductionPulseLength Units="ms">1000</LeftFrontReductionPulseLength>
+            <RightFrontReductionPulseLength Units="ms">800</RightFrontReductionPulseLength>
+            <LeftFrontMinReductionPercent>40.0</LeftFrontMinReductionPercent>
+            <RightFrontMinReductionPercent>40.0</RightFrontMinReductionPercent>
+            <!-- Park Brake Parameters -->
+            <ParkBrakeApplyForce Units="lbf">2000</ParkBrakeApplyForce>
+            <ParkBrakeDriverDelay Units="ms">3000</ParkBrakeDriverDelay>
+            <ParkBrakeMaxDistance Units="number of pulses">50</ParkBrakeMaxDistance>
+            <ParkBrakeMinDistance Units="number of pulses">0</ParkBrakeMinDistance>
+            <ParkBrakeSpeedValue Units="mph">5</ParkBrakeSpeedValue>
+            <!-- Low speed individual sensor test parameters -->
+            <IndividualLeftFrontSensorTestSpeed Units="MPH">5</IndividualLeftFrontSensorTestSpeed>
+            <IndividualRightFrontSensorTestSpeed Units="MPH">10</IndividualRightFrontSensorTestSpeed>
+            <IndividualSensorTestStartDelay Units="ms" Description="Time allowed for roller to get to speed">6000</IndividualSensorTestStartDelay>
+            <IndividualSensorSpeedDriverDelay Units="ms" Description="Time allowed for operator to prepare vehicle">3000</IndividualSensorSpeedDriverDelay>
+            <IndividualSensorSpeedTolerance Units="%">25.0</IndividualSensorSpeedTolerance>
+            <ZeroSpeedTolerance Units="MPH" Description="Maximum zero speed value">0.38</ZeroSpeedTolerance>
+            <!-- highspeed sensor test parameters -->
+            <HighSpeedSensorTestCheckWheelsSeparately>0</HighSpeedSensorTestCheckWheelsSeparately>
+            <HighSpeedSensorTestTargetSpeed>50</HighSpeedSensorTestTargetSpeed>
+            <HighSpeedSensorTestTargetSpeedRange>50 60</HighSpeedSensorTestTargetSpeedRange>
+            <HighSpeedSensorTestTargetSpeedScanDelay>500</HighSpeedSensorTestTargetSpeedScanDelay>
+            <HighSpeedSensorTestTolerance>5.0</HighSpeedSensorTestTolerance>
+            <HighSpeedSensorTestSteadySpeedSamples>5</HighSpeedSensorTestSteadySpeedSamples>
+            <HighSpeedSensorTestSteadySpeedTimeout>5000</HighSpeedSensorTestSteadySpeedTimeout>
+            <HighSpeedSensorTestMinSteadyWheelSpeed>50</HighSpeedSensorTestMinSteadyWheelSpeed>
+            <HighSpeedSensorTestMaxSteadyWheelSpeed>65</HighSpeedSensorTestMaxSteadyWheelSpeed>
+        </Parameters>
+        <FaultList>/Configuration/Components/Brake/BrakeFaultList.xml</FaultList>
+        <IgnoreFaults/>
+        <Prompts>
+            <AbsPrime PromptBox="1" Priority="0">AbsPrime</AbsPrime>
+            <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <ApplyBrake PromptBox="2" Priority="0">ApplyBrake</ApplyBrake>
+            <ApplyBrake1 PromptBox="1" Priority="0">ApplyBrake</ApplyBrake1>
+            <BrakeBurnish PromptBox="1" Priority="0">BrakeBurnish</BrakeBurnish>
+            <PerformBrakeBurnish PromptBox="1" Priority="0">PerformBrakeBurnish</PerformBrakeBurnish>
+            <BrakeCoolDown PromptBox="1" Priority="0">BrakeCoolDown</BrakeCoolDown>
+            <BrakeModeratelyInGreenBand PromptBox="1" Priority="0">BrakeModeratelyInGreenBand</BrakeModeratelyInGreenBand>
+            <BrakeToTargetSpeed PromptBox="2" Priority="0">BrakeToTargetSpeed</BrakeToTargetSpeed>
+            <FootOffBrake PromptBox="2" Priority="0">FootOffBrake</FootOffBrake>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+            <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
+            <ZeroSpeed PromptBox="1" Priority="0">ZeroSpeed</ZeroSpeed>
+        </Prompts>
+    </Setup>
+    <Objectives>
+        <BrakeTest>
+            <TestStep00>AccelerateToBrakeSpeed</TestStep00>
+            <TestStep05>DragTest</TestStep05>
+            <TestStep10>AnalyzeDragTest</TestStep10>
+            <!-- TestStep15>StopModuleKeepAlive</TestStep15 -->
+            <TestStep20>BrakeSwitchOffTest</TestStep20>
+            <TestStep30>BrakeTest</TestStep30>
+            <TestStep40>BrakeSwitchOnTest</TestStep40>
+        </BrakeTest>
+        <ABSBrakeTest>
+            <TestStep10>AccelerateToABSSpeed</TestStep10>
+            <TestStep20>Coast</TestStep20>
+            <TestStep30>BrakeToThreshhold</TestStep30>
+            <!--TestStep42>SendKeepAliveMessage</TestStep42-->
+            <TestStep35>StopModuleKeepAlive</TestStep35>
+            <TestStep45>DumpAndIsolateAllWheels</TestStep45>
+            <TestStep47>SendKeepAliveMessage</TestStep47>
+            <TestStep50>ValveFiringTest</TestStep50>
+            <TestStep52>SendKeepAliveMessage</TestStep52>
+            <TestStep55>RecoverAllWheels</TestStep55>
+        </ABSBrakeTest>
+        <AnalyzeBrakeTest>
+            <TestStep00>AnalyzeBrakeTest</TestStep00>
+            <TestStep05>AnalyzeBalance</TestStep05>
+            <TestStep10>EvaluateABS</TestStep10>
+        </AnalyzeBrakeTest>
+        <FinishUp>
+            <TestStep00>DisableForceMeter</TestStep00>
+            <TestStep05>StopModuleKeepAlive</TestStep05>
+            <TestStep10>ReadFaults</TestStep10>
+            <TestStep15>EnterNormalMode</TestStep15>
+            <TestStep20>FinishUp</TestStep20>
+        </FinishUp>
+        <SensorTest>
+            <TestStep05>IndividualSensorTest</TestStep05>
+        </SensorTest>
+        <Setup>
+            <TestStep00>Setup</TestStep00>
+            <!--TestStep20>EnterDiagnosticMode</TestStep20-->
+            <TestStep25>ClearFaults</TestStep25>
+        </Setup>
+        <StaticChecks>
+            <TestStep05>DetermineSystemConfiguration</TestStep05>
+            <TestStep10>Initialize</TestStep10>
+            <TestStep15>EnterNormalMode</TestStep15>
+            <!--TestStep30>EnterDiagnosticMode</TestStep30-->
+            <TestStep35>CheckPartNumber</TestStep35>
+            <TestStep40>DisableDiagnosticSpeedLimit</TestStep40>
+            <TestStep45>StartModuleKeepAlive</TestStep45>
+            <TestStep50>PreRollBrakePedalPrime</TestStep50>
+        </StaticChecks>
+        <PrimeAbs>
+            <!--TestStep00>EnterDiagnosticMode</TestStep00-->
+            <TestStep05>DisableDiagnosticSpeedLimit</TestStep05>
+            <TestStep10>StartModuleKeepAlive</TestStep10>
+            <TestStep15>PrimeAbs</TestStep15>
+            <TestStep20>EnterNormalMode</TestStep20>
+            <TestStep25>StopModuleKeepAlive</TestStep25>
+        </PrimeAbs>
+    </Objectives>
+    <TestSteps>
+        <AccelerateToBrakeSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
+        <AnalyzeBalance Result="Not Tested" Timeout="100" Description="Analyze brake force balance" FrontSideToSideBalance="10" AbortIfFailed="False"/>
+        <AnalyzeBrakeTest Result="Not Tested" Timeout="500" Description="Analyze brake forces" FrontMaxBrakeForce="800" FrontMinBrakeForce="350" AbortIfFailed="False"/>
+        <AnalyzeDragTest Result="Not Tested" Timeout="500" Description="Analyze drag force data" FrontMaxDragForce="90" AbortIfFailed="False"/>
+        <BrakeSwitchOffTest Result="Not Tested" Timeout="3000" Description="Verify the brake switch is in the off position" ScanDelay="100" AbortIfFailed="False"/>
+        <BrakeSwitchOnTest Result="Not Tested" Timeout="3000" Description="Verify the brake switch is in the on position" ScanDelay="100" AbortIfFailed="False"/>
+        <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" AbortIfFailed="True" StartBrakeSampleSpeed="67" EndBrakeSampleSpeed="10" BrakeDomain="0 1000" BrakeTarget="350 800"/>
+        <CheckPartNumber Result="Not Tested" Timeout="500" Description="Verify the module part number" AbortIfFailed="False"/>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
+        <CommTest Result="Not Tested" Timeout="100" Description="Eric Testing" AbortIfFailed="False"/>
+        <ConnectToModule Result="Not Tested" Timeout="100" Description="Connect to the ABS module on the vehicle" AbortIfFailed="True"/>
+        <DetermineSystemConfiguration Result="Not Tested" Timeout="100" Description="Check the ABS configuration" AbortIfFailed="False"/>
+        <DisableDiagnosticSpeedLimit Result="Not Tested" Timeout="500" Description="Disable Diagnostic Speed Limit" AbortIfFailed="True"/>
+        <DisableForceMeter Result="Not Tested" Timeout="1000" Description="Disable the brake force meter" AbortIfFailed="False"/>
+        <DragTest Result="Not Tested" Timeout="30000" Description="Measure vehicle drag forces" Prompt1="ShiftToNeutral" Prompt2="RemoveFootFromAccelerator" DragSpeed="68" DragDelay="1000" DragSamples="10" AbortIfFailed="True"/>
+        <DumpAndIsolateAllWheels Result="Not Tested" Timeout="1000" Description="Dump brake pressure at all wheels" AbortIfFailed="False"/>
+        <EnterDiagnosticMode Result="Not Tested" Timeout="500" Description="Place the module into diagnostic mode" AbortIfFailed="True"/>
+        <EnterNormalMode Result="Not Tested" Timeout="100" Description="Command the module to return to normal mode" AbortIfFailed="False"/>
+        <EvaluateABS Result="Not Tested" Timeout="100" Description="Analyze the ABS valve firing data" AbortIfFailed="False"/>
+        <FinishUp Result="Not Tested" Timeout="100" Description="Finish up the test component testing" AbortIfFailed="False"/>
+        <HighSpeedSensorTest Result="Not Tested" Timeout="30000" Description="Check the wheel speed sensors at high speed" ScanDelay="250" AbortIfFailed="False"/>
+        <IndividualSensorTest Result="Not Tested" Timeout="10000" Description="Check the wheel speed sensors at low speed" ScanDelay="250" AbortIfFailed="True"/>
+        <Initialize Result="Not Tested" Timeout="100" Description="Initialize the force thread and data arrays" ZerospeedPrompt="BrakeToStop" AbortIfFailed="True"/>
+        <ReadFaults Result="Not Tested" Timeout="1000" Description="Read faults from the module" AbortIfFailed="False"/>
+        <RecoverAllWheels Result="Not Tested" Timeout="1000" Description="Recover brake force at all wheels" AbortIfFailed="False"/>
+        <SendKeepAliveMessage Result="Not Tested" Timeout="100" Description="Send single keepalive message to module" AbortIfFailed="False"/>
+        <Setup Result="Not Tested" Timeout="100" Description="Setup the test component for testing" AbortIfFailed="False"/>
+        <StartModuleKeepAlive Result="Not Tested" Timeout="500" Description="Start sending keep alive messages" AbortIfFailed="False"/>
+        <StopModuleKeepAlive Result="Not Tested" Timeout="500" Description="Stop sending keep alive messages"/>
+        <ValveFiringTest Result="Not Tested" Timeout="10000" Description="Fire each ABS valve" Prompt1="MaintainBrake" AbortIfFailed="False"/>
+        <Coast Result="" Timeout="45000" Description="Coast down to speed" SpeedTarget="62 67" Prompt1="RemoveFootFromAccelerator" Prompt2="ShiftToNeutral" AbortIfFailed="False" CoastEndSpeed="65" ScanDelay="500"/>
+        <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
+        <BrakeToThreshhold Result="Not Tested" Timeout="10000" Description="Pre ABS start braking to min threshhold" Prompt1="BrakeModeratelyInGreenBand" AbortIfFailed="True" BrakeDomain="0 1000" BrakeTarget="200 800" MinimumThreshholdForce="200"/>
+        <PreRollBrakePedalPrime Result="" Timeout="60000" Description="Pre-roll brake pedal readiness" ScanDelay="250"/>
+        <PrimeAbs Result="" Timeout="30000" Description="Prime ABS system" ScanDelay="250"/>
+    </TestSteps>
+</Isuzu720AbsTc>

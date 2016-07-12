@@ -1,6 +1,5 @@
 #------------------------------------------------------------------------------------------
 # Tell CMake where to install config files
 #------------------------------------------------------------------------------------------
-INSTALL_FILES(${MACHINE_CONFIG_DIR} FILES
-	      Isuzu.ABMotorControllerConfig.xml
-              Isuzu.Charlotte.508702.ABMotorControllerConfig.xml)
+INSTALL_FILES(${CUSTOMER_SERVICES_CFG_DEPLOY_DIR} FILES 
+	Isuzu.Charlotte.508702.SideSlipResultServerConfig.xml)

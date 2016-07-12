@@ -6,9 +6,11 @@ INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Emissions FILES
 	IsuzuEmissionsTc.xml
 	My13IsuzuEmissionsTc.xml
 	My14IsuzuEmissionsTc.xml
+        My17IsuzuEmissionsTc.xml
 	PIMTc.xml
 	EmissionsFaults.xml
 	My13EmissionsFaults.xml
 	My14EmissionsFaults.xml
+        My17EmissionsFaults.xml
 	)
 	

@@ -223,10 +223,16 @@ const string Isuzu720AbsTc<ModuleInterface>::AnalyzeDynamicParkBrake(void)
 		try
 		{	// if data sampled correctly display driver prompts if desired
 			UpdatePrompts();
-			SetTestStepInfoValue("FrontMinForce", GetParameter("DynamicParkBrakeFrontMinForce"));
-			SetTestStepInfoValue("FrontMaxForce", GetParameter("DynamicParkBrakeFrontMaxForce"));
-			SetTestStepInfoValue("RearMinForce", GetParameter("DynamicParkBrakeRearMinForce"));
-			SetTestStepInfoValue("RearMaxForce", GetParameter("DynamicParkBrakeRearMaxForce"));
+            if(!GetParameterBool("SingleAxleMachine") || (GetParameterBool("SingleAxleMachine") && ReadSubscribeData("FrontAxleTestSelected") == "1"))
+            {
+			    SetTestStepInfoValue("FrontMinForce", GetParameter("DynamicParkBrakeFrontMinForce"));
+			    SetTestStepInfoValue("FrontMaxForce", GetParameter("DynamicParkBrakeFrontMaxForce"));
+            }
+            if(!GetParameterBool("SingleAxleMachine") || (GetParameterBool("SingleAxleMachine") && ReadSubscribeData("FrontAxleTestSelected") == "0"))
+            {
+			    SetTestStepInfoValue("RearMinForce", GetParameter("DynamicParkBrakeRearMinForce"));
+			    SetTestStepInfoValue("RearMaxForce", GetParameter("DynamicParkBrakeRearMaxForce"));
+            }
 			// Analyze the data
 			status = AnalyzeParkBrakeForces(m_dynParkBrakeStart, m_dynParkBrakeStop);
 		}
@@ -272,7 +278,7 @@ INT32 Isuzu720AbsTc<ModuleInterface>::AnalyzeParkBrakeForces(INT32 brakeStart, I
 	if(BEP_STATUS_SUCCESS == testStatus)
 	{	// Check all wheels.  There is no park brake on the front wheels, so force should not be more than
 		// normal drag.
-		for(roller=LFWHEEL; roller<=RRWHEEL; roller++)
+		for(roller=LFWHEEL; roller<GetRollerCount(); roller++)
 		{	// calculate the average forces and validate the results
 			const DATAARRAY &forceArray = wheelForceArray[roller];
 			if( forceArray.size() > 0)
@@ -430,7 +436,7 @@ string Isuzu720AbsTc<ModuleInterface>::IndividualSensorTest(void)
 		// Make sure it is still OK to continue with the test
 		if(!brakeOn && (BEP_STATUS_SUCCESS == StatusCheck()))
 		{	// Get individual wheel speed from config to send to motor controller instead of above (one speed for all axles)
-			for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= RRWHEEL) && (BEP_STATUS_SUCCESS == StatusCheck()); rollerIndex++)
+			for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= GetWheelCount()) && (BEP_STATUS_SUCCESS == StatusCheck()); rollerIndex++)
 			{
 				m_MotorController.Write(rollerName[rollerIndex]+"SpeedValue", GetParameter("Individual" + rollerName[rollerIndex] + "SensorTestSpeed"), true);
 			}
@@ -451,14 +457,14 @@ string Isuzu720AbsTc<ModuleInterface>::IndividualSensorTest(void)
 				float maxSpeeds[GetRollerCount()];
 				float minSpeeds[GetRollerCount()];
 				string indResults[GetRollerCount()];	//ERIC: NOT SURE IF I SHOULD HARD CODE A 4 OR LOOP TILL GetRollerCount()
-				for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= RRWHEEL) && (BEP_STATUS_SUCCESS == StatusCheck()); rollerIndex++)
+				for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= GetWheelCount()) && (BEP_STATUS_SUCCESS == StatusCheck()); rollerIndex++)
 				{
 					maxSpeeds[rollerIndex] = rollerSpeeds[rollerIndex] * (1.0 + (GetParameterFloat("IndividualSensorSpeedTolerance") / 100.0));
 					minSpeeds[rollerIndex] = rollerSpeeds[rollerIndex] * (1.0 - (GetParameterFloat("IndividualSensorSpeedTolerance") / 100.0));
 					sensorResult[rollerIndex] = (rollerSpeeds[rollerIndex] >= (GetParameterFloat("Individual" + rollerName[rollerIndex] + "SensorTestSpeed") - 1.0)) ? testPass : testFail;
 				}
 
-				for(UINT8 wheel = LFWHEEL; (wheel <= RRWHEEL) && (BEP_STATUS_SUCCESS == StatusCheck()); wheel++)
+				for(UINT8 wheel = LFWHEEL; (wheel <= GetWheelCount()) && (BEP_STATUS_SUCCESS == StatusCheck()); wheel++)
 				{
 					if(!sensorResult[wheel].compare(testPass))
 					{
@@ -491,7 +497,7 @@ string Isuzu720AbsTc<ModuleInterface>::IndividualSensorTest(void)
 			RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
 			RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
 			// Set the motor back to boost and zero speed
-			for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= RRWHEEL); rollerIndex++)
+			for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= GetWheelCount()); rollerIndex++)
 			{
 				m_MotorController.Write(rollerName[rollerIndex]+"SpeedValue", "0", true);
 			}

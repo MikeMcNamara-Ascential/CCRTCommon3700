@@ -2,5 +2,6 @@
 # Tell CMake where to install config files
 #------------------------------------------------------------------------------------------
 INSTALL_FILES(${CUSTOMER_SERVICES_CFG_DEPLOY_DIR} FILES 
-	Isuzu.SystemMonitorConfig.xml)
+	Isuzu.Charlotte.508702.SystemMonitorConfig.xml
+        Isuzu.SystemMonitorConfig.xml)
 

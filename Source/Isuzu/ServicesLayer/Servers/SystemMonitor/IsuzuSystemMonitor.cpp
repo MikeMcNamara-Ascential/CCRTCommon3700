@@ -79,7 +79,9 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
             // Load the build data
             CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1"));
 			BposSleep(1000);   // Wait for the build data to be processed
-            AdjustWheelbase();
+            //If not a Single Axle Machine
+            if(GetDataTag("SingleAxleMachine").compare("True") != 0)
+                AdjustWheelbase();
             // Prepare the input server
             if(ctrl->inputServerState != INPUT_SERVER_TEST_RESULT_STATE)
             {
@@ -122,7 +124,9 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
             // Read the build data in case the operator did not lower the rollers
             CommandNdbData(string(READ_LATEST_BUILD_DATA_TAG), string("1"));
             BposSleep(1000);   // Wait for the build data to be processed
-			AdjustWheelbase();
+			//If not a Single Axle Machine
+            if(GetDataTag("SingleAxleMachine").compare("True") != 0)
+                AdjustWheelbase();
             // Start the vehicle test
             CommandNdbData(string(START_VEHICLE_TEST_DATA_TAG), string("1"));
             RemovePrompt(2, "GoodScan", "white");

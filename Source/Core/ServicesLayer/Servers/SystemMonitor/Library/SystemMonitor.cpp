@@ -848,9 +848,9 @@ const std::string SystemMonitor::Publish(const XmlNode *node)
                 Log(LOG_DEV_DATA, "SystemMonitor not responsible for adjusting Front Reduction Pressure, ignoring FrontReductionPressure publish!\n");
             }
         }
-        else if (node->getName() == "WheelbasePositionInchesX10")
+        else if (node->getName() == "WheelbasePositionInchesX10" && GetDataTag("SingleAxleMachine").compare("1") != 0)
         {
-            if (GetSystemMonitorWheelbaseAdjust())
+            if (GetSystemMonitorWheelbaseAdjust() && ReadSubscribeData(VIN_READ_STATUS_TAG) == VALID_VEHICLE_VIN)
             {
                 Log(LOG_DEV_DATA,"Wheelbase/Setup received telling PLC to adjust");
                 StartWheelbaseAdjust();
@@ -932,6 +932,12 @@ const INT32 SystemMonitor::HandlePulse(const INT32 code, const INT32 value)
             break;
         case STOP_WB_ADJUST_PULSE:
             StopWheelbaseAdjust();         // Make sure to disable the start wheelbase adjust
+            break;
+        case STOP_FRONT_CRADLE_ADJUST_PULSE:
+            StopFrontCradleAdjust();         // Make sure to disable the start wheelbase adjust
+            break;
+        case STOP_REAR_CRADLE_ADJUST_PULSE:
+            StopRearCradleAdjust();         // Make sure to disable the start wheelbase adjust
             break;
         case STOP_RERELAX_RETROLLS_PULSE:
             StopReRelaxRetRollsPulse();    // Make sure to disable the start ReRelaxRetRolls pulse

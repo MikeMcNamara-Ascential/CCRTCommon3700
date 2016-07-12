@@ -184,9 +184,8 @@ protected:
     */
    virtual BEP_STATUS_TYPE AnalyzeESPReductionForces(INT32 roller, INT32 start, INT32 end);
 
-   virtual string PerformModuleLinkup(void);
 
-   //virtual string EnterDiagnosticMode(void);
+   virtual string PerformModuleLinkup(void);
 
     string TcValveFiringTest(void);
 
@@ -195,6 +194,12 @@ protected:
     string WarningLight(void);
 
     void InitializeHook(const XmlNode *config);
+
+    virtual string CheckPerformAbs(void);
+
+    bool m_performAbsTests;
+    bool m_performEscTests;
+
 };
 
 //-----------------------------------------------------------------------------

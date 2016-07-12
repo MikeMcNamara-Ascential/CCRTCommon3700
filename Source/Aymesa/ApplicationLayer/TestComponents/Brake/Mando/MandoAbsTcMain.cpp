@@ -23,44 +23,61 @@
 #include "MandoAbsTc.cpp"
 #include "MandoAbsModule.cpp"
 #include "IsoProtocolFilter.h"
+#include "KeywordProtocolFilter.h"
 
 int main(int argc, char *argv[])
 {   // command line processor
-    CmdLineProcessor clp;               
+    CmdLineProcessor clp; 
+    XmlParser parser;
     GenericTC *brakeTest;
-    
     try
     {   // parse the command line
         clp.ParseArguments(argc, argv);     
         // Set the pointer to NULL
         brakeTest = NULL;
-        // create a Mando 8 component object
-        if(clp.IsDebugOn()) printf("Creating the Mando ABS Test Component\n");
-        brakeTest = new MandoAbsTc<MandoAbsModule<IsoProtocolFilter> >;
+        // Get the config file
+        const XmlNode *config = parser.ReturnXMLDocument(clp.GetConfigFile());
+        // Determine what type of test component to instantiate
+        string commProtocol = config->getChild("Setup/CommunicationProtocol")->getValue();
+        if (commProtocol == "KeywordProtocol2000")
+        {   // create a Mando ABS component object
+            if (clp.IsDebugOn()) printf("Creating The Mando MGH-80 Test Component\n");
+            brakeTest = new MandoAbsTc<MandoAbsModule<KeywordProtocolFilter> >;
+        }
+
+        else if (commProtocol == "IsoProtocolFilter")
+        {
+            if (clp.IsDebugOn()) printf("Creating The Mando MGH-60 Test Component\n");
+            brakeTest = new MandoAbsTc<MandoAbsModule<IsoProtocolFilter> >;
+        }
+
+        else
+        {   // Unknown protocol type
+            printf("Could not create Mando ABS test component - Unsupported protocol type: %s\n", commProtocol.c_str());
+        }
         // Check if we should perform the test
         if (brakeTest != NULL)
         {   // Initialize the new test component
-            if(clp.IsDebugOn()) printf("Initializing the Mando ABS Component\n");
+            if (clp.IsDebugOn()) printf("Initializing The Mando ABS Component\n");
             brakeTest->Initialize(clp.GetConfigFile());
-            if(clp.IsDebugOn()) printf("Mando 8 ABS Component Running\n");
+            if (clp.IsDebugOn()) printf("Mando ABS Component Running\n");
             // process until terminated
             brakeTest->Run();
         }
     }
-    catch(XmlException &XmlErr)
+    catch (XmlException &XmlErr)
     {
-        printf("Mando 8 ABS -%s: XmlExcpetion: %s", clp.GetConfigFile().c_str(), XmlErr.what());
+        printf("MandoABS -%s: XmlExcpetion: %s", clp.GetConfigFile().c_str(), XmlErr.what());
     }
-    catch(BepException &BepErr)
+    catch (BepException &BepErr)
     {
-        printf("Mando 8 ABS -%s: BepExcpetion: %s", clp.GetConfigFile().c_str(), BepErr.what());
+        printf("MandoABS -%s: BepExcpetion: %s", clp.GetConfigFile().c_str(), BepErr.what());
     }
-    catch(...)
+    catch (...)
     {
-        printf("Mando 8 ABS -%s: Unknown Exception\n", clp.GetConfigFile().c_str());
+        printf("MandoABS -%s: Unknown Exception\n", clp.GetConfigFile().c_str());
     }
-
-    if(clp.IsDebugOn())
+    if (clp.IsDebugOn())
         printf("Mando 8 ABS (%d, %s): Terminating\n", BposGetMyTaskId(), clp.GetConfigFile().c_str());
     // Make sure to delete the test component
     if (brakeTest != NULL)   delete brakeTest;

@@ -1,6 +1,6 @@
 <Mando8AbsModule>
 	<Setup>
-		<CommunicationProtocol>KeywordProtocolFilter</CommunicationProtocol>
+		<CommunicationProtocol>IsoProtocolFilter</CommunicationProtocol>
 		<ModuleKeepAliveTime>250</ModuleKeepAliveTime>
 		<KeepAliveResponseRequired>No</KeepAliveResponseRequired>
 		<KeepAlivePriority>10</KeepAlivePriority>

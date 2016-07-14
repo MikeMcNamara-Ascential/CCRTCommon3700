@@ -186,7 +186,8 @@
 			<FrontToRearBalanceUseFront>0</FrontToRearBalanceUseFront>
 			<ForceFourChannelSystem>1</ForceFourChannelSystem>
 			<SkipValveCrossAnalysis>0</SkipValveCrossAnalysis>
-			<PerformReductionBeforeRecovery>1</PerformReductionBeforeRecovery>
+			<PerformReductionBeforeRecovery>0</PerformReductionBeforeRecovery>
+			<!--PerformReductionBeforeRecovery>1</PerformReductionBeforeRecovery-->
 			<CollectSensorSpeedData>0</CollectSensorSpeedData>
 			<BrakeForceStabilizeTime>500</BrakeForceStabilizeTime>
 			<HoldReduction>0</HoldReduction>

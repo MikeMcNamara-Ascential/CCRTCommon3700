@@ -97,7 +97,9 @@ BEP_STATUS_TYPE MandoAbsModule<ProtocolFilter>::PerformFastInitWakeup(void)
         bool initSequenceSuccess = false;
         Log(LOG_DEV_DATA, "Locked The Port");
         try
-        {   // send the message
+        {   
+            m_protocolFilter->ResetConnection();
+            // send the message
             Log(LOG_DEV_DATA, "Sending %s message", messageTag.c_str());
             if(m_protocolFilter->GetMessage(messageTag,asciiMessage) == BEP_STATUS_SUCCESS)
             {   // Convert the message to binary

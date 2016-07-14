@@ -23,7 +23,7 @@
 #include "MandoAbsTc.cpp"
 #include "MandoAbsModule.cpp"
 #include "IsoProtocolFilter.h"
-#include "KeywordProtocolFilter.h"
+#include "DcxCANKeyword2000ProtocolFilter.h"
 
 int main(int argc, char *argv[])
 {   // command line processor
@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
         if (commProtocol == "KeywordProtocol2000")
         {   // create a Mando ABS component object
             if (clp.IsDebugOn()) printf("Creating The Mando MGH-80 Test Component\n");
-            brakeTest = new MandoAbsTc<MandoAbsModule<KeywordProtocolFilter> >;
+            brakeTest = new MandoAbsTc<MandoAbsModule<DcxCANKeyword2000ProtocolFilter> >;
         }
 
         else if (commProtocol == "IsoProtocolFilter")

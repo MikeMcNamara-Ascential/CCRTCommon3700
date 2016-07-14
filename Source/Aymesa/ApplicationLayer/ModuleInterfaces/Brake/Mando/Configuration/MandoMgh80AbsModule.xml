@@ -10,10 +10,12 @@
         <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
         <ResponsePendingReads>3</ResponsePendingReads>
         <ModuleRequestID>0x7D1</ModuleRequestID>
+
         <DataByteCountIndex>3</DataByteCountIndex>
         <DataStartIndex>6</DataStartIndex>
         <DataHeaderLength>2</DataHeaderLength>
         <CheckSumLength>1</CheckSumLength>
+
         <NumberOfRetries>3</NumberOfRetries>
         <ValidResponseOffset>0x40</ValidResponseOffset>
         <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>

@@ -62,7 +62,7 @@
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Serial Communication Server</SerialServer>
 
         <PLC Name="PlcMgr.qxe" Path="/ServicesLayer/Bin/" 
-            ConfigFile="SerialPlcConfig.xml" ConfigPath="/Configuration/Servers/" 
+            ConfigFile="EipPlcConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0010" RegisteredName="mgr/PLC" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="0">Programmable Logic Controller</PLC>
 

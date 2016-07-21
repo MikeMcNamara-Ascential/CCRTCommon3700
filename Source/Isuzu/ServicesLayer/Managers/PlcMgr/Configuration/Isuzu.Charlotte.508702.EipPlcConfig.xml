@@ -13,7 +13,28 @@
         <Demo>0</Demo>
         <PlcBoards>
             <!--'active' attribute must be Yes or No (case sensitive)-->
-            <MainDf1Plc type="Df1" index="0" active="Yes">
+            <MainEipPlc type="Eip" index="0" active="Yes">
+                <LogicalPort>192.168.1.5</LogicalPort>
+                <Setup>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>mgr/EipPlc</ProcessName>
+                        <AdditionalLogFile Types="/Servers/PLC or Disabled">/Servers/EipPlc.log</AdditionalLogFile>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Debug>Off</Debug>
+                        <Verbose>0x3F</Verbose>
+                    </Logging>
+                </Setup>
+                <BlockSize>504</BlockSize>
+                <Inputs>
+                    <Address>N17</Address>
+                </Inputs>
+                <Outputs>
+                    <Address>N16</Address>
+                </Outputs>
+                <ScanTime>50</ScanTime>
+            </MainEipPlc>
+            <MainDf1Plc type="Df1" index="0" active="No">
                 <LogicalPort>PlcDf1</LogicalPort>
                 <Setup>
                     <Logging>

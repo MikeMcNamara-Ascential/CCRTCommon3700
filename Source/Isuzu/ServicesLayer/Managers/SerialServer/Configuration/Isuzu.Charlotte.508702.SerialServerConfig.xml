@@ -119,7 +119,7 @@
                 </Setup>
             </GryphonJ1850>
 
-            <PlcDf1 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <PlcDf1 enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/ser1</SerialDevice>
                     <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>

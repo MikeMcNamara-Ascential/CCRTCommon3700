@@ -1025,7 +1025,7 @@ const string LossCompensationTC::TwoMotorAccelerate(void)
             m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
             // Force to Rear Wheel Driver so the rear will spin first
             SystemWrite(DRIVE_AXLE_TAG, string(FRONT_WHEEL_DRIVE_VALUE));
-            sBposSleep(1000);   //Wait for the relay to switch
+            BposSleep(1000);   //Wait for the relay to switch
             float calSpeed = GetTestStepInfoFloat("LCArmSpeed");
             float calibrationArmSpeed = calSpeed + GetParameterFloat("TwoMotorAccelerateOffset");
             char buff[16];

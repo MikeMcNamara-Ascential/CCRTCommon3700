@@ -88,9 +88,12 @@
 				</Folder>
 				<Folder Name="EngineController">
 					<Folder Name="Configuration">
+						<F N="ApplicationLayer/ModuleInterfaces/EngineController/Configuration/BoschDCUModuleConfig.xml"/>
 						<F N="ApplicationLayer/ModuleInterfaces/EngineController/Configuration/CMakeLists.txt"/>
 						<F N="ApplicationLayer/ModuleInterfaces/EngineController/Configuration/IsuzuEngineControllerModule.xml"/>
+						<F N="ApplicationLayer/ModuleInterfaces/EngineController/Configuration/IsuzuEngineControllerModule_MY17.xml"/>
 						<F N="ApplicationLayer/ModuleInterfaces/EngineController/Configuration/IsuzuPIM.xml"/>
+						<F N="ApplicationLayer/ModuleInterfaces/EngineController/Configuration/IsuzuPIM_MY17.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/ModuleInterfaces/EngineController/CMakeLists.txt"/>
 					<F N="ApplicationLayer/ModuleInterfaces/EngineController/IsuzuEngineControlModule.cpp"/>
@@ -110,6 +113,18 @@
 				</Folder>
 				<F N="ApplicationLayer/ModuleInterfaces/CMakeLists.txt"/>
 			</Folder>
+			<Folder Name="ProtocolFilters">
+				<Folder Name="Isuzu">
+					<F
+						N="ApplicationLayer/ProtocolFilters/Isuzu/CMakeLists.txt"
+						Type="Makefile"/>
+					<F N="ApplicationLayer/ProtocolFilters/Isuzu/IsuzuCommonInfoProtocolFilter.cpp"/>
+					<F N="ApplicationLayer/ProtocolFilters/Isuzu/IsuzuCommonInfoProtocolFilter.h"/>
+				</Folder>
+				<F
+					N="ApplicationLayer/ProtocolFilters/CMakeLists.txt"
+					Type="Makefile"/>
+			</Folder>
 			<Folder Name="TestComponents">
 				<Folder Name="Axle">
 					<Folder Name="Configuration">
@@ -126,6 +141,8 @@
 						<Folder Name="Configuration">
 							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/CMakeLists.txt"/>
 							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/Isuzu.BaseBrakeTc.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/Isuzu.FrontAxleBaseBrakeTc.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/Configuration/Isuzu.RearAxleBaseBrakeTc.xml"/>
 						</Folder>
 						<F N="ApplicationLayer/TestComponents/Brake/BaseBrake/CMakeLists.txt"/>
 					</Folder>
@@ -134,6 +151,8 @@
 							<F N="ApplicationLayer/TestComponents/Brake/Isuzu720Abs/Configuration/BrakeFaultList.xml"/>
 							<F N="ApplicationLayer/TestComponents/Brake/Isuzu720Abs/Configuration/CMakeLists.txt"/>
 							<F N="ApplicationLayer/TestComponents/Brake/Isuzu720Abs/Configuration/Isuzu720AbsTc.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Isuzu720Abs/Configuration/Isuzu720FrontAxleAbsTc.xml"/>
+							<F N="ApplicationLayer/TestComponents/Brake/Isuzu720Abs/Configuration/Isuzu720RearAxleAbsTc.xml"/>
 						</Folder>
 						<F N="ApplicationLayer/TestComponents/Brake/Isuzu720Abs/CMakeLists.txt"/>
 						<F N="ApplicationLayer/TestComponents/Brake/Isuzu720Abs/Isuzu720AbsTc.cpp"/>
@@ -144,6 +163,7 @@
 				</Folder>
 				<Folder Name="Emissions">
 					<Folder Name="Configuration">
+						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/BoschDCUTc.xml"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/CMakeLists.txt"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/EmissionsFaults.xml"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/IsuzuEmissionsTc.xml"/>
@@ -151,6 +171,9 @@
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My13IsuzuEmissionsTc.xml"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My14EmissionsFaults.xml"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My14IsuzuEmissionsTc.xml"/>
+						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My17DCUFaults.xml"/>
+						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My17EmissionsFaults.xml"/>
+						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/My17IsuzuEmissionsTc.xml"/>
 						<F N="ApplicationLayer/TestComponents/Emissions/Configuration/PIMTc.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/TestComponents/Emissions/BackgroundRangeCheckMonitor.cpp"/>
@@ -211,13 +234,19 @@
 					<Folder Name="DriveCurves">
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/BaseBrakeDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/CMakeLists.txt"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/FrontAxleBaseBrakeDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Isuzu.DriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Isuzu.LossCompensationDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/Isuzu.StaticBrakeDriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/My13Isuzu.DriveCurve.xml"/>
 						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/My14Isuzu.DriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/My17Isuzu.DriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/My17Isuzu.FrontAxleDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/My17Isuzu.RearAxleDriveCurve.xml"/>
+						<F N="ApplicationLayer/VehicleTest/Configuration/DriveCurves/RearAxleBaseBrakeDriveCurve.xml"/>
 					</Folder>
 					<F N="ApplicationLayer/VehicleTest/Configuration/CMakeLists.txt"/>
+					<F N="ApplicationLayer/VehicleTest/Configuration/Isuzu.Charlotte.508702.SelectionTable.xml"/>
 					<F N="ApplicationLayer/VehicleTest/Configuration/Isuzu.SelectionTable.xml"/>
 					<F N="ApplicationLayer/VehicleTest/Configuration/Isuzu.VehicleTestConfig.xml"/>
 				</Folder>
@@ -624,6 +653,8 @@
 						<Folder Name="conf">
 							<F N="Burke_PorterCCRT/resources/local/httproot/conf/ipaq.xml"/>
 						</Folder>
+						<F N="Burke_PorterCCRT/resources/local/httproot/ipaq-home.html"/>
+						<F N="Burke_PorterCCRT/resources/local/httproot/stream_frame.html"/>
 					</Folder>
 					<Folder Name="ndbconfig">
 						<F N="Burke_PorterCCRT/resources/local/ndbconfig/NDBConfig.xml"/>
@@ -866,6 +897,82 @@
 						</Folder>
 					</Folder>
 				</Folder>
+				<Folder Name="Setup">
+					<Folder Name="Setup">
+						<Folder Name="Express">
+							<Folder Name="DVD-5">
+								<Folder Name="LogFiles">
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 05-02-46 PM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 05-03-24 PM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 05-13-48 PM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 09-00-53 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 09-01-42 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 09-06-45 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 09-08-33 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 09-09-33 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-11-2013 09-30-45 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-12-2013 03-51-09 PM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-12-2013 04-12-30 PM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-12-2013 04-20-51 PM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-12-2013 04-31-43 PM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-12-2013 04-37-19 PM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-13-2013 09-35-46 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-13-2013 09-47-24 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-13-2013 09-56-06 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/11-15-2013 09-00-56 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/6-23-2014 08-28-25 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/7-10-2014 09-58-11 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/7-9-2014 11-00-07 AM.txt"
+										Type="Makefile"/>
+									<F
+										N="FlashStation/FlashStation/Setup/Setup/Express/DVD-5/LogFiles/7-9-2014 11-09-02 AM.txt"
+										Type="Makefile"/>
+								</Folder>
+							</Folder>
+						</Folder>
+					</Folder>
+				</Folder>
 			</Folder>
 			<Folder Name="UtilityFileInterpreter">
 				<Folder Name="UtilityFileInterpreter">
@@ -909,12 +1016,15 @@
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Managers/ICM/Configuration/CMakeLists.txt"/>
 						<F N="ServicesLayer/Managers/ICM/Configuration/Isuzu.Charlotte.507382.IpIcmConfig.xml"/>
+						<F N="ServicesLayer/Managers/ICM/Configuration/Isuzu.Charlotte.508702.IpIcmConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Managers/ICM/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="PlcMgr">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Managers/PlcMgr/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/Isuzu.Charlotte.508702.EipPlcConfig.xml"/>
+						<F N="ServicesLayer/Managers/PlcMgr/Configuration/Isuzu.EipPlcConfig.xml"/>
 						<F N="ServicesLayer/Managers/PlcMgr/Configuration/Isuzu.SerialPlcConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Managers/PlcMgr/CMakeLists.txt"/>
@@ -922,6 +1032,7 @@
 				<Folder Name="SerialServer">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Managers/SerialServer/Configuration/Isuzu.Charlotte.508702.SerialServerConfig.xml"/>
 						<F N="ServicesLayer/Managers/SerialServer/Configuration/Isuzu.SerialServerConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Managers/SerialServer/CMakeLists.txt"/>
@@ -929,16 +1040,59 @@
 				<F N="ServicesLayer/Managers/CMakeLists.txt"/>
 			</Folder>
 			<Folder Name="Servers">
+				<Folder Name="AuxResultServer">
+					<Folder Name="Include">
+						<F N="ServicesLayer/Servers/AuxResultServer/Include/AuxResultFieldList.h"/>
+						<F N="ServicesLayer/Servers/AuxResultServer/Include/AuxResultReceiverThread.h"/>
+						<F N="ServicesLayer/Servers/AuxResultServer/Include/AuxResultServer.h"/>
+					</Folder>
+					<Folder Name="Library">
+						<F N="ServicesLayer/Servers/AuxResultServer/Library/AuxResultFieldList.cpp"/>
+						<F N="ServicesLayer/Servers/AuxResultServer/Library/AuxResultReceiverThread.cpp"/>
+						<F N="ServicesLayer/Servers/AuxResultServer/Library/AuxResultServer.cpp"/>
+						<F
+							N="ServicesLayer/Servers/AuxResultServer/Library/CMakeLists.txt"
+							Type="Makefile"/>
+					</Folder>
+					<Folder Name="SideSlipResultServer">
+						<Folder Name="Configuration">
+							<F
+								N="ServicesLayer/Servers/AuxResultServer/SideSlipResultServer/Configuration/CMakeLists.txt"
+								Type="Makefile"/>
+							<F N="ServicesLayer/Servers/AuxResultServer/SideSlipResultServer/Configuration/Isuzu.Charlotte.508702.SideSlipResultServerConfig.xml"/>
+						</Folder>
+						<F
+							N="ServicesLayer/Servers/AuxResultServer/SideSlipResultServer/CMakeLists.txt"
+							Type="Makefile"/>
+						<F N="ServicesLayer/Servers/AuxResultServer/SideSlipResultServer/SideSlipResultServer.cpp"/>
+						<F N="ServicesLayer/Servers/AuxResultServer/SideSlipResultServer/SideSlipResultServer.h"/>
+						<F N="ServicesLayer/Servers/AuxResultServer/SideSlipResultServer/SideSlipResultServerMain.cpp"/>
+					</Folder>
+					<F
+						N="ServicesLayer/Servers/AuxResultServer/CMakeLists.txt"
+						Type="Makefile"/>
+				</Folder>
 				<Folder Name="InputServer">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/InputServer/Configuration/CMakeLists.txt"/>
 						<F N="ServicesLayer/Servers/InputServer/Configuration/Isuzu.InputServerConfig.xml"/>
+					</Folder>
+					<Folder Name="Include">
+						<F N="ServicesLayer/Servers/InputServer/Include/VINStamperMgr.h"/>
+					</Folder>
+					<Folder Name="VINStamperMgr">
+						<F
+							N="ServicesLayer/Servers/InputServer/VINStamperMgr/CMakeLists.txt"
+							Type="Makefile"/>
+						<F N="ServicesLayer/Servers/InputServer/VINStamperMgr/VINStamperMgr.cpp"/>
+						<F N="ServicesLayer/Servers/InputServer/VINStamperMgr/VINStamperMgrMain.cpp"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/InputServer/CMakeLists.txt"/>
 				</Folder>
 				<Folder Name="Launcher">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/Launcher/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/Launcher/Configuration/Isuzu.Charlotte.508702.LauncherConfig.xml"/>
 						<F N="ServicesLayer/Servers/Launcher/Configuration/Isuzu.LauncherConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/Launcher/CMakeLists.txt"/>
@@ -946,6 +1100,7 @@
 				<Folder Name="MachineDataBroker">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/Isuzu.Charlotte.508702.MachineDataBrokerConfig.xml"/>
 						<F N="ServicesLayer/Servers/MachineDataBroker/Configuration/Isuzu.MachineDataBroker3600Config.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/MachineDataBroker/CMakeLists.txt"/>
@@ -955,6 +1110,7 @@
 						<Folder Name="Configuration">
 							<F N="ServicesLayer/Servers/MotorController/AB/Configuration/CMakeLists.txt"/>
 							<F N="ServicesLayer/Servers/MotorController/AB/Configuration/Isuzu.ABMotorControllerConfig.xml"/>
+							<F N="ServicesLayer/Servers/MotorController/AB/Configuration/Isuzu.Charlotte.508702.ABMotorControllerConfig.xml"/>
 						</Folder>
 						<F N="ServicesLayer/Servers/MotorController/AB/CMakeLists.txt"/>
 					</Folder>
@@ -963,6 +1119,7 @@
 				<Folder Name="NamedDataBroker">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/NamedDataBroker/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/NamedDataBroker/Configuration/Isuzu.Charlotte.508702.NDBConfig.xml"/>
 						<F N="ServicesLayer/Servers/NamedDataBroker/Configuration/Isuzu.NDBConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/NamedDataBroker/CMakeLists.txt"/>
@@ -989,6 +1146,7 @@
 				<Folder Name="SystemMonitor">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/Isuzu.Charlotte.508702.SystemMonitorConfig.xml"/>
 						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/Isuzu.SystemMonitorConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/SystemMonitor/CMakeLists.txt"/>
@@ -1006,9 +1164,13 @@
 				<Folder Name="VehicleDataBroker">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/CMakeLists.txt"/>
+						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/Isuzu.Charlotte.508702.VehicleDataBrokerConfig.xml"/>
 						<F N="ServicesLayer/Servers/VehicleDataBroker/Configuration/Isuzu.VehicleDataBrokerConfig.xml"/>
 					</Folder>
 					<F N="ServicesLayer/Servers/VehicleDataBroker/CMakeLists.txt"/>
+					<F N="ServicesLayer/Servers/VehicleDataBroker/IsuzuVehicleDataBroker.cpp"/>
+					<F N="ServicesLayer/Servers/VehicleDataBroker/IsuzuVehicleDataBroker.h"/>
+					<F N="ServicesLayer/Servers/VehicleDataBroker/IsuzuVehicleDataBrokerMain.cpp"/>
 				</Folder>
 				<F N="ServicesLayer/Servers/CMakeLists.txt"/>
 			</Folder>

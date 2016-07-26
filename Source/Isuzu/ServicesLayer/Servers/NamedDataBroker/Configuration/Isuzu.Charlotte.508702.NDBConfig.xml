@@ -622,6 +622,7 @@
                 <MaxRollerSpeed DataType="float" Units="MPH">MachineDataBroker</MaxRollerSpeed>
                 <MetricSelect DataType="string">VehicleDataBroker</MetricSelect>
                 <MetricSelectBGColor DataType="color">VehicleDataBroker</MetricSelectBGColor>
+                <MimamoriCableConnect DataType="bool">PLC</MimamoriCableConnect>
                 <MinimumBoostPressure DataType="short" Units="PSI">PLC</MinimumBoostPressure>
                 <ModelYear DataType="string">VehicleDataBroker</ModelYear>
                 <ModelYearBGColor DataType="color">VehicleDataBroker</ModelYearBGColor>

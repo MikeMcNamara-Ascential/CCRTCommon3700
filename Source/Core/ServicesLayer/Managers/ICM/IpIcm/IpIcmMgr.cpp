@@ -296,8 +296,27 @@ void IpIcmMgr::Initialize(const XmlNode *document)
 		// Read general config (for all ICM boards we manage)
 		ResManagerXml::Initialize( document);
 
+        // Over-ride the default roller count calculation
+        bool override = false;
+        string rollerCount("4");
+        try
+        {
+            Log(LOG_ERRORS, "Attempting to overriding roller count\n");
+            rollerCount = document->getChild("Setup/RollerCount")->getValue();
+            override = true;
+            Log(LOG_ERRORS, "Overriding roller count to %s\n", rollerCount.c_str());
+        }
+        catch (XmlException &excpt)
+        {
+            Log(LOG_ERRORS, "Default roller count not specified, using ICM board count to determine number of rollers");
+            override = false;
+        }
+        OverrideRollerCountCalc(&override);
+        OverrideRollerCount(&rollerCount);
+
 		// Load losses from file
 		LoadMachineLosses();
+        
 	}
 	catch(XmlException &err)
 	{
@@ -687,8 +706,15 @@ const std::string IpIcmMgr::Read(const XmlNode *node, const INT32 rate)
 	if(tag == m_tagList[ ROLLER_COUNT_NAME])
 	{
 		// If 2 boards present
-		if(m_icmIps.size() == 2)   retVal = "6";
-		else						retVal = "4";
+        if (OverrideRollerCountCalc())
+        {
+            retVal = OverrideRollerCount();
+        }
+        else
+        {
+		    if(m_icmIps.size() == 2)   retVal = "6";
+		    else						retVal = "4";
+        }
 	}
 	// If client is requesting zerospeed status
 	else if(tag == m_tagList[ ZEROSPEED_NAME])
@@ -4143,4 +4169,18 @@ void IpIcmMgr::DecodeChnlIndexKey( uint32_t key, uint16_t &brdIdx, uint16_t &chn
 	brdIdx = key / 100;
 	chnlIdx = key % 100;
 }
+//-------------------------------------------------------------------------------------------------
+inline const bool& IpIcmMgr::OverrideRollerCountCalc(const bool *overrideCalc /*= NULL*/)
+{
+    if (overrideCalc != NULL)  m_overRideRollCountCalc = *overrideCalc;
+    return m_overRideRollCountCalc;
+}
+
+//-------------------------------------------------------------------------------------------------
+inline const string& IpIcmMgr::OverrideRollerCount(const string *overrideCount /*= NULL*/)
+{
+    if (overrideCount != NULL)  m_overRideRollerCount = *overrideCount;
+    return m_overRideRollerCount;
+}
+
 

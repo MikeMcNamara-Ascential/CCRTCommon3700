@@ -1025,7 +1025,7 @@ const string LossCompensationTC::TwoMotorAccelerate(void)
             m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
             // Force to Rear Wheel Driver so the rear will spin first
             SystemWrite(DRIVE_AXLE_TAG, string(FRONT_WHEEL_DRIVE_VALUE));
-            BposSleep(1000);   //Wait for the relay to switch
+            sBposSleep(1000);   //Wait for the relay to switch
             float calSpeed = GetTestStepInfoFloat("LCArmSpeed");
             float calibrationArmSpeed = calSpeed + GetParameterFloat("TwoMotorAccelerateOffset");
             char buff[16];
@@ -1360,9 +1360,18 @@ INT32 LossCompensationTC::LowTorqueStartup( INT32 rollIdx, float torqueVal, floa
             testStatus = GetWheelSpeeds( wheelSpeeds);
             if(BEP_STATUS_SUCCESS == testStatus)
             {
-                Log( LOG_DEV_DATA, "LF: %.03f, RF: %.03f, LR: %.03f, RR: %.03f\n",
-                     wheelSpeeds[LFWHEEL], wheelSpeeds[RFWHEEL],
-                     wheelSpeeds[LRWHEEL], wheelSpeeds[RRWHEEL]);
+                //Log( LOG_DEV_DATA, "LF: %.03f, RF: %.03f, LR: %.03f, RR: %.03f\n",
+                //     wheelSpeeds[LFWHEEL], wheelSpeeds[RFWHEEL],
+                if (GetRollerCount() == 2)
+                    Log(LOG_DEV_DATA, "Read speeds: %.2f, %.2f",
+                        wheelSpeeds[0], wheelSpeeds[1]);
+                else if (GetRollerCount() == 4)
+                    Log(LOG_DEV_DATA, "Read speeds: %.2f, %.2f, %.2f, %.2f\n",
+                        wheelSpeeds[0], wheelSpeeds[1], wheelSpeeds[2], wheelSpeeds[3]);
+                else
+                    Log(LOG_DEV_DATA, "Read speeds: %.2f, %.2f, %.2f, %.2f, %.2f, %.2f\n",
+                        wheelSpeeds[0], wheelSpeeds[1], wheelSpeeds[2], wheelSpeeds[3],
+                        wheelSpeeds[4], wheelSpeeds[5]);
 
                 testStatus = StatusSleep( 200);
                 timeOut -= 200;

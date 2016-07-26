@@ -82,7 +82,7 @@
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="0xFF">System Monitor</SystemMonitor>
 
         <MachineDataBroker Name="MachineDataBroker.qxe" Path="/ServicesLayer/Bin/" 
-            ConfigFile="MachineDataBroker3600Config.xml" ConfigPath="/Configuration/Servers/" 
+            ConfigFile="MachineDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0103" RegisteredName="core/MachineDataBroker" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Machine Data Broker</MachineDataBroker>
         <PlantHostInbound Name="IsuzuPlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 

@@ -1,5 +1,6 @@
 <IcmConfig>
     <Setup>
+        <RollerCount>2</RollerCount>
         <Debug>Off</Debug>
         <Logging>
             <Status>Disabled</Status>
@@ -9,7 +10,6 @@
             <Verbose>0x01</Verbose>
             <Debug>Off</Debug>
         </Logging>
-        <RollerCount>2</RollerCount>
         <Demo>0</Demo>
         <EncoderPhasing DataType="Quadrature or Single">Quadrature</EncoderPhasing>
         <SamplePeriod>20</SamplePeriod>
@@ -23,9 +23,9 @@
             <!--This section lists the system tag names for data items used by the ICM manager-->
             <LfChannelTag>LF</LfChannelTag>
             <RfChannelTag>RF</RfChannelTag>
-            <!--LrChannelTag>LR</LrChannelTag>
-            <RrChannelTag>RR</RrChannelTag-->
-            <ZerospeedTag>Zerospeed</ZerospeedTag>
+            <LrChannelTag>LR</LrChannelTag>
+            <RrChannelTag>RR</RrChannelTag>
+             <ZerospeedTag>Zerospeed</ZerospeedTag>
             <StartTestTag>TestInProgress</StartTestTag>
             <EndTestTag>TestComplete</EndTestTag>
             <TagArrayEntry>TagIndex</TagArrayEntry>
@@ -33,8 +33,10 @@
             <ZerospeedLatchTag>ZerospeedToPLC</ZerospeedLatchTag>
             <LfRollDirTag>LeftFrontRollerDirection</LfRollDirTag>
             <RfRollDirTag>RightFrontRollerDirection</RfRollDirTag>
-            <!--LrRollDirTag>LeftRearRollerDirection</LrRollDirTag>
-            <RrRollDirTag>RightRearRollerDirection</RrRollDirTag-->
+            <LrRollDirTag>LeftRearRollerDirection</LrRollDirTag>
+            <RrRollDirTag>RightRearRollerDirection</RrRollDirTag>
+            <LtRollDirTag>LeftTandemRollerDirection</LtRollDirTag>
+            <RtRollDirTag>RightTandemRollerDirection</RtRollDirTag>
             <SampleDelta>SampleDelta</SampleDelta>
             <AccumulatorTarget>AccumulatorTarget</AccumulatorTarget>
             <PrescaleMode>PrescaleMode</PrescaleMode>
@@ -59,7 +61,7 @@
             <RollDiameter>35.625</RollDiameter>
             <MachineLoss>13.0</MachineLoss>
         </RF>
-        <!--LR boardIdx="0" channelIndex="2">
+        <LR boardIdx="0" channelIndex="2">
             <RollFactor>445</RollFactor>
             <EncoderPulses>1250</EncoderPulses>
             <RollDiameter>35.625</RollDiameter>
@@ -70,7 +72,7 @@
             <EncoderPulses>1250</EncoderPulses>
             <RollDiameter>35.625</RollDiameter>
             <MachineLoss>10.0</MachineLoss>
-        </RR-->
+        </RR>
         <ThreadPool>
             <Debug>Off</Debug>
             <MinBlockedLimit>2</MinBlockedLimit>

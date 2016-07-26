@@ -1105,6 +1105,29 @@ private:
 
 
 private:
+    /**
+     * Get/Set the flag indicating if the default roller count calculation should be bypassed and 
+     * the config file value used instead.
+     * 
+     * @param overrideCalc
+     *               Flag indicating if the default roller count calculation should be bypassed and
+     *               the config file value used instead.
+     * 
+     * @return Flag indicating if the default roller count calculation should be bypassed and 
+     *         the config file value used instead.
+     */
+    const bool& OverrideRollerCountCalc(const bool *overrideCalc = NULL);
+
+    /**
+     * Get/Set the number of rollers on the machine.
+     * 
+     * @param overrideCount
+     *               The number of rollers on the machine.
+     * 
+     * @return The number of rollers on the machine.
+     */
+    const string& OverrideRollerCount(const string *overrideCount = NULL);
+
 	/**
 	 * PCI40 IP carrier card on which our IP ICM(s) are located
 	 */
@@ -1478,6 +1501,11 @@ private:
 	 */
 	bool                    m_disableSystem;
 	bool                    m_reloadingConfigs;
+
+    /** Flag to determine if the default roller count calculation should be over ridden */
+    bool                    m_overRideRollCountCalc;
+    /** Override roller count from the config file */
+    string                  m_overRideRollerCount;
 };
 
 

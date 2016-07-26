@@ -292,29 +292,17 @@
       <!--LTWheelSpeed channelIndex="32" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <RTWheelSpeed channelIndex="33" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/-->
       <!-- Left Motor Control -->
-      <LeftFrontMotorMode channelIndex="35" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <LeftFrontSpeedRefRpm channelIndex="36" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <LeftFrontTorqueRefPercent channelIndex="37" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <LeftFrontPosTorqueLimit channelIndex="38" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <LeftFrontNegTorqueLimit channelIndex="39" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <LeftMotorMode channelIndex="35" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <LeftSpeedRefRpm channelIndex="36" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <LeftTorqueRefPercent channelIndex="37" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <LeftPosTorqueLimit channelIndex="38" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <LeftNegTorqueLimit channelIndex="39" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
       <!-- Right Motor Control -->
-      <RightFrontMotorMode channelIndex="40" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <RightFrontSpeedRefRpm channelIndex="41" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <RightFrontTorqueRefPercent channelIndex="42" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <RightFrontPosTorqueLimit channelIndex="43" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <RightFrontNegTorqueLimit channelIndex="44" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <!-- Left Motor Control -->
-      <LeftRearMotorMode channelIndex="46" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <LeftRearSpeedRefRpm channelIndex="47" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <LeftRearTorqueRefPercent channelIndex="48" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <LeftRearPosTorqueLimit channelIndex="49" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <LeftRearNegTorqueLimit channelIndex="50" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <!-- Right Motor Control -->
-      <RightRearMotorMode channelIndex="51" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <RightRearSpeedRefRpm channelIndex="52" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <RightRearTorqueRefPercent channelIndex="53" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <RightRearPosTorqueLimit channelIndex="54" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-      <RightRearNegTorqueLimit channelIndex="55" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <RightMotorMode channelIndex="40" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <RightSpeedRefRpm channelIndex="41" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <RightTorqueRefPercent channelIndex="42" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <RightPosTorqueLimit channelIndex="43" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <RightNegTorqueLimit channelIndex="44" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
       <!-- Drive axle control -->
       <DriveAxleToPlc channelIndex="45" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
       <ClearMotorDriveFaults channelIndex="45" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>

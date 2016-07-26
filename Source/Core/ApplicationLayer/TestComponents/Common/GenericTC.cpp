@@ -2430,7 +2430,9 @@ INT32 GenericTC::TagArray(const string arrayTag)
 INT32 GenericTC::ReadDataArrays(const string &array, int startIdx, int endIdx, WHEELDATAARRAY &dataArray)
 {
     INT32 status = BEP_STATUS_SUCCESS;          // start with success
-    UINT32 rollerCount = GetRollerCount();      // get the number of machine roller
+    //UINT32 rollerCount = GetRollerCount();      // get the number of machine roller
+    UINT32 rollerCount = (GetRollerCount() == 2) ? 4 : GetRollerCount();      // get the number of machine roller
+
 
     // clear out the dataArray from the previously sampled data
     dataArray.clear();
@@ -2464,14 +2466,14 @@ INT32 GenericTC::ReadDataArrays(const string &array, int startIdx, int endIdx, W
                 // create a wheel information array to store the values
                 WHEELINFO wheelInfoArray[samples+1];
                 Log(LOG_DEV_DATA, "Reading %d Samples\n", samples);
-                if(4 < GetRollerCount())
+                if(4 < rollerCount)
                 {
-                    bytes = read(arrayFd, (void *) wheelInfoArray, (sizeof(float) * GetRollerCount() * samples));
+                    bytes = read(arrayFd, (void *) wheelInfoArray, (sizeof(float) * rollerCount * samples));
                 }
                 else
                 {
                     WHEELINFO2AXLE wheelInfoArray2Axle[samples+1];
-                    bytes = read(arrayFd, (void *) wheelInfoArray2Axle, (sizeof(float) * GetRollerCount() * samples));
+                    bytes = read(arrayFd, (void *) wheelInfoArray2Axle, (sizeof(float) * rollerCount * samples));
                     for(int x = 0; x < samples+1; x++)
                     {
                         wheelInfoArray[x].lfWheel = wheelInfoArray2Axle[x].lfWheel;
@@ -2480,7 +2482,7 @@ INT32 GenericTC::ReadDataArrays(const string &array, int startIdx, int endIdx, W
                         wheelInfoArray[x].rrWheel = wheelInfoArray2Axle[x].rrWheel;
                     }
                 }
-                if(bytes == (ssize_t)(sizeof(float) * GetRollerCount() * samples))
+                if(bytes == (ssize_t)(sizeof(float) * rollerCount * samples))
                 {
                     for(int index=0;(index < samples) && (status == BEP_STATUS_SUCCESS); index++)
                     {       // read in each roll respectively
@@ -2491,7 +2493,7 @@ INT32 GenericTC::ReadDataArrays(const string &array, int startIdx, int endIdx, W
                         wheel[RFWHEEL].push_back(wheelInfoArray[index].rfWheel);
                         wheel[LRWHEEL].push_back(wheelInfoArray[index].lrWheel);
                         wheel[RRWHEEL].push_back(wheelInfoArray[index].rrWheel);
-                        if(4 < GetRollerCount())
+                        if(4 < rollerCount)
                         {
                             wheel[LTWHEEL].push_back(wheelInfoArray[index].ltWheel);
                             wheel[RTWHEEL].push_back(wheelInfoArray[index].rtWheel);
@@ -3327,7 +3329,9 @@ INT32 GenericTC::GetWheelSpeeds(float wheelSpeed[])
                     lseek(m_speedFile, 0, SEEK_SET);
                     UINT32 bytes = read(m_speedFile, (void *) wheelSpeed,
                                         (sizeof(float) * GetRollerCount()));
-                    if(bytes != (sizeof(float) * GetRollerCount()))
+                    //for single axle 16 bytes are returned - lr and rr are zeroed out
+                    if((bytes != (sizeof(float) * GetRollerCount()) && GetRollerCount() != 2) || 
+                       (GetRollerCount() == 2 && bytes != 16))
                     {   // if interrupted during a read, read again
                         if(errno == EINTR)
                         {
@@ -3344,7 +3348,10 @@ INT32 GenericTC::GetWheelSpeeds(float wheelSpeed[])
                     else
                     {
                         testStatus = BEP_STATUS_SUCCESS;
-                        if(GetRollerCount() == 4)
+                        if (GetRollerCount() == 2)
+                            Log(LOG_DEV_DATA, "Read speeds: %.2f, %.2f",
+                                wheelSpeed[0], wheelSpeed[1]);
+                        else if (GetRollerCount() == 4)
                             Log(LOG_DEV_DATA, "Read speeds: %.2f, %.2f, %.2f, %.2f\n",
                                 wheelSpeed[0], wheelSpeed[1], wheelSpeed[2], wheelSpeed[3]);
                         else

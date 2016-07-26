@@ -421,6 +421,7 @@
                 <LeftFrontRollMotorOvercurrent DataType="bool">PLC</LeftFrontRollMotorOvercurrent>
                 <LeftFrontRollMotorOverloadOpen DataType="bool">PLC</LeftFrontRollMotorOverloadOpen>
                 <LeftFrontSpeedRefRpm DataType="short">PLC</LeftFrontSpeedRefRpm>
+                <LeftSpeedValue DataType="float" Units="MPH">MotorController</LeftSpeedValue>
                 <LeftFrontTorqueRefPercent DataType="float">PLC</LeftFrontTorqueRefPercent>
                 <LeftJounceStabDisengagedFault DataType="bool">PLC</LeftJounceStabDisengagedFault>
                 <LeftJounceStabEngagedFault DataType="bool">PLC</LeftJounceStabEngagedFault>
@@ -941,6 +942,7 @@
                 <RightFrontRollMotorOvercurrent DataType="bool">PLC</RightFrontRollMotorOvercurrent>
                 <RightFrontRollMotorOverloadOpen DataType="bool">PLC</RightFrontRollMotorOverloadOpen>
                 <RightFrontSpeedRefRpm DataType="short">PLC</RightFrontSpeedRefRpm>
+                <RightSpeedValue DataType="float" Units="MPH">MotorController</RightSpeedValue>
                 <RightFrontTorqueRefPercent DataType="float">PLC</RightFrontTorqueRefPercent>
                 <RighthandDriveSelectedFromPLC DataType="bool">PLC</RighthandDriveSelectedFromPLC>
                 <RighthandDriveSelectedToPLC DataType="bool">PLC</RighthandDriveSelectedToPLC>

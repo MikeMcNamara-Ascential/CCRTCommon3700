@@ -88,7 +88,7 @@
 			</PublishTags>
 		</TagList>
 		<Logging>
-			<Status>Disabled</Status>
+			<Status>Enabled</Status>
 			<ProcessName>MotorController</ProcessName>
 			<AdditionalLogFile Types="/Servers/MotorController.log or Disabled">/Servers/MotorController.log</AdditionalLogFile>
 			<Debug>Off</Debug>
@@ -176,7 +176,7 @@
 			<LeftRearRollMotorDriveFault>LeftRearRollMotorDriveFault</LeftRearRollMotorDriveFault>
 			<RightRearRollMotorDriveFault>RightRearRollMotorDriveFault</RightRearRollMotorDriveFault>
 			<MotorControllerTaskHeartbeat>MotorControllerTaskHeartbeat</MotorControllerTaskHeartbeat>
-			<MachineType>MachineType3600</MachineType>
+			<MachineType>5702</MachineType>
 			<MachineTypeValue>1</MachineTypeValue>
 			<SpeedValue>SpeedValue</SpeedValue>
 			<DrivesEnabled>AllRollDrivesEnabled</DrivesEnabled>
@@ -205,6 +205,10 @@
 			<LeftTandemMotorMode>LeftTandemMotorMode</LeftTandemMotorMode>
 			<RightTandemMotorMode>RightTandemMotorMode</RightTandemMotorMode>
             <VehicleAxleCount>VehicleAxleCount</VehicleAxleCount>
+            <LFRPM>LeftMotorRpm</LFRPM>
+            <RFRPM>RightMotorRpm</RFRPM>
+            <LFLoad>LeftMotorTorque</LFLoad>
+            <RFLoad>RightMotorTorque</RFLoad>
 		</DataTags>
 		<ElectricMotorParameters>
 			<MinBrakeAssistSpeed Description="Minimum speed required to enable rear brake assist" Units="MPH">5.0</MinBrakeAssistSpeed>
@@ -251,11 +255,11 @@
                         <RollerDiameter Description="Diameter of the roller" Units="Inches">35.625</RollerDiameter>
 					</Parameters>
 					<Logging>
-						<Status>Disabled</Status>
+						<Status>Enabled</Status>
 						<ProcessName>LeftMotor</ProcessName>
 						<AdditionalLogFile Types="/Communication/LfMotor.log or Disabled">/Communication/LeftMotor.log</AdditionalLogFile>
 						<LocalEcho>Disabled</LocalEcho>
-						<Verbose>0x01</Verbose>
+						<Verbose>0x1F</Verbose>
 						<Debug>Off</Debug>
 					</Logging>
 					<DataTags>
@@ -283,11 +287,11 @@
                         <RollerDiameter Description="Diameter of the roller" Units="Inches">35.625</RollerDiameter>
 					</Parameters>
 					<Logging>
-						<Status>Disabled</Status>
+						<Status>Enabled</Status>
 						<ProcessName>RightMotor</ProcessName>
 						<AdditionalLogFile Types="/Communication/RfMotor.log or Disabled">/Communication/RightMotor.log</AdditionalLogFile>
 						<LocalEcho>Disabled</LocalEcho>
-						<Verbose>0x01</Verbose>
+						<Verbose>0x1F</Verbose>
 						<Debug>Off</Debug>
 					</Logging>
 					<DataTags>

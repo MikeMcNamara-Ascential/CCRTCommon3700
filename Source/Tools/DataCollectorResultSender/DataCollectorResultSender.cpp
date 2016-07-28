@@ -45,7 +45,7 @@ void DataCollectorSender::ReportResults(time_t &startDate, time_t &endDate)
 		string command = baseCommand + m_resultFiles[index];
 		cout << "Reporting: " << command << endl;
 		system(command.c_str());
-		delay(1000);
+		delay(30000);
 	}
 }
 

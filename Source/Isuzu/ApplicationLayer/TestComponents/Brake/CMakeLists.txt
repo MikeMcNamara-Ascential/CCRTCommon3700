@@ -14,4 +14,5 @@ LINK_LIBRARIES(basebrake)
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(BaseBrake)
+ADD_SUBDIRECTORY(Bendix)
 ADD_SUBDIRECTORY(Isuzu720Abs)

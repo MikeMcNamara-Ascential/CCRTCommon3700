@@ -1,40 +1,6 @@
 <SelectionTable Description="Isuzu drive curve selection table">
-   <!--BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
-      <BrakeType>Base Brake</BrakeType>
-   </BaseBrake>
-   <AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-   </AbsDriveCurve>
-   <My13AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My13Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <ModelYear>130</ModelYear>
-   </My13AbsDriveCurve>
-   <My14AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My14Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <ModelYear>140</ModelYear>
-   </My14AbsDriveCurve>
-   <My15AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My14Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <ModelYear>150</ModelYear>
-   </My15AbsDriveCurve>
-   <My17AbsDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My17Isuzu.DriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <ModelYear>170</ModelYear>
-   </My17AbsDriveCurve-->
-   <My17AbsFrontAxleDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My17Isuzu.FrontAxleDriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <DriveAxle>None</DriveAxle>
+   <My17AbsFrontAxleDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My17Isuzu.SingleAxleDriveCurve.xml">
+       <BrakeType>Bendix</BrakeType>
        <ModelYear>170</ModelYear>
    </My17AbsFrontAxleDriveCurve>
-   <My17AbsRearAxleDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My17Isuzu.RearAxleDriveCurve.xml">
-       <BrakeType>720 ABS</BrakeType>
-       <ModelYear>170</ModelYear>
-   </My17AbsRearAxleDriveCurve>
-   <FrontAxleBaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/FrontAxleBaseBrakeDriveCurve.xml">
-      <BrakeType>Base Brake</BrakeType>
-      <DriveAxle>None</DriveAxle>
-   </FrontAxleBaseBrake>
-   <RearAxleBaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/RearAxleBaseBrakeDriveCurve.xml">
-      <BrakeType>Base Brake</BrakeType>
-   </RearAxleBaseBrake>
 </SelectionTable>

@@ -1,0 +1,126 @@
+<MimamoriTc>
+
+    <Setup>
+
+        <Debug>Off</Debug>
+        <Name>Mimamori</Name>
+        <TestDomain>Foreground</TestDomain>
+
+        <!-- ===== Test Component Data Tags ===== -->
+        <DataTags>
+            <!-- Message Tags -->
+            <ReadModuleFaults>ReadFaults</ReadModuleFaults>
+        </DataTags>
+
+
+        <!-- ===== Test Parameters =====  -->
+        <Parameters>
+            <!-- Test component behavior parameters -->
+            <AlwaysEnterDiagnosticMode>False</AlwaysEnterDiagnosticMode>
+            <DelayModuleInitialization>False</DelayModuleInitialization>
+            <ICMName>mgr/ICM</ICMName>
+            <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+            <LoadStaticTestResults>False</LoadStaticTestResults>
+
+            <!-- DTC Parameters -->
+            <AbortIfDTCPresent>False</AbortIfDTCPresent>
+            <AlwaysClearFaults>False</AlwaysClearFaults>
+            <AlwaysReadFaults>False</AlwaysReadFaults>
+            <ClearFaultsDelay>100</ClearFaultsDelay>
+
+            <!-- Module Info Parameters -->
+            <ModuleDataItems/>
+
+            <!-- Part number parameters -->
+            <PartNumberPositionComparison/>
+            <PartNumbersToCheck/>
+            <ValidPartNumbers/>
+        </Parameters>
+
+
+        <!-- ===== Test Component Logging ===== -->
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>component/Mimamori</ProcessName>
+            <AdditionalLogFile Types="/Components/Mimamori or Disable">/Components/Mimamori.Log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+
+
+        <!-- ===== Test Component Prompts ===== -->
+        <Prompts>
+            <CableConnect PromptBox="1" Priority="0">ConnectMimamoriCable</CableConnect>
+        </Prompts>
+
+
+        <Communication>
+            <Debug>Off</Debug>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <Name>component/Mimamori</Name>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+
+        <StatusCheckItems>
+            <MimamoriCableConnect>1</MimamoriCableConnect>
+            <RollsUpElevDown>1</RollsUpElevDown>
+        </StatusCheckItems>
+
+        <SystemTagsToReset/>
+
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <MimamoriCableConnect/>
+            </SubscribeTags>
+        </TagList>
+
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+
+        <FaultList>/Configuration/Components/VehicleConfig/MimamoriFaults.xml</FaultList>
+        <IgnoreFaults/>
+    </Setup>
+
+
+
+    <Objectives>
+        <MimamoriTest>
+            <TestStep00>Setup</TestStep00>
+            <TestStep05>EnterDiagnosticMode</TestStep05>
+            <TestStep10>ClearFaults</TestStep10>
+            <TestStep15>ReadFaults</TestStep15>
+        </MimamoriTest>
+    </Objectives>
+
+
+
+    <TestSteps>
+        <ClearFaults Result="" Timeout="100" Description="Clear faults from the module"/>
+        <EnterDiagnosticMode Result="" Timeout="10000" Description="Establish comms with Mimamori Module" ScanDelay="500"/>
+        <FinishUp Result="" Timeout="100" Description="Finish up Mimamori Testing"/>
+        <ReadFaults Result="" Timeout="100" Description="Read faults from Mimamori Module"/>
+        <Setup Result="" Timeout="100" Description="Setup test component for testing"/>
+    </TestSteps>
+
+</MimamoriTc>

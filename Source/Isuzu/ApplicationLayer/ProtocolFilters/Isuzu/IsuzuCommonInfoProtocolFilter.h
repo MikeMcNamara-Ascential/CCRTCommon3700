@@ -113,6 +113,23 @@ public:
 	 */
 	virtual const BEP_STATUS_TYPE SendMessage(SerialString_t &message);
 
+	/**
+	 * Send a message to vehicle module.
+	 *
+	 * @param messageTag Name of message to be retrieved and sent.
+	 * @return Status of the operation.
+	 */
+	virtual const BEP_STATUS_TYPE SendMessage(string messageTag);
+	/**
+	 * Send a message to a vehicle module.
+	 *
+	 * @param messageTag Name of the message to be sent.
+	 * @param args       Extra data to be added to the message.
+	 * @return Status of the opeation.
+	 */
+	virtual const BEP_STATUS_TYPE SendMessage(string messageTag, SerialArgs_t &args);
+
+
 
 
 

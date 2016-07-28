@@ -68,7 +68,8 @@
                     </NodePairSetup>
                 </Setup>
             </GryphonCCan>
-            <GryphonJ1850 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonJ1850CommProxy.qxe">
+
+            <GryphonJ1850 enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonJ1850CommProxy.qxe">
                 <Setup>                                                                                       
 					<SerialDevice>/dev/socket</SerialDevice>
                     <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
@@ -232,9 +233,10 @@
                     </CommLog>
                 </Setup>
             </Scanner>
+
             <Archiver enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
-            <!-- mock port used to start archiver -->
+                    <!-- mock port used to start archiver -->
                     <SerialDevice>/dev/sl7804/ser4</SerialDevice>
                     <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
                     <Protocol>
@@ -270,6 +272,7 @@
                     </CommLog>
                 </Setup>
             </Archiver>
+
             <Daq enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
                <Setup>
                   <SerialDevice>/dev/socket</SerialDevice>
@@ -310,6 +313,7 @@
                </Setup>
                <Verbose>0x1F</Verbose>
             </Daq>
+
             <VinStamper enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser3</SerialDevice>
@@ -347,6 +351,7 @@
                     </CommLog>
                 </Setup>
             </VinStamper>
+
             <SideSlip enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser5</SerialDevice>
@@ -385,6 +390,46 @@
                     </CommLog>
                 </Setup>
             </SideSlip>
+
+            <Mimamori enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/sl7804/ser6</SerialDevice>
+                    <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
+                    <DefaultReplyTimeout units="milliseconds">200</DefaultReplyTimeout>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>Rx</Interrupts>
+                        <FifoSize>4096</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <Status>Enabled</Status>
+                        <ProcessName>logport/Mimamori</ProcessName>
+                        <AdditionalLogFile>/Servers/MimamoriComm.log</AdditionalLogFile>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>Mimamori_Comm</ProcessName>
+                                <AdditionalLogFile>/Communication/Mimamori_BusComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </Mimamori>
+
          </LogicalPorts>
     </Setup>
 </SerialServerConfig>

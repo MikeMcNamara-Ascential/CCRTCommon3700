@@ -1,0 +1,31 @@
+<MimamoriFaults>
+    <!-- System Status -->
+    <SoftwareFailure Code="0001" Description="Software failure using Mimampri module interface"/>
+
+    <!-- Test Condition Failures -->
+    <TimeoutFailure Code="0010" Description="Timeout waiting for test comditions"/>
+
+    <!-- Communication Failures -->
+    <CommunicationFailure Code="0015" Description="Mimamori Communication Failure"/>
+
+    <!-- Test Failures -->
+    <ModuleFaults Code="0020" Description="ECM Module Faults Present"/>
+
+    <!-- Module Faults -->
+    <ModuleFault_0601 Code="P0601" Description="Mimamori: ECU not Programmed"/>
+    <ModuleFault_0602 Code="P0602" Description="Mimamori: Security Access Not Active"/>
+    <ModuleFault_9000 Code="81000" Description="Mimamori: ECU Malfunction"/>
+    <ModuleFault_E100 Code="U2100" Description="Mimamori: CAN Bus Communication Malfunction"/>
+    <ModuleFault_E105 Code="U2105" Description="Mimamori: Lost Communication with Engine Control System"/>
+    <ModuleFault_E106 Code="U2106" Description="Mimamori: Lost Communication with Transmission Control System"/>
+    <ModuleFault_E108 Code="U2108" Description="Mimamori: Lost Communication with ABS"/>
+    <ModuleFault_E116 Code="U2116" Description="Mimamori: Lost Communication with Instrument Panel Cluster"/>
+    <ModuleFault_E202 Code="U2202" Description="Mimamori: Lost Communication with Device 2"/>
+    <ModuleFault_E203 Code="U2203" Description="Mimamori: Lost Communication with Device 3"/>
+    <ModuleFault_9001 Code="81001" Description="Mimamori: EOL Data Malfunction"/>
+    <ModuleFault_9008 Code="81008" Description="Mimamori: T/M EOL Data Malfunction"/>
+    <ModuleFault_9011 Code="81011" Description="Mimamori: CAN EOL Data Malfunction"/>
+    <ModuleFault_E101 Code="U2101" Description="Mimamori: No Data of Loading EOL"/>
+    <ModuleFault_9016 Code="81016" Description="Mimamori: EOL Transmission Data Setting Malfunction"/>
+
+</MimamoriFaults>

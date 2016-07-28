@@ -1,0 +1,195 @@
+<MimamoriModule>
+    <Setup>
+
+        <ChecksumCalculationMethod>Isuzu</ChecksumCalculationMethod>
+        <CheckSumLength>2</CheckSumLength>
+        <DataStartIndex>0</DataStartIndex>
+        <DataHeaderLength>0</DataHeaderLength>
+        <ModuleResponseDelay>3000</ModuleResponseDelay>
+        <ModuleResponseEndDelay>100</ModuleResponseEndDelay>
+        <NegativeResponseCodeIndex>0</NegativeResponseCodeIndex>
+        <NegativeResponseValue>0</NegativeResponseValue>
+        <NumberOfRetries>0</NumberOfRetries>
+        <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+        <ValidateChecksum>True</ValidateChecksum>
+        <ValidResponseOffset>0</ValidResponseOffset>
+
+        <Communication>
+            <Debug>On</Debug>
+            <Name></Name>
+            <BufferSize>4096</BufferSize>
+            <CommSize>1</CommSize>
+            <Timeout>10000000</Timeout>
+            <Retries>3</Retries>
+        </Communication>
+
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>MimamoriModule</ProcessName>
+            <AdditionalLogFile>/Communication/MimamoriModule.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+        </Logging>
+    </Setup>
+
+
+
+    <SerialMessages>
+        <!-- ============ Message Table ============ -->
+        <VehicleMessages>
+
+            <ClearFaults>
+                <TransmitMessage>DtcClearRequest</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>DtcCheckNotification</ReplyMessage>
+                <ReplyInterpretation>DtcsCleared</ReplyInterpretation>
+            </ClearFaults>
+
+            <ConnectingDeviceInfo>
+                <TransmitMessage>ConnectingDevInfo</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>CurrentTimeNotification</ReplyMessage>
+                <ReplyInterpretation/>
+            </ConnectingDeviceInfo>
+
+            <CurrentTimeResponse>
+                <TransmitMessage>CurrentTimeResponse</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>VehicleAttributeInfo</ReplyMessage>
+                <ReplyInterpretation>EngineType</ReplyInterpretation>
+            </CurrentTimeResponse>
+
+            <ReadFaults>
+                <TransmitMessage>DtcCheckRequest</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>DtcCheckResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </ReadFaults>
+
+            <VehicleAttributeResponse>
+                <TransmitMessage>VehicleAttributeResponse</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>VehicleNumberNotification</ReplyMessage>
+                <ReplyInterpretation/>
+            </VehicleAttributeResponse>
+
+            <VehicleNumberResponse>
+                <TransmitMessage>VehicleNumberResponse</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>DtcClearTriggerNotification</ReplyMessage>
+                <ReplyInterpretation/>
+            </VehicleNumberResponse>
+
+        </VehicleMessages>
+
+
+        <!-- ============ Message Formats ============ -->
+        <TransmitMessages>
+            <ConnectingDevInfo>0x31,0x00,0x00,0x08,0x??,0x??,0x??,0x??,0x??,0x??</ConnectingDevInfo>
+            <CurrentTimeResponse>0x31,0x0F,0x00</CurrentTimeResponse>
+            <DtcCheckRequest>0x31,0x0B,0x00,0x01,0x03,0x01,0xFF,0x94,0x00,0x6C</DtcCheckRequest>
+            <DtcClearRequest>0x31,0x0B,0x01,0x10,0x01,0x0E</DtcClearRequest>
+            <VehicleAttributeResponse>0x31,0x0C,0x00,0x00,0x78</VehicleAttributeResponse>
+            <VehicleNumberResponse>0x31,0x04,0x00,0x00,0x24</VehicleNumberResponse>
+        </TransmitMessages>
+
+
+        <!-- ============ Message PIDs/LIDs ============ -->
+        <TransmitInterpretations>
+        </TransmitInterpretations>
+
+
+        <!-- ============ Message Responses ============ -->
+        <ReplyMessages>
+
+            <CurrentTimeNotification>
+                <Reply>0x02,0x00,0x17,0x80,0x13,0x00,0x00,0x00,0x00,0x31,0x0F,0x??,0x00,0x07,0x??,0x??,0x??,0x??,0x??,0x??,0x??0x03,0x??,0x??</Reply>
+            </CurrentTimeNotification>
+
+            <DtcCheckNotification>
+                <Reply>0x02,0x00,0x17,0x80,0x0D,0x00,0x00,0x00,0x00,0x31,0x0B,0x??,0x00,0x01,0x08,0x03,0x??,0x??</Reply>
+            </DtcCheckNotification>
+
+            <DtcCheckResponse>
+                <Reply lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x02,0x00,0x17,0x80,0x??,0x00,0x00,0x00,0x00,0x31,0x0A,0x??,0x00,0x??,0x03,0x01,0x??</Reply>
+            </DtcCheckResponse>
+
+            <DtcClearTriggerNotification>
+                <Reply>0x02,0x00,0x17,0x80,0x0D,0x00,0x00,0x00,0x00,0x31,0x0B,0x??,0x00,0x01,0x08,0x03,0x??,0x??</Reply>
+            </DtcClearTriggerNotification>
+
+            <VehicleAttributeInfo>
+                <Reply lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x02,0x00,0x17,0x80,0x84,0x00,0x00,0x00,0x00,0x31,0x0C,0x??,0x00,0x78,0x??</Reply>
+            </VehicleAttributeInfo>
+
+            <VehicleNumberNotification>
+                <Reply lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x02,0x00,0x17,0x80,0x32,0x00,0x00,0x00,0x00,0x31,0x04,0x??,0x??,0x00,0x78,0x??</Reply>
+            </VehicleNumberNotification>
+
+        </ReplyMessages>
+
+
+        <!-- ============ Data Translations ============ -->
+        <ReplyInterpretations>
+
+            <DtcsCleared>
+                <Boolean>
+                    <Byte1 input_index="2" mask="0xFF" compare="0x08"/>
+                </Boolean>
+            </DtcsCleared>
+
+            <EngineType>
+                <String>
+                    <Substring format="%8s">
+                        <chars input_index="0" mask="0xFF" length="8"/>
+                    </Substring>
+                </String>
+            </EngineType>
+
+            <TransmissionType>
+                <String>
+                    <Substring format="%8s">
+                        <chars input_index="8" mask="0xFF" length="8"/>
+                    </Substring>
+                </String>
+            </TransmissionType>
+
+            <TireRadius>
+                <Float scale="0.01" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="16" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="17" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </TireRadius>
+
+            <FinalGearRatio>
+                <Float scale="0.001" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="18" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="19" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </FinalGearRatio>
+
+            <DealerArea>
+                <String>
+                    <Substring format="%80s">
+                        <chars input_index="20" mask="0xFF" length="80"/>
+                    </Substring>
+                </String>
+            </DealerArea>
+
+            <Vin>
+                <String>
+                    <Substring format="%20s">
+                        <chars input_index="100" mask="0xFF" length="20"/>
+                    </Substring>
+                </String>
+            </Vin>
+
+        </ReplyInterpretations>
+
+    </SerialMessages>
+</MimamoriModule>

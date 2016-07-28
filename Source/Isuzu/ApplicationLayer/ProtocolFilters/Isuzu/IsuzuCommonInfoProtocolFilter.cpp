@@ -46,7 +46,7 @@ void IsuzuCommonInfoProtocolFilter::AddChecksumToMessage(SerialString_t &message
 const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::CheckForValidResponse(const SerialString_t &moduleResponse)
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-	if((moduleResponse[0] == STX) && (moduleResponse[moduleResponse.length() - 1] == ETX))
+	if((moduleResponse[0] == STX) && (moduleResponse[moduleResponse.length() - 3] == ETX))
 	{
 		status = BEP_STATUS_SUCCESS;
 	}
@@ -139,6 +139,10 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	msg.push_back(m_msgSerialNumber++);                     // 7. Message Serial Number
 	msg.push_back((dataLen & 0xFF00) >> 8);                 // 8. Message Length
 	msg.push_back(dataLen & 0x00FF);
+	for(UINT32 index = 2; index < message.length(); index++)// 9. Data Body
+	{
+		msg.push_back(message[index]);
+	}
 	msg.push_back(ETX);
 	AddChecksumToMessage(msg);
 	// Clear the Fifos so bad data is not gathered
@@ -157,4 +161,16 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	else if(bytesSent > 0)	status = BEP_STATUS_SUCCESS;
 
 	return status;
+}
+
+//-------------------------------------------------------------------------------------------------
+const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(string messageTag)
+{
+	return ProtocolFilter::SendMessage(messageTag);
+}
+
+//-------------------------------------------------------------------------------------------------
+const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(string messageTag, SerialArgs_t &args)
+{
+	return ProtocolFilter::SendMessage(messageTag, args);
 }

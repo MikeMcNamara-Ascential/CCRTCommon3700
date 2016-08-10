@@ -18,7 +18,7 @@
             <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
             <ConfigFile>BoschDCUTc.xml</ConfigFile>
-            <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+            <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
             <Debug>Off</Debug>
         </DCU>
         <Emissions>

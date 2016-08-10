@@ -12,5 +12,6 @@ INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Emissions FILES
 	My13EmissionsFaults.xml
 	My14EmissionsFaults.xml
         My17EmissionsFaults.xml
+        My17DCUFaults.xml
 	)
 	

@@ -287,7 +287,7 @@
       <ReRelaxRetRolls channelIndex="24" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
       <VehiclePresentAtBarcodeDelayTime channelIndex="25" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
       <BarcodeVerifyDelayTime channelIndex="26" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
-      <FrontReductionPressure channelIndex="27" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+      <FrontRetRollRelaxPressure channelIndex="27" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
       <BodyStyleType channelIndex="31" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
       <!--LTWheelSpeed channelIndex="32" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <RTWheelSpeed channelIndex="33" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/-->

@@ -16,6 +16,7 @@
                 <Setup>
                     <SerialDevice>/dev/socket</SerialDevice>
                     <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+                    <Channel>1</Channel>
                     <Protocol>
                         <Baud>19200</Baud>
                         <Parity>None</Parity>
@@ -55,6 +56,7 @@
                     </Login>
                     <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
                     <NodePairs>
+                        <DCU Outgoing="0x24B" Incoming="0x64B"/>
                         <EngineController1 Outgoing="0x7E0" Incoming="0x7E8"/>
                         <EngineControllerUUDT Outgoing="0x7E0" Incoming="0x5E8"/>
                         <Transmission Outgoing="0x7E2" Incoming="0x7EA"/>
@@ -65,9 +67,64 @@
                         <Range1 FirstRequestID="0x7E0" FirstResponseID="0x7E8" FirstUUDTResponseID="0x5E8" Offset="0x008" NumberOfPairs="1"/>
                         <Range2 FirstRequestID="0x7E2" FirstResponseID="0x7EA" FirstUUDTResponseID="0x5EA" Offset="0x008" NumberOfPairs="1"/>
                         <Range3 FirstRequestID="0x244" FirstResponseID="0x644" Offset="0x008" NumberOfPairs="1"/>
+                        <Range4 FirstRequestID="0x24B" FirstResponseID="0x64B" FirstUUDTResponseID="0x54B" Offset="0x400" NumberOfPairs="1"/>
                     </NodePairSetup>
                 </Setup>
             </GryphonCCan>
+            <GryphonMima enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+                    <Channel>2</Channel>
+                    <ModuleIDByteLength>4</ModuleIDByteLength>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>5120</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/GryphonMima</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonMima.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>MimaCAN</ProcessName>
+                                <AdditionalLogFile>/Communication/GryphonMimaComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    <Login>
+                        <IPAddress>192.168.1.220</IPAddress>
+                        <Port>7000</Port>
+                        <UserID>gryphon</UserID>
+                        <Password>gryphon</Password>
+                    </Login>
+                    <Alias>/home/CCRT/Rewrite/GryphonMima</Alias>
+                    <NodePairs>
+                        <Transmission Outgoing="0x18DA03F1" Incoming="0x18DAF103"/>
+                        <ABS Outgoing="0x18DA0BF1" Incoming="0x18DAF10B"/>
+                    </NodePairs>
+                    <NodePairSetup>
+                        <Range1 FirstRequestID="0x18DA03F1" FirstResponseID="0x18DAF103" Offset="0x00" NumberOfPairs="1"/>
+                        <Range2 FirstRequestID="0x18DA0BF1" FirstResponseID="0x18DAF10B" Offset="0x00" NumberOfPairs="1"/>
+                    </NodePairSetup>
+                </Setup>
+            </GryphonMima>
 
             <GryphonJ1850 enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonJ1850CommProxy.qxe">
                 <Setup>                                                                                       
@@ -119,44 +176,6 @@
                     </NodePairSetup>
                 </Setup>
             </GryphonJ1850>
-
-            <PlcDf1 enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
-                <Setup>
-                    <SerialDevice>/dev/ser1</SerialDevice>
-                    <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
-                    <Protocol>
-                        <Baud>19200</Baud>
-                        <Parity>None</Parity>
-                        <DataBits>8</DataBits>
-                        <StopBits>1</StopBits>
-                        <Reflection>0</Reflection>
-                        <ByteGap>0</ByteGap>
-                        <MssgGap>0</MssgGap>
-                        <Interrupts>TxRx</Interrupts>
-                        <FifoSize>1024</FifoSize>
-                    </Protocol>
-                    <Logging>
-                        <ProcessName>logport/PlcDf1</ProcessName>
-                        <AdditionalLogFile>/Servers/PlcDf1.log</AdditionalLogFile>
-                        <Status>Disabled</Status>
-                        <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x01</Verbose>
-                    </Logging>
-                    <CommLog>
-                        <ContentType>RAW</ContentType>
-                        <Setup>
-                            <Logging>
-                                <AdditionalLogFile>/Communication/PlcDf1_Comm.log</AdditionalLogFile>
-                                <ProcessName>DF1</ProcessName>
-                                <Status>Disabled</Status>
-                                <LocalEcho>Disabled</LocalEcho>
-                                <Verbose>0x01</Verbose>
-                                <Debug>Off</Debug>
-                            </Logging>
-                        </Setup>
-                    </CommLog>
-                </Setup>
-            </PlcDf1>
 
             <Pendant enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
@@ -314,7 +333,7 @@
                <Verbose>0x1F</Verbose>
             </Daq>
 
-            <VinStamper enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <VinStamper enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser3</SerialDevice>
                     <ThreadPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="35"/>
@@ -352,7 +371,7 @@
                 </Setup>
             </VinStamper>
 
-            <SideSlip enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
+            <SideSlip enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/sl7804/ser5</SerialDevice>
                     <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
@@ -393,7 +412,7 @@
 
             <Mimamori enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>
-                    <SerialDevice>/dev/sl7804/ser6</SerialDevice>
+                    <SerialDevice>/dev/sl7804/ser3</SerialDevice>
                     <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
                     <DefaultReplyTimeout units="milliseconds">200</DefaultReplyTimeout>
                     <Protocol>

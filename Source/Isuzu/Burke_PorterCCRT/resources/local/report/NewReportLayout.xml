@@ -19,26 +19,11 @@
    
            <BuildDataBlock label="Build Data">
                <Column width="30">
-                   <ServerTag tagname="Transmission" label="Transmission"/>
                    <ServerTag tagname="BrakeType" label="Brake"/>
                    <ServerTag tagname="SpeedControl" label="Cruise"/>
-                   <ServerTag tagname="TransferCase" label="T-case"/>
-                   <ServerTag tagname="Axle" label="Axle"/>
-               </Column>
-               <Column width="30">
-                   <ServerTag tagname="TirePressureMonitor" label="TPM"/>
-                   <ServerTag tagname="MarketType" label="Market"/>
-                   <ServerTag tagname="Suspension" label="Radio"/>
-                   <ServerTag tagname="PCMPartNo" label="PCM Part Number"/>
-                   <ServerTag tagname="ABSPartNo" label="ABS Part Number"/>
-               </Column>
-               <Column width="30">
-                   <ServerTag tagname="BuildDate" label="Date"/>
-                   <ServerTag tagname="BuildTime" label="Time"/>
-                   <ServerTag tagname="PerformAbortTest" label="PFS Status"/>
                </Column>
             </BuildDataBlock>
-   
+  
             <HorizontalBar/>
             <BrakeResultsBlock>
                   <Column width="34">
@@ -115,18 +100,7 @@
                <Column >
                    <TestProcess showdetail="failures" tagname="OverallTest" label="Overall Test Result"/>
                    <TestProcess showdetail="failures" tagname="BrakeOverallTest" label="Brake"/>
-                   <TestProcess showdetail="failures" tagname="EmissionsOverallTest" label="Emissions"/>
-                   <TestProcess showdetail="failures" tagname="TransmissionOverallTest" label="Transmission"/>
                    <TestProcess showdetail="failures" tagname="SpeedControlOverallTest" label="Speed Control"/>
-                   <TestProcess showdetail="failures" tagname="ETCOverallTest" label="Electronic Throttle Control"/>
-                   <TestProcess showdetail="failures" tagname="TransferCaseOverallTest" label="T-case"/>
-                   <TestProcess showdetail="failures" tagname="TPMOverallTest" label="TPM"/>
-                   <TestProcess showdetail="failures" tagname="AxleOverallTest" label="ELSD"/>
-                   <TestProcess showdetail="failures" tagname="SuspensionOverallTest" label="Dynamic Handling System"/>
-                   <TestProcess showdetail="failures" tagname="ParkAssistOverallTest" label="Parktronics"/>
-                   <TestProcess showdetail="failures" tagname="RadioOverallTest" label="Satellite Radio"/>
-                   <TestProcess showdetail="failures" tagname="SmartbeamOverallTest" label="Smartbeam"/>
-                   <TestProcess tagname="DTC" label="DTC"/>
                </Column>
            </TestResultsBlock>
    

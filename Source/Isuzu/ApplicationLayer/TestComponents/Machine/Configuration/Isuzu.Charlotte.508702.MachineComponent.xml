@@ -51,6 +51,7 @@
                 <Declutch/>
                 <DriveAxle/>
                 <DriverNumber/>
+                <DriverPass/>
                 <ForegroundTestInProgress/>
                 <KeyPress/>
                 <MachineNumber/>
@@ -101,8 +102,9 @@
             <ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
             <ServerStateNormal>Normal</ServerStateNormal>
             <SoftwareVersion>SoftwareID</SoftwareVersion>
+            <SpeedActive>SpeedActive</SpeedActive>
             <SpeedTarget>SpeedTarget</SpeedTarget>
-            <Start40kphTest>Start40kphTest</Start40kphTest>
+            <Start40kphTest>DriverPass</Start40kphTest>
             <Start4WDTestSignalToPLC>Start4WDTestSignalToPLC</Start4WDTestSignalToPLC>
             <TagIndex>TagIndex</TagIndex>
             <TestResultMode>TestResult</TestResultMode>
@@ -116,12 +118,18 @@
             <BrakeToStopPrompt>BrakeToStop</BrakeToStopPrompt>
             <SetOperatorConsoleTo4WDPrompt>SetOperatorConsoleTo4WD</SetOperatorConsoleTo4WDPrompt>
             <AccelerateToTargetSpeedPrompt>AccelerateToTargetSpeed</AccelerateToTargetSpeedPrompt>
+
+            <!-- 40 km/h Test Parameters -->
+            <BlindSpeedoTest>True</BlindSpeedoTest>
+            <DcxStyleSpeedoTest>False</DcxStyleSpeedoTest>
+            <DisableSpeedoButtonPrompting>False</DisableSpeedoButtonPrompting>
+            <Prompt40KPHTest>True</Prompt40KPHTest>
+            <SpeedometerSpeedTarget>22 28</SpeedometerSpeedTarget>
+            <SpeedometerStableTime>6000</SpeedometerStableTime>
             <SpeedometerTestLowLimit>22</SpeedometerTestLowLimit>
             <SpeedometerTestHighLimit>28</SpeedometerTestHighLimit>
-            <SpeedometerSpeedTarget>22 28</SpeedometerSpeedTarget>
-            <DcxStyleSpeedoTest>0</DcxStyleSpeedoTest>
-            <SpeedometerStableTime>6000</SpeedometerStableTime>
             <TargetSpeed40kph>24.85</TargetSpeed40kph>
+
             <ReverseTestSpeed>5</ReverseTestSpeed>
             <ReverseSpeedTarget>5 10</ReverseSpeedTarget>
             <KeepTestStatusOnExit>0</KeepTestStatusOnExit>
@@ -170,6 +178,8 @@
             <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
             <ShiftToReverse PromptBox="1" Priority="0">ApplyBrakeShiftToReverse</ShiftToReverse>
             <AdvanceToRearAxle PromptBox="1" Priority="0">AdvanceToRearAxle</AdvanceToRearAxle>
+            <AccelerateTo40KPH PromptBox="1" Priority="0">AccelerateTo40KPH</AccelerateTo40KPH>
+            <PressSpeedoButtonAtSpeed PromptBox="2" Priority="0">PressSpeedoButtonAtSpeed</PressSpeedoButtonAtSpeed>
         </Prompts>
         <StatusCheckItems>
             <VehiclePresent>1</VehiclePresent>
@@ -237,6 +247,7 @@
             <TestStep1>AxleRatio</TestStep1>
         </AxleRatio>
         <Speedometer>
+            <TestStep0>BrakeToStop</TestStep0>
             <TestStep1>Speedometer</TestStep1>
         </Speedometer>
         <SelectDriverSide>
@@ -318,7 +329,8 @@
         <EnableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" PumpStatusChangeDelay="1000" Timeout="1000"/>
         <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
         <AxleRatio Result="" Description="Four wheel drive Axle Ratio Test Step" Timeout="120000" SpeedTarget="20 30" TargetSpeed="25" AxleRatioMin="90.0" AxleRatioMax="105.0"/>
-        <Speedometer Result="" Description="Speedometer Test Step" Timeout="30000" Prompt1="AccelerateToTargetSpeed" Prompt1Priority="0"/>
+        <Speedometer Result="" Description="Speedometer Test Step" Timeout="30000" 
+            Prompt1="AccelerateTo40KPH" Prompt1Priority="0" Prompt2="PressSpeedoButtonAtSpeed"/>
         <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" Timeout="0" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>
         <Reverse Result="" Description="Reverse Test Step" Timeout="30000"/>
         <MultiDriverQuestion Result="" Description="Prompt the driver with a set of questions and get a response of Pass/Fail or Yes/No">

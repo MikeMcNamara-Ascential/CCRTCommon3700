@@ -6,13 +6,13 @@
 --><!DOCTYPE CrtViewConfig SYSTEM "resource:///com/bepco/rtc/crt/crtviewconfig.dtd">
 <CrtViewConfig>
 
-  <View id="drivermonitor" crt="IsuzuDriverMonitor.crt" label="Driver Monitor" tabLabel="Driver"/> 
+  <View id="drivermonitor" crt="Isuzu.508702.DriverMonitor.crt" label="Driver Monitor" tabLabel="Driver"/> 
 
   <View id="vehiclepresence" crt="__DEFAULT" label="Vehicle Presence" tabLabel="Vehicle"/> 
 
-  <View id="frontpanel" crt="IsuzuFrontPanel.crt" label="Front Panel" tabLabel="Front"/> 
+  <View id="frontpanel" crt="Isuzu.508702.FrontPanel.crt" label="Front Panel" tabLabel="Front"/> 
 
-  <View id="losscompensation" crt="DefaultLossCompensation.crt" label="Loss Compensation" tabLabel="LossComp"/> 
+  <View id="losscompensation" crt="SingleAxleLossCompensation.crt" label="Loss Compensation" tabLabel="LossComp"/> 
 
   <View id="powerdisplay" crt="__DEFAULT" label="Power Display" tabLabel="Power"/> 
 

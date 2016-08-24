@@ -1201,7 +1201,14 @@ const std::string MachineTC::TestStepSpeedometer(const std::string &value)
                         {
                             currentSpeed = wheelSpeeds[LRWHEEL];
                         }
-                        else currentSpeed = wheelSpeeds[LFWHEEL];
+						else if(SystemReadBool("SingleAxleMachine"))
+						{
+							currentSpeed = wheelSpeeds[LFWHEEL];
+						}
+                        else
+						{
+							currentSpeed = wheelSpeeds[LFWHEEL];
+						}
                     }
                     if(GetParameterBool("BlindSpeedoTest"))
                     {
@@ -1302,7 +1309,7 @@ const std::string MachineTC::TestStepSpeedometer(const std::string &value)
                 else if(!done)                          status = BEP_FATALFAIL_STATUS;
                 else
                 {
-                                        SystemWrite("SpeedoTestValue",speedometerTestResult);  
+					SystemWrite("SpeedoTestValue",speedometerTestResult);  
                     // check if the test result is within the limits
                     if((speedometerTestResult >= lowLimit) &&
                        (speedometerTestResult <= highLimit))

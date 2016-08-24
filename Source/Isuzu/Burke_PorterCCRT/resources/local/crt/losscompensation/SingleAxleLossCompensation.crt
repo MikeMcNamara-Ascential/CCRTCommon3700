@@ -18,7 +18,7 @@
             <HBox height="270" width="1020" posX="0" posY="40" border="false">
                 <VBox width="560" posX="0" posY="40" border="false">
                     <HBox height="55">
-                        <Label width="60" height="40" name="left">
+                        <Label width="40" height="40" name="lf">
                             <Font size="20" name="sans-serif" style="bold"/>
                         </Label>
                         <Widget width="450" height="40" id="lc_fpspeed1" class="com.bepco.gui.HorizontalBarGraph">
@@ -36,7 +36,7 @@
                         </Widget>
                     </HBox>
                     <HBox height="55">
-                        <Label width="60" height="40" name="right">
+                        <Label width="40" height="40" name="rf">
                             <Font size="20" name="sans-serif" style="bold"/>
                         </Label>
                         <Widget width="450" height="40" id="lc_fpspeed2" class="com.bepco.gui.HorizontalBarGraph">
@@ -53,10 +53,26 @@
                             </TextBoxConfig>
                         </Widget>
                     </HBox>
+                    <!--
                     <HBox height="35">
+                                <Label width="40" height="40" name="lt"/>
+                                <Widget width="450" height="30" id="lc_fpspeed5" class="com.bepco.gui.HorizontalBarGraph">
+                                    <DataSource tagname="LTSpeed" messagetype="Read" datarate="10"/>
+                                    <DataSource tagname="LTWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
+                                    <DataSource tagname="LTWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
+                                    <BarGraphConfig domainhigh="100" domainlow="0" targethigh="66" targetlow="66" />			
+                                </Widget>
                     </HBox>
                     <HBox height="35">
+                                <Label width="40" height="40" name="rt"/>
+                                <Widget width="450" height="30" id="lc_fpspeed6" class="com.bepco.gui.HorizontalBarGraph">
+                                    <DataSource tagname="RTSpeed" messagetype="Read" datarate="10"/>
+                                    <DataSource tagname="RTWheelTarget" tagrole="targetrange" messagetype="Subscribe" />
+                                    <DataSource tagname="RTWheelDomain" tagrole="domainrange" messagetype="Subscribe" />
+                                    <BarGraphConfig domainhigh="100" domainlow="0" targethigh="66" targetlow="66" />	
+                                </Widget>
                     </HBox>
+                    -->
                 </VBox>
                 <!-- Top right panel -->
                 <VBox posX="400" posY="40" width="445" border="false">
@@ -81,9 +97,9 @@
                                     <TextBoxConfig format="{0,number,#.##}"/>
                                 </Widget>
                             </HBox>
-                            <HBox height="30">
+                            <HBox height="20">
                             </HBox>
-                            <HBox height="30">
+                                <HBox height="20">
                             </HBox>
                         </VBox>
                         <!-- Wheel box (Label descriptions) -->
@@ -92,10 +108,10 @@
                                 <Label height="20" width="111" name="wheeltitle"/>
                             </HBox>
                             <HBox height="30">
-                                <Label height="20" width="111" name="left"/>
+                                <Label height="20" width="111" name="lf"/>
                             </HBox>
                             <HBox height="30">
-                                <Label height="20" width="111" name="right"/>
+                                <Label height="20" width="111" name="rf"/>
                             </HBox>
 
                             <HBox height="30">

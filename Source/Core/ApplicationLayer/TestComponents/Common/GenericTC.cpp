@@ -2569,6 +2569,7 @@ const UINT32 GenericTC::GetWheelCount(void)
 
     axleCount = atoi(junk.c_str());
     if( axleCount <= 0) axleCount = 2;
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1") axleCount = 1;
     wheelCount = 2*axleCount;
     return( wheelCount);
 }
@@ -3955,6 +3956,9 @@ const std::string GenericTC::TestStepParkBrake(const std::string &value, bool is
 {
     std::string status; // the status of the test step
 
+    UpdatePrompts();
+    delay(GetParameterInt("ParkBrakeDriverDelay"));
+
     // determine what type of park brake test should be run
     if(ReadSubscribeData(GetDataTag("MachineType")) == GetDataTag("MachineType3600"))
     {
@@ -4981,17 +4985,38 @@ const string GenericTC::PerformPBTorqueTest(const std::string &direction, bool i
     GetWheelDistances( m_parkBrakeDistances[ 0]);
 
     // Tell the motor to turn for the park brake test
-    Log( LOG_DEV_DATA, "Commanding Front Motors to %.2f MPH and Rear Motors %.2f LBS\n",
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) != "1")
+    {   //if not a single axle machine
+        Log( LOG_DEV_DATA, "Commanding Front Motors to %.2f MPH and Rear Motors %.2f LBS\n",
          speedVal, torqueVal);
+    }
+    else
+    {
+        Log( LOG_DEV_DATA, "Commanding Rear Motors to %.2f LBS with a speed limit of %.2f MPH\n",torqueVal, speedVal);
+    }
 
-    m_MotorController.Write("LeftFrontMotorMode", SPEED_MODE, false);
-    m_MotorController.Write("RightFrontMotorMode", SPEED_MODE, false);
-    m_MotorController.Write("LeftRearMotorMode", TORQUE_MODE, false);
-    m_MotorController.Write("RightRearMotorMode", TORQUE_MODE, false);
-    m_MotorController.Write("LeftFrontSpeedValue", CreateMessage(temp, 256, "%.2f", speedVal), false);
-    m_MotorController.Write("RightFrontSpeedValue", CreateMessage(temp, 256, "%.2f", speedVal), false);
-    m_MotorController.Write("LeftRearTorqueValue", CreateMessage(temp, 256, "%.2f", torqueVal), false);
-    m_MotorController.Write("RightRearTorqueValue", CreateMessage(temp, 256, "%.2f", torqueVal), true);
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) != "1")
+    {   //if not a single axle machine
+        m_MotorController.Write("LeftFrontMotorMode", SPEED_MODE, false);
+        m_MotorController.Write("RightFrontMotorMode", SPEED_MODE, false);
+        m_MotorController.Write("LeftFrontSpeedValue", CreateMessage(temp, 256, "%.2f", speedVal), false);
+        m_MotorController.Write("RightFrontSpeedValue", CreateMessage(temp, 256, "%.2f", speedVal), false);
+        m_MotorController.Write("LeftRearMotorMode", TORQUE_MODE, false);
+        m_MotorController.Write("RightRearMotorMode", TORQUE_MODE, false);
+        m_MotorController.Write("LeftRearTorqueValue", CreateMessage(temp, 256, "%.2f", torqueVal), false);
+        m_MotorController.Write("RightRearTorqueValue", CreateMessage(temp, 256, "%.2f", torqueVal), true);
+    }
+    else
+    {   //Single axle machines only use front values? needs to be tested
+        m_MotorController.Write("LeftFrontSpeedValue", CreateMessage(temp, 256, "%.2f", speedVal), false);
+        m_MotorController.Write("RightFrontSpeedValue", CreateMessage(temp, 256, "%.2f", speedVal), false);
+        m_MotorController.Write("LeftFrontMotorMode", TORQUE_MODE, false);
+        m_MotorController.Write("RightFrontMotorMode", TORQUE_MODE, false);
+        m_MotorController.Write("LeftFrontTorqueValue", CreateMessage(temp, 256, "%.2f", torqueVal), false);
+        m_MotorController.Write("RightFrontTorqueValue", CreateMessage(temp, 256, "%.2f", torqueVal), true);
+    }
+        
+
     if(isTandemAxle)
     {
         m_MotorController.Write(string("LeftTandemMotorMode"), string(TORQUE_MODE), false);
@@ -5214,7 +5239,8 @@ INT32 GenericTC::GetForces(float force[])
                 {   // Read the force data
                     lseek(m_forceFile, 0, SEEK_SET);
                     UINT32 bytes = read(m_forceFile, (void *) force, (sizeof(float) * GetRollerCount()));
-                    if(bytes != (sizeof(float) * GetRollerCount()))
+                    if((bytes != (sizeof(float) * GetRollerCount()) && GetRollerCount() != 2) || 
+                       (GetRollerCount() == 2 && bytes != 16))
                     {   // if interrupted during a read, read again
                         if(errno == EINTR)
                         {
@@ -5291,7 +5317,8 @@ INT32 GenericTC::GetWheelDistances(float wheelDistance[])
                     lseek(m_wheelDistanceFile, 0, SEEK_SET);
                     UINT32 bytes = read(m_wheelDistanceFile, (void *) wheelDistance,
                                         (sizeof(float) * GetRollerCount()));
-                    if(bytes != (sizeof(float) * GetRollerCount()))
+                    if((bytes != (sizeof(float) * GetRollerCount()) && GetRollerCount() != 2) || 
+                       (GetRollerCount() == 2 && bytes != 16))
                     {   // if interrupted during a read, read again
                         if(errno == EINTR)
                         {
@@ -5306,7 +5333,7 @@ INT32 GenericTC::GetWheelDistances(float wheelDistance[])
                     else
                     {
                         testStatus = BEP_STATUS_SUCCESS;
-                        if(GetRollerCount() == 4)
+                        if(GetRollerCount() == 4 || ((ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1") && bytes == 16))
                             Log(LOG_DEV_DATA, "Read distances: %.2f, %.2f, %.2f, %.2f\n",
                                 wheelDistance[0], wheelDistance[1], wheelDistance[2], wheelDistance[3]);
                         else
@@ -5522,11 +5549,17 @@ void GenericTC::GetTotalDistances(WHEELINFO &totalDistance,
             total = &totalDistance.rfWheel;
             break;
         case LRWHEEL:
-            totalDistance.lrWheel = endWheelDistance.lrWheel - startWheelDistance.lrWheel;
+            if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1")
+                totalDistance.lrWheel = endWheelDistance.lfWheel - startWheelDistance.lfWheel;
+            else
+                totalDistance.lrWheel = endWheelDistance.lrWheel - startWheelDistance.lrWheel;
             total = &totalDistance.lrWheel;
             break;
         case RRWHEEL:
-            totalDistance.rrWheel = endWheelDistance.rrWheel - startWheelDistance.rrWheel;
+            if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1")
+                totalDistance.rrWheel = endWheelDistance.rfWheel - startWheelDistance.rfWheel;
+            else
+                totalDistance.rrWheel = endWheelDistance.rrWheel - startWheelDistance.rrWheel;
             total = &totalDistance.rrWheel;
             break;
         case LTWHEEL:

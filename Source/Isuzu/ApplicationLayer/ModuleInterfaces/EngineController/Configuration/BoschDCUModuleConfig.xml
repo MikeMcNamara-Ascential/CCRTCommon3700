@@ -1,4 +1,4 @@
-<BoschDCU>
+<IsuzuEngineController>
     <Setup>
         <!-- Communication Settings -->
         <CheckSumLength>1</CheckSumLength>
@@ -16,36 +16,54 @@
         <ResponsePendingReads>3</ResponsePendingReads>
         <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
         <ValidResponseOffset>0x40</ValidResponseOffset>
+
         <!-- Tester Present Settings -->
         <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
         <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+
         <!-- Module Behavior Settings -->
         <AutomaticallyEnterDiagnosticMode>Yes</AutomaticallyEnterDiagnosticMode>
         <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+
         <DtcData>
             <DtcCountIndex>1</DtcCountIndex>
             <BytesPerDtc>4</BytesPerDtc>
             <DtcStartByte>1</DtcStartByte>
         </DtcData>
+
         <NegativeResponseCodes>
+            <Code_0x10>General Reject</Code_0x10>
             <Code_0x11>Service Not Supported</Code_0x11>
             <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+            <Code_0x21>Busy / Repeat Request</Code_0x21>
             <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+            <Code_0x23>Routine Not Complete</Code_0x23>
             <Code_0x31>Request Out Of Range</Code_0x31>
             <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
             <Code_0x35>Invalid Key</Code_0x35>
             <Code_0x36>Exceed Number Of Attempts</Code_0x36>
             <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+            <Code_0x40>Download Not Accepted</Code_0x40>
+            <Code_0x50>Upload Not Accepted</Code_0x50>
+            <Code_0x71>Transfer Suspended</Code_0x71>
             <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
-            <Code_0x7F>Service Not Supported in Active Diagnostic Session</Code_0x7F>
+            <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+            <Code_0x81>Scheduler Full</Code_0x81>
+            <Code_0x83>Voltage Out Of Range Fault (High/Low)</Code_0x83>
             <Code_0x85>General Programming Failure</Code_0x85>
+            <Code_0x89>Device Type Error</Code_0x89>
+            <Code_0x99>Ready For Download / DTC Stored</Code_0x99>
+            <Code_0x9A>Data Decompression Failed</Code_0x9A>
+            <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+            <Code_0xA0>ECU Not Responding</Code_0xA0>
+            <Code_0xA1>ECU Address Unknown</Code_0xA1>
             <Code_0xE3>Device Control Limits Exceeded</Code_0xE3>
-            <EnterDiagnosticMode>0x10</EnterDiagnosticMode>
+            <EnterDiagnosticMode>0x80</EnterDiagnosticMode>
             <ResponsePending>0x78</ResponsePending>
             <ModuleBusy>0x21</ModuleBusy>
         </NegativeResponseCodes>
         <Communication>
-            <Debug>On</Debug>
+            <Debug>Off</Debug>
             <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
             <BufferSize>4096</BufferSize>
             <CommSize>1</CommSize>
@@ -53,14 +71,15 @@
             <Retries>3</Retries>
         </Communication>
         <Logging>
-            <Status>Disabled</Status>
+            <Status>Enabled</Status>
             <ProcessName>BoschDCU</ProcessName>
-            <AdditionalLogFile>/Communication/BoschDCUModule.log</AdditionalLogFile>
+            <AdditionalLogFile>/Communication/BoschDCU.log</AdditionalLogFile>
             <Debug>Off</Debug>
             <LocalEcho>Disabled</LocalEcho>
             <Verbose>0x3F</Verbose>
         </Logging>
     </Setup>
+
     <SerialMessages>
         <!-- ============ Message Table ============ -->
         <VehicleMessages>
@@ -71,47 +90,12 @@
                 <ReplyInterpretation/>
             </EnterDiagnosticMode>
 
-            <EnterNormalMode>
-                <TransmitMessage>EnterNormalMode</TransmitMessage>
-                <TransmitInterpretation/>
-                <ReplyMessage>EnterNormalMode</ReplyMessage>
-                <ReplyInterpretation/>
-             </EnterNormalMode>
-
-            <DisableNormalComms>
-                <TransmitMessage>DisableNormalComms</TransmitMessage>
-                <TransmitInterpretation/>
-                <ReplyMessage>DisableNormalComms</ReplyMessage>
-                <ReplyInterpretation/>
-             </DisableNormalComms>
-
-            <ExitDiagnosticMode>
-                <TransmitMessage>EnterNormalMode</TransmitMessage>
-                <TransmitInterpretation/>
-                <ReplyMessage>EnterNormalMode</ReplyMessage>
-                <ReplyInterpretation/>
-            </ExitDiagnosticMode>
-
             <LockModule>
                 <TransmitMessage>WriteDid</TransmitMessage>
                 <TransmitInterpretation>MecClear</TransmitInterpretation>
                 <ReplyMessage>WriteDid</ReplyMessage>
                 <ReplyInterpretation/>
             </LockModule>
-
-            <ReadSecuritySeed>
-                <TransmitMessage>ReadSecuritySeed</TransmitMessage>
-                <TransmitInterpretation/>
-                <ReplyMessage>ReadSecuritySeed</ReplyMessage>
-                <ReplyInterpretation>SecuritySeed</ReplyInterpretation>
-            </ReadSecuritySeed> 
-
-            <UnlockSecurity>
-                <TransmitMessage>UnlockModule</TransmitMessage>
-                <TransmitInterpretation/>
-                <ReplyMessage>UnlockModule</ReplyMessage>
-                <ReplyInterpretation/>
-            </UnlockSecurity>
 
             <ModuleKeepAlive>
                 <TransmitMessage>TesterPresent</TransmitMessage>
@@ -120,6 +104,83 @@
                 <ReplyInterpretation/>
             </ModuleKeepAlive>
 
+            <ReadAcStatus>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>AcStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>AcStatusComplete</ReplyInterpretation>
+            </ReadAcStatus>
+
+            <ReadBarometricPressureSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>BarometricPressureSensor</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>BarometricPressure</ReplyInterpretation>
+            </ReadBarometricPressureSensor>
+
+            <ReadBrakeSwitchPosition>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>BrakeSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>BrakeSwitchOn</ReplyInterpretation>
+            </ReadBrakeSwitchPosition>
+
+            <ReadClutchSwitchPosition>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ClutchSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>ClutchApplied</ReplyInterpretation>
+            </ReadClutchSwitchPosition>
+
+            <ReadEgrErrorSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EgrError</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EgrErrorPercent</ReplyInterpretation>
+            </ReadEgrErrorSensor>
+
+            <ReadEngineCoolantTemperatureSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineCoolantTemperature</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineCoolantTemperature</ReplyInterpretation>
+            </ReadEngineCoolantTemperatureSensor>
+
+            <ReadEngineTemperature>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineCoolantTemperature</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineCoolantTemperature</ReplyInterpretation>
+            </ReadEngineTemperature>
+
+            <ReadEngineOilTemperatureSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineOilTemperature</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineOilTemperature</ReplyInterpretation>
+            </ReadEngineOilTemperatureSensor>
+
+            <ReadEngineOilPressureSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineOilPressure</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineOilPressure</ReplyInterpretation>
+            </ReadEngineOilPressureSensor>
+
+            <ReadBatteryVoltageSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>BatteryVoltage</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>BatteryVoltage</ReplyInterpretation>
+            </ReadBatteryVoltageSensor>
+
+            <ReadFaultCount>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>DtcCount</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>DtcCount</ReplyInterpretation>
+            </ReadFaultCount>
+
             <ReadFaults>
                 <TransmitMessage>ReadFaults</TransmitMessage>
                 <TransmitInterpretation/>
@@ -127,12 +188,343 @@
                 <ReplyInterpretation/>
             </ReadFaults>
 
+            <ReadFuelRailPressureSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>FuelRailPressure</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelRailPressure</ReplyInterpretation>
+            </ReadFuelRailPressureSensor>
+                                            
+
+            <ReadFuelLevelPrimaryTankSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>FuelLevelPrimaryTank</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelLevel</ReplyInterpretation>
+            </ReadFuelLevelPrimaryTankSensor>
+
+            <ReadFuelLevelSecondaryTankSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>FuelLevelSecondaryTank</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelLevel</ReplyInterpretation>
+            </ReadFuelLevelSecondaryTankSensor>
+
+            <ReadParkNeutralSwitchPosition>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ParkNeutralSwitch</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>ParkNeutralSwitchOn</ReplyInterpretation>
+            </ReadParkNeutralSwitchPosition>
+
             <ReadPartNumber>
                 <TransmitMessage>ReadDid</TransmitMessage>
                 <TransmitInterpretation>PartNumber</TransmitInterpretation>
                 <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
             </ReadPartNumber>
+
+            <SoftwareModule06PartNo>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SoftwareModule06PartNo</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
+            </SoftwareModule06PartNo>
+
+            <SoftwareModule10PartNo>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SoftwareModule10PartNo</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
+            </SoftwareModule10PartNo>
+
+            <SoftwareModule05PartNo>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SoftwareModule05PartNo</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
+            </SoftwareModule05PartNo>
+
+            <SoftwareModule03PartNo>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SoftwareModule03PartNo</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
+            </SoftwareModule03PartNo>
+
+            <SoftwareModule02PartNo>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SoftwareModule02PartNo</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
+            </SoftwareModule02PartNo>
+
+            <SoftwareModule04PartNo>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SoftwareModule04PartNo</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
+            </SoftwareModule04PartNo>
+
+            <SoftwareModule01PartNo>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SoftwareModule01PartNo</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
+            </SoftwareModule01PartNo>
+
+            <SoftwareModule09PartNo>
+                <TransmitMessage>ReadDid</TransmitMessage>
+                <TransmitInterpretation>SoftwareModule09PartNo</TransmitInterpretation>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
+            </SoftwareModule09PartNo>
+
+            <ReadActualFanSpeedSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ActualFanSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>ActualFanSpeed</ReplyInterpretation>
+            </ReadActualFanSpeedSensor>
+
+            <ReadDesiredFanSpeedSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>DesiredFanSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>DesiredFanSpeed</ReplyInterpretation>
+            </ReadDesiredFanSpeedSensor>
+
+            <ReadCaseLearnStatus>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>CaseLearnStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>CaseLearnStatus</ReplyInterpretation>
+            </ReadCaseLearnStatus>
+
+            <ReadCASELearnAttempts>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>CASELearnAttempts</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>CASELearnAttempts</ReplyInterpretation>
+            </ReadCASELearnAttempts>
+
+            <ReadEngineOilLevelLow>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineOilStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineOilLevelLow</ReplyInterpretation>
+            </ReadEngineOilLevelLow>
+
+            <ReadEngineOilPressureLow>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineOilStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineOilPressureLow</ReplyInterpretation>
+            </ReadEngineOilPressureLow>
+
+            <ReadIgnitionStatus>
+                <TransmitMessage>InitiateDiagnosticOperation</TransmitMessage>
+                <TransmitInterpretation>DiagnosticLevel_3</TransmitInterpretation>
+                <ReplyMessage>InitiateDiagnosticOperationResponse</ReplyMessage>
+                <ReplyInterpretation/>
+                <ResponseFailureRetryCount>0</ResponseFailureRetryCount>
+            </ReadIgnitionStatus>
+
+            <ReadAcceleratorPedalSensor1>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>AcceleratorPedalSensor1</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>AcceleratorPedalSensor1</ReplyInterpretation>
+            </ReadAcceleratorPedalSensor1>
+
+            <ReadAcceleratorPedalSensor2>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>AcceleratorPedalSensor2</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>AcceleratorPedalSensor2</ReplyInterpretation>
+            </ReadAcceleratorPedalSensor2>
+
+            <ReadEngineSpeedSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineSpeed</ReplyInterpretation>
+            </ReadEngineSpeedSensor>
+
+            <ReadEngineRPMActual>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineRpm</ReplyInterpretation>
+            </ReadEngineRPMActual>
+
+            <ReadEngineIdleRPM>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>EngineSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>EngineRpm</ReplyInterpretation>
+            </ReadEngineIdleRPM>
+
+            <ReadFuelSystemClosedLoop>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>FuelSystemClosedLoop</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelSystemClosedLoop</ReplyInterpretation>
+            </ReadFuelSystemClosedLoop>
+
+            <ReadFuelTankVaporPressureSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>FuelTankVaporPressure</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelTankVaporPressure</ReplyInterpretation>
+            </ReadFuelTankVaporPressureSensor>
+
+            <ReadPedalPositionSensorsAgree>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ElectronicThrottleControlStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>PedalPositionSensorsAgree</ReplyInterpretation>
+            </ReadPedalPositionSensorsAgree>
+
+            <ReadThrottlePositionSensorsAgree>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ElectronicThrottleControlStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>ThrottlePositionSensorsAgree</ReplyInterpretation>
+            </ReadThrottlePositionSensorsAgree>
+
+            <ReadShortTermFuelTrimBank1Sensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ShortTermFuelTrimBank1</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelTrim</ReplyInterpretation>
+            </ReadShortTermFuelTrimBank1Sensor>
+
+            <ReadShortTermFuelTrimBank2Sensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ShortTermFuelTrimBank2</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelTrim</ReplyInterpretation>
+            </ReadShortTermFuelTrimBank2Sensor>
+
+            <ReadLongTermFuelTrimBank1Sensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>LongTermFuelTrimBank1</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelTrim</ReplyInterpretation>
+            </ReadLongTermFuelTrimBank1Sensor>
+
+            <ReadLongTermFuelTrimBank2Sensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>LongTermFuelTrimBank2</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>FuelTrim</ReplyInterpretation>
+            </ReadLongTermFuelTrimBank2Sensor>
+
+            <ReadMassAirFlowSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>MassAirFlow</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MassAirFlow</ReplyInterpretation>
+            </ReadMassAirFlowSensor>
+
+            <ReadManifoldAbsolutePressureSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ManifoldAbsolutePressure</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>ManifoldAbsolutePressure</ReplyInterpretation>
+            </ReadManifoldAbsolutePressureSensor>
+
+            <ReadIAT1Bank1Value>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IAT</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>IAT1Bank1</ReplyInterpretation>
+            </ReadIAT1Bank1Value>
+
+            <ReadIAT2Bank1Value>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IAT</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>IAT2Bank1</ReplyInterpretation>
+            </ReadIAT2Bank1Value>
+
+            <ReadIAT3Bank1Value>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IAT</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>IAT3Bank1</ReplyInterpretation>
+            </ReadIAT3Bank1Value>
+
+            <ReadIAT1Bank2Value>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IAT</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>IAT1Bank2</ReplyInterpretation>
+            </ReadIAT1Bank2Value>
+
+            <ReadIAT2Bank2Value>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IAT</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>IAT2Bank2</ReplyInterpretation>
+            </ReadIAT2Bank2Value>
+
+            <ReadIAT3Bank2Value>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IAT</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>IAT3Bank2</ReplyInterpretation>
+            </ReadIAT3Bank2Value>
+
+            <ReadKnockSensor1>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>KnockSensor1</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>KnockSensor1</ReplyInterpretation>
+            </ReadKnockSensor1>
+
+            <ReadKnockSensor2>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>KnockSensor2</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>KnockSensor2</ReplyInterpretation>
+            </ReadKnockSensor2>
+
+            <ReadMAP1Residual>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IntakeFlowRationality</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MAP1Residual</ReplyInterpretation>
+            </ReadMAP1Residual>
+
+            <ReadMAP2Residual>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IntakeFlowRationality</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MAP2Residual</ReplyInterpretation>
+            </ReadMAP2Residual>
+
+            <ReadMAFResidual>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>IntakeFlowRationality</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MAFResidual</ReplyInterpretation>
+            </ReadMAFResidual>
+
+            <ReadMisfireCatalystFailure>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>MisfireFailureStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MisfireCatalystFailure</ReplyInterpretation>
+            </ReadMisfireCatalystFailure>
+
+            <ReadMisfireEmissionsFailure>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>MisfireFailureStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MisfireEmissionsFailure</ReplyInterpretation>
+            </ReadMisfireEmissionsFailure>
 
             <ReadOxygenSensor1Bank1Sensor>
                 <TransmitMessage>ReadPid</TransmitMessage>
@@ -153,7 +545,7 @@
                 <TransmitInterpretation>OxygenSensor2Bank1</TransmitInterpretation>
                 <ReplyMessage>ReadPidResponse</ReplyMessage>
                 <ReplyInterpretation>OxygenSensor</ReplyInterpretation>
-            </ReadOxygenSensor2Bank1Sensor>                                                        
+            </ReadOxygenSensor2Bank1Sensor>
 
             <ReadOxygenSensor2Bank2Sensor>
                 <TransmitMessage>ReadPid</TransmitMessage>
@@ -162,12 +554,70 @@
                 <ReplyInterpretation>OxygenSensor</ReplyInterpretation>
             </ReadOxygenSensor2Bank2Sensor>
 
+            <ReadThrottlePosition>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ThrottlePosition</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>ThrottlePosition</ReplyInterpretation>
+            </ReadThrottlePosition>
+
+            <ReadVehicleSpeedSensor>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>VehicleSpeed</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
+            </ReadVehicleSpeedSensor>
+
+            <ReadVehicleSpeed>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>VehicleSpeed</TransmitInterpretation>
+                <ReplyMessage>VehicleSpeed</ReplyMessage>
+                <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
+            </ReadVehicleSpeed>
+
             <ReadVIN>
                 <TransmitMessage>ReadDid</TransmitMessage>
                 <TransmitInterpretation>Vin</TransmitInterpretation>
                 <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>Vin</ReplyInterpretation>
             </ReadVIN>
+
+            <!-- Module Procedures -->
+            <StartCaseLearn>
+                <TransmitMessage>RunCpid</TransmitMessage>
+                <TransmitInterpretation>CaseLearn</TransmitInterpretation>
+                <ReplyMessage>RunCpidResponse</ReplyMessage>
+                <ReplyInterpretation/>
+            </StartCaseLearn>
+
+            <!-- Speed Control Messages -->
+            <ReadCruiseCutoutHistory>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>CruiseCutoutHistory</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseCutoutHistory</ReplyInterpretation>
+            </ReadCruiseCutoutHistory>
+
+            <ReadCruiseStatus>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>CruiseStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseStatus</ReplyInterpretation>
+            </ReadCruiseStatus>
+
+            <ReadCruiseTargetSpeed>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>VehicleSpeed</TransmitInterpretation>
+                <ReplyMessage>VehicleSpeed</ReplyMessage>
+                <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
+            </ReadCruiseTargetSpeed>
+
+            <ReadThrottleVoltage>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>ThrottlePosition</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>ThrottlePosition</ReplyInterpretation>
+            </ReadThrottleVoltage>
 
             <ClearFaults>
                 <TransmitMessage>ClearFaults</TransmitMessage>
@@ -189,54 +639,92 @@
                 <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>SerialNumber</ReplyInterpretation>
             </ReadSerialNumber>
+
         </VehicleMessages>
+
         <!-- ============ Message Formats ============ -->
         <TransmitMessages>
             <InitiateDiagnosticOperation>0x10,0x??</InitiateDiagnosticOperation>
-            <EnterNormalMode>0x20,</EnterNormalMode>
-            <DisableNormalComms>0x28,</DisableNormalComms>
             <ReadDid>0x1A,0x??</ReadDid>
             <ReadEngineDid>0x09,0x??</ReadEngineDid>
             <ReadPid>0x22,0x??,0x??</ReadPid>
-            <ReadDPid>0xAA,0x??,0x??</ReadDPid>
-            <ReadSecuritySeed>0x27,0x01</ReadSecuritySeed>
-            <UnlockModuleSecurity>0x27,0x02,0x??,0x??</UnlockModuleSecurity>
-            <ReadMemoryLocation>0x23,0x??,0x??,0x??,0x??,0x??,0x??</ReadMemoryLocation>
-            <RunCpid>0xAE,0x??,0x??,0x??</RunCpid>
+            <RunCpid>0xAE,0x10,0x??,0x??,0x??,0x??,0x??</RunCpid>
             <TesterPresent>0x3E</TesterPresent>
             <WriteDid>0x3B,0x??,0x??</WriteDid>
             <ClearFaults>0x04</ClearFaults>
             <ReadFaults>0xA9,0x81,0x32</ReadFaults>
         </TransmitMessages>
+
         <!-- ============ Message PIDs/LIDs ============ -->
         <TransmitInterpretations>
+            <AcceleratorPedalSensor1>0x12,0xB4</AcceleratorPedalSensor1>
+            <AcceleratorPedalSensor2>0x12,0xB5</AcceleratorPedalSensor2>
+            <AcStatus>0x13,0x6D</AcStatus>
+            <ActualFanSpeed>0x16,0x2B</ActualFanSpeed>
+            <BarometricPressureSensor>0x00,0x33</BarometricPressureSensor>
+            <BatteryVoltage>0x00,0x42</BatteryVoltage>
+            <BrakeSwitch>0x11,0x24</BrakeSwitch>
+            <CaseLearn>0x40,0x00,0x00,0x00,0x00</CaseLearn>
+            <CASELearnAttempts>0x12,0xEF</CASELearnAttempts>
+            <CaseLearnStatus>0x12,0xF0</CaseLearnStatus>
+            <ClutchSwitch>0x11,0x25</ClutchSwitch>
+            <CruiseCutoutHistory>0x13,0x15</CruiseCutoutHistory>
+            <CruiseStatus>0x15,0x0C</CruiseStatus>
+            <DesiredFanSpeed>0x16,0x3F</DesiredFanSpeed>
+            <DiagnosticLevel_2>0x02</DiagnosticLevel_2>
             <DiagnosticLevel_3>0x03</DiagnosticLevel_3>
+            <DtcCount>0x00,0x01</DtcCount>
+            <EgrError>0x11,0xC1</EgrError>
+            <ElectronicThrottleControlStatus>0x11,0x21</ElectronicThrottleControlStatus>
+            <EngineCoolantTemperature>0x00,0x05</EngineCoolantTemperature>
+            <EngineOilPressure>0x14,0x70</EngineOilPressure>
+            <EngineOilStatus>0x11,0x27</EngineOilStatus>
+            <EngineOilTemperature>0x11,0x54</EngineOilTemperature>
+            <EngineSpeed>0x00,0x0C</EngineSpeed>
+            <FuelLevelPrimaryTank>0x11,0x55</FuelLevelPrimaryTank>
+            <FuelLevelSecondaryTank>0x13,0x38</FuelLevelSecondaryTank>
+            <FuelRailPressure>0x00,0x0A</FuelRailPressure>
+            <FuelSystemClosedLoop>0x00,0x03</FuelSystemClosedLoop>
+            <FuelTankVaporPressure>0x00,0x32</FuelTankVaporPressure>
+            <IAT>0x00,0x68</IAT>
+            <IntakeFlowRationality>0x11,0x34</IntakeFlowRationality>
+            <KnockSensor1>0x20,0x51</KnockSensor1>
+            <KnockSensor2>0x20,0x52</KnockSensor2>
+            <LongTermFuelTrimBank1>0x00,0x07</LongTermFuelTrimBank1>
+            <LongTermFuelTrimBank2>0x00,0x09</LongTermFuelTrimBank2>
+            <ManifoldAbsolutePressure>0x00,0x0B</ManifoldAbsolutePressure>
+            <MassAirFlow>0x00,0x10</MassAirFlow>
             <MecClear>0xA0,0x00</MecClear>
             <MecValue>0xA0</MecValue>
-            <OxygenSensor1Bank1>0x17,0x5C</OxygenSensor1Bank1>
-            <OxygenSensor1Bank2>0x17,0x64</OxygenSensor1Bank2>
-            <OxygenSensor2Bank1>0x17,0x68</OxygenSensor2Bank1>
-            <OxygenSensor2Bank2>0x17,0x70</OxygenSensor2Bank2>
+            <MisfireFailureStatus>0x11,0x89</MisfireFailureStatus>
+            <OxygenSensor1Bank1>0x11,0x45</OxygenSensor1Bank1>
+            <OxygenSensor1Bank2>0x11,0x48</OxygenSensor1Bank2>
+            <OxygenSensor2Bank1>0x11,0x46</OxygenSensor2Bank1>
+            <OxygenSensor2Bank2>0x11,0x49</OxygenSensor2Bank2>
+            <ParkNeutralSwitch>0x11,0x30</ParkNeutralSwitch>
             <PartNumber>0xCB</PartNumber>
+            <ShortTermFuelTrimBank1>0x00,0x06</ShortTermFuelTrimBank1>
+            <ShortTermFuelTrimBank2>0x00,0x08</ShortTermFuelTrimBank2>
+            <ThrottlePosition>0x00,0x45</ThrottlePosition>
+            <VehicleSpeed>0x00,0x0D</VehicleSpeed>
             <Vin>0x90</Vin>
-            <SerialNumber>0x98</SerialNumber>
+            <SoftwareModule06PartNo>0xC6</SoftwareModule06PartNo>
+            <SoftwareModule10PartNo>0xCA</SoftwareModule10PartNo>
+            <SoftwareModule05PartNo>0xC5</SoftwareModule05PartNo>
+            <SoftwareModule03PartNo>0xC3</SoftwareModule03PartNo>
+            <SoftwareModule02PartNo>0xC2</SoftwareModule02PartNo>
+            <SoftwareModule04PartNo>0xC4</SoftwareModule04PartNo>
+            <SoftwareModule01PartNo>0xC1</SoftwareModule01PartNo>
+            <SoftwareModule09PartNo>0xC9</SoftwareModule09PartNo>
+            <SerialNumber>0x17</SerialNumber>
         </TransmitInterpretations>
+
         <!-- ============ Message Responses ============ -->
         <ReplyMessages>
             <InitiateDiagnosticOperationResponse>
-                <Reply_0>0x50</Reply_0>
+                <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x50,0x??</Reply_0>
                 <Reply_1>0x7F,0x10,0x??</Reply_1>
             </InitiateDiagnosticOperationResponse>
-
-            <EnterNormalMode>
-                <Reply_0>0x60</Reply_0>
-                <Reply_1>0x7F,0x20,0x??</Reply_1>
-            </EnterNormalMode>
-
-            <DisableNormalComms>
-                <Reply_0>0x68</Reply_0>
-                <Reply_1>0x7F,0x28,0x??</Reply_1>
-            </DisableNormalComms>
 
             <ReadDidResponse>
                 <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x5A,0x??</Reply_0>
@@ -253,33 +741,18 @@
                 <Reply_1>0x7F,0x22,0x??</Reply_1>
             </ReadPidResponse>
 
-            <ReadDPidResponse>
-                <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x??,0x??</Reply_0>
-                <Reply_1>0x7F,0xAA,0x??</Reply_1>
-            </ReadDPidResponse>
-
-            <ReadSecuritySeed>
-                <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x67,0x01,0x??,0x??</Reply_0>
-                <Reply_1>0x7F,0x27,0x??</Reply_1>
-            </ReadSecuritySeed>
-
-            <UnlockModuleSecurity>
-                <Reply_00>0x67,0x02,0x34</Reply_00>
-                <Reply_01>0x7F,0x27,0x??</Reply_01>
-            </UnlockModuleSecurity>
-
-            <ReadMemoryLocation>
-                <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x63,0x??,0x??,0x??,0x??,0x??,0x??</Reply_0>
-                <Reply_1>0x7F,0x23,0x??</Reply_1>
-            </ReadMemoryLocation>
+            <VehicleSpeed>
+                <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x62,0x00,0x0D,0x??</Reply_0>
+                <Reply_1>0x7F,0x22,0x??</Reply_1>
+            </VehicleSpeed>
 
             <RunCpidResponse>
-                <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0xEE,0x??,0x??</Reply_0>
+                <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0xEE,0x??</Reply_0>
                 <Reply_1>0x7F,0xAE,0x??</Reply_1>
             </RunCpidResponse>
 
             <TesterPresentResponse>
-                <Reply_0>0x7E</Reply_0>
+                <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x7E,0x??</Reply_0>
                 <Reply_1>0x7F,0x3E,0x??</Reply_1>
             </TesterPresentResponse>
 
@@ -297,17 +770,338 @@
                 <Reply_01 lengthType="Variable" ReplyTimeout="10000" endGapTime="2000">0x81,0x??</Reply_01>
                 <Reply_02>0x7F,0xA9,0x??</Reply_02>
             </ReadFaults>
+
         </ReplyMessages>
+
         <!-- ============ Data Translations ============ -->
         <ReplyInterpretations>
-            <SecuritySeed>
-                <Integer type="unsigned" bits="32" scale="1" offset="0">
-                    <Byte1 input_index="2" mask="0xFF" output_index="3"/>
-                    <Byte2 input_index="3" mask="0xFF" output_index="2"/>
-                    <Byte3 input_index="4" mask="0xFF" output_index="1"/>
-                    <Byte4 input_index="5" mask="0xFF" output_index="0"/>
+            <AcStatusComplete>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0xBF" compare="0xBF"/>
+                </Boolean>
+            </AcStatusComplete>
+
+            <BarometricPressure>
+                <Integer type="unsigned" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
                 </Integer>
-            </SecuritySeed>
+            </BarometricPressure>
+
+            <CaseLearnStatus>
+                <Integer type="unsigned" scale="1" offset="0">
+                    <Byte0 input_index="3" mask="0xCF" output_index="0"/>
+                </Integer>
+            </CaseLearnStatus>
+
+            <CruiseCutoutHistory>
+                <Integer type="unsigned" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </CruiseCutoutHistory>
+
+            <CruiseStatus>
+                <Integer type="unsigned" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </CruiseStatus>
+
+            <EngineOilPressure>
+                <Integer type="unsigned" scale="4" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </EngineOilPressure>
+            <FuelRailPressure>
+                <Integer type="unsigned" scale="3" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </FuelRailPressure>
+            <BrakeSwitchOn>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x08" compare="0x08"/>
+                </Boolean>
+            </BrakeSwitchOn>
+
+            <ClutchApplied>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x04" compare="0x00"/>
+                </Boolean>
+            </ClutchApplied>
+
+            <DtcCount>
+                <Integer type="unsigned" bits="8" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0x7F" output_index="0"/>
+                </Integer>
+            </DtcCount>
+            
+
+
+            <EgrErrorPercent>
+                <Float scale="0.78125" offset="0">
+                    <Integer type="simple signed" bits="8" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </EgrErrorPercent>
+
+            <EngineCoolantTemperature>
+                <Integer type="simple signed" bits="16" scale="1" offset="-40">
+                    <Byte1 input_index="2" mask="0x00" output_index="1"/>
+                    <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </EngineCoolantTemperature>
+
+            <EngineOilTemperature>
+                <Integer type="simple signed" bits="16" scale="1" offset="-40">
+                    <Byte1 input_index="2" mask="0x00" output_index="1"/>
+                    <Byte2 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </EngineOilTemperature>
+
+            <!-- EngineOilTemperature>
+                <Integer type="unsigned" scale="1" offset="-40">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </EngineOilTemperature -->
+
+            <BatteryVoltage>
+                <Float scale="0.001" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </BatteryVoltage>
+
+            <FuelLevel>
+                <Float scale="0.3921" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </FuelLevel>
+
+            <ParkNeutralSwitchOn>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </ParkNeutralSwitchOn>
+
+            <DesiredFanSpeed>
+                <Integer type="unsigned" scale="16" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </DesiredFanSpeed>
+
+            <ActualFanSpeed>
+                <Integer type="unsigned" scale="16" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </ActualFanSpeed>
+
+            <CASELearnAttempts>
+                <Integer type="unsigned" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </CASELearnAttempts>
+
+            <EngineOilPressureLow>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x1C" compare="0x00"/>
+                </Boolean>
+            </EngineOilPressureLow>
+
+            <EngineOilLevelLow>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0xE0" compare="0x00"/>
+                </Boolean>
+            </EngineOilLevelLow>
+
+            <ThrottlePosition>
+                <Float scale="0.003921" offset="0">
+                    <Integer type="unsigned" scale="100" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </ThrottlePosition>
+
+            <AcceleratorPedalSensor1>
+                <Float type="unsigned" scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </AcceleratorPedalSensor1>
+
+            <AcceleratorPedalSensor2>
+                <Float type="unsigned" scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </AcceleratorPedalSensor2>
+
+            <EngineRpm>
+                <Integer type="simple signed" bits="16" scale=".25" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                </Integer>
+            </EngineRpm>
+            <EngineSpeed>
+                <Integer type="unsigned" scale=".25" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                    <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                </Integer>
+            </EngineSpeed>
+
+            <IgnitionOn>
+                <Boolean>
+                    <Byte0 input_index="0" mask="0xFF" compare="0x62"/>
+                </Boolean>
+            </IgnitionOn>
+
+            <FuelTankVaporPressure>
+                <Float type="simple signed" scale="0.25" offset="0">
+                    <Integer type="simple signed" bits="16" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </FuelTankVaporPressure>
+
+            <FuelSystemClosedLoop>
+                <Boolean>
+                    <AND>
+                        <Byte0 input_index="3" mask="0x02" compare="0x02"/>
+                        <Byte1 input_index="4" mask="0x02" compare="0x02"/>
+                    </AND>
+                </Boolean>
+            </FuelSystemClosedLoop>
+
+            <PedalPositionSensorsAgree>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x40" compare="0x40"/>
+                </Boolean>
+            </PedalPositionSensorsAgree>
+
+            <ThrottlePositionSensorsAgree>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x80" compare="0x80"/>
+                </Boolean>
+            </ThrottlePositionSensorsAgree>
+
+            <FuelTrim>
+                <Float scale="0.0078125" offset="-100">
+                    <Integer type="unsigned" scale="100" offset="0">
+                        <Byte0 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </FuelTrim>
+
+            <ManifoldAbsolutePressure>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte0 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </ManifoldAbsolutePressure>
+
+            <MassAirFlow>
+                <Float scale="0.01" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte0 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </MassAirFlow>
+
+            <IAT1Bank1>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="-40">
+                        <Byte0 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </IAT1Bank1>
+
+            <IAT2Bank1>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="-40">
+                        <Byte0 input_index="5" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </IAT2Bank1>
+
+            <IAT3Bank1>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="-40">
+                        <Byte0 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </IAT3Bank1>
+
+            <IAT1Bank2>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="-40">
+                        <Byte0 input_index="7" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </IAT1Bank2>
+
+            <IAT2Bank2>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="-40">
+                        <Byte0 input_index="8" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </IAT2Bank2>
+
+            <IAT3Bank2>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="-40">
+                        <Byte0 input_index="9" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </IAT3Bank2>
+
+            <KnockSensor1>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0xFF" compare="0x00"/>
+                </Boolean>
+            </KnockSensor1>
+            <KnockSensor2>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x3F" compare="0x00"/>
+                </Boolean>
+            </KnockSensor2>
+
+            <MAP1Residual>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x40" compare="0x40"/>
+                </Boolean>
+            </MAP1Residual>
+
+            <MAP2Residual>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x20" compare="0x20"/>
+                </Boolean>
+            </MAP2Residual>
+
+            <MAFResidual>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x80" compare="0x80"/>
+                </Boolean>
+            </MAFResidual>
+
+            <MisfireCatalystFailure>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0xF0" compare="0x10"/>
+                </Boolean>
+            </MisfireCatalystFailure>
+
+            <MisfireEmissionsFailure>
+                <Boolean>
+                    <Byte0 input_index="3" mask="0x0F" compare="0x01"/>
+                </Boolean>
+            </MisfireEmissionsFailure>
 
             <OxygenSensor>
                 <Float scale="0.00434" offset="0">
@@ -316,6 +1110,14 @@
                     </Integer>
                 </Float>
             </OxygenSensor>
+
+            <VehicleSpeed>
+                <Float scale="0.6213712" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte0 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </VehicleSpeed>
 
             <EndModelPartNumber>
                 <String>
@@ -350,6 +1152,25 @@
                 </Boolean>
             </IsModuleLocked>
 
+            <!-- SerialNumber>
+                <String>
+                    <Substring00>
+                        <chars input_index="2" mask="0xFF" length="1">
+                            <StringSubstitute00 condition="equals" compare="0x00" replace=""/>
+                            <StringSubstitute01 condition="not equal" compare="0x00" replace="?"/>
+                        </chars>
+                    </Substring00>
+                    <Substring01>
+                        <chars input_index="3" mask="0xFF" length="1">
+                            <StringSubstitute00 condition="equals" compare="0x00" replace=""/>
+                            <StringSubstitute01 condition="not equal" compare="0x00" replace="2"/>
+                        </chars>
+                    </Substring01>
+                    <Substring02 format="%15s">
+                        <chars input_index="4" mask="0xFF" length="15"/>
+                    </Substring02>
+                </String>
+            </SerialNumber -->
             <SerialNumber>
                 <String>
                     <Substring00>
@@ -363,6 +1184,10 @@
                     </Substring01>
                 </String>
             </SerialNumber>
+
+
         </ReplyInterpretations>
+
     </SerialMessages>
-</BoschDCU>
+
+</IsuzuEngineController>

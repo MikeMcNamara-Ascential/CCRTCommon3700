@@ -777,10 +777,15 @@ INT32 ComponentProxy::UpdateResults(INT32 status)
 		m_logger->Log(LOG_DEV_DATA, "ComponentProxy received: %s, %s, %s, %s, %s\n",
 					  localTag.c_str(), localValue.c_str(), name.c_str(), type.c_str(), myName.c_str());
 
-		m_resultsComm.Write(whoName, myName, response, false);
-		m_resultsComm.Write(typeName, type, response, false);
-		m_resultsComm.Write(objName, name, response, false);
+		status = m_resultsComm.Write(whoName, myName, response, false);
+        m_logger->Log(LOG_DEV_DATA, "WriteStatus: %s\n",ConvertStatusToResponse(status).c_str());
+		status = m_resultsComm.Write(typeName, type, response, false);
+        m_logger->Log(LOG_DEV_DATA, "WriteStatus2: %s\n",ConvertStatusToResponse(status).c_str());
+		status = m_resultsComm.Write(objName, name, response, false);
+        m_logger->Log(LOG_DEV_DATA, "WriteStatus3: %s\n",ConvertStatusToResponse(status).c_str());
 		status = m_resultsComm.Write(localTag, localValue, response, true);
+        m_logger->Log(LOG_DEV_DATA, "WriteStatus4: %s localTag:%s localValue:%s\n",ConvertStatusToResponse(status).c_str(), localTag.c_str(), localValue.c_str());
+
 		// verify that every write was not successful
 		if(status != BEP_STATUS_SUCCESS)
 		{

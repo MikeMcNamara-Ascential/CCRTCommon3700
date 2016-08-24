@@ -189,7 +189,7 @@
             <TestStep2>MachineReady</TestStep2>
             <TestStep3>ConnectCable</TestStep3>
             <TestStep4 AltValue="TestResult">SetInputServerState</TestStep4>
-            <TestStep5>EngageMachine</TestStep5>
+            <!--TestStep5>EngageMachine</TestStep5-->
         </Initialize>
         <InitializeNoCableConnect>
             <TestStep1>Initialize</TestStep1>
@@ -212,7 +212,7 @@
         </AccelerateToSpeed>
         <BrakeToStop>
             <TestStep1>BrakeToStop</TestStep1>
-            <TestStep2>EngageMachine</TestStep2>
+            <!--TestStep2>EngageMachine</TestStep2-->
         </BrakeToStop>
         <QuickStop>
             <TestStep1>QuickStop</TestStep1>

@@ -682,7 +682,7 @@ protected:
      */
     virtual const std::string PerformPBTorqueTest(const std::string &direction);
 
-    virtual const std::string ValveCycleTorqueTest(const std::string &direction);    
+    virtual const std::string ValveCycleTorqueTest(const std::string &direction, std::string axle);    
 
     //MAM 12/10/08
     /**

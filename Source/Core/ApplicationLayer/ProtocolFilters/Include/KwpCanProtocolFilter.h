@@ -251,7 +251,7 @@ private:
 	 * 
 	 * @param moduleID ID to use for sending messages to the module.
 	 */
-	void SetModuleRequestID(const UINT16& moduleID);
+	void SetModuleRequestID(const UINT32& moduleID);
 	/**
 	 * Store the index to the data byte count in the message.
 	 * 
@@ -283,7 +283,7 @@ private:
 	/**
 	 * ID of the module to send the message to.
 	 */
-	UINT16 m_moduleRequestID;
+	UINT32 m_moduleRequestID;
 	/**
 	 * Flag to indicate if diagnostic mode should be automatically
 	 * entered if the module is not in diagnostic mode.

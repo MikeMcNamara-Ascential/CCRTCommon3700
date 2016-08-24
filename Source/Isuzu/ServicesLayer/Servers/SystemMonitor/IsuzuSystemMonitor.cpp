@@ -50,7 +50,8 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
         // Loss compensation completed
         // - Loss comp key off
         else if(!ctrl->calSwitchToPLC && m_oldCtrl->calSwitchToPLC)
-        {   // Raise the retaining rollers
+        {   // Lower the retaining rollers
+            Log(LOG_FN_ENTRY, "Auto-lowering Retainers\n");
             WriteNdbData(RAISE_ROLLS, string("0"));
         }
         // Prompt to enter VIN
@@ -148,6 +149,7 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
         {
             RemovePrompt(2, "DisconnectCable", "white");
             // Auto lower the retainers
+            Log(LOG_FN_ENTRY, "Auto-lowering Retainers\n");
             WriteNdbData(RAISE_ROLLS, string("0"));
         }
         // Make sure the retaining rolls are down no matter what
@@ -156,6 +158,7 @@ void IsuzuSystemMonitor::CheckTesting( ControlData *ctrl)
         // - Retainers up
         else if(!ctrl->cableConnect && !m_oldCtrl->cableConnect && m_oldCtrl->testInProgress && ctrl->rollsUp)
         {   // Auto lower the retainers
+            Log(LOG_FN_ENTRY, "Auto-lowering Retainers\n");
             WriteNdbData(RAISE_ROLLS, string("0"));
         }
         // Prompt OK to leave

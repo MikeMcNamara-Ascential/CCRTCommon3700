@@ -1,4 +1,4 @@
-<BoschDCUTc>
+<IsuzuEmissionsTc>
     <Setup>
         <Debug>Off</Debug>
         <Name>DCU</Name>
@@ -55,7 +55,7 @@
         <Logging>
             <Status>Enabled</Status>
             <ProcessName>component/BoschDCU</ProcessName>
-            <AdditionalLogFile Types="/Components/BoschDCUTc or Disable">/Components/BoschDCUTc.log</AdditionalLogFile>
+            <AdditionalLogFile Types="/Components/NGC4KeywordEmissions or Disable">/Components/BoschDCU.log</AdditionalLogFile>
             <Debug>Off</Debug>
             <LocalEcho>Disabled</LocalEcho>
             <Verbose>0x1F</Verbose>
@@ -79,8 +79,6 @@
             <OxygenSensor2Name>OxygenSensor2Bank1</OxygenSensor2Name>
             <OxygenSensor3Name>OxygenSensor1Bank2</OxygenSensor3Name>
             <OxygenSensor4Name>OxygenSensor2Bank2</OxygenSensor4Name>
-
-            <DriveCurveRootDir>DriveCurveRootDir</DriveCurveRootDir>
         </DataTags>
         <Parameters>
             <!-- Test Component Behavior Parameters -->
@@ -358,24 +356,23 @@
             <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <IgnoreFaults/>
-        <FaultList>/Configuration/Components/Emissions/My17DCUFaults.xml</FaultList>
+      <FaultList>/Configuration/Components/Emissions/My14EmissionsFaults.xml</FaultList>
     </Setup>
     <Objectives>
-        <Setup>
+        <Test>
             <TestStep00>Setup</TestStep00>
             <TestStep05>EnterDiagnosticMode</TestStep05>
-            <!--TestStep15>CheckPartNumbers</TestStep15>
+            <TestStep15>CheckPartNumbers</TestStep15>
+            <TestStep25>ReadFaultCount</TestStep25>
             <TestStep30>ReadFaults</TestStep30>
-            <TestStep40>CommandSecurityUnlock</TestStep40>
-            <TestStep50>DisableNormalComms</TestStep50-->
-            <TestStep60>StartModuleKeepAlive</TestStep60>
-        </Setup>
-        <EngineRunning>
+            <TestStep45>CheckPartNumbers</TestStep45>
+        </Test>
+        <Setup>
             <TestStep00>Setup</TestStep00>
-            <!--TestStep05>WaitForEngineRunning</TestStep05-->
-            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <!--TestStep05>WaitForEngineRunning</TestStep05>
+            <TestStep10>EnterDiagnosticMode</TestStep10-->
             <TestStep15>ClearFaults</TestStep15>
-        </EngineRunning>
+        </Setup>
         <KeyOffEngineOffKeyOn>
             <TestStep00>KeyOffEngineOffKeyOn</TestStep00>
             <TestStep05>WaitForEngineRunning</TestStep05>
@@ -387,18 +384,20 @@
             <TestStep15>CheckPartNumbers</TestStep15>
             <TestStep20>CheckSerialNumber</TestStep20>
             <TestStep25>WaitForEngineTemperature</TestStep25>
+            <TestStep30>CheckCASELearn</TestStep30>
+            <TestStep40>StartSwitchMonitors</TestStep40>
         </EngineWarmUp>
         <PreFinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
             <TestStep05>WaitForEngineRunning</TestStep05>
         </PreFinishUp>
         <ClearFaultsFinal>
+            <TestStep90>ReadFaults</TestStep90>
             <TestStep98>ClearFaultsFinal</TestStep98>
         </ClearFaultsFinal>
         <FinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
-            <TestStep97>LockModuleIfPass</TestStep97>
-            <TestStep98>EnterNormalMode</TestStep98>
+            <TestStep98>LockModule</TestStep98>
             <TestStep99>FinishUp</TestStep99>
         </FinishUp>
         <DelayBeforeDtcRead>
@@ -407,28 +406,93 @@
         <CheckOxygenSensors>
             <TestStep05 AltValue="OxygenSensors">CheckOxygenSensors</TestStep05>
         </CheckOxygenSensors>
-      </Objectives>
+        <HotIdle>
+            <!--TestStep005>StopRangeCheckMonitors</TestStep005-->
+            <!-- TestStep010 AltValue="EngineOilLevelLow">CheckEngineOilLevelLow</TestStep010>
+            <TestStep015 AltValue="EngineOilPressureLow">CheckEngineOilPressureLow</TestStep015>
+            <TestStep020 AltValue="EngineOilPressure">CheckEngineOilPressure</TestStep020 -->
+            <TestStep025 AltValue="EngineOilTemperature">CheckEngineOilTemperature</TestStep025>
+            <!-- TestStep050 AltValue="MAFResidual">CheckMAFResidual</TestStep050>
+            <TestStep055 AltValue="MAP1Residual">CheckMAP1Residual</TestStep055>
+            <TestStep060 AltValue="MAP2Residual">CheckMAP2Residual</TestStep060 -->
+            <TestStep065 AltValue="EngineCoolantTemperature">CheckEngineCoolantTemperature</TestStep065>
+            <TestStep070 AltValue="BarometricPressure">CheckBarometricPressure</TestStep070>
+            <TestStep075 AltValue="FuelRailPressure">CheckFuelRailPressure</TestStep075>
+            <TestStep080 AltValue="FuelLevelPrimaryTank">CheckFuelLevelPrimaryTankLevel</TestStep080>
+            <TestStep085 AltValue="FuelLevelSecondaryTank">CheckFuelLevelSecondaryTankLevel</TestStep085>
+            <!-- TestStep087 AltValue="FuelTankVaporPressure">CheckFuelTankVaporPressure</TestStep087 -->
+            <TestStep090 AltValue="BatteryVoltage">CheckBatteryVoltage</TestStep090>
+            <TestStep095 AltValue="EngineSpeed">CheckIdleRPM</TestStep095>
+            <TestStep100>CheckIdleFuelTrim</TestStep100>
+            <TestStep105 AltValue="MassAirFlow">CheckMassAirFlowAtIdle</TestStep105>
+            <TestStep110 AltValue="ManifoldAbsolutePressure">CheckManifoldAbsolutePressureAtIdle</TestStep110>
+            <!-- TestStep115 AltValue="KnockSensor1">CheckKnockSensor1Status</TestStep115>
+            <TestStep120 AltValue="KnockSensor2">CheckKnockSensor2Status</TestStep120>
+            <TestStep125 AltValue="MisfireCatalystFailure">CheckMisfireCatalystFailureStatus</TestStep125>
+            <TestStep130 AltValue="MisfireEmissionsFailure">CheckMisfireEmissionsFailureStatus</TestStep130 -->
+            <TestStep135 AltValue="EgrError">CheckEgrError</TestStep135>
+            <TestStep139>ReadFaults</TestStep139>
+            <TestStep140>AcceleratorPedalWOTTest</TestStep140>
+            <TestStep145>StopSwitchMonitors</TestStep145>
+        </HotIdle>
+        <SteadySpeedTests>
+            <TestStep00>AccelerateToTestSpeed</TestStep00>
+            <TestStep10>CheckVehicleSpeedSensor</TestStep10>
+            <TestStep20>CheckSteadySpeedFuelTrim</TestStep20>
+        </SteadySpeedTests>
+    </Objectives>
     <TestSteps>
         <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
+        <AcceleratorPedalWOTTest Result="" Timeout="30000" Description="Verify the read of a full accelerator pedal" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckAcStatus Result="" Timeout="10000" Description="Verify A/C is functional" ScanDelay="500" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckBarometricPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the barometric pressure sensor is in range"/>
+        <CheckBatteryVoltage Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify battery voltage is in operating range"/>
+        <CheckCASELearn Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="True" Description="Verify the CASE Learn was successful" ScanDelay="250"/>
+        <CheckEgrError Result="" Timeout="500" Description="Check the EGR sensor for errors" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckEngineCoolantTemperature Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine coolant temp is in operating range"/>
+        <CheckEngineFan Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the acutal to the desired fan speed"/>
+        <CheckEngineOilLevelLow Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine oil level low status is not set"/>
+        <CheckEngineOilPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine oil pressure is in acceptable range"/>
+        <CheckEngineOilPressureLow Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine oil pressure low status is not set"/>
+        <CheckEngineOilTemperature Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine temperature temp is in operating range"/>
+        <CheckFuelLevelPrimaryTankLevel Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel level in primary tank is in acceptable range"/>
+        <CheckFuelLevelSecondaryTankLevel Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel level in Secondary tank is in acceptable range"/>
+        <CheckFuelRailPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel Rail pressure is in acceptable range"/>
+        <CheckFuelTankVaporPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel Tank Vapor pressure is in acceptable range"/>
+        <CheckIdleFuelTrim Result="" Timeout="1000" AlwaysPerform="False" AbortIfFailed="False" Description="Check short and long fuel trim for both banks at idle speed"/>
+        <CheckIdleRPM Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine speed is in operating range during idle condition"/>
+        <CheckKnockSensor1Status Result="" Timeout="500" Description="Verifty the Knock Sensor Status is good" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckKnockSensor2Status Result="" Timeout="500" Description="Verifty the Knock Sensor Status is good" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckMAFResidual Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty the MAF Residual is not out of tolerance."/>
+        <CheckManifoldAbsolutePressureAtIdle Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify pedal position sensors both don't disagree"/>
+        <CheckMAP1Residual Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty the MAP1 Residual is not out of tolerance."/>
+        <CheckMAP2Residual Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty the MAP2 Residual is not out of tolerance."/>
+        <CheckMassAirFlowAtIdle Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify pedal position sensors both don't disagree"/>
+        <CheckMisfireCatalystFailureStatus Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty a misfire didn't cause a catalyst failure."/>
+        <CheckMisfireEmissionsFailureStatus Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty a misfire didn't cause a Emissions failure."/>
         <CheckOxygenSensors Result="" Timeout="120000" AlwaysPerform="False" AbortIfFailed="False" Description="Test the oxygen sensors for correct values"/>
         <CheckPartNumbers Result="" Timeout="500" Description="Verify the module part number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckSerialNumber Result="" Timeout="500" Description="Verify the module serial number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckSteadySpeedFuelTrim Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Check fuel trim values at steady speed"/>
+        <CheckVehicleSpeedSensor Result="" AlwaysPerform="False" AbortIfFailed="True" Timeout="500" Description="Validate vehicle speed sensor reading"/>
         <CheckVIN Result="" Timeout="500" Description="Verify the module VIN matches the scanned VIN" AlwaysPerform="False" AbortIfFailed="False"/>
         <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
         <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
-        <CommandSecurityUnlock Result="Not Tested" Timeout="30000" Description="Unlock security to the module" Retries="2" KeyOffDelay="3000" EngineOnDelay="3000"/>
         <DelayBeforeDtcRead Result="" Timeout="65000" Description="Delay before reading DTCs"/>
-        <DisableNormalComms Result="" Timeout="500" Description="Disable normal communications in the module" Messages="DisableNormalComms" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
         <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
-        <EnterNormalMode Result="" Timeout="500" Description="Take the module out of diagnostic mode" Messages="EnterNormalMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
         <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>
-        <LockModuleIfPass Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
+        <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
+        <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
-        <ReadMemoryLocation Result="Not Tested" Timeout="500" Description="Read memory contents from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <Setup Result="" Timeout="500" Description="Setup conditions for testing" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
         <StartModuleKeepAlive Result="" Timeout="5000" Messages="ModuleKeepAlive" AlwaysPerform="True" AbortIfFailed="False" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
+        <StartRangeCheckMonitors Result="" Timeout="500" Description="Start background sensor monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
+        <StartSwitchMonitors Result="" Timeout="500" Description="Start background monitoring of switches" AlwaysPerform="True" AbortIfFailed="False"/>
         <StopModuleKeepAlive Result="" Timeout="5000" Messages="ModuleKeepAlive" AlwaysPerform="True" AbortIfFailed="False" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
+        <StopRangeCheckMonitors Result="" Timeout="500" Description="Stop background sensor monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
+        <StopSwitchMonitors Result="" Timeout="500" Description="Stop background switch monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
         <WaitForEngineRunning Result="" Timeout="20000" Description="Wait for the engine to be running" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="True"/>
+        <WaitForEngineTemperature Result="" Timeout="-1" Messages="ReadEngineTemperature" AlwaysPerform="True" Description="Wait for engine coolant temperature to be in operating range" ScanDelay="500" AbortIfFailed="True"/>
     </TestSteps>
-</BoschDCUTc>
+</IsuzuEmissionsTc>

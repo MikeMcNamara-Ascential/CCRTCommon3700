@@ -46,7 +46,7 @@
 KwpCanProtocolFilter::KwpCanProtocolFilter(KeepAliveTimer_t &lastTxTime, StopCommsBepCondVar *stopCommsBepCondVar, BepMutex *commPortInUse /* =NULL*/) : 
 ProtocolFilter(lastTxTime, stopCommsBepCondVar, commPortInUse),
 	m_enterDiagModeCode(0x80), m_responsePendingCode(0x78), m_responsePendingReads(3), m_dataByteCountIndex(6),
-	m_moduleRequestID(0x0000), m_autoEnterDiagMode(false), m_enterDiagnosticModeMessageTag("EnterDiagnosticMode")
+	m_moduleRequestID(0x00000000), m_autoEnterDiagMode(false), m_enterDiagnosticModeMessageTag("EnterDiagnosticMode")
 {   // NOthing special to do here
 }
 
@@ -745,8 +745,10 @@ inline const bool& KwpCanProtocolFilter::AutomaticallyEnterDiagnosticMode(void)
 inline const SerialString_t KwpCanProtocolFilter::GetModuleRequestID(void)
 {
 	SerialString_t moduleRequestID;
-	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0xFF00) >> 8));
-	moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x00FF));
+    moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0xFF000000) >> 24));
+    moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x00FF0000) >> 16));
+	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x0000FF00) >> 8));
+	moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x000000FF));
 	return moduleRequestID;
 }
 
@@ -785,7 +787,7 @@ inline void KwpCanProtocolFilter::SetResponsePendingReads(const INT32& responseP
 	m_responsePendingReads = responsePendingReads;
 }
 
-inline void KwpCanProtocolFilter::SetModuleRequestID(const UINT16& moduleID)
+inline void KwpCanProtocolFilter::SetModuleRequestID(const UINT32& moduleID)
 {
 	m_moduleRequestID = moduleID;
 }

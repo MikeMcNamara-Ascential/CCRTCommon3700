@@ -504,7 +504,7 @@ typedef  int     Boolean;
 /**
  * Default buffer size (in bytes) used by IBepCommunication objects
  */
-#define DEFAULT_BUFFER_SIZE     3000
+#define DEFAULT_BUFFER_SIZE     6000
 
 
 /**

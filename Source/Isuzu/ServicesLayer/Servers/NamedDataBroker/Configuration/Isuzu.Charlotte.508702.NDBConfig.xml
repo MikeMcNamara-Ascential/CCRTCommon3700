@@ -308,7 +308,7 @@
                 <FrontHydraulicClutchEngagedFault DataType="bool">PLC</FrontHydraulicClutchEngagedFault>
                 <FrontInterRollClutchDisengageFault DataType="bool">PLC</FrontInterRollClutchDisengageFault>
                 <FrontInterRollClutchEngageFault DataType="bool">PLC</FrontInterRollClutchEngageFault>
-                <FrontRetRollRelaxPressure DataType="short" Units="PSIx10">PLC</FrontRetRollRelaxPressure>
+                <FrontReductionPressure DataType="short" Units="PSIx10">PLC</FrontReductionPressure>
                 <FrontRetainingRollsLoweredFault DataType="bool">PLC</FrontRetainingRollsLoweredFault>
                 <FrontRetainingRollsRaisedFault DataType="bool">PLC</FrontRetainingRollsRaisedFault>
                 <FrontRollsHydraulicAssist4WD DataType="bool">PLC</FrontRollsHydraulicAssist4WD>

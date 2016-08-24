@@ -2719,7 +2719,8 @@ INT32 BaseBrakeTool::GetIForces(float wheelForce[])
             {   // read the force block
                 lseek(m_forceFile, 0, SEEK_SET);
                 UINT32 bytes = read(m_forceFile, (void *) wheelForce, (sizeof(float) * m_component->GetRollerCount()));
-                if(bytes != (sizeof(float) * m_component->GetRollerCount()))
+                m_component->Log(LOG_DEV_DATA, "ForceThread - SingleAxleMachine: %s, bytes: %d\n",m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")).c_str(), bytes);
+                if(bytes != (sizeof(float) * m_component->GetRollerCount()) && ((m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")) == "1") && bytes != 16))
                 {   // if interrupted during a read, read again
                     if(errno == EINTR)
                     {
@@ -2734,7 +2735,7 @@ INT32 BaseBrakeTool::GetIForces(float wheelForce[])
                 else
                 {
                     testStatus = BEP_STATUS_SUCCESS;
-                    if(m_component->GetRollerCount() == 4)
+                    if(m_component->GetRollerCount() == 4 || (m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")) == "1"))
                         m_component->Log(LOG_DEV_DATA, "BaseBrakeTool: Read forces: %.2f, %.2f, %.2f, %.2f\n",
                                          wheelForce[0], wheelForce[1], wheelForce[2], wheelForce[3]);
                     else
@@ -2831,7 +2832,7 @@ float BaseBrakeTool::GetSpeed (void)
     else
         throw BepException("GetSpeed Can Not Read Wheel Speeds\n");
 
-    m_component->Log(LOG_DEV_DATA, "Update Speed Value: %f\n", speed);
+    m_component->Log(LOG_DEV_DATA, "Update Speed Value: %f\n WheelCount: %d AxleCount: %s\n", speed, m_component->GetWheelCount(), m_component->GetDataTag( "VehicleAxleCount").c_str());
 
     return(speed);
 }
@@ -3191,7 +3192,7 @@ void* BaseBrakeTool::ForceThread(void *arg)
     // set up the force array
     float wheelForce[brake->m_component->GetRollerCount()];
     char buffer[128];
-    brake->m_component->Log(LOG_DEV_DATA, "Force Thread Started\n");
+    brake->m_component->Log(LOG_DEV_DATA, "Force Thread Started, Roller Count:%d\n",brake->m_component->GetRollerCount());
     do
     {
         // block untill it is time to start force reads

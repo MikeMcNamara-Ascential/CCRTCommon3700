@@ -338,6 +338,11 @@ const string FordABSTCTemplate<ModuleType>::CommandTestStep(const string &value)
 
         // Accelerate to brake test speed
         else if ("AccelerateToBrakeSpeed" == step)      status = TestStepAccelerateToBrakeSpeed();
+        else if("AccelerateToABSSpeed" == step)
+		{
+			m_baseBrakeTool->UpdateTarget(false);
+			status = m_baseBrakeTool->TestStepAccelerate();
+		}
         // Perform the drag test
         else if ("DragTest" == step)                    status = TestStepDrag();
         // Perform the base brake test
@@ -401,7 +406,9 @@ const string FordABSTCTemplate<ModuleType>::CommandTestStep(const string &value)
         //MAM 12/23/14
         else if (step == "CheckPartNumber")             status = CheckPartNumber();
         else if (step == "EvaluateFrontAbs")            status = EvaluateABS("Front");
-        else if (step == "EvaluateRearAbs")             status = EvaluateABS("Rear"); 
+        else if (step == "EvaluateRearAbs")             status = EvaluateABS("Rear");
+        else if (step == "FrontValveCycleTest")              status = ValveCycleTorqueTest("Forward", "Front");
+        else if (step == "RearValveCycleTest")              status = ValveCycleTorqueTest("Forward", "Rear");
         // Since it's not a test step we've defined, call the parent
         else                                            status = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
     }
@@ -4406,7 +4413,7 @@ const std::string FordABSTCTemplate<ModuleType>::PerformPBTorqueTest(const std::
 
 //=============================================================================
 template <class ModuleType>
-const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std::string &direction)
+const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std::string &direction, std::string axle)
 {
     string      testStatus;     // the overall test status
     string      result;         // the current test status
@@ -4417,7 +4424,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
     const int   rollerCount = GetRollerCount();
     float       wheelSpeeds[rollerCount];
     WHEELINFO   totalDistance;    
-    int         valveNum = 1;
+    int         valveNum;
     int         scanDelay = 3000; //default
     INT32       lfStart, rfStart, lrStart, rrStart = 0;
     char        temp[256];
@@ -4428,6 +4435,11 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
     bool        rflrCross, rfrrCross = false;
     bool        lrrrCross = false;
     bool        valveCrossDetected = false;
+
+    if(!(axle.compare("Front")))
+        valveNum = 1;
+    else
+        valveNum = 3;
 
     Log(LOG_FN_ENTRY, "Enter FordABSTCTemplate::ValveCycleTorqueTest(%s)\n", direction.c_str());
 
@@ -4586,61 +4598,73 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
             status = m_vehicleModule.GetInfo( GetDataTag("CycleValves2") );
             rfStart = TagArray("ValveCycleRFStart");
             break;
-        case 3:            
-            Log(LOG_DEV_DATA, "Check RF valve cross \n");
-            //LF & RF wheels could both be moving            
-            GetWheelDistances(m_valveCycleDistances[ 1]);            
-            GetTotalDistances( totalDistance, m_valveCycleDistances[ 0], m_valveCycleDistances[ 1]);            
-            Log(LOG_DEV_DATA, "The distances traveled #2: %.2f, %.2f, %.2f, %.2f \n",
-                totalDistance.lfWheel, totalDistance.rfWheel, totalDistance.lrWheel, totalDistance.rrWheel);            
-            if (false == valveCrossDetected)
+        case 3:
+            if(!(axle.compare("Front")))
             {
-                if (totalDistance.lrWheel > totalDistance.rfWheel)
+                Log(LOG_DEV_DATA, "Check RF valve cross \n");
+                //LF & RF wheels could both be moving            
+                GetWheelDistances(m_valveCycleDistances[ 1]);            
+                GetTotalDistances( totalDistance, m_valveCycleDistances[ 0], m_valveCycleDistances[ 1]);            
+                Log(LOG_DEV_DATA, "The distances traveled #2: %.2f, %.2f, %.2f, %.2f \n",
+                    totalDistance.lfWheel, totalDistance.rfWheel, totalDistance.lrWheel, totalDistance.rrWheel);            
+                if (false == valveCrossDetected)
                 {
-                    rflrCross = true;
-                    valveCrossDetected = true;
+                    if (totalDistance.lrWheel > totalDistance.rfWheel)
+                    {
+                        rflrCross = true;
+                        valveCrossDetected = true;
+                    }
+                    if (totalDistance.rrWheel > totalDistance.rfWheel)
+                    {
+                        rfrrCross = true;
+                        valveCrossDetected = true;
+                    }
                 }
-                if (totalDistance.rrWheel > totalDistance.rfWheel)
-                {
-                    rfrrCross = true;
-                    valveCrossDetected = true;
-                }
-            }
 
-            Log(LOG_DEV_DATA, "CycleValves RF OFF\n");
-            status = m_vehicleModule.GetInfo( GetDataTag("CycleValves2Stop") );
-            lfStart = TagArray("ValveCycleRFStop");
-            Log(LOG_DEV_DATA, "CycleValves LR \n");           
-            status = m_vehicleModule.GetInfo( GetDataTag("CycleValves3") );
-            lrStart = TagArray("ValveCycleLRStart");
+                Log(LOG_DEV_DATA, "CycleValves RF OFF\n");
+                status = m_vehicleModule.GetInfo( GetDataTag("CycleValves2Stop") );
+                lfStart = TagArray("ValveCycleRFStop");
+            }
+            else
+            { 
+                Log(LOG_DEV_DATA, "CycleValves LR \n");           
+                status = m_vehicleModule.GetInfo( GetDataTag("CycleValves3") );
+                lrStart = TagArray("ValveCycleLRStart");
+            }
             break;
-        case 4:            
-            Log(LOG_DEV_DATA, "Check REAR valve cross \n");
-            //RR should not be moving yet            
-            GetWheelDistances(m_valveCycleDistances[ 1]);            
-            GetTotalDistances( totalDistance, m_valveCycleDistances[ 0], m_valveCycleDistances[ 1]);            
-            Log(LOG_DEV_DATA, "The distances traveled #3: %.2f, %.2f, %.2f, %.2f \n",
-                totalDistance.lfWheel, totalDistance.rfWheel, totalDistance.lrWheel, totalDistance.rrWheel);          
-            if (false == valveCrossDetected)
-            {
-                if (totalDistance.rrWheel > totalDistance.lrWheel)
+        case 4:
+            if((axle.compare("Front")))
+            { 
+                Log(LOG_DEV_DATA, "Check REAR valve cross \n");
+                //RR should not be moving yet            
+                GetWheelDistances(m_valveCycleDistances[ 1]);            
+                GetTotalDistances( totalDistance, m_valveCycleDistances[ 0], m_valveCycleDistances[ 1]);            
+                Log(LOG_DEV_DATA, "The distances traveled #3: %.2f, %.2f, %.2f, %.2f \n",
+                    totalDistance.lfWheel, totalDistance.rfWheel, totalDistance.lrWheel, totalDistance.rrWheel);          
+                if (false == valveCrossDetected)
                 {
-                    lrrrCross = true;
-                    valveCrossDetected = true;
+                    if (totalDistance.rrWheel > totalDistance.lrWheel)
+                    {
+                        lrrrCross = true;
+                        valveCrossDetected = true;
+                    }
                 }
-            }
 
-            Log(LOG_DEV_DATA, "CycleValves LR OFF\n");
-            status = m_vehicleModule.GetInfo( GetDataTag("CycleValves3Stop") );
-            lfStart = TagArray("ValveCycleLRStop");
-            Log(LOG_DEV_DATA, "CycleValves RR \n");           
-            status = m_vehicleModule.GetInfo( GetDataTag("CycleValves4") );
-            rrStart = TagArray("ValveCycleRRStart");
+                Log(LOG_DEV_DATA, "CycleValves LR OFF\n");
+                status = m_vehicleModule.GetInfo( GetDataTag("CycleValves3Stop") );
+                lfStart = TagArray("ValveCycleLRStop");
+                Log(LOG_DEV_DATA, "CycleValves RR \n");           
+                status = m_vehicleModule.GetInfo( GetDataTag("CycleValves4") );
+                rrStart = TagArray("ValveCycleRRStart");
+            }
             break;
         case 5:
-            Log(LOG_DEV_DATA, "CycleValves RR OFF\n");
-            status = m_vehicleModule.GetInfo( GetDataTag("CycleValves4Stop") );
-            lfStart = TagArray("ValveCycleRRStop");
+            if((axle.compare("Front")))
+            {
+                Log(LOG_DEV_DATA, "CycleValves RR OFF\n");
+                status = m_vehicleModule.GetInfo( GetDataTag("CycleValves4Stop") );
+                lfStart = TagArray("ValveCycleRRStop");
+            }
             break;
         default:
             break;
@@ -4770,6 +4794,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
 
     // command the motor controller to boost mode
     SystemCommand(MOTOR_MODE, string(BOOST_MODE));
+    RemovePrompt(1,"DepressBrake");
 
     Log(LOG_FN_ENTRY, "Exit FordABSTCTemplate::ValveCycleTorqueTest(%s), result=%s\n", direction.c_str(), testStatus.c_str());
 
@@ -6829,7 +6854,7 @@ string FordABSTCTemplate<ModuleType>::EnterDiagnosticMode(void)
         if (CheckCableConnect())
         {
             //MAM 3/25/10
-            float speed=0;
+            /*float speed=0;
             do
             {   // read the current speed and update the display
                 //speed = GetSpeed();
@@ -6844,7 +6869,7 @@ string FordABSTCTemplate<ModuleType>::EnterDiagnosticMode(void)
                     DisplayPrompt( 1, GetPrompt( "ZeroSpeed"), 0);
                     BposSleep(100);
                 }
-            }while ((speed > 5) && TimeRemaining());
+            }while ((speed > 5) && TimeRemaining()); */
 
             try
             {   // Try to enter diagnostic mode

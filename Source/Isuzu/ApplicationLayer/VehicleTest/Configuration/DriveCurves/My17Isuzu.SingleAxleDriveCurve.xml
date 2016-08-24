@@ -289,14 +289,14 @@
                     <LsdTest/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase029>
-        <TestPhase030 Description="Brake to stop" Result="" Timeout="">
+        </TestPhase029-->
+        <TestPhase030 Description="Brake to stop / Speedometer Check" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
-                    <BrakeToStop/>
+                    <Speedometer/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase030-->
+        </TestPhase030>
 
 
         <!-- Perform forward driving tests -->

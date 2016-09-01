@@ -57,6 +57,7 @@
                     <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
                     <NodePairs>
                         <DCU Outgoing="0x24B" Incoming="0x64B"/>
+                        <DCUUUDT Outgoing="0x24B" Incoming="0x54B"/>
                         <EngineController1 Outgoing="0x7E0" Incoming="0x7E8"/>
                         <EngineControllerUUDT Outgoing="0x7E0" Incoming="0x5E8"/>
                         <Transmission Outgoing="0x7E2" Incoming="0x7EA"/>
@@ -123,6 +124,9 @@
                         <Range1 FirstRequestID="0x18DA03F1" FirstResponseID="0x18DAF103" Offset="0x00" NumberOfPairs="1"/>
                         <Range2 FirstRequestID="0x18DA0BF1" FirstResponseID="0x18DAF10B" Offset="0x00" NumberOfPairs="1"/>
                     </NodePairSetup>
+                    <BroadcastMessageIDs>
+                        <WheelSpeeds Incoming="0x18FEBF0B"/>
+                    </BroadcastMessageIDs>
                 </Setup>
             </GryphonMima>
 

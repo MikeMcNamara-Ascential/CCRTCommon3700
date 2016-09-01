@@ -606,7 +606,7 @@ int IGryphonChannel::Connect( std::string ipAddr, uint16_t port)
 		retVal = connect(MySocket, (struct sockaddr *)&server, sizeof(server));
 		// will return a retVal < 0 for an error, another thing to handle.
 		if(retVal < 0)
-		{   // Error connecting the socket, close the socket
+		{	// Error connecting the socket, close the socket
 			close(MySocket);
 		}
 	}
@@ -1223,6 +1223,7 @@ int IGryphonChannel::DecodeRead(const uint8_t *inBuf, const uint16_t inSize)
 		}
 		break;
 	case FT_DATA:
+		Log(LOG_DETAILED_DATA, "DecodeRead FTDATA\n");
 		// need to block messages from the card if it also is going to come from the USDT handler
 		if(CheckForBlock(inBuf)) break;
 		// calculate length of the data we care about to get around bad info from the frame header
@@ -1230,6 +1231,10 @@ int IGryphonChannel::DecodeRead(const uint8_t *inBuf, const uint16_t inSize)
 		dataLen = inBuf[8] + 256 * inBuf[10] + inBuf[11] + inBuf[12];
 		// call the data handler for this channel, to disassemble, then pass to client
 		locMessage = (const char *)&inBuf[moduleResponseIndex];
+
+		Log(LOG_DETAILED_DATA, "Module Data 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X\n", 
+			locMessage[0], locMessage[1], locMessage[2], locMessage[3], locMessage[4]);
+
 		//UpdateClientFifos(locMessage, dataLen-16, PORT_SUBSCRIBE_RX);
 		UpdateClientFifos(locMessage, dataLen, PORT_SUBSCRIBE_RX);
 		// this is where we will be filling the FIFO for the read() functionality
@@ -1337,6 +1342,11 @@ BEP_STATUS_TYPE IGryphonChannel::processNewCardMsg(const uint8_t *inBuf, const u
 	}// end of switch on message type
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::ProcessNewCardMessage() - status: %s\n", ConvertStatusToResponse(status).c_str());
 	return status;
+}
+
+bool IGryphonChannel::IsBroadcastModuleID(const UINT32 locModule)
+{//not implemented
+	return(false);
 }
 
 BEP_STATUS_TYPE IGryphonChannel::processNewUsdtMsg(const uint8_t *inBuf, const uint16_t  datalen)
@@ -1686,7 +1696,7 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::CanAddToClientFifo()\n");
 
 	// Check with base class first for filter strings
-	if ( RawCommProxy::CanAddToClientFifo(data,ocb) == true)
+	if( RawCommProxy::CanAddToClientFifo(data,ocb) == true)
 	{
 		// Get the module ID and response code
 		locModuleId = getModuleId(buff);
@@ -1694,8 +1704,14 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 
 		Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored module IDs: $%s incoming module ID: $%04X\n",
 			 GetModuleIDsString(client->moduleIDs).c_str(), locModuleId);
-		// If the data is from the client's module
-		if( IsModuleIDPresent(client->moduleIDs,locModuleId))
+		bool isBroadcastModuleID = IsBroadcastModuleID(locModuleId);
+		bool filterMatches = false;
+		if(isBroadcastModuleID)
+		{//check if client has a matching filter
+			filterMatches = FilterMatchCheck(data, ocb);  //note, this will return false if no filter exists
+		}
+		// If the data is from the client's module or is broadcast and client subscribed
+		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || (isBroadcastModuleID &&	/*!UsingGryphonUSDT() &&*/ filterMatches))
 		{
 			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored resp code: $%04X incoming resp code: $%04X\n",
 				 client->expectedResponse, locRespCode);
@@ -1728,6 +1744,79 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	return( canAdd);
 }
 
+/**
+ * Method used to check if a serial response string can be added to a
+ * client's rx FIFO
+ *
+ * @param data   Serial string reseived from the port
+ * @param ocb    Client connection identifier
+ * @return true if the data should be added to the client's FIFO, false otherwise
+ */
+bool IGryphonChannel::FilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb)
+{
+	bool                            retVal = true;
+	LogPortFilterStringList         &fltrList = ocb->rxSubscription->filterList;
+	LogPortFilterStringListItr_t    itr;
+
+	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::FilterMatchCheck()\n");
+	// If client has any filter strings
+	if( fltrList.size() > 0)
+	{
+		fltrList.Lock();
+		for( itr=fltrList.begin(); itr!=fltrList.end(); itr++)
+		{
+			// Get reference to the filter string
+			const LogPortFilterString &filter = *itr;
+			// IF data matches the filter string
+			if( filter.IsStringValid( data) == true)
+			{
+				// Ok to ADD to FIFO
+				Log( LOG_DEV_DATA, "Response matches filter string\n");
+				retVal = true;
+				break;
+			}
+			else
+			{
+				// No match...look at next filter
+				Log( LOG_DEV_DATA, "Response DOES NOT match filter string\n");
+
+				SerialString_t::const_iterator  sItr = sItr=data.begin();
+				LogPortFilterStringCItr_t       lItr = lItr=filter.begin();
+
+				// Size must match first or filter must be set to variable length
+				if( (filter.size() == data.size()) || (filter.GetRespLenType() == 1))
+				{
+					// Examine each element of each string
+					while( (sItr!=data.end()) && (lItr!=filter.end()))
+					{
+						Log( LOG_DEV_DATA, "data: 0x%02X : filter0x%02X\n");
+						// Look at next element
+						sItr++;
+						lItr++;
+					}
+				}
+				else
+				{
+					Log( LOG_DEV_DATA, "Filter sizes do not match\n");
+				}
+				//Test Log message, remove
+				Log( LOG_DETAILED_DATA, "Not expecting NULL character reflection\n");
+
+				retVal = false;
+			}
+		}
+		fltrList.Unlock();
+	}
+	else
+	{
+		Log( LOG_DEV_DATA, "No filter strings for client\n");
+		retVal = false;
+	}
+	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::FilterMatchCheck(%d)\n", retVal);
+
+	return( retVal);
+}
+
 bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t *ocb)
 {
 	SerialString_t  gryphMssg;
@@ -1735,13 +1824,19 @@ bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t 
 	bool            retVal;
 
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::AddToClientFifo( %d)\n", len);
-
-	// Prepend the length pf the message to the original message
-	shortBuff[0] = (len / 0x1000000) & 0xFF;
-	shortBuff[1] = (len / 0x10000) & 0xFF;
-	shortBuff[2] = (len / 0x100) & 0xFF;
-	shortBuff[3] = (len / 0x1) & 0xFF;
-	gryphMssg = SerialString_t( shortBuff, 4) + SerialString_t( (uint8_t*)buff, len);
+	if(UsingGryphonUSDT())
+	{
+		// Prepend the length pf the message to the original message
+		shortBuff[0] = (len / 0x1000000) & 0xFF;
+		shortBuff[1] = (len / 0x10000) & 0xFF;
+		shortBuff[2] = (len / 0x100) & 0xFF;
+		shortBuff[3] = (len / 0x1) & 0xFF;
+		gryphMssg = SerialString_t( shortBuff, 4) + SerialString_t( (uint8_t*)buff, len);
+	}
+	else
+	{
+		gryphMssg = SerialString_t( (uint8_t*)buff, len);
+	}
 
 	// Let the base class do all the real work
 	retVal = RawCommProxy::AddToClientFifo((const char*)gryphMssg.c_str(), gryphMssg.size(), ocb);
@@ -2035,4 +2130,30 @@ void IGryphonChannel::ClearModuleResponsePending(const vector<UINT32> &moduleIds
 	{
 		Log(LOG_ERRORS, "WARNING: No response pending entry for module ID %s", GetModuleIDsString(moduleIds).c_str());
 	}
+}
+/**
+ * Handler method for client subscription requests
+ *
+ * @param ctp    Resource manager context pointer
+ * @param msg    Message structure
+ * @param ioOcb  Client's connection properties
+ * @return EOK if successful, other on error
+ */
+int IGryphonChannel::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
+										  resMgrIoOcb_t *ioOcb)
+{
+	return RawCommProxy::PortSubscribeHandler(ctp, msg, ioOcb); 
+}
+/**
+ * Handler method for client unsubscription requests
+ *
+ * @param ctp    Resource manager context pointer
+ * @param msg    Message structure
+ * @param ioOcb  Client's connection properties
+ * @return EOK if successful, other on error
+ */
+int IGryphonChannel::PortUnsubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
+											resMgrIoOcb_t *ioOcb)
+{
+	return RawCommProxy::PortUnsubscribeHandler(ctp, msg, ioOcb);
 }

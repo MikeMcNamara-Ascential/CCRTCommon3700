@@ -376,6 +376,8 @@ public:
     virtual int ResetDriverHandler(resmgr_context_t *ctp, io_devctl_t *msg,
                                    resMgrIoOcb_t *ioOcb);
 
+    virtual bool IsBroadcastModuleID(const UINT32 locModule);
+
 protected:
     //ComTimer    m_replyTimeoutTimer;
     /**
@@ -631,6 +633,16 @@ protected:
     virtual bool CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t *ocb);
 
     /**
+     * Method used to check if a serial response string can be added to a
+     * client's rx FIFO
+     *
+     * @param data   Serial string reseived from the port
+     * @param ocb    Client connection identifier
+     * @return true if the data should be added to the client's FIFO, false otherwise
+     */
+    virtual bool FilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb);
+
+    /**
      * Adds the gives serial string to the specified client's fifo
      *
      * @param buff   Serial data to be added to the client's fifo
@@ -682,6 +694,26 @@ protected:
      * @return Status of setting the minimum seperation time.
      */
     int SetMinimumMessageSeperationTime(float seperationTime);
+    /**
+     * Handler method for client subscription requests
+     *
+     * @param ctp    Resource manager context pointer
+     * @param msg    Message structure
+     * @param ioOcb  Client's connection properties
+     * @return EOK if successful, other on error
+     */
+    virtual int PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoOcb_t *ioOcb);
+
+    /**
+     * Handler method for client unsubscription requests
+     *
+     * @param ctp    Resource manager context pointer
+     * @param msg    Message structure
+     * @param ioOcb  Client's connection properties
+     * @return EOK if successful, other on error
+     */
+    virtual int PortUnsubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
+                                       resMgrIoOcb_t *ioOcb);
     /**
      * Reverse the bytes in the provided variable.
      *

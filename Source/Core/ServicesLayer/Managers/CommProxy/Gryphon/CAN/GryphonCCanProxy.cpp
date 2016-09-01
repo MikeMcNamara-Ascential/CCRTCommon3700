@@ -217,6 +217,26 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
             m_nodePairSetupMap[ii].numberOfPairs = (INT16)BposReadInt(nodePairX->getAttribute("NumberOfPairs")->getValue().c_str());
         }
     }
+    try
+    {
+        XmlNodeMap bcastMessages;
+        m_broadcastMessageCount = 0;
+        bcastMessages.DeepCopy(portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren());
+        for(XmlNodeMapCItr iter = bcastMessages.begin();iter != bcastMessages.end(); iter++)
+        {   // Get list of broadcast message ids to be recorded
+            m_broadcastMessages[m_broadcastMessageCount].incoming = (UINT32)BposReadInt(iter->second->getAttribute("Incoming")->getValue().c_str());
+            //initialize as blocked
+            m_broadcastMessages[m_broadcastMessageCount].blocked = true;
+            Log( LOG_DETAILED_DATA, "Added Broadcast Incoming Msg ID: %04X\n",m_broadcastMessages[m_broadcastMessageCount].incoming);
+            m_broadcastMessageCount++;
+        }
+        m_recordBroadcastMessages = true;
+    }
+    catch(XmlException &excpt)
+    {//No broadcast messages specified default to null
+        Log(LOG_ERRORS, "No broadcast messages specified %s", excpt.GetReason());
+        m_recordBroadcastMessages = false;
+    }
 #if IGCDEBUG
     dumpNodePairs(m_nodeMap, m_nodePairCount);
 #endif
@@ -235,6 +255,18 @@ vector<UINT32> GryphonCCanProxy::FindNodePair(const UINT32 locModule)
         }
     }
     return(locNode);
+}
+
+bool GryphonCCanProxy::IsBroadcastModuleID(const UINT32 locModule)
+{
+    for (int ii = 0; ii < m_broadcastMessageCount; ii++)
+    {
+        if (locModule == m_broadcastMessages[ii].incoming)
+        {
+            return(true);
+        }
+    }
+    return(false);
 }
 
 int GryphonCCanProxy::getExpectedFromRaw(SerialString_t rawMessage)
@@ -289,12 +321,21 @@ vector<UINT32> GryphonCCanProxy::getModuleIdsFromRaw(SerialString_t rawMessage)
 bool GryphonCCanProxy::CheckForBlock(const uint8_t *inBuf)
 {
     bool isBlocked = false;
+
+    //Length of the header + length of the data + extra data (this is all from the data header)
+    const int moduleResponseIndex = 24;  //start of the module's data after all the gryphon wrappers and headers
+    const char *moduleMessage = (const char *)&inBuf[moduleResponseIndex];
+
+    uint32_t        locModuleId = getModuleId(moduleMessage);
+    Log( LOG_DETAILED_DATA, "IGryphonChannel::ProcessNewCardMessage() Gryphon Incoming Msg ID: %04X\n", locModuleId);
     // if this is from a card, and it is not a USDT message, block it.
     // currently, according to scott, ALL messages from Chrysler are USDT
-    //JPS Removing blocking card messages - needed for UUDT responses
-    //isBlocked = (SD_CARD == inBuf[0]);
-    Log(LOG_DEV_DATA, "CheckForBlock is %s -- SD_CARD: %02X %s inbuf[0]: %02X\n",
-        (isBlocked ? "BLOCKED" : "NOT blocked"), SD_CARD, (isBlocked ? "==" : "!="), inBuf[0]);
+    //JPS Added logic to allow card messages - needed for UUDT and broadcast responses
+//    isBlocked = ((SD_CARD == inBuf[0]) && UsingGryphonUSDT()) || !(IsBroadcastModuleID(locModuleId) /*&& !UsingGryphonUSDT()*/);
+	isBlocked = !(((SD_CARD == inBuf[0]) && IsBroadcastModuleID(locModuleId)) || (SD_USDT == inBuf[0]));
+    Log(LOG_DEV_DATA, "CheckForBlock is %s -- SD_CARD: %02X %s inbuf[0]: %02X Using USDT: %s\n",
+        (isBlocked ? "BLOCKED" : "NOT blocked"), SD_CARD, ((SD_CARD == inBuf[0]) ? "==" : "!="), 
+        inBuf[0],UsingGryphonUSDT() ? "True" : "False");
     // Return the result
     return(isBlocked);
 }
@@ -340,6 +381,45 @@ void GryphonCCanProxy::BuildMessage(SerialString_t &outBuf, const SerialString_t
     outBuf += inBuf;         // append
 }
 
+void GryphonCCanProxy::CreateFilter(uint32_t incomingId)
+{
+    if (m_moduleIDByteLength == 4)
+    {
+        char idToMatch[4] = {char((incomingId >> 24) & 0x000000FF),
+            char((incomingId >> 16) & 0x000000FF),
+            char((incomingId >> 8) & 0x000000FF),
+            char(incomingId & 0x000000FF)};
+        char idMask[4] = {0xFF,0xFF,0xFF,0xFF};
+
+        Log( LOG_FN_ENTRY, "Filter found: (%02x, %02x, %02x, %02x)\n",idToMatch[3], idToMatch[2], idToMatch[1], idToMatch[0]);
+        //Create filter to allow messages to pass
+        AddFilter( (FILTER_FLAG_PASS | FILTER_FLAG_ACTIVE),    /*const uint8_t locFlags*/
+                  0,                                        /*const uint16_t locOffset*/
+                  4,                                        /*const uint16_t locLength, */
+                  FILTER_DATA_TYPE_HEADER,                  /*const uint8_t locField*/
+                  BIT_FIELD_CHECK,                          /*const uint8_t locOperator*/ 
+                  idToMatch,                                     /*const char *firstValue, */
+                  idMask);                                    /*const char *secondValue*/
+    }
+    else
+    {
+        //test for uudt message
+        char idToMatch[2] = {char((incomingId >> 8) & 0x00FF),
+            char(incomingId & 0x00FF)};
+        char idMask[2] = {0xFF,0xFF};
+
+        Log( LOG_FN_ENTRY, "Filter found: (%02x, %02x)\n",idToMatch[1], idToMatch[0]);
+        //ERIC: CREATE THE FILTER TO RETURN ONLY MESSAGES TO ME ($F1)
+        AddFilter( (FILTER_FLAG_PASS | FILTER_FLAG_ACTIVE),    /*const uint8_t locFlags*/
+                  0,                                        /*const uint16_t locOffset*/
+                  2,                                        /*const uint16_t locLength, */
+                  FILTER_DATA_TYPE_HEADER,                  /*const uint8_t locField*/
+                  BIT_FIELD_CHECK,                          /*const uint8_t locOperator*/ 
+                  idToMatch,                                     /*const char *firstValue, */
+                  idMask);                                    /*const char *secondValue*/
+    }
+}
+
 int GryphonCCanProxy::ChannelSpecificInit(void)
 {
     int retVal;
@@ -352,30 +432,26 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
     {
         if(m_nodePairSetupMap[ii].uudtIncoming != 0x0000)
         {//uudt filter exists - need to setup card to accept this filter
-
-            //test for uudt message
-            char idToMatch[2] = {char((m_nodePairSetupMap[ii].uudtIncoming >> 8) & 0x00FF),
-                char(m_nodePairSetupMap[ii].uudtIncoming & 0x00FF)};
-            char idMask[2] = {0xFF,0xFF};
-
-            Log( LOG_FN_ENTRY, "Filter found: (%02x, %02x)\n",idToMatch[1], idToMatch[0]);
-            //ERIC: CREATE THE FILTER TO RETURN ONLY MESSAGES TO ME ($F1)
-            AddFilter( (FILTER_FLAG_PASS | FILTER_FLAG_ACTIVE),    /*const uint8_t locFlags*/
-                      0,                                        /*const uint16_t locOffset*/
-                      2,                                        /*const uint16_t locLength, */
-                      FILTER_DATA_TYPE_HEADER,                  /*const uint8_t locField*/
-                      BIT_FIELD_CHECK,                          /*const uint8_t locOperator*/ 
-                      idToMatch,                                     /*const char *firstValue, */
-                      idMask);                                    /*const char *secondValue*/
+            CreateFilter(m_nodePairSetupMap[ii].uudtIncoming);
 
             //TURN ON THE FILTER
             SetFilterMode(FILTER_ON);
 
             //BLOCK ALL OTHER MESSAGES???
             SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
-
-            //End Test
         }
+    }
+    if (m_recordBroadcastMessages)
+    {
+        for (int ii = 0; ii < m_broadcastMessageCount; ii++)
+        {
+            CreateFilter(m_broadcastMessages[ii].incoming);
+        }
+        //TURN ON THE FILTER
+        SetFilterMode(FILTER_ON);
+
+        //BLOCK ALL OTHER MESSAGES???
+        SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
     }
 
     // Set the filter mode
@@ -386,4 +462,70 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
     if(retVal == EOK)  retVal = SetMinimumMessageSeperationTime(m_stMinMultiplier);
     Log(LOG_FN_ENTRY, "GryphonCCanProxy::ChannelSpecificInit() complete - retval: %d", retVal);
     return(retVal);
+}
+
+/**
+ * Handler method for client subscription requests
+ *
+ * @param ctp    Resource manager context pointer
+ * @param msg    Message structure
+ * @param ioOcb  Client's connection properties
+ * @return EOK if successful, other on error
+ */
+int GryphonCCanProxy::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
+                                       resMgrIoOcb_t *ioOcb)
+{
+	Log(LOG_DEV_DATA, "GryphonCCanProxy::PortSubscribeHandler() - Enter");
+    if (m_recordBroadcastMessages)
+    {
+        //unblock broadcast message
+        GryphonIoOcb_t    *clientOcb = (GryphonIoOcb_t*)ioOcb;
+		Log(LOG_DEV_DATA, "Checking if clientOcb is NULL");
+		if(clientOcb != NULL)
+		{
+			Log(LOG_DEV_DATA, "clientOcb is not NULL, setting braodcast block");
+//			SetBroadcastBlock(false,clientOcb->moduleIDs[0]);
+		}
+		else
+		{
+			Log(LOG_ERRORS, "clientOcb is NULL, not setting broadcast block");
+		}
+    }
+	Log(LOG_DEV_DATA, "GryphonCCanProxy::PortSubscribeHandler() - Exit");
+    return IGryphonChannel::PortSubscribeHandler(ctp, msg, ioOcb); 
+}
+
+void GryphonCCanProxy::SetBroadcastBlock(bool block, UINT32 keyID)
+{
+	Log(LOG_DEV_DATA, "GryphonCCanProxy::SetBroadcastBlock(block: %s, keyID: %04X) - Enter",
+		block ? "True" : "False", keyID);
+    for (UINT16 index = 0; index < m_broadcastMessageCount; index++)
+    {
+        if (m_broadcastMessages[index].incoming == keyID)
+        {
+            m_broadcastMessages[index].blocked = block;
+			Log(LOG_DEV_DATA, "Found keyID and set for block");
+            return;
+        }
+    }
+}
+/**
+ * Handler method for client unsubscription requests
+ *
+ * @param ctp    Resource manager context pointer
+ * @param msg    Message structure
+ * @param ioOcb  Client's connection properties
+ * @return EOK if successful, other on error
+ */
+int GryphonCCanProxy::PortUnsubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
+                                         resMgrIoOcb_t *ioOcb)
+{
+    //block broadcast message
+    if (m_recordBroadcastMessages)
+    {
+        //unblock broadcast message
+        GryphonIoOcb_t    *clientOcb = (GryphonIoOcb_t*)ioOcb;
+//        SetBroadcastBlock(true,clientOcb->moduleIDs[0]);
+    }
+    return IGryphonChannel::PortUnsubscribeHandler(ctp, msg, ioOcb);
 }

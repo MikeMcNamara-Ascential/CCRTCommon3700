@@ -79,6 +79,8 @@
             <OverallTestResultPromptBox>1</OverallTestResultPromptBox>
             <LoadingParametersPromptBox>1</LoadingParametersPromptBox>
             <UsePlcResultButtons>True</UsePlcResultButtons>
+            <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
+            <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
             <ReuseComponents>False</ReuseComponents>
             <Setup>
                 <Debug>Off</Debug>
@@ -137,7 +139,7 @@
             <Type>Server</Type>
             <Name>application/Sequencer</Name>
             <Debug>Off</Debug>
-            <BufferSize>2048</BufferSize>
+            <BufferSize>4096</BufferSize>
             <Timeout>0</Timeout>
         </SequencerComm>
         <ResetOverallResults>

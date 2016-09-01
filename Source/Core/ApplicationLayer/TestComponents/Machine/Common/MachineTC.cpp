@@ -1171,194 +1171,200 @@ const std::string MachineTC::TestStepSpeedometer(const std::string &value)
     float speedometerRatio = 0.0;
     bool activateSpeed = true;
 
-    try
-    {
-        // if the conditions are correct to perform the task
-        if(StatusCheck() == BEP_STATUS_SUCCESS)
-        {
-            SystemWrite(GetDataTag("TestResultBox3"),colorBlue);
-            // prompt the driver to accelerate to the test speed
-            if(UpdatePrompts() != BEP_STATUS_SUCCESS)
-                Log(LOG_ERRORS, "Unable to Update Prompts\n");
+	if(((GetTestStepResult() != testPass) && IsRetest()) || !IsRetest())
+	{
+		try
+		{
+			// if the conditions are correct to perform the task
+			if(StatusCheck() == BEP_STATUS_SUCCESS)
+			{
+				SystemWrite(GetDataTag("TestResultBox3"),colorBlue);
+				// prompt the driver to accelerate to the test speed
+				if(UpdatePrompts() != BEP_STATUS_SUCCESS)
+					Log(LOG_ERRORS, "Unable to Update Prompts\n");
 
-            if(SystemWrite(GetDataTag("SpeedTarget"),GetParameter("SpeedometerSpeedTarget")) == BEP_STATUS_SUCCESS)
-            {
-                bool done = false;
-                bool promptDisplayed = false;
-                float wheelSpeeds[GetRollerCount()];
-                if(GetParameterBool("Prompt40KPHTest"))
-                {
-                    DisplayPrompt(GetPromptBox("AccelerateTo40KPH"),GetPrompt("AccelerateTo40KPH"),GetPromptPriority("AccelerateTo40KPH"));
-                }
-                while((StatusCheck() == BEP_STATUS_SUCCESS) && TimeRemaining() && !done)
-                {
-                    // read the wheel speeds
-                    if(GetWheelSpeeds(wheelSpeeds) == BEP_STATUS_SUCCESS)
-                    {
-                        // store the speed of the left roll of the driven
-                        // axle as the speedometer test result
-                        if(ReadSubscribeData(GetDataTag("DriveAxle")) == "Rear")
-                        {
-                            currentSpeed = wheelSpeeds[LRWHEEL];
-                        }
-						else if(SystemReadBool("SingleAxleMachine"))
-						{
-							currentSpeed = wheelSpeeds[LFWHEEL];
-						}
-                        else
-						{
-							currentSpeed = wheelSpeeds[LFWHEEL];
-						}
-                    }
-                    if(GetParameterBool("BlindSpeedoTest"))
-                    {
-                        // Disable Speedometer
-                        SystemWrite(GetDataTag("SpeedActive"), !activateSpeed);
-                    }
-                    if(!GetParameterBool("DcxStyleSpeedoTest"))
-                    {
-                        // if the current speed is within the limits, send the
-                        // horn signal bit to the PLC
-                        if((currentSpeed >= lowLimit) && (currentSpeed <= highLimit))
-                        {
-                            SystemWrite(GetDataTag("HornSignal"),true);
-                            if(!promptDisplayed && !GetParameterBool("DisableSpeedoButtonPrompting"))
-                            {
-                                DisplayPrompt(GetPromptBox("PressSpeedoButtonAtSpeed"),GetPrompt("PressSpeedoButtonAtSpeed"),GetPromptPriority("PressSpeedoButtonAtSpeed"));
-                                promptDisplayed = true;
-                            }
-                        }
-                        else
-                        {
-                            SystemWrite(GetDataTag("HornSignal"),false);
-                        }
-
-                        // if the 40 KPH button is pressed
-                        if(ReadSubscribeData(GetDataTag("Start40kphTest")) == "1")
-                        {
-                            speedometerTestResult = currentSpeed;
-							speedometerDiff = fabs(GetParameterFloat("TargetSpeed40kph") - currentSpeed);
-                            done = true;
-                            SpeedometerResultSpeed(&currentSpeed);
-                        }
-                    }
-                    else
-                    {   // If speed is in range, prompt operator to press the button
-                        if((lowLimit <= currentSpeed) && (currentSpeed <= highLimit))
-                        {   // Speed is in range, wait for the specified time limit
-                            if(testPass == MaintainSpeedForTime(GetParameterInt("SpeedometerStableTime"), (INT32)lowLimit, (INT32)highLimit))
-                            {
-                                done = true;
-                                // read the wheel speeds
-                                if(GetWheelSpeeds(wheelSpeeds) == BEP_STATUS_SUCCESS)
-                                {
-                                    // store the speed of the left roll of the driven
-                                    // axle as the speedometer test result
-                                    if(ReadSubscribeData(GetDataTag("DriveAxle")) == "Rear")
-                                    {
-                                        currentSpeed = wheelSpeeds[LRWHEEL];
-                                    }
-                                    else
-                                    {
-                                        currentSpeed = wheelSpeeds[LFWHEEL];
-                                    }
-                                }
-                                // Capture the current speed and delta speed from 40kph
-                                speedometerTestResult = currentSpeed;
-                                speedometerDiff = fabs(GetParameterFloat("TargetSpeed40kph") - currentSpeed);
-                                speedometerRatio = (100 * (speedometerDiff / GetParameterFloat("TargetSpeed40kph")));
-                                Log(LOG_DEV_DATA,"Speedo Speed: %5.2f, Ratio: %5.1f",
-                                    speedometerTestResult,speedometerRatio);
-                                // Convert the values to kph
-                                speedometerTestResult *= 1.609344;
-                                speedometerDiff *= 1.609344;
-                                lowLimit *= 1.609344;
-                                highLimit *= 1.609344;
-                                Log(LOG_DEV_DATA,"(After Conversion) Speedo Speed: %5.2f, low: %5.2f, high: %5.2f",
-                                    speedometerTestResult,lowLimit,highLimit);
-                            }
-                        }
-                    }
-
-                    if(!done) BposSleep(100);
-                }
-
-                if(!GetParameterBool("DcxStyleSpeedoTest"))
-                {
-                    // make sure the horn bit is off
-                    SystemWrite(GetDataTag("HornSignal"),false);
-                    if(promptDisplayed && !GetParameterBool("DisableSpeedoButtonPrompting"))
-                    {
-                        RemovePrompt(GetPromptBox("PressSpeedoButtonAtSpeed"), GetPrompt("PressSpeedoButtonAtSpeed"), GetPromptPriority("PressSpeedoButtonAtSpeed"));
-                    }
-                }
-
-                if(GetParameterBool("BlindSpeedoTest"))
-                {
-                    // activate speedometer
-                    SystemWrite(GetDataTag("SpeedActive"), activateSpeed);
-                }
-
-                // update the status of the test
-                if(StatusCheck() != BEP_STATUS_SUCCESS) UpdateResult(StatusCheck(), status);
-                else if(!TimeRemaining())
+				if(SystemWrite(GetDataTag("SpeedTarget"),GetParameter("SpeedometerSpeedTarget")) == BEP_STATUS_SUCCESS)
 				{
-					status = BEP_TIMEOUT_STATUS;
-					SystemWrite(GetDataTag("TestResultBox3"),GetDataTag("Fail"));
+					bool done = false;
+					bool promptDisplayed = false;
+					float wheelSpeeds[GetRollerCount()];
+					if(GetParameterBool("Prompt40KPHTest"))
+					{
+						DisplayPrompt(GetPromptBox("AccelerateTo40KPH"),GetPrompt("AccelerateTo40KPH"),GetPromptPriority("AccelerateTo40KPH"));
+					}
+					while((StatusCheck() == BEP_STATUS_SUCCESS) && TimeRemaining() && !done)
+					{
+						// read the wheel speeds
+						if(GetWheelSpeeds(wheelSpeeds) == BEP_STATUS_SUCCESS)
+						{
+							// store the speed of the left roll of the driven
+							// axle as the speedometer test result
+							if((ReadSubscribeData(GetDataTag("DriveAxle")) == "Rear") && !SystemReadBool("SingleAxleMachine"))
+							{
+								currentSpeed = wheelSpeeds[LRWHEEL];
+							}
+							else if(SystemReadBool("SingleAxleMachine"))
+							{
+								currentSpeed = wheelSpeeds[LFWHEEL];
+							}
+							else
+							{
+								currentSpeed = wheelSpeeds[LFWHEEL];
+							}
+						}
+						if(GetParameterBool("BlindSpeedoTest"))
+						{
+							// Disable Speedometer
+							SystemWrite(GetDataTag("SpeedActive"), !activateSpeed);
+						}
+						if(!GetParameterBool("DcxStyleSpeedoTest"))
+						{
+							// if the current speed is within the limits, send the
+							// horn signal bit to the PLC
+							if((currentSpeed >= lowLimit) && (currentSpeed <= highLimit))
+							{
+								SystemWrite(GetDataTag("HornSignal"),true);
+								if(!promptDisplayed && !GetParameterBool("DisableSpeedoButtonPrompting"))
+								{
+									DisplayPrompt(GetPromptBox("PressSpeedoButtonAtSpeed"),GetPrompt("PressSpeedoButtonAtSpeed"),GetPromptPriority("PressSpeedoButtonAtSpeed"));
+									promptDisplayed = true;
+								}
+							}
+							else
+							{
+								SystemWrite(GetDataTag("HornSignal"),false);
+							}
+
+							// if the 40 KPH button is pressed
+							if(ReadSubscribeData(GetDataTag("Start40kphTest")) == "1")
+							{
+								speedometerTestResult = currentSpeed;
+								speedometerDiff = fabs(GetParameterFloat("TargetSpeed40kph") - currentSpeed);
+								done = true;
+								SpeedometerResultSpeed(&currentSpeed);
+							}
+						}
+						else
+						{	// If speed is in range, prompt operator to press the button
+							if((lowLimit <= currentSpeed) && (currentSpeed <= highLimit))
+							{	// Speed is in range, wait for the specified time limit
+								if(testPass == MaintainSpeedForTime(GetParameterInt("SpeedometerStableTime"), (INT32)lowLimit, (INT32)highLimit))
+								{
+									done = true;
+									// read the wheel speeds
+									if(GetWheelSpeeds(wheelSpeeds) == BEP_STATUS_SUCCESS)
+									{
+										// store the speed of the left roll of the driven
+										// axle as the speedometer test result
+										if(ReadSubscribeData(GetDataTag("DriveAxle")) == "Rear")
+										{
+											currentSpeed = wheelSpeeds[LRWHEEL];
+										}
+										else
+										{
+											currentSpeed = wheelSpeeds[LFWHEEL];
+										}
+									}
+									// Capture the current speed and delta speed from 40kph
+									speedometerTestResult = currentSpeed;
+									speedometerDiff = fabs(GetParameterFloat("TargetSpeed40kph") - currentSpeed);
+									speedometerRatio = (100 * (speedometerDiff / GetParameterFloat("TargetSpeed40kph")));
+									Log(LOG_DEV_DATA,"Speedo Speed: %5.2f, Ratio: %5.1f",
+										speedometerTestResult,speedometerRatio);
+									// Convert the values to kph
+									speedometerTestResult *= 1.609344;
+									speedometerDiff *= 1.609344;
+									lowLimit *= 1.609344;
+									highLimit *= 1.609344;
+									Log(LOG_DEV_DATA,"(After Conversion) Speedo Speed: %5.2f, low: %5.2f, high: %5.2f",
+										speedometerTestResult,lowLimit,highLimit);
+								}
+							}
+						}
+
+						if(!done) BposSleep(100);
+					}
+
+					if(!GetParameterBool("DcxStyleSpeedoTest"))
+					{
+						// make sure the horn bit is off
+						SystemWrite(GetDataTag("HornSignal"),false);
+						if(promptDisplayed && !GetParameterBool("DisableSpeedoButtonPrompting"))
+						{
+							RemovePrompt(GetPromptBox("PressSpeedoButtonAtSpeed"), GetPrompt("PressSpeedoButtonAtSpeed"), GetPromptPriority("PressSpeedoButtonAtSpeed"));
+						}
+					}
+
+					if(GetParameterBool("BlindSpeedoTest"))
+					{
+						// activate speedometer
+						SystemWrite(GetDataTag("SpeedActive"), activateSpeed);
+					}
+
+					// update the status of the test
+					if(StatusCheck() != BEP_STATUS_SUCCESS)	UpdateResult(StatusCheck(), status);
+					else if(!TimeRemaining())
+					{
+						status = BEP_TIMEOUT_STATUS;
+						SystemWrite(GetDataTag("TestResultBox3"),GetDataTag("Fail"));
+					}
+					else if(!done)							status = BEP_FATALFAIL_STATUS;
+					else
+					{
+						SystemWrite("SpeedoTestValue",speedometerTestResult);  
+						// check if the test result is within the limits
+						if((speedometerTestResult >= lowLimit) &&
+						   (speedometerTestResult <= highLimit))
+						{
+							status = BEP_PASS_STATUS;
+							SystemWrite(GetDataTag("TestResultBox3"),GetDataTag("Pass"));
+						}
+						else
+						{
+							status = BEP_FAIL_STATUS;
+							SystemWrite(GetDataTag("TestResultBox3"),GetDataTag("Fail"));
+						}
+					}
+					if(GetParameterBool("Prompt40KPHTest"))
+					{
+						RemovePrompt(GetPromptBox("AccelerateTo40KPH"),GetPrompt("AccelerateTo40KPH"),GetPromptPriority("AccelerateTo40KPH"));
+					}
 				}
-                else if(!done)                          status = BEP_FATALFAIL_STATUS;
-                else
-                {
-					SystemWrite("SpeedoTestValue",speedometerTestResult);  
-                    // check if the test result is within the limits
-                    if((speedometerTestResult >= lowLimit) &&
-                       (speedometerTestResult <= highLimit))
-                    {
-                        status = BEP_PASS_STATUS;
-                        SystemWrite(GetDataTag("TestResultBox3"),GetDataTag("Pass"));
-                    }
-                    else
-                    {
-                        status = BEP_FAIL_STATUS;
-                        SystemWrite(GetDataTag("TestResultBox3"),GetDataTag("Fail"));
-                    }
-                }
-                if(GetParameterBool("Prompt40KPHTest"))
-                {
-                    RemovePrompt(GetPromptBox("AccelerateTo40KPH"),GetPrompt("AccelerateTo40KPH"),GetPromptPriority("AccelerateTo40KPH"));
-                }
-            }
-            else status = BEP_SOFTWAREFAIL_STATUS;
-        }
-        // else the conditions are not correct, indicate not started
-        else status = BEP_TEST_NOT_STARTED;
-    }
-    catch(BepException &e)
-    {
-        Log(LOG_ERRORS, "MachineTC::TestStepSpeedometer Exception: %s\n", e.what());
-        status = BEP_SOFTWAREFAIL_STATUS;
-    }
+				else status	= BEP_SOFTWAREFAIL_STATUS;
+			}
+			// else the conditions are not correct, indicate not started
+			else status	= BEP_TEST_NOT_STARTED;
+		}
+		catch(BepException &e)
+		{
+			Log(LOG_ERRORS, "MachineTC::TestStepSpeedometer Exception: %s\n", e.what());
+			status = BEP_SOFTWAREFAIL_STATUS;
+		}
 
-    char buffer[16];
-    if(!GetParameterBool("DcxStyleSpeedoTest"))
-    {
-        SendSubtestResultWithDetail("Speedometer",status,"Speedometer Test Result","0000",
-                                    "SpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",speedometerTestResult),"MPH",
-                                    "MinSpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",lowLimit),"MPH",
-                                    "MaxSpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",highLimit),"MPH",
-                                    "SpeedometerDiff",CreateMessage(buffer,sizeof(buffer),"%.2f",speedometerDiff),"MPH");
-    }
-    else
-    {
-        SendSubtestResultWithDetail("Speedometer",status,"Speedometer Test Result","0000",
-                                    "SpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",speedometerTestResult),"KPH",
-                                    "MinSpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",lowLimit),"KPH",
-                                    "MaxSpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",highLimit),"KPH",
-                                    "SpeedometerRatio",CreateMessage(buffer,sizeof(buffer),"%.1f",speedometerRatio),"%");
-    }
+		char buffer[16];
+		if(!GetParameterBool("DcxStyleSpeedoTest"))
+		{
+			SendSubtestResultWithDetail("Speedometer",status,"Speedometer Test Result","0000",
+										"SpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",speedometerTestResult),"MPH",
+										"MinSpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",lowLimit),"MPH",
+										"MaxSpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",highLimit),"MPH",
+										"SpeedometerDiff",CreateMessage(buffer,sizeof(buffer),"%.2f",speedometerDiff),"MPH");
+		}
+		else
+		{
+			SendSubtestResultWithDetail("Speedometer",status,"Speedometer Test Result","0000",
+										"SpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",speedometerTestResult),"KPH",
+										"MinSpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",lowLimit),"KPH",
+										"MaxSpeedometerSpeed",CreateMessage(buffer,sizeof(buffer),"%.2f",highLimit),"KPH",
+										"SpeedometerRatio",CreateMessage(buffer,sizeof(buffer),"%.1f",speedometerRatio),"%");
+		}
 
-    RemovePrompts();    // remove the prompts from the screen
-
+		RemovePrompts();	// remove the prompts from the screen
+	}
+	else
+	{
+		status = GetTestStepResult();
+	}
     return(status);     // return the status
 }
 

@@ -15,7 +15,7 @@
       <SentMessageIdentifierIndex>8</SentMessageIdentifierIndex>
       <NegativeResponseValue>0x7F</NegativeResponseValue>
       <NegativeResponseCodeIndex>10</NegativeResponseCodeIndex>
-      <ModuleResponseDelay>150</ModuleResponseDelay>
+      <ModuleResponseDelay>500</ModuleResponseDelay>
       <ModuleResponseEndDelay>50</ModuleResponseEndDelay>
       <Communication>
          <Debug>Off</Debug>
@@ -711,10 +711,10 @@
       <TransmitInterpretations>
          <ReadBrakeSwitch>0xFD,0x62</ReadBrakeSwitch>
          <ReadDiagMode>0xD1,0x00</ReadDiagMode>
-         <ReadLFSensorSpeed>0x2B,0x06</ReadLFSensorSpeed>
-         <ReadRFSensorSpeed>0x2B,0x07</ReadRFSensorSpeed>
-         <ReadLRSensorSpeed>0x2B,0x08</ReadLRSensorSpeed>
-         <ReadRRSensorSpeed>0x2B,0x09</ReadRRSensorSpeed>
+         <ReadLFSensorSpeed>0xFE,0x6E</ReadLFSensorSpeed>
+         <ReadRFSensorSpeed>0xFE,0x6E</ReadRFSensorSpeed>
+         <ReadLRSensorSpeed>0xFE,0x6E</ReadLRSensorSpeed>
+         <ReadRRSensorSpeed>0xFE,0x6E</ReadRRSensorSpeed>
          <ReadSensorSpeeds>0xFD,0x61</ReadSensorSpeeds>
          <ReadTireSize>0xFD,0xA0</ReadTireSize>
          <ReadTireSizeEC80>0xFD,0xA0</ReadTireSizeEC80>

@@ -31,7 +31,7 @@
                     <Logging>
                         <ProcessName>logport/GryphonCAN</ProcessName>
                         <AdditionalLogFile>/Communication/GryphonCAN.log</AdditionalLogFile>
-                        <Status>Disabled</Status>
+                  <Status>Enabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
                         <Verbose>0x1F</Verbose>
                     </Logging>
@@ -56,12 +56,9 @@
                     </Login>
                     <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
                     <NodePairs>
-                        <DCU Outgoing="0x24B" Incoming="0x64B"/>
-                        <DCUUUDT Outgoing="0x24B" Incoming="0x54B"/>
-                        <EngineController1 Outgoing="0x7E0" Incoming="0x7E8"/>
-                        <EngineControllerUUDT Outgoing="0x7E0" Incoming="0x5E8"/>
-                        <Transmission Outgoing="0x7E2" Incoming="0x7EA"/>
-                        <TransmissionUUDT Outgoing="0x7E2" Incoming="0x5EA"/>
+                        <DCU Outgoing="0x24B" Incoming="0x64B" UudtResponse="0x54B"/>
+                        <EngineController1 Outgoing="0x7E0" Incoming="0x7E8" UudtResponse="0x5E8"/>
+                        <Transmission Outgoing="0x7E2" Incoming="0x7EA" UudtResponse="0x5EA"/>
                         <PIM Outgoing="0x244" Incoming="0x644"/>
                     </NodePairs>
                     <NodePairSetup>

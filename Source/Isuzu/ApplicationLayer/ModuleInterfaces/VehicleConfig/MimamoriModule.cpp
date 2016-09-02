@@ -41,35 +41,58 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::EnterDiagnosticMode(void)
 	timeArgs.push_back((((timeStruct->tm_hour) / 10) << 4) | ((timeStruct->tm_hour) % 10));  
 	timeArgs.push_back((((timeStruct->tm_min) / 10) << 4) | ((timeStruct->tm_min) % 10));    
 	timeArgs.push_back((((timeStruct->tm_sec) / 10) << 4) | ((timeStruct->tm_sec) % 10));    
-	if((status = CommandModule("ConnectingDeviceInfo", &timeArgs)) == BEP_STATUS_SUCCESS)
+	SerialString_t moduleResponse;
+	m_protocolFilter->ResetConnection();
+	status = m_protocolFilter->GetResponse("ConnectingDevBcast", moduleResponse);
+	if(BEP_STATUS_SUCCESS == status)
 	{
-		string strTemp;
-		SerialString_t moduleResponse;
-		if((status = ReadModuleData("CurrentTimeResponse", strTemp, NULL, &moduleResponse, NULL)) == BEP_STATUS_SUCCESS)
+		status = m_protocolFilter->CheckForValidResponse(moduleResponse);
+		if(BEP_STATUS_SUCCESS == status)
 		{
-			m_vehicleInfo.engineModel = strTemp;
-			m_vehicleInfo.tmModel = ParseStringResponse("TransmissionType", moduleResponse);
-			m_vehicleInfo.tireRadius = ParseFloatResponse("TireRadius", moduleResponse);
-			m_vehicleInfo.finalGearRatio = ParseFloatResponse("FinalGearRatio", moduleResponse);
-			m_vehicleInfo.dealerArea = ParseStringResponse("DealerArea", moduleResponse);
-			m_vehicleInfo.vin = ParseStringResponse("Vin", moduleResponse);
-			if((status = CommandModule("VehicleAttributeResponse")) == BEP_STATUS_SUCCESS)
+			m_protocolFilter->ExtractModuleData(moduleResponse);
+			if((status = CommandModule("ConnectingDeviceInfo", &timeArgs)) == BEP_STATUS_SUCCESS)
 			{
-				status = CommandModule("VehicleNumberResponse");
+				string strTemp;
+				if((status = ReadModuleData("CurrentTimeResponse", strTemp, NULL, &moduleResponse, NULL)) == BEP_STATUS_SUCCESS)
+				{
+					m_vehicleInfo.engineModel = strTemp;
+					m_vehicleInfo.tmModel = ParseStringResponse("TransmissionType", moduleResponse);
+					m_vehicleInfo.tireRadius = ParseFloatResponse("TireRadius", moduleResponse);
+					m_vehicleInfo.finalGearRatio = ParseFloatResponse("FinalGearRatio", moduleResponse);
+					m_vehicleInfo.dealerArea = ParseStringResponse("DealerArea", moduleResponse);
+					m_vehicleInfo.vin = ParseStringResponse("Vin", moduleResponse);
+					Log(LOG_DEV_DATA, "Engine Model    : %s", m_vehicleInfo.engineModel.c_str());
+					Log(LOG_DEV_DATA, "Transmission    : %s", m_vehicleInfo.tmModel.c_str());
+					Log(LOG_DEV_DATA, "Tire Radius     : %.2f", m_vehicleInfo.tireRadius);
+					Log(LOG_DEV_DATA, "Final Gear Ratio: %.2f", m_vehicleInfo.finalGearRatio);
+					Log(LOG_DEV_DATA, "VIN             : %s", m_vehicleInfo.vin.c_str());
+					if((status = CommandModule("VehicleAttributeResponse")) == BEP_STATUS_SUCCESS)
+					{
+						status = CommandModule("VehicleNumberResponse");
+					}
+					else
+					{
+						Log(LOG_ERRORS, "Error sending vehicle attribute response to Mimamori Module");
+					}
+				}
+				else
+				{
+					Log(LOG_ERRORS, "Error sending current time response to Mimamori Module");
+				}
 			}
 			else
 			{
-				Log(LOG_ERRORS, "Error sending vehicle attribute response to Mimamori Module");
+				Log(LOG_ERRORS, "Error sending connecting device info to Mimamori Module");
 			}
 		}
 		else
 		{
-			Log(LOG_ERRORS, "Error sending current time response to Mimamori Module");
+			Log(LOG_ERRORS, "Invalid Mimamori broadcast message, No Comms for You!");
 		}
 	}
 	else
 	{
-		Log(LOG_ERRORS, "Error sending connecting device info to Mimamori Module");
+		Log(LOG_ERRORS, "No Mimamori broadcast message detected, no comms available to be sent");
 	}
 	Log(LOG_FN_ENTRY, "MimamoriModule::EnterDiagnosticMode() - Exit");
 	return status;

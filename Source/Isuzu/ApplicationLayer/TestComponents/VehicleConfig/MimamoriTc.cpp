@@ -77,5 +77,6 @@ const bool MimamoriTc<ModuleType>::CheckCableConnect(void)
 template<class ModuleType>
 const bool MimamoriTc<ModuleType>::IsCableConnected(void)
 {
-	return SystemReadBool("MimamoriCableConnect");
+//	return SystemReadBool("MimamoriCableConnect");
+	return SystemReadBool("CableConnect");
 }

@@ -32,8 +32,7 @@ IsuzuCommonInfoProtocolFilter::~IsuzuCommonInfoProtocolFilter()
 void IsuzuCommonInfoProtocolFilter::AddChecksumToMessage(SerialString_t &message)
 {
 	UINT16 checksum = 0x0000;
-	UINT16 msgLength = ((message[TotalDataByteIndex] << 8) | message[TotalDataByteIndex+1]) & 0x7FFF;
-	for(UINT16 index = 1; index < msgLength; index++)
+	for(UINT16 index = 1; index < message.length(); index++)
 	{
 		CrcCalc(message[index], &checksum);
 	}
@@ -88,11 +87,14 @@ const SerialString_t IsuzuCommonInfoProtocolFilter::ExtractModuleData(SerialStri
 		fullResponse += CreateMessage(buff, sizeof(buff), "$%02X ", moduleResponse[index]);
 	}
 	Log(LOG_DEV_DATA, "Extracting data from response string: %s", fullResponse.c_str());
-	if(moduleResponse.length() >= moduleResponse[TotalDataByteIndex])
+	UINT16 dbCount = ((moduleResponse[TotalDataByteIndex] & 0x07) << 8) | moduleResponse[TotalDataByteIndex+1];
+	if(moduleResponse.length() >= dbCount)
 	{
 		m_msgSerialNumber = moduleResponse[MsgSerialNumberIndex];
 		UINT16 dataByteCount = (moduleResponse[MsgDataLengthIndex] << 8) | moduleResponse[MsgDataLengthIndex+1];
 		Log(LOG_DEV_DATA, "Message Serial Number: %02X, Data Bytes: %d", m_msgSerialNumber, dataByteCount);
+//		m_msgSerialNumber++;
+		Log(LOG_DEV_DATA, "Incremented message serial number: %02X", m_msgSerialNumber);
 		responseData = moduleResponse.substr(DataBodyStartIndex, dataByteCount);
 	}
 	else
@@ -126,17 +128,27 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	SerialString_t msg;
 	UINT16 dataLen = message.length() - 2;
+	/*
+	 * Add ifxed data fields to the message length:
+	 *  	4 = Device Number Length
+	 * 		1 = Message Serial Number
+	 *		2 = Message Length
+	 *		1 = ETX
+	 *		2 = CRC
+	 */
+	UINT16 totalBytes = message.length() + 4 + 1 + 2 + 1 + 2;
 	msg.push_back(STX);
 	msg.push_back(COMPRESSION_TYPE);
 	msg.push_back(0x71);                                    // 3. Response/Request ID
-	msg.push_back(message.length() + 3 /* ETX and CRC */);  // 4. Total Data Bytes
+	msg.push_back((totalBytes & 0xFF00) >> 8);              // 4. Total Data Bytes
+	msg.push_back(totalBytes & 0x00FF);
 	msg.push_back(0x00);                                    // 5. Device Number
 	msg.push_back(0x00);
 	msg.push_back(0x00);
 	msg.push_back(0x00);
 	msg.push_back(message[0]);                              // 6. Message ID
 	msg.push_back(message[1]);
-	msg.push_back(m_msgSerialNumber++);                     // 7. Message Serial Number
+	msg.push_back(m_msgSerialNumber);                     // 7. Message Serial Number
 	msg.push_back((dataLen & 0xFF00) >> 8);                 // 8. Message Length
 	msg.push_back(dataLen & 0x00FF);
 	for(UINT32 index = 2; index < message.length(); index++)// 9. Data Body
@@ -150,11 +162,12 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	ResetConnection();
 	Log(LOG_DETAILED_DATA, "Reset The Connection\n");
 	// Send the message and return the result
-	PrintSerialString( "ProtocolFilter Sending", message);
+	PrintSerialString( "Isuzu ProtocolFilter Sending", msg);
 	// Write message
-	INT32 bytesSent = ILogicalPort::WritePort(message, GetNumberOfRetries());
+	INT32 bytesSent = ILogicalPort::WritePort(msg, GetNumberOfRetries());
 	SetLastTxTime();
 	Log(LOG_DETAILED_DATA, "Sent the message\n");
+	m_msgSerialNumber++;
 	// Determine the result of the write
 	if(bytesSent < 0)		status = BEP_STATUS_ERROR;
 	else if(bytesSent == 0)	status = BEP_STATUS_FAILURE;

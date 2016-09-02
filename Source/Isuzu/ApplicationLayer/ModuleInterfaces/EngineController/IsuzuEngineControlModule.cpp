@@ -69,6 +69,17 @@ bool IsuzuEngineControlModule<ProtocolFilterType>::InitializeHook(const XmlNode 
     }
     Log(LOG_DEV_DATA, "Setting bytes per DTC to %d", byte);
     BytesPerDtc(&byte);
+    try
+    {
+        byte = BposReadInt(configNode->getChild("Setup/DtcData/DtcMessageSize")->getValue().c_str());
+    }
+    catch(XmlException &excpt)
+    {
+        byte = DTC_MESSAGE_SIZE;
+        Log(LOG_ERRORS, "DTC Message size not defined, using %d", DTC_MESSAGE_SIZE);
+    }
+    Log(LOG_DEV_DATA, "Setting DTC Message Size to %d", byte);
+    m_dtcMessageSize = byte;
     Log(LOG_DEV_DATA, "IsuzuEngineControlModule::InitializeHook: Exit");
     return status;
 }
@@ -202,7 +213,7 @@ BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::ReadFaults(FaultSt
             fullResponse += CreateMessage(temp, 256, "$%02X ", moduleResponse[ii]);
         Log(LOG_DEV_DATA, "Module response: %s\n", fullResponse.c_str());
         //calculate dtc count - final message is end - not a dtc
-        dtcCount = (moduleResponse.length() / DTC_MESSAGE_SIZE) - 1;
+        dtcCount = (moduleResponse.length() / m_dtcMessageSize) - 1;
         Log(LOG_DEV_DATA, "Calculating number of DTCs\n");
         Log(LOG_DEV_DATA, "response length: %d, FirstDTCByteIndex: %d, BytesPerDTC: %d\n",
             moduleResponse.length(), FirstDtcByteIndex(), BytesPerDtc());
@@ -241,7 +252,7 @@ BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::ReadFaults(FaultSt
                 // Stuff the DTC into the fault vector
                 faultCodes.push_back(dtc);
                 // Update the index to the next DTC field
-                currentDTCIndex += DTC_MESSAGE_SIZE;
+                currentDTCIndex += m_dtcMessageSize;
             }
             // Check to make sure all reported faults were stored
             if(faultCodes.size() != dtcCount)
@@ -260,6 +271,7 @@ BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::ReadFaults(FaultSt
     Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::ReadFaults() - Exit:%d", status);
     return(status);
 }
+
 
 //-----------------------------------------------------------------------------
 template<class ProtocolFilterType>

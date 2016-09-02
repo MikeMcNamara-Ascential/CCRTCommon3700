@@ -93,7 +93,7 @@
             <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
             <LoadStaticTestResults>False</LoadStaticTestResults>
             <!-- Module Parameters -->
-            <ConfigFile>/Configuration/Components/Emissions/IsuzuEngineControllerModule_MY17.xml</ConfigFile>
+            <ConfigFile>/Configuration/Components/Emissions/IsuzuEngineControllerModule.xml</ConfigFile>
             <!-- Diagnostic Mode Parameters -->
             <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">False</AlwaysEnterDiagnosticMode>
             <!-- DTC Parameters -->
@@ -279,7 +279,7 @@
             <!-- Vehicle Speed Parameters -->
             <VehicleSpeedSensorTolerance Units="MPH" TestSteps="CheckVehicleSpeedSensor" Comment="Tolerance range for the vehicle speed sensor">6.0</VehicleSpeedSensorTolerance>
             <!-- VIN Parameters -->
-            <AbortIfVinMismatch TestSteps="CheckVIN" Comment="Flag to determine if the test sequence should be aborted if the VIN is not valid">True</AbortIfVinMismatch>
+            <AbortIfVinMismatch TestSteps="CheckVIN" Comment="Flag to determine if the test sequence should be aborted if the VIN is not valid">False</AbortIfVinMismatch>
             <BypassVINValidation TestSteps="CheckVIN" Comment="Flag used to determine if VIN validation should be skipped">False</BypassVINValidation>
             <PromptDriverVinMismatch TestSteps="CheckVIN" Comment="Flag used to determine if the operator should be prompted that the module VIN does not match the scanned VIN">True</PromptDriverVinMismatch>
             <!-- Steady speed parameters -->
@@ -356,7 +356,7 @@
             <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <IgnoreFaults/>
-      <FaultList>/Configuration/Components/Emissions/My17EmissionsFaults.xml</FaultList>
+      <FaultList>/Configuration/Components/Emissions/My14EmissionsFaults.xml</FaultList>
     </Setup>
     <Objectives>
         <Test>
@@ -383,9 +383,9 @@
             <TestStep10>CheckVIN</TestStep10>
             <TestStep15>CheckPartNumbers</TestStep15>
             <TestStep20>CheckSerialNumber</TestStep20>
-            <TestStep25>WaitForEngineTemperature</TestStep25>
+            <!--TestStep25>WaitForEngineTemperature</TestStep25>
             <TestStep30>CheckCASELearn</TestStep30>
-            <TestStep40>StartSwitchMonitors</TestStep40>
+            <TestStep40>StartSwitchMonitors</TestStep40-->
         </EngineWarmUp>
         <PreFinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
@@ -410,29 +410,29 @@
             <!-- TestStep010 AltValue="EngineOilLevelLow">CheckEngineOilLevelLow</TestStep010>
             <TestStep015 AltValue="EngineOilPressureLow">CheckEngineOilPressureLow</TestStep015>
             <TestStep020 AltValue="EngineOilPressure">CheckEngineOilPressure</TestStep020 -->
-            <TestStep025 AltValue="EngineOilTemperature">CheckEngineOilTemperature</TestStep025>
+            <!--TestStep025 AltValue="EngineOilTemperature">CheckEngineOilTemperature</TestStep025-->
             <!-- TestStep050 AltValue="MAFResidual">CheckMAFResidual</TestStep050>
             <TestStep055 AltValue="MAP1Residual">CheckMAP1Residual</TestStep055>
             <TestStep060 AltValue="MAP2Residual">CheckMAP2Residual</TestStep060 -->
-            <TestStep065 AltValue="EngineCoolantTemperature">CheckEngineCoolantTemperature</TestStep065>
+            <!--TestStep065 AltValue="EngineCoolantTemperature">CheckEngineCoolantTemperature</TestStep065>
             <TestStep070 AltValue="BarometricPressure">CheckBarometricPressure</TestStep070>
             <TestStep075 AltValue="FuelRailPressure">CheckFuelRailPressure</TestStep075>
             <TestStep080 AltValue="FuelLevelPrimaryTank">CheckFuelLevelPrimaryTankLevel</TestStep080>
-            <TestStep085 AltValue="FuelLevelSecondaryTank">CheckFuelLevelSecondaryTankLevel</TestStep085>
+            <TestStep085 AltValue="FuelLevelSecondaryTank">CheckFuelLevelSecondaryTankLevel</TestStep085-->
             <!-- TestStep087 AltValue="FuelTankVaporPressure">CheckFuelTankVaporPressure</TestStep087 -->
-            <TestStep090 AltValue="BatteryVoltage">CheckBatteryVoltage</TestStep090>
+            <!--TestStep090 AltValue="BatteryVoltage">CheckBatteryVoltage</TestStep090-->
             <TestStep095 AltValue="EngineSpeed">CheckIdleRPM</TestStep095>
-            <TestStep100>CheckIdleFuelTrim</TestStep100>
+            <!--TestStep100>CheckIdleFuelTrim</TestStep100>
             <TestStep105 AltValue="MassAirFlow">CheckMassAirFlowAtIdle</TestStep105>
-            <TestStep110 AltValue="ManifoldAbsolutePressure">CheckManifoldAbsolutePressureAtIdle</TestStep110>
+            <TestStep110 AltValue="ManifoldAbsolutePressure">CheckManifoldAbsolutePressureAtIdle</TestStep110-->
             <!-- TestStep115 AltValue="KnockSensor1">CheckKnockSensor1Status</TestStep115>
             <TestStep120 AltValue="KnockSensor2">CheckKnockSensor2Status</TestStep120>
             <TestStep125 AltValue="MisfireCatalystFailure">CheckMisfireCatalystFailureStatus</TestStep125>
             <TestStep130 AltValue="MisfireEmissionsFailure">CheckMisfireEmissionsFailureStatus</TestStep130 -->
-            <TestStep135 AltValue="EgrError">CheckEgrError</TestStep135>
+            <!--TestStep135 AltValue="EgrError">CheckEgrError</TestStep135-->
             <TestStep139>ReadFaults</TestStep139>
-            <TestStep140>AcceleratorPedalWOTTest</TestStep140>
-            <TestStep145>StopSwitchMonitors</TestStep145>
+            <!--TestStep140>AcceleratorPedalWOTTest</TestStep140>
+            <TestStep145>StopSwitchMonitors</TestStep145-->
         </HotIdle>
         <SteadySpeedTests>
             <TestStep00>AccelerateToTestSpeed</TestStep00>

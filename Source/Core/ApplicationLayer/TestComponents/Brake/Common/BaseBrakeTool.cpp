@@ -2309,14 +2309,17 @@ INT32 BaseBrakeTool::ValidateBalances(void)
     INT32 testStatus = FrontBalance();          // perform the front balance test
     m_component->UpdateResult(testStatus, status);          // update the result of the check
 
-    testStatus = RearBalance();                 // perform the rear balance test
-    m_component->UpdateResult(testStatus, status);          // update the result of the check
+    if((m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine"))).compare("1"))
+    {
+        testStatus = RearBalance();                 // perform the rear balance test
+        m_component->UpdateResult(testStatus, status);          // update the result of the check
 
-    testStatus = FrontToRearBalance();          // perform the front to rear balance test
-    m_component->UpdateResult(testStatus, status);          // update the result of the check
+        testStatus = FrontToRearBalance();          // perform the front to rear balance test
+        m_component->UpdateResult(testStatus, status);          // update the result of the check
 
-    testStatus = ValidateTandemBalances();      // perform the tandem balance tests
-    m_component->UpdateResult(testStatus, status);          // update the result of the check
+        testStatus = ValidateTandemBalances();      // perform the tandem balance tests
+        m_component->UpdateResult(testStatus, status);          // update the result of the check
+    }
 
     m_component->Log(LOG_FN_ENTRY, "Validating Balances: %d done\n", testStatus);
 

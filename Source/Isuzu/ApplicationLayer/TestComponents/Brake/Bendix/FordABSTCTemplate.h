@@ -1104,6 +1104,13 @@ protected:
 	 */
 	void CopyParamToTestStepInfo(const std::string& tag, const std::string& value);
 
+    /**
+     * Perform the wheel speed sensor test.
+     *  
+     * @return Result of testing the wheel speed sensors and burnishing the brakes.
+     */
+    string IndividualSensorTest(void);
+
 	/**
 	 * "File" to read current accel values from
 	 */

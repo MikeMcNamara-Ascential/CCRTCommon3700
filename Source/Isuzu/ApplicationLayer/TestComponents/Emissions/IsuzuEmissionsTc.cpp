@@ -192,7 +192,7 @@ void IsuzuEmissionsTc<ModuleType>::InitializeHook(const XmlNode *config)
     // Save switch monitor items
     m_switchMonitorItems.DeepCopy(config->getChild("Setup/Parameters/BackgroundSwitchMonitoring/MonitoredSwitches")->getChildren());
     // Save pid value range monitor items
-    m_rangeCheckMonitorItems.DeepCopy(config->getChild("Setup/Parameters/BackgroundPidValueRangesMonitoring/MonitoredPidValueRanges")->getChildren());
+    m_rangeCheckMonitorItems.DeepCopy(config->getChild("Setup/Parameters/BackgroundPidValueRangesMonitoring/MonitoredPidValueRanges")->getChildren());    
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1776,10 +1776,9 @@ string IsuzuEmissionsTc<ModuleType>::ReadFaults(void)
         Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
     }
     // Return the test result
-    Log(LOG_FN_ENTRY, "Exit GenericTCTemplate::ReadFaults()\n");
+    Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::ReadFaults()\n");
     return testResult;
 }
-
 
 //-----------------------------------------------------------------------------
 template <class ModuleType>

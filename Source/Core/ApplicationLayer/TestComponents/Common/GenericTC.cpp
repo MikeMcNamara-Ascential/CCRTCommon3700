@@ -5502,8 +5502,9 @@ const string GenericTC::ValidateParkBrakeTestDistances(const WHEELINFO &startWhe
     }
 
     // if the slave wheels are under the minimum allowed distance
-    status = ValidateTorqueTestSlaveAxle( totalDistance.lfWheel, totalDistance.rfWheel,
-                                          minDistance, "ParkBrakeDriverInfluenceFault");
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) != "1")
+        status = ValidateTorqueTestSlaveAxle( totalDistance.lfWheel, totalDistance.rfWheel,
+                                              minDistance, "ParkBrakeDriverInfluenceFault");
     UpdateResult( status, testStatus);
 
     // Send the test result info

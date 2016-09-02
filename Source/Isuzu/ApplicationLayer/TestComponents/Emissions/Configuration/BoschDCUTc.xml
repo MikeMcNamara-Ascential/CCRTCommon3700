@@ -483,8 +483,9 @@
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
         <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>
         <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
-        <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
-        <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
+        <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the DCU" AlwaysPerform="True" AbortIfFailed="False"/>
+        <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the DCU" AlwaysPerform="True" AbortIfFailed="False"/>
+        <ReadUDSFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the DCU" AlwaysPerform="True" AbortIfFailed="False"/>
         <Setup Result="" Timeout="500" Description="Setup conditions for testing" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>
         <StartModuleKeepAlive Result="" Timeout="5000" Messages="ModuleKeepAlive" AlwaysPerform="True" AbortIfFailed="False" Description="Start sending the tester present message peridocally" ScanDelay="500"/>
         <StartRangeCheckMonitors Result="" Timeout="500" Description="Start background sensor monitoring" AlwaysPerform="True" AbortIfFailed="False"/>

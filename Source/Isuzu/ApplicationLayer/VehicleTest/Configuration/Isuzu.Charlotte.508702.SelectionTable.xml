@@ -1,6 +1,6 @@
 <SelectionTable Description="Isuzu drive curve selection table">
    <My17AbsFrontAxleDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My17Isuzu.SingleAxleDriveCurve.xml">
        <BrakeType>Bendix</BrakeType>
-       <ModelYear>170</ModelYear>
+       <!--ModelYear>170</ModelYear-->
    </My17AbsFrontAxleDriveCurve>
 </SelectionTable>

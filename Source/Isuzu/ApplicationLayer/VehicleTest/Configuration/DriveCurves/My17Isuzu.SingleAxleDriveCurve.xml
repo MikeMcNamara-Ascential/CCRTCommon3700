@@ -24,7 +24,7 @@
         <Emissions>
             <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>My14IsuzuEmissionsTc.xml</ConfigFile>
+            <ConfigFile>My17IsuzuEmissionsTc.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
             <Debug>Off</Debug>
         </Emissions>

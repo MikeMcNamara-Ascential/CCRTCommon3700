@@ -8,7 +8,7 @@
         <DataHeaderLength>2</DataHeaderLength>
         <DataStartIndex>6</DataStartIndex>
         <ModuleRequestID>0x07E0</ModuleRequestID>
-        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseDelay>750</ModuleResponseDelay>
         <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
         <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
         <NegativeResponseValue>0x7F</NegativeResponseValue>
@@ -71,7 +71,7 @@
             <Retries>3</Retries>
         </Communication>
         <Logging>
-            <Status>Disabled</Status>
+            <Status>Enabled</Status>
             <ProcessName>IsuzuCanEmissions</ProcessName>
             <AdditionalLogFile>/Communication/IsuzuCanEmissions.log</AdditionalLogFile>
             <Debug>Off</Debug>

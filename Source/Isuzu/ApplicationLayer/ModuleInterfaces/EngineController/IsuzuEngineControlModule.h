@@ -347,6 +347,9 @@ private:
     UINT8 m_firstDtcIndex;
     /** Number of bytes from the module response that compose one DTC */
     UINT8 m_bytesPerDtc;
+
+    UINT8 m_dtcMessageSize;
+
 };
 //-------------------------------------------------------------------------------------------------
 #endif //IsuzuEngineControlModule_h

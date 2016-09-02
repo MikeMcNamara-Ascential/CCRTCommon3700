@@ -8,12 +8,12 @@
         <DataHeaderLength>2</DataHeaderLength>
         <DataStartIndex>6</DataStartIndex>
         <ModuleRequestID>0x024B</ModuleRequestID>
-        <ModuleResponseDelay>500</ModuleResponseDelay>
+        <ModuleResponseDelay>1000</ModuleResponseDelay>
         <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
         <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
         <NegativeResponseValue>0x7F</NegativeResponseValue>
         <NumberOfRetries>3</NumberOfRetries>
-        <ResponsePendingReads>3</ResponsePendingReads>
+        <ResponsePendingReads>5</ResponsePendingReads>
         <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
         <ValidResponseOffset>0x40</ValidResponseOffset>
 
@@ -29,6 +29,7 @@
             <DtcCountIndex>1</DtcCountIndex>
             <BytesPerDtc>4</BytesPerDtc>
             <DtcStartByte>1</DtcStartByte>
+            <DtcMessageSize>5</DtcMessageSize>
         </DtcData>
 
         <NegativeResponseCodes>

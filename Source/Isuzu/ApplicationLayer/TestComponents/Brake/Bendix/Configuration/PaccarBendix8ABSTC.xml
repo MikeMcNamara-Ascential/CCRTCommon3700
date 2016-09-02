@@ -23,6 +23,7 @@
          <KeepTestStatusOnExit>No</KeepTestStatusOnExit>
          <ModulePartNumber>00000000</ModulePartNumber>
          <PartNumberBytes>8</PartNumberBytes>
+         <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
          <!-- Park Brake Paramaters -->
          <ParkBrakeDriverInfluenceSkip>0</ParkBrakeDriverInfluenceSkip>
          <ParkBrakePedalCheck>0</ParkBrakePedalCheck>
@@ -33,7 +34,7 @@
          <AlwaysEnableHrwCcvs>0</AlwaysEnableHrwCcvs>
          <ParkBrakePrepTime Description="Number of ms to wait for the PLC to be setup for park brake test" units="ms">2000</ParkBrakePrepTime>
          <ParkBrakeDriverDelay Description="Number of ms to wait for the driver to apply the park brake" units="ms">3000</ParkBrakeDriverDelay>
-         <ParkBrakeApplyForce Description="Amount of force to apply to the rollers for the park brake test" units="lbs">600</ParkBrakeApplyForce>
+         <ParkBrakeApplyForce Description="Amount of force to apply to the rollers for the park brake test" units="lbs">400</ParkBrakeApplyForce>
          <ParkBrakeSpeedValue Description="Amount of speed to command to the front axle for the park brake test" units="MPH">3</ParkBrakeSpeedValue>
          <ParkBrakeMaxDistance Description="Maximum allowable travel for the rear wheels during the park brake test" units=".016 Degrees">200</ParkBrakeMaxDistance>
          <ParkBrakeMinDistance Description="Minimum required travel for the front wheels during the park brake test" units=".016 Degrees">50</ParkBrakeMinDistance>
@@ -56,8 +57,8 @@
             <DynamicParkBrakeEndSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake end speed">0</DynamicParkBrakeEndSampleSpeed>
             <DynamicParkBrakeFrontMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum front park brake force">20</DynamicParkBrakeFrontMaxForce>
             <DynamicParkBrakeFrontMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum front park brake force">-20</DynamicParkBrakeFrontMinForce>
-            <DynamicParkBrakeRearMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum rear park brake force">500</DynamicParkBrakeRearMaxForce>
-            <DynamicParkBrakeRearMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum rear park brake force">200</DynamicParkBrakeRearMinForce>
+            <DynamicParkBrakeRearMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum rear park brake force">1000</DynamicParkBrakeRearMaxForce>
+            <DynamicParkBrakeRearMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum rear park brake force">500</DynamicParkBrakeRearMinForce>
             <DynamicParkBrakeSampleCount TestSteps="DynamicParkBrake" Comments="Number of samples to collect, Zero means all samples">0</DynamicParkBrakeSampleCount>
             <DynamicParkBrakeSampleUseForces TestSteps="DynamicParkBrake" Comments="Flag to determine if sampling should begin when the min force is reached">True</DynamicParkBrakeSampleUseForces>
             <DynamicParkBrakeStartSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake start speed">20</DynamicParkBrakeStartSampleSpeed>
@@ -97,11 +98,11 @@
          <BalanceFrontToRearMax Units="%">80</BalanceFrontToRearMax>
          <FrontToRearBalanceUseFront>0</FrontToRearBalanceUseFront>
          <!-- Low Speed Sensor Test Parameters -->
-         <LowSpeedSensorTestTargetSpeed Units="MPH">8.0</LowSpeedSensorTestTargetSpeed>
-         <LowSpeedSensorTestTargetSpeedRange>8 15</LowSpeedSensorTestTargetSpeedRange>
+         <LowSpeedSensorTestTargetSpeed Units="MPH">3.0</LowSpeedSensorTestTargetSpeed>
+         <LowSpeedSensorTestTargetSpeedRange>3 8</LowSpeedSensorTestTargetSpeedRange>
          <LowSpeedSensorTestTargetScanDelay Units="ms">25</LowSpeedSensorTestTargetScanDelay>
-         <LowSpeedSensorTestMinSteadyWheelSpeed Units="MPH">8.0</LowSpeedSensorTestMinSteadyWheelSpeed>
-         <LowSpeedSensorTestMaxSteadyWheelSpeed Units="MPH">20.0</LowSpeedSensorTestMaxSteadyWheelSpeed>
+         <LowSpeedSensorTestMinSteadyWheelSpeed Units="MPH">3.0</LowSpeedSensorTestMinSteadyWheelSpeed>
+         <LowSpeedSensorTestMaxSteadyWheelSpeed Units="MPH">10.0</LowSpeedSensorTestMaxSteadyWheelSpeed>
          <LowSpeedSensorTestSteadySpeedSamples>1</LowSpeedSensorTestSteadySpeedSamples>
          <LowSpeedSensorTestSteadySpeedTimeout Units="ms">10000</LowSpeedSensorTestSteadySpeedTimeout>
          <LowSpeedSensorTestTolerance Units="%">100.0</LowSpeedSensorTestTolerance>
@@ -208,7 +209,7 @@
          <StopCurrentTest>0</StopCurrentTest>
       </StatusCheckItems>
       <FaultList>/Configuration/Components/Common/FaultList.xml</FaultList>
-      <Name>BendixABS</Name>
+      <Name>Brake</Name>
       <Debug>Off</Debug>
       <ICMName>mgr/ICM</ICMName>
       <ThreadPool>
@@ -606,17 +607,17 @@
          <TestStep50>ParkBrakeStop</TestStep50>
          <TestStep60>StopModuleKeepAlive</TestStep60>
       </ABSParkBrakeTesting>
-      <ParkBrakeTest>
+      <!--ParkBrakeTest>
          <TestStep10>ParkBrake</TestStep10>
          <TestStep20>AnalyzeParkBrake</TestStep20>
          <TestStep30>ParkBrakeStop</TestStep30>
-      </ParkBrakeTest>
-      <!--ParkBrakeTest>
+      </ParkBrakeTest-->
+      <ParkBrakeTest>
             <TestStep05>StartModuleKeepAlive</TestStep05>
             <TestStep10>AccelerateToParkBrakeSpeed</TestStep10>
             <TestStep15>DynamicParkBrakeTest</TestStep15>
             <TestStep20>AnalyzeDynamicParkBrake</TestStep20>
-        </ParkBrakeTest-->
+        </ParkBrakeTest>
       <ABSParkPawlTest>
          <TestStep10>ParkPawl</TestStep10>
          <!--TestStep20>StopBrakeMonitor</TestStep20-->
@@ -664,6 +665,7 @@
       </BrakeTest>
       <AnalyzeBrakeTest>
          <TestStep10>AnalyzeBrakeTest</TestStep10>
+         <TestStep15>AnalyzeBalance</TestStep15>
       </AnalyzeBrakeTest>
       <AnalyzeBalance>
          <TestStep10>AnalyzeBalance</TestStep10>
@@ -721,7 +723,8 @@
          <TestStep00>ClearFaults</TestStep00>
       </ClearFaults>
       <ReadFaults>
-         <TestStep00>ReadFaults</TestStep00>
+         <TestStep00>ClearFaults</TestStep00>
+         <TestStep01>ReadFaults</TestStep01>
       </ReadFaults>
       <CheckPartNumber>
          <TestStep00>CheckPartNumber</TestStep00>
@@ -779,8 +782,8 @@
       <ElectricParkBrake Result="" Timeout="20000" Description="Electric Park Brake Test" RollerDirection="Forward" TestTime="3000" DIFaultTag="ParkBrakeDriverInfluenceFault" Prompt2="ShiftToNeutralApplyParkBrake"/>
       <ElectricParkPawl Result="" Timeout="20000" Description="Electric  Park Pawl Test" RollerDirection="Forward" TestTime="3000" DIFaultTag="ParkPawlDriverInfluenceFault" Prompt1="ShiftPFootOffBrk"/>
       <ElectricParkBrakePawl Result="" Timeout="10000" Description="Electric Combo Park Brake/Pawl Test" RollerDirection="Forward" TestTime="2000" DIFaultTag="ParkPawlDriverInfluenceFault" Prompt1="ShiftToParkApplyParkBrake"/>
-      <FrontValveCycleTest Result="" Timeout="60000" Description="ValveCycleTest" TestTime="15000" SpeedValue="2.5" MinRearDistance="200" MinFrontDistance="200" ScanDelay="3000"/>
-      <RearValveCycleTest Result="" Timeout="60000" Description="ValveCycleTest" TestTime="15000" SpeedValue="2.5" MinRearDistance="200" MinFrontDistance="200" ScanDelay="3000"/>
+      <FrontValveCycleTest Result="" Timeout="60000" Description="ValveCycleTest" TestTime="15000" SpeedValue="2.5" MinRearDistance="200" MinFrontDistance="200" ScanDelay="3000" Prompt1="MaintainBrake" Prompt2="ABSTest"/>
+      <RearValveCycleTest Result="" Timeout="60000" Description="ValveCycleTest" TestTime="15000" SpeedValue="2.5" MinRearDistance="200" MinFrontDistance="200" ScanDelay="3000" Prompt1="MaintainBrake"  Prompt2="ABSTest"/>
       <ValveCycleTest Result="" Timeout="60000" Description="ValveCycleTest" TestTime="15000" SpeedValue="2.5" MinRearDistance="200" MinFrontDistance="200" ScanDelay="3000"/>
       <ParkBrakeDriverInfluence Result="" Timeout="10000" Description="Check for brake switch during park brake" DIFaultTag="ParkBrakeDriverInfluenceFault"/>
       <ParkPawlDriverInfluence Result="" Timeout="10000" Description="Check for brake switch during park pawl" DIFaultTag="ParkPawlDriverInfluenceFault"/>

@@ -4418,6 +4418,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
     string      testStatus;     // the overall test status
     string      result;         // the current test status
     INT32       status = BEP_STATUS_SUCCESS;
+    string testResultCode("0000");
     int         testTime;
     float       speedValue;
     float       minRearDistance, minFrontDistance;
@@ -4448,6 +4449,8 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
     speedValue = (GetTestStepInfoFloat("SpeedValue") != 0) ? GetTestStepInfoFloat("SpeedValue") : 3.0;
     minRearDistance = GetTestStepInfoFloat("MinRearDistance");
     minFrontDistance = GetTestStepInfoFloat("MinFrontDistance");
+
+    UpdatePrompts();
 
     //max roller speed of 5 mph
     if (speedValue > 2.5)
@@ -4790,7 +4793,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
     }
 
 
-    SendTestResult( GetTestStepName(), testStatus, GetTestStepInfo("Description"));
+    SendTestResult( testStatus, GetTestStepInfo("Description"), "0000");
 
     // command the motor controller to boost mode
     SystemCommand(MOTOR_MODE, string(BOOST_MODE));
@@ -6682,9 +6685,16 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
     testStatus = ReadDataArrays(GetParameter("IcmForceArray"), brakeStart, brakeEnd, wheelForceArray);
     if (BEP_STATUS_SUCCESS == testStatus)
     {
+        if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1")
+        {
+            roller = 0;
+            Log(LOG_DEV_DATA, "Setting Roller index to 0 for Single Axle Machine");
+        }
+        else
+            roller = 2;
         //for(roller=0; roller<rollerCount; roller++)
         //MAM 12/06/06 - only look at rear roller forces
-        for (roller=2; roller<rollerCount; roller++)
+        for (; roller<rollerCount; roller++)
         {
             // calculate the average forces and validate the results
             const DATAARRAY &forceArray = wheelForceArray[roller];
@@ -6694,10 +6704,12 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
                 DATAARRAY::const_iterator   itr;
                 for ( itr=forceArray.begin(); itr!=forceArray.end(); itr++)
                 {
-                    force += *itr;
+                    if(force < *itr)
+                        force = *itr;
+                    //Log(LOG_DEV_DATA, "Park Brake Force Value: %.2f", *itr);
                 }
-                force /= forceArray.size();
-                Log(LOG_DEV_DATA, "FordABSTCTemplate::AnalyzeParkBrakeForces() - step1: Force - %.2f\n", force);
+                //force /= forceArray.size();
+                Log(LOG_DEV_DATA, "FordABSTCTemplate::AnalyzeParkBrakeForces() - step1: Max Force Value - %.2f\n", force);
 
                 //MAM 6/3/10
                 SystemWrite(GetDataTag(rollerName[roller] + "PBForceValue"), force);
@@ -9712,4 +9724,134 @@ unsigned long FordABSTCTemplate<ModuleType>::AdjustBitLong(unsigned long ulDataV
     }
 
     return(ulNewDataValue);
+}
+
+//----------------------------------------------------------------------------
+template<class ModuleType>
+string FordABSTCTemplate<ModuleType>::IndividualSensorTest(void)
+{   //Copied from Isuzu720AbsTc.cpp
+
+	// Log the entry and determine if this test should be performed
+	string testResult(BEP_TESTING_STATUS);
+	Log(LOG_FN_ENTRY, "FordABSTCTemplate::IndividualSensorTest() - Enter");
+	if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass))
+	{	// Make sure the speed setpoints are set to 0 and place the motor controller into speed mode
+		m_MotorController.Write(COMMAND_SPEED, "0", false);
+		m_MotorController.Write(COMMAND_TORQUE, "0", false);
+		m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
+		BposSleep( 100);
+		string sensorResult[GetRollerCount()];
+		DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+		DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+		BposSleep(GetParameterInt("IndividualSensorSpeedDriverDelay"));
+		// Wait for the operator to remove foot from brake pedal
+		bool brakeOn = true;
+		BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+		do
+		{	// Read the brake switch styatus from the module
+			status = m_vehicleModule.ReadModuleData("ReadBrakeSwitch", brakeOn);
+			if(brakeOn)	BposSleep(500);
+			// Keep checking until time expires or brake off or bad status
+		} while(TimeRemaining() && brakeOn && (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == status));
+		// Make sure it is still OK to continue with the test
+		if(!brakeOn && (BEP_STATUS_SUCCESS == StatusCheck()))
+		{	// Get individual wheel speed from config to send to motor controller instead of above (one speed for all axles)
+			for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= GetWheelCount()) && (BEP_STATUS_SUCCESS == StatusCheck()); rollerIndex++)
+			{
+				m_MotorController.Write(rollerName[rollerIndex]+"SpeedValue", GetParameter("Individual" + rollerName[rollerIndex] + "SensorTestSpeed"), true);
+			}
+			// Wait a bit for the rollers to start accelerating
+			BposSleep(GetParameterInt("IndividualSensorTestStartDelay"));
+			// Stop the keep alive
+			StopModuleKeepAlive();
+			// Read the sensor speeds from the module
+			WheelSpeeds_t moduleSpeeds;
+			status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
+			// Start the Keep Alive thread
+			StartModuleKeepAlive();
+			if(BEP_STATUS_SUCCESS == status)
+			{	// Get the roller speeds
+				float rollerSpeeds[GetRollerCount()];
+				GetWheelSpeeds(rollerSpeeds);
+				// Check all wheels
+				float maxSpeeds[GetRollerCount()];
+				float minSpeeds[GetRollerCount()];
+				string indResults[GetRollerCount()];	//ERIC: NOT SURE IF I SHOULD HARD CODE A 4 OR LOOP TILL GetRollerCount()
+				for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= GetWheelCount()) && (BEP_STATUS_SUCCESS == StatusCheck()); rollerIndex++)
+				{
+					maxSpeeds[rollerIndex] = rollerSpeeds[rollerIndex] * (1.0 + (GetParameterFloat("IndividualSensorSpeedTolerance") / 100.0));
+					minSpeeds[rollerIndex] = rollerSpeeds[rollerIndex] * (1.0 - (GetParameterFloat("IndividualSensorSpeedTolerance") / 100.0));
+					sensorResult[rollerIndex] = (rollerSpeeds[rollerIndex] >= (GetParameterFloat("Individual" + rollerName[rollerIndex] + "SensorTestSpeed") - 1.0)) ? testPass : testFail;
+				}
+
+				for(UINT8 wheel = LFWHEEL; (wheel <= GetWheelCount()) && (BEP_STATUS_SUCCESS == StatusCheck()); wheel++)
+				{
+					if(!sensorResult[wheel].compare(testPass))
+					{
+						sensorResult[wheel] = ((minSpeeds[wheel] <= moduleSpeeds[wheel]) && (moduleSpeeds[wheel] <= maxSpeeds[wheel])) ? testPass : testFail;
+					}
+
+					// Log and send sub wheel test result
+					Log(LOG_DEV_DATA, "%s: %s - Sensor Speed: %.2f, Roller Speed: %.2f, [min: %.2f, max: %.2f]", 
+						rollerName[wheel].c_str(), sensorResult[wheel].c_str(), moduleSpeeds[wheel], 
+						rollerSpeeds[wheel], minSpeeds[wheel], maxSpeeds[wheel]);
+					// Report this roller
+					char buff[32];
+					SendSubtestResultWithDetail(rollerName[wheel]+"SensorSpeedTest", sensorResult[wheel], 
+												GetTestStepInfo("Description"), "0000",
+												"SensorSpeed", CreateMessage(buff, sizeof(buff), "%.2f", moduleSpeeds[wheel]), unitsMPH,
+												"MinLimit", CreateMessage(buff, sizeof(buff), "%.2f", minSpeeds[wheel]), unitsMPH,
+												"MaxLimit", CreateMessage(buff, sizeof(buff), "%.2f", maxSpeeds[wheel]), unitsMPH,
+												"RollerSpeed", GetParameter("Individual" + rollerName[wheel] + "SensorTestSpeed"), unitsMPH);
+				}                
+			}
+			else
+			{	// Could not read sensor speeds
+				Log(LOG_ERRORS, "Could not read sensor speeds from the module: %s", ConvertStatusToResponse(status).c_str());
+				for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= RRWHEEL); rollerIndex++)
+				{
+					sensorResult[rollerIndex] = testFail;
+				}
+			}
+			// Remove the prompts
+			RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+			RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+			// Set the motor back to boost and zero speed
+			for(UINT8 rollerIndex = LFWHEEL; (rollerIndex <= GetWheelCount()); rollerIndex++)
+			{
+				m_MotorController.Write(rollerName[rollerIndex]+"SpeedValue", "0", true);
+			}
+			// Wait for zero speed
+			CheckZeroSpeed();
+			m_MotorController.Write(COMMAND_SPEED, "0", false);
+			m_MotorController.Write(COMMAND_TORQUE, "0", false);
+			m_MotorController.Write(MOTOR_MODE, BOOST_MODE, true);
+			BposSleep( 100);
+		}
+		else
+		{	// Could not perform the test
+			Log(LOG_ERRORS, "Could not perform sensor test - brake applied: %s,  System Status: %s",
+				brakeOn ? "True" : "False", ConvertStatusToResponse(StatusCheck()).c_str());
+		}
+		// Remove the prompts
+		RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
+		RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+		// Report the overall result
+		testResult = (!sensorResult[LFWHEEL].compare(testPass) && !sensorResult[RFWHEEL].compare(testPass) &&
+					  !sensorResult[LRWHEEL].compare(testPass) && !sensorResult[RRWHEEL].compare(testPass)) ? testPass : testFail;
+		SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
+	}
+	else if(!GetTestStepResult().compare(testPass))
+	{	// This test already passed, skip it but leave it marked as pass
+		Log(LOG_DEV_DATA, "Already passed sensor test, not testing again");
+		testResult = testPass;
+	}
+	else
+	{	// Need to skip this step
+		Log(LOG_FN_ENTRY, "Skipping sensor test");
+		testResult = testSkip;
+	}
+	// Log the exit and return the result.
+	Log(LOG_FN_ENTRY, "FordABSTCTemplate::IndividualSensorTest() - Exit");
+	return testResult;
 }

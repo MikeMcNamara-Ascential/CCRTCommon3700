@@ -1711,7 +1711,7 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 			filterMatches = FilterMatchCheck(data, ocb);  //note, this will return false if no filter exists
 		}
 		// If the data is from the client's module or is broadcast and client subscribed
-		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || (isBroadcastModuleID &&	/*!UsingGryphonUSDT() &&*/ filterMatches))
+		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || (isBroadcastModuleID &&	filterMatches))
 		{
 			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored resp code: $%04X incoming resp code: $%04X\n",
 				 client->expectedResponse, locRespCode);

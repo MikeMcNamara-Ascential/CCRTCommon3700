@@ -198,6 +198,16 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
             nodePairX = portSetup->getChild("Setup/NodePairs")->getChildren().getNode(ii);
             m_nodeMap[ii].outgoing = (UINT32)BposReadInt(nodePairX->getAttribute("Outgoing")->getValue().c_str());
             m_nodeMap[ii].incoming = (UINT32)BposReadInt(nodePairX->getAttribute("Incoming")->getValue().c_str());
+			// Check for a UUDT response ID
+			XmlNodeMapCItr uudtIter = nodePairX->getAttributes().find("UudtResponse");
+			if(uudtIter != nodePairX->getAttributes().end())
+			{
+				m_nodeMap[ii].uudtIncoming = (UINT32)BposReadInt(uudtIter->second->getValue().c_str());
+			}
+			else
+			{
+				m_nodeMap[ii].uudtIncoming = 0x0000;
+			}
         }
         // Store the node pairs for setup
         for (int ii = 0; ii < m_nodePairSetupCount; ii++)
@@ -252,6 +262,7 @@ vector<UINT32> GryphonCCanProxy::FindNodePair(const UINT32 locModule)
         if (locModule == m_nodeMap[ii].outgoing)
         {
             locNode.push_back(m_nodeMap[ii].incoming);
+			locNode.push_back(m_nodeMap[ii].uudtIncoming);
         }
     }
     return(locNode);
@@ -267,6 +278,18 @@ bool GryphonCCanProxy::IsBroadcastModuleID(const UINT32 locModule)
         }
     }
     return(false);
+}
+
+bool GryphonCCanProxy::IsUudtId(const UINT32 &locModule)
+{
+	for(int index = 0; index < m_nodePairCount; index++)
+	{
+		if(locModule == m_nodeMap[index].uudtIncoming)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 int GryphonCCanProxy::getExpectedFromRaw(SerialString_t rawMessage)
@@ -332,7 +355,7 @@ bool GryphonCCanProxy::CheckForBlock(const uint8_t *inBuf)
     // currently, according to scott, ALL messages from Chrysler are USDT
     //JPS Added logic to allow card messages - needed for UUDT and broadcast responses
 //    isBlocked = ((SD_CARD == inBuf[0]) && UsingGryphonUSDT()) || !(IsBroadcastModuleID(locModuleId) /*&& !UsingGryphonUSDT()*/);
-	isBlocked = !(((SD_CARD == inBuf[0]) && IsBroadcastModuleID(locModuleId)) || (SD_USDT == inBuf[0]));
+	isBlocked = !(((SD_CARD == inBuf[0]) && (IsBroadcastModuleID(locModuleId) || IsUudtId(locModuleId))) || (SD_USDT == inBuf[0]));
     Log(LOG_DEV_DATA, "CheckForBlock is %s -- SD_CARD: %02X %s inbuf[0]: %02X Using USDT: %s\n",
         (isBlocked ? "BLOCKED" : "NOT blocked"), SD_CARD, ((SD_CARD == inBuf[0]) ? "==" : "!="), 
         inBuf[0],UsingGryphonUSDT() ? "True" : "False");

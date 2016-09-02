@@ -12,6 +12,7 @@
 struct InOut{
     uint32_t incoming;
     uint32_t outgoing;
+	uint32_t uudtIncoming;
 };
 
 struct InOutSetup{

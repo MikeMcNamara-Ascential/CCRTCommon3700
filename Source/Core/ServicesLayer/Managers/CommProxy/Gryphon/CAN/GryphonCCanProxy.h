@@ -153,6 +153,7 @@ protected:
     int ChannelSpecificInit(void) ;
     void CreateFilter(uint32_t incomingId);
     virtual bool IsBroadcastModuleID(const UINT32 locModule);
+	virtual bool IsUudtId(const UINT32 &locModule);
 	void SetBroadcastBlock(bool block, UINT32 keyID);
 
 

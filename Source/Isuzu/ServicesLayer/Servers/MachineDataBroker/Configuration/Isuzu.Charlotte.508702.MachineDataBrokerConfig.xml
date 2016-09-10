@@ -190,6 +190,7 @@
 				<RRTractionControlReductionValue DataType="float" Units="LBF">0</RRTractionControlReductionValue>
 				<RRWheelDomain DataType="range" Units="MPH">0 80</RRWheelDomain>
 				<RRWheelTarget DataType="range" Units="MPH">45 55</RRWheelTarget>
+                <SideSlipValue DataType="float">-99.9</SideSlipValue>
                 <SingleAxleMachine DataType="bool">1</SingleAxleMachine>
                 <SoftwareID DataType="string">R160706-ISUZU-00000000</SoftwareID>
 				<TandemBalanceBGColor DataType="color">white</TandemBalanceBGColor>

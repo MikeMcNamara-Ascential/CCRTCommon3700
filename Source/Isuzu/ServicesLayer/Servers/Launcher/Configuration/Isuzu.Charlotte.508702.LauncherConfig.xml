@@ -99,26 +99,32 @@
             ConfigFile="PromptServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0100" RegisteredName="core/PromptServer" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Prompt Server</PromptServer>
+
         <TestResultServer Name="TestResultServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="TestResultServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0102" RegisteredName="core/TestResultServer" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Test Result Server</TestResultServer>
+
         <VehicleDataBroker Name="IsuzuVehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="VehicleDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0105" RegisteredName="core/VehicleDataBroker" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Data Broker</VehicleDataBroker>
+
         <InputServer Name="InputServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="InputServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0106" RegisteredName="core/InputServer" Register="Yes" 
             DemoMode="" ConsoleMode="" AddressValue="" PortValue="" VerboseMode="">Input Server</InputServer>
-        <SideSlipResultServer Name="SideSlipResultServer.qxe" Path="/ServicesLayer/Bin/" 
-            ConfigFile="SideSlipResultServerConfig.xml" ConfigPath="/Configuration/Servers/" 
-            OrderToLaunch="0114" RegisteredName="core/SideSlipResults" Register="Yes" 
-            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Side Slip Result Server</SideSlipResultServer>
+
+        <SideSlipMonitor Name="SideSlipMonitor.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="SideSlipMonitorConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0114" RegisteredName="core/SideSlipMonitor" Register="Yes" 
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
+
         <DataServer Name="DataServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="DataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0450" RegisteredName="core/DataServer" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Data Server</DataServer>
+
         <MotorController Name="ABMotorController.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="ABMotorControllerConfig.xml" ConfigPath="/Configuration/Machine/" 
             OrderToLaunch="0500" RegisteredName="core/MotorController" Register="Yes" 
@@ -130,9 +136,9 @@
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Test Server</VehicleTest>
 
      </TasksToLaunch>
+
+
     <DoNotLaunch>
-
-
         <VehicleDataServer Name="VehicleDataServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="VehicleDataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0108" RegisteredName="core/VehicleDataServer" Register="Yes" 

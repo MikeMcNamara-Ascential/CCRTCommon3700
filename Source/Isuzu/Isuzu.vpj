@@ -1234,6 +1234,20 @@
 					</Folder>
 					<F N="ServicesLayer/Servers/PlantHostOutbound/CMakeLists.txt"/>
 				</Folder>
+				<Folder Name="SideSlipMonitor">
+					<Folder Name="Configuration">
+						<F
+							N="ServicesLayer/Servers/SideSlipMonitor/Configuration/CMakeLists.txt"
+							Type="Makefile"/>
+						<F N="ServicesLayer/Servers/SideSlipMonitor/Configuration/SideSlipMonitorConfig.xml"/>
+					</Folder>
+					<F
+						N="ServicesLayer/Servers/SideSlipMonitor/CMakeLists.txt"
+						Type="Makefile"/>
+					<F N="ServicesLayer/Servers/SideSlipMonitor/SideSlipMonitor.cpp"/>
+					<F N="ServicesLayer/Servers/SideSlipMonitor/SideSlipMonitor.h"/>
+					<F N="ServicesLayer/Servers/SideSlipMonitor/SideSlipMonitorMain.cpp"/>
+				</Folder>
 				<Folder Name="SystemMonitor">
 					<Folder Name="Configuration">
 						<F N="ServicesLayer/Servers/SystemMonitor/Configuration/CMakeLists.txt"/>

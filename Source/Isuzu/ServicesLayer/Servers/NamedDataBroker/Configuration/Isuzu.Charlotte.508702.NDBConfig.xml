@@ -834,6 +834,7 @@
                 <PromptBox2BGColor DataType="color">PromptServer</PromptBox2BGColor>
                 <RaiseElevatorsPushbutton DataType="bool">PLC</RaiseElevatorsPushbutton>
                 <RaiseRolls-LowerElevators DataType="bool">PLC</RaiseRolls-LowerElevators>
+                <RawSideSlipValue DataType="short">PLC</RawSideSlipValue>
                 <ReadLatestBuildData DataType="bool">VehicleDataBroker</ReadLatestBuildData>
                 <RearBalanceBGColor DataType="color">MachineDataBroker</RearBalanceBGColor>
                 <RearBalancePercentageTest DataType="string">VehicleTest</RearBalancePercentageTest>
@@ -1071,6 +1072,7 @@
                 <ShiftPoint2-3LowNormalAccel DataType="short">VehicleDataBroker</ShiftPoint2-3LowNormalAccel>
                 <Shutdown DataType="bool">Launcher</Shutdown>
                 <SideGuideContact DataType="bool">PLC</SideGuideContact>
+                <SideSlipValue DataType="float">MachineDataBroker</SideSlipValue>
                 <SimulateLeftFrontRollerDirection DataType="bool">ICM</SimulateLeftFrontRollerDirection>
                 <SimulateLeftRearRollerDirection DataType="bool">ICM</SimulateLeftRearRollerDirection>
                 <SimulateRightFrontRollerDirection DataType="bool">ICM</SimulateRightFrontRollerDirection>
@@ -1214,6 +1216,8 @@
                 <VehicleDynamicControlBGColor DataType="color">VehicleDataBroker</VehicleDynamicControlBGColor>
                 <VehiclePresent DataType="bool">SystemMonitor</VehiclePresent>
                 <VehiclePresentAtBarcodeDelayTime DataType="short">PLC</VehiclePresentAtBarcodeDelayTime>
+                <VehiclePresentSideSlipIn DataType="bool">PLC</VehiclePresentSideSlipIn>
+                <VehiclePresentSideSlipOut DataType="bool">PLC</VehiclePresentSideSlipOut>
                 <VehiclePushersExtendedFault DataType="bool">PLC</VehiclePushersExtendedFault>
                 <VehiclePushersRetractedFault DataType="bool">PLC</VehiclePushersRetractedFault>
                 <VehicleTestStatus DataType="string">VehicleTest</VehicleTestStatus>

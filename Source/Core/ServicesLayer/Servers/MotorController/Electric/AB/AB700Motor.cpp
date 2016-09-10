@@ -143,7 +143,7 @@ const INT32 AB700Motor::FollowMaster(const ABMotor *master, const float &masterR
     INT32   status = EINVAL;
     ABMotor *masterMotor = const_cast<ABMotor *>(master);
     Log( LOG_DEV_DATA, "Enter AB700Motor::FollowMaster(%d)", masterMotor->SpeedRefDriveIndex());
-    if((master != this) || (motorCount == 2))
+    if(master != this)
     {   // Set my speed to the master's speed
         status = CommandSpeed(masterRollSpeed, 0);
     }

@@ -2009,7 +2009,7 @@ void ILogicalPort::RegisterPortDriver(void)
 bool ILogicalPort::ReadMessageMap( const XmlNode *mssgMapNode)
 {
     XmlNodeMapCItr  xmlItr;
-    string          xmtString;
+    string          xmtString = "";
     SerialProtocol  xmtProtocol, rcvProtocol;
     bool            retVal = true;
 
@@ -2029,14 +2029,18 @@ bool ILogicalPort::ReadMessageMap( const XmlNode *mssgMapNode)
                 ComMssgTableEntry   mssgEntry;
                 int retryCount = ReadRetryCount( mssgMapNode, mssgTag);
                 INT32 rxFailureRetryCount = ReadResponseFailureRetryCount( mssgMapNode, mssgTag);
+                bool isBusBroadcastMessage = ReadBoolIsBusBroadcastMessage( mssgMapNode, mssgTag);
                 INT32 responsePendingReads = ReadResponsePendingReads( mssgMapNode, mssgTag);
 
                 if( retryCount < 0) retryCount = 3;
                 mssgEntry.SetRetryCount( retryCount);
                 mssgEntry.SetResponseFailureRetryCount( rxFailureRetryCount);
+                mssgEntry.SetBoolIsBusBroadcastMessage( isBusBroadcastMessage);
                 mssgEntry.SetResponsePendingReads( responsePendingReads);
 
-                if( ReadTransmitString( mssgMapNode, mssgTag, xmtString) == true)
+                bool isTransmitStringOK = isBusBroadcastMessage ? true : ReadTransmitString( mssgMapNode, mssgTag, xmtString);
+                Log(LOG_ERRORS, "Message:%s - isBroadcastMessage:%s - isTransmitStringOK:%s\n", mssgTag.c_str(), isBusBroadcastMessage ? "True" : "False", isTransmitStringOK ? "True" : "False");
+                if( isTransmitStringOK == true)
                 {
                     mssgEntry.SetTransmitString( xmtString);
 
@@ -2139,6 +2143,35 @@ int ILogicalPort::ReadResponseFailureRetryCount( const XmlNode *configNode, cons
     {
         // Default to 3 retries if no count specified in file
         retVal = -1;
+    }
+
+    return( retVal);
+}
+
+/**
+ * Reads the flag which indicates message does not need to be sent to illicit a response
+ *
+ * @param configNode Parent XML node containing the mapping of message tags
+ *                   to serial byte strings
+ * @param mssgTag    The message tag to read the serial transmit byte string for
+ * @return bool is bus broadcast message
+ */
+bool ILogicalPort::ReadBoolIsBusBroadcastMessage( const XmlNode *configNode, const string &mssgTag)
+{
+    bool     retVal = false;
+    XmlString   mainMssgTag = AsciiToXml( mssgTag);
+
+    try
+    {
+        // Read is bus broadcast message for this message
+        const XmlNode *xmlNode;
+        xmlNode = configNode->getChild( VEH_MESSAGES_TAG)->getChild( mainMssgTag)->getAttribute( XMT_IS_BUS_BROADCAST_MESSAGE);
+        retVal = atob( XmlToAscii( xmlNode->getValue()).c_str());
+    }
+    catch( XmlException &err)
+    {
+        // Default to false if tag not found
+        retVal = false;
     }
 
     return( retVal);
@@ -2522,6 +2555,7 @@ bool ILogicalPort::ReadResponseString( const XmlNode *configNode,
             // see what type of response this is (positive or negative)
             isPositive = ReadResponseType( rcvNode);
 
+            Log(LOG_ERRORS,"Adding Response Filter for %s - %s\n",mssgTag.c_str(), respFilter.c_str());
             mssgEntry.AddResponseFilter( respFilter.c_str(), respLenType, isPositive);
         }
     }
@@ -2962,6 +2996,29 @@ int ComMssgTableEntry::GetResponseFailureRetryCount() const
 {
     return( m_responseFailureRetryCount);
 }
+
+/**
+ * Sets the flag indicating message does not need to be sent in order to illicit
+ * a response
+ *
+ * @param isBusBroadcastMessage     Sets flag indicating message does not need to be sent in order to illicit
+ *                                  a response
+ */
+void ComMssgTableEntry::SetBoolIsBusBroadcastMessage( bool isBusBroadcastMessage)
+{
+    m_isBusBroadcastMessage = isBusBroadcastMessage;
+}
+/**
+ * Returns the flag indicating message does not need to be sent in order to illicit
+ * a response
+ *
+ * @return  flag indicating message does not need to be sent in order to illicit
+ *          a response
+ */
+bool ComMssgTableEntry::GetBoolIsBusBroadcastMessage() const
+{
+    return( m_isBusBroadcastMessage);
+}
 /**
  * Sets the number of times the message should be re-transmitted
  * if communication problems are encountered
@@ -3069,7 +3126,6 @@ void ComMssgTableEntry::AddResponseFilter( const char *filterString,
                                            bool isPositive /*=true*/)
 {
     LogPortFilterString newFilterString( isPositive, lenType);
-
     newFilterString.ReadFilterString( filterString);
     m_rcvFilters.AddFilterString( newFilterString);
 
@@ -3077,7 +3133,7 @@ void ComMssgTableEntry::AddResponseFilter( const char *filterString,
     if( lenType == VAR_LEN)
     {
         // Wee need to use the variable lenght reply alogrithm
-        //  i.e. Read  responses byt-by-byte until
+        //  i.e. Read  responses byte-by-byte until
         SetRespLenType( lenType);
     }
 }
@@ -3291,6 +3347,7 @@ ComMssgTableEntry& ComMssgTableEntry::operator=( const ComMssgTableEntry &copy)
     m_rcvProtocol = copy.m_rcvProtocol;
     m_rcvProtocolValid = copy.m_rcvProtocolValid;
     m_replyTimeout = copy.m_replyTimeout;
+    m_isBusBroadcastMessage = copy.m_isBusBroadcastMessage;
 
     return( *this);
 }

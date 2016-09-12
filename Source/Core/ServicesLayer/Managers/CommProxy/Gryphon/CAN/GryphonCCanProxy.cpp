@@ -229,15 +229,19 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
     }
     try
     {
+        Log(LOG_FN_ENTRY, "Here to get broadcast messages\n");
         XmlNodeMap bcastMessages;
         m_broadcastMessageCount = 0;
         bcastMessages.DeepCopy(portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren());
+        m_broadcastMessageCount = portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren().size();
+        Log( LOG_DEV_DATA, "[GryphonCCan] Found %d broadcast messages\n", m_broadcastMessageCount);
+        m_broadcastMessageCount = 0;
         for(XmlNodeMapCItr iter = bcastMessages.begin();iter != bcastMessages.end(); iter++)
         {   // Get list of broadcast message ids to be recorded
             m_broadcastMessages[m_broadcastMessageCount].incoming = (UINT32)BposReadInt(iter->second->getAttribute("Incoming")->getValue().c_str());
             //initialize as blocked
             m_broadcastMessages[m_broadcastMessageCount].blocked = true;
-            Log( LOG_DETAILED_DATA, "Added Broadcast Incoming Msg ID: %04X\n",m_broadcastMessages[m_broadcastMessageCount].incoming);
+            Log( LOG_DEV_DATA, "Added Broadcast Incoming Msg ID: %04X\n",m_broadcastMessages[m_broadcastMessageCount].incoming);
             m_broadcastMessageCount++;
         }
         m_recordBroadcastMessages = true;

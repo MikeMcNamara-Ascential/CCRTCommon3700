@@ -276,6 +276,12 @@
 #define XMT_RESPONSE_FAILURE_RETRY_TAG           XML_T("ResponseFailureRetryCount")
 
 /**
+ * XML node tag of the node which contains the flag which indicates a message does not
+ * send a message to illicit a response
+ */
+#define XMT_IS_BUS_BROADCAST_MESSAGE           XML_T("IsBusBroadcastMessage")
+
+/**
  * XML node tag of the node which contains the number of failure response retry attempts
  * should be made to send a given serial message
  */
@@ -400,6 +406,24 @@ public:
      *         if communication problems are encountered
      */
     int GetResponseFailureRetryCount() const;
+
+    /**
+     * Sets the flag indicating message does not need to be sent in order to illicit
+     * a response
+     *
+     * @param isBusBroadcastMessage     Sets flag indicating message does not need to be sent in order to illicit
+     *                                  a response
+     */
+    void SetBoolIsBusBroadcastMessage( bool isBusBroadcastMessage);
+
+    /**
+     * Returns the flag indicating message does not need to be sent in order to illicit
+     * a response
+     *
+     * @return  flag indicating message does not need to be sent in order to illicit
+     *          a response
+     */
+    bool GetBoolIsBusBroadcastMessage() const;
 
     /**
      * Sets the number of times the message should be re-transmitted
@@ -650,6 +674,12 @@ private:
      * Number of time to retransmit the message
      */
     INT32                  m_responseFailureRetryCount;
+
+    /**
+     * Flag indicating message does not need to be transmitted
+     * in order to illicit response
+     */
+    bool                  m_isBusBroadcastMessage;
 
     /**
      * Number of time to retransmit the message
@@ -1318,6 +1348,16 @@ protected:
      * @return Number of times to retry
      */
     int ReadResponseFailureRetryCount( const XmlNode *configNode, const string &mssgTag);
+
+    /**
+     * Reads the flag which indicates message does not need to be sent to illicit a response
+     *
+     * @param configNode Parent XML node containing the mapping of message tags
+     *                   to serial byte strings
+     * @param mssgTag    The message tag to read the serial transmit byte string for
+     * @return bool is bus broadcast message
+     */
+    bool ReadBoolIsBusBroadcastMessage( const XmlNode *configNode, const string &mssgTag);
 
     /**
      * Reads the number of response pending reads

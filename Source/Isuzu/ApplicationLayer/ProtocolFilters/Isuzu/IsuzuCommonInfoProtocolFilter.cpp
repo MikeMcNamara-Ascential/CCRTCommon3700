@@ -81,25 +81,53 @@ const SerialString_t IsuzuCommonInfoProtocolFilter::ExtractModuleData(SerialStri
 	Log(LOG_FN_ENTRY, "IsuzuCommonInfoProtocolFilter::ExtractModuleData() - Enter");
 	string fullResponse;
 	SerialString_t responseData;
+	vector<SerialString_t> messages;
 	char buff[4096];
-	for(UINT32 index = 0; index < moduleResponse.length(); index++)
+	int messageLength, totalResponseBytes;
+
+	// If multiple messages are in the buffer, extract each message for processing
+	do
 	{
-		fullResponse += CreateMessage(buff, sizeof(buff), "$%02X ", moduleResponse[index]);
+		totalResponseBytes = moduleResponse.length();
+		messageLength = ((moduleResponse[TotalDataByteIndex] & 0x07) << 8) | moduleResponse[TotalDataByteIndex+1];
+		messageLength += (1 + 1 + 1 + 2);  // Header bytes
+		SerialString_t temp = moduleResponse.substr(0, messageLength);
+		messages.push_back(temp);
+		moduleResponse = moduleResponse.substr(messageLength);
+	} while(totalResponseBytes > messageLength);
+
+	Log(LOG_DEV_DATA, "%d messages found in response", messages.size());
+	for(int msgIndex = 0; msgIndex < messages.size(); msgIndex++)
+	{
+		fullResponse = "";
+		for(UINT32 index = 0; index < messages[msgIndex].length(); index++)
+		{
+			fullResponse += CreateMessage(buff, sizeof(buff), "$%02X ", messages[msgIndex][index]);
+		}
+		Log(LOG_DEV_DATA, "Msg %d:  %s", msgIndex, fullResponse.c_str());
 	}
-	Log(LOG_DEV_DATA, "Extracting data from response string: %s", fullResponse.c_str());
-	UINT16 dbCount = ((moduleResponse[TotalDataByteIndex] & 0x07) << 8) | moduleResponse[TotalDataByteIndex+1];
-	if(moduleResponse.length() >= dbCount)
+
+	for(int msgIndex = 0; msgIndex < messages.size(); msgIndex++)
 	{
-		m_msgSerialNumber = moduleResponse[MsgSerialNumberIndex];
-		UINT16 dataByteCount = (moduleResponse[MsgDataLengthIndex] << 8) | moduleResponse[MsgDataLengthIndex+1];
-		Log(LOG_DEV_DATA, "Message Serial Number: %02X, Data Bytes: %d", m_msgSerialNumber, dataByteCount);
-//		m_msgSerialNumber++;
-		Log(LOG_DEV_DATA, "Incremented message serial number: %02X", m_msgSerialNumber);
-		responseData = moduleResponse.substr(DataBodyStartIndex, dataByteCount);
-	}
-	else
-	{
-		Log(LOG_ERRORS, "Invalid message received");
+		fullResponse = "";
+		for(UINT32 index = 0; index < messages[msgIndex].length(); index++)
+		{
+			fullResponse += CreateMessage(buff, sizeof(buff), "$%02X ", messages[msgIndex][index]);
+		}
+		Log(LOG_DEV_DATA, "Extracting data from response string: %s", fullResponse.c_str());
+		UINT16 dbCount = ((messages[msgIndex][TotalDataByteIndex] & 0x07) << 8) | messages[msgIndex][TotalDataByteIndex+1];
+		if(messages[msgIndex].length() >= dbCount)
+		{
+			m_msgSerialNumber = messages[msgIndex][MsgSerialNumberIndex];
+			UINT16 dataByteCount = (messages[msgIndex][MsgDataLengthIndex] << 8) | messages[msgIndex][MsgDataLengthIndex+1];
+			Log(LOG_DEV_DATA, "Message Serial Number: %02X, Data Bytes: %d", m_msgSerialNumber, dataByteCount);
+			Log(LOG_DEV_DATA, "Incremented message serial number: %02X", m_msgSerialNumber);
+			responseData = messages[msgIndex].substr(DataBodyStartIndex, dataByteCount);
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Invalid message received");
+		}
 	}
 	Log(LOG_FN_ENTRY, "IsuzuCommonInfoProtocolFilter::ExtractModuleData() - Exit");
 	return responseData;
@@ -137,6 +165,10 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	 *		2 = CRC
 	 */
 	UINT16 totalBytes = message.length() + 4 + 1 + 2 + 1 + 2;
+	if((message[0] == 0x31) && (message[1] == 0x0B))
+	{
+		totalBytes |= 0x8000;
+	}
 	msg.push_back(STX);
 	msg.push_back(COMPRESSION_TYPE);
 	msg.push_back(0x71);                                    // 3. Response/Request ID

@@ -58,6 +58,10 @@ public:
 
 private:
 
+	BEP_STATUS_TYPE GatherMimamoriData();
+
+	void Commcheckout();
+
 	typedef struct _VehicleInfoData
 	{
 		string engineModel;

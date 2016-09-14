@@ -68,7 +68,9 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::EnterDiagnosticMode(void)
 					Log(LOG_DEV_DATA, "VIN             : %s", m_vehicleInfo.vin.c_str());
 					if((status = CommandModule("VehicleAttributeResponse")) == BEP_STATUS_SUCCESS)
 					{
-						status = CommandModule("VehicleNumberResponse");
+//						status = CommandModule("VehicleNumberResponse");
+						status = m_protocolFilter->SendMessage("VehicleNumberResponse");
+						Commcheckout();
 					}
 					else
 					{
@@ -155,4 +157,48 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::ReadFaults(FaultVector_t &fa
 	}
 	Log(LOG_FN_ENTRY, "MimamoriModule::ReadFaults() - Exit");
 	return status;
+}
+
+//-------------------------------------------------------------------------------------------------
+template<class ProtocolFilterType>
+BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::GatherMimamoriData()
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+	Log(LOG_FN_ENTRY, "MimamoriModule::GatherMimamoriData() - Enter");
+
+	Log(LOG_FN_ENTRY, "MimamoriModule::GatherMimamoriData() - Exit");
+	return status;
+}
+
+//-------------------------------------------------------------------------------------------------
+template<class ProtocolFilterType>
+void MimamoriModule<ProtocolFilterType>::Commcheckout()
+{
+	Log(LOG_FN_ENTRY, "MimamoriModule::Commcheckout() - Enter");
+	BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
+	SerialString_t moduleResponse;
+	for(int msgCnt = 0; (msgCnt < 10000); msgCnt++)
+	{
+		m_protocolFilter->ResetConnection();
+		status = m_protocolFilter->GetResponse(moduleResponse);
+		if(BEP_STATUS_SUCCESS == status)
+		{
+			status = m_protocolFilter->CheckForValidResponse(moduleResponse);
+			if(BEP_STATUS_SUCCESS == status)
+			{
+				m_protocolFilter->ExtractModuleData(moduleResponse);
+				// Determine which response to send back
+				if((moduleResponse[9] == 0x31) && (moduleResponse[10] == 0x04))
+				{
+					status = m_protocolFilter->SendMessage("VehicleNumberResponse");
+				}
+				else
+				{
+					Log(LOG_DEV_DATA, "STOP!! - Got a different message back from Mimamori!!");
+					status = m_protocolFilter->SendMessage("TriggerSetup");
+				}
+			}
+		}
+	}
+	Log(LOG_FN_ENTRY, "MimamoriModule::Commcheckout() - Exit");
 }

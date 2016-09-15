@@ -12,7 +12,7 @@ SET(USE_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/${EXE_NAME}Main.cpp)
 # Where is the core protocol filter library located
 #------------------------------------------------------------------------------------------
 LINK_DIRECTORIES(${CUSTOMER_PROTOCOLS_DIR})
-LINK_LIBRARIES(fordprotocolfilters)
+LINK_LIBRARIES(moduleinterfaces protocolfilters isuzuprotocolfilter)
 
 #------------------------------------------------------------------------------------------
 # Where are our headers

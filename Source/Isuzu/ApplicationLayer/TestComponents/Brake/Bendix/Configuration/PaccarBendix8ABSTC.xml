@@ -53,15 +53,24 @@
          <ParkPawlMaxDistance Description="Maximum allowable travel for the drive wheels during the park pawl test" units=".016 Degrees">200</ParkPawlMaxDistance>
          <ParkPawlMinDistance Description="Minimum required travel for the non-driven wheels during the park pawl test" units=".016 Degrees">50</ParkPawlMinDistance>
          <!-- Dynamic Park Brake Parameters -->
-            <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">25</DynamicParkBrakeArmSpeed>
-            <DynamicParkBrakeEndSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake end speed">0</DynamicParkBrakeEndSampleSpeed>
-            <DynamicParkBrakeFrontMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum front park brake force">20</DynamicParkBrakeFrontMaxForce>
-            <DynamicParkBrakeFrontMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum front park brake force">-20</DynamicParkBrakeFrontMinForce>
-            <DynamicParkBrakeRearMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum rear park brake force">1000</DynamicParkBrakeRearMaxForce>
-            <DynamicParkBrakeRearMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum rear park brake force">500</DynamicParkBrakeRearMinForce>
-            <DynamicParkBrakeSampleCount TestSteps="DynamicParkBrake" Comments="Number of samples to collect, Zero means all samples">0</DynamicParkBrakeSampleCount>
-            <DynamicParkBrakeSampleUseForces TestSteps="DynamicParkBrake" Comments="Flag to determine if sampling should begin when the min force is reached">True</DynamicParkBrakeSampleUseForces>
-            <DynamicParkBrakeStartSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake start speed">20</DynamicParkBrakeStartSampleSpeed>
+         <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">25</DynamicParkBrakeArmSpeed>
+         <DynamicParkBrakeEndSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake end speed">0</DynamicParkBrakeEndSampleSpeed>
+         <DynamicParkBrakeFrontMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum front park brake force">20</DynamicParkBrakeFrontMaxForce>
+         <DynamicParkBrakeFrontMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum front park brake force">-20</DynamicParkBrakeFrontMinForce>
+         <DynamicParkBrakeRearMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum rear park brake force">1000</DynamicParkBrakeRearMaxForce>
+         <DynamicParkBrakeRearMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum rear park brake force">500</DynamicParkBrakeRearMinForce>
+         <DynamicParkBrakeSampleCount TestSteps="DynamicParkBrake" Comments="Number of samples to collect, Zero means all samples">0</DynamicParkBrakeSampleCount>
+         <DynamicParkBrakeSampleUseForces TestSteps="DynamicParkBrake" Comments="Flag to determine if sampling should begin when the min force is reached">True</DynamicParkBrakeSampleUseForces>
+         <DynamicParkBrakeStartSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake start speed">20</DynamicParkBrakeStartSampleSpeed>
+         <!-- Individual sensor test parameters -->
+         <IndividualLeftFrontSensorTestSpeed Units="MPH">3</IndividualLeftFrontSensorTestSpeed>
+         <IndividualRightFrontSensorTestSpeed Units="MPH">4</IndividualRightFrontSensorTestSpeed>
+         <IndividualLeftRearSensorTestSpeed Units="MPH">3</IndividualLeftRearSensorTestSpeed>
+         <IndividualRightRearSensorTestSpeed Units="MPH">4</IndividualRightRearSensorTestSpeed>
+         <IndividualSensorTestStartDelay Units="ms" Description="Time allowed for roller to get to speed">6000</IndividualSensorTestStartDelay>
+         <IndividualSensorSpeedDriverDelay Units="ms" Description="Time allowed for operator to prepare vehicle">3000</IndividualSensorSpeedDriverDelay>
+         <IndividualSensorSpeedTolerance Units="%">25.0</IndividualSensorSpeedTolerance>
+         <ZeroSpeedTolerance Units="MPH" Description="Maximum zero speed value">0.38</ZeroSpeedTolerance>
          <!-- Base Brake Parameters -->
          <ArmSpeed Units="MPH">60</ArmSpeed>
          <BrakePromptSpeed Units="MPH">60</BrakePromptSpeed>
@@ -271,6 +280,7 @@
             <TireSizeDataTag/>
             <VehicleType/>
             <SingleAxleMachine/>
+            <FrontAxleTestSelected/>
          </SubscribeTags>
       </TagList>
       <Logging>
@@ -333,6 +343,7 @@
          <ForceMeterCenterValue>ForceMeterCenterValue</ForceMeterCenterValue>
          <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
          <Front>FWD</Front>
+         <FrontAxleTestSelected>FrontAxleTestSelected</FrontAxleTestSelected>
          <FrontBalanceBGColor>FrontBalanceBGColor</FrontBalanceBGColor>
          <FrontBalanceTest>FrontBalanceTest</FrontBalanceTest>
          <FrontBalanceValue>FrontBalanceValue</FrontBalanceValue>
@@ -717,7 +728,7 @@
          <TestStep10>ABSHSSensorTest</TestStep10>
       </HighSpeedSensorTest>
       <SensorTest>
-         <TestStep10>SensorTest</TestStep10>
+         <TestStep05>IndividualSensorTest</TestStep05>
       </SensorTest>
       <ClearFaults>
          <TestStep00>ClearFaults</TestStep00>
@@ -820,6 +831,7 @@
       <HighSpeedSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test for the ABS Wheel speed sensor"/>
       <ABSHSSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test the ABS wheel speed sensors at high speed"/>
       <SBAHighSpeedSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test the SBA wheel speed sensors at high speed"/>
+      <IndividualSensorTest Result="Not Tested" Timeout="10000" Description="Check the wheel speed sensors at low speed" ScanDelay="250" AbortIfFailed="True"/>
       <RunPumpMotor Result="" Timeout="10000" Description="Turn the ABS pump on" Prompt1=""/>
       <StopPumpMotor Result="" Timeout="10000" Description="Turn the ABS pump off" Prompt1=""/>
       <DeEnergizeAllValves Result="" Timeout="10000" Description="De-Energize All Valves / Run Pump" ABSPumpMotorTime="300"/>

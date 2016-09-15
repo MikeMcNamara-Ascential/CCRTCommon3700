@@ -1,6 +1,6 @@
 //*************************************************************************
 // FILE:
-//    $Header: /Nissan/Source/Nissan/ApplicationLayer/ProtocolFilters/Include/KwpCanProtocolFilter.h 3     1/09/08 1:23p Mmcnamar $
+//    $Header: /Nissan/Source/Nissan/ApplicationLayer/ProtocolFilters/Include/UDSCanProtocolFilter.h 3     1/09/08 1:23p Mmcnamar $
 //
 // FILE DESCRIPTION:
 //	Keyword 2000 ProtocolFilter customized for Bosch module in Nissan
@@ -16,7 +16,7 @@
 //===========================================================================
 //
 // LOG:
-//    $Log: /Nissan/Source/Nissan/ApplicationLayer/ProtocolFilters/Include/KwpCanProtocolFilter.h $
+//    $Log: /Nissan/Source/Nissan/ApplicationLayer/ProtocolFilters/Include/UDSCanProtocolFilter.h $
 // 
 // 3     1/09/08 1:23p Mmcnamar
 // Updated for CAN ABS: Added prototypes for SendMessage( ).
@@ -37,14 +37,14 @@
 //
 // 
 //*************************************************************************
-#ifndef KwpCanProtocolFilter_h
-#define KwpCanProtocolFilter_h
+#ifndef UDSCanProtocolFilter_h
+#define UDSCanProtocolFilter_h
 
 #include "ProtocolFilter.h"
 
 /**
- * KwpBosch Protocol 2000 filter.
- * This class will send and receive KwpBosch 2000 messages.
+ * UDSBosch Protocol 2000 filter.
+ * This class will send and receive UDSBosch 2000 messages.
  * The ExtractModuleData() method has been instantiated to strip the header and
  * checksum from the module response.
  * 
@@ -55,7 +55,7 @@
  * @since December 17, 2002
  */
 
-class KwpCanProtocolFilter : public ProtocolFilter
+class UDSCanProtocolFilter : public ProtocolFilter
 {
     public:
     /**
@@ -69,13 +69,13 @@ class KwpCanProtocolFilter : public ProtocolFilter
      *
 	 * @param commsInUse Semaphore to allow only one thread in the process to utilize the comm port at a time.
      */
-	KwpCanProtocolFilter(KeepAliveTimer_t &lastTxTime, 
+	UDSCanProtocolFilter(KeepAliveTimer_t &lastTxTime, 
                          StopCommsBepCondVar *stopCommsBepCondVar, 
                          BepMutex *commPortInUse = NULL);
     /**
      * Class destructor.
      */
-    virtual ~KwpCanProtocolFilter();
+    virtual ~UDSCanProtocolFilter();
     /**
 	 * Initialize the serial channel.
      *
@@ -251,7 +251,7 @@ private:
 	 * 
 	 * @param moduleID ID to use for sending messages to the module.
 	 */
-	void SetModuleRequestID(const UINT16& moduleID);
+	void SetModuleRequestID(const UINT32& moduleID);
 	/**
 	 * Store the index to the data byte count in the message.
 	 * 
@@ -283,7 +283,7 @@ private:
 	/**
 	 * ID of the module to send the message to.
 	 */
-	UINT16 m_moduleRequestID;
+	UINT32 m_moduleRequestID;
 	/**
 	 * Flag to indicate if diagnostic mode should be automatically
 	 * entered if the module is not in diagnostic mode.
@@ -294,7 +294,7 @@ private:
 	 */
 	string m_enterDiagnosticModeMessageTag;
 };
-#endif //KwpCanProtocolFilter_h
+#endif //UDSCanProtocolFilter_h
 /*
  * Local Variables: ***
  * mode: c++ ***

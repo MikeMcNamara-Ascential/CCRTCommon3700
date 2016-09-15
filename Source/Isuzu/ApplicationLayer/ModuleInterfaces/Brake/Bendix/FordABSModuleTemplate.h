@@ -242,6 +242,9 @@ public:
 	 */
 	virtual BEP_STATUS_TYPE SetBrakeSwitchStatusOn(void);
 
+    virtual BEP_STATUS_TYPE ReadSensorSpeeds(WheelSpeeds_t &moduleSpeeds) throw(ModuleException);
+
+
 protected:
 
 	/**
@@ -462,6 +465,32 @@ protected:
     virtual BEP_STATUS_TYPE WheelAlignAddAxle( SerialString_t &response) throw(ModuleException);
     virtual BEP_STATUS_TYPE WheelAlignSDAxles( SerialString_t &response) throw(ModuleException);
 
+    /**
+     * Parse the wheel speeds from a module response string.
+     * <p><b>Description:</b><br>
+     * The wheel speeds read from the module will be translated to MPH and returned in <i>speeds</i>.
+     * <p>
+     * <b>Message Tags:</b>
+     *      <ul>
+     *      <li> ReadSensorSpeeds/ReplyInterpretationLF </li>
+     *      <li> ReadSensorSpeeds/ReplyInterpretationRF </li>
+     *      <li> ReadSensorSpeeds/ReplyInterpretationLR </li>
+     *      <li> ReadSensorSpeeds/ReplyInterpretationRR </li>
+     *      </ul>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> ModuleName() </li>
+     *      <li> ParseFloatResponse() </li>
+     *      </ul>
+     * 
+     * @param response The response string from the module
+     * @param speeds   Wheel speeds translated from the module response data.
+     * 
+     * @return The status of parsing the wheel speed data.
+     */
+    virtual BEP_STATUS_TYPE ParseSensorSpeeds(const SerialString_t &response, WheelSpeeds_t &speeds)  throw(ModuleException);
+
 private:
 
     //MAM 1/9/15
@@ -470,8 +499,7 @@ private:
      * @param faultCodes Vector to store fault codes fromt the module
      * @return The status of the operation
      */ 
-    BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
-    
+    BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);    
 };
 
 #endif                                

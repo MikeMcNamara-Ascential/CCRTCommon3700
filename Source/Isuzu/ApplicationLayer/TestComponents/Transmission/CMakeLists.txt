@@ -3,7 +3,8 @@
 #------------------------------------------------------------------------------------------
 INCLUDE_DIRECTORIES(
                 ${CORE_TRANS_TC_INC_PATH}
-                ${ISUZU_AISIN_MODULE_INC_PATH})
+                ${ISUZU_AISIN_MODULE_INC_PATH}
+                ${ISUZU_ALLISON_MODULE_INC_PATH})
    
 
 #------------------------------------------------------------------------------------------
@@ -16,3 +17,4 @@ LINK_LIBRARIES(transcomponent)
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Aisin)
+ADD_SUBDIRECTORY(Allison)

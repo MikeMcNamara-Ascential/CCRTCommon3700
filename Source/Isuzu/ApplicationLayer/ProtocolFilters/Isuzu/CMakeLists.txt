@@ -1,2 +1,2 @@
-SET(ISUZU_PROTOCOL_SOURCES  IsuzuCommonInfoProtocolFilter.cpp)
+SET(ISUZU_PROTOCOL_SOURCES  IsuzuCommonInfoProtocolFilter.cpp FordCanProtocolFilter.cpp)
 ADD_LIBRARY(isuzuprotocolfilter STATIC ${ISUZU_PROTOCOL_SOURCES})

@@ -146,6 +146,10 @@ public:
 												SerialString_t &reply,
 												SerialArgs_t *args = NULL);
 
+    virtual const BEP_STATUS_TYPE GetBusBroadcastMessage(string messageTag,
+												      const long messageWaitTime,
+													  SerialString_t &busMssg);
+
 protected:
 	/**
 	 * AVT-718 Transmit object number to use when sending messages

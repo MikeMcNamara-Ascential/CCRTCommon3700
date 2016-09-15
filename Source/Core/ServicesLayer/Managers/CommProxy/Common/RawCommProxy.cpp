@@ -1359,6 +1359,29 @@ bool RawCommProxy::CanAddToClientFifo( const SerialString_t &data, CommIoOcb_t *
             {
                 // No match...look at next filter
                 Log( LOG_DEV_DATA, "Response DOES NOT match filter string\n");
+
+                SerialString_t::const_iterator	sItr = sItr=data.begin();
+                LogPortFilterStringCItr_t		lItr = lItr=filter.begin();
+
+                // Size must match first or filter must be set to variable length
+                if( (filter.size() == data.size()) || (filter.GetRespLenType() == 1))
+                {
+                    // Examine each element of each string
+                    while( (sItr!=data.end()) && (lItr!=filter.end()))
+                    {
+                        Log( LOG_DEV_DATA, "data: 0x%02X : filter0x%02X\n");
+                        // Look at next element
+                        sItr++;
+                        lItr++;
+                    }
+                }
+                else
+                {
+                    Log( LOG_DEV_DATA, "Filter sizes do not match\n");
+                }
+                //Test Log message, remove
+                Log( LOG_DETAILED_DATA, "Not expecting NULL character reflection\n");
+
                 retVal = false;
             }
         }
@@ -4648,7 +4671,8 @@ bool RawCommProxy::CanNotifySubscriber( LogPortSubscription *sub)
             }
             else
             {
-                Log( LOG_DEV_DATA, "\tNot enough bytes in FIFO to notify client\n");
+                Log( LOG_DEV_DATA, "\tNot enough bytes in FIFO to notify client FIFO size: %d subscription size: %d\n",
+                     sub->fifo.GetSize(), sub->count);
                 retVal = false;
             }
         }

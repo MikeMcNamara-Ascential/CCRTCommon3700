@@ -3,9 +3,11 @@
 #------------------------------------------------------------------------------------------
 SET(TRANSMISSION_MODULE_PATHS
                 ${CMAKE_CURRENT_SOURCE_DIR}/Aisin
+                ${CMAKE_CURRENT_SOURCE_DIR}/Allison
                 CACHE STRING "Path to the module interfaces files" FORCE)
                 
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Aisin)
+ADD_SUBDIRECTORY(Allison)

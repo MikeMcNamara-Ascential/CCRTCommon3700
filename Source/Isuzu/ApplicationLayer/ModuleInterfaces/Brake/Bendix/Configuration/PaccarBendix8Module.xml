@@ -31,7 +31,7 @@
          <AdditionalLogFile>/Communication/BendixModule.log</AdditionalLogFile>
          <Debug>Off</Debug>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x2F</Verbose>
+         <Verbose>0x3F</Verbose>
       </Logging>
       <NegativeResponseCodes>
          <Code_0x11>Service Not Supported</Code_0x11>
@@ -314,17 +314,7 @@
             <ReplyMessage>ClearFaults</ReplyMessage>
             <ReplyInterpretation/>
          </ClearFaults>
-         <ReadSensorSpeeds>
-            <ResponseFailureRetryCount>3</ResponseFailureRetryCount>
-            <ResponsePendingReads>3</ResponsePendingReads>
-            <TransmitMessage>ReadPID</TransmitMessage>
-            <TransmitInterpretation>ReadSensorSpeeds</TransmitInterpretation>
-            <ReplyMessage>ReadSensorSpeeds</ReplyMessage>
-            <ReplyInterpretationLF>ReadLFSensor</ReplyInterpretationLF>
-            <ReplyInterpretationRF>ReadRFSensor</ReplyInterpretationRF>
-            <ReplyInterpretationLR>ReadLRSensor</ReplyInterpretationLR>
-            <ReplyInterpretationRR>ReadRRSensor</ReplyInterpretationRR>
-         </ReadSensorSpeeds>
+         
          <ReadLFSensorSpeed>
             <ResponseFailureRetryCount>3</ResponseFailureRetryCount>
             <ResponsePendingReads>3</ResponsePendingReads>
@@ -671,7 +661,25 @@
             <ReplyMessage>InputOutputControlByLocalId</ReplyMessage>
             <ReplyInterpretation/>
          </HoldRightRearRecovery>
-
+         <ReadSensorSpeeds IsBusBroadcastMessage="True">
+            <ResponseFailureRetryCount>3</ResponseFailureRetryCount>
+            <ResponsePendingReads>3</ResponsePendingReads>
+            <TransmitMessage/>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadSensorSpeeds</ReplyMessage>
+            <ReplyInterpretation>ReadSensorSpeed</ReplyInterpretation>
+            <ReplyInterpretationLF>ReadLFSensor</ReplyInterpretationLF>
+            <ReplyInterpretationRF>ReadRFSensor</ReplyInterpretationRF>
+            <ReplyInterpretationLR>ReadLRSensor</ReplyInterpretationLR>
+            <ReplyInterpretationRR>ReadRRSensor</ReplyInterpretationRR>
+         </ReadSensorSpeeds>
+         <!-- WheelSpeedSensorMessage example from AgcoCombineSensor -->
+          <!--AmbientTemperature IsBusBroadcastMessage="True">
+                <TransmitMessage/>
+                <TransmitInterpretation></TransmitInterpretation>
+                <ReplyMessage>AmbientTemperature</ReplyMessage>
+                <ReplyInterpretation>AmbientTemperature</ReplyInterpretation>
+            </AmbientTemperature-->
       </VehicleMessages>
       <TransmitMessages>
          <EnterDiagnosticMode>0x18,0xDA,0x0B,0xF1,0x10,0x03</EnterDiagnosticMode>
@@ -834,9 +842,8 @@
             <Reply_01>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x7F,0x27,0x??</Reply_01>
          </RequestBendixAccess7>
          <ReadSensorSpeeds>
-            <Reply_00>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x62,0xFD,0x61,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
-            <!-- This is the negative response message -->
-            <Reply_01>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x7F,0x22,0x??</Reply_01>
+            <Reply_00>0x18,0xFE,0xBF,0x0B,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+            <Reply_01 lengthType="Variable" ReplyTimeout="100" endGapTime="150">0x??,0x??,0x??,0x??,0x18,0xFE,0xBF,0x0B,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_01>
          </ReadSensorSpeeds>
          <ReadBrakeSwitch>
             <Reply_00>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x62,0xFD,0x62,0x??,0x??</Reply_00>
@@ -857,6 +864,7 @@
             <Reply_00>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x54</Reply_00>
             <!--This is the negative response message-->
             <Reply_01>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x7F,0x??,0x??</Reply_01>
+            <Reply_02>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x7F,0x??,0x??,0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x7F,0x??,0x??</Reply_02>
          </ClearFaults>
          <ReadTireSize>
             <Reply_00>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x0B,0x62,0xFD,0xA0,0x??,0x??,0x??</Reply_00>
@@ -975,41 +983,38 @@
             </Boolean>
          </ReadBrakeSwitch>
          <ReadSensorSpeed>
-            <Float scale="0.621504" offset="0.0">
+            <Float scale="0.002427" offset="0.0">
                <Integer type="unsigned" scale="1.0" offset="0.0">
-                  <Byte input_index="7" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="8" mask="0xFF" output_index="0"/>
+                  <Byte2 input_index="9" mask="0xFF" output_index="1"/>
                </Integer>
             </Float>
          </ReadSensorSpeed>
          <ReadLFSensor>
-            <Float scale="0.00484" offset="0.0">
+            <Float scale="0.038836" offset="-4.85446245">
                <Integer type="unsigned" bits="16" scale="1.0" offset="0.0">
-                  <Byte1 input_index="7" mask="0xFF" output_index="1"/>
-                  <Byte2 input_index="8" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="10" mask="0xFF" output_index="0"/>
                </Integer>
             </Float>
          </ReadLFSensor>
          <ReadRFSensor>
-            <Float scale="0.00484" offset="0.0">
+            <Float scale="0.038836" offset="-4.85446245">
                <Integer type="unsigned" bits="16" scale="1.0" offset="0.0">
-                  <Byte1 input_index="9" mask="0xFF" output_index="1"/>
-                  <Byte2 input_index="10" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="11" mask="0xFF" output_index="0"/>
                </Integer>
             </Float>
          </ReadRFSensor>
          <ReadLRSensor>
-            <Float scale="0.00484" offset="0.0">
+            <Float scale="0.038836" offset="-4.85446245">
                <Integer type="unsigned" bits="16" scale="1.0" offset="0.0">
-                  <Byte1 input_index="11" mask="0xFF" output_index="1"/>
-                  <Byte2 input_index="12" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="12" mask="0xFF" output_index="0"/>
                </Integer>
             </Float>
          </ReadLRSensor>
          <ReadRRSensor>
-            <Float scale="0.00484" offset="0.0">
+            <Float scale="0.038836" offset="-4.85446245">
                <Integer type="unsigned" bits="16" scale="1.0" offset="0.0">
-                  <Byte1 input_index="13" mask="0xFF" output_index="1"/>
-                  <Byte2 input_index="14" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="13" mask="0xFF" output_index="0"/>
                </Integer>
             </Float>
          </ReadRRSensor>

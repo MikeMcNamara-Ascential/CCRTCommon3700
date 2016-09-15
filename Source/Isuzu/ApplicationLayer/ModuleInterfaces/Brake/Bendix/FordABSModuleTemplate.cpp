@@ -1589,3 +1589,87 @@ BEP_STATUS_TYPE FordABSModuleTemplate<ProtocolFilterType>::ReadFaults(FaultVecto
         return(status);
     }
 }
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE FordABSModuleTemplate<ProtocolFilterType>::ReadSensorSpeeds(WheelSpeeds_t &moduleSpeeds) throw(ModuleException)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+	SerialString_t moduleMessage;
+    Log(LOG_DEV_DATA,"Enter FordABSModuleTemplate::ReadSensorSpeeds()\n");
+	// Read the message from the buffer
+    SerialString_t msg;
+    std::string temp = "ReadSensorSpeeds";
+    status = m_protocolFilter->GetBusBroadcastMessage(temp,(long)500, msg);
+
+	if(status == BEP_STATUS_SUCCESS)
+	{   // Valid message, extract the data
+        Log(LOG_DEV_DATA,"Message is valid, parsing speed data\n");
+        status = ParseSensorSpeeds( msg,moduleSpeeds);
+        int i;
+        for(i = 0; i < 4; i++)
+            Log(LOG_DEV_DATA, "Wheel Idx:%d, ModuleSensorSpeed:%g\n",i, moduleSpeeds[i]);
+	}
+	else
+	{   // Could not find a matching message, give up on it
+		char buff[256];
+		string logMessage;
+		for(UINT8 index = 0; index < msg.length(); index++)
+		{
+			logMessage += CreateMessage(buff, sizeof(buff), " $%02X", msg[index]);
+		}
+		Log(LOG_ERRORS, "No matching message entry for %s", logMessage.c_str());
+        status = BEP_STATUS_FAILURE;
+	}
+	return status;
+}
+
+//-----------------------------------------------------------------------------
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE FordABSModuleTemplate<ProtocolFilterType>::ParseSensorSpeeds(const SerialString_t &response, WheelSpeeds_t &speeds)  throw(ModuleException)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
+
+    // Log the function entry
+    Log(LOG_FN_ENTRY, "%s: Entering ParseSensorSpeeds", ModuleName().c_str());
+
+    try
+    {
+        // Get the reply interpretation from the Xml
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Getting reply interpretation for Front Axle Average Speed", ModuleName().c_str());
+        const XmlNode *replyInterpNodeFrontAvg = m_vehicleMessagesNode->getChild("ReadSensorSpeeds/ReplyInterpretation");
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Getting reply interpretation for LF", ModuleName().c_str());
+        const XmlNode *replyInterpNodeLF = m_vehicleMessagesNode->getChild("ReadSensorSpeeds/ReplyInterpretationLF");
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Getting reply interpretation for RF", ModuleName().c_str());
+        const XmlNode *replyInterpNodeRF = m_vehicleMessagesNode->getChild("ReadSensorSpeeds/ReplyInterpretationRF");
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Getting reply interpretation for LR", ModuleName().c_str());
+        const XmlNode *replyInterpNodeLR = m_vehicleMessagesNode->getChild("ReadSensorSpeeds/ReplyInterpretationLR");
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Getting reply interpretation for RR", ModuleName().c_str());
+        const XmlNode *replyInterpNodeRR = m_vehicleMessagesNode->getChild("ReadSensorSpeeds/ReplyInterpretationRR");
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Parsing LF Response", ModuleName().c_str());
+
+        // Try to parse the response into something readable
+        float frontAvgSpeed = ParseFloatResponse(replyInterpNodeFrontAvg->getValue(), response);
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Parsing Front Average Response", ModuleName().c_str());
+        speeds[LFWHEEL] = ParseFloatResponse(replyInterpNodeLF->getValue(), response) + frontAvgSpeed;
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Parsing RF Response", ModuleName().c_str());
+        speeds[RFWHEEL] = ParseFloatResponse(replyInterpNodeRF->getValue(), response) + frontAvgSpeed;
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Parsing LR Response", ModuleName().c_str());
+        speeds[LRWHEEL] = ParseFloatResponse(replyInterpNodeLR->getValue(), response) + frontAvgSpeed;
+        Log(LOG_DEV_DATA, "%s: ParseSensorSpeeds: Parsing RR Response", ModuleName().c_str());
+        speeds[RRWHEEL] = ParseFloatResponse(replyInterpNodeRR->getValue(), response) + frontAvgSpeed;
+        // Log the wheel speed sensors read from the module
+        Log(LOG_DEV_DATA, "Parsed Sensor Speeds: \n\tAvg = %g\n\tLF = %g\n\tRF = %g\n\tLR = %g\n\tRR = %g\n",
+            frontAvgSpeed, speeds[LFWHEEL], speeds[RFWHEEL], speeds[LRWHEEL], speeds[RRWHEEL]);
+    }
+    catch (XmlException &ex)
+    {   // Log it
+        Log(LOG_ERRORS, "%s: XmlError: %s", ModuleName().c_str(), ex.GetReason());
+        // set status to a software error
+        status = BEP_STATUS_SOFTWARE;
+    }
+    
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "%s: Exiting ParseSensorSpeeds", ModuleName().c_str());
+    // Return the status of the operation
+    return status;
+}
+

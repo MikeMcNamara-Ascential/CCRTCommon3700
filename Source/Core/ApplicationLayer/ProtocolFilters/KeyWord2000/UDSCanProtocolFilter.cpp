@@ -1,6 +1,6 @@
 //*************************************************************************
 // FILE:
-//    $Header: /Nissan/Source/Nissan/ApplicationLayer/ProtocolFilters/KwpBosch/KwpCanProtocolFilter.cpp 3     1/09/08 1:28p Mmcnamar $
+//    $Header: /Nissan/Source/Nissan/ApplicationLayer/ProtocolFilters/UDSCanProtocolFilter.cpp 3     1/09/08 1:28p Mmcnamar $
 //
 // FILE DESCRIPTION:
 //	Keyword 2000 protocol filter customized for Bosch module for Nissan
@@ -16,7 +16,7 @@
 //===========================================================================
 //
 // LOG:
-//    $Log: /Nissan/Source/Nissan/ApplicationLayer/ProtocolFilters/KwpBosch/KwpCanProtocolFilter.cpp $
+//    $Log: /Nissan/Source/Nissan/ApplicationLayer/ProtocolFilters/UDSCanProtocolFilter.cpp $
 // 
 // 3     1/09/08 1:28p Mmcnamar
 // Updated for CAN ABS: Updated ExtractMessage( ); Overrode SendMessage()
@@ -41,24 +41,24 @@
 // 
 //*************************************************************************
 
-#include "KwpCanProtocolFilter.h"
+#include "UDSCanProtocolFilter.h"
 
-KwpCanProtocolFilter::KwpCanProtocolFilter(KeepAliveTimer_t &lastTxTime, StopCommsBepCondVar *stopCommsBepCondVar, BepMutex *commPortInUse /* =NULL*/) : 
+UDSCanProtocolFilter::UDSCanProtocolFilter(KeepAliveTimer_t &lastTxTime, StopCommsBepCondVar *stopCommsBepCondVar, BepMutex *commPortInUse /* =NULL*/) : 
 ProtocolFilter(lastTxTime, stopCommsBepCondVar, commPortInUse),
 	m_enterDiagModeCode(0x80), m_responsePendingCode(0x78), m_responsePendingReads(3), m_dataByteCountIndex(6),
-	m_moduleRequestID(0x0000), m_autoEnterDiagMode(false), m_enterDiagnosticModeMessageTag("EnterDiagnosticMode")
+	m_moduleRequestID(0x00000000), m_autoEnterDiagMode(false), m_enterDiagnosticModeMessageTag("EnterDiagnosticMode")
 {   // NOthing special to do here
 }
 
-KwpCanProtocolFilter::~KwpCanProtocolFilter()
+UDSCanProtocolFilter::~UDSCanProtocolFilter()
 {	// Clear out the buffer before we leave.
-	Log(LOG_FN_ENTRY, "Resetting connection in ~KwpCanProtocolFilter()");
+	Log(LOG_FN_ENTRY, "Resetting connection in ~UDSCanProtocolFilter()");
 	ResetConnection();
 	BposSleep(150);
-	Log(LOG_FN_ENTRY, "~KwpCanProtocolFilter() complete\n");
+	Log(LOG_FN_ENTRY, "~UDSCanProtocolFilter() complete\n");
 }
 
-bool KwpCanProtocolFilter::Initialize(const XmlNode *config)
+bool UDSCanProtocolFilter::Initialize(const XmlNode *config)
 {	// Get the negative response code for module not in diagnostic mode
 	try
 	{	// Get the code being used for module not in diagnostic mode
@@ -135,7 +135,7 @@ bool KwpCanProtocolFilter::Initialize(const XmlNode *config)
 	return ProtocolFilter::Initialize(config);
 }
 
-const BEP_STATUS_TYPE KwpCanProtocolFilter::SendMessage(SerialString_t &message)
+const BEP_STATUS_TYPE UDSCanProtocolFilter::SendMessage(SerialString_t &message)
 {	// Add the module ID to the message
 	message = GetModuleRequestID() + message;
 	// Clear the Fifos so bad data is not gathered
@@ -158,17 +158,17 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::SendMessage(SerialString_t &message)
 	return status;
 }
 
-const BEP_STATUS_TYPE KwpCanProtocolFilter::SendMessage(std::string messageTag)
+const BEP_STATUS_TYPE UDSCanProtocolFilter::SendMessage(std::string messageTag)
 {   // Call the base class
 	return ProtocolFilter::SendMessage(messageTag);
 }
 
-const BEP_STATUS_TYPE KwpCanProtocolFilter::SendMessage(std::string messageTag, SerialArgs_t &args)
+const BEP_STATUS_TYPE UDSCanProtocolFilter::SendMessage(std::string messageTag, SerialArgs_t &args)
 {   // Call the base class
 	return ProtocolFilter::SendMessage(messageTag, args);
 }
 
-const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleData(string messageTag, SerialString_t &reply, SerialArgs_t *args /*= NULL*/)
+const BEP_STATUS_TYPE UDSCanProtocolFilter::GetModuleData(string messageTag, SerialString_t &reply, SerialArgs_t *args /*= NULL*/)
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	string asciiMessage;
@@ -319,7 +319,7 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleData(string messageTag, Ser
 }
 
 
-const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleDataUUDTResponse(string messageTag, SerialString_t &reply, SerialArgs_t *args /*= NULL*/)
+const BEP_STATUS_TYPE UDSCanProtocolFilter::GetModuleDataUUDTResponse(string messageTag, SerialString_t &reply, SerialArgs_t *args /*= NULL*/)
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	string asciiMessage;
@@ -509,7 +509,7 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleDataUUDTResponse(string mes
 	Log(LOG_DEV_DATA, "GetModuleData() returning - status: %s\n", ConvertStatusToResponse(status).c_str());
 	return status;
 }
-const BEP_STATUS_TYPE KwpCanProtocolFilter::GetResponseUUDT(SerialString_t &reply)
+const BEP_STATUS_TYPE UDSCanProtocolFilter::GetResponseUUDT(SerialString_t &reply)
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	// Get the response from the port
@@ -522,7 +522,7 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetResponseUUDT(SerialString_t &repl
 	// Return the status
 	return(status);
 }
-int KwpCanProtocolFilter::WaitForFullResponseUUDT( SerialString_t &response)
+int UDSCanProtocolFilter::WaitForFullResponseUUDT( SerialString_t &response)
 {
 	int         retVal = 1;
 	SerialString_t interResponse;
@@ -558,7 +558,7 @@ int KwpCanProtocolFilter::WaitForFullResponseUUDT( SerialString_t &response)
 }
 
 //---------------------------------------------------------------------------------------------------------------------
-const BEP_STATUS_TYPE KwpCanProtocolFilter::GetBusBroadcastMessage(string messageTag, 
+const BEP_STATUS_TYPE UDSCanProtocolFilter::GetBusBroadcastMessage(string messageTag, 
 																   const long messageWaitTime, 
 																   SerialString_t &busMssg)
 {
@@ -567,7 +567,7 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetBusBroadcastMessage(string messag
 	NotifyEvent_t   mssgEvent;
 	struct timespec currentTime;
 	struct timespec startTime;
-	Log(LOG_FN_ENTRY, "Enter KwpCanProtocolFilter::GetBusBroadcastMsg(%s)", messageTag.c_str());
+	Log(LOG_FN_ENTRY, "Enter UDSCanProtocolFilter::GetBusBroadcastMsg(%s)", messageTag.c_str());
 	// Bogus event (because we are going to poll)
 	SIGEV_NONE_INIT( &mssgEvent);
 	// Subscribe for RX data that matches the pattern defined by the messageTag
@@ -600,13 +600,13 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetBusBroadcastMessage(string messag
 	PortUnsubscribe();
 	// Determine the status to return
 	status = validMessage ? BEP_STATUS_SUCCESS : BEP_STATUS_TIMEOUT;
-	Log(LOG_FN_ENTRY, "Exiting KwpCanProtocolFilter::GetBusBroadcastMsg(%s) - status: %s", 
+	Log(LOG_FN_ENTRY, "Exiting UDSCanProtocolFilter::GetBusBroadcastMsg(%s) - status: %s", 
 		messageTag.c_str(), ConvertStatusToResponse(status).c_str());
 	return status;
 }
 
 //---------------------------------------------------------------------------------------------------------------------
-const SerialString_t KwpCanProtocolFilter::ExtractModuleData(SerialString_t &moduleResponse)
+const SerialString_t UDSCanProtocolFilter::ExtractModuleData(SerialString_t &moduleResponse)
 {
 	string fullResponse;
 	// Log the respnse received from the module
@@ -660,7 +660,7 @@ const SerialString_t KwpCanProtocolFilter::ExtractModuleData(SerialString_t &mod
 	return dataResponse;        
 }
 
-int KwpCanProtocolFilter::WaitForFullResponse( SerialString_t &response)
+int UDSCanProtocolFilter::WaitForFullResponse( SerialString_t &response)
 {
 	int         retVal = 0;
 	// set up the receive timeout
@@ -712,85 +712,87 @@ int KwpCanProtocolFilter::WaitForFullResponse( SerialString_t &response)
 	return( retVal);
 }
 
-inline const UINT8& KwpCanProtocolFilter::GetEnterDiagnosticModeCode(void)
+inline const UINT8& UDSCanProtocolFilter::GetEnterDiagnosticModeCode(void)
 {	// Return the negative response code for module not in diag mode
 	return m_enterDiagModeCode;
 }
 
-inline const UINT8& KwpCanProtocolFilter::GetResponsePendingCode(void)
+inline const UINT8& UDSCanProtocolFilter::GetResponsePendingCode(void)
 {	// Return the code for response pending
 	return m_responsePendingCode;
 }
 
-inline const UINT8& KwpCanProtocolFilter::GetModuleBusyCode(void)
+inline const UINT8& UDSCanProtocolFilter::GetModuleBusyCode(void)
 {	// Return the code for module busy, repeat request
 	return m_moduleBusyCode;
 }
 
-inline const string& KwpCanProtocolFilter::GetEnterDiagnosticModeMessageTag(void)
+inline const string& UDSCanProtocolFilter::GetEnterDiagnosticModeMessageTag(void)
 {	// Return the tag for the enter diagnostic mode message
 	return m_enterDiagnosticModeMessageTag;
 }
 
-inline const INT32& KwpCanProtocolFilter::GetNumberOfResponsePendingReads(void)
+inline const INT32& UDSCanProtocolFilter::GetNumberOfResponsePendingReads(void)
 {
 	return m_responsePendingReads;
 }
 
-inline const bool& KwpCanProtocolFilter::AutomaticallyEnterDiagnosticMode(void)
+inline const bool& UDSCanProtocolFilter::AutomaticallyEnterDiagnosticMode(void)
 {
 	return m_autoEnterDiagMode;
 }
 
-inline const SerialString_t KwpCanProtocolFilter::GetModuleRequestID(void)
+inline const SerialString_t UDSCanProtocolFilter::GetModuleRequestID(void)
 {
 	SerialString_t moduleRequestID;
+    moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0xFF000000) >> 24));
+    moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x00FF0000) >> 16));
 	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x0000FF00) >> 8));
-	moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x000000FF));
+    moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x000000FF));
 	return moduleRequestID;
 }
 
-inline const INT32& KwpCanProtocolFilter::GetDataByteCountIndex(void)
+inline const INT32& UDSCanProtocolFilter::GetDataByteCountIndex(void)
 {
 	return m_dataByteCountIndex;
 }
 
-inline void KwpCanProtocolFilter::SetEnterDiagnosticModeCode(const UINT8 &enterDiagnosticModeCode)
+inline void UDSCanProtocolFilter::SetEnterDiagnosticModeCode(const UINT8 &enterDiagnosticModeCode)
 {	// Save the enter diagnostic mode code
 	m_enterDiagModeCode = enterDiagnosticModeCode;
 }
 
-inline void KwpCanProtocolFilter::SetResponsePendingCode(const UINT8 &responsePendingCode)
+inline void UDSCanProtocolFilter::SetResponsePendingCode(const UINT8 &responsePendingCode)
 {	// Save the response pending code
 	m_responsePendingCode = responsePendingCode;
 }
 
-inline void KwpCanProtocolFilter::SetModuleBusyCode(const UINT8 &moduleBusyCode)
+inline void UDSCanProtocolFilter::SetModuleBusyCode(const UINT8 &moduleBusyCode)
 {	// Save the module busy, repeat request code
 	m_moduleBusyCode = moduleBusyCode;
 }
 
-inline void KwpCanProtocolFilter::SetEnterDiagnosticModeMessageTag(const string& tag)
+inline void UDSCanProtocolFilter::SetEnterDiagnosticModeMessageTag(const string& tag)
 {	// Save the enter diagnostic mode message tag
 	m_enterDiagnosticModeMessageTag = tag;
 }
 
-inline void KwpCanProtocolFilter::SetAutomaticallyEnterDiagnosticMode(const bool& autoEnterDiagMode)
+inline void UDSCanProtocolFilter::SetAutomaticallyEnterDiagnosticMode(const bool& autoEnterDiagMode)
 {
 	m_autoEnterDiagMode = autoEnterDiagMode;
 }
 
-inline void KwpCanProtocolFilter::SetResponsePendingReads(const INT32& responsePendingReads)
+inline void UDSCanProtocolFilter::SetResponsePendingReads(const INT32& responsePendingReads)
 {
 	m_responsePendingReads = responsePendingReads;
 }
 
-inline void KwpCanProtocolFilter::SetModuleRequestID(const UINT16& moduleID)
+inline void UDSCanProtocolFilter::SetModuleRequestID(const UINT32& moduleID)
 {
 	m_moduleRequestID = moduleID;
 }
 
-inline void KwpCanProtocolFilter::SetDataByteCountIndex(const INT32& dataByteCountindex)
+inline void UDSCanProtocolFilter::SetDataByteCountIndex(const INT32& dataByteCountindex)
 {
 	m_dataByteCountIndex = dataByteCountindex;
 }

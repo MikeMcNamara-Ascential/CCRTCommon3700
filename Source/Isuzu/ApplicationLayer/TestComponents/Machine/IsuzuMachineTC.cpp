@@ -50,6 +50,7 @@ const std::string IsuzuMachineTC::CommandTestStep(const std::string &value)
             Log(LOG_FN_ENTRY, "MachineTC::CommandTestStep(%s): %s\n", value.c_str(), step.c_str());
 
             if(step == "TransitionToRearAxle") status = TransitionToRearAxle();
+            if(step == "ReportSideSlipValue") status = ReportSideSlipValue();
             // else invalid test step*/
             else status = MachineTC::CommandTestStep(value);
 
@@ -124,3 +125,41 @@ std::string IsuzuMachineTC::TransitionToRearAxle(void)
 	Log(LOG_FN_ENTRY, "IsuzuMachineTC::TransitionToRearAxle() - Exit"); 
 	return result;
 }
+
+//-------------------------------------------------------------------------------------------------
+std::string IsuzuMachineTC::ReportSideSlipValue(void) 
+{
+
+    float frontSideSlipResult;
+    float sideSlipValueMax;
+    float sideSlipValueMin;
+    char buff[16];
+    string result;
+
+    if(!ShortCircuitTestStep())
+	{
+        frontSideSlipResult = SystemReadFloat("SideSlipValue"); 
+        sideSlipValueMax = GetParameterFloat ("SideSlipValueMax");
+        sideSlipValueMin = GetParameterFloat ("SideSlipValueMin");
+        //To determine if the test is pass or fail
+        if (sideSlipValueMin <= frontSideSlipResult && frontSideSlipResult <= sideSlipValueMax) 
+        {    
+            //Test Pass
+            result = testPass; 
+        } 
+        else 
+        {
+            //Test Fail
+            result = testFail;
+        }
+    }
+
+    SendTestResultWithDetail(result, GetTestStepInfo("Description"),"0000",
+                "SideSlipValue",CreateMessage(buff, sizeof(buff), "%.2f", frontSideSlipResult),"m/km",
+                "SideSlipMaxValue",CreateMessage(buff, sizeof(buff), "%.2f", sideSlipValueMax),"m/km",
+                "SideSlipMinValue",CreateMessage(buff, sizeof(buff), "%.2f", sideSlipValueMin),"m/km");
+
+   return result; 
+     
+}
+                                                  

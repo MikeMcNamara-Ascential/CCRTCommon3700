@@ -70,6 +70,7 @@ protected:
 private:
 
     std::string TransitionToRearAxle(void);
+    std::string ReportSideSlipValue(void);
 };
 
 #endif

@@ -833,7 +833,6 @@ bool ILogicalPort::PortSubscribe(const NotifyEvent_t &event, int flags, int mode
 {
     logPortMsg_t    msg;
     int             error, ii;
-
     // If not already subscribed
     if( m_subHandle == LOG_PORT_INVALID_SUB)
     {
@@ -2039,7 +2038,6 @@ bool ILogicalPort::ReadMessageMap( const XmlNode *mssgMapNode)
                 mssgEntry.SetResponsePendingReads( responsePendingReads);
 
                 bool isTransmitStringOK = isBusBroadcastMessage ? true : ReadTransmitString( mssgMapNode, mssgTag, xmtString);
-                Log(LOG_ERRORS, "Message:%s - isBroadcastMessage:%s - isTransmitStringOK:%s\n", mssgTag.c_str(), isBusBroadcastMessage ? "True" : "False", isTransmitStringOK ? "True" : "False");
                 if( isTransmitStringOK == true)
                 {
                     mssgEntry.SetTransmitString( xmtString);
@@ -2555,7 +2553,6 @@ bool ILogicalPort::ReadResponseString( const XmlNode *configNode,
             // see what type of response this is (positive or negative)
             isPositive = ReadResponseType( rcvNode);
 
-            Log(LOG_ERRORS,"Adding Response Filter for %s - %s\n",mssgTag.c_str(), respFilter.c_str());
             mssgEntry.AddResponseFilter( respFilter.c_str(), respLenType, isPositive);
         }
     }

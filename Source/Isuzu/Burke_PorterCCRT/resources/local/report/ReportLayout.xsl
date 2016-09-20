@@ -427,144 +427,35 @@
             </tr>
             <!-- Reduction Results -->
             <tr>
-                <th align="left" width="20">ABS Reduction</th>
-                <td align="right">LF</td>
+                <th align="left" width="20">Valve Cycle Test</th>
+                <td align="right">Front</td>
                 <td align="center"/>
-                <td align="center">
-                    <xsl:value-of select="//BrakeLeftFrontABSReduction/LeftFrontABSReductionPercent"/>
+                <td align="center">  
                 </td>
                 <td align="center">
-                    <xsl:value-of select="//BrakeLeftFrontABSReduction/LeftFrontReductionMinParameter"/>
                 </td>
-                <td align="center">%</td>
+                <td align="center"></td>
                 <td align="center">
                     <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeLeftFrontABSReduction/@Result"/>
+                        <xsl:with-param name="RESULT" select="//BrakeFrontValveCycleTest/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
             <tr>
                 <th align="Right" width="20"/>
-                <td align="right">RF</td>
+                <td align="right">Rear</td>
                 <td align="center"/>
                 <td align="center">
-                    <xsl:value-of select="//BrakeRightFrontABSReduction/RightFrontABSReductionPercent"/>
-                </td>
+                 </td>
                 <td align="center">
-                    <xsl:value-of select="//BrakeRightFrontABSReduction/RightFrontReductionMinParameter"/>
                 </td>
-                <td align="center">%</td>
+                <td align="center"></td>
                 <td align="center">
                     <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeRightFrontABSReduction/@Result"/>
+                        <xsl:with-param name="RESULT" select="//BrakeRearValveCycleTest/@Result"/>
                     </xsl:call-template>
                 </td>
             </tr>
-            <tr>
-                <th align="left" width="20"/>
-                <td align="right">LR</td>
-                <td align="center"/>
-                <td align="center">
-                    <xsl:value-of select="//BrakeLeftRearABSReduction/LeftRearABSReductionPercent"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeLeftRearABSReduction/LeftRearReductionMinParameter"/>
-                </td>
-                <td align="center">%</td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeLeftRearABSReduction/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr>
-            <tr>
-                <th align="Right" width="20"/>
-                <td align="right">RR</td>
-                <td align="center"/>
-                <td align="center">
-                    <xsl:value-of select="//BrakeRightRearABSReduction/RightRearABSReductionPercent"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeRightRearABSReduction/RightRearReductionMinParameter"/>
-                </td>
-                <td align="center">%</td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeRightRearABSReduction/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr>
-            <!-- Recovery Results -->
-            <tr>
-                <th align="left" width="20">ABS Recovery</th>
-                <td align="right">LF</td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeLeftFrontABSRecovery/LeftFrontRecoveryMinPercent"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeLeftFrontABSRecovery/LeftFrontABSRecoveryValue"/>
-                </td>
-                <td align="center"/>
-                <td align="center">%</td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeLeftFrontABSRecovery/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr>
-            <tr>
-                <th align="Right" width="20"/>
-                <td align="right">RF</td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeRightFrontABSRecovery/RightFrontRecoveryMinPercent"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeRightFrontABSRecovery/RightFrontABSRecoveryValue"/>
-                </td>
-                <td align="center"/>
-                <td align="center">%</td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeRightFrontABSRecovery/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr>
-            <tr>
-                <th align="left" width="20"/>
-                <td align="right">LR</td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeLeftRearABSRecovery/LeftRearRecoveryMinPercent"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeLeftRearABSRecovery/LeftRearABSRecoveryValue"/>
-                </td>
-                <td align="center"/>
-                <td align="center">%</td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeLeftRearABSRecovery/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr>
-            <tr>
-                <th align="Right" width="20"/>
-                <td align="right">RR</td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeRightRearABSRecovery/RightRearRecoveryMinPercent"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeRightRearABSRecovery/RightRearABSRecoveryValue"/>
-                </td>
-                <td align="center"/>
-                <td align="center">%</td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeRightRearABSRecovery/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr>
-
-
             <!-- ======================================================================================= -->
             <!-- Transmission Test Results -->
             <!-- ======================================================================================= -->
@@ -693,6 +584,44 @@
                     </xsl:call-template>
                 </td>
             </tr>
+		<!--TCM Inspection:Check DTC-->
+            <tr>
+                <td width="20"/>
+                <td/>
+                <td align="center">Check DTC</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//TransmissionReadFaults/@Result"/>
+                    </xsl:call-template>
+                </td>
+                <td align="center">
+                </td>
+				<td align="center">
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                    </xsl:call-template>
+                </td>				
+				</td>				
+            </tr>
+		<!-- TCM Inspection:Clear DTC-->
+            <tr>
+                <td width="20"/>
+                <td/>
+                <td align="center">Clear DTC</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//TransmissionClearFaults/@Result"/>
+                    </xsl:call-template>
+                </td>
+                <td align="center">
+                </td>
+                <td align="center">
+                </td>	
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                    </xsl:call-template>
+                </td>				
+            </tr>		
             <tr>
                 <td width="20"/>
                 <th align="left">TCC Slip</th>
@@ -721,7 +650,30 @@
                     </xsl:call-template>
                 </td>
             </tr>
+			
+			<!-- ======================================================================================= -->
+            <!-- Report Side Slip Test Results -->
+            <!-- ======================================================================================= -->
 
+			<tr bgcolor="white">
+                    <th align="left" width="20">Side Slip Test</th>
+                    <td align="right">Front</td>
+                    <td align="center">
+                        <xsl:value-of select="//MachineReportSideSlipValue/SideSlipMinValue"/>
+                    </td>
+                    <td align="center">
+                        <xsl:value-of select="//MachineReportSideSlipValue/SideSlipValue"/>
+                    </td>
+                    <td align="center">
+                        <xsl:value-of select="//MachineReportSideSlipValue/SideSlipMaxValue"/>
+                    </td>
+                    <td align="center">m/km</td>
+                    <td align="center">
+                        <xsl:call-template name="showResult">
+                            <xsl:with-param name="RESULT" select="//MachineReportSideSlipValue/@Result"/>
+                        </xsl:call-template>
+                    </td>
+                </tr>
 
             <!-- ======================================================================================= -->
             <!-- Emissions Test Results -->
@@ -766,9 +718,86 @@
                     </xsl:call-template>
                 </td>
             </tr>
+			<!--ECM Check VIN number-->
+			<tr>
+				<td width="20"/>
+				<td align="center">VIN</td>
+				<td align="center">
+					<xsl:value-of select="//EmissionsCheckVIN/ModuleVIN"/>
+				</td>
+                <td align="center">
+                </td>
+                <td align="center">
+                </td>				
+				<td align="center">
+				</td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsCheckVIN/@Result"/>
+					</xsl:call-template>
+				</td>
+			</tr>			
 
+		<!-- Check DTC-->
+			<tr>
+				<td width="20"/>
+				<td align="center">Check DTC</td>
+				<td align="center">
+					<xsl:value-of select="//EmissionsReadFaults/ModuleVIN"/>
+				</td>
+                <td align="center">
+                </td>
+                <td align="center">
+                </td>				
+				<td align="center">
+				</td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsReadFaults/@Result"/>
+					</xsl:call-template>
+				</td>
+			</tr>	
+		<!-- Clear DTC-->
+			<tr>
+				<td width="20"/>
+				<td align="center">Clear DTC</td>
+				<td align="center">
+					<xsl:value-of select="//EmissionsClearFaults/ModuleVIN"/>
+				</td>
+                <td align="center">
+                </td>
+                <td align="center">
+                </td>				
+				<td align="center">
+				</td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsClearFaults/@Result"/>
+					</xsl:call-template>
+				</td>
+			</tr>	
+		<!-- Idling Parameter Inspection-->
+			<tr>
+				<td width="20"/>
+				<td align="center">Idling Parameter Inspection</td>
+				<td align="center">
+					<xsl:value-of select="//EmissionsClearFaults/ModuleVIN"/>
+				</td>
+                <td align="center">
+                </td>
+                <td align="center">
+                </td>				
+				<td align="center">
+				</td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsClearFaults/@Result"/>
+					</xsl:call-template>
+				</td>
+			</tr>
+			
         </table>
-
+            
         <!-- DTC Table -->
         <xsl:if test="count(//TestResult/DTC/child::*)">
             <h3/>

@@ -64,6 +64,10 @@ const INT32 SideSlipMonitor::HandlePulse(const INT32 code, const INT32 value)
 			Log(LOG_DEV_DATA, "Axle time limit expired, stopping side slip timer (axle count: %.1f)", m_axleCount);
 			m_axleTimeLimitTimer.Stop();
 			m_sideSlipTimer.Stop();
+			if(m_axleCount == 0.5)
+			{
+				m_axleCount = 0.0;
+			}
 			break;
 
 		default:
@@ -157,6 +161,7 @@ const string SideSlipMonitor::Publish(const XmlNode *node)
 	string result = BEP_ERROR_RESPONSE;
 	if(!node->getName().compare(GetDataTag("SideSlipIn")) && atob(node->getValue().c_str()))
 	{
+		Log(LOG_DEV_DATA, "In signal received - axle count = %.1f", m_axleCount);
 		if(m_axleCount == 0.0)
 		{
 			Log(LOG_DEV_DATA, "Vehicle front axle arrived at side slip tester, starting timer");
@@ -164,7 +169,6 @@ const string SideSlipMonitor::Publish(const XmlNode *node)
 			m_axleTimeLimitTimer.Start();
 		}
 		m_axleCount += 0.5;
-		result = BEP_SUCCESS_RESPONSE;
 	}
 	else if(!node->getName().compare(GetDataTag("SideSlipOut")) && atob(node->getValue().c_str()))
 	{
@@ -173,15 +177,12 @@ const string SideSlipMonitor::Publish(const XmlNode *node)
 		m_axleCount += 0.5;
 		if(m_axleCount == 1.0)
 		{
+			Log(LOG_DEV_DATA, "Starting axle gap timer");
 			m_axleGapTimer.Start();
 		}
-		Log(LOG_DEV_DATA, "Vehicle departed side slip tester, stopped timer");
-		result = BEP_SUCCESS_RESPONSE;
+		Log(LOG_DEV_DATA, "Vehicle departed side slip tester, stopped timer, new axle count = %.1f", m_axleCount);
 	}
-	else
-	{
-		result = BepServer::Publish(node);
-	}
+	result = BepServer::Publish(node);
 	return result;
 }
 

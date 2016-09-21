@@ -204,6 +204,7 @@
             <TestStep3>ConnectCable</TestStep3>
             <TestStep4 AltValue="TestResult">SetInputServerState</TestStep4>
             <!--TestStep5>EngageMachine</TestStep5-->
+            <TestStep6>ReportSideSlipValue</TestStep6>
         </Initialize>
         <InitializeNoCableConnect>
             <TestStep1>Initialize</TestStep1>

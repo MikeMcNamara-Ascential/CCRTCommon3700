@@ -19,6 +19,7 @@
 #include "BepSync.h"
 #include "BepTimer.h"
 #include "INamedDataBroker.h"
+#include <math.h>
 
 //-------------------------------------------------------------------------------------------------
 #define SIDE_SLIP_MONITOR_PULSE_CODE	SYSTEM_PULSE+17

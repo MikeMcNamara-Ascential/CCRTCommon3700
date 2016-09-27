@@ -25,7 +25,7 @@ ADD_LIBRARY(${LIB_NAME} STATIC SideSlipMonitor.cpp )
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
 CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp)
-TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME})
+TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIB_NAME} m)
 
 #------------------------------------------------------------------------------------------
 # Tell CMake where to install the executable

@@ -406,7 +406,8 @@ private:
     string DisableNormalComms(void);
     string ReadMemoryLocation(void);
     string LockModuleIfPass(void);
-
+    string DPDSwitchCheck(void);
+    string MAFLearn(void);
 
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;
@@ -423,7 +424,7 @@ private:
     /** Timer to use for checking sensor values */
     BepTimer m_sensorMonitorTimer;
 
-    /** Switch data for setting upda switch monitoring */
+    /** Switch data for setting update switch monitoring */
     XmlNodeMap m_switchMonitorItems;
     /** Pid data for setting up background range check monitoring */
     XmlNodeMap m_rangeCheckMonitorItems;

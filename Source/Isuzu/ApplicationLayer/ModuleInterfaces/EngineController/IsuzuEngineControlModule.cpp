@@ -89,6 +89,7 @@ template <class ProtocolFilterType>
 BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string methodName, string &value) throw(ModuleException)
 {
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+   
     if(methodName == "ReadVIN") status = ReadModuleData(methodName, value);
     else if(methodName == "ReadSystemSupplierID") status = ReadModuleData(methodName, value);
     else if(methodName == "ReadRepairShopCode") status = ReadModuleData(methodName, value);
@@ -101,6 +102,27 @@ BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetInfo(string met
     else if(methodName == "ReadSoftwareModuleID") status = ReadModuleData(methodName, value);
     else if(methodName == "ReadPartNumber") status = ReadModuleData(methodName, value);
     else if(methodName == "WriteVIN") status = CommandModule(methodName);
+    else if(methodName == "ReadDPDSwitch") 
+    {
+        bool switchOn;
+        status = ReadModuleData(methodName, switchOn);
+        if(status == BEP_STATUS_SUCCESS)
+        {
+             if(switchOn == true) 
+             {
+                 value = "On";
+             }else 
+
+             {      
+                 value = "Off";
+             }   
+        }  
+        else 
+        {
+             value = "Unknown";
+        }
+    }
+
     // Nothing special to do, just pass to base class for evaluation
     else status = GenericEmissionsModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
     // Return the status

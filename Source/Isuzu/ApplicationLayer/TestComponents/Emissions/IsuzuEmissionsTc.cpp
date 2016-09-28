@@ -63,20 +63,31 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("CheckBatteryVoltage"))                 testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckCASELearn"))                      testResult = CheckCASELearn();
             else if (!GetTestStepName().compare("CheckEgrError"))                       testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckEGROpeningTarget"))               testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckEGRPosition"))                    testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckEngineCoolantTemperature"))       testResult = CheckSensorRangeInt(value);
             else if (!GetTestStepName().compare("CheckEngineFan"))                      testResult = CheckEngineFan();
             else if (!GetTestStepName().compare("CheckEngineOilLevelLow"))              testResult = CheckSensorRangeBool(value);
-            else if (!GetTestStepName().compare("CheckEngineOilPressure"))              testResult = CheckSensorRangeUint8(value);
+            else if (!GetTestStepName().compare("CheckEngineOilPressure"))              testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckEngineOilPressureLow"))           testResult = CheckSensorRangeBool(value);
             else if (!GetTestStepName().compare("CheckEngineOilTemperature"))           testResult = CheckSensorRangeInt(value);
+            else if (!GetTestStepName().compare("CheckFinalInjectionAmount"))           testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckFuelInjectionCorrection1"))       testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckFuelInjectionCorrection2"))       testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckFuelInjectionCorrection3"))       testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckFuelInjectionCorrection4"))       testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckFuelLevelPrimaryTankLevel"))      testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckFuelLevelSecondaryTankLevel"))    testResult = CheckSensorRangeFloat(value);
-            else if (!GetTestStepName().compare("CheckFuelRailPressure"))               testResult = CheckSensorRangeUint8(value);
+            else if (!GetTestStepName().compare("CheckFuelRailPressure"))               testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckFuelTemperature"))                testResult = CheckSensorRangeInt(value);
             else if (!GetTestStepName().compare("CheckIdleFuelTrim"))                   testResult = CheckFuelTrim(true);
             else if (!GetTestStepName().compare("CheckIdleRPM"))                        testResult = CheckSensorRangeUint16(value);
+            else if (!GetTestStepName().compare("CheckIntakeAirFlow"))                  testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckIntakeAirTemp"))                  testResult = CheckSensorRangeInt(value);
             else if (!GetTestStepName().compare("CheckKnockSensor1Status"))             testResult = CheckSensorRangeBool(value);
             else if (!GetTestStepName().compare("CheckKnockSensor2Status"))             testResult = CheckSensorRangeBool(value);
             else if (!GetTestStepName().compare("CheckMAFResidual"))                    testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckMainInjectionTiming"))            testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckManifoldAbsolutePressureAtIdle")) testResult = CheckSensorRangeAtIdleFloat(value);
             else if (!GetTestStepName().compare("CheckMAP1Residual"))                   testResult = CheckSensorRangeBool(value);
             else if (!GetTestStepName().compare("CheckMAP2Residual"))                   testResult = CheckSensorRangeBool(value);
@@ -86,8 +97,13 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("CheckNeutralRPMOverspeed"))            testResult = CheckNeutralRPMOverspeed();
             else if (!GetTestStepName().compare("CheckFuelTankVaporPressure"))          testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckPedalPositionSensorsAgree"))      testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckPumpLearningStatus"))             testResult = CheckSensorRangeUint8(value);
+            else if (!GetTestStepName().compare("CheckPumpLearningValue"))              testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckRequestedRPM"))                   testResult = CheckSensorRangeUint16(value);
+            else if (!GetTestStepName().compare("CheckSVCCurrentValue"))                testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckSteadySpeedFuelTrim"))            testResult = CheckFuelTrim(false);
             else if (!GetTestStepName().compare("CheckThrottlePositionSensorsAgree"))   testResult = CheckSensorRangeBool(value);
+            else if (!GetTestStepName().compare("CheckTurboBoostPressure"))             testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckVehicleSpeedSensor"))             testResult = CheckVehicleSpeedSensor();
             else if (!GetTestStepName().compare("ReadFaultCount"))                      testResult = CheckFaultCount();
             else if (!GetTestStepName().compare("StartRangeCheckMonitors"))             testResult = StartRangeCheckMonitors();
@@ -104,6 +120,9 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("ReadMemoryLocation"))                  testResult = ReadMemoryLocation();
             else if (!GetTestStepName().compare("DisableNormalComms"))                  testResult = DisableNormalComms();
             else if (!GetTestStepName().compare("LockModuleIfPass"))                    testResult = LockModuleIfPass();
+            else if (!GetTestStepName().compare("DPDSwitchCheck"))                      testResult = DPDSwitchCheck();
+            else if (!GetTestStepName().compare("DifferentialPressure"))                testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("MAFLearn"))                            testResult = MAFLearn();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -2791,4 +2810,206 @@ string IsuzuEmissionsTc<ModuleType>::LockModuleIfPass(void)
 	Log(LOG_DEV_DATA, "Lock Module: %s\n", testResult.c_str());
 
     return(testResult);
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::DPDSwitchCheck(void)
+{   // Set up some variables
+    string testResult = testFail;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    bool DPDSwitchOn = false;
+    bool DPDSwitchOff = false;
+    bool displayPrompt = false;
+    // Log the function entry
+    Log(LOG_FN_ENTRY, "%s:%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    // Determine if this step should be performed
+    if(!ShortCircuitTestStep())
+    {   // Perform the test step.
+        string switchPosition = "Unknown";
+        string promptTag;     
+        // Wait for both DPD switch positions to be seen
+        SetStartTime();
+        do
+        {   // Read the brake switch position
+            status = m_vehicleModule.GetInfo("ReadDPDSwitch", switchPosition);
+            // Check the status of the switch
+            if(BEP_STATUS_SUCCESS == status)
+            {  
+                Log(LOG_DEV_DATA,"%s - DPDSwitchCurrentPosition\n", switchPosition.c_str());
+
+                if(("Off" == switchPosition) && !DPDSwitchOff)
+                {   // Switch is Off, prompt for On
+                    DPDSwitchOff = true;
+                    // Determine if the prompt should be displayed
+                    if(!DPDSwitchOn)
+                    {   // DPD Switch on not seen, prompt driver
+                        displayPrompt = true;
+                        promptTag = "DPDSwitchCheck";
+                    }
+                    Log(LOG_DEV_DATA, "Waiting for DPD Switch to push ON.\n");
+                } 
+                else if(("On" == switchPosition) && !DPDSwitchOn)
+                {   // Switch is on, prompt for Off
+                    DPDSwitchOn = true;
+                    // Determine if a prompt should be displayed
+                    Log(LOG_DEV_DATA, "DPD Swich is On.\n");
+                }
+                else if ((("On" == switchPosition) && DPDSwitchOn) ||
+                        (("Off" == switchPosition) && DPDSwitchOff))
+                {  // Already detected the switch in the current position, log the data
+                    Log(LOG_DEV_DATA, "DPD switch is still %s\n", switchPosition.c_str());
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+                else
+                {   // Unkown switch position
+                    Log(LOG_ERRORS, "Unknown switch position: %s  (On: %s, Off: %s, status: %s)\n", switchPosition.c_str(),
+                        (DPDSwitchOn ? "True" : "False"), (DPDSwitchOff ? "True" : "False"),
+                        ConvertStatusToResponse(status).c_str());
+                }
+                 // Determine if a prompt should be displayed
+                if(displayPrompt)
+                {  // Throw the prompt up for the operator
+                    DisplayPrompt(GetPromptBox(promptTag), GetPrompt(promptTag), GetPromptPriority(promptTag));
+                    displayPrompt = false;   // Prevent prompt from being displayed multiple times (avoid flicker)
+                } 
+            }
+            else
+            {
+                SetCommunicationFailure(true);
+                break;
+            }
+            // Keep looping while good status, time remaining and not both brake switch positions
+        }while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && (!DPDSwitchOff || !DPDSwitchOn));
+        // Determine the results of the test
+        if(!TimeRemaining())
+        {   // Timeout waiting for both switch states
+            testResult = testTimeout;
+            testResultCode = GetFaultCode("TestTimeout");
+            testDescription = GetFaultDescription("TestTimeout");
+            Log(LOG_ERRORS, "Timeout waiting for both switch states -- On: %s, Off: %s\n",
+                (DPDSwitchOn ? "True" : "False"), (DPDSwitchOff ? "True" : "False"));
+        }
+        else if(BEP_STATUS_SUCCESS != StatusCheck())
+        {   // Bad system status
+            testResult = testAbort;
+            testResultCode = GetFaultCode("SystemStatus");
+            testDescription = GetFaultDescription("SystemStatus");
+            Log(LOG_ERRORS, "Bad system status, aborting -- status: %s\n", ConvertStatusToResponse(StatusCheck()).c_str());
+        }
+        else
+        { // Check for both switch states
+            testResult = (DPDSwitchOn && DPDSwitchOff) ? testPass : testFail;
+            testResultCode = testPass == testResult ? testResultCode : GetFaultCode("DPDSwitchStatesNotSeen");
+            testDescription = testPass == testResult ? testDescription : GetFaultDescription("DPDSwitchStatesNotSeen");
+            Log(LOG_DEV_DATA, "%s both DPD switch states -- On: %s, Off: %s\n",
+                (DPDSwitchOn && DPDSwitchOff) ? "Detected" : "Failed to detect",
+                DPDSwitchOn ? testPass.c_str() : testFail.c_str(),
+                DPDSwitchOff ? testPass.c_str() : testFail.c_str());
+        }
+        // Remove the prompt from the display
+        RemovePrompt(GetPromptBox(promptTag), GetPrompt(promptTag), GetPromptPriority(promptTag));
+        // Send the test results
+        SendTestResultWithDetail(testResult, testDescription, testResultCode,
+                                 "DPDSwitchOn", DPDSwitchOn ? testPass : testFail, "",
+                                 "DPDSwitchOff", DPDSwitchOff ? testPass : testFail, "");
+    } 
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "%s:%s - Exit (testResult: %s)\n",
+        GetComponentName().c_str(), GetTestStepName().c_str(), testResult.c_str());
+    // Return the result
+    return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
+{
+    string testResult = testError;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    bool mafLearned = false;
+    bool brakeOn = false;
+    long int delayTime = 30000;
+    UINT16 engineRPM = 0;
+    BEP_STATUS_TYPE brakeStatus = BEP_STATUS_SUCCESS;
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+    const string &gear = "2";
+
+    if(!ShortCircuitTestStep())
+    {
+        //Wait 30 seconds
+        DisplayPrompt(1, GetPrompt("ShiftToDriveMaintainBrake"), GetPromptPriority("ShiftToDriveMaintainBrake"));
+        
+        while (!brakeOn && TimeRemaining() && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+        {
+            brakeStatus = m_vehicleModule.ReadModuleData("ReadBrakeSwitchPosition", brakeOn);
+            if (!brakeOn)
+            {
+                BposSleep(GetTestStepInfoInt("ScanDelay"));
+                delayTime -= GetTestStepInfoInt("ScanDelay");
+            }
+        }
+
+        DisplayPrompt(2, GetPrompt("WaitForMAFWarmup"), GetPromptPriority("WaitForMAFWarmup"));
+        BposSleep(delayTime);
+        //Shift to 2nd gear
+        DisplayPrompt(1, GetPrompt("ShiftToGear"), GetPromptPriority("ShiftToGear"), "white", gear);
+        //Accel to WOT
+        DisplayPrompt(2, GetPrompt("PushAcceleratorPedalToFloor"), GetPromptPriority("PushAcceleratorPedalToFloor"));
+        //Check engine rpm for 2800 rpm
+        do
+        {
+            moduleStatus = m_vehicleModule.ReadModuleData("ReadEngineSpeedSensor", engineRPM);
+            if (BEP_STATUS_SUCCESS != moduleStatus)
+            {
+                Log(LOG_ERRORS, "Failed to get Engine RPM from module\n");
+                SetCommunicationFailure(true);
+                testResult = testFail;
+                testDescription = GetFaultDescription("CommunicationFailure");
+                testResultCode = GetFaultCode("CommunicationFailure");
+                break;
+            }
+            Log(LOG_DEV_DATA, "Engine RPM: %d",engineRPM);
+        }while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && engineRPM < 2800); 
+
+        //Check MAF Learn status is 1
+        status = m_vehicleModule.ReadModuleData("ReadMAFLearningComplete", mafLearned);
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            testResult = mafLearned ? testPass : testFail;
+            testResultCode = mafLearned ? "0000": GetFaultCode("MAFNotLearned");
+            testDescription = mafLearned ? testDescription : GetFaultDescription("MAFNotLearned");
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get MAF Learn value from the module\n");
+            SetCommunicationFailure(true);
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testResultCode = GetFaultCode("CommunicationFailure");            
+        }
+        //Remove all prompts
+        RemovePrompt(1, GetPrompt("ShiftToDriveMaintainBrake"), GetPromptPriority("ShiftToDriveMaintainBrake"));
+        RemovePrompt(2, GetPrompt("WaitForEngineWarmUp"), GetPromptPriority("WaitForEngineWarmUp"));
+        RemovePrompt(1, GetPrompt("ShiftToGear"), GetPromptPriority("ShiftToGear"));
+        RemovePrompt(2, GetPrompt("PushAcceleratorPedalToFloor"), GetPromptPriority("PushAcceleratorPedalToFloor"));
+
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
+    
+    return testResult;
 }

@@ -1506,7 +1506,7 @@ string FordABSTCTemplate<ModuleType>::EvaluateABS(std::string axle)
     //debug
     Log( LOG_DEV_DATA, "m_absStartIndex = %d m_absEndIndex = %d\n",m_absStartIndex,m_absEndIndex);         
     //These have already been marked during the valve firing test
-    if(!(axle.compare("Front")))
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1")
     {
         Log( LOG_DEV_DATA, "LF Markers 1: %d %d %d %d\n", 
              m_reduxRecovIndex[LFWHEEL].reductionStart, m_reduxRecovIndex[LFWHEEL].reductionEnd,
@@ -1539,7 +1539,7 @@ string FordABSTCTemplate<ModuleType>::EvaluateABS(std::string axle)
         if ( m_reduxRecovIndex[ii].recoveryEnd > m_absEndIndex)  m_reduxRecovIndex[ii].recoveryEnd = m_absEndIndex;
     }
 
-    if(!(axle.compare("Front")))
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1")
     {
         Log( LOG_DEV_DATA, "LF Markers 2: %d %d %d %d\n", 
              m_reduxRecovIndex[LFWHEEL].reductionStart, m_reduxRecovIndex[LFWHEEL].reductionEnd,
@@ -4438,7 +4438,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
     bool        lrrrCross = false;
     bool        valveCrossDetected = false;
 
-    if(!(axle.compare("Front")))
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1")
         valveNum = 1;
     else
         valveNum = 3;
@@ -4603,7 +4603,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
             rfStart = TagArray("ValveCycleRFStart");
             break;
         case 3:
-            if(!(axle.compare("Front")))
+            if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1")
             {
                 Log(LOG_DEV_DATA, "Check RF valve cross \n");
                 //LF & RF wheels could both be moving            
@@ -4637,7 +4637,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
             }
             break;
         case 4:
-            if((axle.compare("Front")))
+            if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "0")
             { 
                 Log(LOG_DEV_DATA, "Check REAR valve cross \n");
                 //RR should not be moving yet            
@@ -4663,7 +4663,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
             }
             break;
         case 5:
-            if((axle.compare("Front")))
+            if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "0")
             {
                 Log(LOG_DEV_DATA, "CycleValves RR OFF\n");
                 status = m_vehicleModule.GetInfo( GetDataTag("CycleValves4Stop") );
@@ -7064,7 +7064,7 @@ std::string FordABSTCTemplate<ModuleType>::ValveFiringTest(std::string axle)
     //MAM 10/30/08
     m_brakeApplicationFault = false;
     //MAM 3/26/10
-    if(!(axle.compare("Front")))
+    if(ReadSubscribeData(GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData(GetDataTag("FrontAxleTestSelected")) == "1")
     {
         m_valveCrossEnd[LFWHEEL] = 0;  m_valveCrossEnd[RFWHEEL] = 0;
     }
@@ -7088,10 +7088,6 @@ std::string FordABSTCTemplate<ModuleType>::ValveFiringTest(std::string axle)
     if ( startSpeed > 0) status = WaitForTargetSpeed( startSpeed, DOWN);
     else                status = BEP_STATUS_SUCCESS;
 
-    // Let the base class do all the work
-    //status = GenericABSTCTemplate<ModuleType>::ValveFiringTest();
-
-    /*Here*/
     string testResult             = BEP_TESTING_STATUS;     // Used to report test step results
     string testResultCode         = "0000";
     string testDescription        = GetTestStepInfo("Description");
@@ -7125,8 +7121,10 @@ std::string FordABSTCTemplate<ModuleType>::ValveFiringTest(std::string axle)
         m_absStartIndex = TagArray("ABSStart");
         // Determine which firing sequence to use
         XmlNodeMap *firingOrder;
-        if(!(axle.compare("Front")))         firingOrder = &m_abs4ChannelFrontFiringOrder;
-        else                                 firingOrder = &m_abs4ChannelRearFiringOrder;
+        if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1")
+            firingOrder = &m_abs4ChannelFrontFiringOrder;
+        else
+            firingOrder = &m_abs4ChannelRearFiringOrder;
         // Get the initial speeds if doing sensor cross check
         if(GetParameterBool("CollectSensorSpeedData"))
         {   // Wait for forces to stabilize
@@ -7286,7 +7284,7 @@ std::string FordABSTCTemplate<ModuleType>::TestStepAnalyzeDrag(std::string axle)
     Log( LOG_FN_ENTRY, "Enter FordABSTCTemplate::TestStepAnalyzeDrag()\n");
 
     // Copy our parameters into the test step info for the base class
-    if(!(axle.compare("Front")))
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1")
     { 
        CopyParamToTestStepInfo( "FrontMinDragForce", GetParameter( "FrontMinDragForce"));
        CopyParamToTestStepInfo( "FrontMaxDragForce", GetParameter( "FrontMaxDragForce"));
@@ -7344,7 +7342,7 @@ std::string FordABSTCTemplate<ModuleType>::TestStepAnalyzeBaseBrake(std::string 
     Log( LOG_FN_ENTRY, "Enter FordABSTCTemplate::TestStepAnalyzeBaseBrake()\n");
 
     // Copy our parameters into the test step info for the base class
-    if(!(axle.compare("Front")))
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1")
     {
         CopyParamToTestStepInfo( "FrontMinBrakeForce", GetParameter( "FrontMinBrakeForce"));
         CopyParamToTestStepInfo( "FrontMaxBrakeForce", GetParameter( "FrontMaxBrakeForce"));
@@ -7390,7 +7388,7 @@ std::string FordABSTCTemplate<ModuleType>::TestStepBalance(std::string axle)
     Log( LOG_FN_ENTRY, "Enter FordABSTCTemplate::TestStepBalance()\n");
 
     // Copy our parameters into the test step info for the base class
-    if(!(axle.compare("Front")))
+    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1")
     {
         CopyParamToTestStepInfo( "FrontSideToSideBalance", GetParameter( "FrontSideToSideBalance"));
     }

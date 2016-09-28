@@ -243,8 +243,8 @@
         </PreFinishUp>
 
         <FinishUp>
-            <!--TestStep05>ClearFaultsFinal</TestStep05>
-            <TestStep98>LockModule</TestStep98-->
+            <TestStep05>ClearFaults</TestStep05>
+            <!--TestStep98>LockModule</TestStep98-->
             <TestStep99>FinishUp</TestStep99>
         </FinishUp>
 
@@ -259,8 +259,6 @@
 
         <Setup>
             <TestStep00>Setup</TestStep00>
-            <TestStep01>ReadFaults</TestStep01>
-            <TestStep02>ClearFaults</TestStep02>
         </Setup>
 
         <StaticChecks>

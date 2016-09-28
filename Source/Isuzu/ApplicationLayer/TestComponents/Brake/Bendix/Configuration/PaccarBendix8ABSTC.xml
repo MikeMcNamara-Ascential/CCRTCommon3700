@@ -580,6 +580,7 @@
       <FinishUp>
          <TestStep10>StopModuleKeepAlive</TestStep10>
          <TestStep25>DisableCommHw</TestStep25>
+         <TestStep30>FinishUp</TestStep30>
       </FinishUp>
       <AccelerateToTestSpeed>
          <TestStep10>AccelerateToTestSpeed</TestStep10>

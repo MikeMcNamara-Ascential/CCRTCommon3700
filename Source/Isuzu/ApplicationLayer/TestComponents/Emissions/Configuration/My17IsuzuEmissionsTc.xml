@@ -93,7 +93,7 @@
             <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
             <LoadStaticTestResults>False</LoadStaticTestResults>
             <!-- Module Parameters -->
-            <ConfigFile>/Configuration/Components/Emissions/IsuzuEngineControllerModule.xml</ConfigFile>
+            <ConfigFile>/Configuration/Components/Emissions/IsuzuEngineControllerModule_MY17.xml</ConfigFile>
             <!-- Diagnostic Mode Parameters -->
             <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">False</AlwaysEnterDiagnosticMode>
             <!-- DTC Parameters -->
@@ -111,148 +111,116 @@
             <BarometricPressureUnits>kPa</BarometricPressureUnits>
             <MinimumBarometricPressure Units="kPa" TestSteps="CheckBarometricPressure" Comment="Minimum barometric pressure">80</MinimumBarometricPressure>
             <MaximumBarometricPressure Units="kPa" TestSteps="CheckBarometricPressure" Comment="Maximum barometric pressure">120</MaximumBarometricPressure>
-            <!-- CASE Learn Parameters -->
-            <CaseLearnCompleteValue Comment="Value to indicate CASE Learn has successfully completed" TestSteps="CheckCASELearn">0x80</CaseLearnCompleteValue>
-            <CaseLearnInProgressMask Comment="Mask to use to determine if CASE learn is still in progress" TestSteps="CheckCASELearn">0x40</CaseLearnInProgressMask>
-            <CaseLearnStartDelay Comment="Amount of time to wait for the module to start the CASE learn process" Units="ms" TestSteps="CheckCASELearn">2000</CaseLearnStartDelay>
+            <!-- Differential Pressure Parameters -->
+            <DifferentialPressureUnits>kPa</DifferentialPressureUnits>
+            <MinimumDifferentialPressure Units="kPa" TestSteps="DifferentialPressure" Comment="Minimum operating Differential Pressure">0</MinimumDifferentialPressure>
+            <MaximumDifferentialPressure Units="kPa" TestSteps="DifferentialPressure" Comment="Maximum operating Differential Pressure">10</MaximumDifferentialPressure>
             <!-- Engine Coolant Temperature Parameters -->
             <EngineCoolantTempOffset Units="C" Comment="Offset for engine temperature reading" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature">-40</EngineCoolantTempOffset>
             <EngineCoolantTemperatureUnits>C</EngineCoolantTemperatureUnits>
-            <MinimumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Minimum operating engine coolant temperature">70</MinimumEngineCoolantTemperature>
-            <MaximumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Maximum operating engine coolant temperature">115</MaximumEngineCoolantTemperature>
-            <!-- Engine Oil Temperature Parameters -->
-            <EngineOilTemperatureUnits>C</EngineOilTemperatureUnits>
-            <MinimumEngineOilTemperature Units="C" TestSteps="CheckEngineOilTemperature" Comment="Minimum operating engine oil temperature">0</MinimumEngineOilTemperature>
-            <MaximumEngineOilTemperature Units="C" TestSteps="CheckEngineOilTemperature" Comment="Maximum operating engine oil temperature">210</MaximumEngineOilTemperature>
+            <MinimumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Minimum operating engine coolant temperature">62</MinimumEngineCoolantTemperature>
+            <MaximumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Maximum operating engine coolant temperature">70</MaximumEngineCoolantTemperature>
             <!-- Engine Oil Pressure Parameters -->
-            <EngineOilPressureUnits>kPa</EngineOilPressureUnits>
-            <MinimumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Minimum operating engine oil pressure">100</MinimumEngineOilPressure>
-            <MaximumEngineOilPressure Units="kPa" TestSteps="CheckEngineOilPressure" Comment="Maximum operating engine oil pressure">250</MaximumEngineOilPressure>
+            <EngineOilPressureUnits>V</EngineOilPressureUnits>
+            <MinimumEngineOilPressure Units="V" TestSteps="CheckEngineOilPressure" Comment="Minimum operating engine oil pressure">0.2</MinimumEngineOilPressure>
+            <MaximumEngineOilPressure Units="V" TestSteps="CheckEngineOilPressure" Comment="Maximum operating engine oil pressure">4.8</MaximumEngineOilPressure>
             <EngineOilLevelLowCompareValue>True</EngineOilLevelLowCompareValue>
             <EngineOilPressureLowCompareValue>True</EngineOilPressureLowCompareValue>
             <PedalPositionSensorsAgreeCompareValue>False</PedalPositionSensorsAgreeCompareValue>
             <ThrottlePositionSensorsAgreeCompareValue>False</ThrottlePositionSensorsAgreeCompareValue>
             <!-- Fuel Rail Pressure Parameters -->
             <FuelRailPressureUnits>kPa</FuelRailPressureUnits>
-            <MinimumFuelRailPressure Units="kPa" TestSteps="CheckFuelRailPressure" Comment="Minimum operating Fuel Rail pressure">100</MinimumFuelRailPressure>
-            <MaximumFuelRailPressure Units="kPa" TestSteps="CheckFuelRailPressure" Comment="Maximum operating FuelRail pressure">1500</MaximumFuelRailPressure>
-            <!-- Fuel Level in Primary Tank Parameters -->
-            <FuelLevelPrimaryTankUnits>%</FuelLevelPrimaryTankUnits>
-            <MinimumFuelLevelPrimaryTank Units="%" TestSteps="CheckFuelLevelPrimaryTankLevel" Comment="Minimum operating Fuel Tank Level">0</MinimumFuelLevelPrimaryTank>
-            <MaximumFuelLevelPrimaryTank Units="%" TestSteps="CheckFuelLevelPrimaryTankLevel" Comment="Maximum operating Fuel Tank Level">100</MaximumFuelLevelPrimaryTank>
+            <MinimumFuelRailPressure Units="kPa" TestSteps="CheckFuelRailPressure" Comment="Minimum operating Fuel Rail pressure">23</MinimumFuelRailPressure>
+            <MaximumFuelRailPressure Units="kPa" TestSteps="CheckFuelRailPressure" Comment="Maximum operating FuelRail pressure">68</MaximumFuelRailPressure>
             <!-- Battery Voltage Parameters -->
             <BatteryVoltageUnits>V</BatteryVoltageUnits>
             <MinimumBatteryVoltage Units="V" TestSteps="CheckBatteryVoltage" Comment="Minimum operating battery voltage">12.5</MinimumBatteryVoltage>
             <MaximumBatteryVoltage Units="V" TestSteps="CheckBatteryVoltage" Comment="Maximum operating battery voltage">16.0</MaximumBatteryVoltage>
-            <!-- ManifoldAbsolutePressure Parameters -->
-            <ManifoldAbsolutePressureUnits>kPa</ManifoldAbsolutePressureUnits>
-            <MinimumManifoldAbsolutePressure Units="kPa" TestSteps="CheckManifoldAbsolutePressureAtIdle" Comment="Minimum operating ManifoldAbsolutePressure">10</MinimumManifoldAbsolutePressure>
-            <MaximumManifoldAbsolutePressure Units="kPa" TestSteps="CheckManifoldAbsolutePressureAtIdle" Comment="Maximum operating ManifoldAbsolutePressure">50</MaximumManifoldAbsolutePressure>
-            <!-- MassAirFlow Parameters -->
-            <MassAirFlowUnits>g/s</MassAirFlowUnits>
-            <MinimumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Minimum operating MassAirFlow">1.5</MinimumMassAirFlow>
-            <MaximumMassAirFlow Units="g/s" TestSteps="CheckMassAirFlowAtIdle" Comment="Maximum operating MassAirFlow">20</MaximumMassAirFlow>
-            <!-- Fan Speed Parameters -->
-            <EngineFanUnits>RPM</EngineFanUnits>
-            <MinimumActualFanSpeed Units="RPM" TestSteps="CheckEngineFan" Comment="Minimum actual fan speed">100</MinimumActualFanSpeed>
-            <MaximumActualFanSpeed Units="RPM" TestSteps="CheckEngineFan" Comment="Maximum actual fan speed">2000</MaximumActualFanSpeed>
-            <MinimumDesiredFanSpeed Units="RPM" TestSteps="CheckEngineFan" Comment="Minimum Desired fan speed">100</MinimumDesiredFanSpeed>
-            <MaximumDesiredFanSpeed Units="RPM" TestSteps="CheckEngineFan" Comment="Maximum Desired fan speed">2000</MaximumDesiredFanSpeed>
-            <FanSpeedToleranceRPM Units="RPM" TestSteps="CheckEngineFan" Comment="fan speed tolerance to compare actual to desired">100</FanSpeedToleranceRPM>
             <!-- WOT Testing Parameters -->
             <AcceleratorPedalWOTTestMin>98</AcceleratorPedalWOTTestMin>
             <AcceleratorPedalWOTTestMax>200</AcceleratorPedalWOTTestMax>
-            <!-- EGR Parameters -->
-            <MinimumEgrError Units="%">0</MinimumEgrError>
-            <MaximumEgrError Units="%">10</MaximumEgrError>
             <!-- Engine RPM Parameters -->
             <EngineRunningTimeout Units="seconds" TestSteps="WaitForEngineRunning" Comment="mount of time to wait for the engine to be running">20000</EngineRunningTimeout>
             <EngineSpeedUnits>RPM</EngineSpeedUnits>
             <IdleBeforeRunningWaitTime Units="ms" TestSteps="WaitForEngineRunning" Comment="Amount of time to wait between Idle RPM checks">100</IdleBeforeRunningWaitTime>
-            <MaximumEngineSpeed Units="RPM" TestSteps="CheckIdleRPM,CheckIdleFuelTrim,CheckMassAirFlowAtIdle,CheckManifoldAbsolutePressureAtIdle" Comment="Maximum idle rpm">625</MaximumEngineSpeed>
+            <MaximumEngineSpeed Units="RPM" TestSteps="CheckIdleRPM,CheckIdleFuelTrim,CheckMassAirFlowAtIdle,CheckManifoldAbsolutePressureAtIdle" Comment="Maximum idle rpm">1000</MaximumEngineSpeed>
             <MaximumIdleBeforeRunningChecks TestSteps="WaitForEngineRunning" Comment="Number of times the engine RPM must be in range to begin testing">30</MaximumIdleBeforeRunningChecks>
-            <MaximumIdleRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Maximum idle RPM">1500</MaximumIdleRPM>
-            <MinimumIdleRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Maximum idle RPM">500</MinimumIdleRPM>
-            <MinimumEngineRunningRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Minimum engine running RPM">500</MinimumEngineRunningRPM>
-            <MinimumEngineSpeed Units="RPM" TestSteps="CheckIdleRPM" Comment="Minimum idle rpm">475</MinimumEngineSpeed>
-            <!-- Fuel Trim Parameters -->
-            <ShortTermFuelTrimBank1Units>%</ShortTermFuelTrimBank1Units>
-            <MinimumShortTermFuelTrimBank1 Units="%" TestSteps="CheckIdleFuelTrim" Comment="min short term fuel trim bank 1">-20</MinimumShortTermFuelTrimBank1>
-            <MaximumShortTermFuelTrimBank1 Units="%" TestSteps="CheckIdleFuelTrim" Comment="max short term fuel trim bank 1">20</MaximumShortTermFuelTrimBank1>
-            <ShortTermFuelTrimBank2Units>%</ShortTermFuelTrimBank2Units>
-            <MinimumShortTermFuelTrimBank2 Units="%" TestSteps="CheckIdleFuelTrim" Comment="min Short term fuel trim bank 2">-20</MinimumShortTermFuelTrimBank2>
-            <MaximumShortTermFuelTrimBank2 Units="%" TestSteps="CheckIdleFuelTrim" Comment="max Short term fuel trim bank 2">20</MaximumShortTermFuelTrimBank2>
-            <LongTermFuelTrimBank1Units>%</LongTermFuelTrimBank1Units>
-            <MinimumLongTermFuelTrimBank1 Units="%" TestSteps="CheckIdleFuelTrim" Comment="min long term fuel trim bank 1">-20</MinimumLongTermFuelTrimBank1>
-            <MaximumLongTermFuelTrimBank1 Units="%" TestSteps="CheckIdleFuelTrim" Comment="max long term fuel trim bank 1">20</MaximumLongTermFuelTrimBank1>
-            <LongTermFuelTrimBank2Units>%</LongTermFuelTrimBank2Units>
-            <MinimumLongTermFuelTrimBank2 Units="%" TestSteps="CheckIdleFuelTrim" Comment="min long term fuel trim bank 2">-20</MinimumLongTermFuelTrimBank2>
-            <MaximumLongTermFuelTrimBank2 Units="%" TestSteps="CheckIdleFuelTrim" Comment="max long term fuel trim bank 2">20</MaximumLongTermFuelTrimBank2>
-            <!-- Fuel Tank Vapor Pressure Parameters -->
-            <FuelTankVaporPressureUnits>Pa</FuelTankVaporPressureUnits>
-            <MinimumFuelTankVaporPressure Units="Pa" TestSteps="CheckFuelTankVaporPressure" Comment="Min Fuel Tank Vapor Pressure">-8192.0</MinimumFuelTankVaporPressure>
-            <MaximumFuelTankVaporPressure Units="Pa" TestSteps="CheckFuelTankVaporPressure" Comment="Max Fuel Tank Vapor Pressure">0.0</MaximumFuelTankVaporPressure>
-            <!-- Knock Sensors Parameters -->
-            <KnockSensor1Units>Boolean</KnockSensor1Units>
-            <KnockSensor2Units>Boolean</KnockSensor2Units>
-            <KnockSensor1CompareValue>True</KnockSensor1CompareValue>
-            <KnockSensor2CompareValue>True</KnockSensor2CompareValue>
-            <!-- Intake Flow Rational Parameters -->
-            <MAFResidualCompareValue>False</MAFResidualCompareValue>
-            <MAP1ResidualCompareValue>False</MAP1ResidualCompareValue>
-            <MAP2ResidualCompareValue>False</MAP2ResidualCompareValue>
-            <!-- Misfire Parameters -->
-            <MisfireCatalystFailureUnits>Boolean</MisfireCatalystFailureUnits>
-            <MisfireEmissionsFailureUnits>Boolean</MisfireEmissionsFailureUnits>
-            <MisfireCatalystFailureCompareValue>False</MisfireCatalystFailureCompareValue>
-            <MisfireEmissionsFailureCompareValue>False</MisfireEmissionsFailureCompareValue>
-            <!-- Oxygen Sensor Parameters -->
-            <OxygenSensorSamples>1000</OxygenSensorSamples>
-            <OxygenSensorPeriodTime Units="ms">20</OxygenSensorPeriodTime>
-            <OxygenSensor1Bank1Units>V</OxygenSensor1Bank1Units>
-            <OxygenSensor1Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor1Bank1LBandLimit>
-            <OxygenSensor1Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank1OBandLowLimit>
-            <OxygenSensor1Bank1OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank1OBandHighLimit>
-            <OxygenSensor1Bank1HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank1HBandLimit>
-            <OxygenSensor1Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor1Bank1MaxPercentLow>
-            <OxygenSensor1Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank1MaxPercentOpen>
-            <OxygenSensor1Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor1Bank1MaxPercentHigh>
-            <OxygenSensor1Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor1Bank1MinBandSwitches>
-            <OxygenSensor1Bank2Units>V</OxygenSensor1Bank2Units>
-            <OxygenSensor1Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.400</OxygenSensor1Bank2LBandLimit>
-            <OxygenSensor1Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor1Bank2OBandLowLimit>
-            <OxygenSensor1Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor1Bank2OBandHighLimit>
-            <OxygenSensor1Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.600</OxygenSensor1Bank2HBandLimit>
-            <OxygenSensor1Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor1Bank2MaxPercentLow>
-            <OxygenSensor1Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor1Bank2MaxPercentOpen>
-            <OxygenSensor1Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor1Bank2MaxPercentHigh>
-            <OxygenSensor1Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">15</OxygenSensor1Bank2MinBandSwitches>
-            <OxygenSensor2Bank1Units>V</OxygenSensor2Bank1Units>
-            <OxygenSensor2Bank1LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank1LBandLimit>
-            <OxygenSensor2Bank1OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank1OBandLowLimit>
-            <OxygenSensor2Bank1OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank1OBandHighLimit>
-            <OxygenSensor2Bank1HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank1HBandLimit>
-            <OxygenSensor2Bank1MaxPercentLow Units="%" Comment="Max percentage of Low Band values">90</OxygenSensor2Bank1MaxPercentLow>
-            <OxygenSensor2Bank1MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank1MaxPercentOpen>
-            <OxygenSensor2Bank1MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor2Bank1MaxPercentHigh>
-            <OxygenSensor2Bank1MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank1MinBandSwitches>
-            <OxygenSensor2Bank1TestDelta>False</OxygenSensor2Bank1TestDelta>
-            <OxygenSensor2Bank1MinDeltaPercent>-50</OxygenSensor2Bank1MinDeltaPercent>
-            <OxygenSensor2Bank1MaxDeltaPercent>-2</OxygenSensor2Bank1MaxDeltaPercent>
-            <OxygenSensor2Bank2Units>V</OxygenSensor2Bank2Units>
-            <OxygenSensor2Bank2LBandLimit Units="V" Comment="Oxygen Sensor Low Band Limit">0.039</OxygenSensor2Bank2LBandLimit>
-            <OxygenSensor2Bank2OBandLowLimit Units="V" Comment="Oxygen Sensor Open Band Lower Limit">0.425</OxygenSensor2Bank2OBandLowLimit>
-            <OxygenSensor2Bank2OBandHighLimit Units="V" Comment="Oxygen Sensor Open Band Upper Limit">0.475</OxygenSensor2Bank2OBandHighLimit>
-            <OxygenSensor2Bank2HBandLimit Units="V" Comment="Oxygen Sensor High Band Limit">0.930</OxygenSensor2Bank2HBandLimit>
-            <OxygenSensor2Bank2MaxPercentLow Units="%" Comment="Max percentage of Low Band values">80</OxygenSensor2Bank2MaxPercentLow>
-            <OxygenSensor2Bank2MaxPercentOpen Units="%" Comment="Max percentage of Open Band values">80</OxygenSensor2Bank2MaxPercentOpen>
-            <OxygenSensor2Bank2MaxPercentHigh Units="%" Comment="Max percentage of High Band values">80</OxygenSensor2Bank2MaxPercentHigh>
-            <OxygenSensor2Bank2MinBandSwitches Comment="Min number of High-Low or Low-High Band switches">0</OxygenSensor2Bank2MinBandSwitches>
-            <OxygenSensor2Bank2TestDelta>False</OxygenSensor2Bank2TestDelta>
-            <OxygenSensor2Bank2MinDeltaPercent>-50</OxygenSensor2Bank2MinDeltaPercent>
-            <OxygenSensor2Bank2MaxDeltaPercent>-2</OxygenSensor2Bank2MaxDeltaPercent>
+            <MaximumIdleRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Maximum idle RPM">1000</MaximumIdleRPM>
+            <MinimumIdleRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Minimum idle RPM">600</MinimumIdleRPM>
+            <MinimumEngineRunningRPM Units="RPM" TestSteps="WaitForEngineRunning" Comment="Minimum engine running RPM">600</MinimumEngineRunningRPM>
+            <MinimumEngineSpeed Units="RPM" TestSteps="CheckIdleRPM" Comment="Minimum idle rpm">600</MinimumEngineSpeed>
+            <!--Intake Air Flow Parameters-->
+            <IntakeAirFlowUnits>g/sec</IntakeAirFlowUnits>
+            <MinimumIntakeAirFlow Units="g/sec" TestSteps="CheckIntakeAirFlow" Comment="Minimum Intake Air Flow">12.0</MinimumIntakeAirFlow>
+            <MaximumIntakeAirFlow Units="g/sec" TestSteps="CheckIntakeAirFlow" Comment="Maximum Intake Air Flow">43.0</MaximumIntakeAirFlow>
+            <!--Intake Air Temp Parameters-->
+            <IntakeAirTempUnits>C</IntakeAirTempUnits>
+            <MinimumIntakeAirTemp Units="C" TestSteps="CheckIntakeAirTemp" Comment="Minimum Intake Air Temp">0</MinimumIntakeAirTemp>
+            <MaximumIntakeAirTemp Units="C" TestSteps="CheckIntakeAirTemp" Comment="Maximum Intake Air Temp">90</MaximumIntakeAirTemp>
+            <!--Requested Idle Speed Parameters-->
+            <RequestedRPMUnits>RPM</RequestedRPMUnits>
+            <MinimumRequestedRPM Units="RPM" TestSteps="CheckRequestedRPM" Comment="Minimum Requested Engine RPM">600</MinimumRequestedRPM>
+            <MaximumRequestedRPM Units="RPM" TestSteps="CheckRequestedRPM" Comment="Maximum Requested Engine RPM">1000</MaximumRequestedRPM>
+            <!--Turbo Boost Pressure Parameters-->
+            <TurboBoostPressureUnits>kPa</TurboBoostPressureUnits>
+            <MinimumTurboBoostPressure Units="kPa" TestSteps="CheckTurboBoostPressure" Comment="Minimum Turbo Boost Pressure">90.0</MinimumTurboBoostPressure>
+            <MaximumTurboBoostPressure Units="kPa" TestSteps="CheckTurboBoostPressure" Comment="Maximum Turbo Boost Pressure">110.0</MaximumTurboBoostPressure>
+            <!--Fuel Temperature Parameters-->
+            <FuelTemperatureUnits>C</FuelTemperatureUnits>
+            <MinimumFuelTemperature Units="C" TestSteps="CheckFuelTemperature" Comment="Minimum Fuel Temperature">20</MinimumFuelTemperature>
+            <MaximumFuelTemperature Units="C" TestSteps="CheckFuelTemperature" Comment="Maximum Fuel Temperature">80</MaximumFuelTemperature>
+            <!--Fuel Injection Correction Amount 1-->
+            <FuelInjectionCorrection1Units>mm3/st</FuelInjectionCorrection1Units>
+            <MinimumFuelInjectionCorrection1 Units="mm3/st" TestSteps="CheckFuelInjectionCorrection1" Comment="Minimum Fuel Injection Correction Amount 1">-45.0</MinimumFuelInjectionCorrection1>
+            <MaximumFuelInjectionCorrection1 Units="mm3/st" TestSteps="CheckFuelInjectionCorrection1" Comment="Maximum Fuel Injection Correction Amount 1">30.0</MaximumFuelInjectionCorrection1>
+            <!--Fuel Injection Correction Amount 2-->
+            <FuelInjectionCorrection2Units>mm3/st</FuelInjectionCorrection2Units>
+            <MinimumFuelInjectionCorrection2 Units="mm3/st" TestSteps="CheckFuelInjectionCorrection2" Comment="Minimum Fuel Injection Correction Amount 2">-45.0</MinimumFuelInjectionCorrection2>
+            <MaximumFuelInjectionCorrection2 Units="mm3/st" TestSteps="CheckFuelInjectionCorrection2" Comment="Maximum Fuel Injection Correction Amount 2">30.0</MaximumFuelInjectionCorrection2>
+            <!--Fuel Injection Correction Amount 3-->
+            <FuelInjectionCorrection3Units>mm3/st</FuelInjectionCorrection3Units>
+            <MinimumFuelInjectionCorrection3 Units="mm3/st" TestSteps="CheckFuelInjectionCorrection3" Comment="Minimum Fuel Injection Correction Amount 3">-45.0</MinimumFuelInjectionCorrection3>
+            <MaximumFuelInjectionCorrection3 Units="mm3/st" TestSteps="CheckFuelInjectionCorrection3" Comment="Maximum Fuel Injection Correction Amount 3">30.0</MaximumFuelInjectionCorrection3>
+            <!--Fuel Injection Correction Amount 4-->
+            <FuelInjectionCorrection4Units>mm3/st</FuelInjectionCorrection4Units>
+            <MinimumFuelInjectionCorrection4 Units="mm3/st" TestSteps="CheckFuelInjectionCorrection4" Comment="Minimum Fuel Injection Correction Amount 4">-45.0</MinimumFuelInjectionCorrection4>
+            <MaximumFuelInjectionCorrection4 Units="mm3/st" TestSteps="CheckFuelInjectionCorrection4" Comment="Maximum Fuel Injection Correction Amount 4">30.0</MaximumFuelInjectionCorrection4>
+            <!--Main Injection Timing Parameters-->
+            <MainInjectionTimingUnits>CR</MainInjectionTimingUnits>
+            <MinimumMainInjectionTiming Units="CR" TestSteps="CheckMainInjectionTiming" Comment="Minimum Main Injection Timing">-10</MinimumMainInjectionTiming>
+            <MaximumMainInjectionTiming Units="CR" TestSteps="CheckMainInjectionTiming" Comment="Maximum Main Injection Timing">2</MaximumMainInjectionTiming>
+            <!--Final Injection Amount Parameters-->
+            <FinalInjectionAmountUnits>mm3/st</FinalInjectionAmountUnits>
+            <MinimumFinalInjectionAmount Units="mm3/st" TestSteps="CheckFinalInjectionAmount" Comment="Minimum Final Injection Amount">5.0</MinimumFinalInjectionAmount>
+            <MaximumFinalInjectionAmount Units="mm3/st" TestSteps="CheckFinalInjectionAmount" Comment="Maximum Final Injection Amount">25.0</MaximumFinalInjectionAmount>
+            <!--SVC Drive Current Value Parameters-->
+            <SVCCurrentValueUnits>mA</SVCCurrentValueUnits>
+            <MinimumSVCCurrentValue Units="mA" TestSteps="CheckSVCCurrentValue" Comment="Minimum SVC Drive Current Value">0</MinimumSVCCurrentValue>
+            <MaximumSVCCurrentValue Units="mA" TestSteps="CheckSVCCurrentValue" Comment="Maximum SVC Drive Current Value">2300</MaximumSVCCurrentValue>
+            <!--Pump Learning Status Parameters-->
+            <PumpLearningStatusUnits></PumpLearningStatusUnits>
+            <MinimumPumpLearningStatus Units="" TestSteps="CheckPumpLearningStatus" Comment="Minimum Pump Learning Status">0</MinimumPumpLearningStatus>
+            <MaximumPumpLearningStatus Units="" TestSteps="CheckPumpLearningStatus" Comment="Maximum Pump Learning Status">2</MaximumPumpLearningStatus>
+            <!--Pump Learning Value Parameters-->
+            <PumpLearningValueUnits>mA</PumpLearningValueUnits>
+            <MinimumPumpLearningValue Units="mA" TestSteps="CheckPumpLearningValue" Comment="Minimum Pump Learning Value">-300</MinimumPumpLearningValue>
+            <MaximumPumpLearningValue Units="mA" TestSteps="CheckPumpLearningValue" Comment="Maximum Pump Learning Value">300</MaximumPumpLearningValue>
+            <!--EGR Opening Target Parameters-->
+            <EGROpeningTargetUnits>%</EGROpeningTargetUnits>
+            <MinimumEGROpeningTarget Units="%" TestSteps="CheckEGROpeningTarget" Comment="Minimum EGR Opening Target">0.0</MinimumEGROpeningTarget>
+            <MaximumEGROpeningTarget Units="%" TestSteps="CheckEGROpeningTarget" Comment="Maximum EGR Opening Target">45.0</MaximumEGROpeningTarget>
+            <!--EGR Position Sensor Parameters-->
+            <EGRPositionUnits>%</EGRPositionUnits>
+            <MinimumEGRPosition Units="%" TestSteps="CheckEGRPosition" Comment="Minimum EGR Position">0.0</MinimumEGRPosition>
+            <MaximumEGRPosition Units="%" TestSteps="CheckEGRPosition" Comment="Maximum EGR Position">45.0</MaximumEGRPosition>
+            <!--MAF Learning Complete Status Parameters-->
+            <MAFLearningCompleteCompareValue>True</MAFLearningCompleteCompareValue>
+            <!--Throttle Position Parameters-->
+            <ThrottlePositionUnits>%</ThrottlePositionUnits>
+            <MinimumThrottlePosition Units="%" TestSteps="CheckThrottlePosition" Comment="Minimum Throttle Position">10.0</MinimumThrottlePosition>
+            <MaximumThrottlePosition Units="%" TestSteps="CheckThrottlePosition" Comment="Maximum Throttle Position">110.0</MaximumThrottlePosition>
             <!-- Part Number Parameters -->
-            <AbortOnPartMismatch TestSteps="CheckPartNumbers" Comment="Falg to determine if testing should abort if the part number is wrong">False</AbortOnPartMismatch>
+            <AbortOnPartMismatch TestSteps="CheckPartNumbers" Comment="Flag to determine if testing should abort if the part number is wrong">False</AbortOnPartMismatch>
             <BypassPartNumberValidation TestSteps="CheckPartNumbers" Comment="Flag to determine if part number varification should be skipped">False</BypassPartNumberValidation>
             <SkipPartNumberResultUpdate TestSteps="CheckPartNumbers" Comment="Flag to determine if a result bit should not be updated in the module">True</SkipPartNumberResultUpdate>
             <ValidatePartNumberList TestSteps="CheckPartNumbers" Comment="Flag to determine if the part number should be looked up in a list">False</ValidatePartNumberList>
@@ -345,14 +313,18 @@
             <EngineMustIdle PromptBox="2" Priority="0" TestSteps="CheckOxygenSensors">EngineMustIdle</EngineMustIdle>
             <LeftFootOnBrake PromptBox="2" Priority="0" TestSteps="CheckCASELearn">LeftFootOnBrake</LeftFootOnBrake>
             <IgnitionOn PromptBox="1" Priority="0" TestSteps="Setup">KeyOn</IgnitionOn>
+            <MaintainBrake PromptBox="1" Priority="0" TestSteps="MAFLearn">MaintainBrake</MaintainBrake>
             <PCMCommFailure PromptBox="1" Priority="0" TestSteps="Setup">AbortPcmCommFailure</PCMCommFailure>
-            <PushAcceleratorPedalToFloor PromptBox="2" Priority="0" TestSteps="AcceleratorPedalWOTTest,CheckCASELearn">PushAcceleratorToFloor</PushAcceleratorPedalToFloor>
+            <PushAcceleratorPedalToFloor PromptBox="2" Priority="0" TestSteps="AcceleratorPedalWOTTest,CheckCASELearn,MAFLEarn">PushAcceleratorToFloor</PushAcceleratorPedalToFloor>
             <ReleaseThrottle PromptBox="2" Priority="0" Duration="3000" TestSteps="CheckCASELearn">ReleaseThrottle</ReleaseThrottle>
+            <ShiftToDriveMaintainBrake PromptBox="1" Priority="0" TestSteps="MAFLearn">ShiftToDriveMaintainBrake</ShiftToDriveMaintainBrake>
+            <ShiftToGear PromptBox="1" Priority="0" TestSteps="MAFLearn">ShiftToGear</ShiftToGear>
             <ShiftToNeutral PromptBox="1" Priority="0" TestSteps="AcceleratorPedalWOTTest">ShiftToNeutral</ShiftToNeutral>
             <ShiftToPark PromptBox="2" Priority="0" Duration="3000" TestSteps="CheckCASELearn">ShiftToPark</ShiftToPark>
             <TurnEngineOffKeyOn PromptBox="2" Priority="0" TestSteps="Setup">TurnEngineOffAndKeyOn</TurnEngineOffKeyOn>
             <TurnOnAc PromptBox="2" Priority="0" TestSteps="CheckAcStatus">TurnOnAc</TurnOnAc>
             <WaitForEngineTemp PromptBox="2" Priority="0" TestSteps="WaitForEngineTemperature">WaitForEngineTemp</WaitForEngineTemp>
+            <WaitForMAFWarmup PromptBox="2" Priority="0" TestSteps="MAFLearn">WaitForMAFWarmup</WaitForMAFWarmup>
             <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <IgnoreFaults/>
@@ -380,12 +352,12 @@
             <TestStep15>StartModuleKeepAlive</TestStep15>
         </KeyOffEngineOffKeyOn>
         <EngineWarmUp>
-            <TestStep10>CheckVIN</TestStep10>
+            <!--TestStep10>CheckVIN</TestStep10>
             <TestStep15>CheckPartNumbers</TestStep15>
-            <TestStep20>CheckSerialNumber</TestStep20>
-            <!--TestStep25>WaitForEngineTemperature</TestStep25>
-            <TestStep30>CheckCASELearn</TestStep30>
-            <TestStep40>StartSwitchMonitors</TestStep40-->
+            <TestStep20>CheckSerialNumber</TestStep20-->
+            <TestStep25>WaitForEngineTemperature</TestStep25>
+            <TestStep30>MAFLearn</TestStep30>
+            <!--TestStep45>StartSwitchMonitors</TestStep45-->
         </EngineWarmUp>
         <PreFinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
@@ -405,83 +377,86 @@
         <CheckOxygenSensors>
             <TestStep05 AltValue="OxygenSensors">CheckOxygenSensors</TestStep05>
         </CheckOxygenSensors>
+        <DPDSwitchCheck>
+            <TestStep05 >DPDSwitchCheck</TestStep05>
+        </DPDSwitchCheck>
         <HotIdle>
-            <!--TestStep005>StopRangeCheckMonitors</TestStep005-->
-            <!-- TestStep010 AltValue="EngineOilLevelLow">CheckEngineOilLevelLow</TestStep010>
-            <TestStep015 AltValue="EngineOilPressureLow">CheckEngineOilPressureLow</TestStep015>
-            <TestStep020 AltValue="EngineOilPressure">CheckEngineOilPressure</TestStep020 -->
-            <!--TestStep025 AltValue="EngineOilTemperature">CheckEngineOilTemperature</TestStep025-->
-            <!-- TestStep050 AltValue="MAFResidual">CheckMAFResidual</TestStep050>
-            <TestStep055 AltValue="MAP1Residual">CheckMAP1Residual</TestStep055>
-            <TestStep060 AltValue="MAP2Residual">CheckMAP2Residual</TestStep060 -->
-            <!--TestStep065 AltValue="EngineCoolantTemperature">CheckEngineCoolantTemperature</TestStep065>
+            <TestStep010 AltValue="IntakeAirTemp">CheckIntakeAirTemp</TestStep010>
+            <TestStep015 AltValue="IntakeAirFlow">CheckIntakeAirFlow</TestStep015>
+            <TestStep020 AltValue="BatteryVoltage">CheckBatteryVoltage</TestStep020>
+            <TestStep025 AltValue="RequestedRPM">CheckRequestedRPM</TestStep025>
+            <TestStep030 AltValue="EngineSpeed">CheckIdleRPM</TestStep030>
+            <TestStep035 AltValue="FuelRailPressure">CheckFuelRailPressure</TestStep035>
+            <TestStep040 AltValue="TurboBoostPressure">CheckTurboBoostPressure</TestStep040>
+            <TestStep045 AltValue="FuelTemperature">CheckFuelTemperature</TestStep045>
+            <TestStep050 AltValue="FuelInjectionCorrection1">CheckFuelInjectionCorrection1</TestStep050>
+            <TestStep055 AltValue="FuelInjectionCorrection2">CheckFuelInjectionCorrection2</TestStep055>
+            <TestStep060 AltValue="FuelInjectionCorrection3">CheckFuelInjectionCorrection3</TestStep060>
+            <TestStep065 AltValue="FuelInjectionCorrection4">CheckFuelInjectionCorrection4</TestStep065>
             <TestStep070 AltValue="BarometricPressure">CheckBarometricPressure</TestStep070>
-            <TestStep075 AltValue="FuelRailPressure">CheckFuelRailPressure</TestStep075>
-            <TestStep080 AltValue="FuelLevelPrimaryTank">CheckFuelLevelPrimaryTankLevel</TestStep080>
-            <TestStep085 AltValue="FuelLevelSecondaryTank">CheckFuelLevelSecondaryTankLevel</TestStep085-->
-            <!-- TestStep087 AltValue="FuelTankVaporPressure">CheckFuelTankVaporPressure</TestStep087 -->
-            <!--TestStep090 AltValue="BatteryVoltage">CheckBatteryVoltage</TestStep090-->
-            <TestStep095 AltValue="EngineSpeed">CheckIdleRPM</TestStep095>
-            <!--TestStep100>CheckIdleFuelTrim</TestStep100>
-            <TestStep105 AltValue="MassAirFlow">CheckMassAirFlowAtIdle</TestStep105>
-            <TestStep110 AltValue="ManifoldAbsolutePressure">CheckManifoldAbsolutePressureAtIdle</TestStep110-->
-            <!-- TestStep115 AltValue="KnockSensor1">CheckKnockSensor1Status</TestStep115>
-            <TestStep120 AltValue="KnockSensor2">CheckKnockSensor2Status</TestStep120>
-            <TestStep125 AltValue="MisfireCatalystFailure">CheckMisfireCatalystFailureStatus</TestStep125>
-            <TestStep130 AltValue="MisfireEmissionsFailure">CheckMisfireEmissionsFailureStatus</TestStep130 -->
-            <!--TestStep135 AltValue="EgrError">CheckEgrError</TestStep135-->
-            <TestStep139>ReadFaults</TestStep139>
-            <!--TestStep140>AcceleratorPedalWOTTest</TestStep140>
-            <TestStep145>StopSwitchMonitors</TestStep145-->
+            <TestStep075 AltValue="VehicleSpeed">CheckVehicleSpeedSensor</TestStep075>
+            <TestStep080 AltValue="MainInjectionTiming">CheckMainInjectionTiming</TestStep080>
+            <TestStep085 AltValue="FinalInjectionAmount">CheckFinalInjectionAmount</TestStep085>
+            <TestStep090 AltValue="SVCCurrentValue">CheckSVCCurrentValue</TestStep090>
+            <TestStep095 AltValue="PumpLearningStatus">CheckPumpLearningStatus</TestStep095>
+            <TestStep100 AltValue="PumpLearningValue">CheckPumpLearningValue</TestStep100>
+            <TestStep105 AltValue="EngineOilPressure">CheckEngineOilPressure</TestStep105>
+            <TestStep110 AltValue="EGROpeningTarget">CheckEGROpeningTarget</TestStep110>
+            <TestStep115 AltValue="EGRPosition">CheckEGRPosition</TestStep115>
+            <TestStep120 AltValue="DifferentialPressure">DifferentialPressure</TestStep120>
+            <!--TestStep120 AltValue="ThrottlePosition">CheckThrottlePosition</TestStep120-->
+            <!--TestStep139>ReadFaults</TestStep139-->
+            <!--TestStep145>StopSwitchMonitors</TestStep145-->
         </HotIdle>
         <SteadySpeedTests>
             <TestStep00>AccelerateToTestSpeed</TestStep00>
             <TestStep10>CheckVehicleSpeedSensor</TestStep10>
             <TestStep20>CheckSteadySpeedFuelTrim</TestStep20>
         </SteadySpeedTests>
+         <DPDSwitchCheck>
+            <TestStep00>DPDSwitchCheck</TestStep00>
+         </DPDSwitchCheck>
     </Objectives>
     <TestSteps>
         <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
         <AcceleratorPedalWOTTest Result="" Timeout="30000" Description="Verify the read of a full accelerator pedal" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
-        <CheckAcStatus Result="" Timeout="10000" Description="Verify A/C is functional" ScanDelay="500" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckBarometricPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the barometric pressure sensor is in range"/>
         <CheckBatteryVoltage Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify battery voltage is in operating range"/>
-        <CheckCASELearn Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="True" Description="Verify the CASE Learn was successful" ScanDelay="250"/>
-        <CheckEgrError Result="" Timeout="500" Description="Check the EGR sensor for errors" AlwaysPerform="False" AbortIfFailed="False"/>
-        <CheckEngineCoolantTemperature Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine coolant temp is in operating range"/>
-        <CheckEngineFan Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the acutal to the desired fan speed"/>
-        <CheckEngineOilLevelLow Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine oil level low status is not set"/>
+        <CheckEGROpeningTarget Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify EGR opening during idle condition"/>
+        <CheckEGRPosition Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify EGR Position during idle condition"/>
         <CheckEngineOilPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine oil pressure is in acceptable range"/>
-        <CheckEngineOilPressureLow Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine oil pressure low status is not set"/>
-        <CheckEngineOilTemperature Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine temperature temp is in operating range"/>
-        <CheckFuelLevelPrimaryTankLevel Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel level in primary tank is in acceptable range"/>
-        <CheckFuelLevelSecondaryTankLevel Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel level in Secondary tank is in acceptable range"/>
+        <CheckFinalInjectionAmount Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify final injection amount during idle condition"/>
+        <CheckFuelInjectionCorrection1 Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel injection correction during idle condition"/>
+        <CheckFuelInjectionCorrection2 Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel injection correction during idle condition"/>
+        <CheckFuelInjectionCorrection3 Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel injection correction during idle condition"/>
+        <CheckFuelInjectionCorrection4 Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel injection correction during idle condition"/>
         <CheckFuelRailPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel Rail pressure is in acceptable range"/>
-        <CheckFuelTankVaporPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel Tank Vapor pressure is in acceptable range"/>
-        <CheckIdleFuelTrim Result="" Timeout="1000" AlwaysPerform="False" AbortIfFailed="False" Description="Check short and long fuel trim for both banks at idle speed"/>
+        <CheckFuelTemperature Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel temp during idle condition"/>
         <CheckIdleRPM Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine speed is in operating range during idle condition"/>
-        <CheckKnockSensor1Status Result="" Timeout="500" Description="Verifty the Knock Sensor Status is good" AlwaysPerform="False" AbortIfFailed="False"/>
-        <CheckKnockSensor2Status Result="" Timeout="500" Description="Verifty the Knock Sensor Status is good" AlwaysPerform="False" AbortIfFailed="False"/>
-        <CheckMAFResidual Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty the MAF Residual is not out of tolerance."/>
-        <CheckManifoldAbsolutePressureAtIdle Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify pedal position sensors both don't disagree"/>
-        <CheckMAP1Residual Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty the MAP1 Residual is not out of tolerance."/>
-        <CheckMAP2Residual Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty the MAP2 Residual is not out of tolerance."/>
-        <CheckMassAirFlowAtIdle Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify pedal position sensors both don't disagree"/>
-        <CheckMisfireCatalystFailureStatus Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty a misfire didn't cause a catalyst failure."/>
-        <CheckMisfireEmissionsFailureStatus Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verifty a misfire didn't cause a Emissions failure."/>
-        <CheckOxygenSensors Result="" Timeout="120000" AlwaysPerform="False" AbortIfFailed="False" Description="Test the oxygen sensors for correct values"/>
+        <CheckIntakeAirFlow Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify intake air flow during idle condition"/>
+        <CheckIntakeAirTemp Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify intake air temp during idle condition"/>
+        <CheckMAFLearningComplete Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify MAF Learning Complete during idle condition"/>
+        <CheckMainInjectionTiming Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify main injection timing during idle condition"/>
         <CheckPartNumbers Result="" Timeout="500" Description="Verify the module part number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
+        <CheckPumpLearningStatus Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify pump learning status during idle condition"/>
+        <CheckPumpLearningValue Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify pump learning value during idle condition"/>
+        <CheckRequestedRPM Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify requested rpm during idle condition"/>
         <CheckSerialNumber Result="" Timeout="500" Description="Verify the module serial number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
-        <CheckSteadySpeedFuelTrim Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Check fuel trim values at steady speed"/>
+        <CheckSVCCurrentValue Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify SVC Current Value during idle condition"/>
+        <CheckThrottlePosition Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify throttle position during idle condition"/>
+        <CheckTurboBoostPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify turbo boost pressure during idle condition"/>
         <CheckVehicleSpeedSensor Result="" AlwaysPerform="False" AbortIfFailed="True" Timeout="500" Description="Validate vehicle speed sensor reading"/>
         <CheckVIN Result="" Timeout="500" Description="Verify the module VIN matches the scanned VIN" AlwaysPerform="False" AbortIfFailed="False"/>
         <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
         <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
+        <DifferentialPressure Result="Not Tested" Timeout="5000" Description="Check Differential Pressure Sensor" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
         <DelayBeforeDtcRead Result="" Timeout="65000" Description="Delay before reading DTCs"/>
+        <DPDSwitchCheck Result="" Timeout="5000" Description="Check DPD Switch Positoin" ScanDelay="100" AbortIfFailed="False"/>
         <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
         <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>
         <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
+        <MAFLearn Result="Not Tested" Timeout="65000" Description="Perform the MAF Learn Procedure" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <Setup Result="" Timeout="500" Description="Setup conditions for testing" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="False"/>

@@ -11,8 +11,9 @@
     <RootNamespace>ToyotaParameterEditor</RootNamespace>
     <AssemblyName>ToyotaParameterEditor</AssemblyName>
     <SignManifests>true</SignManifests>
-    <ManifestCertificateThumbprint>FC7A40F9E09026E53C8BADD1E4F17B36817ADF27</ManifestCertificateThumbprint>
-    <ManifestKeyFile>ToyotaParameterEditor_1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestCertificateThumbprint>67E2F3511B12654839ECD918665EF7B992020B5F</ManifestCertificateThumbprint>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <GenerateManifests>true</GenerateManifests>
     <TargetZone>LocalIntranet</TargetZone>
@@ -30,8 +31,8 @@
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>8</ApplicationRevision>
+    <MapFileExtensions>false</MapFileExtensions>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

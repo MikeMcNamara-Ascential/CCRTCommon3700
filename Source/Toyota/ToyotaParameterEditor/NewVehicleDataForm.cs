@@ -69,6 +69,9 @@ namespace ToyotaParameterEditor
                 {
                     m_vehicleLogoPictureBox.Image.Save(clientLogFileName);
                 }
+                catch (IOException)
+                {   // Nothing special to do here
+                }
                 catch (Exception)
                 {   // Nothing special to do here
                 }
@@ -158,7 +161,16 @@ namespace ToyotaParameterEditor
                 String imageFileName = ToyotaParameterEditor.Properties.Resources.VehicleLogoFileLocation + "\\toyota-" + VehicleName.ToLower() + ".jpg";
                 if (!File.Exists(imageFileName))
                 {
-                    imageFile.CopyTo(imageFileName, true);
+                    try
+                    {
+                        imageFile.CopyTo(imageFileName, true);
+                    }
+                    catch (IOException)
+                    {   // Nothing special to do
+                    }
+                    catch (Exception)
+                    {   // Nothing special to do
+                    }
                 }
                 if (!UpdatedFiles.Contains(imageFileName))
                 {

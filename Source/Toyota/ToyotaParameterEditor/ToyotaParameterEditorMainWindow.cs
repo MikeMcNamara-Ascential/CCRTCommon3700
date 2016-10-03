@@ -18,6 +18,17 @@ namespace ToyotaParameterEditor
             m_newVehicleForm = new NewVehicleDataForm();
             m_modifiedFiles = new List<String>();
             Icon = Icon.FromHandle(ToyotaParameterEditor.Properties.Resources.BepLogo.GetHicon());
+            String title;
+            if (!System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
+            {
+                title = String.Format("Toyota Parameter Editor - Version {0}", ProductVersion);
+            }
+            else
+            {
+                title = String.Format("Toyota Parameter Editor - Version {0}",
+                                      System.Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString());
+            }
+            Text = title;
             BringToFront();
         }
 

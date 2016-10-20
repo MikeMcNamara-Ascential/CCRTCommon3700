@@ -244,6 +244,10 @@ namespace Common.Lib.Presenters
         {
             MainFormModel.SetBarcodeInputDevice(device);
         }
+        public void SetFlashRequired(bool flashRequired)
+        {
+            MainFormModel.SetFlashRequired(flashRequired);
+        }
         public void OpenVehicleCommSettings()
         {
             MainFormModel.OpenVehicleCommSettings();

@@ -76,6 +76,8 @@ namespace VehicleCommServer
             channel.SetBaudRate(settings.BaudRate);
             channel.SetConnectFlag(settings.ConnectFlag);
             channel.SetProtocolID(settings.ProtocolID);
+            channel.ChannelIndex = settings.ChannelIndex;
+            channel.ChannelComm.ChannelID = settings.ChannelIndex;
             channel.ChannelName = channelName;
             return channel;
         }
@@ -154,6 +156,7 @@ namespace VehicleCommServer
             CcrtJ2534Device dev = GetCcrtJ2534Device(deviceName);
             return dev.GetResponseBuffer(commChannelName);
         }
+
         //-----------------------------------------------------------------------------------------
         // Class Variables/Properties
         //-----------------------------------------------------------------------------------------

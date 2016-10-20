@@ -114,6 +114,16 @@ namespace J2534ChannelLibrary
                         return false;
                     }
                     break;
+                case ProtocolID.ISO14230:
+                    maskMsg.protocolID = ProtocolID.ISO14230;
+                    maskMsg.txFlags = TxFlag.NONE;
+                    maskMsg.Data = new byte[] { 0x00, 0xff, 0xff };
+
+                    patternMsg.protocolID = ProtocolID.ISO14230;
+                    patternMsg.txFlags = TxFlag.NONE;
+                    patternMsg.Data = new byte[] { 0x00, 0xF1, 0x80};
+                    status = m_j2534Interface.StartMsgFilter(m_channelID, FilterType.PASS_FILTER, ref maskMsg, ref patternMsg, ref filterID);
+                    break;
                 default:
                     return false;
             }
@@ -160,11 +170,27 @@ namespace J2534ChannelLibrary
                 switch (m_channel.m_protocolID)
                 {
                     case ProtocolID.ISO15765:
-                                                //process message
+                        //process message
                         if (ecuMessage.m_responseExpected)
                         {
                             //process message
                             msgReceived = ProcessMessageCAN(ecuMessage, ref ecuData);
+                            if (msgReceived)
+                            {
+                                ecuData.RemoveRange(0, ecuMessage.m_messageFilter.requestID.Count());
+                            }
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                        break;
+                    case ProtocolID.ISO14230:
+                        //process message
+                        if (ecuMessage.m_responseExpected)
+                        {
+                            //process message
+                            msgReceived = ProcessMessageKLine(ecuMessage, ref ecuData);
                             if (msgReceived)
                             {
                                 ecuData.RemoveRange(0, ecuMessage.m_messageFilter.requestID.Count());
@@ -438,6 +464,70 @@ namespace J2534ChannelLibrary
             return false;
         }
 
+        public bool ProcessMessageKLine(CcrtJ2534Defs.ECUMessage ecuMessage, ref List<byte> ecuData)
+        {//determine if our message has been received starting from end of response list
+            bool responsePending = true;
+            int retryCount = ecuMessage.m_responsePendingRetries;
+            int noReplyRetryCount = ecuMessage.m_noResponseRetries;
+
+            List<CcrtJ2534Defs.Response> responses = null;
+            while ((retryCount-- > 0) && responsePending)
+            {//retrieve response from device
+                if (!GetResponse(ecuMessage, ref responses))
+                {
+                    if (noReplyRetryCount != 0)
+                    {//error getting message allow multiple attempts
+                        responses = null;
+                        responsePending = false;
+                    }
+                    else
+                    {
+                        responses = null;
+                        return false;
+                    }
+                }
+                if (responses != null)
+                {
+                    for (int i = (responses.Count - 1); i > -1; i--)
+                    {
+                        if (responses[i].m_rxMessage.Count > 0)
+                        {
+                            Byte responseByte = responses[i].m_rxMessage.ElementAt(3);
+                            Byte secondarySID = (Byte)(ecuMessage.m_txMessage.ElementAt(3) + 0x40);
+                            if (responseByte.CompareTo(secondarySID) == 0)
+                            {
+                                //set ecu Data
+                                ecuData = new List<byte>(responses[i].m_rxMessage);
+                                //remove message from buffer
+                                RemoveResponseFromBuffer(responses[i]);
+                                responses = null;
+                                return true;
+                            }
+                        }
+                    }
+                }
+                if (responsePending)
+                {//delay before next check
+                    //reset no response count since we received a reply
+                    noReplyRetryCount = ecuMessage.m_noResponseRetries;
+                    System.Threading.Thread.Sleep(ecuMessage.m_responsePendingDelay);
+                }
+                else
+                {//no message filter match found 
+                    if (noReplyRetryCount != 0)
+                    {//allow multiple attempts
+                        responsePending = true;
+                        noReplyRetryCount--;
+                        System.Threading.Thread.Sleep(ecuMessage.m_responsePendingDelay);
+                    }
+                }
+            }
+
+            //message did not match any filter
+            responses = null;
+            return false;
+        }
+
         /// <summary>
         /// Send Message to the channel.
         /// </summary>
@@ -585,7 +675,7 @@ namespace J2534ChannelLibrary
             get { return m_channelID; }
             set { m_channelID = value; }
         }
-        CcrtJ2534ChannelSettings m_channel;
+        protected CcrtJ2534ChannelSettings m_channel;
         private IJ2534Interface m_j2534Interface;
         /// <summary>
         /// Get/Set the channel ID.
@@ -675,6 +765,26 @@ namespace J2534ChannelLibrary
                 status = ErrorCode.STATUS_NOERROR == m_j2534Interface.SetConfig(m_channelID, ref config);
             }
             return (status);
+        }
+        public bool PerformFastInitSequence(CcrtJ2534Defs.ECUMessage ecuMessage, ref List<CcrtJ2534Defs.Response> responses)
+        {
+            bool status = false;
+            List<byte> txMessage = new List<byte>();
+            PassThruMsg txMsg = new PassThruMsg();
+            PassThruMsg rxMsg = new PassThruMsg();
+            ErrorCode code = new ErrorCode();
+            BuildTransmitMessage(ref txMessage, ecuMessage.m_messageFilter.requestID,
+                ecuMessage.m_txMessage);
+            txMsg.Data = txMessage.ToArray();
+            txMsg.protocolID = m_channel.m_protocolID;
+            txMsg.txFlags = TxFlag.NONE;
+            lock (m_j2534Interface)
+            {
+                code = m_j2534Interface.FastInit(m_channelID, txMsg, ref rxMsg);
+                status = ErrorCode.STATUS_NOERROR == code;
+            }
+            return (status);
+
         }
     }
 }

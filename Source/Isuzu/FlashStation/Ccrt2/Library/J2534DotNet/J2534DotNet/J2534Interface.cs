@@ -82,8 +82,8 @@ namespace J2534DotNet
             IntPtr pNextMsg = IntPtr.Zero;
             IntPtr[] pMsgs = new IntPtr[50];
             returnValue = (ErrorCode)m_wrapper.PassThruReadMsgs(channelId, pMsg, ref numMsgs, timeout);
-            
-            if (returnValue == ErrorCode.STATUS_NOERROR)
+
+            if (returnValue == ErrorCode.STATUS_NOERROR || returnValue == ErrorCode.ERR_TIMEOUT)
             {
                 for (int i = 0; i < numMsgs; i++)
                 {
@@ -375,6 +375,61 @@ namespace J2534DotNet
             }
 
             return msg;
+        }
+
+        private ExplicitPassThruMsg ConvertPassThruMsgExplicit(PassThruMsg msg)
+        {
+            ExplicitPassThruMsg uMsg = new ExplicitPassThruMsg();
+
+            uMsg.ProtocolID = (uint)msg.protocolID;
+            uMsg.RxStatus = (uint)msg.rxStatus;
+            uMsg.Timestamp = (uint)msg.Timestamp;
+            uMsg.TxFlags = (uint)msg.txFlags;
+            uMsg.ExtraDataIndex = (uint)msg.ExtraDataIndex;
+            uMsg.DataSize = (uint)msg.Data.Length;
+            uMsg.Data = new byte[4128];
+            for (int i = 0; i < msg.Data.Length; i++)
+            {
+                uMsg.Data[i] = msg.Data[i];
+            }
+            return uMsg;
+        }
+        private PassThruMsg ConvertPassThruMsgExplicit(ExplicitPassThruMsg uMsg)
+        {
+            PassThruMsg msg = new PassThruMsg();
+
+            msg.protocolID = (ProtocolID)uMsg.ProtocolID;
+            msg.rxStatus = (RxStatus)uMsg.RxStatus;
+            msg.Timestamp = (int)uMsg.Timestamp;
+            msg.txFlags = (TxFlag)uMsg.TxFlags;
+            msg.ExtraDataIndex = (int)uMsg.ExtraDataIndex;
+            msg.Data = new byte[uMsg.DataSize];
+            for (int i = 0; i < uMsg.DataSize; i++)
+            {
+                msg.Data[i] = uMsg.Data[i];
+            }
+            return msg;
+        }
+
+        public ErrorCode FastInit(int channelId, PassThruMsg txMsg, ref PassThruMsg rxMsg)
+        {
+            ErrorCode returnValue;
+            IntPtr input = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(ExplicitPassThruMsg)));
+            IntPtr output = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(ExplicitPassThruMsg)));
+            ExplicitPassThruMsg usTxMsg = ConvertPassThruMsgExplicit(txMsg);
+
+            Marshal.StructureToPtr(usTxMsg, input, true);
+
+            returnValue = (ErrorCode)m_wrapper.PassThruIoctl(channelId, (int)Ioctl.FAST_INIT, input, output);
+            if (returnValue == ErrorCode.STATUS_NOERROR)
+            {
+                ExplicitPassThruMsg uMsg = (ExplicitPassThruMsg)Marshal.PtrToStructure(output, typeof(ExplicitPassThruMsg));
+                rxMsg = ConvertPassThruMsgExplicit(uMsg);
+            }
+            //Free allocated memory
+            Marshal.FreeHGlobal(input);
+            Marshal.FreeHGlobal(output);
+            return returnValue;
         }
     }
 }

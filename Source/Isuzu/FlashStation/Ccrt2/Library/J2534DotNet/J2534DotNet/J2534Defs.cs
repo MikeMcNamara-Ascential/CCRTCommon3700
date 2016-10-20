@@ -68,6 +68,33 @@ namespace J2534DotNet
         public int ExtraDataIndex;
         public byte[] Data;
     }
+    
+    [StructLayout(LayoutKind.Explicit)]
+    public struct ExplicitPassThruMsg
+    {
+        [MarshalAs(UnmanagedType.I4)]
+        [FieldOffset(0)]
+        public uint ProtocolID;
+        [MarshalAs(UnmanagedType.I4)]
+        [FieldOffset(4)]
+        public uint RxStatus;
+        [MarshalAs(UnmanagedType.I4)]
+        [FieldOffset(8)]
+        public uint TxFlags;
+        [MarshalAs(UnmanagedType.I4)]
+        [FieldOffset(12)]
+        public uint Timestamp;
+        [MarshalAs(UnmanagedType.I4)]
+        [FieldOffset(16)]
+        public uint DataSize;
+        [MarshalAs(UnmanagedType.I4)]
+        [FieldOffset(20)]
+        public uint ExtraDataIndex;
+        //public fixed byte Data[4128];
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4128)]
+        [FieldOffset(24)]
+        public byte[] Data;
+    }
 
     [Flags]
     public enum RxStatus
@@ -123,6 +150,7 @@ namespace J2534DotNet
         ISO9141 = 10400,
         ISO9141_10400 = 10400,
         ISO9141_10000 = 10000,
+        ISO9141_19200 = 19200,
 
         ISO14230 = 10400,
         ISO14230_10400 = 10400,

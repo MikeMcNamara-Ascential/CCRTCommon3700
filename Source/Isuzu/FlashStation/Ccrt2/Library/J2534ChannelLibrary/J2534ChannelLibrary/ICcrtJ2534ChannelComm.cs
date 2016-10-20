@@ -15,6 +15,7 @@ namespace J2534ChannelLibrary
         bool GetECUData(CcrtJ2534Defs.ECUMessage ecuMessage, ref List<byte> ecuData);
         bool GetECUData(CcrtJ2534Defs.ECUMessage ecuMessage, ref List<List<byte>> ecuData, bool globalRequest);
         bool ProcessMessageCAN(CcrtJ2534Defs.ECUMessage ecuMessage, ref List<byte> ecuData);
+        bool ProcessMessageKLine(CcrtJ2534Defs.ECUMessage ecuMessage, ref List<byte> ecuData);
         bool SendMessage(CcrtJ2534Defs.ECUMessage ecuMessage);
         bool GetResponse(CcrtJ2534Defs.ECUMessage ecuMessage,ref List<CcrtJ2534Defs.Response> responses);
         bool StartPeriodicMessage(CcrtJ2534Defs.ECUMessage ecuMessage, ref int msgID);
@@ -24,5 +25,6 @@ namespace J2534ChannelLibrary
         void ClearResponseBuffer();
         List<CcrtJ2534Defs.Response> GetResponseBuffer();
         List<CcrtJ2534Defs.Response> GetRemovedResponsesBuffer();
+        bool PerformFastInitSequence(CcrtJ2534Defs.ECUMessage ecuMessage, ref List<CcrtJ2534Defs.Response> responses);
     }
 }

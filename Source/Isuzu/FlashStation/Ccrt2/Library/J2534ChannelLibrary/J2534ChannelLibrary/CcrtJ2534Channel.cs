@@ -192,6 +192,7 @@ namespace J2534ChannelLibrary
             else if (bRate == BaudRate.ISO9141) return "ISO9141";
             else if (bRate == BaudRate.ISO9141_10000) return "ISO9141_10000";
             else if (bRate == BaudRate.ISO9141_10400) return "ISO9141_10400";
+            else if (bRate == BaudRate.ISO9141_19200) return "ISO9141_19200";
             else if (bRate == BaudRate.J1850PWM) return "J1850PWM";
             else if (bRate == BaudRate.J1850PWM_41600) return "J1850PWM_41600";
             else if (bRate == BaudRate.J1850PWM_83300) return "J1850PWM_83300";
@@ -221,6 +222,7 @@ namespace J2534ChannelLibrary
             else if (bRate.Equals("ISO9141")) return BaudRate.ISO9141;
             else if (bRate.Equals("ISO9141_10000")) return BaudRate.ISO9141_10000;
             else if (bRate.Equals("ISO9141_10400")) return BaudRate.ISO9141_10400;
+            else if (bRate.Equals("ISO9141_19200")) return BaudRate.ISO9141_19200;
             else if (bRate.Equals("J1850PWM")) return BaudRate.J1850PWM;
             else if (bRate.Equals("J1850PWM_41600")) return BaudRate.J1850PWM_41600;
             else if (bRate.Equals("J1850PWM_83300")) return BaudRate.J1850PWM_83300;

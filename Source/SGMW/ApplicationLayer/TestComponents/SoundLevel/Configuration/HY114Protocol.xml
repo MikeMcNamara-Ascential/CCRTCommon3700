@@ -10,8 +10,8 @@
         </Communication>
         <Logging>
             <Status>Enabled</Status>
-            <ProcessName>DSP80</ProcessName>
-            <AdditionalLogFile>/Communication/DSP80.log</AdditionalLogFile>
+         <ProcessName>HY114Protocol</ProcessName>
+         <AdditionalLogFile>/Communication/HY114Protocol.log</AdditionalLogFile>
             <Debug>Off</Debug>
             <LocalEcho>Disabled</LocalEcho>
             <Verbose>0x1F</Verbose>

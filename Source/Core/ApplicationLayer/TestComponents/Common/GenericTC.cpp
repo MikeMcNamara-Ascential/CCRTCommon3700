@@ -877,9 +877,19 @@ void GenericTC::Run(volatile bool *terminateFlag /*=NULL*/)
                 {   // command the component objective
                     status = CommandObjective (m_objectives.getNode(tag), value);
                 }
-                catch(BepException &e)
+                catch( XmlException &e)
                 {
-                    Log(LOG_ERRORS, "GenericTC %s BepException: %s\n", GetComponentName().c_str(), e.what());
+                    Log(LOG_ERRORS, "GenericTC %s XmlException: %s\n", GetComponentName().c_str(), e.what());
+                    status = BEP_SOFTWAREFAIL_RESPONSE;
+                }
+                catch(BepException &ex)
+                {
+                    Log(LOG_ERRORS, "GenericTC %s BepException: %s\n", GetComponentName().c_str(), ex.what());
+                    status = BEP_SOFTWAREFAIL_RESPONSE;
+                }
+                catch(exception &exc)
+                {
+                    Log(LOG_ERRORS, "GenericTC %s Exception Commanding Objective - %s\n", GetComponentName().c_str(), exc.what());
                     status = BEP_SOFTWAREFAIL_RESPONSE;
                 }
                 catch(...)
@@ -2312,6 +2322,7 @@ void GenericTC::Reset(void)
 //=============================================================================
 void GenericTC::Abort(void)
 {
+    Log(LOG_FN_ENTRY, "Enter GenericTC::Abort()");
     // if the test is not a previous pass, abort the test
     if((GetStatus() != BEP_COMPLETE_STATUS) && (GetPreviousOverallResult() != testPass))
         SendOverallResult(testAbort);
@@ -3028,7 +3039,7 @@ string GenericTC::AccelerateVehicleToSpeed(const float targetSpeed,
             // Reset the test step timer
             SetStartTime();
             // Set the motor mode to speed mode
-            if(SystemCommand(MOTOR_MODE, string(LOSSCOMPENSATION_MODE)) == BEP_STATUS_SUCCESS)
+            if(SystemCommand(MOTOR_MODE, SPEED_MODE) == BEP_STATUS_SUCCESS)
             {   // Get the current wheel speed
                 float currentWheelSpeed = GetRollSpeed();
                 bool speedError = false;
@@ -3106,7 +3117,7 @@ string GenericTC::AccelerateVehicleToSpeed(const float targetSpeed,
         Log(LOG_FN_ENTRY, "Skipping test step - GenericTrwABSTCTemplate::AccelerateVehicleToSpeed()");
     }
     // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "GenericTrwABSTCTemplate::AccelerateVehicleToSpeed() - exit");
+    Log(LOG_FN_ENTRY, "GenericTC::AccelerateVehicleToSpeed() - exit");
     return testResult;
 }
 

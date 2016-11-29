@@ -47,10 +47,10 @@ const std::string IsuzuMachineTC::CommandTestStep(const std::string &value)
         {
             std::string step = GetTestStepName();       // get the name of the sequenced test step
 
-            Log(LOG_FN_ENTRY, "MachineTC::CommandTestStep(%s): %s\n", value.c_str(), step.c_str());
+            Log(LOG_FN_ENTRY, "IsuzuMachineTC::CommandTestStep(%s): %s\n", value.c_str(), step.c_str());
 
             if(step == "TransitionToRearAxle") status = TransitionToRearAxle();
-            if(step == "ReportSideSlipValue") status = ReportSideSlipValue();
+            else if(step == "ReportSideSlipValue") status = ReportSideSlipValue();
             // else invalid test step*/
             else status = MachineTC::CommandTestStep(value);
 
@@ -78,43 +78,57 @@ std::string IsuzuMachineTC::TransitionToRearAxle(void)
 	string result(BEP_TESTING_RESPONSE);
 	Log(LOG_FN_ENTRY, "IsuzuMachineTC::TransitionToRearAxle() - Enter");
 	if(!ShortCircuitTestStep())
-	{   // Have the operator press the pass button to lower the retaining rollers
-        result = OperatorPassFail("LowerRetainers");
+	{   //Disconnect the cable
+        DisplayPrompt(GetPromptBox("DisconnectCable"),GetPrompt("DisconnectCable"),GetPromptPriority("DisconnectCable"));
+        while(SystemReadBool("PLCCableConnect"))	BposSleep(250);
+
+        // Have the operator press the pass button to lower the retaining rollers
+        //result = OperatorPassFail("LowerRetainers");
         // Wait for the operator to press the button
-        if(!result.compare(testPass))
-        {
-			MachineTC::LowerRollsRaiseElevators();
-            while(!SystemReadBool(ROLLS_DOWN_DATA_TAG) && (BEP_STATUS_SUCCESS == StatusCheck()))	BposSleep(250);
-		}
+        //if(!result.compare(testPass))
+        //{
+			//MachineTC::LowerRollsRaiseElevators();
+            DisplayPrompt(GetPromptBox("LowerRetainers"),GetPrompt("LowerRetainers"),GetPromptPriority("LowerRetainers"));
+            while(!SystemReadBool(ROLLS_DOWN_DATA_TAG))	BposSleep(250);
+		/*}
 		else
 		{	// Something is wrong, abort the sequence
 			SystemWrite(ABORT_DATA_TAG, true);
-		}
+		} */
 
 		// Prompt the operator to advance the rear axle to the retaining rolls
 		DisplayPrompt(GetPromptBox("AdvanceToRearAxle"), GetPrompt("AdvanceToRearAxle"),
 					  GetPromptPriority("AdvanceToRearAxle"), GetParameter("DefaultPromptBackgroundColor"));
 		// Wait for the vehicle to be on the rolls
-		while(SystemReadBool(GetDataTag("VehiclePresent")) && (BEP_STATUS_SUCCESS == StatusCheck()))  BposSleep(250);
+		while(SystemReadBool(GetDataTag("VehiclePresent")))  BposSleep(250);
 		// Wait a bit more for the front axle of the vehicle to leave the machine
 		BposSleep(500);
-        while(!SystemReadBool(GetDataTag("VehiclePresent")) && (BEP_STATUS_SUCCESS == StatusCheck()))  BposSleep(250);
+        while(!SystemReadBool(GetDataTag("VehiclePresent")))  BposSleep(250);
         // Wait a bit more for the rear axle of the vehicle to sit on the rollers
 		BposSleep(3000);
 		RemovePrompt(GetPromptBox("AdvanceToRearAxle"), GetPrompt("AdvanceToRearAxle"),
 					 GetPromptPriority("AdvanceToRearAxle"));
 		// Have the operator press the pass button to deploy the retaining rollers
-		result = OperatorPassFail("RaiseRetainers");
+		//result = OperatorPassFail("RaiseRetainers");
 		// Wait for the operator to press the button
-		if(!result.compare(testPass))
-		{
-			MachineTC::RaiseRollsLowerElevators();
-			while(!SystemReadBool(ROLLS_UP_DATA_TAG) && (BEP_STATUS_SUCCESS == StatusCheck()))	BposSleep(250);
-		}
+		//if(!result.compare(testPass))
+		//{
+			//MachineTC::RaiseRollsLowerElevators();
+
+            DisplayPrompt(GetPromptBox("RaiseRetainers"),GetPrompt("RaiseRetainers"),GetPromptPriority("RaiseRetainers"));
+			while(!SystemReadBool(ROLLS_UP_DATA_TAG))	BposSleep(250);
+
+         //Connect Cable
+            DisplayPrompt(GetPromptBox("ConnectCable"),GetPrompt("ConnectCable"),GetPromptPriority("ConnectCable"));
+			while(!SystemReadBool("PLCCableConnect"))	BposSleep(250);
+		/*}
 		else
 		{	// Something is wrong, abort the sequence
 			SystemWrite(ABORT_DATA_TAG, true);
-		}
+		} */
+
+        result = testPass;
+        SendTestResult(result, GetTestStepInfo("Description"));
 	}
 	else
 	{	// Need to skip this step
@@ -122,7 +136,7 @@ std::string IsuzuMachineTC::TransitionToRearAxle(void)
 		Log(LOG_FN_ENTRY, "Skipping transition to rear axle");
 	}
 	// log the exit and return the result
-	Log(LOG_FN_ENTRY, "IsuzuMachineTC::TransitionToRearAxle() - Exit"); 
+	Log(LOG_FN_ENTRY, "IsuzuMachineTC::TransitionToRearAxle() - Exit: %s", result.c_str()); 
 	return result;
 }
 

@@ -59,6 +59,18 @@ protected:
 	 */
 	virtual const bool IsCableConnected(void);
 
+    virtual const string CommandTestStep(const string &value);
+
+    const string CheckDataRecordMemory();
+
+    const string CheckFuelEconomy();
+
+    const string CheckOilTemperature();
+
+    const string CheckTotalMileage();
+
+    const string ClearHistory();
+
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MimamoriTc_h

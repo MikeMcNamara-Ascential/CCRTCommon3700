@@ -35,11 +35,13 @@
                 <td align="left">
                     <u>Overall Result</u>
                 </td>
-                <td align="left">
-                    <xsl:value-of select="//TestResult/OverallTest/@Result"/>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//TestResult/OverallTest/@Result"/>
+                    </xsl:call-template>
                 </td>
                 <td align="left"/>
-                <td align="left"/>
+                <td align="right"/>
             </tr>
         </table>
 
@@ -56,67 +58,74 @@
             <xsl:call-template name="categorySpacer"/>
             <tr>
                 <td align="left">VIN</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//VIN"/>
                 </td>
+                <td width="15"></td>
                 <td align="left"> </td>
-                <td align="left"> </td>
+                <td align="right"> </td>
             </tr>
             <tr>
                 <td align="left">ABS Part#</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//ABSPartNo"/>
                 </td>
+                <td/>
                 <td align="left">Axle Type</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//Axle"/>
                 </td>
             </tr>
             <tr>
                 <td align="left">Brake Type</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//BrakeType"/>
                 </td>
+                <td/>
                 <td align="left">Drive Axle</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//DriveAxle"/>
                 </td>
             </tr>
             <tr>
                 <td align="left">PCM Part#</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//PCMPartNo"/>
                 </td>
+                <td/>
                 <td align="left">Speed Control</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//SpeedControl"/>
                 </td>
             </tr>
             <tr>
                 <td align="left">TCM Part#</td>
-                <td align="left">
-                    <xsl:value-of select="//TCMASMPartNo"/>
+                <td align="right">
+                    <xsl:value-of select="//TCMPartNo"/>
                 </td>
+                <td/>
                 <td align="left">Vehicle Type</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//VehicleType"/>
                 </td>
             </tr>
             <tr>
                 <td align="left">Book Code</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//BookCode"/>
                 </td>
+                <td/>
                 <td align="left">Lot#</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//LotNumber"/>
                 </td>
             </tr>
             <tr>
                 <td align="left">Model Year</td>
-                <td align="left">
+                <td align="right">
                     <xsl:value-of select="//ModelYear"/>
                 </td>
+                <td/>
                 <td align="left"> </td>
                 <td align="left"> </td>
             </tr>
@@ -250,7 +259,7 @@
                 <th align="left" width="20"/>
                 <td align="right">LR</td>
                 <td align="center">
-                    <xsl:value-of select="//BrakeLeftRearForceTest/MinBrakeForce"/>
+                    <xsl:value-of select="//BrakeLeftRearForceTest/MinBrakeForceWithMultiplier"/>
                 </td>
                 <td align="center">
                     <xsl:value-of select="//BrakeLeftRearForceTest/BrakeForce"/>
@@ -269,7 +278,7 @@
                 <th align="left" width="20"/>
                 <td align="right">RR</td>
                 <td align="center">
-                    <xsl:value-of select="//BrakeRightRearForceTest/MinBrakeForce"/>
+                    <xsl:value-of select="//BrakeRightRearForceTest/MinBrakeForceWithMultiplier"/>
                 </td>
                 <td align="center">
                     <xsl:value-of select="//BrakeRightRearForceTest/BrakeForce"/>
@@ -323,26 +332,7 @@
                     </xsl:call-template>
                 </td>
             </tr>
-            <tr>
-                <th align="left" width="20"/>
-                <td align="right">Frt/Rr Bal</td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeFrontToRearBalanceTest/MinPercentBalance"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeFrontToRearBalanceTest/Value"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//BrakeFrontToRearBalanceTest/MaxPercentBalance"/>
-                </td>
-                <td align="center">%</td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//BrakeFrontToRearBalanceTest/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr>
-
+            
 
             <!-- ======================================================================================= -->
             <!-- ABS Test Results -->
@@ -426,15 +416,11 @@
                 </td>
             </tr>
             <!-- Reduction Results -->
+            <xsl:call-template name="sectionSpacer"/>
             <tr>
                 <th align="left" width="20">Valve Cycle Test</th>
                 <td align="right">Front</td>
-                <td align="center"/>
-                <td align="center">  
-                </td>
-                <td align="center">
-                </td>
-                <td align="center"></td>
+                <td align="center" colspan="4"></td>
                 <td align="center">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeFrontValveCycleTest/@Result"/>
@@ -444,12 +430,7 @@
             <tr>
                 <th align="Right" width="20"/>
                 <td align="right">Rear</td>
-                <td align="center"/>
-                <td align="center">
-                 </td>
-                <td align="center">
-                </td>
-                <td align="center"></td>
+                <td align="center" colspan="4"></td>
                 <td align="center">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//BrakeRearValveCycleTest/@Result"/>
@@ -472,7 +453,7 @@
             <tr>
                 <td width="20"/>
                 <td/>
-                <td/>
+                <td align="center">Park</td>
                 <td/>
                 <td/>
                 <td align="center">P</td>
@@ -584,78 +565,44 @@
                     </xsl:call-template>
                 </td>
             </tr>
-		<!--TCM Inspection:Check DTC-->
+				
+            <!--TCM Inspection:Check DTC-->
             <tr>
-                <td width="20"/>
-                <td/>
-                <td align="center">Check DTC</td>
+                <th align="left" width="20">TCM</th>
+                <td align="right">Check DTC</td>
+                <td align="center" colspan="4"></td>
                 <td align="center">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//TransmissionReadFaults/@Result"/>
                     </xsl:call-template>
-                </td>
-                <td align="center">
-                </td>
-				<td align="center">
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                    </xsl:call-template>
                 </td>				
-				</td>				
             </tr>
 		<!-- TCM Inspection:Clear DTC-->
             <tr>
                 <td width="20"/>
-                <td/>
-                <td align="center">Clear DTC</td>
+                <td align="right">Clear DTC</td>
+                <td align="center" colspan="4"></td>
                 <td align="center">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//TransmissionClearFaults/@Result"/>
                     </xsl:call-template>
-                </td>
-                <td align="center">
-                </td>
-                <td align="center">
-                </td>	
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                    </xsl:call-template>
                 </td>				
-            </tr>		
-            <tr>
-                <td width="20"/>
-                <th align="left">TCC Slip</th>
-                <th align="center">Minimum</th>
-                <th align="center">Actual</th>
-                <th align="center">Maximum</th>
-                <th align="center">Units</th>
-                <th align="center">Result</th>
-            </tr>
-            <tr>
-                <td width="20"/>
-                <td/>
-                <td align="center">
-                    <xsl:value-of select="//TransmissionEvaluateTccSlipError/MinimumTccSlipError"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//TransmissionEvaluateTccSlipError/ActualTccSlipError"/>
-                </td>
-                <td align="center">
-                    <xsl:value-of select="//TransmissionEvaluateTccSlipError/MaximumTccSlipError"/>
-                </td>
-                <td align="center">RPM</td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionEvaluateTccSlipError/@Result"/>
-                    </xsl:call-template>
-                </td>
             </tr>
 			
 			<!-- ======================================================================================= -->
             <!-- Report Side Slip Test Results -->
             <!-- ======================================================================================= -->
-
-			<tr bgcolor="white">
+            <xsl:call-template name="sectionSpacer"/>
+			<tr>
+                <th align="center" width="20"/>
+                <th align="center"></th>
+                <th align="center">Minimum</th>
+                <th align="center">Measured</th>
+                <th align="center">Maximum</th>
+                <th align="center">Units</th>
+                <th align="center">Result</th>
+            </tr>
+            <tr bgcolor="white">
                     <th align="left" width="20">Side Slip Test</th>
                     <td align="right">Front</td>
                     <td align="center">
@@ -675,6 +622,28 @@
                     </td>
                 </tr>
 
+            <!-- Speedometer Test Results -->
+            <xsl:call-template name="sectionSpacer"/>
+			<tr bgcolor="white">
+                    <th align="left" width="20">Speedometer Test</th>
+                    <td align="right"></td>
+                    <td align="center">
+                        <xsl:value-of select="//MachineSpeedometer/MinSpeedometerSpeed"/>
+                    </td>
+                    <td align="center">
+                        <xsl:value-of select="//MachineSpeedometer/SpeedometerSpeed"/>
+                    </td>
+                    <td align="center">
+                        <xsl:value-of select="//MachineSpeedometer/MaxSpeedometerSpeed"/>
+                    </td>
+                    <td align="center">MPH</td>
+                    <td align="center">
+                        <xsl:call-template name="showResult">
+                            <xsl:with-param name="RESULT" select="//MachineSpeedometer/@Result"/>
+                        </xsl:call-template>
+                    </td>
+                </tr>
+
             <!-- ======================================================================================= -->
             <!-- Emissions Test Results -->
             <!-- ======================================================================================= -->
@@ -682,7 +651,7 @@
             <xsl:call-template name="emissionsHeaderRow"/>
             <tr>
                 <th align="left" width="20">ECM</th>
-                <td align="center">Idle RPM</td>
+                <td align="right">Idle RPM</td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckIdleRPM/MinParam"/>
                 </td>
@@ -701,7 +670,7 @@
             </tr>
             <tr>
                 <td width="20"/>
-                <td align="center">VSS</td>
+                <td align="right">VSS</td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckVehicleSpeedSensor/MinSpeed"/>
                 </td>
@@ -721,15 +690,11 @@
 			<!--ECM Check VIN number-->
 			<tr>
 				<td width="20"/>
-				<td align="center">VIN</td>
-				<td align="center">
+				<td align="right">VIN</td>
+				<td align="center" colspan="3">
 					<xsl:value-of select="//EmissionsCheckVIN/ModuleVIN"/>
 				</td>
                 <td align="center">
-                </td>
-                <td align="center">
-                </td>				
-				<td align="center">
 				</td>
 				<td align="center">
 					<xsl:call-template name="showResult">
@@ -741,35 +706,19 @@
 		<!-- Check DTC-->
 			<tr>
 				<td width="20"/>
-				<td align="center">Check DTC</td>
-				<td align="center">
-					<xsl:value-of select="//EmissionsReadFaults/ModuleVIN"/>
-				</td>
+				<td align="right">Check DTC</td>
+                <td align="center" colspan="4"></td>
                 <td align="center">
-                </td>
-                <td align="center">
-                </td>				
-				<td align="center">
-				</td>
-				<td align="center">
-					<xsl:call-template name="showResult">
+                    <xsl:call-template name="showResult">
 						<xsl:with-param name="RESULT" select="//EmissionsReadFaults/@Result"/>
 					</xsl:call-template>
-				</td>
+                </td>
 			</tr>	
 		<!-- Clear DTC-->
 			<tr>
 				<td width="20"/>
-				<td align="center">Clear DTC</td>
-				<td align="center">
-					<xsl:value-of select="//EmissionsClearFaults/ModuleVIN"/>
-				</td>
-                <td align="center">
-                </td>
-                <td align="center">
-                </td>				
-				<td align="center">
-				</td>
+				<td align="right">Clear DTC</td>
+				<td align="center" colspan="4"></td>
 				<td align="center">
 					<xsl:call-template name="showResult">
 						<xsl:with-param name="RESULT" select="//EmissionsClearFaults/@Result"/>
@@ -779,23 +728,193 @@
 		<!-- Idling Parameter Inspection-->
 			<tr>
 				<td width="20"/>
-				<td align="center">Idling Parameter Inspection</td>
+				<td align="right">Idling Parameter Inspection</td>
+				<td align="center" colspan="4"></td>
 				<td align="center">
-					<xsl:value-of select="//EmissionsClearFaults/ModuleVIN"/>
-				</td>
-                <td align="center">
+                    <xsl:choose>
+                        <xsl:when
+                                  test="//EmissionsCheckBarometricPressure/@Result='Pass' and 
+                                        //EmissionsCheckBatteryVoltage/@Result='Pass'and 
+                                        //EmissionsCheckEGROpeningTarget/@Result='Pass'and 
+                                        //EmissionsCheckEGRPosition/@Result='Pass'and 
+                                        //EmissionsCheckEngineOilPressure/@Result='Pass'and 
+                                        //EmissionsCheckFinalInjectionAmount/@Result='Pass'and 
+                                        //EmissionsCheckFuelInjectionCorrection1/@Result='Pass'and 
+                                        //EmissionsCheckFuelInjectionCorrection2/@Result='Pass'and 
+                                        //EmissionsCheckFuelInjectionCorrection3/@Result='Pass'and 
+                                        //EmissionsCheckFuelInjectionCorrection4/@Result='Pass'and 
+                                        //EmissionsCheckFuelTemperature/@Result='Pass'and 
+                                        //EmissionsCheckFuelRailPressure/@Result='Pass'and 
+                                        //EmissionsCheckIntakeAirFlow/@Result='Pass'and 
+                                        //EmissionsCheckMainInjectionTiming/@Result='Pass'and 
+                                        //EmissionsCheckPumpLearningStatus/@Result='Pass'and 
+                                        //EmissionsCheckPumpLearningValue/@Result='Pass'and 
+                                        //EmissionsCheckRequestedRPM/@Result='Pass'and 
+                                        //EmissionsCheckSVCCurrentValue/@Result='Pass'and 
+                                        //EmissionsCheckTurboBoostPressure/@Result='Pass'and 
+                                        //EmissionsDifferentialPressure/@Result='Pass'and 
+                                        //EmissionsSetup/@Result='Pass'and 
+                                        //EmissionsWaitForEngineRunning/@Result='Pass'">
+                            <i><xsl:text>Pass</xsl:text></i>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <i><xsl:text>Fail</xsl:text></i>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </td>
-                <td align="center">
-                </td>				
-				<td align="center">
-				</td>
+			</tr>
+
+            <!--MAF Learn-->
+            <tr>
+				<td width="20"/>
+				<td align="right">MAF Learn</td>
+				<td align="center" colspan="4"></td>
 				<td align="center">
 					<xsl:call-template name="showResult">
-						<xsl:with-param name="RESULT" select="//EmissionsClearFaults/@Result"/>
+						<xsl:with-param name="RESULT" select="//EmissionsMAFLearn/@Result"/>
 					</xsl:call-template>
 				</td>
 			</tr>
-			
+
+            <!-- DPD Switch Check-->
+			<tr>
+				<td width="20"/>
+				<td align="right">DPD Switch Check</td>
+                <td/>
+                <td align="center">Off
+                </td>
+                <td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsDPDSwitchCheck/DPDSwitchOff"/>
+					</xsl:call-template>
+                </td>
+                <td align="center">On
+				</td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsDPDSwitchCheck/DPDSwitchOn"/>
+					</xsl:call-template>
+				</td>
+			</tr>
+
+            <!-- DCU Inspection-->
+            <xsl:call-template name="sectionSpacer"/>
+            <tr>
+                <th width="20" align="left">DCU Inspection</th>
+                <td align="right">Check DTC</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//DCUReadFaults/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th width="20" align="left"></th>
+                <td align="right">Clear DTC</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//DCUClearFaultsFinal/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            
+
+            <!-- MEC Lock-->
+            <tr>
+                <td width="20" ></td>
+                <td align="right">MEC Lock</td>
+                <td align="center" colspan="4"></td>
+                <td></td>
+                
+            </tr>
+
+            <xsl:call-template name="sectionSpacer"/>
+            <!--Mimamori Results-->
+            <tr>
+                <th width="20" align="left">Mimamori Inspection</th>
+                <td align="right">Total Mileage</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//MimamoriCheckTotalMileage/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            
+            <tr>
+                <th width="20" align="left"></th>
+                <td align="right">Fuel Economy</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//MimamoriCheckFuelEconomy/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th width="20" align="left"></th>
+                <td align="right">Data Record Memory</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//MimamoriCheckDataRecordMemory/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th width="20" align="left"></th>
+                <td align="right">Check Engine Oil</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//MimamoriCheckOilTemperature/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th width="20" align="left"></th>
+                <td align="right">Check DTC</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//MimamoriReadFaults/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th width="20" align="left"></th>
+                <td align="right">Clear DTC</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//MimamoriClearFaults/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th width="20" align="left"></th>
+                <td align="right">Clear History</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//MimamoriClearHistory/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th width="20" align="left"></th>
+                <td align="right">MEC Lock</td>				
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//MimamoriMECLock/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+
+
         </table>
             
         <!-- DTC Table -->

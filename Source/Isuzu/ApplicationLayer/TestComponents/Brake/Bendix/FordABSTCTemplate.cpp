@@ -287,6 +287,8 @@ const string FordABSTCTemplate<ModuleType>::CommandTestStep(const string &value)
         else if ("ABSHSSensorTest" == step)              status = HSSensorTest(); //MAM 2/28/07
         else if ("HighSpeedSensorTest" == step)          status = HighSpeedSensorTest();
         else if ("SBAHighSpeedSensorTest" == step)       status = SBAHighSpeedSensorTest();
+        else if ("FrontIndividualSensorTest" == step)    status = IndividualSensorTest();
+        else if ("RearIndividualSensorTest" == step)     status = IndividualSensorTest();
         else if ("IndividualSensorTest" == step)         status = IndividualSensorTest();
         // This is to command the ABS module to perform its built-in ABS valve sequence
         else if ("ExecuteAbsRollTestSequence" == step)   status = ExecuteAbsRollTestSequence();
@@ -408,8 +410,9 @@ const string FordABSTCTemplate<ModuleType>::CommandTestStep(const string &value)
         else if (step == "CheckPartNumber")             status = CheckPartNumber();
         else if (step == "EvaluateFrontAbs")            status = EvaluateABS("Front");
         else if (step == "EvaluateRearAbs")             status = EvaluateABS("Rear");
-        else if (step == "FrontValveCycleTest")              status = ValveCycleTorqueTest("Forward", "Front");
-        else if (step == "RearValveCycleTest")              status = ValveCycleTorqueTest("Forward", "Rear");
+        else if (step == "FrontValveCycleTest")         status = ValveCycleTorqueTest("Forward", "Front");
+        else if (step == "RearValveCycleTest")          status = ValveCycleTorqueTest("Forward", "Rear");
+        else if (step == "AccelerateVehicleToSpeed")    status = AccelerateVehicleToSpeed();
         // Since it's not a test step we've defined, call the parent
         else                                            status = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
     }
@@ -457,10 +460,8 @@ string FordABSTCTemplate<VehicleModuleType>::PedalTravelCheck()
     {
         Log(LOG_DEV_DATA, "ReadPedalTravel response = %2X %2X %2X %2X %2X\n",
             response[0], response[1], response[2], response[3], response[4]);
-        //travelDistance = (short)response[2];
         travelDistance = (short)response[3]; //MAM 10/29/08
         travelDistance = travelDistance << 8;
-        //travelDistance = travelDistance + response[3];
         travelDistance = travelDistance + response[4]; //MAM 10/29/08
         Log(LOG_DEV_DATA, "travelDistance = %d\n", travelDistance);
 
@@ -478,10 +479,8 @@ string FordABSTCTemplate<VehicleModuleType>::PedalTravelCheck()
                 status = m_vehicleModule.GetInfo( GetDataTag("ReadPedalTravel"), response );
                 if (status == BEP_STATUS_SUCCESS)
                 {
-                    //travelDistance = (short)response[2];
                     travelDistance = (short)response[3];
                     travelDistance = travelDistance << 8;
-                    //travelDistance = travelDistance + response[3];
                     travelDistance = travelDistance + response[4];
                     Log(LOG_DEV_DATA, "looptravelDistance = %d\n", travelDistance);
                 }
@@ -498,8 +497,6 @@ string FordABSTCTemplate<VehicleModuleType>::PedalTravelCheck()
             if (travelDistance >= 1000)
             {
                 Log(LOG_DEV_DATA, "PedalTravelCheck loop timed out.  Driver did not remove foot from brake\n");
-                //testResult = testFail;
-                //SendSubtestResultWithDetail( GetTestStepName(), testResult, GetTestStepInfo("Description"), GetFaultCode("BrakeSwitchActiveFault"));
             }
         }
     }
@@ -1091,10 +1088,6 @@ string FordABSTCTemplate<ModuleType>::EvaluateSBA(void)
 
     Log(LOG_DEV_DATA, "Validate Brake Forces: result = %s\n", brakeForceResult.c_str());
 
-    //MAM 10/29/08 - only perform valve cross check if force check passed
-    //MAM 10/30/08 - Also make sure there's no brake application fault. Note: m_brakeApplicationFault
-    //is cleared at the beginning of ValveFiringTest().
-    //if (testPass == brakeForceResult)
     if ((testPass == brakeForceResult)&&(false == m_brakeApplicationFault))
     {
 
@@ -1124,11 +1117,6 @@ string FordABSTCTemplate<ModuleType>::EvaluateSBA(void)
     }
     Log(LOG_DEV_DATA, "Valve Cross Results: %s\n", valveCrossResult.c_str());
 
-    //if the valve cross check passed, see if the sensor cross check failed
-    //if (testPass == valveCrossResult)
-    //MAM 10/29/08 - if the valve cross check passed AND the force check passed, see if the sensor cross check failed
-    //MAM 10/30/08 - Also make sure there's no brake application fault
-    //if ((testPass == valveCrossResult)&&(testPass == brakeForceResult))
     if ((testPass == valveCrossResult)&&(testPass == brakeForceResult)&&(false == m_brakeApplicationFault))
     {
         for ( ii=LFWHEEL; ii<rollCount; ii++)
@@ -1151,8 +1139,6 @@ string FordABSTCTemplate<ModuleType>::EvaluateSBA(void)
             SendSubtestResultWithDetail("RFSensorCross", testPass, "RF Sensor Cross","0000");
         }
         //if the force check failed, clear sensor cross faults AND valve cross faults
-        //MAM 10/30/08 - Also make sure there's no brake application fault
-        //if (testFail == brakeForceResult)
         if ((testFail == brakeForceResult)||(true == m_brakeApplicationFault))
         {
             Log(LOG_DEV_DATA, "Brake force and/or application fault detected - clearing all sensor and valve cross faults\n");
@@ -1186,9 +1172,7 @@ string FordABSTCTemplate<ModuleType>::EvaluateSBA(void)
     }
     Log(LOG_DEV_DATA, "EvaluateSBA: hsSensorResult = %s\n", hsSensorResult.c_str());
 
-    // Determine the overall result of the testing
-    //testResult = ((valveCrossResult == testPass) && (brakeForceResult == testPass))? testPass : testFail;  //update later
-    //MAM 10/30/08 - Added check for brake application fault and drag test pass   
+    // Determine the overall result of the testing 
     testResult = ((valveCrossResult == testPass)&&(brakeForceResult == testPass)&&
                   (sensorCrossResult == testPass)&&(hsSensorResult == testPass)&&
                   (false == m_brakeApplicationFault)&&(true == m_dragTestPassed))? testPass : testFail;    
@@ -1212,14 +1196,6 @@ string FordABSTCTemplate<ModuleType>::EvaluateSBA(void)
         clearDidStatus = ClearStatusDID();
         Log(LOG_DEV_DATA, "Result of clearing statusDID: %s\n", clearDidStatus.c_str());
     }
-
-    /*
-    // Report the results of the test
-    SendTestResultWithDetail(testResult, testDescription, testResultCode,
-                                 "OverallReduction", overallRedux, "",
-                                 "OverallRecovery", overallRecov, "",
-                                 "OverallValveCross", valveCrossResult, "");
-    */ 
 
     SendTestResultWithDetail(testResult, testDescription, testResultCode,                                 
                              "OverallRecovery", brakeForceResult, "",
@@ -1245,9 +1221,6 @@ INT32 FordABSTCTemplate<ModuleType>::ValidateSBABrakeForces(float *forceVal)
 
     for (ii=0; ii<4; ii++)
     {
-        // read the parameters
-        //float minBrakeForce = (ii < 2) ? GetTestStepInfoFloat("FrontMinBrakeForce") : GetTestStepInfoFloat("RearMinBrakeForce");
-        //float maxBrakeForce = (ii < 2) ? GetTestStepInfoFloat("FrontMaxBrakeForce") : GetTestStepInfoFloat("RearMaxBrakeForce");
         float minBrakeForce = (ii < 2) ? GetParameterFloat("FrontMinBrakeForce") : GetParameterFloat("RearMinBrakeForce");
         float maxBrakeForce = (ii < 2) ? GetParameterFloat("FrontMaxBrakeForce") : GetParameterFloat("RearMaxBrakeForce");        
 
@@ -1279,12 +1252,6 @@ INT32 FordABSTCTemplate<ModuleType>::ValidateSBABrakeForces(float *forceVal)
         string faultDesc = (testResult == testPass ? "Brake Force Recovery Test" : GetFaultDescription(faultTag));
         // send the test results to the TestResultServer
         SendSubtestResultWithDetail(rollerName[ii] + "ABSRecovery", testResult, faultDesc, testResultCode);
-        //SendSubtestResultWithDetail(rollerName[ii] + "ABSRecovery", testResult, faultDesc, testResultCode,
-        //                          rollerName[ii] + "ABSRecoveryValue", forceVal[ii], "LBF",                               
-        //rollerName[roller] + "RecoveryMinPercent", GetParameter(rollerName[roller]+"MinRecoveryPercent"), "Percent");
-        //                            rollerName[ii] + "RecoveryMinValue", minBrakeForce, "LBF");
-
-        ///*
     }    
 
     Log(LOG_FN_ENTRY, "Exit FordABSTCTemplate::ValidateSBABrakeForces\n");
@@ -1308,12 +1275,7 @@ INT32 FordABSTCTemplate<ModuleType>::ValidateSBAReductionForces(float *forceMin,
     Log(LOG_FN_ENTRY, "Enter FordABSTCTemplate::ValidateSBAReductionForces\n");        
 
     for (ii=0; ii<4; ii++)
-    {
-        // read the parameters
-        //float minBrakeForce = (ii < 2) ? GetTestStepInfoFloat("FrontMinBrakeForce") : GetTestStepInfoFloat("RearMinBrakeForce");
-        //float maxBrakeForce = (ii < 2) ? GetTestStepInfoFloat("FrontMaxBrakeForce") : GetTestStepInfoFloat("RearMaxBrakeForce");
-        //float minBrakeForce = (ii < 2) ? GetParameterFloat("FrontMinBrakeForce") : GetParameterFloat("RearMinBrakeForce");
-        //float maxBrakeForce = (ii < 2) ? GetParameterFloat("FrontMaxBrakeForce") : GetParameterFloat("RearMaxBrakeForce");        
+    {       
 
         Log(LOG_DEV_DATA, "ValidateSBAReductionForces: wheel= %d, forceMin= %f, forceMax = %f\n", ii, forceMin[ii], forceMax[ii]);
 
@@ -1360,10 +1322,6 @@ INT32 FordABSTCTemplate<ModuleType>::ValidateSBAReductionForces(float *forceMin,
             color = "Red";
             testResult = testFail;
         }        
-
-        // update the result and the background color of the result on the GUI
-        //SystemWrite(GetDataTag(rollerName[ii] + "ForceValue"), forceVal[ii]);
-        //SystemWrite(GetDataTag(rollerName[ii] + "ForceBGColor"), color);
 
         SystemWrite(GetDataTag(rollerName[ii] + "ABSReductionValue"), reductionPercent);                    
         SystemWrite(GetDataTag(rollerName[ii] + "ABSReductionBGColor"), color);
@@ -1574,8 +1532,6 @@ string FordABSTCTemplate<ModuleType>::EvaluateABS(std::string axle)
             if (BEP_STATUS_SUCCESS != moduleStatus)
             {
                 Log(LOG_ERRORS, "EvaluateABS - Error setting StatusDID to PASS\n");
-                //even though we passed the brake evaluation, we can't pass if we can't set the status DID
-                //status = BEP_FAIL_RESPONSE;
                 status = testFail; //set comm fault here??????????????????
             }
         }
@@ -1741,9 +1697,6 @@ INT32 FordABSTCTemplate<ModuleType>::FindReductionPoint( const DATAARRAY &forceD
 
                 // The real start index is 'n' samples ago
                 startIdx = ii - sampleDelta;
-                //MAM 4/19/07 - If startIdx equals zero when we return to EvaluateABS(), this indicates that
-                // we failed to locate the reduction index and the test fails.
-                //if ( startIdx < 0)   startIdx = 0;
                 if ( startIdx <= 0)   startIdx = 1;
 
                 Log( LOG_DEV_DATA, "Found reduction start at sample #%d\n", startIdx);
@@ -1775,43 +1728,6 @@ INT32 FordABSTCTemplate<ModuleType>::FindReductionPoint( const DATAARRAY &forceD
     return( retVal);
 }
 
-/*
-template <class ModuleType>
-INT32 FordABSTCTemplate<ModuleType>::FindReductionPoint( const DATAARRAY &forceData, INT32 &startIdx, INT32 &endIdx)
-{
-    INT32       retVal = -1;    
-    INT32       ii=0;
-    const INT32 samples = endIdx - startIdx;
-    float       minForce = 999.0;
-
-    Log( LOG_FN_ENTRY, "Enter FordABSTCTemplate::FindReductionPoint startIndex=%d, endIndex=%d, samples=%d\n", startIdx, endIdx, samples);
-
-    // Make sure we have enough data to analyze    
-    if ( samples > 0)
-    {
-        // Look for min point        
-        for ( ii=startIdx; ii<endIdx; ii++)
-        {
-            if ( forceData[ ii] <= minForce)
-            {
-                Log( LOG_DEV_DATA, "Found new min brake force at sample #%d: %.2f\n", ii, forceData[ ii]);
-                minForce = forceData[ ii];
-                endIdx = retVal = ii;
-            }
-        }        
-    }
-    else
-    {
-        //Log( LOG_ERRORS, "Too few data points in FindReductionPoint(): %d < %d\n", samples, sampleDelta);
-        Log( LOG_ERRORS, "Too few data points in FindReductionPoint(): %d\n", samples);
-    }
-    Log( LOG_FN_ENTRY, "Exit FordABSTCTemplate::FindReductionPoint startIndex=%d, endIndex=%d\n", startIdx, endIdx);
-
-    return( retVal);
-}
-
-*/
-
 template <class ModuleType>
 INT32 FordABSTCTemplate<ModuleType>::FindMinForcePoint( INT32 wheelIndex, const DATAARRAY &forceData, 
                                                         INT32 &startIdx, INT32 &endIdx, float *minForce)
@@ -1829,14 +1745,6 @@ INT32 FordABSTCTemplate<ModuleType>::FindMinForcePoint( INT32 wheelIndex, const 
     Log( LOG_FN_ENTRY, "Enter FordABSTCTemplate::FindMinForcePoint: wheel= %d, startIdx= %d, endIdx= %d, samples=%d\n", 
          wheelIndex, startIdx, endIdx, samples);
 
-    //MAM 8/11/08
-    //minForce[wheelIndex] = 999.0;
-    // Get the Wheel Force Array Data For a Single Wheel
-    //m_baseBrakeTool->GetWheelForceArray(wheelIndex,tempDataArray);
-
-    //The forceData array passed in is zero based, so the actual start index is invalid
-    //minIdx = startIdx = endIdx = 1;
-    //MAM 10/30/08
     startIdx = startIdx - m_absStartIndex;
     endIdx = startIdx + samples;
 
@@ -1848,11 +1756,8 @@ INT32 FordABSTCTemplate<ModuleType>::FindMinForcePoint( INT32 wheelIndex, const 
         for ( ii=startIdx; ii<endIdx; ii++)
         {
             forceSample = forceData[ii];
-            //Log( LOG_DEV_DATA, "FindMinForcePoint: minForce= %.2f forceSample= %.2f\n", minForce[wheelIndex], forceSample);
-            //if ( forceSample <= minForce[wheelIndex]) //MAM 8/11/08
             if ( forceSample <= minForceVal)
             {
-                //minForce[wheelIndex] = forceSample;  //MAM 8/11/08
                 minForceVal = forceSample;
                 minIdx = ii;                
                 retVal = minIdx;
@@ -2004,31 +1909,8 @@ BEP_STATUS_TYPE FordABSTCTemplate<VehicleModuleType>::AnalyzeValveCross(void)
                 forceData.clear();
                 m_baseBrakeTool->GetWheelForceArray( ii, forceData);
 
-                //MAM 3/18/11
-                //if (GetParameterBool("RearValvesFirst"))
-                //MAM 2/13/13 - look at start/stop for each wheel for both 2WD and AWD (AWD fires valve rear first)
-                //if (rearfirst)
-                //{
                 startIndex = m_reduxRecovIndex[ii].reductionStart; //MAM 4/5/11                    
                 endIndex = m_reduxRecovIndex[ii].reductionEnd;                    
-                //}
-                //else
-                //{
-                //    startIndex = m_reduxRecovIndex[LFWHEEL].reductionStart;
-                //    endIndex = m_reduxRecovIndex[RRWHEEL].reductionEnd;
-                //}                
-
-                //MAM 3/29/10 - m_valveCrossEnd values reset to zero at beginning of Ford ValveFiringTest() and set during
-                //Reduction() and Recovery() routines based on "ValveCrossSpeedCheck" parameter. 
-                //if (m_valveCrossEnd[ii] != 0)
-                //MAM 11/3/11 - The valve cross check is not the same when rear valves fired first at this time. 
-                //This will probably change in the future.
-
-                //MAM 2/13/13 - no longer use valve crosss speed check and m_valveCrossEnd
-                //if ((m_valveCrossEnd[ii] != 0)&&(!rearfirst))
-                //{
-                //    endIndex = m_valveCrossEnd[ii];                    
-                //}
 
                 Log( LOG_DEV_DATA, "wheel %d: startIndex = %d endIndex = %d \n", ii, startIndex, endIndex);
                 Log( LOG_DEV_DATA, "Finding min force point \n");
@@ -2086,16 +1968,6 @@ BEP_STATUS_TYPE FordABSTCTemplate<VehicleModuleType>::AnalyzeValveCross(void)
                     }
                     rrcrPass = true;
                 }
-                /*
-                else
-                {
-                    Log(LOG_DEV_DATA, "FordABSTCTemplate: Performing Normal Valve Cross Check\n");
-                    lfcrPass = AnalyzeLFValveCrossNew(minIndex);
-                    rfcrPass = AnalyzeRFValveCrossNew(minIndex);
-                    lrcrPass = AnalyzeLRValveCrossNew(minIndex);
-                    rrcrPass = true;
-                }
-                */
 
             }
             else
@@ -2740,9 +2612,6 @@ bool FordABSTCTemplate<ModuleType>::AnalyzeRFValveCrossFrontFirst(INT32 *minInde
 
     Log( LOG_DEV_DATA, "RF valve cross check force values: LF %2.2f, RF %2.2f, LR %2.2f, RR %2.2f \n",
          LFforce, RFforce, LRforce, RRforce);
-
-    //I assume that the left front valve cross check has already checked for LF/RF cross
-    //so I'm skipping that.
 
     //RF force should be lower than other forces at the RF min index point           
     // Check for RF crossed with LR
@@ -3520,16 +3389,10 @@ string FordABSTCTemplate<ModuleType>::TestStepNeutral()
                         //MAM 3/8/12 - Use all 4 wheels for awd average accel/decel rate
                         Log( LOG_DEV_DATA, "TestStepNeutral: DriveAxle= RWD %d FWD %d AWD %d\n",rearWd, frontWd, allWd);
                         // Calculate the average drive axle accel rate
-                        //if ( rearWd)     avgAccel = (accelRate[2] + accelRate[3])/2;
-                        //else            avgAccel = (accelRate[0] + accelRate[1])/2;
                         if ( rearWd)     avgAccel = (whlDecel[2] + whlDecel[3])/2;
                         else if ( frontWd)    avgAccel = (whlDecel[0] + whlDecel[1])/2;
                         else  avgAccel = (whlDecel[0] + whlDecel[1] + whlDecel[2] + whlDecel[3])/4;
 
-                        //MAM 8/17/10 - commented out log statement below because this was the last complete
-                        //statement before an ICM lockup.                       
-                        //Log( LOG_DEV_DATA, "TestStepNeutral: Accel=%.3f (%.3f, %.3f, %.3f, %.3f), Limit: < %.3f\n",
-                        //     avgAccel, accelRate[0], accelRate[1], accelRate[2], accelRate[3], neutralDecel);
                         Log( LOG_DEV_DATA, "TestStepNeutral: Decel=%.3f (%.3f, %.3f, %.3f, %.3f), Limit: < %.3f\n",
                              avgAccel, whlDecel[0], whlDecel[1], whlDecel[2], whlDecel[3], neutralDecel);
                     }
@@ -4164,9 +4027,6 @@ const std::string FordABSTCTemplate<ModuleType>::ParkPawlTorqueTest(const std::s
         //if not performing mechanical driver influence check        
         if (1 == DontTurnRolls)
         {
-            //status = ParkBrakePawlInit(); //this actually checks the BOO switch
-            //status = ParkBrakePawlPedalCheck();
-            //if ( false == GetParameterBool( "ParkPawlDriverInfluenceSkip")) //MAM 5/12/11
             if ( true == GetParameterBool( "ParkPawlPedalCheck"))
             { //MAM 5/12/11
                 //MAM 8/13/11                
@@ -4354,9 +4214,6 @@ const std::string FordABSTCTemplate<ModuleType>::PerformPBTorqueTest(const std::
             }
 
         }
-        //if ( BEP_STATUS_SUCCESS == status)????
-        //MAM 9/24/14
-        //BposSleep(500); // wait 1/2 second
     }
 
     // Make sure we clear the speed/torque command values
@@ -4433,8 +4290,8 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
     bool        brakeOn = false;
     int         driverDelayTime = GetParameterInt("ValveCycleDriverDelay");
     bool        pedalCheckFail = false;
-    bool        lfrfCross, lflrCross, lfrrCross = false;
-    bool        rflrCross, rfrrCross = false;
+    bool        lfrfCross/*, lflrCross, lfrrCross */= false;
+    //bool        rflrCross, rfrrCross = false;
     bool        lrrrCross = false;
     bool        valveCrossDetected = false;
 
@@ -4494,7 +4351,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
         {
             Log( LOG_DEV_DATA, "BrakeSwitch OFF detected at start of ValveCycleTorqueTest()\n");
             Log( LOG_DEV_DATA, "Prompting driver to apply brake\n");
-            DisplayPrompt(1,"DepressBrake");
+            DisplayPrompt(1,"ApplyBrake");
             status = StatusSleep(driverDelayTime);          
         }
 
@@ -4544,7 +4401,7 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
             {
                 Log( LOG_DEV_DATA, "BrakeSwitch OFF detected during ValveCycleTorqueTest()\n");
                 Log( LOG_DEV_DATA, "Prompting driver to apply brake\n");
-                DisplayPrompt(1,"DepressBrake");
+                DisplayPrompt(1,"ApplyBrake");
                 //give driver time to apply brake
                 status = StatusSleep(driverDelayTime);
                 //check again
@@ -4584,16 +4441,6 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
                 lfrfCross = true;
                 valveCrossDetected = true;
             }
-            if (totalDistance.lrWheel > totalDistance.lfWheel)
-            {
-                lflrCross = true;
-                valveCrossDetected = true;                
-            }
-            if (totalDistance.rrWheel > totalDistance.lfWheel)
-            {
-                lfrrCross = true;
-                valveCrossDetected = true;
-            }
 
             Log(LOG_DEV_DATA, "CycleValves LF OFF\n");
             status = m_vehicleModule.GetInfo( GetDataTag("CycleValves1Stop") );
@@ -4611,19 +4458,6 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
                 GetTotalDistances( totalDistance, m_valveCycleDistances[ 0], m_valveCycleDistances[ 1]);            
                 Log(LOG_DEV_DATA, "The distances traveled #2: %.2f, %.2f, %.2f, %.2f \n",
                     totalDistance.lfWheel, totalDistance.rfWheel, totalDistance.lrWheel, totalDistance.rrWheel);            
-                if (false == valveCrossDetected)
-                {
-                    if (totalDistance.lrWheel > totalDistance.rfWheel)
-                    {
-                        rflrCross = true;
-                        valveCrossDetected = true;
-                    }
-                    if (totalDistance.rrWheel > totalDistance.rfWheel)
-                    {
-                        rfrrCross = true;
-                        valveCrossDetected = true;
-                    }
-                }
 
                 Log(LOG_DEV_DATA, "CycleValves RF OFF\n");
                 status = m_vehicleModule.GetInfo( GetDataTag("CycleValves2Stop") );
@@ -4745,39 +4579,6 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
                                         GetFaultName("LeftFrontValveCrossedWithRightFront"),
                                         GetFaultDescription("LeftFrontValveCrossedWithRightFront"));
         }
-        if (true == lflrCross)
-        {
-
-            SendSubtestResultWithDetail("LFValveCross", testFail, "LF Valve Cross",
-                                        GetFaultCode("LeftFrontValveCrossedWithLeftRear"),
-                                        GetFaultName("LeftFrontValveCrossedWithLeftRear"),
-                                        GetFaultDescription("LeftFrontValveCrossedWithLeftRear"));
-        }
-        if (true == lfrrCross)
-        {
-
-            SendSubtestResultWithDetail("LFValveCross", testFail, "LF Valve Cross",
-                                        GetFaultCode("LeftFrontValveCrossedWithRightRear"),
-                                        GetFaultName("LeftFrontValveCrossedWithRightRear"),
-                                        GetFaultDescription("LeftFrontValveCrossedWithRightRear"));
-        }
-        //right front        
-        if (true == rflrCross)
-        {
-
-            SendSubtestResultWithDetail("RFValveCross", testFail, "RF Valve Cross",
-                                        GetFaultCode("RightFrontValveCrossedWithLeftRear"),
-                                        GetFaultName("RightFrontValveCrossedWithLeftRear"),
-                                        GetFaultDescription("RightFrontValveCrossedWithLeftRear"));
-        }
-        if (true == rfrrCross)
-        {
-
-            SendSubtestResultWithDetail("RFValveCross", testFail, "RF Valve Cross",
-                                        GetFaultCode("RightFrontValveCrossedWithRightRear"),
-                                        GetFaultName("RightFrontValveCrossedWithRightRear"),
-                                        GetFaultDescription("RightFrontValveCrossedWithRightRear"));
-        }
         //rear        
         if (true == lrrrCross)
         {
@@ -4798,7 +4599,8 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
 
     // command the motor controller to boost mode
     SystemCommand(MOTOR_MODE, string(BOOST_MODE));
-    RemovePrompt(1,"DepressBrake");
+    RemovePrompt(1,"ApplyBrake");
+    RemovePrompt(2,"ABSTest");
 
     Log(LOG_FN_ENTRY, "Exit FordABSTCTemplate::ValveCycleTorqueTest(%s), result=%s\n", direction.c_str(), testStatus.c_str());
 
@@ -4907,15 +4709,10 @@ INT32 FordABSTCTemplate<ModuleType>::SBAParkBrakePawlInit()
             }
 
             //if brake not on
-            //Not setting a fault for timeout.
-            //if ( (BEP_STATUS_SUCCESS == status) && (false == brakeOn) && (true == TimeRemaining()))
             if ( (BEP_STATUS_SUCCESS == status) && (false == brakeOn))
             {
                 // Reset the brake switch on/off status
                 m_vehicleModule.ClearBrakeSwitchStatus();
-                //NOT starting the brake monitor
-                // Try to start the switch monitor thread
-                //status = m_vehicleModule.StartSwitchMonitor();
             }
             else if (true == brakeOn)
             { // If brake switch stayed on
@@ -4924,12 +4721,6 @@ INT32 FordABSTCTemplate<ModuleType>::SBAParkBrakePawlInit()
                 m_vehicleModule.SetBrakeSwitchStatusOn();
                 //Driver influence fault is set in AnalyzeParkPawlDriverInfluence()                
             }
-            //else if ( false == TimeRemaining())
-            //{
-            //    Log( LOG_ERRORS, "Timeout error during SBAParkBrakePawlInit()\n");
-            //    status = BEP_STATUS_TIMEOUT;
-            //    testResult = testFail;
-            //}
             else
             { //status value is fail
                 Log( LOG_ERRORS, "Error reading brake switch status during SBAParkBrakePawlInit()\n");
@@ -4980,18 +4771,8 @@ const std::string FordABSTCTemplate<ModuleType>::AnalyzeParkPawlTest()
         // distances on a hydraulic machine
         else
         {
-            //MAM 7/1/10 - These bits have already been evaluated and cleared, so this
-            //just produces false failures.
-            //if ((ReadSubscribeData( GetDataTag("ParkPawlTestPass")) == "1") &&
-            //    (ReadSubscribeData( GetDataTag("ParkPawlTestFail")) == "0"))
-            //{
             testStatus = testPass;  // set test step status to pass
             Log(LOG_DEV_DATA, "FordABSTCTemplate::AnalyzeParkPawlTest() Not validating 360 PLC results: testStatus = testPass \n");
-            //}
-            //else
-            //{
-            //    testStatus = testFail;  // set test step status to fail
-            //}
         }
     }
     else
@@ -5273,11 +5054,6 @@ string FordABSTCTemplate<ModuleType>::LSSensorTest(void)
     const UINT32 rollerCount = GetRollerCount();
     //float   armSpeed = GetParameterFloat( "HighSpeedSensorTestTargetSpeed");
     //const float promptSpeed( GetParameterFloat( "HighSpeedSensorTestPromptSpeed"));  //MAM 7/12/10
-    //float   wheelSpeeds[ rollerCount];
-    //float   targetSpeed=armSpeed, minSpeed=200.0, maxSpeed=0.0;
-    //char    speedTarget[ 128];
-    //int     ii;    
-
     //copied from GenericABSTCTemplate.cpp SensorTest()
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     string testResult      = BEP_TESTING_STATUS;
@@ -5294,24 +5070,8 @@ string FordABSTCTemplate<ModuleType>::LSSensorTest(void)
     //initialize pass flag to pass in case test step skipped
     m_hsSensorPass = true;
 
-    // Copy high speed sensor test ArmSpeed parameters into the test step info
-    //CopyParamToTestStepInfo( "ArmSpeed", armSpeed);
-    //CopyParamToTestStepInfo( "Prompt1Value1", armSpeed);
-    //CopyParamToTestStepInfo( "HighSpeedSensorTestTargetSpeedRange", std::string( speedTarget));
-    //MAM 7/12/10 - Use "BrakePromptSpeed" parameter for driver prompt speed if available
-    /*
-    if (promptSpeed > 0)
-    {
-        CopyParamToTestStepInfo( "Prompt1Value1", promptSpeed);
-    }
-    else
-    {
-        CopyParamToTestStepInfo( "Prompt1Value1", armSpeed);
-    }
-      */
 
     UpdatePrompts();
-    //testResult = GenericABSTCTemplate<ModuleType>::HighSpeedSensorTest();
 
     if (!ShortCircuitTestStep())
     {
@@ -5331,12 +5091,7 @@ string FordABSTCTemplate<ModuleType>::LSSensorTest(void)
                                                                      GetParameterInt(GetTestStepName()+"SteadySpeedTimeout"),
                                                                      GetParameterFloat(GetTestStepName()+"MinSteadyWheelSpeed"), 
                                                                      GetParameterFloat(GetTestStepName()+"MaxSteadyWheelSpeed"));
-
-                // Rolls Speed in range, Wait for some steady samples
-                //DisplayPrompt("1",GetParameter("HoldThrottleSteadyPrompt"), 0);
-                //GenericABSTCTemplate<ModuleType>::WaitForSteadySpeed(GetParameterInt("HighSpeedSensorTestSteadySpeedSamples"), GetParameterInt("HighSpeedSensorTestSteadySpeedTimeout"),
-                //                                                     GetParameterFloat("HighSpeedSensorTestMinSteadyWheelSpeed"), GetParameterFloat("HighSpeedSensorTestMaxSteadyWheelSpeed"));
-
+                                                                                                                                                                                                 
                 // Get the initial roller speeds
                 status = (BEP_STATUS_TYPE)m_baseBrakeTool->GetISpeeds(initialRollerSpeeds);
                 if (BEP_STATUS_SUCCESS == status)
@@ -5467,180 +5222,6 @@ string FordABSTCTemplate<ModuleType>::LSSensorTest(void)
     return( testResult);
 }
 
-/*template <class VehicleModuleType>
-string FordABSTCTemplate<VehicleModuleType>::SensorTest(void)
-{
-    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-    string testResult      = BEP_TESTING_STATUS;
-    string testResultCode = "0000";
-    string testDescription = GetTestStepInfo("Description");
-    string wheelResult[GetRollerCount()];
-    float initialRollerSpeeds[GetRollerCount()];
-    float finalRollerSpeeds[GetRollerCount()];
-    WheelSpeeds_t moduleSpeeds;
-    //Log(LOG_DEV_DATA, "%s::%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
-    Log(LOG_FN_ENTRY, "Enter FordABSTCTemplate::SensorTest \n");
-    // Determine if this test should be performed
-    if (!ShortCircuitTestStep() && (testPass != GetTestStepResult()) && (testSkip != GetTestStepResult()))
-    {
-        try
-        {   // Wait for the vehicle to be in speed range
-            string speedCheck = AccelerateToTestSpeed(GetParameterFloat(GetTestStepName()+"TargetSpeed"),
-                                                      GetParameter(GetTestStepName()+"TargetSpeedRange"),
-                                                      GetParameterInt(GetTestStepName()+"TargetSpeedScanDelay"), false);
-            // Check if the speed range has been achieved
-            if (testPass == speedCheck)
-            {   // Rolls Speed in range, Wait for some steady samples
-                if (GetParameterBool("DiplayOperatorInstructions") && GetTestStepName() == "HighSpeedSensorTest")
-                {
-                    DisplayPrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"), "White");
-                }
-                WaitForSteadySpeed(GetParameterInt(GetTestStepName()+"SteadySpeedSamples"), 
-                                   GetParameterInt(GetTestStepName()+"SteadySpeedTimeout"),
-                                   GetParameterFloat(GetTestStepName()+"MinSteadyWheelSpeed"), 
-                                   GetParameterFloat(GetTestStepName()+"MaxSteadyWheelSpeed"));
-                if (GetParameterBool("DiplayOperatorInstructions") && GetTestStepName() == "HighSpeedSensorTest")
-                {
-                    RemovePrompt(GetPromptBox("MaintainSpeed"), GetPrompt("MaintainSpeed"), GetPromptPriority("MaintainSpeed"));
-                }
-
-                // Monitor sensor speeds to give them time to match the rolls speed
-                if (GetParameterBool(GetTestStepName()+ "WaitForStableSensors"))
-                {   // Due to module sensor lagging actual wheel speeds, wait for the module to catch up.
-                    DisplayPrompt(GetPromptBox("MaintainSpeed"),GetPrompt("MaintainSpeed"),GetPromptPriority("MaintainSpeed"));
-                    // Wait for sensor speeds to be within allowed tolerance "devaition" from rolls wheel speeds
-                    WaitForStableSensorSpeeds(GetParameterInt(GetTestStepName()+"StableSensorSamples"), 
-                                              GetParameterInt(GetTestStepName()+"StableSensorTimeout"),
-                                              GetParameterFloat(GetTestStepName()+"Tolerance"));
-                    // Remove maintain speed prompt
-                    RemovePrompt(GetPromptBox("MaintainSpeed"),GetPrompt("MaintainSpeed"),GetPromptPriority("MaintainSpeed"));
-                }
-                // Get the initial roller speeds
-                status = (BEP_STATUS_TYPE)m_baseBrakeTool->GetISpeeds(initialRollerSpeeds);
-                // Check the status of obtaining the roller speeds
-                if (BEP_STATUS_SUCCESS == status)
-                {   // Got initial roller speeds, now get the module wheel speed readings
-                    status = m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds);
-                    // Check the status of the module read
-                    if (BEP_STATUS_SUCCESS == status)
-                    {   // Good read, get the final roller speeds
-                        status = (BEP_STATUS_TYPE)m_baseBrakeTool->GetISpeeds(finalRollerSpeeds);
-                        // Check the status of obtaining the roller speeds
-                        if (BEP_STATUS_SUCCESS == status)
-                        {   // Good read, evaluate the sensors readings.
-                            for (UINT32 wheelIndex = 0; wheelIndex < GetRollerCount(); wheelIndex++)
-                            {   // Calculate the upper and lower wheel speed limits
-                                float averageRollerSpeed = 
-                                (initialRollerSpeeds[wheelIndex] + finalRollerSpeeds[wheelIndex])/2.0;
-                                float lowerLimit = 
-                                averageRollerSpeed * ((100.0 - GetParameterFloat(GetTestStepName()+"Tolerance")) / 100.0);
-                                float upperLimit =
-                                averageRollerSpeed * ((100.0 + GetParameterFloat(GetTestStepName()+"Tolerance")) / 100.0);
-                                // Check the wheel speed sensor against the limits
-                                if (moduleSpeeds[wheelIndex] > upperLimit)
-                                {   // Sensor reading too high
-                                    wheelResult[wheelIndex] = testFail;
-                                    testResultCode = GetFaultCode(rollerName[wheelIndex]+GetTestStepName()+"SensorHigh");
-                                    testDescription = 
-                                    GetFaultDescription(rollerName[wheelIndex]+GetTestStepName()+"SensorHigh");
-                                }
-                                else if (moduleSpeeds[wheelIndex] < lowerLimit)
-                                {   // Sensor reading too low
-                                    wheelResult[wheelIndex] = testFail;
-                                    testResultCode = GetFaultCode(rollerName[wheelIndex]+GetTestStepName()+"SensorLow");
-                                    testDescription = 
-                                    GetFaultDescription(rollerName[wheelIndex]+GetTestStepName()+"SensorLow");
-                                }
-                                else
-                                {   // Sensor reading just right
-                                    wheelResult[wheelIndex] = testPass;
-                                    testResultCode = "0000";
-                                    testDescription = rollerName[wheelIndex] + " wheel speed sensor in tolerance\n";
-                                }
-                                // Log the data and report the result for this wheel
-                                Log(LOG_DEV_DATA, "%s wheel speed sensor %s \n\t\t\tLower Limit: %.2f\n\t\t\tUpper Limit: %.2f"
-                                    "\n\t\t\tAverage Roll Speed: %.2f\n\t\t\tSensor Speed: %.2f\n",
-                                    rollerName[wheelIndex].c_str(), wheelResult[wheelIndex].c_str(), lowerLimit, upperLimit,
-                                    averageRollerSpeed, moduleSpeeds[wheelIndex]);
-                                char temp[16];
-                                SendSubtestResultWithDetail(
-                                                           rollerName[wheelIndex]+GetTestStepName(), wheelResult[wheelIndex],
-                                                           testDescription, testResultCode,
-                                                           "SensorSpeed", CreateMessage(temp,sizeof(temp),"%.2f", moduleSpeeds[wheelIndex]), unitsMPH,
-                                                           "RollSpeed", CreateMessage(temp, sizeof(temp), "%.2f", averageRollerSpeed), unitsMPH,
-                                                           "LowerLimit", CreateMessage(temp, sizeof(temp), "%.2f", lowerLimit), unitsMPH,
-                                                           "UpperLimit", CreateMessage(temp, sizeof(temp), "%.2f", upperLimit), unitsMPH,
-                                                           "Tolerance", GetParameter(GetTestStepName()+"Tolerance"), "Percent");
-                                // Update the overall result
-                                testResult = testPass == wheelResult[wheelIndex] ? testResult : wheelResult[wheelIndex];
-                            }
-                            // Determine the description and code to report
-                            testResult = BEP_TESTING_STATUS == testResult ? testPass : testFail;
-                            testResultCode = testPass == testResult ? "0000" : GetFaultCode(GetTestStepName()+"Fail");
-                            testDescription = 
-                            testPass == testResult ? GetTestStepInfo("Description") : 
-                            GetFaultDescription(GetTestStepName()+"Fail");
-                        }
-                        else
-                        {   // Error reading roller speeds
-                            Log(LOG_ERRORS, "Failed to get final roller speeds - status: %s\n", 
-                                ConvertStatusToResponse(status).c_str());
-                            testResult = testFail;
-                            testResultCode = GetFaultCode(GetTestStepName()+"SystemCommFailure");
-                            testDescription = GetFaultDescription(GetTestStepName()+"SystemCommFailure");
-                        }
-                    }
-                    else
-                    {   // Error reading the wheel speed sensors
-                        Log(LOG_ERRORS, "Error reading wheel speeds from the module - status: %s\n", 
-                            ConvertStatusToResponse(status).c_str());
-                        testResult = testFail;
-                        testResultCode = GetFaultCode("CommunicationFailure");
-                        testDescription = GetFaultDescription("CommunicationFailure");
-                    }
-                }
-                else
-                {   // Error reading initial roller speeds
-                    Log(LOG_ERRORS, "Failed to get initial roller speeds - status: %s\n", 
-                        ConvertStatusToResponse(status).c_str());
-                    testResult = testFail;
-                    testResultCode = GetFaultCode(GetTestStepName()+"SystemCommFailure");
-                    testDescription = GetFaultDescription(GetTestStepName()+"SystemCommFailure");
-                }
-            }
-            else
-            {   // Timeout waiting for target speed range
-                Log(LOG_ERRORS, "Timeout waiting for target speed!\n");
-                testResult = testTimeout;
-                testResultCode = GetFaultCode("TargetSpeedTimeout");
-                testDescription = GetFaultDescription("TargetSpeedTimeout");
-            }
-        }
-        catch (ModuleException &excpt)
-        {
-            Log(LOG_ERRORS, "ModuleException during %s: %s\n", GetTestStepName().c_str(), excpt.GetReason());
-            testResult = testSoftwareFail;
-            testResultCode = GetFaultCode("SoftwareFailure");
-            testDescription = GetFaultDescription("SoftwareFailure");
-        }
-        // Report the test result
-        SendTestResultWithDetail(testResult, testDescription, testResultCode,
-                                 "LeftFrontSensor", wheelResult[LFWHEEL], "",
-                                 "RightFrontSensor", wheelResult[RFWHEEL], "",
-                                 "LeftRearSensor", wheelResult[LRWHEEL], "",
-                                 "RightRearSensor", wheelResult[RRWHEEL], "");
-    }
-    else
-    {   // Test step should be skipped
-        Log(LOG_FN_ENTRY, "Skipping test step - %s\n", GetTestStepName().c_str());
-        testResult = testSkip;
-    }
-    // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "%s::%s - Exit\n", GetComponentName().c_str(), GetTestStepName().c_str());
-    return testResult;
-}
-*/
-
 template <class ModuleType>
 inline string FordABSTCTemplate<ModuleType>::HighSpeedSensorTest(void)
 {
@@ -5705,7 +5286,6 @@ inline string FordABSTCTemplate<ModuleType>::HighSpeedSensorTest(void)
 
     // Copy high speed sensor test ArmSpeed parameters into the test step info for the base class
     CopyParamToTestStepInfo( "ArmSpeed", armSpeed);
-    //CopyParamToTestStepInfo( "Prompt1Value1", armSpeed);
 
     //MAM 7/12/10 - Use "HighSpeedSensorTestPromptSpeed" parameter for driver prompt speed if available
     if (promptSpeed > 0)
@@ -5740,8 +5320,6 @@ inline string FordABSTCTemplate<ModuleType>::HSSensorTest(void)
     const UINT32 rollerCount = GetRollerCount();
     float   armSpeed = GetParameterFloat( "HighSpeedSensorTestTargetSpeed");
     const float promptSpeed( GetParameterFloat( "HighSpeedSensorTestPromptSpeed"));  //MAM 7/12/10
-    //float   wheelSpeeds[ rollerCount];
-    //float   targetSpeed=armSpeed, minSpeed=200.0, maxSpeed=0.0;
     char    speedTarget[ 128];
     //int     ii;    
     int retryDelayTime = GetParameterInt("HSSensorRetryDelay");
@@ -5844,9 +5422,6 @@ inline string FordABSTCTemplate<ModuleType>::HSSensorTest(void)
                                                                 "LowerLimit", CreateMessage(temp, sizeof(temp), "%.2f", lowerLimit), unitsMPH,
                                                                 "UpperLimit", CreateMessage(temp, sizeof(temp), "%.2f", upperLimit), unitsMPH,
                                                                 "Tolerance", GetParameter("HighSpeedSensorTestTolerance"), "Percent");
-                                    // Update the overall result
-                                    //MAM 2/10/15 - Test was still failing if failed the first time but passed the retry
-                                    //testResult = testPass == wheelResult[wheelIndex] ? testResult : wheelResult[wheelIndex];
                                 } //end for loop
 
                                 // Determine the description and code to report
@@ -5955,8 +5530,6 @@ inline string FordABSTCTemplate<ModuleType>::SBAHighSpeedSensorTest(void)
     const UINT32 rollerCount = GetRollerCount();
     float   armSpeed = GetParameterFloat( "HighSpeedSensorTestTargetSpeed");
     const float promptSpeed( GetParameterFloat( "HighSpeedSensorTestPromptSpeed"));  //MAM 7/12/10
-    //float   wheelSpeeds[ rollerCount];
-    //float   targetSpeed=armSpeed, minSpeed=200.0, maxSpeed=0.0;
     char    speedTarget[ 128];
     //int     ii;
     //MAM 8/4/15
@@ -5992,7 +5565,6 @@ inline string FordABSTCTemplate<ModuleType>::SBAHighSpeedSensorTest(void)
     }
 
     UpdatePrompts();
-    //testResult = GenericABSTCTemplate<ModuleType>::HighSpeedSensorTest();
 
     if (!ShortCircuitTestStep())
     {
@@ -6158,12 +5730,6 @@ std::string FordABSTCTemplate<ModuleType>::TestStepAccelerateToBrakeSpeed(void)
     const float promptSpeed( GetParameterFloat( "BrakePromptSpeed"));  //MAM 7/12/10
     char speedTarget[ 128];
 
-    //MAM 3/9/10   
-    //WHEELINFO   wheelSpeeds;
-    //float LFspeed, RFspeed, LRspeed, RRspeed;
-    //BEP_STATUS_TYPE modstatus = BEP_STATUS_SUCCESS;
-    //SerialString_t               response;
-
     Log( LOG_FN_ENTRY, "Enter FordABSTCTemplate::TestStepAccelerateToBrakeSpeed()\n");
 
     sprintf( speedTarget, "%.2f %.2f", armSpeed*.9, armSpeed*1.1);
@@ -6185,7 +5751,6 @@ std::string FordABSTCTemplate<ModuleType>::TestStepAccelerateToBrakeSpeed(void)
 
     // Prompt driver to accelerate
     status = m_baseBrakeTool->TestStepAccelerate();
-
     Log( LOG_FN_ENTRY, "Exit FordABSTCTemplate::TestStepAccelerateToBrakeSpeed(), status=%s\n", status.c_str());
 
     return( status);
@@ -6218,7 +5783,6 @@ const string FordABSTCTemplate<ModuleType>::TestStepAccelerateToParkBrakeSpeed(v
         CopyParamToTestStepInfo( "Prompt1Value1", armSpeed);
         CopyParamToTestStepInfo( "SpeedTarget", std::string( speedTarget));
 
-        //status = m_baseBrakeTool->TestStepAccelerate();
         status = TestStepAccelerate(); //MM 12/21/06
 
         //show "RemoveFootFromAccelerator" prompt
@@ -6349,7 +5913,6 @@ const string FordABSTCTemplate<ModuleType>::TestStepDynamicParkBrake(void)
 
         SetTestStepInfoValue( "StartSampleSpeed", GetParameter("DynamicParkBrakeStartSampleSpeed"));
         SetTestStepInfoValue( "EndSampleSpeed", GetParameter("DynamicParkBrakeEndSampleSpeed"));
-        //SetTestStepInfoValue( "MinimumStartForce", minForce);
         SetTestStepInfoValue( "MinimumStartForce", startForce);
         SetTestStepInfoValue( "ForceSampleCount", GetParameter("DynamicParkBrakeSampleCount"));
         SetTestStepInfoValue( "StartSamplingAtMinimumForce", GetParameter("DynamicParkBrakeSampleUseForces"));
@@ -6380,23 +5943,11 @@ const string FordABSTCTemplate<ModuleType>::TestStepDynamicParkBrake(void)
                 // variables to hold the index values for analyzing
                 m_dynParkBrakeStart = m_dynParkBrakeStop = 0;
 
-                // Declutch
-                //testStatus = Disengage();
-                //while ( (BEP_STATUS_SUCCESS != testStatus) && (retries > 0))
-                //{
-                //    testStatus = Disengage();
-                //    retries--;
-                //}
-
                 // If we are declutched
                 if ( BEP_STATUS_SUCCESS == testStatus)
                 {
                     testStatus = DynamicParkBrake(m_dynParkBrakeStart, m_dynParkBrakeStop, "DynamicParkBrake");
                 }
-                //else
-                //{
-                //    Log( LOG_ERRORS, "Could not declutch for DynamicParkBrake\n");
-                //}
                 // Remove the prompts we displayed
                 RemovePrompts();
 
@@ -6406,12 +5957,6 @@ const string FordABSTCTemplate<ModuleType>::TestStepDynamicParkBrake(void)
                     m_baseBrakeTool->UpdateTarget(false);
                 }
             }
-            //else
-            //{
-            //    Log(LOG_ERRORS, "Invalid Machine Status For FordABSTCTemplate::TestStepDynamicParkBrake %d\n", 
-            //        testStatus);
-            //}
-            //MAM 10/06/08
             else
             {
                 Log( LOG_ERRORS, "Could not declutch for DynamicParkBrake\n");
@@ -6493,14 +6038,7 @@ INT32 FordABSTCTemplate<ModuleType>::DynamicParkBrake(INT32 &brakeStart, INT32 &
                     //{   // Tag the start
                     brakeStart = TagArray(tagPrefix+"StartForce");
                     Log(LOG_DEV_DATA,"Minimum park brake force reached @ %d\n", brakeStart);
-                    //}
-                    // Wait for the desired number of samples above minimum before we end
-                    //else if (validForceSamples >= forceSampleCount)
-                    //{   // Tag the end
-                    //    brakeEnd = TagArray(tagPrefix+"StopForce");
-                    //    Log(LOG_DEV_DATA,"Park brake force sample count reached @ %d\n", brakeEnd);
-                    //}
-                }
+                 }
                 else if (validForceSamples)
                 {
                     //Wait for the desired number of samples above minimum before we end
@@ -6557,14 +6095,7 @@ INT32 FordABSTCTemplate<ModuleType>::DynamicParkBrake(INT32 &brakeStart, INT32 &
             //MAM 10/3/08 - check every 20 ms - same as VME
             if (brakeEnd == 0)    BposSleep(20);
 
-            //MAM 10/06/08 - Commented out because the test was failing because clutch and declutch
-            //data tags were both zero.
-            // check the system status
-            //testStatus = m_baseBrakeTool->BrakeTestStatusCheck(false);
 
-            //MAM 3/16/07
-            //if (testStatus == BEP_STATUS_SUCCESS) //MAM 10/06/08
-            //{
             // Make sure brakes are not being applied
             testStatus = m_vehicleModule.GetInfo(GetDataTag("ReadBrakeSwitch"), brakeOn);
             if ( (BEP_STATUS_SUCCESS == testStatus) && (true == brakeOn))
@@ -6628,9 +6159,6 @@ const string FordABSTCTemplate<ModuleType>::AnalyzeDynamicParkBrake(void)
         {
             // display driver prompts if desired
             //UpdatePrompts();            
-
-            //SetTestStepInfoValue("FrontMinForce", GetParameter("DynamicParkBrakeFrontMinForce"));
-            //SetTestStepInfoValue("FrontMaxForce", GetParameter("DynamicParkBrakeFrontMaxForce"));
             SetTestStepInfoValue("RearMinForce", GetParameter("DynamicParkBrakeRearMinForce"));
             SetTestStepInfoValue("RearMaxForce", GetParameter("DynamicParkBrakeRearMaxForce"));
 
@@ -6641,11 +6169,6 @@ const string FordABSTCTemplate<ModuleType>::AnalyzeDynamicParkBrake(void)
             Log(LOG_ERRORS, "TestStepAnalyzeBaseBrake Exception: %s\n", e.what());
             status = BEP_STATUS_SOFTWARE;
         }
-
-        // tell the driver to release the parking brake
-        //driverDelayTime = GetParameterInt("ParkBrakeDriverDelay");
-        //DisplayTimedPrompt(GetParameter("ReleaseParkBrakePrompt"), "1", 0, driverDelayTime);
-        //RemovePrompts();
 
         // update the test status
         UpdateResult(status, testResult);
@@ -6711,11 +6234,21 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
                 }
                 //force /= forceArray.size();
                 Log(LOG_DEV_DATA, "FordABSTCTemplate::AnalyzeParkBrakeForces() - step1: Max Force Value - %.2f\n", force);
-
-                //MAM 6/3/10
-                SystemWrite(GetDataTag(rollerName[roller] + "PBForceValue"), force);
-
+                                                             
                 testStatus = ValidateParkBrakeForce(roller, force);
+
+                string color = "white";
+                if (testStatus == BEP_STATUS_SUCCESS)
+                {
+                    color = "Green";
+                }
+                else
+                {
+                    color = "Red";
+                }
+                Log(LOG_DEV_DATA,"Writing Park Brake to GUI:: Force: %f, color: %s, roller: %d, name: %s", force, color.c_str(), roller, rollerName[roller].c_str());
+                SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceValue"), force);
+                SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceBGColor"), color);
             }
             else
             {    // if there is a problem averaging the forces display -1
@@ -6725,7 +6258,7 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
                 force = -1;
                 // update the result and the background color of the result on the GUI
                 //SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceValue"), "-1");
-                SystemWrite(GetDataTag(rollerName[roller] + "PBForceValue"), "-1");
+                SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceValue"), "-1");
                 SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceBGColor"), "Red");
             }
             // place the normalized value into the park brake force array
@@ -6753,9 +6286,7 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
                                         "MaxParkBrakeForce", GetTestStepInfo("RearMaxForce"), unitsLBF,
                                         "MinParkBrakeForce", GetTestStepInfo("RearMinForce"), unitsLBF);
         }
-
-        //Log(LOG_DEV_DATA, "FordABSTCTemplate::AnalyzeParkBrakeForces() - step3: AnalyzeBalance\n");
-        //testStatus = AnalyzeParkBrakeBalance();        
+       
 
     }
     else
@@ -6866,24 +6397,6 @@ string FordABSTCTemplate<ModuleType>::EnterDiagnosticMode(void)
     {   // Need to perform this test step
         if (CheckCableConnect())
         {
-            //MAM 3/25/10
-            /*float speed=0;
-            do
-            {   // read the current speed and update the display
-                //speed = GetSpeed();
-                //MAM 12/21/06: from GenericTC - returns average of drive axle speed
-                speed = GetRollSpeed(); 
-                if (speed > 5)
-                {   //want to be below 5 mph for diag mode
-                    // check the machine status and wait if ok
-                    //testStatus = StatusCheck();
-                    //if (testStatus == BEP_STATUS_SUCCESS)
-                    Log(LOG_DEV_DATA, "Wheel speed above 5 mph - Prompting Driver to stop!\n");
-                    DisplayPrompt( 1, GetPrompt( "ZeroSpeed"), 0);
-                    BposSleep(100);
-                }
-            }while ((speed > 5) && TimeRemaining()); */
-
             try
             {   // Try to enter diagnostic mode
                 moduleStatus = m_vehicleModule.EnterDiagnosticMode();
@@ -7264,7 +6777,6 @@ std::string FordABSTCTemplate<ModuleType>::TestStepAnalyzeDrag(void)
     status = m_baseBrakeTool->TestStepAnalyzeDrag();
 
     //MAM 10/30/08
-    //if ("Pass" == status)
     if (BEP_PASS_STATUS == status)
     {
         m_dragTestPassed = true;      
@@ -7302,7 +6814,6 @@ std::string FordABSTCTemplate<ModuleType>::TestStepAnalyzeDrag(std::string axle)
     status = m_baseBrakeTool->TestStepAnalyzeDrag();
 
     //MAM 10/30/08
-    //if ("Pass" == status)
     if (BEP_PASS_STATUS == status)
     {
         m_dragTestPassed = true;      
@@ -7399,7 +6910,6 @@ std::string FordABSTCTemplate<ModuleType>::TestStepBalance(std::string axle)
 
 
     //status = m_baseBrakeTool->TestStepBalance();
-    /*Here*/
     INT32 testStatus = BEP_STATUS_SUCCESS;      // the status of the test being performed
 
     if(!ShortCircuitTestStep())
@@ -7541,8 +7051,6 @@ std::string FordABSTCTemplate<ModuleType>::TestStepParkBrakeBalance(void)
 //=============================================================================
 template <class ModuleType>
 const string FordABSTCTemplate<ModuleType>::TestStepQuickStop (const std::string &value)
-//std::string FordABSTCTemplate<ModuleType>::TestStepParkBrakeBalance(void)
-//const string MachineTC::TestStepQuickStop (const std::string &value)
 {
     Log(LOG_FN_ENTRY, "FordABSTCTemplate::TestStepQuickStop()\n");
     std::string status = BEP_NONE;  // set test step status to no response
@@ -7554,7 +7062,6 @@ const string FordABSTCTemplate<ModuleType>::TestStepQuickStop (const std::string
             if (UpdatePrompts() != BEP_STATUS_SUCCESS)
                 Log(LOG_ERRORS, "Unable to Update Prompts\n");
 
-            //SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("SpeedTarget"));
 
             if (SystemWrite(MOTOR_MODE, string(QUICK_BRAKE_MODE)) == BEP_STATUS_SUCCESS)
             {
@@ -7691,35 +7198,16 @@ const std::string FordABSTCTemplate<ModuleType>::ComboTorqueTest(const std::stri
 template <class ModuleType>
 const std::string FordABSTCTemplate<ModuleType>::ResetCommHw(void)
 {
-    //std::string status = BEP_SUCCESS_RESPONSE;
-    //std::string status( BEP_FAIL_STATUS);
     std::string status( BEP_PASS_STATUS);
-
-    //if (status == BEP_PASS_STATUS)
-    //{
-    // if the hardware should be initialized upon startup
-    //if (GetParameter("ResetCommHardware") == "Yes")
-    //{
     std::string response;
     Log(LOG_DEV_DATA, "FordABSTCTemplate ResetCommHw: Re-Initializing the serial communication hardware\n");
     IBepCommunication commObj;
     commObj.Initialize(SER_SRVR_NAME, "Client", IsDebugOn());
-//#if 1
     std::string tag("Reset");
     std::string value("Reset");
     if (commObj.Command(tag, value, response, true))
-//#else
-//            if (commObj.Reset(response) != BEP_STATUS_SUCCESS)
-//#endif
-        //status = BEP_FAILURE_RESPONSE;
         status = BEP_FAIL_STATUS;
     Log(LOG_DEV_DATA, "Re-Initialization complete\n");
-    //}
-    //else
-    //{
-    //    Log(LOG_DEV_DATA, "ResetCommHw: NOT Re-Initializing the serial communication hardware\n");
-    //}
-    //}
 
     return(status); 
 }
@@ -8043,39 +7531,6 @@ string FordABSTCTemplate<ModuleType>::CheckPartNumber()
                     testResult.c_str(), expectedPartNum.c_str(), ecuPartNumber.c_str());
                 testResultCode = (testResult == testPass ? "0000" : GetFaultCode("PartNumberMismatch"));
                 testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("PartNumberMismatch"));
-
-                //MAM 2/17/15 - we don't need to check these
-                /*
-                moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadModuleSwId"), response);
-                if (BEP_STATUS_SUCCESS == moduleStatus)
-                {
-                    Log(LOG_DEV_DATA, "Module Software ID read ok \n");
-                    moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadModuleSn"), response);
-                    if (BEP_STATUS_SUCCESS == moduleStatus)
-                    {
-                        Log(LOG_DEV_DATA, "Module Serial Number read ok \n");                        
-                    }
-                    else
-                    {                 // Error getting data from the module
-                        SetCommunicationFailure(true);
-                        testResult = testFail;
-                        testResultCode = GetFaultCode("CommunicationFailure");
-                        testDescription = GetFaultDescription("CommunicationFailure");
-                        Log(LOG_ERRORS, "Error reading module software serial number - status: %s\n", 
-                            ConvertStatusToResponse(moduleStatus).c_str());
-                    }
-
-                }
-                else
-                {                 // Error getting data from the module
-                    SetCommunicationFailure(true);
-                    testResult = testFail;
-                    testResultCode = GetFaultCode("CommunicationFailure");
-                    testDescription = GetFaultDescription("CommunicationFailure");
-                    Log(LOG_ERRORS, "Error reading module software ID - status: %s\n", 
-                        ConvertStatusToResponse(moduleStatus).c_str());
-                }
-                */
             }
             else
             {                 // Error getting data from the module
@@ -8101,7 +7556,6 @@ string FordABSTCTemplate<ModuleType>::CheckPartNumber()
                                  "ECUPartNumber", ecuPartNumber, "",
                                  "PartNumberParameter", GetParameter("ModulePartNumber"), "");
 
-        //SendTestResultWithDetail(testResult, testDescription, testResultCode);
     }
     else
     {                       // Need to skip this test step
@@ -8236,13 +7690,7 @@ string FordABSTCTemplate<ModuleType>::ProgramTireSize()
             testResultCode = !testResult.compare(testPass) ? testResultCode : GetFaultCode("NoTireSize");
             testDescription = !testResult.compare(testPass) ? testDescription : GetFaultDescription("NoTireSize");
         }
-        // Report the result
-        /*
-        char buf[16];        
-        SendTestResultWithDetail(testResult, testDescription, testResultCode,
-                                 "ModuleTireSize", CreateMessage(buf, sizeof(buf), "%04X", moduleTireSize), "",
-                                 "BroadcastTireSize", ReadSubscribeData(GetDataTag("TireSizeDataTag")), "");
-                                 */        
+      
     }
     else
     {   // Need to skip this test step
@@ -8312,7 +7760,6 @@ string FordABSTCTemplate<ModuleType>::ProgramTireSizeEC80()
                         //MAM 1/6/15 - write fingerprint required before programming tire size
                         moduleStatus = m_vehicleModule.GetInfo( GetDataTag("WriteFingerprint"), response );
 
-                        //if ((BEP_STATUS_SUCCESS == moduleStatus) || (alwaysProgramTireSize))
                         //successfully wrote fingerprint
                         if (BEP_STATUS_SUCCESS == moduleStatus)
                         {
@@ -8361,14 +7808,7 @@ string FordABSTCTemplate<ModuleType>::ProgramTireSizeEC80()
             testResult = GetParameterBool("FailIfNoTireSize") ? testFail : testSkip;
             testResultCode = !testResult.compare(testPass) ? testResultCode : GetFaultCode("NoTireSize");
             testDescription = !testResult.compare(testPass) ? testDescription : GetFaultDescription("NoTireSize");
-        }
-        // Report the result
-        /*
-        char buf[16];        
-        SendTestResultWithDetail(testResult, testDescription, testResultCode,
-                                 "ModuleTireSize", CreateMessage(buf, sizeof(buf), "%04X", moduleTireSize), "",
-                                 "BroadcastTireSize", ReadSubscribeData(GetDataTag("TireSizeDataTag")), "");
-                                 */        
+        }      
     }
     else
     {   // Need to skip this test step
@@ -8466,7 +7906,6 @@ string FordABSTCTemplate<ModuleType>::DisableLampGndChk()
         testResult = testSkip;
     }
     // Log the exit and return the result
-    //Log(LOG_FN_ENTRY, "%s::%s - Exit", GetComponentName().c_str(), GetTestStepName().c_str());
     Log(LOG_FN_ENTRY, "Exit FordABSTCTemplate::DisableLampGndChk() \n");
     return testResult;
 }
@@ -8492,7 +7931,6 @@ string FordABSTCTemplate<ModuleType>::DisableLampGndChkEC80()
         try
         {   // Read the current config data from the module first
 
-            //moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadConfigBytes45"),response);
             moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadLampGndChkEC80"),response);
 
             //copy all response data bytes into config bytes - data starts at byte index 7
@@ -8562,7 +8000,6 @@ string FordABSTCTemplate<ModuleType>::DisableLampGndChkEC80()
         testResult = testSkip;
     }
     // Log the exit and return the result
-    //Log(LOG_FN_ENTRY, "%s::%s - Exit", GetComponentName().c_str(), GetTestStepName().c_str());
     Log(LOG_FN_ENTRY, "Exit FordABSTCTemplate::DisableLampGndChkEC80() \n");
     return testResult;
 }
@@ -8658,7 +8095,6 @@ string FordABSTCTemplate<ModuleType>::EnableHrwCcvs()
         testResult = testSkip;
     }
     // Log the exit and return the result
-    //Log(LOG_FN_ENTRY, "%s::%s - Exit", GetComponentName().c_str(), GetTestStepName().c_str());
     Log(LOG_FN_ENTRY, "Exit FordABSTCTemplate::EnableHrwCcvs() \n");
     return testResult;
 }
@@ -8757,7 +8193,6 @@ string FordABSTCTemplate<ModuleType>::EnableHrwCcvsEC80()
         testResult = testSkip;
     }
     // Log the exit and return the result
-    //Log(LOG_FN_ENTRY, "%s::%s - Exit", GetComponentName().c_str(), GetTestStepName().c_str());
     Log(LOG_FN_ENTRY, "Exit FordABSTCTemplate::EnableHrwCcvsEC80() \n");
     return testResult;
 }
@@ -8771,10 +8206,7 @@ string FordABSTCTemplate<ModuleType>::RequestAbsSecurity(void)
     string testResultCode("0000");
     string testDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
-    //string securitySeeds;
-    //unsigned char securitySeeds[3];
     SerialString_t response;
-    //SerialString_t key;
 
     // Check if this step should be skipped
     Log(LOG_FN_ENTRY, "Enter FordABSTCTemplate::RequestAbsSecurity()\n");    
@@ -8795,8 +8227,6 @@ string FordABSTCTemplate<ModuleType>::RequestAbsSecurity(void)
                 Log(LOG_DEV_DATA, "securitySeedIndex = %d \n", securitySeedIndex);
 
                 //MAM 10/29/08
-                //Log(LOG_DEV_DATA, "FordABSTCTemplate::RequestAbsSecurity: seed1=%2X seed2=%2X seed3=%2X \n",response[1],response[2],response[3]);
-                //Log(LOG_DEV_DATA, "FordABSTCTemplate::RequestAbsSecurity: seed1=%2X seed2=%2X seed3=%2X \n",response[2],response[3],response[4]);
                 Log(LOG_DEV_DATA, "FordABSTCTemplate::RequestAbsSecurity: seed1=%2X seed2=%2X seed3=%2X \n",response[securitySeedIndex],response[securitySeedIndex+1],response[securitySeedIndex+2]);
 
 
@@ -8815,7 +8245,6 @@ string FordABSTCTemplate<ModuleType>::RequestAbsSecurity(void)
                     CalculateSecurityKey(securityLevel,response);
 
                     //MAM 10/29/08
-                    //Log(LOG_DEV_DATA, "Calculated Security Keys: key1=%2X key2=%2X key3=%2X \n",response[1],response[2],response[3]);
                     Log(LOG_DEV_DATA, "Calculated Security Keys: key1=%2X key2=%2X key3=%2X \n",response[2],response[3],response[4]);
                     //Here we need to write the 3 key bytes to the security accesss message and send it to the ABS module.
                     moduleStatus = m_vehicleModule.GetInfo(GetDataTag("RequestSecurityAccess"),response);
@@ -9235,24 +8664,12 @@ void FordABSTCTemplate<ModuleType>::CalculateSecurityKey(short level, SerialStri
     unsigned long ulChallengeBitsHigh;
     unsigned long ulTempValue;
 
-    //MAM 11/28/07 - TESTING
-    /*
-    seed1 = 0x3C;
-    seed2 = 0xB6;
-    seed3 = 0xCC;
-      */
-
     // get security type
     //usSecType = pSecParm->usSecurityType;
     usSecType = level;
 
     //bprintf("\nEnter New CalculateSecurityKey() ");
     Log(LOG_FN_ENTRY, "Enter FordABSTCTemplate::CalculateSecurityKey()\n");
-    //seed bytes read from the ABS module
-    //bprintf("\nABS seeds = %2X %2X %2X ", seed1, seed2, seed3);
-    //Log(LOG_DEV_DATA, "FordABSTCTemplate::CalculateSecurityKey: seed1=%2X seed2=%2X seed3=%2X \n",seed[1],seed[2],seed[3]);
-    //MAM 10/29/08
-    //Log(LOG_DEV_DATA, "FordABSTCTemplate::CalculateSecurityKey: seed1=%2X seed2=%2X seed3=%2X \n",seed[2],seed[3],seed[4]);
 
     //MAM 1/25/13
     int securitySeedIndex = GetParameterInt("SecuritySeedIndex");
@@ -9361,17 +8778,6 @@ void FordABSTCTemplate<ModuleType>::CalculateSecurityKey(short level, SerialStri
     //MAM 6/25/10 - debug
     Log(LOG_DEV_DATA, "security challenge bytes = %2X %2X %2X %2X %2X \n",
         bChallengeBits[3], bChallengeBits[4], bChallengeBits[5], bChallengeBits[6], bChallengeBits[7]);
-
-    // load challenge bits - seeds
-    /*
-    bChallengeBits[0] = seed1;
-    bChallengeBits[1] = seed2;
-    bChallengeBits[2] = seed3;
-      */
-    //MAM 10/29/08
-    //bChallengeBits[0] = seed[2];
-    //bChallengeBits[1] = seed[3];
-    //bChallengeBits[2] = seed[4];
 
     //MAM 1/25/13    
     bChallengeBits[0] = seed[securitySeedIndex];
@@ -9811,7 +9217,12 @@ string FordABSTCTemplate<ModuleType>::IndividualSensorTest(void)
                 else
                     wheel = LFWHEEL;
                 Log(LOG_DEV_DATA, "Checking Wheel Sensor Speeds against parameters\n");
-				for(; (wheel <= GetWheelCount()) && (BEP_STATUS_SUCCESS == StatusCheck()); wheel++)
+                UINT32 wheelCount = GetWheelCount();
+                if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "0")
+                    {
+                        wheelCount = 4; //setting to 4 for RearAxle test on SingleAxleMachine
+                    }
+                for (; (wheel <= wheelCount) && (BEP_STATUS_SUCCESS == StatusCheck()); wheel++)
 				{
                     //Check if running a front axle single axle test, rear results should not be recorded in this case 
                     if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1" && ReadSubscribeData( GetDataTag("FrontAxleTestSelected")) == "1" && wheel == 2)
@@ -9909,4 +9320,120 @@ string FordABSTCTemplate<ModuleType>::IndividualSensorTest(void)
 	// Log the exit and return the result.
 	Log(LOG_FN_ENTRY, "FordABSTCTemplate::IndividualSensorTest() - Exit");
 	return testResult;
+}
+
+template<class ModuleType>
+string FordABSTCTemplate<ModuleType>::AccelerateRolls()
+{
+    std::string     testStatus( testPass);
+    BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
+    std::string lfArmSpeed( GetTestStepInfo( "LfArmSpeed"));
+    std::string lfSpeedTag( "LeftFrontSpeedValue");
+    std::string rfArmSpeed( GetTestStepInfo( "RfArmSpeed"));
+    std::string rfSpeedTag( "RightFrontSpeedValue");
+
+    Log( LOG_FN_ENTRY, "Enter FordABSTCTemplate::AccelerateRolls()\n");
+
+    // Update the speed target
+    SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("SpeedTarget"));
+
+    Log( LOG_DEV_DATA, "\tLF: Commanding %s=%s\n", lfSpeedTag.c_str(), lfArmSpeed.c_str());
+    Log( LOG_DEV_DATA, "\tRF: Commanding %s=%s\n", rfSpeedTag.c_str(), rfArmSpeed.c_str());
+
+    // Tell the motor controller what to do
+    if( atof(lfArmSpeed.c_str()) == 0)  m_MotorController.Write("LeftFrontMotorMode", TORQUE_MODE, false);
+    else                                m_MotorController.Write("LeftFrontMotorMode", SPEED_MODE, false);
+    m_MotorController.Write(lfSpeedTag, lfArmSpeed, true);
+
+    if( atof(rfArmSpeed.c_str()) == 0)  m_MotorController.Write("RightFrontMotorMode", TORQUE_MODE, false);
+    else                                m_MotorController.Write("RightFrontMotorMode", SPEED_MODE, false);
+    m_MotorController.Write(rfSpeedTag, rfArmSpeed, true);
+
+    if( BEP_STATUS_SUCCESS == status)
+    {
+        Log( LOG_DEV_DATA, "Successfully commanded motors to speed\n");
+
+        const int   rollerCount = GetRollerCount();
+        float       targets[ rollerCount];
+        float       wheelSpeeds[ rollerCount];
+        uint16_t    ii, atSpeedMask = 0x0000, atTargetMask=0x0000;
+
+        // Build the mask value for when all wheels reach their target
+        for( ii=0; ii<rollerCount; ii++)
+        {
+            atTargetMask |= (1 << ii);
+            targets[ ii] = 0.0;
+        }
+
+        targets[ 0] = atof( lfArmSpeed.c_str()) - 1.0;
+        targets[ 1] = atof( rfArmSpeed.c_str()) - 1.0;
+
+        status = (BEP_STATUS_TYPE)GetWheelSpeeds( wheelSpeeds);
+
+        // Wait for the rollers to accelerate
+        while( (TimeRemaining()) && (BEP_STATUS_SUCCESS == status) &&
+               ((atSpeedMask & atTargetMask) != atTargetMask) )
+        {
+            atSpeedMask = 0x0000;
+            for( ii=0; ii<rollerCount; ii++)
+            {
+                // If this wheel is above the target or this wheel has no target
+                if( ((targets[ ii] > 0) && ( wheelSpeeds[ ii] > targets[ ii])) ||
+                    ( targets[ ii] <= 0))
+                {
+                    // Set bit to sya this wheel is good
+                    atSpeedMask|= (1 << ii);
+                }
+            }
+            Log( LOG_DEV_DATA, "At Speed Mask: $%04hX ?= $%04hX\n", atSpeedMask, atTargetMask);
+
+            status = StatusSleep( 200);
+            if( BEP_STATUS_SUCCESS == status)
+            {
+                status = (BEP_STATUS_TYPE)GetWheelSpeeds( wheelSpeeds);
+            }
+        }
+        if( BEP_STATUS_SUCCESS == status)
+        {
+            m_baseBrakeTool->SetBrakeTestingStatus(BEP_TESTING_RESPONSE);   // flag that the brakes can be tested
+            Log( LOG_DEV_DATA, "Rolls successfully reached speed\n");
+            testStatus = testPass;
+        }
+        else
+        {
+            Log( LOG_ERRORS, "Error waiting for target speed\n");
+            testStatus = testFail;
+        }
+    }
+    else
+    {
+        Log( LOG_ERRORS, "Error commanding motors to speed\n");
+        testStatus = testFail;
+    }
+
+    Log( LOG_FN_ENTRY, "Exit FordABSTCTemplate::AccelerateRolls()\n");
+
+    return( testStatus);
+}
+
+template<class ModuleType>
+string FordABSTCTemplate<ModuleType>::AccelerateVehicleToSpeed()
+{
+    float armSpeed = GetParameterFloat("ArmSpeed");
+    std::string     testStatus( testPass);
+    UpdatePrompts();
+    SetTestStepInfoValue( "LfArmSpeed", armSpeed);
+    SetTestStepInfoValue( "RfArmSpeed", armSpeed);
+
+    testStatus = AccelerateRolls();
+
+    // if we successfully reached the arm speed, disengage so we can
+    // continue on to the drag test
+    if(testStatus == testPass)
+    {
+        Log(LOG_DEV_DATA, "Armspeed reached, disengaging for drag test");
+        m_baseBrakeTool->Disengage();
+    }
+
+    return(testStatus);
 }

@@ -129,6 +129,18 @@ public:
 	 */
 	virtual const BEP_STATUS_TYPE SendMessage(string messageTag, SerialArgs_t &args);
 
+    /**
+     * Read a module response to the message with the given tag.
+     *
+     * @param messageTag Tag of the message response to read.
+     * @param reply      Reply from the module.
+     * @return Status of the operation.
+     * @since Version 1.0
+     */
+
+    virtual const BEP_STATUS_TYPE GetResponse(const std::string &messageTag, SerialString_t &reply);
+
+    virtual const BEP_STATUS_TYPE GetModuleData(std::string messageTag, SerialString_t &reply, SerialArgs_t *args);
 
 
 

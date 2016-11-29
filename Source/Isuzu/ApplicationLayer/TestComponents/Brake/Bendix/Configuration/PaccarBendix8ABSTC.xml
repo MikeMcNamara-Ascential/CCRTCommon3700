@@ -53,7 +53,7 @@
          <ParkPawlMaxDistance Description="Maximum allowable travel for the drive wheels during the park pawl test" units=".016 Degrees">200</ParkPawlMaxDistance>
          <ParkPawlMinDistance Description="Minimum required travel for the non-driven wheels during the park pawl test" units=".016 Degrees">50</ParkPawlMinDistance>
          <!-- Dynamic Park Brake Parameters -->
-         <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">25</DynamicParkBrakeArmSpeed>
+         <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">10</DynamicParkBrakeArmSpeed>
          <DynamicParkBrakeEndSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake end speed">0</DynamicParkBrakeEndSampleSpeed>
          <DynamicParkBrakeFrontMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum front park brake force">20</DynamicParkBrakeFrontMaxForce>
          <DynamicParkBrakeFrontMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum front park brake force">-20</DynamicParkBrakeFrontMinForce>
@@ -61,7 +61,7 @@
          <DynamicParkBrakeRearMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum rear park brake force">500</DynamicParkBrakeRearMinForce>
          <DynamicParkBrakeSampleCount TestSteps="DynamicParkBrake" Comments="Number of samples to collect, Zero means all samples">0</DynamicParkBrakeSampleCount>
          <DynamicParkBrakeSampleUseForces TestSteps="DynamicParkBrake" Comments="Flag to determine if sampling should begin when the min force is reached">True</DynamicParkBrakeSampleUseForces>
-         <DynamicParkBrakeStartSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake start speed">20</DynamicParkBrakeStartSampleSpeed>
+         <DynamicParkBrakeStartSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake start speed">5</DynamicParkBrakeStartSampleSpeed>
          <!-- Individual sensor test parameters -->
          <IndividualLeftFrontSensorTestSpeed Units="MPH">3</IndividualLeftFrontSensorTestSpeed>
          <IndividualRightFrontSensorTestSpeed Units="MPH">4</IndividualRightFrontSensorTestSpeed>
@@ -72,6 +72,9 @@
          <IndividualSensorSpeedTolerance Units="%">25.0</IndividualSensorSpeedTolerance>
          <ZeroSpeedTolerance Units="MPH" Description="Maximum zero speed value">0.38</ZeroSpeedTolerance>
          <!-- Base Brake Parameters -->
+         <PreForcedAccelerateWait>3000</PreForcedAccelerateWait>
+         <ForcedAccelerateSpeedStep>10</ForcedAccelerateSpeedStep>
+         <ForcedAccelerateSpeedStepDelay>3000</ForcedAccelerateSpeedStepDelay>
          <ArmSpeed Units="MPH">60</ArmSpeed>
          <BrakePromptSpeed Units="MPH">60</BrakePromptSpeed>
          <NeutralDecelRate Units="MPH/sec">0.00</NeutralDecelRate>
@@ -266,6 +269,7 @@
             <ParkingPawlTestPassed/>
             <!-- From BaseBrake code -->
             <ZerospeedToPLC/>
+            <Zerospeed/>
             <VehiclePresent/>
             <Clutch/>
             <Declutch/>
@@ -510,7 +514,9 @@
          <FrontBalanceValue>0</FrontBalanceValue>
          <FrontToRearBalanceBGColor>white</FrontToRearBalanceBGColor>
          <FrontToRearBalanceValue>0</FrontToRearBalanceValue>
-         <LFABSRecoveryBGColor>white</LFABSRecoveryBGColor>
+         <LeftFrontParkBrakeForceValue>0</LeftFrontParkBrakeForceValue>
+		 <LeftFrontParkBrakeForceBGColor>white</LeftFrontParkBrakeForceBGColor>
+		 <LFABSRecoveryBGColor>white</LFABSRecoveryBGColor>
          <LFABSRecoveryValue>0</LFABSRecoveryValue>
          <LFABSReductionBGColor>white</LFABSReductionBGColor>
          <LFABSReductionValue>0</LFABSReductionValue>
@@ -554,6 +560,8 @@
          <RFTractionControlRecoveryValue>0</RFTractionControlRecoveryValue>
          <RFTractionControlReductionBGColor>white</RFTractionControlReductionBGColor>
          <RFTractionControlReductionValue>0</RFTractionControlReductionValue>
+         <RightFrontParkBrakeForceValue>0</RightFrontParkBrakeForceValue>
+		 <RightFrontParkBrakeForceBGColor>white</RightFrontParkBrakeForceBGColor>
          <RRABSRecoveryBGColor>white</RRABSRecoveryBGColor>
          <RRABSRecoveryValue>0</RRABSRecoveryValue>
          <RRABSReductionBGColor>white</RRABSReductionBGColor>
@@ -666,6 +674,15 @@
       <AnalyzeDragTest>
          <TestStep10>AnalyzeDragTest</TestStep10>
       </AnalyzeDragTest>
+      <FrontBrakeTest>
+         <TestStep00>AccelerateVehicleToSpeed</TestStep00>
+         <!--TestStep10>NeutralCheck</TestStep10-->
+         <TestStep20>DragTest</TestStep20>
+         <TestStep30>AnalyzeDragTest</TestStep30>
+         <TestStep40>BrakeTest</TestStep40>
+         <TestStep50>BrakeToStop</TestStep50>
+         <!--TestStep60>AnalyzeBrakeTest</TestStep60-->
+      </FrontBrakeTest>
       <BrakeTest>
          <TestStep00>AccelerateToBrakeSpeed</TestStep00>
          <!--TestStep10>NeutralCheck</TestStep10-->
@@ -728,14 +745,17 @@
       <HighSpeedSensorTest>
          <TestStep10>ABSHSSensorTest</TestStep10>
       </HighSpeedSensorTest>
-      <SensorTest>
-         <TestStep05>IndividualSensorTest</TestStep05>
-      </SensorTest>
+      <FrontSensorTest>
+         <TestStep05>FrontIndividualSensorTest</TestStep05>
+      </FrontSensorTest>
+      <RearSensorTest>
+         <TestStep05>RearIndividualSensorTest</TestStep05>
+      </RearSensorTest>
       <ClearFaults>
          <TestStep00>ClearFaults</TestStep00>
       </ClearFaults>
       <ReadFaults>
-         <TestStep00>ClearFaults</TestStep00>
+         <!--TestStep00>ClearFaults</TestStep00-->
          <TestStep01>ReadFaults</TestStep01>
       </ReadFaults>
       <CheckPartNumber>
@@ -833,6 +853,8 @@
       <ABSHSSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test the ABS wheel speed sensors at high speed"/>
       <SBAHighSpeedSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test the SBA wheel speed sensors at high speed"/>
       <IndividualSensorTest Result="Not Tested" Timeout="10000" Description="Check the wheel speed sensors at low speed" ScanDelay="250" AbortIfFailed="True"/>
+      <FrontIndividualSensorTest Result="Not Tested" Timeout="10000" Description="Check the wheel speed sensors at low speed" ScanDelay="250" AbortIfFailed="True"/>
+      <RearIndividualSensorTest Result="Not Tested" Timeout="10000" Description="Check the wheel speed sensors at low speed" ScanDelay="250" AbortIfFailed="True"/>
       <RunPumpMotor Result="" Timeout="10000" Description="Turn the ABS pump on" Prompt1=""/>
       <StopPumpMotor Result="" Timeout="10000" Description="Turn the ABS pump off" Prompt1=""/>
       <DeEnergizeAllValves Result="" Timeout="10000" Description="De-Energize All Valves / Run Pump" ABSPumpMotorTime="300"/>
@@ -856,5 +878,6 @@
       <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="35 40" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0" AbortIfFailed="True"/>
       <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
       <AnalyzeDynamicParkBrake Result="Not Tested" Timeout="500" Description="Analyze park brake results" AbortIfFailed="False"/>
+      <AccelerateVehicleToSpeed Result="" Timeout="90000" Description="Rollers accelerate to Brake Speed" Prompt1="RemoveFootFromAccelerator" Prompt2="ShiftToNeutral" SpeedTarget="60 70" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
    </TestSteps>
 </BendixEC80ABS>

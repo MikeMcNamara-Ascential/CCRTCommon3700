@@ -2020,30 +2020,61 @@ INT32 BaseBrakeTool::AnalyzeDrags(INT32 dragStart, INT32 dragEnd)
         m_component->SystemWrite(m_component->GetDataTag(rollerName[roller] + "DragValue"), average);
         m_component->SystemWrite(m_component->GetDataTag(rollerName[roller] + "DragBGColor"), color);
         // Update the fault data based on the results
-        string faultTag = rollerName[roller]+"DragFault";
-        faultCode = (color == "Green" ? "0000" : m_component->GetFaultCode(faultTag));
-        faultDesc = (color == "Green" ? rollerName[roller] + " Brake Drag Test Result" : m_component->GetFaultDescription(faultTag));
-        // send the test results to the TestResultServer
-        memset(buffer, 0, sizeof(buffer));
-        string maxDragForceTag = ((roller == LFWHEEL) || (roller == RFWHEEL) ? "Front" : "Rear");
-        maxDragForceTag += "MaxDragForce";
-        string param(roller < 2 ? "FrontMaxDragForce" : "RearMaxDragForce");
-        float maxDragForce = m_component->GetVehicleParameter("BrakeForces/" + param, float(0.0));
-        m_component->SendSubtestResultWithDetail(rollerName[roller] + "DragTest", testStatus, faultDesc, faultCode,
-                                                 "DragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", average), unitsLBF,
-                                                 "MaxDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", maxDragForce), unitsLBF);
-        m_component->SendSubtestResultWithDetail(rollerName[roller] + "DragTestStats", testStatus, faultDesc, faultCode,
-                                                 "MinDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller].minValue), unitsLBF,
-                                                 "MaxDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller].maxValue), unitsLBF,
-                                                 "AverageDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller].averageValue), unitsLBF,
-                                                 "MinDragIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_dragTestStats[roller].minValueIndex), "",
-                                                 "MaxDragIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_dragTestStats[roller].maxValueIndex), "");
-        // Write the results to the system for display
-        m_component->SystemWrite(rollerName[roller]+"DragMinValue", m_dragTestStats[roller].minValue);
-        m_component->SystemWrite(rollerName[roller]+"DragMaxValue", m_dragTestStats[roller].maxValue);
-        m_component->SystemWrite(rollerName[roller]+"DragAverageValue", m_dragTestStats[roller].averageValue);
-        m_component->SystemWrite(rollerName[roller]+"DragMinValueIndex", m_dragTestStats[roller].minValueIndex);
-        m_component->SystemWrite(rollerName[roller]+"DragMaxValueIndex", m_dragTestStats[roller].maxValueIndex);
+        if (m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")) == "1" &&
+             m_component->ReadSubscribeData(m_component->GetDataTag("FrontAxleTestSelected")) == "0")
+        {
+            string faultTag = rollerName[roller+2]+"DragFault";
+            faultCode = (color == "Green" ? "0000" : m_component->GetFaultCode(faultTag));
+            faultDesc = (color == "Green" ? rollerName[roller+2] + " Brake Drag Test Result" : m_component->GetFaultDescription(faultTag));
+            // send the test results to the TestResultServer
+            memset(buffer, 0, sizeof(buffer));
+            string maxDragForceTag = ((roller+2 == LFWHEEL) || (roller+2 == RFWHEEL) ? "Front" : "Rear");
+            maxDragForceTag += "MaxDragForce";
+            string param(roller+2 < 2 ? "FrontMaxDragForce" : "RearMaxDragForce");
+            float maxDragForce = m_component->GetVehicleParameter("BrakeForces/" + param, float(0.0));
+            m_component->SendSubtestResultWithDetail(rollerName[roller+2] + "DragTest", testStatus, faultDesc, faultCode,
+                                                     "DragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", average), unitsLBF,
+                                                     "MaxDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", maxDragForce), unitsLBF);
+            m_component->SendSubtestResultWithDetail(rollerName[roller+2] + "DragTestStats", testStatus, faultDesc, faultCode,
+                                                     "MinDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller+2].minValue), unitsLBF,
+                                                     "MaxDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller+2].maxValue), unitsLBF,
+                                                     "AverageDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller+2].averageValue), unitsLBF,
+                                                     "MinDragIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_dragTestStats[roller+2].minValueIndex), "",
+                                                     "MaxDragIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_dragTestStats[roller+2].maxValueIndex), "");
+            // Write the results to the system for display
+            m_component->SystemWrite(rollerName[roller+2]+"DragMinValue", m_dragTestStats[roller+2].minValue);
+            m_component->SystemWrite(rollerName[roller+2]+"DragMaxValue", m_dragTestStats[roller+2].maxValue);
+            m_component->SystemWrite(rollerName[roller+2]+"DragAverageValue", m_dragTestStats[roller+2].averageValue);
+            m_component->SystemWrite(rollerName[roller+2]+"DragMinValueIndex", m_dragTestStats[roller+2].minValueIndex);
+            m_component->SystemWrite(rollerName[roller+2]+"DragMaxValueIndex", m_dragTestStats[roller+2].maxValueIndex);
+        }
+        else
+        {
+            string faultTag = rollerName[roller]+"DragFault";
+            faultCode = (color == "Green" ? "0000" : m_component->GetFaultCode(faultTag));
+            faultDesc = (color == "Green" ? rollerName[roller] + " Brake Drag Test Result" : m_component->GetFaultDescription(faultTag));
+            // send the test results to the TestResultServer
+            memset(buffer, 0, sizeof(buffer));
+            string maxDragForceTag = ((roller == LFWHEEL) || (roller == RFWHEEL) ? "Front" : "Rear");
+            maxDragForceTag += "MaxDragForce";
+            string param(roller < 2 ? "FrontMaxDragForce" : "RearMaxDragForce");
+            float maxDragForce = m_component->GetVehicleParameter("BrakeForces/" + param, float(0.0));
+            m_component->SendSubtestResultWithDetail(rollerName[roller] + "DragTest", testStatus, faultDesc, faultCode,
+                                                     "DragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", average), unitsLBF,
+                                                     "MaxDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", maxDragForce), unitsLBF);
+            m_component->SendSubtestResultWithDetail(rollerName[roller] + "DragTestStats", testStatus, faultDesc, faultCode,
+                                                     "MinDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller].minValue), unitsLBF,
+                                                     "MaxDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller].maxValue), unitsLBF,
+                                                     "AverageDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller].averageValue), unitsLBF,
+                                                     "MinDragIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_dragTestStats[roller].minValueIndex), "",
+                                                     "MaxDragIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_dragTestStats[roller].maxValueIndex), "");
+            // Write the results to the system for display
+            m_component->SystemWrite(rollerName[roller]+"DragMinValue", m_dragTestStats[roller].minValue);
+            m_component->SystemWrite(rollerName[roller]+"DragMaxValue", m_dragTestStats[roller].maxValue);
+            m_component->SystemWrite(rollerName[roller]+"DragAverageValue", m_dragTestStats[roller].averageValue);
+            m_component->SystemWrite(rollerName[roller]+"DragMinValueIndex", m_dragTestStats[roller].minValueIndex);
+            m_component->SystemWrite(rollerName[roller]+"DragMaxValueIndex", m_dragTestStats[roller].maxValueIndex);
+        }
         // update the result of the check
         m_component->UpdateResult(testStatus, status);
     }
@@ -2128,40 +2159,81 @@ INT32 BaseBrakeTool::AnalyzeBrakeForces(INT32 brakeStart, INT32 brakeEnd)
         modifiedMinForce = ApplyForceMultiplier(minForce, m_component->GetParameterFloat("BrakeForceMultiplier"));
         string minParamName;
         string maxParamName;
-        if(roller < (UINT32)2)
+        if (m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")) == "1" &&
+             m_component->ReadSubscribeData(m_component->GetDataTag("FrontAxleTestSelected")) == "0")
         {
-            minParamName = "BrakeForces/FrontMinBrakeForce";
-            maxParamName = "BrakeForces/FrontMaxBrakeForce";
-        }
-        else if(roller < (UINT32)4)
-        {
-            minParamName = "BrakeForces/RearMinBrakeForce";
-            maxParamName = "BrakeForces/RearMaxBrakeForce";
-        }
-        else
-        {
-            minParamName = "BrakeForces/TandemMinBrakeForce";
-            maxParamName = "BrakeForces/TandemMaxBrakeForce";
-        }
-        m_component->SendSubtestResultWithDetail(rollerName[roller] + "ForceTest", testStatus, faultDesc, faultCode,
+            if (roller+2 < (UINT32)2)
+            {
+                minParamName = "BrakeForces/FrontMinBrakeForce";
+                maxParamName = "BrakeForces/FrontMaxBrakeForce";
+            }
+            else if(roller+2 < (UINT32)4)
+            {
+                minParamName = "BrakeForces/RearMinBrakeForce";
+                maxParamName = "BrakeForces/RearMaxBrakeForce";
+            }
+            else
+            {
+                minParamName = "BrakeForces/TandemMinBrakeForce";
+                maxParamName = "BrakeForces/TandemMaxBrakeForce";
+            }
+            m_component->SendSubtestResultWithDetail(rollerName[roller+2] + "ForceTest", testStatus, faultDesc, faultCode,
                                                  "BrakeForce", CreateMessage(buffer, sizeof(buffer), "%.2f", force), unitsLBF,
                                                  "MaxBrakeForce", CreateMessage(buffer, sizeof(buffer), "%.2f", m_component->GetVehicleParameter(maxParamName, float(0.0))), unitsLBF,
                                                  "MinBrakeForce", CreateMessage(buffer, sizeof(buffer), "%.2f", m_component->GetVehicleParameter(minParamName, float(0.0))), unitsLBF,
                                                  "MinBrakeForceWithMultiplier", CreateMessage(buffer, sizeof(buffer), "%.2f", modifiedMinForce), unitsLBF,
                                                  "BrakeForceWithMultiplier", CreateMessage(buffer, sizeof(buffer), "%.2f", modifiedForce), unitsLBF);
-        m_component->SendSubtestResultWithDetail(rollerName[roller] + "BrakeTestStats", testStatus, faultDesc, faultCode,
+            m_component->SendSubtestResultWithDetail(rollerName[roller+2] + "BrakeTestStats", testStatus, faultDesc, faultCode,
+                                                 "MinBrakeValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_brakeTestStats[roller+2].minValue), unitsLBF,
+                                                 "MaxBrakeValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_brakeTestStats[roller+2].maxValue), unitsLBF,
+                                                 "AverageBrakeValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_brakeTestStats[roller+2].averageValue), unitsLBF,
+                                                 "MinBrakeIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_brakeTestStats[roller+2].minValueIndex), "",
+                                                 "MaxBrakeIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_brakeTestStats[roller+2].maxValueIndex), "");
+
+            // Write the results to the system for display
+            m_component->SystemWrite(rollerName[roller+2]+"BrakeMinValue", m_brakeTestStats[roller+2].minValue);
+            m_component->SystemWrite(rollerName[roller+2]+"BrakeMaxValue", m_brakeTestStats[roller+2].maxValue);
+            m_component->SystemWrite(rollerName[roller+2]+"BrakeAverageValue", m_brakeTestStats[roller+2].averageValue);
+            m_component->SystemWrite(rollerName[roller+2]+"BrakeMinValueIndex", m_brakeTestStats[roller+2].minValueIndex);
+            m_component->SystemWrite(rollerName[roller+2]+"BrakeMaxValueIndex", m_brakeTestStats[roller+2].maxValueIndex);
+        }
+        else
+        {
+            if (roller < (UINT32)2)
+            {
+                minParamName = "BrakeForces/FrontMinBrakeForce";
+                maxParamName = "BrakeForces/FrontMaxBrakeForce";
+            }
+            else if(roller < (UINT32)4)
+            {
+                minParamName = "BrakeForces/RearMinBrakeForce";
+                maxParamName = "BrakeForces/RearMaxBrakeForce";
+            }
+            else
+            {
+                minParamName = "BrakeForces/TandemMinBrakeForce";
+                maxParamName = "BrakeForces/TandemMaxBrakeForce";
+            }
+            m_component->SendSubtestResultWithDetail(rollerName[roller] + "ForceTest", testStatus, faultDesc, faultCode,
+                                                 "BrakeForce", CreateMessage(buffer, sizeof(buffer), "%.2f", force), unitsLBF,
+                                                 "MaxBrakeForce", CreateMessage(buffer, sizeof(buffer), "%.2f", m_component->GetVehicleParameter(maxParamName, float(0.0))), unitsLBF,
+                                                 "MinBrakeForce", CreateMessage(buffer, sizeof(buffer), "%.2f", m_component->GetVehicleParameter(minParamName, float(0.0))), unitsLBF,
+                                                 "MinBrakeForceWithMultiplier", CreateMessage(buffer, sizeof(buffer), "%.2f", modifiedMinForce), unitsLBF,
+                                                 "BrakeForceWithMultiplier", CreateMessage(buffer, sizeof(buffer), "%.2f", modifiedForce), unitsLBF);
+            m_component->SendSubtestResultWithDetail(rollerName[roller] + "BrakeTestStats", testStatus, faultDesc, faultCode,
                                                  "MinBrakeValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_brakeTestStats[roller].minValue), unitsLBF,
                                                  "MaxBrakeValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_brakeTestStats[roller].maxValue), unitsLBF,
                                                  "AverageBrakeValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_brakeTestStats[roller].averageValue), unitsLBF,
                                                  "MinBrakeIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_brakeTestStats[roller].minValueIndex), "",
                                                  "MaxBrakeIndex", CreateMessage(buffer, sizeof(buffer), "%d", m_brakeTestStats[roller].maxValueIndex), "");
 
-        // Write the results to the system for display
-        m_component->SystemWrite(rollerName[roller]+"BrakeMinValue", m_brakeTestStats[roller].minValue);
-        m_component->SystemWrite(rollerName[roller]+"BrakeMaxValue", m_brakeTestStats[roller].maxValue);
-        m_component->SystemWrite(rollerName[roller]+"BrakeAverageValue", m_brakeTestStats[roller].averageValue);
-        m_component->SystemWrite(rollerName[roller]+"BrakeMinValueIndex", m_brakeTestStats[roller].minValueIndex);
-        m_component->SystemWrite(rollerName[roller]+"BrakeMaxValueIndex", m_brakeTestStats[roller].maxValueIndex);
+            // Write the results to the system for display
+            m_component->SystemWrite(rollerName[roller]+"BrakeMinValue", m_brakeTestStats[roller].minValue);
+            m_component->SystemWrite(rollerName[roller]+"BrakeMaxValue", m_brakeTestStats[roller].maxValue);
+            m_component->SystemWrite(rollerName[roller]+"BrakeAverageValue", m_brakeTestStats[roller].averageValue);
+            m_component->SystemWrite(rollerName[roller]+"BrakeMinValueIndex", m_brakeTestStats[roller].minValueIndex);
+            m_component->SystemWrite(rollerName[roller]+"BrakeMaxValueIndex", m_brakeTestStats[roller].maxValueIndex);
+        }
         // update the result of the check
         m_component->UpdateResult(testStatus, status);
     }
@@ -2306,10 +2378,19 @@ INT32 BaseBrakeTool::ValidateBalances(void)
     {
         m_component->Log(LOG_DEV_DATA, "\t\tindex: %d -- %.2f\n", index, m_brakeForce[index]);
     }
-    INT32 testStatus = FrontBalance();          // perform the front balance test
+    INT32 testStatus;
+    if (m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")) == "1" &&
+         m_component->ReadSubscribeData(m_component->GetDataTag("FrontAxleTestSelected")) == "0") 
+    {
+        testStatus = RearBalance();          // perform the rear balance test
+    }
+    else
+    {
+        testStatus = FrontBalance();          // perform the front balance test
+    }
     m_component->UpdateResult(testStatus, status);          // update the result of the check
 
-    if((m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine"))).compare("1"))
+    if((m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine"))).compare("1")) //if NOT a single axle
     {
         testStatus = RearBalance();                 // perform the rear balance test
         m_component->UpdateResult(testStatus, status);          // update the result of the check

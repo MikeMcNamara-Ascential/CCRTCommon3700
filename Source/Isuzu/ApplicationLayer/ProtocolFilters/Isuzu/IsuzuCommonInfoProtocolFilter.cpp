@@ -44,8 +44,19 @@ void IsuzuCommonInfoProtocolFilter::AddChecksumToMessage(SerialString_t &message
 //-------------------------------------------------------------------------------------------------
 const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::CheckForValidResponse(const SerialString_t &moduleResponse)
 {
-	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-	if((moduleResponse[0] == STX) && (moduleResponse[moduleResponse.length() - 3] == ETX))
+    Log(LOG_DEV_DATA,"IsuzuCommonInfoProtocolFilter::CheckForValidResponse() - Enter\n");
+    string fullResponse = "";
+
+	char buff[196];
+	for(UINT32 index = 0; index < moduleResponse.length(); index++)
+	{
+		fullResponse += CreateMessage(buff, sizeof(buff), "$%02X ", moduleResponse[index]);
+	}
+    Log(LOG_DEV_DATA, "Msg:  %s", fullResponse.c_str());
+
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+
+    if((moduleResponse[0] == STX) && (moduleResponse[moduleResponse.length() - 3] == ETX))
 	{
 		status = BEP_STATUS_SUCCESS;
 	}
@@ -54,6 +65,7 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::CheckForValidResponse(const
 		status = BEP_STATUS_FAILURE;
 	}
 	Log(LOG_DEV_DATA, "Check for valid response: %s", ConvertStatusToResponse(status).c_str());
+    Log(LOG_DEV_DATA,"IsuzuCommonInfoProtocolFilter::CheckForValidResponse() - Exit\n");
 	return status;
 }
 
@@ -126,7 +138,7 @@ const SerialString_t IsuzuCommonInfoProtocolFilter::ExtractModuleData(SerialStri
 		}
 		else
 		{
-			Log(LOG_ERRORS, "Invalid message received");
+			Log(LOG_ERRORS, "Invalid message received at message index %d", msgIndex);
 		}
 	}
 	Log(LOG_FN_ENTRY, "IsuzuCommonInfoProtocolFilter::ExtractModuleData() - Exit");
@@ -156,6 +168,8 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	SerialString_t msg;
 	UINT16 dataLen = message.length() - 2;
+    Log(LOG_DEV_DATA,"IsuzuCommonInfoProtocolFilter::SendMessage - Enter\n");
+    PrintSerialString( "Isuzu ProtocolFilter SendMessage:", message);
 	/*
 	 * Add ifxed data fields to the message length:
 	 *  	4 = Device Number Length
@@ -194,7 +208,7 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	ResetConnection();
 	Log(LOG_DETAILED_DATA, "Reset The Connection\n");
 	// Send the message and return the result
-	PrintSerialString( "Isuzu ProtocolFilter Sending", msg);
+	PrintSerialString( "Isuzu Mima ProtocolFilter Sending", msg);
 	// Write message
 	INT32 bytesSent = ILogicalPort::WritePort(msg, GetNumberOfRetries());
 	SetLastTxTime();
@@ -218,4 +232,225 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(string messageT
 const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(string messageTag, SerialArgs_t &args)
 {
 	return ProtocolFilter::SendMessage(messageTag, args);
+}
+//-------------------------------------------------------------------------------------------------
+const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::GetResponse(const std::string &messageTag, SerialString_t &reply)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_NA;
+	// Get the response from the module
+	INT32 retry = 0;		// retry counter
+	INT32 bytesRead = 0;	// the number of bytes read
+    vector<SerialString_t> messages;
+    int messageLength, totalResponseBytes;
+
+    Log(LOG_DEV_DATA, "tk:gr1");
+	do
+	{	// read the data from the port
+        Log(LOG_DEV_DATA, "tk:gr1 - wffr");
+        bytesRead = WaitForFullResponse(reply);
+		Log(LOG_DETAILED_DATA, "Received %d bytes for message %s\n", bytesRead, messageTag.c_str());
+		// if data is read from the port, determine if it is done
+		if(bytesRead > 0)
+		{	// Log the response if enabled and flag set
+			if(GetLogStatus() && (GetVerboseMask() & LOG_DEV_DATA))
+			{
+				std::string response;		// response
+				char buffer[256];			// buffer for printing
+				for(INT16 ii = 0; ii < bytesRead; ii++)
+					response += CreateMessage(buffer, sizeof(buffer),"$%02X ", reply[ii]);
+				Log(LOG_DETAILED_DATA, "Response bytes received: %d for message: %s\tResponse: %s\n\n",
+					bytesRead, messageTag.c_str(), response.c_str());
+			}
+
+            try
+            {
+                messages.clear();
+                // If multiple messages are in the buffer, extract each message for processing
+	            do
+	            {
+        		    totalResponseBytes = reply.length();
+        		    messageLength = ((reply[TotalDataByteIndex] & 0x07) << 8) | reply[TotalDataByteIndex+1];
+        		    messageLength += (1 + 1 + 1 + 2);  // Header bytes
+        		    SerialString_t temp = reply.substr(0, messageLength);
+        		    messages.push_back(temp);
+        		    reply = reply.substr(messageLength);
+        	    } while(totalResponseBytes > messageLength);
+
+                Log(LOG_DEV_DATA, "%d messages found in response", messages.size());
+        	    for(int msgIndex = 0; msgIndex < messages.size(); msgIndex++)
+        	    {
+                    string response2;
+                    char buffer[256];
+                    for(INT16 ii = 0; ii < messages[msgIndex].length(); ii++)
+                    {
+                        response2 += CreateMessage(buffer, sizeof(buffer),"$%02X ", messages[msgIndex][ii]);
+                        //Log(LOG_DEV_DATA, "char:%02X\n",messages[msgIndex][ii]);
+                    }
+                    
+
+                    Log(LOG_DEV_DATA, "Message %d:%s - Length: %d", msgIndex, response2.c_str(), messages[msgIndex].length());
+    			    // Validate the response against all filters
+    			    if(IsResponseValid(messageTag, messages[msgIndex]))
+    			    {
+    				    Log(LOG_DETAILED_DATA, "Full response received\n");
+    				    status = BEP_STATUS_SUCCESS;
+                        reply = messages[msgIndex]; 
+    			    }
+    			    else
+    				    Log(LOG_ERRORS, "Incomplete response\n");
+
+                    retry++;
+    			    //retry = 0;	// rest the retry counter, due data received 
+                }
+            }
+            catch(exception i)
+            {
+                Log(LOG_DEV_DATA,"Exception in GetResponse: %s",i.what());
+                retry++;
+                break;
+            }
+		}
+		// else it is not looking good
+		else
+		{
+			// if a problem detected reading the port
+			if(bytesRead < 0)
+			{	// Error reading data from the port
+				status = BEP_STATUS_ERROR;
+			}
+			// else if the reply is empty and already performed another attempt
+			else if(reply.empty() && retry)
+			{	// No data sent from the module
+				status = BEP_STATUS_FAILURE;
+			}
+			// else wait the full retry attempts to see the message received
+			else
+			{
+				Log(LOG_DETAILED_DATA, "Waiting for full message\n");
+			}
+			retry++;	// increment the retry counter
+		}
+        if (status == BEP_STATUS_NA)
+        {
+            delay(30);
+        }
+
+		// while the result not detemined and retries remain
+	}while((status == BEP_STATUS_NA) && (retry < 5) && !GetStopCommsFlag());
+
+	// if a successful read never occurred, fail
+	if(retry >= 3) status = BEP_STATUS_FAILURE;
+
+	Log(LOG_FN_ENTRY, "Exit IsuzuCommonInfoProtocolFilter::GetResponse: %d\n", status);
+
+	// Return the status
+	return(status);
+}
+
+const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::GetModuleData(std::string messageTag, SerialString_t &reply, SerialArgs_t *args)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+	std::string asciiMessage;
+	SerialString_t xmtMessage;
+	UINT16 tries = GetNumberOfRetries() + 1;
+	bool portLocked = false;
+	if(GetMessage(messageTag,asciiMessage) == BEP_STATUS_SUCCESS)
+	{
+		// Lock the port so only this thread uses it
+		Log(LOG_DETAILED_DATA, "GetModuleData Locking Port\n");
+		if((portLocked = LockPort()) == true)
+		{	// The port was locked
+			Log(LOG_DETAILED_DATA, "IsuzuCommonInfoProtocolFilter::GetModuleData Locked Port\n");
+			do
+			{	// Send the message to the module
+				if(args == NULL) status = SendMessage(messageTag);
+				else			  status = SendMessage(messageTag, *args);
+				Log(LOG_DEV_DATA, "Sent message: %s to module - status: %s\n", messageTag.c_str(),
+					ConvertStatusToResponse(status).c_str());
+				// If response expected, call GetResponse(
+				if(IsResponseExpected(messageTag))
+				{	// Clear the response area
+					reply.erase();
+                    Log(LOG_DETAILED_DATA, "IsuzuCommonInfoProtocolFilter::GetModuleData clear response area");
+					// Set the message ID
+					// If send was successful, get the module response
+					if(BEP_STATUS_SUCCESS == status)
+                    { 
+                        Log(LOG_DETAILED_DATA, "IsuzuCommonInfoProtocolFilter::GetModuleData getting module response");
+                        status = GetResponse(messageTag, reply);
+                    }
+					// If this is not a valid message, wait a bit beofre trying again
+					if(BEP_STATUS_SUCCESS != status)
+                    {
+                        Log(LOG_DETAILED_DATA, "IsuzuCommonInfoProtocolFilter::GetModuleData not valid message");
+                        //BposSleep(GetResponseDelay());
+                    }
+				}
+				else
+				{
+
+                    // If response NOT expected, exit do-while loop
+					status = BEP_STATUS_SUCCESS;
+                    Log(LOG_DETAILED_DATA, "IsuzuCommonInfoProtocolFilter::GetModuleData response not expected");
+
+				}
+			}
+			while((BEP_STATUS_SUCCESS != status) && (tries-- > 0) && !GetStopCommsFlag());
+			if(GetStopCommsFlag())
+			{
+				Log(LOG_ERRORS, "Module Signaled to stop communications:StopCommsFlag - %s, Message - %s, status: %s\n", 
+					GetStopCommsFlag() ? "true" : "false", messageTag.c_str(), ConvertStatusToResponse(status).c_str());
+			}
+		}
+		else Log(LOG_ERRORS, "Could not lock the port for message: %s because: %s\n", messageTag.c_str(), strerror(errno));
+		// Finished with the port for this attempt, unlock for others
+		if(portLocked)
+		{	// Unlock the port
+			Log(LOG_DETAILED_DATA, "GetModuleData UnLocking Port\n");
+			bool portUnlocked = false;
+			UINT8 attempts = 5;
+			while(((portUnlocked = UnlockPort()) == false) && attempts--)
+			{
+				Log(LOG_ERRORS, "Error unlocking port - attempt: %d , Reason: %s\n", attempts, strerror(errno));
+				BposSleep(10);
+			}
+			if(!portUnlocked)  Log(LOG_ERRORS, "WARNING: Port was NOT UNLOCKED!!!!!!!!!!!!!!!\n");
+			else				Log(LOG_DETAILED_DATA, "GetModuleData UnLocked Port\n");
+		}
+		// If a response is expected, verify that response is valid
+		if(IsResponseExpected(messageTag))
+		{
+			// Check if valid message was retrieved
+			if((status == BEP_STATUS_SUCCESS) && (reply.length() > 0))
+			{	// Verify a valid response was received
+				status = CheckForValidResponse(reply);
+				// Check for a negative response from the module
+				if(status != BEP_STATUS_SUCCESS) status = CheckForNegativeResponse(reply);
+				// Extract the data from the response
+				if(BEP_STATUS_SUCCESS == status) reply = ExtractModuleData(reply);
+			}
+			else if(status != BEP_STATUS_SUCCESS)
+			{
+				Log(LOG_ERRORS, "Error getting data from module: Message - %s, status: %s\n",
+					messageTag.c_str(), ConvertStatusToResponse(status).c_str());
+			}
+			else if(reply.length() <= 0)
+			{
+				Log(LOG_ERRORS, "Did not receive a valid response from the module\n");
+				status = BEP_STATUS_FAILURE;
+			}
+		}
+		else
+		{
+			// If response NOT expected, return Success
+			status = BEP_STATUS_SUCCESS;
+		}
+	}
+	else
+	{	// No message provided for this tag
+		Log(LOG_ERRORS, "No message provided for tag: %s\n", messageTag.c_str());
+		status = BEP_STATUS_SOFTWARE;
+	}
+	Log(LOG_DETAILED_DATA, "GetModuleData() returning - status: %s\n", ConvertStatusToResponse(status).c_str());
+	return(status);
 }

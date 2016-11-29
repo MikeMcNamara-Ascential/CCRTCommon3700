@@ -26,6 +26,34 @@ MimamoriModule<ProtocolFilterType>::~MimamoriModule()
 }
 
 //-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType>
+bool MimamoriModule<ProtocolFilterType>::InitializeHook (const XmlNode *configNode)
+{
+    bool status = false;
+    // Call the base class to complete the initialization
+    status = GenericModuleTemplate<ProtocolFilterType>::InitializeHook(configNode);
+    
+    Log(LOG_DEV_DATA, "MimamoriModule::InitializeHook: Getting Dtc Info from Config\n");
+    UINT8 byte = 0x00;
+    try
+    {
+        byte = BposReadInt(configNode->getChild("Setup/DtcStartIndex")->getValue().c_str());
+    }
+    catch(XmlException &excpt)
+    {
+        byte = 0;
+        Log(LOG_ERRORS, "DTC Start index not defined, using 0");
+    }
+    Log(LOG_DEV_DATA, "Setting DTC STart Index to %d", byte);
+    DtcStartIndex(&byte);
+
+    Log(LOG_FN_ENTRY, "Exit MimamoriModule::InitializeHook(), status=%d\n", status);
+
+    return(status);
+
+}
+
+//-------------------------------------------------------------------------------------------------
 template<class ProtocolFilterType>
 BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::EnterDiagnosticMode(void)
 {
@@ -44,6 +72,10 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::EnterDiagnosticMode(void)
 	SerialString_t moduleResponse;
 	m_protocolFilter->ResetConnection();
 	status = m_protocolFilter->GetResponse("ConnectingDevBcast", moduleResponse);
+    //if unsuccessful try again
+    if (BEP_STATUS_SUCCESS != status) {
+        status = m_protocolFilter->GetResponse("ConnectingDevBcast", moduleResponse);
+    }
 	if(BEP_STATUS_SUCCESS == status)
 	{
 		status = m_protocolFilter->CheckForValidResponse(moduleResponse);
@@ -68,9 +100,9 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::EnterDiagnosticMode(void)
 					Log(LOG_DEV_DATA, "VIN             : %s", m_vehicleInfo.vin.c_str());
 					if((status = CommandModule("VehicleAttributeResponse")) == BEP_STATUS_SUCCESS)
 					{
-//						status = CommandModule("VehicleNumberResponse");
-						status = m_protocolFilter->SendMessage("VehicleNumberResponse");
-						Commcheckout();
+						status = CommandModule("VehicleNumberResponse");
+//						status = m_protocolFilter->SendMessage("VehicleNumberResponse");
+						//Commcheckout();
 					}
 					else
 					{
@@ -116,7 +148,7 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::ReadFaults(FaultVector_t &fa
 	BEP_STATUS_TYPE status = m_protocolFilter->GetModuleData("ReadFaults", response);
 	if(BEP_STATUS_SUCCESS == status)
 	{   // Check the status if each DTC
-		int currentDtcIndex = 16;
+		int currentDtcIndex = DtcStartIndex();
 		for(UINT16 index = 0; index < 27; index++)
 		{   
 			char buff[8];
@@ -138,7 +170,6 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::ReadFaults(FaultVector_t &fa
 			case 0xE0:
 				dtcStatus = "present failure";
 				break;
-
 			default:
 				dtcStatus = "unknown";
 				break;
@@ -177,7 +208,7 @@ void MimamoriModule<ProtocolFilterType>::Commcheckout()
 	Log(LOG_FN_ENTRY, "MimamoriModule::Commcheckout() - Enter");
 	BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
 	SerialString_t moduleResponse;
-	for(int msgCnt = 0; (msgCnt < 10000); msgCnt++)
+	for(int msgCnt = 0; (msgCnt < 3); msgCnt++)
 	{
 		m_protocolFilter->ResetConnection();
 		status = m_protocolFilter->GetResponse(moduleResponse);
@@ -194,7 +225,7 @@ void MimamoriModule<ProtocolFilterType>::Commcheckout()
 				}
 				else
 				{
-					Log(LOG_DEV_DATA, "STOP!! - Got a different message back from Mimamori!!");
+					Log(LOG_DEV_DATA, "STOP!! - Got a different message back from Mimamori!! msgCount:%d", msgCnt);
 					status = m_protocolFilter->SendMessage("TriggerSetup");
 				}
 			}
@@ -202,3 +233,76 @@ void MimamoriModule<ProtocolFilterType>::Commcheckout()
 	}
 	Log(LOG_FN_ENTRY, "MimamoriModule::Commcheckout() - Exit");
 }
+
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::GetInfo(string methodName, string & value)
+throw(ModuleException)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+
+    if(methodName == "ReadDrmEngine") status = ReadModuleData(methodName,value);
+    else if(methodName == "ReadDrmAt") status = ReadModuleData(methodName,value);
+    else if(methodName == "ReadDrmScr") status = ReadModuleData(methodName,value);
+    else if(methodName == "ReadDrmBrake") status = ReadModuleData(methodName,value);
+    else if(methodName == "ReadDrmEdrOilTemp") status = ReadModuleData(methodName,value);
+    else
+    {
+        // No special implementation, try the base class
+        status = GenericModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+    }
+    return status;
+}
+
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::GetInfo(string methodName, float &value)
+throw(ModuleException)
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+
+    if(methodName == "ReadFuelEconomy") status = ReadModuleData(methodName,value);
+    else if(methodName == "ReadTotalMileage") status = ReadModuleData(methodName,value);
+    // No special implementation, try the base class
+    else  status = GenericModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+    // Return the status
+    return status;
+}
+
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::GetInfo(string methodName, int & value)
+throw(ModuleException)
+{
+    // No special implementation, try the base class
+    return GenericModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+}
+
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::GetInfo(string methodName, UINT8 & value)
+throw(ModuleException)
+{
+    // No special implementation, try the base class
+    return GenericModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+}
+
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::GetInfo(string methodName, UINT16 & value)
+throw(ModuleException)
+{
+    // No special implementation, try the base class
+    return GenericModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+}
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::GetInfo(string methodName, FaultVector_t & value) throw(ModuleException)
+{
+    // No special implementation, try the base class
+    return GenericModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+}
+
+//-----------------------------------------------------------------------------
+template<class ProtocolFilterType>
+inline const UINT8& MimamoriModule<ProtocolFilterType>::DtcStartIndex(const UINT8 *byte /*= NULL*/)
+{
+    if(byte != NULL)  m_dtcStartIndex = *byte;
+    return m_dtcStartIndex;
+}
+
+

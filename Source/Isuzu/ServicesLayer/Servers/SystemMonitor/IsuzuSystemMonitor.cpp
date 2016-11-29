@@ -258,6 +258,12 @@ void IsuzuSystemMonitor::UpdateDriverMonitor( ControlData *ctrl)
                 DisplayPrompt( 2,  "CycleLossCompensationSwitch", false);
             }
             // else if not already prompted to cycle because conditions are not correct, prompt to cycle the key
+            else if (!ctrl->calConditionsCorrect && ctrl->rollsUp)
+            {
+                ctrl->calConditionsCorrect = true;
+                DisplayPrompt( 2,  "CycleLossCompensationSwitch", true);
+            }
+            // else if not already prompted to cycle because conditions are not correct, prompt to cycle the key
             else if (!ctrl->calConditionsCorrect)
             {
                 ctrl->calConditionsCorrect = true;

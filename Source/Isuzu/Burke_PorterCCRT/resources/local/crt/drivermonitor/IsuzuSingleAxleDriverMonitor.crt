@@ -17,7 +17,7 @@
             <HBox posX="10" posY="0" width="700" height="270">
                 <!-- Speedometer gauge -->
                 <Widget id="speed" height="300" width="300" class="com.bepco.gui.RadialGauge">
-                    <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
+                    <DataSource tagname="LFSpeed" messagetype="Read" datarate="10"/>
                     <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
                     <DataSource tagname="SpeedActive" messagetype="Subscribe" tagrole="enabled"/>
                     <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" >
@@ -73,40 +73,28 @@
                 <HBox width="200" border="false">
                     <VBox width="55">
                         
-                        <Widget id="_rf" class="com.bepco.gui.NumberBox" width='80'>
-                            <DataSource tagname="RFSpeed" messagetype="Read" datarate="10" />
-                            <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                        <Widget id="_lf" class="com.bepco.gui.NumberBox" width='80'>
+                            <DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
+                            <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <DataSource tagname="SpeedActive" messagetype="Subscribe" tagrole="enabled"/>
                             <TextBoxConfig>
                                 <Font size="38" name="sans-serif" style="plain"/>
                             </TextBoxConfig>
                         </Widget>
                         <HBox height="100"/>
-                        <!--Widget id="_lf" class="com.bepco.gui.NumberBox" width="80">
-                            <DataSource tagname="LFSpeed" messagetype="Read" datarate="10" />
-                            <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
-                            <TextBoxConfig>
-                                <Font size="38" name="sans-serif" style="plain"/>
-                            </TextBoxConfig>
-                        </Widget-->
                     </VBox>
 
                     <VBox width="55">
                         
-                        <Widget id="_lr" class="com.bepco.gui.NumberBox" width="80">
+                        <Widget id="_rf" class="com.bepco.gui.NumberBox" width="80">
                             <DataSource tagname="RFSpeed" messagetype="Read" datarate="10" />
                             <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+							<DataSource tagname="SpeedActive" messagetype="Subscribe" tagrole="enabled"/>
                             <TextBoxConfig>
                                 <Font size="38" name="sans-serif" style="plain"/>
                             </TextBoxConfig>
                         </Widget>
                         <HBox height="100"/>
-                        <!--Widget id="_rr" class="com.bepco.gui.NumberBox" width='80'>
-                            <DataSource tagname="RRSpeed" messagetype="Read" datarate="10" />
-                            <DataSource tagname="RRSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
-                            <TextBoxConfig>
-                                <Font size="38" name="sans-serif" style="plain"/>
-                            </TextBoxConfig>
-                        </Widget-->
                     </VBox>
                 </HBox>
             </VBox>

@@ -405,7 +405,7 @@
             <TestStep115 AltValue="EGRPosition">CheckEGRPosition</TestStep115>
             <TestStep120 AltValue="DifferentialPressure">DifferentialPressure</TestStep120>
             <!--TestStep120 AltValue="ThrottlePosition">CheckThrottlePosition</TestStep120-->
-            <!--TestStep139>ReadFaults</TestStep139-->
+            <TestStep139>ReadFaults</TestStep139>
             <!--TestStep145>StopSwitchMonitors</TestStep145-->
         </HotIdle>
         <SteadySpeedTests>
@@ -447,11 +447,11 @@
         <CheckTurboBoostPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify turbo boost pressure during idle condition"/>
         <CheckVehicleSpeedSensor Result="" AlwaysPerform="False" AbortIfFailed="True" Timeout="500" Description="Validate vehicle speed sensor reading"/>
         <CheckVIN Result="" Timeout="500" Description="Verify the module VIN matches the scanned VIN" AlwaysPerform="False" AbortIfFailed="False"/>
-        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" AbortIfFailed="False"/>
-        <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" IgnoreModuleLockedStatus="True" AbortIfFailed="False"/>
+        <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="True" AbortIfFailed="False"/>
         <DifferentialPressure Result="Not Tested" Timeout="5000" Description="Check Differential Pressure Sensor" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
         <DelayBeforeDtcRead Result="" Timeout="65000" Description="Delay before reading DTCs"/>
-        <DPDSwitchCheck Result="" Timeout="5000" Description="Check DPD Switch Positoin" ScanDelay="100" AbortIfFailed="False"/>
+        <DPDSwitchCheck Result="" Timeout="5000" Description="Check DPD Switch Position" ScanDelay="100" AbortIfFailed="False"/>
         <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
         <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>

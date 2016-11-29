@@ -1111,6 +1111,11 @@ protected:
      */
     string IndividualSensorTest(void);
 
+    string AccelerateRolls(void);
+
+    string AccelerateVehicleToSpeed(void);
+
+
 	/**
 	 * "File" to read current accel values from
 	 */

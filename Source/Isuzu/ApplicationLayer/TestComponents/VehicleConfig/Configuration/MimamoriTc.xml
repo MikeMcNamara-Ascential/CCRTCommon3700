@@ -23,6 +23,8 @@
             <LoadStaticTestResults>False</LoadStaticTestResults>
             <ConfigFile>/Configuration/Components/VehicleConfig/MimamoriModule.xml</ConfigFile>
 
+			<ClearHistoryDelay>4000</ClearHistoryDelay>
+
             <!-- DTC Parameters -->
             <AbortIfDTCPresent>False</AbortIfDTCPresent>
             <AlwaysClearFaults>False</AlwaysClearFaults>
@@ -106,8 +108,6 @@
         <IgnoreFaults/>
     </Setup>
 
-
-
     <Objectives>
         <MimamoriTest>
             <TestStep00>Setup</TestStep00>
@@ -115,14 +115,32 @@
             <TestStep10>ClearFaults</TestStep10>
             <TestStep15>ReadFaults</TestStep15>
         </MimamoriTest>
+        <ReadMimamoriData>
+            <TestStep00>ClearHistory</TestStep00>
+            <TestStep03>EnterDiagnosticMode</TestStep03>
+            <TestStep05>CheckTotalMileage</TestStep05>
+            <TestStep10>CheckFuelEconomy</TestStep10>
+            <TestStep15>CheckDataRecordMemory</TestStep15>
+            <TestStep20>CheckOilTemperature</TestStep20>
+        </ReadMimamoriData>
+        <FinishUp>
+            <!--TestStep05>LockModule</TestStep05-->
+            <TestStep10>FinishUp</TestStep10>
+        </FinishUp>
     </Objectives>
 
 
 
     <TestSteps>
+        <CheckDataRecordMemory Result="" Timeout="2000" Description="Read module's data record and memory"/>
+        <CheckFuelEconomy Result="" Timeout="2000" Description="Read module's Fuel Economy"/>
+        <CheckOilTemperature Result="" Timeout="2000" Description="Read module's Oil Temperature"/>
+        <CheckTotalMileage Result="" Timeout="2000" Description="Read module's total mileage"/>
         <ClearFaults Result="" Timeout="100" Description="Clear faults from the module"/>
-        <EnterDiagnosticMode Result="" Timeout="10000" Description="Establish comms with Mimamori Module" ScanDelay="500"/>
+        <ClearHistory Result="" Timeout="5000" Description="Clear module history"/>
+        <EnterDiagnosticMode Result="" Timeout="1000" Description="Establish comms with Mimamori Module" ScanDelay="500"/>
         <FinishUp Result="" Timeout="100" Description="Finish up Mimamori Testing"/>
+        <LockModule Result="" Timeout="2000" Description="Lock the Module"/>
         <ReadFaults Result="" Timeout="100" Description="Read faults from Mimamori Module"/>
         <Setup Result="" Timeout="100" Description="Setup test component for testing"/>
     </TestSteps>

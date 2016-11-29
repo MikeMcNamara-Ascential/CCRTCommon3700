@@ -1,16 +1,20 @@
 <MimamoriFaults>
     <!-- System Status -->
-    <SoftwareFailure Code="0001" Description="Software failure using Mimampri module interface"/>
+    <SoftwareFailure Code="0001" Description="Software failure using Mimamori module interface"/>
 
     <!-- Test Condition Failures -->
-    <TimeoutFailure Code="0010" Description="Timeout waiting for test comditions"/>
+    <TimeoutFailure Code="0010" Description="Timeout waiting for test conditions"/>
 
     <!-- Communication Failures -->
     <CommunicationFailure Code="0015" Description="Mimamori Communication Failure"/>
 
     <!-- Test Failures -->
-    <ModuleFaults Code="0020" Description="ECM Module Faults Present"/>
-
+    <ModuleFaults Code="0020" Description="Mimamori Module Faults Present"/>
+    <ATOilTemperatureNotCleared Code="0025" Description="Mimamori AT Oil Temperature not cleared"/>
+    <DRMNotCleared Code="0030" Description="Mimamori DRM Memory not cleared"/>
+    <HistoryNotCleared Code="0035" Description="Mimamori History not cleared"/>
+    <TotalMileageNotCleared Code="0040" Description="Mimamori Total Mileage not cleared"/>
+    
     <!-- Module Faults -->
     <ModuleFault_0601 Code="P0601" Description="Mimamori: ECU not Programmed"/>
     <ModuleFault_0602 Code="P0602" Description="Mimamori: Security Access Not Active"/>

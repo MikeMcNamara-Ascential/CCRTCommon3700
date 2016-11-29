@@ -170,6 +170,10 @@
                         <Widget id="allwd" class="com.bepco.gui.ImagePhaseBox">
                             <DataSource tagname="AllWheelDrive" messagetype="Subscribe"/>
                         </Widget>
+                        <HBox height="5"/>	
+						<Widget id="frontaxletest" class="com.bepco.gui.ImagePhaseBox">
+                            <DataSource tagname="FrontAxleTestSelected" messagetype="Subscribe"/>
+                        </Widget>
                         <HBox height="5"/>
                     </VBox>
           
@@ -182,6 +186,8 @@
                         <Label name="rearwd"/>
                         <HBox height="5"/>
                         <Label name="allwd"/>
+                        <HBox height="5"/>
+                        <Label name="FrontAxle"/>
                     </VBox>
           
                     <!-- SPACER -->
@@ -255,7 +261,7 @@
             <VBox posX="1010" posY="210" width="260" height="500">
                 <!-- Speedometer gauge -->
                 <Widget id="speed" height="250" width="250" class="com.bepco.gui.RadialGauge">
-                    <DataSource tagname="SpeedValue" messagetype="Read" datarate="10"/>
+                    <DataSource tagname="LFSpeed" messagetype="Read" datarate="10"/>
                     <DataSource tagname="SpeedTarget" tagrole="targetrange" messagetype="Subscribe"/>
                     <DataSource tagname="SpeedActive" messagetype="Subscribe" tagrole="enabled"/>
                     <RadialGaugeConfig placement="center" startangle="135" stopangle="405" domainlow="0" domainhigh="100" targetlow="40" targethigh="60" scale="true" >

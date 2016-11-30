@@ -100,6 +100,7 @@
             // 
             // m_overallProgressBar
             // 
+            this.m_overallProgressBar.BackColor = System.Drawing.SystemColors.Window;
             this.m_overallProgressBar.Enabled = false;
             this.m_overallProgressBar.Location = new System.Drawing.Point(8, 37);
             this.m_overallProgressBar.Margin = new System.Windows.Forms.Padding(4);
@@ -116,7 +117,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1685, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1669, 28);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -568,8 +569,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1685, 1057);
+            this.ClientSize = new System.Drawing.Size(1685, 1047);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.m_lotNumberLabel);
             this.Controls.Add(this.m_modelYearLabel);

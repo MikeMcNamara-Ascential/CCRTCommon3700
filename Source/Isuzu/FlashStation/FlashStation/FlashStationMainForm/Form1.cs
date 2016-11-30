@@ -43,17 +43,21 @@ namespace FlashStationMainForm
         delegate void SetTransmissionTextCallback(string type);
         delegate void SetDisplayTimedDialogBoxCallback(string dialogText, string labelText, string buttonText, int timeout);
         private Logger m_logger;
+        private int lineCount = 0;
         public Form1()
         {
             InitializeComponent();
             //determine if comm device is set up
-            m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", @"E:\FlashStation\Logs\");
-            m_presenter = new MainFormDataPresenter(this,m_logger);
+            m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", @"C:\\FlashStation\\Logs\\");
+            lineCount++;
+            m_presenter = new MainFormDataPresenter(this, m_logger);
             string deviceName = Properties.Settings.Default.Device;
             string channelName = Properties.Settings.Default.CommChannel;
+            m_presenter.SetFlashRequired((bool)Properties.Settings.Default.IsFlashRequired);
+
             if (deviceName == "null" || channelName == "null")
             {//need to set up device / comm channel
-                EcuCommDeviceForm frm = new EcuCommDeviceForm(m_presenter,m_logger);
+                EcuCommDeviceForm frm = new EcuCommDeviceForm(m_presenter, m_logger);
                 frm.ShowDialog();
             }
             if (Properties.Settings.Default.Device == "null" || Properties.Settings.Default.CommChannel == "null")
@@ -82,8 +86,8 @@ namespace FlashStationMainForm
             m_overallProgressBar.Minimum = 0;
             m_overallProgressBar.Maximum = 100;
             m_overallProgressBar.Value = 0;
-
         }
+   
         public void SetPrompt1Text(string text)
         {
             if (this.m_promptBox1.InvokeRequired)
@@ -364,7 +368,7 @@ namespace FlashStationMainForm
         }
         public void StartBASTimer()
         {
-            if(!m_basLearnPromptTimer.Enabled);
+            if(!m_basLearnPromptTimer.Enabled)
                 m_basLearnPromptTimer.Start();
         }
         public void StopBASTimer()

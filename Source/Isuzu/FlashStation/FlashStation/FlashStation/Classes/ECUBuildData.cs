@@ -33,6 +33,7 @@ namespace Common.Classes
             m_performFlash = true;
             m_vinWriteSuccess = true;
             m_serialNumberWriteSuccess = true;
+            m_partNoMatches = false;
             m_esn = "";
             m_esnLeadingChars = esnLeadingChars;
             m_esnWriteRequired = esnWriteRequired;
@@ -48,6 +49,7 @@ namespace Common.Classes
         private bool m_performFlash;
         private bool m_vinWriteSuccess;
         private bool m_serialNumberWriteSuccess;
+        private bool m_partNoMatches;
         private String m_esn;
         private String m_esnLeadingChars;
         private bool m_esnWriteRequired;
@@ -67,6 +69,12 @@ namespace Common.Classes
         {
             get { return m_partNo; }
             set { m_partNo = value; }
+        }
+
+        public bool PartNumberMatches
+        {
+            get { return m_partNoMatches; }
+            set { m_partNoMatches = value; }
         }
 
         public String UtilityFilePartNumber

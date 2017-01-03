@@ -3714,9 +3714,8 @@ INT32 FordABSTCTemplate<ModuleType>::DynamicParkBrake(INT32 &brakeStart, INT32 &
             if ((0 < forceSampleCount) && (true == startSamplingAtMinForce))
             {
                 // check if minimum force for sampling is reached
-                Log(LOG_DEV_DATA,"gets to here snorkel 11");
                 m_baseBrakeTool->GetIForces(wheelForce);
-                Log(LOG_DEV_DATA,"gets to here snorkel 12");
+                Log(LOG_DEV_DATA,"gets to here  12");
                 //if((wheelForce[LFWHEEL] > minimumStartForce) && (wheelForce[RFWHEEL] > minimumStartForce))
                 Log(LOG_DEV_DATA, "minimumStartForce: %f, LFwheelForce: %f, RFwheelForce: %f, LRwheelForce: %f, RRwheelForce: %f,", minimumStartForce, wheelForce[LFWHEEL], wheelForce[RFWHEEL], wheelForce[LRWHEEL], wheelForce[RRWHEEL]);
                 if ((wheelForce[LRWHEEL] > minimumStartForce) && (wheelForce[RRWHEEL] > minimumStartForce) && (0 == brakeStart))
@@ -3732,7 +3731,6 @@ INT32 FordABSTCTemplate<ModuleType>::DynamicParkBrake(INT32 &brakeStart, INT32 &
                 else if (validForceSamples)
                 {
                     //Wait for the desired number of samples above minimum before we end
-                    Log(LOG_DEV_DATA,"gets to here snorkel 13");
                     if (validForceSamples >= forceSampleCount)
                     {   // Tag the end
                         brakeEnd = TagArray(tagPrefix+"StopForce");
@@ -3746,30 +3744,23 @@ INT32 FordABSTCTemplate<ModuleType>::DynamicParkBrake(INT32 &brakeStart, INT32 &
             }
             else
             {   // If we want to "re-start" sampling base brake at minimum force value AND we haven't reached min force yet
-                Log(LOG_DEV_DATA,"gets to here snorkel 0");
                 if ((true == startSamplingAtMinForce) && (0 == validForceSamples))
                 {
                     // check if minimum force for sampling is reached
-                    Log(LOG_DEV_DATA,"gets to here snorkel 0a");
                     m_baseBrakeTool->GetIForces(wheelForce);
-                    Log(LOG_DEV_DATA,"gets to here snorkel 1");
                     Log(LOG_DEV_DATA, "minimumStartForce: %f, LFwheelForce: %f, RFwheelForce: %f, LRwheelForce: %f, RRwheelForce: %f,", minimumStartForce, wheelForce[LFWHEEL], wheelForce[RFWHEEL], wheelForce[LRWHEEL], wheelForce[RRWHEEL]);
                     //if((wheelForce[LFWHEEL] > minimumStartForce) && (wheelForce[RFWHEEL] > minimumStartForce))
                     if ((wheelForce[LFWHEEL] > minimumStartForce) && (wheelForce[RFWHEEL] > minimumStartForce) && (brakeStart == 0)) 
                     { //MAM 12/06/06
                         // Tag the start
-                        Log(LOG_DEV_DATA,"gets to here snorkel 2");
                         brakeStart = TagArray(tagPrefix+"StartForce");
                         Log(LOG_DEV_DATA,"Minimum park brake force reached @ %d\n", brakeStart);
                         validForceSamples = 1;
-                        Log(LOG_DEV_DATA,"gets to here snorkel 0b");
                         StartParkBrakeTimer();
-                        Log(LOG_DEV_DATA,"gets to here snorkel 0c");
                     }
                 }
             }
 
-            Log(LOG_DEV_DATA,"gets to here snorkel 15");
             // If we have dropped below start speed and we have not tagged start yet
             if ((speed <= startSampleSpeed) && (brakeStart == 0))
             {

@@ -364,6 +364,7 @@ const string MimamoriTc<ModuleType>::CheckOilTemperature()
     SendTestResult(testResult, testDescription, testResultCode);
 	// Return the test result
 	Log(LOG_FN_ENTRY, "Exit MimamoriTc::CheckOilTemperature()\n");
+    RemovePrompts();
     return testResult;
 }
 template<class ModuleType>
@@ -424,6 +425,7 @@ const string MimamoriTc<ModuleType>::ClearHistory()
 	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     string value;
     Log(LOG_FN_ENTRY, "Enter MimamoriTc::ClearHistory()\n");
+    UpdatePrompts();
     if(!ShortCircuitTestStep())
 	{
         do

@@ -2330,11 +2330,12 @@ template <class ModuleType>
 string Bosch8TC<ModuleType>::UnlockModuleSecurity()
 {
 	string result = BEP_TESTING_RESPONSE;
+
 	Log(LOG_DEV_DATA, "Bosch8TC::UnlockModuleSecurity() - Enter");
 	if(!ShortCircuitTestStep())
 	{
-		result = (BEP_STATUS_SUCCESS == m_vehicleModule.UnlockModuleSecurity());
-		SendTestResult(result, GetTestStepInfo("Descritpion"), "0000");
+		result = (BEP_STATUS_SUCCESS == m_vehicleModule.UnlockModuleSecurity() ? testPass : testFail);
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
 	}
 	else
 	{

@@ -389,7 +389,7 @@
         </EngineWarmUp>
         <PreFinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
-            <TestStep05>WaitForEngineRunning</TestStep05>
+            <TestStep10>WaitForEngineRunning</TestStep10>
         </PreFinishUp>
         <ClearFaultsFinal>
             <TestStep98>ClearFaultsFinal</TestStep98>

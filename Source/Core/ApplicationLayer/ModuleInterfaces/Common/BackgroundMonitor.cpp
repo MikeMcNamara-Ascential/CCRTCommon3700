@@ -126,10 +126,38 @@ INT32 BackgroundMonitor::StopMonitor()
 INT32 BackgroundMonitor::WaitUntilDone(void)
 {
     INT32       err;
-    
+
+    if (m_enablePrintfs == true)
+    {
+        printf("Entered BackgroundMonitor::WaitUntilDone\n");
+    }
+    printf("moving on 1\n");
+    printf("m_threadJoined: %s\n", m_threadJoined ? "true" : "false"); 
+    printf("moving on 2\n");
     if(false == m_threadJoined)
     {
-        if ((err = pthread_join(GetInitialThreadId(),NULL)) != EOK)
+//      printf("moving on 3");
+//      try
+//      {
+//          printf("moving on 4");
+//          if (m_enablePrintfs == true) printf("WaitUntilDone attempting to kill thread");
+//          printf("moving on 5");
+//          pthread_kill(GetInitialThreadId(),SIGTERM);
+//          printf("moving on 6");
+//      }
+//      catch (exception e)
+//      {
+//          printf("moving on 7");
+//          if (m_enablePrintfs == true) printf("Error killing GearMonitor: %s", e.what());
+//          printf("moving on 8");
+//      }
+//      catch (...)
+//      {
+//          printf("we done messed up a-a-ron");
+//      }
+        printf("moving on 9\n");
+
+        if ((err = pthread_cancel(GetInitialThreadId())) != EOK)
         {
             if(m_enablePrintfs == true)
             {
@@ -142,6 +170,7 @@ INT32 BackgroundMonitor::WaitUntilDone(void)
             err = EOK;
         }
     }
+    printf("moving on fdsa\n");
     return( err);
 }
 

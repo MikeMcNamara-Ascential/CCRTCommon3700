@@ -532,9 +532,11 @@ void SystemMonitor::Initialize(const XmlNode *document)
             try
             {   // set the flag to send an abort when the cable is disconnected during a test
                 m_disconnectAbort = (bool) (document->getChild("Setup/DisconnectAbort")->getValue() == "1");
+                Log(LOG_DEV_DATA, "DisconnectAbort: %s -> %s",document->getChild("Setup/DisconnectAbort")->getValue().c_str(), m_disconnectAbort ? "True" : "False");
             }
             catch(...)
             {
+                Log(LOG_DEV_DATA, "Caught an exception loading DisconnectAbort");
                 m_disconnectAbort = true;
             }
         }
@@ -606,15 +608,18 @@ void SystemMonitor::Initialize(const XmlNode *document)
         {   // if so, set up the timer
             const XmlNode *validVINFlag = document->getChild( XML_T("Setup"))->getChild( XML_T("ValidVINNeededForStart"));
             m_validVINNeededForStart = (validVINFlag->getValue() == "1");
+            Log(LOG_DEV_DATA, "m_validVINNeededforStart: %s", m_validVINNeededForStart ? "1-True" : "0-False"); 
         }
         else
         {   // default to vin needed
             m_validVINNeededForStart = 0;
+            Log(LOG_DEV_DATA, "m_validVINNeededforStart set to 0 by default"); 
         }
     }
     catch (XmlException &err)
     {   // If no flag specified, default to vin needed
         m_validVINNeededForStart = 0;
+        Log(LOG_DEV_DATA, "caught xml except: %s \n m_validVINNeededforStart set to 0 by default", err.what()); 
     }
 
     // get the fault information
@@ -1267,7 +1272,7 @@ void SystemMonitor::CheckCableConnect( ControlData *ctrl, bool checkStatus /* = 
         if (m_cableConnectHystTime)  m_cableConnectTimer.Stop();
         // if there is a test in progress and the cable is not connected but it was
         // previously connected and not currently aborted
-        if(ctrl->testInProgress && (Read(ABORT_DATA_TAG) == "0"))
+        if(ctrl->testInProgress && (Read(ABORT_DATA_TAG) == "0") && m_disconnectAbort)
         {
             Log(LOG_ERRORS, "ERROR: Cable disconnected in the middle of a test, abort\n");
             if(m_disconnectAbort)
@@ -1351,11 +1356,11 @@ void SystemMonitor::CheckAbort( ControlData *ctrl)
             BepServer::Write( ABORT_DATA_TAG, "1");
         }
         // else if the retainers are lowered during a test, abort
-        else if (ctrl->testInProgress && ctrl->rollsDown && m_oldCtrl->rollsDown)
+        /*else if (ctrl->testInProgress && ctrl->rollsDown && m_oldCtrl->rollsDown)
         {
             Log(LOG_ERRORS, "ERROR: Driver Lowered Retainers and ABORTED The Test\n");
 //          BepServer::Write( ABORT_DATA_TAG, "1");
-        }
+        } */
         /* To do - this does not seem to clear on in cycle retest need to debug
         if (( ((ctrl->inputServerState == INPUT_SERVER_TEST_RESULT_STATE) && !(ctrl->keyPress.compare(PENDANT_START_TEST))) ||
               ((ctrl->inputServerState == INPUT_SERVER_NORMAL_STATE) &&  !(ctrl->keyPress.compare("Left")) || 

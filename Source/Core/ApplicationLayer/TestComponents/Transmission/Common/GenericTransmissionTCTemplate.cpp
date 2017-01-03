@@ -722,9 +722,9 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
     string testResult = BEP_TESTING_STATUS;
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
-    string parkResult = testSkip;
-    string reverseGearResult = testSkip;
-    string neutralGearResult = testSkip;
+    //string parkResult = testSkip;
+    //string reverseGearResult = testSkip;
+    //string neutralGearResult = testSkip;
     string forwardDrivingGearResult = testSkip;
     string firstGearResult = testSkip, secondGearResult = testSkip;
     string thirdGearResult = testSkip, fourthGearResult = testSkip;
@@ -736,25 +736,25 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
     {
         try
         {   // Check if all required gears have been observed
-            if(GetParameterBool("CheckForPark")) parkResult = CheckParkGearResults();
-            reverseGearResult = CheckReverseGearResults();
-            neutralGearResult = CheckNeutralGearResults();
+            //if(GetParameterBool("CheckForPark")) parkResult = CheckParkGearResults();
+            //reverseGearResult = CheckReverseGearResults();
+            //neutralGearResult = CheckNeutralGearResults();
             forwardDrivingGearResult = CheckForwardDrivingGearResults(firstGearResult, secondGearResult,
                                                                       thirdGearResult, fourthGearResult,
                                                                       fifthGearResult, sixthGearResult);
             // Stop the gear monitor
             m_vehicleModule.StopGearMonitor();
             // Check the results of the test
-            testResult = (!parkResult.compare(testPass) || !parkResult.compare(testSkip)) &&
-                         !reverseGearResult.compare(testPass) &&
-                         !neutralGearResult.compare(testPass) &&
-                         !forwardDrivingGearResult.compare(testPass) ? testPass : testFail;
+            //testResult = (!parkResult.compare(testPass) || !parkResult.compare(testSkip)) &&
+            //             !reverseGearResult.compare(testPass) &&
+            //             !neutralGearResult.compare(testPass) &&
+            testResult = !forwardDrivingGearResult.compare(testPass) ? testPass : testFail;
             testResultCode = (testPass == testResult ? "0000" : GetFaultCode("AllGearsNotSeen"));
             testDescription = (testPass == testResult ? GetTestStepInfo("Description") : GetFaultDescription("AllGearsNotSeen"));
             // Report each gear individually
-            SendSubtestResult("ParkObserved", parkResult, "Park observed", GetFaultCode("ParkNotSeen"));
-            SendSubtestResult("ReverseGearObserved", reverseGearResult, "Reverse Gear observed", GetFaultCode("ReverseGearNotSeen"));
-            SendSubtestResult("NeutralGearObserved", neutralGearResult, "Neutral Gear observed", GetFaultCode("NeutralGearNotSeen"));
+//          SendSubtestResult("ParkObserved", parkResult, "Park observed", GetFaultCode("ParkNotSeen"));
+//          SendSubtestResult("ReverseGearObserved", reverseGearResult, "Reverse Gear observed", GetFaultCode("ReverseGearNotSeen"));
+//          SendSubtestResult("NeutralGearObserved", neutralGearResult, "Neutral Gear observed", GetFaultCode("NeutralGearNotSeen"));
             SendSubtestResult("FirstGearObserved", firstGearResult, "First Gear observed", GetFaultCode("FirstGearNotSeen"));
             SendSubtestResult("SecondGearObserved", secondGearResult, "Second Gear observed", GetFaultCode("SecondGearNotSeen"));
             SendSubtestResult("ThirdGearObserved", thirdGearResult, "Third Gear observed", GetFaultCode("ThirdGearNotSeen"));
@@ -762,9 +762,14 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
             SendSubtestResult("FifthGearObserved", fifthGearResult, "Fifth Gear observed", GetFaultCode("FifthGearNotSeen"));
             SendSubtestResult("SixthGearObserved", sixthGearResult, "Sixth Gear observed", GetFaultCode("SixthGearNotSeen"));
             // Log the data collected
-            Log(LOG_DEV_DATA, "Gear Monitor Results: %s\n\tPark: %s\n\tReverse: %s\n\tNeutral: %s\n\tFirst: %s"
+//          Log(LOG_DEV_DATA, "Gear Monitor Results: %s\n\tPark: %s\n\tReverse: %s\n\tNeutral: %s\n\tFirst: %s"
+//              "\n\tSecond: %s\n\tThird: %s\n\tFourth: %s\n\tFifth: %s\n\tSixth: %s\n", testResult.c_str(),
+//              parkResult.c_str(), reverseGearResult.c_str(), neutralGearResult.c_str(), firstGearResult.c_str(),
+//              secondGearResult.c_str(), thirdGearResult.c_str(), fourthGearResult.c_str(),
+//              fifthGearResult.c_str(), sixthGearResult.c_str());
+            Log(LOG_DEV_DATA, "Gear Monitor Results: %s\n\tFirst: %s"
                 "\n\tSecond: %s\n\tThird: %s\n\tFourth: %s\n\tFifth: %s\n\tSixth: %s\n", testResult.c_str(),
-                parkResult.c_str(), reverseGearResult.c_str(), neutralGearResult.c_str(), firstGearResult.c_str(),
+                firstGearResult.c_str(),
                 secondGearResult.c_str(), thirdGearResult.c_str(), fourthGearResult.c_str(),
                 fifthGearResult.c_str(), sixthGearResult.c_str());
         }
@@ -777,9 +782,9 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
         }
         // Send the test result
         SendTestResultWithDetail(testResult, testDescription, testResultCode,
-                                 "ParkObserved", parkResult, "",
-                                 "ReverseGearObserved", reverseGearResult, "",
-                                 "NeutralGearObserved", neutralGearResult, "",
+                                 //"ParkObserved", parkResult, "",
+                                 //"ReverseGearObserved", reverseGearResult, "",
+                                 //"NeutralGearObserved", neutralGearResult, "",
                                  "ForwardDrivingGears", forwardDrivingGearResult, "");
     }
     else
@@ -1284,6 +1289,7 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::MonitorOverdriveLockout
     return testResult;
 }
 
+//---------------------------------------------------------------------------------------
 template <class VehicleModuleType>
 string GenericTransmissionTCTemplate<VehicleModuleType>::WaitForGears(void)
 {
@@ -1318,48 +1324,54 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::WaitForGears(void)
                                        // Check for first gear
             if(!gear1Observed && m_vehicleModule.Gear1Observed())
             {
-                SetFirstGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FirstGearStatusRegister").c_str()),
-                                                             GetParameterInt("FirstGearBit"), testPass));
+//              SetFirstGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FirstGearStatusRegister").c_str()),
+//                                                           GetParameterInt("FirstGearBit"), testPass));
+                SetFirstGearUpdateResult(testPass);
                 gear1Observed = true;
                 Log(LOG_DEV_DATA, "Updated first gear result: %s\n", GetFirstGearUpdateResult().c_str());
             }
             // Check for second gear
             if(!gear2Observed && m_vehicleModule.Gear2Observed())
             {
-                SetSecondGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("SecondGearStatusRegister").c_str()),
-                                                              GetParameterInt("SecondGearBit"), testPass));
+//              SetSecondGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("SecondGearStatusRegister").c_str()),
+//                                                            GetParameterInt("SecondGearBit"), testPass));
+                SetSecondGearUpdateResult(testPass);
                 gear2Observed = true;
                 Log(LOG_DEV_DATA, "Updated second gear result: %s\n", GetSecondGearUpdateResult().c_str());
             }
             // Check for third gear
             if(!gear3Observed && m_vehicleModule.Gear3Observed())
             {
-                SetThirdGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("ThirdGearStatusRegister").c_str()),
-                                                             GetParameterInt("ThirdGearBit"), testPass));
+                //SetThirdGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("ThirdGearStatusRegister").c_str()),
+                //                                             GetParameterInt("ThirdGearBit"), testPass));
+                SetThirdGearUpdateResult(testPass);
                 gear3Observed = true;
                 Log(LOG_DEV_DATA, "Updated third gear result: %s\n", GetThirdGearUpdateResult().c_str());
             }
             // Check for fourth gear
             if(!gear4Observed && m_vehicleModule.Gear4Observed())
             {
-                SetFourthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FourthGearStatusRegister").c_str()),
-                                                              GetParameterInt("FourthGearBit"), testPass));
+//              SetFourthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FourthGearStatusRegister").c_str()),
+//                                                            GetParameterInt("FourthGearBit"), testPass));
+                SetFourthGearUpdateResult(testPass);
                 gear4Observed = true;
                 Log(LOG_DEV_DATA, "Updated fourth gear result: %s\n", GetFourthGearUpdateResult().c_str());
             }
             // Check for fifth gear if it is equipped
             if(checkGear5 && !gear5Observed && m_vehicleModule.Gear5Observed())
             {
-                SetFifthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FifthGearStatusRegister").c_str()),
-                                                             GetParameterInt("FifthGearBit"), testPass));
+                //SetFifthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FifthGearStatusRegister").c_str()),
+                //                                             GetParameterInt("FifthGearBit"), testPass));
+                SetFifthGearUpdateResult(testPass);
                 gear5Observed = true;
                 Log(LOG_DEV_DATA, "Updated fifth gear result: %s\n", GetFifthGearUpdateResult().c_str());
             }
             // Check for sixth gear if it is equipped
             if(checkGear6 && !gear6Observed && m_vehicleModule.Gear6Observed())
             {
-                SetSixthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("SixthGearStatusRegister").c_str()),
-                                                             GetParameterInt("SixthGearBit"), testPass));
+                //SetSixthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("SixthGearStatusRegister").c_str()),
+                //                                             GetParameterInt("SixthGearBit"), testPass));
+                SetSixthGearUpdateResult(testPass);
                 gear6Observed = true;
                 Log(LOG_DEV_DATA, "Updated sixth gear result: %s\n", GetSixthGearUpdateResult().c_str());
             }
@@ -1369,7 +1381,7 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::WaitForGears(void)
                                 (checkGear5 && gear5Observed && !checkGear6) ||
                                 (!checkGear5 && gear4Observed));
             // Wait between checks
-            if(!allGearsObserved) BposSleep(250);
+            if(!allGearsObserved) BposSleep(100);
             // Keep checking while time remaining and good system status and not all gears seen
         } while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && !allGearsObserved);
         // Check the exit conditions
@@ -1641,6 +1653,7 @@ template <class VehicleModuleType>
 bool GenericTransmissionTCTemplate<VehicleModuleType>::RequestLeverShift(string requestedLever,
                                                                          string promptForLever)
 {
+    Log(LOG_DEV_DATA, "Entering GenericTransmissionTCTemplate::RequestLeverShift");
     return RequestStateByPrompt(requestedLever, promptForLever,
                                 "ReadCurrentLeverPosition",
                                 GetParameterInt("SuccessiveLeverReadMinimum"),
@@ -1672,6 +1685,7 @@ template <class VehicleModuleType>
 bool GenericTransmissionTCTemplate<VehicleModuleType>::RequestStateByPrompt(string requestedState,
                                                                             string promptForState, string currentStateTag, INT32 minimumSuccessiveReads, INT32 successiveReadDelay)
 {
+    Log(LOG_DEV_DATA, "Entering GenericTransmissionTCTemplate::RequestStateByPrompt");
     INT32 successiveReads = 0;
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_FAILURE;  // Used to store return result for module read
     string currentState(BEP_NO_DATA);                   // Used to store current state from module read
@@ -2130,36 +2144,36 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckReverseGearResults
     // Start the timer
     SetStartTime();
     // Check if the Reverse gear has already been observed
-    if(!m_vehicleModule.GearReverseObserved())
-    {   // Verify vehicle is at zero speed before prompting to reverse
-        if(CheckZeroSpeed())
-        {
-            // Wait for Reverse gear to be observed
-            do
-            {   // Determine if the operator should be prompted
-                if(!m_vehicleModule.GearReverseObserved() && !promptDisplayed)
-                {   // Prompt operator to shift to reverse when vehicle is at 0 speed
-                    DisplayPrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
-                    promptDisplayed = true;
-                }
-                else if(m_vehicleModule.GearReverseObserved() && promptDisplayed)
-                {   // Remove the prompts
-                    RemovePrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
-                    promptDisplayed = false;
-                }
-                else if(!m_vehicleModule.GearReverseObserved())
-                {
-                    BposSleep(GetTestStepInfoInt("ScanDelay"));
-                }
-                // Keep looking until reverse is detected or timeout
-            } while(!m_vehicleModule.GearReverseObserved() && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
-            // Check if the prompt needs to be removed
-            if(promptDisplayed)
-            {   // Remove the prompt from the display
-                RemovePrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
-            }
-        }
-    }
+      if(!m_vehicleModule.GearReverseObserved())
+      {   // Verify vehicle is at zero speed before prompting to reverse
+          if(CheckZeroSpeed())
+          {
+              // Wait for Reverse gear to be observed
+              do
+              {   // Determine if the operator should be prompted
+                  if(!m_vehicleModule.GearReverseObserved() && !promptDisplayed)
+                  {   // Prompt operator to shift to reverse when vehicle is at 0 speed
+                      DisplayPrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
+                      promptDisplayed = true;
+                  }
+                  else if(m_vehicleModule.GearReverseObserved() && promptDisplayed)
+                  {   // Remove the prompts
+                      RemovePrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
+                      promptDisplayed = false;
+                  }
+                  else if(!m_vehicleModule.GearReverseObserved())
+                  {
+                      BposSleep(GetTestStepInfoInt("ScanDelay"));
+                  }
+                  // Keep looking until reverse is detected or timeout
+              } while(!m_vehicleModule.GearReverseObserved() && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
+              // Check if the prompt needs to be removed
+              if(promptDisplayed)
+              {   // Remove the prompt from the display
+                  RemovePrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
+              }
+          }
+      }
     // Determine if the module has already been updated
     if(testPass != GetReverseGearUpdateResult())
     {   // Update the module with the result
@@ -2316,22 +2330,22 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckFirstGearResult(vo
         }
     }
     // Check if the result needs to be updated
-    if(testPass != GetFirstGearUpdateResult())
-    {   // Update the result in the module
-        SetFirstGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FirstGearStatusRegister").c_str()),
-                                                     GetParameterInt("FirstGearBit"),
-                                                     m_vehicleModule.Gear1Observed() ? testPass : testFail));
-    }
+//  if(testPass != GetFirstGearUpdateResult())
+//  {   // Update the result in the module
+//      SetFirstGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FirstGearStatusRegister").c_str()),
+//                                                   GetParameterInt("FirstGearBit"),
+//                                                   m_vehicleModule.Gear1Observed() ? testPass : testFail));
+//  }
     // Determine the test results
-    testResult = (m_vehicleModule.Gear1Observed() && (testPass == GetFirstGearUpdateResult())) ? testPass : testFail;
+    testResult = (m_vehicleModule.Gear1Observed()) ? testPass : testFail;
     // Report the result of the gear observation
     SendSubtestResult("FirstGearObserved", m_vehicleModule.Gear1Observed() ? testPass : testTimeout,
                       m_vehicleModule.Gear1Observed() ? "First Gear Observed" : GetFaultDescription("FirstGearTimeout"),
                       m_vehicleModule.Gear1Observed() ? "0000" : GetFaultCode("FirstGearTimeout"));
     // Report the result of the gear update
-    SendSubtestResult("FirstGearUpdate", GetFirstGearUpdateResult(),
-                      testPass == GetFirstGearUpdateResult() ? "Update first gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
-                      testPass == GetFirstGearUpdateResult() ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
+    SendSubtestResult("FirstGearUpdate", testResult,
+                      testPass == testResult ? "Update first gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
+                      testPass == testResult ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
     // Log the results
     Log(LOG_DEV_DATA, "First gear observed: %s\n", testResult.c_str());
     // Return the results
@@ -2382,22 +2396,22 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckSecondGearResult(v
         }
     }
     // Determine if the result should be updated in the module
-    if(testPass != GetSecondGearUpdateResult())
-    {   // Update the result in the module
-        SetSecondGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("SecondGearStatusRegister").c_str()),
-                                                      GetParameterInt("SecondGearBit"),
-                                                      m_vehicleModule.Gear2Observed() ? testPass : testFail));
-    }
+//  if(testPass != GetSecondGearUpdateResult())
+//  {   // Update the result in the module
+//      SetSecondGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("SecondGearStatusRegister").c_str()),
+//                                                    GetParameterInt("SecondGearBit"),
+//                                                    m_vehicleModule.Gear2Observed() ? testPass : testFail));
+//  }
     // Determine the test results
-    testResult = (m_vehicleModule.Gear2Observed() && (testPass == GetSecondGearUpdateResult())) ? testPass : testFail;
+    testResult = (m_vehicleModule.Gear2Observed()) ? testPass : testFail;
     // Report the result of the gear observation
     SendSubtestResult("SecondGearObserved", m_vehicleModule.Gear2Observed() ? testPass : testTimeout,
                       m_vehicleModule.Gear2Observed() ? "Second Gear Observed" : GetFaultDescription("SecondGearTimeout"),
                       m_vehicleModule.Gear2Observed() ? "0000" : GetFaultCode("SecondGearTimeout"));
     // Report the result of the gear update
-    SendSubtestResult("SecondGearUpdate", GetSecondGearUpdateResult(),
-                      testPass == GetSecondGearUpdateResult() ? "Update second gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
-                      testPass == GetSecondGearUpdateResult() ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
+    SendSubtestResult("SecondGearUpdate", testResult,
+                      testPass == testResult ? "Update second gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
+                      testPass == testResult ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
     // Log the results
     Log(LOG_DEV_DATA, "Second gear observed: %s\n", testResult.c_str());
     // Return the results
@@ -2447,12 +2461,12 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckThirdGearResult(vo
         }
     }
     // Determine if the result needs to be updated in the module
-    if(testPass != GetThirdGearUpdateResult())
-    {   // Update the module with the result
-        SetThirdGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("ThirdGearStatusRegister").c_str()),
-                                                     GetParameterInt("ThirdGearBit"),
-                                                     m_vehicleModule.Gear3Observed() ? testPass : testFail));
-    }
+//  if(testPass != GetThirdGearUpdateResult())
+//  {   // Update the module with the result
+//      SetThirdGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("ThirdGearStatusRegister").c_str()),
+//                                                   GetParameterInt("ThirdGearBit"),
+//                                                   m_vehicleModule.Gear3Observed() ? testPass : testFail));
+//  }
     // Determine the test results
     testResult = (m_vehicleModule.Gear3Observed() && (testPass == GetThirdGearUpdateResult())) ? testPass : testFail;
     // Report the result of the gear observation
@@ -2460,9 +2474,9 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckThirdGearResult(vo
                       m_vehicleModule.Gear3Observed() ? "Third Gear Observed" : GetFaultDescription("ThirdGearTimeout"),
                       m_vehicleModule.Gear3Observed() ? "0000" : GetFaultCode("ThirdGearTimeout"));
     // Report the result of the gear update
-    SendSubtestResult("ThirdGearUpdate", GetThirdGearUpdateResult(),
-                      testPass == GetThirdGearUpdateResult() ? "Update third gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
-                      testPass == GetThirdGearUpdateResult() ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
+    SendSubtestResult("ThirdGearUpdate", testResult,
+                      testPass == testResult ? "Update third gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
+                      testPass == testResult ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
     // Log the results
     Log(LOG_DEV_DATA, "Third gear observed: %s\n", testResult.c_str());
     // Return the results
@@ -2512,12 +2526,12 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckFourthGearResult(v
         }
     }
     // Determine if the module needs to be updated
-    if(testPass != GetFourthGearUpdateResult())
-    {   // Update the module with the result
-        SetFourthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FourthGearStatusRegister").c_str()),
-                                                      GetParameterInt("FourthGearBit"),
-                                                      m_vehicleModule.Gear4Observed() ? testPass : testFail));
-    }
+//  if(testPass != GetFourthGearUpdateResult())
+//  {   // Update the module with the result
+//      SetFourthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FourthGearStatusRegister").c_str()),
+//                                                    GetParameterInt("FourthGearBit"),
+//                                                    m_vehicleModule.Gear4Observed() ? testPass : testFail));
+//  }
     // Determine the test results
     testResult = (m_vehicleModule.Gear4Observed() && (testPass == GetFourthGearUpdateResult())) ? testPass : testFail;
     // Report the result of the gear observation
@@ -2525,9 +2539,9 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckFourthGearResult(v
                       m_vehicleModule.Gear4Observed() ? "Fourth Gear Observed" : GetFaultDescription("FourthGearTimeout"),
                       m_vehicleModule.Gear4Observed() ? "0000" : GetFaultCode("FourthGearTimeout"));
     // Report the result of the gear update
-    SendSubtestResult("FourthGearUpdate", GetFourthGearUpdateResult(),
-                      testPass == GetFourthGearUpdateResult() ? "Update fourth gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
-                      testPass == GetFourthGearUpdateResult() ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
+    SendSubtestResult("FourthGearUpdate", testResult,
+                      testPass == testResult ? "Update fourth gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
+                      testPass == testResult ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
     // Log the results
     Log(LOG_DEV_DATA, "Fourth gear observed: %s\n", testResult.c_str());
     // Return the results
@@ -2580,12 +2594,12 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckFifthGearResult(vo
             }
         }
         // Determine if the module needs to be updated
-        if(testPass != GetFifthGearUpdateResult())
-        {   // Update the module with the result
-            SetFifthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FifthGearStatusRegister").c_str()),
-                                                         GetParameterInt("FifthGearBit"),
-                                                         m_vehicleModule.Gear5Observed() ? testPass : testFail));
-        }
+//      if(testPass != GetFifthGearUpdateResult())
+//      {   // Update the module with the result
+//          SetFifthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("FifthGearStatusRegister").c_str()),
+//                                                       GetParameterInt("FifthGearBit"),
+//                                                       m_vehicleModule.Gear5Observed() ? testPass : testFail));
+//      }
         // Determine the test results
         testResult = (m_vehicleModule.Gear5Observed() && (testPass == GetFifthGearUpdateResult())) ? testPass : testFail;
         // Report the result of the gear observation
@@ -2593,9 +2607,9 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckFifthGearResult(vo
                           m_vehicleModule.Gear5Observed() ? "Fifth Gear Observed" : GetFaultDescription("FifthGearTimeout"),
                           m_vehicleModule.Gear5Observed() ? "0000" : GetFaultCode("FifthGearTimeout"));
         // Report the result of the gear update
-        SendSubtestResult("FifthGearUpdate", GetFifthGearUpdateResult(),
-                          testPass == GetFifthGearUpdateResult() ? "Update fifth gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
-                          testPass == GetFifthGearUpdateResult() ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
+        SendSubtestResult("FifthGearUpdate", testResult,
+                          testPass == testResult ? "Update fifth gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
+                          testPass == testResult ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
     }
     else
     {   // Transmission not equipped with 5 gears
@@ -2655,12 +2669,12 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckSixthGearResult(vo
             }
         }
         // Check if the module should be updated
-        if(testPass != GetSixthGearUpdateResult())
-        {   // Update the module with the result
-            SetSixthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("SixthGearStatusRegister").c_str()),
-                                                         GetParameterInt("SixthGearBit"),
-                                                         m_vehicleModule.Gear6Observed() ? testPass : testFail));
-        }
+//      if(testPass != GetSixthGearUpdateResult())
+//      {   // Update the module with the result
+//          SetSixthGearUpdateResult(UpdateEOLStatusByte(atoh(GetParameter("SixthGearStatusRegister").c_str()),
+//                                                       GetParameterInt("SixthGearBit"),
+//                                                       m_vehicleModule.Gear6Observed() ? testPass : testFail));
+//      }
         // Determine the test results
         testResult = (m_vehicleModule.Gear6Observed() && (testPass == GetSixthGearUpdateResult())) ? testPass : testFail;
         // Report the result of the gear observation
@@ -2668,9 +2682,9 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckSixthGearResult(vo
                           m_vehicleModule.Gear6Observed() ? "Sixth Gear Observed" : GetFaultDescription("SixthGearTimeout"),
                           m_vehicleModule.Gear6Observed() ? "0000" : GetFaultCode("SixthGearTimeout"));
         // Report the result of the gear update
-        SendSubtestResult("SixthGearUpdate", GetSixthGearUpdateResult(),
-                          testPass == GetSixthGearUpdateResult() ? "Update sixth gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
-                          testPass == GetSixthGearUpdateResult() ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
+        SendSubtestResult("SixthGearUpdate", testResult,
+                          testPass == testResult ? "Update sixth gear result in module" : GetFaultDescription("StatusByteUpdateFailure"),
+                          testPass == testResult ? "0000" : GetFaultCode("StatusByteUpdateFailure"));
     }
     else
     {   // Transmission not equipped with 6 gears

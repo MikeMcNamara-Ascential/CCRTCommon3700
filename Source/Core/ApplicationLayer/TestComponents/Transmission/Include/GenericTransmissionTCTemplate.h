@@ -3500,7 +3500,7 @@ protected:
      * 
      * @return Flag indicating if the driver was able to place the transmission in the requested state.
      */
-    bool RequestStateByPrompt(string requestedState, 
+    virtual bool RequestStateByPrompt(string requestedState, 
                               string promptForState,
                               string currentStateTag, 
                               INT32 minimumSuccessiveReads, 

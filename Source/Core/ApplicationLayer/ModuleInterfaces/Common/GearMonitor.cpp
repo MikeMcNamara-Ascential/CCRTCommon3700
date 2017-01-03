@@ -48,7 +48,20 @@ GearMonitor<ProtocolFilterType>::~GearMonitor()
 template <class ProtocolFilterType>
 BEP_STATUS_TYPE GearMonitor<ProtocolFilterType>::MonitorData(void)
 {   // Read the current transmission gear from the module
-	return m_module->MonitorTransmissionGear(m_vehicleComm);
+	try
+    {
+        return m_module->MonitorTransmissionGear(m_vehicleComm);
+    }
+    catch (exception e)
+    {
+        printf("FindMyError2: %s", e.what());
+        return BEP_STATUS_ERROR;
+    }
+    catch (...)
+    {
+        printf("FindMyError2 sucks");
+        return BEP_STATUS_ERROR;
+    }
 };
 
 

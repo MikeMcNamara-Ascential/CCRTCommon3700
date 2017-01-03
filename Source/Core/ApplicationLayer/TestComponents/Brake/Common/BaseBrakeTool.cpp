@@ -1071,6 +1071,7 @@ INT32 BaseBrakeTool::DynamicParkBrake(INT32 &brakeStart, INT32 &brakeEnd, const 
                     {   // Tag the start
                         brakeStart = m_component->TagArray(tagPrefix+"StartForce");
                         m_component->Log(LOG_DEV_DATA,"Minimum park brake force reached @ %d", brakeStart);
+                        m_component->StartParkBrakeTimer();
                     }
                     // Wait for the desired number of samples above minimum before we end
                     else if(validForceSamples >= forceSampleCount)
@@ -1754,6 +1755,7 @@ INT32 BaseBrakeTool::Brake(INT32 &brakeStart, INT32 &brakeEnd)
                     {   // Tag the start
                         brakeStart = m_component->TagArray("BaseBrakeStartForce");
                         m_component->Log(LOG_DEV_DATA,"Minimum brake force reached @ %d\n", brakeStart);
+                        m_component->StartBrakeTimer();
                         m_component->GetWheelDistances(m_brakeStoppingDistance[0]);
 
                         // store the brake pedal force if specified in the configuration file
@@ -2128,6 +2130,7 @@ INT32 BaseBrakeTool::AnalyzeBrakeForces(INT32 brakeStart, INT32 brakeEnd)
     m_brakeForce.clear();
     // read in the data from the brake force array
     testStatus = m_component->ReadDataArrays(m_component->GetParameter("IcmForceArray"), brakeStart, brakeEnd, m_wheelForceArray);
+    //m_component->Log(LOG_DEV_DATA,"Wheel Count: %d",m_component->GetWheelCount());
     for(UINT32 roller = 0; (roller < m_component->GetWheelCount()); roller++)
     {   // calculate the average forces and validate the results
         testStatus = AverageForces(roller, force, m_brakeTestStats[roller]);

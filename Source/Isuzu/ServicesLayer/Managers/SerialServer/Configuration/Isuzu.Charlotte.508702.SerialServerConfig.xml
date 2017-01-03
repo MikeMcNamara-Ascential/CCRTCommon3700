@@ -123,6 +123,7 @@
                </NodePairSetup>
                <BroadcastMessageIDs>
                   <WheelSpeeds Incoming="0x18FEBF0B"/>
+                  <!--ShiftLeverPosition Incoming="0x18FEBF0B"/Dont know ### what to put here yet-->
                </BroadcastMessageIDs>
             </Setup>
          </GryphonMima>

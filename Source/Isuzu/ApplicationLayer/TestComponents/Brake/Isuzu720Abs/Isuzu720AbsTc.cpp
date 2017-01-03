@@ -121,7 +121,7 @@ INT32 Isuzu720AbsTc<ModuleInterface>::DynamicParkBrake(INT32 &brakeStart, INT32 
 		float startSampleSpeed = GetTestStepInfoFloat("StartSampleSpeed");
 		float endSampleSpeed = GetTestStepInfoFloat("EndSampleSpeed");
 		bool  startSamplingAtMinForce = GetTestStepInfoBool("StartSamplingAtMinimumForce");
-		float minimumStartForce = GetTestStepInfoFloat("MinimumStartForce");
+		float minimumStartForce = GetTestStepInfoFloat("ParkBrakeMinimumStartForce");
 		int   forceSampleCount = GetTestStepInfoInt("ForceSampleCount");
 		int   validForceSamples;
 		float speed=0;

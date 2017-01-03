@@ -3,5 +3,6 @@
 #------------------------------------------------------------------------------------------
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/SpeedControl FILES
 	KwpIsuzuSpeedControlTc.xml
+	KwpIsuzuSpeedControlTc_MY17.xml
 	)
 	

@@ -514,24 +514,61 @@
             </VBox>
 
             <!-- Vehicle Data -->
-            <HBox width="240" height="200" posX="760" posY="350" border="true" borderstyle="title" bordertitle="vehicledata">
-                <VBox>
-                    <Label height="30" width="100" name="enginetemp">
-                        <Font size="16" name="sans-serif" style="bold"/>
-                    </Label>
-                </VBox>
-                <VBox width="20"/>
-                <VBox>
-                    <Widget height="30" width="50" id="EngineTemp" class="com.bepco.gui.NumberBox">
-                        <DataSource tagname="EngineOperatingTemp" messagetype="Subscribe"/>
-                        <TextBoxConfig format="{0,number,#}">
+            <VBox width="240" height="200" posX="760" posY="350" border="true" borderstyle="title" bordertitle="vehicledata">
+                <HBox height="30"/>
+                <HBox height="30">
+                    <VBox>
+                        <Label height="30" width="100" name="sideslip">
                             <Font size="16" name="sans-serif" style="bold"/>
-                        </TextBoxConfig>
-                    </Widget>
-                </VBox>
-            </HBox>
-      
-      
+                        </Label>
+                    </VBox>
+                    <VBox width="20"/>
+                    <VBox>
+                        <Widget height="30" width="50" id="SideSlip" class="com.bepco.gui.NumberBox">
+                            <DataSource tagname="SideSlipValue" messagetype="Subscribe"/>
+                            <DataSource tagname="SideSlipBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig format="{0,number,#.00}">
+                                <Font size="16" name="sans-serif" style="bold"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+                </HBox>
+                <HBox height="30">
+                    <VBox>
+                        <Label height="30" width="100" name="braketime">
+                            <Font size="16" name="sans-serif" style="bold"/>
+                        </Label>
+                    </VBox>
+                    <VBox width="20"/>
+                    <VBox>
+                        <Widget height="30" width="50" id="BrakeTime" class="com.bepco.gui.NumberBox">
+                            <DataSource tagname="BrakeTime" messagetype="Subscribe"/>
+                            <DataSource tagname="BrakeTimeBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig format="{0,number,#.0}">
+                                <Font size="16" name="sans-serif" style="bold"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+                </HBox>
+                <HBox height="15"></HBox>
+                <HBox height="30">
+                    <VBox>
+                        <Label height="30" width="100" name="enginetemp">
+                            <Font size="16" name="sans-serif" style="bold"/>
+                        </Label>
+                    </VBox>
+                    <VBox width="20"/>
+                    <VBox>
+                        <Widget height="30" width="50" id="EngineTemp" class="com.bepco.gui.NumberBox">
+                            <DataSource tagname="EngineOperatingTemp" messagetype="Subscribe"/>
+                            <TextBoxConfig format="{0,number,#}">
+                                <Font size="16" name="sans-serif" style="bold"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+                </HBox>
+            </VBox>    
+            
             <!-- Row 4 of 4 -->
             <!-- Test Failures -->
             <VBox height="160" width="557" posX="3" posY="550" border="true" borderstyle="title" bordertitle="testfailures">

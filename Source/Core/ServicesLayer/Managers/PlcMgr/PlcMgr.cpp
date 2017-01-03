@@ -670,6 +670,15 @@ void PlcMgr::ReadDiagMap( const XmlNode *diagNode)
         }
         catch( XmlException &err)
         {
+            Log(LOG_ERRORS, "Bad Diag Item - Reason:%s", err.what());
+        }
+        catch( exception &er)
+        {
+            Log(LOG_ERRORS, "Really Bad Diag Item - Reason:%s", er.what());
+        }
+        catch(...)
+        {
+            Log(LOG_ERRORS, "Something horrible happened, but we don't know what\n");
         }
     }
     Log( LOG_FN_ENTRY, "Diag Map has %d items\n", m_diagList.size());

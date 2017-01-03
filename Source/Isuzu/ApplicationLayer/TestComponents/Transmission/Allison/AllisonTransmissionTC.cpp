@@ -48,10 +48,6 @@ const string AllisonTransmissionTC<VehicleModuleType>::CommandTestStep(const str
                 Log(LOG_DEV_DATA, "Running test step %s\n", GetTestStepName().c_str());
                 if(!GetTestStepName().compare("ShiftLeverTest"))   testResult = ShiftLeverTest();
                 else if(!GetTestStepName().compare("ClearFaultsFinal")) testResult = ClearFaults();
-                else if(!GetTestStepName().compare("StartGearMonitor")) testResult = StartGearMonitor();
-                else if(!GetTestStepName().compare("AccelerateInReverse")) testResult = AccelerateInReverse();
-                else if(!GetTestStepName().compare("StopGearMonitor")) testResult = StopGearMonitor();
-                else if(!GetTestStepName().compare("CheckPartNumbers")) testResult = CheckPartNumbers();
                 // No specific method, try the base class
                 else testResult = GenericTransmissionTCTemplate<VehicleModuleType>::CommandTestStep(value);
             }
@@ -140,6 +136,69 @@ string AllisonTransmissionTC<VehicleModuleType>::ShiftLeverTest(void)
     Log(LOG_FN_ENTRY, "AllisonTransmissionTC::ShiftLeverTest() - Exit");
     return result;
 }
+
+//-----------------------------------------------------------------------------
+template <class VehicleModuleType>
+bool AllisonTransmissionTC<VehicleModuleType>::RequestStateByPrompt(string requestedState,
+                                                                            string promptForState, string currentStateTag, INT32 minimumSuccessiveReads, INT32 successiveReadDelay)
+{
+    Log(LOG_DEV_DATA, "Entering AllisonTransmissionTC::RequestStateByPrompt");
+    INT32 successiveReads = 0;
+    //BEP_STATUS_TYPE moduleStatus = BEP_STATUS_FAILURE;  // Used to store return result for module read
+    string currentState(BEP_NO_DATA);                   // Used to store current state from module read
+
+    //Do not show the prompt unless the current state does not match the request
+    bool showingPrompt = false;
+
+    //Continue checking and prompting until the current state matches the requested state
+    //Also allow a minimum amount of successive reads to ensure this is not a pass-through state
+    while(TimeRemaining() && (successiveReads < minimumSuccessiveReads) && (BEP_STATUS_SUCCESS == StatusCheck()))
+    {
+        currentState = m_vehicleModule.GetCurrentState();
+        Log(LOG_DEV_DATA,"RequestStateByPrompt:: currentState: %s", currentState.c_str());
+        if(currentState.compare("Illegal"))
+        {   // Check that the requested state matches the current state
+            Log(LOG_DEV_DATA, "Comparing Requested state: %s current state: %s",
+                requestedState.c_str(), currentState.c_str());
+            if(requestedState == currentState)
+            {   //Increment the successive reads until the minimum is met
+                successiveReads++;
+                if(successiveReads >= minimumSuccessiveReads) break;
+            }
+            else
+            {
+                if(!showingPrompt)
+                {   //Request the driver to perform action for requested state
+                    DisplayPrompt(GetPromptBox(promptForState), GetPrompt(promptForState), GetPromptPriority(promptForState));
+
+                    //Do not show the prompt more than once
+                    showingPrompt = true;
+                }
+                //Reset the successive reads counter when request is not met
+                successiveReads = 0;
+            }
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Failed to read the current state with data tag: %s\n", GetDataTag(currentStateTag).c_str());
+        }
+
+        //Wait between successive reads so that a quick shift through is not recorded
+        BposSleep(successiveReadDelay);
+    }
+
+    if(showingPrompt)
+    {   //Remove the prompt from the driver screen if it is being shown
+        RemovePrompt(GetPromptBox(promptForState), GetPrompt(promptForState), GetPromptPriority(promptForState));
+    }
+
+    //Return true if the requested state was read the minimum amount of times
+    bool bStateSeen = (successiveReads >= minimumSuccessiveReads);
+    Log(LOG_DEV_DATA, "Requested (%i of minimum %i reads) state: '%s' lever seen: %s", successiveReads, minimumSuccessiveReads,
+        requestedState.c_str(), bStateSeen ? "True" : "False");
+    return bStateSeen;
+}
+
 
 //-----------------------------------------------------------------------------
 template <class VehicleModuleType>
@@ -380,35 +439,4 @@ string AllisonTransmissionTC<ModuleType>::ReadFaults(void)
     Log(LOG_FN_ENTRY, "Exit AllisonTransmissionTC::ReadFaults()\n");
     return testResult;
 }
-
-
-//-------------------------------------------------------------------------------------------------
-template <class VehicleModuleType>
-string AllisonTransmissionTC<VehicleModuleType>::StartGearMonitor(void)  {
-
-    return "";
-}
-
-//-------------------------------------------------------------------------------------------------
-template <class VehicleModuleType>
-string AllisonTransmissionTC<VehicleModuleType>::AccelerateInReverse(void)  {
-
-    return "";
-}
-
-//-------------------------------------------------------------------------------------------------
-template <class VehicleModuleType>
-string AllisonTransmissionTC<VehicleModuleType>::StopGearMonitor(void)  {
-
-    return "";
-}
-
-//-------------------------------------------------------------------------------------------------
-template <class VehicleModuleType>
-string AllisonTransmissionTC<VehicleModuleType>::CheckPartNumbers(void)  {
-
-    return "";
-}
-
-
 

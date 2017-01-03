@@ -58,10 +58,10 @@
             <xsl:call-template name="categorySpacer"/>
             <tr>
                 <td align="left">VIN</td>
-                <td align="right">
+                <td align="right" width="30">
                     <xsl:value-of select="//VIN"/>
                 </td>
-                <td width="15"></td>
+                <td width="17"></td>
                 <td align="left"> </td>
                 <td align="right"> </td>
             </tr>
@@ -195,7 +195,7 @@
                 </td>
             </tr>
             <tr bgcolor="white">
-                <th align="Right" width="20"/>
+                <th align="left" width="20"/>
                 <td align="right">RR</td>
                 <td align="center"/>
                 <td align="center">
@@ -217,6 +217,7 @@
             <!-- ======================================================================================= -->
             <xsl:call-template name="sectionSpacer"/>
             <xsl:call-template name="headerRow"/>
+            
             <tr bgcolor="white">
                 <th align="left" width="20">Brake Test</th>
                 <td align="right">LF</td>
@@ -293,9 +294,62 @@
                     </xsl:call-template>
                 </td>
             </tr>
-            <!-- Balance Results -->
+            <!-- Brake Time Results -->
+            <tr>
+                <th align="left" width="20"></th>
+                <td align="right">Front Brake Time</td>
+                <td/>
+                <td align="center">
+                    <xsl:value-of select="//BrakeFrontBrakeTime/BrakeTime"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeFrontBrakeTime/MaxBrakeTime"/>
+                </td>
+                <td align="center">sec</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeFrontBrakeTime/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
             <tr>
                 <th align="left" width="20"/>
+                <td align="right">Rear Brake Time</td>
+                <td/>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRearBrakeTime/BrakeTime"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeRearBrakeTime/MaxBrakeTime"/>
+                </td>
+                <td align="center">sec</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeRearBrakeTime/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+			<tr>
+                <th align="left" width="20"></th>
+                <td align="right">Park Brake Time</td>
+                <td/>
+                <td align="center">
+                    <xsl:value-of select="//BrakeParkBrakeTime/ParkBrakeTime"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//BrakeParkBrakeTime/MaxParkBrakeTime"/>
+                </td>
+                <td align="center">sec</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//BrakeParkBrakeTime/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+
+            <!-- Balance Results -->
+            <tr>
+                <th align="left" width="20"></th>
                 <td align="right">Front Bal</td>
                 <td align="center">
                     <xsl:value-of select="//BrakeFrontBalanceTest/MinPercentBalance"/>
@@ -689,7 +743,7 @@
             </tr>
 			<!--ECM Check VIN number-->
 			<tr>
-				<td width="20"/>
+				<td width="25"/>
 				<td align="right">VIN</td>
 				<td align="center" colspan="3">
 					<xsl:value-of select="//EmissionsCheckVIN/ModuleVIN"/>
@@ -903,7 +957,7 @@
                     </xsl:call-template>
                 </td>
             </tr>
-            <tr>
+            <!--tr> //NOT doing MEC Lock for Mimamori
                 <th width="20" align="left"></th>
                 <td align="right">MEC Lock</td>				
                 <td align="center" colspan="4"></td>
@@ -912,7 +966,7 @@
                         <xsl:with-param name="RESULT" select="//MimamoriMECLock/@Result"/>
                     </xsl:call-template>
                 </td>
-            </tr>
+            </tr-->
 
 
         </table>
@@ -927,14 +981,14 @@
                 <xsl:call-template name="categorySpacer"/>
                 <xsl:for-each select="//TestResult/DTC/child::*">
                     <tr bgcolor="white">
-                        <th align="center">
+                        <th align="center" width="15">
                             <xsl:value-of select="name()"/>
                         </th>
                         <th align="center">Description</th>
                     </tr>
                     <xsl:for-each select="child::*">
                         <tr>
-                            <td align="center">
+                            <td align="center" width="15">
                                 <xsl:value-of select="@DTCCode"/>
                             </td>
                             <td align="center">

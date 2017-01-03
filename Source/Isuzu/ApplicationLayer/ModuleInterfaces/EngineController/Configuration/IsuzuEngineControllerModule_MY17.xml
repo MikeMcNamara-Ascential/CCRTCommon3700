@@ -485,6 +485,28 @@
                 <ReplyInterpretation>DifferentialPressure</ReplyInterpretation>
             </ReadDifferentialPressureSensor>
 
+            <!-- Speed Control Messages -->
+            <ReadCruiseCutoutHistory>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>CruiseCutoutHistory</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseCutoutHistory</ReplyInterpretation>
+            </ReadCruiseCutoutHistory>
+
+            <ReadCruiseStatus>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>CruiseStatus</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>CruiseStatus</ReplyInterpretation>
+            </ReadCruiseStatus>
+
+            <ReadCruiseTargetSpeed>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>VehicleSpeed</TransmitInterpretation>
+                <ReplyMessage>VehicleSpeed</ReplyMessage>
+                <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
+            </ReadCruiseTargetSpeed>
+
         </VehicleMessages>
 
         <!-- ============ Message Formats ============ -->
@@ -545,7 +567,7 @@
             <CaseLearnStatus>0x12,0xF0</CaseLearnStatus>
             <ClutchSwitch>0x11,0x25</ClutchSwitch>
             <CruiseCutoutHistory>0x13,0x15</CruiseCutoutHistory>
-            <CruiseStatus>0x01,0xE1</CruiseStatus>
+            <CruiseStatus>0x00,0xC9</CruiseStatus>
             <DesiredFanSpeed>0x16,0x3F</DesiredFanSpeed>
             <DiagnosticLevel_3>0x03</DiagnosticLevel_3>
             <DtcCount>0x00,0x01</DtcCount>
@@ -966,6 +988,12 @@
                     </Substring>
                 </String>
             </EndModelPartNumber>
+
+            <CruiseStatus>
+                <Integer type="unsigned" scale="1" offset="0">
+                    <Byte1 input_index="3" mask="0xFF" output_index="0"/>
+                </Integer>
+            </CruiseStatus>
 
 
         </ReplyInterpretations>

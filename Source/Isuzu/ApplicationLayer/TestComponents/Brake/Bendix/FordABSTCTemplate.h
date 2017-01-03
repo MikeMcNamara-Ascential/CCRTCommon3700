@@ -174,10 +174,9 @@ public:
 	 * @return The status of the overall objective.
 	 * @since Version 1.0
 	 */
-	virtual const string CommandTestStep(const string &value);    
+	virtual const string CommandTestStep(const string &value);  
 
-protected:
-
+protected:  
 
     /**
      * Used to test if the brake is applied or not
@@ -194,24 +193,6 @@ protected:
 	 */
 	inline string Setup(void);
 	
-	/**
-	 * Execute the reduction/recovery test built into the
-	 * ABS module
-	 * 
-	 * @return A String indicating the test status
-	 * @since 10 February 2004
-	 */
-	virtual std::string ExecuteAbsRollTestSequence(void);
-	
-	/**
-	 * Automatically determines if we need to run a high speed or a low
-	 * speed sensor test based on whether or not we are at zerospeed when
-	 * we are told to perform the sensor test
-	 * 
-	 * @return A String indicating the test status
-	 */
-	virtual std::string TestStepAutoSensor(void);
-
 	/**
 	 * Starts monitoring the brake switch status. Used during park brake and
 	 * park pawl to determine driver influence faiilures
@@ -265,18 +246,6 @@ protected:
 	virtual std::string EvaluateABS(std::string axle);
 
     /**
-	 * TRW ABS RollTest evaluation steps.	 
-	 */
-	virtual std::string EvaluateRolltest(void);
-
-    //MAM 3/13/08
-    /**
-	 * Evaluate Hybrid brake test.
-     * SBA stands for Simulated Brake Actuator
-	 */
-	virtual std::string EvaluateSBA(void);
-
-	/**
 	 * Attempt to identify the ABS reduction indices in the given data array.
 	 * 
 	 * @param brakeData Brake force data array for a single wheel
@@ -449,57 +418,12 @@ protected:
 	virtual bool AnalyzeLRValveCrossSBA();
 
     /**
-	 * Validate SBA brake forces against min and max params
-	 * 
-	 * @return The test result
-	 * @since 22 April 2008
-	 */
-    virtual INT32 ValidateSBABrakeForces(float *forceVal);
-
-    /**
-	 * Validate SBA reduction forces
-	 * 
-	 * @return The test result
-	 * @since 11 June 2008
-	 */
-    virtual INT32 ValidateSBAReductionForces(float *forceMin, float *forceMax);
-
-	/**
 	 * Isolates all ABS valves prior to an ABS valve firing sequence
 	 * 
 	 * @return The test result
 	 * @since 10 July 2003
 	 */
 	virtual string IsolateAll();
-
-	/**
-	 * Tell the ABS module to stop storing fault codes. Added for
-	 * Bosch ABS at Chicago due to wheelspeed plausability faults
-	 * being set during the trans test.
-	 * 
-	 * @return The test result
-	 */
-	virtual string EnableCodeLogging();
-	
-	/**
-	 * Tell the ABS module to start storing fault codes. Added for
-	 * Bosch ABS at Chicago due to wheelspeed plausability faults
-	 * being set during the trans test.
-	 * 
-	 * @return The test result
-	 */
-	virtual string DisableCodeLogging();
-
-    //MAM 1/8/15
-    virtual string DisableTractionControl();
-    virtual string EnableTractionControl();
-
-	/**
-	 * Checks for front to rear axle speed mismatches on AWD vehicles
-	 * 
-	 * @return The test result
-	 */
-	virtual string AWDSpeedBalance();
 
 	/**
 	 * Detects a shift to neutral by comparing the current decel rate against
@@ -547,8 +471,8 @@ protected:
 	 * Reset the SBA Test Status DID
 	 * 
 	 * @return The test result
-	 */
-	virtual string ClearStatusDID();
+	 *
+	virtual string ClearStatusDID();*/
 
     //MAM 12/23/14
     virtual string CheckPartNumber();
@@ -579,34 +503,6 @@ protected:
 	virtual INT32 ElectricParkBrakeInit();
 
 	/**
-	 * Perform pre-hydraulic park pawl test initialization
-	 * 
-	 * @return The status of the test step
-	 */
-	virtual INT32 HydraulicParkPawlInit();
-
-	/**
-	 * Perform pre-electric park pawl test initialization
-	 * 
-	 * @return The status of the test step
-	 */
-	virtual INT32 ElectricParkPawlInit();
-
-	/**
-	 * Perform pre-hydraulic park brake/pawl test initialization
-	 * 
-	 * @return The status of the test step
-	 */
-	virtual INT32 HydraulicParkBrakePawlInit();
-
-	/**
-	 * Perform pre-electric park brake/pawl test initialization
-	 * 
-	 * @return The status of the test step
-	 */
-	virtual INT32 ElectricParkBrakePawlInit();
-
-	/**
 	 * Method used to start monitoring the brake switch during park brake and/or
 	 * park pawl tests
 	 * 
@@ -614,17 +510,6 @@ protected:
 	 */
 	//virtual INT32 ParkBrakePawlInit();
     virtual INT32 ParkBrakePawlPedalCheck();
-
-    //MAM 06/03/10
-    /**
-	 * This method is used by the Park Pawl Test to do the actual
-	 * torque testing. It sends a subtest result.
-	 *
-	 * @param direction Direction to turn the rollers: "Forward", "Reverse" or "Both"
-	 *
-	 * @return The status of the test step
-	 */
-	virtual const std::string ParkPawlTorqueTest(const std::string &direction);
 
     /**
      * Test the park brake
@@ -693,7 +578,7 @@ protected:
 	 */
 	virtual INT32 SBAParkBrakePawlInit();
 
-    virtual INT32 OldParkBrakePawlInit(); //MAM 3/21/07 - development
+    //virtual INT32 OldParkBrakePawlInit(); //MAM 3/21/07 - development
 	
 	/**
 	 * Checks to see if the driver applied the brakes during a park brake/pawl test
@@ -765,44 +650,6 @@ protected:
 	 * @return A BEP_STATUS_TYPE indicating the status
 	 */
 	virtual INT32 StatusCheck(void);
-
-	/**
-	 * This method verifies that the wheels speed sensors work correctly at a
-	 * low speed, within a tolerance. We override this method to put our
-	 * parameter values into the TestStepInfo where the base class expects them.
-	 * 
-	 * @return The test result
-	 */
-	virtual string LowSpeedSensorTest(void);
-
-    virtual string LSSensorTest(void); //MAM 5/25/11
-
-	/**
-	 * This method verifies that the wheels speed sensors work correctly at a
-	 * high speed, within a tolerance. We override this method to put our
-	 * parameter values into the TestStepInfo where the base class expects them.
-	 * 
-	 * @return The test result
-	 */
-	virtual string HighSpeedSensorTest(void);
-
-    /**
-	 * This method verifies that the wheels speed sensors work correctly at a
-	 * high speed, within a tolerance. We override this method to put our
-	 * parameter values into the TestStepInfo where the base class expects them.
-	 * 
-	 * @return The test result
-	 */
-	virtual string HSSensorTest(void);
-
-    /**
-	 * This method verifies that the wheels speed sensors work correctly at a
-	 * high speed, within a tolerance. We override this method to put our
-	 * parameter values into the TestStepInfo where the base class expects them.
-	 * 
-	 * @return The test result
-	 */
-	virtual string SBAHighSpeedSensorTest(void);
 
 	/**
 	 * Accelerate to  brake test speed. This is "overridden" to put our 
@@ -968,12 +815,6 @@ protected:
     //MAM 12/3/14 - Bendix programming
     //MAM 2/10/15 - Updated for EC80
     virtual string WriteFingerprint(void);
-    virtual string ProgramTireSize(void);
-    virtual string ProgramTireSizeEC80(void);
-    virtual string DisableLampGndChk(void);
-    virtual string DisableLampGndChkEC80(void);
-    virtual string EnableHrwCcvs(void);
-    virtual string EnableHrwCcvsEC80(void);
 	
 	/**
 	 * Analyze the drag test results. This is "overridden" to put our parameters 
@@ -988,7 +829,7 @@ protected:
 	 * 
 	 * @return Status of the test
 	 */
-	std::string TestStepAnalyzeDrag(std::string axle);
+	//std::string TestStepAnalyzeDrag(std::string axle);
 	
 	/**
 	 * Analyze the base brake test results. This is "overridden" to put our
@@ -1003,7 +844,7 @@ protected:
      * 
      * @return Status of the test
      */
-    std::string TestStepAnalyzeBaseBrake(std::string axle);
+    //std::string TestStepAnalyzeBaseBrake(std::string axle);
 
 	
 	/**
@@ -1019,7 +860,7 @@ protected:
 	 * 
 	 * @return Status of the test
 	 */
-	std::string TestStepBalance(std::string axle);
+	//std::string TestStepBalance(std::string axle);
 
     /**
 	 * Analyze the Dynamic Park Brake force balance.
@@ -1027,12 +868,6 @@ protected:
 	 * @return Status of the test
 	 */
 	std::string TestStepParkBrakeBalance(void);
-
-	/**
-	 * Sends a generic message to the ABS module. The tag of message to send
-	 * is dictated by the MessageTag TestStepInfo item.
-	 */
-	std::string TestStepSendModuleMessage();
 
 	/**
 	 *
@@ -1115,6 +950,8 @@ protected:
 
     string AccelerateVehicleToSpeed(void);
 
+    virtual const string Publish(const XmlNode *node);
+
 
 	/**
 	 * "File" to read current accel values from
@@ -1181,7 +1018,16 @@ private:
 	 * Park brake force for each wheel during the dynamic park brake test.
 	 * @since Version 1.0
 	 */
-	FORCELIST 		m_parkBrakeForce;    
+	FORCELIST 		m_parkBrakeForce; 
+
+    /**
+     * Time at which the accel test was started
+     */
+    struct timespec      m_brakeStopTime;
+    struct timespec      m_parkBrakeStopTime;
+
+    bool m_zerospeedBrakeTimeFlag;
+    bool m_zerospeedParkBrakeTimeFlag;
 
 };
 

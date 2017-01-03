@@ -170,10 +170,7 @@
                 <Position0 Value="P"/>
                 <Position1 Value="R"/>
                 <Position2 Value="N"/>
-                <Position3 Value="D6"/>
-                <Position4 Value="D4"/>
-                <Position5 Value="2"/>
-                <Position6 Value="1"/>
+                <Position3 Value="1"/>
             </PrndlPositions>
             <SuccessiveLeverReadMinimum TestSteps="ShiftLeverTest"
                 Comment="Number of times shift lever must be seen in the current position">2</SuccessiveLeverReadMinimum>
@@ -214,11 +211,9 @@
                 TestSteps="AccelerateInReverse,WaitForGears">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
             <FootOnBrake PromptBox="2" Priority="0" TestSteps="ShiftLeverTest">ApplyBrake</FootOnBrake>
             <MaintainSpeed PromptBox="1" Priority="0" TestSteps="EvaluateTccSlipError">MaintainSpeed</MaintainSpeed>
-            <ShiftTo1 PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftTo1</ShiftTo1>
-            <ShiftTo2 PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftTo2</ShiftTo2>
-            <ShiftToD3 PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToD3</ShiftToD3>
-            <ShiftToD4 PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToD4</ShiftToD4>
+            <ShiftTo1 PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToDrive</ShiftTo1>
             <ShiftToDrive PromptBox="1" Priority="0" TestSteps="WaitForGears">ShiftToDrive</ShiftToDrive>
+            <ShiftToD PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToDrive</ShiftToD>
             <ShiftToN PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToNeutral</ShiftToN>
             <ShiftToP PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToPark</ShiftToP>
             <ShiftToR PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToReverse</ShiftToR>
@@ -234,6 +229,10 @@
 
     <!-- Test Objectives -->
     <Objectives>
+        <StartGearMonitor>
+            <TestStep00>StartGearMonitor</TestStep00>
+        </StartGearMonitor>
+
         <StopGearMonitor>
             <TestStep00>StopGearMonitor</TestStep00>
         </StopGearMonitor>
@@ -249,7 +248,7 @@
         </FinishUp>
 
         <ReverseTest>
-            <TestStep00>StartGearMonitor</TestStep00>
+            <!--TestStep00>StartGearMonitor</TestStep00-->
             <TestStep05>AccelerateInReverse</TestStep05>
         </ReverseTest>
 
@@ -304,11 +303,10 @@
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read faults from the TCM" AlwaysPerform="True"
             AbortIfFailed="False"/>
         <Setup Result="Not Tested" Timeout="500" Description="Setup the test" AlwaysPerform="True" AbortIfFailed="False"/>
-        <ShiftLeverTest Result="Not Tested" Timeout="10000" Description="Check shift lever" AlwaysPerform="True"
-            AbortIfFailed="True"/>
-        <StartFaultLimpInMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="True"
+        <ShiftLeverTest Result="Not Tested" Timeout="10000" Description="Check shift lever" AlwaysPerform="True" AbortIfFailed="True"/>
+        <StartFaultLimpInMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="True" 
             Description="Start the Fault monitor and Limp-In monitor"/>
-        <StartGearMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="True"
+        <StartGearMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="True" 
             Description="Start the gear monitor" ScanDelay="500"/>
         <StopFaultLimpInMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="False"
             Description="Stop the fault and limp-in monitor"/>

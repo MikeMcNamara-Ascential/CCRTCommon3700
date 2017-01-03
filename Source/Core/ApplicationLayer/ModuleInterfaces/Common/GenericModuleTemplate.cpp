@@ -1863,7 +1863,9 @@ bool GenericModuleTemplate<ProtocolFilterType>::ParseBooleanResponse(string inte
 template <class ProtocolFilterType>
 UINT32 GenericModuleTemplate<ProtocolFilterType>::ParseUnsignedIntegerResponse(string interpTag, SerialString_t rawResponse)
 throw(XmlException, ModuleException)
-{   // Check to see that we have a reply interp node
+{   
+    Log(LOG_DEV_DATA, "Entering GenericModuleTemplate::ParseUnsignedIntegerResponse");
+    // Check to see that we have a reply interp node
     if(m_replyInterpretationNode == NULL)  throw ModuleException("*m_replyInterpretationNode is null");
     // The return value
     UINT32 returnMe = 0;
@@ -1894,6 +1896,7 @@ inline UINT8 GenericModuleTemplate<ProtocolFilterType>::ParseUnsignedByteRespons
                                                                                   SerialString_t rawResponse)
 throw(XmlException, ModuleException)
 {
+    Log(LOG_DEV_DATA,"Entering GenericModuleTemplate::ParseUnsignedByteResponse");
     return((UINT8) ParseUnsignedIntegerResponse(interpTag, rawResponse));
 }
 

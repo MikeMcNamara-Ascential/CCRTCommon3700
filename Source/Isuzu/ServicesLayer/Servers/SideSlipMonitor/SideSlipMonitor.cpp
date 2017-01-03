@@ -160,8 +160,7 @@ const string SideSlipMonitor::Publish(const XmlNode *node)
 	if(!node->getName().compare(GetDataTag("SideSlipIn")) && atob(node->getValue().c_str()))
 	{
         Log(LOG_DEV_DATA, "axleCount: %.1f", m_axleCount);
-        if (!(m_axleCount == 0.0 || m_axleCount == 1.0))
-        { //should not have axle enter before previous axle leaves, so must be whole number
+        if (!(m_axleCount == 0.0 || m_axleCount == 1.0)) { //should not have axle enter before previous axle leaves, so must be whole number
             m_axleCount = 0.0;                             //makes sure does not trigger if someone walks in front of vehicle sensor
         }
         if(m_axleCount == 0.0)
@@ -172,6 +171,7 @@ const string SideSlipMonitor::Publish(const XmlNode *node)
             m_currentMaxSideSlipValue = 0.0;
 		}
         m_axleCount += 0.5;
+        result = BEP_SUCCESS_RESPONSE;
 	}
 	else if(!node->getName().compare(GetDataTag("SideSlipOut")) && atob(node->getValue().c_str()))
 	{
@@ -180,9 +180,7 @@ const string SideSlipMonitor::Publish(const XmlNode *node)
 		if (m_axleCount != 0.0 && m_axleCount != 1.0) //vehicleOut should not start the axleCount, must be halfway b/t axles 
         {                                             //makese sure does not trigger if someone walks in front of vehicle sensor
             m_axleCount += 0.5;
-        }
-        else
-        {
+        } else {
             m_axleCount = 0.0; //reset back to 0.0
         }
 		if(m_axleCount == 1.0)
@@ -190,8 +188,12 @@ const string SideSlipMonitor::Publish(const XmlNode *node)
 			m_axleGapTimer.Start();
 		}
 		Log(LOG_DEV_DATA, "Vehicle departed side slip tester, stopped timer; axleCount: %.1f", m_axleCount);
+		result = BEP_SUCCESS_RESPONSE;
 	}
-	result = BepServer::Publish(node);
+	else
+  	{
+		result = BepServer::Publish(node);
+	}
 	return result;
 }
 

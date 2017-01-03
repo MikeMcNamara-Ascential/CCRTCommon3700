@@ -2569,6 +2569,15 @@ public:
      */
     float ConvertPulsesToMiles(const float &pulseCount);
 
+    void StartBrakeTimer(void);
+    void StartParkBrakeTimer(void);
+
+    /**
+     * Time at which the accel test was started
+     */
+    struct timespec      m_brakeStartTime;
+    struct timespec      m_parkBrakeStartTime;
+
 protected:
     /**
      * Add an IPC link for the component.
@@ -5521,6 +5530,7 @@ private:
 
     /** The name of the symlink to create when the component is activated. */
     std::string    m_regAlias;
+
 };
 
 #endif // GenericTC_H

@@ -1944,6 +1944,7 @@ INT32 GenericTC::StatusCheck(void)
     // Get the current status
     INT32 testStatus = BEP_STATUS_SUCCESS;
     std::string status = GetStatus();
+    Log(LOG_DEV_DATA, "GenericTC status: %s, from GetStatus", status.c_str());
     // Check the status items if any were specified in the config file
     if(m_statusCheckItems.size() > 0)
     {   // Check all of the status items
@@ -1966,8 +1967,11 @@ INT32 GenericTC::StatusCheck(void)
         else if((status == BEP_RUNNING_STATUS) || (status == BEP_INITIALIZED_STATUS) ||
                 (status == BEP_COMPLETE_STATUS) || (status == BEP_TESTING_STATUS))
             testStatus = BEP_STATUS_SUCCESS;
-        else    // else there is another problem
+        else
+        {   // else there is another problem
             testStatus = BEP_STATUS_ERROR;
+            Log(LOG_ERRORS, "Status Check error in GenericTC::StatusCheck");
+        }
     }
     // Log the exit and return the status
     Log(LOG_FN_ENTRY, "%s, Component Status (%s) %d\n", GetComponentName().c_str(), status.c_str(), testStatus);
@@ -7210,4 +7214,20 @@ void GenericTC::ProcessParkBrakeHandleForce(void)
         SendSubtestResultWithDetail("ParkBrakeHandleForce",BEP_STATUS_SUCCESS,"Park Brake Handle Force","0000",
                                     "ParkBrakeHandleForce",ReadSubscribeData("ParkBrakeHandleForce"),"LBF");
     }
+}
+
+//-----------------------------------------------------------------------------
+void GenericTC::StartParkBrakeTimer()
+{
+    //Put timer start here
+    Log(LOG_DEV_DATA, "Starting park brake timer at %d seconds\n", m_parkBrakeStartTime.tv_sec);
+    clock_gettime( CLOCK_REALTIME, &m_parkBrakeStartTime);
+}
+
+//-----------------------------------------------------------------------------
+void GenericTC::StartBrakeTimer()
+{
+    //Put timer start here
+    Log(LOG_DEV_DATA, "Starting brake timer at %d seconds\n", m_brakeStartTime.tv_sec);
+    clock_gettime( CLOCK_REALTIME, &m_brakeStartTime);
 }

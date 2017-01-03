@@ -132,17 +132,17 @@
 
 
     <TestSteps>
-        <CheckDataRecordMemory Result="" Timeout="2000" Description="Read module's data record and memory"/>
-        <CheckFuelEconomy Result="" Timeout="2000" Description="Read module's Fuel Economy"/>
-        <CheckOilTemperature Result="" Timeout="2000" Description="Read module's Oil Temperature"/>
-        <CheckTotalMileage Result="" Timeout="2000" Description="Read module's total mileage"/>
-        <ClearFaults Result="" Timeout="100" Description="Clear faults from the module"/>
-        <ClearHistory Result="" Timeout="5000" Description="Clear module history"/>
-        <EnterDiagnosticMode Result="" Timeout="1000" Description="Establish comms with Mimamori Module" ScanDelay="500"/>
-        <FinishUp Result="" Timeout="100" Description="Finish up Mimamori Testing"/>
-        <LockModule Result="" Timeout="2000" Description="Lock the Module"/>
-        <ReadFaults Result="" Timeout="100" Description="Read faults from Mimamori Module"/>
-        <Setup Result="" Timeout="100" Description="Setup test component for testing"/>
+        <CheckDataRecordMemory Result="" Timeout="2000" Description="Read module's data record and memory" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <CheckFuelEconomy Result="" Timeout="2000" Description="Read module's Fuel Economy" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <CheckOilTemperature Result="" Timeout="2000" Description="Read module's Oil Temperature" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <CheckTotalMileage Result="" Timeout="2000" Description="Read module's total mileage" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <ClearFaults Result="" Timeout="100" Description="Clear faults from the module" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <ClearHistory Result="" Timeout="5000" Description="Clear module history" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <EnterDiagnosticMode Result="" Timeout="1000" Description="Establish comms with Mimamori Module" ScanDelay="500" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <FinishUp Result="" Timeout="100" Description="Finish up Mimamori Testing" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <LockModule Result="" Timeout="2000" Description="Lock the Module" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <ReadFaults Result="" Timeout="100" Description="Read faults from Mimamori Module" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <Setup Result="" Timeout="100" Description="Setup test component for testing" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
     </TestSteps>
 
 </MimamoriTc>

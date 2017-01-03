@@ -498,18 +498,18 @@ BEP_STATUS_TYPE GenericTransmissionModuleTemplate<ProtocolFilterType>::MonitorTr
     if (!AllGearsObserved())
     {   // Read the current gear from the module
         status = ReadModuleData("ReadCurrentGear", currentGear, NULL, NULL, filter);
-		try
-		{
-			if ((BposReadInt(m_configNode->getChild("Setup/ReadHevFailureData")->getValue().c_str())) && 
+        try
+        {
+            if ((BposReadInt(m_configNode->getChild("Setup/ReadHevFailureData")->getValue().c_str())) &&
                 (BEP_STATUS_SUCCESS == status))
-			{   // If we want to see the failure reason, and we are okay thus far...
+            {   // If we want to see the failure reason, and we are okay thus far...
                 CommandModule("ReadFailureRegister", NULL, NULL, filter);
-			}
-		}
-		catch (XmlException &err)
-		{
-			Log(LOG_ERRORS, "Setup/ReadHevFailureData not found, skipping step\n");
-		}
+            }
+        }
+        catch (XmlException &err)
+        {
+            Log(LOG_ERRORS, "Setup/ReadHevFailureData not found, skipping step\n");
+        }
         // Check the status of the read
         if (BEP_STATUS_SUCCESS == status)
         {   // Pick the gear out of the response
@@ -537,7 +537,6 @@ BEP_STATUS_TYPE GenericTransmissionModuleTemplate<ProtocolFilterType>::MonitorTr
     // Return the status
     return status;
 }
-
 template <class ProtocolFilterType>
 BEP_STATUS_TYPE GenericTransmissionModuleTemplate<ProtocolFilterType>::MonitorLimpInFaultStatus(IProtocolFilter *filter)
 {
@@ -874,6 +873,7 @@ BEP_STATUS_TYPE GenericTransmissionModuleTemplate<ProtocolFilterType>::StartGear
 template <class ProtocolFilterType>
 BEP_STATUS_TYPE GenericTransmissionModuleTemplate<ProtocolFilterType>::StopGearMonitor(void)
 {
+    Log(LOG_DEV_DATA, "Entering GenericTransmissionModuleTemplate::StopGearMonitor");
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     // If the gear monitor thread exists, delete it
     if (m_gearMonitor != NULL)
@@ -1551,24 +1551,24 @@ void GenericTransmissionModuleTemplate<ProtocolFilterType>::ProcessCurrentGear(c
         SetObservedGear6(!currentGear.compare(GetGear6String()));
         if (Gear6Observed()) Log(LOG_DEV_DATA, "Saw Sixth Gear\n");
     }
-    // Check for Park gear
-    if (!GearParkObserved())
-    {   // Park gear was not observed, check if it just was
-        SetObservedGearPark(!currentGear.compare(GetGearParkString()));
-        if (GearParkObserved()) Log(LOG_DEV_DATA, "Saw Park Gear\n");
-    }
-    // Check for reverse gear
-    if (!GearReverseObserved())
-    {   // Reverse gear was not observed, check if it just was
-        SetObservedGearReverse(!currentGear.compare(GetGearReverseString()));
-        if (GearReverseObserved()) Log(LOG_DEV_DATA, "Saw Reverse Gear\n");
-    }
-    // Check for neutral gear
-    if (!GearNeutralObserved())
-    {   // Neutral gear was not observed, check if it just was
-        SetObservedGearNeutral(!currentGear.compare(GetGearNeutralString()));
-        if (GearNeutralObserved()) Log(LOG_DEV_DATA, "Saw Neutral Gear\n");
-    }
+//  // Check for Park gear
+//  if (!GearParkObserved())
+//  {   // Park gear was not observed, check if it just was
+//      SetObservedGearPark(!currentGear.compare(GetGearParkString()));
+//      if (GearParkObserved()) Log(LOG_DEV_DATA, "Saw Park Gear\n");
+//  }
+//  // Check for reverse gear
+//  if (!GearReverseObserved())
+//  {   // Reverse gear was not observed, check if it just was
+//      SetObservedGearReverse(!currentGear.compare(GetGearReverseString()));
+//      if (GearReverseObserved()) Log(LOG_DEV_DATA, "Saw Reverse Gear\n");
+//  }
+//  // Check for neutral gear
+//  if (!GearNeutralObserved())
+//  {   // Neutral gear was not observed, check if it just was
+//      SetObservedGearNeutral(!currentGear.compare(GetGearNeutralString()));
+//      if (GearNeutralObserved()) Log(LOG_DEV_DATA, "Saw Neutral Gear\n");
+//  }
 }
 
 template <class ProtocolFilterType>

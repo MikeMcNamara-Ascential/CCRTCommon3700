@@ -67,6 +67,51 @@ protected:
      */
     virtual void InitializeHook(const XmlNode *config);
 
+    /**
+     * Prompts driver for a requested state.
+     * <p><b>Category:</b> Utility
+     * <p><b>Description:</b><br>
+     * The operator will be prompted to place the transmission into the requested state.  The transmission state will
+     * then be monitored to ensure the operator has placed the transmission in the requested state.
+     * <p>
+     * <b>Module Interface Functions:</b>
+     *      <ul>
+     *      <li> GetInfo() </li>
+     *      </ul>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> TimeRemaining() </li>
+     *      <li> StatusCheck() </li>
+     *      <li> GetDataTag() </li>
+     *      <li> DisplayPrompt() </li>
+     *      <li> RemovePrompt() </li>
+     *      <li> GetPromptBox() </li>
+     *      <li> GetPrompt() </li>
+     *      <li> GetPromptPriority() </li>
+     *      </ul>
+     * 
+     * @param requestedState
+     *               State in which the transmission is to be placed.
+     * @param promptForState
+     *               Prompt box in which to display the operator instructions.
+     * @param currentStateTag
+     *               The message tag to read the current transmission state from the module.
+     * @param minimumSuccessiveReads
+     *               The amount of successive reads where the current state matches the requested state.
+     * @param successiveReadDelay
+     *               The delay in milliseconds between successive reads.
+     * 
+     * @return Flag indicating if the driver was able to place the transmission in the requested state.
+     */
+    virtual bool RequestStateByPrompt(string requestedState, 
+                              string promptForState,
+                              string currentStateTag, 
+                              INT32 minimumSuccessiveReads, 
+                              INT32 successiveReadDelay);
+
+
+
 private:
 
       virtual string ClearFaults(void);
@@ -83,10 +128,6 @@ private:
      * @return Result of testing the PRNDL position.
      */
     virtual string ShiftLeverTest(void);
-    virtual string StartGearMonitor(void);
-    virtual string AccelerateInReverse(void);
-    virtual string StopGearMonitor(void);
-    virtual string CheckPartNumbers(void);
 
     /** List of PRNDL positions to check for */
     XmlNodeMap m_prndlPositions;

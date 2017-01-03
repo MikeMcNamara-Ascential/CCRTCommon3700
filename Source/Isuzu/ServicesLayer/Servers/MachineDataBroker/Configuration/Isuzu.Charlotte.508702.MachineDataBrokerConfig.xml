@@ -47,6 +47,7 @@
 				<ArmSpeedBGColor DataType="color">white</ArmSpeedBGColor>
                 <AxleRatio DatType="float">0</AxleRatio>
 				<BrakeForceValue DataType="float" Units="LBF">0</BrakeForceValue>
+                <BrakeTime DataType="float">0.0</BrakeTime>
 				<ConnectRequest DataType="string">Unknown</ConnectRequest>
                 <CycleTime DataType="short">0</CycleTime>
                 <DisplayDriverMonitor DataType="string">drivermonitor</DisplayDriverMonitor>
@@ -143,6 +144,7 @@
 				<MachineNumber DataType="short">1</MachineNumber>
                 <MachineType DataType="string">5702</MachineType>
                 <MaxRollerSpeed DataType="float" Units="MPH">0</MaxRollerSpeed>
+                <ParkBrakeTime DataType="float">0.0</ParkBrakeTime>
                 <PlcType DataType="string">SerialAb</PlcType>
 				<RearBalanceBGColor DataType="color">white</RearBalanceBGColor>
 				<RearBalanceValue DataType="string">0</RearBalanceValue>

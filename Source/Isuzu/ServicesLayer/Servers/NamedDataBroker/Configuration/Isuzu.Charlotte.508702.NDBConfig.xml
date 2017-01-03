@@ -164,6 +164,8 @@
                 <BrakeTarget DataType="range" Units="LBF">VehicleDataBroker</BrakeTarget>
                 <BrakeTestLamp DataType="bool">PLC</BrakeTestLamp>
                 <BrakeTestPushbutton DataType="bool">PLC</BrakeTestPushbutton>
+                <BrakeTime DataType="float">MachineDataBroker</BrakeTime>
+                <BrakeTimeBGColor DataType="color">VehicleDataBroker</BrakeTimeBGColor>
                 <BrakeTractionControlTest DataType="testcomponentstatus">TestResultServer</BrakeTractionControlTest>
                 <BrakeType DataType="string">VehicleDataBroker</BrakeType>
                 <BrakeTypeBGColor DataType="color">VehicleDataBroker</BrakeTypeBGColor>
@@ -771,6 +773,8 @@
                 <ParameterListYear DataType="short">VehicleTest</ParameterListYear>
                 <ParkBrakeForce DataType="float" Units="LBF">MachineDataBroker</ParkBrakeForce>
                 <ParkBrakeForceBGColor DataType="color">MachineDataBroker</ParkBrakeForceBGColor>
+                <ParkBrakeTime DataType="float">MachineDataBroker</ParkBrakeTime>
+                <ParkBrakeTimeBGColor DataType="color">VehicleDataBroker</ParkBrakeTimeBGColor>
                 <ParkingBrakeRejectLamp DataType="bool">PLC</ParkingBrakeRejectLamp>
                 <ParkingBrakeTest DataType="bool">PLC</ParkingBrakeTest>
                 <ParkingBrakeTestFailed DataType="bool">PLC</ParkingBrakeTestFailed>
@@ -1073,6 +1077,7 @@
                 <Shutdown DataType="bool">Launcher</Shutdown>
                 <SideGuideContact DataType="bool">PLC</SideGuideContact>
                 <SideSlipValue DataType="float">MachineDataBroker</SideSlipValue>
+                <SideSlipBGColor DataType="color">VehicleDataBroker</SideSlipBGColor>
                 <SimulateLeftFrontRollerDirection DataType="bool">ICM</SimulateLeftFrontRollerDirection>
                 <SimulateLeftRearRollerDirection DataType="bool">ICM</SimulateLeftRearRollerDirection>
                 <SimulateRightFrontRollerDirection DataType="bool">ICM</SimulateRightFrontRollerDirection>

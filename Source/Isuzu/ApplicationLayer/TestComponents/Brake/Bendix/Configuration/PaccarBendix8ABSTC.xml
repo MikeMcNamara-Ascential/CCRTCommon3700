@@ -3,7 +3,7 @@
       <Parameters>
          <BrakeDomain>1 1000</BrakeDomain>
          <BrakeForceStabilizeTime>50</BrakeForceStabilizeTime>
-         <BrakeTarget>350 800</BrakeTarget>
+         <BrakeTarget>400 800</BrakeTarget>
          <ConfigFile Description="Path to protocol configuration file">/Configuration/Components/Brake/PaccarBendix8Module.xml</ConfigFile>
          <AccelFilePath>/dev/Icm/Block/Acceleration</AccelFilePath>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
@@ -53,7 +53,8 @@
          <ParkPawlMaxDistance Description="Maximum allowable travel for the drive wheels during the park pawl test" units=".016 Degrees">200</ParkPawlMaxDistance>
          <ParkPawlMinDistance Description="Minimum required travel for the non-driven wheels during the park pawl test" units=".016 Degrees">50</ParkPawlMinDistance>
          <!-- Dynamic Park Brake Parameters -->
-         <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">10</DynamicParkBrakeArmSpeed>
+         <DynamicParkBrakeStartForce Units="lbs">150</DynamicParkBrakeStartForce>
+		 <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">10</DynamicParkBrakeArmSpeed>
          <DynamicParkBrakeEndSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake end speed">0</DynamicParkBrakeEndSampleSpeed>
          <DynamicParkBrakeFrontMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum front park brake force">20</DynamicParkBrakeFrontMaxForce>
          <DynamicParkBrakeFrontMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum front park brake force">-20</DynamicParkBrakeFrontMinForce>
@@ -89,17 +90,20 @@
          <RearMaxDragForce Units="lbs">120</RearMaxDragForce>
          <RearMinDragForce Units="">10</RearMinDragForce>
          <StartBrakeSampleSpeed Units="MPH">55</StartBrakeSampleSpeed>
-         <EndBrakeSampleSpeed Units="MPH">45</EndBrakeSampleSpeed>
-         <FrontMinBrakeForce Units="lbf">350</FrontMinBrakeForce>
+         <EndBrakeSampleSpeed Units="MPH">5</EndBrakeSampleSpeed>
+         <FrontMinBrakeForce Units="lbf">400</FrontMinBrakeForce>
          <FrontMaxBrakeForce Units="lbf">800</FrontMaxBrakeForce>
-         <RearMinBrakeForce Units="lbf">300</RearMinBrakeForce>
+         <RearMinBrakeForce Units="lbf">400</RearMinBrakeForce>
          <RearMaxBrakeForce Units="lbf">800</RearMaxBrakeForce>
+         <FrontMaxBrakeTime Units="s">6.0</FrontMaxBrakeTime>
+         <RearMaxBrakeTime Units="s">6.0</RearMaxBrakeTime>
+         <MaxParkBrakeTime Units="s">1.8</MaxParkBrakeTime>
          <EvaluateMaxBrakeForce>1</EvaluateMaxBrakeForce>
          <MinimumStartForce Units="lbs">100</MinimumStartForce>
          <StartSamplingAtMinimumForce>1</StartSamplingAtMinimumForce>
          <BaseBrakeSampleCount Description="Number of base brake samples (at 100ms intervals) to use when calculating base brake forces">20</BaseBrakeSampleCount>
          <IncludeDragInBrakeForce>0</IncludeDragInBrakeForce>
-         <ForceMeterCenterValue Units="lbs">350</ForceMeterCenterValue>
+         <ForceMeterCenterValue Units="lbs">400</ForceMeterCenterValue>
          <!-- Driver Fault High Force Parameters -->
          <ExcessiveBrakeForceLimit Units="lbs">700</ExcessiveBrakeForceLimit>
          <NumberOfSamplesAboveLimit Description="Number of consecutive samples above max brake force for excessive force failure">50</NumberOfSamplesAboveLimit>
@@ -220,7 +224,7 @@
          <RollsUpElevDown Comment="Must have retainers up to test anything">1</RollsUpElevDown>
          <StopCurrentTest>0</StopCurrentTest>
       </StatusCheckItems>
-      <FaultList>/Configuration/Components/Common/FaultList.xml</FaultList>
+      <FaultList>/Configuration/Components/Brake/BrakeFaultList.xml</FaultList>
       <Name>Brake</Name>
       <Debug>Off</Debug>
       <ICMName>mgr/ICM</ICMName>
@@ -256,6 +260,8 @@
             <!-- From GenericTC Code -->
             <Abort/>
             <ABSType/>
+			<BrakeTimeBGColor/>
+			<BrakeTime/>
             <ModulePartNumber/>
             <ModuleKey/>
             <ModuleVIN/>
@@ -263,6 +269,8 @@
             <DriveAxle/>
             <MachineType2400/>
             <MachineType3600/>
+			<ParkBrakeTimeBGColor/>
+			<ParkBrakeTime/>
             <ParkingBrakeTestFailed/>
             <ParkingBrakeTestPass/>
             <ParkingPawlTestFailed/>
@@ -320,6 +328,8 @@
          <BrakeActive>BrakeActive</BrakeActive>
          <BrakeDomain>BrakeDomain</BrakeDomain>
          <BrakeTarget>BrakeTarget</BrakeTarget>
+         <BrakeTime>BrakeTime</BrakeTime>
+		 <BrakeTimeBGColor>BrakeTimeBGColor</BrakeTimeBGColor>
          <CableConnect>CableConnect</CableConnect>
          <ClearFaults>ClearFaults</ClearFaults>
          <Clutch>Clutch</Clutch>
@@ -392,6 +402,8 @@
          <ModuleVIN>ModuleVIN</ModuleVIN>
          <MotorMode>MotorMode</MotorMode>
          <MPH>MPH</MPH>
+         <ParkBrakeTime>ParkBrakeTime</ParkBrakeTime>
+		 <ParkBrakeTimeBGColor>ParkBrakeTimeBGColor</ParkBrakeTimeBGColor>
          <ParkingBrakeTest>ParkingBrakeTest</ParkingBrakeTest>
          <ParkingBrakeTestFail>ParkingBrakeTestFailed</ParkingBrakeTestFail>
          <ParkingBrakeTestPass>ParkingBrakeTestPass</ParkingBrakeTestPass>
@@ -510,6 +522,8 @@
       </DataTags>
       <SystemTagsToReset>
          <BrakeActive>0</BrakeActive>
+         <BrakeTime>0.0</BrakeTime>
+		 <BrakeTimeBGColor>white</BrakeTimeBGColor>
          <FrontBalanceBGColor>white</FrontBalanceBGColor>
          <FrontBalanceValue>0</FrontBalanceValue>
          <FrontToRearBalanceBGColor>white</FrontToRearBalanceBGColor>
@@ -544,6 +558,8 @@
          <LRTractionControlRecoveryValue>0</LRTractionControlRecoveryValue>
          <LRTractionControlReductionBGColor>white</LRTractionControlReductionBGColor>
          <LRTractionControlReductionValue>0</LRTractionControlReductionValue>
+         <ParkBrakeTime>0.0</ParkBrakeTime>
+		 <ParkBrakeTimeBGColor>white</ParkBrakeTimeBGColor>
          <RearBalanceBGColor>white</RearBalanceBGColor>
          <RearBalanceValue>0</RearBalanceValue>
          <RFABSRecoveryBGColor>white</RFABSRecoveryBGColor>
@@ -827,7 +843,7 @@
       <NeutralCheck Result="" Timeout="10000" Description="Wait for shift to neutral after arm speed" Prompt1="ReleaseThrottleShiftNeutral" ScanDelay="100"/>
       <DragTest Result="" Timeout="20000" Description="Base Brake Component Brake Drag Test" Prompt1="ReleaseThrottleShiftNeutral" Prompt2=""/>
       <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2=""/>
-      <BrakeTest Result="" Timeout="10000" Description="Base Brake Component Brake Test" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1="" BrakeDomain="0 1000" BrakeTarget="350 800"/>
+      <BrakeTest Result="" Timeout="10000" Description="Base Brake Component Brake Test" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1="" BrakeDomain="0 1000" BrakeTarget="400 800"/>
       <AnalyzeBrakeTest Result="" Timeout="10000" Description="Analyze Brake Test" Prompt1="" Prompt2=""/>
       <AnalyzeBalance Result="" Timeout="10000" Description="Analyze Balance" Prompt1="" Prompt2=""/>
       <ExcessiveBrakeForceCheck Result="" Timeout="10000" Description="Check for excessive brake force"/>

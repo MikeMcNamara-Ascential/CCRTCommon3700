@@ -85,7 +85,7 @@
             <AbortOnTestStepFailure>True</AbortOnTestStepFailure>
             <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
             <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
-            <DelayBeforeDtcRead>20000</DelayBeforeDtcRead>
+            <DelayBeforeDtcRead>120000</DelayBeforeDtcRead>
             <DelayModuleInitialization>No</DelayModuleInitialization>
             <DeveloperTest>0</DeveloperTest>
             <ICMName>mgr/ICM</ICMName>
@@ -212,7 +212,7 @@
             <!--EGR Position Sensor Parameters-->
             <EGRPositionUnits>%</EGRPositionUnits>
             <MinimumEGRPosition Units="%" TestSteps="CheckEGRPosition" Comment="Minimum EGR Position">0.0</MinimumEGRPosition>
-            <MaximumEGRPosition Units="%" TestSteps="CheckEGRPosition" Comment="Maximum EGR Position">45.0</MaximumEGRPosition>
+            <MaximumEGRPosition Units="%" TestSteps="CheckEGRPosition" Comment="Maximum EGR Position">55.0</MaximumEGRPosition>
             <!--MAF Learning Complete Status Parameters-->
             <MAFLearningCompleteCompareValue>True</MAFLearningCompleteCompareValue>
             <!--Throttle Position Parameters-->
@@ -233,14 +233,14 @@
             <PartNumbersToCheck TestSteps="CheckPartNumbers" Comment="Partnumbers to be verified">
                 <PCMPartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">ReadPartNumber</PCMPartNo>
                 <!-- EndModelPartNumber -->
-                <PCMSoftwareModule06PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule06PartNo</PCMSoftwareModule06PartNo>
+                <!--PCMSoftwareModule06PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule06PartNo</PCMSoftwareModule06PartNo>
                 <PCMSoftwareModule10PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule10PartNo</PCMSoftwareModule10PartNo>
                 <PCMSoftwareModule05PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule05PartNo</PCMSoftwareModule05PartNo>
                 <PCMSoftwareModule03PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule03PartNo</PCMSoftwareModule03PartNo>
                 <PCMSoftwareModule02PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule02PartNo</PCMSoftwareModule02PartNo>
                 <PCMSoftwareModule04PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule04PartNo</PCMSoftwareModule04PartNo>
                 <PCMSoftwareModule01PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule01PartNo</PCMSoftwareModule01PartNo>
-                <PCMSoftwareModule09PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule09PartNo</PCMSoftwareModule09PartNo>
+                <PCMSoftwareModule09PartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">SoftwareModule09PartNo</PCMSoftwareModule09PartNo-->
                 <!-- PCMUtilityFilePartNo comparison="PartNumberPositionComparisonSkipFirstAndLast">UtilityFileConstantPartNumber</PCMUtilityFilePartNo -->
             </PartNumbersToCheck>
             <UtilityFileConstantPartNumber TestSteps="CheckPartNumbers" Comment="Utility File Part Number From Static test station">12631684</UtilityFileConstantPartNumber>
@@ -450,11 +450,11 @@
         <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" IgnoreModuleLockedStatus="True" AbortIfFailed="False"/>
         <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="True" AbortIfFailed="False"/>
         <DifferentialPressure Result="Not Tested" Timeout="5000" Description="Check Differential Pressure Sensor" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
-        <DelayBeforeDtcRead Result="" Timeout="65000" Description="Delay before reading DTCs"/>
+        <DelayBeforeDtcRead Result="" Timeout="150000" Description="Delay before reading DTCs"/>
         <DPDSwitchCheck Result="" Timeout="5000" Description="Check DPD Switch Position" ScanDelay="100" AbortIfFailed="False"/>
         <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
-        <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>
+        <KeyOffEngineOffKeyOn Result="" Timeout="300000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>
         <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
         <MAFLearn Result="Not Tested" Timeout="65000" Description="Perform the MAF Learn Procedure" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>

@@ -733,7 +733,7 @@
             <EGRPosition>
                 <Float scale="0.3921569" offset="0">
                     <Integer type="unsigned" scale="1" offset="0">
-                        <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+                        <Byte1 input_index="5" mask="0xFF" output_index="0"/>
                     </Integer>
                 </Float>
             </EGRPosition>
@@ -833,7 +833,7 @@
 
             <FuelTemperature>
                 <Integer type="simple signed" bits="8" scale="1" offset="-40">
-                    <Byte0 input_index="9" mask="0xFF" output_index="0"/>
+                    <Byte0 input_index="8" mask="0xFF" output_index="0"/>
                 </Integer>
             </FuelTemperature>
 

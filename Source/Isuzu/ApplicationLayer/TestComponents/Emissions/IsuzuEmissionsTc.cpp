@@ -2946,6 +2946,9 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
 
     if(!ShortCircuitTestStep())
     {
+        //Check MAF Learn status is 1
+        status = m_vehicleModule.ReadModuleData("ReadMAFLearningComplete", mafLearned);
+
         //Wait 30 seconds
         DisplayPrompt(1, GetPrompt("ShiftToDriveMaintainBrake"), GetPromptPriority("ShiftToDriveMaintainBrake"));
         

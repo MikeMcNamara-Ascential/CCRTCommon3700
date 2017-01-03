@@ -71,6 +71,15 @@ protected:
 
     const string ClearHistory();
 
+    string ClearFaults();
+
+    string ReadFaults();
+
+
+    bool m_dtcCleared;
+
+    bool m_dataCleared;
+
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MimamoriTc_h

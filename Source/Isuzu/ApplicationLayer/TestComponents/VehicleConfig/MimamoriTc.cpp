@@ -16,7 +16,10 @@
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
 MimamoriTc<ModuleType>::MimamoriTc() : GenericTCTemplate<ModuleType>()
-{   // Nothing special to do here
+{
+    m_dtcCleared = false;
+
+    m_dataCleared = false;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -112,6 +115,10 @@ const string MimamoriTc<ModuleType>::CommandTestStep(const string &value)
 		else if(step == "CheckTotalMileage")	     status = CheckTotalMileage();
 		// Validate the module part number
 		else if(step == "ClearHistory")			     status = ClearHistory();
+        //Clear Faults
+        else if(step == "ClearFaults")               status = ClearFaults();
+        //Read Faults
+        else if(step == "ReadFaults")                status = ReadFaults();
 		// Unknown test step
 		else
 		{
@@ -159,6 +166,7 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
 			    moduleStatus = m_vehicleModule.GetInfo("ReadDrmEngine", value);
                 if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
                     for(i = 0; i < value.length(); i++)
                     {
                         if(value.at(i) != '\0')
@@ -178,6 +186,7 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
                 moduleStatus = m_vehicleModule.GetInfo("ReadDrmAt", value);
                 if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
                     for(i = 0; i < value.length(); i++)
                     {
                         if(value.at(i) != '\0')
@@ -197,6 +206,7 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
                 moduleStatus = m_vehicleModule.GetInfo("ReadDrmScr", value);
                 if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
                     for(i = 0; i < value.length(); i++)
                     {
                         if(value.at(i) != '\0')
@@ -216,6 +226,7 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
                 moduleStatus = m_vehicleModule.GetInfo("ReadDrmBrake", value);
                 if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
                     for(i = 0; i < value.length(); i++)
                     {
                         if(value.at(i) != '\0')
@@ -231,7 +242,7 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
                 moduleStatus = BEP_STATUS_SOFTWARE;
             }
 
-            if(engineDataCleared && atDataCleared && scrDataCleared && brakeDataCleared)
+            if((engineDataCleared && atDataCleared && scrDataCleared && brakeDataCleared) || !m_dataCleared)
             {
                 testResult = testPass;
             }
@@ -272,9 +283,17 @@ const string MimamoriTc<ModuleType>::CheckFuelEconomy()
             try
 		    {
 		    	moduleStatus = m_vehicleModule.GetInfo("ReadFuelEconomy", value);
-                if(moduleStatus == BEP_STATUS_SUCCESS && value == 0)
+                if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
-                    testResult = testPass;
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    if(value == 0 || !m_dataCleared)
+                        testResult = testPass;
+                    else
+                    {
+                        testResult = testFail;
+                        testResultCode = GetFaultCode("FuelEconomyNotCleared");
+	                    testDescription = GetFaultDescription("FuelEconomyNotCleared");
+                    }
                 }
                 else
                 {
@@ -323,12 +342,13 @@ const string MimamoriTc<ModuleType>::CheckOilTemperature()
                 moduleStatus = m_vehicleModule.GetInfo("ReadDrmEdrOilTemp", value);
                 if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
                     for(i = 0; i < value.length(); i++)
                     {
                         if(value.at(i) != '\0')
                             break;
                     }
-                    if(i == value.length())
+                    if(i == value.length() || !m_dataCleared)
                         testResult = testPass;
                     else
                     {
@@ -383,9 +403,17 @@ const string MimamoriTc<ModuleType>::CheckTotalMileage()
             try
             {
                 moduleStatus = m_vehicleModule.GetInfo("ReadTotalMileage", value);
-                if(moduleStatus == BEP_STATUS_SUCCESS && value == 0)
+                if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
-                   testResult = testPass;
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    if(value == 0 || !m_dataCleared)
+                        testResult = testPass;
+                    else
+                    {
+                        testResult = testFail;
+                        testResultCode = GetFaultCode("TotalMileageNotCleared");
+	                    testDescription = GetFaultDescription("TotalMileageNotCleared");
+                    }
                 }
                 else
                 {
@@ -436,6 +464,7 @@ const string MimamoriTc<ModuleType>::ClearHistory()
                 if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
                     testResult = testPass;
+                    m_dataCleared = true;
                     delay(GetParameterInt("ClearHistoryDelay"));
                 }
                 else
@@ -466,3 +495,23 @@ const string MimamoriTc<ModuleType>::ClearHistory()
 	Log(LOG_FN_ENTRY, "Exit MimamoriTc::ClearHistory()\n");
     return testResult;
 }
+
+template<class ModuleType>
+string MimamoriTc<ModuleType>::ClearFaults()
+{
+    string testResult = GenericTCTemplate<ModuleType>::ClearFaults();
+    if(testResult == testPass)
+        m_dtcCleared = true;
+    return testResult;
+}
+
+template<class ModuleType>
+string MimamoriTc<ModuleType>::ReadFaults()
+{
+    UpdatePrompts();
+    string testResult = GenericTCTemplate<ModuleType>::ReadFaults();
+    if(!m_dtcCleared || testResult == testPass)
+        return testPass;
+    return testResult;
+}
+

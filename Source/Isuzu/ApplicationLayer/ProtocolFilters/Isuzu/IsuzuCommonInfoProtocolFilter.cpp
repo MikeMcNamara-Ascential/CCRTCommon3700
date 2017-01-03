@@ -20,7 +20,7 @@ IsuzuCommonInfoProtocolFilter::IsuzuCommonInfoProtocolFilter(KeepAliveTimer_t &l
 															 BepMutex *commPortInUse /*= NULL*/) : 
 ProtocolFilter(lastTxTime, stopCommsBepCondVar, commPortInUse) 
 {  
-	m_msgSerialNumber = 0;
+	m_msgSerialNumber = 0x01;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -130,10 +130,10 @@ const SerialString_t IsuzuCommonInfoProtocolFilter::ExtractModuleData(SerialStri
 		UINT16 dbCount = ((messages[msgIndex][TotalDataByteIndex] & 0x07) << 8) | messages[msgIndex][TotalDataByteIndex+1];
 		if(messages[msgIndex].length() >= dbCount)
 		{
-			m_msgSerialNumber = messages[msgIndex][MsgSerialNumberIndex];
+			//m_msgSerialNumber = messages[msgIndex][MsgSerialNumberIndex];
 			UINT16 dataByteCount = (messages[msgIndex][MsgDataLengthIndex] << 8) | messages[msgIndex][MsgDataLengthIndex+1];
 			Log(LOG_DEV_DATA, "Message Serial Number: %02X, Data Bytes: %d", m_msgSerialNumber, dataByteCount);
-			Log(LOG_DEV_DATA, "Incremented message serial number: %02X", m_msgSerialNumber);
+			//Log(LOG_DEV_DATA, "Incremented message serial number: %02X", m_msgSerialNumber);
 			responseData = messages[msgIndex].substr(DataBodyStartIndex, dataByteCount);
 		}
 		else
@@ -181,7 +181,7 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	UINT16 totalBytes = message.length() + 4 + 1 + 2 + 1 + 2;
 	if((message[0] == 0x31) && (message[1] == 0x0B))
 	{
-		totalBytes |= 0x8000;
+		totalBytes |= 0x0000;
 	}
 	msg.push_back(STX);
 	msg.push_back(COMPRESSION_TYPE);
@@ -213,7 +213,7 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::SendMessage(SerialString_t 
 	INT32 bytesSent = ILogicalPort::WritePort(msg, GetNumberOfRetries());
 	SetLastTxTime();
 	Log(LOG_DETAILED_DATA, "Sent the message\n");
-	m_msgSerialNumber++;
+	//m_msgSerialNumber++;
 	// Determine the result of the write
 	if(bytesSent < 0)		status = BEP_STATUS_ERROR;
 	else if(bytesSent == 0)	status = BEP_STATUS_FAILURE;
@@ -339,7 +339,7 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::GetResponse(const std::stri
 	}while((status == BEP_STATUS_NA) && (retry < 5) && !GetStopCommsFlag());
 
 	// if a successful read never occurred, fail
-	if(retry >= 3) status = BEP_STATUS_FAILURE;
+	if(retry >= 5) status = BEP_STATUS_FAILURE;
 
 	Log(LOG_FN_ENTRY, "Exit IsuzuCommonInfoProtocolFilter::GetResponse: %d\n", status);
 

@@ -145,6 +145,7 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::ReadFaults(FaultVector_t &fa
 {
 	Log(LOG_FN_ENTRY, "MimamoriModule::ReadFaults() - Enter");
 	SerialString_t response(4096, 0);
+    CommandModule("ReadTriggerResponse");
 	BEP_STATUS_TYPE status = m_protocolFilter->GetModuleData("ReadFaults", response);
 	if(BEP_STATUS_SUCCESS == status)
 	{   // Check the status if each DTC
@@ -181,7 +182,8 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::ReadFaults(FaultVector_t &fa
 			}
 			currentDtcIndex += 4;
 		}
-	}
+        CommandModule("ReadTriggerResponse");
+   	}
 	else
 	{
 		Log(LOG_ERRORS, "Failure reading DTC data from Mimamori module");

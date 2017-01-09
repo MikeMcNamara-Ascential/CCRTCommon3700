@@ -621,15 +621,15 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearLockUpMonitor(v
             testResultCode = (testPass == testResult ? "0000" : GetFaultCode("AllGearsLockStatesNotSeen"));
             testDescription = (testPass == testResult ? GetTestStepInfo("Description") : GetFaultDescription("AllGearsLockStatesNotSeen"));
             // Report each gear individually
-            SendSubtestResult("ParkObserved", parkResult, "Park observed", GetFaultCode("ParkNotSeen"));
-            SendSubtestResult("ReverseGearObserved", reverseGearResult, "Reverse Gear observed", GetFaultCode("ReverseGearNotSeen"));
-            SendSubtestResult("NeutralGearObserved", neutralGearResult, "Neutral Gear observed", GetFaultCode("NeutralGearNotSeen"));
-            SendSubtestResult("FirstGearObserved", firstGearResult, "First Gear observed", GetFaultCode("FirstGearNotSeen"));
-            SendSubtestResult("SecondGearObserved", secondGearResult, "Second Gear observed", GetFaultCode("SecondGearNotSeen"));
-            SendSubtestResult("ThirdGearObserved", thirdGearResult, "Third Gear observed", GetFaultCode("ThirdGearNotSeen"));
-            SendSubtestResult("FourthGearObserved", fourthGearResult, "Fourth Gear observed", GetFaultCode("FourthGearNotSeen"));
-            SendSubtestResult("FifthGearObserved", fifthGearResult, "Fifth Gear observed", GetFaultCode("FifthGearNotSeen"));
-            SendSubtestResult("SixthGearObserved", sixthGearResult, "Sixth Gear observed", GetFaultCode("SixthGearNotSeen"));
+            SendSubtestResult("ParkObserved", parkResult, "Park observed", testResultCode);
+            SendSubtestResult("ReverseGearObserved", reverseGearResult, "Reverse Gear observed", testResultCode);
+            SendSubtestResult("NeutralGearObserved", neutralGearResult, "Neutral Gear observed", testResultCode);
+            SendSubtestResult("FirstGearObserved", firstGearResult, "First Gear observed", testResultCode);
+            SendSubtestResult("SecondGearObserved", secondGearResult, "Second Gear observed", testResultCode);
+            SendSubtestResult("ThirdGearObserved", thirdGearResult, "Third Gear observed", testResultCode);
+            SendSubtestResult("FourthGearObserved", fourthGearResult, "Fourth Gear observed", testResultCode);
+            SendSubtestResult("FifthGearObserved", fifthGearResult, "Fifth Gear observed", testResultCode);
+            SendSubtestResult("SixthGearObserved", sixthGearResult, "Sixth Gear observed", testResultCode);
             // Report the results of the individual lock states
             SendSubtestResult("TCCNoLockStateObserved", noLockState, "TCC No-Lock state observed", GetFaultCode("TCCNoLockNotSeen"));
             SendSubtestResult("TCCPartialLockStateObserved", partialLockState, "TCC Partial-Lock state observed", GetFaultCode("TCCPartialLockNotSeen"));
@@ -755,12 +755,12 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
 //          SendSubtestResult("ParkObserved", parkResult, "Park observed", GetFaultCode("ParkNotSeen"));
 //          SendSubtestResult("ReverseGearObserved", reverseGearResult, "Reverse Gear observed", GetFaultCode("ReverseGearNotSeen"));
 //          SendSubtestResult("NeutralGearObserved", neutralGearResult, "Neutral Gear observed", GetFaultCode("NeutralGearNotSeen"));
-            SendSubtestResult("FirstGearObserved", firstGearResult, "First Gear observed", GetFaultCode("FirstGearNotSeen"));
-            SendSubtestResult("SecondGearObserved", secondGearResult, "Second Gear observed", GetFaultCode("SecondGearNotSeen"));
-            SendSubtestResult("ThirdGearObserved", thirdGearResult, "Third Gear observed", GetFaultCode("ThirdGearNotSeen"));
-            SendSubtestResult("FourthGearObserved", fourthGearResult, "Fourth Gear observed", GetFaultCode("FourthGearNotSeen"));
-            SendSubtestResult("FifthGearObserved", fifthGearResult, "Fifth Gear observed", GetFaultCode("FifthGearNotSeen"));
-            SendSubtestResult("SixthGearObserved", sixthGearResult, "Sixth Gear observed", GetFaultCode("SixthGearNotSeen"));
+            SendSubtestResult("FirstGearObserved", firstGearResult, "First Gear observed", testResultCode);
+            SendSubtestResult("SecondGearObserved", secondGearResult, "Second Gear observed", testResultCode);
+            SendSubtestResult("ThirdGearObserved", thirdGearResult, "Third Gear observed", testResultCode);
+            SendSubtestResult("FourthGearObserved", fourthGearResult, "Fourth Gear observed", testResultCode);
+            SendSubtestResult("FifthGearObserved", fifthGearResult, "Fifth Gear observed", testResultCode);
+            SendSubtestResult("SixthGearObserved", sixthGearResult, "Sixth Gear observed", testResultCode);
             // Log the data collected
 //          Log(LOG_DEV_DATA, "Gear Monitor Results: %s\n\tPark: %s\n\tReverse: %s\n\tNeutral: %s\n\tFirst: %s"
 //              "\n\tSecond: %s\n\tThird: %s\n\tFourth: %s\n\tFifth: %s\n\tSixth: %s\n", testResult.c_str(),

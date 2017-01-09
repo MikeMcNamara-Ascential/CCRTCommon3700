@@ -148,7 +148,7 @@ std::string IsuzuMachineTC::ReportSideSlipValue(void)
     float sideSlipValueMax;
     float sideSlipValueMin;
     char buff[16];
-    string result;
+    string result; 
     string color = "white";
 
     if(!ShortCircuitTestStep())
@@ -169,6 +169,10 @@ std::string IsuzuMachineTC::ReportSideSlipValue(void)
             result = testFail;
             color = "Red"; 
         }
+    }
+    else
+    {
+        result = testSkip;
     }
 
     SystemWrite(GetDataTag("SideSlipBGColor"), color); 

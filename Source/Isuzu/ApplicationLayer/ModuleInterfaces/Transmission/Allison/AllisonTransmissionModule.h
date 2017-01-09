@@ -89,6 +89,9 @@ public:
      */
     virtual BEP_STATUS_TYPE ReadFaults(FaultStatusVector_t &faultCodes);
 
+
+    const string GetCurrentState(void);
+
 protected:
 
 

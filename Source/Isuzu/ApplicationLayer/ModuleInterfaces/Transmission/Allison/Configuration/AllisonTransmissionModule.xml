@@ -42,6 +42,8 @@
             <Fifth>5</Fifth>
             <Sixth>6</Sixth>
             <Reverse>R</Reverse>
+        <Neutral>N</Neutral>
+            <Park>P</Park>
         </GearStringRepresentation>
         
 
@@ -145,13 +147,6 @@
                 <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
             </SoftwareModule01PartNo>
 
-            <ReadShiftLeverPosition>
-                <TransmitMessage>ReadPid</TransmitMessage>
-                <TransmitInterpretation>ShiftLeverPosition</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
-                <ReplyInterpretation>ShiftLeverPosition</ReplyInterpretation>
-            </ReadShiftLeverPosition>
-
             <ReadTccSlipError>
                 <TransmitMessage>ReadPid</TransmitMessage>
                 <TransmitInterpretation>TccSlipError</TransmitInterpretation>
@@ -186,6 +181,15 @@
                 <ReplyMessage>ReadFaults</ReplyMessage>
                 <ReplyInterpretation/>
             </ReadFaults>
+
+            <ReadShiftLeverPosition IsBusBroadcastMessage="True">
+                <ResponseFailureRetryCount>7</ResponseFailureRetryCount>
+                <ResponsePendingReads>3</ResponsePendingReads>
+                <TransmitMessage/>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadShiftLeverPosition</ReplyMessage>
+                <ReplyInterpretation>InterpShiftLeverPosition</ReplyInterpretation>
+             </ReadShiftLeverPosition>
 
         </VehicleMessages>
 
@@ -230,6 +234,11 @@
                 <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x62,0x??</Reply_0>
                 <Reply_1>0x7F,0x22,0x??</Reply_1>
             </ReadPidResponse>
+
+            <ReadShiftLeverPosition>
+                <Reply_00>0x18,0xF0,0x05,0x03,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x??,0x??,0x??,0x??,0x18,0xF0,0x05,0x03,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_01>
+            </ReadShiftLeverPosition>
 
             <WriteDid>
                 <Reply_0 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x7B,0x??</Reply_0>
@@ -292,24 +301,9 @@
                 </Boolean>
             </FaultsDetected>
 
-            <ShiftLeverPosition>
-                <String>
-                    <Substring>
-                        <Chars input_index="3" mask="0xFF" length="1">
-                            <StringSubstitute00 condition="equals" compare="0x00" replace="Illegal"/>
-                            <StringSubstitute01 condition="equals" compare="0x01" replace="P"/>
-                            <StringSubstitute02 condition="equals" compare="0x02" replace="R"/>
-                            <StringSubstitute03 condition="equals" compare="0x04" replace="N"/>
-                            <StringSubstitute04 condition="equals" compare="0x06" replace="D6"/>
-                            <StringSubstitute05 condition="equals" compare="0x08" replace="D5"/>
-                            <StringSubstitute06 condition="equals" compare="0x10" replace="D4"/>
-                            <StringSubstitute07 condition="equals" compare="0x20" replace="D3"/>
-                            <StringSubstitute08 condition="equals" compare="0x40" replace="2"/>
-                            <StringSubstitute09 condition="equals" compare="0x80" replace="1"/>
-                        </Chars>
-                    </Substring>
-                </String>
-            </ShiftLeverPosition>
+            <InterpShiftLeverPosition>
+                <Byte0 input_index="8" mask="0xFF" output_index="0"/>
+            </InterpShiftLeverPosition>
 
             <TccSlipError>
                 <Float scale="0.125" offset="0">

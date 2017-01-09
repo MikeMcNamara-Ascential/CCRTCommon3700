@@ -2295,30 +2295,30 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckFirstGearResult(vo
     // Determine if first gear was observed
     if(!m_vehicleModule.Gear1Observed())
     {   // Wait for first gear to be observed
-        do
-        {   // Determine if the operator should be prompted
-            if(!m_vehicleModule.Gear1Observed() && !promptDisplayed)
-            {   // Prompt operator to speed
-                DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                // Set the speed range
-                SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("FirstGearSpeedRange"));
-                promptDisplayed = true;
-            }
-            else if(m_vehicleModule.Gear1Observed() && promptDisplayed)
-            {   // Remove the prompt from the display
-                RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                // Remove the speed range
-                SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
-                promptDisplayed = false;
-            }
-            else if(!m_vehicleModule.Gear1Observed())
-            {
-                BposSleep(GetTestStepInfoInt("ScanDelay"));
-            }
-            // Keep looking until timeout or gear seen
-        } while(TimeRemaining() && !m_vehicleModule.Gear1Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
+//      do
+//      {   // Determine if the operator should be prompted
+//          if(!m_vehicleModule.Gear1Observed() && !promptDisplayed)
+//          {   // Prompt operator to speed
+//              DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//              DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//              // Set the speed range
+//              SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("FirstGearSpeedRange"));
+//              promptDisplayed = true;
+//          }
+//          else if(m_vehicleModule.Gear1Observed() && promptDisplayed)
+//          {   // Remove the prompt from the display
+//              RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//              RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//              // Remove the speed range
+//              SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+//              promptDisplayed = false;
+//          }
+//          else if(!m_vehicleModule.Gear1Observed())
+//          {
+//              BposSleep(GetTestStepInfoInt("ScanDelay"));
+//          }
+//          // Keep looking until timeout or gear seen
+//      } while(TimeRemaining() && !m_vehicleModule.Gear1Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
         // Determine if the prompt should be removed
         if(promptDisplayed)
         {   // Remove the prompt from the display
@@ -2360,31 +2360,31 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckSecondGearResult(v
     // Determine if we need to prompt the operator for the gear
     if(!m_vehicleModule.Gear2Observed())
     {   // Determine if second gear was observed
-        do
-        {   // Determine if the operator should be prompted
-            if(!m_vehicleModule.Gear2Observed() && !promptDisplayed)
-            {   // Prompt operator to speed
-                DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                // Set the speed range
-                SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("SecondGearSpeedRange"));
-                promptDisplayed = true;
-            }
-            else if(m_vehicleModule.Gear2Observed() && promptDisplayed)
-            {   // Remove the prompt from the display
-                RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                // Remove the speed range
-                SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
-                promptDisplayed = false;
-                // Update the module with the result
-            }
-            else if(!m_vehicleModule.Gear2Observed())
-            {
-                BposSleep(GetTestStepInfoInt("ScanDelay"));
-            }
-            // Keep looking until timeout or gear seen
-        } while(TimeRemaining() && !m_vehicleModule.Gear2Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
+//      do
+//      {   // Determine if the operator should be prompted
+//          if(!m_vehicleModule.Gear2Observed() && !promptDisplayed)
+//          {   // Prompt operator to speed
+//              DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//              DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//              // Set the speed range
+//              SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("SecondGearSpeedRange"));
+//              promptDisplayed = true;
+//          }
+//          else if(m_vehicleModule.Gear2Observed() && promptDisplayed)
+//          {   // Remove the prompt from the display
+//              RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//              RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//              // Remove the speed range
+//              SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+//              promptDisplayed = false;
+//              // Update the module with the result
+//          }
+//          else if(!m_vehicleModule.Gear2Observed())
+//          {
+//              BposSleep(GetTestStepInfoInt("ScanDelay"));
+//          }
+//          // Keep looking until timeout or gear seen
+//      } while(TimeRemaining() && !m_vehicleModule.Gear2Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
         // Determine if the prompt should be removed
         if(promptDisplayed)
         {   // Remove the prompt from the display
@@ -2426,30 +2426,30 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckThirdGearResult(vo
     // Determine if we need to prompt the operator to achieve the gear
     if(!m_vehicleModule.Gear3Observed())
     {   // Determine if third gear was observed
-        do
-        {   // Determine if the operator should be prompted
-            if(!m_vehicleModule.Gear3Observed() && !promptDisplayed)
-            {   // Prompt operator to speed
-                DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                // Set the speed range
-                SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("ThirdGearSpeedRange"));
-                promptDisplayed = true;
-            }
-            else if(m_vehicleModule.Gear3Observed() && promptDisplayed)
-            {   // Remove the prompt from the display
-                RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                // Remove the speed range
-                SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
-                promptDisplayed = false;
-            }
-            else if(!m_vehicleModule.Gear3Observed())
-            {
-                BposSleep(GetTestStepInfoInt("ScanDelay"));
-            }
-            // Keep looking until timeout or gear seen
-        } while(TimeRemaining() && !m_vehicleModule.Gear3Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
+//      do
+//      {   // Determine if the operator should be prompted
+//          if(!m_vehicleModule.Gear3Observed() && !promptDisplayed)
+//          {   // Prompt operator to speed
+//              DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//              DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//              // Set the speed range
+//              SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("ThirdGearSpeedRange"));
+//              promptDisplayed = true;
+//          }
+//          else if(m_vehicleModule.Gear3Observed() && promptDisplayed)
+//          {   // Remove the prompt from the display
+//              RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//              RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//              // Remove the speed range
+//              SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+//              promptDisplayed = false;
+//          }
+//          else if(!m_vehicleModule.Gear3Observed())
+//          {
+//              BposSleep(GetTestStepInfoInt("ScanDelay"));
+//          }
+//          // Keep looking until timeout or gear seen
+//      } while(TimeRemaining() && !m_vehicleModule.Gear3Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
         // Determine if the prompt should be removed
         if(promptDisplayed)
         {   // Remove the prompt from the display
@@ -2491,30 +2491,30 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckFourthGearResult(v
     // Determine if we need to prompt the operator to achieve the gear
     if(!m_vehicleModule.Gear4Observed())
     {   // Determine if fourth gear was observed
-        do
-        {   // Determine if the operator should be prompted
-            if(!m_vehicleModule.Gear4Observed() && !promptDisplayed)
-            {   // Prompt operator to speed
-                DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                // Set the speed range
-                SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("FourthGearSpeedRange"));
-                promptDisplayed = true;
-            }
-            else if(m_vehicleModule.Gear4Observed() && promptDisplayed)
-            {   // Remove the prompt from the display
-                RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                // Remove the speed range
-                SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
-                promptDisplayed = false;
-            }
-            else if(!m_vehicleModule.Gear4Observed())
-            {
-                BposSleep(GetTestStepInfoInt("ScanDelay"));
-            }
-            // Keep looking until timeout or gear seen
-        } while(TimeRemaining() && !m_vehicleModule.Gear4Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
+//      do
+//      {   // Determine if the operator should be prompted
+//          if(!m_vehicleModule.Gear4Observed() && !promptDisplayed)
+//          {   // Prompt operator to speed
+//              DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//              DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//              // Set the speed range
+//              SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("FourthGearSpeedRange"));
+//              promptDisplayed = true;
+//          }
+//          else if(m_vehicleModule.Gear4Observed() && promptDisplayed)
+//          {   // Remove the prompt from the display
+//              RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//              RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//              // Remove the speed range
+//              SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+//              promptDisplayed = false;
+//          }
+//          else if(!m_vehicleModule.Gear4Observed())
+//          {
+//              BposSleep(GetTestStepInfoInt("ScanDelay"));
+//          }
+//          // Keep looking until timeout or gear seen
+//      } while(TimeRemaining() && !m_vehicleModule.Gear4Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
         // Determine if the prompt should be removed
         if(promptDisplayed)
         {   // Remove the prompt from the display
@@ -2559,30 +2559,30 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckFifthGearResult(vo
     {   // Determine if we need to prompt the operator to achieve the gear
         if(!m_vehicleModule.Gear5Observed())
         {   // Determine if fifth gear was observed
-            do
-            {   // Determine if the operator should be prompted
-                if(!m_vehicleModule.Gear5Observed() && !promptDisplayed)
-                {   // Prompt operator to speed
-                    DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                    DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                    // Set the speed range
-                    SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("FifthGearSpeedRange"));
-                    promptDisplayed = true;
-                }
-                else if(m_vehicleModule.Gear5Observed() && promptDisplayed)
-                {   // Remove the prompt from the display
-                    RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                    RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                    // Remove the speed range
-                    SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
-                    promptDisplayed = false;
-                }
-                else if(!m_vehicleModule.Gear5Observed())
-                {
-                    BposSleep(GetTestStepInfoInt("ScanDelay"));
-                }
-                // Keep looking until timeout or gear seen
-            } while(TimeRemaining() && !m_vehicleModule.Gear5Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
+//          do
+//          {   // Determine if the operator should be prompted
+//              if(!m_vehicleModule.Gear5Observed() && !promptDisplayed)
+//              {   // Prompt operator to speed
+//                  DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//                  DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//                  // Set the speed range
+//                  SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("FifthGearSpeedRange"));
+//                  promptDisplayed = true;
+//              }
+//              else if(m_vehicleModule.Gear5Observed() && promptDisplayed)
+//              {   // Remove the prompt from the display
+//                  RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//                  RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//                  // Remove the speed range
+//                  SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+//                  promptDisplayed = false;
+//              }
+//              else if(!m_vehicleModule.Gear5Observed())
+//              {
+//                  BposSleep(GetTestStepInfoInt("ScanDelay"));
+//              }
+//              // Keep looking until timeout or gear seen
+//          } while(TimeRemaining() && !m_vehicleModule.Gear5Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
             // Determine if the prompt should be removed
             if(promptDisplayed)
             {   // Remove the prompt from the display
@@ -2634,30 +2634,30 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckSixthGearResult(vo
     {   // Determine if the operator should be prompted to achieve the required gear
         if(!m_vehicleModule.Gear6Observed())
         {   // Determine if sixth gear was observed
-            do
-            {   // Determine if the operator should be prompted
-                if(!m_vehicleModule.Gear6Observed() && !promptDisplayed)
-                {   // Prompt operator to speed
-                    DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                    DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                    // Set the speed range
-                    SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("SixthGearSpeedRange"));
-                    promptDisplayed = true;
-                }
-                else if(m_vehicleModule.Gear6Observed() && promptDisplayed)
-                {   // Remove the prompt from the display
-                    RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
-                    RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
-                    // Remove the speed range
-                    SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
-                    promptDisplayed = false;
-                }
-                else if(!m_vehicleModule.Gear6Observed())
-                {
-                    BposSleep(GetTestStepInfoInt("ScanDelay"));
-                }
-                // Keep looking until timeout or gear seen
-            } while(TimeRemaining() && !m_vehicleModule.Gear6Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
+//          do
+//          {   // Determine if the operator should be prompted
+//              if(!m_vehicleModule.Gear6Observed() && !promptDisplayed)
+//              {   // Prompt operator to speed
+//                  DisplayPrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//                  DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//                  // Set the speed range
+//                  SystemWrite(GetDataTag("SpeedTarget"), GetTestStepInfo("SixthGearSpeedRange"));
+//                  promptDisplayed = true;
+//              }
+//              else if(m_vehicleModule.Gear6Observed() && promptDisplayed)
+//              {   // Remove the prompt from the display
+//                  RemovePrompt(GetPromptBox("ShiftToDrive"), GetPrompt("ShiftToDrive"), GetPromptPriority("ShiftToDrive"));
+//                  RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+//                  // Remove the speed range
+//                  SystemWrite(GetDataTag("SpeedTarget"), string("0 0"));
+//                  promptDisplayed = false;
+//              }
+//              else if(!m_vehicleModule.Gear6Observed())
+//              {
+//                  BposSleep(GetTestStepInfoInt("ScanDelay"));
+//              }
+//              // Keep looking until timeout or gear seen
+//          } while(TimeRemaining() && !m_vehicleModule.Gear6Observed() && (BEP_STATUS_SUCCESS == StatusCheck()));
             // Determine if the prompt should be removed
             if(promptDisplayed)
             {   // Remove the prompt from the display

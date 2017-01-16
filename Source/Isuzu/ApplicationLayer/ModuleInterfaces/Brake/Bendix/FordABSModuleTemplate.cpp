@@ -579,6 +579,9 @@ BEP_STATUS_TYPE FordABSModuleTemplate<ProtocolFilterType>::GetInfo(string method
     {
         retVal = SendModuleKeepAlive( response);
     }
+    else if( "ActivateRBM" == methodName)   retVal = m_protocolFilter->GetModuleData( methodName, response);
+    else if( "DeactivateRBM" == methodName)   retVal = m_protocolFilter->GetModuleData( methodName, response);
+    //else if( "WriteFingerprint" == methodName) retVal = m_protocolFilter->GetModuleData( methodName, response);
     else
     {
         retVal = GenericABSModuleTemplate<ProtocolFilterType>::GetInfo( methodName);

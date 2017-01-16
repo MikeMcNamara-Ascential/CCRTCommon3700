@@ -119,7 +119,7 @@
             <EngineCoolantTempOffset Units="C" Comment="Offset for engine temperature reading" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature">-40</EngineCoolantTempOffset>
             <EngineCoolantTemperatureUnits>C</EngineCoolantTemperatureUnits>
             <MinimumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Minimum operating engine coolant temperature">62</MinimumEngineCoolantTemperature>
-            <MaximumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Maximum operating engine coolant temperature">70</MaximumEngineCoolantTemperature>
+            <MaximumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Maximum operating engine coolant temperature">100</MaximumEngineCoolantTemperature>
             <!-- Engine Oil Pressure Parameters -->
             <EngineOilPressureUnits>V</EngineOilPressureUnits>
             <MinimumEngineOilPressure Units="V" TestSteps="CheckEngineOilPressure" Comment="Minimum operating engine oil pressure">0.2</MinimumEngineOilPressure>
@@ -293,7 +293,7 @@
             <MinimumReadIAT2Bank2ValueRangeDelta>10</MinimumReadIAT2Bank2ValueRangeDelta>
             <MinimumReadIAT3Bank2ValueRangeDelta>10</MinimumReadIAT3Bank2ValueRangeDelta>
             <!-- Keyoffengineoffkeyon parameters -->
-            <AlwaysPerformKeyOffEngineOff TestSteps="KeyOffEngineOffKeyOn" Comment="flag indicating if test should be performed on passed retests">False</AlwaysPerformKeyOffEngineOff>
+            <AlwaysPerformKeyOffEngineOff TestSteps="KeyOffEngineOffKeyOn" Comment="flag indicating if test should be performed on passed retests">True</AlwaysPerformKeyOffEngineOff>
             <!-- CheckSerialNumber parameters -->
          <SerialNumberDirectory TestSteps="CheckSerialNumber" Comment="Directory containing Scanned Serial numbers sent by Spartan">/home/CCRT/Rewrite/TestResults/ESN/</SerialNumberDirectory>
             <AbortOnSerialMismatch  TestSteps="CheckSerialNumber" Comment="Flag which determines if test should be aborted on serial number mismatch">True</AbortOnSerialMismatch>

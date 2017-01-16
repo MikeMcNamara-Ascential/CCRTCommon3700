@@ -41,7 +41,7 @@
          <ProcessName>core/VehicleDataBroker</ProcessName>
          <AdditionalLogFile Type="/Servers/VehicleDataBroker.log or Disabled">/Servers/VehicleDataBroker.log</AdditionalLogFile>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x3F</Verbose>
+         <Verbose>0x1F</Verbose>
          <Debug>Off</Debug>
       </Logging>
       <TagList>
@@ -69,6 +69,7 @@
             <BrakeActive DataType="bool">0</BrakeActive>
             <BrakeDomain DataType="range" Units="LBF">0 500</BrakeDomain>
             <BrakeTarget DataType="range" Units="LBF">0 0</BrakeTarget>
+            <BrakeTimeBGColor DataType="color">white</BrakeTimeBGColor>
             <BrakeType DataType="string">Teves Mk20 TC J1850</BrakeType>
             <BrakeTypeBGColor DataType="color">white</BrakeTypeBGColor>
             <BuildDate DataType="string">04/29/2002</BuildDate>
@@ -101,6 +102,7 @@
             <MarketTypeBGColor DataType="color">white</MarketTypeBGColor>
             <ModelYear DataType="string">000</ModelYear>
             <ORCACMPartNo DataType="string">05084055AA</ORCACMPartNo>
+            <ParkBrakeTimeBGColor DataType="color">white</ParkBrakeTimeBGColor>
             <PCMPartNo DataType="string">05033288AA</PCMPartNo>
             <PCMPartNoBGColor DataType="color">white</PCMPartNoBGColor>
                 <PCMSoftwareModule06PartNo DataType="string">05033288AA</PCMSoftwareModule06PartNo>
@@ -130,6 +132,7 @@
             <SKIMPin DataType="string">1411</SKIMPin>
             <SentryKeyImmobilizer DataType="string">SKIM J1850</SentryKeyImmobilizer>
             <SentryKeyImmobilizerBGColor DataType="color">white</SentryKeyImmobilizerBGColor>
+            <SideSlipBGColor DataType="color">white</SideSlipBGColor>
             <SpeedActive DataType="bool">1</SpeedActive>
             <SpeedControl DataType="string">NGC Cruise</SpeedControl>
             <SpeedControlBGColor DataType="color">white</SpeedControlBGColor>

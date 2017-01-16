@@ -239,6 +239,7 @@
 
         <PreFinishUp>
             <TestStep05>ReadFaults</TestStep05>
+			<TestStep06>ClearFaults</TestStep06>
         </PreFinishUp>
 
         <FinishUp>
@@ -312,7 +313,7 @@
             Description="Stop the fault and limp-in monitor"/>
         <StopGearMonitor Result="Not Tested" Timeout="30000" Description="Stop the gear monitor" AlwaysPerform="True" 
             FirstGearSpeedRange="5 10" SecondGearSpeedRange="20 30" 
-            ThirdGearSpeedRange="35 45" FourthGearSpeedRange="50 60" FifthGearSpeedRange="60 70"  SixthGearSpeedRange="70 80" ScanDelay="500" AbortIfFailed="True"/>
+            ThirdGearSpeedRange="35 45" FourthGearSpeedRange="50 60" FifthGearSpeedRange="60 70"  SixthGearSpeedRange="70 80" ScanDelay="500" AbortIfFailed="False"/>
         <WaitForGears Result="" Timeout="30000" Description="Wait for torque converter clutch full lock"
             AlwaysPerform="False" AbortIfFailed="True"/>
 

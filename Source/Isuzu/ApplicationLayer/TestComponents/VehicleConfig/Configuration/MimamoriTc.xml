@@ -112,8 +112,13 @@
         <MimamoriTest>
             <TestStep00>Setup</TestStep00>
             <TestStep05>EnterDiagnosticMode</TestStep05>
-            <TestStep10>ClearFaults</TestStep10>
-            <TestStep15>ReadFaults</TestStep15>
+			<TestStep10>ReadFaults</TestStep10>
+			<TestStep15>CheckTotalMileage</TestStep15>
+            <TestStep20>CheckFuelEconomy</TestStep20>
+            <TestStep25>CheckDataRecordMemory</TestStep25>
+            <TestStep30>CheckOilTemperature</TestStep30>
+            <TestStep35>ClearFaults</TestStep35>
+            <TestStep40>ReadFaults</TestStep40>
         </MimamoriTest>
         <ReadMimamoriData>
             <TestStep00>ClearHistory</TestStep00>

@@ -269,11 +269,14 @@ const BEP_STATUS_TYPE IsuzuCommonInfoProtocolFilter::GetResponse(const std::stri
 	            do
 	            {
         		    totalResponseBytes = reply.length();
-        		    messageLength = ((reply[TotalDataByteIndex] & 0x07) << 8) | reply[TotalDataByteIndex+1];
-        		    messageLength += (1 + 1 + 1 + 2);  // Header bytes
-        		    SerialString_t temp = reply.substr(0, messageLength);
-        		    messages.push_back(temp);
-        		    reply = reply.substr(messageLength);
+                    if(totalResponseBytes > TotalDataByteIndex + 1)
+                    {
+            		    messageLength = ((reply[TotalDataByteIndex] & 0x07) << 8) | reply[TotalDataByteIndex+1];
+            		    messageLength += (1 + 1 + 1 + 2);  // Header bytes
+            		    SerialString_t temp = reply.substr(0, messageLength);
+            		    messages.push_back(temp);
+            		    reply = reply.substr(messageLength);
+                    }
         	    } while(totalResponseBytes > messageLength);
 
                 Log(LOG_DEV_DATA, "%d messages found in response", messages.size());

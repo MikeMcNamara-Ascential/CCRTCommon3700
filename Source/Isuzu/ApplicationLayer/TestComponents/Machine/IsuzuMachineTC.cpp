@@ -77,57 +77,41 @@ std::string IsuzuMachineTC::TransitionToRearAxle(void)
 {	// Log the entry and determine if this step should be performed
 	string result(BEP_TESTING_RESPONSE);
 	Log(LOG_FN_ENTRY, "IsuzuMachineTC::TransitionToRearAxle() - Enter");
-	if(!ShortCircuitTestStep())
+	if(!ShortCircuitTestStep() && !IsRetest())
 	{   //Disconnect the cable
         DisplayPrompt(GetPromptBox("DisconnectCable"),GetPrompt("DisconnectCable"),GetPromptPriority("DisconnectCable"));
-        while(SystemReadBool("PLCCableConnect"))	BposSleep(250);
+        while(SystemReadBool("PLCCableConnect") && !CheckAbort())	BposSleep(250);
 
-        // Have the operator press the pass button to lower the retaining rollers
-        //result = OperatorPassFail("LowerRetainers");
-        // Wait for the operator to press the button
-        //if(!result.compare(testPass))
-        //{
-			//MachineTC::LowerRollsRaiseElevators();
-            DisplayPrompt(GetPromptBox("LowerRetainers"),GetPrompt("LowerRetainers"),GetPromptPriority("LowerRetainers"));
-            while(!SystemReadBool(ROLLS_DOWN_DATA_TAG))	BposSleep(250);
-		/*}
-		else
-		{	// Something is wrong, abort the sequence
-			SystemWrite(ABORT_DATA_TAG, true);
-		} */
+        DisplayPrompt(GetPromptBox("LowerRetainers"),GetPrompt("LowerRetainers"),GetPromptPriority("LowerRetainers"));
+        while(!SystemReadBool(ROLLS_DOWN_DATA_TAG) && !CheckAbort())	BposSleep(250);
 
 		// Prompt the operator to advance the rear axle to the retaining rolls
 		DisplayPrompt(GetPromptBox("AdvanceToRearAxle"), GetPrompt("AdvanceToRearAxle"),
 					  GetPromptPriority("AdvanceToRearAxle"), GetParameter("DefaultPromptBackgroundColor"));
 		// Wait for the vehicle to be on the rolls
-		while(SystemReadBool(GetDataTag("VehiclePresent")))  BposSleep(250);
+		while(SystemReadBool(GetDataTag("VehiclePresent")) && !CheckAbort())  BposSleep(250);
 		// Wait a bit more for the front axle of the vehicle to leave the machine
-		BposSleep(500);
-        while(!SystemReadBool(GetDataTag("VehiclePresent")))  BposSleep(250);
+        if(!CheckAbort())
+		    BposSleep(500);
+        while(!SystemReadBool(GetDataTag("VehiclePresent")) && !CheckAbort())  BposSleep(250);
         // Wait a bit more for the rear axle of the vehicle to sit on the rollers
-		BposSleep(3000);
+        if(!CheckAbort())
+            BposSleep(3000);
 		RemovePrompt(GetPromptBox("AdvanceToRearAxle"), GetPrompt("AdvanceToRearAxle"),
 					 GetPromptPriority("AdvanceToRearAxle"));
-		// Have the operator press the pass button to deploy the retaining rollers
-		//result = OperatorPassFail("RaiseRetainers");
-		// Wait for the operator to press the button
-		//if(!result.compare(testPass))
-		//{
-			//MachineTC::RaiseRollsLowerElevators();
 
-            DisplayPrompt(GetPromptBox("RaiseRetainers"),GetPrompt("RaiseRetainers"),GetPromptPriority("RaiseRetainers"));
-			while(!SystemReadBool(ROLLS_UP_DATA_TAG))	BposSleep(250);
+        DisplayPrompt(GetPromptBox("RaiseRetainers"),GetPrompt("RaiseRetainers"),GetPromptPriority("RaiseRetainers"));
+		while(!SystemReadBool(ROLLS_UP_DATA_TAG) && !CheckAbort())	BposSleep(250);
 
-         //Connect Cable
-            DisplayPrompt(GetPromptBox("ConnectCable"),GetPrompt("ConnectCable"),GetPromptPriority("ConnectCable"));
-			while(!SystemReadBool("PLCCableConnect"))	BposSleep(250);
-		/*}
-		else
-		{	// Something is wrong, abort the sequence
-			SystemWrite(ABORT_DATA_TAG, true);
-		} */
+        //Connect Cable
+        DisplayPrompt(GetPromptBox("ConnectCable"),GetPrompt("ConnectCable"),GetPromptPriority("ConnectCable"));
+		while(!SystemReadBool("PLCCableConnect") && !CheckAbort())	BposSleep(250);
+        
+        if(!CheckAbort())
+            result = testPass;
+        else
+            result = ConvertStatusToResponse(StatusCheck());
 
-        result = testPass;
         SendTestResult(result, GetTestStepInfo("Description"));
 	}
 	else
@@ -169,18 +153,19 @@ std::string IsuzuMachineTC::ReportSideSlipValue(void)
             result = testFail;
             color = "Red"; 
         }
+    
+        SystemWrite(GetDataTag("SideSlipBGColor"), color); 
+
+        SendTestResultWithDetail(result, GetTestStepInfo("Description"),"0000",
+                "SideSlipValue",CreateMessage(buff, sizeof(buff), "%.2f", frontSideSlipResult),"m/km",
+                "SideSlipMaxValue",CreateMessage(buff, sizeof(buff), "%.2f", sideSlipValueMax),"m/km",
+                "SideSlipMinValue",CreateMessage(buff, sizeof(buff), "%.2f", sideSlipValueMin),"m/km");
     }
     else
     {
         result = testSkip;
     }
 
-    SystemWrite(GetDataTag("SideSlipBGColor"), color); 
-
-    SendTestResultWithDetail(result, GetTestStepInfo("Description"),"0000",
-                "SideSlipValue",CreateMessage(buff, sizeof(buff), "%.2f", frontSideSlipResult),"m/km",
-                "SideSlipMaxValue",CreateMessage(buff, sizeof(buff), "%.2f", sideSlipValueMax),"m/km",
-                "SideSlipMinValue",CreateMessage(buff, sizeof(buff), "%.2f", sideSlipValueMin),"m/km");
 
    return result; 
      

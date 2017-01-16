@@ -341,7 +341,7 @@ protected:
     virtual bool AnalyzeLRValveCrossRearFirst(INT32 *minIndex); //MAM 3/8/11
     virtual bool AnalyzeLFValveCrossFrontFirst(INT32 *minIndex); //MAM 2/18/12
 
-        /**
+    /**
 	 * Analyze the brake force test data to determine if the LF valve fired
 	 * when we told it to
 	 * 
@@ -467,13 +467,6 @@ protected:
     //MAM 8/1/14
     void CalculateBendixKey(short level, SerialString_t &seed );
 
-    /**
-	 * Reset the SBA Test Status DID
-	 * 
-	 * @return The test result
-	 *
-	virtual string ClearStatusDID();*/
-
     //MAM 12/23/14
     virtual string CheckPartNumber();
 
@@ -508,7 +501,6 @@ protected:
 	 * 
 	 * @return The status of the test step
 	 */
-	//virtual INT32 ParkBrakePawlInit();
     virtual INT32 ParkBrakePawlPedalCheck();
 
     /**
@@ -577,8 +569,6 @@ protected:
 	 * @return The status of the test step
 	 */
 	virtual INT32 SBAParkBrakePawlInit();
-
-    //virtual INT32 OldParkBrakePawlInit(); //MAM 3/21/07 - development
 	
 	/**
 	 * Checks to see if the driver applied the brakes during a park brake/pawl test
@@ -614,7 +604,6 @@ protected:
      *
      * @return The result of validating the wheel distances.
      */
-    //virtual const std::string AnalyzeParkPawlTest(const std::string &value);
     virtual const std::string AnalyzeParkPawlTest();
 
 	/**
@@ -824,28 +813,12 @@ protected:
 	 */
 	std::string TestStepAnalyzeDrag(void);
     /**
-	 * Analyze the drag test results. This is "overridden" to put our parameters 
-	 * into the test step info where the base class expects them
-	 * 
-	 * @return Status of the test
-	 */
-	//std::string TestStepAnalyzeDrag(std::string axle);
-	
-	/**
 	 * Analyze the base brake test results. This is "overridden" to put our
 	 * parameters into the test step info where the base class expects them
 	 * 
 	 * @return Status of the test
 	 */
 	std::string TestStepAnalyzeBaseBrake(void);
-    /**
-     * Analyze the base brake test results. This is "overridden" to put our
-     * parameters into the test step info where the base class expects them
-     * 
-     * @return Status of the test
-     */
-    //std::string TestStepAnalyzeBaseBrake(std::string axle);
-
 	
 	/**
 	 * Analyze the brake force balance. This is "overridden" to put our
@@ -949,6 +922,12 @@ protected:
     string AccelerateRolls(void);
 
     string AccelerateVehicleToSpeed(void);
+
+    string TestStepDeactivateRBM(void);
+
+    string TestStepActivateRBM(void);
+
+    string TestStepWriteFingerprint(void);
 
     virtual const string Publish(const XmlNode *node);
 

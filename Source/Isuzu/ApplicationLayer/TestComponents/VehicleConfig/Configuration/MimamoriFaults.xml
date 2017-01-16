@@ -14,6 +14,7 @@
     <DRMNotCleared Code="0030" Description="Mimamori DRM Memory not cleared"/>
     <HistoryNotCleared Code="0035" Description="Mimamori History not cleared"/>
     <TotalMileageNotCleared Code="0040" Description="Mimamori Total Mileage not cleared"/>
+	<FuelEconomyNotCleared Code="0045" Description="Mimamori Fuel Economy not cleared"/>
     
     <!-- Module Faults -->
     <ModuleFault_0601 Code="P0601" Description="Mimamori: ECU not Programmed"/>

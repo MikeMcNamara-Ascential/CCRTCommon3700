@@ -254,14 +254,16 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
 	            testDescription = GetFaultDescription("DRMNotCleared");
             }
         } while(TimeRemaining() && testResult == BEP_TESTING_STATUS && (BEP_STATUS_SUCCESS == StatusCheck()));
+
+        SendTestResult(testResult, testDescription, testResultCode);
     }
     else
 	{	// Need to skip this test step
-		testResult = testSkip;
+        testResult = testSkip;
 		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
 	}
 
-    SendTestResult(testResult, testDescription, testResultCode);
+    
 
 	// Return the test result
 	Log(LOG_FN_ENTRY, "Exit MimamoriTc::CheckDataRecordMemory()\n");
@@ -311,14 +313,15 @@ const string MimamoriTc<ModuleType>::CheckFuelEconomy()
 	            testDescription = GetFaultDescription("FuelEconomyNotCleared");
 	        }
         } while(TimeRemaining() && testResult == BEP_TESTING_STATUS && (BEP_STATUS_SUCCESS == StatusCheck()));
+        SendTestResult(testResult, testDescription, testResultCode);
     }
     else
 	{	// Need to skip this test step
-		testResult = testSkip;
+        testResult = testSkip;        
 		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
 	}
 
-    SendTestResult(testResult, testDescription, testResultCode);
+    
 	// Return the test result
 	Log(LOG_FN_ENTRY, "Exit MimamoriTc::CheckFuelEconomy()\n");
     return testResult;
@@ -373,15 +376,15 @@ const string MimamoriTc<ModuleType>::CheckOilTemperature()
 	            testDescription = GetFaultDescription("ATOilTemperatureNotCleared");
             }
         } while(TimeRemaining() && testResult == BEP_TESTING_STATUS && (BEP_STATUS_SUCCESS == StatusCheck()));
+
+        SendTestResult(testResult, testDescription, testResultCode);
     }
     else
 	{	// Need to skip this test step
-		testResult = testSkip;
+        testResult = testSkip;         
 		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
 	}
-
-
-    SendTestResult(testResult, testDescription, testResultCode);
+    
 	// Return the test result
 	Log(LOG_FN_ENTRY, "Exit MimamoriTc::CheckOilTemperature()\n");
     RemovePrompts();
@@ -431,15 +434,14 @@ const string MimamoriTc<ModuleType>::CheckTotalMileage()
 	            testDescription = GetFaultDescription("TotalMileageNotCleared");
             }
         } while(TimeRemaining() && testResult == BEP_TESTING_STATUS && (BEP_STATUS_SUCCESS == StatusCheck()));
+        SendTestResult(testResult, testDescription, testResultCode);
     }
     else
 	{	// Need to skip this test step
-		testResult = testSkip;
+        testResult = testSkip;
 		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
 	}
-
-
-    SendTestResult(testResult, testDescription, testResultCode);
+  
 	// Return the test result
 	Log(LOG_FN_ENTRY, "Exit Mimamori::CheckTotalMileage()\n");
     return testResult;
@@ -483,14 +485,14 @@ const string MimamoriTc<ModuleType>::ClearHistory()
 	            testDescription = GetFaultDescription("HistoryNotCleared");
             }
         } while(TimeRemaining() && testResult == BEP_TESTING_STATUS && (BEP_STATUS_SUCCESS == StatusCheck()));
+        SendTestResult(testResult, testDescription, testResultCode);
     }
     else
 	{	// Need to skip this test step
-		testResult = testSkip;
+        testResult = testSkip;       
 		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
 	}
-
-    SendTestResult(testResult, testDescription, testResultCode);
+    
 	// Return the test result
 	Log(LOG_FN_ENTRY, "Exit MimamoriTc::ClearHistory()\n");
     return testResult;

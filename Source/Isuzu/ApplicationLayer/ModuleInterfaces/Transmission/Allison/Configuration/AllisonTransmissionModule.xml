@@ -253,8 +253,10 @@
 
             <ClearFaults>
                <Reply_00>0x54</Reply_00>
+               <!--Added response to temporarily bypass the clear faults response due to module not responding to command-->
+			   <Reply_01 lengthType="Variable" ReplyTimeout="100" endGapTime="150">0x??</Reply_01>
                <!--This is the negative response message-->
-               <Reply_01>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x03,0x7F,0x??,0x??</Reply_01>
+               <Reply_02>0x??,0x??,0x??,0x??,0x18,0xDA,0xF1,0x03,0x7F,0x??,0x??</Reply_02>
             </ClearFaults>
 
         </ReplyMessages>
@@ -300,9 +302,11 @@
                     <Byte0 input_index="1" mask="0xFF" compare="0x00"/>
                 </Boolean>
             </FaultsDetected>
-
+			
             <InterpShiftLeverPosition>
-                <Byte0 input_index="8" mask="0xFF" output_index="0"/>
+			    <Integer type="unsigned" bits="8" scale="1" offset="0">
+                    <Byte0 input_index="8" mask="0xFF" output_index="0"/>
+			    </Integer>
             </InterpShiftLeverPosition>
 
             <TccSlipError>
@@ -322,9 +326,13 @@
                 </String>
             </Vin>
 
+			<!--Boolean>
+                   <Byte01 input_index="0" mask="0xFF" compare="0x54"/> 
+                </Boolean-->
+			
             <FaultsCleared>
                 <Boolean>
-                    <Byte01 input_index="0" mask="0xFF" compare="0x54"/>
+                   <Byte01 input_index="0" mask="0x00" compare="0x00"/> 
                 </Boolean>
             </FaultsCleared>
 

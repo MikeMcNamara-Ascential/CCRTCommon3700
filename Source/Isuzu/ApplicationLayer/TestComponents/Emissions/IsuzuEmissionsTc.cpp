@@ -2588,7 +2588,7 @@ string IsuzuEmissionsTc<ModuleType>::KeyOffEngineOffKeyOn(void)
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
 
-    if (!IsRetest())
+    if (!IsRetest() || GetParameterBool("AlwaysPerformKeyOffEngineOff"))
     {
         testResult = GenericTCTemplate<ModuleType>::KeyOffEngineOffKeyOn();
     }

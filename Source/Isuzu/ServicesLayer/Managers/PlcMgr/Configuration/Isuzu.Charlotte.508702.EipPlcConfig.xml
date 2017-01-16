@@ -22,7 +22,7 @@
                   <AdditionalLogFile Types="/Servers/PLC or Disabled">/Servers/EipPlc.log</AdditionalLogFile>
                   <LocalEcho>Disabled</LocalEcho>
                   <Debug>Off</Debug>
-                  <Verbose>0x3F</Verbose>
+                  <Verbose>0x03</Verbose>
                </Logging>
             </Setup>
             <BlockSize>504</BlockSize>

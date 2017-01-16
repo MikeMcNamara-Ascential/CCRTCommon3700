@@ -978,7 +978,7 @@
 
             <EndModelPartNumber>
                 <String>
-                    <Substring format="%08d">
+                    <Substring format="%08X">
                         <Integer type="unsigned" scale="1" offset="0">
                             <Byte1 input_index="2" mask="0xFF" output_index="3"/>
                             <Byte2 input_index="3" mask="0xFF" output_index="2"/>

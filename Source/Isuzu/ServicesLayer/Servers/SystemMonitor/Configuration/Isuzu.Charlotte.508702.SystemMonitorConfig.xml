@@ -3,7 +3,7 @@
         <AbortOnAbortPb>1</AbortOnAbortPb>
         <Demo>0</Demo>
         <Debug>Off</Debug>
-        <ValidVINNeededForStart>0</ValidVINNeededForStart>
+        <ValidVINNeededForStart>1</ValidVINNeededForStart>
         <ProcessPriority>12</ProcessPriority>
         <DisconnectAbort Description="Flag that indicates if the system monitor should abort if a cable diconnect is detected">0</DisconnectAbort>
         <VehiclePresentTime Description="The amount of time to wait in miliseconds to declare a vehicle as being present">1000</VehiclePresentTime>
@@ -21,7 +21,7 @@
             <AdditionalLogFile Types="/Server/SystemMonitor.log or Disabled">/Servers/SystemMonitor.log</AdditionalLogFile>
             <LocalEcho>Disabled</LocalEcho>
             <Debug>Off</Debug>
-            <Verbose>0x3F</Verbose>
+            <Verbose>0x1F</Verbose>
         </Logging>
         <ThreadPool>
             <Debug>Off</Debug>

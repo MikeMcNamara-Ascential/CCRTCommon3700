@@ -619,7 +619,10 @@
          <TestStep10>Initialize</TestStep10>
          <TestStep20>Setup</TestStep20>
          <TestStep30>EnterDiagnosticMode</TestStep30>
-         <TestStep35>RequestBendixSecurity1</TestStep35>
+         <!--TestStep35>RequestBendixSecurity1</TestStep35-->
+         <TestStep35>RequestBendixSecurity3</TestStep35>
+         <TestStep40>WriteFingerprint</TestStep40>
+         <TestStep45>ActivateRBM</TestStep45>
       </Initialize>
       <IWEStartTest>
          <TestStep10>IWEStartTest</TestStep10>
@@ -693,9 +696,9 @@
       <FrontBrakeTest>
          <TestStep00>AccelerateVehicleToSpeed</TestStep00>
          <!--TestStep10>NeutralCheck</TestStep10-->
-         <TestStep20>DragTest</TestStep20>
-         <TestStep30>AnalyzeDragTest</TestStep30>
-         <TestStep40>BrakeTest</TestStep40>
+         <TestStep20>FrontDragTest</TestStep20>
+         <TestStep30>AnalyzeFrontDragTest</TestStep30>
+         <TestStep40>FrontBrakeTest</TestStep40>
          <TestStep50>BrakeToStop</TestStep50>
          <!--TestStep60>AnalyzeBrakeTest</TestStep60-->
       </FrontBrakeTest>
@@ -708,6 +711,10 @@
          <TestStep50>BrakeToStop</TestStep50>
          <!--TestStep60>AnalyzeBrakeTest</TestStep60-->
       </BrakeTest>
+      <AnalyzeFrontBrakeTest>
+         <TestStep10>AnalyzeFrontBrakeTest</TestStep10>
+         <TestStep15>AnalyzeFrontBalance</TestStep15>
+      </AnalyzeFrontBrakeTest>
       <AnalyzeBrakeTest>
          <TestStep10>AnalyzeBrakeTest</TestStep10>
          <TestStep15>AnalyzeBalance</TestStep15>
@@ -771,8 +778,11 @@
          <TestStep00>ClearFaults</TestStep00>
       </ClearFaults>
       <ReadFaults>
-         <!--TestStep00>ClearFaults</TestStep00-->
-         <TestStep01>ReadFaults</TestStep01>
+	     <TestStep00>EnterDiagnosticMode</TestStep00>
+         <TestStep05>RequestBendixSecurity3</TestStep05>
+		 <TestStep07>WriteFingerprint</TestStep07>
+         <TestStep10>DeactivateRBM</TestStep10>
+         <TestStep11>ReadFaults</TestStep11>
       </ReadFaults>
       <CheckPartNumber>
          <TestStep00>CheckPartNumber</TestStep00>
@@ -845,6 +855,11 @@
       <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2=""/>
       <BrakeTest Result="" Timeout="10000" Description="Base Brake Component Brake Test" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1="" BrakeDomain="0 1000" BrakeTarget="400 800"/>
       <AnalyzeBrakeTest Result="" Timeout="10000" Description="Analyze Brake Test" Prompt1="" Prompt2=""/>
+      <FrontDragTest Result="" Timeout="20000" Description="Base Brake Component Brake Drag Test" Prompt1="ReleaseThrottleShiftNeutral" Prompt2=""/>
+      <AnalyzeFrontDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2=""/>
+      <FrontBrakeTest Result="" Timeout="10000" Description="Base Brake Component Brake Test" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1="" BrakeDomain="0 1000" BrakeTarget="400 800"/>
+      <AnalyzeFrontBrakeTest Result="" Timeout="10000" Description="Analyze Brake Test" Prompt1="" Prompt2=""/>
+      <AnalyzeFrontBalance Result="" Timeout="10000" Description="Analyze Balance" Prompt1="" Prompt2=""/>
       <AnalyzeBalance Result="" Timeout="10000" Description="Analyze Balance" Prompt1="" Prompt2=""/>
       <ExcessiveBrakeForceCheck Result="" Timeout="10000" Description="Check for excessive brake force"/>
       <!-- From GenericABSTestComponent -->
@@ -892,8 +907,10 @@
       <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
       <BrakeToThreshhold Result="Not Tested" Timeout="10000" Description="Pre ABS start braking to min threshhold" Prompt1="BrakeModeratelyInGreenBand" AbortIfFailed="True" BrakeDomain="0 1000" BrakeTarget="200 800" MinimumThreshholdForce="200"/>
       <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="35 40" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0" AbortIfFailed="True"/>
-      <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
+      <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutralApplyParkBrake" Prompt2="Blank" AbortIfFailed="True"/>
       <AnalyzeDynamicParkBrake Result="Not Tested" Timeout="500" Description="Analyze park brake results" AbortIfFailed="False"/>
       <AccelerateVehicleToSpeed Result="" Timeout="90000" Description="Rollers accelerate to Brake Speed" Prompt1="RemoveFootFromAccelerator" Prompt2="ShiftToNeutral" SpeedTarget="60 70" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
+      <ActivateRBM Result="" Timeout="10000" Description="Activate Roller Bench Test Mode"/>
+      <DeactivateRBM Result="" Timeout="10000" Description="Deactivate Roller Bench Test Mode"/>
    </TestSteps>
 </BendixEC80ABS>

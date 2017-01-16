@@ -60,6 +60,7 @@
             <ParkingBrakeTestPass/>
             <ParkPawlTestFail/>
             <ParkPawlTestPass/>
+			<SideSlipBGColor/>
             <SoftwareID/>
             <Start40kphTest/>
             <Zerospeed/>
@@ -101,6 +102,7 @@
          <RRSpeed>RRSpeed</RRSpeed>
          <ServerStateDriverNumber>DriverNumber</ServerStateDriverNumber>
          <ServerStateNormal>Normal</ServerStateNormal>
+         <SideSlipBGColor>SideSlipBGColor</SideSlipBGColor>
          <SoftwareVersion>SoftwareID</SoftwareVersion>
          <SpeedActive>SpeedActive</SpeedActive>
          <SpeedTarget>SpeedTarget</SpeedTarget>
@@ -123,10 +125,10 @@
          <DcxStyleSpeedoTest>False</DcxStyleSpeedoTest>
          <DisableSpeedoButtonPrompting>False</DisableSpeedoButtonPrompting>
          <Prompt40KPHTest>True</Prompt40KPHTest>
-         <SpeedometerSpeedTarget>22 28</SpeedometerSpeedTarget>
+         <SpeedometerSpeedTarget>20 30</SpeedometerSpeedTarget>
          <SpeedometerStableTime>6000</SpeedometerStableTime>
-         <SpeedometerTestLowLimit>22</SpeedometerTestLowLimit>
-         <SpeedometerTestHighLimit>28</SpeedometerTestHighLimit>
+         <SpeedometerTestLowLimit>20</SpeedometerTestLowLimit>
+         <SpeedometerTestHighLimit>30</SpeedometerTestHighLimit>
          <TargetSpeed40kph>24.85</TargetSpeed40kph>
          <ReverseTestSpeed>5</ReverseTestSpeed>
          <ReverseSpeedTarget>5 10</ReverseSpeedTarget>
@@ -188,6 +190,7 @@
       </StatusCheckItems>
       <TestDomain>Foreground</TestDomain>
       <SystemTagsToReset>
+	     <SideSlipBGColor>white</SideSlipBGColor>
          <VINDisplayBGColor>white</VINDisplayBGColor>
       </SystemTagsToReset>
       <TaskMon>

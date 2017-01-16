@@ -392,51 +392,51 @@
             <VBox width="380" height="200" posX="250" posY="350" border="true" borderstyle="title" bordertitle="brake">
                 <HBox height="8"/>
                 <HBox height="10">
-                    <Label height="30" width="40" name="blank">
+                    <Label height="30" width="60" name="blank">
                         <Font size="16" name="sans-serif" style="bold"/>
                     </Label>
-                    <Label height="30" width="60" name="drag">
+                    <Label height="30" width="80" name="drag">
                         <Font size="16" name="sans-serif" style="bold"/>
                     </Label>
-                    <Label height="30" width="60" name="brake">
+                    <Label height="30" width="80" name="brake">
                         <Font size="16" name="sans-serif" style="bold"/>
                     </Label>
-                    <Label height="30" width="60" name="parkbrake">
+                    <Label height="30" width="80" name="parkbrake">
                         <Font size="16" name="sans-serif" style="bold"/>
                     </Label>
-                    <Label height="30" width="60" name="red">
+                    <!--Label height="30" width="60" name="red">
                         <Font size="16" name="sans-serif" style="bold"/>
                     </Label>
                     <Label height="30" width="60" name="rec">
                         <Font size="16" name="sans-serif" style="bold"/>
-                    </Label>
+                    </Label-->
                 </HBox>
                 <HBox height="30">
-                    <Label height="30" width="40" name="left">
+                    <Label height="30" width="60" name="left">
                         <Font size="16" name="sans-serif" style="bold"/>
                     </Label>
-                    <Widget height="30" width="60" id="LFDrag" class="com.bepco.gui.NumberBox">
+                    <Widget height="30" width="80" id="LFDrag" class="com.bepco.gui.NumberBox">
                         <DataSource tagname="LFDragValue" messagetype="Subscribe"/>
                         <DataSource tagname="LFDragBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                         <TextBoxConfig format="{0,number,#.0}">
                             <Font size="16" name="sans-serif" style="bold"/>
                         </TextBoxConfig>
                     </Widget>
-                    <Widget height="30" width="60" id="LFForce" class="com.bepco.gui.NumberBox">
+                    <Widget height="30" width="80" id="LFForce" class="com.bepco.gui.NumberBox">
                         <DataSource tagname="LFForceValue" messagetype="Subscribe"/>
                         <DataSource tagname="LFForceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                         <TextBoxConfig format="{0,number,#.0}">
                             <Font size="16" name="sans-serif" style="bold"/>
                         </TextBoxConfig>
                     </Widget>
-                    <Widget height="30" width="60" id="LfPbForce" class="com.bepco.gui.NumberBox">
+                    <Widget height="30" width="80" id="LfPbForce" class="com.bepco.gui.NumberBox">
                         <DataSource tagname="LeftFrontParkBrakeForceValue" messagetype="Subscribe"/>
                         <DataSource tagname="LeftFrontParkBrakeForceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                         <TextBoxConfig format="{0,number,#.0}">
                             <Font size="16" name="sans-serif" style="bold"/>
                         </TextBoxConfig>
                     </Widget>
-                    <Widget height="30" width="60" id="LFABSReductionValue" class="com.bepco.gui.NumberBox">
+                    <!--Widget height="30" width="60" id="LFABSReductionValue" class="com.bepco.gui.NumberBox">
                         <DataSource tagname="LFABSReductionValue" messagetype="Subscribe"/>
                         <DataSource tagname="LFABSReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                         <TextBoxConfig format="{0,number,#.0}">
@@ -449,36 +449,36 @@
                         <TextBoxConfig format="{0,number,#.0}">
                             <Font size="16" name="sans-serif" style="bold"/>
                         </TextBoxConfig>
-                    </Widget>
+                    </Widget-->
                 </HBox>
                 <HBox height="30">
-                    <Label height="30" width="40" name="right">
+                    <Label height="30" width="60" name="right">
                         <Font size="16" name="sans-serif" style="bold"/>
                     </Label>
           
 
-                    <Widget height="30" width="60" id="RFDrag" class="com.bepco.gui.NumberBox">
+                    <Widget height="30" width="80" id="RFDrag" class="com.bepco.gui.NumberBox">
                         <DataSource tagname="RFDragValue" messagetype="Subscribe"/>
                         <DataSource tagname="RFDragBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                         <TextBoxConfig format="{0,number,#.0}">
                             <Font size="16" name="sans-serif" style="bold"/>
                         </TextBoxConfig>
                     </Widget>
-                    <Widget height="30" width="60" id="RFBrake" class="com.bepco.gui.NumberBox">
+                    <Widget height="30" width="80" id="RFBrake" class="com.bepco.gui.NumberBox">
                         <DataSource tagname="RFForceValue" messagetype="Subscribe"/>
                         <DataSource tagname="RFForceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                         <TextBoxConfig format="{0,number,#.0}">
                             <Font size="16" name="sans-serif" style="bold"/>
                         </TextBoxConfig>
                     </Widget>
-                    <Widget height="30" width="60" id="RfPbForce" class="com.bepco.gui.NumberBox">
+                    <Widget height="30" width="80" id="RfPbForce" class="com.bepco.gui.NumberBox">
                         <DataSource tagname="RightFrontParkBrakeForceValue" messagetype="Subscribe"/>
                         <DataSource tagname="RightFrontParkBrakeForceBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                         <TextBoxConfig format="{0,number,#.0}">
                             <Font size="16" name="sans-serif" style="bold"/>
                         </TextBoxConfig>
                     </Widget>
-                    <Widget height="30" width="60" id="RFABSReductionValue" class="com.bepco.gui.NumberBox">
+                    <!--Widget height="30" width="60" id="RFABSReductionValue" class="com.bepco.gui.NumberBox">
                         <DataSource tagname="RFABSReductionValue" messagetype="Subscribe"/>
                         <DataSource tagname="RFABSReductionBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                         <TextBoxConfig format="{0,number,#.0}">
@@ -491,7 +491,7 @@
                         <TextBoxConfig format="{0,number,#.0}">
                             <Font size="16" name="sans-serif" style="bold"/>
                         </TextBoxConfig>
-                    </Widget>
+                    </Widget-->
                 </HBox>
                 <HBox height="60">
                 </HBox>
@@ -544,6 +544,23 @@
                         <Widget height="30" width="50" id="BrakeTime" class="com.bepco.gui.NumberBox">
                             <DataSource tagname="BrakeTime" messagetype="Subscribe"/>
                             <DataSource tagname="BrakeTimeBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <TextBoxConfig format="{0,number,#.0}">
+                                <Font size="16" name="sans-serif" style="bold"/>
+                            </TextBoxConfig>
+                        </Widget>
+                    </VBox>
+                </HBox>
+                <HBox height="30">
+                    <VBox>
+                        <Label height="30" width="100" name="parkbraketime">
+                            <Font size="16" name="sans-serif" style="bold"/>
+                        </Label>
+                    </VBox>
+                    <VBox width="20"/>
+                    <VBox>
+                        <Widget height="30" width="50" id="ParkBrakeTime" class="com.bepco.gui.NumberBox">
+                            <DataSource tagname="ParkBrakeTime" messagetype="Subscribe"/>
+                            <DataSource tagname="ParkBrakeTimeBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                             <TextBoxConfig format="{0,number,#.0}">
                                 <Font size="16" name="sans-serif" style="bold"/>
                             </TextBoxConfig>

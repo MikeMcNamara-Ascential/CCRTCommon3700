@@ -119,7 +119,12 @@
             <BrakeTarget DataType="range" Units="LBF">VehicleDataBroker</BrakeTarget>
             <BrakeTestLamp DataType="bool">PLC</BrakeTestLamp>
             <BrakeTestPushbutton DataType="bool">PLC</BrakeTestPushbutton>
-            <BrakeType DataType="string">VehicleDataBroker</BrakeType>
+            <BrakeTime DataType="float">MachineDataBroker</BrakeTime>
+            <ParkBrakeTime DataType="float">MachineDataBroker</ParkBrakeTime>
+			<SideSlipBGColor DataType="color">VehicleDataBroker</SideSlipBGColor>
+			<BrakeTimeBGColor DataType="color">VehicleDataBroker</BrakeTimeBGColor>
+			<ParkBrakeTimeBGColor DataType="color">VehicleDataBroker</ParkBrakeTimeBGColor>
+			<BrakeType DataType="string">VehicleDataBroker</BrakeType>
             <BrakeTypeBGColor DataType="color">VehicleDataBroker</BrakeTypeBGColor>
             <BrakeYear DataType="string">VehicleDataBroker</BrakeYear>
             <BrakeYearBGColor DataType="color">VehicleDataBroker</BrakeYearBGColor>

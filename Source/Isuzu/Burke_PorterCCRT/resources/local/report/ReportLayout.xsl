@@ -58,7 +58,7 @@
             <xsl:call-template name="categorySpacer"/>
             <tr>
                 <td align="left">VIN</td>
-                <td align="right" width="30">
+                <td align="right">
                     <xsl:value-of select="//VIN"/>
                 </td>
                 <td width="17"></td>
@@ -501,21 +501,22 @@
                 <th align="center">Gear</th>
                 <th align="center">Result</th>
                 <td/>
-                <th align="center">PRNDL</th>
-                <th align="center">Result</th>
+                <th align="center"></th>
+                <th align="center"></th>
             </tr>
             <tr>
                 <td width="20"/>
                 <td/>
                 <td align="center">Park</td>
-                <td/>
-                <td/>
-                <td align="center">P</td>
+                
                 <td align="center">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_P"/>
                     </xsl:call-template>
                 </td>
+                <td/>
+                <td/>
+                <td align="center"></td>
             </tr>
             <tr>
                 <td width="20"/>
@@ -523,15 +524,12 @@
                 <td align="center">Reverse</td>
                 <td align="center">
                     <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionReverseGearObserved/@Result"/>
+                        <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_R"/>
                     </xsl:call-template>
                 </td>
                 <td/>
-                <td align="center">R</td>
+                <td align="center"></td>
                 <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_R"/>
-                    </xsl:call-template>
                 </td>
             </tr>
             <tr>
@@ -540,15 +538,41 @@
                 <td align="center">Neutral</td>
                 <td align="center">
                     <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionNeutralGearObserved/@Result"/>
+                        <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_N"/>
                     </xsl:call-template>
                 </td>
                 <td/>
-                <td align="center">N</td>
+                <td align="center"></td>
+                <td align="center">
+                    
+                </td>
+            </tr>
+            <tr>
+                <td width="20"/>
+                <td/>
+                <td align="center">6</td>
                 <td align="center">
                     <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_N"/>
+                        <xsl:with-param name="RESULT" select="//TransmissionSixthGearObserved/@Result"/>
                     </xsl:call-template>
+                </td>
+                <td/>
+                <td align="center"></td>
+                <td align="center">
+                </td>
+            </tr>
+            <tr>
+                <td width="20"/>
+                <td/>
+                <td align="center">5</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//TransmissionFifthGearObserved/@Result"/>
+                    </xsl:call-template>
+                </td>
+                <td/>
+                <td align="center"></td>
+                <td align="center">
                 </td>
             </tr>
             <tr>
@@ -561,11 +585,8 @@
                     </xsl:call-template>
                 </td>
                 <td/>
-                <td align="center">D4</td>
+                <td align="center"></td>
                 <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_D4"/>
-                    </xsl:call-template>
                 </td>
             </tr>
             <tr>
@@ -578,11 +599,8 @@
                     </xsl:call-template>
                 </td>
                 <td/>
-                <td align="center">D6</td>
+                <td align="center"></td>
                 <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_D6"/>
-                    </xsl:call-template>
                 </td>
             </tr>
             <tr>
@@ -595,11 +613,9 @@
                     </xsl:call-template>
                 </td>
                 <td/>
-                <td align="center">2</td>
+                <td align="center"></td>
                 <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_2"/>
-                    </xsl:call-template>
+                    
                 </td>
             </tr>
             <tr>
@@ -612,11 +628,8 @@
                     </xsl:call-template>
                 </td>
                 <td/>
-                <td align="center">1</td>
+                <td align="center"></td>
                 <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//TransmissionShiftLeverTest/PRNDL_1"/>
-                    </xsl:call-template>
                 </td>
             </tr>
 				
@@ -704,7 +717,7 @@
             <xsl:call-template name="sectionSpacer"/>
             <xsl:call-template name="emissionsHeaderRow"/>
             <tr>
-                <th align="left" width="20">ECM</th>
+                <th align="left" width="10">ECM</th>
                 <td align="right">Idle RPM</td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckIdleRPM/MinParam"/>
@@ -723,7 +736,406 @@
                 </td>
             </tr>
             <tr>
-                <td width="20"/>
+                <th align="left" width="10"></th>
+                <td align="right">Engine Coolant Temperature</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsWaitForEngineTemperature/MinTemperature"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsWaitForEngineTemperature/EngineTemperature"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsWaitForEngineTemperature/MaxTemperature"/>
+                </td>
+                <td align="center">°C</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsWaitForEngineTemperature/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Atmospheric Pressure</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckBarometricPressure/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckBarometricPressure/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckBarometricPressure/MaxParam"/>
+                </td>
+                <td align="center">kPa</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckBarometricPressure/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Battery Voltage</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckBatteryVoltage/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckBatteryVoltage/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckBatteryVoltage/MaxParam"/>
+                </td>
+                <td align="center">V</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckBatteryVoltage/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">EGR Opening Target</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEGROpeningTarget/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEGROpeningTarget/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEGROpeningTarget/MaxParam"/>
+                </td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckEGROpeningTarget/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">EGR Position</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEGRPosition/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEGRPosition/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEGRPosition/MaxParam"/>
+                </td>
+                <td align="center">%</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckEGRPosition/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Engine Oil Pressure</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEngineOilPressure/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEngineOilPressure/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckEngineOilPressure/MaxParam"/>
+                </td>
+                <td align="center">V</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckEngineOilPressure/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Final Injection Amount</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFinalInjectionAmount/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFinalInjectionAmount/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFinalInjectionAmount/MaxParam"/>
+                </td>
+                <td align="center">mm3/st</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckFinalInjectionAmount/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Fuel Injection Correction 1</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection1/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection1/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection1/MaxParam"/>
+                </td>
+                <td align="center">mm3/st</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckFuelInjectionCorrection1/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Fuel Injection Correction 2</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection2/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection2/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection2/MaxParam"/>
+                </td>
+                <td align="center">mm3/st</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckFuelInjectionCorrection2/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Fuel Injection Correction 3</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection3/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection3/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection3/MaxParam"/>
+                </td>
+                <td align="center">mm3/st</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckFuelInjectionCorrection3/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Fuel Injection Correction 4</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection4/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection4/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection4/MaxParam"/>
+                </td>
+                <td align="center">mm3/st</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckFuelInjectionCorrection4/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Fuel Rail Pressure</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelRailPressure/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelRailPressure/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelRailPressure/MaxParam"/>
+                </td>
+                <td align="center">kPa</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckFuelRailPressure/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Fuel Temperature</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelTemperature/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelTemperature/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckFuelTemperature/MaxParam"/>
+                </td>
+                <td align="center">°C</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckFuelTemperature/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Intake Air Flow</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckIntakeAirFlow/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckIntakeAirFlow/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckIntakeAirFlow/MaxParam"/>
+                </td>
+                <td align="center">g/sec</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckIntakeAirFlow/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Intake Air Temp</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckIntakeAirTemp/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckIntakeAirTemp/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckIntakeAirTemp/MaxParam"/>
+                </td>
+                <td align="center">°C</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckIntakeAirTemp/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Main Injection Timing</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckMainInjectionTiming/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckMainInjectionTiming/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckMainInjectionTiming/MaxParam"/>
+                </td>
+                <td align="center">CR</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckMainInjectionTiming/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Pump Learning Status</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckPumpLearningStatus/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckPumpLearningStatus/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckPumpLearningStatus/MaxParam"/>
+                </td>
+                <td align="center"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckPumpLearningStatus/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Pump Learning Value</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckPumpLearningValue/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckPumpLearningValue/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckPumpLearningValue/MaxParam"/>
+                </td>
+                <td align="center">mA</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckPumpLearningValue/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Requested RPM</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckRequestedRPM/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckRequestedRPM/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckRequestedRPM/MaxParam"/>
+                </td>
+                <td align="center">RPM</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckRequestedRPM/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">SVC Current Value</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckSVCCurrentValue/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckSVCCurrentValue/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckSVCCurrentValue/MaxParam"/>
+                </td>
+                <td align="center">mA</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckSVCCurrentValue/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <th align="left" width="10"></th>
+                <td align="right">Turbo Boost Pressure</td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckTurboBoostPressure/MinParam"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckTurboBoostPressure/SensorReading"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsCheckTurboBoostPressure/MaxParam"/>
+                </td>
+                <td align="center">kPa</td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsCheckTurboBoostPressure/@Result"/>
+                    </xsl:call-template>
+                </td>
+            </tr>
+            <tr>
+                <td width="10"/>
                 <td align="right">VSS</td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckVehicleSpeedSensor/MinSpeed"/>
@@ -850,6 +1262,18 @@
 					</xsl:call-template>
 				</td>
 			</tr>
+            <!-- MEC Lock-->
+            <tr>
+                <td width="20" ></td>
+                <td align="right">MEC Lock</td>
+                <td align="center" colspan="4"></td>
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//EmissionsLockModule/@Result"/>
+                    </xsl:call-template>
+                </td>                
+            </tr>
+
 
             <!-- DCU Inspection-->
             <xsl:call-template name="sectionSpacer"/>
@@ -880,8 +1304,11 @@
                 <td width="20" ></td>
                 <td align="right">MEC Lock</td>
                 <td align="center" colspan="4"></td>
-                <td></td>
-                
+                <td align="center">
+                    <xsl:call-template name="showResult">
+                        <xsl:with-param name="RESULT" select="//DCULockModule/@Result"/>
+                    </xsl:call-template>
+                </td>                
             </tr>
 
             <xsl:call-template name="sectionSpacer"/>
@@ -957,17 +1384,6 @@
                     </xsl:call-template>
                 </td>
             </tr>
-            <!--tr> //NOT doing MEC Lock for Mimamori
-                <th width="20" align="left"></th>
-                <td align="right">MEC Lock</td>				
-                <td align="center" colspan="4"></td>
-                <td align="center">
-                    <xsl:call-template name="showResult">
-                        <xsl:with-param name="RESULT" select="//MimamoriMECLock/@Result"/>
-                    </xsl:call-template>
-                </td>
-            </tr-->
-
 
         </table>
             

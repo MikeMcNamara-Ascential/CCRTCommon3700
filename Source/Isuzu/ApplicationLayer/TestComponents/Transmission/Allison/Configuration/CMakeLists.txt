@@ -5,5 +5,5 @@
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Transmission FILES
 	AllisonTransmissionTC.xml
-	TransmissionFaults.xml
+	AllisonTransmissionFaults.xml
 )

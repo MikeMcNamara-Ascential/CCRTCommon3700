@@ -356,7 +356,7 @@
             <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <IgnoreFaults/>
-      <FaultList>/Configuration/Components/Emissions/My14EmissionsFaults.xml</FaultList>
+      <FaultList>/Configuration/Components/Emissions/My17SingleAxleEmissionsFaults.xml</FaultList>
     </Setup>
     <Objectives>
         <Test>

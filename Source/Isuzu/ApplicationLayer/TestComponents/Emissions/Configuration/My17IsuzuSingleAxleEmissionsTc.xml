@@ -93,7 +93,7 @@
             <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
             <LoadStaticTestResults>False</LoadStaticTestResults>
             <!-- Module Parameters -->
-            <ConfigFile>/Configuration/Components/Emissions/IsuzuEngineControllerModule_MY17.xml</ConfigFile>
+            <ConfigFile>/Configuration/Components/Emissions/IsuzuSingleAxleEngineControllerModule.xml</ConfigFile>
             <!-- Diagnostic Mode Parameters -->
             <AlwaysEnterDiagnosticMode TestSteps="EnterDiagnosticMode" Comment="Enter diagnostic mode if module does not need to be tested">False</AlwaysEnterDiagnosticMode>
             <!-- DTC Parameters -->
@@ -328,7 +328,7 @@
             <VinMismatchPrompt PromptBox="1" Priority="0" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <IgnoreFaults/>
-      <FaultList>/Configuration/Components/Emissions/My17EmissionsFaults.xml</FaultList>
+      <FaultList>/Configuration/Components/Emissions/My17SingleAxleEmissionsFaults.xml</FaultList>
     </Setup>
     <Objectives>
         <Test>

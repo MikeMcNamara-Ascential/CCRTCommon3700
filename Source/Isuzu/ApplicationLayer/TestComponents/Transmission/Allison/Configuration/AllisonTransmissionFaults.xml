@@ -1,0 +1,127 @@
+<TransmisisonFaults>
+    <!-- System Status -->
+    <SoftwareFailure Code="6001" Description="TCM: Software failure using module interface"/>
+    <SystemStatus Code="6002" Description="TCM: Test failure, system status not correct"/>
+
+    <!-- Test Condition Failures -->
+    <PreconditionTimeout Code="6100" Description="TCM: Timeout waiting for preconditions"/>
+    <TimeoutFailure Code="" Description="TCM: Timeout waiting for test comditions"/>
+    <VehicleNotConnected Code="6108" Description="TCM: Vehicle not connected to tester"/>
+
+    <!-- Communication Failures -->
+    <CommunicationFailure Code="6200" Description="TCM Communication Failure"/>
+
+    <!-- Test Failures -->
+    <VINMismatch Code="" Description="TCM VIN does not match scanned VIN"/>
+    <ModuleFaults Code="" Description="TCM Module Faults Present"/>
+ 
+    <!-- Module Faults From DTC setting for TCM DTC.pdf-->
+    <ModuleFault_0122 Code="P0122" Description="Pedal Position Sensor Circuit - Low Voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_0123 Code="P0123" Description="Pedal Position Sensor Circuit - High Voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_0218 Code="P0218" Description="Transmission Fluid Over Temperature" FailureStatusMask="0x16"/>
+    <ModuleFault_0561 Code="P0561" Description="System Voltage - Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0562 Code="P0562" Description="System Voltage - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0563 Code="P0563" Description="System Voltage - High" FailureStatusMask="0x16"/>
+    <ModuleFault_0602 Code="P0602" Description="TCM Not Programmed" FailureStatusMask="0x16"/>
+    <ModuleFault_0603 Code="P0603" Description="Internal Control Module Keep Alive Memory Error" FailureStatusMask="0x16"/>
+    <ModuleFault_0604 Code="P0604" Description="Control Module RAM" FailureStatusMask="0x16"/>
+    <ModuleFault_0607 Code="P0607" Description="Control Module Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0614 Code="P0614" Description="Torque Control Data Mismatch - ECM/TCM" FailureStatusMask="0x16"/>
+    <ModuleFault_0634 Code="P0634" Description="TCM Internal Temperature Too High" FailureStatusMask="0x16"/>
+    <ModuleFault_0642 Code="P0642" Description="Sensor Reference Voltage A Circuit Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0643 Code="P0643" Description="Sensor Reference Voltage A Circuit High" FailureStatusMask="0x16"/>
+    <ModuleFault_0657 Code="P0657" Description="Actuator Supply Voltage 1 Open" FailureStatusMask="0x16"/>
+    <ModuleFault_0658 Code="P0658" Description="Actuator Supply Voltage 1 Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0659 Code="P0659" Description="Actuator Supply Voltage 1 High" FailureStatusMask="0x16"/>
+    <ModuleFault_0701 Code="P0701" Description="Transmission Control System - Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0703 Code="P0703" Description="Brake Switch Circuit" FailureStatusMask="0x16"/>
+    <ModuleFault_0706 Code="P0706" Description="Transmission Range Sensor Circuit - Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0708 Code="P0708" Description="Transmission Range Sensor Circuit - High Input" FailureStatusMask="0x16"/>
+    <ModuleFault_0711 Code="P0711" Description="Transmission Fluid Temperature Sensor Circuit - Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0712 Code="P0712" Description="Transmission Fluid Temperature Sensor Circuit - Low Input" FailureStatusMask="0x16"/>
+    <ModuleFault_0713 Code="P0713" Description="Transmission Fluid Temperature Sensor Circuit - High Input" FailureStatusMask="0x16"/>
+    <ModuleFault_0715 Code="P0715" Description="Turbine Shaft Speed Sensor Circuit" FailureStatusMask="0x16"/>
+    <ModuleFault_0716 Code="P0716" Description="Turbine Speed Sensor Circuit - Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0717 Code="P0717" Description="Turbine Speed Sensor Circuit - No Signal" FailureStatusMask="0x16"/>
+    <ModuleFault_071A Code="P071A" Description="Neutral At Stop Input Failed On" FailureStatusMask="0x16"/>
+    <ModuleFault_0720 Code="P0720" Description="Output Shaft Speed Sensor Circuit" FailureStatusMask="0x16"/>
+    <ModuleFault_0721 Code="P0721" Description="Output Speed Sensor Circuit - Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0722 Code="P0722" Description="Output Speed Sensor Circuit - No Signal" FailureStatusMask="0x16"/>
+    <ModuleFault_0725 Code="P0725" Description="Engine Speed Sensor Circuit" FailureStatusMask="0x16"/>
+    <ModuleFault_0726 Code="P0726" Description="Engine Speed Sensor Circuit - Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0727 Code="P0727" Description="Engine Speed Sensor Circuit - No Signal" FailureStatusMask="0x16"/>
+    <ModuleFault_0729 Code="P0729" Description="Incorrect 6th Gear Ratio" FailureStatusMask="0x16"/>
+    <ModuleFault_0731 Code="P0731" Description="Incorrect 1st Gear Ratio" FailureStatusMask="0x16"/>
+    <ModuleFault_0732 Code="P0732" Description="Incorrect 2nd Gear Ratio" FailureStatusMask="0x16"/>
+    <ModuleFault_0733 Code="P0733" Description="Incorrect 3rd Gear Ratio" FailureStatusMask="0x16"/>
+    <ModuleFault_0734 Code="P0734" Description="Incorrect 4th Gear Ratio" FailureStatusMask="0x16"/>
+    <ModuleFault_0735 Code="P0735" Description="Incorrect 5th Gear Ratio" FailureStatusMask="0x16"/>
+    <ModuleFault_0736 Code="P0736" Description="Incorrect Reverse Ratio" FailureStatusMask="0x16"/>
+    <ModuleFault_0741 Code="P0741" Description="Torque Converter Clutch (TCC) System - Stuck Off" FailureStatusMask="0x16"/>
+    <ModuleFault_0742 Code="P0742" Description="Torque Converter Clutch (TCC) System - Stuck On" FailureStatusMask="0x16"/>
+    <ModuleFault_0751 Code="P0751" Description="Shift Solenoid 1 (SS1) Valve Perfomance - Stuck Off" FailureStatusMask="0x16"/>
+    <ModuleFault_0752 Code="P0752" Description="Shift Solenoid 1 (SS1) Valve Perfomance - Stuck On" FailureStatusMask="0x16"/>
+    <ModuleFault_0756 Code="P0756" Description="Shift Solenoid 2 (SS2) Valve Perfomance - Stuck Off" FailureStatusMask="0x16"/>
+    <ModuleFault_0757 Code="P0757" Description="Shift Solenoid 2 (SS2) Valve Perfomance - Stuck On" FailureStatusMask="0x16"/>
+    <ModuleFault_0761 Code="P0761" Description="Shift Solenoid 3 (SS3) Valve Perfomance - Stuck Off" FailureStatusMask="0x16"/>
+    <ModuleFault_0762 Code="P0762" Description="Shift Solenoid 3 (SS3) Valve Perfomance - Stuck On" FailureStatusMask="0x16"/>
+    <ModuleFault_0776 Code="P0776" Description="Pressure Control Solenoid 2 (PCS2) - Stuck Off" FailureStatusMask="0x16"/>
+    <ModuleFault_0777 Code="P0777" Description="Pressure Control Solenoid 2 (PCS2) - Stuck On" FailureStatusMask="0x16"/>
+    <ModuleFault_0837 Code="P0837" Description="Four Wheel Drive (4WD) Switch Circuit Range/Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0842 Code="P0842" Description="Transmission Pressure Switch 1 (PS1) Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0843 Code="P0843" Description="Transmission Pressure Switch 1 (PS1) Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_0847 Code="P0847" Description="Transmission Pressure Switch 2 (PS2) Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0848 Code="P0848" Description="Transmission Pressure Switch 2 (PS2) Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_0872 Code="P0872" Description="Transmission Pressure Switch 3 (PS3) Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0873 Code="P0873" Description="Transmission Pressure Switch 3 (PS3) Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_0877 Code="P0877" Description="Transmission Pressure Switch 4 (PS4) Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0878 Code="P0878" Description="Transmission Pressure Switch 4 (PS4) Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_0880 Code="P0880" Description="TCM Power Input Signal" FailureStatusMask="0x16"/>
+    <ModuleFault_0881 Code="P0881" Description="TCM Power Input Signal - Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0882 Code="P0882" Description="TCM Power Input Signal - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0883 Code="P0883" Description="TCM Power Input Signal - High" FailureStatusMask="0x16"/>
+    <ModuleFault_088B Code="P088B" Description="Transmission Filter Very Deteriorated" FailureStatusMask="0x16"/>
+    <ModuleFault_0897 Code="P0897" Description="Transmission Fluid Deteriorated" FailureStatusMask="0x16"/>
+    <ModuleFault_0960 Code="P0960" Description="Main Pressure Modulation Solenoid Control Circuit Open" FailureStatusMask="0x16"/>
+    <ModuleFault_0961 Code="P0961" Description="Main Pressure Modulation Solenoid System Performance" FailureStatusMask="0x16"/>
+    <ModuleFault_0962 Code="P0962" Description="Main Pressure Modulation Solenoid Control Circuit Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0963 Code="P0963" Description="Main Pressure Modulation Solenoid Control Circuit High" FailureStatusMask="0x16"/>
+    <ModuleFault_0964 Code="P0964" Description="Pressure Control Solenoid 2 (PCS2) Control Circuit - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_0966 Code="P0966" Description="Pressure Control Solenoid 2 (PCS2) Control Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0967 Code="P0967" Description="Pressure Control Solenoid 2 (PCS2) Control Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_0968 Code="P0968" Description="Pressure Control Solenoid 3 (PCS3) Control Circuit - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_0970 Code="P0970" Description="Pressure Control Solenoid 3 (PCS3) Control Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0971 Code="P0971" Description="Pressure Control Solenoid 3 (PCS3) Control Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_097A Code="P097A" Description="Shift Solenoid 1 (SS1) Control Circuit - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_0973 Code="P0973" Description="Shift Solenoid 1 (SS1) Control Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0974 Code="P0974" Description="Shift Solenoid 1 (SS1) Control Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_097B Code="P097B" Description="Shift Solenoid 2 (SS2) Control Circuit - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_0976 Code="P0976" Description="Shift Solenoid 2 (SS2) Control Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0977 Code="P0977" Description="Shift Solenoid 2 (SS2) Control Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_097C Code="P097C" Description="Shift Solenoid 3 (SS3) Control Circuit - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_0979 Code="P0979" Description="Shift Solenoid 3 (SS3) Control Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_0980 Code="P0980" Description="Shift Solenoid 3 (SS3) Control Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_1790 Code="P1790" Description="Gear Shift Module 1 Calibration Invalid" FailureStatusMask="0x16"/>
+    <ModuleFault_1891 Code="P1891" Description="Throttle Position Sensor (TPS) PWM Signal - Low Input" FailureStatusMask="0x16"/>
+    <ModuleFault_1892 Code="P1892" Description="Throttle Position Sensor (TPS) PWM Signal - High Input" FailureStatusMask="0x16"/>
+    <ModuleFault_2637 Code="P2637" Description="Torque Management Feedback Signal - SEM" FailureStatusMask="0x16"/>
+    <ModuleFault_2641 Code="P2641" Description="Torque Management Feedback Signal - LRTP" FailureStatusMask="0x16"/>
+    <ModuleFault_2669 Code="P2669" Description="Actuator Supply Voltage 2 (HSD2) - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_2670 Code="P2670" Description="Actuator Supply Voltage 2 (HSD2) - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_2671 Code="P2671" Description="Actuator Supply Voltage 2 (HSD2) - High" FailureStatusMask="0x16"/>
+    <ModuleFault_2684 Code="P2684" Description="Actuator Supply Voltage 3 (HSD3) - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_2685 Code="P2685" Description="Actuator Supply Voltage 3 (HSD3) - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_2686 Code="P2686" Description="Actuator Supply Voltage 3 (HSD3) - High" FailureStatusMask="0x16"/>
+    <ModuleFault_2723 Code="P2723" Description="Pressure Control Solenoid 1 (PCS1) - Stuck Off" FailureStatusMask="0x16"/>
+    <ModuleFault_2724 Code="P2724" Description="Pressure Control Solenoid 1 (PCS1) - Stuck On" FailureStatusMask="0x16"/>
+    <ModuleFault_2727 Code="P2727" Description="Pressure Control Solenoid 1 (PCS1) Control Circuit - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_2729 Code="P2729" Description="Pressure Control Solenoid 1 (PCS1) Control Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_2730 Code="P2730" Description="Pressure Control Solenoid 1 (PCS1) Control Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_2761 Code="P2761" Description="TCC PCS Control Circuit - Open" FailureStatusMask="0x16"/>
+    <ModuleFault_2763 Code="P2763" Description="TCC PCS Control Circuit - High" FailureStatusMask="0x16"/>
+    <ModuleFault_2764 Code="P2764" Description="TCC PCS Control Circuit - Low" FailureStatusMask="0x16"/>
+    <ModuleFault_2789 Code="P2789" Description="Clutch Adaptive Learning at Limit" FailureStatusMask="0x16"/>
+    <ModuleFault_0073 Code="U0073" Description="CAN Communication Bus 1 Off" FailureStatusMask="0x16"/>
+    <ModuleFault_0074 Code="U0074" Description="CAN Communication Bus 2 Off" FailureStatusMask="0x16"/>
+    <ModuleFault_0100 Code="U0100" Description="Lost Communication With ECM A" FailureStatusMask="0x16"/>
+</TransmisisonFaults>

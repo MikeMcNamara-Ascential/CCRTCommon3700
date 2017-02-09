@@ -222,7 +222,7 @@
             <VinMismatchPrompt PromptBox="1" Priority="0" Duration="3000" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
         </Prompts>
         <Faults>Use Seperate File</Faults>
-        <FaultList>/Configuration/Components/Transmission/TransmissionFaults.xml</FaultList>
+        <FaultList>/Configuration/Components/Transmission/AllisonTransmissionFaults.xml</FaultList>
         <SystemTagsToReset/>
         <IgnoreFaults/>
     </Setup>

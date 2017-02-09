@@ -61,15 +61,6 @@
                 <td align="right">
                     <xsl:value-of select="//VIN"/>
                 </td>
-                <td width="17"></td>
-                <td align="left"> </td>
-                <td align="right"> </td>
-            </tr>
-            <tr>
-                <td align="left">ABS Part#</td>
-                <td align="right">
-                    <xsl:value-of select="//ABSPartNo"/>
-                </td>
                 <td/>
                 <td align="left">Axle Type</td>
                 <td align="right">
@@ -99,9 +90,9 @@
                 </td>
             </tr>
             <tr>
-                <td align="left">TCM Part#</td>
+                <td align="left">Model Year</td>
                 <td align="right">
-                    <xsl:value-of select="//TCMPartNo"/>
+                    <xsl:value-of select="//ModelYear"/>
                 </td>
                 <td/>
                 <td align="left">Vehicle Type</td>
@@ -119,15 +110,6 @@
                 <td align="right">
                     <xsl:value-of select="//LotNumber"/>
                 </td>
-            </tr>
-            <tr>
-                <td align="left">Model Year</td>
-                <td align="right">
-                    <xsl:value-of select="//ModelYear"/>
-                </td>
-                <td/>
-                <td align="left"> </td>
-                <td align="left"> </td>
             </tr>
         </table>
     </xsl:template>
@@ -717,8 +699,9 @@
             <xsl:call-template name="sectionSpacer"/>
             <xsl:call-template name="emissionsHeaderRow"/>
             <tr>
-                <th align="left" width="10">ECM</th>
-                <td align="right">Idle RPM</td>
+                <th align="left" width="4">ECM</th>
+                <td align="right" width="15">Idle RPM</td>
+				<td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckIdleRPM/MinParam"/>
                 </td>
@@ -736,8 +719,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Engine Coolant Temperature</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Engine Coolant Temperature</td>
+				<td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsWaitForEngineTemperature/MinTemperature"/>
                 </td>
@@ -755,8 +739,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Atmospheric Pressure</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Atmospheric Pressure</td>
+				<td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckBarometricPressure/MinParam"/>
                 </td>
@@ -774,8 +759,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Battery Voltage</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Battery Voltage</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckBatteryVoltage/MinParam"/>
                 </td>
@@ -793,8 +779,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">EGR Opening Target</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">EGR Opening Target</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckEGROpeningTarget/MinParam"/>
                 </td>
@@ -812,8 +799,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">EGR Position</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">EGR Position</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckEGRPosition/MinParam"/>
                 </td>
@@ -831,8 +819,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Engine Oil Pressure</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Engine Oil Pressure</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckEngineOilPressure/MinParam"/>
                 </td>
@@ -850,8 +839,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Final Injection Amount</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Final Injection Amount</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckFinalInjectionAmount/MinParam"/>
                 </td>
@@ -869,8 +859,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Fuel Injection Correction 1</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Fuel Injection Correction 1</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection1/MinParam"/>
                 </td>
@@ -888,8 +879,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Fuel Injection Correction 2</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Fuel Injection Correction 2</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection2/MinParam"/>
                 </td>
@@ -907,8 +899,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Fuel Injection Correction 3</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Fuel Injection Correction 3</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection3/MinParam"/>
                 </td>
@@ -926,8 +919,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Fuel Injection Correction 4</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Fuel Injection Correction 4</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckFuelInjectionCorrection4/MinParam"/>
                 </td>
@@ -945,8 +939,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Fuel Rail Pressure</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Fuel Rail Pressure</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckFuelRailPressure/MinParam"/>
                 </td>
@@ -964,8 +959,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Fuel Temperature</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Fuel Temperature</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckFuelTemperature/MinParam"/>
                 </td>
@@ -983,8 +979,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Intake Air Flow</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Intake Air Flow</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckIntakeAirFlow/MinParam"/>
                 </td>
@@ -1002,8 +999,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Intake Air Temp</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Intake Air Temp</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckIntakeAirTemp/MinParam"/>
                 </td>
@@ -1021,8 +1019,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Main Injection Timing</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Main Injection Timing</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckMainInjectionTiming/MinParam"/>
                 </td>
@@ -1040,8 +1039,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Pump Learning Status</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Pump Learning Status</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckPumpLearningStatus/MinParam"/>
                 </td>
@@ -1059,8 +1059,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Pump Learning Value</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Pump Learning Value</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckPumpLearningValue/MinParam"/>
                 </td>
@@ -1078,8 +1079,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Requested RPM</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Requested RPM</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckRequestedRPM/MinParam"/>
                 </td>
@@ -1097,8 +1099,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">SVC Current Value</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">SVC Current Value</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckSVCCurrentValue/MinParam"/>
                 </td>
@@ -1116,8 +1119,9 @@
                 </td>
             </tr>
             <tr>
-                <th align="left" width="10"></th>
-                <td align="right">Turbo Boost Pressure</td>
+                <th align="left" width="4"></th>
+                <td align="right" width="15">Turbo Boost Pressure</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckTurboBoostPressure/MinParam"/>
                 </td>
@@ -1135,8 +1139,9 @@
                 </td>
             </tr>
             <tr>
-                <td width="10"/>
-                <td align="right">VSS</td>
+                <td width="4"/>
+                <td align="right" width="15">VSS</td>
+                <td width="1"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsCheckVehicleSpeedSensor/MinSpeed"/>
                 </td>
@@ -1155,12 +1160,12 @@
             </tr>
 			<!--ECM Check VIN number-->
 			<tr>
-				<td width="25"/>
+				<td width="20"/>
 				<td align="right">VIN</td>
-				<td align="center" colspan="3">
+				<td align="center" colspan="4">
 					<xsl:value-of select="//EmissionsCheckVIN/ModuleVIN"/>
 				</td>
-                <td align="center">
+                <td align="center" width="8">
 				</td>
 				<td align="center">
 					<xsl:call-template name="showResult">
@@ -1232,9 +1237,12 @@
 
             <!--MAF Learn-->
             <tr>
-				<td width="20"/>
-				<td align="right">MAF Learn</td>
+				<td width="4"/>
+				<td width="15" align="right">MAF Learn</td>
+				<td width="1"></td>
 				<td align="center" colspan="4"></td>
+                <td align="center" width="24">
+                </td>
 				<td align="center">
 					<xsl:call-template name="showResult">
 						<xsl:with-param name="RESULT" select="//EmissionsMAFLearn/@Result"/>
@@ -1242,11 +1250,28 @@
 				</td>
 			</tr>
 
+            <!--Accelerator Pedal Check-->
+            <tr>
+				<td width="4"/>
+				<td width="15" align="right">Accel Pedal Check</td>
+				<td width="10"></td>
+				<td align="center" colspan="4">
+                    <xsl:value-of select="//EmissionsPedalTravelPercentage/PedalPosition"/>
+                </td>
+				<td width="9"></td>
+                <td align="center" width="8">%</td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsPedalTravelPercentage/@Result"/>
+					</xsl:call-template>
+				</td>
+			</tr>
+
             <!-- DPD Switch Check-->
 			<tr>
-				<td width="20"/>
+				<td width="4"/>
 				<td align="right">DPD Switch Check</td>
-                <td/>
+                <td witdh="1"></td>
                 <td align="center">Off
                 </td>
                 <td align="center">
@@ -1264,9 +1289,10 @@
 			</tr>
             <!-- MEC Lock-->
             <tr>
-                <td width="20" ></td>
-                <td align="right">MEC Lock</td>
-                <td align="center" colspan="4"></td>
+                <td width="4" ></td>
+                <td align="right" witdh="15">MEC Lock</td>
+				<td width="1"></td>
+                <td align="center" width="24"></td>
                 <td align="center">
                     <xsl:call-template name="showResult">
                         <xsl:with-param name="RESULT" select="//EmissionsLockModule/@Result"/>
@@ -1541,13 +1567,13 @@
     </xsl:template>
     <xsl:template name="emissionsHeaderRow">
         <tr>
-            <th align="center" width="20"/>
-            <th align="center">Sensor</th>
-            <th align="center">Minimum</th>
-            <th align="center">Measured</th>
-            <th align="center">Maximum</th>
-            <th align="center">Units</th>
-            <th align="center">Result</th>
+            <th align="center" width="4"/>
+            <th align="center" width="16">Sensor</th>
+            <th align="center" width="9">Minimum</th>
+            <th align="center" width="9">Measured</th>
+            <th align="center" width="9">Maximum</th>
+            <th align="center" width="9">Units</th>
+            <th align="center" width="9">Result</th>
         </tr>
     </xsl:template>
 

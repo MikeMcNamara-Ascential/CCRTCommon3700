@@ -138,10 +138,23 @@ namespace J2534ChannelLibrary
         {
             lock (m_j2534Interface)
             {
-                m_j2534Interface.Disconnect(m_channelID);
+                ErrorCode status =m_j2534Interface.Disconnect(m_channelID);
+                ClearResponseBuffer();
+                if (status == ErrorCode.STATUS_NOERROR)
+                {
+                    //RequestResponseIds.Clear();
+                    
+                    //IsChannelOpen = false;
+                    return true;
+                }
+                else
+                {
+                    //CheckForDeviceDisconnectError(status);
+                    //string logMessage = "Disconnect() Failure: " + GetErrorMessageText(status);
+                    //CommonLog.Error(logMessage);
+                    return false;
+                }
             }
-            ClearResponseBuffer();
-            return true;
         }
         public void BuildTransmitMessage(ref List<byte> fullMessage,byte[] requestID, List<byte> txMessage)
         {

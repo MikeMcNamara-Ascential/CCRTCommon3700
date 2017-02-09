@@ -248,6 +248,10 @@ namespace Common.Lib.Presenters
         {
             MainFormModel.SetFlashRequired(flashRequired);
         }
+        public void SetDefaultESNLength(int length)
+        {
+            MainFormModel.SetDefaultESNLength(length);
+        }
         public void OpenVehicleCommSettings()
         {
             MainFormModel.OpenVehicleCommSettings();

@@ -2935,11 +2935,16 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
     string testResult = testError;
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
+    string pedalResult = testError;
+    string pedalResultCode = "0000";
+    string pedalDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     bool mafLearned = false;
     bool brakeOn = false;
     long int delayTime = 30000;
     UINT16 engineRPM = 0;
+    float pedalPosition = 0;
+    float maxPedalPosition = 0;
     BEP_STATUS_TYPE brakeStatus = BEP_STATUS_SUCCESS;
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
     const string &gear = "2";
@@ -2971,6 +2976,9 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
         //Check engine rpm for 2800 rpm
         do
         {
+            m_vehicleModule.ReadModuleData("ReadAcceleratorPedalSensor1", pedalPosition);
+            if(pedalPosition > maxPedalPosition)
+                maxPedalPosition = pedalPosition;
             moduleStatus = m_vehicleModule.ReadModuleData("ReadEngineSpeedSensor", engineRPM);
             if (BEP_STATUS_SUCCESS != moduleStatus)
             {
@@ -2983,6 +2991,21 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
             }
             Log(LOG_DEV_DATA, "Engine RPM: %d",engineRPM);
         }while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && engineRPM < 2800); 
+
+        if(maxPedalPosition == 100)
+        {
+            pedalResult = testPass;
+        }
+        else
+        {
+            pedalResult = testFail;
+            pedalDescription = GetFaultDescription("PedalPositionNotMax");
+            pedalResultCode = GetFaultCode("PedalPositionNotMax");
+        }
+        // Report the pedal result
+        char buff[32];
+        SendSubtestResultWithDetail("PedalTravelPercentage",pedalResult, pedalDescription, pedalResultCode,
+                                    "PedalPosition",CreateMessage(buff, sizeof(buff), "%.2f",maxPedalPosition),"%");
 
         //Check MAF Learn status is 1
         status = m_vehicleModule.ReadModuleData("ReadMAFLearningComplete", mafLearned);

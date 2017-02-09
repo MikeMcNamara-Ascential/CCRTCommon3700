@@ -42,21 +42,30 @@ namespace Common.Lib.Models
 //TO DO     make ecu names configurable
             m_ecuNames.Add("ECM");
             m_ecuNames.Add("TCM");
-            m_ecuNames.Add("DCU");
-            m_ecuNames.Add("Mimamori");
+            if (!m_isFlashRequired)
+            {
+                m_ecuNames.Add("DCU");
+                m_ecuNames.Add("Mimamori");
+            }
             m_terminateThreads = false;
             System.Windows.Forms.RichTextBox rtb = new System.Windows.Forms.RichTextBox();
             m_ecmLogger = new Logger(rtb, "ECMLog", m_logsDirectory);
             System.Windows.Forms.RichTextBox tcmRTB = new System.Windows.Forms.RichTextBox();
             m_tcmLogger = new Logger(tcmRTB, "TCMLog", m_logsDirectory);
-            System.Windows.Forms.RichTextBox dcuRTB = new System.Windows.Forms.RichTextBox();
-            m_ecmLogger = new Logger(dcuRTB, "DCULog", m_logsDirectory);
-            System.Windows.Forms.RichTextBox mimaRTB = new System.Windows.Forms.RichTextBox();
-            m_tcmLogger = new Logger(mimaRTB, "MimamoriLog", m_logsDirectory);
+            if (!m_isFlashRequired)
+            {
+                System.Windows.Forms.RichTextBox dcuRTB = new System.Windows.Forms.RichTextBox();
+                m_ecmLogger = new Logger(dcuRTB, "DCULog", m_logsDirectory);
+                System.Windows.Forms.RichTextBox mimaRTB = new System.Windows.Forms.RichTextBox();
+                m_tcmLogger = new Logger(mimaRTB, "MimamoriLog", m_logsDirectory);
+            }
             m_performTCMFlash = true;
             m_performECMFlash = true;
-            m_performDCUFlash = true;
-            m_performMimamoriFlash = true;
+            if (!m_isFlashRequired)
+            {
+                m_performDCUFlash = true;
+                m_performMimamoriFlash = true;
+            }
             m_keyOffEngineOffWaitStart = false;
 
         }
@@ -113,14 +122,14 @@ namespace Common.Lib.Models
                         taskDelegate = new ThreadStart(ReportDataState);
                         break;
                     case StateName.CHECK_FOR_BAS_LEARN:
-                        //taskDelegate = new ThreadStart(CheckBASHomePositionLearned);
+                        taskDelegate = new ThreadStart(CheckBASHomePositionLearned);
                         break;
                     case StateName.BAS_LEARN:
-                        /*if (!m_basHomePositionLearned)
-                        {
-                            SetPrompt1(prompt.BAS_RELEARN);
+                        //if (!m_basHomePositionLearned)
+                        //{
+                            //SetPrompt1(prompt.BAS_RELEARN);
                             taskDelegate = new ThreadStart(BASHomePositionRelearn);
-                        }*/
+                        //}
                         break;
                     case StateName.WAIT_FOR_CABLEDISCONNECT:
                         //Start Wait for cable connect thread
@@ -324,8 +333,8 @@ namespace Common.Lib.Models
                     string esn = "";
                     Int32 engineCodeStartIndex = 0;
                     if (tempEsn != "")
-                    {
-                        if (tempEsn.Length == 6)
+                    {   
+                        if (tempEsn.Length == m_defaultESNLength)
                         {
                             if (tempEsn[0] == '1')
                             {
@@ -439,14 +448,9 @@ namespace Common.Lib.Models
                         ecuBuild.ECUName = ecuName;
                         ecuBuild.VIN = vin;
                         string searchNode;
-                        //get utility file pn
-                        searchNode = buildFileECUName + "UtilityFilePartNo";
-                        XmlNodeList list = m_currentBuild.GetElementsByTagName(searchNode);
-                        ecuBuild.UtilityFilePartNumber = list[0].InnerText;
                         //get partnum
                         if (ecuName == "TCM")
                         {
-                            searchNode = buildFileECUName + "ASM" + "PartNo";
                             ecuBuild.RequestID.Add(0x00);
                             ecuBuild.RequestID.Add(0x00);
                             ecuBuild.RequestID.Add(0x07);
@@ -455,7 +459,13 @@ namespace Common.Lib.Models
                             ecuBuild.ResponseID.Add(0x00);
                             ecuBuild.ResponseID.Add(0x07);
                             ecuBuild.ResponseID.Add(0xeA);
-                            ecuBuild.PerformFlash = m_performTCMFlash;
+                            if (m_isFlashRequired)
+                            {
+                                searchNode = buildFileECUName + "ASM" + "PartNo";
+                                ecuBuild.PerformFlash = m_performTCMFlash;
+                            }
+                            else
+                                ecuBuild.PerformFlash = false;
                         }
                         else if (ecuName == "DCU")
                         {
@@ -472,8 +482,8 @@ namespace Common.Lib.Models
                         }
                         else if (ecuName == "Mimamori")
                         {
-                            /*searchNode = buildFileECUName + "MM" + "PartNo";
-                            ecuBuild.RequestID.Add(0x00);
+                            searchNode = buildFileECUName + "PartNo";
+                            /*ecuBuild.RequestID.Add(0x00);
                             ecuBuild.RequestID.Add(0x00);
                             ecuBuild.RequestID.Add(0x07);
                             ecuBuild.RequestID.Add(0xe2);
@@ -496,7 +506,16 @@ namespace Common.Lib.Models
                             ecuBuild.ResponseID.Add(0xe8);
                             ecuBuild.PerformFlash = m_performECMFlash;
                         }
-                        ecuBuild.PartNumber = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
+                        //get utility file pn
+                        if (ecuName != "TCM" || m_isFlashRequired)
+                        {
+                            searchNode = buildFileECUName + "PartNo";
+                            ecuBuild.PartNumber = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
+                            searchNode = buildFileECUName + "UtilityFilePartNo";
+                            XmlNodeList list = m_currentBuild.GetElementsByTagName(searchNode);
+                            ecuBuild.UtilityFilePartNumber = list[0].InnerText;  
+                        }
+                        
                         //get sofware module part pns
                         for (int x = 0; x < MAX_NUM_SOFTWARE_PART_NOS; x++)
                         {
@@ -767,72 +786,82 @@ namespace Common.Lib.Models
         }
         public void CheckBASHomePositionLearned()
         {
-            m_basHomePositionLearned = IsBASHomePositionLearned();
+            if(m_isFlashRequired)
+                m_basHomePositionLearned = IsBASHomePositionLearned();
+
+            SetStatus(Status.SUCCESS);
         }
         public void BASHomePositionRelearn()
         {
-            Prompt prompt = new Prompt();
-            m_logger.Log("Sending CPID Request for BAS relearn\n");
-            //Send CPID
-            if (IsBASLearnRequestSuccessful())
+            if (m_isFlashRequired)
             {
-                m_logger.Log("BAS relearn request successful, starting relearn process\n");
-                //IGN off for 2 minutes
-                SetPrompt2(prompt.KEY_OFF);
-                WaitForKeyOff();
-                SetPrompt2(prompt.FOOT_OFF_BRAKE);
-                m_keyOffEngineOffWaitStart = true;
-                m_logger.Log("Ignition off, starting 2 minute wait\n");
-                while (m_brakeReleasedCounter <= 120)
+                Prompt prompt = new Prompt();
+                m_logger.Log("Sending CPID Request for BAS relearn\n");
+                //Send CPID
+                if (IsBASLearnRequestSuccessful())
                 {
-                    m_brakeReleased = !IsBrakePedalApplied();
-                    if (!m_brakeReleased)
-                        m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
-                    Thread.Sleep(100);
+                    m_logger.Log("BAS relearn request successful, starting relearn process\n");
+                    //IGN off for 2 minutes
+                    SetPrompt2(prompt.KEY_OFF);
+                    WaitForKeyOff();
+                    SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                    m_keyOffEngineOffWaitStart = true;
+                    m_logger.Log("Ignition off, starting 2 minute wait\n");
+                    while (m_brakeReleasedCounter <= 120)
+                    {
+                        m_brakeReleased = !IsBrakePedalApplied();
+                        if (!m_brakeReleased)
+                            m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
+                        Thread.Sleep(100);
+                    }
+                    m_keyOffEngineOffWaitStart = false;
+                    m_logger.Log("Finished 2 minute wait\n");
+                    //IGN on
+                    SetPrompt2(prompt.KEY_ON);
+                    WaitForKeyOn();
+                    m_logger.Log("Ignition on, starting brake pedal sequence\n");
+                    //Depress brake
+                    SetPrompt2(prompt.APPLY_BRAKE);
+                    WaitForBrakeApplied();
+                    SetPrompt2(prompt.RELEASE_BRAKE);
+                    WaitForBrakeReleased();
+                    SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                    //Wait 10 seconds
+                    m_logger.Log("Starting 10 second wait\n");
+                    Thread.Sleep(10000); //Change the prompts for this so the driver will know what is happening
+                    m_logger.Log("End 10 second wait\n");
+                    //Depress brake
+                    SetPrompt2(prompt.APPLY_BRAKE);
+                    WaitForBrakeApplied();
+                    SetPrompt2(prompt.RELEASE_BRAKE);
+                    WaitForBrakeReleased();
+                    m_logger.Log("End brake pedal sequence\n");
+                    //IGN off for 2 minutes
+                    SetPrompt2(prompt.KEY_OFF);
+                    WaitForKeyOff();
+                    SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                    m_keyOffEngineOffWaitStart = true;
+                    m_logger.Log("Ignition off, starting 2 minute wait\n");
+                    while (m_brakeReleasedCounter <= 120)
+                    {
+                        m_brakeReleased = !IsBrakePedalApplied();
+                        if (!m_brakeReleased)
+                            m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
+                        Thread.Sleep(100);
+                    }
+                    m_keyOffEngineOffWaitStart = false;
+                    m_logger.Log("Finished 2 minute wait\n");
+                    SetStatus(Status.SUCCESS);
                 }
-                m_keyOffEngineOffWaitStart = false;
-                m_logger.Log("Finished 2 minute wait\n");
-                //IGN on
-                SetPrompt2(prompt.KEY_ON);
-                WaitForKeyOn();
-                m_logger.Log("Ignition on, starting brake pedal sequence\n");
-                //Depress brake
-                SetPrompt2(prompt.APPLY_BRAKE);
-                WaitForBrakeApplied();
-                SetPrompt2(prompt.RELEASE_BRAKE);
-                WaitForBrakeReleased();
-                SetPrompt2(prompt.FOOT_OFF_BRAKE);
-                //Wait 10 seconds
-                m_logger.Log("Starting 10 second wait\n");
-                Thread.Sleep(10000); //Change the prompts for this so the driver will know what is happening
-                m_logger.Log("End 10 second wait\n");
-                //Depress brake
-                SetPrompt2(prompt.APPLY_BRAKE);
-                WaitForBrakeApplied();
-                SetPrompt2(prompt.RELEASE_BRAKE);
-                WaitForBrakeReleased();
-                m_logger.Log("End brake pedal sequence\n");
-                //IGN off for 2 minutes
-                SetPrompt2(prompt.KEY_OFF);
-                WaitForKeyOff();
-                SetPrompt2(prompt.FOOT_OFF_BRAKE);
-                m_keyOffEngineOffWaitStart = true;
-                m_logger.Log("Ignition off, starting 2 minute wait\n");
-                while (m_brakeReleasedCounter <= 120)
+                else
                 {
-                    m_brakeReleased = !IsBrakePedalApplied();
-                    if (!m_brakeReleased)
-                        m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
-                    Thread.Sleep(100);
+                    m_logger.Log("CPID request for BAS Relearn not successful\n");
+                    SetStatus(Status.FAILURE);
                 }
-                m_keyOffEngineOffWaitStart = false;
-                m_logger.Log("Finished 2 minute wait\n");
+                m_logger.Log("Exit BAS Relearn Function\n");
             }
             else
-            {
-                m_logger.Log("CPID request for BAS Relearn not successful\n");
-            }
-            m_logger.Log("Exit BAS Relearn Function\n");
+              SetStatus(Status.SUCCESS);
         }
         public void FlashECUs()
         {
@@ -861,8 +890,8 @@ namespace Common.Lib.Models
                     preFileProcessStatus = PreUtilityFileProcess();
                     OpenTCMInterpreter();
                     OpenECMInterpreter();
-                    OpenDCUInterpreter();
-                    OpenMimaInterpreter();
+                    //OpenDCUInterpreter();
+                    //OpenMimaInterpreter();
                     m_resultText = "";
                     m_ecmThreadComplete = false;
                     m_tcmThreadComplete = false;
@@ -924,7 +953,7 @@ namespace Common.Lib.Models
                             }
                         }
                         m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
-                        if (m_performDCUFlash)
+                        /*if (m_performDCUFlash)
                         {
                             //for each dcu start a utility file interpreter thread
                             ThreadStart taskDelegate2 = null;
@@ -960,7 +989,7 @@ namespace Common.Lib.Models
                             {
                                 Thread.Sleep(1000);
                             }
-                            if (m_buildData[1].ProgrammingSuccess)
+                            if (m_buildData[3].ProgrammingSuccess)
                             {
                                 m_mimaResultColor = Color.Green;
                             }
@@ -968,7 +997,7 @@ namespace Common.Lib.Models
                             {
                                 m_mimaResultColor = Color.Red;
                             }
-                        }
+                        }*/
 
                     }
                     //stop tester present
@@ -1343,7 +1372,7 @@ namespace Common.Lib.Models
 
             foreach (ECUBuildData build in m_buildData)
             {
-                if (build.ECUName != "TCM" && build.ECUName != "Mimamori")
+                if(build.ECUName == "ECM" && m_performECMFlash || build.ECUName == "DCU" && m_performDCUFlash)
                 {
 
                     status = Status.ERROR;
@@ -1400,7 +1429,8 @@ namespace Common.Lib.Models
                     {
                         m_logger.Log("INFO:  Read Part Number Successful");
                         //Check if part number matches the part number in the build record
-                        if (build.PartNumber.CompareTo(partNumber) == 0)
+                        //if (build.PartNumber.CompareTo(partNumber) == 0)
+                        if(build.UtilityFilePartNumber.Substring(1,8).CompareTo(partNumber) == 0)
                         {
                             m_logger.Log("INFO:  Calibration Part Numbers Match");
                             build.PartNumberMatches = true;
@@ -1425,6 +1455,7 @@ namespace Common.Lib.Models
                     }
                     //Check Part Number
                     status = Status.ERROR;
+                    Thread.Sleep(50);
                     m_logger.Log("INFO:  Sending Read Part Number Message");
                     //retries to allow time for message to respond
                     txMessage.Clear();
@@ -1451,7 +1482,7 @@ namespace Common.Lib.Models
                     {
                         m_logger.Log("INFO:  Read Part Number Successful");
                         //Check if part number matches the part number in the build record
-                        if (build.UtilityFilePartNumber.CompareTo(partNumber) == 0)
+                        if (build.PartNumber.Substring(1, 8).CompareTo(partNumber) == 0)
                         {
                             m_logger.Log("INFO:  Part Numbers Match");
                         }
@@ -1475,50 +1506,53 @@ namespace Common.Lib.Models
                     }
                 }
             }
-            //Clear Speed Limit
-            m_logger.Log("INFO:  Clearing ECM Speed Limit");
-            txMessage.Clear();
-            txMessage.Add(0xAE);
-            txMessage.Add(0x01);
-            txMessage.Add(0x00);
-            txMessage.Add(0x40);
-            txMessage.Add(0x00);
-            txMessage.Add(0x00);
-            txMessage.Add(0x00);
-            status = SendMessage(m_buildData[0], txMessage, true);
+            if (m_performECMFlash)
+            {
+                //Clear Speed Limit
+                m_logger.Log("INFO:  Clearing ECM Speed Limit");
+                txMessage.Clear();
+                txMessage.Add(0xAE);
+                txMessage.Add(0x01);
+                txMessage.Add(0x00);
+                txMessage.Add(0x40);
+                txMessage.Add(0x00);
+                txMessage.Add(0x00);
+                txMessage.Add(0x00);
+                status = SendMessage(m_buildData[0], txMessage, true);
 
-            if (status == Status.SUCCESS)
-            {
-                m_logger.Log("INFO:  Clear ECM Speed Limit Success");
+                if (status == Status.SUCCESS)
+                {
+                    m_logger.Log("INFO:  Clear ECM Speed Limit Success");
+                }
+                else
+                {
+                    m_logger.Log("INFO:  Clear ECM Speed Limit Failure");
+                    flashECMSuccess = false;
+                }
+                Thread.Sleep(250);
+                //Write Vehicle Speed Value
+                m_logger.Log("INFO:  Writing Vehicle Speed Value");
+                txMessage.Clear();
+                txMessage.Add(0x3B);
+                txMessage.Add(0x5A);
+                txMessage.Add(0x31);
+                txMessage.Add(0xD9);
+                txMessage.Add(0xFF);
+                txMessage.Add(0xFF);
+                status = SendMessage(m_buildData[0], txMessage, true);
+                if (status == Status.SUCCESS)
+                {
+                    m_logger.Log("INFO:  Writing Vehicle Speed Value Success");
+                }
+                else
+                {
+                    m_logger.Log("INFO:  Writing Vehicle Speed Value Failure");
+                    flashECMSuccess = false;
+                }
+                Thread.Sleep(250);
             }
-            else
-            {
-                m_logger.Log("INFO:  Clear ECM Speed Limit Failure");
-                flashECMSuccess = false;
-            }
-            Thread.Sleep(250);
-            //Write Vehicle Speed Value
-            m_logger.Log("INFO:  Writing Vehicle Speed Value");
-            txMessage.Clear();
-            txMessage.Add(0x3B);
-            txMessage.Add(0x5A);
-            txMessage.Add(0x31);
-            txMessage.Add(0xD9);
-            txMessage.Add(0xFF);
-            txMessage.Add(0xFF);
-            status = SendMessage(m_buildData[0], txMessage, true);
-            if (status == Status.SUCCESS)
-            {
-                m_logger.Log("INFO:  Writing Vehicle Speed Value Success");
-            }
-            else
-            {
-                m_logger.Log("INFO:  Writing Vehicle Speed Value Failure");
-                flashECMSuccess = false;
-            }
-            Thread.Sleep(250);
             
-            if (m_buildData[0].ESNWriteRequired)
+            if (m_buildData[0].ESNWriteRequired && m_performECMFlash)
             {
                 // ECM flash successful and model requires ESN write
                 string esn = m_buildData[0].EngineSerialNumber;
@@ -1529,15 +1563,14 @@ namespace Common.Lib.Models
                 txMessage.Add(0x3B);
                 txMessage.Add(0x7F);
                 //ESN length message must be 6 characters with fill bytes preceded being 0x00
-                if (esn.Length < 6)
+                if (esn.Length < 17)
                 {
-                    for (int x = esn.Length; x < 6; x++)
+                    for (int x = esn.Length; x < 17; x++)
                         txMessage.Add(0x00);
                 }
                 temp = Encoding.ASCII.GetBytes(esn);
                 txMessage.AddRange(temp);
-                //txMessage.AddRange(
-                //m_ecmInterpreter.m_opCodeHandler.stringToASCIIByteArray(esn).ToList());
+
                 //retries to allow time for ESN message to respond
                 status = SendMessage(m_buildData[0], txMessage, true);
                 Thread.Sleep(250);
@@ -1548,7 +1581,7 @@ namespace Common.Lib.Models
                     txMessage.Clear();
                     m_logger.Log("INFO:  Sending read ESN Message");
                     txMessage.Add(0x1A);
-                    txMessage.Add(0x17);
+                    txMessage.Add(0x7F);
                     SendMessage(m_buildData[0], txMessage, true);
                 }
                 else
@@ -1562,135 +1595,206 @@ namespace Common.Lib.Models
             {
                 m_logger.Log("INFO:  No ESN Write Required");
             }
-            if (flashECMSuccess)
-                m_buildData[0].ProgrammingSuccess = true;
-            if (flashDCUSuccess)
-                m_buildData[2].ProgrammingSuccess = true;
+            if (m_performECMFlash)
+            {
+                if (flashECMSuccess)
+                {
+                    m_buildData[0].ProgrammingSuccess = true;
+                    m_ecmResultColor = Color.Green;
+                }
+                else
+                {
+                    m_ecmResultColor = Color.Red;
+                }
+            }
+            if (m_performDCUFlash)
+            {
+                if (flashDCUSuccess)
+                {
+                    m_buildData[2].ProgrammingSuccess = true;
+                    m_dcuResultColor = Color.Green;
+                }
+                else
+                {
+                    m_dcuResultColor = Color.Red;
+                }
+            }
             
         }
         public void CalibrateMimamori()
         {
-            m_logger.Log("INFO:  Calibrating the Mimamori Module");
-            m_performMimamoriFlash = true;
-            bool messageSuccess = true;
-            CcrtJ2534Defs.ECUMessage setFiltermessage = new CcrtJ2534Defs.ECUMessage();
-            List<CcrtJ2534Defs.Response> messageResponses = new List<CcrtJ2534Defs.Response>();
-            List<byte> requestID = new List<byte>();
-            List<byte> responseID = new List<byte>();
-            List<byte> txMessage = new List<byte>();
-            ArrayList txMessages = new ArrayList();
-            ArrayList messageNames = new ArrayList();
-
-            //Calibration Message Names and Data
-            messageNames.Add("Enter Programming Mode");
-            txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x10, 0x85 });
-            messageNames.Add("Security Access");
-            txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x27, 0x01 });
-            messageNames.Add("Program VIN");
-            txMessages.Add(new byte[] { 0x93, 0x80, 0xF1, 0x3B, 0x90 });
-            messageNames.Add("Diesel ECM Equipped");
-            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x20, 0x01 });
-            messageNames.Add("SRC Equipped");
-            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x22, 0x01 });
-            messageNames.Add("TCM Equipped");
-            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x24, 0x11 });
-            messageNames.Add("ABS Equipped Message");
-            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x29, 0x01 });
-            messageNames.Add("Multimeter Equipped");
-            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x2E, 0x01 });
-            messageNames.Add("ENG Model Data");
-            txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x40, 0x34, 0x48, 0x4B, 0x31, 0x54, 0x43, 0x53, 0x20 });
-            messageNames.Add("T/M Model Data");
-            txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x41, 0x32, 0x35, 0x35, 0x30, 0x52, 0x44, 0x53, 0x20 });
-            messageNames.Add("Tire Radius Data");
-            txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x42, 0x02, 0x08 });
-            messageNames.Add("Final Gear Ratio");
-            txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x43, 0x18, 0x17 });
-            messageNames.Add("Vehicle Model Data");
-            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x44, 0x06 });
-            messageNames.Add("Electrical Equipment Data");
-            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x45, 0x02 });
-            messageNames.Add("Gear Ratio Data");
-            txMessages.Add(new byte[] { 0xA8, 0x80, 0xF1, 0x3B, 0x47, 0x06, 0x00, 0x0D, 0xB6, 0x07, 0x6C, 0x05, 0xA0, 0x03, 0xE8, 0x02, 0xE4, 0x02, 0x80, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });
-            messageNames.Add("Engine Oil Life Warning");
-            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x53, 0x01, 0x70, 0x56, 0xEC });
-            messageNames.Add("Engine Oil Life Pre-Warning");
-            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x54, 0x00, 0x18, 0x8E, 0x54 });
-            messageNames.Add("Starter Life Warning");
-            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x59, 0x00, 0x00, 0x75, 0x30 });
-            messageNames.Add("ACG OH Life Warning");
-            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5B, 0x0E, 0xE6, 0xB2, 0x80 });
-            messageNames.Add("Engine Speed ACG OH Life Warning");
-            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5C, 0x00, 0x0F, 0x42, 0x40 });
-            messageNames.Add("T/M OH Warning");
-            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5D, 0x00, 0x5B, 0x8D, 0x80 });
-            messageNames.Add("End Diagnostic Session");
-            txMessages.Add(new byte[] { 0x81, 0x80, 0xF1, 0x82});
-
-            m_progressBarRangeMin = 0;
-            m_progressBarRangeMax = txMessages.Count;
-           
-            txMessage.Clear();
-            //StartCommunication message
-            txMessage.Add(0x81); 
-            txMessage.Add(0x80); 
-            txMessage.Add(0xF1); 
-            txMessage.Add(0x81);
-            setFiltermessage = CreateECUMessage(txMessage, requestID, responseID);
-            //FastInitSequence
-            CcrtJ2534Device dev = m_vehicleCommInterface.GetCcrtJ2534Device(m_deviceName);
-            CcrtJ2534Channel chan = dev.GetChannel(m_mimaChannelName);
-            chan.ChannelComm.Connect();
-            ICcrtJ2534ChannelComm comm = chan.ChannelComm;
-            bool commInit = comm.PerformFastInitSequence(setFiltermessage, ref messageResponses);
-
-            requestID.Add(0x80);
-            requestID.Add(0x80); 
-            requestID.Add(0xF1);
-            m_buildData[3].RequestID = requestID;
-            responseID.Add(0x80); 
-            responseID.Add(0xF1);
-            responseID.Add(0x80);
-            m_buildData[3].ResponseID = responseID;
-
-            if (commInit)
+            if (m_performMimamoriFlash)
             {
-                Status status = Status.IN_PROGRESS;
-                m_logger.Log("INFO:  Fast Init Successful");
-                int retries = 25;
-                for (int i = 0; i < txMessages.Count; i++)
+                m_logger.Log("INFO:  Calibrating the Mimamori Module");
+                bool messageSuccess = true;
+                CcrtJ2534Defs.ECUMessage setFiltermessage = new CcrtJ2534Defs.ECUMessage();
+                List<CcrtJ2534Defs.Response> messageResponses = new List<CcrtJ2534Defs.Response>();
+                List<byte> requestID = new List<byte>();
+                List<byte> responseID = new List<byte>();
+                List<byte> txMessage = new List<byte>();
+                ArrayList txMessages = new ArrayList();
+                ArrayList messageNames = new ArrayList();
+                List<byte> data = new List<byte>();
+
+                //Calibration Message Names and Data
+                messageNames.Add("Enter Programming Mode");
+                txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x10, 0x85 });
+                messageNames.Add("Security Access");
+                txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x27, 0x01 });
+                messageNames.Add("Read Part Number");
+                txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x1A, 0x91 });
+                messageNames.Add("Program VIN");
+                txMessages.Add(new byte[] { 0x93, 0x80, 0xF1, 0x3B, 0x90 });
+                messageNames.Add("Diesel ECM Equipped");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x20, 0x01 });
+                messageNames.Add("SRC Equipped");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x22, 0x01 });
+                messageNames.Add("Turbo Controller Equipped");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x23, 0x01 });
+                messageNames.Add("TCM Equipped");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x24, 0x11 });
+                messageNames.Add("ABS Equipped Message");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x29, 0x01 });
+                messageNames.Add("Multimeter Equipped");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x2E, 0x01 });
+                messageNames.Add("ENG Model Data");
+                txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x40, 0x34, 0x48, 0x4B, 0x31, 0x54, 0x43, 0x53, 0x20 });
+                messageNames.Add("T/M Model Data");
+                txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x41, 0x32, 0x35, 0x35, 0x30, 0x52, 0x44, 0x53, 0x20 });
+                messageNames.Add("Tire Radius Data");
+                txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x42, 0x02, 0x08 });
+                messageNames.Add("Final Gear Ratio");
+                txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x43, 0x18, 0x17 });
+                messageNames.Add("Vehicle Model Data");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x44, 0x06 });
+                messageNames.Add("Electrical Equipment Data");
+                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x45, 0x02 });
+                messageNames.Add("Gear Ratio Data");
+                txMessages.Add(new byte[] { 0xA8, 0x80, 0xF1, 0x3B, 0x47, 0x06, 0x00, 0x0D, 0xB6, 0x07, 0x6C, 0x05, 0xA0, 0x03, 0xE8, 0x02, 0xE4, 0x02, 0x80, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });
+                messageNames.Add("Engine Oil Life Warning");
+                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x53, 0x01, 0x70, 0x56, 0xEC });
+                messageNames.Add("Engine Oil Life Pre-Warning");
+                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x54, 0x00, 0x18, 0x8E, 0x54 });
+                messageNames.Add("Starter Life Warning");
+                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x59, 0x00, 0x00, 0x75, 0x30 });
+                messageNames.Add("ACG OH Life Warning");
+                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5B, 0x0E, 0xE6, 0xB2, 0x80 });
+                messageNames.Add("Engine Speed ACG OH Life Warning");
+                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5C, 0x00, 0x0F, 0x42, 0x40 });
+                messageNames.Add("T/M OH Warning");
+                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5D, 0x00, 0x5B, 0x8D, 0x80 });
+                messageNames.Add("Security Lock");
+                txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x31, 0x08 });
+                messageNames.Add("End Diagnostic Session");
+                txMessages.Add(new byte[] { 0x81, 0x80, 0xF1, 0x82 });
+
+                m_progressBarRangeMin = 0;
+                m_progressBarRangeMax = txMessages.Count;
+
+                txMessage.Clear();
+                //StartCommunication message
+                txMessage.Add(0x81);
+                txMessage.Add(0x80);
+                txMessage.Add(0xF1);
+                txMessage.Add(0x81);
+                setFiltermessage = CreateECUMessage(txMessage, requestID, responseID);
+                //FastInitSequence
+                CcrtJ2534Device dev = m_vehicleCommInterface.GetCcrtJ2534Device(m_deviceName);
+                CcrtJ2534Channel chan = dev.GetChannel(m_mimaChannelName);
+                if (!chan.ChannelComm.Connected)
+                    chan.ChannelComm.Connect();
+                ICcrtJ2534ChannelComm comm = chan.ChannelComm;
+                bool commInit = comm.PerformFastInitSequence(setFiltermessage, ref messageResponses);
+
+                requestID.Add(0x80);
+                requestID.Add(0x80);
+                requestID.Add(0xF1);
+                m_buildData[3].RequestID = requestID;
+                responseID.Add(0x80);
+                responseID.Add(0xF1);
+                responseID.Add(0x80);
+                m_buildData[3].ResponseID = responseID;
+
+                if (commInit)
                 {
-                    status = Status.IN_PROGRESS; 
-                    txMessage.Clear();
-                    txMessage.AddRange((byte[])txMessages[i]);
-                    if (i == 2)
+                    Status status = Status.IN_PROGRESS;
+                    m_logger.Log("INFO:  Fast Init Successful");
+                    int retries = 25;
+                    for (int i = 0; i < txMessages.Count; i++)
                     {
-                        byte[] temp = Encoding.ASCII.GetBytes(m_buildData[0].VIN);
-                        txMessage.AddRange(temp);
+                        status = Status.IN_PROGRESS;
+                        txMessage.Clear();
+                        txMessage.AddRange((byte[])txMessages[i]);
+                        if (i == 3)
+                        {
+                            byte[] temp = Encoding.ASCII.GetBytes(m_buildData[0].VIN);
+                            txMessage.AddRange(temp);
+                        }
+                        for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                        {
+                            status = SendKlineMessage(m_buildData[3], txMessage, responseID, true, ref data);
+                            Thread.Sleep(250);
+                        }
+                        if (status == Status.SUCCESS)
+                        {
+                            m_logger.Log("INFO:  " + messageNames[i] + " Message Successful");
+                            if (i == 2)
+                            {
+                                char[] tempData = new char[8];
+                                int j = 0;
+                                //hardcoded length to 6
+                                for (int k = 5; k < 13; k++,j++)
+                                {
+                                    tempData[j] = ((char)data[k]);
+                                    //tempData[k] = ((char)(data[k] / 16 + 48));
+                                    //tempData[k] = ((char)(data[k] % 16 + 48));
+                                }
+                                string partNumber = new string(tempData);
+                                status = messageSuccess ? Status.SUCCESS : Status.FAILURE;
+                                if (status == Status.SUCCESS)
+                                {
+                                    m_logger.Log("INFO:  Read Part Number Successful");
+                                    //Check if part number matches the part number in the build record
+                                    //if (build.PartNumber.CompareTo(partNumber) == 0)
+                                    if (m_buildData[3].PartNumber.Substring(1, 8).CompareTo(partNumber) == 0)
+                                    {
+                                        m_logger.Log("INFO:  Part Numbers Match");
+                                        m_buildData[3].PartNumberMatches = true;
+                                    }
+                                    else
+                                    {
+                                        m_logger.Log("INFO:  Part Numbes don't match");
+                                        m_buildData[3].PartNumberMatches = false;
+                                        messageSuccess = false;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            m_logger.Log("INFO:  " + messageNames[i] + "Message Failure");
+                            messageSuccess = false;
+                        }
+                        m_progressBarValue = i;
                     }
-                    for (int x = 0; x < retries && status != Status.SUCCESS; x++)
-                    {
-                        status = SendKlineMessage(m_buildData[3], txMessage, responseID, true);
-                        Thread.Sleep(250);
-                    }
-                    if (status == Status.SUCCESS) m_logger.Log("INFO:  " + messageNames[i] + " Message Successful");
-                    else
-                    {
-                        m_logger.Log("INFO:  " + messageNames[i] + "Message Failure");
-                        messageSuccess = false;
-                    }
-                    m_progressBarValue = i;
+                    m_progressBarValue = m_progressBarRangeMax;
                 }
-                m_progressBarValue = m_progressBarRangeMax;
+                else
+                {
+                    m_logger.Log("INFO:  Fast Init Failure");
+                    messageSuccess = false;
+                }
+                if (messageSuccess)
+                {
+                    m_buildData[3].ProgrammingSuccess = true;
+                    m_mimaResultColor = Color.Green;  
+                }
+                else
+                {
+                    m_mimaResultColor = Color.Red;
+                }
             }
-            else
-            {
-                m_logger.Log("INFO:  Fast Init Failure");
-                messageSuccess = false;
-            }
-            if (messageSuccess)
-                m_buildData[3].ProgrammingSuccess = true;
         }
         public string GetESN(string vin, string esnDirectory)
         {
@@ -1711,7 +1815,7 @@ namespace Common.Lib.Models
                             new System.IO.StreamReader(fi.FullName);
                             esn = myFile.ReadLine();
                         }
-                        if (esn.Length == 6)
+                        if (esn.Length == m_defaultESNLength)
                         {
                             m_logger.Log("INFO:  ESN Obtained: " + esn);
                             return esn;
@@ -1760,9 +1864,8 @@ namespace Common.Lib.Models
                 return Status.FAILURE;
             }
         }
-        public Status SendKlineMessage(ECUBuildData build, List<byte> txMessage, List<byte> sourceAddress, bool responseExpected)
+        public Status SendKlineMessage(ECUBuildData build, List<byte> txMessage, List<byte> sourceAddress, bool responseExpected, ref List<byte> data)
         {
-            List<byte> data = new List<byte>();
             bool messageSuccess = true;
             CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
             message = CreateECUMessage(txMessage, build.RequestID, build.ResponseID);
@@ -1853,10 +1956,10 @@ namespace Common.Lib.Models
                 message = CreateECUMessage(txMessage, build.RequestID, build.ResponseID);
                 message.m_responseExpected = responseExpected;
                 message.m_retries = 3;
-                //if (txMessage.Count > 4)
-                //{
+                if (txMessage.Count > 4 || !m_isFlashRequired)
+                {
                     message.m_txTimeout = 200;
-                //}
+                }
                 ecuMessages.Add(message);
                 m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
                         message.m_messageFilter);
@@ -2089,7 +2192,7 @@ namespace Common.Lib.Models
             }
             m_tcmThreadComplete = true;
         }
-        public void OpenDCUInterpreter()
+        /*public void OpenDCUInterpreter()
         {
             List<string> calFileNames = new List<string>();
             List<string> vit2Data = new List<string>();
@@ -2248,7 +2351,7 @@ namespace Common.Lib.Models
                 }
             }
             m_mimaThreadComplete = true;
-        }
+        }*/
         public void ProgressUpdateThread()
         {
             while ((GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && !m_stopProgressBarThread)
@@ -2683,12 +2786,14 @@ namespace Common.Lib.Models
         {
             return m_displayDisconnectBatteryBox;
         }
-
         public void SetFlashRequired(bool flashRequired)
         {
-            m_isFlashRequired = flashRequired;
+            m_isFlashRequired =  flashRequired;
         }
-
+        public void SetDefaultESNLength(int length)
+        {
+            m_defaultESNLength = length;
+        }
 
         /// <summary>
         /// Main Form Model Member Variables
@@ -3059,6 +3164,8 @@ namespace Common.Lib.Models
 
         private bool m_isFlashRequired;
 
+        private int m_defaultESNLength;
+
         //To do Make Configurable
         /*private string m_flashFileDirectory = @"E:\FlashStation\CalFiles\";
         private string m_buildFileDirectory = @"E:\FlashStation\BuildFiles\";
@@ -3079,8 +3186,8 @@ namespace Common.Lib.Models
 
         private string m_userLogin = "ccrtfp";
         private string m_password = "ccrtfp";
-        //private string m_ftpServerIp = "172.16.253.1:2121";
-        private string m_ftpServerIp = "192.168.1.1:2121";
+        private string m_ftpServerIp = "172.16.253.1:2121";
+        //private string m_ftpServerIp = "192.168.1.1:2121";
 
         private string m_remoteBuildFileLocation = "/TestResults/ftpOutbox/BuildRecords/";
         private string m_remoteESNLocation = "/TestResults/ftpOutbox/ESN/";

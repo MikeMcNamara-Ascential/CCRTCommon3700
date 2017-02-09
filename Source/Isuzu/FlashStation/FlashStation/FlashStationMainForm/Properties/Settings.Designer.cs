@@ -70,5 +70,14 @@ namespace FlashStationMainForm.Properties {
                 this["IsFlashRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6")]
+        public int ESNLength {
+            get {
+                return ((int)(this["ESNLength"]));
+            }
+        }
     }
 }

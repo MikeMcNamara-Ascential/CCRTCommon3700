@@ -27,6 +27,14 @@ namespace J2534ChannelLibrary
                 m_j2534Interface.Open(ref m_deviceID);
             }
         }
+        public void CloseJ2534Interface()
+        {
+            lock (m_j2534Interface)
+            {
+                //m_j2534Interface.LoadLibrary(m_device);
+                m_j2534Interface.Close(m_deviceID);
+            }
+        }
         public void AddChannel(CcrtJ2534Channel channel)
         {
             channel.DeviceID = m_deviceID;

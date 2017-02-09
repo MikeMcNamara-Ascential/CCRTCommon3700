@@ -43,17 +43,16 @@ namespace FlashStationMainForm
         delegate void SetTransmissionTextCallback(string type);
         delegate void SetDisplayTimedDialogBoxCallback(string dialogText, string labelText, string buttonText, int timeout);
         private Logger m_logger;
-        private int lineCount = 0;
         public Form1()
         {
             InitializeComponent();
             //determine if comm device is set up
             m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", @"C:\\FlashStation\\Logs\\");
-            lineCount++;
             m_presenter = new MainFormDataPresenter(this, m_logger);
             string deviceName = Properties.Settings.Default.Device;
             string channelName = Properties.Settings.Default.CommChannel;
             m_presenter.SetFlashRequired((bool)Properties.Settings.Default.IsFlashRequired);
+            m_presenter.SetDefaultESNLength((int)Properties.Settings.Default.ESNLength);
 
             if (deviceName == "null" || channelName == "null")
             {//need to set up device / comm channel
@@ -157,7 +156,7 @@ namespace FlashStationMainForm
         {
             if (this.m_mimaResultBox.InvokeRequired)
             {
-                SetMimamoriResultBoxBGColorCallback d = new SetMimamoriResultBoxBGColorCallback(SetTCMResultBoxBGColor);
+                SetMimamoriResultBoxBGColorCallback d = new SetMimamoriResultBoxBGColorCallback(SetMimamoriResultBoxBGColor);
                 this.Invoke(d, new object[] { color });
             }
             else m_mimaResultBox.BackColor = color;

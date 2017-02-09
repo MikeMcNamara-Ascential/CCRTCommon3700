@@ -4,5 +4,5 @@
 #------------------------------------------------------------------------------------------
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
-        PaccarBendix8Module.xml
+        Bendix8Module.xml
 )

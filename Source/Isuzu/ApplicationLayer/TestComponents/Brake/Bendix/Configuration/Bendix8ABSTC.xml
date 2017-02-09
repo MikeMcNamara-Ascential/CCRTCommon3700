@@ -4,7 +4,7 @@
          <BrakeDomain>1 1000</BrakeDomain>
          <BrakeForceStabilizeTime>50</BrakeForceStabilizeTime>
          <BrakeTarget>400 800</BrakeTarget>
-         <ConfigFile Description="Path to protocol configuration file">/Configuration/Components/Brake/PaccarBendix8Module.xml</ConfigFile>
+         <ConfigFile Description="Path to protocol configuration file">/Configuration/Components/Brake/Bendix8Module.xml</ConfigFile>
          <AccelFilePath>/dev/Icm/Block/Acceleration</AccelFilePath>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>

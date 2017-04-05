@@ -1,0 +1,88 @@
+<TeslaHostInterface>
+
+    <Setup>
+        <Demo>0</Demo>
+        <Debug>Off</Debug>
+        <ProcessPriority>12</ProcessPriority>
+
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>core/TeslaHostInterface</ProcessName>
+            <AdditionalLogFile>/Servers/TeslaHostInterface.log</AdditionalLogFile>
+            <LocalEcho>Enabled</LocalEcho>
+            <Debug>Off</Debug>
+            <Verbose>0x1F</Verbose>
+        </Logging>
+
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+            </Setup>
+        </NotificationList>
+
+        <TagList/>
+
+        <DataTags/>
+
+        <Communication>
+            <Type>Server</Type>
+            <Debug>Off</Debug>
+            <Name>core/TeslaHostInterface</Name>
+            <Comm>IPC</Comm>
+            <Timeout>2000</Timeout>
+            <BufferSize>2000</BufferSize>
+        </Communication>
+
+        <Parameters>
+            <PeriodicMessageInterval Units="ms">100</PeriodicMessageInterval>
+            <IcmUpdateInterval Units="ms">50</IcmUpdateInterval>
+        </Parameters>
+
+        <IcmData>
+            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+            <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+            <ForceArray>/dev/ArrayForce</ForceArray>
+            <SpeedArray>/dev/ArraySpeed</SpeedArray>
+            <DistanceArray>/dev/ArrayDistance</DistanceArray>
+            <IcmName>mgr/ICM</IcmName>
+        </IcmData>
+
+        <TeslaCommunications>
+            <Setup>
+               <Communication>
+                  <Name>/dev/LogicalPorts/RollData</Name>
+                  <BufferSize>2000</BufferSize>
+                  <Timeout>2000</Timeout>
+                  <Debug>Off</Debug>
+               </Communication>
+               <Logging>
+                  <ProcessName>TeslaCommunication</ProcessName>
+                  <Status>Disabled</Status>
+                  <AdditionalLogFile>/Servers/TeslaCommunication.log</AdditionalLogFile>
+                  <Debug>Off</Debug>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <MaxAttempts>3</MaxAttempts>
+               <MaxResponseTime>50000</MaxResponseTime>
+               <MessageDelay>10000</MessageDelay>
+            </Setup>
+        </TeslaCommunications>
+
+    </Setup>
+
+</TeslaHostInterface>

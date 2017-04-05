@@ -42,7 +42,7 @@
                             <Logging>
                                 <ProcessName>RollData_Comm</ProcessName>
                                 <AdditionalLogFile>/Communication/RollData_Comm.log</AdditionalLogFile>
-                                <Status>Disabled</Status>
+                                <Status>Enabled</Status>
                                 <LocalEcho>Disabled</LocalEcho>
                                 <Verbose>0x1f</Verbose>
                                 <Debug>Off</Debug>

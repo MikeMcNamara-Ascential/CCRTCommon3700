@@ -67,6 +67,10 @@
             ConfigFile="TeslaHostInterface.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0100" 
             RegisteredName="core/TeslaHostInterface" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
 
+        <FaultServer Name="FaultServer.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="FaultServerConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0101" 
+            RegisteredName="core/FaultServer" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
+
     </TasksToLaunch>
 
 </LauncherConfig>

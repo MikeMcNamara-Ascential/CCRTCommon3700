@@ -9,7 +9,7 @@
             <Status>Enabled</Status>
             <ProcessName>core/TeslaHostInterface</ProcessName>
             <AdditionalLogFile>/Servers/TeslaHostInterface.log</AdditionalLogFile>
-            <LocalEcho>Enabled</LocalEcho>
+            <LocalEcho>Disabled</LocalEcho>
             <Debug>Off</Debug>
             <Verbose>0x1F</Verbose>
         </Logging>

@@ -123,6 +123,7 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("DPDSwitchCheck"))                      testResult = DPDSwitchCheck();
             else if (!GetTestStepName().compare("DifferentialPressure"))                testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("MAFLearn"))                            testResult = MAFLearn();
+            else if (!GetTestStepName().compare("CheckMAFLearnComplete"))               testResult = CheckMAFLearnComplete();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -3006,23 +3007,29 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
         char buff[32];
         SendSubtestResultWithDetail("PedalTravelPercentage",pedalResult, pedalDescription, pedalResultCode,
                                     "PedalPosition",CreateMessage(buff, sizeof(buff), "%.2f",maxPedalPosition),"%");
-
-        //Check MAF Learn status is 1
-        status = m_vehicleModule.ReadModuleData("ReadMAFLearningComplete", mafLearned);
-        if(status == BEP_STATUS_SUCCESS)
+        if (!TimeRemaining())
         {
-            testResult = mafLearned ? testPass : testFail;
-            testResultCode = mafLearned ? "0000": GetFaultCode("MAFNotLearned");
-            testDescription = mafLearned ? testDescription : GetFaultDescription("MAFNotLearned");
+            Log(LOG_ERRORS,"Timeout for MAF Learn acceleration");
+            testDescription = GetFaultDescription("TimeoutFailure");
+            testResult = testTimeout;
+        }
+        else if(BEP_STATUS_SUCCESS != StatusCheck())
+        {
+            testResult = testAbort;
+            testDescription = GetFaultDescription("SystemStatus");
+            testResultCode = GetFaultCode("SystemStatus");
+        }
+        else if (engineRPM > 2800) 
+        {
+            testResult = testPass;
         }
         else
         {
-            Log(LOG_ERRORS, "Could not get MAF Learn value from the module\n");
-            SetCommunicationFailure(true);
             testResult = testFail;
-            testDescription = GetFaultDescription("CommunicationFailure");
-            testResultCode = GetFaultCode("CommunicationFailure");            
+            testResultCode = GetFaultCode("MAFNotLearned");
+            testDescription = GetFaultDescription("MAFNotLearned");
         }
+
         //Remove all prompts
         RemovePrompt(1, GetPrompt("ShiftToDriveMaintainBrake"), GetPromptPriority("ShiftToDriveMaintainBrake"));
         RemovePrompt(2, GetPrompt("WaitForEngineWarmUp"), GetPromptPriority("WaitForEngineWarmUp"));
@@ -3039,3 +3046,43 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
     
     return testResult;
 }
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnComplete(void)
+{
+    string testResult = testError;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    bool mafLearned = false;
+    
+    if(!ShortCircuitTestStep())
+    {
+        //Check MAF Learn status is 1
+        status = m_vehicleModule.ReadModuleData("ReadMAFLearningComplete", mafLearned);
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            testResult = mafLearned ? testPass : testFail;
+            testResultCode = mafLearned ? "0000": GetFaultCode("MAFNotLearned");
+            testDescription = mafLearned ? testDescription : GetFaultDescription("MAFNotLearned");
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get MAF Learn value from the module\n");
+            SetCommunicationFailure(true);
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testResultCode = GetFaultCode("CommunicationFailure");            
+        }
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    } 
+    
+    return testResult;
+}
+

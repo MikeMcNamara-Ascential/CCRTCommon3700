@@ -408,6 +408,7 @@ private:
     string LockModuleIfPass(void);
     string DPDSwitchCheck(void);
     string MAFLearn(void);
+    string CheckMAFLearnComplete(void);
 
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;

@@ -330,6 +330,7 @@ namespace Common.Lib.Models
                 {
                     Prompt prompt = new Prompt();
                     string tempEsn = GetESN(m_buildData[0].VIN, m_esnDirectory);
+                    tempEsn = tempEsn.Trim(' ');
                     string esn = "";
                     Int32 engineCodeStartIndex = 0;
                     if (tempEsn != "")
@@ -380,7 +381,7 @@ namespace Common.Lib.Models
                         else
                         {//failure
                             buildDataValid = false;
-                            m_logger.Log("ERROR:  ESN Incorrect length: " + tempEsn.Length + " Required: 16");
+                            m_logger.Log("ERROR:  ESN Incorrect length: " + tempEsn.Length + " Required: 6");
                             SetPrompt1BGColor(Color.Yellow);
                             SetPrompt2BGColor(Color.Yellow);
                             SetPrompt1(prompt.ABORT_INVALID_ESN_LENGTH);
@@ -1352,7 +1353,6 @@ namespace Common.Lib.Models
         {
             m_logger.Log("INFO:  Programming VIN and ESN");
             List<byte> txMessage = new List<byte>();
-            int retries = 25;
             Status status = Status.ERROR;
             List<byte> testData = new List<byte>();
             CcrtJ2534Defs.ECUMessage testMessage;
@@ -1453,7 +1453,7 @@ namespace Common.Lib.Models
                         else
                             flashECMSuccess = false;
                     }
-                    //Check Part Number
+                    /*Check Part Number
                     status = Status.ERROR;
                     Thread.Sleep(50);
                     m_logger.Log("INFO:  Sending Read Part Number Message");
@@ -1503,11 +1503,57 @@ namespace Common.Lib.Models
                             flashDCUSuccess = false;
                         else
                             flashECMSuccess = false;
-                    }
+                    }*/
                 }
             }
             if (m_performECMFlash)
             {
+                //Check Part Number
+                status = Status.ERROR;
+                Thread.Sleep(50);
+                m_logger.Log("INFO:  Sending Read Part Number Message");
+                //retries to allow time for message to respond
+                txMessage.Clear();
+                txMessage.Add(0x1A);
+                txMessage.Add(0xCC);
+                List<byte> data = new List<byte>();
+                CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+                message = CreateECUMessage(txMessage, m_buildData[0].RequestID, m_buildData[0].ResponseID);
+                message.m_responseExpected = true;
+                bool messageSuccess = m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
+                Thread.Sleep(250);
+                char[] tempData = new char[8];
+                int j = 0;
+                //hardcoded length to 6
+                for (int i = 2; i < 6; i++)
+                {
+                    tempData[j] = ((char)(data[i] / 16 + 48));
+                    tempData[j + 1] = ((char)(data[i] % 16 + 48));
+                    j += 2;
+                }
+                string partNumber = new string(tempData);
+                status = messageSuccess ? Status.SUCCESS : Status.FAILURE;
+                if (status == Status.SUCCESS)
+                {
+                    m_logger.Log("INFO:  Read Part Number Successful");
+                    //Check if part number matches the part number in the build record
+                    if (m_buildData[0].PartNumber.Substring(1, 8).CompareTo(partNumber) == 0)
+                    {
+                        m_logger.Log("INFO:  Part Numbers Match");
+                    }
+                    else
+                    {
+                        m_logger.Log("INFO:  Part Numbes don't match");
+                        m_buildData[0].PartNumberMatches = false;
+                        flashECMSuccess = false;
+                    }
+                }
+                else
+                {
+                    m_logger.Log("INFO:  Read Part Number Failure");
+                    flashECMSuccess = false;
+                }
+                
                 //Clear Speed Limit
                 m_logger.Log("INFO:  Clearing ECM Speed Limit");
                 txMessage.Clear();
@@ -1673,7 +1719,7 @@ namespace Common.Lib.Models
                 txMessages.Add(new byte[] { 0xA8, 0x80, 0xF1, 0x3B, 0x47, 0x06, 0x00, 0x0D, 0xB6, 0x07, 0x6C, 0x05, 0xA0, 0x03, 0xE8, 0x02, 0xE4, 0x02, 0x80, 0x00, 0x00,
                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });
                 messageNames.Add("Engine Oil Life Warning");
-                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x53, 0x01, 0x70, 0x56, 0xEC });
+                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x53, 0x00, 0xF5, 0x8F, 0x48 });
                 messageNames.Add("Engine Oil Life Pre-Warning");
                 txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x54, 0x00, 0x18, 0x8E, 0x54 });
                 messageNames.Add("Starter Life Warning");
@@ -2905,7 +2951,7 @@ namespace Common.Lib.Models
         private List<String> m_ecuNames;
 
         private CcrtJ2534Defs.ECUMessage m_keyOnMessage;
-
+        
         /// <summary>
         /// Main Flash station Logger
         /// </summary>
@@ -3184,8 +3230,10 @@ namespace Common.Lib.Models
         private string m_logsDirectory = @"C:\\FlashStation\\Logs\\";
         private string m_passIndicationLocalDirectory = @"C:\\FlashStation\\TransferFiles\\";
 
-        private string m_userLogin = "ccrtfp";
-        private string m_password = "ccrtfp";
+        /*private string m_userLogin = "ccrtfp";
+        private string m_password = "ccrtfp";*/
+        private string m_userLogin = "burke";
+        private string m_password = "porter";
         private string m_ftpServerIp = "172.16.253.1:2121";
         //private string m_ftpServerIp = "192.168.1.1:2121";
 

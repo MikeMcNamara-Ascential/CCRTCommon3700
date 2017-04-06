@@ -8,6 +8,8 @@ using LoggingInterface;
 using System.Net;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using AlexPilotti.FTPS.Client;
+using AlexPilotti.FTPS.Common;
 
 namespace FtpFileMonitorNamespace
 {
@@ -211,10 +213,10 @@ namespace FtpFileMonitorNamespace
                             Log("    Name: " + fi.Name.ToString());
                             Log("    Size: " + fi.Length.ToString());
                             fi.CopyTo(Path.Combine(localInfo.ToString(), fi.Name), true);
-                            FileInfo transferFI = new FileInfo(Path.Combine(m_remoteLocation, fi.Name));
+                            /*FileInfo transferFI = new FileInfo(Path.Combine(m_remoteLocation, fi.Name));
                             Log("Transfered File Info:");
                             Log("    Name: " + transferFI.Name.ToString());
-                            Log("    Size: " + transferFI.Length.ToString());
+                            Log("    Size: " + transferFI.Length.ToString());*/
                             DeleteFileFromFtpLocation(m_remoteLocation, fi.Name, currentFile == fileCount);
                             currentFile++;
                         }
@@ -258,16 +260,40 @@ namespace FtpFileMonitorNamespace
 
             FileStream fs = null;
             FileInfo fileInf = new FileInfo(Path.Combine(m_tempLocation, fileName));
-            string uri = "ftp://" + m_ftpServerIp + m_remoteLocation;
+            string uri = "/home/" + m_ftpUserLogin + m_remoteLocation;
             string escapedUri = uri.Replace("../", "%2E%2E/");
 
-            FtpWebRequest fileReq = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri + fileName));
+            using (FTPSClient client = new FTPSClient())
+            {
+                // Connect to the server, with mandatory SSL/TLS 
+                // encryption during authentication and 
+                // optional encryption on the data channel 
+                // (directory lists, file transfers)
+                try
+                {
+                    client.Connect("172.16.253.1", 2121,
+                                   new NetworkCredential(m_ftpUserLogin,
+                                                         m_ftpUserPassword),
+                                                         ESSLSupportMode.ClearText,
+                                                         null, null, 0, 0, 0, null, true, EDataConnectionMode.Active);
+
+                    // Download a file
+                    ulong teest = client.GetFile(escapedUri + fileName, m_tempLocation + fileName);
+
+                    client.Close();
+                }
+                catch
+                {
+                }
+            }
+
+            /*FtpWebRequest fileReq = (FtpWebRequest)FtpWebRequest.Create(new Uri(escapedUri + fileName));
             fileReq.Credentials = new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword);
-            fileReq.Method = WebRequestMethods.Ftp.DownloadFile;
+            fileReq.Method = WebRequestMethods.Ftp.ListDirectory;
             fileReq.UseBinary = true;
             fileReq.UsePassive = true;
             fileReq.KeepAlive = true;
-
+            
             try
             {
                 fs = fileInf.Create();
@@ -309,7 +335,7 @@ namespace FtpFileMonitorNamespace
                 success = false;
             }
             fs.Seek(0, SeekOrigin.Begin);
-            fs.Close();
+            fs.Close();*/
             return success;
         }
 

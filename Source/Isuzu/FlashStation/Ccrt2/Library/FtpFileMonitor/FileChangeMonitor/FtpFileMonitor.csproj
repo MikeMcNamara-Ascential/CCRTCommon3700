@@ -31,6 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AlexPilotti.FTPS.Client">
+      <HintPath>..\AlexPilotti.FTPS.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="FtpFileChangeMonitor, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>obj\Debug\FtpFileChangeMonitor.dll</HintPath>
+    </Reference>
     <Reference Include="LoggingInterface">
       <HintPath>..\..\LoggingInterface.dll</HintPath>
     </Reference>

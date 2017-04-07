@@ -89,7 +89,7 @@
             // 
             this.m_promptBox1.BackColor = System.Drawing.SystemColors.Window;
             this.m_promptBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_promptBox1.Location = new System.Drawing.Point(17, 347);
+            this.m_promptBox1.Location = new System.Drawing.Point(17, 274);
             this.m_promptBox1.Margin = new System.Windows.Forms.Padding(4);
             this.m_promptBox1.Name = "m_promptBox1";
             this.m_promptBox1.ReadOnly = true;
@@ -224,9 +224,7 @@
             // 
             // flashTCMToolStripMenuItem
             // 
-            this.flashTCMToolStripMenuItem.Checked = true;
             this.flashTCMToolStripMenuItem.CheckOnClick = true;
-            this.flashTCMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashTCMToolStripMenuItem.Name = "flashTCMToolStripMenuItem";
             this.flashTCMToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
             this.flashTCMToolStripMenuItem.Text = "Flash TCM";
@@ -250,7 +248,6 @@
             this.flashMimamoriToolStripMenuItem.Name = "flashMimamoriToolStripMenuItem";
             this.flashMimamoriToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
             this.flashMimamoriToolStripMenuItem.Text = "Flash Mimamori";
-            this.flashMimamoriToolStripMenuItem.Visible = false;
             this.flashMimamoriToolStripMenuItem.Click += new System.EventHandler(this.flashMimamoriToolStripMenuItem_Click);
             // 
             // m_vinLabel
@@ -267,7 +264,7 @@
             // 
             this.m_vinTitleLabel.AutoSize = true;
             this.m_vinTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_vinTitleLabel.Location = new System.Drawing.Point(16, 148);
+            this.m_vinTitleLabel.Location = new System.Drawing.Point(16, 124);
             this.m_vinTitleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_vinTitleLabel.Name = "m_vinTitleLabel";
             this.m_vinTitleLabel.Size = new System.Drawing.Size(97, 46);
@@ -279,7 +276,7 @@
             this.m_buildInfoGroupBox.Controls.Add(this.m_buildInfoTextBox);
             this.m_buildInfoGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_buildInfoGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.m_buildInfoGroupBox.Location = new System.Drawing.Point(965, 586);
+            this.m_buildInfoGroupBox.Location = new System.Drawing.Point(965, 476);
             this.m_buildInfoGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.m_buildInfoGroupBox.Name = "m_buildInfoGroupBox";
             this.m_buildInfoGroupBox.Padding = new System.Windows.Forms.Padding(4);
@@ -305,7 +302,7 @@
             this.groupBox1.Controls.Add(this.m_logMessageTextBox);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(9, 586);
+            this.groupBox1.Location = new System.Drawing.Point(9, 475);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
@@ -353,7 +350,7 @@
             this.groupBox2.Controls.Add(this.m_overallProgressBar);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox2.Location = new System.Drawing.Point(9, 1099);
+            this.groupBox2.Location = new System.Drawing.Point(9, 980);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -366,7 +363,7 @@
             // 
             this.m_promptBox2.BackColor = System.Drawing.SystemColors.Window;
             this.m_promptBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_promptBox2.Location = new System.Drawing.Point(16, 466);
+            this.m_promptBox2.Location = new System.Drawing.Point(16, 378);
             this.m_promptBox2.Margin = new System.Windows.Forms.Padding(4);
             this.m_promptBox2.Name = "m_promptBox2";
             this.m_promptBox2.ReadOnly = true;
@@ -379,7 +376,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(19, 241);
+            this.label1.Location = new System.Drawing.Point(19, 185);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(184, 36);
@@ -390,7 +387,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(35, 284);
+            this.label2.Location = new System.Drawing.Point(35, 227);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(171, 36);
@@ -401,7 +398,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(459, 241);
+            this.label3.Location = new System.Drawing.Point(459, 186);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(175, 36);
@@ -412,7 +409,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(556, 284);
+            this.label4.Location = new System.Drawing.Point(556, 228);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 36);
@@ -423,7 +420,7 @@
             // 
             this.m_modelCodeLabel.AutoSize = true;
             this.m_modelCodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_modelCodeLabel.Location = new System.Drawing.Point(229, 241);
+            this.m_modelCodeLabel.Location = new System.Drawing.Point(229, 185);
             this.m_modelCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_modelCodeLabel.Name = "m_modelCodeLabel";
             this.m_modelCodeLabel.Size = new System.Drawing.Size(0, 36);
@@ -433,7 +430,7 @@
             // 
             this.m_bookCodeLabel.AutoSize = true;
             this.m_bookCodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_bookCodeLabel.Location = new System.Drawing.Point(229, 284);
+            this.m_bookCodeLabel.Location = new System.Drawing.Point(229, 232);
             this.m_bookCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_bookCodeLabel.Name = "m_bookCodeLabel";
             this.m_bookCodeLabel.Size = new System.Drawing.Size(0, 36);
@@ -443,7 +440,7 @@
             // 
             this.m_modelYearLabel.AutoSize = true;
             this.m_modelYearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_modelYearLabel.Location = new System.Drawing.Point(659, 241);
+            this.m_modelYearLabel.Location = new System.Drawing.Point(659, 186);
             this.m_modelYearLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_modelYearLabel.Name = "m_modelYearLabel";
             this.m_modelYearLabel.Size = new System.Drawing.Size(0, 36);
@@ -453,7 +450,7 @@
             // 
             this.m_lotNumberLabel.AutoSize = true;
             this.m_lotNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_lotNumberLabel.Location = new System.Drawing.Point(659, 284);
+            this.m_lotNumberLabel.Location = new System.Drawing.Point(659, 231);
             this.m_lotNumberLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_lotNumberLabel.Name = "m_lotNumberLabel";
             this.m_lotNumberLabel.Size = new System.Drawing.Size(0, 36);
@@ -467,7 +464,7 @@
             this.groupBox3.Controls.Add(this.m_ecmResultBox);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox3.Location = new System.Drawing.Point(965, 944);
+            this.groupBox3.Location = new System.Drawing.Point(965, 832);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
@@ -488,7 +485,6 @@
             this.m_mimaResultBox.TabIndex = 13;
             this.m_mimaResultBox.Text = "Mimamori";
             this.m_mimaResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.m_mimaResultBox.Visible = false;
             // 
             // m_dcuResultBox
             // 
@@ -507,6 +503,7 @@
             // 
             this.m_tcmResultBox.AutoSize = true;
             this.m_tcmResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_tcmResultBox.Enabled = false;
             this.m_tcmResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_tcmResultBox.Location = new System.Drawing.Point(294, 70);
             this.m_tcmResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);

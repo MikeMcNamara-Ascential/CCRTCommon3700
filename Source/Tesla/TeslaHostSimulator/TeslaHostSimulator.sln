@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeslaHostSimulator", "TeslaHostSimulator\TeslaHostSimulator.csproj", "{C2B86C34-FBE8-4144-AE62-1528DE7520D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialPortLibrary", "SerialPortLibrary\SerialPortLibrary.csproj", "{FAC8AB21-C951-4FBE-BCC0-215E5E42F45E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2B86C34-FBE8-4144-AE62-1528DE7520D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2B86C34-FBE8-4144-AE62-1528DE7520D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2B86C34-FBE8-4144-AE62-1528DE7520D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2B86C34-FBE8-4144-AE62-1528DE7520D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC8AB21-C951-4FBE-BCC0-215E5E42F45E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC8AB21-C951-4FBE-BCC0-215E5E42F45E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC8AB21-C951-4FBE-BCC0-215E5E42F45E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC8AB21-C951-4FBE-BCC0-215E5E42F45E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

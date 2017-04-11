@@ -6,4 +6,5 @@
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Transmission FILES
 	KwpAisinTransmissionTC.xml
 	TransmissionFaults.xml
+        MY18TransmissionFaults.xml
 )

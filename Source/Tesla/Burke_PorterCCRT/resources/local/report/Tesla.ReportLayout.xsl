@@ -786,6 +786,7 @@
             </td>
         </tr>
         -->
+        <!--
         <tr>
             <td width="10"/>
             <td align="left" width="14">Part #</td>
@@ -827,6 +828,7 @@
                 </xsl:call-template>
             </td>
         </tr>
+        -->
         <tr>
             <td width="10"/>
             <td align="left" width="14">DTC Check</td>

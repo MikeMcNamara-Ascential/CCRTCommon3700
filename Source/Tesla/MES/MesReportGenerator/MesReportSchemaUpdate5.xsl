@@ -134,22 +134,24 @@
             <xsl:call-template name="BrakeLearnMotorType">
                 <xsl:with-param name="NAME">BrakeLearnMotorType</xsl:with-param>
             </xsl:call-template>
--->            
-            <xsl:call-template name="BrakeBurnish">
-                <xsl:with-param name="NAME">BrakeBurnishCycle</xsl:with-param>
-            </xsl:call-template>
+-->          
+            <xsl:if test="//TestResult/BrakeBrakeBurnishCycle">
+                <xsl:call-template name="BrakeBurnish">
+                    <xsl:with-param name="NAME">BrakeBurnishCycle</xsl:with-param>
+                </xsl:call-template>
+            </xsl:if>
             <!--
                         <xsl:call-template name="BrakeEPBBurnish">
                             <xsl:with-param name="NAME">BrakeEPBBurnishCycle</xsl:with-param>
                         </xsl:call-template>
             -->
+<!--
             <xsl:call-template name="BrakeCheckPartNumber">
                 <xsl:with-param name="NAME">BrakeCheckPartNumber</xsl:with-param>
             </xsl:call-template>
             <xsl:call-template name="BrakeProgramVIN">
                 <xsl:with-param name="NAME">BrakeProgramVIN</xsl:with-param>
             </xsl:call-template>
-<!--
             <xsl:call-template name="BrakeCheckVIN">
                 <xsl:with-param name="NAME">BrakeCheckVIN</xsl:with-param>
             </xsl:call-template>
@@ -195,9 +197,11 @@
         <xsl:element name="ModuleName">
             <xsl:value-of select="$NAME"/>
         </xsl:element>
+<!--
         <xsl:element name="ModulePartNumber">
             <xsl:value-of select="//TestResult/BrakeCheckPartNumber/ModulePartNumber"/>
         </xsl:element>
+-->        
         <xsl:element name="SerialNumber">
             <xsl:value-of select="//TestResult/BrakeCollectTraceData/SerialNumber"/>
         </xsl:element>

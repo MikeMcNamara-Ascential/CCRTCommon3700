@@ -463,6 +463,7 @@
          <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
          <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
          <ZeroSpeed PromptBox="1" Priority="0">ZeroSpeed</ZeroSpeed>
+         <ReleaseThrottle PromptBox="1" Priority="0">ReleaseThrottleShiftNeutral</ReleaseThrottle>
       </Prompts>
       <IgnoreFaults>
          <ModuleFault_C41186/>
@@ -485,16 +486,16 @@
          <!--TestStep15>CalibrateGSensor</TestStep15-->
          <TestStep20>ClearFaults</TestStep20>
          <TestStep21>EnterDiagnosticMode</TestStep21>
-         <TestStep22>ResetVIN</TestStep22>
+         <!--TestStep22>ResetVIN</TestStep22-->
          <TestStep25>ResetModule</TestStep25>
          <!--TestStep25>CycleIgnition</TestStep25-->
          <TestStep30>EnterDiagnosticMode</TestStep30>
          <!--TestStep35>EnableElectricVacuumPump</TestStep35-->
-         <TestStep40>CheckPartNumber</TestStep40>
          <!--
+         <TestStep40>CheckPartNumber</TestStep40>
          <TestStep50>LearnPerformanceType</TestStep50>
-         -->
          <TestStep62>ProgramVIN</TestStep62>
+         -->
          <!--TestStep64>CheckVIN</TestStep64-->
          <TestStep68>EnterDiagnosticMode</TestStep68>
          <TestStep70>StartModuleKeepAlive</TestStep70>
@@ -562,6 +563,7 @@
          <TestStep00>EnableCenteringArrows</TestStep00>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
          <TestStep10>SensorQualityTest</TestStep10>
+         <TestStep14>CheckPedalStatusForBrakeTest</TestStep14>
          <TestStep15>DragTest</TestStep15>
          <TestStep20>AnalyzeDragTest</TestStep20>
          <TestStep25>BrakeSwitchOffTest</TestStep25>
@@ -745,6 +747,7 @@
       <CheckEolByte Result="" Timeout="20000" Description="Check EOL byte status" ScanDelay="500"/>
       <EnableDynoMode Result="" Timeout="500" Description="Start DYNOMODE routine"/>
       <DisableDynoMode Result="" Timeout="500" Description="Stop DYNOMODE routine"/>
+      <CheckPedalStatusForBrakeTest Result="" Timeout="10000" Description="Make sure brake is off and throttle is closed in prep for brake testing"/>
       <!--Origin Unspecified-->
       <CheckModuleType Result="" Timeout="20000" Description="Check Module Type"/>
       <BrakeBurnishCycle Result="" Timeout="1200000" Description="Burnish the brakes" ScanDelay="500"/>
@@ -760,5 +763,6 @@
       <CycleIgnition Result="" Timeout="30000" Description="Cycle ignition off and then on" ScanDelay="250"/>
       <ResetModule Result="" Timeout="30000" Description="Perform module reset" ScanDelay="250"/>
       <Delay Result="" Timeout="10000" Description="Wait for the specified amount of time" DelayTime="1000"/>
+
    </TestSteps>
 </BoschAbs>

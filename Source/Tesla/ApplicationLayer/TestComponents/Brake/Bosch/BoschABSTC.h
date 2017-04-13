@@ -801,6 +801,9 @@ private:
 
 	string CheckSpeedDeltaSensorCross(WheelSpeeds_t &initialSpeeds, WheelSpeeds_t &finalSpeeds, int rollerIndex);
 
+	string CheckPedalStatusForBrakeTesting(void);
+
+
     /**
      * Speed delta values that we read from the ABS 
      * module during the base brake test

@@ -210,6 +210,7 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(!GetTestStepName().compare("Delay"))                     status = TestStepDelay();
 		else if(!GetTestStepName().compare("EnableDynoMode"))            status = ControlDynoMode(true);
 		else if(!GetTestStepName().compare("DisableDynoMode"))           status = ControlDynoMode(false);
+		else if(!GetTestStepName().compare("CheckPedalStatusForBrakeTest"))  status = CheckPedalStatusForBrakeTesting();
         // Call the base class to handle the test step
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
@@ -5426,5 +5427,52 @@ string BoschABSTC<ModuleInterface>::CheckSpeedDeltaSensorCross(WheelSpeeds_t &in
 	// Report the result
 	SendSubtestResult(sensorName[rollerIndex] + "SensorTest", result, "Sensor Cross Check", "0000");
 	Log(LOG_DEV_DATA, "Sensor cross check complete for %s = %s", rollerName[rollerIndex].c_str(), result.c_str());
+	return result;
+}
+
+//-------------------------------------------------------------------------------------------------
+template <class ModuleInterface>
+string BoschABSTC<ModuleInterface>::CheckPedalStatusForBrakeTesting(void)
+{
+	string result = BEP_TESTING_RESPONSE;
+	Log(LOG_FN_ENTRY, "BoschABSTC::CheckPedalStatusForBrakeTesting() - Enter");
+	if(!ShortCircuitTestStep())
+	{
+		bool throttleClosed = false;
+		bool brakeSwitchOff = false;
+		float throttlePosition = 100.0;
+		bool brakeSwitchPosition = true;
+		BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+		DisplayPrompt(GetPromptBox("ReleaseThrottle"), GetPrompt("ReleaseThrottle"), GetPromptPriority("ReleaseThrottle"));
+		DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+		do
+		{
+			if(BEP_STATUS_SUCCESS == m_vehicleModule.GetInfo("ReadThrottlePosition",throttlePosition))
+			{
+				throttleClosed = throttlePosition <= 4.0;
+			}
+			if(BEP_STATUS_SUCCESS == m_vehicleModule.GetInfo(GetDataTag("ReadBrakeSwitch"), brakeSwitchPosition))
+			{
+				brakeSwitchOff = !brakeSwitchPosition;
+			}
+			if(!throttleClosed || !brakeSwitchOff)
+			{
+				BposSleep(250);
+			}
+			Log(LOG_DEV_DATA, "Throttle closed: %s,  brake switch off: %s",
+				throttleClosed ? "True" : "False", brakeSwitchOff ? "True" : "False");
+		} while((!throttleClosed || !brakeSwitchOff) && TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()));
+		// Determine the results
+		result = (throttleClosed && brakeSwitchOff) ? testPass : testFail;
+		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+		RemovePrompt(GetPromptBox("ReleaseThrottle"), GetPrompt("ReleaseThrottle"), GetPromptPriority("ReleaseThrottle"));
+		RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+	}
+	else
+	{
+		Log(LOG_FN_ENTRY, "Skipping pedal status check");
+		result = testSkip;
+	}
+	Log(LOG_FN_ENTRY, "BoschABSTC::CheckPedalStatusForBrakeTesting() - Exit");
 	return result;
 }

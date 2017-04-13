@@ -177,7 +177,7 @@
             // m_reportTimer
             // 
             this.m_reportTimer.Enabled = true;
-            this.m_reportTimer.Interval = 300000;
+            this.m_reportTimer.Interval = 1000;
             this.m_reportTimer.Tick += new System.EventHandler(this.m_reportTimer_Tick_1);
             // 
             // m_selectResultFile

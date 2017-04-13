@@ -3,7 +3,7 @@
         <Brakes>
             <ComponentName>FordTRWCANABSTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>PaccarBendix8ABSTC.xml</ConfigFile>
+            <ConfigFile>Bendix8ABSTC.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
             <Debug>Off</Debug>
         </Brakes>
@@ -17,7 +17,7 @@
         <Emissions>
             <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>My17IsuzuEmissionsTc.xml</ConfigFile>
+            <ConfigFile>My17IsuzuSingleAxleEmissionsTc.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
             <Debug>Off</Debug>
         </Emissions>
@@ -93,7 +93,10 @@
 
         <TestPhase005 Description="Part number check" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective15 Description="Part number check" Result="" Timeout="" Component="Brakes">
+                <Objective05 Description="Part number check" Result="" Timeout="" Component="Emissions">
+                    <CheckPartNumber/>
+                </Objective05>
+				<Objective15 Description="Part number check" Result="" Timeout="" Component="Brakes">
                     <CheckPartNumber/>
                 </Objective15>
             </ForegroundObjectives>
@@ -336,6 +339,14 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase042>
+		
+		<TestPhase043 Description="Check MAF Learn complete" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="Check MAF Learn complete" Result="" Timeout="" Component="Emissions">
+                    <CheckMAFLearnComplete/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase043>
 
         <!-- Final Dynamic Tests -->
         <TestPhase045 Description="Read Faults" Result="" Timeout="">
@@ -424,15 +435,6 @@
                 </Objective00>
 		    </ForegroundObjectives>
 		</TestPhase053>
-		
-		<!--Key off sequence -->
-        <!--TestPhase054 Description="Key off engine off start vehicle" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective05 Description="Key off engine off start vehicle" Result="" Timeout="" Component="Emissions">
-                    <KeyOffEngineOffKeyOn/>
-                </Objective05>
-            </ForegroundObjectives>
-        </TestPhase054-->
 
 		<!-- Perform test finishup -->
         <TestPhase055 Description="Finishup testing" Result="" Timeout="">

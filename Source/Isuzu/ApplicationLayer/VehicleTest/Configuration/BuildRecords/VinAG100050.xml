@@ -3,7 +3,8 @@
        <VIN>4KDB4B1U78J800001</VIN>
        <DriveAxle>Rear</DriveAxle>
        <ABSPartNo>8980316070</ABSPartNo>
-       <BrakeType>720 ABS</BrakeType>
+       <BrakeType>Bendix</BrakeType>
+       <ModelYear>170</ModelYear>
        <SpeedControl>Not Equipped</SpeedControl>
        <TCMPartNo>24239926</TCMPartNo>
        <PCMPartNo>12589296</PCMPartNo>

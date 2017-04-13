@@ -57,7 +57,7 @@
         <Parameters>
             <AxleInterval>10000</AxleInterval>
             <AxleTimeLimit>5000</AxleTimeLimit>
-            <SideSlipConversionFactor>1.0</SideSlipConversionFactor>
+            <SideSlipConversionFactor>0.01</SideSlipConversionFactor>
             <SideSlipMonitorInterval>100</SideSlipMonitorInterval>
         </Parameters>
 

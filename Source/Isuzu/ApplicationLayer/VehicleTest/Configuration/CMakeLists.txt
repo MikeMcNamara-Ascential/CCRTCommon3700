@@ -6,6 +6,7 @@ INSTALL_FILES(${VEHICLETEST_CONFIG_DIR} FILES
       Isuzu.SelectionTable.xml
       Isuzu.Charlotte.508702.SelectionTable.xml
       Isuzu.VehicleTestConfig.xml
+      Isuzu.SingleAxleVehicleTestConfig.xml
       Isuzu.Charlotte.508702.VehicleTestConfig.xml
 )
 

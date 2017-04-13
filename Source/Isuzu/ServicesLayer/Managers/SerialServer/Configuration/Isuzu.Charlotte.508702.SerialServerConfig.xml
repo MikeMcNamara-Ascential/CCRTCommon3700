@@ -289,7 +289,7 @@
                </CommLog>
             </Setup>
          </Archiver>
-         <Daq enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
+         <Daq enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
             <Setup>
                <SerialDevice>/dev/socket</SerialDevice>
                <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>

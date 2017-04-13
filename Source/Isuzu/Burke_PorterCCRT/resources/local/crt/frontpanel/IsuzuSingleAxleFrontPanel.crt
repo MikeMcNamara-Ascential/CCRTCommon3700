@@ -51,11 +51,11 @@
                 </Widget>
             </HBox>
       
-            <HBox height="75" width="115" posX="5" posY="100" border="false">
+            <!--HBox height="75" width="115" posX="5" posY="100" border="false">
                 <Widget height="75" width="115" id="logo" class="com.bepco.gui.ImagePhaseBox">
                     <DataSource tagname="PowerSense" messagetype="Subscribe"/>
                 </Widget>
-            </HBox>
+            </HBox-->
 
             <!-- LED Panel -->
             <VBox height="130" width="450" posX="420" posY="60" border="false">

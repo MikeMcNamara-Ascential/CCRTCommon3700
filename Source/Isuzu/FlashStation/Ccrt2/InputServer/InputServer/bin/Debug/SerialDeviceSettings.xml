@@ -2,18 +2,18 @@
 <ArrayOfSerialDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SerialDevice>
     <DeviceName>test1</DeviceName>
-    <PortName>COM1</PortName>
+    <PortName>COM13</PortName>
     <BaudRate>9600</BaudRate>
     <DataBits>7</DataBits>
     <DataParity>Even</DataParity>
-    <DataStopBits>None</DataStopBits>
+    <DataStopBits>1</DataStopBits>
     <ReadTimeout>500</ReadTimeout>
     <WriteTimeout>500</WriteTimeout>
     <MonitorPortForData>False</MonitorPortForData>
   </SerialDevice>
   <SerialDevice>
     <DeviceName>Scanner</DeviceName>
-    <PortName>COM1</PortName>
+    <PortName>COM2</PortName>
     <BaudRate>9600</BaudRate>
     <DataBits>8</DataBits>
     <DataParity>None</DataParity>

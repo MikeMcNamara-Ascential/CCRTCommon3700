@@ -605,7 +605,7 @@
             <SoftwareModule04PartNo>0xC4</SoftwareModule04PartNo>
             <SoftwareModule01PartNo>0xC1</SoftwareModule01PartNo>
             <SoftwareModule09PartNo>0xC9</SoftwareModule09PartNo>
-            <SerialNumber>0x17</SerialNumber>
+            <SerialNumber>0x7F</SerialNumber>
         </TransmitInterpretations>
 
         <!-- ============ Message Responses ============ -->
@@ -963,15 +963,15 @@
             </IsModuleLocked>
 
             <SerialNumber>
-                <String>
-                    <Substring00>
-                        <chars input_index="2" mask="0xFF" length="1">
-                            <StringSubstitute00 condition="equals" compare="0x00" replace=""/>
+                <String>                
+                    <Substring00 format="%6s">
+                        <chars input_index="13" mask="0xFF" length="6"/>
+                    </Substring00>
+					<Substring01>
+                        <chars input_index="2" mask="0xFF" length="10">
+                            <StringSubstitute00 condition="equals" compare="0x00" replace=" "/>
                             <StringSubstitute01 condition="not equal" compare="0x00" replace="?"/>
                         </chars>
-                    </Substring00>
-                    <Substring01 format="%16s">
-                        <chars input_index="3" mask="0xFF" length="16"/>
                     </Substring01>
                 </String>
             </SerialNumber>

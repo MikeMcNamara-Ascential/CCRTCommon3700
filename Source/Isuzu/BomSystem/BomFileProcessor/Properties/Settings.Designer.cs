@@ -98,12 +98,12 @@ namespace BomFileProcessor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("35")]
-        public int BomFnaIndex {
+        public int U {
             get {
-                return ((int)(this["BomFnaIndex"]));
+                return ((int)(this["U"]));
             }
             set {
-                this["BomFnaIndex"] = value;
+                this["U"] = value;
             }
         }
         

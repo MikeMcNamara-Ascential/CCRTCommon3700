@@ -183,6 +183,7 @@
          <AdvanceToRearAxle PromptBox="1" Priority="0">AdvanceToRearAxle</AdvanceToRearAxle>
          <AccelerateTo40KPH PromptBox="1" Priority="0">AccelerateTo40KPH</AccelerateTo40KPH>
          <PressSpeedoButtonAtSpeed PromptBox="2" Priority="0">PressSpeedoButtonAtSpeed</PressSpeedoButtonAtSpeed>
+		 <ShiftToPark PromptBox="2" Priority="0">ShiftToPark</ShiftToPark>
       </Prompts>
       <StatusCheckItems>
          <VehiclePresent>1</VehiclePresent>
@@ -335,7 +336,7 @@
       <MachineReady Result="" Description="Wait until the machine is ready to perform a test" Timeout="15000" Prompt1="" Prompt1Priority="" Prompt2="" Prompt2Priority=""/>
       <DisableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" PumpStatusChangeDelay="500" Timeout="1000"/>
       <EnableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" PumpStatusChangeDelay="1000" Timeout="1000"/>
-      <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
+      <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0" Prompt2="ShiftToPark" Prompt2Priority="0"/>
       <AxleRatio Result="" Description="Four wheel drive Axle Ratio Test Step" Timeout="120000" SpeedTarget="20 30" TargetSpeed="25" AxleRatioMin="90.0" AxleRatioMax="105.0"/>
       <Speedometer Result="" Description="Speedometer Test Step" Timeout="30000" Prompt1="AccelerateTo40KPH" Prompt1Priority="0" Prompt2="PressSpeedoButtonAtSpeed"/>
       <SelectDriverSide Result="" Description="Move the symbolic link for vehicle comms to proper side" Timeout="0" CommmonLogicalPort="/home/CCRT/Rewrite/GryphonCCan" LeftLogicalPort="/dev/LogicalPorts/GryphonCCanLeft" RightLogicalPort="/dev/LogicalPorts/GryphonCCanRight"/>

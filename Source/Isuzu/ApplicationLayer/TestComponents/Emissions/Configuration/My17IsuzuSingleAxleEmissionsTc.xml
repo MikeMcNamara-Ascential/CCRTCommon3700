@@ -351,10 +351,12 @@
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>StartModuleKeepAlive</TestStep15>
         </KeyOffEngineOffKeyOn>
-        <EngineWarmUp>
-            <TestStep10>CheckVIN</TestStep10>
-            <TestStep15>CheckPartNumbers</TestStep15>
+		<CheckPartNumber>
+		    <TestStep10>CheckVIN</TestStep10>
+            <!--TestStep15>CheckPartNumbers</TestStep15-->
             <TestStep20>CheckSerialNumber</TestStep20>
+        </CheckPartNumber>
+        <EngineWarmUp>
             <TestStep25>WaitForEngineTemperature</TestStep25>
             <TestStep30>MAFLearn</TestStep30>
             <!--TestStep45>StartSwitchMonitors</TestStep45-->
@@ -416,6 +418,9 @@
          <DPDSwitchCheck>
             <TestStep00>DPDSwitchCheck</TestStep00>
          </DPDSwitchCheck>
+		 <CheckMAFLearnComplete>
+            <TestStep00>CheckMAFLearnComplete</TestStep00>
+         </CheckMAFLearnComplete>
     </Objectives>
     <TestSteps>
         <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
@@ -435,7 +440,7 @@
         <CheckIdleRPM Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine speed is in operating range during idle condition"/>
         <CheckIntakeAirFlow Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify intake air flow during idle condition"/>
         <CheckIntakeAirTemp Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify intake air temp during idle condition"/>
-        <CheckMAFLearningComplete Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify MAF Learning Complete during idle condition"/>
+        <CheckMAFLearnComplete Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify MAF Learning Complete during idle condition"/>
         <CheckMainInjectionTiming Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify main injection timing during idle condition"/>
         <CheckPartNumbers Result="" Timeout="500" Description="Verify the module part number is correct" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckPumpLearningStatus Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify pump learning status during idle condition"/>

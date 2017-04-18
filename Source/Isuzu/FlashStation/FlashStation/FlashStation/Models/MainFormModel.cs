@@ -891,8 +891,6 @@ namespace Common.Lib.Models
                     preFileProcessStatus = PreUtilityFileProcess();
                     OpenTCMInterpreter();
                     OpenECMInterpreter();
-                    //OpenDCUInterpreter();
-                    //OpenMimaInterpreter();
                     m_resultText = "";
                     m_ecmThreadComplete = false;
                     m_tcmThreadComplete = false;
@@ -3213,14 +3211,6 @@ namespace Common.Lib.Models
         private int m_defaultESNLength;
 
         //To do Make Configurable
-        /*private string m_flashFileDirectory = @"E:\FlashStation\CalFiles\";
-        private string m_buildFileDirectory = @"E:\FlashStation\BuildFiles\";
-        private string m_esnDirectory = @"E:\FlashStation\ESN\";
-        private string m_tempBuildFileDirectory = @"E:\FlashStation\TempBuildFiles\";
-        private string m_tempESNDirectory = @"E:\FlashStation\TempESNFiles\";
-        private string m_resultsDirectory = @"E:\FlashStation\Results\";
-        private string m_logsDirectory = @"E:\FlashStation\Logs\";
-        private string m_passIndicationLocalDirectory = @"E:\FlashStation\TransferFiles\";*/
         private string m_flashFileDirectory = @"C:\\FlashStation\\CalFiles\\";
         private string m_buildFileDirectory = @"C:\\FlashStation\\BuildFiles\\";
         private string m_esnDirectory = @"C:\\FlashStation\\ESN\\";
@@ -3230,20 +3220,14 @@ namespace Common.Lib.Models
         private string m_logsDirectory = @"C:\\FlashStation\\Logs\\";
         private string m_passIndicationLocalDirectory = @"C:\\FlashStation\\TransferFiles\\";
 
-        /*private string m_userLogin = "ccrtfp";
-        private string m_password = "ccrtfp";*/
         private string m_userLogin = "burke";
         private string m_password = "porter";
         private string m_ftpServerIp = "172.16.253.1";
-        //private string m_ftpServerIp = "192.168.1.1";
 
         private string m_remoteBuildFileLocation = "/TestResults/ftpOutbox/BuildRecords/";
         private string m_remoteESNLocation = "/TestResults/ftpOutbox/ESN/";
-        private string m_passIndicationLocation = "/TestResults/ftpOutbox/PassConfirmation/";
+        private string m_passIndicationLocation = "/TestResults/PassConfirmation/";
 
-        //private string m_remoteBuildFileDirectory = @"E:\FlashStation\Rewrite\Configuration\VehicleTest\BuildRecords\";
-        //private string m_remoteESNDirectory = @"E:\FlashStation\Rewrite\TestResults\ESN\";
-        //private string m_passIndicationSharedDirectory = @"E:\FlashStation\Rewrite\TestResults\PassConfirmation\";
         /// <summary>
         /// Constant value - max result files to store
         /// </summary>

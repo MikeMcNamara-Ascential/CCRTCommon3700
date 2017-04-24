@@ -17,7 +17,8 @@ LINK_LIBRARIES(moduleinterfaces protocolfilters isuzuprotocolfilter)
 #------------------------------------------------------------------------------------------
 # Where are our headers
 #------------------------------------------------------------------------------------------
-INCLUDE_DIRECTORIES(${CUSTOMER_PROTOCOLS_INC_PATH})
+INCLUDE_DIRECTORIES(${CUSTOMER_PROTOCOLS_INC_PATH}
+  ${CUSTOMER_PROTOCOL_INC_PATH})
 
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into

@@ -204,6 +204,7 @@
 				<RTWheelDomain DataType="range" Units="MPH">0 0</RTWheelDomain>
 				<RTWheelTarget DataType="range" Units="MPH">0 0</RTWheelTarget>
 				<SoftwareID DataType="string">R07103101-GM-00000000</SoftwareID>
+                <SteeringWheelAngle DataType="string">0</SteeringWheelAngle>
 				<TandemBalanceBGColor DataType="color">white</TandemBalanceBGColor>
 				<TandemBalanceValue DataType="string">0</TandemBalanceValue>
 				<TandemToRearBalanceBGColor DataType="color">white</TandemToRearBalanceBGColor>

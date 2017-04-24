@@ -71,6 +71,8 @@ private:
 
     std::string TransitionToRearAxle(void);
     std::string ReportSideSlipValue(void);
+    std::string ReportSteeringWheelAngle(void);
+    std::string AttachSteeringWheelAngleDevice(void);
 };
 
 #endif

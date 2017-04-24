@@ -347,6 +347,46 @@
                     </CommLog>
                 </Setup>
             </VinStamper>
+            <WinCcrt enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+                    <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
+                    <IpAddress>192.168.20.20</IpAddress>
+                    <PortNo>10019</PortNo>
+                    <TcpType>Client</TcpType>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>1024</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/WinCcrt</ProcessName>
+                        <AdditionalLogFile>/Communication/WinCcrt.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x01</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>WinCcrt</ProcessName>
+                                <AdditionalLogFile>/Communication/WinCcrtComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x3F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                </Setup>
+            </WinCcrt>
          </LogicalPorts>
     </Setup>
 </SerialServerConfig>

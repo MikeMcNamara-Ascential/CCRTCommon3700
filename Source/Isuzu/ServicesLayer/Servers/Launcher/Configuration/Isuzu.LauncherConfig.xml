@@ -125,6 +125,11 @@
             OrderToLaunch="1000" RegisteredName="application/VehicleTest" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Test Server</VehicleTest>
 
+        <WinCcrtInterface Name="WinCcrtInterface.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="WinCcrtInterfaceConfig.xml" ConfigPath="/Configuration/Servers/" 
+            OrderToLaunch="0109" RegisteredName="core/WinCcrtInterface" Register="Yes" DemoMode="Off" ConsoleMode="Off" 
+            AddressValue="" PortValue="" VerboseMode=""/>
+
      </TasksToLaunch>
     <DoNotLaunch>
 

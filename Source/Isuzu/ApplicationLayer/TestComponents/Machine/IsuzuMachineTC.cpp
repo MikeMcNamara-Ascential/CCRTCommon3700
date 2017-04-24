@@ -51,6 +51,9 @@ const std::string IsuzuMachineTC::CommandTestStep(const std::string &value)
 
             if(step == "TransitionToRearAxle") status = TransitionToRearAxle();
             else if(step == "ReportSideSlipValue") status = ReportSideSlipValue();
+            else if (step == "ReportSteeringWheelAngle") status = ReportSteeringWheelAngle();
+            else if (step == "AttachSteeringWheelAngleDevice") status = AttachSteeringWheelAngleDevice();
+
             // else invalid test step*/
             else status = MachineTC::CommandTestStep(value);
 
@@ -169,5 +172,125 @@ std::string IsuzuMachineTC::ReportSideSlipValue(void)
 
    return result; 
      
+}
+
+//-------------------------------------------------------------------------------------------------
+std::string IsuzuMachineTC::ReportSteeringWheelAngle(void) 
+{
+
+    float scanDelay = 250;
+    float elapsedTime = 0;
+    float steeringWheelCollectionInterval;
+
+    int samples = 0;
+    float wheelAngleTotal = 0;
+    float steeringWheelAngle;
+
+    float steeringWheelAngleMax;
+    float steeringWheelAngleMin;
+
+    char buff[16];
+    string result; 
+    string color = "white";
+
+    if(!ShortCircuitTestStep())
+	{
+
+        UpdatePrompts();
+
+        steeringWheelAngleMax = GetParameterFloat ("SteeringWheelAngleMax");
+        steeringWheelAngleMin = GetParameterFloat ("SteeringWheelAngleMin");
+        steeringWheelCollectionInterval = GetParameterFloat("SteeringWheelCollectionInterval");
+
+        //Get average over a period of time
+        while(elapsedTime < steeringWheelCollectionInterval && !CheckAbort())
+        {
+            wheelAngleTotal += SystemReadFloat("SteeringWheelAngle");
+            samples++;
+            elapsedTime += scanDelay / 1000;
+            BposSleep(scanDelay);
+        }
+
+        steeringWheelAngle = wheelAngleTotal / samples;
+        
+        //To determine if the test is pass or fail
+        if (steeringWheelAngleMin <= steeringWheelAngle && steeringWheelAngle <= steeringWheelAngleMax) 
+        {    
+            //Test Pass
+            result = testPass;
+            color = "Green";
+        } 
+        else 
+        {
+            //Test Fail
+            result = testFail;
+            color = "Red"; 
+        }
+    
+        SystemWrite(GetDataTag("SteeringWheelAngleBGColor"), color); 
+
+        SendTestResultWithDetail(result, GetTestStepInfo("Description"),"0000",
+                "SteeringWheelAngle",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngle),"°",
+                "SteeringWheelAngleMaxValue",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngleMax),"°",
+                "SteeringWheelAngleMinValue",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngleMin),"°");
+    }
+    else
+    {
+        result = testSkip;
+    }
+
+    RemovePrompts();
+    return result; 
+     
+}
+
+//-------------------------------------------------------------------------------------------------
+std::string IsuzuMachineTC::AttachSteeringWheelAngleDevice(void) 
+{
+    string result; 
+    int scanDelay = 250;
+    //string color = "white";
+
+    if(!ShortCircuitTestStep())
+	{
+        DisplayPrompt(GetPromptBox("AttachSteeringWheelAngleDevice"),GetPrompt("AttachSteeringWheelAngleDevice"),GetPromptPriority("AttachSteeringWheelAngleDevice"));
+        DisplayPrompt(GetPromptBox("PressPassWhenFinished"),GetPrompt("PressPassWhenFinished"),GetPromptPriority("PressPassWhenFinished"));
+
+        // Determine where the input will come from
+        //if (UsePlcResultButtons())
+        //{
+        string yesButton = "-1";
+
+        string msgResponse;
+
+        // Loop until the pass button has been pressed
+        while (yesButton == "-1" && !CheckAbort() && TimeRemaining()) {
+
+            // Read PLC pass button
+            if (SystemReadBool(GetDataTag("PassButton")))
+            {
+                yesButton = 1;
+            }
+            BposSleep(scanDelay);
+        }
+
+        if (!TimeRemaining()) {
+            result = BEP_TIMEOUT_RESPONSE;
+        }
+        else
+        {
+            Log(LOG_DEV_DATA, "Yes button: %s", yesButton.c_str());
+            result = !yesButton.compare("1") ? BEP_PASS_RESPONSE : BEP_FAIL_RESPONSE;
+        }
+        //}
+        RemovePrompts();
+    }
+    else
+    {
+        result = testSkip;
+    }
+
+    SendTestResult(result, GetTestStepInfo("Description"));
+    return result;
 }
                                                   

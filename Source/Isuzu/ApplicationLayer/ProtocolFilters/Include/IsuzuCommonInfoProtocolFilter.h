@@ -140,7 +140,8 @@ public:
 
     virtual const BEP_STATUS_TYPE GetResponse(const std::string &messageTag, SerialString_t &reply);
 
-    virtual const BEP_STATUS_TYPE GetModuleData(std::string messageTag, SerialString_t &reply, SerialArgs_t *args);
+    virtual const BEP_STATUS_TYPE GetModuleData(std::string messageTag, SerialString_t &reply, SerialArgs_t *args = NULL);
+    //virtual const BEP_STATUS_TYPE GetModuleData(std::string messageTag, SerialString_t &reply, SerialArgs_t *args);
 
 
 

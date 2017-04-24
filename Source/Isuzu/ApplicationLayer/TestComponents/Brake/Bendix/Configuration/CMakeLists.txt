@@ -3,5 +3,5 @@
 #------------------------------------------------------------------------------------------
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
         Bendix8ABSTC.xml
-        SingleAxleBrakeFaultList
+        SingleAxleBrakeFaultList.xml
 	) 

@@ -608,18 +608,15 @@ void SystemMonitor::Initialize(const XmlNode *document)
         {   // if so, set up the timer
             const XmlNode *validVINFlag = document->getChild( XML_T("Setup"))->getChild( XML_T("ValidVINNeededForStart"));
             m_validVINNeededForStart = (validVINFlag->getValue() == "1");
-            Log(LOG_DEV_DATA, "m_validVINNeededforStart: %s", m_validVINNeededForStart ? "1-True" : "0-False"); 
         }
         else
         {   // default to vin needed
             m_validVINNeededForStart = 0;
-            Log(LOG_DEV_DATA, "m_validVINNeededforStart set to 0 by default"); 
         }
     }
     catch (XmlException &err)
     {   // If no flag specified, default to vin needed
         m_validVINNeededForStart = 0;
-        Log(LOG_DEV_DATA, "caught xml except: %s \n m_validVINNeededforStart set to 0 by default", err.what()); 
     }
 
     // get the fault information

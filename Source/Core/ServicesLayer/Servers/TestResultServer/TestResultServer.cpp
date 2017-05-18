@@ -844,7 +844,12 @@ const bool TestResultServer::AddTestResult(std::string vin, const bool readFromF
         }
         else
         {
-			vin = CurrentTestResultFileName();
+            //Fixed a problem where the previous test results would be overwritten during a retest
+			/*vin = CurrentTestResultFileName(); */
+            if (++m_sequenceNumber > maxSequenceNumber) m_sequenceNumber = 0;
+            std::string fmt = std::string("%s.%0") + itoa(sequenceLength, tempVin, 10) + "d";
+            sprintf(tempVin, fmt.c_str(), vin.c_str(), m_sequenceNumber);
+            vin = tempVin;
             Log(LOG_DEV_DATA, "Built Vin file name: %s\n", vin.c_str());
         }
         // Make sure this is a valid result
@@ -1050,8 +1055,6 @@ const std::string TestResultServer::Publish(const XmlNode* node)
         passFailNode.addChild("Description", "TestResult", ATTRIBUTE_NODE);
         passFailNode.addChild("Process", m_comm->GetName(), ATTRIBUTE_NODE);
         passFailNode.addChild("Result", node->getValue(), ATTRIBUTE_NODE);
-		// Build the test result file name
-		BuildResultFileName(node->getValue());
         if(m_data.Lock() == EOK)
         {// Add the overall result to the test results
             m_data.addNode(passFailNode.Copy());
@@ -1273,7 +1276,9 @@ void TestResultServer::CheckTestResult(const XmlNode *node)
     {   // Check if the retested result is PASS
         Log(LOG_DEV_DATA, "Test %s was previously reported as %s\n", iter->second->getName().c_str(),
             iter->second->getAttribute(BEP_RESULT)->getValue().c_str());
-        if (node->getAttribute(BEP_RESULT)->getValue() == BEP_PASS_STATUS)
+        if ((node->getAttribute(BEP_RESULT)->getValue() != BEP_FAIL_STATUS) &&
+			(node->getAttribute(BEP_RESULT)->getValue() != BEP_TIMEOUT_STATUS) &&
+			(node->getAttribute(BEP_RESULT)->getValue() != BEP_ABORT_STATUS))
         {   // Remove the node from the failure list
             m_allFailures.delChild(iter->second);
             // Flag to notify subscribers of the updated failures
@@ -2011,40 +2016,4 @@ inline const INT32& TestResultServer::ResultIndicatorLength(const INT32 *length	
 {
 	if(length != NULL)	m_resultIndicatorLength = *length;
 	return m_resultIndicatorLength;
-}
-
-//-----------------------------------------------------------------------------
-void TestResultServer::BuildResultFileName(const string &result)
-{
-	m_currentResultFileName.erase();
-	char tempVin[defaultVINLength+sequenceLength+1];
-	// Build the base file name with sequence number
-	if(++m_sequenceNumber > maxSequenceNumber) m_sequenceNumber = 0;
-	string fmt = string("%s.%0") + itoa(sequenceLength, tempVin, 10) + "d";
-	sprintf(tempVin, fmt.c_str(), GetCurrentVin().c_str(), m_sequenceNumber);
-	string fileName(tempVin);
-	// Determine if we need to add a result indicator to the filename
-	if(AddOverallResultToFileName())
-	{	// Get the overall test result
-		string indicator;
-		// Now get the correct number of characters to use
-		if(!result.empty())
-		{	// Normalize the result to only pass or fail
-			string normalizedResult(!result.compare(BEP_PASS_RESPONSE) ? result : BEP_FAIL_RESPONSE);
-			indicator = normalizedResult.substr(0, ResultIndicatorLength());
-			Log(LOG_DEV_DATA, "Adding indicator to file name - result: %s, indicator: %s", 
-				result.c_str(), indicator.c_str());
-		}
-		// Update the file name with the overall result indicator
-		fileName = indicator + string("_") + fileName;
-	}
-	// Store the file name
-	CurrentTestResultFileName(&fileName);
-}
-
-//-----------------------------------------------------------------------------
-inline const string& TestResultServer::CurrentTestResultFileName(const string *fileName	/*= NULL*/)
-{
-	if(fileName != NULL)  m_currentResultFileName = *fileName;
-	return m_currentResultFileName;
 }

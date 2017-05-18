@@ -945,22 +945,7 @@ private:
      * @return Number of characters from the overall result string to be added to the file name.
      */
     const INT32& ResultIndicatorLength(const INT32 *length = NULL);
-    /**
-     * Build the result file name.
-     * 
-     * @param result Overall test result to use for building the test result file name.
-     */
-    void BuildResultFileName(const string &result);
-    /**
-     * Get/Set the current test result file name.
-     * 
-     * @param fileName The current test result file name.
-     * 
-     * @return The current test result file name.
-     */
-    const string& CurrentTestResultFileName(const string *fileName = NULL);
-
-	/** File name to store test results in. */
+    /** File name to store test results in. */
     string m_testResultFile;
     /** Path to store test results. */
     string m_testResultPath;

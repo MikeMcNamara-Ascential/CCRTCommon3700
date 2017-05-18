@@ -42,13 +42,13 @@
             <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
             <Debug>Off</Debug>
         </PIM-->
-        <SpeedControl>
+        <!--SpeedControl>
             <ComponentName>IsuzuSpeedControlTc.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
             <ConfigFile>KwpIsuzuSpeedControlTc_MY17.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/SpeedControl/</ConfigPath>
             <Debug>Off</Debug>
-        </SpeedControl>
+        </SpeedControl-->
         <Transmission>
             <ComponentName>AllisonTransmissionTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>

@@ -275,7 +275,9 @@
             <td width="10" align="left">
                 <xsl:value-of select="//BrakeLeftFrontDragTest/DragForce"/>
             </td>
-            <td width="10" align="left"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftFrontDragTest/MinDragForce"/>
+            </td>
             <td width="10" align="left">
                 <xsl:value-of select="//BrakeLeftFrontDragTest/MaxDragForce"/>
             </td>
@@ -294,7 +296,9 @@
             <td width="10" align="left">
                 <xsl:value-of select="//BrakeRightFrontDragTest/DragForce"/>
             </td>
-            <td width="10" align="left"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightFrontDragTest/MinDragForce"/>
+            </td>
             <td width="10" align="left">
                 <xsl:value-of select="//BrakeRightFrontDragTest/MaxDragForce"/>
             </td>
@@ -313,7 +317,9 @@
             <td width="10" align="left">
                 <xsl:value-of select="//BrakeLeftRearDragTest/DragForce"/>
             </td>
-            <td width="10" align="left"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeLeftRearDragTest/MinDragForce"/>
+            </td>
             <td width="10" align="left">
                 <xsl:value-of select="//BrakeLeftRearDragTest/MaxDragForce"/>
             </td>
@@ -332,7 +338,9 @@
             <td width="10" align="left">
                 <xsl:value-of select="//BrakeRightRearDragTest/DragForce"/>
             </td>
-            <td width="10" align="left"/>
+            <td width="10" align="left">
+                <xsl:value-of select="//BrakeRightRearDragTest/MinDragForce"/>
+            </td>
             <td width="10" align="left">
                 <xsl:value-of select="//BrakeRightRearDragTest/MaxDragForce"/>
             </td>

@@ -309,6 +309,7 @@
             <StaticBrakeBurnishOperatorSetupTime Units="ms">5000</StaticBrakeBurnishOperatorSetupTime>
             <StaticBrakeBurnishParkBrakeClicks>4</StaticBrakeBurnishParkBrakeClicks>
             <StaticBrakeBurnishTime Units="ms">120000</StaticBrakeBurnishTime>
+            <CheckMinDragForce>True</CheckMinDragForce>
         </Parameters>
         <Prompts>
             <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>

@@ -440,6 +440,7 @@
          <!-- ModuleReset Parameters -->
          <ModuleResetDelay Units="ms">5000</ModuleResetDelay>
          <ClearFaultsDelay Units="ms">5000</ClearFaultsDelay>
+         <CheckMinDragForce>True</CheckMinDragForce>
       </Parameters>
       <Prompts>
          <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>

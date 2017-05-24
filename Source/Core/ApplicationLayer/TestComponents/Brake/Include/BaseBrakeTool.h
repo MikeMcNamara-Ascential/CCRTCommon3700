@@ -1219,6 +1219,44 @@ public:
      */
     INT32 ValidateDrag(INT32 roller, float average);
     /**
+     * Verify the drag value for the specified wheel was above the
+     * minimum allowed drag value.
+     * <p>
+     * <b>Category:</b> Utility
+     * <p>
+     * <b>Description:</b><br>
+     * The drag value for the specified wheel will be compared to parameters limits.  Seperate limits can be set for the
+     * front and rear axles.
+     * <br><p>
+     *
+     * <b>Test Step Info:</b>
+     *      <ul>
+     *      <li> FrontMinDragForce - Minimum drag force allowed for
+     *      the front wheels. </li>
+     *      <li> RearMinDragForce - Minimum drag force allowed for
+     *      the rear wheels. </li>
+     *      </ul>
+     *
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> GetTestStepInfoFloat() </li>
+     *      </ul>
+     *
+     * @param roller  The roller to analyze the drag result for.
+     * @param average The average drag for the specified wheel.
+     *
+     * @return The status of validating the drag force at the specified wheel.
+     *      <ul>
+     *      <li> BEP_STATUS_SUCCESS - The drag force for the
+     *      specified wheel was above the minimum allowed. </li>
+     *      <li> BEP_STATUS_FAILURE - The drag force for the
+     *      specified wheel was <b><i>below</i></b> the minimum
+     *      allowed.
+     *      </li>
+     *      </ul>
+     */
+    INT32 ValidateMinDrag(INT32 roller, float average);
+    /**
      * Validate the brake force for the specified wheel.
      * <p>
      * <b>Category:</b> Utility

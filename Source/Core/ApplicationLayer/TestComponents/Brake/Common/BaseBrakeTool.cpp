@@ -2000,9 +2000,24 @@ INT32 BaseBrakeTool::AnalyzeDrags(INT32 dragStart, INT32 dragEnd)
     for(UINT32 roller = 0; (roller < rollCount); roller++)
     {   // calculate the average forces and validate the results
         testStatus = AverageForces(roller, average, m_dragTestStats[roller]);
+        
+        // determine whether the minimum drag parameter will be used
+        bool useMinParameter = m_component->GetParameterBool("CheckMinDragForce");
         if(testStatus == BEP_STATUS_SUCCESS)
         {   // analyze the data
-            testStatus = ValidateDrag(roller, average);
+            if (useMinParameter)
+            {
+                testStatus = ValidateMinDrag(roller, average);
+                if (testStatus == BEP_STATUS_SUCCESS)
+                {
+                    testStatus = ValidateDrag(roller, average);
+                }
+            }
+            else
+            {
+                testStatus = ValidateDrag(roller, average);
+            }
+            
             color = (testStatus == BEP_STATUS_SUCCESS) ? "Green" : "Red";
             icmDrags[ roller] = average;
             // Add the offset back in
@@ -2030,13 +2045,26 @@ INT32 BaseBrakeTool::AnalyzeDrags(INT32 dragStart, INT32 dragEnd)
             faultDesc = (color == "Green" ? rollerName[roller+2] + " Brake Drag Test Result" : m_component->GetFaultDescription(faultTag));
             // send the test results to the TestResultServer
             memset(buffer, 0, sizeof(buffer));
-            string maxDragForceTag = ((roller+2 == LFWHEEL) || (roller+2 == RFWHEEL) ? "Front" : "Rear");
-            maxDragForceTag += "MaxDragForce";
             string param(roller+2 < 2 ? "FrontMaxDragForce" : "RearMaxDragForce");
             float maxDragForce = m_component->GetVehicleParameter("BrakeForces/" + param, float(0.0));
-            m_component->SendSubtestResultWithDetail(rollerName[roller+2] + "DragTest", testStatus, faultDesc, faultCode,
-                                                     "DragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", average), unitsLBF,
-                                                     "MaxDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", maxDragForce), unitsLBF);
+            if (useMinParameter) 
+            {
+                // Add minimum test
+                string minParameter(roller+2 < 2 ? "FrontMinDragForce" : "RearMinDragForce");
+                float minDragForce = m_component->GetVehicleParameter("BrakeForces/" + minParameter, float(0.0));
+
+                m_component->SendSubtestResultWithDetail(rollerName[roller + 2] + "DragTest", testStatus, faultDesc, faultCode,
+                                                         "DragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", average), unitsLBF,
+                                                         "MaxDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", maxDragForce), unitsLBF,
+                                                         "MinDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", minDragForce), unitsLBF);
+            }
+            else
+            {
+                m_component->SendSubtestResultWithDetail(rollerName[roller + 2] + "DragTest", testStatus, faultDesc, faultCode,
+                                                         "DragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", average), unitsLBF,
+                                                         "MaxDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", maxDragForce), unitsLBF);
+            }
+            
             m_component->SendSubtestResultWithDetail(rollerName[roller+2] + "DragTestStats", testStatus, faultDesc, faultCode,
                                                      "MinDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller+2].minValue), unitsLBF,
                                                      "MaxDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller+2].maxValue), unitsLBF,
@@ -2057,13 +2085,25 @@ INT32 BaseBrakeTool::AnalyzeDrags(INT32 dragStart, INT32 dragEnd)
             faultDesc = (color == "Green" ? rollerName[roller] + " Brake Drag Test Result" : m_component->GetFaultDescription(faultTag));
             // send the test results to the TestResultServer
             memset(buffer, 0, sizeof(buffer));
-            string maxDragForceTag = ((roller == LFWHEEL) || (roller == RFWHEEL) ? "Front" : "Rear");
-            maxDragForceTag += "MaxDragForce";
             string param(roller < 2 ? "FrontMaxDragForce" : "RearMaxDragForce");
             float maxDragForce = m_component->GetVehicleParameter("BrakeForces/" + param, float(0.0));
-            m_component->SendSubtestResultWithDetail(rollerName[roller] + "DragTest", testStatus, faultDesc, faultCode,
+            if (useMinParameter)
+            {
+                string minParameter(roller < 2 ? "FrontMinDragForce" : "RearMinDragForce");
+                float minDragForce = m_component->GetVehicleParameter("BrakeForces/" + minParameter, float(0.0));
+
+                m_component->SendSubtestResultWithDetail(rollerName[roller] + "DragTest", testStatus, faultDesc, faultCode,
+                                                     "DragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", average), unitsLBF,
+                                                     "MaxDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", maxDragForce), unitsLBF,
+                                                     "MinDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", minDragForce), unitsLBF);
+            }
+            else
+            {
+                m_component->SendSubtestResultWithDetail(rollerName[roller] + "DragTest", testStatus, faultDesc, faultCode,
                                                      "DragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", average), unitsLBF,
                                                      "MaxDragForce", CreateMessage(buffer, sizeof(buffer), "%.2f", maxDragForce), unitsLBF);
+            }
+            
             m_component->SendSubtestResultWithDetail(rollerName[roller] + "DragTestStats", testStatus, faultDesc, faultCode,
                                                      "MinDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller].minValue), unitsLBF,
                                                      "MaxDragValue", CreateMessage(buffer, sizeof(buffer), "%.2f", m_dragTestStats[roller].maxValue), unitsLBF,
@@ -2303,6 +2343,42 @@ INT32 BaseBrakeTool::ValidateDrag(INT32 roller, float average)
     m_component->Log(LOG_FN_ENTRY, "ValidateDrag(%d, %f), max: %f\n", roller, average, maxDragForce);
 
     if(average > maxDragForce)     testStatus = BEP_STATUS_FAILURE;
+    else                            testStatus = BEP_STATUS_SUCCESS;
+
+    return(testStatus);
+}
+
+//-----------------------------------------------------------------------------
+INT32 BaseBrakeTool::ValidateMinDrag(INT32 roller, float average)
+{
+    INT32 testStatus;
+    string param(roller < 2 ? "FrontMinDragForce" : "RearMinDragForce");
+    switch(roller)
+    {
+    case LFWHEEL:
+    case RFWHEEL:
+        param = "FrontMinDragForce";
+        break;
+
+    case LRWHEEL:
+    case RRWHEEL:
+        param = "RearMinDragForce";
+        break;
+
+    case LTWHEEL:
+    case RTWHEEL:
+        param = "TandemMinDragForce";
+        break;
+
+    default:
+        param = "RearMinDragForce";
+        break;
+    }
+    float minDragForce = m_component->GetVehicleParameter("BrakeForces/" + param, float(0.0));
+
+    m_component->Log(LOG_FN_ENTRY, "ValidateDrag(%d, %f), min: %f\n", roller, average, minDragForce);
+
+    if(average < minDragForce)     testStatus = BEP_STATUS_FAILURE;
     else                            testStatus = BEP_STATUS_SUCCESS;
 
     return(testStatus);

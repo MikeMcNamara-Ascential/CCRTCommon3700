@@ -334,7 +334,7 @@
             <TestStep01>DetermineSystemConfiguration</TestStep01>
             <TestStep05>Initialize</TestStep05>
             <TestStep15>EnterDiagnosticMode</TestStep15>
-            <TestStep20>CheckPartNumber</TestStep20>
+            <!--TestStep20>CheckPartNumber</TestStep20-->
             <TestStep25>ClearFaults</TestStep25>
             <TestStep90>StartModuleKeepAlive</TestStep90>
         </Setup>

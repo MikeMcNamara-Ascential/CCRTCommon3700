@@ -401,7 +401,7 @@
         <BrakeBurnishCycle Result="Not Tested" Timeout="1200000" ScanDelay="500" Description="Burnish the brakes"/>
         <StaticBrakeBurnishCycle Result="Not Tested" Timeout="1200000" ScanDelay="500" Description="Burnish the brakes"/>
         <DragTest Result="Not Tested" Timeout="30000" Description="Measure vehicle drag forces" Prompt1="ShiftToNeutral" Prompt2="RemoveFootFromAccelerator" DragSpeed="50" DragDelay="1000" DragSamples="50"/>
-        <AnalyzeDragTest Result="Not Tested" Timeout="500" Description="Analyze drag force data" FrontMaxDragForce="45" RearMaxDragForce="45" FrontMinDragForce="0" RearMinDragForce="0"/>
+        <AnalyzeDragTest Result="Not Tested" Timeout="500" Description="Analyze drag force data" FrontMaxDragForce="45" RearMaxDragForce="45" FrontMinDragForce="15" RearMinDragForce="15"/>
         <BrakeSwitchOffTest Result="Not Tested" Timeout="3000" Description="Verify the brake switch is in the off position" ScanDelay="100"/>
         <BrakeSwitchOnTest Result="Not Tested" Timeout="3000" Description="Verify the brake switch is in the on position" ScanDelay="100"/>
         <BrakeTest Result="Not Tested" Timeout="10000" Description="Perform the base brake test" Prompt1="BrakeTest" Prompt2="BrakeModeratelyInGreenBand" StartBrakeSampleSpeed="45" EndBrakeSampleSpeed="35" BrakeDomain="0 500" BrakeTarget="150 400"/>

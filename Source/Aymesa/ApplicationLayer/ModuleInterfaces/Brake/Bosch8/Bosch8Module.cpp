@@ -327,7 +327,6 @@ BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::EnterDiagnosticMode() throw(Mo
     try
     {   // Get the communications protocol
         commProtocol = m_configNode->getChild("Setup/CommunicationProtocol")->getValue();
-        Log(LOG_DEV_DATA, "GOT COMMUNICATION PROTOCOL\n");
     }
     catch(XmlException &ex)
     {   // CommunicationProtocol Tag not found, set to default

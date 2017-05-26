@@ -142,7 +142,6 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
             SendTestResult(status,GetTestStepInfo("Description"));
         }
         else if(step == "CheckRelayState") status = CheckRelayState();
-        else if(step == "EnterDiagnosticMode") status = EnterDiagnosticMode();
         else if(step == "CheckSupplyVoltage") status = CheckSupplyVoltage();
         else if(step == "CheckPumpMotor") status = CheckPumpMotor();
         else if(step == "CheckParkBrakeSignal")   status = CheckParkBrakeSignal();
@@ -189,7 +188,7 @@ string Bosch8TC<ModuleType>::EnterDiagnosticMode(void)
     string testResult = BEP_TESTING_STATUS;
 
     // Check if this step should be skipped
-    Log(LOG_FN_ENTRY, "Enter Bosch8TC::EnterDiagnosticMode()\n");
+    Log(LOG_FN_ENTRY, "Enter EnterDiagnosticMode::EnterDiagnosticMode()\n");
 
     if(CheckZeroSpeed())
     {
@@ -197,9 +196,8 @@ string Bosch8TC<ModuleType>::EnterDiagnosticMode(void)
 
         // Lety the driver react to the prompts
         BposSleep(2000);
-        Log(LOG_DEV_DATA, "COMMANDING ENTER DIAG\n");
-        testResult = m_vehicleModule.EnterDiagnosticMode();
-        
+
+        testResult = KoreaAbsTcTemplate<ModuleType>::EnterDiagnosticMode();
         RemovePrompts();
     }
     else

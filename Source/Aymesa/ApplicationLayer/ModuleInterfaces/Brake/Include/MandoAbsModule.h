@@ -96,14 +96,8 @@ public:
 
     virtual BEP_STATUS_TYPE EspRecovery(const string &valve)  throw(ModuleException);
     virtual BEP_STATUS_TYPE EspReduction(const string &corner)  throw(ModuleException);
-    
-    virtual BEP_STATUS_TYPE PerformFastInitWakeup(void);
-    virtual const UINT32& SignalLowTime(const UINT32 *lowTime = NULL);
-    virtual const UINT32& SignalHighTime(const UINT32 *highTime = NULL);
-    virtual const UINT32& WakeUpResponseDelay(const UINT32 *wakeupDelay = NULL);
-    virtual const INT32& WakeUpAttempts(const INT32 *attempts = NULL);
-    virtual const UINT8& InitMessageEcho(UINT8 *echo = NULL);
-    virtual const INT32& InitMessageByteCount(INT32 *byteCount = NULL);
+
+
 
 protected:
     /**

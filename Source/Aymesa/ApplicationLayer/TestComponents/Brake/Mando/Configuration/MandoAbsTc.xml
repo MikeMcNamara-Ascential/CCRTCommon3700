@@ -482,6 +482,5 @@
       <FinishUp Result="" Timeout="3000" Description="Brake test finishup"/>
       <QuickStop Result="" Description="Command the rollers to stop and verify that Zerospeed is achieved" Timeout="30000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
       <EnableElectricMotorBoost Result="" Description="Enable boosting while at speed" Timeout="1000"/>
-	  <CheckPerformAbs Result="" Description="Check if ABS tests need to be performed" Timeout="10000"/>
    </TestSteps>
 </MandoAbsTc>

@@ -1,9 +1,0 @@
-$Revision$
-
-This file MUST stay here as a placeholder for classes to get URLs to this
-local resource directory.
-
-
-This directory contains writeable resource files for use by the gui's
-runtime configuration. All files in this dir will be copied into the
-user install directory by the InstallAnywhere installer.

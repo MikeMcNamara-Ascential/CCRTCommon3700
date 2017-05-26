@@ -1,6 +1,0 @@
-# Network config panel constants
-
-# These are changed via the Network Config panel
-#
-network.host.default=10.1.1.1
-network.port.default=10000

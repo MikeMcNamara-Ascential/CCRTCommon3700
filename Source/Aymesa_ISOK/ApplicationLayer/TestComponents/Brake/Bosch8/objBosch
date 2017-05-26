@@ -1,2 +1,0 @@
-/usr/local/bin/SendCmd -tCommand -x$1,$2 -ncomponent/Bosch8ABS &
-

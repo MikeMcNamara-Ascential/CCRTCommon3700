@@ -1,3 +1,0 @@
-# Configuration for server configuration directory scanning.
-confdir.path.drivecurves =/Configuration/VehicleTest/DriveCurves
-confdir.path.machineconfigs=/Configuration/Machine

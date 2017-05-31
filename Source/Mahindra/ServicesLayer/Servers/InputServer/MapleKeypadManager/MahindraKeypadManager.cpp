@@ -239,3 +239,73 @@ void MahindraKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteC
         }
     }
 }
+
+void MahindraKeypadManager::SetCurrentState(const std::string &state)
+{   // Decide which messages to display on the keypad
+    Log(LOG_FN_ENTRY, "MahindraKeypadManager::SetCurrentState(%s)\n", state.c_str());
+    // Get the VIN
+    if (state == INPUT_SERVER_VIN_STATE)
+    {   // Clear the display
+        ClearKeypadDisplay();
+        // Display the Enter VIN message
+        DisplayMessage("EnterModelCode");
+        // Position the cursor for data entry
+        PositionCursor(GetDataTag("VINEntryRow"), GetDataTag("VINEntryColumn"));
+        // Enable block mode on the keypad
+        EnableBlockMode();
+    }
+    // Ready to test
+    else if (state == INPUT_SERVER_TEST_RESULT_STATE)
+    {   // Clear the display
+        ClearKeypadDisplay();
+        // Disable block mode on the keypad
+        DisableBlockMode();
+        // Display Ready to Test message
+        DisplayMessage("ReadyToTest");
+        // Display the current VIN on the keypad
+        DisplayMessage(Read(NEXT_VIN_DATA_TAG), GetDataTag("VINDisplayLine"), GetDataTag("VINDisplayColumn"));
+    }
+    // Not ready for inputs
+    else
+    {   // Clear the display
+        ClearKeypadDisplay();
+        // Disable block mode on the keypad
+        DisableBlockMode();
+        // Display the not ready to test message
+        DisplayMessage("NotReady");
+        DisplayMessage("PleaseWait");
+    }
+    // Store the current keypad mode
+    SetCurrentMode(state);
+}
+void MahindraKeypadManager::Run(volatile bool *terminateFlag) /* =NULL */
+{
+    unsigned char inputData[GetBufferSize()];
+    INT32 byteCount = 0;
+    Log(LOG_FN_ENTRY, "MahindraKeypadManager::Execute() begin\n");
+    // clear the keypad buffer
+    memset(inputData, 0, GetBufferSize());
+    // Loop until the server is terminated
+    while (GetStatus() != BEP_TERMINATE)
+    {   // Get the data from the buffer
+        Log(LOG_DEV_DATA,"Waiting for Mahindra Keypad data\n");
+        byteCount = m_keypadComm.Get(inputData, GetBufferSize());
+        // Check if the current input server state needs to be updated
+        if (m_stateChanged)
+        {
+
+            SetCurrentState(m_nextState);
+            m_stateChanged = false;
+        }
+        Log(LOG_DEV_DATA,"Received %d characters from Mahindra Keypad\n", byteCount);
+        // Check for data
+        if (byteCount > 0)
+        {   // Get the remaining data from the buffer
+            m_keypadComm.GetRemainingSerialData(inputData, GetBufferSize(), byteCount, GetMaximumRetries(), GetDataDelay());
+            // Evaluate the data received
+            EvaluateData(inputData, byteCount);
+            // Clear the scanner buffer
+            memset(inputData, 0, GetBufferSize());
+        }
+    }
+}

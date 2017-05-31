@@ -363,16 +363,6 @@ protected:
      */
     const INT32& SecondaryDataLength(const INT32 *dataLength = NULL);
 
-	/**
-	 * Communication object to talk with the Maple Keypad.
-	 */
-	SerialChannel m_keypadComm;
-
-
-
-
-private:
-
     /**
      * Get/Set the length of the VIN.
      * 
@@ -382,17 +372,37 @@ private:
      */
     const INT32& VinLength(const INT32 *length = NULL);
 
+    /**
+     * Get/Set the flag to detemrine if secondary data items should be 
+     * written to the NDB.
+     * 
+     * @param writeToNdb Flag to detemrine if secondary data items should be
+     *                   written to the NDB.
+     * 
+     * @return Flag to detemrine if secondary data items should be 
+     *         written to the NDB.
+     */
+    const bool& WriteSecondaryDataToNdb(const bool *writeToNdb = NULL);
+
 	/**
-	 * Get/Set the flag to detemrine if secondary data items should be 
-	 * written to the NDB.
-	 * 
-	 * @param writeToNdb Flag to detemrine if secondary data items should be
-	 *                   written to the NDB.
-	 * 
-	 * @return Flag to detemrine if secondary data items should be 
-	 *         written to the NDB.
+	 * Communication object to talk with the Maple Keypad.
 	 */
-	const bool& WriteSecondaryDataToNdb(const bool *writeToNdb = NULL);
+	SerialChannel m_keypadComm;
+    /**
+     * Store the future state of the Input Server state.  Used to
+     * allow the publish method to return immediately without
+     * having to process the state change during the Publish.
+     */
+    string m_nextState;
+    /**
+     * Flag indicating that the Input Server State needs to be
+     * updated to the value held in m_nextState
+     */
+    bool m_stateChanged;
+
+
+
+private:
 
     /**
      * Current input mode.
@@ -421,17 +431,6 @@ private:
      * Amount of time to wait before reconnecting
      */
     int m_reconnectDelay;
-    /**
-     * Store the future state of the Input Server state.  Used to
-     * allow the publish method to return immediately without
-     * having to process the state change during the Publish.
-     */
-    string m_nextState;
-    /**
-     * Flag indicating that the Input Server State needs to be
-     * updated to the value held in m_nextState
-     */
-    bool m_stateChanged;
     /**
      * Flag to tell if we should open the logical port.  This allows us to run
      * the unit tests without the full system.

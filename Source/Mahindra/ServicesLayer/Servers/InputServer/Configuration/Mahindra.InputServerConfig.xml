@@ -609,6 +609,7 @@
                         <BlockModeFillCharacter/>
                         <DisableKeyboard>1</DisableKeyboard>
                         <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER VIN #</EnterVIN>
+                        <EnterModelCode RowIndex="1" ColumnIndex="10">PLEASE ENTER MODEL #</EnterModelCode>
                         <ReadyToTest RowIndex="1" ColumnIndex="18">READY!</ReadyToTest>
                         <NotReady RowIndex="1" ColumnIndex="11">NOT READY TO TEST</NotReady>
                         <PleaseWait RowIndex="2" ColumnIndex="12">PLEASE WAIT</PleaseWait>
@@ -696,6 +697,7 @@
                         <BlockModeFillCharacter/>
                         <DisableKeyboard>1</DisableKeyboard>
                         <EnterVIN RowIndex="1" ColumnIndex="11">PLEASE ENTER VIN #</EnterVIN>
+                        <EnterModelCode RowIndex="1" ColumnIndex="10">PLEASE ENTER MODEL #</EnterModelCode>
                         <ReadyToTest RowIndex="1" ColumnIndex="18">READY!</ReadyToTest>
                         <NotReady RowIndex="1" ColumnIndex="11">NOT READY TO TEST</NotReady>
                         <PleaseWait RowIndex="2" ColumnIndex="12">PLEASE WAIT</PleaseWait>

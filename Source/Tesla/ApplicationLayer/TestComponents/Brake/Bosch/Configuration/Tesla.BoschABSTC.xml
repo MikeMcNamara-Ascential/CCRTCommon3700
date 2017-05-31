@@ -345,10 +345,10 @@
          <RightRearMinRecoveryPercent>70.0</RightRearMinRecoveryPercent>
          <!-- ESP Test Parameters -->
          <CheckResponseInProgress>True</CheckResponseInProgress>
-         <LeftFrontMinESPBuildForce Units="lbf">75</LeftFrontMinESPBuildForce>
-         <RightFrontMinESPBuildForce Units="lbf">75</RightFrontMinESPBuildForce>
-         <LeftRearMinESPBuildForce Units="lbf">75</LeftRearMinESPBuildForce>
-         <RightRearMinESPBuildForce Units="lbf">75</RightRearMinESPBuildForce>
+         <LeftFrontMinESPBuildForce Units="lbf">130</LeftFrontMinESPBuildForce>
+         <RightFrontMinESPBuildForce Units="lbf">130</RightFrontMinESPBuildForce>
+         <LeftRearMinESPBuildForce Units="lbf">130</LeftRearMinESPBuildForce>
+         <RightRearMinESPBuildForce Units="lbf">130</RightRearMinESPBuildForce>
          <LeftFrontMaxESPReductionForce Units="%">30.0</LeftFrontMaxESPReductionForce>
          <RightFrontMaxESPReductionForce Units="%">30.0</RightFrontMaxESPReductionForce>
          <LeftRearMaxESPReductionForce Units="%">30.0</LeftRearMaxESPReductionForce>
@@ -396,8 +396,8 @@
          <BrakeBurnishStartSpeed Units="mph">60.0</BrakeBurnishStartSpeed>
          <BrakeBurnishStartSpeedRange Units="mph">60 65</BrakeBurnishStartSpeedRange>
          <BrakeToTargetSpeedPrompt>BrakeToTargetSpeed</BrakeToTargetSpeedPrompt>
-         <BurnishIterations Description="Number of times to accel and decel for one cycle">5</BurnishIterations>
-         <SkipPromptoperatorForBurnish>True</SkipPromptoperatorForBurnish>
+         <BurnishIterations Description="Number of times to accel and decel for one cycle">8</BurnishIterations>
+         <SkipPromptoperatorForBurnish>False</SkipPromptoperatorForBurnish>
          <!-- Electric Park Brake Burnish Parameters -->
          <EPBBurnishCycles Description="Number of times to perform the brake burnish cycle">1</EPBBurnishCycles>
          <EPBBurnishIterations Description="Number of times to accel and decel for one cycle">1</EPBBurnishIterations>
@@ -470,6 +470,29 @@
          <ModuleFault_C41186/>
          <ModuleFault_406228/>
          <ModuleFault_C41886/>
+         <ModuleFault_407268/>
+         <ModuleFault_407203/>
+         <ModuleFault_406209/>
+         <ModuleFault_C42886/>
+         <ModuleFault_403B12/>
+         <ModuleFault_403411/>
+         <ModuleFault_403812/>
+         <ModuleFault_403111/>
+         <ModuleFault_403A11/>
+         <ModuleFault_403212/>
+         <ModuleFault_403512/>
+         <ModuleFault_407109/>
+         <ModuleFault_407202/>
+         <ModuleFault_407209/>
+         <ModuleFault_407309/>
+         <ModuleFault_B03700/>
+         <ModuleFault_403811/>
+         <ModuleFault_407200/>
+         <ModuleFault_403711/>
+         <ModuleFault_402009/>
+         <ModuleFault_C60187/>
+         <ModuleFault_C12687/>
+         <ModuleFault_C12887/>
       </IgnoreFaults>
    </Setup>
    <Objectives>
@@ -487,16 +510,16 @@
          <!--TestStep15>CalibrateGSensor</TestStep15-->
          <TestStep20>ClearFaults</TestStep20>
          <TestStep21>EnterDiagnosticMode</TestStep21>
-         <!--TestStep22>ResetVIN</TestStep22-->
+         <TestStep22>ResetVIN</TestStep22>
          <TestStep25>ResetModule</TestStep25>
          <!--TestStep25>CycleIgnition</TestStep25-->
          <TestStep30>EnterDiagnosticMode</TestStep30>
          <!--TestStep35>EnableElectricVacuumPump</TestStep35-->
+         <!--TestStep40>CheckPartNumber</TestStep40-->
          <!--
-         <TestStep40>CheckPartNumber</TestStep40>
          <TestStep50>LearnPerformanceType</TestStep50>
-         <TestStep62>ProgramVIN</TestStep62>
          -->
+         <!--TestStep62>ProgramVIN</TestStep62-->
          <!--TestStep64>CheckVIN</TestStep64-->
          <TestStep68>EnterDiagnosticMode</TestStep68>
          <TestStep70>StartModuleKeepAlive</TestStep70>
@@ -564,7 +587,7 @@
          <TestStep00>EnableCenteringArrows</TestStep00>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
          <TestStep10>SensorQualityTest</TestStep10>
-         <TestStep14>CheckPedalStatusForBrakeTest</TestStep14>
+         <!--TestStep14>CheckPedalStatusForBrakeTest</TestStep14-->
          <TestStep15>DragTest</TestStep15>
          <TestStep20>AnalyzeDragTest</TestStep20>
          <TestStep25>BrakeSwitchOffTest</TestStep25>
@@ -764,6 +787,8 @@
       <CycleIgnition Result="" Timeout="30000" Description="Cycle ignition off and then on" ScanDelay="250"/>
       <ResetModule Result="" Timeout="30000" Description="Perform module reset" ScanDelay="250"/>
       <Delay Result="" Timeout="10000" Description="Wait for the specified amount of time" DelayTime="1000"/>
+      <StartCycleTimer Result="" Timeout="10000" Description="Cycle timer started"/>
+      <EndCycleTimer Result="" Timeout="10000" Description="Cycle timer finished"/>
 
    </TestSteps>
 </BoschAbs>

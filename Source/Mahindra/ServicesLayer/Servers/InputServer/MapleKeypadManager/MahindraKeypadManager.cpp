@@ -198,7 +198,7 @@ void MahindraKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteC
                 dataValue = std::string((char *)&data[0], index);
                 if(index > VinLength())
                     secondaryDataValue = std::string((char *)&data[VinLength()], index);
-                Log(LOG_DEV_DATA, "Maple Keypad: %s %s\n", displayType.c_str(), dataValue.c_str());
+                Log(LOG_DEV_DATA, "Maple Keypad #1: %s %s\n", displayType.c_str(), dataValue.c_str());
                 // If this is secondary data, setup for Vin entry
                 if(!dataType.compare(SecondaryDataType()))
                 {   // reset the display on the keypad
@@ -208,9 +208,10 @@ void MahindraKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteC
                     EnableBlockMode();
 					if(WriteSecondaryDataToNdb())
 					{
-						INamedDataBroker broker;
+                        Log(LOG_DEV_DATA, "Writing secondary data to ndb #1\n");
+                        INamedDataBroker broker;
 						broker.Write(dataType, dataValue, response, true);
-					}
+					}                    
                 }
                 // If this data is a VIN, display it
                 if(!dataType.compare(NEXT_VIN_DATA_TAG))
@@ -219,13 +220,14 @@ void MahindraKeypadManager::EvaluateData(unsigned char *data, const INT32 &byteC
                     m_inputServerComm->Write(&displayNode,response,true);
                     if(WriteSecondaryDataToNdb() && index > VinLength())
                     {
+                        Log(LOG_DEV_DATA, "Writing secondary data to ndb #2\n");
                         INamedDataBroker broker;
                         broker.Write(SecondaryDataType(), secondaryDataValue, response, true);
                     }
                 }
                 // Make a couple of nodes to send data around
                 XmlElement displayNode(displayType, dataValue);
-                Log(LOG_DEV_DATA, "Maple Keypad: %s %s\n", dataType.c_str(), dataValue.c_str());
+                Log(LOG_DEV_DATA, "Maple Keypad #2: %s %s\n", dataType.c_str(), dataValue.c_str());
                 XmlElement dataNode(dataType, dataValue);
                 // Write the data to the InputServer
                 m_inputServerComm->Write(&displayNode,response,true);

@@ -278,7 +278,7 @@
                     <BadDataIndicator>0x00</BadDataIndicator>
                     <BadDataReplacementValue>0x31</BadDataReplacementValue>
                     <SecondaryDataTag>MaterialNumber</SecondaryDataTag>
-                    <SecondaryDataLength>15</SecondaryDataLength>
+                    <SecondaryDataLength>15</SecondaryDataLength>                    
                     <TwoDimensionBarcode>True</TwoDimensionBarcode>
                     <TwoDimensionBarcodeItems>
                         <Balero StartIndex="0" Length="17"/>
@@ -619,6 +619,7 @@
                     <VinLength>17</VinLength>
                     <SecondaryDataTag>ModelCode</SecondaryDataTag>
                     <SecondaryDataLength>6</SecondaryDataLength>
+                    <WriteSecondaryDataToNdb>True</WriteSecondaryDataToNdb>
                 </Setup>
             </LeftMapleKeypad>
             <!-- ******************************************************* -->
@@ -707,6 +708,7 @@
                     <VinLength>17</VinLength>
                     <SecondaryDataTag>ModelCode</SecondaryDataTag>
                     <SecondaryDataLength>6</SecondaryDataLength>
+                    <WriteSecondaryDataToNdb>True</WriteSecondaryDataToNdb>
                 </Setup>
             </RightMapleKeypad>
         </InputDevices>

@@ -116,6 +116,7 @@ BoschABSTC<ModuleType>::BoschABSTC() : KoreaAbsTcTemplate<ModuleType>()
     m_rfWssPass = false;
     m_lrWssPass = false;
     m_rrWssPass = false;
+    m_cycleTimerStart = 0;
 }
 
 template <class ModuleType>
@@ -181,6 +182,8 @@ const string BoschABSTC<ModuleType>::BoschABSTC<ModuleType>::CommandTestStep(con
         else if(step == "CheckModuleType") status = CheckModuleType();
         else if(step == "ProgramVIN") status = ProgramVIN();
         else if(step == "ResetVIN") status = ResetVIN();
+        else if(step == "StartCycleTimer") status = StartCycleTimer();
+        else if(step == "EndCycleTimer") status = EndCycleTimer();
         else if(step == "RunPumpMotor")
         {
             status = RunPumpMotor();
@@ -3885,11 +3888,30 @@ template<class ModuleInterface>
 string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
 {
     string result(testPass);
+
+    double startTime = 0;
+    double endTime = 0;
+    struct timespec currentTime;
+
     // Log the entry and determine if this test should be performed
     Log(LOG_FN_ENTRY, "BoschABSTC::BrakeBurnishCycle() - Enter");
     
     if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && GetTestStepResult().compare(testSkip))
     {
+        // Get the current time at the start of the test step
+        if(clock_gettime( CLOCK_REALTIME, &currentTime) == -1)
+        {
+            // Log the start time failure
+            Log(LOG_ERRORS, "%s::%s - Failed to record start time\n", GetComponentName().c_str(), GetTestStepName().c_str());
+        }
+        else
+        {
+            startTime = (currentTime.tv_sec * 1000) + (currentTime.tv_nsec / 1000000);
+
+            // Log the start timestamp
+            Log(LOG_DEV_DATA, "%s::%s - Cycle start timestamp: %fms\n", GetComponentName().c_str(), GetTestStepName().c_str(), startTime);
+        }
+
 		bool opBurnishSelected = true;
 		if(!GetParameterBool("SkipPromptoperatorForBurnish"))
 		{
@@ -3946,7 +3968,7 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
 						SystemWrite(GetDataTag("BrakeActive"), false);
 						SystemWrite(GetDataTag("BrakeTarget"), "0 0");
 						m_baseBrakeTool->DisableForceUpdates();
-						// Reneable boosting
+						// Re-enable boosting
 						if(GetParameterBool("BrakeBurnishDisableBoostOnDecel"))	 EnableElectricMotorBoost();
 					}
 					else
@@ -3966,14 +3988,250 @@ string BoschABSTC<ModuleInterface>::BrakeBurnishCycle(void)
 			result = testSkip;
 			Log(LOG_FN_ENTRY, "Operator chose to skip the burnish cycle");
 		}
+
+        // Get the current time at the end of the test step
+        if(clock_gettime( CLOCK_REALTIME, &currentTime) == -1)
+        {
+            // Log the end time failure
+            Log(LOG_ERRORS, "%s::%s - Failed to record end time\n", GetComponentName().c_str(), GetTestStepName().c_str());
+        }
+        else
+        {
+            endTime = (currentTime.tv_sec * 1000) + (currentTime.tv_nsec / 1000000);
+        }
+
+        if (startTime > 0 && endTime > startTime) {
+            // Log the total elapsed time for the test
+            Log(LOG_DEV_DATA, "%s::%s - Elapsed time: %fms\n", GetComponentName().c_str(), GetTestStepName().c_str(), (endTime - startTime));
+        }
+        else
+        {
+            // Log the error in obtaining start and end times
+            Log(LOG_ERRORS, "%s::%s - Empty time record: Start time = %f, End time = %f\n", GetComponentName().c_str(), GetTestStepName().c_str(), startTime, endTime);
+        }
+
+        char buff[16];
+        SendSubtestResultWithDetail("BrakeBurnishCycleTime", testPass, "Brake burnish cycle time", "0000", 
+                                                "BurnishCycleTime", CreateMessage(buff, sizeof(buff), "%.2f", endTime - startTime), "ms");
     }
     else
     {   // Need to skip this test
         result = testSkip;
         Log(LOG_FN_ENTRY, "Skipping Brake burnish cycle");
     }
+
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "BoschABSTC::BrakeBurnishCycle() - Exit");
+    return result;
+}
+
+//----------------------------------------------------------------------------
+template<class ModuleInterface>
+string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
+{
+    string result(testPass);
+
+    double burnishEnergy = 0;
+    double targetEnergy = GetParameterFloat("TargetBurnishEnergy");
+
+    // Loop until target energy total has been reached
+    while (burnishEnergy < targetEnergy)
+    {
+        // Prompt the operator to achieve the desired speed range
+        result = AccelerateToTestSpeed(GetParameterFloat("BrakeBurnishStartSpeed"), GetParameter("BrakeBurnishStartSpeedRange"), 
+                                       GetTestStepInfoInt("ScanDelay"), false, GetPrompt("AccelerateToTargetSpeed"), false);
+        // Wait until the desired speed range has been reached
+        while((GetBoostedRollSpeed() < GetParameterFloat("BrakeBurnishMinNonDrivenAxleSpeed")) && (BEP_STATUS_SUCCESS == StatusCheck()))
+        {
+            Log(LOG_DEV_DATA, "Dynamic Brake Burnish Cycle waiting for boosted axle speed to reach BrakeBurnishMinNonDriveAxleSpeed\n");
+            BposSleep(500);
+        }
+        if(!result.compare(testPass))
+        {
+            // Disable motor boost so the rollers are in free roll mode
+            if(GetParameterBool("BrakeBurnishDisableBoostOnDecel"))	 DisableElectricMotorBoost();
+
+            // Display the brake force target for the operator
+            string forceTarget = ((burnishIterations == (GetParameterInt("BurnishIterations")-1)) ? 
+                                  "BrakeBurnishFinalIterationTarget" : "BrakeBurnishBrakeForceTarget");
+            m_baseBrakeTool->EnableForceUpdates();
+            SystemWrite(GetDataTag("BrakeTarget"), GetParameter(forceTarget));
+            SystemWrite(GetDataTag("BrakeActive"), true);
+            // If the target speed has been reached, brake to the target speed
+            DisplayPrompt(GetPromptBox("BrakeModeratelyInGreenBand"), GetPrompt("BrakeModeratelyInGreenBand"),
+                          GetPromptPriority("BrakeModeratelyInGreenBand"));
+
+            bool isWheelSpeedAboveLimit = true;
+            float unitConversion = GetParameterFloat("BurnishUnitConstant");
+            float currentWheelSpeed[GetRollerCount()];
+            float previousWheelSpeed[GetRollerCount()];
+            float burnishEnergy[GetRollerCount()];
+
+            // Initialize burnish energy array
+            for (int i=0; i < GetRollerCount(); i++)
+            {
+                burnishEnergy[i] = 0;
+            }
+            
+            
+            GetWheelSpeeds(previousWheelSpeed);
+            while(isWheelSpeedAboveLimit)
+            {
+                // Check whether any of the wheels are still above the minimum speed limit
+                isWheelSpeedAboveLimit = false;
+                for (int i=0; i < GetRollerCount(); i++) {
+                    if (currentWheelSpeed[i] >= 25) {
+                        isWheelSpeedAboveLimit = true;
+                    }
+                }
+
+                // If the brake is engaged, perform the calculation
+                bool isBrakeEngaged;
+                m_vehicleModule.ReadModuleData("BrakePedalStatus",isBrakeEngaged); // Correct module data?
+                if (isBrakeEngaged)
+                {
+                    // Update the current speed measurements
+                    GetWheelSpeeds(currentWheelSpeed);
+
+                    for (int i=0; i < GetRollerCount(); i++)
+                    {
+                        // Calculate energy for each wheel
+                        // C * (Vi^2 - Vf^2)^3 / |Vi^2 - Vf^2|
+                        double numerator = std::pow( std::pow(previousWheelSpeed[i], 2) - std::pow(currentWheelSpeed[i], 2), 3);
+                        double denominator = std::abs( std::pow(previousWheelSpeed[i], 2) - std::pow(currentWheelSpeed[i], 2) );
+                        burnishEnergy[i] += (unitConversion * numerator / denominator);
+
+                        // Update the previous speed measurements
+                        previousWheelSpeed[i] = currentWheelSpeed[i];
+                    }
+                }
+            }
+            // Report the results as necessary
+            // LF, RF, LR, and RR
+            char buff[16];
+            SendSubtestResultWithDetail("BrakeBurnishEnergy", testPass, "Brake burnish energy for each wheel", "0000", 
+                                        "LeftFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[0]), "MJ*kW",
+                                        "RightFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[1]), "MJ*kW",
+                                        "LeftRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[2]), "MJ*kW",
+                                        "RightRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[3]), "MJ*kW");
+            // LT and RT
+            if (GetRollerCount() > 4)
+            {
+                SendSubtestResultWithDetail("TandemBrakeBurnishEnergy", testPass, "Brake burnish energy for tandem wheels", "0000", 
+                                            "LeftTandemBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[4]), "MJ*kW",
+                                            "RightTandemBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[5]), "MJ*kW");
+            }
+
+            // Disable the brake force meter
+            RemovePrompt(GetPromptBox("BrakeModeratelyInGreenBand"), GetPrompt("BrakeModeratelyInGreenBand"),
+                         GetPromptPriority("BrakeModeratelyInGreenBand"));
+            SystemWrite(GetDataTag("BrakeActive"), false);
+            SystemWrite(GetDataTag("BrakeTarget"), "0 0");
+            m_baseBrakeTool->DisableForceUpdates();
+            // Re-enable boosting
+            if(GetParameterBool("BrakeBurnishDisableBoostOnDecel"))	 EnableElectricMotorBoost();
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Timeout waiting for brake burnish start speed");
+            result = testTimeout;
+        }
+    }
+
+    return result;
+}
+
+//----------------------------------------------------------------------------
+template<class ModuleInterface>
+string BoschABSTC<ModuleInterface>::StartCycleTimer(void)
+{
+    string result(testPass);
+
+    struct timespec currentTime;
+
+    // Log the entry and determine if this test should be performed
+    Log(LOG_FN_ENTRY, "BoschABSTC::StartCycleTimer() - Enter");
+    
+    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && GetTestStepResult().compare(testSkip))
+    {
+        // Get the current time at the start of the test step
+        if(clock_gettime( CLOCK_REALTIME, &currentTime) == -1)
+        {
+            // Log the start time failure
+            Log(LOG_ERRORS, "%s::%s - Failed to record start time\n", GetComponentName().c_str(), GetTestStepName().c_str());
+
+            result = testFail;
+        }
+        else
+        {
+            m_cycleTimerStart = (currentTime.tv_sec * 1000) + (currentTime.tv_nsec / 1000000);
+
+            // Log the start timestamp
+            Log(LOG_DEV_DATA, "%s::%s - Cycle start timestamp: %fms\n", GetComponentName().c_str(), GetTestStepName().c_str(), m_cycleTimerStart);
+        }
+        // Report the result
+		SendTestResult(result, GetTestStepInfo("Description"));
+    }
+    else
+    {   // Need to skip this test
+        result = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping cycle timer start");
+    }
+
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "BoschABSTC::StartCycleTimer() - Exit");
+    return result;
+}
+
+//----------------------------------------------------------------------------
+template<class ModuleInterface>
+string BoschABSTC<ModuleInterface>::EndCycleTimer(void)
+{
+    string result(testPass);
+
+    struct timespec currentTime;
+    double cycleTimerEnd;
+
+    // Log the entry and determine if this test should be performed
+    Log(LOG_FN_ENTRY, "BoschABSTC::EndCycleTimer() - Enter");
+    
+    if(!ShortCircuitTestStep() && GetTestStepResult().compare(testPass) && GetTestStepResult().compare(testSkip))
+    {
+        // Get the current time at the start of the test step
+        if(clock_gettime( CLOCK_REALTIME, &currentTime) == -1)
+        {
+            // Log the start time failure
+            Log(LOG_ERRORS, "%s::%s - Failed to record end time\n", GetComponentName().c_str(), GetTestStepName().c_str());
+
+            result = testFail;
+        }
+        else
+        {
+            cycleTimerEnd = (currentTime.tv_sec * 1000) + (currentTime.tv_nsec / 1000000);
+            
+            if (m_cycleTimerStart > 0 && cycleTimerEnd > m_cycleTimerStart) {
+                // Log the total elapsed time for the test
+                Log(LOG_DEV_DATA, "%s::%s - Elapsed time: %fms\n", GetComponentName().c_str(), GetTestStepName().c_str(), (cycleTimerEnd - m_cycleTimerStart));
+            }
+            else
+            {
+                // Log the error in obtaining start and end times
+                Log(LOG_ERRORS, "%s::%s - Empty time record: Start time = %f, End time = %f\n", GetComponentName().c_str(), GetTestStepName().c_str(), m_cycleTimerStart, cycleTimerEnd);
+            }
+        }
+
+        char buff[16];
+        SendTestResultWithDetail("TestStepCycleTime", testPass, "Elapsed test step cycle time", "0000", 
+                                                "CycleTime", CreateMessage(buff, sizeof(buff), "%.2f", cycleTimerEnd - m_cycleTimerStart), "ms");
+    }
+    else
+    {   // Need to skip this test
+        result = testSkip;
+        Log(LOG_FN_ENTRY, "Skipping cycle timer end");
+    }
+
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "BoschABSTC::EndCycleTimer() - Exit");
     return result;
 }
 

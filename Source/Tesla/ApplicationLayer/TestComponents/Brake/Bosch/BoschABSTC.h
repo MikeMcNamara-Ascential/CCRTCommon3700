@@ -23,6 +23,7 @@
 #define BoschABSTC_h
 //-----------------------------------------------------------------------------
 #include "KoreaAbsTcTemplate.cpp"
+#include <cmath>
 //-----------------------------------------------------------------------------
 
 /**
@@ -618,6 +619,31 @@ protected:
      */
     string BrakeBurnishCycle(void);
     /**
+     * Perform a brake burnish cycle on the vehicle.
+     * The operator will be prompted to accelerate to the target speed and then brake to a lower target
+     * speed.  This cycle will be repeated until a target energy is 
+     * reached. 
+     * 
+     * @return Result of the brake burnish cycle.
+     */
+    string DynamicBrakeBurnishCycle(void);
+    /**
+     * Get the start timestamp for timing a series of test steps. 
+     * Used with EndCycleTimer() to measure the time spent on the 
+     * intermediary test steps. 
+     * 
+     * @return Result of obtaining a timestamp.
+     */
+    string StartCycleTimer(void);
+    /**
+     * Get the end timestamp for timing a series of test steps, then
+     * log the measured time and return a subtest result. Measures 
+     * time since last call to StartCycleTimer(). 
+     * 
+     * @return Result of obtaining a timestamp.
+     */
+    string EndCycleTimer(void);
+    /**
      * Perform a static brake burnish test.
      * Each wheel will be accelerated to a specific speed.  Once the desired speed has been achieved, the
      * operator will be instructed to apply brake pedal until the target speed is achieved.  Once the burnish 
@@ -821,6 +847,9 @@ private:
     bool m_rfWssPass;
     bool m_lrWssPass;
     bool m_rrWssPass;
+
+    double m_cycleTimerStart;
+
 };
 
 //-----------------------------------------------------------------------------

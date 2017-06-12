@@ -73,7 +73,7 @@ namespace MesReportGenerator
         /// <summary>
         /// Convert to MES Report
         /// </summary>
-        private String ConvertTestResultFile(String file, XslCompiledTransform xForm)
+        private bool ConvertTestResultFile(String file, XslCompiledTransform xForm)
         {
             String reportFileName = null;
             string newFileName = null;
@@ -102,16 +102,18 @@ namespace MesReportGenerator
                     reportFileName = Path.Combine(MesReportGenerator.Properties.Settings.Default.OutputDirectory,
                                                      newFileName);
                 }
+                xDoc = null;
             }
             catch (NullReferenceException)
             {
                 DisplayStatusMessage("Attempt to process Test Result file: " + file + " not successful. Check file format.");
                 //AddToUsedTestResults(Path.GetFileName(file));
-                return "NullExeption";
+                return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                DisplayStatusMessage("Attempt to process Test Result file: " + file + " not successful. Reason unknown");
+                DisplayStatusMessage("Attempt to process Test Result file: " + file + " not successful. Reason unknown exception: " + e.Message);
+                return false;
             }
             if (reportFileName != null || newFileName != null)
             {
@@ -131,7 +133,7 @@ namespace MesReportGenerator
 
             }
             //m_usedTestResultFiles.Add(Path.GetFileName(file));
-            return Path.GetFileName(file);
+            return true;
         }
 
         /// <summary>
@@ -169,7 +171,8 @@ namespace MesReportGenerator
         /// </summary>
         private void GenerateReport()
         {   // Make sure we are all setup
-            m_reportTimer.Stop();  // Stop the timer so we do not get multiple entries
+           
+            
             if (VerifySystemSetup())
             {
                 //On initial check fill array with existing Test Result file names - mark them as converted 
@@ -197,18 +200,34 @@ namespace MesReportGenerator
                     // Get the list of result files to be processed
                     foreach (String file in Directory.GetFiles(MesReportGenerator.Properties.Settings.Default.SourceDirectory))
                     {
-
-                        if (Regex.IsMatch(Path.GetFileName(file), @"[A-Za-z0-9]+\.[0-9]{4}"))
+                        Boolean result = false;
+                        int attempt = 0;
+                        while (attempt <= 3 && result == false)
                         {
-                            //if (!m_usedTestResultFiles.Contains(Path.GetFileName(file)))
-                            //{
-                            //    String result = ConvertTestResultFile(file, xForm);
-                            //        AddToUsedTestResults(result);
-                            //}
-                            String result = ConvertTestResultFile(file, xForm);
+                            if (Regex.IsMatch(Path.GetFileName(file), @"[A-Za-z0-9]+\.[0-9]{4}"))
+                            {
+                                //if (!m_usedTestResultFiles.Contains(Path.GetFileName(file)))
+                                //{
+                                //    String result = ConvertTestResultFile(file, xForm);
+                                //        AddToUsedTestResults(result);
+                                //}
+                                result = ConvertTestResultFile(file, xForm);
+                            }
+                            attempt++;
+                            if (result == false)
+                            {
+                                Thread.Sleep(500);
+                            }
                         }
                         // Move the test result file to the Archive folder once the conversion has taken place
-                        ArchiveTestResult(file);
+                        if (result)
+                        {
+                            ArchiveTestResult(file);
+                        }
+                        else
+                        {
+                            DisplayStatusMessage("Error Converting Test Result File: " + file);
+                        }
                     }
                     
                     //MesReportGenerator.Properties.Settings.Default.usedResults = m_usedTestResultFiles;
@@ -219,7 +238,7 @@ namespace MesReportGenerator
             {
                 DisplayStatusMessage("System setup not complete, not generating results");
             }
-            m_reportTimer.Enabled = true;
+           
         }
 
         // <summary>
@@ -367,8 +386,8 @@ namespace MesReportGenerator
                 xForm.Load(MesReportGenerator.Properties.Settings.Default.XsltFile);
                 String file = dlg.FileName;
 
-                String result = ConvertTestResultFile(file, xForm);
-                if (result == "NullExeption")
+            
+                if (ConvertTestResultFile(file, xForm))
                 {
                     MessageBox.Show("Test Result file not valid!" +
                                                   Environment.NewLine + "Check format.",
@@ -508,7 +527,10 @@ namespace MesReportGenerator
             Thread reportThread = new Thread(new ThreadStart(GenerateReport));
             reportThread.Start();
 #else
+            m_reportTimer.Stop();
             GenerateReport();
+            System.GC.Collect();
+            m_reportTimer.Start();
 #endif
         }
 

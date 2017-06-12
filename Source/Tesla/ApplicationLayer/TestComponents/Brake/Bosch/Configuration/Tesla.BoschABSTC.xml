@@ -343,6 +343,10 @@
          <LeftRearMinRecoveryPercent>70.0</LeftRearMinRecoveryPercent>
          <RightFrontMinRecoveryPercent>70.0</RightFrontMinRecoveryPercent>
          <RightRearMinRecoveryPercent>70.0</RightRearMinRecoveryPercent>
+         <TargetBurnishEnergy>2000.0</TargetBurnishEnergy>
+         <MinimumBurnishStops>7</MinimumBurnishStops>
+         <MaximumBurnishStops>11</MaximumBurnishStops>
+         <BurnishUnitConstant>1.0</BurnishUnitConstant>
          <!-- ESP Test Parameters -->
          <CheckResponseInProgress>True</CheckResponseInProgress>
          <LeftFrontMinESPBuildForce Units="lbf">130</LeftFrontMinESPBuildForce>
@@ -465,6 +469,7 @@
          <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
          <ZeroSpeed PromptBox="1" Priority="0">ZeroSpeed</ZeroSpeed>
          <ReleaseThrottle PromptBox="1" Priority="0">ReleaseThrottleShiftNeutral</ReleaseThrottle>
+         <OneMoreBurnishStop PromptBox="1" Priority="0">OneMoreBurnishStop</OneMoreBurnishStop>
       </Prompts>
       <IgnoreFaults>
          <ModuleFault_C41186/>

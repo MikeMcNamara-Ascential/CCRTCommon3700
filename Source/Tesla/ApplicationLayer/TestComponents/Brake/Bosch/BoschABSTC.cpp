@@ -4165,28 +4165,43 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
         // Report the results as necessary
         // LF, RF, LR, and RR
         char buff[16];
-        SendSubtestResultWithDetail("LeftFrontBrakeBurnishEnergy", testPass, "Brake burnish energy for left front wheel", "0000", 
+        SendSubtestResultWithDetail("LeftFrontBrakeBurnishEnergy", (burnishEnergy[0] >= targetEnergy) ? testPass : testFail,
+                                    "Brake burnish energy for left front wheel", "0000", 
                                     "LeftFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[0]), "MJ*kW");
 
-        SendSubtestResultWithDetail("RightFrontBrakeBurnishEnergy", testPass, "Brake burnish energy for right front wheel", "0000", 
+        SendSubtestResultWithDetail("RightFrontBrakeBurnishEnergy", (burnishEnergy[1] >= targetEnergy) ? testPass : testFail,
+                                    "Brake burnish energy for right front wheel", "0000", 
                                     "RightFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[1]), "MJ*kW");
 
-        SendSubtestResultWithDetail("LeftRearBrakeBurnishEnergy", testPass, "Brake burnish energy for left rear wheel", "0000", 
+        SendSubtestResultWithDetail("LeftRearBrakeBurnishEnergy", (burnishEnergy[2] >= targetEnergy) ? testPass : testFail,
+                                    "Brake burnish energy for left rear wheel", "0000", 
                                     "LeftRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[2]), "MJ*kW");
 
-        SendSubtestResultWithDetail("RightRearBrakeBurnishEnergy", testPass, "Brake burnish energy for right rear wheel", "0000", 
+        SendSubtestResultWithDetail("RightRearBrakeBurnishEnergy", (burnishEnergy[3] >= targetEnergy) ? testPass : testFail,
+                                    "Brake burnish energy for right rear wheel", "0000", 
                                     "RightRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[3]), "MJ*kW");
         /*
         // LT and RT
         if (GetRollerCount() > 4)
         {
-            SendSubtestResultWithDetail("LeftTandemBrakeBurnishEnergy", testPass, "Brake burnish energy for left tandem wheel", "0000", 
+            SendSubtestResultWithDetail("LeftTandemBrakeBurnishEnergy", (burnishEnergy[4] >= targetEnergy) ? testPass : testFail,
+                                        "Brake burnish energy for left tandem wheel", "0000", 
                                         "LeftTandemBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[4]), "MJ*kW");
 
-            SendSubtestResultWithDetail("RightTandemBrakeBurnishEnergy", testPass, "Brake burnish energy for right tandem wheel", "0000", 
+            SendSubtestResultWithDetail("RightTandemBrakeBurnishEnergy", (burnishEnergy[5] >= targetEnergy) ? testPass : testFail,
+                                        "Brake burnish energy for right tandem wheel", "0000", 
                                         "RightTandemBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[5]), "MJ*kW");
         }
         */
+
+        // Report test failure if any of the wheels did not reach target energy
+        for (int i=0; i < GetRollerCount(); i++)
+        {
+            if (burnishEnergy[i] < targetEnergy)
+            {
+                result = testFail;
+            }
+        }
 
         // Get the current time at the end of the test step
         if(clock_gettime( CLOCK_REALTIME, &currentTime) == -1)
@@ -4211,6 +4226,8 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
 
         SendSubtestResultWithDetail("DynamicBrakeBurnishCycleTime", testPass, "Dynamic brake burnish cycle time", "0000", 
                                                 "BurnishCycleTime", CreateMessage(buff, sizeof(buff), "%.2f", endTime - startTime), "ms");
+        // Report the result
+		SendTestResult(result, GetTestStepInfo("Description"));
     }
     else
     {   // Need to skip this test

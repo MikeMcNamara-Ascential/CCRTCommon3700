@@ -1,7 +1,5 @@
 #------------------------------------------------------------------------------------------
-# Tell CMake what subdirectories to recurse into
+# Tell CMake what files to install
 #------------------------------------------------------------------------------------------
-INSTALL_FILES(${COMPONENT_CONFIG_DIR}/SpeedControl FILES
-	KwpIsuzuSpeedControlTc.xml
-	)
-	
+INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
+    AdvicsABS.xml)

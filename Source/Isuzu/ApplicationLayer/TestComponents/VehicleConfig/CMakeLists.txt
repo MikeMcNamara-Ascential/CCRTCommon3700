@@ -9,8 +9,8 @@ SET(EXE_NAME MimamoriTc)
 #------------------------------------------------------------------------------------------
 INCLUDE_DIRECTORIES(${CORE_MODULES_INC_PATH} 
 		    ${CORE_ECU_TC_INC_PATH} 
-		    ${CORE_PROTOCOLS_INC_PATH} 
-                    ${CUSTOMER_PROTOCOLS_INC_PATH} 
+		    ${CORE_PROTOCOLS_INC_PATH}
+		    ${CUSTOMER_PROTOCOL_INC_PATH} 
 		    ${MIMAMORI_MODULE_INC_PATH})
 
 

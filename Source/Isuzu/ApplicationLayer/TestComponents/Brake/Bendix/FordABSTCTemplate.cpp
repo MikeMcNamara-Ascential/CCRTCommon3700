@@ -2996,6 +2996,10 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
                                             GetFaultName("LeftFrontValveCrossedWithRightFront"),
                                             GetFaultDescription("LeftFrontValveCrossedWithRightFront"));
             }
+            else
+            {
+                SendSubtestResultWithDetail("LFValveCross", testPass, "LF Valve Cross", "0000");
+            }
             //rear        
             if (true == lrrrCross)
             {
@@ -3004,6 +3008,10 @@ const std::string FordABSTCTemplate<ModuleType>::ValveCycleTorqueTest(const std:
                                             GetFaultCode("LeftRearValveCrossedWithRightRear"),
                                             GetFaultName("LeftRearValveCrossedWithRightRear"),
                                             GetFaultDescription("LeftRearValveCrossedWithRightRear"));
+            }
+            else
+            {
+                SendSubtestResultWithDetail("LRValveCross", testPass, "LF Valve Cross", "0000");
             }
     
             Log( LOG_DEV_DATA, "Failing ValveCycleTorqueTest because valve cross detected\n");
@@ -6385,4 +6393,5 @@ string FordABSTCTemplate<ModuleType>::TestStepWriteFingerprint(void)
     Log(LOG_FN_ENTRY, "FordABSTCTemplate::TestStepWriteFingerprint() - Exit");
     return result;
 }
+
 

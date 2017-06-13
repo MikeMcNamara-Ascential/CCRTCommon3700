@@ -8,26 +8,12 @@
             <Debug>Off</Debug>
         </Axle>
         <Brakes>
-            <ComponentName>Isuzu720AbsTc.qxe</ComponentName>
+            <ComponentName>AdvicsABSTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>Isuzu720AbsTc.xml</ConfigFile>
+            <ConfigFile>AdvicsABS.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
             <Debug>Off</Debug>
         </Brakes>
-        <DCU>
-            <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
-            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
-            <ConfigFile>BoschDCUTc.xml</ConfigFile>
-            <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
-            <Debug>Off</Debug>
-        </DCU>
-        <Emissions>
-            <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
-            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>My14IsuzuEmissionsTc.xml</ConfigFile>
-            <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
-            <Debug>Off</Debug>
-        </Emissions>
         <Machine>
             <ComponentName>MachineTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -73,19 +59,8 @@
                 <Objective00 Description="Wait for engine running" Result="" Timeout="" Component="Emissions">
                     <EngineRunning/>
                 </Objective00>
-                <Objective01 Description="Setup the DCU" Result="" Timeout="" Component="DCU">
-                    <Setup/>
-                </Objective01>
             </ForegroundObjectives>
         </TestPhase001>
-
-        <TestPhase002 Description="ABS Pump Prime" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective15 Description="ABS Prime" Result="" Timeout="" Component="Brakes">
-                    <PrimeAbs/>
-                </Objective15>
-            </ForegroundObjectives>
-        </TestPhase002>
 
         <TestPhase006 Description="Prompt operator that modules are initializing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
@@ -111,10 +86,24 @@
         <TestPhase009 Description="Key Cycle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
-                    <StaticChecks/>
+                    <EnterDiagnosticMode/>
                 </Objective15>
             </ForegroundObjectives>
         </TestPhase009>
+        <TestPhase010 Description="Key Cycle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
+                    <CheckPartNumber/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase010>
+        <TestPhase011 Description="Key Cycle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
+                    <DisableSpeedLimit/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase011>
 
         <TestPhase015 Description="Turn on Speed Control" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
@@ -159,7 +148,7 @@
         <TestPhase115 Description="Low speed ABS sensor testing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Check individual ABS sensors" Result="" Timeout="" Component="Brakes">
-                    <SensorTest/>
+                    <LowSpeedSensorTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase115>
@@ -251,15 +240,12 @@
         <TestPhase304 Description="ABS testing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Functional Brake Testing" Result="" Timeout="" Component="Brakes">
-                    <ABSBrakeTest/>
+                    <ValveFiringTest/>
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase304>
         <TestPhase305 Description="Brake to stop" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Analyze brake test results" Result="" Timeout="" Component="Brakes">
-                    <AnalyzeBrakeTest/>
-                </Objective0>
                 <Objective1 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
                     <BrakeToStop/>
                 </Objective1>
@@ -367,9 +353,6 @@
         <!-- Perform test finishup -->
         <TestPhase930 Description="Finisup testing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective01 Description="Finish up and determine overall result" Result="" Timeout="" Component="DCU">
-                    <FinishUp/>
-                </Objective01>
                 <Objective05 Description="Finish up and determine overall result" Result="" Timeout="" Component="Emissions">
                     <FinishUp/>
                 </Objective05>

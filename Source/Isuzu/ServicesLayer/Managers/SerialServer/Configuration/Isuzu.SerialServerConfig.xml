@@ -387,6 +387,44 @@
                     </CommLog>
                 </Setup>
             </WinCcrt>
+            <ISOK enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/sl7804/ser5</SerialDevice>
+               <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>
+               <DefaultReplyTimeout units="milliseconds">5000</DefaultReplyTimeout>
+               <Protocol>
+                  <Baud>10400</Baud>
+				  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>1</Reflection>
+                  <ByteGap>5</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>Rx</Interrupts>
+                  <FifoSize>1024</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/ISOK</ProcessName>
+                  <AdditionalLogFile>/Servers/ISOKComm.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x01</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>ISOK_Comm</ProcessName>
+                        <AdditionalLogFile>/Communication/ISO_BusComm.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+            </Setup>
+         </ISOK>
          </LogicalPorts>
     </Setup>
 </SerialServerConfig>

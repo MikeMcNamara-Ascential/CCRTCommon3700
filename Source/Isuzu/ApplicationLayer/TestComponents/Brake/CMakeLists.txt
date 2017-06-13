@@ -1,3 +1,4 @@
+SET(FORD_COMMON_BRAKE_TEMPLATE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Common/)
 #------------------------------------------------------------------------------------------
 # Where to find the common headers
 #------------------------------------------------------------------------------------------
@@ -13,6 +14,7 @@ LINK_LIBRARIES(basebrake)
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
+ADD_SUBDIRECTORY(Advics)
 ADD_SUBDIRECTORY(BaseBrake)
 ADD_SUBDIRECTORY(Bendix)
-ADD_SUBDIRECTORY(Isuzu720Abs)
+#ADD_SUBDIRECTORY(Isuzu720Abs)

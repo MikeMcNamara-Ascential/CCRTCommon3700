@@ -353,10 +353,10 @@
          <RightFrontMinESPBuildForce Units="lbf">130</RightFrontMinESPBuildForce>
          <LeftRearMinESPBuildForce Units="lbf">130</LeftRearMinESPBuildForce>
          <RightRearMinESPBuildForce Units="lbf">130</RightRearMinESPBuildForce>
-         <LeftFrontMaxESPReductionForce Units="%">30.0</LeftFrontMaxESPReductionForce>
-         <RightFrontMaxESPReductionForce Units="%">30.0</RightFrontMaxESPReductionForce>
-         <LeftRearMaxESPReductionForce Units="%">30.0</LeftRearMaxESPReductionForce>
-         <RightRearMaxESPReductionForce Units="%">30.0</RightRearMaxESPReductionForce>
+         <LeftFrontMaxESPReductionForce Units="%">20.0</LeftFrontMaxESPReductionForce>
+         <RightFrontMaxESPReductionForce Units="%">20.0</RightFrontMaxESPReductionForce>
+         <LeftRearMaxESPReductionForce Units="%">20.0</LeftRearMaxESPReductionForce>
+         <RightRearMaxESPReductionForce Units="%">20.0</RightRearMaxESPReductionForce>
          <FourChannelEspTest>True</FourChannelEspTest>
          <CheckESPValvesCrossed>True</CheckESPValvesCrossed>
          <AlwaysWaitForControlComplete>True</AlwaysWaitForControlComplete>
@@ -520,11 +520,11 @@
          <!--TestStep25>CycleIgnition</TestStep25-->
          <TestStep30>EnterDiagnosticMode</TestStep30>
          <!--TestStep35>EnableElectricVacuumPump</TestStep35-->
-         <!--TestStep40>CheckPartNumber</TestStep40-->
+         <TestStep40>CheckPartNumber</TestStep40>
          <!--
          <TestStep50>LearnPerformanceType</TestStep50>
          -->
-         <!--TestStep62>ProgramVIN</TestStep62-->
+         <TestStep62>ProgramVIN</TestStep62>
          <!--TestStep64>CheckVIN</TestStep64-->
          <TestStep68>EnterDiagnosticMode</TestStep68>
          <TestStep70>StartModuleKeepAlive</TestStep70>
@@ -719,11 +719,11 @@
       <Initialize Result="" Timeout="1000" Description="Initialize the BaseBrake portion of the test" Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
       <AccelerateToBrakeSpeed Result="" Timeout="1200000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="60" SpeedTarget="60 65" Prompt1="AccelerateToTargetSpeed">Accelerate to Brake Test Arm Speed</AccelerateToBrakeSpeed>
       <DragTest Result="" Timeout="40000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt1BGColor="180 255 180" Prompt2="Blank" DragDelay="1000" DragSpeed="60" DragSamples="50">Perform Vehicle Drag Test</DragTest>
-      <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="80" RearMaxDragForce="55" FrontMinDragForce="15" RearMinDragForce="15">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
+      <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2="" FrontMaxDragForce="55" RearMaxDragForce="55" FrontMinDragForce="15" RearMinDragForce="15">Perform Vehicle Drag Test Analysis</AnalyzeDragTest>
       <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank">Perform Vehicle Coast</Coast>
       <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" StartBrakeSampleSpeed="25" EndBrakeSampleSpeed="5" BrakeDomain="0 500" BrakeTarget="250 400" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test</BrakeTest>
       <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="250" RearMinBrakeForce="100" FrontMaxBrakeForce="600" RearMaxBrakeForce="400" Prompt1="" Prompt2="">Perform Vehicle BaseBrake Test Analysis</AnalyzeBrakeTest>
-      <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="5" RearSideToSideBalance="5" TandemSideToSideBalance="20" BalanceFrontToRearMin="59" BalanceFrontToRearMax="73" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
+      <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="6" RearSideToSideBalance="6" TandemSideToSideBalance="20" BalanceFrontToRearMin="59" BalanceFrontToRearMax="73" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
       <BrakeToStop Result="" Timeout="120000" Description="Prompt the driver to brake to stop" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
       <!--From GenericABSTestComponent-->
       <ConnectToModule Result="" Timeout="" Description=""/>

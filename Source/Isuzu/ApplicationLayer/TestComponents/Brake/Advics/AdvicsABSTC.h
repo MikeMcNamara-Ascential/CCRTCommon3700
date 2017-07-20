@@ -309,185 +309,7 @@ protected:
      *      <li> SoftwareFail - A module exception occurred attempting to read the vehicle configuration from the module. </li>
      *      </ul>
      */
-    virtual string DetermineSystemConfiguration(void);
-    /**
-     * Analyze the reduction force for the specified wheel.
-     * <b>Category:</b> Utility
-     * <br><p>
-     * <b>Description:</b><br>
-     * The wheel force array for the specified wheel will be retrieved.  The minimum data point betweent the start and
-     * end indices will be located and compared against the minimum reduction allowed.  If the value falls below the
-     * minimum reduction allowed, the test passes.  The results will be written to the system for display to the operator
-     * as well.
-     * <br><p>
-     *
-     * <b>Data Tags:</b>
-     *      <ul>
-     *      <li> [wheel]ABSReductionValue - System tag to write the reduction value for [wheel]. </li>
-     *      <li> [wheel]ABSReductionBGColor - System tag for setting the background color for the reduction value for [wheel]. </li>
-     *      </ul>
-     *
-     * <b>Test Component Parameters:</b>
-     *      <ul>
-     *      <li> [wheel]MinReductionPercent - Minimum reduction percent required for [wheel]. </li>
-     *      </ul>
-     *
-     * <b>Fault Codes:</b>
-     *      <ul>
-     *      <li> [wheel]ReductionFail - Reduction percentage is not low enough for [wheel]. </li>
-     *      </ul>
-     *
-     * <b>Functions Called:</b>
-     *      <ul>
-     *      <li> GetWheelForceArray() </li>
-     *      <li> GetDragForceValue() </li>
-     *      <li> GetBrakeForceValue() </li>
-     *      <li> GetParameterFloat() </li>
-     *      <li> CreateMessage() </li>
-     *      <li> SystemWrite() </li>
-     *      <li> GetDataTag() </li>
-     *      <li> GetFaultCode() </li>
-     *      <li> GetFaultDescription() </li>
-     *      <li> SendSubtestResultWithDetail() </li>
-     *      </ul>
-     *
-     * @param roller The roller to analyze.
-     * @param start  The start index for the reduction pulse.
-     * @param end    The end index for the reduction pulse.
-     * @return The status of checking the reduction force.
-     *      <ul>
-     *      <li> BEP_STATUS_SUCCESS - Reduction precentage was below the minimum required. </li>
-     *      <li> BEP_STATUS_FAILURE - Reduction percentage was above the minimum required. </li>
-     *      <li> BEP_STATUS_SKIP - Reduction forces were not sampled.
-     *      </ul>
-     */
-    //virtual BEP_STATUS_TYPE AnalyzeReductionForces(INT32 roller, INT32 start, INT32 end);
-
-    /**
-     * Analyze the recovery force for the specified wheel.
-     * <b>Category:</b> Utility
-     * <br><p>
-     * <b>Description:</b><br>
-     * The wheel force array for the specified wheel will be retrieved.  The maximum data point betweent the start and
-     * end indices will be located and compared against the minimum recovery required.  If the value falls above the
-     * minimum recovery required, the test passes.  The results will be written to the system for display to the operator
-     * as well.
-     * <br><p>
-     *
-     * <b>Data Tags:</b>
-     *      <ul>
-     *      <li> [wheel]ABSRecoveryValue - System tag to write the recovery value for [wheel]. </li>
-     *      <li> [wheel]ABSRecoveryBGColor - System tag for setting the background color for the recovery value for [wheel]. </li>
-     *      </ul>
-     *
-     * <b>Test Component Parameters:</b>
-     *      <ul>
-     *      <li> [wheel]MinRecoveryPercent - Minimum recovery percent required for [wheel]. </li>
-     *      </ul>
-     *
-     * <b>Fault Codes:</b>
-     *      <ul>
-     *      <li> [wheel]RecoveryFail - Recovery percentage is not high enough for [wheel]. </li>
-     *      </ul>
-     *
-     * <b>Functions Called:</b>
-     *      <ul>
-     *      <li> GetWheelForceArray() </li>
-     *      <li> GetBrakeForceValue() </li>
-     *      <li> GetParameterFloat() </li>
-     *      <li> CreateMessage() </li>
-     *      <li> SystemWrite() </li>
-     *      <li> GetDataTag() </li>
-     *      <li> GetFaultCode() </li>
-     *      <li> GetFaultDescription() </li>
-     *      <li> SendSubtestResultWithDetail() </li>
-     *      </ul>
-     *
-     * @param roller The roller to analyze.
-     * @param start  The start index for the recovery pulse.
-     * @param end    The end index for the recovery pulse.
-     * @return The status of checking the recovery force.
-     *      <ul>
-     *      <li> BEP_STATUS_SUCCESS - Recovery precentage was below the maximum required. </li>
-     *      <li> BEP_STATUS_FAILURE - Recovery percentage was above the maximum required. </li>
-     *      <li> BEP_STATUS_SKIP - Recovery forces were not sampled.
-     *      </ul>
-     */
-    //virtual BEP_STATUS_TYPE AnalyzeRecoveryForces(INT32 roller, INT32 start, INT32 end);
-    /**
-     * Perform the valve firing sequence for all wheels.  Overloaded - Module LF need extra delay
-     * <b>Category:</b> Test Step
-     * <br><p>
-     * <b>Description:</b><br>
-     * The valves at each wheel will be fired in order to collect data for the reduction/recovery performance of the
-     * ABS.  Data can optionally be collected during the valve firing to determine if any wheel speed sensors are crossed
-     * or if any brake valves are crossed.
-     * <br><p>
-     *
-     * <b>Test Component Parameters:</b>
-     *      <ul>
-     *      <li> DeveloperTest - Flag indicating if this is a special development test sequence. </li>
-     *      <li> DisableMeterForValveFiring - Flag to indicate if the force meter should be updated during the valve
-     *                                        firing sequence.  The operator would notice the meter bouncing around if
-     *                                        it is left enabled during valve firing. </li>
-     *      <li> PerformReductionBeforeRecovery - Flag indicating what type of valve firing sequence to perform.  If
-     *                                            brake force is dumped prior to the valve firing, you would need to
-     *                                            perform the recovery first.  Otherwise, you would need to dump the
-     *                                            current brake force prior to trying to recover the brake force. </li>
-     *      <li> CollectSensorSpeedData - Flag used to indicate if wheel speed sensor data should be collected for later
-     *                                    analysis of wheel speed sensors crossed. </li>
-     *      <li> BrakeForceStabilizeTime - Time to wait in milliseconds for brake force to stabilize prior to firing valves. </li>
-     *      <li> InterWheelGapDelay - Time in milliseconds to wait before firing the next valve in the sequence. </li>
-     *      </ul>
-     *
-     * <b>Test Step Info:</b>
-     *      <ul>
-     *      <li> Description - Description of the test step. </li>
-     *      </ul>
-     *
-     * <b>Fault Codes:</b>
-     *      <ul>
-     *      <li> ReduxRecovSequenceFail - A failure occurred during the valve firing sequence. </li>
-     *      </ul>
-     *
-     * <b>Module Interface Functions:</b>
-     *      <ul>
-     *      <li> GetInfo() - Message Tag: ReadSensorSpeeds </li>
-     *      </ul>
-     *
-     * <b>Functions Called:</b>
-     *      <ul>
-     *      <li> GetTestStepInfo() </li>
-     *      <li> GetRollerCount() </li>
-     *      <li> GetComponentName() </li>
-     *      <li> GetTestStepName() </li>
-     *      <li> ShortCircuitTestStep() </li>
-     *      <li> GetBrakeTestingStatus() </li>
-     *      <li> GetParameterBool() </li>
-     *      <li> GetParameterInt() </li>
-     *      <li> UpdatePrompts() </li>
-     *      <li> RemovePrompts() </li>
-     *      <li> DisableForceUpdates() </li>
-     *      <li> EnableForceUpdates() </li>
-     *      <li> TagArray() - Tag: ABSStart/ABSEnd</li>
-     *      <li> IsFourChannelSystem() </li>
-     *      <li> BposSleep() </li>
-     *      <li> GetISpeeds() </li>
-     *      <li> Reduction() </li>
-     *      <li> Recovery() </li>
-     *      <li> GetFaultCode() </li>
-     *      <li> GetFaultDescription() </li>
-     *      <li> SendTestResultWithDetail() </li>
-     *      </ul>
-     *
-     * @return Result of the valve firing test.
-     *      <ul>
-     *      <li> Pass - The valves were fired successfully. </li>
-     *      <li> Fail - An error occurred firing the valves. </li>
-     *      <li> Skip - The vlaves do not need to be fired. </li>
-     *      </ul>
-     */
-    virtual string ValveFiringTest(void);
+    virtual string DetermineSystemConfiguration(void);    
     /**
      * <b>Description:</b>
      * Exit diagnostic mode.
@@ -546,37 +368,7 @@ protected:
     * @since 16 December 2003
     */
    virtual string RRSensorTest(void);
-    /**
-     * Test the left front ABS valves.
-     * 
-     * @return The status of the operation.
-     * @since 18 December 2003
-     */ 
-    string LFABSTest(void);
 
-    /**
-     * Test the right front ABS valves.
-     * 
-     * @return The status of the operation.
-     * @since 18 December 2003
-     */ 
-    string RFABSTest(void);
-
-    /**
-     * Test the left rear ABS valves.
-     * 
-     * @return The status of the operation.
-     * @since 18 December 2003
-     */ 
-    string LRABSTest(void);
-
-    /**
-     * Test the right rear ABS valves.
-     * 
-     * @return The status of the operation.
-     * @since 18 December 2003
-     */ 
-    string RRABSTest(void);
     /**
      * Dynamic test the left front ABS valves.
      * 
@@ -608,13 +400,6 @@ protected:
      * @since 18 December 2003
      */ 
     string RRABSTest2(void);
-    /**
-     * This test step runs the ABS Valve firing test.
-     * 
-     * @return The status of the operation.
-     * @since 18 December 2003
-     */
-    virtual string ABSValveFiringTest(void);
     /**
      * This test step runs the Dynamic ABS Valve firing test.
      * 
@@ -696,6 +481,57 @@ protected:
 
    string TestStepWriteVacuumFillingEndFlag(void);
 
+   virtual const string TestStepDynamicParkBrake(void);
+   /**
+     * Analyze the forces generated during the dynamic park brake test
+     * 
+     * @return The status of the test step.
+     */
+    virtual const string AnalyzeDynamicParkBrake(void);
+    /**
+     * Read the brake arrays and calculate the park brake forces for each
+     * of the vehicles wheels and analyze the data.
+     *
+     * @param brakeStart The starting sample index of the brake force array.
+     * @param brakeEnd   The ending sample index of the brake force array.
+     * @return The status of the operation.
+     */
+    virtual INT32 AnalyzeParkBrakeForces(INT32 brakeStart, INT32 brakeEnd);
+    /** 
+     * Validate the park brake force of each wheel and update the display
+     * with the result.
+     *
+     * @param roller  The roller to analyze the park brake force result for.
+     * @param average The average park brake force for the specified wheel.
+     * @return The status of the operation.
+     */
+    virtual INT32 ValidateParkBrakeForce(INT32 roller, float average);
+     /**
+     * This sets up the GUI to prompt the driver to maintain
+     * brake force in the target value.
+     * 
+     * @param brakeStart The starting sample of the park brake check.
+     * @param brakeEnd   The ending sample of the park brake check.
+     * @param tagPrefix  String added to the beginning of strings used to tag the
+     *                   start and end of the force sampling interval
+     * 
+     * @return The status of the test.
+     */
+    virtual INT32 DynamicParkBrake(INT32 &brakeStart, INT32 &brakeEnd, const std::string &tagPrefix);
+    /**
+     * Analyze the reduction force for the specified wheel.
+     * <p><b>Category:</b> Utility
+     * <br><p>
+     * <b>Description:</b><br>
+     * The wheel force array for the specified wheel will be retrieved.  The minimum data point betweent the start and
+     * end indices will be located and compared against the minimum reduction allowed.  If the value falls below the
+     * minimum reduction allowed, the test passes.  The results will be written to the system for display to the operator
+     * as well.
+     * <br><p>
+     */
+    virtual BEP_STATUS_TYPE AnalyzeReductionForces(INT32 roller, INT32 start, INT32 end);
+
+
 
     string m_originalDriveAxle;
 
@@ -712,9 +548,12 @@ protected:
      * commands
      */
     WheelSpeeds_t       m_absSpeedDeltas[ RRWHEEL+1][ REC_DELTA_IDX+1];
-
-
-
+        /** Array index where the dynamic park brake test started */
+    int m_dynParkBrakeStart;
+    /** Array index where the dynamic park brake test ended */
+    int m_dynParkBrakeStop;
+    /** Park brake force for each wheel during the dynamic park brake test. */
+    FORCELIST m_parkBrakeForce;
 };
 
 //-----------------------------------------------------------------------------

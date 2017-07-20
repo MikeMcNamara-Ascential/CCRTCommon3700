@@ -5,10 +5,10 @@
         <CheckSumLength>1</CheckSumLength>
         <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
         <DataByteCountIndex>3</DataByteCountIndex>
-        <DataHeaderLength>8</DataHeaderLength>
-        <DataStartIndex>8</DataStartIndex>
+        <DataHeaderLength>2</DataHeaderLength>
+        <DataStartIndex>6</DataStartIndex>
         <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
-        <ModuleRequestID>0x18DA03F1</ModuleRequestID>
+        <ModuleRequestID>0x07E2</ModuleRequestID>
         <ModuleResponseDelay>500</ModuleResponseDelay>
         <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
         <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
@@ -72,7 +72,7 @@
         </NegativeResponseCodes>
         <Communication>
             <Debug>Off</Debug>
-            <Name>/home/CCRT/Rewrite/GryphonMima</Name>
+            <Name>/home/CCRT/Rewrite/GryphonCCan</Name>
             <BufferSize>4096</BufferSize>
             <CommSize>1</CommSize>
             <Timeout>10000000</Timeout>
@@ -111,37 +111,37 @@
             </ReadFaultCount>
 
             <ReadPartNumber>
-                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitMessage>ReadDid</TransmitMessage>
                 <TransmitInterpretation>PartNumber</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
             </ReadPartNumber>
 
             <SoftwareModule02PartNo>
-                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitMessage>ReadDid</TransmitMessage>
                 <TransmitInterpretation>SoftwareModule02PartNo</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
             </SoftwareModule02PartNo>
 
             <SoftwareModule03PartNo>
-                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitMessage>ReadDid</TransmitMessage>
                 <TransmitInterpretation>SoftwareModule03PartNo</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
             </SoftwareModule03PartNo>
 
             <SoftwareModule04PartNo>
-                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitMessage>ReadDid</TransmitMessage>
                 <TransmitInterpretation>SoftwareModule04PartNo</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
             </SoftwareModule04PartNo>
 
             <SoftwareModule01PartNo>
-                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitMessage>ReadDid</TransmitMessage>
                 <TransmitInterpretation>SoftwareModule01PartNo</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>EndModelPartNumber</ReplyInterpretation>
             </SoftwareModule01PartNo>
 
@@ -160,9 +160,9 @@
             </ReadTccSlipError>
 
             <ReadVIN>
-                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitMessage>ReadDid</TransmitMessage>
                 <TransmitInterpretation>Vin</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyMessage>ReadDidResponse</ReplyMessage>
                 <ReplyInterpretation>Vin</ReplyInterpretation>
             </ReadVIN>
 
@@ -204,14 +204,14 @@
             <DtcCount>0x00,0x01</DtcCount>
             <MecClear>0xA0,0x00</MecClear>
             <MecValue>0xA0</MecValue>
-            <PartNumber>0x00,0x11</PartNumber>
+            <PartNumber>0xCB</PartNumber>
             <ShiftLeverPosition>0x19,0x4F</ShiftLeverPosition>
             <TccSlipError>0x1A,0x26</TccSlipError>
             <Vin>0x90</Vin>
-            <SoftwareModule02PartNo>0x00,0x12</SoftwareModule02PartNo>
-            <SoftwareModule03PartNo>0x00,0x13</SoftwareModule03PartNo>
-            <SoftwareModule04PartNo>0x00,0x14</SoftwareModule04PartNo>
-            <SoftwareModule01PartNo>0x00,0x11</SoftwareModule01PartNo>
+            <SoftwareModule02PartNo>0xC2</SoftwareModule02PartNo>
+            <SoftwareModule03PartNo>0xC3</SoftwareModule03PartNo>
+            <SoftwareModule04PartNo>0xC4</SoftwareModule04PartNo>
+            <SoftwareModule01PartNo>0xC1</SoftwareModule01PartNo>
         </TransmitInterpretations>
 
         <!-- Response Filters -->

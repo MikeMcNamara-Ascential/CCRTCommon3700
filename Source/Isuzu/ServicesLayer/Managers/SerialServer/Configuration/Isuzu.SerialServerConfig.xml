@@ -213,7 +213,7 @@
                     <Logging>
                         <ProcessName>logport/Scanner</ProcessName>
                         <AdditionalLogFile>/Servers/Scanner.log</AdditionalLogFile>
-                        <Status>Disabled</Status>
+                        <Status>Enabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
                         <Verbose>0x01</Verbose>
                     </Logging>
@@ -223,7 +223,7 @@
                             <Logging>
                                 <AdditionalLogFile>/Communication/Scanner_Comm.log</AdditionalLogFile>
                                 <ProcessName>Scanner</ProcessName>
-                                <Status>Disabled</Status>
+                                <Status>Enabled</Status>
                                 <LocalEcho>Disabled</LocalEcho>
                                 <Verbose>0x01</Verbose>
                                 <Debug>Off</Debug>
@@ -347,7 +347,7 @@
                     </CommLog>
                 </Setup>
             </VinStamper>
-            <WinCcrt enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
+	    <WinCcrt enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/socket</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
@@ -387,7 +387,7 @@
                     </CommLog>
                 </Setup>
             </WinCcrt>
-            <ISOK enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
+	    <ISOK enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
             <Setup>
                <SerialDevice>/dev/sl7804/ser5</SerialDevice>
                <MgrPool lowWater="7" hiWater="7" maximum="7" increment="1" priority="23"/>

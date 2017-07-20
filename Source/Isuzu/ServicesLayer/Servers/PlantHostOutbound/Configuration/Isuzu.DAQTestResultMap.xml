@@ -363,38 +363,40 @@
     <Field3230 Type="Separator">,</Field3230>
     <Field3240 Type="Result">EmissionsCheckVehicleSpeedSensor</Field3240>
     <Field3250 Type="Separator">,</Field3250>
-    <!-- PIM Results -->
-    <Field3260 Type="Result">PIMClearFaultsFinal</Field3260>
+    <Field3260 Type="Result">EmissionsCheckBASLearnComplete</Field3260>
     <Field3270 Type="Separator">,</Field3270>
-    <Field3280 Type="Result">PIMEnterDiagnosticMode</Field3280>
+    <!-- PIM Results -->
+    <Field3280 Type="Result">PIMClearFaultsFinal</Field3280>
     <Field3290 Type="Separator">,</Field3290>
-    <!-- Speed Control Results -->
-    <Field3300 Type="Result">SpeedControlCheckBrakeCutOut</Field3300>
+    <Field3300 Type="Result">PIMEnterDiagnosticMode</Field3300>
     <Field3310 Type="Separator">,</Field3310>
-    <Field3320 Type="Result">SpeedControlCheckOffDisable</Field3320>
+    <!-- Speed Control Results -->
+    <Field3320 Type="Result">SpeedControlCheckBrakeCutOut</Field3320>
     <Field3330 Type="Separator">,</Field3330>
-    <Field3340 Type="Result">SpeedControlCheckOnEnable</Field3340>
+    <Field3340 Type="Result">SpeedControlCheckOffDisable</Field3340>
     <Field3350 Type="Separator">,</Field3350>
-    <Field3360 Type="Result">SpeedControlCheckResumeEngagement</Field3360>
+    <Field3360 Type="Result">SpeedControlCheckOnEnable</Field3360>
     <Field3370 Type="Separator">,</Field3370>
-    <Field3380 Type="Result">SpeedControlCheckSetEngagement</Field3380>
+    <Field3380 Type="Result">SpeedControlCheckResumeEngagement</Field3380>
     <Field3390 Type="Separator">,</Field3390>
-    <!-- Transmission Results -->
-    <Field3400 Type="Result">TransmissionLockModule</Field3400>
+    <Field3400 Type="Result">SpeedControlCheckSetEngagement</Field3400>
     <Field3410 Type="Separator">,</Field3410>
-    <Field3420 Type="Result">TransmissionReadFaults</Field3420>
+    <!-- Transmission Results -->
+    <Field3420 Type="Result">TransmissionLockModule</Field3420>
     <Field3430 Type="Separator">,</Field3430>
-    <Field3440 Type="Result">TransmissionAccelerateInReverse</Field3440>
+    <Field3440 Type="Result">TransmissionReadFaults</Field3440>
     <Field3450 Type="Separator">,</Field3450>
-    <Field3460 Type="Result">TransmissionCheckTCMSoftwareModule01PartNo</Field3460>
+    <Field3460 Type="Result">TransmissionAccelerateInReverse</Field3460>
     <Field3470 Type="Separator">,</Field3470>
-    <Field3480 Type="Result">TransmissionCheckTCMSoftwareModule02PartNo</Field3480>
+    <Field3480 Type="Result">TransmissionCheckTCMSoftwareModule01PartNo</Field3480>
     <Field3490 Type="Separator">,</Field3490>
-    <Field3500 Type="Result">TransmissionCheckTCMSoftwareModule03PartNo</Field3500>
+    <Field3500 Type="Result">TransmissionCheckTCMSoftwareModule02PartNo</Field3500>
     <Field3510 Type="Separator">,</Field3510>
-    <Field3520 Type="Result">TransmissionCheckTCMSoftwareModule04PartNo</Field3520>
+    <Field3520 Type="Result">TransmissionCheckTCMSoftwareModule03PartNo</Field3520>
     <Field3530 Type="Separator">,</Field3530>
-    <Field3540 Type="Result">TransmissionCheckVIN</Field3540>
+    <Field3540 Type="Result">TransmissionCheckTCMSoftwareModule04PartNo</Field3540>
+    <Field3550 Type="Separator">,</Field3550>
+    <Field3560 Type="Result">TransmissionCheckVIN</Field3560>
     <Field3570 Type="Separator">,</Field3570>
     <Field3580 Type="Result">TransmissionFirstGearObserved</Field3580>
     <Field3590 Type="Separator">,</Field3590>

@@ -78,7 +78,8 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("CheckFuelInjectionCorrection4"))       testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckFuelLevelPrimaryTankLevel"))      testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckFuelLevelSecondaryTankLevel"))    testResult = CheckSensorRangeFloat(value);
-            else if (!GetTestStepName().compare("CheckFuelRailPressure"))               testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckFuelRailPressure"))               testResult = CheckSensorRangeUint8(value);
+            else if (!GetTestStepName().compare("CheckFuelRailPressureFloat"))          testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckFuelTemperature"))                testResult = CheckSensorRangeInt(value);
             else if (!GetTestStepName().compare("CheckIdleFuelTrim"))                   testResult = CheckFuelTrim(true);
             else if (!GetTestStepName().compare("CheckIdleRPM"))                        testResult = CheckSensorRangeUint16(value);
@@ -124,6 +125,7 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("DifferentialPressure"))                testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("MAFLearn"))                            testResult = MAFLearn();
             else if (!GetTestStepName().compare("CheckMAFLearnComplete"))               testResult = CheckMAFLearnComplete();
+            else if (!GetTestStepName().compare("CheckBASLearnComplete"))               testResult = CheckBASLearnComplete();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -2591,6 +2593,7 @@ string IsuzuEmissionsTc<ModuleType>::KeyOffEngineOffKeyOn(void)
 
     if (!IsRetest() || GetParameterBool("AlwaysPerformKeyOffEngineOff"))
     {
+        DisplayPrompt(GetPromptBox("ShiftToPark"), GetPrompt("ShiftToPark"), GetPromptPriority("ShiftToPark"));
         testResult = GenericTCTemplate<ModuleType>::KeyOffEngineOffKeyOn();
     }
     else
@@ -3070,6 +3073,44 @@ string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnComplete(void)
         else
         {
             Log(LOG_ERRORS, "Could not get MAF Learn value from the module\n");
+            SetCommunicationFailure(true);
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testResultCode = GetFaultCode("CommunicationFailure");            
+        }
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    } 
+    
+    return testResult;
+}
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::CheckBASLearnComplete(void)
+{
+    string testResult = testError;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    bool basLearned = false;
+    
+    if(!ShortCircuitTestStep())
+    {
+        //Check BAS Learn status is 1
+        status = m_vehicleModule.ReadModuleData("ReadBASLearningComplete", basLearned);
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            testResult = basLearned ? testPass : testFail;
+            testResultCode = basLearned ? "0000": GetFaultCode("BASNotLearned");
+            testDescription = basLearned ? testDescription : GetFaultDescription("BASNotLearned");
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get BAS Learn value from the module\n");
             SetCommunicationFailure(true);
             testResult = testFail;
             testDescription = GetFaultDescription("CommunicationFailure");

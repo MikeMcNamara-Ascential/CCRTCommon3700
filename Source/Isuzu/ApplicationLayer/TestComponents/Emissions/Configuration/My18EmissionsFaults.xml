@@ -33,7 +33,7 @@
 
     <!-- Module Faults From Isuzu_16MY_18MY_DTCs_2Feb2017 - Changes.xlsx'-->
    <ModuleFault_0010 Code="P0010" Description="Intake Camshaft Position (CMP) Actuator Solenoid Control Circuit Bank 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0011 Code="P0011" Description="Intake Camshaft Position (CMP) System Performance Bank 1" FailureStatusMask="0x16"/>
+   <ModuleFault_0011 Code="P0011" Description="Intake Camshaft Position (CMP) System Performance Bank 1" FailureStatusMask="0x12"/>
    <ModuleFault_0016 Code="P0016" Description="Crankshaft Position (CKP)-Camshaft Position (CMP) Correlation Bank 1 Sensor A" FailureStatusMask="0x16"/>
    <ModuleFault_0030 Code="P0030" Description="O2S Heater Control Circuit Bank 1 Sensor 1" FailureStatusMask="0x16"/>
    <ModuleFault_0031 Code="P0031" Description="O2S Heater Control Circuit Low Voltage Bank 1 Sensor 1" FailureStatusMask="0x16"/>
@@ -44,13 +44,13 @@
    <ModuleFault_0050 Code="P0050" Description="O2S Heater Control Circuit Bank 2 Sensor 1" FailureStatusMask="0x16"/>
    <ModuleFault_0051 Code="P0051" Description="O2S Heater Control Circuit Low Voltage Bank 2 Sensor 1" FailureStatusMask="0x16"/>
    <ModuleFault_0052 Code="P0052" Description="O2S Heater Control Circuit High Voltage Bank 2 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0053 Code="P0053" Description="HO2S Heater Resistance Bank 1 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0054 Code="P0054" Description="HO2S Heater Resistance Bank 1 Sensor 2" FailureStatusMask="0x16"/>
+   <ModuleFault_0053 Code="P0053" Description="HO2S Heater Resistance Bank 1 Sensor 1" FailureStatusMask="0x12"/>
+   <ModuleFault_0054 Code="P0054" Description="HO2S Heater Resistance Bank 1 Sensor 2" FailureStatusMask="0x12"/>
    <ModuleFault_0056 Code="P0056" Description="O2S Heater Control Circuit Bank 2 Sensor 2" FailureStatusMask="0x16"/>
    <ModuleFault_0057 Code="P0057" Description="O2S Heater Control Circuit Low Voltage Bank 2 Sensor 2" FailureStatusMask="0x16"/>
    <ModuleFault_0058 Code="P0058" Description="O2S Heater Control Circuit High Voltage Bank 2 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_0059 Code="P0059" Description="HO2S Heater Resistance Bank 2 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0060 Code="P0060" Description="HO2S Heater Resistance Bank 2 Sensor 2" FailureStatusMask="0x16"/>
+   <ModuleFault_0059 Code="P0059" Description="HO2S Heater Resistance Bank 2 Sensor 1" FailureStatusMask="0x12"/>
+   <ModuleFault_0060 Code="P0060" Description="HO2S Heater Resistance Bank 2 Sensor 2" FailureStatusMask="0x12"/>
    <ModuleFault_0068 Code="P0068" Description="MAP/MAF - Throttle Position Correlation" FailureStatusMask="0x16"/>
    <ModuleFault_0096 Code="P0096" Description="Intake Air Temperature Sensor 2 Circuit Range/Performance" FailureStatusMask="0x16"/>
    <ModuleFault_0097 Code="P0097" Description="Intake Air Temperature Sensor 2 Circuit Low" FailureStatusMask="0x16"/>
@@ -66,44 +66,44 @@
    <ModuleFault_0106 Code="P0106" Description="Manifold Absolute Pressure (MAP) Sensor Performance" FailureStatusMask="0x16"/>
    <ModuleFault_0107 Code="P0107" Description="Manifold Absolute Pressure (MAP) Sensor Circuit Low" FailureStatusMask="0x16"/>
    <ModuleFault_0108 Code="P0108" Description="Manifold Absolute Pressure (MAP) Sensor Circuit High" FailureStatusMask="0x16"/>
-   <ModuleFault_0111 Code="P0111" Description="Intake Air Temperature (IAT) Sensor Circuit Performance" FailureStatusMask="0x16"/>
+   <ModuleFault_0111 Code="P0111" Description="Intake Air Temperature (IAT) Sensor Circuit Performance" FailureStatusMask="0x12"/>
    <ModuleFault_0112 Code="P0112" Description="Intake Air Temperature (IAT) Sensor Circuit Low" FailureStatusMask="0x16"/>
    <ModuleFault_0113 Code="P0113" Description="Intake Air Temperature (IAT) Sensor Circuit High" FailureStatusMask="0x16"/>
    <ModuleFault_0114 Code="P0114" Description="Intake Air Temperature (IAT) Sensor Circuit Intermittent" FailureStatusMask="0x16"/>
-   <ModuleFault_0116 Code="P0116" Description="Engine Coolant Temperature (ECT) Sensor Performance" FailureStatusMask="0x16"/>
+   <ModuleFault_0116 Code="P0116" Description="Engine Coolant Temperature (ECT) Sensor Performance" FailureStatusMask="0x12"/>
    <ModuleFault_0117 Code="P0117" Description="Engine Coolant Temperature (ECT) Sensor Circuit Low" FailureStatusMask="0x16"/>
    <ModuleFault_0118 Code="P0118" Description="Engine Coolant Temperature (ECT) Sensor Circuit High" FailureStatusMask="0x16"/>
    <ModuleFault_0119 Code="P0119" Description="Engine Coolant Temperature (ECT) Sensor Circuit Intermittent" FailureStatusMask="0x16"/>
    <ModuleFault_0121 Code="P0121" Description="Throttle Position (TP) Sensor 1 Performance" FailureStatusMask="0x16"/>
    <ModuleFault_0122 Code="P0122" Description="Throttle Position (TP) Sensor 1 Circuit Low" FailureStatusMask="0x16"/>
    <ModuleFault_0123 Code="P0123" Description="Throttle Position (TP) Sensor 1 Circuit High" FailureStatusMask="0x16"/>
-   <ModuleFault_0128 Code="P0128" Description="Engine Coolant Temperature (ECT) Below Thermostat Regulating Temperature" FailureStatusMask="0x16"/>
+   <ModuleFault_0128 Code="P0128" Description="Engine Coolant Temperature (ECT) Below Thermostat Regulating Temperature" FailureStatusMask="0x12"/>
    <ModuleFault_0131 Code="P0131" Description="O2S Circuit Low Voltage Bank 1 Sensor 1" FailureStatusMask="0x16"/>
    <ModuleFault_0132 Code="P0132" Description="O2S Circuit High Voltage Bank 1 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0133 Code="P0133" Description="O2S Slow Response Bank 1 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0135 Code="P0135" Description="O2S Heater Performance Bank 1 Sensor 1" FailureStatusMask="0x16"/>
+   <ModuleFault_0133 Code="P0133" Description="O2S Slow Response Bank 1 Sensor 1" FailureStatusMask="0x12"/>
+   <ModuleFault_0135 Code="P0135" Description="O2S Heater Performance Bank 1 Sensor 1" FailureStatusMask="0x12"/>
    <ModuleFault_0137 Code="P0137" Description="O2S Circuit Low Voltage Bank 1 Sensor 2" FailureStatusMask="0x16"/>
    <ModuleFault_0138 Code="P0138" Description="O2S Circuit High Voltage Bank 1 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_013A Code="P013A" Description="O2S Slow Response Rich to Lean Bank 1 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_013B Code="P013B" Description="O2S Slow Response Lean to Rich Bank 1 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_013C Code="P013C" Description="O2S Slow Response Rich to Lean Bank 2 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_013D Code="P013D" Description="O2S Slow Response Lean to Rich Bank 2 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_013E Code="P013E" Description="O2S Delayed Response Rich to Lean Bank 1 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_013F Code="P013F" Description="O2S Delayed Response Lean to Rich Bank 1 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_0141 Code="P0141" Description="O2S Heater Performance Bank 1 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_014A Code="P014A" Description="O2S Delayed Response Rich to Lean Bank 2 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_014B Code="P014B" Description="O2S Delayed Response Lean to Rich Bank 2 Sensor 2" FailureStatusMask="0x16"/>
+   <ModuleFault_013A Code="P013A" Description="O2S Slow Response Rich to Lean Bank 1 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_013B Code="P013B" Description="O2S Slow Response Lean to Rich Bank 1 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_013C Code="P013C" Description="O2S Slow Response Rich to Lean Bank 2 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_013D Code="P013D" Description="O2S Slow Response Lean to Rich Bank 2 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_013E Code="P013E" Description="O2S Delayed Response Rich to Lean Bank 1 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_013F Code="P013F" Description="O2S Delayed Response Lean to Rich Bank 1 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_0141 Code="P0141" Description="O2S Heater Performance Bank 1 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_014A Code="P014A" Description="O2S Delayed Response Rich to Lean Bank 2 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_014B Code="P014B" Description="O2S Delayed Response Lean to Rich Bank 2 Sensor 2" FailureStatusMask="0x12"/>
    <ModuleFault_0151 Code="P0151" Description="O2S Circuit Low Voltage Bank 2 Sensor 1" FailureStatusMask="0x16"/>
    <ModuleFault_0152 Code="P0152" Description="O2S Circuit High Voltage Bank 2 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0153 Code="P0153" Description="O2S Slow Response Bank 2 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0155 Code="P0155" Description="O2S Heater Performance Bank 2 Sensor 1" FailureStatusMask="0x16"/>
+   <ModuleFault_0153 Code="P0153" Description="O2S Slow Response Bank 2 Sensor 1" FailureStatusMask="0x12"/>
+   <ModuleFault_0155 Code="P0155" Description="O2S Heater Performance Bank 2 Sensor 1" FailureStatusMask="0x12"/>
    <ModuleFault_0157 Code="P0157" Description="O2S Circuit Low Voltage Bank 2 Sensor 2" FailureStatusMask="0x16"/>
    <ModuleFault_0158 Code="P0158" Description="O2S Circuit High Voltage Bank 2 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_015A Code="P015A" Description="O2 Sensor Delayed Response - Rich to Lean Bank 1 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_015B Code="P015B" Description="O2 Sensor Delayed Response - Lean to Rich Bank 1 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_015C Code="P015C" Description="O2 Sensor Delayed Response - Rich to Lean Bank 2 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_015D Code="P015D" Description="O2 Sensor Delayed Response - Lean to Rich Bank 2 Sensor 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0161 Code="P0161" Description="O2S Heater Performance Bank 2 Sensor 2" FailureStatusMask="0x16"/>
+   <ModuleFault_015A Code="P015A" Description="O2 Sensor Delayed Response - Rich to Lean Bank 1 Sensor 1" FailureStatusMask="0x12"/>
+   <ModuleFault_015B Code="P015B" Description="O2 Sensor Delayed Response - Lean to Rich Bank 1 Sensor 1" FailureStatusMask="0x12"/>
+   <ModuleFault_015C Code="P015C" Description="O2 Sensor Delayed Response - Rich to Lean Bank 2 Sensor 1" FailureStatusMask="0x12"/>
+   <ModuleFault_015D Code="P015D" Description="O2 Sensor Delayed Response - Lean to Rich Bank 2 Sensor 1" FailureStatusMask="0x12"/>
+   <ModuleFault_0161 Code="P0161" Description="O2S Heater Performance Bank 2 Sensor 2" FailureStatusMask="0x12"/>
    <ModuleFault_0171 Code="P0171" Description="Fuel Trim System Lean Bank 1" FailureStatusMask="0x16"/>
    <ModuleFault_0172 Code="P0172" Description="Fuel Trim System Rich Bank 1" FailureStatusMask="0x16"/>
    <ModuleFault_0174 Code="P0174" Description="Fuel Trim System Lean Bank 2" FailureStatusMask="0x16"/>
@@ -136,6 +136,14 @@
    <ModuleFault_0282 Code="P0282" Description="Injector 8 Control Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0283 Code="P0283" Description="Injector 8 Control Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0300 Code="P0300" Description="Engine Misfire Detected" FailureStatusMask="0x16"/>
+   <ModuleFault_0301   Code="P0301"    Description="Cylinder 1 Misfire Detected"   FailureStatusMask="0x16"/>
+   <ModuleFault_0302   Code="P0302"    Description="Cylinder 2 Misfire Detected"   FailureStatusMask="0x16"/>
+   <ModuleFault_0303   Code="P0303"    Description="Cylinder 3 Misfire Detected"   FailureStatusMask="0x16"/>
+   <ModuleFault_0304   Code="P0304"    Description="Cylinder 4 Misfire Detected"   FailureStatusMask="0x16"/>
+   <ModuleFault_0305   Code="P0305"    Description="Cylinder 5 Misfire Detected"   FailureStatusMask="0x16"/>
+   <ModuleFault_0306   Code="P0306"    Description="Cylinder 6 Misfire Detected"   FailureStatusMask="0x16"/>
+   <ModuleFault_0307   Code="P0307"    Description="Cylinder 7 Misfire Detected"   FailureStatusMask="0x16"/>
+   <ModuleFault_0308   Code="P0308"    Description="Cylinder 8 Misfire Detected"   FailureStatusMask="0x16"/>
    <ModuleFault_0315 Code="P0315" Description="Crankshaft Position System Variation Not Learned" FailureStatusMask="0x16"/>
    <ModuleFault_0324 Code="P0324" Description="Knock Sensor (KS) System Performance" FailureStatusMask="0x16"/>
    <ModuleFault_0325 Code="P0325" Description="Knock Sensor (KS) Circuit Bank 1" FailureStatusMask="0x16"/>
@@ -158,24 +166,24 @@
    <ModuleFault_0356 Code="P0356" Description="Ignition Coil 6 Control Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0357 Code="P0357" Description="Ignition Coil 7 Control Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0358 Code="P0358" Description="Ignition Coil 8 Control Circuit" FailureStatusMask="0x16"/>
-   <ModuleFault_0420 Code="P0420" Description="Catalyst System Low Efficiency Bank 1" FailureStatusMask="0x16"/>
-   <ModuleFault_0430 Code="P0430" Description="Catalyst System Low Efficiency Bank 2" FailureStatusMask="0x16"/>
-   <ModuleFault_0442 Code="P0442" Description="Evaporative Emission (EVAP) System Small Leak Detected" FailureStatusMask="0x16"/>
-   <ModuleFault_0443 Code="P0443" Description="Evaporative Emission System Purge Control Valve A Circuit" FailureStatusMask="0x16"/>
-   <ModuleFault_0446 Code="P0446" Description="Evaporative Emission (EVAP) Vent System Performance" FailureStatusMask="0x16"/>
-   <ModuleFault_0449 Code="P0449" Description="Evaporative Emission (EVAP) Vent Solenoid Control Circuit" FailureStatusMask="0x16"/>
-   <ModuleFault_0451 Code="P0451" Description="Fuel Tank Pressure (FTP) Sensor Circuit Performance" FailureStatusMask="0x16"/>
+   <ModuleFault_0420 Code="P0420" Description="Catalyst System Low Efficiency Bank 1" FailureStatusMask="0x12"/>
+   <ModuleFault_0430 Code="P0430" Description="Catalyst System Low Efficiency Bank 2" FailureStatusMask="0x12"/>
+   <ModuleFault_0442 Code="P0442" Description="Evaporative Emission (EVAP) System Small Leak Detected" FailureStatusMask="0x12"/>
+   <ModuleFault_0443 Code="P0443" Description="Evaporative Emission System Purge Control Valve A Circuit" FailureStatusMask="0x12"/>
+   <ModuleFault_0446 Code="P0446" Description="Evaporative Emission (EVAP) Vent System Performance" FailureStatusMask="0x12"/>
+   <ModuleFault_0449 Code="P0449" Description="Evaporative Emission (EVAP) Vent Solenoid Control Circuit" FailureStatusMask="0x12"/>
+   <ModuleFault_0451 Code="P0451" Description="Fuel Tank Pressure (FTP) Sensor Circuit Performance" FailureStatusMask="0x12"/>
    <ModuleFault_0452 Code="P0452" Description="Fuel Tank Pressure (FTP) Sensor Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0453 Code="P0453" Description="Fuel Tank Pressure (FTP) Sensor Circuit High Voltage" FailureStatusMask="0x16"/>
-   <ModuleFault_0454 Code="P0454" Description="Fuel Tank Pressure (FTP) Sensor Circuit Intermittent" FailureStatusMask="0x16"/>
-   <ModuleFault_0455 Code="P0455" Description="Evaporative Emission (EVAP) System Large Leak Detected" FailureStatusMask="0x16"/>
+   <ModuleFault_0454 Code="P0454" Description="Fuel Tank Pressure (FTP) Sensor Circuit Intermittent" FailureStatusMask="0x12"/>
+   <ModuleFault_0455 Code="P0455" Description="Evaporative Emission (EVAP) System Large Leak Detected" FailureStatusMask="0x12"/>
    <ModuleFault_0458 Code="P0458" Description="Evaporative Emission System Purge Control Valve A Circuit Low" FailureStatusMask="0x16"/>
    <ModuleFault_0459 Code="P0459" Description="Evaporative Emission System Purge Control Valve A Circuit High" FailureStatusMask="0x16"/>
-   <ModuleFault_0461 Code="P0461" Description="Fuel Level Sensor 1 Performance" FailureStatusMask="0x16"/>
+   <ModuleFault_0461 Code="P0461" Description="Fuel Level Sensor 1 Performance" FailureStatusMask="0x12"/>
    <ModuleFault_0462 Code="P0462" Description="Fuel Level Sensor 1 Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0463 Code="P0463" Description="Fuel Level Sensor 1 Circuit High Voltage" FailureStatusMask="0x16"/>
-   <ModuleFault_0464 Code="P0464" Description="Fuel Level Sensor 1 Circuit Intermittent" FailureStatusMask="0x16"/>
-   <ModuleFault_0496 Code="P0496" Description="Evaporative Emission (EVAP) System Flow During Non-Purge" FailureStatusMask="0x16"/>
+   <ModuleFault_0464 Code="P0464" Description="Fuel Level Sensor 1 Circuit Intermittent" FailureStatusMask="0x12"/>
+   <ModuleFault_0496 Code="P0496" Description="Evaporative Emission (EVAP) System Flow During Non-Purge" FailureStatusMask="0x12"/>
    <ModuleFault_0498 Code="P0498" Description="Evaporative Emission (EVAP) Vent Solenoid Control Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0499 Code="P0499" Description="Evaporative Emission (EVAP) Vent Solenoid Control Circuit High Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0506 Code="P0506" Description="Idle Air Control (IAC) System - RPM Too Low" FailureStatusMask="0x16"/>
@@ -183,15 +191,15 @@
    <ModuleFault_0521 Code="P0521" Description="Engine Oil Pressure Sensor/Switch A Range/Performance" FailureStatusMask="0x16"/>
    <ModuleFault_0522 Code="P0522" Description="Engine Oil Pressure Sensor/Switch A Low" FailureStatusMask="0x16"/>
    <ModuleFault_0523 Code="P0523" Description="Engine Oil Pressure Sensor/Switch A High" FailureStatusMask="0x16"/>
-   <ModuleFault_0532 Code="P0532" Description="Air Conditioning (A/C) Refrigerant Pressure Sensor Circuit Low Voltage" FailureStatusMask="0x12"/>
-   <ModuleFault_0533 Code="P0533" Description="Air Conditioning (A/C) Refrigerant Pressure Sensor Circuit High Voltage" FailureStatusMask="0x12"/>
-   <ModuleFault_0562 Code="P0562" Description="System Voltage Low" FailureStatusMask="0x12"/>
-   <ModuleFault_0563 Code="P0563" Description="System Voltage High" FailureStatusMask="0x12"/>
-   <ModuleFault_0567 Code="P0567" Description="Cruise Control Resume Switch Circuit" FailureStatusMask="0x12"/>
-   <ModuleFault_0568 Code="P0568" Description="Cruise Control Set Switch Circuit" FailureStatusMask="0x12"/>
-   <ModuleFault_0572 Code="P0572" Description="Cruise Control Brake Switch Circuit 1 Low Voltage" FailureStatusMask="0x12"/>
-   <ModuleFault_0573 Code="P0573" Description="Cruise Control Brake Switch Circuit 1 High Voltage"    FailureStatusMask="0x12"/>
-   <ModuleFault_0575 Code="P0575" Description="Cruise Control Input Circuit" FailureStatusMask="0x12"/>
+   <ModuleFault_0532 Code="P0532" Description="Air Conditioning (A/C) Refrigerant Pressure Sensor Circuit Low Voltage" FailureStatusMask="0x16"/>
+   <ModuleFault_0533 Code="P0533" Description="Air Conditioning (A/C) Refrigerant Pressure Sensor Circuit High Voltage" FailureStatusMask="0x16"/>
+   <ModuleFault_0562 Code="P0562" Description="System Voltage Low" FailureStatusMask="0x16"/>
+   <ModuleFault_0563 Code="P0563" Description="System Voltage High" FailureStatusMask="0x16"/>
+   <ModuleFault_0567 Code="P0567" Description="Cruise Control Resume Switch Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0568 Code="P0568" Description="Cruise Control Set Switch Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0572 Code="P0572" Description="Cruise Control Brake Switch Circuit 1 Low Voltage" FailureStatusMask="0x16"/>
+   <ModuleFault_0573 Code="P0573" Description="Cruise Control Brake Switch Circuit 1 High Voltage"    FailureStatusMask="0x16"/>
+   <ModuleFault_0575 Code="P0575" Description="Cruise Control Input Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_057B Code="P057B" Description="Brake Pedal Position Sensor Circuit Range/Performance" FailureStatusMask="0x16"/>
    <ModuleFault_057C Code="P057C" Description="Brake Pedal Position Sensor Circuit Low" FailureStatusMask="0x16"/>
    <ModuleFault_057D Code="P057D" Description="Brake Pedal Position Sensor Circuit High" FailureStatusMask="0x16"/>
@@ -200,19 +208,19 @@
    <ModuleFault_0603 Code="P0603" Description="Control Module Long Term Memory Reset" FailureStatusMask="0x16"/>
    <ModuleFault_0604 Code="P0604" Description="Control Module Random Access Memory (RAM)" FailureStatusMask="0x16"/>
    <ModuleFault_0606 Code="P0606" Description="Control Module Internal Performance" FailureStatusMask="0x16"/>
-   <ModuleFault_0615 Code="P0615" Description="Starter Relay Control Circuit" FailureStatusMask="0x12"/>
-   <ModuleFault_0616 Code="P0616" Description="Starter Relay Control Circuit Low Voltage" FailureStatusMask="0x12"/>
-   <ModuleFault_0617 Code="P0617" Description="Starter Relay Control Circuit High Voltage" FailureStatusMask="0x12"/>
-   <ModuleFault_0621 Code="P0621" Description="Generator 1 L-Terminal Circuit" FailureStatusMask="0x12"/>
-   <ModuleFault_0622 Code="P0622" Description="Generator 1 F-Terminal Circuit" FailureStatusMask="0x12"/>
+   <ModuleFault_0615 Code="P0615" Description="Starter Relay Control Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0616 Code="P0616" Description="Starter Relay Control Circuit Low Voltage" FailureStatusMask="0x16"/>
+   <ModuleFault_0617 Code="P0617" Description="Starter Relay Control Circuit High Voltage" FailureStatusMask="0x16"/>
+   <ModuleFault_0621 Code="P0621" Description="Generator 1 L-Terminal Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0622 Code="P0622" Description="Generator 1 F-Terminal Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0628 Code="P0628" Description="Fuel Pump A Control Circuit Low" FailureStatusMask="0x16"/>
    <ModuleFault_062F Code="P062F" Description="Powertrain Internal Control Module EEPROM Error" FailureStatusMask="0x16"/>
    <ModuleFault_0630 Code="P0630" Description="VIN Not Programmed or Mismatched - Engine Control Module (ECM)" FailureStatusMask="0x16"/>
    <ModuleFault_0641 Code="P0641" Description="Sensor Reference Voltage A Circuit/Open" FailureStatusMask="0x16"/>
-   <ModuleFault_0645 Code="P0645" Description="Air Conditioning (A/C) Clutch Relay Control Circuit" FailureStatusMask="0x12"/>
-   <ModuleFault_0646 Code="P0646" Description="A/C Clutch Relay Control Circuit Low" FailureStatusMask="0x12"/>
-   <ModuleFault_0647 Code="P0647" Description="A/C Clutch Relay Control Circuit High" FailureStatusMask="0x12"/>
-   <ModuleFault_0650 Code="P0650" Description="Malfunction Indicator Lamp (MIL) Control Circuit/Open" FailureStatusMask="0x12"/>
+   <ModuleFault_0645 Code="P0645" Description="Air Conditioning (A/C) Clutch Relay Control Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0646 Code="P0646" Description="A/C Clutch Relay Control Circuit Low" FailureStatusMask="0x16"/>
+   <ModuleFault_0647 Code="P0647" Description="A/C Clutch Relay Control Circuit High" FailureStatusMask="0x16"/>
+   <ModuleFault_0650 Code="P0650" Description="Malfunction Indicator Lamp (MIL) Control Circuit/Open" FailureStatusMask="0x16"/>
    <ModuleFault_0651 Code="P0651" Description="Sensor Reference Voltage B Circuit/Open" FailureStatusMask="0x16"/>
    <ModuleFault_0685 Code="P0685" Description="Control Module Power Relay Control Circuit" FailureStatusMask="0x16"/>
    <ModuleFault_0686 Code="P0686" Description="Control Module Power Relay Control Circuit Low Voltage" FailureStatusMask="0x16"/>
@@ -223,9 +231,9 @@
    <ModuleFault_06A3 Code="P06A3" Description="Sensor Reference Voltage D Circuit/Open" FailureStatusMask="0x16"/>
    <ModuleFault_06B6 Code="P06B6" Description="Internal Control Module Knock Sensor Processor 1 Performance" FailureStatusMask="0x16"/>
    <ModuleFault_06B7 Code="P06B7" Description="Internal Control Module Knock Sensor Processor 2 Performance" FailureStatusMask="0x16"/>
-   <ModuleFault_0700 Code="P0700" Description="Transmission Control Module (TCM) Requested MIL Illumination" FailureStatusMask="0x12"/>
-   <ModuleFault_0703 Code="P0703" Description="Torque Converter/Brake Switch B Circuit" FailureStatusMask="0x12"/>
-   <ModuleFault_0851 Code="P0851" Description="Park/Neutral Position (PNP) Switch Circuit Low Voltage" FailureStatusMask="0x12"/>
+   <ModuleFault_0700 Code="P0700" Description="Transmission Control Module (TCM) Requested MIL Illumination" FailureStatusMask="0x16"/>
+   <ModuleFault_0703 Code="P0703" Description="Torque Converter/Brake Switch B Circuit" FailureStatusMask="0x16"/>
+   <ModuleFault_0851 Code="P0851" Description="Park/Neutral Position (PNP) Switch Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_1101 Code="P1101" Description="Intake Air Flow System Performance" FailureStatusMask="0x16"/>
    <ModuleFault_1258 Code="P1258" Description="Engine Coolant Overtemperature - Protection Mode Active" FailureStatusMask="0x16"/>
    <ModuleFault_150C Code="P150C" Description="Transmission Control Module (TCM) Engine Speed Request Circuit" FailureStatusMask="0x16"/>
@@ -238,12 +246,12 @@
    <ModuleFault_16F3 Code="P16F3" Description="Internal Control Module Redundant Memory Performance" FailureStatusMask="0x16"/>
    <ModuleFault_2088 Code="P2088" Description="Intake Camshaft Position (CMP) Actuator Solenoid Control Circuit Low Voltage Bank 1" FailureStatusMask="0x16"/>
    <ModuleFault_2089 Code="P2089" Description="Intake Camshaft Position (CMP) Actuator Solenoid Control Circuit High Voltage Bank 1" FailureStatusMask="0x16"/>
-   <ModuleFault_2096 Code="P2096" Description="Post Catalyst Fuel Trim System Low Limit Bank 1" FailureStatusMask="0x16"/>
-   <ModuleFault_2097 Code="P2097" Description="Post Catalyst Fuel Trim System High Limit Bank 1" FailureStatusMask="0x16"/>
-   <ModuleFault_2098 Code="P2098" Description="Post Catalyst Fuel Trim System Low Limit Bank 2" FailureStatusMask="0x16"/>
-   <ModuleFault_2099 Code="P2099" Description="Post Catalyst Fuel Trim System High Limit Bank 2" FailureStatusMask="0x16"/>
+   <ModuleFault_2096 Code="P2096" Description="Post Catalyst Fuel Trim System Low Limit Bank 1" FailureStatusMask="0x12"/>
+   <ModuleFault_2097 Code="P2097" Description="Post Catalyst Fuel Trim System High Limit Bank 1" FailureStatusMask="0x12"/>
+   <ModuleFault_2098 Code="P2098" Description="Post Catalyst Fuel Trim System Low Limit Bank 2" FailureStatusMask="0x12"/>
+   <ModuleFault_2099 Code="P2099" Description="Post Catalyst Fuel Trim System High Limit Bank 2" FailureStatusMask="0x12"/>
    <ModuleFault_2101 Code="P2101" Description="Control Module Throttle Actuator Position Performance" FailureStatusMask="0x16"/>
-   <ModuleFault_2119 Code="P2119" Description="Throttle Closed Position Performance" FailureStatusMask="0x12"/>
+   <ModuleFault_2119 Code="P2119" Description="Throttle Closed Position Performance" FailureStatusMask="0x16"/>
    <ModuleFault_2122 Code="P2122" Description="Accelerator Pedal Position (APP) Sensor 1 Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_2123 Code="P2123" Description="Accelerator Pedal Position (APP) Sensor 1 Circuit High Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_2127 Code="P2127" Description="Accelerator Pedal Position (APP) Sensor 2 Circuit Low Voltage" FailureStatusMask="0x16"/>
@@ -252,16 +260,16 @@
    <ModuleFault_2138 Code="P2138" Description="Accelerator Pedal Position (APP) Sensor 1-2 Correlation" FailureStatusMask="0x16"/>
    <ModuleFault_2176 Code="P2176" Description="Minimum Throttle Position Not Learned" FailureStatusMask="0x16"/>
    <ModuleFault_2199 Code="P2199" Description="Intake Air Temperature Sensor 1 / 2 Correlation" FailureStatusMask="0x16"/>
-   <ModuleFault_219A Code="P219A" Description="Fuel Trim Cylinder Balance Bank 1" FailureStatusMask="0x16"/>
-   <ModuleFault_219B Code="P219B" Description="Fuel Trim Cylinder Balance Bank 2" FailureStatusMask="0x16"/>
+   <ModuleFault_219A Code="P219A" Description="Fuel Trim Cylinder Balance Bank 1" FailureStatusMask="0x12"/>
+   <ModuleFault_219B Code="P219B" Description="Fuel Trim Cylinder Balance Bank 2" FailureStatusMask="0x12"/>
    <ModuleFault_2227 Code="P2227" Description="Barometric Pressure (BARO) Sensor Performance" FailureStatusMask="0x16"/>
    <ModuleFault_2228 Code="P2228" Description="Barometric Pressure (BARO) Sensor Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_2229 Code="P2229" Description="Barometric Pressure (BARO) Sensor High Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_2230 Code="P2230" Description="Barometric Pressure (BARO) Sensor Intermittent" FailureStatusMask="0x16"/>
-   <ModuleFault_2270 Code="P2270" Description="O2S Signal Stuck Lean Bank 1 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_2271 Code="P2271" Description="O2S Signal Stuck Rich Bank 1 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_2272 Code="P2272" Description="O2S Signal Stuck Lean Bank 2 Sensor 2" FailureStatusMask="0x16"/>
-   <ModuleFault_2273 Code="P2273" Description="O2S Signal Stuck Rich Bank 2 Sensor 2" FailureStatusMask="0x16"/>
+   <ModuleFault_2270 Code="P2270" Description="O2S Signal Stuck Lean Bank 1 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_2271 Code="P2271" Description="O2S Signal Stuck Rich Bank 1 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_2272 Code="P2272" Description="O2S Signal Stuck Lean Bank 2 Sensor 2" FailureStatusMask="0x12"/>
+   <ModuleFault_2273 Code="P2273" Description="O2S Signal Stuck Rich Bank 2 Sensor 2" FailureStatusMask="0x12"/>
    <ModuleFault_2300 Code="P2300" Description="Ignition Coil 1 Control Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_2301 Code="P2301" Description="Ignition Coil 1 Control Circuit High Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_2303 Code="P2303" Description="Ignition Coil 2 Control Circuit Low Voltage" FailureStatusMask="0x16"/>
@@ -285,5 +293,5 @@
    <ModuleFault_264F Code="P264F" Description="Engine Serial Number Not Programmed or Incompatible" FailureStatusMask="0x16"/>
    <ModuleFault_C073 Code="U0073" Description="Control Module Communication Bus A Off" FailureStatusMask="0x16"/>
    <ModuleFault_C101 Code="U0101" Description="Lost Communication with TCM" FailureStatusMask="0x16"/>
-   <ModuleFault_C140 Code="U0140" Description="Lost Communication With Body Control Module" FailureStatusMask="0x12"/>
+   <ModuleFault_C140 Code="U0140" Description="Lost Communication With Body Control Module" FailureStatusMask="0x16"/>
 </EmissionsFaults>

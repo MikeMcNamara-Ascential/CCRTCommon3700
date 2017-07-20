@@ -14,6 +14,13 @@
             <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
             <Debug>Off</Debug>
         </Brakes>
+        <Emissions>
+            <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>My18IsuzuEmissionsTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
+            <Debug>Off</Debug>
+        </Emissions>
         <Machine>
             <ComponentName>MachineTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
@@ -38,7 +45,7 @@
         <Transmission>
             <ComponentName>AisinTransmissionTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>KwpAisinTransmissionTC.xml</ConfigFile>
+            <ConfigFile>My18KwpAisinTransmissionTC.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
             <Debug>Off</Debug>
         </Transmission>
@@ -85,9 +92,9 @@
 
         <TestPhase009 Description="Key Cycle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
+                <!--Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
                     <EnterDiagnosticMode/>
-                </Objective15>
+                </Objective15-->
             </ForegroundObjectives>
         </TestPhase009>
         <TestPhase010 Description="Key Cycle" Result="" Timeout="">

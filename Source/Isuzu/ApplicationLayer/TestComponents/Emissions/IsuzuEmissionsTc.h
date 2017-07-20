@@ -409,6 +409,10 @@ private:
     string DPDSwitchCheck(void);
     string MAFLearn(void);
     string CheckMAFLearnComplete(void);
+    /**
+     * Check if Brake Apply Sensor Learn happened at Flash Station
+     */
+    string CheckBASLearnComplete(void);
 
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;

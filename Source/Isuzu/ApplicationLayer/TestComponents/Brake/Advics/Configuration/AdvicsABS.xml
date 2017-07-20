@@ -3,7 +3,7 @@
       <Parameters>
          <BrakeDomain>1 400</BrakeDomain>
          <BrakeForceStabilizeTime>50</BrakeForceStabilizeTime>
-         <BrakeTarget>125 175</BrakeTarget>
+         <BrakeTarget>350 800</BrakeTarget>
          <ConfigFile Description="Path to protocol configuration file">/Configuration/Components/Brake/AdvicsAbsModule.xml</ConfigFile>
          <AccelFilePath>/dev/Icm/Block/Acceleration</AccelFilePath>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
@@ -19,20 +19,21 @@
          <HoldReduction>0</HoldReduction>
          <IcmForceArray>/dev/ArrayForce</IcmForceArray>
          <SkipValveCrossAnalysis>0</SkipValveCrossAnalysis>
-         <KeepTestStatusOnExit>No</KeepTestStatusOnExit>
+         <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
          <SecurityUnlockAttempts>3</SecurityUnlockAttempts>
          <SecurityUnlockDelay>1000</SecurityUnlockDelay>
          <ModulePartNumber>33800-243</ModulePartNumber>
          <!-- Park Brake Paramaters -->
-         <ParkBrakeDriverInfluenceSkip>1</ParkBrakeDriverInfluenceSkip>
-         <UnidirectionalParkBrakeTest>1</UnidirectionalParkBrakeTest>
-         <ParkBrakePrepTime Description="Number of ms to wait for the PLC to be setup for park brake test" units="ms">5000</ParkBrakePrepTime>
-         <ParkBrakeDriverDelay Description="Number of ms to wait for the driver to apply the park brake" units="ms">3000</ParkBrakeDriverDelay>
-         <ParkBrakeApplyForce Description="Amount of force to apply to the rollers for the park brake test" units="lbs">200</ParkBrakeApplyForce>
-         <ParkBrakeSpeedValue Description="Amount of speed to command to the front axle for the park brake test" units="MPH">3</ParkBrakeSpeedValue>
-         <ParkBrakeMaxDistance Description="Maximum allowable travel for the rear wheels during the park brake test" units=".016 Degrees">200</ParkBrakeMaxDistance>
-         <ParkBrakeMinDistance Description="Minimum required travel for the front wheels during the park brake test" units=".016 Degrees">50</ParkBrakeMinDistance>
-         <ReleaseParkBrakePrompt Description="Prompt tag used to tell the operator to release the park brake">ReleaseParkBrake</ReleaseParkBrakePrompt>
+         <ParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">35</ParkBrakeArmSpeed>
+         <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">35</DynamicParkBrakeArmSpeed>
+         <DynamicParkBrakeEndSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake end speed">0</DynamicParkBrakeEndSampleSpeed>
+         <DynamicParkBrakeFrontMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum front park brake force">40</DynamicParkBrakeFrontMaxForce>
+         <DynamicParkBrakeFrontMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum front park brake force">-20</DynamicParkBrakeFrontMinForce>
+         <DynamicParkBrakeRearMaxForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Maximum rear park brake force">500</DynamicParkBrakeRearMaxForce>
+         <DynamicParkBrakeRearMinForce Units="lbf" TestSteps="AnalyzeDynamicParkBrake" Comments="Minimum rear park brake force">200</DynamicParkBrakeRearMinForce>
+         <DynamicParkBrakeSampleCount TestSteps="DynamicParkBrake" Comments="Number of samples to collect, Zero means all samples">0</DynamicParkBrakeSampleCount>
+         <DynamicParkBrakeSampleUseForces TestSteps="DynamicParkBrake" Comments="Flag to determine if sampling should begin when the min force is reached">True</DynamicParkBrakeSampleUseForces>
+         <DynamicParkBrakeStartSampleSpeed Units="mph" TestSteps="DynamicParkBrake" Comments="Park brake start speed">30</DynamicParkBrakeStartSampleSpeed>
          <!-- Park Pawl Paramaters -->
          <ParkPawlDriverInfluenceSkip>1</ParkPawlDriverInfluenceSkip>
          <UnidirectionalParkPawlTest>1</UnidirectionalParkPawlTest>
@@ -44,28 +45,28 @@
          <ParkPawlMaxDistance Description="Maximum allowable travel for the drive wheels during the park pawl test" units=".016 Degrees">200</ParkPawlMaxDistance>
          <ParkPawlMinDistance Description="Minimum required travel for the non-driven wheels during the park pawl test" units=".016 Degrees">50</ParkPawlMinDistance>
          <!-- Base Brake Parameters -->
-         <ArmSpeed Units="MPH">63</ArmSpeed>
+         <ArmSpeed Units="MPH">70</ArmSpeed>
          <NeutralDecelRate Units="MPH/sec">0.00</NeutralDecelRate>
          <NeutralDelay Units="msec">500</NeutralDelay>
-         <DragSpeed Units="MPH">65</DragSpeed>
+         <DragSpeed Units="MPH">68</DragSpeed>
          <DragDelay Units="ms">2000</DragDelay>
          <DragSamples>25</DragSamples>
          <StartDragEarly Description="Can we start drag test above drag speed parameter">1</StartDragEarly>
          <FrontMaxDragForce Units="lbs">80.0</FrontMaxDragForce>
          <RearMaxDragForce Units="lbs">70.0</RearMaxDragForce>
-         <StartBrakeSampleSpeed Units="MPH">60</StartBrakeSampleSpeed>
-         <EndBrakeSampleSpeed Units="MPH">45</EndBrakeSampleSpeed>
-         <FrontMinBrakeForce Units="lbs">150</FrontMinBrakeForce>
-         <FrontMaxBrakeForce Units="lbs">500</FrontMaxBrakeForce>
-         <RearMinBrakeForce Units="lbs">50</RearMinBrakeForce>
-         <RearMaxBrakeForce Units="lbs">500</RearMaxBrakeForce>
-         <MinimumStartForce Units="lbs">150</MinimumStartForce>
+         <StartBrakeSampleSpeed Units="MPH">67</StartBrakeSampleSpeed>
+         <EndBrakeSampleSpeed Units="MPH">10</EndBrakeSampleSpeed>
+         <FrontMinBrakeForce Units="lbs">350</FrontMinBrakeForce>
+         <FrontMaxBrakeForce Units="lbs">800</FrontMaxBrakeForce>
+         <RearMinBrakeForce Units="lbs">350</RearMinBrakeForce>
+         <RearMaxBrakeForce Units="lbs">800</RearMaxBrakeForce>
+         <MinimumStartForce Units="lbs">350</MinimumStartForce>
          <StartSamplingAtMinimumForce>1</StartSamplingAtMinimumForce>
          <BaseBrakeSampleCount Description="Number of base brake samples (at 100ms intervals) to use when calculating base brake forces">10</BaseBrakeSampleCount>
          <IncludeDragInBrakeForce>0</IncludeDragInBrakeForce>
-         <ForceMeterCenterValue Units="lbs">300</ForceMeterCenterValue>
+         <ForceMeterCenterValue Units="lbs">500</ForceMeterCenterValue>
          <!-- Driver Fault High Force Parameters -->
-         <ExcessiveBrakeForceLimit Units="lbs">700</ExcessiveBrakeForceLimit>
+         <ExcessiveBrakeForceLimit Units="lbs">1200</ExcessiveBrakeForceLimit>
          <NumberOfSamplesAboveLimit Description="Number of consecutive samples above max brake force for excessive force failure">100</NumberOfSamplesAboveLimit>
          <!-- Brake Balance Parameters -->
          <FrontSideToSideBalance Units="50±%">10</FrontSideToSideBalance>
@@ -74,24 +75,15 @@
          <BalanceFrontToRearMax Units="%">85</BalanceFrontToRearMax>
          <FrontToRearBalanceUseFront>0</FrontToRearBalanceUseFront>
          <!-- Low Speed Sensor Test Parameters -->
-         <!--LowSpeedSensorTestRollerSpeed Units="mph">3.0</LowSpeedSensorTestRollerSpeed>
-          <LowSpeedSensorTestRollerOffset Units="mph">1.0</LowSpeedSensorTestRollerOffset>
+         <LowSpeedSensorTestRollerSpeed Units="mph">3</LowSpeedSensorTestRollerSpeed>
+          <LowSpeedSensorTestRollerOffset Units="mph">1</LowSpeedSensorTestRollerOffset>
           <SensorTestLfSpeed>3</SensorTestLfSpeed>
           <SensorTestRfSpeed>3</SensorTestRfSpeed>
           <SensorTestLrSpeed>3</SensorTestLrSpeed>
           <SensorTestRrSpeed>3</SensorTestRrSpeed>
           <SensorSpeedTolerance>0.6</SensorSpeedTolerance>
           <SensorTolerance>50</SensorTolerance>
-          <LowSpeedSensorSpeedCheckDelay>250</LowSpeedSensorSpeedCheckDelay-->
-         <LowSpeedSensorTestTargetSpeed Units="MPH">8.0</LowSpeedSensorTestTargetSpeed>
-         <LowSpeedSensorTestTargetSpeedRange>8 15</LowSpeedSensorTestTargetSpeedRange>
-         <LowSpeedSensorTestTargetScanDelay Units="ms">25</LowSpeedSensorTestTargetScanDelay>
-         <LowSpeedSensorTestTargetSpeedScanDelay Units="ms">25</LowSpeedSensorTestTargetSpeedScanDelay>
-         <LowSpeedSensorTestMinSteadyWheelSpeed Units="MPH">8.0</LowSpeedSensorTestMinSteadyWheelSpeed>
-         <LowSpeedSensorTestMaxSteadyWheelSpeed Units="MPH">20.0</LowSpeedSensorTestMaxSteadyWheelSpeed>
-         <LowSpeedSensorTestSteadySpeedSamples>1</LowSpeedSensorTestSteadySpeedSamples>
-         <LowSpeedSensorTestSteadySpeedTimeout Units="ms">10000</LowSpeedSensorTestSteadySpeedTimeout>
-         <LowSpeedSensorTestTolerance Units="%">100.0</LowSpeedSensorTestTolerance>
+          <LowSpeedSensorSpeedCheckDelay>250</LowSpeedSensorSpeedCheckDelay>
          <!-- High Speed Sensor Test Parameters -->
          <HoldThrottleSteadyPrompt Description="DCL prompt $21">HoldThrottleSteady</HoldThrottleSteadyPrompt>
          <HighSpeedSensorTestTargetSpeed Units="MPH">60.0</HighSpeedSensorTestTargetSpeed>
@@ -118,25 +110,28 @@
             <Wheel_3>Rear</Wheel_3>
          </ABS3ChannelFiringSequence>
          <CollectSensorSpeedData Description="Sample sensor speeds during ABS valve firing to check for sensor/valve cross">0</CollectSensorSpeedData>
-         <PerformReductionBeforeRecovery>1</PerformReductionBeforeRecovery>
+         <PerformReductionBeforeRecovery>0</PerformReductionBeforeRecovery>
          <HoldReduction>0</HoldReduction>
          <HoldRecovery>0</HoldRecovery>
-         <InterWheelGapDelay Units="ms">100</InterWheelGapDelay>
-         <LeftFrontReductionPulseLength Units="ms">50</LeftFrontReductionPulseLength>
-         <RightFrontReductionPulseLength Units="ms">50</RightFrontReductionPulseLength>
-         <LeftRearReductionPulseLength Units="ms">50</LeftRearReductionPulseLength>
-         <RightRearReductionPulseLength Units="ms">50</RightRearReductionPulseLength>
-         <LeftFrontRecoveryPulseLength Units="ms">50</LeftFrontRecoveryPulseLength>
-         <RightFrontRecoveryPulseLength Units="ms">50</RightFrontRecoveryPulseLength>
-         <LeftRearRecoveryPulseLength Units="ms">100</LeftRearRecoveryPulseLength>
-         <RightRearRecoveryPulseLength Units="ms">300</RightRearRecoveryPulseLength>
-         <LeftFrontMinReductionPercent Units="%">50</LeftFrontMinReductionPercent>
-         <RightFrontMinReductionPercent Units="%">50</RightFrontMinReductionPercent>
-         <LeftRearMinReductionPercent Units="%">50</LeftRearMinReductionPercent>
-         <RightRearMinReductionPercent Units="%">50</RightRearMinReductionPercent>
-         <LeftFrontMinRecoveryPercent Units="%">50</LeftFrontMinRecoveryPercent>
-         <RightFrontMinRecoveryPercent Units="%">50</RightFrontMinRecoveryPercent>
-         <LeftRearMinRecoveryPercent Units="%">50</LeftRearMinRecoveryPercent>
+         <PostPumpRunDelay>0</PostPumpRunDelay>
+         <ABSInitialHoldDelay>2000</ABSInitialHoldDelay>
+         <InterWheelGapDelay Units="ms">0</InterWheelGapDelay>       
+         <LFRecoveryPulse>350</LFRecoveryPulse>
+         <RFRecoveryPulse>350</RFRecoveryPulse>
+         <LRRecoveryPulse>380</LRRecoveryPulse>
+         <RRRecoveryPulse>350</RRRecoveryPulse>
+		 <LFReductionPulse>450</LFReductionPulse>
+         <RFReductionPulse>400</RFReductionPulse>
+         <LRReductionPulse>750</LRReductionPulse>
+         <RRReductionPulse>650</RRReductionPulse>
+		 <LeftFrontMinRecoveryPercent>60.0</LeftFrontMinRecoveryPercent>
+         <LeftRearMinRecoveryPercent>50.0</LeftRearMinRecoveryPercent>
+         <RightFrontMinRecoveryPercent>60.0</RightFrontMinRecoveryPercent>
+         <RightRearMinRecoveryPercent>50.0</RightRearMinRecoveryPercent>
+		 <LeftFrontMaxReductionPercent>40.0</LeftFrontMaxReductionPercent>
+         <LeftRearMaxReductionPercent>40.0</LeftRearMaxReductionPercent>
+         <RightFrontMaxReductionPercent>40.0</RightFrontMaxReductionPercent>
+         <RightRearMaxReductionPercent>40.0</RightRearMaxReductionPercent>
          <ABSTestStartSpeed Description="Maximum speed to start firing ABS valves at" Units="MPH">55</ABSTestStartSpeed>
          <ABSRecoveryTime Description="Number of ms after reduction ends until full recovery" Units="ms">1500</ABSRecoveryTime>
          <ReductionEvalSampleDelta Description="Number of samples used to evaluate the slope of the reduction pulse">3</ReductionEvalSampleDelta>
@@ -151,10 +146,12 @@
          <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
          <DepressBrake PromptBox="1" Priority="0">FootOnBrake</DepressBrake>
          <RemoveFootFromBrake PromptBox="1" Priority="0">FootOffBrake</RemoveFootFromBrake>
+         <FootOffBrake PromptBox="2" Priority="0">FootOffBrake</FootOffBrake>
          <KeepFootOffBrake PromptBox="2" Priority="0">KeepFootOffBrake</KeepFootOffBrake>
          <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
          <CableConnect PromptBox="1" Priority="0">CableDisconnected</CableConnect>
          <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+         <ShiftToNeutral PromptBox="1" Priority="0">ShiftToNeutral</ShiftToNeutral>
          <ShiftToReverse PromptBox="1" Priority="0">ApplyBrakeShiftToReverse</ShiftToReverse>
          <ShiftPFootOffBrk PromptBox="1" Priority="0">ShiftPFootOffBrk</ShiftPFootOffBrk>
       </Prompts>
@@ -164,7 +161,7 @@
          <StopCurrentTest>0</StopCurrentTest>
       </StatusCheckItems>
       <FaultList>/Configuration/Components/Common/FaultList.xml</FaultList>
-      <Name>AdvicsABS</Name>
+      <Name>Brake</Name>
       <Debug>Off</Debug>
       <ICMName>mgr/ICM</ICMName>
       <ThreadPool>
@@ -467,9 +464,14 @@
          <RRTractionControlRecoveryValue>0</RRTractionControlRecoveryValue>
          <RRTractionControlReductionBGColor>white</RRTractionControlReductionBGColor>
          <RRTractionControlReductionValue>0</RRTractionControlReductionValue>
-         <TestResultBox1BGColor>white</TestResultBox1BGColor>
-         <TestResultBox2BGColor>white</TestResultBox2BGColor>
-         <TestResultBox3BGColor>white</TestResultBox3BGColor>
+         <LeftFrontParkBrakeForceValue>0</LeftFrontParkBrakeForceValue>
+         <LeftFrontParkBrakeForceBGColor>white</LeftFrontParkBrakeForceBGColor>
+         <RightFrontParkBrakeForceValue>0</RightFrontParkBrakeForceValue>
+         <RightFrontParkBrakeForceBGColor>white</RightFrontParkBrakeForceBGColor>
+         <LeftRearParkBrakeForceValue>0</LeftRearParkBrakeForceValue>
+         <LeftRearParkBrakeForceBGColor>white</LeftRearParkBrakeForceBGColor>
+         <RightRearParkBrakeForceValue>0</RightRearParkBrakeForceValue>
+         <RightRearParkBrakeForceBGColor>white</RightRearParkBrakeForceBGColor>
       </SystemTagsToReset>
    </Setup>
    <Objectives>
@@ -479,9 +481,10 @@
          <TestStep20>StartModuleKeepAlive</TestStep20>
       </Setup>
       <FinishUp>
-         <TestStep10>StopModuleKeepAlive</TestStep10>
+         <!--TestStep10>StopModuleKeepAlive</TestStep10-->
          <TestStep11>ReadFaults</TestStep11>
          <TestStep12>WriteVacuumFillingEndFlag</TestStep12>
+         <TestStep13>ExitDiagnosticMode</TestStep13>
          <TestStep99>FinishUp</TestStep99>
       </FinishUp>
       <AccelerateToTestSpeed>
@@ -525,24 +528,26 @@
          <TestStep20>StopBrakeMonitor</TestStep20>
          <TestStep30>ParkBrakeDriverInfluence</TestStep30>
          <TestStep40>AnalyzeParkBrake</TestStep40>
-         <TestStep50>ParkBrakeStop</TestStep50>
+         <!--TestStep50>ParkBrakeStop</TestStep50-->
       </ABSParkBrakeTest>
       <ParkBrakeTest>
-         <TestStep10>ParkBrake</TestStep10>
-         <TestStep20>AnalyzeParkBrake</TestStep20>
-         <TestStep30>ParkBrakeStop</TestStep30>
+          <TestStep04>DisableDiagnosticSpeedLimit</TestStep04>
+          <TestStep05>StartModuleKeepAlive</TestStep05>
+          <TestStep10>AccelerateToParkBrakeSpeed</TestStep10>
+          <TestStep15>DynamicParkBrake</TestStep15>
+          <TestStep20>AnalyzeDynamicParkBrake</TestStep20>
       </ParkBrakeTest>
       <ABSParkPawlTest>
          <TestStep10>ParkPawl</TestStep10>
          <TestStep20>StopBrakeMonitor</TestStep20>
          <TestStep30>ParkPawlDriverInfluence</TestStep30>
          <TestStep40>AnalyzeParkPawl</TestStep40>
-         <TestStep50>ParkBrakeStop</TestStep50>
+         <!--TestStep50>ParkBrakeStop</TestStep50-->
       </ABSParkPawlTest>
       <ParkPawlTest>
          <TestStep10>ParkPawl</TestStep10>
          <TestStep20>AnalyzeParkPawl</TestStep20>
-         <TestStep30>ParkBrakeStop</TestStep30>
+         <!--TestStep30>ParkBrakeStop</TestStep30-->
       </ParkPawlTest>
       <ABSParkBrakePawlTest>
          <TestStep10>ParkBrakePawl</TestStep10>
@@ -551,13 +556,13 @@
          <TestStep40>ParkPawlDriverInfluence</TestStep40>
          <TestStep50>AnalyzeParkBrake</TestStep50>
          <TestStep60>AnalyzeParkPawl</TestStep60>
-         <TestStep70>ParkBrakeStop</TestStep70>
+         <!--TestStep70>ParkBrakeStop</TestStep70-->
       </ABSParkBrakePawlTest>
       <ParkBrakePawlTest>
          <TestStep10>ParkBrakePawl</TestStep10>
          <TestStep20>AnalyzeParkBrake</TestStep20>
          <TestStep30>AnalyzeParkPawl</TestStep30>
-         <TestStep40>ParkBrakeStop</TestStep40>
+         <!--TestStep40>ParkBrakeStop</TestStep40-->
       </ParkBrakePawlTest>
       <AccelerateToBrakeSpeed>
          <TestStep10>AccelerateToBrakeSpeed</TestStep10>
@@ -570,7 +575,7 @@
       </AnalyzeDragTest>
       <BrakeTest>
          <TestStep00>AccelerateToBrakeSpeed</TestStep00>
-         <TestStep10>NeutralCheck</TestStep10>
+         <!--TestStep10>NeutralCheck</TestStep10-->
          <TestStep20>DragTest</TestStep20>
          <TestStep30>AnalyzeDragTest</TestStep30>
          <TestStep40>BrakeTest</TestStep40>
@@ -590,21 +595,10 @@
          <TestStep10>BrakeSwitchTest</TestStep10>
       </BrakeSwitchTest>
       <ValveFiringTest>
-         <TestStep00>AccelerateToBrakeSpeed</TestStep00>
-         <TestStep05>NeutralCheck</TestStep05>
-         <!--TestStep10>DragTest</TestStep10>
-         <TestStep15>AnalyzeDragTest</TestStep15>
-         <TestStep20>BrakeTest</TestStep20-->
-         <TestStep25>StopModuleKeepAlive</TestStep25>
-         <!--TestStep30>IsolateAll</TestStep30-->
-         <TestStep35>ValveFiringTest</TestStep35>
-         <TestStep40>RunPumpMotor</TestStep40>
-         <TestStep45>StartModuleKeepAlive</TestStep45>
+         <TestStep00>AccelerateToABSSpeed</TestStep00>
+         <TestStep20>DynamicABSValveFiringTest</TestStep20>
          <TestStep50>BrakeToStop</TestStep50>
-         <!--TestStep55>AnalyzeBrakeTest</TestStep55>
-         <TestStep60>AnalyzeBalance</TestStep60-->
          <TestStep65>EvaluateABS</TestStep65>
-         <!--TestStep70>ExcessiveBrakeForceCheck</TestStep70-->
          <TestStep75>StopPumpMotor</TestStep75>
       </ValveFiringTest>
       <EvaluateABS>
@@ -634,6 +628,9 @@
          <TestStep50>StopBrakeMonitor</TestStep50>
          <TestStep60>AnalyzeParkBrake</TestStep60>
       </DynamicFill>
+      <ABSCommandsTestObjective>
+          <TestStep00>AllInletValvesOn</TestStep00>
+      </ABSCommandsTestObjective>
    </Objectives>
    <!-- Specific Test Step information -->
    <TestSteps>
@@ -662,17 +659,18 @@
       <AnalyzeParkPawl Result="" Timeout="10000" Description="Analyze the park pawl test results" DIFaultTag="ParkPawlDriverInfluenceFault"/>
       <!-- From BaseBrake -->
       <Initialize Result="" Timeout="10000" Description="Initialize Test Step" Prompt1="Initialize" ZerospeedPrompt="BrakeToStop"/>
-      <AccelerateToBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Brake Speed" Prompt1="AccelerateToTargetSpeed" SpeedTarget="60 70" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
+      <AccelerateToParkBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Dynamic Park Brake Speed" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="35 40" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0" AbortIfFailed="True"/>
+      <AccelerateToBrakeSpeed Result="" Timeout="90000" Description="Accelerate to Brake Speed" Prompt1="AccelerateToTargetSpeed" ArmSpeed="70" SpeedTarget="60 70" SpeedDomain="0 100" SpeedActive="1" SpeedInactive="0"/>
       <NeutralCheck Result="" Timeout="10000" Description="Wait for shift to neutral after arm speed" Prompt1="ReleaseThrottleShiftNeutral" ScanDelay="100"/>
-      <DragTest Result="" Timeout="20000" Description="Base Brake Component Brake Drag Test" Prompt1="ReleaseThrottleShiftNeutral" Prompt2=""/>
+      <DragTest Result="" Timeout="20000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt2="RemoveFootFromAccelerator" DragSpeed="68" DragDelay="1000" DragSamples="10"/>
       <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2=""/>
-      <BrakeTest Result="" Timeout="10000" Description="Base Brake Component Brake Test" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1=""/>
+      <BrakeTest Result="" Timeout="10000" Description="Base Brake Component Brake Test" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1="" StartBrakeSampleSpeed="67" EndBrakeSampleSpeed="10" BrakeDomain="0 1000" BrakeTarget="350 800"/>
       <AnalyzeBrakeTest Result="" Timeout="10000" Description="Analyze Brake Test" Prompt1="" Prompt2=""/>
       <AnalyzeBalance Result="" Timeout="10000" Description="Analyze Balance" Prompt1="" Prompt2=""/>
       <ExcessiveBrakeForceCheck Result="" Timeout="10000" Description="Check for excessive brake force"/>
+      <AnalyzeDynamicParkBrake Result="Not Tested" Timeout="500" Description="Analyze park brake results" AbortIfFailed="False"/>
       <!-- From GenericABSTestComponent -->
       <BrakeSwitchTest Result="" Timeout="20000" Description="Brake Switch test" BrakeDelay="50" ScanDelay="250"/>
-      <ValveFiringTest Result="" Timeout="90000" Description="Fire valves" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1="175" Prompt1Value2="" Prompt1Priority="0" Prompt1BGColor="white" Prompt2=""/>
       <FireLFReduction Result="" Timeout="10000" Description="Fire Left Front Reduction" Prompt1="BrakeModeratelyInGreenBand"/>
       <FireRFReduction Result="" Timeout="10000" Description="Fire Right Front Reduction" Prompt1="BrakeModeratelyInGreenBand"/>
       <FireLRReduction Result="" Timeout="10000" Description="Fire Left Rear Reduction" Prompt1="BrakeModeratelyInGreenBand"/>
@@ -682,12 +680,14 @@
       <FireLRRecovery Result="" Timeout="10000" Description="Fire Left Rear Recovery" Prompt1="BrakeModeratelyInGreenBand"/>
       <FireRRRecovery Result="" Timeout="10000" Description="Fire Right Rear Recovery" Prompt1="BrakeModeratelyInGreenBand"/>
       <EvaluateABS Result="" Timeout="10000" Description="Evaluate ABS" ABSLowerForceLimit="0"/>
+      <DynamicParkBrakeTest Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
+      <DynamicParkBrake Result="" Timeout="90000" Description="Dynamic Park Brake Test" Prompt1="ShiftToNeutral" Prompt2="ApplyParkBrake" AbortIfFailed="True"/>
       <!-- Add Other test steps here -->
       <ParkBrakeStop Result="" Timeout="30000" Description="Brake To Stop afetr park brake or park pawl test" Prompt1="BrakeToStop"/>
       <LowSpeedSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test for the ABS Wheel speed sensor"/>
       <HighSpeedSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test for the ABS Wheel speed sensor"/>
       <ABSHSSensorTest Result="" Prompt1="AccelerateToTargetSpeed" Prompt1Value1="" Timeout="90000" ScanDelay="250" Description="Test the ABS wheel speed sensors at high speed"/>
-      <RunPumpMotor Result="" Timeout="10000" Description="Turn the ABS pump on" Prompt1=""/>
+      <RunPumpMotor Result="" Timeout="10000" Description="Turn the ABS pump on" Prompt1="BrakeModeratelyInGreenBand"/>
       <StopPumpMotor Result="" Timeout="10000" Description="Turn the ABS pump off" Prompt1=""/>
       <DeEnergizeAllValves Result="" Timeout="10000" Description="De-Energize All Valves / Run Pump" ABSPumpMotorTime="300"/>
       <BrakeToStop Result="" Timeout="30000" Description="Brake To Stop" Prompt1="BrakeToStop" Prompt1Value1="200" Prompt1Value2="" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="" BrakeDomain="0 500" BrakeTarget="250 350"><!--force meter center is 2x green band value--></BrakeToStop>
@@ -701,5 +701,8 @@
       <WriteVacuumFillingEndFlag Result="" Timeout="1000" Description="Write and Verify the Vacuum Filling End Flag"/>
       <UnlockModuleSecurity Result="" Timeout="500" Description="Unlock Module Security"/>
       <CommandSecurityUnlock Result="" Timeout="500" Description="Unlock Module Security"/>
+      <AllInletValvesOn Result="" Timeout="500" Description="AllInletValvesOn"/>
+	  <DynamicABSValveFiringTest Result="" Timeout="90000" Description="Fire ABS Valves" Prompt1="BrakeModeratelyInGreenBand" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="Blank" BrakeDomain="0 1000" BrakeTarget="100 300"/>
+      <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
    </TestSteps>
 </AdvicsABS>

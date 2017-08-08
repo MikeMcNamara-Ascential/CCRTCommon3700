@@ -506,6 +506,13 @@
                 <ReplyMessage>VehicleSpeed</ReplyMessage>
                 <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
             </ReadCruiseTargetSpeed>
+			
+			<ClearMAFLearn>
+				<TransmitMessage>ClearMAF</TransmitMessage>
+                <TransmitInterpretation>CaseLearn</TransmitInterpretation>
+                <ReplyMessage>RunCpidResponse</ReplyMessage>
+                <ReplyInterpretation/>
+			</ClearMAFLearn>
 
         </VehicleMessages>
 
@@ -520,6 +527,7 @@
             <WriteDid>0x3B,0x??,0x??</WriteDid>
             <ClearFaults>0x04</ClearFaults>
             <ReadFaults>0xA9,0x81,0x32</ReadFaults>
+			<ClearMAF>0xAE,0x01,0x??,0x??,0x??,0x??,0x??</ClearMAF>
         </TransmitMessages>
 
         <!-- ============ Message PIDs/LIDs ============ -->

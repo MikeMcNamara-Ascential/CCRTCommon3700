@@ -127,6 +127,8 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("CheckMAFLearnComplete"))               testResult = CheckMAFLearnComplete();
             else if (!GetTestStepName().compare("CheckBASLearnComplete"))               testResult = CheckBASLearnComplete();
             else if (!GetTestStepName().compare("AdjustCruiseMass"))                    testResult = AdjustCruiseMass();
+			else if (!GetTestStepName().compare("DelayBeforeMAFClear"))                 testResult = DelayBeforeMAFClear();
+			else if (!GetTestStepName().compare("ClearMAFSensor"))              	    testResult = ClearMAFSensor();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -3160,5 +3162,60 @@ string IsuzuEmissionsTc<ModuleType>::AdjustCruiseMass(void)
         testResult = testSkip;
         Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
     }
+}
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::DelayBeforeMAFClear(void)
+{
+    string result(BEP_TESTING_RESPONSE);
+
+    if (GetParameterInt("DelayBeforeMAFClear") != 0)
+    {
+        DisplayPrompt(GetPromptBox("DelayBeforeMAFClear"), GetPrompt("DelayBeforeMAFClear"), GetPromptPriority("DelayBeforeMAFClear"));
+        BposSleep(GetParameterInt("DelayBeforeMAFClear"));
+        RemovePrompt(GetPromptBox("DelayBeforeMAFClear"), GetPrompt("DelayBeforeMAFClear"), GetPromptPriority("DelayBeforeMAFClear"));
+        result = testPass;
+    }
+    else
+        result = testSkip;
+
+    return result;
+}
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::ClearMAFSensor(void) 
+{
+	string testResult = testError;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    
+    if(!ShortCircuitTestStep())
+    {
+        //Check MAF Learn status is 1
+        status = m_vehicleModule.CommandModule("ClearMAFLearn");
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            testResult = testPass;
+			testResultCode = "0000";
+            testDescription = testDescription;
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not clear MAF Learn\n");
+            SetCommunicationFailure(true);
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testResultCode = GetFaultCode("CommunicationFailure");            
+        }
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    } 
+    
+    return testResult;
 }
 

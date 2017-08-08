@@ -394,6 +394,21 @@ private:
      */
     virtual string ClearFaults(void);
 
+	/**
+     * Sends a command to the Module to clear the MAF Learned Bit
+     * 
+     * @return Result of clearing the faults from the module
+     */
+    virtual string ClearMAFSensor(void);
+
+	/**
+     * Simple delay before clearing the MAF Learn Bit
+     * 
+     * @return Result of the function (skipped or passed)
+     */
+    virtual string DelayBeforeMAFClear(void);
+
+
     /**
      * Overloaded method to check if it is a retest first
      */

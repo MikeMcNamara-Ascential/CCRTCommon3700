@@ -118,7 +118,7 @@
             <!-- Engine Coolant Temperature Parameters -->
             <EngineCoolantTempOffset Units="C" Comment="Offset for engine temperature reading" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature">-40</EngineCoolantTempOffset>
             <EngineCoolantTemperatureUnits>C</EngineCoolantTemperatureUnits>
-            <MinimumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Minimum operating engine coolant temperature">62</MinimumEngineCoolantTemperature>
+            <MinimumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Minimum operating engine coolant temperature">65</MinimumEngineCoolantTemperature>
             <MaximumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Maximum operating engine coolant temperature">100</MaximumEngineCoolantTemperature>
             <!-- Engine Oil Pressure Parameters -->
             <EngineOilPressureUnits>V</EngineOilPressureUnits>
@@ -215,7 +215,9 @@
             <MaximumEGRPosition Units="%" TestSteps="CheckEGRPosition" Comment="Maximum EGR Position">55.0</MaximumEGRPosition>
             <!--MAF Learning Complete Status Parameters-->
             <MAFLearningCompleteCompareValue>True</MAFLearningCompleteCompareValue>
-            <!--Throttle Position Parameters-->
+            <!--MAF Learn Clear Parameters -->
+			<DelayBeforeMAFClear>5000</DelayBeforeMAFClear>
+			<!--Throttle Position Parameters-->
             <ThrottlePositionUnits>%</ThrottlePositionUnits>
             <MinimumThrottlePosition Units="%" TestSteps="CheckThrottlePosition" Comment="Minimum Throttle Position">10.0</MinimumThrottlePosition>
             <MaximumThrottlePosition Units="%" TestSteps="CheckThrottlePosition" Comment="Maximum Throttle Position">110.0</MaximumThrottlePosition>
@@ -309,6 +311,7 @@
             <CaseLearnInProgress PromptBox="1" Priority="0" TestSteps="CheckCASELearn">CaseLearnInProgress</CaseLearnInProgress>
             <CheckingO2Sensors PromptBox="1" Priority="0" TestSteps="CheckOxygenSensors">CheckingO2Sensors</CheckingO2Sensors>
             <DelayBeforeDtcRead PromptBox="1" Priority="0" TestSteps="DelayBeforeDtcRead">DelayBeforeDtcRead</DelayBeforeDtcRead>
+			<DelayBeforeMAFClear PromptBox="1" Priority="0" TestSteps="DelayBeforeMAFClear">DelayBeforeMAFClear</DelayBeforeMAFClear>
             <EngineRunning PromptBox="1" Priority="0" TestSteps="WaitForEngineRunning">StartVehicle</EngineRunning>
             <EngineMustIdle PromptBox="2" Priority="0" TestSteps="CheckOxygenSensors">EngineMustIdle</EngineMustIdle>
             <LeftFootOnBrake PromptBox="2" Priority="0" TestSteps="CheckCASELearn">LeftFootOnBrake</LeftFootOnBrake>
@@ -357,8 +360,13 @@
             <TestStep20>CheckSerialNumber</TestStep20>
         </CheckPartNumber>
         <EngineWarmUp>
-            <TestStep25>WaitForEngineTemperature</TestStep25>
-            <TestStep30>MAFLearn</TestStep30>
+            <TestStep15>WaitForEngineTemperature</TestStep15>
+            <TestStep20>DelayBeforeMAFClear</TestStep20>
+			<TestStep25>KeyOffEngineOffKeyOn</TestStep25>
+			<TestStep30>ClearMAFSensor</TestStep30>
+			<TestStep35>WaitForEngineRunning</TestStep35>
+			<TestStep40>MAFLearn</TestStep40>
+			<TestStep45>CheckMAFLearnComplete</TestStep45>
             <!--TestStep45>StartSwitchMonitors</TestStep45-->
         </EngineWarmUp>
         <PreFinishUp>
@@ -418,9 +426,9 @@
          <DPDSwitchCheck>
             <TestStep00>DPDSwitchCheck</TestStep00>
          </DPDSwitchCheck>
-		 <CheckMAFLearnComplete>
+		 <!--CheckMAFLearnComplete>
             <TestStep00>CheckMAFLearnComplete</TestStep00>
-         </CheckMAFLearnComplete>
+         </CheckMAFLearnComplete-->
     </Objectives>
     <TestSteps>
         <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
@@ -473,5 +481,6 @@
         <StopSwitchMonitors Result="" Timeout="500" Description="Stop background switch monitoring" AlwaysPerform="True" AbortIfFailed="False"/>
         <WaitForEngineRunning Result="" Timeout="20000" Description="Wait for the engine to be running" ScanDelay="250" AlwaysPerform="True" AbortIfFailed="True"/>
         <WaitForEngineTemperature Result="" Timeout="-1" Messages="ReadEngineTemperature" AlwaysPerform="True" Description="Wait for engine coolant temperature to be in operating range" ScanDelay="500" AbortIfFailed="True"/>
+		<DelayBeforeMAFClear Result="" Timeout="150000" Description="Delay before clearing the MAF learn bit"/>
     </TestSteps>
 </IsuzuEmissionsTc>

@@ -40,7 +40,7 @@
     <ModuleFault_02CD Code="P02CD" Description="Cylinder #1 Injection Exceeded Maximum Limit" FailureStatusMask="0x02"/>
     <ModuleFault_02CF Code="P02CF" Description="Cylinder #2 Injection Exceeded Maximum Limit" FailureStatusMask="0x02"/>
     <ModuleFault_02D1 Code="P02D1" Description="Cylinder #3 Injection Exceeded Maximum Limit" FailureStatusMask="0x02"/>
-    <ModuleFault_02D3 Code="P02D3" Description="Cylinder #4 Injection Exceeded Maximum Limit" FailureStatus Mask="0x02"/>
+    <ModuleFault_02D3 Code="P02D3" Description="Cylinder #4 Injection Exceeded Maximum Limit" FailureStatusMask="0x02"/>
     <ModuleFault_02CC Code="P02CC" Description="Cylinder #1 Injection Exceeded Minimum Limit" FailureStatusMask="0x02"/>
     <ModuleFault_02CE Code="P02CE" Description="Cylinder #2 Injection Exceeded Minimum Limit" FailureStatusMask="0x02"/>
     <ModuleFault_02D0 Code="P02D0" Description="Cylinder #3 Injection Exceeded Minimum Limit" FailureStatusMask="0x02"/>

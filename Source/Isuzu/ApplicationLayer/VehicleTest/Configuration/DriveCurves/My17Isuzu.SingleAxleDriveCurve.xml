@@ -340,13 +340,13 @@
             </ForegroundObjectives>
         </TestPhase042>
 		
-		<TestPhase043 Description="Check MAF Learn complete" Result="" Timeout="">
+		<!--TestPhase043 Description="Check MAF Learn complete" Result="" Timeout="">
 			<ForegroundObjectives Result="" Timeout="">
 				<Objective0 Description="Check MAF Learn complete" Result="" Timeout="" Component="Emissions">
                     <CheckMAFLearnComplete/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase043>
+        </TestPhase043-->
 
         <!-- Final Dynamic Tests -->
         <TestPhase045 Description="Read Faults" Result="" Timeout="">

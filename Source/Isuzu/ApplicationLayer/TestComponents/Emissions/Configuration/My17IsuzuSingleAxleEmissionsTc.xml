@@ -462,6 +462,7 @@
         <CheckVIN Result="" Timeout="500" Description="Verify the module VIN matches the scanned VIN" AlwaysPerform="False" AbortIfFailed="False"/>
         <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" IgnoreModuleLockedStatus="True" AbortIfFailed="False"/>
         <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="True" AbortIfFailed="False"/>
+		<ClearMAFSensor Result="" Timeout="5000" Description="Clear the MAFLearned bit in the module" AlwaysPerform="false" AbortIfFailed="False"/>
         <DifferentialPressure Result="Not Tested" Timeout="5000" Description="Check Differential Pressure Sensor" CheckCompletePassStatus="True" IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
         <DelayBeforeDtcRead Result="" Timeout="150000" Description="Delay before reading DTCs"/>
         <DPDSwitchCheck Result="" Timeout="5000" Description="Check DPD Switch Position" ScanDelay="100" AbortIfFailed="False"/>

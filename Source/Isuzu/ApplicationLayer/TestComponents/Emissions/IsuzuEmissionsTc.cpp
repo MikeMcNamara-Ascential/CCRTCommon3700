@@ -126,6 +126,7 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("MAFLearn"))                            testResult = MAFLearn();
             else if (!GetTestStepName().compare("CheckMAFLearnComplete"))               testResult = CheckMAFLearnComplete();
             else if (!GetTestStepName().compare("CheckBASLearnComplete"))               testResult = CheckBASLearnComplete();
+            else if (!GetTestStepName().compare("AdjustCruiseMass"))                    testResult = AdjustCruiseMass();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -3097,16 +3098,29 @@ string IsuzuEmissionsTc<ModuleType>::CheckBASLearnComplete(void)
     string testDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     bool basLearned = false;
+    float basPosition = 100.0;
     
     if(!ShortCircuitTestStep())
     {
         //Check BAS Learn status is 1
         status = m_vehicleModule.ReadModuleData("ReadBASLearningComplete", basLearned);
         if(status == BEP_STATUS_SUCCESS)
-        {
-            testResult = basLearned ? testPass : testFail;
-            testResultCode = basLearned ? "0000": GetFaultCode("BASNotLearned");
-            testDescription = basLearned ? testDescription : GetFaultDescription("BASNotLearned");
+        {   //Verified the BAS Learned in the correct spot
+            status = m_vehicleModule.ReadModuleData("ReadBASPosition", basPosition);
+            if(status == BEP_STATUS_SUCCESS)
+            {
+                testResult = (basLearned && basPosition == 0.0) ? testPass : testFail;
+                testResultCode = (basLearned && basPosition == 0.0) ? "0000": GetFaultCode("BASPositionIncorrect");
+                testDescription = (basLearned && basPosition == 0.0) ? testDescription : GetFaultDescription("BASPositionIncorrect");
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Could not get BAS Position value from the module\n");
+                SetCommunicationFailure(true);
+                testResult = testFail;
+                testDescription = GetFaultDescription("CommunicationFailure");
+                testResultCode = GetFaultCode("CommunicationFailure");            
+            }
         }
         else
         {
@@ -3125,5 +3139,26 @@ string IsuzuEmissionsTc<ModuleType>::CheckBASLearnComplete(void)
     } 
     
     return testResult;
+}
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::AdjustCruiseMass(void)
+{
+    string testResult = testError;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    if(!ShortCircuitTestStep())
+    {
+        // Command the module to start the CASE learn process
+        testResult = ((m_vehicleModule.CommandModule("AdjustCruiseMass") == BEP_STATUS_SUCCESS) ? testPass : testFail);
+        testResultCode = testResult == testPass ? "0000": GetFaultCode("CruiseMassNotSet");
+        testDescription = testResult == testPass ? testDescription : GetFaultDescription("CruiseMassNotSet");
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
 }
 

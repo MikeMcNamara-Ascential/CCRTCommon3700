@@ -413,6 +413,10 @@ private:
      * Check if Brake Apply Sensor Learn happened at Flash Station
      */
     string CheckBASLearnComplete(void);
+    /**
+     * Adjust the mass value used in cruise control calculations to a suitable value for the machine
+     */ 
+    string AdjustCruiseMass(void);
 
     typedef vector<BackgroundSwitchMonitor *>                     BackgroundSwitchMonitorVector;
     typedef BackgroundSwitchMonitorVector::iterator               BackgroundSwitchMonitorVectorItr;

@@ -68,7 +68,8 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("CheckEngineCoolantTemperature"))       testResult = CheckSensorRangeInt(value);
             else if (!GetTestStepName().compare("CheckEngineFan"))                      testResult = CheckEngineFan();
             else if (!GetTestStepName().compare("CheckEngineOilLevelLow"))              testResult = CheckSensorRangeBool(value);
-            else if (!GetTestStepName().compare("CheckEngineOilPressure"))              testResult = CheckSensorRangeFloat(value);
+            else if (!GetTestStepName().compare("CheckEngineOilPressure"))              testResult = CheckSensorRangeInt(value);
+			else if (!GetTestStepName().compare("CheckEngineOilPressureFloat"))         testResult = CheckSensorRangeFloat(value);
             else if (!GetTestStepName().compare("CheckEngineOilPressureLow"))           testResult = CheckSensorRangeBool(value);
             else if (!GetTestStepName().compare("CheckEngineOilTemperature"))           testResult = CheckSensorRangeInt(value);
             else if (!GetTestStepName().compare("CheckFinalInjectionAmount"))           testResult = CheckSensorRangeFloat(value);

@@ -396,7 +396,7 @@
             <TestStep020 AltValue="BatteryVoltage">CheckBatteryVoltage</TestStep020>
             <TestStep025 AltValue="RequestedRPM">CheckRequestedRPM</TestStep025>
             <TestStep030 AltValue="EngineSpeed">CheckIdleRPM</TestStep030>
-            <TestStep035 AltValue="FuelRailPressure">CheckFuelRailPressure</TestStep035>
+            <TestStep035 AltValue="FuelRailPressure">CheckFuelRailPressureFloat</TestStep035>
             <TestStep040 AltValue="TurboBoostPressure">CheckTurboBoostPressure</TestStep040>
             <TestStep045 AltValue="FuelTemperature">CheckFuelTemperature</TestStep045>
             <TestStep050 AltValue="FuelInjectionCorrection1">CheckFuelInjectionCorrection1</TestStep050>
@@ -410,7 +410,7 @@
             <TestStep090 AltValue="SVCCurrentValue">CheckSVCCurrentValue</TestStep090>
             <TestStep095 AltValue="PumpLearningStatus">CheckPumpLearningStatus</TestStep095>
             <TestStep100 AltValue="PumpLearningValue">CheckPumpLearningValue</TestStep100>
-            <TestStep105 AltValue="EngineOilPressure">CheckEngineOilPressure</TestStep105>
+            <TestStep105 AltValue="EngineOilPressure">CheckEngineOilPressureFloat</TestStep105>
             <TestStep110 AltValue="EGROpeningTarget">CheckEGROpeningTarget</TestStep110>
             <TestStep115 AltValue="EGRPosition">CheckEGRPosition</TestStep115>
             <TestStep120 AltValue="DifferentialPressure">DifferentialPressure</TestStep120>

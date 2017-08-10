@@ -423,9 +423,6 @@
             <TestStep10>CheckVehicleSpeedSensor</TestStep10>
             <TestStep20>CheckSteadySpeedFuelTrim</TestStep20>
         </SteadySpeedTests>
-         <DPDSwitchCheck>
-            <TestStep00>DPDSwitchCheck</TestStep00>
-         </DPDSwitchCheck>
 		 <!--CheckMAFLearnComplete>
             <TestStep00>CheckMAFLearnComplete</TestStep00>
          </CheckMAFLearnComplete-->
@@ -438,12 +435,14 @@
         <CheckEGROpeningTarget Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify EGR opening during idle condition"/>
         <CheckEGRPosition Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify EGR Position during idle condition"/>
         <CheckEngineOilPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine oil pressure is in acceptable range"/>
+		<CheckEngineOilPressureFloat Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine oil pressure is in acceptable range"/>
         <CheckFinalInjectionAmount Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify final injection amount during idle condition"/>
         <CheckFuelInjectionCorrection1 Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel injection correction during idle condition"/>
         <CheckFuelInjectionCorrection2 Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel injection correction during idle condition"/>
         <CheckFuelInjectionCorrection3 Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel injection correction during idle condition"/>
         <CheckFuelInjectionCorrection4 Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel injection correction during idle condition"/>
         <CheckFuelRailPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel Rail pressure is in acceptable range"/>
+		<CheckFuelRailPressureFloat Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify Fuel Rail pressure is in acceptable range"/>
         <CheckFuelTemperature Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify fuel temp during idle condition"/>
         <CheckIdleRPM Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine speed is in operating range during idle condition"/>
         <CheckIntakeAirFlow Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify intake air flow during idle condition"/>

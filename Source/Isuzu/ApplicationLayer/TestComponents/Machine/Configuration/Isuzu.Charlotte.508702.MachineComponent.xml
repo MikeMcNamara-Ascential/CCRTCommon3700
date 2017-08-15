@@ -166,7 +166,7 @@
          <ICMName>mgr/ICM</ICMName>
          <!-- Side Slip Test Parameters-->
          <SideSlipValueMax>5</SideSlipValueMax>
-         <SideSlipValueMin>0</SideSlipValueMin>
+         <SideSlipValueMin>-5</SideSlipValueMin>
       </Parameters>
       <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
       <Prompts>

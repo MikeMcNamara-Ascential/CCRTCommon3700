@@ -29,6 +29,10 @@
          <ParkBrakePedalCheck>0</ParkBrakePedalCheck>
          <UnidirectionalParkBrakeTest>1</UnidirectionalParkBrakeTest>
          <FailIfNoTireSize>1</FailIfNoTireSize>
+		 <AlwaysActivateRBM>1</AlwaysActivateRBM>
+		 <AlwaysWriteFingerprint>1</AlwaysWriteFingerprint>
+		 <AlwaysRequestBendixSecurity>1</AlwaysRequestBendixSecurity>
+		 <AlwaysEnterDiagnosticMode>1</AlwaysEnterDiagnosticMode>
          <AlwaysProgramTireSize>0</AlwaysProgramTireSize>
          <AlwaysDisableLampGndChk>0</AlwaysDisableLampGndChk>
          <AlwaysEnableHrwCcvs>0</AlwaysEnableHrwCcvs>
@@ -624,6 +628,12 @@
          <TestStep40>WriteFingerprint</TestStep40>
          <TestStep45>ActivateRBM</TestStep45>
       </Initialize>
+	  <PostMAFClearInitialize>
+		 <TestStep30>EnterDiagnosticMode</TestStep30>
+         <TestStep35>RequestBendixSecurity3</TestStep35>
+         <TestStep40>WriteFingerprint</TestStep40>
+         <TestStep45>ActivateRBM</TestStep45>
+	  </PostMAFClearInitialize>
       <IWEStartTest>
          <TestStep10>IWEStartTest</TestStep10>
       </IWEStartTest>

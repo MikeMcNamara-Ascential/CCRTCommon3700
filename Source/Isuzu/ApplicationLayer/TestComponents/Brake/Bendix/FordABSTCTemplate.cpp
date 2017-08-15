@@ -4210,7 +4210,7 @@ string FordABSTCTemplate<ModuleType>::WriteFingerprint(void)
     Log(LOG_FN_ENTRY, "Enter FordABSTCTemplate::WriteFingerprint()\n");
 
     // Check if this step should be skipped
-    if (!ShortCircuitTestStep())
+	if(!ShortCircuitTestStep() || GetParameterBool("AlwaysWriteFingerprint"))
     {   // Need to perform this test step
         if (CheckCableConnect())
         {
@@ -5268,7 +5268,7 @@ string FordABSTCTemplate<ModuleType>::RequestBendixSecurity3(void)
 
     // Check if this step should be skipped
     Log(LOG_FN_ENTRY, "Enter FordABSTCTemplate::RequestBendixSecurity3()\n");    
-    if (!ShortCircuitTestStep())
+	if(!ShortCircuitTestStep() || GetParameterBool("AlwaysRequestBendixSecurity3"))
     {   // Need to perform this test step
         if (CheckCableConnect())
         {
@@ -6327,7 +6327,7 @@ string FordABSTCTemplate<ModuleType>::TestStepActivateRBM(void)
 
     Log( LOG_FN_ENTRY, "Enter FordABSTCTemplate::TestStepActivateRBM()\n");
 
-    if(!ShortCircuitTestStep())
+	if(!ShortCircuitTestStep() || GetParameterBool("AlwaysActivateRBM"))
 	{
         moduleStatus = m_vehicleModule.GetInfo(moduleTag);
 		result = moduleStatus == BEP_STATUS_SUCCESS ? testPass : testFail;

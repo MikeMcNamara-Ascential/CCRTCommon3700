@@ -173,50 +173,55 @@
 
         <!-- Rear Axle Test -->
         <!-- Perform module and test component setup -->
-        <TestPhase017 Description="Wait for engine running" Result="" Timeout="">
+        <TestPhase016 Description="Wait for engine running" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective00 Description="Wait for engine running" Result="" Timeout="" Component="Emissions">
                     <EngineRunning/>
                 </Objective00>
-                <Objective01 Description="Setup the DCU" Result="" Timeout="" Component="DCU">
-                    <Setup/>
-                </Objective01>
             </ForegroundObjectives>
-        </TestPhase017>
+        </TestPhase016>
 
-        <TestPhase019 Description="Prompt operator that modules are initializing" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective00 Description="Prompt operator stuff is happening" Result="" Timeout="" Component="Machine">
-                    <PromptDriverAlways>InitializingVehicleModules</PromptDriverAlways>
-                </Objective00>
-                <Objective10 Description="Initialize the transmission test" Result="" Timeout="" Component="Transmission">
-                    <Setup/>
-                </Objective10>
-            </ForegroundObjectives>
-        </TestPhase019>
-
-        <TestPhase020 Description="Perform module initialization" Result="" Timeout="">
+        <TestPhase018 Description="Perform module initialization" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective05 Description="Wait for engine temperature" Result="" Timeout="" Component="Emissions">
                     <EngineWarmUp/>
                 </Objective05>
             </ForegroundObjectives>
-        </TestPhase020>
-        <TestPhase021 Description="Brake To Stop" Result="" Timeout="">
+        </TestPhase018>
+		
+		<TestPhase019 Description="Brake To Stop" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective10 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
                     <BrakeToStop/>
                 </Objective10>
             </ForegroundObjectives>
-        </TestPhase021>
-
-        <TestPhase022 Description="DPD switch check" Result="" Timeout="">
+        </TestPhase019>
+        
+		
+		<TestPhase020 Description="Prompt operator that modules are initializing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective00 Description="Prompt operator stuff is happening" Result="" Timeout="" Component="Machine">
+                    <PromptDriverAlways>InitializingVehicleModules</PromptDriverAlways>
+                </Objective00>
+				<Objective01 Description="Setup the DCU" Result="" Timeout="" Component="DCU">
+                    <Setup/>
+                </Objective01>
+                <Objective05 Description="Init Brake Component After MAF Clear" Result="" Timeout="" Component="Brakes">
+                    <PostMAFClearInitialize/>
+                </Objective05>
+                <Objective10 Description="Initialize the transmission test" Result="" Timeout="" Component="Transmission">
+                    <Setup/>
+                </Objective10>
+		 </ForegroundObjectives>
+        </TestPhase020>
+		
+        <TestPhase021 Description="DPD switch check" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective15 Description="DPD switch check" Result="" Timeout="" Component="Emissions">
                     <DPDSwitchCheck/>
                 </Objective15>
             </ForegroundObjectives>
-        </TestPhase022>
+        </TestPhase021>
 		
 		<!-- Perform low speed driving tests -->
         <TestPhase024 Description="ABS sensor testing" Result="" Timeout="">

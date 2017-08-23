@@ -159,7 +159,7 @@
             </PartNumbersToCheck>
 
             <TCMConstantASMPartNo TestSteps="CheckPartNumbers"
-                Comment="ASM Part Number">24257187</TCMConstantASMPartNo>
+                Comment="ASM Part Number">24260247</TCMConstantASMPartNo>
 
             <UtilityFileConstantPartNumber TestSteps="CheckPartNumbers"
                 Comment="Utility File Part Number From Static test station">24242068</UtilityFileConstantPartNumber>

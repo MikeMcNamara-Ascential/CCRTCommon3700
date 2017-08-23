@@ -411,10 +411,20 @@
         </CheckOxygenSensors>
         <HotIdle>
             <TestStep010 AltValue="IntakeAirTemp">CheckIntakeAirTemp</TestStep010>
+            <!--TestStep005>StopRangeCheckMonitors</TestStep005-->
+            <!-- TestStep010 AltValue="EngineOilLevelLow">CheckEngineOilLevelLow</TestStep010>
+            <TestStep015 AltValue="EngineOilPressureLow">CheckEngineOilPressureLow</TestStep015-->
+            <TestStep020 AltValue="EngineOilPressure">CheckEngineOilPressure</TestStep020>
+            <!--TestStep025 AltValue="EngineOilTemperature">CheckEngineOilTemperature</TestStep025-->
+            <!-- TestStep050 AltValue="MAFResidual">CheckMAFResidual</TestStep050>
+            <TestStep055 AltValue="MAP1Residual">CheckMAP1Residual</TestStep055>
+            <TestStep060 AltValue="MAP2Residual">CheckMAP2Residual</TestStep060 -->
             <TestStep065 AltValue="EngineCoolantTemperature">CheckEngineCoolantTemperature</TestStep065>
             <TestStep070 AltValue="BarometricPressure">CheckBarometricPressure</TestStep070>
             <TestStep075 AltValue="FuelRailPressure">CheckFuelRailPressure</TestStep075>
             <TestStep080 AltValue="FuelLevelPrimaryTank">CheckFuelLevelPrimaryTankLevel</TestStep080>
+            <!--TestStep085 AltValue="FuelLevelSecondaryTank">CheckFuelLevelSecondaryTankLevel</TestStep085-->
+            <!-- TestStep087 AltValue="FuelTankVaporPressure">CheckFuelTankVaporPressure</TestStep087 -->
             <TestStep090 AltValue="BatteryVoltage">CheckBatteryVoltage</TestStep090>
             <TestStep095 AltValue="EngineSpeed">CheckIdleRPM</TestStep095>
             <TestStep100>CheckIdleFuelTrim</TestStep100>
@@ -422,6 +432,8 @@
             <TestStep110 AltValue="ManifoldAbsolutePressure">CheckManifoldAbsolutePressureAtIdle</TestStep110>
             <TestStep115 AltValue="KnockSensor1">CheckKnockSensor1Status</TestStep115>
             <TestStep120 AltValue="KnockSensor2">CheckKnockSensor2Status</TestStep120>
+            <!--TestStep125 AltValue="MisfireCatalystFailure">CheckMisfireCatalystFailureStatus</TestStep125>
+            <TestStep130 AltValue="MisfireEmissionsFailure">CheckMisfireEmissionsFailureStatus</TestStep130 -->
             <TestStep135 AltValue="EgrError">CheckEgrError</TestStep135>
             <TestStep139>ReadFaults</TestStep139>
             <TestStep140>AcceleratorPedalWOTTest</TestStep140>
@@ -432,16 +444,12 @@
             <TestStep10>CheckVehicleSpeedSensor</TestStep10>
             <TestStep20>CheckSteadySpeedFuelTrim</TestStep20>
         </SteadySpeedTests>
-        <CheckBASLearnComplete>
-            <TestStep01>CheckBASLearnComplete</TestStep01>
-        </CheckBASLearnComplete>
     </Objectives>
     <TestSteps>
         <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
         <AcceleratorPedalWOTTest Result="" Timeout="30000" Description="Verify the read of a full accelerator pedal" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckAcStatus Result="" Timeout="10000" Description="Verify A/C is functional" ScanDelay="500" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckBarometricPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the barometric pressure sensor is in range"/>
-        <CheckBASLearnComplete Result="" Timeout="500" Description="Check if Brake Apply Sensor Learn happened at the Flash Station" AbortIfFailed="True"/>
         <CheckBatteryVoltage Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify battery voltage is in operating range"/>
         <CheckCASELearn Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="True" Description="Verify the CASE Learn was successful" ScanDelay="250"/>
         <CheckEgrError Result="" Timeout="500" Description="Check the EGR sensor for errors" AlwaysPerform="False" AbortIfFailed="False"/>
@@ -478,7 +486,7 @@
         <DelayBeforeDtcRead Result="" Timeout="65000" Description="Delay before reading DTCs"/>
         <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
-        <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" Prompt2="ShiftToPark" AlwaysPerform="True" AbortIfFailed="False"/>
+        <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" AlwaysPerform="True" AbortIfFailed="False"/>
         <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
         <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>

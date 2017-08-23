@@ -672,7 +672,8 @@ string AdvicsABSTC<ModuleType>::SensorTest(void)
 		motorController.Write(MOTOR_MODE, SPEED_MODE, true);
         DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
         DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));;
-        BposSleep(100);
+        // Wait a bit for the rollers to start accelerating
+	    BposSleep(GetParameterInt("SensorTestStartDelay"));
         // Check each wheel
         for(UINT8 index = 0; (index < GetRollerCount()) && !testResult.compare(testPass); index++)
         {   // Command the roller to speed
@@ -2071,6 +2072,7 @@ string AdvicsABSTC<ModuleType>::CheckPartNumber(void)
     string testResultCode("0000");
     string testDescription = GetTestStepInfo("Description");
     string modulePartNumber;
+    string broadcastPartNumber = ReadSubscribeData(GetDataTag("ModulePartNumber"));
     BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     // Check if this step needs to be performed
     Log(LOG_FN_ENTRY, "Enter AdvicsABSTC::CheckPartNumber()\n");
@@ -2083,6 +2085,7 @@ string AdvicsABSTC<ModuleType>::CheckPartNumber(void)
             if(BEP_STATUS_SUCCESS == moduleStatus)
             {
                 if(modulePartNumber == GetParameter("ModulePartNumber"))
+                //if(!modulePartNumber.compare(broadcastPartNumber))
                 {              // Part numbers match, test passes
                     testResult = testPass;
                 }
@@ -2091,7 +2094,7 @@ string AdvicsABSTC<ModuleType>::CheckPartNumber(void)
                     testResult = testFail;
                 }
                 // Log the data
-                Log(LOG_DEV_DATA, "Part Number Verification: %s - Parameter: %s, Module: %s\n",
+                Log(LOG_DEV_DATA, "Part Number Verification: %s - Parameter:%s, Module:%s\n",
                     testResult.c_str(), GetParameter("ModulePartNumber").c_str(), modulePartNumber.c_str());
                 testResultCode = (testResult == testPass ? "0000" : GetFaultCode("PartNumberMismatch"));
                 testDescription = (testResult == testPass ? GetTestStepInfo("Description") : GetFaultDescription("PartNumberMismatch"));

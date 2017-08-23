@@ -118,13 +118,6 @@
                 <ReplyInterpretation>BarometricPressure</ReplyInterpretation>
             </ReadBarometricPressureSensor>
 
-            <ReadBASLearningComplete>
-                <TransmitMessage>ReadPid</TransmitMessage>
-                <TransmitInterpretation>BASLearningComplete</TransmitInterpretation>
-                <ReplyMessage>ReadPidResponse</ReplyMessage>
-                <ReplyInterpretation>BASLearningComplete</ReplyInterpretation>
-            </ReadBASLearningComplete>
-
             <ReadBrakeSwitchPosition>
                 <TransmitMessage>ReadPid</TransmitMessage>
                 <TransmitInterpretation>BrakeSwitch</TransmitInterpretation>
@@ -676,7 +669,6 @@
             <AcStatus>0x13,0x6D</AcStatus>
             <ActualFanSpeed>0x16,0x2B</ActualFanSpeed>
             <BarometricPressureSensor>0x00,0x33</BarometricPressureSensor>
-            <BASLearningComplete>0x11,0x24</BASLearningComplete>
             <BatteryVoltage>0x00,0x42</BatteryVoltage>
             <BrakeSwitch>0x11,0x24</BrakeSwitch>
             <CaseLearn>0x40,0x00,0x00,0x00,0x00</CaseLearn>
@@ -691,7 +683,8 @@
             <EgrError>0x00,0x2D</EgrError>
             <ElectronicThrottleControlStatus>0x11,0x21</ElectronicThrottleControlStatus>
             <EngineCoolantTemperature>0x00,0x05</EngineCoolantTemperature>
-            <EngineOilPressure>0x14,0x70</EngineOilPressure>
+            <!--EngineOilPressure>0x14,0x70</EngineOilPressure-->
+			<EngineOilPressure>0x1C,0x1B</EngineOilPressure>
             <EngineOilStatus>0x11,0x27</EngineOilStatus>
             <!--EngineOilTemperature>0x00,0x5C</EngineOilTemperature-->
 			<EngineOilTemperature>0x11,0x54</EngineOilTemperature>
@@ -823,9 +816,11 @@
             </CruiseStatus>
 
             <EngineOilPressure>
+			  <Float scale="1" offset="0">
                 <Integer type="unsigned" scale="4" offset="0">
                     <Byte1 input_index="3" mask="0xFF" output_index="0"/>
                 </Integer>
+			  </Float>
             </EngineOilPressure>
             <FuelRailPressure>
                 <Integer type="unsigned" scale="3" offset="0">
@@ -1206,12 +1201,6 @@
                     </Substring01>
                 </String>
             </SerialNumber>
-
-            <BASLearningComplete>
-                <Boolean>
-                    <Byte01 input_index="3" mask="0x01" compare="0x01"/>
-                </Boolean>
-            </BASLearningComplete>
 
 
         </ReplyInterpretations>

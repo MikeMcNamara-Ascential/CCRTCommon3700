@@ -22,7 +22,7 @@
          <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
          <SecurityUnlockAttempts>3</SecurityUnlockAttempts>
          <SecurityUnlockDelay>1000</SecurityUnlockDelay>
-         <ModulePartNumber>33800-243</ModulePartNumber>
+         <ModulePartNumber>98369588</ModulePartNumber>
          <!-- Park Brake Paramaters -->
          <ParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">35</ParkBrakeArmSpeed>
          <DynamicParkBrakeArmSpeed Units="mph" TestSteps="AccelerateToBrakeSpeed" Comment="Speed target for park brake testing">35</DynamicParkBrakeArmSpeed>
@@ -118,7 +118,7 @@
          <InterWheelGapDelay Units="ms">0</InterWheelGapDelay>       
          <LFRecoveryPulse>350</LFRecoveryPulse>
          <RFRecoveryPulse>350</RFRecoveryPulse>
-         <LRRecoveryPulse>380</LRRecoveryPulse>
+         <LRRecoveryPulse>370</LRRecoveryPulse>
          <RRRecoveryPulse>350</RRRecoveryPulse>
 		 <LFReductionPulse>450</LFReductionPulse>
          <RFReductionPulse>400</RFReductionPulse>

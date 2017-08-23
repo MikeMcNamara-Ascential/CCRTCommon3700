@@ -700,8 +700,8 @@
          </ClearFaultsDone>
          <ReadPartNumber>
             <String>
-               <Substring format="%9s">
-                  <Chars input_index="35" mask="0xFF" length="9"/>
+               <Substring format="%8s">
+                  <Chars input_index="23" mask="0xFF" length="8"/>
                </Substring>
             </String>
          </ReadPartNumber>

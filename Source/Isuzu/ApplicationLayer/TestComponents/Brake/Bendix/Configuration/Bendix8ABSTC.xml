@@ -662,7 +662,7 @@
          <TestStep30>ParkBrakeStop</TestStep30>
       </ParkBrakeTest-->
       <ParkBrakeTest>
-            <TestStep05>StartModuleKeepAlive</TestStep05>
+            <!--TestStep05>StartModuleKeepAlive</TestStep05-->
             <TestStep10>AccelerateToParkBrakeSpeed</TestStep10>
             <TestStep15>DynamicParkBrakeTest</TestStep15>
             <TestStep20>AnalyzeDynamicParkBrake</TestStep20>

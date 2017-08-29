@@ -366,7 +366,7 @@
 			<TestStep30>ClearMAFSensor</TestStep30>
 			<TestStep35>WaitForEngineRunning</TestStep35>
 			<TestStep40>MAFLearn</TestStep40>
-			<TestStep45>CheckMAFLearnComplete</TestStep45>
+			<!--TestStep45>CheckMAFLearnComplete</TestStep45-->
             <!--TestStep45>StartSwitchMonitors</TestStep45-->
         </EngineWarmUp>
         <PreFinishUp>
@@ -423,9 +423,9 @@
             <TestStep10>CheckVehicleSpeedSensor</TestStep10>
             <TestStep20>CheckSteadySpeedFuelTrim</TestStep20>
         </SteadySpeedTests>
-		 <!--CheckMAFLearnComplete>
+		 <CheckMAFLearnComplete>
             <TestStep00>CheckMAFLearnComplete</TestStep00>
-         </CheckMAFLearnComplete-->
+         </CheckMAFLearnComplete>
     </Objectives>
     <TestSteps>
         <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>

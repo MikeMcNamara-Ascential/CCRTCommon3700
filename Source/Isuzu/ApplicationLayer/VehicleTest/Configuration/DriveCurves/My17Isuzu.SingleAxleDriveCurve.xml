@@ -186,13 +186,16 @@
                 <Objective05 Description="Wait for engine temperature" Result="" Timeout="" Component="Emissions">
                     <EngineWarmUp/>
                 </Objective05>
+				<Objective10 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective10>
             </ForegroundObjectives>
         </TestPhase018>
 		
-		<TestPhase019 Description="Brake To Stop" Result="" Timeout="">
+		<TestPhase019 Description="Check MAFLearn Bit" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
-                <Objective10 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
-                    <BrakeToStop/>
+                <Objective10 Description="Check that the MAFLearn bit has been set" Result="" Timeout="" Component="Emissions">
+                    <CheckMAFLearnComplete/>
                 </Objective10>
             </ForegroundObjectives>
         </TestPhase019>

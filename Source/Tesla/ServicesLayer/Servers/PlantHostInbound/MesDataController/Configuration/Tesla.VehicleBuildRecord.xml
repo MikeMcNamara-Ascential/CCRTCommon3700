@@ -55,6 +55,7 @@
       <Default>Undefined</Default>
       <TypeBC0B>Black</TypeBC0B>
       <TypeBC0R>Red</TypeBC0R>
+      <TypeBCMB>Black M</TypeBCMB>
    </Calipers>
    <Camera Offset="32" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
@@ -275,12 +276,17 @@
       <TypeX010>Base</TypeX010>
       <TypeX037>PowerFold</TypeX037>
    </Mirrors>
-   <Nav Offset="132" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Model Offset="132" Section="TestCodeSection" Length="4" Type="LiteralCode">
+      <Default>Undefined</Default>
+      <TypeMDLS>Model S</TypeMDLS>
+      <TypeMDLX>Model X</TypeMDLX>
+   </Model>
+   <Nav Offset="136" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeX003>Equipped</TypeX003>
       <TypeX004>NotEquipped</TypeX004>
    </Nav>
-   <Paint Offset="136" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Paint Offset="140" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypePBCW>Base White</TypePBCW>
       <TypePBSB>Black</TypePBSB>
@@ -295,29 +301,29 @@
       <TypePPSW>Pearl White</TypePPSW>
       <TypePPXX>Custom</TypePPXX>
    </Paint>
-   <ParkAssist Offset="140" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <ParkAssist Offset="144" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypePK00>NotEquipped</TypePK00>
       <TypePK01>Equipped</TypePK01>
    </ParkAssist>
-   <PassiveEntry Offset="144" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <PassiveEntry Offset="148" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypePK00>NotEquipped</TypePK00>
       <TypePK01>Equipped</TypePK01>
    </PassiveEntry>
-   <Powertrain Offset="148" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Powertrain Offset="152" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeX024>Performance</TypeX024>
       <TypeX025>Base</TypeX025>
    </Powertrain>
-   <Region Offset="152" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Region Offset="156" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeREAP>AP</TypeREAP>
       <TypeREEU>EU</TypeREEU>
       <TypeRENA>NA</TypeRENA>
       <TypeRENC>CN</TypeRENC>
    </Region>
-   <RegionalSafety Offset="156" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <RegionalSafety Offset="160" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeCASB>CASB</TypeCASB>
       <TypeCASW>CASW</TypeCASW>
@@ -326,85 +332,85 @@
       <TypeUSSB>USSB</TypeUSSB>
       <TypeUSSW>USSW</TypeUSSW>
    </RegionalSafety>
-   <Roof Offset="160" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Roof Offset="164" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeRFBC>CLR</TypeRFBC>
       <TypeRFBK>BLK</TypeRFBK>
       <TypeRFPL>PNO</TypeRFPL>
    </Roof>
-   <Satellite Offset="164" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Satellite Offset="168" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeX013>Equipped</TypeX013>
       <TypeX014>NotEquipped</TypeX014>
    </Satellite>
-   <ScuffPlates Offset="168" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <ScuffPlates Offset="172" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeX035>CHRM FR APRON</TypeX035>
    </ScuffPlates>
-   <SeatMemory Offset="172" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <SeatMemory Offset="176" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeME01>RHSEquipped</TypeME01>
       <TypeME02>LHSEquipped</TypeME02>
       <TypeME03>LHSNotEquipped</TypeME03>
       <TypeME04>RHSNotEquipped</TypeME04>
    </SeatMemory>
-   <SecondRow Offset="176" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <SecondRow Offset="180" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeSR01>Standard</TypeSR01>
       <TypeSR02>Executive</TypeSR02>
    </SecondRow>
-   <Security Offset="180" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Security Offset="184" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeSP00>NotEquipped</TypeSP00>
       <TypeSP01>Equipped</TypeSP01>
    </Security>
-   <Series Offset="184" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Series Offset="188" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeMS01>2012 Model S</TypeMS01>
       <TypeMS02>2013 Model S</TypeMS02>
       <TypeMS03>2014 Model S</TypeMS03>
    </Series>
-   <Shelf Offset="188" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Shelf Offset="192" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypePS00>NotEquipped</TypePS00>
       <TypePS01>Equipped</TypePS01>
    </Shelf>
-   <Sport Offset="192" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Sport Offset="196" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypePF00>NotEquipped</TypePF00>
       <TypePF01>Performance</TypePF01>
       <TypePF02>Performance Plus</TypePF02>
    </Sport>
-   <StarShield Offset="196" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <StarShield Offset="200" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypePA00>NotEquipped</TypePA00>
       <TypePA01>Equipped</TypePA01>
    </StarShield>
-   <Supercharger Offset="200" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Supercharger Offset="204" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeSC00>NotEquipped</TypeSC00>
       <TypeSC01>Equipped</TypeSC01>
       <TypeSC02>NotUsed</TypeSC02>
       <TypeSC03>NotUsed</TypeSC03>
    </Supercharger>
-   <Suspension Offset="204" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Suspension Offset="208" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeSU00>Coil</TypeSU00>
       <TypeSU01>Air</TypeSU01>
       <TypeSU02>Air Plus</TypeSU02>
    </Suspension>
-   <Tech Offset="208" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Tech Offset="212" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeTP00>NotEquipped</TypeTP00>
       <TypeTP01>Equipped</TypeTP01>
       <TypeTP02>Convenience</TypeTP02>
    </Tech>
-   <ThirdRow Offset="212" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <ThirdRow Offset="216" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeTR00>NotEquipped</TypeTR00>
       <TypeTR01>Equipped</TypeTR01>
    </ThirdRow>
-   <Tires Offset="216" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Tires Offset="220" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeTIC1>C DW</TypeTIC1>
       <TypeTIC2>C 5P</TypeTIC2>
@@ -415,13 +421,13 @@
       <TypeTIM6>MPS2 6</TypeTIM6>
       <TypeTIMP>M PRI</TypeTIMP>
    </Tires>
-   <TopPad Offset="220" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <TopPad Offset="224" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeDSH1>PUR/LEATHER</TypeDSH1>
       <TypeDSH5>PUR/PUR</TypeDSH5>
       <TypeDSH7>PUR/ACANTRA</TypeDSH7>
    </TopPad>
-   <Trim Offset="224" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Trim Offset="228" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeTM00>Production</TypeTM00>
       <TypeTM01>Founder</TypeTM01>
@@ -430,13 +436,13 @@
       <TypeTM0B>Beta</TypeTM0B>
       <TypeTM0C>Release Candidate</TypeTM0C>
    </Trim>
-   <UpperTrim Offset="228" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <UpperTrim Offset="232" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeUTAB>Alcantara Black</TypeUTAB>
       <TypeUTAW>Zuma</TypeUTAW>
       <TypeUTMF>Fog</TypeUTMF>
    </UpperTrim>
-   <Wheels Offset="232" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <Wheels Offset="236" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeWT13>19 SV ST</TypeWT13>
       <TypeWT19>19 SV ST</TypeWT19>
@@ -455,7 +461,7 @@
       <TypeWTTG>19 CH CY</TypeWTTG>
       <TypeWTTP>19 SV CY</TypeWTTP>
    </Wheels>
-   <YachtFloor Offset="236" Section="TestCodeSection" Length="4" Type="LiteralCode">
+   <YachtFloor Offset="240" Section="TestCodeSection" Length="4" Type="LiteralCode">
       <Default>Undefined</Default>
       <TypeYF00>NotEquipped</TypeYF00>
       <TypeYF01>Equipped</TypeYF01>

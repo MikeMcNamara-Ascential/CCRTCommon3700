@@ -764,6 +764,19 @@ void TestResultServer::LoadAdditionalConfigurationItems(const XmlNode *document)
         SetupFaultAlarmTimer(document->getChild("Setup/FaultAlarm"));
     }
 
+    //Determine if All Failures should be cleared on retest
+    bool clearFailures = false;
+    try
+    {
+        clearFailures = atob(document->getChild("Setup/ClearAllFailuresOnRetest")->getValue().c_str());
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Test complete signaling not enabled - %s", excpt.GetReason());
+        clearFailures = false;
+    }
+    ShouldClearAllFailuresOnRetest(&clearFailures);
+
     // Determine if the PLC should be signaled at the end of a test sequence
     bool sig = false;
     try
@@ -1101,6 +1114,12 @@ const std::string TestResultServer::Publish(const XmlNode* node)
         }
         //process results
         ProcessIntermediateTestResults();
+        if(m_clearAllFailuresOnRetest)
+        {// Clear all failures
+            m_allFailures.clear();
+            m_allFailures.setName(GetAllFailuresTag());
+            m_allFailures.setValue("");
+        }
     }
     else if (node->getName() == GetVehicleBuildTag())
     {   // Save vehicle build so we can write it to test result file
@@ -2016,4 +2035,11 @@ inline const INT32& TestResultServer::ResultIndicatorLength(const INT32 *length	
 {
 	if(length != NULL)	m_resultIndicatorLength = *length;
 	return m_resultIndicatorLength;
+}
+
+//-----------------------------------------------------------------------------
+inline const bool& TestResultServer::ShouldClearAllFailuresOnRetest(const bool *clearFailures)
+{
+    if(clearFailures != NULL)  m_clearAllFailuresOnRetest = *clearFailures;
+    return m_clearAllFailuresOnRetest;
 }

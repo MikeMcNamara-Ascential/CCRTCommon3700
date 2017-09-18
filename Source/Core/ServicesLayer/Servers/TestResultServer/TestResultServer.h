@@ -945,6 +945,14 @@ private:
      * @return Number of characters from the overall result string to be added to the file name.
      */
     const INT32& ResultIndicatorLength(const INT32 *length = NULL);
+    /**
+     * Get/Set he flag indicating if AllFailures should be cleared before a retest.
+     * 
+     * @param clearFailures Flag indicating if AllFailures should be cleared before a retest.
+     * 
+     * @return Flag indicating if AllFailures should be cleared before a retest.
+     */
+    const bool& ShouldClearAllFailuresOnRetest(const bool *clearfailures);
     /** File name to store test results in. */
     string m_testResultFile;
     /** Path to store test results. */
@@ -965,6 +973,8 @@ private:
      * else, like System monitor?
      */
     bool m_clearBuildOnOverall;
+    /** flag indicating if AllFailures should be cleared before a retest*/
+    bool m_clearAllFailuresOnRetest;
     /**
      * Length of the VIN string being used.
      * @since Version 2.6

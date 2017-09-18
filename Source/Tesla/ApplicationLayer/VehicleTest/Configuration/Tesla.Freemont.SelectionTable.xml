@@ -14,4 +14,61 @@
     <SedanBarcode DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
         <Vin>SEDAN0000000000000</Vin>
     </SedanBarcode>
+    <!-- New MES Data for Model/Drive Selections -->
+    <!--Sedan2WD0B DriveCurve="/Configuration/VehicleTest/DriveCurves/Sedan2WD0BDriveCurve.xml">
+        <Model>Model S</Model>
+        <Drive>Single Motor</Drive>
+        <Calipers>Black</Calipers>
+    </Sedan2WD0B>
+    <Sedan2WDMB DriveCurve="/Configuration/VehicleTest/DriveCurves/Sedan2WDMBDriveCurve.xml">
+        <Model>Model S</Model>
+        <Drive>Single Motor</Drive>
+        <Calipers>Black M</Calipers>
+    </Sedan2WDMB>
+    <Sedan4WD0B DriveCurve="/Configuration/VehicleTest/DriveCurves/Sedan4WD0BDriveCurve.xml">
+        <Model>Model S</Model>
+        <Drive>Dual Motor</Drive>
+        <Calipers>Black</Calipers>
+    </Sedan4WD0B>
+    <Sedan4WDMB DriveCurve="/Configuration/VehicleTest/DriveCurves/Sedan4WDMBDriveCurve.xml">
+        <Model>Model S</Model>
+        <Drive>Dual Motor</Drive>
+        <Calipers>Black M</Calipers>
+    </Sedan4WDMB>
+    <Roadster2WD0B DriveCurve="/Configuration/VehicleTest/DriveCurves/Roadster2WD0BDriveCurve.xml">
+        <Model>Model X</Model>
+        <Drive>Single Motor</Drive>
+        <Calipers>Black</Calipers>
+    </Roadster2WD0B>
+    <Roadster2WDMB DriveCurve="/Configuration/VehicleTest/DriveCurves/Roadster2WDMBDriveCurve.xml">
+        <Model>Model X</Model>
+        <Drive>Single Motor</Drive>
+        <Calipers>Black M</Calipers>
+    </Roadster2WDMB>
+    <Roadster4WD0B DriveCurve="/Configuration/VehicleTest/DriveCurves/Roadster4WD0BDriveCurve.xml">
+        <Model>Mode X</Model>
+        <Drive>Dual Motor</Drive>
+        <Calipers>Black</Calipers>
+    </Roadster4WD0B>
+    <Roadster4WDMB DriveCurve="/Configuration/VehicleTest/DriveCurves/Roadster4WDMBDriveCurve.xml">
+        <Model>Model X</Model>
+        <Drive>Dual Motor</Drive>
+        <Calipers>Black M</Calipers>
+    </Roadster4WDMB-->
+    <Sedan2WD DriveCurve="/Configuration/VehicleTest/DriveCurves/Sedan2WD0BDriveCurve.xml">
+        <Model>Model S</Model>
+        <DriveMode>2WD</DriveMode>
+    </Sedan2WD>
+    <Sedan4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/Sedan4WD0BDriveCurve.xml">
+        <Model>Model S</Model>
+        <DriveMode>4WD</DriveMode>
+    </Sedan4WD>
+    <Roadster2WD DriveCurve="/Configuration/VehicleTest/DriveCurves/Roadster2WD0BDriveCurve.xml">
+        <Model>Model X</Model>
+        <DriveMode>2WD</DriveMode>
+    </Roadster2WD>
+    <Roadster4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/Roadster4WD0BDriveCurve.xml">
+        <Model>Model X</Model>
+        <DriveMode>4WD</DriveMode>
+    </Roadster4WD>
 </SelectionTable>

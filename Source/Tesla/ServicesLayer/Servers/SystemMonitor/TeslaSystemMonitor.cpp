@@ -794,7 +794,7 @@ void TeslaSystemMonitor::CheckTesting( ControlData *ctrl)
     Log(LOG_DEV_DATA, "CheckTesting - start test armed: %s", m_startTestArmed ? "True" : "False");
     if(ctrl->rollsUp && !m_oldCtrl->rollsUp && m_startTestArmed)
     {   // If a vehicle is present, need to read build data
-        if(ctrl->vehiclePresent && ctrl->cableConnect)
+        if(ctrl->vehiclePresent && ctrl->cableConnect && (ctrl->vehVinReadStatus == VALID_VEHICLE_VIN))
         {
             RemovePrompt(1,"RaiseRetainers");
             Log( LOG_DEV_DATA, "Commanding VehicleDataBroker to Load VehicleBuild\n");
@@ -865,7 +865,7 @@ void TeslaSystemMonitor::CheckTesting( ControlData *ctrl)
             //testSelected = true;
         }
     #endif
-        // No test in progress, rolls closed and no valid VIN, prompt to enter VIN
+        /* No test in progress, rolls closed and no valid VIN, prompt to enter VIN
         else if(!ctrl->testInProgress && ctrl->rollsDown && (ctrl->vehVinReadStatus != VALID_VEHICLE_VIN))
         {
             DisplayPrompt(1, "ScanVIN");
@@ -877,16 +877,28 @@ void TeslaSystemMonitor::CheckTesting( ControlData *ctrl)
         {
             RemovePrompt(1, "ScanVIN");
             DisplayPrompt(1, "MachineReady");
+        }*/
+        else if(!ctrl->testInProgress && ctrl->rollsDown && !ctrl->cableConnect && ctrl->vehiclePresent && !m_oldCtrl->vehiclePresent)
+        {
+            DisplayPrompt(1, "ConnectCable");
+            WriteNdbData( DISPLAY_RACK_MONITOR_SCREEN, string("frontpanel"));
+            //testSelected = false;
         }
-        else if(ctrl->rollsDown && ctrl->vehiclePresent && !ctrl->cableConnect && (ctrl->vehVinReadStatus == VALID_VEHICLE_VIN))
+        /*else if(ctrl->rollsDown && ctrl->vehiclePresent && !ctrl->cableConnect && (ctrl->vehVinReadStatus == VALID_VEHICLE_VIN))
         {
             RemovePrompt(1,"ScanVIN");
             RemovePrompt(1,"MachineReady");
             DisplayPrompt(1,"ConnectCable");
+        }*/
+        else if(ctrl->rollsDown && ctrl->vehiclePresent && ctrl->cableConnect && (ctrl->vehVinReadStatus != VALID_VEHICLE_VIN))
+        {
+            RemovePrompt(1,"ConnectCable");
+            DisplayPrompt(1,"ScanVIN");
         }
         else if(ctrl->rollsDown && ctrl->vehiclePresent && ctrl->cableConnect && (ctrl->vehVinReadStatus == VALID_VEHICLE_VIN))
         {
             RemovePrompt(1,"ConnectCable");
+            RemovePrompt(1,"ScanVIN");
             DisplayPrompt(1,"RaiseRetainers",true);
         }
      /*New stuff ends here*/

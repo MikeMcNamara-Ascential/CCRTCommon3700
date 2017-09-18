@@ -10,7 +10,7 @@
       <Brake>
          <ComponentName>BoschAbsTc.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-         <ConfigFile>Tesla.BoschABSTC.xml</ConfigFile>
+         <ConfigFile>Tesla.Sedan2WDMBBoschABSTC.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
          <Debug>Off</Debug>
       </Brake>

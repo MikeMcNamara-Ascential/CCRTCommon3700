@@ -7,7 +7,7 @@
          <BufferSize>4096</BufferSize>
          <CommSize>1</CommSize>
          <Timeout>10000000</Timeout>
-         <Retries>5</Retries>
+         <Retries>3</Retries>
       </Communication>
       <CheckSumLength>1</CheckSumLength>
       <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>

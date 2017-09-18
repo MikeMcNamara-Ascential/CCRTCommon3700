@@ -260,7 +260,7 @@
          <AlwaysResetModule>Yes</AlwaysResetModule>
          <AlwaysReadFaults>Yes</AlwaysReadFaults>
          <CheckAxleSpeeds>1</CheckAxleSpeeds>
-         <ConfigFile>/Configuration/Components/Brake/BoschAbsModuleConfig.xml</ConfigFile>
+         <ConfigFile>/Configuration/Components/Brake/RoadsterBoschAbsModuleConfig.xml</ConfigFile>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
@@ -343,12 +343,10 @@
          <LeftRearMinRecoveryPercent>70.0</LeftRearMinRecoveryPercent>
          <RightFrontMinRecoveryPercent>70.0</RightFrontMinRecoveryPercent>
          <RightRearMinRecoveryPercent>70.0</RightRearMinRecoveryPercent>
-         <TargetBurnishEnergy>0.0</TargetBurnishEnergy>
-         <MinimumBurnishStops>8</MinimumBurnishStops>
-         <MaximumBurnishStops>8</MaximumBurnishStops>
+         <TargetBurnishEnergy>2000.0</TargetBurnishEnergy>
+         <MinimumBurnishStops>4</MinimumBurnishStops>
+         <MaximumBurnishStops>11</MaximumBurnishStops>
          <BurnishUnitConstant>1.0</BurnishUnitConstant>
-         <PostAccelerationDelayPeriod Units="ms">0</PostAccelerationDelayPeriod>
-         <FailForLowBurnishEnergy>False</FailForLowBurnishEnergy>
          <!-- ESP Test Parameters -->
          <CheckResponseInProgress>True</CheckResponseInProgress>
          <LeftFrontMinESPBuildForce Units="lbf">130</LeftFrontMinESPBuildForce>
@@ -402,7 +400,7 @@
          <BrakeBurnishStartSpeed Units="mph">60.0</BrakeBurnishStartSpeed>
          <BrakeBurnishStartSpeedRange Units="mph">60 65</BrakeBurnishStartSpeedRange>
          <BrakeToTargetSpeedPrompt>BrakeToTargetSpeed</BrakeToTargetSpeedPrompt>
-         <BurnishIterations Description="Number of times to accel and decel for one cycle">8</BurnishIterations>
+         <BurnishIterations Description="Number of times to accel and decel for one cycle">6</BurnishIterations>
          <SkipPromptoperatorForBurnish>False</SkipPromptoperatorForBurnish>
          <!-- Electric Park Brake Burnish Parameters -->
          <EPBBurnishCycles Description="Number of times to perform the brake burnish cycle">1</EPBBurnishCycles>
@@ -471,9 +469,7 @@
          <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
          <ZeroSpeed PromptBox="1" Priority="0">ZeroSpeed</ZeroSpeed>
          <ReleaseThrottle PromptBox="1" Priority="0">ReleaseThrottleShiftNeutral</ReleaseThrottle>
-         <OneMoreBurnishStop PromptBox="2" Priority="0">OneMoreBurnishStop</OneMoreBurnishStop>
-         <RemainingBurnishStops PromptBox="2" Priority="0">RemainingBurnishStops</RemainingBurnishStops>
-         <BrakeBurnishFinished PromptBox="2" Priority="0">BrakeBurnishFinished</BrakeBurnishFinished>
+         <OneMoreBurnishStop PromptBox="1" Priority="0">OneMoreBurnishStop</OneMoreBurnishStop>
       </Prompts>
       <IgnoreFaults>
          <ModuleFault_C41186/>
@@ -594,7 +590,6 @@
       </BaseBrakeTest>
       <ESPBrakeTest>
          <TestStep00>EnableCenteringArrows</TestStep00>
-         <TestStep02>StartCycleTimer</TestStep02>
          <TestStep05>AccelerateToBrakeSpeed</TestStep05>
          <TestStep10>SensorQualityTest</TestStep10>
          <!--TestStep14>CheckPedalStatusForBrakeTest</TestStep14-->
@@ -691,7 +686,6 @@
          <TestStep01>ReadFaults</TestStep01>
          <!--TestStep02>EnableSpeedLimit</TestStep02-->
          <!--TestStep05>ExitDiagnosticMode</TestStep05-->
-         <TestStep07>EndCycleTimer</TestStep07>
          <TestStep10>FinishUp</TestStep10>
       </FinishUp>
       <SimpleSetup>
@@ -734,7 +728,7 @@
       <Coast Result="" Timeout="70000" Description="Base Brake Component Coast" Prompt1="CoastDownToTargetSpeed" Prompt2="Blank">Perform Vehicle Coast</Coast>
       <BrakeTest Result="" Timeout="40000" Description="Base Brake Component Brake Test" StartBrakeSampleSpeed="25" EndBrakeSampleSpeed="5" BrakeDomain="0 500" BrakeTarget="250 400" Prompt1="BrakeTest" Prompt1BGColor="white" Prompt2="BrakeModeratelyInGreenBand">Perform Vehicle BaseBrake Test</BrakeTest>
       <AnalyzeBrakeTest Result="" Timeout="20000" Description="Base Brake Component Brake Test Analysis" FrontMinBrakeForce="250" RearMinBrakeForce="100" FrontMaxBrakeForce="600" RearMaxBrakeForce="400" Prompt1="" Prompt2="">Perform Vehicle BaseBrake Test Analysis</AnalyzeBrakeTest>
-      <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="6" RearSideToSideBalance="6" TandemSideToSideBalance="20" BalanceFrontToRearMin="59" BalanceFrontToRearMax="73" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
+      <AnalyzeBalance Result="" Timeout="5000" Description="Base Brake Component Brake Balance Test" FrontSideToSideBalance="6" RearSideToSideBalance="6" TandemSideToSideBalance="20" BalanceFrontToRearMin="63" BalanceFrontToRearMax="73" BalanceTandemToRearMin="40" BalanceTandemToRearMax="60" Prompt1="" Prompt2="">Perform Vehicle Brake Balance Test</AnalyzeBalance>
       <BrakeToStop Result="" Timeout="120000" Description="Prompt the driver to brake to stop" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
       <!--From GenericABSTestComponent-->
       <ConnectToModule Result="" Timeout="" Description=""/>

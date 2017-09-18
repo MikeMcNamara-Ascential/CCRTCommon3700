@@ -260,7 +260,7 @@
          <AlwaysResetModule>Yes</AlwaysResetModule>
          <AlwaysReadFaults>Yes</AlwaysReadFaults>
          <CheckAxleSpeeds>1</CheckAxleSpeeds>
-         <ConfigFile>/Configuration/Components/Brake/BoschAbsModuleConfig.xml</ConfigFile>
+         <ConfigFile>/Configuration/Components/Brake/RoadsterBoschAbsModuleConfig.xml</ConfigFile>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
@@ -344,7 +344,7 @@
          <RightFrontMinRecoveryPercent>70.0</RightFrontMinRecoveryPercent>
          <RightRearMinRecoveryPercent>70.0</RightRearMinRecoveryPercent>
          <TargetBurnishEnergy>0.0</TargetBurnishEnergy>
-         <MinimumBurnishStops>8</MinimumBurnishStops>
+         <MinimumBurnishStops>6</MinimumBurnishStops>
          <MaximumBurnishStops>8</MaximumBurnishStops>
          <BurnishUnitConstant>1.0</BurnishUnitConstant>
          <PostAccelerationDelayPeriod Units="ms">0</PostAccelerationDelayPeriod>
@@ -402,7 +402,7 @@
          <BrakeBurnishStartSpeed Units="mph">60.0</BrakeBurnishStartSpeed>
          <BrakeBurnishStartSpeedRange Units="mph">60 65</BrakeBurnishStartSpeedRange>
          <BrakeToTargetSpeedPrompt>BrakeToTargetSpeed</BrakeToTargetSpeedPrompt>
-         <BurnishIterations Description="Number of times to accel and decel for one cycle">8</BurnishIterations>
+         <BurnishIterations Description="Number of times to accel and decel for one cycle">6</BurnishIterations>
          <SkipPromptoperatorForBurnish>False</SkipPromptoperatorForBurnish>
          <!-- Electric Park Brake Burnish Parameters -->
          <EPBBurnishCycles Description="Number of times to perform the brake burnish cycle">1</EPBBurnishCycles>

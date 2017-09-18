@@ -1438,6 +1438,7 @@ bool TestSequencer::TestComplete(const std::string &testStatus, const int retest
 	{
 		Log(LOG_DEV_DATA, "Notifying subscribers vehicle test being resequenced\n");
         m_ndb->Write(BEP_INTERMEDIATE_OVERALL_RESULT,testStatus,response,true);
+        delay(50);                          //Give time to publish the result
 		Log(LOG_DEV_DATA, "ReSequencing Vehicle Test\n");
 		m_compManager.ResetAll();			// reset all of the components
 		m_currentPhaseNumber=0;				// reset the current phase number

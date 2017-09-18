@@ -19,6 +19,7 @@
       </SequencerComm>
       <TagList>
          <SubscribeTags>
+             <Abort/>
             <StartLossCompensation/>
             <RollsDownElevUp/>
             <CableConnect/>
@@ -31,6 +32,7 @@
             <VehicleTestStatus/>
             <DriveCurve/>
             <StartVehicleTest>0</StartVehicleTest>
+            <IntermediateOverallResult>Testing</IntermediateOverallResult>
          </PublishTags>
       </TagList>
       <ThreadPool>
@@ -101,6 +103,7 @@
          <UsePlcResultButtons>True</UsePlcResultButtons>
          <PlcPassButtonTag>DriverPass</PlcPassButtonTag>
          <PlcFailButtonTag>DriverFail</PlcFailButtonTag>
+         <ReuseComponents>1</ReuseComponents>
          <Setup>
             <Debug>Off</Debug>
             <DebugLevel>0</DebugLevel>

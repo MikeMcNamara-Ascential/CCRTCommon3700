@@ -137,6 +137,10 @@
 			<ItemName>Mirrors</ItemName>
 			<ItemGroupCode>MIRRORS</ItemGroupCode>
 		</GroupCodePair>
+        <GroupCodePair>
+			<ItemName>Model</ItemName>
+			<ItemGroupCode>MODEL</ItemGroupCode>
+		</GroupCodePair>
 		<GroupCodePair>
 			<ItemName>Nav</ItemName>
 			<ItemGroupCode>NAV</ItemGroupCode>

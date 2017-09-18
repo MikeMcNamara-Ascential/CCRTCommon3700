@@ -1,7 +1,7 @@
 <TestResultServerConfig>
     <Setup>
-        <AddForceArray Value="Yes or No">No</AddForceArray>
-        <AddSpeedArray Value="Yes or No">No</AddSpeedArray>
+        <AddForceArray Value="Yes or No">Yes</AddForceArray>
+        <AddSpeedArray Value="Yes or No">Yes</AddSpeedArray>
         <SpeedArrayPath>/TestResults/Machine/BrakeForceData/Speed.log</SpeedArrayPath>
         <ForceArrayPath>/TestResults/Machine/BrakeForceData/BrakeForce.log</ForceArrayPath>
         <Debug>Off</Debug>
@@ -10,6 +10,7 @@
         <UpdateTestLampStatus Value="Yes or No">No</UpdateTestLampStatus>
         <AddOverallResultToFileName>No</AddOverallResultToFileName>
         <ResultIndicatorLength>1</ResultIndicatorLength>
+        <ClearAllFailuresOnRetest Value="Yes or No">Yes</ClearAllFailuresOnRetest>
         <Communication>
             <Comm>IPC</Comm>
             <Debug>Off</Debug>
@@ -48,6 +49,7 @@
                 <DriveCurve/>
                 <KeyPress/>
                 <CycleTime/>
+                <IntermediateOverallResult/>
             </SubscribeTags>
         </TagList>
         <VehicleBuildItems>

@@ -769,7 +769,8 @@ const std::string VehicleTest::Publish(const XmlNode *node)
     }
     else if(node->getName() == GetDataTag("RetainersDown"))
     {   // if the retainers were lovered and we are in the middle of a test, abort
-        if((GetStatus() == BEP_TESTING_STATUS) && (node->getValue() == "1"))
+        Log(LOG_ERRORS,"SingleAxleMachine:%s",ReadSubscribeData(GetDataTag("SingleAxleMachine")).c_str());
+        if((GetStatus() == BEP_TESTING_STATUS) && (node->getValue() == "1") && (ReadSubscribeData(GetDataTag("SingleAxleMachine")) != "1"))
         {
             m_testSequencer.Abort();
         }
@@ -1018,7 +1019,7 @@ std::string VehicleTest::CommandTest(const std::string testType)
     Log(LOG_DEV_DATA, "\ttestType: %s", testType.c_str());
     
     // check the test status so that only one test can be sequenced at a time
-    if((Read(GetDataTag("TestInProgress")) != "1")/* && !m_testCommandInProgress*/)
+    if((Read(GetDataTag("TestInProgress")) != "1") && !m_testCommandInProgress)
     {
         Log(LOG_DEV_DATA, "Commanding Test %s\n", testType.c_str());
 

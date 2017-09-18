@@ -663,6 +663,62 @@
                <MaximumRetries>3</MaximumRetries>
             </Setup>
          </RightMapleKeypad>
+         <!-- ******************************************************* -->
+         <!-- *                 Module Vin Reader                   * -->
+         <!-- ******************************************************* -->
+         <ModuleVinReader enabled="1" process="$(USR_ROOT)/ApplicationLayer/Bin/VehicleModuleVinReader.qxe">
+             <Setup>
+                 <TagList>
+                     <SubscribeTags>
+                         <CableConnect/>
+                     </SubscribeTags>
+                 </TagList>
+                 <Communication>
+                     <Debug>Off</Debug>
+                     <Name>core/ModuleVinReader</Name>
+                     <Type>Server</Type>
+                     <Comm>IPC</Comm>
+                     <BufferSize>2000</BufferSize>
+                     <Timeout>1000</Timeout>
+                 </Communication>
+                 <Logging>
+                     <Status>Enabled</Status>
+                     <ProcessName>core/ModuleVinReader</ProcessName>
+                     <AdditionalLogFile>/Servers/ModuleVinReader.log</AdditionalLogFile>
+                     <Debug>Off</Debug>
+                     <LocalEcho>Disabled</LocalEcho>
+                     <Verbose>0x1F</Verbose>
+                 </Logging>
+                 <ThreadPool>
+                     <Debug>Off</Debug>
+                     <MinBlockedLimit>1</MinBlockedLimit>
+                     <MaxBlockedLimit>3</MaxBlockedLimit>
+                     <Increment>1</Increment>
+                     <Maximum>5</Maximum>
+                 </ThreadPool>
+                 <NotificationList>
+                     <Setup>
+                         <Debug>Off</Debug>
+                         <HighWater>3</HighWater>
+                         <Increment>1</Increment>
+                         <LowWater>1</LowWater>
+                         <Maximum>5</Maximum>
+                         <StartOnCreate>No</StartOnCreate>
+                     </Setup>
+                 </NotificationList>
+             </Setup>
+            <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+            <CommModulePath>/home/CCRT/Rewrite/</CommModulePath>
+            <CommModuleFileName>GryphonCCan</CommModuleFileName>
+            <ModuleConfigFile>/Configuration/Components/Brake/BoschAbsModuleConfig.xml</ModuleConfigFile>
+            <ReaderMode ValidModes="ReadVIN or CheckPresence">ReadVIN</ReaderMode>
+            <VINReadRetryTime>50</VINReadRetryTime>
+            <VINReadRetryCount>15</VINReadRetryCount>
+            <Vin>NextVIN</Vin>
+            <VinReadMessages>
+                <VinReadMessage01>ReadVIN</VinReadMessage01>
+            </VinReadMessages>
+         </ModuleVinReader>
       </InputDevices>
       <DataTags>
          <Vin>NextVIN</Vin>

@@ -178,7 +178,7 @@
       <TestPhase510 Description="Brake burnish cycle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="" Result="" Timeout="" Component="Brake">
-                    <BurnishCycle/>
+                    <DynamicBurnishCycle/>
                 </Objective0>
             </ForegroundObjectives>
       </TestPhase510>

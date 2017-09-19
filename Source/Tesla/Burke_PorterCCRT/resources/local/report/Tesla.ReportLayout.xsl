@@ -794,7 +794,6 @@
             </td>
         </tr>
         -->
-        <!--
         <tr>
             <td width="10"/>
             <td align="left" width="14">Part #</td>
@@ -836,7 +835,6 @@
                 </xsl:call-template>
             </td>
         </tr>
-        -->
         <tr>
             <td width="10"/>
             <td align="left" width="14">DTC Check</td>
@@ -892,6 +890,14 @@
             <xsl:choose>
                 <xsl:when test="$RESULT != ''">
                     <xsl:value-of select="$RESULT"/>
+                    <xsl:choose>
+                        <xsl:when test="$RESULT = 'Pass'">
+                            <xsl:text>Pass</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:text>Fail***</xsl:text>
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text/>
@@ -910,12 +916,12 @@
                         <xsl:text>Pass</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:text>Fail</xsl:text>
+                        <xsl:text>Fail***</xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:text>Fail</xsl:text>
+                <xsl:text>Fail***</xsl:text>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>

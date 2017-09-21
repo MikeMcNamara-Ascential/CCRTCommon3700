@@ -75,6 +75,7 @@
          <BalanceFrontToRearMax Units="%">85</BalanceFrontToRearMax>
          <FrontToRearBalanceUseFront>0</FrontToRearBalanceUseFront>
          <!-- Low Speed Sensor Test Parameters -->
+		 <SensorTestStartDelay>3000</SensorTestStartDelay>
          <LowSpeedSensorTestRollerSpeed Units="mph">3</LowSpeedSensorTestRollerSpeed>
           <LowSpeedSensorTestRollerOffset Units="mph">1</LowSpeedSensorTestRollerOffset>
           <SensorTestLfSpeed>3</SensorTestLfSpeed>

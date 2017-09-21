@@ -87,35 +87,6 @@
             </ForegroundObjectives>
         </TestPhase007>
 
-        <TestPhase008 Description="Key Cycle" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
-                    <Setup/>
-                </Objective15>
-            </ForegroundObjectives>
-        </TestPhase008>
-		<TestPhase009 Description="Key Cycle" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
-                    <EnterDiagnosticMode/>
-                </Objective15>
-            </ForegroundObjectives>
-        </TestPhase009>
-        <TestPhase010 Description="Key Cycle" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
-                    <CheckPartNumber/>
-                </Objective15>
-            </ForegroundObjectives>
-        </TestPhase010>
-        <TestPhase011 Description="Key Cycle" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
-                    <DisableSpeedLimit/>
-                </Objective15>
-            </ForegroundObjectives>
-        </TestPhase011>
-
         <TestPhase015 Description="Turn on Speed Control" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective00 Description="Initialize the transmission test" Result="" Timeout="" Component="Transmission">
@@ -133,6 +104,42 @@
                 </Objective05>
             </ForegroundObjectives>
         </TestPhase016>
+		<TestPhase017 Description="Key Off" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="Key Off" Result="" Timeout="" Component="Emissions">
+                    <KeyOffEngineOffKeyOn/>
+                </Objective05>
+            </ForegroundObjectives>
+        </TestPhase017>
+		
+		<TestPhase018 Description="Key Cycle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
+                    <Setup/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase018>
+		<TestPhase019 Description="Key Cycle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
+                    <EnterDiagnosticMode/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase019>
+        <TestPhase020 Description="Key Cycle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
+                    <CheckPartNumber/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase020>
+        <TestPhase021 Description="Key Cycle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
+                    <DisableSpeedLimit/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase021>
 
         <!-- Perform reverse and low speed driving tests -->
         <TestPhase100 Description="Reverse test" Result="" Timeout="">

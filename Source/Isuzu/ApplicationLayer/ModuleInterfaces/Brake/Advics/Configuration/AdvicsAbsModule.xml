@@ -24,7 +24,7 @@
       <NegativeResponseValue>0x7F</NegativeResponseValue>
       <ModuleResponseDelay>550</ModuleResponseDelay>
       <ModuleResponseEndDelay>150</ModuleResponseEndDelay>
-      <ModuleKeepAliveTime>1000</ModuleKeepAliveTime>
+      <ModuleKeepAliveTime>2000</ModuleKeepAliveTime>
       <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
       <SwitchMonitorDelay>50</SwitchMonitorDelay>
       <BaudRate>10400</BaudRate>

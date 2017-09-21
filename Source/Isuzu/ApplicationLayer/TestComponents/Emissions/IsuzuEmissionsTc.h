@@ -452,6 +452,8 @@ private:
     XmlNodeMap m_switchMonitorItems;
     /** Pid data for setting up background range check monitoring */
     XmlNodeMap m_rangeCheckMonitorItems;
+
+    bool m_mafLearnComplete;
 };
 //-------------------------------------------------------------------------------------------------
 #endif //IsuzuEmissionsTc_h

@@ -118,7 +118,7 @@
             <!-- Engine Coolant Temperature Parameters -->
             <EngineCoolantTempOffset Units="C" Comment="Offset for engine temperature reading" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature">-40</EngineCoolantTempOffset>
             <EngineCoolantTemperatureUnits>C</EngineCoolantTemperatureUnits>
-            <MinimumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Minimum operating engine coolant temperature">65</MinimumEngineCoolantTemperature>
+            <MinimumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Minimum operating engine coolant temperature">62</MinimumEngineCoolantTemperature>
             <MaximumEngineCoolantTemperature Units="C" TestSteps="CheckEngineCoolantTemperature,WaitForEngineTemperature" Comment="Maximum operating engine coolant temperature">100</MaximumEngineCoolantTemperature>
             <!-- Engine Oil Pressure Parameters -->
             <EngineOilPressureUnits>V</EngineOilPressureUnits>
@@ -214,6 +214,7 @@
             <MinimumEGRPosition Units="%" TestSteps="CheckEGRPosition" Comment="Minimum EGR Position">0.0</MinimumEGRPosition>
             <MaximumEGRPosition Units="%" TestSteps="CheckEGRPosition" Comment="Maximum EGR Position">55.0</MaximumEGRPosition>
             <!--MAF Learning Complete Status Parameters-->
+            <MAFLearnEngineSpeed>2900</MAFLearnEngineSpeed>
             <MAFLearningCompleteCompareValue>True</MAFLearningCompleteCompareValue>
             <!--MAF Learn Clear Parameters -->
 			<DelayBeforeMAFClear>5000</DelayBeforeMAFClear>
@@ -366,8 +367,6 @@
 			<TestStep30>ClearMAFSensor</TestStep30>
 			<TestStep35>WaitForEngineRunning</TestStep35>
 			<TestStep40>MAFLearn</TestStep40>
-			<!--TestStep45>CheckMAFLearnComplete</TestStep45-->
-            <!--TestStep45>StartSwitchMonitors</TestStep45-->
         </EngineWarmUp>
         <PreFinishUp>
             <TestStep05>StopModuleKeepAlive</TestStep05>
@@ -423,6 +422,9 @@
             <TestStep10>CheckVehicleSpeedSensor</TestStep10>
             <TestStep20>CheckSteadySpeedFuelTrim</TestStep20>
         </SteadySpeedTests>
+         <DPDSwitchCheck>
+            <TestStep00>DPDSwitchCheck</TestStep00>
+         </DPDSwitchCheck>
 		 <CheckMAFLearnComplete>
             <TestStep00>CheckMAFLearnComplete</TestStep00>
          </CheckMAFLearnComplete>

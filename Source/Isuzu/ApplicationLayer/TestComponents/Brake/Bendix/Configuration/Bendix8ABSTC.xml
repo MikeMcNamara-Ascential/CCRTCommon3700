@@ -359,7 +359,7 @@
          <CycleValves3>CycleValves3</CycleValves3>
          <CycleValves4>CycleValves4</CycleValves4>
          <ForceMeterCenterValue>ForceMeterCenterValue</ForceMeterCenterValue>
-         <FourWheelDriveEquipped>FourWheelDriveEquipped</FourWheelDriveEquipped>
+         <FourWheelDriveEquipped>FourWDSelected</FourWheelDriveEquipped>
          <Front>FWD</Front>
          <FrontAxleTestSelected>FrontAxleTestSelected</FrontAxleTestSelected>
          <FrontBalanceBGColor>FrontBalanceBGColor</FrontBalanceBGColor>

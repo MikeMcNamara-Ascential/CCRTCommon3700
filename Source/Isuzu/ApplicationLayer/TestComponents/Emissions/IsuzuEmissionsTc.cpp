@@ -218,7 +218,8 @@ void IsuzuEmissionsTc<ModuleType>::InitializeHook(const XmlNode *config)
     // Save switch monitor items
     m_switchMonitorItems.DeepCopy(config->getChild("Setup/Parameters/BackgroundSwitchMonitoring/MonitoredSwitches")->getChildren());
     // Save pid value range monitor items
-    m_rangeCheckMonitorItems.DeepCopy(config->getChild("Setup/Parameters/BackgroundPidValueRangesMonitoring/MonitoredPidValueRanges")->getChildren());    
+    m_rangeCheckMonitorItems.DeepCopy(config->getChild("Setup/Parameters/BackgroundPidValueRangesMonitoring/MonitoredPidValueRanges")->getChildren()); 
+    m_mafLearnComplete = false;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -2951,6 +2952,7 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
     bool brakeOn = false;
     long int delayTime = 30000;
     UINT16 engineRPM = 0;
+    int mafEngineSpeed = GetParameterInt("MAFLearnEngineSpeed");
     float pedalPosition = 0;
     float maxPedalPosition = 0;
     BEP_STATUS_TYPE brakeStatus = BEP_STATUS_SUCCESS;
@@ -2981,7 +2983,7 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
         DisplayPrompt(1, GetPrompt("ShiftToGear"), GetPromptPriority("ShiftToGear"), "white", gear);
         //Accel to WOT
         DisplayPrompt(2, GetPrompt("PushAcceleratorPedalToFloor"), GetPromptPriority("PushAcceleratorPedalToFloor"));
-        //Check engine rpm for 2800 rpm
+        //Check engine rpm for 2900 rpm
         do
         {
             m_vehicleModule.ReadModuleData("ReadAcceleratorPedalSensor1", pedalPosition);
@@ -2998,7 +3000,7 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
                 break;
             }
             Log(LOG_DEV_DATA, "Engine RPM: %d",engineRPM);
-        }while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && engineRPM < 2800); 
+        }while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && engineRPM < mafEngineSpeed); 
 
         if(maxPedalPosition == 100)
         {
@@ -3026,7 +3028,7 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
             testDescription = GetFaultDescription("SystemStatus");
             testResultCode = GetFaultCode("SystemStatus");
         }
-        else if (engineRPM > 2800) 
+        else if (engineRPM > mafEngineSpeed) 
         {
             testResult = testPass;
         }
@@ -3070,6 +3072,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnComplete(void)
         status = m_vehicleModule.ReadModuleData("ReadMAFLearningComplete", mafLearned);
         if(status == BEP_STATUS_SUCCESS)
         {
+            m_mafLearnComplete = mafLearned ? true : false;
             testResult = mafLearned ? testPass : testFail;
             testResultCode = mafLearned ? "0000": GetFaultCode("MAFNotLearned");
             testDescription = mafLearned ? testDescription : GetFaultDescription("MAFNotLearned");
@@ -3153,7 +3156,7 @@ string IsuzuEmissionsTc<ModuleType>::AdjustCruiseMass(void)
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     if(!ShortCircuitTestStep())
     {
-        // Command the module to start the CASE learn process
+        // Command the module to change the mass coefficient
         testResult = ((m_vehicleModule.CommandModule("AdjustCruiseMass") == BEP_STATUS_SUCCESS) ? testPass : testFail);
         testResultCode = testResult == testPass ? "0000": GetFaultCode("CruiseMassNotSet");
         testDescription = testResult == testPass ? testDescription : GetFaultDescription("CruiseMassNotSet");
@@ -3191,7 +3194,7 @@ string IsuzuEmissionsTc<ModuleType>::ClearMAFSensor(void)
     string testDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     
-    if(!ShortCircuitTestStep())
+    if(!ShortCircuitTestStep() || !m_mafLearnComplete)
     {
         //Check MAF Learn status is 1
         status = m_vehicleModule.CommandModule("ClearMAFLearn");

@@ -4144,8 +4144,8 @@ string FordABSTCTemplate<ModuleType>::EnterDiagnosticMode(void)
     Log(LOG_FN_ENTRY, "Enter FordABSTCTemplate::EnterDiagnosticMode()\n");
 
     //MAM 9/21/11- Enables ClutchOnZeroSpeed
-    dclBitStatus = SystemWrite(GetDataTag("DCLControl"), false);
-    Log( LOG_DEV_DATA, "EnterDiagnosticMode - Clearing DCLControl PLC bit \n");
+    //dclBitStatus = SystemWrite(GetDataTag("DCLControl"), false);
+    //Log( LOG_DEV_DATA, "EnterDiagnosticMode - Clearing DCLControl PLC bit \n");
     // Check if this step should be skipped
     if (!ShortCircuitTestStep() || GetParameterBool("AlwaysEnterDiagnosticMode"))
     {   // Need to perform this test step
@@ -4568,10 +4568,11 @@ std::string FordABSTCTemplate<ModuleType>::TestStepAnalyzeBaseBrake(void)
         string color = "white";
         if(elapsedBrakeTime > maxBrakeTime)
         {
-            brakeStatus == testFail;
+            brakeStatus = testFail;
             testResultCode = GetFaultCode("BrakeTimeExceedsMax");
             testDescription = GetFaultDescription("BrakeTimeExceedsMax");
             color = "Red";
+            status = testFail;
         }
         else
         {

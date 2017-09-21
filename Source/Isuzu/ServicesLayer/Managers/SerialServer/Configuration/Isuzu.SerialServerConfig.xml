@@ -347,11 +347,11 @@
                     </CommLog>
                 </Setup>
             </VinStamper>
-	    <WinCcrt enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
+	    <WinCcrt enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/TcpCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/socket</SerialDevice>
                     <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-                    <IpAddress>192.168.20.20</IpAddress>
+                    <IpAddress>192.168.1.2</IpAddress>
                     <PortNo>10019</PortNo>
                     <TcpType>Client</TcpType>
                     <Protocol>

@@ -978,6 +978,7 @@
             <StartTest DataType="bool">SystemMonitor</StartTest>
             <StartTestFromPLC DataType="bool">PLC</StartTestFromPLC>
             <StartVehicleTest DataType="bool">VehicleTest</StartVehicleTest>
+            <SteeringWheelAngle DataType="string">MachineDataBroker</SteeringWheelAngle>
             <SteeringWheelToolInPlace DataType="bool">PLC</SteeringWheelToolInPlace>
             <StopCurrentTest DataType="bool">PlantHostInbound</StopCurrentTest>
             <StopPBDepressedLHPendant DataType="bool">PLC</StopPBDepressedLHPendant>

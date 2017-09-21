@@ -108,6 +108,8 @@
             <TestResultMode>TestResult</TestResultMode>
             <YesValue>Pass</YesValue>
             <Zerospeed>ZerospeedToPLC</Zerospeed>
+            <PassButton>DriverPass</PassButton>
+		    <FailButton>DriverFail</FailButton>
         </DataTags>
         <Parameters>
             <ResetCommHardware Values="Yes or No">Yes</ResetCommHardware>
@@ -158,7 +160,7 @@
             <ICMName>mgr/ICM</ICMName>
             <SteeringWheelAngleMax>5</SteeringWheelAngleMax>
             <SteeringWheelAngleMin>-5</SteeringWheelAngleMin>
-            <SteeringWheelCollectionInterval>3000</SteeringWheelCollectionInterval>
+            <SteeringWheelCollectionInterval>5000</SteeringWheelCollectionInterval>
         </Parameters>
         <FaultList>/Configuration/Components/Common/SampleFaultList.xml</FaultList>
         <Prompts>
@@ -295,7 +297,8 @@
             <TestStep1>ReadMemoryStatistics</TestStep1>
         </ReadMemoryStatistics>
         <ReportSteeringWheelAngle>
-            <TestStep1>ReportSteeringWheelAngle</TestStep1>
+            <TestStep1>AttachSteeringWheelAngleDevice</TestStep1>
+            <TestStep2>ReportSteeringWheelAngle</TestStep2>
         </ReportSteeringWheelAngle>
     </Objectives>
     <TestSteps>
@@ -346,7 +349,8 @@
         <ElectricParkBrake Result="" Description="Electric Park Brake Test Step" Timeout="30000" Prompt1="ShiftToNeutralApplyParkBrake" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" RollerDirection="Front" TestTime="2000"/>
         <ReadMemoryStatistics Result="" Description="Read the current memory statistics" Timeout="10000"/>
         <SetInputServerState Result="" Description="Set the InputServer to the desired state"/>
-        <ReportSteeringWheelAngle Result="" Description="Check the angle of the steering wheel" Timeout="10000" Prompt1="MeasuringSteeringWheelAngle" Prompt1Priority="0"/>
+        <ReportSteeringWheelAngle Result="" Description="Check the angle of the steering wheel" Timeout="10000" Prompt1="MeasuringSteeringWheelAngle" Prompt1Priority="0" Prompt2="Blank"/>
+        <AttachSteeringWheelAngleDevice Result="" Description="Prompt the driver to attach the ROMESS inclinometer device" Timeout="30000" Prompt1="AttachSteeringWheelAngleDevice" Prompt1Priority="0"/>
     </TestSteps>
 </MachineComponent>
 

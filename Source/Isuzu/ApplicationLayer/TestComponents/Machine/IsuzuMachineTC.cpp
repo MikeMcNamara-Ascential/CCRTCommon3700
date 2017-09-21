@@ -178,7 +178,7 @@ std::string IsuzuMachineTC::ReportSideSlipValue(void)
 std::string IsuzuMachineTC::ReportSteeringWheelAngle(void) 
 {
 
-    float scanDelay = 250;
+    int scanDelay = 250;
     float elapsedTime = 0;
     float steeringWheelCollectionInterval;
 
@@ -192,6 +192,7 @@ std::string IsuzuMachineTC::ReportSteeringWheelAngle(void)
     char buff[16];
     string result; 
     string color = "white";
+    Log(LOG_FN_ENTRY, "IsuzuMachineTC::ReportSteeringWheelAngle() - Enter");
 
     if(!ShortCircuitTestStep())
 	{
@@ -202,16 +203,21 @@ std::string IsuzuMachineTC::ReportSteeringWheelAngle(void)
         steeringWheelAngleMin = GetParameterFloat ("SteeringWheelAngleMin");
         steeringWheelCollectionInterval = GetParameterFloat("SteeringWheelCollectionInterval");
 
+        Log(LOG_DEV_DATA, "Reading Steering Wheel Angle Data");
         //Get average over a period of time
         while(elapsedTime < steeringWheelCollectionInterval && !CheckAbort())
         {
+            Log(LOG_DEV_DATA, "Elapsed time: %.2f", elapsedTime);
             wheelAngleTotal += SystemReadFloat("SteeringWheelAngle");
             samples++;
-            elapsedTime += scanDelay / 1000;
+            elapsedTime += (float)scanDelay;
             BposSleep(scanDelay);
         }
 
+        Log(LOG_DEV_DATA, "Finished collecting Steering Wheel Angle Data");
+
         steeringWheelAngle = wheelAngleTotal / samples;
+        Log(LOG_DEV_DATA, "Steering Wheel Angle: %.1f\nMin:%.1f\nMax:%.1f",steeringWheelAngle,steeringWheelAngleMin,steeringWheelAngleMax);
         
         //To determine if the test is pass or fail
         if (steeringWheelAngleMin <= steeringWheelAngle && steeringWheelAngle <= steeringWheelAngleMax) 
@@ -240,6 +246,7 @@ std::string IsuzuMachineTC::ReportSteeringWheelAngle(void)
     }
 
     RemovePrompts();
+    Log(LOG_FN_ENTRY, "IsuzuMachineTC::ReportSteeringWheelAngle() - Exit");
     return result; 
      
 }
@@ -250,7 +257,7 @@ std::string IsuzuMachineTC::AttachSteeringWheelAngleDevice(void)
     string result; 
     int scanDelay = 250;
     //string color = "white";
-
+    Log(LOG_FN_ENTRY, "IsuzuMachineTC::AttachSteeringWheelAngleDevice() - Enter");
     if(!ShortCircuitTestStep())
 	{
         DisplayPrompt(GetPromptBox("AttachSteeringWheelAngleDevice"),GetPrompt("AttachSteeringWheelAngleDevice"),GetPromptPriority("AttachSteeringWheelAngleDevice"));
@@ -280,7 +287,7 @@ std::string IsuzuMachineTC::AttachSteeringWheelAngleDevice(void)
         else
         {
             Log(LOG_DEV_DATA, "Yes button: %s", yesButton.c_str());
-            result = !yesButton.compare("1") ? BEP_PASS_RESPONSE : BEP_FAIL_RESPONSE;
+            result = testPass;
         }
         //}
         RemovePrompts();
@@ -291,6 +298,8 @@ std::string IsuzuMachineTC::AttachSteeringWheelAngleDevice(void)
     }
 
     SendTestResult(result, GetTestStepInfo("Description"));
+
+    Log(LOG_FN_ENTRY, "IsuzuMachineTC::AttachSteeringWheelAngleDevice() - Exit");
     return result;
 }
                                                   

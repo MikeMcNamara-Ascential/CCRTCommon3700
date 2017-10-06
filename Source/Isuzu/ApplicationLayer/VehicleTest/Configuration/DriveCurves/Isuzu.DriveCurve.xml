@@ -68,16 +68,30 @@
                 </Objective00>
             </ForegroundObjectives>
         </TestPhase001>
+        <TestPhase002 Description="Check Steering Wheel Angle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Check Steering Wheel Angle" Result="" Timeout="" Component="Machine">
+                    <ReportSteeringWheelAngle/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase002>
+        <TestPhase004 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase004>
 
-        <TestPhase002 Description="ABS Pump Prime" Result="" Timeout="">
+        <TestPhase005 Description="ABS Pump Prime" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective15 Description="ABS Prime" Result="" Timeout="" Component="Brakes">
                     <PrimeAbs/>
                 </Objective15>
             </ForegroundObjectives>
-        </TestPhase002>
+        </TestPhase005>
 
-        <TestPhase006 Description="Prompt operator that modules are initializing" Result="" Timeout="">
+        <TestPhase007 Description="Prompt operator that modules are initializing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective00 Description="Prompt operator stuff is happening" Result="" Timeout="" Component="Machine">
                     <PromptDriverAlways>InitializingVehicleModules</PromptDriverAlways>
@@ -89,7 +103,7 @@
                     <Setup/>
                 </Objective15>
             </ForegroundObjectives>
-        </TestPhase006>
+        </TestPhase007>
         <TestPhase008 Description="Key Cycle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective00 Description="Key Cycle" Result="" Timeout="" Component="Emissions">
@@ -198,20 +212,6 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase215>
-		<TestPhase220 Description="Check Steering Wheel Angle" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Check Steering Wheel Angle" Result="" Timeout="" Component="Machine">
-                    <ReportSteeringWheelAngle/>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase220>
-		<TestPhase222 Description="Check Steering Wheel Angle" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Check Steering Wheel Angle" Result="" Timeout="" Component="Machine">
-                    <ReportSteeringWheelAngle/>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase222>
         <TestPhase225 Description="Cruise functional testing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Make sure cruise is functional" Result="" Timeout="" Component="SpeedControl">

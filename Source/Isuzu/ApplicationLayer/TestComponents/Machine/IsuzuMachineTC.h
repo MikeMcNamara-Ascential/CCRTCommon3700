@@ -73,6 +73,15 @@ private:
     std::string ReportSideSlipValue(void);
     std::string ReportSteeringWheelAngle(void);
     std::string AttachSteeringWheelAngleDevice(void);
+    virtual const std::string TestStepInitialize(const std::string &value);
+    std::string InclinometerTest(void);
+
+    bool m_allSteeringWheelChecksPassed;
+    bool m_inclinoAccelToSpeedPassed;
+    bool m_inclinoAttachDevicePassed;
+    bool m_inclinoReportAnglePassed;
+    bool m_shouldClearInclinoFlags;
+    std::string m_resultPreInclinoTest;
 };
 
 #endif

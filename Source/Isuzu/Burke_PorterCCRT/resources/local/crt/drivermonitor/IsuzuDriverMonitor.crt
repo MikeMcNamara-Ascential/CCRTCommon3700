@@ -223,7 +223,7 @@
                             <Widget id="_steeringwheelangle" class="com.bepco.gui.TextBox">
                                 <DataSource tagname="SteeringWheelAngle" messagetype="Subscribe"/>
                                 <TextBoxConfig>
-                                    <Font size="18" name="sans-serif" style="plain"/>
+                                    <Font size="25" name="sans-serif" style="plain"/>
                                 </TextBoxConfig>
                             </Widget>
                         </VBox>

@@ -51,8 +51,8 @@ const std::string IsuzuMachineTC::CommandTestStep(const std::string &value)
 
             if(step == "TransitionToRearAxle") status = TransitionToRearAxle();
             else if(step == "ReportSideSlipValue") status = ReportSideSlipValue();
-            else if (step == "ReportSteeringWheelAngle") status = ReportSteeringWheelAngle();
-            else if (step == "AttachSteeringWheelAngleDevice") status = AttachSteeringWheelAngleDevice();
+            else if(step == "Initialize") status = TestStepInitialize(value);
+            else if (step == "InclinometerTest") status = InclinometerTest();
 
             // else invalid test step*/
             else status = MachineTC::CommandTestStep(value);
@@ -196,9 +196,6 @@ std::string IsuzuMachineTC::ReportSteeringWheelAngle(void)
 
     if(!ShortCircuitTestStep())
 	{
-
-        UpdatePrompts();
-
         steeringWheelAngleMax = GetParameterFloat ("SteeringWheelAngleMax");
         steeringWheelAngleMin = GetParameterFloat ("SteeringWheelAngleMin");
         steeringWheelCollectionInterval = GetParameterFloat("SteeringWheelCollectionInterval");
@@ -233,12 +230,12 @@ std::string IsuzuMachineTC::ReportSteeringWheelAngle(void)
             color = "Red"; 
         }
     
-        SystemWrite(GetDataTag("SteeringWheelAngleBGColor"), color); 
+        SystemWrite(GetDataTag("SteeringWheelAngleBGColor"), color);
 
-        SendTestResultWithDetail(result, GetTestStepInfo("Description"),"0000",
-                "SteeringWheelAngle",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngle),"°",
-                "SteeringWheelAngleMaxValue",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngleMax),"°",
-                "SteeringWheelAngleMinValue",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngleMin),"°");
+        SendSubtestResultWithDetail("ReportSteeringWheelAngleValue", result, GetTestStepInfo("Description"),"0000",
+                "SteeringWheelAngle",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngle),"deg",
+                "SteeringWheelAngleMaxValue",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngleMax),"deg",
+                "SteeringWheelAngleMinValue",CreateMessage(buff, sizeof(buff), "%.2f", steeringWheelAngleMin),"deg");
     }
     else
     {
@@ -263,9 +260,6 @@ std::string IsuzuMachineTC::AttachSteeringWheelAngleDevice(void)
         DisplayPrompt(GetPromptBox("AttachSteeringWheelAngleDevice"),GetPrompt("AttachSteeringWheelAngleDevice"),GetPromptPriority("AttachSteeringWheelAngleDevice"));
         DisplayPrompt(GetPromptBox("PressPassWhenFinished"),GetPrompt("PressPassWhenFinished"),GetPromptPriority("PressPassWhenFinished"));
 
-        // Determine where the input will come from
-        //if (UsePlcResultButtons())
-        //{
         string yesButton = "-1";
 
         string msgResponse;
@@ -289,7 +283,6 @@ std::string IsuzuMachineTC::AttachSteeringWheelAngleDevice(void)
             Log(LOG_DEV_DATA, "Yes button: %s", yesButton.c_str());
             result = testPass;
         }
-        //}
         RemovePrompts();
     }
     else
@@ -299,7 +292,60 @@ std::string IsuzuMachineTC::AttachSteeringWheelAngleDevice(void)
 
     SendTestResult(result, GetTestStepInfo("Description"));
 
-    Log(LOG_FN_ENTRY, "IsuzuMachineTC::AttachSteeringWheelAngleDevice() - Exit");
+    Log(LOG_FN_ENTRY, "IsuzuMachineTC::AttachSteeringWheelAngleDevice() - Exit: [%s]", result.c_str());
+    return result;
+}
+
+const std::string IsuzuMachineTC::TestStepInitialize(const std::string &value)
+{
+    m_shouldClearInclinoFlags = true;
+    return MachineTC::TestStepInitialize(value);
+}
+
+//-------------------------------------------------------------------------------------------------
+std::string IsuzuMachineTC::InclinometerTest(void) 
+{
+    string result; 
+    int retries = GetParameterInt("InclinometerRetries");
+    Log(LOG_FN_ENTRY, "IsuzuMachineTC::InclinometerTest() - Enter");
+    if(!ShortCircuitTestStep())
+	{
+        if(m_shouldClearInclinoFlags)
+        {
+            m_shouldClearInclinoFlags = false;
+            m_allSteeringWheelChecksPassed = false;
+            m_inclinoAccelToSpeedPassed = false;
+            m_inclinoAttachDevicePassed = false;
+            m_inclinoReportAnglePassed = false;
+        }
+        do
+        {
+            DisplayPrompt(GetPromptBox("AttachSteeringWheelAngleDevice"), GetPrompt("AttachSteeringWheelAngleDevice"), GetPromptPriority("AttachSteeringWheelAngleDevice"));
+            result = AttachSteeringWheelAngleDevice();
+            m_inclinoAttachDevicePassed = (testPass == result);
+            RemovePrompt(GetPromptBox("AttachSteeringWheelAngleDevice"), GetPrompt("AttachSteeringWheelAngleDevice"), GetPromptPriority("AttachSteeringWheelAngleDevice"));
+
+            DisplayPrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+            result = MachineTC::TestStepAccelerateToSpeed(GetParameter("InclinometerTestSpeed"));
+            m_inclinoAccelToSpeedPassed = (testPass == result);
+            RemovePrompt(GetPromptBox("AccelerateToTargetSpeed"), GetPrompt("AccelerateToTargetSpeed"), GetPromptPriority("AccelerateToTargetSpeed"));
+
+            DisplayPrompt(GetPromptBox("MeasuringSteeringWheelAngle"), GetPrompt("MeasuringSteeringWheelAngle"), GetPromptPriority("MeasuringSteeringWheelAngle"));
+            result = ReportSteeringWheelAngle();
+            m_inclinoReportAnglePassed = (testPass == result);
+            RemovePrompt(GetPromptBox("MeasuringSteeringWheelAngle"), GetPrompt("MeasuringSteeringWheelAngle"), GetPromptPriority("MeasuringSteeringWheelAngle"));
+            m_allSteeringWheelChecksPassed = m_inclinoAccelToSpeedPassed && m_inclinoAttachDevicePassed && m_inclinoReportAnglePassed;
+        }while(!m_allSteeringWheelChecksPassed && retries-- && TimeRemaining() && (StatusCheck() == BEP_STATUS_SUCCESS));
+
+    }
+    else
+    {
+        result = testSkip;
+    }
+
+    SendTestResult(result, GetTestStepInfo("Description"));
+
+    Log(LOG_FN_ENTRY, "IsuzuMachineTC::InclinometerTest() - Exit: [%s]", result.c_str());
     return result;
 }
                                                   

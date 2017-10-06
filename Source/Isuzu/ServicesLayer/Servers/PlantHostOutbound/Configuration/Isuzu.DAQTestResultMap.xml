@@ -436,6 +436,10 @@
     <Field3910 Type="Separator">,</Field3910>
     <Field3920 Type="VehicleBuild"  Format="%06d" DataType="Integer">CycleTime</Field3920>
     <Field3930 Type="Separator">,</Field3930>
+	<Field3931 Type="Detail" DetailNode="SteeringWheelAngle" Format="%06.2f" DataType="Float">MachineReportSteeringWheelAngleValue</Field3931>
+    <Field3932 Type="Separator">,</Field3932>
+    <Field3933 Type="Result">MachineReportSteeringWheelAngleValue</Field3933>
+    <Field3934 Type="Separator">,</Field3934>
     <!--  DAQ necessary fields -->
     <Field3940 Type="Detail" Format="%.4s" DataType="String" Length="4" DetailNode="Error0" ExcludeIfNotTested="False">ErrorCodeTest</Field3940>
     <Field3950 Type="Separator">,</Field3950>

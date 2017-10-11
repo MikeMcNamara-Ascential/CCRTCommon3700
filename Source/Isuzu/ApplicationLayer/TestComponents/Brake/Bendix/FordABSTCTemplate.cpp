@@ -4569,6 +4569,7 @@ std::string FordABSTCTemplate<ModuleType>::TestStepAnalyzeBaseBrake(void)
         if(elapsedBrakeTime > maxBrakeTime)
         {
             brakeStatus = testFail;
+			status = brakeStatus;
             testResultCode = GetFaultCode("BrakeTimeExceedsMax");
             testDescription = GetFaultDescription("BrakeTimeExceedsMax");
             color = "Red";

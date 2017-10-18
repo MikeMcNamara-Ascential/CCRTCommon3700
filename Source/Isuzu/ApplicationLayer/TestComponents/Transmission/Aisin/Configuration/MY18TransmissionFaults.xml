@@ -16,8 +16,8 @@
     <ModuleFaults Code="" Description="TCM Module Faults Present"/>
  
     <!-- Module Faults From MY2018_T43_MYD_WCC_ListofTransmissionDiagnosticCodes_.xlsx-->
-    <ModuleFault_0562 Code="P0562" Description="Low Ignition Voltage at TCM for an Extended Period" FailureStatusMask="0x16"/>
-    <ModuleFault_0563 Code="P0563" Description="High Ignition Voltage at TCM for an Extended Period" FailureStatusMask="0x16"/>
+    <ModuleFault_0562 Code="P0562" Description="Low Ignition Voltage at TCM for an Extended Period" FailureStatusMask="0x12"/>
+    <ModuleFault_0563 Code="P0563" Description="High Ignition Voltage at TCM for an Extended Period" FailureStatusMask="0x12"/>
     <ModuleFault_0601 Code="P0601" Description="TEHCM ROM Checksum Error" FailureStatusMask="0x16"/>
     <ModuleFault_0602 Code="P0602" Description="TEHCM Not Programmed" FailureStatusMask="0x16"/>
     <ModuleFault_0603 Code="P0603" Description="TEHCM Long-Term Memory Reset" FailureStatusMask="0x16"/>
@@ -25,7 +25,7 @@
     <ModuleFault_062F Code="P062F" Description="TEHCM Long-Term Memory Performance"	FailureStatusMask="0x16"/>
     <ModuleFault_0634 Code="P0634" Description="TEHCM Internal Temp Too High" FailureStatusMask="0x16"/>
     <ModuleFault_0658 Code="P0658" Description="High Side Driver Actuator Supply Circuit Low Voltage" FailureStatusMask="0x16"/>
-    <ModuleFault_0659 Code="P0659" Description="High Side Driver Actuator Supply Circuit High Voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_0659 Code="P0659" Description="High Side Driver Actuator Supply Circuit High Voltage" FailureStatusMask="0x12"/>
     <ModuleFault_0667 Code="P0667" Description="TCM Internal Substrate Temp Thermistor Performance Failure"	FailureStatusMask="0x16"/>
     <ModuleFault_0668 Code="P0668" Description="TCM Internal Substrate Temp Thermistor Circuit Low Voltage"	FailureStatusMask="0x16"/>
     <ModuleFault_0669 Code="P0669" Description="TCM Internal Substrate Temp Thermistor Circuit High Voltage" FailureStatusMask="0x16"/>
@@ -37,64 +37,64 @@
     <ModuleFault_0713 Code="P0713" Description="TFT Thermistor Circuit High Voltage" FailureStatusMask="0x16"/>
     <ModuleFault_0716 Code="P0716" Description="Speed Sensor TISS Performance" FailureStatusMask="0x16"/>
     <ModuleFault_0717 Code="P0717" Description="Speed Sensor TISS Circuit Low Voltage" FailureStatusMask="0x16"/>
-    <ModuleFault_071A Code="P071A" Description="Trans Mode Switch A Circuit (Tow / Haul Winter Mode)" FailureStatusMask="0x16"/>
+    <ModuleFault_071A Code="P071A" Description="Trans Mode Switch A Circuit (Tow / Haul Winter Mode)" FailureStatusMask="0x12"/>
     <ModuleFault_0722 Code="P0722" Description="Speed Sensor TOSS Circuit Low Voltage" FailureStatusMask="0x16"/>
     <ModuleFault_0723 Code="P0723" Description="Speed Sensor TOSS Circuit Intermittent"	FailureStatusMask="0x16"/>
     <ModuleFault_0741 Code="P0741" Description="TCC System Stuck OFF" FailureStatusMask="0x16"/>
-    <ModuleFault_0742 Code="P0742" Description="TCC System Stuck ON" FailureStatusMask="0x16"/>
-    <ModuleFault_0751 Code="P0751" Description="Mode 2 Stuck OFF (Shift Solenoid Valve A)" FailureStatusMask="0x12"/>
+    <ModuleFault_0742 Code="P0742" Description="TCC System Stuck ON" FailureStatusMask="0x12"/>
+    <ModuleFault_0751 Code="P0751" Description="Mode 2 Stuck OFF (Shift Solenoid Valve A)" FailureStatusMask="0x16"/>
     <ModuleFault_0752 Code="P0752" Description="Mode 2 Stuck ON (Shift Solenoid Valve A)" FailureStatusMask="0x16"/>
     <ModuleFault_0756 Code="P0756" Description="Mode 3 Stuck OFF (Shift Solenoid Valve B)" FailureStatusMask="0x16"/>
     <ModuleFault_0776 Code="P0776" Description="RVT C35R Stuck OFF (PC Solenoid B) " FailureStatusMask="0x16"/>
     <ModuleFault_0777 Code="P0777" Description="RVT C35R Stuck ON (PC Solenoid B) " FailureStatusMask="0x16"/>
     <ModuleFault_0796 Code="P0796" Description="RVT C456 Stuck OFF (PC Solenoid C)" FailureStatusMask="0x16"/>
-    <ModuleFault_0797 Code="P0797" Description="RVT C456 Stuck ON (PC Solenoid C)" FailureStatusMask="0x12"/>
-    <ModuleFault_0815 Code="P0815" Description="TUTD Circuit Low Voltage" FailureStatusMask="0x16"/>
-    <ModuleFault_0816 Code="P0816" Description="TUTD Circuit High Voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_0797 Code="P0797" Description="RVT C456 Stuck ON (PC Solenoid C)" FailureStatusMask="0x16"/>
+    <ModuleFault_0815 Code="P0815" Description="TUTD Circuit Low Voltage" FailureStatusMask="0x12"/>
+    <ModuleFault_0816 Code="P0816" Description="TUTD Circuit High Voltage" FailureStatusMask="0x12"/>
     <ModuleFault_0826 Code="P0826" Description="TUTD Circuit Illegal" FailureStatusMask="0x12"/> 
-    <ModuleFault_0842 Code="P0842" Description="Pressure Switch Sensors C35R Circuit Low Voltage (TFP Sensor 2 / A)" FailureStatusMask="0x16"/>
-    <ModuleFault_0843 Code="P0843" Description="Pressure Switch Sensors C35R Circuit High Voltage (TFP Sensor 2 / A)" FailureStatusMask="0x16"/>
-    <ModuleFault_0872 Code="P0872" Description="Pressure Switch Sensors CB26 Circuit Low Voltage (TFP Sensor 3 / C)" FailureStatusMask="0x16"/>
-    <ModuleFault_0873 Code="P0873" Description="Pressure Switch Sensors CB26 Circuit High Voltage (TFP Sensor 3 / C)" FailureStatusMask="0x16"/>
-    <ModuleFault_0877 Code="P0877" Description="Pressure Switch Sensors C1234 Circuit Low Voltage (TFP Sensor 1 / D)" FailureStatusMask="0x16"/>
-    <ModuleFault_0878 Code="P0878" Description="Pressure Switch Sensors C1234 Circuit High Voltage (TFP Sensor 1 / D)" FailureStatusMask="0x16"/>
+    <ModuleFault_0842 Code="P0842" Description="Pressure Switch Sensors C35R Circuit Low Voltage (TFP Sensor 2 / A)" FailureStatusMask="0x12"/>
+    <ModuleFault_0843 Code="P0843" Description="Pressure Switch Sensors C35R Circuit High Voltage (TFP Sensor 2 / A)" FailureStatusMask="0x12"/>
+    <ModuleFault_0872 Code="P0872" Description="Pressure Switch Sensors CB26 Circuit Low Voltage (TFP Sensor 3 / C)" FailureStatusMask="0x12"/>
+    <ModuleFault_0873 Code="P0873" Description="Pressure Switch Sensors CB26 Circuit High Voltage (TFP Sensor 3 / C)" FailureStatusMask="0x12"/>
+    <ModuleFault_0877 Code="P0877" Description="Pressure Switch Sensors C1234 Circuit Low Voltage (TFP Sensor 1 / D)" FailureStatusMask="0x12"/>
+    <ModuleFault_0878 Code="P0878" Description="Pressure Switch Sensors C1234 Circuit High Voltage (TFP Sensor 1 / D)" FailureStatusMask="0x12"/>
     <ModuleFault_0961 Code="P0961" Description="VBS PC Solenoid A Control Circuit Rationality Test (Line Pressure)" FailureStatusMask="0x16"/>
     <ModuleFault_0962 Code="P0962" Description="VBS PC Solenoid A Control Circuit Low Voltage (Line Pressure)" FailureStatusMask="0x16"/>
     <ModuleFault_0963 Code="P0963" Description="VBS PC Solenoid A Control Circuit High Voltage (Line Pressure)"	FailureStatusMask="0x16"/>
-    <ModuleFault_0965 Code="P0965" Description="VBS PC Solenoid B Control Circuit Rationality Test (C3 / C35R / CLCH A)" FailureStatusMask="0x16"/>
+    <ModuleFault_0965 Code="P0965" Description="VBS PC Solenoid B Control Circuit Rationality Test (C3 / C35R / CLCH A)" FailureStatusMask="0x12"/>
     <ModuleFault_0966 Code="P0966" Description="VBS PC Solenoid B Control Circuit Low Voltage (C3 / C35R / CLCH A)" FailureStatusMask="0x16"/>
     <ModuleFault_0967 Code="P0967" Description="VBS PC Solenoid B Control Circuit High Voltage (C3 / C35R / CLCH A)" FailureStatusMask="0x16"/>
-    <ModuleFault_0969 Code="P0969" Description="VBS PC Solenoid C Control Circuit Rationality Test (C2,C5 / C456 / CLCH B)" FailureStatusMask="0x16"/>
+    <ModuleFault_0969 Code="P0969" Description="VBS PC Solenoid C Control Circuit Rationality Test (C2,C5 / C456 / CLCH B)" FailureStatusMask="0x12"/>
     <ModuleFault_0970 Code="P0970" Description="VBS PC Solenoid C Control Circuit Low Voltage (C2,C5 / C456 / CLCH B)" FailureStatusMask="0x16"/>
     <ModuleFault_0971 Code="P0971" Description="VBS PC Solenoid C Control Circuit High Voltage (C2,C5 / C456 / CLCH B)"	FailureStatusMask="0x16"/>
     <ModuleFault_0973 Code="P0973" Description="Mode 2 Control Circuit Low Voltage (Shift Solenoid A)" FailureStatusMask="0x16"/>
     <ModuleFault_0974 Code="P0974" Description="Mode 2 Control Circuit High Voltage (Shift Solenoid A)" FailureStatusMask="0x16"/>
-    <ModuleFault_0976 Code="P0976" Description="Mode 3 Control Circuit Low Voltage (Shift Solenoid B)" FailureStatusMask="0x16"/>
+    <ModuleFault_0976 Code="P0976" Description="Mode 3 Control Circuit Low Voltage (Shift Solenoid B)" FailureStatusMask="0x12"/>
     <ModuleFault_0977 Code="P0977" Description="Mode 3 Control Circuit High Voltage (Shift Solenoid B)" FailureStatusMask="0x16"/>
-    <ModuleFault_0989 Code="P0989" Description="Pressure Switch Sensors C456/CBR1 Circuit Low Voltage (TFP Sensor 4 / E)" FailureStatusMask="0x16"/>
-    <ModuleFault_0990 Code="P0990" Description="Pressure Switch Sensors C456/CBR1 Circuit High Voltage (TFP Sensor 4 / E)" FailureStatusMask="0x16"/>
-    <ModuleFault_1761 Code="P1761" Description="TUTD Switch Signal Circuit, Rolling Count" FailureStatusMask="0x16"/>
-    <ModuleFault_1762 Code="P1762" Description="Trans Mode Switch Signal Circuit, Rolling Count" FailureStatusMask="0x16"/>
+    <ModuleFault_0989 Code="P0989" Description="Pressure Switch Sensors C456/CBR1 Circuit Low Voltage (TFP Sensor 4 / E)" FailureStatusMask="0x12"/>
+    <ModuleFault_0990 Code="P0990" Description="Pressure Switch Sensors C456/CBR1 Circuit High Voltage (TFP Sensor 4 / E)" FailureStatusMask="0x12"/>
+    <ModuleFault_1761 Code="P1761" Description="TUTD Switch Signal Circuit, Rolling Count" FailureStatusMask="0x12"/>
+    <ModuleFault_1762 Code="P1762" Description="Trans Mode Switch Signal Circuit, Rolling Count" FailureStatusMask="0x12"/>
     <ModuleFault_182E Code="P182E" Description="IMS Circuit A Low, Reported as IMS - Invalid Range" FailureStatusMask="0x16"/>
     <ModuleFault_1915 Code="P1915" Description="IMS Does Not Indicate Park/Neutral During Start" FailureStatusMask="0x16"/>
     <ModuleFault_2534 Code="P2534" Description="Ignition Switch Run / Start Position Circuit Low Voltage" FailureStatusMask="0x16"/>
-    <ModuleFault_2535 Code="P2535" Description="Ignition Switch Run / Start Position Circuit High Voltage" FailureStatusMask="0x12"/>
-    <ModuleFault_2537 Code="P2537" Description="Ignition Switch Accesory Position Circuit Low Voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_2535 Code="P2535" Description="Ignition Switch Run / Start Position Circuit High Voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_2537 Code="P2537" Description="Ignition Switch Accesory Position Circuit Low Voltage" FailureStatusMask="0x12"/>
     <ModuleFault_2714 Code="P2714" Description="RVT CB26 Stuck OFF (PC Solenoid D)" FailureStatusMask="0x16"/>
     <ModuleFault_2715 Code="P2715" Description="RVT CB26 Stuck ON (PC Solenoid D)" FailureStatusMask="0x16"/>
-    <ModuleFault_2719 Code="P2719" Description="VBS PC Solenoid D Control Circuit Rationality Test (C4 / CB26 / CLCH C)" FailureStatusMask="0x16"/>
+    <ModuleFault_2719 Code="P2719" Description="VBS PC Solenoid D Control Circuit Rationality Test (C4 / CB26 / CLCH C)" FailureStatusMask="0x12"/>
     <ModuleFault_2720 Code="P2720" Description="VBS PC Solenoid D Control Circuit Low Voltage (C4 / CB26 / CLCH C)" FailureStatusMask="0x16"/>
     <ModuleFault_2721 Code="P2721" Description="VBS PC Solenoid D Control Circuit High Voltage (C4 / CB26 / CLCH C)" FailureStatusMask="0x16"/>
-    <ModuleFault_2723 Code="P2723" Description="RVT C1234 Stuck OFF (PC Solenoid E)" FailureStatusMask="0x12"/>
+    <ModuleFault_2723 Code="P2723" Description="RVT C1234 Stuck OFF (PC Solenoid E)" FailureStatusMask="0x16"/>
     <ModuleFault_2724 Code="P2724" Description="RVT C1234 Stuck ON (PC Solenoid E)" FailureStatusMask="0x16"/>
-    <ModuleFault_2728 Code="P2728" Description="VBS PC Solenoid E Control Circuit Rationality Test (C1 / C1234 / CLCH D)" FailureStatusMask="0x16"/>
+    <ModuleFault_2728 Code="P2728" Description="VBS PC Solenoid E Control Circuit Rationality Test (C1 / C1234 / CLCH D)" FailureStatusMask="0x12"/>
     <ModuleFault_2729 Code="P2729" Description="VBS PC Solenoid E Control Circuit Low Voltage (C1 / C1234 / CLCH D)" FailureStatusMask="0x16"/>
     <ModuleFault_2730 Code="P2730" Description="VBS PC Solenoid E Control Circuit High Voltage (C1 / C1234 / CLCH D)" FailureStatusMask="0x16"/>
-    <ModuleFault_2762 Code="P2762" Description="VBS TCC PC Solenoid Control Circuit Rationality Test (CLCH E)" FailureStatusMask="0x16"/>
+    <ModuleFault_2762 Code="P2762" Description="VBS TCC PC Solenoid Control Circuit Rationality Test (CLCH E)" FailureStatusMask="0x12"/>
     <ModuleFault_2763 Code="P2763" Description="VBS TCC PC Solenoid Control Circuit High Voltage (CLCH E)" FailureStatusMask="0x16"/>
     <ModuleFault_2764 Code="P2764" Description="VBS TCC PC Solenoid Control Circuit Low Voltage (CLCH E)" FailureStatusMask="0x16"/>
     <ModuleFault_C073 Code="U0073" Description="CAN Bus Communication Error" FailureStatusMask="0x16"/>
     <ModuleFault_C100 Code="U0100" Description="Lost Communication with ECM" FailureStatusMask="0x16"/>
-    <ModuleFault_C121 Code="U0121" Description="Lost Communication with ABSCM" FailureStatusMask="0x16"/>
-    <ModuleFault_C140 Code="U0140" Description="Lost Communication with BCM" FailureStatusMask="0x16"/>
+    <ModuleFault_C121 Code="U0121" Description="Lost Communication with ABSCM" FailureStatusMask="0x12"/>
+    <ModuleFault_C140 Code="U0140" Description="Lost Communication with BCM" FailureStatusMask="0x12"/>
 </TransmisisonFaults>

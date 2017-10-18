@@ -725,8 +725,8 @@
                      <DataTag>VinStamperData</DataTag>
                      <PublishVinStamperData>Yes</PublishVinStamperData>
                      <ShortenDataToLength>No</ShortenDataToLength>
-                     <VINLength>9</VINLength>
-                     <VINPosition>1</VINPosition>
+                     <VINLength>8</VINLength>
+                     <VINPosition>2</VINPosition>
                   </Normal>
                </VinStamperModes>
             </Setup>

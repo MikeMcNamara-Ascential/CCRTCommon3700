@@ -161,7 +161,7 @@
          <RollsUpElevDown Comment="Must have retainers up to test anything">1</RollsUpElevDown>
          <StopCurrentTest>0</StopCurrentTest>
       </StatusCheckItems>
-      <FaultList>/Configuration/Components/Common/FaultList.xml</FaultList>
+      <FaultList>/Configuration/Components/Common/BrakeFaultList.xml</FaultList>
       <Name>Brake</Name>
       <Debug>Off</Debug>
       <ICMName>mgr/ICM</ICMName>

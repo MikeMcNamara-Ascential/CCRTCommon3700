@@ -22,7 +22,7 @@
             <Debug>Off</Debug>
         </Emissions>
         <Machine>
-            <ComponentName>MachineTC.qxe</ComponentName>
+            <ComponentName>IsuzuMachineTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
             <ConfigFile>MachineComponent.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
@@ -68,6 +68,14 @@
                 </Objective00>
             </ForegroundObjectives>
         </TestPhase001>
+
+        <TestPhase002 Description="Check Steering Wheel Angle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Check Steering Wheel Angle" Result="" Timeout="" Component="Machine">
+                    <ReportSteeringWheelAngle/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase002>
 
         <TestPhase006 Description="Prompt operator that modules are initializing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">

@@ -25,6 +25,7 @@ namespace FlashStationMainForm
         delegate void SetTCMResultBoxBGColorCallback(Color color);
         delegate void SetDCUResultBoxBGColorCallback(Color color);
         delegate void SetMimamoriResultBoxBGColorCallback(Color color);
+        delegate void SetBrakeApplySensorResultBoxBGColorCallback(Color color);
         delegate void SetVINTextCallback(string vin);
         delegate void SetModelCodeTextCallback(string modelCode);
         delegate void SetBookCodeTextCallback(string bookCode);
@@ -160,6 +161,15 @@ namespace FlashStationMainForm
                 this.Invoke(d, new object[] { color });
             }
             else m_mimaResultBox.BackColor = color;
+        }
+        public void SetBrakeApplySensorResultBoxBGColor(Color color)
+        {
+            if (this.m_brakeApplySensorResultBox.InvokeRequired)
+            {
+                SetBrakeApplySensorResultBoxBGColorCallback d = new SetBrakeApplySensorResultBoxBGColorCallback(SetBrakeApplySensorResultBoxBGColor);
+                this.Invoke(d, new object[] { color });
+            }
+            else m_brakeApplySensorResultBox.BackColor = color;
         }
 
         public void SetBarcodeText(string barcode)
@@ -423,6 +433,10 @@ namespace FlashStationMainForm
         {
             ChangeLED(valid, m_buildDataPB);
         }
+        public void ESNFault(bool faultActive)
+        {
+            ChangeLED(!faultActive, m_esnDataPB);
+        }
         private void ChangeLED(bool state, PictureBox box)
         {
             if (state)
@@ -502,6 +516,12 @@ namespace FlashStationMainForm
         {
             m_presenter.SetPerformMimamoriFlash(flashMimamoriToolStripMenuItem.Checked);
             m_mimaResultBox.Enabled = flashMimamoriToolStripMenuItem.Checked;
+        }
+
+        private void bASLearnToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            m_presenter.SetPerformBASLearn(bASLearnToolStripMenuItem.Checked);
+            m_brakeApplySensorResultBox.Enabled = bASLearnToolStripMenuItem.Checked;
         }
 
         private void m_basLearnPromptTimer_Tick(object sender, EventArgs e)

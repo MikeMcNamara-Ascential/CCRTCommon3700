@@ -101,7 +101,7 @@ namespace Common.Lib.Presenters
                     {//Abort, Terminate or Failure Occured
                         if ((MainFormModel.GetStatus() != Status.ABORT) &&
                             (MainFormModel.GetStatus() != Status.TERMINATE) &&
-                            (m_currentState == StateName.FLASH_ECUS))
+                            (m_currentState == StateName.FLASH_ECUS || m_currentState == StateName.BAS_LEARN))
                         {//flash programming failure - goto next state to report data
                             m_currentState++;
                         }
@@ -176,6 +176,7 @@ namespace Common.Lib.Presenters
                         MainFormView.SetTCMResultBoxBGColor(MainFormModel.GetTCMResultBGColor());
                         MainFormView.SetDCUResultBoxBGColor(MainFormModel.GetDCUResultBGColor());
                         MainFormView.SetMimamoriResultBoxBGColor(MainFormModel.GetMimamoriResultBGColor());
+                        MainFormView.SetBrakeApplySensorResultBoxBGColor(MainFormModel.GetBrakeApplySensorResultBGColor());
                         if (MainFormModel.GetDisplayDisconnectBatteryBox())
                         {
                             MainFormView.DisplayTimedDialogBox("Flash Retest Conducted", "Perform Battery Disconnect Procedure", "Ok", 10000);
@@ -189,6 +190,7 @@ namespace Common.Lib.Presenters
                         {
                             MainFormView.StopBASTimer();
                         }
+                        MainFormView.ESNFault(MainFormModel.HaveESNFault());
                     }
                     catch (ObjectDisposedException ex)
                     {//ignore form closing
@@ -347,6 +349,10 @@ namespace Common.Lib.Presenters
         public void SetPerformMimamoriFlash(bool perform)
         {
             MainFormModel.SetPerformMimamoriFlash(perform);
+        }
+        public void SetPerformBASLearn(bool perform)
+        {
+            MainFormModel.SetPerformBASLearn(perform);
         }
         public void IncrementBASTimerCount()
         {

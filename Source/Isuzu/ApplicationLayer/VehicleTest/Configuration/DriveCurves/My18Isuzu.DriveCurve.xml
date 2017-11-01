@@ -69,13 +69,21 @@
             </ForegroundObjectives>
         </TestPhase001>
 
-        <TestPhase002 Description="Check Steering Wheel Angle" Result="" Timeout="">
+         <TestPhase002 Description="Check BAS Learn Position" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective00 Description="Check BAS Learn Position" Result="" Timeout="" Component="Emissions">
+                    <CheckBASLearnComplete/>
+                </Objective00>
+            </ForegroundObjectives>
+        </TestPhase002>
+
+        <TestPhase003 Description="Check Steering Wheel Angle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Check Steering Wheel Angle" Result="" Timeout="" Component="Machine">
                     <ReportSteeringWheelAngle/>
                 </Objective0>
             </ForegroundObjectives>
-        </TestPhase002>
+        </TestPhase003>
 
         <TestPhase006 Description="Prompt operator that modules are initializing" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">

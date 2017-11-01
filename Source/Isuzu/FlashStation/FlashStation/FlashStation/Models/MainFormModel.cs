@@ -42,30 +42,15 @@ namespace Common.Lib.Models
 //TO DO     make ecu names configurable
             m_ecuNames.Add("ECM");
             m_ecuNames.Add("TCM");
-            if (!m_isFlashRequired)
-            {
-                m_ecuNames.Add("DCU");
-                m_ecuNames.Add("Mimamori");
-            }
+            
             m_terminateThreads = false;
             System.Windows.Forms.RichTextBox rtb = new System.Windows.Forms.RichTextBox();
             m_ecmLogger = new Logger(rtb, "ECMLog", m_logsDirectory);
             System.Windows.Forms.RichTextBox tcmRTB = new System.Windows.Forms.RichTextBox();
             m_tcmLogger = new Logger(tcmRTB, "TCMLog", m_logsDirectory);
-            if (!m_isFlashRequired)
-            {
-                System.Windows.Forms.RichTextBox dcuRTB = new System.Windows.Forms.RichTextBox();
-                m_ecmLogger = new Logger(dcuRTB, "DCULog", m_logsDirectory);
-                System.Windows.Forms.RichTextBox mimaRTB = new System.Windows.Forms.RichTextBox();
-                m_tcmLogger = new Logger(mimaRTB, "MimamoriLog", m_logsDirectory);
-            }
             m_performTCMFlash = true;
             m_performECMFlash = true;
-            if (!m_isFlashRequired)
-            {
-                m_performDCUFlash = true;
-                m_performMimamoriFlash = true;
-            }
+            m_performBASLearn = true;
             m_keyOffEngineOffWaitStart = false;
 
         }
@@ -96,6 +81,7 @@ namespace Common.Lib.Models
                         m_ecmResultColor = Color.White;
                         m_dcuResultColor = Color.White;
                         m_mimaResultColor = Color.White;
+                        m_brakeApplySensorResultColor = Color.White;
                         taskDelegate = new ThreadStart(WaitForUserInput);
                         break;
                     case StateName.OBTAIN_BUILD_DATA:
@@ -121,19 +107,35 @@ namespace Common.Lib.Models
                         SetPrompt2(prompt.REPORT_DATA2);
                         taskDelegate = new ThreadStart(ReportDataState);
                         break;
+                    case StateName.CHECK_BRAKE_PEDAL:
+                        //Check for broken brake switch
+                        SetPrompt1(prompt.APPLY_BRAKE);
+                        taskDelegate = new ThreadStart(BrakePedalCheck);
+                        break;
+                    case StateName.WAIT_FOR_KEY_OFF:
+                        SetPrompt1(prompt.KEY_OFF);
+                        taskDelegate = new ThreadStart(WaitForKeyOff);
+                        break;
+                    case StateName.WAIT_FOR_KEY_ON:
+                        SetPrompt1(prompt.KEY_ON);
+                        SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                        taskDelegate = new ThreadStart(WaitForKeyOn);
+                        break;
                     case StateName.CHECK_FOR_BAS_LEARN:
+                        //Check Initial BAS Learn position
                         taskDelegate = new ThreadStart(CheckBASHomePositionLearned);
                         break;
                     case StateName.BAS_LEARN:
-                        //if (!m_basHomePositionLearned)
-                        //{
-                            //SetPrompt1(prompt.BAS_RELEARN);
-                            taskDelegate = new ThreadStart(BASHomePositionRelearn);
-                        //}
+                        if (!m_basHomePositionLearned && m_performBASLearn)
+                        {
+                            SetPrompt1(prompt.BAS_RELEARN);                           
+                        }
+                        taskDelegate = new ThreadStart(BASHomePositionRelearn);
                         break;
                     case StateName.WAIT_FOR_CABLEDISCONNECT:
                         //Start Wait for cable connect thread
                         //prompt 1 will be set by report data
+                        m_logger.Log("Finished Flash Station Process, disconnect cable");
                         SetPrompt2(prompt.WAIT_FOR_CABLEDISCONNECT);
                         taskDelegate = new ThreadStart(WaitForCableDisconnect);
                         break;
@@ -484,14 +486,6 @@ namespace Common.Lib.Models
                         else if (ecuName == "Mimamori")
                         {
                             searchNode = buildFileECUName + "PartNo";
-                            /*ecuBuild.RequestID.Add(0x00);
-                            ecuBuild.RequestID.Add(0x00);
-                            ecuBuild.RequestID.Add(0x07);
-                            ecuBuild.RequestID.Add(0xe2);
-                            ecuBuild.ResponseID.Add(0x00);
-                            ecuBuild.ResponseID.Add(0x00);
-                            ecuBuild.ResponseID.Add(0x07);
-                            ecuBuild.ResponseID.Add(0xeA);*/
                             ecuBuild.PerformFlash = m_performMimamoriFlash;
                         }
                         else
@@ -510,7 +504,10 @@ namespace Common.Lib.Models
                         //get utility file pn
                         if (ecuName != "TCM" || m_isFlashRequired)
                         {
-                            searchNode = buildFileECUName + "PartNo";
+                            if(ecuName != "TCM")
+                                searchNode = buildFileECUName + "PartNo";
+                            else
+                                searchNode = buildFileECUName + "ASM" + "PartNo";
                             ecuBuild.PartNumber = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
                             searchNode = buildFileECUName + "UtilityFilePartNo";
                             XmlNodeList list = m_currentBuild.GetElementsByTagName(searchNode);
@@ -604,6 +601,22 @@ namespace Common.Lib.Models
                 GetStatus() != Status.ABORT)
                 SetStatus(Status.SUCCESS);
         }
+        public void BrakePedalCheck()
+        {
+            Prompt prompt = new Prompt();
+            while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            {
+                Thread.Sleep(250);
+            }
+            SetPrompt1(prompt.RELEASE_BRAKE);
+            while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            {
+                Thread.Sleep(250);
+            }
+            if (GetStatus() != Status.TERMINATE &&
+                GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS);
+        }
         public void WaitForBrakeApplied()
         {
             while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
@@ -670,6 +683,30 @@ namespace Common.Lib.Models
             message.m_messageFilter);
             return message;
         }
+        public CcrtJ2534Defs.ECUMessage CreateBASPositionMessage()
+        {   
+            CcrtJ2534Defs.ECUMessage message;
+            List<byte> txMessage = new List<byte>();
+            txMessage.Clear();
+            txMessage.Add(0x22);
+            txMessage.Add(0x20);
+            txMessage.Add(0xD2);
+            List<byte> requestID = new List<byte>();
+            List<byte> responseID = new List<byte>();
+            requestID.Add(0x00);
+            requestID.Add(0x00);
+            requestID.Add(0x07);
+            requestID.Add(0xe0);
+            responseID.Add(0x00);
+            responseID.Add(0x00);
+            responseID.Add(0x07);
+            responseID.Add(0xe8);
+            message = CreateECUMessage(txMessage, requestID, responseID);
+            message.m_txTimeout = 200;
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+            message.m_messageFilter);
+            return message;
+        }
         public CcrtJ2534Defs.ECUMessage CreateBASRelearnMessage()
         {
             CcrtJ2534Defs.ECUMessage message;
@@ -704,8 +741,8 @@ namespace Common.Lib.Models
             List<byte> txMessage = new List<byte>();
             txMessage.Clear();
             txMessage.Add(0x22);
-            txMessage.Add(0x20);
-            txMessage.Add(0xD4);
+            txMessage.Add(0x11);
+            txMessage.Add(0x24);
             List<byte> requestID = new List<byte>();
             List<byte> responseID = new List<byte>();
             requestID.Add(0x00);
@@ -731,12 +768,17 @@ namespace Common.Lib.Models
             List<byte> data = new List<byte>();
             m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, /*m_cableConnectMessage*/m_keyOnMessage, ref data);
             m_logger.Log("INFO:  IsKeyOn() Received: " + BitConverter.ToString(data.ToArray()));
-            if ((data[0] & 0xC0)== 0x80)
+            //m_logger.Log("INFO:  Data[0]: " + data[0].ToString());
+            //m_logger.Log("INFO:  Data[3]:: " + data[3].ToString());
+            //Check Engine on
+            if (data.Count > 3 && (data[3] & 0xC0) == 0xC0)
             {
+                //m_logger.Log("Reporting Key On");
                 return true;
             }
             else
             {
+                //m_logger.Log("Reporting Key Off");
                 return false;
             }
         }
@@ -744,16 +786,50 @@ namespace Common.Lib.Models
         {
             CcrtJ2534Defs.ECUMessage message = CreateBASLearnMessage();
             List<byte> data = new List<byte>();
+            bool moduleReportsLearnComplete = false;
+            bool modulePositionOK = false;
             m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
             m_logger.Log("INFO:  IsBASHomePositionLearned() Received: " + BitConverter.ToString(data.ToArray()));
-            if ((data[0] & 0x01) == 0x00)
+            if (data.Count > 0)
             {
-                return true;
+                if ((data[3] & 0x01) == 0x01)
+                {
+                    moduleReportsLearnComplete = true;
+                }
+                else
+                {
+                    moduleReportsLearnComplete = false;
+                }
             }
             else
             {
+                m_logger.Log("No Data Received for BAS Home position learned");
                 return false;
             }
+
+            m_logger.Log("INFO: Checking BAS Position");
+            message = CreateBASPositionMessage();
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
+            m_logger.Log("INFO:  GetBASHomePosition() Received: " + BitConverter.ToString(data.ToArray()));
+            if (data.Count > 0)
+            {
+                if ((data[3] & 0xFF) >= 0x33 && (data[3] & 0xFF) <= 0x4D)
+                {
+                    modulePositionOK = true;
+                }
+                else
+                {
+                    modulePositionOK = false;
+                }
+            }
+            else
+            {
+                m_logger.Log("No Data Received for BAS Home position value");
+                return false;
+            }
+            
+            return moduleReportsLearnComplete && modulePositionOK;
+
         }
         public bool IsBrakePedalApplied()
         {
@@ -761,7 +837,7 @@ namespace Common.Lib.Models
             List<byte> data = new List<byte>();
             m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
             m_logger.Log("INFO:  IsBrakePedalApplied() Received: " + BitConverter.ToString(data.ToArray()));
-            if ((data[0]) == 0x00)
+            if ((data[3] & 0x08) == 0x00)
             {
                 return false ;
             }
@@ -776,27 +852,42 @@ namespace Common.Lib.Models
             List<byte> data = new List<byte>();
             m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
             m_logger.Log("INFO:  IsBASLearnRequestSucessful() Received: " + BitConverter.ToString(data.ToArray()));
-            if ((data[0]) == 0x7F)
+            if (data.Count > 0)
             {
-                return false;
+                if ((data[0]) == 0x7F)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
-            {
-                return true;
-            }
+                return false;
         }
         public void CheckBASHomePositionLearned()
         {
-            if(m_isFlashRequired)
+            if (m_isFlashRequired && m_performBASLearn && !IsBrakePedalApplied())
+            {
+                //delay 800 ms for BAS Learn
+                Thread.Sleep(800);
                 m_basHomePositionLearned = IsBASHomePositionLearned();
-
+            }
+            else
+            {
+                m_logger.Log("Skipping BAS Learn Check");
+                if(IsBrakePedalApplied())
+                    m_basHomePositionLearned = false;
+            }
             SetStatus(Status.SUCCESS);
         }
         public void BASHomePositionRelearn()
         {
-            if (m_isFlashRequired)
+            Prompt prompt = new Prompt();
+            Int32 brakeReleasedCounter = 0;
+            if (m_isFlashRequired && !m_basHomePositionLearned && m_performBASLearn)
             {
-                Prompt prompt = new Prompt();
                 m_logger.Log("Sending CPID Request for BAS relearn\n");
                 //Send CPID
                 if (IsBASLearnRequestSuccessful())
@@ -804,28 +895,49 @@ namespace Common.Lib.Models
                     m_logger.Log("BAS relearn request successful, starting relearn process\n");
                     //IGN off for 2 minutes
                     SetPrompt2(prompt.KEY_OFF);
-                    WaitForKeyOff();
+                    //WaitForKeyOff();
+                    while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    {
+                        Thread.Sleep(500);
+                    }
                     SetPrompt2(prompt.FOOT_OFF_BRAKE);
-                    m_keyOffEngineOffWaitStart = true;
+                    //m_keyOffEngineOffWaitStart = true;
                     m_logger.Log("Ignition off, starting 2 minute wait\n");
-                    while (m_brakeReleasedCounter <= 120)
+                    while (brakeReleasedCounter <= 325 && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
                     {
                         m_brakeReleased = !IsBrakePedalApplied();
                         if (!m_brakeReleased)
+                        {
                             m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
-                        Thread.Sleep(100);
+                            brakeReleasedCounter = 0;
+                        }
+                        Thread.Sleep(50);
+                        brakeReleasedCounter++;
+                        m_logger.Log("INCREMENT BRAKE COUNTER");
                     }
-                    m_keyOffEngineOffWaitStart = false;
+                    //m_keyOffEngineOffWaitStart = false;
                     m_logger.Log("Finished 2 minute wait\n");
                     //IGN on
                     SetPrompt2(prompt.KEY_ON);
-                    WaitForKeyOn();
+                    //WaitForKeyOn(); Can't be used because sets status to success, then state machine moves on to next state
+                    while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    {
+                        Thread.Sleep(500);
+                    }
                     m_logger.Log("Ignition on, starting brake pedal sequence\n");
                     //Depress brake
                     SetPrompt2(prompt.APPLY_BRAKE);
-                    WaitForBrakeApplied();
+                    //WaitForBrakeApplied();
+                    while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    {
+                        Thread.Sleep(500);
+                    }
                     SetPrompt2(prompt.RELEASE_BRAKE);
-                    WaitForBrakeReleased();
+                    //WaitForBrakeReleased();
+                    while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    {
+                        Thread.Sleep(500);
+                    }
                     SetPrompt2(prompt.FOOT_OFF_BRAKE);
                     //Wait 10 seconds
                     m_logger.Log("Starting 10 second wait\n");
@@ -833,37 +945,87 @@ namespace Common.Lib.Models
                     m_logger.Log("End 10 second wait\n");
                     //Depress brake
                     SetPrompt2(prompt.APPLY_BRAKE);
-                    WaitForBrakeApplied();
+                    //WaitForBrakeApplied();
+                    while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    {
+                        Thread.Sleep(500);
+                    }
                     SetPrompt2(prompt.RELEASE_BRAKE);
-                    WaitForBrakeReleased();
+                    //WaitForBrakeReleased();
+                    while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    {
+                        Thread.Sleep(500);
+                    }
                     m_logger.Log("End brake pedal sequence\n");
                     //IGN off for 2 minutes
                     SetPrompt2(prompt.KEY_OFF);
-                    WaitForKeyOff();
+                    //WaitForKeyOff();
+                    while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    {
+                        Thread.Sleep(500);
+                    }
                     SetPrompt2(prompt.FOOT_OFF_BRAKE);
                     m_keyOffEngineOffWaitStart = true;
+                    brakeReleasedCounter = 0;
                     m_logger.Log("Ignition off, starting 2 minute wait\n");
-                    while (m_brakeReleasedCounter <= 120)
+                    while (brakeReleasedCounter <= 325 && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
                     {
                         m_brakeReleased = !IsBrakePedalApplied();
                         if (!m_brakeReleased)
+                        {
                             m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
-                        Thread.Sleep(100);
+                            brakeReleasedCounter = 0;
+                        }
+                        Thread.Sleep(50);
+                        brakeReleasedCounter++;
                     }
                     m_keyOffEngineOffWaitStart = false;
                     m_logger.Log("Finished 2 minute wait\n");
-                    SetStatus(Status.SUCCESS);
+                    if (IsBASHomePositionLearned())
+                    {
+                        SetStatus(Status.SUCCESS);
+                        m_brakeRelearnPassed = true;
+                        m_brakeApplySensorResultColor = Color.Green;
+                        SetPrompt1(prompt.BAS_PASS);
+                    }
+                    else
+                    {
+                        m_logger.Log("BAS Relearn not successful\n");
+                        SetStatus(Status.FAILURE);
+                        m_brakeRelearnPassed = false;
+                        m_brakeApplySensorResultColor = Color.Red;
+                        SetPrompt1(prompt.BAS_FAILURE);
+                    }
                 }
                 else
                 {
                     m_logger.Log("CPID request for BAS Relearn not successful\n");
                     SetStatus(Status.FAILURE);
+                    m_brakeRelearnPassed = false;
+                    m_brakeApplySensorResultColor = Color.Red;
+                    SetPrompt1(prompt.BAS_FAILURE);
                 }
+                SetPrompt1BGColor(m_brakeApplySensorResultColor);
                 m_logger.Log("Exit BAS Relearn Function\n");
             }
             else
-              SetStatus(Status.SUCCESS);
+            {
+                if (m_basHomePositionLearned)
+                {
+                    m_logger.Log("Skipping BAS ReLearn because Inital Learn Passed");
+                    m_brakeApplySensorResultColor = Color.Green;
+                    SetPrompt1(prompt.BAS_PASS);
+                    m_brakeRelearnPassed = true;
+                }
+                else
+                {
+                    m_logger.Log("Skipping BAS ReLearn");
+                    m_brakeRelearnPassed = false;
+                }
+                SetStatus(Status.SUCCESS);
+            }
         }
+       
         public void FlashECUs()
         {
             //Repeatability Test
@@ -952,63 +1114,18 @@ namespace Common.Lib.Models
                             }
                         }
                         m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
-                        /*if (m_performDCUFlash)
-                        {
-                            //for each dcu start a utility file interpreter thread
-                            ThreadStart taskDelegate2 = null;
-                            taskDelegate2 = new ThreadStart(SequenceDCUInterpreter);
-                            Thread taskThread = new Thread(taskDelegate2);
-                            taskThread.Start();
-
-
-                            //while not complete....
-                            while (!m_dcuThreadComplete && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
-                            {
-                                Thread.Sleep(1000);
-                            }
-
-                            if (m_buildData[2].ProgrammingSuccess)
-                            {
-                                m_dcuResultColor = Color.Green;
-                            }
-                            else
-                            {
-                                m_dcuResultColor = Color.Red;
-                            }
-                        }
-                        m_vehicleCommInterface.ClearResponseBuffer(m_deviceName, m_channelName);
-                        if (m_performMimamoriFlash)
-                        {
-                            ThreadStart taskDelegate3 = null;
-                            taskDelegate3 = new ThreadStart(SequenceMimaInterpreter);
-                            Thread taskThread1 = new Thread(taskDelegate3);
-                            taskThread1.Start();
-                            //while not complete....
-                            while (!m_tcmThreadComplete && GetStatus() == Status.IN_PROGRESS && !m_terminateThreads)
-                            {
-                                Thread.Sleep(1000);
-                            }
-                            if (m_buildData[3].ProgrammingSuccess)
-                            {
-                                m_mimaResultColor = Color.Green;
-                            }
-                            else
-                            {
-                                m_mimaResultColor = Color.Red;
-                            }
-                        }*/
-
                     }
                     //stop tester present
                     m_stopTesterPresentThread = true;
                     m_stopProgressBarThread = true;
                     //return ecu to normal mode
                     PostUtilityFileProcess();
+                    m_logger.Log("Finished PostUtilityFileProcess");
                     m_tcmInterpreter = null;
                     m_ecmInterpreter = null;
                     m_dcuInterpreter = null;
                     m_mimaInterpreter = null;
-                    if (m_buildData[0].ProgrammingSuccess && m_buildData[1].ProgrammingSuccess && m_buildData[2].ProgrammingSuccess && m_buildData[3].ProgrammingSuccess)
+                    if (m_buildData[0].ProgrammingSuccess && m_buildData[1].ProgrammingSuccess)
                     {//break out of retry for loop
                         break;
                     }
@@ -1166,6 +1283,11 @@ namespace Common.Lib.Models
             txMessage.Add(0x10);
             txMessage.Add(0x02);    
             SendMessage(txMessage, false);
+            m_logger.Log("INFO:  Sending Message Read MEC Counter");
+            txMessage.Clear();
+            txMessage.Add(0x1A);
+            txMessage.Add(0xA0);
+            SendMessage(txMessage, false);
             txMessage.Clear();
             txMessage.Add(0xFE);
             txMessage.Add(0x10);
@@ -1231,7 +1353,7 @@ namespace Common.Lib.Models
             List<byte> txMessage = new List<byte>();
             int retries = 25;
             Status status = Status.ERROR;
-            if (m_performECMFlash || m_performTCMFlash || m_performDCUFlash)
+            if (m_performECMFlash || m_performTCMFlash)
             {
                 //Write VIN
                 txMessage.Add(0x3B);
@@ -1316,11 +1438,11 @@ namespace Common.Lib.Models
                 txMessage.Clear();
                 txMessage.Add(0x20);
                 status = Status.ERROR;
-                for (int x = 0; x < retries && status != Status.SUCCESS; x++)
-                {
+                /*for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                {*/
                     status = SendMessage(txMessage, true);
                     Thread.Sleep(250);
-                }
+                //}
 
                 txMessage.Clear();
 
@@ -1329,11 +1451,11 @@ namespace Common.Lib.Models
                 txMessage.Clear();
                 txMessage.Add(0x20);
                 status = Status.ERROR;
-                for (int x = 0; x < retries && status != Status.SUCCESS; x++)
-                {
+                /*for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                {*/
                     status = SendMessage(txMessage, true);
                     Thread.Sleep(250);
-                }
+                //}
                 //all nodes clear faults
                 m_logger.Log("INFO:  Sending Message Clear faults");
                 txMessage.Clear();
@@ -1345,7 +1467,11 @@ namespace Common.Lib.Models
                 message.m_rxTimeout = 100;
                 List<List<byte>> datalist = new List<List<byte>>();
                 m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref datalist, true);
+                m_logger.Log("Finished Clear Faults Message");
+                Thread.Sleep(100);
             }
+            m_logger.Log("exiting Post Utility File Process");
+            Thread.Sleep(100);
         }
         public void ProgramVINAndESN()
         {
@@ -1858,6 +1984,7 @@ namespace Common.Lib.Models
                             System.IO.StreamReader myFile =
                             new System.IO.StreamReader(fi.FullName);
                             esn = myFile.ReadLine();
+                            SetESNFault(m_esnFileChangeMonitor.m_esnFault);
                         }
                         if (esn.Length == m_defaultESNLength)
                         {
@@ -1876,6 +2003,8 @@ namespace Common.Lib.Models
                     m_logger.Log("ERROR:  File name length error");
                 }
             }
+            SetESNFault(m_esnFileChangeMonitor.m_esnFault);
+
             return esn;
         }
         public Status SendAllNodesMessage(List<byte> txMessage, bool responseExpected)
@@ -2236,166 +2365,6 @@ namespace Common.Lib.Models
             }
             m_tcmThreadComplete = true;
         }
-        /*public void OpenDCUInterpreter()
-        {
-            List<string> calFileNames = new List<string>();
-            List<string> vit2Data = new List<string>();
-
-            //populate list of cal filenames
-            foreach (string pn in m_buildData[2].SoftwareModulePartNumbers)
-            {
-                if (pn.Substring(0, 1) == "8")
-                {
-                    calFileNames.Add(m_flashFileDirectory + pn.Substring(FILE_NAME_PN_START_INDEX, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT) + ".pti");
-                    vit2Data.Add(pn.Substring(FILE_NAME_PN_START_INDEX, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT));
-                }
-                else
-                {
-                    calFileNames.Add(m_flashFileDirectory + pn.Substring(0, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE) + ".pti");
-                    //ends with "z0"
-                    vit2Data.Add(pn.Substring(0, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE - 2));
-                }
-            }
-            //end order change
-            vit2Data.Add(m_buildData[2].VIN);
-            m_dcuInterpreter = new Interpreter(m_vehicleCommInterface, ref calFileNames, m_buildData[2].ECUName, vit2Data, m_dcuLogger, m_deviceName, m_channelName);
-            m_dcuInterpreter.SetRequestResponseIDPair(0x024B, 0x064B);
-            //parse utilityFile's Name
-            m_dcuInterpreter.m_headerOffset = 0x64;
-            m_dcuInterpreter.openUtilityFile(m_flashFileDirectory + m_buildData[0].UtilityFilePartNumber.Substring(FILE_NAME_PN_START_INDEX, UTILITY_FILE_NAME_LENGTH) + ".pti");
-            m_dcuInterpreter.m_opCodeHandler.m_header = m_ecmInterpreter.m_header;
-            m_dcuDataSizeAdjusted = m_ecmInterpreter.GetDataSize();
-            //subtract out data that will not be typically downloaded
-            m_dcuDataSizeAdjusted -= m_ecmInterpreter.m_calibrationModules[0].Count();
-            m_dcuDataSizeAdjusted -= m_ecmInterpreter.m_calibrationModules[6].Count();
-            m_dcuDataSizeAdjusted -= m_ecmInterpreter.m_calibrationModules[7].Count();
-            if (m_performDCUFlash) m_progressBarRangeMax += m_dcuDataSizeAdjusted;
-        }
-        public void SequenceDCUInterpreter()
-        {
-            byte gotoByte = 0x01;
-
-            m_logger.Log("INFO:  Starting " + m_buildData[2].ECUName + " Flash Process");
-            m_buildData[2].ProgrammingSuccess = true;
-            //while not terminated and not failure goto sequence interpreter
-            while ((GetStatus() == Status.IN_PROGRESS) && (gotoByte != 0xFF) && !m_terminateThreads && m_buildData[2].ProgrammingSuccess)
-            {
-                m_logger.Log("INFO:  Processing " + m_buildData[2].ECUName + " Interpreter Instruction: 0x" + Convert.ToString(gotoByte, 16));
-                if (gotoByte <= m_dcuInterpreter.m_interpreterInstructions.Count && gotoByte > 0)
-                {
-                    if (gotoByte == 0x02)
-                    {//begining of sequence reset bytes transmitted
-                        m_dcuInterpreter.m_opCodeHandler.m_bytesTransmitted = 0;
-                    }
-                    if (m_dcuInterpreter.m_interpreterInstructions[gotoByte - 1].opCode == (byte)OpCodeHandler.GMLANOpCodes.BLOCK_TRANSFER_TO_RAM ||
-                        m_dcuInterpreter.m_interpreterInstructions[gotoByte - 1].opCode == (byte)OpCodeHandler.GMLANOpCodes.REQUEST_DOWNLOAD)
-                    {
-                        if (m_debugMode)
-                        {
-                            System.Windows.Forms.MessageBox.Show("Waiting For Continue Confirmation", "Debug Mode Enabled",
-                            System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Hand);
-                        }
-                    }
-                    gotoByte = m_dcuInterpreter.m_opCodeHandler.ProcessGMLANOpCode(m_dcuInterpreter.m_interpreterInstructions[gotoByte - 1]);
-                    if (!m_dcuInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_result)
-                    {
-                        m_resultText = m_dcuInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_prompt;
-                        SetPrompt1(m_resultText);
-                        //SetStatus(Status.FAILURE);
-                        m_buildData[2].ProgrammingSuccess = false;
-                        m_logger.Log("Failure:  " + m_resultText);
-                    }
-                    m_buildData[2].ProgrammingSuccess = m_dcuInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_result;
-                }
-                else
-                {
-                    m_resultText = "Failure: GOTO Byte Specified Out of range";
-                    SetPrompt1(m_resultText);
-                    //SetStatus(Status.FAILURE);
-                    m_logger.Log("Failure:  " + m_resultText);
-                }
-
-            }
-            m_dcuThreadComplete = true;
-        }
-        public void OpenMimaInterpreter()
-        {
-            List<string> calFileNames = new List<string>();
-            List<string> vit2Data = new List<string>();
-
-            //populate list of cal filenames
-            foreach (string pn in m_buildData[3].SoftwareModulePartNumbers)
-            {
-                if (pn.Substring(0, 1) == "8")
-                {
-                    calFileNames.Add(m_flashFileDirectory + pn.Substring(FILE_NAME_PN_START_INDEX, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT) + ".pti");
-                    vit2Data.Add(pn.Substring(FILE_NAME_PN_START_INDEX, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_EIGHT));
-                }
-                else
-                {
-                    calFileNames.Add(m_flashFileDirectory + pn.Substring(0, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE) + ".pti");
-                    //ends with "z0"
-                    vit2Data.Add(pn.Substring(0, CAL_FILE_NAME_LENGTH_BEGINNING_WITH_ONE - 2));
-                }
-            }
-            //end order change
-            vit2Data.Add(m_buildData[3].VIN);
-            m_mimaInterpreter = new Interpreter(m_vehicleCommInterface, ref calFileNames, m_buildData[3].ECUName, vit2Data, m_mimaLogger, m_deviceName, m_channelName);
-            m_mimaInterpreter.SetRequestResponseIDPair(0x07E2, 0x07EA);
-            //parse utilityFile's Name
-            m_mimaInterpreter.m_headerOffset = 0x64;
-            m_mimaInterpreter.openUtilityFile(m_flashFileDirectory + m_buildData[3].UtilityFilePartNumber.Substring(FILE_NAME_PN_START_INDEX, UTILITY_FILE_NAME_LENGTH) + ".pti");
-            m_mimaInterpreter.m_opCodeHandler.m_header = m_mimaInterpreter.m_header;
-            m_mimaDataSizeAdjusted = m_mimaInterpreter.GetDataSize();
-            //subtract out data that will not be typically downloaded
-            m_mimaDataSizeAdjusted -= m_mimaInterpreter.m_calibrationModules[3].Count();
-            if (m_performMimamoriFlash) m_progressBarRangeMax += m_mimaDataSizeAdjusted;
-        }
-        public void SequenceMimaInterpreter()
-        {
-            byte gotoByte = 0x01;
-            m_logger.Log("INFO:  Starting " + m_buildData[3].ECUName + " Flash Process");
-            m_buildData[3].ProgrammingSuccess = true;
-            //while not terminated and not failure goto sequence interpreter
-            while ((GetStatus() == Status.IN_PROGRESS) && (gotoByte != 0xFF) && !m_terminateThreads && m_buildData[3].ProgrammingSuccess)
-            {
-                m_logger.Log("INFO:  Processing " + m_buildData[3].ECUName + " Interpreter Instruction: 0x" + Convert.ToString(gotoByte, 16));
-                if (gotoByte <= m_mimaInterpreter.m_interpreterInstructions.Count && gotoByte > 0)
-                {
-                    if (gotoByte == 0x02)
-                    {//begining of sequence reset bytes transmitted
-                        m_mimaInterpreter.m_opCodeHandler.m_bytesTransmitted = 0;
-                    }
-                    if (m_mimaInterpreter.m_interpreterInstructions[gotoByte - 1].opCode == (byte)OpCodeHandler.GMLANOpCodes.BLOCK_TRANSFER_TO_RAM ||
-                        m_mimaInterpreter.m_interpreterInstructions[gotoByte - 1].opCode == (byte)OpCodeHandler.GMLANOpCodes.REQUEST_DOWNLOAD)
-                    {
-                        if (m_debugMode)
-                        {
-                            System.Windows.Forms.MessageBox.Show("Waiting For Continue Confirmation", "Debug Mode Enabled",
-                            System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Hand);
-                        }
-                    }
-                    gotoByte = m_mimaInterpreter.m_opCodeHandler.ProcessGMLANOpCode(m_mimaInterpreter.m_interpreterInstructions[gotoByte - 1]);
-                    if (!m_mimaInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_result)
-                    {
-                        m_resultText = m_mimaInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_prompt;
-                        SetPrompt1(m_resultText);
-                        //SetStatus(Status.FAILURE);
-                        m_logger.Log("Failure:  " + m_resultText);
-                    }
-                    m_buildData[3].ProgrammingSuccess = m_mimaInterpreter.m_opCodeHandler.m_currentOpCodeResult.m_result;
-                }
-                else
-                {
-                    m_resultText = "Failure: GOTO Byte Specified Out of range";
-                    SetPrompt1(m_resultText);
-                    //SetStatus(Status.FAILURE);
-                    m_buildData[3].ProgrammingSuccess = false;
-                    m_logger.Log("Failure:  " + m_resultText);
-                }
-            }
-            m_mimaThreadComplete = true;
-        }*/
         public void ProgressUpdateThread()
         {
             while ((GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && !m_stopProgressBarThread)
@@ -2471,7 +2440,11 @@ namespace Common.Lib.Models
 
         public void ReportDataState()
         {
+            m_logger.Log("Reporting Flash Results");
+            Thread.Sleep(100);
             ReportData();
+            m_logger.Log("Flash Results reported");
+            Thread.Sleep(100);
             if (GetStatus() != Status.TERMINATE &&
             GetStatus() != Status.ABORT) SetStatus(Status.SUCCESS);
         }
@@ -2546,7 +2519,14 @@ namespace Common.Lib.Models
                         m_logger.Log("INFO:  Reporting Pass");
                         resultNode.InnerText = "Pass";
                         //write file to shared folder
-                        WritePassIndicationFile("PASS");
+                        try
+                        {
+                            WritePassIndicationFile("PASS");
+                        }
+                        catch(Exception e)
+                        {
+                            m_logger.Log("Could not report data because of exception:" + e.ToString());
+                        }
                     }
                 }
                 if (GetStatus() == Status.ABORT)
@@ -2685,6 +2665,10 @@ namespace Common.Lib.Models
         {
             return m_buildDataValid;
         }
+        public bool HaveESNFault()
+        {
+            return m_esnFault;
+        }
         public List<string> GetAvailableJ2534Devices()
         {
             return m_vehicleCommInterface.GetJ2534DeviceNames();
@@ -2720,6 +2704,10 @@ namespace Common.Lib.Models
         public void SetChannelName(string channelName)
         {//to do add to local database
             m_channelName = channelName;
+        }
+        public void SetESNFault(bool faulted)
+        {
+            m_esnFault = faulted;
         }
         public void OpenVehicleCommSettings()
         {
@@ -2788,6 +2776,10 @@ namespace Common.Lib.Models
         {
             return m_mimaResultColor;
         }
+        public Color GetBrakeApplySensorResultBGColor()
+        {
+            return m_brakeApplySensorResultColor;
+        }
         public void SetPerformECMFlash(bool perform)
         {
             m_performECMFlash = perform;
@@ -2822,6 +2814,10 @@ namespace Common.Lib.Models
                 m_buildData[3].PerformFlash = perform;
             }
         }
+        public void SetPerformBASLearn(bool perform)
+        {
+            m_performBASLearn = perform;
+        }
         public void SetDisplayDisconnectBatteryBox(bool display)
         {
             m_displayDisconnectBatteryBox = display;
@@ -2833,6 +2829,17 @@ namespace Common.Lib.Models
         public void SetFlashRequired(bool flashRequired)
         {
             m_isFlashRequired =  flashRequired;
+            if (!m_isFlashRequired)
+            {
+                m_ecuNames.Add("DCU");
+                m_ecuNames.Add("Mimamori");
+                System.Windows.Forms.RichTextBox dcuRTB = new System.Windows.Forms.RichTextBox();
+                m_ecmLogger = new Logger(dcuRTB, "DCULog", m_logsDirectory);
+                System.Windows.Forms.RichTextBox mimaRTB = new System.Windows.Forms.RichTextBox();
+                m_tcmLogger = new Logger(mimaRTB, "MimamoriLog", m_logsDirectory);
+                m_performDCUFlash = true;
+                m_performMimamoriFlash = true;
+            }
         }
         public void SetDefaultESNLength(int length)
         {
@@ -2889,6 +2896,11 @@ namespace Common.Lib.Models
         private Color m_mimaResultColor;
 
         /// <summary>
+        /// Color to set tcm result box
+        /// </summary>
+        private Color m_brakeApplySensorResultColor;
+
+        /// <summary>
         /// Current scanned barcode
         /// </summary>
         private string m_barcode;
@@ -2929,6 +2941,11 @@ namespace Common.Lib.Models
         private bool m_buildDataValid;
 
         /// <summary>
+        /// flag indicating status of ESN Data transfer
+        /// </summary>
+        private bool m_esnFault;
+
+        /// <summary>
         /// Current flash step running ie connect cable
         /// </summary>
         private StateName m_currentState;
@@ -2954,6 +2971,11 @@ namespace Common.Lib.Models
         /// Main Flash station Logger
         /// </summary>
         public Logger m_logger;
+
+        /// <summary>
+        /// Count of the number of seconds the brake pedal is not applied
+        /// </summary>
+        public bool m_brakeRelearnPassed;
 
         /// <summary>
         /// Count of the number of seconds the brake pedal is not applied
@@ -3194,6 +3216,11 @@ namespace Common.Lib.Models
         /// boolean option to perform Mimamori Flash Process.
         /// </summary>
         private bool m_performMimamoriFlash;
+
+        /// <summary>
+        /// boolean option to perform BAS Relearn Process.
+        /// </summary>
+        private bool m_performBASLearn;
         
         
         /// <summary>
@@ -3220,9 +3247,16 @@ namespace Common.Lib.Models
         private string m_logsDirectory = @"C:\\FlashStation\\Logs\\";
         private string m_passIndicationLocalDirectory = @"C:\\FlashStation\\TransferFiles\\";
 
+        //Plant 12 info
+        //private string m_userLogin = "burke";
+        //private string m_password = "porter";
+        //private string m_ftpServerIp = "172.16.253.1";
+        //Plant 5 info
+        //private string m_userLogin = "ccrtfp";
+        //private string m_password = "ccrtfp";
         private string m_userLogin = "burke";
         private string m_password = "porter";
-        private string m_ftpServerIp = "172.16.253.1";
+        private string m_ftpServerIp = "192.168.1.3";
 
         private string m_remoteBuildFileLocation = "/TestResults/ftpOutbox/BuildRecords/";
         private string m_remoteESNLocation = "/TestResults/ftpOutbox/ESN/";

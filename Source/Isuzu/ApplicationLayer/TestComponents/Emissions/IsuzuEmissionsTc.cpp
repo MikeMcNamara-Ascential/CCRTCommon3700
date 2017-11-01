@@ -3115,9 +3115,9 @@ string IsuzuEmissionsTc<ModuleType>::CheckBASLearnComplete(void)
             status = m_vehicleModule.ReadModuleData("ReadBASPosition", basPosition);
             if(status == BEP_STATUS_SUCCESS)
             {
-                testResult = (basLearned && basPosition == 0.0) ? testPass : testFail;
-                testResultCode = (basLearned && basPosition == 0.0) ? "0000": GetFaultCode("BASPositionIncorrect");
-                testDescription = (basLearned && basPosition == 0.0) ? testDescription : GetFaultDescription("BASPositionIncorrect");
+                testResult = (basLearned && (basPosition >= 20) && (basPosition <= 30)) ? testPass : testFail;
+                testResultCode = (basLearned && (basPosition >= 20) && (basPosition <= 30)) ? "0000": GetFaultCode("BASPositionIncorrect");
+                testDescription = (basLearned && (basPosition >= 20) && (basPosition <= 30)) ? testDescription : GetFaultDescription("BASPositionIncorrect");
             }
             else
             {
@@ -3154,6 +3154,8 @@ string IsuzuEmissionsTc<ModuleType>::AdjustCruiseMass(void)
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::AdjustCruiseMass - Enter\n");
+
     if(!ShortCircuitTestStep())
     {
         // Command the module to change the mass coefficient
@@ -3166,6 +3168,11 @@ string IsuzuEmissionsTc<ModuleType>::AdjustCruiseMass(void)
         testResult = testSkip;
         Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
     }
+
+
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::AdjustCruiseMass - Exit\n");
+    return testResult;
+
 }
 //-----------------------------------------------------------------------------
 template <class ModuleType>

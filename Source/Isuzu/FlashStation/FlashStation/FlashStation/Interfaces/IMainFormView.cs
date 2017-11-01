@@ -15,8 +15,10 @@ namespace Common.Lib.Interfaces
         void SetTCMResultBoxBGColor(System.Drawing.Color color);
         void SetDCUResultBoxBGColor(System.Drawing.Color color);
         void SetMimamoriResultBoxBGColor(System.Drawing.Color color);
+        void SetBrakeApplySensorResultBoxBGColor(System.Drawing.Color color); 
         void CableConnected(bool connected);
         void BuildDataValid(bool valid);
+        void ESNFault(bool faultActive);
         void SetBarcodeText(string text);
         void ClearBuildData();
         void ClearLogDisplay();

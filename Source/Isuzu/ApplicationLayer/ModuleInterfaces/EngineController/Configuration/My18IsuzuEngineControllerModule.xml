@@ -612,7 +612,7 @@
             </StartCaseLearn>
 
             <AdjustCruiseMass>
-                <TransmitMessage>RunCpid</TransmitMessage>
+                <TransmitMessage>SetDVTMass</TransmitMessage>
                 <TransmitInterpretation>SetDVTMass</TransmitInterpretation>
                 <ReplyMessage>RunCpidResponse</ReplyMessage>
                 <ReplyInterpretation/>
@@ -677,6 +677,7 @@
             <ReadEngineDid>0x09,0x??</ReadEngineDid>
             <ReadPid>0x22,0x??,0x??</ReadPid>
             <RunCpid>0xAE,0x10,0x??,0x??,0x??,0x??,0x??</RunCpid>
+			<SetDVTMass>0xAE,0x5A,0x??,0x??,0x??,0x??,0x??</SetDVTMass>
             <TesterPresent>0x3E</TesterPresent>
             <WriteDid>0x3B,0x??,0x??</WriteDid>
             <ClearFaults>0x04</ClearFaults>

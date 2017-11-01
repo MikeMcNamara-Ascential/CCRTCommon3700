@@ -48,6 +48,7 @@
             this.flashTCMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flashDCUToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flashMimamoriToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bASLearnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_vinLabel = new System.Windows.Forms.Label();
             this.m_vinTitleLabel = new System.Windows.Forms.Label();
             this.m_buildInfoGroupBox = new System.Windows.Forms.GroupBox();
@@ -67,6 +68,7 @@
             this.m_modelYearLabel = new System.Windows.Forms.Label();
             this.m_lotNumberLabel = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.m_brakeApplySensorResultBox = new System.Windows.Forms.Label();
             this.m_mimaResultBox = new System.Windows.Forms.Label();
             this.m_dcuResultBox = new System.Windows.Forms.Label();
             this.m_tcmResultBox = new System.Windows.Forms.Label();
@@ -75,6 +77,8 @@
             this.m_cableConnectPB = new System.Windows.Forms.PictureBox();
             this.m_buildDataPB = new System.Windows.Forms.PictureBox();
             this.m_basLearnPromptTimer = new System.Windows.Forms.Timer(this.components);
+            this.m_esnDataPB = new System.Windows.Forms.PictureBox();
+            this.m_esnDataLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.m_buildInfoGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -83,6 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_cableConnectPB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_buildDataPB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_esnDataPB)).BeginInit();
             this.SuspendLayout();
             // 
             // m_promptBox1
@@ -193,7 +198,8 @@
             this.flashECMToolStripMenuItem,
             this.flashTCMToolStripMenuItem,
             this.flashDCUToolStripMenuItem,
-            this.flashMimamoriToolStripMenuItem});
+            this.flashMimamoriToolStripMenuItem,
+            this.bASLearnToolStripMenuItem});
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
             this.configurationToolStripMenuItem.Size = new System.Drawing.Size(112, 24);
             this.configurationToolStripMenuItem.Text = "&Configuration";
@@ -224,7 +230,9 @@
             // 
             // flashTCMToolStripMenuItem
             // 
+            this.flashTCMToolStripMenuItem.Checked = true;
             this.flashTCMToolStripMenuItem.CheckOnClick = true;
+            this.flashTCMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashTCMToolStripMenuItem.Name = "flashTCMToolStripMenuItem";
             this.flashTCMToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
             this.flashTCMToolStripMenuItem.Text = "Flash TCM";
@@ -232,23 +240,31 @@
             // 
             // flashDCUToolStripMenuItem
             // 
-            this.flashDCUToolStripMenuItem.Checked = true;
             this.flashDCUToolStripMenuItem.CheckOnClick = true;
-            this.flashDCUToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashDCUToolStripMenuItem.Name = "flashDCUToolStripMenuItem";
             this.flashDCUToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
             this.flashDCUToolStripMenuItem.Text = "Flash DCU";
+            this.flashDCUToolStripMenuItem.Visible = false;
             this.flashDCUToolStripMenuItem.Click += new System.EventHandler(this.flashDCUToolStripMenuItem_Click);
             // 
             // flashMimamoriToolStripMenuItem
             // 
-            this.flashMimamoriToolStripMenuItem.Checked = true;
             this.flashMimamoriToolStripMenuItem.CheckOnClick = true;
-            this.flashMimamoriToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashMimamoriToolStripMenuItem.Name = "flashMimamoriToolStripMenuItem";
             this.flashMimamoriToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
             this.flashMimamoriToolStripMenuItem.Text = "Flash Mimamori";
+            this.flashMimamoriToolStripMenuItem.Visible = false;
             this.flashMimamoriToolStripMenuItem.Click += new System.EventHandler(this.flashMimamoriToolStripMenuItem_Click);
+            // 
+            // bASLearnToolStripMenuItem
+            // 
+            this.bASLearnToolStripMenuItem.Checked = true;
+            this.bASLearnToolStripMenuItem.CheckOnClick = true;
+            this.bASLearnToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.bASLearnToolStripMenuItem.Name = "bASLearnToolStripMenuItem";
+            this.bASLearnToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
+            this.bASLearnToolStripMenuItem.Text = "BAS Learn";
+            this.bASLearnToolStripMenuItem.Click += new System.EventHandler(this.bASLearnToolStripMenuItem_Click);
             // 
             // m_vinLabel
             // 
@@ -458,6 +474,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.m_brakeApplySensorResultBox);
             this.groupBox3.Controls.Add(this.m_mimaResultBox);
             this.groupBox3.Controls.Add(this.m_dcuResultBox);
             this.groupBox3.Controls.Add(this.m_tcmResultBox);
@@ -473,10 +490,25 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Flash Results";
             // 
+            // m_brakeApplySensorResultBox
+            // 
+            this.m_brakeApplySensorResultBox.AutoSize = true;
+            this.m_brakeApplySensorResultBox.BackColor = System.Drawing.SystemColors.Window;
+            this.m_brakeApplySensorResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_brakeApplySensorResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_brakeApplySensorResultBox.Location = new System.Drawing.Point(583, 70);
+            this.m_brakeApplySensorResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_brakeApplySensorResultBox.Name = "m_brakeApplySensorResultBox";
+            this.m_brakeApplySensorResultBox.Size = new System.Drawing.Size(103, 48);
+            this.m_brakeApplySensorResultBox.TabIndex = 14;
+            this.m_brakeApplySensorResultBox.Text = "BAS";
+            this.m_brakeApplySensorResultBox.UseWaitCursor = true;
+            // 
             // m_mimaResultBox
             // 
             this.m_mimaResultBox.AutoSize = true;
             this.m_mimaResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_mimaResultBox.Enabled = false;
             this.m_mimaResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_mimaResultBox.Location = new System.Drawing.Point(207, 12);
             this.m_mimaResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -485,25 +517,27 @@
             this.m_mimaResultBox.TabIndex = 13;
             this.m_mimaResultBox.Text = "Mimamori";
             this.m_mimaResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.m_mimaResultBox.Visible = false;
             // 
             // m_dcuResultBox
             // 
             this.m_dcuResultBox.AutoSize = true;
             this.m_dcuResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.m_dcuResultBox.Enabled = false;
             this.m_dcuResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_dcuResultBox.Location = new System.Drawing.Point(583, 70);
+            this.m_dcuResultBox.Location = new System.Drawing.Point(412, 12);
             this.m_dcuResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_dcuResultBox.Name = "m_dcuResultBox";
             this.m_dcuResultBox.Size = new System.Drawing.Size(109, 48);
             this.m_dcuResultBox.TabIndex = 12;
             this.m_dcuResultBox.Text = "DCU";
             this.m_dcuResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.m_dcuResultBox.Visible = false;
             // 
             // m_tcmResultBox
             // 
             this.m_tcmResultBox.AutoSize = true;
             this.m_tcmResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.m_tcmResultBox.Enabled = false;
             this.m_tcmResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_tcmResultBox.Location = new System.Drawing.Point(294, 70);
             this.m_tcmResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -562,6 +596,28 @@
             this.m_basLearnPromptTimer.Interval = 1000;
             this.m_basLearnPromptTimer.Tick += new System.EventHandler(this.m_basLearnPromptTimer_Tick);
             // 
+            // m_esnDataPB
+            // 
+            this.m_esnDataPB.Image = global::FlashStationMainForm.Properties.Resources.led_green_on;
+            this.m_esnDataPB.Location = new System.Drawing.Point(1447, 213);
+            this.m_esnDataPB.Margin = new System.Windows.Forms.Padding(4);
+            this.m_esnDataPB.Name = "m_esnDataPB";
+            this.m_esnDataPB.Size = new System.Drawing.Size(35, 33);
+            this.m_esnDataPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.m_esnDataPB.TabIndex = 33;
+            this.m_esnDataPB.TabStop = false;
+            // 
+            // m_esnDataLabel
+            // 
+            this.m_esnDataLabel.AutoSize = true;
+            this.m_esnDataLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.m_esnDataLabel.Location = new System.Drawing.Point(1489, 215);
+            this.m_esnDataLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_esnDataLabel.Name = "m_esnDataLabel";
+            this.m_esnDataLabel.Size = new System.Drawing.Size(116, 29);
+            this.m_esnDataLabel.TabIndex = 32;
+            this.m_esnDataLabel.Text = "ESN FTP";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -569,6 +625,8 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1685, 1047);
+            this.Controls.Add(this.m_esnDataPB);
+            this.Controls.Add(this.m_esnDataLabel);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.m_lotNumberLabel);
             this.Controls.Add(this.m_modelYearLabel);
@@ -608,6 +666,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_cableConnectPB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_buildDataPB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.m_esnDataPB)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -660,6 +719,10 @@
         private System.Windows.Forms.Label m_mimaResultBox;
         private System.Windows.Forms.Label m_dcuResultBox;
         private System.Windows.Forms.Timer m_basLearnPromptTimer;
+        private System.Windows.Forms.Label m_brakeApplySensorResultBox;
+        private System.Windows.Forms.ToolStripMenuItem bASLearnToolStripMenuItem;
+        private System.Windows.Forms.PictureBox m_esnDataPB;
+        private System.Windows.Forms.Label m_esnDataLabel;
     }
 }
 

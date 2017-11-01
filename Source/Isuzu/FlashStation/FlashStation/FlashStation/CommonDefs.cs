@@ -27,9 +27,12 @@ namespace Common.Lib
             //WAIT_FOR_KEY_ON,
             FLASH_ECUS,
             REPORT_DATA,
-            //WAIT_FOR_KEY_OFF,
+            CHECK_BRAKE_PEDAL,
+            WAIT_FOR_KEY_OFF,
+            WAIT_FOR_KEY_ON,
             CHECK_FOR_BAS_LEARN,
             BAS_LEARN,
+            //WAIT_FOR_KEY_OFF,            
             WAIT_FOR_CABLEDISCONNECT
         }
         public class Prompt
@@ -52,8 +55,10 @@ namespace Common.Lib
             REPORT_DATA2 = "Please Wait...",
             FAILURE = "Flash Sequence Failure",
             PASS = "Flash Sequence Complete",
+            BAS_FAILURE = "Brake Apply Sensor Relearn Failure",
+            BAS_PASS = "Brake Apply Sensor Relearn Complete",
             WAIT_FOR_CABLEDISCONNECT = "Key Off, Disconnect Cable",
-            KEY_ON = "Key On",
+            KEY_ON = "Engine On",
             KEY_OFF = "Key Off",
             BAS_RELEARN = "Brake Apply Sensor Home Relearn in progress",
             FOOT_OFF_BRAKE = "Keep foot off Brake Pedal",

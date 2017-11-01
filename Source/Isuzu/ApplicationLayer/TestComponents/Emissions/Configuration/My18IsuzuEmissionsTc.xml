@@ -441,11 +441,11 @@
     <TestSteps>
         <AccelerateToTestSpeed Result="" Timeout="30000" Description="Accelerate to the required speed range" TargetSpeedParameter="SteadyStateSpeed" SpeedRangeParameter="SteadyStateSpeedRange" ScanDelayParameter="SteadyStateSpeedCheckDelay" AlwaysPerform="False" AbortIfFailed="True"/>
         <AcceleratorPedalWOTTest Result="" Timeout="30000" Description="Verify the read of a full accelerator pedal" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="False"/>
-        <AdjustCruiseMass Result="" Timeout="1000" AlwaysPerform="False" AbortIfFailed="False" Description="Change the mass value used by the Cruise for calculations" ScanDelay="250"/>
+        <AdjustCruiseMass Result="" Timeout="3000" AlwaysPerform="False" AbortIfFailed="False" Description="Change the mass value used by the Cruise for calculations" ScanDelay="250"/>
         <CheckAcStatus Result="" Timeout="10000" Description="Verify A/C is functional" ScanDelay="500" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckBarometricPressure Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify the barometric pressure sensor is in range"/>
-        <CheckBASLearnComplete Result="" Timeout="500" Description="Check if Brake Apply Sensor Learn happened at the Flash Station" AbortIfFailed="True"/>
         <CheckBatteryVoltage Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify battery voltage is in operating range"/>
+        <CheckBASLearnComplete Result="" Timeout="500" Description="Check if Brake Apply Sensor Learn happened at the Flash Station" AbortIfFailed="True"/>
         <CheckCASELearn Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="True" Description="Verify the CASE Learn was successful" ScanDelay="250"/>
         <CheckEgrError Result="" Timeout="500" Description="Check the EGR sensor for errors" AlwaysPerform="False" AbortIfFailed="False"/>
         <CheckEngineCoolantTemperature Result="" Timeout="500" AlwaysPerform="False" AbortIfFailed="False" Description="Verify engine coolant temp is in operating range"/>

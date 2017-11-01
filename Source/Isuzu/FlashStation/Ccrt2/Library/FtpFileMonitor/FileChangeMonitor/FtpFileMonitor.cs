@@ -24,6 +24,8 @@ namespace FtpFileMonitorNamespace
         protected volatile bool m_terminate;
         protected object m_terminateLock;
         Thread m_fileMonitorThread;
+        protected int m_noESNFilesTransferedCount;
+        public bool m_esnFault;
 
         protected string m_ftpUserLogin;
         protected string m_ftpUserPassword;
@@ -53,6 +55,8 @@ namespace FtpFileMonitorNamespace
             m_terminate = false;
             m_terminateLock = new object();
             m_fileMask = fileMask;
+            m_noESNFilesTransferedCount = 0;
+            m_esnFault = false;
         }
 
         /// <summary>
@@ -79,7 +83,8 @@ namespace FtpFileMonitorNamespace
             m_terminate = false;
             m_terminateLock = new object();
             m_fileMask = fileMask;
-
+            m_noESNFilesTransferedCount = 0;
+            m_esnFault = false;
         }
 
         public void StartFileMonitorThread()
@@ -145,6 +150,13 @@ namespace FtpFileMonitorNamespace
                             {
                                 Log("INFO:    Files to transfer found, updating " + m_localLocation);
                                 UpdateLocalDirectoryRemoteFtpLocation(fileList, localInfo);
+                                m_esnFault = false;
+                            }
+                            else
+                            {
+                                m_noESNFilesTransferedCount++;
+                                if (m_noESNFilesTransferedCount >= 90)
+                                    m_esnFault = true;
                             }
                         }
                     }

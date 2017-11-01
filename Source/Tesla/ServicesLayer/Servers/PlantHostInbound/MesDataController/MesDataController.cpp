@@ -409,6 +409,7 @@ const std::string MesDataController::RetrieveBuildRecord(void)
             // Get rid of the node
             nextVehicleBuild.clear();
         }
+        //Possibly try to load default from file if not succesful?
     }
     else
     {   // Invalid VIN 
@@ -1484,5 +1485,24 @@ void MesDataController::SetReconnectDelay(const INT32 &delay)
 const INT32& MesDataController::GetReconnectDelay(void)
 {
     return m_reconnectDelay;
+}
+void MesDataController::UpdateInputServerState()
+{   // Use a semaphore to prevent race condition on InputServerState
+    // Check conditions of data and the machine
+    bool retainersDown = (Read(GetRetainersDownTag()) == retainingRollsDown ? true : false);
+    bool vehiclePresent = (Read(GetVehiclePresentTag()) == vehicleIsPresent ? true : false);
+    bool validBuildRecord = (GetVehicleBuildRecordStatus() == validStatus ? true : false);
+    std::string response;
+    Log(LOG_DEV_DATA,"MesDataController::UpdateInputServerState() -- retainersDown:%s, vehiclePresent:%s, validBuildRecord:%s\n",
+        (retainersDown ? "True" : "False"),
+        (vehiclePresent ? "True" : "False"),
+        (validBuildRecord ? "True" : "False"));
+
+    if (retainersDown && !vehiclePresent)
+    {
+        //Invalidate the build record in case VIN was entered by accident
+        SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
+    }                                                                          
+    PlantHostInbound::UpdateInputServerState();
 }
 

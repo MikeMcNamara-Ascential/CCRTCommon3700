@@ -1,4 +1,4 @@
-<DriveCurve Description="Drive Curve For The Roadster Test">
+<DriveCurve Description="Drive Curve For the Model X with 4wd and Black Calipers">
    <Components Debug="Off">
       <!--Airbag>
          <ComponentName>DelphiAirbagTC.qxe</ComponentName>
@@ -10,7 +10,7 @@
       <Brake>
          <ComponentName>BoschAbsTc.qxe</ComponentName>
          <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-         <ConfigFile>Tesla.Sedan4WDMBBoschABSTC.xml</ConfigFile>
+         <ConfigFile>Tesla.ModelXBoschABSTC.xml</ConfigFile>
          <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
          <Debug>Off</Debug>
       </Brake>

@@ -5,6 +5,6 @@
 
 INSTALL_FILES(${COMPONENT_CONFIG_DIR}/Brake FILES
 	Tesla.BoschAbsModuleConfig.xml
-        Tesla.RoadsterBoschAbsModuleConfig.xml
-        Tesla.SedanBoschAbsModuleConfig.xml
+        Tesla.ModelXBoschAbsModuleConfig.xml
+        Tesla.ModelSBoschAbsModuleConfig.xml
 )

@@ -4033,7 +4033,13 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
     string result(testPass);
 
     double totalBurnishEnergy = 0;
-    double targetEnergy = GetParameterFloat("TargetBurnishEnergy");
+
+    double targetEnergy[4];
+    targetEnergy[0] = GetParameterFloat("LeftFrontTargetBurnishEnergy");
+    targetEnergy[1] = GetParameterFloat("RightFrontTargetBurnishEnergy");
+    targetEnergy[2] = GetParameterFloat("LeftRearTargetBurnishEnergy");
+    targetEnergy[3] = GetParameterFloat("RightRearTargetBurnishEnergy");
+    //double targetEnergy = GetParameterFloat("TargetBurnishEnergy");
     int minBurnishStops = GetParameterInt("MinimumBurnishStops"); 
     int maxBurnishStops = GetParameterInt("MaximumBurnishStops");
     int numBurnishStops = 0;
@@ -4041,6 +4047,7 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
     INT32 burnishIterations = 0;
     float burnishEnergy[GetRollerCount()];
     char buffer[128];
+    bool allEnergyTargetsMet = false;
 
     double startTime = 0;
     double endTime = 0;
@@ -4069,7 +4076,7 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
   
 		if(opBurnishSelected)
 		{
-            Log(LOG_DEV_DATA, "Starting Dynamic Brake Burnish with %f target energy and %d min burnish stops", targetEnergy, minBurnishStops);
+            Log(LOG_DEV_DATA, "Starting Dynamic Brake Burnish with %d min burnish stops", minBurnishStops);
             // Initialize burnish energy array
             for (int i=0; i < GetRollerCount(); i++)
             {
@@ -4077,7 +4084,7 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
             }
             // Loop until target energy total has been reached. Run for at least the minimum
             // number of stops, but no more than the maximum number of stops
-            while ((BEP_STATUS_SUCCESS == StatusCheck()) && ( ( (totalBurnishEnergy < targetEnergy) && (numBurnishStops < maxBurnishStops) ) || (numBurnishStops < minBurnishStops)))
+            while ((BEP_STATUS_SUCCESS == StatusCheck()) && ( ( !allEnergyTargetsMet && (numBurnishStops < maxBurnishStops) ) || (numBurnishStops < minBurnishStops)))
             {
                 // Prompt the operator to achieve the desired speed range
                 result = AccelerateToTestSpeed(GetParameterFloat("BrakeBurnishStartSpeed"), GetParameter("BrakeBurnishStartSpeedRange"), 
@@ -4102,58 +4109,81 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
                     // If the target speed has been reached, brake to the target speed
                     DisplayPrompt(GetPromptBox("BrakeModeratelyInGreenBand"), GetPrompt("BrakeModeratelyInGreenBand"),
                                   GetPromptPriority("BrakeModeratelyInGreenBand"));
-
+                    DisplayPrompt(GetPromptBox(GetParameter("BrakeToTargetSpeedPrompt")), GetPrompt(GetParameter("BrakeToTargetSpeedPrompt")),
+                                  GetPromptPriority(GetParameter("BrakeToTargetSpeedPrompt")));
                     bool isWheelSpeedAboveLimit = true;
-                    float unitConversion = GetParameterFloat("BurnishUnitConstant");
+                    float unitConversion[4];
+                    unitConversion[0] = GetParameterFloat("LeftFrontBurnishUnitConstant");
+                    unitConversion[1] = GetParameterFloat("RightFrontBurnishUnitConstant");
+                    unitConversion[2] = GetParameterFloat("LeftRearBurnishUnitConstant");
+                    unitConversion[3] = GetParameterFloat("RightRearBurnishUnitConstant");
                     float currentWheelSpeed[GetRollerCount()];
                     float previousWheelSpeed[GetRollerCount()];
+                    float brakeForce = 0;
+                    bool tagArrayForBurnishStart = true;
+
+                    // update the target green bands
+                    SystemWrite(GetDataTag("SpeedTarget"), GetParameter("BrakeBurnishEndSpeedRange"));
                 
                     GetWheelSpeeds(previousWheelSpeed);
-                    result = SlowDownToTestSpeed(GetParameterFloat("BrakeBurnishEndSpeed"), 
-													 GetParameter("BrakeBurnishEndSpeedRange"),
-													 GetTestStepInfoInt("ScanDelay"), true, 
-													 GetParameter("BrakeToTargetSpeedPrompt"));
-                    /*while(isWheelSpeedAboveLimit)
+
+                    //Perform the burnish calculation for every ICM sample
+                    while(isWheelSpeedAboveLimit && (StatusCheck() == BEP_STATUS_SUCCESS))
                     {
+                        // Update the current speed measurements
+                        GetWheelSpeeds(currentWheelSpeed);
                         // Check whether any of the wheels are still above the minimum speed limit
                         isWheelSpeedAboveLimit = false;
                         for (int i=0; i < GetRollerCount(); i++) {
-                            if (currentWheelSpeed[i] >= 25) {
+                            if (currentWheelSpeed[i] >= GetParameterFloat("BrakeBurnishEndSpeed")) {
                                 isWheelSpeedAboveLimit = true;
                             }
-                        } */
+                        } 
 
-                        // If the brake is engaged, perform the calculation
-                        bool isBrakeEngaged;
-                        m_vehicleModule.ReadModuleData("ReadBrakeSwitch",isBrakeEngaged); // Correct module data?
-                        if (isBrakeEngaged)
+                        brakeForce = m_baseBrakeTool->GetForce();
+                        Log(LOG_DEV_DATA, "Previous Speed:%.2f  Current Speed:%.2f  Brake Force:%.2f", previousWheelSpeed[0], currentWheelSpeed[0], brakeForce);
+                                                                                             
+                        if (brakeForce > GetParameterFloat("BrakeBurnishStartForce"))
                         {
-                            // Update the current speed measurements
-                            GetWheelSpeeds(currentWheelSpeed);
+                            if(tagArrayForBurnishStart)
+                            {
+                                TagArray( "BrakeBurnishStart");
+                                tagArrayForBurnishStart = false;
+                            }
                             totalBurnishEnergy = burnishEnergy[0];
-                            Log(LOG_DEV_DATA, "LF burnish energy after stop %d - %.2f", numBurnishStops + 1, totalBurnishEnergy);
+                            Log(LOG_DEV_DATA, "Force Threshold reached, LF burnish energy - %.2f", totalBurnishEnergy);
                             for (int i=0; i < GetRollerCount(); i++)
                             {
                                 // Calculate energy for each wheel
                                 // C * (Vi^2 - Vf^2)^3 / |Vi^2 - Vf^2|
                                 double numerator = std::pow( std::pow(previousWheelSpeed[i], 2) - std::pow(currentWheelSpeed[i], 2), 3);
                                 double denominator = std::abs( std::pow(previousWheelSpeed[i], 2) - std::pow(currentWheelSpeed[i], 2) );
-                                burnishEnergy[i] += (unitConversion * numerator / denominator);
+                                if(numerator > 0 && denominator > 0)
+                                    burnishEnergy[i] += (unitConversion[i] * numerator / denominator);
                                 //record which wheel has the smallest burnish energy to ensure all 4 wheels exceed the maximum
                                 if(burnishEnergy[i] < totalBurnishEnergy)
                                 {
                                     totalBurnishEnergy = burnishEnergy[i];
                                     Log(LOG_DEV_DATA, "New lowest burnish energy of %.2f found on wheel %d", totalBurnishEnergy, i);
                                 }
-                                // Update the previous speed measurements
-                                //previousWheelSpeed[i] = currentWheelSpeed[i];
                             }
                         }
-                    //}
-                
+                        for (int i=0; i < GetRollerCount(); i++)
+                        {
+                            // Update the previous speed measurements
+                            previousWheelSpeed[i] = currentWheelSpeed[i];
+                        }
+                        //Sleep for 20 ms to allow the ICM to update again
+                        BposSleep(18);
+                    }
+                    TagArray( "BrakeBurnishEnd");
+                    // remove the target green bands
+                    SystemWrite(GetDataTag("SpeedTarget"), "0 0");
                     // Disable the brake force meter
                     RemovePrompt(GetPromptBox("BrakeModeratelyInGreenBand"), GetPrompt("BrakeModeratelyInGreenBand"),
                                  GetPromptPriority("BrakeModeratelyInGreenBand"));
+                    RemovePrompt(GetPromptBox(GetParameter("BrakeToTargetSpeedPrompt")), GetPrompt(GetParameter("BrakeToTargetSpeedPrompt")),
+                                  GetPromptPriority(GetParameter("BrakeToTargetSpeedPrompt")));
                     SystemWrite(GetDataTag("BrakeActive"), false);
                     SystemWrite(GetDataTag("BrakeTarget"), "0 0");
                     m_baseBrakeTool->DisableForceUpdates();
@@ -4168,39 +4198,30 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
 
                 numBurnishStops++;
                 Log(LOG_DEV_DATA,"Completed %d burnish stops with %.2f total energy", numBurnishStops, totalBurnishEnergy);
+                allEnergyTargetsMet = (burnishEnergy[0] > targetEnergy[0]) && (burnishEnergy[1] > targetEnergy[1]) &&
+                                      (burnishEnergy[2] > targetEnergy[2]) && (burnishEnergy[3] > targetEnergy[3]);
                 int stopsRemaining;
                 string numStops;
-                // If the next burnish stop is the minimum required
-                if (numBurnishStops == requiredBurnishStops - 1)
+                string maxNumStops;
+                // If the minimum has already been reached, remove the prompt
+                if(numBurnishStops == requiredBurnishStops)
                 {
-                    // Tell the driver that one more stop is needed
                     RemovePrompt(GetPromptBox("RemainingBurnishStops"), GetPrompt("RemainingBurnishStops"),
                                  GetPromptPriority("RemainingBurnishStops"));
-                    if(totalBurnishEnergy < targetEnergy || numBurnishStops < minBurnishStops)
-                    {
-                        DisplayPrompt(GetPromptBox("OneMoreBurnishStop"), GetPrompt("OneMoreBurnishStop"),
-                                      GetPromptPriority("OneMoreBurnishStop"));
-                    }
-                    else
-                    {   //Minimum energy met, indicate finish brake burnish
-                        Log(LOG_DEV_DATA, "Brake Burnish Energy Reached");
-                        DisplayPrompt(GetPromptBox("BrakeBurnishFinished"), GetPrompt("BrakeBurnishFinished"),
-                                      GetPromptPriority("BrakeBurnishFinished"));
-                    }
-                }
-                // If the minimum has already been reached, remove the prompt
-                else if(numBurnishStops == requiredBurnishStops)
-                {
-                    RemovePrompt(GetPromptBox("OneMoreBurnishStop"), GetPrompt("OneMoreBurnishStop"),
-                                 GetPromptPriority("OneMoreBurnishStop"));
                     //Minimum stops reached but not minimum energy, add more required burnish stops
-                    if((totalBurnishEnergy < targetEnergy) && (numBurnishStops < maxBurnishStops))
+                    if((!allEnergyTargetsMet) && (numBurnishStops < maxBurnishStops))
                     {
                         Log(LOG_DEV_DATA, "Increasing required number of burnish stops to %d due to low Burnish Energy", maxBurnishStops);
                         requiredBurnishStops = maxBurnishStops;
                         stopsRemaining = requiredBurnishStops - numBurnishStops;
                         Log(LOG_DEV_DATA, "Calculated %d burnish stops remaining", stopsRemaining);
-                        numStops = itoa(stopsRemaining, buffer, 10);
+                        if(numBurnishStops >= minBurnishStops)
+                            numStops = "1";
+                        else
+                            numStops = itoa(minBurnishStops - numBurnishStops, buffer, 10);
+                        maxNumStops = itoa(maxBurnishStops - numBurnishStops, buffer, 10);
+                        //Uncomment this line for variable number of burnish stops
+                        numStops = numStops + "-" + maxNumStops;
                         Log(LOG_DEV_DATA, "Displaying %s stops remaining to the operator", numStops.c_str());
                         DisplayPrompt(GetPromptBox("RemainingBurnishStops"), GetPrompt("RemainingBurnishStops"),
                                       GetPromptPriority("RemainingBurnishStops"),"white", numStops.c_str());
@@ -4214,11 +4235,18 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
                 }
                 else
                 {
-                    if(totalBurnishEnergy < targetEnergy || numBurnishStops < minBurnishStops)
+                    if(!allEnergyTargetsMet || numBurnishStops < minBurnishStops)
                     {   //More stops required based on energy or minimum stop number
                         stopsRemaining = requiredBurnishStops - numBurnishStops;
                         Log(LOG_DEV_DATA, "Calculated %d burnish stops remaining", stopsRemaining);
-                        numStops = itoa(stopsRemaining, buffer, 10);
+                        if(numBurnishStops >= minBurnishStops)
+                            numStops = "1";
+                        else
+                            numStops = itoa(minBurnishStops - numBurnishStops, buffer, 10);
+                        
+                        maxNumStops = itoa(maxBurnishStops - numBurnishStops, buffer, 10);
+                        //Allow display of min and max number of burnish stops
+                        numStops = numStops + "-" + maxNumStops;
                         Log(LOG_DEV_DATA, "Displaying %s stops remaining to the operator", numStops.c_str());
                         DisplayPrompt(GetPromptBox("RemainingBurnishStops"), GetPrompt("RemainingBurnishStops"),
                                       GetPromptPriority("RemainingBurnishStops"),"white", numStops.c_str());
@@ -4237,49 +4265,54 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
             char buff[16];
             if(GetParameterBool("FailForLowBurnishEnergy"))
             {
-                SendSubtestResultWithDetail("LeftFrontBrakeBurnishEnergy", (burnishEnergy[0] >= targetEnergy) ? testPass : testFail,
+                SendSubtestResultWithDetail("LeftFrontBrakeBurnishEnergy", (burnishEnergy[0] >= targetEnergy[0]) ? testPass : testFail,
                                             "Brake burnish energy for left front wheel", "0000", 
-                                            "LeftFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[0]), "MJ*kW");
+                                            "LeftFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[0]), "MJ*kW",
+                                            "MinLeftFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", targetEnergy[0]), "MJ*kW");
 
-                SendSubtestResultWithDetail("RightFrontBrakeBurnishEnergy", (burnishEnergy[1] >= targetEnergy) ? testPass : testFail,
+                SendSubtestResultWithDetail("RightFrontBrakeBurnishEnergy", (burnishEnergy[1] >= targetEnergy[1]) ? testPass : testFail,
                                             "Brake burnish energy for right front wheel", "0000", 
-                                            "RightFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[1]), "MJ*kW");
+                                            "RightFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[1]), "MJ*kW",
+                                            "MinRightFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", targetEnergy[1]), "MJ*kW");
 
-                SendSubtestResultWithDetail("LeftRearBrakeBurnishEnergy", (burnishEnergy[2] >= targetEnergy) ? testPass : testFail,
+                SendSubtestResultWithDetail("LeftRearBrakeBurnishEnergy", (burnishEnergy[2] >= targetEnergy[2]) ? testPass : testFail,
                                             "Brake burnish energy for left rear wheel", "0000", 
-                                            "LeftRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[2]), "MJ*kW");
+                                            "LeftRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[2]), "MJ*kW",
+                                            "MinLeftRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", targetEnergy[2]), "MJ*kW");
 
-                SendSubtestResultWithDetail("RightRearBrakeBurnishEnergy", (burnishEnergy[3] >= targetEnergy) ? testPass : testFail,
+                SendSubtestResultWithDetail("RightRearBrakeBurnishEnergy", (burnishEnergy[3] >= targetEnergy[3]) ? testPass : testFail,
                                             "Brake burnish energy for right rear wheel", "0000", 
-                                            "RightRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[3]), "MJ*kW");
+                                            "RightRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[3]), "MJ*kW",
+                                            "MinRightRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", targetEnergy[3]), "MJ*kW");
 
                 // Report test failure if any of the wheels did not reach target energy
-                for (int i=0; i < GetRollerCount(); i++)
+                if (!allEnergyTargetsMet)
                 {
-                    if (burnishEnergy[i] < targetEnergy)
-                    {
-                        Log(LOG_DEV_DATA, "Failing brake burnish for low burnish energy");
-                        result = testFail;
-                    }
+                    Log(LOG_DEV_DATA, "Failing brake burnish for low burnish energy");
+                    result = testFail;
                 }
             }
             else
             {
                 SendSubtestResultWithDetail("LeftFrontBrakeBurnishEnergy", testPass,
                                             "Brake burnish energy for left front wheel", "0000", 
-                                            "LeftFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[0]), "MJ*kW");
+                                            "LeftFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[0]), "MJ*kW",
+                                            "MinLeftFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", targetEnergy[0]), "MJ*kW");
 
                 SendSubtestResultWithDetail("RightFrontBrakeBurnishEnergy", testPass,
                                             "Brake burnish energy for right front wheel", "0000", 
-                                            "RightFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[1]), "MJ*kW");
+                                            "RightFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[1]), "MJ*kW",
+                                            "MinRightFrontBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", targetEnergy[1]), "MJ*kW");
 
                 SendSubtestResultWithDetail("LeftRearBrakeBurnishEnergy", testPass,
                                             "Brake burnish energy for left rear wheel", "0000", 
-                                            "LeftRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[2]), "MJ*kW");
+                                            "LeftRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[2]), "MJ*kW",
+                                            "MinLeftRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", targetEnergy[2]), "MJ*kW");
 
                 SendSubtestResultWithDetail("RightRearBrakeBurnishEnergy", testPass,
                                             "Brake burnish energy for right rear wheel", "0000", 
-                                            "RightRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[3]), "MJ*kW");
+                                            "RightRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", burnishEnergy[3]), "MJ*kW",
+                                            "MinRightRearBurnishEnergy", CreateMessage(buff, sizeof(buff), "%.2f", targetEnergy[3]), "MJ*kW");
             }
                 
 
@@ -4307,8 +4340,13 @@ string BoschABSTC<ModuleInterface>::DynamicBrakeBurnishCycle(void)
 
             SendSubtestResultWithDetail("DynamicBrakeBurnishCycleTime", testPass, "Dynamic brake burnish cycle time", "0000", 
                                                 "BurnishCycleTime", CreateMessage(buff, sizeof(buff), "%d", elapsedTime), "s");
+
+            SendSubtestResultWithDetail("DynamicBrakeBurnishIterations", testPass, "Dynamic brake burnish iterations", "0000",
+                                        "BurnishIterations", CreateMessage(buff, sizeof(buff), "%d", numBurnishStops), "",
+                                        "MinBurnishIterations",CreateMessage(buff, sizeof(buff), "%d", minBurnishStops), "", 
+                                        "MaxBurnishIterations",CreateMessage(buff, sizeof(buff), "%d", maxBurnishStops), "");
             // Report the result
-		    SendTestResult(result, GetTestStepInfo("Description"));
+            SendTestResult(result, GetTestStepInfo("Description"));
         }
         else
 		{

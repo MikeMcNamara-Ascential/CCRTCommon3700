@@ -260,7 +260,7 @@
          <AlwaysResetModule>Yes</AlwaysResetModule>
          <AlwaysReadFaults>Yes</AlwaysReadFaults>
          <CheckAxleSpeeds>1</CheckAxleSpeeds>
-         <ConfigFile>/Configuration/Components/Brake/SedanBoschAbsModuleConfig.xml</ConfigFile>
+         <ConfigFile>/Configuration/Components/Brake/ModelSBoschAbsModuleConfig.xml</ConfigFile>
          <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
          <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
          <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
@@ -343,12 +343,6 @@
          <LeftRearMinRecoveryPercent>70.0</LeftRearMinRecoveryPercent>
          <RightFrontMinRecoveryPercent>70.0</RightFrontMinRecoveryPercent>
          <RightRearMinRecoveryPercent>70.0</RightRearMinRecoveryPercent>
-         <TargetBurnishEnergy>0.0</TargetBurnishEnergy>
-         <MinimumBurnishStops>6</MinimumBurnishStops>
-         <MaximumBurnishStops>8</MaximumBurnishStops>
-         <BurnishUnitConstant>1.0</BurnishUnitConstant>
-         <PostAccelerationDelayPeriod Units="ms">0</PostAccelerationDelayPeriod>
-         <FailForLowBurnishEnergy>False</FailForLowBurnishEnergy>
          <!-- ESP Test Parameters -->
          <CheckResponseInProgress>True</CheckResponseInProgress>
          <LeftFrontMinESPBuildForce Units="lbf">130</LeftFrontMinESPBuildForce>
@@ -395,15 +389,28 @@
          <BrakeBurnishBrakeForceTarget Units="lbf">310 350</BrakeBurnishBrakeForceTarget>
          <BrakeBurnishCycles Description="Number of times to perform the brake burnish cycle">1</BrakeBurnishCycles>
          <BrakeBurnishDisableBoostOnDecel>False</BrakeBurnishDisableBoostOnDecel>
+         <BrakeBurnishStartForce>100</BrakeBurnishStartForce> <!--Used by DynamicBrakeBurnishCycle-->
          <BrakeBurnishEndSpeed Units="mph">27</BrakeBurnishEndSpeed>
          <BrakeBurnishEndSpeedRange Units="mph">25 30</BrakeBurnishEndSpeedRange>
-         <BrakeBurnishFinalIterationTarget Units="lbf">310 350</BrakeBurnishFinalIterationTarget>
+         <BrakeBurnishFinalIterationTarget Units="lbf">410 450</BrakeBurnishFinalIterationTarget>
          <BrakeBurnishMinNonDrivenAxleSpeed Units="mph">60.0</BrakeBurnishMinNonDrivenAxleSpeed>
          <BrakeBurnishStartSpeed Units="mph">60.0</BrakeBurnishStartSpeed>
          <BrakeBurnishStartSpeedRange Units="mph">60 65</BrakeBurnishStartSpeedRange>
          <BrakeToTargetSpeedPrompt>BrakeToTargetSpeed</BrakeToTargetSpeedPrompt>
-         <BurnishIterations Description="Number of times to accel and decel for one cycle">6</BurnishIterations>
+         <BurnishIterations Description="Number of times to accel and decel for one cycle">8</BurnishIterations> <!--Used by BrakeBurnishCycle-->
          <SkipPromptoperatorForBurnish>False</SkipPromptoperatorForBurnish>
+         <LeftFrontTargetBurnishEnergy>375000.0</LeftFrontTargetBurnishEnergy> <!--Used by DynamicBrakeBurnishCycle-->
+         <RightFrontTargetBurnishEnergy>375000.0</RightFrontTargetBurnishEnergy> <!--Used by DynamicBrakeBurnishCycle-->
+         <LeftRearTargetBurnishEnergy>375000.0</LeftRearTargetBurnishEnergy> <!--Used by DynamicBrakeBurnishCycle-->
+         <RightRearTargetBurnishEnergy>375000.0</RightRearTargetBurnishEnergy> <!--Used by DynamicBrakeBurnishCycle-->         
+         <MinimumBurnishStops>5</MinimumBurnishStops> <!--Used by DynamicBrakeBurnishCycle-->
+         <MaximumBurnishStops>8</MaximumBurnishStops> <!--Used by DynamicBrakeBurnishCycle-->
+         <LeftFrontBurnishUnitConstant>1.0</LeftFrontBurnishUnitConstant> <!--Used by DynamicBrakeBurnishCycle-->
+         <RightFrontBurnishUnitConstant>1.0</RightFrontBurnishUnitConstant> <!--Used by DynamicBrakeBurnishCycle-->
+         <LeftRearBurnishUnitConstant>1.0</LeftRearBurnishUnitConstant> <!--Used by DynamicBrakeBurnishCycle-->
+         <RightRearBurnishUnitConstant>1.0</RightRearBurnishUnitConstant> <!--Used by DynamicBrakeBurnishCycle-->         
+         <PostAccelerationDelayPeriod Units="ms">0</PostAccelerationDelayPeriod>
+         <FailForLowBurnishEnergy>False</FailForLowBurnishEnergy> <!--Used by DynamicBrakeBurnishCycle-->
          <!-- Electric Park Brake Burnish Parameters -->
          <EPBBurnishCycles Description="Number of times to perform the brake burnish cycle">1</EPBBurnishCycles>
          <EPBBurnishIterations Description="Number of times to accel and decel for one cycle">1</EPBBurnishIterations>

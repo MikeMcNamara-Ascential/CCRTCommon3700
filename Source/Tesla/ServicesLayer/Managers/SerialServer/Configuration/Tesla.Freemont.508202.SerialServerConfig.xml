@@ -12,120 +12,120 @@
          <Verbose>0x01</Verbose>
       </Logging>
       <LogicalPorts>
-          <GryphonCCanLeft enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
-             <Setup>
-                <SerialDevice>/dev/socket</SerialDevice>
-                <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
-                <Protocol>
-                   <Baud>19200</Baud>
-                   <Parity>None</Parity>
-                   <DataBits>8</DataBits>
-                   <StopBits>1</StopBits>
-                   <Reflection>0</Reflection>
-                   <ByteGap>0</ByteGap>
-                   <MssgGap>0</MssgGap>
-                   <Interrupts>TxRx</Interrupts>
-                   <FifoSize>5120</FifoSize>
-                </Protocol>
-                <Logging>
-                     <ProcessName>logport/GryphonCANLeft</ProcessName>
-                     <AdditionalLogFile>/Communication/GryphonCANLeft.log</AdditionalLogFile>
-                     <Status>Disabled</Status>
-                   <LocalEcho>Disabled</LocalEcho>
-                     <Verbose>0x3F</Verbose>
-                </Logging>
-                <CommLog>
-                   <ContentType>RAW</ContentType>
-                   <Setup>
-                      <Logging>
-                             <ProcessName>CANLeft</ProcessName>
-                             <AdditionalLogFile>/Communication/GryphonCANCommLeft.log</AdditionalLogFile>
-                             <Status>Enabled</Status>
-                         <LocalEcho>Disabled</LocalEcho>
-                             <Verbose>0x1F</Verbose>
-                         <Debug>Off</Debug>
-                      </Logging>
-                   </Setup>
-                </CommLog>
-                <Login>
-                   <IPAddress>172.16.250.220</IPAddress>
-                   <Port>7000</Port>
-                   <UserID>gryphon</UserID>
-                   <Password>gryphon</Password>
-                </Login>
-                <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
-                <NodePairs>
-                     <ABS Outgoing="0x645" Incoming="0x655"/>
-                     <SRS Outgoing="0x641" Incoming="0x651"/>
-                     <EPAS Outgoing="0x730" Incoming="0x738"/>
-                </NodePairs>
-                <NodePairSetup>
-                     <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
-                     <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
-                     <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
-                </NodePairSetup>
-             </Setup>
-          </GryphonCCanLeft>
-          <GryphonCCanRight enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
-             <Setup>
-                <SerialDevice>/dev/socket</SerialDevice>
-                <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
-                <Protocol>
-                   <Baud>19200</Baud>
-                   <Parity>None</Parity>
-                   <DataBits>8</DataBits>
-                   <StopBits>1</StopBits>
-                   <Reflection>0</Reflection>
-                   <ByteGap>0</ByteGap>
-                   <MssgGap>0</MssgGap>
-                   <Interrupts>TxRx</Interrupts>
-                   <FifoSize>5120</FifoSize>
-                </Protocol>
-                <Logging>
-                     <ProcessName>logport/GryphonCANRight</ProcessName>
-                     <AdditionalLogFile>/Communication/GryphonCANRight.log</AdditionalLogFile>
-                     <Status>Enabled</Status>
-                   <LocalEcho>Disabled</LocalEcho>
-                   <Verbose>0x3F</Verbose>
-                </Logging>
-                <CommLog>
-                   <ContentType>RAW</ContentType>
-                   <Setup>
-                      <Logging>
-                             <ProcessName>CANRight</ProcessName>
-                             <AdditionalLogFile>/Communication/GryphonCANCommRight.log</AdditionalLogFile>
-                             <Status>Enabled</Status>
-                         <LocalEcho>Disabled</LocalEcho>
-                         <Verbose>0x1F</Verbose>
-                         <Debug>Off</Debug>
-                      </Logging>
-                   </Setup>
-                </CommLog>
-                <Login>
-                   <IPAddress>172.16.250.221</IPAddress>
-                   <Port>7000</Port>
-                   <UserID>gryphon</UserID>
-                   <Password>gryphon</Password>
-                </Login>
-                <!-- NOTE: The alias is not used for this port.
+         <GryphonCCanLeft enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/socket</SerialDevice>
+               <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+               <Protocol>
+                  <Baud>19200</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>TxRx</Interrupts>
+                  <FifoSize>5120</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/GryphonCANLeft</ProcessName>
+                  <AdditionalLogFile>/Communication/GryphonCANLeft.log</AdditionalLogFile>
+                  <Status>Disabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x3F</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>CANLeft</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonCANCommLeft.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+               <Login>
+                  <IPAddress>172.16.250.220</IPAddress>
+                  <Port>7000</Port>
+                  <UserID>gryphon</UserID>
+                  <Password>gryphon</Password>
+               </Login>
+               <Alias>/home/CCRT/Rewrite/GryphonCCan</Alias>
+               <NodePairs>
+                  <ABS Outgoing="0x645" Incoming="0x655"/>
+                  <SRS Outgoing="0x641" Incoming="0x651"/>
+                  <EPAS Outgoing="0x730" Incoming="0x738"/>
+               </NodePairs>
+               <NodePairSetup>
+                  <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
+                  <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
+                  <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
+               </NodePairSetup>
+            </Setup>
+         </GryphonCCanLeft>
+         <GryphonCCanRight enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+            <Setup>
+               <SerialDevice>/dev/socket</SerialDevice>
+               <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+               <Protocol>
+                  <Baud>19200</Baud>
+                  <Parity>None</Parity>
+                  <DataBits>8</DataBits>
+                  <StopBits>1</StopBits>
+                  <Reflection>0</Reflection>
+                  <ByteGap>0</ByteGap>
+                  <MssgGap>0</MssgGap>
+                  <Interrupts>TxRx</Interrupts>
+                  <FifoSize>5120</FifoSize>
+               </Protocol>
+               <Logging>
+                  <ProcessName>logport/GryphonCANRight</ProcessName>
+                  <AdditionalLogFile>/Communication/GryphonCANRight.log</AdditionalLogFile>
+                  <Status>Enabled</Status>
+                  <LocalEcho>Disabled</LocalEcho>
+                  <Verbose>0x3F</Verbose>
+               </Logging>
+               <CommLog>
+                  <ContentType>RAW</ContentType>
+                  <Setup>
+                     <Logging>
+                        <ProcessName>CANRight</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonCANCommRight.log</AdditionalLogFile>
+                        <Status>Enabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                        <Debug>Off</Debug>
+                     </Logging>
+                  </Setup>
+               </CommLog>
+               <Login>
+                  <IPAddress>172.16.250.221</IPAddress>
+                  <Port>7000</Port>
+                  <UserID>gryphon</UserID>
+                  <Password>gryphon</Password>
+               </Login>
+               <!-- NOTE: The alias is not used for this port.
                                 It is specified in the left gryphon port
                                 so that the software will default to left hand
                                 drive vehicles just as the rest of the
                                 system does on power up.
                                 <Alias>/dev/LogicalPorts/GryphonCCan</Alias>
                      -->
-                <NodePairs>
-                     <ABS Outgoing="0x645" Incoming="0x655"/>
-                     <SRS Outgoing="0x641" Incoming="0x651"/>
-                     <EPAS Outgoing="0x730" Incoming="0x738"/>
-                </NodePairs>
-                <NodePairSetup>
-                     <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
-                     <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
-                     <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
-                </NodePairSetup>
-             </Setup>
-          </GryphonCCanRight>
+               <NodePairs>
+                  <ABS Outgoing="0x645" Incoming="0x655"/>
+                  <SRS Outgoing="0x641" Incoming="0x651"/>
+                  <EPAS Outgoing="0x730" Incoming="0x738"/>
+               </NodePairs>
+               <NodePairSetup>
+                  <Range01 FirstRequestID="0x645" FirstResponseID="0x655" Offset="0x001" NumberOfPairs="1"/>
+                  <Range02 FirstRequestID="0x641" FirstResponseID="0x651" Offset="0x001" NumberOfPairs="1"/>
+                  <Range03 FirstRequestID="0x730" FirstResponseID="0x738" Offset="0x001" NumberOfPairs="1"/>
+               </NodePairSetup>
+            </Setup>
+         </GryphonCCanRight>
          <!--ISOK enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/IsoCommProxy.qxe">
             <Setup>
                <SerialDevice>/dev/sl7804/ser2</SerialDevice>
@@ -286,7 +286,7 @@
             <Setup>
                <SerialDevice>/dev/socket</SerialDevice>
                <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-               <IpAddress>172.16.260.203</IpAddress>
+               <IpAddress>172.16.250.102</IpAddress>
                <PortNo>20000</PortNo>
                <TcpType>Client</TcpType>
                <Protocol>

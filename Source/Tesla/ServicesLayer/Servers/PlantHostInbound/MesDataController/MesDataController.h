@@ -719,6 +719,10 @@ protected:
     void WaitForMesHost(void);
     void SetReconnectDelay(const INT32 &delay);
     const INT32& GetReconnectDelay(void);
+    /**
+	 * Update the state of the InputServer if it needs to be changed.
+	 */
+	virtual void UpdateInputServerState(void);
 	/**
 	 * Semaphore to signal us to go get the build record from broadcast.
 	 * @since Version 1.2

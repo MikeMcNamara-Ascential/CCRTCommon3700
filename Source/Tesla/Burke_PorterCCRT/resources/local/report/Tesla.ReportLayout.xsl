@@ -775,7 +775,7 @@
             <td width="10"/>
             <td width="10" align="left">
                 <xsl:call-template name="showResult">
-                    <xsl:with-param name="RESULT" select="//BrakeBrakeBurnishCycle/@Result"/>
+                    <xsl:with-param name="RESULT" select="//BrakeDynamicBrakeBurnishCycle/@Result"/>
                 </xsl:call-template>
             </td>
         </tr>
@@ -891,11 +891,11 @@
                 <xsl:when test="$RESULT != ''">
                     <xsl:value-of select="$RESULT"/>
                     <xsl:choose>
-                        <xsl:when test="$RESULT = 'Pass'">
-                            <xsl:text>Pass</xsl:text>
+                        <xsl:when test="$RESULT = 'Fail'">
+                            <xsl:text>***</xsl:text>
                         </xsl:when>
                         <xsl:otherwise>
-                            <xsl:text>Fail***</xsl:text>
+                            <xsl:text/>
                         </xsl:otherwise>
                     </xsl:choose>
                 </xsl:when>

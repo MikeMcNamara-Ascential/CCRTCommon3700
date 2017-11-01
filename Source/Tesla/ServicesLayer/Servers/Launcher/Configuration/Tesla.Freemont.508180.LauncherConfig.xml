@@ -66,7 +66,7 @@
 	  <PlantHostInbound Name="MesDataController.qxe" Path="/ServicesLayer/Bin/" ConfigFile="WccConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0115" RegisteredName="core/MesDataController" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
    </TasksToLaunch>
    <DoNotLaunch>
-      
+      <PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" ConfigFile="PlantHostInboundConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
       <TcaseComponent Name="GenericTcaseTest.qxe" Path="/ApplicationLayer/Bin/" ConfigFile="GM.TcaseTC.xml" ConfigPath="/Configuration/Components/TransferCase/" OrderToLaunch="131" RegisteredName="component/GMTcase" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
       <Gen3Interface Name="Gen3Interface.qxe" Path="/ServicesLayer/Bin/" ConfigFile="Gen3InterfaceConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0114" RegisteredName="core/Gen3Interface" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>
       <BrakeComponent Name="TrwEbc430AbsTc.qxe" Path="/ApplicationLayer/Bin/" ConfigFile="KwpIsoEbc430AbsTc.xml" ConfigPath="/Configuration/Components/Brake/" OrderToLaunch="130" RegisteredName="component/TrwEbc430Abs" Register="Yes" DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode=""/>

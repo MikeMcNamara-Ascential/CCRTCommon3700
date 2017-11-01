@@ -878,6 +878,13 @@ void TeslaSystemMonitor::CheckTesting( ControlData *ctrl)
             RemovePrompt(1, "ScanVIN");
             DisplayPrompt(1, "MachineReady");
         }*/
+        else if(!ctrl->testInProgress && ctrl->rollsDown && !ctrl->vehiclePresent && m_oldCtrl->vehiclePresent)
+        {
+            //Vehicle left rolls, reset the VIN displayed on the screen
+            Log(LOG_DEV_DATA, "Resetting VINDisplay");     
+            WriteNdbData("VINReadStatus","Red");
+            WriteNdbData(string("VINDisplay"),string(""));
+        }
         else if(!ctrl->testInProgress && ctrl->rollsDown && !ctrl->cableConnect && ctrl->vehiclePresent && !m_oldCtrl->vehiclePresent)
         {
             DisplayPrompt(1, "ConnectCable");

@@ -130,6 +130,7 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("AdjustCruiseMass"))                    testResult = AdjustCruiseMass();
 			else if (!GetTestStepName().compare("DelayBeforeMAFClear"))                 testResult = DelayBeforeMAFClear();
 			else if (!GetTestStepName().compare("ClearMAFSensor"))              	    testResult = ClearMAFSensor();
+            else if (!GetTestStepName().compare("CheckMAFLearnValues"))                 testResult = CheckMAFLearnValues();
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -3227,6 +3228,99 @@ string IsuzuEmissionsTc<ModuleType>::ClearMAFSensor(void)
         Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
     } 
     
+    return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnValues(void) 
+{
+	string testResult = testError;
+    string testResultCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    bool mafLearnValuesOk = true;
+    float mafLearnValueH = 0;
+    float mafLearnValueM = 0;
+    float mafLearnValueL = 0;
+    char buff[32];
+
+    
+    if(!ShortCircuitTestStep())
+    {
+        //Check MAF Learn Values
+        status = m_vehicleModule.ReadModuleData("ReadMAFLearningValueH", mafLearnValueH);
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            if(mafLearnValueH > GetParameterFloat("MAFLearningValueHMax") || mafLearnValueH < GetParameterFloat("MAFLearningValueHMin"))
+                mafLearnValuesOk = false;
+            SendSubtestResultWithDetail("MAFLearnValueH",ConvertStatusToResponse(status).c_str(), "Check the MAF Learn H Value", "0000",
+                                    "HValue",CreateMessage(buff, sizeof(buff), "%.2f",mafLearnValueH),"",
+                                    "Max",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueHMax")),"",
+                                    "Min",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueHMin")),"");
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get MAF Learn Value H from the module\n");
+            SetCommunicationFailure(true);
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testResultCode = GetFaultCode("CommunicationFailure");
+            mafLearnValuesOk = false;
+        }
+        status = m_vehicleModule.ReadModuleData("ReadMAFLearningValueM", mafLearnValueM);
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            if(mafLearnValueM > GetParameterFloat("MAFLearningValueMMax") || mafLearnValueM < GetParameterFloat("MAFLearningValueMMin"))
+                mafLearnValuesOk = false;
+            SendSubtestResultWithDetail("MAFLearnValueM",ConvertStatusToResponse(status).c_str(), "Check the MAF Learn M Value", "0000",
+                                    "MValue",CreateMessage(buff, sizeof(buff), "%.2f",mafLearnValueM),"",
+                                    "Max",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueMMax")),"",
+                                    "Min",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueMMin")),"");
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get MAF Learn Value M from the module\n");
+            SetCommunicationFailure(true);
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testResultCode = GetFaultCode("CommunicationFailure");
+            mafLearnValuesOk = false;
+        }
+        status = m_vehicleModule.ReadModuleData("ReadMAFLearningValueL", mafLearnValueL);
+        if(status == BEP_STATUS_SUCCESS)
+        {
+            if(mafLearnValueL > GetParameterFloat("MAFLearningValueLMax") || mafLearnValueL < GetParameterFloat("MAFLearningValueLMin"))
+                mafLearnValuesOk = false;
+            // Report the value
+            SendSubtestResultWithDetail("MAFLearnValueL",ConvertStatusToResponse(status).c_str(), "Check the MAF Learn L Value", "0000",
+                                    "LValue",CreateMessage(buff, sizeof(buff), "%.2f",mafLearnValueL),"",
+                                    "Max",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueLMax")),"",
+                                    "Min",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueLMin")),"");
+            
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get MAF Learn Value L from the module\n");
+            SetCommunicationFailure(true);
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testResultCode = GetFaultCode("CommunicationFailure");
+            mafLearnValuesOk = false;
+        }
+
+
+        testResult = mafLearnValuesOk ? testPass : testFail;
+        testResultCode = mafLearnValuesOk ? "0000": GetFaultCode("MAFLearnValuesNotOk");
+        testDescription = mafLearnValuesOk ? testDescription : GetFaultDescription("MAFLearnValuesNotOk");
+        
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    }
     return testResult;
 }
 

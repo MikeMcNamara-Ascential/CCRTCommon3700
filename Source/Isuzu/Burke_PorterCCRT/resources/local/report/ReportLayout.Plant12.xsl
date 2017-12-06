@@ -1237,6 +1237,63 @@
 					</xsl:call-template>
 				</td>
 			</tr>
+            <tr>
+				<td width="4"/>
+				<td width="15" align="right">MAF Learn H Value</td>
+                <td width="3"></td>
+				<td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueH/Min"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueH/HValue"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueH/Max"/>
+                </td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsMAFLearnValueH/@Result"/>
+					</xsl:call-template>
+				</td>
+			</tr>
+            <tr>
+				<td width="4"/>
+				<td width="15" align="right">MAF Learn M Value</td>
+                <td width="3"></td>
+				<td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueM/Min"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueM/MValue"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueM/Max"/>
+                </td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsMAFLearnValueM/@Result"/>
+					</xsl:call-template>
+				</td>
+			</tr>
+            <tr>
+				<td width="4"/>
+				<td width="15" align="right">MAF Learn L Value</td>
+                <td width="3"></td>
+				<td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueL/Min"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueL/LValue"/>
+                </td>
+                <td align="center">
+                    <xsl:value-of select="//EmissionsMAFLearnValueL/Max"/>
+                </td>
+				<td align="center">
+					<xsl:call-template name="showResult">
+						<xsl:with-param name="RESULT" select="//EmissionsMAFLearnValueL/@Result"/>
+					</xsl:call-template>
+				</td>
+			</tr>
 
             <!--Accelerator Pedal Check-->
             <tr>

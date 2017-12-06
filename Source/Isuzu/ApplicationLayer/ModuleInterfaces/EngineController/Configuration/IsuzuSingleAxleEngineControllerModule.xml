@@ -258,6 +258,27 @@
                 <ReplyInterpretation>MAFLearningComplete</ReplyInterpretation>
             </ReadMAFLearningComplete>
 
+            <ReadMAFLearningValueH>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>MAFLearningValueH</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MAFLearningValueH</ReplyInterpretation>
+            </ReadMAFLearningValueH>
+
+            <ReadMAFLearningValueL>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>MAFLearningValueL</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MAFLearningValueL</ReplyInterpretation>
+            </ReadMAFLearningValueL>
+
+            <ReadMAFLearningValueM>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>MAFLearningValueM</TransmitInterpretation>
+                <ReplyMessage>ReadPidResponse</ReplyMessage>
+                <ReplyInterpretation>MAFLearningValueM</ReplyInterpretation>
+            </ReadMAFLearningValueM>
+
             <ReadMainInjectionTimingSensor>
                 <TransmitMessage>ReadPid</TransmitMessage>
                 <TransmitInterpretation>MainInjectionTiming</TransmitInterpretation>
@@ -554,6 +575,9 @@
             <IntakeAirFlow>0x00,0x66</IntakeAirFlow>
             <IntakeAirTemp>0x00,0x46</IntakeAirTemp>
             <MAFLearningComplete>0x10,0x06</MAFLearningComplete>
+            <MAFLearningValueH>0x32,0x22</MAFLearningValueH>
+            <MAFLearningValueL>0x32,0x23</MAFLearningValueL>
+            <MAFLearningValueM>0x32,0x24</MAFLearningValueM>
             <MainInjectionTiming>0x00,0x5D</MainInjectionTiming>
             <MecClear>0xA0,0x00</MecClear>
             <MecValue>0xA0</MecValue>
@@ -871,6 +895,39 @@
                     <Byte01 input_index="3" mask="0x01" compare="0x01"/>
                 </Boolean>
             </MAFLearningComplete>
+
+            <MAFLearningValueH>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="3"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="2"/>
+                        <Byte3 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte4 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </MAFLearningValueH>
+
+            <MAFLearningValueL>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="3"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="2"/>
+                        <Byte3 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte4 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </MAFLearningValueL>
+
+            <MAFLearningValueM>
+                <Float scale="1" offset="0">
+                    <Integer type="unsigned" scale="1" offset="0">
+                        <Byte1 input_index="3" mask="0xFF" output_index="3"/>
+                        <Byte2 input_index="4" mask="0xFF" output_index="2"/>
+                        <Byte3 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte4 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </MAFLearningValueM>
 
             <MainInjectionTiming>
                 <Float scale="0.0078125" offset="-210">

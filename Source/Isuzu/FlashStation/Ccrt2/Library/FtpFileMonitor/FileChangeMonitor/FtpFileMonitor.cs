@@ -151,6 +151,7 @@ namespace FtpFileMonitorNamespace
                                 Log("INFO:    Files to transfer found, updating " + m_localLocation);
                                 UpdateLocalDirectoryRemoteFtpLocation(fileList, localInfo);
                                 m_esnFault = false;
+                                m_noESNFilesTransferedCount = 0;
                             }
                             else
                             {

@@ -128,6 +128,7 @@ namespace Common.Lib.Models
                     case StateName.BAS_LEARN:
                         if (!m_basHomePositionLearned && m_performBASLearn)
                         {
+                            SetPrompt1BGColor(Color.Orange);
                             SetPrompt1(prompt.BAS_RELEARN);                           
                         }
                         taskDelegate = new ThreadStart(BASHomePositionRelearn);

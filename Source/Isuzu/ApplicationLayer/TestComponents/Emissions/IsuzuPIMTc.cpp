@@ -144,7 +144,7 @@ string IsuzuPIMTc<ModuleType>::ClearFaults(void)
     //    testResult = testSkip;
     //}
     // Log the exit and return the result
-    Log(LOG_FN_ENTRY, "AisinTransmissionTC::ClearFaults() - Exit");
+    Log(LOG_FN_ENTRY, "IsuzuPIMTc::ClearFaults() - Exit");
     return testResult;
 
 }

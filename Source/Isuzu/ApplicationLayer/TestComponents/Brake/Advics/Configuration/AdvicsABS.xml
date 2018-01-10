@@ -121,8 +121,8 @@
          <RFRecoveryPulse>350</RFRecoveryPulse>
          <LRRecoveryPulse>370</LRRecoveryPulse>
          <RRRecoveryPulse>350</RRRecoveryPulse>
-		 <LFReductionPulse>450</LFReductionPulse>
-         <RFReductionPulse>400</RFReductionPulse>
+		 <LFReductionPulse>700</LFReductionPulse>
+         <RFReductionPulse>500</RFReductionPulse>
          <LRReductionPulse>750</LRReductionPulse>
          <RRReductionPulse>650</RRReductionPulse>
 		 <LeftFrontMinRecoveryPercent>60.0</LeftFrontMinRecoveryPercent>
@@ -228,7 +228,7 @@
          <AdditionalLogFile Types="/Component/Generic or Disabled">/Components/AdvicsABS.log</AdditionalLogFile>
          <Debug>Off</Debug>
          <LocalEcho>Disabled</LocalEcho>
-         <Verbose>0x1F</Verbose>
+         <Verbose>0x3F</Verbose>
       </Logging>
       <NamedDataBrokerComm>
          <Comm>IPC</Comm>
@@ -703,7 +703,7 @@
       <UnlockModuleSecurity Result="" Timeout="500" Description="Unlock Module Security"/>
       <CommandSecurityUnlock Result="" Timeout="500" Description="Unlock Module Security"/>
       <AllInletValvesOn Result="" Timeout="500" Description="AllInletValvesOn"/>
-	  <DynamicABSValveFiringTest Result="" Timeout="90000" Description="Fire ABS Valves" Prompt1="BrakeModeratelyInGreenBand" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="Blank" BrakeDomain="0 1000" BrakeTarget="100 300"/>
+	  <DynamicABSValveFiringTest Result="" Timeout="90000" Description="Fire ABS Valves" Prompt1="BrakeModeratelyInGreenBand" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="Blank" BrakeDomain="0 1000" BrakeTarget="50 200"/>
       <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
    </TestSteps>
 </AdvicsABS>

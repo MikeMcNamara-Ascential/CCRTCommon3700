@@ -1304,6 +1304,7 @@ string AdvicsABSTC<ModuleType>::LFABSTest2(void)
         
             m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("LFABSReductionStart");
             //Only one command is used to fire the valve, but the delay is still needed for force array tagging
+            m_vehicleModule.CommandModule("AllInletValvesOff");
             delay(GetParameterInt("LFReductionPulse"));
 
             // Determine the test result
@@ -1376,6 +1377,7 @@ string AdvicsABSTC<ModuleType>::RFABSTest2(void)
         
             m_reduxRecovIndex[wheelIdx].reductionStart = TagArray("RFABSReductionStart");
             //Only one command is used to fire the valve, but the delay is still needed for force array tagging
+            m_vehicleModule.CommandModule("AllInletValvesOff");
             delay(GetParameterInt("RFReductionPulse"));
 
             // Determine the test result

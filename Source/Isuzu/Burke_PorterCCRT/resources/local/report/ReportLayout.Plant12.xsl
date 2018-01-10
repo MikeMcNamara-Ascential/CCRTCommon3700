@@ -1247,9 +1247,11 @@
                 <td align="center">
                     <xsl:value-of select="//EmissionsMAFLearnValueH/HValue"/>
                 </td>
+				<td width="3"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsMAFLearnValueH/Max"/>
                 </td>
+				<td width="3"></td>
 				<td align="center">
 					<xsl:call-template name="showResult">
 						<xsl:with-param name="RESULT" select="//EmissionsMAFLearnValueH/@Result"/>
@@ -1266,9 +1268,11 @@
                 <td align="center">
                     <xsl:value-of select="//EmissionsMAFLearnValueM/MValue"/>
                 </td>
+				<td width="3"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsMAFLearnValueM/Max"/>
                 </td>
+				<td width="3"></td>
 				<td align="center">
 					<xsl:call-template name="showResult">
 						<xsl:with-param name="RESULT" select="//EmissionsMAFLearnValueM/@Result"/>
@@ -1285,9 +1289,11 @@
                 <td align="center">
                     <xsl:value-of select="//EmissionsMAFLearnValueL/LValue"/>
                 </td>
+				<td width="3"></td>
                 <td align="center">
                     <xsl:value-of select="//EmissionsMAFLearnValueL/Max"/>
                 </td>
+				<td width="3"></td>
 				<td align="center">
 					<xsl:call-template name="showResult">
 						<xsl:with-param name="RESULT" select="//EmissionsMAFLearnValueL/@Result"/>

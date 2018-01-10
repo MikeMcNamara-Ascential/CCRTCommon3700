@@ -3029,12 +3029,13 @@ string IsuzuEmissionsTc<ModuleType>::MAFLearn(void)
             testDescription = GetFaultDescription("SystemStatus");
             testResultCode = GetFaultCode("SystemStatus");
         }
-        else if (engineRPM > mafEngineSpeed) 
+        else if (engineRPM >= mafEngineSpeed) 
         {
             testResult = testPass;
         }
         else
         {
+            Log(LOG_ERRORS, "MAF Not Learned. Conditions:\nEngineRPM:%d\nStatus:%d\n",engineRPM,StatusCheck());
             testResult = testFail;
             testResultCode = GetFaultCode("MAFNotLearned");
             testDescription = GetFaultDescription("MAFNotLearned");
@@ -3236,6 +3237,7 @@ template <class ModuleType>
 string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnValues(void) 
 {
 	string testResult = testError;
+    string tempResult = testError;
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
@@ -3253,8 +3255,13 @@ string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnValues(void)
         if(status == BEP_STATUS_SUCCESS)
         {
             if(mafLearnValueH > GetParameterFloat("MAFLearningValueHMax") || mafLearnValueH < GetParameterFloat("MAFLearningValueHMin"))
+            {
                 mafLearnValuesOk = false;
-            SendSubtestResultWithDetail("MAFLearnValueH",ConvertStatusToResponse(status).c_str(), "Check the MAF Learn H Value", "0000",
+                tempResult = testFail;
+            }
+            else
+                tempResult = testPass;
+            SendSubtestResultWithDetail("MAFLearnValueH",tempResult, "Check the MAF Learn H Value", "0000",
                                     "HValue",CreateMessage(buff, sizeof(buff), "%.2f",mafLearnValueH),"",
                                     "Max",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueHMax")),"",
                                     "Min",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueHMin")),"");
@@ -3272,8 +3279,13 @@ string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnValues(void)
         if(status == BEP_STATUS_SUCCESS)
         {
             if(mafLearnValueM > GetParameterFloat("MAFLearningValueMMax") || mafLearnValueM < GetParameterFloat("MAFLearningValueMMin"))
+            {
                 mafLearnValuesOk = false;
-            SendSubtestResultWithDetail("MAFLearnValueM",ConvertStatusToResponse(status).c_str(), "Check the MAF Learn M Value", "0000",
+                tempResult = testFail;
+            }
+            else
+                tempResult = testPass;
+            SendSubtestResultWithDetail("MAFLearnValueM",tempResult, "Check the MAF Learn M Value", "0000",
                                     "MValue",CreateMessage(buff, sizeof(buff), "%.2f",mafLearnValueM),"",
                                     "Max",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueMMax")),"",
                                     "Min",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueMMin")),"");
@@ -3291,9 +3303,14 @@ string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnValues(void)
         if(status == BEP_STATUS_SUCCESS)
         {
             if(mafLearnValueL > GetParameterFloat("MAFLearningValueLMax") || mafLearnValueL < GetParameterFloat("MAFLearningValueLMin"))
+            {
                 mafLearnValuesOk = false;
+                tempResult = testFail;
+            }
+            else
+                tempResult = testPass;
             // Report the value
-            SendSubtestResultWithDetail("MAFLearnValueL",ConvertStatusToResponse(status).c_str(), "Check the MAF Learn L Value", "0000",
+            SendSubtestResultWithDetail("MAFLearnValueL",tempResult, "Check the MAF Learn L Value", "0000",
                                     "LValue",CreateMessage(buff, sizeof(buff), "%.2f",mafLearnValueL),"",
                                     "Max",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueLMax")),"",
                                     "Min",CreateMessage(buff, sizeof(buff),"%.2f",GetParameterFloat("MAFLearningValueLMin")),"");

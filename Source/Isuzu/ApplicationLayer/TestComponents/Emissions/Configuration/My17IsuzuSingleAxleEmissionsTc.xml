@@ -219,11 +219,11 @@
             <!--MAF Learn Clear Parameters -->
 			<DelayBeforeMAFClear>5000</DelayBeforeMAFClear>
             <!-- MAF Learning Value Parameters-->
-            <MAFLearningValueHMax>1000</MAFLearningValueHMax>
+            <MAFLearningValueHMax>10000000000</MAFLearningValueHMax>
             <MAFLearningValueHMin>0</MAFLearningValueHMin>
-            <MAFLearningValueLMax>1000</MAFLearningValueLMax>
+            <MAFLearningValueLMax>10000000000</MAFLearningValueLMax>
             <MAFLearningValueLMin>0</MAFLearningValueLMin>
-            <MAFLearningValueMMax>1000</MAFLearningValueMMax>
+            <MAFLearningValueMMax>10000000000</MAFLearningValueMMax>
             <MAFLearningValueMMin>0</MAFLearningValueMMin>
 			<!--Throttle Position Parameters-->
             <ThrottlePositionUnits>%</ThrottlePositionUnits>

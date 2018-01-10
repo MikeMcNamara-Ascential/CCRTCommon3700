@@ -181,15 +181,20 @@
             </ForegroundObjectives>
         </TestPhase016>
 
-        <TestPhase018 Description="Perform module initialization" Result="" Timeout="">
+        <TestPhase017 Description="Perform module initialization" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective05 Description="Wait for engine temperature" Result="" Timeout="" Component="Emissions">
                     <EngineWarmUp/>
                 </Objective05>
-				<Objective10 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+            </ForegroundObjectives>
+        </TestPhase017>
+		
+		<TestPhase018 Description="Perform module initialization" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+		        <Objective10 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
                     <BrakeToStop/>
                 </Objective10>
-            </ForegroundObjectives>
+		    </ForegroundObjectives>
         </TestPhase018>
 		
 		<TestPhase019 Description="Check MAFLearn Bit" Result="" Timeout="">

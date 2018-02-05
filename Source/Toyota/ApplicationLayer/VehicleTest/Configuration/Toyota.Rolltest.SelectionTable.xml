@@ -1,11 +1,17 @@
 <SelectionTable Description="Toyota drive curve selection table">
-
-    <Camry DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
-        <BodyStyle>Camry</BodyStyle>
-    </Camry>
-
-    <Venza DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
-        <BodyStyle>Venza</BodyStyle>
-    </Venza>
-
+  <Camry DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
+    <BodyStyle>Camry</BodyStyle>
+  </Camry>
+  <Venza DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
+    <BodyStyle>Venza</BodyStyle>
+  </Venza>
+  <ES DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
+    <BodyStyle>ES</BodyStyle>
+  </ES>
+  <Camry010b DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
+    <BodyStyle>Camry010b</BodyStyle>
+  </Camry010b>
+  <Camry010 DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml">
+    <BodyStyle>Camry010</BodyStyle>
+  </Camry010>
 </SelectionTable>

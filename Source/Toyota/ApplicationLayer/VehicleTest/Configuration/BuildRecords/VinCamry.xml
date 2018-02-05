@@ -1,87 +1,86 @@
 <Camry>
-    <VehicleBuild>
-        <!-- Vehicle Data -->
-        <BodyStyle>Camry</BodyStyle>
-        <WheelbasePositionInchesX10 Units="mm">2775</WheelbasePositionInchesX10>
-        <DriveAxle>Front</DriveAxle>
-        <VIN/>
-        <!-- Speedometer Test Parameters -->
-        <SpeedTargets>
-            <KPH>
-                <SpeedometerSpeedTargetLow Units="kph">59</SpeedometerSpeedTargetLow>
-                <SpeedometerSpeedTargetHi Units="kph">63</SpeedometerSpeedTargetHi>
-            </KPH>
-            <MPH>
-                <SpeedometerSpeedTargetLow Units="mph">45</SpeedometerSpeedTargetLow>
-                <SpeedometerSpeedTargetHi Units="mph">48</SpeedometerSpeedTargetHi>
-            </MPH>
-        </SpeedTargets>
-        <!-- Reverse Test Parameters -->
-        <ReverseTestSpeed Units="mph">-12</ReverseTestSpeed>
-        <!-- Brake Stopping Distance Parameters -->
-        <BrakeDistanceTestSpeed Units="mph">35</BrakeDistanceTestSpeed>
-        <BrakeDistanceTestStartMeasureSpeed Units="mph">20.0</BrakeDistanceTestStartMeasureSpeed>
-        <FrontMaximumStoppingDistance Units="m">11.0</FrontMaximumStoppingDistance>
-        <FrontMinimumStoppingDistance Units="m">0.0</FrontMinimumStoppingDistance>
-        <RearMaximumStoppingDistance Units="m">11.0</RearMaximumStoppingDistance>
-        <RearMinimumStoppingDistance Units="m">0.0</RearMinimumStoppingDistance>
-        <!-- Max Brake Force Parameters -->
-        <RequiredBrakeForceFront Units="kgf">235.0</RequiredBrakeForceFront>
-        <RequiredBrakeForceRear Units="kgf">120</RequiredBrakeForceRear>
-        <MaxFrontDifference Units="kgf">45.0</MaxFrontDifference>
-        <MaxRearDifference Units="kgf">25.0</MaxRearDifference>
-        <MaxBrakeSamples Description="Number of samples to average to determine brake force" Units="count">10</MaxBrakeSamples>
-        <!-- Park Brake Force Parameters -->
-        <RequiredParkBrakeForce Units="kgf">125.0</RequiredParkBrakeForce>
-        <MinimumTotalParkBrakeForce Units="kgf">250.0</MinimumTotalParkBrakeForce>
-        <!-- Traction Control Parameters -->
-        <TractionControlSpeed Units="kph">22</TractionControlSpeed>
-        <!--Transmission Shift Points-->
-        <TransmissionShiftPoints>
-            <L4>
-                <KPH>
-                    <ShiftPoint1-2LowNormalAccel Units="kph">18</ShiftPoint1-2LowNormalAccel>
-                    <ShiftPoint1-2HighNormalAccel Units="kph">23</ShiftPoint1-2HighNormalAccel>
-                    <ShiftPoint2-3LowNormalAccel Units="kph">29</ShiftPoint2-3LowNormalAccel>
-                    <ShiftPoint2-3HighNormalAccel Units="kph">39</ShiftPoint2-3HighNormalAccel>
-                    <ShiftPoint1-2LowFullAccel Units="kph">57</ShiftPoint1-2LowFullAccel>
-                    <ShiftPoint1-2HighFullAccel Units="kph">66</ShiftPoint1-2HighFullAccel>
-                    <ShiftPoint2-3LowFullAccel Units="kph">107</ShiftPoint2-3LowFullAccel>
-                    <ShiftPoint2-3HighFullAccel Units="kph">117</ShiftPoint2-3HighFullAccel>
-                </KPH>
-                <MPH>
-                    <ShiftPoint1-2LowNormalAccel Units="mph">11</ShiftPoint1-2LowNormalAccel>
-                    <ShiftPoint1-2HighNormalAccel Units="mph">14</ShiftPoint1-2HighNormalAccel>
-                    <ShiftPoint2-3LowNormalAccel Units="mph">18</ShiftPoint2-3LowNormalAccel>
-                    <ShiftPoint2-3HighNormalAccel Units="mph">24</ShiftPoint2-3HighNormalAccel>
-                    <ShiftPoint1-2LowFullAccel Units="mph">35</ShiftPoint1-2LowFullAccel>
-                    <ShiftPoint1-2HighFullAccel Units="mph">41</ShiftPoint1-2HighFullAccel>
-                    <ShiftPoint2-3LowFullAccel Units="mph">66</ShiftPoint2-3LowFullAccel>
-                    <ShiftPoint2-3HighFullAccel Units="mph">73</ShiftPoint2-3HighFullAccel>
-                </MPH>
-            </L4>
-            <V6>
-                <KPH>
-                    <ShiftPoint1-2LowNormalAccel Units="kph">18</ShiftPoint1-2LowNormalAccel>
-                    <ShiftPoint1-2HighNormalAccel Units="kph">23</ShiftPoint1-2HighNormalAccel>
-                    <ShiftPoint2-3LowNormalAccel Units="kph">29</ShiftPoint2-3LowNormalAccel>
-                    <ShiftPoint2-3HighNormalAccel Units="kph">39</ShiftPoint2-3HighNormalAccel>
-                    <ShiftPoint1-2LowFullAccel Units="kph">57</ShiftPoint1-2LowFullAccel>
-                    <ShiftPoint1-2HighFullAccel Units="kph">66</ShiftPoint1-2HighFullAccel>
-                    <ShiftPoint2-3LowFullAccel Units="kph">108</ShiftPoint2-3LowFullAccel>
-                    <ShiftPoint2-3HighFullAccel Units="kph">118</ShiftPoint2-3HighFullAccel>
-                </KPH>
-                <MPH>
-                    <ShiftPoint1-2LowNormalAccel Units="mph">11</ShiftPoint1-2LowNormalAccel>
-                    <ShiftPoint1-2HighNormalAccel Units="mph">14</ShiftPoint1-2HighNormalAccel>
-                    <ShiftPoint2-3LowNormalAccel Units="mph">18</ShiftPoint2-3LowNormalAccel>
-                    <ShiftPoint2-3HighNormalAccel Units="mph">24</ShiftPoint2-3HighNormalAccel>
-                    <ShiftPoint1-2LowFullAccel Units="mph">35</ShiftPoint1-2LowFullAccel>
-                    <ShiftPoint1-2HighFullAccel Units="mph">41</ShiftPoint1-2HighFullAccel>
-                    <ShiftPoint2-3LowFullAccel Units="mph">67</ShiftPoint2-3LowFullAccel>
-                    <ShiftPoint2-3HighFullAccel Units="mph">73</ShiftPoint2-3HighFullAccel>
-                </MPH>
-            </V6>
-        </TransmissionShiftPoints>
-    </VehicleBuild>
+  <VehicleBuild>
+    <!-- Vehicle Data -->
+    <BodyStyle>Camry</BodyStyle>
+    <WheelbasePositionInchesX10 Units="mm">2775</WheelbasePositionInchesX10>
+    <DriveAxle>Front</DriveAxle>
+    <VIN />
+    <!-- Speedometer Test Parameters -->
+    <SpeedTargets>
+      <KPH>
+        <SpeedometerSpeedTargetLow Units="kph">72</SpeedometerSpeedTargetLow>
+        <SpeedometerSpeedTargetHi Units="kph">77</SpeedometerSpeedTargetHi>
+      </KPH>
+      <MPH>
+        <SpeedometerSpeedTargetLow Units="mph">45</SpeedometerSpeedTargetLow>
+        <SpeedometerSpeedTargetHi Units="mph">48</SpeedometerSpeedTargetHi>
+      </MPH>
+    </SpeedTargets>
+    <!-- Reverse Test Parameters -->
+    <ReverseTestSpeed Units="mph">-12</ReverseTestSpeed>
+    <!-- Brake Stopping Distance Parameters -->
+    <BrakeDistanceTestSpeed Units="mph">35</BrakeDistanceTestSpeed>
+    <BrakeDistanceTestStartMeasureSpeed Units="mph">20.0</BrakeDistanceTestStartMeasureSpeed>
+    <FrontMaximumStoppingDistance Units="m">11.0</FrontMaximumStoppingDistance>
+    <FrontMinimumStoppingDistance Units="m">0.8</FrontMinimumStoppingDistance>
+    <RearMaximumStoppingDistance Units="m">11.0</RearMaximumStoppingDistance>
+    <RearMinimumStoppingDistance Units="m">0.8</RearMinimumStoppingDistance>
+    <!-- Max Brake Force Parameters -->
+    <RequiredBrakeForceFront Units="kgf">235.0</RequiredBrakeForceFront>
+    <RequiredBrakeForceRear Units="kgf">125.0</RequiredBrakeForceRear>
+    <MaxFrontDifference Units="kgf">45.0</MaxFrontDifference>
+    <MaxRearDifference Units="kgf">25.0</MaxRearDifference>
+    <!-- Park Brake Force Parameters -->
+    <RequiredParkBrakeForce Units="kgf">125.0</RequiredParkBrakeForce>
+    <MinimumTotalParkBrakeForce Units="kgf">250.0</MinimumTotalParkBrakeForce>
+    <!-- Traction Control Parameters -->
+    <TractionControlSpeed Units="kph">22</TractionControlSpeed>
+    <!--Transmission Shift Points-->
+    <TransmissionShiftPoints>
+      <L4>
+        <KPH>
+          <ShiftPoint1-2LowNormalAccel Units="kph">18</ShiftPoint1-2LowNormalAccel>
+          <ShiftPoint1-2HighNormalAccel Units="kph">23</ShiftPoint1-2HighNormalAccel>
+          <ShiftPoint2-3LowNormalAccel Units="kph">29</ShiftPoint2-3LowNormalAccel>
+          <ShiftPoint2-3HighNormalAccel Units="kph">39</ShiftPoint2-3HighNormalAccel>
+          <ShiftPoint1-2LowFullAccel Units="kph">57</ShiftPoint1-2LowFullAccel>
+          <ShiftPoint1-2HighFullAccel Units="kph">66</ShiftPoint1-2HighFullAccel>
+          <ShiftPoint2-3LowFullAccel Units="kph">107</ShiftPoint2-3LowFullAccel>
+          <ShiftPoint2-3HighFullAccel Units="kph">117</ShiftPoint2-3HighFullAccel>
+        </KPH>
+        <MPH>
+          <ShiftPoint1-2LowNormalAccel Units="mph">11</ShiftPoint1-2LowNormalAccel>
+          <ShiftPoint1-2HighNormalAccel Units="mph">14</ShiftPoint1-2HighNormalAccel>
+          <ShiftPoint2-3LowNormalAccel Units="mph">18</ShiftPoint2-3LowNormalAccel>
+          <ShiftPoint2-3HighNormalAccel Units="mph">24</ShiftPoint2-3HighNormalAccel>
+          <ShiftPoint1-2LowFullAccel Units="mph">35</ShiftPoint1-2LowFullAccel>
+          <ShiftPoint1-2HighFullAccel Units="mph">41</ShiftPoint1-2HighFullAccel>
+          <ShiftPoint2-3LowFullAccel Units="mph">66</ShiftPoint2-3LowFullAccel>
+          <ShiftPoint2-3HighFullAccel Units="mph">73</ShiftPoint2-3HighFullAccel>
+        </MPH>
+      </L4>
+      <V6>
+        <KPH>
+          <ShiftPoint1-2LowNormalAccel Units="kph">18</ShiftPoint1-2LowNormalAccel>
+          <ShiftPoint1-2HighNormalAccel Units="kph">23</ShiftPoint1-2HighNormalAccel>
+          <ShiftPoint2-3LowNormalAccel Units="kph">29</ShiftPoint2-3LowNormalAccel>
+          <ShiftPoint2-3HighNormalAccel Units="kph">39</ShiftPoint2-3HighNormalAccel>
+          <ShiftPoint1-2LowFullAccel Units="kph">57</ShiftPoint1-2LowFullAccel>
+          <ShiftPoint1-2HighFullAccel Units="kph">66</ShiftPoint1-2HighFullAccel>
+          <ShiftPoint2-3LowFullAccel Units="kph">108</ShiftPoint2-3LowFullAccel>
+          <ShiftPoint2-3HighFullAccel Units="kph">118</ShiftPoint2-3HighFullAccel>
+        </KPH>
+        <MPH>
+          <ShiftPoint1-2LowNormalAccel Units="mph">11</ShiftPoint1-2LowNormalAccel>
+          <ShiftPoint1-2HighNormalAccel Units="mph">14</ShiftPoint1-2HighNormalAccel>
+          <ShiftPoint2-3LowNormalAccel Units="mph">18</ShiftPoint2-3LowNormalAccel>
+          <ShiftPoint2-3HighNormalAccel Units="mph">24</ShiftPoint2-3HighNormalAccel>
+          <ShiftPoint1-2LowFullAccel Units="mph">35</ShiftPoint1-2LowFullAccel>
+          <ShiftPoint1-2HighFullAccel Units="mph">41</ShiftPoint1-2HighFullAccel>
+          <ShiftPoint2-3LowFullAccel Units="mph">67</ShiftPoint2-3LowFullAccel>
+          <ShiftPoint2-3HighFullAccel Units="mph">73</ShiftPoint2-3HighFullAccel>
+        </MPH>
+      </V6>
+    </TransmissionShiftPoints>
+  </VehicleBuild>
 </Camry>

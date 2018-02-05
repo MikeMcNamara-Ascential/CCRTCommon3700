@@ -12,13 +12,13 @@ SET(EXE_NAME ToyotaMachineTc)
 # Where to find the common headers
 #------------------------------------------------------------------------------------------
 INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}
-		    ${CORE_MACHINE_TC_INC_PATH})
+                    ${CORE_MACHINE_TC_INC_PATH})
 
 #------------------------------------------------------------------------------------------
 # All components link against the common library
 #------------------------------------------------------------------------------------------
 LINK_DIRECTORIES(${CORE_MACHINE_TC_LIB_PATH})
-LINK_LIBRARIES(machinecomponent)
+LINK_LIBRARIES(machinecomponent m)
 
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
@@ -28,9 +28,7 @@ ADD_SUBDIRECTORY(Configuration)
 #------------------------------------------------------------------------------------------
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
-#ADD_EXECUTABLE(${EXE_NAME}.${CMAKE_EXECUTABLE_SUFFIX} ${COMPONENT_SRC})
-CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp ToyotaMachineTC.cpp)
-TARGET_LINK_LIBRARIES(${EXE_NAME} m -lds -lm)
+ADD_EXECUTABLE(${EXE_NAME}.${CMAKE_EXECUTABLE_SUFFIX} ${COMPONENT_SRC})
 
 #------------------------------------------------------------------------------------------
 # Make sure that the services layer lib is built first

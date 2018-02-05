@@ -1,19 +1,23 @@
 <SelectionTable Description="Toyota drive curve selection table">
-
-    <Camry DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
-        <BodyStyle>Camry</BodyStyle>
-    </Camry>
-
-    <Venza DriveCurve="/Configuration/VehicleTest/DriveCurves/VenzaBrakeTestDriveCurve.xml">
-        <BodyStyle>Venza</BodyStyle>
-    </Venza>
-
-    <Maintenance DriveCurve="/Configuration/VehicleTest/DriveCurves/MaintenanceDriveCurve.xml">
-        <BodyStyle>PM</BodyStyle>
-    </Maintenance>
-
-    <PreShiftCheck DriveCurve="/Configuration/VehicleTest/DriveCurves/PreShiftCheckDriveCurve.xml">
-        <BodyStyle>PreShiftCheck</BodyStyle>
-    </PreShiftCheck>
-
+  <Camry DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
+    <BodyStyle>Camry</BodyStyle>
+  </Camry>
+  <Venza DriveCurve="/Configuration/VehicleTest/DriveCurves/VenzaBrakeTestDriveCurve.xml">
+    <BodyStyle>Venza</BodyStyle>
+  </Venza>
+  <Maintenance DriveCurve="/Configuration/VehicleTest/DriveCurves/MaintenanceDriveCurve.xml">
+    <BodyStyle>PM</BodyStyle>
+  </Maintenance>
+  <PreShiftCheck DriveCurve="/Configuration/VehicleTest/DriveCurves/PreShiftCheckDriveCurve.xml">
+    <BodyStyle>PreShiftCheck</BodyStyle>
+  </PreShiftCheck>
+  <ES DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
+    <BodyStyle>ES</BodyStyle>
+  </ES>
+  <Camry010b DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
+    <BodyStyle>Camry010b</BodyStyle>
+  </Camry010b>
+  <Camry010 DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
+    <BodyStyle>Camry010</BodyStyle>
+  </Camry010>
 </SelectionTable>

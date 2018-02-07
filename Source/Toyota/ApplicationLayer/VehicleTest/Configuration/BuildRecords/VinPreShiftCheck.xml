@@ -1,34 +1,34 @@
 <PreShiftCheck>
-   <VehicleBuild>
-      <!-- Vehicle Data -->
-      <BodyStyle>PreShiftCheck</BodyStyle>
-      <WheelbasePositionInchesX10 Units="mm">2775</WheelbasePositionInchesX10>
-      <DriveAxle>Front</DriveAxle>
-      <VIN/>
-      <!-- Speedometer Test Parameters -->
-      <SpeedometerSpeedTargetLow Units="mph">45</SpeedometerSpeedTargetLow>
-      <SpeedometerSpeedTargetHi Units="mph">48</SpeedometerSpeedTargetHi>
-      <!-- Reverse Test Parameters -->
-      <ReverseTestSpeed Units="mph">12</ReverseTestSpeed>
-      <!-- Brake Stopping Distance Parameters -->
-      <BrakeDistanceTestSpeed Units="mph">35</BrakeDistanceTestSpeed>
-      <BrakeDistanceTestStartMeasureSpeed Units="mph">20.0</BrakeDistanceTestStartMeasureSpeed>
-      <FrontMaximumStoppingDistance Units="m">11.0</FrontMaximumStoppingDistance>
-      <FrontMinimumStoppingDistance Units="m">0.8</FrontMinimumStoppingDistance>
-      <RearMaximumStoppingDistance Units="m">11.0</RearMaximumStoppingDistance>
-      <RearMinimumStoppingDistance Units="m">0.8</RearMinimumStoppingDistance>
-      <!-- Max Brake Force Parameters -->
-      <RequiredBrakeForceFront Units="kgf">235.0</RequiredBrakeForceFront>
-      <RequiredBrakeForceRear Units="kgf">125.0</RequiredBrakeForceRear>
-      <MaxFrontDifference Units="kgf">45.0</MaxFrontDifference>
-      <MaxRearDifference Units="kgf">25.0</MaxRearDifference>
-      <MaxBrakeSamples Description="Number of samples to average to determine brake force" Units="count">30</MaxBrakeSamples>
-      <PreShiftDragSamples Units="count">30</PreShiftDragSamples>
-      <MaxDragLimit Units="kgf">50</MaxDragLimit>
-      <!-- Park Brake Force Parameters -->
-      <RequiredParkBrakeForce Units="kgf">125.0</RequiredParkBrakeForce>
-      <MinimumTotalParkBrakeForce Units="kgf">250.0</MinimumTotalParkBrakeForce>
-      <!-- Traction Control Parameters -->
-      <TractionControlSpeed Units="kph">22</TractionControlSpeed>
-   </VehicleBuild>
+  <VehicleBuild>
+    <!-- Vehicle Data -->
+    <BodyStyle>PreShiftCheck</BodyStyle>
+    <WheelbasePositionInchesX10 Units="mm">2825</WheelbasePositionInchesX10>
+    <DriveAxle>Front</DriveAxle>
+    <VIN />
+    <!-- Speedometer Test Parameters -->
+    <SpeedometerSpeedTargetLow Units="mph">45</SpeedometerSpeedTargetLow>
+    <SpeedometerSpeedTargetHi Units="mph">48</SpeedometerSpeedTargetHi>
+    <!-- Reverse Test Parameters -->
+    <ReverseTestSpeed Units="mph">12</ReverseTestSpeed>
+    <!-- Brake Stopping Distance Parameters -->
+    <BrakeDistanceTestSpeed Units="mph">35</BrakeDistanceTestSpeed>
+    <BrakeDistanceTestStartMeasureSpeed Units="mph">20.0</BrakeDistanceTestStartMeasureSpeed>
+    <FrontMaximumStoppingDistance Units="m">11.0</FrontMaximumStoppingDistance>
+    <FrontMinimumStoppingDistance Units="m">0.8</FrontMinimumStoppingDistance>
+    <RearMaximumStoppingDistance Units="m">11.0</RearMaximumStoppingDistance>
+    <RearMinimumStoppingDistance Units="m">0.8</RearMinimumStoppingDistance>
+    <!-- Max Brake Force Parameters -->
+    <RequiredBrakeForceFront Units="kgf">235.0</RequiredBrakeForceFront>
+    <RequiredBrakeForceRear Units="kgf">125.0</RequiredBrakeForceRear>
+    <MaxFrontDifference Units="kgf">45.0</MaxFrontDifference>
+    <MaxRearDifference Units="kgf">25.0</MaxRearDifference>
+    <MaxBrakeSamples Description="Number of samples to average to determine brake force" Units="count">50</MaxBrakeSamples>
+    <PreShiftDragSamples Units="count">50</PreShiftDragSamples>
+    <MaxDragLimit Units="kgf">50</MaxDragLimit>
+    <!-- Park Brake Force Parameters -->
+    <RequiredParkBrakeForce Units="kgf">125.0</RequiredParkBrakeForce>
+    <MinimumTotalParkBrakeForce Units="kgf">250.0</MinimumTotalParkBrakeForce>
+    <!-- Traction Control Parameters -->
+    <TractionControlSpeed Units="kph">22</TractionControlSpeed>
+  </VehicleBuild>
 </PreShiftCheck>

@@ -1,0 +1,90 @@
+<Camry010B>
+  <VehicleBuild>
+    <!-- Vehicle Data -->
+    <BodyStyle>Camry010B</BodyStyle>
+    <WheelbasePositionInchesX10 Units="mm">2825</WheelbasePositionInchesX10>
+    <DriveAxle> Front</DriveAxle>
+    <VIN />
+    <!-- Speedometer Test Parameters -->
+    <SpeedTargets>
+      <KPH>
+        <SpeedometerSpeedTargetLow Units="kph">59</SpeedometerSpeedTargetLow>
+        <SpeedometerSpeedTargetHi Units="kph" />
+      </KPH>
+      <MPH>
+        <SpeedometerSpeedTargetLow Units="mph">45</SpeedometerSpeedTargetLow>
+        <SpeedometerSpeedTargetHi Units="mph">48</SpeedometerSpeedTargetHi>
+      </MPH>
+    </SpeedTargets>
+    <!-- Reverse Test Parameters -->
+    <ReverseTestSpeed Units="mph" />
+    <!-- Brake Stopping Distance Parameters -->
+    <BrakeDistanceTestSpeed Units="mph">35</BrakeDistanceTestSpeed>
+    <BrakeDistanceTestStartMeasureSpeed Units="mph">32.18688</BrakeDistanceTestStartMeasureSpeed>
+    <FrontMaximumStoppingDistance Units="m">11.0</FrontMaximumStoppingDistance>
+    <FrontMinimumStoppingDistance Units="m">.8</FrontMinimumStoppingDistance>
+    <RearMaximumStoppingDistance Units="m">11.0</RearMaximumStoppingDistance>
+    <RearMinimumStoppingDistance Units="m">0.8</RearMinimumStoppingDistance>
+    <!-- Max Brake Force Parameters -->
+    <RequiredBrakeForceFront Units="kgf">90</RequiredBrakeForceFront>
+    <RequiredBrakeForceRear Units="kgf">28</RequiredBrakeForceRear>
+    <MaxFrontDifference Units="kgf">48</MaxFrontDifference>
+    <MaxRearDifference Units="kgf">39</MaxRearDifference>
+    <MaxBrakeSamples Units="count">3</MaxBrakeSamples>
+    <!-- Park Brake Force Parameters -->
+    <RequiredParkBrakeForce Units="kgf">70</RequiredParkBrakeForce>
+    <MinimumTotalParkBrakeForce Units="kgf">140</MinimumTotalParkBrakeForce>
+    <!-- Traction Control Parameters -->
+    <TractionControlSpeed Units="kph" />
+    <!-- AWD Parameters -->
+    <AwdTestSpeed Units="mph" />
+    <AwdMaxAxleDiff Units="mph" />
+    <!--Transmission Shift Points-->
+    <TransmissionShiftPoints>
+      <L4>
+        <KPH>
+          <ShiftPoint1-2LowNormalAccel Units="kph" />
+          <ShiftPoint1-2HighNormalAccel Units="kph" />
+          <ShiftPoint2-3LowNormalAccel Units="kph" />
+          <ShiftPoint2-3HighNormalAccel Units="kph" />
+          <ShiftPoint1-2LowFullAccel Units="kph" />
+          <ShiftPoint1-2HighFullAccel Units="kph" />
+          <ShiftPoint2-3LowFullAccel Units="kph" />
+          <ShiftPoint2-3HighFullAccel Units="kph" />
+        </KPH>
+        <MPH>
+          <ShiftPoint1-2LowNormalAccel Units="mph" />
+          <ShiftPoint1-2HighNormalAccel Units="mph" />
+          <ShiftPoint2-3LowNormalAccel Units="mph" />
+          <ShiftPoint2-3HighNormalAccel Units="mph" />
+          <ShiftPoint1-2LowFullAccel Units="mph" />
+          <ShiftPoint1-2HighFullAccel Units="mph" />
+          <ShiftPoint2-3LowFullAccel Units="mph" />
+          <ShiftPoint2-3HighFullAccel Units="mph" />
+        </MPH>
+      </L4>
+      <V6>
+        <KPH>
+          <ShiftPoint1-2LowNormalAccel Units="kph" />
+          <ShiftPoint1-2HighNormalAccel Units="kph" />
+          <ShiftPoint2-3LowNormalAccel Units="kph" />
+          <ShiftPoint2-3HighNormalAccel Units="kph" />
+          <ShiftPoint1-2LowFullAccel Units="kph" />
+          <ShiftPoint1-2HighFullAccel Units="kph" />
+          <ShiftPoint2-3LowFullAccel Units="kph" />
+          <ShiftPoint2-3HighFullAccel Units="kph" />
+        </KPH>
+        <MPH>
+          <ShiftPoint1-2LowNormalAccel Units="mph" />
+          <ShiftPoint1-2HighNormalAccel Units="mph" />
+          <ShiftPoint2-3LowNormalAccel Units="mph" />
+          <ShiftPoint2-3HighNormalAccel Units="mph" />
+          <ShiftPoint1-2LowFullAccel Units="mph" />
+          <ShiftPoint1-2HighFullAccel Units="mph" />
+          <ShiftPoint2-3LowFullAccel Units="mph" />
+          <ShiftPoint2-3HighFullAccel Units="mph" />
+        </MPH>
+      </V6>
+    </TransmissionShiftPoints>
+  </VehicleBuild>
+</Camry010B>

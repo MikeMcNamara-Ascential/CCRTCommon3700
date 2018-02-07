@@ -19,30 +19,26 @@
     <!-- Reverse Test Parameters -->
     <ReverseTestSpeed Units="mph">-12</ReverseTestSpeed>
     <!-- Brake Stopping Distance Parameters -->
-    <BrakeDistanceTestSpeed Units="mph">
-    </BrakeDistanceTestSpeed>
-    <BrakeDistanceTestStartMeasureSpeed Units="mph">51.79976220672</BrakeDistanceTestStartMeasureSpeed>
+    <BrakeDistanceTestSpeed Units="mph">35</BrakeDistanceTestSpeed>
+    <BrakeDistanceTestStartMeasureSpeed Units="mph">20</BrakeDistanceTestStartMeasureSpeed>
     <FrontMaximumStoppingDistance Units="m">11.0</FrontMaximumStoppingDistance>
     <FrontMinimumStoppingDistance Units="m">0.8</FrontMinimumStoppingDistance>
     <RearMaximumStoppingDistance Units="m">11.0</RearMaximumStoppingDistance>
     <RearMinimumStoppingDistance Units="m">0.0</RearMinimumStoppingDistance>
     <!-- Max Brake Force Parameters -->
-    <RequiredBrakeForceFront Units="kgf">235.0</RequiredBrakeForceFront>
-    <RequiredBrakeForceRear Units="kgf">80</RequiredBrakeForceRear>
-    <MaxFrontDifference Units="kgf">45.0</MaxFrontDifference>
+    <RequiredBrakeForceFront Units="kgf">235</RequiredBrakeForceFront>
+    <RequiredBrakeForceRear Units="kgf">110</RequiredBrakeForceRear>
+    <MaxFrontDifference Units="kgf">40</MaxFrontDifference>
     <MaxRearDifference Units="kgf">25.0</MaxRearDifference>
     <MaxBrakeSamples Units="count">2</MaxBrakeSamples>
     <!-- Park Brake Force Parameters -->
-    <RequiredParkBrakeForce Units="kgf">125.0</RequiredParkBrakeForce>
-    <MinimumTotalParkBrakeForce Units="kgf">250.0</MinimumTotalParkBrakeForce>
+    <RequiredParkBrakeForce Units="kgf">145</RequiredParkBrakeForce>
+    <MinimumTotalParkBrakeForce Units="kgf">290</MinimumTotalParkBrakeForce>
     <!-- Traction Control Parameters -->
-    <TractionControlSpeed Units="kph">
-    </TractionControlSpeed>
+    <TractionControlSpeed Units="kph" />
     <!-- AWD Parameters -->
-    <AwdTestSpeed Units="mph">
-    </AwdTestSpeed>
-    <AwdMaxAxleDiff Units="mph">
-    </AwdMaxAxleDiff>
+    <AwdTestSpeed Units="mph" />
+    <AwdMaxAxleDiff Units="mph" />
     <!--Transmission Shift Points-->
     <TransmissionShiftPoints>
       <L4>

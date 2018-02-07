@@ -14,10 +14,10 @@
   <ES DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
     <BodyStyle>ES</BodyStyle>
   </ES>
-  <Camry010b DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
-    <BodyStyle>Camry010b</BodyStyle>
-  </Camry010b>
-  <Camry010 DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
-    <BodyStyle>Camry010</BodyStyle>
-  </Camry010>
+  <CAMRY010B DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
+    <BodyStyle>CAMRY010B</BodyStyle>
+  </CAMRY010B>
+  <Camry010B DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
+    <BodyStyle>Camry010B</BodyStyle>
+  </Camry010B>
 </SelectionTable>

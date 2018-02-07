@@ -8,8 +8,8 @@
     <!-- Speedometer Test Parameters -->
     <SpeedTargets>
       <KPH>
-        <SpeedometerSpeedTargetLow Units="kph">72</SpeedometerSpeedTargetLow>
-        <SpeedometerSpeedTargetHi Units="kph">77</SpeedometerSpeedTargetHi>
+        <SpeedometerSpeedTargetLow Units="kph">59</SpeedometerSpeedTargetLow>
+        <SpeedometerSpeedTargetHi Units="kph">63</SpeedometerSpeedTargetHi>
       </KPH>
       <MPH>
         <SpeedometerSpeedTargetLow Units="mph">45</SpeedometerSpeedTargetLow>
@@ -22,14 +22,15 @@
     <BrakeDistanceTestSpeed Units="mph">35</BrakeDistanceTestSpeed>
     <BrakeDistanceTestStartMeasureSpeed Units="mph">20.0</BrakeDistanceTestStartMeasureSpeed>
     <FrontMaximumStoppingDistance Units="m">11.0</FrontMaximumStoppingDistance>
-    <FrontMinimumStoppingDistance Units="m">0.8</FrontMinimumStoppingDistance>
+    <FrontMinimumStoppingDistance Units="m">.8</FrontMinimumStoppingDistance>
     <RearMaximumStoppingDistance Units="m">11.0</RearMaximumStoppingDistance>
     <RearMinimumStoppingDistance Units="m">0.8</RearMinimumStoppingDistance>
     <!-- Max Brake Force Parameters -->
     <RequiredBrakeForceFront Units="kgf">235.0</RequiredBrakeForceFront>
-    <RequiredBrakeForceRear Units="kgf">125.0</RequiredBrakeForceRear>
+    <RequiredBrakeForceRear Units="kgf">82</RequiredBrakeForceRear>
     <MaxFrontDifference Units="kgf">45.0</MaxFrontDifference>
     <MaxRearDifference Units="kgf">25.0</MaxRearDifference>
+    <MaxBrakeSamples Description="Number of samples to average to determine brake force" Units="count">2</MaxBrakeSamples>
     <!-- Park Brake Force Parameters -->
     <RequiredParkBrakeForce Units="kgf">125.0</RequiredParkBrakeForce>
     <MinimumTotalParkBrakeForce Units="kgf">250.0</MinimumTotalParkBrakeForce>

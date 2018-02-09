@@ -3242,16 +3242,103 @@ string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnValues(void)
     string testDescription = GetTestStepInfo("Description");
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     bool mafLearnValuesOk = true;
-    float mafLearnValueH = 0;
+    /*float mafLearnValueH = 0;
     float mafLearnValueM = 0;
-    float mafLearnValueL = 0;
-    char buff[32];
+    float mafLearnValueL = 0;*/
+    string mafLearnValueH = "";
+    string mafLearnValueM = "";
+    string mafLearnValueL = "";
+    //char buff[32];
+    string response;
 
     
     if(!ShortCircuitTestStep())
     {
+        Log(LOG_DEV_DATA, "Getting H Value\n");
+        status = m_vehicleModule.GetMAFLearningValue("ReadMAFLearningValueH",response);
+        if (BEP_STATUS_SUCCESS == status)
+        {   //Only check for data if data was read from the module
+            if (response.size() > 0)
+            {
+                Log(LOG_DEV_DATA, "Found H Value\n");
+                mafLearnValueH = response;
+                tempResult = testPass;
+            }
+            else
+            {
+                Log(LOG_ERRORS, "H Value response was empty\n");
+                mafLearnValuesOk = false;
+                tempResult = testFail;
+            }
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get H Value response\n");
+            mafLearnValuesOk = false;
+            tempResult = testFail;
+        }
+
+        SendSubtestResultWithDetail("MAFLearnValueH",tempResult, "Check the MAF Learn H Value", "0000",
+                                "HValue",mafLearnValueH,"");
+
+        Log(LOG_DEV_DATA, "Getting M Value\n");
+        status = m_vehicleModule.GetMAFLearningValue("ReadMAFLearningValueM",response);
+        if (BEP_STATUS_SUCCESS == status)
+        {   //Only check for data if data was read from the module
+            if (response.size() > 0)
+            {
+                Log(LOG_DEV_DATA, "Found M Value\n");
+                mafLearnValueM = response;
+                tempResult = testPass;
+            }
+            else
+            {
+                Log(LOG_ERRORS, "M Value response was empty\n");
+                mafLearnValuesOk = false;
+                tempResult = testFail;
+            }
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get M Value response\n");
+            mafLearnValuesOk = false;
+            tempResult = testFail;
+        }
+
+        SendSubtestResultWithDetail("MAFLearnValueM",tempResult, "Check the MAF Learn M Value", "0000",
+                                "MValue",mafLearnValueM,"");
+
+        Log(LOG_DEV_DATA, "Getting L Value\n");
+        status = m_vehicleModule.GetMAFLearningValue("ReadMAFLearningValueL",response);
+        if (BEP_STATUS_SUCCESS == status)
+        {   //Only check for data if data was read from the module
+            if (response.size() > 0)
+            {
+                Log(LOG_DEV_DATA, "Found L Value\n");
+                mafLearnValueL = response;
+                tempResult = testPass;
+            }
+            else
+            {
+                Log(LOG_ERRORS, "L Value response was empty\n");
+                mafLearnValuesOk = false;
+                tempResult = testFail;
+            }
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Could not get L Value response\n");
+            mafLearnValuesOk = false;
+            tempResult = testFail;
+        }
+
+        SendSubtestResultWithDetail("MAFLearnValueL",tempResult, "Check the MAF Learn L Value", "0000",
+                                "LValue",mafLearnValueL,"");
+
+
+
         //Check MAF Learn Values
-        status = m_vehicleModule.ReadModuleData("ReadMAFLearningValueH", mafLearnValueH);
+        /*status = m_vehicleModule.ReadModuleData("ReadMAFLearningValueH", mafLearnValueH);
         if(status == BEP_STATUS_SUCCESS)
         {
             if(mafLearnValueH > GetParameterFloat("MAFLearningValueHMax") || mafLearnValueH < GetParameterFloat("MAFLearningValueHMin"))
@@ -3324,7 +3411,7 @@ string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnValues(void)
             testDescription = GetFaultDescription("CommunicationFailure");
             testResultCode = GetFaultCode("CommunicationFailure");
             mafLearnValuesOk = false;
-        }
+        } */
 
 
         testResult = mafLearnValuesOk ? testPass : testFail;

@@ -310,6 +310,7 @@ public:
      * @return BEP_STATUS_SOFTWARE
      */
     virtual BEP_STATUS_TYPE ReadFaults(FaultStatusVector_t &faultCodes);
+    BEP_STATUS_TYPE GetMAFLearningValue(string messageTag,string &value);
 
     BEP_STATUS_TYPE EnterNormalMode(void);
     BEP_STATUS_TYPE DisableNormalComms(void);

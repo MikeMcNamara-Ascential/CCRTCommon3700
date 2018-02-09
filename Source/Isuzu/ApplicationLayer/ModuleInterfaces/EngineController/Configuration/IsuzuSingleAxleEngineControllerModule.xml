@@ -262,21 +262,21 @@
                 <TransmitMessage>ReadPid</TransmitMessage>
                 <TransmitInterpretation>MAFLearningValueH</TransmitInterpretation>
                 <ReplyMessage>ReadPidResponse</ReplyMessage>
-                <ReplyInterpretation>MAFLearningValueH</ReplyInterpretation>
+                <ReplyInterpretation/>
             </ReadMAFLearningValueH>
 
             <ReadMAFLearningValueL>
                 <TransmitMessage>ReadPid</TransmitMessage>
                 <TransmitInterpretation>MAFLearningValueL</TransmitInterpretation>
                 <ReplyMessage>ReadPidResponse</ReplyMessage>
-                <ReplyInterpretation>MAFLearningValueL</ReplyInterpretation>
+                <ReplyInterpretation/>
             </ReadMAFLearningValueL>
 
             <ReadMAFLearningValueM>
                 <TransmitMessage>ReadPid</TransmitMessage>
                 <TransmitInterpretation>MAFLearningValueM</TransmitInterpretation>
                 <ReplyMessage>ReadPidResponse</ReplyMessage>
-                <ReplyInterpretation>MAFLearningValueM</ReplyInterpretation>
+                <ReplyInterpretation/>
             </ReadMAFLearningValueM>
 
             <ReadMainInjectionTimingSensor>

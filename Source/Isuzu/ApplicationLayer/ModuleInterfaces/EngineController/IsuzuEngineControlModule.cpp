@@ -382,4 +382,39 @@ BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::ReadMemoryLocation
     Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::ReadMemoryLocation() - Exit:%d", status);
     return(status);
 }
+//-------------------------------------------------------------------------------------------------
+template <class ProtocolFilterType> 
+BEP_STATUS_TYPE IsuzuEngineControlModule<ProtocolFilterType>::GetMAFLearningValue(string messageTag, string &value)
+{
+    SerialString_t moduleResponse(55, 0);
+    BEP_STATUS_TYPE status;
+
+
+    Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::GetMAFLearningValue() - Enter");
+	Log(LOG_FN_ENTRY, "This is not a drill.");
+
+    status = m_protocolFilter->GetModuleData(messageTag, moduleResponse);
+    // Check the status of the read
+    if(status == BEP_STATUS_SUCCESS)
+    {
+        Log(LOG_DEV_DATA, "Parsing Module Response...\n");
+        string fullResponse;
+        char temp[56];
+        for(UINT16 ii = 0; ii < moduleResponse.length(); ii++)
+            fullResponse += CreateMessage(temp, 56, "%02X ", moduleResponse[ii]);
+        Log(LOG_DEV_DATA, "Module response: %s\n", fullResponse.c_str());
+		value = "";
+		value = fullResponse.substr(9,21);
+        Log(LOG_DEV_DATA, "Data Value: %s\n", value.c_str());
+    }
+    else
+    {   // Error reading faults from the module
+        Log(LOG_ERRORS, "Error read value from %s\n", ModuleName().c_str());
+    }
+    // Return the status
+    Log(LOG_FN_ENTRY, "IsuzuEngineControlModule::GetMAFLearningValue() - Exit:%d", status);
+    return(status);
+
+}
+
 

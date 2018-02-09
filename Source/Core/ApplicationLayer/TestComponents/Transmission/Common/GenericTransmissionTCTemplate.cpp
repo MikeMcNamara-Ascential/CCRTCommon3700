@@ -722,9 +722,9 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
     string testResult = BEP_TESTING_STATUS;
     string testResultCode = "0000";
     string testDescription = GetTestStepInfo("Description");
-    //string parkResult = testSkip;
-    //string reverseGearResult = testSkip;
-    //string neutralGearResult = testSkip;
+    string parkResult = testSkip;
+    string reverseGearResult = testSkip;
+    string neutralGearResult = testSkip;
     string forwardDrivingGearResult = testSkip;
     string firstGearResult = testSkip, secondGearResult = testSkip;
     string thirdGearResult = testSkip, fourthGearResult = testSkip;
@@ -736,25 +736,25 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
     {
         try
         {   // Check if all required gears have been observed
-            //if(GetParameterBool("CheckForPark")) parkResult = CheckParkGearResults();
-            //reverseGearResult = CheckReverseGearResults();
-            //neutralGearResult = CheckNeutralGearResults();
+            if(GetParameterBool("CheckForPark")) parkResult = CheckParkGearResults();
+            reverseGearResult = CheckReverseGearResults();
+            neutralGearResult = CheckNeutralGearResults();
             forwardDrivingGearResult = CheckForwardDrivingGearResults(firstGearResult, secondGearResult,
                                                                       thirdGearResult, fourthGearResult,
                                                                       fifthGearResult, sixthGearResult);
             // Stop the gear monitor
             m_vehicleModule.StopGearMonitor();
             // Check the results of the test
-            //testResult = (!parkResult.compare(testPass) || !parkResult.compare(testSkip)) &&
-            //             !reverseGearResult.compare(testPass) &&
-            //             !neutralGearResult.compare(testPass) &&
-            testResult = !forwardDrivingGearResult.compare(testPass) ? testPass : testFail;
+            testResult = (!parkResult.compare(testPass) || !parkResult.compare(testSkip)) &&
+                         !reverseGearResult.compare(testPass) &&
+                         !neutralGearResult.compare(testPass) &&
+                         !forwardDrivingGearResult.compare(testPass) ? testPass : testFail;
             testResultCode = (testPass == testResult ? "0000" : GetFaultCode("AllGearsNotSeen"));
             testDescription = (testPass == testResult ? GetTestStepInfo("Description") : GetFaultDescription("AllGearsNotSeen"));
             // Report each gear individually
-//          SendSubtestResult("ParkObserved", parkResult, "Park observed", GetFaultCode("ParkNotSeen"));
-//          SendSubtestResult("ReverseGearObserved", reverseGearResult, "Reverse Gear observed", GetFaultCode("ReverseGearNotSeen"));
-//          SendSubtestResult("NeutralGearObserved", neutralGearResult, "Neutral Gear observed", GetFaultCode("NeutralGearNotSeen"));
+            SendSubtestResult("ParkObserved", parkResult, "Park observed", GetFaultCode("ParkNotSeen"));
+            SendSubtestResult("ReverseGearObserved", reverseGearResult, "Reverse Gear observed", GetFaultCode("ReverseGearNotSeen"));
+            SendSubtestResult("NeutralGearObserved", neutralGearResult, "Neutral Gear observed", GetFaultCode("NeutralGearNotSeen"));
             SendSubtestResult("FirstGearObserved", firstGearResult, "First Gear observed", testResultCode);
             SendSubtestResult("SecondGearObserved", secondGearResult, "Second Gear observed", testResultCode);
             SendSubtestResult("ThirdGearObserved", thirdGearResult, "Third Gear observed", testResultCode);
@@ -762,16 +762,16 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
             SendSubtestResult("FifthGearObserved", fifthGearResult, "Fifth Gear observed", testResultCode);
             SendSubtestResult("SixthGearObserved", sixthGearResult, "Sixth Gear observed", testResultCode);
             // Log the data collected
-//          Log(LOG_DEV_DATA, "Gear Monitor Results: %s\n\tPark: %s\n\tReverse: %s\n\tNeutral: %s\n\tFirst: %s"
-//              "\n\tSecond: %s\n\tThird: %s\n\tFourth: %s\n\tFifth: %s\n\tSixth: %s\n", testResult.c_str(),
-//              parkResult.c_str(), reverseGearResult.c_str(), neutralGearResult.c_str(), firstGearResult.c_str(),
-//              secondGearResult.c_str(), thirdGearResult.c_str(), fourthGearResult.c_str(),
-//              fifthGearResult.c_str(), sixthGearResult.c_str());
-            Log(LOG_DEV_DATA, "Gear Monitor Results: %s\n\tFirst: %s"
+            Log(LOG_DEV_DATA, "Gear Monitor Results: %s\n\tPark: %s\n\tReverse: %s\n\tNeutral: %s\n\tFirst: %s"
+                "\n\tSecond: %s\n\tThird: %s\n\tFourth: %s\n\tFifth: %s\n\tSixth: %s\n", testResult.c_str(),
+                parkResult.c_str(), reverseGearResult.c_str(), neutralGearResult.c_str(), firstGearResult.c_str(),
+                secondGearResult.c_str(), thirdGearResult.c_str(), fourthGearResult.c_str(),
+                fifthGearResult.c_str(), sixthGearResult.c_str());
+            /*Log(LOG_DEV_DATA, "Gear Monitor Results: %s\n\tFirst: %s"
                 "\n\tSecond: %s\n\tThird: %s\n\tFourth: %s\n\tFifth: %s\n\tSixth: %s\n", testResult.c_str(),
                 firstGearResult.c_str(),
                 secondGearResult.c_str(), thirdGearResult.c_str(), fourthGearResult.c_str(),
-                fifthGearResult.c_str(), sixthGearResult.c_str());
+                fifthGearResult.c_str(), sixthGearResult.c_str());*/
         }
         catch(ModuleException &e)
         {   // Module exception
@@ -782,9 +782,9 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::StopGearMonitor(void)
         }
         // Send the test result
         SendTestResultWithDetail(testResult, testDescription, testResultCode,
-                                 //"ParkObserved", parkResult, "",
-                                 //"ReverseGearObserved", reverseGearResult, "",
-                                 //"NeutralGearObserved", neutralGearResult, "",
+                                 "ParkObserved", parkResult, "",
+                                 "ReverseGearObserved", reverseGearResult, "",
+                                 "NeutralGearObserved", neutralGearResult, "",
                                  "ForwardDrivingGears", forwardDrivingGearResult, "");
     }
     else
@@ -2086,7 +2086,7 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckParkGearResults(vo
     // Check if the Partk gear has already been observed
     if(!m_vehicleModule.GearParkObserved())
     {   // Wait for zero speed
-        if(CheckZeroSpeed())
+        /*if(CheckZeroSpeed())
         {
             // Check if Park was observed
             do
@@ -2112,7 +2112,7 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckParkGearResults(vo
             {   // Remove the prompt from the display
                 RemovePrompt(GetPromptBox("ShiftToPark"), GetPrompt("ShiftToPark"), GetPromptPriority("ShiftToPark"));
             }
-        }
+        }*/
     }
     // Check if the result has already been updated
     if(testPass != GetParkGearUpdateResult())
@@ -2146,7 +2146,7 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckReverseGearResults
     // Check if the Reverse gear has already been observed
       if(!m_vehicleModule.GearReverseObserved())
       {   // Verify vehicle is at zero speed before prompting to reverse
-          if(CheckZeroSpeed())
+          /*if(CheckZeroSpeed())
           {
               // Wait for Reverse gear to be observed
               do
@@ -2172,7 +2172,7 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckReverseGearResults
               {   // Remove the prompt from the display
                   RemovePrompt(GetPromptBox("ShiftToReverse"), GetPrompt("ShiftToReverse"), GetPromptPriority("ShiftToReverse"));
               }
-          }
+          }*/
       }
     // Determine if the module has already been updated
     if(testPass != GetReverseGearUpdateResult())
@@ -2207,7 +2207,7 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckNeutralGearResults
     // Determine if Neutral gear was already observed
     if(!m_vehicleModule.GearNeutralObserved())
     {   // Wait for Neutral gear to be observed
-        do
+        /*do
         {   // Determine if the operator should be prompted
             if(!m_vehicleModule.GearNeutralObserved() && !promptDisplayed)
             {   // Prompt operator to shift to Neutral
@@ -2229,7 +2229,7 @@ string GenericTransmissionTCTemplate<VehicleModuleType>::CheckNeutralGearResults
         if(promptDisplayed)
         {   // Remove the prompt from the display
             RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
-        }
+        } */
     }
     // Determine if we need to update the result in the module
     if(testPass != GetNeutralGearUpdateResult())

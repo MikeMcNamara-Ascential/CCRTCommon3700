@@ -82,10 +82,20 @@ void WinCcrtInterface::Initialize(const XmlNode *document)
 		waitTimeReadPortEnd = 100;
 		Log(LOG_ERRORS, "No inter-message gap time defined, defaulting MessageReadPortEndDelay to 100ms between messages - %s", excpt.GetReason());
 	}
+    try
+    {
+        m_reconnectOnNoResponse = (document->getChild( XML_T("Setup"))->getChild("ReconnectOnNoResponse")->getValue() == "True");
+    }
+    catch (...)
+    {
+        Log(LOG_ERRORS, "Exception loading value for ReconnectOnNoResponse, setting to false\n");
+        m_reconnectOnNoResponse = false;
+    }
 
 	MessageWaitTime(&waitTime);
     MessageWaitTimeInit(&waitTimeReadPortInit);
     MessageWaitTimeEnd(&waitTimeReadPortEnd);
+    m_noMessageCounter = 0;
 
     Log(LOG_DEV_DATA, "waitTime: %d   waitTimeReadPortInit: %d   waitTimeReadPortEnd:%d\n", waitTime, waitTimeReadPortInit, waitTimeReadPortEnd);
 }
@@ -273,6 +283,16 @@ BEP_STATUS_TYPE WinCcrtInterface::CheckForWinCcrtMessage()
 	}
 	else
 	{
+        if(m_reconnectOnNoResponse)
+        {//increment counter, if counter reaches timeout, reconnect
+            m_noMessageCounter++;
+            if(m_noMessageCounter > 10)
+            {
+                Log(LOG_DEV_DATA, "Receieved no response from WinCcrtInterface, attempting to reconnect\n");
+                ReconnectPort();
+                m_noMessageCounter = 0;
+            }
+        }
 		status = BEP_STATUS_SUCCESS;
 	}
 
@@ -475,5 +495,34 @@ const bool& WinCcrtInterface::UpdateTestType()
 void WinCcrtInterface::UpdateTestType(const bool &updateType)
 {
 	m_updateTestType = updateType;
+}
+const BEP_STATUS_TYPE WinCcrtInterface::ReconnectPort()
+{   // Attempt to reconnect the port if the unit is active
+    int reconnectStatus = -1;
+    Log(LOG_FN_ENTRY, "WinCcrtInterface::ReconnectPort - Enter");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    bool activeStatus = false;
+    //this is a client, wait for server connection
+    while (((reconnectStatus = m_winCcrtComm.ReconnectDriver()) != EOK)  &&
+           GetStatus().compare(BEP_TERMINATE))
+    {
+        Log(LOG_DEV_DATA, "WinCcrtInterface - Waiting to reconnect the port...");
+        BposSleep(100);
+    }
+    // Determine reconnect status
+    if (reconnectStatus == EOK)
+    {
+        activeStatus = true;
+        status = BEP_STATUS_SUCCESS;
+    }
+    else
+    {
+        activeStatus = false;
+        status = BEP_STATUS_HARDWARE;
+    }
+
+    Log(LOG_ERRORS, "WinCcrtInterface - Reconnected port driver - %s", ConvertStatusToResponse(status).c_str());
+    // Return the reconnect status
+    return status;
 }
 

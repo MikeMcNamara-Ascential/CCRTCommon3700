@@ -78,7 +78,7 @@ namespace BluetoothReaderTest
         /// </summary>
         private CcrtInterface QnxCcrt { get; set; }
 
-
+        private bool m_previouslyConnected;
 
 
         public string Get_Measurement()
@@ -163,7 +163,6 @@ namespace BluetoothReaderTest
             Int32 attempts = 3;
             Boolean goodIpAddress = false;
             // Set the default IP Address
-            //SetQnxIpAddress(QnxIpAddress);
             System.Threading.Thread.Sleep(2000);
             QnxCcrt = new CcrtInterface(IPAddress.Parse(WindowsIpAddress), QnxCcrtPort, Logger);
             timer3.Start();
@@ -175,26 +174,21 @@ namespace BluetoothReaderTest
                     Ping ping = new Ping();
                     PingReply pingResult = ping.Send(IPAddress.Parse(QnxIpAddress));
                     if (pingResult.Status != IPStatus.Success)
-                    {   // Could not detect QNX server, allow user to enter new IP Address
-                        //IpAddressForm ipForm = new IpAddressForm();
-                        //ipForm.ShowDialog();
-                        //QnxCcrt.ChangeIpAddress(IPAddress.Parse(CcrtFloorInterface.Properties.Settings.Default.WindowsIpAddress));
+                    {   // Could not detect QNX server
+                        Logger.Log("Could not detect QNX server at " + QnxIpAddress);
                     }
                     else if (pingResult.Status == IPStatus.Success)
                     {   // Found a possible QNX server
-                        //SetQnxConnectionStatus(Color.Yellow);
                         Logger.Log("Detected QNX server at " + QnxIpAddress);
                         goodIpAddress = true;
                     }
                     else
                     {
-                        //SetQnxConnectionStatus(Color.Red);
                         Logger.Log("Could not detect QNX server at " + QnxIpAddress);
                     }
                 }
                 catch
                 {
-                    //SetQnxConnectionStatus(Color.Red);
                     Logger.Log("No network connected!");
                 }
             } while (!goodIpAddress && (attempts-- > 0));
@@ -219,19 +213,20 @@ namespace BluetoothReaderTest
             {
                 while (true)
                 {
-                    /*
-                    if (QnxCcrt.QnxConnected && (m_qnxIpTextBox.BackColor != Color.LightGreen))
+                    
+                    if (QnxCcrt.QnxConnected && !m_previouslyConnected)
                     {
-                        SetQnxConnectionStatus(Color.LightGreen);
+                        Logger.Log("Reconnected to QNX");
                     }
-                    else if (!QnxCcrt.QnxConnected && (m_qnxIpTextBox.BackColor != Color.Red))
+                    else if (!QnxCcrt.QnxConnected && m_previouslyConnected)
                     {
-                        SetQnxConnectionStatus(Color.Red);
+                        Logger.Log("Disconnected from QNX");
                     }
-                    */
+                    
                     System.Threading.Thread.Sleep(1000);
                 }
             }
+            m_previouslyConnected = QnxCcrt.QnxConnected;
         }
 
         private void Read_Options()
@@ -271,45 +266,15 @@ namespace BluetoothReaderTest
                 int number = astring.Length;
                 if (number > 4)
                 {
-                    devInterface = astring[0];
-                    QnxIpAddress = astring[1];
-                    QnxCcrtPort = int.Parse(astring[2]);
-                    WindowsIpAddress = astring[3];
-                    Baud_Rate = int.Parse(astring[4]);
+                    devInterface = astring[0]; //Comm port for the device
+                    QnxIpAddress = astring[1]; //Qnx pc IP Address
+                    QnxCcrtPort = int.Parse(astring[2]); //Port number in SerialServerConfig.xml
+                    WindowsIpAddress = astring[3]; //Windows pc IP Address
+                    Baud_Rate = int.Parse(astring[4]); //Device Serial Baud rate
                 }
                 else
                 {
-                    // Set default connection information
-                    /*
-                    devInterface = "COM1";
-                    QnxIpAddress = astring[1];
-                    QnxCcrtPort = astring[2];
-                    WindowsIpAddress = astring[3];
-                    */
                 }
-
-                /*
-                if (number < 8)
-                {
-                    devInterface = "COM1";
-                    textSize = 18;
-                    windowWidth = 354;
-                    windowHeight = 180;
-                    textWidth = 300;
-                    windowPosX = 100;
-                    windowPosY = 100;
-                }
-                else
-                {
-                    devInterface = astring[0];
-                    textSize = int.Parse(astring[1]);       // unnecessary
-                    windowWidth = int.Parse(astring[2]);    // unnecessary
-                    windowHeight = int.Parse(astring[3]);   // unnecessary
-                    textWidth = int.Parse(astring[4]);      // unnecessary
-                    windowPosX = int.Parse(astring[5]);     // unnecessary
-                    windowPosY = int.Parse(astring[6]);     // unnecessary
-                }
-                */
             }
         }
 
@@ -447,15 +412,14 @@ namespace BluetoothReaderTest
 
                     formattedMeasuredValue = text1;
 
-                    int testPos = text1.IndexOf(",", 1);    // minutes place always 0
+                    //Removed extra values from the end of the data string
+                    /*int testPos = text1.IndexOf(",", 1);    // minutes place always 0
                     if (testPos == -1)
                     {
                         text1 += ",0";
-                    }
+                    }    
 
-                    
-
-                    text1 += "°";
+                    text1 += "°";*/
 
                     Console.WriteLine(text1);       // Console test readout
                     measuredValue = text1;
@@ -553,29 +517,11 @@ namespace BluetoothReaderTest
             text2 = "devInterface.sys";
             dxs = text1 + "\\" + text2;
 
-            /*
-            p_Data = portNumber + "\n";
-            if (p_Data[0] != 'C')
-            {
-                p_Data = devInterface + "\n";
-            }
-            */
-
             p_Data = devInterface + "\n" +
                      QnxIpAddress + "\n" +
                      QnxCcrtPort + "\n" +
                      WindowsIpAddress + "\n" +
                      Baud_Rate + "\n";
-
-            /*
-            p_Data += textSize.ToString() + "\n" +
-                      this.Width.ToString() + "\n" +
-                      this.Height.ToString() + "\n" +
-                      textBox1.Height.ToString() + "\n" +
-                      this.Location.X.ToString() + "\n" +
-                      this.Location.Y.ToString() + "\n" +
-                      "38400\n";
-            */
 
             Encoding enc = Encoding.Default;
             FileStream fs = new FileStream(dxs, FileMode.Create);
@@ -616,7 +562,7 @@ namespace BluetoothReaderTest
                 errorMessage = "Error: 14\n" +
                                "Can not open the devInterface!\n" +
                                "Please use another ComPort\n" +
-                               "Please check stick\n" +
+                               "Please check USB stick\n" +
                                ex.Message;
                 connection = false;
 
@@ -628,77 +574,6 @@ namespace BluetoothReaderTest
                 Console.WriteLine(errorMessage + ex.Message + "\n");
                 Logger.Log("Error: " + ex.Message);
             }
-        }
-
-        /*
-        private void normalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            bool timerSet = false;
-
-            System.Threading.Thread.Sleep(750);
-            if (timer1.Enabled)
-            {
-                timerSet = true;
-                timer1.Enabled = false;
-            }
-
-            buffer[0] = 33;          //  !
-            buffer[1] = 83;          //  S
-            buffer[2] = 69;          //  E
-            buffer[3] = 78;          //  N    
-            buffer[4] = 83;          //  S
-            buffer[5] = 32;          //  Space
-            buffer[6] = 48;
-
-
-            buffer[7] = 10;          //  LF
-            buffer[8] = 13;          //  CR
-            buffer[9] = 3;           //  
-            Send();
-            System.Threading.Thread.Sleep(1250);
-
-            if (timerSet)
-            {
-                timer1.Enabled = true;
-            }
-        }
-        */
-
-        /*
-        private void invertedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            bool timerSet = false;
-
-            if (timer1.Enabled)
-            {
-                timerSet = true;
-                timer1.Enabled = false;
-                System.Threading.Thread.Sleep(750);
-            }
-
-            buffer[0] = 33;          //  !
-            buffer[1] = 83;          //  S
-            buffer[2] = 69;          //  E
-            buffer[3] = 78;          //  N    
-            buffer[4] = 83;          //  S
-            buffer[5] = 32;          //  Space
-            buffer[6] = 49;
-
-
-            buffer[7] = 10;          //  LF
-            buffer[8] = 13;          //  CR
-            buffer[9] = 3;           //  
-            Send();
-
-            System.Threading.Thread.Sleep(250);
-
-            if (timerSet)
-            {
-                timer1.Enabled = true;
-            }
-        }
-        */
-
-        
+        }        
     }
 }

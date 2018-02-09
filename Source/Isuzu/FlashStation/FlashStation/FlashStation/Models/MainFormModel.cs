@@ -109,16 +109,25 @@ namespace Common.Lib.Models
                         break;
                     case StateName.CHECK_BRAKE_PEDAL:
                         //Check for broken brake switch
-                        SetPrompt1(prompt.APPLY_BRAKE);
+                        if (m_performBASLearn)
+                        {
+                            SetPrompt1(prompt.APPLY_BRAKE);
+                        }
                         taskDelegate = new ThreadStart(BrakePedalCheck);
                         break;
                     case StateName.WAIT_FOR_KEY_OFF:
-                        SetPrompt1(prompt.KEY_OFF);
+                        if (m_performBASLearn)
+                        {
+                            SetPrompt1(prompt.KEY_OFF);
+                        }
                         taskDelegate = new ThreadStart(WaitForKeyOff);
                         break;
                     case StateName.WAIT_FOR_KEY_ON:
-                        SetPrompt1(prompt.KEY_ON);
-                        SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                        if (m_performBASLearn)
+                        {
+                            SetPrompt1(prompt.KEY_ON);
+                            SetPrompt2(prompt.FOOT_OFF_BRAKE);
+                        }
                         taskDelegate = new ThreadStart(WaitForKeyOn);
                         break;
                     case StateName.CHECK_FOR_BAS_LEARN:
@@ -584,39 +593,57 @@ namespace Common.Lib.Models
 
         public void WaitForKeyOn()
         {
-            while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            if (m_isFlashRequired && m_performBASLearn)
             {
-                Thread.Sleep(500);
+                while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                {
+                    Thread.Sleep(500);
+                }
             }
-            if (GetStatus() != Status.TERMINATE &&
-                GetStatus() != Status.ABORT)
+            else
+            {
+                m_logger.Log("Skipping BAS Learn Key On Check");
+            }
+            if (GetStatus() != Status.TERMINATE && GetStatus() != Status.ABORT)
                 SetStatus(Status.SUCCESS);
         }
         public void WaitForKeyOff()
         {
-            while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            if (m_isFlashRequired && m_performBASLearn)
             {
-                Thread.Sleep(500);
+                while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                {
+                    Thread.Sleep(500);
+                }
             }
-            if (GetStatus() != Status.TERMINATE &&
-                GetStatus() != Status.ABORT)
-                SetStatus(Status.SUCCESS);
+            else
+            {
+                m_logger.Log("Skipping BAS Learn Key Off Check");
+            }
+            if (GetStatus() != Status.TERMINATE && GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS); 
         }
         public void BrakePedalCheck()
         {
-            Prompt prompt = new Prompt();
-            while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            if (m_isFlashRequired && m_performBASLearn)
             {
-                Thread.Sleep(250);
+                Prompt prompt = new Prompt();
+                while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                {
+                    Thread.Sleep(250);
+                }
+                SetPrompt1(prompt.RELEASE_BRAKE);
+                while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                {
+                    Thread.Sleep(250);
+                }
             }
-            SetPrompt1(prompt.RELEASE_BRAKE);
-            while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+            else
             {
-                Thread.Sleep(250);
+                m_logger.Log("Skipping BAS Learn Brake Pedal Check");
             }
-            if (GetStatus() != Status.TERMINATE &&
-                GetStatus() != Status.ABORT)
-                SetStatus(Status.SUCCESS);
+            if (GetStatus() != Status.TERMINATE && GetStatus() != Status.ABORT)
+                SetStatus(Status.SUCCESS);        
         }
         public void WaitForBrakeApplied()
         {
@@ -767,10 +794,9 @@ namespace Common.Lib.Models
                 CreateKeyOnMessage();
             }
             List<byte> data = new List<byte>();
-            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, /*m_cableConnectMessage*/m_keyOnMessage, ref data);
+            m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, m_keyOnMessage, ref data);
             m_logger.Log("INFO:  IsKeyOn() Received: " + BitConverter.ToString(data.ToArray()));
-            //m_logger.Log("INFO:  Data[0]: " + data[0].ToString());
-            //m_logger.Log("INFO:  Data[3]:: " + data[3].ToString());
+
             //Check Engine on
             if (data.Count > 3 && (data[3] & 0xC0) == 0xC0)
             {
@@ -791,7 +817,7 @@ namespace Common.Lib.Models
             bool modulePositionOK = false;
             m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
             m_logger.Log("INFO:  IsBASHomePositionLearned() Received: " + BitConverter.ToString(data.ToArray()));
-            if (data.Count > 0)
+            if (data.Count > 3)
             {
                 if ((data[3] & 0x01) == 0x01)
                 {
@@ -838,14 +864,19 @@ namespace Common.Lib.Models
             List<byte> data = new List<byte>();
             m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref data);
             m_logger.Log("INFO:  IsBrakePedalApplied() Received: " + BitConverter.ToString(data.ToArray()));
-            if ((data[3] & 0x08) == 0x00)
+            if (data.Count > 3)
             {
-                return false ;
+                if ((data[3] & 0x08) == 0x00)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
             else
-            {
-                return true;
-            }
+                return false;
         }
         public bool IsBASLearnRequestSuccessful()
         {

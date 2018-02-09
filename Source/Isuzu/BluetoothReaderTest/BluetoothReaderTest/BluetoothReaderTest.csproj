@@ -72,6 +72,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\32feet.NET\NET\InTheHand.Net.Personal.dll</HintPath>
     </Reference>
+    <Reference Include="Logger">
+      <HintPath>..\Logger.dll</HintPath>
+    </Reference>
+    <Reference Include="QnxCcrtInterface">
+      <HintPath>..\QnxCcrtInterface.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -87,16 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="D:\Ccrt\Ccrt2\Library\Logger\Logger\Logger.csproj">
-      <Project>{3e4a957d-bfb8-408f-9664-711b4b239cc7}</Project>
-      <Name>Logger</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\Ccrt\Ccrt2\Library\QnxCcrtInterface\QnxCcrtInterface\QnxCcrtInterface.csproj">
-      <Project>{d539e60d-941c-47c7-a224-f65a4056069c}</Project>
-      <Name>QnxCcrtInterface</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">

@@ -220,6 +220,12 @@ private:
 	XmlNode *m_winCcrtCommConfig;
 	// Belt tensions received from the floor interface system
 	XmlNodeMap m_beltTensions;
+    //Counter to track amount of timeouts between message received
+    int m_noMessageCounter;
+    //Flag to indicate if the WinCCRTInterface should try to reconnect when no response is received
+    bool m_reconnectOnNoResponse;
+    //Function to reconnect the port
+    const BEP_STATUS_TYPE ReconnectPort();
 };
 
 //-------------------------------------------------------------------------------------------------

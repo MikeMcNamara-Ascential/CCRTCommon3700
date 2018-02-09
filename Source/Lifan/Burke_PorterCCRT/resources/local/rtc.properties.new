@@ -1,0 +1,16 @@
+#User Preferences for Burke Porter CCRT
+#Wed Oct 12 17:52:19 GMT 2011
+controlline.licensewarning.model=InvalidLicenseNotification
+network.useproxy=false
+controlline.drivermonitor.model=DisplayDriverMonitor
+controlline.starttest.model=StartTest
+controlline.testresults.model=TestResultToPrint
+controlline.testinprogress.model=TestInProgress
+controlline.rackmonitor.model=DisplayRackMonitor
+controlline.licensefatal.model=InvalidLicenseFatalFault
+preference.units=English
+preference.logging=CONFIG
+preference.country.iso=US
+preference.language.iso=en
+server.address=BEP_LAPTOP
+controlline.softwareid.model=SoftwareID

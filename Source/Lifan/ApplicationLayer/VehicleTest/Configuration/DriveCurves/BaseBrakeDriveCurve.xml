@@ -60,14 +60,6 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase060>
-      <!-- Perform axle ratio testing -->
-        <TestPhase067 Description="Perform axle ratio test" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="Check t-case axle ratio" Result="" Timeout="" Component="Tcase">
-                    <AXleRatio/>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase067>
       <!--Perform Idle Horn Test-->
       <TestPhase065 Description="Start monitoring sound level" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

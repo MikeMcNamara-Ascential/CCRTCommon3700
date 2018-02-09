@@ -1,0 +1,278 @@
+09:04:56.652 EVENT  Checking Resource aliases
+09:04:56.684 EVENT  Starting Jetty/3.1.5
+09:04:56.684 EVENT  Started ServletHandler in ServletHandlerContext[/]
+09:04:56.684 EVENT  ResourceHandler started in file:/C:/Burke_PorterCCRT/resources/local/httproot
+09:04:56.684 EVENT  Started ResourceHandler in ServletHandlerContext[/]
+09:04:56.684 EVENT  Started SocketListener on 127.0.0.1:10080
+09:04:56.684 EVENT  Started SocketListener on 192.168.1.2:10080
+09:04:56.684 EVENT  Started org.mortbay.jetty.Server@5dcec6
+Property label.blank.text cannot be localized because  the property exists in /com/bepco/rtc/properties/CRTPanelLabels.constants.
+Property label.blank.text cannot be localized because  the property exists in /com/bepco/rtc/properties/CRTPanelLabels.constants.
+java.io.IOException: /home/ftp/Configuration/Servers/VehicleBuildRecord.xml: No such file or directory.
+	at com.atomicobject.net.www.protocol.ftp.FTPURLConnection.getInputStream(FTPURLConnection.java:135)
+	at java.net.URL.openStream(Unknown Source)
+	at com.bepco.io.URLRemoteFile.getInputStream(URLRemoteFile.java:49)
+	at com.bepco.rtc.gui.config.VehicleBuildRecordConfiguration.<init>(VehicleBuildRecordConfiguration.java:64)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigItemsFromResource(ConfigurationManagerBuilder.java:315)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.getConfigPanelItems(ConfigurationManagerBuilder.java:188)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigurationManager(ConfigurationManagerBuilder.java:125)
+	at com.bepco.rtc.builder.GUIBuilder.addConfigurationPanel(GUIBuilder.java:551)
+	at com.bepco.rtc.builder.GUIBuilder.buildGUIManager(GUIBuilder.java:81)
+	at com.bepco.rtc.builder.ControllerBuilder.addGUIManager(ControllerBuilder.java:293)
+	at com.bepco.rtc.builder.ControllerBuilder.buildController(ControllerBuilder.java:111)
+	at com.bepco.rtc.Main$1.run(Main.java:568)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+java.io.IOException: /home/ftp/Configuration/Client/WheelbaseConfig.xml: No such file or directory.
+	at com.atomicobject.net.www.protocol.ftp.FTPURLConnection.getInputStream(FTPURLConnection.java:135)
+	at java.net.URL.openStream(Unknown Source)
+	at com.bepco.io.URLRemoteFile.getInputStream(URLRemoteFile.java:49)
+	at com.bepco.rtc.gui.config.WheelbaseConfigModel.load(WheelbaseConfigModel.java:172)
+	at com.bepco.rtc.gui.config.WheelbaseConfigModel.<init>(WheelbaseConfigModel.java:115)
+	at com.bepco.rtc.gui.config.WheelbaseConfiguration.getConfigComponent(WheelbaseConfiguration.java:151)
+	at com.bepco.rtc.gui.config.BaseConfiguration.displayChild(BaseConfiguration.java:202)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigItemsFromResource(ConfigurationManagerBuilder.java:353)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.getConfigPanelItems(ConfigurationManagerBuilder.java:188)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigurationManager(ConfigurationManagerBuilder.java:125)
+	at com.bepco.rtc.builder.GUIBuilder.addConfigurationPanel(GUIBuilder.java:551)
+	at com.bepco.rtc.builder.GUIBuilder.buildGUIManager(GUIBuilder.java:81)
+	at com.bepco.rtc.builder.ControllerBuilder.addGUIManager(ControllerBuilder.java:293)
+	at com.bepco.rtc.builder.ControllerBuilder.buildController(ControllerBuilder.java:111)
+	at com.bepco.rtc.Main$1.run(Main.java:568)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+java.io.IOException: /home/ftp/Configuration/Servers/VehicleBuildTable.xml: No such file or directory.
+	at com.atomicobject.net.www.protocol.ftp.FTPURLConnection.getInputStream(FTPURLConnection.java:135)
+	at java.net.URL.openStream(Unknown Source)
+	at com.bepco.io.URLRemoteFile.getInputStream(URLRemoteFile.java:49)
+	at com.bepco.rtc.gui.config.ZtsConfiguration.readZtsFromXML(ZtsConfiguration.java:865)
+	at com.bepco.rtc.gui.config.ZtsConfiguration.getConfigComponent(ZtsConfiguration.java:204)
+	at com.bepco.rtc.gui.config.BaseConfiguration.displayChild(BaseConfiguration.java:202)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigItemsFromResource(ConfigurationManagerBuilder.java:353)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.getConfigPanelItems(ConfigurationManagerBuilder.java:188)
+	at com.bepco.rtc.builder.ConfigurationManagerBuilder.buildConfigurationManager(ConfigurationManagerBuilder.java:125)
+	at com.bepco.rtc.builder.GUIBuilder.addConfigurationPanel(GUIBuilder.java:551)
+	at com.bepco.rtc.builder.GUIBuilder.buildGUIManager(GUIBuilder.java:81)
+	at com.bepco.rtc.builder.ControllerBuilder.addGUIManager(ControllerBuilder.java:293)
+	at com.bepco.rtc.builder.ControllerBuilder.buildController(ControllerBuilder.java:111)
+	at com.bepco.rtc.Main$1.run(Main.java:568)
+	at java.awt.event.InvocationEvent.dispatch(Unknown Source)
+	at java.awt.EventQueue.dispatchEvent(Unknown Source)
+	at java.awt.EventDispatchThread.pumpOneEventForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
+	at java.awt.EventDispatchThread.run(Unknown Source)
+SafeTrimmedResourceBundle: key not found: configpanel.label.log
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+2011-11-30 9:04:59 java.util.jar.Attributes read
+??: Duplicate name in Manifest: Depends-On
+java.io.IOException: /home/ftp/core/DataServer: No such file or directory.
+	at com.atomicobject.net.www.protocol.ftp.FTPURLConnection.getInputStream(FTPURLConnection.java:135)
+	at java.net.URL.openStream(Unknown Source)
+	at com.bepco.io.URLRemoteFile.getInputStream(URLRemoteFile.java:49)
+	at com.bepco.rtc.ReportManager.loadTestResults(ReportManager.java:647)
+	at com.bepco.rtc.ReportManager.handleReprintResultsEvent(ReportManager.java:485)
+	at com.bepco.rtc.ReportManager.stateChanged(ReportManager.java:377)
+	at com.bepco.data.XMLDataModel.fireDataReceived(XMLDataModel.java:794)
+	at com.bepco.data.XMLDataModel.handleInitialReply(XMLDataModel.java:1227)
+	at com.bepco.data.XMLDataModel.openDataSource(XMLDataModel.java:993)
+	at com.bepco.data.XMLDataModel.run(XMLDataModel.java:1272)
+	at java.lang.Thread.run(Unknown Source)
+Could not complete printout!  PrintService is null.
+Could not complete printout!  PrintService is null.
+09:05:16.624 EVENT  Stopping Acceptor ServerSocket[addr=/127.0.0.1,port=0,localport=10080]
+09:05:16.624 EVENT  Stop waiting 4s 
+09:05:20.384 EVENT  Stopped SocketListener on 127.0.0.1:10080
+09:05:20.384 EVENT  Stop waiting 4s 
+09:05:20.384 EVENT  Stopping Acceptor ServerSocket[addr=/192.168.1.2,port=0,localport=10080]
+09:05:24.143 EVENT  Stopped SocketListener on 192.168.1.2:10080
+09:05:24.143 EVENT  Stopped ServletHandler in ServletHandlerContext[/]
+09:05:24.143 EVENT  Stopped ResourceHandler in ServletHandlerContext[/]
+09:05:24.143 EVENT  Stopped org.mortbay.jetty.Server@5dcec6
+Shutdown Status: Normal shutdown

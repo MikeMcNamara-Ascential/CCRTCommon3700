@@ -232,7 +232,7 @@
       </AxleRatio>
       <Speedometer>
          <TestStep1>Speedometer</TestStep1>
-         <TestStep2>FinishUp</TestStep2>
+         <!--TestStep2>FinishUp</TestStep2-->
       </Speedometer>
       <SelectDriverSide>
          <TestStep1>SelectDriverSide</TestStep1>

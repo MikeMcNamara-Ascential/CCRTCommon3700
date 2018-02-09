@@ -8,6 +8,8 @@
         <FourWD ValidTypes="True,False">False</FourWD>
         <VIN/>
         <WheelbasePositionInchesX10 Units="mm">2410</WheelbasePositionInchesX10>
+        <FrontCradleOpening Units="mm">560</FrontCradleOpening>
+        <RearCradleOpening Units="mm">560</RearCradleOpening>
         <BrakeForces>
             <!-- Drag Forces -->
             <FrontMaxDragForce Units="LBF">70</FrontMaxDragForce>

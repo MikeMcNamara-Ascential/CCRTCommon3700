@@ -10,7 +10,7 @@
       <CableConnectTime Description="The amount of time to wait in miliseconds to debounce the cable connect signal">1000</CableConnectTime>
       <SystemMonitorWheelbaseAdjust>True</SystemMonitorWheelbaseAdjust>
       <MoveWheelbasePulseWidth Units="ms">2000</MoveWheelbasePulseWidth>
-      <MoveCradlePulseWidth Description="The amount of time to wait to turn off the cradle adjust bit">1000</MoveCradlePulseWidth>
+      <MoveCradlePulseWidth Description="The amount of time to wait to turn off the cradle adjust bit">3000</MoveCradlePulseWidth>
       <ICMWheelSpeeds>/dev/Icm/Block/Speed</ICMWheelSpeeds>
       <Logging>
          <Status>Enabled</Status>
@@ -46,6 +46,7 @@
             <DisplayDriverMonitor>drivermonitor</DisplayDriverMonitor>
             <DisplayRackMonitor>frontpanel</DisplayRackMonitor>
             <GMPhase/>
+            <InvalidLicenseFatalFault>0</InvalidLicenseFatalFault>
             <OkToRoll>0</OkToRoll>
             <Retest>0</Retest>
             <StartLossCompensation>0</StartLossCompensation>
@@ -54,52 +55,51 @@
             <VehiclePresent>0</VehiclePresent>
          </PublishTags>
          <SubscribeTags>
-             <AllWheelDrive/>
+            <AllWheelDrive/>
             <AbortSignal/>
-             <DriverNumber/>
-             <EnableAllRollDrives/>
-             <InputServerState/>
-             <InstVehiclePresent/>
-             <InvalidLicenseFatalFault/>
-             <KeyPress/>
-             <LossCompensationSwitchCycleStatus/>
-             <LossCompensationSwitchCycleStatusFromPLC/>
-             <LossCompensationSwitchStatusFromPLC/>
-             <LossCompensationSwitchStatusToPLC/>
-             <PLCCableConnect/>
-             <PLCRackFault/>
-             <PowerSense/>
-             <Retest/>
-             <RollsDownElevUp/>
-             <RollsUpElevDown/>
-             <SimulatorSwitchCycleStatus/>
-             <SimulatorSwitchStatus/>
-             <StartLossCompensation/>
-             <StartSequencePushbutton/>
-             <StartTestFromPLC/>
-             <StartVehicleTest/>
-             <TestInProgress/>
-             <VINReadStatus/>
-             <WheelbaseInPosition/>
-             <WheelbasePositionInchesX10/>
-             <ZerospeedToPLC/>
-             <Zerospeed/>
-             <FrontCradleInPosition/>
-             <FrontCradleOpening/>
-             <RearCradleInPosition/>
-             <RearCradleOpening/>
+            <DriverNumber/>
+            <EnableAllRollDrives/>
+            <InputServerState/>
+            <InstVehiclePresent/>
+            <KeyPress/>
+            <LossCompensationSwitchCycleStatus/>
+            <LossCompensationSwitchCycleStatusFromPLC/>
+            <LossCompensationSwitchStatusFromPLC/>
+            <LossCompensationSwitchStatusToPLC/>
+            <PLCCableConnect/>
+            <PLCRackFault/>
+            <PowerSense/>
+            <Retest/>
+            <RollsDownElevUp/>
+            <RollsUpElevDown/>
+            <SimulatorSwitchCycleStatus/>
+            <SimulatorSwitchStatus/>
+            <StartLossCompensation/>
+            <StartSequencePushbutton/>
+            <StartTestFromPLC/>
+            <StartVehicleTest/>
+            <TestInProgress/>
+            <VINReadStatus/>
+            <WheelbaseInPosition/>
+            <WheelbasePositionInchesX10/>
+            <ZerospeedToPLC/>
+            <Zerospeed/>
+            <FrontCradleInPosition/>
+            <FrontCradleOpening/>
+            <RearCradleInPosition/>
+            <RearCradleOpening/>
          </SubscribeTags>
       </TagList>
       <DataTags>
-        <AllWheelDrive>AllWheelDrive</AllWheelDrive>
+         <AllWheelDrive>AllWheelDrive</AllWheelDrive>
          <DriveAxle>DriveAxle</DriveAxle>
-        <CycleTime>CycleTime</CycleTime>
-        <TestResultBox1>TestResultBox1BGColor</TestResultBox1>
-        <TestResultBox2>TestResultBox2BGColor</TestResultBox2>
-        <TestResultBox3>TestResultBox3BGColor</TestResultBox3>
-        <TestResultBox4>TestResultBox4BGColor</TestResultBox4>
-        <TestResultBox5>TestResultBox5BGColor</TestResultBox5>
-        <TestResultBox6>TestResultBox6BGColor</TestResultBox6>       
+         <CycleTime>CycleTime</CycleTime>
+         <TestResultBox1>TestResultBox1BGColor</TestResultBox1>
+         <TestResultBox2>TestResultBox2BGColor</TestResultBox2>
+         <TestResultBox3>TestResultBox3BGColor</TestResultBox3>
+         <TestResultBox4>TestResultBox4BGColor</TestResultBox4>
+         <TestResultBox5>TestResultBox5BGColor</TestResultBox5>
+         <TestResultBox6>TestResultBox6BGColor</TestResultBox6>
       </DataTags>
       <Communication>
          <Type>Server</Type>

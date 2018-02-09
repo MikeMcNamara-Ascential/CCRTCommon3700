@@ -43,6 +43,8 @@
             <Abort/>
             <ForegroundTestInProgress/>
             <TestInProgress/>
+            <DriveAxle/>
+            <VIN/>
          </SubscribeTags>
       </TagList>
       <Logging>

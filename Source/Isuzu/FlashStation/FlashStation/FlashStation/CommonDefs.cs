@@ -63,6 +63,9 @@ namespace Common.Lib
             BAS_RELEARN = "Brake Apply Sensor Home Relearn in progress",
             FOOT_OFF_BRAKE = "Keep foot off Brake Pedal",
             APPLY_BRAKE = "Apply brake pedal fully",
-            RELEASE_BRAKE = "Remove foot from brake pedal";
+            RELEASE_BRAKE = "Remove foot from brake pedal",
+            PEDAL_FAILURE = "Brake Pedal function check failure",
+            TIMEOUT = "ECM Communication Timeout",
+            TIMEOUT2 = "Please restart Flash Station program";
         }
 }

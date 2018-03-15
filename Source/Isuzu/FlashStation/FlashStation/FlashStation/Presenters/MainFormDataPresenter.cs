@@ -101,9 +101,15 @@ namespace Common.Lib.Presenters
                     {//Abort, Terminate or Failure Occured
                         if ((MainFormModel.GetStatus() != Status.ABORT) &&
                             (MainFormModel.GetStatus() != Status.TERMINATE) &&
-                            (m_currentState == StateName.FLASH_ECUS || m_currentState == StateName.BAS_LEARN))
+                            (m_currentState == StateName.FLASH_ECUS || m_currentState == StateName.CHECK_BRAKE_PEDAL || 
+                            (m_currentState == StateName.BAS_LEARN && MainFormModel.GetStatus() != Status.TIMEOUT)))
                         {//flash programming failure - goto next state to report data
-                            m_currentState++;
+                            if (m_currentState == StateName.CHECK_BRAKE_PEDAL && MainFormModel.GetStatus() == Status.FAILURE)
+                            {   //Brake pedal check failed, stop the sequence
+                                m_currentState = StateName.WAIT_FOR_CABLEDISCONNECT;
+                            }
+                            else 
+                                m_currentState++;
                         }
                         else if (MainFormModel.GetStatus() == Status.ABORT)
                         {// wait for program to get through abort process
@@ -147,7 +153,9 @@ namespace Common.Lib.Presenters
                     try
                     {
 
-                        if (m_currentState != StateName.FLASH_ECUS)
+                        if (m_currentState != StateName.FLASH_ECUS && m_currentState != StateName.CHECK_BRAKE_PEDAL &&
+                            m_currentState != StateName.WAIT_FOR_KEY_OFF && m_currentState != StateName.WAIT_FOR_KEY_ON  &&
+                            m_currentState != StateName.CHECK_FOR_BAS_LEARN && m_currentState != StateName.BAS_LEARN)
                         {
                             MainFormView.CableConnected(MainFormModel.IsCableConnected());
                         }

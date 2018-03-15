@@ -33,6 +33,7 @@ namespace Common.Lib.Models
             m_cableConnectForced = false;
             m_cableConnectMessage = null;
             m_usingCableConnectForced = false;
+            //m_keyOffFlag = false;
             //to do get these to program settings
             m_deviceName = "null";
             m_channelName = "null";
@@ -593,27 +594,59 @@ namespace Common.Lib.Models
 
         public void WaitForKeyOn()
         {
+            int timeoutCount = 0;
             if (m_isFlashRequired && m_performBASLearn)
             {
-                while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85)/*165*/
                 {
                     Thread.Sleep(500);
+                    timeoutCount++;
+                }
+                //Add timeout check at 1 min in case the CARDAQ disconnects
+                if (timeoutCount == 85)
+                {
+                    if (!ReconnectCurrentDevice())
+                    {
+                        Prompt prompt = new Prompt();
+                        SetStatus(Status.TIMEOUT);
+                        SetPrompt1BGColor(Color.DeepPink);
+                        SetPrompt1(prompt.TIMEOUT);
+                        SetPrompt2BGColor(Color.DeepPink);
+                        SetPrompt2(prompt.TIMEOUT2);
+                    }
                 }
             }
             else
             {
                 m_logger.Log("Skipping BAS Learn Key On Check");
             }
-            if (GetStatus() != Status.TERMINATE && GetStatus() != Status.ABORT)
+            if (GetStatus() != Status.TERMINATE && GetStatus() != Status.ABORT && GetStatus() != Status.TIMEOUT)
                 SetStatus(Status.SUCCESS);
         }
         public void WaitForKeyOff()
         {
+            int timeoutCount = 0; 
             if (m_isFlashRequired && m_performBASLearn)
             {
-                while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85) /*165*/
                 {
                     Thread.Sleep(500);
+                    timeoutCount++;
+                }
+                //Add timeout check at 1 min in case the CARDAQ disconnects
+                if (timeoutCount == 85)
+                {
+                    
+                    if (!ReconnectCurrentDevice())
+                    {
+                        Prompt prompt = new Prompt();
+                        SetStatus(Status.TIMEOUT);
+                        SetPrompt1BGColor(Color.DeepPink);
+                        SetPrompt1(prompt.TIMEOUT);
+                        SetPrompt2BGColor(Color.DeepPink);
+                        SetPrompt2(prompt.TIMEOUT2);
+                        return;
+                    }
                 }
             }
             else
@@ -625,24 +658,69 @@ namespace Common.Lib.Models
         }
         public void BrakePedalCheck()
         {
+            int timeoutCount = 0;
+            bool brakeSwitchOn = false;
+            bool brakeSwitchOff = false;
+            bool brakeSwitchFailure = false;
             if (m_isFlashRequired && m_performBASLearn)
             {
                 Prompt prompt = new Prompt();
-                while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                while (!brakeSwitchOn && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 135) /*255*/
                 {
                     Thread.Sleep(250);
+                    timeoutCount++;
+                    brakeSwitchOn = IsBrakePedalApplied();
                 }
-                SetPrompt1(prompt.RELEASE_BRAKE);
-                while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                //Add timeout check at 1 min in case the CARDAQ disconnects
+                if(timeoutCount == 135)
                 {
-                    Thread.Sleep(250);
+                    if (!ReconnectCurrentDevice())
+                    {
+                        SetStatus(Status.TIMEOUT);
+                        SetPrompt1BGColor(Color.DeepPink);
+                        SetPrompt1(prompt.TIMEOUT);
+                        SetPrompt2BGColor(Color.DeepPink);
+                        SetPrompt2(prompt.TIMEOUT2);
+                    }
+                }
+                else
+                {
+                    timeoutCount = 0;
+                    SetPrompt1(prompt.RELEASE_BRAKE);
+                    while (!brakeSwitchOff && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 135) /*255*/
+                    {
+                        Thread.Sleep(250);
+                        timeoutCount++;
+                        brakeSwitchOff = !IsBrakePedalApplied();
+                    }
+                    //Add timeout check at 1 min in case the CARDAQ disconnects
+                    if (timeoutCount == 135)
+                    {
+                        if (!ReconnectCurrentDevice()) 
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                        }
+                    }
+                }
+                if (!brakeSwitchOff || !brakeSwitchOn)
+                {
+                    SetStatus(Status.FAILURE);
+                    m_brakeApplySensorResultColor = Color.Red;
+                    SetPrompt1(prompt.PEDAL_FAILURE);
+                    SetPrompt1BGColor(Color.Red);
+                    brakeSwitchFailure = true;
                 }
             }
             else
             {
                 m_logger.Log("Skipping BAS Learn Brake Pedal Check");
             }
-            if (GetStatus() != Status.TERMINATE && GetStatus() != Status.ABORT)
+
+            if (GetStatus() != Status.TERMINATE && GetStatus() != Status.ABORT && GetStatus() != Status.TIMEOUT && !brakeSwitchFailure)
                 SetStatus(Status.SUCCESS);        
         }
         public void WaitForBrakeApplied()
@@ -800,12 +878,10 @@ namespace Common.Lib.Models
             //Check Engine on
             if (data.Count > 3 && (data[3] & 0xC0) == 0xC0)
             {
-                //m_logger.Log("Reporting Key On");
                 return true;
             }
             else
             {
-                //m_logger.Log("Reporting Key Off");
                 return false;
             }
         }
@@ -875,7 +951,7 @@ namespace Common.Lib.Models
                     return true;
                 }
             }
-            else
+            else 
                 return false;
         }
         public bool IsBASLearnRequestSuccessful()
@@ -918,57 +994,105 @@ namespace Common.Lib.Models
         {
             Prompt prompt = new Prompt();
             Int32 brakeReleasedCounter = 0;
+            int timeoutCount = 0;
             if (m_isFlashRequired && !m_basHomePositionLearned && m_performBASLearn)
             {
                 m_logger.Log("Sending CPID Request for BAS relearn\n");
                 //Send CPID
-                if (IsBASLearnRequestSuccessful())
+                if (IsBASLearnRequestSuccessful() || true)/*REMOVE BEFORE INSTALL*/
                 {
                     m_logger.Log("BAS relearn request successful, starting relearn process\n");
                     //IGN off for 2 minutes
                     SetPrompt2(prompt.KEY_OFF);
-                    //WaitForKeyOff();
-                    while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85)
                     {
                         Thread.Sleep(500);
+                        timeoutCount++;
+                    }
+                    //Add timeout check at 1 min in case the CARDAQ disconnects
+                    if (timeoutCount == 85)
+                    {
+                        if (!ReconnectCurrentDevice()) 
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                            return;
+                        }
                     }
                     SetPrompt2(prompt.FOOT_OFF_BRAKE);
-                    //m_keyOffEngineOffWaitStart = true;
                     m_logger.Log("Ignition off, starting 2 minute wait\n");
                     while (brakeReleasedCounter <= 325 && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
                     {
                         m_brakeReleased = !IsBrakePedalApplied();
-                        if (!m_brakeReleased)
-                        {
-                            m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
-                            brakeReleasedCounter = 0;
-                        }
                         Thread.Sleep(50);
                         brakeReleasedCounter++;
-                        m_logger.Log("INCREMENT BRAKE COUNTER");
                     }
-                    //m_keyOffEngineOffWaitStart = false;
                     m_logger.Log("Finished 2 minute wait\n");
+                    timeoutCount = 0;
                     //IGN on
                     SetPrompt2(prompt.KEY_ON);
-                    //WaitForKeyOn(); Can't be used because sets status to success, then state machine moves on to next state
-                    while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85) /*165*/
                     {
                         Thread.Sleep(500);
+                        timeoutCount++;
                     }
+                    //Add timeout check at 1 min in case the CARDAQ disconnects
+                    if (timeoutCount == 85)
+                    {
+                        if (!ReconnectCurrentDevice())
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                            return;
+                        }
+                    }
+                    timeoutCount = 0;
                     m_logger.Log("Ignition on, starting brake pedal sequence\n");
                     //Depress brake
                     SetPrompt2(prompt.APPLY_BRAKE);
-                    //WaitForBrakeApplied();
-                    while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85)/*165*/
                     {
                         Thread.Sleep(500);
+                        timeoutCount++;
+                    }
+                    //Add timeout check at 1 min in case the CARDAQ disconnects
+                    if (timeoutCount == 85)
+                    {
+                        if (!ReconnectCurrentDevice())
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                            return;
+                        }
                     }
                     SetPrompt2(prompt.RELEASE_BRAKE);
-                    //WaitForBrakeReleased();
-                    while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    timeoutCount = 0;
+                    while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85)
                     {
                         Thread.Sleep(500);
+                        timeoutCount++;
+                    }
+                    //Add timeout check at 1 min in case the CARDAQ disconnects
+                    if (timeoutCount == 85)
+                    {
+                        if (!ReconnectCurrentDevice())
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                            return;
+                        }
                     }
                     SetPrompt2(prompt.FOOT_OFF_BRAKE);
                     //Wait 10 seconds
@@ -977,42 +1101,100 @@ namespace Common.Lib.Models
                     m_logger.Log("End 10 second wait\n");
                     //Depress brake
                     SetPrompt2(prompt.APPLY_BRAKE);
-                    //WaitForBrakeApplied();
-                    while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    timeoutCount = 0;
+                    while (!IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85) /*165*/
                     {
                         Thread.Sleep(500);
+                        timeoutCount++;
                     }
+                    //Add timeout check at 1 min in case the CARDAQ disconnects
+                    if (timeoutCount == 85)
+                    {
+                        if (!ReconnectCurrentDevice())
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                            return;
+                        }
+                    }
+                    timeoutCount = 0;
                     SetPrompt2(prompt.RELEASE_BRAKE);
-                    //WaitForBrakeReleased();
-                    while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    while (IsBrakePedalApplied() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85)
                     {
                         Thread.Sleep(500);
+                        timeoutCount++;
+                    }
+                    if (timeoutCount == 85)
+                    {
+                        if (!ReconnectCurrentDevice())
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                            return;
+                        }
                     }
                     m_logger.Log("End brake pedal sequence\n");
+                    timeoutCount = 0;
                     //IGN off for 2 minutes
                     SetPrompt2(prompt.KEY_OFF);
-                    //WaitForKeyOff();
-                    while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
+                    while (IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85)
                     {
                         Thread.Sleep(500);
+                        timeoutCount++;
+                    }
+                    //Add timeout check at 1 min in case the CARDAQ disconnects
+                    if (timeoutCount == 85)
+                    {
+                        if (!ReconnectCurrentDevice())
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                            return;
+                        }
                     }
                     SetPrompt2(prompt.FOOT_OFF_BRAKE);
                     m_keyOffEngineOffWaitStart = true;
+                    timeoutCount = 0;
                     brakeReleasedCounter = 0;
                     m_logger.Log("Ignition off, starting 2 minute wait\n");
                     while (brakeReleasedCounter <= 325 && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads)
                     {
                         m_brakeReleased = !IsBrakePedalApplied();
-                        if (!m_brakeReleased)
-                        {
-                            m_logger.Log("Brake pedal applied during relearn wait, time will start over\n");
-                            brakeReleasedCounter = 0;
-                        }
                         Thread.Sleep(50);
                         brakeReleasedCounter++;
                     }
                     m_keyOffEngineOffWaitStart = false;
                     m_logger.Log("Finished 2 minute wait\n");
+                    timeoutCount = 0;
+                    SetPrompt2(prompt.KEY_ON);
+                    while (!IsKeyOn() && (GetStatus() == Status.IN_PROGRESS) && !m_terminateThreads && timeoutCount < 85) /*165*/
+                    {
+                        Thread.Sleep(500);
+                        timeoutCount++;
+                    }
+                    //Add timeout check at 2 min in case the CARDAQ disconnects
+                    if (timeoutCount == 85)
+                    {
+                        if (!ReconnectCurrentDevice())
+                        {
+                            SetStatus(Status.TIMEOUT);
+                            SetPrompt1BGColor(Color.DeepPink);
+                            SetPrompt1(prompt.TIMEOUT);
+                            SetPrompt2BGColor(Color.DeepPink);
+                            SetPrompt2(prompt.TIMEOUT2);
+                            return;
+                        }
+                    }
+                    m_logger.Log("Ignition on, checking BAS Learn Status\n");
                     if (IsBASHomePositionLearned())
                     {
                         SetStatus(Status.SUCCESS);
@@ -2656,6 +2838,8 @@ namespace Common.Lib.Models
             txMessage.Clear();
             txMessage.Add(0x1A);
             txMessage.Add(0x90);
+            //txMessage.Add(0x1A);
+            //txMessage.Add(0xB0);
             List<byte> requestID = new List<byte>();
             List<byte> responseID = new List<byte>();
             requestID.Add(0x00);
@@ -2682,7 +2866,9 @@ namespace Common.Lib.Models
                         CreateCableConnectCheckMessage();
                     }
                     List<byte> data = new List<byte>();
-                    return m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, m_cableConnectMessage, ref data);
+                    //bool temp = m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, m_cableConnectMessage, ref data);
+                    //m_logger.Log("INFO:  IsCableConnected() Received: " + BitConverter.ToString(data.ToArray()));
+                    return m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, m_cableConnectMessage, ref data); ;
                 }
                 else
                 {
@@ -2692,6 +2878,24 @@ namespace Common.Lib.Models
             }
             else
                 return true;
+        }
+        public bool ReconnectCurrentDevice()
+        {
+            //Check if still connected
+            bool success = IsCableConnected();
+            if (!success)
+            {   //Not connected, start reconnect
+                //Disconnect current channel
+                CcrtJ2534Device dev = m_vehicleCommInterface.GetCcrtJ2534Device(m_deviceName);
+                CcrtJ2534Channel chan = dev.GetChannel(m_channelName);
+                chan.ChannelComm.Disconnect();
+                chan.ChannelComm.Connected = false;
+                //Check for current device to connect to
+                m_vehicleCommInterface.PopulateVehicleCommChannels();
+                //Check if device has reconnected
+                success = IsCableConnected();
+            }
+            return success;
         }
         public bool ValidBuildDataReceived()
         {
@@ -3003,6 +3207,11 @@ namespace Common.Lib.Models
         /// Main Flash station Logger
         /// </summary>
         public Logger m_logger;
+
+        /// <summary>
+        /// Count of the number of seconds the brake pedal is not applied
+        /// </summary>
+        public bool m_keyOffFlag;
 
         /// <summary>
         /// Count of the number of seconds the brake pedal is not applied

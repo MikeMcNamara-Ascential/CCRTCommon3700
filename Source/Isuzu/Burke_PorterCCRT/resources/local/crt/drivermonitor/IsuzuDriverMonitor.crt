@@ -79,17 +79,17 @@
                         </Widget>
 
                         <VBox width="55">
-                            <Widget id="_lr" class="com.bepco.gui.NumberBox" width="80">
-                                <DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
-                                <DataSource tagname="LFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <Widget id="_rr" class="com.bepco.gui.NumberBox" width="80">
+                                <DataSource tagname="RRSpeed" messagetype="Read" datarate="10" />
+                                <DataSource tagname="RFSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                                 <TextBoxConfig>
                                     <Font size="38" name="sans-serif" style="plain"/>
                                 </TextBoxConfig>
                             </Widget>
                             <HBox height="100"/>
-                            <Widget id="_rr" class="com.bepco.gui.NumberBox" width='80'>
-                                <DataSource tagname="RRSpeed" messagetype="Read" datarate="10" />
-                                <DataSource tagname="RRSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
+                            <Widget id="_lr" class="com.bepco.gui.NumberBox" width='80'>
+                                <DataSource tagname="LRSpeed" messagetype="Read" datarate="10" />
+                                <DataSource tagname="LRSpeedBGColor" messagetype="Subscribe" tagrole="backgroundcolor"/>
                                 <TextBoxConfig>
                                     <Font size="38" name="sans-serif" style="plain"/>
                                 </TextBoxConfig>

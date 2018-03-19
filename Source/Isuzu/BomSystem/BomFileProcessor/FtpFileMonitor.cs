@@ -604,7 +604,7 @@ namespace FtpFileMonitorNamespace
                             fs = TryOpen(fileInf, 100, 250);
                             if (fs != null)
                             {
-                                Log("INFO: Beginning ftp process");
+                                //Log("INFO: Beginning ftp process");
                                 //Send file to server via FTP
                                 string uri = "ftp://" + m_ftpServerIps[currentLocal - 1] + m_remoteLocations[currentLocal - 1] + fileInf.Name;
                                 string escapedUri = uri.Replace("../", "%2E%2E/"); 
@@ -711,7 +711,7 @@ namespace FtpFileMonitorNamespace
                                 //Log("Before checking success\n");
                                 if (success)
                                 {
-                                    Log("INFO:  " + fileName + " transfered successfully");
+                                    //Log("INFO:  " + fileName + " transfered successfully");
                                     //remove file from local directory
                                     fs.Close();
                                     try

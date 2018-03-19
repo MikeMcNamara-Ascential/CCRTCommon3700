@@ -93,13 +93,13 @@
       <Value Profile="(Default)">C:\BOM\ESN</Value>
     </Setting>
     <Setting Name="RealTimePCESNFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/TestResults/ESN/</Value>
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ESN/</Value>
     </Setting>
     <Setting Name="RealTimePCESNFlashTransferLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/TestResults/ftpOutbox/ESN/</Value>
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/</Value>
     </Setting>
     <Setting Name="VehicleBuildFlashTransferLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/TestResults/ftpOutbox/BuildRecords/</Value>
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/</Value>
     </Setting>
     <Setting Name="SpartanFileTempLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\BOM\Temp\DVT</Value>

@@ -34,7 +34,7 @@ namespace BomFileProcessor
                             BomFileProcessor.Properties.Settings.Default.BomUpcIndex.ToString(),
                             BomFileProcessor.Properties.Settings.Default.BomUpcLength.ToString()};
             String[] fna = {BomFileProcessor.Properties.Resources.BomFnaColumnText,
-                            BomFileProcessor.Properties.Settings.Default.U.ToString(),
+                            BomFileProcessor.Properties.Settings.Default.BomFnaIndex.ToString(),
                             BomFileProcessor.Properties.Settings.Default.BomFnaLength.ToString()};
             String[] partNumber = {BomFileProcessor.Properties.Resources.BomPartNumberColumnText,
                                    BomFileProcessor.Properties.Settings.Default.BomPartNumberIndex.ToString(),
@@ -94,7 +94,7 @@ namespace BomFileProcessor
                 }
                 else if (row.Cells["FieldName"].Value.ToString() == BomFileProcessor.Properties.Resources.BomFnaColumnText)
                 {
-                    BomFileProcessor.Properties.Settings.Default.U = Convert.ToInt32(row.Cells["StartIndex"].Value);
+                    BomFileProcessor.Properties.Settings.Default.BomFnaIndex = Convert.ToInt32(row.Cells["StartIndex"].Value);
                     BomFileProcessor.Properties.Settings.Default.BomFnaLength = Convert.ToInt32(row.Cells["Length"].Value);
                 }
                 else if (row.Cells["FieldName"].Value.ToString() == BomFileProcessor.Properties.Resources.BomPartNumberColumnText)

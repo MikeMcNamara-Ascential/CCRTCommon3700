@@ -98,12 +98,12 @@ namespace BomFileProcessor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("35")]
-        public int U {
+        public int BomFnaIndex {
             get {
-                return ((int)(this["U"]));
+                return ((int)(this["BomFnaIndex"]));
             }
             set {
-                this["U"] = value;
+                this["BomFnaIndex"] = value;
             }
         }
         
@@ -385,7 +385,7 @@ namespace BomFileProcessor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/TestResults/ESN/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ESN/")]
         public string RealTimePCESNFileLocation {
             get {
                 return ((string)(this["RealTimePCESNFileLocation"]));
@@ -397,7 +397,7 @@ namespace BomFileProcessor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/TestResults/ftpOutbox/ESN/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/")]
         public string RealTimePCESNFlashTransferLocation {
             get {
                 return ((string)(this["RealTimePCESNFlashTransferLocation"]));
@@ -409,7 +409,7 @@ namespace BomFileProcessor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/TestResults/ftpOutbox/BuildRecords/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/")]
         public string VehicleBuildFlashTransferLocation {
             get {
                 return ((string)(this["VehicleBuildFlashTransferLocation"]));

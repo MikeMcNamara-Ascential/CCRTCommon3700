@@ -725,6 +725,11 @@ void TeslaSystemMonitor::CheckTesting( ControlData *ctrl)
     TeslaControlData *TeslaCtrl = (TeslaControlData *)ctrl;
 
     Log( LOG_FN_ENTRY, "Enter TeslaSystemMonitor::CheckTesting()\n");
+    Log( LOG_DEV_DATA, "\ttestInProgress: %d\n", ctrl->testInProgress);
+    Log( LOG_DEV_DATA, "\t  machineFault: %d\n", ctrl->machineFault);
+    Log( LOG_DEV_DATA, "\t  cableConnect: %d\n", ctrl->cableConnect);
+    Log( LOG_DEV_DATA, "\t        rollsUp: %d\n", ctrl->rollsUp);
+    Log( LOG_DEV_DATA, "\tvehiclePresent: %d\n", ctrl->vehiclePresent);
 
     // if not currently testing, the machine is ok, and a new test was issued
     if((!ctrl->testInProgress) && (!ctrl->machineFault) && (ctrl->startTestCommand) && !m_oldCtrl->startTestCommand)
@@ -792,7 +797,7 @@ void TeslaSystemMonitor::CheckTesting( ControlData *ctrl)
 
     // Set the start test flag if the retainers just raised
     Log(LOG_DEV_DATA, "CheckTesting - start test armed: %s", m_startTestArmed ? "True" : "False");
-    if(ctrl->rollsUp && !m_oldCtrl->rollsUp && m_startTestArmed)
+    if(ctrl->rollsUp && !m_oldCtrl->rollsUp && m_startTestArmed && (!ctrl->machineFault))
     {   // If a vehicle is present, need to read build data
         if(ctrl->vehiclePresent && ctrl->cableConnect && (ctrl->vehVinReadStatus == VALID_VEHICLE_VIN))
         {
@@ -807,12 +812,12 @@ void TeslaSystemMonitor::CheckTesting( ControlData *ctrl)
             // Disarm the start test flag
             m_startTestArmed = false;
         }
-        else if(ctrl->vehiclePresent)
+        /*else if(ctrl->vehiclePresent)
         {   Log(LOG_DEV_DATA, "Setting %s to 1 for start of test", START_TEST_DATA_TAG);
             Command(START_TEST_DATA_TAG, "1");
             // Disarm the start test flag
             m_startTestArmed = false;
-        }
+        }*/
 //        Log(LOG_DEV_DATA, "Setting %s to 1 for start of test", START_TEST_DATA_TAG);
 //        Command(START_TEST_DATA_TAG, "1");
 //        // Disarm the start test flag

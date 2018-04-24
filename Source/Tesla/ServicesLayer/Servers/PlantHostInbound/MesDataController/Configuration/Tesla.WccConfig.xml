@@ -3,7 +3,12 @@
       <Debug>Off</Debug>
       <InputServer>core/InputServer</InputServer>
       <InvalidateBuildRecordOnRead>False</InvalidateBuildRecordOnRead>
+      <ReconnectOnNoResponse>True</ReconnectOnNoResponse>
       <PrintOnPfsBlock Value="Yes or No">Yes</PrintOnPfsBlock>
+      <SystemFaults>
+          <MESConnectionDown Name="MESConnectionDown" Severity="9" 
+              Description="Could not pull data from MES Web Service. Please Check Connection">MES Connection Down</MESConnectionDown>
+      </SystemFaults>
       <Broadcast>
          <BuildRecordMap>/Configuration/Servers/VehicleBuildRecord.xml</BuildRecordMap>
          <Data>
@@ -44,10 +49,10 @@
                </Logging>
                <MaxAttempts>3</MaxAttempts>
                <MaxResponseTime>50000</MaxResponseTime>
-               <MessageDelay>10000</MessageDelay>
+               <MessageDelay>3000</MessageDelay>
             </Setup>
          </BroadcastCommunication>
-         <ReconnectDelay>1000</ReconnectDelay>
+         <ReconnectDelay>500</ReconnectDelay>
       </Broadcast>
       <Communication>
          <Type>Server</Type>

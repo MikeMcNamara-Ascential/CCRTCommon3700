@@ -20,6 +20,7 @@ namespace MES_Data_Interface
     public delegate void LogMessageDelegate(String message);
 
     public delegate void ListenerClosedEventHandler(Object sender, EventArgs e);
+    
 
     class RequestHandler
     {
@@ -40,13 +41,16 @@ namespace MES_Data_Interface
         String dumpFile = Path.Combine(Application.StartupPath, "sendfailures.lst");
         String retryFile = Path.Combine(Application.StartupPath, "sendretries.lst");
         Boolean checkForPendingRecords;
-
+        int keepAliveCount = 0;
+        public bool m_qnxConnected;
+        
         public RequestHandler(Settings settings, LogMessageDelegate function)
         {
             LogMessage = new LogMessageDelegate(function);
             socketConnected = false;
             RestartListener(settings);
             ListenerClosed += ResultHandler_ListenerClosed;
+            m_qnxConnected = false;
         }
 
         void ResultHandler_ListenerClosed(object sender, EventArgs e)
@@ -207,17 +211,34 @@ namespace MES_Data_Interface
                                     {
                                         Boolean dataAvailable = false;
                                         Boolean attention = socket.Poll(250, SelectMode.SelectRead);
-                                        if (attention) 
+                                        //SendNak();
+                                        if (attention)
                                         {
                                             Thread.Sleep(500);
                                             dataAvailable = (socket.Available > 0);
+                                            //Receieved message from QNX, we are connected
+                                            keepAliveCount = 0;
+                                            m_qnxConnected = true;
+                                        }
+                                        else
+                                        {
+                                            //Possibly just no message from QNX, increment count for timeout
+                                            keepAliveCount++;
                                         }
                                         keepConnection = (!attention) || (attention && dataAvailable);
+                                        if (!attention && keepAliveCount >= 50)
+                                        {
+                                            //Did not receieve keep alive in time, not connected to QNX
+                                            keepConnection = false;
+                                            keepAliveCount = 0;
+                                            m_qnxConnected = false;
+                                        }
                                         if (!keepConnection)
                                         {
                                             LogMessage("Connection was closed by remote client.");
                                         }
                                         else Thread.Sleep(500);
+                                        
                                     }
                                     //stream.Write(Encoding.ASCII.GetBytes("Response"), 0, 8);
                                     //socket.Send(Encoding.ASCII.GetBytes("Response"));
@@ -356,8 +377,11 @@ namespace MES_Data_Interface
 
         void ProcessIndividualMessage(String message, Byte checksumByte)
         {
-            LogMessage(String.Format("Received a message ({0} bytes)", message.Length));
-            LogMessage(String.Format("Incoming message - {0}", message));
+            //if (message.Length > 12)
+            //{
+                LogMessage(String.Format("Received a message ({0} bytes)", message.Length));
+                LogMessage(String.Format("Incoming message - {0}", message));
+            //}
             // Remove Start Byte and End Byte
             String messageString = message.Substring(1, message.Length - 2);
             // Validate checksum
@@ -468,6 +492,12 @@ namespace MES_Data_Interface
                             SendNak();
                         }
                     }
+                    else if (fields[0] == "KeepAlive")
+                    {   //Received KeepAlive message from QNX, we are connected
+                        //SendKeepAlive();
+                        keepAliveCount = 0;
+                        m_qnxConnected = true;
+                    }
                     else
                     {
                         LogMessage("Invalid request");
@@ -485,6 +515,11 @@ namespace MES_Data_Interface
         private void SendNak()
         {
             SendVehicleBuildResponse(new Byte[] { (Byte) 0x15});
+        }
+        private bool SendKeepAlive()
+        {
+            SendVehicleBuildResponse(new Byte[] { (Byte)0x10 });
+            return (false);
         }
 
         private void SendVehicleBuildResponse(Byte[] optionString)

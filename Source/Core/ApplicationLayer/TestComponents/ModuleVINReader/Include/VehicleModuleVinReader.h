@@ -259,6 +259,8 @@ private:
     INamedDataBroker *m_ndb;
 
     bool m_vehPresentSignal;
+
+    bool m_onlyReadIfVehiclePresent;
 };
 //------------------------------------------------------------------------------
 #endif //VehicleModuleVinReader_h

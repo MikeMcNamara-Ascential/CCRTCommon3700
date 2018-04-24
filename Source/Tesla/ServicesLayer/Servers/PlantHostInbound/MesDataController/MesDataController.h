@@ -96,6 +96,7 @@
 #include "BepSync.h"
 #include "PlantHostInbound.h"
 #include "IPromptServer.h"
+#include "IFaultServer.h"
 #include "SerialChannel.h"
 #include "GeneralUtilities.h"
 #include "ITestResultServer.h"
@@ -110,15 +111,22 @@
  * Macros to use with broadcast messages.
  * @since Version 1.0
  */
-#define ST       0x02
-#define ET       0x03
-#define ENQ      0x05
-#define ACK      0x06
-#define CR       0x0D
-#define LF       0x0A
-#define NO_INFO  0x11
-#define NAK      0x15
-#define CLOCK    0xF0
+#define ST          0x02
+#define ET          0x03
+#define ENQ         0x05
+#define ACK         0x06
+#define CR          0x0D
+#define LF          0x0A
+#define NO_INFO     0x11
+#define NAK         0x15
+#define KEEP_ALIVE  0x10
+#define CLOCK       0xF0
+/**
+  * Pulse code and value to use for checking data file status.
+  */
+#define INTER_CCRT_COMM_SERVER_PULSE_CODE     SYSTEM_PULSE+19
+#define KEEPALIVE_PULSE     11
+
 /**
  * Constants to use when evaluating responses from broadcast.
  * @since Version 1.0
@@ -361,6 +369,13 @@ public:
 	 * @since Version 1.0
 	 */
 	const INT32 GetMaxResponseTime(void);
+    /**
+	 * Get the amount of time to wait between checking for new data at the serial port.
+	 * 
+	 * @return Delay time in ms.
+	 * @since Version 1.0
+	 */
+	const INT32 GetMessageDelay(void);
 	/**
 	 * Return the length of valid messages recieved from broadcast.
 	 * 
@@ -682,6 +697,25 @@ protected:
 	 * @since Version 1.0
 	 */
 	void SetMaxResponseTime(const INT32 &maxTime);
+
+    /**
+     * Set the maximum of time to wait for a response from broadcast.
+     * 
+     * @param maxTime Maximum time to wait.
+     * @since Version 1.0
+     */
+    void SetMessageDelay(const std::string &delay);
+
+
+    /**
+     * Set the time to wait in ms between failed attempts to send a message to the
+     * external workcell controller.
+     * 
+     * @param delay  Delay time in ms.
+     * @since Version 1.0
+     */
+    void SetMessageDelay(const INT32 &delay);
+
 	/**
 	 * Set the minimum length for valid messages recieved from broadcast.
 	 * 
@@ -728,6 +762,12 @@ protected:
 	 * @since Version 1.2
 	 */
 	BepCondVar<std::string, false> m_getBuildRecord;
+
+    /**
+     * Try to reconnect the communication port between MesDataController and the MesDataInterface
+     */ 
+    const BEP_STATUS_TYPE ReconnectPort();
+    const INT32 HandlePulse(const INT32 code, const INT32 value);
 
 private:
 	/**
@@ -820,6 +860,10 @@ private:
 	 * @since Version 1.0
 	 */
 	INT32 m_maxAttempts;
+    /**
+	 * Time to wait in ms between failed attempts to send a response to the external workcell controller.
+	 */
+	INT32 m_messageDelay;
 	/**
 	 * Maximum amount of time to wait for a response from broadcast.
 	 * @since Version 1.0
@@ -876,6 +920,23 @@ private:
     XmlNodeMap m_wccDataNodeMap;
 
     INT32 m_reconnectDelay;
+    /**
+     * Interface to the fault server
+     */
+    IFaultServer        *m_faultServer;
+
+    /**
+     * Reference to the fault information (Name, Description, ...).
+     */
+    XmlNode *m_faultInformation;
+
+    bool m_reconnectOnNoResponse;
+
+    /**
+     * Timer for sending keep alive messages.
+     */
+    BepTimer m_keepAliveTimer;
+
 };
 
 #endif  // MesDataController_h

@@ -303,7 +303,7 @@
                <Logging>
                   <ProcessName>logport/MesHost</ProcessName>
                   <AdditionalLogFile>/Communication/MesHostComm.log</AdditionalLogFile>
-                  <Status>Disabled</Status>
+                  <Status>Enabled</Status>
                   <LocalEcho>Disabled</LocalEcho>
                   <Verbose>0x3F</Verbose>
                </Logging>

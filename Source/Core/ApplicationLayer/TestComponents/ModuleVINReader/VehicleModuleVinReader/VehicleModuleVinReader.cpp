@@ -133,6 +133,16 @@ VehicleModuleVinReader::LoadAdditionalConfigurationItems(const XmlNode *configNo
 	{	// Error loading vin read messages
 		Log(LOG_ERRORS, "XmlException loading PresenceMessages - %s\n", err.what());
 	}
+    //Check if the VIN should only be read when a vehicle is present
+    try
+    {
+        m_onlyReadIfVehiclePresent = atob(configNode->getChild("OnlyReadIfVehiclePresent")->getValue().c_str());
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Defaulting to false for m_onlyReadIfVehiclePresent: %s", excpt.GetReason());
+        m_onlyReadIfVehiclePresent = false;
+    }
     // Create a new module with the given protocol filter
     if (!protocol.compare("KeywordProtocol2000"))
     {
@@ -237,7 +247,10 @@ void VehicleModuleVinReader::Run(volatile bool *terminateFlag) /* =NULL */
             m_cableConnected.Wait(cableConnected);
             Log(LOG_DEV_DATA, "Vehicle cable connected, reading vin from module.");
             // The cable has been connected, read the VIN from the module
-            ReadVIN();
+            if(m_onlyReadIfVehiclePresent && m_vehPresentSignal || !m_onlyReadIfVehiclePresent)
+            {
+                ReadVIN();
+            }
             //Allow time for m_cableConnected to become false
             BposSleep(500);
         }

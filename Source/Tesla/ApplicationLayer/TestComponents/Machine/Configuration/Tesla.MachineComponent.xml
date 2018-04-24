@@ -163,7 +163,7 @@
         <Initialize>
             <TestStep10>Initialize</TestStep10>
             <TestStep20>MachineReady</TestStep20>
-            <TestStep30>EngageMachine</TestStep30>
+            <!--TestStep30>EngageMachine</TestStep30-->
             <TestStep40>ConnectCable</TestStep40>
             <TestStep50>SelectDriverSide</TestStep50>
         </Initialize>

@@ -149,6 +149,7 @@ MesDataController::~MesDataController()
     {
         delete m_testResult;
     }
+    m_keepAliveTimer.Stop();
 }
 
 void MesDataController::Initialize(const std::string &fileName)
@@ -206,6 +207,15 @@ void MesDataController::Initialize(const XmlNode *document)
     {  // default to 2 seconds of delay for a response
         SetMaxResponseTime(2000);
     }
+    // Store the delay
+	try
+	{
+		SetMessageDelay(GetBroadcastCommSetup()->getChild("Setup/MessageDelay")->getValue());
+	}
+	catch(...)
+	{
+		SetMessageDelay(100);
+	}
 
     try
     {  // Set the flag that indicates if we are suppose to send a test result to the GUI for 
@@ -296,6 +306,37 @@ void MesDataController::Initialize(const XmlNode *document)
         Log(LOG_ERRORS, "Exception loading value for DoNotRequestBuildInfo, setting to true\n");
         m_requestBuildInfo = true;
     }
+    // get the fault information
+    try
+    {
+        m_faultInformation = const_cast< XmlNode *> (document->getChild( XML_T("Setup"))->getChild( XML_T("SystemFaults"))->Copy());
+    }
+    catch (XmlException &err)
+    {   // If no hysterisis specified, default to 0 seconds
+        throw BepException("No SystemFaults node under Setup in the configuration file!\n");
+    }
+
+    try
+    {
+        m_reconnectOnNoResponse = (document->getChild( XML_T("Setup"))->getChild("ReconnectOnNoResponse")->getValue() == "True");
+    }
+    catch (...)
+    {
+        Log(LOG_ERRORS, "Exception loading value for ReconnectOnNoResponse, setting to false\n");
+        m_reconnectOnNoResponse = false;
+    }
+
+    UINT64 keepAliveTimer;   // Timer pulse
+    Log("KeepAliveTime set to 10000 ms\n");
+    keepAliveTimer = 10000;
+
+    // Setup the timer
+    m_keepAliveTimer.SetPulseCode(INTER_CCRT_COMM_SERVER_PULSE_CODE);
+    Log(LOG_DEV_DATA, "Set keep alive timer pulse code to %d", INTER_CCRT_COMM_SERVER_PULSE_CODE);
+    m_keepAliveTimer.SetPulseValue(KEEPALIVE_PULSE);
+    Log(LOG_DEV_DATA, "Set keep alive timer pulse value to %d", KEEPALIVE_PULSE);
+    m_keepAliveTimer.Initialize(GetProcessName().c_str(), (mSEC_nSEC(keepAliveTimer)), (mSEC_nSEC(keepAliveTimer)));
+    m_keepAliveTimer.Stop();
 
     // Load any data that was specified in the config file
     LoadData(data);
@@ -305,13 +346,29 @@ void MesDataController::Initialize(const XmlNode *document)
 
 const std::string MesDataController::Register(void)
 {  // Initialize the PromptServer interface object
-    m_promptComm.Initialize(PROMPT_SERVER_NAME, DEFAULT_BUFFER_SIZE, DEFAULT_TIMEOUT,false); 
+    m_promptComm.Initialize(PROMPT_SERVER_NAME, DEFAULT_BUFFER_SIZE, DEFAULT_TIMEOUT,false);
     Log(LOG_DEV_DATA, "Initialized prompt server communications\n");
     // Broadcast comm object should always be started.  This server allows dynamically changing of the
     // build record source.  If the server comes up with File as the source, you should still be able to
     // dynamically change to broadcast.
     m_wccComm.Initialize(GetBroadcastCommSetup());
     Log(LOG_DEV_DATA, "Initialized broadcast communications\n");
+    try
+    {
+        // create a fault server interface
+        Log( LOG_DEV_DATA, "Creating m_faultServer\n");
+        string retVal( BEP_SUCCESS_RESPONSE);
+        m_faultServer = new IFaultServer;
+        Log( LOG_DEV_DATA, "m_faultServer::Initialize()\n");
+        m_faultServer->Initialize( FAULT_SERVER_NAME);
+        // subscribe for all faults
+        m_faultServer->SubscribeSeverityLevelFaults( 0, GetProcessName(), retVal, true);
+    }
+    catch(...)
+    {
+        Log(LOG_DEV_DATA,"Encountered a problem creating m_faultServer\n");
+    }
+
     return(PlantHostInbound::Register());
 }
 
@@ -362,6 +419,7 @@ void MesDataController::Run(volatile bool *terminateFlag) /*=NULL*/
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Run() - waiting for data connection\n");
     WaitForMesHost();
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Run() - data connection found. Starting Run loop\n");
+    m_keepAliveTimer.Start();
     while (GetStatus() != BEP_TERMINATE)
     {   // Acquire the semaphore
         m_getBuildRecord.Acquire();
@@ -587,6 +645,7 @@ void MesDataController::GetBroadcastResponse(std::string &response, const std::s
 {
     SerialString_t wccResponse;
     INT32 numBytesRead;
+    std::string faultResponse;
     // Clear the buffer
     response.erase();
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::GetBroadcastResponse()\n");
@@ -595,6 +654,7 @@ void MesDataController::GetBroadcastResponse(std::string &response, const std::s
     std::string clearResponse;
     if (AreRetainersDown()) m_promptComm.ClearPromptBox(promptBox, clearResponse);
     // Get the data from the buffer
+    BposSleep(GetMessageDelay());
     numBytesRead = m_wccComm.ReadPort(wccResponse, GetMaxResponseTime(), m_wccComm.GetTimeoutTime());
     Log("Got <0x%02X> from broadcast [ACK:0x%02X, NAK:0x%02X] - %d total bytes\n", wccResponse[0], ACK, NAK, numBytesRead);
     // If we got data, save it
@@ -621,7 +681,39 @@ void MesDataController::GetBroadcastResponse(std::string &response, const std::s
         {  // Display a prompt letting everyone know a NAK was received
             string resp;
             Log(LOG_DEV_DATA, "Recieved NAK from Broadcast\n");
-            if (AreRetainersDown()) m_promptComm.DisplayPrompt(2, GetNAKPrompt(), resp);
+            if (AreRetainersDown())
+            { 
+                m_promptComm.DisplayPrompt(2, GetNAKPrompt(), resp);
+                //Modify here to set a fault if MES Not Connected
+                if( m_faultServer != NULL)
+                {
+                    Log(LOG_ERRORS,"MES Connection down, will set MESConnectionDown Fault");
+                    // get the fault info and update the system
+                    const XmlNode *faultNode = NULL;
+                    try
+                    {
+                        faultNode = m_faultInformation->getChild("MESConnectionDown");
+                        const std::string &faultTag = faultNode->getAttribute("Name")->getValue();
+                        // get the fault info and update the system
+                        m_faultServer->SetFault(faultTag, 
+                                                faultNode->getAttribute("Description")->getValue(),
+                                                GetProcessName(),
+                                                faultResponse, 
+                                                true, 
+                                                atoi(faultNode->getAttribute("Severity")->getValue().c_str()));
+                        Log(LOG_ERRORS, "MESConnectionDown Fault set (tag: %s)\n", faultTag.c_str());
+                    }
+                    catch( ...)
+                    {
+                        m_faultServer->SetFault("MESConnectionDown", 
+                                                "Could not pull data from MES Web Service. Please Check Connection",
+                                                GetProcessName(),
+                                                faultResponse, true, 
+                                                9);
+                        Log(LOG_ERRORS, "MESConnectionDown Fault set\n");
+                    }
+                }
+            }
         }
         else if (NO_INFO == wccResponse[0])
         {  // Broadcast has no information for the requested vin
@@ -635,15 +727,72 @@ void MesDataController::GetBroadcastResponse(std::string &response, const std::s
                 m_promptComm.DisplayPrompt(promptBox, GetNoInfoPrompt(), noInfoDetails, result); 
             }
         }
+        else if (KEEP_ALIVE == wccResponse[0]) 
+        { //Optionally processs keep alive, or just keep going
+        }
         // Save the response to pass back
         Log(LOG_DEV_DATA, "Preparing response for processing...\n");
         for (UINT16 index = 1; index < wccResponse.length(); index++) response += (char)wccResponse[index];
+        if(NAK != wccResponse[0])
+        {
+            try
+            {
+                Log(LOG_ERRORS,"MES Connection up, will clear MESConnectionDown Fault");
+                m_faultServer->ClearFault( "MESConnectionDown", faultResponse, true);
+                Log(LOG_ERRORS, "MESConnectionDown Fault cleared\n");
+            }
+            catch(...)
+            {
+                Log(LOG_DEV_DATA, "Encountered a problem clearing MESConnectionDown fault\n");
+            }
+        }
     }
     else
     {  // No response received from broadcast
         string resp;
         Log(LOG_ERRORS, "Timeout waiting for a response from broadcast\n");
         if (AreRetainersDown()) m_promptComm.DisplayPrompt(2, this->GetNoResponsePrompt(), resp);
+        try
+        {
+            //Modify here to set a fault if MES Not Connected
+            if( m_faultServer != NULL)
+            {
+                Log(LOG_ERRORS,"MES Connection down, will set MESConnectionDown Fault");
+                // get the fault info and update the system
+                const XmlNode *faultNode = NULL;
+                try
+                {
+                    faultNode = m_faultInformation->getChild("MESConnectionDown");
+                    const std::string &faultTag = faultNode->getAttribute("Name")->getValue();
+                    // get the fault info and update the system
+                    m_faultServer->SetFault(faultTag, 
+                                            faultNode->getAttribute("Description")->getValue(),
+                                            GetProcessName(),
+                                            faultResponse, 
+                                            true, 
+                                            atoi(faultNode->getAttribute("Severity")->getValue().c_str()));
+                    Log(LOG_ERRORS, "MESConnectionDown Fault set (tag: %s)\n", faultTag.c_str());
+                }
+                catch( ...)
+                {
+                    m_faultServer->SetFault("MESConnectionDown", 
+                                            "Could not pull data from MES Web Service. Please Check Connection",
+                                            GetProcessName(),
+                                            faultResponse, true, 
+                                            9);
+                    Log(LOG_ERRORS, "MESConnectionDown Fault set\n");
+                }
+            }
+        }
+        catch(...)
+        {
+            Log(LOG_DEV_DATA, "Encountered a problem setting MESConnectionDown fault\n");
+        }
+        if(m_reconnectOnNoResponse)
+        {
+            Log(LOG_DEV_DATA, "Receieved no response from MES Data Interface, attempting to reconnect\n");
+            ReconnectPort();
+        }
     }
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::GetBroadcastResponse() complete\n");
 }
@@ -1331,6 +1480,11 @@ const INT32 MesDataController::GetMaxAttempts(void)
     return m_maxAttempts;
 }
 
+const INT32 MesDataController::GetMessageDelay(void)
+{
+	return m_messageDelay;
+}
+
 const INT32 MesDataController::GetMaxResponseTime(void)
 {
     return m_maxResponseTime;
@@ -1410,6 +1564,16 @@ void MesDataController::SetMaxResponseTime(const std::string &maxTime)
 void MesDataController::SetMaxResponseTime(const INT32 &maxTime)
 {   // Software uses a 10ms sleep time between checks.
     m_maxResponseTime = maxTime/10;
+}
+
+void MesDataController::SetMessageDelay(const INT32 &delay)
+{
+	m_messageDelay = delay;
+}
+
+void MesDataController::SetMessageDelay(const std::string &delay)
+{
+    SetMessageDelay(atoi(delay.c_str()));
 }
 
 void MesDataController::SetValidMessageLength(const UINT32 &length)
@@ -1504,5 +1668,89 @@ void MesDataController::UpdateInputServerState()
         SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
     }                                                                          
     PlantHostInbound::UpdateInputServerState();
+}
+const BEP_STATUS_TYPE MesDataController::ReconnectPort()
+{   // Attempt to reconnect the port if the unit is active
+    int reconnectStatus = -1;
+    Log(LOG_FN_ENTRY, "MesDataController::ReconnectPort enter");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    bool activeStatus = false;
+    //set active status to false
+    /*InterCcrtCommActive(&activeStatus);
+    if (!UseKeepAlive())
+    {*/
+    //this is a client, wait for server connection
+        while (((reconnectStatus = m_wccComm.ReconnectDriver()) != EOK)  &&
+               GetStatus().compare(BEP_TERMINATE))// &&
+               //  reconnect until connected (attempts++ < ReconnectAttempts() || !UseKeepAlive()))
+        {
+            Log(LOG_DEV_DATA, "MesDataController - Waiting to reconnect the port...");
+            BposSleep(GetReconnectDelay());
+        }
+        // Determine reconnect status
+        if (reconnectStatus == EOK)
+        {
+            activeStatus = true;
+            status = BEP_STATUS_SUCCESS;
+        }
+        else
+        {
+            activeStatus = false;
+            status = BEP_STATUS_HARDWARE;
+        }
+    /*}
+    else
+    {//TODO: open port and wait for client
+    } */
+
+    // Decide if the listener should be deactivated
+    //InterCcrtCommActive(&activeStatus);
+
+    Log(LOG_ERRORS, "MesDataController - Reconnected port driver - %s", ConvertStatusToResponse(status).c_str());
+    // Return the reconnect status
+    return status;
+}
+
+const INT32 MesDataController::HandlePulse(const INT32 code, const INT32 value)
+{
+    INT32 result = BEP_STATUS_FAILURE;
+    Log(LOG_DETAILED_DATA, "Enter MesDataController::HandlePulse(pulse code: %d, value: %d)", code, value);
+    // Handle the pulse code
+    switch (code)
+    {
+        case (INT32)INTER_CCRT_COMM_SERVER_PULSE_CODE:
+        {
+        
+            switch (value)
+            {
+                case (INT32)KEEPALIVE_PULSE:
+                {
+                    Log("Sending KeepAlive message\n");
+                    string requestMessage = "KeepAlive";
+                    UINT16 checkSum = CalculateCheckSum(requestMessage) & 0xFF;
+                    string message = (char)ST + requestMessage + (char)checkSum + (char)ET;
+                    m_wccComm.Send(message);
+                    break;
+                }
+            
+                default:
+                {
+                
+                    Log(LOG_ERRORS, "Unknown pulse value: %d.  Ignoring pulse!", value);
+                    break;
+                }
+
+            }
+            break;
+        }
+
+        default:
+        {
+            result = BepServer::HandlePulse(code, value);
+            break;
+        }
+    }
+    Log(LOG_DETAILED_DATA, "Exit InterCcrtCommServer::HandlePulse(pulse code: %d, value: %d)", code, value);
+    return result;
 }
 

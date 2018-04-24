@@ -671,6 +671,7 @@
                  <TagList>
                      <SubscribeTags>
                          <CableConnect/>
+                         <VehiclePresent/>
                      </SubscribeTags>
                  </TagList>
                  <Communication>
@@ -718,6 +719,7 @@
             <VinReadMessages>
                 <VinReadMessage01>ReadVIN</VinReadMessage01>
             </VinReadMessages>
+            <OnlyReadIfVehiclePresent>True</OnlyReadIfVehiclePresent>
          </ModuleVinReader>
       </InputDevices>
       <DataTags>

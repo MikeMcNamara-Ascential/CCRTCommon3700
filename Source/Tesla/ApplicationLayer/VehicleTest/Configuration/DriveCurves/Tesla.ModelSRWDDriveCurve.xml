@@ -97,6 +97,13 @@
             </Objective0>
          </ForegroundObjectives>
       </TestPhase120>
+      <TestPhase122>
+          <ForegroundObjectives Result="" Timeout="">
+            <Objective0 Description="" Result="" Timeout="" Component="Machine">
+               <EngageMachine/>
+            </Objective0>
+         </ForegroundObjectives>
+      </TestPhase122>
       <!--
       <TestPhase125 Description="Test brake switch" Result="" Timeout="">
          <ForegroundObjectives Result="" Timeout="">

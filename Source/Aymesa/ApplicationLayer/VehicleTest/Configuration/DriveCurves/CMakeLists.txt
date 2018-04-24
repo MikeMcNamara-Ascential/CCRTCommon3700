@@ -6,6 +6,6 @@ INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/DriveCurves FILES
 	BaseBrakeDriveCurve.xml
 	BoschAbsDriveCurve.xml
 	MandoAbsDriveCurve.xml
-	MandoMgh60KwpDriveCurve.xml
-	MandoMgh80DriveCurve.xml  
+	MandoMgh60KwpAbsDriveCurve.xml
+	MandoMgh80AbsDriveCurve.xml  
 	)

@@ -58,7 +58,7 @@ namespace Common.Lib
             BAS_FAILURE = "Brake Apply Sensor Relearn Failure",
             BAS_PASS = "Brake Apply Sensor Relearn Complete",
             WAIT_FOR_CABLEDISCONNECT = "Key Off, Disconnect Cable",
-            KEY_ON = "Engine On",
+            KEY_ON = "IGN On Engine Off, then Engine On",
             KEY_OFF = "Key Off",
             BAS_RELEARN = "Brake Apply Sensor Home Relearn in progress",
             FOOT_OFF_BRAKE = "Keep foot off Brake Pedal",
@@ -66,6 +66,6 @@ namespace Common.Lib
             RELEASE_BRAKE = "Remove foot from brake pedal",
             PEDAL_FAILURE = "Brake Pedal function check failure",
             TIMEOUT = "ECM Communication Timeout",
-            TIMEOUT2 = "Please restart Flash Station program";
+            TIMEOUT2 = "Please restart Flash Station PC";
         }
 }

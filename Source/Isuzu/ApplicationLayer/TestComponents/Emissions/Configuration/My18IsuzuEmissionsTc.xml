@@ -375,7 +375,7 @@
             <TestStep00>Setup</TestStep00>
             <TestStep05>WaitForEngineRunning</TestStep05>
             <TestStep10>EnterDiagnosticMode</TestStep10>
-            <TestStep15>ClearFaults</TestStep15>
+            <!--TestStep15>ClearFaults</TestStep15-->
         </EngineRunning>
         <KeyOffEngineOffKeyOn>
             <TestStep00>KeyOffEngineOffKeyOn</TestStep00>

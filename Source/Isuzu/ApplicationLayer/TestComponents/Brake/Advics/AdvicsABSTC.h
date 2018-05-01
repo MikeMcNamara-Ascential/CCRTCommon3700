@@ -531,6 +531,9 @@ protected:
      */
     virtual BEP_STATUS_TYPE AnalyzeReductionForces(INT32 roller, INT32 start, INT32 end);
 
+    string AbsPrime(void);
+
+
 
 
     string m_originalDriveAxle;

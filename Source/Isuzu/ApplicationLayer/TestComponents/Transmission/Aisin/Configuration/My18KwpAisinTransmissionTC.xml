@@ -259,7 +259,7 @@
 
         <Setup>
             <TestStep00>Setup</TestStep00>
-            <TestStep02>ClearFaults</TestStep02>
+            <!--TestStep02>ClearFaults</TestStep02-->
         </Setup>
 
         <StaticChecks>

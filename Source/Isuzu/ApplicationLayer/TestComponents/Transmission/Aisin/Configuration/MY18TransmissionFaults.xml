@@ -78,7 +78,7 @@
     <ModuleFault_182E Code="P182E" Description="IMS Circuit A Low, Reported as IMS - Invalid Range" FailureStatusMask="0x16"/>
     <ModuleFault_1915 Code="P1915" Description="IMS Does Not Indicate Park/Neutral During Start" FailureStatusMask="0x16"/>
     <ModuleFault_2534 Code="P2534" Description="Ignition Switch Run / Start Position Circuit Low Voltage" FailureStatusMask="0x16"/>
-    <ModuleFault_2535 Code="P2535" Description="Ignition Switch Run / Start Position Circuit High Voltage" FailureStatusMask="0x16"/>
+    <ModuleFault_2535 Code="P2535" Description="Ignition Switch Run / Start Position Circuit High Voltage" FailureStatusMask="0x12"/>
     <ModuleFault_2537 Code="P2537" Description="Ignition Switch Accesory Position Circuit Low Voltage" FailureStatusMask="0x12"/>
     <ModuleFault_2714 Code="P2714" Description="RVT CB26 Stuck OFF (PC Solenoid D)" FailureStatusMask="0x16"/>
     <ModuleFault_2715 Code="P2715" Description="RVT CB26 Stuck ON (PC Solenoid D)" FailureStatusMask="0x16"/>

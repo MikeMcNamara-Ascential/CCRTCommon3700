@@ -2722,7 +2722,15 @@ namespace Common.Lib.Models
                         passed = false;
                         m_logger.Log("INFO:  Reporting Fail");
                         resultNode.InnerText = "Fail";
-                        WritePassIndicationFile("FAIL");
+                        //write file to shared folder
+                        try
+                        {
+                            WritePassIndicationFile("FAIL");
+                        }
+                        catch (Exception e)
+                        {
+                            m_logger.Log("Could not report data because of exception:" + e.ToString());
+                        }
                     }
                     else
                     {
@@ -2779,8 +2787,7 @@ namespace Common.Lib.Models
                 //Manage files if we are above the limit
                 if (resultsDirInfo.GetFiles().Count() > MAX_RESULT_FILES)
                 {//delete oldest
-                    FileSystemInfo fileInfo = resultsDirInfo.GetFileSystemInfos()
-    .OrderByDescending(fi => fi.CreationTime).First();
+                    FileSystemInfo fileInfo = resultsDirInfo.GetFileSystemInfos().OrderByDescending(fi => fi.CreationTime).First();
                     fileInfo.Delete();
                 }
                 if (m_flashRetryAttempted)
@@ -2792,7 +2799,8 @@ namespace Common.Lib.Models
         }
         //Write pass indication to a local folder first
         public void WritePassIndicationFile(string result)
-        { 
+        {
+            m_logger.Log("Writing Result to File");
             string filename = m_buildData[0].VIN + ".ECM";
             lock (m_passFileFtp.DirectoryLock)
             {
@@ -2800,7 +2808,13 @@ namespace Common.Lib.Models
                 {
                     string timeStamp = (DateTime.Now.ToString("yyyyMMddHHmmss"));
                     outfile.Write(timeStamp+result);
+                    outfile.Flush();
+                    long numb = outfile.BaseStream.Length;
+                    m_logger.Log(".ECM data size check: " + numb.ToString());
+                    m_logger.Log("Wrote " + timeStamp + result + " to result file.");
                 }
+               var length = new System.IO.FileInfo(m_passIndicationLocalDirectory + filename).Length;
+               m_logger.Log("ECM file size check: " + length.ToString());
             }
         }
         public void PassFileIndicationTransferThread()

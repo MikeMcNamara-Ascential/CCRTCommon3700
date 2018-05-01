@@ -179,8 +179,8 @@
    <ModuleFault_0453 Code="P0453" Description="Fuel Tank Pressure (FTP) Sensor Circuit High Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0454 Code="P0454" Description="Fuel Tank Pressure (FTP) Sensor Circuit Intermittent" FailureStatusMask="0x12"/>
    <ModuleFault_0455 Code="P0455" Description="Evaporative Emission (EVAP) System Large Leak Detected" FailureStatusMask="0x12"/>
-   <ModuleFault_0458 Code="P0458" Description="Evaporative Emission System Purge Control Valve A Circuit Low" FailureStatusMask="0x16"/>
-   <ModuleFault_0459 Code="P0459" Description="Evaporative Emission System Purge Control Valve A Circuit High" FailureStatusMask="0x16"/>
+   <ModuleFault_0458 Code="P0458" Description="Evaporative Emission System Purge Control Valve A Circuit Low" FailureStatusMask="0x12"/>
+   <ModuleFault_0459 Code="P0459" Description="Evaporative Emission System Purge Control Valve A Circuit High" FailureStatusMask="0x12"/>
    <ModuleFault_0461 Code="P0461" Description="Fuel Level Sensor 1 Performance" FailureStatusMask="0x12"/>
    <ModuleFault_0462 Code="P0462" Description="Fuel Level Sensor 1 Circuit Low Voltage" FailureStatusMask="0x16"/>
    <ModuleFault_0463 Code="P0463" Description="Fuel Level Sensor 1 Circuit High Voltage" FailureStatusMask="0x16"/>

@@ -84,6 +84,7 @@ const string AdvicsABSTC<ModuleType>::CommandTestStep(const string &value)
 			    m_baseBrakeTool->UpdateTarget(false);
 			    result = m_baseBrakeTool->TestStepAccelerate();
 		    }
+            else if(!testStep.compare("PrimeAbs"))                    result = AbsPrime();
             // Try the base class
             else                                  result = GenericABSTCTemplate<ModuleType>::CommandTestStep(value);
         }
@@ -2713,6 +2714,62 @@ BEP_STATUS_TYPE AdvicsABSTC<ModuleType>::AnalyzeReductionForces(INT32 roller, IN
     // Log the exit and return the result
     Log(LOG_FN_ENTRY, "AdvicsABSTC::AnalyzeReductionForces() done: %s\n", testResult.c_str());
     return status;
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template <class ModuleType>
+string AdvicsABSTC<ModuleType>::AbsPrime(void)
+{
+	string result(BEP_TESTING_STATUS);
+	Log(LOG_FN_ENTRY, "AdvicsAbsTc::AbsPrime() - Enter");
+	if(!ShortCircuitTestStep() && !IsRetest())
+	{	
+        DisplayPrompt(GetPromptBox("AbsPrime"), GetPrompt("AbsPrime"), GetPromptPriority("AbsPrime"));
+	    DisplayPrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
+        // Wait for zero speed
+		if(CheckZeroSpeed())
+		{
+			BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+			//DisplayPrompt(GetPromptBox("AbsPrime"), GetPrompt("AbsPrime"), GetPromptPriority("AbsPrime"));
+			//DisplayPrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
+            BposSleep(GetParameterInt("PrimeAbsStartDelay"));
+		    for(int cycle = 0; (cycle < GetParameterInt("AbsPrimeCycles")) && 
+			 (BEP_STATUS_SUCCESS == StatusCheck()) && (BEP_STATUS_SUCCESS == moduleStatus); cycle++)
+			{
+				BposSleep(GetTestStepInfoInt("ScanDelay"));
+				moduleStatus = m_vehicleModule.CommandModule("AllInletValvesOn");
+                //Module commands go for 1 second, so wait to finish
+				BposSleep(1000);
+			}
+			if(moduleStatus == BEP_STATUS_SUCCESS)
+			{
+				result = testPass;
+			}
+			else
+			{
+				result = testFail;
+			}
+			RemovePrompt(GetPromptBox("AbsPrime"), GetPrompt("AbsPrime"), GetPromptPriority("AbsPrime"));
+			RemovePrompt(GetPromptBox("ApplyBrake"), GetPrompt("ApplyBrake"), GetPromptPriority("ApplyBrake"));
+		}
+		else
+		{	// Timeout waiting for zero speed
+			result = testTimeout;
+            
+			Log(LOG_ERRORS, "Timeout waiting for zero speed");
+		}
+		Log(LOG_DEV_DATA, "Prime Abs Pump: %s \n", result.c_str());
+		// Send the test result
+		SendTestResult(result, GetTestStepInfo("Description"), "000");
+	}
+	else
+	{
+		Log(LOG_DEV_DATA, "Skipping ABS Prime");
+		result = testSkip;
+	}
+    Log(LOG_FN_ENTRY, "AdvicsAbsTc::AbsPrime() - Exit");
+	return result;
 }
 
 

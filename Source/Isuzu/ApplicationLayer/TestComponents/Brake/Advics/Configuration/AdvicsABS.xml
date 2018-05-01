@@ -142,9 +142,14 @@
          <RightRearMinRecoveryPercent Units="%">50</RightRearMinRecoveryPercent>
          <CollectSensorSpeedData Description="Sample sensor speeds during ABS valve firing to check for sensor/valve cross">0</CollectSensorSpeedData>
          <PerformReductionBeforeRecovery>1</PerformReductionBeforeRecovery>
+         <AbsPrimeCycles>3</AbsPrimeCycles>
+         <PrimeAbsStartDelay>3000</PrimeAbsStartDelay>
       </Parameters>
       <Prompts>
+         <AbsPrime PromptBox="1" Priority="0">AbsPrime</AbsPrime>
          <AccelerateToTargetSpeed PromptBox="1" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+         <ApplyBrake PromptBox="2" Priority="0">ApplyBrake</ApplyBrake>
+         <ApplyBrake1 PromptBox="1" Priority="0">ApplyBrake</ApplyBrake1>
          <DepressBrake PromptBox="1" Priority="0">FootOnBrake</DepressBrake>
          <RemoveFootFromBrake PromptBox="1" Priority="0">FootOffBrake</RemoveFootFromBrake>
          <FootOffBrake PromptBox="2" Priority="0">FootOffBrake</FootOffBrake>
@@ -220,6 +225,7 @@
             <!-- Add others below this -->
             <StopCurrentTest/>
             <VehicleType/>
+			<Zerospeed/>
          </SubscribeTags>
       </TagList>
       <Logging>
@@ -632,6 +638,13 @@
       <ABSCommandsTestObjective>
           <TestStep00>AllInletValvesOn</TestStep00>
       </ABSCommandsTestObjective>
+      <PrimeAbs>
+            <!--TestStep00>EnterDiagnosticMode</TestStep00-->
+            <!--TestStep05>DisableDiagnosticSpeedLimit</TestStep05-->
+            <!--TestStep10>StartModuleKeepAlive</TestStep10-->
+            <TestStep15>PrimeAbs</TestStep15>
+            <!--TestStep25>StopModuleKeepAlive</TestStep25-->
+        </PrimeAbs>
    </Objectives>
    <!-- Specific Test Step information -->
    <TestSteps>
@@ -705,5 +718,6 @@
       <AllInletValvesOn Result="" Timeout="500" Description="AllInletValvesOn"/>
 	  <DynamicABSValveFiringTest Result="" Timeout="90000" Description="Fire ABS Valves" Prompt1="BrakeModeratelyInGreenBand" Prompt1Priority="0" Prompt1BGColor="white" Prompt2="Blank" BrakeDomain="0 1000" BrakeTarget="50 200"/>
       <AccelerateToABSSpeed Result="" Timeout="120000" Description="Accelerate to Brake Test Arm Speed" ArmSpeed="70" Prompt1="ShiftToDrive" Prompt2="AccelerateToTargetSpeed" SpeedTarget="70 80" ScanDelay="250" AbortIfFailed="True"/>
+      <PrimeAbs Result="" Timeout="30000" Description="Prime ABS system" ScanDelay="250"/>
    </TestSteps>
 </AdvicsABS>

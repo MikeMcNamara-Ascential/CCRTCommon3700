@@ -100,7 +100,7 @@
     <Field0770 Type="Separator">,</Field0770>
     <Field0780 Type="Result">BrakeABSValveCrossCheck</Field0780>
     <Field0790 Type="Separator">,</Field0790>
-    <Field0800 Type="Result">BrakeValveFiringTest</Field0800>
+    <Field0800 Type="Result">BrakeDynamicABSValveFiringTest</Field0800>
     <Field0810 Type="Separator">,</Field0810>
     <Field0820 Type="Detail" DetailNode="DragForce" Format="%07.2f" DataType="Float">BrakeLeftFrontDragTest</Field0820>
     <Field0830 Type="Separator">,</Field0830>
@@ -146,21 +146,21 @@
     <Field1230 Type="Separator">,</Field1230>
     <Field1240 Type="Result">BrakeFrontToRearBalanceTest</Field1240>
     <Field1250 Type="Separator">,</Field1250>
-    <Field1260 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeLeftFrontSensorSpeedTest</Field1260>
+    <Field1260 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeLeftFrontSensorTest</Field1260>
     <Field1270 Type="Separator">,</Field1270>
-    <Field1280 Type="Result">BrakeLeftFrontSensorSpeedTest</Field1280>
+    <Field1280 Type="Result">BrakeLeftFrontSensorTest</Field1280>
     <Field1290 Type="Separator">,</Field1290>
-    <Field1300 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeRightFrontSensorSpeedTest</Field1300>
+    <Field1300 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeRightFrontSensorTest</Field1300>
     <Field1310 Type="Separator">,</Field1310>
-    <Field1320 Type="Result">BrakeRightFrontSensorSpeedTest</Field1320>
+    <Field1320 Type="Result">BrakeRightFrontSensorTest</Field1320>
     <Field1330 Type="Separator">,</Field1330>
-    <Field1340 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeLeftRearSensorSpeedTest</Field1340>
+    <Field1340 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeLeftRearSensorTest</Field1340>
     <Field1350 Type="Separator">,</Field1350>
-    <Field1360 Type="Result">BrakeLeftRearSensorSpeedTest</Field1360>
+    <Field1360 Type="Result">BrakeLeftRearSensorTest</Field1360>
     <Field1370 Type="Separator">,</Field1370>
-    <Field1380 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeRightRearSensorSpeedTest</Field1380>
+    <Field1380 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeRightRearSensorTest</Field1380>
     <Field1390 Type="Separator">,</Field1390>
-    <Field1400 Type="Result">BrakeRightRearSensorSpeedTest</Field1400>
+    <Field1400 Type="Result">BrakeRightRearSensorTest</Field1400>
     <Field1410 Type="Separator">,</Field1410>
     <Field1412 Type="Detail" DetailNode="LeftFrontABSReductionPercent" Format="%07.2f" DataType="Float">BrakeLeftFrontABSReduction</Field1412>
     <Field1414 Type="Separator">,</Field1414>
@@ -463,23 +463,5 @@
         <Field0030 Type="DtcAttribute" Format="%-6.6s" Length="6" DataType="String" ExcludeIfNotTested="False" BlankValue="000000">DTCCode</Field0030>
         <Field0040 Type="Separator">,</Field0040>
     </Field4100>
-    <Field4250 Type="Separator">,</Field4250>
-    <Field4260 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeLeftFrontSensorTest</Field4260>
-    <Field4270 Type="Separator">,</Field4270>
-    <Field4280 Type="Result">BrakeLeftFrontSensorTest</Field4280>
-    <Field4290 Type="Separator">,</Field4290>
-    <Field4300 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeRightFrontSensorTest</Field4300>
-    <Field4310 Type="Separator">,</Field4310>
-    <Field4320 Type="Result">BrakeRightFrontSensorTest</Field4320>
-    <Field4330 Type="Separator">,</Field4330>
-    <Field4340 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeLeftRearSensorTest</Field4340>
-    <Field4350 Type="Separator">,</Field4350>
-    <Field4360 Type="Result">BrakeLeftRearSensorTest</Field4360>
-    <Field4370 Type="Separator">,</Field4370>
-    <Field4380 Type="Detail" DetailNode="SensorSpeed"  Format="%07.2f" DataType="Float">BrakeRightRearSensorTest</Field4380>
-    <Field4390 Type="Separator">,</Field4390>
-    <Field4400 Type="Result">BrakeRightRearSensorTest</Field4400>
-    <Field4490 Type="Separator">,</Field4490>
-    <Field4500 Type="Result">BrakeDynamicABSValveFiringTest</Field4500>
 </DAQTestResultMap>
 

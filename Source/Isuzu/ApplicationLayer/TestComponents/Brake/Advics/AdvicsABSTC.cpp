@@ -1587,10 +1587,10 @@ string AdvicsABSTC<ModuleType>::DynamicABSValveFiringTest(void)
             m_vehicleModule.CommandModule("RunPumpMotor");
             delay(GetParameterInt("PostPumpRunDelay"));
             // run the individual wheel ABS tests
-            testResult = LFABSTest2();
-            if(testResult == testPass) testResult = RFABSTest2();
-            if(testResult == testPass) testResult = LRABSTest2();
+            testResult = LRABSTest2();
             if(testResult == testPass) testResult = RRABSTest2();
+            if(testResult == testPass) testResult = LFABSTest2();
+            if(testResult == testPass) testResult = RFABSTest2();
 
             m_absEndIndex = TagArray("ABSEnd");
           

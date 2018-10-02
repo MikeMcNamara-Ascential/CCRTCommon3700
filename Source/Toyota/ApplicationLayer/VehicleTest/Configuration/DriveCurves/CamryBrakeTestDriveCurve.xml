@@ -51,6 +51,7 @@
             </ForegroundObjectives>
         </TestPhase020>
 
+        <!-- removed per request by Jeremy Barber of TMMK 2018.09.18
         <TestPhase040 Description="Validate traction control system" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Validate traction control system" Result="" Timeout="" Component="Brake">
@@ -58,6 +59,7 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase040>
+        -->
 
     </Test>
 </DriveCurve>

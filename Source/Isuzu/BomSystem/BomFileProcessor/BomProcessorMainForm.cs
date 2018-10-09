@@ -39,6 +39,16 @@ namespace BomFileProcessor
             m_modelCodeOptions.Load();
             m_retRollPressures = new VehicleOptionCollection(m_logger, "FrontReductionPressure");
             m_retRollPressures.Load();
+            m_rearAxel = new VehicleOptionCollection(m_logger, "RearAxel");
+            m_rearAxel.Load();
+            m_transmission = new VehicleOptionCollection(m_logger, "Transmission");
+            m_transmission.Load();
+            m_tireSize = new VehicleOptionCollection(m_logger, "TireSize");
+            m_tireSize.Load();
+            m_speedMeter = new VehicleOptionCollection(m_logger, "SpeedMeter");
+            m_speedMeter.Load();
+
+
             // Create and load the brake force parameter sets
             m_brakeForces = new BrakeForceCollection(m_logger);
             // Start the timer to look for new BOM files
@@ -59,8 +69,8 @@ namespace BomFileProcessor
             passwords.Add("porter");
 
             List<string> ipaddresses = new List<string>();
-            ipaddresses.Add("192.168.1.3:2121");
-            ipaddresses.Add("192.168.1.3:2121");
+            ipaddresses.Add("192.168.1.1:2121");
+            ipaddresses.Add("192.168.1.1:2121");
             //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
             m_engineSerialNumberFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.WindowsPCESNFileLocation,
                 users, passwords, ipaddresses,m_logger);
@@ -86,7 +96,7 @@ namespace BomFileProcessor
                      BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
                      "burke",
                      "porter",
-                     "192.168.1.3:2121", m_logger, "*.DVT");
+                     "192.168.1.1:2121", m_logger, "*.DVT");
                 m_dvtPassConfirmationMonitor.StartFileMonitorThread();
 
                 m_ecmPassConfirmationMonitor = new BomFtpFileMonitor(
@@ -96,7 +106,7 @@ namespace BomFileProcessor
                  BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
                  "burke",
                  "porter",
-                 "192.168.1.3:2121", m_logger, "*.ECM");
+                 "192.168.1.1:2121", m_logger, "*.ECM");
                 m_ecmPassConfirmationMonitor.StartFileMonitorThread();
             }
 
@@ -107,7 +117,7 @@ namespace BomFileProcessor
             BomFileProcessor.Properties.Settings.Default.PassConfirmationCheckDelay,
             "burke",
             "porter",
-            "192.168.1.3:2121", m_logger, "*.STP");
+            "192.168.1.1:2121", m_logger, "*.STP");
             m_vinStampingFileMonitor.StartFileMonitorThread();
 
         }
@@ -332,6 +342,26 @@ namespace BomFileProcessor
                                             {
                                                 AddVehicleBuildParameter(buildData, "VehicleBuild", "WriteESN", modelOptions.WriteESN);
                                                 AddVehicleBuildParameter(buildData, "VehicleBuild", "ESNLeadingCharacters", modelOptions.ESNLeadingCharacters);
+                                            }
+                                            //TODO Add the RearAxel, Transmission, Tire Size and SpeedMeter Build Record writing code here.
+                                            VehicleOption RearAxleType = m_rearAxel.Find(modelCode);
+                                            if (RearAxleType != null)
+                                            {
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "Rearaxelratio", RearAxleType.OptionValue);
+                                            }
+                                            VehicleOption Transmission = m_transmission.Find(modelCode);
+                                            if (Transmission != null)
+                                            {
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "Transmission", Transmission.OptionValue);
+                                            }
+                                            VehicleOption TireSize = m_tireSize.Find(modelCode);
+                                            if (TireSize != null)
+                                            {
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "Tiresize", TireSize.OptionValue);
+                                            } VehicleOption SpeedMeter = m_speedMeter.Find(modelCode);
+                                            if (SpeedMeter != null)
+                                            {
+                                                AddVehicleBuildParameter(buildData, "VehicleBuild", "Speedmeter", SpeedMeter.OptionValue);
                                             }
                                             // Add the brake force parameters
                                             BrakeForce brakeForces = m_brakeForces.Find(modelCode);
@@ -731,7 +761,9 @@ namespace BomFileProcessor
             {   // open each selected file in a new editor window
                 foreach (String file in dlg.FileNames)
                 {
-                    EditVehicleBuildFileForm editForm = new EditVehicleBuildFileForm(file, m_axleTypes, m_brakeForces, m_wheelbase, m_retRollPressures);
+                    //EditVehicleBuildFileForm editForm = new EditVehicleBuildFileForm(file, m_axleTypes, m_brakeForces, m_wheelbase, m_retRollPressures);
+                    //TODO ADD rearAxel Transmission TireSize and Speedo to this method.
+                    EditVehicleBuildFileForm editForm = new EditVehicleBuildFileForm(file, m_axleTypes, m_brakeForces, m_wheelbase, m_retRollPressures, m_rearAxel, m_transmission, m_tireSize, m_speedMeter);
                     editForm.Show();
                 }
             }
@@ -885,7 +917,7 @@ namespace BomFileProcessor
             try
             {
                 m_logger.Log("Attempting to get VIN Stamper files\n");
-                string[] files = Directory.GetFiles("\\\\192.168.1.3\\" + BomFileProcessor.Properties.Settings.Default.CcrtVINStamperFileLocation);
+                string[] files = Directory.GetFiles("\\\\192.168.1.1\\" + BomFileProcessor.Properties.Settings.Default.CcrtVINStamperFileLocation);
 
                 if (files.Count() > 0)
                 {
@@ -1000,6 +1032,50 @@ namespace BomFileProcessor
         {
             VehicleOptionForm wheelbaseForm = new VehicleOptionForm(m_wheelbase, m_wheelbase.OptionName);
             wheelbaseForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Setup the Area Axel associations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rearAxelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VehicleOptionForm rearAxelForm = new VehicleOptionForm(m_rearAxel, m_rearAxel.OptionName);
+            rearAxelForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Setup the Transmission associations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void transmissionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VehicleOptionForm transmissionForm = new VehicleOptionForm(m_transmission, m_transmission.OptionName);
+            transmissionForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Setup the Tire Size associations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tireSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VehicleOptionForm tireSizeForm = new VehicleOptionForm(m_tireSize, m_tireSize.OptionName);
+            tireSizeForm.ShowDialog();
+        }
+
+        /// <summary>
+        /// Setup the Speed Meter associations
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void speedMeterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VehicleOptionForm SpeedMeterForm = new VehicleOptionForm(m_speedMeter, m_speedMeter.OptionName);
+            SpeedMeterForm.ShowDialog();
         }
 
         /// <summary>
@@ -1121,6 +1197,26 @@ namespace BomFileProcessor
         private VehicleOptionCollection m_wheelbase;
 
         /// <summary>
+        /// Rear Axel association.
+        /// </summary>
+        private VehicleOptionCollection m_rearAxel;
+
+        /// <summary>
+        /// Transmission association.
+        /// </summary>
+        private VehicleOptionCollection m_transmission;
+
+        /// <summary>
+        /// Tire Size association.
+        /// </summary>
+        private VehicleOptionCollection m_tireSize;
+
+        /// <summary>
+        /// Speed Meter association.
+        /// </summary>
+        private VehicleOptionCollection m_speedMeter;
+
+        /// <summary>
         /// Retaiing roller relaxation pressure associations.
         /// </summary>
         private VehicleOptionCollection m_retRollPressures;
@@ -1166,6 +1262,7 @@ namespace BomFileProcessor
             m_buildRecordFileMonitor.StopFileMonitorThread();
             m_vinStampingFileMonitor.StopFileMonitorThread();
         }
+
 
     }
     public class BomFtpFileMonitor : FtpFileMonitor

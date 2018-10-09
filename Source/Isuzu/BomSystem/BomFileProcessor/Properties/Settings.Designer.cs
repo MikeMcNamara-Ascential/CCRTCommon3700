@@ -61,18 +61,6 @@ namespace BomFileProcessor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/BuildRecords/")]
-        public string VehicleBuildDirectory {
-            get {
-                return ((string)(this["VehicleBuildDirectory"]));
-            }
-            set {
-                this["VehicleBuildDirectory"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("28")]
         public int BomUpcIndex {
             get {
@@ -385,42 +373,6 @@ namespace BomFileProcessor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ESN/")]
-        public string RealTimePCESNFileLocation {
-            get {
-                return ((string)(this["RealTimePCESNFileLocation"]));
-            }
-            set {
-                this["RealTimePCESNFileLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/")]
-        public string RealTimePCESNFlashTransferLocation {
-            get {
-                return ((string)(this["RealTimePCESNFlashTransferLocation"]));
-            }
-            set {
-                this["RealTimePCESNFlashTransferLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/")]
-        public string VehicleBuildFlashTransferLocation {
-            get {
-                return ((string)(this["VehicleBuildFlashTransferLocation"]));
-            }
-            set {
-                this["VehicleBuildFlashTransferLocation"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("C:\\BOM\\Temp\\DVT")]
         public string SpartanFileTempLocation {
             get {
@@ -500,6 +452,54 @@ namespace BomFileProcessor.Properties {
             }
             set {
                 this["CcrtVINStamperFlashTransferLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ESN/")]
+        public string RealTimePCESNFileLocation {
+            get {
+                return ((string)(this["RealTimePCESNFileLocation"]));
+            }
+            set {
+                this["RealTimePCESNFileLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/")]
+        public string RealTimePCESNFlashTransferLocation {
+            get {
+                return ((string)(this["RealTimePCESNFlashTransferLocation"]));
+            }
+            set {
+                this["RealTimePCESNFlashTransferLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/")]
+        public string VehicleBuildFlashTransferLocation {
+            get {
+                return ((string)(this["VehicleBuildFlashTransferLocation"]));
+            }
+            set {
+                this["VehicleBuildFlashTransferLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/BuildRecords/")]
+        public string VehicleBuildDirectory {
+            get {
+                return ((string)(this["VehicleBuildDirectory"]));
+            }
+            set {
+                this["VehicleBuildDirectory"] = value;
             }
         }
     }

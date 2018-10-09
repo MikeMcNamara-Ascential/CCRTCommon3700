@@ -274,7 +274,9 @@
     <None Include="Resources\bep best.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VehicleBuildFileTemplate.xml" />
+    <Content Include="VehicleBuildFileTemplate.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

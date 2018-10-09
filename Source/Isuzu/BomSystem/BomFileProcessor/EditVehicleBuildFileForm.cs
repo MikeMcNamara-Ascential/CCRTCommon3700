@@ -21,7 +21,9 @@ namespace BomFileProcessor
         /// <param name="fileName">Name of the parameter file to edit.</param>
         public EditVehicleBuildFileForm(String fileName, VehicleOptionCollection axleTypes, 
                                         BrakeForceCollection brakeForces, VehicleOptionCollection wheelbases,
-                                        VehicleOptionCollection retRollRelaxPressures)
+                                        VehicleOptionCollection retRollRelaxPressures, VehicleOptionCollection rearAxel,
+                                        VehicleOptionCollection transmission, VehicleOptionCollection tireSize,
+                                        VehicleOptionCollection speedMeter)
         {   // Initialize the form
             InitializeComponent();
             // Store the name of the file so we can save the data to file later
@@ -32,6 +34,10 @@ namespace BomFileProcessor
             m_brakeForces = brakeForces;
             m_wheelbases = wheelbases;
             m_retRollRelaxePressures = retRollRelaxPressures;
+            m_rearAxel = rearAxel;
+            m_transmission = transmission;
+            m_tireSize = tireSize;
+            m_speedMeter = speedMeter;
             // Get the model code from the file name so that we can look up defaults if needed
             ModelCode = fileName.Substring(fileName.LastIndexOf("\\") + 3, 5);
             // Load the file
@@ -172,6 +178,27 @@ namespace BomFileProcessor
                     {
                         SetVehicleParameter("Vin/VehicleBuild", "FrontReductionPressure", retRollPressure.OptionValue);
                     }
+                    VehicleOption rearAxleType = m_rearAxel.Find(ModelCode);
+                    if (rearAxleType != null)
+                    {
+                        SetVehicleParameter("Vin/VehicleBuild", "Rearaxelratio", rearAxleType.OptionValue);
+                    }
+                    VehicleOption transmission = m_transmission.Find(ModelCode);
+                    if (transmission != null)
+                    {
+                        SetVehicleParameter("Vin/VehicleBuild", "Transmission", transmission.OptionValue);
+                    }
+                    VehicleOption tireSize = m_tireSize.Find(ModelCode);
+                    if (tireSize != null)
+                    {
+                        SetVehicleParameter("Vin/VehicleBuild", "Tiresize", tireSize.OptionValue);
+                    } VehicleOption speedMeter = m_speedMeter.Find(ModelCode);
+                    if (speedMeter != null)
+                    {
+                        SetVehicleParameter("Vin/VehicleBuild", "Speedmeter", speedMeter.OptionValue);
+                    }
+                    //TODO Add RearAxel Transmission Speedo Ect. Here.
+
                 }
                 if (m_brkForceCheckBox.Checked)
                 {
@@ -250,5 +277,25 @@ namespace BomFileProcessor
         /// Configured brake force sets.
         /// </summary>
         private BrakeForceCollection m_brakeForces;
+
+        /// <summary>
+        /// Configured Rear Axel types.
+        /// </summary>
+        private VehicleOptionCollection m_rearAxel;
+
+        /// <summary>
+        /// Configured Transmission types.
+        /// </summary>
+        private VehicleOptionCollection m_transmission;
+
+        /// <summary>
+        /// Configured Tire Size.
+        /// </summary>
+        private VehicleOptionCollection m_tireSize;
+
+        /// <summary>
+        /// Configured Speed Meter Value.
+        /// </summary>
+        private VehicleOptionCollection m_speedMeter;
     }
 }

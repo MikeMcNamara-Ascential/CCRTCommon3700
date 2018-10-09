@@ -11,9 +11,6 @@
     <Setting Name="BomResultDirectory" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\BOM\Results</Value>
     </Setting>
-    <Setting Name="VehicleBuildDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/BuildRecords/</Value>
-    </Setting>
     <Setting Name="BomUpcIndex" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">28</Value>
     </Setting>
@@ -92,15 +89,6 @@
     <Setting Name="WindowsPCESNFileLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\BOM\ESN</Value>
     </Setting>
-    <Setting Name="RealTimePCESNFileLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ESN/</Value>
-    </Setting>
-    <Setting Name="RealTimePCESNFlashTransferLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/</Value>
-    </Setting>
-    <Setting Name="VehicleBuildFlashTransferLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/</Value>
-    </Setting>
     <Setting Name="SpartanFileTempLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\BOM\Temp\DVT</Value>
     </Setting>
@@ -121,6 +109,18 @@
     </Setting>
     <Setting Name="CcrtVINStamperFlashTransferLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/STP/</Value>
+    </Setting>
+    <Setting Name="RealTimePCESNFileLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ESN/</Value>
+    </Setting>
+    <Setting Name="RealTimePCESNFlashTransferLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/ESN/</Value>
+    </Setting>
+    <Setting Name="VehicleBuildFlashTransferLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/</Value>
+    </Setting>
+    <Setting Name="VehicleBuildDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/BuildRecords/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

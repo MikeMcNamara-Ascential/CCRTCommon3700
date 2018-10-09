@@ -60,8 +60,8 @@
 		<lastauthor>Administrator</lastauthor>
 		<revnumber>{EAF77230-92B1-4598-81EB-D394A469400C}</revnumber>
 		<lastprinted/>
-		<createdtm>06/21/1999 09:00</createdtm>
-		<lastsavedtm>07/14/2000 12:50</lastsavedtm>
+		<createdtm>06/21/1999 08:00</createdtm>
+		<lastsavedtm>07/14/2000 11:50</lastsavedtm>
 		<pagecount>200</pagecount>
 		<wordcount>0</wordcount>
 		<charcount/>
@@ -342,7 +342,6 @@
 		<row><td>FlashStationMainForm.Primary_output</td><td>{2EC7C25F-D7A4-41D0-AD36-103B750F643B}</td><td>INSTALLDIR</td><td>2</td><td/><td>flashstationmainform.primary</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISO19770_LocalTag</td><td>{B6C32DFE-FDA9-4E29-9BB2-4D16CD00E2F3}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISO19770_SystemTag</td><td>{0DF47D90-0BAD-4BEB-BEFE-247CE225B75C}</td><td>CommonAppDataFolder</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{4F5FAE90-8826-49A0-A530-F4A2AEAA1909}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1053,7 +1052,6 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>CommonAppDataFolder</td><td>ISO19770_SystemTag</td></row>
 		<row><td>INSTALLDIR</td><td>ISO19770_LocalTag</td></row>
-		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1867,7 +1865,6 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>FlashStationMainForm.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
 	<table name="File">
@@ -2030,7 +2027,6 @@
 		<row><td>FlashStationMainForm.Primary_output</td><td/><td/><td>_4EBC1D48_1441_49BE_AC33_3EAB9727C6ED_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISO19770_LocalTag</td><td/><td/><td>_B7DC0E0A_1951_4A99_A72F_94A26D469C62_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISO19770_SystemTag</td><td/><td/><td>_50B2591D_1FFF_4E1B_A89F_CD35D008DEBC_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_050CB510_2DCD_41B6_9C47_1DCBDE88E3F1_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2341,6 +2337,12 @@
 		<row><td>ProgramFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
 		<row><td>WindowsFolder</td><td/><td/><td>1</td></row>
+	</table>
+
+	<table name="ISPowerShellWrap">
+		<col key="yes" def="s72">Action_</col>
+		<col key="yes" def="s72">Name</col>
+		<col def="S0">Value</col>
 	</table>
 
 	<table name="ISProductConfiguration">
@@ -3819,12 +3821,6 @@
 		<col def="s255">Value</col>
 	</table>
 
-	<table name="ISWSEWrap">
-		<col key="yes" def="s72">Action_</col>
-		<col key="yes" def="s72">Name</col>
-		<col def="S0">Value</col>
-	</table>
-
 	<table name="ISXmlElement">
 		<col key="yes" def="s72">ISXmlElement</col>
 		<col def="s72">ISXmlFile_</col>
@@ -3866,11 +3862,11 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\setupicon.ico</td><td>0</td></row>
-		<row><td>_Built1_4D7F16F9325A4FE3825358604A904334.exe</td><td/><td>&lt;VSSolutionFolder&gt;\FlashStationMainForm\beplogo.ico</td><td>0</td></row>
+		<row><td>_Built1_5E33023284584DF7AE0BBC45C7184DEA.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
 		<row><td>_Built1_7DD1047BAF544CF889883B35B47A10F5.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
-		<row><td>_Built2_734270920892449CAF72F3667CA89573.exe</td><td/><td>&lt;VSSolutionFolder&gt;\FlashStationMainForm\beplogo.ico</td><td>0</td></row>
+		<row><td>_Built2_CD1CC6BED1524789ABE7E68A54560356.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
+		<row><td>_Built_0472497FC63D491AB36BF8A776E64CC0.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
 		<row><td>_Built_1281A923A2D14AAFB40723352840FA3D.exe</td><td/><td>&lt;WindowsFolder&gt;\beplogo.ico</td><td>0</td></row>
-		<row><td>_Built_A8DF0959DF0C47808C967C192B39A8B6.exe</td><td/><td>&lt;VSSolutionFolder&gt;\FlashStationMainForm\beplogo.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4003,7 +3999,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{1EABFDCA-B0E5-4A93-85A4-E5D7209EE4D5}</td></row>
 		<row><td>ISUSSignature</td><td>{3D964845-1048-48EA-AAF8-61A8A2D09629}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewShortcuts,viewProject,viewUpgradePaths,viewFeatureFiles,viewUI,viewRelease,viewEnvironmentVariables,viewFileExtensions,viewRegistry,viewIniFiles</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewShortcuts,viewProject,viewUpgradePaths,viewFeatureFiles,viewUI,viewRelease</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4015,7 +4011,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SaveAsSchema</td><td/></row>
 		<row><td>SccEnabled</td><td>0</td></row>
 		<row><td>SccPath</td><td/></row>
-		<row><td>SchemaVersion</td><td>776</td></row>
+		<row><td>SchemaVersion</td><td>774</td></row>
 		<row><td>SwidtagLocalComponent</td><td>ISO19770_LocalTag</td></row>
 		<row><td>SwidtagSystemComponent</td><td>ISO19770_SystemTag</td></row>
 		<row><td>Type</td><td>MSIE</td></row>
@@ -4540,9 +4536,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>flashs_1_flash_station</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_A8DF0959DF0C47808C967C192B39A8B6.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_4D7F16F9325A4FE3825358604A904334.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built2</td><td>StartupFolder</td><td>##ID_STRING6##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built2_734270920892449CAF72F3667CA89573.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>flashs_1_flash_station</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_0472497FC63D491AB36BF8A776E64CC0.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME2##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_5E33023284584DF7AE0BBC45C7184DEA.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built2</td><td>StartupFolder</td><td>##ID_STRING6##</td><td>FlashStationMainForm.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built2_CD1CC6BED1524789ABE7E68A54560356.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
@@ -5148,6 +5144,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISPathVariable</td><td>TestValue</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>The test value of the path variable.</td></row>
 		<row><td>ISPathVariable</td><td>Type</td><td>N</td><td/><td/><td/><td/><td/><td>1;2;4;8</td><td>The type of the path variable.</td></row>
 		<row><td>ISPathVariable</td><td>Value</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>The value of the path variable.</td></row>
+		<row><td>ISPowerShellWrap</td><td>Action_</td><td>N</td><td/><td/><td>CustomAction</td><td>1</td><td>Identifier</td><td/><td>Foreign key into CustomAction table</td></row>
+		<row><td>ISPowerShellWrap</td><td>Name</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>Property associated with this Action</td></row>
+		<row><td>ISPowerShellWrap</td><td>Value</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Value associated with this Property</td></row>
 		<row><td>ISProductConfiguration</td><td>GeneratePackageCode</td><td>Y</td><td/><td/><td/><td/><td>Number</td><td>0;1</td><td>Indicates whether or not to generate a package code.</td></row>
 		<row><td>ISProductConfiguration</td><td>ISProductConfiguration</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>The name of the product configuration.</td></row>
 		<row><td>ISProductConfiguration</td><td>ProductConfigurationFlags</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Product configuration (release) flags.</td></row>
@@ -5385,9 +5384,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISVirtualShortcut</td><td>Name</td><td>N</td><td/><td/><td/><td/><td>Identifier</td><td/><td>Property name</td></row>
 		<row><td>ISVirtualShortcut</td><td>Shortcut_</td><td>N</td><td/><td/><td>Shortcut</td><td>1</td><td>Identifier</td><td/><td>Foreign key into Shortcut table.</td></row>
 		<row><td>ISVirtualShortcut</td><td>Value</td><td>N</td><td/><td/><td/><td/><td/><td/><td>Property value</td></row>
-		<row><td>ISWSEWrap</td><td>Action_</td><td>N</td><td/><td/><td>CustomAction</td><td>1</td><td>Identifier</td><td/><td>Foreign key into CustomAction table</td></row>
-		<row><td>ISWSEWrap</td><td>Name</td><td>N</td><td/><td/><td/><td/><td>Text</td><td/><td>Property associated with this Action</td></row>
-		<row><td>ISWSEWrap</td><td>Value</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Value associated with this Property</td></row>
 		<row><td>ISXmlElement</td><td>Content</td><td>Y</td><td/><td/><td/><td/><td>Text</td><td/><td>Element contents</td></row>
 		<row><td>ISXmlElement</td><td>ISAttributes</td><td>Y</td><td/><td/><td/><td/><td>Number</td><td/><td>Internal XML element attributes</td></row>
 		<row><td>ISXmlElement</td><td>ISXmlElement</td><td>N</td><td/><td/><td/><td/><td>Identifier</td><td/><td>Primary key, non-localized, internal token for Xml element</td></row>

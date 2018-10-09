@@ -534,5 +534,10 @@ namespace FlashStationMainForm
                 m_basLearnPromptTimer.Stop();
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -19,6 +19,12 @@ namespace Common.Classes
             m_serialNumberWriteSuccess = true;
             m_esnLeadingChars = "";
             m_esnWriteRequired = false;
+            //Affects Plant 12 ECM and Mimamori
+            m_rearAxel = "";
+            m_transmission = "";
+            m_tireSize = "";
+            m_speedMeter = "";
+
         }
         public ECUBuildData(string ecuName, string vin, string partNo, string utilFilePartNo, List<String> swmiPartNos, string esnLeadingChars, bool esnWriteRequired)
         {
@@ -37,6 +43,11 @@ namespace Common.Classes
             m_esn = "";
             m_esnLeadingChars = esnLeadingChars;
             m_esnWriteRequired = esnWriteRequired;
+            //Affects Plant 12 ECM and Mimamori
+            m_rearAxel = "";
+            m_transmission = "";
+            m_tireSize = "";
+            m_speedMeter = "";
         }
         private String m_ecuName;
         private String m_vin;
@@ -53,6 +64,11 @@ namespace Common.Classes
         private String m_esn;
         private String m_esnLeadingChars;
         private bool m_esnWriteRequired;
+        //Added to BOM for Flashing Mimamori and ECM
+        private String m_rearAxel;
+        private String m_transmission;
+        private String m_tireSize;
+        private String m_speedMeter;
 
         public String ECUName
         {
@@ -134,6 +150,31 @@ namespace Common.Classes
         {
             get { return m_esnWriteRequired; }
             set { m_esnWriteRequired = value; }
+        }
+
+        //Added RearAxel, Transmission, Tiresize and SpeedMeter so that the ECU  and Mimamori modules can be flashed with different values for different builds. 
+        public String RearAxel
+        {
+            get { return m_rearAxel; }
+            set { m_rearAxel = value; }
+        }
+
+        public String Transmission
+        {
+            get { return m_transmission; }
+            set { m_transmission = value; }
+        }
+
+        public String TireSize
+        {
+            get { return m_tireSize; }
+            set { m_tireSize = value; }
+        }
+
+        public String SpeedMeter
+        {
+            get { return m_speedMeter; }
+            set { m_speedMeter = value; }
         }
     }
 }

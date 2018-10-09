@@ -2,10 +2,18 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Lib", "FlashStation\Common.Lib.csproj", "{D2E742ED-087D-4D77-9AB0-97B160E2FACE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1046639F-B478-415D-B731-66379ADAC878} = {1046639F-B478-415D-B731-66379ADAC878}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashStationMainForm", "FlashStationMainForm\FlashStationMainForm.csproj", "{1D5EF65E-C99F-4BB9-9E73-8FE78075FE1C}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "Setup", "Setup\Setup.isproj", "{E24E1DC9-ADDA-451D-88D1-A740C46EC864}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1D5EF65E-C99F-4BB9-9E73-8FE78075FE1C} = {1D5EF65E-C99F-4BB9-9E73-8FE78075FE1C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "J2534ChannelLibrary", "..\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\J2534ChannelLibrary.csproj", "{1046639F-B478-415D-B731-66379ADAC878}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +114,31 @@ Global
 		{E24E1DC9-ADDA-451D-88D1-A740C46EC864}.SingleImage|Mixed Platforms.Build.0 = SingleImage
 		{E24E1DC9-ADDA-451D-88D1-A740C46EC864}.SingleImage|x86.ActiveCfg = SingleImage
 		{E24E1DC9-ADDA-451D-88D1-A740C46EC864}.SingleImage|x86.Build.0 = SingleImage
+		{1046639F-B478-415D-B731-66379ADAC878}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.CD_ROM|x86.ActiveCfg = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.DVD-5|x86.ActiveCfg = Debug|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.Release|x86.ActiveCfg = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
+		{1046639F-B478-415D-B731-66379ADAC878}.SingleImage|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

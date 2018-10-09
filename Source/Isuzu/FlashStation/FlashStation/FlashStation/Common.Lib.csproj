@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,10 +37,6 @@
     </Reference>
     <Reference Include="InputServer">
       <HintPath>..\..\Ccrt2\Library\InputServer.dll</HintPath>
-    </Reference>
-    <Reference Include="J2534ChannelLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Ccrt2\Library\J2534ChannelLibrary.dll</HintPath>
     </Reference>
     <Reference Include="LoggingInterface">
       <HintPath>..\..\Ccrt2\Library\LoggingInterface.dll</HintPath>
@@ -82,13 +79,18 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Presenters\app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\J2534ChannelLibrary.csproj">
+      <Project>{1046639f-b478-415d-b731-66379adac878}</Project>
+      <Name>J2534ChannelLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

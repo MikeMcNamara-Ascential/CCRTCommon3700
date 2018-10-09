@@ -139,7 +139,9 @@
     <EmbeddedResource Include="TimedDialogBox.resx">
       <DependentUpon>TimedDialogBox.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="FlashStationMainForm_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -51,7 +51,7 @@ namespace Common.Lib.Models
             m_tcmLogger = new Logger(tcmRTB, "TCMLog", m_logsDirectory);
             m_performTCMFlash = true;
             m_performECMFlash = true;
-            m_performBASLearn = true;
+            m_performBASLearn = false;
             m_keyOffEngineOffWaitStart = false;
 
         }
@@ -323,6 +323,7 @@ namespace Common.Lib.Models
                 }
                 string fileName = "Ps" + modelCode + "_" + bookCode + "_" + modelYear + "_";
                 buildDataValid = Load(m_buildFileDirectory + fileName, lotNumber, vin);
+                m_logger.Log("BuildDataLoaded.");
             }
             else
             {//invalid barcode length
@@ -342,8 +343,11 @@ namespace Common.Lib.Models
                 if (m_buildData[0].ESNWriteRequired)
                 {
                     Prompt prompt = new Prompt();
-                    string tempEsn = GetESN(m_buildData[0].VIN, m_esnDirectory);
+                    m_logger.Log("Getting ESN from "+m_esnDirectory + ". For VIN: " + m_buildData[0].VIN);
+                    string tempEsn = "somebullshit";
+                    tempEsn = GetESN(m_buildData[0].VIN, m_esnDirectory);
                     tempEsn = tempEsn.Trim(' ');
+                    m_logger.Log("Trim ESN");
                     string esn = "";
                     Int32 engineCodeStartIndex = 0;
                     if (tempEsn != "")
@@ -362,7 +366,7 @@ namespace Common.Lib.Models
                             }
                             m_buildData[0].EngineSerialNumber = esn;
                             string esnLeadingChars = m_buildData[0].ESNLeadingCharacters;
-
+                            m_logger.Log("Here");
                             if (esnLeadingChars.Length <= m_buildData[0].EngineSerialNumber.Length)
                             {//validate leading characters match
                                 if (esnLeadingChars.Length > 0 && m_buildData[0].EngineSerialNumber.Substring(engineCodeStartIndex, esnLeadingChars.Length) != esnLeadingChars)
@@ -380,6 +384,7 @@ namespace Common.Lib.Models
                                     SetStatus(Status.SUCCESS);
                                 }
                             }
+                            
                             else
                             {//failure
                                 buildDataValid = false;
@@ -390,6 +395,7 @@ namespace Common.Lib.Models
                                 SetPrompt2(prompt.ABORT_INVALID_BUILD_DATA2);
                                 SetStatus(Status.ABORT);
                             }
+                            m_logger.Log("There");
                         }
                         else
                         {//failure
@@ -420,6 +426,7 @@ namespace Common.Lib.Models
                     SetStatus(Status.SUCCESS);
                 }
             }
+            m_logger.Log("GotESN");
             m_buildDataValid = buildDataValid;
         }
         /// <summary>
@@ -427,6 +434,8 @@ namespace Common.Lib.Models
         /// </summary>
         public bool Load(string fileName, string lotNo,string vin)
         {
+            m_logger.Log("FN: Entering Load");
+
             bool success = true;
             m_buildData.Clear();
             //load file
@@ -448,6 +457,7 @@ namespace Common.Lib.Models
                     //for each ecu...
                     foreach (string ecuName in m_ecuNames)
                     {
+                        m_logger.Log("ECM: "+ecuName);
                         string buildFileECUName = "";
                         if (ecuName == "ECM")
                         {
@@ -493,14 +503,39 @@ namespace Common.Lib.Models
                             ecuBuild.ResponseID.Add(0x06);
                             ecuBuild.ResponseID.Add(0x4B);
                             ecuBuild.PerformFlash = m_performDCUFlash;
+                            m_logger.Log("DCU Done:");
                         }
                         else if (ecuName == "Mimamori")
                         {
+                            m_logger.Log("Mimamori Loading Configs:");
+                            
                             searchNode = buildFileECUName + "PartNo";
+                            m_logger.Log("SearchNode: "+searchNode);
                             ecuBuild.PerformFlash = m_performMimamoriFlash;
+                            m_logger.Log("Found: " + m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText);
+                            
+                            searchNode = "Transmission";
+                            m_logger.Log("SearchNode: " + searchNode);
+                            ecuBuild.Transmission = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
+                            m_logger.Log("Found: " + m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText);
+                            
+                            searchNode = "Rearaxelratio";
+                            m_logger.Log("SearchNode: " + searchNode);
+                            ecuBuild.RearAxel = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
+                            m_logger.Log("Found: " + m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText);
+
+                            searchNode = "Tiresize";
+                            m_logger.Log("SearchNode: " + searchNode);
+                            ecuBuild.TireSize = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
+                            m_logger.Log("Found: " + m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText);
+                            searchNode = "Speedmeter";
+                            m_logger.Log("SearchNode: " + searchNode);
+                            ecuBuild.SpeedMeter = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
+                            m_logger.Log("Found: " + m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText);
                         }
                         else
                         {
+                            m_logger.Log("ECM Else:");
                             searchNode = buildFileECUName + "PartNo";
                             ecuBuild.RequestID.Add(0x00);
                             ecuBuild.RequestID.Add(0x00);
@@ -515,13 +550,21 @@ namespace Common.Lib.Models
                         //get utility file pn
                         if (ecuName != "TCM" || m_isFlashRequired)
                         {
-                            if(ecuName != "TCM")
+                            if (ecuName != "TCM")
+                            {
+                                m_logger.Log("Searching for PartNo:");
                                 searchNode = buildFileECUName + "PartNo";
+                            }
                             else
+                            {
+                                m_logger.Log("Searching for ASMPartNo:");
                                 searchNode = buildFileECUName + "ASM" + "PartNo";
+                            }
                             ecuBuild.PartNumber = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
+                            m_logger.Log("Got PartNo:");
                             searchNode = buildFileECUName + "UtilityFilePartNo";
                             XmlNodeList list = m_currentBuild.GetElementsByTagName(searchNode);
+                            m_logger.Log("Got UtilPartNo:");
                             ecuBuild.UtilityFilePartNumber = list[0].InnerText;  
                         }
                         
@@ -547,8 +590,9 @@ namespace Common.Lib.Models
                             ecuBuild.ESNWriteRequired = false;
                             ecuBuild.ESNLeadingCharacters = "";
                         }
-                        
+                        m_logger.Log("Adding " + ecuName);
                         m_buildData.Add(ecuBuild);
+                        m_logger.Log("ECM: " + ecuName +"Added!");
                     }
                 }
                 else
@@ -1919,8 +1963,27 @@ namespace Common.Lib.Models
                 txMessage.Clear();
                 txMessage.Add(0x3B);
                 txMessage.Add(0x5A);
-                txMessage.Add(0x31);
-                txMessage.Add(0xD9);
+                if (m_buildData[3].SpeedMeter.Equals("31D9"))
+                {
+                    txMessage.Add(0x31);
+                    txMessage.Add(0xD9);
+                }
+                else if (m_buildData[3].SpeedMeter.Equals("31A7"))
+                {
+                    txMessage.Add(0x31);
+                    txMessage.Add(0xA7);
+                }
+                else if (m_buildData[3].SpeedMeter.Equals("31D3"))
+                {
+                    txMessage.Add(0x31);
+                    txMessage.Add(0xD3);
+                }
+                else
+                {
+                    txMessage.Add(0x31);
+                    txMessage.Add(0xD9);
+                }
+                
                 txMessage.Add(0xFF);
                 txMessage.Add(0xFF);
                 status = SendMessage(m_buildData[0], txMessage, true);
@@ -2044,11 +2107,11 @@ namespace Common.Lib.Models
                 messageNames.Add("ENG Model Data");
                 txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x40, 0x34, 0x48, 0x4B, 0x31, 0x54, 0x43, 0x53, 0x20 });
                 messageNames.Add("T/M Model Data");
-                txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x41, 0x32, 0x35, 0x35, 0x30, 0x52, 0x44, 0x53, 0x20 });
+                txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x41 });//, 0x32, 0x35, 0x35, 0x30, 0x52, 0x44, 0x53, 0x20 });
                 messageNames.Add("Tire Radius Data");
-                txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x42, 0x02, 0x08 });
+                txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x42 });//, 0x02, 0x08 });
                 messageNames.Add("Final Gear Ratio");
-                txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x43, 0x18, 0x17 });
+                txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x43}); //, 0x18, 0x17 });
                 messageNames.Add("Vehicle Model Data");
                 txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x44, 0x06 });
                 messageNames.Add("Electrical Equipment Data");
@@ -2104,15 +2167,50 @@ namespace Common.Lib.Models
                 {
                     Status status = Status.IN_PROGRESS;
                     m_logger.Log("INFO:  Fast Init Successful");
-                    int retries = 25;
+                    int retries = 25; 
+
                     for (int i = 0; i < txMessages.Count; i++)
                     {
                         status = Status.IN_PROGRESS;
                         txMessage.Clear();
                         txMessage.AddRange((byte[])txMessages[i]);
-                        if (i == 3)
+                        if (i==3)//messageNames[i].Equals("Program VIN"))
                         {
                             byte[] temp = Encoding.ASCII.GetBytes(m_buildData[0].VIN);
+                            txMessage.AddRange(temp);
+                        }
+                        else if (i==11)//messageNames[i].Equals("T/M Model Data"))
+                        {
+                            m_logger.Log("Transmission: " + m_buildData[3].Transmission);
+                            byte[] temp = Encoding.ASCII.GetBytes(m_buildData[3].Transmission);
+                            txMessage.AddRange(temp);
+                            for (int j = 0; j < (8 - m_buildData[3].Transmission.Length);j++)
+                            {
+                                txMessage.Add(0x20);
+                            }
+                        }
+                        else if (i==12)//messageNames[i].Equals("Tire Radius Data"))
+                        {
+                            m_logger.Log("TireSize: " + m_buildData[3].TireSize);
+                            byte[] temp;
+                            temp = new byte[] { 0x00, 0x00 };
+                            if(m_buildData[3].TireSize.Equals(".520"))
+                                temp = new byte[] {0x02, 0x08};
+                            else if (m_buildData[3].TireSize.Equals(".458"))
+                                temp = new byte[] { 0x01, 0xCA };
+                            txMessage.AddRange(temp);
+                        }
+                        else if (i==13)//messageNames[i].Equals("Final Gear Ratio"))
+                        {
+                            m_logger.Log("RearAxel: " + m_buildData[3].RearAxel);
+                            byte[] temp;
+                            temp = new byte[] { 0x18, 0x17 };
+                            if (m_buildData[3].RearAxel.Equals("6.143"))
+                                temp = new byte[] { 0x17, 0xFF }; 
+                            else if (m_buildData[3].RearAxel.Equals("5.571"))
+                                temp = new byte[] { 0x15, 0xC3 };
+                            else if (m_buildData[3].RearAxel.Equals("6.167"))//Current
+                                temp = new byte[] { 0x18, 0x17 };
                             txMessage.AddRange(temp);
                         }
                         for (int x = 0; x < retries && status != Status.SUCCESS; x++)
@@ -2182,43 +2280,51 @@ namespace Common.Lib.Models
         }
         public string GetESN(string vin, string esnDirectory)
         {
-            string esn = "";   
-            //obtain ESN from file
-            DirectoryInfo esnDirInfo = new DirectoryInfo(esnDirectory);
+            //m_logger.Log("BUllShitLogStatement");
 
-            foreach (FileInfo fi in esnDirInfo.GetFiles())
-            {
-                if (fi.Name.Length > 17)
-                {//check if VIN matches
-                    if (fi.Name.Substring(0,17) == vin)
-                    {//get serial number from file
-                        lock (m_esnFileChangeMonitor.DirectoryLock)
-                        {
-                            // Read the file as one string.
-                            System.IO.StreamReader myFile =
-                            new System.IO.StreamReader(fi.FullName);
-                            esn = myFile.ReadLine();
-                            SetESNFault(m_esnFileChangeMonitor.m_esnFault);
-                        }
-                        if (esn.Length == m_defaultESNLength)
-                        {
-                            m_logger.Log("INFO:  ESN Obtained: " + esn);
-                            return esn;
-                        }
-                        else
-                        {
-                            m_logger.Log("ERROR:  ESN incorrect length");
-                            return esn;
+            string esn = "otherBullshit";
+            try{
+                //obtain ESN from file
+                //m_logger.Log("checking for vin: " + vin);
+                DirectoryInfo esnDirInfo = new DirectoryInfo(esnDirectory);
+
+                foreach (FileInfo fi in esnDirInfo.GetFiles())
+                {
+                    //m_logger.Log("checking file: " + fi.Name);
+                    if (fi.Name.Length > 17)
+                    {//check if VIN matches
+                        if (fi.Name.Substring(0,17) == vin)
+                        {//get serial number from file
+                            lock (m_esnFileChangeMonitor.DirectoryLock)
+                            {
+                                // Read the file as one string.
+                                System.IO.StreamReader myFile =
+                                new System.IO.StreamReader(fi.FullName);
+                                esn = myFile.ReadLine();
+                                SetESNFault(m_esnFileChangeMonitor.m_esnFault);
+                            }
+                            if (esn.Length == m_defaultESNLength)
+                            {
+                                //m_logger.Log("INFO:  ESN Obtained: " + esn);
+                                return esn;
+                            }
+                            else
+                            {
+                          //      m_logger.Log("ERROR:  ESN incorrect length");
+                                return esn;
+                            }
                         }
                     }
+                    else
+                    {
+                        //m_logger.Log("ERROR:  File name length error");
+                    }
                 }
-                else
-                {
-                    m_logger.Log("ERROR:  File name length error");
-                }
-            }
-            SetESNFault(m_esnFileChangeMonitor.m_esnFault);
-
+                SetESNFault(m_esnFileChangeMonitor.m_esnFault);
+            }   
+            catch{
+                //m_logger.Log("Something went wrong. Caught an Exception in getESN()");
+            }   
             return esn;
         }
         public Status SendAllNodesMessage(List<byte> txMessage, bool responseExpected)
@@ -3503,15 +3609,15 @@ namespace Common.Lib.Models
         private string m_passIndicationLocalDirectory = @"C:\\FlashStation\\TransferFiles\\";
 
         //Plant 12 info
-        //private string m_userLogin = "burke";
-        //private string m_password = "porter";
-        //private string m_ftpServerIp = "172.16.253.1";
+        private string m_userLogin = "burke";
+        private string m_password = "porter";
+        private string m_ftpServerIp = "172.16.253.1";
         //Plant 5 info
         //private string m_userLogin = "ccrtfp";
         //private string m_password = "ccrtfp";
-        private string m_userLogin = "burke";
-        private string m_password = "porter";
-        private string m_ftpServerIp = "192.168.1.3";
+        //private string m_userLogin = "burke";
+        //private string m_password = "porter";
+        //private string m_ftpServerIp = "192.168.1.3";
 
         private string m_remoteBuildFileLocation = "/TestResults/ftpOutbox/BuildRecords/";
         private string m_remoteESNLocation = "/TestResults/ftpOutbox/ESN/";

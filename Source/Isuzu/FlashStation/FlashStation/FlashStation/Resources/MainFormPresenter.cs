@@ -17,7 +17,7 @@ namespace Common.Lib.Presenters
         static MainFormPresenter()
         {
             MainFormModel = new MainFormModel();
-            //MainFormModelTests = new MainFormModelTests
+            //MainFormModel = new MainFormModelTests();
          
         }
         public MainFormPresenter(T view)

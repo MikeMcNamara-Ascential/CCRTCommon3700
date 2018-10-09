@@ -202,6 +202,7 @@ namespace Common.Lib.Presenters
                     }
                     catch (ObjectDisposedException ex)
                     {//ignore form closing
+
                     }
 
                     Thread.Sleep(500);

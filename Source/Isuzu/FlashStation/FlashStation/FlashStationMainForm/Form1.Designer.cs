@@ -94,11 +94,10 @@
             // 
             this.m_promptBox1.BackColor = System.Drawing.SystemColors.Window;
             this.m_promptBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_promptBox1.Location = new System.Drawing.Point(17, 274);
-            this.m_promptBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.m_promptBox1.Location = new System.Drawing.Point(13, 223);
             this.m_promptBox1.Name = "m_promptBox1";
             this.m_promptBox1.ReadOnly = true;
-            this.m_promptBox1.Size = new System.Drawing.Size(1651, 98);
+            this.m_promptBox1.Size = new System.Drawing.Size(1239, 80);
             this.m_promptBox1.TabIndex = 0;
             this.m_promptBox1.TabStop = false;
             this.m_promptBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -107,10 +106,9 @@
             // 
             this.m_overallProgressBar.BackColor = System.Drawing.SystemColors.Window;
             this.m_overallProgressBar.Enabled = false;
-            this.m_overallProgressBar.Location = new System.Drawing.Point(8, 37);
-            this.m_overallProgressBar.Margin = new System.Windows.Forms.Padding(4);
+            this.m_overallProgressBar.Location = new System.Drawing.Point(6, 30);
             this.m_overallProgressBar.Name = "m_overallProgressBar";
-            this.m_overallProgressBar.Size = new System.Drawing.Size(1644, 48);
+            this.m_overallProgressBar.Size = new System.Drawing.Size(1233, 39);
             this.m_overallProgressBar.TabIndex = 6;
             // 
             // menuStrip1
@@ -121,8 +119,7 @@
             this.configurationToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1669, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1252, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -131,13 +128,13 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(102, 24);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -150,27 +147,27 @@
             this.useForcedCableConnectToolStripMenuItem,
             this.forcedCableConnectToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // enterBarcodeToolStripMenuItem
             // 
             this.enterBarcodeToolStripMenuItem.Name = "enterBarcodeToolStripMenuItem";
-            this.enterBarcodeToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.enterBarcodeToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.enterBarcodeToolStripMenuItem.Text = "Enter Barcode";
             this.enterBarcodeToolStripMenuItem.Click += new System.EventHandler(this.enterBarcodeToolStripMenuItem_Click);
             // 
             // clearBuildDataToolStripMenuItem
             // 
             this.clearBuildDataToolStripMenuItem.Name = "clearBuildDataToolStripMenuItem";
-            this.clearBuildDataToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.clearBuildDataToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.clearBuildDataToolStripMenuItem.Text = "Clear Barcode";
             this.clearBuildDataToolStripMenuItem.Click += new System.EventHandler(this.clearBuildDataToolStripMenuItem_Click);
             // 
             // abortFlashProcessToolStripMenuItem
             // 
             this.abortFlashProcessToolStripMenuItem.Name = "abortFlashProcessToolStripMenuItem";
-            this.abortFlashProcessToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.abortFlashProcessToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.abortFlashProcessToolStripMenuItem.Text = "Abort Flash Process";
             this.abortFlashProcessToolStripMenuItem.Click += new System.EventHandler(this.abortFlashProcessToolStripMenuItem_Click);
             // 
@@ -178,7 +175,7 @@
             // 
             this.useForcedCableConnectToolStripMenuItem.CheckOnClick = true;
             this.useForcedCableConnectToolStripMenuItem.Name = "useForcedCableConnectToolStripMenuItem";
-            this.useForcedCableConnectToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.useForcedCableConnectToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.useForcedCableConnectToolStripMenuItem.Text = "Use Forced Cable Connect";
             this.useForcedCableConnectToolStripMenuItem.Click += new System.EventHandler(this.useForcedCableConnectToolStripMenuItem_Click);
             // 
@@ -186,7 +183,7 @@
             // 
             this.forcedCableConnectToolStripMenuItem.CheckOnClick = true;
             this.forcedCableConnectToolStripMenuItem.Name = "forcedCableConnectToolStripMenuItem";
-            this.forcedCableConnectToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.forcedCableConnectToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
             this.forcedCableConnectToolStripMenuItem.Text = "Forced Cable Connect";
             this.forcedCableConnectToolStripMenuItem.Click += new System.EventHandler(this.forcedCableConnectToolStripMenuItem_Click);
             // 
@@ -201,20 +198,20 @@
             this.flashMimamoriToolStripMenuItem,
             this.bASLearnToolStripMenuItem});
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(112, 24);
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
             this.configurationToolStripMenuItem.Text = "&Configuration";
             // 
             // vehicleCommunicationToolStripMenuItem
             // 
             this.vehicleCommunicationToolStripMenuItem.Name = "vehicleCommunicationToolStripMenuItem";
-            this.vehicleCommunicationToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
+            this.vehicleCommunicationToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.vehicleCommunicationToolStripMenuItem.Text = "Vehicle Communication";
             this.vehicleCommunicationToolStripMenuItem.Click += new System.EventHandler(this.vehicleCommunicationToolStripMenuItem_Click);
             // 
             // barcodeInputDeviceToolStripMenuItem
             // 
             this.barcodeInputDeviceToolStripMenuItem.Name = "barcodeInputDeviceToolStripMenuItem";
-            this.barcodeInputDeviceToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
+            this.barcodeInputDeviceToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.barcodeInputDeviceToolStripMenuItem.Text = "Barcode Input Device";
             this.barcodeInputDeviceToolStripMenuItem.Click += new System.EventHandler(this.barcodeInputDeviceToolStripMenuItem_Click);
             // 
@@ -224,66 +221,68 @@
             this.flashECMToolStripMenuItem.CheckOnClick = true;
             this.flashECMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashECMToolStripMenuItem.Name = "flashECMToolStripMenuItem";
-            this.flashECMToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
+            this.flashECMToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.flashECMToolStripMenuItem.Text = "Flash ECM";
             this.flashECMToolStripMenuItem.Click += new System.EventHandler(this.flashECMToolStripMenuItem_Click);
             // 
             // flashTCMToolStripMenuItem
             // 
-            this.flashTCMToolStripMenuItem.Checked = true;
+            this.flashTCMToolStripMenuItem.Checked = false;
             this.flashTCMToolStripMenuItem.CheckOnClick = true;
             this.flashTCMToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.flashTCMToolStripMenuItem.Name = "flashTCMToolStripMenuItem";
-            this.flashTCMToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
+            this.flashTCMToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.flashTCMToolStripMenuItem.Text = "Flash TCM";
             this.flashTCMToolStripMenuItem.Click += new System.EventHandler(this.flashTCMToolStripMenuItem_Click);
+            this.flashTCMToolStripMenuItem.Visible = false;
             // 
             // flashDCUToolStripMenuItem
             // 
+            this.flashDCUToolStripMenuItem.Checked = true;
             this.flashDCUToolStripMenuItem.CheckOnClick = true;
             this.flashDCUToolStripMenuItem.Name = "flashDCUToolStripMenuItem";
-            this.flashDCUToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
+            this.flashDCUToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.flashDCUToolStripMenuItem.Text = "Flash DCU";
-            this.flashDCUToolStripMenuItem.Visible = false;
+            //this.flashDCUToolStripMenuItem.Visible = false;
             this.flashDCUToolStripMenuItem.Click += new System.EventHandler(this.flashDCUToolStripMenuItem_Click);
             // 
             // flashMimamoriToolStripMenuItem
             // 
+            this.flashMimamoriToolStripMenuItem.Checked = true;
             this.flashMimamoriToolStripMenuItem.CheckOnClick = true;
             this.flashMimamoriToolStripMenuItem.Name = "flashMimamoriToolStripMenuItem";
-            this.flashMimamoriToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
+            this.flashMimamoriToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.flashMimamoriToolStripMenuItem.Text = "Flash Mimamori";
-            this.flashMimamoriToolStripMenuItem.Visible = false;
+            //this.flashMimamoriToolStripMenuItem.Visible = false;
             this.flashMimamoriToolStripMenuItem.Click += new System.EventHandler(this.flashMimamoriToolStripMenuItem_Click);
             // 
             // bASLearnToolStripMenuItem
             // 
-            this.bASLearnToolStripMenuItem.Checked = true;
+            this.bASLearnToolStripMenuItem.Checked = false;
             this.bASLearnToolStripMenuItem.CheckOnClick = true;
             this.bASLearnToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.bASLearnToolStripMenuItem.Name = "bASLearnToolStripMenuItem";
-            this.bASLearnToolStripMenuItem.Size = new System.Drawing.Size(235, 24);
+            this.bASLearnToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.bASLearnToolStripMenuItem.Text = "BAS Learn";
             this.bASLearnToolStripMenuItem.Click += new System.EventHandler(this.bASLearnToolStripMenuItem_Click);
+            this.bASLearnToolStripMenuItem.Visible = false;
             // 
             // m_vinLabel
             // 
             this.m_vinLabel.AutoSize = true;
             this.m_vinLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_vinLabel.Location = new System.Drawing.Point(131, 148);
-            this.m_vinLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_vinLabel.Location = new System.Drawing.Point(98, 120);
             this.m_vinLabel.Name = "m_vinLabel";
-            this.m_vinLabel.Size = new System.Drawing.Size(0, 46);
+            this.m_vinLabel.Size = new System.Drawing.Size(0, 37);
             this.m_vinLabel.TabIndex = 8;
             // 
             // m_vinTitleLabel
             // 
             this.m_vinTitleLabel.AutoSize = true;
             this.m_vinTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_vinTitleLabel.Location = new System.Drawing.Point(16, 124);
-            this.m_vinTitleLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_vinTitleLabel.Location = new System.Drawing.Point(12, 101);
             this.m_vinTitleLabel.Name = "m_vinTitleLabel";
-            this.m_vinTitleLabel.Size = new System.Drawing.Size(97, 46);
+            this.m_vinTitleLabel.Size = new System.Drawing.Size(80, 37);
             this.m_vinTitleLabel.TabIndex = 9;
             this.m_vinTitleLabel.Text = "VIN:";
             // 
@@ -292,11 +291,9 @@
             this.m_buildInfoGroupBox.Controls.Add(this.m_buildInfoTextBox);
             this.m_buildInfoGroupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.m_buildInfoGroupBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.m_buildInfoGroupBox.Location = new System.Drawing.Point(965, 476);
-            this.m_buildInfoGroupBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_buildInfoGroupBox.Location = new System.Drawing.Point(724, 387);
             this.m_buildInfoGroupBox.Name = "m_buildInfoGroupBox";
-            this.m_buildInfoGroupBox.Padding = new System.Windows.Forms.Padding(4);
-            this.m_buildInfoGroupBox.Size = new System.Drawing.Size(704, 351);
+            this.m_buildInfoGroupBox.Size = new System.Drawing.Size(528, 285);
             this.m_buildInfoGroupBox.TabIndex = 16;
             this.m_buildInfoGroupBox.TabStop = false;
             this.m_buildInfoGroupBox.Text = "Build Information";
@@ -305,11 +302,10 @@
             // 
             this.m_buildInfoTextBox.BackColor = System.Drawing.Color.White;
             this.m_buildInfoTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_buildInfoTextBox.Location = new System.Drawing.Point(9, 37);
-            this.m_buildInfoTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_buildInfoTextBox.Location = new System.Drawing.Point(7, 30);
             this.m_buildInfoTextBox.Name = "m_buildInfoTextBox";
             this.m_buildInfoTextBox.ReadOnly = true;
-            this.m_buildInfoTextBox.Size = new System.Drawing.Size(685, 306);
+            this.m_buildInfoTextBox.Size = new System.Drawing.Size(515, 249);
             this.m_buildInfoTextBox.TabIndex = 5;
             this.m_buildInfoTextBox.Text = "";
             // 
@@ -318,11 +314,9 @@
             this.groupBox1.Controls.Add(this.m_logMessageTextBox);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(9, 475);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Location = new System.Drawing.Point(7, 386);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(933, 506);
+            this.groupBox1.Size = new System.Drawing.Size(700, 411);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Log";
@@ -331,11 +325,10 @@
             // 
             this.m_logMessageTextBox.BackColor = System.Drawing.Color.White;
             this.m_logMessageTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_logMessageTextBox.Location = new System.Drawing.Point(8, 37);
-            this.m_logMessageTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.m_logMessageTextBox.Location = new System.Drawing.Point(6, 30);
             this.m_logMessageTextBox.Name = "m_logMessageTextBox";
             this.m_logMessageTextBox.ReadOnly = true;
-            this.m_logMessageTextBox.Size = new System.Drawing.Size(916, 461);
+            this.m_logMessageTextBox.Size = new System.Drawing.Size(688, 375);
             this.m_logMessageTextBox.TabIndex = 4;
             this.m_logMessageTextBox.Text = "";
             // 
@@ -343,10 +336,9 @@
             // 
             this.m_cableConnectLabel.AutoSize = true;
             this.m_cableConnectLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_cableConnectLabel.Location = new System.Drawing.Point(1489, 119);
-            this.m_cableConnectLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_cableConnectLabel.Location = new System.Drawing.Point(1117, 97);
             this.m_cableConnectLabel.Name = "m_cableConnectLabel";
-            this.m_cableConnectLabel.Size = new System.Drawing.Size(172, 29);
+            this.m_cableConnectLabel.Size = new System.Drawing.Size(135, 24);
             this.m_cableConnectLabel.TabIndex = 18;
             this.m_cableConnectLabel.Text = "Cable Connect";
             // 
@@ -354,10 +346,9 @@
             // 
             this.m_buildDataLabel.AutoSize = true;
             this.m_buildDataLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_buildDataLabel.Location = new System.Drawing.Point(1489, 167);
-            this.m_buildDataLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_buildDataLabel.Location = new System.Drawing.Point(1117, 136);
             this.m_buildDataLabel.Name = "m_buildDataLabel";
-            this.m_buildDataLabel.Size = new System.Drawing.Size(123, 29);
+            this.m_buildDataLabel.Size = new System.Drawing.Size(94, 24);
             this.m_buildDataLabel.TabIndex = 19;
             this.m_buildDataLabel.Text = "Build Data";
             // 
@@ -366,11 +357,9 @@
             this.groupBox2.Controls.Add(this.m_overallProgressBar);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox2.Location = new System.Drawing.Point(9, 980);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Location = new System.Drawing.Point(7, 796);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(1660, 98);
+            this.groupBox2.Size = new System.Drawing.Size(1245, 80);
             this.groupBox2.TabIndex = 22;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Flash Progress";
@@ -379,11 +368,10 @@
             // 
             this.m_promptBox2.BackColor = System.Drawing.SystemColors.Window;
             this.m_promptBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_promptBox2.Location = new System.Drawing.Point(16, 378);
-            this.m_promptBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.m_promptBox2.Location = new System.Drawing.Point(12, 307);
             this.m_promptBox2.Name = "m_promptBox2";
             this.m_promptBox2.ReadOnly = true;
-            this.m_promptBox2.Size = new System.Drawing.Size(1652, 98);
+            this.m_promptBox2.Size = new System.Drawing.Size(1240, 80);
             this.m_promptBox2.TabIndex = 23;
             this.m_promptBox2.TabStop = false;
             this.m_promptBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -392,10 +380,9 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(19, 185);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(14, 150);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(184, 36);
+            this.label1.Size = new System.Drawing.Size(152, 29);
             this.label1.TabIndex = 24;
             this.label1.Text = "Model Code:";
             // 
@@ -403,10 +390,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(35, 227);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(26, 184);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(171, 36);
+            this.label2.Size = new System.Drawing.Size(140, 29);
             this.label2.TabIndex = 25;
             this.label2.Text = "Book Code:";
             // 
@@ -414,10 +400,9 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(459, 186);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(344, 151);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(175, 36);
+            this.label3.Size = new System.Drawing.Size(144, 29);
             this.label3.TabIndex = 26;
             this.label3.Text = "Model Year:";
             // 
@@ -425,10 +410,9 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(556, 228);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(417, 185);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 36);
+            this.label4.Size = new System.Drawing.Size(71, 29);
             this.label4.TabIndex = 27;
             this.label4.Text = "Lot #:";
             // 
@@ -436,40 +420,36 @@
             // 
             this.m_modelCodeLabel.AutoSize = true;
             this.m_modelCodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_modelCodeLabel.Location = new System.Drawing.Point(229, 185);
-            this.m_modelCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_modelCodeLabel.Location = new System.Drawing.Point(172, 150);
             this.m_modelCodeLabel.Name = "m_modelCodeLabel";
-            this.m_modelCodeLabel.Size = new System.Drawing.Size(0, 36);
+            this.m_modelCodeLabel.Size = new System.Drawing.Size(0, 29);
             this.m_modelCodeLabel.TabIndex = 28;
             // 
             // m_bookCodeLabel
             // 
             this.m_bookCodeLabel.AutoSize = true;
             this.m_bookCodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_bookCodeLabel.Location = new System.Drawing.Point(229, 232);
-            this.m_bookCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_bookCodeLabel.Location = new System.Drawing.Point(172, 188);
             this.m_bookCodeLabel.Name = "m_bookCodeLabel";
-            this.m_bookCodeLabel.Size = new System.Drawing.Size(0, 36);
+            this.m_bookCodeLabel.Size = new System.Drawing.Size(0, 29);
             this.m_bookCodeLabel.TabIndex = 29;
             // 
             // m_modelYearLabel
             // 
             this.m_modelYearLabel.AutoSize = true;
             this.m_modelYearLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_modelYearLabel.Location = new System.Drawing.Point(659, 186);
-            this.m_modelYearLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_modelYearLabel.Location = new System.Drawing.Point(494, 151);
             this.m_modelYearLabel.Name = "m_modelYearLabel";
-            this.m_modelYearLabel.Size = new System.Drawing.Size(0, 36);
+            this.m_modelYearLabel.Size = new System.Drawing.Size(0, 29);
             this.m_modelYearLabel.TabIndex = 30;
             // 
             // m_lotNumberLabel
             // 
             this.m_lotNumberLabel.AutoSize = true;
             this.m_lotNumberLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_lotNumberLabel.Location = new System.Drawing.Point(659, 231);
-            this.m_lotNumberLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_lotNumberLabel.Location = new System.Drawing.Point(494, 188);
             this.m_lotNumberLabel.Name = "m_lotNumberLabel";
-            this.m_lotNumberLabel.Size = new System.Drawing.Size(0, 36);
+            this.m_lotNumberLabel.Size = new System.Drawing.Size(0, 29);
             this.m_lotNumberLabel.TabIndex = 31;
             // 
             // groupBox3
@@ -481,11 +461,9 @@
             this.groupBox3.Controls.Add(this.m_ecmResultBox);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox3.Location = new System.Drawing.Point(965, 832);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Location = new System.Drawing.Point(724, 676);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(704, 148);
+            this.groupBox3.Size = new System.Drawing.Size(528, 120);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Flash Results";
@@ -496,75 +474,74 @@
             this.m_brakeApplySensorResultBox.BackColor = System.Drawing.SystemColors.Window;
             this.m_brakeApplySensorResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.m_brakeApplySensorResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_brakeApplySensorResultBox.Location = new System.Drawing.Point(583, 70);
-            this.m_brakeApplySensorResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_brakeApplySensorResultBox.Location = new System.Drawing.Point(437, 57);
             this.m_brakeApplySensorResultBox.Name = "m_brakeApplySensorResultBox";
-            this.m_brakeApplySensorResultBox.Size = new System.Drawing.Size(103, 48);
+            this.m_brakeApplySensorResultBox.Size = new System.Drawing.Size(83, 39);
             this.m_brakeApplySensorResultBox.TabIndex = 14;
             this.m_brakeApplySensorResultBox.Text = "BAS";
             this.m_brakeApplySensorResultBox.UseWaitCursor = true;
+            this.m_brakeApplySensorResultBox.Enabled = false;
+            this.m_brakeApplySensorResultBox.Visible = false;
+
+
             // 
             // m_mimaResultBox
             // 
             this.m_mimaResultBox.AutoSize = true;
             this.m_mimaResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.m_mimaResultBox.Enabled = false;
+            //this.m_mimaResultBox.Enabled = false;
             this.m_mimaResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_mimaResultBox.Location = new System.Drawing.Point(207, 12);
-            this.m_mimaResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_mimaResultBox.Location = new System.Drawing.Point(155, 10);
             this.m_mimaResultBox.Name = "m_mimaResultBox";
-            this.m_mimaResultBox.Size = new System.Drawing.Size(197, 48);
+            this.m_mimaResultBox.Size = new System.Drawing.Size(160, 39);
             this.m_mimaResultBox.TabIndex = 13;
             this.m_mimaResultBox.Text = "Mimamori";
             this.m_mimaResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.m_mimaResultBox.Visible = false;
+            this.m_mimaResultBox.Visible = true;
             // 
             // m_dcuResultBox
             // 
             this.m_dcuResultBox.AutoSize = true;
             this.m_dcuResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.m_dcuResultBox.Enabled = false;
+            //this.m_dcuResultBox.Enabled = false;
             this.m_dcuResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_dcuResultBox.Location = new System.Drawing.Point(412, 12);
-            this.m_dcuResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_dcuResultBox.Location = new System.Drawing.Point(309, 10);
             this.m_dcuResultBox.Name = "m_dcuResultBox";
-            this.m_dcuResultBox.Size = new System.Drawing.Size(109, 48);
+            this.m_dcuResultBox.Size = new System.Drawing.Size(88, 39);
             this.m_dcuResultBox.TabIndex = 12;
             this.m_dcuResultBox.Text = "DCU";
             this.m_dcuResultBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.m_dcuResultBox.Visible = false;
+            this.m_dcuResultBox.Visible = true;
             // 
             // m_tcmResultBox
             // 
             this.m_tcmResultBox.AutoSize = true;
             this.m_tcmResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.m_tcmResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_tcmResultBox.Location = new System.Drawing.Point(294, 70);
-            this.m_tcmResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_tcmResultBox.Location = new System.Drawing.Point(220, 57);
             this.m_tcmResultBox.Name = "m_tcmResultBox";
-            this.m_tcmResultBox.Size = new System.Drawing.Size(281, 48);
+            this.m_tcmResultBox.Size = new System.Drawing.Size(229, 39);
             this.m_tcmResultBox.TabIndex = 11;
             this.m_tcmResultBox.Text = " Transmission ";
+            this.m_tcmResultBox.Visible = false;
             // 
             // m_ecmResultBox
             // 
             this.m_ecmResultBox.AutoSize = true;
             this.m_ecmResultBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.m_ecmResultBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_ecmResultBox.Location = new System.Drawing.Point(8, 70);
-            this.m_ecmResultBox.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_ecmResultBox.Location = new System.Drawing.Point(6, 57);
             this.m_ecmResultBox.Name = "m_ecmResultBox";
-            this.m_ecmResultBox.Size = new System.Drawing.Size(278, 48);
+            this.m_ecmResultBox.Size = new System.Drawing.Size(226, 39);
             this.m_ecmResultBox.TabIndex = 10;
             this.m_ecmResultBox.Text = "      Engine      ";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 30);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 24);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1669, 86);
+            this.pictureBox1.Size = new System.Drawing.Size(1252, 70);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -572,10 +549,9 @@
             // m_cableConnectPB
             // 
             this.m_cableConnectPB.Image = ((System.Drawing.Image)(resources.GetObject("m_cableConnectPB.Image")));
-            this.m_cableConnectPB.Location = new System.Drawing.Point(1447, 119);
-            this.m_cableConnectPB.Margin = new System.Windows.Forms.Padding(4);
+            this.m_cableConnectPB.Location = new System.Drawing.Point(1085, 97);
             this.m_cableConnectPB.Name = "m_cableConnectPB";
-            this.m_cableConnectPB.Size = new System.Drawing.Size(35, 30);
+            this.m_cableConnectPB.Size = new System.Drawing.Size(26, 24);
             this.m_cableConnectPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.m_cableConnectPB.TabIndex = 20;
             this.m_cableConnectPB.TabStop = false;
@@ -583,10 +559,9 @@
             // m_buildDataPB
             // 
             this.m_buildDataPB.Image = ((System.Drawing.Image)(resources.GetObject("m_buildDataPB.Image")));
-            this.m_buildDataPB.Location = new System.Drawing.Point(1447, 165);
-            this.m_buildDataPB.Margin = new System.Windows.Forms.Padding(4);
+            this.m_buildDataPB.Location = new System.Drawing.Point(1085, 134);
             this.m_buildDataPB.Name = "m_buildDataPB";
-            this.m_buildDataPB.Size = new System.Drawing.Size(35, 33);
+            this.m_buildDataPB.Size = new System.Drawing.Size(26, 27);
             this.m_buildDataPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.m_buildDataPB.TabIndex = 21;
             this.m_buildDataPB.TabStop = false;
@@ -599,10 +574,9 @@
             // m_esnDataPB
             // 
             this.m_esnDataPB.Image = global::FlashStationMainForm.Properties.Resources.led_green_on;
-            this.m_esnDataPB.Location = new System.Drawing.Point(1447, 213);
-            this.m_esnDataPB.Margin = new System.Windows.Forms.Padding(4);
+            this.m_esnDataPB.Location = new System.Drawing.Point(1085, 173);
             this.m_esnDataPB.Name = "m_esnDataPB";
-            this.m_esnDataPB.Size = new System.Drawing.Size(35, 33);
+            this.m_esnDataPB.Size = new System.Drawing.Size(26, 27);
             this.m_esnDataPB.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.m_esnDataPB.TabIndex = 33;
             this.m_esnDataPB.TabStop = false;
@@ -611,20 +585,19 @@
             // 
             this.m_esnDataLabel.AutoSize = true;
             this.m_esnDataLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_esnDataLabel.Location = new System.Drawing.Point(1489, 215);
-            this.m_esnDataLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.m_esnDataLabel.Location = new System.Drawing.Point(1117, 175);
             this.m_esnDataLabel.Name = "m_esnDataLabel";
-            this.m_esnDataLabel.Size = new System.Drawing.Size(116, 29);
+            this.m_esnDataLabel.Size = new System.Drawing.Size(90, 24);
             this.m_esnDataLabel.TabIndex = 32;
             this.m_esnDataLabel.Text = "ESN FTP";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1685, 1047);
+            this.ClientSize = new System.Drawing.Size(1264, 851);
             this.Controls.Add(this.m_esnDataPB);
             this.Controls.Add(this.m_esnDataLabel);
             this.Controls.Add(this.groupBox3);
@@ -651,11 +624,11 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Burke E. Porter Machinery Static Station";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.m_buildInfoGroupBox.ResumeLayout(false);

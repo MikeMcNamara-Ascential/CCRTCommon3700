@@ -1,11 +1,11 @@
 <SelectionTable Description="Tesla drive curve selection table">
-    <Roadster DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
+    <!--<Roadster DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
         <BrakeType>Teves Abs</BrakeType>
-    </Roadster>
+    </Roadster-->
     <Sedan DriveCurve="/Configuration/VehicleTest/DriveCurves/SedanDriveCurve.xml">
         <BrakeType>Bosch Abs</BrakeType>
     </Sedan>
-    <Vehicle2 DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
+    <!--<Vehicle2 DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBrakeDriveCurve.xml">
         <BrakeType>Base Brake</BrakeType>
     </Vehicle2>
     <RoadsterBarcode DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
@@ -13,18 +13,41 @@
     </RoadsterBarcode>
     <SedanBarcode DriveCurve="/Configuration/VehicleTest/DriveCurves/RoadsterDriveCurve.xml">
         <Vin>SEDAN0000000000000</Vin>
-    </SedanBarcode>
+    </SedanBarcode-->
     <!-- New MES Data for Model/Drive Selections -->
-    <ModelS2WD DriveCurve="/Configuration/VehicleTest/DriveCurves/ModelSRWDDriveCurve.xml">
-        <Model>Model S</Model>
-        <DriveMode>2WD</DriveMode>
-    </ModelS2WD>
-    <ModelS4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/ModelSDriveCurve.xml">
-        <Model>Model S</Model>
-        <DriveMode>4WD</DriveMode>
-    </ModelS4WD>
-    <ModelX4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/ModelXDriveCurve.xml">
+    <!--
+    <ModelX_Mando_4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/DriveCurve_ModelX_Mando_v03.xml">
         <Model>Model X</Model>
+        <Calipers>Black M</Calipers>
         <DriveMode>4WD</DriveMode>
-    </ModelX4WD>
+    </ModelX_Mando_4WD>
+    <ModelX_Brembo_4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/DriveCurve_ModelX_Brembo_v03.xml">
+        <Model>Model X</Model>
+        <Calipers>Brembo</Calipers>
+        <DriveMode>4WD</DriveMode>
+    </ModelX_Brembo_4WD>
+    <ModelS_Mando_4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/DriveCurve_ModelS_Mando_v03.xml">
+        <Model>Model S</Model>
+        <Calipers>Black M</Calipers>
+        <DriveMode>4WD</DriveMode>
+    </ModelS_Mando_4WD>
+    <ModelS_Brembo_4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/DriveCurve_ModelS_Brembo_v03.xml">
+        <Model>Model S</Model>
+        <Calipers>Brembo</Calipers>
+        <DriveMode>4WD</DriveMode>
+    </ModelS_Brembo_4WD>
+    -->
+    <!-- VIN based dirve curve selection -->
+    <ModelX_Mando_4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/DriveCurve_ModelX_Mando_v03.xml">
+        <VIN>???X???2?????????</VIN>
+    </ModelX_Mando_4WD>
+    <ModelX_Brembo_4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/DriveCurve_ModelX_Brembo_v03.xml">
+        <VIN>???X???4?????????</VIN>
+    </ModelX_Brembo_4WD>
+    <ModelS_Mando_4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/DriveCurve_ModelS_Mando_v03.xml">
+        <VIN>???S???2?????????</VIN>
+    </ModelS_Mando_4WD>
+    <ModelS_Brembo_4WD DriveCurve="/Configuration/VehicleTest/DriveCurves/DriveCurve_ModelS_Brembo_v03.xml">
+        <VIN>???S???4?????????</VIN>
+    </ModelS_Brembo_4WD>
 </SelectionTable>

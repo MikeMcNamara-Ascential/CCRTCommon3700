@@ -585,7 +585,9 @@
          <!--TestStep10>NeutralCheck</TestStep10-->
          <TestStep20>DragTest</TestStep20>
          <TestStep30>AnalyzeDragTest</TestStep30>
+		 <TestStep35>BrakeSwitchOffTest</TestStep35>
          <TestStep40>BrakeTest</TestStep40>
+		 <TestStep45>BrakeSwitchOnTest</TestStep45>
          <TestStep50>BrakeToStop</TestStep50>
          <TestStep60>AnalyzeBrakeTest</TestStep60>
          <TestStep70>AnalyzeBalance</TestStep70>
@@ -678,8 +680,10 @@
       <NeutralCheck Result="" Timeout="10000" Description="Wait for shift to neutral after arm speed" Prompt1="ReleaseThrottleShiftNeutral" ScanDelay="100"/>
       <DragTest Result="" Timeout="20000" Description="Base Brake Component Brake Drag Test" Prompt1="ShiftToNeutral" Prompt2="RemoveFootFromAccelerator" DragSpeed="68" DragDelay="1000" DragSamples="10"/>
       <AnalyzeDragTest Result="" Timeout="10000" Description="Base Brake Component Brake Drag Test Analysis" Prompt1="" Prompt2=""/>
-      <BrakeTest Result="" Timeout="10000" Description="Base Brake Component Brake Test" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1="" StartBrakeSampleSpeed="67" EndBrakeSampleSpeed="10" BrakeDomain="0 1000" BrakeTarget="350 800"/>
-      <AnalyzeBrakeTest Result="" Timeout="10000" Description="Analyze Brake Test" Prompt1="" Prompt2=""/>
+	  <BrakeSwitchOffTest Result="" Timeout="1000" Description="Verify the brake switch is in the OFF position" ScanDelay="250"/>
+	  <BrakeTest Result="" Timeout="10000" Description="Base Brake Component Brake Test" Prompt1="BrakeModeratelyInGreenBand" Prompt1Value1="" StartBrakeSampleSpeed="67" EndBrakeSampleSpeed="10" BrakeDomain="0 1000" BrakeTarget="350 800"/>
+      <BrakeSwitchOnTest Result="" Timeout="1000" Description="Verify the brake switch is in the ON position" ScanDelay="250"/>
+	  <AnalyzeBrakeTest Result="" Timeout="10000" Description="Analyze Brake Test" Prompt1="" Prompt2=""/>
       <AnalyzeBalance Result="" Timeout="10000" Description="Analyze Balance" Prompt1="" Prompt2=""/>
       <ExcessiveBrakeForceCheck Result="" Timeout="10000" Description="Check for excessive brake force"/>
       <AnalyzeDynamicParkBrake Result="Not Tested" Timeout="500" Description="Analyze park brake results" AbortIfFailed="False"/>

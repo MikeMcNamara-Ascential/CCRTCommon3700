@@ -17,6 +17,14 @@
 //-------------------------------------------------------------------------------------------------
 #include "PlantHostInbound.h"
 //-------------------------------------------------------------------------------------------------
+
+#define SMALLTIRESIZE ".458"
+#define NGASTIRESIZE  ".5"
+#define LARGETIRESIZE ".520"
+
+#define RET_ROLL_HI_TAG "RetRollHiPosition"
+#define RET_ROLL_LO_TAG "RetRollLoPosition"
+
 class IsuzuPlantHostInbound : public PlantHostInbound
 {
 public:
@@ -61,6 +69,10 @@ private:
      * @return Previous version of the file that is on the system.
      */
     string FindPreviousVersionFile(vector<string> matchingFiles, const string &specificFile);
+
+    bool CheckWheelSizes(string fileName);
+
+    void SendWheelSizeToPLC(XmlNodeMap &buildData);
 };
 //-------------------------------------------------------------------------------------------------
 #endif //IsuzuPlantHostInbound_h

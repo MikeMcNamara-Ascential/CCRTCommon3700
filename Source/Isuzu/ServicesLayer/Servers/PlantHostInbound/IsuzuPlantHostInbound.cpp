@@ -119,12 +119,14 @@ const string IsuzuPlantHostInbound::LoadVehicleBuildFromFile(const string &vin,
             try
             {
                 SetVehicleBuild(parser.ReturnXMLDocument(fileName)->getChild(VEHICLE_BUILD_TAG), buildData);
-
+                        
                 AddVehicleBuildItem(string("VIN"), vin, buildData);
                 AddVehicleBuildItem(GetDataTag("ModelCode"), modelCode, buildData);
                 AddVehicleBuildItem(GetDataTag("BookCode"), bookCode, buildData);
                 AddVehicleBuildItem(GetDataTag("ModelYear"), modelYear, buildData);
                 AddVehicleBuildItem(GetDataTag("LotNumber"), lotNumber, buildData);
+                if (CheckWheelSizes(fileName))
+                    SendWheelSizeToPLC(buildData);
                 status = BEP_SUCCESS_RESPONSE;
             }
             catch(BepException &excpt)
@@ -176,4 +178,63 @@ string IsuzuPlantHostInbound::FindPreviousVersionFile(vector<string> matchingFil
     vector<string>::iterator foundFile = find(matchingFiles.begin(), matchingFiles.end(), specificFile) - 1;
     Log(LOG_DEV_DATA, "Selecting file: ", (*foundFile).c_str());
     return *foundFile;
+}
+
+//-------------------------------------------------------------------------------------------------
+bool IsuzuPlantHostInbound::CheckWheelSizes(string fileName){
+    XmlParser parser;
+    bool multipleSizes;
+    
+    try {
+        Log(LOG_DEV_DATA,"CheckWheelSizes: FileName: %s",fileName.c_str());
+        multipleSizes = atof(parser.ReturnXMLDocument(fileName)->getChild("VehicleBuild")->getChild("Tiresize")->getValue().c_str()); 
+        Log(LOG_DEV_DATA,"CheckWheelSizes found a value: %d.", (multipleSizes)?1:0);
+        return multipleSizes;
+    } catch (BepException &excpt) {
+        //wheel size not found
+        Log(LOG_DEV_DATA,"Caught and exception in CheckWheelSizes, returning false.");
+        return false;
+    }
+}   
+    
+//-------------------------------------------------------------------------------------------------
+void IsuzuPlantHostInbound::SendWheelSizeToPLC(XmlNodeMap &buildData){
+         
+    string wheelSizeBR;
+	string response;
+    try{
+        wheelSizeBR = GetVehicleBuildItem("Tiresize",buildData).c_str();
+        Log(LOG_DEV_DATA, "SendWheelSizeToPLC %s", wheelSizeBR.c_str());
+            
+          
+        if (!wheelSizeBR.compare(SMALLTIRESIZE)) {
+            Log(LOG_DEV_DATA,"Sending Small Wheel Size to PLC.");
+            m_broker->Write(RET_ROLL_HI_TAG, "0", response, true);
+            m_broker->Write(RET_ROLL_LO_TAG, "1", response, true);
+            return;
+        }
+        else if (!wheelSizeBR.compare(LARGETIRESIZE)) {
+            Log(LOG_DEV_DATA,"Sending Large Wheel Size to PLC.");
+            m_broker->Write(RET_ROLL_HI_TAG, "1", response, true);
+            m_broker->Write(RET_ROLL_LO_TAG, "0", response, true);
+            return;
+        }
+        else if (!wheelSizeBR.compare(NGASTIRESIZE)) {
+            Log(LOG_DEV_DATA,"Sending NGas Wheel Size to PLC.");
+            m_broker->Write(RET_ROLL_HI_TAG, "1", response, true);
+            m_broker->Write(RET_ROLL_LO_TAG, "1", response, true);
+            return;
+        }
+        else{
+            Log(LOG_DEV_DATA,"Unknown Wheel Size: %s, sending Large Wheel Size to PLC.", wheelSizeBR.c_str());
+            m_broker->Write(RET_ROLL_HI_TAG, "1", response, true);
+            m_broker->Write(RET_ROLL_LO_TAG, "0", response, true);
+            return;
+        }
+    }
+    catch (BepException &excpt) {
+        Log(LOG_DEV_DATA, "SendWheelSizeToPLC, Threw and exception getting Tiresize");
+        wheelSizeBR = SMALLTIRESIZE;
+    }
+    Log(LOG_DEV_DATA, "SendWheelSizeToPLC, Exity");
 }

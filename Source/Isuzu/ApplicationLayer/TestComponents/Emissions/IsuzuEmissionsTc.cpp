@@ -116,6 +116,7 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("DelayBeforeDtcRead"))                  testResult = DelayBeforeDtcRead();
             else if (!GetTestStepName().compare("CheckOxygenSensors"))                  testResult = CheckOxygenSensors();
             else if (!GetTestStepName().compare("KeyOffEngineOffKeyOn"))                testResult = KeyOffEngineOffKeyOn();
+            else if (!GetTestStepName().compare("KeyOffEngineOffKeyOnNoStart"))         testResult = KeyOffEngineOffKeyOnNoStart();
             else if (!GetTestStepName().compare("ClearFaultsFinal"))                    testResult = ClearFaults();
             else if (!GetTestStepName().compare("CheckSerialNumber"))                   testResult = CheckSerialNumber();
             else if (!GetTestStepName().compare("EnterNormalMode"))                     testResult = EnterNormalMode();
@@ -2609,6 +2610,83 @@ string IsuzuEmissionsTc<ModuleType>::KeyOffEngineOffKeyOn(void)
     }
 
     return testResult;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::KeyOffEngineOffKeyOnNoStart(void)
+{
+	string testResult = BEP_TESTING_STATUS;
+	string testResultCode = "0000";
+	string testDescription = GetTestStepInfo("Description");
+	Log(LOG_FN_ENTRY, "%s::%s - Enter", GetComponentName().c_str(), GetTestStepName().c_str());
+	// Do not need to perform this step if previous pass
+	if(!ShortCircuitTestStep() || GetParameterBool("AlwaysPerformKeyOffEngineOff"))
+	{
+		try
+		{							   //Wait for the engine to be off and ignition to be off
+			testResult = WaitForEngineOffIgnitionOff();
+			if(!testResult.compare(testPass))
+			{						   // Reset the adaptive memory
+				Log(LOG_DEV_DATA, "EngineOffIgnitionOff: %s", testResult.c_str());
+				SetStartTime();
+				testResult = WaitForEngineOffIgnitionOn();
+				if(!testResult.compare(testPass))
+				{					   // Reset the adaptive memory
+					Log(LOG_DEV_DATA, "EngineOffIgnitionOn: %s", testResult.c_str());
+				}
+				else if(!testResult.compare(testTimeout))
+				{					   // Timeout waiting for conditions
+					testResult = testTimeout;
+					testResultCode = GetFaultCode("EngineOffIgnitionOnTimeoutFailure");
+					testDescription = GetFaultDescription("EngineOffIgnitionOnTimeoutFailure");
+					Log(LOG_ERRORS, "Timeout waiting engine off, ignition on");
+				}
+				else
+				{					   // Bad system status
+					testResult = testAbort;
+					testResultCode = GetFaultCode("StatusCheckFailure");
+					testDescription = GetFaultCode("StatusCheckFailure");
+					Log(LOG_ERRORS, "Bad system status while waiting for engine off, ignition on - status: %s\n", 
+						ConvertStatusToResponse(StatusCheck()).c_str());
+				}
+
+			}
+			else if(!testResult.compare(testTimeout))
+			{						   // Timeout waiting for conditions
+				testResult = testTimeout;
+				testResultCode = GetFaultCode("EngineOffIgnitionOffTimeoutFailure");
+				testDescription = GetFaultDescription("EngineOffIgnitionOffTimeoutFailure");
+				Log(LOG_ERRORS, "Timeout waiting engine off, ignition off");
+			}
+			else
+			{						   // Bad system status
+				testResult = testAbort;
+				testResultCode = GetFaultCode("StatusCheckFailure");
+				testDescription = GetFaultCode("StatusCheckFailure");
+				Log(LOG_ERRORS, "Bad system status while waiting for engine off, ignition off - status: %s\n", 
+					ConvertStatusToResponse(StatusCheck()).c_str());
+			}
+		}
+		catch(ModuleException &e)
+		{
+			Log(LOG_ERRORS, "Error commanding module to reset adaptive memory - %s", e.GetReason());
+			testResult = testSoftwareFail;
+			testResultCode = GetFaultCode("SoftwareFailure");
+			testDescription = GetFaultDescription("SoftwareFailure");
+		}
+
+		// Report the result
+		SendTestResult(testResult, testDescription, testResultCode);    
+	}
+	else
+	{								   // Need to skip this test step
+		Log(LOG_FN_ENTRY, "Skipping test step - %s", GetTestStepName().c_str());
+		testResult = testSkip;
+	}
+	// Log the exit and return the result
+	Log(LOG_FN_ENTRY, "%s::%s - Enter", GetComponentName().c_str(), GetTestStepName().c_str());
+	return testResult;
 }
 
 //-----------------------------------------------------------------------------

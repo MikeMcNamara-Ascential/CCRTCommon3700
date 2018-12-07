@@ -346,7 +346,7 @@ int TcpCommProxy::Connect()
                     // this will crash if socket above returns as NULL
                     if( (retVal = connect(m_comPortFd, (struct sockaddr*)&server, sizeof(server))) == -1)
                     {
-                        Log( LOG_ERRORS, "Error connecting to <%s>:%d : %s\n", m_ipAddress.c_str(), m_ipPort, strerror( errno));
+                        Log( LOG_ERRORS, "After connect attempt::Error connecting to <%s>:%d : %s\n", m_ipAddress.c_str(), m_ipPort, strerror( errno));
                         close( m_comPortFd);
                     }
                     else
@@ -356,7 +356,7 @@ int TcpCommProxy::Connect()
                 }
                 else
                 {
-                    Log( LOG_ERRORS, "Error connecting to <%s>:%d : %s\n", m_ipAddress.c_str(), m_ipPort, strerror( errno));
+                    Log( LOG_ERRORS, "After setsockopt::Error connecting to <%s>:%d : %s\n", m_ipAddress.c_str(), m_ipPort, strerror( errno));
                     close( m_comPortFd);
                 }
             }

@@ -1871,6 +1871,10 @@ IPlc* PlcMgr::CreatePlcObject( const std::string &boardTag) throw( BepException)
     {
         plcBoard = new PlcEip;
     }
+    else if (boardTag == "Toyopuc")
+    {
+       plcBoard = new PlcToyopuc;
+    }
 
     if( plcBoard == NULL)
     {

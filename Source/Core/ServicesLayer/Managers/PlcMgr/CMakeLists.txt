@@ -2,7 +2,7 @@
 # Create a list of all the cpp files in this directory needed to create the executable
 #------------------------------------------------------------------------------------------
 SET(PLC_PROXY_SOURCES PlcMgr.cpp PlcDf1.cpp IDf1Protocol.cpp PlcRk512.cpp IRk512Protocol.cpp 
-    PlcMelsec.cpp IMelsecProtocol.cpp PlcEip.cpp EipProtocol.cpp EipWrapper.cpp)
+    PlcMelsec.cpp IMelsecProtocol.cpp PlcEip.cpp EipProtocol.cpp EipWrapper.cpp PlcToyopuc.cpp ToyopucProtocol.cpp)
 
 FILE(GLOB EIP_SOURCES Eip/*.c)
 

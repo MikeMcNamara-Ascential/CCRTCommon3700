@@ -104,6 +104,7 @@
 		</NotificationList>
 	</Setup>
 	<DataMap>
+		<!-- D0000 -->
 		<Clutch channelIndex="0" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<Declutch channelIndex="0" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<ZerospeedToPLC channelIndex="0" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -120,6 +121,7 @@
 		<DriversFaultSignal channelIndex="0" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<Start4WDTestSignalToPLC channelIndex="0" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<RetestSignal channelIndex="0" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0001 -->
 		<LFDragRejectLamp channelIndex="1" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<RFDragRejectLamp channelIndex="1" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<LRDragRejectLamp channelIndex="1" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -136,6 +138,7 @@
 		<AxleRatioRejectLamp channelIndex="1" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<ParkingBrakeRejectLamp channelIndex="1" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<EnableDifferentialLockTestBrake channelIndex="1" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0002 -->
 		<WheelbasePosition01 channelIndex="2" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<WheelbasePosition02 channelIndex="2" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<WheelbasePosition03 channelIndex="2" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -152,6 +155,7 @@
 		<WheelbasePosition12 channelIndex="2" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<FrontWheelDriveSelectedToPLC channelIndex="2" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<WheelbasePosition06 channelIndex="2" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0003 -->
 		<StartLamp channelIndex="3" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<RollTestLamp channelIndex="3" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<BrakeTestLamp channelIndex="3" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -168,6 +172,7 @@
 		<ABSCableConnected channelIndex="3" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<StartJounceTest channelIndex="3" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<FactoryInfoSystemDataValid channelIndex="3" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0004 -->
 		<FrontWheelDriveSelected channelIndex="4" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<AllWheelDriveSelected channelIndex="4" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<ABSTestSelectedToPLC channelIndex="4" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -184,6 +189,7 @@
 		<DeclutchFrontRollClutch channelIndex="4" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<DeclutchRearRollClutch channelIndex="4" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<VMESystemReady channelIndex="4" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0005 -->
 		<Upper-12VPowerSupplyTolerance channelIndex="5" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<Upper12VPowerSupplyTolerance channelIndex="5" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<Upper5VPowerSupplyTolerance channelIndex="5" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -200,6 +206,7 @@
 		<PLCDidNotInitialize channelIndex="5" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<WattTransducerFault channelIndex="5" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<SystemControllerTaskFault channelIndex="5" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0006 -->
 		<FRollSpeedsNotEqualWhenClutched channelIndex="6" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<RRollSpeedsNotEqualWhenClutched channelIndex="6" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<LFMachLossChangeOver5LBS channelIndex="6" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -216,6 +223,7 @@
 		<RREncoderRunoutError channelIndex="6" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<CycleLimitExceeded channelIndex="6" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<CycleLimitWarning channelIndex="6" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0007 -->
 		<StartRearEBSDrives channelIndex="7" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<KeyboardTripSwitchControl channelIndex="7" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<FrontRollsHydraulicAssist4WD channelIndex="7" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -232,6 +240,7 @@
 		<StartDCLTest channelIndex="7" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<RaiseRolls-LowerElevators channelIndex="7" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<ValidBarcodeScan channelIndex="7" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0008 -->
 		<CCDTranslatorNotResponding channelIndex="8" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<CCDTranslatorNotAcceptingCommands channelIndex="8" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<BadMessageFromCCDTranslator channelIndex="8" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -247,6 +256,7 @@
 		<RFRollMotorDriveCommFault channelIndex="8" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<LRRollMotorDriveCommFault channelIndex="8" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<RRRollMotorDriveCommFault channelIndex="8" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		<!-- D0009 -->
 		<ProgramWheelbasePosition channelIndex="9" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<EnableAllRollDrives channelIndex="9" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<DCLControl channelIndex="9" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -263,15 +273,35 @@
 		<TurnOnAuxillaryOutputTwo channelIndex="9" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
 		<ResetPLC channelIndex="9" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
 		<UniDirectionalPark-PawlTest channelIndex="9" bitIndex="15" logic="1" portDir="OUT" boardIdx="0"/>
+		
+		<!-- D000A -->
 		<LFWheelSpeed channelIndex="10" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D000B -->
 		<RFWheelSpeed channelIndex="11" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D000C -->
 		<LossCompensationPressure channelIndex="12" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D000D -->
 		<BoostPressureOut channelIndex="13" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D000E -->
 		<MinimumBoostPressure channelIndex="14" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-		<JounceCycles channelIndex="15" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
-		<JounceFrequency channelIndex="16" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D000F -->
+		<FrontCradleOpening channelIndex="15" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0010 -->
+		<RearCradleOpening channelIndex="16" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0011 -->
 		<LRWheelSpeed channelIndex="17" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0012 -->
 		<RRWheelSpeed channelIndex="18" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0013 -->
 		<UnableToCommunicateToWCC channelIndex="19" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<WCCInternalFaults channelIndex="19" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<WCCToBroadcastCommunicationFault channelIndex="19" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -280,9 +310,13 @@
 		<StackLightRed channelIndex="19" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
 		<StackLightYellow channelIndex="19" bitIndex="6" logic="1" portDir="OUT" boardIdx="0"/>
 		<StackLightGreen channelIndex="19" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0014 -->
 		<InterRollPressureHighWarning channelIndex="20" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<InterRollPressureHighShutdown channelIndex="20" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<PfsBlocked channelIndex="20" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0015 -->
 		<StartCyclePB channelIndex="21" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<AbortTestPB channelIndex="21" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
 		<ABSTestSelectedIRToPLC channelIndex="21" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
@@ -291,10 +325,16 @@
 		<ElevatorsRaisedLight channelIndex="21" bitIndex="5" logic="1" portDir="OUT" boardIdx="0"/>
 		<LowerElevatorsPB channelIndex="21" bitIndex="7" logic="1" portDir="OUT" boardIdx="0"/>
 		<RaiseElevatorsPB channelIndex="21" bitIndex="8" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0016 -->
 		<WheelbasePositionInchesX10 channelIndex="22" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0017 -->
 		<OverheadPositionInchesX10 channelIndex="23" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0018 -->
 		<WheelbaseStartCommand channelIndex="24" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
-		<OverheadStartCommand channelIndex="24" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
+		<OverheadStartCommand channelIndex="24" bitIndex="1" logic="1" portDir="OUT" boardIdx="`0"/>
 		<MoveDriverInterfacePanelIn channelIndex="24" bitIndex="2" logic="1" portDir="OUT" boardIdx="0"/>
 		<MoveDriveInterfacePanelOut channelIndex="24" bitIndex="3" logic="1" portDir="OUT" boardIdx="0"/>
 		<DriverInterfacePanelStartPulse channelIndex="24" bitIndex="4" logic="1" portDir="OUT" boardIdx="0"/>
@@ -304,28 +344,74 @@
 		<SCI2BusEnable channelIndex="24" bitIndex="11" logic="1" portDir="OUT" boardIdx="0"/>
 		<RetRollHiPosition channelIndex="24" bitIndex="12" logic="1" portDir="OUT" boardIdx="0"/>
 		<RetRollLoPosition channelIndex="24" bitIndex="13" logic="1" portDir="OUT" boardIdx="0"/>
+		<ReRelaxRetRolls channelIndex="24" bitIndex="14" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0019 -->
 		<VehiclePresentAtBarcodeDelayTime channelIndex="25" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D001A -->
 		<BarcodeVerifyDelayTime channelIndex="26" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D001B -->
 		<FrontReductionPressure channelIndex="27" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D001C -->
+		<RearReductionPressure channelIndex="28" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D001D -->
+		<FrontCradleOpening channelIndex="29" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D001E -->
+		<RearCradleOpening channelIndex="30" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D001F -->
 		<BodyStyleType channelIndex="31" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0020 -->
 		<LTWheelSpeed channelIndex="32" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0021 -->
 		<RTWheelSpeed channelIndex="33" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0023 - D0027 -->
 		<!-- Left Motor Control -->
 		<LeftMotorMode channelIndex="35" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<LeftSpeedRefRpm channelIndex="36" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<LeftTorqueRefPercent channelIndex="37" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<LeftPosTorqueLimit channelIndex="38" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<LeftNegTorqueLimit channelIndex="39" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D0028 - D002C -->
 		<!-- Right Motor Control -->
 		<RightMotorMode channelIndex="40" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<RightSpeedRefRpm channelIndex="41" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<RightTorqueRefPercent channelIndex="42" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<RightPosTorqueLimit channelIndex="43" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<RightNegTorqueLimit channelIndex="44" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D002D -->
 		<!-- Drive axle control -->
 		<DriveAxleToPlc channelIndex="45" bitIndex="0" logic="1" portDir="OUT" boardIdx="0"/>
 		<ClearMotorDriveFaults channelIndex="45" bitIndex="1" logic="1" portDir="OUT" boardIdx="0"/>
+
+		<!-- D002E - D0032 -->
+		<!-- Left Motor Control -->
+		<LeftRearMotorMode channelIndex="46" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		<LeftRearSpeedRefRpm channelIndex="47" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		<LeftRearTorqueRefPercent channelIndex="48" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		<LeftRearPosTorqueLimit channelIndex="49" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		<LeftRearNegTorqueLimit channelIndex="50" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		
+		<!-- D0033 - D0037 -->
+		<!-- Right Motor Control -->
+		<RightRearMotorMode channelIndex="51" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		<RightRearSpeedRefRpm channelIndex="52" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		<RightRearTorqueRefPercent channelIndex="53" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		<RightRearPosTorqueLimit channelIndex="54" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+		<RightRearNegTorqueLimit channelIndex="55" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
+
 		<!-- Data from PLC -->
+		<!-- D0100 -->
 		<RearWheelDriveSignal channelIndex="0" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<PowerSense channelIndex="0" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<StartTestFromPLC channelIndex="0" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -342,6 +428,8 @@
 		<SteeringWheelTest channelIndex="0" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<DriverPass channelIndex="0" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<DriverFail channelIndex="0" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0101 -->
 		<ParkingBrakeTestSelect channelIndex="1" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<ParkingBrakeTestPass channelIndex="1" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<ParkingBrakeTestFailed channelIndex="1" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -358,6 +446,25 @@
 		<BoschAbsSelected channelIndex="1" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbaseInPosition channelIndex="1" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<Check24VoltPowerSupply channelIndex="1" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0102 -->
+		<FrontRetainingRollsRaisedFault channelIndex="2" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
+		<RearRetainingRollsRaisedFault channelIndex="2" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
+		<LeftStopPostRaisedFault channelIndex="2" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
+		<RightStopPostRaisedFault channelIndex="2" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
+		<FrontRetainingRollsLoweredFault channelIndex="2" bitIndex="4" logic="1" portDir="IN" boardIdx="0"/>
+		<RearRetainingRollsLoweredFault channelIndex="2" bitIndex="5" logic="1" portDir="IN" boardIdx="0"/>
+		<LeftStopPostLoweredFault channelIndex="2" bitIndex="6" logic="1" portDir="IN" boardIdx="0"/>
+		<RightStopPostLoweredFault channelIndex="2" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
+		<LubeSystemCycleSwitchFault channelIndex="2" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
+		<HydraulicOilLevelFault channelIndex="2" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
+		<HydraulicOilTemperatureFault channelIndex="2" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>
+		<SixtyGpmHydOutputFilterBlocked channelIndex="2" bitIndex="11" logic="1" portDir="IN" boardIdx="0"/>
+		<TwelveGpmHydOutputFilterBlocked channelIndex="2" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
+		<HydraulicIntakeFilterBlocked channelIndex="2" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
+		<WheelbaseMotorDisconnectOpen channelIndex="2" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
+		<HydraulicMotorDisconnectOpen channelIndex="2" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+		<!--
 		<LeftRear3rdRollUpLsFault channelIndex="2" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<RightRear3rdRollUpLsFault channelIndex="2" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<LeftStopPostRaisedFault channelIndex="2" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -374,6 +481,26 @@
 		<RightWbPosistionClampLockedFault channelIndex="2" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbaseMotorDisconnectOpen channelIndex="2" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbaseEncoderNotHome channelIndex="2" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+		-->
+
+		<!-- D0103 -->
+		<WheelbaseMotorDriveFault channelIndex="3" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
+		<HydraulicMotorOverloadOpen channelIndex="3" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
+		<WheelbaseMotorOverloadOpen channelIndex="3" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
+		<SolenoidCircuitBreakerOpenPanel channelIndex="3" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
+		<LubeSystemLevelLowFault channelIndex="3" bitIndex="4" logic="1" portDir="IN" boardIdx="0"/>
+		<LubeSystemPressureHighFault channelIndex="3" bitIndex="5" logic="1" portDir="IN" boardIdx="0"/>
+		<SystemAirPressureLowFault channelIndex="3" bitIndex="6" logic="1" portDir="IN" boardIdx="0"/>
+		<PLCSystemFailure channelIndex="3" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
+		<PLCBatteryLowFault channelIndex="3" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
+		<PLCRackFault channelIndex="3" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
+		<InterRetRollsRaisedFault channelIndex="3" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>
+		<InterRetRollsLoweredFault channelIndex="3" bitIndex="11" logic="1" portDir="IN" boardIdx="0"/>
+		<WBPositionValueOutOfLimit channelIndex="3" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
+		<FifteenVdcPowerSupplyFault channelIndex="3" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
+		<WheelbasePositioningFault channelIndex="3" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
+		<SolenoidFuseOpenPanel channelIndex="3" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+		<!--
 		<WheelbaseMotorShockRlyTrip channelIndex="3" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbaseBrakePowerFault channelIndex="3" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbaseMotorOverloadOpen channelIndex="3" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -390,6 +517,9 @@
 		<FifteenVdcPowerSupplyFault channelIndex="3" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbasePositioningFault channelIndex="3" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<SolenoidFuseOpenPanel channelIndex="3" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+		-->
+
+		<!-- D0104 -->
 		<WheelbasePosition01Selected channelIndex="4" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbasePosition02Selected channelIndex="4" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbasePosition03Selected channelIndex="4" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -406,6 +536,8 @@
 		<SelectWheelbase14Selected channelIndex="4" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<SelectWheelbase15Selected channelIndex="4" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<SelectWheelbase16Selected channelIndex="4" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0105 -->
 		<FrontEbsDriverOverloadOpenFault channelIndex="5" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<RearEbsDriveOverloadOpenFault channelIndex="5" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<FrontEbsDriveNotRaisedFault channelIndex="5" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -422,6 +554,8 @@
 		<PrimaryPhaseOrOpenBreaker channelIndex="5" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<ExhaustDoorRaisedFault channelIndex="5" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<ExhaustDoorLoweredFault channelIndex="5" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0106 -->
 		<FrontElevatorLoweredFault channelIndex="6" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<FrontElevatorRaisedFault channelIndex="6" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<RearElevatorLoweredFault channelIndex="6" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -438,6 +572,8 @@
 		<ParkingPawlCylFailToExtend channelIndex="6" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<ParkingPawlCylFailToRetract channelIndex="6" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<MonitorBoomNotRetractedFault channelIndex="6" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0107 -->
 		<ParkingPawlTestPassed channelIndex="7" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<ParkingPawlTestFailed channelIndex="7" bitIndex="1" logic="1" portDir="IN" boardIdx=""/>
 		<AbortSignal channelIndex="7" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -454,6 +590,8 @@
 		<SpeedDisplayScaling channelIndex="7" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<DaytimeRunningLightsSelected channelIndex="7" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<StandardEngSelected channelIndex="7" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0108 -->
 		<RollDriveMotorDisconnectOpen channelIndex="8" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<RollDriveMotorOverloadOpen channelIndex="8" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<HydraulicOilCircPumpDiscOpen channelIndex="8" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -470,6 +608,8 @@
 		<RightStoneGuardRetractedFault channelIndex="8" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<FrontHydraulicClutchEngagedFault channelIndex="8" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<RearHydraulicClutchEngagedFault channelIndex="8" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0109 -->
 		<SolenoidCircuitBreakerOpenJBox channelIndex="9" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<SolenoidFuseOpenJBox channelIndex="9" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<FrontEbsMotorDriveFault channelIndex="9" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -486,6 +626,8 @@
 		<StopPostSafetyPinsNotRemoved channelIndex="9" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<FrontHydraulicClutchDisengagedFault channelIndex="9" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<RearHydraulicClutchDisengagedFault channelIndex="9" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D010A -->
 		<AllFlyWheelsAtZerospeed channelIndex="10" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<RighthandDriveSelected channelIndex="10" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<FrontFlywheelsEngaged channelIndex="10" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -501,8 +643,12 @@
 		<RunflatTestSelected channelIndex="10" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
 		<Start40kphTest channelIndex="10" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<Start50kphTest channelIndex="10" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
-		<FreePassPB channelIndex="10" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
-		<VehicleTypeFromPLC channelIndex="11" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+		<FreePassPB channelIndex="10" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>		
+
+		<!-- D010B -->
+		<VehicleTypeFromPLC channelIndex="11" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>		
+
+		<!-- D010C -->
 		<FrontEbsMotorOvercurrent channelIndex="12" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<RearEbsMotorOvercurrent channelIndex="12" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<LubeLevelLowShutdownFault channelIndex="12" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -519,6 +665,8 @@
 		<RearInterRollClutchDisengageFault channelIndex="12" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<BrakeTestPushbutton channelIndex="12" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<ReflectedVmeHeartBeat channelIndex="12" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D010D -->
 		<LeftFrontRollMotorDisconnectOpen channelIndex="13" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<RightFrontRollMotorDisconnectOpen channelIndex="13" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<LeftRearRollMotorDisconnectOpen channelIndex="13" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -535,6 +683,8 @@
 		<MotorTaskHearbeatFault channelIndex="13" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<OperatorCrtDriveFault channelIndex="13" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<OperatorCrtPositioningFault channelIndex="13" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D010E -->
 		<PLC5Rack0Fault channelIndex="14" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<PLC5Rack1Fault channelIndex="14" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<PLC5Rack2Fault channelIndex="14" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -550,7 +700,25 @@
 		<RightFrontRollMotorOvercurrent channelIndex="14" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
 		<LeftRearRollMotorOvercurrent channelIndex="14" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<RightRearRollMotorOvercurrent channelIndex="14" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
-		<NissinboAbsSelected channelIndex="15" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D010F -->
+		<NissinboAbsSelected channelIndex="15" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
+		<FrontCradlePositionFault channelIndex="15" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
+		<RearCradlePositionFault channelIndex="15" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
+		<FrontCradleMotorOverload channelIndex="15" bitIndex="4" logic="1" portDir="IN" boardIdx="0"/>
+		<RearCradleMotorOverload channelIndex="15" bitIndex="5" logic="1" portDir="IN" boardIdx="0"/>
+		<FrontCradlePositionOutOfLimits channelIndex="15" bitIndex="6" logic="1" portDir="IN" boardIdx="0"/>
+		<RearCradlePositionOutOfLimits channelIndex="15" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
+		<FrontCradleAnalogOutOfLimits channelIndex="15" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
+		<RearCradleAnalogOutOfLimits channelIndex="15" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
+		<FrontCradleAtShortLimit channelIndex="15" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>
+		<RearCradleAtShortLimit channelIndex="15" bitIndex="11" logic="1" portDir="IN" boardIdx="0"/>
+		<FrontCradleAtLongLimit channelIndex="15" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
+		<RearCradleAtLongLimit channelIndex="15" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
+		<FrontCradleInPosition channelIndex="15" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
+		<RearCradleInPosition channelIndex="15" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0110 -->
 		<VehiclePushersExtendedFault channelIndex="16" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<VehiclePushersRetractedFault channelIndex="16" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<DripPanFullFault channelIndex="16" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -567,6 +735,8 @@
 		<DriverInterfaceExtendedFault channelIndex="16" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<DriverInterfaceRetractedFault channelIndex="16" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<ExhaustCarriageDriveFault channelIndex="16" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0111 -->
 		<PLCAuxilliaryOutputOneIsOn channelIndex="17" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<PLCAuxilliaryOutputTwoIsOn channelIndex="17" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<PLCSystemIsReady channelIndex="17" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -583,8 +753,14 @@
 		<TorqueOkFromTorqueController channelIndex="17" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
 		<LeftSideGuideContacted channelIndex="17" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
 		<RightSideGuideContacted channelIndex="17" bitIndex="15" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0112 -->
 		<CurrentWheelbasePosition channelIndex="18" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0113 -->
 		<CurrentOverheadBoomPosition channelIndex="19" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0114 -->
 		<PanelEStopPBDepressed channelIndex="20" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<RightFrontMachineEStopPBDepressed channelIndex="20" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<LeftRearMachineEStopPBDepressed channelIndex="20" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -600,6 +776,8 @@
 		<RollMotorPowerSupplyAlarmOn channelIndex="20" bitIndex="12" logic="1" portDir="IN" boardIdx="0"/>
 		<MonitorLowerFault channelIndex="20" bitIndex="9" logic="13" portDir="IN" boardIdx="0"/>
 		<MonitorRaiseFault channelIndex="20" bitIndex="10" logic="14" portDir="IN" boardIdx="0"/>
+
+		<!-- D0115 -->
 		<LeftFrontRollMotorContactorFault channelIndex="21" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<RightFrontRollMotorContactorFault channelIndex="21" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<LeftRearRollMotorContactorFault channelIndex="21" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
@@ -609,28 +787,47 @@
 		<VentilationSupplyMotorDisconnectFault channelIndex="21" bitIndex="6" logic="1" portDir="IN" boardIdx="0"/>
 		<VentilationExhaustMotorDisconnectFault channelIndex="21" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
 		<DynamicBrakeResistorOverTempFault channelIndex="21" bitIndex="14" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0116 -->
 		<WheelbaseAtShortEndOfTravelSwitch channelIndex="22" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbaseAtShortSoftEndOfTravel channelIndex="22" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbaseAtLongSoftEndOfTravel channelIndex="22" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
 		<WheelbaseAtLongEndOfTravelSwitch channelIndex="22" bitIndex="3" logic="1" portDir="IN" boardIdx="0"/>
 		<AllRollDrivesEnabled channelIndex="22" bitIndex="4" logic="1" portDir="IN" boardIdx="0"/>
+
 		<LossCompensationSwitchStatusFromPLC channelIndex="22" bitIndex="7" logic="1" portDir="IN" boardIdx="0"/>
 		<LossCompensationSwitchCycleStatusFromPLC channelIndex="22" bitIndex="8" logic="1" portDir="IN" boardIdx="0"/>
 		<MachineType3600 channelIndex="22" bitIndex="9" logic="1" portDir="IN" boardIdx="0"/>
 		<MachineType2400 channelIndex="22" bitIndex="10" logic="1" portDir="IN" boardIdx="0"/>
 		<PLCCableConnect channelIndex="22" bitIndex="11" logic="1" portDir="IN" boardIdx="0"/>
 		<PLCReadyToTest channelIndex="22" bitIndex="13" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0117 -->
 		<Encoder5VPowerSupplyVoltage channelIndex="25" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0118 -->
 		<BrakePedalForceRaw channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D0119 -->
 		<SmokeMeterValue channelIndex="29" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D011A -->
 		<FrontAxleTestSelected channelIndex="30" bitIndex="0" logic="1" portDir="IN" boardIdx="0"/>
 		<LiftAxleTestSelected channelIndex="30" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 		<SixCylinderEngine channelIndex="30" bitIndex="2" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D011B -->
 		<LeftBrakeForceTransducer channelIndex="31" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
+		<!-- D011C -->
 		<LFLoadCellValueRaw channelIndex="32" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+		<!-- D011D -->
 		<RFLoadCellValueRaw channelIndex="33" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+		<!-- D011E -->
 		<LRLoadCellValueRaw channelIndex="34" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+		<!-- D011F -->
 		<RRLoadCellValueRaw channelIndex="35" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
+
 		<OutputToPlcWord00 channelIndex="0" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<OutputToPlcWord01 channelIndex="1" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
 		<OutputToPlcWord02 channelIndex="2" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
@@ -742,24 +939,24 @@
 		<InterRollPressureHighWarning channelTag="InterRollPressureHighWarning" description="InterRollPressureHighWarning Diagnostic" value="1" level="Warning"/>
 		<InterRollPressureHighShutdown channelTag="InterRollPressureHighShutdown" description="InterRollPressureHighShutdown Diagnostic" value="1" level="Warning"/>
 		<Check24VoltPowerSupply channelTag="Check24VoltPowerSupply" description="Check24VoltPowerSupply Diagnostic" value="1" level="Warning"/>
-		<LeftRear3rdRollUpLsFault channelTag="LeftRear3rdRollUpLsFault" description="Left Rear 3rd Roll Up LS Fault" value="1" level="Warning"/>
-		<RightRear3rdRollUpLsFault channelTag="RightRear3rdRollUpLsFault" description="Right Rear 3rd Roll Up LS Fault" value="1" level="Warning"/>
+        <FrontRetainingRollsRaisedFault channelTag="FrontRetainingRollsRaisedFault" description="FrontRetainingRollsRaisedFault Diagnostic" value="1" level="Warning"/>
+        <RearRetainingRollsRaisedFault channelTag="RearRetainingRollsRaisedFault" description="RearRetainingRollsRaisedFault Diagnostic" value="1" level="Warning"/>
 		<LeftStopPostRaisedFault channelTag="LeftStopPostRaisedFault" description="LeftStopPostRaisedFault Diagnostic" value="1" level="Warning"/>
 		<RightStopPostRaisedFault channelTag="RightStopPostRaisedFault" description="RightStopPostRaisedFault Diagnostic" value="1" level="Warning"/>
-		<LeftRear3rdRollDownLsFault channelTag="LeftRear3rdRollDownLsFault" description="Left Rear 3rd Roll Down LS Fault" value="1" level="Warning"/>
-		<RightRear3rdRollDownLsFault channelTag="RightRear3rdRollDownLsFault" description="Right Rear 3rd Roll Down LS Fault" value="1" level="Warning"/>
+        <FrontRetainingRollsLoweredFault channelTag="FrontRetainingRollsLoweredFault" description="FrontRetainingRollsLoweredFault Diagnostic" value="1" level="Warning"/>
+        <RearRetainingRollsLoweredFault channelTag="RearRetainingRollsLoweredFault" description="RearRetainingRollsLoweredFault Diagnostic" value="1" level="Warning"/>
 		<LeftStopPostLoweredFault channelTag="LeftStopPostLoweredFault" description="LeftStopPostLoweredFault Diagnostic" value="1" level="Warning"/>
 		<RightStopPostLoweredFault channelTag="RightStopPostLoweredFault" description="RightStopPostLoweredFault Diagnostic" value="1" level="Warning"/>
-		<WheelbaseOverTravelExtendFault channelTag="WheelbaseOverTravelExtendFault" description="Wheelbase Over Travel Extend Fault" value="1" level="Warning"/>
-		<WheelbaseOverTravelRetractFault channelTag="WheelbaseOverTravelRetractFault" description="Wheelbase Over Travel Retract Fault" value="1" level="Warning"/>
-		<LeftWbPosistionClampUnlockedFault channelTag="LeftWbPosistionClampUnlockedFault" description="Left Wheelbase Position Clamp Unlock Fault" value="1" level="Warning"/>
-		<LeftWbPosistionClampLockedFault channelTag="LeftWbPosistionClampLockedFault" description="Left Wheelbase Position Clamp Lock Fault" value="1" level="Warning"/>
-		<RightWbPosistionClampUnlockedFault channelTag="RightWbPosistionClampUnlockedFault" description="Right Wheelbase Position Clamp Unlock Fault" value="1" level="Warning"/>
-		<RightWbPosistionClampLockedFault channelTag="RightWbPosistionClampLockedFault" description="Right Wheelbase Position Clamp Lock Fault" value="1" level="Warning"/>
+        <LubeSystemCycleSwitchFault channelTag="LubeSystemCycleSwitchFault" description="LubeSystemCycleSwitchFault Diagnostic" value="1" level="Warning"/>
+        <HydraulicOilLevelFault channelTag="HydraulicOilLevelFault" description="HydraulicOilLevelFault Diagnostic" value="1" level="Warning"/>
+        <HydraulicOilTemperatureFault channelTag="HydraulicOilTemperatureFault" description="HydraulicOilTemperatureFault Diagnostic" value="1" level="Warning"/>
+        <SixtyGpmHydOutputFilterBlocked channelTag="SixtyGpmHydOutputFilterBlocked" description="SixtyGpmHydOutputFilterBlocked Diagnostic" value="1" level="Warning"/>
+        <TwelveGpmHydOutputFilterBlocked channelTag="TwelveGpmHydOutputFilterBlocked" description="TwelveGpmHydOutputFilterBlocked Diagnostic" value="1" level="Warning"/>
+        <HydraulicIntakeFilterBlocked channelTag="HydraulicIntakeFilterBlocked" description="HydraulicIntakeFilterBlocked Diagnostic" value="1" level="Warning"/>
 		<WheelbaseMotorDisconnectOpen channelTag="WheelbaseMotorDisconnectOpen" description="WheelbaseMotorDisconnectOpen Diagnostic" value="1" level="Warning"/>
-		<WheelbaseEncoderNotHome channelTag="WheelbaseEncoderNotHome" description="Wheelbase Encoder Not Homed" value="1" level="Warning"/>
-		<WheelbaseMotorShockRlyTrip channelTag="WheelbaseMotorShockRlyTrip" description="Wheelbase Motor Shock Relay Trip" value="1" level="Warning"/>
-		<WheelbaseBrakePowerFault channelTag="WheelbaseBrakePowerFault" description="Wheelbase Brake Power Fault" value="1" level="Warning"/>
+        <HydraulicMotorDisconnectOpen channelTag="HydraulicMotorDisconnectOpen" description="HydraulicMotorDisconnectOpen Diagnostic" value="1" level="Warning"/>
+        <WheelbaseMotorDriveFault channelTag="WheelbaseMotorDriveFault" description="WheelbaseMotorDriveFault Diagnostic" value="1" level="Warning"/>
+        <HydraulicMotorOverloadOpen channelTag="HydraulicMotorOverloadOpen" description="HydraulicMotorOverloadOpen Diagnostic" value="1" level="Warning"/>
 		<WheelbaseMotorOverloadOpen channelTag="WheelbaseMotorOverloadOpen" description="WheelbaseMotorOverloadOpen Diagnostic" value="1" level="Warning"/>
 		<SolenoidCircuitBreakerOpenPanel channelTag="SolenoidCircuitBreakerOpenPanel" description="SolenoidCircuitBreakerOpenPanel Diagnostic" value="1" level="Warning"/>
 		<LubeSystemLevelLowFault channelTag="LubeSystemLevelLowFault" description="LubeSystemLevelLowFault Diagnostic" value="1" level="Warning"/>
@@ -899,8 +1096,8 @@
 		<PLCAuxilliaryOutputTwoIsOn channelTag="PLCAuxilliaryOutputTwoIsOn" description="PLCAuxilliaryOutputTwoIsOn Diagnostic" value="1" level="Warning"/>
 		<PLCSystemIsReady channelTag="PLCSystemIsReady" description="PLCSystemIsReady Diagnostic" value="0" level="Fatal"/>
 		<PanelEStopPBDepressed channelTag="PanelEStopPBDepressed" description="PanelEStopPBDepressed Diagnostic" value="1" level="Warning"/>
-		<RightFrontMachineEStopPBDepressed channelTag="RightFrontMachineEStopPBDepressed" description="Safety Plug Panel (Drawn)" value="1" level="Warning"/>
-		<LeftRearMachineEStopPBDepressed channelTag="LeftRearMachineEStopPBDepressed" description="Safety Plug Pit (Drawn)" value="1" level="Warning"/>
+        <RightFrontMachineEStopPBDepressed channelTag="RightFrontMachineEStopPBDepressed" description="RightFrontMachineEStopPBDepressed Diagnostic" value="1" level="Warning"/>
+        <LeftRearMachineEStopPBDepressed channelTag="LeftRearMachineEStopPBDepressed" description="LeftRearMachineEStopPBDepressed Diagnostic" value="1" level="Warning"/>
 		<RollMotorPowerSupplyFaulted channelTag="RollMotorPowerSupplyFaulted" description="RollMotorPowerSupplyFaulted Diagnostic" value="1" level="Warning"/>
 		<RollMotorPowerSupplyAlarmOn channelTag="RollMotorPowerSupplyAlarmOn" description="RollMotorPowerSupplyAlarmOn Diagnostic" value="1" level="Warning"/>
 		<MonitorLowerFault channelTag="MonitorLowerFault" description="MonitorLowerFault Diagnostic" value="1" level="Warning"/>

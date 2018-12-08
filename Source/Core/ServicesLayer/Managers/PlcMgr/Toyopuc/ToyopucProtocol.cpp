@@ -169,29 +169,27 @@ long ToyopucProtocol::BufferRead(short byteCnt, const string& plcIpAddr, const s
    uint8_t readBuf[512];
    memset(readBuf, 0, sizeof(readBuf));
    INT32   bytesRead = -1, status = 0;
-   unsigned char req[] = {'\x00','\x00','\x06','\x00','\x96','\x01','\x00','\x22','\x6e','\x00'};
-   //string request(req);
-   
+   string request;
    m_logger.Log(LOG_DEV_DATA, "Reading PLC Tag: %s, %d words", plcTag.c_str(), byteCnt);
    // 0x00 0x00 (Begin Read Message)
    // 0x06 0x00 (Send a 6 byte message)
    // 0x96 0x01 (Read PLC Command)
    // 0x00 0x22 (Read Location)
    // 0x
-   //request = "" + (char)NULc + (char)NULc + (char)0x06 + (char)0x00 + (char)tRPLC + (char)0x01 + (char)0x00 + (char)tINP + (char)byteCnt + (char)0x00;
+   request = (char)NULc + (char)NULc + (char)0x06 + (char)0x00 + (char)tRPLC + (char)0x01 + (char)0x00 + (char)tINP + (char)(byteCnt * 2) + (char)0x00;
    // INT32 retStat = m_toyoComm.ReceivePlcData(readBuf, byteCnt*2, bytesRead, plcIpAddr, plcTag);
    // clear incoming buffer
    m_toyoComm.ResetConnection();
    m_logger.Log(LOG_DEV_DATA, "Cleared incoming buffer Toyopuc");
-   status = m_toyoComm.Send(req,10);
-   m_logger.Log(LOG_DEV_DATA, "Request for data sent. Status: %d\n", status);
+   status = m_toyoComm.Send(request);
+   m_logger.Log(LOG_DEV_DATA, "String Request: %s :: Request for data sent. Status: %d\n", request, status);
    if (status != BEP_STATUS_SUCCESS)
    {
       m_logger.Log(LOG_DEV_DATA, "Error requesting plc data");
+      status = GetPlcData(readBuf, bytesRead);
    }
    if (status == BEP_STATUS_SUCCESS)
    {
-      status = GetPlcData(readBuf, bytesRead);
       ExtractData(readBuf, bytesRead, plcData, byteCnt);
       char prefix[1024];
       sprintf(prefix, "Bytes from PLC: ");
@@ -208,12 +206,11 @@ BEP_STATUS_TYPE ToyopucProtocol::GetPlcData(uint8_t *response, INT32& numBytes)
    m_logger.Log(LOG_FN_ENTRY, "Enter ToyopucProtocol::GetPlcData\n");
    // Temporarily setting to 3000 ms as max response time for prototype
    numBytesRead = m_toyoComm.ReadPort(plcResponse, 3000, m_toyoComm.GetTimeoutTime());
-   m_logger.Log("Got <0x%02X> from PLC [ACK:0x%02X, NAK:0x%02X] - %d total bytes\n", plcResponse[0], tACK, tNAK, numBytesRead);
+   m_logger.Log("Got <0x%02X> from PLC [ACK:0x%02X, NAK:0x%02X] - %d total bytes\n", plcResponse[0], ACK, NAK, numBytesRead);
    if (numBytesRead > 0)
    {
       numBytes = numBytesRead;
-      // Previously had if !(numBytesRead > 1)?? Not sure why it was there but figure I should note it anyway.
-      if ((tACK == plcResponse[0]))
+      if ((ACK == plcResponse[0]) && !((numBytesRead > 1)))
       {
          // Log the data we received from the workcell controller
          char buf[1024];
@@ -229,7 +226,7 @@ BEP_STATUS_TYPE ToyopucProtocol::GetPlcData(uint8_t *response, INT32& numBytes)
          //Log(LOG_DEV_DATA, "%s\n", logMessage.c_str());
          status = BEP_STATUS_SUCCESS;
       }
-      else if (tNAK == plcResponse[0])
+      else if (NAK == plcResponse[0])
       {   // Display a prompt letting everyone know a NAK was received
          string resp;
          m_logger.Log(LOG_DEV_DATA, "Recieved NAK from PLC\n");

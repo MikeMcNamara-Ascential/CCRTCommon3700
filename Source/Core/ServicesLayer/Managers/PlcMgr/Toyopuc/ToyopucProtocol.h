@@ -139,8 +139,8 @@
 #define     tWPLC   0x97      // Toyopuc Write Command
 #define     tINP    0x22      // Base address for D0100
 #define     tOUT    0x20      // Base address for D0000
-#define     tACK     0x80      // ACK COUGH
-#define     tNAK     0x90      // Don't know if this is true I just need a value to put here.  I'll figure it out eventually
+#define     ACK     0x80      // ACK COUGH
+#define     NAK     0x90      // Don't know if this is true I just need a value to put here.  I'll figure it out eventually
 
 
 /**

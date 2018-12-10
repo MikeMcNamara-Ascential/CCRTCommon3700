@@ -115,7 +115,7 @@
          <HoldReduction>0</HoldReduction>
          <HoldRecovery>0</HoldRecovery>
          <PostPumpRunDelay>0</PostPumpRunDelay>
-         <ABSInitialHoldDelay>2000</ABSInitialHoldDelay>
+         <ABSInitialHoldDelay>500</ABSInitialHoldDelay>
          <InterWheelGapDelay Units="ms">0</InterWheelGapDelay>       
          <LFRecoveryPulse>350</LFRecoveryPulse>
          <RFRecoveryPulse>350</RFRecoveryPulse>
@@ -586,8 +586,8 @@
          <TestStep20>DragTest</TestStep20>
          <TestStep30>AnalyzeDragTest</TestStep30>
 		 <TestStep35>BrakeSwitchOffTest</TestStep35>
-         <TestStep40>BrakeTest</TestStep40>
-		 <TestStep45>BrakeSwitchOnTest</TestStep45>
+         <TestStep40>BrakeSwitchOnTest</TestStep40>
+		 <TestStep45>BrakeTest</TestStep45>
          <TestStep50>BrakeToStop</TestStep50>
          <TestStep60>AnalyzeBrakeTest</TestStep60>
          <TestStep70>AnalyzeBalance</TestStep70>

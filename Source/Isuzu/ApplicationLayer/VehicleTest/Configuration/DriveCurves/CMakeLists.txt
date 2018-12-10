@@ -8,6 +8,8 @@ INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/DriveCurves FILES
 	My14Isuzu.DriveCurve.xml
         My17Isuzu.SingleAxleDriveCurve.xml
         My18Isuzu.DriveCurve.xml
+        My19Isuzu.DriveCurve.xml
+        My19_2_Isuzu.DriveCurve.xml
 	Isuzu.LossCompensationDriveCurve.xml
 	Isuzu.StaticBrakeDriveCurve.xml
 )

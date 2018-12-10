@@ -17,7 +17,7 @@
         <Emissions>
             <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>MY19_2_My18IsuzuEmissionsTc.xml</ConfigFile>
+            <ConfigFile>MY19_2_IsuzuEmissionsTc.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
             <Debug>Off</Debug>
         </Emissions>
@@ -45,7 +45,7 @@
         <Transmission>
             <ComponentName>AisinTransmissionTC.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-            <ConfigFile>MY19_2_My18KwpAisinTransmissionTC.xml</ConfigFile>
+            <ConfigFile>MY19_2_KwpAisinTransmissionTC.xml</ConfigFile>
             <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
             <Debug>Off</Debug>
         </Transmission>
@@ -386,7 +386,7 @@
         <TestPhase920 Description="Key off engine off start vehicle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective05 Description="Key off engine off start vehicle" Result="" Timeout="" Component="Emissions">
-                    <KeyOffEngineOffKeyOn/>
+                    <KeyOffEngineOffKeyOnNoStart/>
                 </Objective05>
             </ForegroundObjectives>
         </TestPhase920>

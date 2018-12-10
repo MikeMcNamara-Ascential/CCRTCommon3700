@@ -378,11 +378,16 @@
             <!--TestStep15>ClearFaults</TestStep15-->
         </EngineRunning>
         <KeyOffEngineOffKeyOn>
-            <TestStep00>KeyOffEngineOffKeyOn</TestStep00>
+            <TestStep00>KeyOffEngineOffKeyOnNoStart</TestStep00>
             <TestStep05>WaitForEngineRunning</TestStep05>
             <TestStep10>EnterDiagnosticMode</TestStep10>
             <TestStep15>StartModuleKeepAlive</TestStep15>
         </KeyOffEngineOffKeyOn>
+		<KeyOffEngineOffKeyOnNoStart>
+            <TestStep00>KeyOffEngineOffKeyOnNoStart</TestStep00>
+            <TestStep10>EnterDiagnosticMode</TestStep10>
+            <TestStep15>StartModuleKeepAlive</TestStep15>
+        </KeyOffEngineOffKeyOnNoStart>
         <EngineWarmUp>
             <TestStep10>CheckVIN</TestStep10>
             <TestStep15>CheckPartNumbers</TestStep15>
@@ -482,6 +487,7 @@
         <EnterDiagnosticMode Result="" Timeout="500" Description="Begin a diagnostic session with the module" Messages="EnterDiagnosticMode" ScanDelay="250" AlwaysPerform="False" AbortIfFailed="True"/>
         <FinishUp Result="" Timeout="500" Description="Finish testing and determine overall result" AlwaysPerform="True" AbortIfFailed="False"/>
         <KeyOffEngineOffKeyOn Result="" Timeout="30000" Description="Key Cycle" Prompt2="ShiftToPark" AlwaysPerform="True" AbortIfFailed="False"/>
+		<KeyOffEngineOffKeyOnNoStart Result="" Timeout="30000" Description="Key Cycle" Prompt2="ShiftToPark" AlwaysPerform="True" AbortIfFailed="False"/>
         <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" AlwaysPerform="False" AbortIfFailed="False"/>
         <ReadFaultCount Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>
         <ReadFaults Result="Not Tested" Timeout="500" Description="Read DTC data from the ECM" AlwaysPerform="True" AbortIfFailed="False"/>

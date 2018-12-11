@@ -266,6 +266,7 @@ private:
 	void LogPlcString( uint32_t logMask, const char *prefix, const uint8_t *plcData, const uint32_t dataLen);
 
         BEP_STATUS_TYPE GetPlcData(uint8_t* response, INT32& numBytes);
+        BEP_STATUS_TYPE SendPlcData(uint8_t *plcData, int numBytes);
 
         const XmlNode* GetPlcCommSetup(void);
 

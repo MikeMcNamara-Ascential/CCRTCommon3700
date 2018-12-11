@@ -29,7 +29,7 @@
 							<Communication>
 								<Name>/dev/LogicalPorts/PlcToyopuc</Name>
 								<BufferSize>2000</BufferSize>
-								<Timeout>6000</Timeout>
+								<Timeout>50</Timeout>
 								<Debug>Off</Debug>
 							</Communication>
 							<Logging>
@@ -42,11 +42,11 @@
 							</Logging>
 							<MaxAttempts>2</MaxAttempts>
 							<MaxResponseTime>60000</MaxResponseTime>
-							<MessageDelay>5000</MessageDelay>
+							<MessageDelay>500</MessageDelay>
 						</Setup>
 					</PLCCommunication>
 				</Setup>
-				<ScanTime>200</ScanTime>
+				<ScanTime>50</ScanTime>
 				<Inputs>
 					<Address>D0100</Address>
 				</Inputs>

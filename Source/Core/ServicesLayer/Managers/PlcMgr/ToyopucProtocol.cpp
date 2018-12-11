@@ -245,7 +245,7 @@ BEP_STATUS_TYPE ToyopucProtocol::GetPlcData(uint8_t *response, INT32& numBytes)
          status = BEP_STATUS_NA;
       }
       m_logger.Log(LOG_DEV_DATA, "Preparing response for processing..");
-      if (numBytesRead > 1) for (UINT16 index = 1; index < numBytesRead; index++) response += (char)plcResponse[index];
+      if (numBytesRead > 1) for (UINT16 index = 1; index < numBytesRead; index++) response[index-1] = (char)plcResponse[index];
       else
       {
          m_logger.Log(LOG_DEV_DATA, "No data to process beyond fist byte... Just returning ACK/NAK");
@@ -337,9 +337,9 @@ int ToyopucProtocol::ExtractData(uint8_t *rawData, int byteCount, uint32_t *plcD
    {
       //if(pp[4] != abDINT) // make sure we are receiving 16 bit integers back
       //{
-      cnt = stx_ptr;
+      cnt = 4;
       // changed from 0 to start at actual PLC data and not include header info
-      nn = 5;
+      nn = 0;
       while ((cnt < byteCount) && (nn < dataCount)) // stop when all bytes are done
       {
          in_buf = (pp[cnt] | (pp[cnt + 1] << 8)); // Combine bytes into word

@@ -142,7 +142,12 @@ long ToyopucProtocol::BufferWrite(short byteCnt, const uint32_t *plcOut, const s
    // Break words down into individual bytes
    while (numWords--)
    {
-      uint16_t    plcWord = plcOut[cnt];
+       uint16_t    plcWord;
+       if (((plcOut[cnt] & 0xFFFF0000) >> 16) > 0)
+           plcWord = ((plcOut[cnt] & 0xFFFF0000) >> 16);
+       else
+           plcWord = plcOut[cnt];
+       
       // low byte to buffer
       plcData[nn++] = (plcWord & 0x00FF);
       // high byte to buffer

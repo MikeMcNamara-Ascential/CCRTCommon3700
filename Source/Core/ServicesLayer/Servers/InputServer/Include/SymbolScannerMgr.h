@@ -462,5 +462,13 @@ private:
      * Length of the secondary data.
      */
     INT32 m_secondaryDataLength;
+    /**
+     * Position of the index in Toyota barcode scans
+     */
+    INT32 m_vinStartIndex;
+    /**
+     * Tag to write Toyota barcode info to
+     */
+    string m_barcodeInfoTag;
 };
 #endif  // SymbolScannerMgr_h

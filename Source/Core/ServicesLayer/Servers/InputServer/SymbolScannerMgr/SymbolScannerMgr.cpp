@@ -15,14 +15,14 @@
 //
 // LOG:
 //    $Log: /Ccrt/Source/Core/ServicesLayer/Servers/InputServer/SymbolScannerMgr/SymbolScannerMgr.cpp $
-// 
+//
 // 4     2/22/07 11:10a Rwiersem
 // Changes for the 07022201 Core Release:
-// 
+//
 // - Added MaxVinLength configuration item.
 // - Added processing for MaxVinLength in EvaluateData().
 // - Removed #if 0 blocks.
-// 
+//
 // 3     6/07/06 5:36p Cward
 // Changes to allow the Input Server, CLV295ScannerMgr,
 // MapleKeypadManager, PendantManager, and SymbolScannerMgr configurations
@@ -130,539 +130,587 @@
 #include "SymbolScannerMgr.h"
 
 //-------------------------------------------------------------------------------------------------
-SymbolScannerMgr::SymbolScannerMgr() : InputDeviceBase(),m_scannerComm(NULL),
-m_badDataPosition(0), m_badCharacterReplacement(0x31),m_badDataIndicator(0x00),
-m_lookForTerminator(true), m_correctBadScannerData(false), m_twoDimensionBarcode(false),
-m_vinLength(17),m_driverNumberLength(7)
+SymbolScannerMgr::SymbolScannerMgr() : InputDeviceBase(), m_scannerComm(NULL),
+   m_badDataPosition(0), m_badCharacterReplacement(0x31), m_badDataIndicator(0x00),
+   m_lookForTerminator(true), m_correctBadScannerData(false), m_twoDimensionBarcode(false),
+   m_vinLength(17), m_driverNumberLength(7)
 {   // Nothing to do here
 }
 
 //-------------------------------------------------------------------------------------------------
 SymbolScannerMgr::~SymbolScannerMgr()
 {
-    // remove the communication obj memory
-    if (NULL != m_scannerComm)
-    {
-        delete m_scannerComm;
-        m_scannerComm = NULL;
-    }
-    // Clear the barcode items
-    m_twoDimensionBarcodeItems.clear(true);
+   // remove the communication obj memory
+   if (NULL != m_scannerComm)
+   {
+      delete m_scannerComm;
+      m_scannerComm = NULL;
+   }
+   // Clear the barcode items
+   m_twoDimensionBarcodeItems.clear(true);
 }
 
 //-------------------------------------------------------------------------------------------------
 void SymbolScannerMgr::Initialize(const XmlNode *configNode)
 {
-    // Initialize the base component
-    InputDeviceBase::Initialize(configNode);
+   // Initialize the base component
+   InputDeviceBase::Initialize(configNode);
 
-    // Initialize the scanner comm object
-    Log(LOG_FN_ENTRY, "SymbolScannerMgr::Initialize()\n");
+   // Initialize the scanner comm object
+   Log(LOG_FN_ENTRY, "SymbolScannerMgr::Initialize()\n");
 
-    // load the additional configuration items needed by the SymbolScannerMgr
-    LoadAdditionalConfigurationItems(configNode);
+   // load the additional configuration items needed by the SymbolScannerMgr
+   LoadAdditionalConfigurationItems(configNode);
 
-    Log(LOG_FN_ENTRY, "SymbolScannerMgr::Initialize() done\n");
+   Log(LOG_FN_ENTRY, "SymbolScannerMgr::Initialize() done\n");
 }
 
 //-------------------------------------------------------------------------------------------------
 void SymbolScannerMgr::LoadAdditionalConfigurationItems(const XmlNode *configNode)
 {
-    const XmlNode *document = configNode->getChild("Setup");
+   const XmlNode *document = configNode->getChild("Setup");
 
-    if (NULL == m_scannerComm)
-    {
-        m_scannerComm = new SerialChannel();
-        m_scannerComm->Initialize(document->getChild("ScannerCommunication"));
-    }
+   if (NULL == m_scannerComm)
+   {
+      m_scannerComm = new SerialChannel();
+      m_scannerComm->Initialize(document->getChild("ScannerCommunication"));
+   }
 
-    // Get the size of the scanner buffer
-    try
-    {
-        const XmlNode *scannerCommSetup = document->getChild("ScannerCommunication")->getChild("Setup");
-        SetScannerBufferSize(scannerCommSetup->getChild("Communication")->getChild("BufferSize")->getValue());
-    }
-    catch (...)
-    {
-        SetScannerBufferSize(128);
-    }
-    // Get the data delay time and the maximum retries
-    try
-    {
-        SetDataDelay(document->getChild("DataDelay")->getValue());
-        SetMaximumRetries(document->getChild("MaximumRetries")->getValue());
-    }
-    catch (...)
-    {
-        SetDataDelay(10);
-        SetMaximumRetries(3);
-    }
-    // Get the VIN Length from the configuration file
-    try
-    {
-        m_vinLength = BposReadInt(document->getChild("VinLength")->getValue().c_str());
-    }
-    catch (...)
-    {
-        Log(LOG_ERRORS,"ERROR SymbolScannerMgr::Initialize() Unable to find VinLength, defaulting to 17\n");
-        m_vinLength = 17;
-    }
-    // Get the max VIN Length from the configuration file
-    try
-    {
-        m_maxVinLength = BposReadInt(document->getChild("MaxVinLength")->getValue().c_str());
-    }
-    catch (...)
-    {
-        Log(LOG_ERRORS,"ERROR SymbolScannerMgr::Initialize() Unable to find MaxVinLength, defaulting to 17\n");
-        m_maxVinLength = 17;
-    }
-    // Get the Driver Number length from the configuration file
-    try
-    {
-        m_driverNumberLength = BposReadInt(document->getChild("DriverNumberLength")->getValue().c_str());
-    }
-    catch (...)
-    {
-        Log(LOG_ERRORS,"ERROR SymbolScannerMgr::Initialize() Unable to find DriverNumberLength, defaulting to 7\n");
-        m_driverNumberLength = 7;
-    }
-    // Determine if we need to look for a data terminator
-    try
-    {
-        StoreLookForDataTerminator(document->getChild("LookForCarriageReturn")->getValue() == "Yes");
-    }
-    catch (...)
-    {
-        StoreLookForDataTerminator(true);
-    }
+   // Get the size of the scanner buffer
+   try
+   {
+      const XmlNode *scannerCommSetup = document->getChild("ScannerCommunication")->getChild("Setup");
+      SetScannerBufferSize(scannerCommSetup->getChild("Communication")->getChild("BufferSize")->getValue());
+   }
+   catch (...)
+   {
+      SetScannerBufferSize(128);
+   }
+   // Get the data delay time and the maximum retries
+   try
+   {
+      SetDataDelay(document->getChild("DataDelay")->getValue());
+      SetMaximumRetries(document->getChild("MaximumRetries")->getValue());
+   }
+   catch (...)
+   {
+      SetDataDelay(10);
+      SetMaximumRetries(3);
+   }
+   // Get the VIN Length from the configuration file
+   try
+   {
+      m_vinLength = BposReadInt(document->getChild("VinLength")->getValue().c_str());
+   }
+   catch (...)
+   {
+      Log(LOG_ERRORS, "ERROR SymbolScannerMgr::Initialize() Unable to find VinLength, defaulting to 17\n");
+      m_vinLength = 17;
+   }
+   // Get the max VIN Length from the configuration file
+   try
+   {
+      m_maxVinLength = BposReadInt(document->getChild("MaxVinLength")->getValue().c_str());
+   }
+   catch (...)
+   {
+      Log(LOG_ERRORS, "ERROR SymbolScannerMgr::Initialize() Unable to find MaxVinLength, defaulting to 17\n");
+      m_maxVinLength = 17;
+   }
+   // Get the Driver Number length from the configuration file
+   try
+   {
+      m_driverNumberLength = BposReadInt(document->getChild("DriverNumberLength")->getValue().c_str());
+   }
+   catch (...)
+   {
+      Log(LOG_ERRORS, "ERROR SymbolScannerMgr::Initialize() Unable to find DriverNumberLength, defaulting to 7\n");
+      m_driverNumberLength = 7;
+   }
+   // Determine if we need to look for a data terminator
+   try
+   {
+      StoreLookForDataTerminator(document->getChild("LookForCarriageReturn")->getValue() == "Yes");
+   }
+   catch (...)
+   {
+      StoreLookForDataTerminator(true);
+   }
 
-    try
-    {
-        StoreLookForDataTerminator(document->getChild("LookForDataTerminator")->getValue() == "Yes");
-    }
-    catch (...)
-    {
-    }
+   try
+   {
+      StoreLookForDataTerminator(document->getChild("LookForDataTerminator")->getValue() == "Yes");
+   }
+   catch (...)
+   {
+   }
 
-    // Get the actual termination charater
-    try
-    {
-       m_terminationCharacter =
-          atoh(document->getChild("DataTerminationCharacter")->getValue().c_str());
-    }
-    catch (...)
-    {
-       try
-       {
-          m_terminationCharacter =
-             BposReadInt(document->getChild("DataTerminateCharacter")->getValue().c_str());
-       }
-       catch (...)
-       {
-        m_terminationCharacter = CR;
-    }
-    }
+   // Get the actual termination charater
+   try
+   {
+      m_terminationCharacter =
+         atoh(document->getChild("DataTerminationCharacter")->getValue().c_str());
+   }
+   catch (...)
+   {
+      try
+      {
+         m_terminationCharacter =
+            BposReadInt(document->getChild("DataTerminateCharacter")->getValue().c_str());
+      }
+      catch (...)
+      {
+         m_terminationCharacter = CR;
+      }
+   }
 
-    // Determine if bad scanner data should be corrected
-    try
-    {
-        CorrectBadScannerData(document->getChild("CorrectBadScannerData")->getValue() == "Yes");
-        if (CorrectBadScannerData())
-        {   // Store the bad dat replacement info
-            StoreBadDataIndex(BposReadInt(document->getChild("BadDataIndex")->getValue().c_str()));
-            BadDataIndicator(atoh(document->getChild("BadDataIndicator")->getValue().c_str()));
-            BadDataReplacement(atoh(document->getChild("BadDataReplacementValue")->getValue().c_str()));
-        }
-    }
-    catch (...)
-    {
-        CorrectBadScannerData(false);
-        StoreBadDataIndex(0);
-        BadDataIndicator(0);
-        BadDataReplacement(0);
-    }
-    // Load the secondary data items if they exist
-    bool useSecondaryDataItems = false;
-    string secondaryDataType("");
-    INT32 secondaryDataLength = 999;
-    try
-    {
-        secondaryDataType = document->getChild("SecondaryDataTag")->getValue();
-        useSecondaryDataItems = true;
-    }
-    catch(XmlException &excpt)
-    {
-        Log(LOG_ERRORS, "Secondary data type not defined, not configuring for secondary data support: %s", excpt.GetReason());
-        useSecondaryDataItems = false;
-    }
-    if(useSecondaryDataItems)
-    {
-        try
-        {
-            secondaryDataLength = BposReadInt(document->getChild("SecondaryDataLength")->getValue().c_str());
-        }
-        catch(XmlException &excpt)
-        {
-            Log(LOG_ERRORS, "Secondary data length not defined, not configuring for secondary data support: %s", excpt.GetReason());
-            useSecondaryDataItems = false;
-        }
-    }
-    // Store the secondary data items
-    SecondaryDataSupported(&useSecondaryDataItems);
-    SecondaryDataType(&secondaryDataType);
-    SecondaryDataLength(&secondaryDataLength);
-	// Check if a 2D barcode is being used
-	bool twoDimensionBarcode = false;
-	try
-	{
-		twoDimensionBarcode = atob(document->getChild("TwoDimensionBarcode")->getValue().c_str());
-	}
-	catch(XmlException &excpt)
-	{
-		Log(LOG_ERRORS, "Not configuring 2D barcode - %s", excpt.GetReason());
-		twoDimensionBarcode = false;
-	}
-	UseTwoDimensionBarcode(&twoDimensionBarcode);
-	if(UseTwoDimensionBarcode())
-	{
-		m_twoDimensionBarcodeItems.DeepCopy(document->getChild("TwoDimensionBarcodeItems")->getChildren());
-	}
+   // Determine if bad scanner data should be corrected
+   try
+   {
+      CorrectBadScannerData(document->getChild("CorrectBadScannerData")->getValue() == "Yes");
+      if (CorrectBadScannerData())
+      {   // Store the bad dat replacement info
+         StoreBadDataIndex(BposReadInt(document->getChild("BadDataIndex")->getValue().c_str()));
+         BadDataIndicator(atoh(document->getChild("BadDataIndicator")->getValue().c_str()));
+         BadDataReplacement(atoh(document->getChild("BadDataReplacementValue")->getValue().c_str()));
+      }
+   }
+   catch (...)
+   {
+      CorrectBadScannerData(false);
+      StoreBadDataIndex(0);
+      BadDataIndicator(0);
+      BadDataReplacement(0);
+   }
+   // Load the secondary data items if they exist
+   bool useSecondaryDataItems = false;
+   string secondaryDataType("");
+   INT32 secondaryDataLength = 999;
+   try
+   {
+      secondaryDataType = document->getChild("SecondaryDataTag")->getValue();
+      useSecondaryDataItems = true;
+   }
+   catch (XmlException& excpt)
+   {
+      Log(LOG_ERRORS, "Secondary data type not defined, not configuring for secondary data support: %s", excpt.GetReason());
+      useSecondaryDataItems = false;
+   }
+   if (useSecondaryDataItems)
+   {
+      try
+      {
+         secondaryDataLength = BposReadInt(document->getChild("SecondaryDataLength")->getValue().c_str());
+      }
+      catch (XmlException& excpt)
+      {
+         Log(LOG_ERRORS, "Secondary data length not defined, not configuring for secondary data support: %s", excpt.GetReason());
+         useSecondaryDataItems = false;
+      }
+   }
+   // Store the secondary data items
+   SecondaryDataSupported(&useSecondaryDataItems);
+   SecondaryDataType(&secondaryDataType);
+   SecondaryDataLength(&secondaryDataLength);
+   // Check if a 2D barcode is being used
+   bool twoDimensionBarcode = false;
+   try
+   {
+      twoDimensionBarcode = atob(document->getChild("TwoDimensionBarcode")->getValue().c_str());
+   }
+   catch (XmlException& excpt)
+   {
+      Log(LOG_ERRORS, "Not configuring 2D barcode - %s", excpt.GetReason());
+      twoDimensionBarcode = false;
+   }
+   UseTwoDimensionBarcode(&twoDimensionBarcode);
+   if (UseTwoDimensionBarcode())
+   {
+      m_twoDimensionBarcodeItems.DeepCopy(document->getChild("TwoDimensionBarcodeItems")->getChildren());
+   }
+
+   try
+   {
+      m_vinStartIndex = BposReadInt(document->getChild("VinStartIndex")->getValue().c_str());
+   }
+   catch (XmlException& excpt)
+   {
+      Log(LOG_ERRORS, "Vin Start Index not defined setting to default 2: %s", excpt.GetReason());
+      m_vinStartIndex = 2;
+   }
+
+   try
+   {
+      m_barcodeInfoTag = document->getChild("BarcodeInfoTag")->getValue().c_str();
+   }
+   catch (XmlException& excpt)
+   {
+      Log(LOG_ERRORS, "Barcode info tag not defined defaulting to BarcodeInfo: %s", excpt.GetReason());
+      m_barcodeInfoTag = "BarcodeInfo";
+   }
 }
 
 //-------------------------------------------------------------------------------------------------
 const std::string SymbolScannerMgr::Register(void)
 {
-    // create a named data broker interface
-    if(m_dataBroker != NULL)
-    {
-        delete m_dataBroker;
-        m_dataBroker = NULL;
-    }
-    m_dataBroker = new INamedDataBroker;
+   // create a named data broker interface
+   if (m_dataBroker != NULL)
+   {
+      delete m_dataBroker;
+      m_dataBroker = NULL;
+   }
+   m_dataBroker = new INamedDataBroker;
 
-    return( InputDeviceBase::Register());
+   return (InputDeviceBase::Register());
 }
 
 void SymbolScannerMgr::Run(volatile bool *terminateFlag /* =NULL */)
 {   // Keep looping until the Server tells us to die
-    SerialString_t scanData;
-    INT32 byteCount = 0;
+   SerialString_t scanData;
+   INT32 byteCount = 0;
 
-    Log(LOG_FN_ENTRY, "SymbolScannerMgr::Execute() begin\n");
-    // Clear the scanner buffer data
-    scanData.erase();
-    // Loop until the server is terminated
-    while (GetStatus() != BEP_TERMINATE)
-    {   // Get the data out of the buffer
-        Log(LOG_DEV_DATA,"Waiting for scan data\n");
-        // wait for data up to 3 seconds, just to be able to terminate
-        byteCount = m_scannerComm->ReadPort(scanData, GetDataDelay(), GetDataDelay()/2);
-        Log(LOG_DEV_DATA, "Received %d bytes from scanner\n", byteCount);
-        // Check to see if any data was read out
-        if (byteCount > 0)
-        {   // Evaluate the data we received
-            EvaluateData(scanData, byteCount);
-            // Clear the scanner buffer data
-            scanData.erase();
-        }
-    }
+   Log(LOG_FN_ENTRY, "SymbolScannerMgr::Execute() begin\n");
+   // Clear the scanner buffer data
+   scanData.erase();
+   // Loop until the server is terminated
+   while (GetStatus() != BEP_TERMINATE)
+   {   // Get the data out of the buffer
+      Log(LOG_DEV_DATA, "Waiting for scan data\n");
+      // wait for data up to 3 seconds, just to be able to terminate
+      byteCount = m_scannerComm->ReadPort(scanData, GetDataDelay(), GetDataDelay() / 2);
+      Log(LOG_DEV_DATA, "Received %d bytes from scanner\n", byteCount);
+      // Check to see if any data was read out
+      if (byteCount > 0)
+      {   // Evaluate the data we received
+         EvaluateData(scanData, byteCount);
+         // Clear the scanner buffer data
+         scanData.erase();
+      }
+   }
 }
 
-void SymbolScannerMgr::EvaluateData(SerialString_t &data, const INT32 &byteCount)
+void SymbolScannerMgr::EvaluateData(SerialString_t& data, const INT32& byteCount)
 {
-    bool processData = true; // Process the data that is extracted from the buffer
-    bool foundDataTerminator = false;   // CR character found in data stream
-    INT32 index = 0;
-    INT32 dataLength = 0;    // Length of data we are looking for
-    std::string scanValue;   // Data value to write to the InputServer
-    std::string dataType(BEP_UNAVAILABLE_RESPONSE);    // Type of data that was scanned (VIN, DriverNumber)
-    std::string displayType(BEP_UNAVAILABLE_RESPONSE); // Which display to write the data value to
+   bool processData = true; // Process the data that is extracted from the buffer
+   bool foundDataTerminator = false;   // CR character found in data stream
+   bool processToyotaData = false;     // Need to process additional data in scan for toyota vehicles specifically
+   INT32 index = 0;
+   INT32 dataLength = 0;    // Length of data we are looking for
+   std::string scanValue;   // Data value to write to the InputServer
+   std::string dataType(BEP_UNAVAILABLE_RESPONSE);    // Type of data that was scanned (VIN, DriverNumber)
+   std::string displayType(BEP_UNAVAILABLE_RESPONSE); // Which display to write the data value to
 
-    Log(LOG_DEV_DATA, "SymbolScannerMgr::EvaluateData() -- byteCount:%d\nBuffer:\n", byteCount);
-    for (INT32 ii = 0; ii < byteCount; ii++)
-        Log(LOG_DEV_DATA, "\tii:%d -- %c <$%02X>\n", ii, isprint(data[ii]) ? data[ii] : '?', data[ii]);
-    // Determine if we should look for a data terminator
-    if (LookForTerminationCharacter())
-    {   // Look for a carriage return so we know where the data ends
-        while (!foundDataTerminator && (index < byteCount))
-        {   // Check if the current character is a termination character
-            foundDataTerminator = (data[index] == m_terminationCharacter);
-            // Increment the index if the data termination character was not found
-            if (!foundDataTerminator) index++;
-        }
-    }
-    else
-    {   // Skip the data terminator search and just use last byte as index
-        foundDataTerminator = true;
-        index = byteCount ;
-    }
-    // Only process the data if we found the data termination character
-    Log(LOG_DEV_DATA, "foundDataTerminator: %d, index: %d, Byte count: %d, vinLength: %d, driverNumberLength: %d\n",
-        foundDataTerminator, index, byteCount, m_vinLength, m_driverNumberLength);
+   Log(LOG_DEV_DATA, "SymbolScannerMgr::EvaluateData() -- byteCount:%d\nBuffer:\n", byteCount);
+   for (INT32 ii = 0; ii < byteCount; ii++) Log(LOG_DEV_DATA, "\tii:%d -- %c <$%02X>\n", ii, isprint(data[ii]) ? data[ii] : '?', data[ii]);
+   // Determine if we should look for a data terminator
+   if (LookForTerminationCharacter())
+   {   // Look for a carriage return so we know where the data ends
+      while (!foundDataTerminator && (index < byteCount))
+      {   // Check if the current character is a termination character
+         foundDataTerminator = (data[index] == m_terminationCharacter);
+         // Increment the index if the data termination character was not found
+         if (!foundDataTerminator) index++;
+      }
+   }
+   else
+   {   // Skip the data terminator search and just use last byte as index
+      foundDataTerminator = true;
+      index = byteCount;
+   }
+   // Only process the data if we found the data termination character
+   Log(LOG_DEV_DATA, "foundDataTerminator: %d, index: %d, Byte count: %d, vinLength: %d, driverNumberLength: %d\n",
+       foundDataTerminator, index, byteCount, m_vinLength, m_driverNumberLength);
 
-    if(UseTwoDimensionBarcode())
-    {
-        ProcessTwoDimensionalBarcode(data, byteCount);
-    }
-    else if(foundDataTerminator || (byteCount >= m_vinLength) || (byteCount == m_driverNumberLength) || (byteCount == SecondaryDataLength()))
-    {   // Determine what type of data we received
-        if(SecondaryDataSupported() && (SecondaryDataLength() > m_vinLength) && (index >= SecondaryDataLength()))
-        {   // Check for secondary data before VIN
-            dataLength = SecondaryDataLength();
-            dataType = SecondaryDataType();
-            Log(LOG_DEV_DATA, "Received %s scan -- Byte count: %d", dataType.c_str(), dataLength);
-        }
-        else if (index >= m_vinLength)
-        {
-            // Set the tag to use and the length of the data we are looking for
-            dataLength = (index >= m_maxVinLength) ? m_maxVinLength : m_vinLength;
-            dataType = NEXT_VIN_DATA_TAG;
-            displayType = VINDISPLAY_DATA_TAG;
-            Log(LOG_DEV_DATA, "Received VIN scan -- Byte count: %d\n", byteCount);
-        }
-        else if(SecondaryDataSupported() && (SecondaryDataLength() < m_vinLength) && (index >= SecondaryDataLength()))
-        {   // Check for VIN data before checking for secondary data
-            dataLength = SecondaryDataLength();
-            dataType = SecondaryDataType();
-            Log(LOG_DEV_DATA, "Received %s scan -- Byte count: %d", dataType.c_str(), dataLength);
-        }
-        else if (index >= m_driverNumberLength)
-        {   // Set the tag to use and the length of the data we are looking for
-            dataLength = m_driverNumberLength;
-            dataType = DRIVER_NUMBER_DATA_TAG;
-            displayType = DRIVER_NUMBER_DISPLAY_DATA_TAG;
-            Log(LOG_DEV_DATA, "Received driver scan -- Byte count: %d\n", byteCount);
-        }
-        else
-        {   // We received an invalid scan
-            processData = false;
-            Log(LOG_DEV_DATA, "Received Invalid scan -- Byte count: %d, data:\n", byteCount);
-            for (INT32 ii = 0; ii < byteCount; ii++)
-                Log(LOG_DEV_DATA, "\tByte:%d -- %c <$%02X>\n", ii, isprint(data[ii]) ? data[ii] : '?', data[ii]);
-        }
-        // Determine if we should process the data
-        if (processData)
-        {   // Check if any "bad" scanner data should be corrected
-            if (CorrectBadScannerData() && (data[BadDataIndex()] == BadDataIndicator()))
-            {   // Correct the bad data
-                Log(LOG_ERRORS, "Bad scanner data -- Index: %d, Indicator: %02X, {Scanned value: %02X}",
-                    BadDataIndex(), BadDataIndicator(), data[BadDataIndex()]);
-                data[BadDataIndex()] = BadDataReplacement();
-                Log(LOG_ERRORS, "Bad scanner data replaced with %02X -- (New buffer value: %02X)",
-                    BadDataReplacement(), data[BadDataIndex()]);
-            }
-            // Get the valid scan data from our local data buffer
-            scanValue = std::string((char *)&data[index-dataLength], dataLength);
-            Log(LOG_DEV_DATA, "Symbol Scanner: %s(%s)\n", dataType.c_str(), scanValue.c_str());
-            // Make a couple of nodes to send data around
-            XmlElement displayNode(displayType, scanValue);
-            XmlElement dataNode(dataType, scanValue);
-            // Write the data to the InputServer
-            string response;
-            // Only send the display node if a display tag was specified
-            if(displayType != BEP_UNAVAILABLE_RESPONSE)
-            {
-            (void)m_dataBroker->Write(&displayNode,response,true);
-            }
-            (void)m_dataBroker->Write(&dataNode,response,true);
-        }
-    }
-    else
-    {   // Incomplete scan received
-        Log(LOG_DEV_DATA, "Received Incomplete scan -- Byte count: %d, data:\n", byteCount);
-        if (GetLogStatus() && (GetVerboseMask() & LOG_DEV_DATA))
-        {
-            for (INT32 ii = 0; ii < byteCount; ii++)
-                Log("\tByte:%d -- %c <$%02X>\n", ii, isprint(data[ii]) ? data[ii] : '?', data[ii]);
-        }
-    }
+   if (UseTwoDimensionBarcode())
+   {
+      ProcessTwoDimensionalBarcode(data, byteCount);
+   }
+   else if (foundDataTerminator || (byteCount >= m_vinLength) || (byteCount == m_driverNumberLength) || (byteCount == SecondaryDataLength()))
+   {   // Determine what type of data we received
+      if (SecondaryDataSupported() && (SecondaryDataLength() > m_vinLength) && (index >= SecondaryDataLength()))
+      {   // Check for secondary data before VIN
+         dataLength = SecondaryDataLength();
+         dataType = SecondaryDataType();
+         Log(LOG_DEV_DATA, "Received %s scan -- Byte count: %d", dataType.c_str(), dataLength);
+      }
+      else if (byteCount == 129)
+      {
+         displayType = VINDISPLAY_DATA_TAG;
+         dataLength = 129;
+         dataType = m_barcodeInfoTag;
+         processToyotaData = true;
+         Log(LOG_DEV_DATA, "Received TOYOTA scan -- Byte count: %d\n", byteCount);
+      }
+      else if (index >= m_vinLength)
+      {
+         // Set the tag to use and the length of the data we are looking for
+         dataLength = (index >= m_maxVinLength) ? m_maxVinLength : m_vinLength;
+         dataType = NEXT_VIN_DATA_TAG;
+         displayType = VINDISPLAY_DATA_TAG;
+         Log(LOG_DEV_DATA, "Received VIN scan -- Byte count: %d\n", byteCount);
+      }
+      else if (SecondaryDataSupported() && (SecondaryDataLength() < m_vinLength) && (index >= SecondaryDataLength()))
+      {   // Check for VIN data before checking for secondary data
+         dataLength = SecondaryDataLength();
+         dataType = SecondaryDataType();
+         Log(LOG_DEV_DATA, "Received %s scan -- Byte count: %d", dataType.c_str(), dataLength);
+      }
+      else if (index >= m_driverNumberLength)
+      {   // Set the tag to use and the length of the data we are looking for
+         dataLength = m_driverNumberLength;
+         dataType = DRIVER_NUMBER_DATA_TAG;
+         displayType = DRIVER_NUMBER_DISPLAY_DATA_TAG;
+         Log(LOG_DEV_DATA, "Received driver scan -- Byte count: %d\n", byteCount);
+      }
+      else
+      {   // We received an invalid scan
+         processData = false;
+         Log(LOG_DEV_DATA, "Received Invalid scan -- Byte count: %d, data:\n", byteCount);
+         for (INT32 ii = 0; ii < byteCount; ii++) Log(LOG_DEV_DATA, "\tByte:%d -- %c <$%02X>\n", ii, isprint(data[ii]) ? data[ii] : '?', data[ii]);
+      }
+      string response; 
+
+      if (processToyotaData)
+      {
+         scanValue = std::string((char *)&data[0], byteCount-1);
+         Log(LOG_DEV_DATA, "Symbol Scanner: %s(%s)\n", dataType.c_str(), scanValue.c_str());
+         // Make a buncha nodes to send data around
+         XmlElement barcodeInfoNode(dataType, scanValue);
+         Log(LOG_DEV_DATA, "Processing Toyota barcode info: %s", scanValue.c_str());
+         XmlElement displayNode(displayType, scanValue.substr(m_vinStartIndex, m_vinLength));
+         dataType = NEXT_VIN_DATA_TAG;
+         XmlElement vinNode(dataType, scanValue.substr(m_vinStartIndex, m_vinLength));
+         Log(LOG_DEV_DATA, "Processing Toyota VIN: %s", scanValue.substr(m_vinStartIndex, m_vinLength).c_str());
+
+         (void)m_dataBroker->Write(&barcodeInfoNode, response, true);
+         (void)m_dataBroker->Write(&displayNode, response, true);
+         (void)m_dataBroker->Write(&vinNode, response, true);
+      }
+      // Determine if we should process the data
+      else if (processData)
+      {   // Check if any "bad" scanner data should be corrected
+         if (CorrectBadScannerData() && (data[BadDataIndex()] == BadDataIndicator()))
+         {   // Correct the bad data
+            Log(LOG_ERRORS, "Bad scanner data -- Index: %d, Indicator: %02X, {Scanned value: %02X}",
+                BadDataIndex(), BadDataIndicator(), data[BadDataIndex()]);
+            data[BadDataIndex()] = BadDataReplacement();
+            Log(LOG_ERRORS, "Bad scanner data replaced with %02X -- (New buffer value: %02X)",
+                BadDataReplacement(), data[BadDataIndex()]);
+         }
+         // Get the valid scan data from our local data buffer
+         scanValue = std::string((char *)&data[index - dataLength], dataLength);
+         Log(LOG_DEV_DATA, "Symbol Scanner: %s(%s)\n", dataType.c_str(), scanValue.c_str());
+         // Make a couple of nodes to send data around
+         XmlElement displayNode(displayType, scanValue);
+         XmlElement dataNode(dataType, scanValue);
+         // Write the data to the InputServer
+         
+         // Only send the display node if a display tag was specified
+         if (displayType != BEP_UNAVAILABLE_RESPONSE)
+         {
+            (void)m_dataBroker->Write(&displayNode, response, true);
+         }
+         (void)m_dataBroker->Write(&dataNode, response, true);
+      }
+      else
+      {
+         Log(LOG_ERRORS, "How did you get here? What are you doing?");
+      }
+   }
+   else
+   {   // Incomplete scan received
+      Log(LOG_DEV_DATA, "Received Incomplete scan -- Byte count: %d, data:\n", byteCount);
+      if (GetLogStatus() && (GetVerboseMask() & LOG_DEV_DATA))
+      {
+         for (INT32 ii = 0; ii < byteCount; ii++) Log("\tByte:%d -- %c <$%02X>\n", ii, isprint(data[ii]) ? data[ii] : '?', data[ii]);
+      }
+   }
 }
 
 const INT32 SymbolScannerMgr::GetScannerBufferSize(void)
 {
-    return m_scannerBufferSize;
+   return m_scannerBufferSize;
 }
 
 const INT32 SymbolScannerMgr::GetDataDelay(void)
 {
-    return m_dataDelay;
+   return m_dataDelay;
 }
 
 INT16 SymbolScannerMgr::GetMaxRetries(void)
 {
-    return m_maxRetries;
+   return m_maxRetries;
 }
 
 void SymbolScannerMgr::SetDummyScannerCommObject(SerialChannel *commObj)
 {
-    m_scannerComm = commObj;
+   m_scannerComm = commObj;
 }
 
 inline const bool& SymbolScannerMgr::LookForTerminationCharacter(void)
 {
-    return m_lookForTerminator;
+   return m_lookForTerminator;
 }
 
-inline void SymbolScannerMgr::StoreLookForDataTerminator(const bool &lookForTerminator)
+inline void SymbolScannerMgr::StoreLookForDataTerminator(const bool& lookForTerminator)
 {
-    m_lookForTerminator = lookForTerminator;
+   m_lookForTerminator = lookForTerminator;
 }
 
-inline void SymbolScannerMgr::CorrectBadScannerData(const bool &correctBadData)
+inline void SymbolScannerMgr::CorrectBadScannerData(const bool& correctBadData)
 {
-    m_correctBadScannerData = correctBadData;
+   m_correctBadScannerData = correctBadData;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline const bool& SymbolScannerMgr::CorrectBadScannerData(void)
 {
-    return m_correctBadScannerData;
+   return m_correctBadScannerData;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline void SymbolScannerMgr::StoreBadDataIndex(const INT16& index)
 {
-    m_badDataPosition = index;
+   m_badDataPosition = index;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline const INT16& SymbolScannerMgr::BadDataIndex(void)
 {
-    return m_badDataPosition;
+   return m_badDataPosition;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline void SymbolScannerMgr::BadDataReplacement(const UINT8& data)
 {
-    m_badCharacterReplacement = data;
+   m_badCharacterReplacement = data;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline const UINT8& SymbolScannerMgr::BadDataReplacement(void)
 {
-    return m_badCharacterReplacement;
+   return m_badCharacterReplacement;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline void SymbolScannerMgr::BadDataIndicator(const UINT8& indicator)
 {
-    m_badDataIndicator = indicator;
+   m_badDataIndicator = indicator;
 }
 
 //-------------------------------------------------------------------------------------------------
 inline const UINT8& SymbolScannerMgr::BadDataIndicator(void)
 {
-    return m_badDataIndicator;
+   return m_badDataIndicator;
 }
 
 //-------------------------------------------------------------------------------------------------
-void SymbolScannerMgr::SetScannerBufferSize(const INT32 &size)
+void SymbolScannerMgr::SetScannerBufferSize(const INT32& size)
 {
-    m_scannerBufferSize = size;
+   m_scannerBufferSize = size;
 }
 
 //-------------------------------------------------------------------------------------------------
-void SymbolScannerMgr::SetScannerBufferSize(const std::string &size)
+void SymbolScannerMgr::SetScannerBufferSize(const std::string& size)
 {
-    SetScannerBufferSize(BposReadInt(size.c_str()));
+   SetScannerBufferSize(BposReadInt(size.c_str()));
 }
 
 //-------------------------------------------------------------------------------------------------
-void SymbolScannerMgr::SetDataDelay(const INT32 &delay)
+void SymbolScannerMgr::SetDataDelay(const INT32& delay)
 {
-    m_dataDelay = delay;
+   m_dataDelay = delay;
 }
 
 //-------------------------------------------------------------------------------------------------
-void SymbolScannerMgr::SetDataDelay(const std::string &delay)
+void SymbolScannerMgr::SetDataDelay(const std::string& delay)
 {
-    SetDataDelay(BposReadInt(delay.c_str()));
+   SetDataDelay(BposReadInt(delay.c_str()));
 }
 
 //-------------------------------------------------------------------------------------------------
-void SymbolScannerMgr::SetMaximumRetries(const INT16 &retries)
+void SymbolScannerMgr::SetMaximumRetries(const INT16& retries)
 {
-    m_maxRetries = retries;
+   m_maxRetries = retries;
 }
 
 //-------------------------------------------------------------------------------------------------
-void SymbolScannerMgr::SetMaximumRetries(const std::string &retries)
+void SymbolScannerMgr::SetMaximumRetries(const std::string& retries)
 {
-    SetMaximumRetries(BposReadInt(retries.c_str()));
+   SetMaximumRetries(BposReadInt(retries.c_str()));
 }
 
 //-------------------------------------------------------------------------------------------------
 inline const bool& SymbolScannerMgr::SecondaryDataSupported(const bool *dataSupported /*= NULL*/)
 {
-    if(dataSupported != NULL)  m_secondaryDataSupport = *dataSupported;
-    return m_secondaryDataSupport;
+   if (dataSupported != NULL)  m_secondaryDataSupport = *dataSupported;
+   return m_secondaryDataSupport;
 }
 
 //-----------------------------------------------------------------------------
 inline const string& SymbolScannerMgr::SecondaryDataType(const string *dataType /*= NULL*/)
 {
-    if(dataType != NULL)  m_secondaryDataTag = *dataType;
-    return m_secondaryDataTag;
+   if (dataType != NULL)  m_secondaryDataTag = *dataType;
+   return m_secondaryDataTag;
 }
 
 //-----------------------------------------------------------------------------
 inline const INT32& SymbolScannerMgr::SecondaryDataLength(const INT32 *length /*= NULL*/)
 {
-    if(length != NULL)  m_secondaryDataLength = *length;
-    return m_secondaryDataLength;
+   if (length != NULL)  m_secondaryDataLength = *length;
+   return m_secondaryDataLength;
 }
 
 //-------------------------------------------------------------------------------------------------
-void SymbolScannerMgr::ProcessTwoDimensionalBarcode(const SerialString_t &barcodeData, const INT32 &byteCount)
+void SymbolScannerMgr::ProcessTwoDimensionalBarcode(const SerialString_t& barcodeData, const INT32& byteCount)
 {
-    INT32 startIndex = 0;
-    string response;
-    for(XmlNodeMapCItr iter = m_twoDimensionBarcodeItems.begin(); 
-         (iter != m_twoDimensionBarcodeItems.end()); 
-         iter++)
-    {   // Get the current item and publish to the system
-        INT32 length = BposReadInt(iter->second->getAttribute("Length")->getValue().c_str());
-        INT32 startIndexOverride;
-        try
-        {//If specified use explicit start index
-            startIndexOverride = BposReadInt(iter->second->getAttribute("StartIndex")->getValue().c_str());
-        }
-        catch  (XmlException &excpt)
-        {
-            startIndexOverride = startIndex;
-        }
-        if (startIndexOverride + length <= byteCount)
-        {
+   INT32 startIndex = 0;
+   string response;
+   for (XmlNodeMapCItr iter = m_twoDimensionBarcodeItems.begin();
+        (iter != m_twoDimensionBarcodeItems.end());
+        iter++)
+   {   // Get the current item and publish to the system
+      INT32 length = BposReadInt(iter->second->getAttribute("Length")->getValue().c_str());
+      INT32 startIndexOverride;
+      try
+      { //If specified use explicit start index
+         startIndexOverride = BposReadInt(iter->second->getAttribute("StartIndex")->getValue().c_str());
+      }
+      catch  (XmlException& excpt)
+      {
+         startIndexOverride = startIndex;
+      }
+      if (startIndexOverride + length <= byteCount)
+      {
 
-            string data = string((char *)&barcodeData[startIndexOverride], length);
-            // Write the data to the system
-            m_dataBroker->Write(iter->second->getValue(), data, response, true);
-            Log(LOG_DEV_DATA, "Processed %s:%s - %s", 
-                iter->second->getName().c_str(), iter->second->getValue().c_str(), data.c_str());
-            if(!iter->second->getAttribute("DisplayTag")->getValue().empty())
-            {
-                m_dataBroker->Write(iter->second->getAttribute("DisplayTag")->getValue(), data, response, true);
-                Log(LOG_DEV_DATA, "Updated display tag: %s - %s", 
-                    iter->second->getAttribute("DisplayTag")->getValue().c_str(), data.c_str());
-            }
-            // Update the start index to the next data item
-            startIndex += length;
+         string data = string((char *)&barcodeData[startIndexOverride], length);
+         // Write the data to the system
+         m_dataBroker->Write(iter->second->getValue(), data, response, true);
+         Log(LOG_DEV_DATA, "Processed %s:%s - %s",
+             iter->second->getName().c_str(), iter->second->getValue().c_str(), data.c_str());
+         if (!iter->second->getAttribute("DisplayTag")->getValue().empty())
+         {
+            m_dataBroker->Write(iter->second->getAttribute("DisplayTag")->getValue(), data, response, true);
+            Log(LOG_DEV_DATA, "Updated display tag: %s - %s",
+                iter->second->getAttribute("DisplayTag")->getValue().c_str(), data.c_str());
+         }
+         // Update the start index to the next data item
+         startIndex += length;
 
-        }
-        else
-        {
-            Log(LOG_ERRORS, "ERROR Received Incomplete scan -- Byte count: %d, start index: %d length: %d\n", 
-                byteCount,startIndexOverride,length);
-            break;
-        }
+      }
+      else
+      {
+         Log(LOG_ERRORS, "ERROR Received Incomplete scan -- Byte count: %d, start index: %d length: %d\n",
+             byteCount, startIndexOverride, length);
+         break;
+      }
 
-    }
+   }
 }
 
 //-------------------------------------------------------------------------------------------------
 const bool& SymbolScannerMgr::UseTwoDimensionBarcode(const bool *isTwoDimension /*= NULL*/)
 {
-    if(isTwoDimension != NULL)  m_twoDimensionBarcode = *isTwoDimension;
-    return m_twoDimensionBarcode;
+   if (isTwoDimension != NULL)  m_twoDimensionBarcode = *isTwoDimension;
+   return m_twoDimensionBarcode;
 }

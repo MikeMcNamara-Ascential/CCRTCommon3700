@@ -22,7 +22,9 @@ namespace Common.Lib.Presenters
         }
         public MainFormPresenter(T view)
         {
+         //   MainFormModel.InitiallizeVehicleComInterface();
             MainFormView = view;
+            
         }
     }
 }

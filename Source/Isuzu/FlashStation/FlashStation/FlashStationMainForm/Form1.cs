@@ -48,6 +48,13 @@ namespace FlashStationMainForm
         {
             InitializeComponent();
             //determine if comm device is set up
+            //string folderBase = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            //string dir = string.Format(@"{0}\FlashStationLog\", folderBase );
+            //if (!Directory.Exists(dir))
+            //{
+            //    Directory.CreateDirectory(dir);
+            //}
+           // m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", @dir);
             m_logger = new Logger(m_logMessageTextBox, "FlashStationLog", @"C:\\FlashStation\\Logs\\");
             m_presenter = new MainFormDataPresenter(this, m_logger);
             string deviceName = Properties.Settings.Default.Device;

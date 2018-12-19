@@ -68,8 +68,12 @@
     <Compile Include="Interfaces\IBaseInterface.cs" />
     <Compile Include="Interfaces\IMainFormView.cs" />
     <Compile Include="Interfaces\IMainFormModel.cs" />
+    <Compile Include="Interfaces\IMimamoriMessageId.cs" />
+    <Compile Include="MessagesBuilder\MimamoriFlashMessageId.cs" />
+    <Compile Include="MessagesBuilder\MimamoriMessagesBuilder.cs" />
     <Compile Include="Models\MainFormModel.cs" />
     <Compile Include="Models\MainFormModelTests.cs" />
+    <Compile Include="Models\MimamoriModuleCanMessage.cs" />
     <Compile Include="Presenters\MainFormDataPresenter.cs" />
     <Compile Include="Resources\MainFormPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,6 +82,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Presenters\app.config" />

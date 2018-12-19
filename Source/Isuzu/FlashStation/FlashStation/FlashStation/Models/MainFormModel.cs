@@ -16,11 +16,18 @@ using FtpFileMonitorNamespace;
 using J2534ChannelLibrary;
 using System.Drawing;
 using System.Windows.Forms;
+using Common.MessagesBuilder;
+using Common.Models;
+
+
 
 namespace Common.Lib.Models
 {
     public class MainFormModel  : IMainFormModel
     {
+        const string Mimamori_Can = "8975165830";
+        const string Mimamori_Kline = "8983499660";
+        string mimamoriPartNo;
         /// <summary>
         /// Create a new Presenter responsible for coordinating Model and View
         /// </summary>
@@ -28,8 +35,7 @@ namespace Common.Lib.Models
         /// <param name="logger">logging interface for form display and file output</param>
         public MainFormModel()
         {
-            m_vehicleCommInterface = new VehicleCommServerInterface();
-            m_inputServerInterface = new InputServerInterface();
+           
             m_cableConnectForced = false;
             m_cableConnectMessage = null;
             m_usingCableConnectForced = false;
@@ -53,10 +59,14 @@ namespace Common.Lib.Models
             m_performECMFlash = true;
             m_performBASLearn = false;
             m_keyOffEngineOffWaitStart = false;
-
+            m_vehicleCommInterface = new VehicleCommServerInterface();
+            m_inputServerInterface = new InputServerInterface();
         }
 
-
+        public void InitiallizeVehicleComInterface()
+        {
+            m_vehicleCommInterface = new VehicleCommServerInterface();
+        }
         public void CommandState(StateName state)
         {
             if (GetStatus() != Status.TERMINATE)
@@ -508,11 +518,11 @@ namespace Common.Lib.Models
                         else if (ecuName == "Mimamori")
                         {
                             m_logger.Log("Mimamori Loading Configs:");
-                            
                             searchNode = buildFileECUName + "PartNo";
                             m_logger.Log("SearchNode: "+searchNode);
                             ecuBuild.PerformFlash = m_performMimamoriFlash;
-                            m_logger.Log("Found: " + m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText);
+                            mimamoriPartNo = m_currentBuild.GetElementsByTagName(searchNode)[0].InnerText;
+                            m_logger.Log("Found: " + mimamoriPartNo);
                             
                             searchNode = "Transmission";
                             m_logger.Log("SearchNode: " + searchNode);
@@ -2072,211 +2082,351 @@ namespace Common.Lib.Models
         {
             if (m_performMimamoriFlash)
             {
-                m_logger.Log("INFO:  Calibrating the Mimamori Module");
-                bool messageSuccess = true;
-                CcrtJ2534Defs.ECUMessage setFiltermessage = new CcrtJ2534Defs.ECUMessage();
-                List<CcrtJ2534Defs.Response> messageResponses = new List<CcrtJ2534Defs.Response>();
-                List<byte> requestID = new List<byte>();
-                List<byte> responseID = new List<byte>();
-                List<byte> txMessage = new List<byte>();
-                ArrayList txMessages = new ArrayList();
-                ArrayList messageNames = new ArrayList();
-                List<byte> data = new List<byte>();
+                //customer requested to ignore the part number
+                //and make sure the flash station only work with 
+                //the CAN communication since the part number
+                //might change and they don't want to call us
+                //to make the software changes everytime.
 
-                //Calibration Message Names and Data
-                messageNames.Add("Enter Programming Mode");
-                txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x10, 0x85 });
-                messageNames.Add("Security Access");
-                txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x27, 0x01 });
-                messageNames.Add("Read Part Number");
-                txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x1A, 0x91 });
-                messageNames.Add("Program VIN");
-                txMessages.Add(new byte[] { 0x93, 0x80, 0xF1, 0x3B, 0x90 });
-                messageNames.Add("Diesel ECM Equipped");
-                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x20, 0x01 });
-                messageNames.Add("SRC Equipped");
-                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x22, 0x01 });
-                messageNames.Add("Turbo Controller Equipped");
-                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x23, 0x01 });
-                messageNames.Add("TCM Equipped");
-                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x24, 0x11 });
-                messageNames.Add("ABS Equipped Message");
-                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x29, 0x01 });
-                messageNames.Add("Multimeter Equipped");
-                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x2E, 0x01 });
-                messageNames.Add("ENG Model Data");
-                txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x40, 0x34, 0x48, 0x4B, 0x31, 0x54, 0x43, 0x53, 0x20 });
-                messageNames.Add("T/M Model Data");
-                txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x41 });//, 0x32, 0x35, 0x35, 0x30, 0x52, 0x44, 0x53, 0x20 });
-                messageNames.Add("Tire Radius Data");
-                txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x42 });//, 0x02, 0x08 });
-                messageNames.Add("Final Gear Ratio");
-                txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x43}); //, 0x18, 0x17 });
-                messageNames.Add("Vehicle Model Data");
-                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x44, 0x06 });
-                messageNames.Add("Electrical Equipment Data");
-                txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x45, 0x02 });
-                messageNames.Add("Gear Ratio Data");
-                txMessages.Add(new byte[] { 0xA8, 0x80, 0xF1, 0x3B, 0x47, 0x06, 0x00, 0x0D, 0xB6, 0x07, 0x6C, 0x05, 0xA0, 0x03, 0xE8, 0x02, 0xE4, 0x02, 0x80, 0x00, 0x00,
-                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });
-                messageNames.Add("Engine Oil Life Warning");
-                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x53, 0x00, 0xF5, 0x8F, 0x48 });
-                messageNames.Add("Engine Oil Life Pre-Warning");
-                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x54, 0x00, 0x18, 0x8E, 0x54 });
-                messageNames.Add("Starter Life Warning");
-                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x59, 0x00, 0x00, 0x75, 0x30 });
-                messageNames.Add("ACG OH Life Warning");
-                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5B, 0x0E, 0xE6, 0xB2, 0x80 });
-                messageNames.Add("Engine Speed ACG OH Life Warning");
-                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5C, 0x00, 0x0F, 0x42, 0x40 });
-                messageNames.Add("T/M OH Warning");
-                txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5D, 0x00, 0x5B, 0x8D, 0x80 });
-                messageNames.Add("Security Lock");
-                txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x31, 0x08 });
-                messageNames.Add("End Diagnostic Session");
-                txMessages.Add(new byte[] { 0x81, 0x80, 0xF1, 0x82 });
-
-                m_progressBarRangeMin = 0;
-                m_progressBarRangeMax = txMessages.Count;
-
-                txMessage.Clear();
-                //StartCommunication message
-                txMessage.Add(0x81);
-                txMessage.Add(0x80);
-                txMessage.Add(0xF1);
-                txMessage.Add(0x81);
-                setFiltermessage = CreateECUMessage(txMessage, requestID, responseID);
-                //FastInitSequence
-                CcrtJ2534Device dev = m_vehicleCommInterface.GetCcrtJ2534Device(m_deviceName);
-                CcrtJ2534Channel chan = dev.GetChannel(m_mimaChannelName);
-                if (!chan.ChannelComm.Connected)
-                    chan.ChannelComm.Connect();
-                ICcrtJ2534ChannelComm comm = chan.ChannelComm;
-                bool commInit = comm.PerformFastInitSequence(setFiltermessage, ref messageResponses);
-
-                requestID.Add(0x80);
-                requestID.Add(0x80);
-                requestID.Add(0xF1);
-                m_buildData[3].RequestID = requestID;
-                responseID.Add(0x80);
-                responseID.Add(0xF1);
-                responseID.Add(0x80);
-                m_buildData[3].ResponseID = responseID;
-
-                if (commInit)
+                 CalibrateCanMimamori();
+              /*  if (Mimamori_Can == mimamoriPartNo)
                 {
-                    Status status = Status.IN_PROGRESS;
-                    m_logger.Log("INFO:  Fast Init Successful");
-                    int retries = 25; 
+                    CalibrateCanMimamori();
+                }
+                else if (Mimamori_Kline == mimamoriPartNo)
+                {
+                    CalibrateKLinMimamori();
+                }*/
 
-                    for (int i = 0; i < txMessages.Count; i++)
-                    {
-                        status = Status.IN_PROGRESS;
-                        txMessage.Clear();
-                        txMessage.AddRange((byte[])txMessages[i]);
-                        if (i==3)//messageNames[i].Equals("Program VIN"))
-                        {
-                            byte[] temp = Encoding.ASCII.GetBytes(m_buildData[0].VIN);
-                            txMessage.AddRange(temp);
-                        }
-                        else if (i==11)//messageNames[i].Equals("T/M Model Data"))
-                        {
-                            m_logger.Log("Transmission: " + m_buildData[3].Transmission);
-                            byte[] temp = Encoding.ASCII.GetBytes(m_buildData[3].Transmission);
-                            txMessage.AddRange(temp);
-                            for (int j = 0; j < (8 - m_buildData[3].Transmission.Length);j++)
-                            {
-                                txMessage.Add(0x20);
-                            }
-                        }
-                        else if (i==12)//messageNames[i].Equals("Tire Radius Data"))
-                        {
-                            m_logger.Log("TireSize: " + m_buildData[3].TireSize);
-                            byte[] temp;
-                            temp = new byte[] { 0x00, 0x00 };
-                            if(m_buildData[3].TireSize.Equals(".520"))
-                                temp = new byte[] {0x02, 0x08};
-                            else if (m_buildData[3].TireSize.Equals(".458"))
-                                temp = new byte[] { 0x01, 0xCA };
-                            txMessage.AddRange(temp);
-                        }
-                        else if (i==13)//messageNames[i].Equals("Final Gear Ratio"))
-                        {
-                            m_logger.Log("RearAxel: " + m_buildData[3].RearAxel);
-                            byte[] temp;
-                            temp = new byte[] { 0x18, 0x17 };
-                            if (m_buildData[3].RearAxel.Equals("6.143"))
-                                temp = new byte[] { 0x17, 0xFF }; 
-                            else if (m_buildData[3].RearAxel.Equals("5.571"))
-                                temp = new byte[] { 0x15, 0xC3 };
-                            else if (m_buildData[3].RearAxel.Equals("6.167"))//Current
-                                temp = new byte[] { 0x18, 0x17 };
-                            txMessage.AddRange(temp);
-                        }
-                        for (int x = 0; x < retries && status != Status.SUCCESS; x++)
-                        {
-                            status = SendKlineMessage(m_buildData[3], txMessage, responseID, true, ref data);
-                            Thread.Sleep(250);
-                        }
-                        if (status == Status.SUCCESS)
-                        {
-                            m_logger.Log("INFO:  " + messageNames[i] + " Message Successful");
-                            if (i == 2)
-                            {
-                                char[] tempData = new char[8];
-                                int j = 0;
-                                //hardcoded length to 6
-                                for (int k = 5; k < 13; k++,j++)
-                                {
-                                    tempData[j] = ((char)data[k]);
-                                    //tempData[k] = ((char)(data[k] / 16 + 48));
-                                    //tempData[k] = ((char)(data[k] % 16 + 48));
-                                }
-                                string partNumber = new string(tempData);
-                                status = messageSuccess ? Status.SUCCESS : Status.FAILURE;
-                                if (status == Status.SUCCESS)
-                                {
-                                    m_logger.Log("INFO:  Read Part Number Successful");
-                                    //Check if part number matches the part number in the build record
-                                    //if (build.PartNumber.CompareTo(partNumber) == 0)
-                                    if (m_buildData[3].PartNumber.Substring(1, 8).CompareTo(partNumber) == 0)
-                                    {
-                                        m_logger.Log("INFO:  Part Numbers Match");
-                                        m_buildData[3].PartNumberMatches = true;
-                                    }
-                                    else
-                                    {
-                                        m_logger.Log("INFO:  Part Numbes don't match");
-                                        m_buildData[3].PartNumberMatches = false;
-                                        messageSuccess = false;
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            m_logger.Log("INFO:  " + messageNames[i] + "Message Failure");
-                            messageSuccess = false;
-                        }
-                        m_progressBarValue = i;
-                    }
-                    m_progressBarValue = m_progressBarRangeMax;
-                }
-                else
-                {
-                    m_logger.Log("INFO:  Fast Init Failure");
-                    messageSuccess = false;
-                }
-                if (messageSuccess)
-                {
-                    m_buildData[3].ProgrammingSuccess = true;
-                    m_mimaResultColor = Color.Green;  
-                }
-                else
-                {
-                    m_mimaResultColor = Color.Red;
-                }
             }
+        }
+        public void CalibrateKLinMimamori()
+        {
+            m_logger.Log("INFO:  Calibrating the Mimamori Module");
+            bool messageSuccess = true;
+            CcrtJ2534Defs.ECUMessage setFiltermessage = new CcrtJ2534Defs.ECUMessage();
+            List<CcrtJ2534Defs.Response> messageResponses = new List<CcrtJ2534Defs.Response>();
+            List<byte> requestID = new List<byte>();
+            List<byte> responseID = new List<byte>();
+            List<byte> txMessage = new List<byte>();
+            ArrayList txMessages = new ArrayList();
+            ArrayList messageNames = new ArrayList();
+            List<byte> data = new List<byte>();
+
+            //Calibration Message Names and Data
+            messageNames.Add("Enter Programming Mode");
+            txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x10, 0x85 });
+            messageNames.Add("Security Access");
+            txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x27, 0x01 });
+            messageNames.Add("Read Part Number");
+            txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x1A, 0x91 });
+            messageNames.Add("Program VIN");
+            txMessages.Add(new byte[] { 0x93, 0x80, 0xF1, 0x3B, 0x90 });
+            messageNames.Add("Diesel ECM Equipped");
+            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x20, 0x01 });
+            messageNames.Add("SRC Equipped");
+            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x22, 0x01 });
+            messageNames.Add("Turbo Controller Equipped");
+            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x23, 0x01 });
+            messageNames.Add("TCM Equipped");
+            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x24, 0x11 });
+            messageNames.Add("ABS Equipped Message");
+            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x29, 0x01 });
+            messageNames.Add("Multimeter Equipped");
+            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x2E, 0x01 });
+            messageNames.Add("ENG Model Data");
+            txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x40, 0x34, 0x48, 0x4B, 0x31, 0x54, 0x43, 0x53, 0x20 });
+            messageNames.Add("T/M Model Data");
+            txMessages.Add(new byte[] { 0x8A, 0x80, 0xF1, 0x3B, 0x41 });//, 0x32, 0x35, 0x35, 0x30, 0x52, 0x44, 0x53, 0x20 });
+            messageNames.Add("Tire Radius Data");
+            txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x42 });//, 0x02, 0x08 });
+            messageNames.Add("Final Gear Ratio");
+            txMessages.Add(new byte[] { 0x84, 0x80, 0xF1, 0x3B, 0x43 }); //, 0x18, 0x17 });
+            messageNames.Add("Vehicle Model Data");
+            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x44, 0x06 });
+            messageNames.Add("Electrical Equipment Data");
+            txMessages.Add(new byte[] { 0x83, 0x80, 0xF1, 0x3B, 0x45, 0x02 });
+            messageNames.Add("Gear Ratio Data");
+            txMessages.Add(new byte[] { 0xA8, 0x80, 0xF1, 0x3B, 0x47, 0x06, 0x00, 0x0D, 0xB6, 0x07, 0x6C, 0x05, 0xA0, 0x03, 0xE8, 0x02, 0xE4, 0x02, 0x80, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });
+            messageNames.Add("Engine Oil Life Warning");
+            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x53, 0x00, 0xF5, 0x8F, 0x48 });
+            messageNames.Add("Engine Oil Life Pre-Warning");
+            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x54, 0x00, 0x18, 0x8E, 0x54 });
+            messageNames.Add("Starter Life Warning");
+            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x59, 0x00, 0x00, 0x75, 0x30 });
+            messageNames.Add("ACG OH Life Warning");
+            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5B, 0x0E, 0xE6, 0xB2, 0x80 });
+            messageNames.Add("Engine Speed ACG OH Life Warning");
+            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5C, 0x00, 0x0F, 0x42, 0x40 });
+            messageNames.Add("T/M OH Warning");
+            txMessages.Add(new byte[] { 0x86, 0x80, 0xF1, 0x3B, 0x5D, 0x00, 0x5B, 0x8D, 0x80 });
+            messageNames.Add("Security Lock");
+            txMessages.Add(new byte[] { 0x82, 0x80, 0xF1, 0x31, 0x08 });
+            messageNames.Add("End Diagnostic Session");
+            txMessages.Add(new byte[] { 0x81, 0x80, 0xF1, 0x82 });
+
+            m_progressBarRangeMin = 0;
+            m_progressBarRangeMax = txMessages.Count;
+
+            txMessage.Clear();
+            //StartCommunication message
+            txMessage.Add(0x81);
+            txMessage.Add(0x80);
+            txMessage.Add(0xF1);
+            txMessage.Add(0x81);
+            setFiltermessage = CreateECUMessage(txMessage, requestID, responseID);
+            //FastInitSequence
+            CcrtJ2534Device dev = m_vehicleCommInterface.GetCcrtJ2534Device(m_deviceName);
+            CcrtJ2534Channel chan = dev.GetChannel(m_mimaChannelName);
+            if (!chan.ChannelComm.Connected)
+                chan.ChannelComm.Connect();
+            ICcrtJ2534ChannelComm comm = chan.ChannelComm;
+            bool commInit = comm.PerformFastInitSequence(setFiltermessage, ref messageResponses);
+
+            requestID.Add(0x80);
+            requestID.Add(0x80);
+            requestID.Add(0xF1);
+            m_buildData[3].RequestID = requestID;
+            responseID.Add(0x80);
+            responseID.Add(0xF1);
+            responseID.Add(0x80);
+            m_buildData[3].ResponseID = responseID;
+
+            if (commInit)
+            {
+                Status status = Status.IN_PROGRESS;
+                m_logger.Log("INFO:  Fast Init Successful");
+                int retries = 25;
+
+                for (int i = 0; i < txMessages.Count; i++)
+                {
+                    status = Status.IN_PROGRESS;
+                    txMessage.Clear();
+                    txMessage.AddRange((byte[])txMessages[i]);
+                    if (i == 3)//messageNames[i].Equals("Program VIN"))
+                    {
+                        byte[] temp = Encoding.ASCII.GetBytes(m_buildData[0].VIN);
+                        txMessage.AddRange(temp);
+                    }
+                    else if (i == 11)//messageNames[i].Equals("T/M Model Data"))
+                    {
+                        m_logger.Log("Transmission: " + m_buildData[3].Transmission);
+                        byte[] temp = Encoding.ASCII.GetBytes(m_buildData[3].Transmission);
+                        txMessage.AddRange(temp);
+                        for (int j = 0; j < (8 - m_buildData[3].Transmission.Length); j++)
+                        {
+                            txMessage.Add(0x20);
+                        }
+                    }
+                    else if (i == 12)//messageNames[i].Equals("Tire Radius Data"))
+                    {
+                        m_logger.Log("TireSize: " + m_buildData[3].TireSize);
+                        byte[] temp;
+                        temp = new byte[] { 0x00, 0x00 };
+                        if (m_buildData[3].TireSize.Equals(".520"))
+                            temp = new byte[] { 0x02, 0x08 };
+                        else if (m_buildData[3].TireSize.Equals(".458"))
+                            temp = new byte[] { 0x01, 0xCA };
+                        txMessage.AddRange(temp);
+                    }
+                    else if (i == 13)//messageNames[i].Equals("Final Gear Ratio"))
+                    {
+                        m_logger.Log("RearAxel: " + m_buildData[3].RearAxel);
+                        byte[] temp;
+                        temp = new byte[] { 0x18, 0x17 };
+                        if (m_buildData[3].RearAxel.Equals("6.143"))
+                            temp = new byte[] { 0x17, 0xFF };
+                        else if (m_buildData[3].RearAxel.Equals("5.571"))
+                            temp = new byte[] { 0x15, 0xC3 };
+                        else if (m_buildData[3].RearAxel.Equals("6.167"))//Current
+                            temp = new byte[] { 0x18, 0x17 };
+                        txMessage.AddRange(temp);
+                    }
+                    for (int x = 0; x < retries && status != Status.SUCCESS; x++)
+                    {
+                        status = SendKlineMessage(m_buildData[3], txMessage, responseID, true, ref data);
+                        Thread.Sleep(250);
+                    }
+                    if (status == Status.SUCCESS)
+                    {
+                        m_logger.Log("INFO:  " + messageNames[i] + " Message Successful");
+                        if (i == 2)
+                        {
+                            char[] tempData = new char[8];
+                            int j = 0;
+                            //hardcoded length to 6
+                            for (int k = 5; k < 13; k++, j++)
+                            {
+                                tempData[j] = ((char)data[k]);
+                                //tempData[k] = ((char)(data[k] / 16 + 48));
+                                //tempData[k] = ((char)(data[k] % 16 + 48));
+                            }
+                            string partNumber = new string(tempData);
+                            status = messageSuccess ? Status.SUCCESS : Status.FAILURE;
+                            if (status == Status.SUCCESS)
+                            {
+                                m_logger.Log("INFO:  Read Part Number Successful");
+                                //Check if part number matches the part number in the build record
+                                //if (build.PartNumber.CompareTo(partNumber) == 0)
+                                if (m_buildData[3].PartNumber.Substring(1, 8).CompareTo(partNumber) == 0)
+                                {
+                                    m_logger.Log("INFO:  Part Numbers Match");
+                                    m_buildData[3].PartNumberMatches = true;
+                                }
+                                else
+                                {
+                                    m_logger.Log("INFO:  Part Numbes don't match");
+                                    m_buildData[3].PartNumberMatches = false;
+                                    messageSuccess = false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        m_logger.Log("INFO:  " + messageNames[i] + "Message Failure");
+                        messageSuccess = false;
+                    }
+                    m_progressBarValue = i;
+                }
+                m_progressBarValue = m_progressBarRangeMax;
+            }
+            else
+            {
+                m_logger.Log("INFO:  Fast Init Failure");
+                messageSuccess = false;
+            }
+            if (messageSuccess)
+            {
+                m_buildData[3].ProgrammingSuccess = true;
+                m_mimaResultColor = Color.Green;
+            }
+            else
+            {
+                m_mimaResultColor = Color.Red;
+            }
+        }
+        public void CalibrateCanMimamori()
+        {
+            
+            List<byte> txMessage = new List<byte>();
+            List<byte> responseData = new List<byte>();
+            Status status = Status.ERROR;
+            
+            MimamoriMessagesBuilder mimamoriMessageBuilder = new MimamoriMessagesBuilder();
+           
+            status = SendMimamoriCanMessage(mimamoriMessageBuilder.CommunicationStart());
+          
+            //enter programming mode
+            status = SendMimamoriCanMessage(mimamoriMessageBuilder.ProgramModeMessage());
+
+            //enter security
+            status = SendMimamoriCanMessage(mimamoriMessageBuilder.SecurityAccessMessage()); 
+
+            //can setting
+            status = SendMimamoriCanMessage(mimamoriMessageBuilder.CanSettingMessage());
+            
+            //flash the vin
+            txMessage.Clear();
+            txMessage.AddRange(mimamoriMessageBuilder.MimamoriModuleVinFlash(m_buildData[0].VIN).RequestMessage);
+            m_logger.Log("INFO:  VIn number sent: " + BitConverter.ToString(txMessage.ToArray()));
+            status = SendMimamoriCanMessage(mimamoriMessageBuilder.MimamoriModuleVinFlash(m_buildData[0].VIN));
+
+            //T/M Model Data
+            m_logger.Log("Transmission: " + m_buildData[3].Transmission);
+            status = SendMimamoriCanMessage(mimamoriMessageBuilder.TransmissionModuleModelDataMessage(m_buildData[3].Transmission));
+            
+            //tire radius data
+            m_logger.Log("Tire size: " + m_buildData[3].TireSize);
+            if (m_buildData[3].TireSize.Equals(".520"))
+                status = SendMimamoriCanMessage(mimamoriMessageBuilder.TireRadiusMessage(520));
+            else if (m_buildData[3].TireSize.Equals(".458"))
+                status = SendMimamoriCanMessage(mimamoriMessageBuilder.TireRadiusMessage(458));
+
+            //Final Gear Ratio
+            m_logger.Log("Final Gear Ratio: " + m_buildData[3].RearAxel);
+            if (m_buildData[3].RearAxel.Equals("6.143"))
+                status = SendMimamoriCanMessage(mimamoriMessageBuilder.FinalGearRatioMessage(6143));
+            else if (m_buildData[3].RearAxel.Equals("5.571"))
+                status = SendMimamoriCanMessage(mimamoriMessageBuilder.FinalGearRatioMessage(5571));
+            else if (m_buildData[3].RearAxel.Equals("6.167"))//Current
+                status = SendMimamoriCanMessage(mimamoriMessageBuilder.FinalGearRatioMessage(6167));
+
+            //do the rest of the messages
+            foreach(MimamoriModuleCanMessage message in mimamoriMessageBuilder.getMessageList())
+            {
+                status = SendMimamoriCanMessage(message);
+            }
+            
+            if (status == Status.SUCCESS)
+            {
+                m_buildData[3].ProgrammingSuccess = true;
+                m_mimaResultColor = Color.Green;
+            }
+            else
+            {
+                m_mimaResultColor = Color.Red;
+            }
+            m_progressBarValue = m_progressBarRangeMax;
+
+        }
+        Status SendMimamoriCanMessage( MimamoriModuleCanMessage mimamoriMessage)
+        {
+
+            Status status = Status.ERROR;
+            List<byte> responseData = new List<byte>();
+            List<byte> txMessage = new List<byte>();
+            txMessage.AddRange(mimamoriMessage.RequestMessage);
+            status = Status.IN_PROGRESS;
+            m_progressBarValue++;
+           
+            CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
+
+            message = CreateECUMessage(txMessage, MimamoriModuleCanMessage.CanRequestId, MimamoriModuleCanMessage.CanResponseId);
+            message.m_responseExpected = true;
+            message.m_retries = 1;
+            if (txMessage.Count > 4)
+            {
+                message.m_txTimeout = 200;
+            }
+
+            m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
+                    message.m_messageFilter);
+            m_logger.Log("INFO:  Sending Message: " + mimamoriMessage.MessageDescription);
+            m_logger.Log("INFO:  Message Id: " + BitConverter.ToString(txMessage.ToArray()));
+            if (m_vehicleCommInterface.GetECUData(m_deviceName, m_channelName, message, ref responseData))
+            {
+                //compare the received date to determine if the message is sent successfully
+                
+                m_logger.Log("INFO:  Received: " + BitConverter.ToString(responseData.ToArray()));
+                status = Status.SUCCESS;
+                bool match = true;
+                List<byte>expectedData = mimamoriMessage.ResponseMessage;
+                if(responseData.Count < expectedData.Count)
+                    match = false;
+                for (int i = 0; i < expectedData.Count && match; i++)
+                {
+                    if (expectedData[i] != responseData[i])
+                    {
+                        match = false;
+                        status = Status.FAILURE;
+                    }
+                }
+                if(status == Status.SUCCESS)
+                    m_logger.Log("INFO:  Message sent successfully.");
+                else
+                    m_logger.Log("INFO:  Message Failure");
+                
+            }
+            else
+            {
+                m_logger.Log("INFO:  Message Failure");
+                status = Status.FAILURE;
+            }
+            
+            return status;
+
         }
         public string GetESN(string vin, string esnDirectory)
         {
@@ -2400,6 +2550,7 @@ namespace Common.Lib.Models
         public Status SendMessage(ECUBuildData build, List<byte> txMessage, bool responseExpected)
         {
             List<byte> data = new List<byte>();
+           
             bool messageSuccess = true;
             CcrtJ2534Defs.ECUMessage message = new CcrtJ2534Defs.ECUMessage();
             message = CreateECUMessage(txMessage, build.RequestID, build.ResponseID);
@@ -2409,6 +2560,7 @@ namespace Common.Lib.Models
             {
                 message.m_txTimeout = 200;
             }
+         
             m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
                     message.m_messageFilter);
 
@@ -2440,6 +2592,7 @@ namespace Common.Lib.Models
         }
         public Status SendMessage(List<byte> txMessage, bool responseExpected)
         {
+            
             List<byte> data = new List<byte>();
             bool messageSuccess = true;
             List<CcrtJ2534Defs.ECUMessage> ecuMessages = new List<CcrtJ2534Defs.ECUMessage>();
@@ -2456,8 +2609,8 @@ namespace Common.Lib.Models
                 ecuMessages.Add(message);
                 m_vehicleCommInterface.AddMessageFilter(m_deviceName, m_channelName,
                         message.m_messageFilter);
-            }
 
+            }
             m_logger.Log("INFO:  Sending Message: " + BitConverter.ToString(txMessage.ToArray()));
             foreach (CcrtJ2534Defs.ECUMessage message in ecuMessages)
             {
@@ -2479,6 +2632,7 @@ namespace Common.Lib.Models
                 }
 
             }
+
             if (messageSuccess)
             {
                 return Status.SUCCESS;
@@ -3496,12 +3650,12 @@ namespace Common.Lib.Models
         /// <summary>
         /// Seperate log for ECM flash process details
         /// </summary>
-        private Logger m_dcuLogger;
+        /*private Logger m_dcuLogger;*/
 
         /// <summary>
         /// Seperate log for TCM flash process details
         /// </summary>
-        private Logger m_mimaLogger;
+       /* private Logger m_mimaLogger;*/
 
         /// <summary>
         /// Keep alive message to be sent throughout flash process

@@ -140,6 +140,7 @@ namespace Common.Lib.Presenters
             }
             catch
             {//ignore form closing error
+                Console.WriteLine("Hello");
             }
         }
         public void UpdateViewTaskThread()

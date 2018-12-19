@@ -1,0 +1,319 @@
+<AllisonTransmissionTc>
+    <Setup>
+        <Debug>Off</Debug>
+        <Name>Transmission</Name>
+        <TestDomain>Foreground</TestDomain>
+        <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+        <SystemTagsToReset/>
+        <Communication>
+            <Debug>Off</Debug>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <Name>component/Transmission</Name>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <DriveAxle/>
+                <ForegroundTestInProgress/>
+                <TCMPartNo/>
+                <Transmission/>
+                <VIN/>
+                <Zerospeed/>
+                <TCMASMPartNo/>
+                <TCMSoftwareModule02PartNo/>
+                <TCMSoftwareModule03PartNo/>
+                <TCMSoftwareModule04PartNo/>
+                <TCMSoftwareModule01PartNo/>
+                <TCMUtilityFilePartNo/>
+                <OverallTest/>
+                <CurrentTestStatus/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+                <ResponseTimeout>2000</ResponseTimeout>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>IsuzuTransmission</ProcessName>
+            <AdditionalLogFile>/Components/IsuzuTransmissionTc.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x1F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+        </Logging>
+        <NamedDataBrokerComm>
+            <Comm>IPC</Comm>
+            <Type>Client</Type>
+            <Name>core/NamedDataBroker</Name>
+            <Debug>Off</Debug>
+            <Timeout>0</Timeout>
+            <BufferSize>1024</BufferSize>
+        </NamedDataBrokerComm>
+        <DataTags>
+            <!-- Message Tags -->
+            <ReadCurrentLeverPosition TestSteps="ShiftLeverTest">ReadShiftLeverPosition</ReadCurrentLeverPosition>
+            <ReadCurrentGear TestSteps="AccelerateInReverse">ReadShiftLeverPosition</ReadCurrentGear>
+            <ReadModulePartNumber>ReadPartNumber</ReadModulePartNumber>
+            <ReadModuleVIN>ReadVIN</ReadModuleVIN>
+
+            <!-- System Data Tags -->
+            <ModulePartNumber TestSteps="CheckPartNumbers">TCMPartNo</ModulePartNumber>
+            <SpeedTarget TestSteps="AccelerateInReverse,WaitForGears,EvaluateTccSlipError">SpeedTarget</SpeedTarget>
+            <UseBypassPartNumberList TestSteps="CheckPartNumbers">UseBypassPartNumberList</UseBypassPartNumberList>
+            <VehicleVIN>VIN</VehicleVIN>
+
+        </DataTags>
+
+
+        <Parameters>
+            <!-- Test Component Setup Parameters -->
+            <AbortOnTestStepFailure>True</AbortOnTestStepFailure>
+            <ConfigFile>/Configuration/Components/Transmission/AllisonTransmissionModule.xml</ConfigFile>
+            <DelayModuleInitialization>No</DelayModuleInitialization>
+            <DeveloperTest>False</DeveloperTest>
+            <ICMName>mgr/ICM</ICMName>
+            <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+
+            <!-- DTC Parameters -->
+            <AbortIfDTCPresent TestSteps="ReadFaults" 
+                Comment="Flag to determine if the test sequence will be aborted it DTCs are detected">False</AbortIfDTCPresent>
+            <DtcStatusActiveBit>1</DtcStatusActiveBit>
+            <DtcStatusHistoryBit>4</DtcStatusHistoryBit>
+            <DtcStatusNotPassBit>2</DtcStatusNotPassBit>
+            <ReportIgnoredFaults>False</ReportIgnoredFaults>
+
+            <!-- Gear Parameters -->
+            <CheckForPark TestSteps="StopGearMonitor" 
+                Comment="Flag to determine if Park gear should be checked">False</CheckForPark>
+            <FirstGearStatusRegister TestSteps="WaitForGears" 
+                Comment="Register to hold first gear result - not currently used">0</FirstGearStatusRegister>
+            <FirstGearBit TestSteps="WaitForGears" 
+                Comment="Bit to hold first gear result - not currently used">0</FirstGearBit>
+            <FifthGearStatusRegister TestSteps="WaitForGears" 
+                Comment="Register to hold fourth gear result - not currently used">0</FifthGearStatusRegister>
+            <FifthGearBit TestSteps="WaitForGears" 
+                Comment="Bit to hold fourth gear result - not currently used">0</FifthGearBit>
+            <FourthGearStatusRegister TestSteps="WaitForGears" 
+                Comment="Register to hold fourth gear result - not currently used">0</FourthGearStatusRegister>
+            <FourthGearBit TestSteps="WaitForGears" 
+                Comment="Bit to hold fourth gear result - not currently used">0</FourthGearBit>
+            <MaxGearSpeedRange Units="mph" TestSteps="WaitForGears,EvaluateTccSlipError" 
+                Comment="Speed range required to reach maximum gear">65 75</MaxGearSpeedRange>
+            <OverdriveGear TestSteps="WaitForGears" Comment="Transmission overdrive gear">6</OverdriveGear>
+            <SecondGearStatusRegister TestSteps="WaitForGears" 
+                Comment="Register to hold second gear result - not currently used">0</SecondGearStatusRegister>
+            <SecondGearBit TestSteps="WaitForGears" 
+                Comment="Bit to hold second gear result - not currently used">0</SecondGearBit>
+            <SixthGearStatusRegister TestSteps="WaitForGears" 
+                Comment="Register to hold second gear result - not currently used">0</SixthGearStatusRegister>
+            <SixthGearBit TestSteps="WaitForGears" 
+                Comment="Bit to hold second gear result - not currently used">0</SixthGearBit>
+            <ThirdGearStatusRegister TestSteps="WaitForGears" 
+                Comment="Register to hold third gear result - not currently used">0</ThirdGearStatusRegister>
+            <ThirdGearBit TestSteps="WaitForGears" 
+                Comment="Bit to hold third gear result - not currently used">0</ThirdGearBit>
+
+            <!-- Part Number Parameters -->
+            <AbortOnPartMismatch  TestSteps="CheckPartNumbers"
+                Comment="Falg to determine if testing should abort if the part number is wrong">False</AbortOnPartMismatch>
+            <BypassPartNumberValidation TestSteps="CheckPartNumbers"
+                Comment="Flag to determine if part number varification should be skipped">False</BypassPartNumberValidation>
+            <ValidatePartNumberList TestSteps="CheckPartNumbers"
+                Comment="Flag to determine if the part number should be looked up in a list">False</ValidatePartNumberList>
+            <ModifyBroadCastPN TestSteps="CheckPartNumbers" Comment="Flag to determine if broadcast to module part number should be modified">True</ModifyBroadCastPN>
+            <PNCheckFirstCharacterComparisonValue TestSteps="CheckPartNumbers" Comment="Comparison character to check to determine how to modify bcast pn">8</PNCheckFirstCharacterComparisonValue>
+            <PNCheckCompareEqualStartIndex TestSteps="CheckPartNumbers" Comment="pn start index if char value comparison is equal">1</PNCheckCompareEqualStartIndex>
+            <PNCheckCompareEqualLength TestSteps="CheckPartNumbers" Comment="pn length if char value comparison is equal">8</PNCheckCompareEqualLength>
+            <PNCheckCompareNotEqualStartIndex TestSteps="CheckPartNumbers" Comment="pn start index if char value comparison is not equal">0</PNCheckCompareNotEqualStartIndex>
+            <PNCheckCompareNotEqualLength TestSteps="CheckPartNumbers" Comment="pn length if char value comparison is not equal">8</PNCheckCompareNotEqualLength>
+
+            <PartNumbersToCheck TestSteps="CheckPartNumbers"
+                Comment="Partnumbers to be verified">
+                <TCMASMPartNo comparison="PartNumberPositionComparisonSkipFirstAndLast" >TCMConstantASMPartNo</TCMASMPartNo> <!-- EndModelPartNumber -->
+                <TCMSoftwareModule02PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule02PartNo</TCMSoftwareModule02PartNo>
+                <TCMSoftwareModule03PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule03PartNo</TCMSoftwareModule03PartNo>
+                <TCMSoftwareModule04PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule04PartNo</TCMSoftwareModule04PartNo>
+                <TCMSoftwareModule01PartNo comparison="PartNumberPositionComparisonSkipEnd" >SoftwareModule01PartNo</TCMSoftwareModule01PartNo>
+                <!-- TCMUtilityFilePartNo comparison="PartNumberPositionComparisonSkipFirstAndLast" >UtilityFileConstantPartNumber</TCMUtilityFilePartNo No longer checking per Konda san phone call -->
+            </PartNumbersToCheck>
+
+            <TCMConstantASMPartNo TestSteps="CheckPartNumbers"
+                Comment="ASM Part Number">24257187</TCMConstantASMPartNo>
+
+            <UtilityFileConstantPartNumber TestSteps="CheckPartNumbers"
+                Comment="Utility File Part Number From Static test station">24242068</UtilityFileConstantPartNumber>
+
+            <!-- PRNDL Parameters -->
+            <AlwaysPerformShiftLeverTest>True</AlwaysPerformShiftLeverTest>
+            <PrndlPositions>
+                <Position1 Value="R"/>
+                <Position2 Value="N"/>
+                <Position3 Value="1"/>
+            </PrndlPositions>
+            <SuccessiveLeverReadMinimum TestSteps="ShiftLeverTest"
+                Comment="Number of times shift lever must be seen in the current position">2</SuccessiveLeverReadMinimum>
+            <SuccessiveLeverReadDelay Units="ms" TestSteps="ShiftLeverTest"
+                Comment="Amount of time to wait between consecutive shift lever reads">500</SuccessiveLeverReadDelay>
+
+            <!-- Reverse Testing Parameters -->
+            <AbsoluteValueSpeed TestSteps="AccelerateInReverse" 
+                Comment="Flag to determine if encoders provide only positive speed">False</AbsoluteValueSpeed>
+            <ReverseSpeedMinimum Units="mph" TestSteps="AccelerateInReverse"
+                Comment="Minimum speed required in reverse">5.0</ReverseSpeedMinimum>
+            <ReverseSpeedMaximum Units="mph" TestSteps="AccelerateInReverse"
+                Comment="Maximum speed allowed in reverse">10.0</ReverseSpeedMaximum>
+
+            <!-- Torque Converter Clutch Parmaeters -->
+            <MaximumTccSlipError Units="rpm" TestSteps="EvaluateTccSlipError"
+                Comment="Maximum TCC Slip error allowed">0.5</MaximumTccSlipError>
+            <MinimumTccSlipError Units="rpm" TestSteps="EvaluateTccSlipError"
+                Comment="Minimum TCC Slip error allowed">-0.5</MinimumTccSlipError>
+            <TccSlipErrorMaxSpeed Units="mph" TestSteps="EvaluateTccSlipError"
+                Comment="Maximjum vehicle speed for TCC slip error analysis">75</TccSlipErrorMaxSpeed>
+            <TccSlipErrorMinSpeed Units="mph" TestSteps="EvaluateTccSlipError"
+                Comment="Minimjum vehicle speed for TCC slip error analysis">65</TccSlipErrorMinSpeed>
+
+            <!-- VIN Parameters -->
+            <AbortIfVinMismatch TestSteps="CheckVIN"
+                Comment="Flag to determine if the test sequence should be aborted if the VIN is not valid">True</AbortIfVinMismatch>
+            <BypassVINValidation TestSteps="CheckVIN" 
+                Comment="Flag used to determine if VIN validation should be skipped">False</BypassVINValidation>
+            <PromptDriverVinMismatch TestSteps="CheckVIN"
+                Comment="Flag used to determine if the operator should be prompted that the module VIN does not match the scanned VIN">True</PromptDriverVinMismatch>
+
+        </Parameters>
+
+        <!-- Operator Prompts -->
+        <Prompts>
+            <AccelerateToTargetSpeed PromptBox="2" Priority="0" 
+                TestSteps="AccelerateInReverse,WaitForGears">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <FootOnBrake PromptBox="2" Priority="0" TestSteps="ShiftLeverTest">ApplyBrake</FootOnBrake>
+            <MaintainSpeed PromptBox="1" Priority="0" TestSteps="EvaluateTccSlipError">MaintainSpeed</MaintainSpeed>
+            <ShiftTo1 PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToDrive</ShiftTo1>
+            <ShiftToDrive PromptBox="1" Priority="0" TestSteps="WaitForGears">ShiftToDrive</ShiftToDrive>
+            <ShiftToD PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToDrive</ShiftToD>
+            <ShiftToN PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToNeutral</ShiftToN>
+            <ShiftToR PromptBox="1" Priority="0" TestSteps="ShiftLeverTest">ShiftToReverse</ShiftToR>
+            <ShiftToReverse PromptBox="1" Priority="0" TestSteps="AccelerateInReverse">ShiftToReverse</ShiftToReverse>
+            <SteadyThrottle PromptBox="2" Priority="0" TestSteps="EvaluateTccSlipError">HoldThrottleSteady</SteadyThrottle>
+            <VinMismatchPrompt PromptBox="1" Priority="0" Duration="3000" TestSteps="CheckVIN">VinMismatch</VinMismatchPrompt>
+        </Prompts>
+        <Faults>Use Seperate File</Faults>
+        <FaultList>/Configuration/Components/Transmission/AllisonTransmissionFaults.xml</FaultList>
+        <SystemTagsToReset/>
+        <IgnoreFaults/>
+    </Setup>
+
+    <!-- Test Objectives -->
+    <Objectives>
+        <StartGearMonitor>
+            <TestStep00>StartGearMonitor</TestStep00>
+        </StartGearMonitor>
+
+        <StopGearMonitor>
+            <TestStep00>StopGearMonitor</TestStep00>
+        </StopGearMonitor>
+
+        <PreFinishUp>
+            <TestStep05>ReadFaults</TestStep05>
+			<TestStep06>ClearFaults</TestStep06>
+        </PreFinishUp>
+
+        <FinishUp>
+            <TestStep05>ClearFaults</TestStep05>
+            <!--TestStep98>LockModule</TestStep98-->
+            <TestStep99>FinishUp</TestStep99>
+        </FinishUp>
+
+        <ReverseTest>
+            <!--TestStep00>StartGearMonitor</TestStep00-->
+            <TestStep05>AccelerateInReverse</TestStep05>
+        </ReverseTest>
+
+        <TorqueConverterClutch>
+            <TestStep00>EvaluateTccSlipError</TestStep00>
+        </TorqueConverterClutch>
+
+        <Setup>
+            <TestStep00>Setup</TestStep00>
+        </Setup>
+
+        <StaticChecks>
+            <!--TestStep05>CheckVIN</TestStep05-->
+            <TestStep10>CheckPartNumbers</TestStep10>
+            <!--TestStep15>ShiftLeverTest</TestStep15>
+            <TestStep20>ShiftLeverTest</TestStep20-->
+        </StaticChecks>
+
+        <ShiftLeverTest>
+            <TestSTep05>ShiftLeverTest</TestSTep05>
+        </ShiftLeverTest>
+
+        <Test>
+            <TestStep00>Setup</TestStep00>
+            <TestStep15>ReadFaults</TestStep15>
+        </Test>
+
+        <WaitForAllGears>
+            <TestStep00>WaitForGears</TestStep00>
+        </WaitForAllGears>
+
+    </Objectives>
+
+    <!-- Test Steps -->
+    <TestSteps>
+        <AccelerateInReverse Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="True"
+            Description="Validate Reverse gear functionality" ScanDelay="250"/>
+        <CheckPartNumbers Result="" Timeout="1000" AlwaysPerform="False" AbortIfFailed="False"
+            Description="Verify module part number matches broadcast" ScanDelay="250"/>
+        <CheckVIN Result="" Timeout="500" AlwaysPerform="False"  AbortIfFailed="False"
+            Description="Verify the module VIN matches the scanned VIN"/>
+        <ClearFaults Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" 
+            AbortIfFailed="False"/>
+        <ClearFaultsFinal Result="Not Tested" Timeout="5000" Description="Clear fault codes from the module" CheckCompletePassStatus="True" 
+            IgnoreModuleLockedStatus="False" AbortIfFailed="False"/>
+        <EvaluateTccSlipError Result="" Timeout="30000" AlwaysPerform="False" AbortIfFailed="True"
+            Description="Verify the TCC slip error is acceptable" ScanDelay="250"/>
+        <FinishUp Result="Not Tested" Timeout="500" Description="Finish testing sequence" AlwaysPerform="True"
+            AbortIfFailed="False"/>
+        <LockModule Result="" Timeout="500" Description="Clear MEC to lock the module" 
+            AlwaysPerform="False" AbortIfFailed="False"/>
+        <ReadFaults Result="Not Tested" Timeout="500" Description="Read faults from the TCM" AlwaysPerform="True"
+            AbortIfFailed="False"/>
+        <Setup Result="Not Tested" Timeout="500" Description="Setup the test" AlwaysPerform="True" AbortIfFailed="False"/>
+        <ShiftLeverTest Result="Not Tested" Timeout="10000" Description="Check shift lever" AlwaysPerform="True" AbortIfFailed="True"/>
+        <StartFaultLimpInMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="True" 
+            Description="Start the Fault monitor and Limp-In monitor"/>
+        <StartGearMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="True" 
+            Description="Start the gear monitor" ScanDelay="500"/>
+        <StopFaultLimpInMonitor Result="Not Tested" Timeout="1000" AlwaysPerform="True" AbortIfFailed="False"
+            Description="Stop the fault and limp-in monitor"/>
+        <StopGearMonitor Result="Not Tested" Timeout="30000" Description="Stop the gear monitor" AlwaysPerform="True" 
+            FirstGearSpeedRange="5 10" SecondGearSpeedRange="20 30" 
+            ThirdGearSpeedRange="35 45" FourthGearSpeedRange="50 60" FifthGearSpeedRange="60 70"  SixthGearSpeedRange="70 80" ScanDelay="500" AbortIfFailed="False"/>
+        <WaitForGears Result="" Timeout="30000" Description="Wait for torque converter clutch full lock"
+            AlwaysPerform="False" AbortIfFailed="True"/>
+
+    </TestSteps>
+</AllisonTransmissionTc>

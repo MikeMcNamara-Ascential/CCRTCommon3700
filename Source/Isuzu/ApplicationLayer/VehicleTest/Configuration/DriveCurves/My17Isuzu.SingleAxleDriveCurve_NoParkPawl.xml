@@ -1,0 +1,470 @@
+<IsuzuDriveCurve Description="Drive Curve For The Isuzu J1850 Brake" TestType="CommandPhase">
+    <Components Debug="Off">
+        <Brakes>
+            <ComponentName>FordTRWCANABSTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>Bendix8ABSTC.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Brake/</ConfigPath>
+            <Debug>Off</Debug>
+        </Brakes>
+        <DCU>
+            <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>BoschDCUTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
+            <Debug>Off</Debug>
+        </DCU>
+        <Emissions>
+            <ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>My17IsuzuSingleAxleEmissionsTc_NoParkPawl.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
+            <Debug>Off</Debug>
+        </Emissions>
+        <Machine>
+            <ComponentName>IsuzuMachineTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>MachineComponent_NoParkPawl.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Machine/</ConfigPath>
+            <Debug>Off</Debug>
+        </Machine>
+        <Mimamori>
+            <ComponentName>MimamoriTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>MimamoriTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/VehicleConfig/</ConfigPath>
+            <Debug>Off</Debug>
+        </Mimamori>
+        <!--PIM>
+            <ComponentName>IsuzuPIMTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>PIMTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
+            <Debug>Off</Debug>
+        </PIM-->
+        <!--SpeedControl>
+            <ComponentName>IsuzuSpeedControlTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>KwpIsuzuSpeedControlTc_MY17.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/SpeedControl/</ConfigPath>
+            <Debug>Off</Debug>
+        </SpeedControl-->
+        <Transmission>
+            <ComponentName>AllisonTransmissionTC.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
+            <ConfigFile>AllisonTransmissionTC_NoParkPawl.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
+            <Debug>Off</Debug>
+        </Transmission>
+    </Components>
+    <Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="Off">
+        <TestPhase000 Description="Validate the driver number, cable connect, ..." Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective00 Description="Prompt the driver to input the driver number" Result="" Timeout="" Component="Machine">
+                    <Initialize/>
+                </Objective00>
+            </ForegroundObjectives>
+        </TestPhase000>
+
+        <!-- Perform module and test component setup -->
+        <TestPhase001 Description="Wait for engine running" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective00 Description="Wait for engine running" Result="" Timeout="" Component="Emissions">
+                    <EngineRunning/>
+                </Objective00>
+            </ForegroundObjectives>
+        </TestPhase001>
+
+        <TestPhase002 Description="Prompt operator that modules are initializing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective00 Description="Prompt operator stuff is happening" Result="" Timeout="" Component="Machine">
+                    <PromptDriverAlways>InitializingVehicleModules</PromptDriverAlways>
+                </Objective00>
+            </ForegroundObjectives>
+        </TestPhase002>
+
+        <TestPhase003 Description="Init Brake Component" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="Init Brake Component" Result="" Timeout="" Component="Brakes">
+                    <Initialize/>
+                </Objective05>
+            </ForegroundObjectives>
+        </TestPhase003>
+
+        <TestPhase005 Description="Part number check" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="Part number check" Result="" Timeout="" Component="Emissions">
+                    <CheckPartNumber/>
+                </Objective05>
+				<Objective15 Description="Part number check" Result="" Timeout="" Component="Brakes">
+                    <CheckPartNumber/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase005>                                                                          
+       
+        <TestPhase006 Description="Low speed ABS sensor testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Check individual ABS sensors" Result="" Timeout="" Component="Brakes">
+                    <FrontSensorTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase006>
+        <TestPhase007 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase007>
+
+        <!-- Perform Brake Testing -->
+        <TestPhase008 Description="Base Brake testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Engage machine for 2nd accel" Result="" Timeout="" Component="Machine">
+                    <EngageMachine/>
+                </Objective0>
+                <Objective1 Description="Functional Brake Testing" Result="" Timeout="" Component="Brakes">
+                    <FrontBrakeTest/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase008>
+
+        <TestPhase009 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase009>
+
+        <TestPhase010 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Engage machine for 2nd accel" Result="" Timeout="" Component="Machine">
+                    <EngageMachine/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase010>
+
+        <TestPhase011 Description="ABS testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Functional Brake Testing" Result="" Timeout="" Component="Brakes">
+                    <FrontValveFiringTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase011>
+        <TestPhase012 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Analyze brake test results" Result="" Timeout="" Component="Brakes">
+                    <AnalyzeFrontBrakeTest/>
+                </Objective0>
+                <Objective1 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase012>
+      
+        <TestPhase013>
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Have the driver move the Rear Axle onto the machine" Result="" Timeout="" Component="Machine">
+                    <TransitionToRearAxle/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase013>
+
+        <!-- Rear Axle Test -->
+        <!-- Perform module and test component setup -->
+        <TestPhase016 Description="Wait for engine running" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective00 Description="Wait for engine running" Result="" Timeout="" Component="Emissions">
+                    <EngineRunning/>
+                </Objective00>
+            </ForegroundObjectives>
+        </TestPhase016>
+
+        <TestPhase017 Description="Perform module initialization" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="Wait for engine temperature" Result="" Timeout="" Component="Emissions">
+                    <EngineWarmUp/>
+                </Objective05>
+            </ForegroundObjectives>
+        </TestPhase017>
+		
+		<TestPhase018 Description="Perform module initialization" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+		        <Objective10 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective10>
+		    </ForegroundObjectives>
+        </TestPhase018>
+		
+		<TestPhase019 Description="Check MAFLearn Bit" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective10 Description="Check that the MAFLearn bit has been set" Result="" Timeout="" Component="Emissions">
+                    <CheckMAFLearnComplete/>
+                </Objective10>
+            </ForegroundObjectives>
+        </TestPhase019>
+        
+		
+		<TestPhase020 Description="Prompt operator that modules are initializing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective00 Description="Prompt operator stuff is happening" Result="" Timeout="" Component="Machine">
+                    <PromptDriverAlways>InitializingVehicleModules</PromptDriverAlways>
+                </Objective00>
+				<Objective01 Description="Setup the DCU" Result="" Timeout="" Component="DCU">
+                    <Setup/>
+                </Objective01>
+                <Objective05 Description="Init Brake Component After MAF Clear" Result="" Timeout="" Component="Brakes">
+                    <PostMAFClearInitialize/>
+                </Objective05>
+                <Objective10 Description="Initialize the transmission test" Result="" Timeout="" Component="Transmission">
+                    <Setup/>
+                </Objective10>
+		 </ForegroundObjectives>
+        </TestPhase020>
+		
+        <TestPhase021 Description="DPD switch check" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="DPD switch check" Result="" Timeout="" Component="Emissions">
+                    <DPDSwitchCheck/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase021>
+		
+		<!-- Perform low speed driving tests -->
+        <TestPhase024 Description="ABS sensor testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Check ABS sensors" Result="" Timeout="" Component="Brakes">
+                    <RearSensorTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase024>
+        <TestPhase025 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase025>
+		
+		
+        
+        <TestPhase026 Description="PRNDL check" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="check prndl" Result="" Timeout="" Component="Transmission">
+                    <ShiftLeverTest/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase026>
+
+        <TestPhase027 Description="start gear mon" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Start Gear Monitor" Result="" Timeout="" Component="Transmission">
+                    <StartGearMonitor/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase027>
+		
+		<TestPhase028 Description="Brake to stop / Speedometer Check" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <Speedometer/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase028>
+		
+		<TestPhase029 Description="Wait for gears" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="wait for all gears" Result="" Timeout="" Component="Transmission">
+                    <WaitForAllGears/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase029>
+
+        
+        <!--TestPhase030 Description="Cruise set testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Enable the speed control" Result="" Timeout="" Component="SpeedControl">
+                    <CruiseOn/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase030>
+        <TestPhase031>
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Make sure cruise can Set" Result="" Timeout="" Component="SpeedControl">
+                    <CruiseSet/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase031>
+        <TestPhase032 Description="Cruise functional testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Make sure cruise is functional" Result="" Timeout="" Component="SpeedControl">
+                    <SpeedControlTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase032-->
+
+        <!-- Perform Brake Testing -->
+        <TestPhase036 Description="Base Brake testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Functional Brake Testing" Result="" Timeout="" Component="Brakes">
+                    <BrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase036>
+
+        <TestPhase037 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase037>
+
+        <TestPhase039 Description="ABS testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Functional Brake Testing" Result="" Timeout="" Component="Brakes">
+                    <RearValveFiringTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase039>
+        <TestPhase040 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Analyze brake test results" Result="" Timeout="" Component="Brakes">
+                    <AnalyzeBrakeTest/>
+                </Objective0>
+                <Objective1 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase040>
+        <TestPhase041 Description="Dynamic park brake testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Park Brake Testing" Result="" Timeout="" Component="Brakes">
+                    <ParkBrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase041>
+        <TestPhase042 Description="Brake to stop" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Prompt the driver to brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase042>
+		
+		<TestPhase043 Description="Check MAF Learn complete" Result="" Timeout="">
+			<ForegroundObjectives Result="" Timeout="">
+				<Objective0 Description="Check MAF Learn complete" Result="" Timeout="" Component="Emissions">
+                    <CheckMAFLearnComplete/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase043>
+
+        <!-- Final Dynamic Tests -->
+        <TestPhase045 Description="Read Faults" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="Finish up and determine overall result" Result="" Timeout="" Component="Brakes">
+                    <ReadFaults/>
+                </Objective05>
+            </ForegroundObjectives>
+        </TestPhase045>
+		
+		<TestPhase046 Description="Clear faults" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Clear faults" Result="" Timeout="" Component="Brakes">
+                    <ClearFaults/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase046>
+
+        <!-- Final Idle Testing -->
+        <TestPhase047 Description="Emissions Hot Idle testing and DTC reads" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective00 Description="Prompt operator about emissions tests" Result="" Timeout="" Component="Machine">
+                    <FinishUp>PerformingFinalTesting</FinishUp>
+                </Objective00>
+                <Objective04 Description="Read transmission DTCs and finish up" Result="" Timeout="" Component="Transmission">
+                    <PreFinishUp/>
+                </Objective04>
+                <Objective05 Description="Hot Idle Checks and read emissions DTCs" Result="" Timeout="" Component="Emissions">
+                    <HotIdle/>
+                </Objective05>
+                <Objective10 Description="Finish up and determine overall result" Result="" Timeout="" Component="Brakes">
+                    <FinishUp/>
+                </Objective10>
+            </ForegroundObjectives>
+        </TestPhase047>
+
+        <!-- Perform test pre finishup -->
+        <TestPhase048 Description="PreFinishup testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="PreFinish up and determine overall result" Result="" Timeout="" Component="Emissions">
+                    <PreFinishUp/>
+                </Objective05>
+                </ForegroundObjectives>
+        </TestPhase048>
+
+		<TestPhase049 Description="stop gear mon" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective15 Description="Stop Gear Monitor" Result="" Timeout="" Component="Transmission">
+                    <StopGearMonitor/>
+                </Objective15>
+            </ForegroundObjectives>
+        </TestPhase049>
+		
+        <!-- Clear faults -->
+        <TestPhase050 Description="Clear faults" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="PreFinish up and determine overall result" Result="" Timeout="" Component="Emissions">
+                    <ClearFaultsFinal/>
+                </Objective05>
+                <Objective06 Description="PreFinish up and determine overall result" Result="" Timeout="" Component="DCU">
+                    <ClearFaultsFinal/>
+                </Objective06>
+            </ForegroundObjectives>
+        </TestPhase050>
+
+        <!--Key off sequence -->
+        <TestPhase051 Description="Key off engine off start vehicle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective05 Description="Key off engine off start vehicle" Result="" Timeout="" Component="Emissions">
+                    <KeyOffEngineOffKeyOn/>
+                </Objective05>
+            </ForegroundObjectives>
+        </TestPhase051>
+		
+		<TestPhase052 Description="Initialize Mimamori" Result="" Timeout="">
+		    <ForegroundObjectives Result="" Timeout="">
+			    <Objective15 Description="Initialize Mimamori Communication" Result="" Timeout="" Component="Mimamori">
+                    <MimamoriTest/>
+                </Objective15>
+		    </ForegroundObjectives>
+		</TestPhase052>
+		<TestPhase053 Description="Initialize Mimamori" Result="" Timeout="">
+		    <ForegroundObjectives Result="" Timeout="">
+			    <Objective00 Description="Get data from Mimamori module" Result="" Timeout="" Component="Mimamori">
+                    <ReadMimamoriData/>
+                </Objective00>
+		    </ForegroundObjectives>
+		</TestPhase053>
+
+		<!-- Perform test finishup -->
+        <TestPhase055 Description="Finishup testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective01 Description="Finish up and determine overall result" Result="" Timeout="" Component="DCU">
+                    <FinishUp/>
+                </Objective01>
+				<Objective04 Description="clear transmission DTCs and finish up" Result="" Timeout="" Component="Transmission">
+                    <FinishUp/>
+                </Objective04>
+                <Objective05 Description="Finish up and determine overall result" Result="" Timeout="" Component="Emissions">
+                    <FinishUp/>
+                </Objective05>
+                <Objective10 Description="Finish up and determine overall result" Result="" Timeout="" Component="Mimamori">
+                    <FinishUp/>
+                </Objective10>
+            </ForegroundObjectives>
+        </TestPhase055>
+    </Test>
+</IsuzuDriveCurve>

@@ -1,6 +1,12 @@
 <SelectionTable Description="Isuzu drive curve selection table">
    <My17AbsFrontAxleDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My17Isuzu.SingleAxleDriveCurve.xml">
        <BrakeType>Bendix</BrakeType>
+	   <Transmission>2550RDS</Transmission>
        <!--ModelYear>180</ModelYear-->
    </My17AbsFrontAxleDriveCurve>
+   <My17AbsFrontAxleDriveCurve_NoParkPawl DriveCurve="/Configuration/VehicleTest/DriveCurves/My17Isuzu.SingleAxleDriveCurve_NoParkPawl.xml">
+       <BrakeType>Bendix</BrakeType>
+	   <Transmission>2500RDS</Transmission>
+       <!--ModelYear>180</ModelYear-->
+   </My17AbsFrontAxleDriveCurve_NoParkPawl>
 </SelectionTable>

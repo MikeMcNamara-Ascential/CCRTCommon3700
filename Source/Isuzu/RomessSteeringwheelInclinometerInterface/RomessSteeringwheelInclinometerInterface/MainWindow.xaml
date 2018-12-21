@@ -1,0 +1,32 @@
+﻿<Window x:Class="RomessSteeringwheelInclinometerInterface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525" Closing="Window_Closing_1" Loaded="Window_Loaded_1">
+    <Grid>
+        <Menu HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="517">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open"/>
+                <MenuItem Header="_Save"/>
+                <MenuItem Header="_Close" Click="MenuItem_Click_1"/>
+            </MenuItem>
+            <MenuItem Header="Options">
+                <MenuItem Header="_Communication"/>
+                <MenuItem Header="_otherCrap"/>
+                <MenuItem Header="_Close"/>
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="ContentGrid" Margin="10,25,10,10">
+            <TextBox Name="MessageBox"  HorizontalAlignment="Left" TextWrapping="Wrap" Text="" Width="300" Margin="0,143,0,0" Focusable="False" IsHitTestVisible="True" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <Label Content="Connection Type:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBox Name="ConnectionTypeBox" HorizontalAlignment="Left" Height="24" Margin="0,26,0,0" TextWrapping="Wrap" Text="BlueTooth" VerticalAlignment="Top" Width="101" Padding="2" TextAlignment="Center"/>
+            <TextBox Name="ConnectionStausBox" HorizontalAlignment="Left" Height="24" Margin="0,75,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="101" Padding="2" TextAlignment="Center"/>
+            <Label Content="Connection Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,49,0,0"/>
+            <Label Content="Connection Type:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="114,0,0,0"/>
+            <TextBox Name="CCRTConnectionBox" HorizontalAlignment="Left" Height="24" Margin="114,26,0,0" TextWrapping="Wrap" Text="CCRT" VerticalAlignment="Top" Width="101" Padding="2" TextAlignment="Center"/>
+            <TextBox Name="CCRTConnectionStatusBox" HorizontalAlignment="Left" Height="24" Margin="114,76,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="101" Padding="2" TextAlignment="Center"/>
+            <Label Content="Connection Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="114,50,0,0"/>
+            <TextBox Name="CurrentReadingBox" HorizontalAlignment="Left" Height="24" Padding="2" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" Width="120" Margin="99,114,0,0" Focusable="False" IsHitTestVisible="False"/>
+            <Label Content="Current Reading:" HorizontalAlignment="Left" Margin="0,112,0,0" VerticalAlignment="Top"/>
+        </Grid>
+    </Grid>
+</Window>

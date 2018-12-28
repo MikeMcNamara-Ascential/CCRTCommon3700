@@ -902,6 +902,19 @@ const std::string MachineDataBroker::Publish(const XmlNode *node)
             }
         }
     }
+    // check PLC for which mode it's in (Toyota exclusive content)
+    else if (!node->getName().compare("PlcMode"))
+    {
+       INamedDataBroker ndb;
+       string response, output;
+       if (BEP_STATUS_SUCCESS == ndb.Read("PlcAutoMode", response, true))
+       {
+          output = !response.compare("1") ? "Automatic" : "Manual";
+          Write("PlcMode", output);
+       }
+       else
+          Log(LOG_ERRORS, "MachineDataBroker::Publish - Error reading PLC mode");
+    }
     // then just call the base class to update the internal data
     result = BepServer::Publish(node);
     // Update the variable in the QNX Data Server 

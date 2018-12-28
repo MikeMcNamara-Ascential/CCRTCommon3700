@@ -1,0 +1,6 @@
+<VehicleBuildRecord>
+	<!-- =========== Message Description Section ================ -->
+	<VIN Section="MessageDescription" Offset="2" Length="17" Type="Value"/>
+	<BodyStyle Section="MessageDescription" Offset="19" Length="5" Type="Value"/>
+	<WheelbaseDesignator Section="MessageDescription" Offset="28" Length="1" Type="Value"/>
+</VehicleBuildRecord>

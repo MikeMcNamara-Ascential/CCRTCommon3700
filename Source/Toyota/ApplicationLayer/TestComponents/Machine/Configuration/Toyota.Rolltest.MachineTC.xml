@@ -59,6 +59,7 @@
             </SubscribeTags>
         </TagList>
         <DataTags>
+			<CycleEnd>EndTestFromPLC</CycleEnd>
             <DriveAxle>DriveAxle</DriveAxle>
             <Fail>red</Fail>
             <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
@@ -153,6 +154,7 @@
             <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
             <NeutralPrompt PromptBox="1" Priority="0">ShiftToNeutral</NeutralPrompt>
             <PassOrFail PromptBox="1" Priority="0">OverallPassOrFail</PassOrFail>
+            <PullCycleEnd PromptBox="1" Priority="0">PullCycleEnd</PullCycleEnd>
             <ShiftToReverse PromptBox="1" Priority="0">ApplyBrakeShiftToReverse</ShiftToReverse>
             <RemoveFootFromBrake PromptBox="1" Priority="0">RemoveFootFromBrake</RemoveFootFromBrake>
             <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
@@ -174,6 +176,10 @@
         <AccelerateToSpeed>
             <TestStep1>AccelerateToSpeed</TestStep1>
         </AccelerateToSpeed>
+		
+		<AccelerateToPullCord>
+			<TestStep0>AccelerateToPullCord</TestStep0>
+		</AccelerateToPullCord>
 
         <BrakeToStop>
             <TestStep1>BrakeToStop</TestStep1>
@@ -286,7 +292,10 @@
         <AccelerateToSpeed Result="" Description="Prompt the driver to accelerate to the commanded speed" Timeout="1200000" 
             Prompt1="AccelerateToTargetSpeed" Prompt1Priority="0"/>
 
-        <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="300000" 
+			
+		<AccelerateToPullCord Result="" Description="Accelerate vehicle till cable is pulled" Timeout="1000000" ScanDelay="250" />	
+        
+		<BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="300000" 
             Prompt1="BrakeToStop" Prompt1Priority="0"/>
 
         <Initialize Result="" Description="Initialize the machine for testing" Timeout="0"/>

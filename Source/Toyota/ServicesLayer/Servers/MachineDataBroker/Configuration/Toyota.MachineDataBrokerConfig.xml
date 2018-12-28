@@ -78,6 +78,7 @@
 				<FrontToRearBalanceBGColor DataType="color">white</FrontToRearBalanceBGColor>
 				<FrontToRearBalanceValue DataType="string">0</FrontToRearBalanceValue>
 				<GUIKeepAlive DataType="bool">0</GUIKeepAlive>
+				<InstVehiclePresent DataType="bool">1</InstVehiclePresent>
 				<LCDateCurrent DataType="float">0</LCDateCurrent>
 				<LCDateCurrentBGColor DataType="color">white</LCDateCurrentBGColor>
 				<LCDatePrevious DataType="float">0</LCDatePrevious>
@@ -245,7 +246,7 @@
 				<RTMachineLossPreviousBGColor DataType="color">white</RTMachineLossPreviousBGColor>
 				<RTWheelDomain DataType="range" Units="MPH">0 0</RTWheelDomain>
 				<RTWheelTarget DataType="range" Units="MPH">0 0</RTWheelTarget>
-				<SoftwareID DataType="string">R07103101-GM-00000000</SoftwareID>
+				<SoftwareID DataType="string">R07103101-Ty-00000000</SoftwareID>
 				<TandemBalanceBGColor DataType="color">white</TandemBalanceBGColor>
 				<TandemBalanceValue DataType="string">0</TandemBalanceValue>
 				<TandemToRearBalanceBGColor DataType="color">white</TandemToRearBalanceBGColor>
@@ -263,6 +264,19 @@
 				<VINDisplay DataType="string"/>
 				<VINDisplayBGColor DataType="color">white</VINDisplayBGColor>
 				<VINReadStatus DataType="string">Red</VINReadStatus>
+                
+                <PLCSystemIsReady DataType="bool">1</PLCSystemIsReady>
+                <VMESystemReady DataType="bool">1</VMESystemReady>
+                <PowerSense DataType="bool">1</PowerSense>
+                <InstVehiclePresent DataType="bool">1</InstVehiclePresent>
+                <PLCCableConnect DataType="bool">0</PLCCableConnect>
+                <RollsDownElevUp DataType="bool">0</RollsDownElevUp>
+                <RollsUpElevDown DataType="bool">1</RollsUpElevDown>
+                <StartTestFromPLC DataType="bool">0</StartTestFromPLC>
+                <WheelbaseInPosition DataType="bool">1</WheelbaseInPosition>
+                
+                <ABSCableConnected DataType="bool">0</ABSCableConnected>
+                <AllRollDrivesEnabled DataType="bool">1</AllRollDrivesEnabled>
 			</PublishTags>
 		</TagList>
 		<Logging>

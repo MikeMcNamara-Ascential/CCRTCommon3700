@@ -1,7 +1,7 @@
 <VehicleDataBrokerConfig>
     <Setup>
         <Debug>Off</Debug>
-        <PlantHost>core/PlantHostInbound</PlantHost>
+        <PlantHost>core/WorkCellController</PlantHost>
         <Communication>
             <Comm>IPC</Comm>
             <Debug>Off</Debug>
@@ -40,10 +40,8 @@
             <FrontWheelDriveSelectedToPLC DataType="bool">No</FrontWheelDriveSelectedToPLC>
             <RearWheelDriveToPLC DataType="bool">Yes</RearWheelDriveToPLC>
             <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
-            <ParkBrakePressure DataType="integer">200</ParkBrakePressure>
-            <PfsBlocked DataType="bool">No</PfsBlocked>
-            <BodyStyleType DataTYpe="integer">0000</BodyStyleType>
-            <FourWDSelected DataType="bool">No</FourWDSelected>
+            <FrontCradleOpening DataType="short">600</FrontCradleOpening>
+            <RearCradleOpening DataType="short">600</RearCradleOpening>
         </DataToPLC>
         <Logging>
             <Status>Enabled</Status>
@@ -157,6 +155,7 @@
                 <VehicleTypeImg DataType="string">FWD</VehicleTypeImg>
                 <WheelbasePositionInchesX10 DataType="int">1095</WheelbasePositionInchesX10>
                 <ReadLatestBuildData DataType="bool">0</ReadLatestBuildData>
+                <BarcodeInfo DataType="string">NoInfo</BarcodeInfo>
             </PublishTags>
         </TagList>
         <ActiveVehicleData>

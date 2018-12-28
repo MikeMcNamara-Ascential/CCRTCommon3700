@@ -80,15 +80,15 @@
             ConfigFile="TestResultServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0102" RegisteredName="core/TestResultServer" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Test Result Server</TestResultServer>
-        <MachineDataBroker Name="ToyotaMachineDataBroker.qxe" Path="/ServicesLayer/Bin/" 
+        <MachineDataBroker Name="MachineDataBroker.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="MachineDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0103" RegisteredName="core/MachineDataBroker" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Machine Data Broker</MachineDataBroker>
-        <VehicleDataBroker Name="ToyotaVehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
+        <VehicleDataBroker Name="VehicleDataBroker.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="VehicleDataBrokerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0105" RegisteredName="core/VehicleDataBroker" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Vehicle Data Broker</VehicleDataBroker>
-        <SystemMonitor Name="ToyotaSystemMonitor.qxe" Path="/ServicesLayer/Bin/" 
+        <SystemMonitor Name="DaimlerChryslerSystemMonitor.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="SystemMonitorConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0107" RegisteredName="core/SystemMonitor" Register="Yes" 
             DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="0xFF">System Monitor</SystemMonitor>
@@ -96,10 +96,14 @@
             ConfigFile="InputServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0106" RegisteredName="core/InputServer" Register="Yes" 
             DemoMode="" ConsoleMode="" AddressValue="" PortValue="" VerboseMode="">Input Server</InputServer>
-        <PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
+        <!-- PlantHostInbound Name="PlantHostInbound.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="PlantHostInboundConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0115" RegisteredName="core/PlantHostInbound" Register="Yes" 
-            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound>
+            DemoMode="Off" ConsoleMode="Off" AddressValue="" PortValue="" VerboseMode="">Plant Host Inbound Server</PlantHostInbound -->
+        <WorkCellController Name="WorkCellController.qxe" Path="/ServicesLayer/Bin/" 
+            ConfigFile="WccConfig.xml" ConfigPath="/Configuration/Servers/" OrderToLaunch="0108" 
+            RegisteredName="core/WorkCellController" Register="Yes" DemoMode="" ConsoleMode="" 
+            AddressValue="" PortValue="" VerboseMode="">Work Cell Controller</WorkCellController>
         <DataServer Name="DataServer.qxe" Path="/ServicesLayer/Bin/" 
             ConfigFile="DataServerConfig.xml" ConfigPath="/Configuration/Servers/" 
             OrderToLaunch="0450" RegisteredName="core/DataServer" Register="Yes" 

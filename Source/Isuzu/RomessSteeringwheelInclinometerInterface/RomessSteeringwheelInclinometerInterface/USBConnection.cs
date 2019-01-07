@@ -168,9 +168,11 @@ namespace RomessSteeringwheelInclinometerInterface
                 num5 = num4 - num6;
                 num5 = (int)Math.Round(unchecked((double)num5 / 10.0));
                 text2 = Conversions.ToString(text[0]);
-                text2 = text2 + num5.ToString() + ".";
+                text2 = text2 + num5.ToString() + ",";
                 text2 = text2 + num6.ToString() + "°";
                 ((MainWindow)Application.Current.MainWindow).Reading = text2;
+                if (((MainWindow)Application.Current.MainWindow).QNXComms.Initialized && ((MainWindow)Application.Current.MainWindow).QNXComms.QNXCCRT.QnxConnected)
+                    ((MainWindow)Application.Current.MainWindow).QNXComms.WriteDataToCCRT(text2);
                 //Messwert_X = text;
                 text = "";
             }

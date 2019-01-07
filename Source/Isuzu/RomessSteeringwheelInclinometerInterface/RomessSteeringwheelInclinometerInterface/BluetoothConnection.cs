@@ -28,6 +28,7 @@ namespace RomessSteeringwheelInclinometerInterface
         System.Collections.ArrayList lstCOMPorts = new System.Collections.ArrayList();
         string portNumber;
         int Baud_Rate = 38400;
+        private Thread dataThread;
 
       //Collect all of the Parameters Here
         //Interface Parameters:
@@ -56,11 +57,17 @@ namespace RomessSteeringwheelInclinometerInterface
             get { return serial; }
             set { serial = value; }
         }
+        public int BaudRate
+        {
+            get { return Baud_Rate; }
+            set { Baud_Rate = value; }
+        }
  
       //Class Methods
-        public BluetoothConnection()
+        public BluetoothConnection(int InBaud = 38400)
         {
             type = "Bluetooth";
+            BaudRate = InBaud;
             connected = false;
             serial = new SerialPort();
             ((MainWindow)Application.Current.MainWindow).Messages += ("Using Bluetooth!" + Environment.NewLine);
@@ -76,10 +83,10 @@ namespace RomessSteeringwheelInclinometerInterface
         private void StartDataThread()
         {
 
-            Thread thread = new Thread(delegate()
+            dataThread = new Thread(delegate()
             {
                 Thread.Sleep(1000);
-                while (Serial.IsOpen)
+                while (Serial.IsOpen && !IsClosing)
                 {
                     if (!Connected)
                         Send_Recognition();
@@ -97,7 +104,7 @@ namespace RomessSteeringwheelInclinometerInterface
                     Thread.Sleep(100);
                 }
             });
-            thread.Start();
+            dataThread.Start();
         }
         public bool ConnectToSWI()
         {
@@ -110,7 +117,7 @@ namespace RomessSteeringwheelInclinometerInterface
                 if (devInterface != "")
                 {
                     Serial.PortName = devInterface;
-                    Serial.BaudRate = Baud_Rate;
+                    Serial.BaudRate = BaudRate;
                     Serial.Parity = Parity.None;
                     Serial.DataBits = 8;
                     Serial.StopBits = StopBits.One;
@@ -124,7 +131,7 @@ namespace RomessSteeringwheelInclinometerInterface
                 else
                 {
                     Serial.PortName = SerialPort.GetPortNames()[0];
-                    Serial.BaudRate = Baud_Rate;
+                    Serial.BaudRate = BaudRate;
                     Serial.Parity = Parity.None;
                     Serial.DataBits = 8;
                     Serial.StopBits = StopBits.One;
@@ -150,7 +157,9 @@ namespace RomessSteeringwheelInclinometerInterface
         }
         public bool DisconnectFromSWI()
         {
-            Serial.Close();
+            dataThread.Abort();
+            if(Serial.IsOpen)
+                Serial.Close();
             return true;
         }
 
@@ -162,8 +171,8 @@ namespace RomessSteeringwheelInclinometerInterface
             }
             catch (Exception ex)
             {
-                Append("Error 12: Can not open a devInterface!\n" +
-                               "Close the program, connect the device and switch it on, then restart the program." + Environment.NewLine + ex.ToString() + Environment.NewLine);
+                if(!IsClosing)
+                    Append("Error 12: Can not open a devInterface!\n Close the program, connect the device and switch it on, then restart the program." + Environment.NewLine + ex.ToString() + Environment.NewLine);
                 Connection(false);
                 //Console.WriteLine(errorMessage + ex.Message + "\n");
                 //Logger.Log("Error: " + ex.Message);
@@ -395,7 +404,9 @@ namespace RomessSteeringwheelInclinometerInterface
             if (!IsClosing)
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
             {
-                    ((MainWindow)Application.Current.MainWindow).Reading = inValue;
+                if (((MainWindow)Application.Current.MainWindow).QNXComms.Initialized && ((MainWindow)Application.Current.MainWindow).QNXComms.QNXCCRT.QnxConnected)
+                    ((MainWindow)Application.Current.MainWindow).QNXComms.WriteDataToCCRT(inValue);
+                ((MainWindow)Application.Current.MainWindow).Reading = inValue;
             }));
         }
     }

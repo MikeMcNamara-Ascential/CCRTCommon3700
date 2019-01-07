@@ -21,8 +21,15 @@ namespace RomessSteeringwheelInclinometerInterface
 
         public Inclinometer()
         {
-            connection = new USBConnection();
-            //connection = new BluetoothConnection();
+            //connection = new USBConnection();
+            connection = new BluetoothConnection();
+        }
+        public Inclinometer(string protocol, int baud = 38400)
+        {
+            if(protocol.Equals("USB"))
+                connection = new USBConnection();
+            else if(protocol.Equals("Bluetooth"))
+                connection = new BluetoothConnection(baud);
         }
     }
 }

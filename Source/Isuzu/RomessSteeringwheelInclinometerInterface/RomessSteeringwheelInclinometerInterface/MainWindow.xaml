@@ -1,7 +1,8 @@
 ﻿<Window x:Class="RomessSteeringwheelInclinometerInterface.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525" Closing="Window_Closing_1" Loaded="Window_Loaded_1">
+        Icon="./emblem_to_usb.ico"
+        Title="RomessSWIInterface" Height="350" Width="525" Closing="Window_Closing_1" Loaded="Window_Loaded_1">
     <Grid>
         <Menu HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="517">
             <MenuItem Header="_File">
@@ -11,8 +12,6 @@
             </MenuItem>
             <MenuItem Header="Options">
                 <MenuItem Header="_Communication"/>
-                <MenuItem Header="_otherCrap"/>
-                <MenuItem Header="_Close"/>
             </MenuItem>
         </Menu>
         <Grid x:Name="ContentGrid" Margin="10,25,10,10">

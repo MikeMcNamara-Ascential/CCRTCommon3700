@@ -2,17 +2,54 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RomessSteeringwheelInclinometerInterface", "RomessSteeringwheelInclinometerInterface\RomessSteeringwheelInclinometerInterface.csproj", "{35FE73AE-6CA7-4E58-9B77-A3830112B334}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D539E60D-941C-47C7-A224-F65A4056069C} = {D539E60D-941C-47C7-A224-F65A4056069C}
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7} = {3E4A957D-BFB8-408F-9664-711B4B239CC7}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QnxCcrtInterface", "D:\SVN\Ccrt2\Library\QnxCcrtInterface\QnxCcrtInterface\QnxCcrtInterface.csproj", "{D539E60D-941C-47C7-A224-F65A4056069C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7} = {3E4A957D-BFB8-408F-9664-711B4B239CC7}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logger", "D:\SVN\Ccrt2\Library\Logger\Logger\Logger.csproj", "{3E4A957D-BFB8-408F-9664-711B4B239CC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8829CFBA-E724-4E45-B50B-BC175D9F6C28}"
+	ProjectSection(SolutionItems) = preProject
+		RomessSteeringwheelInclinometerInterface\BepLogo.ico = RomessSteeringwheelInclinometerInterface\BepLogo.ico
+		RomessSteeringwheelInclinometerInterface\emblem_to_usb.ico = RomessSteeringwheelInclinometerInterface\emblem_to_usb.ico
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{35FE73AE-6CA7-4E58-9B77-A3830112B334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{35FE73AE-6CA7-4E58-9B77-A3830112B334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35FE73AE-6CA7-4E58-9B77-A3830112B334}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{35FE73AE-6CA7-4E58-9B77-A3830112B334}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35FE73AE-6CA7-4E58-9B77-A3830112B334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35FE73AE-6CA7-4E58-9B77-A3830112B334}.Release|x86.ActiveCfg = Release|Any CPU
+		{D539E60D-941C-47C7-A224-F65A4056069C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D539E60D-941C-47C7-A224-F65A4056069C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D539E60D-941C-47C7-A224-F65A4056069C}.Debug|x86.ActiveCfg = Debug|x86
+		{D539E60D-941C-47C7-A224-F65A4056069C}.Debug|x86.Build.0 = Debug|x86
+		{D539E60D-941C-47C7-A224-F65A4056069C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D539E60D-941C-47C7-A224-F65A4056069C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D539E60D-941C-47C7-A224-F65A4056069C}.Release|x86.ActiveCfg = Release|x86
+		{D539E60D-941C-47C7-A224-F65A4056069C}.Release|x86.Build.0 = Release|x86
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7}.Debug|x86.ActiveCfg = Debug|x86
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7}.Debug|x86.Build.0 = Debug|x86
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7}.Release|x86.ActiveCfg = Release|x86
+		{3E4A957D-BFB8-408F-9664-711B4B239CC7}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,27 +10,34 @@
 
     <!-- Test Failures -->
     <ModuleFaults Code="0020" Description="Mimamori Module Faults Present"/>
-    <ATOilTemperatureNotCleared Code="0025" Description="Mimamori AT Oil Temperature not cleared"/>
+    <EDRNotCleared Code="0025" Description="Mimamori EDR Memory not cleared"/>
     <DRMNotCleared Code="0030" Description="Mimamori DRM Memory not cleared"/>
     <HistoryNotCleared Code="0035" Description="Mimamori History not cleared"/>
     <TotalMileageNotCleared Code="0040" Description="Mimamori Total Mileage not cleared"/>
 	<FuelEconomyNotCleared Code="0045" Description="Mimamori Fuel Economy not cleared"/>
     
-    <!-- Module Faults -->
-    <ModuleFault_0601 Code="P0601" Description="Mimamori: ECU not Programmed"/>
-    <ModuleFault_0602 Code="P0602" Description="Mimamori: Security Access Not Active"/>
-    <ModuleFault_9000 Code="81000" Description="Mimamori: ECU Malfunction"/>
-    <ModuleFault_E100 Code="U2100" Description="Mimamori: CAN Bus Communication Malfunction"/>
-    <ModuleFault_E105 Code="U2105" Description="Mimamori: Lost Communication with Engine Control System"/>
-    <ModuleFault_E106 Code="U2106" Description="Mimamori: Lost Communication with Transmission Control System"/>
-    <ModuleFault_E108 Code="U2108" Description="Mimamori: Lost Communication with ABS"/>
-    <ModuleFault_E116 Code="U2116" Description="Mimamori: Lost Communication with Instrument Panel Cluster"/>
-    <ModuleFault_E202 Code="U2202" Description="Mimamori: Lost Communication with Device 2"/>
-    <ModuleFault_E203 Code="U2203" Description="Mimamori: Lost Communication with Device 3"/>
-    <ModuleFault_9001 Code="81001" Description="Mimamori: EOL Data Malfunction"/>
-    <ModuleFault_9008 Code="81008" Description="Mimamori: T/M EOL Data Malfunction"/>
-    <ModuleFault_9011 Code="81011" Description="Mimamori: CAN EOL Data Malfunction"/>
-    <ModuleFault_E101 Code="U2101" Description="Mimamori: No Data of Loading EOL"/>
-    <ModuleFault_9016 Code="81016" Description="Mimamori: EOL Transmission Data Setting Malfunction"/>
-
+	<!-- Module Faults -->
+	<ModuleFault_901845 Code="B1018_45" Description="ECU flash fault" />
+	<ModuleFault_901844 Code="B1018_44" Description="ECU fault" />
+	<ModuleFault_901855 Code="B1018_55" Description="EOL data fault" />
+	<ModuleFault_C02800 Code="U0028_00" Description="CAN(J1939_CAN) communication error" />
+	<ModuleFault_C03700 Code="U0037_00" Description="CAN(ISO_CAN) communication error" />
+	<ModuleFault_C03700 Code="U0037_00" Description="CAN(ISO_CAN) communication error" />
+	<ModuleFault_C10000 Code="U0100_00" Description="ECM communication fault" />
+	<ModuleFault_C10100 Code="U0101_00" Description="Smoother/TCM/ACT communication fault" />
+	<ModuleFault_C10C00 Code="U010C_00" Description="Turbo Controller communication fault" />
+	<ModuleFault_C10E00 Code="U010E_00" Description="SCR ECU communication fault" />
+	<ModuleFault_C12600 Code="U0126_00" Description="SAS communication fault" />
+	<ModuleFault_C12900 Code="U0129_00" Description="Brake System ECU communication fault" />
+	<ModuleFault_C13200 Code="U0132_00" Description="Air suspension ECU communication fault" />
+	<ModuleFault_C14000 Code="U0140_00" Description="BCM communication fault" />
+	<ModuleFault_C15100 Code="U0151_00" Description="SRS communication fault" />
+	<ModuleFault_C15500 Code="U0155_00" Description="Multi_display ECU communication fault" />
+	<ModuleFault_D00000 Code="U1000_00" Description="Base vehicle control ECU communication fault" />
+	<ModuleFault_D00200 Code="U1002_00" Description="Idling Stop and Start ECU communication fault" />
+	<ModuleFault_D00300 Code="U1003_00" Description="HSA communication fault" />
+	<ModuleFault_D00400 Code="U1004_00" Description="VAT ECU communication fault" />
+	<ModuleFault_D00500 Code="U1005_00" Description="BLS communication fault" />    
+   
+  
 </MimamoriFaults>

@@ -62,10 +62,12 @@ protected:
     virtual const string CommandTestStep(const string &value);
 
     const string CheckDataRecordMemory();
+ 
+    bool GetMimamoriData(const string &messageTag);
 
     const string CheckFuelEconomy();
 
-    const string CheckOilTemperature();
+    const string CheckEdrData();
 
     const string CheckTotalMileage();
 

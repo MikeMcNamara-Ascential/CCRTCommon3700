@@ -150,16 +150,17 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::ReadFaults(FaultVector_t &fa
 	if(BEP_STATUS_SUCCESS == status)
 	{   // Check the status if each DTC
 		int currentDtcIndex = DtcStartIndex();
-		for(UINT16 index = 0; index < 27; index++)
+		for(UINT16 index = 0; index < 24; index++)
 		{   
 			char buff[8];
-			string dtc = CreateMessage(buff, sizeof(buff), "%02X%02X", 
-									   response[currentDtcIndex], response[currentDtcIndex+1]);
+			string dtc = CreateMessage(buff, sizeof(buff), "%02X%02X%02X", 
+									   response[currentDtcIndex], response[currentDtcIndex+1],response[currentDtcIndex+2]);
 			string dtcStatus = "";
 			bool report = true;
-			switch(response[currentDtcIndex+2])
+			
+			switch(response[currentDtcIndex+3])
 			{
-			case 0x80:
+			case 0x00:
 				dtcStatus = "clear";
 				report = false;
 				break;
@@ -168,7 +169,7 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::ReadFaults(FaultVector_t &fa
 				dtcStatus = "past failure";
 				break;
 
-			case 0xE0:
+			case 0x01:
 				dtcStatus = "present failure";
 				break;
 			default:
@@ -176,6 +177,7 @@ BEP_STATUS_TYPE MimamoriModule<ProtocolFilterType>::ReadFaults(FaultVector_t &fa
 				break;
 			}
 			Log(LOG_DEV_DATA, "DTC Status: %s = %s", dtc.c_str(), dtcStatus.c_str());
+			
 			if(report)
 			{
 				faultCodes.push_back(dtc);
@@ -242,16 +244,57 @@ throw(ModuleException)
 {
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 
-    if(methodName == "ReadDrmEngine") status = ReadModuleData(methodName,value);
-    else if(methodName == "ReadDrmAt") status = ReadModuleData(methodName,value);
-    else if(methodName == "ReadDrmScr") status = ReadModuleData(methodName,value);
-    else if(methodName == "ReadDrmBrake") status = ReadModuleData(methodName,value);
-    else if(methodName == "ReadDrmEdrOilTemp") status = ReadModuleData(methodName,value);
+    if (methodName == "ReadDrmEngine"
+       || methodName == "ReadDrmNees2"
+       || methodName == "ReadDrmAirsus"
+       || methodName == "ReadDrmIss" 
+       || methodName == "ReadDrmAt"
+       || methodName == "ReadDrmScr" 
+       || methodName == "ReadDrmBrake"
+       || methodName == "ReadDrmHsa" 
+       || methodName == "ReadDrmBls"
+       || methodName == "ReadDrmSrs" 
+       || methodName == "ReadDrmVcEcu"
+       || methodName == "ReadDrmBcm" 
+       || methodName == "ReadEdrPistonOpenTemp"
+       || methodName == "ReadEdrEsc" 
+       || methodName == "ReadEdrAebs" 
+       || methodName == "ReadEdrSrs"
+        )
+    {
+
+        status = ReadModuleData(methodName, value);
+    }
     else
     {
-        // No special implementation, try the base class
         status = GenericModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
     }
+      /*  switch (methodName)
+        {
+        case "ReadDrmEngine" :
+        case "ReadDrmNees2"  :
+        case "ReadDrmAirsus" :
+        case "ReadDrmIss"    :
+        case "ReadDrmAt"     :
+        case "ReadDrmScr"    :
+        case "ReadDrmBrake"  :
+        case "ReadDrmHsa"    :
+        case "ReadDrmBls"    :
+        case "ReadDrmSrs"    :
+        case "ReadDrmVcEcu"  :
+        case "ReadDrmBcm"    :
+        case "ReadEdrPistonOpenTemp"    :
+        case "ReadEdrEsc"    :
+        case "ReadEdrAebs"   :
+        case "ReadEdrSrs"    :
+        status = ReadModuleData(methodName, value);
+        break;
+        default:
+        status = GenericModuleTemplate<ProtocolFilterType>::GetInfo(methodName, value);
+        }
+    }*/
+   // if (methodName == "ReadDrmEngine") status = ReadModuleData(methodName, value);
+    
     return status;
 }
 

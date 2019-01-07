@@ -116,7 +116,7 @@
 			<TestStep15>CheckTotalMileage</TestStep15>
             <TestStep20>CheckFuelEconomy</TestStep20>
             <TestStep25>CheckDataRecordMemory</TestStep25>
-            <TestStep30>CheckOilTemperature</TestStep30>
+            <TestStep30>CheckEdrData</TestStep30>
             <TestStep35>ClearFaults</TestStep35>
             <TestStep40>ReadFaults</TestStep40>
         </MimamoriTest>
@@ -126,7 +126,7 @@
             <TestStep05>CheckTotalMileage</TestStep05>
             <TestStep10>CheckFuelEconomy</TestStep10>
             <TestStep15>CheckDataRecordMemory</TestStep15>
-            <TestStep20>CheckOilTemperature</TestStep20>
+            <TestStep20>CheckEdrData</TestStep20>
         </ReadMimamoriData>
         <FinishUp>
             <!--TestStep05>LockModule</TestStep05-->
@@ -139,7 +139,7 @@
     <TestSteps>
         <CheckDataRecordMemory Result="" Timeout="2000" Description="Read module's data record and memory" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
         <CheckFuelEconomy Result="" Timeout="2000" Description="Read module's Fuel Economy" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
-        <CheckOilTemperature Result="" Timeout="2000" Description="Read module's Oil Temperature" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
+        <CheckEdrData Result="" Timeout="2000" Description="Read module's EDR data" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
         <CheckTotalMileage Result="" Timeout="2000" Description="Read module's total mileage" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
         <ClearFaults Result="" Timeout="100" Description="Clear faults from the module" Prompt1="ReadMimamoriData" Prompt2="Blank"/>
         <ClearHistory Result="" Timeout="5000" Description="Clear module history" Prompt1="ReadMimamoriData" Prompt2="Blank"/>

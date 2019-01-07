@@ -110,7 +110,7 @@ const string MimamoriTc<ModuleType>::CommandTestStep(const string &value)
 		// Place the module into diagnostic mode
 		else if(step == "CheckFuelEconomy")		     status = CheckFuelEconomy();
 		// Command the module to exit diagnostic mode
-		else if(step == "CheckOilTemperature")		 status = CheckOilTemperature();
+		else if(step == "CheckEdrData")		 status = CheckEdrData();
 		// Validate the module part number
 		else if(step == "CheckTotalMileage")	     status = CheckTotalMileage();
 		// Validate the module part number
@@ -150,105 +150,34 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
 	string testDescription = GetTestStepInfo("Description");
 	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     string value;
-    bool engineDataCleared = false;
-    bool atDataCleared = false;
-    bool scrDataCleared = false;
-    bool brakeDataCleared = false;
+  
     int i = 0;
+    bool status = false;
     Log(LOG_FN_ENTRY, "Enter MimamoriTc::CheckDataRecordMemory()\n");
     if(!ShortCircuitTestStep())
 	{
         do
         {
 
-            try
-		    {
-			    moduleStatus = m_vehicleModule.GetInfo("ReadDrmEngine", value);
-                if(moduleStatus == BEP_STATUS_SUCCESS)
-                {
-                    m_vehicleModule.CommandModule("ReadTriggerResponse");
-                    for(i = 0; i < value.length(); i++)
-                    {
-                        if(value.at(i) != '\0')
-                            break;
-                    }
-                    if(i == value.length())
-                        engineDataCleared = true;
-                }
-            }
-		    catch(ModuleException &exception)
-		    {	// Exception during security unlock
-		    	Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
-	    		moduleStatus = BEP_STATUS_SOFTWARE;
-		    }
-            try
-            {
-                moduleStatus = m_vehicleModule.GetInfo("ReadDrmAt", value);
-                if(moduleStatus == BEP_STATUS_SUCCESS)
-                {
-                    m_vehicleModule.CommandModule("ReadTriggerResponse");
-                    for(i = 0; i < value.length(); i++)
-                    {
-                        if(value.at(i) != '\0')
-                            break;
-                    }
-                    if(i == value.length())
-                        atDataCleared = true;
-                }                                
-            }
-            catch(ModuleException &exception)
-            {	// Exception during security unlock
-                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
-                moduleStatus = BEP_STATUS_SOFTWARE;
-            }
-            try
-            {
-                moduleStatus = m_vehicleModule.GetInfo("ReadDrmScr", value);
-                if(moduleStatus == BEP_STATUS_SUCCESS)
-                {
-                    m_vehicleModule.CommandModule("ReadTriggerResponse");
-                    for(i = 0; i < value.length(); i++)
-                    {
-                        if(value.at(i) != '\0')
-                            break;
-                    }
-                    if(i == value.length())
-                        scrDataCleared = true;
-                }
-            }
-            catch(ModuleException &exception)
-            {	// Exception during security unlock
-                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
-                moduleStatus = BEP_STATUS_SOFTWARE;
-            }
-            try
-            {
-                moduleStatus = m_vehicleModule.GetInfo("ReadDrmBrake", value);
-                if(moduleStatus == BEP_STATUS_SUCCESS)
-                {
-                    m_vehicleModule.CommandModule("ReadTriggerResponse");
-                    for(i = 0; i < value.length(); i++)
-                    {
-                        if(value.at(i) != '\0')
-                            break;
-                    }
-                    if(i == value.length())
-                        brakeDataCleared = true;
-                }
-            }
-            catch(ModuleException &exception)
-            {	// Exception during security unlock
-                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
-                moduleStatus = BEP_STATUS_SOFTWARE;
-            }
+            status = GetMimamoriData("ReadDrmEngine");
+            status &= GetMimamoriData("ReadDrmNees2");
+            status &= GetMimamoriData("ReadDrmAirsus");
+            status &= GetMimamoriData("ReadDrmIss");
+            status &= GetMimamoriData("ReadDrmAt");
+            status &= GetMimamoriData("ReadDrmScr");
+            status &= GetMimamoriData("ReadDrmBrake");
+            status &= GetMimamoriData("ReadDrmHsa");
+            status &= GetMimamoriData("ReadDrmBls");
+            status &= GetMimamoriData("ReadDrmSrs");
+            status &= GetMimamoriData("ReadDrmVcEcu");
+            status &= GetMimamoriData("ReadDrmBcm");
 
-            if((engineDataCleared && atDataCleared && scrDataCleared && brakeDataCleared) || !m_dataCleared)
+            if(status || !m_dataCleared)
             {
                 testResult = testPass;
             }
             else
             {
-                Log(LOG_DEV_DATA,"engineData: %s, atData: %s, scrData: %s, brakeData: %s", engineDataCleared ? "true":"false", atDataCleared ? "true":"false", scrDataCleared ? "true":"false", brakeDataCleared ? "true":"false");
                 testResult = testFail;
                 testResultCode = GetFaultCode("DRMNotCleared");
 	            testDescription = GetFaultDescription("DRMNotCleared");
@@ -268,6 +197,46 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
 	// Return the test result
 	Log(LOG_FN_ENTRY, "Exit MimamoriTc::CheckDataRecordMemory()\n");
     return testResult;
+}
+template<class ModuleType>
+bool MimamoriTc<ModuleType>::GetMimamoriData(const string &messageTag)
+{
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    bool status = false;
+    string failCode = "";
+    int i =0;
+     string value;
+    try
+    {
+        moduleStatus = m_vehicleModule.GetInfo(messageTag, value);
+        if(moduleStatus == BEP_STATUS_SUCCESS)
+        {
+             m_vehicleModule.CommandModule("ReadTriggerResponse");
+            for(i = 0; i < value.length(); i++)
+            {
+                if(value.at(i) != '\0')
+                    break;
+            }
+            if(i == value.length())
+                status = true;
+        }
+        if (status)
+        {
+            failCode = "true";
+        }
+        else
+        {
+            failCode = "false";
+        }
+        Log(LOG_DEV_DATA, "%s: %s", messageTag,faileCode);
+    }
+    catch(ModuleException &exception)
+    {	// Exception during security unlock
+        Log(LOG_ERRORS, "Message name: %s\n",messageTag); 
+        Log(LOG_ERRORS, "Module Exception during GetDataRecordMemory() - %s\n", exception.message().c_str());
+        moduleStatus = BEP_STATUS_SOFTWARE;
+    }
+    return status;
 }
 template<class ModuleType>
 const string MimamoriTc<ModuleType>::CheckFuelEconomy()
@@ -327,7 +296,7 @@ const string MimamoriTc<ModuleType>::CheckFuelEconomy()
     return testResult;
 }
 template<class ModuleType>
-const string MimamoriTc<ModuleType>::CheckOilTemperature()
+const string MimamoriTc<ModuleType>::CheckEdrData()
 {   // Set up some variables
 	string testResult = BEP_TESTING_STATUS;
 	string testResultCode("0000");
@@ -335,45 +304,37 @@ const string MimamoriTc<ModuleType>::CheckOilTemperature()
 	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
     string value;
     int i = 0;
-    Log(LOG_FN_ENTRY, "Enter MimamoriTc::CheckOilTemperature()\n");
+    int status = false;
+    Log(LOG_FN_ENTRY, "Enter MimamoriTc::CheckEdrData()\n");
     if(!ShortCircuitTestStep())
 	{
         do
         {
             try
             {
-                moduleStatus = m_vehicleModule.GetInfo("ReadDrmEdrOilTemp", value);
-                if(moduleStatus == BEP_STATUS_SUCCESS)
+                status = GetMimamoriData("ReadEdrPistonOpenTemp");
+                status &= GetMimamoriData("ReadEdrEsc");
+                status &= GetMimamoriData("ReadEdrAebs");
+                status &= GetMimamoriData("ReadEdrSrs");
+             
+                if(status|| !m_dataCleared)
                 {
-                    m_vehicleModule.CommandModule("ReadTriggerResponse");
-                    for(i = 0; i < value.length(); i++)
-                    {
-                        if(value.at(i) != '\0')
-                            break;
-                    }
-                    if(i == value.length() || !m_dataCleared)
-                        testResult = testPass;
-                    else
-                    {
-                        testResult = testFail;
-                        testResultCode = GetFaultCode("ATOilTemperatureNotCleared");
-	                    testDescription = GetFaultDescription("ATOilTemperatureNotCleared");
-                    }
+                    testResult = testPass;
                 }
                 else
                 {
                     testResult = testFail;
-                    testResultCode = GetFaultCode("ATOilTemperatureNotCleared");
-	                testDescription = GetFaultDescription("ATOilTemperatureNotCleared");
+                    testResultCode = GetFaultCode("EDRNotCleared");
+    	            testDescription = GetFaultDescription("EDRNotCleared");
                 }
             }
             catch(ModuleException &exception)
             {	// Exception during security unlock
-                Log(LOG_ERRORS, "Module Exception during CheckOilTemperature() - %s\n", exception.message().c_str());
+                Log(LOG_ERRORS, "Module Exception during CheckEdrData() - %s\n", exception.message().c_str());
                 moduleStatus = BEP_STATUS_SOFTWARE;
                 testResult = testFail;
-                testResultCode = GetFaultCode("ATOilTemperatureNotCleared");
-	            testDescription = GetFaultDescription("ATOilTemperatureNotCleared");
+                testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
             }
         } while(TimeRemaining() && testResult == BEP_TESTING_STATUS && (BEP_STATUS_SUCCESS == StatusCheck()));
 
@@ -386,7 +347,7 @@ const string MimamoriTc<ModuleType>::CheckOilTemperature()
 	}
     
 	// Return the test result
-	Log(LOG_FN_ENTRY, "Exit MimamoriTc::CheckOilTemperature()\n");
+	Log(LOG_FN_ENTRY, "Exit MimamoriTc::CheckEdrData()\n");
     RemovePrompts();
     return testResult;
 }

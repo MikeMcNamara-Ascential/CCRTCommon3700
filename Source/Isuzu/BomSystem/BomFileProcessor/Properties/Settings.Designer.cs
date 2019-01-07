@@ -25,7 +25,7 @@ namespace BomFileProcessor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\BOM\\BOM")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\BOM\\")]
         public string BomDirectory {
             get {
                 return ((string)(this["BomDirectory"]));
@@ -493,7 +493,7 @@ namespace BomFileProcessor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/TestResults/BuildRecords/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("//home/CCRT/Rewrite/Configuration/VehicleTest/BuildRecords/")]
         public string VehicleBuildDirectory {
             get {
                 return ((string)(this["VehicleBuildDirectory"]));

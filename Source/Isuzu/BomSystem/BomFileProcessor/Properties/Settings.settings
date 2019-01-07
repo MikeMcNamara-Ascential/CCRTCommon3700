@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="BomDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\BOM\BOM</Value>
+      <Value Profile="(Default)">C:\BOM\</Value>
     </Setting>
     <Setting Name="BomArchive" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\BOM\Archive</Value>
@@ -120,7 +120,7 @@
       <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/ftpOutbox/BuildRecords/</Value>
     </Setting>
     <Setting Name="VehicleBuildDirectory" Type="System.String" Scope="User">
-      <Value Profile="(Default)">//home/CCRT/Rewrite/TestResults/BuildRecords/</Value>
+      <Value Profile="(Default)">//home/CCRT/Rewrite/Configuration/VehicleTest/BuildRecords/</Value>
     </Setting>
   </Settings>
 </SettingsFile>

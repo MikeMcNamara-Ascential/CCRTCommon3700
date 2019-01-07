@@ -77,9 +77,12 @@ namespace BomFileProcessor
 
 
             remotePaths.Clear();
+            m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory + " to the remote paths");
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.VehicleBuildDirectory);
+            m_logger.Log("Added " + BomFileProcessor.Properties.Settings.Default.VehicleBuildFlashTransferLocation + " to the remote paths");
             remotePaths.Add(BomFileProcessor.Properties.Settings.Default.VehicleBuildFlashTransferLocation);
             //create monitor to upload files to dvt.  do not start actual ftp file monitor since we are only transmitting
+            
             m_buildRecordFileMonitor = new BomFtpFileMonitor(remotePaths, BomFileProcessor.Properties.Settings.Default.VehicleBuildTempDirectory,
                 users, passwords, ipaddresses,m_logger);
 
@@ -846,7 +849,7 @@ namespace BomFileProcessor
                                     if (System.IO.File.Exists(flashDest))
                                     {//file successfully copied, delete local
                                         File.Delete(file);
-                                    }
+                                        }
                                     m_logger.Log("INFO: Moved " + file + " to " + flashDest);
                                 }
 

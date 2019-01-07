@@ -152,14 +152,256 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
     string value;
   
     int i = 0;
-    bool status = false;
+    bool status = true;
     Log(LOG_FN_ENTRY, "Enter MimamoriTc::CheckDataRecordMemory()\n");
     if(!ShortCircuitTestStep())
 	{
         do
         {
 
-            status = GetMimamoriData("ReadDrmEngine");
+		 try
+		    {
+			    moduleStatus = m_vehicleModule.GetInfo("ReadDrmEngine", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                        status &= true;
+                }
+            }
+		    catch(ModuleException &exception)
+		    {	// Exception during security unlock
+		    	Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+	    		moduleStatus = BEP_STATUS_SOFTWARE;
+		    }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmNees2", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }                                
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmAirsus", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmIss", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+			
+			 try
+		    {
+			    moduleStatus = m_vehicleModule.GetInfo("ReadDrmAt", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }
+            }
+		    catch(ModuleException &exception)
+		    {	// Exception during security unlock
+		    	Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+	    		moduleStatus = BEP_STATUS_SOFTWARE;
+		    }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmScr", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }                                
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmBrake", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmHsa", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+			
+			 try
+		    {
+			    moduleStatus = m_vehicleModule.GetInfo("ReadDrmBls", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }
+            }
+		    catch(ModuleException &exception)
+		    {	// Exception during security unlock
+		    	Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+	    		moduleStatus = BEP_STATUS_SOFTWARE;
+		    }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmSrs", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }                                
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmVcEcu", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                         status &= true;
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+            try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadDrmBcm", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length())
+                        status &= true;
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckDataRecordMemory() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+            }
+           /* status = GetMimamoriData("ReadDrmEngine");
             status &= GetMimamoriData("ReadDrmNees2");
             status &= GetMimamoriData("ReadDrmAirsus");
             status &= GetMimamoriData("ReadDrmIss");
@@ -170,7 +412,7 @@ const string MimamoriTc<ModuleType>::CheckDataRecordMemory()
             status &= GetMimamoriData("ReadDrmBls");
             status &= GetMimamoriData("ReadDrmSrs");
             status &= GetMimamoriData("ReadDrmVcEcu");
-            status &= GetMimamoriData("ReadDrmBcm");
+            status &= GetMimamoriData("ReadDrmBcm");*/
 
             if(status || !m_dataCleared)
             {
@@ -228,7 +470,7 @@ bool MimamoriTc<ModuleType>::GetMimamoriData(const string &messageTag)
         {
             failCode = "false";
         }
-        Log(LOG_DEV_DATA, "%s: %s", messageTag,faileCode);
+        Log(LOG_FN_ENTRY, "%s: %s", messageTag, failCode);
     }
     catch(ModuleException &exception)
     {	// Exception during security unlock
@@ -310,22 +552,31 @@ const string MimamoriTc<ModuleType>::CheckEdrData()
 	{
         do
         {
-            try
+			try
             {
-                status = GetMimamoriData("ReadEdrPistonOpenTemp");
-                status &= GetMimamoriData("ReadEdrEsc");
-                status &= GetMimamoriData("ReadEdrAebs");
-                status &= GetMimamoriData("ReadEdrSrs");
-             
-                if(status|| !m_dataCleared)
+                moduleStatus = m_vehicleModule.GetInfo("ReadEdrPistonOpenTemp", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
                 {
-                    testResult = testPass;
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length() || !m_dataCleared)
+                        testResult = testPass;
+                    else
+                    {
+                        testResult = testFail;
+                         testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+                    }
                 }
                 else
                 {
                     testResult = testFail;
-                    testResultCode = GetFaultCode("EDRNotCleared");
-    	            testDescription = GetFaultDescription("EDRNotCleared");
+                     testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
                 }
             }
             catch(ModuleException &exception)
@@ -336,6 +587,129 @@ const string MimamoriTc<ModuleType>::CheckEdrData()
                 testResultCode = GetFaultCode("EDRNotCleared");
 	            testDescription = GetFaultDescription("EDRNotCleared");
             }
+			
+			try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadEdrEsc", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length() || !m_dataCleared)
+                        testResult = testPass;
+                    else
+                    {
+                        testResult = testFail;
+                         testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+                    }
+                }
+                else
+                {
+                    testResult = testFail;
+                     testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckEdrData() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+                testResult = testFail;
+                testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+            }
+			
+			try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadEdrAebs", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length() || !m_dataCleared)
+                        testResult = testPass;
+                    else
+                    {
+                        testResult = testFail;
+                         testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+                    }
+                }
+                else
+                {
+                    testResult = testFail;
+                     testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckEdrData() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+                testResult = testFail;
+                testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+            }
+			
+			try
+            {
+                moduleStatus = m_vehicleModule.GetInfo("ReadEdrSrs", value);
+                if(moduleStatus == BEP_STATUS_SUCCESS)
+                {
+                    m_vehicleModule.CommandModule("ReadTriggerResponse");
+                    for(i = 0; i < value.length(); i++)
+                    {
+                        if(value.at(i) != '\0')
+                            break;
+                    }
+                    if(i == value.length() || !m_dataCleared)
+                        testResult = testPass;
+                    else
+                    {
+                        testResult = testFail;
+                         testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+                    }
+                }
+                else
+                {
+                    testResult = testFail;
+                     testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+                }
+            }
+            catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckEdrData() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+                testResult = testFail;
+                testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+            }
+           /* try
+            {
+               /* status = GetMimamoriData("ReadEdrPistonOpenTemp");
+                status &= GetMimamoriData("ReadEdrEsc");
+                status &= GetMimamoriData("ReadEdrAebs");
+                status &= GetMimamoriData("ReadEdrSrs");*/
+			/*}*/
+          /*  catch(ModuleException &exception)
+            {	// Exception during security unlock
+                Log(LOG_ERRORS, "Module Exception during CheckEdrData() - %s\n", exception.message().c_str());
+                moduleStatus = BEP_STATUS_SOFTWARE;
+                testResult = testFail;
+                testResultCode = GetFaultCode("EDRNotCleared");
+	            testDescription = GetFaultDescription("EDRNotCleared");
+            }*/
         } while(TimeRemaining() && testResult == BEP_TESTING_STATUS && (BEP_STATUS_SUCCESS == StatusCheck()));
 
         SendTestResult(testResult, testDescription, testResultCode);

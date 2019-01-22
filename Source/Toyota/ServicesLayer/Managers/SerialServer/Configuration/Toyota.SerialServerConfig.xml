@@ -16,7 +16,7 @@
 				<Setup>
 					<SerialDevice>/dev/socket</SerialDevice>
 					<MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
-					<IpAddress>10.20.110.76</IpAddress>
+					<IpAddress>192.168.110.76</IpAddress>
 					<PortNo>4096</PortNo>
 					<TcpType>Client</TcpType>
 					<Protocol>
@@ -53,7 +53,7 @@
 			</PlcToyopuc>
          <Scanner enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
             <Setup>
-                  <SerialDevice>/dev/sl7804/ser5</SerialDevice>
+                  <SerialDevice>/dev/sl7804/ser1</SerialDevice>
                <MgrPool lowWater="2" hiWater="10" maximum="15" increment="1" priority="23"/>
                <Protocol>
                   <Baud>9600</Baud>

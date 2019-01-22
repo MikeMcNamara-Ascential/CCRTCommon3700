@@ -61,6 +61,8 @@
                 <RollsDownElevUp/>
                 <SpeedDisplayScaling />
                 <Zerospeed/>
+				<PlcAutoMode/>
+				<PlcManualMode/>
 			</SubscribeTags>
 			<PublishTags>
 				<ArmSpeed DataType="float" Units="MPH">0</ArmSpeed>
@@ -183,6 +185,7 @@
                 <MaxRollerSpeed DataType="float" Units="MPH">0</MaxRollerSpeed>
                 <ParkBrakeForce DataType="float" Units="LBF">0.0</ParkBrakeForce>
                 <ParkBrakeForceBGColor DataType="color">white</ParkBrakeForceBGColor>
+				<PlcMode DataType="string">Automatic</PlcMode>
                 <PlcType DataType="string">SerialAb</PlcType>
 				<RearBalanceBGColor DataType="color">white</RearBalanceBGColor>
 				<RearBalanceValue DataType="string">0</RearBalanceValue>
@@ -264,6 +267,13 @@
 				<VINDisplay DataType="string"/>
 				<VINDisplayBGColor DataType="color">white</VINDisplayBGColor>
 				<VINReadStatus DataType="string">Red</VINReadStatus>
+				<TestProgressStackLight DataType="string">Green</TestProgressStackLight>
+				<TestProgressStackLightGLTextColor DataType="color">black</TestProgressStackLightGLTextColor>
+				<TestProgressStackLightYLTextColor DataType="color">black</TestProgressStackLightYLTextColor>
+				<TestProgressStackLightRLTextColor DataType="color">black</TestProgressStackLightRLTextColor>
+				<TestProgressStackLightGLText DataType="string">TEST COMPLETE</TestProgressStackLightGLText>
+				<TestProgressStackLightYLText DataType="string">IN USE</TestProgressStackLightYLText>
+				<TestProgressStackLightRLText DataType="string">FAULT</TestProgressStackLightRLText>
                 
                 <PLCSystemIsReady DataType="bool">1</PLCSystemIsReady>
                 <VMESystemReady DataType="bool">1</VMESystemReady>
@@ -277,6 +287,8 @@
                 
                 <ABSCableConnected DataType="bool">0</ABSCableConnected>
                 <AllRollDrivesEnabled DataType="bool">1</AllRollDrivesEnabled>
+				
+				<ScanBarcodeStartsTest DataType="bool">1</ScanBarcodeStartsTest>
 			</PublishTags>
 		</TagList>
 		<Logging>

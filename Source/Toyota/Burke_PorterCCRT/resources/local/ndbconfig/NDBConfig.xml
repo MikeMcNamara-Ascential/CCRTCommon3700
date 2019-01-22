@@ -982,6 +982,8 @@
 				<PLC5Rack7Fault DataType="bool">PLC</PLC5Rack7Fault>
 				<PLCAuxilliaryOutputOneIsOn DataType="bool">PLC</PLCAuxilliaryOutputOneIsOn>
 				<PLCAuxilliaryOutputTwoIsOn DataType="bool">PLC</PLCAuxilliaryOutputTwoIsOn>
+                <PlcAutoMode DataType="bool">PLC</PlcAutoMode>
+                <PlcManualMode DataType="bool">PLC</PlcManualMode>
 				<PLCBatteryLowFault DataType="bool">PLC</PLCBatteryLowFault>
 				<PLCCableConnect DataType="bool">PLC</PLCCableConnect>
 				<PLCDidNotInitialize DataType="bool">PLC</PLCDidNotInitialize>
@@ -992,6 +994,7 @@
 				<PLCSystemFailure DataType="bool">PLC</PLCSystemFailure>
 				<PLCSystemIsReady DataType="bool">PLC</PLCSystemIsReady>
 				<PlcMode DataType="string">MachineDataBroker</PlcMode>
+				<PlcModeDisplayBGColor DataType="string">MachineDataBroker</PlcModeDisplayBGColor>
                 <PlcType DataType="string">MachineDataBroker</PlcType>
 				<PositractionRejectLamp DataType="bool">PLC</PositractionRejectLamp>
 				<PositractionTest DataType="bool">PLC</PositractionTest>
@@ -1335,6 +1338,7 @@
                 <RunFlatBGColor DataType="color">VehicleDataBroker</RunFlatBGColor>
 				<RunflatTestSelected DataType="bool">PLC</RunflatTestSelected>
 				<ScannerCommFault DataType="bool">PLC</ScannerCommFault>
+				<ScanBarcodeStartsTest DataType="bool">PLC</ScanBarcodeStartsTest>
 				<SCI2BusEnable DataType="bool">PLC</SCI2BusEnable>
 				<SensorCrossAndTracLock DataType="bool">PLC</SensorCrossAndTracLock>
 				<SensorOverallTest DataType="testcomponentstatus">TestResultServer</SensorOverallTest>
@@ -1433,6 +1437,13 @@
 				<Test90PercentComplete DataType="bool">PLC</Test90PercentComplete>
                 <TestingTOD DataType="bool">VehicleDataBroker</TestingTOD>
 				<TestInProgress DataType="bool">VehicleTest</TestInProgress>
+				<TestProgressStackLight DataType="string">MachineDataBroker</TestProgressStackLight>
+				<TestProgressStackLightGLTextColor DataType="color">MachineDataBroker</TestProgressStackLightGLTextColor>
+				<TestProgressStackLightYLTextColor DataType="color">MachineDataBroker</TestProgressStackLightYLTextColor>
+				<TestProgressStackLightRLTextColor DataType="color">MachineDataBroker</TestProgressStackLightRLTextColor>
+				<TestProgressStackLightGLText DataType="string">MachineDataBroker</TestProgressStackLightGLText>
+				<TestProgressStackLightYLText DataType="string">MachineDataBroker</TestProgressStackLightYLText>
+				<TestProgressStackLightRLText DataType="string">MachineDataBroker</TestProgressStackLightRLText>
 				<TestResult DataType="string">TestResultServer</TestResult>
                 <TestResultBox1 DataType="string">MachineDataBroker</TestResultBox1>
                 <TestResultBox10 DataType="string">MachineDataBroker</TestResultBox10>
@@ -1611,7 +1622,6 @@
 				<LeftRearTorqueRefPercent DataType="short">PLC</LeftRearTorqueRefPercent>
 				<LeftRearPosTorqueLimit DataType="short">PLC</LeftRearPosTorqueLimit>
 				<LeftRearNegTorqueLimit DataType="short">PLC</LeftRearNegTorqueLimit>
-
 				<RightRearMotorMode DataType="short">PLC</RightRearMotorMode>
 				<RightRearSpeedRefRpm DataType="short">PLC</RightRearSpeedRefRpm>
 				<RightRearTorqueRefPercent DataType="short">PLC</RightRearTorqueRefPercent>

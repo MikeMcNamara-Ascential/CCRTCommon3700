@@ -39,9 +39,9 @@
         <DataToPLC>
             <FrontWheelDriveSelectedToPLC DataType="bool">No</FrontWheelDriveSelectedToPLC>
             <RearWheelDriveToPLC DataType="bool">Yes</RearWheelDriveToPLC>
-            <WheelbasePositionInchesX10 DataType="integer">1095</WheelbasePositionInchesX10>
-            <FrontCradleOpening DataType="short">600</FrontCradleOpening>
-            <RearCradleOpening DataType="short">600</RearCradleOpening>
+            <WheelbasePositionInchesX10 DataType="integer">2718</WheelbasePositionInchesX10>
+            <FrontCradleOpening DataType="short">580</FrontCradleOpening>
+            <RearCradleOpening DataType="short">580</RearCradleOpening>
         </DataToPLC>
         <Logging>
             <Status>Enabled</Status>

@@ -318,7 +318,8 @@ PlcMgr::PlcMgr( unsigned long channelCnt, int verbose, long cnvTime) :
     SetDefaults();
 
     // Make sure conversion time is valid
-    if( cnvTime < 0)    cnvTime = CHANNEL_TIME;
+    if (cnvTime < 0)
+        cnvTime = CHANNEL_TIME;
 
     m_convertTime = cnvTime;
     SetVerboseMask( verbose);
@@ -433,18 +434,24 @@ void PlcMgr::ParseCommandLine( int argc, char **argv)
             Log( LOG_DEV_DATA, "Not waiting to register\n");
             break;
         default:
-            if( optId == '?')                       optind++;
-            else if(argv[ optind] == NULL)          optind++;
-            else if(argv[optind][0] != '-')         optind++;
-            else if((argv[ optind][0] == '-') && (strlen(argv[ optind]) == 1)) optind++;
+            if (optId == '?')
+                optind++;
+            else if (argv[optind] == NULL)
+                optind++;
+            else if (argv[optind][0] != '-')
+                optind++;
+            else if ((argv[optind][0] == '-') && (strlen(argv[optind]) == 1))
+                optind++;
             break;
         }
     }
 
     // Validate Command line options
     //////////////////////////////////////////////
-    if( m_channelCnt == 0)  m_channelCnt = 8;
-    if( m_convertTime < 0)  m_convertTime = CHANNEL_TIME;
+    if (m_channelCnt == 0)
+        m_channelCnt = 8;
+    if (m_convertTime < 0)
+        m_convertTime = CHANNEL_TIME;
 
     Log( LOG_FN_ENTRY, "Exit ParseCommandLine\n");
 }
@@ -580,15 +587,21 @@ void PlcMgr::ReadDataMapItem( const XmlNode *itemNode, dataMapItem_t &dataItem)
     // Keep count of number of inputs and outputs
     if( dataItem.portDir == PORT_DIR_IN)
     {
-        if( realIdx > m_fromPlcCount)                       m_fromPlcCount = realIdx;
-        if( dataItem.boardIdx >= m_inCountList.size())      m_inCountList.resize(dataItem.boardIdx+1);
-        if( realIdx > m_inCountList[ dataItem.boardIdx])    m_inCountList[ dataItem.boardIdx] = realIdx;
+        if (realIdx > m_fromPlcCount)
+            m_fromPlcCount = realIdx;
+        if (dataItem.boardIdx >= m_inCountList.size())
+            m_inCountList.resize(dataItem.boardIdx + 1);
+        if (realIdx > m_inCountList[dataItem.boardIdx])
+            m_inCountList[dataItem.boardIdx] = realIdx;
     }
     if( dataItem.portDir == PORT_DIR_OUT)
     {
-        if( realIdx > m_toPlcCount)                         m_toPlcCount = realIdx;
-        if( dataItem.boardIdx >= m_outCountList.size())     m_outCountList.resize(dataItem.boardIdx+1);
-        if( realIdx > m_outCountList[ dataItem.boardIdx])   m_outCountList[ dataItem.boardIdx] = realIdx;
+        if (realIdx > m_toPlcCount)
+            m_toPlcCount = realIdx;
+        if (dataItem.boardIdx >= m_outCountList.size())
+            m_outCountList.resize(dataItem.boardIdx + 1);
+        if (realIdx > m_outCountList[dataItem.boardIdx])
+            m_outCountList[dataItem.boardIdx] = realIdx;
     }
 }
 
@@ -972,8 +985,10 @@ void PlcMgr::InitializePlcBoards( const XmlNodeMap &boardList)
 
     Log( LOG_DEV_DATA, "Number of outputs to PLC: %d\n", totalCountFrom);
     Log( LOG_DEV_DATA, "Number of inputs from PLC: %d\n", totalCountTo);
-    if( totalCountFrom > m_fromPlcCount)    m_fromPlcCount = totalCountFrom;
-    if( totalCountTo > m_toPlcCount)        m_toPlcCount = totalCountTo;
+    if (totalCountFrom > m_fromPlcCount)
+        m_fromPlcCount = totalCountFrom;
+    if (totalCountTo > m_toPlcCount)
+        m_toPlcCount = totalCountTo;
 
     // Calculate the total number of channels in the system (all boards)
     uint32_t tempChnlCnt = totalCountFrom + totalCountTo;
@@ -1399,7 +1414,8 @@ void PlcMgr::ClosePlcBoards()
     for( plcItr=m_plcBoards.begin(); plcItr!=m_plcBoards.end(); plcItr++)
     {
         IPlc    *plc = *plcItr;
-        if( plc != NULL)    plc->Close();
+        if (plc != NULL)
+            plc->Close();
     }
 
     Log( LOG_FN_ENTRY, "Exit ClosePlcBoards( %d)\n", m_plcBoards.size());
@@ -1597,8 +1613,10 @@ int PlcMgr::IoRead(resmgr_context_t *ctp, io_read_t *msg, resMgrIoOcb_t *ioOcb)
     // If client has read privileges
     if( retVal == EOK)
     {
-        if( ioAttr->inode == m_toPlcInode)  dataPtr = (char*)m_toPlc;
-        else                                dataPtr = (char*)m_fromPlc;
+        if (ioAttr->inode == m_toPlcInode)
+            dataPtr = (char *)m_toPlc;
+        else
+            dataPtr = (char *)m_fromPlc;
 
         nleft = ioOcb->m_ioOcb.attr->nbytes - off;
         nbytes = min(  nleft, msg->i.nbytes);
@@ -1773,7 +1791,6 @@ const INT32 PlcMgr::HandlePulse(const INT32 code, const INT32 value)
             }
             catch( ...)
             {
-
             }
             break;
         case PLC_WRITE_VALUE:

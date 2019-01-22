@@ -375,6 +375,11 @@ const std::string VehicleDataBroker::Register(void)
     // Write a wheelbase position to the system
     string response;
     m_ndb->Write(WHEELBASE_INCHESX10, GetData(WHEELBASE_INCHESX10), response, true);
+    m_ndb->Write("CurrentFrontCradleOpening", GetData("CurrentFrontCradleOpening"), response, true);
+    m_ndb->Write("CurrentRearCradleOpening", GetData("CurrentRearCradleOpening"), response, true);
+    BposSleep(2000);
+    m_ndb->Write("AdjustFrontCradleOpening", GetData("AdjustFrontCradleOpening"), response, true);
+    m_ndb->Write("AdjustRearCradleOpening", GetData("AdjustRearCradleOpening"), response, true);
     Log( LOG_FN_ENTRY, "Exit VehicleDataBroker::Register()\n");
 
     return BepServer::Register();

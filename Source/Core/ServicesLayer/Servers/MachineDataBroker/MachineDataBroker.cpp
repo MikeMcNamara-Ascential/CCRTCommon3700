@@ -906,14 +906,26 @@ const std::string MachineDataBroker::Publish(const XmlNode *node)
     else if (!node->getName().compare("PlcMode"))
     {
        INamedDataBroker ndb;
-       string response, output;
-       if (BEP_STATUS_SUCCESS == ndb.Read("PlcAutoMode", response, true))
+       string responseAuto,responseManual, output;
+       INT32 status;
+       status = ndb.Read("PlcAutoMode", responseAuto, true);
+       if (BEP_STATUS_SUCCESS == status)
        {
-          output = !response.compare("1") ? "Automatic" : "Manual";
+          ndb.Read("PlcManualMode", responseManual, true);
+          
+          if (!responseAuto.compare("1"))
+             output = "Automatic";
+          else if (!responseManual.compare("1"))
+             output = "Manual";
+          else
+             output = "Stopped";
+
           Write("PlcMode", output);
        }
        else
           Log(LOG_ERRORS, "MachineDataBroker::Publish - Error reading PLC mode");
+
+       Log(LOG_DEV_DATA, "PLC AUTO BIT IS: %s PLC MANUAL BIT IS: %s PLC MODE SHOULD BE SET TO: %s",responseAuto.c_str(),responseManual.c_str(),output.c_str());
     }
     // then just call the base class to update the internal data
     result = BepServer::Publish(node);

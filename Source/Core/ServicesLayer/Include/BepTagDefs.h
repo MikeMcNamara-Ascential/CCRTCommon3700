@@ -525,6 +525,7 @@
  */
 #define TRANSFER_CASE_TAG              "TransferCase"
 
+#define WHEELBASE_DESIGNATOR_TAG       "WheelbaseDesignator"
 /**
  * Data tag for selected wheelbase position
  */

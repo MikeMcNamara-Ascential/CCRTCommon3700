@@ -11,7 +11,7 @@
   <PreShiftCheck DriveCurve="/Configuration/VehicleTest/DriveCurves/PreShiftCheckDriveCurve.xml">
     <BodyStyle>PreShiftCheck</BodyStyle>
   </PreShiftCheck>
-  <ES DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">
+  <ES DriveCurve="/Configuration/VehicleTest/DriveCurves/LexusBrakeTestDriveCurve.xml">
     <BodyStyle>ES</BodyStyle>
   </ES>
   <CAMRY010B DriveCurve="/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml">

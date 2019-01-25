@@ -8,12 +8,12 @@
     <!-- Speedometer Test Parameters -->
     <SpeedTargets>
       <KPH>
-        <SpeedometerSpeedTargetLow Units="kph">59</SpeedometerSpeedTargetLow>
-        <SpeedometerSpeedTargetHi Units="kph">63</SpeedometerSpeedTargetHi>
+        <SpeedometerSpeedTargetLow Units="kph">90</SpeedometerSpeedTargetLow>
+        <SpeedometerSpeedTargetHi Units="kph">104</SpeedometerSpeedTargetHi>
       </KPH>
       <MPH>
-        <SpeedometerSpeedTargetLow Units="mph">45</SpeedometerSpeedTargetLow>
-        <SpeedometerSpeedTargetHi Units="mph">48</SpeedometerSpeedTargetHi>
+        <SpeedometerSpeedTargetLow Units="mph">56</SpeedometerSpeedTargetLow>
+        <SpeedometerSpeedTargetHi Units="mph">65</SpeedometerSpeedTargetHi>
       </MPH>
     </SpeedTargets>
     <!-- Reverse Test Parameters -->

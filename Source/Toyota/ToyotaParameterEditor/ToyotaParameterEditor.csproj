@@ -114,7 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\bep best.png" />
-    <Content Include="NewVehicleTemplate.xml" />
+    <Content Include="NewVehicleTemplate.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ParameterTranslationTable.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -133,8 +133,12 @@
     <value>C:\\Burke_PorterCCRT\\resources\\com\\bepco\\rtc\\properties\\CRTPanelLabels.constants</value>
     <comment>File that selects the logo to display for each vehicle.</comment>
   </data>
+  <data name="FourWheelDriveAbsTestSequence" xml:space="preserve">
+    <value>/Configuration/VehicleTest/DriveCurves/4wdAbsBrakeTestDriveCurve.xml</value>
+    <comment>Drive curve for 4wd/Awd vehicles.</comment>
+  </data>
   <data name="FourWheelDriveTestSequence" xml:space="preserve">
-    <value>/Configuration/VehicleTest/DriveCurves/VenzaBrakeTestDriveCurve.xml</value>
+    <value>/Configuration/VehicleTest/DriveCurves/4wdBrakeTestDriveCurve.xml</value>
     <comment>Drive curve for 4wd/Awd vehicles.</comment>
   </data>
   <data name="InputServerFileName" xml:space="preserve">
@@ -165,8 +169,12 @@
     <value>G:\\Rewrite\\Configuration\\VehicleTest\\</value>
     <comment>Location of the selection tables.</comment>
   </data>
+  <data name="TwoWheelDriveAbsTestSequence" xml:space="preserve">
+    <value>/Configuration/VehicleTest/DriveCurves/2wdAbsBrakeTestDriveCurve.xml</value>
+    <comment>Drive curve for 2wd vehicle</comment>
+  </data>
   <data name="TwoWheelDriveTestSequence" xml:space="preserve">
-    <value>/Configuration/VehicleTest/DriveCurves/CamryBrakeTestDriveCurve.xml</value>
+    <value>/Configuration/VehicleTest/DriveCurves/2wdBrakeTestDriveCurve.xml</value>
     <comment>Drive curve for 2wd vehicle</comment>
   </data>
   <data name="VehicleLogoFileLocation" xml:space="preserve">

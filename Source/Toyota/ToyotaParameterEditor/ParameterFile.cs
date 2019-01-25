@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.IO;
+using System.Windows.Forms;
 
 namespace ToyotaParameterEditor
 {
@@ -38,7 +40,17 @@ namespace ToyotaParameterEditor
                 {   // Save to the vehicle file name
                     ParameterFileName = ToyotaParameterEditor.Properties.Resources.ParameterFilePath + "Vin" + GetVehicleParameter("BodyStyle") + ".xml";
                 }
-                m_vehicleParameters.Save(ParameterFileName);
+                if (Directory.Exists(ToyotaParameterEditor.Properties.Resources.ParameterFilePath))
+                {
+                    m_vehicleParameters.Save(ParameterFileName);
+                }
+                else
+                {
+                    MessageBox.Show("Unable to access " + ToyotaParameterEditor.Properties.Resources.ParameterFilePath +
+                                    "\n\nConfiguration data not saved",
+                                    "Folder Access Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 ParametersChanged = false;
             }
         }

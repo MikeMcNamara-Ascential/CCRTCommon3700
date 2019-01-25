@@ -490,13 +490,25 @@ namespace ToyotaParameterEditor
         {   // Make sure to save any changes before loading the new vehicle template
             SaveParameterList();
             // Let the user enter the vehicle name
-            m_newVehicleForm.ShowDialog();
-            if (m_newVehicleForm.VehicleName.Length > 0)
+            DialogResult newVehicleResult = m_newVehicleForm.ShowDialog();
+            if (newVehicleResult == DialogResult.OK)
             {   // Load the template
-                m_vehicleParameters.LoadParameterFile(ToyotaParameterEditor.Properties.Resources.NewVehicleTemplateFileName);
-                m_vehicleParameters.UpdateVehicleParameter("BodyStyle", m_newVehicleForm.VehicleName);
-                m_modifiedFiles.AddRange(m_newVehicleForm.UpdatedFiles);
-                DisplayParameters();
+                if (File.Exists(ToyotaParameterEditor.Properties.Resources.NewVehicleTemplateFileName))
+                {
+                    m_vehicleParameters.LoadParameterFile(ToyotaParameterEditor.Properties.Resources.NewVehicleTemplateFileName);
+                    m_vehicleParameters.UpdateVehicleParameter("BodyStyle", m_newVehicleForm.VehicleName);
+                    m_modifiedFiles.AddRange(m_newVehicleForm.UpdatedFiles);
+                    DisplayParameters();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to locate " + Directory.GetCurrentDirectory() + 
+                                    ToyotaParameterEditor.Properties.Resources.NewVehicleTemplateFileName + "." +
+                                    "\n\nNew vehicle parameters cannot be setup until file is available.",
+                                    "File Access Error",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
         }
 

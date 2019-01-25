@@ -26,10 +26,15 @@ namespace ToyotaParameterEditor
         /// Save the new vehicle information to the CCRT files where needed.
         /// </summary>
         private void UpdateCcrtFiles()
-        {   // Update the CCRT Client file so the vehicle logo is displayed when selected
-            UpdateCcrtClientFiles();
+        {
             // Update the CCRT Server Files
             UpdateCcrtServerFiles();
+            if (DialogResult == DialogResult.OK)
+            {   // If the server file update was successful, 
+                // Update the CCRT Client file so the vehicle logo is displayed when selected
+                UpdateCcrtClientFiles();
+            }
+            
         }
 
         /// <summary>
@@ -56,29 +61,38 @@ namespace ToyotaParameterEditor
                     File.SetAccessControl(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile, fSec);
                 }
             } while ((0 <= attempts--) && !clientFileWritten);
+            if (!clientFileWritten)
+            {
+                MessageBox.Show("Unable to access " + ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile + "." + 
+                                "Vehicle image cannot be displayed until file is updated manually.",
+                                "File Access Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             if (!UpdatedFiles.Contains(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile))
             {
                 m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.CcrtClientLogoSelectFile);
             }
             // Save the image file to the CCRT Client path
-            String clientLogFileName = ToyotaParameterEditor.Properties.Resources.CcrtClientLogoFileLocation + "toyota-" + VehicleName.ToLower() + ".jpg";
-            if (!File.Exists(clientLogFileName))
+            String clientImageFileName = ToyotaParameterEditor.Properties.Resources.CcrtClientLogoFileLocation + "toyota-" + VehicleName.ToLower() + ".jpg";
+            if (!File.Exists(clientImageFileName))
             {
                 try
                 {
-                    m_vehicleLogoPictureBox.Image.Save(clientLogFileName);
+                    m_vehicleLogoPictureBox.Image.Save(clientImageFileName);
                 }
-                catch (IOException)
-                {   // Nothing special to do here
-                }
-                catch (Exception)
-                {   // Nothing special to do here
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to save " + clientImageFileName + ":" +
+                                Environment.NewLine + ex.Message + Environment.NewLine +
+                                "Vehicle image cannot be displayed until file is placed here manually.",
+                                "File Access Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            if (!UpdatedFiles.Contains(clientLogFileName))
+            if (!UpdatedFiles.Contains(clientImageFileName))
             {
-                m_updatedFiles.Add(clientLogFileName);
+                m_updatedFiles.Add(clientImageFileName);
             }
         }
 
@@ -86,9 +100,37 @@ namespace ToyotaParameterEditor
         /// Update the CCRT server files with the new vehicle type information.
         /// </summary>
         private void UpdateCcrtServerFiles()
-        {   // Update the roll test selection file
-            if (File.Exists(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable))
+        {
+            String missingFiles = "";
+
+            if (!File.Exists(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable))
             {
+                missingFiles += ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable + Environment.NewLine;
+            }
+            if (!File.Exists(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable))
+            {
+                missingFiles += ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable + Environment.NewLine;
+            }
+            if (!File.Exists(ToyotaParameterEditor.Properties.Resources.InputServerFileName))
+            {
+                missingFiles += ToyotaParameterEditor.Properties.Resources.InputServerFileName + Environment.NewLine;
+            }
+            if (!File.Exists(ToyotaParameterEditor.Properties.Resources.NewVehicleTemplateFileName))
+            {
+                missingFiles += Directory.GetCurrentDirectory() + ToyotaParameterEditor.Properties.Resources.NewVehicleTemplateFileName + Environment.NewLine;
+            }
+            if (missingFiles.Length > 0)
+            {
+                MessageBox.Show("The following required files could not be located:  \n\n" +
+                                missingFiles + Environment.NewLine +
+                                "New vehicle type was not added.",
+                                "Required Files Missing",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult = DialogResult.Abort;
+            }
+            else
+            {
+                // Update the roll test selection file
                 XmlDocument rollTestSelectionTable = new XmlDocument();
                 rollTestSelectionTable.Load(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable);
                 XmlElement rollSelection = rollTestSelectionTable.CreateElement(VehicleName);
@@ -102,21 +144,33 @@ namespace ToyotaParameterEditor
                 {
                     m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.RollTestSelectionTable);
                 }
-            }
-            // Update the brake test selection file
-            if (File.Exists(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable))
-            {
+
+                // Update the brake test selection file
                 XmlDocument brakeTestSelectionTable = new XmlDocument();
                 brakeTestSelectionTable.Load(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable);
                 XmlElement brakeSelection = brakeTestSelectionTable.CreateElement(VehicleName);
                 String driveCurve = " ";
                 if (m_2wdRadioButton.Checked)
                 {
-                    driveCurve = ToyotaParameterEditor.Properties.Resources.TwoWheelDriveTestSequence;
+                    if (m_performAbsTest.Checked)
+                    {
+                        driveCurve = ToyotaParameterEditor.Properties.Resources.TwoWheelDriveAbsTestSequence;
+                    }
+                    else
+                    {
+                        driveCurve = ToyotaParameterEditor.Properties.Resources.TwoWheelDriveTestSequence;
+                    }
                 }
                 else if (m_4wdRadioButton.Checked)
                 {
-                    driveCurve = ToyotaParameterEditor.Properties.Resources.FourWheelDriveTestSequence;
+                    if (m_performAbsTest.Checked)
+                    {
+                        driveCurve = ToyotaParameterEditor.Properties.Resources.FourWheelDriveAbsTestSequence;
+                    }
+                    else
+                    {
+                        driveCurve = ToyotaParameterEditor.Properties.Resources.FourWheelDriveTestSequence;
+                    }
                 }
                 brakeSelection.SetAttribute("DriveCurve", driveCurve);
                 XmlElement brakeTestBodyStyleNode = brakeTestSelectionTable.CreateElement("BodyStyle");
@@ -128,17 +182,18 @@ namespace ToyotaParameterEditor
                 {
                     m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.BrakeTestSelectionTable);
                 }
-            }
-            // Update the InputServer Config
-            XmlDocument inputServer = new XmlDocument();
-            inputServer.Load(ToyotaParameterEditor.Properties.Resources.InputServerFileName);
-            XmlElement vehicleType = inputServer.CreateElement("Type0" + PushButtonNumber);
-            vehicleType.InnerText = VehicleName;
-            inputServer.DocumentElement.SelectSingleNode("Setup/InputDevices/PlcDataInput/Setup/VehicleTypeDecode").AppendChild(vehicleType);
-            inputServer.Save(ToyotaParameterEditor.Properties.Resources.InputServerFileName);
-            if (!UpdatedFiles.Contains(ToyotaParameterEditor.Properties.Resources.InputServerFileName))
-            {
-                m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.InputServerFileName);
+
+                // Update the InputServer Config
+                XmlDocument inputServer = new XmlDocument();
+                inputServer.Load(ToyotaParameterEditor.Properties.Resources.InputServerFileName);
+                XmlElement vehicleType = inputServer.CreateElement("Type0" + PushButtonNumber);
+                vehicleType.InnerText = VehicleName;
+                inputServer.DocumentElement.SelectSingleNode("Setup/InputDevices/PlcDataInput/Setup/VehicleTypeDecode").AppendChild(vehicleType);
+                inputServer.Save(ToyotaParameterEditor.Properties.Resources.InputServerFileName);
+                if (!UpdatedFiles.Contains(ToyotaParameterEditor.Properties.Resources.InputServerFileName))
+                {
+                    m_updatedFiles.Add(ToyotaParameterEditor.Properties.Resources.InputServerFileName);
+                }
             }
         }
 
@@ -148,15 +203,47 @@ namespace ToyotaParameterEditor
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void m_doneButton_Click(object sender, EventArgs e)
-        {   // Store the name of the vehicle
+        {
+            DialogResult = DialogResult.None;
+            // Verify required directories are accessable
+            bool inputIsValid = true;
+            
+            // Validate Input & Required file access
+            if (m_vehicleNameTextBox.Text.Length == 0 && inputIsValid)
+            {
+                inputIsValid = false;
+                MessageBox.Show("Vehicle Name is required",
+                                "Required Data Missing",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            if (VehicleLogoFile == null && inputIsValid)
+            {
+                inputIsValid = false;
+                MessageBox.Show("Vehicle image is required",
+                                "Required Data Missing",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            // Store the name of the vehicle
             VehicleName = m_vehicleNameTextBox.Text;
-            if (VehicleName.Length > 0)
-            {   // Copy the image to our default location
+            if (inputIsValid)
+            {
+                DialogResult = DialogResult.OK;
+                // Copy the image to our default location
                 FileInfo imageFile = new FileInfo(VehicleLogoFile);
                 DirectoryInfo imagesDir = new DirectoryInfo(ToyotaParameterEditor.Properties.Resources.VehicleLogoFileLocation);
                 if (!imagesDir.Exists)
                 {
-                    imagesDir.Create();
+                    try
+                    {
+                        imagesDir.Create();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error creating local images directory",
+                                        "Folder Access Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 String imageFileName = ToyotaParameterEditor.Properties.Resources.VehicleLogoFileLocation + "\\toyota-" + VehicleName.ToLower() + ".jpg";
                 if (!File.Exists(imageFileName))
@@ -165,11 +252,12 @@ namespace ToyotaParameterEditor
                     {
                         imageFile.CopyTo(imageFileName, true);
                     }
-                    catch (IOException)
-                    {   // Nothing special to do
-                    }
-                    catch (Exception)
-                    {   // Nothing special to do
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Unable to access " + ToyotaParameterEditor.Properties.Resources.VehicleLogoFileLocation + " :"
+                                        + ex.Message,
+                                        "Folder Access Error",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 if (!UpdatedFiles.Contains(imageFileName))
@@ -179,9 +267,22 @@ namespace ToyotaParameterEditor
                 // Get the pushbutton number and update the CCRT files
                 PushButtonNumber = m_vehicleButtonNumberComboBox.Items[m_vehicleButtonNumberComboBox.SelectedIndex].ToString();
                 UpdateCcrtFiles();
+
+                // Hide the window
+                Visible = false;                
             }
+            Console.WriteLine(DialogResult);
+        }
+
+        /// <summary>
+        /// Abandon the new vehicle addtion 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void m_cancelButton_Click(object sender, EventArgs e)
+        {
             // Hide the window
-            Visible = false;
+            Visible = false; 
         }
 
         /// <summary>

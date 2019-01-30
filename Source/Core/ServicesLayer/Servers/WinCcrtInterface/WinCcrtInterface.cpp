@@ -273,7 +273,7 @@ BEP_STATUS_TYPE WinCcrtInterface::CheckForWinCcrtMessage()
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	// Check if the test type has been changed from normal
 	INT32 byteCount = m_winCcrtComm.ReadPort(message, MessageWaitTimeInit(), MessageWaitTimeEnd());
-	if(byteCount > 0)
+	if(byteCount > 0 && !((byteCount == 1) && (message[0] == 0x00)))
 	{
 		Log(LOG_DEV_DATA, "Received %d bytes from Windows CCRT system", byteCount);
 		int startIndex = (message[0] == 0x00) ? 1 : 0;

@@ -1192,6 +1192,10 @@ const std::string MachineTC::TestStepSpeedometer(const std::string &value)
 					{
 						DisplayPrompt(GetPromptBox("AccelerateTo40KPH"),GetPrompt("AccelerateTo40KPH"),GetPromptPriority("AccelerateTo40KPH"));
 					}
+                    if(GetParameterBool("Prompt88KPHTest"))
+					{
+						DisplayPrompt(GetPromptBox("AccelerateTo88KPH"),GetPrompt("AccelerateTo88KPH"),GetPromptPriority("AccelerateTo88KPH"));
+					}
 					while((StatusCheck() == BEP_STATUS_SUCCESS) && TimeRemaining() && !done)
 					{
 						// read the wheel speeds
@@ -1328,6 +1332,10 @@ const std::string MachineTC::TestStepSpeedometer(const std::string &value)
 					if(GetParameterBool("Prompt40KPHTest"))
 					{
 						RemovePrompt(GetPromptBox("AccelerateTo40KPH"),GetPrompt("AccelerateTo40KPH"),GetPromptPriority("AccelerateTo40KPH"));
+					}
+                    if(GetParameterBool("Prompt88KPHTest"))
+					{
+						RemovePrompt(GetPromptBox("AccelerateTo88KPH"),GetPrompt("AccelerateTo88KPH"),GetPromptPriority("AccelerateTo88KPH"));
 					}
 				}
 				else status	= BEP_SOFTWAREFAIL_STATUS;

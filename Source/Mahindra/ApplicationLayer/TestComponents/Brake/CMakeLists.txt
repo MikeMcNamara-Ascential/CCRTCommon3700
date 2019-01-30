@@ -17,3 +17,4 @@ LINK_LIBRARIES(basebrake m)
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(BaseBrake)
 ADD_SUBDIRECTORY(RWAL)
+ADD_SUBDIRECTORY(BIAbs)

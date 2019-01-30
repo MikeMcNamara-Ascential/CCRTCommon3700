@@ -2,7 +2,7 @@
 	<Setup>
 		<Debug>Off</Debug>
 		<ProcessPriority>12</ProcessPriority>
-		<ClutchOnZeroSpeed>No</ClutchOnZeroSpeed>
+		<ClutchOnZeroSpeed>Yes</ClutchOnZeroSpeed>
 		<ThreadPool>
 			<Debug>Off</Debug>
 			<MinBlockedLimit>2</MinBlockedLimit>
@@ -89,7 +89,7 @@
 			<AdditionalLogFile Types="/Servers/MotorController.log or Disabled">/Servers/MotorController.log</AdditionalLogFile>
 			<Debug>Off</Debug>
 			<LocalEcho>Disabled</LocalEcho>
-			<Verbose>0x01</Verbose>
+			<Verbose>0x0B</Verbose>
 		</Logging>
 		<MotorParameters>
 			<BrakeDetectLimit Description="Accelleration value indicating that a roll is under excessive force (brakes probably applied)" Units="MPH/sec.">-30.0</BrakeDetectLimit>
@@ -214,7 +214,7 @@
 			<BrakingFactor Description="Percent of previous speed to command next speed when braking (0 &amp;lt; BF &amp;lt; 1)">0.7</BrakingFactor>
 			<EnableStatusChecking Description="Enable thread lock up checking 1=on, else off">0</EnableStatusChecking>
 			<EnableQuickBrake Description="Enable quick brake avter loss compensation 1=on, else off">1</EnableQuickBrake>
-			<TorqueModeSpeedLimit Description="Speed above which in torque " Units="MPH">5.0</TorqueModeSpeedLimit>
+			<TorqueModeSpeedLimit Description="Speed above which in torque " Units="MPH">4.4</TorqueModeSpeedLimit>
 			<ProtocolFile Description="File containing protocol for communicating with motor drives">/Configuration/Machine/Baldor25mProtocol.xml</ProtocolFile>
             <AxleSpeedMatch>1</AxleSpeedMatch>
 		</ElectricMotorParameters>
@@ -251,7 +251,7 @@
 						<ProcessName>LeftMotor</ProcessName>
 						<AdditionalLogFile Types="/Communication/LfMotor.log or Disabled">/Communication/LeftMotor.log</AdditionalLogFile>
 						<LocalEcho>Disabled</LocalEcho>
-						<Verbose>0x01</Verbose>
+						<Verbose>0x0B</Verbose>
 						<Debug>Off</Debug>
 					</Logging>
 					<DataTags>

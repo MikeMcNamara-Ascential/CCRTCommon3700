@@ -427,6 +427,7 @@ private:
     string MAFLearn(void);
     string CheckMAFLearnComplete(void);
     string CheckMAFLearnValues(void);
+    string CheckBrakeSensor(bool onPosition);
     /**
      * Check if Brake Apply Sensor Learn happened at Flash Station
      */

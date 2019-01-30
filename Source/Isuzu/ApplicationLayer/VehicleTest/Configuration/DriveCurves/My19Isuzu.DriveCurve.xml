@@ -386,7 +386,7 @@
         <TestPhase920 Description="Key off engine off start vehicle" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective05 Description="Key off engine off start vehicle" Result="" Timeout="" Component="Emissions">
-                    <KeyOffEngineOffKeyOn/>
+                    <KeyOffEngineOffKeyOnNoStart/>
                 </Objective05>
             </ForegroundObjectives>
         </TestPhase920>

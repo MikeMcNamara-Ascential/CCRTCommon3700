@@ -132,6 +132,8 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
 			else if (!GetTestStepName().compare("DelayBeforeMAFClear"))                 testResult = DelayBeforeMAFClear();
 			else if (!GetTestStepName().compare("ClearMAFSensor"))              	    testResult = ClearMAFSensor();
             else if (!GetTestStepName().compare("CheckMAFLearnValues"))                 testResult = CheckMAFLearnValues();
+            else if (!GetTestStepName().compare("CheckBrakeSensorOn"))                  testResult = CheckBrakeSensor(true);
+            else if (!GetTestStepName().compare("CheckBrakeSensorOff"))                 testResult = CheckBrakeSensor(false);
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -3505,4 +3507,84 @@ string IsuzuEmissionsTc<ModuleType>::CheckMAFLearnValues(void)
     }
     return testResult;
 }
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::CheckBrakeSensor(bool onPosition) 
+{
+	string testResult = testError;
+    string testCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    
+    if(!ShortCircuitTestStep())
+    {
+        bool brakeOn = false;
+        BEP_STATUS_TYPE brakeStatus = BEP_STATUS_SUCCESS;
+
+        if (onPosition) {
+            DisplayPrompt(GetPromptBox("LeftFootOnBrake"), GetPrompt("LeftFootOnBrake"), GetPromptPriority("LeftFootOnBrake"));
+            while (!brakeOn && TimeRemaining() && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {    
+                brakeStatus = m_vehicleModule.ReadModuleData("ReadBrakeSwitchPosition", brakeOn);
+                if (!brakeOn)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+            
+            RemovePrompt(GetPromptBox("LeftFootOnBrake"), GetPrompt("LeftFootOnBrake"), GetPromptPriority("LeftFootOnBrake"));
+        }
+        else 
+        {
+            brakeOn = true;
+            DisplayPrompt(GetPromptBox("LeftFootOffBrake"), GetPrompt("LeftFootOffBrake"), GetPromptPriority("LeftFootOffBrake"));
+            while (brakeOn && TimeRemaining() && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {    
+                brakeStatus = m_vehicleModule.ReadModuleData("ReadBrakeSwitchPosition", brakeOn);
+                if (brakeOn)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+            
+            RemovePrompt(GetPromptBox("LeftFootOnBrake"), GetPrompt("LeftFootOnBrake"), GetPromptPriority("LeftFootOnBrake"));
+        }
+        //test finished, find out why. 
+        if (!TimeRemaining())
+        {
+            testResult = testTimeout;
+            testDescription = GetFaultDescription("TimeoutFailure");
+            testCode = GetFaultCode("TimeoutFailure");
+            Log(LOG_DEV_DATA, "Error: Timeout while reading BrakeSwitchPosition from the module.");
+        }
+        else if (brakeStatus != BEP_STATUS_SUCCESS)
+        {   // Could not read data from the module
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testCode = GetFaultCode("CommunicationFailure");
+            Log(LOG_DEV_DATA, "Error reading BrakeSwitchPosition from the module - %s", ConvertStatusToResponse(status).c_str());
+        }
+        else if (StatusCheck() != BEP_STATUS_SUCCESS) {
+            testResult = testFail;
+            testDescription = GetFaultDescription("SystemStatus");
+            testCode = GetFaultCode("SystemStatus");
+            Log(LOG_DEV_DATA, "Error with Machine State while trying to read BrakeSwitchPosition.");
+        }
+        else if (brakeOn == onPosition) {
+            testResult = testPass;
+
+        }
+
+        //testResult = status; 
+        SendTestResult(testResult, testDescription, testCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    } 
+    
+    return testResult;
+}
+
 

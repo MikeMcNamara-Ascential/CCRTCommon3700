@@ -420,6 +420,65 @@ const XmlNode* XmlNodeMap::getNode(int Index) const
 }
 
 /**
+ * Retrieves a node from the node list using the node's tag list. Throws an
+ * XmlException if tag cannot be found.
+ *
+ * @param tag    Tag of node to be retrieved
+ *
+ * @return Pointer to node (if found)
+ */
+const bool XmlNodeMap::hasNode(const XML_Char *tag) const
+{
+    const XmlString tempTag(tag);
+
+    return (hasNode(tempTag));
+}
+
+/**
+ * Retrieves a node from the node list using the node's tag list. Throws an
+ * XmlException if tag cannot be found.
+ *
+ * @param tag    Tag of node to be retrieved
+ *
+ * @return Pointer to node (if found)
+ */
+bool XmlNodeMap::hasNode(const XmlString &tag) const
+{
+    bool nodeExists = false;
+
+    if ((errno = Lock()) == EOK)
+    {
+        try
+        {
+            XmlNodeMapCItr Itr = find(tag);
+            if (Itr != end())
+            {
+                nodeExists = true;
+            }
+            else
+            {
+                nodeExists = false;
+            }
+        }
+        catch (...)
+        {
+            Unlock();
+            throw;
+        }
+
+        Unlock();
+    }
+    else
+    {
+        XmlString errStr("Unable to lock map in getNode");
+        errStr += XmlString(strerror(errno));
+        throw (XmlException(errStr));
+    }
+
+    return (nodeExists);
+}
+
+/**
  * Overloaded clear method to clear all nodes in the XmlNodeMap
  * and optionally free memory used by the contained node pointers
  *

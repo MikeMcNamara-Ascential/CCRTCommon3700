@@ -1176,6 +1176,7 @@ protected:
      * @return The result of reading faults from the module.
      */
     virtual string ReadFaults(void);
+    virtual string ReadFaultsByPhase(std::string phase);
     /**
      * Collect traceability data.
      * <p><b>Category:</b> Test Step

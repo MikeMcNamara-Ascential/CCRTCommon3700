@@ -20,6 +20,16 @@ SET(BOSCH8_TC_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${CORE_MODULES_DIR/Brake/Bosch8}
 		    ${CORE_MODULES_DIR/Brake/Include}
                     ${CMAKE_CURRENT_SOURCE_DIR})
+                    
+#------------------------------------------------------------------------------------------
+# Define the source files needed to build the common component library
+#------------------------------------------------------------------------------------------
+FILE(GLOB_RECURSE BOSCH8_COMPONENTS *.cpp)
+
+#------------------------------------------------------------------------------------------
+# Generate a Test components library
+#------------------------------------------------------------------------------------------
+ADD_LIBRARY(bosch8brake STATIC ${BOSCH8_COMPONENTS})
 
 #------------------------------------------------------------------------------------------
 # Tell CMake what source file to build

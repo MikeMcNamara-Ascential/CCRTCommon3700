@@ -2578,14 +2578,18 @@ void GenericTC::SetRollerCount(UINT32 rollerCount)
 //=============================================================================
 const UINT32 GenericTC::GetWheelCount(void)
 {   // DCBR
-    const string junk( ReadSubscribeData( GetDataTag( "VehicleAxleCount")));
     INT32   axleCount;
-    UINT32  wheelCount = 0;
-
-    axleCount = atoi(junk.c_str());
-    if( axleCount <= 0) axleCount = 2;
-    if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1") axleCount = 1;
-    wheelCount = 2*axleCount;
+    UINT32  wheelCount = 0; 
+    if (GetParameterInt("WheelCount") > 0)
+        wheelCount = GetParameterInt("WheelCount");
+    else
+    {
+        const string junk(ReadSubscribeData(GetDataTag("VehicleAxleCount")));
+        axleCount = atoi(junk.c_str());
+        if( axleCount <= 0) axleCount = 2;
+        if(ReadSubscribeData( GetDataTag("SingleAxleMachine")) == "1") axleCount = 1;
+        wheelCount = 2*axleCount;
+    }
     return( wheelCount);
 }
 

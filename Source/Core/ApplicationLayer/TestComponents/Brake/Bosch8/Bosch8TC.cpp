@@ -183,6 +183,8 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
 		else if(step == "EnterDiagModeAtSpeed")    status = GenericTCTemplate<ModuleType>::EnterDiagnosticMode();
         else if(step == "CheckVariantCode") status = CheckVariantCode();
         else if(step == "WriteVariantCode") status = WriteVariantCode();
+        else if (step.find("FlexibleValveFiringTest") != string::npos)
+            status = FlexibleValveFiringTest(value); 
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
     }
     catch(BepException &err)
@@ -211,6 +213,15 @@ void Bosch8TC<ModuleType>::InitializeHook(const XmlNode *config)
 		Log(LOG_ERRORS, "No ESP Valve firing commands specified: %s", excpt.GetReason());
 		m_espValveFiringcommands.clear(true);
 	}
+    try
+    {
+        m_espEvacAndFillcommands.DeepCopy(config->getChild("Setup/Parameters/EspEvacAndFillCommands")->getChildren());
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "No ESP Evac and Fill firing commands specified: %s", excpt.GetReason());
+        m_espEvacAndFillcommands.clear(true);
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -227,7 +238,8 @@ string Bosch8TC<ModuleType>::EnterDiagnosticMode(void)
         UpdatePrompts();
 
         // Lety the driver react to the prompts
-        BposSleep( 10000);
+        int delay = GetTestStepInfoInt("OperatorDelay") > 0 ? GetTestStepInfoInt("OperatorDelay") : 10000;
+        BposSleep(delay);
 
         testResult = KoreaAbsTcTemplate<ModuleType>::EnterDiagnosticMode();
         RemovePrompts();
@@ -2222,7 +2234,16 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 			{
 				if(BEP_STATUS_SUCCESS == GetWheelSpeeds(rollerSpeeds))
 				{
-					float tolerance = GetParameterFloat("SensorSpeedTolerance");
+                    if (GetTestStepInfoBool("ConvertRollerSpeedToKPH"))
+                    {
+                        for (int n=0; n < GetRollerCount(); n++)
+                        {
+                            rollerSpeeds[n] *= KPH_MPH;
+                            Log(LOG_DEV_DATA, "Converted %s roller speed to KPH - %d", 
+                                rollerName[n].c_str(), rollerSpeeds[n]);
+                        }
+                    }
+                    float tolerance = GetParameterFloat("SensorSpeedTolerance");
 					float leftMin = rollerSpeeds[startRollerIndex] * (1.0 - (tolerance / 100.0));
 					float leftMax = rollerSpeeds[startRollerIndex] * (1.0 + (tolerance / 100.0));
 					float rightMin = rollerSpeeds[startRollerIndex+1] * (1.0 - (tolerance / 100.0));
@@ -3199,8 +3220,19 @@ string Bosch8TC<ModuleType>::RunEspPumpMotor(void)
 	Log(LOG_DEV_DATA, "Bosch8TC::RunEspPumpMotor() - Enter");
 	if(!ShortCircuitTestStep())
 	{
-		result = (BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("RunEspPumpMotor")) ? testPass : testFail;
-		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+        if (m_espEvacAndFillcommands.size() > 0)
+        {
+            DisplayPrompt(1, "DepressBrake"); 
+            int delay = GetTestStepInfoInt("OperatorDelay") > 0 ? GetTestStepInfoInt("OperatorDelay") : 3000;
+            BposSleep(delay);
+            FlexibleEspValveFiringTest();
+            RemovePrompt(1, "DepressBrake"); 
+        }
+        else
+        {
+            result = (BEP_STATUS_SUCCESS == m_vehicleModule.CommandModule("RunEspPumpMotor")) ? testPass : testFail;
+            SendTestResult(result, GetTestStepInfo("Description"), "0000");
+        }
 	}
 	else
 	{
@@ -3219,14 +3251,21 @@ string Bosch8TC<ModuleType>::FlexibleEspValveFiringTest(void)
 	Log(LOG_FN_ENTRY, "Bosch8TC::FlexibleEspValveFiringTest() - Enter");
 	if(!ShortCircuitTestStep())
 	{
-		Log(LOG_DEV_DATA, "Beginning ESP Cycle");
+        XmlNodeMap *commands = &m_espValveFiringcommands;
+        if (GetTestStepName() == "RunEspPumpMotor")
+        {
+            commands = &m_espEvacAndFillcommands;
+        }
+ 
+        Log(LOG_DEV_DATA, "Beginning ESP Cycle");
 		BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
-		m_ESPStartIndex = TagArray("ESPStart");
-		for(XmlNodeMapCItr iter = m_espValveFiringcommands.begin();
-			 (iter != m_espValveFiringcommands.end()) && (BEP_STATUS_SUCCESS == moduleStatus);
+        string startTag = GetTestStepInfo("StartTag") != "" ? GetTestStepInfo("StartTag") : "ESPStart";
+        m_ESPStartIndex = TagArray(startTag);
+		for(XmlNodeMapCItr iter = commands->begin();
+            (iter != commands->end()) && (BEP_STATUS_SUCCESS == moduleStatus);
 			 iter++)
 		{   // Determine if we need to tag the array
-			Log(LOG_DEV_DATA, "Sending ESP Command: %s", iter->second->getValue().c_str());
+			Log(LOG_DEV_DATA, "Sending valve Command: %s", iter->second->getValue().c_str());
 			XmlNodeMapCItr tagIter = iter->second->getAttributes().find("ArrayTag");
 			string type = "";
 			string tag = "";
@@ -3284,7 +3323,8 @@ string Bosch8TC<ModuleType>::FlexibleEspValveFiringTest(void)
 				}
 			}
 		}
-		m_ESPEndIndex = TagArray("ESPEnd");
+        string endTag = GetTestStepInfo("EndTag") != "" ? GetTestStepInfo("EndTag") : "ESPEnd";
+        m_ESPEndIndex = TagArray(endTag);
 		Log(LOG_DEV_DATA, "ESP Cycle Complete");
 		SendTestResult(result, GetTestStepInfo("Description"), "0000");
 	}
@@ -3389,4 +3429,735 @@ string Bosch8TC<ModuleType>::WriteVariantCode(void)
     // Return the test result
     Log(LOG_FN_ENTRY, "Exit Bosch8TC::WriteVariantCode()\n");
     return(testResult);
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+BEP_STATUS_TYPE Bosch8TC<ModuleType>::ShouldPerformHighSpeedValveTest(bool &performHsTest)
+{
+    bool hsEnabled = true;
+    bool lsEnabled;
+    performHsTest = m_highSpeedEnabled;
+    BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
+    if (GetParameterBool("CheckHighSpeedDisable"))
+    {
+        status = m_vehicleModule.ReadModuleData("HighSpeedValveTestEnabled", hsEnabled);
+        if (BEP_STATUS_SUCCESS == status)
+        {
+            // Maybe just add node "AlreadyChecked"
+            //XmlNode *node;
+            //node = const_cast<XmlNode *>(m_parameters.getNode("CheckHighSpeedDisable"));
+            //node->setValue("False");
+            if (hsEnabled)
+            {
+                performHsTest = true;
+                Log(LOG_DEV_DATA, "High speed test enabled");
+            }
+            else
+            {
+                status = m_vehicleModule.ReadModuleData("LowSpeedValveTestEnabled", lsEnabled);
+                if (BEP_STATUS_SUCCESS == status)
+                {
+                    if (lsEnabled)
+                    {
+                        performHsTest = false;
+                        Log(LOG_DEV_DATA, "Low speed test enabled");
+                    }
+                    else
+                    {
+                        Log(LOG_DEV_DATA, "High speed and low speed testing disabled - Aborting!");
+                        SystemWrite(ABORT_DATA_TAG, true);
+                        DisplayPrompt(1, "AbsTestingDisabled", 0, "yellow");
+                        DisplayPrompt(2, "BrakeToStop", 0, "yellow");
+                        BposSleep(5000);
+                        status = BEP_STATUS_ABORT;
+                    }
+                }
+                else
+                {
+                    performHsTest = true;
+                }
+            }
+        }
+        else
+        {
+            performHsTest = true;
+            status = BEP_STATUS_SUCCESS;
+        }
+        m_highSpeedEnabled = performHsTest;
+    }
+    else if (GetParameterBool("PerformLowSpeedDiagnostic"))
+    {
+        performHsTest = false;
+    }
+    /*
+    else
+    {
+        performHsTest = true;
+    }
+    */
+    return status;
+}
+
+
+//-------------------------------------------------------------------------------------------------
+template<class ModuleType>
+string Bosch8TC<ModuleType>::FlexibleValveFiringTest(string testType)
+{
+    Log(LOG_FN_ENTRY, "Bosch8TC::FlexibleValveFiringTest() - Enter");
+    string result(testPass);
+    string description = GetTestStepInfo("Description");
+    string testResultCode("0000");
+    UINT32 rollerIndex = 0;
+    bool performHsTest;
+    BEP_STATUS_TYPE hsStat = ShouldPerformHighSpeedValveTest(performHsTest);
+
+    bool testDisabled = false;
+    if ((testType == "HighSpeed" && !performHsTest) ||
+        (testType == "LowSpeed" && performHsTest))
+        testDisabled = true;
+
+    if ((!ShortCircuitTestStep() || GetESPTestResult() != testPass) &&
+        ((hsStat != BEP_STATUS_ABORT && !testDisabled) || GetTestStepInfoBool("AlwaysPerform" + testType)))
+    {
+        if (testType != "Static")
+        {
+            Log(LOG_DEV_DATA, "Beginning Valve Test Cycle - Clearing stored indices");
+            m_ESPStartIndex = m_absStartIndex = 0;
+            m_ESPEndIndex = m_absEndIndex = -1;
+            memset(m_ESPIndex, 0, sizeof(BuildReductionIndex) * sizeof(m_ESPIndex));
+        }
+        else
+            Log(LOG_DEV_DATA, "Beginning Static Valve Test Cycle");
+
+        if (testType == "HighSpeed" && ShortCircuitTestStep() && GetESPTestResult() == testFail)
+        {
+            string speedRange("0 0");
+            // Get operator to beginning of speed range
+            WaitAndPromptForSpeed(GetTestStepInfoFloat("TargetSpeedMin"),
+                                  GetTestStepInfoFloat("TargetSpeedMax"),
+                                  GetTestStepInfoInt("ScanDelay"));
+        }
+
+        string orgDriveAxle = SystemRead(DRIVE_AXLE_TAG);
+        string neutralPromptTag = !testType.empty() ? (testType + "_AbsNeutralPrompt") : "NeutralPrompt";
+        string brakePromptTag = (testType == "LowSpeed" || testType == "Static") ? "DepressBrake" : "RemoveFootFromBrake";
+        DisplayPrompt(1, GetPrompt(neutralPromptTag), GetPromptPriority(neutralPromptTag));
+        DisplayPrompt(2, GetPrompt(brakePromptTag), GetPromptPriority(brakePromptTag));
+        BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+
+        // Add brake switch check
+        bool brakeSwitchOn = (testType == "LowSpeed" || testType == "Static") ? false : true;
+        if (!GetParameterBool("NoBrakeSwitchSignal"))
+        {
+            do
+            {
+                moduleStatus = m_vehicleModule.ReadModuleData(GetDataTag("ReadBrakeSwitch"), brakeSwitchOn);
+                if (brakeSwitchOn)
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                // Keep checking while time remaining, brake switch not in desired position, good system status and good comms
+                // with module
+            } while (TimeRemaining() &&
+                     ((brakeSwitchOn && testType == "HighSpeed") || ((testType == "LowSpeed" || testType == "Static") && !brakeSwitchOn)) &&
+                     (BEP_STATUS_SUCCESS == StatusCheck()) &&
+                     (BEP_STATUS_SUCCESS == moduleStatus));
+        }
+
+        if (!brakeSwitchOn || ((testType == "LowSpeed" || testType == "Static") && brakeSwitchOn) || 
+            GetParameterBool("NoBrakeSwitchSignal"))
+        {
+            m_ESPStartIndex = TagArray("ESPStart");
+            m_absStartIndex = TagArray("ABSStart");
+
+            bool exceptionEncountered = false;
+            try
+            {
+                string valveCommandsTag = !testType.empty() ? (testType + "_ValveFiringCommands") : "ValveFiringCommands";
+                const XmlNodeMap &valveCommands = m_parameters.getNode(valveCommandsTag)->getChildren();
+                for (XmlNodeMapCItr iter = valveCommands.begin();
+                     (iter != valveCommands.end()) && (BEP_STATUS_SUCCESS == moduleStatus);
+                     iter++)
+                {   // Determine what type of command we are using
+                    Log(LOG_DEV_DATA, "Valve Firing Command: %s", iter->second->getName().length() > 7 ?
+                        iter->second->getName().substr(7).c_str() : iter->second->getName().c_str());
+                    // Print command node
+                    Log(LOG_DETAILED_DATA, "%s", iter->second->ToString().c_str());
+
+                    // Check for precondition
+                    string precondition = "None";
+                    string preConditionValue = "Unknown";
+                    float minSpeed = -99.9;
+                    float maxSpeed = -99.9;
+                    // Could use expression handler here, or iterate through a defined list of preconditions??
+                    XmlNodeMapCItr preConditionType = iter->second->getAttributes().find("Precondition");
+                    bool preCondMet = false;
+                    const int rollerCount = GetRollerCount();
+                    float wheelSpeeds[rollerCount];
+                    WheelSpeeds_t moduleSpeeds;
+                    if (iter->second->hasAttribute("RollerIndex"))
+                    {
+                        rollerIndex = atoi(iter->second->getAttribute("RollerIndex")->getValue().c_str());
+                    }
+
+                    if (preConditionType != iter->second->getAttributes().end())
+                    {
+                        preConditionValue = preConditionType->second->getValue();
+                        Log(LOG_DEV_DATA, "Precondition: %s\n", preConditionValue.c_str());
+                        string testResult      = BEP_TESTING_STATUS;
+                        INT32 preconditionTimeout = GetTestStepInfoInt("PreconditionTimeout") > 0 ? GetTestStepInfoInt("PreconditionTimeout") : 10000;
+                        SetSecondaryStartTime();
+
+                        if (preConditionValue.compare("MinSpeed") == 0)
+                        {
+                            minSpeed = atof(iter->second->getAttribute("MinSpeed")->getValue().c_str());
+                            do
+                            {
+                                GetWheelSpeeds(wheelSpeeds);
+                                float wheelSpeed = wheelSpeeds[rollerIndex];
+                                if (GetTestStepInfoBool(testType + "UseSensorSpeeds"))
+                                {
+                                    if (m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds) == BEP_STATUS_SUCCESS)
+                                    {
+                                        Log(LOG_DEV_DATA, "Using wheel speed sensor speed!");
+                                        wheelSpeed = moduleSpeeds[rollerIndex];
+                                    }
+                                }
+                                Log(LOG_DEV_DATA, "MinSpeed: %.2f, CurrentSpeed: %.2f", minSpeed, wheelSpeed);
+                                if (wheelSpeed >= minSpeed)
+                                    preCondMet = true;
+                                else
+                                    BposSleep(GetTestStepInfoInt("PreConditionScanDelay"));
+                            }while ((SecondaryTimeRemaining(&preconditionTimeout)) && (!preCondMet) && (BEP_STATUS_SUCCESS == StatusCheck()));
+                        }
+                        else if (preConditionValue.compare("MaxSpeed") == 0)
+                        {
+                            maxSpeed = atof(iter->second->getAttribute("MaxSpeed")->getValue().c_str());
+                            do
+                            {
+                                GetWheelSpeeds(wheelSpeeds);
+                                float wheelSpeed = wheelSpeeds[rollerIndex];
+                                if (GetTestStepInfoBool(testType + "UseSensorSpeeds"))
+                                {
+                                    if (m_vehicleModule.GetInfo("ReadSensorSpeeds", moduleSpeeds) == BEP_STATUS_SUCCESS)
+                                    {
+                                        Log(LOG_DEV_DATA, "Using wheel speed sensor speed!");
+                                        wheelSpeed = moduleSpeeds[rollerIndex];
+                                    }
+                                }
+                                Log(LOG_DEV_DATA, "MaxSpeed: %.2f, CurrentSpeed: %.2f", maxSpeed, wheelSpeed);
+                                if (wheelSpeed <= maxSpeed)
+                                    preCondMet = true;
+                                else
+                                    BposSleep(GetTestStepInfoInt("PreConditionScanDelay"));
+                            }while ((SecondaryTimeRemaining(&preconditionTimeout)) && (!preCondMet) && (BEP_STATUS_SUCCESS == StatusCheck()));
+                        }
+                        else
+                        {
+                            Log(LOG_DEV_DATA, "Precondition not recognized.\n");
+                        }
+                    }
+                    else
+                        Log(LOG_DEV_DATA, "No preconditions found!\n");
+
+                    // Evaluate and execute command
+                    string cmdType = "ABS";
+                    XmlNodeMapCItr cmdTypeIter = iter->second->getAttributes().find("CommandType");
+                    if (cmdTypeIter != iter->second->getAttributes().end())
+                    {
+                        cmdType = cmdTypeIter->second->getValue();
+                        Log(LOG_DEV_DATA, "Command Type: %s", iter->second->getValue().c_str());
+                    }
+
+                    if (!cmdType.compare("Prompt"))
+                    {
+                        if (iter->second->hasAttribute("Prompt1"))
+                            DisplayPrompt(1, GetPrompt(iter->second->getAttribute("Prompt1")->getValue()), 
+                                          GetPromptPriority(iter->second->getAttribute("Prompt1")->getValue()));
+
+                        if (iter->second->hasAttribute("Prompt2"))
+                            DisplayPrompt(2, GetPrompt(iter->second->getAttribute("Prompt2")->getValue()),
+                                          GetPromptPriority(iter->second->getAttribute("Prompt2")->getValue())); 
+
+                        if (iter->second->hasAttribute("Delay"))
+                            BposSleep(atoi(iter->second->getAttribute("Delay")->getValue().c_str())); 
+
+                    }
+                    else if (!cmdType.compare("Machine"))
+                    {
+                        vector<string> commandTypes;
+                        //string commandType = COMMAND_TORQUE;
+                        //SystemWrite(COMMAND_TORQUE, 0);
+                        SystemWrite(COMMAND_SPEED, 0);
+                        SystemWrite(MOTOR_MODE, string(TORQUE_MODE));
+                        Log(LOG_DEV_DATA, "Machine type: %s", SystemRead(GetDataTag("MachineType")).c_str());
+
+                        // Set torque value
+                        XmlNodeMapCItr trqIter = iter->second->getAttributes().find("Torque");
+                        INT32 trqValue = 0;
+                        if (trqIter != iter->second->getAttributes().end())
+                        {
+                            trqValue = BposReadInt(trqIter->second->getValue().c_str());
+                        }
+
+                        // Determine command type(s)
+                        if (iter->second->getValue() == "TorqueFrontAxle")
+                        {
+                            if (SystemRead(GetDataTag("MachineType")).compare(GetDataTag("MachineType3600")) == 0)
+                            {
+                                if (GetParameterBool("IndividualTorqueCommandsNOK"))
+                                {
+                                    commandTypes.push_back(COMMAND_TORQUE);
+                                }
+                                else
+                                {
+                                    commandTypes.push_back("LeftFrontTorqueValue");
+                                    commandTypes.push_back("RightFrontTorqueValue");
+                                }
+                            }
+                            else
+                            {
+                                SystemWrite(DRIVE_AXLE_TAG, string("Rear"));
+                                BposSleep(GetParameterInt("DriveAxleSwitchDelay"));
+                                commandTypes.push_back(COMMAND_TORQUE);
+                            }
+
+                        }
+                        else if (iter->second->getValue() == "TorqueRearAxle")
+                        {
+                            if (SystemRead(GetDataTag("MachineType")).compare(GetDataTag("MachineType3600")) == 0)
+                            {
+                                if (GetParameterBool("IndividualTorqueCommandsNOK"))
+                                {
+                                    commandTypes.push_back(COMMAND_TORQUE);
+                                }
+                                else
+                                {
+                                    commandTypes.push_back("LeftRearTorqueValue");
+                                    commandTypes.push_back("RightRearTorqueValue");
+                                }
+                            }
+                            else
+                            {
+                                SystemWrite(DRIVE_AXLE_TAG, string("Front"));
+                                BposSleep(GetParameterInt("DriveAxleSwitchDelay"));
+                                commandTypes.push_back(COMMAND_TORQUE);
+                            }
+
+                        }
+                        else if (iter->second->getValue().find("Left") != std::string::npos ||
+                                 iter->second->getValue().find("Right") != std::string::npos)
+                        { // Individual control... Assume format Torque<WheelLocation> (e.g. TorqueLeftFront)
+                            commandTypes.push_back(iter->second->getValue().substr(6) + "TorqueValue");
+                        }
+                        else if (iter->second->getValue() == "MotorMode")
+                        {
+                            string mode = iter->second->getAttribute("Mode")->getValue();
+                            INT32 value = BposReadInt(iter->second->getAttribute("Value")->getValue().c_str());
+                            SystemWrite(MOTOR_MODE, mode);
+                            if (mode == "Speed")
+                            {
+                                SystemWrite(COMMAND_SPEED, value);
+                            }
+                            else
+                            {
+                                SystemWrite(COMMAND_TORQUE, value);
+                            }
+                        }
+                        else
+                        {
+                            commandTypes.push_back(COMMAND_TORQUE);
+                        }
+
+                        // Apply torque
+                        for (vector<string>::iterator cmdIter = commandTypes.begin(); cmdIter != commandTypes.end(); cmdIter++)
+                        {
+                            SystemWrite(*cmdIter, trqValue);
+                        }
+
+                        //if ( !(iter->second->hasAttribute("SkipTorqueApplyDelay") && atob(iter->second->getAttribute("SkipTorqueApplyDelay")->getValue().c_str())) )
+                        //BposSleep(GetParameterInt("TorqueApplyDelay"));
+                        if (iter->second->hasAttribute("TorqueApplyDelay"))
+                            BposSleep(atoi(iter->second->getAttribute("TorqueApplyDelay")->getValue().c_str()));
+                    }
+                    else
+                    {
+                        // Determine if we need to tag the array
+                        Log(LOG_DEV_DATA, "Sending ABS Command: %s", iter->second->getValue().c_str());
+                        XmlNodeMapCItr tagIter = iter->second->getAttributes().find("ArrayTag");
+                        string type = "";
+                        string tag = "";
+                        bool tagArray = false;
+                        if (tagIter != iter->second->getAttributes().end())
+                        {
+                            tagArray = true;
+                            tag = tagIter->second->getValue(); 
+                            if (iter->second->hasAttribute("TagType"))
+                            {
+                                type = iter->second->getAttribute("TagType")->getValue(); 
+                            }
+
+                            if (type == "BuildStart")
+                            {
+                                m_ESPIndex[rollerIndex].buildStart = TagArray(tag);
+                            }
+                            else if (type == "ReductionStart")
+                            {
+                                m_ESPIndex[rollerIndex].reductionStart = TagArray(tag);
+                            }
+                            else if (type == "RecovStart")
+                            {
+                                m_reduxRecovIndex[rollerIndex].recoveryStart = TagArray(tag);
+                            }
+                            else if (type == "ReduxStart")
+                            {
+                                m_reduxRecovIndex[rollerIndex].reductionStart = TagArray(tag);
+                            }
+                            else if (type == "")
+                            {
+                                TagArray(tag);
+                            }
+
+                        }
+                        // Send the command to the module
+                        vector<float> sensorSpeeds;
+                        sensorSpeeds.reserve(rollerCount);
+                        if (!iter->second->getValue().empty())
+                        {
+                            if (!cmdType.compare("ABS Sensor"))
+                            {
+                                moduleStatus = m_vehicleModule.ReadModuleData(iter->second->getValue(), sensorSpeeds);
+                            }
+                            else
+                            {
+                                moduleStatus = m_vehicleModule.CommandModule(iter->second->getValue());
+                            }
+                        }
+                        else
+                        {
+                            Log(LOG_DEV_DATA, "No module command, continue processing item");
+                            moduleStatus = BEP_STATUS_SUCCESS;
+                        }
+
+                        vector<float> pulseSpeedDeltas;
+                        WheelSpeeds_t speedDeltas;
+                        bool isSpeedDeltasSufficient = false;
+                        float minSpeedDelta = GetParameterFloat("MinDeltaForFiringValves");
+
+                        bool readSpeedDeltas = false;
+                        if (iter->second->hasAttribute("ReadSpeedDeltas"))
+                            readSpeedDeltas = atob(iter->second->getAttribute("ReadSpeedDeltas")->getValue().c_str());
+
+                        bool sendPulse = false;
+                        if (iter->second->hasAttribute("Loop"))
+                            sendPulse = atob(iter->second->getAttribute("Loop")->getValue().c_str());
+
+                        int pulseDelay = GetParameterInt("PressureIncreasePulseDelay"); // > 0 ? GetParameterInt("PressureIncreasePulseDelay") : 100;
+
+                        if (BEP_STATUS_SUCCESS == moduleStatus)
+                        {
+                            // Check if there is a delay on this command
+                            XmlNodeMapCItr delayIter = iter->second->getAttributes().find("Delay");
+                            if (delayIter != iter->second->getAttributes().end())
+                            {
+                                Log(LOG_DEV_DATA, "Delaying %d ms after Command: %s",
+                                    BposReadInt(delayIter->second->getValue().c_str()), iter->second->getValue().c_str());
+                                delay(BposReadInt(delayIter->second->getValue().c_str()));
+                            }
+
+                            // If ABS Sensor related, check roller speed
+                            if (!cmdType.compare("ABS Sensor"))
+                            {
+                                DataAnalysis analyze;
+                                Comparison_t compare;
+                                float firingCompareSpeed = (preConditionValue == "MinSpeed") ? minSpeed : maxSpeed;
+                                float nonFiringCompareSpeed = 1.0;
+                                if (iter->second->hasAttribute("NonFiringCompareSpeed"))
+                                    nonFiringCompareSpeed = atof(iter->second->getAttribute("NonFiringCompareSpeed")->getValue().c_str());
+
+                                float *compareSpeed = &firingCompareSpeed;
+                                string wssResult = testPass;
+                                for (UINT8 index = LFWHEEL; (index < rollerCount) && (wssResult == testPass); index++)
+                                {
+                                    if (index == rollerIndex)
+                                        compareSpeed = &firingCompareSpeed;
+                                    else
+                                        compareSpeed = &nonFiringCompareSpeed;
+
+
+                                    if (preConditionValue == "MinSpeed")
+                                    {
+                                        compare = (index == rollerIndex ? GREATER_EQUAL : LESS);
+                                    }
+                                    else
+                                    {
+                                        compare = LESS_EQUAL;
+                                    }
+                                    string tmpRslt = analyze.CompareData(sensorSpeeds[index],
+                                                                         *compareSpeed,
+                                                                         compare) ? testPass : testFail;
+                                    Log(LOG_DEV_DATA, "WSS Check - PreCond: %s, Wheel Idx: %d, Roll Idx: %d, Sensor: %.2f, Compare Speed: %.2f, Comparison: %s, Rslt: %s",
+                                        preConditionValue.c_str(), rollerIndex, index, sensorSpeeds[index], *compareSpeed, compare == GREATER_EQUAL ? ">=" : "<", tmpRslt.c_str());
+                                    UpdateResult(tmpRslt, wssResult);
+                                }
+                                SendSubtestResult(rollerName[rollerIndex] + "LowSpeedAbs" + preConditionValue, wssResult);
+                                UpdateResult(wssResult, result);
+                            }
+
+                            // Check speed deltas from initial command (if applicable)
+                            if (readSpeedDeltas)
+                            { //Info only I guess... don't fail for this
+                                Log(LOG_DEV_DATA, "Checking speed deltas from intial increase...");
+                                BEP_STATUS_TYPE status = m_vehicleModule.CheckSpeedDeltas(speedDeltas, rollerIndex);
+                                if (status == BEP_STATUS_SUCCESS)
+                                {
+                                    // Report Results
+                                    TestResultDetails deltaDetails;
+                                    char buff[256];
+                                    deltaDetails.AddDetail("Delta",  CreateMessage(buff, sizeof(buff), "%.5f", speedDeltas[rollerIndex]), "mph");
+                                    SendSubtestResultWithDetail(iter->second->getValue() + "SpeedDelta", testPass, deltaDetails, "MeasureSpeedDeltas", "0000");
+
+                                    if (speedDeltas[rollerIndex] >= minSpeedDelta)
+                                    {
+                                        Log(LOG_DEV_DATA, "Min speed delta reached on intial increase.");
+                                        sendPulse = false;
+                                    }
+                                }
+                            }
+
+                            //!!! TNAP carryover
+                            if (GetTestStepInfoBool("UseExtraPulseDelays"))
+                            {
+                                Log(LOG_DEV_DATA, "Delaying %d ms because carryover...", pulseDelay);
+                                delay(pulseDelay);
+                            }
+                            Log(LOG_DEV_DATA, "Sending pressure increase pulse? %s", sendPulse ? "Yes" : "No");
+                            if (sendPulse)
+                            { // Pressure Increase Loop
+                                int attemptCount = 1;
+                                while (attemptCount <= GetParameterInt("LoopMessageMaxAttempts") && !isSpeedDeltasSufficient && BEP_STATUS_SUCCESS == moduleStatus)
+                                {
+                                    Log(LOG_DEV_DATA, "%s: Sending pressure increase pulse... Attempt [%d/%d]",
+                                        iter->second->getName().c_str(), attemptCount, GetParameterInt("LoopMessageMaxAttempts"));
+                                    if (!iter->second->getValue().empty())
+                                    {
+                                        moduleStatus = m_vehicleModule.CommandModule(iter->second->getValue() + "Loop");
+                                    }
+                                    else
+                                    {
+                                        Log(LOG_DEV_DATA, "No module command, continue processing item");
+                                        moduleStatus = BEP_STATUS_SUCCESS;
+                                    }
+
+                                    if (BEP_STATUS_SUCCESS == moduleStatus)
+                                    {   // Check if there is a delay on this command
+                                        delay(pulseDelay);
+
+                                        // Check speed deltas only if loopable
+                                        Log(LOG_DEV_DATA, "%s: Checking speed deltas. Attempt [%d/%d]",
+                                            iter->second->getName().c_str(), attemptCount, GetParameterInt("LoopMessageMaxAttempts"));
+
+                                        // Check speed deltas
+                                        moduleStatus = m_vehicleModule.CheckSpeedDeltas(speedDeltas, rollerIndex);
+                                        if (moduleStatus == BEP_STATUS_SUCCESS)
+                                        {
+                                            pulseSpeedDeltas.push_back(speedDeltas[rollerIndex]);
+                                            if (speedDeltas[rollerIndex] >= minSpeedDelta)
+                                            {
+                                                isSpeedDeltasSufficient = true;
+                                            }
+                                            else
+                                                Log(LOG_DEV_DATA, "%s: Speed Delta not sufficient - Min: %f, Delta: %f",
+                                                    iter->second->getName().c_str(), minSpeedDelta, speedDeltas[rollerIndex]);
+
+                                            if (GetParameterBool("CheckDeltasForNonFiringValves"))
+                                            {
+                                                float maxDelta = GetParameterFloat("MaxDeltaForNonFiringValves") > 0 ? GetParameterFloat("MaxDeltaForNonFiringValves") : 3.5;
+                                                for (int i = 0; i < GetRollerCount(); i++)
+                                                { // Check for non firing valve delta over max tolerance
+                                                    if (i != rollerIndex && speedDeltas[i] > maxDelta)
+                                                    {
+                                                        result = testFail;
+                                                        Log(LOG_DEV_DATA, "Excessive speed delta for non-firing valve detected - %s Speed Delta: %f; Max Delta for non-firing wheel: %f",
+                                                            rollerName[i].c_str(), speedDeltas[i], maxDelta);
+                                                        description = "Excessive speed delta for non-firing valve detected";
+                                                        SendSubtestResult("AnalyzeSensorCrossCheck", result, description, "0000");
+                                                    }
+                                                }
+                                            }
+                                            //!!! TNAP carryover
+                                            if (GetTestStepInfoBool("UseExtraPulseDelays"))
+                                            {
+                                                Log(LOG_DEV_DATA, "Delaying %d ms between ADDITIONAL speed delta pulses...", pulseDelay);
+                                                delay(pulseDelay);
+                                            }
+                                        }
+                                    }
+                                    // Increment loop counter
+                                    attemptCount++;
+                                }
+
+                                // If delta still not good, fail
+                                if (minSpeedDelta > 0 && GetParameterInt("LoopMessageMaxAttempts") > 0 && !isSpeedDeltasSufficient)
+                                {
+                                    if (GetParameterBool("EnforceMinSpeedDelta")) //("AliChangedHisMindAgain")
+                                    {
+                                        result = testFail;
+                                        description = "Insufficient speed delta - Valve firing test failed";
+                                        Log(LOG_DEV_DATA, "%s", description.c_str());
+                                    }
+                                    else
+                                        Log(LOG_DEV_DATA, "Insufficient speed delta - NOT failing valve firing test");
+                                }
+
+                            }
+                            else
+                            {
+                                //!!! TNAP carryover
+                                if (GetTestStepInfoBool("UseExtraPulseDelays"))
+                                {
+                                    Log(LOG_DEV_DATA, "Delaying %d ms because NO PULSE BUT NEED THE SPACE...", pulseDelay);
+                                    delay(pulseDelay);
+                                }
+                            }
+
+                            // Set generic comm fail description for increase loop
+                            if (BEP_STATUS_SUCCESS != moduleStatus)
+                            {
+                                SetCommunicationFailure(true);
+                                char buff[256];
+                                description = CreateMessage(buff, sizeof(buff), "Communication Failure during increase loop [BSM]");
+                                Log(LOG_ERRORS, "%s - status: %s\n", description.c_str(),
+                                    ConvertStatusToResponse(moduleStatus).c_str());
+                                result = testFail;
+                            }
+                        }
+                        else
+                        { // Error sending iter->second->getValue()
+                            SetCommunicationFailure(true);
+                            char buff[256];
+                            description = CreateMessage(buff, sizeof(buff), "Communication Failure: Error sending %s [BSM]", iter->second->getValue().c_str());
+                            Log(LOG_ERRORS, "%s - status: %s\n", description.c_str(),
+                                ConvertStatusToResponse(moduleStatus).c_str());
+                            result = testFail;
+                        }
+
+                        if (tagArray)
+                        {
+                            if (type == "BuildEnd")
+                            {
+                                m_ESPIndex[rollerIndex].buildEnd = TagArray(tag);
+                            }
+                            else if (type == "ReductionEnd")
+                            {
+                                m_ESPIndex[rollerIndex].reductionEnd = TagArray(tag);
+                            }
+                            else if (type == "RecovStop")
+                            {
+                                m_reduxRecovIndex[rollerIndex].recoveryEnd = TagArray(tag);
+                            }
+                            else if (type == "ReduxStop")
+                            {
+                                m_reduxRecovIndex[rollerIndex].reductionEnd = TagArray(tag);
+                            }
+                        }
+                        // Report pulse deltas
+                        if (pulseSpeedDeltas.size() > 0)
+                        {
+                            // Report Results
+                            TestResultDetails pulseDeltaDetails;
+                            char buff[256];
+                            for (int ii = 0; ii < pulseSpeedDeltas.size(); ii++)
+                            {   // Detial looks like <Pulse1 Units="mph">7.648</Pulse1>
+                                pulseDeltaDetails.AddDetail(CreateMessage(buff, sizeof(buff), "Pulse%dDelta", ii + 1),  CreateMessage(buff, sizeof(buff), "%.5f", pulseSpeedDeltas[ii]), "mph");
+                            }
+                            SendSubtestResultWithDetail(rollerName[rollerIndex] + "EspSpeedDeltas", testPass, pulseDeltaDetails, "MeasureEspSpeedDeltas", "0000");
+                        }
+                    }
+                }
+            }
+            catch (XmlException &ex)
+            { // ALWAYS PASS (for now). Log the error, bow out gracefully - "I BID YOU..ADIEU"
+                Log(LOG_ERRORS, "%s - XmlException in FlexibleValveFiringTest()",
+                    GetComponentName().c_str());
+                exceptionEncountered = true;
+            }
+
+            if (exceptionEncountered || BEP_STATUS_SUCCESS != moduleStatus)
+                Log(LOG_ERRORS, "Communication failure or exception encountered during valve firing test! Brake samples not appropriate for evaluation.");
+            else
+            {
+                m_ESPEndIndex = TagArray("ESPEnd");
+                m_absEndIndex = TagArray("ABSEnd");
+                Log(LOG_DEV_DATA, "Valve Cycle Complete");
+            }
+
+        }
+        else
+        { //Brake switch not in desired position at start of test
+            result = testFail;
+
+            if (BEP_STATUS_SUCCESS != moduleStatus)
+            {
+                SetCommunicationFailure(true);
+                char buff[256];
+                description = CreateMessage(buff, sizeof(buff), "Communication Failure: Error sending %s [BSM]", GetDataTag("ReadBrakeSwitch").c_str());
+                Log(LOG_ERRORS, "%s - status: %s\n", description.c_str(),
+                    ConvertStatusToResponse(moduleStatus).c_str());
+            }
+            else if (BEP_STATUS_SUCCESS == StatusCheck())
+            {
+                description = "Bad system status during Valve Firing routine [BSM]";
+                Log(LOG_ERRORS, "%s", description.c_str());
+            }
+            else
+            {
+                description = "Timeout waiting for desired brake switch position [BSM]";
+                Log(LOG_ERRORS, "%s", description.c_str());
+            }
+        }
+
+        if (GetTestStepInfoBool("ReportAsESP") && testType != "Static")
+            SendSubtestResult("ESPValveFiringTest", result, description, "0000");
+
+        SystemWrite(COMMAND_TORQUE, 0);
+
+        if (testType == "LowSpeed")
+        {
+            SystemWrite(COMMAND_SPEED, 0);
+            SystemWrite(MOTOR_MODE, string(SPEED_MODE));
+            CheckZeroSpeed();
+        }
+
+        SystemWrite(MOTOR_MODE, string(BOOST_MODE));
+
+        if (SystemRead(DRIVE_AXLE_TAG) != orgDriveAxle)
+        {
+            SystemWrite(DRIVE_AXLE_TAG, orgDriveAxle);
+            BposSleep(GetParameterInt("DriveAxleSwitchDelay"));
+        }
+
+        RemovePrompt(1, GetPrompt(neutralPromptTag), GetPromptPriority(neutralPromptTag));
+        RemovePrompt(2, GetPrompt(brakePromptTag), GetPromptPriority(brakePromptTag));
+        if (testType != "Static")
+            SendTestResult(result, description, "0000");
+        else
+            SendSubtestResult(testType + GetTestStepName(), result, description, "0000");
+    }
+    else
+    {
+        string testDisabledNotify = testDisabled ? " - Test Disabled" : "";
+        Log(LOG_DEV_DATA, "Skipping FlexibleValveFiringTest%s", testDisabledNotify.c_str());
+        result = testSkip;
+    }
+
+    Log(LOG_FN_ENTRY, "Bosch8TC::FlexibleValveFiringTest() - Exit");
+    return result;
+}
+
+template<class ModuleType>
+string Bosch8TC<ModuleType>::GetESPTestResult()
+{
+    Log(LOG_ERRORS, "Bosch8TC::GetESPTestResult() - Function not implented! -- Returning testFail");
+    return testFail;
 }

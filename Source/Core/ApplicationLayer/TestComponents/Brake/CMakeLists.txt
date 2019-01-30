@@ -3,6 +3,9 @@
 #------------------------------------------------------------------------------------------
 SET(CORE_BRAKE_TC_LIB_PATH ${CMAKE_CURRENT_BINARY_DIR}/Common CACHE PATH
 	"Path to the core base brake component library" FORCE)
+    
+SET(CORE_BOSCH8_TC_LIB_PATH ${CMAKE_CURRENT_BINARY_DIR}/Bosch8 CACHE PATH
+	"Path to the core bosch brake component library" FORCE)
 
 #------------------------------------------------------------------------------------------
 # Define a cache variable to hold the path to the common component headers

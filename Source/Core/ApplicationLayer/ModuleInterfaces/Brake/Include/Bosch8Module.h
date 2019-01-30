@@ -355,6 +355,7 @@ protected:
      * Clear the flag indicating a fault read is in progress.
      */
     void SetReadFaultsComplete(void);
+    BEP_STATUS_TYPE CalculateSecurityKey(const SerialArgs_t &seedInput, SerialArgs_t &keyOutput);
     /**
      * List of Registers used for determining faults.
      */
@@ -480,6 +481,8 @@ private:
      * Flag to indicate if the DTC format is UDS.
      */
     bool m_dtcFormatUds;
+
+    string m_securityUnlockType;
 
 };
 

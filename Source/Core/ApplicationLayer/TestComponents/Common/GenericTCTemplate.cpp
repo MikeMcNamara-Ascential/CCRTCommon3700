@@ -265,7 +265,8 @@ const string GenericTCTemplate<ModuleType>::CommandTestStep(const string &value)
 		// Command the module to exit diagnostic mode
 		else if(step == "ExitDiagnosticMode")		 status = ExitDiagnosticMode();
 		// Validate the module part number
-		else if(step == "CheckPartNumber")			 status = CheckPartNumber();
+        else if (step == "CheckPartNumber" || step == "GenericPartNumberCheck")
+            status = CheckPartNumber();
 		// Validate the module part number
 		else if(step == "CheckPartNumbers")			  status = CheckPartNumbers();
 		// Lock the module
@@ -305,7 +306,10 @@ const string GenericTCTemplate<ModuleType>::CommandTestStep(const string &value)
 		//Engine off key locked then prompts for key on 
 		else if(step == "KeyOffEngineOffKeyOn")		  status = KeyOffEngineOffKeyOn();
 		// Perform a power-on reset of the module
-		else if(step == "ResetModule")				 status = ResetModule();
+        else if (step == "ResetModule")
+            status = ResetModule(); 
+        else if (step == "ReadFaultsByPhase")
+            status = ReadFaultsByPhase(value);
 		// Cleanup at the end of the test cycle
 		else if(step == "FinishUp")
 		{
@@ -2470,3 +2474,106 @@ const string GenericTCTemplate<ModuleType>::WaitForEngineOffIgnitionOff(void)
 	Log(LOG_FN_ENTRY, "GenericTCTemplate<ModuleType>::WaitForEngineOffIgnitionOff()  - Exit");
 	return testResult;
 }
+
+//-----------------------------------------------------------------------------
+template<class ModuleType>
+string GenericTCTemplate<ModuleType>::ReadFaultsByPhase(std::string phase)
+{
+    string testResult = BEP_TESTING_STATUS;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    FaultVector_t moduleFaults;
+    string foundFaults;
+    // Check if this step needs to be performed
+    Log(LOG_FN_ENTRY, "Enter GenericTCTemplate::ReadFaultsByPhase(%s)\n", phase.c_str());
+    if (!ShortCircuitTestStep() || GetParameterBool("AlwaysReadFaults"))
+    {   // Do not need to skip this step
+        try
+        {   // Try to read the module faults
+            moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadModuleFaults"), moduleFaults);
+            // Check the status of the operation
+            if (BEP_STATUS_SUCCESS == moduleStatus)
+            {   // Good read, evaluate the data
+                bool faultsRecorded = false;
+                Log(LOG_DEV_DATA, "Found %d faults recorded in the module\n", moduleFaults.size());
+                // Only check for faults if faults were read from the module
+                if (moduleFaults.size() > 0)
+                {
+                    for (UINT32 faultIndex = 0; faultIndex < moduleFaults.size(); faultIndex++)
+                    {   // Determine if this fault should be ignored
+                        string faultTag = "ModuleFault_" + moduleFaults[faultIndex];
+                        INT32 faultCode = atoh(moduleFaults[faultIndex].c_str());
+                        string faultStatus("Ignored");
+                        if ((faultCode != 0) && (m_ignoreFaults.find(faultTag) == m_ignoreFaults.end()))
+                        {   // This is a fault to report
+                            faultStatus = "Reported";
+                            ReportDTC(faultTag, moduleFaults[faultIndex], GetFaultDescription(faultTag));
+                            faultsRecorded = true;
+                        }
+                        // Log the fault read from the module
+                        Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex + 1,
+                            moduleFaults[faultIndex].c_str(), faultStatus.c_str());
+                    }
+                    // Do special handling if faults have been recorded
+                    if (faultsRecorded)
+                    {   // Check if test sequence should be aborted if faults are present
+                        if (GetParameterBool("AbortIfDTCPresent"))
+                        {
+                            testResult = testFail;
+                            DisplayTimedPrompt(GetPrompt("DtcAbort"), GetPromptBox("DtcAbort"),
+                                               GetPromptPriority("DtcAbort"), GetPromptDuration("DtcAbort"));
+                            SystemWrite(ABORT_DATA_TAG, "1");
+                            Log(LOG_ERRORS, "Faults found in the module - ABORT all testing!\n");
+                        }
+                        else
+                        {
+                            testResult = testFail;
+                            Log(LOG_ERRORS, "Faults found in the module - continue to test!\n");
+                        }
+                    }
+                    else if (!faultsRecorded && DTCsInModule()) // If we have DTCs stored from previous run but no DTCs in module now, clear our stored DTCs
+                    {
+                        RemoveDTC();
+                    }
+                    // Store the data indicating if faults are present in the module
+                    DTCsInModule(faultsRecorded);
+                }
+                // Set the test status
+                testResult = faultsRecorded ? testResult : testPass;
+                testResultCode = faultsRecorded ? GetFaultCode("ModuleFaults") : "0000";
+                testDescription = faultsRecorded ? GetFaultDescription("ModuleFaults") : GetTestStepInfo("Description");
+                Log(LOG_DEV_DATA, "Read Module Faults: %s\n", testResult.c_str());
+            }
+            else
+            {   // Error reading faults from the module
+                Log(LOG_ERRORS, "Error reading module faults - status: %s\n", ConvertStatusToResponse(moduleStatus).c_str());
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+            }
+        }
+        catch (ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Report the results
+        SendSubtestResult("ReadFaults"+ phase,testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Need to skip this test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+    }
+    // Return the test result
+    Log(LOG_FN_ENTRY, "Exit GenericTCTemplate::ReadFaultsByPhase()\n");
+    return testResult;
+}
+
+
+

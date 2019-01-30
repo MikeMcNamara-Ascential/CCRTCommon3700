@@ -1093,6 +1093,7 @@ public:
      *      </ul>
      */                              
 	virtual BEP_STATUS_TYPE StopPulsingTractionControlValves(void);
+    BEP_STATUS_TYPE CheckSpeedDeltas(WheelSpeeds_t &speedDeltas, UINT8 rollerIndex); 
 
         /**
      * Command the module to turn power off to all valves.

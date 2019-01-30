@@ -321,6 +321,11 @@ protected:
      */
     virtual string CheckVariantCode(void);
 
+    BEP_STATUS_TYPE ShouldPerformHighSpeedValveTest(bool &performHsTest);
+    virtual string FlexibleValveFiringTest(string testType);
+    bool m_highSpeedEnabled; 
+    virtual string GetESPTestResult(void);
+
 
     /**
      * This test step checks the yaw rate.  The vehicle should be at rest and
@@ -557,7 +562,8 @@ private:
      */
     WheelSpeeds_t       m_absSpeedDeltas[ RRWHEEL+1][ REC_DELTA_IDX+1];
 
-	XmlNodeMap m_espValveFiringcommands;
+    XmlNodeMap m_espValveFiringcommands; 
+        XmlNodeMap m_espEvacAndFillcommands;
     XmlNodeMap m_validVariantCodes;
 };
 

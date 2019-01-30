@@ -707,3 +707,69 @@ inline BEP_STATUS_TYPE GenericABSModuleTemplate<ProtocolFilterType>::StopPulsing
 {
 	return StopFiringTractionControlValves();
 }
+
+template<class ProtocolFilterType>
+BEP_STATUS_TYPE GenericABSModuleTemplate<ProtocolFilterType>::CheckSpeedDeltas(WheelSpeeds_t &speedDeltas, UINT8 rollerIndex)
+{   // Log the function entry
+    Log(LOG_FN_ENTRY, "%s: Entering CheckSpeedDeltas(rollerIndex: %d)", ModuleName().c_str(), rollerIndex);
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    // The response from the protocol Filter
+    SerialString_t response;
+    //read speed deltas - do we need to delay?
+    Log(LOG_DEV_DATA, "%s: CheckSpeedDeltas: Calling GetModuleData", ModuleName().c_str());
+    status = m_protocolFilter->GetModuleData("ReadSpeedDeltas", response);
+    // Ask the protocol filter for the info
+    if (status == BEP_STATUS_SUCCESS)
+    {
+        try
+        {
+            // Get the reply interpretation from the Xml
+            Log(LOG_DEV_DATA, "%s: ESPValveActuation: Getting reply interpretation for LF", ModuleName().c_str());
+            const XmlNode *replyInterpNodeLF = m_vehicleMessagesNode->getChild("ReadSpeedDeltas")->getChild("ReplyInterpretationLF");
+            Log(LOG_DEV_DATA, "%s: ESPValveActuation: Getting reply interpretation for RF", ModuleName().c_str());
+            const XmlNode *replyInterpNodeRF = m_vehicleMessagesNode->getChild("ReadSpeedDeltas")->getChild("ReplyInterpretationRF");
+            Log(LOG_DEV_DATA, "%s: ESPValveActuation: Getting reply interpretation for LR", ModuleName().c_str());
+            const XmlNode *replyInterpNodeLR = m_vehicleMessagesNode->getChild("ReadSpeedDeltas")->getChild("ReplyInterpretationLR");
+            Log(LOG_DEV_DATA, "%s: ESPValveActuation: Getting reply interpretation for RR", ModuleName().c_str());
+            const XmlNode *replyInterpNodeRR = m_vehicleMessagesNode->getChild("ReadSpeedDeltas")->getChild("ReplyInterpretationRR");
+
+            // Try to parse the response into something readable
+            Log(LOG_DEV_DATA, "%s: ESPValveActuation: Parsing LF Response", ModuleName().c_str());
+            if (rollerIndex == LFWHEEL)
+                speedDeltas[LFWHEEL] += ParseFloatResponse(replyInterpNodeLF->getValue(), response);
+            else
+                speedDeltas[LFWHEEL] = ParseFloatResponse(replyInterpNodeLF->getValue(), response);
+
+            Log(LOG_DEV_DATA, "%s: ESPValveActuation: Parsing RF Response", ModuleName().c_str());
+            if (rollerIndex == RFWHEEL)
+                speedDeltas[RFWHEEL] += ParseFloatResponse(replyInterpNodeRF->getValue(), response);
+            else
+                speedDeltas[RFWHEEL] = ParseFloatResponse(replyInterpNodeRF->getValue(), response);
+
+            Log(LOG_DEV_DATA, "%s: ESPValveActuation: Parsing LR Response", ModuleName().c_str());
+            if (rollerIndex == LRWHEEL)
+                speedDeltas[LRWHEEL] += ParseFloatResponse(replyInterpNodeLR->getValue(), response);
+            else
+                speedDeltas[LRWHEEL] = ParseFloatResponse(replyInterpNodeLR->getValue(), response);
+
+            Log(LOG_DEV_DATA, "%s: ESPValveActuation: Parsing RR Response", ModuleName().c_str());
+            if (rollerIndex == RRWHEEL)
+                speedDeltas[RRWHEEL] += ParseFloatResponse(replyInterpNodeRR->getValue(), response);
+            else
+                speedDeltas[RRWHEEL] = ParseFloatResponse(replyInterpNodeRR->getValue(), response);
+
+            // Log the wheel speed sensors read from the module
+            Log(LOG_DEV_DATA, "ESPValveActuation: LF = %g; RF = %g; LR = %g; RR = %g\n",
+                speedDeltas[LFWHEEL], speedDeltas[RFWHEEL], speedDeltas[LRWHEEL], speedDeltas[RRWHEEL]);
+        }
+        catch (XmlException &ex)
+        {   // Log it
+            Log(LOG_ERRORS, "%s: XmlError: %s", ModuleName().c_str(), ex.GetReason());
+
+        }
+    }
+    // Log the function exit
+    Log(LOG_FN_ENTRY, "%s: Exiting CheckSpeedDeltas()", ModuleName().c_str());
+    // Return the status of the operation
+    return status;
+}

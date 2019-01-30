@@ -292,6 +292,26 @@ const XmlNode* XmlNode::getAttribute( const XML_Char *tag) const
 {
     return( getAttributes().getNode( tag));
 }
+/**
+ * Gets the child ATTRIBUTE node with the given tag
+ *
+ * @param tag    Tag of the child node to return
+ * @return Child attribute node with the given tag
+ */
+const bool XmlNode::hasAttribute(const XML_Char *tag) const
+{
+    return (getAttributes().hasNode(tag));
+}
+/**
+ * Gets the child ATTRIBUTE node with the given tag
+ *
+ * @param tag    Tag of the child node to return
+ * @return Child attribute node with the given tag
+ */
+const bool XmlNode::hasAttribute(const XmlString &tag) const
+{
+    return (getAttributes().hasNode(tag));
+}
 
 
 //==============================================================================

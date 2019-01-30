@@ -284,6 +284,22 @@ public:
     const XmlNode* getAttribute( const XML_Char *tag) const;
 
     /**
+ * Adds a child node to this node
+ *
+ * @param child  Node to be added as a child
+ *
+ */
+    const bool hasAttribute(const XmlString &tag) const;
+
+    /**
+     * Gets the child ATTRIBUTE node with the given tag
+     *
+     * @param tag    Tag of the child node to return
+     * @return Child attribute node with the given tag
+     */
+    const bool hasAttribute(const XML_Char *tag) const; 
+
+    /**
      * Adds a child node to this node
      *
      * @param child  Node to be added as a child

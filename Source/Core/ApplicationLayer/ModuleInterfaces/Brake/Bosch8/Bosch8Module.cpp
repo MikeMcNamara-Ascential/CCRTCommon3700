@@ -475,6 +475,15 @@ bool Bosch8Module<ProtocolFilterType>::InitializeHook(const XmlNode *configNode)
     {   // Error loading the number of fault registers
         Log(LOG_ERRORS, "No stop DTC read option to load - %s\n", err.what());
     }
+    try
+    {
+        m_securityUnlockType = (configNode->getChild("Setup/SecurityUnlockType")->getValue());
+    }
+    catch (XmlException &err)
+    {   // Error loading the number of fault registers
+        Log(LOG_ERRORS, "No Security Unlock Type defined - %s\n", err.what());
+        m_securityUnlockType = "Generic";
+    }
     // Save the config node for later use
     m_moduleConfig = configNode->Copy();
     // Call the base classes to complete initialization
@@ -961,26 +970,141 @@ template <class ProtocolFilterType>
 BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::UnlockModuleSecurity()
 {
 	Log(LOG_FN_ENTRY, "Bosch8Module::UnlockModuleSecurity() - Enter");
-	// Read the key from the module
-	UINT32 seed = 0x00000000;
-	BEP_STATUS_TYPE status = ReadModuleData("ReadSecuritySeed", seed);
-	if(status == BEP_STATUS_SUCCESS)
-	{   // Calculate the security key
-		UINT32 key = ((((seed >> 6) ^ seed) << 2) ^ seed);
-		Log(LOG_DEV_DATA, "Calculated key %08X from seed %08X", key, seed);
-		// Write the key back to the module
-		SerialArgs_t keyArgs;
-		keyArgs.push_back((key & 0xFF000000) >> 24);
-		keyArgs.push_back((key & 0x00FF0000) >> 16);
-		keyArgs.push_back((key & 0x0000FF00) >> 8);
-		keyArgs.push_back(key & 0x000000FF);
-		status = CommandModule("UnlockModuleSecurity", &keyArgs);
-		Log(LOG_ERRORS, "Security unlock status: %s", ConvertStatusToResponse(status).c_str());
-	}
-	else
-	{
-		Log(LOG_ERRORS, "Failed to read security seed from the module");
-	}
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR; 
+    if (m_securityUnlockType == "BIAbs")
+    { 
+        SerialArgs_t seed;         // Security seed read from the module
+        SerialArgs_t securityKey;  // Security unlock key
+        SerialString_t  moduleResponse; 
+
+        Log(LOG_DEV_DATA, "BIAbs security key\n");
+        // Read the security seed from the module
+        if ((status = ReadModuleData("ReadSecuritySeed", seed)) == BEP_STATUS_SUCCESS) 
+        {
+            Log(LOG_DEV_DATA, "Seed (MSB - LSB): 0x%02X%02X%02X%02X\n", 
+                seed[3], seed[2], seed[1], seed[0]);
+            securityKey.reserve(seed.size());
+            securityKey.resize(seed.size()); 
+            if ((status = CalculateSecurityKey(seed, securityKey)) == BEP_STATUS_SUCCESS)
+            {   // Calculated the security key, unlock the module
+                Log(LOG_DEV_DATA, "Calculated security key\n");
+                //status = CommandModule("UnlockModuleSecurity", &securityKey);
+                status = m_protocolFilter->GetModuleData("UnlockModuleSecurity", moduleResponse, &securityKey);
+                Log(LOG_ERRORS, "Security unlock status: %s", ConvertStatusToResponse(status).c_str());
+            }
+            else
+            {   // Error calculating the security key
+                Log(LOG_ERRORS, "Failed to calculate the security key - status: %s\n",
+                    ConvertStatusToResponse(status).c_str());
+            }
+        }
+    }
+    else 
+    {
+        // Read the key from the module
+        UINT32 seed = 0x00000000;
+        status = ReadModuleData("ReadSecuritySeed", seed);
+        if(status == BEP_STATUS_SUCCESS)
+        {   // Calculate the security key
+            UINT32 key = ((((seed >> 6) ^ seed) << 2) ^ seed);
+            Log(LOG_DEV_DATA, "Calculated key %08X from seed %08X", key, seed);
+            // Write the key back to the module
+            SerialArgs_t keyArgs;
+            keyArgs.push_back((key & 0xFF000000) >> 24);
+            keyArgs.push_back((key & 0x00FF0000) >> 16);
+            keyArgs.push_back((key & 0x0000FF00) >> 8);
+            keyArgs.push_back(key & 0x000000FF);
+            status = CommandModule("UnlockModuleSecurity", &keyArgs);
+            Log(LOG_ERRORS, "Security unlock status: %s", ConvertStatusToResponse(status).c_str());
+        }
+        else
+        {
+            Log(LOG_ERRORS, "Failed to read security seed from the module");
+        }
+    }
 	Log(LOG_FN_ENTRY, "Bosch8Module::UnlockModuleSecurity() - Exit");
 	return status;
+}
+
+//-------------------------------------------------------------------------
+template<class ProtocolFilterType>
+BEP_STATUS_TYPE Bosch8Module<ProtocolFilterType>::CalculateSecurityKey(const SerialArgs_t &seedInput,
+                                                                         SerialArgs_t &keyOutput)
+{
+    UINT32 seed = 0x00000000;
+
+    for(int n = 3; n >= 0; n--)
+        seed = (seed << 8) + seedInput[n];
+
+    Log(LOG_DEV_DATA, "Assembled seed into UINT32 variable: %08X\n", seed); 
+
+    UINT32 dataMask = 0x00000000;
+    UINT8 dataMaskIndex = (seedInput[0] & 0x0F);
+    UINT8 rotateCount = 0x00; 
+
+    UINT32 lookupTable[16] =
+    {
+        0xF549506A,
+        0x47152AB0,
+        0x2E31DA76,
+        0x53266FE2,
+        0x874318C0,
+        0x2FE296BF,
+        0xCB84F0FE,
+        0xE806EC53,
+        0X018F28ED,
+        0X487E89DE, 
+        0XCDC1B660, 
+        0XFC0829D3, 
+        0X847FCE7C, 
+        0X17E8DD4D, 
+        0XC666FF1C, 
+        0XBDC5DBE9 
+    };
+
+    dataMask = lookupTable[dataMaskIndex];
+
+    Log(LOG_DEV_DATA, "Data mask -- Index: %d; Value: %08X\n", 
+        dataMaskIndex, dataMask);
+
+    seed = (seed ^ dataMask);
+    Log(LOG_DEV_DATA, "Assembled seed into UINT32 variable: %08X\n", seed); 
+
+    rotateCount = ((seed >> 16) & 0x0F);
+    Log(LOG_DEV_DATA, "Rotation count: %d\n", rotateCount);
+
+    bool rotateRight = (((seed >> 24) & 0x80) == 0x80);
+    Log(LOG_DEV_DATA, "Rotating %s ;)\n", rotateRight ? "right" : "left"); 
+    if (rotateRight)
+    {
+        for (int n = 0; n < rotateCount; n++)
+        {
+            UINT32 rotator = seed & 0x00000001;
+            seed = seed >> 1;
+            seed = (seed | (rotator << 31));
+        }
+    }
+    else
+    { 
+        for (int n = 0; n < rotateCount; n++)
+        {
+            UINT32 rotator = seed & 0x80000000;
+            seed = seed << 1;
+            seed = (seed | (rotator >> 31));
+        }
+    }
+
+    Log(LOG_DEV_DATA, "Calculated security key: %08X\n", seed);
+    keyOutput[0] = ((seed & 0xFF000000) >> 24);
+    keyOutput[1] = ((seed & 0x00FF0000) >> 16);
+    keyOutput[2] = ((seed & 0x0000FF00) >> 8);
+    keyOutput[3] = (seed & 0x000000FF);
+
+    /*keyOutput[3] = ((seed & 0xFF000000) >> 24);
+    keyOutput[2] = ((seed & 0x00FF0000) >> 16);
+    keyOutput[1] = ((seed & 0x0000FF00) >> 8);
+    keyOutput[0] = (seed & 0x000000FF);*/ 
+
+    // return the status
+    return (BEP_STATUS_SUCCESS);
 }

@@ -9,4 +9,14 @@
 	   <Transmission>2500RDS</Transmission>
        <!--ModelYear>180</ModelYear-->
    </My17AbsFrontAxleDriveCurve_NoParkPawl>
+   <My19AbsFrontAxleDriveCurve DriveCurve="/Configuration/VehicleTest/DriveCurves/My19Isuzu.SingleAxleDriveCurve.xml">
+       <BrakeType>Bendix</BrakeType>
+	   <Transmission>2550RDS</Transmission>
+       <!--ModelYear>180</ModelYear-->
+   </My19AbsFrontAxleDriveCurve>
+   <My19AbsFrontAxleDriveCurve_NoParkPawl DriveCurve="/Configuration/VehicleTest/DriveCurves/My19Isuzu.SingleAxleDriveCurve_NoParkPawl.xml">
+       <BrakeType>Bendix</BrakeType>
+	   <Transmission>2500RDS</Transmission>
+       <!--ModelYear>180</ModelYear-->
+   </My19AbsFrontAxleDriveCurve_NoParkPawl>
 </SelectionTable>

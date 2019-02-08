@@ -128,7 +128,12 @@ namespace ToyotaParameterEditor
         {
             String value = " ";
             XmlNode parameterNode = VehicleParameterList.DocumentElement.SelectSingleNode("VehicleBuild/" + parameterName);
-            if (parameterNode != null) value = parameterNode.Attributes.GetNamedItem("Units").Value;
+            try
+            {
+                if (parameterNode != null) value = parameterNode.Attributes.GetNamedItem("Units").Value;
+            }
+            catch { }   // Do nothing, units can be skipped
+
             return value;
         }
 

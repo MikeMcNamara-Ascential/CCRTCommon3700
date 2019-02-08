@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace ToyotaParameterEditor
 {
@@ -78,6 +79,33 @@ namespace ToyotaParameterEditor
                                   m_vehicleParameters.GetVehicleParameter("WheelbasePositionInchesX10"), 
                                   m_vehicleParameters.GetParameterUnits("WheelbasePositionInchesX10")};
             m_vehicleDataGridView.Rows.Add(wheelbase);
+
+            // Display the selection number from the InputServerConfig
+            String selectionNumber = "None";
+            try
+            {
+                XmlDocument inputServer = new XmlDocument();
+                inputServer.Load(ToyotaParameterEditor.Properties.Resources.InputServerFileName);
+                XmlNode vehicleTypeNodes = inputServer.DocumentElement.SelectSingleNode("Setup/InputDevices/PlcDataInput/Setup/VehicleTypeDecode");
+                // find the node with the inner text that matches bodyStyle, then get the last 2 characters of the node name
+                foreach (XmlNode vehicleType in vehicleTypeNodes.ChildNodes)
+                {
+                    if (vehicleType.InnerText == m_vehicleParameters.GetVehicleParameter("BodyStyle").ToString())
+                    {
+                        selectionNumber = vehicleType.Name.Substring(vehicleType.Name.Length - 2, 2);
+                    }
+                }
+            }
+            catch
+            {   // Unable to open InputServerConfig.xml file
+                selectionNumber = "N/A";
+            }
+            // Add the details 
+            String[] selectionNumberRow = {"Selection Number", selectionNumber, " " };            
+            m_vehicleDataGridView.Rows.Add(selectionNumberRow);
+            // Make read-only
+            m_vehicleDataGridView.Rows[m_vehicleDataGridView.Rows.Count - 1].ReadOnly = true;
+            m_vehicleDataGridView.Rows[m_vehicleDataGridView.Rows.Count - 1].DefaultCellStyle.BackColor = Color.LightGray;
         }
 
         /// <summary>
@@ -404,7 +432,7 @@ namespace ToyotaParameterEditor
             openDlg.Filter = "xml | *.xml";
             openDlg.InitialDirectory = "G:\\Rewrite\\Configuration\\VehicleTest\\BuildRecords";
             openDlg.Multiselect = false;
-            openDlg.RestoreDirectory = true;
+            //openDlg.RestoreDirectory = true;
             openDlg.Title = "Select Vehicle Parameter List";
             if (openDlg.ShowDialog() == DialogResult.OK)
             {   // Get the name of the selected file

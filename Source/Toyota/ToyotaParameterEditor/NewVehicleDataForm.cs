@@ -19,7 +19,30 @@ namespace ToyotaParameterEditor
             InitializeComponent();
             Visible = false;
             m_vehicleButtonNumberComboBox.SelectedIndex = 0;
+            updateAvailableButtonNumbers();
             m_updatedFiles = new List<String>();
+        }
+
+        /// <summary>
+        /// Allows only the unused button numbers in the selection drop box so dupicates can't be created
+        /// </summary>
+        private void updateAvailableButtonNumbers()
+        {
+            try
+            {
+                XmlDocument inputServer = new XmlDocument();
+                inputServer.Load(ToyotaParameterEditor.Properties.Resources.InputServerFileName);
+                XmlNode vehicleTypeNodes = inputServer.DocumentElement.SelectSingleNode("Setup/InputDevices/PlcDataInput/Setup/VehicleTypeDecode");
+                
+                foreach (XmlNode vehicleType in vehicleTypeNodes.ChildNodes)
+                {
+                    m_vehicleButtonNumberComboBox.Items.Remove(vehicleType.Name.Substring(vehicleType.Name.Length - 1, 1));
+                    Console.WriteLine("Removed number {0}", vehicleType.Name.Substring(vehicleType.Name.Length - 1, 1));
+                }
+            }
+            catch
+            {   // do nothing, file access issues will be handled at save time
+            }
         }
 
         /// <summary>
@@ -334,6 +357,7 @@ namespace ToyotaParameterEditor
             OpenFileDialog openDialog = new OpenFileDialog();
             openDialog.DefaultExt = "jpg";
             openDialog.Filter = "jpg | *.jpg";
+            openDialog.InitialDirectory = "C:\\";
             openDialog.Multiselect = false;
             openDialog.RestoreDirectory = true;
             openDialog.Title = "Select Vehicle Type Image";

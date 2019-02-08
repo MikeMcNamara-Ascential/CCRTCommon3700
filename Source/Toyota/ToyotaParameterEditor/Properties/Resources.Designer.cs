@@ -152,6 +152,15 @@ namespace ToyotaParameterEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RemovedVehicleArchive.
+        /// </summary>
+        internal static string RemoveVehicleArchiveDirectory {
+            get {
+                return ResourceManager.GetString("RemoveVehicleArchiveDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml.
         /// </summary>
         internal static string RollTestDriveCurve {

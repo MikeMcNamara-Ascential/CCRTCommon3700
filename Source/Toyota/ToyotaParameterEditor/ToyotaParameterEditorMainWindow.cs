@@ -17,6 +17,7 @@ namespace ToyotaParameterEditor
             InitializeComponent();
             m_vehicleParameters = new ParameterFile();
             m_newVehicleForm = new NewVehicleDataForm();
+            m_removeVehicleForm = new RemoveVehicleForm();
             m_modifiedFiles = new List<String>();
             Icon = Icon.FromHandle(ToyotaParameterEditor.Properties.Resources.BepLogo.GetHicon());
             String title;
@@ -444,6 +445,7 @@ namespace ToyotaParameterEditor
 
         private ParameterFile m_vehicleParameters;
         private NewVehicleDataForm m_newVehicleForm;
+        private RemoveVehicleForm m_removeVehicleForm;
         private List<String> m_modifiedFiles;
 
         /// <summary>
@@ -541,6 +543,17 @@ namespace ToyotaParameterEditor
         }
 
         /// <summary>
+        /// Handles the Click event of the removeVehicleToolStripMenuItem control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void removeVehicleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Let the user enter the vehicle name
+            DialogResult removeVehicleResult = m_removeVehicleForm.ShowDialog();
+        }
+
+        /// <summary>
         /// Export all files that have been updated during this session.
         /// </summary>
         /// <param name="sender"></param>
@@ -559,5 +572,6 @@ namespace ToyotaParameterEditor
         {
             ImportUpdatedParameters();
         }
+
     }
 }

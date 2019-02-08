@@ -157,6 +157,10 @@
     <value>G:\\Rewrite\\Configuration\\VehicleTest\\BuildRecords\\</value>
     <comment>Location of vehicle build records.</comment>
   </data>
+  <data name="RemoveVehicleArchiveDirectory" xml:space="preserve">
+    <value>RemovedVehicleArchive</value>
+    <comment>Location for backing up old vehicle data</comment>
+  </data>
   <data name="RollTestDriveCurve" xml:space="preserve">
     <value>/Configuration/VehicleTest/DriveCurves/RollTestDriveCurve.xml</value>
     <comment>Drive curve to use for all vehicles on roll test machine.</comment>

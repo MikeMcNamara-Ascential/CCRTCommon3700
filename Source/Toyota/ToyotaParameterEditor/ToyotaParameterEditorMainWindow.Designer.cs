@@ -60,6 +60,7 @@ namespace ToyotaParameterEditor
             this.m_speedParamValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.m_speedParamUnitsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.m_vehicleLogoPictureBox = new System.Windows.Forms.PictureBox();
+            this.removeVehicleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.m_mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.m_vehicleTypePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.m_vehicleDataGridView)).BeginInit();
@@ -75,7 +76,8 @@ namespace ToyotaParameterEditor
             this.fileToolStripMenuItem});
             this.m_mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.m_mainMenuStrip.Name = "m_mainMenuStrip";
-            this.m_mainMenuStrip.Size = new System.Drawing.Size(732, 27);
+            this.m_mainMenuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.m_mainMenuStrip.Size = new System.Drawing.Size(976, 28);
             this.m_mainMenuStrip.TabIndex = 0;
             this.m_mainMenuStrip.Text = "menuStrip1";
             // 
@@ -85,52 +87,53 @@ namespace ToyotaParameterEditor
             this.openVehicleToolStripMenuItem,
             this.newVehicleToolStripMenuItem,
             this.saveUpdatesToolStripMenuItem,
+            this.removeVehicleToolStripMenuItem,
             this.exportUpdatedFilesToolStripMenuItem,
             this.importUpdatedFilesToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(41, 23);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openVehicleToolStripMenuItem
             // 
             this.openVehicleToolStripMenuItem.Name = "openVehicleToolStripMenuItem";
-            this.openVehicleToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.openVehicleToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
             this.openVehicleToolStripMenuItem.Text = "Open Vehicle";
             this.openVehicleToolStripMenuItem.Click += new System.EventHandler(this.openVehicleToolStripMenuItem_Click);
             // 
             // newVehicleToolStripMenuItem
             // 
             this.newVehicleToolStripMenuItem.Name = "newVehicleToolStripMenuItem";
-            this.newVehicleToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.newVehicleToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
             this.newVehicleToolStripMenuItem.Text = "New Vehicle";
             this.newVehicleToolStripMenuItem.Click += new System.EventHandler(this.newVehicleToolStripMenuItem_Click);
             // 
             // saveUpdatesToolStripMenuItem
             // 
             this.saveUpdatesToolStripMenuItem.Name = "saveUpdatesToolStripMenuItem";
-            this.saveUpdatesToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.saveUpdatesToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
             this.saveUpdatesToolStripMenuItem.Text = "Save Updates";
             this.saveUpdatesToolStripMenuItem.Click += new System.EventHandler(this.saveUpdatesToolStripMenuItem_Click);
             // 
             // exportUpdatedFilesToolStripMenuItem
             // 
             this.exportUpdatedFilesToolStripMenuItem.Name = "exportUpdatedFilesToolStripMenuItem";
-            this.exportUpdatedFilesToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.exportUpdatedFilesToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
             this.exportUpdatedFilesToolStripMenuItem.Text = "Export Updated Files";
             this.exportUpdatedFilesToolStripMenuItem.Click += new System.EventHandler(this.exportUpdatedFilesToolStripMenuItem_Click);
             // 
             // importUpdatedFilesToolStripMenuItem
             // 
             this.importUpdatedFilesToolStripMenuItem.Name = "importUpdatedFilesToolStripMenuItem";
-            this.importUpdatedFilesToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.importUpdatedFilesToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
             this.importUpdatedFilesToolStripMenuItem.Text = "Import Updated Files";
             this.importUpdatedFilesToolStripMenuItem.Click += new System.EventHandler(this.importUpdatedFilesToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -140,9 +143,10 @@ namespace ToyotaParameterEditor
             this.m_vehicleTypePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.m_vehicleTypePictureBox.Image = ((System.Drawing.Image)(resources.GetObject("m_vehicleTypePictureBox.Image")));
             this.m_vehicleTypePictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("m_vehicleTypePictureBox.InitialImage")));
-            this.m_vehicleTypePictureBox.Location = new System.Drawing.Point(569, 27);
+            this.m_vehicleTypePictureBox.Location = new System.Drawing.Point(759, 33);
+            this.m_vehicleTypePictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.m_vehicleTypePictureBox.Name = "m_vehicleTypePictureBox";
-            this.m_vehicleTypePictureBox.Size = new System.Drawing.Size(151, 44);
+            this.m_vehicleTypePictureBox.Size = new System.Drawing.Size(200, 53);
             this.m_vehicleTypePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.m_vehicleTypePictureBox.TabIndex = 1;
             this.m_vehicleTypePictureBox.TabStop = false;
@@ -151,9 +155,10 @@ namespace ToyotaParameterEditor
             // 
             this.m_vehicleDataLabel.AutoSize = true;
             this.m_vehicleDataLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_vehicleDataLabel.Location = new System.Drawing.Point(12, 75);
+            this.m_vehicleDataLabel.Location = new System.Drawing.Point(16, 92);
+            this.m_vehicleDataLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_vehicleDataLabel.Name = "m_vehicleDataLabel";
-            this.m_vehicleDataLabel.Size = new System.Drawing.Size(154, 29);
+            this.m_vehicleDataLabel.Size = new System.Drawing.Size(165, 30);
             this.m_vehicleDataLabel.TabIndex = 2;
             this.m_vehicleDataLabel.Text = "Vehicle Data:";
             // 
@@ -172,12 +177,13 @@ namespace ToyotaParameterEditor
             this.m_parameterNameColumn,
             this.m_paramValueColumn,
             this.m_paramUnitsColumn});
-            this.m_vehicleDataGridView.Location = new System.Drawing.Point(17, 104);
-            this.m_vehicleDataGridView.MaximumSize = new System.Drawing.Size(430, 150);
+            this.m_vehicleDataGridView.Location = new System.Drawing.Point(23, 128);
+            this.m_vehicleDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.m_vehicleDataGridView.MaximumSize = new System.Drawing.Size(573, 185);
             this.m_vehicleDataGridView.Name = "m_vehicleDataGridView";
             this.m_vehicleDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.m_vehicleDataGridView.RowHeadersVisible = false;
-            this.m_vehicleDataGridView.Size = new System.Drawing.Size(316, 120);
+            this.m_vehicleDataGridView.Size = new System.Drawing.Size(421, 148);
             this.m_vehicleDataGridView.TabIndex = 3;
             this.m_vehicleDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_vehicleDataGridView_CellEndEdit);
             // 
@@ -187,28 +193,29 @@ namespace ToyotaParameterEditor
             this.m_parameterNameColumn.HeaderText = "Parameter Name:";
             this.m_parameterNameColumn.Name = "m_parameterNameColumn";
             this.m_parameterNameColumn.ReadOnly = true;
-            this.m_parameterNameColumn.Width = 119;
+            this.m_parameterNameColumn.Width = 132;
             // 
             // m_paramValueColumn
             // 
             this.m_paramValueColumn.HeaderText = "Value";
             this.m_paramValueColumn.Name = "m_paramValueColumn";
-            this.m_paramValueColumn.Width = 63;
+            this.m_paramValueColumn.Width = 69;
             // 
             // m_paramUnitsColumn
             // 
             this.m_paramUnitsColumn.HeaderText = "Units";
             this.m_paramUnitsColumn.Name = "m_paramUnitsColumn";
             this.m_paramUnitsColumn.ReadOnly = true;
-            this.m_paramUnitsColumn.Width = 60;
+            this.m_paramUnitsColumn.Width = 65;
             // 
             // m_brakeTestingParamsLabel
             // 
             this.m_brakeTestingParamsLabel.AutoSize = true;
             this.m_brakeTestingParamsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_brakeTestingParamsLabel.Location = new System.Drawing.Point(8, 252);
+            this.m_brakeTestingParamsLabel.Location = new System.Drawing.Point(11, 310);
+            this.m_brakeTestingParamsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_brakeTestingParamsLabel.Name = "m_brakeTestingParamsLabel";
-            this.m_brakeTestingParamsLabel.Size = new System.Drawing.Size(212, 29);
+            this.m_brakeTestingParamsLabel.Size = new System.Drawing.Size(227, 30);
             this.m_brakeTestingParamsLabel.TabIndex = 4;
             this.m_brakeTestingParamsLabel.Text = "Brake Parameters:";
             // 
@@ -226,11 +233,12 @@ namespace ToyotaParameterEditor
             this.m_brakeParamNameColumn,
             this.m_brakeParamValueColumn,
             this.m_brakeParamUnitsColumn});
-            this.m_brakeDataGridView.Location = new System.Drawing.Point(13, 281);
+            this.m_brakeDataGridView.Location = new System.Drawing.Point(17, 346);
+            this.m_brakeDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.m_brakeDataGridView.Name = "m_brakeDataGridView";
             this.m_brakeDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.m_brakeDataGridView.RowHeadersVisible = false;
-            this.m_brakeDataGridView.Size = new System.Drawing.Size(316, 286);
+            this.m_brakeDataGridView.Size = new System.Drawing.Size(421, 352);
             this.m_brakeDataGridView.TabIndex = 5;
             this.m_brakeDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_brakeDataGridView_CellEndEdit);
             // 
@@ -239,28 +247,29 @@ namespace ToyotaParameterEditor
             this.m_brakeParamNameColumn.HeaderText = "Parameter Name";
             this.m_brakeParamNameColumn.Name = "m_brakeParamNameColumn";
             this.m_brakeParamNameColumn.ReadOnly = true;
-            this.m_brakeParamNameColumn.Width = 116;
+            this.m_brakeParamNameColumn.Width = 128;
             // 
             // m_brakeParamValueColumn
             // 
             this.m_brakeParamValueColumn.HeaderText = "Value";
             this.m_brakeParamValueColumn.Name = "m_brakeParamValueColumn";
-            this.m_brakeParamValueColumn.Width = 63;
+            this.m_brakeParamValueColumn.Width = 69;
             // 
             // m_brakeParamUnitsColumn
             // 
             this.m_brakeParamUnitsColumn.HeaderText = "Units";
             this.m_brakeParamUnitsColumn.Name = "m_brakeParamUnitsColumn";
             this.m_brakeParamUnitsColumn.ReadOnly = true;
-            this.m_brakeParamUnitsColumn.Width = 60;
+            this.m_brakeParamUnitsColumn.Width = 65;
             // 
             // m_transShiftpointsLabel
             // 
             this.m_transShiftpointsLabel.AutoSize = true;
             this.m_transShiftpointsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_transShiftpointsLabel.Location = new System.Drawing.Point(362, 252);
+            this.m_transShiftpointsLabel.Location = new System.Drawing.Point(483, 310);
+            this.m_transShiftpointsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_transShiftpointsLabel.Name = "m_transShiftpointsLabel";
-            this.m_transShiftpointsLabel.Size = new System.Drawing.Size(290, 29);
+            this.m_transShiftpointsLabel.Size = new System.Drawing.Size(310, 30);
             this.m_transShiftpointsLabel.TabIndex = 6;
             this.m_transShiftpointsLabel.Text = "Transmission Shift Points:";
             // 
@@ -279,10 +288,11 @@ namespace ToyotaParameterEditor
             this.m_transEngineTypeColumn,
             this.m_transParamValueMph,
             this.m_transParamValueKph});
-            this.m_transmissionDataGridView.Location = new System.Drawing.Point(367, 281);
+            this.m_transmissionDataGridView.Location = new System.Drawing.Point(489, 346);
+            this.m_transmissionDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.m_transmissionDataGridView.Name = "m_transmissionDataGridView";
             this.m_transmissionDataGridView.RowHeadersVisible = false;
-            this.m_transmissionDataGridView.Size = new System.Drawing.Size(365, 236);
+            this.m_transmissionDataGridView.Size = new System.Drawing.Size(487, 290);
             this.m_transmissionDataGridView.TabIndex = 7;
             this.m_transmissionDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_transmissionDataGridView_CellEndEdit);
             // 
@@ -291,34 +301,35 @@ namespace ToyotaParameterEditor
             this.m_transParamNameColumn.HeaderText = "Shift Point";
             this.m_transParamNameColumn.Name = "m_transParamNameColumn";
             this.m_transParamNameColumn.ReadOnly = true;
-            this.m_transParamNameColumn.Width = 87;
+            this.m_transParamNameColumn.Width = 97;
             // 
             // m_transEngineTypeColumn
             // 
             this.m_transEngineTypeColumn.HeaderText = "Engine Type:";
             this.m_transEngineTypeColumn.Name = "m_transEngineTypeColumn";
             this.m_transEngineTypeColumn.ReadOnly = true;
-            this.m_transEngineTypeColumn.Width = 103;
+            this.m_transEngineTypeColumn.Width = 117;
             // 
             // m_transParamValueMph
             // 
             this.m_transParamValueMph.HeaderText = "MPH";
             this.m_transParamValueMph.Name = "m_transParamValueMph";
-            this.m_transParamValueMph.Width = 60;
+            this.m_transParamValueMph.Width = 63;
             // 
             // m_transParamValueKph
             // 
             this.m_transParamValueKph.HeaderText = "KPH";
             this.m_transParamValueKph.Name = "m_transParamValueKph";
-            this.m_transParamValueKph.Width = 57;
+            this.m_transParamValueKph.Width = 61;
             // 
             // m_speedTargetLabel
             // 
             this.m_speedTargetLabel.AutoSize = true;
             this.m_speedTargetLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.m_speedTargetLabel.Location = new System.Drawing.Point(366, 75);
+            this.m_speedTargetLabel.Location = new System.Drawing.Point(488, 92);
+            this.m_speedTargetLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.m_speedTargetLabel.Name = "m_speedTargetLabel";
-            this.m_speedTargetLabel.Size = new System.Drawing.Size(180, 29);
+            this.m_speedTargetLabel.Size = new System.Drawing.Size(187, 30);
             this.m_speedTargetLabel.TabIndex = 8;
             this.m_speedTargetLabel.Text = "Speed Targets:";
             // 
@@ -336,10 +347,11 @@ namespace ToyotaParameterEditor
             this.m_speedParamNameColumn,
             this.m_speedParamValueColumn,
             this.m_speedParamUnitsColumn});
-            this.m_speedTargetDataGridView.Location = new System.Drawing.Point(371, 104);
+            this.m_speedTargetDataGridView.Location = new System.Drawing.Point(495, 128);
+            this.m_speedTargetDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.m_speedTargetDataGridView.Name = "m_speedTargetDataGridView";
             this.m_speedTargetDataGridView.RowHeadersVisible = false;
-            this.m_speedTargetDataGridView.Size = new System.Drawing.Size(329, 145);
+            this.m_speedTargetDataGridView.Size = new System.Drawing.Size(439, 178);
             this.m_speedTargetDataGridView.TabIndex = 9;
             this.m_speedTargetDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.m_speedTargetDataGridView_CellEndEdit);
             // 
@@ -348,37 +360,45 @@ namespace ToyotaParameterEditor
             this.m_speedParamNameColumn.HeaderText = "Parameter Name:";
             this.m_speedParamNameColumn.Name = "m_speedParamNameColumn";
             this.m_speedParamNameColumn.ReadOnly = true;
-            this.m_speedParamNameColumn.Width = 119;
+            this.m_speedParamNameColumn.Width = 132;
             // 
             // m_speedParamValueColumn
             // 
             this.m_speedParamValueColumn.HeaderText = "Value";
             this.m_speedParamValueColumn.Name = "m_speedParamValueColumn";
-            this.m_speedParamValueColumn.Width = 63;
+            this.m_speedParamValueColumn.Width = 69;
             // 
             // m_speedParamUnitsColumn
             // 
             this.m_speedParamUnitsColumn.HeaderText = "Units";
             this.m_speedParamUnitsColumn.Name = "m_speedParamUnitsColumn";
             this.m_speedParamUnitsColumn.ReadOnly = true;
-            this.m_speedParamUnitsColumn.Width = 60;
+            this.m_speedParamUnitsColumn.Width = 65;
             // 
             // m_vehicleLogoPictureBox
             // 
             this.m_vehicleLogoPictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.m_vehicleLogoPictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("m_vehicleLogoPictureBox.InitialImage")));
-            this.m_vehicleLogoPictureBox.Location = new System.Drawing.Point(13, 27);
+            this.m_vehicleLogoPictureBox.Location = new System.Drawing.Point(17, 33);
+            this.m_vehicleLogoPictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.m_vehicleLogoPictureBox.Name = "m_vehicleLogoPictureBox";
-            this.m_vehicleLogoPictureBox.Size = new System.Drawing.Size(151, 44);
+            this.m_vehicleLogoPictureBox.Size = new System.Drawing.Size(201, 54);
             this.m_vehicleLogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.m_vehicleLogoPictureBox.TabIndex = 10;
             this.m_vehicleLogoPictureBox.TabStop = false;
             // 
+            // removeVehicleToolStripMenuItem
+            // 
+            this.removeVehicleToolStripMenuItem.Name = "removeVehicleToolStripMenuItem";
+            this.removeVehicleToolStripMenuItem.Size = new System.Drawing.Size(218, 24);
+            this.removeVehicleToolStripMenuItem.Text = "Remove Vehicle";
+            this.removeVehicleToolStripMenuItem.Click += new System.EventHandler(this.removeVehicleToolStripMenuItem_Click);
+            // 
             // ToyotaParameterEditorMainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(732, 574);
+            this.ClientSize = new System.Drawing.Size(976, 706);
             this.Controls.Add(this.m_vehicleLogoPictureBox);
             this.Controls.Add(this.m_speedTargetDataGridView);
             this.Controls.Add(this.m_speedTargetLabel);
@@ -391,6 +411,7 @@ namespace ToyotaParameterEditor
             this.Controls.Add(this.m_vehicleTypePictureBox);
             this.Controls.Add(this.m_mainMenuStrip);
             this.MainMenuStrip = this.m_mainMenuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ToyotaParameterEditorMainWindow";
             this.Text = "Toyota Parameter Editor";
             this.m_mainMenuStrip.ResumeLayout(false);
@@ -439,6 +460,7 @@ namespace ToyotaParameterEditor
         private System.Windows.Forms.ToolStripMenuItem saveUpdatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportUpdatedFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importUpdatedFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeVehicleToolStripMenuItem;
     }
 }
 

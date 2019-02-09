@@ -736,6 +736,8 @@
         <!-- N17:26 -->
         <BoostPressureFeedBack channelIndex="26" bitIndex="-1" logic="1" portDir="IN" boardIdx="0"/>
         
+		<!--N17:36 -->
+		<AwdEquippedFromPlc channelIndex="36" bitIndex="1" logic="1" portDir="IN" boardIdx="0"/>
 
         <OutputToPlcWord00 channelIndex="0" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>
         <OutputToPlcWord01 channelIndex="1" bitIndex="-1" logic="1" portDir="OUT" boardIdx="0"/>

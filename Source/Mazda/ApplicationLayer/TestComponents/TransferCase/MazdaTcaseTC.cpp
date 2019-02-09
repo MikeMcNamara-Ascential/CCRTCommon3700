@@ -33,6 +33,8 @@ string MazdaTcaseTC::CheckAxleRatio(void)
     {   // Determine if the vehicle is equipped with AWD
         if(!SystemRead(GetDataTag("AwdEquippedFromPlc")).compare("1"))
         {   // Wait for zero speed
+            SystemWrite("LeftMotorMode", 0);
+            SystemWrite("RightMotorMode", 0);
             SystemWrite(GetDataTag("AxleRatioBackgroundColorTag"), GetParameter("TestInProgressColor"));
             CheckZeroSpeed();
             SetStartTime();
@@ -72,6 +74,8 @@ string MazdaTcaseTC::CheckAxleRatio(void)
             // Wait for Zero Speed
             SetStartTime();
             CheckZeroSpeed();
+            SystemWrite("LeftMotorMode", 1);
+            SystemWrite("RightMotorMode", 1);
         }
         else
         {

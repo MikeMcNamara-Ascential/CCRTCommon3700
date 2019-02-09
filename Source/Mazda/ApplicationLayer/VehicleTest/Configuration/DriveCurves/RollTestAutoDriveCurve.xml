@@ -8,6 +8,13 @@
             <ConfigPath>/Configuration/Components/Machine</ConfigPath>
         </Machine>
 
+        <TransferCase>
+            <ComponentName>MazdaTransTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>GenericTcaseTc.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/TransferCase</ConfigPath>
+        </TransferCase>
+
         <!--Transmission>
             <ComponentName>MazdaTransTc.qxe</ComponentName>
             <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
@@ -41,6 +48,21 @@
             </ForegroundObjectives>
         </TestPhase015>
 
+        <TestPhase017 Description="4WD Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Brake to stop" Result="" Timeout="" Component="TransferCase">
+                    <AxleRatio/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase017>
+        
+        <TestPhase019 Description="Brake to stop at the end of the cycle" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Brake to stop" Result="" Timeout="" Component="Machine">
+                    <BrakeToStop/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase019>
 <!--
         <TestPhase020 Description="Perform forward gear / speed prompting" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
@@ -49,15 +71,7 @@
                 </Objective0>
             </ForegroundObjectives>
         </TestPhase020>
--->
-        <TestPhase025 Description="40KPH Test" Result="" Timeout="">
-            <ForegroundObjectives Result="" Timeout="">
-                <Objective0 Description="40KPH Test" Result="" Timeout="" Component="Machine">
-                    <Speedometer/>
-                </Objective0>
-            </ForegroundObjectives>
-        </TestPhase025>
-<!--
+
         <TestPhase030 Description="Reverse Test" Result="" Timeout="">
             <ForegroundObjectives Result="" Timeout="">
                 <Objective0 Description="Reverse Test" Result="" Timeout="" Component="Transmission">

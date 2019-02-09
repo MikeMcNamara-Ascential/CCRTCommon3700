@@ -61,7 +61,8 @@
             </SubscribeTags>
         </TagList>
         <DataTags>
-            <AwdEquippedFromPlc>AllWheelDrive</AwdEquippedFromPlc>
+			<FourWdTag>AwdEquippedFromPlc</FourWdTag>
+            <AwdEquippedFromPlc>AwdEquippedFromPlc</AwdEquippedFromPlc>
             <AxleRatioBackgroundColorTag>AxleRatioBGColor</AxleRatioBackgroundColorTag>
             <AxleRatioTag>AxleRatio</AxleRatioTag>
             <DriveAxle>DriveAxle</DriveAxle>
@@ -93,6 +94,7 @@
             <KeepTestStatusOnExit>1</KeepTestStatusOnExit>
             <DeveloperTest>False</DeveloperTest>
             <TestInProgressColor>yellow</TestInProgressColor>
+			<ValidFourWdValue>1</ValidFourWdValue>
 
             <!-- ICM Parameters -->
             <ICMName>mgr/ICM</ICMName>
@@ -108,14 +110,36 @@
             <AxleRatioSkipPreconditions>False</AxleRatioSkipPreconditions>
             <MaximumAxleRatioAttempts>3</MaximumAxleRatioAttempts>
             <SpeedStabilizeTime Units="ms">2000</SpeedStabilizeTime>
+			
+			<AwdTestSpeed Units="mph">5.0</AwdTestSpeed>
+			<AwdMaxAxleDiff Units="mph">2.0</AwdMaxAxleDiff>
+			
+			<!-- 2WD Shifting Parameters -->
+            <CheckShift2WDEngineRunning>NotRequired</CheckShift2WDEngineRunning>
+            <CheckShift2WDKeyPosition>NotRequired</CheckShift2WDKeyPosition>
+            <CheckShift2WDMinimumShiftSpeed>0</CheckShift2WDMinimumShiftSpeed>
+            <CheckShift2WDThrottlePosition>NotRequired</CheckShift2WDThrottlePosition>
+            <CheckShift2WDTransmissionGear>NotRequired</CheckShift2WDTransmissionGear>
+            <CheckShift2WDVerifyMethod>Prompt</CheckShift2WDVerifyMethod>
+
+            <!-- 4WD Shifting Parameters -->
+            <CheckShift4WDEngineRunning>NotRequired</CheckShift4WDEngineRunning>
+            <CheckShift4WDKeyPosition>NotRequired</CheckShift4WDKeyPosition>
+            <CheckShift4WDMinimumShiftSpeed>0</CheckShift4WDMinimumShiftSpeed>
+            <CheckShift4WDThrottlePosition>NotRequired</CheckShift4WDThrottlePosition>
+            <CheckShift4WDTransmissionGear>NotRequired</CheckShift4WDTransmissionGear>
+            <CheckShift4WDVerifyMethod>Prompt</CheckShift4WDVerifyMethod>
         </Parameters>
 
         <!-- ======================================================================================= -->
         <Prompts>
             <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
             <AccelAboveSpeed PromptBox="1" Priority="0">AccelerateToMph</AccelAboveSpeed>
+            <CheckShift2WDShiftTcase PromptBox="1" Priority="0">ShiftTransferCaseTo2wd</CheckShift2WDShiftTcase>
+            <CheckShift4WDShiftTcase PromptBox="2" Priority="0">ShiftTransferCaseTo4wd</CheckShift4WDShiftTcase>
             <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
             <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
+            <TcaseTesting PromptBox="1" Priority="0">TransferCaseTest</TcaseTesting>
             <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
         </Prompts>
 
@@ -127,14 +151,28 @@
     <!-- ======================================================================================= -->
     <Objectives>
         <AxleRatio>
+			<TestStep00>CheckShift4wd</TestStep00>
             <TestStep05>CheckAxleRatio</TestStep05>
+			<TestStep07>CheckShift2wd</TestStep07>
             <TestStep10>FinishUp</TestStep10>
         </AxleRatio>
     </Objectives>
 
     <!-- ======================================================================================= -->
     <TestSteps>
-        <CheckAxleRatio Result="Not Tested" Timeout="15000" Description="Verify Axle Ratio" ScanDelay="500"/>
+        <!-- <CheckAxleRatio Result="Not Tested" Timeout="15000" Description="Verify Axle Ratio" ScanDelay="500"/> -->
+		
+		<CheckAxleRatio Result="Not Tested" Timeout="30000" Description="Verify Axle Ratio" 
+            ScanDelay="500" SpeedSampleDelay="500"  SampleTime="500"
+            TargetSpeed="5" MinimumSpeed="5" MaximumSpeed="10" RatioSamples="10"/>
+
+        <CheckShift2WD Result="Not Tested" Timeout="30000" Description="Test Tcase 2WD" ScanDelay="500" 
+            MinimumSpeed="0" MaximumSpeed="3" SpeedSampleDelay="500"
+            TcaseMessageDelay="5000"/>
+
+        <CheckShift4WD Result="Not Tested" Timeout="30000" Description="Test Tcase 4WD" ScanDelay="500" 
+            MinimumSpeed="0" MaximumSpeed="3" SpeedSampleDelay="500"
+            TcaseMessageDelay="5000"/>
 
         <FinishUp Result="Not Tested" Timeout="1000" Description="Determine overall result"/>
     </TestSteps>

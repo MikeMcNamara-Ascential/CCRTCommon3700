@@ -2212,7 +2212,9 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 			BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 			if(GetParameterBool("ReadWheelSensorsIndividually"))
 			{
-				for(char wheel = LFWHEEL; (wheel <= RRWHEEL) && (BEP_STATUS_SUCCESS == moduleStatus); wheel++)
+                moduleStatus = BEP_STATUS_NA;
+                for (char wheel = LFWHEEL; 
+                      (wheel <= RRWHEEL) && (BEP_STATUS_SUCCESS == moduleStatus || moduleStatus == BEP_STATUS_NA); wheel++)
 				{
 					float wssReading = 0.0;
 					moduleStatus = m_vehicleModule.ReadModuleData("Read"+rollerName[wheel]+"SensorSpeed", wssReading);
@@ -2222,7 +2224,7 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 					}
 					else
 					{
-						Log(LOG_ERRORS, "Failed to read %s wheel speed sensor ffrom module", rollerName[wheel].c_str());
+						Log(LOG_ERRORS, "Failed to read %s wheel speed sensor from module", rollerName[wheel].c_str());
 					}
 				}
 			}

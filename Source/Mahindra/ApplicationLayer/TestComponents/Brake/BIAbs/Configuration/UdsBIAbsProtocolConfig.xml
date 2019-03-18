@@ -134,6 +134,13 @@
                 <ReplyInterpretation>FaultsCleared</ReplyInterpretation>
             </ClearFaults>
 
+			<ReadEcuId>
+                <TransmitMessage>ReadPID</TransmitMessage>
+                <TransmitInterpretation>EcuSoftwareId</TransmitInterpretation>
+                <ReplyMessage>ReadPID</ReplyMessage>
+                <ReplyInterpretation>EcuSoftwareId</ReplyInterpretation>
+            </ReadEcuId>
+			
             <ReadFaults>
                 <TransmitMessage>ReadFaults</TransmitMessage>
                 <TransmitInterpretation/>
@@ -425,6 +432,18 @@
 				<ReplyMessage>SendAccessKey</ReplyMessage>
 				<ReplyInterpretation/>
 			</UnlockModuleSecurity>
+			<ReadProcessByte>
+				<TransmitMessage>ReadPID</TransmitMessage>
+				<TransmitInterpretation>ProcessByte</TransmitInterpretation>
+				<ReplyMessage>ReadPID</ReplyMessage>
+				<ReplyInterpretation>ProcessByte</ReplyInterpretation>
+			</ReadProcessByte>
+			<ReadBrakeSwitchPosition>
+				<TransmitMessage>ReadPID</TransmitMessage>
+				<TransmitInterpretation>BrakeSwitch</TransmitInterpretation>
+				<ReplyMessage>ReadPID</ReplyMessage>
+				<ReplyInterpretation>ProcessByte</ReplyInterpretation>
+			</ReadBrakeSwitchPosition>
 
         </VehicleMessages>
 
@@ -446,7 +465,9 @@
             <EcuSoftwareId>0xF1,0x95</EcuSoftwareId>
             <PartNumber>0xF1,0x87</PartNumber>
             <TraceData>0xF1,0x8C</TraceData>
-
+			<ProcessByte>0x09,0xB7</ProcessByte>
+			<BrakeSwitch>0x09,0xB5</BrakeSwitch>
+			
             <!-- Wheel Speed Sensors -->
             <SystemData>0x09,0xB3</SystemData>
             <LeftFrontSensor>0xE3,0x04</LeftFrontSensor>
@@ -547,6 +568,12 @@
                     <Byte input_index="0" mask="0xFF" compare="0x54"/>
                 </Boolean>
             </FaultsCleared>
+			
+			<ProcessByte>
+				<Boolean>
+                    <Byte input_index="3" mask="0xFF" compare="0x01"/>
+                </Boolean>
+			</ProcessByte>
 
             <VIN>
                 <STRING>
@@ -555,6 +582,14 @@
                     </SUBSTRING>
                 </STRING>
             </VIN>
+			
+			<EcuSoftwareId>
+				<STRING>
+                    <SUBSTRING format="%8s">
+                        <CHARS input_index="3" mask="0xFF" length="8"/>
+                    </SUBSTRING>
+                </STRING>
+			</EcuSoftwareId>
 
             <PartNumber>
                 <STRING>

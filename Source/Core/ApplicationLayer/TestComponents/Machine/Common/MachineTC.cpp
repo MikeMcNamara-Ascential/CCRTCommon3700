@@ -308,6 +308,8 @@ const std::string MachineTC::CommandTestStep(const std::string &value)
                 status = TestStepQuickStop(value);
             else if(step == "ConnectCable")             // else if "ConnectCable" sequenced
                 status = TestStepConnectCable(value);
+            else if(step == "DisconnectCable")             // else if "DisconnectCable" sequenced
+                status = TestStepDisconnectCable(value);
             else if(step == "MachineReady")             // else if "MachineReady" sequenced
                 status = TestStepMachineReady(value);
             // Disable the hydraulic pump motor
@@ -929,6 +931,69 @@ const string MachineTC::TestStepConnectCable (const std::string &value)
     Log(LOG_FN_ENTRY, "MachineTC::TestStepConnectCable(): %s\n", status.c_str());
 
     return(status);
+}
+
+
+//=============================================================================
+const string MachineTC::TestStepDisconnectCable (const std::string &value)
+{
+    Log(LOG_FN_ENTRY, "MachineTC::TestStepDisconnectCable()\n");
+    std::string status = BEP_NONE;  // set test step status to no response
+
+    try
+    {   // if the cable is not connected
+        bool connectStatus = (bool)(ReadSubscribeData(GetDataTag("CableConnect")) == "1");
+        Log(LOG_FN_ENTRY, "TestStepDisconnectCable connect status: %d\n", connectStatus);
+        if(connectStatus)
+        {   // if the machine is in the expected state
+            if(StatusCheck() == BEP_STATUS_SUCCESS)
+            {
+                // put up the question
+                if(UpdatePrompts() != BEP_STATUS_SUCCESS)
+                    Log(LOG_ERRORS, "Unable to Update Prompts\n");
+                bool done = false;
+                while((StatusCheck() == BEP_STATUS_SUCCESS) && TimeRemaining() && !done)
+                {
+                    if(ReadSubscribeData(GetDataTag("CableConnect")) == "1")    BposSleep(250);
+                    else
+                    {
+                        Log(LOG_FN_ENTRY, "TestStepDisconnectCable Cable Disconnected\n");
+                        done = true;
+                    }
+                }
+                // update the status of the test
+                if(StatusCheck() != BEP_STATUS_SUCCESS) UpdateResult(StatusCheck(), status);
+                else if((!TimeRemaining()) || (!done))  status = BEP_PASS_STATUS;
+                else                                    status = BEP_PASS_STATUS;
+            }
+            // else the conditions are not correct, indicate not started
+            else
+                status = BEP_PASS_STATUS;
+        }
+        else
+            status = BEP_PASS_STATUS;
+    }
+    catch(BepException &e)
+    {
+        Log(LOG_ERRORS, "MachineTC::TestStepDisconnectCable Exception: %s\n", e.what());
+        status = BEP_SOFTWAREFAIL_STATUS;
+    }
+
+    // the result of this test step does not really matter.
+    //if(status != BEP_PASS_STATUS)   SystemWrite(ABORT_DATA_TAG, "1");
+
+    // update the test result
+    if(SendTestResult(status, GetTestStepInfo("Description")) != BEP_STATUS_SUCCESS)
+    {
+        Log(LOG_ERRORS, "MachineTC::TestStepDisconnectCable Could Not Send Test Result: %s, %s\n",
+            GetTestStepName().c_str(), status.c_str());
+    }
+
+    RemovePrompts();    // remove the prompts from the screen
+
+    Log(LOG_FN_ENTRY, "MachineTC::TestStepDisconnectCable(): %s\n", status.c_str());
+
+    return(BEP_PASS_STATUS);
 }
 
 //=============================================================================

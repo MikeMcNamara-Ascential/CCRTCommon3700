@@ -804,6 +804,7 @@ protected:
      * @return The result of validating the diagnostic cable has been connected.
      */
     virtual const string TestStepConnectCable (const std::string &value);
+    virtual const string TestStepDisconnectCable (const std::string &value);
     /**
      * Verify the machine is ready to perform the test sequence.
      * <p><b>Category:</b> Test Step

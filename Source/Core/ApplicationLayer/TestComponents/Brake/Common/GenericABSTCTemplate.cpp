@@ -2770,6 +2770,51 @@ void GenericABSTCTemplate<VehicleModuleType>::WaitForSteadySpeed(const INT32 &sp
 
 //-------------------------------------------------------------------------------------------------
 template <class VehicleModuleType>
+void GenericABSTCTemplate<VehicleModuleType>::WaitForSingleAxleSteadySpeed(const INT32 &speedSamples, const INT32 &timeout,
+                                                                 const float &minWheelSpeed, const float &maxWheelSpeed, const string axel)
+{
+    WHEELINFO currentWheelSpeeds;
+    INT32 totalSamplesInRange = 0;
+    float frontSpeed = 0.0;
+    float rearSpeed = 0.0;
+    do
+    {   // Get the wheel speeds
+        GetWheelSpeeds(currentWheelSpeeds);
+        if (!axel.compare("Front")) {
+            // Find average axle speeds
+            frontSpeed = (currentWheelSpeeds.lfWheel + currentWheelSpeeds.rfWheel) / 2.0;
+            Log(LOG_DEV_DATA, "front speed: %f, min: %f, max: %f", frontSpeed, minWheelSpeed, maxWheelSpeed);
+            // Check if it is in range
+            if((minWheelSpeed <= frontSpeed) && (frontSpeed <= maxWheelSpeed)){
+                totalSamplesInRange++;
+                Log(LOG_DEV_DATA, "%d Consecutive Speeds seen for %s Axel",totalSamplesInRange, axel.c_str());
+            }
+            else
+                totalSamplesInRange = 0;
+        }
+        else
+        {
+            rearSpeed = (currentWheelSpeeds.lrWheel + currentWheelSpeeds.rrWheel) / 2.0;
+            Log(LOG_DEV_DATA, "Rear speed: %f, min: %f, max: %f", rearSpeed, minWheelSpeed, maxWheelSpeed);
+            // Check if it is in range
+            if((minWheelSpeed <= rearSpeed)  && (rearSpeed < maxWheelSpeed))
+                totalSamplesInRange++;
+            else
+                totalSamplesInRange = 0;
+        }
+        // Delay before checking again
+        if(totalSamplesInRange < speedSamples) BposSleep(GetTestStepInfoInt("ScanDelay"));
+    } while(TimeRemaining(&timeout) && (BEP_STATUS_SUCCESS == StatusCheck()) && (totalSamplesInRange < speedSamples));
+    if (!TimeRemaining(&timeout)) {
+        Log(LOG_DEV_DATA, "Timeout Waiting for Steady Speed on %s Axel.", axel.c_str());
+    }
+    else if (totalSamplesInRange >= speedSamples) {
+        Log(LOG_DEV_DATA, "Steady Speed Observed for %s Axel.", axel.c_str());
+    }
+}
+
+//-------------------------------------------------------------------------------------------------
+template <class VehicleModuleType>
 void GenericABSTCTemplate<VehicleModuleType>::WaitForStableSensorSpeeds(const INT32 &speedSamples, const INT32 &timeout,
                                                                         const float &tolerance)
 {

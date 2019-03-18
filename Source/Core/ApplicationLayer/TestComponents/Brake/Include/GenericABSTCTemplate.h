@@ -2025,6 +2025,9 @@ protected:
      */
      virtual void WaitForSteadySpeed(const INT32 &speedSamples, const INT32 &timeout,
                                      const float &minWheelSpeed, const float &maxWheelSpeed);
+     virtual void WaitForSingleAxleSteadySpeed(const INT32 &speedSamples, const INT32 &timeout,
+                                     const float &minWheelSpeed, const float &maxWheelSpeed, const string axel);
+
 
     /**
       * Wait for the ABS Sensor speeds to be within allowed deviation range from roller speeds.

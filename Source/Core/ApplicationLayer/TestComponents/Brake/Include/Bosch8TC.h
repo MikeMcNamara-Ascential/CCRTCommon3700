@@ -323,7 +323,8 @@ protected:
 
     BEP_STATUS_TYPE ShouldPerformHighSpeedValveTest(bool &performHsTest);
     virtual string FlexibleValveFiringTest(string testType);
-    bool m_highSpeedEnabled; 
+    bool m_highSpeedEnabled;
+    bool m_WSSResult; 
     virtual string GetESPTestResult(void);
 
 
@@ -565,6 +566,11 @@ private:
     XmlNodeMap m_espValveFiringcommands; 
         XmlNodeMap m_espEvacAndFillcommands;
     XmlNodeMap m_validVariantCodes;
+
+    string CheckEcuId();
+    string CheckBrakeProcessByte();
+    string CheckBrakeSensor(bool onPosition);
+
 };
 
 #endif

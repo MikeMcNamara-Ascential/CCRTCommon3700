@@ -183,6 +183,10 @@ const string Bosch8TC<ModuleType>::Bosch8TC<ModuleType>::CommandTestStep(const s
 		else if(step == "EnterDiagModeAtSpeed")    status = GenericTCTemplate<ModuleType>::EnterDiagnosticMode();
         else if(step == "CheckVariantCode") status = CheckVariantCode();
         else if(step == "WriteVariantCode") status = WriteVariantCode();
+        else if(step == "CheckEcuId") status = CheckEcuId();
+        else if(step == "CheckProcessByte") status = CheckBrakeProcessByte();
+        else if(step == "CheckBrakeSensorOn") status = CheckBrakeSensor(true);
+        else if(step == "CheckBrakeSensorOff") status = CheckBrakeSensor(false);
         else if (step.find("FlexibleValveFiringTest") != string::npos)
             status = FlexibleValveFiringTest(value); 
         else status = KoreaAbsTcTemplate<ModuleType>::CommandTestStep(value);
@@ -2159,6 +2163,7 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 	Log(LOG_FN_ENTRY, "Bosch8TC::TwoMotorWheelSpeedSensorTest(axle: %s) - Enter", axle.c_str());
 	string result = BEP_TESTING_STATUS;
 	TestResultDetails details;
+    string description = GetTestStepInfo("Description");
 	if(!ShortCircuitTestStep())
 	{   // Make sur the operator gets the vheicle into the correct state
 		DisplayPrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
@@ -2167,7 +2172,7 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
         UINT32 startDelay = GetParameterInt("SensorTestStartDelay");
         BposSleep(startDelay);
 		// Place the motor into speed mode with a commanded speed of zero for starters
-		m_MotorController.Write(COMMAND_SPEED, string("0"), true);
+        m_MotorController.Write(COMMAND_SPEED, string("0"), true);
 		m_MotorController.Write(MOTOR_MODE, SPEED_MODE, true);
 		// Note: on a two motor machine, setting axle to front controls the rear axle of the machine
 		INT32 startRollerIndex;
@@ -2181,6 +2186,8 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		{
 			startRollerIndex = LFWHEEL;
 			reportAxle = "Front";
+            //Front axel is tested first, set m_WSSResult
+            m_WSSResult = true;
 		}
 		// Store the original drive axle so it can be restored after we are done
 		string orgDriveAxle = SystemRead(DRIVE_AXLE_TAG);
@@ -2190,6 +2197,7 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		float rightSpeed = GetParameterFloat(rollerName[startRollerIndex+1] + "SensorSpeedTarget");
 		// Set the correct motors spinning
 		SystemWrite(DRIVE_AXLE_TAG, axle);
+        BposSleep(GetParameterInt("DriveAxleSwitchDelay"));
 		m_MotorController.Write(leftTag, GetParameter(rollerName[startRollerIndex] + "SensorSpeedTarget"), true);
 		m_MotorController.Write(rightTag, GetParameter(rollerName[startRollerIndex+1] + "SensorSpeedTarget"), true);
 		// Wait a bit until motor speeds are correct
@@ -2207,12 +2215,17 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && !rollersAtSpeed);
 		if(rollersAtSpeed)
 		{   // Verify the sensor readings are within tolerance
-			BposSleep(3500);   // Wait for motors to reach final speed
+            Log(LOG_DEV_DATA,"Blargity Steady Speed Check %s",reportAxle.c_str());
+			WaitForSingleAxleSteadySpeed(GetParameterInt("WSSSteadySpeedSamples"), 
+                                   GetParameterInt("WSSSteadySpeedTimeout"),
+                                   GetParameterFloat("WSSMinSteadyWheelSpeed"), 
+                                   GetParameterFloat("WSSMaxSteadyWheelSpeed"),
+                                   reportAxle);  // Wait for motors to reach final speed
 			vector<float> sensorSpeeds;
 			BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
 			if(GetParameterBool("ReadWheelSensorsIndividually"))
 			{
-                moduleStatus = BEP_STATUS_NA;
+				moduleStatus = BEP_STATUS_NA;
                 for (char wheel = LFWHEEL; 
                       (wheel <= RRWHEEL) && (BEP_STATUS_SUCCESS == moduleStatus || moduleStatus == BEP_STATUS_NA); wheel++)
 				{
@@ -2251,22 +2264,35 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 					float rightMin = rollerSpeeds[startRollerIndex+1] * (1.0 - (tolerance / 100.0));
 					float rightMax = rollerSpeeds[startRollerIndex+1] * (1.0 + (tolerance / 100.0));
 					char buff[32];
-					string leftResult = ((leftMin <= sensorSpeeds[startRollerIndex]) && 
-										 (sensorSpeeds[startRollerIndex] <= leftMax)) ? testPass : testFail;
-					string rightResult = ((rightMin <= sensorSpeeds[startRollerIndex+1]) && 
-										  (sensorSpeeds[startRollerIndex+1] <= rightMax)) ? testPass : testFail;
+                    string leftResult, rightResult;
+                    if ((leftMin <= sensorSpeeds[startRollerIndex])&&(sensorSpeeds[startRollerIndex] <= leftMax))
+                    {
+                        leftResult = testPass;
+                    }
+                    else{
+                        leftResult = testFail;
+                        description = "Left "+reportAxle+" WSS Error";
+                    }
+                    if ((rightMin <= sensorSpeeds[startRollerIndex+1]) && (sensorSpeeds[startRollerIndex+1] <= rightMax))
+                    {
+                        rightResult = testPass;
+                    }
+                    else{
+                        rightResult = testFail;
+                        description = "Right "+reportAxle+" WSS Error";
+                    }
 					result = ((leftResult == testPass) && (rightResult == testPass)) ? testPass : testFail;
 					Log(LOG_DEV_DATA, "Left %s: %s - %.2f [%.2f  %.2f]", 
 						reportAxle.c_str(), leftResult.c_str(), sensorSpeeds[startRollerIndex], leftMin, leftMax);
 					Log(LOG_DEV_DATA, "Right %s: %s - %.2f [%.2f  %.2f]", 
 						reportAxle.c_str(), rightResult.c_str(), sensorSpeeds[startRollerIndex+1], rightMin, rightMax);
 					SendSubtestResultWithDetail(rollerName[startRollerIndex] + "WssTest", leftResult, 
-												GetTestStepInfo("Description"), "0000",
+												description, "0000",
 												"Min", CreateMessage(buff, sizeof(buff), "%.2f", leftMin), unitsMPH,
 												"Max", CreateMessage(buff, sizeof(buff), "%.2f", leftMax), unitsMPH,
 												"Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex]), unitsMPH);
 					SendSubtestResultWithDetail(rollerName[startRollerIndex+1] + "WssTest", rightResult, 
-												GetTestStepInfo("Description"), "0000",
+												description, "0000",
 												"Min", CreateMessage(buff, sizeof(buff), "%.2f", rightMin), unitsMPH,
 												"Max", CreateMessage(buff, sizeof(buff), "%.2f", rightMax), unitsMPH,
 												"Sensor", CreateMessage(buff, sizeof(buff), "%.2f", sensorSpeeds[startRollerIndex+1]), unitsMPH);
@@ -2301,7 +2327,15 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		CheckZeroSpeed();
 		EngageMachine();
 		SystemWrite(DRIVE_AXLE_TAG, orgDriveAxle);
-		SendTestResult(result, GetTestStepInfo("Description"), "0000");
+        if (result != testPass || !m_WSSResult)
+        {
+            if (!m_WSSResult) {
+                result = testFail;
+            }
+            description = "Failures detected durring WSS test.";
+            m_WSSResult = false;
+        }
+        SendTestResult(result, description, "0000");
 	}
 	else
 	{
@@ -3513,6 +3547,7 @@ string Bosch8TC<ModuleType>::FlexibleValveFiringTest(string testType)
     string testResultCode("0000");
     UINT32 rollerIndex = 0;
     bool performHsTest;
+    bool maxAndMinPass[GetRollerCount()*2];
     BEP_STATUS_TYPE hsStat = ShouldPerformHighSpeedValveTest(performHsTest);
 
     bool testDisabled = false;
@@ -3575,6 +3610,11 @@ string Bosch8TC<ModuleType>::FlexibleValveFiringTest(string testType)
             bool exceptionEncountered = false;
             try
             {
+                if (GetTestStepInfoBool("CheckForMaxMinForces")){
+                    int mmi;//max Min Index
+                    for (mmi= 0;mmi<GetRollerCount()*2;mmi++) 
+                        maxAndMinPass[mmi] = false;
+                }
                 string valveCommandsTag = !testType.empty() ? (testType + "_ValveFiringCommands") : "ValveFiringCommands";
                 const XmlNodeMap &valveCommands = m_parameters.getNode(valveCommandsTag)->getChildren();
                 for (XmlNodeMapCItr iter = valveCommands.begin();
@@ -3867,43 +3907,58 @@ string Bosch8TC<ModuleType>::FlexibleValveFiringTest(string testType)
                                 delay(BposReadInt(delayIter->second->getValue().c_str()));
                             }
 
-                            // If ABS Sensor related, check roller speed
+                            // If ABS Sensor related, check roller force
                             if (!cmdType.compare("ABS Sensor"))
                             {
-                                DataAnalysis analyze;
-                                Comparison_t compare;
-                                float firingCompareSpeed = (preConditionValue == "MinSpeed") ? minSpeed : maxSpeed;
-                                float nonFiringCompareSpeed = 1.0;
-                                if (iter->second->hasAttribute("NonFiringCompareSpeed"))
-                                    nonFiringCompareSpeed = atof(iter->second->getAttribute("NonFiringCompareSpeed")->getValue().c_str());
-
-                                float *compareSpeed = &firingCompareSpeed;
-                                string wssResult = testPass;
-                                for (UINT8 index = LFWHEEL; (index < rollerCount) && (wssResult == testPass); index++)
-                                {
-                                    if (index == rollerIndex)
-                                        compareSpeed = &firingCompareSpeed;
-                                    else
-                                        compareSpeed = &nonFiringCompareSpeed;
-
-
-                                    if (preConditionValue == "MinSpeed")
+                                if ((iter->second->hasAttribute("MaxForce") || iter->second->hasAttribute("MinForce"))&& iter->second->hasAttribute("RollerIndex")) 
+                                {   
+                                    float rollerForces[GetRollerCount()];
+                                    string forceResult = testFail;
+                                    bool maxForce = true;
+                                    float compareForce = 0;
+                                    if (iter->second->hasAttribute("MinForce"))
                                     {
-                                        compare = (index == rollerIndex ? GREATER_EQUAL : LESS);
+                                        compareForce = atof(iter->second->getAttribute("MinForce")->getValue().c_str());
+                                        maxForce = false;
                                     }
+                                    else 
+                                    {
+                                        compareForce = atof(iter->second->getAttribute("MaxForce")->getValue().c_str());
+                                    }
+                                    if(BEP_STATUS_SUCCESS == GetForces(rollerForces))
+                    				{
+                                        int rollerIndex = BposReadInt(iter->second->getAttribute("RollerIndex")->getValue().c_str());
+                                        if ((compareForce >= rollerForces[rollerIndex]) && maxForce){
+                                            if (GetTestStepInfoBool("CheckForMaxMinForces"))
+                                                maxAndMinPass[rollerIndex*2] = true;
+                                            forceResult = testPass;
+                                        }
+                                        else if (((compareForce <= rollerForces[rollerIndex]) && !maxForce)) {
+                                            if (GetTestStepInfoBool("CheckForMaxMinForces"))
+                                                maxAndMinPass[rollerIndex*2+1] = true;
+                                            forceResult = testPass;
+                                        }
+                                             
+                                        Log(LOG_DEV_DATA, "ABS Check - %s: %f, Wheel Idx: %d, Force: %f, Result: %s",
+                                                (maxForce?"MaxForce":"MinForce"),compareForce, rollerIndex, rollerForces[rollerIndex], forceResult.c_str());
+                                        if (iter->second->hasAttribute("Final") && atob(iter->second->getAttribute("Final")->getValue().c_str())) {
+                                            SendSubtestResult(rollerName[rollerIndex] + "LowSpeedAbs" + (maxForce ? "MaxForce" : "MinForce"), maxAndMinPass[rollerIndex*2+(maxForce?0:1)]?testPass:testFail, rollerName[rollerIndex] + "LowSpeedAbs" + (maxForce ? "Reduction" : "Recovery") + " Not Sufficient");
+                                        }
+                                        //UpdateResult(wssResult, result);
+                    				}
                                     else
                                     {
-                                        compare = LESS_EQUAL;
+                                        Log(LOG_DEV_DATA,"Unable to read forces from the Machine!");
                                     }
-                                    string tmpRslt = analyze.CompareData(sensorSpeeds[index],
-                                                                         *compareSpeed,
-                                                                         compare) ? testPass : testFail;
-                                    Log(LOG_DEV_DATA, "WSS Check - PreCond: %s, Wheel Idx: %d, Roll Idx: %d, Sensor: %.2f, Compare Speed: %.2f, Comparison: %s, Rslt: %s",
-                                        preConditionValue.c_str(), rollerIndex, index, sensorSpeeds[index], *compareSpeed, compare == GREATER_EQUAL ? ">=" : "<", tmpRslt.c_str());
-                                    UpdateResult(tmpRslt, wssResult);
                                 }
-                                SendSubtestResult(rollerName[rollerIndex] + "LowSpeedAbs" + preConditionValue, wssResult);
-                                UpdateResult(wssResult, result);
+                                else if (iter->second->hasAttribute("MaxForce") || iter->second->hasAttribute("MinForce"))
+                                {
+                                    Log(LOG_DEV_DATA,"No RollerIndex Provided!");
+                                }
+                                else
+                                {
+                                    Log(LOG_DEV_DATA,"No Force Limits Provided!");
+                                }
                             }
 
                             // Check speed deltas from initial command (if applicable)
@@ -4141,6 +4196,19 @@ string Bosch8TC<ModuleType>::FlexibleValveFiringTest(string testType)
 
         RemovePrompt(1, GetPrompt(neutralPromptTag), GetPromptPriority(neutralPromptTag));
         RemovePrompt(2, GetPrompt(brakePromptTag), GetPromptPriority(brakePromptTag));
+
+        if (result == testPass && GetTestStepInfoBool("CheckForMaxMinForces"))
+        {
+            int mmi;//max min index
+            bool allPassed = true;
+            for (mmi=0;mmi<GetRollerCount()*2;mmi++)
+                allPassed = allPassed && maxAndMinPass[mmi];
+            if (!allPassed){
+                description = "ABS: Minimum Reduction and Recovery values not met";
+                result = testFail;
+            }
+        }
+
         if (testType != "Static")
             SendTestResult(result, description, "0000");
         else
@@ -4163,3 +4231,248 @@ string Bosch8TC<ModuleType>::GetESPTestResult()
     Log(LOG_ERRORS, "Bosch8TC::GetESPTestResult() - Function not implented! -- Returning testFail");
     return testFail;
 }
+
+
+template <class ModuleType>
+string Bosch8TC<ModuleType>::CheckEcuId(void)
+{
+	string testResult = BEP_TESTING_STATUS;
+	string testResultCode("0000");
+	string testDescription = GetTestStepInfo("Description");
+    string ExpectedEcuId = "";
+	string EcuId;
+	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+	// Check if we need to skip this test step
+	Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckEcuId()\n");
+	if(!ShortCircuitTestStep())
+	{	// Do not need to skip
+		try
+		{	
+            //Check that we have an ECU ID to compare against
+            ExpectedEcuId = GetParameter("ModuleEcuId");
+            //Check if we should get the ECU ID from the Build Record
+            if(GetParameterBool("EcuIdFromBuildRecord"))
+            {
+                Log(LOG_DEV_DATA, "Getting ECU Software ID from the Build Record."); 
+                ExpectedEcuId = GetVehicleParameter("ECUSoftwareID",ExpectedEcuId.c_str());
+            }
+            Log(LOG_DEV_DATA, "Expected ECU ID:%s", ExpectedEcuId.c_str()); 
+            // Read the data from the module
+			moduleStatus = m_vehicleModule.ReadModuleData(GetDataTag("ReadModuleEcuId"), EcuId);
+            Log(LOG_DEV_DATA, "Read ECU ID:%s", EcuId.c_str()); 
+			// Check the status of the data
+			if(BEP_STATUS_SUCCESS == moduleStatus)
+			{	// Good data, check if the ECU ID should be validated
+				if(GetParameterBool("BypassEcuIdCheck"))
+				{	// Skip ECU ID validation
+					Log(LOG_DEV_DATA, "Ecu Software ID verification bypassed by parameter\n");
+					testResult = testPass;
+				}
+				else if(EcuId == ExpectedEcuId)
+				{	// ECU IDs match, test passes
+					testResult = testPass;
+				}
+				else
+				{	// ECU IDs do not match, test fails
+					testResult = testFail;
+				}
+
+                if (GetTestStepInfoBool("InfoOnlyTest") && (testResult != testSkip) && (testResult != testPass)){
+                    testResult = testSkip;
+                    Log(LOG_DEV_DATA, "ECU ID Check Skipped due to Info Only Test.");
+                }
+				Log(LOG_DEV_DATA, "ECU ID Check: %s - Broadcast: %s, Module: %s\n",
+					testResult.c_str(), ExpectedEcuId.c_str(), EcuId.c_str());
+				testResultCode = (testResult != testFail ? "0000" : GetFaultCode("EcuIdMismatch"));
+				testDescription = (testResult != testFail ? GetTestStepInfo("Description") : GetFaultDescription("EcuIdMismatch"));
+			}
+			else
+			{	// Communication error getting data
+				Log(LOG_ERRORS, "Communication failure readng module ECU ID - status: %s\n",
+					ConvertStatusToResponse(moduleStatus).c_str());
+				testResult = testFail;
+				testResultCode = GetFaultCode("CommunicationFailure");
+				testDescription = GetFaultDescription("CommunicationFailure");
+			}
+		}
+		catch(ModuleException &moduleException)
+		{
+			Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+				GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+			testResult = testSoftwareFail;
+			testResultCode = GetFaultCode("SoftwareFailure");
+			testDescription = GetFaultDescription("SoftwareFailure");
+		}
+		// Report the results
+		SendTestResultWithDetail(testResult, testDescription, testResultCode,
+								 "ECUSoftwareID", EcuId, "",
+								 "BroadcastEcuId", ExpectedEcuId, "");
+	}
+	else
+	{	// Need to skip this test step
+		testResult = testSkip;
+		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+	}
+	// Log the function exit
+	Log(LOG_FN_ENTRY, "Exit Bosch8TC::CheckEcuId()\n");
+	return(testResult);
+}
+
+template <class ModuleType>
+string Bosch8TC<ModuleType>::CheckBrakeProcessByte(void)
+{
+	string testResult = BEP_TESTING_STATUS;
+	string testResultCode("0000");
+	string testDescription = GetTestStepInfo("Description");
+    bool ExpectedProcessByte;
+	bool ProcessByte;
+	BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+	// Check if we need to skip this test step
+	Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckBrakeProcessByte()\n");
+	if(!ShortCircuitTestStep())
+	{	// Do not need to skip
+		try
+		{	//Check that we have an ECU ID to compare against
+            ExpectedProcessByte = GetParameterBool("ReadProcessByteExpectedValue");
+            Log(LOG_DEV_DATA, "Expected Process Byte:%s", (ExpectedProcessByte?"True":"False")); 
+            // Read the data from the module
+			moduleStatus = m_vehicleModule.ReadModuleData("ReadProcessByte", ProcessByte);
+            Log(LOG_DEV_DATA, "Read Process Byte:%s", (ProcessByte?"True":"False")); 
+			// Check the status of the data
+			if(BEP_STATUS_SUCCESS == moduleStatus)
+			{	// Good data, check if the ECU ID should be validated
+				if(GetParameterBool("BypassProcessByteCheck"))
+				{	// Skip ECU ID validation
+					Log(LOG_DEV_DATA, "Brake Process Byte bypassed by parameter\n");
+					testResult = testPass;
+				}
+				else if(ProcessByte == ExpectedProcessByte)
+				{	// VINs match, test passes
+					testResult = testPass;
+				}
+				else
+				{	// VINs do not match, test fails
+					testResult = testFail;
+				}
+
+                if (GetTestStepInfoBool("InfoOnlyTest") && (testResult != testSkip) && (testResult != testPass)){
+                    testResult = testSkip;
+                    Log(LOG_DEV_DATA, "Brake Process Byte Check Skipped due to Info Only Test.");
+                }
+				Log(LOG_DEV_DATA, "ECU ID Check: %s - Expected: %s, Module: %s\n",
+					testResult.c_str(), (ExpectedProcessByte?"True":"False"), (ProcessByte?"True":"False"));
+				testResultCode = (testResult != testFail ? "0000" : GetFaultCode("ProcessByteMismatch"));
+				testDescription = (testResult != testFail ? GetTestStepInfo("Description") : GetFaultDescription("ProcessByteMismatch"));
+			}
+			else
+			{	// Communication error getting data
+				Log(LOG_ERRORS, "Communication failure readng Brake Process Byte - status: %s\n",
+					ConvertStatusToResponse(moduleStatus).c_str());
+				testResult = testFail;
+				testResultCode = GetFaultCode("CommunicationFailure");
+				testDescription = GetFaultDescription("CommunicationFailure");
+			}
+		}
+		catch(ModuleException &moduleException)
+		{
+			Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+				GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+			testResult = testSoftwareFail;
+			testResultCode = GetFaultCode("SoftwareFailure");
+			testDescription = GetFaultDescription("SoftwareFailure");
+		}
+		// Report the results
+		SendTestResultWithDetail(testResult, testDescription, testResultCode,
+								 "ProcessByte", (ProcessByte?"True":"False"), "",
+								 "ExpectedProcessByte", (ExpectedProcessByte?"True":"False"), "");
+	}
+	else
+	{	// Need to skip this test step
+		testResult = testSkip;
+		Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+	}
+	// Log the function exit
+	Log(LOG_FN_ENTRY, "Exit Bosch8TC::CheckBrakeProcessByte()\n");
+	return(testResult);
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string Bosch8TC<ModuleType>::CheckBrakeSensor(bool onPosition) 
+{
+	string testResult = testError;
+    string testCode = "0000";
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    Log(LOG_FN_ENTRY, "Enter Bosch8TC::CheckBrakeSensor()\n");
+    if(!ShortCircuitTestStep())
+    {
+        Log(LOG_DEV_DATA, "Looking for Brake Switch %s",(onPosition?"On":"Off"));
+        bool brakeOn = false;
+        BEP_STATUS_TYPE brakeStatus = BEP_STATUS_SUCCESS;
+
+        if (onPosition) {
+            DisplayPrompt(GetPromptBox("FootOnBrake"), GetPrompt("FootOnBrake"), GetPromptPriority("FootOnBrake"));
+            while (!brakeOn && TimeRemaining() && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {    
+                brakeStatus = m_vehicleModule.ReadModuleData("ReadBrakeSwitchPosition", brakeOn);
+                if (!brakeOn)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+            
+            RemovePrompt(GetPromptBox("FootOnBrake"), GetPrompt("FootOnBrake"), GetPromptPriority("FootOnBrake"));
+        }
+        else 
+        {
+            brakeOn = true;
+            DisplayPrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+            while (brakeOn && TimeRemaining() && (BEP_STATUS_SUCCESS == brakeStatus) && (BEP_STATUS_SUCCESS == StatusCheck()))
+            {    
+                brakeStatus = m_vehicleModule.ReadModuleData("ReadBrakeSwitchPosition", brakeOn);
+                if (brakeOn)
+                {
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));
+                }
+            }
+            
+            RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
+        }
+        //test finished, find out why. 
+        if (!TimeRemaining())
+        {
+            testResult = testFail;
+            testDescription = "Failure reading Brake Switch Status";
+            testCode = GetFaultCode("TimeoutFailure");
+            Log(LOG_DEV_DATA, "Error: Timeout while reading BrakeSwitchPosition from the module.");
+        }
+        else if (brakeStatus != BEP_STATUS_SUCCESS)
+        {   // Could not read data from the module
+            testResult = testFail;
+            testDescription = GetFaultDescription("CommunicationFailure");
+            testCode = GetFaultCode("CommunicationFailure");
+            Log(LOG_DEV_DATA, "Error reading BrakeSwitchPosition from the module - %s", ConvertStatusToResponse(status).c_str());
+        }
+        else if (StatusCheck() != BEP_STATUS_SUCCESS) {
+            testResult = testFail;
+            testDescription = GetFaultDescription("SystemStatus");
+            testCode = GetFaultCode("SystemStatus");
+            Log(LOG_DEV_DATA, "Error with Machine State while trying to read BrakeSwitchPosition.");
+        }
+        else if (brakeOn == onPosition) {
+            testResult = testPass;
+        }
+        Log(LOG_DEV_DATA, "Looked for Brake Switch %s, Got Brake Switch %s",(onPosition?"On":"Off"),(brakeOn?"On":"Off"));
+        //testResult = status; 
+        SendTestResult(testResult, testDescription, testCode);
+    }
+    else
+    {   // Skipping test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step: %s\n", GetTestStepName().c_str());
+    } 
+    Log(LOG_FN_ENTRY, "Exiting Bosch8TC::CheckBrakeSensor()\n");
+    return testResult;
+}
+

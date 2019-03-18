@@ -191,8 +191,20 @@
       <Initialize>
          <TestStep1>Initialize</TestStep1>
          <TestStep2>MachineReady</TestStep2>
-         <TestStep3>EngageMachine</TestStep3>
+         <TestStep4>EngageMachine</TestStep4>
       </Initialize>
+	  <InitializeAndConnectCable>
+         <TestStep1>Initialize</TestStep1>
+         <TestStep2>MachineReady</TestStep2>
+         <TestStep3>ConnectCable</TestStep3>
+         <TestStep4>EngageMachine</TestStep4>
+      </InitializeAndConnectCable>
+	  <InitializeAndSelectDriverSide>
+         <TestStep1>Initialize</TestStep1>
+         <TestStep2>MachineReady</TestStep2>
+         <TestStep3>EngageMachine</TestStep3>
+         <TestStep4>SelectDriverSide</TestStep4>
+		 </InitializeAndSelectDriverSide>
       <DriverQuestion>
          <TestStep1>DriverQuestion</TestStep1>
       </DriverQuestion>
@@ -217,6 +229,9 @@
       <ConnectCable>
          <TestStep1>ConnectCable</TestStep1>
       </ConnectCable>
+      <DisconnectCable>
+         <TestStep1>DisconnectCable</TestStep1>
+      </DisconnectCable>
       <MachineReady>
          <TestStep1>MachineReady</TestStep1>
       </MachineReady>
@@ -301,6 +316,7 @@
       <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="120000" Prompt1="BrakeToStop" Prompt1Priority="0"/>
       <QuickStop Result="" Description="Command the rollers to stop and verify that Zerospeed is achieved" Timeout="30000" Prompt1="BrakeToStop" Prompt1Priority="0" Prompt2="Blank" Prompt2Priority="0" SpeedTarget="0 0"/>
       <ConnectCable Result="" Description="Prompt the driver to connect the vehicle cable" Timeout="20000" Prompt1="ConnectCable" Prompt1Priority="0"/>
+	  <DisconnectCable Result="" Description="Prompt the driver to disconnect the vehicle cable" Timeout="3000" Prompt1="DisconnectCable" Prompt1Priority="0"/>
       <MachineReady Result="" Description="Wait until the machine is ready to perform a test" Timeout="15000" Prompt1="" Prompt1Priority="" Prompt2="" Prompt2Priority=""/>
       <DisableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" PumpStatusChangeDelay="500" Timeout="1000"/>
       <EnableHydraulicPumpMotor Result="" Description="Turn off the hydraulic pump motor" PumpStatusChangeDelay="1000" Timeout="1000"/>

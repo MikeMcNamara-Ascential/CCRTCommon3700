@@ -6,4 +6,7 @@ INSTALL_FILES(${VEHICLETEST_CONFIG_DIR}/DriveCurves FILES
 	BaseBrakeDriveCurve.xml
 	BaseBrakeDriveCurveSPDL.xml
 	BaseBrake4wdDriveCurve.xml
+	BaseBIABS4wdDriveCurve.xml
+	BaseBIABSDriveCurve.xml
+	BaseBIABSDriveCurveSPDL.xml
 	)

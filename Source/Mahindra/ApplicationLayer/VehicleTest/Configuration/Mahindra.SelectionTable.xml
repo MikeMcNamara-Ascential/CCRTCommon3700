@@ -17,11 +17,11 @@
       <BrakeType>BI Abs</BrakeType>
       <TransferCase>2WD</TransferCase>
    </BaseBIABS>
-    <BIABS4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BIABS4wdDriveCurve.xml">
+    <BIABS4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBIABS4wdDriveCurve.xml">
         <BrakeType>BI Abs</BrakeType>
         <TransferCase>4WD</TransferCase>
     </BIABS4wd>
-    <BIABS4wdSPDL DriveCurve="/Configuration/VehicleTest/DriveCurves/BIABS4wdSPDLDriveCurve.xml">
+    <BIABS4wdSPDL DriveCurve="/Configuration/VehicleTest/DriveCurves/BaseBIABSDriveCurveSPDL.xml">
         <BrakeType>BI Abs</BrakeType>
         <SpeedLimiter>Equipped</SpeedLimiter>
       <TransferCase>2WD</TransferCase>

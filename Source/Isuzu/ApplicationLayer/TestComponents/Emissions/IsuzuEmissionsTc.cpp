@@ -3587,4 +3587,99 @@ string IsuzuEmissionsTc<ModuleType>::CheckBrakeSensor(bool onPosition)
     return testResult;
 }
 
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
+{
+    string testResult = BEP_TESTING_STATUS;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    FaultStatusVector_t moduleFaults;
+    bool executeFaultClear = false;
+    // Determine if this test step needs to be skipped
+    Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::ConditionalFaultClear()\n");
+    if(!ShortCircuitTestStep()  || GetTestStepInfoBool("AlwaysPerform"))
+    {   // Do not need to skip this step
+        try
+        {// Try to read the module faults
+            moduleStatus = m_vehicleModule.ReadFaults(moduleFaults); 
+            //moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadFaults"), moduleFaults);
+            // Check the status of the operation
+            if(BEP_STATUS_SUCCESS == moduleStatus)
+            {   // Good read, evaluate the data
+                Log(LOG_DEV_DATA, "Found %d faults recorded in the module\n", moduleFaults.size());
+                // Only check for faults if faults were read from the module
+                if(moduleFaults.size() > 0)
+                {
+                    for(UINT32 faultIndex = 0; faultIndex < moduleFaults.size(); faultIndex++)
+                    {   // Determine if this fault should be ignored
+                        string faultTag = "ModuleFault_" + moduleFaults[faultIndex].m_code;
+                        INT32 faultCode = atoh(moduleFaults[faultIndex].m_code.c_str());
+                        bool ignored = false;/*
+                        UINT8 statusMask = 0x00;
+                        UINT8 dtcStatus = atoh(moduleFaults[faultIndex].m_status.c_str());;
+                        try
+                        {
+                            statusMask = atoh(GetFaultFailureStatusMask(faultTag).c_str()); 
+                            ignored = !(statusMask & dtcStatus);
+                        }
+                        catch (...)
+                        {
+                            ignored = false;
+                        }
+                        Log(LOG_DEV_DATA, "Ignored from dtc status byte? %s - status mask [%02X] dtc status [%02X]\n", 
+                            ignored ? "True" : "False", statusMask, dtcStatus);*/
+                        executeFaultClear = (m_clearFaults.find(faultTag) == m_clearFaults.end()) ? executeFaultClear : true;
+                        // Log the fault read from the module
+                        Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex+1,
+                            moduleFaults[faultIndex].m_code.c_str(), ignored ? "Valid" : "Ignored");
+                        Log(LOG_DEV_DATA,"Execute Fault Clear? %s",(executeFaultClear?"True":"False"));
+                        //executeFaultClear = !ignored ? executeFaultClear : true;
+                    }
+                }
+                if(executeFaultClear)
+                {
+                    // Tell the module to clear faults
+                    moduleStatus = m_vehicleModule.ClearFaults();
+                    // Log the data
+                    Log(LOG_DEV_DATA, "Clear Faults: %s - status: %s\n",
+                        testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+                }
+                else
+                    Log(LOG_DEV_DATA, "Unregistered faults present. Not commandning fault clear.");
+            }
 
+            if(BEP_STATUS_SUCCESS != moduleStatus)
+            {   // Error reading faults from the module
+                Log(LOG_ERRORS, "Error reading module faults - status: %s\n", ConvertStatusToResponse(moduleStatus).c_str());
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+            }
+            else
+            {
+                testResult = testPass;
+            }   
+        }
+        catch(ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Send the test result
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Need to skip this test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+    }
+    // Return the test result
+    Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::ConditionalFaultClear()\n");
+    return(testResult);
+}

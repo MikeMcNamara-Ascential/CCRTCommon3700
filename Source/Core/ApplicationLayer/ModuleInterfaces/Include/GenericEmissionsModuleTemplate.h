@@ -1270,6 +1270,17 @@ public:
      */
     const string &GetEngineAuthenticationStartPendingString(void);
 
+    /**
+     * Read faults stored in the module.
+     * <p><b>Description:</b><br>
+     * Specific modules have different algortihms for reading faults, so no generic implementation has been provided.
+     * <br><b><i>Note:</i></b> This function is intended to be overloaded and will return BEP_STATUS_SOFTWARE if called.
+     * <p>
+     * @param faultCodes Fault Codes read from the module.
+     * @return BEP_STATUS_SOFTWARE
+     */
+    virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
+
 protected:
     /**
      * Initialize the GenericEmissionsModuleTemplate class.
@@ -1523,17 +1534,6 @@ protected:
      * @return Status of checking the field mode state of the vehicle.
      */
     virtual BEP_STATUS_TYPE IsInFieldMode(bool &inFieldMode);
-
-    /**
-     * Read faults stored in the module.
-     * <p><b>Description:</b><br>
-     * Specific modules have different algortihms for reading faults, so no generic implementation has been provided.
-     * <br><b><i>Note:</i></b> This function is intended to be overloaded and will return BEP_STATUS_SOFTWARE if called.
-     * <p>
-     * @param faultCodes Fault Codes read from the module.
-     * @return BEP_STATUS_SOFTWARE
-     */
-    virtual BEP_STATUS_TYPE ReadFaults(FaultVector_t &faultCodes);
 
     /**
      * Read an EOL status register from the module.
@@ -1791,6 +1791,7 @@ protected:
     void SetClutchOffUpstopOnDetected(const bool &switchOffDetected);
 
 private:
+
     /**
      * <b>Description:</b><br>
      * Store the initial TPS reading at closed throttle conditions.

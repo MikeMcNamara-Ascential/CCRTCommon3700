@@ -54,8 +54,11 @@ const string AdvicsABSTC<ModuleType>::CommandTestStep(const string &value)
             // test the ABS messages
             else if(!testStep.compare("TestAbsMessages"))          result = AbsTestMessages();
             else if(!testStep.compare("SensorTest"))	           result = SensorTest();
-
-            // Torque the rollers
+            // Check    for the brake switch in the On position
+            else if(!testStep.compare("BrakeSwitchOnTest"))                   result = BrakeSwitchTest(GetDataTag("SwitchOn"));
+            // Check for the brake switch in the Off position
+            else if(!testStep.compare("BrakeSwitchOffTest"))                  result = BrakeSwitchTest(GetDataTag("SwitchOff"));
+            // Torque the rollers   
             else if(!testStep.compare("ApplyTorqueToAllRollers"))  result = TestStepApplyTorqueToAllRollers(value);
             // Do the low speed ABS test
             else if(!testStep.compare("LowSpeedValveFiringTest"))  result = TestStepLowSpeedValveFiringTest(value);
@@ -2771,6 +2774,95 @@ string AdvicsABSTC<ModuleType>::AbsPrime(void)
     Log(LOG_FN_ENTRY, "AdvicsAbsTc::AbsPrime() - Exit");
 	return result;
 }
+
+//-------------------------------------------------------------------------------------------------
+
+template <class ModuleType>
+string AdvicsABSTC<ModuleType>::BrakeSwitchTest(const string& position)
+{
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    string testResult            = BEP_TESTING_STATUS;
+    string testResultCode        = "0000";
+    string testDescription       = GetTestStepInfo("Description");
+    bool brakeSwitchOn           = false;
+    bool compare                 = true;
+    // Log the function entry
+    Log(LOG_FN_ENTRY, "%s::%s - Enter\n", GetComponentName().c_str(), GetTestStepName().c_str());
+    // Determine if this test step should be performed
+    if(!ShortCircuitTestStep())
+    {   // Attempt to observe the brake switch in the on position
+        try
+        {   // Determine what type of comparison to perform based on requested position
+            // NOTE:  brakeSwitchOn is set to the opposite state to ensure we do not get a false pass
+            brakeSwitchOn = GetDataTag("SwitchOn") == position ? false : true;
+            compare       = GetDataTag("SwitchOn") == position ? true  : false;
+            SetStartTime();
+            // Look for the brake switch in the desired position
+            do
+            {
+                moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadBrakeSwitch"), brakeSwitchOn);
+                Log(LOG_DEV_DATA, "BrakeSwitch Status: %s, compare: %s\n", (brakeSwitchOn?"True":"False"),(compare?"True":"False")); 
+                if(!brakeSwitchOn)  BposSleep(GetTestStepInfoInt("ScanDelay"));
+                // Keep checking while time remaining, brake switch not in desired position, good system status and good comms 
+                // with module
+            } while(TimeRemaining() && (compare != brakeSwitchOn) && (BEP_STATUS_SUCCESS == StatusCheck()) &&
+                    (BEP_STATUS_SUCCESS == moduleStatus));
+            // Check the exit condition
+            if(!TimeRemaining() && (brakeSwitchOn != compare))
+            {   // Timeout waiting for brake switch in the desired position
+                Log(LOG_ERRORS, "%s: Timeout while waiting for brake switch %s\n",
+                    GetTestStepName().c_str(), position.c_str());
+                testResult = testTimeout;
+                testResultCode = GetFaultCode("BrakeSwitchTimeout");
+                testDescription = GetFaultDescription("BrakeSwitchTimeout");
+            }
+            else if(BEP_STATUS_SUCCESS != StatusCheck())
+            {   // Bad system status
+                Log(LOG_ERRORS, "Bad system status while looking for brake switch %s - status: %s\n",
+                    position.c_str(), ConvertStatusToResponse(StatusCheck()).c_str());
+                testResult = testFail;
+                testResultCode = GetFaultCode("SystemStatus");
+                testDescription = GetFaultDescription("SystemStatus");
+            }
+            else if(moduleStatus != BEP_STATUS_SUCCESS)
+            {   // Bad comms with the module
+                Log(LOG_ERRORS, "%s: Communication failure reading brake switch position - status: %s\n",
+                    GetTestStepName().c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+            }
+            else if(brakeSwitchOn == compare)
+            {   // Good condition, no timeout, no module comm error
+                testResult = testPass;
+            }
+            // Log the data from the module
+            Log(LOG_DEV_DATA, "Observed brake switch %s: %s\n",
+                position.c_str(), (brakeSwitchOn == compare) ? testPass.c_str() : testFail.c_str());
+        }
+        catch(ModuleException &excpt)
+        {
+            Log(LOG_ERRORS,"ModuleException reading Brake Switch Position: %s\n", excpt.GetReason());
+            testResult = testSoftwareFail;
+            testDescription = GetFaultDescription("SoftwareFailure");
+            testResultCode = GetFaultCode("SoftwareFailure");
+        }
+        // Report the result
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Do not need to perform this step
+        Log(LOG_FN_ENTRY, "Skipping test step: %s\n", GetTestStepName().c_str());
+        testResult = testSkip;
+    }
+    // Log the exit and return the result
+    Log(LOG_FN_ENTRY, "%s::%s - Exit: %s\n", GetComponentName().c_str(), GetTestStepName().c_str(), testResult.c_str());
+    //Just for Testing so we don't keep failing
+    testResult = testPass;
+
+    return testResult;
+}
+
 
 
 

@@ -1175,7 +1175,7 @@ protected:
      * 
      * @return The result of reading faults from the module.
      */
-    virtual string ReadFaults(void);
+    
     virtual string ReadFaultsByPhase(std::string phase);
     /**
      * Collect traceability data.
@@ -1767,6 +1767,9 @@ protected:
      * @return Result of waiting for the operator to place the ignition in the Off position.
 	 */
 	virtual const string WaitForEngineOffIgnitionOff(void);
+
+    virtual string ConditionalFaultClear(void);
+
     /**
      * Flag to indicate that there is a communication failure in the TestComponent.
      */
@@ -1785,6 +1788,8 @@ protected:
 
     /** List of faults to be ignored during testing. */
     XmlNodeMap m_ignoreFaults;
+
+    XmlNodeMap m_clearFaults;
 
     /** List of valid module part numbers. */
     XmlNodeMap m_validPartNumbers;
@@ -1810,7 +1815,7 @@ protected:
 private:
     /** Flag indicating if faults are present in the vehicle module. */
     bool m_faultsInModule;
-
+    virtual string ReadFaults(void);
     /**
      * Communication object to retrieve static test results from the static tester server.
      * 

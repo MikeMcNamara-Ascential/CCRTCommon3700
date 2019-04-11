@@ -126,6 +126,7 @@ GenericTCTemplate<ModuleType>::~GenericTCTemplate(void)
 	m_partNumbersToCheck.clear(true);
 	m_validPartNumbers.clear(true);
 	m_ignoreFaults.clear(true);
+    m_clearFaults.clear(true);
 }
 
 //-----------------------------------------------------------------------------
@@ -183,6 +184,7 @@ void GenericTCTemplate<ModuleType>::ReloadConfiguration(void)
 	Log(LOG_FN_ENTRY, "GenericTCTemplate::ReloadConfiguration()\n");
 	//Clear all items that were copied
 	m_ignoreFaults.clear(true);
+    m_clearFaults.clear(true);
 	m_validPartNumbers.clear(true);
 	m_moduleDataItems.clear(true);
 	m_partNumberPositionComparison.clear(true);
@@ -304,7 +306,9 @@ const string GenericTCTemplate<ModuleType>::CommandTestStep(const string &value)
 		// Wait for the Engine to be not running with in On position
 		else if(step == "WaitForEngineOffKeyOn")	 status = WaitForEngineOffKeyOn();
 		//Engine off key locked then prompts for key on 
-		else if(step == "KeyOffEngineOffKeyOn")		  status = KeyOffEngineOffKeyOn();
+		else if(step == "KeyOffEngineOffKeyOn")		 status = KeyOffEngineOffKeyOn();
+        // Checks existing faults before commanding fault clear
+        else if(step == "ConditionalFaultClear")     status = ConditionalFaultClear();
 		// Perform a power-on reset of the module
         else if (step == "ResetModule")
             status = ResetModule(); 
@@ -468,6 +472,16 @@ void GenericTCTemplate<ModuleType>::InitializeHook(const XmlNode *config)
 		Log("XML Exception loading ignored faults list - %s\n", err.Reason().c_str());
 		m_ignoreFaults.clear(true);
 	}
+    // Get the list of module faults to clear
+    try
+    {
+        m_clearFaults.DeepCopy(config->getChild("Setup/ClearFaults")->getChildren());
+    }
+    catch(BepException &err)
+    {   // Could not get list of faults to ignore
+        Log("XML Exception loading ignored faults list - %s\n", err.Reason().c_str());
+        m_clearFaults.clear(true);
+    }
 	// Get the list of valid module part numbers
 	try
 	{
@@ -2562,6 +2576,10 @@ string GenericTCTemplate<ModuleType>::ReadFaultsByPhase(std::string phase)
             testResultCode = GetFaultCode("SoftwareFailure");
             testDescription = GetFaultDescription("SoftwareFailure");
         }
+        if (GetTestStepInfoBool("InfoOnlyTest") && (testResult != testSkip) && (testResult != testPass)){
+                    testResult = testSkip;
+                    Log(LOG_DEV_DATA, "Module Fault Result set to Skip due to Info Only Test.");
+                }
         // Report the results
         SendSubtestResult("ReadFaults"+ phase,testResult, testDescription, testResultCode);
     }
@@ -2575,5 +2593,86 @@ string GenericTCTemplate<ModuleType>::ReadFaultsByPhase(std::string phase)
     return testResult;
 }
 
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string GenericTCTemplate<ModuleType>::ConditionalFaultClear(void)
+{
+    string testResult = BEP_TESTING_STATUS;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    FaultVector_t moduleFaults;
+    bool executeFaultClear = true;
+    // Determine if this test step needs to be skipped
+    Log(LOG_FN_ENTRY, "Enter GenericTCTemplate::ConditionalFaultClear()\n");
+    if(!ShortCircuitTestStep()  || GetTestStepInfoBool("AlwaysPerform"))
+    {   // Do not need to skip this step
+        try
+        {// Try to read the module faults
+            moduleStatus = m_vehicleModule.ReadFaults(moduleFaults);   
+            moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadFaults"), moduleFaults);
+            // Check the status of the operation
+            if(BEP_STATUS_SUCCESS == moduleStatus)
+            {   // Good read, evaluate the data
+                Log(LOG_DEV_DATA, "Found %d faults recorded in the module\n", moduleFaults.size());
+                // Only check for faults if faults were read from the module
+                if(moduleFaults.size() > 0)
+                {
+                    for(UINT32 faultIndex = 0; faultIndex < moduleFaults.size(); faultIndex++)
+                    {   // Determine if this fault should be ignored
+                        string faultTag = "ModuleFault_" + moduleFaults[faultIndex];
+                        INT32 faultCode = atoh(moduleFaults[faultIndex].c_str());
+                        bool ignored = !(m_clearFaults.find(faultTag) == m_clearFaults.end());
+                        // Log the fault read from the module
+                        Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex+1,
+                            moduleFaults[faultIndex].c_str(), ignored ? "Ignored" : "Valid");
+                        executeFaultClear = !ignored ? false : executeFaultClear;
+                    }
+                }
+                if(executeFaultClear)
+                {
+                    // Tell the module to clear faults
+                    moduleStatus = m_vehicleModule.ClearFaults();
+                    // Log the data
+                    Log(LOG_DEV_DATA, "Clear Faults: %s - status: %s\n",
+                        testResult.c_str(), ConvertStatusToResponse(moduleStatus).c_str());
+                }
+                else
+                    Log(LOG_DEV_DATA, "Unregistered faults present. Not commandning fault clear.");
+            }
+
+            if(BEP_STATUS_SUCCESS != moduleStatus)
+            {   // Error reading faults from the module
+                Log(LOG_ERRORS, "Error reading module faults - status: %s\n", ConvertStatusToResponse(moduleStatus).c_str());
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+            }
+            else
+            {
+                testResult = testPass;
+            }   
+        }
+        catch(ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Send the test result
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Need to skip this test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+    }
+    // Return the test result
+    Log(LOG_FN_ENTRY, "Exit GenericTCTemplate::ConditionalFaultClear()\n");
+    return(testResult);
+}
 
 

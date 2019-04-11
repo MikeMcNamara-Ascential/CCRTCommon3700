@@ -414,6 +414,8 @@ private:
      */
     virtual string KeyOffEngineOffKeyOn(void);
 
+    virtual string ConditionalFaultClear(void);
+
     string KeyOffEngineOffKeyOnNoStart(void);
     string GetSerialNumberFromFile(void);
     string CheckSerialNumber(void);

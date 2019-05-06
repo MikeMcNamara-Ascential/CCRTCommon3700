@@ -339,6 +339,8 @@ const std::string MachineTC::CommandTestStep(const std::string &value)
             else if(step == "RaiseRollsLowerElevators")    status = RaiseRollsLowerElevators();
             else if(step == "LowerRollsRaiseElevators")    status = LowerRollsRaiseElevators();
 			else if(step == "PerformNvhCycle")             status = PerformNvhCycle(value);
+			else if (!step.compare("FreeRoll"))
+                status = TestStepFreeRoll(); 
             else                                        // else invalid test step
                 status = GenericTC::CommandTestStep(value);
 
@@ -2103,6 +2105,56 @@ const string MachineTC::RaiseRollsLowerElevators (void)
     Log(LOG_FN_ENTRY, "MachineTC::RaiseRollsLowerElevators(): %s\n", status.c_str());
 
     return(status);
+}
+
+//=============================================================================
+const string MachineTC::TestStepFreeRoll()
+{
+    Log(LOG_FN_ENTRY, "MachineTC::TestStepFreeRoll()\n");
+    string testResult(BEP_PASS_STATUS);  // set test step status to no response
+    string testResultCode("0000");
+    string testDescription(GetTestStepInfo("Description")); 
+    string promptTag = "PullEndCordToEndTest";
+
+    // return the system to Boost Mode
+    SystemWrite(MOTOR_MODE, string(BOOST_MODE));
+    if (!GetTestStepInfoBool("DoNotWaitForAcceleration"))
+        WaitToStart();
+
+    while (StatusCheck() == BEP_STATUS_SUCCESS && ReadSubscribeData(GetDataTag("EndTestFromPLC")) != "1")
+    {
+        if (ReadSubscribeData(ZEROSPEED_TAG) == "1")
+            DisplayPrompt(GetPromptBox(promptTag), GetPrompt(promptTag),
+                          GetPromptPriority(promptTag));
+        else
+            RemovePrompt(GetPromptBox(promptTag), GetPrompt(promptTag),
+                          GetPromptPriority(promptTag));
+        
+        BposSleep(GetTestStepInfoInt("ScanDelay")); 
+    }
+
+    // update the test result
+    SendTestResult(testResult, testDescription, testResultCode);
+    RemovePrompts();    // remove the prompts from the screen
+
+    Log(LOG_FN_ENTRY, "MachineTC::TestStepFreeRoll(): %s\n", testResult.c_str());
+
+    return (testResult);
+}
+
+//-------------------------------------------------------------------------------------------------
+string MachineTC::WaitToStart(void)
+{   // Log the entry and wait for the loss of zero speed
+    Log(LOG_FN_ENTRY, "MachineTC::WaitToStart() - Enter");
+    while ((GetRollSpeed() < GetParameterFloat("VehicleSpeedNeededForStart")) &&
+            (BEP_STATUS_SUCCESS == StatusCheck()) && ReadSubscribeData(GetDataTag("EndTestFromPLC")) != "1")
+    {   // Wait for a bit
+        BposSleep(1000);
+        SetStartTime();
+    }
+    // Log the exit and return pass
+    Log(LOG_FN_ENTRY, "MachineTC::WaitToStart() - Exit");
+    return testPass;
 }
 
 //=============================================================================

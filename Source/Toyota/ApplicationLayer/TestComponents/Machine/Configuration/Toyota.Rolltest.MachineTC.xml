@@ -56,10 +56,11 @@
                 <Start40kphTest/>
                 <Zerospeed/>
                 <ZerospeedToPLC/>
+                <EndTestFromPLC/>
+                <PLCSystemIsRead/>
             </SubscribeTags>
         </TagList>
         <DataTags>
-			<CycleEnd>EndTestFromPLC</CycleEnd>
             <DriveAxle>DriveAxle</DriveAxle>
             <Fail>red</Fail>
             <ForegroundTestInProgress>ForegroundTestInProgress</ForegroundTestInProgress>
@@ -154,7 +155,6 @@
             <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
             <NeutralPrompt PromptBox="1" Priority="0">ShiftToNeutral</NeutralPrompt>
             <PassOrFail PromptBox="1" Priority="0">OverallPassOrFail</PassOrFail>
-            <PullCycleEnd PromptBox="1" Priority="0">PullCycleEnd</PullCycleEnd>
             <ShiftToReverse PromptBox="1" Priority="0">ApplyBrakeShiftToReverse</ShiftToReverse>
             <RemoveFootFromBrake PromptBox="1" Priority="0">RemoveFootFromBrake</RemoveFootFromBrake>
             <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
@@ -162,6 +162,7 @@
         </Prompts>
         <StatusCheckItems>
             <VehiclePresent>1</VehiclePresent>
+            <PLCSystemIsReady>1</PLCSystemIsReady>
         </StatusCheckItems>
         <TestDomain>Foreground</TestDomain>
         <TaskMon>
@@ -177,10 +178,6 @@
             <TestStep1>AccelerateToSpeed</TestStep1>
         </AccelerateToSpeed>
 		
-		<AccelerateToPullCord>
-			<TestStep0>AccelerateToPullCord</TestStep0>
-		</AccelerateToPullCord>
-
         <BrakeToStop>
             <TestStep1>BrakeToStop</TestStep1>
         </BrakeToStop>
@@ -188,8 +185,13 @@
         <Initialize>
             <TestStep1>Initialize</TestStep1>
             <TestStep2>MachineReady</TestStep2>
-            <TestStep3>WaitForAcceleration</TestStep3>
+            <!-- TestStep3>WaitForAcceleration</TestStep3 -->
         </Initialize>
+
+        <FreeRoll>
+            <TestStep1>FreeRoll</TestStep1>
+            <TestStep2>FinishUp</TestStep2>
+        </FreeRoll>
 
         <Speedometer>
             <TestStep1>Speedometer</TestStep1>
@@ -292,9 +294,6 @@
         <AccelerateToSpeed Result="" Description="Prompt the driver to accelerate to the commanded speed" Timeout="1200000" 
             Prompt1="AccelerateToTargetSpeed" Prompt1Priority="0"/>
 
-			
-		<AccelerateToPullCord Result="" Description="Accelerate vehicle till cable is pulled" Timeout="1000000" ScanDelay="250" />	
-        
 		<BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="300000" 
             Prompt1="BrakeToStop" Prompt1Priority="0"/>
 
@@ -309,6 +308,11 @@
         <Reverse Result="" Description="Reverse Test Step" Timeout="300000" ScanDelay="250"/>
 
         <WaitForAcceleration Result="" Description="Wait for operator to start driving" Timeout="1200000"/>
+        
+        <FreeRoll Result="" Description="Free roll until end of cycle" Timeout="1800000" 
+            DoNotWaitForAcceleration="false" ScanDelay="250"/>
+            
+        <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000"/>
 
         <!--
         <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">

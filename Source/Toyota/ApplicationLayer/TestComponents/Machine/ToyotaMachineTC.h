@@ -16,6 +16,17 @@
 //-------------------------------------------------------------------------------------------------
 #include "MachineTC.h"
 //-------------------------------------------------------------------------------------------------
+
+// XYSeries and time value entries for pacesetter test
+typedef vector<std::pair<int, int> > XYSeries;
+
+struct PacesetterEntry
+{
+   UINT32 timeStamp;
+   float highSpeed;
+   float lowSpeed;
+};
+
 class ToyotaMachineTC : public MachineTC
 {
 public:
@@ -140,14 +151,6 @@ protected:
     virtual const string TestStepReverse(const string &value);
 
     /**
-     * Sit in a wait loop until the operator begins accelerating.  This step will never timeout since a test could be
-     * started and it could be a long time until the operator comes to perform the test sequence.
-     * 
-     * @return Pass - always.
-     */
-    string WaitToStart(void);
-
-    /**
      * Get the drive axle roller speed.
      * <p><b>Category:</b> Utility
      * <p><b>Description:</b><br>
@@ -170,6 +173,11 @@ protected:
      * @return The result of waiting for the operator to accelerate to speed.
      */
     virtual const string TestStepAccelerateToSpeed(const string &value);
+
+    // Pacesetter test
+    virtual const string TestStepPacesetter(void);
+    // Pacesetter conversion func
+    virtual BEP_STATUS_TYPE ConvertSeriesToVector(XYSeries &upper, XYSeries &lower);
 };
 //-------------------------------------------------------------------------------------------------
 #endif //ToyotaMachineTC_h

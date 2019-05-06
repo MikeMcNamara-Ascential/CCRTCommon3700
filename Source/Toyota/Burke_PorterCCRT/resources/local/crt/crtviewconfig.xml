@@ -5,7 +5,7 @@
  
 --><!DOCTYPE CrtViewConfig SYSTEM "resource:///com/bepco/rtc/crt/crtviewconfig.dtd">
 <CrtViewConfig>
-    <View id="drivermonitor" crt="ToyotaBrakeTestDriverMonitor.crt" label="Driver Monitor" tabLabel="Driver"/>
+    <View id="drivermonitor" crt="DriverMonitorBigGraph.crt" label="Driver Monitor" tabLabel="Driver"/>
     <!--View id="vehiclepresence" crt="DefaultVehiclePresence.crt" label="Vehicle Presence" tabLabel="Vehicle"/-->
     <View id="frontpanel" crt="ToyotaBrakeTestFrontPanel.crt" label="Front Panel" tabLabel="Front"/>
     <View id="losscompensation" crt="DefaultLossCompensation.crt" label="Loss Compensation" tabLabel="LossComp"/>

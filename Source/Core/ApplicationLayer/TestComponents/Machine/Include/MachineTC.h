@@ -1188,8 +1188,8 @@ protected:
     virtual const string LowerRollsRaiseElevators (void);
 
 	const string PerformNvhCycle(const string &powerLevel);
-
-
+	const string TestStepFreeRoll(void);
+	string WaitToStart(void); 
 
 
 private:

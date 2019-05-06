@@ -32,8 +32,7 @@ const string ToyotaMachineTC::CommandTestStep(const string& value)
    {
       try
       {
-         if (!GetTestStepName().compare("WaitForAcceleration")) testResult = WaitToStart();
-         else if (!GetTestStepName().compare("AccelerateToPullCord")) testResult = TestStepAccelerateToPullCord();
+         if (!GetTestStepName().compare("PacesetterTest")) testResult = TestStepPacesetter();
          else testResult = MachineTC::CommandTestStep(value);
       }
       catch (BepException& excpt)
@@ -49,32 +48,6 @@ const string ToyotaMachineTC::CommandTestStep(const string& value)
    }
    // Log the exit and return the result
    Log(LOG_FN_ENTRY, "ToyotaMachineTC::CommandTestStep(value: %s) - Exit", value.c_str());
-   return testResult;
-}
-
-const string ToyotaMachineTC::TestStepAccelerateToPullCord(void)
-{
-   Log(LOG_FN_ENTRY, "ToyotaMachineTC::TestStepAccelerateToPullCord() - Enter");
-   string testDescription(GetTestStepInfo("Description"));
-   string testResult(testPass);
-
-   testResult = WaitToStart();
-
-   SystemWrite(GetDataTag("MotorMode"), BOOST_MODE);
-
-   // then they start driving I guess
-
-   while (!SystemReadBool(GetDataTag("CycleEnd")) && BEP_STATUS_SUCCESS == StatusCheck())
-   {
-      if (ReadSubscribeData(GetDataTag("Zerospeed")) != "1")
-      {
-         DisplayPrompt(GetPromptBox("PullCycleEnd"), GetPrompt("PullCycleEnd"), GetPromptPriority("PullCycleEnd"));
-      }
-      BposSleep(GetTestStepInfoInt("ScanDelay"));
-   }
-
-   RemovePrompt(GetPromptBox("PullCycleEnd"), GetPrompt("PullCycleEnd"), GetPromptPriority("PullCycleEnd"));
-
    return testResult;
 }
 
@@ -205,22 +178,6 @@ const string ToyotaMachineTC::TestStepReverse(const string& value)   // Log the 
 }
 
 //-------------------------------------------------------------------------------------------------
-string ToyotaMachineTC::WaitToStart(void)   // Log the entry and wait for the loss of zero speed
-{
-   Log(LOG_FN_ENTRY, "ToyotaMachineTC::WaitToStart() - Enter");
-   DisplayPrompt(GetPromptBox("BeginDriving"),GetPrompt("BeginDriving"),GetPromptPriority("BeginDriving"));
-   while ((GetRollSpeed() < GetParameterFloat("VehicleSpeedNeededForStart")) && (BEP_STATUS_SUCCESS == StatusCheck()))   // Wait for a bit
-   {
-      BposSleep(1000);
-      SetStartTime();
-   }
-   RemovePrompt(GetPromptBox("BeginDriving"),GetPrompt("BeginDriving"),GetPromptPriority("BeginDriving"))
-   // Log the exit and return pass
-   Log(LOG_FN_ENTRY, "ToyotaMachineTC::WaitToStart() - Exit");
-   return testPass;
-}
-
-//-------------------------------------------------------------------------------------------------
 inline float ToyotaMachineTC::GetRollSpeed(void)
 {
    return GetParameterBool("SingleEncoder") ? SystemReadFloat(GetDataTag("MaximumRollerSpeedTag")) : GenericTC::GetRollSpeed();
@@ -243,4 +200,167 @@ const string ToyotaMachineTC::TestStepAccelerateToSpeed(const string& value)   /
    Log(LOG_FN_ENTRY, "ToyotaMachineTC::TestStepAccelerateToSpeed(speed: %s) - Exit", value.c_str());
    RemovePrompt(GetPromptBox("AccelAboveSpeed"), GetPrompt("AccelAboveSpeed"), GetPromptPriority("AccelAboveSpeed"));
    return (GetRollSpeed() >= speedTarget) ? testPass : testFail;
+}
+
+const string ToyotaMachineTC::TestStepPacesetter(void)
+{
+   Log(LOG_FN_ENTRY, "ToyotaMachineTC::TestStepPacesetter() - Enter");
+   string testDescription(GetTestStepInfo("Description"));
+   string testResult(testPass);
+   XYSeries upperSeries; // vector of coordinate pairs create upper limit slopes
+   XYSeries lowerSeries; // same as above but lower limit
+
+   //testResult = WaitToStart();
+
+   SystemWrite(GetDataTag("MotorMode"), BOOST_MODE);
+
+   // Need two series' to represent the lines to determine when vehicles speed falls outside of limits given current time and vehicle speed
+   
+   float currentSpeed; // speed of vehicle
+
+   // convert GraphUpperSeries and GraphLowerSeries strings to vectors of pairs
+   if (BEP_STATUS_SUCCESS == ConvertSeriesToVector(upperSeries, lowerSeries))
+   {
+      Log(LOG_DEV_DATA, "ok but it actually did it it got a bep status succ, sizes: upper:%d,lower:%d", upperSeries.size(), lowerSeries.size());
+      int y1, y2, x1, x2, m, b; // classic formula stuff
+      vector<PacesetterEntry> testEntries;
+      int timeEntry = 0;
+      // now that we have a vector of pairs, we need an additional vector that will represent each
+      // speed value per 250ms increment.  this will allow us to know how fast the vehicle should be moving at any point of the test
+      // y = mx + b
+      Log(LOG_DEV_DATA, "made it here.. with upperSeries size: %d", upperSeries.size());
+      for (int i = 1;i < upperSeries.size();i++)
+      {
+         // so you can't make the struct like this, you need to create the new entries after creating
+         // two separate vectors (that since your one caveat is that the last two x values have to be the same, will be the same size)
+         // that you will combine into the struct which will give you your final testEntries vector
+         // wow you really underestimated this project and shame on you for being so lazy and complacent
+         // seriously you could have had this done ages ago and yet you wait until the ACTUAL final moment to complete it
+         // I hope this doesn't cause you and everyone else problems
+         while (timeEntry != x2)
+         {
+            PacesetterEntry newEntry;
+            y1 = upperSeries[i].second;
+            y2 = upperSeries[i-1].second;
+            x1 = upperSeries[i].first * 1000;
+            x2 = upperSeries[i-1].first * 1000;
+
+            m = (y2-y1)/(x2-x1);
+            b = y1;
+
+            // filling high speed value for entry
+            newEntry.highSpeed = (m * timeEntry) + b;
+
+            y1 = lowerSeries[i].second;
+            y2 = lowerSeries[i-1].second;
+            x1 = lowerSeries[i].first * 1000;
+            x2 = lowerSeries[i-1].first * 1000;
+
+            m = (y2-y1)/(x2-x1);
+            b = y1;
+
+            // filling low speed value for entry 
+            newEntry.lowSpeed = (m * timeEntry) + b;
+            
+            // enter time stamp 
+            newEntry.timeStamp = timeEntry;
+             
+            // push into vector
+            testEntries.push_back(newEntry);
+
+            timeEntry += 250;
+         }
+      }
+
+      // pray
+      for (int j = 0; j < testEntries.size();j++)
+      {
+         Log(LOG_DEV_DATA, "pacesetter entry test: timestamp:%d, high:%f, low:%f",testEntries[j].timeStamp, testEntries[j].highSpeed, testEntries[j].lowSpeed);
+      }
+
+
+   }
+
+   else
+   {
+      Log(LOG_DEV_DATA, "Error converting series string to vector, must be rectified to use pacesetter.");
+      testResult = BEP_STATUS_ERROR;
+   }
+
+   return testResult;
+}
+
+BEP_STATUS_TYPE ToyotaMachineTC::ConvertSeriesToVector(XYSeries &upper, XYSeries &lower)
+{
+   // take system graph series values and place them into vector
+   string upperSeries = SystemRead(GetDataTag("GraphUpperSeries"));
+   string lowerSeries = SystemRead(GetDataTag("GraphLowerSeries"));
+   BEP_STATUS_TYPE result = BEP_STATUS_SUCCESS;
+   try
+   {
+      // get any junk out of the coordinate vectors
+      upper.clear();
+      lower.clear();
+
+      // string magic to fill upper and lower coords
+      string x, y;
+      string tempCoord; // ?
+      size_t pos;
+
+      // this string magic will fill upper vector with values up until the very last set of coordinates
+      while ((pos = upperSeries.find(',')) != std::string::npos)
+      {
+         tempCoord = upperSeries.substr(0, pos);
+         x = tempCoord.substr(0, tempCoord.find(' '));
+         tempCoord = tempCoord.erase(0, tempCoord.find(' ')+1);
+         y = tempCoord;
+         upper.push_back(std::make_pair(atoi(x.c_str()), atoi(y.c_str())));
+         //Log(LOG_DEV_DATA, "Upper:x=%s,y=%s", x.c_str(), y.c_str());
+         upperSeries = upperSeries.erase(0, pos+1);
+      }
+
+      // final value in string that hasn't been erased because there are no more ',' values
+      tempCoord = upperSeries;
+      x = tempCoord.substr(0, tempCoord.find(' '));
+      tempCoord = tempCoord.erase(0, tempCoord.find(' ')+1);
+      y = tempCoord;
+      upper.push_back(std::make_pair(atoi(x.c_str()), atoi(y.c_str())));
+      //Log(LOG_DEV_DATA, "Upper final: x=%s,y=%s", x.c_str(), y.c_str());
+
+      // this string magic will fill lower vector with values up until the very last set of coordinates
+      while ((pos = lowerSeries.find(',')) != std::string::npos)
+      {
+
+         tempCoord = lowerSeries.substr(0, pos);
+         x = tempCoord.substr(0, tempCoord.find(' '));
+         tempCoord = tempCoord.erase(0, tempCoord.find(' ')+1);
+         y = tempCoord;
+         lower.push_back(std::make_pair(atoi(x.c_str()), atoi(y.c_str())));
+         //Log(LOG_DEV_DATA, "Lower:x=%s,y=%s", x.c_str(), y.c_str());
+         lowerSeries = lowerSeries.erase(0, pos+1);
+      }
+
+      // final value in string that hasn't been erased because there are no more ',' values
+      tempCoord = lowerSeries;
+      x = tempCoord.substr(0, tempCoord.find(' '));
+      tempCoord = tempCoord.erase(0, tempCoord.find(' ')+1);
+      y = tempCoord;
+      lower.push_back(std::make_pair(atoi(x.c_str()), atoi(y.c_str())));
+      //Log(LOG_DEV_DATA, "Lower final: x=%s,y=%s", x.c_str(), y.c_str());
+
+      for (int i = 0;i<upper.size();i++)
+      {
+         Log(LOG_DEV_DATA, "Entry upper: %d,%d", upper[i].first, upper[i].second);
+         Log(LOG_DEV_DATA, "Entry lower: %d,%d", lower[i].first, lower[i].second);
+
+      }
+
+      Log(LOG_DEV_DATA, "upper size:%d lower size:%d",upper.size(),lower.size());
+   }
+   catch (...)
+   {
+      Log(LOG_ERRORS, "Error during coordinate conversion to vector", GetTestStepName().c_str());
+      result = BEP_STATUS_FAILURE;
+   }
+   return result;
 }

@@ -171,7 +171,7 @@ protected:
     {
         float currentForce;
         float maxForce;
-		list<float> forceSamples;
+	list<float> forceSamples;
         string currentForceTag;
         string displayTag;
         bool measurementComplete;

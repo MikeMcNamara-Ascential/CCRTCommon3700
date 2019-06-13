@@ -242,6 +242,49 @@ namespace ToyotaParameterEditor
         /// Creates the file if it does not exist.
         /// Appends to the file if it does exist.
         /// </summary>
+        private void SetupArchiveFile()
+        {
+            bool setupComplete = false;
+
+            while (!setupComplete && DialogResult == DialogResult.OK)
+            {
+                try
+                {
+                    // First, ensure the archive direcotry exists
+                    if (!Directory.Exists(ArchiveDirectory))
+                    {
+                        Directory.CreateDirectory(ArchiveDirectory);
+                    }
+
+                    // Then ensure the file exists
+                    string archiveFile = Path.Combine(ArchiveDirectory, VehicleName + "_Archive.txt");
+                    if (!File.Exists(archiveFile))
+                    {   // Create the file if needed
+                        using (StreamWriter sw = File.CreateText(archiveFile))
+                        {
+                            sw.WriteLine(VehicleName + " Archive Record" + Environment.NewLine);
+                        }
+                    }
+
+                    setupComplete = true;
+                }
+                catch (Exception ex)
+                {
+                    DialogResult = MessageBox.Show("Could not write archive data to " + ArchiveDirectory +
+                                                    "\n\n Please ensure the directory exists and is not Read-Only then click OK." +
+                                                    "\n To abandon the vehicle removal, click Cancel." +
+                                                    "\n\n Exception: " + ex.Message,
+                                                    "Folder Access Error",
+                                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Writes the archived data from the 'RemoveVehicle' process to file.
+        /// Creates the file if it does not exist.
+        /// Appends to the file if it does exist.
+        /// </summary>
         private void WriteArchiveFile()
         {
             bool archiveComplete = false;
@@ -252,14 +295,6 @@ namespace ToyotaParameterEditor
                 try
                 {
                     string archiveFile = Path.Combine(ArchiveDirectory, VehicleName + "_Archive.txt");
-                    if (!File.Exists(archiveFile))
-                    {   // Create the file if needed
-                        using (StreamWriter sw = File.CreateText(archiveFile))
-                        {
-                            sw.WriteLine(VehicleName + " Archive Record" + Environment.NewLine);
-                        }
-                    }
-
                     using (StreamWriter sw = File.AppendText(archiveFile))
                     {
                         sw.Write(m_archiveFileOutput.ToString());                        
@@ -277,8 +312,8 @@ namespace ToyotaParameterEditor
                 catch (Exception ex)
                 {   
                     DialogResult = MessageBox.Show("Could not write archive data to " + ArchiveDirectory +
-                                                    "\n\n Pleasure ensure the directory exists and is not Read-Only, then click OK." +
-                                                    "\n\n If you wish to abandon the archive and delete the data permanently, click Cancel." + 
+                                                    "\n\n Please ensure the directory exists and is not Read-Only then click OK." +
+                                                    "\n To abandon the archive and delete the data permanently, click Cancel." + 
                                                     "\n\n Exception: " + ex.Message,
                                                     "Folder Access Error",
                                                     MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
@@ -332,14 +367,18 @@ namespace ToyotaParameterEditor
                 DialogResult = DialogResult.OK;
                 VehicleName = m_availableVehiclesComboBox.SelectedItem.ToString();
                 ArchiveDirectory = Path.Combine(Directory.GetCurrentDirectory(), ToyotaParameterEditor.Properties.Resources.RemoveVehicleArchiveDirectory);
-                if (!Directory.Exists(ArchiveDirectory))
-                {
-                    Directory.CreateDirectory(ArchiveDirectory);
-                }
-                DialogResult = MessageBox.Show("Please confirm you would like to remove the selected configuraiton items for " +
-                                                Environment.NewLine + Environment.NewLine + "  " + VehicleName,
+                
+                DialogResult = MessageBox.Show("Confirm removal of selected configuraiton items for:" +
+                                                Environment.NewLine + Environment.NewLine + " - " + VehicleName,
                                                 "Vehicle Removal Confirmation",
                                                 MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+
+                if (DialogResult == DialogResult.OK)
+                {
+                    // setup files for archiving
+                    SetupArchiveFile();
+                }
+
                 if (DialogResult == DialogResult.OK)
                 {
                     // Call Update file functions

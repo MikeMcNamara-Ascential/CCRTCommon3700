@@ -136,7 +136,7 @@
 #include "ITaskMon.h"
 
 
-MesDataController::MesDataController() : PlantHostInbound(), m_wccCommSetup(NULL)
+MesDataController::MesDataController() : PlantHostInbound(), m_wccCommSetup(NULL), m_reconnectHasBeenRequested(false)
 {
     m_testResult = NULL;    // set the test result interface to null
 }
@@ -416,9 +416,6 @@ const std::string MesDataController::Publish(const XmlNode *node)
 void MesDataController::Run(volatile bool *terminateFlag) /*=NULL*/
 {
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Run() - begin\n");
-    Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Run() - waiting for data connection\n");
-    WaitForMesHost();
-    Log(LOG_FN_ENTRY, "(Tesla) MesDataController::Run() - data connection found. Starting Run loop\n");
     m_keepAliveTimer.Start();
     while (GetStatus() != BEP_TERMINATE)
     {   // Acquire the semaphore
@@ -787,11 +784,6 @@ void MesDataController::GetBroadcastResponse(std::string &response, const std::s
         catch(...)
         {
             Log(LOG_DEV_DATA, "Encountered a problem setting MESConnectionDown fault\n");
-        }
-        if(m_reconnectOnNoResponse)
-        {
-            Log(LOG_DEV_DATA, "Receieved no response from MES Data Interface, attempting to reconnect\n");
-            ReconnectPort();
         }
     }
     Log(LOG_FN_ENTRY, "(Tesla) MesDataController::GetBroadcastResponse() complete\n");
@@ -1624,7 +1616,10 @@ void MesDataController::WaitForMesHost(void)
             {   // Delay before attempting to reconnect/register since the other PC may not be completely up.
                 BposSleep(GetReconnectDelay());
                 // Register the port driver
-                m_wccComm.RegisterPortDriver();
+                //m_wccComm.RegisterPortDriver();
+                // RegisterPortDriver should not be called because it causes the thread to block and anothther to spin up 
+                // until the theadpool is full. Then when the server finally comes online, every thread attempts to connect.
+                // If its not in Run, the SerialServer has already made a request and will connect when the server is listening. JW 10/15/2018
             }
             else
             {
@@ -1669,47 +1664,7 @@ void MesDataController::UpdateInputServerState()
     }                                                                          
     PlantHostInbound::UpdateInputServerState();
 }
-const BEP_STATUS_TYPE MesDataController::ReconnectPort()
-{   // Attempt to reconnect the port if the unit is active
-    int reconnectStatus = -1;
-    Log(LOG_FN_ENTRY, "MesDataController::ReconnectPort enter");
-    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-    bool activeStatus = false;
-    //set active status to false
-    /*InterCcrtCommActive(&activeStatus);
-    if (!UseKeepAlive())
-    {*/
-    //this is a client, wait for server connection
-        while (((reconnectStatus = m_wccComm.ReconnectDriver()) != EOK)  &&
-               GetStatus().compare(BEP_TERMINATE))// &&
-               //  reconnect until connected (attempts++ < ReconnectAttempts() || !UseKeepAlive()))
-        {
-            Log(LOG_DEV_DATA, "MesDataController - Waiting to reconnect the port...");
-            BposSleep(GetReconnectDelay());
-        }
-        // Determine reconnect status
-        if (reconnectStatus == EOK)
-        {
-            activeStatus = true;
-            status = BEP_STATUS_SUCCESS;
-        }
-        else
-        {
-            activeStatus = false;
-            status = BEP_STATUS_HARDWARE;
-        }
-    /*}
-    else
-    {//TODO: open port and wait for client
-    } */
 
-    // Decide if the listener should be deactivated
-    //InterCcrtCommActive(&activeStatus);
-
-    Log(LOG_ERRORS, "MesDataController - Reconnected port driver - %s", ConvertStatusToResponse(status).c_str());
-    // Return the reconnect status
-    return status;
-}
 
 const INT32 MesDataController::HandlePulse(const INT32 code, const INT32 value)
 {
@@ -1720,16 +1675,89 @@ const INT32 MesDataController::HandlePulse(const INT32 code, const INT32 value)
     {
         case (INT32)INTER_CCRT_COMM_SERVER_PULSE_CODE:
         {
-        
             switch (value)
             {
                 case (INT32)KEEPALIVE_PULSE:
                 {
-                    Log("Sending KeepAlive message\n");
+                    // Don't attempt to communicate if we're disconnected and awaiting a reconnect
+                    if (!m_reconnectHasBeenRequested) 
+                    {
+                        bool portLocked = false; 
+                        SerialString_t wccResponse;
+                        INT32 numBytesRead;
+                        bool HostAcknowledged = false;
+
+                        Log("KeepAlive: Sending message\n");
                     string requestMessage = "KeepAlive";
                     UINT16 checkSum = CalculateCheckSum(requestMessage) & 0xFF;
                     string message = (char)ST + requestMessage + (char)checkSum + (char)ET;
-                    m_wccComm.Send(message);
+
+                        if (!portLocked) portLocked = m_wccComm.LockPort();
+                        Log(LOG_DEV_DATA, "Port locked : %s\n", (portLocked ? "TRUE" : "FALSE"));
+                        // Clear the incoming buffer
+                        m_wccComm.ResetConnection();
+                        Log(LOG_DEV_DATA, "Cleared incoming buffer\n");
+
+                        INT32 status = m_wccComm.Send(message);
+                        if (BEP_STATUS_SUCCESS != status)
+                        {  // There was an error sending the request
+                            Log(LOG_DEV_DATA, "KeepAlive: Error sending message to host - (status:%d)\n", status);
+                        }
+                        else
+                        {  // The request was made, get the response
+                            numBytesRead = m_wccComm.ReadPort(wccResponse, GetMaxResponseTime(), m_wccComm.GetTimeoutTime());
+                            Log("Got <0x%02X> from broadcast [ACK:0x%02X, NAK:0x%02X] - %d total bytes\n", wccResponse[0], ACK, NAK, numBytesRead);
+                            // If we got data, check it
+                            if (numBytesRead > 0)
+                            {   // Determine what type of message this is
+                                if (ACK == wccResponse[0])
+                                {
+                                     Log(LOG_DEV_DATA, "KeepAlive: Host acknowledged \n");
+                                     HostAcknowledged = true;
+                                     // we're connceted so we can clear the reconnect request flag if there was one
+                                     m_reconnectHasBeenRequested = false;
+                                }
+                                else
+                                {
+                                    Log(LOG_DEV_DATA, "KeepAlive:Host responded but did not acknowledge \n");
+                                }
+                            }
+                            else
+                            {
+                                Log(LOG_DEV_DATA, "KeepAlive:Host did not respond \n");
+                            }
+                        }
+                        if (!HostAcknowledged)
+                        {
+                            TaskMonTask_t wccTask;
+                            if (ITaskMon::ReadTaskInfo(wccTask, "MesHost", TASKMON_CLASS_SERIAL) != -1)
+                            {
+                                // If not yet running, wait for initial connection
+                                if (wccTask.m_taskState != TASKSTATE_RUN)
+                                {
+                                    Log(LOG_DEV_DATA, "Task not yet running, waiting for the host to respond to the SerialServer's initial registration \n");
+                                    m_reconnectHasBeenRequested = true;
+                                }
+                                else
+                                {   // make the reconnect request
+                                    m_reconnectHasBeenRequested = true;
+                                    Log(LOG_DEV_DATA, "Requesting Driver Reconnect \n");
+                                    // This call blocks the current thread until the reconntion ismade
+                                    m_wccComm.ReconnectDriver();
+                                    BposSleep(GetReconnectDelay());  // Wait for port driver to reconnect
+                                    Log(LOG_DEV_DATA, "Done With Request, clearing reconnect flag \n");
+                                    m_reconnectHasBeenRequested = false;
+                                }
+                            }
+                        }
+
+                        // Unblock the channel so the PFS results can go out if needed
+                        if (portLocked)   portLocked = !(m_wccComm.UnlockPort());
+                    }
+                    else
+                    {
+                        Log(LOG_DEV_DATA, "KeepAlive: Reconnect was requested, waiting on host to connect \n");
+                    }
                     break;
                 }
             

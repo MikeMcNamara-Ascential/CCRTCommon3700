@@ -284,6 +284,8 @@ public:
 	 * @since Version 1.0
 	 */
 	const std::string GetManualTransmissionTag(void);
+
+    const std::string GetRequestingInfoPrompt(void);
 	/**
 	 * Return the prompt tag for "No Information".
 	 * 
@@ -291,6 +293,8 @@ public:
 	 * @since Version 1.0
 	 */
 	const std::string GetNoInfoPrompt(void);
+
+    const std::string GetInfoErrorPrompt(void);
 	/**
 	 * Return the prompt tag for "Bad Checksum".
 	 * 
@@ -528,6 +532,8 @@ protected:
 	 * @since Version 1.0
 	 */
 	void SetManualTransmissionTag(const std::string &tag);
+
+    void SetRequestingInfoPrompt(const std::string &prompt);
 	/**
 	 * Store the prompt tag for "No Information".
 	 * 
@@ -535,6 +541,8 @@ protected:
 	 * @since Version 1.0
 	 */
 	void SetNoInfoPrompt(const std::string &prompt);
+
+    void SetInfoErrorPrompt(const std::string &prompt);
 	/**
 	 * Store the prompt tag for "Bad checksum".
 	 * 
@@ -763,10 +771,6 @@ protected:
 	 */
 	BepCondVar<std::string, false> m_getBuildRecord;
 
-    /**
-     * Try to reconnect the communication port between MesDataController and the MesDataInterface
-     */ 
-    const BEP_STATUS_TYPE ReconnectPort();
     const INT32 HandlePulse(const INT32 code, const INT32 value);
 
 private:
@@ -801,10 +805,20 @@ private:
 	 */
 	std::string m_manualTransTag;
 	/**
+	 * Stores the prompt tag for "Requesting Information"
+	 * @since Version 1.0
+	 */
+    std::string m_requestingInfoPrompt;
+	/**
 	 * Stores the prompt tag for "No Information"
 	 * @since Version 1.0
 	 */
 	std::string m_noInfoPrompt;
+	/**
+	 * Stores the prompt tag for "Information Error"
+	 * @since Version 1.0
+	 */
+	std::string m_infoErrorPrompt;
 	/**
 	 * Store the prompt tag for "Bad Checksum".
 	 * @since Version 1.0
@@ -930,7 +944,7 @@ private:
      */
     XmlNode *m_faultInformation;
 
-    bool m_reconnectOnNoResponse;
+    bool m_reconnectHasBeenRequested;
 
     /**
      * Timer for sending keep alive messages.

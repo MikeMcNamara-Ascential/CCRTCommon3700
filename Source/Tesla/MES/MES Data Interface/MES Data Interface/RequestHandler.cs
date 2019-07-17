@@ -41,7 +41,9 @@ namespace MES_Data_Interface
         String dumpFile = Path.Combine(Application.StartupPath, "sendfailures.lst");
         String retryFile = Path.Combine(Application.StartupPath, "sendretries.lst");
         Boolean checkForPendingRecords;
-        int keepAliveCount = 0;
+        int socketNoRxSampleCount = 0;
+        int socketReadFrequency = 500;
+        int socketNoRxTimeout = 25000;
         public bool m_qnxConnected;
         
         public RequestHandler(Settings settings, LogMessageDelegate function)
@@ -154,11 +156,16 @@ namespace MES_Data_Interface
                 Byte[] bytes = new Byte[4096];
                 List<Byte> byteBuffer = new List<Byte>();
                 Stopwatch watchdog = new Stopwatch();
-
-                LogMessage("Listening for incoming client connections...");
-
+                bool printedListeningMessage = false;
+                
                 while (!requestCloseListener)
                 {
+                    if (!printedListeningMessage)
+                    {
+                        LogMessage("Listening for incoming client connections...");
+                        printedListeningMessage = true;
+                    }
+
                     if (listener.Pending())
                     {
                         LogMessage("Accepting client connection...");
@@ -166,117 +173,102 @@ namespace MES_Data_Interface
                         socket.ReceiveTimeout = 500;
                         keepConnection = true;
                         socketConnected = true;
+                        socketNoRxSampleCount = 0;
+                        Boolean socketCanWrite = false;
 
-                        //using (NetworkStream stream = client.GetStream())
+                        qnxSocket = socket;
+
+                        while (keepConnection && !requestCloseListener)
                         {
-                            //LogMessage(String.Format("Using Stream {0}", stream.ToString()));
-                            qnxSocket = socket;
-                            while (keepConnection && !requestCloseListener)
+                            if (checkForPendingRecords) SendPendingRecords();
+                            try
                             {
-                                if (checkForPendingRecords) SendPendingRecords();
+                                // Read available data into buffer
+                                Int32 i = 0;
+
                                 try
                                 {
-                                    // Read available data into buffer
-                                    Int32 i = 0;
+                                    //LogMessage(String.Format("Data available - {0} bytes", socket.Available));
+                                    if (socket.Available != 0) i = socket.Receive(bytes);
+                                }
+                                catch (SocketException err)
+                                {
+                                    LogMessage(String.Format("Socket Exception occurred - {0}: {1}", err.SocketErrorCode.ToString(), err.Message));
+                                }
+                                catch (Exception err)
+                                {
+                                    LogMessage(String.Format("Exception occurred - {0}", err));
+                                    i = 0;
+                                }
 
-                                    //watchdog.Reset();
-                                    //watchdog.Start();
-                                    try
+                                if (i != 0)
+                                {
+                                    for (int idx = 0; idx < i; idx++)
                                     {
-                                        //LogMessage(String.Format("Socket status is {0}", socket.Poll(100,SelectMode.SelectRead)));
-                                        //LogMessage(String.Format("Data available - {0} bytes", socket.Available));
-                                        if (socket.Available != 0) i = socket.Receive(bytes);
+                                        byteBuffer.Add(bytes[idx]);
                                     }
-                                    catch (SocketException err)
-                                    {
-                                        LogMessage(String.Format("Socket Exception occurred - {0}: {1}", err.SocketErrorCode.ToString(), err.Message));
-                                    }
-                                    catch (Exception err)
-                                    {
-                                        LogMessage(String.Format("Exception occurred - {0}", err));
-                                        i = 0;
-                                    }
-                                    //i = bytes.Length;
-                                    //i = stream.Read(bytes, 0, bytes.Length);
-                                    //watchdog.Stop();
+                                    socketNoRxSampleCount = 0;
+                                }
+                                else
+                                {
+                                    socketNoRxSampleCount++;
 
-                                    if (i != 0)
+                                    socketCanWrite = socket.Poll(250, SelectMode.SelectWrite);
+                                    // The connection has gone down
+                                    if (!socketCanWrite)
                                     {
-                                        for (int idx = 0; idx < i; idx++)
-                                        {
-                                            byteBuffer.Add(bytes[idx]);
-                                        }
+                                        m_qnxConnected = false;
+                                        keepConnection = false;
+                                        LogMessage("Socket no long in valid state");
                                     }
-                                    else
+                                    // Still connected, but did not receieve any data from QNX 
+                                    else if (socketNoRxSampleCount * socketReadFrequency > socketNoRxTimeout)
+                                    {   
+                                        keepConnection = false;                                            
+                                        LogMessage("Client stopped sending data");
+                                    }
+                                    //
+                                    if (keepConnection)
                                     {
-                                        Boolean dataAvailable = false;
-                                        Boolean attention = socket.Poll(250, SelectMode.SelectRead);
-                                        //SendNak();
-                                        if (attention)
+                                        Thread.Sleep(socketReadFrequency);
+                                    }
+                                        
+                                }
+                                // Process complete messages from buffer
+                                ProcessMessageBuffer(ref byteBuffer);
+                            }
+                            catch (IOException err)
+                            {
+                                if (err.InnerException != null)
+                                {
+                                    if (typeof(SocketException).Equals(err.InnerException.GetType()))
+                                    {
+                                        if ((err.InnerException as SocketException).SocketErrorCode == SocketError.TimedOut)
                                         {
-                                            Thread.Sleep(500);
-                                            dataAvailable = (socket.Available > 0);
-                                            //Receieved message from QNX, we are connected
-                                            keepAliveCount = 0;
-                                            m_qnxConnected = true;
+                                            keepConnection = true;
                                         }
                                         else
                                         {
-                                            //Possibly just no message from QNX, increment count for timeout
-                                            keepAliveCount++;
-                                        }
-                                        keepConnection = (!attention) || (attention && dataAvailable);
-                                        if (!attention && keepAliveCount >= 50)
-                                        {
-                                            //Did not receieve keep alive in time, not connected to QNX
+                                            LogMessage(String.Format("Socket Exception occured while listening for incoming results: ({0}) - ", (err.InnerException as SocketException).SocketErrorCode, (err.InnerException as SocketException).Message));
                                             keepConnection = false;
-                                            keepAliveCount = 0;
-                                            m_qnxConnected = false;
-                                        }
-                                        if (!keepConnection)
-                                        {
-                                            LogMessage("Connection was closed by remote client.");
-                                        }
-                                        else Thread.Sleep(500);
-                                        
-                                    }
-                                    //stream.Write(Encoding.ASCII.GetBytes("Response"), 0, 8);
-                                    //socket.Send(Encoding.ASCII.GetBytes("Response"));
-                                    // Process complete messages from buffer
-                                    ProcessMessageBuffer(ref byteBuffer);
-                                }
-                                catch (IOException err)
-                                {
-                                    if (err.InnerException != null)
-                                    {
-                                        if (typeof(SocketException).Equals(err.InnerException.GetType()))
-                                        {
-                                            if ((err.InnerException as SocketException).SocketErrorCode == SocketError.TimedOut)
-                                            {
-                                                keepConnection = true;
-                                            }
-                                            else
-                                            {
-                                                LogMessage(String.Format("Socket Exception occured while listening for incoming results: ({0}) - ", (err.InnerException as SocketException).SocketErrorCode, (err.InnerException as SocketException).Message));
-                                                keepConnection = false;
-                                            }
                                         }
                                     }
-                                }
-                                catch(Exception err)
-                                {
-                                    LogMessage(String.Format("Exception occured while listening for incoming results: {0}", err));
-                                    keepConnection = false;
                                 }
                             }
-                            qnxSocket = null;
+                            catch(Exception err)
+                            {
+                                LogMessage(String.Format("Exception occured while listening for incoming results: {0}", err));
+                                keepConnection = false;
+                            }
                         }
+                        
                         LogMessage("Closing client connection...");
-                        //client.Close();
                         socket.Close();
-                        LogMessage("Closing client connection... closed");
-                        //run = false;
+                        LogMessage("Closing client connection... closed \n");
+
+                        qnxSocket = null;
                         socketConnected = false;
+                        printedListeningMessage = false;
                     }
                     else
                     {
@@ -379,8 +371,8 @@ namespace MES_Data_Interface
         {
             //if (message.Length > 12)
             //{
-                LogMessage(String.Format("Received a message ({0} bytes)", message.Length));
-                LogMessage(String.Format("Incoming message - {0}", message));
+                //LogMessage(String.Format("Received a message ({0} bytes)"));
+                LogMessage(String.Format("Incoming message ({0} bytes) - {1}", message.Length, message));
             //}
             // Remove Start Byte and End Byte
             String messageString = message.Substring(1, message.Length - 2);
@@ -494,8 +486,7 @@ namespace MES_Data_Interface
                     }
                     else if (fields[0] == "KeepAlive")
                     {   //Received KeepAlive message from QNX, we are connected
-                        //SendKeepAlive();
-                        keepAliveCount = 0;
+                        SendAck();    // Send a response so QNX knows it doesn't need to try to reconnect
                         m_qnxConnected = true;
                     }
                     else
@@ -512,13 +503,17 @@ namespace MES_Data_Interface
             }
         }
 
+        private void SendAck()
+        {
+            SendVehicleBuildResponse(new Byte[] { (Byte)0x06});
+        }
         private void SendNak()
         {
-            SendVehicleBuildResponse(new Byte[] { (Byte) 0x15});
+            SendVehicleBuildResponse(new Byte[] { (Byte)0x15});
         }
         private bool SendKeepAlive()
         {
-            SendVehicleBuildResponse(new Byte[] { (Byte)0x10 });
+            SendVehicleBuildResponse(new Byte[] { (Byte)0x10});
             return (false);
         }
 
@@ -534,7 +529,7 @@ namespace MES_Data_Interface
             }
             else
             {
-                LogMessage(String.Format("Sending vehicle build response - {0}\n checksum: 0x{1:X2}", Encoding.ASCII.GetString(optionString), optionString[optionString.Length-1]));
+                LogMessage(String.Format("Sending vehicle build response - {0}\n\t\t\t checksum: 0x{1:X2}", Encoding.ASCII.GetString(optionString), optionString[optionString.Length-1]));
                 qnxSocket.Send(optionString);
             }
         }

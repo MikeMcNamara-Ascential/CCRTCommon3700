@@ -1798,7 +1798,7 @@ const INT32& HostInterface::MaxMsgSendAttempts(INT32 *maxAttempts) /*= NULL*/
 //-----------------------------------------------------------------------------
 const XmlNodeMap& HostInterface::ResultMap(const XmlNode *baseMap) /*= NULL*/
 {
-	if(baseMap != NULL)	 m_resultMap.DeepCopy(baseMap->getChildren());
+      if(baseMap != NULL)	 m_resultMap.DeepCopy(baseMap->getChildren());
 	return m_resultMap;
 }
 

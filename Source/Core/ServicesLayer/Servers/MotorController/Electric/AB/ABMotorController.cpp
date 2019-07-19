@@ -2063,7 +2063,7 @@ inline const bool ABMotorController::IsQuickBrakeEnabled(void) const
 //-------------------------------------------------------------------------------------------------
 inline void ABMotorController::SetTorqueModeSpeedLimit(const float limit)
 {
-    const float upper = 20.0;
+    const float upper = 40.0;
     uint32_t    ii;
     Log(LOG_FN_ENTRY, "ABMotorController::SetTorqueModeSpeedLimit(%3.2f)\n", limit);
 

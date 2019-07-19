@@ -332,6 +332,7 @@ void MotorController::LoadAdditionalConfigurationItems(const XmlNode *document)
             m_reverseBoost = (BposReadInt(motorParameters->getChild("ReverseBoost")->getValue().c_str()) == 1);
             m_updateRate = BposReadInt(motorParameters->getChild("UpdateInterval")->getValue().c_str());
             m_minimumSpeedForBoost = atof(motorParameters->getChild("MinimumSpeedForBoost")->getValue().c_str());
+            m_negValueToGui = (BposReadInt(motorParameters->getChild("SpeedValueNegative")->getValue().c_str()) == 1);
 
         SetupMotorLoading(motorParameters);
 
@@ -825,7 +826,11 @@ void MotorController::UpdateMachineStatus(void)
         }
 
         // Update the wheel speeds to the GUI
-        CreateMessage(speedValue, sizeof(speedValue), "%3.2f", fabs(speed));
+        if (!m_negValueToGui)
+        {
+           speed = fabs(speed);
+        }
+        CreateMessage(speedValue, sizeof(speedValue), "%3.2f", speed);
 
         const XmlNode node(GetDataTag("SpeedValue"), std::string(speedValue));
         Write(&node);

@@ -1962,7 +1962,15 @@ INT32 GenericTC::StatusCheck(void)
     if(BEP_STATUS_SUCCESS == testStatus)
     {   // if the test is aborted
         if(CheckAbort())
-            testStatus = BEP_STATUS_ABORT;
+        {
+           if (GetParameterBool("DisplayAbortErrorScreen"))
+           {
+              SystemWrite("ErrorScreen", string("abort"));
+              BposSleep(3000);
+              SystemWrite("ErrorScreen", string("blank"));
+           }
+           testStatus = BEP_STATUS_ABORT;
+        }
         // else if running or initialized
         else if((status == BEP_RUNNING_STATUS) || (status == BEP_INITIALIZED_STATUS) ||
                 (status == BEP_COMPLETE_STATUS) || (status == BEP_TESTING_STATUS))

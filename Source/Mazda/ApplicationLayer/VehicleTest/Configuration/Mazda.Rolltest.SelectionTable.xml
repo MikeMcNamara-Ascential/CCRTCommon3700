@@ -8,4 +8,15 @@
         <Transmission>Manual</Transmission>
     </Manual>
 
+	<!-- Don't know if this update is for rolltest or braketest?? -->
+	<Automatic4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestAuto4wdDrivecurve.xml">
+		<Transmission>Automatic</Transmission>
+		<TransferCase>Equipped</TransferCase>
+	</Automatic4wd>
+	
+	<Manual4wd DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestAuto4wdDrivecurve.xml">
+		<Transmission>Manual</Transmission>
+		<TransferCase>Equipped</TransferCase>
+	</Manual4wd>
+	
 </SelectionTable>

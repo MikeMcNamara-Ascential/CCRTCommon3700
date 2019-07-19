@@ -228,14 +228,14 @@ BEP_STATUS_TYPE ToyopucProtocol::GetPlcData(uint8_t *response, INT32& numBytes)
          char buf[1024];
          string logMessage("Complete response from PLC:\n");
 
-         //for (UINT16 index = 0; index < numBytesRead; index++)
-         //{   // Create the log message
-             //logMessage +=
-         //   string logLine = CreateMessage(buf, sizeof(buf), "\t\tindex: %03d -- %c <0x%02X>", //\n",
-         //                                  index, isprint(plcResponse[index]) ? plcResponse[index] : '?', plcResponse[index]);
-         //   m_logger.Log(LOG_DEV_DATA, "%s", logLine.c_str());
-         //}
-         //Log(LOG_DEV_DATA, "%s\n", logMessage.c_str());
+         for (UINT16 index = 0; index < numBytesRead; index++)
+         {   // Create the log message
+             // logMessage +=
+            string logLine = CreateMessage(buf, sizeof(buf), "\t\tindex: %03d -- %c <0x%02X>", //\n",
+                                           index, isprint(plcResponse[index]) ? plcResponse[index] : '?', plcResponse[index]);
+            m_logger.Log(LOG_DEV_DATA, "%s", logLine.c_str());
+         }
+         m_logger.Log(LOG_DEV_DATA, "%s\n", logMessage.c_str());
          status = BEP_STATUS_SUCCESS;
       }
       else if (tNAK == plcResponse[0])
@@ -276,7 +276,7 @@ BEP_STATUS_TYPE ToyopucProtocol::SendPlcData(uint8_t *plcData, int numBytes)
    char msgSize = '0' + interm;
    m_logger.Log("msgSize: %d numBytes: %d fullMsgSize: %d", msgSize, numBytes, fullMsgSize);
    // YEAH I HARDCODED THE SIZE VALUE.  SORRY.
-   unsigned char msgHeader[] = { '\x00', '\x00', '\x74', '\x00', '\x97', '\x01', '\x00', '\x20' };
+   unsigned char msgHeader[] = { '\x00', '\x00', '\x52', '\x01', '\x97', '\x01', '\x00', '\x20' };
    unsigned char fullMessage[fullMsgSize];
 
    memset(fullMessage, 0, sizeof(fullMessage));

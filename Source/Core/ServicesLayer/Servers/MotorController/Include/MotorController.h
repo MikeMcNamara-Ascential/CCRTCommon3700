@@ -736,6 +736,11 @@ protected:
      * Flag indicating if boost should be applied to rolls when in reverse
      */
     bool m_reverseBoost;
+
+   /**
+    *  Send negative value to GUI (good for Speed graph)
+    */
+    bool m_negValueToGui;
 private:
     /**
      * Faults that the controller should monitor to

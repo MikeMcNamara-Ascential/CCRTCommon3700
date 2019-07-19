@@ -2,10 +2,10 @@
 
     <AbsBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/AbsBrakeTestDriveCurve.xml">
         <BrakeType>ABS</BrakeType>
-    </AbsBrake>
+    </AbsBrake> 
 
     <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BrakeTestDriveCurve.xml">
         <BrakeType>Non-ABS</BrakeType>
     </BaseBrake>
-
+	
 </SelectionTable>

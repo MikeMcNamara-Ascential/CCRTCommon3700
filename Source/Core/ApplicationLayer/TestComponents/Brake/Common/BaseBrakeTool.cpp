@@ -2882,7 +2882,7 @@ INT32 BaseBrakeTool::GetIForces(float wheelForce[])
             {   // read the force block
                 lseek(m_forceFile, 0, SEEK_SET);
                 UINT32 bytes = read(m_forceFile, (void *) wheelForce, (sizeof(float) * m_component->GetRollerCount()));
-                m_component->Log(LOG_DEV_DATA, "ForceThread - SingleAxleMachine: %s, bytes: %d\n",m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")).c_str(), bytes);
+                m_component->Log(LOG_EXTRA_DETAILED_DATA, "ForceThread - SingleAxleMachine: %s, bytes: %d\n", m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")).c_str(), bytes);
                 if(bytes != (sizeof(float) * m_component->GetRollerCount()) && ((m_component->ReadSubscribeData(m_component->GetDataTag("SingleAxleMachine")) == "1") && bytes != 16))
                 {   // if interrupted during a read, read again
                     if(errno == EINTR)

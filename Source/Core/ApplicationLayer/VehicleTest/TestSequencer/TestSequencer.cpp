@@ -192,6 +192,47 @@ void TestSequencer::Initialize(const XmlNode *configFile)
       m_retestType = "None";
    }
 
+<<<<<<< .mine
+    try
+    {   // set the retest type
+        m_setIncycleFlag = atob(configFile->getChild("SetIncycleFlag")->getValue().c_str());
+    }
+    catch (XmlException &e)
+    {
+        Log(LOG_ERRORS, "TestSequencer SetIncycleFlag Not Set\n");
+        m_setIncycleFlag = false;
+    }
+
+    try
+    {   // set the retest type
+        m_retestCountExceededAbort = atob(configFile->getChild("RetestCountExceededAbort")->getValue().c_str());
+    }
+    catch (XmlException &e)
+    {
+        Log(LOG_ERRORS, "TestSequencer RetestCountExceededAbort Not Set\n");
+        m_retestCountExceededAbort = false;
+    }
+
+	try
+	{	// set the maximum allowed retests
+		m_maxRetests = atoi(configFile->getChild("MaxRetests")->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "TestSequencer MaxRetests Not Set\n");
+		m_maxRetests = 1;
+	}
+||||||| .r28479
+	try
+	{	// set the maximum allowed retests
+		m_maxRetests = atoi(configFile->getChild("MaxRetests")->getValue().c_str());
+	}
+	catch(XmlException &e)
+	{
+		Log(LOG_ERRORS, "TestSequencer MaxRetests Not Set\n");
+		m_maxRetests = 1;
+	}
+=======
    try
    {   // set the maximum allowed retests
       m_maxRetests = atoi(configFile->getChild("MaxRetests")->getValue().c_str());
@@ -201,6 +242,7 @@ void TestSequencer::Initialize(const XmlNode *configFile)
       Log(LOG_ERRORS, "TestSequencer MaxRetests Not Set\n");
       m_maxRetests = 1;
    }
+>>>>>>> .r28552
 
    try
    {   // set the retest timeout value
@@ -631,6 +673,44 @@ const INT32 TestSequencer::SequencePhase(bool incycleRetest)
       foreground = NULL;
    }
 
+<<<<<<< .mine
+	if(foreground != NULL)
+	{
+		const XmlNodeMap&   fgObjs = foreground->getChildren();
+		XmlNodeMapCItr      objItr;
+		for( objItr=fgObjs.begin(); objItr!=fgObjs.end(); objItr++)
+		{
+			// get the objective to sequence and command it
+			objective = (XmlNode*)objItr->second;
+            string response;
+            if (m_setIncycleFlag && incycleRetest)
+            {
+                m_ndb->Write(string("IncycleRetest"), "1", response, true); 
+            }
+            Log(LOG_DEV_DATA, "Commanding Foreground Objective: %s\n", objective->getName().c_str());
+			m_compManager.CommandObjective(objective->Copy());
+			BposSleep(GetObjectiveCommandDelay());
+            if (m_setIncycleFlag && incycleRetest)
+            {
+                m_ndb->Write(string("IncycleRetest"), "0", response, true);
+            }
+		}
+	}
+||||||| .r28479
+	if(foreground != NULL)
+	{
+		const XmlNodeMap&   fgObjs = foreground->getChildren();
+		XmlNodeMapCItr      objItr;
+		for( objItr=fgObjs.begin(); objItr!=fgObjs.end(); objItr++)
+		{
+			// get the objective to sequence and command it
+			objective = (XmlNode*)objItr->second;
+			Log(LOG_DEV_DATA, "Commanding Foreground Objective: %s\n", objective->getName().c_str());
+			m_compManager.CommandObjective(objective->Copy());
+			BposSleep(GetObjectiveCommandDelay());
+		}
+	}
+=======
    if (foreground != NULL)
    {
       const XmlNodeMap&   fgObjs = foreground->getChildren();
@@ -644,6 +724,7 @@ const INT32 TestSequencer::SequencePhase(bool incycleRetest)
          BposSleep(GetObjectiveCommandDelay());
       }
    }
+>>>>>>> .r28552
 
    // sequence the background tests if not in an Incycle retest
    if (!incycleRetest)
@@ -1136,13 +1217,106 @@ INT32 TestSequencer::ResetPhase(bool incycleRetest)
    return (objectivesReset);    // return the number of foreground objectives sequenced
 };
 
-const std::string TestSequencer::PromptRetest(void)
+const std::string TestSequencer::PromptRetest()//int retestCount /*= 0*/)
 {
    // clear the keypress value, and look for the response
    std::string msgResponse;
    std::string driverResponse;
    std::string tag, value, response;
 
+<<<<<<< .mine
+	// change the mode of the InputServer to TestResult
+	BEP_STATUS_TYPE inputServerStatus = BEP_STATUS_ERROR;
+	INT32 attempts = 20;
+	do
+	{	// Command input server to TestResult state
+		m_ndb->Write(INPUT_SERVER_STATE, INPUT_SERVER_TESTRESULT_STATE, msgResponse, true);
+		// Get the current state from the input server
+		m_ndb->Read(INPUT_SERVER_STATE, msgResponse, true);
+		// Check if the InputServer is in TestResult state
+		m_ndb->GetNext(tag, driverResponse, msgResponse);
+		if(INPUT_SERVER_TESTRESULT_STATE == driverResponse)
+			inputServerStatus = BEP_STATUS_SUCCESS;
+		else
+			BposSleep(100);
+		// Keep trying while time remaining not in TestResult state
+	} while(attempts-- && (BEP_STATUS_SUCCESS != inputServerStatus));
+	// Check if the input server is in test result state
+	if(inputServerStatus == BEP_STATUS_SUCCESS)
+	{	// Clear the button tags before reading
+		m_ndb->Write(PENDANT_KEY_PRESS, PENDANT_CLEAR_KEY_PRESS, msgResponse, true);
+		if(UsePlcResultButtons())
+		{
+			m_ndb->Write(PlcPassButtonTag(), "0", msgResponse, true);
+			m_ndb->Write(PlcFailButtonTag(), "0", msgResponse, true);
+		}
+		// prompt the driver to retest or not
+		BposSleep(1000);  // Wait a second to prevent overlap from previous button press
+		m_prompt->DisplayPrompt(m_retestYesOrNoPromptBox, "RetestYesOrNo", msgResponse);
+        /*
+        if (m_retestCountExceededAbort)
+        {// Should we warn them? Mazda test head will still bug out even if the operator presses no on Retest option...
+            PromptDetails details; 
+            std::string paramOne("Param00"); 
+            std::string paramTwo("Param01"); 
+            details.AddDetail(paramOne, string(retestCount));
+            m_prompt->DisplayPrompt(2, "RetestYesOrNo", msgResponse); 
+        }
+        */
+        // look for the response
+		int timeout = (m_retestTimeout / 250);	// allow the driver X seconds to enter a value
+		bool done = false;	// flag to indicate the retest selection is complete
+		// while no timeout, driver has not responded, and the
+		while((timeout--) && !done && CanRetest(GetStatus()) && (StatusCheck() == BEP_STATUS_SUCCESS))
+		{
+			Log(LOG_DEV_DATA, "All Good, Checking The Status Of The KeyPress\n");
+			// Determine where the input will come from
+			if(UsePlcResultButtons())
+			{
+				string yesButton;
+				string noButton;
+||||||| .r28479
+	// change the mode of the InputServer to TestResult
+	BEP_STATUS_TYPE inputServerStatus = BEP_STATUS_ERROR;
+	INT32 attempts = 20;
+	do
+	{	// Command input server to TestResult state
+		m_ndb->Write(INPUT_SERVER_STATE, INPUT_SERVER_TESTRESULT_STATE, msgResponse, true);
+		// Get the current state from the input server
+		m_ndb->Read(INPUT_SERVER_STATE, msgResponse, true);
+		// Check if the InputServer is in TestResult state
+		m_ndb->GetNext(tag, driverResponse, msgResponse);
+		if(INPUT_SERVER_TESTRESULT_STATE == driverResponse)
+			inputServerStatus = BEP_STATUS_SUCCESS;
+		else
+			BposSleep(100);
+		// Keep trying while time remaining not in TestResult state
+	} while(attempts-- && (BEP_STATUS_SUCCESS != inputServerStatus));
+	// Check if the input server is in test result state
+	if(inputServerStatus == BEP_STATUS_SUCCESS)
+	{	// Clear the button tags before reading
+		m_ndb->Write(PENDANT_KEY_PRESS, PENDANT_CLEAR_KEY_PRESS, msgResponse, true);
+		if(UsePlcResultButtons())
+		{
+			m_ndb->Write(PlcPassButtonTag(), "0", msgResponse, true);
+			m_ndb->Write(PlcFailButtonTag(), "0", msgResponse, true);
+		}
+		// prompt the driver to retest or not
+		BposSleep(1000);  // Wait a second to prevent overlap from previous button press
+		m_prompt->DisplayPrompt(m_retestYesOrNoPromptBox, "RetestYesOrNo", msgResponse);
+		// look for the response
+		int timeout = (m_retestTimeout / 250);	// allow the driver X seconds to enter a value
+		bool done = false;	// flag to indicate the retest selection is complete
+		// while no timeout, driver has not responded, and the
+		while((timeout--) && !done && CanRetest(GetStatus()) && (StatusCheck() == BEP_STATUS_SUCCESS))
+		{
+			Log(LOG_DEV_DATA, "All Good, Checking The Status Of The KeyPress\n");
+			// Determine where the input will come from
+			if(UsePlcResultButtons())
+			{
+				string yesButton;
+				string noButton;
+=======
    // change the mode of the InputServer to TestResult
    BEP_STATUS_TYPE inputServerStatus = BEP_STATUS_ERROR;
    INT32 attempts = 20;
@@ -1182,6 +1356,7 @@ const std::string TestSequencer::PromptRetest(void)
          {
             string yesButton;
             string noButton;
+>>>>>>> .r28552
 
             // Read both PLC buttons
             if (BEP_STATUS_SUCCESS == m_ndb->Read(PlcPassButtonTag(), msgResponse, true))
@@ -1448,6 +1623,59 @@ bool TestSequencer::PerformIncycleRetest(const std::string& currentTestStatus, c
 {
    bool retest = false;
 
+<<<<<<< .mine
+	// if retest enabled and a failure occured and not previously retested
+	if((m_retestPossible) &&								/* if a retest can be performed */
+	   (currentTestStatus != "Pass") &&						/* and if the current phase has failed */
+	   (currentTestStatus != "Skip") &&						/* and if the current phase has not been skipped */
+	   (currentTestStatus != "Untested") &&
+	   (m_retestType == "Incycle") &&						/* and if Incycle retests have been enabled */
+    ((retestNumber < m_maxRetests) ||                       /* and if less than the maximum number of retests performed */
+        (m_retestCountExceededAbort && retestNumber <= m_maxRetests)) &&                        
+	   (CanTest(currentTestStatus)) &&						/* can still continue the test */
+	   (PromptRetest() == "Yes"))							/* and if the operator selects retest */
+	{
+        Log(LOG_DEV_DATA, "Retest Selected -- Current Test Status: %s, Retest Count: %d [max: %d]\n", currentTestStatus.c_str(), retestNumber, m_maxRetests); 
+        if ((m_retestCountExceededAbort && retestNumber >= m_maxRetests))
+        {
+            Log(LOG_DEV_DATA, "Retest Count Exceeded, Aborting Sequence!!");
+            std::string msgResponse;
+            m_prompt->DisplayPrompt(1, "RetestCountExceededAbort", msgResponse); 
+            BposSleep(3000);
+            m_prompt->RemovePrompt(1, "RetestCountExceededAbort", msgResponse); 
+            Abort();
+        }
+        else
+        {
+            // if yes is selected, set up to resequence the test
+            // If the test is AnalyzeBrakeTest, go back 1 extra step to repeat whole brake test
+            if(m_currentPhase->getChildren().getNode("ForegroundObjectives")->getChildren().getNode(0)->getChildren().getNode(0)->getName()== "AnalyzeBrakeTest")
+            {
+                Log(LOG_DEV_DATA, "AnalyzeBrakeTest Special Case");
+                m_currentPhaseNumber--;
+            }
+            m_currentPhaseNumber--;
+||||||| .r28479
+	// if retest enabled and a failure occured and not previously retested
+	if((m_retestPossible) &&								/* if a retest can be performed */
+	   (currentTestStatus != "Pass") &&						/* and if the current phase has failed */
+	   (currentTestStatus != "Skip") &&						/* and if the current phase has not been skipped */
+	   (currentTestStatus != "Untested") &&
+	   (m_retestType == "Incycle") &&						/* and if Incycle retests have been enabled */
+	   (retestNumber < m_maxRetests) &&						/* and if less than the maximum number of retests performed */
+	   (CanTest(currentTestStatus)) &&						/* can still continue the test */
+	   (PromptRetest() == "Yes"))							/* and if the operator selects retest */
+	{
+		// if yes is selected, set up to resequence the test
+		Log(LOG_DEV_DATA, "Retest Selected %s, %d\n", currentTestStatus.c_str(), retestNumber);
+		// If the test is AnalyzeBrakeTest, go back 1 extra step to repeat whole brake test
+		if(m_currentPhase->getChildren().getNode("ForegroundObjectives")->getChildren().getNode(0)->getChildren().getNode(0)->getName()== "AnalyzeBrakeTest")
+		{
+			Log(LOG_DEV_DATA, "AnalyzeBrakeTest Special Case");
+			m_currentPhaseNumber--;
+		}
+		m_currentPhaseNumber--;
+=======
    // if retest enabled and a failure occured and not previously retested
    if ((m_retestPossible) &&                                /* if a retest can be performed */
        (currentTestStatus != "Pass") &&                     /* and if the current phase has failed */
@@ -1467,13 +1695,33 @@ bool TestSequencer::PerformIncycleRetest(const std::string& currentTestStatus, c
          m_currentPhaseNumber--;
       }
       m_currentPhaseNumber--;
+>>>>>>> .r28552
 
+<<<<<<< .mine
+            retest = true;
+        }
+	}
+	else if(currentTestStatus != "Pass")
+		Log(LOG_DEV_DATA, "Not Performing Retest %d, %s, %s, %d, %d, Re<Max %d, CanTest %d\n",
+			m_retestPossible, currentTestStatus.c_str(), m_retestType.c_str(), retestNumber, m_maxRetests,
+			(retestNumber < m_maxRetests),
+			CanTest(currentTestStatus));
+||||||| .r28479
+		retest = true;
+	}
+	else if(currentTestStatus != "Pass")
+		Log(LOG_DEV_DATA, "Not Performing Retest %d, %s, %s, %d, %d, Re<Max %d, CanTest %d\n",
+			m_retestPossible, currentTestStatus.c_str(), m_retestType.c_str(), retestNumber, m_maxRetests,
+			(retestNumber < m_maxRetests),
+			CanTest(currentTestStatus));
+=======
       retest = true;
    }
    else if (currentTestStatus != "Pass") Log(LOG_DEV_DATA, "Not Performing Retest %d, %s, %s, %d, %d, Re<Max %d, CanTest %d\n",
                                              m_retestPossible, currentTestStatus.c_str(), m_retestType.c_str(), retestNumber, m_maxRetests,
                                              (retestNumber < m_maxRetests),
                                              CanTest(currentTestStatus));
+>>>>>>> .r28552
 
    return (retest);
 }

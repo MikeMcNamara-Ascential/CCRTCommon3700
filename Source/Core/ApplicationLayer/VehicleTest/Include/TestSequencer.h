@@ -569,6 +569,10 @@ protected:
      */
     std::string m_retestType;
 
+    bool m_setIncycleFlag;
+
+    bool m_retestCountExceededAbort;
+
     /**
      * The maximum number of retests to perform.
      * @since Version 1.2

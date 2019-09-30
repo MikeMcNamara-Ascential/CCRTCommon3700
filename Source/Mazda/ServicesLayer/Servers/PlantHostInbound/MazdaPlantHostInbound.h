@@ -140,6 +140,9 @@ private:
 	// System tags to read to get build data
 	XmlNodeMap m_buildDataTags;
 
+    // System tags to read brake type
+	XmlNodeMap m_brakeTypeData;
+
 };
 //-------------------------------------------------------------------------------------------------
 #endif //MazdaPlantHostInbound_h

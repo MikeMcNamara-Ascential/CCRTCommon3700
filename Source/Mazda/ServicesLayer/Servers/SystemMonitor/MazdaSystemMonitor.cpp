@@ -216,6 +216,19 @@ void MazdaSystemMonitor::CheckTesting(ControlData *ctrl)
 			Log(LOG_DEV_DATA, "No vehicle type entered, ask for one");
 			DisplayPrompt(1, "EnterVehicleType");
 		}
+
+        // Clear stuff -- Makes more sense to clear at the start of a test rather than the end
+        //if (ctrl->rollsDown && !ctrl->vehiclePresent && m_oldCtrl->vehiclePresent) /*!ctrl->testInProgress && */ /*!m_oldCtrl->rollsDown*/
+        if (ctrl->testInProgress && !m_oldCtrl->testInProgress)
+        { // Freakin rolls down hits before testInProgress drops
+            Log(LOG_DEV_DATA, "Clearing Test Result and Build Data to PLC data");
+            // Consider funct and/or nodemap from config
+            // ClearMazdaAlcBits? What the heck is going on in there???
+            WriteDataTag(GetDataTag("TestResult4WDToPLC"), false);
+            WriteDataTag(GetDataTag("SpeedDiff4WDToPLC"), string("-1"));
+            WriteDataTag(GetDataTag("SwapTestResultToPLC_OK"), false);
+            WriteDataTag(GetDataTag("SwapTestRestultToPLC_NOK"), false);
+        }
 	}
 	else
 	{

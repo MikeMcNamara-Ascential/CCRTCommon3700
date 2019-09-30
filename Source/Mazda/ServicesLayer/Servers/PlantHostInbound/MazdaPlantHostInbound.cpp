@@ -24,309 +24,430 @@ MazdaPlantHostInbound::~MazdaPlantHostInbound()
 }
 
 //-------------------------------------------------------------------------------------------------
-const string MazdaPlantHostInbound::LoadVehicleBuildRecord(const string &aon, 
-														   XmlNodeMap &buildData, 
-														   const bool updateStatus)
-{   
-	Log(LOG_DEV_DATA, "MazdaPlantHostInbound::LoadVehicleBuildRecord - Getting vehicle build from %s", 
-		GetVehicleBuildSource().c_str());
-	if(!GetVehicleBuildSource().compare(SOURCE_BROADCAST))
-	{
-		LoadVehicleBuildFromAlc(aon);
-	}
-	else
-	{
-		string response;
-		if(BEP_SUCCESS_RESPONSE == LoadVehicleBuildFromFile(aon, buildData, true))
-		{
-			SetVehicleBuildRecordStatus(validStatus);
-			m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
-		}
-		else
-		{   // No file exists, try to get it from ALC
-			LoadVehicleBuildFromAlc(aon);
-		}
-	}
-	return BEP_SUCCESS_RESPONSE;
+const string MazdaPlantHostInbound::LoadVehicleBuildRecord(const string &aon,
+                                                           XmlNodeMap &buildData,
+                                                           const bool updateStatus)
+{
+    Log(LOG_DEV_DATA, "MazdaPlantHostInbound::LoadVehicleBuildRecord - Getting vehicle build from %s",
+        GetVehicleBuildSource().c_str());
+    if (!GetVehicleBuildSource().compare(SOURCE_BROADCAST))
+    {
+        LoadVehicleBuildFromAlc(aon);
+    }
+    else
+    {
+        string response;
+        if (BEP_SUCCESS_RESPONSE == LoadVehicleBuildFromFile(aon, buildData, true))
+        {
+            SetVehicleBuildRecordStatus(validStatus);
+            m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
+        }
+        else
+        {   // No file exists, try to get it from ALC
+            LoadVehicleBuildFromAlc(aon);
+        }
+    }
+    return BEP_SUCCESS_RESPONSE;
 }
 
 //-------------------------------------------------------------------------------------------------
 const string MazdaPlantHostInbound::Register(void)
 {   // Call the base class to register the server
-	string result = PlantHostInbound::Register();
-	// Make sure the input server is in VIN mode
-	UpdateInputServerState();
-	return result;
+    string result = PlantHostInbound::Register();
+    // Make sure the input server is in VIN mode
+    UpdateInputServerState();
+    return result;
 }
 
 //-------------------------------------------------------------------------------------------------
 const string MazdaPlantHostInbound::Write(const XmlNode *dataNode)
 {
-	string response;
-	Log(LOG_DEV_DATA, "MazdaPlantHostInbound::Write(Tag: %s, AON Tag: %s) - Enter",
-		dataNode->getName().c_str(), GetDataTag("AonTag").c_str());
-	string result = BepServer::Write(dataNode);
-	if(!dataNode->getName().compare(GetDataTag("AonTag")) && (m_broker != NULL))
-	{   // Update the traffic light widget to let driver know vin is being processed
-		m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
-		// Load the vehicle build record for the specified AON
-		result = LoadVehicleBuildRecord(dataNode->getValue(), m_vehicleBuild, true);
-	}
-	else if(!dataNode->getName().compare(NEXT_VEHICLE_BUILD_TAG))
-	{
-		m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
-		m_vehicleBuild.clear(true);
-		m_vehicleBuild.DeepCopy(dataNode->getChildren());
-		// Now add the derived data
-		AddDerivedBuildInfo(m_vehicleBuild);
-		m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
-		SetVehicleBuildRecordStatus(validStatus);
-	}
-	else if(m_broker == NULL)
-	{
-		Log(LOG_DEV_DATA, "INDB object is null!!");
-	}
-	return(result);
+    string response;
+    Log(LOG_DEV_DATA, "MazdaPlantHostInbound::Write(Tag: %s, AON Tag: %s) - Enter",
+        dataNode->getName().c_str(), GetDataTag("AonTag").c_str());
+    string result = BepServer::Write(dataNode);
+    if (!dataNode->getName().compare(GetDataTag("AonTag")) && (m_broker != NULL))
+    {   // Update the traffic light widget to let driver know vin is being processed
+        m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
+        // Load the vehicle build record for the specified AON
+        result = LoadVehicleBuildRecord(dataNode->getValue(), m_vehicleBuild, true);
+    }
+    else if (!dataNode->getName().compare(NEXT_VEHICLE_BUILD_TAG))
+    {
+        m_broker->Write(GetVinReadStatusTag(), PROCESSING_VIN, response, true);
+        m_vehicleBuild.clear(true);
+        m_vehicleBuild.DeepCopy(dataNode->getChildren());
+        // Now add the derived data
+        AddDerivedBuildInfo(m_vehicleBuild);
+        m_broker->Write(GetVinReadStatusTag(), READY_TO_TEST, response, true);
+        SetVehicleBuildRecordStatus(validStatus);
+    }
+    else if (m_broker == NULL)
+    {
+        Log(LOG_DEV_DATA, "INDB object is null!!");
+    }
+    return(result);
 }
 
 //-------------------------------------------------------------------------------------------------
 void MazdaPlantHostInbound::AddDerivedBuildInfo(XmlNodeMap &buildData)
 {   // Set the wheelbase
-	string vin(GetVehicleBuildItem("VIN", buildData));
-	INT8 myDigit = BposReadInt(GetDataTag("VinModelYearDigit").c_str());
-	string modelYear(vin.substr(myDigit, 1));
-	string wb = GetWheelBasePosition(GetVehicleBuildItem("BodyStyle", buildData), modelYear);
-	AddVehicleBuildItem(GetWheelbasePositionTag(), wb, buildData);
-	Log(LOG_DEV_DATA, "Added wheelbase to build data: %s = %s", GetWheelbasePositionTag().c_str(), wb.c_str());
+    string vin(GetVehicleBuildItem("VIN", buildData));
+    INT8 myDigit = BposReadInt(GetDataTag("VinModelYearDigit").c_str());
+    string modelYear(vin.substr(myDigit, 1));
+    string wb = GetWheelBasePosition(GetVehicleBuildItem("BodyStyle", buildData), modelYear);
+    AddVehicleBuildItem(GetWheelbasePositionTag(), wb, buildData);
+    Log(LOG_DEV_DATA, "Added wheelbase to build data: %s = %s", GetWheelbasePositionTag().c_str(), wb.c_str());
 }
 
 //-------------------------------------------------------------------------------------------------
 string MazdaPlantHostInbound::CreateBuildRecord(void)
 {   // Get all the data and add it to the build record
-	m_vehicleBuild.clear(true);
-	string result(BEP_SUCCESS_RESPONSE);
-	string response;
-	string itemValue;
-	if(m_broker != NULL)
-	{
-		for(XmlNodeMapCItr iter = m_buildDataTags.begin(); 
-			 (iter != m_buildDataTags.end()) && !result.compare(BEP_SUCCESS_RESPONSE); iter++)
-		{   // Read the data from the system
-			if(m_broker->Read(iter->second->getValue(), response, true) == BEP_STATUS_SUCCESS)
-			{   // Add the data to the build record
-				if(BEP_STATUS_SUCCESS == m_broker->GetByTag(iter->second->getValue(), itemValue, response))
-				{   // Add the data to the build record
-					string buildTag(iter->second->getAttribute("BuildTag")->getValue());
-					if(!buildTag.compare(BODY_STYLE_TAG))
-					{   // Need to translate this first
-						int ibs = atoi(itemValue.c_str());
-						char bs1 = (ibs & 0xFF00) >> 8;
-						char bs2 = (ibs & 0x00FF);
-						itemValue = string(1, bs1);
-						itemValue += string(1, bs2);
-					}
-					else if(!buildTag.compare(VIN_DATA_TAG))
-					{
-						m_broker->Write(VINDISPLAY_DATA_TAG, itemValue, response, true);
-					}
-					else if(!buildTag.compare("Transmission"))
-					{
-						itemValue = atob(itemValue.c_str()) ? "Automatic" : "Manual";
-						Log(LOG_DEV_DATA, "Set transmission type to %s", itemValue.c_str());
-					}
-					else if(!buildTag.compare("BrakeType"))
-					{
-						itemValue = atob(itemValue.c_str()) ? "ABS" : "Non-ABS";
-						Log(LOG_DEV_DATA, "Set brake type to %s", itemValue.c_str());
-					}
-					AddVehicleBuildItem(buildTag, itemValue, m_vehicleBuild);
-					Log(LOG_DEV_DATA, "Added build item: %s = %s", buildTag.c_str(), itemValue.c_str());
-				}
-			}
-			else
-			{
-				Log(LOG_ERRORS, "Could not gat value for build item %s", iter->second->getValue().c_str());
-				result = BEP_STATUS_FAILURE;
-			}
-		}
-		// Now add the derived data
-		AddDerivedBuildInfo(m_vehicleBuild);
-	}
-	return result;
+    m_vehicleBuild.clear(true);
+    string result(BEP_SUCCESS_RESPONSE);
+    string response;
+    string itemValue;
+    if (m_broker != NULL)
+    {
+        for (XmlNodeMapCItr iter = m_buildDataTags.begin();
+            (iter != m_buildDataTags.end()) && !result.compare(BEP_SUCCESS_RESPONSE); iter++)
+        {   // Read the data from the system
+            if (m_broker->Read(iter->second->getValue(), response, true) == BEP_STATUS_SUCCESS)
+            {   // Add the data to the build record
+                if (BEP_STATUS_SUCCESS == m_broker->GetByTag(iter->second->getValue(), itemValue, response))
+                {   // Add the data to the build record
+                    string buildTag(iter->second->getAttribute("BuildTag")->getValue());
+                    if (!buildTag.compare(BODY_STYLE_TAG))
+                    {   // Need to translate this first
+                        int ibs = atoi(itemValue.c_str());
+                        char bs1 = (ibs & 0xFF00) >> 8;
+                        char bs2 = (ibs & 0x00FF);
+                        itemValue = string(1, bs1);
+                        itemValue += string(1, bs2);
+                    }
+                    else if (!buildTag.compare(VIN_DATA_TAG))
+                    {
+                        m_broker->Write(VINDISPLAY_DATA_TAG, itemValue, response, true);
+                    }
+                    else if (!buildTag.compare("Transmission"))
+                    {
+                        itemValue = atob(itemValue.c_str()) ? "Automatic" : "Manual";
+                        Log(LOG_DEV_DATA, "Set transmission type to %s", itemValue.c_str());
+                    }
+                    else if (!buildTag.compare("BrakeType"))
+                    {
+                        /* Prior to EBBU
+                        itemValue = atob(itemValue.c_str()) ? "ABS" : "Non-ABS";
+                        Log(LOG_DEV_DATA, "Set brake type to %s", itemValue.c_str());
+                        */
+                        int temp = atoi(itemValue.c_str());
+                        //char upperByte = (temp & 0xFF00) >> 8; // Not used
+                        char lowerByte = (temp & 0x00FF);
+                        itemValue = string(1, lowerByte);
+                        string brakeTypeEntry = ("Type_" + itemValue);
+                        char tempCarLineCar;
+                        string tempCarline;
+                        string carlineByte = "";
+                        string carlineTags[3] = {
+                            string("CarlineSelectedFromPLC_2"),
+                            string("CarlineSelectedFromPLC_1"),
+                            string("CarlineSelectedFromPLC_0")
+                        };
+                        string carlineTag2 = string("CarlineSelectedFromPLC_2");
+                        string carlineTag1 = string("CarlineSelectedFromPLC_1");
+                        string carlineTag0 = string("CarlineSelectedFromPLC_0");
+                        string ABSselectedStringTag = string("ABSTypeSelectedToPLC");
+
+                        for (int i = 0; i < 3; i++)
+                        {
+                            Log(LOG_DEV_DATA, "About to read Carline tag %s", carlineTags[i].c_str());
+                            if (m_broker->Read(carlineTags[i], response, true) == BEP_STATUS_SUCCESS)
+                            {
+                                if (BEP_STATUS_SUCCESS == m_broker->GetByTag(carlineTags[i], tempCarline, response))
+                                {
+                                    Log(LOG_DEV_DATA, "Tempcarline value is %s", tempCarline.c_str());
+                                    temp = atoi(tempCarline.c_str());
+                                    tempCarLineCar = (temp & 0x00FF);
+                                    carlineByte += string(1, tempCarLineCar);
+                                    Log(LOG_DEV_DATA, "Received %d byte as %s", i, carlineByte.c_str());
+                                }
+                                else
+                                {
+                                    carlineByte = string("XDJ");
+                                    Log(LOG_DEV_DATA, "Couldn't getbytag carline byte, carlineByte defaulted to %s", carlineByte.c_str());
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                carlineByte = string("XDJ");
+                                Log(LOG_DEV_DATA, "Couldn't read carline byte, carlineByte defaulted to %s", carlineByte.c_str());
+                                break;
+                            }
+                        }
+
+                        string carlineEntry = ("Carline_" + carlineByte);
+                        XmlNodeMapCItr iter2 = m_brakeTypeData.find(carlineEntry);
+
+                        //Look through the different car entries
+                        if (iter2 != m_brakeTypeData.end())
+                        {
+                            try
+                            {
+                                //Grab the child
+                                itemValue = iter2->second->getChild(brakeTypeEntry)->getValue();
+                                Log(LOG_DEV_DATA, "Brake Type has been changed to %s", itemValue.c_str());
+                                //Write to the PLC
+                                if (iter2->second->getChild(brakeTypeEntry)->hasAttribute("ToPLC"))
+                                {
+                                    char buff[16];
+                                    string toPLCValue = iter2->second->getChild(brakeTypeEntry)->getAttribute("ToPLC")->getValue();
+                                    char charToPlc = toPLCValue[0];
+                                    char spaceChar = ' ';
+                                    UINT16 dumpToPlc = (0xFF00 & (charToPlc << 8)) | (0x00FF & spaceChar);
+                                    string toPLCValueConverted = CreateMessage(buff, sizeof(buff), "%d", dumpToPlc);
+                                    m_broker->Write(ABSselectedStringTag, toPLCValueConverted, response, true);
+                                    Log(LOG_DEV_DATA, "Set brake type to %s, Sent [%d] \"%s\") to PLC", itemValue.c_str(), toPLCValueConverted.c_str(),
+                                        toPLCValue.c_str());
+                                }
+                                else
+                                {
+                                    itemValue = string("ABS");
+                                    Log(LOG_DEV_DATA, "Could not find Brake type Defaulting to %s", itemValue.c_str());
+                                }
+                            }
+                            catch (XmlException &excpt)
+                            {
+                                itemValue = string("ABS");
+                                Log(LOG_DEV_DATA, "Couldn't determine brake type. Defaulted to %s", itemValue.c_str());
+                            }
+                        }
+                        else
+                        {   // No translation listed
+                            itemValue = string("ABS");
+                            Log(LOG_DEV_DATA, "Defaulted to %s, Could not find %s", itemValue.c_str(), carlineEntry.c_str());
+                        }
+
+                        /*                   for (XmlNodeMapCItr iter2 = m_brakeTypeData.begin(); iter2 != m_brakeTypeData.end(); iter2++) 
+                                             {
+                                                 if (!((iter2->second->getValue().compare(itemValue)))) 
+                                                 {
+                                                     if (iter2->second->hasAttribute("TagName"))
+                                                     {
+                                                         itemValue = (iter2->second->getAttribute("TagName")->getValue());
+                                                         Log(LOG_DEV_DATA, "Set brake type to %s", itemValue.c_str());
+                                                         break;
+                                                     }
+                                                     else 
+                                                     {
+                                                         itemValue = string("ABS");
+                                                         Log(LOG_DEV_DATA, "Defaulted to %s", itemValue.c_str());
+                                                     }
+                                                 }
+                                             } */
+
+                    }
+                    AddVehicleBuildItem(buildTag, itemValue, m_vehicleBuild);
+                    Log(LOG_DEV_DATA, "Added build item: %s = %s", buildTag.c_str(), itemValue.c_str());
+                }
+            }
+            else
+            {
+                Log(LOG_ERRORS, "Could not gat value for build item %s", iter->second->getValue().c_str());
+                result = BEP_STATUS_FAILURE;
+            }
+        }
+        // Now add the derived data
+        AddDerivedBuildInfo(m_vehicleBuild);
+    }
+    return result;
 }
 
 //-------------------------------------------------------------------------------------------------
 const string MazdaPlantHostInbound::GetWheelBasePosition(const string &selectData, const string &modelYear)
 {
-	Log(LOG_FN_ENTRY, "MazdaPlantHostInbound::GetWheelBasePosition()");
-	// Reload the wheelbase table in case of edits
-	LoadWheelbasePositionTable();
-	string bodyStyleMask, selectWheelBase, response, wheelbaseTag;
-	string modelYearMask;
-	UINT32 ii = 0, weight = 0, selectWeight = 0;
-	bool charPositionMatch = false;
-	// Set the selected wheel base to the current wheelbase
-	Log(LOG_DEV_DATA, "Reading current wheelbase position, tag:%s", GetWheelbasePositionTag().c_str());
-	m_broker->Read(GetWheelbasePositionTag(), response, true);
-	m_broker->GetNext(wheelbaseTag, selectWheelBase, response);
-	// Loop through the list of wheel bases
-	for(XmlNodeMapItr iter = m_wheelBasePositions.begin(); iter != m_wheelBasePositions.end(); iter++)
-	{   // Calculate the weight of the specified body style to the current wheelbase
-		bodyStyleMask = iter->second->getAttributes().getNode("BodyStyle")->getValue();
-		try
-		{
-			modelYearMask = iter->second->getAttributes().getNode("ModelYear")->getValue();
-		}
-		catch(XmlException &excpt)
-		{
-			modelYearMask = "????";
-		}
+    Log(LOG_FN_ENTRY, "MazdaPlantHostInbound::GetWheelBasePosition()");
+    // Reload the wheelbase table in case of edits
+    LoadWheelbasePositionTable();
+    string bodyStyleMask, selectWheelBase, response, wheelbaseTag;
+    string modelYearMask;
+    UINT32 ii = 0, weight = 0, selectWeight = 0;
+    bool charPositionMatch = false;
+    // Set the selected wheel base to the current wheelbase
+    Log(LOG_DEV_DATA, "Reading current wheelbase position, tag:%s", GetWheelbasePositionTag().c_str());
+    m_broker->Read(GetWheelbasePositionTag(), response, true);
+    m_broker->GetNext(wheelbaseTag, selectWheelBase, response);
+    // Loop through the list of wheel bases
+    for (XmlNodeMapItr iter = m_wheelBasePositions.begin(); iter != m_wheelBasePositions.end(); iter++)
+    {   // Calculate the weight of the specified body style to the current wheelbase
+        bodyStyleMask = iter->second->getAttributes().getNode("BodyStyle")->getValue();
+        try
+        {
+            modelYearMask = iter->second->getAttributes().getNode("ModelYear")->getValue();
+        }
+        catch (XmlException &excpt)
+        {
+            modelYearMask = "????";
+        }
 
-		Log(LOG_DEV_DATA, "Evaluating mask - Body style:%s, Model Year: %s", bodyStyleMask.c_str(), modelYearMask.c_str());
-		// Check if the model year is a match before evaluating the body style
-		if (!modelYear.compare(modelYearMask) || !modelYearMask.compare("????") || !modelYearMask.compare("?"))
-		{
-			weight = 0;
-			ii = 0;
-			do
-			{   // If the current mask character is ? or characters match, keep checking
-				charPositionMatch = (bodyStyleMask[ii] == '?') || (bodyStyleMask[ii] == selectData[ii]);
-				// Determine if the weight needs to be updated
-				if(charPositionMatch && (bodyStyleMask[ii] == selectData[ii])) weight++;
-			} while(charPositionMatch && (ii++ < selectData.length()));
-			// Evaluate the weight of this wheelbase position
-			Log(LOG_DEV_DATA, "weight: %d\n", weight);
-			if(charPositionMatch && (weight > selectWeight))
-			{   // Save the current weight and wheelbase position
-				selectWeight = weight;
-				selectWheelBase = iter->second->getAttributes().getNode("Wheelbase")->getValue();
-			}
-			Log(LOG_DEV_DATA, "Select Weight: %d, Select Wheelbase(x10): %s\n", selectWeight, selectWheelBase.c_str());
-		}
-	}
-	Log(LOG_FN_ENTRY, "WorkCellController::GetWheelBasePosition() done, returning: %s\n", selectWheelBase.c_str());
-	return(selectWheelBase);
+        Log(LOG_DEV_DATA, "Evaluating mask - Body style:%s, Model Year: %s", bodyStyleMask.c_str(), modelYearMask.c_str());
+        // Check if the model year is a match before evaluating the body style
+        if (!modelYear.compare(modelYearMask) || !modelYearMask.compare("????") || !modelYearMask.compare("?"))
+        {
+            weight = 0;
+            ii = 0;
+            do
+            {   // If the current mask character is ? or characters match, keep checking
+                charPositionMatch = (bodyStyleMask[ii] == '?') || (bodyStyleMask[ii] == selectData[ii]);
+                // Determine if the weight needs to be updated
+                if (charPositionMatch && (bodyStyleMask[ii] == selectData[ii]))
+                    weight++;
+            } while (charPositionMatch && (ii++ < selectData.length()));
+            // Evaluate the weight of this wheelbase position
+            Log(LOG_DEV_DATA, "weight: %d\n", weight);
+            if (charPositionMatch && (weight > selectWeight))
+            {   // Save the current weight and wheelbase position
+                selectWeight = weight;
+                selectWheelBase = iter->second->getAttributes().getNode("Wheelbase")->getValue();
+            }
+            Log(LOG_DEV_DATA, "Select Weight: %d, Select Wheelbase(x10): %s\n", selectWeight, selectWheelBase.c_str());
+        }
+    }
+    Log(LOG_FN_ENTRY, "WorkCellController::GetWheelBasePosition() done, returning: %s\n", selectWheelBase.c_str());
+    return(selectWheelBase);
 }
 
 //-------------------------------------------------------------------------------------------------
 void MazdaPlantHostInbound::LoadAdditionalConfigurationItems(const XmlNode *document)
 {   // Begin by loading the items from the base class
-	PlantHostInbound::LoadAdditionalConfigurationItems(document);
-	// Store the vehicle build item tags
-	try
-	{
-		m_buildDataTags.DeepCopy(document->getChild("Setup/BuildDataTags")->getChildren());
-	}
-	catch(XmlException &excpt)
-	{
-		Log(LOG_ERRORS, "Could not store system tags to use for creating build records: %s", excpt.GetReason());
-		m_buildDataTags.clear(true);
-	}
-	// Store the name of the wheelbase file
-	string wbName = "";
-	try
-	{
-		wbName = getenv("USR_ROOT") + document->getChild("Setup/WheelbaseConfigFile")->getValue();
-	}
-	catch(XmlException &excpt)
-	{
-		Log(LOG_ERRORS, "Error getting wheelbase table file name - %s", excpt.GetReason());
-		wbName = "";
-	}
-	WheelbaseFileName(&wbName);
+    PlantHostInbound::LoadAdditionalConfigurationItems(document);
+    // Store the vehicle build item tags
+    try
+    {
+        m_buildDataTags.DeepCopy(document->getChild("Setup/BuildDataTags")->getChildren());
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Could not store system tags to use for creating build records: %s", excpt.GetReason());
+        m_buildDataTags.clear(true);
+    }
+    //Store the vehicle brake type
+    try
+    {
+        m_brakeTypeData.DeepCopy(document->getChild("Setup/BrakeTypeSelect")->getChildren());
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Could not store system tags to use for vehicle brake type: %s", excpt.GetReason());
+        m_brakeTypeData.clear(true);
+    }
+
+    // Store the name of the wheelbase file
+    string wbName = "";
+    try
+    {
+        wbName = getenv("USR_ROOT") + document->getChild("Setup/WheelbaseConfigFile")->getValue();
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Error getting wheelbase table file name - %s", excpt.GetReason());
+        wbName = "";
+    }
+    WheelbaseFileName(&wbName);
 }
 
 //-------------------------------------------------------------------------------------------------
 const string MazdaPlantHostInbound::Publish(const XmlNode *node)
 {
-	Log(LOG_FN_ENTRY, "MazdaPlantHostInbound::Publish(tag: %s, value: %s) - Enter", 
-		node->getName().c_str(), node->getValue().c_str());
-	string result = PlantHostInbound::Publish(node);
-	string response;
-	// Determine if there is any special handling for this tag
-	if(!node->getName().compare(GetDataTag("VehicleBuildOk")) && atob(node->getValue().c_str()))
-	{   
-		m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "0", response, true);
-		// Create the build record from the ALC data
-		result = CreateBuildRecord();
-		// Set build read status OK and clear the bit for retrieve AON
-		string buildStatus = !result.compare(BEP_SUCCESS_RESPONSE) ? READY_TO_TEST: NO_VIN;
-		m_broker->Write(GetVinReadStatusTag(), buildStatus, response, true);
-		SetVehicleBuildRecordStatus(!buildStatus.compare(READY_TO_TEST) ? validStatus : BEP_INVALID_RESPONSE);
-	}
-	else if(!node->getName().compare(GetDataTag("VehicleBuildError")) && atob(node->getValue().c_str()))
-	{   // Set build read status error and clear the bit for retrieve AON
-		m_broker->Write(GetVinReadStatusTag(), NO_VIN, response, true);
-		m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "0", response, true);
-		// Display vin read error
-		m_promptComm.DisplayPrompt(2, GetDataTag("BuildDataError"), response);
-		SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
-	}
-	Log(LOG_FN_ENTRY, "MazdaPlantHostInbound::Publish(tag: %s, value: %s) - Exit", 
-		node->getName().c_str(), node->getValue().c_str());
-	return result;
+    Log(LOG_FN_ENTRY, "MazdaPlantHostInbound::Publish(tag: %s, value: %s) - Enter",
+        node->getName().c_str(), node->getValue().c_str());
+    string result = PlantHostInbound::Publish(node);
+    string response;
+    // Determine if there is any special handling for this tag
+    if (!node->getName().compare(GetDataTag("VehicleBuildOk")) && atob(node->getValue().c_str()))
+    {
+        m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "0", response, true);
+        // Create the build record from the ALC data
+        result = CreateBuildRecord();
+        // Set build read status OK and clear the bit for retrieve AON
+        string buildStatus = !result.compare(BEP_SUCCESS_RESPONSE) ? READY_TO_TEST : NO_VIN;
+        m_broker->Write(GetVinReadStatusTag(), buildStatus, response, true);
+        SetVehicleBuildRecordStatus(!buildStatus.compare(READY_TO_TEST) ? validStatus : BEP_INVALID_RESPONSE);
+    }
+    else if (!node->getName().compare(GetDataTag("VehicleBuildError")) && atob(node->getValue().c_str()))
+    {   // Set build read status error and clear the bit for retrieve AON
+        m_broker->Write(GetVinReadStatusTag(), NO_VIN, response, true);
+        m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "0", response, true);
+        // Display vin read error
+        m_promptComm.DisplayPrompt(2, GetDataTag("BuildDataError"), response);
+        SetVehicleBuildRecordStatus(BEP_INVALID_RESPONSE);
+    }
+    Log(LOG_FN_ENTRY, "MazdaPlantHostInbound::Publish(tag: %s, value: %s) - Exit",
+        node->getName().c_str(), node->getValue().c_str());
+    return result;
 }
 
 //-------------------------------------------------------------------------------------------------
 void MazdaPlantHostInbound::UpdateInputServerState(void)
 {   // Always want the input server in VIN state
-	string response;
-	if(m_inputServerComm.Read(GetInputServerStateTag(), response, true) == BEP_STATUS_SUCCESS)
-	{
-		string currentState("Unknown");
-		m_inputServerComm.GetByTag(GetInputServerStateTag(), currentState, response);
-		if(currentState.compare(INPUT_SERVER_VIN_STATE))
-		{   // Input server is not in VIN state, send it there
-			m_inputServerComm.Write(GetInputServerStateTag(), INPUT_SERVER_VIN_STATE, response, true);
-			Log(LOG_DEV_DATA,"Set InputServer state to %s\n", INPUT_SERVER_VIN_STATE);
-		}
-	}
+    string response;
+    if (m_inputServerComm.Read(GetInputServerStateTag(), response, true) == BEP_STATUS_SUCCESS)
+    {
+        string currentState("Unknown");
+        m_inputServerComm.GetByTag(GetInputServerStateTag(), currentState, response);
+        if (currentState.compare(INPUT_SERVER_VIN_STATE))
+        {   // Input server is not in VIN state, send it there
+            m_inputServerComm.Write(GetInputServerStateTag(), INPUT_SERVER_VIN_STATE, response, true);
+            Log(LOG_DEV_DATA, "Set InputServer state to %s\n", INPUT_SERVER_VIN_STATE);
+        }
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
 void MazdaPlantHostInbound::LoadVehicleBuildFromAlc(const string &aon)
 {
-	string tagtemplate("AonBytes%dand%d");
-	string tag, value;
-	string response;
-	char buff[32];
-	UINT16 tempValue = 0x0000;
-	Log(LOG_DEV_DATA, "Sending AON: %s to PLC", aon.c_str());
-	// Break down the AON to be sent to the PLC
-	for(UINT8 index = 0; index < aon.length(); index += 2)
-	{   // Build the new tag to write the data to the PLC
-		tag = CreateMessage(buff, sizeof(buff), tagtemplate.c_str(), index, index+1);
-		tempValue = ((aon[index] & 0x00FF) << 8);
-		tempValue |= (aon[index+1] & 0x00FF);
-		value = CreateMessage(buff, sizeof(buff), "%d", tempValue);
-		m_broker->Write(tag, value, response, true);
-		Log(LOG_DEV_DATA, "Wrote AON data - Tag: %s, Value: %s [%04X]", tag.c_str(), value.c_str(), tempValue);
-	}
-	m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "1", response, true);
+    string tagtemplate("AonBytes%dand%d");
+    string tag, value;
+    string response;
+    char buff[32];
+    UINT16 tempValue = 0x0000;
+    Log(LOG_DEV_DATA, "Sending AON: %s to PLC", aon.c_str());
+    // Break down the AON to be sent to the PLC
+    for (UINT8 index = 0; index < aon.length(); index += 2)
+    {   // Build the new tag to write the data to the PLC
+        tag = CreateMessage(buff, sizeof(buff), tagtemplate.c_str(), index, index + 1);
+        tempValue = ((aon[index] & 0x00FF) << 8);
+        tempValue |= (aon[index + 1] & 0x00FF);
+        value = CreateMessage(buff, sizeof(buff), "%d", tempValue);
+        m_broker->Write(tag, value, response, true);
+        Log(LOG_DEV_DATA, "Wrote AON data - Tag: %s, Value: %s [%04X]", tag.c_str(), value.c_str(), tempValue);
+    }
+    m_broker->Write(GetDataTag("RetrieveBuildDataTag"), "1", response, true);
 }
 
 //-------------------------------------------------------------------------------------------------
 void MazdaPlantHostInbound::LoadWheelbasePositionTable(void)
 {
-	XmlParser parser;
-	try
-	{
-		const XmlNode *wheelbaseConfig = parser.ReturnXMLDocument(WheelbaseFileName());
-		SetWheelBasePositions(wheelbaseConfig->getChild("VehicleConfig"));
-	}
-	catch(XmlException &excpt)
-	{
-		Log(LOG_ERRORS, "Error loading wheelbase position table - %s", excpt.GetReason());
-	}
-	catch(BepException &excpt)
-	{
-		Log(LOG_ERRORS, "BepException loading wheelbase position table from file - %s", excpt.GetReason());
-	}
+    XmlParser parser;
+    try
+    {
+        const XmlNode *wheelbaseConfig = parser.ReturnXMLDocument(WheelbaseFileName());
+        SetWheelBasePositions(wheelbaseConfig->getChild("VehicleConfig"));
+    }
+    catch (XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Error loading wheelbase position table - %s", excpt.GetReason());
+    }
+    catch (BepException &excpt)
+    {
+        Log(LOG_ERRORS, "BepException loading wheelbase position table from file - %s", excpt.GetReason());
+    }
 }
 
 //-------------------------------------------------------------------------------------------------
 string MazdaPlantHostInbound::WheelbaseFileName(const string *fileName /*= NULL*/)
 {
-	if(fileName != NULL)   m_wheelbaseFileName = *fileName;
-	return m_wheelbaseFileName;
+    if (fileName != NULL)
+        m_wheelbaseFileName = *fileName;
+    return m_wheelbaseFileName;
 }

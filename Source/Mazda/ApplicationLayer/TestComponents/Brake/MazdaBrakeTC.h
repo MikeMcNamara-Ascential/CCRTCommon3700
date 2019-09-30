@@ -21,6 +21,14 @@
 const int FRONT_AXLE = 0;
 const int REAR_AXLE = 1;
 
+enum
+{
+    LeftFront = 0,
+    RightFront,
+    LeftRear,
+    RightRear
+}; 
+
 //-------------------------------------------------------------------------------------------------
 class MazdaBrakeTC : public GenericBaseBrakeTC
 {
@@ -78,6 +86,32 @@ public:
 
 
 protected:
+    /** Structure for holding brake force data during max brake force testing and park brake testing */
+    typedef struct _maxBrakeData
+    {
+        float currentForce;
+        float maxForce;
+        list<float> forceSamples;
+        string currentForceTag;
+        string displayTag;
+        bool measurementComplete;
+    } MaxBrakeData;
+
+    // Variable result data types
+    typedef enum
+    {
+        DRAG_RESULTS_FRONT = 1,
+        DRAG_RESULTS_REAR,
+        BRAKE_RESULTS_FRONT,
+        BRAKE_RESULTS_REAR,
+        PARK_BRAKE_RESULTS
+    } ResultType_t;
+
+    typedef struct _axleBrakeResults
+    {
+        float  axleSum;
+        string axleResult;
+    } AxleBrakeResults;
 
 	/**
 	 * Brake testing complete test step.
@@ -185,39 +219,21 @@ protected:
 	 */
 	string WaitForMazdaTester(const INT32 &waitTime);
 
+    bool MonitorSwapTestForces(INT16 targetWheel, float requiredForce,
+                          MaxBrakeData *brakeData, UINT16 samplesToAverage,
+                               const XmlNodeMapItr &testData, string testHeadTestStep);
 
+    string MazdaSwapTest(string targetWheel);
+
+    string SwapTestByAxle(string axle);
+
+    string RunBrakeTest();
+
+    BEP_STATUS_TYPE SendSignalToMazdaTestHead(const string outgoingSignalTag, string confirmationSignal = "Undefined", bool status = true);
 
 
 
 private:
-
-	/** Structure for holding brake force data during max brake force testing and park brake testing */
-	typedef struct _maxBrakeData
-	{
-		float currentForce;
-		float maxForce;
-		list<float> forceSamples;
-		string currentForceTag;
-		string displayTag;
-		bool measurementComplete;
-	} MaxBrakeData;
-
-	// Variable result data types
-	typedef enum
-	{
-		DRAG_RESULTS_FRONT = 1,
-		DRAG_RESULTS_REAR,
-		BRAKE_RESULTS_FRONT,
-		BRAKE_RESULTS_REAR,
-		PARK_BRAKE_RESULTS
-	} ResultType_t;
-
-	typedef struct _axleBrakeResults
-	{
-		float  axleSum;
-		string axleResult;
-	} AxleBrakeResults;
-
 	/**
 	 * Analyze the forces from the test that was performed.
 	 * The result data will also be written to the PLC for reporting to the Mazda system.

@@ -24,3 +24,4 @@ D:\SVN\branches\Common3700\Source\Isuzu\FlashStation - Copy\Ccrt2\Library\J2534C
 D:\SVN\branches\Common3700\Source\Isuzu\FlashStation - Copy\Ccrt2\Library\J2534ChannelLibrary.dll
 D:\SVN\branches\Common3700\Source\Isuzu\FlashStation - Copy\Ccrt2\Library\J2534ChannelLibrary.pdb
 D:\SVN\branches\Common3700\Source\Isuzu\FlashStation - Copy\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\J2534ChannelLibrary.csprojResolveAssemblyReference.cache
+D:\SVN\branches\Common3700\Source\Isuzu\FlashStation\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\obj\Debug\J2534ChannelLibrary.csprojResolveAssemblyReference.cache

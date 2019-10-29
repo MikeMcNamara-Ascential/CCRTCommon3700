@@ -118,39 +118,95 @@ namespace UtilityFileInterpreter
         public bool openUtilityFile(string fullFileName)
         {
             bool status = false;
-            using (BinaryReader b = new BinaryReader(File.Open(fullFileName, FileMode.Open)))
+            try
             {
-                m_apiHeader = new APIHeader();
-                ParseAPIHeader(b);
-                
-
-                //calculate end of routine section ((start of data) + total data bytes)
-                m_routineSectionEnd = (UInt16)((UInt16)m_headerOffset + (UInt16)m_apiHeader.noOfDataBytes);
-                b.BaseStream.Seek(m_headerOffset, SeekOrigin.Begin);
-                ParseHeader(b);
-                ParseInterpreterInstructions(b);
-                b.BaseStream.Seek(m_headerOffset+m_header.routineSectionOffset, SeekOrigin.Begin);
-                ParseRoutines(b);
-
-            }
-            m_calibrationModules.Clear();
-            foreach (string fileName in m_calibrationFileNames)
-            {
-                using (BinaryReader b = new BinaryReader(File.Open(fileName, FileMode.Open)))
+                if (File.Exists(fullFileName))
                 {
-                    List<byte> calModule = new List<byte>();
-                    byte[] bytes;
-                    //format type
-                    b.BaseStream.Seek(0x58, SeekOrigin.Begin);
-                    bytes = b.ReadBytes(4);
-                    Array.Reverse(bytes);
-                    UInt32 calFileDataLength = BitConverter.ToUInt32(bytes, 0);
-                    b.BaseStream.Seek(0x68, SeekOrigin.Begin);
-                    calModule = b.ReadBytes((int)calFileDataLength).ToList();
-                    m_calibrationModules.Add(calModule);
+                    using (BinaryReader b = new BinaryReader(File.Open(fullFileName, FileMode.Open)))
+                    {
+                        m_apiHeader = new APIHeader();
+                        ParseAPIHeader(b);
+
+                        //calculate end of routine section ((start of data) + total data bytes)
+                        m_routineSectionEnd = (UInt16)((UInt16)m_headerOffset + (UInt16)m_apiHeader.noOfDataBytes);
+                        b.BaseStream.Seek(m_headerOffset, SeekOrigin.Begin);
+                        ParseHeader(b);
+                        ParseInterpreterInstructions(b);
+                        b.BaseStream.Seek(m_headerOffset + m_header.routineSectionOffset, SeekOrigin.Begin);
+                        ParseRoutines(b);
+
+                    }
+                    m_calibrationModules.Clear();
+                    foreach (string fileName in m_calibrationFileNames)
+                    {
+                        m_logger.Log("Trying to Open " + fileName + ".");
+                        if (File.Exists(fileName))
+                        {
+                            using (BinaryReader b = new BinaryReader(File.Open(fileName, FileMode.Open)))
+                            {
+                                List<byte> calModule = new List<byte>();
+                                byte[] bytes;
+                                //format type
+                                bytes = b.ReadBytes(4);
+                                Array.Reverse(bytes);
+                                UInt32 formatType = BitConverter.ToUInt32(bytes, 0);
+                                m_logger.Log("Reading " + fileName + " as a format " + formatType + "(" + BitConverter.ToString(bytes) + ") file.");
+                                if (formatType < 3)
+                                {
+                                    //Get 'Number of Data Bytes'
+                                    b.BaseStream.Seek(0x58, SeekOrigin.Begin);
+                                    bytes = b.ReadBytes(4);
+                                    Array.Reverse(bytes);
+                                    UInt32 calFileDataLength = BitConverter.ToUInt32(bytes, 0);
+                                    b.BaseStream.Seek(0x68, SeekOrigin.Begin);
+                                    calModule = b.ReadBytes((int)calFileDataLength).ToList();
+                                    m_calibrationModules.Add(calModule);
+                                }
+                                else if (formatType == 3)
+                                {
+                                    m_logger.Log("Trying to read Data Section Length. ");
+                                    //Get 'Length of Data Section'
+                                    b.BaseStream.Seek(0x4c, SeekOrigin.Begin);
+                                    bytes = b.ReadBytes(4);
+                                    Array.Reverse(bytes);
+                                    UInt32 calFileDataLength = BitConverter.ToUInt32(bytes, 0);
+                                    m_logger.Log("Data Section Length: " + calFileDataLength);
+                                    //Get 'Number Of Data Regions', Used to calculate offset for Data Section. 
+                                    m_logger.Log("Trying to read Number of DataSections. ");
+                                    b.BaseStream.Seek(0x56, SeekOrigin.Begin);
+                                    bytes = b.ReadBytes(2);
+                                    Array.Reverse(bytes);
+                                    UInt16 numDataRegions = BitConverter.ToUInt16(bytes, 0);
+                                    m_logger.Log("DataSections: " + numDataRegions);
+                                    int dataOffset = 88 + (8 * numDataRegions) + 8;
+                                    m_logger.Log("Data Offset Calculated: " + dataOffset);
+                                    //Use the offset to get the right amount of data. 
+                                    b.BaseStream.Seek(dataOffset, SeekOrigin.Begin);
+                                    calModule = b.ReadBytes((int)calFileDataLength).ToList();
+                                    m_calibrationModules.Add(calModule);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (m_logger != null)
+                            {
+                                m_logger.Log("ERROR: File does not Exist! ( " + fileName + " )");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (m_logger != null)
+                    {
+                        m_logger.Log("ERROR: Utility File does not Exist! ( " + fullFileName + " )");
+                    }
                 }
             }
-
+            catch(Exception e){
+                m_logger.Log("Well, this is awkward.");
+            }
             return status;
         }
 
@@ -181,23 +237,58 @@ namespace UtilityFileInterpreter
             //data type
             m_apiHeader.dataType = b.ReadByte();
             //creation date
-            m_apiHeader.spare = b.ReadBytes(21);
-            //num of address bytes
-            bytes = b.ReadBytes(4);
-            Array.Reverse(bytes);
-            m_apiHeader.noOfAddressBytes = BitConverter.ToUInt32(bytes, 0);
-            //num of data bytes
-            bytes = b.ReadBytes(4);
-            Array.Reverse(bytes);
-            m_apiHeader.noOfDataBytes = BitConverter.ToUInt32(bytes, 0);
-            //crc type
-            bytes = b.ReadBytes(4);
-            Array.Reverse(bytes);
-            m_apiHeader.crcType = BitConverter.ToUInt32(bytes, 0);
-            //num of crc bytes
-            bytes = b.ReadBytes(4);
-            Array.Reverse(bytes);
-            m_apiHeader.noOfCRCBytes = BitConverter.ToUInt32(bytes, 0);
+            if (m_apiHeader.formatType <= 2)
+            {
+                m_apiHeader.spare = b.ReadBytes(21);
+                //num of address bytes
+                bytes = b.ReadBytes(4);
+                Array.Reverse(bytes);
+                m_apiHeader.noOfAddressBytes = BitConverter.ToUInt32(bytes, 0);
+                //num of data bytes
+                bytes = b.ReadBytes(4);
+                Array.Reverse(bytes);
+                m_apiHeader.noOfDataBytes = BitConverter.ToUInt32(bytes, 0);
+                //crc type
+                bytes = b.ReadBytes(4);
+                Array.Reverse(bytes);
+                m_apiHeader.crcType = BitConverter.ToUInt32(bytes, 0);
+                //num of crc bytes
+                bytes = b.ReadBytes(4);
+                Array.Reverse(bytes);
+                m_apiHeader.noOfCRCBytes = BitConverter.ToUInt32(bytes, 0);
+                m_headerOffset = 0x64;
+            }
+            else
+            {
+                m_logger.Log("PTI File With Format: " + m_apiHeader.formatType);
+                m_apiHeader.spare = b.ReadBytes(13);
+                //num of address bytes, Not in current #3 Format API?
+                //bytes = b.ReadBytes(4);
+                //Array.Reverse(bytes);
+                m_apiHeader.noOfAddressBytes = 0; // BitConverter.ToUInt32(bytes, 0);
+                //num of data bytes
+                bytes = b.ReadBytes(4);
+                Array.Reverse(bytes);
+                m_apiHeader.noOfDataBytes = BitConverter.ToUInt32(bytes, 0);
+
+                //skipping next 3 fields
+                b.ReadBytes(6);
+                //get #data Regions
+                bytes = b.ReadBytes(2);
+                Array.Reverse(bytes);
+                UInt16 dataRegions = BitConverter.ToUInt16(bytes, 0);
+                if(dataRegions >0)
+                    b.ReadBytes(8*dataRegions);
+                //crc type
+                bytes = b.ReadBytes(4);
+                Array.Reverse(bytes);
+                m_apiHeader.crcType = BitConverter.ToUInt32(bytes, 0);
+                //num of crc bytes
+                bytes = b.ReadBytes(4);
+                Array.Reverse(bytes);
+                m_apiHeader.noOfCRCBytes = BitConverter.ToUInt32(bytes, 0);
+                m_headerOffset = 96 + (8 * dataRegions);
+            }
         }
 
         public void ParseHeader(BinaryReader b)

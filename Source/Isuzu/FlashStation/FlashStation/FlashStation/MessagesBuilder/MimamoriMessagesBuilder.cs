@@ -152,8 +152,8 @@ namespace Common.MessagesBuilder
             ));
             MimamoriMessageList.Add(new MimamoriModuleCanMessage(
                 "TCM Equipped",
-            SetRequestMessageId(0x01),
-            flashId.GetResponseMessageId(), new List<byte>() { 0x01 }
+            SetRequestMessageId(0x09),
+            flashId.GetResponseMessageId(), new List<byte>() { 0x09 }
            ));
             MimamoriMessageList.Add(new MimamoriModuleCanMessage(
                 "Turbo Controller Equipped",

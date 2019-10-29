@@ -3985,8 +3985,8 @@
 		<col def="S0">Value</col>
 		<row><td>ActiveLanguage</td><td>1033</td></row>
 		<row><td>Comments</td><td/></row>
-		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="de9f554a3bc05c12be9c31b998217995">
-UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
+		<row><td>CurrentMedia</td><td dt:dt="bin.base64" md5="6d78a46bf2c52ee27034bbcad20f7f95">
+QwBEAF8AUgBPAE0AAQBFAHgAcAByAGUAcwBzAA==
 			</td></row>
 		<row><td>DefaultProductConfiguration</td><td>Express</td></row>
 		<row><td>EnableSwidtag</td><td>1</td></row>
@@ -4003,7 +4003,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{1EABFDCA-B0E5-4A93-85A4-E5D7209EE4D5}</td></row>
 		<row><td>ISUSSignature</td><td>{3D964845-1048-48EA-AAF8-61A8A2D09629}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewShortcuts,viewProject,viewUpgradePaths,viewFeatureFiles,viewUI,viewRelease,viewEnvironmentVariables,viewFileExtensions,viewRegistry,viewIniFiles</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewAppFiles,viewShortcuts,viewProject,viewUpgradePaths,viewFeatureFiles,viewUI,viewRelease,viewEnvironmentVariables,viewFileExtensions,viewRegistry,viewIniFiles,viewObjects,viewVRoots,viewServices</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>

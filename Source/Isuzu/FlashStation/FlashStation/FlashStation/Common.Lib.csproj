@@ -54,9 +54,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UtilityFileInterpreter">
-      <HintPath>..\UtilityFileInterpreter.dll</HintPath>
-    </Reference>
     <Reference Include="VehicleCommServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\VehicleCommServer.dll</HintPath>
@@ -95,6 +92,10 @@
     <ProjectReference Include="..\..\Ccrt2\Library\J2534ChannelLibrary\J2534ChannelLibrary\J2534ChannelLibrary.csproj">
       <Project>{1046639f-b478-415d-b731-66379adac878}</Project>
       <Name>J2534ChannelLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UtilityFileInterpreter\UtilityFileInterpreter\UtilityFileInterpreter.csproj">
+      <Project>{a2ae2eb1-840d-40fe-93af-331163b25ec6}</Project>
+      <Name>UtilityFileInterpreter</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

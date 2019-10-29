@@ -3770,15 +3770,15 @@ namespace Common.Lib.Models
         private string m_passIndicationLocalDirectory = @"C:\\FlashStation\\TransferFiles\\";
 
         //Plant 12 info
-        private string m_userLogin = "burke";
-        private string m_password = "porter";
-        private string m_ftpServerIp = "172.16.253.1";
+        //private string m_userLogin = "burke";
+        //private string m_password = "porter";
+        //private string m_ftpServerIp = "172.16.253.1";
         //Plant 5 info
         //private string m_userLogin = "ccrtfp";
         //private string m_password = "ccrtfp";
-        //private string m_userLogin = "burke";
-        //private string m_password = "porter";
-        //private string m_ftpServerIp = "192.168.1.3";
+        private string m_userLogin = "burke";
+        private string m_password = "porter";
+        private string m_ftpServerIp = "192.168.1.3";
 
         private string m_remoteBuildFileLocation = "/TestResults/ftpOutbox/BuildRecords/";
         private string m_remoteESNLocation = "/TestResults/ftpOutbox/ESN/";

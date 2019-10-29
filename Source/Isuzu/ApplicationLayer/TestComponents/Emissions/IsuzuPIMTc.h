@@ -45,6 +45,8 @@ public:
      */
     virtual string ClearFaults(void);
 
+    virtual string BrakeApplySensorLearn(void);
+
 
 
 protected:

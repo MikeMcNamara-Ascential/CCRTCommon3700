@@ -41,6 +41,7 @@ const string IsuzuPIMTc<ModuleType>::CommandTestStep(const string &value)
             {
                 Log(LOG_DEV_DATA, "Running test step %s\n", GetTestStepName().c_str());
                 if(!GetTestStepName().compare("ClearFaultsFinal")) testResult = ClearFaults();
+                else if(!GetTestStepName().compare("BASLearn")) testResult = BrakeApplySensorLearn();
                 // No specific method, try the base class
                 else testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
             }
@@ -148,3 +149,75 @@ string IsuzuPIMTc<ModuleType>::ClearFaults(void)
     return testResult;
 
 }
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuPIMTc<ModuleType>::BrakeApplySensorLearn(){
+ Log(LOG_FN_ENTRY, "IsuzuPIMTc::ClearFaults() - Enter");
+    string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    //BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    if(!ShortCircuitTestStep())
+    {
+        DisplayPrompt(GetPromptBox("BASLearnInProgress"), GetPrompt("BASLearnInProgress"), 
+                      GetPromptPriority("BASLearnInProgress"), "white");
+        DisplayPrompt(GetPromptBox("KeepFootOffBrake"), GetPrompt("KeepFootOffBrake"), 
+                      GetPromptPriority("KeepFootOffBrake"), "white");
+        //check if the PIM Is locked. 
+        bool isLocked = true;
+        bool isLearned = false;
+        // Attempt to read the locked status from the module
+        try
+        {   // Read the locked status from the module
+            m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
+        }
+        catch (ModuleException &exception)
+        {   // Exception reading data
+            Log(LOG_ERRORS, "Module exception in BrakeApplySensorLearn() while reading IsModuleLocked - %s\n", exception.message().c_str());
+            isLocked = true;
+        }
+        //Check if the BAS is Learned
+        try
+        {   // Read the locked status from the module
+            m_vehicleModule.ReadModuleData("BASLearned", isLearned);
+        }
+        catch (ModuleException &exception)
+        {   // Exception reading data
+            Log(LOG_ERRORS, "Module exception in BrakeApplySensorLearn() while reading BASLearned - %s\n", exception.message().c_str());
+            isLearned = true;
+        }
+        //if both are false Learn the BAS
+        if (!isLocked && !isLearned) {
+            Log(LOG_DEV_DATA, "PIM unlocked, Initiating BAS Learn.");
+            try
+            {   // Tell the PIM to Learn the BAS
+                testResult =(m_vehicleModule.CommandModule("BASLearn") == BEP_STATUS_SUCCESS) ? testPass : testFail;
+                //might need to loop or wait for a time?
+                BposSleep(GetTestStepInfoInt("ScanDelay"));
+            }
+            catch (ModuleException &exception)
+            {   // Exception reading data
+                Log(LOG_ERRORS, "Module exception in BrakeApplySensorLearn() while Learning BAS - %s\n", exception.message().c_str());
+                isLocked = true;
+            }
+        }
+        else if (isLearned) {
+            Log(LOG_DEV_DATA, "BAS Already Learned, Passing the test.");
+            testResult = testPass;
+        }
+        //Lock the PIM is the BAS is learned and not locked.
+
+        //if PIM is locked and BAS is learned, PASS
+        
+        RemovePrompt(GetPromptBox("BASLearnInProgress"), GetPrompt("BASLearnInProgress"), GetPromptPriority("BASLearnInProgress"));
+        RemovePrompt(GetPromptBox("KeepFootOffBrake"), GetPrompt("KeepFootOffBrake"), GetPromptPriority("KeepFootOffBrake"));
+        // Report the result
+        SendTestResult(testResult, GetTestStepInfo("Description"), "0000");
+    }
+
+    Log(LOG_FN_ENTRY, "IsuzuPIMTc::BrakeApplySensorLearn() - Exit");
+    return testResult;
+}
+
+

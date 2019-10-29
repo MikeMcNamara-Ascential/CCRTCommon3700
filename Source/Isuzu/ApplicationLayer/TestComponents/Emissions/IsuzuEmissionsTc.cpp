@@ -134,6 +134,9 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("CheckMAFLearnValues"))                 testResult = CheckMAFLearnValues();
             else if (!GetTestStepName().compare("CheckBrakeSensorOn"))                  testResult = CheckBrakeSensor(true);
             else if (!GetTestStepName().compare("CheckBrakeSensorOff"))                 testResult = CheckBrakeSensor(false);
+            else if (!GetTestStepName().compare("EngineOffBeforeMAFClear"))             testResult = EngineOffBeforeMAFClear();
+            else if (!GetTestStepName().compare("ReadFaultsPostMECLock"))               testResult = ReadFaultsPostMECLock();
+            
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -3629,7 +3632,8 @@ string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
                             ignored = false;
                         }
                         Log(LOG_DEV_DATA, "Ignored from dtc status byte? %s - status mask [%02X] dtc status [%02X]\n", 
-                            ignored ? "True" : "False", statusMask, dtcStatus);*/
+                            ignored ? "True" : "False", statusMask, dtcStatus);
+                            */
                         executeFaultClear = (m_clearFaults.find(faultTag) == m_clearFaults.end()) ? executeFaultClear : true;
                         // Log the fault read from the module
                         Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex+1,
@@ -3682,4 +3686,196 @@ string IsuzuEmissionsTc<ModuleType>::ConditionalFaultClear(void)
     // Return the test result
     Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::ConditionalFaultClear()\n");
     return(testResult);
+}
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::EngineOffBeforeMAFClear(void)
+{
+    string result(BEP_TESTING_RESPONSE);
+    Log(LOG_DEV_DATA, "Enter IsuzuEmissionsTc::EngineOffBeforeMAFClear()\n");
+    DisplayPrompt(GetPromptBox("TurnEngineOffAndKeyOn"), GetPrompt("TurnEngineOffAndKeyOn"), GetPromptPriority("TurnEngineOffAndKeyOn"));
+
+    if (!ShortCircuitTestStep())
+    {
+        INT32 engineRPM = 100;
+        BEP_STATUS_TYPE moduleStatus = BEP_STATUS_SUCCESS;
+        SetStartTime();
+        while ((engineRPM>10) && (BEP_STATUS_SUCCESS == moduleStatus) && TimeRemaining()) {
+            moduleStatus = m_vehicleModule.GetInfo(GetDataTag("EngineRunningMessage"), engineRPM);
+            BposSleep(GetTestStepInfoInt("ScanDelay"));
+        }
+        Log(LOG_DEV_DATA, "Engine At Idle Speed: %d", engineRPM);
+        RemovePrompt(GetPromptBox("TurnEngineOffAndKeyOn"), GetPrompt("TurnEngineOffAndKeyOn"), GetPromptPriority("TurnEngineOffAndKeyOn"));
+        DisplayPrompt(GetPromptBox("IgnitionOn"), GetPrompt("IgnitionOn"), GetPromptPriority("IgnitionOn"));
+        result = WaitForEngineOffIgnitionOn();
+        Log(LOG_DEV_DATA, "Engine Off Ignition On: %s", result);
+    }
+    else
+        result = testSkip;
+
+    RemovePrompt(GetPromptBox("IgnitionOn"), GetPrompt("IgnitionOn"), GetPromptPriority("IgnitionOn"));
+
+    Log(LOG_DEV_DATA, "Exit IsuzuEmissionsTc::EngineOffBeforeMAFClear()\n");
+    return result;
+}
+
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::ReadFaultsPostMECLock(void)
+{
+    string testResult = BEP_TESTING_STATUS;
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    FaultStatusVector_t moduleFaults;
+    string foundFaults;
+    // Check if this step needs to be performed
+    Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::ReadFaultsPostMECLock()\n");
+    if (!ShortCircuitTestStep())
+    {   // Do not need to skip this step
+        try
+        {   // Try to read the module faults
+            moduleStatus = m_vehicleModule.ReadFaults(moduleFaults);
+            // Check the status of the operation
+            if (BEP_STATUS_SUCCESS == moduleStatus)
+            {   // Good read, evaluate the data
+                bool faultsRecorded = false;
+                Log(LOG_DEV_DATA, "Found %d faults recorded in the module\n", moduleFaults.size());
+                // Only check for faults if faults were read from the module
+                if (moduleFaults.size() > 0)
+                {
+                    for (UINT32 faultIndex = 0; faultIndex < moduleFaults.size(); faultIndex++)
+                    {   // Determine if this fault should be ignored
+                        string faultTag = "ModuleFault_" + moduleFaults[faultIndex].m_code;
+                        INT32 faultCode = atoh(moduleFaults[faultIndex].m_code.c_str());
+                        string faultStatus("Ignored");
+                        UINT8 statusMask = 0x00;
+                        UINT8 dtcStatus = atoh(moduleFaults[faultIndex].m_status.c_str());;
+                        bool ignored;
+                        try
+                        {
+                            statusMask = atoh(GetFaultFailureStatusMaskPostMEC(faultTag).c_str()); 
+                            ignored = !(statusMask & dtcStatus);
+                        }
+                        catch (...)
+                        {
+                            ignored = false;
+                        }
+                        Log(LOG_DEV_DATA, "Ignored from dtc status byte? %s - status mask [%02X] dtc status [%02X]\n", 
+                            ignored ? "True" : "False", statusMask, dtcStatus);
+                        ignored = (ignored ? ignored : !(m_ignoreFaults.find(faultTag) == m_ignoreFaults.end()));
+                        if (((faultCode != 0) && !ignored) || ((faultCode != 0) && GetParameterBool("ReportIgnoredFaults")))
+                        {   // This is a fault to report
+                            if (!ignored)
+                            {
+                                faultStatus = "Reported";
+                                faultsRecorded = true;
+                            }
+
+                            //Set strDtcStatus to indicate the DTC status
+                            string strDtcStatus = "";
+                            UINT8 dtcActiveBit = (UINT8)GetParameterInt("DtcStatusActiveBit");
+                            UINT8 dtcHistoryBit = (UINT8)GetParameterInt("DtcStatusHistoryBit");
+                            UINT8 dtcNotPassBit = (UINT8)GetParameterInt("DtcStatusNotPassBit");
+                            bool checkDtcActive = (statusMask & (1<<dtcActiveBit)) ? true : false;
+                            bool checkDtcHistory = (statusMask & (1<<dtcHistoryBit)) ? true : false;
+                            bool checkDtcNotPass = (statusMask & (1<<dtcNotPassBit)) ? true : false;
+                            bool dtcActiveBitOn = (dtcStatus & (1<<dtcActiveBit)) ? true : false;
+                            bool dtcHistoryBitOn = (dtcStatus & (1<<dtcHistoryBit)) ? true : false;
+                            bool dtcNotPassBitOn = (dtcStatus & (1<<dtcNotPassBit)) ? true : false;
+
+                            if (checkDtcActive && dtcActiveBitOn && checkDtcHistory && dtcHistoryBitOn &&
+                                checkDtcNotPass && dtcNotPassBitOn)
+                                strDtcStatus = "Active, History, and Not Passed";
+                            else if (checkDtcActive && dtcActiveBitOn && checkDtcHistory && dtcHistoryBitOn)
+                                strDtcStatus = "Active and History";
+                            else if (checkDtcActive && dtcActiveBitOn && checkDtcNotPass && dtcNotPassBitOn)
+                                strDtcStatus = "Active and Not Passed";
+                            else if (checkDtcHistory && dtcHistoryBitOn && checkDtcNotPass && dtcNotPassBitOn)
+                                strDtcStatus = "History and Not Passed";
+                            else if (checkDtcActive && dtcActiveBitOn)
+                                strDtcStatus = "Active";
+                            else if (checkDtcHistory && dtcHistoryBitOn)
+                                strDtcStatus = "History";
+                            else if (checkDtcNotPass && dtcNotPassBitOn)
+                                strDtcStatus = "Not Passed";
+                            else
+                                strDtcStatus = "SOFTWARE FAILURE!";
+
+
+                            ReportDTC(faultTag, moduleFaults[faultIndex].m_code, "Code="+GetFaultCode(faultTag)+" - "+strDtcStatus+" - "+GetFaultDescription(faultTag));
+                        }
+                        // Log the fault read from the module
+                        Log(LOG_DEV_DATA, "Module Fault %d - %s - %s\n", faultIndex+1,
+                            moduleFaults[faultIndex].m_code.c_str(), faultStatus.c_str());
+                    }
+                    // Do special handling if faults have been recorded
+                    if (faultsRecorded)
+                    {   // Check if test sequence should be aborted if faults are present
+                        if (GetParameterBool("AbortIfDTCPresent"))
+                        {
+                            testResult = testFail;
+                            SystemWrite(ABORT_DATA_TAG, "1");
+                            Log(LOG_ERRORS, "Faults found in the module - ABORT all testing!\n");
+                        }
+                        else
+                        {
+                            testResult = testFail;
+                            Log(LOG_ERRORS, "Faults found in the module - continue to test!\n");
+                        }
+                    }
+                    // Store the data indicating if faults are present in the module
+                    DTCsInModule(faultsRecorded);
+                }
+                // Set the test status
+                testResult = faultsRecorded ? testResult : testPass;
+                testResultCode = faultsRecorded ? GetFaultCode("ModuleFaults") : "0000";
+                testDescription = faultsRecorded ? GetFaultDescription("ModuleFaults") : GetTestStepInfo("Description");
+                Log(LOG_DEV_DATA, "Read Module Faults: %s\n", testResult.c_str());
+            }
+            else
+            {   // Error reading faults from the module
+                Log(LOG_ERRORS, "Error reading module faults - status: %s\n", ConvertStatusToResponse(moduleStatus).c_str());
+                testResult = testFail;
+                testResultCode = GetFaultCode("CommunicationFailure");
+                testDescription = GetFaultDescription("CommunicationFailure");
+                SetCommunicationFailure(true);
+            }
+        }
+        catch (ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Report the results
+        SendTestResult(testResult, testDescription, testResultCode);
+    }
+    else
+    {   // Need to skip this test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+    }
+    // Return the test result
+    Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::ReadFaultsPostMECLock()\n");
+    return testResult;
+}
+//=============================================================================
+template <class ModuleType>
+std::string IsuzuEmissionsTc<ModuleType>::GetFaultFailureStatusMaskPostMEC(const std::string fault)
+{
+    std::string failureStatusMask;
+    try
+    {
+        failureStatusMask = m_faults.getNode(fault)->getAttributes().getNode("FailureStatusMaskPostMEC")->getValue();
+    }
+    catch(...)
+    {
+        Log(LOG_DEV_DATA, "No PostMEC mask found for fault %s, using the Failure Status Mask.",fault.c_str());
+        failureStatusMask = GetFaultFailureStatusMask(fault);
+    }
+
+    return(failureStatusMask);
 }

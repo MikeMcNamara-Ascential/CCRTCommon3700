@@ -316,6 +316,10 @@ private:
 
     virtual string ReadFaults(void);
 
+    string ReadFaultsPostMECLock(void);
+
+    std::string GetFaultFailureStatusMaskPostMEC(const std::string fault);
+
     /**
      * Simple delay before reading the DTCs of the emission.
      * 
@@ -417,6 +421,7 @@ private:
     virtual string ConditionalFaultClear(void);
 
     string KeyOffEngineOffKeyOnNoStart(void);
+    string EngineOffBeforeMAFClear(void);
     string GetSerialNumberFromFile(void);
     string CheckSerialNumber(void);
 	string ExtractEsnSerialNumberFromFile(string &fileName);

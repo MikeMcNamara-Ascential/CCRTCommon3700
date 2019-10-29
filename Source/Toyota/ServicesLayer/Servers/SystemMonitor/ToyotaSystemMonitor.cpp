@@ -100,6 +100,8 @@ void ToyotaSystemMonitor::CheckTesting(ControlData *ctrl)
     // Make sure there is not a machine fault that would prevent testing
     if(!ctrl->machineFault)
     {   // Check if a test is in progress
+        Log(LOG_DEV_DATA, "No Machine Faults, check what we should do next");
+        Log(LOG_DEV_DATA, "TestInProgress: %s, rollsDown: %s, vehiclePresent: %s, VehicleBuildDataLoaded: %s", (ctrl->testInProgress)?"true":"false", (ctrl->rollsDown)?"true":"false", (ctrl->vehiclePresent)?"true":"false", (VehicleBuildDataLoaded())?"true":"false");
         if(ctrl->testInProgress)
         {
             Log(LOG_DEV_DATA, "Test in progress, nothing to do right now");
@@ -110,9 +112,10 @@ void ToyotaSystemMonitor::CheckTesting(ControlData *ctrl)
             Log(LOG_DEV_DATA, "Test just completed, lower rolls and clear vehicle type");
             WriteNdbData(BODY_STYLE_TAG, GetDataTag("ClearBodyStyle"));
         }
-        // If no test in progress and rolls are down and vehicle present and we have a valid vehicle type
+        // If no test in progress and rolls are "down" and vehicle present and we have a valid vehicle type
         else if(!ctrl->testInProgress && ctrl->rollsDown && ctrl->vehiclePresent && VehicleBuildDataLoaded())
         {   
+            Log(LOG_DEV_DATA, "VehicleVinReadStatus: %s", ctrl->vehVinReadStatus.c_str());
             if(ctrl->vehVinReadStatus == VALID_VEHICLE_VIN)
             {   // Raise the retainers
                 Log(LOG_DEV_DATA, "Vehicle present, rolls down and valid vehicle type - raising rolls and starting test");
@@ -120,10 +123,15 @@ void ToyotaSystemMonitor::CheckTesting(ControlData *ctrl)
                 RemovePrompt(2, "AdvanceOk");
                 WriteNdbData(string("PromptBox2BGColor"), string("white"));
                 // Make sure wheelbase is in position
-                if(!ctrl->wheelbaseInPosition)
+                StartWheelbaseAdjust();
+                    BposSleep(1000);
+                bool WBInPosition = false;
+                ReadNdbData(WHEELBASE_IN_POSITION_TAG, WBInPosition);
+                Log(LOG_DEV_DATA, "Checking WBPosition: %s",(WBInPosition)?"True":"False");
+                if(!WBInPosition)
                 {   //  Command the wheelbase to move
                     StartWheelbaseAdjust();
-                    BposSleep(1000);
+                    BposSleep(3000);
                 }
                 WriteNdbData(RAISE_ROLLS, true);
                 // Start the test sequence

@@ -231,6 +231,14 @@ protected:
 
     BEP_STATUS_TYPE SendSignalToMazdaTestHead(const string outgoingSignalTag, string confirmationSignal = "Undefined", bool status = true);
 
+    INT32 MazdaSystemWrite(const string tag, const bool value);
+    bool MazdaSystemReadBool(const string tag);
+    BEP_STATUS_TYPE MazdaBrakeTC::SetSignalForMazdaTestHead(const string signalTag, bool signalStatus = true,
+                                                            string confirmationSignal = "Undefined", bool confirmationSignalStatus = true,
+                                                            bool reverseSignalOnConfirm = false);
+    INT32 WaitForResultFromMazdaTestHead(const string okSignalTag, const string nokSignalTag, bool &processOk);
+    INT32 WaitForSignalFromMazdaTestHead(const string tag, bool &value, bool desiredState = true);
+
 
 
 private:

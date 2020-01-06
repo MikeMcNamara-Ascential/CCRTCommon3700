@@ -1,0 +1,147 @@
+<TransmissionFaults>
+   <!-- System Status -->
+   <NoFault Code="0000" Description="No failure detected"/>
+   <SoftwareFailure Code="6000" Description="Software failure in transmission test"/>
+   <QuickLearnUnknownStatus Code="6001" Description="Unknown status received from QuickLearn procedure"/>
+   <TimeoutFailure Code="6002" Description="Test step timeout"/>
+   <StatusCheckFailure Code="6003" Description="System Status Check failed during test"/>
+   <UnknownStatus Code="6004" Description="Unknown, unaccounted for status during transmission test"/>
+   <OperatorResponseFailure Code="6005" Description="Failed to get operator response during test"/>
+    
+   <!-- Test Condition Failures -->
+   <PreconditionTimeout Code="6100" Description="Timeout waiting for test conditions"/>
+   <LimpInMode Code="6101" Description="Transmission in Limp-In"/>
+   <TestStepTimeout Code="6102" Description="Test Step Timeout"/>
+   <ODCancelGearTimeout Code="6103" Description="Timeout waiting for transmission to kick-down"/>
+   <ODCancelButtonTimeout Code="6104" Description="Timeout waiting for OverDrive lockout button"/>
+   <PrndlAllOn Code="6105" Description="PRNDL Status is All-On"/>
+   <ReverseGearTimeout Code="6110" Description="Timeout waiting for Reverse gear"/>
+   <NeutralGearTimeout Code="6111" Description="Timeout waiting for Neutral gear"/>
+   <FirstGearTimeout Code="6112" Description="Timeout waiting for First gear"/>
+   <SecondGearTimeout Code="6113" Description="Timeout waiting for Second gear"/>
+   <ThirdGearTimeout Code="6114" Description="Timeout waiting for Third gear"/>
+   <FourthGearTimeout Code="6115" Description="Timeout waiting for Fourth gear"/>
+   <FifthGearTimeout Code="6116" Description="Timeout waiting for Fifth gear"/>
+   <SpeedRationalityTimeout Code="6117" Description="Timeout waiting for Speed Rationality required speed"/>
+   <TorqueConverterClutchSlipTimeout Code="6118" Description="Timeout waiting for Torque Converter Clutch Slip required speed"/>
+   <TorqueConverterLockupPreconditionFail Code="6119" Description="Conditions not correct to test TCC Lockout"/>
+   <TCClutchNoLockTimeout Code="6120" Description="Timeout waiting for torque converter clutch unlocked"/>
+   <TCCPartialLockTimeout Code="6121" Description="Timeout waiting for torque converter clutch partial lock state"/>
+   <TCCFullLockTimeout Code="6122" Description="Timeout waiting for torque converter clutch full lock state"/>
+   <TCCLockSolenoid Code="6123" Description="Timeout waiting for TCC Lock Solenoid to engage"/>
+   <ParkShiftLeverPositionTimeout Code="6124" Description="Timeout waiting for Park shift lever position"/>
+   <ReverseShiftLeverPositionTimeout Code="6125" Description="Timeout waiting for Reverse shift lever position"/>
+   <NeutralShiftLeverPositionTimeout Code="6126" Description="Timeout waiting for Neutral shift lever position"/>
+   <DriveShiftLeverPositionTimeout Code="6127" Description="Timeout waiting for Drive shift lever position"/>
+   <LowShiftLeverPositionTimeout Code="6128" Description="Timeout waiting for Low shift lever position"/>
+   <Low3ShiftLeverPositionTimeout Code="6129" Description="Timeout waiting for 3 Low shift lever position"/>
+   <QuickLearnZeroSpeedTimeout Code="6130" Description="Timeout waiting for zero speed for QuickLearn"/>
+   <QuickLearnNeutralTimeout Code="6131" Description="Timeout waiting for shift lever to be in Neutral for QuickLearn"/>
+   <QuickLearnWaitForParkTimeout Code="6132" Description="Timeout waiting for shift lever to be in Park for QuickLearn"/>
+   <QuickLearnConditions Code="6133" Description="Module indicates conditions not correct for quicklearn"/>
+   <ModuleFaults Code="6140" Description="Faults detected in the TCM"/>
+   <ShifterModuleFaults Code="6141" Description="Faults detected in the Shifter Module"/>
+   <AccelerateInReverseZeroSpeedTimeout Code="6150" Description="Timeout waiting for zero speed for AccelerateInReverse"/>
+   <AccelerateInReverseTimeout Code="6151" Description="Timeout waiting for reverse gear or required speed for AccelerateInReverse"/>
+   <ElectronicRangeSelectPreconditionTimeout Code="6161" Description="Electronic Range Select timeout waiting for cable connect"/>
+   <ElectronicRangeSelectOperatorResponseTimeout Code="6162" Description="Electronic Range Select timeout waiting for operator response"/>
+   <Monitor23ShiftZeroSpeedTimeout Code="6170" Description="2-3 shift - Timeout waiting for zero speed"/>
+   <Monitor23ShiftCheckEngineRunningTimeout Code="6171" Description="2-3 Shift - Timeout waiting for engine running"/>
+   <Check23ShiftTimeoutFailure Code="6172" Description="Timeout waiting for 2-3 shift to occur"/>
+   <MaximumSpeed23ShiftExceededFailure Code="6173" Description="Vehicle speed out of range for 2-3 shift test"/>
+   <MonitorEngineBrakeTimeoutFailure Code="6180" Description="Timeout waiting for engine braking to occur"/>
+   <CheckKickDownTimeoutFailure Code="6190" Description="Timeout waiting for transmission kickdown"/>
+   <ReleaseAcceleratorTimeoutFailure Code="6191" Description="Timeout waiting for operator to release throttle"/>
+   <ReleaseThrottleTimeoutFailure Code="6191" Description="Timeout waiting for operator to release throttle"/>
+   <KickDownPreconditionTimeoutFailure Code="6192" Description="Conditions not correct to test transmission kickdown"/>
+   <KickDownPreconditionFail Code="6193" Description="Preconditions not met for transmission kickdown test"/>
+   <EngineOffIgnitionOnTimeoutFailure Code="6194" Description="Timeout waiting for Engine off Ignition on"/>
+   <EngineOffIgnitionOffTimeoutFailure Code="6195" Description="Timeout waiting for Engine off Ignition off"/>
+
+   <!-- Communication Failures -->
+   <CommunicationFailure Code="6200" Description="TCM Communication Failure"/>
+   <ReadClutchVolumeFail Code="6201" Description="Communication failure reading clutch volumes"/>
+   <ReadCurrentGearFail Code="6202" Description="Communication failure reading current gear"/>
+   <StatusByteUpdateFailure Code="6203" Description="Communication failure updating EOL status byte"/>
+   <StartBreakInCycleFail Code="6204" Description="Communication failure starting torque converter break-in cycle"/>
+   <StopBreakInCycleFail Code="6205" Description="Communication failure stoping torque converter break-in cycle"/>
+
+   <!-- Test Failures -->
+   <AllGearsLockStatesNotSeen Code="6300" Description="Failed to observe all required gears or TCC Lock States"/>
+   <ReverseGearNotSeen Code="6301" Description="Reverse gear not observed"/>
+   <NeutralGearNotSeen Code="6302" Description="Neutral gear not observed"/>
+   <FirstGearNotSeen Code="6303" Description="First gear not observed"/>
+   <SecondGearNotSeen Code="6304" Description="Second gear not observed"/>
+   <ThirdGearNotSeen Code="6305" Description="Third gear not observed"/>
+   <FourthGearNotSeen Code="6306" Description="Fourth gear not observed"/>
+   <FifthGearNotSeen Code="6307" Description="Fifth gear not observed"/>
+   <SixthGearNotSeen Code="6308" Description="Sixth gear not observed"/>
+   <AllLockupStatesNotSeen Code="6310" Description="All Torque Converter clutch lockup states not observed"/>
+   <TCCNoLockNotSeen Code="6311" Description="Failed to observe TCC unlock state"/>
+   <TCCPartialLockNotSeen Code="6312" Description="Failed to observe TCC partial lock state"/>
+   <TCCFullLockNotSeen Code="6313" Description="Failed to observe TCC full lock state"/>
+   <MaxGearTCCFullLockNotSeen Code="6314" Description="Maximum gear or TCC Full lock not seen"/>
+   <ParkShiftLeverPositionNotSeen Code="6315" Description="Park shift lever position and/or display not observed"/>
+   <ReverseShiftLeverPositionNotSeen Code="6316" Description="Reverse shift lever position and/or display not observed"/>
+   <NeutralShiftLeverPositionNotSeen Code="6317" Description="Neutral shift lever position and/or display not observed"/>
+   <DriveShiftLeverPositionNotSeen Code="6318" Description="Drive shift lever position and/or display not observed"/>
+   <LowShiftLeverPositionNotSeen Code="6319" Description="Low shift lever position and/or display not observed"/>
+   <Low3ShiftLeverPositionNotSeen Code="631A" Description="3 Low shift lever position and/or display not observed"/>
+   <AllShiftLeverPositionsNotSeen Code="631B" Description="Failed to observe all required shift lever positions and/or displays"/>
+   <ODLockoutFailure Code="6315" Description="OD Lockout test failed"/>
+   <TransAxleOilTemperatureOutOfRange Code="6320" Description="Transmission oil temperature out of range"/>
+   <UplinesNotComplete Code="6330"  Description="Transmission upline tests not completed prior to rolls"/>
+   <UplineShiftLeverTest Code="6331" Description="Transmission Upline: Shift lever upline test not completed prior to rolls"/>
+   <UplinePinionFactorProgramming Code="6332" Description="Transmission Upline: Pinion factor programming not complete"/>
+   <StartQuickLearnFail Code="6340" Description="Failed to start the QuickLearn procedure"/>
+   <QuickLearnRestartFail Code="6341" Description="Failed to restart the QuickLearn procedure"/>
+   <QuickLearnMonitorFail Code="6342" Description="Failed while monitoring QuickLearn status"/>
+   <QuickLearnFinishupFail Code="6343" Description="Failed to complete the QuickLearn procedure"/>
+   <QuickLearnOilTooCold Code="6344" Description="Transmission oil temp too cold for QuickLearn"/>
+   <QuickLearnOilTooHot Code="6345" Description="Transmission oil temp too hot for QuickLearn"/>
+   <QuickLearnFaultsPresent Code="6346" Description="Module faults detected during QuickLearn"/>
+   <QuickLearnRPMTooLow Code="6347" Description="Engine RPM too low for QuickLearn"/>
+   <QuickLearnBrakesNotApplied Code="6348" Description="Brakes not applied during QuickLearn"/>
+   <QuickLearnThrottleTooHigh Code="6349" Description="Throttle not closed during QuickLearn"/>
+   <QuickLearnNotInNeutral Code="634A" Description="Transmission not in Neutral during QuickLearn"/>
+   <QuickLearnNotInOverdrive Code="634B" Description="Transmission not in Drive during QuickLearn"/>
+   <StartModuleKeepAliveFail Code="6350" Description="Failure to start sending tester present messages to TCM"/>
+   <StopModuleKeepAliveFail Code="6351" Description="Failure to stop sending tester present messages to TCM"/>
+   <SpeedRationalityFail Code="6360" Description="Vehicle speed does not match rolls"/>
+   <VINMismatch Code="6370" Description="Module VIN does not match Broadcast"/>
+   <PartNumberMismatch Code="6371" Description="TCM Module part number does not match Broadcast"/>
+   <UpdateStatusRegister Code="6380" Description="Failed to update EOL Status byte"/>
+   <TorqueConverterClutchStatus Code="6390" Description="Incorrect Torque Converter Clutch Status"/>
+   <TorqueConverterSlipTolerance Code="6391" Description="Torque Converter Clutch out of tolerance"/>
+   <ElectronicRangeSelectDownTimeout Code="6400" Description="Electronic Range Select timeout waiting for shift lever Down position"/>
+   <ElectronicRangeSelectUpTimeout Code="6401" Description="Electronic Range Select timeout waiting for shift lever Up position"/>
+   <ElectronicRangeSelectReleaseTimeout Code="6402" Description="Electronic Range Select timeout waiting for shift lever Release position"/>
+   <ElectronicRangeSelectDownFailure Code="6403" Description="Electronic Range Select failure shifting lever Down(-)"/>
+   <ElectronicRangeSelectUpFailure Code="6404" Description="Electronic Range Select failure shifting lever Up(+)"/>
+   <ElectronicRangeSelectReleaseFailure Code="6405" Description="Electronic Range Select failure Releasing lever"/>
+   <ClusterDisplayFailure Code="6406" Description="Operator failed cluster gear range display "/>
+   <OutputShaftSpeedOutOfRange Code="6410" Description="2-3 Shift OSS out of range"/>
+   <OutputShaftSpeedFailure Code="6411" Description="2-3 Shift OSS failure"/>
+   <CheckOutputShaftSpeedFailure Code="6412" Description="2-3 Shift Check OSS Failure"/>
+   <OutputShaftSpeedLow Code="6413" Descrption="Output Shaft Speed too low during 2-3 shift"/>
+   <OutputShaftSpeedHigh Code="6414" Description="Output Shaft Speed too high during 2-3 shift"/>
+   <LiftFootFailure Code="6415" Description="Foot removed from throttle during 2-3 shift"/>
+   <ThrottlePositionOutOfRangeFailure Code="6416" Description="Throttle position out of range for 2-3 shift"/>
+   <EngineBrakeThrottlePressed Code="6420" Description="Throttle pressed during engine braking test"/>
+   <EngineBrakeRPMFail Code="6421" Description="Engine RPM did not rise enough during engine braking"/>
+   <CheckKickDownFail Code="6430" Description="Transmission Kickdown test failed"/>
+   <ReleaseAcceleratorFail Code="6431" Description="Closed throttle not observed for kickdown test"/>
+   <AfterKickDownGearTimeoutFailure Code="6432" Description="Timeout waiting for transmission to kickdown"/>
+   <StompThrottleTimeoutFailure Code="6433" Description="Timeout waiting for wide open throttle"/>
+   <KickDownLiftFootFail Code="6434" Description="Foot removed from throttle during kickdown"/>
+   <KickDownOutOfRangeSpeedFailure Code="6435" Description="Vehicle speed out of range before kickdown observed"/>
+   <NeutralGateFailure Code="6436" Description="Shift lever position was seen in reverse during neutral gate test"/>
+   <StartBreakInCycleStatusIncorrect Code="6440" Description="Torque Converter Break-In cycle status not started in module"/>
+   <StopBreakInCycleStatusIncorrect Code="6441" Description="Torque Converter Break-In cycle status not stopped in module"/>
+   <LowRatioCheck Code="6442" Description="Low Ratio Value Out of Range"/>
+   <MidRatioCheck Code="6443" Description="Mid Ratio Value Out of Range"/>
+   <HighRatioCheck Code="6444" Description="High Ratio Value Out of Range"/>
+   <ValidRatioCheck Code="6445" Description="One or More Ratio Values Out of Range"/>
+   <AccelerationTestMaxSpeedFailure Code="6446" Description="vehicle failedto reach max speed in the alotted time"/>
+
+</TransmissionFaults>

@@ -1,0 +1,20 @@
+<SelectionTable Description="Mazda drive curve selection table">
+
+    <AbsBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/AbsBrakeTestDriveCurve.xml">
+        <!-- BrakeType>ABS</BrakeType -->
+        <BrakeType>DSC</BrakeType>
+    </AbsBrake>
+
+    <AbsSwap DriveCurve="/Configuration/VehicleTest/DriveCurves/AbsSwapTestDriveCurve.xml">
+        <BrakeType>EBBU</BrakeType>
+    </AbsSwap>
+
+    <BaseBrake DriveCurve="/Configuration/VehicleTest/DriveCurves/BrakeTestDriveCurve.xml">
+        <BrakeType>Non-ABS</BrakeType>
+    </BaseBrake>
+    
+    <DevTest DriveCurve="/Configuration/VehicleTest/DriveCurves/DevTestDriveCurve.xml">
+        <BrakeType>DEV</BrakeType>
+    </DevTest>
+
+</SelectionTable>

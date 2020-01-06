@@ -1,0 +1,129 @@
+<DriveCurve Description="Mazda Brake Test drive curve">
+
+    <Components Debug="Off">
+        <Brake>
+            <ComponentName>MazdaBrakeTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>BrakeTC.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Brake</ConfigPath>
+        </Brake>
+        <Machine>
+            <ComponentName>MazdaMachineTc.qxe</ComponentName>
+            <ComponentPath>/ApplicationLayer/Bin</ComponentPath>
+            <ConfigFile>MachineTC.xml</ConfigFile>
+            <ConfigPath>/Configuration/Components/Machine</ConfigPath>
+        </Machine>
+    </Components>
+
+    <Test Result="Not Tested" Debug="Off">
+        <!-- Test Setup -->
+        <TestPhase000 Description="Setup the system for testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Setup machine" Result="" Timeout="" Component="Machine">
+                    <Initialize/>
+                </Objective0>
+                <Objective1 Description="Setup brake test component" Result="" Timeout="" Component="Brake">
+                    <Setup/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase000>
+        <TestPhase005 Description="Place machine in testing state" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective1 Description="Move to test state" Result="" Timeout="" Component="Machine">
+                    <MachineStartup/>
+                </Objective1>
+            </ForegroundObjectives>
+        </TestPhase005>
+        <TestPhase010 Description="Place vehicle in testing state" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Clear Diagnostics Test" Result="" Timeout="" Component="Brake">
+                    <DiagnosticClearRoutine/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase010>
+
+
+        <!-- ABS Test Sequence -->
+        <TestPhase100 Description="Wheel speed sensor test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Brake switch check" Result="" Timeout="" Component="Brake">
+                    <StartBrakeSwitchTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase100>
+        <TestPhase105 Description="Drag test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Drag testing" Result="" Timeout="" Component="Brake">
+                    <DragTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase105>
+
+        <TestPhase106 Description="Brake test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Front Base Brake testing" Result="" Timeout="" Component="Brake">
+                    <BaseBrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase106>
+        
+        
+        <TestPhase120 Description="Abs Wheel Specific Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="LF ABS testing" Result="" Timeout="" Component="Brake">
+                    <SwapLfTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase120>
+        <TestPhase125 Description="Abs Wheel Specific Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="RF ABS testing" Result="" Timeout="" Component="Brake">
+                    <SwapRfTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase125>
+
+        <TestPhase135 Description="Park brake testing" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Park brake force measurement" Result="" Timeout="" Component="Brake">
+                    <ParkBrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase135>
+
+        <TestPhase140 Description="Rear base brake test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Rear base brake force measurement" Result="" Timeout="" Component="Brake">
+                    <RearBaseBrakeTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase140>
+
+        
+        <TestPhase160 Description="Abs Wheel Specific Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="LF ABS testing" Result="" Timeout="" Component="Brake">
+                    <SwapLrTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase160>
+        <TestPhase165 Description="Abs Wheel Specific Test" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="RF ABS testing" Result="" Timeout="" Component="Brake">
+                    <SwapRrTest/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase165>
+
+
+        <!-- Finishup Testing -->
+        <TestPhase400 Description="Fault Check" Result="" Timeout="">
+            <ForegroundObjectives Result="" Timeout="">
+                <Objective0 Description="Fault Check" Result="" Timeout="" Component="Brake">
+                    <FaultCheckRoutine/>
+                </Objective0>
+            </ForegroundObjectives>
+        </TestPhase400>
+
+    </Test>
+</DriveCurve>

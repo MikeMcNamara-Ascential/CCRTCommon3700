@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WheelbaseTable>
+   <VehicleConfig>
+      <WB_J36W BodyStyle="BM" ModelYear="?" Wheelbase="2717" Units="mm"/>
+      <WB_J03W BodyStyle="DJ" ModelYear="?" Wheelbase="2593" Units="mm"/>
+      <WB_J03G BodyStyle="DL" ModelYear="?" Wheelbase="2593" Units="mm"/>
+      <WB_J36W_16CY BodyStyle="BN" ModelYear="?" Wheelbase="2721" Units="mm"/>
+      <WB_J59W BodyStyle="BP" ModelYear="?" Wheelbase="2760" Units="mm"/>
+      <WB_J59J BodyStyle="DM" ModelYear="?" Wheelbase="2676" Units="mm"/>
+   </VehicleConfig>
+</WheelbaseTable>

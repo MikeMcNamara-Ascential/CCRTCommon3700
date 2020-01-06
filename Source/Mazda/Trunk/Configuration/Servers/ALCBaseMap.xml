@@ -1,0 +1,20 @@
+<BasePFSRecord>
+   <Field00000 Type="VehicleBuild" Format="%-8.8s" ExcludeIfNotTested="No">AON</Field00000>
+   <Field00005 Type="DateTime" Format="%Y%%m%d" ExcludeIfNotTested="No">Date</Field00005>
+   <Field00010 Type="DateTime" Format="%H%M%S" ExcludeIfNotTested="No">Time</Field00010>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeOverallTest</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeBaseBrakeTest</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeTotalDragForce</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeFrontDragForce</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeFrontDragBalance</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeRearDragForce</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeRearDragBalance</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeFrontBrakeForce</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeFrontBrakeBalance</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeRearBrakeForce</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeRearBrakeBalance</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeRearParkBrakeForce</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeRearParkBrakeBalance</Field00105>
+   <Field00105 Type="Result" ExcludeIfNotTested="No">BrakeABSTest</Field00105>
+   <Field00095 Type="Detail" DetailNode="MisfireCount" Format="%02X" DataType="Integer" ExcludeIfNotTested="No">EmissionsMisfireOnline</Field00095>
+</BasePFSRecord>

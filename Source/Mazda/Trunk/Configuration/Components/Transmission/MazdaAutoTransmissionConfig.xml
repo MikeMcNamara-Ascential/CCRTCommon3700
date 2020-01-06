@@ -1,0 +1,322 @@
+<ManualTransmissionConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <Name>Transmission</Name>
+        <TestDomain>Foreground</TestDomain>
+        <Parameters>
+            <KeepTestStatusOnExit>False</KeepTestStatusOnExit>
+            <ICMName>mgr/ICM</ICMName>
+            <DeveloperTest>False</DeveloperTest>
+            <UsePlcResultButtons>True</UsePlcResultButtons>
+
+            <!-- Parameters for Checking Reverse Gear Operation -->
+            <ReverseSpeedMinimum ConvertToEnglishUnits="True" Units="km/h">4.0</ReverseSpeedMinimum>
+            <ReverseSpeedMaximum ConvertToEnglishUnits="True" Units="km/h">10.0</ReverseSpeedMaximum>
+
+            <DriveCurveParameters>
+                <Segment012>
+                    <Prompt1 Value1="Drive" Value2=" ">ShiftToGearAndAccelerate</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">25</TargetSpeed>
+                    <EndTime Units="Seconds">7.2</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment012>
+
+                <Segment014>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">26</TargetSpeed>
+                    <EndTime Units="Seconds">8.4</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment014>
+
+                <Segment021>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">40</TargetSpeed>
+                    <EndTime Units="Seconds">12.6</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment021>
+
+                <Segment023>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">46</TargetSpeed>
+                    <EndTime Units="Seconds">13.8</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment023>
+
+                <Segment032>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">65</TargetSpeed>
+                    <EndTime Units="Seconds">19.2</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment032>
+
+                <Segment035>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">66</TargetSpeed>
+                    <EndTime Units="Seconds">21</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment035>
+
+                <Segment037>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">70</TargetSpeed>
+                    <EndTime Units="Seconds">22.2</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment037>
+
+                <Segment039>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">72</TargetSpeed>
+                    <EndTime Units="Seconds">23.4</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment039>
+
+                <Segment042>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">75</TargetSpeed>
+                    <EndTime Units="Seconds">25.2</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment042>
+
+                <Segment044>
+                    <Prompt1 Value1="" Value2="">AccelerateAtWOT</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">77</TargetSpeed>
+                    <EndTime Units="Seconds">26.4</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment044>
+
+                <Segment051>
+                    <Prompt1 Value1="" Value2="">AccelerateAtWOT</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">105</TargetSpeed>
+                    <EndTime Units="Seconds">30.6</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment051>
+
+                <Segment053>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">107</TargetSpeed>
+                    <EndTime Units="Seconds">31.8</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment053>
+
+                <Segment055>
+                    <Prompt1 Value1="" Value2="">AccelerateToTargetSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">120</TargetSpeed>
+                    <EndTime Units="Seconds">33</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment055>
+
+                <Segment060>
+                    <Prompt1 Value1="" Value2="">MaintainSpeed</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">120</TargetSpeed>
+                    <EndTime Units="Seconds">36</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment060>
+
+                <Segment065>
+                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">100</TargetSpeed>
+                    <EndTime Units="Seconds">39</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment065>
+
+                <Segment067>
+                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">97</TargetSpeed>
+                    <EndTime Units="Seconds">40.2</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment067>
+
+                <Segment074>
+                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">80</TargetSpeed>
+                    <EndTime Units="Seconds">44.4</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment074>
+
+                <Segment085>
+                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">55</TargetSpeed>
+                    <EndTime Units="Seconds">51</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment085>
+
+                <Segment092>
+                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">40</TargetSpeed>
+                    <EndTime Units="Seconds">55.2</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment092>
+
+                <Segment095>
+                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">40</TargetSpeed>
+                    <EndTime Units="Seconds">57</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment095>
+
+                <Segment102>
+                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed ConvertToEnglishUnits="True" Units="km/h">20</TargetSpeed>
+                    <EndTime Units="Seconds">61.2</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment102>
+
+                <Segment111>
+                    <Prompt1 Value1="" Value2="">ApplyBrake</Prompt1>
+                    <Prompt2 Value1="" Value2=""></Prompt2>
+                    <TargetSpeed>0</TargetSpeed>
+                    <EndTime Units="Seconds">66.6</EndTime>
+                    <SpeedTolerance Units="%">10</SpeedTolerance>
+                </Segment111>
+
+            </DriveCurveParameters>
+        </Parameters>
+        <Prompts>
+
+            <ShiftToGear PromptBox="1" Priority="0">ShiftToGear</ShiftToGear>
+            <ShiftToDrive PromptBox="1" Priority="0">ShiftToDrive</ShiftToDrive>
+            <ShiftToReverse PromptBox="1" Priority="0">ShiftToReverse</ShiftToReverse>
+            <ShiftToGearAndAccelerate PromptBox="1" Priority="0">ShiftToGearAndAccelerate</ShiftToGearAndAccelerate>
+            <ShiftToGearAndPressBrake PromptBox="1" Priority="0">ShiftToGearAndPressBrake</ShiftToGearAndPressBrake>
+            <CoastDownToTargetSpeed PromptBox="1" Priority="0">CoastDownToTargetSpeed</CoastDownToTargetSpeed>
+            <MaintainSpeed PromptBox="1" Priority="0">MaintainSpeed</MaintainSpeed>
+            <ShiftToGearAndReleaseThrottle PromptBox="1" Priority="0">ShiftToGearAndReleaseThrottle</ShiftToGearAndReleaseThrottle>
+            <AccelerateToTargetSpeed PromptBox="2" Priority="0">AccelerateToTargetSpeed</AccelerateToTargetSpeed>
+            <AccelerateAtWOT PromptBox="1" Priority="0">AccelerateAtWOT</AccelerateAtWOT>
+            <DecreaseThrottle PromptBox="2" Priority="0">DecreaseThrottle</DecreaseThrottle>
+            <IncreaseThrottle PromptBox="2" Priority="0">IncreaseThrottle</IncreaseThrottle>
+            <ReleaseThrottle PromptBox="2" Priority="0">ReleaseThrottle</ReleaseThrottle>
+            <ApplyBrake PromptBox="2" Priority="0">ApplyBrake</ApplyBrake>
+            <FootOffBrake PromptBox="2" Priority="0">FootOffBrake</FootOffBrake>
+            <TransmissionShiftPointX PromptBox="2" Priority="0">TransmissionShiftPointX</TransmissionShiftPointX>
+            <SpeedHigh PromptBox="2" Priority="0">SpeedHigh</SpeedHigh>
+            <SpeedLow PromptBox="2" Priority="0">SpeedLow</SpeedLow>
+            <CableConnect PromptBox="1" Priority="0">ConnectCable</CableConnect>
+            <PressPassWhenComplete PromptBox="2" Priority="0">PressPassWhenComplete</PressPassWhenComplete>
+            <RemoveFootFromAccelerator PromptBox="1" Priority="0">RemoveFootFromAccelerator</RemoveFootFromAccelerator>
+            <SlowDownToTargetSpeed PromptBox="1" Priority="0">SlowDownToTargetSpeed</SlowDownToTargetSpeed>
+            <ZeroSpeed PromptBox="1" Priority="0">BrakeToStop</ZeroSpeed>
+        </Prompts>
+        <SystemTagsToReset/>
+        <FaultList>/Configuration/Components/Transmission/TransmissionFaultList.xml</FaultList>
+        <IgnoreFaults/>
+        <Communication>
+            <Debug>Off</Debug>
+            <Type>Server</Type>
+            <Comm>IPC</Comm>
+            <Name>component/Transmission</Name>
+            <BufferSize>1024</BufferSize>
+            <Timeout>2000</Timeout>
+        </Communication>
+        <TagList>
+            <SubscribeTags>
+                <Abort/>
+                <CableConnect/>
+                <DriveAxle/>
+                <ForegroundTestInProgress/>
+                <TCMPartNo/>
+                <Transmission/>
+                <VIN/>
+                <Zerospeed/>
+                <ZerospeedToPLC/>
+            </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>10</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <StartOnCreate>Off</StartOnCreate>
+                <LowWater>1</LowWater>
+                <HighWater>3</HighWater>
+                <Maximum>5</Maximum>
+                <Increment>1</Increment>
+            </Setup>
+        </NotificationList>
+        <Logging>
+            <Status>Enabled</Status>
+            <ProcessName>ManualTransmission</ProcessName>
+            <AdditionalLogFile Types="/Components/ManualTransmission.log or Disabled">/Components/ManualTransmission.log</AdditionalLogFile>
+            <Debug>Off</Debug>
+            <LocalEcho>Disabled</LocalEcho>
+            <Verbose>0x3F</Verbose>
+            <MessageTimeout>100</MessageTimeout>
+            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+        </Logging>
+        <NamedDataBrokerComm>
+            <Comm>IPC</Comm>
+            <Type>Client</Type>
+            <Name>core/NamedDataBroker</Name>
+            <Debug>Off</Debug>
+            <Timeout>0</Timeout>
+            <BufferSize>1024</BufferSize>
+        </NamedDataBrokerComm>
+        <DataTags>
+            <Abort>Abort</Abort>
+            <BoostMode>Boost</BoostMode>
+            <DriveAxle>DriveAxle</DriveAxle>
+            <FailButton>NoPB</FailButton>
+            <FourWheelDriveEquipped>FourWheelDrive</FourWheelDriveEquipped>
+            <LFSpeed>LFSpeed</LFSpeed>
+            <LRSpeed>LRSpeed</LRSpeed>
+            <MotorMode>MotorMode</MotorMode>
+            <OverallTest>TransmissionOverallTest</OverallTest>
+            <PassButton>YesPB</PassButton>
+            <Rear>Rear</Rear>
+            <RFSpeed>RFSpeed</RFSpeed>
+            <RRSpeed>RRSpeed</RRSpeed>
+            <SpeedActive>SpeedActive</SpeedActive>
+            <SpeedTarget>SpeedTarget</SpeedTarget>
+            <SpeedValue>SpeedValue</SpeedValue>
+            <Zerospeed>ZerospeedToPLC</Zerospeed>
+        </DataTags>
+    </Setup>
+    <Objectives>
+        <FollowDriveCurve>
+            <TestStep00>FollowDriveCurve</TestStep00>
+            <TestStep10>BrakeToStop</TestStep10>
+        </FollowDriveCurve>
+        <ReverseTesting>
+            <TestStep00>AccelerateInReverse</TestStep00>
+            <TestStep10>BrakeToStop</TestStep10>
+        </ReverseTesting>
+        <FinishUp>
+            <TestStep00>FinishUp</TestStep00>
+        </FinishUp>
+    </Objectives>
+    <TestSteps>
+        <AccelerateInReverse Result="" Timeout="30000" Description="Validate Reverse gear functionality" ScanDelay="250"/>
+        <FollowDriveCurve Result="" Timeout="90000" Description="Prompt and display target speeds for desired drive curve"
+            Prompt1="ShiftToGearAndAccelerate" Prompt1Value1="Drive" Prompt1Value2=" "
+            SpeedTarget="0 5" ScanDelay="90"/>
+        <BrakeToStop Description="Prompt the driver to brake to stop" Result="" Timeout="120000" Prompt1="BrakeToStop" Prompt1Priority="0" SpeedTarget="0 0"/>
+        <FinishUp Result="Not Tested" Timeout="500" Description="Finish testing sequence"/>
+    </TestSteps>
+</ManualTransmissionConfig>

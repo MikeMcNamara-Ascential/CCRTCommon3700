@@ -1,0 +1,285 @@
+<VehicleDataServerConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <ThreadPool>
+            <Debug>Off</Debug>
+            <MinBlockedLimit>2</MinBlockedLimit>
+            <MaxBlockedLimit>4</MaxBlockedLimit>
+            <Increment>2</Increment>
+            <Maximum>50</Maximum>
+        </ThreadPool>
+        <NotificationList>
+            <Setup>
+                <Debug>Off</Debug>
+                <HighWater>3</HighWater>
+                <Increment>1</Increment>
+                <LowWater>1</LowWater>
+                <Maximum>5</Maximum>
+                <StartOnCreate>No</StartOnCreate>
+            </Setup>
+        </NotificationList>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>core/VehicleDataServer</Name>
+         <Debug>Off</Debug>
+         <Timeout>5000</Timeout>
+         <BufferSize>1024</BufferSize>
+      </Communication>
+      <Parameters>
+          <NoVinReadUpdate>1</NoVinReadUpdate>
+      </Parameters>
+      <DataTags>
+         <ABSTestSelectedFromPLC>ABSTestSelectedFromPLC</ABSTestSelectedFromPLC>
+         <BaseBrake>BaseBrake</BaseBrake>
+         <BrakeType>BrakeType</BrakeType>
+         <ABSType>ABS</ABSType>
+         <CableConnect>CableConnect</CableConnect>
+         <DefaultVehicleType>VehicleType0</DefaultVehicleType>
+         <LatestVIN>LatestVIN</LatestVIN>
+         <NextVIN>NextVIN</NextVIN>
+         <TestInProgress>TestInProgress</TestInProgress>
+         <TractionControlSelected>TractionControlSelected</TractionControlSelected>
+         <TractionEnabled>TractionEnabled</TractionEnabled>
+         <VehicleBuild>NextVehicleBuild</VehicleBuild>
+         <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
+         <VehicleType>VehicleType</VehicleType>
+         <VehicleTypeFromPLC>VehicleTypeFromPLC</VehicleTypeFromPLC>
+         <VINReadStatus>VINReadStatus</VINReadStatus>
+         <VIN>VIN</VIN>
+         <Wheelbase>Wheelbase</Wheelbase>
+         <WheelbasePosition01Selected>WheelbasePosition01Selected</WheelbasePosition01Selected>
+         <WheelbasePosition02Selected>WheelbasePosition02Selected</WheelbasePosition02Selected>
+         <WheelbasePosition03Selected>WheelbasePosition03Selected</WheelbasePosition03Selected>
+         <WheelbasePosition04Selected>WheelbasePosition04Selected</WheelbasePosition04Selected>
+         <WheelbasePosition05Selected>WheelbasePosition05Selected</WheelbasePosition05Selected>
+         <WheelbasePosition06Selected>WheelbasePosition06Selected</WheelbasePosition06Selected>
+      </DataTags>
+      <VehicleBuildDefinitions>
+         <Build00> 
+            <!-- VehicleType>Undefined</VehicleType>
+            <BrakeType>BaseBrake</BrakeType>
+            <ABSType>NotEquipped</ABSType>
+            <AllWheelDriveEquipped>No</AllWheelDriveEquipped>
+            <Booster>Tandem 8/9 Inch</Booster>
+            <Drive>RHD</Drive -->
+            <DriveAxle>Front</DriveAxle>
+            <Engine>3.3 5AT</Engine>
+            <FourWDSelected>No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC>Yes</FrontWheelDriveSelectedToPLC>
+            <!-- HeadLamp>Undefined</HeadLamp>
+            <PerformAbortTest>Perform</PerformAbortTest>
+            <RearWheelDriveToPLC>No</RearWheelDriveToPLC>
+            <SeqDate>20120800</SeqDate -->
+            <SeqNum>0000</SeqNum>
+            <!-- TireSize>P215/60 R16</TireSize>
+            <TractionEnabled>0</TractionEnabled>
+            <TransferCase>NotEquipped</TransferCase>
+            <Transmission>5 Speed Automatic</Transmission -->
+            <!-- VIN>Undefined</VIN -->
+            <!-- WheelbasePositionInchesX10>995</WheelbasePositionInchesX10 -->
+         </Build00>
+         <Build01> 
+            <VehicleType>CN</VehicleType>
+            <BrakeType>BaseBrake</BrakeType>
+            <ABSType>Mobis</ABSType>
+            <AllWheelDriveEquipped>No</AllWheelDriveEquipped>
+            <Booster>Tandem 8/9 Inch</Booster>
+            <Drive>RHD</Drive>
+            <DriveAxle>Front</DriveAxle>
+            <Engine>3.3 5AT</Engine>
+            <FourWDSelected>No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC>Yes</FrontWheelDriveSelectedToPLC>
+            <HeadLamp>Undefined</HeadLamp>
+            <PerformAbortTest>Perform</PerformAbortTest>
+            <RearWheelDriveToPLC>No</RearWheelDriveToPLC>
+            <SeqDate>20120800</SeqDate>
+            <SeqNum>1111</SeqNum>
+            <TireSize>P215/60 R16</TireSize>
+            <TractionEnabled>0</TractionEnabled>
+            <TransferCase>NotEquipped</TransferCase>
+            <Transmission>5 Speed Automatic</Transmission>
+            <!-- VIN>Undefined</VIN -->
+            <WheelbasePositionInchesX10>994</WheelbasePositionInchesX10>
+         </Build01>
+         <Build02> 
+            <VehicleType>IAA</VehicleType>
+            <BrakeType>BaseBrake</BrakeType>
+            <ABSType>NotEquipped</ABSType>
+            <AllWheelDriveEquipped>No</AllWheelDriveEquipped>
+            <Booster>Tandem 8/9 Inch</Booster>
+            <Drive>RHD</Drive>
+            <DriveAxle>Front</DriveAxle>
+            <Engine>3.3 5AT</Engine>
+            <FourWDSelected>No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC>Yes</FrontWheelDriveSelectedToPLC>
+            <HeadLamp>Undefined</HeadLamp>
+            <PerformAbortTest>Perform</PerformAbortTest>
+            <RearWheelDriveToPLC>No</RearWheelDriveToPLC>
+            <SeqDate>20120801</SeqDate>
+            <SeqNum>2222</SeqNum>
+            <TireSize>P215/60 R16</TireSize>
+            <TractionEnabled>0</TractionEnabled>
+            <TransferCase>NotEquipped</TransferCase>
+            <Transmission>5 Speed Automatic</Transmission>
+            <!-- VIN>Undefined</VIN -->
+            <WheelbasePositionInchesX10>937</WheelbasePositionInchesX10>
+         </Build02>         
+         <Build03>
+            <VehicleType>AWF</VehicleType>
+            <BrakeType>BaseBrake</BrakeType>
+            <ABSType>NotEquipped</ABSType>
+            <AllWheelDriveEquipped>No</AllWheelDriveEquipped>
+            <Booster>Tandem 8/9 Inch</Booster>
+            <Drive>LHD</Drive>
+            <DriveAxle>Front</DriveAxle>
+            <Engine>3.3 5AT</Engine>
+            <FourWDSelected>No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC>Yes</FrontWheelDriveSelectedToPLC>
+            <HeadLamp>Undefined</HeadLamp>
+            <PerformAbortTest>Perform</PerformAbortTest>
+            <RearWheelDriveToPLC>No</RearWheelDriveToPLC>
+            <SeqDate>20120802</SeqDate>
+            <SeqNum>3333</SeqNum>
+            <TireSize>P215/60 R16</TireSize>
+            <TractionEnabled>1</TractionEnabled>
+            <TransferCase>NotEquipped</TransferCase>
+            <Transmission>5 Speed Automatic</Transmission>
+            <!-- VIN>Undefined</VIN -->
+            <WheelbasePositionInchesX10>961</WheelbasePositionInchesX10>
+         </Build03>
+         <Build04>
+            <VehicleType>EWZ</VehicleType>
+            <BrakeType>BaseBrake</BrakeType>
+            <ABSType>Bosch8</ABSType>            
+            <AllWheelDriveEquipped>No</AllWheelDriveEquipped>
+            <Booster>Tandem 8/9 Inch</Booster>
+            <Drive>LHD</Drive>
+            <DriveAxle>Front</DriveAxle>
+            <Engine>3.3 5AT</Engine>
+            <FourWDSelected>No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC>Yes</FrontWheelDriveSelectedToPLC>
+            <HeadLamp>Undefined</HeadLamp>
+            <PerformAbortTest>Perform</PerformAbortTest>
+            <RearWheelDriveToPLC>No</RearWheelDriveToPLC>
+            <SeqDate>20120803</SeqDate>
+            <SeqNum>4444</SeqNum>
+            <TireSize>P215/60 R16</TireSize>
+            <TractionEnabled>1</TractionEnabled>
+            <TransferCase>NotEquipped</TransferCase>
+            <Transmission>5 Speed Automatic</Transmission>
+            <!-- VIN>Undefined</VIN -->
+            <WheelbasePositionInchesX10>1062</WheelbasePositionInchesX10>
+         </Build04>
+         <Build05>
+            <VehicleType>EVF</VehicleType>
+            <BrakeType>BaseBrake</BrakeType>
+            <ABSType>Mobis</ABSType>            
+            <AllWheelDriveEquipped>No</AllWheelDriveEquipped>
+            <Booster>Tandem 8/9 Inch</Booster>
+            <Drive>LHD</Drive>
+            <DriveAxle>Front</DriveAxle>
+            <Engine>3.3 5AT</Engine>
+            <FourWDSelected>No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC>Yes</FrontWheelDriveSelectedToPLC>
+            <HeadLamp>Undefined</HeadLamp>
+            <PerformAbortTest>Perform</PerformAbortTest>
+            <RearWheelDriveToPLC>No</RearWheelDriveToPLC>
+            <SeqDate>20120804</SeqDate>
+            <SeqNum>5555</SeqNum>
+            <TireSize>P215/60 R16</TireSize>
+            <TractionEnabled>1</TractionEnabled>
+            <TransferCase>NotEquipped</TransferCase>
+            <Transmission>4WD</Transmission>
+            <!-- VIN>Undefined</VIN -->
+            <WheelbasePositionInchesX10>1063</WheelbasePositionInchesX10>
+         </Build05>
+         <Build06>
+            <VehicleType>EZF</VehicleType>
+            <BrakeType>BaseBrake</BrakeType>
+            <ABSType>Mobis</ABSType>
+            <AllWheelDriveEquipped>No</AllWheelDriveEquipped>
+            <Booster>Tandem 8/9 Inch</Booster>
+            <Drive>LHD</Drive>
+            <DriveAxle>Front</DriveAxle>
+            <Engine>3.3 5AT</Engine>
+            <FourWDSelected>No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC>Yes</FrontWheelDriveSelectedToPLC>
+            <HeadLamp>Undefined</HeadLamp>
+            <PerformAbortTest>Perform</PerformAbortTest>
+            <RearWheelDriveToPLC>No</RearWheelDriveToPLC>
+            <SeqDate>20120805</SeqDate>
+            <SeqNum>6666</SeqNum>
+            <TireSize>P215/60 R16</TireSize>
+            <TractionEnabled>1</TractionEnabled>
+            <TransferCase>NotEquipped</TransferCase>
+            <Transmission>5 Speed Automatic</Transmission>
+            <!-- VIN>Undefined</VIN -->
+            <WheelbasePositionInchesX10>1064</WheelbasePositionInchesX10>
+         </Build06>
+         <Build07>
+            <VehicleType>AWF</VehicleType>
+            <BrakeType>BaseBrake</BrakeType>
+            <ABSType>Bosch8</ABSType>            
+            <AllWheelDriveEquipped>No</AllWheelDriveEquipped>
+            <Booster>Tandem 8/9 Inch</Booster>
+            <Drive>LHD</Drive>
+            <DriveAxle>Front</DriveAxle>
+            <Engine>3.3 5AT</Engine>
+            <FourWDSelected>No</FourWDSelected>
+            <FrontWheelDriveSelectedToPLC>Yes</FrontWheelDriveSelectedToPLC>
+            <HeadLamp>Undefined</HeadLamp>
+            <PerformAbortTest>Perform</PerformAbortTest>
+            <RearWheelDriveToPLC>No</RearWheelDriveToPLC>
+            <SeqDate>20120806</SeqDate>
+            <SeqNum>7777</SeqNum>
+            <TireSize>P215/60 R16</TireSize>
+            <TractionEnabled>1</TractionEnabled>
+            <TransferCase>NotEquipped</TransferCase>
+            <Transmission>5 Speed Automatic</Transmission>
+            <!-- VIN>Undefined</VIN -->
+            <WheelbasePositionInchesX10>1065</WheelbasePositionInchesX10>
+         </Build07>
+      </VehicleBuildDefinitions>
+        <TagList>
+         <SubscribeTags>
+            <NextVIN/>
+            <TestInProgress/>
+            <WheelbasePosition01Selected/>
+            <WheelbasePosition02Selected/>
+            <WheelbasePosition03Selected/>
+            <WheelbasePosition04Selected/>
+            <WheelbasePosition05Selected/>
+            <WheelbasePosition06Selected/>
+            <ABSTestSelectedFromPLC/>
+            <TractionControlSelected/>
+            <CableConnect/>
+            <VehicleTypeFromPLC/>
+         </SubscribeTags>
+            <PublishTags>
+            <LatestVIN/>
+            <NextVehicleBuild/>
+            <TractionEnabled/>
+            <BrakeType/>
+            <Wheelbase/>
+            <VehicleType/>
+            </PublishTags>
+        </TagList>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/VehicleDataServer</ProcessName>
+         <AdditionalLogFile Types="/Servers/VehicleDataServer.Log">/Servers/VehicleDataServer.Log</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+         <Debug>Off</Debug>
+      </Logging>
+      <VinServerComm>
+         <Comm>IPC</Comm>
+         <Type>Client</Type>
+         <Name>core/VehicleDataServer</Name>
+         <Debug>Off</Debug>
+         <Timeout>1000</Timeout>
+         <BufferSize>1024</BufferSize>
+      </VinServerComm>
+    </Setup>
+</VehicleDataServerConfig>

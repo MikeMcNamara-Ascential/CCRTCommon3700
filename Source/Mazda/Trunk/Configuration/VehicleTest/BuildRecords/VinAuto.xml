@@ -1,0 +1,10 @@
+<Camry>
+    <VehicleBuild>
+        <!-- Vehicle Data -->
+        <BodyStyle>Camry</BodyStyle>
+        <WheelbasePositionInchesX10 Units="mm">2700</WheelbasePositionInchesX10>
+        <DriveAxle>Front</DriveAxle>
+        <Transmission>Automatic</Transmission>
+        <VIN/>
+    </VehicleBuild>
+</Camry>

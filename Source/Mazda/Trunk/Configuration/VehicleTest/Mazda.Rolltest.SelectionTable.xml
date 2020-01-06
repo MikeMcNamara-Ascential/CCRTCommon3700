@@ -1,0 +1,11 @@
+<SelectionTable Description="Mazda drive curve selection table">
+
+    <Automatic DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestAutoDriveCurve.xml">
+        <Transmission>Automatic</Transmission>
+    </Automatic>
+
+    <Manual DriveCurve="/Configuration/VehicleTest/DriveCurves/RollTestManualDriveCurve.xml">
+        <Transmission>Manual</Transmission>
+    </Manual>
+
+</SelectionTable>

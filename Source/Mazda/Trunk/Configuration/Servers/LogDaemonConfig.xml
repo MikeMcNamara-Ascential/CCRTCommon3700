@@ -1,0 +1,70 @@
+<Logger_Configuration>
+    <Setup>
+        <!-- Activate debugging in LogDaemon [On|Off] -->
+        <Debug>Off</Debug>
+        <!-- Path for log files (relative to "$FTP_ROOT" -->
+        <Path>/Logs</Path>
+        <!-- Core log file, before tests begin -->
+        <StartFile>StartLog</StartFile>
+        <!-- 
+           Max size of StartLog files (in MB).  Once StartLog exceeds 
+             this size, it will be rotated.  
+             Use "0" to disable StartLog rotation.
+        -->
+        <StartFileMaxSize>50</StartFileMaxSize>
+        <!-- Max number of files for StartLog rotation -->
+        <StartFileMaxFiles>10</StartFileMaxFiles>
+        <!-- Core log file base name, once tests have begun -->
+        <StandardFile>TestLog</StandardFile>
+        <!-- 
+          Max size of standard logs (in MB).  Once size is exceeded, 
+            the file will be "capped".  Core log output is then 
+            suppressed until the next test begins, and a new standard
+            core log file is opened.
+
+            Enter "0" here to disable capping.
+        -->
+        <StandardFileMaxSize>200</StandardFileMaxSize>
+        <!-- 
+          Max number of old standard core log files to keep around.
+            (At any given time after reaching max, you'll have n+1 log files,
+             including the current core log file.)
+        -->
+      <StandardFileMaxFiles>25</StandardFileMaxFiles>
+        <!-- 
+                Priproty of the thread which listens for 
+                  incoming messages.
+              -->
+        <ReceiverPriority>10</ReceiverPriority>
+        <!-- 
+          Priority of the LogRotator thread 
+        -->
+        <LogRotatorPriority>10</LogRotatorPriority>
+        <!-- 
+          LogRotator wake-up period (in seconds) 
+    -->
+        <LogRotatorPeriod>10</LogRotatorPeriod>
+        <!-- 
+          Default priority of the LogWriter thread 
+        -->
+        <LogWriterPriority>20</LogWriterPriority>
+        <!-- 
+          Maximum size of the log message queue.  Eg, "1000" means
+            the queue will not hold more than 1000 messages at a time.
+        -->
+        <MessageQueueSize>200000</MessageQueueSize>
+        <!-- 
+        FIXME: Logging configuration for privileged logger object(s)
+                inside LogDaemon
+
+		ARE THESE OPTIONS SUPPORTED???
+            -->
+        <!--       <Logging> -->
+        <!--          <ProcessName>mgr/Log</ProcessName> -->
+        <!--          <Status>Enabled</Status> -->
+        <!--          <LocalEcho>Disabled</LocalEcho> -->
+        <!--          <Verbose>0x1F</Verbose> -->
+        <!--          <Debug>On</Debug> -->
+        <!--       </Logging> -->
+    </Setup>
+</Logger_Configuration>

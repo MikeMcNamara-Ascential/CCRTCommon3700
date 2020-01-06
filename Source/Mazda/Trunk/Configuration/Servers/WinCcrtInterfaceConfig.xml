@@ -1,0 +1,71 @@
+<WinCcrtInterfaceConfig>
+    <Setup>
+        <Debug>Off</Debug>
+        <Communication>
+           <Comm>IPC</Comm>
+           <Debug>Off</Debug>
+           <Name>core/WinCcrtInterface</Name>
+           <BufferSize>4000</BufferSize>
+           <Timeout>2000</Timeout>
+           <Type>Server</Type>
+        </Communication>
+        <DataTags/>
+        <Logging>
+           <Status>Enabled</Status>
+           <ProcessName>core/WinCcrtInterface</ProcessName>
+           <AdditionalLogFile>/Servers/WinCcrtInterface.log</AdditionalLogFile>
+           <LocalEcho>Disabled</LocalEcho>
+           <Verbose>0x1F</Verbose>
+           <Debug>Off</Debug>
+        </Logging>
+        <TagList>
+           <SubscribeTags>
+               <TestType/>
+           </SubscribeTags>
+        </TagList>
+        <ThreadPool>
+           <Debug>Off</Debug>
+           <Increment>2</Increment>
+           <MaxBlockedLimit>7</MaxBlockedLimit>
+           <Maximum>10</Maximum>
+           <MinBlockedLimit>2</MinBlockedLimit>
+        </ThreadPool>
+        <NotificationList>
+           <Setup>
+              <Debug>Off</Debug>
+              <HighWater>3</HighWater>
+              <Increment>1</Increment>
+              <LowWater>1</LowWater>
+              <Maximum>5</Maximum>
+              <StartOnCreate>No</StartOnCreate>
+              <ResponseTimeout>2000</ResponseTimeout>
+           </Setup>
+        </NotificationList>
+
+        <WinCcrtCommunication>
+            <Setup>
+                <Communication>
+                    <Name>/dev/LogicalPorts/WinCcrt</Name>
+                    <BufferSize>2000</BufferSize>
+                    <Timeout>4000</Timeout>
+                    <Debug>Off</Debug>
+                </Communication>
+                <Logging>
+                    <ProcessName>WinCcrtCommunicationInterface</ProcessName>
+                    <Status>Enabled</Status>
+                    <AdditionalLogFile>/Servers/WinCcrtCommunication.log</AdditionalLogFile>
+                    <Debug>Off</Debug>
+                    <LocalEcho>Disabled</LocalEcho>
+                    <Verbose>0x35</Verbose>
+                </Logging>
+                <MaxAttempts>1</MaxAttempts>
+                <MaxResponseTime>1000</MaxResponseTime>
+                <MessageDelay>1000</MessageDelay>
+            </Setup>
+        </WinCcrtCommunication>
+
+        <MessageCheckDelay Units="ms">500</MessageCheckDelay>
+        <MessageReadPortInitDelay Units="ms">1000</MessageReadPortInitDelay>
+        <MessageReadPortEndDelay Units="ms">0</MessageReadPortEndDelay>
+    </Setup>
+</WinCcrtInterfaceConfig>

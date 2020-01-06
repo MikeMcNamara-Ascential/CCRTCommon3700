@@ -1,0 +1,140 @@
+<PlantHostInbound>
+   <Setup>
+      <Debug>Off</Debug>
+      <InputServer>core/InputServer</InputServer>
+      <Communication>
+         <Type>Server</Type>
+         <Debug>Off</Debug>
+         <Name>core/PlantHostInbound</Name>
+         <Comm>IPC</Comm>
+         <Timeout>1000</Timeout>
+         <BufferSize>2000</BufferSize>
+      </Communication>
+      <BuildDataTags>
+         <BuildItem00 BuildTag="VIN">NextVIN</BuildItem00>
+         <BuildItem01 BuildTag="AON">Aon</BuildItem01>
+         <BuildItem02 BuildTag="BodyStyle">VehicleTypeFromPLC</BuildItem02>
+         <BuildItem03 BuildTag="PerformRlsTest">RlsEquipped</BuildItem03>
+         <BuildItem04 BuildTag="Transmission">AutomaticTransmission</BuildItem04>
+         <BuildItem05 BuildTag="BrakeType" Original="ABSTestSelectedFromPLC" CarlineTag1="CarlineSelectedFromPLC_2To1" CarlineTag2="CarlineSelectedFromPLC_0ToNone">ABSTypeSelectedFromPLC</BuildItem05>
+         <!-- BuildItem06 BuildTag="BrakeBoosterUnit" AltBuildTag="SwapTestSelect">SwapTestSelectedFromPLC</BuildItem06 -->
+      </BuildDataTags>
+      <BrakeTypeSelect>
+         <Carline_XDM>
+            <!-- <Type_7 ToPLC="2">DSC</Type_7> will be DSC later-->
+            <Type_7 ToPLC="2">DSC</Type_7>
+            <Type_A ToPLC="3">EBBU</Type_A>
+            <Type_B ToPLC="3">EBBU</Type_B>
+            <Type_C ToPLC="3">EBBU</Type_C>
+            <Type_D ToPLC="3">EBBU</Type_D>
+         </Carline_XDM>
+         <Carline_XBP>
+            <Type_F ToPLC="2">DSC</Type_F>
+            <Type_G ToPLC="2">DSC</Type_G>
+         </Carline_XBP>
+         <Carline_XDJ>
+            <Type_B ToPLC="2">DSC</Type_B>
+            <Type_D ToPLC="2">DSC</Type_D>
+            <Type_H ToPLC="2">DSC</Type_H>
+            <Type_6 ToPLC="2">DSC</Type_6>
+            <Type_7 ToPLC="2">DSC</Type_7>
+            <Type_9 ToPLC="2">DSC</Type_9>
+            <Type_A ToPLC="2">DSC</Type_A>
+            <Type_C ToPLC="2">DSC</Type_C>
+            <Type_L ToPLC="2">DSC</Type_L>
+            <Type_M ToPLC="2">DSC</Type_M>
+            <Type_Q ToPLC="2">DSC</Type_Q>
+         </Carline_XDJ>
+         <Carline_XDL>
+            <Type_D ToPLC="2">DSC</Type_D>
+            <Type_H ToPLC="2">DSC</Type_H>
+            <Type_7 ToPLC="2">DSC</Type_7>
+            <Type_8 ToPLC="2">DSC</Type_8>
+            <Type_9 ToPLC="2">DSC</Type_9>
+         </Carline_XDL>
+         <Carline_XBM>
+            <Type_A ToPLC="2">DSC</Type_A>
+            <Type_B ToPLC="2">DSC</Type_B>
+         </Carline_XBM>
+         <Carline_YYY>
+            <Type_A ToPLC="2">DSC</Type_A>
+            <Type_B ToPLC="2">DSC</Type_B>
+         </Carline_YYY>
+      </BrakeTypeSelect>
+      <DataTags>
+         <AonTag>Aon</AonTag>
+         <BuildDataError>BuildDataError</BuildDataError>
+         <BuildRecord>BuildRecord</BuildRecord>
+         <InputServerState>InputServerState</InputServerState>
+         <NextVIN>NextVIN</NextVIN>
+         <PlanthostOutboundName>core/PlantHostOutbound</PlanthostOutboundName>
+         <RetrieveBuildDataTag>RetrieveBuildData</RetrieveBuildDataTag>
+         <RollsDownElevUp>RollsDownElevUp</RollsDownElevUp>
+         <VehicleBuild>NextVehicleBuild</VehicleBuild>
+         <VehicleBuildError>VehicleBuildDataNg</VehicleBuildError>
+         <VehicleBuildOk>VehicleBuildDataOk</VehicleBuildOk>
+         <VehicleBuildRecordStatus>VehicleBuildRecordStatus</VehicleBuildRecordStatus>
+         <VehiclePresent>VehiclePresent</VehiclePresent>
+         <VehicleType>VehicleType</VehicleType>
+         <Vin>VIN</Vin>
+         <VINDisplay>VINDisplay</VINDisplay>
+         <VinModelYearDigit>9</VinModelYearDigit>
+         <VINReadStatus>VINReadStatus</VINReadStatus>
+         <WheelbasePositionTag>WheelbasePositionInchesX10</WheelbasePositionTag>
+         <AllWheelDriveEquipped>
+            <AWD>Yes</AWD>
+         </AllWheelDriveEquipped>
+         <FourWheelDriveEquipped>
+            <Undefined>No</Undefined>
+            <NotEquipped>No</NotEquipped>
+            <AWD>No</AWD>
+         </FourWheelDriveEquipped>
+      </DataTags>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>core/PlantHostInbound</ProcessName>
+         <AdditionalLogFile Type="/Servers/PlantHostInbound.log or Disabled">/Servers/PlantHostInbound.log</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+         <Debug>Off</Debug>
+      </Logging>
+      <TagList>
+         <SubscribeTags>
+            <RollsDownElevUp/>
+            <VehicleBuildDataNg/>
+            <VehicleBuildDataOk/>
+            <VehiclePresent/>
+         </SubscribeTags>
+         <PublishTags>
+            <Aon/>
+            <BuildRecord/>
+            <StopCurrentTest>0</StopCurrentTest>
+            <VehicleBuildRecordStatus/>
+         </PublishTags>
+      </TagList>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>7</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>10</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
+            <Debug>Off</Debug>
+            <HighWater>3</HighWater>
+            <Increment>1</Increment>
+            <LowWater>1</LowWater>
+            <Maximum>5</Maximum>
+            <StartOnCreate>No</StartOnCreate>
+         </Setup>
+      </NotificationList>
+      <InvalidateBuildRecordOnRead>False</InvalidateBuildRecordOnRead>
+      <VehicleBuildFilePath>/Configuration/VehicleTest/BuildRecords/</VehicleBuildFilePath>
+      <VehicleBuildRecordSource Type="File, Broadcast, None">Broadcast</VehicleBuildRecordSource>
+      <VehicleBuildFileVinStart>0</VehicleBuildFileVinStart>
+      <VehicleBuildFileVinLength>-1</VehicleBuildFileVinLength>
+      <WheelbaseConfigFile>/Configuration/Servers/WheelbaseConfig.xml</WheelbaseConfigFile>
+   </Setup>
+   <VehicleConvert/>
+</PlantHostInbound>

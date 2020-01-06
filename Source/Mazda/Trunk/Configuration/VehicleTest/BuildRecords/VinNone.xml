@@ -1,0 +1,10 @@
+<None>
+   <VehicleBuild>
+      <BodyStyle>Blank</BodyStyle>
+      <Wheelbase Units="mm">0</Wheelbase>
+      <DriveAxle>Rear</DriveAxle>
+      <SpeedometerSpeedTargetLow Units="mph">0</SpeedometerSpeedTargetLow>
+      <SpeedometerSpeedTargetHi Units="mph">0</SpeedometerSpeedTargetHi>
+      <VIN/>
+   </VehicleBuild>
+</None>

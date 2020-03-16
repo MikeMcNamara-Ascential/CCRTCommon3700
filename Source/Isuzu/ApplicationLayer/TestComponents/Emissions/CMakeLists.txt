@@ -8,7 +8,11 @@ SET(EXE_NAME IsuzuEmissionsTC)
 # Define the name of executable we will create
 #------------------------------------------------------------------------------------------
 SET(PIMEXE_NAME IsuzuPIMTC)
-
+#******************************************************************************************
+#------------------------------------------------------------------------------------------
+# Define the name of executable we will create
+#------------------------------------------------------------------------------------------
+SET(CFEXE_NAME IsuzuClearFaultsTC)
 #------------------------------------------------------------------------------------------
 # Define the default file where our QNX use message is located
 #------------------------------------------------------------------------------------------
@@ -36,12 +40,16 @@ CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp)
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
 CREATE_QXE(${PIMEXE_NAME} ${PIMEXE_NAME}Main.cpp)
-
+#------------------------------------------------------------------------------------------
+# Tell CMake what source file to build
+#------------------------------------------------------------------------------------------
+CREATE_QXE(${PIMEXE_NAME} ${CFEXE_NAME}Main.cpp)
 #------------------------------------------------------------------------------------------
 # Tell CMake where to install the executable
 #------------------------------------------------------------------------------------------
 INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${EXE_NAME})
 INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${PIMEXE_NAME})
+INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${CFEXE_NAME})
 
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into

@@ -3720,7 +3720,7 @@ string IsuzuEmissionsTc<ModuleType>::EngineOffBeforeMAFClear(void)
 }
 
 //-----------------------------------------------------------------------------
-template <class ModuleType>
+\template <class ModuleType>
 string IsuzuEmissionsTc<ModuleType>::ReadFaultsPostMECLock(void)
 {
     string testResult = BEP_TESTING_STATUS;
@@ -3733,6 +3733,17 @@ string IsuzuEmissionsTc<ModuleType>::ReadFaultsPostMECLock(void)
     Log(LOG_FN_ENTRY, "Enter IsuzuEmissionsTc::ReadFaultsPostMECLock()\n");
     if (!ShortCircuitTestStep())
     {   // Do not need to skip this step
+        bool isLocked = true;
+        // Attempt to read the locked status from the module
+        try
+        {   // Read the locked status from the module
+            m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
+        }
+        catch (ModuleException &exception)
+        {   // Exception reading data
+            Log(LOG_ERRORS, "Module exception in LockModuleIfPass() while reading IsModuleLocked - %s\n", exception.message().c_str());
+            isLocked = true;
+        }
         try
         {   // Try to read the module faults
             moduleStatus = m_vehicleModule.ReadFaults(moduleFaults);
@@ -3874,7 +3885,8 @@ std::string IsuzuEmissionsTc<ModuleType>::GetFaultFailureStatusMaskPostMEC(const
     catch(...)
     {
         Log(LOG_DEV_DATA, "No PostMEC mask found for fault %s, using the Failure Status Mask.",fault.c_str());
-        failureStatusMask = GetFaultFailureStatusMask(fault);
+        //failureStatusMask = GetFaultFailureStatusMask(fault);
+        failureStatusMask = "0x00";
     }
 
     return(failureStatusMask);

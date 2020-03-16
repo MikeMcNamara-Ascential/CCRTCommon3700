@@ -47,6 +47,8 @@ public:
 
     virtual string BrakeApplySensorLearn(void);
 
+    virtual string UnlockPIM(void);
+
 
 
 protected:

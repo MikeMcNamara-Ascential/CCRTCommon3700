@@ -42,6 +42,7 @@ const string IsuzuPIMTc<ModuleType>::CommandTestStep(const string &value)
                 Log(LOG_DEV_DATA, "Running test step %s\n", GetTestStepName().c_str());
                 if(!GetTestStepName().compare("ClearFaultsFinal")) testResult = ClearFaults();
                 else if(!GetTestStepName().compare("BASLearn")) testResult = BrakeApplySensorLearn();
+                else if(!GetTestStepName().compare("UnlockPIM")) testResult = UnlockPIM();
                 // No specific method, try the base class
                 else testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
             }
@@ -220,4 +221,83 @@ string IsuzuPIMTc<ModuleType>::BrakeApplySensorLearn(){
     return testResult;
 }
 
+//-----------------------------------------------------------------------------
+template <class ModuleType>
+string IsuzuPIMTc<ModuleType>::UnlockPIM(){
 
+    Log(LOG_FN_ENTRY, "IsuzuPIMTc::UnlockPIM() - Enter");
+    string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    //BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+    if(!ShortCircuitTestStep())
+    {
+
+        UINT32 Key = 0x0000;
+        UINT32 seed = 0x0000;
+        try
+        {  
+            //Send The Tester Present to the Module
+            m_vehicleModule.CommandModule("ModuleKeepAlive");
+            BposSleep(500);
+            // Read the security seed from the module
+            if (m_vehicleModule.ReadModuleData("ReadSeed", seed) == BEP_STATUS_SUCCESS) {
+
+                Log(LOG_DEV_DATA,"Read Security Seed: 0x%X",seed);
+                Key = 0x1611 - seed;
+                Log(LOG_DEV_DATA,"Calcuated Key: 0x%X",Key);
+                
+                //Key is now calculated.  Get ready to send it!
+                union _keyData
+                {
+                    UINT32 fullKey;
+                    struct
+                    {
+                        UINT8 key_0;
+                        UINT8 key_1;
+                        UINT8 key_2;
+                        UINT8 key_3;
+                    } keyChars;
+                } keyData;
+                keyData.keyChars.key_0 = (Key & 0x000000FF);
+        		keyData.keyChars.key_1 = ((Key & 0x0000FF00) >> 8);
+        		keyData.keyChars.key_2 = ((Key & 0x00FF0000) >> 16);
+        		keyData.keyChars.key_3 = ((Key & 0xFF000000) >> 24);
+        		keyData.fullKey = Key;
+        		Log(LOG_DEV_DATA, "Calcualted key: 0x%08X  ($%02X $%02X $%02X $%02X)", keyData.fullKey, keyData.keyChars.key_3, keyData.keyChars.key_2, keyData.keyChars.key_1, keyData.keyChars.key_0);
+
+
+                SerialArgs_t keyArgs;
+        		//keyArgs.push_back(keyData.keyChars.key_3);
+        		//keyArgs.push_back(keyData.keyChars.key_2);
+        		keyArgs.push_back(keyData.keyChars.key_1);
+        		keyArgs.push_back(keyData.keyChars.key_0);
+
+        		// Write the key to the module
+        		 if(m_vehicleModule.CommandModule("UnlockSecurity", &keyArgs) == BEP_STATUS_SUCCESS){
+                    Log(LOG_FN_ENTRY, "PIM Unlocked.");
+                    testResult = testPass;
+                 } 
+                 else 
+                 {
+                    Log(LOG_FN_ENTRY, "Key Not Correct, PIM not Unlocked.");
+                    testResult = testFail;
+                 }
+            }
+            else
+            {
+                Log(LOG_FN_ENTRY, "Error reading the Security Seed from the Module.");
+                testResult = testFail;
+            }
+
+        }
+        catch (ModuleException &exception)
+        {   // Exception reading data
+            Log(LOG_ERRORS, "Module exception in UnlockPIM() while reading security seed - %s\n", exception.message().c_str());
+            seed = 0x0000;
+            testResult = testFail;
+        }
+    }
+    Log(LOG_FN_ENTRY, "IsuzuPIMTc::UnlockPIM() - Exit");
+    return testResult;
+}

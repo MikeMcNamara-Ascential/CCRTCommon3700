@@ -2215,7 +2215,7 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		} while(TimeRemaining() && (BEP_STATUS_SUCCESS == StatusCheck()) && !rollersAtSpeed);
 		if(rollersAtSpeed)
 		{   // Verify the sensor readings are within tolerance
-            Log(LOG_DEV_DATA,"Blargity Steady Speed Check %s",reportAxle.c_str());
+            Log(LOG_DEV_DATA,"Steady Speed Check %s",reportAxle.c_str());
 			WaitForSingleAxleSteadySpeed(GetParameterInt("WSSSteadySpeedSamples"), 
                                    GetParameterInt("WSSSteadySpeedTimeout"),
                                    GetParameterFloat("WSSMinSteadyWheelSpeed"), 
@@ -2324,8 +2324,8 @@ string Bosch8TC<ModuleType>::TwoMotorWheelSpeedSensorTest(string axle)
 		m_MotorController.Write(rightTag, string("0"), true);
 		RemovePrompt(GetPromptBox("ShiftToNeutral"), GetPrompt("ShiftToNeutral"), GetPromptPriority("ShiftToNeutral"));
 		RemovePrompt(GetPromptBox("FootOffBrake"), GetPrompt("FootOffBrake"), GetPromptPriority("FootOffBrake"));
-		CheckZeroSpeed();
-		EngageMachine();
+		//CheckZeroSpeed();
+		//EngageMachine();
 		SystemWrite(DRIVE_AXLE_TAG, orgDriveAxle);
         if (result != testPass || !m_WSSResult)
         {

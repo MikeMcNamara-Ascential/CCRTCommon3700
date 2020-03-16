@@ -1655,7 +1655,8 @@ INT32 BaseBrakeTool::Drag(INT32 &dragStart, INT32 &dragEnd)
         // set the drag End based on the number of samples to take
         dragEnd = dragStart + dragSamples;
         // ensure that all of the samples are taken (samples * 20mS)
-        BposSleep(dragSamples * 20);
+        //Changed to 25 to support the nano ICM Ethernet Delay
+        BposSleep(dragSamples * 25);
         // if the test timed out
         if(!m_component->TimeRemaining())   testStatus =  BEP_STATUS_TIMEOUT;
     }

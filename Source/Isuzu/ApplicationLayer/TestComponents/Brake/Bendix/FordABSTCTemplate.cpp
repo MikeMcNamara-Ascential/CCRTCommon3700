@@ -3814,7 +3814,8 @@ INT32 FordABSTCTemplate<ModuleType>::DynamicParkBrake(INT32 &brakeStart, INT32 &
                 }
    
                 //MAM 10/3/08 - check every 20 ms - same as VME
-                if (brakeEnd == 0)    BposSleep(20);
+                //JDL 02/28/20 - check every 25 ms - added delay for Nano ICM
+                if (brakeEnd == 0)    BposSleep(25);
     
     
                 // Make sure brakes are not being applied
@@ -3978,7 +3979,11 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
         for (; roller<rollerCount; roller++)
         {
             // calculate the average forces and validate the results
-            const DATAARRAY &forceArray = wheelForceArray[roller];
+            int tempRoller = roller;
+            if (GetParameterBool("IgnoreSingleAxleForParkBrakeTest") && roller>1)
+                tempRoller -=2;
+
+            const DATAARRAY &forceArray = wheelForceArray[tempRoller];
             if ( forceArray.size() > 0)
             {
                 force = 0;
@@ -3989,8 +3994,13 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
                         force = *itr;
                 }
                 Log(LOG_DEV_DATA, "FordABSTCTemplate::AnalyzeParkBrakeForces() - step1: Max Force Value - %.2f\n", force);
-                                                             
-                testStatus = ValidateParkBrakeForce(roller, force);
+                
+                if (GetParameterBool("IgnoreSingleAxleForParkBrakeTest") && roller>1) {
+                    testStatus = ValidateParkBrakeForce(roller, force);
+                    Log(LOG_DEV_DATA, "Reading Front Axle Forces for rear because Single Axle with new Nano ICM");
+                }
+                else
+                    testStatus = ValidateParkBrakeForce(roller, force);
 
                 string color = "white";
                 if (testStatus == BEP_STATUS_SUCCESS)
@@ -4001,9 +4011,17 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
                 {
                     color = "Red";
                 }
-                Log(LOG_DEV_DATA,"Writing Park Brake to GUI:: Force: %f, color: %s, roller: %d, name: %s", force, color.c_str(), roller, rollerName[roller].c_str());
-                SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceValue"), force);
-                SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceBGColor"), color);
+                if (GetParameterBool("IgnoreSingleAxleForParkBrakeTest") && roller>1) {
+                    Log(LOG_DEV_DATA, "Reading Front Axle Forces for rear because Single Axle with new Nano ICM");
+                    Log(LOG_DEV_DATA,"Writing Park Brake to GUI:: Force: %f, color: %s, roller: %d, name: %s", force, color.c_str(), roller, rollerName[roller].c_str());
+                    SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceValue"), force);
+                    SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceBGColor"), color);
+                }
+                else{
+                    Log(LOG_DEV_DATA,"Writing Park Brake to GUI:: Force: %f, color: %s, roller: %d, name: %s", force, color.c_str(), roller, rollerName[roller].c_str());
+                    SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceValue"), force);
+                    SystemWrite(GetDataTag(rollerName[roller] + "ParkBrakeForceBGColor"), color);
+                }
             }
             else
             {    // if there is a problem averaging the forces display -1
@@ -4020,8 +4038,12 @@ INT32 FordABSTCTemplate<ModuleType>::AnalyzeParkBrakeForces(INT32 brakeStart, IN
 
             Log(LOG_DEV_DATA, "FordABSTCTemplate::AnalyzeParkBrakeForces() - step2\n");
             // Set the fault codes and descriptions
-            const std::string faultTag(rollerName[roller]+"ParkBrakeForceFault");
-            const std::string testResultTag(rollerName[roller] + "ParkBrakeForceTest");
+            int temproller = roller;
+            if (GetParameterBool("IgnoreSingleAxleForParkBrakeTest") && roller>1) {
+                temproller -= 2;
+            }
+            const std::string faultTag(rollerName[temproller]+"ParkBrakeForceFault");
+            const std::string testResultTag(rollerName[temproller] + "ParkBrakeForceTest");
             if ( BEP_STATUS_SUCCESS == testStatus)
             {
                 faultCode = "0000";

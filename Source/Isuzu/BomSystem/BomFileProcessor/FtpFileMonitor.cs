@@ -177,7 +177,7 @@ namespace FtpFileMonitorNamespace
                 }
                 catch (Exception e)
                 {//Error remote dir gone before transfer complete
-                    //m_logger.Log("ERROR:    FileMonitor::Error during File update Process " + e.ToString());
+                    m_logger.Log("ERROR:    FileMonitor:: " + e.ToString());
                 }
                 Thread.Sleep(m_fileCheckInterval);
             }
@@ -593,6 +593,7 @@ namespace FtpFileMonitorNamespace
                 {
                     if (overallSuccess)
                     {
+                        m_logger.Log("INFO:  Transferring: " + fileName + " to " + m_remoteLocations[currentLocal - 1]);
                         bool success = true;
 
                         fileNumber++;
@@ -721,6 +722,7 @@ namespace FtpFileMonitorNamespace
                                         //if final transfer and successfull
                                         if (currentLocal == totalRemoteLocations && success)
                                         {
+                                            m_logger.Log("INFO:  Deleting: " + fileName);
                                             System.IO.File.Delete(fileName);
                                         }
                                     }

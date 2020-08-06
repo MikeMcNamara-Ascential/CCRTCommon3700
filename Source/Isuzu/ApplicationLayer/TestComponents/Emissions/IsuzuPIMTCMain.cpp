@@ -20,7 +20,10 @@
 #include "IsuzuPIMTc.cpp"
 #include "GenericEmissionsModuleTemplate.cpp"
 #include "KwpCanProtocolFilter.h"
+#include "DcxCANKeyword2000ProtocolFilter.h"
+#include "FiatCANKeyword2000ProtocolFilter.h"
 #include "CmdLineProcessor.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -40,6 +43,14 @@ int main(int argc, char *argv[])
 		if (commProtocol == "KeywordProtocol2000") 
 		{
 			emissionsTest = new IsuzuPIMTc<GenericEmissionsModuleTemplate<KwpCanProtocolFilter> >();
+		}
+        else if (commProtocol == "DcxCANKeyword2000") 
+		{
+			emissionsTest = new IsuzuPIMTc<GenericEmissionsModuleTemplate<DcxCANKeyword2000ProtocolFilter> >();
+		}
+        else if (commProtocol == "FiatCANKeyword2000ProtocolFilter") 
+		{
+			emissionsTest = new IsuzuPIMTc<GenericEmissionsModuleTemplate<FiatCANKeyword2000ProtocolFilter> >();
 		}
 		else
 		{   // Unknown protocol type

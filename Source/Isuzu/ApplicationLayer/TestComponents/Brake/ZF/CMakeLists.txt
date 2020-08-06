@@ -1,57 +1,46 @@
-#******************************************************************************************
+#------------------------------------------------------------------------------------------
+# Define the root of the Brake Test Component source tree
+#------------------------------------------------------------------------------------------
+#SET(ADVICS_BRAKE_COMP_ROOT ${CUSTOMER_BRAKE_COMP_ROOT}/ZF)
+
 #------------------------------------------------------------------------------------------
 # Define the name of executable we will create
 #------------------------------------------------------------------------------------------
-SET(EXE_NAME IsuzuEmissionsTC)
-#******************************************************************************************
-#------------------------------------------------------------------------------------------
-# Define the name of executable we will create
-#------------------------------------------------------------------------------------------
-SET(PIMEXE_NAME IsuzuPIMTC)
-#******************************************************************************************
-#------------------------------------------------------------------------------------------
-# Define the name of executable we will create
-#------------------------------------------------------------------------------------------
-SET(CFEXE_NAME IsuzuClearFaultsTC)
+SET(EXE_NAME ZFABSTC)
+
 #------------------------------------------------------------------------------------------
 # Define the default file where our QNX use message is located
 #------------------------------------------------------------------------------------------
 SET(USE_FILE_NAME ${CMAKE_CURRENT_SOURCE_DIR}/${EXE_NAME}Main.cpp)
 
 #------------------------------------------------------------------------------------------
-# Tell the compiler where to find the module interface files
+# Where is the core protocol filter library located
 #------------------------------------------------------------------------------------------
-INCLUDE_DIRECTORIES(${CORE_MODULES_INC_PATH} 
-		    ${CORE_ECU_TC_INC_PATH} 
-		    ${CORE_PROTOCOLS_INC_PATH}
-		    ${ISUZU_ENGINE_MODULE_INC_PATH}
-		    )
-
-
-LINK_DIRECTORIES(${CORE_MODULES_LIB_PATH} ${CORE_PROTOCOLS_LIB_PATH} ${CORE_ECU_TC_LIB_PATH})
-
-LINK_LIBRARIES(moduleinterfaces protocolfilters emissioncomponent)
-
-#------------------------------------------------------------------------------------------
-# Tell CMake what source file to build
-#------------------------------------------------------------------------------------------
-CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp)
-#------------------------------------------------------------------------------------------
-# Tell CMake what source file to build
-#------------------------------------------------------------------------------------------
-CREATE_QXE(${PIMEXE_NAME} ${PIMEXE_NAME}Main.cpp)
-#------------------------------------------------------------------------------------------
-# Tell CMake what source file to build
-#------------------------------------------------------------------------------------------
-CREATE_QXE(${CFEXE_NAME} ${CFEXE_NAME}Main.cpp)
-#------------------------------------------------------------------------------------------
-# Tell CMake where to install the executable
-#------------------------------------------------------------------------------------------
-INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${EXE_NAME})
-INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${PIMEXE_NAME})
-INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${CFEXE_NAME})
+LINK_DIRECTORIES(${BRAKE_MODULE_PATHS})
+LINK_LIBRARIES(moduleinterfaces protocolfilters)
 
 #------------------------------------------------------------------------------------------
 # Tell CMake what subdirectories to recurse into
 #------------------------------------------------------------------------------------------
 ADD_SUBDIRECTORY(Configuration)
+
+#------------------------------------------------------------------------------------------
+# Tell CMake what source file to build
+#------------------------------------------------------------------------------------------
+ADD_EXECUTABLE(${EXE_NAME}.${CMAKE_EXECUTABLE_SUFFIX} ${EXE_NAME}Main.cpp ${EXE_NAME}.cpp)
+
+#------------------------------------------------------------------------------------------
+# Make sure that the services layer lib is built first
+#------------------------------------------------------------------------------------------
+INCLUDE(${CCRT_ROOT}/LibServices.cmake)
+
+#------------------------------------------------------------------------------------------
+# Make sure the executable has the correct extension
+#------------------------------------------------------------------------------------------
+INCLUDE(${CCRT_ROOT}/ExeQxe.cmake)
+
+#------------------------------------------------------------------------------------------
+# Tell CMake where to install the executables
+#------------------------------------------------------------------------------------------
+INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${EXE_NAME}.qxe)
+

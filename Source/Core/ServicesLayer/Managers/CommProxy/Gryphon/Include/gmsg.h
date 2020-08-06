@@ -31,12 +31,15 @@
 #include "frame.h"
 #include "info.h"
 #include "filter.h"
-#include "gryphon_sched.h"
+#include "g_sched.h"
 #include "blm.h"
 #include "flight.h"
 #include "msgresp.h"
 #include "pgmloader.h"
 #include "usdt.h"
+#include "iopwr.h"
+#include "lin.h"
+#include "cnvt.h"
 
 
 #define MAXPAYLOAD      7168    /* max number of bytes of data  */
@@ -60,12 +63,16 @@
 #define SD_PGM          0x21    /* Program loader */
 #define SD_USDT         0x22    /* USDT (Unacknowledged Segmented Data Transfer) */
 #define SD_BLM          0x23    /* Bus Load Monitoring */
-
+#define SD_LIN                  0x24    /* LIN extensions */
 #define SD_FLIGHT       0x25    /* Flight Recorder */
+#define SD_LOGGER               0x25    /* Data logger */
 #define SD_RESP         0x26    /* Message Response */
 #define SD_IOPWR		0x27	/* VNG / Compact Gryphon I/O & power */
 #define SD_UTIL			0x28	/* Miscellaneous utility commands   */
+#define SD_CNVT                 0x29    /* Signal conversion commands       */
+#define SD_J1939TP              0x30    /* J1939 Transport Protocol */
 
+#define TP_J1939        SD_J1939TP
 
 /* frame types: */
 
@@ -75,6 +82,7 @@
 #define FT_EVENT        0x04    /* notification of an event */
 #define FT_MISC         0x05    /* misc data */
 #define FT_TEXT         0x06    /* null-terminated ASCII strings */
+#define FT_SIG                  0x07    /* (vehicle) network signals */
 
 #define MAX_TEXT        0xff    /* Maximum FT_TEXT string length */
 
@@ -87,7 +95,7 @@
 #define MODE_TX         0x80    /* transmitted message */
 #define MODE_INTERNAL   0x01    /* for internal use within gryphon */
 #define MODE_NOMUX		0x02	/* message is not to be multiplexed */
-
+#define MODE_COMBINED           0x04    /* channel number is in context */
 
 
 /* commands:  (see also files included by gdev.h)*/
@@ -131,10 +139,12 @@
 
 /* SD_SERVER command types: */
 
-#define CMD_SERVER_REG      	    0x50    /* register connection */
-#define CMD_SERVER_SET_SORT         0x51    /* set sorting behavior */
-#define CMD_SERVER_SET_OPT          0x52    /* set type of optimization */
+#define CMD_SERVER_REG      	0x50    /* register connection */
+#define CMD_SERVER_SET_SORT     0x51    /* set sorting behavior */
+#define CMD_SERVER_SET_OPT      0x52    /* set type of optimization */
 #define CMD_SERVER_SET_TIMED_XMIT   0x53	/* set to time xmit data frame msgs */
+#define CMD_SERVER_SET_SERVICE  0x54    /* set the higher-layer protocol service */
+#define CMD_J1939_ADDR_CLAIM    0x55    /* claim J1939 address */
 
 /* SD_CLIENT command types: */
 
@@ -153,6 +163,7 @@
 /* SD_UTIL command types:   */
 #define CMD_UTIL_SET_INIT_STRATEGY 0x90 /* set the initialization strategy  */
 #define CMD_UTIL_GET_INIT_STRATEGY 0x91 /* get the initialization strategy  */
+
 
 /* response frame (FT_RESP) response field definitions: */
 
@@ -174,16 +185,19 @@
 #define RESP_BUF_FULL       0x0f    /* buffer full */
 #define RESP_NO_SUCH_JOB    0x10
 #define RESP_NO_ROOM        0x11    /* not enough room on the disk */
+#define RESP_BUSY               0x12    /* device or object is busy */
 
 
 /* event types: */
 
 /* values 0x00 to 0x3f are reserved for generic events  */
 
-#define EVENT_INIT          0x01    /* channel inited */
-#define EVENT_SPD           0x02    /* channel speed change */
-#define EVENT_CLIENT_GONE   0x03	/* a non well known client has closed its connection to the server */
+#define EVENT_INIT  0x01    /* channel inited */
+#define EVENT_SPD   0x02    /* channel speed change */
+#define EVENT_CLIENT_GONE       0x03    /* a non well known client has closed its
+                                           connection to the server             */
 #define EVENT_MSG_SENT      0x04	/* a marked message has been sent */
+#define EVENT_ADDR_LOST         0X05    /* The claimed J1939 address has been lost*/
 
 /* See gdev.h included files for card-specific events */
 

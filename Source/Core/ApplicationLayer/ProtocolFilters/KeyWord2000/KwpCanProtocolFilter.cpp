@@ -745,6 +745,8 @@ inline const bool& KwpCanProtocolFilter::AutomaticallyEnterDiagnosticMode(void)
 inline const SerialString_t KwpCanProtocolFilter::GetModuleRequestID(void)
 {
 	SerialString_t moduleRequestID;
+	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0xFF000000) >> 24));
+	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x00FF0000) >> 16));
 	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0x0000FF00) >> 8));
 	moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x000000FF));
 	return moduleRequestID;
@@ -785,7 +787,7 @@ inline void KwpCanProtocolFilter::SetResponsePendingReads(const INT32& responseP
 	m_responsePendingReads = responsePendingReads;
 }
 
-inline void KwpCanProtocolFilter::SetModuleRequestID(const UINT16& moduleID)
+inline void KwpCanProtocolFilter::SetModuleRequestID(const UINT32& moduleID)
 {
 	m_moduleRequestID = moduleID;
 }

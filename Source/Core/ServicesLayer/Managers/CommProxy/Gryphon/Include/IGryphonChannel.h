@@ -127,7 +127,6 @@ typedef struct _GryphonIoOcb_t
 
 } GryphonIoOcb_t;
 
-
 /**
  * Interface class for the Gryphon Server.
  * This serves as a base class for communicating with the
@@ -376,8 +375,6 @@ public:
     virtual int ResetDriverHandler(resmgr_context_t *ctp, io_devctl_t *msg,
                                    resMgrIoOcb_t *ioOcb);
 
-    virtual bool IsBroadcastModuleID(const UINT32 locModule);
-
 protected:
     //ComTimer    m_replyTimeoutTimer;
     /**
@@ -387,7 +384,7 @@ protected:
      * @param locLen incoming value
      * @return corrected value
     */
-    int Align32(int locLen);
+    int Align32(int locLen, bool noPadding = false);
     /**
      * returns a pointer to the text associated with an event number
      * provided for outside users, for logging purposes
@@ -468,6 +465,12 @@ protected:
      */
     int InitCard(void);
     /**
+     * Thread that calls InitCard and logs return value.
+     *
+     * @return void*.
+     */
+    static void* InitCardThread(void *arg);
+    /**
      * Copy the configuration data returned by the Gryphon server.
      *
      * @param inBuf   Data from the Gryphon server.
@@ -485,7 +488,8 @@ protected:
      * @param hootoo    destination of the data
      */
     int SendRawFrame(const uint8_t *inBuf, const uint16_t inSize,
-                     const uint8_t frameType, const uint8_t hootoo = SD_CARD);
+                     const uint8_t frameType, const uint8_t hootoo = SD_CARD, 
+                     bool noPadding = false, int msgLength = 0);
     /**
      * Adds both sets of headers and padding as required.
      * target protocol specific, code in protocol module
@@ -633,16 +637,6 @@ protected:
     virtual bool CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t *ocb);
 
     /**
-     * Method used to check if a serial response string can be added to a
-     * client's rx FIFO
-     *
-     * @param data   Serial string reseived from the port
-     * @param ocb    Client connection identifier
-     * @return true if the data should be added to the client's FIFO, false otherwise
-     */
-    virtual bool FilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb);
-
-    /**
      * Adds the gives serial string to the specified client's fifo
      *
      * @param buff   Serial data to be added to the client's fifo
@@ -668,8 +662,8 @@ protected:
      *
      * @return
      */
-    int RegisterWithUsdt(void);
-
+    bool RegisterWithUsdt(string pathName ="", int attempts = 1); 
+    bool RegisterWithUsdtNonLegacy(string pathName ="", int attempts = 1);
     /**
      * DEVELOPPER NOTE:
      * If you can not get the gryphon box to respond to this command, and you are
@@ -693,27 +687,8 @@ protected:
      * 
      * @return Status of setting the minimum seperation time.
      */
-    int SetMinimumMessageSeperationTime(float seperationTime);
-    /**
-     * Handler method for client subscription requests
-     *
-     * @param ctp    Resource manager context pointer
-     * @param msg    Message structure
-     * @param ioOcb  Client's connection properties
-     * @return EOK if successful, other on error
-     */
-    virtual int PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoOcb_t *ioOcb);
-
-    /**
-     * Handler method for client unsubscription requests
-     *
-     * @param ctp    Resource manager context pointer
-     * @param msg    Message structure
-     * @param ioOcb  Client's connection properties
-     * @return EOK if successful, other on error
-     */
-    virtual int PortUnsubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
-                                       resMgrIoOcb_t *ioOcb);
+    int SetMinimumMessageSeperationTimeMultiplier(float seperationTimeMultiplier);
+    int SetMinimumMessageSeperationTime(UINT8 seperationTime);
     /**
      * Reverse the bytes in the provided variable.
      *
@@ -726,12 +701,13 @@ protected:
      * Set at instantiation time, used at "connect()s"
      */
     int m_channelOverride;
-    // assume there will never be more than 63 pairs.
-    struct InOut m_nodeMap[63];
+    // assume there will never be more than 103 pairs.
+    struct InOut m_nodeMap[104];
     int m_nodePairCount;
     // Setup data for the Gryphon
-    struct InOutSetup m_nodePairSetupMap[64];
+    struct InOutSetup m_nodePairSetupMap[104];
     int m_nodePairSetupCount;
+    bool m_nonLegacyDevice;
     /**
      * Current channel type and subtype, from gdev.h file
      * This will be established at instantiation, depending on protocol.
@@ -744,6 +720,7 @@ protected:
     BepCondVar<bool> LoggedIn;
     BepCondVar<bool> UsdtRegistered;
     BepCondVar<bool> UsdtStMinMultiplier;
+    BepCondVar<bool> UsdtStMinFlowControl;
     BepCondVar<bool> EventNamesLoaded;
     BepCondVar<bool> BroadcastOnAck;
     BepCondVar<bool> PassAllAck;
@@ -755,6 +732,7 @@ protected:
     std::string PortDevPath;
     std::string Password;
     uint16_t myPort ;
+    int m_usdtRegistrationAttempts;
     /**
      * This is the logical channel that is assigned to our ethernet connection
      * during the longon() process

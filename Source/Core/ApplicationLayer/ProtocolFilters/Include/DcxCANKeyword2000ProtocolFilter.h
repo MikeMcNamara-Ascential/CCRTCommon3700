@@ -117,7 +117,7 @@ public:
 	 * @return Status of the send.
 	 * @since Version 1.0
 	 */
-	virtual const BEP_STATUS_TYPE SendMessage(SerialString_t &message);
+	virtual const BEP_STATUS_TYPE SendMessage(SerialString_t &message, bool overrideLengthCheck = false);
 	/**
 	 * Send a message to vehicle module.
 	 * 
@@ -125,7 +125,7 @@ public:
 	 * @return Status of the operation.
 	 * @since Version 1.0
 	 */
-	virtual const BEP_STATUS_TYPE SendMessage(std::string messageTag);
+	virtual const BEP_STATUS_TYPE SendMessage(std::string messageTag, bool overrideLengthCheck = false);
 	/**
 	 * Send a message to a vehicle module.
 	 * 
@@ -205,7 +205,7 @@ public:
 	 * @return Request ID of the module.
 	 * @since Version 1.0
 	 */
-	const SerialString_t GetModuleRequestID(void);
+	const SerialString_t& GetModuleRequestID(void);
 	/**
 	 * Get the index to the data byte count in the message.
 	 * 
@@ -225,6 +225,11 @@ protected:
 	 * @return Number of characters received or -1 on error
 	 */
 	virtual int WaitForFullResponse( SerialString_t &response);
+	/**
+	 * ID of the module to send the message to.
+	 * @since Version 1.0
+	 */
+	SerialString_t m_moduleRequestID;
 
 private:
 	/**
@@ -281,7 +286,7 @@ private:
 	 * @param moduleID ID to use for sending messages to the module.
 	 * @since Version 1.0
 	 */
-	void SetModuleRequestID(const UINT16& moduleID);
+	virtual void SetModuleRequestID(string moduleID);
 	/**
 	 * Store the index to the data byte count in the message.
 	 * 
@@ -316,11 +321,6 @@ private:
 	 * @since Version 1.0
 	 */
 	INT32 m_dataByteCountIndex;
-	/**
-	 * ID of the module to send the message to.
-	 * @since Version 1.0
-	 */
-	UINT16 m_moduleRequestID;
 	/**
 	 * Flag to indicate if diagnostic mode should be automatically
 	 * entered if the module is not in diagnostic mode.

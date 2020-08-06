@@ -66,7 +66,7 @@
 
 DcxCANKeyword2000ProtocolFilter::DcxCANKeyword2000ProtocolFilter(KeepAliveTimer_t &lastTxTime, StopCommsBepCondVar *stopCommsBepCondVar, BepMutex *commPortInUse /* =NULL*/) : ProtocolFilter(lastTxTime, stopCommsBepCondVar, commPortInUse),
 	m_enterDiagModeCode(0x80), m_responsePendingCode(0x78), m_responsePendingReads(3), m_dataByteCountIndex(6),
-	m_moduleRequestID(0x0000), m_autoEnterDiagMode(false), m_enterDiagnosticModeMessageTag("EnterDiagnosticMode")
+	m_autoEnterDiagMode(false), m_enterDiagnosticModeMessageTag("EnterDiagnosticMode")
 {   // NOthing special to do here
 }
 
@@ -134,7 +134,7 @@ bool DcxCANKeyword2000ProtocolFilter::Initialize(const XmlNode *config)
 	// Store the module request ID
 	try
 	{
-		SetModuleRequestID(atoh(config->getChild("Setup/ModuleRequestID")->getValue().c_str()));
+		SetModuleRequestID(config->getChild("Setup/ModuleRequestID")->getValue());
 	}
 	catch (XmlException &err)
 	{
@@ -155,7 +155,7 @@ bool DcxCANKeyword2000ProtocolFilter::Initialize(const XmlNode *config)
 	return ProtocolFilter::Initialize(config);
 }
 
-const BEP_STATUS_TYPE DcxCANKeyword2000ProtocolFilter::SendMessage(SerialString_t &message)
+const BEP_STATUS_TYPE DcxCANKeyword2000ProtocolFilter::SendMessage(SerialString_t &message, bool overrideLengthCheck /*= false*/)
 {	// Add the module ID to the message
 	message = GetModuleRequestID() + message;
 	// Clear the Fifos so bad data is not gathered
@@ -178,7 +178,7 @@ const BEP_STATUS_TYPE DcxCANKeyword2000ProtocolFilter::SendMessage(SerialString_
 	return status;
 }
 
-const BEP_STATUS_TYPE DcxCANKeyword2000ProtocolFilter::SendMessage(std::string messageTag)
+const BEP_STATUS_TYPE DcxCANKeyword2000ProtocolFilter::SendMessage(std::string messageTag, bool overrideLengthCheck /*= false*/)
 {   // Call the base class
 	return ProtocolFilter::SendMessage(messageTag);
 }
@@ -211,6 +211,12 @@ const BEP_STATUS_TYPE DcxCANKeyword2000ProtocolFilter::GetModuleData(string mess
 					ConvertStatusToResponse(status).c_str());
 				// Set the message ID
 				SetSentMessageIdentifier(xmtMessage[GetSentMessageIdentifierIndex()]);
+				// Store the number of response pending redas to perform
+                // Use message specific response pending reads if specified
+				/*INT32 responsePendingReads = -1;
+                GetResponsePendingReads(messageTag, responsePendingReads);
+                responsePendingReads = responsePendingReads < 0 ? 
+                    GetNumberOfResponsePendingReads() : responsePendingReads;*/
 				// Store the number of response pending reads to perform
                 // Use message specific response pending reads if specified
 				INT32 responsePendingReads = -1;
@@ -355,7 +361,18 @@ const SerialString_t DcxCANKeyword2000ProtocolFilter::ExtractModuleData(SerialSt
 		fullResponse += CreateMessage(temp, 256, "$%02X ", moduleResponse[ii]);
 	Log(LOG_DETAILED_DATA, "Extracting data from response string: %s\n", fullResponse.c_str());
 	// Look at the number of data bytes returned from the module
-	UINT8 numberOfBytes = moduleResponse[GetDataByteCountIndex()];
+	UINT16 numberOfBytes = moduleResponse[GetDataByteCountIndex()];
+    try
+    {
+        if (GetDataByteCountIndex() > 0) 
+        {
+            for (UINT8 ii = 0; ii < moduleResponse[GetDataByteCountIndex() - 1]; ii++) numberOfBytes += 256;
+        }
+    }
+    catch (...)
+    {
+        Log(LOG_ERRORS, "Could not access moduleResponse[%d] to check for response size greater than 255.", GetDataByteCountIndex() - 1);
+    }
 	// Module response starts immediately after the module response ID
 	SerialString_t dataResponse;
 	const SerialString_t::size_type dataStartIdx = GetDataStartIndex();
@@ -482,12 +499,9 @@ inline const bool& DcxCANKeyword2000ProtocolFilter::AutomaticallyEnterDiagnostic
 	return m_autoEnterDiagMode;
 }
 
-inline const SerialString_t DcxCANKeyword2000ProtocolFilter::GetModuleRequestID(void)
+inline const SerialString_t& DcxCANKeyword2000ProtocolFilter::GetModuleRequestID(void)
 {
-	SerialString_t moduleRequestID;
-	moduleRequestID.push_back((uint8_t)((m_moduleRequestID & 0xFF00) >> 8));
-	moduleRequestID.push_back((uint8_t)(m_moduleRequestID & 0x00FF));
-	return moduleRequestID;
+	return m_moduleRequestID;
 }
 
 inline const INT32& DcxCANKeyword2000ProtocolFilter::GetDataByteCountIndex(void)
@@ -525,9 +539,12 @@ inline void DcxCANKeyword2000ProtocolFilter::SetResponsePendingReads(const INT32
 	m_responsePendingReads = responsePendingReads;
 }
 
-inline void DcxCANKeyword2000ProtocolFilter::SetModuleRequestID(const UINT16& moduleID)
+inline void DcxCANKeyword2000ProtocolFilter::SetModuleRequestID(string moduleID)
 {
-	m_moduleRequestID = moduleID;
+    UINT16 id = atoh(moduleID.c_str());
+    m_moduleRequestID.clear();
+	m_moduleRequestID.push_back((uint8_t)((id & 0xFF00) >> 8));
+	m_moduleRequestID.push_back((uint8_t)(id & 0x00FF));
 }
 
 inline void DcxCANKeyword2000ProtocolFilter::SetDataByteCountIndex(const INT32& dataByteCountindex)

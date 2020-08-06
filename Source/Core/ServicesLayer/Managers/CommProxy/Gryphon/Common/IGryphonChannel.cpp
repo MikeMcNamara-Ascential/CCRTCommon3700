@@ -174,12 +174,12 @@ void IGryphonChannel::OcbFinalize(resMgrIoOcb_t *ioOcb)
 	BlockedReader_t readClient;
 	BlockedWriter_t writeClient;
 
-	if(oldOcb != NULL)
+	if (oldOcb != NULL)
 	{
-		if( (errno=m_blockedReaders.Lock()) == EOK)
+		if ( (errno=m_blockedReaders.Lock()) == EOK)
 		{
 			// If this client is in a blocked read condition
-			if( m_blockedReaders.FindBlockedReader(orgOcb, readClient) == true)
+			if ( m_blockedReaders.FindBlockedReader(orgOcb, readClient) == true)
 			{
 				// Remove client from blocked reader list
 				m_blockedReaders.RemoveBlockedReader( orgOcb);
@@ -197,7 +197,7 @@ void IGryphonChannel::OcbFinalize(resMgrIoOcb_t *ioOcb)
 
 		m_blockedWriters.Lock();
 		// If this client is in a blocked read condition
-		if( m_blockedWriters.FindBlockedWriter(orgOcb, writeClient) == true)
+		if ( m_blockedWriters.FindBlockedWriter(orgOcb, writeClient) == true)
 		{
 			// Remove client from blocked reader list
 			m_blockedWriters.RemoveBlockedWriter( orgOcb);
@@ -208,35 +208,35 @@ void IGryphonChannel::OcbFinalize(resMgrIoOcb_t *ioOcb)
 		Log(LOG_FN_ENTRY, "\t\t\tRemoved blocked writers...");
 
 		// If this client had an exclusive on the port
-		if( orgOcb->portLockCount > 0)
+		if ( orgOcb->portLockCount > 0)
 		{	// Make sure any locks help by this client are released
 			ReleaseClientPortLock( orgOcb, true);
 		}
 		Log(LOG_FN_ENTRY, "\t\t\tReleased client port lock...");
 
 		// Free memory allocated for subscriptions
-		if( orgOcb->rxSubscription != NULL)
+		if ( orgOcb->rxSubscription != NULL)
 		{
 			m_rxSubscribers.DelSubscriber( orgOcb->rxSubscription->id);
 			delete orgOcb->rxSubscription;
 			orgOcb->rxSubscription = NULL;
 		}
 		Log(LOG_FN_ENTRY, "\t\t\tFreed RX subscribers...");
-		if( orgOcb->txSubscription != NULL)
+		if ( orgOcb->txSubscription != NULL)
 		{
 			m_txSubscribers.DelSubscriber( orgOcb->txSubscription->id);
 			delete orgOcb->txSubscription;
 			orgOcb->txSubscription = NULL;
 		}
 		Log(LOG_FN_ENTRY, "\t\t\tFreed TX subscribers...");
-		if( orgOcb->lockSubscription != NULL)
+		if ( orgOcb->lockSubscription != NULL)
 		{
 			m_lockSubscribers.DelSubscriber( orgOcb->lockSubscription->id);
 			delete orgOcb->lockSubscription;
 			orgOcb->lockSubscription = NULL;
 		}
 		Log(LOG_FN_ENTRY, "\t\t\tFreed Lock subscribers...");
-		if( orgOcb->unlockSubscription != NULL)
+		if ( orgOcb->unlockSubscription != NULL)
 		{
 			m_unlockSubscribers.DelSubscriber( orgOcb->unlockSubscription->id);
 			delete orgOcb->unlockSubscription;
@@ -267,7 +267,7 @@ int IGryphonChannel::IoRead(resmgr_context_t *ctp, io_read_t *msg, resMgrIoOcb_t
 	// Get the module ID this client shuld be reading from
 	clientModIds = clientOcb->moduleIDs;
 	// IF this is not a "combine" read
-	if( (msg->i.xtype & _IO_XTYPE_MASK) == _IO_XTYPE_NONE)
+	if ( (msg->i.xtype & _IO_XTYPE_MASK) == _IO_XTYPE_NONE)
 	{	// Make sure client has performed valid write
 		if( !IsModuleIDPresent(clientModIds,0) )
 		{
@@ -297,10 +297,10 @@ int IGryphonChannel::IoWrite(resmgr_context_t *ctp, io_write_t *msg, resMgrIoOcb
 	// Log the function entry
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::IoWrite()\n");
 	// Make sure OK for client to write (port not locked)
-	if((CanClientWrite( &clientOcb->proxyOcb) == true) &&
+	if ((CanClientWrite( &clientOcb->proxyOcb) == true) &&
 	   ((msg->i.xtype & _IO_XTYPE_MASK) == _IO_XTYPE_NONE))
 	{	// Read the message data from the sender
-		if( (bytesRead=ReadSendersBuffer( ctp, rawMessage, msg)) > 1)
+		if ( (bytesRead=ReadSendersBuffer( ctp, rawMessage, msg)) > 1)
 		{
 			PrintSerialString( LOG_SER_COM, "Gryphon Sending", rawMessage);
 			// Log communication for this serial send (use rawMessage so
@@ -330,7 +330,7 @@ int IGryphonChannel::IoWrite(resmgr_context_t *ctp, io_write_t *msg, resMgrIoOcb
 			// Send this message to the vehicle
 			bytesWritten = JustWrite( ctp, ioOcb, busMessage.c_str(), busMessage.size());
 			// IF we wrote (at least) the whole message
-			if( bytesWritten >= (int)busMessage.size())
+			if ( bytesWritten >= (int)busMessage.size())
 			{
 				// Tell client we write his message
 				_IO_SET_WRITE_NBYTES( ctp, bytesRead);
@@ -338,7 +338,7 @@ int IGryphonChannel::IoWrite(resmgr_context_t *ctp, io_write_t *msg, resMgrIoOcb
 			// Tell the client we did it.
 			retVal = EOK;
 		}
-		else if( bytesRead == -1)
+		else if ( bytesRead == -1)
 		{
 			retVal = errno;
 		}
@@ -380,15 +380,15 @@ int IGryphonChannel::ReadPortDataUnlocked(uint8_t *buff, size_t buffSz)
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::ReadPortDataUnlocked()\n");
 	// Determine the size of the incoming data
 	locSize = m_rxFifo.Peek(buff, 8);
-	while(locSize >= 8)
+	while (locSize >= 8)
 	{
 		locSize = Align32(256* buff[4] + buff[5]);
 
-		if(m_rxFifo.GetSize() >= locSize + 8)
+		if (m_rxFifo.GetSize() >= locSize + 8)
 		{
 			m_rxFifo.GetBytes(buff,locSize+8);
 			messageStatus = processNewMessage(buff);	// non-protocol (control) interpret
-			if(BEP_STATUS_SUCCESS == messageStatus)
+			if (BEP_STATUS_SUCCESS == messageStatus)
 			{
 				DecodeRead(buff, locSize+8); // to clients
 			}
@@ -423,29 +423,29 @@ const std::string IGryphonChannel::Register(void)
 	// Log the function entry
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::Register() \n");
 	// Call the base class register
-	if(RawCommProxy::Register() == BEP_SUCCESS_RESPONSE)
+	if (RawCommProxy::Register() == BEP_SUCCESS_RESPONSE)
 	{	// Login to the Gryphon server
 		Log(LOG_DEV_DATA, "Login to Gryphon server...\n");
 		GlobalContext = 0x00;
-		if(EOK == Login(UserId, Password, m_channelType))
+		if (EOK == Login(UserId, Password, m_channelType))
 		{	// find the channel we want to use
 			Log(LOG_DEV_DATA, "Gathering Gryphon config data...\n");
-			if(EOK == GetGryphonConfiguration())
+			if (EOK == GetGryphonConfiguration())
 			{	// tell the gryphon we want all messages
 				Log(LOG_DEV_DATA, "Informing Gryphon server to send all messages...\n");
-				if(EOK == BroadcastOn())
+				if (EOK == BroadcastOn())
 				{	// get event names for our channel
 					Log(LOG_DEV_DATA, "Getting channel event names from the Gryphon server...\n");
-					if(EOK == GetEventNames())
+					if (EOK == GetEventNames())
 					{	// tell our card we want all events
 						Log(LOG_DEV_DATA, "Enabling all events for our card...\n");
-						if(EOK == EventEnable())
+						if (EOK == EventEnable())
 						{	// reset the hardware
 							Log(LOG_DEV_DATA, "Resetting the hardware...\n");
-							if(EOK == InitCard())
+							if (EOK == InitCard())
 							{	// protocol specific initialization
 								Log(LOG_DEV_DATA, "Performing channel specific initialization...\n");
-								if(EOK == ChannelSpecificInit())
+								if (EOK == ChannelSpecificInit())
 								{
 									retString = BEP_SUCCESS_RESPONSE;
 								}
@@ -491,9 +491,9 @@ const std::string IGryphonChannel::Register(void)
 
 	try
 	{
-		if(PortPathAlias != "")
+		if (PortPathAlias != "")
 		{
-			if(unlink(PortPathAlias.c_str()))
+			if (unlink(PortPathAlias.c_str()))
 				Log(LOG_DEV_DATA,"IGryphonChannel::Register() Could not unlink symlink (may be first time?)\n");
 			else
 				Log(LOG_DEV_DATA,"IGryphonChannel::Register() symlink successfully unlinked.\n");
@@ -502,7 +502,7 @@ const std::string IGryphonChannel::Register(void)
 			Log(LOG_DEV_DATA,"IGryphonChannel::Register() Attempting to set alias to %s -> %s.\n",
 				PortPathAlias.c_str(),PortDevPath.c_str());
 			linkStatus = symlink(PortDevPath.c_str(),PortPathAlias.c_str());
-			if(0 == linkStatus)
+			if (0 == linkStatus)
 				Log(LOG_ERRORS,"IGryphonChannel::Register() symbolic link successfully created\n");
 			else
 				Log(LOG_ERRORS,"IGryphonChannel::Register() Unable to create symbolic link %d (%d)\n",linkStatus, errno);
@@ -514,7 +514,7 @@ const std::string IGryphonChannel::Register(void)
 		}
 
 	}
-	catch(...)
+	catch (...)
 	{
 		Log(LOG_ERRORS,"IGryphonChannel::Register() Fatal error in alias functionality\n");
 	}
@@ -570,7 +570,7 @@ int IGryphonChannel::UnlockForClient( CommIoOcb_t *clientOcb, bool releaseAll)
 	// Log the function entry
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::UnlockForClient()\n");
 	retVal = RawCommProxy::UnlockForClient( clientOcb,releaseAll);
-	if(0 == retVal)
+	if (0 == retVal)
 	{
 		((GryphonIoOcb_t *) clientOcb)->moduleIDs.clear();
 	}
@@ -606,7 +606,7 @@ int IGryphonChannel::Connect( std::string ipAddr, uint16_t port)
 		retVal = connect(MySocket, (struct sockaddr *)&server, sizeof(server));
 		// will return a retVal < 0 for an error, another thing to handle.
 		if(retVal < 0)
-		{	// Error connecting the socket, close the socket
+		{   // Error connecting the socket, close the socket
 			close(MySocket);
 		}
 	}
@@ -653,7 +653,7 @@ int IGryphonChannel::Login( std::string userId, std::string passwd,
 	Log(LOG_DEV_DATA, "IGryphonChannel::Login() - Login message: \n");
 	std::string logString = "";
 	char locChar[10];
-	for(unsigned int ii = 0; ii < sizeof(locMsg); ii++)
+	for (unsigned int ii = 0; ii < sizeof(locMsg); ii++)
 	{
 		sprintf(locChar,"%02x ",asChar[ii]);
 		logString.append(locChar);
@@ -671,11 +671,11 @@ int IGryphonChannel::Login( std::string userId, std::string passwd,
 	retVal = EOK; // assume success
 
 	// use the LoggeIn CondVar to wait for a response with timeout
-	if(LoggedIn.Acquire()== EOK)
+	if (LoggedIn.Acquire()== EOK)
 	{
 		LoggedIn.SetValue(false);
 		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_SERVER);
-		if(LoggedIn.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (LoggedIn.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
 			Log( LOG_IO_MSSG, "Gryphon Login Successful\n");
 		}
@@ -731,18 +731,21 @@ int IGryphonChannel::ResetDriverHandler( resmgr_context_t *ctp, io_devctl_t *msg
 	return( _RESMGR_ERRNO(retVal));
 }
 
-int IGryphonChannel::Align32(int locLen)
+int IGryphonChannel::Align32(int locLen, bool noPadding /*= false*/)
 {
-	return((locLen + 3) & 0xFFFC);
+    unsigned int returnLength = locLen;
+    if(!noPadding)
+        returnLength = (locLen + 3) & 0xFFFC;
+	return(returnLength);
 }
 
 char *IGryphonChannel::GetEventName( const uint8_t eNumber)
 {
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::GetEventName()\n");
-	for(int ii=0 ; ii < MAX_EVNAMES; ii++)
+	for (int ii=0 ; ii < MAX_EVNAMES; ii++)
 	{
 		EventIDs.event[ii].terminator=0;
-		if(eNumber == EventIDs.event[ii].number)
+		if (eNumber == EventIDs.event[ii].number)
 		{
 			Log( LOG_FN_ENTRY, "Exit IGryphonChannel::GetEventName() found\n");
 			return(EventIDs.event[ii].name);
@@ -767,11 +770,11 @@ int IGryphonChannel::GetEventNames(void)
 
 	locSize = 2;
 
-	if(EventNamesLoaded.Acquire()== EOK)
+	if (EventNamesLoaded.Acquire()== EOK)
 	{
 		EventNamesLoaded.SetValue(false);
 		retVal = SendRawFrame(locMsg, locSize, FT_CMD);
-		if(EventNamesLoaded.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (EventNamesLoaded.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
 
 		}
@@ -823,11 +826,11 @@ int IGryphonChannel::BroadcastOn(void) // tell the gryphon we want all messages
 	localBuffer[1] = UseContext();
 	locSize = 2;
 	// need to wait for acknowledgement
-	if(BroadcastOnAck.Acquire()== EOK)
+	if (BroadcastOnAck.Acquire()== EOK)
 	{
 		BroadcastOnAck.SetValue(false);
 		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_SERVER);
-		if(BroadcastOnAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (BroadcastOnAck.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
 		}
 		BroadcastOnAck.Release();
@@ -855,11 +858,11 @@ int IGryphonChannel::SetFilterMode(uint8_t locMode)
 	localBuffer[4] = locMode; // filter off, pass everything
 	locSize = 5;
 	// need to wait for acknowledgement
-	if(PassAllAck.Acquire()== EOK)
+	if (PassAllAck.Acquire()== EOK)
 	{
 		PassAllAck.SetValue(false);
 		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_CARD);
-		if(PassAllAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (PassAllAck.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
 
 		}
@@ -888,11 +891,11 @@ int IGryphonChannel::SetDefaultFilterMode(uint8_t locMode)
 	localBuffer[4] = locMode; // filter pass all or block non-conforming messages
 	locSize = 5;
 	// need to wait for acknowledgement
-	if(PassAllAck.Acquire()== EOK)
+	if (PassAllAck.Acquire()== EOK)
 	{
 		PassAllAck.SetValue(false);
 		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_CARD);
-		if(PassAllAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (PassAllAck.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
 
 		}
@@ -938,7 +941,7 @@ int IGryphonChannel::AddFilter(const uint8_t locFlags, const uint16_t locOffset,
 	myFilter->body.reserved = 0;
 
 	memcpy(myFilter->body.values,firstValue,locLength);
-	if(BIT_FIELD_CHECK == locOperator)
+	if (BIT_FIELD_CHECK == locOperator)
 	{
 		memcpy(&(myFilter->body.values[locLength]),secondValue,locLength);
 	}
@@ -950,11 +953,11 @@ int IGryphonChannel::AddFilter(const uint8_t locFlags, const uint16_t locOffset,
 	locSize = Align32(locSize);	// the card wants the aligned length
 
 	// need to wait for acknowledgement
-	if(PassAllAck.Acquire()== EOK)
+	if (PassAllAck.Acquire()== EOK)
 	{
 		PassAllAck.SetValue(false);
 		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_CARD);
-		if(PassAllAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (PassAllAck.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
 			Log( LOG_DETAILED_DATA, "Added Filter\n");
 		}
@@ -988,11 +991,11 @@ int IGryphonChannel::EventEnable(void) // tell our card we want all events
 	// Set the message size
 	locSize = 5;
 	// need to wait for acknowledgement
-	if(EventEnableAck.Acquire()== EOK)
+	if (EventEnableAck.Acquire()== EOK)
 	{
 		EventEnableAck.SetValue(false);
 		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_CARD);
-		if(EventEnableAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (EventEnableAck.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{	// Do nothing
 		}
 		EventEnableAck.Release();
@@ -1021,11 +1024,11 @@ int IGryphonChannel::InitCard(void)		// reset the hardware
 	// Set the message size
 	locSize = 5;
 	// need to wait for acknowledgement
-	if(InitAck.Acquire()== EOK)
+	if (InitAck.Acquire()== EOK)
 	{
 		InitAck.SetValue(false);
 		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_CARD);
-		if(InitAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (InitAck.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
 
 		}
@@ -1034,6 +1037,18 @@ int IGryphonChannel::InitCard(void)		// reset the hardware
 	// Log the exit and return the status
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::InitCard()\n");
 	return(EOK);
+}
+void* IGryphonChannel::InitCardThread(void *arg)
+{
+	IGryphonChannel *ch = (IGryphonChannel *)arg;
+    if(ch->InitCard() != EOK)
+        {	// Unable to re-initialize CAN bus
+            ch->Log(LOG_ERRORS, "ERROR - Unable to Re-init on Can Bus Off\n");
+        }
+        else
+        {	// Successfully Re-initialized CAN bus
+            ch->Log(LOG_DETAILED_DATA, "Re-init of Gyphon Successful\n");
+        }
 }
 
 void IGryphonChannel::copyConfig(const uint8_t *inBuf, const uint16_t  datalen)
@@ -1045,13 +1060,13 @@ void IGryphonChannel::copyConfig(const uint8_t *inBuf, const uint16_t  datalen)
 	int scratch;
 	// Log the entry
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::copyConfig()\n");
-	for(int ii = 0; ii < MAXCHANS; ii++) Channels.dinfo[ii].channel=0;
+	for (int ii = 0; ii < MAXCHANS; ii++) Channels.dinfo[ii].channel=0;
 	si = (serverinfo *)&inBuf[16];
-	for(int ii = 0; ii < si->numdevs; ii++)
+	for (int ii = 0; ii < si->numdevs; ii++)
 	{
 		diS = (deviceinfo *) &inBuf[80+80*ii];
 		scratch = diS->channel;
-		if(scratch < MAXCHANS)
+		if (scratch < MAXCHANS)
 		{
 			diD = &Channels.dinfo[scratch];
 			memcpy(diD,diS,80);
@@ -1059,11 +1074,11 @@ void IGryphonChannel::copyConfig(const uint8_t *inBuf, const uint16_t  datalen)
 	}
 	// set up for which channel we are going to use.
 	locOverride = m_channelOverride; // get global override value
-	for(int ii = 1; ii <= MAXCHANS; ii++)
+	for (int ii = 1; ii <= MAXCHANS; ii++)
 	{
-		if(Channels.dinfo[ii].type == m_channelType)
+		if (Channels.dinfo[ii].type == m_channelType)
 		{
-			if(0 == locOverride)
+			if (0 == locOverride)
 			{
 				m_channelId = ii;  // found our channel
 				Log( LOG_DEV_DATA, "IGryphonCannel::copyConfig()-found channelId(%d) to match channelType(%d)\n", m_channelId, m_channelType);
@@ -1082,7 +1097,7 @@ void IGryphonChannel::copyConfig(const uint8_t *inBuf, const uint16_t  datalen)
 
 int IGryphonChannel::SendRawFrame(const uint8_t *inBuf,
 								  const uint16_t inSize, const uint8_t frameType,
-								  const uint8_t hooToo)/* = SD_CARD*/
+								  const uint8_t hooToo /* = SD_CARD*/, bool noPadding /*= false*/, int msgLength /*= 0*/)
 {
 	char locBuf[4096];
 	unsigned int locSize;
@@ -1098,23 +1113,28 @@ int IGryphonChannel::SendRawFrame(const uint8_t *inBuf,
 
 		locSize = inSize;
 		if(locSize > 4000) locSize = 4000;
+        if(msgLength <= 0)
+            msgLength = locSize;
 
 		locMsg->fh.src = SD_CLIENT;
 		locMsg->fh.srcchan = m_clientChannel;
 		locMsg->fh.dst = hooToo;
 		locMsg->fh.dstchan = m_channelId;
-		locMsg->fh.msglen=htons(locSize);
+		locMsg->fh.msglen=htons(msgLength);
 		locMsg->fh.frametype = frameType;
 		locMsg->fh.reserved = 0;
 
 		memcpy(&locMsg->subhdr.misc.data, inBuf, locSize);
 
-		locMsg->subhdr.misc.data[locSize]   = 0;   // pad, in case needed
-		locMsg->subhdr.misc.data[locSize+1] = 0;
-		locMsg->subhdr.misc.data[locSize+2] = 0;
-		locMsg->subhdr.misc.data[locSize+3] = 0;
+            // What is this for? Why 4 bytes of padding? Why not 7? What's the rational for this?
+            locMsg->subhdr.misc.data[locSize]   = 0;   // pad, in case needed
+    		locMsg->subhdr.misc.data[locSize+1] = 0;
+    		locMsg->subhdr.misc.data[locSize+2] = 0;
+    		locMsg->subhdr.misc.data[locSize+3] = 0;
 
-		locSize = Align32(locSize + 8);
+		
+
+		locSize = Align32(locSize + 8, noPadding);
 
 //#if IGCDEBUG
 		printf("Dumping full ethernet message (%d)\n",locSize);
@@ -1143,7 +1163,7 @@ void IGryphonChannel::BuildCardMessage(SerialString_t &outBuf, const SerialStrin
 {
 	SerialString_t locDS; // intermediate buffer
 	// Log the entry
-	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::BuildCardMessage()\n");
+	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::BuildCardMessage(inBuf(%d))\n", inBuf.size());
 	BuildMessage(locDS, inBuf);	// add the protocol info
 	WrapMessage(outBuf, locDS);	// add gryphon data frame
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::BuildCardMessage()\n");
@@ -1202,7 +1222,7 @@ int IGryphonChannel::DecodeRead(const uint8_t *inBuf, const uint16_t inSize)
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::DecodeRead()\n");
 	// does not include header bytes in this count
 	dataLen = 256 * inBuf[4] + inBuf[5];
-	switch(inBuf[6])
+	switch (inBuf[6])
 	{
 	case FT_CMD:	// we should never get these, just ignore them (looped back?)
 		break;
@@ -1212,18 +1232,17 @@ int IGryphonChannel::DecodeRead(const uint8_t *inBuf, const uint16_t inSize)
 		if((inBuf[8] == GCANBUSOFF) || (inBuf[8] == GCANBUSWARN))
 		{	// CAN bus turned off
 			Log(LOG_DETAILED_DATA, "CAN BUS %s error received from gryphon", inBuf[8] == GCANBUSOFF ? "Off" : "Warn");
-			if(InitCard() != EOK)
-			{	// Unable to re-initialize CAN bus
-				Log(LOG_ERRORS, "ERROR - Unable to Re-init on Can Bus Off\n");
-			}
-			else
-			{	// Successfully Re-initialized CAN bus
-				Log(LOG_DETAILED_DATA, "Re-init of Gyphon Successful\n");
-			}
+            //start thread to init card
+            pthread_attr_t attr;			// the attribute of the thread
+            pthread_attr_init( &attr );
+            pthread_attr_setdetachstate( &attr, PTHREAD_CREATE_DETACHED );
+            if(pthread_create( NULL, &attr, IGryphonChannel::InitCardThread, this) != EOK)
+            {
+				Log(LOG_ERRORS, "ERROR - Unable to start init thread\n");
+            }
 		}
 		break;
 	case FT_DATA:
-		Log(LOG_DETAILED_DATA, "DecodeRead FTDATA\n");
 		// need to block messages from the card if it also is going to come from the USDT handler
 		if(CheckForBlock(inBuf)) break;
 		// calculate length of the data we care about to get around bad info from the frame header
@@ -1231,10 +1250,6 @@ int IGryphonChannel::DecodeRead(const uint8_t *inBuf, const uint16_t inSize)
 		dataLen = inBuf[8] + 256 * inBuf[10] + inBuf[11] + inBuf[12];
 		// call the data handler for this channel, to disassemble, then pass to client
 		locMessage = (const char *)&inBuf[moduleResponseIndex];
-
-		Log(LOG_DETAILED_DATA, "Module Data 0x%02X 0x%02X 0x%02X 0x%02X 0x%02X\n", 
-			locMessage[0], locMessage[1], locMessage[2], locMessage[3], locMessage[4]);
-
 		//UpdateClientFifos(locMessage, dataLen-16, PORT_SUBSCRIBE_RX);
 		UpdateClientFifos(locMessage, dataLen, PORT_SUBSCRIBE_RX);
 		// this is where we will be filling the FIFO for the read() functionality
@@ -1256,7 +1271,7 @@ BEP_STATUS_TYPE IGryphonChannel::processNewCardMsg(const uint8_t *inBuf, const u
 	BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::ProcessNewCardMessage()\n");
 
-	switch(inBuf[6])  // check type of message
+	switch (inBuf[6])  // check type of message
 	{
 	case FT_RESP: // this is a response to a request
 		Log( LOG_DETAILED_DATA, "Gryphon Response Message\n");
@@ -1311,7 +1326,7 @@ BEP_STATUS_TYPE IGryphonChannel::processNewCardMsg(const uint8_t *inBuf, const u
 			 inBuf[8], inBuf[1], GetEventName(inBuf[8]));
 		break;
 	case FT_DATA:
-		{  
+		{            
 			if(UsingGryphonUSDT() == false)
 			{
 				// need to block messages from the card if it also is going to come from the USDT handler
@@ -1344,19 +1359,14 @@ BEP_STATUS_TYPE IGryphonChannel::processNewCardMsg(const uint8_t *inBuf, const u
 	return status;
 }
 
-bool IGryphonChannel::IsBroadcastModuleID(const UINT32 locModule)
-{//not implemented
-	return(false);
-}
-
 BEP_STATUS_TYPE IGryphonChannel::processNewUsdtMsg(const uint8_t *inBuf, const uint16_t  datalen)
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::processNewUsdtMessage()\n");
-	switch(inBuf[6])  // check type of message
+	switch (inBuf[6])  // check type of message
 	{
 	case FT_RESP: // this is a response to a request
-		Log( LOG_DETAILED_DATA, "Gryphon Response Message\n");
+		Log( LOG_DETAILED_DATA, "Gryphon Response Message (0x%02X)\n", inBuf[8]);
 		if(0 == inBuf[15])	 // only process if acknowledged
 		{
 			Log( LOG_DETAILED_DATA, "Gryphon Acknowledge Message\n");
@@ -1370,6 +1380,15 @@ BEP_STATUS_TYPE IGryphonChannel::processNewUsdtMsg(const uint8_t *inBuf, const u
 					UsdtRegistered.Release();
 				}
 				break;	// end of event names
+                
+            case CMD_USDT_REGISTER_NON_LEGACY:
+				Log( LOG_DETAILED_DATA, "Gryphon CMD_USDT_REGISTER_NON_LEGACY\n");
+				if(UsdtRegistered.Acquire()== EOK)
+				{
+					UsdtRegistered.Signal(true);
+					UsdtRegistered.Release();
+				}
+				break;	// end of event names
 
 			case CMD_USDT_SET_STMIN_MULT:
 				Log(LOG_DETAILED_DATA, "Gryphon CMD_USDT_SET_STMIN_MULT");
@@ -1377,6 +1396,15 @@ BEP_STATUS_TYPE IGryphonChannel::processNewUsdtMsg(const uint8_t *inBuf, const u
 				{
 					UsdtStMinMultiplier.Signal(true);
 					UsdtStMinMultiplier.Release();
+				}
+				break;
+
+            case CMD_USDT_SET_STMIN_FC:
+				Log(LOG_DETAILED_DATA, "Gryphon CMD_USDT_SET_STMIN_FC");
+				if(UsdtStMinFlowControl.Acquire() == EOK)
+				{
+					UsdtStMinFlowControl.Signal(true);
+					UsdtStMinFlowControl.Release();
 				}
 				break;
 			} // end of switch on request type
@@ -1399,7 +1427,7 @@ BEP_STATUS_TYPE IGryphonChannel::processNewServerMsg(const uint8_t *inBuf, const
 	BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::processNewServerMsg()\n");
 
-	switch(inBuf[6])  // check type of message
+	switch (inBuf[6])  // check type of message
 	{
 	case FT_RESP: // this is a response to a request
 		Log( LOG_DETAILED_DATA, "Gryphon Response Message\n");
@@ -1455,7 +1483,7 @@ BEP_STATUS_TYPE IGryphonChannel::processNewMessage(const uint8_t *inBuf)
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::processNewMessage()\n");
 	datalen = 256 * inBuf[4] + inBuf[5];
 	// pull out pertinant data received, if any
-	switch(inBuf[0])  // check who this message is from
+	switch (inBuf[0])  // check who this message is from
 	{
 	case SD_SERVER:		  // from the server
 		status = processNewServerMsg(inBuf, datalen);
@@ -1485,7 +1513,7 @@ void IGryphonChannel::CopyEventNames(const void *inBuf, const uint16_t datalen)
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::CopyEventNames()\n");
 	locMsg = (unsigned char *) inBuf;
 	// first one is located at offset 16
-	for(int ii = 16 ; (ii < datalen) && (scratch < MAX_EVNAMES); scratch++,ii+=20)
+	for (int ii = 16 ; (ii < datalen) && (scratch < MAX_EVNAMES); scratch++,ii+=20)
 	{
 		evNS = (EvNames *) &locMsg[ii];
 		evND = & EventIDs.event[scratch];
@@ -1493,13 +1521,13 @@ void IGryphonChannel::CopyEventNames(const void *inBuf, const uint16_t datalen)
 
 		strncpy(evND->name,evNS->name,19);
 		evND->terminator = 0;
-		for(int jj=18; jj>0;jj--)
+		for (int jj=18; jj>0;jj--)
 		{
-			if(evND->name[jj] != ' ') break;
+			if (evND->name[jj] != ' ') break;
 			else evND->name[jj]	= 0;
 		}
 	}
-	if(scratch < MAX_EVNAMES)
+	if (scratch < MAX_EVNAMES)
 	{	// after last one is copied, set next entry to {0,"\0",0xFF}
 		evND = & EventIDs.event[scratch + 1];
 		evND->number = 0;
@@ -1507,7 +1535,7 @@ void IGryphonChannel::CopyEventNames(const void *inBuf, const uint16_t datalen)
 		evND->terminator = 0xFF;
 	}
 
-	if(EventNamesLoaded.Acquire()== EOK)
+	if (EventNamesLoaded.Acquire()== EOK)
 	{
 		EventNamesLoaded.Signal(true);
 		EventNamesLoaded.Release();
@@ -1527,7 +1555,7 @@ int IGryphonChannel::ClosePort()
 
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::ClosePort()\n");
 
-	if( m_comPortFd != -1)
+	if ( m_comPortFd != -1)
 	{
 		// Unregister with the USDT
 		UnRegisterWithUsdt();
@@ -1548,14 +1576,14 @@ ResManagerCmd_t IGryphonChannel::HandleReplyTimeoutPulse(io_pulse_t &pulse)
 {
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::HandleReplyTimeoutPulse($%X)\n", pulse.value.sival_int);
 
-	if(m_blockedReaders.Lock() == EOK)
+	if (m_blockedReaders.Lock() == EOK)
 	{
 		BlockedReaderListItr_t itr = m_blockedReaders.begin();
 
-		while(itr != m_blockedReaders.end())
+		while (itr != m_blockedReaders.end())
 		{
 			GryphonIoOcb_t*   client;
-			if( (client = (GryphonIoOcb_t*)itr->first) != NULL)
+			if ( (client = (GryphonIoOcb_t*)itr->first) != NULL)
 			{
 				if( IsModuleIDPresent(client->moduleIDs,pulse.value.sival_int))
 				{
@@ -1617,15 +1645,15 @@ void IGryphonChannel::UpdateClientFifos( const char *buff, size_t len, int flag)
 	locRespCode = getRespCode(buff);
 	// Log the data
 	Log( LOG_DETAILED_DATA, "Found message from module ID: %04X\n", locModuleId);
-	if(m_blockedReaders.Lock() == EOK)
+	if (m_blockedReaders.Lock() == EOK)
 	{
 		BlockedReaderListItr_t itr;
-		for(rxItr = m_rxSubscribers.begin(); rxItr != m_rxSubscribers.end(); rxItr++)
+		for (rxItr = m_rxSubscribers.begin(); rxItr != m_rxSubscribers.end(); rxItr++)
 		{
 			GryphonIoOcb_t*   client = (GryphonIoOcb_t*)rxItr->second;
-			if( client->moduleID == locModuleId)
+			if ( client->moduleID == locModuleId)
 			{
-				if(( client->expectedResponse = locRespCode) ||
+				if (( client->expectedResponse = locRespCode) ||
 				   ( client->expectedResponse = 0x7F))	// NAK code
 				{
 					// Got a reply from the module, so stop the reply timer
@@ -1647,12 +1675,12 @@ void IGryphonChannel::UpdateClientFifos( const char *buff, size_t len, int flag)
 			}
 		}
 
-		for(itr = m_blockedReaders.begin(); itr != m_blockedReaders.end();itr++)
+		for (itr = m_blockedReaders.begin(); itr != m_blockedReaders.end();itr++)
 		{
 			GryphonIoOcb_t*   client = (GryphonIoOcb_t*)itr->first;
-			if( client->moduleID == locModuleId)
+			if ( client->moduleID == locModuleId)
 			{
-				if(( client->expectedResponse = locRespCode) ||
+				if (( client->expectedResponse = locRespCode) ||
 				   ( client->expectedResponse = 0x7F))	// NAK code
 				{
 					Log( LOG_DETAILED_DATA, "Found blocked client wanting it: %d\n",
@@ -1666,7 +1694,7 @@ void IGryphonChannel::UpdateClientFifos( const char *buff, size_t len, int flag)
 
 					locLen = client->proxyOcb.rxSubscription->fifo.GetBytes(rxBuf,rxLen);
 					m_blockedReaders.erase(itr);
-					if(locLen > 0)
+					if (locLen > 0)
 					{
 						MsgReply(client2.replyId,locLen,rxBuf,locLen);
 					}
@@ -1696,7 +1724,7 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::CanAddToClientFifo()\n");
 
 	// Check with base class first for filter strings
-	if( RawCommProxy::CanAddToClientFifo(data,ocb) == true)
+	if ( RawCommProxy::CanAddToClientFifo(data,ocb) == true)
 	{
 		// Get the module ID and response code
 		locModuleId = getModuleId(buff);
@@ -1704,20 +1732,14 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 
 		Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored module IDs: $%s incoming module ID: $%04X\n",
 			 GetModuleIDsString(client->moduleIDs).c_str(), locModuleId);
-		bool isBroadcastModuleID = IsBroadcastModuleID(locModuleId);
-		bool filterMatches = false;
-		if(isBroadcastModuleID)
-		{//check if client has a matching filter
-			filterMatches = FilterMatchCheck(data, ocb);  //note, this will return false if no filter exists
-		}
-		// If the data is from the client's module or is broadcast and client subscribed
-		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || (isBroadcastModuleID &&	filterMatches))
+		// If the data is from the client's module
+		if( IsModuleIDPresent(client->moduleIDs,locModuleId))
 		{
 			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored resp code: $%04X incoming resp code: $%04X\n",
 				 client->expectedResponse, locRespCode);
 			// And it is the response the client is expecting or a NAK response
 			//Logic is incorrect - else will never be reached... somehow everything is working?
-			if((client->expectedResponse = locRespCode) || (client->expectedResponse = 0x7F))
+			if ((client->expectedResponse = locRespCode) || (client->expectedResponse = 0x7F))
 			{
 				canAdd = true;
 				// Clear the response pending flag for this module ID
@@ -1744,79 +1766,6 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	return( canAdd);
 }
 
-/**
- * Method used to check if a serial response string can be added to a
- * client's rx FIFO
- *
- * @param data   Serial string reseived from the port
- * @param ocb    Client connection identifier
- * @return true if the data should be added to the client's FIFO, false otherwise
- */
-bool IGryphonChannel::FilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb)
-{
-	bool                            retVal = true;
-	LogPortFilterStringList         &fltrList = ocb->rxSubscription->filterList;
-	LogPortFilterStringListItr_t    itr;
-
-	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::FilterMatchCheck()\n");
-	// If client has any filter strings
-	if( fltrList.size() > 0)
-	{
-		fltrList.Lock();
-		for( itr=fltrList.begin(); itr!=fltrList.end(); itr++)
-		{
-			// Get reference to the filter string
-			const LogPortFilterString &filter = *itr;
-			// IF data matches the filter string
-			if( filter.IsStringValid( data) == true)
-			{
-				// Ok to ADD to FIFO
-				Log( LOG_DEV_DATA, "Response matches filter string\n");
-				retVal = true;
-				break;
-			}
-			else
-			{
-				// No match...look at next filter
-				Log( LOG_DEV_DATA, "Response DOES NOT match filter string\n");
-
-				SerialString_t::const_iterator  sItr = sItr=data.begin();
-				LogPortFilterStringCItr_t       lItr = lItr=filter.begin();
-
-				// Size must match first or filter must be set to variable length
-				if( (filter.size() == data.size()) || (filter.GetRespLenType() == 1))
-				{
-					// Examine each element of each string
-					while( (sItr!=data.end()) && (lItr!=filter.end()))
-					{
-						Log( LOG_DEV_DATA, "data: 0x%02X : filter0x%02X\n");
-						// Look at next element
-						sItr++;
-						lItr++;
-					}
-				}
-				else
-				{
-					Log( LOG_DEV_DATA, "Filter sizes do not match\n");
-				}
-				//Test Log message, remove
-				Log( LOG_DETAILED_DATA, "Not expecting NULL character reflection\n");
-
-				retVal = false;
-			}
-		}
-		fltrList.Unlock();
-	}
-	else
-	{
-		Log( LOG_DEV_DATA, "No filter strings for client\n");
-		retVal = false;
-	}
-	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::FilterMatchCheck(%d)\n", retVal);
-
-	return( retVal);
-}
-
 bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t *ocb)
 {
 	SerialString_t  gryphMssg;
@@ -1824,19 +1773,13 @@ bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t 
 	bool            retVal;
 
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::AddToClientFifo( %d)\n", len);
-	if(UsingGryphonUSDT())
-	{
-		// Prepend the length pf the message to the original message
-		shortBuff[0] = (len / 0x1000000) & 0xFF;
-		shortBuff[1] = (len / 0x10000) & 0xFF;
-		shortBuff[2] = (len / 0x100) & 0xFF;
-		shortBuff[3] = (len / 0x1) & 0xFF;
-		gryphMssg = SerialString_t( shortBuff, 4) + SerialString_t( (uint8_t*)buff, len);
-	}
-	else
-	{
-		gryphMssg = SerialString_t( (uint8_t*)buff, len);
-	}
+
+	// Prepend the length pf the message to the original message
+	shortBuff[0] = (len / 0x1000000) & 0xFF;
+	shortBuff[1] = (len / 0x10000) & 0xFF;
+	shortBuff[2] = (len / 0x100) & 0xFF;
+	shortBuff[3] = (len / 0x1) & 0xFF;
+	gryphMssg = SerialString_t( shortBuff, 4) + SerialString_t( (uint8_t*)buff, len);
 
 	// Let the base class do all the real work
 	retVal = RawCommProxy::AddToClientFifo((const char*)gryphMssg.c_str(), gryphMssg.size(), ocb);
@@ -1847,14 +1790,16 @@ bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t 
 
 #endif
 
-int IGryphonChannel::RegisterWithUsdt(void)
+bool IGryphonChannel::RegisterWithUsdt(string pathName /*=""*/, int attempt /*=1*/)
 {
 	RegMsg locMsg;
 	int locSize;
 	uint8_t *locStr;
 	int retVal;
+    bool registrationOk = false;
+    m_usdtRegistrationAttempts = 1; 
 	// Log the entry
-	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::RegisterWithUsdt()\n");
+	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::RegisterWithUsdt(Attempt: %d)\n", attempt);
 
 	locStr = (uint8_t *) &locMsg;
 	locSize = sizeof(locMsg);
@@ -1863,7 +1808,12 @@ int IGryphonChannel::RegisterWithUsdt(void)
 	locMsg.header.cmd = CMD_USDT_REGISTER;
 	locMsg.header.context = UseContext();
 	locMsg.header.reserved = 0;
-	if(m_moduleIDByteLength == 4)
+	if(m_moduleIDByteLength == 6)
+	{
+		//locMsg.doRegOn     = 3;	//0011 29 bit headers
+		locMsg.doRegOn     = 5;	//0101 29 bit and 11 bit headers
+	}
+	else if(m_moduleIDByteLength == 4)
 	{
 		locMsg.doRegOn     = 3;	//0011 29 bit headers
 	}
@@ -1877,7 +1827,7 @@ int IGryphonChannel::RegisterWithUsdt(void)
 	// Setup the range of addresses to communicate with
 	// NOTE: Use m_nodePairSetupMap.incoming and m_nodePairSetupMap.outgoing.
 	// ALGORITHM: Setup a node pairing for each node pair in the map.
-	for(int index = 0; index < m_nodePairSetupCount; index++)
+	for (int index = 0; index < m_nodePairSetupCount; index++)
 	{
 		vector <UINT32> responseIDs;
 		locMsg.usdtBlock[index].numberOfIDs         = m_nodePairSetupMap[index].numberOfPairs;	 // Number of IDs in this range
@@ -1891,7 +1841,7 @@ int IGryphonChannel::RegisterWithUsdt(void)
 		ReverseBytes(locMsg.usdtBlock[index].firstUUDTResponseID);
 	}
 	// Perform the registration
-	if(UsdtRegistered.Acquire()== EOK)
+	if (UsdtRegistered.Acquire()== EOK)
 	{
 		UsdtRegistered.SetValue(false);
 
@@ -1902,13 +1852,18 @@ int IGryphonChannel::RegisterWithUsdt(void)
 			 locStr[0], locStr[1], locStr[2], locStr[3],
 			 locStr[4], locStr[5], locStr[6], locStr[7]);
 		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_USDT);
-		if(UsdtRegistered.Wait(true,mSEC_nSEC(5000)) == EOK)
+		if (UsdtRegistered.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
-			Log( LOG_DETAILED_DATA, "Usdt Registered for channel %d\n", m_channelId);
+			Log( LOG_DEV_DATA, "Usdt Registered for channel %d\n", m_channelId);
+            registrationOk = true;
 		}
 		else
 		{
 			Log( LOG_ERRORS, "Usdt FAILED for channel %d (no response)\n", m_channelId);
+            /*UsdtRegistered.Release();
+            BposSleep(750);
+            m_usdtRegistrationAttempts++;
+            RegisterWithUsdt(pathName); */
 		}
 		UsdtRegistered.Release();
 	}
@@ -1917,8 +1872,166 @@ int IGryphonChannel::RegisterWithUsdt(void)
 		Log( LOG_ERRORS, "Usdt FAILED for channel %d (could not acquire)\n", m_channelId);
 	}
 
+    if (pathName != "")
+    {
+        try
+        {
+            Log(LOG_DEV_DATA, "Archiving USDT Registration(%s) results for issue tracking...", registrationOk ? "OK" : "NOK");
+            char testDate[256], testTime[256];
+            struct tm *localTime;
+            time_t currentTime;
+        
+            // Get the time and machine number for reporting purposes
+            currentTime = time(NULL);
+            localTime = localtime(&currentTime);
+            string dateFormat = "%F";
+            string timeFormat = "%H:%M:%S";
+            strftime(testDate, sizeof(testDate), dateFormat.c_str(), localTime);
+            strftime(testTime, sizeof(testTime), timeFormat.c_str(), localTime);
+            
+            FILE *dataFile;
+            string fileName = "/home/CCRT/Rewrite/Logs/UsdtReg_" + pathName + ".txt";
+            if((dataFile = fopen(fileName.c_str(), "a+")) != NULL)
+            {
+                fprintf(dataFile, "%s %s - USDT Registration %s\n", 
+                        testDate, testTime, registrationOk ? "OK" : "NOK");
+            }
+            // Close the file
+            fclose(dataFile);
+        }
+        catch(...)
+        {
+            Log(LOG_DEV_DATA, "Error archiving USDT registration results.");
+        }
+    }
+
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::RegisterWithUsdt()\n");
-	return(EOK);
+	return(registrationOk);
+}
+
+
+bool IGryphonChannel::RegisterWithUsdtNonLegacy(string pathName /*=""*/, int attempt /*=1*/)
+{
+	RegMsgNonLegacy locMsg;
+	int locSize;
+	uint8_t *locStr;
+	int retVal;
+    bool registrationOk = false;
+    m_usdtRegistrationAttempts = 1; 
+	// Log the entry
+	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::RegisterWithUsdtNonLegacy(Attempt: %d)\n", attempt);
+
+	locStr = (uint8_t *) &locMsg;
+	locSize = sizeof(locMsg) - ((MAX_USDT_RANGES - m_nodePairSetupCount) * 20);
+    if(locSize < 0)
+     locSize = sizeof(locMsg);
+	memset(locStr,0,sizeof(locMsg));
+	// Start populating the message fields
+	locMsg.header.cmd = CMD_USDT_REGISTER_NON_LEGACY;
+	locMsg.header.context = UseContext();
+	locMsg.header.reserved = 0;   
+    /*Action    */  locMsg.doRegOn = 1;     // 11/29 bit header designation now set elsewhere - Set to 1 for registration 
+	/*TX Options*/  locMsg.doEchoMsg   = 0;
+	/*RX Opitons*/  locMsg.doRecvOpt   = RECV_NORMAL;	  // 0x01,
+	/*Reserved  */  locMsg.funcAddrCnt = 0; // This byte is simply a reserve byte now - MUST BE ZERO
+     
+	// Setup the range of addresses to communicate with
+	// NOTE: Use m_nodePairSetupMap.incoming and m_nodePairSetupMap.outgoing.
+	// ALGORITHM: Setup a node pairing for each node pair in the map.
+	for (int index = 0; index < m_nodePairSetupCount; index++)
+	{
+		vector <UINT32> responseIDs;
+		locMsg.usdtBlock[index].numberOfIDs         = m_nodePairSetupMap[index].numberOfPairs;	 // Number of IDs in this range
+		locMsg.usdtBlock[index].firstUSDTRequestID  = m_nodePairSetupMap[index].outgoing;
+		locMsg.usdtBlock[index].firstUSDTResponseID = m_nodePairSetupMap[index].incoming;
+		locMsg.usdtBlock[index].firstUUDTResponseID = m_nodePairSetupMap[index].uudtIncoming;
+
+        // Set control bits (31-29)
+        // Bit 31 - 1 for 29 bit headers and 0 for 11 bit header
+        // Bit 30 - 1 for J1939 style length where the source and destination bytes are swapped
+        // Bit 29 - 1 for headers using Extended Addressing
+        if(m_nodePairSetupMap[index].is29BitHeader)
+        {
+            locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs & 0x1FFFFFFF);
+            // Set as 29 bit header and J1939 style
+            locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs | 0xC0000000);
+        }
+        else
+            locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs & 0x000007FF);
+        
+		// Need to reverse the order of the bytes for the USDT block
+		ReverseBytes(locMsg.usdtBlock[index].numberOfIDs);
+		ReverseBytes(locMsg.usdtBlock[index].firstUSDTRequestID);
+		ReverseBytes(locMsg.usdtBlock[index].firstUSDTResponseID);
+		ReverseBytes(locMsg.usdtBlock[index].firstUUDTResponseID);
+	}
+	// Perform the registration
+	if (UsdtRegistered.Acquire()== EOK)
+	{
+		UsdtRegistered.SetValue(false);
+
+		Log( LOG_DETAILED_DATA,
+			 "\nUSDT request:\n"
+			 "\t\tHeader:                           %02x %02x %02x %02x\n"
+			 "\t\tOptions:                          %02x %02x %02x %02x\n",
+			 locStr[0], locStr[1], locStr[2], locStr[3],
+			 locStr[4], locStr[5], locStr[6], locStr[7]);
+		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_USDT);
+		if (UsdtRegistered.Wait(true,mSEC_nSEC(5000)) == EOK)
+		{
+			Log( LOG_DEV_DATA, "Usdt Registered for channel %d\n", m_channelId);
+            registrationOk = true;
+		}
+		else
+		{
+			Log( LOG_ERRORS, "Usdt FAILED for channel %d (no response)\n", m_channelId);
+            /*UsdtRegistered.Release();
+            BposSleep(750);
+            m_usdtRegistrationAttempts++;
+            RegisterWithUsdt(pathName); */
+		}
+		UsdtRegistered.Release();
+	}
+	else
+	{
+		Log( LOG_ERRORS, "Usdt FAILED for channel %d (could not acquire)\n", m_channelId);
+	}
+
+    if (pathName != "")
+    {
+        try
+        {
+            Log(LOG_DEV_DATA, "Archiving USDT Registration(%s) results for issue tracking...", registrationOk ? "OK" : "NOK");
+            char testDate[256], testTime[256];
+            struct tm *localTime;
+            time_t currentTime;
+        
+            // Get the time and machine number for reporting purposes
+            currentTime = time(NULL);
+            localTime = localtime(&currentTime);
+            string dateFormat = "%F";
+            string timeFormat = "%H:%M:%S";
+            strftime(testDate, sizeof(testDate), dateFormat.c_str(), localTime);
+            strftime(testTime, sizeof(testTime), timeFormat.c_str(), localTime);
+            
+            FILE *dataFile;
+            string fileName = "/home/CCRT/Rewrite/Logs/UsdtReg_" + pathName + ".txt";
+            if((dataFile = fopen(fileName.c_str(), "a+")) != NULL)
+            {
+                fprintf(dataFile, "%s %s - USDT Registration %s\n", 
+                        testDate, testTime, registrationOk ? "OK" : "NOK");
+            }
+            // Close the file
+            fclose(dataFile);
+        }
+        catch(...)
+        {
+            Log(LOG_DEV_DATA, "Error archiving USDT registration results.");
+        }
+    }
+
+	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::RegisterWithUsdtNonLegacy()\n");
+	return(registrationOk);
 }
 
 int IGryphonChannel::UnRegisterWithUsdt(void)
@@ -1934,7 +2047,10 @@ int IGryphonChannel::UnRegisterWithUsdt(void)
 	locSize = sizeof(locMsg);
 	memset(locStr,0,locSize);
 	// Start populating the message fields
-	locMsg.header.cmd = CMD_USDT_REGISTER;
+    if(m_nonLegacyDevice)
+        locMsg.header.cmd = CMD_USDT_REGISTER_NON_LEGACY;
+    else
+        locMsg.header.cmd = CMD_USDT_REGISTER;
 	locMsg.header.context = UseContext();
 	locMsg.header.reserved = 0;
 	locMsg.doRegOn     = 0;				// 0 to unregister
@@ -1943,7 +2059,7 @@ int IGryphonChannel::UnRegisterWithUsdt(void)
 	locMsg.funcAddrCnt = 0;				// Ignored when unregistering
 
 	// Perform the registration
-	if(UsdtRegistered.Acquire()== EOK)
+	if (UsdtRegistered.Acquire()== EOK)
 	{
 		UsdtRegistered.SetValue(false);
 
@@ -1954,7 +2070,7 @@ int IGryphonChannel::UnRegisterWithUsdt(void)
 			 locStr[0], locStr[1], locStr[2], locStr[3],
 			 locStr[4], locStr[5], locStr[6], locStr[7]);
 		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_USDT);
-		if(UsdtRegistered.Wait(true, mSEC_nSEC(5000)) == EOK)
+		if (UsdtRegistered.Wait(true, mSEC_nSEC(5000)) == EOK)
 		{
 			UsdtRegistered.SetValue(false);
 			Log( LOG_DETAILED_DATA, "Usdt Unregistered for channel %d\n", m_channelId);
@@ -1974,12 +2090,12 @@ int IGryphonChannel::UnRegisterWithUsdt(void)
 	return(EOK);
 }
 
-int IGryphonChannel::SetMinimumMessageSeperationTime(float seperationTime)
+int IGryphonChannel::SetMinimumMessageSeperationTimeMultiplier(float seperationTimeMultiplier)
 {
 	int retVal = EOK;
-	if(seperationTime > 0.0)
+	if(seperationTimeMultiplier > 0.0)
 	{	// Set a mulitiplier for the ST Min parameter
-		Log(LOG_DEV_DATA, "Setting ST Min Multiplier to %f", seperationTime);
+		Log(LOG_DEV_DATA, "Setting ST Min Multiplier to %f", seperationTimeMultiplier);
 		StMinMsg locMsg;
 		int locSize = sizeof(locMsg);  // Get the size of the message structure
 		uint8_t *locStr = (uint8_t *) &locMsg;	 // Get a pointer to the message structure
@@ -1995,7 +2111,7 @@ int IGryphonChannel::SetMinimumMessageSeperationTime(float seperationTime)
 			float fVal;
 			UINT32 hVal;
 		} conversion;
-		conversion.fVal = seperationTime;
+		conversion.fVal = seperationTimeMultiplier;
 		locMsg.stMinMultiplier = conversion.hVal;
 		// Send the ST min multiplier to the box
 		if(UsdtStMinMultiplier.Acquire() == EOK)
@@ -2010,11 +2126,11 @@ int IGryphonChannel::SetMinimumMessageSeperationTime(float seperationTime)
 			retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_USDT);
 			if(UsdtStMinMultiplier.Wait(true,mSEC_nSEC(5000)) == EOK)
 			{
-				Log(LOG_DETAILED_DATA, "Usdt set ST min multiplier to %f", seperationTime);
+				Log(LOG_DETAILED_DATA, "Usdt set ST min multiplier to %f", seperationTimeMultiplier);
 			}
 			else
 			{
-				Log(LOG_ERRORS, "Usdt FAILED to set ST min multiplier to %f", seperationTime);
+				Log(LOG_ERRORS, "Usdt FAILED to set ST min multiplier to %f", seperationTimeMultiplier);
 			}
 			UsdtStMinMultiplier.Release();
 		}
@@ -2027,6 +2143,76 @@ int IGryphonChannel::SetMinimumMessageSeperationTime(float seperationTime)
 	{
 		Log(LOG_DEV_DATA, "Minimum seperation time set to 0.0.  Using system default and not sending command");
 	}
+	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::SetMinimumMessageSeperationTimeMultiplier()");
+	return retVal;
+}
+
+int IGryphonChannel::SetMinimumMessageSeperationTime(UINT8 seperationTime)
+{
+	int retVal = EOK;
+	if(seperationTime > 0)
+	{	// Set a mulitiplier for the ST Min parameter
+		Log(LOG_DEV_DATA, "Setting ST Min to %d", seperationTime);
+		StMinFcMsg locMsg;
+        // Using static size definition because of Data Structure Alignment protocol
+        // - StMinFcMsg struct will get 1 byte padding added to the end
+        // - total size has to be a multiple of the largest member (in this case that would be the short for reserve)
+		int locSize =  sizeof(locMsg);//STMIN_FC_MSG_SIZE;  // Get the size of the message structure
+		uint8_t *locStr = (uint8_t *) &locMsg;	 // Get a pointer to the message structure
+		// Make sure the message structure is clear
+		memset(locStr,0,locSize);
+		// Populate the message structure
+		locMsg.header.cmd      = CMD_USDT_SET_STMIN_FC;
+		locMsg.header.context  = UseContext();
+		locMsg.header.reserved = 0;
+		// Set the ST Min time
+        locMsg.stMinValue = seperationTime;
+        locMsg.padding1 = 0x00;
+        locMsg.padding2 = 0x0000;
+		// Send the ST min multiplier to the box
+		if(UsdtStMinFlowControl.Acquire() == EOK)
+		{
+			UsdtStMinFlowControl.SetValue(false);
+			Log(LOG_DETAILED_DATA, 
+				"\nUSDT Request:\n"
+				"\t\tHeader:          %02X %02X %02X %02X\n"
+				"\t\tOptions:         %02X\n" /*%02X %02X %02X\n"*/,
+				locStr[0], locStr[1], locStr[2], locStr[3],
+				locStr[4], locStr[5], locStr[6], locStr[7]);
+            Log(LOG_DETAILED_DATA, "Sending raw frame - locSize = %d", locSize);
+			retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_USDT, true, STMIN_FC_MSG_SIZE);
+			if(UsdtStMinFlowControl.Wait(true,mSEC_nSEC(5000)) == EOK)
+			{
+				Log(LOG_DETAILED_DATA, "Usdt set ST min multiplier to %d", seperationTime);
+			}
+			else
+			{   /*
+                Log(LOG_ERRORS, "No response?");
+                // Try again
+                MsgSendPulse(m_threadCoId,SIGEV_PULSE_PRIO_INHERIT,SERIAL_DATA_READY,0);
+                if(UsdtStMinFlowControl.Wait(true,mSEC_nSEC(5000)) == EOK)
+    			{
+    				Log(LOG_DETAILED_DATA, "Usdt set ST min multiplier to %d", seperationTime);
+    			}
+    			else
+    			{
+                    Log(LOG_ERRORS, "Usdt FAILED to set ST min to %d", seperationTime);
+                }
+                */
+				Log(LOG_ERRORS, "Usdt FAILED to set ST min to %d", seperationTime);
+                
+			}
+			UsdtStMinFlowControl.Release();
+		}
+		else
+		{
+			Log(LOG_ERRORS, "Usdt FAILED ST min - could not acquire");
+		}
+	}
+	else
+	{
+		Log(LOG_DEV_DATA, "Minimum seperation time set to 0.  Using system default and not sending command");
+	}
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::SetMinimumMessageSeperationTime()");
 	return retVal;
 }
@@ -2035,12 +2221,12 @@ void IGryphonChannel::ReverseBytes(unsigned int &byteString)
 {
 	UINT8 bytes[4];
 	// Get the individual bytes
-	for(UINT8 index = 0; index < 4; index++)
+	for (UINT8 index = 0; index < 4; index++)
 		bytes[index] = (byteString >> (8*index)) & 0x000000FF;
 	// Clear the storage location
 	byteString = 0x00000000;
 	// Reassemble the bytes
-	for(UINT8 index = 0; index < 4; index++)
+	for (UINT8 index = 0; index < 4; index++)
 		byteString = byteString | (bytes[index] << (8*(3-index)));
 }
 
@@ -2130,30 +2316,4 @@ void IGryphonChannel::ClearModuleResponsePending(const vector<UINT32> &moduleIds
 	{
 		Log(LOG_ERRORS, "WARNING: No response pending entry for module ID %s", GetModuleIDsString(moduleIds).c_str());
 	}
-}
-/**
- * Handler method for client subscription requests
- *
- * @param ctp    Resource manager context pointer
- * @param msg    Message structure
- * @param ioOcb  Client's connection properties
- * @return EOK if successful, other on error
- */
-int IGryphonChannel::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
-										  resMgrIoOcb_t *ioOcb)
-{
-	return RawCommProxy::PortSubscribeHandler(ctp, msg, ioOcb); 
-}
-/**
- * Handler method for client unsubscription requests
- *
- * @param ctp    Resource manager context pointer
- * @param msg    Message structure
- * @param ioOcb  Client's connection properties
- * @return EOK if successful, other on error
- */
-int IGryphonChannel::PortUnsubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
-											resMgrIoOcb_t *ioOcb)
-{
-	return RawCommProxy::PortUnsubscribeHandler(ctp, msg, ioOcb);
 }

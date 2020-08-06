@@ -3,6 +3,7 @@
 #define gmsg2_h
 // additional restrictions for our use.
 #define MAX_EVNAMES 32
+#define STMIN_FC_MSG_SIZE 5
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // these are additional structure definitions that we find useful.
 #include "info.h"
@@ -11,8 +12,7 @@
 
 struct InOut{
     uint32_t incoming;
-    uint32_t outgoing;
-	uint32_t uudtIncoming;
+    uint32_t outgoing;  
 };
 
 struct InOutSetup{
@@ -20,6 +20,7 @@ struct InOutSetup{
     uint32_t uudtIncoming;
     uint32_t outgoing;
     uint16_t numberOfPairs;
+    bool is29BitHeader;
 };
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -75,6 +76,18 @@ struct USDTBlock
 	unsigned int firstUUDTResponseID;
 };
 
+struct USDTBlockNonLegacy
+{
+	unsigned int numberOfIDs;
+	unsigned int firstUSDTRequestID;
+	unsigned int firstUSDTResponseID;
+	unsigned int firstUUDTResponseID;
+    unsigned char USDTRequestExtAddr;
+    unsigned char USDTResponseExtAddr;
+    unsigned char UUDTRequestExtAddr;
+    unsigned char reserved;
+};
+
 #define MAX_USDT_RANGES 64
 
 struct RegMsg{
@@ -86,10 +99,31 @@ struct RegMsg{
     struct USDTBlock usdtBlock[MAX_USDT_RANGES];
 };
 
+struct RegMsgNonLegacy{
+    struct gcmdhdr header;
+    char doRegOn;
+    char doEchoMsg;
+    char doRecvOpt;
+    unsigned char funcAddrCnt;
+    struct USDTBlockNonLegacy usdtBlock[MAX_USDT_RANGES];
+};
+
 struct StMinMsg
 {
     struct gcmdhdr header;
     unsigned int stMinMultiplier;
 };
+
+struct StMinFcMsg
+{
+    struct gcmdhdr header;
+    unsigned char stMinValue; 
+    //};
+    /** Removed padding based on email conversation from DG Tech Support
+        - DG Documentation may not reflect this
+     */
+    unsigned char padding1;
+    unsigned short padding2;};   
+
 
 #endif  //gmsg2_h

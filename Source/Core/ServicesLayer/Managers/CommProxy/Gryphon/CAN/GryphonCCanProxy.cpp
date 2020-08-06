@@ -11,7 +11,7 @@
 //
 //==============================================================================
 //
-//     Copyright © 2003 Burke E. Porter Machinery Co.
+//     Copyright Â© 2003 Burke E. Porter Machinery Co.
 //     All Rights Reserved
 //
 //     This file contains confidential information of Burke E. Porter Machinery
@@ -87,7 +87,7 @@
 #if _NTO_VERSION >= 630
     #include <sys/types.h>
     #include <sys/socket.h>
-	#include <arpa/inet.h>
+    #include <arpa/inet.h>
 #endif
 
 #include "IGryphonChannel.h"
@@ -122,7 +122,7 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
     RawCommProxy::Initialize( document);
     Log( LOG_FN_ENTRY, "Enter(2) GryphonCCan::Initialize(%s)\n", document->getName().c_str());
     // Get the CAN bus specific stuff
-    if (document != NULL)
+    if(document != NULL)
     {
         try
         {
@@ -130,7 +130,7 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
             portNode += m_pathName;
             portSetup = document->getChild( portNode);
         }
-        catch (XmlException &err)
+        catch(XmlException &err)
         {
             Log( LOG_ERRORS, "\tError reading port configuration\n");
             throw;
@@ -149,7 +149,7 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
     {
         PortPathAlias = portSetup->getChild("Setup/Alias")->getValue();
     }
-    catch (...)
+    catch(...)
     {
         // if the node doesnt exist, set target to null
         PortPathAlias = "";
@@ -163,6 +163,24 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
         Log(LOG_ERRORS, "ST Min Multiplier not specified, setting to 0 - %s", excpt.GetReason());
         m_stMinMultiplier = 0.0;
     }
+
+    try
+    {
+        m_flowControlStMin = atoi(portSetup->getChild("Setup/FlowControlStMin")->getValue().c_str());
+        /**
+         *  0 - 127 should represent miliseconds
+         *  0xF1 - 0xF9, 100 - 900 microseconds
+         * 
+         * Beacon simply defines this value as miliseconds though...
+         * Maybe just try to keep value between 0 and 127
+         *         
+         */
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "Flow Control ST Min not specified, setting to 0 - %s", excpt.GetReason());
+        m_flowControlStMin = 0;
+    }
     try
     {
         //subtract 1 - gryphon starts on channel 1
@@ -173,82 +191,113 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
         Log(LOG_ERRORS, "Channel not specified, setting to 0 - %s", excpt.GetReason());
         m_channelOverride = 0;
     }
-    try
-    {
-        m_moduleIDByteLength = atoi(portSetup->getChild("Setup/ModuleIDByteLength")->getValue().c_str());
-    }
-    catch(XmlException &excpt)
-    {
-        Log(LOG_ERRORS, "Module ID Length not specified, setting to 16 - %s", excpt.GetReason());
-        m_moduleIDByteLength = 2;
-    }
+
     PortDevPath = std::string("/dev/LogicalPorts/") + m_pathName;
     Log( LOG_DEV_DATA, "[GryphonCCan] port dev path and alias: \"%s\"  \"%s\"\n",PortDevPath.c_str(),PortPathAlias.c_str());
 
     m_nodePairCount = portSetup->getChild("Setup/NodePairs")->getChildren().size();
     m_nodePairSetupCount = portSetup->getChild("Setup/NodePairSetup")->getChildren().size();
     Log( LOG_DEV_DATA, "[GryphonCCan] Found %d node pairs\n", m_nodePairCount);
+
+    try
+    {
+        m_nonLegacyDevice = atob(portSetup->getChild("Setup/NonLegacyDevice")->getValue().c_str()); 
+    }
+    catch(XmlException &excpt)
+    {
+        Log(LOG_ERRORS, "NonLegacyDevice parameter not specified, setting to false - %s", excpt.GetReason());
+        m_nonLegacyDevice = false;
+    }
+
     // Sanity check the node pairs
-    if (m_nodePairCount > 60) m_nodePairCount = 60;
-    if (m_nodePairCount < 0) m_nodePairCount = 60;
-    if (m_nodePairCount > 0)
-    {   // Store the node pairs
-        for (int ii = 0; ii < m_nodePairCount; ii++)
+    if(m_nodePairCount > 100) m_nodePairCount = 100;
+    if(m_nodePairCount < 0) m_nodePairCount = 100;
+    if(m_nodePairCount > 0)
+    {
+        // with 5 as the default msgSize, the header bit length will default to 11-bit headers
+        int nodePairLength = 5;
+
+        // headerBitLength is used as a control variable. 
+        // 0 = bit lenght is unknown. 
+        // 1 = bit length is 11 exclusivly. 
+        // 2 = bit length is 29 exclusivly. 
+        // 3 = bit length is both 11 and 29.
+        int headerBitLength = 0;
+
+        // 2 - 11 bit header
+        // 4 - 29 bit header
+        // 6 both headers
+        m_moduleIDByteLength = 2;
+
+        // Store the node pairs
+        for(int ii = 0; ii < m_nodePairCount; ii++)
         {
             nodePairX = portSetup->getChild("Setup/NodePairs")->getChildren().getNode(ii);
             m_nodeMap[ii].outgoing = (UINT32)BposReadInt(nodePairX->getAttribute("Outgoing")->getValue().c_str());
             m_nodeMap[ii].incoming = (UINT32)BposReadInt(nodePairX->getAttribute("Incoming")->getValue().c_str());
-			// Check for a UUDT response ID
-			XmlNodeMapCItr uudtIter = nodePairX->getAttributes().find("UudtResponse");
-			if(uudtIter != nodePairX->getAttributes().end())
-			{
-				m_nodeMap[ii].uudtIncoming = (UINT32)BposReadInt(uudtIter->second->getValue().c_str());
-			}
-			else
-			{
-				m_nodeMap[ii].uudtIncoming = 0x0000;
-			}
+
+            // if it has been found that both 11 and 29 bit headers are being used, there is not use to continue to check,
+            if(3 != headerBitLength)
+            {
+                nodePairLength = strlen(nodePairX->getAttribute("Outgoing")->getValue().c_str());
+                if(nodePairLength == 5 && 0 == headerBitLength)
+                {
+                    //set as exclusive 11-bit header
+                    headerBitLength = 1;
+                    m_moduleIDByteLength = 2;
+                }
+                else if(nodePairLength == 5 && 2 == headerBitLength)
+                {
+                    //set as both 11 and 29-bit headers
+                    headerBitLength = 3;
+                    m_moduleIDByteLength = 6;
+                }
+                else if(nodePairLength == 10 && 0 == headerBitLength)
+                {
+                    //set as exclusive 29-bit header
+                    headerBitLength = 2;
+                    m_moduleIDByteLength = 4;
+                }
+                else if(nodePairLength == 10 && 1 == headerBitLength)
+                {
+                    //set as both 29 and 11-bit headers 
+                    headerBitLength = 3;
+                    m_moduleIDByteLength = 6;
+                }
+            }
         }
+
+        //if for some crazy reason the header bit length wasn't spcified above default it to 11 bit headers.
+        if(0 == headerBitLength)
+        {
+            Log(LOG_ERRORS, "Module ID Length not specified. Defaulting to 11-bit headers");
+            m_moduleIDByteLength = 2;
+        }
+
         // Store the node pairs for setup
-        for (int ii = 0; ii < m_nodePairSetupCount; ii++)
+        for(int ii = 0; ii < m_nodePairSetupCount; ii++)
         {
             nodePairX = portSetup->getChild("Setup/NodePairSetup")->getChildren().getNode(ii);
             m_nodePairSetupMap[ii].outgoing = (UINT32)BposReadInt(nodePairX->getAttribute("FirstRequestID")->getValue().c_str());
             m_nodePairSetupMap[ii].incoming = (UINT32)BposReadInt(nodePairX->getAttribute("FirstResponseID")->getValue().c_str());
-			try
-			{
-				m_nodePairSetupMap[ii].uudtIncoming = (UINT32)BposReadInt(nodePairX->getAttribute("FirstUUDTResponseID")->getValue().c_str());
-			}
-			catch(...)
-			{
-				m_nodePairSetupMap[ii].uudtIncoming = 0x0000;
-			}
+            try
+            {
+                m_nodePairSetupMap[ii].uudtIncoming = (UINT32)BposReadInt(nodePairX->getAttribute("FirstUUDTResponseID")->getValue().c_str());
+            }
+            catch(...)
+            {
+                m_nodePairSetupMap[ii].uudtIncoming = 0x0000;
+            }
 
             m_nodePairSetupMap[ii].numberOfPairs = (INT16)BposReadInt(nodePairX->getAttribute("NumberOfPairs")->getValue().c_str());
+            
+            // Define as 11/29 bit header
+            if(m_nonLegacyDevice)
+            {
+                nodePairLength = strlen(nodePairX->getAttribute("FirstRequestID")->getValue().c_str());
+                m_nodePairSetupMap[ii].is29BitHeader = (nodePairLength == 10);
+            }
         }
-    }
-    try
-    {
-        XmlNodeMap bcastMessages;
-        m_broadcastMessageCount = 0;
-        bcastMessages.DeepCopy(portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren());
-        m_broadcastMessageCount = portSetup->getChild("Setup/BroadcastMessageIDs")->getChildren().size();
-        Log( LOG_DEV_DATA, "[GryphonCCan] Found %d broadcast messages\n", m_broadcastMessageCount);
-        m_broadcastMessageCount = 0;
-        for(XmlNodeMapCItr iter = bcastMessages.begin();iter != bcastMessages.end(); iter++)
-        {   // Get list of broadcast message ids to be recorded
-            m_broadcastMessages[m_broadcastMessageCount].incoming = (UINT32)BposReadInt(iter->second->getAttribute("Incoming")->getValue().c_str());
-            //initialize as blocked
-            m_broadcastMessages[m_broadcastMessageCount].blocked = true;
-            Log( LOG_DETAILED_DATA, "Added Broadcast Incoming Msg ID: %04X\n",m_broadcastMessages[m_broadcastMessageCount].incoming);
-            m_broadcastMessageCount++;
-        }
-        m_recordBroadcastMessages = true;
-    }
-    catch(XmlException &excpt)
-    {//No broadcast messages specified default to null
-        Log(LOG_ERRORS, "No broadcast messages specified %s", excpt.GetReason());
-        m_recordBroadcastMessages = false;
     }
 #if IGCDEBUG
     dumpNodePairs(m_nodeMap, m_nodePairCount);
@@ -260,39 +309,14 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
 vector<UINT32> GryphonCCanProxy::FindNodePair(const UINT32 locModule)
 {
     vector<UINT32> locNode;
-    for (int ii = 0; ii < m_nodePairCount; ii++)
+    for(int ii = 0; ii < m_nodePairCount; ii++)
     {
-        if (locModule == m_nodeMap[ii].outgoing)
+        if(locModule == m_nodeMap[ii].outgoing)
         {
             locNode.push_back(m_nodeMap[ii].incoming);
-			locNode.push_back(m_nodeMap[ii].uudtIncoming);
         }
     }
     return(locNode);
-}
-
-bool GryphonCCanProxy::IsBroadcastModuleID(const UINT32 locModule)
-{
-    for (int ii = 0; ii < m_broadcastMessageCount; ii++)
-    {
-        if (locModule == m_broadcastMessages[ii].incoming)
-        {
-            return(true);
-        }
-    }
-    return(false);
-}
-
-bool GryphonCCanProxy::IsUudtId(const UINT32 &locModule)
-{
-	for(int index = 0; index < m_nodePairCount; index++)
-	{
-		if(locModule == m_nodeMap[index].uudtIncoming)
-		{
-			return true;
-		}
-	}
-	return false;
 }
 
 int GryphonCCanProxy::getExpectedFromRaw(SerialString_t rawMessage)
@@ -304,16 +328,35 @@ int GryphonCCanProxy::getExpectedFromRaw(SerialString_t rawMessage)
 UINT32 GryphonCCanProxy::getModuleId(const char *rawMessage)
 {
     int locModule;
+    int tempModule;
     // Log the entry
     Log( LOG_FN_ENTRY, "Enter GryphonCCan::getModuleId\n");
-    if(m_moduleIDByteLength == 4)
+    bool isFourByteHeader = false;
+    if(m_moduleIDByteLength != 2 && strlen(rawMessage) >= 4)
     {   //32 bit header
-        locModule = ((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[1]) * 0x10000) + 
-                    ((0xFF & (int) rawMessage[2]) * 0x100) + (0xFF & (int) rawMessage[3]);
+        tempModule = ((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[1]) * 0x10000) + 
+                     ((0xFF & (int) rawMessage[2]) * 0x100) + (0xFF & (int) rawMessage[3]);
+        //check if incoming message exists in table
+        for(int ii = 0; ii < m_nodePairCount; ii++)
+        {
+            if(tempModule == m_nodeMap[ii].incoming)
+            {
+                isFourByteHeader = true;
+                break;
+            }
+        }
+        if(isFourByteHeader)
+        {
+            locModule = tempModule;
+        }
+        else
+        {
+            locModule = ((0xFF & (int) rawMessage[0]) * 0x100) + (0xFF & (int) rawMessage[1]);
+        }
     }
     else
     {   //16 bit default
-    locModule = ((0xFF & (int) rawMessage[0]) * 0x100) + (0xFF & (int) rawMessage[1]);
+        locModule = ((0xFF & (int) rawMessage[0]) * 0x100) + (0xFF & (int) rawMessage[1]);
     }
     Log( LOG_FN_ENTRY, "Exit GryphonCCan::getModuleId(%d)\n", locModule);
     return(locModule);
@@ -330,38 +373,55 @@ vector<UINT32> GryphonCCanProxy::getModuleIdsFromRaw(SerialString_t rawMessage)
     vector<UINT32> locResponseModule;
     // Log the entry
     Log( LOG_FN_ENTRY, "Enter GryphonCCan::getModuleIdFromRaw\n");
-    if(m_moduleIDByteLength == 4)
-    {   //32 bit header
-        locModule = ((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[1]) * 0x10000) + 
-                    ((0xFF & (int) rawMessage[2]) * 0x100) + (0xFF & (int) rawMessage[3]);
+    if(m_moduleIDByteLength != 2)
+    {
+        if(IsFourByteHeader(rawMessage))
+        {
+            //32 bit header
+            locModule = ((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[1]) * 0x10000) + 
+                        ((0xFF & (int) rawMessage[2]) * 0x100) + (0xFF & (int) rawMessage[3]);
+        }
+        else
+        {
+            locModule = ((0xFF & (int) rawMessage[0]) * 0x100) + (0xFF & (int) rawMessage[1]);
+        }
     }
     else
     {
-		locModule = ((0xFF & (int) rawMessage[0]) * 0x100) + (0xFF & (int) rawMessage[1]);
+        locModule = ((0xFF & (int) rawMessage[0]) * 0x100) + (0xFF & (int) rawMessage[1]);
     }
     locResponseModule = FindNodePair(locModule);
     Log( LOG_FN_ENTRY, "Exit GryphonCCan::getModuleIdFromRaw(%d -> %s)\n", locModule, GetModuleIDsString(locResponseModule).c_str());
     return(locResponseModule);
 }
+bool GryphonCCanProxy::IsFourByteHeader(SerialString_t rawMessage)
+{
+    UINT32 locModule;
+    vector<UINT32> locResponseModule;
+    if(rawMessage.length() >= 4)
+    {
+        locModule = ((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[1]) * 0x10000) + 
+                    ((0xFF & (int) rawMessage[2]) * 0x100) + (0xFF & (int) rawMessage[3]);
+        for(int ii = 0; ii < m_nodePairCount; ii++)
+        {
+            if(locModule == m_nodeMap[ii].outgoing)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 bool GryphonCCanProxy::CheckForBlock(const uint8_t *inBuf)
 {
     bool isBlocked = false;
-
-    //Length of the header + length of the data + extra data (this is all from the data header)
-    const int moduleResponseIndex = 24;  //start of the module's data after all the gryphon wrappers and headers
-    const char *moduleMessage = (const char *)&inBuf[moduleResponseIndex];
-
-    uint32_t        locModuleId = getModuleId(moduleMessage);
-    Log( LOG_DETAILED_DATA, "IGryphonChannel::ProcessNewCardMessage() Gryphon Incoming Msg ID: %04X\n", locModuleId);
     // if this is from a card, and it is not a USDT message, block it.
     // currently, according to scott, ALL messages from Chrysler are USDT
-    //JPS Added logic to allow card messages - needed for UUDT and broadcast responses
-//    isBlocked = ((SD_CARD == inBuf[0]) && UsingGryphonUSDT()) || !(IsBroadcastModuleID(locModuleId) /*&& !UsingGryphonUSDT()*/);
-	isBlocked = !(((SD_CARD == inBuf[0]) && (IsBroadcastModuleID(locModuleId) || IsUudtId(locModuleId))) || (SD_USDT == inBuf[0]));
-    Log(LOG_DEV_DATA, "CheckForBlock is %s -- SD_CARD: %02X %s inbuf[0]: %02X Using USDT: %s\n",
-        (isBlocked ? "BLOCKED" : "NOT blocked"), SD_CARD, ((SD_CARD == inBuf[0]) ? "==" : "!="), 
-        inBuf[0],UsingGryphonUSDT() ? "True" : "False");
+    //JPS Removing blocking card messages - needed for UUDT responses
+    //isBlocked = (SD_CARD == inBuf[0]);
+    Log(LOG_DEV_DATA, "CheckForBlock is %s -- SD_CARD: %02X %s inbuf[0]: %02X\n",
+        (isBlocked ? "BLOCKED" : "NOT blocked"), SD_CARD, (isBlocked ? "==" : "!="), inBuf[0]);
     // Return the result
     return(isBlocked);
 }
@@ -374,25 +434,39 @@ bool GryphonCCanProxy::UsingGryphonUSDT()
 void GryphonCCanProxy::BuildMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
 {
     gdatahdr locDH;
+    int moduleIDByteLength;
 
     m_destinationType = SD_USDT; // using USDT processor for outgoing messages
-    if(m_moduleIDByteLength == 4)
-    {//32bit
-        locDH.hdrlen = 4;        // Can header is 4 bytes
-        locDH.hdrbits = 29;      // only 29 bits are used
+    if(m_moduleIDByteLength != 2)
+    {
+        if(IsFourByteHeader(inBuf))
+        {
+            //32bit
+            locDH.hdrlen = 4;        // Can header is 4 bytes
+            locDH.hdrbits = 29;      // only 29 bits are used
+            moduleIDByteLength = 4;
+        }
+        else
+        {//16bit
+            locDH.hdrlen = 2;        // Can header is 2 bytes
+            locDH.hdrbits = 11;      // only 11 bits are used
+            moduleIDByteLength = 2;
+        }
     }
     else
     {//16bit
-    locDH.hdrlen = 2;        // Can header is 2 bytes
-    locDH.hdrbits = 11;      // only 11 bits are used
+        locDH.hdrlen = 2;        // Can header is 2 bytes
+        locDH.hdrbits = 11;      // only 11 bits are used
+        moduleIDByteLength = 2;
     }
-    Log(LOG_DEV_DATA, "InBuf Contents\n");
-    for(UINT8 i=0;i<inBuf.length();i++)
-    { 
-        Log(LOG_DEV_DATA, "    %02X \n",inBuf[i]);
+    Log(LOG_DEV_DATA, "InBuf Contents(%d)\n",inBuf.size());
+    for(int i=0;i<inBuf.size();i++)
+    {
+        Log(LOG_DEV_DATA, "\t\tindex: %04d -- %c <0x%02X>\n",
+            i,isprint(inBuf[i]) ? inBuf[i] : '?',inBuf[i]);
     }
-    Log(LOG_DEV_DATA, "Module ID Length: %d InBuf Length: %d\n",m_moduleIDByteLength, inBuf.length());
-    locDH.datalen = htons(inBuf.length()-m_moduleIDByteLength);  // length of the DATA part of the message
+    Log(LOG_DEV_DATA, "Module ID Length: %d InBuf Length: %d\n",moduleIDByteLength, inBuf.length());
+    locDH.datalen = htons(inBuf.length()-moduleIDByteLength);  // length of the DATA part of the message
     locDH.extralen = 0;      // we dont support this, always 0
     locDH.mode = MODE_LOCAL; // i suspect this is not used by the box
     locDH.priority = 0;      // not used
@@ -407,45 +481,6 @@ void GryphonCCanProxy::BuildMessage(SerialString_t &outBuf, const SerialString_t
     outBuf += inBuf;         // append
 }
 
-void GryphonCCanProxy::CreateFilter(uint32_t incomingId)
-{
-    if (m_moduleIDByteLength == 4)
-    {
-        char idToMatch[4] = {char((incomingId >> 24) & 0x000000FF),
-            char((incomingId >> 16) & 0x000000FF),
-            char((incomingId >> 8) & 0x000000FF),
-            char(incomingId & 0x000000FF)};
-        char idMask[4] = {0xFF,0xFF,0xFF,0xFF};
-
-        Log( LOG_FN_ENTRY, "Filter found: (%02x, %02x, %02x, %02x)\n",idToMatch[3], idToMatch[2], idToMatch[1], idToMatch[0]);
-        //Create filter to allow messages to pass
-        AddFilter( (FILTER_FLAG_PASS | FILTER_FLAG_ACTIVE),    /*const uint8_t locFlags*/
-                  0,                                        /*const uint16_t locOffset*/
-                  4,                                        /*const uint16_t locLength, */
-                  FILTER_DATA_TYPE_HEADER,                  /*const uint8_t locField*/
-                  BIT_FIELD_CHECK,                          /*const uint8_t locOperator*/ 
-                  idToMatch,                                     /*const char *firstValue, */
-                  idMask);                                    /*const char *secondValue*/
-    }
-    else
-    {
-        //test for uudt message
-        char idToMatch[2] = {char((incomingId >> 8) & 0x00FF),
-            char(incomingId & 0x00FF)};
-        char idMask[2] = {0xFF,0xFF};
-
-        Log( LOG_FN_ENTRY, "Filter found: (%02x, %02x)\n",idToMatch[1], idToMatch[0]);
-        //ERIC: CREATE THE FILTER TO RETURN ONLY MESSAGES TO ME ($F1)
-        AddFilter( (FILTER_FLAG_PASS | FILTER_FLAG_ACTIVE),    /*const uint8_t locFlags*/
-                  0,                                        /*const uint16_t locOffset*/
-                  2,                                        /*const uint16_t locLength, */
-                  FILTER_DATA_TYPE_HEADER,                  /*const uint8_t locField*/
-                  BIT_FIELD_CHECK,                          /*const uint8_t locOperator*/ 
-                  idToMatch,                                     /*const char *firstValue, */
-                  idMask);                                    /*const char *secondValue*/
-    }
-}
-
 int GryphonCCanProxy::ChannelSpecificInit(void)
 {
     int retVal;
@@ -454,104 +489,65 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 
     // Check for UUDT filters - if they exist set up the card filter (gryph usdt server does not handle 
     // these messages correctly)
-    for (int ii = 0; ii < m_nodePairSetupCount; ii++)
+    for(int ii = 0; ii < m_nodePairSetupCount; ii++)
     {
         if(m_nodePairSetupMap[ii].uudtIncoming != 0x0000)
         {//uudt filter exists - need to setup card to accept this filter
-            CreateFilter(m_nodePairSetupMap[ii].uudtIncoming);
+
+            //test for uudt message
+            char idToMatch[2] = {char((m_nodePairSetupMap[ii].uudtIncoming >> 8) & 0x00FF),
+                char(m_nodePairSetupMap[ii].uudtIncoming & 0x00FF)};
+            char idMask[2] = {0xFF,0xFF};
+
+            Log( LOG_FN_ENTRY, "Filter found: (%02x, %02x)\n",idToMatch[1], idToMatch[0]);
+            //ERIC: CREATE THE FILTER TO RETURN ONLY MESSAGES TO ME ($F1)
+            AddFilter( (FILTER_FLAG_PASS | FILTER_FLAG_ACTIVE),    /*const uint8_t locFlags*/
+                       0,                                        /*const uint16_t locOffset*/
+                       2,                                        /*const uint16_t locLength, */
+                       FILTER_DATA_TYPE_HEADER,                  /*const uint8_t locField*/
+                       BIT_FIELD_CHECK,                          /*const uint8_t locOperator*/ 
+                       idToMatch,                                     /*const char *firstValue, */
+                       idMask);                                    /*const char *secondValue*/
 
             //TURN ON THE FILTER
             SetFilterMode(FILTER_ON);
 
             //BLOCK ALL OTHER MESSAGES???
             SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
-        }
-    }
-    if (m_recordBroadcastMessages)
-    {
-        for (int ii = 0; ii < m_broadcastMessageCount; ii++)
-        {
-            CreateFilter(m_broadcastMessages[ii].incoming);
-        }
-        //TURN ON THE FILTER
-        SetFilterMode(FILTER_ON);
 
-        //BLOCK ALL OTHER MESSAGES???
-        SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
+            //End Test
+        }
     }
 
     // Set the filter mode
     // disabled for test SetFilterMode(FILTER_OFF_BLOCK_ALL);
     // Register and return the result
-    retVal = RegisterWithUsdt();
-    // Set the minimum seperation time of each message (including flow control and consecutive frames)
-    if(retVal == EOK)  retVal = SetMinimumMessageSeperationTime(m_stMinMultiplier);
+    bool registrationOk = false;
+    int maxAttempts = 10;
+    for(int i = 1; i <= maxAttempts && !registrationOk; i++)
+    {
+        if(m_nonLegacyDevice)
+            registrationOk = RegisterWithUsdtNonLegacy(m_pathName, i);
+        else
+            registrationOk = RegisterWithUsdt(m_pathName, i);
+        
+        if(!registrationOk)
+        {
+            Log(LOG_DEV_DATA, "USDT Registration failed! Try again? %s", maxAttempts <= 10 ? "Yes" : "No - Maxxed out");
+            BposSleep(750);
+        }
+        else
+            retVal = EOK;
+    }
+    
+    //retVal = RegisterWithUsdt(m_pathName);
+    
+    // Set min msg separation for flow control
+    if(retVal == EOK)  retVal = SetMinimumMessageSeperationTime(m_flowControlStMin);
+
+    // Set the minimum seperation time of each message (including flow control and consecutive frames)    
+    if(retVal == EOK)  retVal = SetMinimumMessageSeperationTimeMultiplier(m_stMinMultiplier);
+
     Log(LOG_FN_ENTRY, "GryphonCCanProxy::ChannelSpecificInit() complete - retval: %d", retVal);
     return(retVal);
-}
-
-/**
- * Handler method for client subscription requests
- *
- * @param ctp    Resource manager context pointer
- * @param msg    Message structure
- * @param ioOcb  Client's connection properties
- * @return EOK if successful, other on error
- */
-int GryphonCCanProxy::PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
-                                       resMgrIoOcb_t *ioOcb)
-{
-	Log(LOG_DEV_DATA, "GryphonCCanProxy::PortSubscribeHandler() - Enter");
-    if (m_recordBroadcastMessages)
-    {
-        //unblock broadcast message
-        GryphonIoOcb_t    *clientOcb = (GryphonIoOcb_t*)ioOcb;
-		Log(LOG_DEV_DATA, "Checking if clientOcb is NULL");
-		if(clientOcb != NULL)
-		{
-			Log(LOG_DEV_DATA, "clientOcb is not NULL, setting braodcast block");
-//			SetBroadcastBlock(false,clientOcb->moduleIDs[0]);
-		}
-		else
-		{
-			Log(LOG_ERRORS, "clientOcb is NULL, not setting broadcast block");
-		}
-    }
-	Log(LOG_DEV_DATA, "GryphonCCanProxy::PortSubscribeHandler() - Exit");
-    return IGryphonChannel::PortSubscribeHandler(ctp, msg, ioOcb); 
-}
-
-void GryphonCCanProxy::SetBroadcastBlock(bool block, UINT32 keyID)
-{
-	Log(LOG_DEV_DATA, "GryphonCCanProxy::SetBroadcastBlock(block: %s, keyID: %04X) - Enter",
-		block ? "True" : "False", keyID);
-    for (UINT16 index = 0; index < m_broadcastMessageCount; index++)
-    {
-        if (m_broadcastMessages[index].incoming == keyID)
-        {
-            m_broadcastMessages[index].blocked = block;
-			Log(LOG_DEV_DATA, "Found keyID and set for block");
-            return;
-        }
-    }
-}
-/**
- * Handler method for client unsubscription requests
- *
- * @param ctp    Resource manager context pointer
- * @param msg    Message structure
- * @param ioOcb  Client's connection properties
- * @return EOK if successful, other on error
- */
-int GryphonCCanProxy::PortUnsubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
-                                         resMgrIoOcb_t *ioOcb)
-{
-    //block broadcast message
-    if (m_recordBroadcastMessages)
-    {
-        //unblock broadcast message
-        GryphonIoOcb_t    *clientOcb = (GryphonIoOcb_t*)ioOcb;
-//        SetBroadcastBlock(true,clientOcb->moduleIDs[0]);
-    }
-    return IGryphonChannel::PortUnsubscribeHandler(ctp, msg, ioOcb);
 }

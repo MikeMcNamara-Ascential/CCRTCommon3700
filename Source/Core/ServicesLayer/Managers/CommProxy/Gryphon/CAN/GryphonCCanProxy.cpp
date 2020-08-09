@@ -332,8 +332,9 @@ UINT32 GryphonCCanProxy::getModuleId(const char *rawMessage)
     // Log the entry
     Log( LOG_FN_ENTRY, "Enter GryphonCCan::getModuleId\n");
     bool isFourByteHeader = false;
-    if(m_moduleIDByteLength != 2 && strlen(rawMessage) >= 4)
+    if(m_moduleIDByteLength != 2 && strlen(rawMessage) >= 3)
     {   //32 bit header
+        //Log( LOG_DEV_DATA, "Looking for a 32Bit Header\n");
         tempModule = ((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[1]) * 0x10000) + 
                      ((0xFF & (int) rawMessage[2]) * 0x100) + (0xFF & (int) rawMessage[3]);
         //check if incoming message exists in table
@@ -356,6 +357,7 @@ UINT32 GryphonCCanProxy::getModuleId(const char *rawMessage)
     }
     else
     {   //16 bit default
+        //Log( LOG_DEV_DATA, "Looking for a 16Bit Header\n");
         locModule = ((0xFF & (int) rawMessage[0]) * 0x100) + (0xFF & (int) rawMessage[1]);
     }
     Log( LOG_FN_ENTRY, "Exit GryphonCCan::getModuleId(%d)\n", locModule);

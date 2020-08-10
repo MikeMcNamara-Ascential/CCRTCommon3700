@@ -65,6 +65,7 @@
             <!-- To do -->
             <BroadcastRLSEquippedType>BodyStyle</BroadcastRLSEquippedType>
             <DriveAxle>DriveAxle</DriveAxle>
+			<DrumResultTag>TransmissionResult</DrumResultTag>
             <EnableLightAndSprayDevice>TurnOnAuxillaryOutputOne</EnableLightAndSprayDevice>
             <EngineRunningTag>IgnitionOnFromTestHead</EngineRunningTag>
             <Fail>red</Fail>
@@ -81,6 +82,7 @@
             <MachineType3600>3600</MachineType3600>
             <MaximumRollerSpeedTag>MaxRollerSpeed</MaximumRollerSpeedTag>
             <NoValue>Fail</NoValue>
+            <OverallResultTag>OverallTestResult</OverallResultTag>
             <ParkingBrakeTest>ParkingBrakeTest</ParkingBrakeTest>
             <ParkingBrakeTestFail>ParkingBrakeTestFailed</ParkingBrakeTestFail>
             <ParkingBrakeTestFailed>ParkingBrakeTestFailed</ParkingBrakeTestFailed>
@@ -119,7 +121,8 @@
             <PromptReverseTestSpeed>2.0</PromptReverseTestSpeed>
 
             <!-- Component behavior flags -->
-            <KeepTestStatusOnExit>0</KeepTestStatusOnExit>
+            <CurrentDistanceTraveledUpdateTimer Units="ms">1000</CurrentDistanceTraveledUpdateTimer>
+            <KeepTestStatusOnExit>False</KeepTestStatusOnExit>
             <LogTaskStatInfo>Yes</LogTaskStatInfo>
             <MaxSpeedUpdateTimer Units="ms">100</MaxSpeedUpdateTimer>
             <PulsesPerRevolution>1250</PulsesPerRevolution>
@@ -207,6 +210,7 @@
             <Name>MachineTc</Name>
         </TaskMon>
         <SystemTagsToReset>
+            <CurrentOdometer>0.0</CurrentOdometer>
             <FrontMaxSpeedObserved>0</FrontMaxSpeedObserved>
             <FrontSideSlipResult>0</FrontSideSlipResult>
             <FrontSideSlipValue>0</FrontSideSlipValue>
@@ -228,9 +232,13 @@
             <TestStep1>BrakeToStop</TestStep1>
         </BrakeToStop>
 
+        <DriverQuestion>
+            <TestStep1>DriverQuestion</TestStep1>
+        </DriverQuestion>
+
         <MachineStartup>
             <!--TestStep01>VehicleTestSetup</TestStep01-->
-            <!-- TestStep2>InitializeTestHead</TestStep2 -->
+            <!--TestStep2>InitializeTestHead</TestStep2 -->
             <!--TestStep10>StartTest</TestStep10-->
             <TestStep20>RaiseRollsLowerElevators</TestStep20>            
             <TestStep25>StartOdometerTest</TestStep25>
@@ -269,13 +277,10 @@
             <TestStep05>StopOdometerTest</TestStep05>
             <TestStep10>StopMaxSpeedObservation</TestStep10>
             <TestStep15>ReportSideSlipResults</TestStep15>
+            <TestStep20>LowerRollsRaiseElevators</TestStep20>
             <TestStep95>FinishUp</TestStep95>
-            <!-- TestStep20>LowerRollsRaiseElevators</TestStep20 -->            
         </FinishUp>
         <!--
-        <DriverQuestion>
-            <TestStep1>DriverQuestion</TestStep1>
-        </DriverQuestion>
         <PromptDriver>
             <TestStep1>PromptDriver</TestStep1>
         </PromptDriver>
@@ -367,6 +372,15 @@
         <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="300000" 
             Prompt1="BrakeToStop" Prompt1Priority="0"/>
 
+        <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
+            <DriverPassFail Result="" Timeout="30000" Description="Driver test for overall pass or fail" 
+                TestResultName="DriverPassFail"
+                Prompt1="OverallPassOrFail" Prompt1Priority="0"/>
+            <PerformDriveSequence Result="" Timeout="" Description="Perform Drive Sequence" TestResultName="DriveSequence" 
+                Prompt1="PerformDriveSequence" Prompt1Priority="0" 
+                Prompt2="PressPassWhenComplete" Prompt2Priority="0"/>
+        </DriverQuestion>
+
         <FinishUp Result="" Description="Machine Component FinishUp Test Step" Timeout="10000" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
 
         <Initialize Result="" Description="Initialize the machine for testing" Timeout="0" Prompt1Priority="0"/>
@@ -395,9 +409,6 @@
         <ReportSideSlipResults Result="" Description="Report results from side slip testing" Timeout="500"/>
 
         <!--
-        <DriverQuestion Description="Prompt the driver with a question and get a response of Pass/Fail or Yes/No">
-            <DriverPassFail Result="" Timeout="30000" Prompt1="OverallPassOrFail" Prompt1Priority="0" TestResultName="DriverPassFail" Description="Driver test for overall pass or fail">Prompt the driver to enter the vehicle overall pass fail</DriverPassFail>
-        </DriverQuestion>
         <PromptDriver Description="Display A Prompt To The Driver But Do Not Require Driver Input">
             <PerformingFinishUp Description="" Timeout="" Result="" Prompt1="PerformingFinishUp" Prompt1Priority="0"/>
             <InitializingVehicleModules Description="" Timeout="" Result="" Prompt1="Initialize" Prompt1Priority="0"/>

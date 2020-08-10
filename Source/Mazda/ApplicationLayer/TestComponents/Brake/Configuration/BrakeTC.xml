@@ -1,448 +1,462 @@
 <BrakeTC>
-    <Setup>
-        <Name>Brake</Name>
-        <Debug>Off</Debug>
-        <DebugLevel>0</DebugLevel>
-        <ProcessPriority>11</ProcessPriority>
-        <TestDomain>Foreground</TestDomain>
-        <Communication>
-            <Comm>IPC</Comm>
-            <Type>Server</Type>
-            <Name>component/BaseBrake</Name>
+   <Setup>
+      <Name>Brake</Name>
+      <Debug>Off</Debug>
+      <DebugLevel>0</DebugLevel>
+      <ProcessPriority>11</ProcessPriority>
+      <TestDomain>Foreground</TestDomain>
+      <Communication>
+         <Comm>IPC</Comm>
+         <Type>Server</Type>
+         <Name>component/BaseBrake</Name>
+         <Debug>Off</Debug>
+         <BufferSize>1024</BufferSize>
+         <Timeout>0</Timeout>
+      </Communication>
+      <ThreadPool>
+         <Debug>Off</Debug>
+         <MinBlockedLimit>2</MinBlockedLimit>
+         <MaxBlockedLimit>4</MaxBlockedLimit>
+         <Increment>2</Increment>
+         <Maximum>50</Maximum>
+      </ThreadPool>
+      <NotificationList>
+         <Setup>
             <Debug>Off</Debug>
-            <BufferSize>1024</BufferSize>
-            <Timeout>0</Timeout>
-        </Communication>
-        <ThreadPool>
-            <Debug>Off</Debug>
-            <MinBlockedLimit>2</MinBlockedLimit>
-            <MaxBlockedLimit>4</MaxBlockedLimit>
-            <Increment>2</Increment>
-            <Maximum>50</Maximum>
-        </ThreadPool>
-        <NotificationList>
-            <Setup>
-                <Debug>Off</Debug>
-                <StartOnCreate>Off</StartOnCreate>
-                <LowWater>1</LowWater>
-                <HighWater>3</HighWater>
-                <Maximum>5</Maximum>
-                <Increment>1</Increment>
-            </Setup>
-        </NotificationList>
-        <Logging>
-            <Debug>Off</Debug>
-            <MessageTimeout>100</MessageTimeout>
-            <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
-            <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
-            <Status>Enable</Status>
-            <ProcessName>BaseBrake</ProcessName>
-            <AdditionalLogFile>/Components/BaseBrake</AdditionalLogFile>
-            <LocalEcho>Disabled</LocalEcho>
-            <Verbose>0x1F</Verbose>
-        </Logging>
-        <TagList>
-            <!-- There are no publish tags for the base brake test component -->
-            <PublishTags/>
-            <SubscribeTags>
-                <Abort/>
-                <Zerospeed/>
-            </SubscribeTags>
-        </TagList>
-        <!-- ============================================================================================== -->
-        <DataTags>
-            <FrontLeftForceValue>LFForceValue</FrontLeftForceValue>
-            <FrontRightForceValue>RFForceValue</FrontRightForceValue>
-            <FrontForceSumValue>FrontTotalBrakeForceValue</FrontForceSumValue>
-            <FrontForceDiffValue>FrontBalanceValue</FrontForceDiffValue>
-            <FrontForceSumBgColor>FrontTotalBrakeForceBgColor</FrontForceSumBgColor>
-            <FrontForceDiffBgColor>FrontBalanceBGColor</FrontForceDiffBgColor>
-            <RearLeftForceValue>LRForceValue</RearLeftForceValue>
-            <RearRightForceValue>RRForceValue</RearRightForceValue>
-            <RearForceSumValue>RearTotalBrakeForceValue</RearForceSumValue>
-            <RearForceDiffValue>RearBalanceValue</RearForceDiffValue>
-            <RearForceSumBgColor>RearTotalBrakeForceBgColor</RearForceSumBgColor>
-            <RearForceDiffBgColor>RearBalanceBGColor</RearForceDiffBgColor>
-
-            <ParkBrakeLeftForceValue>LRParkBrakeForce</ParkBrakeLeftForceValue>
-            <ParkBrakeRightForceValue>RRParkBrakeForce</ParkBrakeRightForceValue>
-            <ParkBrakeForceSumValue>ParkBrakeForce</ParkBrakeForceSumValue>
-            <ParkBrakeForceDiffValue>ParkBrakeBalanceValue</ParkBrakeForceDiffValue>
-            <ParkBrakeForceSumBgColor>ParkBrakeForceBGColor</ParkBrakeForceSumBgColor>
-            <ParkBrakeForceDiffBgColor>ParkBrakeBalanceBGColor</ParkBrakeForceDiffBgColor>
-
-            <LFDragValue>LFDragValue</LFDragValue>
-            <RFDragValue>RFDragValue</RFDragValue>
-            <LRDragValue>LRDragValue</LRDragValue>
-            <RRDragValue>RRDragValue</RRDragValue>
-            <FrontDragSum>FrontDragSumValue</FrontDragSum>
-            <FrontDragBalance>FrontDragBalanceValue</FrontDragBalance>
-            <FrontDragSumBgColor>FrontDragSumBgColor</FrontDragSumBgColor>
-            <FrontDragBalanceBgColor>FrontDragBalanceBgcolor</FrontDragBalanceBgColor>
-            <RearDragSum>RearDragSumValue</RearDragSum>
-            <RearDragBalance>RearDragBalanceValue</RearDragBalance>
-            <RearDragSumBgColor>RearDragSumBgColor</RearDragSumBgColor>
-            <RearDragBalanceBgColor>RearDragBalanceBgcolor</RearDragBalanceBgColor>
-
-            <FrontAxleWeightTag>VehicleFrontAxleWeight</FrontAxleWeightTag>
-            <FrontAxleWeightDefaultParameter>DefaultFrontAxleWeight</FrontAxleWeightDefaultParameter>
-            <RearAxleWeightTag>VehicleRearAxleWeight</RearAxleWeightTag>
-            <RearAxleWeightDefaultParameter>DefaultRearAxleWeight</RearAxleWeightDefaultParameter>
-
-            <OverallTestResultTag>OverallTestResult</OverallTestResultTag>
-            <TotalBrakeForceResultTag>TotalBrakeForceResult</TotalBrakeForceResultTag>
-            <TotalBrakeForceTag>TotalBrakeForceValue</TotalBrakeForceTag>
-
-            <AbsBuildOk>AbsBuildOk</AbsBuildOk>
-            <AbsDumpOk>AbsDumpOk</AbsDumpOk>
-            <AbsBuildNok>AbsBuildNok</AbsBuildNok>
-            <AbsDumpNok>AbsDumpNok</AbsDumpNok>
-
-            <LfBrakeDisplayTag>LFForceValue</LfBrakeDisplayTag>
-            <LfCurrentForce>LFLoadCellValue</LfCurrentForce>
-            <LfDragDisplayTag>LFForceValue</LfDragDisplayTag>
-            <LFSpeed>LFSpeed</LFSpeed>
-
-            <LrBrakeDisplayTag>LRForceValue</LrBrakeDisplayTag>
-            <LrCurrentForce>LRLoadCellValue</LrCurrentForce>
-            <LrDragDisplayTag>LRForceValue</LrDragDisplayTag>
-            <LRSpeed>LRSpeed</LRSpeed>
-
-            <RfBrakeDisplayTag>RFForceValue</RfBrakeDisplayTag>
-            <RfCurrentForce>RFLoadCellValue</RfCurrentForce>
-            <RfDragDisplayTag>RFForceValue</RfDragDisplayTag>
-            <RFSpeed>RFSpeed</RFSpeed>
-
-            <RrBrakeDisplayTag>RRForceValue</RrBrakeDisplayTag>
-            <RrCurrentForce>RRLoadCellValue</RrCurrentForce>
-            <RrDragDisplayTag>RRForceValue</RrDragDisplayTag>
-            <RRSpeed>RRSpeed</RRSpeed>
-
-            <AbsWheelStart>AbsValveCycled</AbsWheelStart>
-
-            <VariableDataBalanceResultTag>VariableDataBalanceResult</VariableDataBalanceResultTag>
-            <VariableDataBalanceValueTag>VariableDataBalanceValue</VariableDataBalanceValueTag>
-            <VariableDataReadyTag>VariableDataReady</VariableDataReadyTag>
-            <VariableDataSumResultTag>VariableDataTestResult</VariableDataSumResultTag>
-            <VariableDataSumValueTag>VariableDataTestValue</VariableDataSumValueTag>
-            <VariableDataTypeTag>VariableDataType</VariableDataTypeTag>
-
-            <RunBrakeTestTag>RunBrakeTest</RunBrakeTestTag>
-
-        </DataTags>
-        <!-- ============================================================================================== -->
-        <Parameters>
-            <!-- Testing Behavior Parameters -->
-            <DisplayBrakeMeterUntilZeroSpeed>True</DisplayBrakeMeterUntilZeroSpeed>
-            <IgnoreMachineConditions>True</IgnoreMachineConditions>
-            <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
-            <OperatorReactionTime Units="ms">1200</OperatorReactionTime>
-            <SamplesAboveLimitToStartAverage>5</SamplesAboveLimitToStartAverage>
-            <TestCompleteCheckDelay Units="ms">250</TestCompleteCheckDelay>
-            <TestHeadStatusBitDelay Units="ms">1200</TestHeadStatusBitDelay>
-            <TestInProgressColor>yellow</TestInProgressColor>
-            <VariableDataprocessingDelay Units="ms">500</VariableDataprocessingDelay>
-
-            <!-- ICM Data Parameters -->
-            <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
-            <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
-            <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
-            <IcmForceArray>/dev/ArrayForce</IcmForceArray>
-            <ICMName>mgr/ICM</ICMName>
-
-            <!-- Machine Parameters -->
-            <DisableMotorsWaitForZeroSpeed>True</DisableMotorsWaitForZeroSpeed>
-            <LoadCellReadingDelay Units="ms">50</LoadCellReadingDelay>
-            <MotorReactionTime Units="ms">750</MotorReactionTime>
-            <PulsesPerRevolution>1250</PulsesPerRevolution>
-            <RollerDiameter Units="inches">19.5275</RollerDiameter>
-            <WaitForOperator>False</WaitForOperator>
-
-            <!-- ABS Test Parameters -->
-            <AbsBuildDelay Units="ms">1500</AbsBuildDelay>
-            <AbsBuildTime Units="ms">300</AbsBuildTime>
-            <AbsBuildMaxPercent Units="percent">2.5</AbsBuildMaxPercent>
-            <AbsBuildMinPercent Units="percent">0.3</AbsBuildMinPercent>
-            <MaxAbsBuildComparePercent Units="percent">2.5</MaxAbsBuildComparePercent>
-            <MinAbsBuildComparePercent Units="percent">0.3</MinAbsBuildComparePercent>
-            <AbsDumpTime Units="ms">1000</AbsDumpTime>
-            <AbsDumpMaxLimit Units="N" ConvertToEnglishUnits="False">1200</AbsDumpMaxLimit>
-            <AbsMonitorDelay Units="ms">100</AbsMonitorDelay>
-            <MaxAbsDumpPercent Units="percent">2.5</MaxAbsDumpPercent>
-            <MinAbsDumpPercent Units="percent">0.3</MinAbsDumpPercent>
-
-            <!-- Brake Test Parameters -->
-            <DefaultFrontAxleWeight Units="N" ConvertToEnglishUnits="False">8143</DefaultFrontAxleWeight>
-            <DefaultRearAxleWeight Units="N" ConvertToEnglishUnits="False">5155</DefaultRearAxleWeight>
-            <NumberOfBrakeSamples>10</NumberOfBrakeSamples>
-            <FrontAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedLf>
-            <FrontAxleBrakeForceSpeedRf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedRf>
-            <FrontAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedLr>
-            <FrontAxleBrakeForceSpeedRr Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedRr>
-            <RearAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedLf>
-            <RearAxleBrakeForceSpeedRf Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedRf>
-            <RearAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedLr>
-            <RearAxleBrakeForceSpeedRr Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedRr>
-            <FrontBrakeLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.30</FrontBrakeLimit>
-            <FrontBrakeDiffLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.08</FrontBrakeDiffLimit>
-            <RearBrakeLimit Units="% of rear axle weight" ConvertToEnglishUnits="False">0.10</RearBrakeLimit>
-            <RearBrakeDiffLimit Units="% of rear axle weight" ConvertToEnglishUnits="False">0.08</RearBrakeDiffLimit>
-            <TotalBrakeLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.25</TotalBrakeLimit>
-            <UseAxleWeightsForTotalBrakeForceResult>True</UseAxleWeightsForTotalBrakeForceResult>
-    
-            <!-- Drag Test Parameters -->
-            <DisableMotorsAfterDragTest>False</DisableMotorsAfterDragTest>
-            <FrontDragDiffLimit Units="N" ConvertToEnglishUnits="False">500.0</FrontDragDiffLimit>
-            <RearDragDiffLimit Units="N" ConvertToEnglishUnits="False">500.0</RearDragDiffLimit>
-            <FrontDragLimit Units="N" ConvertToEnglishUnits="False">490.0</FrontDragLimit>
-            <RearDragLimit Units="N" ConvertToEnglishUnits="False">490.0</RearDragLimit>
-            <LfDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">4.5</LfDragTestSpeed>
-            <RfDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">5.5</RfDragTestSpeed>
-            <LrDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</LrDragTestSpeed>
-            <RrDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</RrDragTestSpeed>
-            <NumberOfDragSamples>5</NumberOfDragSamples>
-
-            <!-- Park Brake Test Parameters -->
-            <ParkBrakeAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedLf>
-            <ParkBrakeAxleBrakeForceSpeedRf Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedRf>
-            <ParkBrakeAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedLr>
-            <ParkBrakeAxleBrakeForceSpeedRr Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedRr>
-            <ParkBrakeBrakeLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.08</ParkBrakeBrakeLimit>
-            <ParkBrakeBrakeDiffLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.5</ParkBrakeBrakeDiffLimit>
-
-            <!-- Wheel Speed Sensor Test Paramerters -->
-            <LfSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">4.5</LfSpeedSensorCheckSpeed>
-            <RfSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">5.5</RfSpeedSensorCheckSpeed>
-            <LrSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</LrSpeedSensorCheckSpeed>
-            <RrSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</RrSpeedSensorCheckSpeed>
-            <SetWheelspeedTolerance Units="percent">5</SetWheelspeedTolerance>
-            <SpeedSensorTestTime Units="ms">100</SpeedSensorTestTime>
-
-            <!-- Mazda Test Head Test Steps -->
-            <MazdaTestHeadTestSteps>
-                <BrakeSwitchTest StartTag="RunBrakeSwitchTest" TestCompleteTag="BrakeSwitchTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
-                <DiagClr StartTag="RunDiagclrTest" TestCompleteTag="DiagclrTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
-                <FcChk StartTag="RunFcchkTest" TestCompleteTag="FcchkTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
-                <LfAbsTest StartTag="RunLfAbsTest" TestCompleteTag="CurrentWheelAbsTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
-                <LrAbsTest StartTag="RunLrAbsTest" TestCompleteTag="CurrentWheelAbsTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
-                <RfAbsTest StartTag="RunRfAbsTest" TestCompleteTag="CurrentWheelAbsTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
-                <RrAbsTest StartTag="RunRrAbsTest" TestCompleteTag="CurrentWheelAbsTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
-                <WheelSpeedSensorTest StartTag="RunWheelSpeedSensorTest" TestCompleteTag="WheelSpeedSensorTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
-            </MazdaTestHeadTestSteps>
-
-        </Parameters>
-        <Prompts>
-            <AbsValveFiring PromptBox="1" Priority="0">AbsValveFiring</AbsValveFiring>
-            <ApplyBrake PromptBox="1" Priority="0" Duration="1800">ApplyBrake</ApplyBrake>
-            <ApplyParkBrake PromptBox="1" Priority="0" Duration="1400">ApplyParkBrake</ApplyParkBrake>
-            <BrakeForceTesting PromptBox="2" Priority="0">BrakeForceTesting</BrakeForceTesting>
-            <ClearDiagnostics PromptBox="1" Priority="0">ClearDiagnostics</ClearDiagnostics>
-            <DragForceTest PromptBox="1" Priority="0">DragForceTesting</DragForceTest>
-            <NeutralPrompt PromptBox="1" Priority="0" Duration="50">ShiftToNeutral</NeutralPrompt>
-            <ReleaseParkBrake PromptBox="2" Priority="0" Duration="900">ReleaseParkBrake</ReleaseParkBrake>
-            <RemoveFootFromBrake PromptBox="2" Priority="0" Duration="700">RemoveFootFromBrake</RemoveFootFromBrake>
-            <SpeedSensorCheck PromptBox="1" Priority="0">SpeedSensorCheck</SpeedSensorCheck>
-            <VehicleFaultCheck PromptBox="1" Priority="0">CheckingVehicle</VehicleFaultCheck>
-        </Prompts>
-        <!-- ============================================================================================== -->
-        <SystemTagsToReset>
-            <AbsDumpNok>0</AbsDumpNok>
-            <AbsBuildNok>0</AbsBuildNok>
-            <AbsValveCycled>0</AbsValveCycled>
-            <VariableDataReady>0</VariableDataReady>
-            <RunBrakeTest>0</RunBrakeTest>
-            <AbsDumpOk>0</AbsDumpOk>
-            <AbsBuildOk>0</AbsBuildOk>
-            <RunLfAbsTest>0</RunLfAbsTest>
-            <RunRfAbsTest>0</RunRfAbsTest>
-            <RunLrAbsTest>0</RunLrAbsTest>
-            <RunRrAbsTest>0</RunRrAbsTest>
-            <RunWheelSpeedSensorTest>0</RunWheelSpeedSensorTest>
-            <RunBrakeSwitchTest>0</RunBrakeSwitchTest>
-            <RunDiagclrTest>0</RunDiagclrTest>
-            <RunFcchkTest>0</RunFcchkTest>
-            <VariableDataType>0</VariableDataType>
-            <VariableDataTestResult>0</VariableDataTestResult>
-            <VariableDataBalanceResult>0</VariableDataBalanceResult>
-            <OverallTestResult>0</OverallTestResult>
-            <NormalBrakeTestResult>0</NormalBrakeTestResult>
-            <TotalBrakeForceResult>0</TotalBrakeForceResult>
-            <AbsTestResult>0</AbsTestResult>
-            <VariableDataTestValue>0</VariableDataTestValue>
-            <VariableDataBalanceValue>0</VariableDataBalanceValue>
-            <TotalBrakeForceValue>0</TotalBrakeForceValue>
-            <ParkBrakeBalanceValue>0</ParkBrakeBalanceValue>
-            <ParkBrakeBalanceBGColor>white</ParkBrakeBalanceBGColor>
-            <FrontTotalBrakeForceValue>0</FrontTotalBrakeForceValue>
-            <FrontTotalBrakeForceBgColor>white</FrontTotalBrakeForceBgColor>
-            <RearTotalBrakeForceValue>0</RearTotalBrakeForceValue>
-            <RearTotalBrakeForceBgColor>white</RearTotalBrakeForceBgColor>
-            <FrontDragBalanceValue>0</FrontDragBalanceValue>
-            <FrontDragSumBgColor>white</FrontDragSumBgColor>
-            <FrontDragSumValue>0</FrontDragSumValue>
-            <FrontDragBalanceBgcolor>white</FrontDragBalanceBgcolor>
-            <RearDragBalanceValue>0</RearDragBalanceValue>
-            <RearDragSumBgColor>white</RearDragSumBgColor>
-            <RearDragSumValue>0</RearDragSumValue>
-            <RearDragBalanceBgcolor>white</RearDragBalanceBgcolor>
-
-
-
-
-            <AxleRatio>0</AxleRatio>
-            <AxleRatioBGColor>white</AxleRatioBGColor>
-            <BrakeActive>0</BrakeActive>
-            <FrontBalanceBGColor>white</FrontBalanceBGColor>
-            <FrontBalanceValue>0</FrontBalanceValue>
-            <FrontToRearBalanceBGColor>white</FrontToRearBalanceBGColor>
-            <FrontToRearBalanceValue>0</FrontToRearBalanceValue>
-            <LFBrakeDistance>0</LFBrakeDistance>
-            <LFBrakeDistanceBGColor>white</LFBrakeDistanceBGColor>
-            <LFDragBGColor>white</LFDragBGColor>
-            <LFDragValue>0</LFDragValue>
-            <LFForceBGColor>white</LFForceBGColor>
-            <LFForceDomain>0 500</LFForceDomain>
-            <LFForceTarget>200 400</LFForceTarget>
-            <LFForceValue>0</LFForceValue>
-            <LRBrakeDistance>0</LRBrakeDistance>
-            <LRBrakeDistanceBGColor>white</LRBrakeDistanceBGColor>
-            <LRDragBGColor>white</LRDragBGColor>
-            <LRDragValue>0</LRDragValue>
-            <LRForceBGColor>white</LRForceBGColor>
-            <LRForceDomain>0 500</LRForceDomain>
-            <LRForceTarget>200 400</LRForceTarget>
-            <LRForceValue>0</LRForceValue>
-            <LRParkBrakeBGColor>white</LRParkBrakeBGColor>
-            <LRParkBrakeForce>0</LRParkBrakeForce>
-            <ParkBrakeForce>0</ParkBrakeForce>
-            <ParkBrakeForceBGColor>white</ParkBrakeForceBGColor>
-            <RearBalanceBGColor>white</RearBalanceBGColor>
-            <RearBalanceValue>0</RearBalanceValue>
-            <RFBrakeDistance>0</RFBrakeDistance>
-            <RFBrakeDistanceBGColor>white</RFBrakeDistanceBGColor>
-            <RFDragBGColor>white</RFDragBGColor>
-            <RFDragValue>0</RFDragValue>
-            <RFForceBGColor>white</RFForceBGColor>
-            <RFForceDomain>0 500</RFForceDomain>
-            <RFForceTarget>200 400</RFForceTarget>
-            <RFForceValue>0</RFForceValue>
-            <RRBrakeDistance>0</RRBrakeDistance>
-            <RRBrakeDistanceBGColor>white</RRBrakeDistanceBGColor>
-            <RRDragBGColor>white</RRDragBGColor>
-            <RRDragValue>0</RRDragValue>
-            <RRForceBGColor>white</RRForceBGColor>
-            <RRForceDomain>0 500</RRForceDomain>
-            <RRForceTarget>200 400</RRForceTarget>
-            <RRForceValue>0</RRForceValue>
-            <RRParkBrakeBGColor>white</RRParkBrakeBGColor>
-            <RRParkBrakeForce>0</RRParkBrakeForce>
-            <TractionControlBgColor>white</TractionControlBgColor>
-        </SystemTagsToReset>
-    </Setup>
-    <!-- ============================================================================================== -->
-    <Objectives>
-
-        <AbsTests>
-            <TestStep00>SpeedSensorCheck</TestStep00>
-            <TestStep05>StartBrakeSwitchTest</TestStep05>
-        </AbsTests>
-
-        <DragTest>
-            <TestStep00>MazdaDragTest</TestStep00>
-        </DragTest>
-
-        <BaseBrakeTest>
-            <TestStep05>MazdaFrontBrakeForce</TestStep05>
-        </BaseBrakeTest>
-
-        <AbsLfTest>
-            <TestStep10>BrakeTestStart</TestStep10>
-            <TestStep15>AbsLfTest</TestStep15>
-            <TestStep25>BrakeTestStop</TestStep25>
-            <TestStep30 AltValue="500">TestHeadWait</TestStep30>
-        </AbsLfTest>
-
-        <AbsRfTest>
-            <TestStep10>BrakeTestStart</TestStep10>
-            <TestStep20>AbsRfTest</TestStep20>
-            <TestStep25>BrakeTestStop</TestStep25>
-            <TestStep30 AltValue="500">TestHeadWait</TestStep30>
-        </AbsRfTest>
-
-        <ParkBrakeTest>
-            <TestStep30>MazdaParkBrakeForce</TestStep30>
-        </ParkBrakeTest>
-
-        <RearBaseBrakeTest>
-            <TestStep35>MazdaRearBrakeForce</TestStep35>
-        </RearBaseBrakeTest>
-
-        <AbsLrTest>
-            <TestStep40>BrakeTestStart</TestStep40>
-            <TestStep45>AbsLrTest</TestStep45>
-            <TestStep55>BrakeTestStop</TestStep55>
-            <TestStep60 AltValue="500">TestHeadWait</TestStep60>
-        </AbsLrTest>
-
-        <AbsRrTest>
-            <TestStep10>BrakeTestStart</TestStep10>
-            <TestStep50>AbsRrTest</TestStep50>
-            <TestStep55>BrakeTestStop</TestStep55>
-            <TestStep60 AltValue="500">TestHeadWait</TestStep60>
-            <TestStep99>BrakeTestComplete</TestStep99>
-        </AbsRrTest>
-
-        <DiagnosticClearRoutine>
-            <TestStep00>ClearDiagnosticRoutine</TestStep00>
-        </DiagnosticClearRoutine>
-
-        <FaultCheckRoutine>
-            <TestStep00>FaultCheckRoutine</TestStep00>
-            <TestStep05>ReportOverallBrakeResults</TestStep05>
-            <TestStep99>StopRollers</TestStep99>
-        </FaultCheckRoutine>
-
-        <Setup>
-            <TestStep00>Initialize</TestStep00>
-        </Setup>
-
-        <StopRollers>
-            <TestStep99>StopRollers</TestStep99>
-        </StopRollers>
-
-    </Objectives>
-
-    <!-- ============================================================================================== -->
-    <TestSteps>
-        <AbsLfTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="LF ABS Valve Test"
-            TestHeadTestName="LfAbsTest" ScanDelay="50"/>
-        <AbsLrTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="LR ABS Valve Test"
-            TestHeadTestName="LrAbsTest" ScanDelay="50"/>
-        <AbsRfTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="RF ABS Valve Test"
-            TestHeadTestName="RfAbsTest" ScanDelay="50"/>
-        <AbsRrTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="RR ABS Valve Test"
-            TestHeadTestName="RrAbsTest" ScanDelay="50"/>
-        <BrakeTestComplete Result="" Timeout="100000000" Description="Run the process for completing the brake test"/>
-        <BrakeTestStart Result="" Timeout="100000000" Description="Signal to Mazda brake testing is starting"/>
-        <BrakeTestStop Result="" Timeout="100000000" Description="Signal to Mazda brake testing is ending"/>
-        <ClearDiagnosticRoutine Result="" Timeout="100000000" Description="Clear diagnostic routine"
-            TestHeadTestName="DiagClr"/>
-        <FaultCheckRoutine Result="" Timeout="100000000" Description="Fault Check Routine"
-            TestHeadTestName="FcChk"/>
-        <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test."
-            Prompt1="Initialize" ZerospeedPrompt="BrakeToStop" Prompt1Priority="0"/>
-        <MazdaDragTest Result="" Timeout="30000" Description="Check the drag on the rollers" ScanDelay="50"/>
-        <MazdaFrontBrakeForce Result="" Timeout="10000" Description="Analyze the brake force for the front axle"/>
-        <MazdaParkBrakeForce Result="" Timeout="10000" Description="Analyze the park brake force for the rear axle"/>
-        <MazdaRearBrakeForce Result="" Timeout="10000" Description="Analyze the brake force for the rear axle"/>
-        <ReportOverallBrakeResults Result="" Timeout="1000" Description="Report overall brake test results"/>
-        <SpeedSensorCheck Result="" Timeout="100000000" Description="Wheel speed sensor test" ScanDelay="500"
-            TestHeadTestName="WheelSpeedSensorTest"/>
-        <StartBrakeSwitchTest Result="" Timeout="100000000" Description="Brake switch test"
-            TestHeadTestName="BrakeSwitchTest"/>
-        <StopBrakeSwitchTest Result="" Timeout="100000000" Description="Brake switch test"
-            TestHeadTestName="BrakeSwitchTest"/>
-        <StopRollers Result="" Timeout="100000000" Description="Stop the rollers"/>
-        <TestHeadWait Result="" Timeout="500" Description="Wait for the Mazda TEster to be ready"/>
-    </TestSteps>
+            <StartOnCreate>Off</StartOnCreate>
+            <LowWater>1</LowWater>
+            <HighWater>3</HighWater>
+            <Maximum>5</Maximum>
+            <Increment>1</Increment>
+         </Setup>
+      </NotificationList>
+      <Logging>
+         <Debug>Off</Debug>
+         <MessageTimeout>100</MessageTimeout>
+         <AdditionalLogMaxSize>10</AdditionalLogMaxSize>
+         <AdditionalLogMaxFiles>5</AdditionalLogMaxFiles>
+         <Status>Enable</Status>
+         <ProcessName>BaseBrake</ProcessName>
+         <AdditionalLogFile>/Components/BaseBrake</AdditionalLogFile>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0x1F</Verbose>
+      </Logging>
+      <TagList>
+         <!-- There are no publish tags for the base brake test component -->
+         <PublishTags/>
+         <SubscribeTags>
+            <Abort/>
+            <Zerospeed/>
+         </SubscribeTags>
+      </TagList>
+      <!-- ============================================================================================== -->
+      <DataTags>
+         <FrontLeftForceValue>LFForceValue</FrontLeftForceValue>
+         <FrontRightForceValue>RFForceValue</FrontRightForceValue>
+         <FrontForceSumValue>FrontTotalBrakeForceValue</FrontForceSumValue>
+         <FrontForceDiffValue>FrontBalanceValue</FrontForceDiffValue>
+         <FrontForceSumBgColor>FrontTotalBrakeForceBgColor</FrontForceSumBgColor>
+         <FrontForceDiffBgColor>FrontBalanceBGColor</FrontForceDiffBgColor>
+         <RearLeftForceValue>LRForceValue</RearLeftForceValue>
+         <RearRightForceValue>RRForceValue</RearRightForceValue>
+         <RearForceSumValue>RearTotalBrakeForceValue</RearForceSumValue>
+         <RearForceDiffValue>RearBalanceValue</RearForceDiffValue>
+         <RearForceSumBgColor>RearTotalBrakeForceBgColor</RearForceSumBgColor>
+         <RearForceDiffBgColor>RearBalanceBGColor</RearForceDiffBgColor>
+         <ParkBrakeLeftForceValue>LRParkBrakeForce</ParkBrakeLeftForceValue>
+         <ParkBrakeRightForceValue>RRParkBrakeForce</ParkBrakeRightForceValue>
+         <ParkBrakeForceSumValue>ParkBrakeForce</ParkBrakeForceSumValue>
+         <ParkBrakeForceDiffValue>ParkBrakeBalanceValue</ParkBrakeForceDiffValue>
+         <ParkBrakeForceSumBgColor>ParkBrakeForceBGColor</ParkBrakeForceSumBgColor>
+         <ParkBrakeForceDiffBgColor>ParkBrakeBalanceBGColor</ParkBrakeForceDiffBgColor>
+         <LFDragValue>LFDragValue</LFDragValue>
+         <RFDragValue>RFDragValue</RFDragValue>
+         <LRDragValue>LRDragValue</LRDragValue>
+         <RRDragValue>RRDragValue</RRDragValue>
+         <FrontDragSum>FrontDragSumValue</FrontDragSum>
+         <FrontDragBalance>FrontDragBalanceValue</FrontDragBalance>
+         <FrontDragSumBgColor>FrontDragSumBgColor</FrontDragSumBgColor>
+         <FrontDragBalanceBgColor>FrontDragBalanceBgcolor</FrontDragBalanceBgColor>
+         <RearDragSum>RearDragSumValue</RearDragSum>
+         <RearDragBalance>RearDragBalanceValue</RearDragBalance>
+         <RearDragSumBgColor>RearDragSumBgColor</RearDragSumBgColor>
+         <RearDragBalanceBgColor>RearDragBalanceBgcolor</RearDragBalanceBgColor>
+         <FrontAxleWeightTag>VehicleFrontAxleWeight</FrontAxleWeightTag>
+         <FrontAxleWeightDefaultParameter>DefaultFrontAxleWeight</FrontAxleWeightDefaultParameter>
+         <RearAxleWeightTag>VehicleRearAxleWeight</RearAxleWeightTag>
+         <RearAxleWeightDefaultParameter>DefaultRearAxleWeight</RearAxleWeightDefaultParameter>
+         <OverallTestResultTag>OverallTestResult</OverallTestResultTag>
+         <NormalBrakeTestResultTag>NormalBrakeTestResult</NormalBrakeTestResultTag>
+		 <TotalBrakeForceResultTag>TotalBrakeForceResult</TotalBrakeForceResultTag>
+		 <AbsTestResultTag>AbsTestResult</AbsTestResultTag>
+         <TotalBrakeForceTag>TotalBrakeForceValue</TotalBrakeForceTag>
+         <AbsBuildOk>AbsBuildOk</AbsBuildOk>
+         <AbsDumpOk>AbsDumpOk</AbsDumpOk>
+         <AbsBuildNok>AbsBuildNok</AbsBuildNok>
+         <AbsDumpNok>AbsDumpNok</AbsDumpNok>
+         <LfBrakeDisplayTag>LFForceValue</LfBrakeDisplayTag>
+         <LfCurrentForce>LFLoadCellValue</LfCurrentForce>
+         <LfDragDisplayTag>LFForceValue</LfDragDisplayTag>
+         <LFSpeed>LFSpeed</LFSpeed>
+         <LrBrakeDisplayTag>LRForceValue</LrBrakeDisplayTag>
+         <LrCurrentForce>LRLoadCellValue</LrCurrentForce>
+         <LrDragDisplayTag>LRForceValue</LrDragDisplayTag>
+         <LRSpeed>LRSpeed</LRSpeed>
+         <RfBrakeDisplayTag>RFForceValue</RfBrakeDisplayTag>
+         <RfCurrentForce>RFLoadCellValue</RfCurrentForce>
+         <RfDragDisplayTag>RFForceValue</RfDragDisplayTag>
+         <RFSpeed>RFSpeed</RFSpeed>
+         <RrBrakeDisplayTag>RRForceValue</RrBrakeDisplayTag>
+         <RrCurrentForce>RRLoadCellValue</RrCurrentForce>
+         <RrDragDisplayTag>RRForceValue</RrDragDisplayTag>
+         <RRSpeed>RRSpeed</RRSpeed>
+         <AbsWheelStart>AbsValveCycled</AbsWheelStart>
+         <VariableDataBalanceResultTag>VariableDataBalanceResult</VariableDataBalanceResultTag>
+         <VariableDataBalanceValueTag>VariableDataBalanceValue</VariableDataBalanceValueTag>
+         <VariableDataReadyTag>VariableDataReady</VariableDataReadyTag>
+         <VariableDataSumResultTag>VariableDataTestResult</VariableDataSumResultTag>
+         <VariableDataSumValueTag>VariableDataTestValue</VariableDataSumValueTag>
+         <VariableDataTypeTag>VariableDataType</VariableDataTypeTag>
+         <RunBrakeTestTag>RunBrakeTest</RunBrakeTestTag>
+         <SwapTestResultToPLC_NOK>AbsBuildNok</SwapTestResultToPLC_NOK>
+         <SwapTestResultToPLC_OK>SwapTestResultToPLC_OK</SwapTestResultToPLC_OK>
+         <SwapTestResultConfirm Alt="CurrentTestStepResultFromTestHead">SwapTestResultConfirm</SwapTestResultConfirm>
+         <SingleAxleMachine>SingleAxleMachine</SingleAxleMachine>
+         <WheelCount>WheelCount</WheelCount>
+         <VehicleAxleCount>VehicleAxleCount</VehicleAxleCount>
+      </DataTags>
+      <!-- ============================================================================================== -->
+      <Parameters>
+         <!-- Testing Behavior Parameters -->
+         <DisplayBrakeMeterUntilZeroSpeed>True</DisplayBrakeMeterUntilZeroSpeed>
+         <IgnoreMachineConditions>True</IgnoreMachineConditions>
+         <KeepTestStatusOnExit>True</KeepTestStatusOnExit>
+         <OperatorReactionTime Units="ms">1200</OperatorReactionTime>
+         <SamplesAboveLimitToStartAverage>5</SamplesAboveLimitToStartAverage>
+         <TestCompleteCheckDelay Units="ms">250</TestCompleteCheckDelay>
+         <TestHeadStatusBitDelay Units="ms">1200</TestHeadStatusBitDelay>
+         <TestInProgressColor>yellow</TestInProgressColor>
+         <VariableDataprocessingDelay Units="ms">500</VariableDataprocessingDelay>
+         <!-- ICM Data Parameters -->
+         <CurrentDistances>/dev/Icm/Block/PulseCount</CurrentDistances>
+         <CurrentForces>/dev/Icm/Block/Force</CurrentForces>
+         <CurrentSpeeds>/dev/Icm/Block/Speed</CurrentSpeeds>
+         <IcmForceArray>/dev/ArrayForce</IcmForceArray>
+         <ICMName>mgr/ICM</ICMName>
+         <!-- Machine Parameters -->
+         <DisableMotorsWaitForZeroSpeed>True</DisableMotorsWaitForZeroSpeed>
+         <LoadCellReadingDelay Units="ms">50</LoadCellReadingDelay>
+         <MotorReactionTime Units="ms">750</MotorReactionTime>
+         <PulsesPerRevolution>1250</PulsesPerRevolution>
+         <RollerDiameter Units="inches">19.5275</RollerDiameter>
+         <WaitForOperator>False</WaitForOperator>
+         <!-- ABS Test Parameters -->
+         <AbsBuildDelay Units="ms">1500</AbsBuildDelay>
+         <AbsBuildTime Units="ms">300</AbsBuildTime>
+         <AbsBuildMaxPercent Units="percent">2.5</AbsBuildMaxPercent>
+         <AbsBuildMinPercent Units="percent">0.3</AbsBuildMinPercent>
+         <MaxAbsBuildComparePercent Units="percent">2.5</MaxAbsBuildComparePercent>
+         <MinAbsBuildComparePercent Units="percent">0.3</MinAbsBuildComparePercent>
+         <AbsDumpTime Units="ms">1000</AbsDumpTime>
+         <AbsDumpMaxLimit Units="N" ConvertToEnglishUnits="False">1200</AbsDumpMaxLimit>
+         <AbsMonitorDelay Units="ms">100</AbsMonitorDelay>
+         <MaxAbsDumpPercent Units="percent">2.5</MaxAbsDumpPercent>
+         <MinAbsDumpPercent Units="percent">0.3</MinAbsDumpPercent>
+         <!-- Brake Test Parameters -->
+         <DefaultFrontAxleWeight Units="N" ConvertToEnglishUnits="False" Orig="8143">410</DefaultFrontAxleWeight>
+         <DefaultRearAxleWeight Units="N" ConvertToEnglishUnits="False" Orig="5155">270</DefaultRearAxleWeight>
+         <NumberOfBrakeSamples>10</NumberOfBrakeSamples>
+         <FrontAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedLf>
+         <FrontAxleBrakeForceSpeedRf Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedRf>
+         <FrontAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedLr>
+         <FrontAxleBrakeForceSpeedRr Units="km/h" ConvertToEnglishUnits="True">2.5</FrontAxleBrakeForceSpeedRr>
+         <RearAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedLf>
+         <RearAxleBrakeForceSpeedRf Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedRf>
+         <RearAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedLr>
+         <RearAxleBrakeForceSpeedRr Units="km/h" ConvertToEnglishUnits="True">2.5</RearAxleBrakeForceSpeedRr>
+         <FrontBrakeLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.30</FrontBrakeLimit>
+         <FrontBrakeDiffLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.08</FrontBrakeDiffLimit>
+         <RearBrakeLimit Units="% of rear axle weight" ConvertToEnglishUnits="False">0.10</RearBrakeLimit>
+         <RearBrakeDiffLimit Units="% of rear axle weight" ConvertToEnglishUnits="False">0.08</RearBrakeDiffLimit>
+         <TotalBrakeLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.25</TotalBrakeLimit>
+         <UseAxleWeightsForTotalBrakeForceResult>True</UseAxleWeightsForTotalBrakeForceResult>
+         <!-- Drag Test Parameters -->
+         <DisableMotorsAfterDragTest>False</DisableMotorsAfterDragTest>
+         <FrontDragDiffLimit Units="N" ConvertToEnglishUnits="False">500.0</FrontDragDiffLimit>
+         <RearDragDiffLimit Units="N" ConvertToEnglishUnits="False">500.0</RearDragDiffLimit>
+         <FrontDragLimit Units="N" ConvertToEnglishUnits="False">490.0</FrontDragLimit>
+         <RearDragLimit Units="N" ConvertToEnglishUnits="False">490.0</RearDragLimit>
+         <LfDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">4.5</LfDragTestSpeed>
+         <RfDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">5.5</RfDragTestSpeed>
+         <LrDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</LrDragTestSpeed>
+         <RrDragTestSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</RrDragTestSpeed>
+         <NumberOfDragSamples>5</NumberOfDragSamples>
+         <!-- Park Brake Test Parameters -->
+         <ParkBrakeAxleBrakeForceSpeedLf Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedLf>
+         <ParkBrakeAxleBrakeForceSpeedRf Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedRf>
+         <ParkBrakeAxleBrakeForceSpeedLr Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedLr>
+         <ParkBrakeAxleBrakeForceSpeedRr Units="km/h" ConvertToEnglishUnits="True">2.5</ParkBrakeAxleBrakeForceSpeedRr>
+         <ParkBrakeBrakeLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.08</ParkBrakeBrakeLimit>
+         <ParkBrakeBrakeDiffLimit Units="% of total axle weight" ConvertToEnglishUnits="False">0.5</ParkBrakeBrakeDiffLimit>
+         <!-- Wheel Speed Sensor Test Paramerters -->
+         <LfSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">4.5</LfSpeedSensorCheckSpeed>
+         <RfSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">5.5</RfSpeedSensorCheckSpeed>
+         <LrSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">2.5</LrSpeedSensorCheckSpeed>
+         <RrSpeedSensorCheckSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</RrSpeedSensorCheckSpeed>
+         <SetWheelspeedTolerance Units="percent">15.0</SetWheelspeedTolerance>
+         <SpeedSensorTestTime Units="ms">100</SpeedSensorTestTime>
+         <!-- Swap Test Params -->
+         <LfSwapTestSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</LfSwapTestSpeed>
+         <RfSwapTestSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</RfSwapTestSpeed>
+         <LrSwapTestSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</LrSwapTestSpeed>
+         <RrSwapTestSpeed Units="km/h" ConvertToEnglishUnits="True">3.5</RrSwapTestSpeed>
+         <SwapTestMinSampleForce Units="N" ConvertToEnglishUnits="False">-1</SwapTestMinSampleForce>
+         <NumberOfSwapSamples>3</NumberOfSwapSamples>
+         <SwapTestFrontBrakeLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.075</SwapTestFrontBrakeLimit>
+         <SwapTestRearBrakeLimit Units="% of front axle weight" ConvertToEnglishUnits="False">0.050</SwapTestRearBrakeLimit>
+         <SwapTestSamplesAboveLimitToStartAverage>2</SwapTestSamplesAboveLimitToStartAverage>
+         <SwapTestSampleUntilTestHeadComplete>false</SwapTestSampleUntilTestHeadComplete>
+         <DisableMotorsAfterSwapTest>false</DisableMotorsAfterSwapTest>
+         <SwapTestUseMaxBrakeForce>true</SwapTestUseMaxBrakeForce>
+         <AlwaysReverseTestHeadSignal>true</AlwaysReverseTestHeadSignal>
+         <SkipOperatorWaitOnConsecutiveWheel>true</SkipOperatorWaitOnConsecutiveWheel>
+         <!-- Mazda Test Head Test Steps -->
+         <MazdaTestHeadTestSteps>
+            <BrakeSwitchTest StartTag="RunBrakeSwitchTest" TestCompleteTag="BrakeSwitchTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
+            <DiagClr StartTag="RunDiagclrTest" TestCompleteTag="DiagclrTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
+            <FcChk StartTag="RunFcchkTest" TestCompleteTag="FcchkTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
+            <LfAbsTest StartTag="RunLfAbsTest" TestCompleteTag="AbsValveCycled" TestResultTag="CurrentTestStepResultFromTestHead"/>
+            <LrAbsTest StartTag="RunLrAbsTest" TestCompleteTag="AbsValveCycled" TestResultTag="CurrentTestStepResultFromTestHead"/>
+            <RfAbsTest StartTag="RunRfAbsTest" TestCompleteTag="AbsValveCycled" TestResultTag="CurrentTestStepResultFromTestHead"/>
+            <RrAbsTest StartTag="RunRrAbsTest" TestCompleteTag="AbsValveCycled" TestResultTag="CurrentTestStepResultFromTestHead"/>
+            <WheelSpeedSensorTest StartTag="RunWheelSpeedSensorTest" TestCompleteTag="WheelSpeedSensorTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
+            <EnableSwapTest StartTag="EnableSwapTest" TestCompleteTag="CurrentWheelAbsTestComplete" TestResultTag="CurrentTestStepResultFromTestHead"/>
+         </MazdaTestHeadTestSteps>
+         <WheelCount>4</WheelCount>
+         <MazdaTestHeadReactionTime>750</MazdaTestHeadReactionTime>
+      </Parameters>
+      <Prompts>
+         <AbsValveFiring PromptBox="1" Priority="0">AbsValveFiring</AbsValveFiring>
+         <ApplyBrake PromptBox="1" Priority="0" Duration="1800">ApplyBrake</ApplyBrake>
+         <ApplyParkBrake PromptBox="1" Priority="0" Duration="1400">ApplyParkBrake</ApplyParkBrake>
+         <BrakeForceTesting PromptBox="2" Priority="0">BrakeForceTesting</BrakeForceTesting>
+         <ClearDiagnostics PromptBox="1" Priority="0">ClearDiagnostics</ClearDiagnostics>
+         <DragForceTest PromptBox="1" Priority="0">DragForceTesting</DragForceTest>
+         <NeutralPrompt PromptBox="1" Priority="0" Duration="50">ShiftToNeutral</NeutralPrompt>
+         <ReleaseParkBrake PromptBox="2" Priority="0" Duration="900">ReleaseParkBrake</ReleaseParkBrake>
+         <RemoveFootFromBrake PromptBox="2" Priority="0" Duration="700">RemoveFootFromBrake</RemoveFootFromBrake>
+         <SpeedSensorCheck PromptBox="1" Priority="0">SpeedSensorCheck</SpeedSensorCheck>
+         <VehicleFaultCheck PromptBox="1" Priority="0">CheckingVehicle</VehicleFaultCheck>
+      </Prompts>
+      <!-- ============================================================================================== -->
+      <SystemTagsToReset>
+         <AbsDumpNok>0</AbsDumpNok>
+         <AbsBuildNok>0</AbsBuildNok>
+         <AbsValveCycled>0</AbsValveCycled>
+         <VariableDataReady>0</VariableDataReady>
+         <RunBrakeTest>0</RunBrakeTest>
+         <AbsDumpOk>0</AbsDumpOk>
+         <AbsBuildOk>0</AbsBuildOk>
+         <RunLfAbsTest>0</RunLfAbsTest>
+         <RunRfAbsTest>0</RunRfAbsTest>
+         <RunLrAbsTest>0</RunLrAbsTest>
+         <RunRrAbsTest>0</RunRrAbsTest>
+         <RunWheelSpeedSensorTest>0</RunWheelSpeedSensorTest>
+         <RunBrakeSwitchTest>0</RunBrakeSwitchTest>
+         <RunDiagclrTest>0</RunDiagclrTest>
+         <RunFcchkTest>0</RunFcchkTest>
+         <VariableDataType>0</VariableDataType>
+         <VariableDataTestResult>0</VariableDataTestResult>
+         <VariableDataBalanceResult>0</VariableDataBalanceResult>
+         <OverallTestResult>0</OverallTestResult>
+         <NormalBrakeTestResult>0</NormalBrakeTestResult>
+         <TotalBrakeForceResult>0</TotalBrakeForceResult>
+         <AbsTestResult>0</AbsTestResult>
+         <VariableDataTestValue>0</VariableDataTestValue>
+         <VariableDataBalanceValue>0</VariableDataBalanceValue>
+         <TotalBrakeForceValue>0</TotalBrakeForceValue>
+         <ParkBrakeBalanceValue>0</ParkBrakeBalanceValue>
+         <ParkBrakeBalanceBGColor>white</ParkBrakeBalanceBGColor>
+         <FrontTotalBrakeForceValue>0</FrontTotalBrakeForceValue>
+         <FrontTotalBrakeForceBgColor>white</FrontTotalBrakeForceBgColor>
+         <RearTotalBrakeForceValue>0</RearTotalBrakeForceValue>
+         <RearTotalBrakeForceBgColor>white</RearTotalBrakeForceBgColor>
+         <FrontDragBalanceValue>0</FrontDragBalanceValue>
+         <FrontDragSumBgColor>white</FrontDragSumBgColor>
+         <FrontDragSumValue>0</FrontDragSumValue>
+         <FrontDragBalanceBgcolor>white</FrontDragBalanceBgcolor>
+         <RearDragBalanceValue>0</RearDragBalanceValue>
+         <RearDragSumBgColor>white</RearDragSumBgColor>
+         <RearDragSumValue>0</RearDragSumValue>
+         <RearDragBalanceBgcolor>white</RearDragBalanceBgcolor>
+         <AxleRatio>0</AxleRatio>
+         <AxleRatioBGColor>white</AxleRatioBGColor>
+         <BrakeActive>0</BrakeActive>
+         <FrontBalanceBGColor>white</FrontBalanceBGColor>
+         <FrontBalanceValue>0</FrontBalanceValue>
+         <FrontToRearBalanceBGColor>white</FrontToRearBalanceBGColor>
+         <FrontToRearBalanceValue>0</FrontToRearBalanceValue>
+         <LFBrakeDistance>0</LFBrakeDistance>
+         <LFBrakeDistanceBGColor>white</LFBrakeDistanceBGColor>
+         <LFDragBGColor>white</LFDragBGColor>
+         <LFDragValue>0</LFDragValue>
+         <LFForceBGColor>white</LFForceBGColor>
+         <LFForceDomain>0 500</LFForceDomain>
+         <LFForceTarget>200 400</LFForceTarget>
+         <LFForceValue>0</LFForceValue>
+         <LRBrakeDistance>0</LRBrakeDistance>
+         <LRBrakeDistanceBGColor>white</LRBrakeDistanceBGColor>
+         <LRDragBGColor>white</LRDragBGColor>
+         <LRDragValue>0</LRDragValue>
+         <LRForceBGColor>white</LRForceBGColor>
+         <LRForceDomain>0 500</LRForceDomain>
+         <LRForceTarget>200 400</LRForceTarget>
+         <LRForceValue>0</LRForceValue>
+         <LRParkBrakeBGColor>white</LRParkBrakeBGColor>
+         <LRParkBrakeForce>0</LRParkBrakeForce>
+         <ParkBrakeForce>0</ParkBrakeForce>
+         <ParkBrakeForceBGColor>white</ParkBrakeForceBGColor>
+         <RearBalanceBGColor>white</RearBalanceBGColor>
+         <RearBalanceValue>0</RearBalanceValue>
+         <RFBrakeDistance>0</RFBrakeDistance>
+         <RFBrakeDistanceBGColor>white</RFBrakeDistanceBGColor>
+         <RFDragBGColor>white</RFDragBGColor>
+         <RFDragValue>0</RFDragValue>
+         <RFForceBGColor>white</RFForceBGColor>
+         <RFForceDomain>0 500</RFForceDomain>
+         <RFForceTarget>200 400</RFForceTarget>
+         <RFForceValue>0</RFForceValue>
+         <RRBrakeDistance>0</RRBrakeDistance>
+         <RRBrakeDistanceBGColor>white</RRBrakeDistanceBGColor>
+         <RRDragBGColor>white</RRDragBGColor>
+         <RRDragValue>0</RRDragValue>
+         <RRForceBGColor>white</RRForceBGColor>
+         <RRForceDomain>0 500</RRForceDomain>
+         <RRForceTarget>200 400</RRForceTarget>
+         <RRForceValue>0</RRForceValue>
+         <RRParkBrakeBGColor>white</RRParkBrakeBGColor>
+         <RRParkBrakeForce>0</RRParkBrakeForce>
+         <TractionControlBgColor>white</TractionControlBgColor>
+      </SystemTagsToReset>
+   </Setup>
+   <!-- ============================================================================================== -->
+   <Objectives>
+      <AbsTests>
+         <TestStep00>SpeedSensorCheck</TestStep00>
+         <TestStep05>StartBrakeSwitchTest</TestStep05>
+      </AbsTests>
+      <StartBrakeSwitchTest>
+         <TestStep05>StartBrakeSwitchTest</TestStep05>
+      </StartBrakeSwitchTest>
+      <DragTest>
+         <TestStep00>MazdaDragTest</TestStep00>
+      </DragTest>
+      <BaseBrakeTest>
+         <TestStep05>MazdaFrontBrakeForce</TestStep05>
+      </BaseBrakeTest>
+      <AbsLfTest>
+         <TestStep10>BrakeTestStart</TestStep10>
+         <TestStep15>AbsLfTest</TestStep15>
+         <TestStep25>BrakeTestStop</TestStep25>
+         <TestStep30 AltValue="500">TestHeadWait</TestStep30>
+      </AbsLfTest>
+      <AbsRfTest>
+         <TestStep10>BrakeTestStart</TestStep10>
+         <TestStep20>AbsRfTest</TestStep20>
+         <TestStep25>BrakeTestStop</TestStep25>
+         <TestStep30 AltValue="500">TestHeadWait</TestStep30>
+      </AbsRfTest>
+      <RunBrakeTest>
+         <TestStep25 AltValue="lf">RunBrakeTest</TestStep25>
+      </RunBrakeTest>
+      <SwapLfTest>
+         <TestStep15>RunSwapTest</TestStep15>
+         <TestStep25 AltValue="lf">SwapTest</TestStep25>
+      </SwapLfTest>
+      <SwapRfTest>
+         <TestStep15>RunSwapTest</TestStep15>
+         <TestStep25 AltValue="rf">SwapTest</TestStep25>
+      </SwapRfTest>
+      <ParkBrakeTest>
+         <TestStep30>MazdaParkBrakeForce</TestStep30>
+      </ParkBrakeTest>
+      <RearBaseBrakeTest>
+         <TestStep35>MazdaRearBrakeForce</TestStep35>
+      </RearBaseBrakeTest>
+      <AbsLrTest>
+         <TestStep40>BrakeTestStart</TestStep40>
+         <TestStep45>AbsLrTest</TestStep45>
+         <TestStep55>BrakeTestStop</TestStep55>
+         <TestStep60 AltValue="500">TestHeadWait</TestStep60>
+      </AbsLrTest>
+      <AbsRrTest>
+         <TestStep10>BrakeTestStart</TestStep10>
+         <TestStep50>AbsRrTest</TestStep50>
+         <TestStep55>BrakeTestStop</TestStep55>
+         <TestStep60 AltValue="500">TestHeadWait</TestStep60>
+         <TestStep99>BrakeTestComplete</TestStep99>
+      </AbsRrTest>
+      <SwapLrTest>
+         <TestStep15>RunSwapTest</TestStep15>
+         <TestStep25 AltValue="lr">SwapTest</TestStep25>
+      </SwapLrTest>
+      <SwapRrTest>
+         <TestStep15>RunSwapTest</TestStep15>
+         <TestStep25 AltValue="rr">SwapTest</TestStep25>
+         <TestStep99>BrakeTestComplete</TestStep99>
+      </SwapRrTest>
+      <FrontSwapTestByAxle>
+         <TestStep10 AltValue="Front">SwapTestByAxle</TestStep10>
+      </FrontSwapTestByAxle>
+      <RearSwapTestByAxle>
+         <TestStep10 AltValue="Rear">SwapTestByAxle</TestStep10>
+      </RearSwapTestByAxle>
+      <FrontAxleSwapTest>
+         <TestStep10 AltValue="lf">SwapTest</TestStep10>
+         <TestStep20 AltValue="rf">SwapTest</TestStep20>
+         <TestStep99>BrakeToStop</TestStep99>
+      </FrontAxleSwapTest>
+      <DiagnosticClearRoutine>
+         <TestStep00>ClearDiagnosticRoutine</TestStep00>
+      </DiagnosticClearRoutine>
+      <FaultCheckRoutine>
+         <TestStep00>FaultCheckRoutine</TestStep00>
+         <TestStep05>ReportOverallBrakeResults</TestStep05>
+         <TestStep99>StopRollers</TestStep99>
+      </FaultCheckRoutine>
+      <Setup>
+         <TestStep00>Initialize</TestStep00>
+      </Setup>
+      <StopRollers>
+         <TestStep99>StopRollers</TestStep99>
+      </StopRollers>
+   </Objectives>
+   <!-- ============================================================================================== -->
+   <TestSteps>
+      <AbsLfTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="LF ABS Valve Test" TestHeadTestName="LfAbsTest" ScanDelay="50"/>
+      <AbsLrTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="LR ABS Valve Test" TestHeadTestName="LrAbsTest" ScanDelay="50"/>
+      <AbsRfTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="RF ABS Valve Test" TestHeadTestName="RfAbsTest" ScanDelay="50"/>
+      <AbsRrTest Result="" Timeout="100000000" SecondaryTimeout="50000" Description="RR ABS Valve Test" TestHeadTestName="RrAbsTest" ScanDelay="50"/>
+      <BrakeTestComplete Result="" Timeout="100000000" Description="Run the process for completing the brake test"/>
+      <BrakeTestStart Result="" Timeout="100000000" Description="Signal to Mazda brake testing is starting"/>
+      <BrakeTestStop Result="" Timeout="100000000" Description="Signal to Mazda brake testing is ending"/>
+      <ClearDiagnosticRoutine Result="" Timeout="100000000" Description="Clear diagnostic routine" TestHeadTestName="DiagClr"/>
+      <FaultCheckRoutine Result="" Timeout="15000" Description="Fault Check Routine" TestHeadTestName="FcChk" WaitForResult="true" TestResultCheckDelay="3000" StopTestHeadDelay="2000"/>
+      <Initialize Result="" Timeout="10000" Description="Initialize for the BaseBrake test." Prompt1="Initialize" ZerospeedPrompt="BrakeToStop" Prompt1Priority="0"/>
+      <MazdaDragTest Result="" Timeout="30000" Description="Check the drag on the rollers" ScanDelay="50"/>
+      <MazdaFrontBrakeForce Result="" Timeout="10000" Description="Analyze the brake force for the front axle"/>
+      <MazdaParkBrakeForce Result="" Timeout="10000" Description="Analyze the park brake force for the rear axle"/>
+      <MazdaRearBrakeForce Result="" Timeout="10000" Description="Analyze the brake force for the rear axle"/>
+      <ReportOverallBrakeResults Result="" Timeout="1000" Description="Report overall brake test results"/>
+      <SpeedSensorCheck Result="" Timeout="100000000" Description="Wheel speed sensor test" ScanDelay="500" TestHeadTestName="WheelSpeedSensorTest"/>
+      <StartBrakeSwitchTest Result="" Timeout="100000000" Description="Brake switch test" TestHeadTestName="BrakeSwitchTest"/>
+      <StopBrakeSwitchTest Result="" Timeout="100000000" Description="Brake switch test" TestHeadTestName="BrakeSwitchTest"/>
+      <StopRollers Result="" Timeout="100000000" Description="Stop the rollers"/>
+      <TestHeadWait Result="" Timeout="500" Description="Wait for the Mazda TEster to be ready"/>
+      <SwapTest Result="" Timeout="40000" SampleForceTimeout="7000" Description="EBBU Swap Test" WaitForOperator="true" DisableRollDrives="false" SkipWaitForTestStepComplete="true"/>
+      <BrakeToStop Result="" Description="Prompt the driver to brake to stop" Timeout="300000" Prompt1="BrakeToStop" Prompt1Priority="0"/>
+      <RunBrakeTest Result="" Timeout="3000" Description="Send brake req signal and wait for confirmation"/>
+      <RunSwapTest Result="" Timeout="3000" Description="Send brake req signal and wait for confirmation" SkipOnIncycleRetest="true"/>
+      <SwapTestByAxle Result="" Timeout="35000" Description="Axle Swap Test"/>
+   </TestSteps>
 </BrakeTC>

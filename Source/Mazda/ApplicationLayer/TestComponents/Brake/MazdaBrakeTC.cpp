@@ -221,6 +221,7 @@ string MazdaBrakeTC::MazdaAbsValveTest(string wheelTestStep, INT16 testingWheel,
         // Determine the overall result
         result = (!dumpResult.compare(testPass) && !buildResult.compare(testPass)) ? testPass : testFail;
         // Report the results
+        SystemWrite(GetDataTag("AbsTestResultTag"), !result.compare(testPass));
         SendTestResult(result, GetTestStepInfo("Description"), "0000");
         // Wait for a bit to make sure no status bits get stomped
         BposSleep(GetParameterInt("MazdaTestHeadReactionTime"));
@@ -371,6 +372,7 @@ string MazdaBrakeTC::MazdaBrakeSwitchTest(const string &action)
         result = PerformTestHeadTest(GetTestStepInfo("TestHeadTestName"), !action.compare("Start"));
         Log(LOG_DEV_DATA, "Test Head Brake switch test % completed, result: %s", action.c_str(), result.c_str());
         // Report the result
+        SystemWrite(GetDataTag("NormalBrakeTestResultTag"), !result.compare(testPass));
         SendTestResult(result, GetTestStepInfo("Description"), "0000");
         if (!action.compare("Start"))
         {
@@ -1354,6 +1356,8 @@ string MazdaBrakeTC::MazdaSwapTest(string targetWheel)
     SystemWrite(GetDataTag("SwapTestResultToPLC_OK"), false);
     */
 
+    //Report the results
+    SystemWrite(GetDataTag("AbsTestResultTag"), !result.compare(testPass));
     SendSubtestResultWithDetail(targetWheel + "SwapTest", result, testDetails, description, "0000");
     if (GetTestStepInfoBool("DisableRollDrives") || (BEP_STATUS_SUCCESS != StatusCheck()))
     {

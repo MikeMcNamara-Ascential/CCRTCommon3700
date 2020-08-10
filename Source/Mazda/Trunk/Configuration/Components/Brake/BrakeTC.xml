@@ -86,7 +86,9 @@
          <RearAxleWeightTag>VehicleRearAxleWeight</RearAxleWeightTag>
          <RearAxleWeightDefaultParameter>DefaultRearAxleWeight</RearAxleWeightDefaultParameter>
          <OverallTestResultTag>OverallTestResult</OverallTestResultTag>
-         <TotalBrakeForceResultTag>TotalBrakeForceResult</TotalBrakeForceResultTag>
+         <NormalBrakeTestResultTag>NormalBrakeTestResult</NormalBrakeTestResultTag>
+		 <TotalBrakeForceResultTag>TotalBrakeForceResult</TotalBrakeForceResultTag>
+		 <AbsTestResultTag>AbsTestResult</AbsTestResultTag>
          <TotalBrakeForceTag>TotalBrakeForceValue</TotalBrakeForceTag>
          <AbsBuildOk>AbsBuildOk</AbsBuildOk>
          <AbsDumpOk>AbsDumpOk</AbsDumpOk>

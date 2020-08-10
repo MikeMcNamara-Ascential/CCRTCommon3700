@@ -65,6 +65,7 @@
             <!-- To do -->
             <BroadcastRLSEquippedType>BodyStyle</BroadcastRLSEquippedType>
             <DriveAxle>DriveAxle</DriveAxle>
+			<DrumResultTag>TransmissionResult</DrumResultTag>
             <EnableLightAndSprayDevice>TurnOnAuxillaryOutputOne</EnableLightAndSprayDevice>
             <EngineRunningTag>IgnitionOnFromTestHead</EngineRunningTag>
             <Fail>red</Fail>

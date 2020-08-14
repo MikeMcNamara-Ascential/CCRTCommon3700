@@ -318,6 +318,8 @@ private:
 
     string ReadFaultsPostMECLock(void);
 
+    string ToothErrorCorrectionLearn(void);
+
     std::string GetFaultFailureStatusMaskPostMEC(const std::string fault);
 
     /**

@@ -136,7 +136,8 @@ const string IsuzuEmissionsTc<ModuleType>::CommandTestStep(const string &value)
             else if (!GetTestStepName().compare("CheckBrakeSensorOff"))                 testResult = CheckBrakeSensor(false);
             else if (!GetTestStepName().compare("EngineOffBeforeMAFClear"))             testResult = EngineOffBeforeMAFClear();
             else if (!GetTestStepName().compare("ReadFaultsPostMECLock"))               testResult = ReadFaultsPostMECLock();
-            
+            else if (!GetTestStepName().compare("ToothErrorCorrection"))           testResult = ToothErrorCorrectionLearn();
+
             else  testResult = GenericEmissionsTCTemplate<ModuleType>::CommandTestStep(value);
         }
         else
@@ -820,6 +821,7 @@ string IsuzuEmissionsTc<ModuleType>::StartCaseLearnSequence()
 }
 
 //-------------------------------------------------------------------------------------------------
+
 template<class ModuleType>
 string IsuzuEmissionsTc<ModuleType>::StartRangeCheckMonitors()
 {   // Log the entry and determine if this step should be performed
@@ -2885,17 +2887,20 @@ string IsuzuEmissionsTc<ModuleType>::LockModuleIfPass(void)
     // Attempt to read the locked status from the module
     try
     {   // Read the locked status from the module
-        m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
+        moduleStatus = m_vehicleModule.ReadModuleData("IsModuleLocked", isLocked);
     }
     catch (ModuleException &exception)
     {   // Exception reading data
         Log(LOG_ERRORS, "Module exception in LockModuleIfPass() while reading IsModuleLocked - %s\n", exception.message().c_str());
         isLocked = true;
+        moduleStatus = BEP_STATUS_ERROR;
     }
 
     if(!isLocked && !GetOverallResult().compare(testPass))
         moduleStatus = m_vehicleModule.LockModule();
-
+    else if (isLocked && !GetOverallResult().compare(testPass) && (BEP_STATUS_SUCCESS == moduleStatus)) {
+        Log(LOG_DEV_DATA, "Module Already Locked. Passing Test.");
+    }
     // Set the test status
 	testResult = BEP_STATUS_SUCCESS == moduleStatus ? testPass : testFail;
 	testResultCode = (testResult == testPass ? "0000" : GetFaultCode("CommunicationFailure"));
@@ -3720,7 +3725,7 @@ string IsuzuEmissionsTc<ModuleType>::EngineOffBeforeMAFClear(void)
 }
 
 //-----------------------------------------------------------------------------
-\template <class ModuleType>
+template <class ModuleType>
 string IsuzuEmissionsTc<ModuleType>::ReadFaultsPostMECLock(void)
 {
     string testResult = BEP_TESTING_STATUS;
@@ -3891,3 +3896,86 @@ std::string IsuzuEmissionsTc<ModuleType>::GetFaultFailureStatusMaskPostMEC(const
 
     return(failureStatusMask);
 }
+//=============================================================================
+template <class ModuleType>
+string IsuzuEmissionsTc<ModuleType>::ToothErrorCorrectionLearn(void)
+{
+    Log(LOG_FN_ENTRY, "IsuzuEmissionsTc::ToothErrorCorrectionLearn() - Enter");
+    string result(BEP_TESTING_RESPONSE);
+    string testResult(BEP_TESTING_RESPONSE);
+    string testResultCode("0000");
+    string testDescription = GetTestStepInfo("Description");
+    BEP_STATUS_TYPE moduleStatus = BEP_STATUS_ERROR;
+
+    if (!ShortCircuitTestStep())
+    {   // Do not need to skip this step
+        try
+        {  
+            // Have the operator shift to Neutral
+            DisplayPrompt(GetPromptBox("ShiftToN"), GetPrompt("ShiftToN"), GetPromptPriority("ShiftToN"));
+            // 
+            moduleStatus  = m_vehicleModule.CommandModule("TECL");
+            if(moduleStatus == BEP_STATUS_SUCCESS)
+            {
+                bool preconditionsMet = false;
+                bool TECLearned = false;
+                while (TimeRemaining() && !preconditionsMet && (moduleStatus == BEP_STATUS_SUCCESS))
+                {
+                    moduleStatus = m_vehicleModule.ReadModuleData("PreTECL", preconditionsMet);
+                    BposSleep(GetTestStepInfoInt("ScanDelay"));     
+                }
+                if (preconditionsMet)
+                {
+                    while (TimeRemaining() && !TECLearned && (moduleStatus == BEP_STATUS_SUCCESS))
+                    {
+                        moduleStatus = m_vehicleModule.ReadModuleData("TECLearned", TECLearned);
+                        BposSleep(GetTestStepInfoInt("ScanDelay"));     
+                    }
+                    if (TECLearned)
+                    {
+                        Log(LOG_DEV_DATA, "Tooth Error Corection Learned!");
+                        testResult = testPass;
+                    }
+                    else
+                    {
+                        Log(LOG_DEV_DATA, "Tooth Error Corection Learn Timedout!");
+                        testResult = testFail;
+                    }
+                }
+                else
+                {
+                    Log(LOG_DEV_DATA, "Preconditions not met for Tooth Error Corection Learn Process!");
+                    testResult = testFail;
+                }
+                //return Control to the Module
+                moduleStatus  = m_vehicleModule.CommandModule("EndTECL");
+            }
+            else
+            {
+                Log(LOG_DEV_DATA, "Module refused to start Tooth Error Correction Learn Process");
+                testResult = testFail;
+            }
+            RemovePrompt(GetPromptBox("ShiftToN"), GetPrompt("ShiftToN"), GetPromptPriority("ShiftToN"));
+        }
+        catch (ModuleException &moduleException)
+        {
+            Log(LOG_ERRORS, "Module Exception in %s::%s - %s\n",
+                GetComponentName().c_str(), GetTestStepName().c_str(), moduleException.message().c_str());
+            testResult = testSoftwareFail;
+            testResultCode = GetFaultCode("SoftwareFailure");
+            testDescription = GetFaultDescription("SoftwareFailure");
+        }
+        // Report the results
+        SendTestResult(testResult, testDescription, testResultCode);
+
+    }
+    else
+    {   // Need to skip this test step
+        testResult = testSkip;
+        Log(LOG_DEV_DATA, "Skipping test step %s\n", GetTestStepName().c_str());
+    }
+
+    Log(LOG_FN_ENTRY, "Exit IsuzuEmissionsTc::ToothErrorCorrectionLearn()\n");
+    return testResult;
+}
+

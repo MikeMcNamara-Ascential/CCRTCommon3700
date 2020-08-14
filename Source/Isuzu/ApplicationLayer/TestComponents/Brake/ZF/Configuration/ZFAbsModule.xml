@@ -1,0 +1,1080 @@
+<VehicleCommunication>
+   <!--This version was copied from HMMA, then messages changed to FAW Specs-->
+   <!--so the Messages are correct, but the setup propably isn't-->
+   <Setup>
+      <CommunicationProtocol>KeywordProtocol2000</CommunicationProtocol>
+      <CommunicationBus>CAN</CommunicationBus>
+      <!-- From Advics \/-->
+      <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+      <KeepAlivePriority>10</KeepAlivePriority>
+      <SwitchMonitorDelay>500</SwitchMonitorDelay>
+      <EnterDiagnosticModeMessageTag>EnterDiagnosticMode</EnterDiagnosticModeMessageTag>
+      <AutomaticallyEnterDiagnosticMode>No</AutomaticallyEnterDiagnosticMode>
+      <ResponsePendingReads>1</ResponsePendingReads>
+      <ModuleRequestID>0x0526</ModuleRequestID>
+      <DataByteCountIndex>3</DataByteCountIndex>
+      <!-- FromAdvics /\ -->
+      <DataStartIndex>6</DataStartIndex>
+      <DataHeaderLength>2</DataHeaderLength>
+      <CheckSumLength>1</CheckSumLength>
+      <NumberOfRetries>1</NumberOfRetries>
+      <ValidResponseOffset>0x40</ValidResponseOffset>
+      <SentMessageIdentifierIndex>0</SentMessageIdentifierIndex>
+      <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
+      <NegativeResponseValue>0x7F</NegativeResponseValue>
+      <ModuleResponseDelay>550</ModuleResponseDelay>
+      <ModuleResponseEndDelay>150</ModuleResponseEndDelay>
+      <ModuleKeepAliveTime>500</ModuleKeepAliveTime>
+      <KeepAliveResponseRequired>Yes</KeepAliveResponseRequired>
+      <SwitchMonitorDelay>50</SwitchMonitorDelay>
+      <BaudRate>10400</BaudRate>
+      <MessageData>
+          <NumberOfPartNumberMessages>1</NumberOfPartNumberMessages>
+      </MessageData> 
+      <DtcData>
+         <DTCCountIndex>4</DTCCountIndex>
+         <BytesPerDtc>3</BytesPerDtc>
+         <DtcStartIndex>5</DtcStartIndex>
+      </DtcData>
+      <ValidPartNumbers>
+          <TrialAPG>MADE APGZHU</TrialAPG>
+      </ValidPartNumbers>
+      <Communication>
+         <Debug>Off</Debug>
+         <Name>GryphonIsoCan</Name>
+         <BufferSize>4096</BufferSize>
+         <CommSize>0</CommSize>
+         <Timeout>500000</Timeout>
+         <Retries>3</Retries>
+      </Communication>
+      <Logging>
+         <Status>Enabled</Status>
+         <ProcessName>AdvicsAbsModule</ProcessName>
+         <AdditionalLogFile>/Communication/AdvicsAbsModule.log</AdditionalLogFile>
+         <Debug>Off</Debug>
+         <LocalEcho>Disabled</LocalEcho>
+         <Verbose>0xFF</Verbose>
+      </Logging>
+      <NegativeResponseCodes>
+         <Code_0x10>General Reject</Code_0x10>
+         <Code_0x11>Service Not Supported</Code_0x11>
+         <Code_0x12>SubFunction Not Supported / Invalid Format</Code_0x12>
+         <Code_0x21>Busy / Repeat Request</Code_0x21>
+         <Code_0x22>Conditions Not Correct or Request Sequence Error</Code_0x22>
+         <Code_0x23>Routine Not Complete</Code_0x23>
+         <Code_0x31>Request Out Of Range</Code_0x31>
+         <Code_0x33>Security Access Denied / Security Access Requested</Code_0x33>
+         <Code_0x35>Invalid Key</Code_0x35>
+         <Code_0x36>Exceed Number Of Attempts</Code_0x36>
+         <Code_0x37>Required Time Delay Not Expired</Code_0x37>
+         <Code_0x40>Download Not Accepted</Code_0x40>
+         <Code_0x50>Upload Not Accepted</Code_0x50>
+         <Code_0x71>Transfer Suspended</Code_0x71>
+         <Code_0x78>Request Correctly Received / Response Pending</Code_0x78>
+         <Code_0x80>Service Not Supported In Active Diagnostic Session</Code_0x80>
+         <Code_0x87>Fault Upon Writing</Code_0x87>
+         <Code_0x9A>Data Decompression Failed</Code_0x9A>
+         <Code_0x9B>Dta Decryption Failed</Code_0x9B>
+         <Code_0xA0>ECU Not Responding</Code_0xA0>
+         <Code_0xA1>ECU Address Unknown</Code_0xA1>
+         <ModuleBusy>0x21</ModuleBusy>
+         <EnterDiagnosticMode>0x85</EnterDiagnosticMode>
+         <ResponsePending>0x78</ResponsePending>
+      </NegativeResponseCodes>
+      <CommInitData>
+         <WakeUpResponseDelay>50</WakeUpResponseDelay>
+         <WakeUpAttempts>3</WakeUpAttempts>
+         <SignalLowTime>25</SignalLowTime>
+         <SignalHighTime>25</SignalHighTime>
+      </CommInitData>
+   </Setup>
+   <SerialMessages>
+      <InitMessage useFinalMessageBaud="1">
+         <Byte_00 alias="FormatByte" byteType="Tx" timeOut="0" value="0x81" baud="10400"/>
+         <Byte_01 alias="TargetAddress" byteType="Tx" timeOut="3000" value="0x28" baud="10400"/>
+         <Byte_02 alias="SourceAddress" byteType="Tx" timeOut="28" value="0xF1"/>
+         <Byte_03 alias="KeyByte1" byteType="Rx" timeOut="2000"/>
+         <!-- value="0x6B" -->
+         <Byte_04 alias="KeyByte2" byteType="Rx" timeOut="2000"/>
+         <!-- value="0x8F" -->
+      </InitMessage>
+      <VehicleMessages>
+         <!-- <StartCommunication> -->
+            <!-- <TransmitMessage>StartCommunication</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>StartCommunication</ReplyMessage> -->
+            <!-- <ReplyInterpretation/> -->
+         <!-- </StartCommunication> -->
+         <EnterDiagnosticMode>
+            <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+            <ReplyInterpretation/>
+         </EnterDiagnosticMode>
+         <!--EnterEolDiagnosticMode>
+            <TransmitMessage>EnterDiagnosticMode</TransmitMessage>
+            <TransmitInterpretation>EolDiagnostic</TransmitInterpretation>
+            <ReplyMessage>EnterDiagnosticMode</ReplyMessage>
+            <ReplyInterpretation/>
+         </EnterEolDiagnosticMode-->
+         <ReadFaults>
+            <TransmitMessage>ReadFaults</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage ReplyTimeout="500">ReadFaults</ReplyMessage>
+            <ReplyInterpretation>ReadFaults</ReplyInterpretation>
+         </ReadFaults>
+         <!-- <ReadSpecificFault> -->
+            <!-- <TransmitMessage>ReadSpecificFault</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>ReadSpecificFault</ReplyMessage> -->
+            <!-- <ReplyInterpretation>ReadSpecificFault</ReplyInterpretation> -->
+         <!-- </ReadSpecificFault> -->
+         <ClearFaults ReplyTimeout="1500" Status="Works">
+            <TransmitMessage>ClearFaults</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ClearFaults</ReplyMessage>
+            <ReplyInterpretation>ClearFaultsDone</ReplyInterpretation>
+         </ClearFaults>
+         <ReadPartNumber Status="works">
+            <TransmitMessage>ReadPartNumber</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ReadPartNumber</ReplyMessage>
+            <ReplyInterpretation>ReadPartNumber</ReplyInterpretation>
+         </ReadPartNumber>
+         <ReadPartNumber2>
+                <TransmitMessage>ReadPartNumber</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadPartNumber</ReplyMessage>
+                <ReplyInterpretation>PartNumber2</ReplyInterpretation>
+            </ReadPartNumber2>
+         <ReadBrakeSwitch Status="Works">
+            <TransmitMessage>ReadLid</TransmitMessage>
+            <TransmitInterpretation>ReadBrakeSwitch</TransmitInterpretation>
+            <ReplyMessage>ReadBrakeSwitch</ReplyMessage>
+            <ReplyInterpretation>ReadBrakeSwitchString</ReplyInterpretation>
+         </ReadBrakeSwitch>
+         <!-- <ReadRelayState> -->
+             <!-- <TransmitMessage>ReadLid</TransmitMessage> -->
+             <!-- <TransmitInterpretation>ValveRelayState</TransmitInterpretation> -->
+             <!-- <ReplyMessage>ReadLid</ReplyMessage> -->
+             <!-- <ReplyInterpretation/> -->
+         <!-- </ReadRelayState> -->
+         <!-- <ReadPumpMotorState> -->
+             <!-- <TransmitMessage>ReadLid</TransmitMessage> -->
+             <!-- <TransmitInterpretation>PumpMotorState</TransmitInterpretation> -->
+             <!-- <ReplyMessage>ReadLid</ReplyMessage> -->
+             <!-- <ReplyInterpretation/> -->
+         <!-- </ReadPumpMotorState> -->
+         <!-- <ReadSupplyVoltage> -->
+             <!-- <TransmitMessage>ReadLid</TransmitMessage> -->
+             <!-- <TransmitInterpretation>SupplyVoltage</TransmitInterpretation> -->
+             <!-- <ReplyMessage>ReadLid</ReplyMessage> -->
+             <!-- <ReplyInterpretation>SupplyVoltage</ReplyInterpretation> -->
+         <!-- </ReadSupplyVoltage> -->
+         <ReadPressureSensor>
+            <TransmitMessage>ReadLid</TransmitMessage>
+            <TransmitInterpretation>ServiceData</TransmitInterpretation>
+            <ReplyMessage>ServiceData</ReplyMessage>
+            <ReplyInterpretation>PressureSensor</ReplyInterpretation>
+         </ReadPressureSensor>
+         <ReadSensorSpeeds>
+                <TransmitMessage>ReadPid</TransmitMessage>
+                <TransmitInterpretation>WheelSpeeds</TransmitInterpretation>
+                <TransmitInterpretationLF>WheelSpeeds</TransmitInterpretationLF>
+                <TransmitInterpretationRF>WheelSpeeds</TransmitInterpretationRF>
+                <TransmitInterpretationLR>WheelSpeeds</TransmitInterpretationLR>
+                <TransmitInterpretationRR>WheelSpeeds</TransmitInterpretationRR>
+                <ReplyMessage>SensorSpeeds</ReplyMessage>
+                <ReplyInterpretation/>
+                <ReplyInterpretationLF>LFWheelSpeed</ReplyInterpretationLF>
+                <ReplyInterpretationRF>RFWheelSpeed</ReplyInterpretationRF>
+                <ReplyInterpretationLR>LRWheelSpeed</ReplyInterpretationLR>
+                <ReplyInterpretationRR>RRWheelSpeed</ReplyInterpretationRR>
+            </ReadSensorSpeeds>
+      <!-- <ReadLfSpeed> -->
+          <!-- <TransmitMessage>ReadSensors</TransmitMessage> -->
+          <!-- <TransmitInterpretation>WheelSpeeds</TransmitInterpretation> -->
+          <!-- <ReplyMessage>SensorSpeeds</ReplyMessage> -->
+          <!-- <ReplyInterpretation>LFWheelSpeed</ReplyInterpretation> -->
+      <!-- </ReadLfSpeed> -->
+      <!-- <ReadRfSpeed> -->
+        <!-- <TransmitMessage>ReadSensors</TransmitMessage> -->
+        <!-- <TransmitInterpretation>WheelSpeeds</TransmitInterpretation> -->
+        <!-- <ReplyMessage>SensorSpeeds</ReplyMessage> -->
+        <!-- <ReplyInterpretation>RFWheelSpeed</ReplyInterpretation> -->
+      <!-- </ReadRfSpeed> -->
+      <!-- <ReadLrSpeed> -->
+        <!-- <TransmitMessage>ReadSensors</TransmitMessage> -->
+        <!-- <TransmitInterpretation>WheelSpeeds</TransmitInterpretation> -->
+        <!-- <ReplyMessage>SensorSpeeds</ReplyMessage> -->
+        <!-- <ReplyInterpretation>LRWheelSpeed</ReplyInterpretation> -->
+      <!-- </ReadLrSpeed> -->
+      <!-- <ReadRrSpeed> -->
+        <!-- <TransmitMessage>ReadSensors</TransmitMessage> -->
+        <!-- <TransmitInterpretation>WheelSpeeds</TransmitInterpretation> -->
+        <!-- <ReplyMessage>SensorSpeeds</ReplyMessage> -->
+        <!-- <ReplyInterpretation>RRWheelSpeed</ReplyInterpretation> -->
+      <!-- </ReadRrSpeed> -->
+      <!-- <ReadVacuumFillingEndFlag> -->
+        <!-- <TransmitMessage>ReadVacuumFillingEndFlag</TransmitMessage> -->
+        <!-- <TransmitInterpretation/> -->
+        <!-- <ReplyMessage>ReadVacuumFillingEndFlag</ReplyMessage> -->
+        <!-- <ReplyInterpretation>VacuumFillingEndFlag</ReplyInterpretation> -->
+      <!-- </ReadVacuumFillingEndFlag> -->
+         <!-- <CheckProcessByte> -->
+            <!-- <TransmitMessage>ReadLid</TransmitMessage> -->
+            <!-- <TransmitInterpretation>ProcessByte</TransmitInterpretation> -->
+            <!-- <ReplyMessage>ReadLid</ReplyMessage> -->
+            <!-- <ReplyInterpretation>CheckProcessByte</ReplyInterpretation> -->
+         <!-- </CheckProcessByte> -->
+         <CheckEolByte>
+            <TransmitMessage>ReadLid</TransmitMessage>
+            <TransmitInterpretation>EolByte</TransmitInterpretation>
+            <ReplyMessage>ReadLid</ReplyMessage>
+            <ReplyInterpretation>CheckEolByte</ReplyInterpretation>
+         </CheckEolByte>
+         <!-- <UnlockModuleSecurity> -->
+             <!-- <TransmitMessage>UnlockModuleSecurity</TransmitMessage> -->
+             <!-- <TransmitInterpretation></TransmitInterpretation> -->
+             <!-- <ReplyMessage>UnlockModuleSecurity</ReplyMessage> -->
+             <!-- <ReplyInterpretation></ReplyInterpretation> -->
+         <!-- </UnlockModuleSecurity> -->
+         <!-- <ReadSecuritySeed> -->
+                <!-- <TransmitMessage>ReadSecuritySeed</TransmitMessage> -->
+                <!-- <TransmitInterpretation/> -->
+                <!-- <ReplyMessage>ReadSecuritySeed</ReplyMessage> -->
+                <!-- <ReplyInterpretation>ReadSecuritySeed</ReplyInterpretation> -->
+         <!-- </ReadSecuritySeed> -->
+         <!-- <StartSensorQualityTest> -->
+            <!-- <TransmitMessage>StartSensorQualityTest</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>StartSensorQualityTest</ReplyMessage> -->
+            <!-- <ReplyInterpretationPass>SensorQualityPass</ReplyInterpretationPass> -->
+            <!-- <ReplyInterpretationLFMax>SensorQualityLFMax</ReplyInterpretationLFMax> -->
+            <!-- <ReplyInterpretationLFMin>SensorQualityLFMin</ReplyInterpretationLFMin> -->
+            <!-- <ReplyInterpretationRFMax>SensorQualityRFMax</ReplyInterpretationRFMax> -->
+            <!-- <ReplyInterpretationRFMin>SensorQualityRFMin</ReplyInterpretationRFMin> -->
+            <!-- <ReplyInterpretationLRMax>SensorQualityLRMax</ReplyInterpretationLRMax> -->
+            <!-- <ReplyInterpretationLRMin>SensorQualityLRMin</ReplyInterpretationLRMin> -->
+            <!-- <ReplyInterpretationRRMax>SensorQualityRRMax</ReplyInterpretationRRMax> -->
+            <!-- <ReplyInterpretationRRMin>SensorQualityRRMin</ReplyInterpretationRRMin> -->
+            <!-- <Retries>10</Retries> -->
+            <!-- <Delay>100</Delay> -->
+         <!-- </StartSensorQualityTest> -->
+         <!-- <SensorTestComplete> -->
+            <!-- <TransmitMessage>ReadSensorTestResults</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>ReadSensorTestResults</ReplyMessage> -->
+            <!-- <ReplyInterpretation>SensorTestComplete</ReplyInterpretation> -->
+         <!-- </SensorTestComplete> -->
+         <!-- <SensorTestResults> -->
+            <!-- <TransmitMessage>ReadSensorTestResults</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>ReadSensorTestResults</ReplyMessage> -->
+            <!-- <ReplyInterpretation>SensorTestResults</ReplyInterpretation> -->
+         <!-- </SensorTestResults> -->
+         <ReadSpeedDeltas>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>ReadSpeedDeltas</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+            <ReplyInterpretationLF>LFABSSpeedDelta</ReplyInterpretationLF>
+            <ReplyInterpretationRF>RFABSSpeedDelta</ReplyInterpretationRF>
+            <ReplyInterpretationLR>LRABSSpeedDelta</ReplyInterpretationLR>
+            <ReplyInterpretationRR>RRABSSpeedDelta</ReplyInterpretationRR>
+         </ReadSpeedDeltas>
+         <RunPumpMotor>
+            <TransmitMessage>PumpMotor</TransmitMessage>
+            <TransmitInterpretation>RunPumpMotor</TransmitInterpretation>
+            <ReplyMessage>PumpMotor</ReplyMessage>
+            <ReplyInterpretation/>
+         </RunPumpMotor>
+         <ActuateLeftFrontReduction>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LFABSReduction</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ActuateLeftFrontReduction>
+         <ActuateLeftFrontRecovery>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LFABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ActuateLeftFrontRecovery>
+         <ActuateRightFrontReduction>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RFABSReduction</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ActuateRightFrontReduction>
+         <ActuateRightFrontRecovery>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RFABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ActuateRightFrontRecovery>
+         <ActuateLeftRearReduction>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LRABSReduction</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ActuateLeftRearReduction>
+         <ActuateLeftRearRecovery>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LRABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ActuateLeftRearRecovery>
+         <ActuateRightRearReduction>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RRABSReduction</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ActuateRightRearReduction>
+         <ActuateRightRearRecovery>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RRABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ActuateRightRearRecovery>
+
+         <LFABSReduction>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LFABSReduction</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFABSReduction>
+         <LFABSHold>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LFABSHold</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFABSHold>
+         <LFABSRecovery>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LFABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </LFABSRecovery>
+         <RFABSReduction>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RFABSReduction</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFABSReduction>
+         <RFABSHold>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RFABSHold</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFABSHold>
+         <RFABSRecovery>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RFABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </RFABSRecovery>
+         <LRABSReduction>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LRABSReduction</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </LRABSReduction>
+         <LRABSHold>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LRABSHold</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </LRABSHold>
+         <LRABSRecovery>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>LRABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </LRABSRecovery>
+         <RRABSReduction>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RRABSReduction</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRABSReduction>
+         <RRABSHold>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RRABSHold</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRABSHold>
+         <RRABSRecovery>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>RRABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </RRABSRecovery>
+         <ABSPressureRelease>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>ABSPressureRelease</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </ABSPressureRelease>
+         <StopPumpMotor>
+            <TransmitMessage>PumpMotor</TransmitMessage>
+            <TransmitInterpretation>StopPumpMotor</TransmitInterpretation>
+            <ReplyMessage>PumpMotor</ReplyMessage>
+            <ReplyInterpretation/>
+         </StopPumpMotor>
+         <AllInletValvesOff>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>AllInletValvesOff</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </AllInletValvesOff>
+         <AllInletValvesOn>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>AllInletValvesOn</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </AllInletValvesOn>
+         <StartAbsTest>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>StartAbsSequence</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </StartAbsTest>
+         <AbsTestMsg>
+            <TransmitMessage>ABSValveActuation</TransmitMessage>
+            <TransmitInterpretation>ABSRecovery</TransmitInterpretation>
+            <ReplyMessage>ABSValveActuation</ReplyMessage>
+            <ReplyInterpretation/>
+         </AbsTestMsg>
+         <!-- <ABSRecovery> -->
+            <!-- <TransmitMessage>ABSValveActuation</TransmitMessage> -->
+            <!-- <TransmitInterpretation>ABSRecovery</TransmitInterpretation> -->
+            <!-- <ReplyMessage>ABSValveActuation</ReplyMessage> -->
+            <!-- <ReplyInterpretation/> -->
+         <!-- </ABSRecovery> -->
+         <!-- <EnableSpeedLimit> -->
+            <!-- <TransmitMessage>EnableSafety</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>SafetyReply</ReplyMessage> -->
+            <!-- <ReplyInterpretation/> -->
+         <!-- </EnableSpeedLimit> -->
+         <!-- <DisableDiagnosticSpeedLimit> -->
+            <!-- <TransmitMessage>DisableSafety</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>SafetyReply</ReplyMessage> -->
+            <!-- <ReplyInterpretation/> -->
+         <!-- </DisableDiagnosticSpeedLimit> -->
+         <WriteEolComplete>
+            <TransmitMessage>WriteLid</TransmitMessage>
+            <TransmitInterpretation>WriteEolComplete</TransmitInterpretation>
+            <ReplyMessage>WriteLid</ReplyMessage>
+            <ReplyInterpretation/>
+         </WriteEolComplete>
+         <!-- <WriteVacuumFillingEndFlag> -->
+            <!-- <TransmitMessage>WriteLid</TransmitMessage> -->
+            <!-- <TransmitInterpretation>WriteVacuumFillingEndFlag</TransmitInterpretation> -->
+            <!-- <ReplyMessage>WriteLid</ReplyMessage> -->
+            <!-- <ReplyInterpretation/> -->
+         <!-- </WriteVacuumFillingEndFlag> -->
+         <ModuleKeepAlive>
+            <TransmitMessage>ModuleKeepAlive</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ModuleKeepAlive</ReplyMessage>
+            <ReplyInterpretation/>
+         </ModuleKeepAlive>
+         <ExitDiagnosticMode>
+            <TransmitMessage>ExitDiagnosticMode</TransmitMessage>
+            <TransmitInterpretation/>
+            <ReplyMessage>ExitDiagnosticMode</ReplyMessage>
+            <ReplyInterpretation/>
+         </ExitDiagnosticMode>
+         <!-- <StopCommunication> -->
+            <!-- <TransmitMessage>StopCommunication</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>StopCommunication</ReplyMessage> -->
+            <!-- <ReplyInterpretation/> -->
+         <!-- </StopCommunication> -->
+         <!-- <ModuleWakeUp> -->
+            <!-- <TransmitMessage>ModuleWakeUp</TransmitMessage> -->
+            <!-- <TransmitInterpretation/> -->
+            <!-- <ReplyMessage>ModuleWakeUp</ReplyMessage> -->
+            <!-- <ReplyInterpretation/> -->
+         <!-- </ModuleWakeUp> -->
+      </VehicleMessages>
+      <TransmitMessages>
+         <ABSValveActuation>0x2F,0xDA,0x81,0x03,0x??,0x??</ABSValveActuation>
+         <PumpMotor>0x2F,0xDA,0x81,0x03,0x??,0x??</PumpMotor>
+         <ModuleKeepAlive>0x3E</ModuleKeepAlive>
+         <ClearFaults>0x14,0xFF,0xFF,0xFF</ClearFaults>
+         <ReadFaults>0x19,0x02,0xFF</ReadFaults>
+         <EnterDiagnosticMode>0x10,0x03</EnterDiagnosticMode>
+         <ReadPartNumber>0x22,0xDA,0x14</ReadPartNumber>
+         <ExitDiagnosticMode>0x10,0x01</ExitDiagnosticMode>
+         <ReadLid>0x22,0x??,0x??,0x??,0x??</ReadLid>
+		 <ReadPid>0x22,0x??,0x??</ReadPid>
+         <WriteLid>0x2E,0x??,0x??,0x??,0x??,0x??,0x??</WriteLid>
+         <!--ReadVacuumFillingEndFlag>0x82,0x28,0xF1,0x1A,0x9E</ReadVacuumFillingEndFlag-->
+         <!-- <EnableSafety>0x82,0x28,0xF1,0xA1,0x00</EnableSafety> -->
+         <!-- <DisableSafety>0x82,0x28,0xF1,0xA1,0x01</DisableSafety> -->
+         <!-- <SafetyStatus>0x83,0x28,0xF1,0x30,0x??,0x03</SafetyStatus> -->
+         <!-- <StartSensorQualityTest>0x84,0x28,0xF1,0x31,0x05,0x01,0x1E</StartSensorQualityTest> -->
+         <!-- <ReadSensorTestResults>0x83,0x28,0xF1,0x31,0x05,0x03</ReadSensorTestResults> -->
+         <!-- <ReadSensors>0x82,0x28,0xF1,0x21,0x??</ReadSensors> -->
+         <!-- <StartCommunication>0x81,0x28,0xF1,0x81</StartCommunication> -->
+         <!-- <StopCommunication>0x81,0x28,0xF1,0x82</StopCommunication> -->
+         <!-- <ReadSecuritySeed>0x82,0x28,0xF1,0x27,0x01</ReadSecuritySeed> -->
+         <!-- <UnlockModuleSecurity>0x84,0x28,0xF1,0x27,0x02,0x??,0x??</UnlockModuleSecurity> -->
+      </TransmitMessages>
+      <TransmitInterpretations>
+         <NormalDiagnostic>0x81</NormalDiagnostic>
+         <EolDiagnostic>0x83</EolDiagnostic>
+         <ServiceData>0x01</ServiceData>
+         <ReadBrakeSwitch>0x11</ReadBrakeSwitch>
+         <!-- <SupplyVoltage>0x1C</SupplyVoltage> -->
+         <!-- <ValveRelayState>0x10</ValveRelayState> -->
+         <!-- <PumpMotorState>0x0A</PumpMotorState> -->
+         <!-- <ProcessByte>0x02</ProcessByte> -->
+         <EolByte>0x03</EolByte>
+         <WriteEolComplete>0x03,0x00</WriteEolComplete>
+         <!-- <WriteVacuumFillingEndFlag>0x9E,0x02></WriteVacuumFillingEndFlag> -->
+         <!-- <SecurityRequestSeed>0x01</SecurityRequestSeed> -->
+         <!-- <SecuritySendKey>0x02,0x16,0x1D,0x2C,0x25</SecuritySendKey> -->
+         <VariantCoding>0x04</VariantCoding>
+         <ValveRelayShutdown>0x1F</ValveRelayShutdown>
+         <SpeedLimit>0x1E</SpeedLimit>
+         <LFWheelSpeed>0x01</LFWheelSpeed>
+         <RFWheelSpeed>0x01</RFWheelSpeed>
+         <LRWheelSpeed>0x01</LRWheelSpeed>
+         <RRWheelSpeed>0x01</RRWheelSpeed>
+         <WheelSpeeds>0x0C,0x01</WheelSpeeds>
+         <ReadSpeedDeltas>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x10,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</ReadSpeedDeltas>
+         <StartAbsSequence>0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x1E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00</StartAbsSequence>
+         <RunPumpMotor>0x00,0x08</RunPumpMotor>
+         <StopPumpMotor>0x00,0x00</StopPumpMotor>
+         <!-- ABS Test -->
+		 <AllInletValvesOff>0xAA,0x00</AllInletValvesOff>
+         <AllInletValvesOn>0x00,0x00</AllInletValvesOn>
+         <LFABSReduction>0x20,0x00</LFABSReduction>
+         <LFABSHold>0x30,0x00</LFABSHold>
+         <LFABSRecovery>0x10,0x00</LFABSRecovery>
+         <RFABSReduction>0x80,0x00</RFABSReduction>
+         <RFABSHold>0xC0,0x00</RFABSHold>
+         <RFABSRecovery>0x40,0x00</RFABSRecovery>
+         <LRABSReduction>0x02,0x00</LRABSReduction>
+         <LRABSHold>0x03,0x00</LRABSHold>
+         <LRABSRecovery>0x01,0x00</LRABSRecovery>
+         <RRABSReduction>0x08,0x00</RRABSReduction>
+         <RRABSHold>0x0C,0x00</RRABSHold>
+         <RRABSRecovery>0x04,0x00</RRABSRecovery>         
+         <ABSPressureRelease>0xFF,0x00</ABSPressureRelease>
+         <ABSRecovery>0x44,0x00</ABSRecovery>
+      </TransmitInterpretations>
+      <ReplyMessages>
+         <EnterDiagnosticMode>
+			<Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x50,0x??</Reply_00>
+            <Reply_01>0x7F,0x10,0x??</Reply_01>
+         </EnterDiagnosticMode>
+         <StartDiagnosticSession>
+            <Reply_00>0x82,0xF1,0x28,0x50,0x83,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x10,0x??</Reply_01>
+         </StartDiagnosticSession>
+         <ReadSpecificFault>
+            <Reply_00 lengthType="Variable">0x88,0xF1,0x28,0x57,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x17,0x12,0x??</Reply_01>
+         </ReadSpecificFault>
+         <ReadPartNumber>
+            <Reply_00 lengthType="Variable">0x62,0x??</Reply_00>
+            <Reply_01>0x7F,0x22,0x??</Reply_01>
+         </ReadPartNumber>
+         <ReadVacuumFillingEndFlag>
+             <Reply_00>0x83,0xF1,0x28,0x5A,0x9E,0x??,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x1A,0x??</Reply_01>
+         </ReadVacuumFillingEndFlag>
+         <ClearFaults>
+            <Reply_00>0x81,0xF1,0x28,0x54,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x14,0x??</Reply_01>
+         </ClearFaults>
+         <ServiceData>
+            <Reply_00>0xA1,0xF1,0x28,0x61,0x01,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x21,0x??</Reply_01>
+            <Reply_02 lengthType="Variable">0x82,0xF1,0x28,0x61,0x??,0x??</Reply_02>
+         </ServiceData>
+         <ReadWheelSpeed>
+            <Reply_00>0x83,0xF1,0x28,0x61,0x??,0x??,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x21,0x??</Reply_01>
+         </ReadWheelSpeed>
+         <ReadLid>
+            <Reply_00 lengthType="Variable">0x8C,0xF1,0x28,0x61,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x21,0x??</Reply_01>
+         </ReadLid>
+         <WriteLid>
+            <Reply_00 lengthType="Variable">0x??,0xF1,0x28,0x7B,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x3B,0x??,0x??</Reply_01>
+         </WriteLid>
+         <SafetyReply>
+            <Reply_00>0x81,0xF1,0x28,0xE1,0x??</Reply_00>
+            <Reply_01>0x82,0xF1,0x28,0xE1,0x??,0x00</Reply_01>
+            <Reply_02>0x83,0xF1,0x28,0x7F,0xA1,0x??</Reply_02>
+         </SafetyReply>
+         <StartSensorQualityTest>
+            <Reply_00>0x83,0xF1,0x28,0x71,0x05,0x02,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x71,0x05,0x??,0x??</Reply_01>
+            <Reply_02>0x83,0xF1,0x28,0x7F,0x31,0x??</Reply_02>
+         </StartSensorQualityTest>
+         <ReadSensorTestResults>
+            <Reply_00 lengthType="Variable" ReplyTimeout="250" endGepTime="0">0x82,0xF1,0x28,0x71,0x05,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x31,0x??</Reply_01>
+         </ReadSensorTestResults>
+         <ABSValveActuation>
+            <Reply_00>0x6F,0xDA,0x81,0x03,0x??,0x??</Reply_00>
+            <Reply_01>0x7F,0x2F,0x??</Reply_01>
+            <!-- <Reply_02>0x83,0xF1,0x28,0x7F,0x30,0x??,0x??</Reply_02> -->
+         </ABSValveActuation>
+         <ReadFaults>
+            <Reply_00 lengthType="Variable" ReplyTimeout="250" endGapTime="500">0x??,0xF1,0x28,0x58,0x??</Reply_00>
+            <Reply_01>0x82,0xF1,0x28,0x58,0x??</Reply_01>
+            <Reply_02>0x83,0xF1,0x28,0x7F,0x18,0x??</Reply_02>
+         </ReadFaults>
+         <ModuleKeepAlive>
+            <Reply_00>0x81,0xF1,0x28,0x7E,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x3E,0x??</Reply_01>
+         </ModuleKeepAlive>
+         <ExitDiagnosticMode>
+            <Reply_00>0x81,0xF1,0x28,0xC2,0x??</Reply_00>
+         </ExitDiagnosticMode>
+         <StopCommunication>
+            <Reply_00>0x81,0xF1,0x28,0xC2,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x7F,0x82,0x??</Reply_01>
+         </StopCommunication>
+         <ModuleWakeUp>
+            <Reply_00>0x83,0xF1,0x28,0xC1,0x6B,0x8F,0x??</Reply_00>
+            <Reply_02>0x83,0xF1,0x28,0x7F,0x81,0x11,0x??</Reply_02>
+         </ModuleWakeUp>
+         <PumpMotor>
+            <Reply_00>0x6F,0xDA,0x81,0x03,0x??,0x??</Reply_00>
+            <Reply_01>0x7F,0x2F,0x??</Reply_01>
+         </PumpMotor>
+         <ReadBrakeSwitch>
+            <Reply_00>0x83,0xF1,0x28,0x61,0x11,0x??,0x??</Reply_00>
+            <Reply_01>0x83,0xF1,0x28,0x61,0x11,0x??</Reply_01>
+            <Reply_02>0x83,0xF1,0x28,0x70,0x01,0x??,0x03</Reply_02>
+         </ReadBrakeSwitch>
+         <UnlockModuleSecurity>
+             <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x83,0xF1,0x28,0x67,0x02,0x??</Reply_00>
+             <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x83,0xF1,0x28,0x7F,0x27,0x??</Reply_01>
+             <Reply_02>0x83,0xF1,0x28,0x67,0x02,0x??,0x??</Reply_02>
+         </UnlockModuleSecurity>
+         <ReadSecuritySeed>
+             <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x84,0xF1,0x28,0x67,0x01,0x??,0x??</Reply_00>
+             <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="50">0x83,0xF1,0x28,0x7F,0x27,0x??</Reply_01>
+         </ReadSecuritySeed>
+         <SensorSpeeds>
+                <Reply_00 lengthType="Variable">0x62,0x0C,0x01,0x??,0x??,0x??,0x??</Reply_00>
+                <Reply_01>0x7F,0x22,0x??</Reply_01>
+         </SensorSpeeds>
+      </ReplyMessages>
+      <ReplyInterpretations>
+         <ReadFaults>
+            <String>
+                <Substring format="%24s">
+                  <Chars input_index="0" mask="0xFF" length="24"/>
+               </Substring>
+            </String>
+         </ReadFaults>
+         <ReadSpecificFault>
+            <String>
+               <Substring format="%02X">
+                  <Integer type="unsigned" scale="1.0" offset="0.0">
+                     <Byte0 input_index="1" mask="0xFF" output_index="0"/>
+                     <Byte1 input_index="2" mask="0xFF" output_index="1"/>
+                     <Byte2 input_index="3" mask="0xFF" output_index="2"/>
+                     <Byte3 input_index="4" mask="0xFF" output_index="3"/>
+                     <Byte4 input_index="5" mask="0xFF" output_index="4"/>
+                     <Byte5 input_index="6" mask="0xFF" output_index="5"/>
+                     <Byte6 input_index="7" mask="0xFF" output_index="6"/>
+                  </Integer>
+               </Substring>
+            </String>
+         </ReadSpecificFault>
+         <ClearFaultsDone>
+            <Boolean>
+               <Byte input_index="5" mask="0x00" compare="0x00"/>
+            </Boolean>
+         </ClearFaultsDone>
+         <ReadPartNumber>
+            <String>
+               <Substring format="%8s">
+                  <Chars input_index="3" mask="0xFF" length="5"/>
+               </Substring>
+            </String>
+         </ReadPartNumber>
+         <PartNumber2>
+                <String>
+                    <Substring format="%5s">
+                        <Chars input_index="3" mask="0xFF" length="5"/>
+                    </Substring>
+                </String>
+         </PartNumber2>
+         <ReadBrakeSwitch>
+           <Boolean>
+               <Byte input_index="5" mask="0xFF" compare="0xFF"/>
+            </Boolean>
+         </ReadBrakeSwitch>
+         <ReadBrakeSwitchString>
+                <String>
+                    <Substring>
+                        <Chars input_index="5" mask="0xFF" length="1">
+                            <StringSubstitute00 condition="equals" compare="0xFF" replace="On"/>
+                            <StringSubstitute01 condition="equals" compare="0x00" replace="Off"/>
+                        </Chars>
+                    </Substring>
+                </String>
+         </ReadBrakeSwitchString>
+         <MotorRelaySensor>
+            <Boolean>
+               <Byte input_index="17" mask="0x0C" compare="0x04"/>
+            </Boolean>
+         </MotorRelaySensor>
+         <ValveRelaySensor>
+            <Boolean>
+               <Byte input_index="17" mask="0x30" compare="0x10"/>
+            </Boolean>
+         </ValveRelaySensor>
+         <SupplyVoltage>
+            <Float scale=".08" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte1 input_index="5" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SupplyVoltage>
+         <SteeringAngle>
+            <Float scale="0.1" offset="0.0">
+               <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16">
+                  <Byte0 input_index="24" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="25" mask="0xFF" output_index="1"/>
+               </Integer>
+            </Float>
+         </SteeringAngle>
+         <LateralAcceleration>
+            <Float scale="0.004" offset="0.0">
+               <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16">
+                  <Byte0 input_index="26" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="27" mask="0xFF" output_index="1"/>
+               </Integer>
+            </Float>
+         </LateralAcceleration>
+         <YawRate>
+            <Float scale="0.2" offset="0.0">
+               <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16">
+                  <Byte0 input_index="28" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="29" mask="0xFF" output_index="1"/>
+               </Integer>
+            </Float>
+         </YawRate>
+         <PressureSensor>
+            <Float scale="0.0153" offset="0.0">
+               <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16">
+                  <Byte0 input_index="30" mask="0xFF" output_index="0"/>
+                  <Byte1 input_index="31" mask="0xFF" output_index="1"/>
+               </Integer>
+            </Float>
+         </PressureSensor>
+         <LFABSSpeedDelta>
+            <Float comment=".015625 m/s = .05625kph = .034875mph" scale=".034875" offset="0.0">
+               <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16">
+                  <Byte0 input_index="3" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="4" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </LFABSSpeedDelta>
+         <RFABSSpeedDelta>
+            <Float comment=".015625 m/s = .05625kph = .034875mph" scale=".034875" offset="0.0">
+               <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16">
+                  <Byte0 input_index="5" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </RFABSSpeedDelta>
+         <LRABSSpeedDelta>
+            <Float comment=".015625 m/s = .05625kph = .034875mph" scale=".034875" offset="0.0">
+               <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16">
+                  <Byte0 input_index="7" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="8" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </LRABSSpeedDelta>
+         <RRABSSpeedDelta>
+            <Float comment=".015625 m/s = .05625kph = .034875mph" scale=".034875" offset="0.0">
+               <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16">
+                  <Byte0 input_index="9" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="10" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </RRABSSpeedDelta>
+         <ReadLFSensor>
+            <Float scale="0.0349596" offset="0.0">
+               <!--1 bit= .05625 km/h * .621504 km/mi = .034 mph-->
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="5" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </ReadLFSensor>
+         <ReadRFSensor>
+            <Float scale="0.0349596" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="5" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </ReadRFSensor>
+         <ReadLRSensor>
+            <Float scale="0.0349596" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="5" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </ReadLRSensor>
+         <ReadRRSensor>
+            <Float scale="0.0349596" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="5" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </ReadRRSensor>
+         <SensorTestComplete>
+            <Boolean>
+               <Byte input_index="2" mask="0x03" compare="0x02"/>
+            </Boolean>
+         </SensorTestComplete>
+         <SensorTestResults>
+            <Vector type="fixed">
+               <Subvector00 Desc="LF Max">
+                  <Float scale="0.00621504" offset="0.0">
+                     <Integer type="unsigned" scale="1.0" offset="0.0">
+                        <Byte0 input_index="3" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="4" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector00>
+               <Subvector01 Desc="LF Min">
+                  <Float scale="0.00621504" offset="0.0">
+                     <Integer type="unsigned" scale="1.0" offset="0.0">
+                        <Byte0 input_index="5" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector01>
+               <Subvector02 Desc="RF Max">
+                  <Float scale="0.00621504" offset="0.0">
+                     <Integer type="unsigned" scale="1.0" offset="0.0">
+                        <Byte0 input_index="7" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="8" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector02>
+               <Subvector03 Desc="RF Min">
+                  <Float scale="0.00621504" offset="0.0">
+                     <Integer type="unsigned" scale="1.0" offset="0.0">
+                        <Byte0 input_index="9" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="10" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector03>
+               <Subvector04 Desc="LR Max">
+                  <Float scale="0.00621504" offset="0.0">
+                     <Integer type="unsigned" scale="1.0" offset="0.0">
+                        <Byte0 input_index="11" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="12" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector04>
+               <Subvector05 Desc="LR Min">
+                  <Float scale="0.00621504" offset="0.0">
+                     <Integer type="unsigned" scale="1.0" offset="0.0">
+                        <Byte0 input_index="13" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="14" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector05>
+               <Subvector06 Desc="RR Max">
+                  <Float scale="0.00621504" offset="0.0">
+                     <Integer type="unsigned" scale="1.0" offset="0.0">
+                        <Byte0 input_index="15" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="16" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector06>
+               <Subvector07 Desc="RR Min">
+                  <Float scale="0.00621504" offset="0.0">
+                     <Integer type="unsigned" scale="1.0" offset="0.0">
+                        <Byte0 input_index="17" mask="0xFF" output_index="1"/>
+                        <Byte1 input_index="18" mask="0xFF" output_index="0"/>
+                     </Integer>
+                  </Float>
+               </Subvector07>
+            </Vector>
+         </SensorTestResults>
+         <SensorQualityPass>
+            <Boolean>
+               <Byte input_index="2" mask="0x02" compare="0x02"/>
+            </Boolean>
+         </SensorQualityPass>
+         <SensorQualityLFMin>
+            <Float scale="0.00621504" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="3" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="4" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SensorQualityLFMin>
+         <SensorQualityLFMax>
+            <Float scale="0.00621504" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="5" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SensorQualityLFMax>
+         <SensorQualityRFMin>
+            <Float scale="0.00621504" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="7" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="8" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SensorQualityRFMin>
+         <SensorQualityRFMax>
+            <Float scale="0.00621504" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="9" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="10" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SensorQualityRFMax>
+         <SensorQualityLRMin>
+            <Float scale="0.00621504" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="11" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="12" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SensorQualityLRMin>
+         <SensorQualityLRMax>
+            <Float scale="0.00621504" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="13" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="14" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SensorQualityLRMax>
+         <SensorQualityRRMin>
+            <Float scale="0.00621504" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="15" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="16" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SensorQualityRRMin>
+         <SensorQualityRRMax>
+            <Float scale="0.00621504" offset="0.0">
+               <Integer type="unsigned" scale="1.0" offset="0.0">
+                  <Byte0 input_index="17" mask="0xFF" output_index="1"/>
+                  <Byte1 input_index="18" mask="0xFF" output_index="0"/>
+               </Integer>
+            </Float>
+         </SensorQualityRRMax>
+         <CheckProcessByte>
+            <Integer type="unsigned" scale="1.0" offset="0.0">
+               <Byte input_index="2" mask="0xFF" output_index="0"/>
+            </Integer>
+         </CheckProcessByte>
+         <CheckEolByte>
+            <Integer type="unsigned" scale="1.0" offset="0.0">
+               <Byte input_index="2" mask="0xFF" output_index="0"/>
+            </Integer>
+         </CheckEolByte>
+         <ReadSecuritySeed>
+                <Vector type="fixed">
+                    <Subvector00>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="5" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector00>
+                    <Subvector01>
+                        <Integer type="unsigned" bits="8" scale="1" offset="0">
+                            <Byte1 input_index="6" mask="0xFF" output_index="0"/>
+                        </Integer>
+                    </Subvector01>
+                </Vector>
+            </ReadSecuritySeed>
+         <!-- <LFABSSpeedDelta> -->
+                <!-- <Float comment=".015625 m/s = .05625kph = .034875mph" scale=".034875" offset="0.0"> -->
+                    <!-- <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16"> -->
+                        <!-- <Byte0 input_index="3" mask="0xFF" output_index="1"/> -->
+                        <!-- <Byte1 input_index="4" mask="0xFF" output_index="0"/> -->
+                    <!-- </Integer> -->
+                <!-- </Float> -->
+            <!-- </LFABSSpeedDelta> -->
+            <!-- <RFABSSpeedDelta> -->
+                <!-- <Float comment=".015625 m/s = .05625kph = .034875mph" scale=".034875" offset="0.0"> -->
+                    <!-- <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16"> -->
+                        <!-- <Byte0 input_index="5" mask="0xFF" output_index="1"/> -->
+                        <!-- <Byte1 input_index="6" mask="0xFF" output_index="0"/> -->
+                    <!-- </Integer> -->
+                <!-- </Float> -->
+            <!-- </RFABSSpeedDelta> -->
+            <!-- <LRABSSpeedDelta> -->
+                <!-- <Float comment=".015625 m/s = .05625kph = .034875mph" scale=".034875" offset="0.0"> -->
+                    <!-- <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16"> -->
+                        <!-- <Byte0 input_index="7" mask="0xFF" output_index="1"/> -->
+                        <!-- <Byte1 input_index="8" mask="0xFF" output_index="0"/> -->
+                    <!-- </Integer> -->
+                <!-- </Float> -->
+            <!-- </LRABSSpeedDelta> -->
+            <!-- <RRABSSpeedDelta> -->
+                <!-- <Float comment=".015625 m/s = .05625kph = .034875mph" scale=".034875" offset="0.0"> -->
+                    <!-- <Integer type="two's complement signed" scale="1.0" offset="0.0" bits="16"> -->
+                        <!-- <Byte0 input_index="9" mask="0xFF" output_index="1"/> -->
+                        <!-- <Byte1 input_index="10" mask="0xFF" output_index="0"/> -->
+                    <!-- </Integer> -->
+                <!-- </Float> -->
+            <!-- </RRABSSpeedDelta> -->
+            <VacuumFillingEndFlag>
+                <Boolean>
+                    <Byte input_index="4" mask="0x02" compare="0x02"/>
+                </Boolean>
+            </VacuumFillingEndFlag>
+            <LFWheelSpeed>
+                <Float comment="1kph *.621371" scale=".621371" offset="0.0">
+                    <Integer type="unsigned" scale="1.0" offset="0.0" bits="8">
+                        <Byte0 input_index="4" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LFWheelSpeed>
+            <RFWheelSpeed>
+                <Float comment="1kph *.621371" scale=".621371" offset="0.0">
+                    <Integer type="unsigned" scale="1.0" offset="0.0" bits="8">
+                        <Byte0 input_index="3" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </RFWheelSpeed>
+            <LRWheelSpeed>
+                <Float comment="1kph *.621371" scale=".621371" offset="0.0">
+                    <Integer type="unsigned" scale="1.0" offset="0.0" bits="8">
+                        <Byte0 input_index="6" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </LRWheelSpeed>
+            <RRWheelSpeed>
+                <Float comment="1kph *.621371" scale=".621371" offset="0.0">
+                    <Integer type="unsigned" scale="1.0" offset="0.0" bits="8">
+                        <Byte0 input_index="5" mask="0xFF" output_index="0"/>
+                    </Integer>
+                </Float>
+            </RRWheelSpeed>
+         </ReplyInterpretations>
+   </SerialMessages>
+</VehicleCommunication>

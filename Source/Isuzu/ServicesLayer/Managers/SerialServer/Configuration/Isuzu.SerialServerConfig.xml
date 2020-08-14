@@ -12,10 +12,15 @@
             <Verbose>0x00</Verbose>
         </Logging>
         <LogicalPorts>
-            <GryphonCCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+            <GryphonCCan enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
                 <Setup>
                     <SerialDevice>/dev/socket</SerialDevice>
+					<NonLegacyDevice Device="Beacon">TRUE</NonLegacyDevice>
+					<FlowControlStMin>8</FlowControlStMin>
+					<!-- StMinMultiplier>2</StMinMultiplier -->
                     <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+					<ModuleIDByteLength>2</ModuleIDByteLength>
+					<Channel>1</Channel>
                     <Protocol>
                         <Baud>19200</Baud>
                         <Parity>None</Parity>
@@ -30,9 +35,9 @@
                     <Logging>
                         <ProcessName>logport/GryphonCAN</ProcessName>
                         <AdditionalLogFile>/Communication/GryphonCAN.log</AdditionalLogFile>
-                        <Status>Disabled</Status>
+                        <Status>Enabled</Status>
                         <LocalEcho>Disabled</LocalEcho>
-                        <Verbose>0x1F</Verbose>
+                        <Verbose>0xFF</Verbose>
                     </Logging>
                     <CommLog>
                         <ContentType>RAW</ContentType>
@@ -42,7 +47,7 @@
                                 <AdditionalLogFile>/Communication/GryphonCANComm.log</AdditionalLogFile>
                                 <Status>Enabled</Status>
                                 <LocalEcho>Disabled</LocalEcho>
-                                <Verbose>0x1F</Verbose>
+                                <Verbose>0xFF</Verbose>
                                 <Debug>Off</Debug>
                             </Logging>
                         </Setup>
@@ -60,15 +65,146 @@
                         <Transmission Outgoing="0x7E2" Incoming="0x7EA"/>
                         <TransmissionUUDT Outgoing="0x7E2" Incoming="0x5EA"/>
                         <PIM Outgoing="0x244" Incoming="0x644"/>
+                        <ClearFaults Outgoing="0x101" Incoming="0x7E8"/>
                     </NodePairs>
                     <NodePairSetup>
                         <Range1 FirstRequestID="0x7E0" FirstResponseID="0x7E8" FirstUUDTResponseID="0x5E8" Offset="0x008" NumberOfPairs="1"/>
                         <Range2 FirstRequestID="0x7E2" FirstResponseID="0x7EA" FirstUUDTResponseID="0x5EA" Offset="0x008" NumberOfPairs="1"/>
                         <Range3 FirstRequestID="0x244" FirstResponseID="0x644" Offset="0x008" NumberOfPairs="1"/>
+						<Range4 FirstRequestID="0x101" FirstResponseID="0x7E8" FirstUUDTResponseID="0x5E8" Offset="0x6E7" NumberOfPairs="1"/>
                     </NodePairSetup>
                 </Setup>
             </GryphonCCan>
-            <GryphonJ1850 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonJ1850CommProxy.qxe">
+			<GryphonIsoCan enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+                <Setup>
+                    <SerialDevice>/dev/socket</SerialDevice>
+					<NonLegacyDevice Device="Beacon">FALSE</NonLegacyDevice>
+					<FlowControlStMin>8</FlowControlStMin>
+					<!-- StMinMultiplier>2</StMinMultiplier -->
+                    <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+					<Channel>2</Channel>
+					<ModuleIDByteLength>2</ModuleIDByteLength>
+                    <Protocol>
+                        <Baud>19200</Baud>
+                        <Parity>None</Parity>
+                        <DataBits>8</DataBits>
+                        <StopBits>1</StopBits>
+                        <Reflection>0</Reflection>
+                        <ByteGap>0</ByteGap>
+                        <MssgGap>0</MssgGap>
+                        <Interrupts>TxRx</Interrupts>
+                        <FifoSize>5120</FifoSize>
+                    </Protocol>
+                    <Logging>
+                        <ProcessName>logport/GryphonISOCAN</ProcessName>
+                        <AdditionalLogFile>/Communication/GryphonISOCAN.log</AdditionalLogFile>
+                        <Status>Disabled</Status>
+                        <LocalEcho>Disabled</LocalEcho>
+                        <Verbose>0x1F</Verbose>
+                    </Logging>
+                    <CommLog>
+                        <ContentType>RAW</ContentType>
+                        <Setup>
+                            <Logging>
+                                <ProcessName>ISOCAN</ProcessName>
+								<AdditionalLogFile>/Communication/GryphonISOCANComm.log</AdditionalLogFile>
+                                <Status>Enabled</Status>
+                                <LocalEcho>Disabled</LocalEcho>
+                                <Verbose>0x1F</Verbose>
+                                <Debug>Off</Debug>
+                            </Logging>
+                        </Setup>
+                    </CommLog>
+                    <Login>
+                        <IPAddress>192.168.1.1</IPAddress>
+                        <Port>7000</Port>
+                        <UserID>gryphon</UserID>
+                        <Password>gryphon</Password>
+                    </Login>
+                    <Alias>/home/CCRT/Rewrite/GryphonIsoCan</Alias>
+                    <NodePairs>
+                        <EngineController1 Outgoing="0x7E0" Incoming="0x7E8"/>
+                        <EngineControllerUUDT Outgoing="0x7E0" Incoming="0x5E8"/>
+                        <Transmission Outgoing="0x7E2" Incoming="0x7EA"/>
+                        <TransmissionUUDT Outgoing="0x7E2" Incoming="0x5EA"/>
+                        <PIM Outgoing="0x244" Incoming="0x644"/>
+                        <ClearFaults Outgoing="0x101" Incoming="0x7E8"/>
+						<ZFBrakes Outgoing="0x526" Incoming="0x626"/>
+                    </NodePairs>
+                    <NodePairSetup>
+                        <Range1 FirstRequestID="0x7E0" FirstResponseID="0x7E8" FirstUUDTResponseID="0x5E8" Offset="0x008" NumberOfPairs="1"/>
+                        <Range2 FirstRequestID="0x7E2" FirstResponseID="0x7EA" FirstUUDTResponseID="0x5EA" Offset="0x008" NumberOfPairs="1"/>
+                        <Range3 FirstRequestID="0x244" FirstResponseID="0x644" Offset="0x008" NumberOfPairs="1"/>
+						<Range4 FirstRequestID="0x101" FirstResponseID="0x7E8" FirstUUDTResponseID="0x5E8" Offset="0x6E7" NumberOfPairs="1"/>
+						<Range5 FirstRequestID="0x526" FirstResponseID="0x626" Offset="0x008" NumberOfPairs="1"/>
+                    </NodePairSetup>
+                </Setup>
+            </GryphonIsoCan>
+			<GryphonJ1939 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonCANCommProxy.qxe">
+				<Setup>
+				   <SerialDevice>/dev/socket</SerialDevice>
+				   <NonLegacyDevice Device="Beacon">FALSE</NonLegacyDevice>
+				   <FlowControlStMin>8</FlowControlStMin>
+				   <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
+				   <Channel>1</Channel>
+				   <ModuleIDByteLength>4</ModuleIDByteLength>
+				   <Protocol>
+					  <Baud>19200</Baud>
+					  <Parity>None</Parity>
+					  <DataBits>8</DataBits>
+					  <StopBits>1</StopBits>
+					  <Reflection>0</Reflection>
+					  <ByteGap>0</ByteGap>
+					  <MssgGap>0</MssgGap>
+					  <Interrupts>TxRx</Interrupts>
+					  <FifoSize>5120</FifoSize>
+				   </Protocol>
+				   <Logging>
+					  <ProcessName>logport/GryphonJ1939</ProcessName>
+					  <AdditionalLogFile>/Communication/GryphonJ1939.log</AdditionalLogFile>
+					  <Status>Disabled</Status>
+					  <LocalEcho>Disabled</LocalEcho>
+					  <Verbose>0xFF</Verbose>
+				   </Logging>
+				   <CommLog>
+					  <ContentType>RAW</ContentType>
+					  <Setup>
+						 <Logging>
+							<ProcessName>J1939CAN</ProcessName>
+							<AdditionalLogFile>/Communication/GryphonJ1939Comm.log</AdditionalLogFile>
+							<Status>Enabled</Status>
+							<LocalEcho>Disabled</LocalEcho>
+							<Verbose>0x1F</Verbose>
+							<Debug>Off</Debug>
+						 </Logging>
+					  </Setup>
+				   </CommLog>
+				   <Login>
+					  <IPAddress>192.168.1.1</IPAddress>
+					  <Port>7000</Port>
+					  <UserID>gryphon</UserID>
+					  <Password>gryphon</Password>
+				   </Login>
+				   <Alias>/home/CCRT/Rewrite/GryphonJ1939</Alias>
+				   <NodePairs>
+					  <Emissions Outgoing="0x18DA00F9" Incoming="0x18DAF900" UudtResponse="0x18DAF900"/>
+					  <PIM Outgoing="0x18DA8CF1" Incoming="0x18DAF18C" UudtResponse="0x18DAF18C"/>
+					  <ABS Outgoing="0x18DA0BF1" Incoming="0x18DAF10B" UudtResponse="0x18DAF10B"/>
+					  <Transmission Outgoing="0x18DA03F1" Incoming="0x18DAF103" UudtResponse="0x18DAF103"/>
+				   </NodePairs>
+				   <NodePairSetup>
+					  <Range1 FirstRequestID="0x18DA00F9" FirstResponseID="0x18DAF900" Offset="0x00000008" NumberOfPairs="1"/>
+					  <Range2 FirstRequestID="0x18DA8CF1" FirstResponseID="0x18DAF18C" Offset="0x00000008" NumberOfPairs="1"/>
+					  <Range3 FirstRequestID="0x18DA0BF1" FirstResponseID="0x18DAF10B" Offset="0x00000008" NumberOfPairs="1"/>
+					  <Range4 FirstRequestID="0x18DA03F1" FirstResponseID="0x18DAF103" Offset="0x00000008" NumberOfPairs="1"/>
+				   </NodePairSetup>
+				   <BroadcastMessageIDs>
+					  <WheelSpeeds Incoming="0x18FEBF0B"/>
+					  <ShiftLeverPosition Incoming="0x18F00503"/>
+				   </BroadcastMessageIDs>
+				</Setup>
+			</GryphonJ1939>
+            <!--GryphonJ1850 enabled="0" driver="$(USR_ROOT)/ServicesLayer/Bin/GryphonJ1850CommProxy.qxe">
                 <Setup>                                                                                       
 					<SerialDevice>/dev/socket</SerialDevice>
                     <MgrPool lowWater="2" hiWater="45" maximum="50" increment="2" priority="35"/>
@@ -117,7 +253,7 @@
                         <Range1 FirstRequestID="0x29" FirstResponseID="0x80" NumberOfPairs="1"/>
                     </NodePairSetup>
                 </Setup>
-            </GryphonJ1850>
+            </GryphonJ1850-->
 
             <PlcDf1 enabled="1" driver="$(USR_ROOT)/ServicesLayer/Bin/RawCommProxy.qxe">
                 <Setup>

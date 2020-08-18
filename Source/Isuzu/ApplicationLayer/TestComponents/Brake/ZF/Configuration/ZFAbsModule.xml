@@ -500,6 +500,18 @@
             <!-- <ReplyMessage>ModuleWakeUp</ReplyMessage> -->
             <!-- <ReplyInterpretation/> -->
          <!-- </ModuleWakeUp> -->
+         <EnterRollsMode>
+            <TransmitMessage>EnterRollsMode<TransmitMessage>
+            <TransmitInterpretation></TransmitInterpretation>
+            <ReplyMessage>RollsMode</ReplyMessage>
+            <ReplyInterpretation/>
+         </EnterRollsMode>
+         <ExitRollsMode>
+            <TransmitMessage>ExitRollsMode</TransmitMessage>
+            <TransmitInterpretation></TransmitInterpretation>
+            <ReplyMessage>RollsMode</ReplyMessage>
+            <ReplyInterpretation/>
+         </ExitRollsMode>
       </VehicleMessages>
       <TransmitMessages>
          <ABSValveActuation>0x2F,0xDA,0x81,0x03,0x??,0x??</ABSValveActuation>
@@ -513,6 +525,8 @@
          <ReadLid>0x22,0x??,0x??,0x??,0x??</ReadLid>
 		 <ReadPid>0x22,0x??,0x??</ReadPid>
          <WriteLid>0x2E,0x??,0x??,0x??,0x??,0x??,0x??</WriteLid>
+         <EnterRollsMode>0x02,0x10,0x40</EnterRollsMode>
+         <ExitRollsMode>0x02,0x10,0x01</ExitRollsMode>
          <!--ReadVacuumFillingEndFlag>0x82,0x28,0xF1,0x1A,0x9E</ReadVacuumFillingEndFlag-->
          <!-- <EnableSafety>0x82,0x28,0xF1,0xA1,0x00</EnableSafety> -->
          <!-- <DisableSafety>0x82,0x28,0xF1,0xA1,0x01</DisableSafety> -->
@@ -574,6 +588,11 @@
 			<Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x50,0x??</Reply_00>
             <Reply_01>0x7F,0x10,0x??</Reply_01>
          </EnterDiagnosticMode>
+         <RollsMode>
+            <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x42,0x??</Reply_00>
+            <Reply_01>0x7F,0x02,0x??</Reply_01>
+         </RollsMode>
+
          <StartDiagnosticSession>
             <Reply_00>0x82,0xF1,0x28,0x50,0x83,0x??</Reply_00>
             <Reply_01>0x83,0xF1,0x28,0x7F,0x10,0x??</Reply_01>

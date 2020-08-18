@@ -1811,11 +1811,11 @@ protected:
 
     /** Flag to tell if an abort is currently being processed. */
     bool m_abortCalled;
+    virtual string ReadFaults(void);
 
 private:
     /** Flag indicating if faults are present in the vehicle module. */
     bool m_faultsInModule;
-    virtual string ReadFaults(void);
     /**
      * Communication object to retrieve static test results from the static tester server.
      * 

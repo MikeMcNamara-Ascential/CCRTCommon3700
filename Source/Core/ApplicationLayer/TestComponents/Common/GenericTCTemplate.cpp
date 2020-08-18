@@ -2609,7 +2609,7 @@ string GenericTCTemplate<ModuleType>::ConditionalFaultClear(void)
    {   // Do not need to skip this step
       try
       { // Try to read the module faults
-         moduleStatus = m_vehicleModule.ReadFaults(moduleFaults);
+         //moduleStatus = m_vehicleModule.ReadFaults(moduleFaults);
          moduleStatus = m_vehicleModule.GetInfo(GetDataTag("ReadFaults"), moduleFaults);
          // Check the status of the operation
          if (BEP_STATUS_SUCCESS == moduleStatus)

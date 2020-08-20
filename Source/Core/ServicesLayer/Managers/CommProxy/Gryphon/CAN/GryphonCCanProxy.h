@@ -96,6 +96,7 @@ public:
     virtual int getRespCode(const char *rawMessage);
     virtual vector<UINT32> getModuleIdsFromRaw(SerialString_t rawMessage);
     virtual bool IsFourByteHeader(SerialString_t rawMessage);
+    //JS in case we need it virtual bool IsPGNRequest(SerialString_t rawMessage);
     virtual bool UsingGryphonUSDT();
 
 protected:
@@ -121,6 +122,26 @@ protected:
      */
     virtual void BuildMessage(SerialString_t &locData, const SerialString_t &inBuf) ;
     /**
+     * Handler method for client subscription requests
+     *
+     * @param ctp    Resource manager context pointer
+     * @param msg    Message structure
+     * @param ioOcb  Client's connection properties
+     * @return EOK if successful, other on error
+     */
+    virtual int PortSubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg, resMgrIoOcb_t *ioOcb);
+
+    /**
+     * Handler method for client unsubscription requests
+     *
+     * @param ctp    Resource manager context pointer
+     * @param msg    Message structure
+     * @param ioOcb  Client's connection properties
+     * @return EOK if successful, other on error
+     */
+    virtual int PortUnsubscribeHandler(resmgr_context_t *ctp, io_devctl_t *msg,
+                                       resMgrIoOcb_t *ioOcb);
+    /**
      * This function does any addtional required setup for this specific protocol
      *
      * Before sending USDT messages, we need to register with the handler.
@@ -133,10 +154,24 @@ protected:
      */
     int ChannelSpecificInit(void) ;
 
+    void CreateFilter(bool is29BitHeader, uint32_t incomingId);
+    virtual bool IsBroadcastModuleID(const UINT32 locModule);
+    virtual bool IsUudtId(const UINT32 &locModule);
+
 private:
     /** ST min multipler to set in the Gryphon box */
     float m_stMinMultiplier;
     UINT8 m_flowControlStMin;
+	struct BcastMessage{
+        uint32_t incoming;
+        SerialString_t message;
+        bool blocked;
+    };
+    // assume there will never be more than 63 pairs.
+    struct BcastMessage m_broadcastMessages[63];
+    int m_broadcastMessageCount;
+
+    bool m_recordBroadcastMessages;
 };
 
 //==============================================================================

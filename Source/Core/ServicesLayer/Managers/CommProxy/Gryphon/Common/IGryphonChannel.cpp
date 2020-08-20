@@ -1359,6 +1359,11 @@ BEP_STATUS_TYPE IGryphonChannel::processNewCardMsg(const uint8_t *inBuf, const u
 	return status;
 }
 
+bool IGryphonChannel::IsBroadcastModuleID(const UINT32 locModule)
+{//not implemented
+	return(false);
+}
+
 BEP_STATUS_TYPE IGryphonChannel::processNewUsdtMsg(const uint8_t *inBuf, const uint16_t  datalen)
 {
 	BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
@@ -1732,8 +1737,14 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 
 		Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored module IDs: $%s incoming module ID: $%04X\n",
 			 GetModuleIDsString(client->moduleIDs).c_str(), locModuleId);
-		// If the data is from the client's module
-		if( IsModuleIDPresent(client->moduleIDs,locModuleId))
+		bool isBroadcastModuleID = IsBroadcastModuleID(locModuleId);
+		bool filterMatches = false;
+		if(isBroadcastModuleID)
+		{//check if client has a matching filter
+			filterMatches = FilterMatchCheck(data, ocb);  //note, this will return false if no filter exists
+		}
+		// If the data is from the client's module or is broadcast and client subscribed
+		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || (isBroadcastModuleID &&	filterMatches))
 		{
 			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored resp code: $%04X incoming resp code: $%04X\n",
 				 client->expectedResponse, locRespCode);
@@ -1766,6 +1777,79 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	return( canAdd);
 }
 
+/**
+ * Method used to check if a serial response string can be added to a
+ * client's rx FIFO
+ *
+ * @param data   Serial string reseived from the port
+ * @param ocb    Client connection identifier
+ * @return true if the data should be added to the client's FIFO, false otherwise
+ */
+bool IGryphonChannel::FilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb)
+{
+	bool                            retVal = true;
+	LogPortFilterStringList         &fltrList = ocb->rxSubscription->filterList;
+	LogPortFilterStringListItr_t    itr;
+
+	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::FilterMatchCheck()\n");
+	// If client has any filter strings
+	if( fltrList.size() > 0)
+	{
+		fltrList.Lock();
+		for( itr=fltrList.begin(); itr!=fltrList.end(); itr++)
+		{
+			// Get reference to the filter string
+			const LogPortFilterString &filter = *itr;
+			// IF data matches the filter string
+			if( filter.IsStringValid( data) == true)
+			{
+				// Ok to ADD to FIFO
+				Log( LOG_DEV_DATA, "Response matches filter string\n");
+				retVal = true;
+				break;
+			}
+			else
+			{
+				// No match...look at next filter
+				Log( LOG_DEV_DATA, "Response DOES NOT match filter string\n");
+
+				SerialString_t::const_iterator  sItr = sItr=data.begin();
+				LogPortFilterStringCItr_t       lItr = lItr=filter.begin();
+
+				// Size must match first or filter must be set to variable length
+				if( (filter.size() == data.size()) || (filter.GetRespLenType() == 1))
+				{
+					// Examine each element of each string
+					while( (sItr!=data.end()) && (lItr!=filter.end()))
+					{
+						Log( LOG_DEV_DATA, "data: 0x%02X : filter0x%02X\n");
+						// Look at next element
+						sItr++;
+						lItr++;
+					}
+				}
+				else
+				{
+					Log( LOG_DEV_DATA, "Filter sizes do not match\n");
+				}
+				//Test Log message, remove
+				Log( LOG_DETAILED_DATA, "Not expecting NULL character reflection\n");
+
+				retVal = false;
+			}
+		}
+		fltrList.Unlock();
+	}
+	else
+	{
+		Log( LOG_DEV_DATA, "No filter strings for client\n");
+		retVal = false;
+	}
+	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::FilterMatchCheck(%d)\n", retVal);
+
+	return( retVal);
+}
+
 bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t *ocb)
 {
 	SerialString_t  gryphMssg;
@@ -1773,13 +1857,19 @@ bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t 
 	bool            retVal;
 
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::AddToClientFifo( %d)\n", len);
-
+	if(UsingGryphonUSDT())
+	{
 	// Prepend the length pf the message to the original message
 	shortBuff[0] = (len / 0x1000000) & 0xFF;
 	shortBuff[1] = (len / 0x10000) & 0xFF;
 	shortBuff[2] = (len / 0x100) & 0xFF;
 	shortBuff[3] = (len / 0x1) & 0xFF;
 	gryphMssg = SerialString_t( shortBuff, 4) + SerialString_t( (uint8_t*)buff, len);
+	}
+	else
+	{
+		gryphMssg = SerialString_t( (uint8_t*)buff, len);
+	}
 
 	// Let the base class do all the real work
 	retVal = RawCommProxy::AddToClientFifo((const char*)gryphMssg.c_str(), gryphMssg.size(), ocb);
@@ -1946,15 +2036,39 @@ bool IGryphonChannel::RegisterWithUsdtNonLegacy(string pathName /*=""*/, int att
 		locMsg.usdtBlock[index].firstUSDTResponseID = m_nodePairSetupMap[index].incoming;
 		locMsg.usdtBlock[index].firstUUDTResponseID = m_nodePairSetupMap[index].uudtIncoming;
 
-        // Set control bits (31-29)
-        // Bit 31 - 1 for 29 bit headers and 0 for 11 bit header
-        // Bit 30 - 1 for J1939 style length where the source and destination bytes are swapped
-        // Bit 29 - 1 for headers using Extended Addressing
-        if(m_nodePairSetupMap[index].is29BitHeader)
+        // Set control bits (31-29) For number of Ids
+		// 31 -	reserved
+		// 30 -
+		// 		1 J1939 style length where source / destination bytes are swapped
+		// 		0 regular non J1939 style
+		// 29 -	reserved 
+		// 0 - 28 length
+		 
+		// Set Control bits (31-29) for Ids / header blocks (USDT request / response and UUDT)
+        // Bit 31 -	
+		// 			1 Block contains 29-bit IDs / headers
+		// 			0 Block contains 11-bit IDs / headers	
+        // Bit 30 - reserved
+        // Bit 29 -	
+		// 			1 Uses extended addressing
+		// 			0 Does not use extended addressing
+		// 0 - 28 -	Address
+
+		if ( m_nodePairSetupMap[index].is29BitHeader )
         {
             locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs & 0x1FFFFFFF);
-            // Set as 29 bit header and J1939 style
-            locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs | 0xC0000000);
+			// Set as 29 bit header
+			if (m_j1939Channel)
+			{//bit 30 = 1
+				locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs | 0x40000000);
+			}
+			locMsg.usdtBlock[index].firstUSDTRequestID  = (locMsg.usdtBlock[index].firstUSDTRequestID & 0x1FFFFFFF);
+			locMsg.usdtBlock[index].firstUSDTResponseID = (locMsg.usdtBlock[index].firstUSDTResponseID & 0x1FFFFFFF);
+			locMsg.usdtBlock[index].firstUUDTResponseID = (locMsg.usdtBlock[index].firstUUDTResponseID & 0x1FFFFFFF);
+			//Bit 31 = 1
+			locMsg.usdtBlock[index].firstUSDTRequestID  = (locMsg.usdtBlock[index].firstUSDTRequestID | 0x80000000);
+			locMsg.usdtBlock[index].firstUSDTResponseID = (locMsg.usdtBlock[index].firstUSDTResponseID | 0x80000000);
+			locMsg.usdtBlock[index].firstUUDTResponseID = (locMsg.usdtBlock[index].firstUUDTResponseID | 0x80000000);
         }
         else
             locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs & 0x000007FF);

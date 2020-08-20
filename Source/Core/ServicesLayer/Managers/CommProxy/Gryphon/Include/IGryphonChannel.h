@@ -375,6 +375,8 @@ public:
     virtual int ResetDriverHandler(resmgr_context_t *ctp, io_devctl_t *msg,
                                    resMgrIoOcb_t *ioOcb);
 
+    virtual bool IsBroadcastModuleID(const UINT32 locModule);
+
 protected:
     //ComTimer    m_replyTimeoutTimer;
     /**
@@ -637,6 +639,16 @@ protected:
     virtual bool CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t *ocb);
 
     /**
+     * Method used to check if a serial response string can be added to a
+     * client's rx FIFO
+     *
+     * @param data   Serial string reseived from the port
+     * @param ocb    Client connection identifier
+     * @return true if the data should be added to the client's FIFO, false otherwise
+     */
+    virtual bool FilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb);
+
+    /**
      * Adds the gives serial string to the specified client's fifo
      *
      * @param buff   Serial data to be added to the client's fifo
@@ -708,6 +720,7 @@ protected:
     struct InOutSetup m_nodePairSetupMap[104];
     int m_nodePairSetupCount;
     bool m_nonLegacyDevice;
+    bool m_j1939Channel;
     /**
      * Current channel type and subtype, from gdev.h file
      * This will be established at instantiation, depending on protocol.

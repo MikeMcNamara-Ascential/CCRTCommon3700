@@ -191,7 +191,7 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
 	try
     {
         m_j1939TesterAddress = (UINT8)BposReadInt(portSetup->getChild("Setup/J1939TesterAddress")->getValue().c_str());
-        Log(LOG_ERRORS, "J1939 tester address %s interpreted to %d", portSetup->getChild("Setup/J1939TesterAddress")->getValue().c_str(), m_j1939TesterAddress);
+        Log(LOG_DEV_DATA, "J1939 tester address %s interpreted to %d", portSetup->getChild("Setup/J1939TesterAddress")->getValue().c_str(), m_j1939TesterAddress);
         /**
          *  0 - 0xFF
 		 *  0xF1 , 0xF9 are typical values

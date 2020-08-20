@@ -118,7 +118,7 @@
     <Objectives>
         <ClearFaults>
             <TestStep00>Setup</TestStep00>
-            <TestStep05>EnterDiagnosticMode</TestStep05>
+            <!--TestStep05>EnterDiagnosticMode</TestStep05-->
             <TestStep15>ClearFaultsFinal</TestStep15>
             <TestStep99>FinishUp</TestStep99>
         </ClearFaults>

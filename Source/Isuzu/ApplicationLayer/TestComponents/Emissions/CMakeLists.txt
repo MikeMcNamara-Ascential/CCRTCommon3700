@@ -3,6 +3,10 @@
 # Define the name of executable we will create
 #------------------------------------------------------------------------------------------
 SET(EXE_NAME IsuzuEmissionsTC)
+#------------------------------------------------------------------------------------------
+# Define the name of executable we will create
+#------------------------------------------------------------------------------------------
+SET(DELTAEXE_NAME IsuzuDeltaEmissionsTC)
 #******************************************************************************************
 #------------------------------------------------------------------------------------------
 # Define the name of executable we will create
@@ -39,6 +43,9 @@ CREATE_QXE(${EXE_NAME} ${EXE_NAME}Main.cpp)
 #------------------------------------------------------------------------------------------
 # Tell CMake what source file to build
 #------------------------------------------------------------------------------------------
+CREATE_QXE(${DELTAEXE_NAME} ${DELTAEXE_NAME}Main.cpp)
+# Tell CMake what source file to build
+#------------------------------------------------------------------------------------------
 CREATE_QXE(${PIMEXE_NAME} ${PIMEXE_NAME}Main.cpp)
 #------------------------------------------------------------------------------------------
 # Tell CMake what source file to build
@@ -49,6 +56,7 @@ CREATE_QXE(${CFEXE_NAME} ${CFEXE_NAME}Main.cpp)
 #------------------------------------------------------------------------------------------
 INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${EXE_NAME})
 INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${PIMEXE_NAME})
+INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${DELTAEXE_NAME})
 INSTALL_TARGETS(${APPLICATION_LAYER_INSTALL_DIR} ${CFEXE_NAME})
 
 #------------------------------------------------------------------------------------------

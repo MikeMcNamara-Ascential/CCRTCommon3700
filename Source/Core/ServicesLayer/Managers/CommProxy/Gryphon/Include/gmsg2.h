@@ -4,6 +4,7 @@
 // additional restrictions for our use.
 #define MAX_EVNAMES 32
 #define STMIN_FC_MSG_SIZE 5
+#define J1939_ADDRESS_CLAIM_FC_MSG_SIZE 5
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // these are additional structure definitions that we find useful.
 #include "info.h"
@@ -124,7 +125,16 @@ struct StMinFcMsg
         - DG Documentation may not reflect this
      */
     unsigned char padding1;
-    unsigned short padding2;};   
+    unsigned short padding2;
+};
 
+struct J1939AddressClaimMsg
+{
+    struct gcmdhdr header;
+    //Skipping name and such defaults will be used
+    unsigned char addressToClaim; 
+    unsigned char padding1;
+    unsigned short padding2;
+};
 
 #endif  //gmsg2_h

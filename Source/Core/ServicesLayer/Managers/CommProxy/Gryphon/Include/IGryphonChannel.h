@@ -560,6 +560,13 @@ protected:
      * @param datalen size of message received
      */
     BEP_STATUS_TYPE processNewServerMsg(const uint8_t *inBuf, const uint16_t  datalen);
+	    /**
+     * Processes control messages received from the J1939TP
+     *
+     * @param inBuf   pointer to data to be evaluated
+     * @param datalen size of message received
+     */
+    BEP_STATUS_TYPE processNewJ1939ConfigurationtMsg(const uint8_t *inBuf, const uint16_t  datalen);
     /**
      * process control data received in a new message,
      *
@@ -646,7 +653,7 @@ protected:
      * @param ocb    Client connection identifier
      * @return true if the data should be added to the client's FIFO, false otherwise
      */
-    virtual bool FilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb);
+    virtual bool SubscriptionFilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb);
 
     /**
      * Adds the gives serial string to the specified client's fifo
@@ -701,6 +708,20 @@ protected:
      */
     int SetMinimumMessageSeperationTimeMultiplier(float seperationTimeMultiplier);
     int SetMinimumMessageSeperationTime(UINT8 seperationTime);
+	/**
+	 * Claim an address for tester (aka scan tool) so others cannot 
+	 * take 
+	 *  
+	 * This makes it so only messages destined for our address and 
+	 * broadcast messages are sent to us from gryphon 
+	 * 
+	 * @author JSemann (8/20/2020)
+	 * 
+	 * @param addressToClaim tester address (usually 0xf1 or 0xf9)
+	 * 
+	 * @return int Status of request made to gryphon
+	 */
+    int ClaimJ1939Address(UINT8 addressToClaim);
     /**
      * Reverse the bytes in the provided variable.
      *
@@ -739,6 +760,7 @@ protected:
     BepCondVar<bool> PassAllAck;
     BepCondVar<bool> EventEnableAck;
     BepCondVar<bool> InitAck;
+    BepCondVar<bool> J1939AddressClaim;
     std::string IPAddr;
     std::string UserId;
     std::string PortPathAlias;

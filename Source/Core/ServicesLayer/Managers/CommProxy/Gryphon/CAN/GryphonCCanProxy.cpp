@@ -621,18 +621,19 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
             SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
         }
     }
-	if ( m_recordBroadcastMessages )
-    {
-        for (int ii = 0; ii < m_broadcastMessageCount; ii++)
-        {//all broadcast messages are j1939 therefore 29 bit headers
-            CreateFilter(true,m_broadcastMessages[ii].incoming);
-        }
-        //TURN ON THE FILTER
-        SetFilterMode(FILTER_ON);
-
-        //BLOCK ALL OTHER MESSAGES???
-        SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
-    }
+	//Should not need this now, J1939 broadcast messages are now passed to us - either by card filter or automatically in non-legacy devices
+//	if ( m_recordBroadcastMessages )
+//    {
+//        for (int ii = 0; ii < m_broadcastMessageCount; ii++)
+//        {//all broadcast messages are j1939 therefore 29 bit headers
+//            CreateFilter(true,m_broadcastMessages[ii].incoming);
+//        }
+//        //TURN ON THE FILTER
+//        SetFilterMode(FILTER_ON);
+//
+//        //BLOCK ALL OTHER MESSAGES???
+//        SetDefaultFilterMode(DEFAULT_FILTER_BLOCK);
+//    }
 
     // Set the filter mode
     // disabled for test SetFilterMode(FILTER_OFF_BLOCK_ALL);
@@ -663,10 +664,7 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
     // Set the minimum seperation time of each message (including flow control and consecutive frames)    
     if(retVal == EOK)  retVal = SetMinimumMessageSeperationTimeMultiplier(m_stMinMultiplier);
 
-	if ( retVal == EOK && m_j1939Channel )  retVal = J1939AddressClaim();
-
-	//if ( retVal == EOK && m_j1939Channel )  retVal = TurnBroadcastOn();
-
+	if ( retVal == EOK && m_j1939Channel )  retVal = ClaimJ1939Address(0xF1);
 
     Log(LOG_FN_ENTRY, "GryphonCCanProxy::ChannelSpecificInit() complete - retval: %d", retVal);
     return(retVal);

@@ -1480,6 +1480,43 @@ BEP_STATUS_TYPE IGryphonChannel::processNewServerMsg(const uint8_t *inBuf, const
 	return status;
 }
 
+BEP_STATUS_TYPE IGryphonChannel::processNewJ1939ConfigurationtMsg(const uint8_t *inBuf, const uint16_t  datalen)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_SUCCESS;
+	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::processNewJ1939ConfigurationtMsg()\n");
+	switch (inBuf[6])  // check type of message
+	{
+	case FT_RESP: // this is a response to a request
+		Log( LOG_DETAILED_DATA, "Gryphon Response Message (0x%02X)\n", inBuf[8]);
+		if(0 == inBuf[15])	 // only process if acknowledged
+		{
+			Log( LOG_DETAILED_DATA, "Gryphon Acknowledge Message\n");
+			switch(inBuf[8]) // check type of request
+			{
+			case CMD_J1939_ADDR_CLAIM:
+				Log( LOG_DETAILED_DATA, "Gryphon CMD_J1939_ADDR_CLAIM\n");
+				if(J1939AddressClaim.Acquire()== EOK)
+				{
+					J1939AddressClaim.Signal(true);
+					J1939AddressClaim.Release();
+				}
+				break;	// end of event names
+                
+			} // end of switch on request type
+		} // end of acknowledge
+		break;	// end of case FT_RESP
+	case FT_DATA:
+		// Nothing special to do except not set error for default case
+		break;
+	default:
+		status = BEP_STATUS_HARDWARE;
+		Log(LOG_ERRORS, "Unknown j1939 message type [%02X] returned from Gryphon box!", inBuf[6]);
+		break;
+	} // end of switch on message type
+	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::processNewJ1939ConfigurationtMsg() - status: %s\n", ConvertStatusToResponse(status).c_str());
+	return status;
+}
+
 BEP_STATUS_TYPE IGryphonChannel::processNewMessage(const uint8_t *inBuf)
 {
 	unsigned short datalen;
@@ -1498,6 +1535,9 @@ BEP_STATUS_TYPE IGryphonChannel::processNewMessage(const uint8_t *inBuf)
 		break;
 	case SD_USDT:
 		status = processNewUsdtMsg(inBuf, datalen);
+		break;
+	case SD_J1939TP:
+		status = processNewJ1939ConfigurationtMsg(inBuf, datalen);
 		break;
 	default:
 		status = BEP_STATUS_HARDWARE;
@@ -1725,7 +1765,7 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 	uint32_t        locModuleId;
 	uint16_t        locRespCode;
 	bool            canAdd = false;
-
+	bool 			subscriptionFilterMatches = false;
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::CanAddToClientFifo()\n");
 
 	// Check with base class first for filter strings
@@ -1737,14 +1777,15 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 
 		Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored module IDs: $%s incoming module ID: $%04X\n",
 			 GetModuleIDsString(client->moduleIDs).c_str(), locModuleId);
-		bool isBroadcastModuleID = IsBroadcastModuleID(locModuleId);
-		bool filterMatches = false;
-		if(isBroadcastModuleID)
-		{//check if client has a matching filter
-			filterMatches = FilterMatchCheck(data, ocb);  //note, this will return false if no filter exists
-		}
+//		bool isBroadcastModuleID = IsBroadcastModuleID(locModuleId);
+//		bool filterMatches = false;
+//		if(isBroadcastModuleID)
+//		{//check if client has a matching filter
+		//JPS do not require serial server to contain PGNs we will be requestion, this will be handled by filter
+			subscriptionFilterMatches = SubscriptionFilterMatchCheck(data, ocb);  //note, this will return false if no filter exists
+		//}
 		// If the data is from the client's module or is broadcast and client subscribed
-		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || (isBroadcastModuleID &&	filterMatches))
+		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || subscriptionFilterMatches)//(isBroadcastModuleID &&	filterMatches))
 		{
 			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored resp code: $%04X incoming resp code: $%04X\n",
 				 client->expectedResponse, locRespCode);
@@ -1785,13 +1826,12 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
  * @param ocb    Client connection identifier
  * @return true if the data should be added to the client's FIFO, false otherwise
  */
-bool IGryphonChannel::FilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb)
+bool IGryphonChannel::SubscriptionFilterMatchCheck( const SerialString_t &data, CommIoOcb_t *ocb)
 {
 	bool                            retVal = true;
 	LogPortFilterStringList         &fltrList = ocb->rxSubscription->filterList;
 	LogPortFilterStringListItr_t    itr;
 
-	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::FilterMatchCheck()\n");
 	// If client has any filter strings
 	if( fltrList.size() > 0)
 	{
@@ -1804,14 +1844,14 @@ bool IGryphonChannel::FilterMatchCheck( const SerialString_t &data, CommIoOcb_t 
 			if( filter.IsStringValid( data) == true)
 			{
 				// Ok to ADD to FIFO
-				Log( LOG_DEV_DATA, "Response matches filter string\n");
+				Log( LOG_DETAILED_DATA, "Response matches filter string\n");
 				retVal = true;
 				break;
 			}
 			else
 			{
 				// No match...look at next filter
-				Log( LOG_DEV_DATA, "Response DOES NOT match filter string\n");
+				Log( LOG_DETAILED_DATA, "Response DOES NOT match filter string\n");
 
 				SerialString_t::const_iterator  sItr = sItr=data.begin();
 				LogPortFilterStringCItr_t       lItr = lItr=filter.begin();
@@ -1822,7 +1862,7 @@ bool IGryphonChannel::FilterMatchCheck( const SerialString_t &data, CommIoOcb_t 
 					// Examine each element of each string
 					while( (sItr!=data.end()) && (lItr!=filter.end()))
 					{
-						Log( LOG_DEV_DATA, "data: 0x%02X : filter0x%02X\n");
+						Log( LOG_DETAILED_DATA, "data: 0x%02X : filter0x%02X\n");
 						// Look at next element
 						sItr++;
 						lItr++;
@@ -1830,7 +1870,7 @@ bool IGryphonChannel::FilterMatchCheck( const SerialString_t &data, CommIoOcb_t 
 				}
 				else
 				{
-					Log( LOG_DEV_DATA, "Filter sizes do not match\n");
+					Log( LOG_DETAILED_DATA, "Filter sizes do not match\n");
 				}
 				//Test Log message, remove
 				Log( LOG_DETAILED_DATA, "Not expecting NULL character reflection\n");
@@ -1842,11 +1882,9 @@ bool IGryphonChannel::FilterMatchCheck( const SerialString_t &data, CommIoOcb_t 
 	}
 	else
 	{
-		Log( LOG_DEV_DATA, "No filter strings for client\n");
+		Log( LOG_DETAILED_DATA, "No filter strings for client\n");
 		retVal = false;
 	}
-	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::FilterMatchCheck(%d)\n", retVal);
-
 	return( retVal);
 }
 
@@ -2430,4 +2468,54 @@ void IGryphonChannel::ClearModuleResponsePending(const vector<UINT32> &moduleIds
 	{
 		Log(LOG_ERRORS, "WARNING: No response pending entry for module ID %s", GetModuleIDsString(moduleIds).c_str());
 	}
+}
+
+int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
+{
+	int retVal = EOK;
+	Log(LOG_DEV_DATA, "Claiming address %d", addressToClaim);
+	J1939AddressClaimMsg locMsg;
+	// Using static size definition because of Data Structure Alignment protocol
+	int locSize =  sizeof(locMsg);// Get the size of the message structure
+	uint8_t *locStr = (uint8_t *) &locMsg;	 // Get a pointer to the message structure
+	// Make sure the message structure is clear
+	memset(locStr,0,locSize);
+	// Populate the message structure
+	locMsg.header.cmd      = CMD_J1939_ADDR_CLAIM;
+	locMsg.header.context  = UseContext();
+	locMsg.header.reserved = 0;
+	// Set the ST Min time
+	locMsg.addressToClaim = addressToClaim;
+	locMsg.padding1 = 0x00;
+	locMsg.padding2 = 0x0000;
+	// Send the Address claim command to the server
+	if(J1939AddressClaim.Acquire() == EOK)
+	{
+		J1939AddressClaim.SetValue(false);
+		Log(LOG_DETAILED_DATA, 
+			"\nUSDT Request:\n"
+			"\t\tHeader:          %02X %02X %02X %02X\n"
+			"\t\tOptions:         %02X\n" /*%02X %02X %02X\n"*/,
+			locStr[0], locStr[1], locStr[2], locStr[3],
+			locStr[4], locStr[5], locStr[6], locStr[7]);
+		Log(LOG_DETAILED_DATA, "Sending raw frame - locSize = %d", locSize);
+		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_J1939TP, true, J1939_ADDRESS_CLAIM_FC_MSG_SIZE);
+		if(J1939AddressClaim.Wait(true,mSEC_nSEC(5000)) == EOK)
+		{
+			Log(LOG_DETAILED_DATA, "J1939 claimed address for tester %d", addressToClaim);
+		}
+		else
+		{
+			Log(LOG_ERRORS, "J1939 FAILED to claim address for tester %d", addressToClaim);
+			
+		}
+		J1939AddressClaim.Release();
+	}
+	else
+	{
+		Log(LOG_ERRORS, "Claim address failure - could not acquire");
+	}
+
+	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::ClaimJ1939Address() - return value %d", retVal);
+	return retVal;
 }

@@ -153,7 +153,8 @@ protected:
      * @return EOK if successful, any other value is an error code
      */
     int ChannelSpecificInit(void) ;
-
+    void LegacyChannelSpecificUUDTInit(void);
+    void LegacyChannelSpecificJ1939Init(void);
     void CreateFilter(bool is29BitHeader, uint32_t incomingId);
     virtual bool IsBroadcastModuleID(const UINT32 locModule);
     virtual bool IsUudtId(const UINT32 &locModule);
@@ -162,7 +163,8 @@ private:
     /** ST min multipler to set in the Gryphon box */
     float m_stMinMultiplier;
     UINT8 m_flowControlStMin;
-	struct BcastMessage{
+    UINT8 m_j1939TesterAddress;
+    struct BcastMessage{
         uint32_t incoming;
         SerialString_t message;
         bool blocked;

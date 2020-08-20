@@ -1781,10 +1781,10 @@ bool IGryphonChannel::CanAddToClientFifo(const SerialString_t &data, CommIoOcb_t
 //		bool filterMatches = false;
 //		if(isBroadcastModuleID)
 //		{//check if client has a matching filter
-		//JPS do not require serial server to contain PGNs we will be requestion, this will be handled by filter
+		//JPS do not require serial server to contain PGNs we will be requesting, this will be handled by filter
 			subscriptionFilterMatches = SubscriptionFilterMatchCheck(data, ocb);  //note, this will return false if no filter exists
 		//}
-		// If the data is from the client's module or is broadcast and client subscribed
+		// If the data is from the client's module or client subscribed
 		if( IsModuleIDPresent(client->moduleIDs,locModuleId) || subscriptionFilterMatches)//(isBroadcastModuleID &&	filterMatches))
 		{
 			Log( LOG_DEV_DATA, "IGryphonChannel::CanAddToClientFifo() stored resp code: $%04X incoming resp code: $%04X\n",
@@ -1897,12 +1897,12 @@ bool IGryphonChannel::AddToClientFifo(const char *buff, size_t len, CommIoOcb_t 
 	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::AddToClientFifo( %d)\n", len);
 	if(UsingGryphonUSDT())
 	{
-	// Prepend the length pf the message to the original message
-	shortBuff[0] = (len / 0x1000000) & 0xFF;
-	shortBuff[1] = (len / 0x10000) & 0xFF;
-	shortBuff[2] = (len / 0x100) & 0xFF;
-	shortBuff[3] = (len / 0x1) & 0xFF;
-	gryphMssg = SerialString_t( shortBuff, 4) + SerialString_t( (uint8_t*)buff, len);
+		// Prepend the length of the message to the original message
+		shortBuff[0] = (len / 0x1000000) & 0xFF;
+		shortBuff[1] = (len / 0x10000) & 0xFF;
+		shortBuff[2] = (len / 0x100) & 0xFF;
+		shortBuff[3] = (len / 0x1) & 0xFF;
+		gryphMssg = SerialString_t( shortBuff, 4) + SerialString_t( (uint8_t*)buff, len);
 	}
 	else
 	{
@@ -2095,7 +2095,6 @@ bool IGryphonChannel::RegisterWithUsdtNonLegacy(string pathName /*=""*/, int att
 		if ( m_nodePairSetupMap[index].is29BitHeader )
         {
             locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs & 0x1FFFFFFF);
-			// Set as 29 bit header
 			if (m_j1939Channel)
 			{//bit 30 = 1
 				locMsg.usdtBlock[index].numberOfIDs = (locMsg.usdtBlock[index].numberOfIDs | 0x40000000);
@@ -2103,7 +2102,7 @@ bool IGryphonChannel::RegisterWithUsdtNonLegacy(string pathName /*=""*/, int att
 			locMsg.usdtBlock[index].firstUSDTRequestID  = (locMsg.usdtBlock[index].firstUSDTRequestID & 0x1FFFFFFF);
 			locMsg.usdtBlock[index].firstUSDTResponseID = (locMsg.usdtBlock[index].firstUSDTResponseID & 0x1FFFFFFF);
 			locMsg.usdtBlock[index].firstUUDTResponseID = (locMsg.usdtBlock[index].firstUUDTResponseID & 0x1FFFFFFF);
-			//Bit 31 = 1
+			// Set as 29 bit header, Bit 31 = 1
 			locMsg.usdtBlock[index].firstUSDTRequestID  = (locMsg.usdtBlock[index].firstUSDTRequestID | 0x80000000);
 			locMsg.usdtBlock[index].firstUSDTResponseID = (locMsg.usdtBlock[index].firstUSDTResponseID | 0x80000000);
 			locMsg.usdtBlock[index].firstUUDTResponseID = (locMsg.usdtBlock[index].firstUUDTResponseID | 0x80000000);

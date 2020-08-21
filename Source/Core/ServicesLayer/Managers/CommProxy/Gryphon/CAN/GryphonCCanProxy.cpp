@@ -280,7 +280,7 @@ void GryphonCCanProxy::Initialize(const XmlNode *document)
 			}
             else
 			{
-				m_nodeMap[ii].uudtIncoming = 0x0000;
+				m_nodeMap[ii].uudtIncoming = m_nodeMap[ii].incoming;
 			}
             // if it has been found that both 11 and 29 bit headers are being used, there is not use to continue to check,
             if(3 != headerBitLength)

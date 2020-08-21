@@ -108,6 +108,31 @@ class KwpCanProtocolFilter : public ProtocolFilter
      * @return Status of the opeation.
      */
     virtual const BEP_STATUS_TYPE SendMessage(std::string messageTag, SerialArgs_t &args);
+	    /**
+     * Send a message to a vehicle module.
+	 * NOTE:  The module ID will be prepended to the message
+	 *        prior to sending the message out of the port.
+     *
+     * @param message Message to be sent.
+	 * 
+     * @return Status of the send.
+     */
+    virtual const BEP_STATUS_TYPE SendPGNMessage(SerialString_t &message);
+    /**
+     * Send a message to vehicle module.
+     *
+     * @param messageTag Name of message to be retrieved and sent.
+     * @return Status of the operation.
+     */
+    virtual const BEP_STATUS_TYPE SendPGNMessage(std::string messageTag);
+    /**
+     * Send a message to a vehicle module.
+     *
+     * @param messageTag Name of the message to be sent.
+     * @param args       Extra data to be added to the message.
+     * @return Status of the opeation.
+     */
+    virtual const BEP_STATUS_TYPE SendPGNMessage(std::string messageTag, SerialArgs_t &args);
 	/**
 	 * Send a message to the module and read the response.
 	 * 

@@ -7,7 +7,7 @@
         <DataByteCountIndex>3</DataByteCountIndex>
         <DataHeaderLength>4</DataHeaderLength>
         <DataStartIndex>8</DataStartIndex>
-        <ModuleRequestID>0x18DA00F9</ModuleRequestID>
+        <ModuleRequestID>0x18DA00F1</ModuleRequestID>
         <ModuleResponseDelay>500</ModuleResponseDelay>
         <ModuleResponseEndDelay>0</ModuleResponseEndDelay>
         <NegativeResponseCodeIndex>2</NegativeResponseCodeIndex>
@@ -604,9 +604,9 @@
             </ReadVehicleSpeed>
 
             <ReadVIN>
-                <TransmitMessage>ReadDid</TransmitMessage>
-                <TransmitInterpretation>Vin</TransmitInterpretation>
-                <ReplyMessage>ReadDidResponse</ReplyMessage>
+                <TransmitMessage>ReadVinPGN</TransmitMessage>
+                <TransmitInterpretation/>
+                <ReplyMessage>ReadVinPGNResponse</ReplyMessage>
                 <ReplyInterpretation>Vin</ReplyInterpretation>
             </ReadVIN>
 
@@ -719,6 +719,7 @@
             <WriteDid4>0x2F,0x??,0x??,0x??</WriteDid4>
             <ClearFaults>0x14,0xFF,0x00</ClearFaults>
             <ReadFaults>0x18,0x00,0xFF,0x00</ReadFaults>
+			<ReadVinPGN>0x18,0xEA,0xEC,0xF1,0xFE,0xEC</ReadVinPGN>
         </TransmitMessages>
 
         <!-- ============ Message PIDs/LIDs ============ -->
@@ -845,6 +846,16 @@
                 <Reply_02>0x7F,0x18,0x??</Reply_02>
             </ReadFaults>
 
+			<ReadVinPGNResponse>
+			   <Reply_00 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x18,0xEA,0xEC,0xF1,0xFE,0xEC,0x??</Reply_00>
+			   <Reply_01 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x00,0x18,0xEA,0xEC,0xF1,0xFE,0xEC,0x??</Reply_01>
+			   <Reply_02 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x00,0x00,0x18,0xEA,0xEC,0xF1,0xFE,0xEC,0x??</Reply_02>
+			   <Reply_03 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x00,0x00,0x00,0x18,0xEA,0xEC,0xF1,0xFE,0xEC,0x??</Reply_03>
+			   <Reply_04 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x00,0x00,0x00,0x00,0x18,0xEA,0xEC,0xF1,0xFE,0xEC,0x??</Reply_04>
+			   <Reply_05 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x00,0x00,0x00,0x00,0x00,0x18,0xEA,0xEC,0xF1,0xFE,0xEC,0x??</Reply_05>
+			   <Reply_06 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x00,0x00,0x00,0x00,0x00,0x00,0x18,0xEA,0xEC,0xF1,0xFE,0xEC,0x??</Reply_06>
+			   <Reply_07 lengthType="Variable" ReplyTimeout="200" endGapTime="0">0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x18,0xEA,0xEC,0xF1,0xFE,0xEC,0x??</Reply_07>
+			</ReadVinPGNResponse>
         </ReplyMessages>
 
         <!-- ============ Data Translations ============ -->

@@ -11,8 +11,8 @@
 // Unauthorized use, distribution, copying, or transmittal of this file in
 // any way is strictly prohibited.
 //===========================================================================
-#ifndef IsuzuEmissionsTc_h
-#define IsuzuEmissionsTc_h
+#ifndef IsuzuDeltaEmissionsTc_h
+#define IsuzuDeltaEmissionsTc_h
 //-------------------------------------------------------------------------------------------------
 #include "BepTimer.h"
 #include "GenericEmissionsTCTemplate.cpp"
@@ -28,11 +28,11 @@
 #define SENSOR_MON_PULSE            11
 //-------------------------------------------------------------------------------------------------
 template<class ModuleType>
-class IsuzuEmissionsTc : public GenericEmissionsTCTemplate<ModuleType>
+class IsuzuDeltaEmissionsTc : public GenericEmissionsTCTemplate<ModuleType>
 {
 public:
-    IsuzuEmissionsTc();
-    virtual ~IsuzuEmissionsTc();
+    IsuzuDeltaEmissionsTc();
+    virtual ~IsuzuDeltaEmissionsTc();
 
     /**
      * Execute the specified test step.
@@ -469,4 +469,4 @@ private:
     bool m_mafLearnComplete;
 };
 //-------------------------------------------------------------------------------------------------
-#endif //IsuzuEmissionsTc_h
+#endif //IsuzuDeltaEmissionsTc_h

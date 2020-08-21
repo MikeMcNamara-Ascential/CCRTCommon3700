@@ -62,7 +62,6 @@ public:
      */
     virtual const INT32 HandlePulse(const INT32 code, const INT32 value);
 
-
 protected:
 
     /**

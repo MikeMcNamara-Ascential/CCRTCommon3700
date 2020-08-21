@@ -318,6 +318,155 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleData(string messageTag, Ser
 	return status;
 }
 
+const BEP_STATUS_TYPE KwpCanProtocolFilter::GetPGNModuleData(string messageTag, SerialString_t &reply, SerialArgs_t *args /*= NULL*/)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+	string asciiMessage;
+	SerialString_t xmtMessage;
+	SerialString_t moduleResponse;
+    INT32 tries = 0;
+    //use message specific retries if specified
+    GetResponseFailureRetryCount(messageTag, tries);
+	tries = (tries <= 0) ? GetNumberOfRetries() : tries;
+	if(GetMessage(messageTag,asciiMessage) == BEP_STATUS_SUCCESS)
+	{	// Convert the message to binary and attempt to send message multiple times
+		GetBinaryMssg(asciiMessage, xmtMessage);
+		do
+		{	// Attempt to lock the port for our own use
+			if((errno = m_commsInUse->Acquire()) == EOK)
+			{	// Send the message to the module
+				if(args == NULL) status = SendMessage(messageTag);
+				else				  status = SendMessage(messageTag, *args);
+				Log(LOG_DEV_DATA, "Sent message: %s to module - status: %s\n", messageTag.c_str(), 
+					ConvertStatusToResponse(status).c_str());
+				// Set the message ID
+				SetSentMessageIdentifier(xmtMessage[GetSentMessageIdentifierIndex()]);
+				// Store the number of response pending reads to perform
+                // Use message specific response pending reads if specified
+				INT32 responsePendingReads = -1;
+                GetResponsePendingReads(messageTag, responsePendingReads);
+                responsePendingReads = (responsePendingReads <= 0) ? 
+                    GetNumberOfResponsePendingReads() : responsePendingReads;
+				bool responsePending = false;	// Default to no response pending
+				bool getResponse = true;        // Flag to signal if we need to get a response or process multiple messages
+				do 
+				{
+					if(getResponse)
+					{	// Clear the response area
+						moduleResponse.erase();
+						// If send was successful, get the module response
+						if((BEP_STATUS_SUCCESS == status) || (responsePending && (BEP_STATUS_NA == status)))
+						{   // Get the response from the module
+							status = GetResponse(moduleResponse);
+						}
+					}
+					else
+					{   // Do not get a response, just process multiple messages in the buffer we have
+						status = BEP_STATUS_SUCCESS;
+					}
+					// Extract the module response from the message
+					if((status == BEP_STATUS_SUCCESS) && (moduleResponse.length() > 0))
+					{
+						reply = ExtractModuleData(moduleResponse);
+					}
+					// Make sure the response matches a filter before processing it
+					if(IsResponseValid(messageTag, reply))
+					{	// Check for a valid response if we got the response
+						if((BEP_STATUS_SUCCESS == status) && (reply.length() > 0)) status = CheckForValidResponse(reply);
+						// Check for a negative response from the module
+						if((BEP_STATUS_SUCCESS != status) && (reply.length() > 0)) status = CheckForNegativeResponse(reply);
+						// Check if it was a negaitve response
+						if((BEP_STATUS_FAILURE == status) || (responsePending && (BEP_STATUS_SUCCESS != status) && (reply.length() > 0)))
+						{	// Check what the negative response was
+							UINT8 negativeResponseCode = reply[GetNegativeResponseCodeIndex()];
+							if((GetEnterDiagnosticModeCode() == negativeResponseCode) && AutomaticallyEnterDiagnosticMode())
+							{	// Need to enter diagnostic mode first
+								SendMessage(GetEnterDiagnosticModeMessageTag());
+								reply.erase();
+								GetResponse(GetEnterDiagnosticModeMessageTag(), reply);
+							}
+							else if(GetResponsePendingCode() == negativeResponseCode)
+							{	// Check if more than one message was returned in GetResponse
+								if(moduleResponse.length() > 0)
+								{   // More than one response in the buffer, extract and evaluate
+									getResponse = false;
+								}
+								else
+								{   // Only decrement response pending reads if we need to look for data in the buffer
+									responsePendingReads--;
+									getResponse = true;
+								}
+								// Just need to look for the response again
+								status = BEP_STATUS_NA;
+								responsePending = true;
+                                Log(LOG_DEV_DATA, "Handling response pending code - status: %s, responsePending: %s, getResponse: %s, responsePendingReads: %d",
+                                    ConvertStatusToResponse(status).c_str(), responsePending ? "True" : "False", 
+                                    getResponse ? "True" : "False", responsePendingReads);
+							}
+							else if(GetModuleBusyCode() != negativeResponseCode)
+							{   // Negative response with no special treatment, stop all attempts
+								status = BEP_STATUS_FAILURE;
+								tries = 0;
+							}
+						}
+					}
+					else
+					{   // Not a response we were looking for
+						Log(LOG_DEV_DATA, "Response for %s does not match any filter - discarding\n", messageTag.c_str());
+						// Check if more than one response in the buffer
+						if(moduleResponse.length() > 0)
+						{   // More than one response in the buffer, extract and evaluate
+							getResponse = false;
+						}
+						else
+						{   // Only decrement response pending reads if we need to look for data in the buffer
+							responsePendingReads--;
+							getResponse = true;
+						}
+						status = BEP_STATUS_NA;
+						responsePending = true;
+					}
+					// If this is not a valid message, wait a bit beofre trying again
+					if((BEP_STATUS_SUCCESS != status) && getResponse) BposSleep(GetResponseDelay());
+					// Keep checking until we get a good message or response pending reads run out
+                    Log(LOG_DEV_DATA, "Determining if we need to loop for more data in buffer - status: %s, responsePendingReads: %d, responsePending: %s, GetStopCommFlag: %s",
+                        ConvertStatusToResponse(status).c_str(), responsePendingReads, responsePending ? "True" : "False", 
+                        GetStopCommsFlag() ? "True" : "False");
+				} while((BEP_STATUS_NA == status) && ((responsePendingReads > 0) && responsePending) && !GetStopCommsFlag());
+				// Exit the critical section since we are done with the port for now
+				m_commsInUse->Release();
+			}
+			else
+			{   // Error aquiring the semaphore
+				Log(LOG_ERRORS, "Could not Acquire mutex! Message %s not sent! - s\n", messageTag.c_str(), strerror(errno));
+			}
+			// Keep trying until a good response s received we run out of attempts or are signalled to stop sending messages
+		} while((BEP_STATUS_SUCCESS != status) && (tries-- > 0) && !GetStopCommsFlag());
+		// Check if valid message was retrieved
+        if (GetStopCommsFlag())
+        {
+			Log(LOG_ERRORS, "Module Signaled to stop communications:StopCommsFlag - %s, Message - %s, status: %s\n", 
+				GetStopCommsFlag() ? "true" : "false", messageTag.c_str(), ConvertStatusToResponse(status).c_str());
+        }
+        else if (status != BEP_STATUS_SUCCESS)
+		{
+			Log(LOG_ERRORS, "Error getting data from module: Message - %s, status: %s\n", 
+				messageTag.c_str(), ConvertStatusToResponse(status).c_str());
+		}
+		else if(reply.length() <= 0)
+		{
+			Log(LOG_ERRORS, "Did not receive a valid response from the module\n");
+			status = BEP_STATUS_FAILURE;
+		}
+	}
+	else
+	{	// No message provided for this tag
+		Log(LOG_ERRORS, "No message provided for tag: %s\n", messageTag.c_str());
+		status = BEP_STATUS_SOFTWARE;
+	}
+	Log(LOG_DEV_DATA, "GetModuleData() returning - status: %s\n", ConvertStatusToResponse(status).c_str());
+	return status;
+}
 
 const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleDataUUDTResponse(string messageTag, SerialString_t &reply, SerialArgs_t *args /*= NULL*/)
 {

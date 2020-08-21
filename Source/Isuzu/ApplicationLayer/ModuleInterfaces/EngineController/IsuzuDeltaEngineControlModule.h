@@ -281,6 +281,39 @@ public:
     virtual BEP_STATUS_TYPE GetInfo(string methodName, float &value) throw(ModuleException);
 
     /**
+     * Read data from the module using the message tag provided.
+     * <p><b>Description:</b><br>
+     * The specified data will be read from the module.  If any <i>args</i> are provided, they will be added to the
+     * message to be sent to the module.  If a SerialString_t object is provided, the module response will be stored
+     * in it for return to the calling function.  If an IProtocolFilter object is provided, it will be used to send
+     * the message to the module instead of m_protocolFilter.
+     * <p>
+     * <b>Protocol Filter Functions:</b>
+     *      <ul>
+     *      <li> GetModuleData() </li>
+     *      </ul>
+     * 
+     * <b>Functions Called:</b>
+     *      <ul>
+     *      <li> CheckObjectsStatus() </li>
+     *      <li> ParseStringResponse() </li>
+     *      <li> GetReplyInterpretationTag() </li>
+     *      <li> ModuleName() </li>
+     *      </ul>
+     * 
+     * @param messageTag Message tag to use for getting data from the module.
+     * @param data       Data read from the module.
+     * @param args       Additional data to be added to the message.
+     * @param rawData    Complete response from the module.
+     * @param commObject Communication object to use for talking to the module.  If one is not provided, m_protocolFilter will be used.
+     * 
+     * @return Status of reading the data from the module.
+     */
+    virtual BEP_STATUS_TYPE ReadPGNModuleData(const string messageTag, string &data, 
+                                           SerialArgs_t *args = NULL, 
+                                           SerialString_t *rawData = NULL, 
+                                           IProtocolFilter *commObject = NULL);
+    /**
      * Read the part number.
      * <p><b>Description:</b><br>
      * Read the part number from the module.

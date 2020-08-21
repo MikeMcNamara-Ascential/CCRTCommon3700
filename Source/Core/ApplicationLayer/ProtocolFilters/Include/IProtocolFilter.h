@@ -183,6 +183,17 @@ public:
      */
     virtual const BEP_STATUS_TYPE GetModuleData(std::string messageTag, SerialString_t &reply,
                                                 SerialArgs_t *args = NULL) = 0;
+	/**
+     * Send a message to the module and read the response.
+     *
+     * @param messageTag Tag of message to send.
+     * @param reply      Reply from the module.
+     * @param args       Optional data to be written to the module.
+     * @return Status of the operation.
+     * @since Version 1.0
+     */
+    virtual const BEP_STATUS_TYPE GetPGNModuleData(std::string messageTag, SerialString_t &reply,
+                                                SerialArgs_t *args = NULL) = 0;
     /**
      * Subscribe for a message with the specified filter.
      *

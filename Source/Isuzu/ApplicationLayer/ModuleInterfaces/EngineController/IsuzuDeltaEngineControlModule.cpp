@@ -90,7 +90,7 @@ BEP_STATUS_TYPE IsuzuDeltaEngineControlModule<ProtocolFilterType>::GetInfo(strin
 {
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
    
-    if(methodName == "ReadVIN") status = ReadModuleData(methodName, value);
+    if(methodName == "ReadVIN") status = ReadPGNModuleData(methodName, value);
     else if(methodName == "ReadSystemSupplierID") status = ReadModuleData(methodName, value);
     else if(methodName == "ReadRepairShopCode") status = ReadModuleData(methodName, value);
     else if(methodName == "ReadProgrammingDate") status = ReadModuleData(methodName, value);
@@ -128,7 +128,51 @@ BEP_STATUS_TYPE IsuzuDeltaEngineControlModule<ProtocolFilterType>::GetInfo(strin
     // Return the status
     return status;
 }
-
+template <class ProtocolFilterType>
+BEP_STATUS_TYPE IsuzuDeltaEngineControlModule<ProtocolFilterType>::ReadPGNModuleData(const string messageTag,
+                                                                          string &data,
+                                                                          SerialArgs_t *args,/* = NULL*/
+                                                                          SerialString_t *rawData, /* = NULL */
+                                                                          IProtocolFilter *commObject)/* = NULL */
+{
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    SerialString_t moduleResponse;
+    // Make sure all neccessary objects have been created
+    CheckObjectsStatus();
+    // Read the data from the module
+    // Checks to see if whether a comm Object is passed
+    // Otherwise use m_protocolFilter
+    IProtocolFilter *moduleComm = (commObject == NULL) ? m_protocolFilter : commObject;
+    status = moduleComm->GetPGNModuleData(messageTag, moduleResponse, args);
+    // Check if the module response should be returned to the caller
+    if(rawData != NULL)
+    {
+        *rawData = moduleResponse;
+    }
+    // Check the status of the read
+    if(BEP_STATUS_SUCCESS == status)
+    {   // Good read, attempt to extract the data
+        try
+        {   // Extract the data from the response
+            data = ParseStringResponse(GetReplyInterpretationTag(messageTag), moduleResponse);
+            Log(LOG_DEV_DATA, "%s: %s\n", messageTag.c_str(), data.c_str());
+        }
+        catch(XmlException &err)
+        {   // Log the reason for the exception
+            Log(LOG_ERRORS, "%s: XmlException in ReadModuleData(%s): %s\n", ModuleName().c_str(),
+                messageTag.c_str(), err.GetReason());
+            // Set the status to software error
+            status = BEP_STATUS_SOFTWARE;
+        }
+    }
+    else
+    {   // Error reading the data from the module
+        Log(LOG_ERRORS, "Error with %s message - status: %s\n", messageTag.c_str(),
+            ConvertStatusToResponse(status).c_str());
+    }
+    // Return the status
+    return(status);
+}
 
 //-------------------------------------------------------------------------------------------------
 template <class ProtocolFilterType>

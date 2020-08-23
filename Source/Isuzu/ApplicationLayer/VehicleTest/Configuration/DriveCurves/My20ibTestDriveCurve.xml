@@ -71,9 +71,9 @@
 				<Objective10 Description="Initialize the transmission test" Result="" Timeout="" Component="Transmission">
 					<Setup/>
 				</Objective10>
-				<Objective00 Description="Wait for engine running" Result="" Timeout="" Component="Emissions">
+				<Objective15 Description="Wait for engine running" Result="" Timeout="" Component="Emissions">
 					<EngineRunning/>
-				</Objective00>
+				</Objective15>
 			</ForegroundObjectives>
 		</TestPhase001>
 		<TestPhase007 Description="ABSTesting" Result="" Timeout="">

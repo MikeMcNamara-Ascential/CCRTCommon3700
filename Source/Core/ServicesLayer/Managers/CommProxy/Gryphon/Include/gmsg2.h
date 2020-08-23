@@ -133,6 +133,9 @@ struct J1939AddressClaimMsg
     struct gcmdhdr header;
     //Skipping name and such defaults will be used
     unsigned char addressToClaim; 
+    unsigned char emulation;//0 = all messages present seen by client, 
+							//1 = only j1939 messages set to the claimed address and 
+							//broadcast messages seen by the client 
     unsigned char padding1;
     unsigned short padding2;
 };

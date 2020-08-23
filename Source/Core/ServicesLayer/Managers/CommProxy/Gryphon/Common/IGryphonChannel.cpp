@@ -2520,6 +2520,7 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 	locMsg.header.reserved = 0;
 	// Set the ST Min time
 	locMsg.addressToClaim = addressToClaim;
+	locMsg.emulation = 0x01;
 	locMsg.padding1 = 0x00;
 	locMsg.padding2 = 0x0000;
 	// Send the Address claim command to the server

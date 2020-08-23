@@ -1464,6 +1464,15 @@ BEP_STATUS_TYPE IGryphonChannel::processNewServerMsg(const uint8_t *inBuf, const
 					BroadcastOnAck.Release();
 				}
 				break;
+			case CMD_SERVER_SET_SERVICE:
+				Log( LOG_DETAILED_DATA, "Gryphon CMD_SERVER_SET_SERVICE\n");
+				// set the ack flag for this
+				if(J1939TPEnableAck.Acquire()== EOK)
+				{
+					J1939TPEnableAck.Signal(true);
+					J1939TPEnableAck.Release();
+				}
+				break;
 			default:
 				status = BEP_STATUS_HARDWARE;
 				Log(LOG_ERRORS, "Unknown response frame type [%02X] returned from Gryphon box!", inBuf[8]);
@@ -2327,9 +2336,9 @@ int IGryphonChannel::SetMinimumMessageSeperationTime(UINT8 seperationTime)
 			Log(LOG_DETAILED_DATA, 
 				"\nUSDT Request:\n"
 				"\t\tHeader:          %02X %02X %02X %02X\n"
-				"\t\tOptions:         %02X\n" /*%02X %02X %02X\n"*/,
+				"\t\tOptions:         %02X\n",
 				locStr[0], locStr[1], locStr[2], locStr[3],
-				locStr[4], locStr[5], locStr[6], locStr[7]);
+				locStr[4]);
             Log(LOG_DETAILED_DATA, "Sending raw frame - locSize = %d", locSize);
 			retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_USDT, true, STMIN_FC_MSG_SIZE);
 			if(UsdtStMinFlowControl.Wait(true,mSEC_nSEC(5000)) == EOK)
@@ -2468,7 +2477,33 @@ void IGryphonChannel::ClearModuleResponsePending(const vector<UINT32> &moduleIds
 		Log(LOG_ERRORS, "WARNING: No response pending entry for module ID %s", GetModuleIDsString(moduleIds).c_str());
 	}
 }
+int IGryphonChannel::EnableJ1939TransportProtocol()
+{
+	uint8_t localBuffer[20];
+	int locSize;
+	int retVal = EOK;
+	Log( LOG_FN_ENTRY, "Enter IGryphonChannel::EnableJ1939TransportProtocol()\n");
+	// Clear out the message data
+	memset(localBuffer,0,sizeof(localBuffer));
+	localBuffer[0] = CMD_SERVER_SET_SERVICE;
+	localBuffer[1] = UseContext();
+	localBuffer[2] = TP_J1939;
+	locSize = 3;
+	// need to wait for acknowledgement
+	if (J1939TPEnableAck.Acquire()== EOK)
+	{
+		J1939TPEnableAck.SetValue(false);
+		retVal = SendRawFrame(localBuffer, locSize, FT_CMD, SD_SERVER);
+		if (J1939TPEnableAck.Wait(true,mSEC_nSEC(5000)) == EOK)
+		{
+		}
+		J1939TPEnableAck.Release();
+	}
+	// Log the exit and return the status
+	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::EnableJ1939TransportProtocol() retVal: %d\n", retVal);
+	return(retVal);
 
+}
 int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 {
 	int retVal = EOK;
@@ -2494,9 +2529,9 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 		Log(LOG_DETAILED_DATA, 
 			"\nUSDT Request:\n"
 			"\t\tHeader:          %02X %02X %02X %02X\n"
-			"\t\tOptions:         %02X\n" /*%02X %02X %02X\n"*/,
+			"\t\tOptions:         %02X\n",
 			locStr[0], locStr[1], locStr[2], locStr[3],
-			locStr[4], locStr[5], locStr[6], locStr[7]);
+			locStr[4]);
 		Log(LOG_DETAILED_DATA, "Sending raw frame - locSize = %d", locSize);
 		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_J1939TP, true, J1939_ADDRESS_CLAIM_FC_MSG_SIZE);
 		if(J1939AddressClaim.Wait(true,mSEC_nSEC(5000)) == EOK)
@@ -2518,3 +2553,4 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 	Log( LOG_FN_ENTRY, "Exit IGryphonChannel::ClaimJ1939Address() - return value %d", retVal);
 	return retVal;
 }
+

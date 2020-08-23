@@ -709,6 +709,16 @@ protected:
     int SetMinimumMessageSeperationTimeMultiplier(float seperationTimeMultiplier);
     int SetMinimumMessageSeperationTime(UINT8 seperationTime);
 	/**
+	 * Enable higher level beacon software support for j1939 
+	 * porotocol 
+	 *  
+	 * 
+	 * @author JSemann (8/20/2020) 
+	 * 
+	 * @return int Status of request made to gryphon
+	 */
+    int EnableJ1939TransportProtocol();
+	/**
 	 * Claim an address for tester (aka scan tool) so others cannot 
 	 * take 
 	 *  
@@ -760,6 +770,7 @@ protected:
     BepCondVar<bool> PassAllAck;
     BepCondVar<bool> EventEnableAck;
     BepCondVar<bool> InitAck;
+    BepCondVar<bool> J1939TPEnableAck;
     BepCondVar<bool> J1939AddressClaim;
     std::string IPAddr;
     std::string UserId;

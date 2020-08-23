@@ -750,6 +750,7 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 		#if SKIP_J1939_ADDRESS_CLAIM_NON_LEGACY
 			Log(LOG_DEV_DATA, "Non-Legacy device with j1934 channel, but skipping j1939 address claim by #define"); 
 		#else
+			if ( retVal == EOK )  retVal = EnableJ1939TransportProtocol();
 			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress);
 		#endif
 	}

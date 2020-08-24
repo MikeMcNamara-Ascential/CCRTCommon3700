@@ -421,6 +421,20 @@ vector<UINT32> GryphonCCanProxy::FindNodePair(const UINT32 locModule)
     }
     return(locNode);
 }
+vector<UINT32> GryphonCCanProxy::BuildPGNRequestNodePair(SerialString_t rawMessage)
+{
+    vector<UINT32> locNode;
+	if(rawMessage.length() >= 5)
+    {
+        locNode.push_back(((0xFF & (int) rawMessage[0]) * 0x1000000) + ((0xFF & (int) rawMessage[5]) * 0x10000) + 
+                    ((0xFF & (int) rawMessage[4]) * 0x100) + (0xFF & (int) rawMessage[2]));
+	}
+	else
+	{
+		Log(LOG_ERRORS, "Insufficient length to build node pair message length: %d",rawMessage.length());
+	}
+    return(locNode);
+}
 bool GryphonCCanProxy::IsBroadcastModuleID(const UINT32 locModule)
 {
     for (int ii = 0; ii < m_broadcastMessageCount; ii++)
@@ -517,7 +531,14 @@ vector<UINT32> GryphonCCanProxy::getModuleIdsFromRaw(SerialString_t rawMessage)
     {
         locModule = ((0xFF & (int) rawMessage[0]) * 0x100) + (0xFF & (int) rawMessage[1]);
     }
-    locResponseModule = FindNodePair(locModule);
+	if ( IsPGNRequest(rawMessage) )
+	{
+		locResponseModule = BuildPGNRequestNodePair(rawMessage);
+	}
+	else
+	{
+		locResponseModule = FindNodePair(locModule);
+	}
     Log( LOG_FN_ENTRY, "Exit GryphonCCan::getModuleIdFromRaw(%d -> %s)\n", locModule, GetModuleIDsString(locResponseModule).c_str());
     return(locResponseModule);
 }

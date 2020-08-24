@@ -83,6 +83,8 @@ public:
      * @since Version 2.0
      */
     vector<UINT32> FindNodePair(const UINT32 locModule);
+	vector<UINT32> BuildPGNRequestNodePair(SerialString_t rawMessage);
+
     /**
      * Attempt to determine what the response code will be for this request.
      * the response will be filtered against this calculated code if not 0

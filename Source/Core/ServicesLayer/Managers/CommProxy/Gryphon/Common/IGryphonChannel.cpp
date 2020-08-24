@@ -1473,6 +1473,14 @@ BEP_STATUS_TYPE IGryphonChannel::processNewServerMsg(const uint8_t *inBuf, const
 					J1939TPEnableAck.Release();
 				}
 				break;
+			case CMD_J1939_ADDR_CLAIM:
+				Log( LOG_DETAILED_DATA, "Gryphon CMD_J1939_ADDR_CLAIM\n");
+				if(J1939AddressClaim.Acquire()== EOK)
+				{
+					J1939AddressClaim.Signal(true);
+					J1939AddressClaim.Release();
+				}
+				break;	// end of event names
 			default:
 				status = BEP_STATUS_HARDWARE;
 				Log(LOG_ERRORS, "Unknown response frame type [%02X] returned from Gryphon box!", inBuf[8]);
@@ -2536,7 +2544,7 @@ int IGryphonChannel::ClaimJ1939Address(UINT8 addressToClaim)
 			locStr[0], locStr[1], locStr[2], locStr[3],
 			locStr[4]);
 		Log(LOG_DETAILED_DATA, "Sending raw frame - locSize = %d", locSize);
-		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_J1939TP, true, J1939_ADDRESS_CLAIM_FC_MSG_SIZE);
+		retVal = SendRawFrame(locStr, locSize, FT_CMD, SD_SERVER, true, J1939_ADDRESS_CLAIM_FC_MSG_SIZE);
 		if(J1939AddressClaim.Wait(true,mSEC_nSEC(5000)) == EOK)
 		{
 			Log(LOG_DETAILED_DATA, "J1939 claimed address for tester %d", addressToClaim);

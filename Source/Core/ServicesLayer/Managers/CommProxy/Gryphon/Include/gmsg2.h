@@ -4,7 +4,7 @@
 // additional restrictions for our use.
 #define MAX_EVNAMES 32
 #define STMIN_FC_MSG_SIZE 5
-#define J1939_ADDRESS_CLAIM_FC_MSG_SIZE 5
+#define J1939_ADDRESS_CLAIM_FC_MSG_SIZE 6
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 // these are additional structure definitions that we find useful.
 #include "info.h"

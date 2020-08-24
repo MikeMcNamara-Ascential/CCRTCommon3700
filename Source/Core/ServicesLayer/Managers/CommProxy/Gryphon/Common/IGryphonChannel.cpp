@@ -2487,8 +2487,10 @@ int IGryphonChannel::EnableJ1939TransportProtocol()
 	memset(localBuffer,0,sizeof(localBuffer));
 	localBuffer[0] = CMD_SERVER_SET_SERVICE;
 	localBuffer[1] = UseContext();
-	localBuffer[2] = TP_J1939;
-	locSize = 3;
+	localBuffer[2] = 0x00;
+	localBuffer[3] = 0x00;
+	localBuffer[4] = TP_J1939;
+	locSize = 5;
 	// need to wait for acknowledgement
 	if (J1939TPEnableAck.Acquire()== EOK)
 	{

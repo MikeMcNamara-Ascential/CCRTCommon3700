@@ -135,6 +135,8 @@ BEP_STATUS_TYPE IsuzuDeltaEngineControlModule<ProtocolFilterType>::ReadPGNModule
                                                                           SerialString_t *rawData, /* = NULL */
                                                                           IProtocolFilter *commObject)/* = NULL */
 {
+    Log(LOG_DEV_DATA,"ReadPGNModuleData %s",messageTag.c_str());
+
     BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
     SerialString_t moduleResponse;
     // Make sure all neccessary objects have been created

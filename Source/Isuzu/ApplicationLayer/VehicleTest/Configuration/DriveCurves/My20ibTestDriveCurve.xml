@@ -7,17 +7,17 @@
             <ConfigPath>/Configuration/Components/Axle/</ConfigPath>
             <Debug>Off</Debug>
         </Axle> -->
-		<Brakes>
+		<!--Brakes>
 			<ComponentName>ZFABSTC.qxe</ComponentName>
 			<ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
 			<ConfigFile>ZFABSTC.xml</ConfigFile>
 			<ConfigPath>/Configuration/Components/Brake/</ConfigPath>
 			<Debug>Off</Debug>
-		</Brakes>
+		</Brakes-->
 		<Emissions>
 			<ComponentName>IsuzuEmissionsTC.qxe</ComponentName>
 			<ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
-			<ConfigFile>MY20BIsuzuEmissionsTc.xml</ConfigFile>
+			<ConfigFile>MY20BIsuzuDeltaEmissionsTc.xml</ConfigFile>
 			<ConfigPath>/Configuration/Components/Emissions/</ConfigPath>
 			<Debug>Off</Debug>
 		</Emissions>
@@ -42,13 +42,13 @@
             <ConfigPath>/Configuration/Components/SpeedControl/</ConfigPath>
             <Debug>Off</Debug>
         </SpeedControl>-->
-		<Transmission>
+		<!--Transmission>
 			<ComponentName>AllisonTransmissionTC.qxe</ComponentName>
 			<ComponentPath>/ApplicationLayer/Bin/</ComponentPath>
 			<ConfigFile>AllisonTransmissionTC.xml</ConfigFile>
 			<ConfigPath>/Configuration/Components/Transmission/</ConfigPath>
 			<Debug>Off</Debug>
-		</Transmission>
+		</Transmission-->
 	</Components>
 	<Test Result="Overall Test result (Pass, Fail, Abort, ...)" Debug="Off">
 		<!-- Initialize the machine -->
@@ -65,12 +65,12 @@
 				<!--Objective00 Description="clear PIM DTCs and finish up" Result="" Timeout="" Component="PIM">
                     <Setup/>
                 </Objective00-->
-				<Objective01 Description="Setup Brake Module" Result="" Timeout="" Component="Brakes">
+				<!--Objective01 Description="Setup Brake Module" Result="" Timeout="" Component="Brakes">
 					<Setup/>
 				</Objective01>
 				<Objective10 Description="Initialize the transmission test" Result="" Timeout="" Component="Transmission">
 					<Setup/>
-				</Objective10>
+				</Objective10-->
 				<Objective15 Description="Wait for engine running" Result="" Timeout="" Component="Emissions">
 					<EngineRunning/>
 				</Objective15>

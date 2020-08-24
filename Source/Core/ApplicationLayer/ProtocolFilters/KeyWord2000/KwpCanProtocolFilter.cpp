@@ -159,6 +159,7 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::SendMessage(SerialString_t &message)
 }
 const BEP_STATUS_TYPE KwpCanProtocolFilter::SendPGNMessage(SerialString_t &message)
 {	// do not add the module ID to the message, it must be included in message built from module config
+    Log(LOG_DETAILED_DATA, "SendPGNMessage skipping header\n");
 	//message = GetModuleRequestID() + message;
 	// Clear the Fifos so bad data is not gathered
 	Log(LOG_DETAILED_DATA, "Resetting The Connection\n");
@@ -212,7 +213,8 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::SendPGNMessage(std::string messageTa
 
 const BEP_STATUS_TYPE KwpCanProtocolFilter::SendPGNMessage(std::string messageTag, SerialArgs_t &args)
 {
-	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+    Log(LOG_DETAILED_DATA, "SendPGNMessage with args skipping header\n");
+    BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	SerialString_t xmtMessage;
 	// Get the message to be sent
 	if(GetXmtMssgString(messageTag, xmtMessage, args) == true)
@@ -392,6 +394,7 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetPGNModuleData(string messageTag, 
     //use message specific retries if specified
     GetResponseFailureRetryCount(messageTag, tries);
 	tries = (tries <= 0) ? GetNumberOfRetries() : tries;
+    Log(LOG_DEV_DATA,"GetPGNModuleData %s",messageTag.c_str());
 	if(GetMessage(messageTag,asciiMessage) == BEP_STATUS_SUCCESS)
 	{	// Convert the message to binary and attempt to send message multiple times
 		GetBinaryMssg(asciiMessage, xmtMessage);
@@ -404,6 +407,7 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetPGNModuleData(string messageTag, 
 		{	// Attempt to lock the port for our own use
 			if((errno = m_commsInUse->Acquire()) == EOK)
 			{	// Send the message to the module
+
 				if(args == NULL) status = SendPGNMessage(messageTag);
 				else				  status = SendPGNMessage(messageTag, *args);
 				Log(LOG_DEV_DATA, "Sent message: %s to module - status: %s\n", messageTag.c_str(), 

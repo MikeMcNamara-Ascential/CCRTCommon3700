@@ -96,7 +96,7 @@ public:
     virtual int getRespCode(const char *rawMessage);
     virtual vector<UINT32> getModuleIdsFromRaw(SerialString_t rawMessage);
     virtual bool IsFourByteHeader(SerialString_t rawMessage);
-    //JS in case we need it virtual bool IsPGNRequest(SerialString_t rawMessage);
+    bool IsPGNRequest(SerialString_t rawMessage);
     virtual bool UsingGryphonUSDT();
 
 protected:
@@ -121,6 +121,7 @@ protected:
      * @param inBuf   source for data content.
      */
     virtual void BuildMessage(SerialString_t &locData, const SerialString_t &inBuf) ;
+    virtual void BuildPGNRequestMessage(SerialString_t &locData, const SerialString_t &inBuf) ;
     /**
      * Handler method for client subscription requests
      *

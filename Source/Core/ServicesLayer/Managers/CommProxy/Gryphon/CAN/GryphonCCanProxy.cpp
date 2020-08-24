@@ -539,23 +539,22 @@ bool GryphonCCanProxy::IsFourByteHeader(SerialString_t rawMessage)
     }
     return false;
 }
-//Just in case we need it
-//bool GryphonCCanProxy::IsPGNRequest(SerialString_t rawMessage)
-//{
-//    UINT32 locModule;
-//    vector<UINT32> locResponseModule;
-//	if ( m_j1939Channel )
-//	{
-//		if ( rawMessage.length() >= 4 )
-//		{
-//			if ((0xFF & (int)rawMessage[1]) == 0xEA)
-//			{//this is a PGN request
-//				return true;
-//			}
-//		}
-//	}
-//   return false;
-//}
+bool GryphonCCanProxy::IsPGNRequest(SerialString_t rawMessage)
+{
+    UINT32 locModule;
+    vector<UINT32> locResponseModule;
+	if ( m_j1939Channel )
+	{
+		if ( rawMessage.length() >= 4 )
+		{
+			if ((0xFF & (int)rawMessage[1]) == 0xEA)
+			{//this is a PGN request
+				return true;
+			}
+		}
+	}
+   return false;
+}
 bool GryphonCCanProxy::CheckForBlock(const uint8_t *inBuf)
 {
     bool isBlocked = false;
@@ -573,55 +572,93 @@ bool GryphonCCanProxy::UsingGryphonUSDT()
 {
     return true;
 }
-
 void GryphonCCanProxy::BuildMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
 {
-    gdatahdr locDH;
-    int moduleIDByteLength;
+	if ( IsPGNRequest(inBuf) )
+	{
+		BuildPGNRequestMessage(outBuf, inBuf);
+	}
+	else
+	{
+		gdatahdr locDH;
+		int moduleIDByteLength;
 
-    m_destinationType = SD_USDT; // using USDT processor for outgoing messages
-    if(m_moduleIDByteLength != 2)
-    {
-        if(IsFourByteHeader(inBuf))
-        {
-            //32bit
-            locDH.hdrlen = 4;        // Can header is 4 bytes
-            locDH.hdrbits = 29;      // only 29 bits are used
-            moduleIDByteLength = 4;
-        }
-        else
-        {//16bit
-            locDH.hdrlen = 2;        // Can header is 2 bytes
-            locDH.hdrbits = 11;      // only 11 bits are used
-            moduleIDByteLength = 2;
-        }
-    }
-    else
-    {//16bit
-        locDH.hdrlen = 2;        // Can header is 2 bytes
-        locDH.hdrbits = 11;      // only 11 bits are used
-        moduleIDByteLength = 2;
-    }
-    Log(LOG_DEV_DATA, "InBuf Contents(%d)\n",inBuf.size());
-    for(int i=0;i<inBuf.size();i++)
-    {
-        Log(LOG_DEV_DATA, "\t\tindex: %04d -- %c <0x%02X>\n",
-            i,isprint(inBuf[i]) ? inBuf[i] : '?',inBuf[i]);
-    }
-    Log(LOG_DEV_DATA, "Module ID Length: %d InBuf Length: %d\n",moduleIDByteLength, inBuf.length());
-    locDH.datalen = htons(inBuf.length()-moduleIDByteLength);  // length of the DATA part of the message
-    locDH.extralen = 0;      // we dont support this, always 0
-    locDH.mode = MODE_LOCAL; // i suspect this is not used by the box
-    locDH.priority = 0;      // not used
-    locDH.stat = 0;          // probably not used
-    locDH.time = 0;          // probably not used
-    locDH.context = UseContext();  // sequential message number
-    locDH.reservedchar = 0;  // not used
-    locDH.reservedshort = 0; // not used
+		m_destinationType = SD_USDT; // using USDT processor for outgoing messages
+		if(m_moduleIDByteLength != 2)
+		{
+			if(IsFourByteHeader(inBuf))
+			{
+				//32bit
+				locDH.hdrlen = 4;        // Can header is 4 bytes
+				locDH.hdrbits = 29;      // only 29 bits are used
+				moduleIDByteLength = 4;
+			}
+			else
+			{//16bit
+				locDH.hdrlen = 2;        // Can header is 2 bytes
+				locDH.hdrbits = 11;      // only 11 bits are used
+				moduleIDByteLength = 2;
+			}
+		}
+		else
+		{//16bit
+			locDH.hdrlen = 2;        // Can header is 2 bytes
+			locDH.hdrbits = 11;      // only 11 bits are used
+			moduleIDByteLength = 2;
+		}
+		Log(LOG_DEV_DATA, "InBuf Contents(%d)\n",inBuf.size());
+		for(int i=0;i<inBuf.size();i++)
+		{
+			Log(LOG_DEV_DATA, "\t\tindex: %04d -- %c <0x%02X>\n",
+				i,isprint(inBuf[i]) ? inBuf[i] : '?',inBuf[i]);
+		}
+		Log(LOG_DEV_DATA, "Module ID Length: %d InBuf Length: %d\n",moduleIDByteLength, inBuf.length());
+		locDH.datalen = htons(inBuf.length()-moduleIDByteLength);  // length of the DATA part of the message
+		locDH.extralen = 0;      // we dont support this, always 0
+		locDH.mode = MODE_LOCAL; // i suspect this is not used by the box
+		locDH.priority = 0;      // not used
+		locDH.stat = 0;          // probably not used
+		locDH.time = 0;          // probably not used
+		locDH.context = UseContext();  // sequential message number
+		locDH.reservedchar = 0;  // not used
+		locDH.reservedshort = 0; // not used
 
-    outBuf = SerialString_t((uint8_t *) &locDH, sizeof(locDH));
+		outBuf = SerialString_t((uint8_t *) &locDH, sizeof(locDH));
 
-    outBuf += inBuf;         // append
+		outBuf += inBuf;         // append
+	}
+}
+void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const SerialString_t &inBuf)
+{
+	Log( LOG_FN_ENTRY, "Enter BuildPGNRequestMessage\n");
+	gdatahdr locDH;
+	int moduleIDByteLength;
+	m_destinationType = SD_J1939TP;
+
+	//32bit
+	locDH.hdrlen = 4;        // Can header is 4 bytes
+	locDH.hdrbits = 29;      // only 29 bits are used
+	moduleIDByteLength = 4;
+	Log(LOG_DEV_DATA, "InBuf Contents(%d)\n",inBuf.size());
+	for(int i=0;i<inBuf.size();i++)
+	{
+		Log(LOG_DEV_DATA, "\t\tindex: %04d -- %c <0x%02X>\n",
+			i,isprint(inBuf[i]) ? inBuf[i] : '?',inBuf[i]);
+	}
+	Log(LOG_DEV_DATA, "Module ID Length: %d InBuf Length: %d\n",moduleIDByteLength, inBuf.length());
+	locDH.datalen = htons(inBuf.length()-moduleIDByteLength);  // length of the DATA part of the message
+	locDH.extralen = 0;      // we dont support this, always 0
+	locDH.mode = MODE_LOCAL; // i suspect this is not used by the box
+	locDH.priority = 0;      // not used
+	locDH.stat = 0;          // probably not used
+	locDH.time = 0;          // probably not used
+	locDH.context = UseContext();  // sequential message number
+	locDH.reservedchar = 0;  // not used
+	locDH.reservedshort = 0; // not used
+
+	outBuf = SerialString_t((uint8_t *) &locDH, sizeof(locDH));
+
+	outBuf += inBuf;         // append
 }
 void GryphonCCanProxy::CreateFilter(bool is29BitHeader, uint32_t incomingId)
 {

@@ -2029,12 +2029,14 @@ bool ILogicalPort::ReadMessageMap( const XmlNode *mssgMapNode)
                 int retryCount = ReadRetryCount( mssgMapNode, mssgTag);
                 INT32 rxFailureRetryCount = ReadResponseFailureRetryCount( mssgMapNode, mssgTag);
                 bool isBusBroadcastMessage = ReadBoolIsBusBroadcastMessage( mssgMapNode, mssgTag);
+                bool isPGNRequest = ReadBoolIsPGNRequest( mssgMapNode, mssgTag);
                 INT32 responsePendingReads = ReadResponsePendingReads( mssgMapNode, mssgTag);
 
                 if( retryCount < 0) retryCount = 3;
                 mssgEntry.SetRetryCount( retryCount);
                 mssgEntry.SetResponseFailureRetryCount( rxFailureRetryCount);
                 mssgEntry.SetBoolIsBusBroadcastMessage( isBusBroadcastMessage);
+                mssgEntry.SetBoolIsPGNRequest( isPGNRequest);
                 mssgEntry.SetResponsePendingReads( responsePendingReads);
 
                 bool isTransmitStringOK = isBusBroadcastMessage ? true : ReadTransmitString( mssgMapNode, mssgTag, xmtString);
@@ -2164,6 +2166,36 @@ bool ILogicalPort::ReadBoolIsBusBroadcastMessage( const XmlNode *configNode, con
         // Read is bus broadcast message for this message
         const XmlNode *xmlNode;
         xmlNode = configNode->getChild( VEH_MESSAGES_TAG)->getChild( mainMssgTag)->getAttribute( XMT_IS_BUS_BROADCAST_MESSAGE);
+        retVal = atob( XmlToAscii( xmlNode->getValue()).c_str());
+    }
+    catch( XmlException &err)
+    {
+        // Default to false if tag not found
+        retVal = false;
+    }
+
+    return( retVal);
+}
+
+/**
+ * Reads the flag which indicates message is to be transmitted
+ * as a PGN style message not adding modules fixed identifier
+ *
+ * @param configNode Parent XML node containing the mapping of message tags
+ *                   to serial byte strings
+ * @param mssgTag    The message tag to read the serial transmit byte string for
+ * @return bool is PGN request
+ */
+bool ILogicalPort::ReadBoolIsPGNRequest( const XmlNode *configNode, const string &mssgTag)
+{
+    bool     retVal = false;
+    XmlString   mainMssgTag = AsciiToXml( mssgTag);
+
+    try
+    {
+        // Read is PGN request for this message
+        const XmlNode *xmlNode;
+        xmlNode = configNode->getChild( VEH_MESSAGES_TAG)->getChild( mainMssgTag)->getAttribute( XMT_IS_PGN_REQUEST);
         retVal = atob( XmlToAscii( xmlNode->getValue()).c_str());
     }
     catch( XmlException &err)
@@ -3015,6 +3047,30 @@ void ComMssgTableEntry::SetBoolIsBusBroadcastMessage( bool isBusBroadcastMessage
 bool ComMssgTableEntry::GetBoolIsBusBroadcastMessage() const
 {
     return( m_isBusBroadcastMessage);
+}
+/**
+ * Sets the flag indicating message ID will be specified
+ * explicitly in transmit
+ *
+ * @param isPGNRequest     			Sets the flag indicating
+ *  								message ID will be specified
+ *  								explicitly
+ */
+void ComMssgTableEntry::SetBoolIsPGNRequest( bool isPGNRequest)
+{
+    m_isPGNRequest = isPGNRequest;
+}
+/**
+ * Returns the flag indicating message ID will be specified
+ * explicitly in transmit
+ *
+ * @return     						flag indicating
+ *  								message ID will be specified
+ *  								explicitly
+ */
+bool ComMssgTableEntry::GetBoolIsPGNRequest() const
+{
+    return( m_isPGNRequest);
 }
 /**
  * Sets the number of times the message should be re-transmitted

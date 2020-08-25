@@ -236,9 +236,11 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleData(string messageTag, Ser
 	SerialString_t xmtMessage;
 	SerialString_t moduleResponse;
     INT32 tries = 0;
+	bool isPGNRequest = false;
     //use message specific retries if specified
     GetResponseFailureRetryCount(messageTag, tries);
 	tries = (tries <= 0) ? GetNumberOfRetries() : tries;
+	GetIsPGNRequest(messageTag,isPGNRequest);
 	if(GetMessage(messageTag,asciiMessage) == BEP_STATUS_SUCCESS)
 	{	// Convert the message to binary and attempt to send message multiple times
 		GetBinaryMssg(asciiMessage, xmtMessage);
@@ -246,8 +248,28 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleData(string messageTag, Ser
 		{	// Attempt to lock the port for our own use
 			if((errno = m_commsInUse->Acquire()) == EOK)
 			{	// Send the message to the module
-				if(args == NULL) status = SendMessage(messageTag);
-				else				  status = SendMessage(messageTag, *args);
+				if(args == NULL) 
+				{
+					if ( isPGNRequest)
+					{
+						status = SendPGNMessage(messageTag);
+					}
+					else
+					{
+						status = SendMessage(messageTag);
+					}
+				}
+				else				  
+				{
+					if (isPGNRequest )
+					{
+						status = SendPGNMessage(messageTag, *args);
+					}
+					else
+					{
+						status = SendMessage(messageTag, *args);
+					}
+				}
 				Log(LOG_DEV_DATA, "Sent message: %s to module - status: %s\n", messageTag.c_str(), 
 					ConvertStatusToResponse(status).c_str());
 				// Set the message ID
@@ -282,43 +304,50 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleData(string messageTag, Ser
 					}
 					// Make sure the response matches a filter before processing it
 					if(IsResponseValid(messageTag, reply))
-					{	// Check for a valid response if we got the response
-						if((BEP_STATUS_SUCCESS == status) && (reply.length() > 0)) status = CheckForValidResponse(reply);
-						// Check for a negative response from the module
-						if((BEP_STATUS_SUCCESS != status) && (reply.length() > 0)) status = CheckForNegativeResponse(reply);
-						// Check if it was a negaitve response
-						if((BEP_STATUS_FAILURE == status) || (responsePending && (BEP_STATUS_SUCCESS != status) && (reply.length() > 0)))
-						{	// Check what the negative response was
-							UINT8 negativeResponseCode = reply[GetNegativeResponseCodeIndex()];
-							if((GetEnterDiagnosticModeCode() == negativeResponseCode) && AutomaticallyEnterDiagnosticMode())
-							{	// Need to enter diagnostic mode first
-								SendMessage(GetEnterDiagnosticModeMessageTag());
-								reply.erase();
-								GetResponse(GetEnterDiagnosticModeMessageTag(), reply);
-							}
-							else if(GetResponsePendingCode() == negativeResponseCode)
-							{	// Check if more than one message was returned in GetResponse
-								if(moduleResponse.length() > 0)
-								{   // More than one response in the buffer, extract and evaluate
-									getResponse = false;
+					{	
+						if ( !isPGNRequest )
+						{// Check for a valid response if we got the response
+							if((BEP_STATUS_SUCCESS == status) && (reply.length() > 0)) status = CheckForValidResponse(reply);
+							// Check for a negative response from the module
+							if((BEP_STATUS_SUCCESS != status) && (reply.length() > 0)) status = CheckForNegativeResponse(reply);
+							// Check if it was a negaitve response
+							if((BEP_STATUS_FAILURE == status) || (responsePending && (BEP_STATUS_SUCCESS != status) && (reply.length() > 0)))
+							{	// Check what the negative response was
+								UINT8 negativeResponseCode = reply[GetNegativeResponseCodeIndex()];
+								if((GetEnterDiagnosticModeCode() == negativeResponseCode) && AutomaticallyEnterDiagnosticMode())
+								{	// Need to enter diagnostic mode first
+									SendMessage(GetEnterDiagnosticModeMessageTag());
+									reply.erase();
+									GetResponse(GetEnterDiagnosticModeMessageTag(), reply);
 								}
-								else
-								{   // Only decrement response pending reads if we need to look for data in the buffer
-									responsePendingReads--;
-									getResponse = true;
+								else if(GetResponsePendingCode() == negativeResponseCode)
+								{	// Check if more than one message was returned in GetResponse
+									if(moduleResponse.length() > 0)
+									{   // More than one response in the buffer, extract and evaluate
+										getResponse = false;
+									}
+									else
+									{   // Only decrement response pending reads if we need to look for data in the buffer
+										responsePendingReads--;
+										getResponse = true;
+									}
+									// Just need to look for the response again
+									status = BEP_STATUS_NA;
+									responsePending = true;
+									Log(LOG_DEV_DATA, "Handling response pending code - status: %s, responsePending: %s, getResponse: %s, responsePendingReads: %d",
+										ConvertStatusToResponse(status).c_str(), responsePending ? "True" : "False", 
+										getResponse ? "True" : "False", responsePendingReads);
 								}
-								// Just need to look for the response again
-								status = BEP_STATUS_NA;
-								responsePending = true;
-                                Log(LOG_DEV_DATA, "Handling response pending code - status: %s, responsePending: %s, getResponse: %s, responsePendingReads: %d",
-                                    ConvertStatusToResponse(status).c_str(), responsePending ? "True" : "False", 
-                                    getResponse ? "True" : "False", responsePendingReads);
+								else if(GetModuleBusyCode() != negativeResponseCode)
+								{   // Negative response with no special treatment, stop all attempts
+									status = BEP_STATUS_FAILURE;
+									tries = 0;
+								}
 							}
-							else if(GetModuleBusyCode() != negativeResponseCode)
-							{   // Negative response with no special treatment, stop all attempts
-								status = BEP_STATUS_FAILURE;
-								tries = 0;
-							}
+						}
+						else
+						{
+							Log(LOG_DEV_DATA, "Message is a PGN request, no special response handling required");
 						}
 					}
 					else
@@ -353,100 +382,6 @@ const BEP_STATUS_TYPE KwpCanProtocolFilter::GetModuleData(string messageTag, Ser
 			}
 			// Keep trying until a good response s received we run out of attempts or are signalled to stop sending messages
 		} while((BEP_STATUS_SUCCESS != status) && (tries-- > 0) && !GetStopCommsFlag());
-		// Check if valid message was retrieved
-        if (GetStopCommsFlag())
-        {
-			Log(LOG_ERRORS, "Module Signaled to stop communications:StopCommsFlag - %s, Message - %s, status: %s\n", 
-				GetStopCommsFlag() ? "true" : "false", messageTag.c_str(), ConvertStatusToResponse(status).c_str());
-        }
-        else if (status != BEP_STATUS_SUCCESS)
-		{
-			Log(LOG_ERRORS, "Error getting data from module: Message - %s, status: %s\n", 
-				messageTag.c_str(), ConvertStatusToResponse(status).c_str());
-		}
-		else if(reply.length() <= 0)
-		{
-			Log(LOG_ERRORS, "Did not receive a valid response from the module\n");
-			status = BEP_STATUS_FAILURE;
-		}
-	}
-	else
-	{	// No message provided for this tag
-		Log(LOG_ERRORS, "No message provided for tag: %s\n", messageTag.c_str());
-		status = BEP_STATUS_SOFTWARE;
-	}
-	Log(LOG_DEV_DATA, "GetModuleData() returning - status: %s\n", ConvertStatusToResponse(status).c_str());
-	return status;
-}
-
-const BEP_STATUS_TYPE KwpCanProtocolFilter::GetPGNModuleData(string messageTag, SerialString_t &reply, SerialArgs_t *args /*= NULL*/)
-{
-	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
-	string asciiMessage;
-	SerialString_t xmtMessage;
-	SerialString_t moduleResponse;
-    INT32 tries = 0;
-	INT32 replyBytes = 0;
-	NotifyEvent_t   mssgEvent;
-	struct timespec currentTime;
-	struct timespec startTime;
-	long messageWaitTime = 500;
-    //use message specific retries if specified
-    GetResponseFailureRetryCount(messageTag, tries);
-	tries = (tries <= 0) ? GetNumberOfRetries() : tries;
-    Log(LOG_DEV_DATA,"GetPGNModuleData %s",messageTag.c_str());
-	if(GetMessage(messageTag,asciiMessage) == BEP_STATUS_SUCCESS)
-	{	// Convert the message to binary and attempt to send message multiple times
-		GetBinaryMssg(asciiMessage, xmtMessage);
-		// Bogus event (because we are going to poll)
-		SIGEV_NONE_INIT( &mssgEvent);
-		// Subscribe for RX data that matches the pattern defined by the messageTag
-		//  message under the <ReplyMessages> node
-		ILogicalPort::FilterSubscribe(mssgEvent, messageTag);
-		do
-		{	// Attempt to lock the port for our own use
-			if((errno = m_commsInUse->Acquire()) == EOK)
-			{	// Send the message to the module
-
-				if(args == NULL) status = SendPGNMessage(messageTag);
-				else				  status = SendPGNMessage(messageTag, *args);
-				Log(LOG_DEV_DATA, "Sent message: %s to module - status: %s\n", messageTag.c_str(), 
-					ConvertStatusToResponse(status).c_str());
-					// Get the start time
-					if(clock_gettime( CLOCK_REALTIME, &startTime) == -1)
-					{
-						throw BepException("Clock Gettime Error: %s", strerror(errno));
-					}
-					// Poll the comm proxy for the message
-					bool validMessage = false;
-					bool timeRemaining = true;
-					double elapsedTime = 0;
-					do
-					{   // Read the port for the message
-						replyBytes = ReadPort(messageTag, reply);
-						// Check the message
-						if(replyBytes > 0)
-						{
-							validMessage = IsResponseValid(messageTag, reply);
-						}
-						// Get the elapsed time
-						clock_gettime( CLOCK_REALTIME, &currentTime);
-						elapsedTime = (currentTime.tv_sec - startTime.tv_sec ) * 1000 + ( currentTime.tv_nsec - startTime.tv_nsec ) / 1000000;
-						timeRemaining = messageWaitTime > elapsedTime;
-						// Check if we should continue waiting for the message
-					} while(!validMessage && timeRemaining && !GetStopCommsFlag());
-
-				// Exit the critical section since we are done with the port for now
-				m_commsInUse->Release();
-			}
-			else
-			{   // Error aquiring the semaphore
-				Log(LOG_ERRORS, "Could not Acquire mutex! Message %s not sent! - s\n", messageTag.c_str(), strerror(errno));
-			}
-			// Keep trying until a good response s received we run out of attempts or are signalled to stop sending messages
-		} while((BEP_STATUS_SUCCESS != status) && (tries-- > 0) && !GetStopCommsFlag());
-		// Unsubscribe from the port
-		PortUnsubscribe();
 		// Check if valid message was retrieved
         if (GetStopCommsFlag())
         {

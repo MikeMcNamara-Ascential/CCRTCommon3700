@@ -564,11 +564,7 @@ const BEP_STATUS_TYPE ProtocolFilter::GetModuleData(std::string messageTag, Seri
 	Log(LOG_DETAILED_DATA, "GetModuleData() returning - status: %s\n", ConvertStatusToResponse(status).c_str());
 	return(status);
 }
-const BEP_STATUS_TYPE ProtocolFilter::GetPGNModuleData(std::string messageTag, SerialString_t &reply, SerialArgs_t *args)
-{
-	Log(LOG_ERRORS, "WARNING - ProtocolFilter::GetPGNModuleData() not implemented!");
-	return(BEP_STATUS_SOFTWARE);
-}
+
 const BEP_STATUS_TYPE ProtocolFilter::GetBusBroadcastMessage(string messageTag,
 															 const long messageWaitTime,
 															 SerialString_t &busMssg)
@@ -893,6 +889,21 @@ const BEP_STATUS_TYPE ProtocolFilter::GetResponsePendingReads(const std::string 
 	{	// Get the message to be sent
 		ComMssgTableEntry   &mssgEntry = itr->second;
 		responsePendingReads = mssgEntry.GetResponsePendingReads();
+		status = BEP_STATUS_SUCCESS;
+	}
+	else status	= BEP_STATUS_FAILURE;
+
+	return(status);
+}
+
+const BEP_STATUS_TYPE ProtocolFilter::GetIsPGNRequest(const std::string &messageTag, bool &isPGNRequest)
+{
+	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
+	ComMessageMapItr_t  itr;
+	if((itr = m_mssgTags.find(messageTag)) != m_mssgTags.end())
+	{	// Get the message to be sent
+		ComMssgTableEntry   &mssgEntry = itr->second;
+		isPGNRequest = mssgEntry.GetBoolIsPGNRequest();
 		status = BEP_STATUS_SUCCESS;
 	}
 	else status	= BEP_STATUS_FAILURE;

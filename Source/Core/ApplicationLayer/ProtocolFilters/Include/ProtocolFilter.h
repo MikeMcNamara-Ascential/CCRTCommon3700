@@ -237,18 +237,7 @@ public:
     virtual const BEP_STATUS_TYPE GetModuleData(std::string messageTag,
                                                 SerialString_t &reply,
                                                 SerialArgs_t *args = NULL);
-	/**
-     * Send a message to the module and read the response.
-     *
-     * @param messageTag Tag of message to send.
-     * @param reply      Reply from the module.
-     * @param args       Optional data to be written to the module.
-     * @return Status of the operation.
-     * @since Version 1.0
-     */
-    virtual const BEP_STATUS_TYPE GetPGNModuleData(std::string messageTag,
-                                                SerialString_t &reply,
-                                                SerialArgs_t *args = NULL);
+
     /**
      * Wait for a message broadcast on the vehicle bus.
      *
@@ -425,6 +414,15 @@ public:
      * @return Status of the operation.
      */
     virtual const BEP_STATUS_TYPE GetResponsePendingReads(const std::string &messageTag, INT32 &responsePendingReads);
+	/**
+	 * Get the flag indicating if message will provide module id in
+	 * transmit portion.
+     *
+     * @param messageTag Message Tag to look up.
+     * @param message    ASCII message.
+     * @return Status of the operation.
+     */
+    virtual const BEP_STATUS_TYPE GetIsPGNRequest(const std::string &messageTag, bool &isPGNRequest);
     /**
      * Get the index in the response where the data actually begins.
      *

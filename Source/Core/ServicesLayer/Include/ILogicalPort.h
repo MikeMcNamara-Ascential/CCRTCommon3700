@@ -282,6 +282,12 @@
 #define XMT_IS_BUS_BROADCAST_MESSAGE           XML_T("IsBusBroadcastMessage")
 
 /**
+ * XML node tag of the node which contains the flag which indicates a message does not
+ * send a message to illicit a response
+ */
+#define XMT_IS_PGN_REQUEST           XML_T("IsPGNRequest")
+
+/**
  * XML node tag of the node which contains the number of failure response retry attempts
  * should be made to send a given serial message
  */
@@ -424,6 +430,26 @@ public:
      *          a response
      */
     bool GetBoolIsBusBroadcastMessage() const;
+
+    /**
+     * Sets the flag indicating message ID will be specified
+     * explicitly
+     *
+     * @param isPGNRequest     			Sets the flag indicating
+     *  								message ID will be specified
+     *  								explicitly
+     */
+    void SetBoolIsPGNRequest( bool isPGNRequest);
+
+    /**
+     * Returns the flag indicating message ID will be specified
+     * explicitly in transmit
+     *
+     * @return     						flag indicating
+     *  								message ID will be specified
+     *  								explicitly
+     */
+    bool GetBoolIsPGNRequest() const;
 
     /**
      * Sets the number of times the message should be re-transmitted
@@ -680,6 +706,12 @@ private:
      * in order to illicit response
      */
     bool                  m_isBusBroadcastMessage;
+
+    /**
+     * Flag indicating module id will be explicity provided in 
+     * transmit message 
+     */
+    bool                  m_isPGNRequest;
 
     /**
      * Number of time to retransmit the message
@@ -1358,6 +1390,17 @@ protected:
      * @return bool is bus broadcast message
      */
     bool ReadBoolIsBusBroadcastMessage( const XmlNode *configNode, const string &mssgTag);
+
+    /**
+     * Reads the flag which indicates message is to be transmitted
+     * as a PGN style message not adding modules fixed identifier
+     *
+     * @param configNode Parent XML node containing the mapping of message tags
+     *                   to serial byte strings
+     * @param mssgTag    The message tag to read the serial transmit byte string for
+     * @return bool is PGN request
+     */
+    bool ReadBoolIsPGNRequest( const XmlNode *configNode, const string &mssgTag);
 
     /**
      * Reads the number of response pending reads

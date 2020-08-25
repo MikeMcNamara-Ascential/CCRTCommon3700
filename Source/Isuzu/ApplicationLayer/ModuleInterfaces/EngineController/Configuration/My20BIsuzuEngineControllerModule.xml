@@ -603,7 +603,7 @@
                 <ReplyInterpretation>VehicleSpeed</ReplyInterpretation>
             </ReadVehicleSpeed>
 
-            <ReadVIN>
+            <ReadVIN IsPGNRequest="True">
                 <TransmitMessage>ReadVinPGN</TransmitMessage>
                 <TransmitInterpretation/>
                 <ReplyMessage>ReadVinPGNResponse</ReplyMessage>

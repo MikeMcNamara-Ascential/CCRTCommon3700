@@ -83,7 +83,7 @@
 //
 //******************************************************************************
 //For debug in case this isn't working - if address is not claimed all messages are received
-#define SKIP_J1939_ADDRESS_CLAIM_NON_LEGACY 0
+#define SKIP_J1939_ADDRESS_CLAIM_NON_LEGACY 1
 //In case Dearborn group still hasn't fixed their bugs (In registration we specify UUDT nodes - USDT server should know to pass these to us)
 #define CARD_UUDT_STILL_REQUIRED_NON_LEGACY 0
 //In case broadcast messages are not forwarded as they should be from non legacy device
@@ -562,6 +562,7 @@ bool GryphonCCanProxy::IsFourByteHeader(SerialString_t rawMessage)
 }
 bool GryphonCCanProxy::IsPGNRequest(SerialString_t rawMessage)
 {
+    Log(LOG_DEV_DATA, "IsPGNRequest");
     UINT32 locModule;
     vector<UINT32> locResponseModule;
 	if ( m_j1939Channel )
@@ -570,10 +571,13 @@ bool GryphonCCanProxy::IsPGNRequest(SerialString_t rawMessage)
 		{
 			if ((0xFF & (int)rawMessage[1]) == 0xEA)
 			{//this is a PGN request
+                Log(LOG_DEV_DATA, "IsPGNRequest: true");
+
 				return true;
 			}
 		}
 	}
+     Log(LOG_DEV_DATA, "IsPGNRequest: false");
    return false;
 }
 bool GryphonCCanProxy::CheckForBlock(const uint8_t *inBuf)

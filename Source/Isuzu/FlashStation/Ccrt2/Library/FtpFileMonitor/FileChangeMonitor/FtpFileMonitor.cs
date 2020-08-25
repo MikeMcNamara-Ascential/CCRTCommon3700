@@ -144,12 +144,11 @@ namespace FtpFileMonitorNamespace
                                 if (e.Message != "No files found.")
                                     Log("ERROR:    FileMonitor::Error during File update Process " + e.ToString());
                             }
-                            client.Close();
                             DirectoryInfo localInfo = new DirectoryInfo(m_localLocation);
                             if (fileList.Count() > 0)
                             {
                                 Log("INFO:    Files to transfer found, updating " + m_localLocation);
-                                UpdateLocalDirectoryRemoteFtpLocation(fileList, localInfo);
+                                UpdateLocalDirectoryRemoteFtpLocation(client, fileList, localInfo);
                                 m_esnFault = false;
                                 m_noESNFilesTransferedCount = 0;
                             }
@@ -159,6 +158,7 @@ namespace FtpFileMonitorNamespace
                                 if (m_noESNFilesTransferedCount >= 90)
                                     m_esnFault = true;
                             }
+                            client.Close();
                         }
                     }
                     else
@@ -176,7 +176,7 @@ namespace FtpFileMonitorNamespace
             }
         }
 
-        public List<string> UpdateLocalDirectoryRemoteFtpLocation(IList<string> remoteFiles, DirectoryInfo localInfo)
+        public List<string> UpdateLocalDirectoryRemoteFtpLocation(FTPSClient client, IList<string> remoteFiles, DirectoryInfo localInfo)
         {
             List<string> filesTransfered = new List<string>();
 
@@ -193,7 +193,7 @@ namespace FtpFileMonitorNamespace
                     //get all files
                     foreach (string fi in remoteFiles)
                     {//copy to temp folder first in case remote directory goes down during transfer
-                        if (!TransferFileFromFtpLocation(fi.Substring(fi.LastIndexOf('/') + 1)))
+                        if (!TransferFileFromFtpLocation(client, fi.Substring(fi.LastIndexOf('/') + 1)))
                         {
                             break;
                         }
@@ -214,7 +214,7 @@ namespace FtpFileMonitorNamespace
                             Log("    Name: " + fi.Name.ToString());
                             Log("    Size: " + fi.Length.ToString());
                             fi.CopyTo(Path.Combine(localInfo.ToString(), fi.Name), true);
-                            DeleteFileFromFtpLocation(m_remoteLocation, fi.Name, currentFile == fileCount);
+                            DeleteFileFromFtpLocation(client, m_remoteLocation, fi.Name, currentFile == fileCount);
                             currentFile++;
                         }
                     }
@@ -227,19 +227,13 @@ namespace FtpFileMonitorNamespace
             return filesTransfered;
         }
 
-        public void DeleteFileFromFtpLocation(string location, string fileName, bool isFinal)
+        public void DeleteFileFromFtpLocation(FTPSClient client, string location, string fileName, bool isFinal)
         {
             try
             {
                 string uri = location + "/" + fileName;
                 string escapedUri = uri.Replace("../", "%2E%2E/");
-                using (FTPSClient client = new FTPSClient())
-                {
-                    client.Connect(m_ftpServerIp, 2121, new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword),
-                                    ESSLSupportMode.ClearText, null, null, 0, 0, 0, null, true, EDataConnectionMode.Active);
-                    client.DeleteFile(escapedUri);
-                    client.Close();
-                }
+                client.DeleteFile(escapedUri);
             }
             catch (Exception ex)
             {
@@ -247,37 +241,30 @@ namespace FtpFileMonitorNamespace
             }
         }
 
-        public bool TransferFileFromFtpLocation(string fileName)
+        public bool TransferFileFromFtpLocation(FTPSClient client, string fileName)
         {
 
             bool success = true;
             string uri = m_remoteLocation;
             string escapedUri = uri.Replace("../", "%2E%2E/");
 
-            using (FTPSClient client = new FTPSClient())
+            try
             {
-                
-                try
-                {   // Connect to the server with no encryption
-                    client.Connect(m_ftpServerIp, 2121, new NetworkCredential(m_ftpUserLogin, m_ftpUserPassword),
-                                    ESSLSupportMode.ClearText, null, null, 0, 0, 0, null, true, EDataConnectionMode.Active);
-
-                    // Download a file
-                    ulong bytesCopied = client.GetFile(escapedUri + fileName, m_tempLocation + fileName);
-                    if(bytesCopied <= 0)
-                    {
-                        success = false;
-                        Log("ERROR:  Could not copy remote file " + fileName + "bytes copied:" + bytesCopied.ToString());
-                    }
-
-                    client.Close();
-                }
-                catch(Exception ex)
+                // Download a file
+                ulong bytesCopied = client.GetFile(escapedUri + fileName, m_tempLocation + fileName);
+                if (bytesCopied <= 0)
                 {
                     success = false;
-                    Log("ERROR:  Could not copy remote file " + fileName + ": " + ex.ToString());
+                    Log("ERROR:  Could not copy remote file " + fileName + "bytes copied:" + bytesCopied.ToString());
                 }
+
             }
+            catch (Exception ex)
+            {
+                success = false;
+                Log("ERROR:  Could not copy remote file " + fileName + ": " + ex.ToString());
+            }
+
 
             return success;
         }
@@ -439,7 +426,7 @@ namespace FtpFileMonitorNamespace
                         oldestFiles = oldestFiles.GetRange(0, numFilesToDelete);
                         foreach(DirectoryListItem ftpFile in oldestFiles)
                         {
-                            DeleteFileFromFtpLocation(remoteLocation, ftpFile.Name, currentFile == numFilesToDelete);
+                            DeleteFileFromFtpLocation(client, remoteLocation, ftpFile.Name, currentFile == numFilesToDelete);
                             currentFile++;
                         }
                     }

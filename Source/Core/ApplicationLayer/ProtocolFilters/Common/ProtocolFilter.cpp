@@ -901,7 +901,9 @@ const BEP_STATUS_TYPE ProtocolFilter::GetIsPGNRequest(const std::string &message
 	BEP_STATUS_TYPE status = BEP_STATUS_ERROR;
 	ComMessageMapItr_t  itr;
 	if((itr = m_mssgTags.find(messageTag)) != m_mssgTags.end())
-	{	// Get the message to be sent
+	{	
+        Log(LOG_DETAILED_DATA, "GetIsPGNRequest message found\n");
+        // Get the message to be sent
 		ComMssgTableEntry   &mssgEntry = itr->second;
 		isPGNRequest = mssgEntry.GetBoolIsPGNRequest();
 		status = BEP_STATUS_SUCCESS;

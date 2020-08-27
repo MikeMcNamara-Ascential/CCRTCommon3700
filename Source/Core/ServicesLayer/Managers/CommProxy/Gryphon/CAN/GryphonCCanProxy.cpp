@@ -658,7 +658,7 @@ void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const Seri
 	Log( LOG_FN_ENTRY, "Enter BuildPGNRequestMessage\n");
 	gdatahdr locDH;
 	int moduleIDByteLength;
-	m_destinationType = SD_CARD;
+	m_destinationType = SD_J1939TP;
 
 	//32bit
 	locDH.hdrlen = 4;        // Can header is 4 bytes
@@ -811,8 +811,8 @@ int GryphonCCanProxy::ChannelSpecificInit(void)
 	{
 		#if SKIP_J1939_ADDRESS_CLAIM_NON_LEGACY
 			Log(LOG_DEV_DATA, "Non-Legacy device with j1934 channel, but skipping j1939 address claim by #define"); 
-		#else
 			if ( retVal == EOK )  retVal = EnableJ1939TransportProtocol();
+		#else
 			if ( retVal == EOK )  retVal = ClaimJ1939Address(m_j1939TesterAddress);
 		#endif
 	}

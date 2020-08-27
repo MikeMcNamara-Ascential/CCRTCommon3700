@@ -2197,9 +2197,10 @@ bool ILogicalPort::ReadBoolIsPGNRequest( const XmlNode *configNode, const string
         //const XmlNode *xmlNode;
         //xmlNode = configNode->getChild( VEH_MESSAGES_TAG)->getChild( mainMssgTag)->getAttribute( XMT_IS_PGN_REQUEST);
 		std::string attributeValue = configNode->getChild( VEH_MESSAGES_TAG)->getChild( mainMssgTag)->getAttribute( XMT_IS_PGN_REQUEST)->getValue();
-        Log(LOG_ERRORS, "PGN attribute value %s %s\n",
-             mssgTag.c_str(),attributeValue.c_str());
+
         retVal = atob( attributeValue.c_str());
+		Log(LOG_ERRORS, "PGN attribute value %s %s %s\n",
+             mssgTag.c_str(),attributeValue.c_str(),retVal ? "Evaluated as True" : "Evaluated as False");
     }
     catch( XmlException &err)
     {

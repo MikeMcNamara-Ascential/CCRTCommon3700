@@ -3407,7 +3407,7 @@ ComMssgTableEntry& ComMssgTableEntry::operator=( const ComMssgTableEntry &copy)
     m_rcvProtocolValid = copy.m_rcvProtocolValid;
     m_replyTimeout = copy.m_replyTimeout;
     m_isBusBroadcastMessage = copy.m_isBusBroadcastMessage;
-
+	m_isPGNRequest = copy.m_isPGNRequest;
     return( *this);
 }
 

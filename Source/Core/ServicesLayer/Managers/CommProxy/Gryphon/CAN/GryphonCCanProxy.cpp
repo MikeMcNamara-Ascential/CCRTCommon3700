@@ -658,7 +658,7 @@ void GryphonCCanProxy::BuildPGNRequestMessage(SerialString_t &outBuf, const Seri
 	Log( LOG_FN_ENTRY, "Enter BuildPGNRequestMessage\n");
 	gdatahdr locDH;
 	int moduleIDByteLength;
-	m_destinationType = SD_CARD;
+	m_destinationType = SD_USDT;
 
 	//32bit
 	locDH.hdrlen = 4;        // Can header is 4 bytes
